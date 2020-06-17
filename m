@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BFA4C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 22:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04958C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 22:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D059E2082F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 22:00:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C7EC62082F
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 22:00:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="co44/84r"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D059E2082F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZLzzVRep"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7EC62082F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BEE56E1F1;
-	Wed, 17 Jun 2020 22:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 714676E82B;
+	Wed, 17 Jun 2020 22:00:59 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 795416E1F1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303EC6E1F1
  for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 22:00:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dnu5z+qN6GgjDijQWD2JYm9fDcqxWtlIY01GrZduV/EO1pI3O53sn2hIz20zjYCjN9fXUR1v3qtH2NvDIwo+3vz1vDhONk/6KhsqZ3MM4MVHRu81hZK7tcKCeceeqX5BT83Uwvl9Bb2BQknY3TYQ4QO9GiS0TVg2z7sEjLVSRNvKZFdJACwQTIoNi724b3xtW6aLKm5csHAWTs0RLQUZ4P2HxKddjmFTGG7ioMayWpIB0fcBiTR2Xko3jVNzTRcd8upxRWzPG1x43QM63GubVyM1dTdb8sZxmRIEwZgGjFGonDIxy+dV4K9iNdOew6mc6jf33pHNPiZ0uKoB1LPcug==
+ b=YUNTZ7fWSKH8M95h6RX+UFwEDM8umYEyhdf5btll+8c39y9XM9Nt6/BT8UAXk2JBtIevUgn4fgiW9uRUpf6zl9W6tZDlKPdeF0z3W7hsbGaj2+KmbgJGHINX8jwBaKyAnPCr32TGULLZTfh0G9yYM/4RZYel5AK+3q+qdRNdZp1dXAdlnrHskMHkFNPm9ISAig02IJkiqZekJRbXjoyYMiX91mrblqKv30+la0VzcTG++J7rH1TNpp+W3mUk1BJqqlPAgdp38S/3siUMITLt6Uglh2odE9Rt6u+V6G3DlXIfpEVJZLYL+czJ+tVRRZiZZL4Z9vOxULE6+6xUZI6evw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KZgdBKCF8EWOVxHSsDWMXEA+51KR9Wn5HdRKg4dlDqE=;
- b=kLx4HvhT/6wgJ6+ijhidkBELH6ESUvetmGPJ/Q8K4kZmj01RUBgix06b4zTjhn82z+4/V0YTeMiiq3DO5Dm+ByXsVahWngK2YcX6yKfiAjLx7hsy7pN+/oXpmyplvbWOFZwXf0quuIWJp8TM5j6aQOgz+F08EHhSbFdPXGp1qh0+lovvN1neQseobWz4OZVrXDjZi77jt/skfWSOi17ejSyWkXCAbKqg6ofHX7va7QkpZEViSA4XlCiiNFuX+uP68FIlh6Ba+T+/PTt627jjCZCJAcw82Urm/957aoynIocT9BtrVDbVX1aCgGSgvUYBhzNnKO6HT8L+Cmqngjh4yg==
+ bh=PoHSebiVP7zebSFROHrPQSbvb2lMelpgQpzbnfWtiqU=;
+ b=BmH6PBSAr4P5gLWY9BqJceWyRw5+Yv6XEwDEpYbyEc9HgqhStou40azHeXBa4xnGxYkG3maMn6qB9wNedXOksybKlYqQcMqAGn4PV3eVLyJTy3m29KVkMNqtMLoEMDXuBNg4IUAmOvZfdyJjI204TJYLHxIBgq+VekaV1UsZiZBP77YbZrjEWjFlQpJtMSi4UdI+xuWc0+o+ShwIfotE6LIWvnWl+M6+hTL59OltQzl+VWUUr3N5OyR0DWlvsxtwTQM4Y1AD+2wtKRT9ZOOeeuVkLv3fn1e5mwBtFHYJ/GqFiLHhs5BEXtnJvwxSKRMNq93drmwxW+v6AxUjOd4ZVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KZgdBKCF8EWOVxHSsDWMXEA+51KR9Wn5HdRKg4dlDqE=;
- b=co44/84r7pvebiC+A3sDLBxsSRSm5LdO4WvJhVy/3GjR52Oqo8n/buKd6kPSM8wE1WjsuofpwGXwsuGNK2PlhaRR43bUIcanlTXz/KoUpggL3ihZgPsKosfMl+G4Uu5Sg+dEBjvjauWo/OqFG3eKaLuTMQt+V5OLqR/5Nd+8SaQ=
+ bh=PoHSebiVP7zebSFROHrPQSbvb2lMelpgQpzbnfWtiqU=;
+ b=ZLzzVRepRqKF5wUB87DxE9thkT7zjifFHN3re6uawezLUQkIgBuLNmgvM0kmbu/+jAFXC7A7f4ctvxVBZLQyWFCdHqcphk2tVm2aRj9etdfwxs8sbtYytpay6cEpp/g3qYGZwsA8K+m+qgkYOLuCUqT7UtjxEOEmFMpl2ybnnxY=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB3433.namprd12.prod.outlook.com (2603:10b6:5:38::14) by
  DM5PR1201MB0185.namprd12.prod.outlook.com (2603:10b6:4:55::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22; Wed, 17 Jun 2020 22:00:56 +0000
+ 15.20.3109.22; Wed, 17 Jun 2020 22:00:55 +0000
 Received: from DM6PR12MB3433.namprd12.prod.outlook.com
  ([fe80::64ab:bf43:33df:e88c]) by DM6PR12MB3433.namprd12.prod.outlook.com
  ([fe80::64ab:bf43:33df:e88c%7]) with mapi id 15.20.3109.021; Wed, 17 Jun 2020
- 22:00:56 +0000
+ 22:00:55 +0000
 From: Sonny Jiang <sonny.jiang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/7] drm amdgpu: SI UVD context rreg/wreg
-Date: Wed, 17 Jun 2020 18:00:13 -0400
-Message-Id: <20200617220016.4844-4-sonny.jiang@amd.com>
+Subject: [PATCH 3/7] drm amdgpu: SI UVD v3_1
+Date: Wed, 17 Jun 2020 18:00:12 -0400
+Message-Id: <20200617220016.4844-3-sonny.jiang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200617220016.4844-1-sonny.jiang@amd.com>
 References: <20200617220016.4844-1-sonny.jiang@amd.com>
@@ -69,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.84.11) by
  BN6PR07CA0021.namprd07.prod.outlook.com (2603:10b6:404:8c::31) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22 via Frontend Transport; Wed, 17 Jun 2020 22:00:55 +0000
+ 15.20.3109.22 via Frontend Transport; Wed, 17 Jun 2020 22:00:54 +0000
 X-Mailer: git-send-email 2.25.1
 X-Originating-IP: [165.204.84.11]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: acb3edeb-01c8-4c5b-1437-08d81309e953
+X-MS-Office365-Filtering-Correlation-Id: 44f314b8-47ea-4a3f-5834-08d81309e87e
 X-MS-TrafficTypeDiagnostic: DM5PR1201MB0185:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0185CBC888A61F7D90404AFBFD9A0@DM5PR1201MB0185.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB0185F95DF3FD244E4F933DAFFD9A0@DM5PR1201MB0185.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:298;
 X-Forefront-PRVS: 04371797A5
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tOWN2JP781oBiC466k28QnTim3kdYNnyOaWhPVaSgPVpwTlONk1tlNCvJnSjZpQm4WdzBJiLTsDD8wCJ5x0n6JcSD7V4w50BCqdPAKtXOSebsnRc1GGKeZZGLdxI1DsQwyHQFOxZX8UoF3H2q8O4MBrz+MSQt3yMHvkYDEznY7T/0EMZkyj6xUsS7mHLlFlOwiOSE8HM69vtG5rss1k40x63+jDDptwqFQVq4FMIdO7PmW8I/Heei36vMNBxeETJiVm1yXcww4xOJztI/PA9AjDoJZxbX4YsQhB4ZAOMX1w1Cw36iEqTHYlYccW7SH9gYS3GU6i4AysSl92L6mz1BOUA7da62ckaWypE+2SuGdulYjQqfoqRFyS6VERUOAnn
+X-Microsoft-Antispam-Message-Info: mlDU4Aa7uSLmPIt4whdLN5ljqU+0pcRQQ62NJ3ydyBCIgvb1uMl1l7ywNzYRQcYbW/m5WqZWunzB15zczniOJrhVjIBu8kb0Az4EqIcmxIEBmC899b9PFRpTabWykEvBDRiQTtBbGS04I9FB4hdAqwd8sUiyK1zvOa+NgFFCfvzbuZ0zb/A+Svxr/ueaAerfPkEbr4YgfUPYPdQ3DBUb7h+1lwS/S/De+hmixnXdn6cci4GZZ06toRGQAlxp2Ps4YjLzk8Cdwv+WLkgWpF2AuewnQwf/zhmsqgr1DwjinbRsHnktnY1eIkCJ58/3P5TV7GMKlpQa9sBv+2Lz3m5YS8iGTJckDVFe+xWWes+CLIq9rzTiida2semAbdnZcDtE
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3433.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(346002)(376002)(396003)(136003)(39860400002)(5660300002)(316002)(6666004)(86362001)(6512007)(186003)(4326008)(1076003)(16526019)(26005)(66946007)(2616005)(8676002)(6916009)(44832011)(6486002)(66476007)(66556008)(478600001)(36756003)(52116002)(6506007)(8936002)(83380400001)(69590400007)(956004)(2906002);
+ SFS:(4636009)(366004)(346002)(376002)(396003)(136003)(39860400002)(5660300002)(316002)(6666004)(30864003)(86362001)(6512007)(186003)(4326008)(1076003)(16526019)(26005)(66946007)(2616005)(8676002)(6916009)(44832011)(6486002)(66476007)(66556008)(478600001)(36756003)(52116002)(6506007)(8936002)(83380400001)(69590400007)(956004)(2906002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: yePil6+uFYLPM1dOWhznFG1vjCnxAvV9ToWsXEtJbK7/g57EYVUOq9DaGRYNNneb61kmc+4OZvpKT8JYI4Pfx8uTvthWyU885DqN6nAqXYfeCPp0I4GcsYaANnLbes38MJTiy5O+KSpzkwUR0O62nkR/CI8cN0T1pE8Bw3XMxaK3PS0753ItuGkbjiDdhfvzMBs8DGk0oqHa3cqw/iYBKPNSDkUOO/16B/II2PqLHM1t5JIuCn8Bzwzm2eItlcdXQ0tLSDJx65EIq8TeyzZtmPPzLDCVHRe+WJYYspDYRYpDaB1vjKDs7eG8r8us5XsBvbQfcUjelhRo2FdPxh4NKwpEcw9Ktd/KbrTpQkMSLVWfkFn7/90Xk/Oe0O/bLgGG8P7Tmn/cTZhJY1huTdugYKm+DNjmizHWxgzgiugjaYE3zluhp5SSXcP/zLdK/xh+McZHQ0/LTgLDFZuKMesEWqEWFq2J0LgGtcQJx7GgKP81tJEHxmnx+XWhZpbLnZyG
+X-MS-Exchange-AntiSpam-MessageData: AD+jiyevdP0IKq4/kFmlva+y8fAfOOkxO+HMMiMhLdgNIwYxAKrZjBi9qTHWHaFSyFEjp6EcHKd32GI7LD1RvjfFKTX3TTPIfFhRXGjBP26u6d742VaNn+C86LJI42TKOQBWeHg84fz5JGy0/eox1yak9J49UzFzp48B3261B5OXraZpuXHPL0w9w1FB+m9qBACs6xpO+JvYSjG/cyB2kNfLYlI1lGF0YrPFFMJX81xmpkCqs1VZXDJOEERZt+tAXDlE8Nj2aC9lhTo7DW/7tSVOFZ+VBU4YxqeWYe3c7vaeLrzVcWhGnmD4eMNxsGJSW9xHGakNH/d242Nw+fkd3T47ylSQuY2X2EXaoA5/ozIPrVenYXiwvLYTKf60UmOg2UydtxRk7I80xBvkrqRaDA3upjN8CRs/dPrkygLoCGs+A6C4EOVnjG/TCkLIsKE1fvgmHaCAmoO7JYJivVagCLjV1ltw4bdocyDmFphky4mmjDteLU/YaK3QE03bk1GT
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: acb3edeb-01c8-4c5b-1437-08d81309e953
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2020 22:00:56.5603 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44f314b8-47ea-4a3f-5834-08d81309e87e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2020 22:00:55.3010 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GeE45P0LK8OmyxclvYZkWfLdLtNsRnXNUmZHSaYETArZyfHkWVfwyh6ugfaddiDFBAZDop8YpIggnbU3GHP7qw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5zW17uCv7aRBgB50f4vmjbUFNezJmBrp55ph3ErDZG4Lj2twHcEdGj+kyB1SsnfbUdb6OSUNUrHdgHw9exXTrw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,53 +115,845 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 ---
- drivers/gpu/drm/amd/amdgpu/si.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 792 ++++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.h |  29 +
+ 2 files changed, 821 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/uvd_v3_1.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 153db3f763bc..f1c33395e3fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -973,6 +973,28 @@ static void si_smc_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
- 	spin_unlock_irqrestore(&adev->smc_idx_lock, flags);
- }
- 
-+static u32 si_uvd_ctx_rreg(struct amdgpu_device *adev, u32 reg)
-+{
-+	unsigned long flags;
-+	u32 r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+new file mode 100644
+index 000000000000..14866f9a0e95
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -0,0 +1,792 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: Sonny Jiang <sonny.jiang@amd.com>
++ */
 +
-+	spin_lock_irqsave(&adev->uvd_ctx_idx_lock, flags);
-+	WREG32(mmUVD_CTX_INDEX, ((reg) & 0x1ff));
-+	r = RREG32(mmUVD_CTX_DATA);
-+	spin_unlock_irqrestore(&adev->uvd_ctx_idx_lock, flags);
-+	return r;
++#include <linux/firmware.h>
++
++#include "amdgpu.h"
++#include "amdgpu_uvd.h"
++#include "sid.h"
++
++#include "uvd/uvd_3_1_d.h"
++#include "uvd/uvd_3_1_sh_mask.h"
++
++#include "oss/oss_1_0_d.h"
++#include "oss/oss_1_0_sh_mask.h"
++
++/**
++ * uvd_v3_1_ring_get_rptr - get read pointer
++ *
++ * @ring: amdgpu_ring pointer
++ *
++ * Returns the current hardware read pointer
++ */
++static uint64_t uvd_v3_1_ring_get_rptr(struct amdgpu_ring *ring)
++{
++    struct amdgpu_device *adev = ring->adev;
++
++    return RREG32(mmUVD_RBC_RB_RPTR);
 +}
 +
-+static void si_uvd_ctx_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
++/**
++ * uvd_v3_1_ring_get_wptr - get write pointer
++ *
++ * @ring: amdgpu_ring pointer
++ *
++ * Returns the current hardware write pointer
++ */
++static uint64_t uvd_v3_1_ring_get_wptr(struct amdgpu_ring *ring)
 +{
-+	unsigned long flags;
++    struct amdgpu_device *adev = ring->adev;
 +
-+	spin_lock_irqsave(&adev->uvd_ctx_idx_lock, flags);
-+	WREG32(mmUVD_CTX_INDEX, ((reg) & 0x1ff));
-+	WREG32(mmUVD_CTX_DATA, (v));
-+	spin_unlock_irqrestore(&adev->uvd_ctx_idx_lock, flags);
++    return RREG32(mmUVD_RBC_RB_WPTR);
 +}
 +
- static struct amdgpu_allowed_register_entry si_allowed_read_registers[] = {
- 	{GRBM_STATUS},
- 	{mmGRBM_STATUS2},
-@@ -1443,8 +1465,8 @@ static int si_common_early_init(void *handle)
- 	adev->pcie_wreg = &si_pcie_wreg;
- 	adev->pciep_rreg = &si_pciep_rreg;
- 	adev->pciep_wreg = &si_pciep_wreg;
--	adev->uvd_ctx_rreg = NULL;
--	adev->uvd_ctx_wreg = NULL;
-+	adev->uvd_ctx_rreg = si_uvd_ctx_rreg;
-+	adev->uvd_ctx_wreg = si_uvd_ctx_wreg;
- 	adev->didt_rreg = NULL;
- 	adev->didt_wreg = NULL;
- 
++/**
++ * uvd_v3_1_ring_set_wptr - set write pointer
++ *
++ * @ring: amdgpu_ring pointer
++ *
++ * Commits the write pointer to the hardware
++ */
++static void uvd_v3_1_ring_set_wptr(struct amdgpu_ring *ring)
++{
++    struct amdgpu_device *adev = ring->adev;
++
++    WREG32(mmUVD_RBC_RB_WPTR, lower_32_bits(ring->wptr));
++}
++
++/**
++ * uvd_v3_1_ring_emit_ib - execute indirect buffer
++ *
++ * @ring: amdgpu_ring pointer
++ * @ib: indirect buffer to execute
++ *
++ * Write ring commands to execute the indirect buffer
++ */
++static void uvd_v3_1_ring_emit_ib(struct amdgpu_ring *ring,
++                                  struct amdgpu_job *job,
++                                  struct amdgpu_ib *ib,
++                                  uint32_t flags)
++{
++    amdgpu_ring_write(ring, PACKET0(mmUVD_RBC_IB_BASE, 0));
++    amdgpu_ring_write(ring, ib->gpu_addr);
++    amdgpu_ring_write(ring, PACKET0(mmUVD_RBC_IB_SIZE, 0));
++    amdgpu_ring_write(ring, ib->length_dw);
++}
++
++/**
++ * uvd_v3_1_ring_emit_fence - emit an fence & trap command
++ *
++ * @ring: amdgpu_ring pointer
++ * @fence: fence to emit
++ *
++ * Write a fence and a trap command to the ring.
++ */
++static void uvd_v3_1_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 seq,
++                                     unsigned flags)
++{
++    WARN_ON(flags & AMDGPU_FENCE_FLAG_64BIT);
++
++    amdgpu_ring_write(ring, PACKET0(mmUVD_CONTEXT_ID, 0));
++    amdgpu_ring_write(ring, seq);
++    amdgpu_ring_write(ring, PACKET0(mmUVD_GPCOM_VCPU_DATA0, 0));
++    amdgpu_ring_write(ring, addr & 0xffffffff);
++    amdgpu_ring_write(ring, PACKET0(mmUVD_GPCOM_VCPU_DATA1, 0));
++    amdgpu_ring_write(ring, upper_32_bits(addr) & 0xff);
++    amdgpu_ring_write(ring, PACKET0(mmUVD_GPCOM_VCPU_CMD, 0));
++    amdgpu_ring_write(ring, 0);
++
++    amdgpu_ring_write(ring, PACKET0(mmUVD_GPCOM_VCPU_DATA0, 0));
++    amdgpu_ring_write(ring, 0);
++    amdgpu_ring_write(ring, PACKET0(mmUVD_GPCOM_VCPU_DATA1, 0));
++    amdgpu_ring_write(ring, 0);
++    amdgpu_ring_write(ring, PACKET0(mmUVD_GPCOM_VCPU_CMD, 0));
++    amdgpu_ring_write(ring, 2);
++}
++
++/**
++ * uvd_v3_1_ring_test_ring - register write test
++ *
++ * @ring: amdgpu_ring pointer
++ *
++ * Test if we can successfully write to the context register
++ */
++static int uvd_v3_1_ring_test_ring(struct amdgpu_ring *ring)
++{
++    struct amdgpu_device *adev = ring->adev;
++    uint32_t tmp = 0;
++    unsigned i;
++    int r;
++
++    WREG32(mmUVD_CONTEXT_ID, 0xCAFEDEAD);
++    r = amdgpu_ring_alloc(ring, 3);
++    if (r)
++        return r;
++
++    amdgpu_ring_write(ring, PACKET0(mmUVD_CONTEXT_ID, 0));
++    amdgpu_ring_write(ring, 0xDEADBEEF);
++    amdgpu_ring_commit(ring);
++    for (i = 0; i < adev->usec_timeout; i++) {
++        tmp = RREG32(mmUVD_CONTEXT_ID);
++        if (tmp == 0xDEADBEEF)
++            break;
++        udelay(1);
++    }
++
++    if (i >= adev->usec_timeout)
++        r = -ETIMEDOUT;
++
++    return r;
++}
++
++static void uvd_v3_1_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
++{
++    int i;
++
++    WARN_ON(ring->wptr % 2 || count % 2);
++
++    for (i = 0; i < count / 2; i++) {
++        amdgpu_ring_write(ring, PACKET0(mmUVD_NO_OP, 0));
++        amdgpu_ring_write(ring, 0);
++    }
++}
++
++static const struct amdgpu_ring_funcs uvd_v3_1_ring_funcs = {
++    .type = AMDGPU_RING_TYPE_UVD,
++    .align_mask = 0xf,
++    .support_64bit_ptrs = false,
++    .no_user_fence = true,
++    .get_rptr = uvd_v3_1_ring_get_rptr,
++    .get_wptr = uvd_v3_1_ring_get_wptr,
++    .set_wptr = uvd_v3_1_ring_set_wptr,
++    .parse_cs = amdgpu_uvd_ring_parse_cs,
++    .emit_frame_size =
++            14, /* uvd_v3_1_ring_emit_fence  x1 no user fence */
++    .emit_ib_size = 4, /* uvd_v3_1_ring_emit_ib */
++    .emit_ib = uvd_v3_1_ring_emit_ib,
++    .emit_fence = uvd_v3_1_ring_emit_fence,
++    .test_ring = uvd_v3_1_ring_test_ring,
++    .test_ib = amdgpu_uvd_ring_test_ib,
++    .insert_nop = uvd_v3_1_ring_insert_nop,
++    .pad_ib = amdgpu_ring_generic_pad_ib,
++    .begin_use = amdgpu_uvd_ring_begin_use,
++    .end_use = amdgpu_uvd_ring_end_use,
++};
++
++static void uvd_v3_1_set_ring_funcs(struct amdgpu_device *adev)
++{
++    adev->uvd.inst->ring.funcs = &uvd_v3_1_ring_funcs;
++}
++
++static void uvd_v3_1_set_dcm(struct amdgpu_device *adev,
++                             bool sw_mode)
++{
++    u32 tmp, tmp2;
++
++    WREG32_FIELD(UVD_CGC_GATE, REGS, 0);
++
++    tmp = RREG32(mmUVD_CGC_CTRL);
++    tmp &= ~(UVD_CGC_CTRL__CLK_OFF_DELAY_MASK | UVD_CGC_CTRL__CLK_GATE_DLY_TIMER_MASK);
++    tmp |= UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK |
++            (1 << UVD_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT) |
++            (4 << UVD_CGC_CTRL__CLK_OFF_DELAY__SHIFT);
++
++    if (sw_mode) {
++        tmp &= ~0x7ffff800;
++        tmp2 = UVD_CGC_CTRL2__DYN_OCLK_RAMP_EN_MASK |
++                UVD_CGC_CTRL2__DYN_RCLK_RAMP_EN_MASK |
++                (7 << UVD_CGC_CTRL2__GATER_DIV_ID__SHIFT);
++    } else {
++        tmp |= 0x7ffff800;
++        tmp2 = 0;
++    }
++
++    WREG32(mmUVD_CGC_CTRL, tmp);
++    WREG32_UVD_CTX(ixUVD_CGC_CTRL2, tmp2);
++}
++
++/**
++ * uvd_v3_1_mc_resume - memory controller programming
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Let the UVD memory controller know it's offsets
++ */
++static void uvd_v3_1_mc_resume(struct amdgpu_device *adev)
++{
++    uint64_t addr;
++    uint32_t size;
++
++    /* programm the VCPU memory controller bits 0-27 */
++    addr = (adev->uvd.inst->gpu_addr + AMDGPU_UVD_FIRMWARE_OFFSET) >> 3;
++    size = AMDGPU_UVD_FIRMWARE_SIZE(adev) >> 3;
++    WREG32(mmUVD_VCPU_CACHE_OFFSET0, addr);
++    WREG32(mmUVD_VCPU_CACHE_SIZE0, size);
++
++    addr += size;
++    size = AMDGPU_UVD_HEAP_SIZE >> 3;
++    WREG32(mmUVD_VCPU_CACHE_OFFSET1, addr);
++    WREG32(mmUVD_VCPU_CACHE_SIZE1, size);
++
++    addr += size;
++    size = (AMDGPU_UVD_STACK_SIZE +
++            (AMDGPU_UVD_SESSION_SIZE * adev->uvd.max_handles)) >> 3;
++    WREG32(mmUVD_VCPU_CACHE_OFFSET2, addr);
++    WREG32(mmUVD_VCPU_CACHE_SIZE2, size);
++
++    /* bits 28-31 */
++    addr = (adev->uvd.inst->gpu_addr >> 28) & 0xF;
++    WREG32(mmUVD_LMI_ADDR_EXT, (addr << 12) | (addr << 0));
++
++    /* bits 32-39 */
++    addr = (adev->uvd.inst->gpu_addr >> 32) & 0xFF;
++    WREG32(mmUVD_LMI_EXT40_ADDR, addr | (0x9 << 16) | (0x1 << 31));
++
++    WREG32(mmUVD_UDEC_ADDR_CONFIG, adev->gfx.config.gb_addr_config);
++    WREG32(mmUVD_UDEC_DB_ADDR_CONFIG, adev->gfx.config.gb_addr_config);
++    WREG32(mmUVD_UDEC_DBW_ADDR_CONFIG, adev->gfx.config.gb_addr_config);
++}
++
++/**
++ * uvd_v3_1_fw_validate - FW validation operation
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Initialate and check UVD validation.
++ */
++static int uvd_v3_1_fw_validate(struct amdgpu_device *adev)
++{
++    void *ptr;
++    uint32_t ucode_len, i;
++    uint32_t keysel;
++
++    ptr = adev->uvd.inst[0].cpu_addr;
++    ptr += 192 + 16;
++    memcpy(&ucode_len, ptr, 4);
++    ptr += ucode_len;
++    memcpy(&keysel, ptr, 4);
++
++    WREG32(mmUVD_FW_START, keysel);
++
++    for (i = 0; i < 10; ++i) {
++        mdelay(10);
++        if (RREG32(mmUVD_FW_STATUS) & UVD_FW_STATUS__DONE_MASK)
++            break;
++    }
++
++    if (i == 10)
++        return -ETIMEDOUT;
++
++    if (!(RREG32(mmUVD_FW_STATUS) & UVD_FW_STATUS__PASS_MASK))
++        return -EINVAL;
++
++    for (i = 0; i < 10; ++i) {
++        mdelay(10);
++        if (!(RREG32(mmUVD_FW_STATUS) & UVD_FW_STATUS__BUSY_MASK))
++            break;
++    }
++
++    if (i == 10)
++        return -ETIMEDOUT;
++
++    return 0;
++}
++
++/**
++ * uvd_v3_1_start - start UVD block
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Setup and start the UVD block
++ */
++static int uvd_v3_1_start(struct amdgpu_device *adev)
++{
++    struct amdgpu_ring *ring = &adev->uvd.inst->ring;
++    uint32_t rb_bufsz;
++    int i, j, r;
++    u32 tmp;
++    /* disable byte swapping */
++    u32 lmi_swap_cntl = 0;
++    u32 mp_swap_cntl = 0;
++
++    /* set uvd busy */
++    WREG32_P(mmUVD_STATUS, 1<<2, ~(1<<2));
++
++    uvd_v3_1_set_dcm(adev, true);
++    WREG32(mmUVD_CGC_GATE, 0);
++
++    /* take UVD block out of reset */
++    WREG32_P(mmSRBM_SOFT_RESET, 0, ~SRBM_SOFT_RESET__SOFT_RESET_UVD_MASK);
++    mdelay(5);
++
++    /* enable VCPU clock */
++    WREG32(mmUVD_VCPU_CNTL,  1 << 9);
++
++    /* disable interupt */
++    WREG32_P(mmUVD_MASTINT_EN, 0, ~(1 << 1));
++
++#ifdef __BIG_ENDIAN
++    /* swap (8 in 32) RB and IB */
++    lmi_swap_cntl = 0xa;
++    mp_swap_cntl = 0;
++#endif
++    WREG32(mmUVD_LMI_SWAP_CNTL, lmi_swap_cntl);
++    WREG32(mmUVD_MP_SWAP_CNTL, mp_swap_cntl);
++
++    /* initialize UVD memory controller */
++    WREG32(mmUVD_LMI_CTRL, 0x40 | (1 << 8) | (1 << 13) |
++           (1 << 21) | (1 << 9) | (1 << 20));
++
++    tmp = RREG32(mmUVD_MPC_CNTL);
++    WREG32(mmUVD_MPC_CNTL, tmp | 0x10);
++
++    WREG32(mmUVD_MPC_SET_MUXA0, 0x40c2040);
++    WREG32(mmUVD_MPC_SET_MUXA1, 0x0);
++    WREG32(mmUVD_MPC_SET_MUXB0, 0x40c2040);
++    WREG32(mmUVD_MPC_SET_MUXB1, 0x0);
++    WREG32(mmUVD_MPC_SET_ALU, 0);
++    WREG32(mmUVD_MPC_SET_MUX, 0x88);
++
++    tmp = RREG32_UVD_CTX(ixUVD_LMI_CACHE_CTRL);
++    WREG32_UVD_CTX(ixUVD_LMI_CACHE_CTRL, tmp & (~0x10));
++
++    /* enable UMC */
++    WREG32_P(mmUVD_LMI_CTRL2, 0, ~(1 << 8));
++
++    WREG32_P(mmUVD_SOFT_RESET, 0, ~UVD_SOFT_RESET__LMI_SOFT_RESET_MASK);
++
++    WREG32_P(mmUVD_SOFT_RESET, 0, ~UVD_SOFT_RESET__LMI_UMC_SOFT_RESET_MASK);
++
++    WREG32_P(mmUVD_SOFT_RESET, 0, ~UVD_SOFT_RESET__VCPU_SOFT_RESET_MASK);
++
++    mdelay(10);
++
++    for (i = 0; i < 10; ++i) {
++        uint32_t status;
++        for (j = 0; j < 100; ++j) {
++            status = RREG32(mmUVD_STATUS);
++            if (status & 2)
++                break;
++            mdelay(10);
++        }
++        r = 0;
++        if (status & 2)
++            break;
++
++        DRM_ERROR("UVD not responding, trying to reset the VCPU!!!\n");
++        WREG32_P(mmUVD_SOFT_RESET, UVD_SOFT_RESET__VCPU_SOFT_RESET_MASK,
++                 ~UVD_SOFT_RESET__VCPU_SOFT_RESET_MASK);
++        mdelay(10);
++        WREG32_P(mmUVD_SOFT_RESET, 0, ~UVD_SOFT_RESET__VCPU_SOFT_RESET_MASK);
++        mdelay(10);
++        r = -1;
++    }
++
++    if (r) {
++        DRM_ERROR("UVD not responding, giving up!!!\n");
++        return r;
++    }
++
++    /* enable interupt */
++    WREG32_P(mmUVD_MASTINT_EN, 3<<1, ~(3 << 1));
++
++    WREG32_P(mmUVD_STATUS, 0, ~(1<<2));
++
++    /* force RBC into idle state */
++    WREG32(mmUVD_RBC_RB_CNTL, 0x11010101);
++
++    /* Set the write pointer delay */
++    WREG32(mmUVD_RBC_RB_WPTR_CNTL, 0);
++
++    /* programm the 4GB memory segment for rptr and ring buffer */
++    WREG32(mmUVD_LMI_EXT40_ADDR, upper_32_bits(ring->gpu_addr) |
++           (0x7 << 16) | (0x1 << 31));
++
++    /* Initialize the ring buffer's read and write pointers */
++    WREG32(mmUVD_RBC_RB_RPTR, 0x0);
++
++    ring->wptr = RREG32(mmUVD_RBC_RB_RPTR);
++    WREG32(mmUVD_RBC_RB_WPTR, lower_32_bits(ring->wptr));
++
++    /* set the ring address */
++    WREG32(mmUVD_RBC_RB_BASE, ring->gpu_addr);
++
++    /* Set ring buffer size */
++    rb_bufsz = order_base_2(ring->ring_size);
++    rb_bufsz = (0x1 << 8) | rb_bufsz;
++    WREG32_P(mmUVD_RBC_RB_CNTL, rb_bufsz, ~0x11f1f);
++
++    return 0;
++}
++
++/**
++ * uvd_v3_1_stop - stop UVD block
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * stop the UVD block
++ */
++static void uvd_v3_1_stop(struct amdgpu_device *adev)
++{
++    uint32_t i, j;
++    uint32_t status;
++
++    WREG32(mmUVD_RBC_RB_CNTL, 0x11010101);
++
++    for (i = 0; i < 10; ++i) {
++        for (j = 0; j < 100; ++j) {
++            status = RREG32(mmUVD_STATUS);
++            if (status & 2)
++                break;
++            mdelay(1);
++        }
++        if (status & 2)
++            break;
++    }
++
++    for (i = 0; i < 10; ++i) {
++        for (j = 0; j < 100; ++j) {
++            status = RREG32(mmUVD_LMI_STATUS);
++            if (status & 0xf)
++                break;
++            mdelay(1);
++        }
++        if (status & 0xf)
++            break;
++    }
++
++    /* Stall UMC and register bus before resetting VCPU */
++    WREG32_P(mmUVD_LMI_CTRL2, 1 << 8, ~(1 << 8));
++
++    for (i = 0; i < 10; ++i) {
++        for (j = 0; j < 100; ++j) {
++            status = RREG32(mmUVD_LMI_STATUS);
++            if (status & 0x240)
++                break;
++            mdelay(1);
++        }
++        if (status & 0x240)
++            break;
++    }
++
++    WREG32_P(0x3D49, 0, ~(1 << 2));
++
++    WREG32_P(mmUVD_VCPU_CNTL, 0, ~(1 << 9));
++
++    /* put LMI, VCPU, RBC etc... into reset */
++    WREG32(mmUVD_SOFT_RESET, UVD_SOFT_RESET__LMI_SOFT_RESET_MASK |
++           UVD_SOFT_RESET__VCPU_SOFT_RESET_MASK |
++           UVD_SOFT_RESET__LMI_UMC_SOFT_RESET_MASK);
++
++    WREG32(mmUVD_STATUS, 0);
++
++    uvd_v3_1_set_dcm(adev, false);
++}
++
++static int uvd_v3_1_set_interrupt_state(struct amdgpu_device *adev,
++                                        struct amdgpu_irq_src *source,
++                                        unsigned type,
++                                        enum amdgpu_interrupt_state state)
++{
++    return 0;
++}
++
++static int uvd_v3_1_process_interrupt(struct amdgpu_device *adev,
++                                      struct amdgpu_irq_src *source,
++                                      struct amdgpu_iv_entry *entry)
++{
++    DRM_DEBUG("IH: UVD TRAP\n");
++    amdgpu_fence_process(&adev->uvd.inst->ring);
++    return 0;
++}
++
++
++static const struct amdgpu_irq_src_funcs uvd_v3_1_irq_funcs = {
++    .set = uvd_v3_1_set_interrupt_state,
++    .process = uvd_v3_1_process_interrupt,
++};
++
++static void uvd_v3_1_set_irq_funcs(struct amdgpu_device *adev)
++{
++    adev->uvd.inst->irq.num_types = 1;
++    adev->uvd.inst->irq.funcs = &uvd_v3_1_irq_funcs;
++}
++
++
++static int uvd_v3_1_early_init(void *handle)
++{
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++    adev->uvd.num_uvd_inst = 1;
++
++    uvd_v3_1_set_ring_funcs(adev);
++    uvd_v3_1_set_irq_funcs(adev);
++
++    return 0;
++}
++
++static int uvd_v3_1_sw_init(void *handle)
++{
++    struct amdgpu_ring *ring;
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++    int r;
++
++    /* UVD TRAP */
++    r = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 124, &adev->uvd.inst->irq);
++    if (r)
++        return r;
++
++    r = amdgpu_uvd_sw_init(adev);
++    if (r)
++        return r;
++
++    ring = &adev->uvd.inst->ring;
++    sprintf(ring->name, "uvd");
++    r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0,
++                         AMDGPU_RING_PRIO_DEFAULT);
++    if (r)
++        return r;
++
++    r = amdgpu_uvd_resume(adev);
++    if (r)
++        return r;
++
++    r = amdgpu_uvd_entity_init(adev);
++
++    return r;
++}
++
++static int uvd_v3_1_sw_fini(void *handle)
++{
++    int r;
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    r = amdgpu_uvd_suspend(adev);
++    if (r)
++        return r;
++
++    return amdgpu_uvd_sw_fini(adev);
++}
++
++static void uvd_v3_1_enable_mgcg(struct amdgpu_device *adev,
++                                 bool enable)
++{
++    u32 orig, data;
++
++    if (enable && (adev->cg_flags & AMD_CG_SUPPORT_UVD_MGCG)) {
++        data = RREG32_UVD_CTX(ixUVD_CGC_MEM_CTRL);
++        data |= 0x3fff;
++        WREG32_UVD_CTX(ixUVD_CGC_MEM_CTRL, data);
++
++        orig = data = RREG32(mmUVD_CGC_CTRL);
++        data |= UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK;
++        if (orig != data)
++            WREG32(mmUVD_CGC_CTRL, data);
++    } else {
++        data = RREG32_UVD_CTX(ixUVD_CGC_MEM_CTRL);
++        data &= ~0x3fff;
++        WREG32_UVD_CTX(ixUVD_CGC_MEM_CTRL, data);
++
++        orig = data = RREG32(mmUVD_CGC_CTRL);
++        data &= ~UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK;
++        if (orig != data)
++            WREG32(mmUVD_CGC_CTRL, data);
++    }
++}
++
++/**
++ * uvd_v3_1_hw_init - start and test UVD block
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Initialize the hardware, boot up the VCPU and do some testing
++ */
++static int uvd_v3_1_hw_init(void *handle)
++{
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++    struct amdgpu_ring *ring = &adev->uvd.inst->ring;
++    uint32_t tmp;
++    int r;
++
++    uvd_v3_1_mc_resume(adev);
++
++    r = uvd_v3_1_fw_validate(adev);
++    if (r) {
++        DRM_ERROR("amdgpu: UVD Firmware validate fail (%d).\n", r);
++        return r;
++    }
++
++    uvd_v3_1_enable_mgcg(adev, true);
++    amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
++
++    uvd_v3_1_start(adev);
++
++    r = amdgpu_ring_test_helper(ring);
++    if (r)
++        DRM_ERROR("amdgpu: UVD ring test fail (%d).\n", r);
++    goto done;
++
++    r = amdgpu_ring_alloc(ring, 10);
++    if (r) {
++        DRM_ERROR("amdgpu: ring failed to lock UVD ring (%d).\n", r);
++        goto done;
++    }
++
++    tmp = PACKET0(mmUVD_SEMA_WAIT_FAULT_TIMEOUT_CNTL, 0);
++    amdgpu_ring_write(ring, tmp);
++    amdgpu_ring_write(ring, 0xFFFFF);
++
++    tmp = PACKET0(mmUVD_SEMA_WAIT_INCOMPLETE_TIMEOUT_CNTL, 0);
++    amdgpu_ring_write(ring, tmp);
++    amdgpu_ring_write(ring, 0xFFFFF);
++
++    tmp = PACKET0(mmUVD_SEMA_SIGNAL_INCOMPLETE_TIMEOUT_CNTL, 0);
++    amdgpu_ring_write(ring, tmp);
++    amdgpu_ring_write(ring, 0xFFFFF);
++
++    /* Clear timeout status bits */
++    amdgpu_ring_write(ring, PACKET0(mmUVD_SEMA_TIMEOUT_STATUS, 0));
++    amdgpu_ring_write(ring, 0x8);
++
++    amdgpu_ring_write(ring, PACKET0(mmUVD_SEMA_CNTL, 0));
++    amdgpu_ring_write(ring, 3);
++
++    amdgpu_ring_commit(ring);
++
++done:
++    if (!r)
++        DRM_INFO("UVD initialized successfully.\n");
++
++    return r;
++}
++
++/**
++ * uvd_v3_1_hw_fini - stop the hardware block
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Stop the UVD block, mark ring as not ready any more
++ */
++static int uvd_v3_1_hw_fini(void *handle)
++{
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    if (RREG32(mmUVD_STATUS) != 0)
++        uvd_v3_1_stop(adev);
++
++    return 0;
++}
++
++static int uvd_v3_1_suspend(void *handle)
++{
++    int r;
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    r = uvd_v3_1_hw_fini(adev);
++    if (r)
++        return r;
++
++    return amdgpu_uvd_suspend(adev);
++}
++
++static int uvd_v3_1_resume(void *handle)
++{
++    int r;
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    r = amdgpu_uvd_resume(adev);
++    if (r)
++        return r;
++
++    return uvd_v3_1_hw_init(adev);
++}
++
++static bool uvd_v3_1_is_idle(void *handle)
++{
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    return !(RREG32(mmSRBM_STATUS) & SRBM_STATUS__UVD_BUSY_MASK);
++}
++
++static int uvd_v3_1_wait_for_idle(void *handle)
++{
++    unsigned i;
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    for (i = 0; i < adev->usec_timeout; i++) {
++        if (!(RREG32(mmSRBM_STATUS) & SRBM_STATUS__UVD_BUSY_MASK))
++            return 0;
++    }
++    return -ETIMEDOUT;
++}
++
++static int uvd_v3_1_soft_reset(void *handle)
++{
++    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++
++    uvd_v3_1_stop(adev);
++
++    WREG32_P(mmSRBM_SOFT_RESET, SRBM_SOFT_RESET__SOFT_RESET_UVD_MASK,
++             ~SRBM_SOFT_RESET__SOFT_RESET_UVD_MASK);
++    mdelay(5);
++
++    return uvd_v3_1_start(adev);
++}
++
++static int uvd_v3_1_set_clockgating_state(void *handle,
++                                          enum amd_clockgating_state state)
++{
++    return 0;
++}
++
++static int uvd_v3_1_set_powergating_state(void *handle,
++                                          enum amd_powergating_state state)
++{
++    return 0;
++}
++
++static const struct amd_ip_funcs uvd_v3_1_ip_funcs = {
++    .name = "uvd_v3_1",
++    .early_init = uvd_v3_1_early_init,
++    .late_init = NULL,
++    .sw_init = uvd_v3_1_sw_init,
++    .sw_fini = uvd_v3_1_sw_fini,
++    .hw_init = uvd_v3_1_hw_init,
++    .hw_fini = uvd_v3_1_hw_fini,
++    .suspend = uvd_v3_1_suspend,
++    .resume = uvd_v3_1_resume,
++    .is_idle = uvd_v3_1_is_idle,
++    .wait_for_idle = uvd_v3_1_wait_for_idle,
++    .soft_reset = uvd_v3_1_soft_reset,
++    .set_clockgating_state = uvd_v3_1_set_clockgating_state,
++    .set_powergating_state = uvd_v3_1_set_powergating_state,
++};
++
++const struct amdgpu_ip_block_version uvd_v3_1_ip_block =
++{
++    .type = AMD_IP_BLOCK_TYPE_UVD,
++    .major = 3,
++    .minor = 1,
++    .rev = 0,
++    .funcs = &uvd_v3_1_ip_funcs,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.h b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.h
+new file mode 100644
+index 000000000000..8c2f9b207574
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.h
+@@ -0,0 +1,29 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __UVD_V3_1_H__
++#define __UVD_V3_1_H__
++
++extern const struct amdgpu_ip_block_version uvd_v3_1_ip_block;
++
++#endif
 -- 
 2.25.1
 
