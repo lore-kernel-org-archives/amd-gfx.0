@@ -2,57 +2,71 @@ Return-Path: <SRS0=VPxi=76=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F560C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 00:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12963C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 00:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCE112080D
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 00:52:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCE112080D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id DDCC62080D
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 00:52:18 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VSGXubUj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDCC62080D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 976CA6E0F9;
-	Wed, 17 Jun 2020 00:52:16 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A15D6E9CB
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2020 23:23:47 +0000 (UTC)
-IronPort-SDR: Y9KtMAEcjM2eaeVfZ/2ikaopkifDw1Pv74pUwMYMoEm/OvC4D87DEdepf5NAzPSi0t+6Zmufxs
- fySJYQQuN0Jg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2020 16:23:46 -0700
-IronPort-SDR: PUdSL9s9aHkzES9vhHisJzVKu+uTZCb7Oi6VKOJd77E027eK2Hl4S07EMQa0cGcGT0pSq7Rw33
- qrXIWSr0CLkA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,520,1583222400"; d="scan'208";a="383022347"
-Received: from romley-ivt3.sc.intel.com ([172.25.110.60])
- by fmsmga001.fm.intel.com with ESMTP; 16 Jun 2020 16:23:46 -0700
-Date: Tue, 16 Jun 2020 16:23:46 -0700
-From: Fenghua Yu <fenghua.yu@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
-Message-ID: <20200616232345.GC15763@romley-ivt3.sc.intel.com>
-References: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
- <1592008893-9388-13-git-send-email-fenghua.yu@intel.com>
- <20200615075649.GK2497@hirez.programming.kicks-ass.net>
- <20200615154854.GB13792@romley-ivt3.sc.intel.com>
- <20200615160357.GA2531@hirez.programming.kicks-ass.net>
- <20200615181259.GC13792@romley-ivt3.sc.intel.com>
- <20200615183116.GD2531@hirez.programming.kicks-ass.net>
- <20200615185529.GD13792@romley-ivt3.sc.intel.com>
- <20200615190928.GJ2531@hirez.programming.kicks-ass.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A58076E9BF;
+	Wed, 17 Jun 2020 00:52:18 +0000 (UTC)
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D17C6E9BF;
+ Wed, 17 Jun 2020 00:26:54 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id s1so739536ljo.0;
+ Tue, 16 Jun 2020 17:26:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lEQf5F3W4qCJ4deQv/VzXA6SqhV/PIAqUDgAQqykNFY=;
+ b=VSGXubUjoC6aZ/GL8vLA/sgMXbyYw4sEdfiq1ah7ZlhmgzlXVJxXOy+r/uJTl7g5f9
+ /XTkUXXmPa0tuQ4HtcxIiYJbqHiZP1wm8qbefZaUr9+BNZvYHeqwBlnmrAlYEmYE6Sng
+ m6tspP73JYarWyLVeqmgW9q17WSsL3ef/90c1pieee4kREP+HUw0ZbEb2JPpr9peXSII
+ NU+2tXUS3bAvxXOl9bt9hB411bUtUIM1U/MNjj3WNVCcpknWg4xkTOI+JGKNKYk3bcNo
+ jETlezpNJ8dvzk8gusFXZMNiDGt5ZhhdGZWZb2JK4UUsG2dUQ5O21YkXpg17c7lD6ZJQ
+ SVbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lEQf5F3W4qCJ4deQv/VzXA6SqhV/PIAqUDgAQqykNFY=;
+ b=ieeY/TcbDZcRS5sJKcB3FTPCPrkcBWEoADBRxKVdDRw2UzBZF5SAWEptqRoHgGGBLX
+ pw8ykptyd/xdczlCafM3VUtXQHSMPMXZVnuuKXYXK8Cp/DrxFvFtYZDJR4apqu0+dxrz
+ JRNZ6/+yL6mn/SkWPd/djeL7IesJ9c+3C8F5nEcL/EuKFrXND1dguNk/HAAVq1KJI8rL
+ XxJgBSlUe/ied0nTIH2/1ZMSyus/Z+X/pUMDIDC08pG64aNMhiP0YHA+sTWVOelj0vIz
+ vb3Aodk2hx2yZumnKz5UhLoTkYfmQpwyehV8WthxaXIeiZl972IRIU4gA/Kqwl2W9Ch6
+ /vPQ==
+X-Gm-Message-State: AOAM531+pHwKXonFvTncrsBppBaKl2LNf47QUxw8wFDVZckY4HiaW4tl
+ eUci8zv/iRIdMIhcf6juLseC4Q81
+X-Google-Smtp-Source: ABdhPJx/61Qe73HXhles5hdVAZmzzp3ui4DiMBM3iBrfiV/5FEpgE9dF+dD+BR8yXqCBrXAXQRL+RQ==
+X-Received: by 2002:a2e:98d7:: with SMTP id s23mr2712729ljj.2.1592353612228;
+ Tue, 16 Jun 2020 17:26:52 -0700 (PDT)
+Received: from localhost (pool-109-191-188-200.is74.ru. [109.191.188.200])
+ by smtp.gmail.com with ESMTPSA id v24sm427080lfo.4.2020.06.16.17.26.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Jun 2020 17:26:51 -0700 (PDT)
+From: Ivan Mironov <mironov.ivan@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: Fix NULL dereference in lock_bus() on
+ Vega20 w/o RAS
+Date: Wed, 17 Jun 2020 05:26:13 +0500
+Message-Id: <20200617002613.67917-1-mironov.ivan@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200615190928.GJ2531@hirez.programming.kicks-ass.net>
-User-Agent: Mutt/1.5.23 (2014-03-12)
 X-Mailman-Approved-At: Wed, 17 Jun 2020 00:52:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,72 +79,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Hansen <dave.hansen@intel.com>, H Peter Anvin <hpa@zytor.com>,
- Dave Jiang <dave.jiang@intel.com>, Ashok Raj <ashok.raj@intel.com>,
- Joerg Roedel <joro@8bytes.org>, x86 <x86@kernel.org>,
- amd-gfx <amd-gfx@lists.freedesktop.org>, Ingo Molnar <mingo@redhat.com>,
- Ravi V Shankar <ravi.v.shankar@intel.com>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
- Andrew Donnellan <ajd@linux.ibm.com>, Borislav Petkov <bp@alien8.de>,
- Sohil Mehta <sohil.mehta@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- Tony Luck <tony.luck@intel.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
- Jacob Jun Pan <jacob.jun.pan@intel.com>,
- Frederic Barrat <fbarrat@linux.ibm.com>, David Woodhouse <dwmw2@infradead.org>,
- Lu Baolu <baolu.lu@linux.intel.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Ivan Mironov <mironov.ivan@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Peter,
+I updated my system with Radeon VII from kernel 5.6 to kernel 5.7, and
+following started to happen on each boot:
 
-On Mon, Jun 15, 2020 at 09:09:28PM +0200, Peter Zijlstra wrote:
-> On Mon, Jun 15, 2020 at 11:55:29AM -0700, Fenghua Yu wrote:
-> 
-> > Or do you suggest to add a random new flag in struct thread_info instead
-> > of a TIF flag?
-> 
-> Why thread_info? What's wrong with something simple like the below. It
-> takes a bit from the 'strictly current' flags word.
-> 
-> 
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index b62e6aaf28f0..fca830b97055 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -801,6 +801,9 @@ struct task_struct {
->  	/* Stalled due to lack of memory */
->  	unsigned			in_memstall:1;
->  #endif
-> +#ifdef CONFIG_PCI_PASID
-> +	unsigned			has_valid_pasid:1;
-> +#endif
->  
->  	unsigned long			atomic_flags; /* Flags requiring atomic access. */
->  
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 142b23645d82..10b3891be99e 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -955,6 +955,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
->  	tsk->use_memdelay = 0;
->  #endif
->  
-> +#ifdef CONFIG_PCI_PASID
-> +	tsk->has_valid_pasid = 0;
-> +#endif
-> +
->  #ifdef CONFIG_MEMCG
->  	tsk->active_memcg = NULL;
->  #endif
+	...
+	BUG: kernel NULL pointer dereference, address: 0000000000000128
+	...
+	CPU: 9 PID: 1940 Comm: modprobe Tainted: G            E     5.7.2-200.im0.fc32.x86_64 #1
+	Hardware name: System manufacturer System Product Name/PRIME X570-P, BIOS 1407 04/02/2020
+	RIP: 0010:lock_bus+0x42/0x60 [amdgpu]
+	...
+	Call Trace:
+	 i2c_smbus_xfer+0x3d/0xf0
+	 i2c_default_probe+0xf3/0x130
+	 i2c_detect.isra.0+0xfe/0x2b0
+	 ? kfree+0xa3/0x200
+	 ? kobject_uevent_env+0x11f/0x6a0
+	 ? i2c_detect.isra.0+0x2b0/0x2b0
+	 __process_new_driver+0x1b/0x20
+	 bus_for_each_dev+0x64/0x90
+	 ? 0xffffffffc0f34000
+	 i2c_register_driver+0x73/0xc0
+	 do_one_initcall+0x46/0x200
+	 ? _cond_resched+0x16/0x40
+	 ? kmem_cache_alloc_trace+0x167/0x220
+	 ? do_init_module+0x23/0x260
+	 do_init_module+0x5c/0x260
+	 __do_sys_init_module+0x14f/0x170
+	 do_syscall_64+0x5b/0xf0
+	 entry_SYSCALL_64_after_hwframe+0x44/0xa9
+	...
 
-Can I add "Signed-off-by: Peter Zijlstra <peterz@infradead.org>"
-to this patch? I will send this patch in the next version of the series.
+Error appears when some i2c device driver tries to probe for devices
+using adapter registered by `smu_v11_0_i2c_eeprom_control_init()`.
+Code supporting this adapter requires `adev->psp.ras.ras` to be not
+NULL, which is true only when `amdgpu_ras_init()` detects HW support by
+calling `amdgpu_ras_check_supported()`.
 
-Thanks.
+Before 9015d60c9ee1, adapter was registered by
 
--Fenghua
+	-> amdgpu_device_ip_init()
+	  -> amdgpu_ras_recovery_init()
+	    -> amdgpu_ras_eeprom_init()
+	      -> smu_v11_0_i2c_eeprom_control_init()
+
+after verifying that `adev->psp.ras.ras` is not NULL in
+`amdgpu_ras_recovery_init()`. Currently it is registered
+unconditionally by
+
+	-> amdgpu_device_ip_init()
+	  -> pp_sw_init()
+	    -> hwmgr_sw_init()
+	      -> vega20_smu_init()
+	        -> smu_v11_0_i2c_eeprom_control_init()
+
+Fix simply adds HW support check (ras == NULL => no support) before
+calling `smu_v11_0_i2c_eeprom_control_{init,fini}()`.
+
+Please note that there is a chance that similar fix is also required for
+CHIP_ARCTURUS. I do not know whether any actual Arcturus hardware without
+RAS exist, and whether calling `smu_i2c_eeprom_init()` makes any sense
+when there is no HW support.
+
+Cc: stable@vger.kernel.org
+Fixes: 9015d60c9ee1 ("drm/amdgpu: Move EEPROM I2C adapter to amdgpu_device")
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+index 2fb97554134f..c2e0fbbccf56 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+@@ -522,9 +522,11 @@ static int vega20_smu_init(struct pp_hwmgr *hwmgr)
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].version = 0x01;
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size = sizeof(DpmActivityMonitorCoeffInt_t);
+ 
+-	ret = smu_v11_0_i2c_eeprom_control_init(&adev->pm.smu_i2c);
+-	if (ret)
+-		goto err4;
++	if (adev->psp.ras.ras) {
++		ret = smu_v11_0_i2c_eeprom_control_init(&adev->pm.smu_i2c);
++		if (ret)
++			goto err4;
++	}
+ 
+ 	return 0;
+ 
+@@ -560,7 +562,8 @@ static int vega20_smu_fini(struct pp_hwmgr *hwmgr)
+ 			(struct vega20_smumgr *)(hwmgr->smu_backend);
+ 	struct amdgpu_device *adev = hwmgr->adev;
+ 
+-	smu_v11_0_i2c_eeprom_control_fini(&adev->pm.smu_i2c);
++	if (adev->psp.ras.ras)
++		smu_v11_0_i2c_eeprom_control_fini(&adev->pm.smu_i2c);
+ 
+ 	if (priv) {
+ 		amdgpu_bo_free_kernel(&priv->smu_tables.entry[TABLE_PPTABLE].handle,
+-- 
+2.26.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
