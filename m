@@ -2,65 +2,105 @@ Return-Path: <SRS0=VPxi=76=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE407C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 07:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87021C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 09:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B386121475
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 07:58:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4EF6B214D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 09:23:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Rnq7BerE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B386121475
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="zKMNsH7K"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EF6B214D8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAE06E133;
-	Wed, 17 Jun 2020 07:58:07 +0000 (UTC)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43A706E25E
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 07:58:06 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id a137so1005787oii.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 00:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=X+Qtu+2ZAyZXkh/oo1Lz6E9/PFmVPHRpkYwfH9QQzoY=;
- b=Rnq7BerEC1NJ+s3KJhsfuws9Kg+j4pWFkQJLmI518tzrC8znQHM1y1XOVL+e9QQvGC
- mOcEQIpeKlQI3Ch0XEzDajgEy3Ss5YB513C5XhgrGC29v//2jcdDFh59xMl7mJC4egNc
- wZOOJ+JmjjXVx9gZJsvcArI7aR28zLTWFwR6Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=X+Qtu+2ZAyZXkh/oo1Lz6E9/PFmVPHRpkYwfH9QQzoY=;
- b=XUH9RC3U3XDN80S/8i8t/Hpl3ULWxfivBiFufxNcgMq1aFVIPTPQlNRXM3oecYqh7M
- WDxOUG3VVugF7MiXXEIaltpHTV+FGzEgmxKsaHFu0USN1f6i/ZLfamUDJSMwRx+6bUS6
- 7yEHDGm0U9RLFuVSqpM5xN2dfUmWL304Zki/x0cjZiPCExlNtWDfjA83SycN6u+EeXI+
- Bi+Qsiz2PUxhwXmTEU+2pbgQEgfevVmL7pOI2EHH7anZfug6zvAnzIu5uz9gj8KqYUjh
- tBTo/yBqKsxLuzKViHt+VjTAEoLStU3K/ggBUNreHqgKsQriq2fFdjVYbsF0MH5tMqRm
- WIAw==
-X-Gm-Message-State: AOAM533G+QNUDhfOgAF4rFwAagHJiDcP9NXk9dtKWNCUbW1oAZnRBwbq
- e6iXv0NQw/iwQe/e0TvaHI8t2kxl/3H6xZr498hFvQ==
-X-Google-Smtp-Source: ABdhPJyg/qc6FJuRZYZqNNd5IMYVmnKGSrITOouFVSzC2Mh6TfEGJcQ4YwgOLOvW4cWrgZZvjXq69o3dCj+ez8idqyo=
-X-Received: by 2002:aca:ed42:: with SMTP id l63mr6006514oih.101.1592380685425; 
- Wed, 17 Jun 2020 00:58:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC626E874;
+	Wed, 17 Jun 2020 09:23:28 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92F7C6E874
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 09:23:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ff8v+qOz4i9ulvlYMWBMPB6lOfxpjvsM7hidSBlQWuCn8QHyRYAdt8x7xwd+2VjaV6hRF6AS+7gRzrv+5j1000+PxOWWQF1xB3VYhDrUwKYo3S9aFabuZiTT59GPTmmzVj4FhKF4CYfxEONWAzj01Km5QeSKF7K5o4BHaGZd8j3kzK78flpCPKwgFyekwrP1gqDHrkbGOA4lwOAzXlFBGs763a1teMWJPrfrzluwVcGp37sJQGJON23wEf9gof4Kq6apvVdXkFZ6tJNmtN1FqajcCH/hWD1P9g05lYavSWH1IQus+cTJQFB8Qa2xFcCrLxWeKC8NeKEu1IWaZs8gXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xTise9AKAbv3O7t7xZlig5y3V8YcXzX/20fvBwEBmzA=;
+ b=k9RQ4P8UvlgjbzmwKPxnGzWc8deQEo1ULKyXYF4nSpK6wYueMhkYMtsiAn1aQ+yeLKUOv7S3O+2dT2YK4UpErBSxHPOzOGQZIn1XyX8BEUtmjP0C0A4CyKn3cgfJxuu0M+JGFAoY8PeDAYmgVgfK7YNOtUs+Q17yh+Z7zU2o7YP3D8XwF/FCgBRut5xuLXY6p6By6gdkts54ebpUtQVfUA7iUX9i3DtD171AuODX78t4xKHPjiVJ113n3fSwObgngFEArkbn7n/3Aj8yS8O81gFpvcTC8DP93Ps0Mrt05Nmp3ed5oP2L9brExCXE4+JmJv9t5gOF4Aa+Qtil3tpIsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xTise9AKAbv3O7t7xZlig5y3V8YcXzX/20fvBwEBmzA=;
+ b=zKMNsH7KjfaSvzFBy4erEhpjcODugcpwHbIlNorJBn0uJiios5ZT9k6f3VF+4/lIe/19ToeotZomI5UqRNHAlJDjiify1c57alu0X+V+ccQyQJjqQgV73ECBNRZOMHVGtly49/EtAmkpsiicfgQLgp9TNBIIERU7Cg/FrP6lHM4=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR1201MB2505.namprd12.prod.outlook.com (2603:10b6:3:ea::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3109.21; Wed, 17 Jun 2020 09:23:19 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3088.029; Wed, 17 Jun 2020
+ 09:23:19 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Paul Menzel <pmenzel@molgen.mpg.de>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Warn about disabled DPM
+Thread-Topic: [PATCH] drm/amdgpu: Warn about disabled DPM
+Thread-Index: AQHWRHnHCjq2NFMjPUCTa9njFvgePqjciNgQ
+Date: Wed, 17 Jun 2020 09:23:19 +0000
+Message-ID: <DM6PR12MB2619E77DEE868AC1C140E800E49A0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200617071631.7274-1-pmenzel@molgen.mpg.de>
+In-Reply-To: <20200617071631.7274-1-pmenzel@molgen.mpg.de>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=96ae9a66-7dc6-46ff-9976-00000422ccbc;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-17T09:23:03Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: molgen.mpg.de; dkim=none (message not signed)
+ header.d=none;molgen.mpg.de; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 5385bd12-ebd8-4beb-f0fb-08d812a01325
+x-ms-traffictypediagnostic: DM5PR1201MB2505:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR1201MB25052B223B2F1597415364EFE49A0@DM5PR1201MB2505.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 04371797A5
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: sNK7TjfvENK8hpq0W3VxHt55MEhsKUSyJkh0fogaGrOrTJOGb8oycS4NPCAfR1OKm8QHcjZuRPAAPA9GRreuAT+jLPj0owp6fxIS8COI/kDnzR2yYfWa1RypYMyu8UFkBMly1jHXVR+MVId717VHlTlV7SRepZK0TeYT8XAEkGg1n5O1phhGLzEjoxWpwM0jSBro0dbpMJMZOidIP8TuQkuZUXMpD82WQDcPiUaywDaA2/6QYGhycTUUFG+QdfGtbcN4s3hMLi4xbPH4A2fkdE29Wx0rnQC5nl723Rwwcl4CD51FlV/1PBQxJKzuZLZ6mAIZ/M5n/OV9r+ou5vlz1BvdNkm/aVL4UMmjN86xqCY=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(396003)(376002)(136003)(346002)(366004)(66476007)(66946007)(64756008)(66446008)(5660300002)(45080400002)(66556008)(86362001)(76116006)(7696005)(55016002)(6636002)(9686003)(2906002)(8676002)(33656002)(186003)(6506007)(4326008)(71200400001)(26005)(83380400001)(966005)(8936002)(110136005)(316002)(52536014)(478600001)(53546011);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: uoMtGGPdq9keAQpZDQj2dhLA/nB/pMehAot4QyleMDmLywxw36b2FqwAoMASUOZsAAd5O57awhtFMNJm0NtTWvUbt/EFgkEkEiQfdgJFPqDBcgDRtwOP3MOhmos5XZrAn8BCeP5IPF3KvvPfhs2hyPRzdpQ2B9Pzjus6QnPzNMx+vs4W/Smv5CRnOFqYH38cBsB9nlsa4WZtMKkteeNaSMOsaPNg5Z5Ot6pbTXO1LGmQUgRVlkGKUsB5M03BqNtxpj+QfmAiVinqOfsU6pRG+fYfM2HW4lx9bMoQuTiCE7EYEZMkvE3EnXA6DyUdooTDLScgsX8N56HM5BMjE9a1US9wyalf/xPFappkaQx5ifveUzIm+hFEfWRtsvIAgsQTsmYS2ndBXf1t+50/rwWVdpG3K93W/K5kVbXKa1iGFdjeQKCynT/ROlCw8gW6lD4FGnSTPvCLmTSU7DkgY26WmLPgmJFceC5NmU/Mjh/4Z+wCQdD3GpyDEPdqkc4VYnfl
 MIME-Version: 1.0
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-5-daniel.vetter@ffwll.ch>
- <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
- <20200611083430.GD20149@phenom.ffwll.local> <20200611141515.GW6578@ziepe.ca>
- <20200616120719.GL20149@phenom.ffwll.local> <20200616145312.GC6578@ziepe.ca>
-In-Reply-To: <20200616145312.GC6578@ziepe.ca>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 17 Jun 2020 09:57:54 +0200
-Message-ID: <CAKMK7uER6ax1zr14xYLKqDfDZp+ycBsY9Yx7JaVkKQ849VfSPg@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-To: Jason Gunthorpe <jgg@ziepe.ca>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5385bd12-ebd8-4beb-f0fb-08d812a01325
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2020 09:23:19.6487 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wAG4vJNSRA8uc+zAbdkDKlNRcTZtxweeP9M/yFtpF5aZ7cLdu2v6GyTcW0eeSZ38
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2505
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,106 +112,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2020 at 9:27 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
->
-> On Tue, Jun 16, 2020 at 02:07:19PM +0200, Daniel Vetter wrote:
-> > > > I've pinged a bunch of armsoc gpu driver people and ask them how much this
-> > > > hurts, so that we have a clear answer. On x86 I don't think we have much
-> > > > of a choice on this, with userptr in amd and i915 and hmm work in nouveau
-> > > > (but nouveau I think doesn't use dma_fence in there).
-> > >
-> > > Right, nor will RDMA ODP.
-> >
-> > Hm, what's the context here? I thought RDMA side you really don't want
-> > dma_fence in mmu_notifiers, so not clear to me what you're agreeing on
-> > here.
->
-> rdma does not use dma_fence at all, and though it is hard to tell, I
-> didn't notice a dma_fence in the nouveau invalidation call path.
+[AMD Official Use Only - Internal Distribution Only]
 
-Nouveau for compute has hw page faults. It doesn't have hw page faults
-for non-compute fixed function blocks afaik, so there's a hybrid model
-going on. But nouveau also doesn't support userspace memory (instead
-of driver-allocated buffer objects) for these fixed function blocks,
-so no need to have a dma_fence_wait in there.
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-> At the very least I think there should be some big warning that
-> dma_fence in notifiers should be avoided.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Paul Menzel
+Sent: Wednesday, June 17, 2020 3:17 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>; amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Warn about disabled DPM
 
-Yeah I'm working on documentation, and also the notifiers here
-hopefully make it clear it's massive pain. I think we could even make
-a hard rule that dma_fence in mmu notifier outside of drivers/gpu is a
-bug/misfeature.
+Currently, besides there is no explicit message, that DPM is disabled.
+The user would need to know, that the missing success line is an indicator.
 
-Might be a good idea to add a MAINTAINERS entry with a K: regex
-pattern, so that you can catch such modifiers. We do already have such
-a pattern for dma-fence, to catch abuse. So if you want I could type
-up a documentation patch for this, get your and others acks and the
-dri-devel folks would enforce that the dma_fence_wait madness doesn't
-leak beyond drivers/gpu
+    [drm] amdgpu: dpm initialized
 
-> Ie it is strange that the new totally-not-a-gpu drivers use dma_fence,
-> they surely don't have the same constraints as the existing GPU world,
-> and it would be annoying to see dma_fence notifiers spring up in them
+So, add an explicit message, and make it log level warning, as disabling dpm is not the default.
 
-If you mean drivers/misc/habanalabs, that's going to get taken care of:
+Resolves: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1173&amp;data=02%7C01%7Cevan.quan%40amd.com%7C4ba79bb63487426f074d08d81290e615%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637279760886452253&amp;sdata=if2K3qoBopyK%2FLqycejyBac7JuifQk%2F6O576wubDSDA%3D&amp;reserved=0
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+ drivers/gpu/drm/amd/amdgpu/kv_dpm.c | 4 +++-  drivers/gpu/drm/amd/amdgpu/si_dpm.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+index 4b3faaccecb9..071215e8039a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+@@ -3014,8 +3014,10 @@ static int kv_dpm_sw_init(void *handle)
+ adev->pm.current_mclk = adev->clock.default_mclk;
+ adev->pm.int_thermal_type = THERMAL_TYPE_NONE;
 
-commit ed65bfd9fd86dec3772570b0320ca85b9fb69f2e
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date:   Mon May 11 11:11:42 2020 +0200
+-if (amdgpu_dpm == 0)
++if (amdgpu_dpm == 0) {
++DRM_WARN("amdgpu: dpm disabled\n");
+ return 0;
++}
 
-    habanalabs: don't set default fence_ops->wait
+ INIT_WORK(&adev->pm.dpm.thermal.work, amdgpu_dpm_thermal_work_handler);
+ mutex_lock(&adev->pm.mutex);
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+index c00ba4b23c9a..6af89587f80c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+@@ -7687,8 +7687,10 @@ static int si_dpm_sw_init(void *handle)
+ adev->pm.current_mclk = adev->clock.default_mclk;
+ adev->pm.int_thermal_type = THERMAL_TYPE_NONE;
 
-    It's the default.
+-if (amdgpu_dpm == 0)
++if (amdgpu_dpm == 0) {
++DRM_INFO("amdgpu: dpm disabled\n");
+ return 0;
++}
 
-    Also so much for "we're not going to tell the graphics people how to
-    review their code", dma_fence is a pretty core piece of gpu driver
-    infrastructure. And it's very much uapi relevant, including piles of
-    corresponding userspace protocols and libraries for how to pass these
-    around.
+ ret = si_dpm_init_microcode(adev);
+ if (ret)
+--
+2.27.0
 
-    Would be great if habanalabs would not use this (from a quick look
-    it's not needed at all), since open source the userspace and playing
-    by the usual rules isn't on the table. If that's not possible (because
-    it's actually using the uapi part of dma_fence to interact with gpu
-    drivers) then we have exactly what everyone promised we'd want to
-    avoid.
-
-    Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-    Reviewed-by: Oded Gabbay <oded.gabbay@gmail.com>
-    Signed-off-by: Oded Gabbay <oded.gabbay@gmail.com>
-
-Oded has agreed to remove the dma-fence usage, since they really don't
-need it (and all the baggage that comes with it), plain old completion
-is enough for their use. This use is also why I added the regex to
-MAINTAINERS, so that in the future we can catch people who try to use
-dma_fence because it looks cute and useful, and are completely
-oblivious to all the pain and headaches involved.
-
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7C4ba79bb63487426f074d08d81290e615%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637279760886452253&amp;sdata=xJ1ZELqsAMby6w%2Fj5e9N1ytLe%2FOYPRn6e4C8wX7%2BCCg%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
