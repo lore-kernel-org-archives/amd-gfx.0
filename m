@@ -2,73 +2,71 @@ Return-Path: <SRS0=VPxi=76=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D310C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 11:41:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A00C6C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 701B7207DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 11:41:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7500F206D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:10:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lwxn7Oq8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 701B7207DD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pGHQQ40P"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7500F206D8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D30966E0F6;
-	Wed, 17 Jun 2020 11:41:07 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC066E0F6
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 11:41:07 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id h5so1978740wrc.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 04:41:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gJ9uMKLYe/HmcANLVX8y9dJZtup3g7yUrY0HDHYM6dk=;
- b=Lwxn7Oq8cwZrf0B0J+GKNj/vJ3mdOZRTe6yff8xk1gujfuX2FaRWbjhFwX5N7Q2FiV
- /NVn31RO9I3nqv9qxZH7bRq0rni7DZLNLJnoqXJLXv5YQ0TTpn98Qs4lkyJt0K0VSmPJ
- 0jwp+NDRwsDOnSJBBSMbnNig70yqX46jYW9MwJMmdeR8DgJ0+4SV9xWLp0Kxqhb2VQAO
- oz3IE7BqGCUSPur0NJz2rjTEKhchI6UfwQ2hu0jnQgNXdi8DDmUvO+a9Id8qoOs28gsn
- qjAwPczPfJZmN9nCe049w5vSVSihoErKFcJcpRwhwtE00lvyeCMB0WXOVzde4DcEDwvt
- YFmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gJ9uMKLYe/HmcANLVX8y9dJZtup3g7yUrY0HDHYM6dk=;
- b=pMsXBkGvoZbcEc1Mm61FAt9UjZ+E23nq1MgjnGTXdKuf8Ss53wLXTkJZW8cwvvAIsq
- c2wQ5kUXz0tqOYqfM20mcrFajnlQypkWCG1JHop8az9E83z+w09TkAQmN992iqaO1sb3
- I+bILYC2eL2Zrc3+UtZuCUCwhyyMusUsUKr7NKBWRBhXQYbANCgHAePra9hjUdhJEKH5
- DzWO1Pj/+JgOBMpj7LOwWndGG6oNRMB2MzrFOFetW/NjjQH8+rzu0uCsN9s5wHdpTkhZ
- 8P8dq4IMyiY7oc1Wg2OejBSMHMY3zTHhXWYh35NjwJhC+SM9hF6xa/ZAgXSBzEnEm/nF
- FMJg==
-X-Gm-Message-State: AOAM530lLG+Eqyhlq4WwmRa9mGvJb30R4T/z8B6DB71vu0JRZc7WMEL2
- X1dSOEF52aqQM5BzG1qJogfTWOZzlxc=
-X-Google-Smtp-Source: ABdhPJysr/QKGJbiGrci+8Mrgz2jDKoV9roa5XUgEHV7WSdy4An+VFWSDOH/T1ri6un58egId7w7eA==
-X-Received: by 2002:adf:efc7:: with SMTP id i7mr8015509wrp.408.1592394065544; 
- Wed, 17 Jun 2020 04:41:05 -0700 (PDT)
-Received: from brihaspati.fritz.box
- (p200300c58f235100662246e764d1921a.dip0.t-ipconnect.de.
- [2003:c5:8f23:5100:6622:46e7:64d1:921a])
- by smtp.gmail.com with ESMTPSA id a16sm33239542wrx.8.2020.06.17.04.41.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2020 04:41:04 -0700 (PDT)
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdgpu: fix compiler warning
-Date: Wed, 17 Jun 2020 13:42:18 +0200
-Message-Id: <20200617114218.42330-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2640E6E948;
+	Wed, 17 Jun 2020 13:10:14 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 691E26E546
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 08:31:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=PpSWQoZVa+rxLKWKXqLIv8btjA0lR/+HCKmuqJBW6Xk=; b=pGHQQ40PYz4XaECx9UDuuOmLNJ
+ iEv5F88GbuYBu2poejXdWHicH5VKt9K55XNs+X7kjcA4Ziud4AiW8B9/kkzms7DKrt5D5SkXyRJ7i
+ 13H0V+UjQGP44jR/2/jse9tN0T+yis59NLW/oCaxSJFrXMdIJqdIIhospUM3uifcNnSsIQVLTpawd
+ NJX0fYkyo4zsgw0iYsha0fyO68x5Jj7UP/avH40jVs0GpURHNTfSA54lBJ22FbSqFopcdlPTPTF2f
+ W40tlM9Cpbvl3n+lwS16GWI8Hhe4VKYYFh02MjbguiAeDv5JScHO7p4fABJti7WYYcxP85TtJKYG+
+ mCvr5jmg==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jlTTa-0006uB-MI; Wed, 17 Jun 2020 08:31:18 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C68F3306102;
+ Wed, 17 Jun 2020 10:31:16 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id AD21229E5A2E1; Wed, 17 Jun 2020 10:31:16 +0200 (CEST)
+Date: Wed, 17 Jun 2020 10:31:16 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Fenghua Yu <fenghua.yu@intel.com>
+Subject: Re: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
+Message-ID: <20200617083116.GE2531@hirez.programming.kicks-ass.net>
+References: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
+ <1592008893-9388-13-git-send-email-fenghua.yu@intel.com>
+ <20200615075649.GK2497@hirez.programming.kicks-ass.net>
+ <20200615154854.GB13792@romley-ivt3.sc.intel.com>
+ <20200615160357.GA2531@hirez.programming.kicks-ass.net>
+ <20200615181259.GC13792@romley-ivt3.sc.intel.com>
+ <20200615183116.GD2531@hirez.programming.kicks-ass.net>
+ <20200615185529.GD13792@romley-ivt3.sc.intel.com>
+ <20200615190928.GJ2531@hirez.programming.kicks-ass.net>
+ <20200616232345.GC15763@romley-ivt3.sc.intel.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200616232345.GC15763@romley-ivt3.sc.intel.com>
+X-Mailman-Approved-At: Wed, 17 Jun 2020 13:10:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,32 +78,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nirmoy.das@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Dave Hansen <dave.hansen@intel.com>, H Peter Anvin <hpa@zytor.com>,
+ Dave Jiang <dave.jiang@intel.com>, Ashok Raj <ashok.raj@intel.com>,
+ Joerg Roedel <joro@8bytes.org>, x86 <x86@kernel.org>,
+ amd-gfx <amd-gfx@lists.freedesktop.org>, Ingo Molnar <mingo@redhat.com>,
+ Ravi V Shankar <ravi.v.shankar@intel.com>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>, Borislav Petkov <bp@alien8.de>,
+ Sohil Mehta <sohil.mehta@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Tony Luck <tony.luck@intel.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
+ Jacob Jun Pan <jacob.jun.pan@intel.com>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, David Woodhouse <dwmw2@infradead.org>,
+ Lu Baolu <baolu.lu@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rml4ZXMgYmVsb3cgd2FybmluZzoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGZfdjNfNi5j
-OiBJbiBmdW5jdGlvbiDigJhkZl92M182X3Jlc2V0X3BlcmZtb25fY250cuKAmToKZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZGZfdjNfNi5jOjU3MToyOiB3YXJuaW5nOiDigJhoaV9iYXNlX2Fk
-ZHLigJkgbWF5IGJlIHVzZWQKdW5pbml0aWFsaXplZCBpbiB0aGlzIGZ1bmN0aW9uIFstV21heWJl
-LXVuaW5pdGlhbGl6ZWRdCiAgNTcxIHwgIGRmX3YzXzZfcGVyZm1vbl93cmVnKGFkZXYsIGxvX2Jh
-c2VfYWRkciwgMCwgaGlfYmFzZV9hZGRyLCAwKTsKICAgICAgfCAgXn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+CgpTaWduZWQtb2ZmLWJ5
-OiBOaXJtb3kgRGFzIDxuaXJtb3kuZGFzQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZGZfdjNfNi5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
-LCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-ZGZfdjNfNi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGZfdjNfNi5jCmluZGV4IGE3
-YjgyOTJjZWZlZS4uMWFiMjYxODM2OTgzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9kZl92M182LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGZfdjNf
-Ni5jCkBAIC01NjAsNyArNTYwLDcgQEAgc3RhdGljIHZvaWQgZGZfdjNfNl9wbWNfcmVsZWFzZV9j
-bnRyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogc3RhdGljIHZvaWQgZGZfdjNfNl9yZXNl
-dF9wZXJmbW9uX2NudHIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkJCSB1aW50NjRf
-dCBjb25maWcpCiB7Ci0JdWludDMyX3QgbG9fYmFzZV9hZGRyLCBoaV9iYXNlX2FkZHI7CisJdWlu
-dDMyX3QgbG9fYmFzZV9hZGRyID0gMCwgaGlfYmFzZV9hZGRyID0gMDsKIAogCWRmX3YzXzZfcG1j
-X2dldF9yZWFkX3NldHRpbmdzKGFkZXYsIGNvbmZpZywgJmxvX2Jhc2VfYWRkciwKIAkJCQkgICAg
-ICAmaGlfYmFzZV9hZGRyKTsKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+On Tue, Jun 16, 2020 at 04:23:46PM -0700, Fenghua Yu wrote:
+> Hi, Peter,
+> 
+> On Mon, Jun 15, 2020 at 09:09:28PM +0200, Peter Zijlstra wrote:
+> > On Mon, Jun 15, 2020 at 11:55:29AM -0700, Fenghua Yu wrote:
+> > 
+> > > Or do you suggest to add a random new flag in struct thread_info instead
+> > > of a TIF flag?
+> > 
+> > Why thread_info? What's wrong with something simple like the below. It
+> > takes a bit from the 'strictly current' flags word.
+> > 
+> > 
+> > diff --git a/include/linux/sched.h b/include/linux/sched.h
+> > index b62e6aaf28f0..fca830b97055 100644
+> > --- a/include/linux/sched.h
+> > +++ b/include/linux/sched.h
+> > @@ -801,6 +801,9 @@ struct task_struct {
+> >  	/* Stalled due to lack of memory */
+> >  	unsigned			in_memstall:1;
+> >  #endif
+> > +#ifdef CONFIG_PCI_PASID
+> > +	unsigned			has_valid_pasid:1;
+> > +#endif
+> >  
+> >  	unsigned long			atomic_flags; /* Flags requiring atomic access. */
+> >  
+> > diff --git a/kernel/fork.c b/kernel/fork.c
+> > index 142b23645d82..10b3891be99e 100644
+> > --- a/kernel/fork.c
+> > +++ b/kernel/fork.c
+> > @@ -955,6 +955,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+> >  	tsk->use_memdelay = 0;
+> >  #endif
+> >  
+> > +#ifdef CONFIG_PCI_PASID
+> > +	tsk->has_valid_pasid = 0;
+> > +#endif
+> > +
+> >  #ifdef CONFIG_MEMCG
+> >  	tsk->active_memcg = NULL;
+> >  #endif
+> 
+> Can I add "Signed-off-by: Peter Zijlstra <peterz@infradead.org>"
+> to this patch? I will send this patch in the next version of the series.
+
+Sure, n/p.
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
