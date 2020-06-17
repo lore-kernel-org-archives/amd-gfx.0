@@ -2,67 +2,81 @@ Return-Path: <SRS0=VPxi=76=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72E7AC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:17:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5812BC433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 15:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 44F1620786
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:17:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 284EC20890
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 15:36:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SI/wklB3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44F1620786
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="fPvsZiRm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 284EC20890
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A8A89FFD;
-	Wed, 17 Jun 2020 13:17:31 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD91189FFD
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 13:17:30 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id a6so341682wrm.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 06:17:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=QKWzRcgtOTmkrP4D1phOpq63vQXn5sBx4u2NDbhPLOM=;
- b=SI/wklB3/55xy6vxra8DQZjYpQPl/dGV/uGB93z+nfJP2fVlzdXeP0i2jo6DMxrqOa
- GcsK79ZvLbSqpNTrrQro6KAKq/1FT4zDrSzqjBCzXlKU1sjSVkWZQunhAaMUkPmWtg1g
- 0f3b4jDB9Zt+jGTQ25iEKk1s41jPlWp7lYk8mcj/Xp629ae/42/BmOVitb+OnaH02Vx7
- YA7Nr2YMI2KOxk3MZv8hSPyOEp5NBxZetVfRc4O1TPaQrqPoRXtsvXPe1DTWD1wik8Qo
- fV5rrLn7JymuChcn96Q8cXtpCiGZRsbmG30PxTA/5IlF7uS1Z2nJPpW3uBS7FAzKJftZ
- NvwA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0F246E0CB;
+	Wed, 17 Jun 2020 15:36:36 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD326E970
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 15:28:38 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id k22so1814804qtm.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 08:28:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YWvFZzs3KP9lJjMgLteUxWcl0AN5fcCF6bv79uFgihI=;
+ b=fPvsZiRmvOrvrQ4yxrTzKd5CSIveZ17z50EpolEl+pPAK7HUWF0QJZmXtSGVDOakfw
+ 7DHwzIzE2lNcGxpAtO8aw08z/gM8Y21yy9DIXMANO2ubUa3TWdA4GmPrzu72SDfRdvmF
+ BClIRqEbNJmDflVkgdFD+OnXmF0SaCCsk8z9/TyDuufHGuZdnpCUVgkaPeljCUzfOGUP
+ iou8x9GwNeXqpb+7LiV1ym/MPlGBad5o331/0hIUNzTl2FFPtmlIOP+y+IRR8Ia8Spm0
+ VHrOAMJcFDHzlMiG7WUr4U2IvrrqHhxtahUa25x/jrfaWVB1Q09VlgzgQNmhTWG78o/m
+ b3Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=QKWzRcgtOTmkrP4D1phOpq63vQXn5sBx4u2NDbhPLOM=;
- b=I7VqJKofwHxiRAyTg3VrMq6mrl0u85wJoHXjIV246BBg2uCnLsvgGn566trE3/KH2y
- RmbvyhFVEpPzEjPAl6urJkaJZiTneP3LMb7o6nDQ2JHg0v11Sc/0H6blKDYzZcVfH6zK
- o6k3/DrFKgoBXpuYHRn3jHyyeDqHM48X2PtK9KeQ/3mzzmWFB3leUoVIuoCxazWYVfvn
- 0V4F9++R0DBH+/QG6Dwp87diAK0qE+tSuHDeph1a3FV7wL2d6KptugZ9g2VHmvzBX/eu
- bM1Ln2WFs5OqHIpVLvOvEGG6E4ZUjf8AlD/Nq1O+KT9+xpJc6js0TJpKJkdbBKv1KbNP
- z9Bw==
-X-Gm-Message-State: AOAM53070Xjf9ufCNwS4RtfX0sReckhhqC6XB7ds2SMCwMatz79OWzYU
- lK68JqQ7VEtxKixjx8jNb/5uga+X+Z74WJJilsgYsQ==
-X-Google-Smtp-Source: ABdhPJxjF3he75Dz6vOBVcDh1bcpLwYDodmQtO3pFYyMjFoRWcF64fGwFkUKSlUfFuCRnbcy/929XpPRq15joi1U4ik=
-X-Received: by 2002:a5d:400f:: with SMTP id n15mr9011251wrp.419.1592399849568; 
- Wed, 17 Jun 2020 06:17:29 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YWvFZzs3KP9lJjMgLteUxWcl0AN5fcCF6bv79uFgihI=;
+ b=rfcC7DeQKr7Dfnl26vWXD9tTP1lTnq54Q9tuPQ26EzqT6dIOBVf8dQnKQCk62WRJ2t
+ YXXUD0o5d3BXVv7Jo70oKHOLbkcD0evIIK9BpG+s4HHswaka8AFFFzomhr7oFD4kaxVF
+ Nq3kViRWg9JstCKfMWI82qSmt1aPR7cPSKvIv/59DLgdk7onx8zd7wIyvUOnDqaCU9+X
+ bjRWgTy4+E33dTuTl4CzM58mQPqrg7JYh/0gU45+PwPp8kKUEa07olPq/0cXlysCTy0P
+ lN8f+Y9UJdLjepqOiPGroxjacR3HxJ3mONqgHVdqlohK9XdaHxluA4zyJjD+OrPFtkb7
+ OoFw==
+X-Gm-Message-State: AOAM532P1BFS2FMhhjo6pJc7XAjBCbwr8QyPbK0dTwfURn/MdqnYHl7K
+ ZYJGITngQBBzS/DX/agnp5QUEg==
+X-Google-Smtp-Source: ABdhPJzZDttOnjxPbTFDeZHyWDfba0peOY2A/3G4231dt912/147Xnlp7RMkFB2VSf50LuX5ZTAibw==
+X-Received: by 2002:ac8:468a:: with SMTP id g10mr27323795qto.6.1592407717080; 
+ Wed, 17 Jun 2020 08:28:37 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-156-34-48-30.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [156.34.48.30])
+ by smtp.gmail.com with ESMTPSA id f127sm210137qkb.55.2020.06.17.08.28.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jun 2020 08:28:35 -0700 (PDT)
+Received: from jgg by mlx with local (Exim 4.93) (envelope-from <jgg@ziepe.ca>)
+ id 1jlZzP-009d7z-9q; Wed, 17 Jun 2020 12:28:35 -0300
+Date: Wed, 17 Jun 2020 12:28:35 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+Message-ID: <20200617152835.GF6578@ziepe.ca>
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+ <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
+ <20200611083430.GD20149@phenom.ffwll.local>
+ <20200611141515.GW6578@ziepe.ca>
+ <20200616120719.GL20149@phenom.ffwll.local>
+ <CAKMK7uE7DKUo9Z+yCpY+mW5gmKet8ugbF3yZNyHGqsJ=e-g_hA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200617114218.42330-1-nirmoy.das@amd.com>
-In-Reply-To: <20200617114218.42330-1-nirmoy.das@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 17 Jun 2020 09:17:18 -0400
-Message-ID: <CADnq5_NxbgC01FDd1VRFzZB3sEuTBKuuhA0uUqYehL1tkckKPQ@mail.gmail.com>
-Subject: Re: [PATCH 1/1] drm/amdgpu: fix compiler warning
-To: Nirmoy Das <nirmoy.aiemd@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uE7DKUo9Z+yCpY+mW5gmKet8ugbF3yZNyHGqsJ=e-g_hA@mail.gmail.com>
+X-Mailman-Approved-At: Wed, 17 Jun 2020 15:36:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,40 +88,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ Thomas =?utf-8?B?SGVsbHN0csO2bSAoSW50ZWwp?= <thomas_os@shipmail.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKdW4gMTcsIDIwMjAgYXQgNzo0MSBBTSBOaXJtb3kgRGFzIDxuaXJtb3kuYWllbWRA
-Z21haWwuY29tPiB3cm90ZToKPgo+IEZpeGVzIGJlbG93IHdhcm5pbmc6Cj4gZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZGZfdjNfNi5jOiBJbiBmdW5jdGlvbiDigJhkZl92M182X3Jlc2V0X3Bl
-cmZtb25fY250cuKAmToKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmM6NTcx
-OjI6IHdhcm5pbmc6IOKAmGhpX2Jhc2VfYWRkcuKAmSBtYXkgYmUgdXNlZAo+IHVuaW5pdGlhbGl6
-ZWQgaW4gdGhpcyBmdW5jdGlvbiBbLVdtYXliZS11bmluaXRpYWxpemVkXQo+ICAgNTcxIHwgIGRm
-X3YzXzZfcGVyZm1vbl93cmVnKGFkZXYsIGxvX2Jhc2VfYWRkciwgMCwgaGlfYmFzZV9hZGRyLCAw
-KTsKPiAgICAgICB8ICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn4KPgo+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5k
-YXNAYW1kLmNvbT4KCkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmMgfCAy
-ICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYwo+IGluZGV4IGE3YjgyOTJjZWZlZS4uMWFi
-MjYxODM2OTgzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3Yz
-XzYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYwo+IEBAIC01
-NjAsNyArNTYwLDcgQEAgc3RhdGljIHZvaWQgZGZfdjNfNl9wbWNfcmVsZWFzZV9jbnRyKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICBzdGF0aWMgdm9pZCBkZl92M182X3Jlc2V0X3BlcmZt
-b25fY250cihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IGNvbmZpZykKPiAgewo+IC0gICAgICAgdWlu
-dDMyX3QgbG9fYmFzZV9hZGRyLCBoaV9iYXNlX2FkZHI7Cj4gKyAgICAgICB1aW50MzJfdCBsb19i
-YXNlX2FkZHIgPSAwLCBoaV9iYXNlX2FkZHIgPSAwOwo+Cj4gICAgICAgICBkZl92M182X3BtY19n
-ZXRfcmVhZF9zZXR0aW5ncyhhZGV2LCBjb25maWcsICZsb19iYXNlX2FkZHIsCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmaGlfYmFzZV9hZGRyKTsKPiAtLQo+IDIuMjYu
-Mgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed, Jun 17, 2020 at 08:48:50AM +0200, Daniel Vetter wrote:
+
+> Now my understanding for rdma is that if you don't have hw page fault
+> support,
+
+The RDMA ODP feature is restartable HW page faulting just like nouveau
+has. The classical MR feature doesn't have this. Only mlx5 HW supports
+ODP today.
+
+> It's only gpus (I think) which are in this awkward in-between spot
+> where dynamic memory management really is much wanted, but the hw
+> kinda sucks. Aside, about 10+ years ago we had a similar problem with
+> gpu hw, but for security: Many gpu didn't have any kinds of page
+> tables to isolate different clients from each another. drivers/gpu
+> fixed this by parsing&validating what userspace submitted to make sure
+> it's only every accessing its own buffers. Most gpus have become
+> reasonable nowadays and do have proper per-process pagetables (gpu
+> process, not the pasid stuff), but even today there's still some of
+> the old model left in some of the smallest SoC.
+
+But I still don't understand why a dma fence is needed inside the GPU
+driver itself in the notifier.
+
+Surely the GPU driver can block and release the notifier directly from
+its own command processing channel?
+
+Why does this fence and all it entails need to leak out across
+drivers?
+
+Jason
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
