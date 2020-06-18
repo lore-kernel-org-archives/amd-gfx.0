@@ -2,65 +2,65 @@ Return-Path: <SRS0=7Qtl=77=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26FDFC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 04:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E17DC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 04:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E32E52100A
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 04:29:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 608F82100A
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 04:31:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TjsjDFH1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E32E52100A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aIF3+YFD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 608F82100A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9998D6E222;
-	Thu, 18 Jun 2020 04:29:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE546EA72;
+	Thu, 18 Jun 2020 04:31:28 +0000 (UTC)
 Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
  [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C766E222
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 04:29:39 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id t194so4138204wmt.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 21:29:39 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28BD46EA72
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 04:31:27 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id j198so5775584wmj.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 21:31:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UV0z1cG+QK1n/Xbw/LRrIhrmduiA98kwUNa4V4CbkQk=;
- b=TjsjDFH1FxzdmaEBbvM6wTnfjWQumcfTTrtJr1K2QPFKh3gv9OnHpbePpfy+DNX2o+
- IR4kJYa/iHGiv2dL7QhbR+6oXKxj0+q/+uoUDDsg3oQR031vvVz1J0M7Hj1YPTU/Epem
- xZcqOUxKcyK1yVAjcvZcYNCK1qCgdYRHZtzQe08mlxUypf5ZmvvFF6y2w9GiyzLJ6V2A
- xoPnGo5pCG2sMbdpIQo6EEheInZx99wxr9HoUvqeCgnbNUiofoWDi2Mdb8fvE2iiHSkP
- LSDqVGfHhNL0K8qJTsOngoFxj2SsVFn11u+UpTNIes909drHKvPPp8EZIp31OWaKd50n
- CqRw==
+ :cc; bh=WJEQDCwMKH5C/eQhlK1mbwLJDtMn+iV7Gsb0NnAidRs=;
+ b=aIF3+YFDcrZy0Pb6ABoWal6+B4xjRj7/j+X0CfdZuc7h9vBIsFaIKNN0oKgJMw5um+
+ +YGBh8qp6zX7jOT4rzmmuuwUW+tOovbxbLlFMr6sAhKtH1zuHTByX70RrXFwJV5N7Jes
+ eN/Nz3cE01nVXEmRFzQ0mT6/770Py4SSx934E+By9VZeOIKX+i+xvA4H8tPKbHO4i5E9
+ C0ORavXWeYSOfnTiVi4Z9Vq9OVW4xaUjBhyPdGVVwn96y+xWQIGy1TiBHFTaohWS5uk3
+ YM07avbdQxYcr2Q55IsZOjqxC16Aq7v3Sw/ieQyChqN4GwEAX0HVs2PE/PMqhhZGVLc7
+ cvBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=UV0z1cG+QK1n/Xbw/LRrIhrmduiA98kwUNa4V4CbkQk=;
- b=LJSbnsjEIpv9qD0jHZ0z8ewwulQToaeePapoqBc0WkiFVltMvKX3Qxe1FfRp210nFt
- 6EGFyiSjTe3hVhVFwfyMd+qlM7Ww6KmUl8U7zBWl4PFzTlfJRN0XklP1ahnN7w9bJw7Z
- gS3z28dAquf6JcGVN0AUnBWqzwIEPhirt07GS6NQ9gw7gs2GOyiAwMhhZGY47cCa9LDf
- J9at51uAnq5DDSx8yALDqAtSdl7E4l8YkPEAflWOveNP4r1KBe0/P7aSW6g2o4MH5jn7
- 2qWz/E3zQzmvY53B03v6nsf9nt7G0pTgBzro0TGkHYVTxEOoxs6uWwGHItp22q1mrZkA
- cl0w==
-X-Gm-Message-State: AOAM532PPiyguMxzivlOpdHKKS3Ry0DxaPtO4tXuU0urlsMXnEteEf7o
- 6mD6qFKgQTQEZArID/vYqHmWsohMULUq7gi2LXQ=
-X-Google-Smtp-Source: ABdhPJx90P2rAisisHajvgX5q+X1hmoxcLD8JNV00wUIzsOpmsFR/l4w/Lew2HgG/nZgz3lnr7NEdcTHR4ymxKTP0qc=
-X-Received: by 2002:a1c:6006:: with SMTP id u6mr1928275wmb.39.1592454578323;
- Wed, 17 Jun 2020 21:29:38 -0700 (PDT)
+ bh=WJEQDCwMKH5C/eQhlK1mbwLJDtMn+iV7Gsb0NnAidRs=;
+ b=hhQ5MNc3skBgmlLrl+6kK+TQSbYnuqnhs5RwSTJB9Qebw2hQ8keIOIoLicnHegUylY
+ 3LVLt3XPd/g/g0CzOCZCyXQx/iInLaaUwM7VojO4NQGvQjrp4mHj7P0MYS22wWhLE5RV
+ vJo3yZMiBBCTaO4s9Qmrwthbo+DKbuMgka+AGPb+HEBSq9lIzBElm5K+yvcaphdipiIS
+ X/B2iM70s5Uu0ETs5x/w50BekjOoqFl7VxigijUu9lF82lSySyf98LCRFks3hoS2xtLw
+ ZD81nMMeCcewvJb2dcXhvfYW8q1RYdye5O/SBjn15rexqwvsDo+Wqt7hv+Baj0gzFvvw
+ uFQA==
+X-Gm-Message-State: AOAM530tTE8JIJgyxfPSs2jT3j2yktq9o4X6qHWGtainD3qWXN9K0ZCE
+ BrlEFG7G8CelirvPB78kyCgoN9iXgme1rzwYuE/9OQ==
+X-Google-Smtp-Source: ABdhPJxk1J1dGaNGKPXitNmw6jutU/IsHwhXI3xW0FqiWhJhPO6C7OCuQPnIj/O+oKuhd7r6uuCmc1kabDbsENdAkwo=
+X-Received: by 2002:a1c:32c4:: with SMTP id y187mr1948685wmy.79.1592454685856; 
+ Wed, 17 Jun 2020 21:31:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200617215943.4783-1-sonny.jiang@amd.com>
-In-Reply-To: <20200617215943.4783-1-sonny.jiang@amd.com>
+References: <20200617220016.4844-1-sonny.jiang@amd.com>
+In-Reply-To: <20200617220016.4844-1-sonny.jiang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 Jun 2020 00:29:27 -0400
-Message-ID: <CADnq5_P1bC8t8XHBxRGQnhwo1N4eompe+1-+cqdGN3_W=0ES0A@mail.gmail.com>
-Subject: Re: [PATCH] drm amdgpu: SI UVD add Oland, Pitcairn, Verde,
- Tahiti firmware
+Date: Thu, 18 Jun 2020 00:31:14 -0400
+Message-ID: <CADnq5_N4sC0R9HrnX2KSR4U=9mEaH2+7L0oW1j-yH+bQkz4W1A@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm amdgpu: SI UVD PACKET_TYPE0
 To: Sonny Jiang <sonny.jiang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,64 +82,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Wed, Jun 17, 2020 at 6:00 PM Sonny Jiang <sonny.jiang@amd.com> wrote:
 >
 
-Please add a patch description and add your signed-off-by.  With that fixed:
+For the entire series, please add a patch description and your
+signed-off-by.  With that fixed, the series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 26 +++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/sid.h | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index 5100ebe8858d..f8bebf18ee36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -54,6 +54,12 @@
->  #define FW_1_66_16     ((1 << 24) | (66 << 16) | (16 << 8))
->
->  /* Firmware Names */
-> +#ifdef CONFIG_DRM_AMDGPU_SI
-> +#define FIRMWARE_TAHITI                "amdgpu/tahiti_uvd.bin"
-> +#define FIRMWARE_VERDE         "amdgpu/verde_uvd.bin"
-> +#define FIRMWARE_PITCAIRN      "amdgpu/pitcairn_uvd.bin"
-> +#define FIRMWARE_OLAND         "amdgpu/oland_uvd.bin"
-> +#endif
->  #ifdef CONFIG_DRM_AMDGPU_CIK
->  #define FIRMWARE_BONAIRE       "amdgpu/bonaire_uvd.bin"
->  #define FIRMWARE_KABINI        "amdgpu/kabini_uvd.bin"
-> @@ -100,6 +106,12 @@ struct amdgpu_uvd_cs_ctx {
->         unsigned *buf_sizes;
->  };
->
-> +#ifdef CONFIG_DRM_AMDGPU_SI
-> +MODULE_FIRMWARE(FIRMWARE_TAHITI);
-> +MODULE_FIRMWARE(FIRMWARE_VERDE);
-> +MODULE_FIRMWARE(FIRMWARE_PITCAIRN);
-> +MODULE_FIRMWARE(FIRMWARE_OLAND);
-> +#endif
->  #ifdef CONFIG_DRM_AMDGPU_CIK
->  MODULE_FIRMWARE(FIRMWARE_BONAIRE);
->  MODULE_FIRMWARE(FIRMWARE_KABINI);
-> @@ -133,6 +145,20 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
->         INIT_DELAYED_WORK(&adev->uvd.idle_work, amdgpu_uvd_idle_work_handler);
->
->         switch (adev->asic_type) {
-> +#ifdef CONFIG_DRM_AMDGPU_SI
-> +       case CHIP_TAHITI:
-> +               fw_name = FIRMWARE_TAHITI;
-> +               break;
-> +       case CHIP_VERDE:
-> +               fw_name = FIRMWARE_VERDE;
-> +               break;
-> +       case CHIP_PITCAIRN:
-> +               fw_name = FIRMWARE_PITCAIRN;
-> +               break;
-> +       case CHIP_OLAND:
-> +               fw_name = FIRMWARE_OLAND;
-> +               break;
-> +#endif
->  #ifdef CONFIG_DRM_AMDGPU_CIK
->         case CHIP_BONAIRE:
->                 fw_name = FIRMWARE_BONAIRE;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgpu/sid.h
+> index 7cf12adb3915..75b5d441b628 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
+> @@ -1646,9 +1646,10 @@
+>  /*
+>   * PM4
+>   */
+> -#define PACKET0(reg, n)        ((RADEON_PACKET_TYPE0 << 30) |                  \
+> -                        (((reg) >> 2) & 0xFFFF) |                      \
+> -                        ((n) & 0x3FFF) << 16)
+> +#define PACKET_TYPE0    0
+> +#define PACKET0(reg, n) ((PACKET_TYPE0 << 30) |                                \
+> +                         ((reg) & 0xFFFF) |                            \
+> +                         ((n) & 0x3FFF) << 16)
+>  #define CP_PACKET2                     0x80000000
+>  #define                PACKET2_PAD_SHIFT               0
+>  #define                PACKET2_PAD_MASK                (0x3fffffff << 0)
 > --
 > 2.25.1
 >
