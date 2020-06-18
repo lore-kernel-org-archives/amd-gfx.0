@@ -8,65 +8,65 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55CE0C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 13:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B673C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 13:16:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 286152073E
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 13:16:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 20F282073E
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 13:16:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhypIZmu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 286152073E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rz4ANtQ2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20F282073E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C656E424;
-	Thu, 18 Jun 2020 13:16:19 +0000 (UTC)
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21CD96E424
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 13:16:19 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id fc4so2723036qvb.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 06:16:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C37D16E432;
+	Thu, 18 Jun 2020 13:16:22 +0000 (UTC)
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A10746E432
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 13:16:21 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id 205so5450258qkg.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 06:16:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4ionDq0QIoj1zIvfb71UM7roaliByVPEjPqFPuzHvw0=;
- b=EhypIZmufi/ZY44p2Ty+fPNo0DHVRP4vTp9fgqxHrWRQOXcSlRVNGY0vRQh1OWW7jh
- EsOKhFPRrMalSYmeTuVLSiRyrWAMpcBVJIrVpy1tdx/xhDGhz2DTHekd896QBLtYzVdL
- S+3UCI4RX2HPpN5scODJP10aJje4xU890jZ+VF9kwi38DH2uTUg2jJ4ps2yRMmf0GDFp
- myQh5eTaId35rFdtabUE35zcb7hOTgd6IGMaOLhN0WampDTDRb/3/6fngNEic6Z+ozwb
- 53sXplz9psq3zN9KGfL3qh+XG2+IXkrcfaQlJHWd5O5IZux7hCVUgEzB/YXhOzecHDgj
- ib8A==
+ bh=T0A+D3p7m8nF4nixWJ76gCRYLx5nNlBbFIXO7dxoXgo=;
+ b=Rz4ANtQ2uhjg4bgwM0NxgA12C2Hl9H6TmnY2MMuNNRzNY4wEAMBMyzrIw6kv58eMeq
+ IJ+ifCKSywuFhpCwxrf9vDUuvpDW+lXJyYO2vTcUiw/xEEgy2/vg0Cm9T1rZzKBkvBkO
+ j35K92tY8863m1UFUYAFVpvm5zO1BQLAYb3Oqt7C/hMkgR3sEKp71h8qnq4v7E5Be8kT
+ jI+NwkQu0cr3UBNrQja/2l0tgFvgXTFC4sjuSmPdunX09CUxE5orN6RW0N1h32oUQDcT
+ CjUhCfMFfg4n/aYXhbMTLjOdmMHjTefrdBNeQTR/0QcObt6aq6FkW2vb5wYvHECq+Vg3
+ fmQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4ionDq0QIoj1zIvfb71UM7roaliByVPEjPqFPuzHvw0=;
- b=OFMiiOKR8XbyflZz/IvaU4IGYObet+AnYJfHRXnGvwA9dllPyiwLJ5TN7iDz1SWMmV
- 8yUDy1eVd7uh3bFhasu2/kJTVn16LcvKeTFx1mkvIpdQNlCyysxxDUm0EDkVMwgt6GTh
- wwOSFlvPGd7oQEWcONdlXcQDp1DYjCbriBzIssEiPPtjl9n312tGyj0mFT0jQYSpPF9m
- btE5jNniLgxdDKmJk6QNr2Z7ImLFfCZ64bKDJpRJc0dCD/OXuQHBkbxhZen3x9kDGn8h
- XSQvXScWRKXdPx43U81k/JBZZ7MLQ2ECHQ3OuDP0uF3mW1E6UfzqC7E4eGl13ZFPrNxW
- +Qgw==
-X-Gm-Message-State: AOAM532gUioncB9BEi08FwJEvR4rXtSgJlASLwQwQs236ZDFsNEpTh/y
- 0Ug68Isb/IE4i+5Dz+RYZ/SuSRqEqUw=
-X-Google-Smtp-Source: ABdhPJwLrtyA8eWWsJVuREL4k9qxPAbSIrg6+eYdw7b/L2Ske2FJHfVjLmrkn0ZKl7nvObteNrFmEA==
-X-Received: by 2002:ad4:4bd0:: with SMTP id l16mr3443417qvw.154.1592486177821; 
- Thu, 18 Jun 2020 06:16:17 -0700 (PDT)
+ bh=T0A+D3p7m8nF4nixWJ76gCRYLx5nNlBbFIXO7dxoXgo=;
+ b=Ms1hjb1t0BiWe2RarEFoE0iva3b7MgYREaKVKGQ9TukUBjZ7z+nMIjCLtumqowoWA1
+ 4tk49uVpM3w2JrtyMowlVodWXpfCGb3zh91f1J7eyI4kuJTzCc3xUBCKWszNr6RlIzg4
+ whZ/rubiG3iP6Fya3/Ap5PjdroTLwAO4aGOmvCaHMgh4OA1TRmcPxjVQ+3kpgqwfvQZ3
+ EzMBAS4roUPN5IUnfLFjppGWGVGO8tqodz1wQXrdIyUdjfpokiK48ZjastN1MoqqBBtX
+ uDbgFnGVODI9MvhLWnUxvAAkQDeMeiNTfLDKYcmASo2PGzCqR5hBU2J7HjlLLbzcxsAw
+ QEMw==
+X-Gm-Message-State: AOAM532Hnxr5OgE6edGU7dpvKHmkdgOerIlSG5leBNyuDbR42dk6cJXB
+ MJooHCvU8uMsBgWJ+RVVI2nJM971NdI=
+X-Google-Smtp-Source: ABdhPJytrJ/yyEcaOp84yi2TZzpzeU84+g+jsrvb421mwcaPsxAA9P1enhX1P+JkbuJmU98TjZMB+A==
+X-Received: by 2002:a37:8105:: with SMTP id c5mr3847846qkd.164.1592486180266; 
+ Thu, 18 Jun 2020 06:16:20 -0700 (PDT)
 Received: from brihaspati.amd.com
  (p200300c58f2304001ed633024609edb3.dip0.t-ipconnect.de.
  [2003:c5:8f23:400:1ed6:3302:4609:edb3])
- by smtp.gmail.com with ESMTPSA id v189sm3021933qkb.64.2020.06.18.06.16.16
+ by smtp.gmail.com with ESMTPSA id v189sm3021933qkb.64.2020.06.18.06.16.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2020 06:16:17 -0700 (PDT)
+ Thu, 18 Jun 2020 06:16:19 -0700 (PDT)
 From: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/4] drm/powerplay: label internally used symbols as static
-Date: Thu, 18 Jun 2020 15:17:11 +0200
-Message-Id: <20200618131712.90389-3-nirmoy.das@amd.com>
+Subject: [PATCH 4/4] drm/amd/display: label internally used symbols as static
+Date: Thu, 18 Jun 2020 15:17:12 +0200
+Message-Id: <20200618131712.90389-4-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200618131712.90389-1-nirmoy.das@amd.com>
 References: <20200618131712.90389-1-nirmoy.das@amd.com>
@@ -92,266 +92,273 @@ Used sparse(make C=1) to find these loose ends.
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c             |  2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c       |  2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c       |  2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c     | 10 +++++-----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c   |  4 ++--
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c     |  4 ++--
- .../drm/amd/powerplay/hwmgr/vega12_processpptables.c   |  2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_thermal.c   |  4 ++--
- drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c     |  6 +++---
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c     |  4 ++--
- drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c       |  2 +-
- drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c    |  2 +-
- 12 files changed, 22 insertions(+), 22 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  | 26 ++++++++++---------
+ .../drm/amd/display/dc/dce/dce_panel_cntl.c   | 10 +++----
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c | 10 +++----
+ 4 files changed, 29 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index e514f02ca0d1..fe4948aa662f 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1695,7 +1695,7 @@ static int smu_enable_umd_pstate(void *handle,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9ab0d8521576..93ba4ba9e564 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -700,7 +700,7 @@ static void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
+ 	adev->mode_info.audio.enabled = false;
+ }
+ 
+-void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
++static  void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
+ {
+ 	struct drm_audio_component *acomp = adev->dm.audio_component;
+ 
+@@ -1586,7 +1586,7 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 
+ }
+ 
+-enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
++static enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
+ {
+ 	struct dc_state *context = NULL;
+ 	enum dc_status res = DC_ERROR_UNEXPECTED;
+@@ -2706,7 +2706,7 @@ static int dm_atomic_get_state(struct drm_atomic_state *state,
  	return 0;
  }
  
--int smu_adjust_power_state_dynamic(struct smu_context *smu,
-+static int smu_adjust_power_state_dynamic(struct smu_context *smu,
- 				   enum amd_dpm_forced_level level,
- 				   bool skip_display_settings)
+-struct dm_atomic_state *
++static struct dm_atomic_state *
+ dm_atomic_get_new_state(struct drm_atomic_state *state)
  {
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index 753cb2cf6b77..2c9cac8c170c 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -1487,7 +1487,7 @@ static int smu7_update_avfs(struct pp_hwmgr *hwmgr)
- 	return 0;
+ 	struct drm_device *dev = state->dev;
+@@ -2724,7 +2724,7 @@ dm_atomic_get_new_state(struct drm_atomic_state *state)
+ 	return NULL;
  }
  
--int smu7_disable_dpm_tasks(struct pp_hwmgr *hwmgr)
-+static int smu7_disable_dpm_tasks(struct pp_hwmgr *hwmgr)
+-struct dm_atomic_state *
++static struct dm_atomic_state *
+ dm_atomic_get_old_state(struct drm_atomic_state *state)
  {
- 	int tmp_result, result = 0;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
-index a6c6a793e98e..35ed47ebaf09 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
-@@ -1879,7 +1879,7 @@ static int smu8_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
- 	return 0;
+ 	struct drm_device *dev = state->dev;
+@@ -5650,7 +5650,7 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+ 	return &dm_plane_state->base;
  }
  
--int smu8_dpm_update_uvd_dpm(struct pp_hwmgr *hwmgr, bool bgate)
-+static int smu8_dpm_update_uvd_dpm(struct pp_hwmgr *hwmgr, bool bgate)
+-void dm_drm_plane_destroy_state(struct drm_plane *plane,
++static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+ 				struct drm_plane_state *state)
  {
- 	struct smu8_hwmgr *data = hwmgr->backend;
- 	struct phm_uvd_clock_voltage_dependency_table *ptable =
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index 675c7cab7cfc..c378a000c934 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -90,7 +90,7 @@ typedef enum {
- 
- static const ULONG PhwVega10_Magic = (ULONG)(PHM_VIslands_Magic);
- 
--struct vega10_power_state *cast_phw_vega10_power_state(
-+static struct vega10_power_state *cast_phw_vega10_power_state(
- 				  struct pp_hw_power_state *hw_ps)
- {
- 	PP_ASSERT_WITH_CODE((PhwVega10_Magic == hw_ps->magic),
-@@ -100,7 +100,7 @@ struct vega10_power_state *cast_phw_vega10_power_state(
- 	return (struct vega10_power_state *)hw_ps;
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index a2e1a73f66b8..b3b42e279fb9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -660,7 +660,7 @@ void pp_rv_set_hard_min_fclk_by_freq(struct pp_smu *pp, int mhz)
+ 	pp_funcs->set_hard_min_fclk_by_freq(pp_handle, mhz);
  }
  
--const struct vega10_power_state *cast_const_phw_vega10_power_state(
-+static const struct vega10_power_state *cast_const_phw_vega10_power_state(
- 				 const struct pp_hw_power_state *hw_ps)
+-enum pp_smu_status pp_nv_set_wm_ranges(struct pp_smu *pp,
++static enum pp_smu_status pp_nv_set_wm_ranges(struct pp_smu *pp,
+ 		struct pp_smu_wm_range_sets *ranges)
  {
- 	PP_ASSERT_WITH_CODE((PhwVega10_Magic == hw_ps->magic),
-@@ -2330,7 +2330,7 @@ static int vega10_acg_disable(struct pp_hwmgr *hwmgr)
- {
- 	struct vega10_hwmgr *data = hwmgr->backend;
- 
--	if (data->smu_features[GNLD_ACG].supported && 
-+	if (data->smu_features[GNLD_ACG].supported &&
- 	    data->smu_features[GNLD_ACG].enabled)
- 		if (!vega10_enable_smc_features(hwmgr, false,
- 			data->smu_features[GNLD_ACG].smu_feature_bitmap))
-@@ -3905,7 +3905,7 @@ static void vega10_notify_smc_display_change(struct pp_hwmgr *hwmgr,
- 			NULL);
+ 	const struct dc_context *ctx = pp->dm;
+@@ -712,7 +712,7 @@ enum pp_smu_status pp_nv_set_wm_ranges(struct pp_smu *pp,
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega10_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
-+static int vega10_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
- 		struct pp_display_clock_request *clock_req)
+-enum pp_smu_status pp_nv_set_pme_wa_enable(struct pp_smu *pp)
++static enum pp_smu_status pp_nv_set_pme_wa_enable(struct pp_smu *pp)
  {
- 	int result = 0;
-@@ -4672,7 +4672,7 @@ static int vega10_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- 	return result;
+ 	const struct dc_context *ctx = pp->dm;
+ 	struct amdgpu_device *adev = ctx->driver_context;
+@@ -728,7 +728,7 @@ enum pp_smu_status pp_nv_set_pme_wa_enable(struct pp_smu *pp)
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega10_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
-+static int vega10_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
+-enum pp_smu_status pp_nv_set_display_count(struct pp_smu *pp, int count)
++static enum pp_smu_status pp_nv_set_display_count(struct pp_smu *pp, int count)
  {
- 	struct vega10_hwmgr *data = hwmgr->backend;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-index 7783c7fd7ccb..468bdd6f6697 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-@@ -499,7 +499,7 @@ int vega10_thermal_stop_thermal_controller(struct pp_hwmgr *hwmgr)
- * @param    Result the last failure code
- * @return   result from set temperature range routine
- */
--int vega10_thermal_setup_fan_table(struct pp_hwmgr *hwmgr)
-+static int vega10_thermal_setup_fan_table(struct pp_hwmgr *hwmgr)
- {
- 	int ret;
- 	struct vega10_hwmgr *data = hwmgr->backend;
-@@ -602,7 +602,7 @@ int vega10_enable_mgpu_fan_boost(struct pp_hwmgr *hwmgr)
- * @param    Result the last failure code
- * @return   result from set temperature range routine
- */
--int vega10_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr)
-+static int vega10_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr)
- {
- /* If the fantable setup has failed we could have disabled
-  * PHM_PlatformCaps_MicrocodeFanControl even after
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index f4d1692cccf3..a678a67f1c0d 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1436,7 +1436,7 @@ static int vega12_notify_smc_display_change(struct pp_hwmgr *hwmgr,
- 	return 0;
+ 	const struct dc_context *ctx = pp->dm;
+ 	struct amdgpu_device *adev = ctx->driver_context;
+@@ -744,7 +744,8 @@ enum pp_smu_status pp_nv_set_display_count(struct pp_smu *pp, int count)
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega12_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
-+static int vega12_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
- 		struct pp_display_clock_request *clock_req)
+-enum pp_smu_status pp_nv_set_min_deep_sleep_dcfclk(struct pp_smu *pp, int mhz)
++static enum pp_smu_status
++pp_nv_set_min_deep_sleep_dcfclk(struct pp_smu *pp, int mhz)
  {
- 	int result = 0;
-@@ -2404,7 +2404,7 @@ static int vega12_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- 	return result;
+ 	const struct dc_context *ctx = pp->dm;
+ 	struct amdgpu_device *adev = ctx->driver_context;
+@@ -760,7 +761,7 @@ enum pp_smu_status pp_nv_set_min_deep_sleep_dcfclk(struct pp_smu *pp, int mhz)
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega12_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
-+static int vega12_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
+-enum pp_smu_status pp_nv_set_hard_min_dcefclk_by_freq(
++static enum pp_smu_status pp_nv_set_hard_min_dcefclk_by_freq(
+ 		struct pp_smu *pp, int mhz)
  {
- 	struct vega12_hwmgr *data =
- 			(struct vega12_hwmgr *)(hwmgr->backend);
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_processpptables.c
-index 9817f7a5ed29..195d8539fbb4 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_processpptables.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_processpptables.c
-@@ -263,7 +263,7 @@ static int init_powerplay_table_information(
- 	return result;
+ 	const struct dc_context *ctx = pp->dm;
+@@ -783,7 +784,8 @@ enum pp_smu_status pp_nv_set_hard_min_dcefclk_by_freq(
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega12_pp_tables_initialize(struct pp_hwmgr *hwmgr)
-+static int vega12_pp_tables_initialize(struct pp_hwmgr *hwmgr)
+-enum pp_smu_status pp_nv_set_hard_min_uclk_by_freq(struct pp_smu *pp, int mhz)
++static enum pp_smu_status
++pp_nv_set_hard_min_uclk_by_freq(struct pp_smu *pp, int mhz)
  {
- 	int result = 0;
- 	const ATOM_Vega12_POWERPLAYTABLE *powerplay_table;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_thermal.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_thermal.c
-index c85806a6f62e..c15b9756025d 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_thermal.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_thermal.c
-@@ -251,7 +251,7 @@ int vega12_thermal_stop_thermal_controller(struct pp_hwmgr *hwmgr)
- * @param    Result the last failure code
- * @return   result from set temperature range routine
- */
--int vega12_thermal_setup_fan_table(struct pp_hwmgr *hwmgr)
-+static int vega12_thermal_setup_fan_table(struct pp_hwmgr *hwmgr)
- {
- 	int ret;
- 	struct vega12_hwmgr *data = (struct vega12_hwmgr *)(hwmgr->backend);
-@@ -274,7 +274,7 @@ int vega12_thermal_setup_fan_table(struct pp_hwmgr *hwmgr)
- * @param    Result the last failure code
- * @return   result from set temperature range routine
- */
--int vega12_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr)
-+static int vega12_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr)
- {
- 	/* If the fantable setup has failed we could have disabled
- 	 * PHM_PlatformCaps_MicrocodeFanControl even after
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index 9ff470f1b826..3b8839641770 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -1981,7 +1981,7 @@ static int vega20_upload_dpm_max_level(struct pp_hwmgr *hwmgr, uint32_t feature_
- 	return ret;
+ 	const struct dc_context *ctx = pp->dm;
+ 	struct amdgpu_device *adev = ctx->driver_context;
+@@ -805,7 +807,7 @@ enum pp_smu_status pp_nv_set_hard_min_uclk_by_freq(struct pp_smu *pp, int mhz)
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega20_enable_disable_vce_dpm(struct pp_hwmgr *hwmgr, bool enable)
-+static int vega20_enable_disable_vce_dpm(struct pp_hwmgr *hwmgr, bool enable)
+-enum pp_smu_status pp_nv_set_pstate_handshake_support(
++static enum pp_smu_status pp_nv_set_pstate_handshake_support(
+ 	struct pp_smu *pp, BOOLEAN pstate_handshake_supported)
  {
- 	struct vega20_hwmgr *data =
- 			(struct vega20_hwmgr *)(hwmgr->backend);
-@@ -2253,7 +2253,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 	return ret;
+ 	const struct dc_context *ctx = pp->dm;
+@@ -818,7 +820,7 @@ enum pp_smu_status pp_nv_set_pstate_handshake_support(
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega20_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
-+static int vega20_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
- 		struct pp_display_clock_request *clock_req)
+-enum pp_smu_status pp_nv_set_voltage_by_freq(struct pp_smu *pp,
++static enum pp_smu_status pp_nv_set_voltage_by_freq(struct pp_smu *pp,
+ 		enum pp_smu_nv_clock_id clock_id, int mhz)
  {
- 	int result = 0;
-@@ -3589,7 +3589,7 @@ static int vega20_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- 	return result;
+ 	const struct dc_context *ctx = pp->dm;
+@@ -853,7 +855,7 @@ enum pp_smu_status pp_nv_set_voltage_by_freq(struct pp_smu *pp,
+ 	return PP_SMU_RESULT_OK;
  }
  
--int vega20_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
-+static int vega20_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
+-enum pp_smu_status pp_nv_get_maximum_sustainable_clocks(
++static enum pp_smu_status pp_nv_get_maximum_sustainable_clocks(
+ 		struct pp_smu *pp, struct pp_smu_nv_clock_table *max_clocks)
  {
- 	struct vega20_hwmgr *data =
- 			(struct vega20_hwmgr *)(hwmgr->backend);
-diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 769e031d489a..0957957a2cf5 100644
---- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -1805,7 +1805,7 @@ static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
- 	return 0;
+ 	const struct dc_context *ctx = pp->dm;
+@@ -872,7 +874,7 @@ enum pp_smu_status pp_nv_get_maximum_sustainable_clocks(
+ 	return PP_SMU_RESULT_FAIL;
  }
  
--int sienna_cichlid_get_dpm_ultimate_freq(struct smu_context *smu,
-+static int sienna_cichlid_get_dpm_ultimate_freq(struct smu_context *smu,
- 				enum smu_clk_type clk_type,
- 				uint32_t *min, uint32_t *max)
+-enum pp_smu_status pp_nv_get_uclk_dpm_states(struct pp_smu *pp,
++static enum pp_smu_status pp_nv_get_uclk_dpm_states(struct pp_smu *pp,
+ 		unsigned int *clock_values_in_khz, unsigned int *num_states)
  {
-@@ -1821,7 +1821,7 @@ int sienna_cichlid_get_dpm_ultimate_freq(struct smu_context *smu,
- 	return ret;
+ 	const struct dc_context *ctx = pp->dm;
+@@ -892,7 +894,7 @@ enum pp_smu_status pp_nv_get_uclk_dpm_states(struct pp_smu *pp,
+ 	return PP_SMU_RESULT_FAIL;
  }
  
--int sienna_cichlid_set_soft_freq_limited_range(struct smu_context *smu,
-+static int sienna_cichlid_set_soft_freq_limited_range(struct smu_context *smu,
- 				      enum smu_clk_type clk_type,
- 				      uint32_t min, uint32_t max)
+-enum pp_smu_status pp_rn_get_dpm_clock_table(
++static enum pp_smu_status pp_rn_get_dpm_clock_table(
+ 		struct pp_smu *pp, struct dpm_clocks *clock_table)
  {
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-index 56923a96b450..02159ca29fa2 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-@@ -183,7 +183,7 @@ static int ci_program_jump_on_start(struct pp_hwmgr *hwmgr)
- 	return 0;
+ 	const struct dc_context *ctx = pp->dm;
+@@ -911,7 +913,7 @@ enum pp_smu_status pp_rn_get_dpm_clock_table(
+ 	return PP_SMU_RESULT_FAIL;
  }
  
--bool ci_is_smc_ram_running(struct pp_hwmgr *hwmgr)
-+static bool ci_is_smc_ram_running(struct pp_hwmgr *hwmgr)
+-enum pp_smu_status pp_rn_set_wm_ranges(struct pp_smu *pp,
++static enum pp_smu_status pp_rn_set_wm_ranges(struct pp_smu *pp,
+ 		struct pp_smu_wm_range_sets *ranges)
  {
- 	return ((0 == PHM_READ_VFPF_INDIRECT_FIELD(hwmgr->device,
- 			CGS_IND_REG__SMC, SMC_SYSCON_CLOCK_CNTL_0, ck_disable))
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-index 398e7e3587de..4bfadb49521b 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-@@ -1083,7 +1083,7 @@ static int tonga_populate_single_memory_level(
- 	return result;
+ 	const struct dc_context *ctx = pp->dm;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
+index ebff9b1e312e..43781e77be43 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
+@@ -95,7 +95,7 @@ static unsigned int calculate_16_bit_backlight_from_pwm(struct dce_panel_cntl *d
+ 	return (uint32_t)(current_backlight);
  }
  
--int tonga_populate_all_memory_levels(struct pp_hwmgr *hwmgr)
-+static int tonga_populate_all_memory_levels(struct pp_hwmgr *hwmgr)
+-uint32_t dce_panel_cntl_hw_init(struct panel_cntl *panel_cntl)
++static uint32_t dce_panel_cntl_hw_init(struct panel_cntl *panel_cntl)
  {
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	struct tonga_smumgr *smu_data =
+ 	struct dce_panel_cntl *dce_panel_cntl = TO_DCE_PANEL_CNTL(panel_cntl);
+ 	uint32_t value;
+@@ -155,7 +155,7 @@ uint32_t dce_panel_cntl_hw_init(struct panel_cntl *panel_cntl)
+ 	return current_backlight;
+ }
+ 
+-bool dce_is_panel_backlight_on(struct panel_cntl *panel_cntl)
++static bool dce_is_panel_backlight_on(struct panel_cntl *panel_cntl)
+ {
+ 	struct dce_panel_cntl *dce_panel_cntl = TO_DCE_PANEL_CNTL(panel_cntl);
+ 	uint32_t value;
+@@ -165,7 +165,7 @@ bool dce_is_panel_backlight_on(struct panel_cntl *panel_cntl)
+ 	return value;
+ }
+ 
+-bool dce_is_panel_powered_on(struct panel_cntl *panel_cntl)
++static bool dce_is_panel_powered_on(struct panel_cntl *panel_cntl)
+ {
+ 	struct dce_panel_cntl *dce_panel_cntl = TO_DCE_PANEL_CNTL(panel_cntl);
+ 	uint32_t pwr_seq_state, dig_on, dig_on_ovrd;
+@@ -177,7 +177,7 @@ bool dce_is_panel_powered_on(struct panel_cntl *panel_cntl)
+ 	return (pwr_seq_state == 1) || (dig_on == 1 && dig_on_ovrd == 1);
+ }
+ 
+-void dce_store_backlight_level(struct panel_cntl *panel_cntl)
++static void dce_store_backlight_level(struct panel_cntl *panel_cntl)
+ {
+ 	struct dce_panel_cntl *dce_panel_cntl = TO_DCE_PANEL_CNTL(panel_cntl);
+ 
+@@ -192,7 +192,7 @@ void dce_store_backlight_level(struct panel_cntl *panel_cntl)
+ 		&panel_cntl->stored_backlight_registers.LVTMA_PWRSEQ_REF_DIV_BL_PWM_REF_DIV);
+ }
+ 
+-void dce_driver_set_backlight(struct panel_cntl *panel_cntl,
++static void dce_driver_set_backlight(struct panel_cntl *panel_cntl,
+ 		uint32_t backlight_pwm_u16_16)
+ {
+ 	uint32_t backlight_16bit;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index fb167393b8fe..8f51f9cbe32a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -157,7 +157,7 @@ struct _vcs_dpi_ip_params_st dcn2_0_ip = {
+ 	.number_of_cursors = 1,
+ };
+ 
+-struct _vcs_dpi_ip_params_st dcn2_0_nv14_ip = {
++static struct _vcs_dpi_ip_params_st dcn2_0_nv14_ip = {
+ 	.odm_capable = 1,
+ 	.gpuvm_enable = 0,
+ 	.hostvm_enable = 0,
+@@ -226,7 +226,7 @@ struct _vcs_dpi_ip_params_st dcn2_0_nv14_ip = {
+ 	.number_of_cursors = 1,
+ };
+ 
+-struct _vcs_dpi_soc_bounding_box_st dcn2_0_soc = {
++static struct _vcs_dpi_soc_bounding_box_st dcn2_0_soc = {
+ 	/* Defaults that get patched on driver load from firmware. */
+ 	.clock_limits = {
+ 			{
+@@ -338,7 +338,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_0_soc = {
+ 	.use_urgent_burst_bw = 0
+ };
+ 
+-struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv14_soc = {
++static struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv14_soc = {
+ 	.clock_limits = {
+ 			{
+ 				.state = 0,
+@@ -449,7 +449,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv14_soc = {
+ 	.use_urgent_burst_bw = 0
+ };
+ 
+-struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv12_soc = { 0 };
++static struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv12_soc = { 0 };
+ 
+ #ifndef mmDP0_DP_DPHY_INTERNAL_CTRL
+ 	#define mmDP0_DP_DPHY_INTERNAL_CTRL		0x210f
+@@ -1323,7 +1323,7 @@ static struct panel_cntl *dcn20_panel_cntl_create(const struct panel_cntl_init_d
+ 	return &panel_cntl->base;
+ }
+ 
+-struct clock_source *dcn20_clock_source_create(
++static struct clock_source *dcn20_clock_source_create(
+ 	struct dc_context *ctx,
+ 	struct dc_bios *bios,
+ 	enum clock_source_id id,
 -- 
 2.27.0
 
