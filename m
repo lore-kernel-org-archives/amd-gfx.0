@@ -2,91 +2,71 @@ Return-Path: <SRS0=7Qtl=77=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 427F7C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 14:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C61F2C433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 14:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1984C20773
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 14:42:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9638920739
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 14:51:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Yv00WEyi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1984C20773
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vdjg/D02"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9638920739
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44C676E47E;
-	Thu, 18 Jun 2020 14:42:42 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFCD66E3FE
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 14:42:40 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id r7so6360783wro.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 07:42:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=pdYzXGFouE6m4FSIkgrBziaqe3C5lzqdVFEvi65td6k=;
- b=Yv00WEyiSIg66gxJEUUQwcy2Tlc1E6Wc6zvKRDzYUlRDO6iCWLetHtRbnLoDvvQlXe
- zOvWWpAvNNuvZIWHgr0fKWDsU8iNkZKTU9Ci4Vt8EkYVQUyV00qvQSrVYglPeqw2m8hn
- YqvRGf3NKI0NMSmp82ufCgdaCILt0ba9vFJX0=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57B7B6EA5E;
+	Thu, 18 Jun 2020 14:51:30 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D8E76EA5E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 14:51:29 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id t194so5964618wmt.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 07:51:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=m5rMIGz6XIEnAqRrP7LEstP0WG4sB80s9px6sB1+9a0=;
+ b=vdjg/D02yInpxWg+L1tKPZWZWf8MIm/MChdmt8WGa189CUbfOQ/e0Uw49EdGz3KV9Z
+ pi/Kg6HnjvEdn/rwvYv9orUAYBbEwoUh4v1Hj+auKwDMki9zKSPLBYV1Xh4ug+rIlAQT
+ pN5jPZh8GyULW48/O3cyt21VF9f3XsbHESl0kIUHzgggJ3XHe6loD0h0/EXwvtaHOxjq
+ bMS/nlOoxHq2E1Q5/22MBsGQVv8N53t5PqOMz+lnbzL0taSI7PaWo2DZ9YdhFEq7TzXt
+ PuCHADAHVBw4zXr7yBzwgps8xdjkOzD7w8gH8L133VMhBP31ZduyERBcRnzyNSVLf5oW
+ Y5Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=pdYzXGFouE6m4FSIkgrBziaqe3C5lzqdVFEvi65td6k=;
- b=gavpJd6EjwNXOf+GayAMMmJRrYtPdlYHmHZ+XOEa/DARDwOQDmLofMFpCWvyY9lU17
- 6MmYNd3eNmwpdILssHNvUUGX5cuEHdTnqwUScC6UJ05DCqG/pHNJ59umWddkGtVbuPKU
- 8rkdHpxSDQb32moRh6y1TezB766YdpNMKX6C2K8KWY1sKAJ6NhQa+7t8Hyu5lytvQjHE
- isApt/DYDFlddOZz2PszE3ZXnmBWwCFN01uQ4cMYXA5AhYV6mqHPMl9c9mI4koLRN/3m
- ZrzJObGOghL3X4FDYtkreDe+9v9glBVtWyEJzqAEsuZS/Vc2E+dxoQ+gFKSkeBlJ+QG6
- TQlw==
-X-Gm-Message-State: AOAM533RWreGfjFo9R1rGLJjdA8N5MSg0kO5QHfs7ASj4SE8pp7b2Tud
- n/nY4R+Ecx9+ye9SvID9UnjYFw==
-X-Google-Smtp-Source: ABdhPJxnVXjNFjlZjZjkcFFWafgkcwR6ZwnMtNAx31PJPXgT9P8/Pv/85bqfzuCJe/q/lkXd/e/Xbg==
-X-Received: by 2002:adf:cf0c:: with SMTP id o12mr4325124wrj.265.1592491359458; 
- Thu, 18 Jun 2020 07:42:39 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id g25sm3649693wmh.18.2020.06.18.07.42.37
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=m5rMIGz6XIEnAqRrP7LEstP0WG4sB80s9px6sB1+9a0=;
+ b=L3H6tk9gkYWMLTzKOFSQhXrjUA4WbSeE3jegJOmWve7m/pwYel/2OC7d0OmVoBRAuC
+ /AsSD/vq/9uIpHA6z6mIO7nyHdS1uiOicFOuv4rtKNYhxiPC4J2+lxSlS2vP+mxPOtzZ
+ qte9D5NNW2Gj0lt6dskB0h+Q3seIKbk3bHohNSZan/JIdFKC/SrCmcN6T0cbjNfnkp3m
+ AcPrgswpZ3ZuEM3mD2ZpSEVvT276fT3MG0yp/j3Bf8SGJY3nCHDAcv2pYPZLUKdtCaMq
+ 19vYElab88W/afYFI+AJrBtA0kl6gyu3TcbuyQ7KfI7Dbeo1oBLJFTfKtSCdNHzbwfbN
+ 3qEg==
+X-Gm-Message-State: AOAM530vnJ+KFi9BzNVCCFyLeJDdxPuqaIE++rpetAJL/jURXFGLe433
+ gJKo996EroT9Ya3HbRQl2MLUfz3HTgMivg==
+X-Google-Smtp-Source: ABdhPJwTko3CJfjG1J5y9Qp45gMQM+OTwUSxuOc5FQV7iUQhHgdmp/ff4/zwajunIyxsRmHkB58L8w==
+X-Received: by 2002:a7b:c345:: with SMTP id l5mr3761734wmj.31.1592491887374;
+ Thu, 18 Jun 2020 07:51:27 -0700 (PDT)
+Received: from brihaspati.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id q4sm3668900wmc.1.2020.06.18.07.51.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2020 07:42:38 -0700 (PDT)
-Date: Thu, 18 Jun 2020 16:42:36 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-Message-ID: <20200618144236.GR20149@phenom.ffwll.local>
-Mail-Followup-To: Jason Gunthorpe <jgg@ziepe.ca>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-5-daniel.vetter@ffwll.ch>
- <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
- <20200611083430.GD20149@phenom.ffwll.local>
- <20200611141515.GW6578@ziepe.ca>
- <20200616120719.GL20149@phenom.ffwll.local>
- <20200616145312.GC6578@ziepe.ca>
- <CAKMK7uER6ax1zr14xYLKqDfDZp+ycBsY9Yx7JaVkKQ849VfSPg@mail.gmail.com>
- <20200617152940.GG6578@ziepe.ca>
+ Thu, 18 Jun 2020 07:51:26 -0700 (PDT)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: remove unused functions
+Date: Thu, 18 Jun 2020 16:52:35 +0200
+Message-Id: <20200618145235.52039-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200617152940.GG6578@ziepe.ca>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,69 +78,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: nirmoy.das@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2020 at 12:29:40PM -0300, Jason Gunthorpe wrote:
-> On Wed, Jun 17, 2020 at 09:57:54AM +0200, Daniel Vetter wrote:
-> 
-> > > At the very least I think there should be some big warning that
-> > > dma_fence in notifiers should be avoided.
-> > 
-> > Yeah I'm working on documentation, and also the notifiers here
-> > hopefully make it clear it's massive pain. I think we could even make
-> > a hard rule that dma_fence in mmu notifier outside of drivers/gpu is a
-> > bug/misfeature.
-> 
-> Yep!
->
-> > Might be a good idea to add a MAINTAINERS entry with a K: regex
-> > pattern, so that you can catch such modifiers. We do already have such
-> > a pattern for dma-fence, to catch abuse. So if you want I could type
-> > up a documentation patch for this, get your and others acks and the
-> > dri-devel folks would enforce that the dma_fence_wait madness doesn't
-> > leak beyond drivers/gpu
-> 
-> It seems like the best thing
+Remove unused amdgpu_xgmi_hive_try_lock() and smu7_reset_asic_tasks().
 
-Just thought about where to best put this, and I think including it as
-another paragraph in the next round of this series makes the most sense.
-You'll get cc'ed for acking when that happens - might take a while since
-there's a lot of details here all over to sort out.
--Daniel
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c         | 5 -----
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 6 ------
+ 2 files changed, 11 deletions(-)
 
->  
-> > Oded has agreed to remove the dma-fence usage, since they really don't
-> > need it (and all the baggage that comes with it), plain old completion
-> > is enough for their use. This use is also why I added the regex to
-> > MAINTAINERS, so that in the future we can catch people who try to use
-> > dma_fence because it looks cute and useful, and are completely
-> > oblivious to all the pain and headaches involved.
-> 
-> This is good!
-> 
-> Thanks,
-> Jason 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 91837a991319..e3a3755cb999 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -144,11 +144,6 @@ static const struct amdgpu_pcs_ras_field wafl_pcs_ras_fields[] = {
+ 	 SOC15_REG_FIELD(PCS_GOPX1_0_PCS_GOPX1_PCS_ERROR_STATUS, RecoveryRelockAttemptErr)},
+ };
+ 
+-void *amdgpu_xgmi_hive_try_lock(struct amdgpu_hive_info *hive)
+-{
+-	return &hive->device_list;
+-}
+-
+ /**
+  * DOC: AMDGPU XGMI Support
+  *
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index 2c9cac8c170c..ffe05b7cc1f0 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -1548,12 +1548,6 @@ static int smu7_disable_dpm_tasks(struct pp_hwmgr *hwmgr)
+ 	return result;
+ }
+ 
+-int smu7_reset_asic_tasks(struct pp_hwmgr *hwmgr)
+-{
+-
+-	return 0;
+-}
+-
+ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
+ {
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.27.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
