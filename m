@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F99C433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 01:15:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F86C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 01:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3ACEF2193E
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 01:15:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3DF5C21D79
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 01:21:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnVJ46bF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3ACEF2193E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0pG6APA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DF5C21D79
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD9F6EA38;
-	Thu, 18 Jun 2020 01:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA536EA4D;
+	Thu, 18 Jun 2020 01:21:24 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E376E388;
- Thu, 18 Jun 2020 01:15:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFB86EA4B;
+ Thu, 18 Jun 2020 01:21:23 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B7BD4221ED;
- Thu, 18 Jun 2020 01:15:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 10C8B20CC7;
+ Thu, 18 Jun 2020 01:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442910;
- bh=21amvfPGX3hDybz2dRXi+ckX1IpZeShBQQLLp7v3wQM=;
+ s=default; t=1592443282;
+ bh=Cub4vj9nLqVHK+vP9cLZf3O/SAGabxVQiO5LtqWPr3Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DnVJ46bFKVS9PRyMS+MKqgFFv5Rw74IdNnUMm10xMfvfX5WC9QrMGTwvNjMFnbDhK
- smKe97Zets8J4ysvnBx51cu+8G+XqeenZNAFgoFXBdjOb/O6dqYAt7D1/TqbtbA+i9
- ZnyaGJ5TOmosZ91oytSH6P2AEzud+yqOTSDM22mI=
+ b=C0pG6APArivPVS1UhMa9kylHSmrRtNWZuVYdwW927Evr9PoDOS4LcsiQeq4QtU+FO
+ 2V2TGK8H4mZ5H/oQ4HwBPgS6Se2vveXFnuYkfp+4gADmRL9w8dBpXy1M5eQKMTVl9i
+ 1+un2skuDuMYT2V3TCOGI+/C8zKGlbiSNpCuEMUA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 329/388] drm/amd/display: Revalidate bandwidth
+Subject: [PATCH AUTOSEL 5.4 226/266] drm/amd/display: Revalidate bandwidth
  before commiting DC updates
-Date: Wed, 17 Jun 2020 21:07:06 -0400
-Message-Id: <20200618010805.600873-329-sashal@kernel.org>
+Date: Wed, 17 Jun 2020 21:15:51 -0400
+Message-Id: <20200618011631.604574-226-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
-References: <20200618010805.600873-1-sashal@kernel.org>
+In-Reply-To: <20200618011631.604574-1-sashal@kernel.org>
+References: <20200618011631.604574-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -107,10 +108,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 47431ca6986d..4a619328101c 100644
+index 2028dc017f7a..b95a58aa82d9 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2517,6 +2517,12 @@ void dc_commit_updates_for_stream(struct dc *dc,
+@@ -2230,6 +2230,12 @@ void dc_commit_updates_for_stream(struct dc *dc,
  
  	copy_stream_update_to_stream(dc, context, stream, stream_update);
  
