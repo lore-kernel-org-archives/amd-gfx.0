@@ -3,65 +3,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_LOW_CONTRAST,HTML_MESSAGE,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F1A6C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 08:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0C79C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 08:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF38D2085B
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 08:25:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 65CE4204EA
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 08:32:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uUwN5m6j"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF38D2085B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZGQ6H+NF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65CE4204EA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B4E6E3A6;
-	Thu, 18 Jun 2020 08:25:17 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF8FB6E3A6
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 08:25:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDCD6EB0E;
+	Thu, 18 Jun 2020 08:32:00 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770042.outbound.protection.outlook.com [40.107.77.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0996EB0E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 08:31:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i+0LZoVGXEz+4FcAtIwkqAoZR0AGroZ+vz5vju18sFtI/YSxGL+37zPUJcEyAhQvG02tIRQPtYKoo/h1BMdaek+c69hb6NZlTCk58t2XJU1oj4QHt2+Pw30uStBBBg/4rkMFt/GoXtCFZOB/eomI/wvQ6s1gdRxYpg1nG7rWYzrOiqDcwnahcQgeZafRzHw7eF7EpATAQmtD6ksCUZ+i8+ZKxTRmNnugLTiU5/yETAZ9RyKP0HeJL5YkOdaYsF5QqLhjNtKkWSLw+cklUtn2yMnh4D3ZKjE7EnpndoeRY7EmSiwqEoKVhREhse+8Y7iM35nPABl7UZ50gvJGnsOVaA==
+ b=QD+9CUIz6WTeRBwWV9riQQtKadaS4/w6nRWPwaBFMj2DSaKTtuhTZ0dAxJHFy4Gt/Bz9ZJWxXlTZ2/VNUu/sJSCnwwS3YkhIovG0xdKnf39FQz6EZyACV/J6R0ya/vCniWBo/CtnFBerikdz/jumhtM+I/M4q12/DDu9fdNfS752p3C/czw8s8NSC1h2Wwu0vVN20cvxOA2Vi+hw7PN7+Gytd8MzGA/2NGY1rFYanpQ67LAerR2NZv+NYc8tJkQwn/QK+oZKT1BYpgiwlwC5yziBikkIeIYrZJ8bHIpMYKZxmMdKcJEU1+uqxnvyvsRcb0HbYuvkNAhPF0MgvxWxTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zv1VmAwvS2Bj+hVm6dfWiI4ZNebI4cA7ANEbDA/cYNk=;
- b=dwCHPDHdDVUt9AvUA9MLnoJXr08iBAzoo3vaViPxrTQjOhDp1L2/lG0bzTCYci4RGF5q0LOEqIztwlKgTsGCO26bXqVNq+kuZDZVA9rKZzZjodXnFWY4KmKBZ63JqCEHWmI0M+7oNYuCcFfo7TAhNdUVgdcE3MvSGOpTv4BUckq2b7SI2AdL40MkKOsdC05vvLT++afza4XmlkjsCioXM1HHjDQOjFslQOCIPoy9AqKU1oUWFHjComSnG5cuAVWLqNpGV91RLfDlPDsivYjQX6AA5NJVTcH9qwLXl8WcD2hVPWlzDzZ0bcSTgJC7IWt8vJqEqAuXJ24hFohSNLbBzA==
+ bh=8pU2EfZBoeBlvGzZjZ4ZoEyhyLDU8GfvbVqMRbi4IXI=;
+ b=TVrVAIhYt9+Fi/PNck2/zKAR5sFnjp4k/3Uwe1uCccfVp5bmJ9M4lGX0qnKfz450gjSaoOliBTsR8VMaFFFB/fu+Rrn078HSM46VEP0J0cf1m0CzlpMX/PBKd2uGvEsDqva8OBnUCXbrw9Cnf+70DlASuBYqkyvbq8IV7cfR1ndsPc91ghwpN7PNmz0QrwVDYb9lCFoKX8gbQy7A2r5prf4K0USH0UN7IiouoSwmcmdUeZqluC6+qsBsV6wkNEUbiZYSU8D1Jgra7LyPuqZP95rgleqRqW5E0BjvWarFK1rckiUidxmiWP6T+RRQdbrIloKhD9YLYaSw1Whu3zSuHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zv1VmAwvS2Bj+hVm6dfWiI4ZNebI4cA7ANEbDA/cYNk=;
- b=uUwN5m6j9/7aw/coZoK9i1RHiMu45/hk530Y6KPPPNGOCDxVjzcCB8u8ALbw6F/Nm5siR9WiVAffC1gooYh9JyM7KYLzHkaPG62rW4635o31eO14keIwYPPsWnGn7pkB7FtEkZaO75TJpRCwxZ6AfTOw3UQbi6AI1tsKB2QJTW0=
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
- by MN2PR12MB3200.namprd12.prod.outlook.com (2603:10b6:208:102::22)
+ bh=8pU2EfZBoeBlvGzZjZ4ZoEyhyLDU8GfvbVqMRbi4IXI=;
+ b=ZGQ6H+NFeNKZXmr5TuygME0RKJS6FXVajp4wIYoX1WhdbvqM7dzM8tgy0TC782oCFNQF+pWzQEyyLeBnEV22suNfjOjPSAU8pSz9ZNf1wYi0ZAjQY90IJqbttPhab8TCr9gwvLrcxtzxzJ6mwfEsqYf+nEYRuPkrgRxpZIcxcHI=
+Received: from CH2PR12MB4101.namprd12.prod.outlook.com (2603:10b6:610:a8::22)
+ by CH2PR12MB3685.namprd12.prod.outlook.com (2603:10b6:610:2d::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Thu, 18 Jun
- 2020 08:25:10 +0000
-Received: from MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::493c:9d42:501b:59d6]) by MN2PR12MB3022.namprd12.prod.outlook.com
- ([fe80::493c:9d42:501b:59d6%3]) with mapi id 15.20.3109.021; Thu, 18 Jun 2020
- 08:25:10 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21; Thu, 18 Jun
+ 2020 08:31:56 +0000
+Received: from CH2PR12MB4101.namprd12.prod.outlook.com
+ ([fe80::b9c2:5b76:382a:c5d]) by CH2PR12MB4101.namprd12.prod.outlook.com
+ ([fe80::b9c2:5b76:382a:c5d%9]) with mapi id 15.20.3109.021; Thu, 18 Jun 2020
+ 08:31:56 +0000
+From: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0
+Subject: RE: [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0
 Thread-Topic: [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0
-Thread-Index: AQHWRUWyyxt0twhDmECVwlQ36PPmrajeCMCJ
-Date: Thu, 18 Jun 2020 08:25:10 +0000
-Message-ID: <MN2PR12MB3022D32C41B32F413AEFF151A29B0@MN2PR12MB3022.namprd12.prod.outlook.com>
+Thread-Index: AQHWRUWMsrD0hnyo5UetOo3mKoC9V6jeCWoAgAAAzGA=
+Date: Thu, 18 Jun 2020 08:31:55 +0000
+Message-ID: <CH2PR12MB4101B7B650649CADE1501E6A8C9B0@CH2PR12MB4101.namprd12.prod.outlook.com>
 References: <20200618075307.3721-1-Wenhui.Sheng@amd.com>,
  <20200618075307.3721-2-Wenhui.Sheng@amd.com>
-In-Reply-To: <20200618075307.3721-2-Wenhui.Sheng@amd.com>
-Accept-Language: en-US, zh-CN
+ <MN2PR12MB3022D32C41B32F413AEFF151A29B0@MN2PR12MB3022.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB3022D32C41B32F413AEFF151A29B0@MN2PR12MB3022.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -72,35 +73,45 @@ msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
  Distribution
  Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-06-18T08:31:44Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 7e347923-95a7-438d-adb1-0000fc3ff440
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_justification: I confirm the recipients are approved for sharing this
+ content
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.246.142.66]
+x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 424b107c-b73a-4c55-e232-08d813611daa
-x-ms-traffictypediagnostic: MN2PR12MB3200:
+x-ms-office365-filtering-correlation-id: 321c232d-d18f-4de0-7a8a-08d813620f79
+x-ms-traffictypediagnostic: CH2PR12MB3685:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB320079750993814C49939CF8A29B0@MN2PR12MB3200.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
+x-microsoft-antispam-prvs: <CH2PR12MB36857372C2B4610553B875058C9B0@CH2PR12MB3685.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-forefront-prvs: 0438F90F17
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bQexLnZBX4ipjHTnrE2eKMOM+GEjvvxywO8GNuzFUzdupLEtVo/6AwsXQg/BL0HNMqfLlQ+ExExdy6D4RUTC6xuWQ0Sn44tMBP4c6++zButhHHuLZ4jSBqhitb2EqmAHZ2go6haUaLwJeBF0Jy7WQXbcay2mRJbd+DF4Y9D4JLXTZt9jnCULHme4SHgI3Bj9dU3kDZfz3A++jpRhBgsf+sM/bwUOrpDHIwMpnKqCoZfYpPoRjpbNmgyqBHzgfB9LmlXbpbG05kPcMacJFrJateqMc7HXrLgRNG4zOP37C3Bl4eY0lAIQLAlBRq708k9TlvPXLeVpK6MizWru+MHk/jF/dQDW3MjqB7Krstcg9O8=
+x-microsoft-antispam-message-info: VPR34myVof6KYkmdJXNNUgtNS/4bvPgSu/414OL9sPQZX/Q4ZYFPOaQRtmEGPmx7YVHjEe23jaODrwIZ1/PWSQ56q8zqehWDtI2pU9oK9a6dGQu6bW6DP+gzWBUejqQcX2wqd/bhYGzuP+351qgoWmAO+j9Swd0AuPGQhhtFkXnb9Qva3YfhEqGAg9q9fbz8tHw1wtRDj/J4rkGXwWPsE17kRU+xQPoFzGxAR95uyF5AU1QY1IAcPFDJBzOkTZIbfPhM+3ANaVlr7unIUq6QSxL0vR2VXPBQap7SEHKhc/zeVLNibQFrTEulx7yTZNFkQD2ix7vaxZSv2HSF0A6G4F8ul75aNU9/o3bZR7hj8T4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(366004)(376002)(136003)(346002)(396003)(2906002)(26005)(966005)(7696005)(55016002)(186003)(66946007)(33656002)(110136005)(5660300002)(316002)(76116006)(66476007)(91956017)(64756008)(9686003)(66556008)(66446008)(53546011)(6506007)(478600001)(45080400002)(52536014)(166002)(83380400001)(8676002)(8936002)(71200400001)(86362001)(19627405001);
+ SFS:(4636009)(39860400002)(396003)(136003)(376002)(346002)(366004)(66476007)(66946007)(5660300002)(45080400002)(64756008)(66446008)(66556008)(86362001)(8676002)(76116006)(7696005)(2906002)(55016002)(9686003)(33656002)(186003)(6506007)(53546011)(71200400001)(26005)(83380400001)(966005)(166002)(478600001)(316002)(110136005)(52536014)(8936002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: lezXad+d3yvx6V7gMCA9t339ZLutmZ8BlU+ESr5v8V/vWmfEMP/K0nrSrEpU53VOUf55+pkpa+6eGag5X4YvA5oAhqNN9lA/GjtjhP+SP3RCpcdJOXQ5OpFZNzI2Q37D2XGxwpF7sRy+Z4gEsIExMxifYqJdaiBisjK7A7ssROL4J7bbySWoxFAbBgev1U3X+0mWVUhUUG5JKXyrryUC0a13Qybf34+LmE+vOYSMl83aUr74ux+HWN8qN2JmRUQ26sa34hz1VosUbLs3wpmCGCMlhfd320Gfjuuw8UUgWUvHftyPcVP1PhIcRCrgNKcbwbKB1fzOXh0UXcV5EzyQ0HztyLrLRp2QqyJJ3JJEiCTyJE70s5lpgrrwni7OAy4k62jpGxIAnb8pr3vzfxuRdm02l0H0iNcTXkuj991avStPV+hn9STdnkSEGTw3YBU9rkBsfjaYwR6BXwpTo38ZXTcVFZ2hqKsDDK3cQQ9fMB0=
+x-ms-exchange-antispam-messagedata: rgLXpi/HIaEkj+9gyhWtWlwjTT93T3vh5MLl8LNdGvBi1HVUBlAF2cM59jjJ3b69qcQ+Mvxd93t3zXxZUV3xFSDZJWZhQZlv3XUS5ZZNaTyg7q3Cp5/DnXxqqqDHpIrEdc4QhIHuIBdbg7X4g3R0ZqLi2Dhdhysv/VPmrQUxiQ95fhVroSwL7XAzR1Ti4WfTcc8foA2pBSmj0dkBxnBaNmrQroTnQHZqlDGb1qSdM9ImvvLJFi4fLJkjYxbRR+p2dZ+GQUMfiolPtHxtyFF2jrptq4BFCt3J7/7eUpdDHBmrEnPrHHkHEm/IoH2keyvSsqJMU0HAJGuMV1wNJjQU/b5/9fkNLGxKC8p5LnPS/NFby3dOXgkAPdfpA4jDc7cYwF4xm779mWVsRbYirGll2HOM4hzGLMRArjSK5zrfZr9Whbltf6CUxe3HsL58kVMoDWijMR46RyEVZRFrRx3naq7e9jGgo50zcR6/FFgjYsbDEgDPTUdAMEb0kNvL3c+W
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 424b107c-b73a-4c55-e232-08d813611daa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2020 08:25:10.2129 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 321c232d-d18f-4de0-7a8a-08d813620f79
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2020 08:31:55.8564 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 21851qsFTbmW2DG27vvtYPnLX+eHYA++ieXKndBIanpMQP6S0iPuNooAYeSbnQ9i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3200
+X-MS-Exchange-CrossTenant-userprincipalname: dQL1VOE0T9Ye9xJ0uzTZ+MxJEwsJNSC+g0WLzMmx5efCG+DdBzwGu6JQZ6uW+RP0eeSgsMR0rJs6dFCdTzGzAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3685
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,34 +123,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1706938194=="
+Content-Type: multipart/mixed; boundary="===============0322095082=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1706938194==
+--===============0322095082==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3022D32C41B32F413AEFF151A29B0MN2PR12MB3022namp_"
+	boundary="_000_CH2PR12MB4101B7B650649CADE1501E6A8C9B0CH2PR12MB4101namp_"
 
---_000_MN2PR12MB3022D32C41B32F413AEFF151A29B0MN2PR12MB3022namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_CH2PR12MB4101B7B650649CADE1501E6A8C9B0CH2PR12MB4101namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Although we know that release_firmware has null check, but the code is not =
+maintained by ourselves, so I think it's much more safe to add null  check =
+before invoke release_firmware.
+
+
+Brs
+Wenhui
+From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
+Sent: Thursday, June 18, 2020 4:25 PM
+To: Sheng, Wenhui <Wenhui.Sheng@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0
+
 
 [AMD Official Use Only - Internal Distribution Only]
 
 
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Wenhui S=
-heng <Wenhui.Sheng@amd.com>
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Wenhui Sheng <Wenhui.Sheng@amd.com<ma=
+ilto:Wenhui.Sheng@amd.com>>
 Sent: Thursday, June 18, 2020 3:53 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Sheng, Wenhui <Wenhui.Sheng@amd.com>
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Sheng, Wenhui <Wenhui.Sheng@amd.com<mailto:Wenhui.Sheng@amd.com>>
 Subject: [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0
 
 sdma v5_0 fw isn't released when module exit
 
-Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
+Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com<mailto:Wenhui.Sheng@amd.c=
+om>>
 ---
  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
@@ -171,57 +203,155 @@ i think the patch don't need to double check it.
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
 reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CKevin1.W=
 ang%40amd.com%7Cd0b8b72e0be443a7343d08d8135cb093%7C3dd8961fe4884e608e11a82d=
 994e183d%7C0%7C0%7C637280636699912801&amp;sdata=3DHrKVAmRO0HKFZBRG6oWq3thNl=
 GBd0T9bMramDU1ijys%3D&amp;reserved=3D0
 
---_000_MN2PR12MB3022D32C41B32F413AEFF151A29B0MN2PR12MB3022namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_CH2PR12MB4101B7B650649CADE1501E6A8C9B0CH2PR12MB4101namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+p.msipheadera92e061b, li.msipheadera92e061b, div.msipheadera92e061b
+	{mso-style-name:msipheadera92e061b;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-compose;
+	font-family:"Arial",sans-serif;
+	color:#0078D7;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
 ign=3D"Left">
 [AMD Official Use Only - Internal Distribution Only]<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+<div class=3D"WordSection1">
+<p class=3D"msipheadera92e061b" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Although we know that release_firmware has null chec=
+k, but the code is not maintained by ourselves, so I think it&#8217;s much =
+more safe to add null &nbsp;check before invoke release_firmware.<o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Brs<o:p></o:p></p>
+<p class=3D"MsoNormal">Wenhui<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.c=
+om&gt; <br>
+<b>Sent:</b> Thursday, June 18, 2020 4:25 PM<br>
+<b>To:</b> Sheng, Wenhui &lt;Wenhui.Sheng@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0<o:=
+p></o:p></p>
 </div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
 </div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Wenhui Sheng &lt;Wenhui.Sheng=
-@amd.com&gt;<br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#0078D7">[AMD Official Use Only - Internal D=
+istribution Only]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf o=
+f Wenhui Sheng &lt;<a href=3D"mailto:Wenhui.Sheng@amd.com">Wenhui.Sheng@amd=
+.com</a>&gt;<br>
 <b>Sent:</b> Thursday, June 18, 2020 3:53 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Sheng, Wenhui &lt;Wenhui.Sheng@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0</font>
-<div>&nbsp;</div>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Sheng, Wenhui &lt;<a href=3D"mailto:Wenhui.Sheng@amd.com">Wenhui=
+.Sheng@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: add fw release for sdma v5_0</span>=
+ <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">sdma v5_0 fw isn't released when module exit<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">sdma v5_0 fw isn't released when module exit<br>
 <br>
-Signed-off-by: Wenhui Sheng &lt;Wenhui.Sheng@amd.com&gt;<br>
+Signed-off-by: Wenhui Sheng &lt;<a href=3D"mailto:Wenhui.Sheng@amd.com">Wen=
+hui.Sheng@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 6 &#43;&#43;&#43;&#43;&#43;-=
 <br>
@@ -245,18 +375,21 @@ a.num_instances; i&#43;&#43;) {<br>
 p;&nbsp;&nbsp; if (adev-&gt;sdma.instance[i].fw !=3D NULL)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release_firm=
-ware(adev-&gt;sdma.instance[i].fw);</div>
-<div class=3D"PlainText"><span style=3D"font-family: calibri, arial, helvet=
-ica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0); background-color: rg=
-ba(0, 0, 0, 0);">[kevin]:</span><br>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: rgb(0, 0, 0)">
-the kernel api &quot;release_firmware()&quot; will check argument (is NULL =
-pointer).</div>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: rgb(0, 0, 0)">
-i think the patch don't need to double check it.</div>
-&#43;<br>
+ware(adev-&gt;sdma.instance[i].fw);<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">[kevin]=
+:</span><o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">the ker=
+nel api &quot;release_firmware()&quot; will check argument (is NULL pointer=
+).<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">i think=
+ the patch don't need to double check it.<o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal">&#43;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_fini(&amp;adev-&gt;sdma.instance[i].ring)=
 ;<br>
@@ -269,7 +402,8 @@ sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_fini(&amp;adev-&gt;sdma.instance[i].ring)=
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
 F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
 7C01%7CKevin1.Wang%40amd.com%7Cd0b8b72e0be443a7343d08d8135cb093%7C3dd8961fe=
@@ -279,16 +413,18 @@ RO0HKFZBRG6oWq3thNlGBd0T9bMramDU1ijys%3D&amp;amp;reserved=3D0">https://nam1=
 rg%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CKevin1.Wang%40am=
 d.com%7Cd0b8b72e0be443a7343d08d8135cb093%7C3dd8961fe4884e608e11a82d994e183d=
 %7C0%7C0%7C637280636699912801&amp;amp;sdata=3DHrKVAmRO0HKFZBRG6oWq3thNlGBd0=
-T9bMramDU1ijys%3D&amp;amp;reserved=3D0</a><br>
+T9bMramDU1ijys%3D&amp;amp;reserved=3D0</a><o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB3022D32C41B32F413AEFF151A29B0MN2PR12MB3022namp_--
+--_000_CH2PR12MB4101B7B650649CADE1501E6A8C9B0CH2PR12MB4101namp_--
 
---===============1706938194==
+--===============0322095082==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -299,4 +435,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1706938194==--
+--===============0322095082==--
