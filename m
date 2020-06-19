@@ -2,101 +2,71 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69A90C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D922BC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:32:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A5D920FC3
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AAF4620890
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:32:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vF2vNT/i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A5D920FC3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PDKNjrWE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAF4620890
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2BE389EB1;
-	Fri, 19 Jun 2020 20:13:41 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2608F89EB1
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:13:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kxTdG7Lom2XqFCfjBc594N7lMNaqDWxCyWV3XX04Xjdsvqq6IK45M2FyrP2lM9ETVYvYeU6tUcci8RnsFF4GydR+MOG8M8lrsN05TrZ6v4EkR0ik7nKdOTwBsO/MPODlbJ4M71HxiZCbJTh4esBFGcbtanPMldHWD9h3rpdXPC1/URK6yXMZbOArvvULwUa6IwlzSbCPLA1cz4h/fNmUEnyrqc4jkk9fdfhvpj7s3+Ao/yplAl9ZMvHccCCdgV88evkN0upLCGctdCJVkVJeNQPKY4oSeaaiN3gIk+GGRbBXkpzCHv++r+Ogm23rYFq1lQNMYQfIVT5W5X6HoUNxSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nhg4/3UthTc8Ci3+PwQ7+oPCaOJvsNusrwhzCM6K3Es=;
- b=f4yPBBh2YbwAguuctQ3S30I0cgCYTOI1YL7k8F93VdhypyERdbMyRZ9pkNdU60dvYKIMT+AkLqiZ2+ctVTtPhAXj7s5+Om5tHIOstY5CIGPRZxgxXY3qvBA/bhCIaMbfbDJz5cG7MLrT4YEEzsSyakzbPGqpjLsY+Tl0IWziy6bJrYXLHBY9OPOoOU2CUyfWFWkF+NAW2wkqU46R8LPV27fo5pU6RlNMH3kgjTGTvf9SBaweZ+UMgiu0GWEAQGnZRuMf4Vz3LZQ+7xuUW/N3eSzbjfOHLyjhT9f+3bFxOoXOnTfdx0w7DjoasTrWT0MZteLRn0id1EtufEaFFBlkgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nhg4/3UthTc8Ci3+PwQ7+oPCaOJvsNusrwhzCM6K3Es=;
- b=vF2vNT/iFWlaa8JTpFGyV5WopcXp6AB+MKVfsBzTDN/WHfa2bUZzYqCO9X6a7JBD/QXBsq8MVymch7txf8/3B/TzmI8HdZdWdjuMu6wxRIucZY1SvV3OrAZua+YSGaeGk8q9Ar374QgogXgsu9I8CN5YdNw8kDofZn3NEiY/720=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
- by CH2PR12MB3717.namprd12.prod.outlook.com (2603:10b6:610:24::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Fri, 19 Jun
- 2020 20:13:39 +0000
-Received: from CH2PR12MB4198.namprd12.prod.outlook.com
- ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
- ([fe80::812c:cc72:6d14:9580%8]) with mapi id 15.20.3109.021; Fri, 19 Jun 2020
- 20:13:39 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 30/30] drm/amd/display: 3.2.91
-Date: Fri, 19 Jun 2020 16:12:22 -0400
-Message-Id: <20200619201222.2916504-31-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
-References: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
-X-ClientProxiedBy: YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::37) To CH2PR12MB4198.namprd12.prod.outlook.com
- (2603:10b6:610:7e::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5886EA50;
+	Fri, 19 Jun 2020 20:32:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75EDE6EA61
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1592598748;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MZZFlS2lzexZcWJLtzbL34zsSkKE8BItNhmdhhu4K0=;
+ b=PDKNjrWEZlMKqgNK15Okn7Rw9gubZmEvjefP6RgD+NvEllaAbygmg2ipgBNEeFhhagrAFi
+ RxfM51gx2Zpvwmkja3e0DtmPEGbuVav29EBY9RUsiO39Svf5Ygshc99NsEoOODVsyIVMEc
+ Ks9UM6m/xm3hMT0OsbTIwduxJbwF4NQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-6-1iFxF6w7NlWEkZxAuvaRDQ-1; Fri, 19 Jun 2020 16:32:21 -0400
+X-MC-Unique: 1iFxF6w7NlWEkZxAuvaRDQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6E422871254;
+ Fri, 19 Jun 2020 20:31:52 +0000 (UTC)
+Received: from redhat.com (ovpn-112-200.rdu2.redhat.com [10.10.112.200])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EE21810002B5;
+ Fri, 19 Jun 2020 20:31:48 +0000 (UTC)
+Date: Fri, 19 Jun 2020 16:31:47 -0400
+From: Jerome Glisse <jglisse@redhat.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+Message-ID: <20200619203147.GC13117@redhat.com>
+References: <CAKMK7uEbqTu4q-amkLXyd1i8KNtLaoO2ZFoGqYiG6D0m0FKpOg@mail.gmail.com>
+ <20200619113934.GN6578@ziepe.ca>
+ <CAKMK7uE-kWA==Cko5uenMrcnopEjq42HxoDTDywzBAbHqsN13g@mail.gmail.com>
+ <20200619151551.GP6578@ziepe.ca>
+ <CAKMK7uEvkshAM6KUYZu8_OCpF4+1Y_SM7cQ9nJWpagfke8s8LA@mail.gmail.com>
+ <20200619172308.GQ6578@ziepe.ca>
+ <20200619180935.GA10009@redhat.com>
+ <20200619181849.GR6578@ziepe.ca>
+ <56008d64-772d-5757-6136-f20591ef71d2@amd.com>
+ <20200619195538.GT6578@ziepe.ca>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56a0:f5c::9) by
- YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:13:08 +0000
-X-Mailer: git-send-email 2.27.0
-X-Originating-IP: [2607:fea8:56a0:f5c::9]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 79d52d7b-8e1d-463b-ab0c-08d8148d2efa
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3717:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB37173550220CD75627FB32E598980@CH2PR12MB3717.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
-X-Forefront-PRVS: 0439571D1D
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z08esFwxGOVOh0HNmak1Vw30Ll78DdB1lH46VYxwMrex+e336d2yaOvKQoKow+B7hnaQybi/wpxT7Q85pRPDnlyvh94N3EDZAu6k1B/IW+YCe3PSGdylFx0M8BR2A5KcImnEJ0W7Vn2JP9ztGBcrAhF3QJNgUSGtlt9CPaGRqfXEubQCh2NAN0GhB0CY7QsYJNGcI2A+1eVrSj3r+5Iffkjzy6ceZI0cK4/Kut/GvZsbaaM5pND6DgzRDk33AGg7o612frRJuGqmIQ2fsFAHT2hIVxR/D3VESRxQfFXiiiiRmvIjbW8o1IFYoWK/ZOT7WaW2r/UkWZQZTpGFHRGUmA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(366004)(5660300002)(66476007)(16526019)(86362001)(6916009)(83380400001)(478600001)(66556008)(66946007)(8676002)(6512007)(1076003)(6666004)(6506007)(4326008)(52116002)(8936002)(2906002)(316002)(6486002)(36756003)(186003)(2616005)(4744005)(54906003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: KzHEqgqVHNdCTK/dP9mDgT66mWYUk++M/3JIN66WWAZyoJOl0P8Vmfew+pDy0PogkThlwrgaZZalKuVB6HGFdkxZejJrCv5mQi8GAnehuMphbFZKZd0fhVaggHCaHeFiWgUW4EORQrci3W26sPUVNvCR0mpf8/3egtMk31B5UmlOTT3bxfBIxWejPtqDUnhGMHDobJJU5Fed1uRGttVDbTH9DVtBKU+YQcnLE2ljoXBrpc8+KY5rw6D1K/xt+Tdae92In3dr9U9BhEZMFWa61cWDy3JDZA0EhxqcX3WBCw2y0JoTh86FLy6PMn7Bx3D0FVzOSNN01UIHzNRkdJVqwOA7gePUtC88bLVHrDkFMqK6PizHgejKz7ZT8nVMK6uSW8vlliJuEoZBECq9fWM0p0UfUCK/c1qb6GzP7pFQv5RMTe5mOaxXVURFuR7wH+M9+jRr6Hbxk3w4I6kxTB9fFVSMmdbZU58F7a/ETvHPEEW0loW6XUQtK10Zke3vB9CKrai+p2K9zQEUv5RpnPOWig==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79d52d7b-8e1d-463b-ab0c-08d8148d2efa
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:13:08.6349 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: stzL5Vx72HZAluOTH53+nKgLXEvdCrTcwIWXwulUse5p/KMkhtQhDaebkKxtMxsz6IIT8s9nAe8wYfOw3tVoVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3717
+Content-Disposition: inline
+In-Reply-To: <20200619195538.GT6578@ziepe.ca>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,38 +78,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Mika Kuoppala <mika.kuoppala@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+On Fri, Jun 19, 2020 at 04:55:38PM -0300, Jason Gunthorpe wrote:
+> On Fri, Jun 19, 2020 at 03:48:49PM -0400, Felix Kuehling wrote:
+> > Am 2020-06-19 um 2:18 p.m. schrieb Jason Gunthorpe:
+> > > On Fri, Jun 19, 2020 at 02:09:35PM -0400, Jerome Glisse wrote:
+> > >> On Fri, Jun 19, 2020 at 02:23:08PM -0300, Jason Gunthorpe wrote:
+> > >>> On Fri, Jun 19, 2020 at 06:19:41PM +0200, Daniel Vetter wrote:
+> > >>>
+> > >>>> The madness is only that device B's mmu notifier might need to wait
+> > >>>> for fence_B so that the dma operation finishes. Which in turn has =
+to
+> > >>>> wait for device A to finish first.
+> > >>> So, it sound, fundamentally you've got this graph of operations acr=
+oss
+> > >>> an unknown set of drivers and the kernel cannot insert itself in
+> > >>> dma_fence hand offs to re-validate any of the buffers involved?
+> > >>> Buffers which by definition cannot be touched by the hardware yet.
+> > >>>
+> > >>> That really is a pretty horrible place to end up..
+> > >>>
+> > >>> Pinning really is right answer for this kind of work flow. I think
+> > >>> converting pinning to notifers should not be done unless notifier
+> > >>> invalidation is relatively bounded. =
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > >>>
+> > >>> I know people like notifiers because they give a bit nicer performa=
+nce
+> > >>> in some happy cases, but this cripples all the bad cases..
+> > >>>
+> > >>> If pinning doesn't work for some reason maybe we should address tha=
+t?
+> > >> Note that the dma fence is only true for user ptr buffer which preda=
+te
+> > >> any HMM work and thus were using mmu notifier already. You need the
+> > >> mmu notifier there because of fork and other corner cases.
+> > > I wonder if we should try to fix the fork case more directly - RDMA
+> > > has this same problem and added MADV_DONTFORK a long time ago as a
+> > > hacky way to deal with it.
+> > >
+> > > Some crazy page pin that resolved COW in a way that always kept the
+> > > physical memory with the mm that initiated the pin?
+> > >
+> > > (isn't this broken for O_DIRECT as well anyhow?)
+> > >
+> > > How does mmu_notifiers help the fork case anyhow? Block fork from
+> > > progressing?
+> > =
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index ceba626bda2f..f7cb1354a635 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -42,7 +42,7 @@
- #include "inc/hw/dmcu.h"
- #include "dml/display_mode_lib.h"
- 
--#define DC_VER "3.2.90"
-+#define DC_VER "3.2.91"
- 
- #define MAX_SURFACES 3
- #define MAX_PLANES 6
--- 
-2.27.0
+> > How much the mmu_notifier blocks fork progress depends, on quickly we
+> > can preempt GPU jobs accessing affected memory. If we don't have
+> > fine-grained preemption capability (graphics), the best we can do is
+> > wait for the GPU jobs to complete. We can also delay submission of new
+> > GPU jobs to the same memory until the MMU notifier is done. Future jobs
+> > would use the new page addresses.
+> > =
+
+> > With fine-grained preemption (ROCm compute), we can preempt GPU work on
+> > the affected adders space to minimize the delay seen by fork.
+> > =
+
+> > With recoverable device page faults, we can invalidate GPU page table
+> > entries, so device access to the affected pages stops immediately.
+> > =
+
+> > In all cases, the end result is, that the device page table gets updated
+> > with the address of the copied pages before the GPU accesses the COW
+> > memory again.Without the MMU notifier, we'd end up with the GPU
+> > corrupting memory of the other process.
+> =
+
+> The model here in fork has been wrong for a long time, and I do wonder
+> how O_DIRECT manages to not be broken too.. I guess the time windows
+> there are too small to get unlucky.
+
+This was discuss extensively in the GUP works John have been doing.
+Yes O_DIRECT can potentialy break but only if you are writting to
+COW pages and you initiated the O_DIRECT right before the fork and
+GUP happen before fork was able to write protect the pages.
+
+If you O_DIRECT but use memory as input ie you are writting the
+memory to the file not reading from the file. Then fork is harmless
+as you are just reading memory. You can still face the COW uncertainty
+(the process against which you did the O_DIRECT get "new" pages but your
+O_DIRECT goes on with the "old" pages) but doing O_DIRECT and fork
+concurently is asking for trouble.
+
+> =
+
+> If you have a write pin on a page then it should not be COW'd into the
+> fork'd process but copied with the originating page remaining with the
+> original mm.
+> =
+
+> I wonder if there is some easy way to achive that - if that is the
+> main reason to use notifiers then it would be a better solution.
+
+Not doable as page refcount can change for things unrelated to GUP, with
+John changes we can identify GUP and we could potentialy copy GUPed page
+instead of COW but this can potentialy slow down fork() and i am not sure
+how acceptable this would be. Also this does not solve GUP against page
+that are already in fork tree ie page P0 is in process A which forks,
+we now have page P0 in process A and B. Now we have process A which forks
+again and we have page P0 in A, B, and C. Here B and C are two branches
+with root in A. B and/or C can keep forking and grow the fork tree.
+
+Now if read only GUP on P0 happens in C (or B everything is symetrical in
+respect to root A) then P0 might not be the page that is in C after the
+GUP ie if something in C write to the virtual address corresponding to P0
+then a new page might get allocated and the virtual address will no longer
+point to P0 for C.
+
+Semantic was change with 17839856fd588f4ab6b789f482ed3ffd7c403e1f to some
+what "fix" that but GUP fast is still succeptible to this.
+
+Note that above commit only address the GUP after/while forking. GUP
+before fork() need mmu notifier (or forcing page copy instead of COW).
+
+Cheers,
+J=E9r=F4me
 
 _______________________________________________
 amd-gfx mailing list
