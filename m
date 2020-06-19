@@ -7,58 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4F30C433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 237F0C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB8AF208B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ECF4E208B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kKTu4BB1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB8AF208B8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="B/PTJDZo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECF4E208B8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3939E6EA61;
-	Fri, 19 Jun 2020 20:12:58 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 696666EA0E
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FCE689483;
+	Fri, 19 Jun 2020 20:13:02 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF6B6E98A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:12:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AJs/qWPnMek485SdcIWUB7nZZm6u04k60wq7g8RmFH2WltGTaL4Ltg1ctoRy4AsBCErGE7a1AuDdABNcDsPTzqIrd8CiB+CebMBjz+04SWkiIZd7DuW08WCBD3W4t58zvdguelyI37CObafWTCfEhn64l8jg0x0pdTOs5kCmpi4h5qo8qNBDYn4Q5NRhBPAtpY8jI5RHIhvZhSEijRLjutIls305S3WTarwZwVbAaiw76XAASoIAg2HiIxfcxK4sM2+i/mxtDjPAty8PUYy8BotrAByODfU8DSZuhNeaN1xy4+8PjP/hLFcRWiWMKTHJRlQYOJ3wWrWdzh0a12sMUw==
+ b=FQEhKj90btgoqVbjgpzvNHhxJKEfiF6/uy+fo/Z8kWo9AHI9AcvvhjFWxqlZRpWwAkK6m0U0SWMQDErpKOg40EuvoU0nEH3RGadLcIf6ODR82JlD0F0Ntc2ZYsbZVvlGv8GG6qpzBuClHg+/2lXgLDMjVNyrKgPBMfPwPG0uo6Z/QkJlMFZzvi2EmrjyKLSHYLxxm2u+t7Ry9GqsvV9MpTB0r1X2IXHzOcjOCaByq7s+3ngm6mCXdJxo8+wbTieeSsopihiho9t/6Pa7e9a2BdJT9KvmaY2SObhg3CZui5qRgXgL3rWtck25IkGIDamxqqjzK4tqmTR52YiQlZlMIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6osFvVw4eVJLVhlPza6uc+UVrOV/nIOxLLBmLrHWiSs=;
- b=NKnpwttg47t0yZfFzSn+WDNijAF2kv3sudYUVYziQPSRrMgH03CtSrOMN7PosgyHQOfxlCTzHmknfUFrflPXGLFLdBWwqpYQg+Sju19DCmAExi0Y2/X+fO4dub36rx7x+7G3gd/7HQM+0/EvH3BsgmISPUzSKq4tTXF9N/DnFaJYukmjWpHM4YthFoO2k5bxrcKR+G3fxZcP6tH7trHT31sM+J8Pf6GKtEcTSDK5zxQLSOo2PkWbyFmiBbwnwUe8vLvCRTtafmcHCquhrsPmvFB9Xe8zDY8FDu0x9wzlvZDvJqkQSvD89iKsthOcuIyqO7fgGly5znp5HFP1mJveYg==
+ bh=28hf1HwqVGMBT5zrTtbJB6qisTehILqPDM2XWkcak7k=;
+ b=ljpb3y39j4xNoILHJLT2Uh0DjtZAMLpacNq6pZPS65xgnnE+jQBuaaG7H97ptCs0/4Sbb4S8w0zXR50It4wkbPsfYoSRsMLHHnNL1oWcI+lTd95YxCT24LyncABh4cD40GatC0dy2GcPXJTaczIbC4RJoxa3uwpW2vZqG/CUxsdt9JPkZTxzilS38ZJKQ3nKV4hLHs5Se/XzeyyRTBxImnL5YxKrgxRXaNUeZaKRf/L9CR9vd1T28Ix3Svvn3oUJXRLIrQeUDCmnOoebNZusL9KSGqSsqw0u0U8J80rc6Ca/mAIxUtI0T7RPOKPurEVmSLu1omNli+t1ZEPocW1Ujw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6osFvVw4eVJLVhlPza6uc+UVrOV/nIOxLLBmLrHWiSs=;
- b=kKTu4BB1OQYi8fnE3QKJYfnh0aZn7d7UwvQDZccRDpHneYvW34AaSoG6Af14jyX347PiTzkpNGxWyCaRccMuRYX/o29rLzGyMQy0raR8zQTryJ3pc8/alBzOVNmcsWUwQc0Zp4jXkzAcT8L7GJXi7XGAv8r3NnW6BNfegx/j8rE=
+ bh=28hf1HwqVGMBT5zrTtbJB6qisTehILqPDM2XWkcak7k=;
+ b=B/PTJDZoOZ8C0xw24X9yoUvFyE1MMcFHTRBo6JfWramZOTvBQBjEgJ78GhdtQCVc9wrv68e20Ej4FT21X7VIL3IowY6cpye82r8kfPV2TXqADN3sgwC1ggcKh6nxPvMLG8TEtO8kNMuxV8h6zB8VKkvu701KONG7+tCjQl1hqO0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
- by CH2PR12MB3717.namprd12.prod.outlook.com (2603:10b6:610:24::19)
+ by CH2PR12MB4087.namprd12.prod.outlook.com (2603:10b6:610:7f::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Fri, 19 Jun
- 2020 20:12:50 +0000
+ 2020 20:12:58 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%8]) with mapi id 15.20.3109.021; Fri, 19 Jun 2020
- 20:12:50 +0000
+ 20:12:58 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/30] drm/amd/display: Fix calculation of virtual channel
- payload
-Date: Fri, 19 Jun 2020 16:11:55 -0400
-Message-Id: <20200619201222.2916504-4-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 16/30] drm/amd/display: use dispclk AVFS for dppclk
+Date: Fri, 19 Jun 2020 16:12:08 -0400
+Message-Id: <20200619201222.2916504-17-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
 References: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
@@ -70,34 +69,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:f5c::9) by
  YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:12:49 +0000
+ 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:12:58 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [2607:fea8:56a0:f5c::9]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 83d4c639-c442-4e19-baad-08d8148d23fc
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3717:
+X-MS-Office365-Filtering-Correlation-Id: 41db741f-4c70-4fa1-56cb-08d8148d28fd
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4087:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3717B35A5B4399C5B6C6735798980@CH2PR12MB3717.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4087C9C19AF0FC8EBF60141C98980@CH2PR12MB4087.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-Forefront-PRVS: 0439571D1D
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QABdrHjb7Z+KSxyrEH13FowZmieT925i5efBx6Zo8Al3G3AvR/uhvIrT+EPYDtfpvevgVCK6GzDnJ4ROvqsFKRdBf3mey7N51Uy1mGBVboy9FmEdx0Uw8wmaX19RYcC3axXX0axE40dmYDxHzy72eoEztquuA1xfYXENBYi3SfiBJbUQVX4xpVRmd53idpPkrrVQ+MF8ikv30rDJEXQHJ/MkATmhv+TfycA1iHIcB0egaYVoZLCgBHOFXyqsw7LNFmA/B9RnKreS2Og35GAqV85SJi16IKwBbaSsLql6egUMcD3Q2jFpFttjbZTtbHRvSe3sWA1PLmxfIeGjBTwUsw==
+X-Microsoft-Antispam-Message-Info: XOvYRrGvcHfre2PgJTBf/UwUTtSLLGS76g05lxixRwela3gpNxxm0flntG3j9Y2XrzVQ4sUSJsIO9PsSCbpVa96G4DO0e1x+zTVXxvbI1uoIB2hBRJ7CBmU/dnokxBoZPENaqTiJ1oobecgjzBnofwvdylnlcrBj3GeaoP3ydSzzudMvCYjjoK1lqTzPuhfQ7XOhPEuBBGLWpK1MTdSiDGAgwtD5BdjdVk9FUdPpKGuZG+EPnhWIIQf56heWfun4QRPQQXSr80H4EDRy8FY7JHlEXOf1A+FbD+BqMp6r9OStzqNYVICN3mJMhTe9ncJpSq7poqpV4lPhHndhOIUIcA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(366004)(5660300002)(66476007)(16526019)(86362001)(6916009)(83380400001)(478600001)(66556008)(66946007)(8676002)(6512007)(1076003)(6666004)(6506007)(4326008)(52116002)(8936002)(2906002)(316002)(6486002)(36756003)(186003)(2616005)(54906003);
+ SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(6666004)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(54906003)(66556008)(16526019)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: YZX7k+uEhLoTJ6K0ypFA90DyOtIRYuD0r6ILXmcpQkYpG+S2wUO0q/T1sAhkvnK9vSEfdMYmt2touk+8LdrWllHgklSh70ADY+vbCvsL5WdOn0ToMUjNGS2A0VrhNiKwAaKIOj3SWSF6q2RNP0dsELJy7cMLJdMO6hjXZ2pmghqk5ZMv1rCEJtmW837qhyQsk8TyIEZjS+A3PS7ZqgT36kAnutTKJqLg3VQ9OVF+FvczCePwUUmCdUKci17oW+M1Gui2A1/n8/2h18LYSHH+72V+8v1WgfyWtd6kUXZ/HeM+oiyJQxrhLCrJrpyK9DMgDIViiScXuutABU65N1Bvqe6ItxkTYrJqCu0In/qcyQTCsiFtsuKIQojKFh2mGEAt2+D3u+MyCP518wTInKc6CAC6AC0S6Ml5JugxUtQlzmHpVD1+/Mz9LKXT5COnnLCeYbknNIjM7XFu1+k1dtd0qjhJB7nXiTBEDYS5Rya5C+oY4kf2ENoigDunKZv0nnpJ
+X-MS-Exchange-AntiSpam-MessageData: v4UicFEYciGjGh3ucgmo+eJeUenOEpFFaz6wBdbo3J3BVvWalfOBO6vMEkKDAYNA3nmrUK8gBVtu4D0+a0sFiJA2rEHQyvwnSSa5f7mV011OPu3au4OiuunVF7JEsuhbVhSTZcQOYCrEcLlCb3HmJbEsvKmJDt3HSdJ7rqcJuXddzXXO/gLh6zFxoE5til+ePZ4MYZPDjMAklicYuShFVV2VzI+UvsVTqT5R1oA/3o3bVKO0AgBF3mvDqK6BHNykP4UW95DO7VYAC0twyPHT5XXiY2VOoSm4LgcTgoZ7EV264r9E4B9Rwl8K44U+A3Dw8SUQkY7w7v+ydQHGBFpS3g1MzsTvrjsTZDyHyBMTf/ylMfmRS2xjy1Rq0yn2tnleCpeSr/NR2BSCQ4brep+d9mO5HOxAyfSbyvFcvuSmcWK8TqMlDFrmfS84v92gxT72C7O0prcGcchUTQxI2LGMAm4x6/fbPaJBMVdDVSMfVPwoQUoqBoztouO7RiAvL8cZeRpSvvklyg/IdHr3U9V1zw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83d4c639-c442-4e19-baad-08d8148d23fc
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:12:50.1466 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41db741f-4c70-4fa1-56cb-08d8148d28fd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:12:58.5392 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NFJ0d6PboSKAWRDplX/OGjcwZ8RoDr8svHl/RWDBT6ISbHRZkx4TYhPW/GoWO4WBhucjlkZtMnPyh/AzDTym3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3717
+X-MS-Exchange-CrossTenant-UserPrincipalName: bBlRqXGaaPxFfHlKrmyBDlZhYXQ3znk/SjD9/O1vmw/bw1EGwiM8wMRTaBgWTacpAeN2M9kc2fDiyz/+Xipgag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,133 +109,90 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
- Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+ Rodrigo.Siqueira@amd.com, Brandon Syu <Brandon.Syu@amd.com>,
+ Aurabindo.Pillai@amd.com, Tony Cheng <Tony.Cheng@amd.com>,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mikita Lipski <mikita.lipski@amd.com>
+From: Brandon Syu <Brandon.Syu@amd.com>
 
-[why]
-The calculation of virtual channel payload would not take link settings
-in account. As we calculate VCPI slots needed both PBN for stream and
-also PBN per time slot.  Before we would use generic PBN per time slot,
-which would not change with link settings causing wrong Payload
-allocation.
+[Why]
+There is using pixelclk AVFS for dppclk, that would cause issue.
 
-[how]
-Provide PBN per time slot for each Virtual channel payload calculation.
+[How]
+To use dispclk AVFS for both dispclk and dppclk.  There would choose
+dppclk for request voltage when dispclk wouldn't be updated case.  If
+dispclk need to be updated, then it'll choose the bigger one from dppclk
+and dispclk for request voltage.
 
-Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Signed-off-by: Brandon Syu <Brandon.Syu@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 19 +++++++++----------
- 2 files changed, 10 insertions(+), 11 deletions(-)
+ .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c   | 18 +++++++++++++-----
+ drivers/gpu/drm/amd/display/dc/dc.h            |  1 +
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9ab0d8521576..6be4913a0239 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5538,7 +5538,7 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 									   mst_mgr,
- 									   mst_port,
- 									   dm_new_connector_state->pbn,
--									   0);
-+									   dm_mst_get_pbn_divider(aconnector->dc_link));
- 	if (dm_new_connector_state->vcpi_slots < 0) {
- 		DRM_DEBUG_ATOMIC("failed finding vcpi slots: %d\n", (int)dm_new_connector_state->vcpi_slots);
- 		return dm_new_connector_state->vcpi_slots;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 69056660672d..6b98d420f9e2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -543,6 +543,8 @@ static void increase_dsc_bpp(struct drm_atomic_state *state,
- 	int link_timeslots_used;
- 	int fair_pbn_alloc;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+index 55d09adbf0d9..c63ec960e116 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+@@ -234,20 +234,26 @@ void dcn2_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			dpp_clock_lowered = true;
+ 		clk_mgr->base.clks.dppclk_khz = new_clocks->dppclk_khz;
  
-+	pbn_per_timeslot = dm_mst_get_pbn_divider(dc_link);
-+
- 	for (i = 0; i < count; i++) {
- 		if (vars[i].dsc_enabled) {
- 			initial_slack[i] = kbps_to_peak_pbn(params[i].bw_range.max_kbps) - vars[i].pbn;
-@@ -554,9 +556,6 @@ static void increase_dsc_bpp(struct drm_atomic_state *state,
- 		}
- 	}
- 
--	pbn_per_timeslot = dc_link_bandwidth_kbps(dc_link,
--			dc_link_get_link_cap(dc_link)) / (8 * 1000 * 54);
+-		if (pp_smu && pp_smu->set_voltage_by_freq)
+-			pp_smu->set_voltage_by_freq(&pp_smu->pp_smu, PP_SMU_NV_PIXELCLK, clk_mgr_base->clks.dppclk_khz / 1000);
 -
- 	while (remaining_to_increase) {
- 		next_index = -1;
- 		min_initial_slack = -1;
-@@ -585,7 +584,7 @@ static void increase_dsc_bpp(struct drm_atomic_state *state,
- 							  params[next_index].port->mgr,
- 							  params[next_index].port,
- 							  vars[next_index].pbn,
--							  dm_mst_get_pbn_divider(dc_link)) < 0)
-+							  pbn_per_timeslot) < 0)
- 				return;
- 			if (!drm_dp_mst_atomic_check(state)) {
- 				vars[next_index].bpp_x16 = bpp_x16_from_pbn(params[next_index], vars[next_index].pbn);
-@@ -595,7 +594,7 @@ static void increase_dsc_bpp(struct drm_atomic_state *state,
- 								  params[next_index].port->mgr,
- 								  params[next_index].port,
- 								  vars[next_index].pbn,
--								  dm_mst_get_pbn_divider(dc_link)) < 0)
-+								  pbn_per_timeslot) < 0)
- 					return;
- 			}
- 		} else {
-@@ -604,7 +603,7 @@ static void increase_dsc_bpp(struct drm_atomic_state *state,
- 							  params[next_index].port->mgr,
- 							  params[next_index].port,
- 							  vars[next_index].pbn,
--							  dm_mst_get_pbn_divider(dc_link)) < 0)
-+							  pbn_per_timeslot) < 0)
- 				return;
- 			if (!drm_dp_mst_atomic_check(state)) {
- 				vars[next_index].bpp_x16 = params[next_index].bw_range.max_target_bpp_x16;
-@@ -614,7 +613,7 @@ static void increase_dsc_bpp(struct drm_atomic_state *state,
- 								  params[next_index].port->mgr,
- 								  params[next_index].port,
- 								  vars[next_index].pbn,
--								  dm_mst_get_pbn_divider(dc_link)) < 0)
-+								  pbn_per_timeslot) < 0)
- 					return;
- 			}
- 		}
-@@ -668,7 +667,7 @@ static void try_disable_dsc(struct drm_atomic_state *state,
- 						  params[next_index].port->mgr,
- 						  params[next_index].port,
- 						  vars[next_index].pbn,
--						  0) < 0)
-+						  dm_mst_get_pbn_divider(dc_link)) < 0)
- 			return;
+ 		update_dppclk = true;
+ 	}
  
- 		if (!drm_dp_mst_atomic_check(state)) {
-@@ -739,7 +738,7 @@ static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 						 params[i].port->mgr,
- 						 params[i].port,
- 						 vars[i].pbn,
--						 0) < 0)
-+						 dm_mst_get_pbn_divider(dc_link)) < 0)
- 			return false;
+ 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
+ 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
+-		if (pp_smu && pp_smu->set_voltage_by_freq)
+-			pp_smu->set_voltage_by_freq(&pp_smu->pp_smu, PP_SMU_NV_DISPCLK, clk_mgr_base->clks.dispclk_khz / 1000);
+ 
+ 		update_dispclk = true;
  	}
- 	if (!drm_dp_mst_atomic_check(state)) {
-@@ -767,7 +766,7 @@ static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 							  params[i].port->mgr,
- 							  params[i].port,
- 							  vars[i].pbn,
--							  0) < 0)
-+							  dm_mst_get_pbn_divider(dc_link)) < 0)
- 				return false;
- 		}
- 	}
+ 
++	if (update_dppclk || update_dispclk) {
++		new_clocks->disp_dpp_voltage_level_khz = new_clocks->dppclk_khz;
++
++		if (update_dispclk)
++			new_clocks->disp_dpp_voltage_level_khz = new_clocks->dispclk_khz > new_clocks->dppclk_khz ? new_clocks->dispclk_khz : new_clocks->dppclk_khz;
++
++		clk_mgr_base->clks.disp_dpp_voltage_level_khz = new_clocks->disp_dpp_voltage_level_khz;
++		if (pp_smu && pp_smu->set_voltage_by_freq)
++			pp_smu->set_voltage_by_freq(&pp_smu->pp_smu, PP_SMU_NV_DISPCLK, clk_mgr_base->clks.disp_dpp_voltage_level_khz / 1000);
++	}
++
+ 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
+ 		if (dpp_clock_lowered) {
+ 			// if clock is being lowered, increase DTO before lowering refclk
+@@ -403,6 +409,8 @@ static bool dcn2_are_clock_states_equal(struct dc_clocks *a,
+ 		return false;
+ 	else if (a->dppclk_khz != b->dppclk_khz)
+ 		return false;
++	else if (a->disp_dpp_voltage_level_khz != b->disp_dpp_voltage_level_khz)
++		return false;
+ 	else if (a->dcfclk_khz != b->dcfclk_khz)
+ 		return false;
+ 	else if (a->socclk_khz != b->socclk_khz)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index f9eb8c37d7c3..83de4c2e045e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -337,6 +337,7 @@ enum dcn_pwr_state {
+ struct dc_clocks {
+ 	int dispclk_khz;
+ 	int dppclk_khz;
++	int disp_dpp_voltage_level_khz;
+ 	int dcfclk_khz;
+ 	int socclk_khz;
+ 	int dcfclk_deep_sleep_khz;
 -- 
 2.27.0
 
