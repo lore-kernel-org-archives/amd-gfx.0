@@ -2,70 +2,84 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C436AC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 15:06:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF29EC433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 15:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A0C521835
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 15:06:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C65FD21974
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 15:09:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="V1jFXKxH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A0C521835
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="GpTji/yh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C65FD21974
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9756E0F7;
-	Fri, 19 Jun 2020 15:06:18 +0000 (UTC)
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
- [IPv6:2607:f8b0:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793646E0F7
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 15:06:17 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id s21so8699762oic.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 08:06:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=l5bPDp6tSQ6UB25Tmr+FxCYVIvJPeZJlOAF1u+aQ9Rs=;
- b=V1jFXKxH9JLOzMoiPIzD5AaSDKHq7RFlO6xezDKhJyRYz93hCrYjWgdK7OEyodFwM2
- kDzGATay8IHh8e80+mnVWhb8ejljyl7TC9nAm9rnfWCRB2CH7Y5/uH3a16+C1ds/YG6W
- L2ObS2Ab5ArSWEXfmwsNABGkjrImJGIKuRrck=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8F26E062;
+	Fri, 19 Jun 2020 15:09:44 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D9306EC93
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 11:39:37 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id r22so7071498qke.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 04:39:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=5lQCYSoi4FC78xGjLBeogrhLOaSlungd8A2lT6c416A=;
+ b=GpTji/yhJTYfywss1k5am+JyELnNZlvvM8qP/Uyg3OD7x7MqDitwSWfgM3HPj0UhUM
+ CmGRkgXfDHKjJbk/G94ThGo65HoXLKpYTHWId62kC64177gtGxTII+K1ZYz1wipOiAHJ
+ eNgWeTmTaG/jDKlMWG2mJATpUK5rAwHHXT5FR/exkvaSA9MSXlfn3hlOUhTW2ZxS/H4F
+ HEmI2H47vtMrMdfYBePKTzq7Q28TCNQpdwQLKytMyWVDkIDxh7YsNl1xg+jdzcXMR0cI
+ rZrwuwfz+8JvRuJ/hZc0oTCMz+QMnazKQOTVrKsL2AkwHyGJfWycuxP+cVSimTbDO1fJ
+ 9CVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=l5bPDp6tSQ6UB25Tmr+FxCYVIvJPeZJlOAF1u+aQ9Rs=;
- b=GeBTlp1CI7ww6QdQvQJrBBAS+bqtzeanuBAUdPZfCvxvCrjAITFfA8UaUYqMQe7kFO
- La1SeVo6YuYz0m7Ob2bgGc9Tu8+n3zD9rY01KoC18fbXzpvv0Xl/joHfJRnoRTq5aXhx
- s5Du0QJcqte246rdjObWWwxtNHSUTzOoiBMcKj5XiqLpDoMVajtr7BTl8V22CpTYw799
- IxDdrFheigeUcwBNv+xSG8/Q6rObdGtNeB6tovfO9rJHXz0wyRPSxCOlGcvp3DYVZ8a8
- xrdEeSflV4+Wc4YqzARn9flLUFzicAIG2wzf60DD11f3tcv9P+UtN+VnyJ2vU4tBiLO8
- Z0LQ==
-X-Gm-Message-State: AOAM532jLlNyP5DRNn5az+ua220e1jGDpU0Kph6pLakjz6aC9g6xn6Zx
- WSQraq60zT47r+2JCcVxK0NCDYvoD02zHxilH9+tGA==
-X-Google-Smtp-Source: ABdhPJzkpCIjuIXUDXsaWuT9KnXo7xRSxKpK3kVIgCwYzrv9QHH1pbq5icbg335wwjGkDiUm4Nr1W4w/4YXBEbh0gJs=
-X-Received: by 2002:aca:aaca:: with SMTP id t193mr3427302oie.14.1592579176624; 
- Fri, 19 Jun 2020 08:06:16 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=5lQCYSoi4FC78xGjLBeogrhLOaSlungd8A2lT6c416A=;
+ b=BiDiVbe+PpUTFtmAbZqfT3nkrzzpL02loo/lVmRmWZSiHtMtraz3V0ANuDIJCqDCHe
+ Ff5BJ7p5dnrtdTOrl4sLzrKB5Vc3304B5KTTNrJV0EXVtAU2l8cUYndvSsV7teeDEvX8
+ Yi6eVcoBcvqOZ8IHsbbH14q7cbdNFFDCFwvQHKdi+0uh8DaH/LgNkLOkkicpWtHvJ/RP
+ +Org3uToy0zlqi5BVU89YqHgUuC101h6cf/CWIokwA6j+pQ/x3mxpJXOU+6A9IBN6/i3
+ klPEBgRYASAKQngf53ROjJbOdu3dfH40YqN7gpIeMp3H3e/qSoiaP77TdCZPe2t0wAkx
+ CTwQ==
+X-Gm-Message-State: AOAM533zFlsqDp9uW0GNVeh+JEGsVC22xJREBNb6qyXoZLQO0M2cTcIE
+ SqpTPuUBuY3yhR4PgWT/gq6bJg==
+X-Google-Smtp-Source: ABdhPJyvT5Fp9eB5e8a01kFzBtsDczKSLoT1L7Q5mintxsSice/gNXkvAdcFjnB+DRsdXJvj32xdRg==
+X-Received: by 2002:a37:6191:: with SMTP id v139mr2946071qkb.213.1592566776171; 
+ Fri, 19 Jun 2020 04:39:36 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-156-34-48-30.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [156.34.48.30])
+ by smtp.gmail.com with ESMTPSA id o6sm6016053qtd.59.2020.06.19.04.39.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jun 2020 04:39:35 -0700 (PDT)
+Received: from jgg by mlx with local (Exim 4.93) (envelope-from <jgg@ziepe.ca>)
+ id 1jmFMs-00AiVa-OZ; Fri, 19 Jun 2020 08:39:34 -0300
+Date: Fri, 19 Jun 2020 08:39:34 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+Message-ID: <20200619113934.GN6578@ziepe.ca>
 References: <20200604081224.863494-5-daniel.vetter@ffwll.ch>
  <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
  <20200611083430.GD20149@phenom.ffwll.local>
- <20200611141515.GW6578@ziepe.ca> <20200616120719.GL20149@phenom.ffwll.local>
+ <20200611141515.GW6578@ziepe.ca>
+ <20200616120719.GL20149@phenom.ffwll.local>
  <CAKMK7uE7DKUo9Z+yCpY+mW5gmKet8ugbF3yZNyHGqsJ=e-g_hA@mail.gmail.com>
- <20200617152835.GF6578@ziepe.ca> <20200618150051.GS20149@phenom.ffwll.local>
+ <20200617152835.GF6578@ziepe.ca>
+ <20200618150051.GS20149@phenom.ffwll.local>
  <20200618172338.GM6578@ziepe.ca>
  <CAKMK7uEbqTu4q-amkLXyd1i8KNtLaoO2ZFoGqYiG6D0m0FKpOg@mail.gmail.com>
- <20200619113934.GN6578@ziepe.ca>
-In-Reply-To: <20200619113934.GN6578@ziepe.ca>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 19 Jun 2020 17:06:04 +0200
-Message-ID: <CAKMK7uE-kWA==Cko5uenMrcnopEjq42HxoDTDywzBAbHqsN13g@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-To: Jason Gunthorpe <jgg@ziepe.ca>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uEbqTu4q-amkLXyd1i8KNtLaoO2ZFoGqYiG6D0m0FKpOg@mail.gmail.com>
+X-Mailman-Approved-At: Fri, 19 Jun 2020 15:09:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,11 +92,11 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Thomas =?utf-8?B?SGVsbHN0csO2bSAoSW50ZWwp?= <thomas_os@shipmail.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  LKML <linux-kernel@vger.kernel.org>,
  DRI Development <dri-devel@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
  Thomas Hellstrom <thomas.hellstrom@intel.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
@@ -90,86 +104,53 @@ Cc: linux-rdma <linux-rdma@vger.kernel.org>,
  Mika Kuoppala <mika.kuoppala@intel.com>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gRnJpLCBKdW4gMTksIDIwMjAgYXQgMTozOSBQTSBKYXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVw
-ZS5jYT4gd3JvdGU6Cj4KPiBPbiBGcmksIEp1biAxOSwgMjAyMCBhdCAwOToyMjowOUFNICswMjAw
-LCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+ID4gPiBBcyBJJ3ZlIHVuZGVyc3Rvb2QgR1BVIHRoYXQg
-bWVhbnMgeW91IG5lZWQgdG8gc2hvdyB0aGF0IHRoZSBjb21tYW5kcwo+ID4gPiBhc3NvY2lhdGVk
-IHdpdGggdGhlIGJ1ZmZlciBoYXZlIGNvbXBsZXRlZC4gVGhpcyBpcyBhbGwgbG9jYWwgc3R1ZmYK
-PiA+ID4gd2l0aGluIHRoZSBkcml2ZXIsIHJpZ2h0PyBXaHkgdXNlIGZlbmNlIChvdGhlciB0aGFu
-IGl0IGFscmVhZHkgZXhpc3RzKQo+ID4KPiA+IEJlY2F1c2UgdGhhdCdzIHRoZSBlbmQtb2YtZG1h
-IHRoaW5nLiBBbmQgaXQncyBjcm9zcy1kcml2ZXIgZm9yIHRoZQo+ID4gYWJvdmUgcmVhc29ucywg
-ZS5nLgo+ID4gLSBkZXZpY2UgQSByZW5kZXJzIHNvbWUgc3R1ZmYuIFVzZXJzcGFjZSBnZXRzIGRt
-YV9mZW5jZSBBIG91dCBvZiB0aGF0Cj4gPiAod2VsbCBzeW5jX2ZpbGUgb3Igb25lIG9mIHRoZSBv
-dGhlciB1YXBpIGludGVyZmFjZXMsIGJ1dCB5b3UgZ2V0IHRoZQo+ID4gaWRlYSkKPiA+IC0gdXNl
-cnNwYWNlIChhY3Jvc3MgcHJvY2VzcyBvciBqdXN0IGRpZmZlcmVudCBkcml2ZXIpIGlzc3VlcyBt
-b3JlCj4gPiByZW5kZXJpbmcgZm9yIGRldmljZSBCLCB3aGljaCBkZXBlbmRzIHVwb24gdGhlIHJl
-bmRlcmluZyBkb25lIG9uCj4gPiBkZXZpY2UgQS4gU28gZG1hX2ZlbmNlIEEgaXMgYW4gZGVwZW5k
-ZW5jeSBhbmQgd2lsbCBibG9jayB0aGlzIGRtYQo+ID4gb3BlcmF0aW9uLiBVc2Vyc3BhY2UgKGFu
-ZCB0aGUga2VybmVsKSBnZXRzIGRtYV9mZW5jZSBCIG91dCBvZiB0aGlzCj4gPiAtIGJlY2F1c2Ug
-dW5mb3J0dW5hdGUgcmVhc29ucywgdGhlIHNhbWUgcmVuZGVyaW5nIG9uIGRldmljZSBCIGFsc28K
-PiA+IG5lZWRzIGEgdXNlcnB0ciBidWZmZXIsIHdoaWNoIG1lYW5zIHRoYXQgZG1hX2ZlbmNlIEIg
-aXMgYWxzbyB0aGUgb25lCj4gPiB0aGF0IHRoZSBtbXVfcmFuZ2Vfbm90aWZpZXIgbmVlZHMgdG8g
-d2FpdCBvbiBiZWZvcmUgaXQgY2FuIHRlbGwgY29yZQo+ID4gbW0gdGhhdCBpdCBjYW4gZ28gYWhl
-YWQgYW5kIHJlbGVhc2UgdGhvc2UgcGFnZXMKPgo+IEkgd2FzIGFmcmFpZCB5b3UnZCBzYXkgdGhp
-cyAtIHRoaXMgaXMgY29tcGxldGUgbWFkbmVzcyBmb3Igb3RoZXIgRE1BCj4gZGV2aWNlcyB0byBi
-b3Jyb3cgdGhlIG5vdGlmaWVyIGhvb2sgb2YgdGhlIGZpcnN0IGRldmljZSEKClRoZSBmaXJzdCBk
-ZXZpY2UgbWlnaHQgbm90IGV2ZW4gaGF2ZSBhIG5vdGlmaWVyLiBUaGlzIGlzIHRoZSAybmQKZGV2
-aWNlLCB3YWl0aW5nIG9uIGEgZG1hX2ZlbmNlIG9mIGl0cyBvd24sIGJ1dCB3aGljaCBoYXBwZW5z
-IHRvIGJlCnF1ZXVlZCB1cCBhcyBhIGRtYSBvcGVyYXRpb24gYmVoaW5kIHNvbWV0aGluZyBlbHNl
-LgoKPiBXaGF0IGlmIHRoZSBmaXJzdCBkZXZpY2UgaXMgYSBwYWdlIGZhdWx0aW5nIGRldmljZSBh
-bmQgZG9lc24ndCBjYWxsCj4gZG1hX2ZlbmNlPz8KCk5vdCBzdXJlIHdoYXQgeW91IG1lYW4gd2l0
-aCB0aGlzIC4uLiBldmVuIGlmIGl0IGRvZXMgcGFnZS1mYXVsdGluZyBmb3IKc29tZSBvdGhlciBy
-ZWFzb25zLCBpdCdsbCBlbWl0IGEgZG1hX2ZlbmNlIHdoaWNoIHRoZSAybmQgZGV2aWNlIGNhbgpj
-b25zdW1lIGFzIGEgZGVwZW5kZW5jeS4KCj4gSXQgeW91IGFyZSBnb2luZyB0byB0cmVhdCB0aGlu
-Z3MgdGhpcyB3YXkgdGhlbiB0aGUgbW11IG5vdGlmaWVyIHJlYWxseQo+IG5lZWRzIHRvIGJlIHBh
-cnQgb2YgdGhlIHNvbWUgY29yZSBETUEgYnVmLCBhbmQgbm90IHJhbmRvbWx5IHNwcmlua2xlZAo+
-IGluIGRyaXZlcnMKClNvIG1heWJlIGFnYWluIHVuY2xlYXIsIHdlIGRvbid0IGFsbG93IHN1Y2gg
-dXNlcnB0ciBkbWEtYnVmIHRvIGV2ZW4gYmUKc2hhcmVkLiBUaGV5J3JlIGp1c3QgZm9yIHNsdXJw
-aW5nIGluIHN0dWZmIGluIHRoZSBsb2NhbCBkZXZpY2UKKGdlbmVyYWwgZnJvbSBmaWxlIGlvIG9y
-IHNvbWV0aGluZyB0aGUgY3B1IGhhcyBkb25lIG9yIHNpbWlsYXIpLiBUaGVyZQpoYXZlIGJlZW4g
-YXR0ZW1wdHMgdG8gdXNlIGl0IGFzIHRoZSBnZW5lcmFsIGJhY2tpbmcgc3RvcmFnZSwgYnV0IHRo
-YXQKZGlkbid0IGdvIGRvd24gdG9vIHdlbGwgYmVjYXVzZSB3YXkgdG9vIG1hbnkgY29tcGxpY2F0
-aW9ucy4KCkdlbmVyYWxseSBtb3N0IG1lbW9yeSB0aGUgZ3B1IG9wZXJhdGVzIG9uIGlzbid0IHN0
-dWZmIHRoYXQncwptbXVfbm90aWZpZXInZWQuIEFuZCBhbHNvLCB0aGUgZGV2aWNlIHdpdGggdXNl
-cnB0ciBzdXBwb3J0IG9ubHkgd2FpdHMKZm9yIGl0cyBvd24gZG1hX2ZlbmNlIChiZWNhdXNlIHdl
-bGwgeW91IGNhbid0IHNoYXJlIHRoaXMgc3R1ZmYsIHdlCmRpc2FsbG93IHRoYXQpLgoKVGhlIHBy
-b2JsZW0gaXMgdGhhdCB0aGVyZSdzIHBpbGVzIG9mIG90aGVyIGRlcGVuZGVuY2llcyBmb3IgYSBk
-bWEgam9iLgpHUFUgZG9lc24ndCBqdXN0IGNvbnN1bWUgYSBzaW5nbGUgYnVmZmVyIGVhY2ggdGlt
-ZSwgaXQgY29uc3VtZXMgZW50aXJlCmxpc3RzIG9mIGJ1ZmZlcnMgYW5kIG1peGVzIHRoZW0gYWxs
-IHVwIGluIGZ1bm55IHdheXMuIFNvbWUgb2YgdGhlc2UKYnVmZmVycyBhcmUgdXNlcnB0ciwgZW50
-aXJlbHkgbG9jYWwgdG8gdGhlIGRldmljZS4gT3RoZXIgYnVmZmVycyBhcmUKanVzdCBub3JtYWwg
-ZGV2aWNlIGRyaXZlciBhbGxvY2F0aW9ucyAoYW5kIG1hbmFnZWQgd2l0aCBzb21lIHNocmlua2Vy
-CnRvIGtlZXAgdGhlbSBpbiBjaGVjaykuIEFuZCB0aGVuIHRoZXJlJ3MgdGhlIGFjdHVhbGx5IHNo
-YXJlZCBkbWEtYnVmCndpdGggb3RoZXIgZGV2aWNlcy4gVGhlIHRyb3VibGUgaXMgdGhhdCB0aGV5
-J3JlIGFsbCBidW5kbGVkIHVwCnRvZ2V0aGVyLgoKTm93IHdlIHByb2JhYmx5IHNob3VsZCBoYXZl
-IHNvbWUgaGVscGVyIGNvZGUgZm9yIHVzZXJwdHIgc28gdGhhdCBhbGwKZHJpdmVycyBkbyB0aGlz
-IHJvdWdobHkgdGhlIHNhbWUsIGJ1dCB0aGF0J3MganVzdCBub3QgdGhlcmUgeWV0LiBCdXQKaXQg
-Y2FuJ3QgYmUgYSBkbWEtYnVmIGV4cG9ydGVyIGJlaGluZCB0aGUgZG1hLWJ1ZiBpbnRlcmZhY2Vz
-LCBiZWNhdXNlCmV2ZW4ganVzdCBwaW5uZWQgZ2V0X3VzZXJfcGFnZXMgd291bGQgYmUgdG9vIGRp
-ZmZlcmVudCBzZW1hbnRpY3MKY29tcGFyZWQgdG8gbm9ybWFsIHNoYXJlZCBkbWEtYnVmIG9iamVj
-dHMsIHRoYXQncyBhbGwgdmVyeSB0aWdodGx5CnRpZWQgaW50byB0aGUgc3BlY2lmaWMgZHJpdmVy
-LgoKPiBCdXQgcmVhbGx5IHRoaXMgaXMgd2hhdCBwYWdlIHBpbm5pbmcgaXMgc3VwcG9zZWQgdG8g
-YmUgdXNlZCBmb3IsIHRoZQo+IE1NIGJlaGF2aW9yIHdoZW4gaXQgYmxvY2tzIG9uIGEgcGlubmVk
-IHBhZ2UgaXMgbGVzcyBpbnZhc2l2ZSB0aGFuIGlmCj4gaXQgc3RhbGxzIGluc2lkZSBhIG1tdSBu
-b3RpZmllci4KPgo+IFlvdSBjYW4gbWl4IGl0LCB1c2UgbW11IG5vdGlmaWZlcnMgdG8ga2VlcCB0
-cmFjayBpZiB0aGUgYnVmZmVyIGlzCj4gc3RpbGwgbGl2ZSwgYnV0IHdoZW4geW91IHdhbnQgdG8g
-dHJpZ2dlciBETUEgdGhlbiBwaW4gdGhlIHBhZ2VzIGFuZAo+IGtlZXAgdGhlbSBwaW5uZWQgdW50
-aWwgRE1BIGlzIGRvbmUuIFRoZSBwaW4gcHJvdGVjdHMgdGhpbmdzICh3ZWxsLAo+IGZvcmsgaXMg
-c3RpbGwgYSBwcm9ibGVtKQoKSG0gSSB0aG91Z2h0IGFtZGdwdSBoYWQgdGhhdCAob3IgZHJtL3Jh
-ZGVvbiBhcyB0aGUgcHJldmlvdXMKaW5jYXJuYXRpb24gb2YgdGhhdCBzdGFjayksIGFuZCB3YXMg
-dW5oYXBweSBhYm91dCB0aGUgaXNzdWVzLiBXb3VsZApuZWVkIENocmlzdGlhbiBLw7ZuaWcgdG8g
-Y2hpbWUgaW4uCgo+IERvIG5vdCBuZWVkIHRvIHdhaXQgb24gZG1hX2ZlbmNlIGluIG5vdGlmaWVy
-cy4KCk1heWJlIDotKSBUaGUgZ29hbCBvZiB0aGlzIHNlcmllcyBpcyBtb3JlIHRvIGRvY3VtZW50
-IGN1cnJlbnQgcnVsZXMKYW5kIG1ha2UgdGhlbSBtb3JlIGNvbnNpc3RlbnQuIEZpeGluZyB0aGVt
-IGlmIHdlIGRvbid0IGxpa2UgdGhlbSBtaWdodApiZSBhIGZvbGxvdy11cCB0YXNrLCBidXQgdGhh
-dCB3b3VsZCBsaWtlbHkgYmUgYSBwaWxlIG1vcmUgd29yay4gRmlyc3QKd2UgbmVlZCB0byBrbm93
-IHdoYXQgdGhlIGV4YWN0IHNoYXBlIG9mIHRoZSBwcm9ibGVtIGV2ZW4gaXMuCi1EYW5pZWwKLS0g
-CkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6
-Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Fri, Jun 19, 2020 at 09:22:09AM +0200, Daniel Vetter wrote:
+> > As I've understood GPU that means you need to show that the commands
+> > associated with the buffer have completed. This is all local stuff
+> > within the driver, right? Why use fence (other than it already exists)
+> 
+> Because that's the end-of-dma thing. And it's cross-driver for the
+> above reasons, e.g.
+> - device A renders some stuff. Userspace gets dma_fence A out of that
+> (well sync_file or one of the other uapi interfaces, but you get the
+> idea)
+> - userspace (across process or just different driver) issues more
+> rendering for device B, which depends upon the rendering done on
+> device A. So dma_fence A is an dependency and will block this dma
+> operation. Userspace (and the kernel) gets dma_fence B out of this
+> - because unfortunate reasons, the same rendering on device B also
+> needs a userptr buffer, which means that dma_fence B is also the one
+> that the mmu_range_notifier needs to wait on before it can tell core
+> mm that it can go ahead and release those pages
+
+I was afraid you'd say this - this is complete madness for other DMA
+devices to borrow the notifier hook of the first device!
+
+What if the first device is a page faulting device and doesn't call
+dma_fence??
+
+It you are going to treat things this way then the mmu notifier really
+needs to be part of the some core DMA buf, and not randomly sprinkled
+in drivers
+
+But really this is what page pinning is supposed to be used for, the
+MM behavior when it blocks on a pinned page is less invasive than if
+it stalls inside a mmu notifier.
+
+You can mix it, use mmu notififers to keep track if the buffer is
+still live, but when you want to trigger DMA then pin the pages and
+keep them pinned until DMA is done. The pin protects things (well,
+fork is still a problem)
+
+Do not need to wait on dma_fence in notifiers.
+
+Jason
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
