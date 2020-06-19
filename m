@@ -2,67 +2,44 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 536E6C433E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 18:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2746C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 19:01:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CF4321548
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 18:13:41 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ME17mnS3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CF4321548
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1C347208B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 19:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C347208B8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC756E46C;
-	Fri, 19 Jun 2020 18:13:39 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB526E47E
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 18:13:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1592590416;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Z8Lv9ap/5+MGtYWPoEO0+lkl3xRdUoM0YERSQDqAgkI=;
- b=ME17mnS3p1wQU2TaGHG19c9tf2Rr2EfgUEpsp2uDhZlzWMKBBR/ZuRu6IbmN+ARFNO1lCA
- piz2VimXFkAK4ooU7tfhjfvtuklLDxBc7TOiWBkri9OHQ26ERNMCwR8qx1sBfU7AbYSUNc
- KrH2V/lA8vChElgUepiddvX1l722faA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-270-0m28QoAtN9SxtVrQMRv6IA-1; Fri, 19 Jun 2020 14:13:32 -0400
-X-MC-Unique: 0m28QoAtN9SxtVrQMRv6IA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0E8CF835B40;
- Fri, 19 Jun 2020 18:13:30 +0000 (UTC)
-Received: from redhat.com (ovpn-112-200.rdu2.redhat.com [10.10.112.200])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C9EA19723;
- Fri, 19 Jun 2020 18:13:28 +0000 (UTC)
-Date: Fri, 19 Jun 2020 14:13:26 -0400
-From: Jerome Glisse <jglisse@redhat.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-Message-ID: <20200619181326.GB10009@redhat.com>
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-5-daniel.vetter@ffwll.ch>
- <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
- <20200611083430.GD20149@phenom.ffwll.local>
- <20200611141515.GW6578@ziepe.ca>
- <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B22F26E4CB;
+	Fri, 19 Jun 2020 19:01:06 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 493746E430
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 18:50:27 +0000 (UTC)
+Received: from localhost.localdomain (ip5f5af4f7.dynamic.kabel-deutschland.de
+ [95.90.244.247])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id CA01920643C4C;
+ Fri, 19 Jun 2020 20:50:25 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2 3/3] drm/amdgpu: Warn about disabled DPM
+Date: Fri, 19 Jun 2020 20:50:09 +0200
+Message-Id: <20200619185009.12966-3-pmenzel@molgen.mpg.de>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200619185009.12966-1-pmenzel@molgen.mpg.de>
+References: <20200619185009.12966-1-pmenzel@molgen.mpg.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Mailman-Approved-At: Fri, 19 Jun 2020 19:01:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,89 +51,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org,
- Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linaro-mm-sig@lists.linaro.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- linux-media@vger.kernel.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2020 at 07:35:35PM -0400, Felix Kuehling wrote:
-> Am 2020-06-11 um 10:15 a.m. schrieb Jason Gunthorpe:
-> > On Thu, Jun 11, 2020 at 10:34:30AM +0200, Daniel Vetter wrote:
-> >>> I still have my doubts about allowing fence waiting from within shrin=
-kers.
-> >>> IMO ideally they should use a trywait approach, in order to allow mem=
-ory
-> >>> allocation during command submission for drivers that
-> >>> publish fences before command submission. (Since early reservation ob=
-ject
-> >>> release requires that).
-> >> Yeah it is a bit annoying, e.g. for drm/scheduler I think we'll end up
-> >> with a mempool to make sure it can handle it's allocations.
-> >>
-> >>> But since drivers are already waiting from within shrinkers and I tak=
-e your
-> >>> word for HMM requiring this,
-> >> Yeah the big trouble is HMM and mmu notifiers. That's the really awkwa=
-rd
-> >> one, the shrinker one is a lot less established.
-> > I really question if HW that needs something like DMA fence should
-> > even be using mmu notifiers - the best use is HW that can fence the
-> > DMA directly without having to get involved with some command stream
-> > processing.
-> >
-> > Or at the very least it should not be a generic DMA fence but a
-> > narrowed completion tied only into the same GPU driver's command
-> > completion processing which should be able to progress without
-> > blocking.
-> >
-> > The intent of notifiers was never to endlessly block while vast
-> > amounts of SW does work.
-> >
-> > Going around and switching everything in a GPU to GFP_ATOMIC seems
-> > like bad idea.
-> >
-> >> I've pinged a bunch of armsoc gpu driver people and ask them how much =
-this
-> >> hurts, so that we have a clear answer. On x86 I don't think we have mu=
-ch
-> >> of a choice on this, with userptr in amd and i915 and hmm work in nouv=
-eau
-> >> (but nouveau I think doesn't use dma_fence in there). =
+Currently, besides there is no explicit message, that DPM is disabled.
+The user would need to know, that the missing success line indicates
+that.
 
-> =
+    [drm] amdgpu: dpm initialized
 
-> Soon nouveau will get company. We're working on a recoverable page fault
-> implementation for HMM in amdgpu where we'll need to update page tables
-> using the GPUs SDMA engine and wait for corresponding fences in MMU
-> notifiers.
+So, add an explicit message, and make it log level warning, as disabling
+dpm is not the default, and device performance will most likely suffer.
 
-Note that HMM mandate, and i stressed that several time in the past,
-that all GPU page table update are asynchronous and do not have to
-wait on _anything_.
+Resolves: https://gitlab.freedesktop.org/drm/amd/-/issues/1173
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+v2: Use new print helpers, and inform user about effects.
 
-I understand that you use DMA engine for GPU page table update but
-if you want to do so with HMM then you need a GPU page table update
-only DMA context where all GPU page table update goes through and
-where user space can not queue up job.
+ drivers/gpu/drm/amd/amdgpu/kv_dpm.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/si_dpm.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-It can be for HMM only but if you want to mix HMM with non HMM then
-everything need to be on that queue and other command queue will have
-to depends on it.
-
-Cheers,
-J=E9r=F4me
+diff --git a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+index f054ded902f2..c601587c6d59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+@@ -3014,8 +3014,10 @@ static int kv_dpm_sw_init(void *handle)
+ 	adev->pm.current_mclk = adev->clock.default_mclk;
+ 	adev->pm.int_thermal_type = THERMAL_TYPE_NONE;
+ 
+-	if (amdgpu_dpm == 0)
++	if (amdgpu_dpm == 0) {
++		drm_warn(adev, "amdgpu: dpm disabled per parameter. Your graphics device will run with lower clocks impacting graphics performance.\n");
+ 		return 0;
++	}
+ 
+ 	INIT_WORK(&adev->pm.dpm.thermal.work, amdgpu_dpm_thermal_work_handler);
+ 	mutex_lock(&adev->pm.mutex);
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+index f7edc1d50df4..1f35d5a36300 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+@@ -7687,8 +7687,10 @@ static int si_dpm_sw_init(void *handle)
+ 	adev->pm.current_mclk = adev->clock.default_mclk;
+ 	adev->pm.int_thermal_type = THERMAL_TYPE_NONE;
+ 
+-	if (amdgpu_dpm == 0)
++	if (amdgpu_dpm == 0) {
++		drm_warn(adev, "amdgpu: dpm disabled per parameter. Your graphics device will run with lower clocks impacting graphics performance.\n");
+ 		return 0;
++	}
+ 
+ 	ret = si_dpm_init_microcode(adev);
+ 	if (ret)
+-- 
+2.27.0
 
 _______________________________________________
 amd-gfx mailing list
