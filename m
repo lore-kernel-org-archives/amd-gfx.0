@@ -2,113 +2,79 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B298C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 10:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 456A8C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 13:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FF13207FC
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 10:45:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DBAF5208C7
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 13:12:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FZVCstj4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FF13207FC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O2IoOtXT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBAF5208C7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29AB56EC8A;
-	Fri, 19 Jun 2020 10:45:29 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75DB56EC81
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 10:45:26 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200619103705euoutp0183f21163266b1f204b228e6bc4ad5537~Z66Jdl3y81849718497euoutp01W
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 10:37:05 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200619103705euoutp0183f21163266b1f204b228e6bc4ad5537~Z66Jdl3y81849718497euoutp01W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1592563025;
- bh=nbh13/xRlTnDhOSh+Kxv0NXU5d6Pqt7iXPYs90aE1m4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FZVCstj4s62tuKTQsy/F4jn1PQlStxt86N/EXB6wBGi0XpT6gEaaPfMVX49MDcDCs
- 9TJU3RPRYxifz7A/nxw7hBsqP117n7z15jriqFE/lk3j4PJEFoCWsPQ8s+e03i3uzs
- p9ls25aKDLdtztwKm3YusDZXsZgCcZ0seeZjPY0Q=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200619103705eucas1p11f16c29370943b94896ef56ddaef32e6~Z66I3gaXf0294402944eucas1p1F;
- Fri, 19 Jun 2020 10:37:05 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 10.AC.06456.1559CEE5; Fri, 19
- Jun 2020 11:37:05 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200619103704eucas1p1bf233e8914507323499186d9ab742c09~Z66IWCvuF0704707047eucas1p10;
- Fri, 19 Jun 2020 10:37:04 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200619103704eusmtrp18d2ec53252bf455c53a5187e65512832~Z66IVYPAA0959609596eusmtrp1F;
- Fri, 19 Jun 2020 10:37:04 +0000 (GMT)
-X-AuditID: cbfec7f2-809ff70000001938-55-5eec955158d8
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id B3.EA.06314.0559CEE5; Fri, 19
- Jun 2020 11:37:04 +0100 (BST)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200619103703eusmtip2858f7ecc195d53c8e5b3865722f607f8~Z66HoQ7iD0247402474eusmtip2c;
- Fri, 19 Jun 2020 10:37:03 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 17/36] drm: radeon: fix common struct sg_table related
- issues
-Date: Fri, 19 Jun 2020 12:36:17 +0200
-Message-Id: <20200619103636.11974-18-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200619103636.11974-1-m.szyprowski@samsung.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BF66ECA9;
+	Fri, 19 Jun 2020 13:12:24 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5C96ECA9;
+ Fri, 19 Jun 2020 13:12:23 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id r15so9067362wmh.5;
+ Fri, 19 Jun 2020 06:12:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:mime-version:content-transfer-encoding:in-reply-to
+ :references:subject:from:to:cc:message-id:user-agent:date;
+ bh=GkCNCBDLTGNPQOWA3LlDB+HVQOoFNOeRv8FRTeVEIsM=;
+ b=O2IoOtXTfwDLnURJ+oPXILPR4bZC5yfvkimT/xe7sHph7oSWi+9ZBJeMgu8VpB3O29
+ ry7T5AuBz/T6GsCRSKV57xS6lXox0wOBXO8sjeaiphnDq1DCuvVEW2v4bqnwaVh/2QPf
+ /0wtqTvZCSwapDz1xOsN6Mu0PnC3VB0PLCIHTsJT9jVJRXpbEC0mqIgCAd23/Xj6iIme
+ h41kY/cj1d4TZuuhdwGtSzI8WXAiTVpGeedX/ZRocox5N/ealOWbJt3k2FWnmLx3ON2B
+ h5X1CEinnZWXMmTGjhjnsyM7tqY9OpSHy2JEtUoNXVA5mL6gs8baEUtVkUR64tvx3vdi
+ GC7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:mime-version:content-transfer-encoding
+ :in-reply-to:references:subject:from:to:cc:message-id:user-agent
+ :date;
+ bh=GkCNCBDLTGNPQOWA3LlDB+HVQOoFNOeRv8FRTeVEIsM=;
+ b=uOnVbfjonA5lhxH8IL5RR5GTOF7+U/7/WtoT73bV3hvVsMCfNH1zooYCEUT6mp14tn
+ FgBWTjJt9LrcLCidkDLrPsqgXzvIn5GiVBR64V8wf0RCD96B7+66WK7I1ayAO5nsyWln
+ le+NdCUuxMcds4t6DL0HsLDFIEAVRp4bqYddb/GEJYDORZq5nk7ESC1R3g92TB8uvlFX
+ lAk4kt5V5nurHPxvEraKiADTK+dbL2CMJ+8d/nnG7aTr35izIWkOpSJgs7oteSUyhUdU
+ ucAfdGq1PJsnhkcEwfNXdGWzceC/flsKLpyOu7Yns22pXWgpCJlhaxMh8Gf7NpGstyzZ
+ LaSg==
+X-Gm-Message-State: AOAM5324d2PSjZFplUU4BhrNAH+aJau/5xhnGVWjGrGPvo7ytoiwGQ4/
+ 3mn6a4JH/Ni7caoVgFhPsug=
+X-Google-Smtp-Source: ABdhPJwSjmILeC2LcTtTmmx0JTtIYZ95VNY2hAQJPzgz/V8uF2EioBLqs1vbWGMXNu2IaPLP58n7IA==
+X-Received: by 2002:a7b:c441:: with SMTP id l1mr3494639wmi.7.1592572341541;
+ Fri, 19 Jun 2020 06:12:21 -0700 (PDT)
+Received: from localhost ([78.156.65.138])
+ by smtp.gmail.com with ESMTPSA id v24sm8375716wrd.92.2020.06.19.06.12.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jun 2020 06:12:18 -0700 (PDT)
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA01SfUxNcRje73zd09Vtxy31Wxq6m+9EYzpTkmZ2NkP8Yy7FpbOk7o17upFN
- XZVwlImhTyq3XX1TpFWkRrd2ddPHLGR1FzP60HeYSqcT+u95n/d5n+d9f/uRqPwj7kyGaCJY
- rUYVpiCkWHn9T8u6fbf6AjdMtJF0kqURoW93VuF0bskFCf0opQSn+7tmyunyZJRuH/tO0HkF
- rxA6q8aLHm23InRpz1ucbqvMIOiilx8ldO3gJ9zXjrnYOkkwhXcLAfNsPAtjno5340zXVRPC
- lBlimA9TPShzs8MImKp3eoK59jgfMCOlS/wXKKXeQWxYSCSrXe9zVHqipc9InDI6nn3Cr9WD
- DjkPbEhIbYLVzaU4D6SknHoAYLz5NSIWowA25fYSYjECoKF5HOMBOTvypUIt8kYAC+7F4/8n
- at4hgi9BeUC+nycE7EBdBLAhyVYQoZQBhYbO55jQsKf2Q3N6/ewARi2HgzlFEgHLKB+YZ84A
- 4oJLYcHDF6iAbWb43vhaXNQshI2pn2Z90BlN3JN0VAiA1KQEZpuqCXHVHTBhLET0sYffTI8l
- InaB5puJmKiPA9BqEYKFIhHAttiUuWQv2Gn5NWuEUqthSeV6kd4OE57xiOhvBzv6F4o72MEb
- 5XdQkZbBywlz77sCppmK/8XWvmlFRczA5Ku/wHXgmjbvmrR516T9z80CaD5wYnWcOpjlPDTs
- GXdOpeZ0mmD34+HqUjDz6cxTpuEKMNZ6rA5QJFDYynwP9AbKcVUkF6WuA5BEFQ4yvyZzoFwW
- pIo6x2rDj2h1YSxXBxaTmMJJtjHna4CcClZFsKEse4rV/u0ipI2zHsRYhrfd118i+IEm5UpN
- 6wSMdQwPOZnpCVw3//BrYIqnR/z3Nka6SU/DoNQrW0m9daxy0RllHIdvj65HyqeXDfhH/3bS
- R/mV/QxoCY1dQTrckHuTboO7txw9vMrTO7N6z7GtOyv4Jmu2S0H3EKY7NPT+fFKP+UPL51vK
- wl0HnysVGHdC5bEG1XKqPxwLG3pwAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrEIsWRmVeSWpSXmKPExsVy+t/xe7oBU9/EGUzsVrHoPXeSyWLand2s
- FkvXN7JbbJyxntXi7X0g9/+2icwWV76+Z7NYufook8WC/dYWX648ZLLY9Pgaq8XlXXPYLNYe
- uctucfDDE1YHPo/WS3/ZPNbMW8PosffbAhaP7d8esHrc7z7O5LF5Sb3H7X+PmT0m31jO6LH7
- ZgObR9+WVYwenzfJBXBH6dkU5ZeWpCpk5BeX2CpFG1oY6RlaWugZmVjqGRqbx1oZmSrp29mk
- pOZklqUW6dsl6GVcfLOcrWC5WMXWLu0GxhtCXYwcHBICJhLPd+R2MXJxCAksZZRYMPUYYxcj
- J1BcRuLktAZWCFtY4s+1LjaIok+MEo/ebAUrYhMwlOh6C5EQEehklJjW/ZEdxGEWWMMsce/7
- cnaQKmGBAIm9W5cwgdgsAqoSHxatBYvzCthJrDw9B2qdvMTqDQeYQWxOoPjrloNgq4UEbCWW
- L3jPDFEvKHFy5hMWkLOZBdQl1s8TAgkzA7U2b53NPIFRcBaSqlkIVbOQVC1gZF7FKJJaWpyb
- nltsqFecmFtcmpeul5yfu4kRGL/bjv3cvIPx0sbgQ4wCHIxKPLwvQl7HCbEmlhVX5h5ilOBg
- VhLhdTp7Ok6INyWxsiq1KD++qDQntfgQoynQaxOZpUST84GpJa8k3tDU0NzC0tDc2NzYzEJJ
- nLdD4GCMkEB6YklqdmpqQWoRTB8TB6dUA2PwB2/OqzZMVrZXc/drrVlrtlqzZ4uvpkie49Om
- qErR+NS3vkYft89cLjbhc8+ypKb9n+e2CDJ4Xw53jPeXXbZ3UrHWouivmxYUnjknxi4f6jL5
- r0oMk4h6bLV25W6LnClB5ku0zNesyRDl25Dm5sZ9SeB56b2YxkOFL1nvOv1fK+e071v4XSWW
- 4oxEQy3mouJEANQLM4z1AgAA
-X-CMS-MailID: 20200619103704eucas1p1bf233e8914507323499186d9ab742c09
-X-Msg-Generator: CA
-X-RootMTR: 20200619103704eucas1p1bf233e8914507323499186d9ab742c09
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200619103704eucas1p1bf233e8914507323499186d9ab742c09
-References: <20200619103636.11974-1-m.szyprowski@samsung.com>
- <CGME20200619103704eucas1p1bf233e8914507323499186d9ab742c09@eucas1p1.samsung.com>
+In-Reply-To: <20200619094309.GT20149@phenom.ffwll.local>
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-4-daniel.vetter@ffwll.ch>
+ <159186243606.1506.4437341616828968890@build.alporthouse.com>
+ <CAPM=9ty6r1LuXAH_rf98GH0R9yN3x8xzKPjZG3QyvokpQBR-Hg@mail.gmail.com>
+ <CAPj87rM0S2OPssf+WA+pjanT-0Om3yuUM1zUJCv4qTx5VYE=Fw@mail.gmail.com>
+ <159255511144.7737.12635440776531222029@build.alporthouse.com>
+ <CAKMK7uHEwj6jiZkRZ5PaCUNWcuU9oE4KYm4XHZwHnFzEuChZ7w@mail.gmail.com>
+ <159255801588.7737.4425728073225310839@build.alporthouse.com>
+ <20200619094309.GT20149@phenom.ffwll.local>
+Subject: Re: [Intel-gfx] [PATCH 03/18] dma-fence: basic lockdep annotations
+From: Chris Wilson <chris@chris-wilson.co.uk>
+To: Daniel Vetter <daniel@ffwll.ch>
+Message-ID: <159257233754.7737.17318605310513355800@build.alporthouse.com>
+User-Agent: alot/0.8.1
+Date: Fri, 19 Jun 2020 14:12:17 +0100
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,67 +86,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-rdma <linux-rdma@vger.kernel.org>, Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, DRI Development <dri-devel@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Thomas Hellstrom <thomas.hellstrom@intel.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel.vetter@intel.com>, Linux Media Mailing List <linux-media@vger.kernel.org>, Christian König <christian.koenig@amd.com>, Mika Kuoppala <mika.kuoppala@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhlIERvY3VtZW50YXRpb24vRE1BLUFQSS1IT1dUTy50eHQgc3RhdGVzIHRoYXQgdGhlIGRtYV9t
-YXBfc2coKSBmdW5jdGlvbgpyZXR1cm5zIHRoZSBudW1iZXIgb2YgdGhlIGNyZWF0ZWQgZW50cmll
-cyBpbiB0aGUgRE1BIGFkZHJlc3Mgc3BhY2UuCkhvd2V2ZXIgdGhlIHN1YnNlcXVlbnQgY2FsbHMg
-dG8gdGhlIGRtYV9zeW5jX3NnX2Zvcl97ZGV2aWNlLGNwdX0oKSBhbmQKZG1hX3VubWFwX3NnIG11
-c3QgYmUgY2FsbGVkIHdpdGggdGhlIG9yaWdpbmFsIG51bWJlciBvZiB0aGUgZW50cmllcwpwYXNz
-ZWQgdG8gdGhlIGRtYV9tYXBfc2coKS4KCnN0cnVjdCBzZ190YWJsZSBpcyBhIGNvbW1vbiBzdHJ1
-Y3R1cmUgdXNlZCBmb3IgZGVzY3JpYmluZyBhIG5vbi1jb250aWd1b3VzCm1lbW9yeSBidWZmZXIs
-IHVzZWQgY29tbW9ubHkgaW4gdGhlIERSTSBhbmQgZ3JhcGhpY3Mgc3Vic3lzdGVtcy4gSXQKY29u
-c2lzdHMgb2YgYSBzY2F0dGVybGlzdCB3aXRoIG1lbW9yeSBwYWdlcyBhbmQgRE1BIGFkZHJlc3Nl
-cyAoc2dsIGVudHJ5KSwKYXMgd2VsbCBhcyB0aGUgbnVtYmVyIG9mIHNjYXR0ZXJsaXN0IGVudHJp
-ZXM6IENQVSBwYWdlcyAob3JpZ19uZW50cyBlbnRyeSkKYW5kIERNQSBtYXBwZWQgcGFnZXMgKG5l
-bnRzIGVudHJ5KS4KCkl0IHR1cm5lZCBvdXQgdGhhdCBpdCB3YXMgYSBjb21tb24gbWlzdGFrZSB0
-byBtaXN1c2UgbmVudHMgYW5kIG9yaWdfbmVudHMKZW50cmllcywgY2FsbGluZyBETUEtbWFwcGlu
-ZyBmdW5jdGlvbnMgd2l0aCBhIHdyb25nIG51bWJlciBvZiBlbnRyaWVzIG9yCmlnbm9yaW5nIHRo
-ZSBudW1iZXIgb2YgbWFwcGVkIGVudHJpZXMgcmV0dXJuZWQgYnkgdGhlIGRtYV9tYXBfc2coKQpm
-dW5jdGlvbi4KClRvIGF2b2lkIHN1Y2ggaXNzdWVzLCBsZXRzIHVzZSBhIGNvbW1vbiBkbWEtbWFw
-cGluZyB3cmFwcGVycyBvcGVyYXRpbmcKZGlyZWN0bHkgb24gdGhlIHN0cnVjdCBzZ190YWJsZSBv
-YmplY3RzIGFuZCB1c2Ugc2NhdHRlcmxpc3QgcGFnZQppdGVyYXRvcnMgd2hlcmUgcG9zc2libGUu
-IFRoaXMsIGFsbW9zdCBhbHdheXMsIGhpZGVzIHJlZmVyZW5jZXMgdG8gdGhlCm5lbnRzIGFuZCBv
-cmlnX25lbnRzIGVudHJpZXMsIG1ha2luZyB0aGUgY29kZSByb2J1c3QsIGVhc2llciB0byBmb2xs
-b3cKYW5kIGNvcHkvcGFzdGUgc2FmZS4KClNpZ25lZC1vZmYtYnk6IE1hcmVrIFN6eXByb3dza2kg
-PG0uc3p5cHJvd3NraUBzYW1zdW5nLmNvbT4KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
-ZGVvbl90dG0uYyB8IDExICsrKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25z
-KCspLCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKaW5kZXgg
-NWQ1MGM5ZWRiZTgwLi4wZTNlYjBkMjI4MzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uX3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0
-bS5jCkBAIC00ODEsNyArNDgxLDcgQEAgc3RhdGljIGludCByYWRlb25fdHRtX3R0X3Bpbl91c2Vy
-cHRyKHN0cnVjdCB0dG1fdHQgKnR0bSkKIHsKIAlzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiA9
-IHJhZGVvbl9nZXRfcmRldih0dG0tPmJkZXYpOwogCXN0cnVjdCByYWRlb25fdHRtX3R0ICpndHQg
-PSAodm9pZCAqKXR0bTsKLQl1bnNpZ25lZCBwaW5uZWQgPSAwLCBuZW50czsKKwl1bnNpZ25lZCBw
-aW5uZWQgPSAwOwogCWludCByOwogCiAJaW50IHdyaXRlID0gIShndHQtPnVzZXJmbGFncyAmIFJB
-REVPTl9HRU1fVVNFUlBUUl9SRUFET05MWSk7CkBAIC01MjEsOSArNTIxLDggQEAgc3RhdGljIGlu
-dCByYWRlb25fdHRtX3R0X3Bpbl91c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0bSkKIAlpZiAocikK
-IAkJZ290byByZWxlYXNlX3NnOwogCi0JciA9IC1FTk9NRU07Ci0JbmVudHMgPSBkbWFfbWFwX3Nn
-KHJkZXYtPmRldiwgdHRtLT5zZy0+c2dsLCB0dG0tPnNnLT5uZW50cywgZGlyZWN0aW9uKTsKLQlp
-ZiAobmVudHMgPT0gMCkKKwlyID0gZG1hX21hcF9zZ3RhYmxlKHJkZXYtPmRldiwgdHRtLT5zZywg
-ZGlyZWN0aW9uLCAwKTsKKwlpZiAocikKIAkJZ290byByZWxlYXNlX3NnOwogCiAJZHJtX3ByaW1l
-X3NnX3RvX3BhZ2VfYWRkcl9hcnJheXModHRtLT5zZywgdHRtLT5wYWdlcywKQEAgLTU1NCw5ICs1
-NTMsOSBAQCBzdGF0aWMgdm9pZCByYWRlb25fdHRtX3R0X3VucGluX3VzZXJwdHIoc3RydWN0IHR0
-bV90dCAqdHRtKQogCQlyZXR1cm47CiAKIAkvKiBmcmVlIHRoZSBzZyB0YWJsZSBhbmQgcGFnZXMg
-YWdhaW4gKi8KLQlkbWFfdW5tYXBfc2cocmRldi0+ZGV2LCB0dG0tPnNnLT5zZ2wsIHR0bS0+c2ct
-Pm5lbnRzLCBkaXJlY3Rpb24pOworCWRtYV91bm1hcF9zZ3RhYmxlKHJkZXYtPmRldiwgdHRtLT5z
-ZywgZGlyZWN0aW9uLCAwKTsKIAotCWZvcl9lYWNoX3NnX3BhZ2UodHRtLT5zZy0+c2dsLCAmc2df
-aXRlciwgdHRtLT5zZy0+bmVudHMsIDApIHsKKwlmb3JfZWFjaF9zZ3RhYmxlX3BhZ2UodHRtLT5z
-ZywgJnNnX2l0ZXIsIDApIHsKIAkJc3RydWN0IHBhZ2UgKnBhZ2UgPSBzZ19wYWdlX2l0ZXJfcGFn
-ZSgmc2dfaXRlcik7CiAJCWlmICghKGd0dC0+dXNlcmZsYWdzICYgUkFERU9OX0dFTV9VU0VSUFRS
-X1JFQURPTkxZKSkKIAkJCXNldF9wYWdlX2RpcnR5KHBhZ2UpOwotLSAKMi4xNy4xCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Quoting Daniel Vetter (2020-06-19 10:43:09)
+> On Fri, Jun 19, 2020 at 10:13:35AM +0100, Chris Wilson wrote:
+> > Quoting Daniel Vetter (2020-06-19 09:51:59)
+> > > On Fri, Jun 19, 2020 at 10:25 AM Chris Wilson <chris@chris-wilson.co.uk> wrote:
+> > > > Forcing a generic primitive to always be part of the same global map is
+> > > > horrible.
+> > > 
+> > > And  no concrete example or reason for why that's not possible.
+> > > Because frankly it's not horrible, this is what upstream is all about:
+> > > Shared concepts, shared contracts, shared code.
+> > > 
+> > > The proposed patches might very well encode the wrong contract, that's
+> > > all up for discussion. But fundamentally questioning that we need one
+> > > is missing what upstream is all about.
+> > 
+> > Then I have not clearly communicated, as my opinion is not that
+> > validation is worthless, but that the implementation is enshrining a
+> > global property on a low level primitive that prevents it from being
+> > used elsewhere. And I want to replace completion [chains] with fences, and
+> > bio with fences, and closures with fences, and what other equivalencies
+> > there are in the kernel. The fence is as central a locking construct as
+> > struct completion and deserves to be a foundational primitive provided
+> > by kernel/ used throughout all drivers for discrete problem domains.
+> > 
+> > This is narrowing dma_fence whereby adding
+> >       struct lockdep_map *dma_fence::wait_map
+> > and annotating linkage, allows you to continue to specify that all
+> > dma_fence used for a particular purpose must follow common rules,
+> > without restricting the primitive for uses outside of this scope.
+> 
+> Somewhere else in this thread I had discussions with Jason Gunthorpe about
+> this topic. It might maybe change somewhat depending upon exact rules, but
+> his take is very much "I don't want dma_fence in rdma". Or pretty close to
+> that at least.
+> 
+> Similar discussions with habanalabs, they're using dma_fence internally
+> without any of the uapi. Discussion there has also now concluded that it's
+> best if they remove them, and simply switch over to a wait_queue or
+> completion like every other driver does.
+> 
+> The next round of the patches already have a paragraph to at least
+> somewhat limit how non-gpu drivers use dma_fence. And I guess actual
+> consensus might be pointing even more strongly at dma_fence being solely
+> something for gpus and closely related subsystem (maybe media) for syncing
+> dma-buf access.
+> 
+> So dma_fence as general replacement for completion chains I think just
+> wont happen.
+
+That is sad. I cannot comprehend going back to pure completions after a
+taste of fence scheduling. And we are not even close to fully utilising
+them, as not all the async cpu [allocation!] tasks are fully tracked by
+fences yet and are still stuck in a FIFO workqueue.
+
+> What might make sense is if e.g. the lockdep annotations could be reused,
+> at least in design, for wait_queue or completion or anything else
+> really. I do think that has a fair chance compared to the automagic
+> cross-release annotations approach, which relied way too heavily on
+> guessing where barriers are. My experience from just a bit of playing
+> around with these patches here and discussing them with other driver
+> maintainers is that accurately deciding where critical sections start and
+> end is a job for humans only. And if you get it wrong, you will have a
+> false positive.
+> 
+> And you're indeed correct that if we'd do annotations for completions and
+> wait queues, then that would need to have a class per semantically
+> equivalent user, like we have lockdep classes for mutexes, not just one
+> overall.
+> 
+> But dma_fence otoh is something very specific, which comes with very
+> specific rules attached - it's not a generic wait_queue at all. Originally
+> it did start out as one even, but it is a very specialized wait_queue.
+> 
+> So there's imo two cases:
+> 
+> - Your completion is entirely orthogonal of dma_fences, and can never ever
+>   block a dma_fence. Don't use dma_fence for this, and no problem. It's
+>   just another wait_queue somewhere.
+> 
+> - Your completion can eventually, maybe through lots of convolutions and
+>   depdencies, block a dma_fence. In that case full dma_fence rules apply,
+>   and the only thing you can do with a custom annotation is make the rules
+>   even stricter. E.g. if a sub-timeline in the scheduler isn't allowed to
+>   take certain scheduler locks. But the userspace visible/published fence
+>   do take them, maybe as part of command submission or retirement.
+>   Entirely hypotethical, no idea any driver actually needs this.
+
+I think we are faced with this very real problem.
+
+The papering we have today over userptr is so very thin, and if you
+squint you can already see it is coupled into the completion signal. Just
+it happens to be on the other side of the fence.
+
+The next batch of priority inversions involve integrating the async cpu
+tasks into the scheduler, and have full dependency tracking over every
+internal fence. I do not see any way to avoid coupling the completion
+signal from the GPU to the earliest resource allocation, as it's an
+unbroken chain of work, at least from the user's perspective. [Next up
+for annotations is that we need to always assume that userspace has an
+implicit lock on GPU resources; having to break that lock with a GPU
+reset should be a breach of our data integrity, and best avoided, for
+compute does not care one iota about system integrity and insist
+userspace knows best.] Such allocations have to be allowed to fail and
+for that failure to propagate cancelling the queued work, such that I'm
+considering what rules we need for gfp_t. That might allow enough
+leverage to break any fs_reclaim loops, but userptr is likely forever
+doomed [aside from its fs_reclaim loop is as preventable as the normal
+shrinker paths], but we still need to suggest to pin_user_pages that
+failure is better than oom and that is not clear atm. Plus the usual
+failure can happen at any time after updating the user facing
+bookkeeping, but that is just extra layers in the execution monitor
+ready to step in and replacing failing work with the error propagation.
+Or where the system grinds to a halt, requiring the monitor to patch in
+a new page / resource.
+-Chris
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
