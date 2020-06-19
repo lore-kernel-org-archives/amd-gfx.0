@@ -2,70 +2,103 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CB14C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 16:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69A58C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 16:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D850820B80
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 16:19:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2CE372168B
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 16:24:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="KTV4omVy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D850820B80
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wfQK40Sn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CE372168B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E436E3DA;
-	Fri, 19 Jun 2020 16:19:56 +0000 (UTC)
-Received: from mail-oo1-xc41.google.com (mail-oo1-xc41.google.com
- [IPv6:2607:f8b0:4864:20::c41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD25E6E2E0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 16:19:55 +0000 (UTC)
-Received: by mail-oo1-xc41.google.com with SMTP id v26so2001673oof.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 09:19:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Wj1FO43iGyk7PYrrEEhEjkp2h2XH2iryroz21N45gqk=;
- b=KTV4omVyKlC8idt6WMrK4rC6pvlVu4xrql1JVUD6KZBV7gKdYxJqpq4ZpeJGmx7n73
- SSvhTZIxARGe61f5ZXZTmUvAdjCzvsY39rR/ObaJechM5w4wxPVEwfsRpKxgNAiucgSa
- n+dE3o8mBQzdJSPyc96774z0RS4si3IIY3MGE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Wj1FO43iGyk7PYrrEEhEjkp2h2XH2iryroz21N45gqk=;
- b=qYuRLOl7qXlP3bh7w7XafoA3DA0Ky7bgePtdnd36SPk6uT4P409ZrMZBgTeDOlpXrq
- 99rmk53RDgFxrwBeQkw15+TkHO4YX0w8FcV6mQYm/l45R4Uo6Ny75AUMG6wKucoMSGVC
- yqNTZt3TO8g89uDGlcLcOuthpchapW570gFnnn0SZFvev8U28jFchko4P3f2tNmIZUHb
- 9KVuwVP0XPQQe56f9Qql16aDUTVsn91nCvsr0/i+jA+WPIXkXkKtBhIC7AuzKwopy0Hx
- HjyneJfMCuWmZJfkMItwtavxir9m0DUcaXb+YSv/L8GKP6Xwl+7FW/a1lQHg0p3DCNaN
- b9Ig==
-X-Gm-Message-State: AOAM532YfzXuOC3eZK4naytVMMOKYuR7hY6KTgiMKcJHUEzasOakWUic
- Pw2s1+hNSenU3/IhAOrCmkdSOruhvTe/lGQ9xrkZIg==
-X-Google-Smtp-Source: ABdhPJyoy6aHWkVkbh8xMF9/TzGOKKb8kpLI0Idlia3eF0cObcMto8g+bs85raCaxdKtZhy5XKzmlJ6GtvyqnZQdJOE=
-X-Received: by 2002:a4a:9528:: with SMTP id m37mr3925602ooi.85.1592583593309; 
- Fri, 19 Jun 2020 09:19:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E65406E0B9;
+	Fri, 19 Jun 2020 16:24:42 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55D7C6E0B9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 16:24:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VexU/tDuUxE/TLaIxuyvImpfADOf9+gwh1AL7z2lBDM1vhKynSHeBXv42Vu6AhjD8hRNpFClvx14iS2mInIHQvITWbIGW1WkKR+JKL9ogzjb04v7qOtijQoVJQIkY5TQs2Dh9cazf2mKbGqHiUyuqL/V+Iuh2CmgSiIlBAhPdxZVG4wd976HG+v2cN1p407YY1eMlvkRZIMm8ktAYkUziddxk0+G9Gm3/CLQQyiejaOub+1BxCTI97uIemj4BILEbdedN/MuF2QOZY0LYAaJ0rEogqFAlz2rm9pYpiI7UqT18tuD0j3jfqs9jbwb97/3mfC2WvI7i3ZZLq8HQLVzrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wdh2yP9T0pBLn+TVqtzxamQvOb4X88GB7sPJ+Nepy0M=;
+ b=B69BTICRhSFCoKQR4WgUY1Wv5e2Voa3Rydi/BTCHxFdSRZ0LCpP4Dc5W4yefCDYdu3E2HVDOzS8BsLKCKULBwiMVqZroG0B+bpnvAWjNqujyn0jB++nT1EuIdyp15mcW37fxaQCJoK98unf5HiwwF/c9YA4SCUo+JKyu9W6MMRB4w5EErgaUIYGLA/roO2c9RJScmjPpHjYYITiXpmYUte2AwAPtMfGIrm0JLW50tgiWgecuNoZQGYE2goKfR5UkwKmo3poaZdGzWtmoC/O0bOdcL2hq5uKVeKpRTGar8w1X9vGdGE0/cgMZv7sTOwBFOgTykOiwL+OahIriHdz3LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wdh2yP9T0pBLn+TVqtzxamQvOb4X88GB7sPJ+Nepy0M=;
+ b=wfQK40Sn6NgVlwrV82JnIksSuNSTcimgPlgVgi9PliMnsaA5IWAAICcL4G0mlpiKvk1Wl+0DFvn8CzqJky5SYtHy5iQjBD0Atg8F5O2KNnotoY/3K9RrId5yf+RsKU8jqc8bCkDlVS/GhNTj+irgaMZ9nkb9jGHd2FySznpSWno=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BY5PR12MB4146.namprd12.prod.outlook.com (2603:10b6:a03:20d::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Fri, 19 Jun
+ 2020 16:24:39 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::fd29:4119:9ef5:8210]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::fd29:4119:9ef5:8210%7]) with mapi id 15.20.3109.023; Fri, 19 Jun 2020
+ 16:24:39 +0000
+Subject: Re: [PATCH 1/1] drm/amd/display: fix compilation error on allmodconfig
+To: Alex Deucher <alexdeucher@gmail.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>
+References: <20200618194936.9158-1-qingqing.zhuo@amd.com>
+ <20200618194936.9158-2-qingqing.zhuo@amd.com>
+ <CADnq5_NiJyjfS5zhE1zMCXPw9aDUwkXrhrAgpL6duM7OzoVriw@mail.gmail.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <6de790c1-8b59-3505-3b51-6c130262dd45@amd.com>
+Date: Fri, 19 Jun 2020 12:24:24 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+In-Reply-To: <CADnq5_NiJyjfS5zhE1zMCXPw9aDUwkXrhrAgpL6duM7OzoVriw@mail.gmail.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0007.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::20) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
-References: <20200611083430.GD20149@phenom.ffwll.local>
- <20200611141515.GW6578@ziepe.ca>
- <20200616120719.GL20149@phenom.ffwll.local>
- <CAKMK7uE7DKUo9Z+yCpY+mW5gmKet8ugbF3yZNyHGqsJ=e-g_hA@mail.gmail.com>
- <20200617152835.GF6578@ziepe.ca> <20200618150051.GS20149@phenom.ffwll.local>
- <20200618172338.GM6578@ziepe.ca>
- <CAKMK7uEbqTu4q-amkLXyd1i8KNtLaoO2ZFoGqYiG6D0m0FKpOg@mail.gmail.com>
- <20200619113934.GN6578@ziepe.ca>
- <CAKMK7uE-kWA==Cko5uenMrcnopEjq42HxoDTDywzBAbHqsN13g@mail.gmail.com>
- <20200619151551.GP6578@ziepe.ca>
-In-Reply-To: <20200619151551.GP6578@ziepe.ca>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 19 Jun 2020 18:19:41 +0200
-Message-ID: <CAKMK7uEvkshAM6KUYZu8_OCpF4+1Y_SM7cQ9nJWpagfke8s8LA@mail.gmail.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-To: Jason Gunthorpe <jgg@ziepe.ca>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YTXPR0101CA0007.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3109.21 via Frontend Transport; Fri, 19 Jun 2020 16:24:37 +0000
+X-Originating-IP: [165.204.55.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 77442a4a-7c22-4194-bfb2-08d8146d43a4
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4146:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4146B1E745AD2AB2DA2D9F6EEC980@BY5PR12MB4146.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Forefront-PRVS: 0439571D1D
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: IaiYZU1xRGn2iHTt8oZu1qvWS+NtZnihCzENZ0Dba4WeAfouGB1oA4y1+n8L/QtDCSNTdrzBSXUZmrMznTiRY7NH0nUct6Tl/tPvhIDpoN33AXyvCy+qGlnzFgn24wPF0+H7uhz7AjH8+N64YajRHil0pJDevwHYdTZ9zzcOwTSUwl16CTzGmFoBeOR93gQCywpY0ejPDqcrxMiQT429MwqYO3gSFp3P9ulQJR6CZUiL4rjMt6nQjKsGvI558BSMM3n0esL34Ug3Q4gVvclePAo+oHX4lw7L5/yz+Tggklah+lpHn0Q60Ru8L1vzOpO0HeFOQQ2KaMx9/VoLWzCbfKOByXlPF7skO2qzGHot+dtaE1oG4rGVC687UTYbqfKaZx5fCe/S+UFu3Y+XQmf0abLruvXh5kzJ7NfJfGm0aSY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(136003)(396003)(376002)(366004)(39860400002)(6486002)(956004)(2616005)(36756003)(83380400001)(53546011)(478600001)(8676002)(6636002)(31696002)(31686004)(86362001)(8936002)(16526019)(6666004)(26005)(966005)(2906002)(110136005)(54906003)(316002)(4326008)(5660300002)(16576012)(66476007)(66556008)(66946007)(52116002)(186003)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: SVgXROjdu1+SULh8/Ple3T9sG4+izLAk2wDbYRu9ERl0WZphi8s8FmG792w7XCn0QXZtAGtROAJyqJeCa9qSUEbCg+adXl0q6uop7p8yV8Q62+k9gIjcOjRO0ICptq2/WKYZMeo5r3xhovYUBp2BLdeiSsU5pggHzshnBqePzTkA8yZxq3KiU/GftM4jNPGmCbSaXpD5yKojiCkPXglNDzVHYzJeafQR9nNW5Rr1YlrwpSSxXJ9KiSXNZHvbzqdTQRKebiL6ACZIwSbFE5YJ5jzL0S3zNovuLR2klm0bFN/ED5AybMNr3KRSiiUW2DG8gil3/5wVyDD0ZRxYAImsdg2VESqRNK4QUhdKhvOM+4IDZ/WwsjYk1yhlgNlIELmpnt1twkUr/V7/RD+gkhdx/mcRMl0J5XsF5N83+lVrLX7h5eds+b2TS/8xNV7IeHD6CSKJv1cXImuGo2d8BhWqFZFevYfXaZzIBiSQFpBlUcRAg4Atj6izCXbfzwM0nUNB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77442a4a-7c22-4194-bfb2-08d8146d43a4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 16:24:39.4185 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IOeg7qe921cgOg010AcRvlq6kAur5wQLWBWKeIhpKmVqNeS5+dOy78naxGHwjPTPMcTV8yHExRvlJyYWmTJvmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4146
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,228 +110,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Lewis Huang <Lewis.Huang@amd.com>, "Cyr, Aric" <Aric.Cyr@amd.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Harry Wentland <hwentlan@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 19, 2020 at 5:15 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
->
-> On Fri, Jun 19, 2020 at 05:06:04PM +0200, Daniel Vetter wrote:
-> > On Fri, Jun 19, 2020 at 1:39 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> > >
-> > > On Fri, Jun 19, 2020 at 09:22:09AM +0200, Daniel Vetter wrote:
-> > > > > As I've understood GPU that means you need to show that the commands
-> > > > > associated with the buffer have completed. This is all local stuff
-> > > > > within the driver, right? Why use fence (other than it already exists)
-> > > >
-> > > > Because that's the end-of-dma thing. And it's cross-driver for the
-> > > > above reasons, e.g.
-> > > > - device A renders some stuff. Userspace gets dma_fence A out of that
-> > > > (well sync_file or one of the other uapi interfaces, but you get the
-> > > > idea)
-> > > > - userspace (across process or just different driver) issues more
-> > > > rendering for device B, which depends upon the rendering done on
-> > > > device A. So dma_fence A is an dependency and will block this dma
-> > > > operation. Userspace (and the kernel) gets dma_fence B out of this
-> > > > - because unfortunate reasons, the same rendering on device B also
-> > > > needs a userptr buffer, which means that dma_fence B is also the one
-> > > > that the mmu_range_notifier needs to wait on before it can tell core
-> > > > mm that it can go ahead and release those pages
-> > >
-> > > I was afraid you'd say this - this is complete madness for other DMA
-> > > devices to borrow the notifier hook of the first device!
-> >
-> > The first device might not even have a notifier. This is the 2nd
-> > device, waiting on a dma_fence of its own, but which happens to be
-> > queued up as a dma operation behind something else.
-> >
-> > > What if the first device is a page faulting device and doesn't call
-> > > dma_fence??
-> >
-> > Not sure what you mean with this ... even if it does page-faulting for
-> > some other reasons, it'll emit a dma_fence which the 2nd device can
-> > consume as a dependency.
->
-> At some point the pages under the buffer have to be either pinned
-> or protected by mmu notifier. So each and every single device doing
-> DMA to these pages must either pin, or use mmu notifier.
->
-> Driver A should never 'borrow' a notifier from B
+On 2020-06-19 11:27 a.m., Alex Deucher wrote:
+> On Thu, Jun 18, 2020 at 3:49 PM Qingqing Zhuo <qingqing.zhuo@amd.com> wrote:
+>>
+>> when compiled with allmodconfig option, there are error
+>> messages as below:
+>>
+>> ERROR: modpost:
+>> "mod_color_is_table_init"
+>> [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>> ERROR: modpost:
+>> "mod_color_get_table"
+>> [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>> ERROR: modpost:
+>> "mod_color_set_table_init_state"
+>> [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>>
+>> To fix the issue, this commits removes
+>> CONFIG_DRM_AMD_DC_DCN guard in color/makefile.
+>>
+>> Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+>> CC: Lewis Huang <Lewis.Huang@amd.com>
+>> CC: Aric Cyr <Aric.Cyr@amd.com>
+>> CC: Alexander Deucher <Alexander.Deucher@amd.com>
+>> CC: Harry Wentland <hwentlan@amd.com>
+>> CC: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+>> CC: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+>> CC: Stephen Rothwell <sfr@canb.auug.org.au>
+> 
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-It doesn't. I guess this would be great topic for lpc with a seriously
-big white-board, but I guess we don't have that this year again, so
-let me try again. Simplified example ofc, but should be the gist.
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Ingredients:
-Device A and Device B
-A dma-buf, shared between device A and device B, let's call that shared_buf
-A userptr buffer, which userspace created on device B to hopefully
-somewhat track a virtual memory range, let's call that userptr_buf.
-A pile of other buffers, but we pretend they don't exist (because they
-kinda don't matter.
+> 
+>> ---
+>>   drivers/gpu/drm/amd/display/modules/color/Makefile | 6 +-----
+>>   1 file changed, 1 insertion(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/modules/color/Makefile b/drivers/gpu/drm/amd/display/modules/color/Makefile
+>> index 3ee7f27ff93b..e66c19a840c2 100644
+>> --- a/drivers/gpu/drm/amd/display/modules/color/Makefile
+>> +++ b/drivers/gpu/drm/amd/display/modules/color/Makefile
+>> @@ -23,11 +23,7 @@
+>>   # Makefile for the color sub-module of DAL.
+>>   #
+>>
+>> -MOD_COLOR = color_gamma.o
+>> -
+>> -ifdef CONFIG_DRM_AMD_DC_DCN
+>> -MOD_COLOR += color_table.o
+>> -endif
+>> +MOD_COLOR = color_gamma.o color_table.o
+>>
+>>   AMD_DAL_MOD_COLOR = $(addprefix $(AMDDALPATH)/modules/color/,$(MOD_COLOR))
+>>   #$(info ************  DAL COLOR MODULE MAKEFILE ************)
+>> --
+>> 2.17.1
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-Sequence of events as userspace issues them to the kernel.
-1. dma operation on device A, which fills some interesting stuff into
-shared_buf. Userspace gets back a handle to dma_fence fence_A. No mmu
-notifier anywhere to be seen in the driver for device A.
-
-2. userspace passes fence_A around to some other place
-
-3. other places takes the handle for shared_buf and fence_A and
-userptr_buf and starts a dma operation on device B. It's one dma
-operation, maybe device B is taking the data from shared_buf and
-compresses it into userptr_buf, so that userspace can then send it
-over the network or to disk or whatever. device B has a mmu_notifier.
-Userspace gets back fence_B, which represents this dma operation. The
-kernel also stuffs this fence_B into the mmu_range_notifier for
-userptr_buf.
-
--> at this point device A might still be crunching the numbers
-
-4. device A is finally done doing whatever it was supposed to do, and
-fence_A completes
-
-5. device B wakes up (this might or might not involve the kernel,
-usually it does) since fence_A has completed, and now starts doing its
-own crunching.
-
-6. once device B is also done, it signals fence_B
-
-In all this device A has never borrowed the mmu notifier or even
-accessd the memory in userptr_buf or had access to that buffer handle.
-
-The madness is only that device B's mmu notifier might need to wait
-for fence_B so that the dma operation finishes. Which in turn has to
-wait for device A to finish first.
-
-> If each driver controls its own lifetime of the buffers, why can't the
-> driver locally wait for its device to finish?
->
-> Can't the GPUs cancel work that is waiting on a DMA fence? Ie if
-> Driver A detects that work completed and wants to trigger a DMA fence,
-> but it now knows the buffer is invalidated, can't it tell driver B to
-> give up?
-
-We can (usually, the shitty hw where we can't has generally
-disappeared) with gpu reset. Users make really sad faces when that
-happens though, and generally they're only ok with that if it's indeed
-a nasty gpu program that resulted in the crash (there's some webgl
-shaders that run too long for quick&easy testing of how good the gpu
-reset is, don't do that if you care about the data in your desktop
-session ...).
-
-The trouble is that userspace assembles the work that's queued up on
-the gpu. After submission everyone has forgotten enough that just
-canceling stuff and re-issuing everything isn't on the table.
-
-Some hw is better, with real hw page faults and stuff, but those also
-don't need dma_fence to track their memory. But generally just not
-possible.
-
-> > The problem is that there's piles of other dependencies for a dma job.
-> > GPU doesn't just consume a single buffer each time, it consumes entire
-> > lists of buffers and mixes them all up in funny ways. Some of these
-> > buffers are userptr, entirely local to the device. Other buffers are
-> > just normal device driver allocations (and managed with some shrinker
-> > to keep them in check). And then there's the actually shared dma-buf
-> > with other devices. The trouble is that they're all bundled up
-> > together.
->
-> But why does this matter? Does the GPU itself consume some work and
-> then stall internally waiting for an external DMA fence?
-
-Yup, see above, that's what's going on. Userspace queues up
-distributed work across engines & drivers, and then just waits for the
-entire thing to cascade and finish.
-
-> Otherwise I would expect this dependency chain should be breakable by
-> aborting work waiting on fences upon invalidation (without stalling)
-
-Yup, it would. Now on some hw you have a gpu work scheduler that sits
-in some kthread, and you could probably unschedule the work if there's
-some external dependency and you get an mmu notifier callback. Then
-put it on some queue, re-acquire the user pages and then reschedule
-it.
-
-It's still as horrible, since you still have the wait for the
-completion in there, the only benefit is that other device drivers
-without userptr support don't have to live with that specific
-constraint. dma_fence rules are still very strict and easy to
-deadlock, so we'd still want some lockdep checks, but now you'd have
-to somehow annotate whether you're a driver with userptr or a driver
-without userptr and make sure everyone gets it right.
-
-Also a scheduler which can unschedule and reschedule is mighty more
-complex than one which cannot, plus it needs to do that from mmu
-notifier callback (not the nicest calling context we have in the
-kernel by far). And if you have a single driver which doesn't
-unschedule, you're still screwed from an overall subsystem pov.
-
-So lots of code, lots of work, and not that much motivation to roll it
-out consistently across the board since there's no incremental payoff.
-Plus the thing is, the drivers without userptr are generally the
-really simple ones. Much easier to just fix those than to change the
-big complex render beasts which want userptr :-)
-
-E.g. the atomic modeset framework we've rolled out in the past few
-years and that almost all display drivers now use pulls any (sleeping)
-locks and memory allocations out of the critical async work section by
-design. Some drivers still managed to butcher it (the annotations
-caught some locking bugs already, not just memory allocations in the
-wrong spot), but generally easy to fix those.
-
-> > > Do not need to wait on dma_fence in notifiers.
-> >
-> > Maybe :-) The goal of this series is more to document current rules
-> > and make them more consistent. Fixing them if we don't like them might
-> > be a follow-up task, but that would likely be a pile more work. First
-> > we need to know what the exact shape of the problem even is.
->
-> Fair enough
-
-Full disclosure: We are aware that we've designed ourselves into an
-impressive corner here, and there's lots of talks going on about
-untangling the dma synchronization from the memory management
-completely. But
-
-- that needs minimally reliable preempt support for gpu work, and hw
-engineers seem to have a hard time with that (or just don't want to do
-it). hw page faults would be even better, and even more wishlist than
-reality if you expect it to work everywhere.
-
-- it'd be a complete break of the established userspace abi, including
-all the cross driver stuff. Which means it's not just some in-kernel
-refactoring, we need to rev the entire ecosystem. And that takes a
-very long time, and needs serious pressure to get people moving.
-
-E.g. the atomic modeset rework is still not yet rolled out to major
-linux desktop environments, and it's over 5 years old, and it's
-starting to seriously hurt because lots of performance features
-require atomic modeset in userspace to be able to use them. I think
-rev'ing the entire memory management support will take as long. Plus I
-don't think we can ditch the old ways - even if all the hw currently
-using this would be dead (and we can delete the drivers) there's still
-the much smaller gpus in SoC that also need to go through the entire
-evolution.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
