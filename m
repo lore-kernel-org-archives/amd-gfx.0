@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1C68C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63E4FC433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3F14208B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 39155208B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fc+R81by"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3F14208B8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qkaHSvYR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39155208B8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55FBD6EA19;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 805416EA38;
 	Fri, 19 Jun 2020 20:12:57 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 833406EA19
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBB56E98A
  for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:12:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DnPbCRxm3GxvKVQfq4ZACE62KCUHfqCPxSTyP8PXL+jWYSZ5UuQt+f8Ru9/hCW6ZvjY1pZgCW9IICCIBeZkYktt0jX6BVPv7s0+sDO1NgSMiM7QNptYdeDfZhyOYMIO/xlNGg74lb5Klq4ZWQ+rr6dZ+DFNdJwBZ1RmEKh0NvRaW9mNtcbI0fhjvuCaBSUcNME7ODzOtRQVnUhPP8tvl1lPxyB9emSWQCr/R2EfJkIApCtD6CK3qpQyO2xhmRI5a24Q9KhgDN9+j0Cln6rqIbrgHef5FiP3qNQsn/pbNVlav1Vq921OXaYD0I2Pit6nEf4u4u/B5FzSOhmDwpO5b8g==
+ b=X3Z50HWOFy2XCM4ELLDs/7UZp29C6gpWvhE953f6x6rrNNZXmEf/Vu9oEByK45W9yxhNC7vi0MDsHEsZNHvyRjOMb2ZDR4iiYM+P3nzjIJPICqYqdg/n+9n6fJs//pwCRO06MIMiUsZQ0VvZbw/yi9/FHxh9bPV2OPsUx5Gps+NpR2qI3lduEM7s9AseXcjPOTy3kRAPuEV/4Q46NFS3j+/jpHN56AjLvXLyGcmuIBWxNPfYFYvx4BpQZx/duv2v8n2H8Ww2CtW7lJ8yL1V/psZ/5E0jGJFhMMHjLVJfblUnscVVNhtcgNHkEcL/gPymsGZty3MkHdT8/YYCGBsgGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vdsOZt+M7kgk37nRduspzog/zWypOs4aboQMIUvrowM=;
- b=nAbqYBI3VAU/g+ck07PkUyH2QwqBkK5nr40WzgCZUyDi0kNPdT1lwxg5wcEDYDdjBpxlT9zIWqWivgk0yw60jpQc8H0JhwZxwvFub/qst2MUdq4NNp1KRFznQeGGFI9H/8e8/lKQj/924e1NglP/aLutC84lQK2e4xQCgghbz4JeYuqulSM73TzdCw67VvegsMt6fwVAZnmrctIIGT4v5O1hMgt8zXB8G9IjfnVuDeg9yYs0F0Q3DeuoIFMLghCDXHug0cDqQgs0yu5pZ4zYT+l4aLflwzdRgQihweMHjbupQdr6YIYXdexBS/ascCyqFg2Jss6k1c6b+u+TMuSlGA==
+ bh=Crh+toC5kN2aAWicLSLUcSjwXpO/N7Hi6W9TQTI6O5E=;
+ b=BmBSAovQuT/DZ/0Xd7/P1n443mMmzMSTPu5WNgqzENXVkEsis6pYrC4lzQVhlwOs/MKJBXuD+wGPWmWn2dUVxE9eCW7I2W9/SEvfSI7Im5QhHPwODgwU3JWPD9pLSat+SMvcw0UppQrHYiwxI+Hwdcxb3esfAS6FcNTq3wNpzq1UNR3V9HplDDv+Vn/YbyF17WUHsFsnQD8wPBA+vW3zz/NUnxpeofnDvYboMsW/Jm7cMqVHYoSb4t2lKch3DJodlMe18rU4vJNuP3JgzRUZNSsZpq0j1sk+QVoAfgGJ6X6DnOwmeOaZ7l262wxJtAIyyDGMYrlhcN/NQ7+UfOZIzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vdsOZt+M7kgk37nRduspzog/zWypOs4aboQMIUvrowM=;
- b=fc+R81byKr+fpEiV2XPcgD9Ebp4WTGhA+hLkH8H8KKbNPXNtSejcoAy+QOkOv63me2K0QjQ5Q4uEpgBaN4MpELz2n7AJF4PRpxc6LQVmMpAHgoVyAyDqeJMF9TyFtfF+XtTov+WpVkO5HkGpP4QWr6Q8pXEJnEPRc/UYKcvVVM4=
+ bh=Crh+toC5kN2aAWicLSLUcSjwXpO/N7Hi6W9TQTI6O5E=;
+ b=qkaHSvYRD5GNV5faPteGSXI8i5jAGkc2dh91g4k/uJ1rE1JXCe4+Ubv08rC+rmFURFyH4/3cceJJgD1axtKTRx73c8f+jk9dkrlsaqWqh+kcqEBIPonCR5lqtndNHv6cKPw3RP5z9Ai6+38jKhCrOx/3ruiuyANRIhYqYfKOuDI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,16 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB4087.namprd12.prod.outlook.com (2603:10b6:610:7f::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Fri, 19 Jun
- 2020 20:12:53 +0000
+ 2020 20:12:52 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%8]) with mapi id 15.20.3109.021; Fri, 19 Jun 2020
- 20:12:53 +0000
+ 20:12:52 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/30] drm/amd/display: Fix DML failures caused by doubled
- stereo viewport
-Date: Fri, 19 Jun 2020 16:12:00 -0400
-Message-Id: <20200619201222.2916504-9-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 07/30] drm/amd/display: enable assr
+Date: Fri, 19 Jun 2020 16:11:59 -0400
+Message-Id: <20200619201222.2916504-8-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
 References: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
@@ -75,28 +74,28 @@ X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [2607:fea8:56a0:f5c::9]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 833f5ff3-d88f-4645-49fc-08d8148d25d4
+X-MS-Office365-Filtering-Correlation-Id: ba140d8f-602f-42b9-a042-08d8148d2558
 X-MS-TrafficTypeDiagnostic: CH2PR12MB4087:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB408765E5E0052A0755D2DDD198980@CH2PR12MB4087.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB408718F859AB1DA65E49AF1398980@CH2PR12MB4087.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-Forefront-PRVS: 0439571D1D
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ymZpNBnTRQygmweXT7UlWC6xyUy3AAel0i7JRe8tfbzdXfLw/L34mK5biDVW/fIMr19381lyt8iDGIKeQXl8LvrH3VcsIZal667tIxHmww/ofFVH16KW+1nuMNa0Y3pz6qfTgaPJLTBX9jteVPDekvlFdMgAxVZ/bde0N/LbFccGIH+c714QSrUvcMKYZEQL5oy8A30t7iY32w/sjtsBfIl8FyiuwuCMOf0ui9yWqdBw4Xmb1i41rnhVBDUP06BNhdZe9nCy+DPsblPpc3ENRTxjyMUL/ImXCAYBAFm9zs0VTlhkAAEE3EgZObBBpZwhi7N9gd+i5kyZ9oJAu6Jb/A==
+X-Microsoft-Antispam-Message-Info: xWMYs+o+Wltsu3qur35AkPIpfde3q5Nj9J8sClYbgAewijSjupvrkyRSQshFDKUjOKZiuM7E1HKNCmCW12v/mAL6Z0oT9zxRgY7HvzdxPQF2Uy76NforLiwVTJSQvAJP5t/pD1cfZncoL902lmZCXle+l+Sd1RfWa406R8yGR0I/QVXqOuYmFdFWjq5Wwsf8iNR+qsUlZCldJXTflqXfPllP8ysk/Y1cf2RM5N1zkOZ0CGoMgfZzZCj/6Dyqtnm5GyyOX+xXh3+Gj1NkwsLGj/Z3AukhODRWJJMcTZcTthbg5mR8UDIaLouyk2p6VQg0E7e0tKCZGeTPvkOZiIpnQA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(6666004)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(54906003)(66556008)(16526019)(66476007);
+ SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(66556008)(16526019)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Z3isWcliC8c9+9dzqglPteVCIkR5Szu3vsW/K9GdXwcw5XKiqIUba7qbgsfKadZJzdJr1jZ2RqDoOiZ8Jz7MUKpFloGZ48Q/eb5pfIikpWTtqmzlGtBedYETTj2aDkmNl3Y+xFWO/eri4rQpg7BgK6mAyUscOHdz1F2DMHdrTOtK+I+lp39ZCsV+HkgMZ6b6y4eZLiopadMWfZi3rda8AZngZNcrVar4PtJfyJIm8+Kwy56AvZipPYjd/VUi/4qTx9eH5qj727OYAAaYX3bAUYrQUd/9RktmQEZLEUhDQEr2gsObmeK+/lp1l9ggUa1lA1JpIWmHFL/vVoSTOjAXI+05TSq7poxQB3F8WUk/yf/B39ZtJJFKNBLAdEfYyqOn7c2lMUAd+Bi3kN/a5N6iBBlLthX3mGT2s9IMejQXBsFNPGwPS17G1Im7lddCAhkIPyn0KuU3n02qB65IqQaWeJey1dDPyll9w4pRjirGhpkyvGs5kEQf1khj+aABkYHk7iaXXVlqHjWM5KshWggEOA==
+X-MS-Exchange-AntiSpam-MessageData: Ki+i2VyG3WLbh9bB1EDVe2Us00KKuED7IxOhlVEdOogQ7pJtUMa/cmC2I2jqLzgrW37/1tAtitJTshWfnzX/U2cI5NPrpPa4Wo7QZYtVPCmkGZC7tx1c1dKUZVZsnLYsHN+kN01UgQdNntTni8jm7/yeH5B9+bibTJEJ+oDSdqa+PhzqdxmCoOfNQRAKbv7rKoG/AWqI0ctHRK7bValcgYo5s6o6HozShCy+BZfhsmNc50ce70Tom+va1qlr/Xg6mla4GYDFnZmUvL1BKv0gazwrq+livfzZjikAb7ynD10SxnG3h1odQv1KIJxEkHTVyNBrjG0TXHn9vt544VzSvIKawbMAyx4AM+gtE6k2watiGFyolmadhMdwy6b3KEprCFUDeXu9Nlim0iq9GVPGmbb/Eml4fHpI946aI+J5cM3nDUQLesEgFp47hFZjZ4Ic4QlH1tFOm50nhcBo0JtHyUyrWEwiuYbYBwSw8/7MGYjtmUIfbzFWuBihF6OQbfVH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 833f5ff3-d88f-4645-49fc-08d8148d25d4
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:12:53.2141 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba140d8f-602f-42b9-a042-08d8148d2558
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:12:52.6337 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NzxfuBfKUHYGrl9SZsg+GZyFkiO58jJB0QXy5/jDN+YLY9F+E5vWeuByBlw0b3y6o6ZHvvLavrJBTxhCyYdg+w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: +wWvps1yadP6UI1nApy0fSYJdOOyGcruHqGBTr43kUncWBj+VTi5wlx00BoF/iLeEIUs1ZwWooht7csCcYSKWA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,79 +108,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Hersen Wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
 [Why]
-Side-by-side and Top-and-bottom stereo configurations fail DML mode
-validation due to Viewport exceeded.
-
-This is because we consider the planes as being pipe split in pipe
-population so we end up doubling the viewport width, eg. from 4k to 8k.
+assr is content protection for eDP, in order to use it we need to call
+psp ta (dtm)
 
 [How]
-These pipes technically aren't hsplit, so add a check for determining
-whether is_hsplit should be set.
+We have a enable_assr callback, hook into this and call the correct psp
+cmd id to enable assr.
 
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c      | 11 +++++++++--
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c |  8 ++++++++
- 2 files changed, 17 insertions(+), 2 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 37 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dm_cp_psp.h    |  1 +
+ 2 files changed, 38 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-index 555af29565aa..51397b565ddf 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-@@ -302,10 +302,17 @@ static void pipe_ctx_to_e2e_pipe_params (
- 		struct _vcs_dpi_display_pipe_params_st *input)
- {
- 	input->src.is_hsplit = false;
--	if (pipe->top_pipe != NULL && pipe->top_pipe->plane_state == pipe->plane_state)
-+
-+	/* stereo can never be split */
-+	if (pipe->plane_state->stereo_format == PLANE_STEREO_FORMAT_SIDE_BY_SIDE ||
-+	    pipe->plane_state->stereo_format == PLANE_STEREO_FORMAT_TOP_AND_BOTTOM) {
-+		/* reset the split group if it was already considered split. */
-+		input->src.hsplit_grp = pipe->pipe_idx;
-+	} else if (pipe->top_pipe != NULL && pipe->top_pipe->plane_state == pipe->plane_state) {
- 		input->src.is_hsplit = true;
--	else if (pipe->bottom_pipe != NULL && pipe->bottom_pipe->plane_state == pipe->plane_state)
-+	} else if (pipe->bottom_pipe != NULL && pipe->bottom_pipe->plane_state == pipe->plane_state) {
- 		input->src.is_hsplit = true;
-+	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index dcf84a61de37..a8ee42d30911 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -390,6 +390,42 @@ void hdcp_destroy(struct hdcp_workqueue *hdcp_work)
+ 	kfree(hdcp_work);
+ }
  
- 	if (pipe->plane_res.dpp->ctx->dc->debug.optimized_watermark) {
- 		/*
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index fb167393b8fe..e8357d7af4ee 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2257,6 +2257,14 @@ int dcn20_populate_dml_pipes_from_context(
- 			pipes[pipe_cnt].pipe.src.is_hsplit = (res_ctx->pipe_ctx[i].bottom_pipe && res_ctx->pipe_ctx[i].bottom_pipe->plane_state == pln)
- 					|| (res_ctx->pipe_ctx[i].top_pipe && res_ctx->pipe_ctx[i].top_pipe->plane_state == pln)
- 					|| pipes[pipe_cnt].pipe.dest.odm_combine != dm_odm_combine_mode_disabled;
 +
-+			/* stereo is never split, nor odm combine */
-+			if (pln->stereo_format == PLANE_STEREO_FORMAT_SIDE_BY_SIDE ||
-+			    pln->stereo_format == PLANE_STEREO_FORMAT_TOP_AND_BOTTOM) {
-+				pipes[pipe_cnt].pipe.src.is_hsplit = false;
-+				pipes[pipe_cnt].pipe.src.hsplit_grp = res_ctx->pipe_ctx[i].pipe_idx;
-+			}
++static bool enable_assr(void *handle, struct dc_link *link)
++{
 +
- 			pipes[pipe_cnt].pipe.src.source_scan = pln->rotation == ROTATION_ANGLE_90
- 					|| pln->rotation == ROTATION_ANGLE_270 ? dm_vert : dm_horz;
- 			pipes[pipe_cnt].pipe.src.viewport_y_y = scl->viewport_unadjusted.y;
++	struct hdcp_workqueue *hdcp_work = handle;
++	struct mod_hdcp hdcp = hdcp_work->hdcp;
++	struct psp_context *psp = hdcp.config.psp.handle;
++	struct ta_dtm_shared_memory *dtm_cmd;
++	bool res = true;
++
++	if (!psp->dtm_context.dtm_initialized) {
++		DRM_INFO("Failed to enable ASSR, DTM TA is not initialized.");
++		return false;
++	}
++
++	dtm_cmd = (struct ta_dtm_shared_memory *)psp->dtm_context.dtm_shared_buf;
++
++	mutex_lock(&psp->dtm_context.mutex);
++	memset(dtm_cmd, 0, sizeof(struct ta_dtm_shared_memory));
++
++	dtm_cmd->cmd_id = TA_DTM_COMMAND__TOPOLOGY_ASSR_ENABLE;
++	dtm_cmd->dtm_in_message.topology_assr_enable.display_topology_dig_be_index = link->link_enc_hw_inst;
++	dtm_cmd->dtm_status = TA_DTM_STATUS__GENERIC_FAILURE;
++
++	psp_dtm_invoke(psp, dtm_cmd->cmd_id);
++
++	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS) {
++		DRM_INFO("Failed to enable ASSR");
++		res = false;
++	}
++
++	mutex_unlock(&psp->dtm_context.mutex);
++
++	return res;
++}
++
+ static void update_config(void *handle, struct cp_psp_stream_config *config)
+ {
+ 	struct hdcp_workqueue *hdcp_work = handle;
+@@ -599,6 +635,7 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
+ 	}
+ 
+ 	cp_psp->funcs.update_stream_config = update_config;
++	cp_psp->funcs.enable_assr = enable_assr;
+ 	cp_psp->handle = hdcp_work;
+ 
+ 	/* File created at /sys/class/drm/card0/device/hdcp_srm*/
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
+index 968c46dfb506..5da7677627a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
+@@ -38,6 +38,7 @@ struct cp_psp_stream_config {
+ };
+ 
+ struct cp_psp_funcs {
++	bool (*enable_assr)(void *handle, struct dc_link *link);
+ 	void (*update_stream_config)(void *handle, struct cp_psp_stream_config *config);
+ };
+ 
 -- 
 2.27.0
 
