@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7D96C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCCFAC433E5
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD9AD208B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 902B3208B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="loissMj9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD9AD208B8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jV2Yzhf/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 902B3208B8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1CE6EB2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54B566EB23;
 	Fri, 19 Jun 2020 20:13:13 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1BC894A7
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:13:02 +0000 (UTC)
+ (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D938E89D40
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:13:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JB/rBasUwUJzVoKga7Btz9ghaAd1bKmNx843jLIhtRCZpSCOig7UCM/yW5a/FBmj1n6p2PrGxwl6CYDURoqJWKhnOYgN+VOrOJtiY/GP6hbYpOf2gjMBCsPFVyuwUNEZoghFVrPMdpAngAJQLhGbZAQGRSb7fGw4vixQn4PpuOgJV+RNC/j/Z09rHosbgLQvQWqQt4bqQHaZDF7jNIRN8LMGneBeOdnHYaSAGOI23KqctW13/t3bkC5NaRoAPuwdz3Pml1Mn+qqC7rfmAuGzc/FndvVSGgQKiuKF8co6tSe6KM9ptzWo1n8PhBVpab1Zd4DuKhtZXIm5CPfi93LCrw==
+ b=Cht6yTnjtBBrk8MTSDtKYcUyK7PJb8we647ZqYL0RrZGhHj2Ww1+NZFb3o3+plfbPpYN7E5YECN+OdOwgL7McMKUAB9aVnTZCKJVh6IuC7GXpws/EcJU8tuC1SaLvpdlGs7FBQesG7XRLd/U0xaRvUfx/RtmqL9aadaLkJsIz+BDm4uHe8PNUQML//tIw82OfsRR1j3wYt2J3KZ2fb8v7xZ0XOoHxXSDA+IVoS/dO15rSsJASdtRzH25SJrfuibc4psWVcQVVtIKPGb6QCGByGxDkb4dcrb4wZeHK7qfuMZCx46tzDk0bnW0X3nHLZrI/lWQJpGs8ZEjvwDooXTiCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gz/ME6OZMbvj6JzgzBamNDMKlL3I+0xog7xCEpEf7A4=;
- b=OMTqIvrU3jaTVgvd3WFUfTZE26+ED4j/+LHAMFbtUdCZ0QdKS7zI6rhyqVmvmsXUXgxHRjV6ZlfD36+f4FhluaOJcL+noZHfxY2I1FCNrbPdwwg8peqL5S2Ald76FqXKlfIl8L4uXLULGhNf9qmhrvip46lIvR5M/U09Rek9jg2RJZvND5QRdcyyDMwdyGj5RJGN//gM4755XLgBi0cguMHMQRnXNxzGCnXkxG8/arA2VDWwc4qy3rfWTcKoT55EVpMy0lspuYI2tafD49FAR6DqrJuiE4Ohrz3vZa2x7zGzPdQ4M6H53sO+To5BQJzUOiHYuSBlJ0RG+jiAG7E0lQ==
+ bh=Dvx/2RmrrIf4u/+KLKyIoVnYNxgiUmqisLnpyDcM3YI=;
+ b=Ot2iXFNDalQqUr+lKz5bNlWLslsgqixsD6faNHulR/AmQUNOfLrnjaLu5wroElESJo+nj2WWm18tgwkjDtBxhIBcNr5oNDfcYspTUgP43Pu/s3areXyhy9mpFtdwWHeF6/eUeMsi2k+J7dLvGuki9DG72Q1bf7frW3Gn3HzJuFH6Gv3wetthZjh+9WbiC2PWkgLTwyNhm+acLZw7XqAEtwZQ3pTnPozdD2f+/LKHMWmouXR3z1bDwK7kcmjssrRxFo+MYW1TbjYU9Wasp0ZpR2AmkUizJEizz8qODpv0GXBFcGvtvXySvUKrm+v1z5jub6XRr4Dnr5NWmrZfjYFVTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gz/ME6OZMbvj6JzgzBamNDMKlL3I+0xog7xCEpEf7A4=;
- b=loissMj9WjwImMwI0GKmqO1pjqnkHg0QeyN7V0FtKMJbVl5FEl5Tcawevn/CAxNv5iLByn/wtp8ZcQXIA88Hogqle3O4VNUGqfXuuRNNOqPctym2/Rmr9Cu6UsGwD/XwdZY59GMrZ/jTOXiLzH7XKuJdOT7PSpd7h7RKTdF4R3k=
+ bh=Dvx/2RmrrIf4u/+KLKyIoVnYNxgiUmqisLnpyDcM3YI=;
+ b=jV2Yzhf/MyX4dCfYuk3LHoF35fpZc8x+7FvGNbKR9aq6SSTbiTk8GEvDnlS+engQ2ciAB4SHAo4Db/EVDK2N7A395g2CkbpXqWFbBET12ZbUKjsgibrUkhLYc9KopjrGCkjBuY52wznS8l7fYyiY2ekhjHibslPZfpP/hpOsUDA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,16 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB4087.namprd12.prod.outlook.com (2603:10b6:610:7f::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Fri, 19 Jun
- 2020 20:13:01 +0000
+ 2020 20:13:03 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%8]) with mapi id 15.20.3109.021; Fri, 19 Jun 2020
- 20:13:01 +0000
+ 20:13:03 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 20/30] drm/amd/display: Fill in dmub_srv fw_version from
- firmware metadata
-Date: Fri, 19 Jun 2020 16:12:12 -0400
-Message-Id: <20200619201222.2916504-21-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 22/30] drm/amd/display: Allow 4 split on 10K 420 modes
+Date: Fri, 19 Jun 2020 16:12:14 -0400
+Message-Id: <20200619201222.2916504-23-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
 References: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
@@ -70,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:f5c::9) by
  YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:13:00 +0000
+ 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:13:02 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [2607:fea8:56a0:f5c::9]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: caa243e2-f670-4f55-b670-08d8148d2a94
+X-MS-Office365-Filtering-Correlation-Id: 63e54758-9594-4037-21d0-08d8148d2baf
 X-MS-TrafficTypeDiagnostic: CH2PR12MB4087:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB408789BB9B94A36B44191E7C98980@CH2PR12MB4087.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB40870236245F40BD3303C1E198980@CH2PR12MB4087.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
 X-Forefront-PRVS: 0439571D1D
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aUenxALuLLMDl9JhWeFVU7Y7ZIORIZknkB2vw3WpmchmSgCpuceLbhapLUCGGpoopniMZQF5gMUeSuq6BziqqZ0aZG1u6TYMOrQqlTG5kMDR7vO7RGBnbFPnJFrH8D2B9o43Fu+gAwW91/usw5Lg7Vr95e4dOvUQ37Z2BqEuTJjOTEWx3nUFIMQUZLx7KQg7dK2L4G0sYTGz2YJtlRKzvrg0KyJt5fKKHuaXVu6XQnMS3mWYnfPxivgr+sR+idalmKQhCxQzOAIW0ESRf+LVE+8P1DzckQtM7sGdgeLp1xtvPNBeAdQj/Nrb0kFnGzBQ+BoSpuGpBrJxfP7gI2g0CA==
+X-Microsoft-Antispam-Message-Info: QfEKxEDNXZ1mFMk9OVBEhI8Qvjhqt6oNEDF4J3zJqw9hcWA7GaRQfuYcd99yayzUBsFww20f0jsGdTALTlJ4sPtWO7JdlHi4PZuD0mOn+NAJmnY8bF4Wv/uUDnWNoRnaEYckJAd6U5drp+pA4bLP4R9gvRMAVsnWyyWHxuAdhDlAwbUG4OKxRm0Ql+kLE9iBkSdBtaWOSOH/Ri724GSwIgDuFfB6Or5/DVnbrRO0Su9i9Jd0V+cqtw8V4OY4rr6+0BqBSFWfkbtrMNDCw3jeoS6cKda6PbmZBaoF6E5RAPy6vTsmnIIf8+d1+xyii5qsuKwWCnK1HjB/x8/C9GOr+7FhB6kMvP9m2urfCnjZUx5MSHtTQxijUYxL4TVgPYqz
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(6666004)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(54906003)(66556008)(16526019)(66476007);
+ SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(6666004)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(54906003)(66556008)(16526019)(66476007)(44824005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: jSrD+h2/2ZeQBhFC7RmiamJCn9IqwUl4LGSNxTMHj2Lm56jjf9K3jCSed1lQtC11HNp3iSyYMdflMODuHaQA60kLV7aE7svqLgAjZ7gvCp16vHVMjBoyybeq/04TcGAKjmonRoDZWAIYKiCIhbL8qyJz7Fo8bnf/V5UGc3Q8P9wdy+M8ejjGkmw7+165UDa1ZESfPceYN6lo1oBUovCe3KNNhEQgsz9i5+jirzfsIDWJ6ZytrCeLd8OuyRRMxyVMj/KpYRb3JE6m+pSxaKUSDuQJw8crkAAiZYYEeQbk2hdriJvDUD6SSRWVH+eBI4A125EsMZ2tJhXODs1SAkvQMXdP6xKMuKhkuGhoHn0yZmfHXR3xA+o57PphZNH86ybQ/d2qNfqzY7m+0mXpNEuO6398Xy+w8I2vn1oHwYiWzPE6oVg+UhwvKwGb35P458/+/T25rVKtK0ZLSAlqPWVHX9U46hJBitg1FnaBrAOMERM3li5qTFvjHw9u10cEA5UKpLojKI3UjVOVcLxRYSNOEQ==
+X-MS-Exchange-AntiSpam-MessageData: 0XhuQ4AavVM1kyA7+LPOBGS7v/GuaHQOkpTMKZVi0lU9jQcy4e+4nwwx6+s0X+tqChRANOJYoz9k6ncWpU/dtfvKrupXW+FlrQzpXKxEy8RTpFY9nlHTkJF6qPEGPwb2VAXauemJae/VYumvZzb85gcj7i8DvckuzlCPFPeqkq4JX0dBqtwyw7GaFUAz3WGnRFHi/S1tU0ssljuDkn8C8M+FSIxFHV50qt2wFF+eZoyyfH3FqoovZr4sZfiVBUbIiov+6rlqfbzNKrl3HIYSWLbNiTTwLd8Y1VLOQ1/xLyi1phhBqTMezToe3AcYytXR9EmSk46XgYvA18tnbH53FLEjYuECeYBIAh/jcnlK7uIfaW3S3OhRsPAsfwNKomBKtr7HBtDFI3zt17JYUWBlqKlcWj8lgRkoMP5pywOWfm7wdSCZFm1ks9U61ZRjkWiFr3kSgkmtLaxn+OkQxJvv7266bYnQggxLhsHs2GpW3dxt4JhUKMGqdiMJd9EDOkYjBD7Og5Yii1J7aDUIsMU+Qw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: caa243e2-f670-4f55-b670-08d8148d2a94
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:13:01.2155 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63e54758-9594-4037-21d0-08d8148d2baf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:13:03.0828 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rxY5p9hMEpxcVbrzx0KNl17RQPJnnwo1KpC8gGH/z59F1uJaVszTNqQhGX2mTcFwgtomtwEgsvagXCMJSsHtlA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 46oM84nibcgdZzZ+yHnNAGUSCDIM9Vat3IiJdV66OQngVf/ZZqPBFzhr6kHzOZYw7wf+KSrmqk/36Fa3zlLwvg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,68 +108,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
- Tony Cheng <Tony.Cheng@amd.com>, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Charlene Liu <Charlene.Liu@amd.com>, Chris Park <Chris.Park@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Chris Park <Chris.Park@amd.com>
 
 [Why]
-DMCUB firmware version is now available from firmware metadata block.
-
-We should be passing this into dmub_srv so we can know when to apply
-firmware version specific functionality like using CW4 only instead
-of the REGION4.
+10K YCbCr420 does not need ODM 4:1, but it requires MPC 4 split
+indicated on the flags.
 
 [How]
-We don't have the helpers for DM to actually extract out firmware
-metadata block themselves.
+Make pixel encoding and resolution size specific workaround to enable
+ODM combine on YCbCr420 high resolution modes.
 
-We could add that and add helpers in DM to grab this, but not every
-creation sequence has firmware instruction before dmub_srv_create.
-
-Easiest way to handle this is to fill this in automatically per DM in
-the place we do have it - when calculating the region parameters. But
-only fill it in if DM already hasn't in case we need to override with
-a specific version.
-
-We aren't do anything firmware version specific in dmub_srv_create
-today that does require fw_version, so while it's a little unituitive
-to do it when calculating region parameters it works for now.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Chris Park <Chris.Park@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c        | 5 +++++
+ .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c   | 5 -----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 9c924994a2c3..aa41dfa23020 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -281,6 +281,16 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
- 	if (fw_info) {
- 		fw_state_size = fw_info->fw_region_size;
- 		trace_buffer_size = fw_info->trace_buffer_size;
-+
-+		/**
-+		 * If DM didn't fill in a version, then fill it in based on
-+		 * the firmware meta now that we have it.
-+		 *
-+		 * TODO: Make it easier for driver to extract this out to
-+		 * pass during creation.
-+		 */
-+		if (dmub->fw_version == 0)
-+			dmub->fw_version = fw_info->fw_version;
- 	}
- 
- 	trace_buff->base = dmub_align(mail->top, 256);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index e8357d7af4ee..1371f4fb168f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -2745,6 +2745,11 @@ int dcn20_validate_apply_pipe_split_flags(
+ 			split[i] = 4;
+ 			v->ODMCombineEnablePerState[vlevel][pipe_plane] = dm_odm_combine_mode_4to1;
+ 		}
++		/*420 format workaround*/
++		if (pipe->stream->timing.h_addressable > 7680 &&
++				pipe->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420) {
++			split[i] = 4;
++		}
+ #endif
+ 		v->ODMCombineEnabled[pipe_plane] =
+ 			v->ODMCombineEnablePerState[vlevel][pipe_plane];
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+index 5909af0a25fb..75dc4fe41731 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+@@ -3986,11 +3986,6 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 				} else if (v->PlaneRequiredDISPCLKWithoutODMCombine > v->MaxDispclkRoundedDownToDFSGranularity) {
+ 					v->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 					v->PlaneRequiredDISPCLK = v->PlaneRequiredDISPCLKWithODMCombine2To1;
+-					/*420 format workaround*/
+-					if (v->HActive[k] > 7680 && v->OutputFormat[k] == dm_420) {
+-						v->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+-						v->PlaneRequiredDISPCLK = v->PlaneRequiredDISPCLKWithODMCombine2To1;
+-					}
+ 				} else {
+ 					v->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 					v->PlaneRequiredDISPCLK = v->PlaneRequiredDISPCLKWithoutODMCombine;
 -- 
 2.27.0
 
