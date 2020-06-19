@@ -1,107 +1,69 @@
-Return-Path: <SRS0=7Qtl=77=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AB42C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 19:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE8D6C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 07:22:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01E60207DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2020 19:49:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3617920707
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 07:22:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="iNTP5yL9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01E60207DD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="A5HUcVec"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3617920707
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF9E26EBC0;
-	Thu, 18 Jun 2020 19:49:46 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC4196EBC0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2020 19:49:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zzy1bsQVX5Vsups04TxRSk2Wwm+MOYmcC+597zM/aUhZgoy87KvexkdNOTHszkzKlkkOGmgZstvP2bPd69/ftoxIQEbG5eIjFB2+sshio0EWTAV1jBeBUIb5AM9ZwaeSQjE/kDW5CYLlDOxXHS3OnOPji9PjV1DG5Phd7E95PnGJDC3nNBFecDWqgGXjptO0qSypZDJjZP6ag01UcX8uLUolWOFc7LwdfsrUWYnqghbVRPmD/8QopYMiRtfgW/c4yAM3h7Rk5E65v8MDZxQa5L0B5pwv8ZKswmAJ82EZy1Qw2zS5BN/klG5nRapwbvlaMTAR+bgxYrbozIaPBW3fhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d3aZbXuwfkjuBOK6L+jv9F4N6Rdx+Wc5EWMJJ1nb7AU=;
- b=cn35mbhtDmRTq97NM2ugH4tuGK/zMMF/c67Gw7+G6hVisSPC7QNGGLb76ExQzkP5jyvf33ePHrZk/ZQpb/He1aSXgFS9qlT0iD9TMqh2L0+Xd0W5XvORKEq2RuzF8ZMgTa26MNWig6LN6aNryZIlneqheMoIg+mWWTOiH+sIhzBy94DNuZq4s1j5QCeECbqOe/HXfOGmICJqYMg687jPhoQBgR2W8N54u1GyUp7bpgqgLv1HfRycpGw1KfUZsPrkqmBPtkbmKNJNlLhn2aF9E2/UQOi6JrEdPS4oBzrg77Nkp43Slj/1ncXRvZq0WF4vBkp4WJmv3eCmUzz3dKvYXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d3aZbXuwfkjuBOK6L+jv9F4N6Rdx+Wc5EWMJJ1nb7AU=;
- b=iNTP5yL9fZy94eCZyOSUMb0YKdFbF1Hgc3yLJ5aEUj9EmzfrauFlEgP9dt/qaj5YTpIwm3At+EtOSQbC/zj9i3ER8ULP4xxVqJOpgoAvqaB10ZK5Sw3b9LJuhshbyVBZavA2Q0Ss+6dvp4/nD7T2pCi79O0xMS4keHWH7JOjR/s=
-Received: from MWHPR04CA0030.namprd04.prod.outlook.com (2603:10b6:300:ee::16)
- by DM5PR12MB2376.namprd12.prod.outlook.com (2603:10b6:4:b9::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21; Thu, 18 Jun
- 2020 19:49:39 +0000
-Received: from CO1NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:ee:cafe::42) by MWHPR04CA0030.outlook.office365.com
- (2603:10b6:300:ee::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21 via Frontend
- Transport; Thu, 18 Jun 2020 19:49:39 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT044.mail.protection.outlook.com (10.13.175.188) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3109.22 via Frontend Transport; Thu, 18 Jun 2020 19:49:39 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 18 Jun
- 2020 14:49:37 -0500
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Thu, 18 Jun 2020 14:49:37 -0500
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amd/display: fix compilation error on allmodconfig
-Date: Thu, 18 Jun 2020 15:49:36 -0400
-Message-ID: <20200618194936.9158-2-qingqing.zhuo@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200618194936.9158-1-qingqing.zhuo@amd.com>
-References: <20200618194936.9158-1-qingqing.zhuo@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6ABB6EC1B;
+	Fri, 19 Jun 2020 07:22:22 +0000 (UTC)
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E54A26EC22
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 07:22:21 +0000 (UTC)
+Received: by mail-oi1-x244.google.com with SMTP id b8so7662050oic.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 00:22:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DqEsfHHZMDjVjBSRzofGz02dqQOVqzrxROmLfkgGgfU=;
+ b=A5HUcVec8RYu1bZm00Qb0nJy7vZOa/JILGkLgAuTZ8La1+bbfcPUqNdntXVxb3kR5C
+ Pun8MPh8/elm4LjPbSFd8pHjYzxyAljbGO8JxS8ebVDq1mtIlkNyW1F1f57hRQ1lpcHC
+ J28+KzCYOCc4U1wxOh8Jq++Bii/KSrEjFghhI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DqEsfHHZMDjVjBSRzofGz02dqQOVqzrxROmLfkgGgfU=;
+ b=a8YLOENBC8yXTU6vs6St/7tYN+QvSYT9B0VYDKAVI4K0B5GcBeYVHp25fVFQJQP6UC
+ eL3CE0EevZcjrRL6KdTnLZFzpdCzo25OW/TyuEJjksI0/9sdbhbhfYSNgk4Qp52hy7K2
+ asXLAoXH74SVfohiWO9TR6PSbZtvuOGCoogtuLWX83SAVLyDYfvQDDCLVQyd0qWmJibT
+ sTAAKXNcGiaNSjGVBwmB0XbSyNewU5GIL4p1e7m+16VKqRLifAyqerFBNx0YwRxjpk8z
+ JraImntAS+jiiRTw0C9nk/ILI+Zib7TKxdDaCmRn1k3wwDLcIGAYYBxfjZqqOi3Nzre9
+ tANA==
+X-Gm-Message-State: AOAM533FWDct8nIMVV+CJOYCSfUyILhXxqWYA7TrlGzLTNMl0MA+q03B
+ 4q02X55R/1q8ByXEBsVbyzuQqVhINZIyCWuvoVG4YA==
+X-Google-Smtp-Source: ABdhPJzUUv7A3YRtNgpCeUlEiMcyk3Jq4GEcOu2c5HObmsMsz8k+i9bAqj56TkqNTZ0MhscUp+R1cXMiit1pfYTZUok=
+X-Received: by 2002:aca:ad97:: with SMTP id w145mr2091861oie.128.1592551341034; 
+ Fri, 19 Jun 2020 00:22:21 -0700 (PDT)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(396003)(39860400002)(346002)(136003)(46966005)(70586007)(70206006)(86362001)(81166007)(5660300002)(44832011)(2616005)(4326008)(6916009)(336012)(36756003)(356005)(426003)(82740400003)(478600001)(82310400002)(47076004)(2906002)(186003)(26005)(316002)(8676002)(8936002)(1076003)(83380400001)(54906003);
- DIR:OUT; SFP:1101; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d9917fa1-b52e-4093-de50-08d813c0bccc
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2376:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2376042FDF137D12C3F7C6CDFB9B0@DM5PR12MB2376.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-Forefront-PRVS: 0438F90F17
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vGQrFAe6ZpoyYwe43E6Rs7sbQb9sw/CUjRPIP9W2jjes9yskcZDMojhEt50dqRdGaSUVeRAQWSwB96PnYPofYbFzG2w4ymls0iQ7AOY1CfgD6BIr4dEoWzNxowaesGfd8GJAVi+bq/xmIsJ6t62xxPPpJYV2wvSoVg7m9UUW3BkTTtQvgOk9RfM2kSsV0puJ0hbM7TG1LJBpbVl0v3GJ154lOyn8hkUWQ8Dy4CUtU00TAtMgJ+tRhq2Gq+UqU+MDwF3jpFgxuxEndnLts/jOpVtpbYctdGncfWeOaTHjl7TyVQQlGJP5nvUgguRyhcuvCJC9gqTODmoD+ADEG6lvygXbmGZz6watvxbVaysi1vYHtcqm1MLGTpRqK0KlWrvPWUuMYj0GRpi0rdDPugCcxg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2020 19:49:39.3497 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9917fa1-b52e-4093-de50-08d813c0bccc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2376
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+ <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
+ <20200611083430.GD20149@phenom.ffwll.local> <20200611141515.GW6578@ziepe.ca>
+ <20200616120719.GL20149@phenom.ffwll.local>
+ <CAKMK7uE7DKUo9Z+yCpY+mW5gmKet8ugbF3yZNyHGqsJ=e-g_hA@mail.gmail.com>
+ <20200617152835.GF6578@ziepe.ca> <20200618150051.GS20149@phenom.ffwll.local>
+ <20200618172338.GM6578@ziepe.ca>
+In-Reply-To: <20200618172338.GM6578@ziepe.ca>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 19 Jun 2020 09:22:09 +0200
+Message-ID: <CAKMK7uEbqTu4q-amkLXyd1i8KNtLaoO2ZFoGqYiG6D0m0FKpOg@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+To: Jason Gunthorpe <jgg@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,63 +75,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lewis.Huang@amd.com, Aric.Cyr@amd.com, sfr@canb.auug.org.au,
- Harry.Wentland@amd.com, Harry
- Wentland <hwentlan@amd.com>, Alexander.Deucher@amd.com,
- Bhawanpreet.Lakha@amd.com, Nicholas.Kazlauskas@amd.com
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-when compiled with allmodconfig option, there are error
-messages as below:
+On Fri, Jun 19, 2020 at 8:58 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> On Thu, Jun 18, 2020 at 05:00:51PM +0200, Daniel Vetter wrote:
+> > On Wed, Jun 17, 2020 at 12:28:35PM -0300, Jason Gunthorpe wrote:
+> > > On Wed, Jun 17, 2020 at 08:48:50AM +0200, Daniel Vetter wrote:
+> > >
+> > > > Now my understanding for rdma is that if you don't have hw page fault
+> > > > support,
+> > >
+> > > The RDMA ODP feature is restartable HW page faulting just like nouveau
+> > > has. The classical MR feature doesn't have this. Only mlx5 HW supports
+> > > ODP today.
+> > >
+> > > > It's only gpus (I think) which are in this awkward in-between spot
+> > > > where dynamic memory management really is much wanted, but the hw
+> > > > kinda sucks. Aside, about 10+ years ago we had a similar problem with
+> > > > gpu hw, but for security: Many gpu didn't have any kinds of page
+> > > > tables to isolate different clients from each another. drivers/gpu
+> > > > fixed this by parsing&validating what userspace submitted to make sure
+> > > > it's only every accessing its own buffers. Most gpus have become
+> > > > reasonable nowadays and do have proper per-process pagetables (gpu
+> > > > process, not the pasid stuff), but even today there's still some of
+> > > > the old model left in some of the smallest SoC.
+> > >
+> > > But I still don't understand why a dma fence is needed inside the GPU
+> > > driver itself in the notifier.
+> > >
+> > > Surely the GPU driver can block and release the notifier directly from
+> > > its own command processing channel?
+> > >
+> > > Why does this fence and all it entails need to leak out across
+> > > drivers?
+> >
+> > So 10 years ago we had this world of every gpu driver is its own bucket,
+> > nothing leaks out to the world. But the world had a different idea how
+> > gpus where supposed to work, with stuff like:
+>
+> Sure, I understand DMA fence, but why does a *notifier* need it?
+>
+> The job of the notifier is to guarentee that the device it is
+> connected to is not doing DMA before it returns.
+>
+> That just means you need to prove that device is done with the buffer.
+>
+> As I've understood GPU that means you need to show that the commands
+> associated with the buffer have completed. This is all local stuff
+> within the driver, right? Why use fence (other than it already exists)
 
-ERROR: modpost:
-"mod_color_is_table_init"
-[drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost:
-"mod_color_get_table"
-[drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost:
-"mod_color_set_table_init_state"
-[drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+Because that's the end-of-dma thing. And it's cross-driver for the
+above reasons, e.g.
+- device A renders some stuff. Userspace gets dma_fence A out of that
+(well sync_file or one of the other uapi interfaces, but you get the
+idea)
+- userspace (across process or just different driver) issues more
+rendering for device B, which depends upon the rendering done on
+device A. So dma_fence A is an dependency and will block this dma
+operation. Userspace (and the kernel) gets dma_fence B out of this
+- because unfortunate reasons, the same rendering on device B also
+needs a userptr buffer, which means that dma_fence B is also the one
+that the mmu_range_notifier needs to wait on before it can tell core
+mm that it can go ahead and release those pages
+- unhappiness ensues, because now the mmu notifier from device B can
+get hung up on the dma operation device A is doing
 
-To fix the issue, this commits removes
-CONFIG_DRM_AMD_DC_DCN guard in color/makefile.
+If you want to avoid this either a) have less shitty hw (not an
+option, gpus are gpus, it is slowly getting better though) or b) force
+userspace to stall before handing over to next device (about as
+uncool) or c) just pin all the memory always, who cares (also rather
+unpopular, gpus tend to use all the memory they can get).
 
-Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-CC: Lewis Huang <Lewis.Huang@amd.com>
-CC: Aric Cyr <Aric.Cyr@amd.com>
-CC: Alexander Deucher <Alexander.Deucher@amd.com>
-CC: Harry Wentland <hwentlan@amd.com>
-CC: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-CC: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-CC: Stephen Rothwell <sfr@canb.auug.org.au>
----
- drivers/gpu/drm/amd/display/modules/color/Makefile | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+I guess the thing with gpus is that dma operations aren't like
+read/writes for pretty much everything else, but essentially compute
+contexts (usually implemented as ringbuffers where you stream stuff
+into) with cross everything dependencies. This even holds within a
+single gpu, since pretty much all modern gpus have multiple different
+engines special on different things. And yup that's directly exposed
+to userspace, for vulkan and other low-level gpu apis even directly to
+applications. So dma operation for gpu isn't just "done when the
+read/write finishes", but pulls in an entire chain of dependencies and
+ordering that needs to happen before it can even start.
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/Makefile b/drivers/gpu/drm/amd/display/modules/color/Makefile
-index 3ee7f27ff93b..e66c19a840c2 100644
---- a/drivers/gpu/drm/amd/display/modules/color/Makefile
-+++ b/drivers/gpu/drm/amd/display/modules/color/Makefile
-@@ -23,11 +23,7 @@
- # Makefile for the color sub-module of DAL.
- #
- 
--MOD_COLOR = color_gamma.o
--
--ifdef CONFIG_DRM_AMD_DC_DCN
--MOD_COLOR += color_table.o
--endif
-+MOD_COLOR = color_gamma.o color_table.o
- 
- AMD_DAL_MOD_COLOR = $(addprefix $(AMDDALPATH)/modules/color/,$(MOD_COLOR))
- #$(info ************  DAL COLOR MODULE MAKEFILE ************)
+-Daniel
 -- 
-2.17.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
