@@ -2,88 +2,113 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4208DC433E2
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 09:43:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A205CC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 10:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17BC52080C
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 09:43:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 79203207FC
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 10:45:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="CoZsWjEw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17BC52080C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fnw2RHm4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79203207FC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 918176EC54;
-	Fri, 19 Jun 2020 09:43:14 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 915296EC52
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 09:43:13 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id q2so6592971wrv.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 02:43:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=ZHgTo7kQEBwdRaFjgsK02o5pMjtqk4kUjryXyM8W8mg=;
- b=CoZsWjEw4crs8eFjbuWv7h3NufmOpsUp8YVutr/xFMQRUYeusT/PjmHez75iUOPc8h
- gjJi1uNs2yXiJi5Ar4R8q73eqkRisjPzMLejgu6Sr3fFzwQ9nni2FeVTqlUVIHrjvJed
- LgiD4jddnUv1RgEgBbNcZvtz2rdYKEq0BXGwY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=ZHgTo7kQEBwdRaFjgsK02o5pMjtqk4kUjryXyM8W8mg=;
- b=PfMgxl7f+FlcfToI3IbJynaJq/CPU1RtCJvSsRQJOrO2i8lDrCNuwYq4LsIH5QQl9t
- agcJ4zD5Aj7MYH/0dAEAnT0im8jtUFD6wSh1GcFCjt9PLHKf5ZLmrPfGVEDlcrNHwsZi
- N7zRq9QC9XA1H7x/9tmZO0m911s8EyLU+OAlGxhyqgSVTtR4JzqjIbT1lRIaDr+EW2DE
- IsTtU+w99vuxWotpQyOMRFSvtW/ay1yXYUR4hzVNi6bK8k4saKkYRBG+BjMnEjDZ5JHF
- PDxTmEIlnrnGFkIS9qdCkZ9BwdM0n3JmROxar3qHjwY+q7eG8r/oQ6nG+jTregD5X3At
- zFVA==
-X-Gm-Message-State: AOAM531uNmaMYfe4zRPGAI40RDUo5H1kBzrXEZ+FaJX7K3WfyEFZxCFN
- BSfj2VnPz5iJIB4NNtj2UeRpGA==
-X-Google-Smtp-Source: ABdhPJwqgNUvffYXxa/S+rlBZrViACLxBhhTw7FlRJqnm8zxiB3mJ48YaBn2SIoIEMpe1hAXpHV3tg==
-X-Received: by 2002:a5d:55c2:: with SMTP id i2mr3151783wrw.225.1592559792157; 
- Fri, 19 Jun 2020 02:43:12 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s18sm7574797wra.85.2020.06.19.02.43.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jun 2020 02:43:11 -0700 (PDT)
-Date: Fri, 19 Jun 2020 11:43:09 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [Intel-gfx] [PATCH 03/18] dma-fence: basic lockdep annotations
-Message-ID: <20200619094309.GT20149@phenom.ffwll.local>
-Mail-Followup-To: Chris Wilson <chris@chris-wilson.co.uk>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-4-daniel.vetter@ffwll.ch>
- <159186243606.1506.4437341616828968890@build.alporthouse.com>
- <CAPM=9ty6r1LuXAH_rf98GH0R9yN3x8xzKPjZG3QyvokpQBR-Hg@mail.gmail.com>
- <CAPj87rM0S2OPssf+WA+pjanT-0Om3yuUM1zUJCv4qTx5VYE=Fw@mail.gmail.com>
- <159255511144.7737.12635440776531222029@build.alporthouse.com>
- <CAKMK7uHEwj6jiZkRZ5PaCUNWcuU9oE4KYm4XHZwHnFzEuChZ7w@mail.gmail.com>
- <159255801588.7737.4425728073225310839@build.alporthouse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C1D6EC81;
+	Fri, 19 Jun 2020 10:45:27 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D75D6EC81
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 10:45:25 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200619103656euoutp01031d78a457ba63d433a2885965b33af9~Z66A2f85f1849718497euoutp01I
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 10:36:56 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200619103656euoutp01031d78a457ba63d433a2885965b33af9~Z66A2f85f1849718497euoutp01I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1592563016;
+ bh=CcvLwj30v0ZE0u3onBoCrQSZV9YR8EBATMNe+CvGifQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=fnw2RHm45eJ7Mu16yM3x+Q4IMGqPOQRRXfeBEGtBRK76InbQCRpvCkGsBxcVA7cjI
+ qutNgQdKOs0tQeMOc0vVY0na4JObA3cDbAeqUxzM501o63ybHpEESb6+MA+r1pbWVh
+ mukr8dzcELwo/BZ762AOD7nMIkAIRJ0kNUkyaWSw=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200619103656eucas1p2eeb35cd864c4c3ac324180a29467bd36~Z66AZc7vo2889228892eucas1p2i;
+ Fri, 19 Jun 2020 10:36:56 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 5D.8D.05997.8459CEE5; Fri, 19
+ Jun 2020 11:36:56 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b~Z66AForP73081430814eucas1p2h;
+ Fri, 19 Jun 2020 10:36:55 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200619103655eusmtrp1765c6535087319d4063a4fbdb267f94c~Z66AE9UQY0949709497eusmtrp17;
+ Fri, 19 Jun 2020 10:36:55 +0000 (GMT)
+X-AuditID: cbfec7f4-677ff7000000176d-d0-5eec95487ea4
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id BB.DA.06314.7459CEE5; Fri, 19
+ Jun 2020 11:36:55 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200619103655eusmtip22bfe57e52a587852b365a94a7ce76a4a~Z65-ah3Dv2581725817eusmtip2j;
+ Fri, 19 Jun 2020 10:36:55 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v7 04/36] drm: amdgpu: fix common struct sg_table related
+ issues
+Date: Fri, 19 Jun 2020 12:36:04 +0200
+Message-Id: <20200619103636.11974-5-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200619103636.11974-1-m.szyprowski@samsung.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <159255801588.7737.4425728073225310839@build.alporthouse.com>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0hTYRjG+XZ2zo7LyXGKflhkDjJS8lIWhzTL8I8TRIX6V3lp6UElN21T
+ ywiampVXLCtvNYYo2tS85CUnWUo6pzlLpQyXl7y1zBRcVjatzaPlf8/zfr+H533hwxH+KOqA
+ R4vjaYlYGCPAuOymrl/afdT9r6EeyUqEzNZqWOQDXStKltUkc8i6ghqUnB8z2T9NdxBy6PsC
+ Rj6u7GSRihfepGFogkXWT75DyUHVQ4ysfvWRQ7YvTqHHrKi0gVWMqpJXAer5soJNNS+Po9RY
+ pppFPS29To2sTSJU3nA5oFo/yDAqp0EJqKX6nWe2neX6RNAx0Ym0xN33PDdKZcxixcn3XClZ
+ qUVlYHpXBrDAIeEF345NszMAF+cTFQA2548gjDEAOH6rFDBmCcC+31pkM/KjWrZBlQPYNtkB
+ /kVGDUrUTGGEJ8yYz8DM2pZIA7A729IMIUQpAkt1baZGHLchAmBrcYiZYRO7oWxJwzFrHnEE
+ tuQWs5k2R1hZ+3K92YLwhXM32lGGsYaawql1BjExqY3F6xtBYpUD5TmFGBP2h9XpGhajbeAX
+ dQOH0Ttgb14WmwmkAjihreYwJgvAwZQCwFDeUKddwcybIsReWKNyZ8Z+sH8mZX0MCSs4PG/N
+ LGEF7zblI8yYB2/f5DO0MyxSP/lX2/5mYAOhoFHjmQucirZcU7TlmqL/tQqAKIE9nSAVRdLS
+ /WL6sptUKJImiCPdwmNF9cD063rX1IZnQGW80AEIHAgseZ+D5kL5qDBRmiTqABBHBLa84329
+ oXxehDDpKi2JDZMkxNDSDrAdZwvseQdK9CF8IlIYT1+k6ThasvnKwi0cZCD7mwyfPuzuijj9
+ 1OmPVvjMckVrtNHlEV5+ujxb2egR4ZaalG6rONVd6XQoXraaEpNO5Z5rWminxMFyx1n0ZJrs
+ 2qCrc6FIH9jzfrHuYFDVXJ3YLuzTiYLwvvnO2Znue2q9Euu5RHQF+k/He3AyXwd4+WVZBfYX
+ BBvsAlosygRsaZTQ0wWRSIV/AZnPp0BxAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCIsWRmVeSWpSXmKPExsVy+t/xe7ruU9/EGcyZom3Re+4kk8W0O7tZ
+ LZaub2S32DhjPavF2/tA7v9tE5ktrnx9z2axcvVRJosF+60tvlx5yGSx6fE1VovLu+awWaw9
+ cpfd4uCHJ6wOfB6tl/6yeayZt4bRY++3BSwe2789YPW4332cyWPzknqP2/8eM3tMvrGc0WP3
+ zQY2j74tqxg9Pm+SC+CO0rMpyi8tSVXIyC8usVWKNrQw0jO0tNAzMrHUMzQ2j7UyMlXSt7NJ
+ Sc3JLEst0rdL0MvY9aeHqWCeesWiXxtYGxifKnQxcnJICJhIfF/bwNzFyMUhJLCUUaKxbz8j
+ REJG4uS0BlYIW1jiz7UuNoiiT4wSF082M4Mk2AQMJbreQiREBDoZJaZ1f2QHcZgF1jBL3Pu+
+ nB2kSlggQOLXp/VgY1kEVCUaPp8Ei/MK2ErsnDCbBWKFvMTqDQfApnIK2Em8bjkItloIqGb5
+ gvfMEPWCEidnPgGq5wBaoC6xfp4QSJgZqLV562zmCYyCs5BUzUKomoWkagEj8ypGkdTS4tz0
+ 3GJDveLE3OLSvHS95PzcTYzAGN527OfmHYyXNgYfYhTgYFTi4X0R8jpOiDWxrLgy9xCjBAez
+ kgiv09nTcUK8KYmVValF+fFFpTmpxYcYTYFem8gsJZqcD0wveSXxhqaG5haWhubG5sZmFkri
+ vB0CB2OEBNITS1KzU1MLUotg+pg4OKUaGA2lPs11kDv+c17Dslqf3gmd28VkrzGJHXOzMMl7
+ o3Sp4ODx1TtZilv9haawpr15b5decNdNYpfsinnvjD9vMVt2toRRs7fs4enF3aJKvusei/MF
+ z+QK0/fQiZvwxDno1FReNlX1yzEXziutOdqSVbGGbSN7PfODhyLFcpespnMquD7wKVhSpsRS
+ nJFoqMVcVJwIAM3A34H3AgAA
+X-CMS-MailID: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
+X-Msg-Generator: CA
+X-RootMTR: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
+References: <20200619103636.11974-1-m.szyprowski@samsung.com>
+ <CGME20200619103655eucas1p28ea4bf59428550217c8962666d6f077b@eucas1p2.samsung.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,110 +120,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 19, 2020 at 10:13:35AM +0100, Chris Wilson wrote:
-> Quoting Daniel Vetter (2020-06-19 09:51:59)
-> > On Fri, Jun 19, 2020 at 10:25 AM Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> > > Forcing a generic primitive to always be part of the same global map is
-> > > horrible.
-> > 
-> > And  no concrete example or reason for why that's not possible.
-> > Because frankly it's not horrible, this is what upstream is all about:
-> > Shared concepts, shared contracts, shared code.
-> > 
-> > The proposed patches might very well encode the wrong contract, that's
-> > all up for discussion. But fundamentally questioning that we need one
-> > is missing what upstream is all about.
-> 
-> Then I have not clearly communicated, as my opinion is not that
-> validation is worthless, but that the implementation is enshrining a
-> global property on a low level primitive that prevents it from being
-> used elsewhere. And I want to replace completion [chains] with fences, and
-> bio with fences, and closures with fences, and what other equivalencies
-> there are in the kernel. The fence is as central a locking construct as
-> struct completion and deserves to be a foundational primitive provided
-> by kernel/ used throughout all drivers for discrete problem domains.
-> 
-> This is narrowing dma_fence whereby adding
-> 	struct lockdep_map *dma_fence::wait_map
-> and annotating linkage, allows you to continue to specify that all
-> dma_fence used for a particular purpose must follow common rules,
-> without restricting the primitive for uses outside of this scope.
-
-Somewhere else in this thread I had discussions with Jason Gunthorpe about
-this topic. It might maybe change somewhat depending upon exact rules, but
-his take is very much "I don't want dma_fence in rdma". Or pretty close to
-that at least.
-
-Similar discussions with habanalabs, they're using dma_fence internally
-without any of the uapi. Discussion there has also now concluded that it's
-best if they remove them, and simply switch over to a wait_queue or
-completion like every other driver does.
-
-The next round of the patches already have a paragraph to at least
-somewhat limit how non-gpu drivers use dma_fence. And I guess actual
-consensus might be pointing even more strongly at dma_fence being solely
-something for gpus and closely related subsystem (maybe media) for syncing
-dma-buf access.
-
-So dma_fence as general replacement for completion chains I think just
-wont happen.
-
-What might make sense is if e.g. the lockdep annotations could be reused,
-at least in design, for wait_queue or completion or anything else
-really. I do think that has a fair chance compared to the automagic
-cross-release annotations approach, which relied way too heavily on
-guessing where barriers are. My experience from just a bit of playing
-around with these patches here and discussing them with other driver
-maintainers is that accurately deciding where critical sections start and
-end is a job for humans only. And if you get it wrong, you will have a
-false positive.
-
-And you're indeed correct that if we'd do annotations for completions and
-wait queues, then that would need to have a class per semantically
-equivalent user, like we have lockdep classes for mutexes, not just one
-overall.
-
-But dma_fence otoh is something very specific, which comes with very
-specific rules attached - it's not a generic wait_queue at all. Originally
-it did start out as one even, but it is a very specialized wait_queue.
-
-So there's imo two cases:
-
-- Your completion is entirely orthogonal of dma_fences, and can never ever
-  block a dma_fence. Don't use dma_fence for this, and no problem. It's
-  just another wait_queue somewhere.
-
-- Your completion can eventually, maybe through lots of convolutions and
-  depdencies, block a dma_fence. In that case full dma_fence rules apply,
-  and the only thing you can do with a custom annotation is make the rules
-  even stricter. E.g. if a sub-timeline in the scheduler isn't allowed to
-  take certain scheduler locks. But the userspace visible/published fence
-  do take them, maybe as part of command submission or retirement.
-  Entirely hypotethical, no idea any driver actually needs this.
-
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhlIERvY3VtZW50YXRpb24vRE1BLUFQSS1IT1dUTy50eHQgc3RhdGVzIHRoYXQgdGhlIGRtYV9t
+YXBfc2coKSBmdW5jdGlvbgpyZXR1cm5zIHRoZSBudW1iZXIgb2YgdGhlIGNyZWF0ZWQgZW50cmll
+cyBpbiB0aGUgRE1BIGFkZHJlc3Mgc3BhY2UuCkhvd2V2ZXIgdGhlIHN1YnNlcXVlbnQgY2FsbHMg
+dG8gdGhlIGRtYV9zeW5jX3NnX2Zvcl97ZGV2aWNlLGNwdX0oKSBhbmQKZG1hX3VubWFwX3NnIG11
+c3QgYmUgY2FsbGVkIHdpdGggdGhlIG9yaWdpbmFsIG51bWJlciBvZiB0aGUgZW50cmllcwpwYXNz
+ZWQgdG8gdGhlIGRtYV9tYXBfc2coKS4KCnN0cnVjdCBzZ190YWJsZSBpcyBhIGNvbW1vbiBzdHJ1
+Y3R1cmUgdXNlZCBmb3IgZGVzY3JpYmluZyBhIG5vbi1jb250aWd1b3VzCm1lbW9yeSBidWZmZXIs
+IHVzZWQgY29tbW9ubHkgaW4gdGhlIERSTSBhbmQgZ3JhcGhpY3Mgc3Vic3lzdGVtcy4gSXQKY29u
+c2lzdHMgb2YgYSBzY2F0dGVybGlzdCB3aXRoIG1lbW9yeSBwYWdlcyBhbmQgRE1BIGFkZHJlc3Nl
+cyAoc2dsIGVudHJ5KSwKYXMgd2VsbCBhcyB0aGUgbnVtYmVyIG9mIHNjYXR0ZXJsaXN0IGVudHJp
+ZXM6IENQVSBwYWdlcyAob3JpZ19uZW50cyBlbnRyeSkKYW5kIERNQSBtYXBwZWQgcGFnZXMgKG5l
+bnRzIGVudHJ5KS4KCkl0IHR1cm5lZCBvdXQgdGhhdCBpdCB3YXMgYSBjb21tb24gbWlzdGFrZSB0
+byBtaXN1c2UgbmVudHMgYW5kIG9yaWdfbmVudHMKZW50cmllcywgY2FsbGluZyBETUEtbWFwcGlu
+ZyBmdW5jdGlvbnMgd2l0aCBhIHdyb25nIG51bWJlciBvZiBlbnRyaWVzIG9yCmlnbm9yaW5nIHRo
+ZSBudW1iZXIgb2YgbWFwcGVkIGVudHJpZXMgcmV0dXJuZWQgYnkgdGhlIGRtYV9tYXBfc2coKQpm
+dW5jdGlvbi4KClRvIGF2b2lkIHN1Y2ggaXNzdWVzLCBsZXRzIHVzZSBhIGNvbW1vbiBkbWEtbWFw
+cGluZyB3cmFwcGVycyBvcGVyYXRpbmcKZGlyZWN0bHkgb24gdGhlIHN0cnVjdCBzZ190YWJsZSBv
+YmplY3RzIGFuZCB1c2Ugc2NhdHRlcmxpc3QgcGFnZQppdGVyYXRvcnMgd2hlcmUgcG9zc2libGUu
+IFRoaXMsIGFsbW9zdCBhbHdheXMsIGhpZGVzIHJlZmVyZW5jZXMgdG8gdGhlCm5lbnRzIGFuZCBv
+cmlnX25lbnRzIGVudHJpZXMsIG1ha2luZyB0aGUgY29kZSByb2J1c3QsIGVhc2llciB0byBmb2xs
+b3cKYW5kIGNvcHkvcGFzdGUgc2FmZS4KClNpZ25lZC1vZmYtYnk6IE1hcmVrIFN6eXByb3dza2kg
+PG0uc3p5cHJvd3NraUBzYW1zdW5nLmNvbT4KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZG1hX2J1Zi5jICB8IDYgKysrLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdHRtLmMgICAgICB8IDkgKysrLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDggKysrKy0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgMTAg
+aW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kbWFfYnVmLmMKaW5kZXggNDNkOGVkN2RiZDAwLi41MTljZTQ0MjdmY2UgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYwpAQCAtMzA3LDgg
+KzMwNyw4IEBAIHN0YXRpYyBzdHJ1Y3Qgc2dfdGFibGUgKmFtZGdwdV9kbWFfYnVmX21hcChzdHJ1
+Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCiAJCWlmIChJU19FUlIoc2d0KSkKIAkJCXJl
+dHVybiBzZ3Q7CiAKLQkJaWYgKCFkbWFfbWFwX3NnX2F0dHJzKGF0dGFjaC0+ZGV2LCBzZ3QtPnNn
+bCwgc2d0LT5uZW50cywgZGlyLAotCQkJCSAgICAgIERNQV9BVFRSX1NLSVBfQ1BVX1NZTkMpKQor
+CQlpZiAoZG1hX21hcF9zZ3RhYmxlKGF0dGFjaC0+ZGV2LCBzZ3QsIGRpciwKKwkJCQkgICAgRE1B
+X0FUVFJfU0tJUF9DUFVfU1lOQykpCiAJCQlnb3RvIGVycm9yX2ZyZWU7CiAJCWJyZWFrOwogCkBA
+IC0zNDksNyArMzQ5LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtYV9idWZfdW5tYXAoc3RydWN0
+IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoLAogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7CiAKIAlpZiAoc2d0LT5zZ2wtPnBhZ2Vf
+bGluaykgewotCQlkbWFfdW5tYXBfc2coYXR0YWNoLT5kZXYsIHNndC0+c2dsLCBzZ3QtPm5lbnRz
+LCBkaXIpOworCQlkbWFfdW5tYXBfc2d0YWJsZShhdHRhY2gtPmRldiwgc2d0LCBkaXIsIDApOwog
+CQlzZ19mcmVlX3RhYmxlKHNndCk7CiAJCWtmcmVlKHNndCk7CiAJfSBlbHNlIHsKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwppbmRleCA1MTI5YTk5NmU5NDEuLjk3ZmI3M2U1
+YTZhZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAtMTAyNSw3
+ICsxMDI1LDYgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX3R0X3Bpbl91c2VycHRyKHN0cnVjdCB0
+dG1fdHQgKnR0bSkKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1f
+YWRldih0dG0tPmJkZXYpOwogCXN0cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0
+bTsKLQl1bnNpZ25lZCBuZW50czsKIAlpbnQgcjsKIAogCWludCB3cml0ZSA9ICEoZ3R0LT51c2Vy
+ZmxhZ3MgJiBBTURHUFVfR0VNX1VTRVJQVFJfUkVBRE9OTFkpOwpAQCAtMTA0MCw5ICsxMDM5LDgg
+QEAgc3RhdGljIGludCBhbWRncHVfdHRtX3R0X3Bpbl91c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0
+bSkKIAkJZ290byByZWxlYXNlX3NnOwogCiAJLyogTWFwIFNHIHRvIGRldmljZSAqLwotCXIgPSAt
+RU5PTUVNOwotCW5lbnRzID0gZG1hX21hcF9zZyhhZGV2LT5kZXYsIHR0bS0+c2ctPnNnbCwgdHRt
+LT5zZy0+bmVudHMsIGRpcmVjdGlvbik7Ci0JaWYgKG5lbnRzID09IDApCisJciA9IGRtYV9tYXBf
+c2d0YWJsZShhZGV2LT5kZXYsIHR0bS0+c2csIGRpcmVjdGlvbiwgMCk7CisJaWYgKHIpCiAJCWdv
+dG8gcmVsZWFzZV9zZzsKIAogCS8qIGNvbnZlcnQgU0cgdG8gbGluZWFyIGFycmF5IG9mIHBhZ2Vz
+IGFuZCBkbWEgYWRkcmVzc2VzICovCkBAIC0xMDczLDggKzEwNzEsNyBAQCBzdGF0aWMgdm9pZCBh
+bWRncHVfdHRtX3R0X3VucGluX3VzZXJwdHIoc3RydWN0IHR0bV90dCAqdHRtKQogCQlyZXR1cm47
+CiAKIAkvKiB1bm1hcCB0aGUgcGFnZXMgbWFwcGVkIHRvIHRoZSBkZXZpY2UgKi8KLQlkbWFfdW5t
+YXBfc2coYWRldi0+ZGV2LCB0dG0tPnNnLT5zZ2wsIHR0bS0+c2ctPm5lbnRzLCBkaXJlY3Rpb24p
+OwotCisJZG1hX3VubWFwX3NndGFibGUoYWRldi0+ZGV2LCB0dG0tPnNnLCBkaXJlY3Rpb24sIDAp
+OwogCXNnX2ZyZWVfdGFibGUodHRtLT5zZyk7CiAKICNpZiBJU19FTkFCTEVEKENPTkZJR19EUk1f
+QU1ER1BVX1VTRVJQVFIpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdnJhbV9tZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFt
+X21nci5jCmluZGV4IGQzOTllNTg5MzE3MC4uYzI4MWFhMTNmNWVjIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYwpAQCAtNDc3LDExICs0NzcsMTEgQEAg
+aW50IGFtZGdwdV92cmFtX21ncl9hbGxvY19zZ3Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+CiAJaWYgKHIpCiAJCWdvdG8gZXJyb3JfZnJlZTsKIAotCWZvcl9lYWNoX3NnKCgqc2d0KS0+c2ds
+LCBzZywgbnVtX2VudHJpZXMsIGkpCisJZm9yX2VhY2hfc2d0YWJsZV9zZygoKnNndCksIHNnLCBp
+KQogCQlzZy0+bGVuZ3RoID0gMDsKIAogCW5vZGUgPSBtZW0tPm1tX25vZGU7Ci0JZm9yX2VhY2hf
+c2coKCpzZ3QpLT5zZ2wsIHNnLCBudW1fZW50cmllcywgaSkgeworCWZvcl9lYWNoX3NndGFibGVf
+c2coKCpzZ3QpLCBzZywgaSkgewogCQlwaHlzX2FkZHJfdCBwaHlzID0gKG5vZGUtPnN0YXJ0IDw8
+IFBBR0VfU0hJRlQpICsKIAkJCWFkZXYtPmdtYy5hcGVyX2Jhc2U7CiAJCXNpemVfdCBzaXplID0g
+bm9kZS0+c2l6ZSA8PCBQQUdFX1NISUZUOwpAQCAtNTAxLDcgKzUwMSw3IEBAIGludCBhbWRncHVf
+dnJhbV9tZ3JfYWxsb2Nfc2d0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXJldHVybiAw
+OwogCiBlcnJvcl91bm1hcDoKLQlmb3JfZWFjaF9zZygoKnNndCktPnNnbCwgc2csIG51bV9lbnRy
+aWVzLCBpKSB7CisJZm9yX2VhY2hfc2d0YWJsZV9zZygoKnNndCksIHNnLCBpKSB7CiAJCWlmICgh
+c2ctPmxlbmd0aCkKIAkJCWNvbnRpbnVlOwogCkBAIC01MzIsNyArNTMyLDcgQEAgdm9pZCBhbWRn
+cHVfdnJhbV9tZ3JfZnJlZV9zZ3Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJc3RydWN0
+IHNjYXR0ZXJsaXN0ICpzZzsKIAlpbnQgaTsKIAotCWZvcl9lYWNoX3NnKHNndC0+c2dsLCBzZywg
+c2d0LT5uZW50cywgaSkKKwlmb3JfZWFjaF9zZ3RhYmxlX3NnKHNndCwgc2csIGkpCiAJCWRtYV91
+bm1hcF9yZXNvdXJjZShkZXYsIHNnLT5kbWFfYWRkcmVzcywKIAkJCQkgICBzZy0+bGVuZ3RoLCBk
+aXIsCiAJCQkJICAgRE1BX0FUVFJfU0tJUF9DUFVfU1lOQyk7Ci0tIAoyLjE3LjEKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
