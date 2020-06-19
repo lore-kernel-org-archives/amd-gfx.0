@@ -2,42 +2,74 @@ Return-Path: <SRS0=a8HN=AA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83FB1C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 19:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90F9CC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 19:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62BC1208B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 19:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62BC1208B8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id 64D0F206B7
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 19:11:27 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="olNdwx7E"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64D0F206B7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC0F6E4D4;
-	Fri, 19 Jun 2020 19:01:11 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F23F76E430
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 18:50:22 +0000 (UTC)
-Received: from localhost.localdomain (ip5f5af4f7.dynamic.kabel-deutschland.de
- [95.90.244.247])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 9483E20643C4C;
- Fri, 19 Jun 2020 20:50:20 +0200 (CEST)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 1/3] drm/amdgpu/kv,si: DPM: Use new print helpers
-Date: Fri, 19 Jun 2020 20:50:07 +0200
-Message-Id: <20200619185009.12966-1-pmenzel@molgen.mpg.de>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011A06E430;
+	Fri, 19 Jun 2020 19:11:27 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B4B6E430;
+ Fri, 19 Jun 2020 19:11:25 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id y20so10062122wmi.2;
+ Fri, 19 Jun 2020 12:11:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=chbWz7xzFy579TbWBa7IgoDaVrcNNu3e+ZV8C+3+5ts=;
+ b=olNdwx7EKNULbKgME9rHSKmUDJKGownFmH7K7UdqCiyAe31tms05xsgDMDHl0NOZyn
+ e4JT2rb2s3q5lfqM11BP72moDoCJO7fo8XhUHqRhLmM9Rkjt/Mcz6AzymyLaafuA8Ulb
+ XTVeNEMS1qKMS0ZFjOH4/+4FZ+XMgy0Z+itG4tjjFKBv1tiJ5h7bNhFkbXDaSQ/Fpz4X
+ ea1xDim6+696Be1q0Zr3RvYmOvlbnd3iJrBAwzkYAU7fiPUm1Tydf4L5z5X/RqFkIs6D
+ rXFOo0qB32FQo9vj/cdysyW33DCxg/zYBiOMh8UCXO3mP8EhhV49/E8yMaB/+LvgfTFf
+ Q3rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=chbWz7xzFy579TbWBa7IgoDaVrcNNu3e+ZV8C+3+5ts=;
+ b=U+9zevBiTWKbG7VPPzBFjrAsiJZcyrMcAMNfwDNKSXfCcHErqSbGmZlkLoW9UjYfQI
+ D3sNMRonLFCMIJhh5okvaRPu0tCNbTwcPSLHE4vZiB/ES3L1E4Ji4EEyUzZvwN7ZSElw
+ 9PTemgikYaaw3sql7Hel3ij+yGubxUx7+/KCUY9TPSDbXHyWG2vDh5wJPCA2+zjgLOx0
+ wkDHvDyswOq427N3sf2QLafhNgI9OjKlfQpj76/3aKEMK2hu6GuGzx2ZqQioouJ5Jf/w
+ dGc0LV9zOZimVbSiOa6MtfZAF7FKjoHNl3cxjxq/gwoP+1IBTEmjIXpMW+zVm6+ErIwy
+ u8Uw==
+X-Gm-Message-State: AOAM530kGCDGRjiGQZjlf1v6t+PuT18c0MJO5s8ksSBYa3TkHuQ4B1+Q
+ w8d5CdNiVLyY4cRgSTWGpIeytYqcHUR+0SvYKuw=
+X-Google-Smtp-Source: ABdhPJwcHFy0tih4Jg9lH/i7Ldu0yNdrmwrIvxAKTo0TP4xm3PszQ+8aXnDybDwn0lmkl3Yy4KGqnVo3R2CnXN9sXgU=
+X-Received: by 2002:a7b:cd96:: with SMTP id y22mr5280023wmj.56.1592593883868; 
+ Fri, 19 Jun 2020 12:11:23 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 19 Jun 2020 19:01:06 +0000
+References: <CAKMK7uE7DKUo9Z+yCpY+mW5gmKet8ugbF3yZNyHGqsJ=e-g_hA@mail.gmail.com>
+ <20200617152835.GF6578@ziepe.ca> <20200618150051.GS20149@phenom.ffwll.local>
+ <20200618172338.GM6578@ziepe.ca>
+ <CAKMK7uEbqTu4q-amkLXyd1i8KNtLaoO2ZFoGqYiG6D0m0FKpOg@mail.gmail.com>
+ <20200619113934.GN6578@ziepe.ca>
+ <CAKMK7uE-kWA==Cko5uenMrcnopEjq42HxoDTDywzBAbHqsN13g@mail.gmail.com>
+ <20200619151551.GP6578@ziepe.ca>
+ <CAKMK7uEvkshAM6KUYZu8_OCpF4+1Y_SM7cQ9nJWpagfke8s8LA@mail.gmail.com>
+ <20200619172308.GQ6578@ziepe.ca> <20200619180935.GA10009@redhat.com>
+In-Reply-To: <20200619180935.GA10009@redhat.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Jun 2020 15:11:12 -0400
+Message-ID: <CADnq5_Pw_85Kzh1of=MbDi4g9POeF3jO4AJ7p2FjY5XZW0=vsQ@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+To: Jerome Glisse <jglisse@redhat.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,552 +81,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
----
-Untested.
-
- drivers/gpu/drm/amd/amdgpu/kv_dpm.c | 58 ++++++++++----------
- drivers/gpu/drm/amd/amdgpu/si_dpm.c | 82 ++++++++++++++---------------
- 2 files changed, 70 insertions(+), 70 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
-index 4b3faaccecb9..b179bdc17cdc 100644
---- a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
-@@ -1252,7 +1252,7 @@ static void kv_dpm_enable_bapm(void *handle, bool enable)
- 	if (pi->bapm_enable) {
- 		ret = amdgpu_kv_smc_bapm_enable(adev, enable);
- 		if (ret)
--			DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+			drm_err(adev, "amdgpu_kv_smc_bapm_enable failed\n");
- 	}
- }
- 
-@@ -1263,40 +1263,40 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 
- 	ret = kv_process_firmware_header(adev);
- 	if (ret) {
--		DRM_ERROR("kv_process_firmware_header failed\n");
-+		drm_err(adev, "kv_process_firmware_header failed\n");
- 		return ret;
- 	}
- 	kv_init_fps_limits(adev);
- 	kv_init_graphics_levels(adev);
- 	ret = kv_program_bootup_state(adev);
- 	if (ret) {
--		DRM_ERROR("kv_program_bootup_state failed\n");
-+		dev_err(adev, "kv_program_bootup_state failed\n");
- 		return ret;
- 	}
- 	kv_calculate_dfs_bypass_settings(adev);
- 	ret = kv_upload_dpm_settings(adev);
- 	if (ret) {
--		DRM_ERROR("kv_upload_dpm_settings failed\n");
-+		dev_err(adev, "kv_upload_dpm_settings failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_uvd_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_uvd_table failed\n");
-+		drm_err(adev, "kv_populate_uvd_table failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_vce_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_vce_table failed\n");
-+		drm_err(adev, "kv_populate_vce_table failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_samu_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_samu_table failed\n");
-+		drm_err(adev, "kv_populate_samu_table failed\n");
- 		return ret;
- 	}
- 	ret = kv_populate_acp_table(adev);
- 	if (ret) {
--		DRM_ERROR("kv_populate_acp_table failed\n");
-+		drm_err(adev, "kv_populate_acp_table failed\n");
- 		return ret;
- 	}
- 	kv_program_vc(adev);
-@@ -1307,39 +1307,39 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 	if (pi->enable_auto_thermal_throttling) {
- 		ret = kv_enable_auto_thermal_throttling(adev);
- 		if (ret) {
--			DRM_ERROR("kv_enable_auto_thermal_throttling failed\n");
-+			drm_err(adev, "kv_enable_auto_thermal_throttling failed\n");
- 			return ret;
- 		}
- 	}
- 	ret = kv_enable_dpm_voltage_scaling(adev);
- 	if (ret) {
--		DRM_ERROR("kv_enable_dpm_voltage_scaling failed\n");
-+		drm_err(adev, "kv_enable_dpm_voltage_scaling failed\n");
- 		return ret;
- 	}
- 	ret = kv_set_dpm_interval(adev);
- 	if (ret) {
--		DRM_ERROR("kv_set_dpm_interval failed\n");
-+		drm_err(adev, "kv_set_dpm_interval failed\n");
- 		return ret;
- 	}
- 	ret = kv_set_dpm_boot_state(adev);
- 	if (ret) {
--		DRM_ERROR("kv_set_dpm_boot_state failed\n");
-+		drm_err(adev, "kv_set_dpm_boot_state failed\n");
- 		return ret;
- 	}
- 	ret = kv_enable_ulv(adev, true);
- 	if (ret) {
--		DRM_ERROR("kv_enable_ulv failed\n");
-+		drm_err(adev, "kv_enable_ulv failed\n");
- 		return ret;
- 	}
- 	kv_start_dpm(adev);
- 	ret = kv_enable_didt(adev, true);
- 	if (ret) {
--		DRM_ERROR("kv_enable_didt failed\n");
-+		drm_err(adev, "kv_enable_didt failed\n");
- 		return ret;
- 	}
- 	ret = kv_enable_smc_cac(adev, true);
- 	if (ret) {
--		DRM_ERROR("kv_enable_smc_cac failed\n");
-+		drm_err(adev, "kv_enable_smc_cac failed\n");
- 		return ret;
- 	}
- 
-@@ -1347,7 +1347,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 
- 	ret = amdgpu_kv_smc_bapm_enable(adev, false);
- 	if (ret) {
--		DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+		drm_err(adev, "amdgpu_kv_smc_bapm_enable failed\n");
- 		return ret;
- 	}
- 
-@@ -1355,7 +1355,7 @@ static int kv_dpm_enable(struct amdgpu_device *adev)
- 	    amdgpu_is_internal_thermal_sensor(adev->pm.int_thermal_type)) {
- 		ret = kv_set_thermal_temperature_range(adev, KV_TEMP_RANGE_MIN, KV_TEMP_RANGE_MAX);
- 		if (ret) {
--			DRM_ERROR("kv_set_thermal_temperature_range failed\n");
-+			drm_err(adev, "kv_set_thermal_temperature_range failed\n");
- 			return ret;
- 		}
- 		amdgpu_irq_get(adev, &adev->pm.dpm.thermal.irq,
-@@ -1928,7 +1928,7 @@ static int kv_dpm_set_power_state(void *handle)
- 	if (pi->bapm_enable) {
- 		ret = amdgpu_kv_smc_bapm_enable(adev, adev->pm.ac_power);
- 		if (ret) {
--			DRM_ERROR("amdgpu_kv_smc_bapm_enable failed\n");
-+			drm_err(adev, "amdgpu_kv_smc_bapm_enable failed\n");
- 			return ret;
- 		}
- 	}
-@@ -1939,7 +1939,7 @@ static int kv_dpm_set_power_state(void *handle)
- 			kv_update_dfs_bypass_settings(adev, new_ps);
- 			ret = kv_calculate_ds_divider(adev);
- 			if (ret) {
--				DRM_ERROR("kv_calculate_ds_divider failed\n");
-+				drm_err(adev, "kv_calculate_ds_divider failed\n");
- 				return ret;
- 			}
- 			kv_calculate_nbps_level_settings(adev);
-@@ -1955,7 +1955,7 @@ static int kv_dpm_set_power_state(void *handle)
- 
- 			ret = kv_update_vce_dpm(adev, new_ps, old_ps);
- 			if (ret) {
--				DRM_ERROR("kv_update_vce_dpm failed\n");
-+				drm_err(adev, "kv_update_vce_dpm failed\n");
- 				return ret;
- 			}
- 			kv_update_sclk_t(adev);
-@@ -1968,7 +1968,7 @@ static int kv_dpm_set_power_state(void *handle)
- 			kv_update_dfs_bypass_settings(adev, new_ps);
- 			ret = kv_calculate_ds_divider(adev);
- 			if (ret) {
--				DRM_ERROR("kv_calculate_ds_divider failed\n");
-+				drm_err(adev, "kv_calculate_ds_divider failed\n");
- 				return ret;
- 			}
- 			kv_calculate_nbps_level_settings(adev);
-@@ -1980,7 +1980,7 @@ static int kv_dpm_set_power_state(void *handle)
- 			kv_set_enabled_levels(adev);
- 			ret = kv_update_vce_dpm(adev, new_ps, old_ps);
- 			if (ret) {
--				DRM_ERROR("kv_update_vce_dpm failed\n");
-+				drm_err(adev, "kv_update_vce_dpm failed\n");
- 				return ret;
- 			}
- 			kv_update_acp_boot_level(adev);
-@@ -2529,7 +2529,7 @@ static int kv_set_thermal_temperature_range(struct amdgpu_device *adev,
- 	if (high_temp > max_temp)
- 		high_temp = max_temp;
- 	if (high_temp < low_temp) {
--		DRM_ERROR("invalid thermal range: %d - %d\n", low_temp, high_temp);
-+		drm_err(adev, "invalid thermal range: %d - %d\n", low_temp, high_temp);
- 		return -EINVAL;
- 	}
- 
-@@ -2571,7 +2571,7 @@ static int kv_parse_sys_info_table(struct amdgpu_device *adev)
- 					      data_offset);
- 
- 		if (crev != 8) {
--			DRM_ERROR("Unsupported IGP table: %d %d\n", frev, crev);
-+			drm_err(adev, "Unsupported IGP table: %d %d\n", frev, crev);
- 			return -EINVAL;
- 		}
- 		pi->sys_info.bootup_sclk = le32_to_cpu(igp_info->info_8.ulBootUpEngineClock);
-@@ -2587,7 +2587,7 @@ static int kv_parse_sys_info_table(struct amdgpu_device *adev)
- 		else
- 			pi->sys_info.htc_hyst_lmt = igp_info->info_8.ucHtcHystLmt;
- 		if (pi->sys_info.htc_tmp_lmt <= pi->sys_info.htc_hyst_lmt) {
--			DRM_ERROR("The htcTmpLmt should be larger than htcHystLmt.\n");
-+			drm_err(adev, "The htcTmpLmt should be larger than htcHystLmt.\n");
- 		}
- 
- 		if (le32_to_cpu(igp_info->info_8.ulSystemConfig) & (1 << 3))
-@@ -3026,14 +3026,14 @@ static int kv_dpm_sw_init(void *handle)
- 	if (amdgpu_dpm == 1)
- 		amdgpu_pm_print_power_states(adev);
- 	mutex_unlock(&adev->pm.mutex);
--	DRM_INFO("amdgpu: dpm initialized\n");
-+	drm_info(adev, "amdgpu: dpm initialized\n");
- 
- 	return 0;
- 
- dpm_failed:
- 	kv_dpm_fini(adev);
- 	mutex_unlock(&adev->pm.mutex);
--	DRM_ERROR("amdgpu: dpm initialization failed\n");
-+	drm_err(adev, "amdgpu: dpm initialization failed\n");
- 	return ret;
- }
- 
-@@ -3194,12 +3194,12 @@ static int kv_dpm_process_interrupt(struct amdgpu_device *adev,
- 
- 	switch (entry->src_id) {
- 	case 230: /* thermal low to high */
--		DRM_DEBUG("IH: thermal low to high\n");
-+		drm_dbg(adev, "IH: thermal low to high\n");
- 		adev->pm.dpm.thermal.high_to_low = false;
- 		queue_thermal = true;
- 		break;
- 	case 231: /* thermal high to low */
--		DRM_DEBUG("IH: thermal high to low\n");
-+		drm_dbg(adev, "IH: thermal high to low\n");
- 		adev->pm.dpm.thermal.high_to_low = true;
- 		queue_thermal = true;
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-index c00ba4b23c9a..8ba673ca2f5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-@@ -1932,7 +1932,7 @@ static void si_update_dte_from_pl2(struct amdgpu_device *adev,
- 			dte_data->tdep_r[i] = dte_data->r[4];
- 		}
- 	} else {
--		DRM_ERROR("Invalid PL2! DTE will not be updated.\n");
-+		drm_err(adev, "Invalid PL2! DTE will not be updated.\n");
- 	}
- }
- 
-@@ -1994,7 +1994,7 @@ static void si_initialize_powertune_defaults(struct amdgpu_device *adev)
- 			break;
- 		default:
- 			if (si_pi->dte_data.enable_dte_by_default == true)
--				DRM_ERROR("DTE is not enabled!\n");
-+				drm_err(adev, "DTE is not enabled!\n");
- 			break;
- 		}
- 	} else if (adev->asic_type == CHIP_PITCAIRN) {
-@@ -2122,7 +2122,7 @@ static void si_initialize_powertune_defaults(struct amdgpu_device *adev)
- 		si_pi->dte_data = dte_data_sun_xt;
- 		update_dte_from_pl2 = true;
- 	} else {
--		DRM_ERROR("Unknown SI asic revision, failed to initialize PowerTune!\n");
-+		drm_err(adev, "Unknown SI asic revision, failed to initialize PowerTune!\n");
- 		return;
- 	}
- 
-@@ -6336,15 +6336,15 @@ static int si_patch_dependency_tables_based_on_leakage(struct amdgpu_device *ade
- 	ret = si_patch_single_dependency_table_based_on_leakage(adev,
- 								&adev->pm.dpm.dyn_state.vddc_dependency_on_sclk);
- 	if (ret)
--		DRM_ERROR("Could not patch vddc_on_sclk leakage table\n");
-+		drm_err(adev, "Could not patch vddc_on_sclk leakage table\n");
- 	ret = si_patch_single_dependency_table_based_on_leakage(adev,
- 								&adev->pm.dpm.dyn_state.vddc_dependency_on_mclk);
- 	if (ret)
--		DRM_ERROR("Could not patch vddc_on_mclk leakage table\n");
-+		drm_err(adev, "Could not patch vddc_on_mclk leakage table\n");
- 	ret = si_patch_single_dependency_table_based_on_leakage(adev,
- 								&adev->pm.dpm.dyn_state.vddci_dependency_on_mclk);
- 	if (ret)
--		DRM_ERROR("Could not patch vddci_on_mclk leakage table\n");
-+		drm_err(adev, "Could not patch vddci_on_mclk leakage table\n");
- 	return ret;
- }
- 
-@@ -6405,7 +6405,7 @@ static int si_thermal_set_temperature_range(struct amdgpu_device *adev,
- 	if (high_temp > max_temp)
- 		high_temp = max_temp;
- 	if (high_temp < low_temp) {
--		DRM_ERROR("invalid thermal range: %d - %d\n", low_temp, high_temp);
-+		drm_err(adev, "invalid thermal range: %d - %d\n", low_temp, high_temp);
- 		return -EINVAL;
- 	}
- 
-@@ -6503,7 +6503,7 @@ static int si_thermal_setup_fan_table(struct amdgpu_device *adev)
- 					  si_pi->sram_end);
- 
- 	if (ret) {
--		DRM_ERROR("Failed to load fan table to the SMC.");
-+		drm_err(adev, "Failed to load fan table to the SMC.");
- 		adev->pm.dpm.fan.ucode_fan_control = false;
- 	}
- 
-@@ -6774,7 +6774,7 @@ static int si_dpm_enable(struct amdgpu_device *adev)
- 	if (pi->voltage_control || si_pi->voltage_control_svi2) {
- 		ret = si_construct_voltage_tables(adev);
- 		if (ret) {
--			DRM_ERROR("si_construct_voltage_tables failed\n");
-+			drm_err(adev, "si_construct_voltage_tables failed\n");
- 			return ret;
- 		}
- 	}
-@@ -6796,64 +6796,64 @@ static int si_dpm_enable(struct amdgpu_device *adev)
- 	si_program_vc(adev);
- 	ret = si_upload_firmware(adev);
- 	if (ret) {
--		DRM_ERROR("si_upload_firmware failed\n");
-+		drm_err(adev, "si_upload_firmware failed\n");
- 		return ret;
- 	}
- 	ret = si_process_firmware_header(adev);
- 	if (ret) {
--		DRM_ERROR("si_process_firmware_header failed\n");
-+		drm_err(adev, "si_process_firmware_header failed\n");
- 		return ret;
- 	}
- 	ret = si_initial_switch_from_arb_f0_to_f1(adev);
- 	if (ret) {
--		DRM_ERROR("si_initial_switch_from_arb_f0_to_f1 failed\n");
-+		drm_err(adev, "si_initial_switch_from_arb_f0_to_f1 failed\n");
- 		return ret;
- 	}
- 	ret = si_init_smc_table(adev);
- 	if (ret) {
--		DRM_ERROR("si_init_smc_table failed\n");
-+		drm_err(adev, "si_init_smc_table failed\n");
- 		return ret;
- 	}
- 	ret = si_init_smc_spll_table(adev);
- 	if (ret) {
--		DRM_ERROR("si_init_smc_spll_table failed\n");
-+		drm_err(adev, "si_init_smc_spll_table failed\n");
- 		return ret;
- 	}
- 	ret = si_init_arb_table_index(adev);
- 	if (ret) {
--		DRM_ERROR("si_init_arb_table_index failed\n");
-+		drm_err(adev, "si_init_arb_table_index failed\n");
- 		return ret;
- 	}
- 	if (eg_pi->dynamic_ac_timing) {
- 		ret = si_populate_mc_reg_table(adev, boot_ps);
- 		if (ret) {
--			DRM_ERROR("si_populate_mc_reg_table failed\n");
-+			drm_err(adev, "si_populate_mc_reg_table failed\n");
- 			return ret;
- 		}
- 	}
- 	ret = si_initialize_smc_cac_tables(adev);
- 	if (ret) {
--		DRM_ERROR("si_initialize_smc_cac_tables failed\n");
-+		drm_err(adev, "si_initialize_smc_cac_tables failed\n");
- 		return ret;
- 	}
- 	ret = si_initialize_hardware_cac_manager(adev);
- 	if (ret) {
--		DRM_ERROR("si_initialize_hardware_cac_manager failed\n");
-+		drm_err(adev, "si_initialize_hardware_cac_manager failed\n");
- 		return ret;
- 	}
- 	ret = si_initialize_smc_dte_tables(adev);
- 	if (ret) {
--		DRM_ERROR("si_initialize_smc_dte_tables failed\n");
-+		drm_err(adev, "si_initialize_smc_dte_tables failed\n");
- 		return ret;
- 	}
- 	ret = si_populate_smc_tdp_limits(adev, boot_ps);
- 	if (ret) {
--		DRM_ERROR("si_populate_smc_tdp_limits failed\n");
-+		drm_err(adev, "si_populate_smc_tdp_limits failed\n");
- 		return ret;
- 	}
- 	ret = si_populate_smc_tdp_limits_2(adev, boot_ps);
- 	if (ret) {
--		DRM_ERROR("si_populate_smc_tdp_limits_2 failed\n");
-+		drm_err(adev, "si_populate_smc_tdp_limits_2 failed\n");
- 		return ret;
- 	}
- 	si_program_response_times(adev);
-@@ -6861,7 +6861,7 @@ static int si_dpm_enable(struct amdgpu_device *adev)
- 	si_dpm_start_smc(adev);
- 	ret = si_notify_smc_display_change(adev, false);
- 	if (ret) {
--		DRM_ERROR("si_notify_smc_display_change failed\n");
-+		drm_err(adev, "si_notify_smc_display_change failed\n");
- 		return ret;
- 	}
- 	si_enable_sclk_control(adev, true);
-@@ -6963,12 +6963,12 @@ static int si_dpm_set_power_state(void *handle)
- 
- 	ret = si_disable_ulv(adev);
- 	if (ret) {
--		DRM_ERROR("si_disable_ulv failed\n");
-+		drm_err(adev, "si_disable_ulv failed\n");
- 		return ret;
- 	}
- 	ret = si_restrict_performance_levels_before_switch(adev);
- 	if (ret) {
--		DRM_ERROR("si_restrict_performance_levels_before_switch failed\n");
-+		drm_err(adev, "si_restrict_performance_levels_before_switch failed\n");
- 		return ret;
- 	}
- 	if (eg_pi->pcie_performance_request)
-@@ -6976,56 +6976,56 @@ static int si_dpm_set_power_state(void *handle)
- 	ni_set_uvd_clock_before_set_eng_clock(adev, new_ps, old_ps);
- 	ret = si_enable_power_containment(adev, new_ps, false);
- 	if (ret) {
--		DRM_ERROR("si_enable_power_containment failed\n");
-+		drm_err(adev, "si_enable_power_containment failed\n");
- 		return ret;
- 	}
- 	ret = si_enable_smc_cac(adev, new_ps, false);
- 	if (ret) {
--		DRM_ERROR("si_enable_smc_cac failed\n");
-+		drm_err(adev, "si_enable_smc_cac failed\n");
- 		return ret;
- 	}
- 	ret = si_halt_smc(adev);
- 	if (ret) {
--		DRM_ERROR("si_halt_smc failed\n");
-+		drm_err(adev, "si_halt_smc failed\n");
- 		return ret;
- 	}
- 	ret = si_upload_sw_state(adev, new_ps);
- 	if (ret) {
--		DRM_ERROR("si_upload_sw_state failed\n");
-+		drm_err(adev, "si_upload_sw_state failed\n");
- 		return ret;
- 	}
- 	ret = si_upload_smc_data(adev);
- 	if (ret) {
--		DRM_ERROR("si_upload_smc_data failed\n");
-+		drm_err(adev, "si_upload_smc_data failed\n");
- 		return ret;
- 	}
- 	ret = si_upload_ulv_state(adev);
- 	if (ret) {
--		DRM_ERROR("si_upload_ulv_state failed\n");
-+		drm_err(adev, "si_upload_ulv_state failed\n");
- 		return ret;
- 	}
- 	if (eg_pi->dynamic_ac_timing) {
- 		ret = si_upload_mc_reg_table(adev, new_ps);
- 		if (ret) {
--			DRM_ERROR("si_upload_mc_reg_table failed\n");
-+			drm_err(adev, "si_upload_mc_reg_table failed\n");
- 			return ret;
- 		}
- 	}
- 	ret = si_program_memory_timing_parameters(adev, new_ps);
- 	if (ret) {
--		DRM_ERROR("si_program_memory_timing_parameters failed\n");
-+		drm_err(adev, "si_program_memory_timing_parameters failed\n");
- 		return ret;
- 	}
- 	si_set_pcie_lane_width_in_smc(adev, new_ps, old_ps);
- 
- 	ret = si_resume_smc(adev);
- 	if (ret) {
--		DRM_ERROR("si_resume_smc failed\n");
-+		drm_err(adev, "si_resume_smc failed\n");
- 		return ret;
- 	}
- 	ret = si_set_sw_state(adev);
- 	if (ret) {
--		DRM_ERROR("si_set_sw_state failed\n");
-+		drm_err(adev, "si_set_sw_state failed\n");
- 		return ret;
- 	}
- 	ni_set_uvd_clock_after_set_eng_clock(adev, new_ps, old_ps);
-@@ -7033,23 +7033,23 @@ static int si_dpm_set_power_state(void *handle)
- 		si_notify_link_speed_change_after_state_change(adev, new_ps, old_ps);
- 	ret = si_set_power_state_conditionally_enable_ulv(adev, new_ps);
- 	if (ret) {
--		DRM_ERROR("si_set_power_state_conditionally_enable_ulv failed\n");
-+		drm_err(adev, "si_set_power_state_conditionally_enable_ulv failed\n");
- 		return ret;
- 	}
- 	ret = si_enable_smc_cac(adev, new_ps, true);
- 	if (ret) {
--		DRM_ERROR("si_enable_smc_cac failed\n");
-+		drm_err(adev, "si_enable_smc_cac failed\n");
- 		return ret;
- 	}
- 	ret = si_enable_power_containment(adev, new_ps, true);
- 	if (ret) {
--		DRM_ERROR("si_enable_power_containment failed\n");
-+		drm_err(adev, "si_enable_power_containment failed\n");
- 		return ret;
- 	}
- 
- 	ret = si_power_control_set_level(adev);
- 	if (ret) {
--		DRM_ERROR("si_power_control_set_level failed\n");
-+		drm_err(adev, "si_power_control_set_level failed\n");
- 		return ret;
- 	}
- 
-@@ -7655,7 +7655,7 @@ static int si_dpm_init_microcode(struct amdgpu_device *adev)
- 
- out:
- 	if (err) {
--		DRM_ERROR("si_smc: Failed to load firmware. err = %d\"%s\"\n",
-+		drm_err(adev, "si_smc: Failed to load firmware. err = %d\"%s\"\n",
- 			  err, fw_name);
- 		release_firmware(adev->pm.fw);
- 		adev->pm.fw = NULL;
-@@ -7703,14 +7703,14 @@ static int si_dpm_sw_init(void *handle)
- 	if (amdgpu_dpm == 1)
- 		amdgpu_pm_print_power_states(adev);
- 	mutex_unlock(&adev->pm.mutex);
--	DRM_INFO("amdgpu: dpm initialized\n");
-+	drm_info(adev, "amdgpu: dpm initialized\n");
- 
- 	return 0;
- 
- dpm_failed:
- 	si_dpm_fini(adev);
- 	mutex_unlock(&adev->pm.mutex);
--	DRM_ERROR("amdgpu: dpm initialization failed\n");
-+	drm_err(adev, "amdgpu: dpm initialization failed\n");
- 	return ret;
- }
- 
--- 
-2.27.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCBKdW4gMTksIDIwMjAgYXQgMjowOSBQTSBKZXJvbWUgR2xpc3NlIDxqZ2xpc3NlQHJl
+ZGhhdC5jb20+IHdyb3RlOgo+Cj4gT24gRnJpLCBKdW4gMTksIDIwMjAgYXQgMDI6MjM6MDhQTSAt
+MDMwMCwgSmFzb24gR3VudGhvcnBlIHdyb3RlOgo+ID4gT24gRnJpLCBKdW4gMTksIDIwMjAgYXQg
+MDY6MTk6NDFQTSArMDIwMCwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+Cj4gPiA+IFRoZSBtYWRu
+ZXNzIGlzIG9ubHkgdGhhdCBkZXZpY2UgQidzIG1tdSBub3RpZmllciBtaWdodCBuZWVkIHRvIHdh
+aXQKPiA+ID4gZm9yIGZlbmNlX0Igc28gdGhhdCB0aGUgZG1hIG9wZXJhdGlvbiBmaW5pc2hlcy4g
+V2hpY2ggaW4gdHVybiBoYXMgdG8KPiA+ID4gd2FpdCBmb3IgZGV2aWNlIEEgdG8gZmluaXNoIGZp
+cnN0Lgo+ID4KPiA+IFNvLCBpdCBzb3VuZCwgZnVuZGFtZW50YWxseSB5b3UndmUgZ290IHRoaXMg
+Z3JhcGggb2Ygb3BlcmF0aW9ucyBhY3Jvc3MKPiA+IGFuIHVua25vd24gc2V0IG9mIGRyaXZlcnMg
+YW5kIHRoZSBrZXJuZWwgY2Fubm90IGluc2VydCBpdHNlbGYgaW4KPiA+IGRtYV9mZW5jZSBoYW5k
+IG9mZnMgdG8gcmUtdmFsaWRhdGUgYW55IG9mIHRoZSBidWZmZXJzIGludm9sdmVkPwo+ID4gQnVm
+ZmVycyB3aGljaCBieSBkZWZpbml0aW9uIGNhbm5vdCBiZSB0b3VjaGVkIGJ5IHRoZSBoYXJkd2Fy
+ZSB5ZXQuCj4gPgo+ID4gVGhhdCByZWFsbHkgaXMgYSBwcmV0dHkgaG9ycmlibGUgcGxhY2UgdG8g
+ZW5kIHVwLi4KPiA+Cj4gPiBQaW5uaW5nIHJlYWxseSBpcyByaWdodCBhbnN3ZXIgZm9yIHRoaXMg
+a2luZCBvZiB3b3JrIGZsb3cuIEkgdGhpbmsKPiA+IGNvbnZlcnRpbmcgcGlubmluZyB0byBub3Rp
+ZmVycyBzaG91bGQgbm90IGJlIGRvbmUgdW5sZXNzIG5vdGlmaWVyCj4gPiBpbnZhbGlkYXRpb24g
+aXMgcmVsYXRpdmVseSBib3VuZGVkLgo+ID4KPiA+IEkga25vdyBwZW9wbGUgbGlrZSBub3RpZmll
+cnMgYmVjYXVzZSB0aGV5IGdpdmUgYSBiaXQgbmljZXIgcGVyZm9ybWFuY2UKPiA+IGluIHNvbWUg
+aGFwcHkgY2FzZXMsIGJ1dCB0aGlzIGNyaXBwbGVzIGFsbCB0aGUgYmFkIGNhc2VzLi4KPiA+Cj4g
+PiBJZiBwaW5uaW5nIGRvZXNuJ3Qgd29yayBmb3Igc29tZSByZWFzb24gbWF5YmUgd2Ugc2hvdWxk
+IGFkZHJlc3MgdGhhdD8KPgo+IE5vdGUgdGhhdCB0aGUgZG1hIGZlbmNlIGlzIG9ubHkgdHJ1ZSBm
+b3IgdXNlciBwdHIgYnVmZmVyIHdoaWNoIHByZWRhdGUKPiBhbnkgSE1NIHdvcmsgYW5kIHRodXMg
+d2VyZSB1c2luZyBtbXUgbm90aWZpZXIgYWxyZWFkeS4gWW91IG5lZWQgdGhlCj4gbW11IG5vdGlm
+aWVyIHRoZXJlIGJlY2F1c2Ugb2YgZm9yayBhbmQgb3RoZXIgY29ybmVyIGNhc2VzLgo+Cj4gRm9y
+IG5vdXZlYXUgdGhlIG5vdGlmaWVyIGRvIG5vdCBuZWVkIHRvIHdhaXQgZm9yIGFueXRoaW5nIGl0
+IGNhbiB1cGRhdGUKPiB0aGUgR1BVIHBhZ2UgdGFibGUgcmlnaHQgYXdheS4gTW9kdWxvIG5lZWRp
+bmcgdG8gd3JpdGUgdG8gR1BVIG1lbW9yeQo+IHVzaW5nIGRtYSBlbmdpbmUgaWYgdGhlIEdQVSBw
+YWdlIHRhYmxlIGlzIGluIEdQVSBtZW1vcnkgdGhhdCBpcyBub3QKPiBhY2Nlc3NpYmxlIGZyb20g
+dGhlIENQVSBidXQgdGhhdCdzIG5ldmVyIHRoZSBjYXNlIGZvciBub3V2ZWF1IHNvIGZhcgo+IChi
+dXQgaSBleHBlY3QgaXQgd2lsbCBiZSBhdCBvbmUgcG9pbnQpLgo+Cj4KPiBTbyBpIHNlZSB0aGlz
+IGFzIDIgZGlmZmVyZW50IGNhc2VzLCB0aGUgdXNlciBwdHIgY2FzZSwgd2hpY2ggZG9lcyBwaW4K
+PiBwYWdlcyBieSB0aGUgd2F5LCB3aGVyZSB0aGluZ3MgYXJlIHN5bmNocm9ub3VzLiBWZXJzdXMg
+dGhlIEhNTSBjYXNlcwo+IHdoZXJlIGV2ZXJ5dGhpbmcgaXMgYXN5bmNocm9ub3VzLgo+Cj4KPiBJ
+IHByb2JhYmx5IG5lZWQgdG8gd2FybiBBTUQgZm9sa3MgYWdhaW4gdGhhdCB1c2luZyBITU0gbWVh
+bnMgdGhhdCB5b3UKPiBtdXN0IGJlIGFibGUgdG8gdXBkYXRlIHRoZSBHUFUgcGFnZSB0YWJsZSBh
+c3luY2hyb25vdXNseSB3aXRob3V0Cj4gZmVuY2Ugd2FpdC4gVGhlIGlzc3VlIGZvciBBTUQgaXMg
+dGhhdCB0aGV5IGFscmVhZHkgdXBkYXRlIHRoZWlyIEdQVQo+IHBhZ2UgdGFibGUgdXNpbmcgRE1B
+IGVuZ2luZS4gSSBiZWxpZXZlIHRoaXMgaXMgc3RpbGwgZG9hYmxlIGlmIHRoZXkKPiB1c2UgYSBr
+ZXJuZWwgb25seSBETUEgZW5naW5lIGNvbnRleHQsIHdoZXJlIG9ubHkga2VybmVsIGNhbiBxdWV1
+ZSB1cAo+IGpvYnMgc28gdGhhdCB5b3UgZG8gbm90IG5lZWQgdG8gd2FpdCBmb3IgdW5yZWxhdGVk
+IHRoaW5ncyBhbmQgeW91IGNhbgo+IHByaW9yaXRpemUgR1BVIHBhZ2UgdGFibGUgdXBkYXRlIHdo
+aWNoIHNob3VsZCB0cmFuc2xhdGUgaW4gZmFzdCBHUFUKPiBwYWdlIHRhYmxlIHVwZGF0ZSB3aXRo
+b3V0IERNQSBmZW5jZS4KCkFsbCBkZXZpY2VzIHdoaWNoIHN1cHBvcnQgcmVjb3ZlcmFibGUgcGFn
+ZSBmYXVsdHMgYWxzbyBoYXZlIGEKZGVkaWNhdGVkIHBhZ2luZyBlbmdpbmUgZm9yIHRoZSBrZXJu
+ZWwgZHJpdmVyIHdoaWNoIHRoZSBkcml2ZXIgYWxyZWFkeQptYWtlcyB1c2Ugb2YuICBXZSBjYW4g
+YWxzbyB1cGRhdGUgdGhlIEdQVSBwYWdlIHRhYmxlcyB3aXRoIHRoZSBDUFUuCgpBbGV4Cgo+Cj4K
+PiA+ID4gRnVsbCBkaXNjbG9zdXJlOiBXZSBhcmUgYXdhcmUgdGhhdCB3ZSd2ZSBkZXNpZ25lZCBv
+dXJzZWx2ZXMgaW50byBhbgo+ID4gPiBpbXByZXNzaXZlIGNvcm5lciBoZXJlLCBhbmQgdGhlcmUn
+cyBsb3RzIG9mIHRhbGtzIGdvaW5nIG9uIGFib3V0Cj4gPiA+IHVudGFuZ2xpbmcgdGhlIGRtYSBz
+eW5jaHJvbml6YXRpb24gZnJvbSB0aGUgbWVtb3J5IG1hbmFnZW1lbnQKPiA+ID4gY29tcGxldGVs
+eS4gQnV0Cj4gPgo+ID4gSSB0aGluayB0aGUgZG9jdW1lbnRpbmcgaXMgcmVhbGx5IGltcG9ydGFu
+dDogb25seSBHUFUgc2hvdWxkIGJlIHVzaW5nCj4gPiB0aGlzIHN0dWZmIGFuZCBkcml2aW5nIG5v
+dGlmaWVycyB0aGlzIHdheS4gQ29tcGxldGUgTk8gZm9yIGFueQo+ID4gdG90YWxseS1ub3QtYS1H
+UFUgdGhpbmdzIGluIGRyaXZlcnMvYWNjZWwgZm9yIHN1cmUuCj4KPiBZZXMgZm9yIHVzZXIgdGhh
+dCBleHBlY3QgSE1NIHRoZXkgbmVlZCB0byBiZSBhc3luY2hyb25vdXMuIEJ1dCBpdCBpcwo+IGhh
+cmQgdG8gcmV2ZXJ0IHVzZXIgcHRyIGhhcyBpdCB3YXMgZG9uZSBhIGxvbmcgdGltZSBhZ28uCj4K
+PiBDaGVlcnMsCj4gSsOpcsO0bWUKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
