@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFE69C433E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 532C2C433E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95B30208B8
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 24E1B208B8
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2020 20:13:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="LxSlmjWP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95B30208B8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nUROlJVJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24E1B208B8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 805B56EA72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9BAD6EB08;
 	Fri, 19 Jun 2020 20:13:12 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2045.outbound.protection.outlook.com [40.107.223.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B93B6EA6C
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:13:10 +0000 (UTC)
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B5B86EA72
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2020 20:13:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O+ew53LrnAdqrtAB06Dh1JYu+n2AqzY2iR5Vi8OQXsd/FPLxCX4xJCMQLQ5msqzIzd5qKLcRkAHU7oAmND/emkKvf987+PBOjUVaa4LOgE33nNOrrPKbiNrKMq/u1BHIqPWD1FtnHPIOld0BlPwia2jFDjDnzen2fwNtVRIHdORcNVNB5slSUjULG1fLBgfIL4US3Jy4ISmJCr6of5EMIypDCf4UIxLEBW/3vUECRWBlDoIT6lxAZRIk5CmQdDTHIbNsLaCzlPfWixa4jhubO+IWR1C1svl7eoAGwhUfGU50Ka/Q7hIAIGfJhhy5IxaGT8QF7MeM2fw7XwfnCYUlXg==
+ b=Ue28DathgdF9f48mM1dUgVGgOWnFtBaB8/2T2k1X9quhwvrVqwDXk+z0N4sWPWuVjPBUn7pveVtAKJb+Id6APQsdRUDT00VqOAD6tbJbNeCmY1mR/YpxvIjvwniork3OYtXff5j/KTeMC/0srZAUB+aRZrHxQPFUy9O+k0jODQtMeCzHun1GHCsoJOiYLxNa7LI07AKYq5ppklid70rxkrCL5kpKMsIkatAnf4TaGEqW+dDQMSh5L+COVPqXZEnIwC39+zuXbqGPRoKKKVHqUI6rQhjFLo/x0i2BQSnVG/AZ8g0ZEQpl21KCwJukfmQznV8ePFtq9dlEXKgXzozqkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wd1qucrW5zyi9BBoWo1tQitelGnCB7S7ekUR1yq4zoU=;
- b=eUSuYQkUqUmFIOgaUTdkFzF/Poq4uZ/N7y3lR2Q45goN2mBafbQ+k2gKsS6kXgSgDLL4efusCaJyEO8MYoF/nGTZQ4Cvvr9yRDEJRxqSnryqd6sheo6V2W0KEpFYkt1xzR/FogUgCALxZPZb4t3kJXinlGSqbXB3vPcP2yPal26uypharEzehDk1WnTUsqaYqB3thj3OqrZ25yYMfr+opoDoe0Dx+AdnMfbnFtlOEErjaiymr2FIoT+svSx98tP8Fa0I/pqT/Lw3I2FCC40yDkUXP//5NNlm3va3nUJ3UQ8AgaSHx5ltD2UKJfwYk/UP+q2fFwUagDdxzB/laEAdLg==
+ bh=8/zgrIT+SEKjgcubXZ1gwv9G70fO4EsVt8CrOjf8KXQ=;
+ b=oWNJYy/h8+SnzbUbdaycdNYZ3ulDxv8z6Dw6AqN9s7oqRgtPOrMdCBqGGe3R8o9c7sPCuQrFjUBADiz7yYLCHJoAJdTwS4Qak+bZkl9A9CJZ/Lxp87AtjPEJC7ud9FF6sdTVrlMxxrY9WIbrA5pTOuCXlQ4yXcP6mDhwg2vfHVMojjCVEzeaVD6bjPZm1Ux85JHgkkwgibQmGSPzu9XhZ0oFrFa/PTITouQAdev35I+jzhigrhzpsKIOEEuYVHiuOw2eSSg3WuAiiOn05VgRmt4vNLl8qvYa6RRhrDd3vs2lBg2QhXKg9r2bP2B3LceCB8+NAmh57H6YFAVb+IMXeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wd1qucrW5zyi9BBoWo1tQitelGnCB7S7ekUR1yq4zoU=;
- b=LxSlmjWPsl0apPwXnBrVYi2NiSqoXZlxGOMc99fdc41pcpBG1SHjCfimPJStldkkvUDt8e/f2DfvDxOv3xNxZFYv/we9Xc+C1wsIx23YfdYrNe50vPPK8hzUWe3YV/uLKoRbFi4bPbF6e5sAcIBIurKZxYCefnel2Q2TdKVhtcE=
+ bh=8/zgrIT+SEKjgcubXZ1gwv9G70fO4EsVt8CrOjf8KXQ=;
+ b=nUROlJVJjeThj94yTVF5MyWG4EcaVYg80ynzLOiLbBH8GSilv+xwVy4/u2PlLzoS3x65NqONsEBjqoLku0VTW41LCbynsXYcuaZwjLsM6IPzc1A79FqmHYgTTG6cewwho8klfJWyKEugk5NFvorgiRRZoc8LFudTe5Qfsgz9myo=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -55,10 +55,9 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  20:13:08 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 29/30] drm/amd/display: Fix ineffective setting of max bpc
- property
-Date: Fri, 19 Jun 2020 16:12:21 -0400
-Message-Id: <20200619201222.2916504-30-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 28/30] drm/amd/display: [FW Promotion] Release 1.0.19
+Date: Fri, 19 Jun 2020 16:12:20 -0400
+Message-Id: <20200619201222.2916504-29-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
 References: <20200619201222.2916504-1-Rodrigo.Siqueira@amd.com>
@@ -70,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:f5c::9) by
  YTXPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:13:07 +0000
+ 15.20.3109.22 via Frontend Transport; Fri, 19 Jun 2020 20:13:06 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [2607:fea8:56a0:f5c::9]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 01e31768-0980-4e7f-0500-08d8148d2e8a
+X-MS-Office365-Filtering-Correlation-Id: 18faa61a-c007-4f95-24fd-08d8148d2e25
 X-MS-TrafficTypeDiagnostic: CH2PR12MB4087:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB40876A5FD4E1E9FA7FC9CB4498980@CH2PR12MB4087.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:632;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4087793D6BFE26981720D30998980@CH2PR12MB4087.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
 X-Forefront-PRVS: 0439571D1D
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nDoInORlJjanQqKhSXQX28wEvhcZpa/T2DED/lSCXUfqvPxvnUYvD+JifmKwo/khDqcBl0KnDp1oe5DA+PlGI44D5fLR4sHec1Zrh8vXPmjMdBOCxW8a57joPBa7aqt0vU5bhIy8jaPAIAVj2rCgzmCJP9Tr1xd3yHXmSrxW2ZZXG4DhQW6qgE9hIeeAnGSGvjMvJNBeKk3rkt4dvc0UpDWm5bgBhQeFfsVVI7S14UAdnf8xJsX22WFK3+NQZk5U1DdV21OEwwOavBxevm8CAJZxF1o+0qlEglh+K7aGOwq7g6wwOa+yyAlz76Atk+nwGRxFbdxWecWmLdhu6dt//w==
+X-Microsoft-Antispam-Message-Info: AkLxkrLH3387kxbevaUeXfzirnYXMRBpoaardZEQQYd07iIQJrXfaFNBWdPPw8mofE7dgHmYFoFnSI6PBWPlNo8iyBNJckRclB5eWDS14fMJWgEMnrpjLcRZA96Wh5/nxx/k+CD0JcmvixDecShWcFBWpbbACLAVUr04Gz0B9BPmlF2roMHp3198oUfG4IWBmuk2Gpze101h71O/zf8hUoH1xY3fjJX2NVvtiTAQsZgA5v7K+MzwHlat2Hr4RN0FLR1/hfSDakY7Nj8ngQ1emc0J9uqaMNq2Ib19I+GVbyIxDyxQrE1EIkifCU+LA3lU6+DJJcRY5f5LQXQB7N/grQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(6666004)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(54906003)(66556008)(16526019)(66476007);
+ SFS:(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(4326008)(36756003)(6486002)(83380400001)(86362001)(5660300002)(8676002)(2906002)(6666004)(2616005)(6916009)(8936002)(1076003)(6506007)(66946007)(52116002)(478600001)(186003)(316002)(6512007)(66556008)(16526019)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: /3rfVWxi7BPichCJrsfrcIXFJfJ842qcMq8cptGIYFACbk7oG3HFm4V2k21Meqf2F020JYwjWpOGrNwU5i4hdXWDFPH8m+es70WEuMqIgcMdmMsbc8p2G/0xFUB+5CUf33iqefvULyB2TRcB11cPVaGIxuvKu97ebqV9V+vK1fHTrz2PGgdqZaSzNJ1fdw8Cq61fEVNMWQ7fXWljBIlNDzdEoDTXl765hH81oVFxMm2WqCWJsm4prNGvw/ASDWqeEeaClLqmLx2BM+S9kRcZy/wwivqUBsvhZwFzBvVEoVYcGdVJC9XSXe91nw/scKTpCRwlQl7i+JD63ah22NyMK7xyzC6am/HvwqhjX/f7ysPAm1U/OoBHBm+Ja7qFB4s85N10H0Vy6UKcgpAVLE1vL6+KLe6os8T/wCvBANgIv83SxMhNW8T9FpUg3YzTZQlooE8rdzR6pglbgsbHeDGlqXymWehVRZzatqX5/zYmKvTI7XiyqjZ0tq6Be8SPqFHtIrZM+aDgJPM9adwKkRH63g==
+X-MS-Exchange-AntiSpam-MessageData: lbs3OxSF8YIqfydQwat5Nlo8wCd0XmGA2LIonG7lunav7UaX7KUpW7x4wrpVX7CHhbf6Vh3QTseZADhEs4/YRku17fovm2Jbyzz+AxkNnTmfdlx38O90rQWUVYksoEob2E3UUL0YWrZyk90Sq+y5cUWcwvv+bSdt8XpRbZ1WDU8ehBMlu3H0zUy/rg1dsWGFTL8XHVHLWuSgxszyXklpHRc0bvhKjQ4oyrbYSRmOErC5thSedpANSx3wpIfxOYmVi69nfUegH5Pdfwz5ZjDKyfNRXnWAjIinI+KZ9WbDN6+j48/IHO8ssMCx96JlXnwnxhg9FwwIlo2khCfbJUuTHqaNtNiG1ExClPrUsimREDl1aPT8ZveIoFR9fqDreAiwmsIpOC4/ViAs8Xf/d2fJ/Ja72Xy9VmV9GaZDCHrbdXlalqN+vSiav4g3NS8P7k2d/p5JgqOm0OQk/iQw2wZHKFoBgOt7wbBs2yyzF3Y3LA31BmZEiPm1/mrf9OxO+VBSCZYcF7utmPG+9xrBqteOng==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01e31768-0980-4e7f-0500-08d8148d2e8a
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:13:07.8837 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18faa61a-c007-4f95-24fd-08d8148d2e25
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2020 20:13:07.1897 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zmk0ta979EnN1Lye7JZnaOPOYqHVLJgA5rkoZKC938HVgiuCrLT6GqFLubCf515NpUYs+RFz6TNqV2oGgEpZ2A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: amE99QcHaxTlYAQAuE45ev3beHd2DcZatKyUJ2vAfyvRbKSDySwFLG8Z36OgU2wI9X/lffkw7JzGyA2XcEDbog==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,46 +108,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Stylon Wang <stylon.wang@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
-[Why]
-Regression was introduced where setting max bpc property has no effect
-on the atomic check and final commit. It has the same effect as max bpc
-being stuck at 8.
+[Header Changes]
+- Add debug flag for psr to use hw locking mgr state machine
 
-[How]
-Correctly propagate max bpc with the new connector state.
-
-Signed-off-by: Stylon Wang <stylon.wang@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e35fd2225972..b3ceba072643 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5135,7 +5135,8 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 	struct drm_connector *connector = &aconnector->base;
- 	struct amdgpu_device *adev = connector->dev->dev_private;
- 	struct dc_stream_state *stream;
--	int requested_bpc = connector->state ? connector->state->max_requested_bpc : 8;
-+	const struct drm_connector_state *drm_state = dm_state ? &dm_state->base : NULL;
-+	int requested_bpc = drm_state ? drm_state->max_requested_bpc : 8;
- 	enum dc_status dc_result = DC_OK;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 96e1379c4cf8..68b5fd811d26 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -36,10 +36,10 @@
  
- 	do {
+ /* Firmware versioning. */
+ #ifdef DMUB_EXPOSE_VERSION
+-#define DMUB_FW_VERSION_GIT_HASH 0x67e8928df
++#define DMUB_FW_VERSION_GIT_HASH 0xf87bb940b
+ #define DMUB_FW_VERSION_MAJOR 1
+ #define DMUB_FW_VERSION_MINOR 0
+-#define DMUB_FW_VERSION_REVISION 18
++#define DMUB_FW_VERSION_REVISION 19
+ #define DMUB_FW_VERSION_UCODE ((DMUB_FW_VERSION_MAJOR << 24) | (DMUB_FW_VERSION_MINOR << 16) | DMUB_FW_VERSION_REVISION)
+ #endif
+ 
+@@ -86,10 +86,11 @@ union dmub_addr {
+ 
+ union dmub_psr_debug_flags {
+ 	struct {
+-		uint8_t visual_confirm : 1;
++		uint32_t visual_confirm : 1;
++		uint32_t use_hw_lock_mgr : 1;
+ 	} bitfields;
+ 
+-	unsigned int u32All;
++	uint32_t u32All;
+ };
+ 
+ #if defined(__cplusplus)
 -- 
 2.27.0
 
