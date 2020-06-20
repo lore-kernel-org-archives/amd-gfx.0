@@ -2,105 +2,117 @@ Return-Path: <SRS0=8rPh=AD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6EA1C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 02:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 484E5C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 07:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EA6525358
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 02:04:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 16AF2239D2
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 07:16:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="l/jdnrgw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EA6525358
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=web.de header.i=@web.de header.b="OfgsR1c2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16AF2239D2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=web.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E48EC6E0F0;
-	Mon, 22 Jun 2020 02:04:24 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F90B6E0F0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 02:04:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bX0mXOrCN529MGChRQ8ZYdCEf33aSNP0ACxNncUbjh5ptc5xuyQMfh6zzlyviy/Wp/Me+zDSJVUsBZl6WDMzqQmcAYdsdc724p9t0WidJ/GcN6T6wVubTCh3Y2kyexFxu00O4uYhgwlGjhbR6AvXKSRk0JBlBmnxgKPLULWTXoVJy5q4xTbX7h9haX58Wr7GFLBYlalp16FwTFak/mSs251ZzWm6n5is3hyiJ/pQEvUGTrBn3SecuZqPYYfUH3mbdFcV6MAaysW87xsra1F3Ja+jWX3xLQom8SJJv8ngc4USm4l1MDi6nTzueMISiEpY61IeyXnAPVF/fY6yuGLuVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PmppnHFd/4XKdHkatIQua7wWwd3SNMF2zjgu/R73dQg=;
- b=mfDR3z/0Z2wlDSvpdngKpsNVSVv07NB7EMqN+ViQ2A0/FFczSiaAuTiwcY5IQ5c8V5rQ15J622taZd1bR59lGVRQEW4DXHoSoRZhEVln89FH6+coPleay8VJduaENkCazzyRY+CqlhXmZjisY5EFBhhN5KtqL1zyK77XrSh8oQBut6jkeiuuLFc/mb5Mb3ET5cENBu34+IL/xkg/OH3vcqbI/01KRqFO51/CVXuu3q7/IRt58WO4dsbReUADCCpmUNti8X+6MJ0u6sa+NzpXrsxrbRea98SGGrP6j2epQ7QdIxE/V10rQ2K7GW4g0A5GkQ5NidAuBtF+PWjU5iZPIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PmppnHFd/4XKdHkatIQua7wWwd3SNMF2zjgu/R73dQg=;
- b=l/jdnrgwUvywnCLDKvgZIZA55C0zdlRW2oRpi/8Gl+REo6nLvHzdlnBWVWyXcmV6uLTLjtxSboN3PNSoKUatohN6l7MRUJqhBPMwNRHikEBZ4thizfKGa/FpdFhJj72O/8eRNqXqev7BQ/6X4Tz1NoXgy+w4X/PaihDcyT0dSuk=
-Received: from MWHPR12MB1471.namprd12.prod.outlook.com (10.172.55.20) by
- MWHPR12MB1262.namprd12.prod.outlook.com (10.169.206.10) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22; Mon, 22 Jun 2020 02:04:13 +0000
-Received: from MWHPR12MB1471.namprd12.prod.outlook.com
- ([fe80::b108:84a1:d4d4:7b4e]) by MWHPR12MB1471.namprd12.prod.outlook.com
- ([fe80::b108:84a1:d4d4:7b4e%5]) with mapi id 15.20.3109.024; Mon, 22 Jun 2020
- 02:04:13 +0000
-From: "Chauhan, Ikshwaku" <Ikshwaku.Chauhan@amd.com>
-To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: backlight rescaling to original range
-Thread-Topic: [PATCH] drm/amdgpu: backlight rescaling to original range
-Thread-Index: AQHWRCgpnyiJkjif1EK9ueCkKmLbi6jj5/1A
-Date: Mon, 22 Jun 2020 02:04:13 +0000
-Message-ID: <MWHPR12MB1471F9307450227A9068B0049A970@MWHPR12MB1471.namprd12.prod.outlook.com>
-References: <20200616214958.120051-1-ikshwaku.chauhan@amd.com>
-In-Reply-To: <20200616214958.120051-1-ikshwaku.chauhan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-22T01:59:16Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=c45d6afc-d398-4723-a1c7-70575d76f5d4;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [20.184.57.20]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2a143b68-350c-4a77-8244-08d816508fd4
-x-ms-traffictypediagnostic: MWHPR12MB1262:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR12MB1262F6C9DCA051D35F3918489A970@MWHPR12MB1262.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 0442E569BC
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kNFAf6CgHTWCsBRNnv8ZA61307iKTsFbHoJ7r9s/2CKYJb1QSex/bmFTkpVmfhzBzYw3k9TzRsYKoiByYqePMCGWMyydGfx5Dymn6KojfHYpqRfPfjy95223YzYyqFvU4VWE7k3GKUAqgSM7NRoX3WCZk8XlTNHCrnMNgJSR82FqLENVLSwVNb2aSyZuXtzYC4AQNWVvx6DuGJ+mOL4n8/f7gz37p8NTnMIpzYDpdEcWCIYWpYnzCEJO8aLhAc1gjuzSYEM/saWYlyWzKUktKaTqFOJKvOW4lwilukZlY6pgw5+wyRBuEmB9QK6FdpQy0iVedBh2oJ9Gmt9pontRnA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1471.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(66476007)(66446008)(64756008)(66556008)(76116006)(66946007)(6636002)(26005)(52536014)(33656002)(8936002)(6506007)(53546011)(83380400001)(7696005)(5660300002)(71200400001)(478600001)(2906002)(86362001)(186003)(110136005)(9686003)(316002)(55016002)(4326008)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: qXTAZ7shEK793mnTZtY5GKnbIVS7YjA6nrqHuE8+UZ3hxZJ8O6LNewVheilFutcZQN6BpqY8SIAuU9YVj5DbVjqgEiymUDts6k5okHbxAJ3iFnLfFvUtCoUcTTZGzdSyJ6o9+9grZSdVlgMxn2ebzlN9xWFfakwrXJaDtO1iwEwLA/IpMIY70wxU47Q3USwWDxU18bg+TSK2jD5AJ3CMC8+mMms26VnPZTnfD3RumIkxS/r4EUds1vIBoU0aiSHUeAAlBhX2PMhMxsNKJQFTJIRLWPqKG7y1JPVX7+DNS6O11cE34EAhbQfXDWBhImuukNgngiSd0HfgEy7xYCZYIDfZ5Dy2jYBEWid5wB77MqGB29dM6B5IRZ6gjI545DEG45GmG2jzIj4Wkmbdf3noa12MVisyjykQN8purdBXTibfP1jVLc3y/95jcEHpJVHGuw9Er9tPt2g4GAjtKXl06L6izPejVDmKF4iij8ZWoCQ=
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D366E0AA;
+	Mon, 22 Jun 2020 07:16:51 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 595506E2C4;
+ Sat, 20 Jun 2020 12:37:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=dbaedf251592; t=1592656651;
+ bh=ITHlY66gl0MgNokIXLyjMVP7wGUV88CZWdzeFYFNWDg=;
+ h=X-UI-Sender-Class:To:Cc:Subject:From:Date;
+ b=OfgsR1c2Gf5nYREMdL+d5DG0NZyZ5cMfCJIfTWEng3TSedgUUQrhEHeHGNRT6b1Sy
+ Fiz38wEQa2ya+tVbuPmoFaiWBs6Ipdj9VDIHkLpC6VMMPlmGARzSAA9Pxsyxx1UkCj
+ shgnG7GXFNyMpFvcAMXlzzUAZ/lpCdppiBvhgL4U=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.2] ([2.243.139.185]) by smtp.web.de (mrweb001
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0MLy84-1jnkoQ4B4O-007kJV; Sat, 20
+ Jun 2020 14:37:31 +0200
+To: Bernard Zhao <bernard@vivo.com>, opensource.kernel@vivo.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3] drm/amd: Fix memory leak according to error branch
+From: Markus Elfring <Markus.Elfring@web.de>
+Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
+ 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 FEE=
+Message-ID: <119b7d8c-b164-ef23-84cc-4904d34ac023@web.de>
+Date: Sat, 20 Jun 2020 14:37:28 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a143b68-350c-4a77-8244-08d816508fd4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2020 02:04:13.6709 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: K3/X/5zyR5pg+8LLmpLvonYgMcn18ecvj85mVkmC1yWIpx9psBkx+AhbMMT/4yeNM83DTSKQDxQL31leK9A5Ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1262
+Content-Language: en-GB
+X-Provags-ID: V03:K1:oXT06f42Q4s3s5cHYlyLWk4f54E74Wz+v/0QbzrhsHP/Fc3tgeP
+ fhd7SZn4LgB+mYnBaOc4XleQyNGPw6lOhXzRcmHP4YzVXiCKG+0Ic4RSSxQcZPkI6B/svyp
+ fLqoBPQC1lumHbcor85v41D5yphQ/Y2SWDe/4DO0242OjAfULRm10Pu8utW+FgoAJwKA3dH
+ u0g6eRBnmES2U9Z1CYxVQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:W3WUjaFUM4I=:+uEKHLiyIy9oBO/whHk1kq
+ /6pNth6kxQ6Vrhd67ncOvX8c5Er4m4i0X1MWNXmwYcoggxq8DFL8Ln9uAufeVWKVrcFnNjBcd
+ HnD/H1l8sdQw3BSVjVuY0ySa2NoPFUH4OXOioijgAIJwyYBPu12sR7TswBDf4NSfysm4bvIru
+ l/7dZXR0lNKgqhbUgvQw0U39y29Y4HYqfLAx9/KOixFGpisSEWxT81coCLLFnGg+Q66s9s+J6
+ A73E6GjbA76QsY6mq7uINUDM191wd0C8bRfwFyJ9sdqNRchg3ZLkPCg4AeVO0ujNm7Hf6IhL4
+ 2T5tTJc8nZFpl737rx3jkOomUzsFWEcser1j/ZnEf4O1jcN9ZqbTymL84EeiOaMFcF26t4hbB
+ xpTFrxmD5XhQlc+gyKP+yGBXlPS69cOPzB6lx5uQZ3BOR1OxammVngO/5pg7U7fQ5cEQpd8N0
+ C9BkxgFfQUEbjeKLBMWHWx1vjggZoDw8Xb4hCJcmtkipkQxX0zELYgSUlcK5YlqkaRsEg8WXI
+ MjgauNLTF3W6otSlU6g7B2cmLtwG/BzCEGFFcnxvrUgI150aasI1wKmi+mol6J+mYqvR5VWPu
+ uQuqv8I3KUQq0W5i1FcqiKgNHg+EO8AX+5/gUhEmR8E2spvsDjY5qWLREPRW0JTPEp/dd62uz
+ 9/pF96BO8PrjE4uteARArPgSfADaVj8Tn6A9ywZLNZ1imKzQCHnEhyoHfaLU5/Bz5iE6isKAN
+ S3QtLr0WCoaWF9LmieegPoI3cIinCrO6FtcFLgF80PC9ngYv+sKqVP5fWoDPnX+lYXI8YId5N
+ E842DmfUDtjXTmzOzXlZf0RsiJI/NnQDKHz+6roHDb9Ww/PoEWcvx3doOXFyfWBWwGB6CIEex
+ uIfEW40xrBtrOJdJTtiQ9fXE9XZ0cLBt1gftIVhC/fYXd48RicuQyMlgKLkYokhBbfQkHoT+R
+ WXFeKvb1LMn5QYj5Tc1BNV9cX77kcxTijbJZ9fE6HgRVCxElaIYbDCgIe5EBK/xdtk6MJa9p7
+ NbWapq6wAURvv6Z5p3R/FkqOX8X3f34uLRqVB0ki0ngrapVhzl9+XFKedpgH4oavYqYhalxOZ
+ qjV3Izdvbwu8F83KRmsjS7XZ2Zw4f5PT6B8qjgCKJntdl2Aff69a2yfcgkFsQgw875CzZZSkC
+ 6BMAEBp76Ot4AQb7BhZiQtwrtx1w2pgyIxM3pUm6HHgYbL2IvGmy/KMjX73G+snbWfo7Q36y1
+ hRy7Cdyhf2fxp1PhR
+X-Mailman-Approved-At: Mon, 22 Jun 2020 07:16:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,133 +124,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>,
+ =?UTF-8?Q?Felix_K=c3=bchling?= <Felix.Kuehling@amd.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
-
-Hello All, 
-
-Could you please provide your feedback for this patch?
-
-Regards,
-Ikshwaku
-
------Original Message-----
-From: Chauhan, Ikshwaku <Ikshwaku.Chauhan@amd.com> 
-Sent: Wednesday, June 17, 2020 3:20 AM
-To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org; Chauhan, Ikshwaku <Ikshwaku.Chauhan@amd.com>
-Subject: [PATCH] drm/amdgpu: backlight rescaling to original range
-
-[why]
-The brightness input is in the range 0-255.It is getting scaled between the requested min and max input signal and also scaled up by 0x101 to match the DC interface which has a range of 0 to 0xffff. This scaled brightness value is not rescaled back to original range(0-255) when we reads it back.It returns the brightness value in the range of 0-65535 instead of 0-255.
-
-[how]
-Rescaled the brightness value form the scaled brightness range 0-65535 to input brightness range 0-255.
-
-Signed-off-by: Ikshwaku Chauhan <ikshwaku.chauhan@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 40 ++++++++++++++-----  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 +++
- 2 files changed, 34 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9ab0d8521576..73b0a084e893 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2881,7 +2881,8 @@ static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)  }
- 
- static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
--			      const uint32_t user_brightness)
-+			      const uint32_t user_brightness,
-+			      enum convert_backlight flag)
- {
- 	u32 min, max, conversion_pace;
- 	u32 brightness = user_brightness;
-@@ -2901,12 +2902,18 @@ static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
- 		 * 0 to 0xffff
- 		 */
- 		conversion_pace = 0x101;
--		brightness =
--			user_brightness
--			* conversion_pace
--			* (max - min)
--			/ AMDGPU_MAX_BL_LEVEL
--			+ min * conversion_pace;
-+		if (flag == set_backlight)
-+			brightness =
-+				user_brightness
-+				* conversion_pace
-+				* (max - min)
-+				/ AMDGPU_MAX_BL_LEVEL
-+				+ min * conversion_pace;
-+		else
-+			brightness =
-+				((user_brightness - min * conversion_pace)
-+				 * AMDGPU_MAX_BL_LEVEL)
-+				 / (conversion_pace * (max - min));
- 	} else {
- 		/* TODO
- 		 * We are doing a linear interpolation here, which is OK but @@ -2940,24 +2947,35 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- 
- 	link = (struct dc_link *)dm->backlight_link;
- 
--	brightness = convert_brightness(&caps, bd->props.brightness);
-+	brightness = convert_brightness(&caps, bd->props.brightness,
-+				set_backlight);
- 	// Change brightness based on AUX property
- 	if (caps.aux_support)
- 		return set_backlight_via_aux(link, brightness);
- 
- 	rc = dc_link_set_backlight_level(dm->backlight_link, brightness, 0);
--
- 	return rc ? 0 : 1;
- }
- 
- static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)  {
- 	struct amdgpu_display_manager *dm = bl_get_data(bd);
--	int ret = dc_link_get_backlight_level(dm->backlight_link);
-+	struct amdgpu_dm_backlight_caps caps;
-+	int ret;
-+
-+	amdgpu_dm_update_backlight_caps(dm);
-+	caps = dm->backlight_caps;
-+
-+	ret = dc_link_get_backlight_level(dm->backlight_link);
-+	ret = (int)convert_brightness(&caps, (uint32_t)ret, get_backlight);
- 
- 	if (ret == DC_ERROR_UNEXPECTED)
- 		return bd->props.brightness;
--	return ret;
-+
-+	if (ret == AMDGPU_MAX_BL_LEVEL || ret == 0)
-+		return ret;
-+	else
-+		return ret+1;
- }
- 
- static const struct backlight_ops amdgpu_dm_backlight_ops = { diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 1df0ce047e1c..d54fc00148f9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -60,6 +60,11 @@ struct dc;
- struct amdgpu_bo;
- struct dmub_srv;
- 
-+enum convert_backlight {
-+	get_backlight,
-+	set_backlight
-+};
-+
- struct common_irq_params {
- 	struct amdgpu_device *adev;
- 	enum dc_irq_source irq_src;
---
-2.17.1
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+PiBUaGUgZnVuY3Rpb24ga29iamVjdF9pbml0X2FuZF9hZGQgYWxsb2MgbWVtb3J5IGxpa2U6Cj4g
+a29iamVjdF9pbml0X2FuZF9hZGQtPmtvYmplY3RfYWRkX3ZhcmctPmtvYmplY3Rfc2V0X25hbWVf
+dmFyZ3MKPiAtPmt2YXNwcmludGZfY29uc3QtPmtzdHJkdXBfY29uc3QtPmtzdHJkdXAtPmttYWxs
+b2NfdHJhY2tfY2FsbGVyCj4gLT5rbWFsbG9jX3NsYWIsIGluIGVyciBicmFuY2ggdGhpcyBtZW1v
+cnkgbm90IGZyZWUuIElmIHVzZQo+IGttZW1sZWFrLCB0aGlzIHBhdGggbWF5YmUgY2F0Y2hlZC4K
+PiBUaGVzZSBjaGFuZ2VzIGFyZSB0byBhZGQga29iamVjdF9wdXQgaW4ga29iamVjdF9pbml0X2Fu
+ZF9hZGQKPiBmYWlsZWQgYnJhbmNoLCBmaXggcG90ZW50aWFsIG1lbWxlYWsuCuKApgo+IENoYW5n
+ZXMgc2luY2UgVjI6Cj4gKnJlbW92ZSBkdXBsaWNhdGUga29iamVjdF9wdXQgaW4ga2ZkX3Byb2Nm
+c19pbml0LgoKVW5kZXIgd2hpY2ggY2lyY3Vtc3RhbmNlcyBhcmUgZ29pbmcgdG8gaW1wcm92ZSB0
+aGlzIGNoYW5nZSBkZXNjcmlwdGlvbiBhY2NvcmRpbmdseT8KCldvdWxkIHlvdSBsaWtlIHRvIGFk
+ZCB0aGUgdGFnIOKAnEZpeGVz4oCdIHRvIHRoZSBjb21taXQgbWVzc2FnZT8KClJlZ2FyZHMsCk1h
+cmt1cwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
