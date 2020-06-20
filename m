@@ -7,39 +7,42 @@ X-Spam-Status: No, score=-2.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7114BC433E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 07:17:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CAB5C433E2
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 07:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 426ED23BDD
+	by mail.kernel.org (Postfix) with ESMTPS id F2F5823B51
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 07:17:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=web.de header.i=@web.de header.b="KjSQmL30"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 426ED23BDD
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=web.de header.i=@web.de header.b="liqNX3vs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2F5823B51
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=web.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A66486E5B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F73C6E5AE;
 	Mon, 22 Jun 2020 07:16:57 +0000 (UTC)
 Received: from mout.web.de (mout.web.de [212.227.15.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBE2E6E02A;
- Sat, 20 Jun 2020 09:20:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26D3E6E105;
+ Sat, 20 Jun 2020 12:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1592644827;
- bh=gfBo2fIKL1/0B/EQPCDokDjvn4b4GEkaykqPAegO7iQ=;
- h=X-UI-Sender-Class:Cc:Subject:To:From:Date;
- b=KjSQmL30CISuBGSJhVqVS9DqwulwcaxLxERDtHeoaFcMYZ5QRKJnNMPtIDM4QmaBo
- OBLnRjEHWZRaNm10ZEfsj8ORzofJ38hbbz1/OU0l56dVkz9J4srYw5B7bojewsJ+ZS
- nzEILnjorI6Qs63FaYHQjHCD7Ml4R7bhnev8Ywlg=
+ s=dbaedf251592; t=1592657807;
+ bh=ypxhGWOAU0x47edkgXOGRtJjGgNSKxoy9ckaT3hv3bQ=;
+ h=X-UI-Sender-Class:Subject:To:Cc:References:From:Date:In-Reply-To;
+ b=liqNX3vsW6V+2jwh0SjfGLYRVnHO5z7lieVqJROiAaJwLkmG2Qv956evJbEH8CDlF
+ IXZx8rJFMTPUYgbsGDJfz6Ef3vmdPFf3GCw3dmvudRP4xDnb+9KtblUnBC8ZuQ2yIt
+ qwW0xz+4QSkSNsw89vPqWWysXjU8QSDXUMlnkfRI=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([2.243.139.185]) by smtp.web.de (mrweb001
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0LuuC9-1imX2R3NZZ-0105uE; Sat, 20
- Jun 2020 11:20:26 +0200
+Received: from [192.168.1.2] ([2.243.139.185]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mrwrx-1j8OE61yib-00o0QC; Sat, 20
+ Jun 2020 14:56:47 +0200
 Subject: Re: [PATCH v2] drm/amdkfd: Fix memory leaks according to error
  branches
-To: Bernard Zhao <bernard@vivo.com>, opensource.kernel@vivo.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+To: Julia Lawall <julia.lawall@inria.fr>, Bernard Zhao <bernard@vivo.com>,
+ opensource.kernel@vivo.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <0e76e678-94b1-8f69-d52c-2b67608d5ef8@web.de>
+ <alpine.DEB.2.22.394.2006201126130.2918@hadrien>
 From: Markus Elfring <Markus.Elfring@web.de>
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  mQINBFg2+xABEADBJW2hoUoFXVFWTeKbqqif8VjszdMkriilx90WB5c0ddWQX14h6w5bT/A8
@@ -84,36 +87,37 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  Z/wsLiWTgKlih2QYULvW61XU+mWsK8+ZlYUrRMpkauN4CJ5yTpvp+Orcz5KixHQmc5tbkLWf
  x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
  pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI FEE=
-Message-ID: <0e76e678-94b1-8f69-d52c-2b67608d5ef8@web.de>
-Date: Sat, 20 Jun 2020 11:20:24 +0200
+Message-ID: <8527c6b5-c3ed-340d-4ba0-6396d6cc5da2@web.de>
+Date: Sat, 20 Jun 2020 14:56:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.22.394.2006201126130.2918@hadrien>
 Content-Language: en-GB
-X-Provags-ID: V03:K1:oI9vUF5sNNY9wH7ZamHvFCLoBIHgf10ijVy1Rs6xaCXcH0FKH+7
- LCgTYi5PSqyjiqSGjOWxdRgRTlycaxsVEMJBUmUvq+e77D8vbQFViyjYI96O+qek/D7jGdf
- mUnHa394LKR6QnjfnHZAqCK+Uy4MQdD4B0MXc1H/UP6tggDOFD/J1J4sFs4j3jTGEedjg50
- VQ9me/1QVkOak1pTOm2Wg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:rYzBPAnsXyg=:JD6n8n8vrq1vBtSerMY+aw
- IHZRU8OCRPNWaItFu1uDLmnKG/kUMrXWLH7hZ9+JDHAQ5L6/I//ubbxfXiD98F/eTmw8XaJwH
- 6fqoyX/zW+noKGgiWW0NsmypqGPQmWkyl279r+Iz3Vp2t8cm9AEZU2S9nTtQmKhpB97vNbiX2
- rofS8LwfDRlWksHHZ3f9zSTiYWZcK4F66eOibmCoo6I1so7Glnn051VGJ7hElfKXzaEBZLLEa
- TmNfICpWg6NE8qB6QKrEYKopVdWohi7nB30SLBmBuE6YGgDALdq51AAlFc017DZGnWEoRrmWz
- Y9vqAbst3oakmaa9sItoA/aKJSZUOmPsDDgcL90mAMhYes+cR3i2B7iIiqDGYsKKCLqFqZW2v
- RpnTbxhxQE3s7oysl1C6MXunGuuV1LAY4Q4XyIN1lSqOW5BKsW1dDy3Vjgw9iIGo47TwnR4zw
- 7C31vqINPch60UTLSit6UqZE/pZ0KD1TN6tDa+jz6lAGjW4N4x3Qnjbi4VuE3VM10nTQwD8BP
- e5LLjISORNxURfiOWvCkCocz1QNbziazV2/Eyu6gD3vyPqbGpG/BPYJrT36spWManwZabo3HI
- ST0hs+/+KJN7L4QkwKd4PSwWAI7Dq1K9wsdTbfH3jUVfxQglmVouklHjCJzt8YNDcaDipCKjK
- xRD6lVaNEFjAGgoX46JA60EJc7HWa67cqLyUeTz2u4AosATjRweXEitiAoUpEB2bTpmQdFNgS
- jciPUAfI8VEafuE3VW4gVI+IpAUmLlIIa8w6k6jLEfExPgkeKtnEKqETDbMv1ZP9S91tKBURG
- tAOEnXygbxNDV8xoNdc/mHvmTG9qbRRuOsvIMNMl+gXsVAI//Mya6Q806tFRFhtjZEzdFIImI
- JwwGqnRzUrSEXWTdXNXSW/i6A028IEjWE1E9y84uMNQbz6zSEyTTxprIVfDp8qkqvwB6R9VIA
- L5XyV1m8BTPdMOh+VYczhrsJxbGl12v5ZlrijT0zMGAcUls+LZIQnIk2NffpIbmjXco+vtBR5
- hq7qwhP5Fh3E4HKNEJkhXwnVQc7xfz7/rUP4eVs7VFNEC6ECl2bsAcEj37dAcjFztPMNq5xcP
- L9HjKjDjtw7pwJlIa3k4L459XYf/lZ5eUm1/fYTGjtBOFfoz9E4aE92WlInnIF40PIRSXLc6y
- Ww51IYbNQJwEQP9x1YhoAyZuUGP+FlM3hy667ExS8/Gn4x+v4hQNh/J6VJYNl7eM6KJ6Gqp2r
- 1uQgV2vz3qeQ4YqBz
-X-Mailman-Approved-At: Mon, 22 Jun 2020 07:16:50 +0000
+X-Provags-ID: V03:K1:oP/ITVu7Ur7FRnqxphsFlkED4ONhpXaAiJsEuKf9/0MgSVrW+y4
+ kr5hR6VqA5ilXfaiZeFoCQG21Bh2egYUEI70MpkvV5i18PMvkCBjoTYgCrVrwVzWrLH+uj0
+ SdJw/jjUlxxxeAkVVWIQgdY+3RKmJ1Qnbcv6RwEFxEhP/egG9Yt13hAoi/4KEDJcVAOgS+k
+ o+iLN2RMr3faFOtWDmUng==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:jh3yB5aGkpw=:+v9f+1BB+3Sm2Ymjgxa9zS
+ lj8fsxCEIncQ+bgNyRhnkReXmvU1fhLGWNdinP+7VTNY/t+QO6VSOx8KMumxhNjyEysMEOL27
+ gLJkTCmp1h0Nwfj4DX+O902bH9BGjHufO7m+ZhQi8Xk+FJR6oEB2AjmDV7s89aHCagy0MmNlD
+ YpsSEXn1ehnKMI0x0Hk0Ge5LVS5yXkYPQ/5gXBBIrax6qkch9+w5JXdgJDAu+nP8q2+fq2MOJ
+ pcXXI/llj0WAzCOkv2XOyV06ai/A7SnVnPCjEyWFB9+07i13tn+0CIpLxZRPG/zh82BnkSLwH
+ V1eAzTKCdYY9B9vL1rKviC5p9sjR2AKKWGYVLgW4AULk0gSHnKH9VU3uyRj2lvbt8fHbhDWrY
+ WCuxYTbLBCK8pZ2crpeuxiO/2jCziFOYc9kJtjLqCxB35j+7L8hCMTwHnI0AuoKOHQHVmtNOa
+ MjEcPB4V+9JZmWH2DUaV8q6Xx2kGHTyvg3O1zI0+4LBKDczbia4g7XmRO3LMSIjjHPX0ZuwnD
+ ETDPWZUQYHLw4Xqm5eW+EF0FmWNDMXixUmNi41729acgzXfI3AO23pbmSUMSfAwZsHGywZ93R
+ QxveplmbHvIWTJn3qlP2rHuh8sLNrkSQd8gyDZqXApPVmbTogyE3OFijYmKQnzt2aHTBlJGUP
+ 1Q3XNnuY+v8B797WuruUPgvIIWnG4A8IT11QpGfGt4QucXFwLXcwqpDSX8BabA34pVD47Rugh
+ NVdTk4rIE+2o3SQUj2AlDSrbPXAwKapnCVAtCK5gpnnmAP3P/LFZ/4gz+mgh0M/YT/NDtZS/j
+ LevJr4XPgUT4DDyFz3aV01gr4mMwBwRM30swmoUuES1dg1Zb8F3keaBRnO9Z58EYwT5iOVpmC
+ LEIqZ8BX8PFrQ29lYzWcvWEewcmabXe1aRdk3t99IeCwcgVhfxris6NeXSBsI11GkGI70HoDg
+ qQHijnze4DSk7cm3Is0hoMxIUmEdkLCq6M/r+jvlkKR4vum/RLxHTDDfDlIf1vXpa4k+reC2g
+ xOSe5JjDhvDi5hEGiOy93+/PyJARlVYmio964Vaso6PekB4ff2SyOsNQuxSGzecRJZg9BifUv
+ Lu417UKmg7KoCbQTE5tcPARp495PNfEIluY121lKp2REF2V4nOCV6xtXAppPHsvoizXBzxFOC
+ qBJ0hgmiiJ4/HB9NuMiGJwsZksfn515rP2JK/D/KsBow0t6sRGqDmZsOC/abYXLwVmDAu0HDA
+ PzyMN9hCOhM6fZFnu
+X-Mailman-Approved-At: Mon, 22 Jun 2020 07:16:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,21 +134,36 @@ Cc: David Airlie <airlied@linux.ie>,
  kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PiBUaGUgZnVuY3Rpb24ga29iamVjdF9pbml0X2FuZF9hZGQgYWxsb2MgbWVtb3J5IGxpa2U6Cj4g
-a29iamVjdF9pbml0X2FuZF9hZGQtPmtvYmplY3RfYWRkX3ZhcmctPmtvYmplY3Rfc2V0X25hbWVf
-dmFyZ3MKPiAtPmt2YXNwcmludGZfY29uc3QtPmtzdHJkdXBfY29uc3QtPmtzdHJkdXAtPmttYWxs
-b2NfdHJhY2tfY2FsbGVyCj4gLT5rbWFsbG9jX3NsYWIsIGluIGVyciBicmFuY2ggdGhpcyBtZW1v
-cnkgbm90IGZyZWUuIElmIHVzZQo+IGttZW1sZWFrLCB0aGlzIHBhdGggbWF5YmUgY2F0Y2hlZC4K
-PiBUaGVzZSBjaGFuZ2VzIGFyZSB0byBhZGQga29iamVjdF9wdXQgaW4ga29iamVjdF9pbml0X2Fu
-ZF9hZGQKPiBmYWlsZWQgYnJhbmNoLCBmaXggcG90ZW50aWFsIG1lbWxlYWsuCgpJIHN1Z2dlc3Qg
-dG8gaW1wcm92ZSB0aGlzIGNoYW5nZSBkZXNjcmlwdGlvbi4KCiogQ2FuIGFuIG90aGVyIHdvcmRp
-bmcgdmFyaWFudCBiZSBuaWNlcj8KCiogV2lsbCB0aGUgdGFnIOKAnEZpeGVz4oCdIGJlY29tZSBo
-ZWxwZnVsIGZvciB0aGUgY29tbWl0IG1lc3NhZ2U/CgpSZWdhcmRzLApNYXJrdXMKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+>> I suggest to improve this change description.
+>>
+>> * Can an other wording variant be nicer?
+>
+> Markus's suggestion is as usual extremely imprecise.
+
+I pointed a general possibility out. I did not propose an exact wording
+alternative as it happened for other patches.
+
+
+> However, I also find the message quite unclear.
+
+I find this response interesting.
+
+
+> It would be good to always use English words.
+
+I am curious how this review will evolve further with such information
+also after the third patch version.
+https://lore.kernel.org/lkml/20200620091152.11206-1-bernard@vivo.com/
+https://lore.kernel.org/patchwork/patch/1260303/
+
+Regards,
+Markus
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
