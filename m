@@ -2,54 +2,46 @@ Return-Path: <SRS0=8rPh=AD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02B75C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 17:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02938C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 17:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C35912075A
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 17:28:46 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="opEO00dp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C35912075A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id BAD572073E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 17:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAD572073E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7619D6E86B;
-	Mon, 22 Jun 2020 17:28:46 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB586E858;
- Mon, 22 Jun 2020 16:45:59 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A02B02073E;
- Mon, 22 Jun 2020 16:45:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592844359;
- bh=VskRSd8WhRRoxwMzwGHabDufRCpJCPpdefGVzEYBwIE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=opEO00dpTliwcDIXySzAktj26eSl5I3adCuc+zXvkSnyDkNxSR5tZj2EDSf39Zoq7
- ll2F6Mol6WT6uoGpHBrNxYmnuh4oEqRnvDYkRQwMMbiV7xWbSQ9ddOQjuITfLTV7NX
- OwOxtR2Bku261zNDrGKgOdLhVsacx9R6klRS6rFk=
-Date: Mon, 22 Jun 2020 18:45:51 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH v2 5/8] drm/amdgpu: Refactor sysfs removal
-Message-ID: <20200622164551.GA112181@kroah.com>
-References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
- <1592719388-13819-6-git-send-email-andrey.grodzovsky@amd.com>
- <20200622095124.GE20149@phenom.ffwll.local>
- <20200622112139.GA3421602@kroah.com>
- <fdaebe5b-3930-66d6-4f62-3e59e515e3da@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78AE36E86C;
+	Mon, 22 Jun 2020 17:28:47 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8ED6E86B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 17:25:53 +0000 (UTC)
+Received: from [192.168.0.3] (ip5f5af529.dynamic.kabel-deutschland.de
+ [95.90.245.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 86A8B2002EE15;
+ Mon, 22 Jun 2020 19:25:50 +0200 (CEST)
+Subject: Re: [PATCH v2 3/3] drm/amdgpu: Warn about disabled DPM
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20200619185009.12966-1-pmenzel@molgen.mpg.de>
+ <20200619185009.12966-3-pmenzel@molgen.mpg.de>
+ <fdcc2c10-26cd-3183-42c6-daf36d5df1e9@amd.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <5916b5fa-cc2d-f8df-ca55-505034f09f58@molgen.mpg.de>
+Date: Mon, 22 Jun 2020 19:25:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <fdaebe5b-3930-66d6-4f62-3e59e515e3da@amd.com>
+In-Reply-To: <fdcc2c10-26cd-3183-42c6-daf36d5df1e9@amd.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 22 Jun 2020 17:28:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,129 +54,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
- ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, ckoenig.leichtzumerken@gmail.com,
- alexdeucher@gmail.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2020 at 12:07:25PM -0400, Andrey Grodzovsky wrote:
-> 
-> On 6/22/20 7:21 AM, Greg KH wrote:
-> > On Mon, Jun 22, 2020 at 11:51:24AM +0200, Daniel Vetter wrote:
-> > > On Sun, Jun 21, 2020 at 02:03:05AM -0400, Andrey Grodzovsky wrote:
-> > > > Track sysfs files in a list so they all can be removed during pci remove
-> > > > since otherwise their removal after that causes crash because parent
-> > > > folder was already removed during pci remove.
-> > Huh?  That should not happen, do you have a backtrace of that crash?
-> 
-> 
-> 2 examples in the attached trace.
-
-Odd, how did you trigger these?
-
-
-> [  925.738225 <    0.188086>] BUG: kernel NULL pointer dereference, address: 0000000000000090
-> [  925.738232 <    0.000007>] #PF: supervisor read access in kernel mode
-> [  925.738236 <    0.000004>] #PF: error_code(0x0000) - not-present page
-> [  925.738240 <    0.000004>] PGD 0 P4D 0 
-> [  925.738245 <    0.000005>] Oops: 0000 [#1] SMP PTI
-> [  925.738249 <    0.000004>] CPU: 7 PID: 2547 Comm: amdgpu_test Tainted: G        W  OE     5.5.0-rc7-dev-kfd+ #50
-> [  925.738256 <    0.000007>] Hardware name: System manufacturer System Product Name/RAMPAGE IV FORMULA, BIOS 4804 12/30/2013
-> [  925.738266 <    0.000010>] RIP: 0010:kernfs_find_ns+0x18/0x110
-> [  925.738270 <    0.000004>] Code: a6 cf ff 0f 1f 44 00 00 66 2e 0f 1f 84 00 00 00 00 00 66 66 66 66 90 41 57 41 56 49 89 f6 41 55 41 54 49 89 fd 55 53 49 89 d4 <0f> b7 af 90 00 00 00 8b 05 8f ee 6b 01 48 8b 5f 68 66 83 e5 20 41
-> [  925.738282 <    0.000012>] RSP: 0018:ffffad6d0118fb00 EFLAGS: 00010246
-> [  925.738287 <    0.000005>] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 2098a12076864b7e
-> [  925.738292 <    0.000005>] RDX: 0000000000000000 RSI: ffffffffb6606b31 RDI: 0000000000000000
-> [  925.738297 <    0.000005>] RBP: ffffffffb6606b31 R08: ffffffffb5379d10 R09: 0000000000000000
-> [  925.738302 <    0.000005>] R10: ffffad6d0118fb38 R11: ffff9a75f64820a8 R12: 0000000000000000
-> [  925.738307 <    0.000005>] R13: 0000000000000000 R14: ffffffffb6606b31 R15: ffff9a7612b06130
-> [  925.738313 <    0.000006>] FS:  00007f3eca4e8700(0000) GS:ffff9a763dbc0000(0000) knlGS:0000000000000000
-> [  925.738319 <    0.000006>] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  925.738323 <    0.000004>] CR2: 0000000000000090 CR3: 0000000035e5a005 CR4: 00000000000606e0
-> [  925.738329 <    0.000006>] Call Trace:
-> [  925.738334 <    0.000005>]  kernfs_find_and_get_ns+0x2e/0x50
-> [  925.738339 <    0.000005>]  sysfs_remove_group+0x25/0x80
-> [  925.738344 <    0.000005>]  sysfs_remove_groups+0x29/0x40
-> [  925.738350 <    0.000006>]  free_msi_irqs+0xf5/0x190
-> [  925.738354 <    0.000004>]  pci_disable_msi+0xe9/0x120
-
-So the PCI core is trying to clean up attributes that it had registered,
-which is fine.  But we can't seem to find the attributes?  Were they
-already removed somewhere else?
-
-that's odd.
-
-> [  925.738406 <    0.000052>]  amdgpu_irq_fini+0xe3/0xf0 [amdgpu]
-> [  925.738453 <    0.000047>]  tonga_ih_sw_fini+0xe/0x30 [amdgpu]
-> [  925.738490 <    0.000037>]  amdgpu_device_fini_late+0x14b/0x440 [amdgpu]
-> [  925.738529 <    0.000039>]  amdgpu_driver_release_kms+0x16/0x40 [amdgpu]
-> [  925.738548 <    0.000019>]  drm_dev_put+0x5b/0x80 [drm]
-> [  925.738558 <    0.000010>]  drm_release+0xc6/0xd0 [drm]
-> [  925.738563 <    0.000005>]  __fput+0xc6/0x260
-> [  925.738568 <    0.000005>]  task_work_run+0x79/0xb0
-> [  925.738573 <    0.000005>]  do_exit+0x3d0/0xc60
-> [  925.738578 <    0.000005>]  do_group_exit+0x47/0xb0
-> [  925.738583 <    0.000005>]  get_signal+0x18b/0xc30
-> [  925.738589 <    0.000006>]  do_signal+0x36/0x6a0
-> [  925.738593 <    0.000004>]  ? force_sig_info_to_task+0xbc/0xd0
-> [  925.738597 <    0.000004>]  ? signal_wake_up_state+0x15/0x30
-> [  925.738603 <    0.000006>]  exit_to_usermode_loop+0x6f/0xc0
-> [  925.738608 <    0.000005>]  prepare_exit_to_usermode+0xc7/0x110
-> [  925.738613 <    0.000005>]  ret_from_intr+0x25/0x35
-> [  925.738617 <    0.000004>] RIP: 0033:0x417369
-> [  925.738621 <    0.000004>] Code: Bad RIP value.
-> [  925.738625 <    0.000004>] RSP: 002b:00007ffdd6bf0900 EFLAGS: 00010246
-> [  925.738629 <    0.000004>] RAX: 00007f3eca509000 RBX: 000000000000001e RCX: 00007f3ec95ba260
-> [  925.738634 <    0.000005>] RDX: 00007f3ec9889790 RSI: 000000000000000a RDI: 0000000000000000
-> [  925.738639 <    0.000005>] RBP: 00007ffdd6bf0990 R08: 00007f3ec9889780 R09: 00007f3eca4e8700
-> [  925.738645 <    0.000006>] R10: 000000000000035c R11: 0000000000000246 R12: 00000000021c6170
-> [  925.738650 <    0.000005>] R13: 00007ffdd6bf0c00 R14: 0000000000000000 R15: 0000000000000000
-> 
-> 
-> 
-> 
-> [   40.880899 <    0.000004>] BUG: kernel NULL pointer dereference, address: 0000000000000090
-> [   40.880906 <    0.000007>] #PF: supervisor read access in kernel mode
-> [   40.880910 <    0.000004>] #PF: error_code(0x0000) - not-present page
-> [   40.880915 <    0.000005>] PGD 0 P4D 0 
-> [   40.880920 <    0.000005>] Oops: 0000 [#1] SMP PTI
-> [   40.880924 <    0.000004>] CPU: 1 PID: 2526 Comm: amdgpu_test Tainted: G        W  OE     5.5.0-rc7-dev-kfd+ #50
-> [   40.880932 <    0.000008>] Hardware name: System manufacturer System Product Name/RAMPAGE IV FORMULA, BIOS 4804 12/30/2013
-> [   40.880941 <    0.000009>] RIP: 0010:kernfs_find_ns+0x18/0x110
-> [   40.880945 <    0.000004>] Code: a6 cf ff 0f 1f 44 00 00 66 2e 0f 1f 84 00 00 00 00 00 66 66 66 66 90 41 57 41 56 49 89 f6 41 55 41 54 49 89 fd 55 53 49 89 d4 <0f> b7 af 90 00 00 00 8b 05 8f ee 6b 01 48 8b 5f 68 66 83 e5 20 41
-> [   40.880957 <    0.000012>] RSP: 0018:ffffaf3380467ba8 EFLAGS: 00010246
-> [   40.880963 <    0.000006>] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 2098a12076864b7e
-> [   40.880968 <    0.000005>] RDX: 0000000000000000 RSI: ffffffffc0678cfc RDI: 0000000000000000
-> [   40.880973 <    0.000005>] RBP: ffffffffc0678cfc R08: ffffffffaa379d10 R09: 0000000000000000
-> [   40.880979 <    0.000006>] R10: ffffaf3380467be0 R11: ffff93547615d128 R12: 0000000000000000
-> [   40.880984 <    0.000005>] R13: 0000000000000000 R14: ffffffffc0678cfc R15: ffff93549be86130
-> [   40.880990 <    0.000006>] FS:  00007fd9ecb10700(0000) GS:ffff9354bd840000(0000) knlGS:0000000000000000
-> [   40.880996 <    0.000006>] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [   40.881001 <    0.000005>] CR2: 0000000000000090 CR3: 0000000072866001 CR4: 00000000000606e0
-> [   40.881006 <    0.000005>] Call Trace:
-> [   40.881011 <    0.000005>]  kernfs_find_and_get_ns+0x2e/0x50
-> [   40.881016 <    0.000005>]  sysfs_remove_group+0x25/0x80
-> [   40.881055 <    0.000039>]  amdgpu_device_fini_late+0x3eb/0x440 [amdgpu]
-> [   40.881095 <    0.000040>]  amdgpu_driver_release_kms+0x16/0x40 [amdgpu]
-
-Here is this is your driver doing the same thing, removing attributes it
-created.  But again they are not there.
-
-So something went through and wiped the tree clean, which if I'm reading
-this correctly, your patch would not solve as you would try to also
-remove attributes that were already removed, right?
-
-And 5.5-rc7 is a bit old (6 months and many thousands of changes ago),
-does this still happen on a modern, released, kernel?
-
-thanks,
-
-greg k-h
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RGVhciBDaHJpc3RpYW4sCgoKQW0gMjIuMDYuMjAgdW0gMTU6Mzkgc2NocmllYiBDaHJpc3RpYW4g
+S8O2bmlnOgo+IEFtIDE5LjA2LjIwIHVtIDIwOjUwIHNjaHJpZWIgUGF1bCBNZW56ZWw6Cj4+IEN1
+cnJlbnRseSwgYmVzaWRlcyB0aGVyZSBpcyBubyBleHBsaWNpdCBtZXNzYWdlLCB0aGF0IERQTSBp
+cyBkaXNhYmxlZC4KPj4gVGhlIHVzZXIgd291bGQgbmVlZCB0byBrbm93LCB0aGF0IHRoZSBtaXNz
+aW5nIHN1Y2Nlc3MgbGluZSBpbmRpY2F0ZXMKPj4gdGhhdC4KPj4KPj4gwqDCoMKgwqAgW2RybV0g
+YW1kZ3B1OiBkcG0gaW5pdGlhbGl6ZWQKPj4KPj4gU28sIGFkZCBhbiBleHBsaWNpdCBtZXNzYWdl
+LCBhbmQgbWFrZSBpdCBsb2cgbGV2ZWwgd2FybmluZywgYXMgZGlzYWJsaW5nCj4+IGRwbSBpcyBu
+b3QgdGhlIGRlZmF1bHQsIGFuZCBkZXZpY2UgcGVyZm9ybWFuY2Ugd2lsbCBtb3N0IGxpa2VseSBz
+dWZmZXIuCj4+Cj4+IFJlc29sdmVzOiAKPj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVj
+dGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGZ2l0bGFiLmZyZWVkZXNrdG9wLm9y
+ZyUyRmRybSUyRmFtZCUyRi0lMkZpc3N1ZXMlMkYxMTczJmFtcDtkYXRhPTAyJTdDMDElN0NjaHJp
+c3RpYW4ua29lbmlnJTQwYW1kLmNvbSU3Q2E5M2Y2MTIxYzJhYjQ2NGI3YzE5MDhkODE0ODFhMjRh
+JTdDM2RkODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzI4MTg5NDMw
+MzM5NDg1NSZhbXA7c2RhdGE9bGJjcEI4SDlUbmJJU0c4VkZmY2lLaCUyRktHQzdZd2tWWXhVZjRZ
+N2REVnQ4JTNEJmFtcDtyZXNlcnZlZD0wIAoKVGhhdCBVUkwgaXMgbm90IG1pbmUuIDstKQoKPj4g
+Q2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IFNpZ25lZC1vZmYtYnk6IFBhdWwg
+TWVuemVsIDxwbWVuemVsQG1vbGdlbi5tcGcuZGU+Cj4+IC0tLQo+PiB2MjogVXNlIG5ldyBwcmlu
+dCBoZWxwZXJzLCBhbmQgaW5mb3JtIHVzZXIgYWJvdXQgZWZmZWN0cy4KPj4KPj4gwqAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUva3ZfZHBtLmMgfCA0ICsrKy0KPj4gwqAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMgfCA0ICsrKy0KPj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCA2
+IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9rdl9kcG0uYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9rdl9kcG0uYwo+PiBpbmRleCBmMDU0ZGVkOTAyZjIuLmM2MDE1ODdjNmQ1OSAxMDA2NDQK
+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUva3ZfZHBtLmMKPj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUva3ZfZHBtLmMKPj4gQEAgLTMwMTQsOCArMzAxNCwxMCBA
+QCBzdGF0aWMgaW50IGt2X2RwbV9zd19pbml0KHZvaWQgKmhhbmRsZSkKPj4gwqDCoMKgwqDCoCBh
+ZGV2LT5wbS5jdXJyZW50X21jbGsgPSBhZGV2LT5jbG9jay5kZWZhdWx0X21jbGs7Cj4+IMKgwqDC
+oMKgwqAgYWRldi0+cG0uaW50X3RoZXJtYWxfdHlwZSA9IFRIRVJNQUxfVFlQRV9OT05FOwo+PiAt
+wqDCoMKgIGlmIChhbWRncHVfZHBtID09IDApCj4+ICvCoMKgwqAgaWYgKGFtZGdwdV9kcG0gPT0g
+MCkgewo+PiArwqDCoMKgwqDCoMKgwqAgZHJtX3dhcm4oYWRldiwgImFtZGdwdTogZHBtIGRpc2Fi
+bGVkIHBlciBwYXJhbWV0ZXIuIFlvdXIgCj4+IGdyYXBoaWNzIGRldmljZSB3aWxsIHJ1biB3aXRo
+IGxvd2VyIGNsb2NrcyBpbXBhY3RpbmcgZ3JhcGhpY3MgCj4+IHBlcmZvcm1hbmNlLlxuIik7Cj4g
+Cj4gSSdtIG5vdCB2ZXJ5IGtlZW4gYWJvdXQgdGhpcy4gV2hlbiBhbiB1c2VyIHNwZWNpZmllcyB0
+aGF0IERQTSBzaG91bGRuJ3QgCj4gYmUgdXNlZCB0aGUgZHJpdmVyIGRvZXNuJ3QgbmVlZCB0byBp
+bmZvcm0gdGhlIHVzZXIgYWJvdXQgdGhpcyBvbmNlIG1vcmUuCj4gCj4gSW4gb3RoZXIgd29yZHMg
+c2hvb3RpbmcgaW4geW91ciBvd24gZm9vdCBpcyBzdXBwb3NlZCB0byBodXJ0LgoKTWF5YmUuIFRo
+ZSBvdGhlciBwb2ludCBvZiB2aWV3IGlzLCBob3cgZG9lcyBoYXZpbmcgdGhlIGNsYXJpdHkgaW4g
+dGhlIApsb2dzIGh1cnQ/IEZvciBleGFtcGxlLCBpZiB0aGUgdXNlciBhZGRlZCB0aGUgcGFyYW1l
+dGVyIGludGVudGlvbmFsbHksIAptYXliZSB0aGV5IG1hZGUgYSB0eXBvLCBhbmQgaXTigJlzIGFj
+dHVhbGx5IG5vdCBhcHBsaWVkLiBPciB0aGVyZSBpcyBhIGJ1ZyAKaW4gdGhlIHBhcmFtZXRlciBo
+YW5kbGluZy4gSGF2aW5nIGV4cGxpY2l0IGxvZyBtZXNzYWdlcyBpcyBnb29kIGluIG15IApvcGlu
+aW9uLgoKU2Vjb25kbHksIHRoZSBwYXJhbWV0ZXIgY291bGQgaGF2ZSBiZWVuIGxlZnQgdGhlcmUg
+dW5pbnRlbnRpb25hbGx5LiAKSGF2aW5nIHRoZSBtZXNzYWdlIGluIHRoZSBsb2dzLCBtYWtlcyB0
+aGUgdXNlciBhd2FyZSBvZiB0aGEuCgoKS2luZCByZWdhcmRzLAoKUGF1bAoKCj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gMDsKPj4gK8KgwqDCoCB9Cj4+IMKgwqDCoMKgwqAgSU5JVF9XT1JL
+KCZhZGV2LT5wbS5kcG0udGhlcm1hbC53b3JrLCAKPj4gYW1kZ3B1X2RwbV90aGVybWFsX3dvcmtf
+aGFuZGxlcik7Cj4+IMKgwqDCoMKgwqAgbXV0ZXhfbG9jaygmYWRldi0+cG0ubXV0ZXgpOwo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMgCj4+IGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMKPj4gaW5kZXggZjdlZGMxZDUwZGY0Li4x
+ZjM1ZDVhMzYzMDAgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Np
+X2RwbS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RwbS5jCj4+IEBA
+IC03Njg3LDggKzc2ODcsMTAgQEAgc3RhdGljIGludCBzaV9kcG1fc3dfaW5pdCh2b2lkICpoYW5k
+bGUpCj4+IMKgwqDCoMKgwqAgYWRldi0+cG0uY3VycmVudF9tY2xrID0gYWRldi0+Y2xvY2suZGVm
+YXVsdF9tY2xrOwo+PiDCoMKgwqDCoMKgIGFkZXYtPnBtLmludF90aGVybWFsX3R5cGUgPSBUSEVS
+TUFMX1RZUEVfTk9ORTsKPj4gLcKgwqDCoCBpZiAoYW1kZ3B1X2RwbSA9PSAwKQo+PiArwqDCoMKg
+IGlmIChhbWRncHVfZHBtID09IDApIHsKPj4gK8KgwqDCoMKgwqDCoMKgIGRybV93YXJuKGFkZXYs
+ICJhbWRncHU6IGRwbSBkaXNhYmxlZCBwZXIgcGFyYW1ldGVyLiBZb3VyIAo+PiBncmFwaGljcyBk
+ZXZpY2Ugd2lsbCBydW4gd2l0aCBsb3dlciBjbG9ja3MgaW1wYWN0aW5nIGdyYXBoaWNzIAo+PiBw
+ZXJmb3JtYW5jZS5cbiIpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+ICvCoMKg
+wqAgfQo+PiDCoMKgwqDCoMKgIHJldCA9IHNpX2RwbV9pbml0X21pY3JvY29kZShhZGV2KTsKPj4g
+wqDCoMKgwqDCoCBpZiAocmV0KQo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
