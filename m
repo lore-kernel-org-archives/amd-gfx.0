@@ -5,74 +5,75 @@ X-Spam-Level:
 X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41429C43461
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 13:21:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85208C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 13:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0C59C20776
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 13:19:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 59243206D7
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 13:26:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3XzAUhl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C59C20776
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Smq94pcn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59243206D7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DFD16E15F;
-	Mon, 22 Jun 2020 13:19:31 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2210C6E15F;
- Mon, 22 Jun 2020 13:19:31 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id l17so14864243wmj.0;
- Mon, 22 Jun 2020 06:19:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 136776E5C5;
+	Mon, 22 Jun 2020 13:26:08 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320A36E5C5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 13:26:06 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id g75so6783125wme.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 06:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=GR9In794dpMUFsIS0W8erPBiSWB7ML3vjNvGRCcaD7o=;
- b=H3XzAUhlekk2pvgm5mFe41OFgjeY51eizHqMqTs/QLZBVSOkEhnkalIRUIRWrwlXDv
- g6KFHgyACLluZZ3Qo70dTFSQ3lhiSX+hSSxC6ioO1eYFKUaWhB0UMZdykDE/q2Xwpm1p
- 7yi71elmV+mtYrkZmI6m3zTuYyaA2HV9BeN+5wo5+W+FvNlxxbbMkKeGP+h95cnGrcgy
- 977pYkLv1Tapy1nUXRAoDrrGnYTexYnD0drGPoiplSNQKh/hwl8uFFCFM5nYZuQSM6Lp
- Y36vmRf/CTzdHsLBW1nBpWVHxdVwIvbfNakIRy4+lGlw0+LPQfUTBxLl+4WmFxl+EhE8
- G0FQ==
+ bh=VDodAlwychbfLxmfRjRTI7xwLg/A/SA2sJS9DmDx6l8=;
+ b=Smq94pcnzcraLkBcQ+hEHChl/x+v9GFK9Xrke+tAPcA2IUQauOIAQFBvdSjfscqiHY
+ yzkbJsW+IeSDOfIREjdFqtr3byXd5RkZzeeI3Eab/Dn07IVZzyqh0aVS+a8GZxn0Nqnn
+ a85AaESjpBDPX5NtjQ8BvYWsHKSQltUVAPsfZRabkl6Pvf2/IscNGdQ3HfxSQzhVWq5A
+ RNC/TH1jKNHVUoNo39vRAgjR9uYVNRZts2E+1VkgTa1TeuDmTF0YIBY20hH8XyKHWr30
+ peqHEy45QufzlrPpg333dY+IaS+VYFMcOKgaiHohigcqrR9YLmMuh41TUO1mCeiCa06s
+ 576g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=GR9In794dpMUFsIS0W8erPBiSWB7ML3vjNvGRCcaD7o=;
- b=MKSzrCTYw5czPJIRpME4qVW2ShUKHrmxaT7kusQOjanMjfhKGWpYbtjkV2oP4xIaHp
- wsQud/onsPB5cE9TCzYcubJ3LY0eC3DOfXpBr6Za4c+D0/v1UkNdyTnvoZpC/DzJ0y8R
- Wu6HIRZO8izeNA+auX7HhsqzUWfAJsW3IoM8kGczQUDhLUqjUBd27iTY/130IzQbRyE6
- cucCzj8xEsBIG7x0H3holpIGC2CmlaC3HKnPc82EerzBRdZ5/tic8Ud1BrqzXyqVEOCb
- KX5KjlDLqNvZV60Kiaa0yFGLuP6yAL9Nh8M5Y4YdbSb/MlTT74IOwFLB1F7rJHVFVy9m
- CLqQ==
-X-Gm-Message-State: AOAM531AU2CXo8BOSRuup8A/eRAMYEalgRxaBlrqL+6fZ5h9r3hOnrbL
- FaBvJ7m61gHL4EZ1HIJMU3E=
-X-Google-Smtp-Source: ABdhPJxnKTluPunX7zFGqRpf+QSiGMUKlYLviUfJ6dnr2Ovrjrtag1YLnvmCDLuIYL+BT4Amb3zR/w==
-X-Received: by 2002:a1c:a1c3:: with SMTP id k186mr2531366wme.15.1592831969682; 
- Mon, 22 Jun 2020 06:19:29 -0700 (PDT)
+ bh=VDodAlwychbfLxmfRjRTI7xwLg/A/SA2sJS9DmDx6l8=;
+ b=jBaGt3i1vVGTnNrMwbSRgYk92MH+qJgWD4e8tffzU4xrumBsBium0NkJjTfthKRgG7
+ RjWpgUTw2xaqwrD1sxJvUIfCME8gxEa+N5U59R7IKDUyUN7jHsUm15j1166LFlVw2o9r
+ UHKQDoVIpYoFQv4649ePGPsvXPOx+PHiO5NJHx55HtuFsV8pZsFMRDe78wydoBoS2Rm1
+ uOTAGNRGtdKI9X7vYdtrWFNUXVSStl1yGIj+J8oXdfmKMhpvlr4HaENXE+MMY3kozRk3
+ pNkz+W13RwV+Ejiiu0j5npCDfDH6QnnvAcKbAJBmTUPscDzKFwiIV86tDzLJieETIZ8l
+ iTFA==
+X-Gm-Message-State: AOAM531XuiPXHJtBCcImNbL0WpPsn1NnQj80lzwjQbH4yk89J6sdK1jN
+ OCYzDqotVz4sYyY3IGMSF+s=
+X-Google-Smtp-Source: ABdhPJxC/GF73eG1W2Uod5ZUlU2ECiWJZDTVMiYEH1YiNZX0WfgxGPIgtZflQeHbwiA6AUfyDh9IXQ==
+X-Received: by 2002:a1c:61d7:: with SMTP id
+ v206mr15774599wmb.173.1592832364864; 
+ Mon, 22 Jun 2020 06:26:04 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
  ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id c20sm11605053wrb.65.2020.06.22.06.19.28
+ by smtp.gmail.com with ESMTPSA id m65sm16478010wmf.17.2020.06.22.06.26.03
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 22 Jun 2020 06:19:29 -0700 (PDT)
-Subject: Re: [PATCH v2 5/8] drm/amdgpu: Refactor sysfs removal
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
- <1592719388-13819-6-git-send-email-andrey.grodzovsky@amd.com>
+ Mon, 22 Jun 2020 06:26:04 -0700 (PDT)
+Subject: Re: [PATCH] Revert "drm/amd/display: Expose connector VRR range via
+ debugfs"
+To: Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20200622144225.16549-1-bhanuprakash.modem@intel.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <6b544ca0-278d-d464-f1da-2e23879a27d4@gmail.com>
-Date: Mon, 22 Jun 2020 15:19:28 +0200
+Message-ID: <a8d735f6-4f9d-ae5a-af86-9cae189e4f18@gmail.com>
+Date: Mon, 22 Jun 2020 15:26:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <1592719388-13819-6-git-send-email-andrey.grodzovsky@amd.com>
+In-Reply-To: <20200622144225.16549-1-bhanuprakash.modem@intel.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,387 +87,58 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: christian.koenig@amd.com
-Cc: alexdeucher@gmail.com, daniel.vetter@ffwll.ch, michel@daenzer.net,
- ppaalanen@gmail.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: alexander.deucher@amd.com, manasi.d.navare@intel.com,
+ harry.wentland@amd.com, nicholas.kazlauskas@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.06.20 um 08:03 schrieb Andrey Grodzovsky:
-> Track sysfs files in a list so they all can be removed during pci remove
-> since otherwise their removal after that causes crash because parent
-> folder was already removed during pci remove.
-
-That looks extremely fishy to me.
-
-It sounds like we just don't remove stuff in the right order.
-
-Christian.
-
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h          | 13 +++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c |  7 +++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 35 ++++++++++++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c  | 12 ++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c      |  8 ++++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 17 ++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c     | 13 ++++++++++-
->   drivers/gpu/drm/amd/amdgpu/df_v3_6.c         | 10 +++++---
->   8 files changed, 99 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 604a681..ba3775f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -726,6 +726,15 @@ struct amd_powerplay {
->   
->   #define AMDGPU_RESET_MAGIC_NUM 64
->   #define AMDGPU_MAX_DF_PERFMONS 4
-> +
-> +struct amdgpu_sysfs_list_node {
-> +	struct list_head head;
-> +	struct device_attribute *attr;
-> +};
-> +
-> +#define AMDGPU_DEVICE_ATTR_LIST_NODE(_attr) \
-> +	struct amdgpu_sysfs_list_node dev_attr_handle_##_attr = {.attr = &dev_attr_##_attr}
-> +
->   struct amdgpu_device {
->   	struct device			*dev;
->   	struct drm_device		*ddev;
-> @@ -992,6 +1001,10 @@ struct amdgpu_device {
->   	char				product_number[16];
->   	char				product_name[32];
->   	char				serial[16];
-> +
-> +	struct list_head sysfs_files_list;
-> +	struct mutex	 sysfs_files_list_lock;
-> +
->   };
->   
->   static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> index fdd52d8..c1549ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> @@ -1950,8 +1950,10 @@ static ssize_t amdgpu_atombios_get_vbios_version(struct device *dev,
->   	return snprintf(buf, PAGE_SIZE, "%s\n", ctx->vbios_version);
->   }
->   
-> +
->   static DEVICE_ATTR(vbios_version, 0444, amdgpu_atombios_get_vbios_version,
->   		   NULL);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(vbios_version);
->   
->   /**
->    * amdgpu_atombios_fini - free the driver info and callbacks for atombios
-> @@ -1972,7 +1974,6 @@ void amdgpu_atombios_fini(struct amdgpu_device *adev)
->   	adev->mode_info.atom_context = NULL;
->   	kfree(adev->mode_info.atom_card_info);
->   	adev->mode_info.atom_card_info = NULL;
-> -	device_remove_file(adev->dev, &dev_attr_vbios_version);
->   }
->   
->   /**
-> @@ -2038,6 +2039,10 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
->   		return ret;
->   	}
->   
-> +	mutex_lock(&adev->sysfs_files_list_lock);
-> +	list_add_tail(&dev_attr_handle_vbios_version.head, &adev->sysfs_files_list);
-> +	mutex_unlock(&adev->sysfs_files_list_lock);
-> +
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e7b9065..3173046 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2928,6 +2928,12 @@ static const struct attribute *amdgpu_dev_attributes[] = {
->   	NULL
->   };
->   
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(product_name);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(product_number);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(serial_number);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(pcie_replay_count);
-> +
-> +
->   /**
->    * amdgpu_device_init - initialize the driver
->    *
-> @@ -3029,6 +3035,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	INIT_LIST_HEAD(&adev->shadow_list);
->   	mutex_init(&adev->shadow_list_lock);
->   
-> +	INIT_LIST_HEAD(&adev->sysfs_files_list);
-> +	mutex_init(&adev->sysfs_files_list_lock);
-> +
->   	INIT_DELAYED_WORK(&adev->delayed_init_work,
->   			  amdgpu_device_delayed_init_work_handler);
->   	INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
-> @@ -3281,6 +3290,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	if (r) {
->   		dev_err(adev->dev, "Could not create amdgpu device attr\n");
->   		return r;
-> +	} else {
-> +		mutex_lock(&adev->sysfs_files_list_lock);
-> +		list_add_tail(&dev_attr_handle_product_name.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_product_number.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_serial_number.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_pcie_replay_count.head, &adev->sysfs_files_list);
-> +		mutex_unlock(&adev->sysfs_files_list_lock);
->   	}
->   
->   	if (IS_ENABLED(CONFIG_PERF_EVENTS))
-> @@ -3298,6 +3314,16 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	return r;
->   }
->   
-> +static void amdgpu_sysfs_remove_files(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_sysfs_list_node *node;
-> +
-> +	mutex_lock(&adev->sysfs_files_list_lock);
-> +	list_for_each_entry(node, &adev->sysfs_files_list, head)
-> +		device_remove_file(adev->dev, node->attr);
-> +	mutex_unlock(&adev->sysfs_files_list_lock);
-> +}
-> +
->   /**
->    * amdgpu_device_fini - tear down the driver
->    *
-> @@ -3332,6 +3358,11 @@ void amdgpu_device_fini_early(struct amdgpu_device *adev)
->   	amdgpu_fbdev_fini(adev);
->   
->   	amdgpu_irq_fini_early(adev);
-> +
-> +	amdgpu_sysfs_remove_files(adev);
-> +
-> +	if (adev->ucode_sysfs_en)
-> +		amdgpu_ucode_sysfs_fini(adev);
->   }
->   
->   void amdgpu_device_fini_late(struct amdgpu_device *adev)
-> @@ -3366,10 +3397,6 @@ void amdgpu_device_fini_late(struct amdgpu_device *adev)
->   	adev->rmmio = NULL;
->   	amdgpu_device_doorbell_fini(adev);
->   
-> -	if (adev->ucode_sysfs_en)
-> -		amdgpu_ucode_sysfs_fini(adev);
-> -
-> -	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
->   	if (IS_ENABLED(CONFIG_PERF_EVENTS))
->   		amdgpu_pmu_fini(adev);
->   	if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index 6271044..e7b6c4a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -76,6 +76,9 @@ static DEVICE_ATTR(mem_info_gtt_total, S_IRUGO,
->   static DEVICE_ATTR(mem_info_gtt_used, S_IRUGO,
->   	           amdgpu_mem_info_gtt_used_show, NULL);
->   
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_gtt_total);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_gtt_used);
-> +
->   /**
->    * amdgpu_gtt_mgr_init - init GTT manager and DRM MM
->    *
-> @@ -114,6 +117,11 @@ static int amdgpu_gtt_mgr_init(struct ttm_mem_type_manager *man,
->   		return ret;
->   	}
->   
-> +	mutex_lock(&adev->sysfs_files_list_lock);
-> +	list_add_tail(&dev_attr_handle_mem_info_gtt_total.head, &adev->sysfs_files_list);
-> +	list_add_tail(&dev_attr_handle_mem_info_gtt_used.head, &adev->sysfs_files_list);
-> +	mutex_unlock(&adev->sysfs_files_list_lock);
-> +
->   	return 0;
->   }
->   
-> @@ -127,7 +135,6 @@ static int amdgpu_gtt_mgr_init(struct ttm_mem_type_manager *man,
->    */
->   static int amdgpu_gtt_mgr_fini(struct ttm_mem_type_manager *man)
->   {
-> -	struct amdgpu_device *adev = amdgpu_ttm_adev(man->bdev);
->   	struct amdgpu_gtt_mgr *mgr = man->priv;
->   	spin_lock(&mgr->lock);
->   	drm_mm_takedown(&mgr->mm);
-> @@ -135,9 +142,6 @@ static int amdgpu_gtt_mgr_fini(struct ttm_mem_type_manager *man)
->   	kfree(mgr);
->   	man->priv = NULL;
->   
-> -	device_remove_file(adev->dev, &dev_attr_mem_info_gtt_total);
-> -	device_remove_file(adev->dev, &dev_attr_mem_info_gtt_used);
-> -
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index ddb4af0c..554fec0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -2216,6 +2216,8 @@ static DEVICE_ATTR(usbc_pd_fw, S_IRUGO | S_IWUSR,
->   		   psp_usbc_pd_fw_sysfs_read,
->   		   psp_usbc_pd_fw_sysfs_write);
->   
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(usbc_pd_fw);
-> +
->   
->   
->   const struct amd_ip_funcs psp_ip_funcs = {
-> @@ -2242,13 +2244,17 @@ static int psp_sysfs_init(struct amdgpu_device *adev)
->   
->   	if (ret)
->   		DRM_ERROR("Failed to create USBC PD FW control file!");
-> +	else {
-> +		mutex_lock(&adev->sysfs_files_list_lock);
-> +		list_add_tail(&dev_attr_handle_usbc_pd_fw.head, &adev->sysfs_files_list);
-> +		mutex_unlock(&adev->sysfs_files_list_lock);
-> +	}
->   
->   	return ret;
->   }
->   
->   static void psp_sysfs_fini(struct amdgpu_device *adev)
->   {
-> -	device_remove_file(adev->dev, &dev_attr_usbc_pd_fw);
->   }
->   
->   const struct amdgpu_ip_block_version psp_v3_1_ip_block =
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 7723937..39c400c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -148,6 +148,12 @@ static DEVICE_ATTR(mem_info_vis_vram_used, S_IRUGO,
->   static DEVICE_ATTR(mem_info_vram_vendor, S_IRUGO,
->   		   amdgpu_mem_info_vram_vendor, NULL);
->   
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_vram_total);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_vis_vram_total);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_vram_used);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_vis_vram_used);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(mem_info_vram_vendor);
-> +
->   static const struct attribute *amdgpu_vram_mgr_attributes[] = {
->   	&dev_attr_mem_info_vram_total.attr,
->   	&dev_attr_mem_info_vis_vram_total.attr,
-> @@ -184,6 +190,15 @@ static int amdgpu_vram_mgr_init(struct ttm_mem_type_manager *man,
->   	ret = sysfs_create_files(&adev->dev->kobj, amdgpu_vram_mgr_attributes);
->   	if (ret)
->   		DRM_ERROR("Failed to register sysfs\n");
-> +	else {
-> +		mutex_lock(&adev->sysfs_files_list_lock);
-> +		list_add_tail(&dev_attr_handle_mem_info_vram_total.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_mem_info_vis_vram_total.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_mem_info_vram_used.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_mem_info_vis_vram_used.head, &adev->sysfs_files_list);
-> +		list_add_tail(&dev_attr_handle_mem_info_vram_vendor.head, &adev->sysfs_files_list);
-> +		mutex_unlock(&adev->sysfs_files_list_lock);
-> +	}
->   
->   	return 0;
->   }
-> @@ -198,7 +213,6 @@ static int amdgpu_vram_mgr_init(struct ttm_mem_type_manager *man,
->    */
->   static int amdgpu_vram_mgr_fini(struct ttm_mem_type_manager *man)
->   {
-> -	struct amdgpu_device *adev = amdgpu_ttm_adev(man->bdev);
->   	struct amdgpu_vram_mgr *mgr = man->priv;
->   
->   	spin_lock(&mgr->lock);
-> @@ -206,7 +220,6 @@ static int amdgpu_vram_mgr_fini(struct ttm_mem_type_manager *man)
->   	spin_unlock(&mgr->lock);
->   	kfree(mgr);
->   	man->priv = NULL;
-> -	sysfs_remove_files(&adev->dev->kobj, amdgpu_vram_mgr_attributes);
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 90610b4..455eaa4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -272,6 +272,9 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
->   static DEVICE_ATTR(xgmi_device_id, S_IRUGO, amdgpu_xgmi_show_device_id, NULL);
->   static DEVICE_ATTR(xgmi_error, S_IRUGO, amdgpu_xgmi_show_error, NULL);
->   
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(xgmi_device_id);
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(xgmi_error);
-> +
->   static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
->   					 struct amdgpu_hive_info *hive)
->   {
-> @@ -285,10 +288,19 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
->   		return ret;
->   	}
->   
-> +	mutex_lock(&adev->sysfs_files_list_lock);
-> +	list_add_tail(&dev_attr_handle_xgmi_device_id.head, &adev->sysfs_files_list);
-> +	mutex_unlock(&adev->sysfs_files_list_lock);
-> +
->   	/* Create xgmi error file */
->   	ret = device_create_file(adev->dev, &dev_attr_xgmi_error);
->   	if (ret)
->   		pr_err("failed to create xgmi_error\n");
-> +	else {
-> +		mutex_lock(&adev->sysfs_files_list_lock);
-> +		list_add_tail(&dev_attr_handle_xgmi_error.head, &adev->sysfs_files_list);
-> +		mutex_unlock(&adev->sysfs_files_list_lock);
-> +	}
->   
->   
->   	/* Create sysfs link to hive info folder on the first device */
-> @@ -325,7 +337,6 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
->   static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
->   					  struct amdgpu_hive_info *hive)
->   {
-> -	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
->   	sysfs_remove_link(&adev->dev->kobj, adev->ddev->unique);
->   	sysfs_remove_link(hive->kobj, adev->ddev->unique);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> index a7b8292..f95b0b2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> @@ -265,6 +265,8 @@ static ssize_t df_v3_6_get_df_cntr_avail(struct device *dev,
->   /* device attr for available perfmon counters */
->   static DEVICE_ATTR(df_cntr_avail, S_IRUGO, df_v3_6_get_df_cntr_avail, NULL);
->   
-> +static AMDGPU_DEVICE_ATTR_LIST_NODE(df_cntr_avail);
-> +
->   static void df_v3_6_query_hashes(struct amdgpu_device *adev)
->   {
->   	u32 tmp;
-> @@ -299,6 +301,11 @@ static void df_v3_6_sw_init(struct amdgpu_device *adev)
->   	ret = device_create_file(adev->dev, &dev_attr_df_cntr_avail);
->   	if (ret)
->   		DRM_ERROR("failed to create file for available df counters\n");
-> +	else {
-> +		mutex_lock(&adev->sysfs_files_list_lock);
-> +		list_add_tail(&dev_attr_handle_df_cntr_avail.head, &adev->sysfs_files_list);
-> +		mutex_unlock(&adev->sysfs_files_list_lock);
-> +	}
->   
->   	for (i = 0; i < AMDGPU_MAX_DF_PERFMONS; i++)
->   		adev->df_perfmon_config_assign_mask[i] = 0;
-> @@ -308,9 +315,6 @@ static void df_v3_6_sw_init(struct amdgpu_device *adev)
->   
->   static void df_v3_6_sw_fini(struct amdgpu_device *adev)
->   {
-> -
-> -	device_remove_file(adev->dev, &dev_attr_df_cntr_avail);
-> -
->   }
->   
->   static void df_v3_6_enable_broadcast_mode(struct amdgpu_device *adev,
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjIuMDYuMjAgdW0gMTY6NDIgc2NocmllYiBCaGFudXByYWthc2ggTW9kZW06Cj4gQXMgYm90
+aCBWUlIgbWluIGFuZCBtYXggYXJlIGFscmVhZHkgcGFydCBvZiBkcm1fZGlzcGxheV9pbmZvLAo+
+IGRybSBjYW4gZXhwb3NlIHRoaXMgVlJSIHJhbmdlIGZvciBlYWNoIGNvbm5lY3Rvci4KPgo+IEhl
+bmNlIHRoaXMgbG9naWMgc2hvdWxkIG1vdmUgdG8gY29yZSBEUk0uCj4KPiBUaGlzIHJldmVydHMg
+Y29tbWl0IDcyNzk2MmYwMzBjMjM0MjJhMDFlOGIyMmQwZjQ2MzgxNWZiMTVlYzQuCj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBCaGFudXByYWthc2ggTW9kZW0gPGJoYW51cHJha2FzaC5tb2RlbUBpbnRlbC5j
+b20+Cj4gQ2M6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNv
+bT4KPiBDYzogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gQ2M6IEFs
+ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiBDYzogTWFuYXNpIE5hdmFy
+ZSA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4KClNvdW5kcyBsaWtlIGl0IG1ha2VzIHNlbnNl
+LCBwYXRjaCBpcyBBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyAKPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4KCj4gLS0tCj4gICAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9k
+ZWJ1Z2ZzLmMgfCAyMCAtLS0tLS0tLS0tLS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMjAg
+ZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jCj4gaW5kZXggMDc2YWYyNjdiNDg4Li43
+MTM4N2QyYWYyZWQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jCj4gQEAgLTgyMCwyNCArODIwLDYg
+QEAgc3RhdGljIGludCBvdXRwdXRfYnBjX3Nob3coc3RydWN0IHNlcV9maWxlICptLCB2b2lkICpk
+YXRhKQo+ICAgCXJldHVybiByZXM7Cj4gICB9Cj4gICAKPiAtLyoKPiAtICogUmV0dXJucyB0aGUg
+bWluIGFuZCBtYXggdnJyIHZmcmVxIHRocm91Z2ggdGhlIGNvbm5lY3RvcidzIGRlYnVnZnMgZmls
+ZS4KPiAtICogRXhhbXBsZSB1c2FnZTogY2F0IC9zeXMva2VybmVsL2RlYnVnL2RyaS8wL0RQLTEv
+dnJyX3JhbmdlCj4gLSAqLwo+IC1zdGF0aWMgaW50IHZycl9yYW5nZV9zaG93KHN0cnVjdCBzZXFf
+ZmlsZSAqbSwgdm9pZCAqZGF0YSkKPiAtewo+IC0Jc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5l
+Y3RvciA9IG0tPnByaXZhdGU7Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5l
+Y3RvciA9IHRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9yKTsKPiAtCj4gLQlpZiAoY29u
+bmVjdG9yLT5zdGF0dXMgIT0gY29ubmVjdG9yX3N0YXR1c19jb25uZWN0ZWQpCj4gLQkJcmV0dXJu
+IC1FTk9ERVY7Cj4gLQo+IC0Jc2VxX3ByaW50ZihtLCAiTWluOiAldVxuIiwgKHVuc2lnbmVkIGlu
+dClhY29ubmVjdG9yLT5taW5fdmZyZXEpOwo+IC0Jc2VxX3ByaW50ZihtLCAiTWF4OiAldVxuIiwg
+KHVuc2lnbmVkIGludClhY29ubmVjdG9yLT5tYXhfdmZyZXEpOwo+IC0KPiAtCXJldHVybiAwOwo+
+IC19Cj4gLQo+ICAgI2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0hEQ1AKPiAgIC8qCj4gICAgKiBS
+ZXR1cm5zIHRoZSBIRENQIGNhcGFiaWxpdHkgb2YgdGhlIERpc3BsYXkgKDEuNCBmb3Igbm93KS4K
+PiBAQCAtMTAwMSw3ICs5ODMsNiBAQCBzdGF0aWMgc3NpemVfdCBkcF9kcGNkX2RhdGFfcmVhZChz
+dHJ1Y3QgZmlsZSAqZiwgY2hhciBfX3VzZXIgKmJ1ZiwKPiAgIERFRklORV9TSE9XX0FUVFJJQlVU
+RShkbXViX2Z3X3N0YXRlKTsKPiAgIERFRklORV9TSE9XX0FUVFJJQlVURShkbXViX3RyYWNlYnVm
+ZmVyKTsKPiAgIERFRklORV9TSE9XX0FUVFJJQlVURShvdXRwdXRfYnBjKTsKPiAtREVGSU5FX1NI
+T1dfQVRUUklCVVRFKHZycl9yYW5nZSk7Cj4gICAjaWZkZWYgQ09ORklHX0RSTV9BTURfRENfSERD
+UAo+ICAgREVGSU5FX1NIT1dfQVRUUklCVVRFKGhkY3Bfc2lua19jYXBhYmlsaXR5KTsKPiAgICNl
+bmRpZgo+IEBAIC0xMDU5LDcgKzEwNDAsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHsKPiAgIAkJ
+eyJwaHlfc2V0dGluZ3MiLCAmZHBfcGh5X3NldHRpbmdzX2RlYnVnZnNfZm9wfSwKPiAgIAkJeyJ0
+ZXN0X3BhdHRlcm4iLCAmZHBfcGh5X3Rlc3RfcGF0dGVybl9mb3BzfSwKPiAgIAkJeyJvdXRwdXRf
+YnBjIiwgJm91dHB1dF9icGNfZm9wc30sCj4gLQkJeyJ2cnJfcmFuZ2UiLCAmdnJyX3JhbmdlX2Zv
+cHN9LAo+ICAgI2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0hEQ1AKPiAgIAkJeyJoZGNwX3Npbmtf
+Y2FwYWJpbGl0eSIsICZoZGNwX3NpbmtfY2FwYWJpbGl0eV9mb3BzfSwKPiAgICNlbmRpZgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
