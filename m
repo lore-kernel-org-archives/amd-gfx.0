@@ -2,70 +2,69 @@ Return-Path: <SRS0=8rPh=AD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCC27C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 09:16:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50EDCC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 09:35:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E0BA206D7
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 09:16:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 22A2C206FA
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 09:35:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="H5vK5ouI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E0BA206D7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="jG11Qy3g"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22A2C206FA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 532826E0D4;
-	Mon, 22 Jun 2020 09:16:27 +0000 (UTC)
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99AF86E0D4
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 09:16:26 +0000 (UTC)
-Received: by mail-ot1-x342.google.com with SMTP id m2so12463722otr.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 02:16:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAADF6E12D;
+	Mon, 22 Jun 2020 09:35:06 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60706E12D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 09:35:05 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id z13so4168844wrw.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 02:35:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZSeaMlE7GUutcCnGTBRyHmDL2wVD0AT7mD7yKh2KGMo=;
- b=H5vK5ouIPrJPZWDsfQ3DH3OjxhnJ+FDUdSyhVh2Ejj8/rsBPNCpbVe+HVV8SfXGtCc
- yGooR5PrZ7Q7Reu6OHaJ21Xk6My7JHgbvY164c4so/v+VzDkrKaFhB3a9X27YGWVZ+HD
- 9f0TVFR7O4aFInSAo4+hO4Lk5fOamlWZm0rZQ=
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=56PznvIiJcuQgBejMIKzLS8u6VayrEALfsbNc2P7T2w=;
+ b=jG11Qy3gBYVIjYgW/Ta42AM7TqM74H7MbV/H3v5ykd/cA+Z6OqD/rMdF20QWOeeLdB
+ aFan9xX+kMgoYiPNm7LpqVxylru9BEFeyZB2rwaNL2uH/XWB75NgBTdWvOmz/v8Uacm3
+ zwzBm8prcEE4D9Pi9hpG1uhrLuavB2t2wuOyk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZSeaMlE7GUutcCnGTBRyHmDL2wVD0AT7mD7yKh2KGMo=;
- b=acyESYpQZrjoOIVo5CXgGSFtCQemL7dgLJHmMDyxvWjss+wR+Mp0WqDXx3eAfZZzdr
- RHhPodct91qD6cFNRdj3RFQ9J8UvYiuUuZun/+7686a/FV3Z2z9QNTimjN8ks2MMFhD2
- FFX9tdqHtaCqJMVnPfg3vgVsRo+OEOAogPBsBySPWAcKeZxuUSGJ3npOelEi/v0chyjy
- 3BPQHAroofHTTuIV99PXdzbMDxpfwwj3daGgDA0Z4hh4bw3pUbhGtZmjLaaIuRLmz0Y2
- hgUDZ48p3KuDfdrr1Js+5U/dBU86zPVkVEIyfc/qmMbejE/7/p1Dkt5lDLhbN/ooHtgq
- QSEA==
-X-Gm-Message-State: AOAM532Ew+1ESMblFRwwOeEsZeuKBdVImQ23W+SbtSkz1HDq7ZblB0lh
- wi0yZWBir3Jh9NMAR3VtkraDwUGWQFdrWbWWBFTqag==
-X-Google-Smtp-Source: ABdhPJzIZC4iHlgUR+Yu5PeT4ypjAmYK05V91KLSkvEtVAiftAA5v9bvKYgkF5yc4xBoBP7cOtRYbpIjiRIH9kD4kJM=
-X-Received: by 2002:a9d:4cd:: with SMTP id 71mr14110772otm.188.1592817385783; 
- Mon, 22 Jun 2020 02:16:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-4-daniel.vetter@ffwll.ch>
- <159186243606.1506.4437341616828968890@build.alporthouse.com>
- <CAPM=9ty6r1LuXAH_rf98GH0R9yN3x8xzKPjZG3QyvokpQBR-Hg@mail.gmail.com>
- <CAPj87rM0S2OPssf+WA+pjanT-0Om3yuUM1zUJCv4qTx5VYE=Fw@mail.gmail.com>
- <159255511144.7737.12635440776531222029@build.alporthouse.com>
- <CAKMK7uHEwj6jiZkRZ5PaCUNWcuU9oE4KYm4XHZwHnFzEuChZ7w@mail.gmail.com>
- <159255801588.7737.4425728073225310839@build.alporthouse.com>
- <20200619094309.GT20149@phenom.ffwll.local>
- <159257233754.7737.17318605310513355800@build.alporthouse.com>
-In-Reply-To: <159257233754.7737.17318605310513355800@build.alporthouse.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=56PznvIiJcuQgBejMIKzLS8u6VayrEALfsbNc2P7T2w=;
+ b=djmJwRtTgVuQH/1nQVjO6FPRJVDn/K2DIodV15f+7gncaXui/fpekzlxozL5bqWHTx
+ syivRgW4Xkw1wdProsqmTUn9lHSdedq1H6+i8CwqRyXLTsvm2tSCmClqtLVy7rlaheyx
+ Wtd0EkjJnJ4uXckf0dyF6XSuXJp3A/GH7HYQSx4+JXB8QNf4JH2Bmg5D36UWSkkzEcga
+ 3EjtYHft5vnk3RnP2ta3ThmAtlIV53LRnCG9ZPZCn/6nrRsutVPJlaEmbTDbVYqSJVfQ
+ 0ze7ZPh74VmNTBR4jH1eCksZ8rF+96zisznzQ35gQeUsLbUoVqdKlUPyDqGjgTe8K2ge
+ 0E1w==
+X-Gm-Message-State: AOAM5318lJ8W5ooB/ZQjzziqCI7uAwoyfaa5wIaIg6Jw/Jgcys9Q7Rng
+ YhTyl8v6N6zSCreILGb1NdDKVQ==
+X-Google-Smtp-Source: ABdhPJyNDS6iUQoaorC7cr4nACPTJGyW2marTjzaaCpG8lasCYmYuWFT1LcgSq1ymomiYYjn0dfEOA==
+X-Received: by 2002:adf:f54c:: with SMTP id j12mr17656682wrp.369.1592818504507; 
+ Mon, 22 Jun 2020 02:35:04 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id 63sm18592902wra.86.2020.06.22.02.35.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jun 2020 02:35:03 -0700 (PDT)
+Date: Mon, 22 Jun 2020 11:35:01 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 22 Jun 2020 11:16:14 +0200
-Message-ID: <CAKMK7uG4KzUa5yJMXQ0ffUwC_fR+pPTEnag7=qfJNtobFH3+pQ@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 03/18] dma-fence: basic lockdep annotations
-To: Chris Wilson <chris@chris-wilson.co.uk>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v2 1/8] drm: Add dummy page per device or GEM object
+Message-ID: <20200622093501.GZ20149@phenom.ffwll.local>
+References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1592719388-13819-2-git-send-email-andrey.grodzovsky@amd.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1592719388-13819-2-git-send-email-andrey.grodzovsky@amd.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,176 +76,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>
+Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
+ ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
+ ckoenig.leichtzumerken@gmail.com, alexdeucher@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 19, 2020 at 3:12 PM Chris Wilson <chris@chris-wilson.co.uk> wrote:
->
-> Quoting Daniel Vetter (2020-06-19 10:43:09)
-> > On Fri, Jun 19, 2020 at 10:13:35AM +0100, Chris Wilson wrote:
-> > > Quoting Daniel Vetter (2020-06-19 09:51:59)
-> > > > On Fri, Jun 19, 2020 at 10:25 AM Chris Wilson <chris@chris-wilson.co.uk> wrote:
-> > > > > Forcing a generic primitive to always be part of the same global map is
-> > > > > horrible.
-> > > >
-> > > > And  no concrete example or reason for why that's not possible.
-> > > > Because frankly it's not horrible, this is what upstream is all about:
-> > > > Shared concepts, shared contracts, shared code.
-> > > >
-> > > > The proposed patches might very well encode the wrong contract, that's
-> > > > all up for discussion. But fundamentally questioning that we need one
-> > > > is missing what upstream is all about.
-> > >
-> > > Then I have not clearly communicated, as my opinion is not that
-> > > validation is worthless, but that the implementation is enshrining a
-> > > global property on a low level primitive that prevents it from being
-> > > used elsewhere. And I want to replace completion [chains] with fences, and
-> > > bio with fences, and closures with fences, and what other equivalencies
-> > > there are in the kernel. The fence is as central a locking construct as
-> > > struct completion and deserves to be a foundational primitive provided
-> > > by kernel/ used throughout all drivers for discrete problem domains.
-> > >
-> > > This is narrowing dma_fence whereby adding
-> > >       struct lockdep_map *dma_fence::wait_map
-> > > and annotating linkage, allows you to continue to specify that all
-> > > dma_fence used for a particular purpose must follow common rules,
-> > > without restricting the primitive for uses outside of this scope.
-> >
-> > Somewhere else in this thread I had discussions with Jason Gunthorpe about
-> > this topic. It might maybe change somewhat depending upon exact rules, but
-> > his take is very much "I don't want dma_fence in rdma". Or pretty close to
-> > that at least.
-> >
-> > Similar discussions with habanalabs, they're using dma_fence internally
-> > without any of the uapi. Discussion there has also now concluded that it's
-> > best if they remove them, and simply switch over to a wait_queue or
-> > completion like every other driver does.
-> >
-> > The next round of the patches already have a paragraph to at least
-> > somewhat limit how non-gpu drivers use dma_fence. And I guess actual
-> > consensus might be pointing even more strongly at dma_fence being solely
-> > something for gpus and closely related subsystem (maybe media) for syncing
-> > dma-buf access.
-> >
-> > So dma_fence as general replacement for completion chains I think just
-> > wont happen.
->
-> That is sad. I cannot comprehend going back to pure completions after a
-> taste of fence scheduling. And we are not even close to fully utilising
-> them, as not all the async cpu [allocation!] tasks are fully tracked by
-> fences yet and are still stuck in a FIFO workqueue.
->
-> > What might make sense is if e.g. the lockdep annotations could be reused,
-> > at least in design, for wait_queue or completion or anything else
-> > really. I do think that has a fair chance compared to the automagic
-> > cross-release annotations approach, which relied way too heavily on
-> > guessing where barriers are. My experience from just a bit of playing
-> > around with these patches here and discussing them with other driver
-> > maintainers is that accurately deciding where critical sections start and
-> > end is a job for humans only. And if you get it wrong, you will have a
-> > false positive.
-> >
-> > And you're indeed correct that if we'd do annotations for completions and
-> > wait queues, then that would need to have a class per semantically
-> > equivalent user, like we have lockdep classes for mutexes, not just one
-> > overall.
-> >
-> > But dma_fence otoh is something very specific, which comes with very
-> > specific rules attached - it's not a generic wait_queue at all. Originally
-> > it did start out as one even, but it is a very specialized wait_queue.
-> >
-> > So there's imo two cases:
-> >
-> > - Your completion is entirely orthogonal of dma_fences, and can never ever
-> >   block a dma_fence. Don't use dma_fence for this, and no problem. It's
-> >   just another wait_queue somewhere.
-> >
-> > - Your completion can eventually, maybe through lots of convolutions and
-> >   depdencies, block a dma_fence. In that case full dma_fence rules apply,
-> >   and the only thing you can do with a custom annotation is make the rules
-> >   even stricter. E.g. if a sub-timeline in the scheduler isn't allowed to
-> >   take certain scheduler locks. But the userspace visible/published fence
-> >   do take them, maybe as part of command submission or retirement.
-> >   Entirely hypotethical, no idea any driver actually needs this.
->
-> I think we are faced with this very real problem.
->
-> The papering we have today over userptr is so very thin, and if you
-> squint you can already see it is coupled into the completion signal. Just
-> it happens to be on the other side of the fence.
->
-> The next batch of priority inversions involve integrating the async cpu
-> tasks into the scheduler, and have full dependency tracking over every
-> internal fence. I do not see any way to avoid coupling the completion
-> signal from the GPU to the earliest resource allocation, as it's an
-> unbroken chain of work, at least from the user's perspective. [Next up
-> for annotations is that we need to always assume that userspace has an
-> implicit lock on GPU resources; having to break that lock with a GPU
-> reset should be a breach of our data integrity, and best avoided, for
-> compute does not care one iota about system integrity and insist
-> userspace knows best.] Such allocations have to be allowed to fail and
-> for that failure to propagate cancelling the queued work, such that I'm
-> considering what rules we need for gfp_t. That might allow enough
-> leverage to break any fs_reclaim loops, but userptr is likely forever
-> doomed [aside from its fs_reclaim loop is as preventable as the normal
-> shrinker paths], but we still need to suggest to pin_user_pages that
-> failure is better than oom and that is not clear atm. Plus the usual
-> failure can happen at any time after updating the user facing
-> bookkeeping, but that is just extra layers in the execution monitor
-> ready to step in and replacing failing work with the error propagation.
-> Or where the system grinds to a halt, requiring the monitor to patch in
-> a new page / resource.
+On Sun, Jun 21, 2020 at 02:03:01AM -0400, Andrey Grodzovsky wrote:
+> Will be used to reroute CPU mapped BO's page faults once
+> device is removed.
+> 
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>  drivers/gpu/drm/drm_file.c  |  8 ++++++++
+>  drivers/gpu/drm/drm_prime.c | 10 ++++++++++
+>  include/drm/drm_file.h      |  2 ++
+>  include/drm/drm_gem.h       |  2 ++
+>  4 files changed, 22 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index c4c704e..67c0770 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -188,6 +188,12 @@ struct drm_file *drm_file_alloc(struct drm_minor *minor)
+>  			goto out_prime_destroy;
+>  	}
+>  
+> +	file->dummy_page = alloc_page(GFP_KERNEL | __GFP_ZERO);
+> +	if (!file->dummy_page) {
+> +		ret = -ENOMEM;
+> +		goto out_prime_destroy;
+> +	}
+> +
+>  	return file;
+>  
+>  out_prime_destroy:
+> @@ -284,6 +290,8 @@ void drm_file_free(struct drm_file *file)
+>  	if (dev->driver->postclose)
+>  		dev->driver->postclose(dev, file);
+>  
+> +	__free_page(file->dummy_page);
+> +
+>  	drm_prime_destroy_file_private(&file->prime);
+>  
+>  	WARN_ON(!list_empty(&file->event_list));
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 1de2cde..c482e9c 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -335,6 +335,13 @@ int drm_gem_prime_fd_to_handle(struct drm_device *dev,
+>  
+>  	ret = drm_prime_add_buf_handle(&file_priv->prime,
+>  			dma_buf, *handle);
+> +
+> +	if (!ret) {
+> +		obj->dummy_page = alloc_page(GFP_KERNEL | __GFP_ZERO);
+> +		if (!obj->dummy_page)
+> +			ret = -ENOMEM;
+> +	}
+> +
+>  	mutex_unlock(&file_priv->prime.lock);
+>  	if (ret)
+>  		goto fail;
+> @@ -1006,6 +1013,9 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg)
+>  		dma_buf_unmap_attachment(attach, sg, DMA_BIDIRECTIONAL);
+>  	dma_buf = attach->dmabuf;
+>  	dma_buf_detach(attach->dmabuf, attach);
+> +
+> +	__free_page(obj->dummy_page);
+> +
+>  	/* remove the reference */
+>  	dma_buf_put(dma_buf);
+>  }
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 19df802..349a658 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -335,6 +335,8 @@ struct drm_file {
+>  	 */
+>  	struct drm_prime_file_private prime;
+>  
 
-Zooming out a bunch, since this is a lot about the details of making
-this happen, and I want to make sure I'm understanding your aim
-correctly. I think we have 2 big things here interacting:
+Kerneldoc for these please, including why we need them and when. E.g. the
+one in gem_bo should say it's only for exported buffers, so that we're not
+colliding security spaces.
 
-On one side the "everything async" push, for some value of everything.
-Once everything is async we let either the linux scheduler (for
-dma_fence_work) or the gpu scheduler (for i915_request) figure out how
-to order everything, with all the dependencies. For memory allocations
-there's likely quite a bit of retrying (on the allocation side) and
-skipping (on the shrinker/mmu notifier side) involved to make this all
-pan out. Maybe something like a GFP_NOGPU flag.
+> +	struct page *dummy_page;
+> +
+>  	/* private: */
+>  #if IS_ENABLED(CONFIG_DRM_LEGACY)
+>  	unsigned long lock_count; /* DRI1 legacy lock count */
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 0b37506..47460d1 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -310,6 +310,8 @@ struct drm_gem_object {
+>  	 *
+>  	 */
+>  	const struct drm_gem_object_funcs *funcs;
+> +
+> +	struct page *dummy_page;
+>  };
 
-On the other side we have opinionated userspace with both very
-long-running batches (they might as well be infinite, best we can do
-is check that they still preempt within a reasonable amount of time,
-lack of hw support for preemption in all cases notwithstanding). And
-batches which synchronize across engines and whatever entirely under
-userspace controls, with stuff like gpu semaphore waits entirely in
-the cmd stream, without any kernel or gpu scheduler involvement. Well
-maybe a slightly smarter gpu scheduler which converts the semaphore
-wait from a pure busy loop into a "repoll on each scheduler
-timeslice". But not actual dependency tracking awareness in the kernel
-(or guc/hw fwiw) of what userspace is really trying to do.
+I think amdgpu doesn't care, but everyone else still might care somewhat
+about flink. That also shares buffers, so also needs to allocate the
+per-bo dummy page.
 
-Later is a big motivator for the former, since with arbitrary long
-batches and arbitrary fences any wait for a batch to complete can take
-forever, hence anything that might end up doing that needs to be done
-async and without locks. That way we don't have to shoot anything if a
-batch takes too long.
+I also wonder whether we shouldn't have a helper to look up the dummy
+page, just to encode in core code how it's supposedo to cascade.
+-Daniel
 
-Finally if anything goes wrong (on the kernel side at least) we just
-propagete fence error state through the entire ladder of in-flight
-things (only if it goes wrong terminally ofc).
+>  
+>  /**
+> -- 
+> 2.7.4
+> 
 
-Roughly correct or did I miss a big (or small but really important) thing?
-
-Thanks, Daniel
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
