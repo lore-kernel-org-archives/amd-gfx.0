@@ -2,71 +2,72 @@ Return-Path: <SRS0=8rPh=AD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE6C7C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 20:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8B21C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 21:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF3222073E
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 20:15:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6A3042075A
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2020 21:41:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AvujDWVv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF3222073E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XV4s8j7+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A3042075A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8907E6E90F;
-	Mon, 22 Jun 2020 20:15:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 965706E176
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 20:15:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1592856951;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TSUweuZT4DKGDzPl0W0mgX7uetKvmHq3b3GY3r5obEQ=;
- b=AvujDWVv1fJT1dJn+N4SkW5GMmDU7IzbCKKcFRWYUi39vcyRdTrOXRiPgl3E7M3zge/VvR
- ZkRQMMmnk1YvVdlxpk+BsrqFbmZI7D1S3R3L9QdDGE/3EqgrbhDjYqVmFyvP22lTRRtz4m
- 8LgSdLETYuzgVcOxuBQArD3DxdwY2O0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-420-f7cc3XQuNW-UeEjQYsAiCA-1; Mon, 22 Jun 2020 16:15:47 -0400
-X-MC-Unique: f7cc3XQuNW-UeEjQYsAiCA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 03BD218FF665;
- Mon, 22 Jun 2020 20:15:45 +0000 (UTC)
-Received: from redhat.com (ovpn-119-159.rdu2.redhat.com [10.10.119.159])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8972560F89;
- Mon, 22 Jun 2020 20:15:42 +0000 (UTC)
-Date: Mon, 22 Jun 2020 16:15:40 -0400
-From: Jerome Glisse <jglisse@redhat.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-Message-ID: <20200622201540.GB9708@redhat.com>
-References: <CAKMK7uE-kWA==Cko5uenMrcnopEjq42HxoDTDywzBAbHqsN13g@mail.gmail.com>
- <20200619151551.GP6578@ziepe.ca>
- <CAKMK7uEvkshAM6KUYZu8_OCpF4+1Y_SM7cQ9nJWpagfke8s8LA@mail.gmail.com>
- <20200619172308.GQ6578@ziepe.ca>
- <20200619180935.GA10009@redhat.com>
- <20200619181849.GR6578@ziepe.ca>
- <56008d64-772d-5757-6136-f20591ef71d2@amd.com>
- <20200619195538.GT6578@ziepe.ca>
- <20200619203147.GC13117@redhat.com>
- <20200622114617.GU6578@ziepe.ca>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1911E6E91C;
+	Mon, 22 Jun 2020 21:41:24 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33AE36E91C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 21:41:23 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id z63so4951108qkb.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 14:41:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DkXB2V4ogcP+9ukF//eFEa30Qb9tOpSiiuUpuQIL5io=;
+ b=XV4s8j7+aJz/tz2HtNuw7wAXF6M9awAKCFT+zKXrLiY8dMFIMhn3zaokKUDLrLSQhu
+ TgpgPsO7B1BD+niUczvTpBMrBf9OtGD4phwgjWrAZUoN8AkSvrGlxuvd9BcIxvpMRnn0
+ 6bHDiGlSlpUIf3budiMn9G7dyOUPAqaTOVm9Ews8QDr3yE6NCTjS5pu6ms+VSsl2hcQy
+ eAjH9NLJFbQjY/ioVWm0LvzNQRA3Pk9vQpXW0AbfIjoha3Ii6oHr0s1Y/7DWogYA9X+D
+ 30VbJnZlAmw0sVgZvIhK2iUMklvkbMeuF8yPncpJ7FD1wYRQ5byhS+neEr3GxClYl13d
+ +H/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DkXB2V4ogcP+9ukF//eFEa30Qb9tOpSiiuUpuQIL5io=;
+ b=B/XLQ4XCUQI3ynJV3E86Ip6z9xs/2dpXbvSeYHmbO//h+1ccyvk7yesDrQcGVmyuUC
+ /PSHswmONVoWY19Wqc/rH5BxFqF464sLLEpYbxDZOoCuvvHk0NkZl8A+UhxSqRowmsSX
+ 467aOcKvuiwjoWpBK3fFDCEyrCvmTGgudGuNO82aa5C+AR/eXYUxF7/gr6WQ5brTbadE
+ MRJLcsf9KYxkvM3dclxEAN4VM7kVvzFMVLa3H7HUKxaNayH6TbJH/C1Jt+NSe5Rz1Yue
+ d9Zw7qGs0OungXyGbxeKdEXjAQQM2T25TiJfQ5jRKmE/s1TXdDuUVqRtOKVnnEz/JQ3a
+ HHpQ==
+X-Gm-Message-State: AOAM532aI8cbPFM9BgNPjG5R/HRDmnth6qya/yVX8tGeci0j1vcLpS62
+ vumuSKzBFfO/YlVUu4DknL7ukmwy
+X-Google-Smtp-Source: ABdhPJwSlA9DbOT1B5Lun2bzB27thRQnpYATGXSKBpxqZRlwenjpgUgsVCmlFdeFs4fb+NITzPYW2A==
+X-Received: by 2002:a37:2d43:: with SMTP id t64mr5861662qkh.81.1592862082178; 
+ Mon, 22 Jun 2020 14:41:22 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id a14sm13809101qkn.16.2020.06.22.14.41.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jun 2020 14:41:21 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: make sure to reserve tmr region on all asics
+ which support it
+Date: Mon, 22 Jun 2020 17:41:13 -0400
+Message-Id: <20200622214113.969491-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200622114617.GU6578@ziepe.ca>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,74 +79,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
- Mika Kuoppala <mika.kuoppala@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2020 at 08:46:17AM -0300, Jason Gunthorpe wrote:
-> On Fri, Jun 19, 2020 at 04:31:47PM -0400, Jerome Glisse wrote:
-> > Not doable as page refcount can change for things unrelated to GUP, with
-> > John changes we can identify GUP and we could potentialy copy GUPed page
-> > instead of COW but this can potentialy slow down fork() and i am not su=
-re
-> > how acceptable this would be. Also this does not solve GUP against page
-> > that are already in fork tree ie page P0 is in process A which forks,
-> > we now have page P0 in process A and B. Now we have process A which for=
-ks
-> > again and we have page P0 in A, B, and C. Here B and C are two branches
-> > with root in A. B and/or C can keep forking and grow the fork tree.
-> =
+This includes older APUs like renoir.
 
-> For a long time now RDMA has broken COW pages when creating user DMA
-> regions.
-> =
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> The problem has been that fork re-COW's regions that had their COW
-> broken.
-> =
-
-> So, if you break the COW upon mapping and prevent fork (and others)
-> from copying DMA pinned then you'd cover the cases.
-
-I am not sure we want to prevent COW for pinned GUP pages, this would
-change current semantic and potentialy break/slow down existing apps.
-
-Anyway i think we focus too much on fork/COW, it is just an unfixable
-broken corner cases, mmu notifier allows you to avoid it. Forcing real
-copy on fork would likely be seen as regression by most people.
-
-
-> > Semantic was change with 17839856fd588f4ab6b789f482ed3ffd7c403e1f to so=
-me
-> > what "fix" that but GUP fast is still succeptible to this.
-> =
-
-> Ah, so everyone breaks the COW now, not just RDMA..
-> =
-
-> What do you mean 'GUP fast is still succeptible to this' ?
-
-Not all GUP fast path are updated (intentionaly) __get_user_pages_fast()
-for instance still keeps COW intact. People using GUP should really knows
-what they are doing.
-
-Cheers,
-J=E9r=F4me
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index f1855a8323b2..7d51768684dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1974,7 +1974,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * If IP discovery enabled, a block of memory should be
+ 	 * reserved for IP discovey.
+ 	 */
+-	if (adev->asic_type >= CHIP_NAVI10 && amdgpu_discovery) {
++	if (adev->discovery_bin) {
+ 		r = amdgpu_ttm_reserve_tmr(adev);
+ 		if (r)
+ 			return r;
+-- 
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
