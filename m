@@ -2,72 +2,75 @@ Return-Path: <SRS0=XGq4=AE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE869C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 09:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43A9BC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 10:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ABA8520679
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 09:42:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1664D2072E
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 10:22:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lbbZvpjb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABA8520679
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="OB5LbnFj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1664D2072E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F60F6E988;
-	Tue, 23 Jun 2020 09:42:03 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76C026E988
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 09:42:02 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id w1so18177593qkw.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 02:42:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jvDh9QmlXNUwPFbwXeH2d1pf4kchJ2UpvdjqGXPR1lA=;
- b=lbbZvpjb8eOzFYdHDn0Zc0O5FjvVovYYE3r+/LrZoRSdh3YZz7EMcohUS/LbOIpgv5
- XQHAgcZ2kUJeKefbJaGt7/RRBhVgJM7BjDAgQyZQ80CjUcuAKoSF107KvCDQSNUj28ij
- HoMCzkvi7BJSSAh+6zSbzhD3OIyjMiADF4Jap75GVBCb2tLGaAowBVbmHumB0dWSv2tg
- ffPtSpliVaB/a8Wf6QDfmX2zXKdxvXCnE7dV5KQpy2xslk+r39n9vzwxjO5OgmfV69RY
- t8/a1VRG7kdwkIkN4HM5IFUTEjkm2WNQ2s4919f5qvYgmUXp/82KWOBCfjlP+9pypYxr
- g0Sg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id C91196E991;
+	Tue, 23 Jun 2020 10:22:08 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0286E990
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 10:22:07 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id o8so709700wmh.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 03:22:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=8MJZaey/8nrc4SU4YxN+QY48qHrK1/CFR5/NqTMnCYg=;
+ b=OB5LbnFjkLYYY2KQ2G3kAOp4JdSQqqpWvY5hrGmd5zFrsIC+g70q/qtmG2jdV3Gk0X
+ iq2FYvjHOCAQ9vzGiMFup9kla0scvl17kEOVch3OoKngXwviMu73SQN9wKmpczSRpUzS
+ RSJMBCOwwpk9Pwff7Qt/lRFxDpqkRuoc4i9qc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jvDh9QmlXNUwPFbwXeH2d1pf4kchJ2UpvdjqGXPR1lA=;
- b=nmgrWVh0V7JSBZQ6fmiygLMc2FFi41dzlovlRKbi7DE34BxlCWKttK0A5mPgs9oMOH
- qzKyzorzc1zeg/cSGDVp45gQ9XQYaH1x85XytQ1/qHWL0b+Tn4/wgg0tQwTxSP3tIrpu
- gqfVYjbdxgfVgc0IsA2tJJf+ltvAb8fvnfUDfRBmpHshpcrkCthzntKNrCna1F677dIb
- Ndu57Akmi0jjV/OtCADOUDlu8G0otWZfa0d3jjGwNrS8eSAkdvmfKzc8o9Xb2/HZwSBt
- rsPVYIM5T6EuUpHf1etu+ex9D485cS5etdUd6xlBUXoBAUqhd24msOFqNB61LLN5ogI6
- bdug==
-X-Gm-Message-State: AOAM530kmnlP85tYT5qQfLBaNbUfHsC2d6oNDzwa1PEVTTVDH4iXacj/
- zQTH1VT70OncYcnXMz+7hzEGCWaGODRZ0g==
-X-Google-Smtp-Source: ABdhPJwMEu/a1Lj1N4mYCnvu+SxZ5/8m3F41y+UqVsYPpYJUSRCffxW8F9CCBcTluMTJ7nEberDo8g==
-X-Received: by 2002:ae9:f444:: with SMTP id z4mr6382641qkl.80.1592905321048;
- Tue, 23 Jun 2020 02:42:01 -0700 (PDT)
-Received: from brihaspati.fritz.box (pd956781a.dip0.t-ipconnect.de.
- [217.86.120.26])
- by smtp.gmail.com with ESMTPSA id j25sm84519qki.65.2020.06.23.02.41.59
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=8MJZaey/8nrc4SU4YxN+QY48qHrK1/CFR5/NqTMnCYg=;
+ b=CjCK7jQLaN2eN1W5wnJd5MkJjNphRZE+t8F+ngarQNVdU/YWFGa91rU7JkZVwCR8wq
+ HeSFEk6G00aQ73O3o7MzkV+ONptCw8YTTbXC9NMVerl/8OX+sNasjpNpxiuSACVqpgIb
+ dIfpv1yexSgnsIG7niWIZGR+mf3wbRrls2uPL3lKQU2pt6YuyByxoK0JeFIccAqLRJhP
+ WHcRgV0FS7nz6H2oJ2fKw3K2kTwx9Y44f4koNkYtbUM/60AszMkaWMjEI/sisWzUL/lV
+ r0m4eSahm1WJFmf0dddbwYeVZVguSBF3VYfyXRFIDWGoFdzp2r6mWxQxWX6bOqYnkIlg
+ gBDg==
+X-Gm-Message-State: AOAM530YUMvAQP2W7gU3GTGZS4bXYLrsvae+HIAlfZ/4Nhj0wLSVUL25
+ KzDOmP6IJBXwhzMdLUudq0X2Ww==
+X-Google-Smtp-Source: ABdhPJxk9v+aoyp+zhnKGMnfGcRixiH424XENful5ZKVIwbQMwNrm0VRh1rj0fZK/X2kXMwogKChkw==
+X-Received: by 2002:a05:600c:2182:: with SMTP id
+ e2mr7836518wme.186.1592907726202; 
+ Tue, 23 Jun 2020 03:22:06 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id e5sm22098413wrw.19.2020.06.23.03.22.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2020 02:42:00 -0700 (PDT)
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amd/powerplay: return current DCEFCLK on sysfs read
-Date: Tue, 23 Jun 2020 11:43:27 +0200
-Message-Id: <20200623094327.10824-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.27.0
+ Tue, 23 Jun 2020 03:22:05 -0700 (PDT)
+Date: Tue, 23 Jun 2020 12:22:03 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v2 6/8] drm/amdgpu: Unmap entire device address space on
+ device remove.
+Message-ID: <20200623102203.GK20149@phenom.ffwll.local>
+References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1592719388-13819-7-git-send-email-andrey.grodzovsky@amd.com>
+ <ec7dc51a-231f-f9e7-6082-5aad02965c67@gmail.com>
+ <CADnq5_Oz_858bq-PRc=DsL62=TiqFaONw4qARK8NVbUVzMfuCw@mail.gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CADnq5_Oz_858bq-PRc=DsL62=TiqFaONw4qARK8NVbUVzMfuCw@mail.gmail.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,72 +82,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nirmoy.das@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This fixes incorrect output when reading pp_dpm_dcefclk sysfs.
+On Mon, Jun 22, 2020 at 03:48:29PM -0400, Alex Deucher wrote:
+> On Mon, Jun 22, 2020 at 3:38 PM Christian K=F6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >
+> > Am 21.06.20 um 08:03 schrieb Andrey Grodzovsky:
+> > > Use the new TTM interface to invalidate all exsisting BO CPU mappings
+> > > form all user proccesses.
+> > >
+> > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> >
+> > Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
+> >
+> > I think those two patches could already land in amd-staging-drm-next
+> > since they are a good idea independent of how else we fix the other iss=
+ues.
+> =
 
-Output before this patch:
-cat /sys/devices/pci0000:<snip>/pp_dpm_dcefclk
-0: 506Mhz
-1: 42949671Mhz *
-2: 1266Mhz
+> Please make sure they land in drm-misc as well.
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       | 3 +++
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c         | 3 +++
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 3 +++
- 3 files changed, 9 insertions(+)
+Not sure that's much use, since without any of the fault side changes you
+just blow up on the first refault. Seems somewhat silly to charge ahead on
+this with the other bits still very much under discussion.
 
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index d93f8a43a96f..daeae14fd380 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -962,6 +962,9 @@ static int arcturus_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_CURR_FCLK:
- 		*value = metrics->CurrClock[PPCLK_FCLK];
- 		break;
-+	case METRICS_CURR_DCEFCLK:
-+		*value = metrics->CurrClock[PPCLK_DCEFCLK];
-+		break;
- 	case METRICS_AVERAGE_GFXCLK:
- 		*value = metrics->AverageGfxclkFrequency;
- 		break;
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 6c2f582bad5d..42ade9df0d6a 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -613,6 +613,9 @@ static int navi10_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_CURR_DCLK:
- 		*value = metrics->CurrClock[PPCLK_DCLK];
- 		break;
-+	case METRICS_CURR_DCEFCLK:
-+		*value = metrics->CurrClock[PPCLK_DCEFCLK];
-+		break;
- 	case METRICS_AVERAGE_GFXCLK:
- 		*value = metrics->AverageGfxclkFrequency;
- 		break;
-diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 0957957a2cf5..1378dabb6463 100644
---- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -605,6 +605,9 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_CURR_DCLK1:
- 		*value = metrics->CurrClock[PPCLK_DCLK_1];
- 		break;
-+	case METRICS_CURR_DCEFCLK:
-+		*value = metrics->CurrClock[PPCLK_DCEFCLK];
-+		break;
- 	case METRICS_AVERAGE_GFXCLK:
- 		*value = metrics->AverageGfxclkFrequency;
- 		break;
--- 
-2.27.0
+Plus I suggested a possible bikeshed here :-)
+-Daniel
 
+> =
+
+> Alex
+> =
+
+> >
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
+> > >   1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_drv.c
+> > > index 43592dc..6932d75 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > @@ -1135,6 +1135,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+> > >       struct drm_device *dev =3D pci_get_drvdata(pdev);
+> > >
+> > >       drm_dev_unplug(dev);
+> > > +     ttm_bo_unmap_virtual_address_space(&adev->mman.bdev);
+> > >       amdgpu_driver_unload_kms(dev);
+> > >
+> > >       pci_disable_device(pdev);
+> >
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
