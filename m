@@ -2,102 +2,73 @@ Return-Path: <SRS0=XGq4=AE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CF89C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 16:03:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99091C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 16:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B49C2073E
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 16:03:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6D31F20780
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 16:25:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VqVeTgC4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B49C2073E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pwdGkfKQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D31F20780
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E61706E9EC;
-	Tue, 23 Jun 2020 16:03:20 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680071.outbound.protection.outlook.com [40.107.68.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9866C6E9EC
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 16:03:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OI0o0BfsZXn354TiMDTwgQr6G8Uk3puRM2x/rZkLHFT97MIkarUBhz4MARESZRXL6IpsJnvsvtISUSG57orXI9PcpPEolXpQwkdq9jSF1DnTgYNqWdD0urEBRmlEVjidyuXG2k13+92r7yr0+Ny5jjPk3o8p6JYh1xOOcNBPeAs8y9kLy47H9rvc5qk/fKO3ySZFcfte7+AfL4azF+Nqbo2w2gl7lYTqRPVlnDZgr4VEOIHCld6vlWuvtg5VSXHwXVcW2aE/fgqJCduZQp0HDE2DhZdTAjmsy+O42ycIVdfEXR4n6jrCVAPAeNzqLKkUx1Cp5Ne9YFVhgIt63sCqmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S7a0vNc+NOf6QN9qwZulWevHutVwiSlxl5OCfNSlHEI=;
- b=EuXEIK7tIhRI8uhzMNr/knb7BxOSETSC0zpE4JFJgRMFlFtHeS2f29aAWsCYyxFrJVXpvQsu4iWHJVzw2ImCgQ47r8wUQSBg4trNftOeZkSJ1pXr5XA3dkdFDz7D8REUKhfI80CAbc/0yW69M6yjh8A0MNmJYufRbF/6N3p/B5VS3xFyuf7nG4xsK7GWfv2gfBXtQA0maCkJIFdLjzwVYGitGzn3Uyc7JmwShUud8TYHQ3qtly3ZMy01biQ6jr9EtJXjm76Ara/tJgHzz55C6+D9taSzIVcsVcq8fELS++Zkc5Mq4ZmswXDO3ZdanzA460bs2/lRznYQhxwEx904bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S7a0vNc+NOf6QN9qwZulWevHutVwiSlxl5OCfNSlHEI=;
- b=VqVeTgC4XLFVi2JxYlDitnqjEc0Lrb2Zc3xRQLqLT/mXZZ66opfpEJwfEZhKxLQtJ3ShsjaxzSLI4iliBns99nPuEY9qECrOPXm2yDA0LvJSfBf7MFNSNdYLMtZWEaXSTpVwkrwPKMY5tnpyJ6LrP2YSvYOVxQpWPR6zbx3Rauw=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB3911.namprd12.prod.outlook.com (2603:10b6:610:2f::12)
- by CH2PR12MB4167.namprd12.prod.outlook.com (2603:10b6:610:7a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Tue, 23 Jun
- 2020 16:03:18 +0000
-Received: from CH2PR12MB3911.namprd12.prod.outlook.com
- ([fe80::21f9:7c89:5b2c:39aa]) by CH2PR12MB3911.namprd12.prod.outlook.com
- ([fe80::21f9:7c89:5b2c:39aa%4]) with mapi id 15.20.3109.027; Tue, 23 Jun 2020
- 16:03:18 +0000
-Subject: Re: [PATCH 1/1] drm/amd/powerplay: Fix DCEFCLK related compilation
- error for arcturus
-To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200623155929.2547-1-nirmoy.das@amd.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <7cec44d8-4780-4a2b-7ea4-8fdbae634e49@amd.com>
-Date: Tue, 23 Jun 2020 18:04:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-In-Reply-To: <20200623155929.2547-1-nirmoy.das@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR03CA0026.eurprd03.prod.outlook.com
- (2603:10a6:208:14::39) To CH2PR12MB3911.namprd12.prod.outlook.com
- (2603:10b6:610:2f::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32EBE6E433;
+	Tue, 23 Jun 2020 16:25:10 +0000 (UTC)
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AAD76E433
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 16:25:08 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id a1so8214038ejg.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 09:25:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eY/PFi8pMcazGvnnDrWrlScfNnxXv/DI4amy1GdyV68=;
+ b=pwdGkfKQZdSXFmlLsiarX6nrv+P8bRR6HHC9/hkUKboY590lpf0DrJ/fS/3e1pq+bb
+ n6gOoJRkRTz6RpLJM6RJPrHFMCwmN85FFxIvOpZVM9nLWgWdQxF6KbhR5LbwpgY0Ek5u
+ kGmPEBnTsgfo9Bwe7v4K13gkrd7vdYuacDJSIh9HeOGE2uvmQoEt7UnYImuQiFF8ojwm
+ Ex/MdMWHIvJbc+o2UdObK/Z1eG6rZs4+w15DUwSUgeFMewFPy/sUgJFHvNewy42ViZD4
+ g4a0W/9Y9+7uiNxtuNF+AoWpNPuBHFwaOwwjlrPvtN90c+sun+0Ot8JSU4rd9LapIR3H
+ pDsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eY/PFi8pMcazGvnnDrWrlScfNnxXv/DI4amy1GdyV68=;
+ b=ZZs7f32YAWDBLeWpm4dzmxx+Y1FDElxfkCWgvNJIaGcVNQ4z8XOo4XHKvxKZvnokxs
+ UDdolH/32EiWjSCALWXNNlif/rcqH7DSIUQW7gOjxzbw/DOP7pPGQuYj31Ukweoez49n
+ M/f7UVBkeFCp0tmu2SO/cYJbcm7N1aVE43lO2cpfzdK6O7OFIRkK0w9Yf78DIDo6WXIz
+ 9oZLpv3qZXZBlNliQv2NPMLmOgxWNEUVzk8cK/EO0dgBxalJCHKJ7+r0SD0g+g0IsQpn
+ 3o35Yb6BjxTxIO5YB0CG7kMrHeo0ZHaNQjN4A5KzT/feADxP7GD/66cjhEyhIcYvN8Kw
+ DMzQ==
+X-Gm-Message-State: AOAM530HYAJW96dRzj4BQjB1bYiPolOv5MjHJ8sQHgdrEGqIdUgFp3tR
+ ze6yXOGjWP9tKobK7ET57SMlx6M5HZx4hA==
+X-Google-Smtp-Source: ABdhPJyiWv7rEAkAjA8LkjiU04VjpZXRf1/QT2Grbadk4evvaOJVIppgMffwF4JTM3QLjNZig26jdQ==
+X-Received: by 2002:a17:906:7212:: with SMTP id
+ m18mr20961636ejk.29.1592929506223; 
+ Tue, 23 Jun 2020 09:25:06 -0700 (PDT)
+Received: from brihaspati.fritz.box (pd956781a.dip0.t-ipconnect.de.
+ [217.86.120.26])
+ by smtp.gmail.com with ESMTPSA id a2sm4281748ejg.76.2020.06.23.09.25.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jun 2020 09:25:05 -0700 (PDT)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: call release_firmware() without a NULL check
+Date: Tue, 23 Jun 2020 18:26:37 +0200
+Message-Id: <20200623162637.26011-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.178.87] (217.86.120.26) by
- AM0PR03CA0026.eurprd03.prod.outlook.com (2603:10a6:208:14::39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3109.22 via Frontend Transport; Tue, 23 Jun 2020 16:03:16 +0000
-X-Originating-IP: [217.86.120.26]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0895d882-b0a2-41ed-3d92-08d8178ef16f
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4167:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB4167BA5FD6B6D34CA12ADE5F8B940@CH2PR12MB4167.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:820;
-X-Forefront-PRVS: 04433051BF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XX+vxAykuksg/3LjkXXPpli5EkHaVULwi8EyjwFycJ2S2gKbkNjkiy2uJByf0sYQ7/+NcZTDOd4qmjMxgnTKmBaSXnMHYhhwpb3VvN+MDaAl+KJ+4aBuh0MeHNBJrLuXwOz8qt2if9xUok5rmxJbLW0QvUyQGZZQCgQbB2hd7qatru+Y2KTQcoG7sNzE0l1NTRgb2Q4jPHtU+olm/GX1Iw/ZhNQg3acz7FEmxfsiVyOwZZh6yqhe4jJDLMKzbtTZd6ccCBbDlArwte+nhk549ldQYo/v2WqS7s3R11vR49/lpDNmn4+pRClvytb0F4w85aGr71IHJQlZo3p15sdBZEpeen2AdWn615GF/iQNSDMMYO8eUS7OmdGXHrlPhZVs
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3911.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(39860400002)(136003)(346002)(396003)(376002)(8936002)(6486002)(956004)(8676002)(52116002)(36756003)(2616005)(26005)(16576012)(4326008)(31696002)(53546011)(186003)(16526019)(316002)(31686004)(478600001)(5660300002)(66476007)(66946007)(2906002)(83380400001)(6666004)(66556008)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: IFiUj6P/oq8K2p0cP3OHzLXtnsjXX6IwHwpwZ/uHyXIy7N+Z8X+Nq+a4JKYTwIh4WFcgOJSjQNQYmVIzk207w3iNxTgjQ7cQ4ai5yAvuDql5468FUSj7kud74P9D1ULfQyvBzengx9hmiB3O0n9kzbl3m8Nh6YKdRZ8w8IuKKsAVyQcleRbyMxIZmgGDA1HBGBJOwhih9ybOWMl1E9D3JXEIfwr/9cH5L0uL/SfWuCcNJo52arXTyqPYD46VSmIH0nJI1Yq3a1MLCcSFxGQR15sdDKKLnBS3g8/8ZZc7LGCAH29gw1obPxARlqGb9cwDiAjPgXRsBS7q9qKqNj7LKHDjB9Bc4JWekk6ziLK4POQ2lfW97P6GbS3VKSTTh+XKWEc+lJa7p+GVEejhIE6KY5600t7ZkG+Mhk16TaPfDoVD+gKQtJapMfnrAyDqTjY0xlClaaeQp7xaoOZbQf7hrqDS0Fw/r6W2y8rSa40Fnqs=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0895d882-b0a2-41ed-3d92-08d8178ef16f
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2020 16:03:17.8318 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 86N82+edllSeTPCyYnP1gMmnZDyVOT+DZ1nV7SmTyzFsoXuQMfZDJzf4+Prp2/kiDo+x81uczzNSeVtAvUptzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,53 +80,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, nirmoy.das@amd.com
+Cc: Nirmoy Das <nirmoy.das@amd.com>, christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The release_firmware() function is NULL tolerant so we do not need
+to check for NULL param before calling it.
 
-On 6/23/20 5:59 PM, Nirmoy Das wrote:
-> arcturus doesn't support DCEFCLK
->
-> Fixes: c67c791cd87d (drm/amd/powerplay: return current DCEFCLK on sysfs read)
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  6 ++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c           |  6 ++----
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c            |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c            |  4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++--------
+ 6 files changed, 14 insertions(+), 22 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2858c09fd8c0..a649e40fd96f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3380,10 +3380,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+ 		amdgpu_pm_sysfs_fini(adev);
+ 	amdgpu_fbdev_fini(adev);
+ 	r = amdgpu_device_ip_fini(adev);
+-	if (adev->firmware.gpu_info_fw) {
+-		release_firmware(adev->firmware.gpu_info_fw);
+-		adev->firmware.gpu_info_fw = NULL;
+-	}
++	release_firmware(adev->firmware.gpu_info_fw);
++	adev->firmware.gpu_info_fw = NULL;
+ 	adev->accel_working = false;
+ 	/* free i2c buses */
+ 	if (!amdgpu_device_has_dc_support(adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 0723dee2958b..9342a9e8cadf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -196,10 +196,8 @@ static int psp_sw_fini(void *handle)
+ 	adev->psp.sos_fw = NULL;
+ 	release_firmware(adev->psp.asd_fw);
+ 	adev->psp.asd_fw = NULL;
+-	if (adev->psp.ta_fw) {
+-		release_firmware(adev->psp.ta_fw);
+-		adev->psp.ta_fw = NULL;
+-	}
++	release_firmware(adev->psp.ta_fw);
++	adev->psp.ta_fw = NULL;
+ 
+ 	if (adev->asic_type == CHIP_NAVI10)
+ 		psp_sysfs_fini(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 58382646d962..2985c61bc6a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -559,8 +559,8 @@ static void sdma_v4_0_destroy_inst_ctx(struct amdgpu_device *adev)
+ 	int i;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		if (adev->sdma.instance[i].fw != NULL)
+-			release_firmware(adev->sdma.instance[i].fw);
++		release_firmware(adev->sdma.instance[i].fw);
++		adev->sdma.instance[i].fw = NULL;
+ 
+ 		/* arcturus shares the same FW memory across
+ 		   all SDMA isntances */
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 6751ad69ed90..1baeddf2f1e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1300,8 +1300,8 @@ static int sdma_v5_0_sw_fini(void *handle)
+ 	int i;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		if (adev->sdma.instance[i].fw != NULL)
+-			release_firmware(adev->sdma.instance[i].fw);
++		release_firmware(adev->sdma.instance[i].fw);
++		adev->sdma.instance[i].fw = NULL;
+ 
+ 		amdgpu_ring_fini(&adev->sdma.instance[i].ring);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 95751e7bdfe8..318d32e2bbf6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -115,8 +115,8 @@ static void sdma_v5_2_destroy_inst_ctx(struct amdgpu_device *adev)
+ 	int i;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		if (adev->sdma.instance[i].fw != NULL)
+-			release_firmware(adev->sdma.instance[i].fw);
++		release_firmware(adev->sdma.instance[i].fw);
++		adev->sdma.instance[i].fw = NULL;
+ 
+ 		if (adev->asic_type == CHIP_SIENNA_CICHLID)
+ 			break;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3badf685338f..4767f9ea0352 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1318,15 +1318,11 @@ static int dm_sw_fini(void *handle)
+ 		adev->dm.dmub_srv = NULL;
+ 	}
+ 
+-	if (adev->dm.dmub_fw) {
+-		release_firmware(adev->dm.dmub_fw);
+-		adev->dm.dmub_fw = NULL;
+-	}
++	release_firmware(adev->dm.dmub_fw);
++	adev->dm.dmub_fw = NULL;
+ 
+-	if(adev->dm.fw_dmcu) {
+-		release_firmware(adev->dm.fw_dmcu);
+-		adev->dm.fw_dmcu = NULL;
+-	}
++	release_firmware(adev->dm.fw_dmcu);
++	adev->dm.fw_dmcu = NULL;
+ 
+ 	return 0;
+ }
+-- 
+2.27.0
 
-Hi Alex,
-
-
-Can you please squash this with c67c791cd87d (drm/amd/powerplay: return 
-current DCEFCLK on sysfs read)
-
-I was bit too confident that arcturus changes would just work.
-
-
-Regards,
-
-Nirmoy
-
-
->
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->   drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 3 ---
->   1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index daeae14fd380..d93f8a43a96f 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -962,9 +962,6 @@ static int arcturus_get_smu_metrics_data(struct smu_context *smu,
->   	case METRICS_CURR_FCLK:
->   		*value = metrics->CurrClock[PPCLK_FCLK];
->   		break;
-> -	case METRICS_CURR_DCEFCLK:
-> -		*value = metrics->CurrClock[PPCLK_DCEFCLK];
-> -		break;
->   	case METRICS_AVERAGE_GFXCLK:
->   		*value = metrics->AverageGfxclkFrequency;
->   		break;
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
