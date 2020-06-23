@@ -2,47 +2,91 @@ Return-Path: <SRS0=XGq4=AE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B138DC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 19:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FDF3C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 19:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E43F20707
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 19:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E43F20707
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suffe.me.uk
+	by mail.kernel.org (Postfix) with ESMTPS id DCC9F207FF
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 19:02:39 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="F8OUcVju"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCC9F207FF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37B506EA3C;
-	Tue, 23 Jun 2020 19:00:20 +0000 (UTC)
-X-Greylist: delayed 428 seconds by postgrey-1.36 at gabe;
- Tue, 23 Jun 2020 17:56:09 UTC
-Received: from lb1-smtp-cloud9.xs4all.net (lb1-smtp-cloud9.xs4all.net
- [194.109.24.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A29356EA1D
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 17:56:09 +0000 (UTC)
-Received: from kirika.xs4all.nl ([62.251.34.220])
- by smtp-cloud9.xs4all.net with ESMTP
- id nn2WjhZHZvh6gnn2Xj2fnn; Tue, 23 Jun 2020 19:48:59 +0200
-Received: from localhost (localhost [IPv6:::1])
- by kirika.xs4all.nl (Postfix) with ESMTPS id 7CDE31A401B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 19:48:56 +0200 (CEST)
-Date: Tue, 23 Jun 2020 19:48:56 +0200 (CEST)
-From: John van der Kamp <sjonny@suffe.me.uk>
-X-X-Sender: sjonny@kirika.lan
-To: amd-gfx@lists.freedesktop.org
-Subject: Mutex stays locked on error
-Message-ID: <alpine.DEB.2.21.2006231945490.3391@kirika.lan>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9466EA3C;
+	Tue, 23 Jun 2020 19:02:39 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 884746EA3F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 19:02:38 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id j94so345242wrj.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 12:02:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=XDcsteRMJEoW0C3+Kl+uWDnjv0MhfNk7S9Vrs1qi/2Y=;
+ b=F8OUcVjuokEibmMSbToMoIBILFma7edYFwClorq7HqZPPZAsjl5aBIXM5rjHh2K4Lq
+ dd+qeCoDkPHmPlGyVv6Z/wtdPrCUcn/gJSdfHe4BRGJdop50ca7laeXsmvDPZAFsD45G
+ DpFfjBVLJGiCLnCx7MoPvm6Wpk0WJAYz4Suvs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=XDcsteRMJEoW0C3+Kl+uWDnjv0MhfNk7S9Vrs1qi/2Y=;
+ b=HCgQo8LlnksUl5Hr8eZPxEnoQwNFNLeepBYXlKZ/pxZAEpLK9PlC3sxv0UjrT+Er0y
+ un+31emdf7wG/3SZahQIIW1rNWkbqUAsMut9fOxNs0XPhJbOpN6HYij/3SO3JoYgvgUX
+ KTyOgcYYBQoBMPtPdXCdVwENEhadB4i0hsXSQEZeAcOK9+NYckNNdfHoMoeJedqmt10q
+ MfWthiLTri2nMjqdQj0LNQjR3ovnEAy/oRcWQHiS0Q7JUdZVrhIUAuex865g4uCuyM0b
+ iJ/u5BOSQT4xt8MS5VaPkcWLRiJClpMZALNwSSRVcd3YmQSqdajv3s22DjfpSqCo8T2y
+ PoTQ==
+X-Gm-Message-State: AOAM533nj0zx/1X69GTNL5yr+Vvxg9e2NhbtQ4c0tgnxR4xUe5yZH3pQ
+ ZEkfSj2ixgpHbPkbC8OUr+AmWA==
+X-Google-Smtp-Source: ABdhPJynbn/cTBvNbobb+7TOV12TXtahoSjCWh3GnuIRy64vKHvTHEysZa+/3Plm+28KWqKEN1sWIw==
+X-Received: by 2002:a5d:470b:: with SMTP id y11mr18155209wrq.101.1592938956979; 
+ Tue, 23 Jun 2020 12:02:36 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id l17sm4698578wmi.3.2020.06.23.12.02.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jun 2020 12:02:35 -0700 (PDT)
+Date: Tue, 23 Jun 2020 21:02:33 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+Message-ID: <20200623190233.GP20149@phenom.ffwll.local>
+Mail-Followup-To: Felix Kuehling <felix.kuehling@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+ <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
+ <20200611083430.GD20149@phenom.ffwll.local>
+ <20200611141515.GW6578@ziepe.ca>
+ <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
+ <CAKMK7uHBKrpDWu+DvtYncDK=LOdGJyMK7t6fpOaGovnYFiBUZw@mail.gmail.com>
+ <99758c09-262a-e9a1-bf65-5702b35b4388@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="-1463811583-82272270-1592934536=:3391"
-X-CMAE-Envelope: MS4wfDE5h04KZN7Zntb2g3slg5UMZnb360z0zII7u6w4AU0LE65XG+av/FePReOtIROE2LeGpMsdn5t+gPe33/P4IzLGV7+6VqOrljYSAym/EuzIzxFqC0D+
- 2vjnuFf57kJGTuTsHB4LaKLY7wbwvcIsRfoppCQ0COInLXb3Eic1x3MGSJk3smEJMpaornY7N737bA==
-X-Mailman-Approved-At: Tue, 23 Jun 2020 19:00:18 +0000
+Content-Disposition: inline
+In-Reply-To: <99758c09-262a-e9a1-bf65-5702b35b4388@amd.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,53 +98,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, Jun 23, 2020 at 02:44:24PM -0400, Felix Kuehling wrote:
+> Am 2020-06-23 um 3:39 a.m. schrieb Daniel Vetter:
+> > On Fri, Jun 12, 2020 at 1:35 AM Felix Kuehling <felix.kuehling@amd.com>=
+ wrote:
+> >> Am 2020-06-11 um 10:15 a.m. schrieb Jason Gunthorpe:
+> >>> On Thu, Jun 11, 2020 at 10:34:30AM +0200, Daniel Vetter wrote:
+> >>>>> I still have my doubts about allowing fence waiting from within shr=
+inkers.
+> >>>>> IMO ideally they should use a trywait approach, in order to allow m=
+emory
+> >>>>> allocation during command submission for drivers that
+> >>>>> publish fences before command submission. (Since early reservation =
+object
+> >>>>> release requires that).
+> >>>> Yeah it is a bit annoying, e.g. for drm/scheduler I think we'll end =
+up
+> >>>> with a mempool to make sure it can handle it's allocations.
+> >>>>
+> >>>>> But since drivers are already waiting from within shrinkers and I t=
+ake your
+> >>>>> word for HMM requiring this,
+> >>>> Yeah the big trouble is HMM and mmu notifiers. That's the really awk=
+ward
+> >>>> one, the shrinker one is a lot less established.
+> >>> I really question if HW that needs something like DMA fence should
+> >>> even be using mmu notifiers - the best use is HW that can fence the
+> >>> DMA directly without having to get involved with some command stream
+> >>> processing.
+> >>>
+> >>> Or at the very least it should not be a generic DMA fence but a
+> >>> narrowed completion tied only into the same GPU driver's command
+> >>> completion processing which should be able to progress without
+> >>> blocking.
+> >>>
+> >>> The intent of notifiers was never to endlessly block while vast
+> >>> amounts of SW does work.
+> >>>
+> >>> Going around and switching everything in a GPU to GFP_ATOMIC seems
+> >>> like bad idea.
+> >>>
+> >>>> I've pinged a bunch of armsoc gpu driver people and ask them how muc=
+h this
+> >>>> hurts, so that we have a clear answer. On x86 I don't think we have =
+much
+> >>>> of a choice on this, with userptr in amd and i915 and hmm work in no=
+uveau
+> >>>> (but nouveau I think doesn't use dma_fence in there).
+> >> Soon nouveau will get company. We're working on a recoverable page fau=
+lt
+> >> implementation for HMM in amdgpu where we'll need to update page tables
+> >> using the GPUs SDMA engine and wait for corresponding fences in MMU
+> >> notifiers.
+> > Can you pls cc these patches to dri-devel when they show up? Depending
+> > upon how your hw works there's and endless amount of bad things that
+> > can happen.
+> =
 
----1463811583-82272270-1592934536=:3391
-Content-Type: text/plain; format=flowed; charset=US-ASCII
+> Yes, I'll do that.
+> =
 
-Hello,
+> =
 
-I was reading some code and came across this which looks like a mutex not 
-being unlocked when an error happens. I don't know what the code does or 
-how to test it, but it looks quite obvious. Patch is attached.
+> >
+> > Also I think (again depending upon how the hw exactly works) this
+> > stuff would be a perfect example for the dma_fence annotations.
+> =
 
-John
----1463811583-82272270-1592934536=:3391
-Content-Type: text/x-diff; name=amdgpu_dm_dhcp-mutex_unlock_fix.diff
-Content-Transfer-Encoding: BASE64
-Content-ID: <alpine.DEB.2.21.2006231948560.3391@kirika.lan>
-Content-Description: 
-Content-Disposition: attachment; filename=amdgpu_dm_dhcp-mutex_unlock_fix.diff
+> We have already applied your patch series to our development branch. I
+> haven't looked into what annotations we'd have to add to our new code yet.
+> =
 
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX2hkY3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hkY3AuYw0KaW5kZXggZGNm
-ODRhNjFkZTM3Li45NDlkMTBlZjgzMDQgMTAwNjQ0DQotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNw
-LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtX2hkY3AuYw0KQEAgLTUxMCw4ICs1MTAsMTAgQEAgc3Rh
-dGljIHNzaXplX3Qgc3JtX2RhdGFfcmVhZChzdHJ1Y3QgZmlsZSAqZmlscCwg
-c3RydWN0IGtvYmplY3QgKmtvYmosIHN0cnVjdCBiaW4NCiANCiAJc3JtID0g
-cHNwX2dldF9zcm0od29yay0+aGRjcC5jb25maWcucHNwLmhhbmRsZSwgJnNy
-bV92ZXJzaW9uLCAmc3JtX3NpemUpOw0KIA0KLQlpZiAoIXNybSkNCi0JCXJl
-dHVybiAtRUlOVkFMOw0KKwlpZiAoIXNybSkgew0KKwkJcmV0ID0gLUVJTlZB
-TDsNCisJCWdvdG8gcmV0Ow0KKwl9DQogDQogCWlmIChwb3MgPj0gc3JtX3Np
-emUpDQogCQlyZXQgPSAwOw0K
+> =
 
----1463811583-82272270-1592934536=:3391
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> >
+> > The worst case is if your hw cannot preempt while a hw page fault is
+> > pending. That means none of the dma_fence will ever signal (the amdkfd
+> > preempt ctx fences wont, and the classic fences from amdgpu might be
+> > also stall). At least when you're unlucky and the fence you're waiting
+> > on somehow (anywhere in its dependency chain really) need the engine
+> > that's currently blocked waiting for the hw page fault.
+> =
 
+> Our HW can preempt while handling a page fault, at least on the GPU
+> generation we're working on now. On other GPUs we haven't included in
+> our initial effort, we will not be able to preempt while a page fault is
+> in progress. This is problematic, but that's for reasons related to our
+> GPU hardware scheduler and unrelated to fences.
+
+Well the trouble is if the page fault holds up a preempt, then there's no
+way for a dma_fence to complete while your hw page fault handler is stuck
+doing whatever. That means the entire hw page fault becomes a fence
+signalling critical section, with the consequence that there's almost
+nothing you can actually do. System memory becomes GFP_ATOMIC only, and
+for vram you need to make sure that you never evict anything that might be
+in active use.
+
+So not enabling these platforms sounds like a very good plan to me :-)
+
+> > That in turn means anything you do in your hw page fault handler is in
+> > the critical section for dma fence signalling, which has far reaching
+> > implications.
+> =
+
+> I'm not sure I agree, at least for KFD. The only place where KFD uses
+> fences that depend on preemptions is eviction fences. And we can get rid
+> of those if we can preempt GPU access to specific BOs by invalidating
+> GPU PTEs. That way we don't need to preempt the GPU queues while a page
+> fault is in progress. Instead we would create more page faults.
+
+The big problem isn't pure kfd workloads, all the trouble comes in when
+you mix kfd and amdgpu workloads. kfd alone is easy, just make sure
+there's no fences to begin with, and there will be no problems.
+
+> That assumes that we can invalidate GPU PTEs without depending on
+> fences. We've discussed possible deadlocks due to memory allocations
+> needed on that code paths for IBs or page tables. We've already
+> eliminated page table allocations and reservation locks on the PTE
+> invalidation code path. And we're using a separate scheduler entity so
+> we can't get stuck behind other IBs that depend on fences. IIRC,
+> Christian also implemented a separate memory pool for IBs for this code
+> path.
+
+Yeah it's the memory allocations that kill you. Both system memory, but
+also vram. Since evicting vram might mean you end up stuck behind a
+dma_fence of a legacy context hogging that memory, and probably also means
+doing a few dma_resv_lock. All of these thing deadlock if you can't
+preempt the context with something else.
+-Daniel
+
+
+> =
+
+> Regards,
+> =A0 Felix
+> =
+
+> =
+
+> > -Daniel
+> >
+> >> Regards,
+> >>   Felix
+> >>
+> >>
+> >>> Right, nor will RDMA ODP.
+> >>>
+> >>> Jason
+> >>> _______________________________________________
+> >>> amd-gfx mailing list
+> >>> amd-gfx@lists.freedesktop.org
+> >>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >> _______________________________________________
+> >> dri-devel mailing list
+> >> dri-devel@lists.freedesktop.org
+> >> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> >
+> >
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
----1463811583-82272270-1592934536=:3391--
