@@ -6,61 +6,77 @@ X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86812C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFDBDC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5897A2073E
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:39:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A594020771
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:49:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="PwrvE5jS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5897A2073E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jOiz5xhY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A594020771
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E4D6E94E;
-	Tue, 23 Jun 2020 07:39:29 +0000 (UTC)
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 657DF6E953
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 07:39:29 +0000 (UTC)
-Received: by mail-ot1-x342.google.com with SMTP id n5so15658493otj.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 00:39:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+92MYnF3Gh08MmStig+tCn2Q/L2yjmneEHZzzW7GGvs=;
- b=PwrvE5jS1kTu+fi0Cr9QUPwDbx3xz+X3B7OgQDwGyTKoe9mBLoNsF4PcRQZYhzKOnV
- CkL4lja+OqOY0gBbJB+pER0fYFWMEmKIpSKjbJhfHshefh7JCoDF0Ko4gDHaNPu08gpL
- UTuHeptkXd8ej8TjPFULXiSQ/JHJc7+5RujUA=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC4D88FCF;
+	Tue, 23 Jun 2020 07:49:17 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5BF6E937
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 00:02:34 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id u17so14163876qtq.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2020 17:02:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=fL1wENgZCNwSv3s/JTNbtGHYfJcNOvZphPgobRgCX+0=;
+ b=jOiz5xhY4H9RrA31ewUoMb6lWoSEJluMNJ4pFLIyuL2C/PAw2cU4NhHZPSbOtneWmY
+ ozUMm9lxePnw9yOjxx4YXvXCK3kITgyY6VI+mhuSl9fkmcyIppyhy/Jz6vVv/4LKzuRn
+ Gb8qhMwxyR4RKm7f3IBCU6P9IiqbHgwNX0yoHpJ3PAkHDvus22DcgqWtCXRMKvuPd80+
+ GtMIE29iM9uSkrK/mkJM41mZz+r3jtg9ekirUsyx5erxi/e/W0HuUH+SRS8iBijVSbYY
+ gVUrM+bjvjO7k15tkl2NlzpoPMdsvYPWVTdqh0sfLGGUDdoylYfcONvUD2B6N+OO84GZ
+ lj3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+92MYnF3Gh08MmStig+tCn2Q/L2yjmneEHZzzW7GGvs=;
- b=nyWgLNzhkC4mIj1DOTBLrsFiGuizVom4B3rQeH9thic8m+E27mv+ToJ/iCYXuJNxdt
- x3J+yfZYFrCS4Y3ytbhNVeQqmhhVZH2tMoyAVNKQlU+fVGPHuvD20I5Jl4gT/WCPbgbZ
- FXvIFweRwBvu1WH382dqp4tgZz6ICP+XphWueQo99Z+MbL9Hl7dx3AkCXSOvhfX2avKg
- TlksIjUql8+e9s886LqAFlOpAivaKsufp5Rs6YAnxp062PUaCeodAi78cRei1URsnT/F
- bxWFymMp94eMEz+Emjqstr9YDs+536fuVqDdXwVJi+XL4z0aE5pGznBkIZCNwfn8xjdv
- L7zg==
-X-Gm-Message-State: AOAM533WFceh8plhiyvI7FhdCrqGvSHbfwyAclmDf1JLFJowrLIHbXE3
- UY7Xo+8XQVm18ylhJ6OPWm6N/J56W8WWtKg3v3d1iQ==
-X-Google-Smtp-Source: ABdhPJyuTPn8gHto3Zj0qvtBWFEZww/Nxosv6E4e67PZOhsc7GOGHkoFk1BcCVm2dLP+f9GAnXbuSF6PpstaZHEQELA=
-X-Received: by 2002:a4a:d415:: with SMTP id n21mr17485719oos.89.1592897968519; 
- Tue, 23 Jun 2020 00:39:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-5-daniel.vetter@ffwll.ch>
- <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
- <20200611083430.GD20149@phenom.ffwll.local> <20200611141515.GW6578@ziepe.ca>
- <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
-In-Reply-To: <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Tue, 23 Jun 2020 09:39:17 +0200
-Message-ID: <CAKMK7uHBKrpDWu+DvtYncDK=LOdGJyMK7t6fpOaGovnYFiBUZw@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=fL1wENgZCNwSv3s/JTNbtGHYfJcNOvZphPgobRgCX+0=;
+ b=AwJ66lhmj+fTDCXvgY92jUR3mwjEvVgLyp9B4qEwp7KDjI3T+VuVuce9GPTolOzLt5
+ +Gq4S0CfGFl9F7klkePKw9EpXpQfAL36g/RzViNrrCnsUqrQzcBQAvSiALkrR7/HotG3
+ a0z6EVtATwSqjbkmIIwFSvSqJ1F26dKkSYv8CCXJVU1hFcku7mjoD3FBvvO0ajSBX4kA
+ lW88EnO+a4Ga0US44eHqnp3ArgpSl6gEaJek5Ox2lwpz42i2cLkfiHFFWjMrO/LKJKF0
+ CQ7Pgksl2LT4atXMjO9foSx0MxLE3HPJ+c2RN0alaMDltEqRxhRABfJL8NVB6cGpGDvS
+ INBw==
+X-Gm-Message-State: AOAM533UJaC9hxBU2yCX8chmjBGE68iJzLX43L2RYrYcabSZiKU0WBW7
+ ILUB7UTvoluOPKdGCPCeNijJ6g==
+X-Google-Smtp-Source: ABdhPJyCyWWM03fNzzwWcrkorPAde8ZwkJyT1NwEy7u+QyW/bvUE+EE8dkCWV5n1HdRyI+PQxXYPRQ==
+X-Received: by 2002:ac8:70da:: with SMTP id g26mr17916678qtp.333.1592870553204; 
+ Mon, 22 Jun 2020 17:02:33 -0700 (PDT)
+Received: from ziepe.ca ([206.223.160.26])
+ by smtp.gmail.com with ESMTPSA id d186sm6145604qkb.110.2020.06.22.17.02.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jun 2020 17:02:32 -0700 (PDT)
+Received: from jgg by mlx with local (Exim 4.93) (envelope-from <jgg@ziepe.ca>)
+ id 1jnWOV-00CHMM-GL; Mon, 22 Jun 2020 21:02:31 -0300
+Date: Mon, 22 Jun 2020 21:02:31 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jerome Glisse <jglisse@redhat.com>
 Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
-To: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <20200623000231.GW6578@ziepe.ca>
+References: <20200619151551.GP6578@ziepe.ca>
+ <CAKMK7uEvkshAM6KUYZu8_OCpF4+1Y_SM7cQ9nJWpagfke8s8LA@mail.gmail.com>
+ <20200619172308.GQ6578@ziepe.ca>
+ <20200619180935.GA10009@redhat.com>
+ <20200619181849.GR6578@ziepe.ca>
+ <56008d64-772d-5757-6136-f20591ef71d2@amd.com>
+ <20200619195538.GT6578@ziepe.ca>
+ <20200619203147.GC13117@redhat.com>
+ <20200622114617.GU6578@ziepe.ca> <20200622201540.GB9708@redhat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200622201540.GB9708@redhat.com>
+X-Mailman-Approved-At: Tue, 23 Jun 2020 07:49:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,107 +89,78 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Felix Kuehling <felix.kuehling@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  LKML <linux-kernel@vger.kernel.org>,
  DRI Development <dri-devel@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Thomas Hellstrom <thomas.hellstrom@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
  Daniel Vetter <daniel.vetter@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ Thomas =?utf-8?B?SGVsbHN0csO2bSAoSW50ZWwp?= <thomas_os@shipmail.org>,
+ Mika Kuoppala <mika.kuoppala@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2020 at 1:35 AM Felix Kuehling <felix.kuehling@amd.com> wrote:
->
-> Am 2020-06-11 um 10:15 a.m. schrieb Jason Gunthorpe:
-> > On Thu, Jun 11, 2020 at 10:34:30AM +0200, Daniel Vetter wrote:
-> >>> I still have my doubts about allowing fence waiting from within shrinkers.
-> >>> IMO ideally they should use a trywait approach, in order to allow memory
-> >>> allocation during command submission for drivers that
-> >>> publish fences before command submission. (Since early reservation object
-> >>> release requires that).
-> >> Yeah it is a bit annoying, e.g. for drm/scheduler I think we'll end up
-> >> with a mempool to make sure it can handle it's allocations.
-> >>
-> >>> But since drivers are already waiting from within shrinkers and I take your
-> >>> word for HMM requiring this,
-> >> Yeah the big trouble is HMM and mmu notifiers. That's the really awkward
-> >> one, the shrinker one is a lot less established.
-> > I really question if HW that needs something like DMA fence should
-> > even be using mmu notifiers - the best use is HW that can fence the
-> > DMA directly without having to get involved with some command stream
-> > processing.
-> >
-> > Or at the very least it should not be a generic DMA fence but a
-> > narrowed completion tied only into the same GPU driver's command
-> > completion processing which should be able to progress without
-> > blocking.
-> >
-> > The intent of notifiers was never to endlessly block while vast
-> > amounts of SW does work.
-> >
-> > Going around and switching everything in a GPU to GFP_ATOMIC seems
-> > like bad idea.
-> >
-> >> I've pinged a bunch of armsoc gpu driver people and ask them how much this
-> >> hurts, so that we have a clear answer. On x86 I don't think we have much
-> >> of a choice on this, with userptr in amd and i915 and hmm work in nouveau
-> >> (but nouveau I think doesn't use dma_fence in there).
->
-> Soon nouveau will get company. We're working on a recoverable page fault
-> implementation for HMM in amdgpu where we'll need to update page tables
-> using the GPUs SDMA engine and wait for corresponding fences in MMU
-> notifiers.
+On Mon, Jun 22, 2020 at 04:15:40PM -0400, Jerome Glisse wrote:
+> On Mon, Jun 22, 2020 at 08:46:17AM -0300, Jason Gunthorpe wrote:
+> > On Fri, Jun 19, 2020 at 04:31:47PM -0400, Jerome Glisse wrote:
+> > > Not doable as page refcount can change for things unrelated to GUP, with
+> > > John changes we can identify GUP and we could potentialy copy GUPed page
+> > > instead of COW but this can potentialy slow down fork() and i am not sure
+> > > how acceptable this would be. Also this does not solve GUP against page
+> > > that are already in fork tree ie page P0 is in process A which forks,
+> > > we now have page P0 in process A and B. Now we have process A which forks
+> > > again and we have page P0 in A, B, and C. Here B and C are two branches
+> > > with root in A. B and/or C can keep forking and grow the fork tree.
+> > 
+> > For a long time now RDMA has broken COW pages when creating user DMA
+> > regions.
+> > 
+> > The problem has been that fork re-COW's regions that had their COW
+> > broken.
+> > 
+> > So, if you break the COW upon mapping and prevent fork (and others)
+> > from copying DMA pinned then you'd cover the cases.
+> 
+> I am not sure we want to prevent COW for pinned GUP pages, this would
+> change current semantic and potentialy break/slow down existing apps.
 
-Can you pls cc these patches to dri-devel when they show up? Depending
-upon how your hw works there's and endless amount of bad things that
-can happen.
+Isn't that basically exactly what 17839856fd588 does? It looks like it
+uses the same approach RDMA does by sticking FOLL_WRITE even though it
+is a read action.
 
-Also I think (again depending upon how the hw exactly works) this
-stuff would be a perfect example for the dma_fence annotations.
+After that change the reamining bug is that fork can re-establish a
+COW./
 
-The worst case is if your hw cannot preempt while a hw page fault is
-pending. That means none of the dma_fence will ever signal (the amdkfd
-preempt ctx fences wont, and the classic fences from amdgpu might be
-also stall). At least when you're unlucky and the fence you're waiting
-on somehow (anywhere in its dependency chain really) need the engine
-that's currently blocked waiting for the hw page fault.
+> Anyway i think we focus too much on fork/COW, it is just an unfixable
+> broken corner cases, mmu notifier allows you to avoid it. Forcing real
+> copy on fork would likely be seen as regression by most people.
 
-That in turn means anything you do in your hw page fault handler is in
-the critical section for dma fence signalling, which has far reaching
-implications.
--Daniel
+If you don't copy the there are data corruption bugs though. Real apps
+probably don't hit a problem here as they are not forking while GUP's
+are active (RDMA excluded, which does do this)
 
->
-> Regards,
->   Felix
->
->
-> > Right, nor will RDMA ODP.
-> >
-> > Jason
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+I think that implementing page pinning by blocking mmu notifiers for
+the duration of the pin is a particularly good idea either, that
+actually seems a lot worse than just having the pin in the first
+place.
 
+Particularly if it is only being done to avoid corner case bugs that
+already afflict other GUP cases :(
 
+> > What do you mean 'GUP fast is still succeptible to this' ?
+> 
+> Not all GUP fast path are updated (intentionaly) __get_user_pages_fast()
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Sure, that is is the 'raw' accessor
+
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
