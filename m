@@ -2,110 +2,65 @@ Return-Path: <SRS0=XGq4=AE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86A1BC433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:36:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86812C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DA752073E
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:36:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5897A2073E
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2020 07:39:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QJivCtdT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DA752073E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="PwrvE5jS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5897A2073E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9792D89CE1;
-	Tue, 23 Jun 2020 07:36:06 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700050.outbound.protection.outlook.com [40.107.70.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A4289CE1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 07:36:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iA5piy/GrWt9bvVtVHQN88Lni/g6u73Bd/JRWg7weP5kTqsdCP3+fRaZkt+2LyOsiYvGtlRuc/IZynNifNlzDDuEE8+FFKOgiBOVFzUAbATUuv36It8x2gQX0LuYsFslKT81g9UiAM95lFJDKxqgslYp0RgwutZLpszD7brhIcVfSb23HEx9D0AGkxIEuhHwyJj4mMdShXTx76HqScVVq5Oe5KX/h+5g8HHTwMnCn/N1go0GoeVb8+WSBZR42dVLMLH3X6m8tXQVQ4OEghA9nJAYAbuhwydACX/q/X+f57GLxT66GErwlkBSxDmN9KSzb2bQ9fs3BMygrx3W2KXZMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LQZM5wrqSfT4b89Unh2/DmTBXAkRpZ8INtvrHJ7stuY=;
- b=ITR6X4UD5YWXV5CwlEUhbCeqZNr9Q2Aa1Vq0cWn92QqGw2GoZK+xCOGJonU28I85Nc+Wmn2KySwM2QdbKTnvRIdHjW3py96+7Gp+RIcbSPR4Wc9gj+JLCWCq8TrL/3P9vRLm4n76P1FD17Lyf2UyLQc1Kvi1ARVVDWsBrlObCaN8o1D+ZHUJRsmAxC5LxZ0cehnJQc5DO7CHwN3EYAKufueFKpzRceVeATpXaVKzYt9RIfwbcWoadlIgMry1TjSIFi4cYcpc2Fr0Jq45We6RuxLh8B3oSuvH+fGTCwGKWS0+6pn3He9xxpmhebhMTdKlENwQCSidqOIdCMD6UO/1pw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LQZM5wrqSfT4b89Unh2/DmTBXAkRpZ8INtvrHJ7stuY=;
- b=QJivCtdT3g50ud9UNzw2+F2M5JMwNzRXkVf9Pei5O35rQGkwqw4H2eImXwABW3JexcTymGjxE6TdWkicDehoToppL1cLY5QvK6X9qpNo5vSYKxTM/IW0jZfVtpW0WOp0rtHnp+TlY+leivSgm7utgY8Nm4B0FVQV8tEDRnmI3Ms=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB3915.namprd12.prod.outlook.com (2603:10b6:5:1c4::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Tue, 23 Jun
- 2020 07:36:01 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::a045:f8c0:8edb:1ef1]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::a045:f8c0:8edb:1ef1%9]) with mapi id 15.20.3109.027; Tue, 23 Jun 2020
- 07:36:01 +0000
-Subject: Re: [PATCH v2 3/3] drm/amdgpu: Warn about disabled DPM
-To: Paul Menzel <pmenzel@molgen.mpg.de>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20200619185009.12966-1-pmenzel@molgen.mpg.de>
- <20200619185009.12966-3-pmenzel@molgen.mpg.de>
- <fdcc2c10-26cd-3183-42c6-daf36d5df1e9@amd.com>
- <5916b5fa-cc2d-f8df-ca55-505034f09f58@molgen.mpg.de>
- <e4c8cbb6-1a36-bade-eec4-85a52b7a0275@amd.com>
- <a05589bc-b78c-09f7-e228-073d45a2a773@molgen.mpg.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <c777fa7d-52cc-16cb-69c9-5ec75eb1d20e@amd.com>
-Date: Tue, 23 Jun 2020 09:35:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <a05589bc-b78c-09f7-e228-073d45a2a773@molgen.mpg.de>
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR0902CA0015.eurprd09.prod.outlook.com
- (2603:10a6:200:9b::25) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7E4D6E94E;
+	Tue, 23 Jun 2020 07:39:29 +0000 (UTC)
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
+ [IPv6:2607:f8b0:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 657DF6E953
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 07:39:29 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id n5so15658493otj.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2020 00:39:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+92MYnF3Gh08MmStig+tCn2Q/L2yjmneEHZzzW7GGvs=;
+ b=PwrvE5jS1kTu+fi0Cr9QUPwDbx3xz+X3B7OgQDwGyTKoe9mBLoNsF4PcRQZYhzKOnV
+ CkL4lja+OqOY0gBbJB+pER0fYFWMEmKIpSKjbJhfHshefh7JCoDF0Ko4gDHaNPu08gpL
+ UTuHeptkXd8ej8TjPFULXiSQ/JHJc7+5RujUA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+92MYnF3Gh08MmStig+tCn2Q/L2yjmneEHZzzW7GGvs=;
+ b=nyWgLNzhkC4mIj1DOTBLrsFiGuizVom4B3rQeH9thic8m+E27mv+ToJ/iCYXuJNxdt
+ x3J+yfZYFrCS4Y3ytbhNVeQqmhhVZH2tMoyAVNKQlU+fVGPHuvD20I5Jl4gT/WCPbgbZ
+ FXvIFweRwBvu1WH382dqp4tgZz6ICP+XphWueQo99Z+MbL9Hl7dx3AkCXSOvhfX2avKg
+ TlksIjUql8+e9s886LqAFlOpAivaKsufp5Rs6YAnxp062PUaCeodAi78cRei1URsnT/F
+ bxWFymMp94eMEz+Emjqstr9YDs+536fuVqDdXwVJi+XL4z0aE5pGznBkIZCNwfn8xjdv
+ L7zg==
+X-Gm-Message-State: AOAM533WFceh8plhiyvI7FhdCrqGvSHbfwyAclmDf1JLFJowrLIHbXE3
+ UY7Xo+8XQVm18ylhJ6OPWm6N/J56W8WWtKg3v3d1iQ==
+X-Google-Smtp-Source: ABdhPJyuTPn8gHto3Zj0qvtBWFEZww/Nxosv6E4e67PZOhsc7GOGHkoFk1BcCVm2dLP+f9GAnXbuSF6PpstaZHEQELA=
+X-Received: by 2002:a4a:d415:: with SMTP id n21mr17485719oos.89.1592897968519; 
+ Tue, 23 Jun 2020 00:39:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR0902CA0015.eurprd09.prod.outlook.com (2603:10a6:200:9b::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22 via Frontend
- Transport; Tue, 23 Jun 2020 07:36:00 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6d73b54a-e86d-4bc0-3261-08d817481411
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3915:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3915F2946FD279B8C3250CF083940@DM6PR12MB3915.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
-X-Forefront-PRVS: 04433051BF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O9Quok9W0KLJmCndJ6o5DghsXLKm8uBRyZdfMevtNBh+AoeO0Oi5YCJeVlZtUWhZYoAxMSrutbq/nwF6c7BKMulj9mKm/Ge+bwIB7Fu7nNERiIsG905b3l7O2JZ5VQXs7kG9eHHlU0XyGTbzzNefA6Ue+34XRFRwyvKlUHG7N8H6wKMGLoC+R3a0iWAbCX9KuRUf9rffl38ZUWOiRjSAzXCzH5Wzg5L1zxZvWJ0NF7WZwXu4Fx+8zxaRIRLnYRSlc5EB19foerwxM8OjG9q/BwKLvkiJzETwESfhlQR6l6UbLT1/ykUFK4zp+emRRP8tCmED3ctP3h7HZOGvv7f7DpZN3WclqMO912TeflTjtnYevr5SdXAJYwIiHHrOIYsA
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39850400004)(346002)(376002)(136003)(366004)(396003)(4326008)(66946007)(52116002)(8676002)(66476007)(66556008)(2616005)(83380400001)(36756003)(86362001)(31686004)(478600001)(6666004)(6486002)(6636002)(316002)(110136005)(2906002)(5660300002)(31696002)(186003)(8936002)(16526019)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 2HmGv/OLIIwoNQ4hUI+EK2gHkQA+BJkqVffSuSqEcFf8o9ZBTgmGUVBflmoXFzy4CDA/r8JQuFJ3TGI0H8Wx2LkYSQwcUVXAiHWwYPggr1j7h54Rpz6t5C26eYqycSGX2YkQNNwv0cR99h3rXh82xXDU/Kicd1zKlnkXurh8qC+ziwsufADoWegL1ATU56OfqjT6mEL8R8dDgmIjMaPo5/j+Zh3i2+7jk7kbodr18nsFuVXP6rQ3zb4sGQLD8/Vb5BF3k4sqPVBBK20IfGxAdCQM4kMJ5CioaBXEFwzRwAI9EC6xjYqkVOCyf3XvimTYKCsFit39XyloTefVugrjeaZ0J2jxXLyAWJ/xu779+y+aB9iJXVAcNHvniMXcGVxJ4KOxsdPW6rYbIduTcDtUAzHQAyfLU9gBFH1nqbZoeQe4/RPlxS/Ckj6Z8dfwXdueFWCvrzOmYWRpEG8n0JFtjAYD47BUkXy5xiPbBf1RNUnvc9uRexOjDl3D/5VXtT+Iq0YKip7Q9p5P98QJYnEMtb4enoyLE5J23Kl6Fp8dByRGUuIuTR+oxkd0TV7OE5gF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d73b54a-e86d-4bc0-3261-08d817481411
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2020 07:36:01.5775 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N/jnTia4w0XRLtWAAiJD7WI/TvF75CLSUDZiJJhGy2gv6tPLcsDxoWIvz2BsTubQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3915
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+ <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
+ <20200611083430.GD20149@phenom.ffwll.local> <20200611141515.GW6578@ziepe.ca>
+ <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
+In-Reply-To: <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Tue, 23 Jun 2020 09:39:17 +0200
+Message-ID: <CAKMK7uHBKrpDWu+DvtYncDK=LOdGJyMK7t6fpOaGovnYFiBUZw@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+To: Felix Kuehling <felix.kuehling@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,69 +72,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjIuMDYuMjAgdW0gMjM6NDEgc2NocmllYiBQYXVsIE1lbnplbDoKPiBbU05JUF0KPj4+IEZv
-ciBleGFtcGxlLCBpZiB0aGUgdXNlciBhZGRlZCB0aGUgcGFyYW1ldGVyIGludGVudGlvbmFsbHks
-IG1heWJlIAo+Pj4gdGhleSBtYWRlIGEgdHlwbywgYW5kIGl04oCZcyBhY3R1YWxseSBub3QgYXBw
-bGllZC4gT3IgdGhlcmUgaXMgYSBidWcgCj4+PiBpbiB0aGUgcGFyYW1ldGVyIGhhbmRsaW5nLiBI
-YXZpbmcgZXhwbGljaXQgbG9nIG1lc3NhZ2VzIGlzIGdvb2QgaW4gCj4+PiBteSBvcGluaW9uLgo+
-Pj4KPj4+IFNlY29uZGx5LCB0aGUgcGFyYW1ldGVyIGNvdWxkIGhhdmUgYmVlbiBsZWZ0IHRoZXJl
-IHVuaW50ZW50aW9uYWxseS4gCj4+PiBIYXZpbmcgdGhlIG1lc3NhZ2UgaW4gdGhlIGxvZ3MsIG1h
-a2VzIHRoZSB1c2VyIGF3YXJlIG9mIHRoYXQuCj4+Cj4+IEFuZCBleGFjdGx5IGZvciB0aGlzIHJl
-YXNvbiB0aGUga2VybmVsIGNvbW1hbmQgbGluZSBpcyBwcmludGVkIGFzIHRoZSAKPj4gc2Vjb25k
-IGxpbmUgb2YgdGhlIGxvZ3MuCj4KPiBObywgSSBkaXNhZ3JlZS4gSGF2aW5nIHRoZSBwYXJhbWV0
-ZXJzIGxpc3RlZCwgYW5kIGtub3dpbmcgdGhlIGFjdHVhbCAKPiBlZmZlY3RzIGFyZSB0d28gdG90
-YWxseSBkaWZmZXJlbnQgdGhpbmdzLiBJdOKAmXMgdXNlciBpbnRlcmZhY2UgZGVzaWduIAo+IDEw
-MSB0byBnaXZlIGNsZWFyIGZlZWRiYWNrLiBJIHRoaW5rLCB5b3UgYXJlIGxvb2tpbmcgdGhyb3Vn
-aCB0aGUgCj4gZ2xhc3NlcyBvZiBhIGRldmVsb3BlciwgYW5kIG5vdCBvZiBhIG5vbi1kZXZlbG9w
-ZXIuCgpXZWxsIG15IGpvYiBpcyB0byBzZWUgdGhpcyBhcyBhIG1haW50YWluZXIgYW5kIGtlZXAg
-dGhlIGRyaXZlciBzaW1wbGUgCmFuZCBjbGVhbiBzbyB0aGF0IHdlIGNhbiBlYXNpbHkgbWFpbnRh
-aW4gYW5kIGV4dGVuZCBpdCwgYnV0IGF0IHRoZSBzYW1lIAp0aW1lIGl0IHNob3VsZCBvYnZpb3Vz
-bHkgZ2l2ZSB0aGUgYmVzdCBleHBlcmllbmNlIHRvIGVuZCB1c2Vycy4KClNvIEknbSBjZXJ0YWlu
-bHkgd2VpZ2h0aW5nIHRoaXMsIGJ1dCBjdXJyZW50bHkgSSBkb24ndCBzZWUgYSBnb29kIAphcmd1
-bWVudCB0byBhZGQgc29tZXRoaW5nIGxpa2UgdGhpcy4KClNlZSBlc3NlbnRpYWxseSB5b3UgYXJl
-IHJlcXVlc3RpbmcgdGhhdCBhbiBpbnRlbmRlZCBiZWhhdmlvciBzaG91bGQgZ2l2ZSAKYSB3YXJu
-aW5nLiBUaGF0IGlzIGxpa2UgdGVsbGluZyB0aGUgdXNlciB0byBub3QgZG8gc29tZXRoaW5nIGhl
-IHdhbnRzLgoKSWYgYW4gdXNlciBkb2Vzbid0IGtuZXcgd2hhdCBoZSBpcyBkb2luZywgdGhhdCdz
-IG9idmlvdXNseSBhIGJpZyBwcm9ibGVtIAphcyB3ZWxsLiBCdXQgSSB3b3VsZCBzYXkgaW4gdGhp
-cyBjYXNlIHdlIHNob3VsZCBpbXByb3ZlIHRoZSBkb2N1bWVudGF0aW9uLgoKQWRkaW5nIGEgd2Fy
-bmluZyB3b3VsZCBiZSBqdXN0aWZpZWQgZm9yIG9wdGlvbnMgbGlrZSBleHBlcmltZW50YWwgCmZl
-YXR1cmVzIHdoaWNoIGNvdWxkIGRhbWFnZSB0aGUgaGFyZHdhcmUgYnkgZ29pbmcgYmV5b25kIHRo
-ZSBkZXZpY2UgCmNhcGFiaWxpdGllcyBmb3IgZXhhbXBsZS4KCj4+IER1cGxpY2F0aW5nIHRoaXMg
-aW4gZWFjaCBkcml2ZXIgaXMgbm90IG9ubHkgb3ZlcmtpbGwsIGJ1dCBhbHNvIHZlcnkgCj4+IGVy
-cm9yIHByb25lLgo+Cj4gV2hhdCBkcml2ZXJzIGRvIHlvdSBtZWFuLCBhbmQgd2hhdCBpcyBlcnJv
-ciBwcm9uZT8KCkluZGl2aWR1YWwgaGFyZHdhcmUgZHJpdmVycyBpbiBnZW5lcmFsLgoKPgo+PiBT
-b3JyeSwgYnV0IHRoaXMgaXMgYWJzb2x1dGVseSBkb24ndCB0aGluayB0aGF0IHRoaXMgaXMgYSBn
-b29kIGlkZWEuCj4KPiBEZXNwaXRlIG90aGVyIHN1YnN5c3RlbXMgYWN0dWFsbHkg4oCcc3BhbW1p
-bmfigJ0gdGhlIGxvZ3MgZm9yIHBhcmFtZXRlcnMgCj4gZ2l2ZW4gb24gdGhlIGNvbW1hbmQgbGlu
-ZSwgaGVyZSBpcyBteSBtb3RpdmF0aW9uLgo+Cj4gVW5mb3J0dW5hdGVseSwgdGhlcmUgaXMgYSBz
-ZXJpb3VzIGlzc3VlIHdpdGggZmlyc3QoPykgZ2VuZXJhdGlvbiBSeXplbiAKPiBDUFVzLCBhbmQg
-bWF5YmUgZXZlbiBleHRlcm5hbCBBTUQgZ3JhcGhpY3MgY2FyZHMgWzFdLiBJbiBjb21tZW50IDI5
-IGl0IAo+IGlzIHN1Z2dlc3RlZCB0byB1c2UgYGFtZGdwdS5kcG09MGAgWzFdLCBhbmQgZnVydGhl
-ciBpdOKAmXMgc2FpZCwgaXTigJlzIAo+IGRpc2FibGluZyBwb3dlciBtYW5hZ2VtZW50LiBSZWFk
-aW5nIHRoZSBjb21tZW50cyBmdXJ0aGVyIFsyXSwgdGhlIHVzZXIgCj4gZ2V0cyB0aGUgaW1wcmVz
-c2lvbiB0dXJuaW5nIG9mZiBwb3dlciBtYW5hZ2VtZW50IHdpbGwgY2F1c2UgdGhlIGRldmljZSAK
-PiB0byBiZSBvcGVyYXRlZCBhdCB0aGUgaGlnaGVzdCBwZXJmb3JtYW5jZSBbM10uCj4KPiBUcnlp
-bmcgdGhpcyBvcHRpb24sIEkgd2FzIHN1cnByaXNlZCBvZiB0aGUgZGVncmFkZWQgcGVyZm9ybWFu
-Y2UsIGFuZCAKPiBvbmx5IGluICNyYWRlb25AaXJjLmZyZWVub2RlLm5ldCBteSBxdWVzdGlvbiB3
-YXMgYW5zd2VyZWQsIHNheWluZyB0aGF0IAo+IGl04oCZcyBhY3R1YWxseSBkZXBlbmRpbmcgb24g
-dGhlIHN5c3RlbSBmaXJtd2FyZSBob3cgY2xvY2tzIGFyZSBzZXQgdXAsIAo+IGFuZCBpdOKAmXMg
-Y29tbW9uIHRvIHVzZSB0aGUgKmxvd2VzdCogY2xvY2tzLiBTbyB0aGUgd2FybmluZyBtZXNzYWdl
-LCAKPiB3b3VsZCBoYXZlIGhlbHBlZCBtZSBhIGxvdC4KClllYWggb2ssIGJ1dCB0aGF0IGhhcmR3
-YXJlIGZhbGxzIGJhY2sgdG8gdGhlIGxvd2VzdCBwb3NzaWJsZSBwZXJmb3JtYW5jZSAKc2V0dGlu
-ZyBhcyBzYWZldHkgcHJlY2F1dGlvbiB3aGVuIHR1cm4gb2YgcG93ZXIgbWFuYWdlbWVudCBpcyBj
-b21tb24gCmtub3dsZWRnZS4KCkluIG90aGVyIHdvcmRzIHlvdSBhcmUgd3JpdGluZyBvbiB0aGUg
-Y3VwIG9mIGNvZmZlZSAiQmV3YXJlIGNvbnRlbnQgaXMgaG90Ii4KCj4KPiBTbywgZXNwZWNpYWxs
-eSB3aXRoIHRoZXNlIG9wdGlvbiB1c2VkIGJ5IOKAnG5vcm1hbOKAnSB1c2VycywgaGF2aW5nIGNs
-ZWFyIAo+IGZlZWRiYWNrIG9uIHNwZWNpZmllZCBvcHRpb24sIGVzcGVjaWFsbHkgdGhvc2UgZGVj
-cmVhc2luZyBwZXJmb3JtYW5jZSwgCj4gaXMgdmVyeSBpbXBvcnRhbnQuCgpXZWxsLCB3aGF0IHdl
-IGNvdWxkIGRvIGlzIGltcHJvdmUgdGhlIGRvY3VtZW50YXRpb24gb2YgdGhlIG1vZHVsZSBvcHRp
-b24uCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4KPiBLaW5kIHJlZ2FyZHMsCj4KPiBQYXVsCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Fri, Jun 12, 2020 at 1:35 AM Felix Kuehling <felix.kuehling@amd.com> wrote:
+>
+> Am 2020-06-11 um 10:15 a.m. schrieb Jason Gunthorpe:
+> > On Thu, Jun 11, 2020 at 10:34:30AM +0200, Daniel Vetter wrote:
+> >>> I still have my doubts about allowing fence waiting from within shrinkers.
+> >>> IMO ideally they should use a trywait approach, in order to allow memory
+> >>> allocation during command submission for drivers that
+> >>> publish fences before command submission. (Since early reservation object
+> >>> release requires that).
+> >> Yeah it is a bit annoying, e.g. for drm/scheduler I think we'll end up
+> >> with a mempool to make sure it can handle it's allocations.
+> >>
+> >>> But since drivers are already waiting from within shrinkers and I take your
+> >>> word for HMM requiring this,
+> >> Yeah the big trouble is HMM and mmu notifiers. That's the really awkward
+> >> one, the shrinker one is a lot less established.
+> > I really question if HW that needs something like DMA fence should
+> > even be using mmu notifiers - the best use is HW that can fence the
+> > DMA directly without having to get involved with some command stream
+> > processing.
+> >
+> > Or at the very least it should not be a generic DMA fence but a
+> > narrowed completion tied only into the same GPU driver's command
+> > completion processing which should be able to progress without
+> > blocking.
+> >
+> > The intent of notifiers was never to endlessly block while vast
+> > amounts of SW does work.
+> >
+> > Going around and switching everything in a GPU to GFP_ATOMIC seems
+> > like bad idea.
+> >
+> >> I've pinged a bunch of armsoc gpu driver people and ask them how much this
+> >> hurts, so that we have a clear answer. On x86 I don't think we have much
+> >> of a choice on this, with userptr in amd and i915 and hmm work in nouveau
+> >> (but nouveau I think doesn't use dma_fence in there).
+>
+> Soon nouveau will get company. We're working on a recoverable page fault
+> implementation for HMM in amdgpu where we'll need to update page tables
+> using the GPUs SDMA engine and wait for corresponding fences in MMU
+> notifiers.
+
+Can you pls cc these patches to dri-devel when they show up? Depending
+upon how your hw works there's and endless amount of bad things that
+can happen.
+
+Also I think (again depending upon how the hw exactly works) this
+stuff would be a perfect example for the dma_fence annotations.
+
+The worst case is if your hw cannot preempt while a hw page fault is
+pending. That means none of the dma_fence will ever signal (the amdkfd
+preempt ctx fences wont, and the classic fences from amdgpu might be
+also stall). At least when you're unlucky and the fence you're waiting
+on somehow (anywhere in its dependency chain really) need the engine
+that's currently blocked waiting for the hw page fault.
+
+That in turn means anything you do in your hw page fault handler is in
+the critical section for dma fence signalling, which has far reaching
+implications.
+-Daniel
+
+>
+> Regards,
+>   Felix
+>
+>
+> > Right, nor will RDMA ODP.
+> >
+> > Jason
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
