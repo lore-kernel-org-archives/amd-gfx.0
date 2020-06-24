@@ -2,59 +2,74 @@ Return-Path: <SRS0=jISE=AF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C336C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 07:00:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED8C0C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 07:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6873C206E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 07:00:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C008D207DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 07:19:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="oaZVXDQC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6873C206E2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linuxfoundation.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="kgD+ydUy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C008D207DD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 299706E7EC;
-	Wed, 24 Jun 2020 07:00:41 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2DB66E45D;
- Wed, 24 Jun 2020 06:11:54 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4D4E52078A;
- Wed, 24 Jun 2020 06:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592979114;
- bh=FM2tQ6JnRDJ6MT95go3QxanMU7ENKqsXWamZTn77iMQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oaZVXDQCV0eH6RKo4otHpf4R2vf09cY258wolUgVQ3p6bBb79Q+33ZTw8GvhYp6Bc
- GhTwpdccP4md0FWDtSREbDvMxAOHmA+hH9bsIgdsdH9iGnbcYx0iwoCi4oz6lML39H
- EadDHyxFYBLhSAA/mpDr9os2kF1OZ6ECstS3ZU4Y=
-Date: Wed, 24 Jun 2020 08:11:53 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA006EA7D;
+	Wed, 24 Jun 2020 07:19:47 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52FEF6EA80
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2020 07:19:46 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id f18so1462020wml.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2020 00:19:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=jocsJHNbwLMjmOaoHehdPc45R0YO9H8oPxEP5MW0m6U=;
+ b=kgD+ydUydzSzBIqrXzEvT4vnT5iDLW+5wPwITJuaP1TNTwFGiWAurFzGLwQ4MiIPND
+ lZQq4Cfq8VEEIP5JYaa3akusyk/OqLxkbNXI78pi+5Wb8H8qCsWhTZYviWcAPCJpl9PN
+ F5RJixku582FYxbkNuZ1+4RY7g4QKf7uQMqzY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=jocsJHNbwLMjmOaoHehdPc45R0YO9H8oPxEP5MW0m6U=;
+ b=HybBDrxcBCliSTaDHDGBlH1dHCTpCYF5wrP5BnRdnsIRGYXD9nMGtEw/L9VPlEV0FM
+ t/3kGTSUoZ1s26XmGi6tv05DdFT2uQUEP3oTFHKE0bNLVcw8XBm569BiaVX1yG4ERPnA
+ ky+5iWfkDiQ982kV3K8PGaB71nyXKJrLc3C+PLBmfst/pA8Gh127sicbO7+o7ORdnMuM
+ ImZDg0V7W6btOQAkAqvP/k1ScPM22ibKZKbFjuqcH43oP5FXwNHh4X5BHxaQp6i6B5Xn
+ 8iIJiQum9IYflD5GmLarP+qDOq3NrQ0UyFHhrfv7y+ksBKwPO78rHFfc+S4iETlHsvXq
+ Wy2w==
+X-Gm-Message-State: AOAM532LaHfbYtXbreUjTrlVkV84dU0S2JJP7reFIOdsanyAS9hJJBTA
+ 0p9S9FpmV3k11bAIHDAhf61Qog==
+X-Google-Smtp-Source: ABdhPJyET73fwB/PsjT8Iv70C+wg1wXaHS+xW6bEbzj8yPd6zbNmfQYXxr8B+wVjqX0wwaDYjbaXYg==
+X-Received: by 2002:a1c:9ac2:: with SMTP id c185mr17551524wme.24.1592983184840; 
+ Wed, 24 Jun 2020 00:19:44 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id g195sm6982855wme.38.2020.06.24.00.19.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2020 00:19:44 -0700 (PDT)
+Date: Wed, 24 Jun 2020 09:19:42 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
 To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH v2 5/8] drm/amdgpu: Refactor sysfs removal
-Message-ID: <20200624061153.GA933050@kroah.com>
+Subject: Re: [PATCH v2 2/8] drm/ttm: Remap all page faults to per process
+ dummy page.
+Message-ID: <20200624071942.GS20149@phenom.ffwll.local>
 References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
- <1592719388-13819-6-git-send-email-andrey.grodzovsky@amd.com>
- <20200622095124.GE20149@phenom.ffwll.local>
- <20200622112139.GA3421602@kroah.com>
- <fdaebe5b-3930-66d6-4f62-3e59e515e3da@amd.com>
- <20200622164551.GA112181@kroah.com>
- <4787b2a9-e7bf-ea3c-02e9-484a4fcb4742@amd.com>
- <20200623060532.GB3818201@kroah.com>
- <090c5a35-3088-d6d0-dcaf-5ce5542a4298@amd.com>
+ <1592719388-13819-3-git-send-email-andrey.grodzovsky@amd.com>
+ <20200622094103.GA20149@phenom.ffwll.local>
+ <63be2315-b123-0d8f-729f-9ae47fb2138b@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <090c5a35-3088-d6d0-dcaf-5ce5542a4298@amd.com>
-X-Mailman-Approved-At: Wed, 24 Jun 2020 07:00:40 +0000
+In-Reply-To: <63be2315-b123-0d8f-729f-9ae47fb2138b@amd.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,83 +85,263 @@ Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
  ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, ckoenig.leichtzumerken@gmail.com,
  alexdeucher@gmail.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2020 at 11:04:30PM -0400, Andrey Grodzovsky wrote:
-> 
-> On 6/23/20 2:05 AM, Greg KH wrote:
-> > On Tue, Jun 23, 2020 at 12:51:00AM -0400, Andrey Grodzovsky wrote:
-> > > On 6/22/20 12:45 PM, Greg KH wrote:
-> > > > On Mon, Jun 22, 2020 at 12:07:25PM -0400, Andrey Grodzovsky wrote:
-> > > > > On 6/22/20 7:21 AM, Greg KH wrote:
-> > > > > > On Mon, Jun 22, 2020 at 11:51:24AM +0200, Daniel Vetter wrote:
-> > > > > > > On Sun, Jun 21, 2020 at 02:03:05AM -0400, Andrey Grodzovsky wrote:
-> > > > > > > > Track sysfs files in a list so they all can be removed during pci remove
-> > > > > > > > since otherwise their removal after that causes crash because parent
-> > > > > > > > folder was already removed during pci remove.
-> > > > > > Huh?  That should not happen, do you have a backtrace of that crash?
-> > > > > 2 examples in the attached trace.
-> > > > Odd, how did you trigger these?
-> > > 
-> > > By manually triggering PCI remove from sysfs
-> > > 
-> > > cd /sys/bus/pci/devices/0000\:05\:00.0 && echo 1 > remove
-> > For some reason, I didn't think that video/drm devices could handle
-> > hot-remove like this.  The "old" PCI hotplug specification explicitly
-> > said that video devices were not supported, has that changed?
-> > 
-> > And this whole issue is probably tied to the larger issue that Daniel
-> > was asking me about, when it came to device lifetimes and the drm layer,
-> > so odds are we need to fix that up first before worrying about trying to
-> > support this crazy request, right?  :)
-> > 
-> > > > > [  925.738225 <    0.188086>] BUG: kernel NULL pointer dereference, address: 0000000000000090
-> > > > > [  925.738232 <    0.000007>] #PF: supervisor read access in kernel mode
-> > > > > [  925.738236 <    0.000004>] #PF: error_code(0x0000) - not-present page
-> > > > > [  925.738240 <    0.000004>] PGD 0 P4D 0
-> > > > > [  925.738245 <    0.000005>] Oops: 0000 [#1] SMP PTI
-> > > > > [  925.738249 <    0.000004>] CPU: 7 PID: 2547 Comm: amdgpu_test Tainted: G        W  OE     5.5.0-rc7-dev-kfd+ #50
-> > > > > [  925.738256 <    0.000007>] Hardware name: System manufacturer System Product Name/RAMPAGE IV FORMULA, BIOS 4804 12/30/2013
-> > > > > [  925.738266 <    0.000010>] RIP: 0010:kernfs_find_ns+0x18/0x110
-> > > > > [  925.738270 <    0.000004>] Code: a6 cf ff 0f 1f 44 00 00 66 2e 0f 1f 84 00 00 00 00 00 66 66 66 66 90 41 57 41 56 49 89 f6 41 55 41 54 49 89 fd 55 53 49 89 d4 <0f> b7 af 90 00 00 00 8b 05 8f ee 6b 01 48 8b 5f 68 66 83 e5 20 41
-> > > > > [  925.738282 <    0.000012>] RSP: 0018:ffffad6d0118fb00 EFLAGS: 00010246
-> > > > > [  925.738287 <    0.000005>] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 2098a12076864b7e
-> > > > > [  925.738292 <    0.000005>] RDX: 0000000000000000 RSI: ffffffffb6606b31 RDI: 0000000000000000
-> > > > > [  925.738297 <    0.000005>] RBP: ffffffffb6606b31 R08: ffffffffb5379d10 R09: 0000000000000000
-> > > > > [  925.738302 <    0.000005>] R10: ffffad6d0118fb38 R11: ffff9a75f64820a8 R12: 0000000000000000
-> > > > > [  925.738307 <    0.000005>] R13: 0000000000000000 R14: ffffffffb6606b31 R15: ffff9a7612b06130
-> > > > > [  925.738313 <    0.000006>] FS:  00007f3eca4e8700(0000) GS:ffff9a763dbc0000(0000) knlGS:0000000000000000
-> > > > > [  925.738319 <    0.000006>] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > > > [  925.738323 <    0.000004>] CR2: 0000000000000090 CR3: 0000000035e5a005 CR4: 00000000000606e0
-> > > > > [  925.738329 <    0.000006>] Call Trace:
-> > > > > [  925.738334 <    0.000005>]  kernfs_find_and_get_ns+0x2e/0x50
-> > > > > [  925.738339 <    0.000005>]  sysfs_remove_group+0x25/0x80
-> > > > > [  925.738344 <    0.000005>]  sysfs_remove_groups+0x29/0x40
-> > > > > [  925.738350 <    0.000006>]  free_msi_irqs+0xf5/0x190
-> > > > > [  925.738354 <    0.000004>]  pci_disable_msi+0xe9/0x120
-> > > > So the PCI core is trying to clean up attributes that it had registered,
-> > > > which is fine.  But we can't seem to find the attributes?  Were they
-> > > > already removed somewhere else?
-> > > > 
-> > > > that's odd.
-> > > 
-> > > Yes, as i pointed above i am emulating device remove from sysfs and this
-> > > triggers pci device remove sequence and as part of that my specific device
-> > > folder (05:00.0) is removed from the sysfs tree.
-> > But why are things being removed twice?
-> 
-> 
-> Not sure I understand what removed twice ? I remove only once per sysfs attribute.
+On Tue, Jun 23, 2020 at 11:31:45PM -0400, Andrey Grodzovsky wrote:
+> =
 
-This code path shows that the kernel is trying to remove a file that is
-not present, so someone removed it already...
+> On 6/22/20 5:41 AM, Daniel Vetter wrote:
+> > On Sun, Jun 21, 2020 at 02:03:02AM -0400, Andrey Grodzovsky wrote:
+> > > On device removal reroute all CPU mappings to dummy page per drm_file
+> > > instance or imported GEM object.
+> > > =
 
-thanks,
+> > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> > > ---
+> > >   drivers/gpu/drm/ttm/ttm_bo_vm.c | 65 ++++++++++++++++++++++++++++++=
+++++++-----
+> > >   1 file changed, 57 insertions(+), 8 deletions(-)
+> > > =
 
-gre k-h
+> > > diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/tt=
+m_bo_vm.c
+> > > index 389128b..2f8bf5e 100644
+> > > --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > > +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> > > @@ -35,6 +35,8 @@
+> > >   #include <drm/ttm/ttm_bo_driver.h>
+> > >   #include <drm/ttm/ttm_placement.h>
+> > >   #include <drm/drm_vma_manager.h>
+> > > +#include <drm/drm_drv.h>
+> > > +#include <drm/drm_file.h>
+> > >   #include <linux/mm.h>
+> > >   #include <linux/pfn_t.h>
+> > >   #include <linux/rbtree.h>
+> > > @@ -328,19 +330,66 @@ vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+> > Hm I think diff and code flow look a bit bad now. What about renaming t=
+he
+> > current function to __ttm_bo_vm_fault and then having something like the
+> > below:
+> > =
+
+> > ttm_bo_vm_fault(args) {
+> > =
+
+> > 	if (drm_dev_enter()) {
+> > 		__ttm_bo_vm_fault(args);
+> > 		drm_dev_exit();
+> > 	} else  {
+> > 		drm_gem_insert_dummy_pfn();
+> > 	}
+> > }
+> > =
+
+> > I think drm_gem_insert_dummy_pfn(); should be portable across drivers, =
+so
+> > another nice point to try to unifiy drivers as much as possible.
+> > -Daniel
+> > =
+
+> > >   	pgprot_t prot;
+> > >   	struct ttm_buffer_object *bo =3D vma->vm_private_data;
+> > >   	vm_fault_t ret;
+> > > +	int idx;
+> > > +	struct drm_device *ddev =3D bo->base.dev;
+> > > -	ret =3D ttm_bo_vm_reserve(bo, vmf);
+> > > -	if (ret)
+> > > -		return ret;
+> > > +	if (drm_dev_enter(ddev, &idx)) {
+> > > +		ret =3D ttm_bo_vm_reserve(bo, vmf);
+> > > +		if (ret)
+> > > +			goto exit;
+> > > +
+> > > +		prot =3D vma->vm_page_prot;
+> > > -	prot =3D vma->vm_page_prot;
+> > > -	ret =3D ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT);
+> > > -	if (ret =3D=3D VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NO=
+WAIT))
+> > > +		ret =3D ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT=
+);
+> > > +		if (ret =3D=3D VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_N=
+OWAIT))
+> > > +			goto exit;
+> > > +
+> > > +		dma_resv_unlock(bo->base.resv);
+> > > +
+> > > +exit:
+> > > +		drm_dev_exit(idx);
+> > >   		return ret;
+> > > +	} else {
+> > > -	dma_resv_unlock(bo->base.resv);
+> > > +		struct drm_file *file =3D NULL;
+> > > +		struct page *dummy_page =3D NULL;
+> > > +		int handle;
+> > > -	return ret;
+> > > +		/* We are faulting on imported BO from dma_buf */
+> > > +		if (bo->base.dma_buf && bo->base.import_attach) {
+> > > +			dummy_page =3D bo->base.dummy_page;
+> > > +		/* We are faulting on non imported BO, find drm_file owning the BO=
+*/
+> > Uh, we can't fish that out of the vma->vm_file pointer somehow? Or is t=
+hat
+> > one all wrong? Doing this kind of list walk looks pretty horrible.
+> > =
+
+> > If the vma doesn't have the right pointer I guess next option is that we
+> > store the drm_file page in gem_bo->dummy_page, and replace it on first
+> > export. But that's going to be tricky to track ...
+> > =
+
+> > > +		} else {
+> > > +			struct drm_gem_object *gobj;
+> > > +
+> > > +			mutex_lock(&ddev->filelist_mutex);
+> > > +			list_for_each_entry(file, &ddev->filelist, lhead) {
+> > > +				spin_lock(&file->table_lock);
+> > > +				idr_for_each_entry(&file->object_idr, gobj, handle) {
+> > > +					if (gobj =3D=3D &bo->base) {
+> > > +						dummy_page =3D file->dummy_page;
+> > > +						break;
+> > > +					}
+> > > +				}
+> > > +				spin_unlock(&file->table_lock);
+> > > +			}
+> > > +			mutex_unlock(&ddev->filelist_mutex);
+> > > +		}
+> > > +
+> > > +		if (dummy_page) {
+> > > +			/*
+> > > +			 * Let do_fault complete the PTE install e.t.c using vmf->page
+> > > +			 *
+> > > +			 * TODO - should i call free_page somewhere ?
+> > Nah, instead don't call get_page. The page will be around as long as
+> > there's a reference for the drm_file or gem_bo, which is longer than any
+> > mmap. Otherwise yes this would like really badly.
+> =
+
+> =
+
+> So actually that was my thinking in the first place and I indeed avoided
+> taking reference and this ended up
+> with multiple BUG_ONs as seen bellow where=A0 refcount:-63 mapcount:-48 f=
+or a
+> page are deep into negative
+> values... Those warnings were gone once i added get_page(dummy) which in =
+my
+> opinion implies that there
+> is a page reference per each PTE and that when there is unmapping of the
+> process address
+> space and PTEs are deleted there is also put_page somewhere in mm core and
+> the get_page per mapping
+> keeps it balanced.
+> =
+
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762929] BUG: Bad page=
+ map in
+> process glxgear:disk$0=A0 pte:8000000132284867 pmd:15aaec067
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762931]
+> page:ffffe63384c8a100 refcount:-63 mapcount:-48 mapping:0000000000000000
+> index:0x0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762932] flags:
+> 0x17fff8000000008(dirty)
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762933] raw:
+> 017fff8000000008 dead000000000100 dead000000000122 0000000000000000
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762934] raw:
+> 0000000000000000 0000000000000000 ffffffc1ffffffcf 0000000000000000
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762935] page dumped b=
+ecause: bad pte
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762937]
+> addr:00007fe086263000 vm_flags:1c0440fb anon_vma:0000000000000000
+> mapping:ffff9b5cd42db268 index:1008b3
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762981] file:renderD1=
+29
+> fault:ttm_bo_vm_fault [ttm] mmap:amdgpu_mmap [amdgpu] readpage:0x0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762984] CPU: 5 PID: 2=
+619
+> Comm: glxgear:disk$0 Tainted: G=A0=A0=A0 B=A0=A0=A0=A0=A0 OE 5.6.0-dev+ #=
+51
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762985] Hardware name:
+> System manufacturer System Product Name/RAMPAGE IV FORMULA, BIOS 4804
+> 12/30/2013
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762985] Call Trace:
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762988] dump_stack+0x=
+68/0x9b
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762990] print_bad_pte=
++0x19f/0x270
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762992]=A0 ? lock_pag=
+e_memcg+0x5/0xf0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.762995] unmap_page_ra=
+nge+0x777/0xbe0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763000] unmap_vmas+0x=
+cc/0x160
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763004] exit_mmap+0xb=
+5/0x1b0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763009] mmput+0x65/0x=
+140
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763010] do_exit+0x362=
+/0xc40
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763013] do_group_exit=
++0x47/0xb0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763016] get_signal+0x=
+18b/0xc30
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763019] do_signal+0x3=
+6/0x6a0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763021]=A0 ?
+> __set_task_comm+0x62/0x120
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763024]=A0 ?
+> __x64_sys_futex+0x88/0x180
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763028]
+> exit_to_usermode_loop+0x6f/0xc0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763030] do_syscall_64=
++0x149/0x1c0
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763032]
+> entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763034] RIP: 0033:0x7=
+fe091bd9360
+> Jun 20 01:36:43 ubuntu-1604-test kernel: [=A0=A0 98.763037] Code: Bad RIP=
+ value.
+
+Uh, I guess that just shows how little I understand how this all works.
+But yeah if we set vmf->page then I guess core mm takes care of
+everything, but apparently expects a page reference.
+-Daniel
+ =
+
+> Andrey
+> =
+
+> =
+
+> > =
+
+> > > +			 */
+> > > +			get_page(dummy_page);
+> > > +			vmf->page =3D dummy_page;
+> > > +			return 0;
+> > > +		} else {
+> > > +			return VM_FAULT_SIGSEGV;
+> > Hm that would be a kernel bug, wouldn't it? WARN_ON() required here imo.
+> > -Daniel
+> > =
+
+> > > +		}
+> > > +	}
+> > >   }
+> > >   EXPORT_SYMBOL(ttm_bo_vm_fault);
+> > > -- =
+
+> > > 2.7.4
+> > > =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
