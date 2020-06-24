@@ -8,60 +8,59 @@ X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C0B0C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 15:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA49CC433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 15:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00B2B2076E
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 15:16:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7820620781
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 15:19:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QAVF2FGr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00B2B2076E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WHMmhLBr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7820620781
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9101D6E1B3;
-	Wed, 24 Jun 2020 15:16:41 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2F46E1B3;
- Wed, 24 Jun 2020 15:16:40 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id l2so1411926wmf.0;
- Wed, 24 Jun 2020 08:16:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B00D6E0EC;
+	Wed, 24 Jun 2020 15:19:30 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D416E0EC;
+ Wed, 24 Jun 2020 15:19:28 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id j94so2709620wrj.0;
+ Wed, 24 Jun 2020 08:19:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=34hmditf+vhlxJcmEFkZgWoC7pJeDEW0sX6340LuRHw=;
- b=QAVF2FGrKfQudyBRkn3UEh/QzSSNVI0DOwlhIyVt7j4OWP0Q1EKpaZB7h08BZ34SL5
- xOPUwta5fN7soRtWRKATYZPdLsezxlnLx3C0yP1njOkEOzi5vwQ1wVWsSFYl46UQmRhx
- zTRbOaYgkfnwfMea/9aKyEZMcMEW3De25mZvgPzrdK5mCyi9yvuFwNz7toArk1ExXQGr
- vqzqH9txAcCm0C96sFblR42GmoxJWnINnyVmRpWtXXZ0fR2wTjyAkgdvpiYyxX6KbeWp
- 9Y5MzCGn0FT1gQPQ1kvcOhDRGpeAcA5WLfAy9ClOcUCzgBrD76MCrjQM1IcW5VIxPfCx
- GAbw==
+ :cc; bh=Py6R13MD/ALi+lmKz+0wD4Voo520rKERVOmYa94FmgM=;
+ b=WHMmhLBrGsTKq8yguQB2bjx3E8JorBYdumZsxQYbxblYDAb8jiPDC9IByepKx+eccf
+ A5h7Tlqxva0/EkSd32fHC2vvXjDnYlQw4RseSVvOxbp7Juf4pL7awzGRSAf9IzCzGIDM
+ CPee79NMTwFDmyScJR/rHTnO+4ExhnAmEuTlQWu21xxH34an6xtftGYQLJGfuzsCr002
+ MKZ21DNsuBIYBUKHkN0jphHx0ASZun96Ch6VbyQ109D59xnKGMvdJDqX8uVfq/OSqWcl
+ S1rXrgUcmvjggtekDWmBBge8j7P7zTP1+3dUem26Xg5YY488gkAkSSBhNTni+U/DZFRv
+ UWWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=34hmditf+vhlxJcmEFkZgWoC7pJeDEW0sX6340LuRHw=;
- b=XNu3Le4owVVT/5ldcluYxzFmMkaWY8IVx/SG5pMfebCay0A/V7zWXzRDG2uCKZlVJA
- J6hvSzqkgkUB5p4GsI7sjmCva96aEv840Qa5TMAy7aGR1zT7mniPQ8xH/xtgATY0y5v/
- ouAR7/xRPVQPwGRCpZnEpVbksBSOE8G27eOS+P1T+zjFLcfKLHUpj1gE9jPr6msh3w/7
- VSzR03kztWFdv0tBGgQ9Pwdx8PohJ4CjvgTigmTKIhDZpMkCO4fsI8NUTVOISwQnktux
- ddybiM2+CEwn1JB6+lyKgFeYDGN2NBqQTuGOjPTPULiJAooYmFTACYUtS8JJEIw+Grw0
- aLSQ==
-X-Gm-Message-State: AOAM530kNbO4rGHmPaBtgRqU+/W4iR5EgAcs01GNmiYDS3xBMC0J+Ezg
- rSC462xuqr57iDmMMSUbN/5Sn4dosCQt+9tK7Ec=
-X-Google-Smtp-Source: ABdhPJy1qPZlkbkex+2mcQ3H0P1rh2BMF6aNpxBKJx6viXiD5LP/TMlDpplYwy2FDejjx7BYrjXNvarY9HUElDbSf5M=
-X-Received: by 2002:a1c:32c4:: with SMTP id y187mr30880941wmy.79.1593011798868; 
- Wed, 24 Jun 2020 08:16:38 -0700 (PDT)
+ bh=Py6R13MD/ALi+lmKz+0wD4Voo520rKERVOmYa94FmgM=;
+ b=P/3UAHKkw2/MbvM1qIu+M8cW4T/j5XacVlUL7vI3NOryjRSe3jsz1D7iXk6DoqcBbT
+ X4YG12LDQdOeXC6kEhANkOpm9h3fDvSVAtepwWY8c4AkqeBAV0jY4D6Mq9j2uqTFiQ0b
+ noO3qjlegJE9AezUfk6YGiye+lVyAEWOuu+r1IZ9MtDywkI6I+ZHZyIC7/BeftfBvY7u
+ eEqsG7gEKAmYy9DNa1EIvSPFCxLpJgmzIqKhWxwydSSqNCPZuxyFtbn1zsMyWOOwgnz7
+ wdpeocYA7HZdaUqiDcdVg5EbyW+KqDs/UAB01sDqauoblFY0BGSSUgBgFyI9LUXL4kAG
+ raZQ==
+X-Gm-Message-State: AOAM530rPP8ZzBaaJO3YPkmD3ngbuApo+97SbDP4OzGWVWfQ7CqfSnoA
+ cDSSGPR+M9HzM4aH3NpB8U+SUvjctmK5pkOPWz0=
+X-Google-Smtp-Source: ABdhPJzkiAB8rak7/EF7xQt5xkZIsOH0iRZ9o4lt3W5kLDwG6kLpL6P22IQui3lFLPjKWXPAPlyPVqKx8E1Jd9qgHCc=
+X-Received: by 2002:a5d:6a46:: with SMTP id t6mr4633910wrw.374.1593011967560; 
+ Wed, 24 Jun 2020 08:19:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200624145418.7794-1-colin.king@canonical.com>
-In-Reply-To: <20200624145418.7794-1-colin.king@canonical.com>
+References: <20200624120710.10957-1-colin.king@canonical.com>
+In-Reply-To: <20200624120710.10957-1-colin.king@canonical.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Jun 2020 11:16:27 -0400
-Message-ID: <CADnq5_PySz6YWOMM4kosC_B83i+jsPKmf0puMt3sw2C-hExa3Q@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amdgpu: ensure 0 is returned for success in
- jpeg_v2_5_wait_for_idle
+Date: Wed, 24 Jun 2020 11:19:16 -0400
+Message-ID: <CADnq5_NGQzU6rrrqO4iXTHPSxpAt-w0ayxfrS0jj3K8u38f3hg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix array out-of-bounds read and write issues
 To: Colin King <colin.king@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,54 +76,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
  LKML <linux-kernel@vger.kernel.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Leo Liu <leo.liu@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 24, 2020 at 10:54 AM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> In the cases where adev->jpeg.num_jpeg_inst is zero or the condition
-> adev->jpeg.harvest_config & (1 << i) is always non-zero the variable
-> ret is never set to an error condition and the function returns
-> an uninitialized value in ret.  Since the only exit condition at
-> the end if the function is a success then explicitly return
-> 0 rather than a potentially uninitialized value in ret.
-
-We should actually never hit this condition in practice because the
-driver won't initialize this module if all of the instances are
-harvested, but better safe than sorry.  Applied.
-
-Thanks,
+Applied.  Thanks!
 
 Alex
 
+On Wed, Jun 24, 2020 at 8:07 AM Colin King <colin.king@canonical.com> wrote:
 >
-> Addresses-Coverity: ("Uninitialized scalar variable")
-> Fixes: 14f43e8f88c5 ("drm/amdgpu: move JPEG2.5 out from VCN2.5")
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There is an off-by-one bounds check on the index into arrays
+> table->mc_reg_address and table->mc_reg_table_entry[k].mc_data[j] that
+> can lead to reads and writes outside of arrays. Fix the bound checking
+> off-by-one error.
+>
+> Addresses-Coverity: ("Out-of-bounds read/write")
+> Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
 > Signed-off-by: Colin Ian King <colin.king@canonical.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 2 +-
+>  drivers/gpu/drm/radeon/ci_dpm.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> index f74262a22a16..7a51c615d22d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> @@ -462,7 +462,7 @@ static int jpeg_v2_5_wait_for_idle(void *handle)
->                         return ret;
->         }
+> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
+> index 134aa2b01f90..86ac032275bb 100644
+> --- a/drivers/gpu/drm/radeon/ci_dpm.c
+> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
+> @@ -4351,7 +4351,7 @@ static int ci_set_mc_special_registers(struct radeon_device *rdev,
+>                                         table->mc_reg_table_entry[k].mc_data[j] |= 0x100;
+>                         }
+>                         j++;
+> -                       if (j > SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
+> +                       if (j >= SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
+>                                 return -EINVAL;
 >
-> -       return ret;
-> +       return 0;
->  }
->
->  static int jpeg_v2_5_set_clockgating_state(void *handle,
+>                         if (!pi->mem_gddr5) {
 > --
 > 2.27.0
 >
