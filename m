@@ -8,59 +8,60 @@ X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35DE1C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 14:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3C2DC433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 14:20:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F319B2076E
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 14:19:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9C7B42076E
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2020 14:20:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tdlkS5yy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F319B2076E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqDr3Bzg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C7B42076E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B77506E0F3;
-	Wed, 24 Jun 2020 14:19:50 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E51D6E0F3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2020 14:19:49 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id o11so2453609wrv.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2020 07:19:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D05D89DC1;
+	Wed, 24 Jun 2020 14:20:04 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DBF189DC1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2020 14:20:03 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id l10so2458467wrr.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2020 07:20:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oJRNfBA7FCJHr8tap2WQpzQGXPDSv7pc1hQvmVBmWPU=;
- b=tdlkS5yyD03p4AXLFluz2zIuRD/pnRqvojHY86V8XzlACpMyWt2kO7ws/4UMX0HGCD
- Chs3qKHlq5Ac0qG4r+GQWVrh47Pq+lva2HA+1gsqH/wE5EdRvnyE329fRSyP25G4zD+t
- ZPaCEU0V9lX8FbbIpU54SxG23/zaoS/kNXtE0D/hXJWzWhYV74+E+PWpJ9Qzz32GWun0
- ac9iyGubDGVkaRI7olrNohSsQfDc2bdkeGc55Z89sGCfIHYK6eiOQS5x3IRM79I9b/Iv
- wAhfkP05JD93ZBw5fgGWlo5lIB7+KNX9pRVQz18ptuk6bQDyZBJOX/1Raqzpsbdrzpr0
- Jx1A==
+ :cc; bh=/m9mp3qNHmgmGJDbfwf1dsX5+nugg5yhLn98mFrrpAU=;
+ b=aqDr3Bzg+mRAgS6ce7GdEykxMqFF7kGbpkLUYnzcTQbXwwstUZlRahANdinoVVWtn6
+ 58TucrrmvEkqGe2xGJBqi8rwrX19xWvgjymqOMIWAO7THsXC4bZXjcC2Kxao6TEn7R+s
+ y+bGbCJYFOke/YS09vgZVDE6YgnkQJWPDvpSMWbf3DYv8sBuveN5366uI50aMy9fR3X9
+ LhBxXpE0/ozZk6mHrin/5oJ2NlqARcoMIUSInh3OtovTGwKC3OidSTlAhxXkmvexc+dn
+ HegIuHWuMVhc34oxR9EtRrkHmegyLwJshjuZ8GHBjokry9n7kGGsaUTK7Zxz5y8t4B6h
+ krUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=oJRNfBA7FCJHr8tap2WQpzQGXPDSv7pc1hQvmVBmWPU=;
- b=lnYp4eLyFzu+wyj2ZkOijfbi0Z2N16abGx+L/XBTBu9vt+G78v5jqRCzF9t3gpeIt+
- rvgOYjc/BUlDE2YQoLjPnVaXhPc1qIFWw9nl1p1mo4+YgnQgNDgUzJtDp709hzDABKfn
- EB8Ki53aTvzda6/I/u8NqA1mtcRQlu9IzhKtRS22HKupiadM0QHWlUXFGGSqb7nyNI+N
- e/szjy2HS1JqctM6orARnmtu76SkjTQZPcNg9azkFmBGCKgTeYCefzPL6krpJSeLRB47
- /ALC39gfZGjrwuWeeFkXycu37Yx43XOvS4/mlcONwZVnH6aj52zo/Pg/6ioDvu3OlM/Q
- aqzg==
-X-Gm-Message-State: AOAM533hIUx1mcW2mWLjklLWhVBcPxMHe1El4blI7AJCzj2Xaq42Zws5
- qUt3WBCwqaOF8/SWGRmP8X+hmoqgBKG5ncJvmjtQyg==
-X-Google-Smtp-Source: ABdhPJwyk4Qx7i3Va3kfa4NNGD5rSIbER2GlG2tOdV8PTw91iNDFX3BxVVyVeS9vXWRo1LESPP76fnxbjUNJZJ21A7w=
-X-Received: by 2002:a5d:5549:: with SMTP id g9mr28657017wrw.419.1593008388004; 
- Wed, 24 Jun 2020 07:19:48 -0700 (PDT)
+ bh=/m9mp3qNHmgmGJDbfwf1dsX5+nugg5yhLn98mFrrpAU=;
+ b=cBCDzwgmPmXFIQM0uNgQbnabMq7kTO0vj/hK2suBf9RmIhI+DFZE+0sgRL2DZ4fKD8
+ /q7KKle0kWd6uAe3STaqwa82MHLUZ3bb+NVt3IlmZUSW3hLjXiIiRQ6EE0yA/PzRXKF7
+ QUKp0gksnVv/RlXviifW2l2Kv0UuHjpjd4xcRfafSryPB/QK9UlD6WAkNnioQX5Er4GJ
+ 5JYxyEsdqHlx+ZNRapzRP8s9Fx3yavLe6341y4dsCLwgZxA2B7499UJsiVtlDkl92nbK
+ vTCPHYIivsWggsLXEVjieQHz/TJ3HQ/dnGQ9aVa/iUMI6jcc38L0O3SxRW5uepINhF61
+ GjDQ==
+X-Gm-Message-State: AOAM530DkP05cLoyGJZcfBjlStJ9O3NaZQ+HXVjRUdbLKIEeUNlvhG92
+ AZH7rBoJbHNqZljiBb+WyiRrnNepSNgVzTydeGo9PA==
+X-Google-Smtp-Source: ABdhPJxfvNwQWmcLlUHinIi8KL8y53Whom2qQQjL2mCjCHAGEasPGLp0gq4ezhCvZiPDcm6sl0n5Ck/FElKiAjFuZ4M=
+X-Received: by 2002:a5d:6a46:: with SMTP id t6mr4345005wrw.374.1593008401861; 
+ Wed, 24 Jun 2020 07:20:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200622221219.1046290-1-alexander.deucher@amd.com>
-In-Reply-To: <20200622221219.1046290-1-alexander.deucher@amd.com>
+References: <20200622214113.969491-1-alexander.deucher@amd.com>
+In-Reply-To: <20200622214113.969491-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 Jun 2020 10:19:36 -0400
-Message-ID: <CADnq5_McBUGrx9jrEJcfKX_FSRKMeq8o=0Y7jHkQzjm6VtY1qQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/uvd3.x: fix register definition warnings
+Date: Wed, 24 Jun 2020 10:19:50 -0400
+Message-ID: <CADnq5_O3hjmavJMVTCv==hMn-k3v=fiDKx7AjN3bts9Aj+=gSA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: make sure to reserve tmr region on all asics
+ which support it
 To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,87 +82,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Ping?
 
-On Mon, Jun 22, 2020 at 6:12 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+Alex
+
+On Mon, Jun 22, 2020 at 5:41 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> drop the duplicate register macros from sid.h and use the
-> standard ones in the oss register headers.
+> This includes older APUs like renoir.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/si.c    |  1 +
->  drivers/gpu/drm/amd/amdgpu/si_ih.c |  2 ++
->  drivers/gpu/drm/amd/amdgpu/sid.h   | 19 -------------------
->  3 files changed, 3 insertions(+), 19 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-> index cda9aa5e4b9e..9b12285177e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> @@ -45,6 +45,7 @@
->  #include "dce_virtual.h"
->  #include "gca/gfx_6_0_d.h"
->  #include "oss/oss_1_0_d.h"
-> +#include "oss/oss_1_0_sh_mask.h"
->  #include "gmc/gmc_6_0_d.h"
->  #include "dce/dce_6_0_d.h"
->  #include "uvd/uvd_4_0_d.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> index 88ae27a5a03d..621727d7fd18 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> @@ -27,6 +27,8 @@
->  #include "amdgpu_ih.h"
->  #include "sid.h"
->  #include "si_ih.h"
-> +#include "oss/oss_1_0_d.h"
-> +#include "oss/oss_1_0_sh_mask.h"
->
->  static void si_ih_set_interrupt_funcs(struct amdgpu_device *adev);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgpu/sid.h
-> index 75b5d441b628..5f660f0c819f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-> @@ -2341,11 +2341,6 @@
->  #       define NI_INPUT_GAMMA_XVYCC_222                3
->  #       define NI_OVL_INPUT_GAMMA_MODE(x)              (((x) & 0x3) << 4)
->
-> -#define IH_RB_WPTR__RB_OVERFLOW_MASK   0x1
-> -#define IH_RB_CNTL__WPTR_OVERFLOW_CLEAR_MASK 0x80000000
-> -#define SRBM_STATUS__IH_BUSY_MASK      0x20000
-> -#define SRBM_SOFT_RESET__SOFT_RESET_IH_MASK    0x400
-> -
->  #define        BLACKOUT_MODE_MASK                      0x00000007
->  #define        VGA_RENDER_CONTROL                      0xC0
->  #define R_000300_VGA_RENDER_CONTROL             0xC0
-> @@ -2432,18 +2427,6 @@
->  #define MC_SEQ_MISC0__MT__HBM    0x60000000
->  #define MC_SEQ_MISC0__MT__DDR3   0xB0000000
->
-> -#define SRBM_STATUS__MCB_BUSY_MASK 0x200
-> -#define SRBM_STATUS__MCB_BUSY__SHIFT 0x9
-> -#define SRBM_STATUS__MCB_NON_DISPLAY_BUSY_MASK 0x400
-> -#define SRBM_STATUS__MCB_NON_DISPLAY_BUSY__SHIFT 0xa
-> -#define SRBM_STATUS__MCC_BUSY_MASK 0x800
-> -#define SRBM_STATUS__MCC_BUSY__SHIFT 0xb
-> -#define SRBM_STATUS__MCD_BUSY_MASK 0x1000
-> -#define SRBM_STATUS__MCD_BUSY__SHIFT 0xc
-> -#define SRBM_STATUS__VMC_BUSY_MASK 0x100
-> -#define SRBM_STATUS__VMC_BUSY__SHIFT 0x8
-> -
-> -
->  #define GRBM_STATUS__GUI_ACTIVE_MASK 0x80000000
->  #define CP_INT_CNTL_RING__TIME_STAMP_INT_ENABLE_MASK 0x4000000
->  #define CP_INT_CNTL_RING0__PRIV_REG_INT_ENABLE_MASK 0x800000
-> @@ -2468,8 +2451,6 @@
->
->  #define PCIE_BUS_CLK    10000
->  #define TCLK            (PCIE_BUS_CLK / 10)
-> -#define CC_DRM_ID_STRAPS__ATI_REV_ID_MASK              0xf0000000
-> -#define CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT 0x1c
->  #define        PCIE_PORT_INDEX                                 0xe
->  #define        PCIE_PORT_DATA                                  0xf
->  #define EVERGREEN_PIF_PHY0_INDEX                        0x8
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index f1855a8323b2..7d51768684dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1974,7 +1974,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>          * If IP discovery enabled, a block of memory should be
+>          * reserved for IP discovey.
+>          */
+> -       if (adev->asic_type >= CHIP_NAVI10 && amdgpu_discovery) {
+> +       if (adev->discovery_bin) {
+>                 r = amdgpu_ttm_reserve_tmr(adev);
+>                 if (r)
+>                         return r;
 > --
 > 2.25.4
 >
