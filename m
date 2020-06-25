@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EE57C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EF8EC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6393620672
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6409820672
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lLhbc61G"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6393620672
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EYU3yZiu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6409820672
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A24E6E878;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3256EC1E;
 	Thu, 25 Jun 2020 22:05:06 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C01B6E878
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 22:05:04 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id u17so6034948qtq.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 15:05:04 -0700 (PDT)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0F46E878
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 22:05:03 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id f18so7045908qkh.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 15:05:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=lm7cg5Agd55IfjuGXuUl6h/Ar8IcvTTkpFVjwpt0Kas=;
- b=lLhbc61GMcs0jeIXjXRzQKplY1TqmDs0MrKHIYccAP/D9SvmMU+eh/3qS/Zv5jLvqO
- uxCn0pxen1QK78ltxFowv7M7yhm8vAWzovGyi25I9nKcd2ZScR89tnX2+cj9xBJ1bHmo
- e9qxBmvlcRUrjs4Qa083DSb8lL6jh/H4mrIT7XxN/0640VMBWBvKS1s6LJenfMCvKaM5
- FHxuCSsjdo7V2g0Ghj5u9CaOEQ4YQP4p3u9MNxcJz3oxxgdwdMgOLTJLuy19dTCPbL1E
- xGkpknfc+Zm0fY2YnjqbHcoo8ZM4PqupSb1AIHkzEC1MKmHd6h5+p5nimW9w/2c8mgGw
- cjbw==
+ bh=+zMh/F7SVSdEKneflasz+Yejq0fditu42SkLo2DFRV0=;
+ b=EYU3yZiucIcOZBiH5NCzMYbkjNecgVa1XTiMdrL6M3DYlxzMWbn9mUw9N30EqffUHk
+ X5q4U2ZpM8moZV9qXvIUOHxxSWd872mWggY0T0cUc5zMZ8/uVZS3GrELItuYRQYRubcl
+ z7lVWwBRDSw2HzaYCJGWW7EYc3Z8n/jLDHlZ4WF3xFHqRtWcZAkfKDq52AbKuhAI71Ad
+ JOkzMXLUIjyVvjB2d8YtP0dNpn2djxGP03xPOWHcWm+SQypbMrPIEuHe/1cD2Om1GCCN
+ nfxJltLLETJk+MpZ9EBMP3FWDOCKm531o/8s4iSMgvuNIgq24iaZrgy6go1iYp2WMzVm
+ sAzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=lm7cg5Agd55IfjuGXuUl6h/Ar8IcvTTkpFVjwpt0Kas=;
- b=OBeL4viyB8kvRph/g0k73uCGgo4v8KVzvj52VCe4iuSuUBsrmg9YZLtblnZ5R7ds8L
- SYb9HqHSCleT4Rs9EZgSStEVo90rQv8Vwwyz+qG5zCpgqlI08UJOvP0JVhIhNTIKR5ex
- 1vlNn7p5WZQr3r0ejwu2Y9b1FqOqTbrT4qf5ztI0/iU7Gtg9JZCSZliWEBzrAcO/or6O
- 6cInB+OigVKbuizS4H1TSM/El1g/rPEe6xYvsVc3QHSsvzC/Gn1U7bPn3gcqkRNQILMm
- nB0tmAbq12C7WZ6gIcIJ7DcZmNnzrsbs4kRZ+8EinI83d0jlWszDpaGiDmC+nY8bqyHq
- i4lg==
-X-Gm-Message-State: AOAM533tZGrp77/AUigcgQrEjc7hzBGWqnV27vM5vopba3C/xD6FiwNP
- gdmF2FKiJ4Nb5qMppkWLHh3zyAZD
-X-Google-Smtp-Source: ABdhPJz3+FnpdcQUlbBf5NaZGaXqHMsYGzukNqCzar9UFtpXYFQU0fw1qMw6Wi5Em8q8Q0Xwc6YBqA==
-X-Received: by 2002:ac8:2af4:: with SMTP id c49mr32786405qta.42.1593122703243; 
- Thu, 25 Jun 2020 15:05:03 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.51.205])
- by smtp.gmail.com with ESMTPSA id x197sm6670885qka.74.2020.06.25.15.05.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ bh=+zMh/F7SVSdEKneflasz+Yejq0fditu42SkLo2DFRV0=;
+ b=DhUsccPiawxbX6LhB4JYuLPXCSriAupCzvfGqSylvGdxTzoxYgHeJ97DRZNse0k6lq
+ 3SUTdVfX++M7llYkg8rxxzkrPkMXMCdXt8EmtaCrwYDpOZkbXwlKZllQ8BCdsH7ow87i
+ BtrXe8eTp4VdbBoa4f3FDc8bE22rOTxBvamoh0DA2KiawlP0mLLXzXtUxXvy4T9NYSnk
+ PFGY4De/Z7SljxHvTItNILRHT0XmaBLCnM8PBKyCVnv35IYoVt4coqxxlFyF15mQFIkM
+ X+uGk2XL1bBjYXpI3EzOiy/yf5EwusNU3lrfqmWnr3pkKh+c93oLS9v7lMB6zqPsOBBh
+ mM6g==
+X-Gm-Message-State: AOAM533ldeUlz9OM0j1EbM3+ntE+2wM4Zbc4oG5RURDdD+aWpNTS2hMo
+ u4gPWlES1QFQEJGIV2LWov6hS5ni
+X-Google-Smtp-Source: ABdhPJyKlmDvgS/Q9og7baoCCGBV4OEJCHdxbyO+0tlac9m/B+jj+pVPPW29CPwjVQCplX9BtSc1fg==
+X-Received: by 2002:a37:6643:: with SMTP id a64mr10911885qkc.397.1593122702249; 
  Thu, 25 Jun 2020 15:05:02 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.51.205])
+ by smtp.gmail.com with ESMTPSA id x197sm6670885qka.74.2020.06.25.15.05.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2020 15:05:01 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu/atomfirmware: update vram info handling for
- renoir
-Date: Thu, 25 Jun 2020 18:04:53 -0400
-Message-Id: <20200625220453.1367084-3-alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu/atomfirmware: update to latest
+ integratedinfotable
+Date: Thu, 25 Jun 2020 18:04:52 -0400
+Message-Id: <20200625220453.1367084-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200625220453.1367084-1-alexander.deucher@amd.com>
 References: <20200625220453.1367084-1-alexander.deucher@amd.com>
@@ -87,50 +87,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support for integrated_system_info table v12.  Use the actual
-v12 structure.
+Used for renoir.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/include/atomfirmware.h | 78 ++++++++++++++++++++++
+ 1 file changed, 78 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 4b8aad1c0b51..1279053324f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -111,6 +111,7 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev)
- 
- union igp_info {
- 	struct atom_integrated_system_info_v1_11 v11;
-+	struct atom_integrated_system_info_v1_12 v12;
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index b852248b2da8..c2544c81dfb2 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -1116,6 +1116,35 @@ struct atom_14nm_combphy_tmds_vs_set
+   uint8_t margin_deemph_lane0__deemph_sel_val;         
  };
  
- union umc_info {
-@@ -206,7 +207,6 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
- 				(mode_info->atom_context->bios + data_offset);
- 			switch (crev) {
- 			case 11:
--			case 12:
- 				mem_channel_number = igp_info->v11.umachannelnumber;
- 				/* channel width is 64 */
- 				if (vram_width)
-@@ -215,6 +215,15 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
- 				if (vram_type)
- 					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
- 				break;
-+			case 12:
-+				mem_channel_number = igp_info->v12.umachannelnumber;
-+				/* channel width is 64 */
-+				if (vram_width)
-+					*vram_width = mem_channel_number * 64;
-+				mem_type = igp_info->v12.memorytype;
-+				if (vram_type)
-+					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
-+				break;
- 			default:
- 				return -EINVAL;
- 			}
++struct atom_DCN_dpphy_dvihdmi_tuningset
++{
++  uint32_t max_symclk_in10khz;
++  uint8_t  encoder_mode;           //atom_encode_mode_def, =2: DVI, =3: HDMI mode
++  uint8_t  phy_sel;                //bit vector of phy, bit0= phya, bit1=phyb, ....bit5 = phyf 
++  uint8_t  tx_eq_main;             // map to RDPCSTX_PHY_FUSE0/1/2/3[5:0](EQ_MAIN)
++  uint8_t  tx_eq_pre;              // map to RDPCSTX_PHY_FUSE0/1/2/3[11:6](EQ_PRE)
++  uint8_t  tx_eq_post;             // map to RDPCSTX_PHY_FUSE0/1/2/3[17:12](EQ_POST)
++  uint8_t  reserved1;
++  uint8_t  tx_vboost_lvl;          // tx_vboost_lvl, map to RDPCSTX_PHY_CNTL0.RDPCS_PHY_TX_VBOOST_LVL
++  uint8_t  reserved2;
++};
++
++struct atom_DCN_dpphy_dp_setting{
++  uint8_t dp_vs_pemph_level;       //enum of atom_dp_vs_preemph_def
++  uint8_t tx_eq_main;             // map to RDPCSTX_PHY_FUSE0/1/2/3[5:0](EQ_MAIN)
++  uint8_t tx_eq_pre;              // map to RDPCSTX_PHY_FUSE0/1/2/3[11:6](EQ_PRE)
++  uint8_t tx_eq_post;             // map to RDPCSTX_PHY_FUSE0/1/2/3[17:12](EQ_POST)
++  uint8_t tx_vboost_lvl;          // tx_vboost_lvl, map to RDPCSTX_PHY_CNTL0.RDPCS_PHY_TX_VBOOST_LVL
++};
++
++struct atom_DCN_dpphy_dp_tuningset{
++  uint8_t phy_sel;                 // bit vector of phy, bit0= phya, bit1=phyb, ....bit5 = phyf 
++  uint8_t version;
++  uint16_t table_size;             // size of atom_14nm_dpphy_dp_setting
++  uint16_t reserved;
++  struct atom_DCN_dpphy_dp_setting dptunings[10];
++};
++
+ struct atom_i2c_reg_info {
+   uint8_t ucI2cRegIndex;
+   uint8_t ucI2cRegVal;
+@@ -1178,6 +1207,55 @@ struct atom_integrated_system_info_v1_11
+   uint32_t  reserved[66];
+ };
+ 
++struct atom_integrated_system_info_v1_12
++{
++  struct  atom_common_table_header  table_header;
++  uint32_t  vbios_misc;                       //enum of atom_system_vbiosmisc_def
++  uint32_t  gpucapinfo;                       //enum of atom_system_gpucapinf_def   
++  uint32_t  system_config;                    
++  uint32_t  cpucapinfo;
++  uint16_t  gpuclk_ss_percentage;             //unit of 0.001%,   1000 mean 1% 
++  uint16_t  gpuclk_ss_type;
++  uint16_t  lvds_ss_percentage;               //unit of 0.001%,   1000 mean 1%
++  uint16_t  lvds_ss_rate_10hz;
++  uint16_t  hdmi_ss_percentage;               //unit of 0.001%,   1000 mean 1%
++  uint16_t  hdmi_ss_rate_10hz;
++  uint16_t  dvi_ss_percentage;                //unit of 0.001%,   1000 mean 1%
++  uint16_t  dvi_ss_rate_10hz;
++  uint16_t  dpphy_override;                   // bit vector, enum of atom_sysinfo_dpphy_override_def
++  uint16_t  lvds_misc;                        // enum of atom_sys_info_lvds_misc_def
++  uint16_t  backlight_pwm_hz;                 // pwm frequency in hz
++  uint8_t   memorytype;                       // enum of atom_dmi_t17_mem_type_def, APU memory type indication.
++  uint8_t   umachannelnumber;                 // number of memory channels
++  uint8_t   pwr_on_digon_to_de;               // all pwr sequence numbers below are in uint of 4ms //
++  uint8_t   pwr_on_de_to_vary_bl;
++  uint8_t   pwr_down_vary_bloff_to_de;
++  uint8_t   pwr_down_de_to_digoff;
++  uint8_t   pwr_off_delay;
++  uint8_t   pwr_on_vary_bl_to_blon;
++  uint8_t   pwr_down_bloff_to_vary_bloff;
++  uint8_t   min_allowed_bl_level;
++  uint8_t   htc_hyst_limit;
++  uint8_t   htc_tmp_limit;
++  uint8_t   reserved1;
++  uint8_t   reserved2;
++  struct atom_external_display_connection_info extdispconninfo;
++  struct atom_DCN_dpphy_dvihdmi_tuningset  TMDS_tuningset;
++  struct atom_DCN_dpphy_dvihdmi_tuningset  hdmiCLK5_tuningset;
++  struct atom_DCN_dpphy_dvihdmi_tuningset  hdmiCLK8_tuningset;
++  struct atom_DCN_dpphy_dp_tuningset rbr_tuningset;        // rbr 1.62G dp tuning set
++  struct atom_DCN_dpphy_dp_tuningset hbr3_tuningset;   // HBR3 dp tuning set  
++  struct atom_camera_data  camera_info;
++  struct atom_hdmi_retimer_redriver_set dp0_retimer_set;   //for DP0
++  struct atom_hdmi_retimer_redriver_set dp1_retimer_set;   //for DP1
++  struct atom_hdmi_retimer_redriver_set dp2_retimer_set;   //for DP2
++  struct atom_hdmi_retimer_redriver_set dp3_retimer_set;   //for DP3
++  struct atom_DCN_dpphy_dp_tuningset hbr_tuningset;    //hbr 2.7G dp tuning set
++  struct atom_DCN_dpphy_dp_tuningset hbr2_tuningset;   //hbr2 5.4G dp turnig set
++  struct atom_DCN_dpphy_dp_tuningset edp_tunings;       //edp tuning set  
++  struct atom_DCN_dpphy_dvihdmi_tuningset  hdmiCLK6_tuningset;
++  uint32_t  reserved[63];
++};
+ 
+ // system_config
+ enum atom_system_vbiosmisc_def{
 -- 
 2.25.4
 
