@@ -2,60 +2,77 @@ Return-Path: <SRS0=ju5j=AG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF32AC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 07:34:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BB16C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 08:14:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0D9D2076E
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 07:34:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 28F3C2067D
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 08:14:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GGeELGeF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0D9D2076E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EqMbrHFp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28F3C2067D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 780126E25F;
-	Thu, 25 Jun 2020 07:34:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E51096E25D
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 07:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593069256;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=MVWau0LsYxkoKXpwztTiDi6I+HlC11E2MMspm/P0/vM=;
- b=GGeELGeFeOgp8X9BNcdp3rUi7lSmi+d+GEGUgqw+R+cY/4L8lJVNWQXo6PlRvdBi1hdu3O
- 1N+nvFmFJSNinXVwJ//P4zF0JzXdvPd1aDswPgdlmzB5D/HF0A5Yk93r8S0zoAMGjo4kRb
- WZTyj7sXJLCPZYkWl8EjA+55Tze0glA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-313--JtxL0ZzMuSh0v9BHsEQ3A-1; Thu, 25 Jun 2020 03:14:09 -0400
-X-MC-Unique: -JtxL0ZzMuSh0v9BHsEQ3A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C0A9107ACCA;
- Thu, 25 Jun 2020 07:14:08 +0000 (UTC)
-Received: from starship (unknown [10.35.206.197])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 680EA5BAC7;
- Thu, 25 Jun 2020 07:14:07 +0000 (UTC)
-Message-ID: <5bd8ffcc829b71651adca7f16cd52c6800508149.camel@redhat.com>
-Subject: Kernel issues with Radeon Pro WX4100 and DP->HDMI dongles
-From: Maxim Levitsky <mlevitsk@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Thu, 25 Jun 2020 10:14:06 +0300
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCDEE89B67;
+	Thu, 25 Jun 2020 08:14:28 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F94C89B67
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 08:14:27 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id j4so2377463wrp.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 01:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=oHpJ2etFp9myED8aXfIywFXOSaf7yD7sCtOZlo1mtfI=;
+ b=EqMbrHFpVRG5zVtec/tO+EYhpl9w/Srhn9yX8Er89yuJ5e7UZiwZgHTw5AJPywjhUw
+ fNHOwSCcl8IF5zdp1zlAM5K/XY8s19f2yHx9FoQrcVWd0dFj1fU/MM7sVbbEDME50Ptz
+ idVuOqsSoRxlMsCZ9EfVL7hqdeCI9IgiZcqHuDFV+NnelJ3kbINAgpayHmIVbynv/10Z
+ eSrtVbzYjXOMWSGUeMJ0A4UzpqV6wrQ9gY1ozXVSXnhF68ZVTzOT3H4i+VQzr0eZRdfQ
+ weBHsP/tfNfWGnMomPEcLtIvHccnTD1YyMTZg836+SnRIeS/RhxnZmBwBIhSACZpAjoN
+ vojA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=oHpJ2etFp9myED8aXfIywFXOSaf7yD7sCtOZlo1mtfI=;
+ b=G8zLITRZXkUMqv4iU8nVencSfIP15aR7mciWPfMyMB8HC2XhNLFJzbCE/1LzreITkJ
+ MmKYaQ0oJEDfyquzsze+EavClRfs13yc58ahY5YUolFcnFoC7mCg4oDxlrYUILxPQq8m
+ u0hTyZUZmEPKumEa6QpBJBCdOFFOhhZVM9DnmE9DG7Mbf0/g5y3ouaRXTGLsoBIV9oXP
+ tmVOTjt+SFm0PS6wHnslWm9vLXjHDID+hTPuJe+6mGf+mdq28sk9S2nN+9FqpYPl2T5z
+ 5VeqvJWIao9SkA3FLkNr+xvc/bJlW7lvwhStRsyxnpAr2QEhtWQ/wpUsb4TCez5LK4wL
+ cCdw==
+X-Gm-Message-State: AOAM531iufGnZ+9yMKLFDHjHZWRKIOJybYxm1op9aaA+NRvjPbNy4Rft
+ k8Ph2F7yrYUL8fTMPTuK8u8=
+X-Google-Smtp-Source: ABdhPJwTvCbJYoJJmuSzKj4LdplNyXvg2p1jpZEIbl8FcCRmPLIAtBCAhumKGSXVm/FdTvmrn5PqTQ==
+X-Received: by 2002:a5d:6748:: with SMTP id l8mr39109471wrw.347.1593072866129; 
+ Thu, 25 Jun 2020 01:14:26 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id h29sm32391298wrc.78.2020.06.25.01.14.23
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 25 Jun 2020 01:14:24 -0700 (PDT)
+Subject: Re: [PATCH 2/3] drm/amdgpu: SI support for VCE clock control
+To: Alex Jivin <alex.jivin@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200624203137.14377-1-alex.jivin@amd.com>
+ <20200624203137.14377-2-alex.jivin@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <66ded5e9-1c05-1bcf-ef37-c6d0024cae92@gmail.com>
+Date: Thu, 25 Jun 2020 10:14:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Mailman-Approved-At: Thu, 25 Jun 2020 07:34:44 +0000
+In-Reply-To: <20200624203137.14377-2-alex.jivin@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,152 +84,235 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Am 24.06.20 um 22:31 schrieb Alex Jivin:
+> Port functionality from the Radeon driver to support
+> VCE clock control.
+>
+> Signed-off-by: Alex Jivin <alex.jivin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h |   9 ++
+>   drivers/gpu/drm/amd/amdgpu/si.c     | 126 +++++++++++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/sid.h    |  31 +++++++
+>   3 files changed, 165 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 6c7dd0a707c9..4b5a9a259a21 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1083,6 +1083,15 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+>   		tmp_ |= ((val) & ~(mask));			\
+>   		WREG32_PLL(reg, tmp_);				\
+>   	} while (0)
+> +
+> +#define WREG32_SMC_P(_Reg, _Val, _Mask)                         \
+> +	do {                                                    \
+> +		u32 tmp = RREG32_SMC(_Reg);                     \
+> +		tmp &= (_Mask);                                 \
+> +		tmp |= ((_Val) & ~(_Mask));                     \
+> +		WREG32_SMC(_Reg, tmp);                          \
+> +	} while (0)
+> +
+>   #define DREG32_SYS(sqf, adev, reg) seq_printf((sqf), #reg " : 0x%08X\n", amdgpu_device_rreg((adev), (reg), false))
+>   #define RREG32_IO(reg) amdgpu_io_rreg(adev, (reg))
+>   #define WREG32_IO(reg, v) amdgpu_io_wreg(adev, (reg), (v))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index 93609d69eff2..a5ad48fe502e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1650,6 +1650,130 @@ static int si_set_uvd_clocks(struct amdgpu_device *adev, u32 vclk, u32 dclk)
+>   	return 0;
+>   }
+>   
+> +static int si_vce_send_vcepll_ctlreq(struct amdgpu_device *adev)
+> +{
+> +	unsigned i;
+> +
+> +	/* Make sure VCEPLL_CTLREQ is deasserted */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~UPLL_CTLREQ_MASK);
+> +
+> +	mdelay(10);
+> +
+> +	/* Assert UPLL_CTLREQ */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, UPLL_CTLREQ_MASK, ~UPLL_CTLREQ_MASK);
+> +
+> +	/* Wait for CTLACK and CTLACK2 to get asserted */
+> +	for (i = 0; i < SI_MAX_CTLACKS_ASSERTION_WAIT; ++i) {
+> +		uint32_t mask = UPLL_CTLACK_MASK | UPLL_CTLACK2_MASK;
+> +
+> +		if ((RREG32_SMC(CG_VCEPLL_FUNC_CNTL) & mask) == mask)
+> +			break;
+> +		mdelay(10);
+> +	}
+> +
+> +	/* Deassert UPLL_CTLREQ */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~UPLL_CTLREQ_MASK);
+> +
+> +	if (i == SI_MAX_CTLACKS_ASSERTION_WAIT) {
+> +		DRM_ERROR("Timeout setting UVD clocks!\n");
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int si_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
+> +{
+> +	unsigned fb_div = 0, evclk_div = 0, ecclk_div = 0;
+> +	int a;
 
-I recently tried to connect my TV and WX4100 via two different DP->HDMI dongles.
-One of them makes my main monitor to go dark, and system to lockup (I haven't yet debugged this futher), and the other one seems to work,
-most of the time, but sometimes causes a kernel panic on 5.8.0-rc1:
+Why "a"? Was that in radeon as well?
 
+We usually use r or ret for the return/error code of functions.
 
-[  +0.000000] ---[ end trace 0ce8685fac3db6b5 ]---
-[  +2.142125] [drm:dc_link_detect_helper [amdgpu]] *ERROR* No EDID read.
-[  +0.065348] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.001002] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.006310] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.102119] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.000679] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[ +22.037707] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[ +16.202833] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.000685] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.053875] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.000351] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-[  +0.031764] ------------[ cut here ]------------
-[  +0.000001] WARNING: CPU: 58 PID: 504 at drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/gpio_base.c:66 dal_gpio_open_ex+0x1b/0x40 [amdgpu]
-[  +0.000001] Modules linked in: vfio_pci vfio_virqfd vfio_iommu_type1 vfio xfs rfcomm xt_MASQUERADE xt_conntrack ipt_REJECT iptable_mangle iptable_nat nf_nat ebtable_filter ebtables ip6table_filter
-ip6_tables tun bridge pmbus cmac pmbus_core ee1004 jc42 bnep sunrpc vfat fat dm_mirror dm_region_hash dm_log iwlmvm wmi_bmof mac80211 kvm_amd kvm libarc4 uvcvideo iwlwifi btusb btrtl btbcm btintel
-videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 snd_hda_codec_hdmi videobuf2_common snd_usb_audio bluetooth videodev input_leds snd_hda_intel cfg80211 snd_usbmidi_lib joydev snd_intel_dspcfg
-snd_rawmidi mc snd_hda_codec xpad ff_memless snd_hwdep thunderbolt ecdh_generic snd_seq ecc snd_hda_core irqbypass rfkill i2c_nvidia_gpu efi_pstore pcspkr snd_seq_device bfq snd_pcm snd_timer zenpower
-snd i2c_piix4 rtc_cmos tpm_crb tpm_tis tpm_tis_core tpm wmi button binfmt_misc dm_crypt sd_mod uas usb_storage hid_generic usbhid hid ext4 mbcache jbd2 amdgpu gpu_sched ttm drm_kms_helper syscopyarea
-sysfillrect
-[  +0.000018]  sysimgblt crc32_pclmul ahci crc32c_intel fb_sys_fops libahci igb ccp cec xhci_pci libata i2c_algo_bit rng_core nvme xhci_hcd drm nvme_core t10_pi nbd usbmon it87 hwmon_vid fuse i2c_dev
-i2c_core ipv6 autofs4 [last unloaded: nvidia]
-[  +0.000005] CPU: 58 PID: 504 Comm: kworker/58:1 Tainted: P        W  O      5.8.0-rc1.stable #118
-[  +0.000001] Hardware name: Gigabyte Technology Co., Ltd. TRX40 DESIGNARE/TRX40 DESIGNARE, BIOS F4c 03/05/2020
-[  +0.000000] Workqueue: events dm_irq_work_func [amdgpu]
-[  +0.000001] RIP: 0010:dal_gpio_open_ex+0x1b/0x40 [amdgpu]
-[  +0.000001] Code: 08 89 47 10 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 83 7f 08 00 75 0f 48 83 7f 18 00 74 15 89 77 20 e9 65 07 00 00 <0f> 0b e8 ae 5b 8a e0 b8 05 00 00 00 c3 0f 0b e8 a1
-5b 8a e0 b8 06
-[  +0.000000] RSP: 0018:ffffc90002e93b90 EFLAGS: 00010282
-[  +0.000001] RAX: 0000000000000000 RBX: ffff889fa4736ca0 RCX: 0000000000000000
-[  +0.000000] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffff889fa011ff00
-[  +0.000001] RBP: 0000000000000003 R08: 0000000000000001 R09: 0000000000000231
-[  +0.000000] R10: 000000000000017f R11: ffff889fbeea4b84 R12: ffffc90002e93c74
-[  +0.000000] R13: 0000000000000000 R14: ffff889fa4736ca0 R15: ffff889fb0e2c100
-[  +0.000001] FS:  0000000000000000(0000) GS:ffff889fbee80000(0000) knlGS:0000000000000000
-[  +0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.000001] CR2: 00001ee62a52b000 CR3: 000000174d175000 CR4: 0000000000340ea0
-[  +0.000000] Call Trace:
-[  +0.000000]  dal_ddc_open+0x2d/0xe0 [amdgpu]
-[  +0.000001]  ? dm_read_reg_func+0x33/0xa0 [amdgpu]
-[  +0.000000]  dce_aux_transfer_raw+0xb4/0xa30 [amdgpu]
-[  +0.000000]  ? hrtimer_try_to_cancel+0x28/0x100
-[  +0.000001]  dm_dp_aux_transfer+0x8f/0xf0 [amdgpu]
-[  +0.000000]  drm_dp_dpcd_access+0x6b/0x110 [drm_kms_helper]
-[  +0.000000]  drm_dp_dpcd_read+0xb6/0xf0 [drm_kms_helper]
-[  +0.000001]  dm_helpers_dp_read_dpcd+0x28/0x50 [amdgpu]
-[  +0.000000]  core_link_read_dpcd.part.0+0x1f/0x30 [amdgpu]
-[  +0.000000]  read_hpd_rx_irq_data+0x39/0x90 [amdgpu]
-[  +0.000001]  dc_link_handle_hpd_rx_irq+0x74/0x7c0 [amdgpu]
-[  +0.000000]  handle_hpd_rx_irq+0x62/0x2e0 [amdgpu]
-[  +0.000000]  ? __schedule+0x252/0x6a0
-[  +0.000001]  ? finish_task_switch+0x18d/0x280
-[  +0.000000]  dm_irq_work_func+0x43/0x50 [amdgpu]
-[  +0.000000]  process_one_work+0x1d2/0x390
-[  +0.000000]  worker_thread+0x225/0x3b0
-[  +0.000001]  ? process_one_work+0x390/0x390
-[  +0.000000]  kthread+0xf9/0x130
-[  +0.000000]  ? kthread_park+0x90/0x90
-[  +0.000001]  ret_from_fork+0x1f/0x30
-[  +0.000000] ---[ end trace 0ce8685fac3db6b6 ]---
-[  +0.002807] int3: 0000 [#1] SMP
-[  +0.000001] CPU: 58 PID: 504 Comm: kworker/58:1 Tainted: P        W  O      5.8.0-rc1.stable #118
-[  +0.000001] Hardware name: Gigabyte Technology Co., Ltd. TRX40 DESIGNARE/TRX40 DESIGNARE, BIOS F4c 03/05/2020
-[  +0.000000] Workqueue: events dm_irq_work_func [amdgpu]
-[  +0.000001] RIP: 0010:kgdb_breakpoint+0x10/0x20
-[  +0.000001] Code: 4d f9 ff eb c5 cc cc cc cc cc 0f 1f 44 00 00 31 c0 c3 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 f0 ff 05 3c be 3e 01 0f ae f8 cc <0f> ae f8 f0 ff 0d 2e be 3e 01 c3 0f 1f 44 00 00 0f
-1f 44 00 00 e8
-[  +0.000000] RSP: 0018:ffffc90002e93b88 EFLAGS: 00000202
-[  +0.000001] RAX: 0000000000000000 RBX: ffff889fa4736ca0 RCX: 0000000000000000
-[  +0.000001] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffff889fa011ff00
-[  +0.000000] RBP: 0000000000000003 R08: 0000000000000001 R09: 0000000000000231
-[  +0.000001] R10: 000000000000017f R11: ffff889fbeea4b84 R12: ffffc90002e93c74
-[  +0.000000] R13: 0000000000000000 R14: ffff889fa4736ca0 R15: ffff889fb0e2c100
-[  +0.000001] FS:  0000000000000000(0000) GS:ffff889fbee80000(0000) knlGS:0000000000000000
-[  +0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.000001] CR2: 00001ee62a52b000 CR3: 000000174d175000 CR4: 0000000000340ea0
-[  +0.000000] Call Trace:
-[  +0.000001]  dal_gpio_open_ex+0x22/0x40 [amdgpu]
-[  +0.000000]  dal_ddc_open+0x2d/0xe0 [amdgpu]
-[  +0.000000]  ? dm_read_reg_func+0x33/0xa0 [amdgpu]
-[  +0.000001]  dce_aux_transfer_raw+0xb4/0xa30 [amdgpu]
-[  +0.000000]  ? hrtimer_try_to_cancel+0x28/0x100
-[  +0.000000]  dm_dp_aux_transfer+0x8f/0xf0 [amdgpu]
-[  +0.000001]  drm_dp_dpcd_access+0x6b/0x110 [drm_kms_helper]
-[  +0.000000]  drm_dp_dpcd_read+0xb6/0xf0 [drm_kms_helper]
-[  +0.000000]  dm_helpers_dp_read_dpcd+0x28/0x50 [amdgpu]
-[  +0.000001]  core_link_read_dpcd.part.0+0x1f/0x30 [amdgpu]
-[  +0.000000]  read_hpd_rx_irq_data+0x39/0x90 [amdgpu]
-[  +0.000000]  dc_link_handle_hpd_rx_irq+0x74/0x7c0 [amdgpu]
-[  +0.000001]  handle_hpd_rx_irq+0x62/0x2e0 [amdgpu]
-[  +0.000000]  ? __schedule+0x252/0x6a0
-[  +0.000000]  ? finish_task_switch+0x18d/0x280
-[  +0.000001]  dm_irq_work_func+0x43/0x50 [amdgpu]
-[  +0.000000]  process_one_work+0x1d2/0x390
-[  +0.000000]  worker_thread+0x225/0x3b0
-[  +0.000001]  ? process_one_work+0x390/0x390
-[  +0.000000]  kthread+0xf9/0x130
-[  +0.000000]  ? kthread_park+0x90/0x90
-[  +0.000001]  ret_from_fork+0x1f/0x30
-[  +0.000000] Modules linked in: vfio_pci vfio_virqfd vfio_iommu_type1 vfio xfs rfcomm xt_MASQUERADE xt_conntrack ipt_REJECT iptable_mangle iptable_nat nf_nat ebtable_filter ebtables ip6table_filter
-ip6_tables tun bridge pmbus cmac pmbus_core ee1004 jc42 bnep sunrpc vfat fat dm_mirror dm_region_hash dm_log iwlmvm wmi_bmof mac80211 kvm_amd kvm libarc4 uvcvideo iwlwifi btusb btrtl btbcm btintel
-videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 snd_hda_codec_hdmi videobuf2_common snd_usb_audio bluetooth videodev input_leds snd_hda_intel cfg80211 snd_usbmidi_lib joydev snd_intel_dspcfg
-snd_rawmidi mc snd_hda_codec xpad ff_memless snd_hwdep thunderbolt ecdh_generic snd_seq ecc snd_hda_core irqbypass rfkill i2c_nvidia_gpu efi_pstore pcspkr snd_seq_device bfq snd_pcm snd_timer zenpower
-snd i2c_piix4 rtc_cmos tpm_crb tpm_tis tpm_tis_core tpm wmi button binfmt_misc dm_crypt sd_mod uas usb_storage hid_generic usbhid hid ext4 mbcache jbd2 amdgpu gpu_sched ttm drm_kms_helper syscopyarea
-sysfillrect
-[  +0.000018]  sysimgblt crc32_pclmul ahci crc32c_intel fb_sys_fops libahci igb ccp cec xhci_pci libata i2c_algo_bit rng_core nvme xhci_hcd drm nvme_core t10_pi nbd usbmon it87 hwmon_vid fuse i2c_dev
-i2c_core ipv6 autofs4 [last unloaded: nvidia]
-[  +0.021468] ---[ end trace 0ce8685fac3db6b7 ]---
-[  +0.000000] RIP: 0010:kgdb_breakpoint+0x10/0x20
-[  +0.000001] Code: 4d f9 ff eb c5 cc cc cc cc cc 0f 1f 44 00 00 31 c0 c3 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 f0 ff 05 3c be 3e 01 0f ae f8 cc <0f> ae f8 f0 ff 0d 2e be 3e 01 c3 0f 1f 44 00 00 0f
-1f 44 00 00 e8
-[  +0.000000] RSP: 0018:ffffc90002e93b88 EFLAGS: 00000202
-[  +0.000001] RAX: 0000000000000000 RBX: ffff889fa4736ca0 RCX: 0000000000000000
-[  +0.000001] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffff889fa011ff00
-[  +0.000000] RBP: 0000000000000003 R08: 0000000000000001 R09: 0000000000000231
-[  +0.000001] R10: 000000000000017f R11: ffff889fbeea4b84 R12: ffffc90002e93c74
-[  +0.000000] R13: 0000000000000000 R14: ffff889fa4736ca0 R15: ffff889fb0e2c100
-[  +0.000001] FS:  0000000000000000(0000) GS:ffff889fbee80000(0000) knlGS:0000000000000000
-[  +0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.000000] CR2: 00001ee62a52b000 CR3: 000000174d175000 CR4: 0000000000340ea0
-[  +0.000001] Kernel panic - not syncing: Fatal exception in interrupt
-[  +0.001035] Kernel Offset: disabled
+Christian.
 
-
-The 'amdgpu_dm_irq_schedule_work FAILED src 8' errors were from previous plugs of this adapter.
-
-On 5.7-rc7 kernel I also tried booting, I also see the 'amdgpu_dm_irq_schedule_work FAILED' errors
-but it seems for now that the crash doesn't happen, but it might have beeing luck.
-
-On top of all this, I tried a 3rd dongle and it does appear to work flawlessly (no messages in dmesg).
-
-Best regards,
-	Maxim Levitsky
+> +
+> +	/* Bypass evclk and ecclk with bclk */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL_2,
+> +		     EVCLK_SRC_SEL(1) | ECCLK_SRC_SEL(1),
+> +		     ~(EVCLK_SRC_SEL_MASK | ECCLK_SRC_SEL_MASK));
+> +
+> +	/* Put PLL in bypass mode */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_BYPASS_EN_MASK,
+> +		     ~VCEPLL_BYPASS_EN_MASK);
+> +
+> +	if (!evclk || !ecclk) {
+> +		/* Keep the Bypass mode, put PLL to sleep */
+> +		WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_SLEEP_MASK,
+> +			     ~VCEPLL_SLEEP_MASK);
+> +		return 0;
+> +	}
+> +
+> +	a = si_calc_upll_dividers(adev, evclk, ecclk, 125000, 250000,
+> +				  16384, 0x03FFFFFF, 0, 128, 5,
+> +				  &fb_div, &evclk_div, &ecclk_div);
+> +	if (a)
+> +		return a;
+> +
+> +	/* Set RESET_ANTI_MUX to 0 */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL_5, 0, ~RESET_ANTI_MUX_MASK);
+> +
+> +	/* Set VCO_MODE to 1 */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_VCO_MODE_MASK,
+> +		     ~VCEPLL_VCO_MODE_MASK);
+> +
+> +	/* Toggle VCEPLL_SLEEP to 1 then back to 0 */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_SLEEP_MASK,
+> +		     ~VCEPLL_SLEEP_MASK);
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~VCEPLL_SLEEP_MASK);
+> +
+> +	/* Deassert VCEPLL_RESET */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~VCEPLL_RESET_MASK);
+> +
+> +	mdelay(1);
+> +
+> +	a = si_vce_send_vcepll_ctlreq(adev);
+> +	if (a)
+> +		return a;
+> +
+> +	/* Assert VCEPLL_RESET again */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_RESET_MASK, ~VCEPLL_RESET_MASK);
+> +
+> +	/* Disable spread spectrum. */
+> +	WREG32_SMC_P(CG_VCEPLL_SPREAD_SPECTRUM, 0, ~SSEN_MASK);
+> +
+> +	/* Set feedback divider */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL_3,
+> +		     VCEPLL_FB_DIV(fb_div),
+> +		     ~VCEPLL_FB_DIV_MASK);
+> +
+> +	/* Set ref divider to 0 */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~VCEPLL_REF_DIV_MASK);
+> +
+> +	/* Set PDIV_A and PDIV_B */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL_2,
+> +		     VCEPLL_PDIV_A(evclk_div) | VCEPLL_PDIV_B(ecclk_div),
+> +		     ~(VCEPLL_PDIV_A_MASK | VCEPLL_PDIV_B_MASK));
+> +
+> +	/* Give the PLL some time to settle */
+> +	mdelay(15);
+> +
+> +	/* Deassert PLL_RESET */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~VCEPLL_RESET_MASK);
+> +
+> +	mdelay(15);
+> +
+> +	/* Switch from bypass mode to normal mode */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~VCEPLL_BYPASS_EN_MASK);
+> +
+> +	a = si_vce_send_vcepll_ctlreq(adev);
+> +	if (a)
+> +		return a;
+> +
+> +	/* Switch VCLK and DCLK selection */
+> +	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL_2,
+> +		     EVCLK_SRC_SEL(16) | ECCLK_SRC_SEL(16),
+> +		     ~(EVCLK_SRC_SEL_MASK | ECCLK_SRC_SEL_MASK));
+> +
+> +	mdelay(100);
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct amdgpu_asic_funcs si_asic_funcs =
+>   {
+>   	.read_disabled_bios = &si_read_disabled_bios,
+> @@ -1660,7 +1784,7 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
+>   	.set_vga_state = &si_vga_set_state,
+>   	.get_xclk = &si_get_xclk,
+>   	.set_uvd_clocks = &si_set_uvd_clocks,
+> -	.set_vce_clocks = NULL,
+> +	.set_vce_clocks = &si_set_vce_clocks,
+>   	.get_pcie_lanes = &si_get_pcie_lanes,
+>   	.set_pcie_lanes = &si_set_pcie_lanes,
+>   	.get_config_memsize = &si_get_config_memsize,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgpu/sid.h
+> index 262da0fc8b2e..a3a966a83981 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sid.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/sid.h
+> @@ -2461,4 +2461,35 @@
+>   
+>   #define	MC_VM_FB_OFFSET					0x81a
+>   
+> +/* Discrete VCE clocks */
+> +#define CG_VCEPLL_FUNC_CNTL                             0xc0030600
+> +#define    VCEPLL_RESET_MASK                            0x00000001
+> +#define    VCEPLL_SLEEP_MASK                            0x00000002
+> +#define    VCEPLL_BYPASS_EN_MASK                        0x00000004
+> +#define    VCEPLL_CTLREQ_MASK                           0x00000008
+> +#define    VCEPLL_VCO_MODE_MASK                         0x00000600
+> +#define    VCEPLL_REF_DIV_MASK                          0x003F0000
+> +#define    VCEPLL_CTLACK_MASK                           0x40000000
+> +#define    VCEPLL_CTLACK2_MASK                          0x80000000
+> +
+> +#define CG_VCEPLL_FUNC_CNTL_2                           0xc0030601
+> +#define    VCEPLL_PDIV_A(x)                             ((x) << 0)
+> +#define    VCEPLL_PDIV_A_MASK                           0x0000007F
+> +#define    VCEPLL_PDIV_B(x)                             ((x) << 8)
+> +#define    VCEPLL_PDIV_B_MASK                           0x00007F00
+> +#define    EVCLK_SRC_SEL(x)                             ((x) << 20)
+> +#define    EVCLK_SRC_SEL_MASK                           0x01F00000
+> +#define    ECCLK_SRC_SEL(x)                             ((x) << 25)
+> +#define    ECCLK_SRC_SEL_MASK                           0x3E000000
+> +
+> +#define CG_VCEPLL_FUNC_CNTL_3                           0xc0030602
+> +#define    VCEPLL_FB_DIV(x)                             ((x) << 0)
+> +#define    VCEPLL_FB_DIV_MASK                           0x01FFFFFF
+> +
+> +#define CG_VCEPLL_FUNC_CNTL_4                           0xc0030603
+> +
+> +#define CG_VCEPLL_FUNC_CNTL_5                           0xc0030604
+> +#define CG_VCEPLL_SPREAD_SPECTRUM                       0xc0030606
+> +#define    VCEPLL_SSEN_MASK                             0x00000001
+> +
+>   #endif
 
 _______________________________________________
 amd-gfx mailing list
