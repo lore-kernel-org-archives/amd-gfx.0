@@ -8,64 +8,67 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BA33C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EE57C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E63D20672
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6393620672
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2020 22:05:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N6yEEwnU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E63D20672
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lLhbc61G"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6393620672
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0351E6E372;
-	Thu, 25 Jun 2020 22:05:03 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B5FC6E372
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 22:05:02 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id c139so6984418qkg.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 15:05:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A24E6E878;
+	Thu, 25 Jun 2020 22:05:06 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C01B6E878
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 22:05:04 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id u17so6034948qtq.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2020 15:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9Ru5zXb6dhwk7NxJvaDTpO7nEcBvy7koL3n00aficHg=;
- b=N6yEEwnUyCRWl2SyqlzD4mjZ1JZpeJiB4vg2em+Ee5qgzRkd2lD9DJrUM9vXWNWZdd
- kamu3PwOHPfirF8F0TWplkQJiemmxa+f/lYYpquZB7CXYBjJbl9IswN9p8CkApifdZ/2
- 1OhCLZpFLJgGK65wzG1VFb02XI9+zdIHxj0b3p1fatmQL5wN6cu4tvGM0d2EUXKujL1d
- mGSfe1D3IMz5eeMAZcqV41hpumchlSX24Qnr89CquzQBVlpR4i1OWrCk61sRGbz6m2RZ
- wWTXltpLci0Q2kld5KwyGvZcYnr2nF4G4etXQlUOsgFGzbRm1wekUp3lAVOUVZQJgwK6
- +jvw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=lm7cg5Agd55IfjuGXuUl6h/Ar8IcvTTkpFVjwpt0Kas=;
+ b=lLhbc61GMcs0jeIXjXRzQKplY1TqmDs0MrKHIYccAP/D9SvmMU+eh/3qS/Zv5jLvqO
+ uxCn0pxen1QK78ltxFowv7M7yhm8vAWzovGyi25I9nKcd2ZScR89tnX2+cj9xBJ1bHmo
+ e9qxBmvlcRUrjs4Qa083DSb8lL6jh/H4mrIT7XxN/0640VMBWBvKS1s6LJenfMCvKaM5
+ FHxuCSsjdo7V2g0Ghj5u9CaOEQ4YQP4p3u9MNxcJz3oxxgdwdMgOLTJLuy19dTCPbL1E
+ xGkpknfc+Zm0fY2YnjqbHcoo8ZM4PqupSb1AIHkzEC1MKmHd6h5+p5nimW9w/2c8mgGw
+ cjbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9Ru5zXb6dhwk7NxJvaDTpO7nEcBvy7koL3n00aficHg=;
- b=SJc44KrKh7QQqHu4jDd7ITWx2LvSKdZGDHiEonWJY61y212GjioZID9FLDTWt4xfnM
- X3snAF19GLuOFAdIWnGIJV5wdsU9X1/9B89tlpsN6QFKS9Ur8YryMO3vDld4mefAmJd+
- kaZBVikjR2cc8VFynfyVF7P7sq2rorkKE9c/5CRXY2Np/L4fObJPIJ2/h7VKtvs09zCY
- EVShD/P//gOdcrjp+cIX/xbDtUUmWhwGQEUtiSd+fG3kyIbMCN4rSEbYjicLZxjf3z5A
- JnEDe2drCxKRzzU7RhyPgCYBtl2A1/L8hynRHmKpSQd5Q5c0fQM+6W/mqWde6kJUfSj6
- PfRQ==
-X-Gm-Message-State: AOAM5308ATDBrWknMkw3O4wDsvUcq4OyxaAuaOaH6ygD+N7sIK9Er84B
- 8Js3G4a4TWrflqaDCKGboZJyOFEW
-X-Google-Smtp-Source: ABdhPJytP3/o7uMpTWVehPK7JqOcFuh5gp5ttgDBcW/nIynJ59b5xXT82cZA/v1O5sxUGC+2eFGEtg==
-X-Received: by 2002:a37:a758:: with SMTP id q85mr10276179qke.301.1593122701409; 
- Thu, 25 Jun 2020 15:05:01 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=lm7cg5Agd55IfjuGXuUl6h/Ar8IcvTTkpFVjwpt0Kas=;
+ b=OBeL4viyB8kvRph/g0k73uCGgo4v8KVzvj52VCe4iuSuUBsrmg9YZLtblnZ5R7ds8L
+ SYb9HqHSCleT4Rs9EZgSStEVo90rQv8Vwwyz+qG5zCpgqlI08UJOvP0JVhIhNTIKR5ex
+ 1vlNn7p5WZQr3r0ejwu2Y9b1FqOqTbrT4qf5ztI0/iU7Gtg9JZCSZliWEBzrAcO/or6O
+ 6cInB+OigVKbuizS4H1TSM/El1g/rPEe6xYvsVc3QHSsvzC/Gn1U7bPn3gcqkRNQILMm
+ nB0tmAbq12C7WZ6gIcIJ7DcZmNnzrsbs4kRZ+8EinI83d0jlWszDpaGiDmC+nY8bqyHq
+ i4lg==
+X-Gm-Message-State: AOAM533tZGrp77/AUigcgQrEjc7hzBGWqnV27vM5vopba3C/xD6FiwNP
+ gdmF2FKiJ4Nb5qMppkWLHh3zyAZD
+X-Google-Smtp-Source: ABdhPJz3+FnpdcQUlbBf5NaZGaXqHMsYGzukNqCzar9UFtpXYFQU0fw1qMw6Wi5Em8q8Q0Xwc6YBqA==
+X-Received: by 2002:ac8:2af4:: with SMTP id c49mr32786405qta.42.1593122703243; 
+ Thu, 25 Jun 2020 15:05:03 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.51.205])
- by smtp.gmail.com with ESMTPSA id x197sm6670885qka.74.2020.06.25.15.05.00
+ by smtp.gmail.com with ESMTPSA id x197sm6670885qka.74.2020.06.25.15.05.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2020 15:05:00 -0700 (PDT)
+ Thu, 25 Jun 2020 15:05:02 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu/atomfirmware: fix vram_info fetching for renoir
-Date: Thu, 25 Jun 2020 18:04:51 -0400
-Message-Id: <20200625220453.1367084-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/atomfirmware: update vram info handling for
+ renoir
+Date: Thu, 25 Jun 2020 18:04:53 -0400
+Message-Id: <20200625220453.1367084-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20200625220453.1367084-1-alexander.deucher@amd.com>
+References: <20200625220453.1367084-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,29 +87,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Renoir uses integrated_system_info table v12.  The table
-has the same layout as v11 with respect to this data.  Just
-reuse the existing code for v12 for stable.
-
-Fixes incorrectly reported vram info in the driver output.
+Add support for integrated_system_info table v12.  Use the actual
+v12 structure.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index e249b22fef54..4b8aad1c0b51 100644
+index 4b8aad1c0b51..1279053324f9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -206,6 +206,7 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+@@ -111,6 +111,7 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev)
+ 
+ union igp_info {
+ 	struct atom_integrated_system_info_v1_11 v11;
++	struct atom_integrated_system_info_v1_12 v12;
+ };
+ 
+ union umc_info {
+@@ -206,7 +207,6 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
  				(mode_info->atom_context->bios + data_offset);
  			switch (crev) {
  			case 11:
-+			case 12:
+-			case 12:
  				mem_channel_number = igp_info->v11.umachannelnumber;
  				/* channel width is 64 */
  				if (vram_width)
+@@ -215,6 +215,15 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 				if (vram_type)
+ 					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+ 				break;
++			case 12:
++				mem_channel_number = igp_info->v12.umachannelnumber;
++				/* channel width is 64 */
++				if (vram_width)
++					*vram_width = mem_channel_number * 64;
++				mem_type = igp_info->v12.memorytype;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				break;
+ 			default:
+ 				return -EINVAL;
+ 			}
 -- 
 2.25.4
 
