@@ -2,67 +2,77 @@ Return-Path: <SRS0=Inwe=AH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D748C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 16:48:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2443C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 17:04:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F86C207E8
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 16:48:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6EC6E206BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 17:04:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="owpq/rYy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F86C207E8
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R4qa4EkZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EC6E206BE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07D496ECDF;
-	Fri, 26 Jun 2020 16:48:50 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22886ECDF
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2020 16:48:48 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id z13so10147283wrw.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2020 09:48:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09E2D6E14F;
+	Fri, 26 Jun 2020 17:04:24 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D0226E14F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2020 17:04:23 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id h5so10174905wrc.7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2020 10:04:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8RuFbZZMpY5R6rsKr108Fd/4xIR/l2hKhHT4M3RVUGM=;
- b=owpq/rYyEaiY9YLsm5UUcXxh2tSEKj4C6VlRuJHTtNJ8CvNE+hMSqBej97GvJzKUBt
- H+uHwNffcjgSsBhYf6GoHxcDQ0o9OTmTwhhzdyUvipSLWHmoezKseFWnjRLd/aLZPBQ8
- oeR6hp+HcYp+fysfXtaf32ewRLhykkHbWWdg4yV+MnDyZCCWsNRuuW073jHQB0QJDrRA
- W/ZgBU1FY46oXnRstSvqNw6c4y3CGNhRSd5yURtzsEB1JbchoXX5GLxwt2Z1D1ywm3Pw
- LSMBPhl0SO03jJG0sf8545ySPsBtgWp55yVr5ya1pPnrWHdYJEQcxjEYQb2md/eOHBpH
- wSug==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=ibB27vs/PEK089BSrPcul0RY1rW1kODUa7BzpUTWiU0=;
+ b=R4qa4EkZUleIfdLMEyb2CKO31kYSQZBBxVssQJYIpFzsiAZhqIBIzGmWlNjpgeLSqB
+ BLZ2x5eNPzt0oZ8SPDYFZD0IKv3ePa86deGi0xHaKoxQA1fH+oOkZ+T/RXtFjfJNEtw2
+ y9ocl5MclkGSBHyWhzWipcW51/geKmHo225sUIRGZ8MnFtTJsVo64o74TonLffjXGqZB
+ Z/mvWPOBN+2eTH/yktXBluwddEJBLuHd5XWsn4xsRrHD8ZwOeElfhjL5iD45dvDKezxA
+ EtfxQp4tH4nl9sPD3ekW1/MJrLoa3kuPx9JZRSGPU2viIPzD+ayS03z/ddEbNP0qtVto
+ Mwww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8RuFbZZMpY5R6rsKr108Fd/4xIR/l2hKhHT4M3RVUGM=;
- b=rwpPg4wNWXLVbMp/Zs90MKHWXKqCrTlAnrC0hS2GfCFMibFccwDjuk6SCLDuegXrGR
- XCZUey7z6A8ZspwHW271mcrG3/nXTQZxO/Nl+EbO9HP9KUz3cJuFA6awaL3g4xZ7/xe0
- g1XgiJM9KAHnYkDACe6oBDRIvmJa4zoX9UcuvcnaIbi+qIh2FJhPVFkeaJYm8oIS/KJh
- t8STnaryO/Dai43fKWWDHion78CCZocTMnyzGIvs9TQE7Fzx5mpXDEXVrmWfr5AZCAB+
- a9hr1+mPF4C8EZLbfUv3SQlLmXoRSgGo3FLHwWLzCR+O3SAFdIIbhn1bFBxwVH0VeCtT
- Fsww==
-X-Gm-Message-State: AOAM531aLL+UC6/XLTR067dTl8z3v8KTdyR08FSGxGscsg4o4jej8clW
- ioOGVpTK0m0QzqghzEgi9ywSgQAdmAFGT5RzFlQcpg==
-X-Google-Smtp-Source: ABdhPJyvr2Uz0AKta28p/U4dAYYdz//J13z0g+qf4QbE+twmQHPCjoUSWhkMMHa1iOfg5AG651KbFQI8Xszt9fRjhYo=
-X-Received: by 2002:a5d:6a46:: with SMTP id t6mr4819826wrw.374.1593190127187; 
- Fri, 26 Jun 2020 09:48:47 -0700 (PDT)
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=ibB27vs/PEK089BSrPcul0RY1rW1kODUa7BzpUTWiU0=;
+ b=TLh/IzfYeOT8aOLiTV4cEdINhY9G/Qg1g5GzUL/OuJKIT3zLK8ympMe+SWtw5dmhtw
+ px/mOEFxJJ9GFBjcZYbt1+Ufti5tgaASHgQ4Hon35pCskYZzLVaPcQQT/awI82H0V9Hp
+ GCuLOMviFMSSKNJ1qWkoz9yp51dZvKfokNGNYbW38vcw/Syn4h0I2B4SK4r/laSHr13b
+ DDg5KvcxP6vzGb8Eq4tNIBe28tJlcCeGsoJQS56X5EJG2cwuo7pXBQ93DYGMZncszmAZ
+ u9JCcTr70ALDkN/tG3ymW93sscjuvuzFykp8ZF4/fBDe58LEmRsaJHjHyS9giGDpe9oA
+ amZw==
+X-Gm-Message-State: AOAM530LbTWGldtDHG/QksB6/5oenbed7bEhcuk7xVRuC8PTEQddG1Wy
+ 2PJuSQnulv+kMyxYifj2axk=
+X-Google-Smtp-Source: ABdhPJx31vmcKZC4cx8P1lLeqXY1efDkePNu0KB+DFhIDyTXz9xRgw6z+2Dj7zMiqWp1Cmcr9lB43w==
+X-Received: by 2002:adf:9062:: with SMTP id h89mr4421425wrh.285.1593191061767; 
+ Fri, 26 Jun 2020 10:04:21 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id f16sm18415737wmh.27.2020.06.26.10.04.21
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 26 Jun 2020 10:04:21 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu: Adding wait time before reading upll control
+ register
+To: Alex Jivin <alex.jivin@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200626161239.19762-1-alex.jivin@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <a3c7780c-d891-4cf6-f49b-e72692803615@gmail.com>
+Date: Fri, 26 Jun 2020 19:04:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <20200626161847.16000-1-eryk.brol@amd.com>
- <20200626161847.16000-5-eryk.brol@amd.com>
-In-Reply-To: <20200626161847.16000-5-eryk.brol@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 26 Jun 2020 12:48:35 -0400
-Message-ID: <CADnq5_ON7hzxmgVEjjhbu6pG5dNHVUMurBzDjhL+1mTiHtMW-Q@mail.gmail.com>
-Subject: Re: [PATCH 04/11] drm/amd/display: Handle SMU msg response
-To: Eryk Brol <eryk.brol@amd.com>
+In-Reply-To: <20200626161239.19762-1-alex.jivin@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,189 +84,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <Sunpeng.Li@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Yongqiang Sun <yongqiang.sun@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2020 at 12:19 PM Eryk Brol <eryk.brol@amd.com> wrote:
+Am 26.06.20 um 18:12 schrieb Alex Jivin:
+> Adding a delay between writing to UVD control register and reading from it.
+> This is to allow the HW to process the write command.
 >
-> From: Yongqiang Sun <yongqiang.sun@amd.com>
->
-> [Why]
-> SMU may return error code to driver, but driver only check if response
-> is OK.
->
-> [How]
-> Check SMU response instead of reg_wait, assert in case of reponse isn't
-> OK.
-
-Will you ever get concurrent calls to these interfaces or do you
-already have a higher level lock to prevent that?  You need to make
-sure you don't have multiple threads using these interfaces at the
-same time or you'll need locking to protect the message, param, and
-response registers.
-
-Alex
-
->
-> Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-> Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
-> Acked-by: Eryk Brol <eryk.brol@amd.com>
+> Signed-off-by: Alex Jivin <alex.jivin@amd.com>
+> Suggested-By: Luben Tukov <luben.tuikov@amd.com>
 > ---
->  .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c  | 39 +++++++++++++++++-
->  .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c   | 40 ++++++++++++++++++-
->  2 files changed, 75 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/si.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
-> index c320b7af7d34..dbc7cde00433 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c
-> @@ -26,6 +26,7 @@
->  #include "core_types.h"
->  #include "clk_mgr_internal.h"
->  #include "reg_helper.h"
-> +#include <linux/delay.h>
->
->  #define MAX_INSTANCE   5
->  #define MAX_SEGMENT            5
-> @@ -68,10 +69,42 @@ static const struct IP_BASE MP1_BASE  = { { { { 0x00016000, 0, 0, 0, 0 } },
->  #define VBIOSSMC_MSG_SetDispclkFreq           0x4
->  #define VBIOSSMC_MSG_SetDprefclkFreq          0x5
->
-> +#define VBIOSSMC_Status_BUSY                      0x0
-> +#define VBIOSSMC_Result_OK                        0x1
-> +#define VBIOSSMC_Result_Failed                    0xFF
-> +#define VBIOSSMC_Result_UnknownCmd                0xFE
-> +#define VBIOSSMC_Result_CmdRejectedPrereq         0xFD
-> +#define VBIOSSMC_Result_CmdRejectedBusy           0xFC
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index 9d7b4ccd17b8..42cdc14fb79d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1435,6 +1435,12 @@ static int si_uvd_send_upll_ctlreq(struct amdgpu_device *adev,
+>   	/* Assert UPLL_CTLREQ */
+>   	WREG32_P(cg_upll_func_cntl, UPLL_CTLREQ_MASK, ~UPLL_CTLREQ_MASK);
+>   
+> +	/* Waiting for HW to process the previous write.
+> +	 * This is to give a chance to HW to act before
+> +	 * the first read is done.
+> +	 */
+> +	mdelay(1);
 > +
-> +/*
-> + * Function to be used instead of REG_WAIT macro because the wait ends when
-> + * the register is NOT EQUAL to zero, and because the translation in msg_if.h
-> + * won't work with REG_WAIT.
-> + */
-> +static uint32_t rv1_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, unsigned int delay_us, unsigned int max_retries)
-> +{
-> +       uint32_t res_val = VBIOSSMC_Status_BUSY;
-> +
-> +       do {
-> +               res_val = REG_READ(MP1_SMN_C2PMSG_91);
-> +               if (res_val != VBIOSSMC_Status_BUSY)
-> +                       break;
-> +
-> +               if (delay_us >= 1000)
-> +                       msleep(delay_us/1000);
-> +               else if (delay_us > 0)
-> +                       udelay(delay_us);
-> +       } while (max_retries--);
-> +
-> +       return res_val;
-> +}
-> +
->  int rv1_vbios_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr, unsigned int msg_id, unsigned int param)
->  {
-> +       uint32_t result;
-> +
->         /* First clear response register */
-> -       REG_WRITE(MP1_SMN_C2PMSG_91, 0);
-> +       REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Status_BUSY);
->
->         /* Set the parameter register for the SMU message, unit is Mhz */
->         REG_WRITE(MP1_SMN_C2PMSG_83, param);
-> @@ -79,7 +112,9 @@ int rv1_vbios_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr, unsigned
->         /* Trigger the message transaction by writing the message ID */
->         REG_WRITE(MP1_SMN_C2PMSG_67, msg_id);
->
-> -       REG_WAIT(MP1_SMN_C2PMSG_91, CONTENT, 1, 10, 200000);
-> +       result = rv1_smu_wait_for_response(clk_mgr, 10, 1000);
-> +
-> +       ASSERT(result == VBIOSSMC_Result_OK);
->
->         /* Actual dispclk set is returned in the parameter register */
->         return REG_READ(MP1_SMN_C2PMSG_83);
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c
-> index 6878aedf1d3e..d2facbb114d3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c
-> @@ -26,6 +26,7 @@
->  #include "core_types.h"
->  #include "clk_mgr_internal.h"
->  #include "reg_helper.h"
-> +#include <linux/delay.h>
->
->  #include "renoir_ip_offset.h"
->
-> @@ -53,10 +54,43 @@
->  #define VBIOSSMC_MSG_EnableTmdp48MHzRefclkPwrDown 0xD
->  #define VBIOSSMC_MSG_UpdatePmeRestore                    0xE
->
-> +#define VBIOSSMC_Status_BUSY                      0x0
-> +#define VBIOSSMC_Result_OK                        0x1
-> +#define VBIOSSMC_Result_Failed                    0xFF
-> +#define VBIOSSMC_Result_UnknownCmd                0xFE
-> +#define VBIOSSMC_Result_CmdRejectedPrereq         0xFD
-> +#define VBIOSSMC_Result_CmdRejectedBusy           0xFC
-> +
-> +/*
-> + * Function to be used instead of REG_WAIT macro because the wait ends when
-> + * the register is NOT EQUAL to zero, and because the translation in msg_if.h
-> + * won't work with REG_WAIT.
-> + */
-> +static uint32_t rn_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, unsigned int delay_us, unsigned int max_retries)
-> +{
-> +       uint32_t res_val = VBIOSSMC_Status_BUSY;
-> +
-> +       do {
-> +               res_val = REG_READ(MP1_SMN_C2PMSG_91);
-> +               if (res_val != VBIOSSMC_Status_BUSY)
-> +                       break;
-> +
-> +               if (delay_us >= 1000)
-> +                       msleep(delay_us/1000);
-> +               else if (delay_us > 0)
-> +                       udelay(delay_us);
-> +       } while (max_retries--);
-> +
-> +       return res_val;
-> +}
-> +
-> +
->  int rn_vbios_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr, unsigned int msg_id, unsigned int param)
->  {
-> +       uint32_t result;
-> +
->         /* First clear response register */
-> -       REG_WRITE(MP1_SMN_C2PMSG_91, 0);
-> +       REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Status_BUSY);
->
->         /* Set the parameter register for the SMU message, unit is Mhz */
->         REG_WRITE(MP1_SMN_C2PMSG_83, param);
-> @@ -64,7 +98,9 @@ int rn_vbios_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr, unsigned
->         /* Trigger the message transaction by writing the message ID */
->         REG_WRITE(MP1_SMN_C2PMSG_67, msg_id);
->
-> -       REG_WAIT(MP1_SMN_C2PMSG_91, CONTENT, 1, 10, 200000);
-> +       result = rn_smu_wait_for_response(clk_mgr, 10, 1000);
-> +
-> +       ASSERT(result == VBIOSSMC_Result_OK);
->
->         /* Actual dispclk set is returned in the parameter register */
->         return REG_READ(MP1_SMN_C2PMSG_83);
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+Mhm, that is most likely not a good idea.
+
+We need to issue a read after the write to make sure that the stuff is 
+send out to the hardware.
+
+Adding a delay here is probably just postponing that. Do we have some 
+note in the documentation that this is necessary?
+
+Christian.
+
+>   	/* Wait for CTLACK and CTLACK2 to get asserted */
+>   	for (i = 0; i < SI_MAX_CTLACKS_ASSERTION_WAIT; ++i) {
+>   		uint32_t mask = UPLL_CTLACK_MASK | UPLL_CTLACK2_MASK;
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
