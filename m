@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE49AC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 16:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A69CFC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 16:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5A71206BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 16:19:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7BB39206BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2020 16:19:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vSkq710P"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5A71206BE
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GqK124Cw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BB39206BE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6175E6ECDB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4BE16ECDE;
 	Fri, 26 Jun 2020 16:19:58 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFE356ECDB
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B6B86ECDD
  for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2020 16:19:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M0zEEnXU1oKOvSbHhcPRNgXcjYGW9aOfV1bL393E3xlOGCsVQMd1ahSnk8tmV7AmK59IFYSMeeIPi6S81uchZXJ9AV+UNfwTR+8iHBjzMD9EEYGyA8AT/KxnrXP2GtYWmUC19wXtDe/Aec5MU9a90j9LIbcQilc0FuLltqnDm7bRvYiBwzK5BXg28qocuwoA77D1i6RRKFV3zDJjMVNQtxEUboIbMWbYy8XI+M3ZJ6o8tiBXRKl+fsvMdb0gqGMenuTsj5HbCAC5zoCPdLS+Z53ouKjebxBvCcki2fcaEA+eSeuCP/9KkBbeGB5Jb/SVoS92JR4Rw1u4WsiD6P31tg==
+ b=k5ajeEjBI2aTq8gNZ1/mK0eJkSv1sZPssZD43fB4Cd5yq1PuJpiO0kgk4FYY9prsVAa+j0anizWB731GgHELQBIKQpP5oJxWFfVJwQbrweItsmvGGsvzSsn4Klw+4i8biG/1sU8aKapr5d9O+3y0H2GS8RzDcbu6tdyJLTAA/bdfTaXVJrHDkcWVdPUCgdxlLq7YMv+u+tBfZx2zZmFTeRDSsyhfzErNyTUe6Jm8vH8z9Lwx5OOXhhpjMRXdzbz1dtVWLEO7GABh+5DGOf6pb238HAPo9rHD5eO+0RNaUrQsuJnJ+/Vu0c9cupH50Sj0poqb1gDeC/ZjT9iylnfS4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vx5bhPOaKhRAL1VqEAEuzZtuxiEmE6X2tvL8bGotOX4=;
- b=I4/Yn4IELVMbybj7ZFCM0RMg4t7gia7jdaQqlSOLiscIy2H/HtgslepbdzNse+PS2AtEqZhTzneYHcNg+CnrOqnYC2NlPUvzi4ORHRO+5Iva+nawhY2ayOHrA6HUsT1uiu/iGkxDUVzT311p0bCuVqQ4oySWFtfaSVXLqngf6+KJAbZxdOgJqq3drwaYwsD3hrvIO1RFZRDue4kfL1Ib9+tQB2DvJOCHwjK/c6u3vR4ArbhBS3oIsnkt6SsdoTCSsT9HJLAxwds9hs69AovAVOvnfHaWNKTMY9U/Lf1p8534A1//ZNfpBnhI3rFTK8ZXZgT5qRNL5FRKICANU36ThA==
+ bh=KRV39IMyaX5TzIHDc4DRKlwAGtz8jnAiL1YW2qhgpkE=;
+ b=YfHMdwcM4hQ6n/Htc37VO3/xTn+gUYZpQtr0U6yuFphjpqdjy078X9Bs0Yw2dEnbQy3gxMwyML5KH5/eM07WZNI5IClpi+woEOhs1a9VGFWfcxihdw3K4J/1M9qM5fAqoztC/jD1+ci/1ZVToZmjn+r0zlKZrLV0/m3Ehbp9E7xU8s1hGc1rvNGRmqQE1Eu9dV8GJx/yDI9Hvh97jY4KD0PgnhpOz80ECEyfTepHJ3KoGeWY9JXYs+dKkyNFD0vf7G7olOl/gLBqyAAoY857FZMe1G1EfintYYnq0nm7cDcll7LrvWBfm/mLpgpT++fgxtei2Xz03mlMm7MPIkFcbw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vx5bhPOaKhRAL1VqEAEuzZtuxiEmE6X2tvL8bGotOX4=;
- b=vSkq710P+Ou3e55XfX2OZzu+9nF2BHINOOddKxQL+/x8sNUI449fQE5VgVcyoEZyLPgSFuIl2qvI3PrO2Ta96ILyi63InC1UTXlCQt5B8ytK+1zD81MY2D+0kGno81Ymd7uQrIjY8SP2Dd1fJ0dp5F+tCAE5T56SxK9pNh5Wv5g=
+ bh=KRV39IMyaX5TzIHDc4DRKlwAGtz8jnAiL1YW2qhgpkE=;
+ b=GqK124Cwhq1kA3RuMeJxxEESvW1tQcp1Avi7Pk/Rq4cyRvaiJzYT+cU3WWy9bwh7jaKywAl2YV0YIJvzaZhezgzG9mJcLecM6FaJktYO0+sCLNESlAN/qE1BX5QIW2WUBgHeZo/beCTuomgjEXMiGjN69dDOjFMXS/3HmZ2Qa1E=
 Received: from MWHPR15CA0025.namprd15.prod.outlook.com (2603:10b6:300:ad::11)
- by DM5PR12MB1915.namprd12.prod.outlook.com (2603:10b6:3:10c::19) with
+ by DM5PR12MB1339.namprd12.prod.outlook.com (2603:10b6:3:70::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.23; Fri, 26 Jun
- 2020 16:19:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.24; Fri, 26 Jun
+ 2020 16:19:53 +0000
 Received: from CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
  (2603:10b6:300:ad:cafe::28) by MWHPR15CA0025.outlook.office365.com
  (2603:10b6:300:ad::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.21 via Frontend
- Transport; Fri, 26 Jun 2020 16:19:54 +0000
+ Transport; Fri, 26 Jun 2020 16:19:53 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,24 +61,24 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  CO1NAM11FT061.mail.protection.outlook.com (10.13.175.200) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3131.20 via Frontend Transport; Fri, 26 Jun 2020 16:19:54 +0000
+ 15.20.3131.20 via Frontend Transport; Fri, 26 Jun 2020 16:19:53 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 26 Jun
- 2020 11:19:52 -0500
+ 2020 11:19:50 -0500
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 26 Jun
- 2020 11:19:51 -0500
+ 2020 11:19:50 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 26 Jun 2020 11:19:51 -0500
+ Transport; Fri, 26 Jun 2020 11:19:49 -0500
 From: Eryk Brol <eryk.brol@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/11] drm/amd/display: Fix incorrect rounding for 10Hz
- refresh range
-Date: Fri, 26 Jun 2020 12:18:43 -0400
-Message-ID: <20200626161847.16000-8-eryk.brol@amd.com>
+Subject: [PATCH 05/11] drm/amd/display: check dpcd read status of
+ DP_DOWNSTREAM_PORT_0
+Date: Fri, 26 Jun 2020 12:18:41 -0400
+Message-ID: <20200626161847.16000-6-eryk.brol@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200626161847.16000-1-eryk.brol@amd.com>
 References: <20200626161847.16000-1-eryk.brol@amd.com>
@@ -88,27 +88,27 @@ X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(39860400002)(136003)(346002)(396003)(46966005)(82310400002)(54906003)(6916009)(2616005)(44832011)(478600001)(47076004)(336012)(36756003)(5660300002)(426003)(1076003)(86362001)(316002)(8676002)(81166007)(356005)(6666004)(70586007)(70206006)(2906002)(4326008)(82740400003)(83380400001)(186003)(8936002)(26005);
+ SFS:(4636009)(376002)(346002)(39860400002)(396003)(136003)(46966005)(47076004)(4326008)(2906002)(82310400002)(82740400003)(6916009)(478600001)(6666004)(81166007)(356005)(26005)(70206006)(86362001)(2616005)(5660300002)(186003)(1076003)(36756003)(70586007)(8676002)(44832011)(426003)(336012)(316002)(54906003)(83380400001)(8936002);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0e74774c-be2c-4f54-7177-08d819ecc2ab
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1915:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB19150C37C2B443DBAC547CA8E5930@DM5PR12MB1915.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: 8457f163-43d2-4ec2-197d-08d819ecc247
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1339:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1339E0D6FBF72C9D5F434709E5930@DM5PR12MB1339.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
 X-Forefront-PRVS: 0446F0FCE1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: np94vtZcLOX3mh2JyqnsNY7EIHdPErGS5lY7B6U3vFZOmD3SF2obRr0RXd5Flg/GOToNH8ShgxgDgocWDc9Wv1KzwfpIo6vwEYRqxIeOQntiPENh3JgSF8THVkYakRQCv8UzEZd5khBwnY56KL8Ta2PlUW1r5WEuAb3gzzH4MsSW8RNnEWklLX98pDawH8ayOyThMH1+w1gRcH3ZZDwPu/F9lL8jGK7xRF8xChATIaCvw39Z1gc38Jvd2DKSfnhBiIz/GFXh+UuHXY5DwnXna3z30DqmuM7IydQ1x59epXpfJKLuJrsZYR2Qou83i+dBbEPKMWVPMaL6jO6SMuGhcOMWEXvwk2eWJbrVJlRmW0HMduParqvdEss3Fpns+u9TjY+IWHIrH1u7R2VW7iY0SQ==
+X-Microsoft-Antispam-Message-Info: UrKIio5tBsi7yNqhGodZ2hVBR4xttJz9GkzCQETrGx+8JknAJCoSQZuHeH/nAxegCunIczTC4QPOrgfZlBUjnYdlhVNByQghWFgNo3sji7MSd2XTyF6SUYm2hUpQv+QzgXFo7LyjP0oKSEdCcOEj5Kr5YK135HgTKWQJNf4jkGRh0SqimeRWk0Y+ifg0PsPwK6nlFxW43BJWfW7nJpiMw3dlB8usJ0U795eIkVwryBAii1B+JtW8HDbBsDszUxDZ6DoszrftfSGAHty8wn/AizPYNxecICWeaHY2lQZzIdA0DCRA3j+TQS0C/ACaH39KEf5IGJRpDqfvlGeO+Ol9QprBISubRp1r+xDWpqahk5QT75VeWRAlr1oYcyE6ywupgCuvnyM8xWCVEiNd+obN6w==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2020 16:19:54.0288 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e74774c-be2c-4f54-7177-08d819ecc2ab
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2020 16:19:53.3681 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8457f163-43d2-4ec2-197d-08d819ecc247
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1915
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,139 +120,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, eryk.brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Jaehyun Chung <jaehyun.chung@amd.com>, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+Cc: eryk.brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Wenjing Liu <Wenjing.Liu@amd.com>, jinlong zhang <jinlong.zhang@amd.com>,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jaehyun Chung <jaehyun.chung@amd.com>
+From: jinlong zhang <jinlong.zhang@amd.com>
 
 [Why]
-In cases where refresh range is slightly below 10, FreeSync is not
-active or supported. Need to round values before checking refresh range
-in order to have FreeSync supported in these cases.
+For special DP convert VGA dongle, core_link_read_dpcd for
+DP_DOWNSTREAM_PORT_0 always return fail, then dongle_type will be set to
+DISPLAY_DONGLE_NONE, which will cause desktop resolution abnormal.
 
 [How]
-Remove redundant values and round values before checking valid refresh range.
+If dpcd for DP_DOWNSTREAM_PORT_0 read fail, skip set dongle_type =
+DISPLAY_DONGLE_NONE.
 
-Signed-off-by: Jaehyun Chung <jaehyun.chung@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: jinlong zhang <jinlong.zhang@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Eryk Brol <eryk.brol@amd.com>
 ---
- .../amd/display/modules/freesync/freesync.c   | 35 +++++--------------
- .../amd/display/modules/inc/mod_freesync.h    |  7 ++--
- 2 files changed, 10 insertions(+), 32 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 105 +++++++++---------
+ 1 file changed, 53 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index eb7421e83b86..5ddfd6476ff9 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -32,7 +32,7 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index d2116cb71937..7ae6d903cf04 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3097,62 +3097,63 @@ static void get_active_converter_info(
+ 		uint8_t det_caps[16]; /* CTS 4.2.2.7 expects source to read Detailed Capabilities Info : 00080h-0008F.*/
+ 		union dwnstream_port_caps_byte0 *port_caps =
+ 			(union dwnstream_port_caps_byte0 *)det_caps;
+-		core_link_read_dpcd(link, DP_DOWNSTREAM_PORT_0,
+-				det_caps, sizeof(det_caps));
++		if (core_link_read_dpcd(link, DP_DOWNSTREAM_PORT_0,
++				det_caps, sizeof(det_caps)) == DC_OK) {
  
- #define MOD_FREESYNC_MAX_CONCURRENT_STREAMS  32
+-		switch (port_caps->bits.DWN_STRM_PORTX_TYPE) {
+-		/*Handle DP case as DONGLE_NONE*/
+-		case DOWN_STREAM_DETAILED_DP:
+-			link->dpcd_caps.dongle_type = DISPLAY_DONGLE_NONE;
+-			break;
+-		case DOWN_STREAM_DETAILED_VGA:
+-			link->dpcd_caps.dongle_type =
+-				DISPLAY_DONGLE_DP_VGA_CONVERTER;
+-			break;
+-		case DOWN_STREAM_DETAILED_DVI:
+-			link->dpcd_caps.dongle_type =
+-				DISPLAY_DONGLE_DP_DVI_CONVERTER;
+-			break;
+-		case DOWN_STREAM_DETAILED_HDMI:
+-		case DOWN_STREAM_DETAILED_DP_PLUS_PLUS:
+-			/*Handle DP++ active converter case, process DP++ case as HDMI case according DP1.4 spec*/
+-			link->dpcd_caps.dongle_type =
+-				DISPLAY_DONGLE_DP_HDMI_CONVERTER;
+-
+-			link->dpcd_caps.dongle_caps.dongle_type = link->dpcd_caps.dongle_type;
+-			if (ds_port.fields.DETAILED_CAPS) {
+-
+-				union dwnstream_port_caps_byte3_hdmi
+-					hdmi_caps = {.raw = det_caps[3] };
+-				union dwnstream_port_caps_byte2
+-					hdmi_color_caps = {.raw = det_caps[2] };
+-				link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk_in_khz =
+-					det_caps[1] * 2500;
+-
+-				link->dpcd_caps.dongle_caps.is_dp_hdmi_s3d_converter =
+-					hdmi_caps.bits.FRAME_SEQ_TO_FRAME_PACK;
+-				/*YCBCR capability only for HDMI case*/
+-				if (port_caps->bits.DWN_STRM_PORTX_TYPE
+-						== DOWN_STREAM_DETAILED_HDMI) {
+-					link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr422_pass_through =
+-							hdmi_caps.bits.YCrCr422_PASS_THROUGH;
+-					link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr420_pass_through =
+-							hdmi_caps.bits.YCrCr420_PASS_THROUGH;
+-					link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr422_converter =
+-							hdmi_caps.bits.YCrCr422_CONVERSION;
+-					link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr420_converter =
+-							hdmi_caps.bits.YCrCr420_CONVERSION;
++			switch (port_caps->bits.DWN_STRM_PORTX_TYPE) {
++			/*Handle DP case as DONGLE_NONE*/
++			case DOWN_STREAM_DETAILED_DP:
++				link->dpcd_caps.dongle_type = DISPLAY_DONGLE_NONE;
++				break;
++			case DOWN_STREAM_DETAILED_VGA:
++				link->dpcd_caps.dongle_type =
++					DISPLAY_DONGLE_DP_VGA_CONVERTER;
++				break;
++			case DOWN_STREAM_DETAILED_DVI:
++				link->dpcd_caps.dongle_type =
++					DISPLAY_DONGLE_DP_DVI_CONVERTER;
++				break;
++			case DOWN_STREAM_DETAILED_HDMI:
++			case DOWN_STREAM_DETAILED_DP_PLUS_PLUS:
++				/*Handle DP++ active converter case, process DP++ case as HDMI case according DP1.4 spec*/
++				link->dpcd_caps.dongle_type =
++					DISPLAY_DONGLE_DP_HDMI_CONVERTER;
++
++				link->dpcd_caps.dongle_caps.dongle_type = link->dpcd_caps.dongle_type;
++				if (ds_port.fields.DETAILED_CAPS) {
++
++					union dwnstream_port_caps_byte3_hdmi
++						hdmi_caps = {.raw = det_caps[3] };
++					union dwnstream_port_caps_byte2
++						hdmi_color_caps = {.raw = det_caps[2] };
++					link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk_in_khz =
++						det_caps[1] * 2500;
++
++					link->dpcd_caps.dongle_caps.is_dp_hdmi_s3d_converter =
++						hdmi_caps.bits.FRAME_SEQ_TO_FRAME_PACK;
++					/*YCBCR capability only for HDMI case*/
++					if (port_caps->bits.DWN_STRM_PORTX_TYPE
++							== DOWN_STREAM_DETAILED_HDMI) {
++						link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr422_pass_through =
++								hdmi_caps.bits.YCrCr422_PASS_THROUGH;
++						link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr420_pass_through =
++								hdmi_caps.bits.YCrCr420_PASS_THROUGH;
++						link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr422_converter =
++								hdmi_caps.bits.YCrCr422_CONVERSION;
++						link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr420_converter =
++								hdmi_caps.bits.YCrCr420_CONVERSION;
++					}
++
++					link->dpcd_caps.dongle_caps.dp_hdmi_max_bpc =
++						translate_dpcd_max_bpc(
++							hdmi_color_caps.bits.MAX_BITS_PER_COLOR_COMPONENT);
++
++					if (link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk_in_khz != 0)
++						link->dpcd_caps.dongle_caps.extendedCapValid = true;
+ 				}
  
--#define MIN_REFRESH_RANGE_IN_US 10000000
-+#define MIN_REFRESH_RANGE 10
- /* Refresh rate ramp at a fixed rate of 65 Hz/second */
- #define STATIC_SCREEN_RAMP_DELTA_REFRESH_RATE_PER_FRAME ((1000 / 60) * 65)
- /* Number of elements in the render times cache array */
-@@ -878,8 +878,8 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 		else
- 			in_out_vrr->fixed_refresh_in_uhz = 0;
- 
--		refresh_range = in_out_vrr->max_refresh_in_uhz -
--				in_out_vrr->min_refresh_in_uhz;
-+		refresh_range = div_u64(in_out_vrr->max_refresh_in_uhz + 500000, 1000000) -
-++				div_u64(in_out_vrr->min_refresh_in_uhz + 500000, 1000000);
- 
- 		in_out_vrr->supported = true;
+-				link->dpcd_caps.dongle_caps.dp_hdmi_max_bpc =
+-					translate_dpcd_max_bpc(
+-						hdmi_color_caps.bits.MAX_BITS_PER_COLOR_COMPONENT);
+-
+-				if (link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk_in_khz != 0)
+-					link->dpcd_caps.dongle_caps.extendedCapValid = true;
++				break;
+ 			}
+-
+-			break;
+ 		}
  	}
-@@ -918,7 +918,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 		in_out_vrr->adjust.v_total_min = stream->timing.v_total;
- 		in_out_vrr->adjust.v_total_max = stream->timing.v_total;
- 	} else if (in_out_vrr->state == VRR_STATE_ACTIVE_VARIABLE &&
--			refresh_range >= MIN_REFRESH_RANGE_IN_US) {
-+			refresh_range >= MIN_REFRESH_RANGE) {
- 
- 		in_out_vrr->adjust.v_total_min =
- 			calc_v_total_from_refresh(stream,
-@@ -1105,16 +1105,10 @@ unsigned long long mod_freesync_calc_nominal_field_rate(
- 	return nominal_field_rate_in_uhz;
- }
- 
--bool mod_freesync_is_valid_range(struct mod_freesync *mod_freesync,
--		const struct dc_stream_state *stream,
--		uint32_t min_refresh_cap_in_uhz,
-+bool mod_freesync_is_valid_range(uint32_t min_refresh_cap_in_uhz,
- 		uint32_t max_refresh_cap_in_uhz,
--		uint32_t min_refresh_request_in_uhz,
--		uint32_t max_refresh_request_in_uhz)
-+		uint32_t nominal_field_rate_in_uhz) 
- {
--	/* Calculate nominal field rate for stream */
--	unsigned long long nominal_field_rate_in_uhz =
--			mod_freesync_calc_nominal_field_rate(stream);
- 
- 	/* Typically nominal refresh calculated can have some fractional part.
- 	 * Allow for some rounding error of actual video timing by taking floor
-@@ -1153,8 +1147,6 @@ bool mod_freesync_is_valid_range(struct mod_freesync *mod_freesync,
- 			div_u64(nominal_field_rate_in_uhz + 500000, 1000000);
- 	min_refresh_cap_in_uhz /= 1000000;
- 	max_refresh_cap_in_uhz /= 1000000;
--	min_refresh_request_in_uhz /= 1000000;
--	max_refresh_request_in_uhz /= 1000000;
- 
- 	// Check nominal is within range
- 	if (nominal_field_rate_in_uhz > max_refresh_cap_in_uhz ||
-@@ -1165,23 +1157,12 @@ bool mod_freesync_is_valid_range(struct mod_freesync *mod_freesync,
- 	if (nominal_field_rate_in_uhz < max_refresh_cap_in_uhz)
- 		max_refresh_cap_in_uhz = nominal_field_rate_in_uhz;
- 
--	// Don't allow min > max
--	if (min_refresh_request_in_uhz > max_refresh_request_in_uhz)
--		return false;
--
- 	// Check min is within range
--	if (min_refresh_request_in_uhz > max_refresh_cap_in_uhz ||
--		min_refresh_request_in_uhz < min_refresh_cap_in_uhz)
--		return false;
--
--	// Check max is within range
--	if (max_refresh_request_in_uhz > max_refresh_cap_in_uhz ||
--		max_refresh_request_in_uhz < min_refresh_cap_in_uhz)
-+	if (min_refresh_cap_in_uhz > max_refresh_cap_in_uhz)
- 		return false;
- 
- 	// For variable range, check for at least 10 Hz range
--	if ((max_refresh_request_in_uhz != min_refresh_request_in_uhz) &&
--		(max_refresh_request_in_uhz - min_refresh_request_in_uhz < 10))
-+	if (nominal_field_rate_in_uhz - min_refresh_cap_in_uhz < 10)
- 		return false;
- 
- 	return true;
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-index 0ba3cf7f336a..c80fc10d732c 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-@@ -170,12 +170,9 @@ void mod_freesync_handle_v_update(struct mod_freesync *mod_freesync,
- unsigned long long mod_freesync_calc_nominal_field_rate(
- 			const struct dc_stream_state *stream);
- 
--bool mod_freesync_is_valid_range(struct mod_freesync *mod_freesync,
--		const struct dc_stream_state *stream,
--		uint32_t min_refresh_cap_in_uhz,
-+bool mod_freesync_is_valid_range(uint32_t min_refresh_cap_in_uhz,
- 		uint32_t max_refresh_cap_in_uhz,
--		uint32_t min_refresh_request_in_uhz,
--		uint32_t max_refresh_request_in_uhz);
-+		uint32_t nominal_field_rate_in_uhz);
- 
- 
  
 -- 
 2.25.1
