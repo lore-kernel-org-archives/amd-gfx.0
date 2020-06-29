@@ -1,4 +1,4 @@
-Return-Path: <SRS0=iA7k=AJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Kvqq=AK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
@@ -7,96 +7,97 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1204C433E0
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jun 2020 11:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BECF4C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 06:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7A8720B80
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jun 2020 11:19:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 65E3923128
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 06:08:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qYz9Hq1e"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7A8720B80
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xQoXQQ4m"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65E3923128
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7836789FF6;
-	Sun, 28 Jun 2020 11:19:29 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770045.outbound.protection.outlook.com [40.107.77.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C465F89FF6
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jun 2020 11:19:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1199089DBA;
+	Mon, 29 Jun 2020 06:08:05 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E504489D52
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 06:08:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JZOzOW/nret4mThWrnfXGS7biUopMy8hdz5jlxhUvVd40YLFb1f6Ce0WsLFvJ5KAN42m/w52lkIROqGzKES47LK/YFnRT2QqGqAwjmhme663byJ6Qn1+N7doCl4+KuzD4YbeVlvFakT2/Onx84ICvQuIr/aRPObTssAAt5HqEWdZLe7cQD0sKVtkL4X3PT5v7wbJZZA5zpH1qfXJj64xL35aYhM0tq+eZIfv3YBnr/EaOhcKqfZn9xh6vRG9CSunTb9vY+O9zmYQ6YU9oaY5CtIWXDkiTkVVop9VdJ2+i7S5c2XJJ4BulpdADukEcJF+9DPBHw6WrdURu+6kU4jfYw==
+ b=PkkJMJL83LSQSvI/+OF6SECJq4+iNp0GrjlWqHNspk+w1CTGo/Kb9/MWSsEll3N1Kqgc6Qu4x+x/kCEq3CvxW7jB9ZFtDRl8NlQOWN/CoNWyGCPao7nv2oKPYehy4pvixKRtltiRnHPzYhTgSBWvmb50PwnaGXxySuka97Oq7Ewvp7qMv+Cx1rPBIcXw6Evndyr8HLgP3Vb3U1Mtqb+KosBJjPMJLbhIi/k5Pc/RLhHRg6BfLZ1sW9EjAs8OQ2FVABeKAVcSz5W9gxt6kmDgdGqtvWpNTd/06s7PkWD5HxAn/GOTGqeg9TGaJOUeIWHVdt1Mys8BZagMcHzkhiTBrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MfzHoH2tdkig9JBQfmdaJQ4AOKJwes/q9jzQ9IRRY+c=;
- b=YmeOdSZvznKDE4RHa12Sj25r0DS5rnu0KhTWg/wPXMro32mg2iRmFO8D/gSPKC9iA+PGJC5cCdfQwVh2ehrTvztE/utHiftNZFZE0PqvN444htAnmRGOgX1iQ+pSD9TFq8nombqfUgOg+gz8f5jpZh/HPMoYi/tUTlclhK3jtgCgj1YPQRzKeSAEgpTclyCXp2fjGuwh6iUaM4xpEyLsyEmTyd6KAwZkHNv2DpXDvZax0n/zH1LgoK5Xzg8riL5K7B9XKZAEq/JdZk6g59Z3MS6+F3fNNOTe/ijjAdoI2Bqf5yfiZM4fFj2kRQfGFcQVLilSXWUVGWX6iHQgeKFPzQ==
+ bh=pNRjtKqL3vkPnL7qD6EGOVMrzqxWcID0Lunmzdr8UoU=;
+ b=SquJdegiV+4qFw/yayHuwuEm3re9XaFADq5A4lM/m1qbQ4CusIaC/ul9qfb7eh238Z0Mfg9G/od+23s1Nfn+igDp4Dyoit8rQdUHh44cAbZcASY55N8fGfhlYxGCU2QriUxgV+1t+UKLKO9IL103uawPGyw36D0kZ5JIDcXsuM+81qnjiAV/8nKPB6ZFfB5toml/Rsz6YyFCZP/ftNL50eKAoMDznnr3pZ7v6h1QetMb4fq2d4Yydri8BoJPDraWE0TKo2OMMb3PmPFa5QX6KJNL1+umRpndDClMebnoIOe+9Q00T1xSB74WMYzPkVunUYK9Mnji5hmIs7MtW+1GSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MfzHoH2tdkig9JBQfmdaJQ4AOKJwes/q9jzQ9IRRY+c=;
- b=qYz9Hq1eo1Kh9L9p3XwvYD8UKlGKYN8BGHcbj676efSh4krb5OZ+f4Vqu9vLu+DKuRo/8V/hzMM7EXD9DpfQV+tRgthoEv6CHIcDbQQEpV51lu/HOZOS1SkACcrvOf99r6r0Fj++aGFa5cYmH/4J5Jlwnv9JF4ySambC0jEH48c=
+ bh=pNRjtKqL3vkPnL7qD6EGOVMrzqxWcID0Lunmzdr8UoU=;
+ b=xQoXQQ4m8qYW4FFtSByiLaQBpd+9dMcBqv4PVq6ZnKl6wNMrs8serrTzfEmAzUvjqCoDCc7L/RGlG3niztFfl0p1nJjo8i0EMYs4b/AjLIgTF+2nIdhKqL57Jpte1fF+gW+4Alg/LS5DuL1InL/PV2kKwe5GppmeLzHsbs3JKr8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB4153.namprd12.prod.outlook.com (2603:10b6:5:212::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3131.21; Sun, 28 Jun 2020 11:19:25 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3131.026; Sun, 28 Jun 2020
- 11:19:24 +0000
-From: Evan Quan <evan.quan@amd.com>
+Received: from CH2PR12MB4101.namprd12.prod.outlook.com (2603:10b6:610:a8::22)
+ by CH2PR12MB3815.namprd12.prod.outlook.com (2603:10b6:610:2e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.26; Mon, 29 Jun
+ 2020 06:08:01 +0000
+Received: from CH2PR12MB4101.namprd12.prod.outlook.com
+ ([fe80::b9c2:5b76:382a:c5d]) by CH2PR12MB4101.namprd12.prod.outlook.com
+ ([fe80::b9c2:5b76:382a:c5d%8]) with mapi id 15.20.3131.026; Mon, 29 Jun 2020
+ 06:08:01 +0000
+From: "Wenhui.Sheng" <Wenhui.Sheng@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: fix compile error with ARCH=arc
-Date: Sun, 28 Jun 2020 19:18:48 +0800
-Message-Id: <20200628111848.1234-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.27.0
-X-ClientProxiedBy: HK2PR02CA0147.apcprd02.prod.outlook.com
- (2603:1096:202:16::31) To DM6PR12MB2619.namprd12.prod.outlook.com
- (2603:10b6:5:45::18)
+Subject: [PATCH] drm/amdgpu: correct discovery_tmr_size init val
+Date: Mon, 29 Jun 2020 14:07:46 +0800
+Message-Id: <20200629060746.21697-1-Wenhui.Sheng@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK0PR01CA0059.apcprd01.prod.exchangelabs.com
+ (2603:1096:203:a6::23) To CH2PR12MB4101.namprd12.prod.outlook.com
+ (2603:10b6:610:a8::22)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (58.247.170.242) by
- HK2PR02CA0147.apcprd02.prod.outlook.com (2603:1096:202:16::31) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3131.20 via Frontend Transport; Sun, 28 Jun 2020 11:19:22 +0000
-X-Mailer: git-send-email 2.27.0
-X-Originating-IP: [58.247.170.242]
+Received: from HUI.amd.com (58.247.170.245) by
+ HK0PR01CA0059.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.20 via Frontend
+ Transport; Mon, 29 Jun 2020 06:07:59 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [58.247.170.245]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: eacceef3-8be2-4042-629d-08d81b551cb3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4153:
+X-MS-Office365-Filtering-Correlation-Id: 9224e8a0-48df-4124-fe4c-08d81bf2c6f6
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3815:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4153C15A96CE523A88DF9E70E4910@DM6PR12MB4153.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:235;
-X-Forefront-PRVS: 0448A97BF2
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3815D32C50D1159B8D9436C88C6E0@CH2PR12MB3815.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Forefront-PRVS: 044968D9E1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EQ+t/+f8KcQPOKa1vsVVyfuns76z0m3FXrXlFVOWsZzBeSxe2sjypYYiRfo3jCWAWePFqbvRYbEvk6ZXLYWD5oJAn4Dbg2cUgfY5rnJ8OM4S+G+3O4zCp3o9mq9VjRXm36e7fEpLjyCtUSHe9Xp/POz49cgopBuGd6vUuq5CHNFHONV7cSE6pHg9KiVw1bUkKp0yAkUihc2KmYUxgWocOiCilt7uECNFinIYcI2zC5l2KOBBWlsm2aR72HNCT9K0XpRFal3Id8ARzRiSHPE2aUlistZJJwNwbXhfiSV59hP0rYmxXAQUkq6l7FU1Ozdsrcwy36yG8MBDhekeH8VJeg==
+X-Microsoft-Antispam-Message-Info: TugIylPnJLsQ0qS+NNy+gz8PyLMPtZy8VN48WUbCbpT0wA2yHjUbl2gk+l860z5slq2ONRo+RtXoExAHg/hrsLKx4PfY3lO/KwcQBDbO4H+Sny30aUbeo2v8PigzIwp2Uh35v1OOmt+pz0oBunkcJiGLM8Qop91yYxylgLtdOthGmfE3ULENrRQ8XSOcyTYQNPmGL5++1D71CcHmwVm6QlPeI+5JjwJLe+8nb8gmsQYq/TVSpivLZCBrISOc89EOUcHFUplt1BJP74x+PNzDEMq1LYFBo7iUC/Ax4kzFoNA2yLhfKE3g9lC92M6ju1ysH5dPJyl+UQPkVxvTyAw1Ig==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(136003)(39860400002)(376002)(366004)(346002)(66946007)(956004)(186003)(6486002)(86362001)(83380400001)(1076003)(26005)(8936002)(16526019)(6916009)(66556008)(66476007)(6666004)(2906002)(36756003)(5660300002)(4326008)(8676002)(52116002)(316002)(2616005)(44832011)(478600001)(54906003)(7696005);
+ SFS:(4636009)(136003)(346002)(366004)(39860400002)(396003)(376002)(6486002)(36756003)(83380400001)(86362001)(54906003)(66476007)(66556008)(6916009)(66946007)(5660300002)(316002)(478600001)(2906002)(2616005)(956004)(4326008)(52116002)(7696005)(1076003)(16526019)(26005)(8936002)(186003)(8676002)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 7OXhjNru9Jk0BWkaNWakmCh+QVzQW0Y8/hrf5jcvRpGdjuWgqC2FgvXQt5gi+qhgQ6O5H53tyyLXcA4pYAySSn+tWauwGdtwVTQU7y5K08tCOh2sQaDw7N17xxMi5Sc39enqoqMwb/bN2vKC6clSy/FDQlxmjVzI9lBmGyyILQwBP8EgzKpcpaT7NodwZ3Ssgo96D0/OCkLzMmF0xj6OJv4cNohFbvzc+TpeB2oBL2J9hcvZSMgwDlXhgTtNuIedjAf+yUxwB1FM24TMJSpv0MXYj7tzWOX9IVfe74Axef5hWrwSxpVi4oZF2l0WO7r45WgR7Zitk+Mwhb2c89azB35PO8oBtzL9naw9QK3FnHhggmNmPU3O0R4WoZS/5/h++xDQxk0CMFAgnVX1cQuo/OjeKNPZQOzJrt6snt1PMDRxsL2ysby3adBpE0uOMf/i0ZNdEv5zW1MZEvI6iegAHbSu74Rvc0MGqj0kmuHlSJ73Gk9C3p5VRITTTS+/14m7
+X-MS-Exchange-AntiSpam-MessageData: UYIwN57dT1GjCRcA8PPrNRZ/v3Ir2DKaIsE3uVizdoJGIvRazlDQF1HimGJ7nJjAQdFXMktZS0VFVhJ1hvX6KI+mnKYXk8lIo2vkM+gwscnsLWW4345hccMuLKunkEugdSGRW5FXpmy9/9H4vngLAFJ4nrsxr5Zyl8dLNk3dPlG+2GVhKQS/W9u771MSphWmrP5ir+1RzLrR7PqjWqUmn69zU2mXVC23j4S8UuTRE+EUa9nTT0Gag/9uxrHIh4dZGX9pnhqg38/B20VAQqit80vnhi/y8d4KO8nQ0NDiS6YZifN/bwrKg1h4j7ApSTR0+5vDi0AffUSXh/nn5+hlablbEbUdRp4peCm7bYPl/E9xoouxNlcoJq/R7tRzbocwM81VKDVxAihhvx6qRRyvKqv09rAgHAgb6Hu1tHHE/Z2IwugUXrnGGtoYrbditOnqUnAMPXIDKkT+bWtiP9RY9dCxXhS+dNm1VZsnIYJOg70=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eacceef3-8be2-4042-629d-08d81b551cb3
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9224e8a0-48df-4124-fe4c-08d81bf2c6f6
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2020 11:19:24.9518 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2020 06:08:01.0401 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BKrji0fyJRl6Z65BsgaALU8Yo0KAv6wXaDX4jBtzvwA31FQWJu1qA+DPdXEZ7NrX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4153
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6uEXT9BoNYvrP4uSqlddtGjjomhpjV/4z+t716/rC/BKT5KLiTcapDB1l5TUQxZIzTouGsuYpSc4hfowGP3UmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3815
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,44 +109,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>,
- kernel test robot <lkp@intel.com>
+Cc: Wenhui Sheng <Wenhui.Sheng@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the compile error below:
-drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c: In function 'smu_v11_0_init_microcode':
->> arch/arc/include/asm/bug.h:22:2: error: implicit declaration of function 'pr_warn'; did you mean 'pci_warn'? [-Werror=implicit-function-declaration]
-      22 |  pr_warn("BUG: failure at %s:%d/%s()!\n", __FILE__, __LINE__, __func__); \
-         |  ^~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:176:3: note: in expansion of macro 'BUG'
-     176 |   BUG();
+From: Wenhui Sheng <Wenhui.Sheng@amd.com>
 
-Change-Id: I4e969082c41f8a8c91f1b0d19eb853eb0a2e0c0d
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+The legacy way to initialize discovery_tmr_size
+is using DISCOVERY_TMR_SIZE, while after we reduce
+DISCOVERY_TMR_SIZE from 64KB to 4KB, variable
+discovery_tmr_size is also reduced to 4KB, this is not
+correct, it still should be 64KB, discovery_tmr_size
+will be used to calculate ip_discovery reserved mem's
+start address and size.
+
+Using DISCOVERY_TMR_OFFSET to init discovery_tmr_size instead.
+
+Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 677f8adb920c..48e15885e9c3 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -173,7 +173,8 @@ int smu_v11_0_init_microcode(struct smu_context *smu)
- 		chip_name = "sienna_cichlid";
- 		break;
- 	default:
--		BUG();
-+		dev_err(adev->dev, "Unsupported ASIC type %d\n", adev->asic_type);
-+		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7d51768684dd..56beafbd3ab9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1872,7 +1872,7 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 	adev->discovery_tmr_size =
+ 		amdgpu_atomfirmware_get_fw_reserved_fb_size(adev);
+ 	if (!adev->discovery_tmr_size)
+-		adev->discovery_tmr_size = DISCOVERY_TMR_SIZE;
++		adev->discovery_tmr_size = DISCOVERY_TMR_OFFSET;
  
- 	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_smc.bin", chip_name);
+ 	if (mem_train_support) {
+ 		/* reserve vram for mem train according to TMR location */
 -- 
-2.27.0
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
