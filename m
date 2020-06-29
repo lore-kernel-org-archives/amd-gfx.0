@@ -2,67 +2,101 @@ Return-Path: <SRS0=Kvqq=AK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B757C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 21:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FF3BC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 22:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32B92206A5
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 21:59:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F111B206C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 22:01:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q0M3F/Lp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32B92206A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="C3OY/yHi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F111B206C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01C0489C1F;
-	Mon, 29 Jun 2020 21:59:08 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A437789C1F
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 21:59:07 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id o8so16907138wmh.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 14:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=llEzq10FQ4xf80k9hEEuHp3zdhQVka6KUuAt6abF4G4=;
- b=q0M3F/Lpxpq9sgllozdk7X23l+Ha8ANnguIcVUTZ2H8M54dBvXrSqtXDpZ01SW+4v9
- 31ybmw7xaW2MHMHdUYt+dyfAkaHWds8qrdH/Pb6EjC9dY4nsxmA6f3Air2e8JzRfRHWp
- 7oo0PudQjmcl7N0QOS3/WKkl0p6ANx3SxAFHHCnC8v5/4b1mv+9IXyEzc9WkCnSjLgX2
- LwQLXefwy4vcWMkuY+vypM9ytCw/NHcTVBsmA8sJHY/vECfKwQqMLNrZgNH6UAlbxMYY
- fml+shU0zlcIUtmfqECWaLgEaVcMuyQzcMBfKe3IWJx8c9R40zhOF9M9MA7AmattU5UC
- 3F9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=llEzq10FQ4xf80k9hEEuHp3zdhQVka6KUuAt6abF4G4=;
- b=IUDB5GlLhGw5aiME0ExYC1MTJvywFSDfKu8DFAllb5YDKxHS/AiTQiEMzck5ofoy27
- ycoRWiAZ29coV2OvHa05hfQ0tBEeXEmpYVDMQ2Xwx7beU4qj2DZhaXHL25owo0gNoWP4
- H/UtLlkwXiX4sGQ3NzkBef2Lp4xiLkfcXgnidmMx6O4jsNI7V3/q20OWBjoOLG+CfDdK
- zfL8Q8m2PfkdjLXw4c7Ct+vUgvMQejFL7G6MJAvlh7ko7pa/TfEA2qMuw/OcYQCzTOsa
- cro60TzrhhlenM17XFHvvVZ5CMUWymbo++xObmRrTT6spuHbY86vb1fbJvI5WuLG2xz0
- wTqw==
-X-Gm-Message-State: AOAM530hRXHyMtFvm4scSPlULHFt2aH6R/1WmJ9Y3Tpm6t+KdLuAlImv
- W2K7CLD2hQUDyQma4ge6mEs+9dBv4fn1MmPJNSs=
-X-Google-Smtp-Source: ABdhPJzdktDyNp1p2R7yd/Lk2vq4mC/NMapJ33qVHnp+TRuZ+zeMYurOuQhkKbwzZr8/r9AqOj17LNX31AN3cV4jlRg=
-X-Received: by 2002:a1c:3954:: with SMTP id g81mr18383805wma.73.1593467946358; 
- Mon, 29 Jun 2020 14:59:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D05B89E35;
+	Mon, 29 Jun 2020 22:01:04 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 903B489E35
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 22:01:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=co+fEttsMPgj3wf5osV6FDaPhyeYvNRBbF9pa0Nx8+MB1gJXi2SKWBxW0ULtG+ifkSjFzSn+i6ulqH+pqtUCLx4QMMeBep+VxcUICyQIyCDMADOxmFlBlst5sXdCFWcbV2qVGNe3jTlsYEnp54BeL7tKiGD7zVS+aPAaVB1vp76w3/2XzGBFUMX3VC6e/PfSskFplMOv4tuwgWxqUAuk70goUOZTsTy0w/Uhe0+rR4XETP4S3tKcq9UlrUeboHO30AvXCDn6g7DMVuV7VUdx806BpbT/nk+LIqPc49fSH3FqnBBpzIsdp3stwmA6YqvYbGuCW7Z5X3jjvoWQokOhQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k7ifJitJtKbDrdsJUmnSfjenF6aa3p8Z1RwGcUE7rsM=;
+ b=odY904WC+SyqevmEYkgi2HsODChDUVMtucbQLcrebg9E/J2ZCMivIIBaduxq3eXUqerac5MGuaL7hvYRaWVM0RaKpaG5vHcvojwi7lDM9DtnKXn0rFcNYWk6uPSIZCGlXwSiJZc9vvaiOFWE4GAJAmVlOoye95NMUeVz/em1d9DorSF0RMeC3GjnDdOPDr8K1ReS9qg81S/xJOB0p+t1tZ/idvO/mSEL05l1XWomeMQ7UvuiHEkHdfUqBGZMt0Is4Xzsf1r0q3zdD3m9yjz5yfXI1eTdZKkrds4YmZowWyxReYZc8SpffYLRswVj6A1csd8ef+NqS59CDdQ1REALzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k7ifJitJtKbDrdsJUmnSfjenF6aa3p8Z1RwGcUE7rsM=;
+ b=C3OY/yHi6vW1jsU8ptlTC4BeUsLPZzLKBip5r2U21sSvLpXYyydya13PYiX6Zk6gZoDtzgyMmSP+C8WEjMCiJUo+StUHiwx8dPcQ7hJVe6U4i+FYiDXNALEfS7TK0jr1N1VlDavy2pEnYKOmqfNyeKFbn0C4GjfVykA2zLfXyOI=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SN1PR12MB2382.namprd12.prod.outlook.com (2603:10b6:802:2e::30)
+ by SA0PR12MB4528.namprd12.prod.outlook.com (2603:10b6:806:9e::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.23; Mon, 29 Jun
+ 2020 22:01:02 +0000
+Received: from SN1PR12MB2382.namprd12.prod.outlook.com
+ ([fe80::8cbd:c948:840b:3a69]) by SN1PR12MB2382.namprd12.prod.outlook.com
+ ([fe80::8cbd:c948:840b:3a69%3]) with mapi id 15.20.3131.026; Mon, 29 Jun 2020
+ 22:01:02 +0000
+From: Joseph Greathouse <Joseph.Greathouse@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdkfd: Update hardware scheduling time quanta
+Date: Mon, 29 Jun 2020 17:00:44 -0500
+Message-Id: <20200629220044.179230-1-Joseph.Greathouse@amd.com>
+X-Mailer: git-send-email 2.20.1
+X-ClientProxiedBy: DM5PR19CA0004.namprd19.prod.outlook.com
+ (2603:10b6:3:151::14) To SN1PR12MB2382.namprd12.prod.outlook.com
+ (2603:10b6:802:2e::30)
 MIME-Version: 1.0
-References: <20200629204924.13426-1-nicholas.kazlauskas@amd.com>
-In-Reply-To: <20200629204924.13426-1-nicholas.kazlauskas@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 29 Jun 2020 17:58:55 -0400
-Message-ID: <CADnq5_NNtmxtFH91qvX=C=_A8C70DcnVKRe3j4N58if2d7LQFA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Only revalidate bandwidth on medium and
- fast updates
-To: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from rocm-perf01.amd.com (165.204.78.2) by
+ DM5PR19CA0004.namprd19.prod.outlook.com (2603:10b6:3:151::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3131.21 via Frontend Transport; Mon, 29 Jun 2020 22:01:01 +0000
+X-Mailer: git-send-email 2.20.1
+X-Originating-IP: [165.204.78.2]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 387646c2-736b-4b1a-b517-08d81c77e9b8
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4528:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB452803069543B311931A90EEF96E0@SA0PR12MB4528.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Forefront-PRVS: 044968D9E1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i8ltARk9Gk3W9GPPvVIcIhh+g4Nl9yL1NNtoZa2HyUGQ8KXVgDXk0PrUkvkzaWKdIg4Vo6lQB4xd3EY3RI5NGgRugPSEbPXxYshWA7tG6HmyaVbUMzQHomdP9eO2E+fC6bwAJq2UGQ3GpZnGPCBmKwLkBtIQwSiWOD2CcX7lb9sacgg39aiE4+2YgaEZlPGSSzgjsKWhaRTP5jtFRiXfxRlFnLsIALgBTHKvuhx3vuk6rjHYuL/vBM2ZwbGOoIc8nPNus5n3Fmdb06bHu240Eu2UoYKhhWzhtNmJXQ3/HozPah6Tg4gVx2rkZZJ+IpZn1c9EDUWVGp3MjWN6CEEScQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2382.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(366004)(376002)(346002)(136003)(396003)(186003)(16526019)(26005)(956004)(2616005)(15650500001)(7696005)(52116002)(2906002)(8676002)(6916009)(6666004)(8936002)(478600001)(5660300002)(66556008)(66476007)(36756003)(66946007)(83380400001)(4326008)(6486002)(86362001)(1076003)(316002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: EGJULgahygzKUOve0CZ6/W3CNsznuWkO8GLQhDDyVqmN5Nr06NLbuhZazEYyQ1DZqCxbo4XNRUQp6H0F85WojssmsztsVfBZXl8Ppn/x9PvCHEs5lJGlJrz0J6N1IkyB7l3d4/AHGirv1/zEcIJhIymj7E8GWdrQHcuAfeb+uYGIW/k4nKHCjV70OAkoBg9itjMDoWqkqusFp58ayTuPQShb3Pg8tf7FgcXgtKSLHJBSesohqq1gqJOU4fd2sRrIz4aF16otqe6YMQtaLnwIQxXHvn0+nXhpQwlQUDQjNFPCshpDolFF9D4uCu82UaSyHGpW+BdO7plBS0hKcZiJ3BHAupAXxHsbAPZrC7fh+9yF09I5HxPxypQHFdhdyPQjfk6jfQUp94dxl4ycYaP5MJa3oDaY3Waik/qUhXejKASXWGnnyoWlqW72NmLAAd54VJIRE02stUn825ziiQZeC3TnxMkVE1h8N2Wvqfuq1Tw=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 387646c2-736b-4b1a-b517-08d81c77e9b8
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2382.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2020 22:01:02.4655 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6dJYzOnMrpYhcVZVdOGNyXifDbhMwvbDP/biPtBnRUidNDGrrCEUK6zMEG39hJ9hVGoabcuIxvA9zAzJrwilyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4528
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,72 +108,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hersen Wu <hersenxs.wu@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Joseph Greathouse <Joseph.Greathouse@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2020 at 4:49 PM Nicholas Kazlauskas
-<nicholas.kazlauskas@amd.com> wrote:
->
-> [Why]
-> Changes that are fast don't require updating DLG parameters making
-> this call unnecessary. Considering this is an expensive call it should
-> not be done on every flip.
->
-> DML touches clocks, p-state support, DLG params and a few other DC
-> internal flags and these aren't expected during fast. A hang has been
-> reported with this change when called on every flip which suggests that
-> modifying these fields is not recommended behavior on fast updates.
->
-> [How]
-> Guard the validation to only happen if update type isn't FAST.
->
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1191
-> Fixes: e1995f0909e3 ("drm/amd/display: Revalidate bandwidth before commiting DC updates")
-> Cc: Hersen Wu <hersenxs.wu@amd.com>
-> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Update PROCESS_QUANTUM, the time the hardware scheduler allows
+processes to run before switching to other processes when it becomes
+over-subscribed. Increase this to 10ms, to allow processes to better
+amortize their task switch times.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Update HQD Quantum, the amount of time that an active queue stays
+attached to the CP before we forcibly switch it for another active
+queue for fairness.
 
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 67402d75e67e..942ceb0f6383 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -2607,10 +2607,12 @@ void dc_commit_updates_for_stream(struct dc *dc,
->
->         copy_stream_update_to_stream(dc, context, stream, stream_update);
->
-> -       if (!dc->res_pool->funcs->validate_bandwidth(dc, context, false)) {
-> -               DC_ERROR("Mode validation failed for stream update!\n");
-> -               dc_release_state(context);
-> -               return;
-> +       if (update_type > UPDATE_TYPE_FAST) {
-> +               if (!dc->res_pool->funcs->validate_bandwidth(dc, context, false)) {
-> +                       DC_ERROR("Mode validation failed for stream update!\n");
-> +                       dc_release_state(context);
-> +                       return;
-> +               }
->         }
->
->         commit_planes_for_stream(
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Setting these so that HQD < PROCESS makes it easier to ensure that
+we get fairness when we have multiple active queues on the device.
+Otherwise we may start process-swapping before we get to all the
+queues in a CP.
+
+Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
+Change-Id: I5f46d268a82eb08e75bfaf0aed5333c3341b64bd
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index d1d68a51bfb8..18e08d82d978 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -113,7 +113,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 
+ 	m->cp_hqd_quantum = 1 << CP_HQD_QUANTUM__QUANTUM_EN__SHIFT |
+ 			1 << CP_HQD_QUANTUM__QUANTUM_SCALE__SHIFT |
+-			10 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
++			1 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
+ 
+ 	if (q->format == KFD_QUEUE_FORMAT_AQL) {
+ 		m->cp_hqd_aql_control =
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 48cda3073b70..3b6f5963180d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -160,7 +160,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 
+ 	m->cp_hqd_quantum = 1 << CP_HQD_QUANTUM__QUANTUM_EN__SHIFT |
+ 			1 << CP_HQD_QUANTUM__QUANTUM_SCALE__SHIFT |
+-			10 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
++			1 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
+ 
+ 	if (q->format == KFD_QUEUE_FORMAT_AQL) {
+ 		m->cp_hqd_aql_control =
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index a5e8ff1e5945..31799e5f3b3c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -117,7 +117,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 
+ 	m->cp_hqd_quantum = 1 << CP_HQD_QUANTUM__QUANTUM_EN__SHIFT |
+ 			1 << CP_HQD_QUANTUM__QUANTUM_SCALE__SHIFT |
+-			10 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
++			1 << CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
+ 
+ 	set_priority(m, q);
+ 	m->cp_hqd_eop_rptr = 1 << CP_HQD_EOP_RPTR__INIT_FETCHER__SHIFT;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+index bdca9dc5f118..dfaf771a42e6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+@@ -39,7 +39,7 @@ static int pm_map_process_v9(struct packet_manager *pm,
+ 	packet->header.u32All = pm_build_pm4_header(IT_MAP_PROCESS,
+ 					sizeof(struct pm4_mes_map_process));
+ 	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+-	packet->bitfields2.process_quantum = 1;
++	packet->bitfields2.process_quantum = 10;
+ 	packet->bitfields2.pasid = qpd->pqm->process->pasid;
+ 	packet->bitfields14.gds_size = qpd->gds_size & 0x3F;
+ 	packet->bitfields14.gds_size_hi = (qpd->gds_size >> 6) & 0xF;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+index bed4d0ccb6b1..a852e0d7d804 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+@@ -50,7 +50,7 @@ static int pm_map_process_vi(struct packet_manager *pm, uint32_t *buffer,
+ 	packet->header.u32All = pm_build_pm4_header(IT_MAP_PROCESS,
+ 					sizeof(struct pm4_mes_map_process));
+ 	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+-	packet->bitfields2.process_quantum = 1;
++	packet->bitfields2.process_quantum = 10;
+ 	packet->bitfields2.pasid = qpd->pqm->process->pasid;
+ 	packet->bitfields3.page_table_base = qpd->page_table_base;
+ 	packet->bitfields10.gds_size = qpd->gds_size;
+-- 
+2.20.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
