@@ -2,63 +2,110 @@ Return-Path: <SRS0=Kvqq=AK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87F2DC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 06:53:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19B13C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 07:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 52A6C206E9
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 06:53:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9891923329
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 07:11:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F4EZHdQq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52A6C206E9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="T+iIvcsx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9891923329
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1130B89CC1;
-	Mon, 29 Jun 2020 06:53:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84BB389FF6
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Jun 2020 11:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593343336;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Z/WMKSGQI38TYlNW8WL946gfAiIfyGwK3d+9dBbUgPI=;
- b=F4EZHdQqX63lrcc3gF/ZpmB6bcZokrdZqE5SbwIxdKOtEpJr0TeRcALwOQR1tfMj/7m1x0
- A1y/c8ILu4Wt8MJGblQ8Fzs3fLwBMp6zYg7pJVvhAFSPOSAGV4yis9yLhSNDMp9REPsQh+
- k4YNAoZDbBjR8ROQy/L7DJrOiOZIDSs=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-319-PZ547Fe_O26JmXhR9Zau-A-1; Sun, 28 Jun 2020 07:22:12 -0400
-X-MC-Unique: PZ547Fe_O26JmXhR9Zau-A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5877ABFC0;
- Sun, 28 Jun 2020 11:22:11 +0000 (UTC)
-Received: from starship (unknown [10.35.206.182])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4D89B10013C2;
- Sun, 28 Jun 2020 11:22:10 +0000 (UTC)
-Message-ID: <1b4f51c95a5c7c8c7c62c4e33d9c62584dbef3f2.camel@redhat.com>
-Subject: Re: Kernel issues with Radeon Pro WX4100 and DP->HDMI dongles
-From: Maxim Levitsky <mlevitsk@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Sun, 28 Jun 2020 14:22:09 +0300
-In-Reply-To: <5bd8ffcc829b71651adca7f16cd52c6800508149.camel@redhat.com>
-References: <5bd8ffcc829b71651adca7f16cd52c6800508149.camel@redhat.com>
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51B3F89D99;
+	Mon, 29 Jun 2020 07:11:36 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 964A089D99
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 07:11:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SCvAk2QHtv4T7dkbu5Tm9BXcjOx04TTPs8Dgs50Z3se9TZrIHJGz/zsvjl3yfBixvmkMZ7MBbADcTStemgg0UOjk3OVyDgQDRD6zWWjGgv3aXOOpcWhoq4/+KNegwQjZKFtRLGQ4bqYfhd0QTWSf5dA0OjlJ7vy70qDkd9Uglqz4vQJQ6BPwFLxkFFcqVMaJogE+Wpea9qCqGwztKtAihXK0YCu7oe7WMdf6JqrEh44FyhFrL1sX1LbjrZLdrVyOYMUsCCbgLKqNJqdhYRn/gMXXnxFXRxPM8uQnVQhohgTl1rwA6TvX/q7rbAWV78Saa9d9fainboOu5Iz3aj4RuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9z+EbET31TaJ64sosUycR7kkYc4JJw5CNrYCuggzPbk=;
+ b=n+tlIo2PErN4rZx9BToZf59a+0uNHfJ/mPLs9Z8zYFM+JX1K4ZtMX/ARsA/XHkIzxTQZshgzyYVt2+5ZurjODR7ObwgT42RVzxuieStkFS0m2S94GHN2jIZN9JCehOGgUy89TYovbhUSxihrH5sjdbHybqcyUqUToI7mUAPlA68rTQMzIyF46sfPMQSevKfNmtciuMWK1VK8wzxMrhDFIRfwa3l5uxdbQhpC4+0H5sma5BigpzFbtzuzVxNEBCQ/ukNX65bJs8ms+d3oQ/9AgKYl86I0mN18EoJp/UAxghSWAN0/Hq5C+epEMhYbvHVoUPcDn2vQQwKD7MV7NyF23A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9z+EbET31TaJ64sosUycR7kkYc4JJw5CNrYCuggzPbk=;
+ b=T+iIvcsxL51icHve/WycDhfv3WpWJ56c8bsskCLXevJn9McAqOObL+d0xBl8MFq2cLxhqc2qpBjWQLV7P1mPYDLnbPStiGT0QposUYnAnWT/tSarShSAFAvAqqb/z1nKjGLaAv3pNdRKbu6miIPgPSRJM5pV5osYhbYsmqnu0q8=
+Received: from BN6PR04CA0098.namprd04.prod.outlook.com (2603:10b6:404:c9::24)
+ by MN2PR12MB3632.namprd12.prod.outlook.com (2603:10b6:208:c1::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.20; Mon, 29 Jun
+ 2020 07:11:33 +0000
+Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:c9:cafe::be) by BN6PR04CA0098.outlook.office365.com
+ (2603:10b6:404:c9::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.20 via Frontend
+ Transport; Mon, 29 Jun 2020 07:11:33 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3131.20 via Frontend Transport; Mon, 29 Jun 2020 07:11:33 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 29 Jun
+ 2020 02:11:32 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 29 Jun
+ 2020 02:11:32 -0500
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Mon, 29 Jun 2020 02:11:31 -0500
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: make IB test synchronize with init for SRIOV
+Date: Mon, 29 Jun 2020 15:11:29 +0800
+Message-ID: <1593414689-17565-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Mailman-Approved-At: Mon, 29 Jun 2020 06:53:15 +0000
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(46966005)(36756003)(86362001)(2616005)(5660300002)(26005)(4326008)(83380400001)(7696005)(2906002)(47076004)(82740400003)(478600001)(54906003)(70206006)(81166007)(356005)(426003)(8936002)(316002)(70586007)(336012)(186003)(6916009)(82310400002)(8676002);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9675a197-d9d8-49f3-badc-08d81bfba754
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3632:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB363280DC05CB696335F25687846E0@MN2PR12MB3632.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Forefront-PRVS: 044968D9E1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lq+h+HL2yftaNRthnPKVJk9JLvADLrJHB00O/uesfx4+3rfVXEshrsIa43SGLS0sDlIgq+4RJSVGNWm4esCc6WTY2DKo0bHu4BqWsLCmUB1widSWxnVJRt1c5UdROK4YzEkxSsOAaR/zHTD1antp8iOyGqwGn4ldHplQCqL++vg+/VzDyBpPyijMCiucTkF76QeM+JDdWYoeIVAH4BZYj9rWFV6doY1RmJCOUD2yq80bcp+zw/VmKwyWd2REM+PG/cVpfSZUAylfc1tZdhtijtTaC1r+6CzcTTldS/hry2GhIlbVJ5h3ni8AL7GGJlXPTx4qW1Ond3AgXKEZYTXKwS7PI14wEK7hkG1AmdA7lDpBLgZflvp2tR2UN6tsL+o1QKRivst6lUW9gfr19vL0Pg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2020 07:11:33.0564 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9675a197-d9d8-49f3-badc-08d81bfba754
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3632
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,159 +117,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Monk Liu <Monk.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2020-06-25 at 10:14 +0300, Maxim Levitsky wrote:
-> Hi,
-> 
-> I recently tried to connect my TV and WX4100 via two different DP->HDMI dongles.
-> One of them makes my main monitor to go dark, and system to lockup (I haven't yet debugged this futher), and the other one seems to work,
-> most of the time, but sometimes causes a kernel panic on 5.8.0-rc1:
-> 
-> 
-> [  +0.000000] ---[ end trace 0ce8685fac3db6b5 ]---
-> [  +2.142125] [drm:dc_link_detect_helper [amdgpu]] *ERROR* No EDID read.
-> [  +0.065348] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.001002] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.006310] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.102119] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.000679] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [ +22.037707] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [ +16.202833] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.000685] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.053875] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.000351] [drm] amdgpu_dm_irq_schedule_work FAILED src 8
-> [  +0.031764] ------------[ cut here ]------------
-> [  +0.000001] WARNING: CPU: 58 PID: 504 at drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/gpio_base.c:66 dal_gpio_open_ex+0x1b/0x40 [amdgpu]
-> [  +0.000001] Modules linked in: vfio_pci vfio_virqfd vfio_iommu_type1 vfio xfs rfcomm xt_MASQUERADE xt_conntrack ipt_REJECT iptable_mangle iptable_nat nf_nat ebtable_filter ebtables ip6table_filter
-> ip6_tables tun bridge pmbus cmac pmbus_core ee1004 jc42 bnep sunrpc vfat fat dm_mirror dm_region_hash dm_log iwlmvm wmi_bmof mac80211 kvm_amd kvm libarc4 uvcvideo iwlwifi btusb btrtl btbcm btintel
-> videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 snd_hda_codec_hdmi videobuf2_common snd_usb_audio bluetooth videodev input_leds snd_hda_intel cfg80211 snd_usbmidi_lib joydev snd_intel_dspcfg
-> snd_rawmidi mc snd_hda_codec xpad ff_memless snd_hwdep thunderbolt ecdh_generic snd_seq ecc snd_hda_core irqbypass rfkill i2c_nvidia_gpu efi_pstore pcspkr snd_seq_device bfq snd_pcm snd_timer zenpower
-> snd i2c_piix4 rtc_cmos tpm_crb tpm_tis tpm_tis_core tpm wmi button binfmt_misc dm_crypt sd_mod uas usb_storage hid_generic usbhid hid ext4 mbcache jbd2 amdgpu gpu_sched ttm drm_kms_helper syscopyarea
-> sysfillrect
-> [  +0.000018]  sysimgblt crc32_pclmul ahci crc32c_intel fb_sys_fops libahci igb ccp cec xhci_pci libata i2c_algo_bit rng_core nvme xhci_hcd drm nvme_core t10_pi nbd usbmon it87 hwmon_vid fuse i2c_dev
-> i2c_core ipv6 autofs4 [last unloaded: nvidia]
-> [  +0.000005] CPU: 58 PID: 504 Comm: kworker/58:1 Tainted: P        W  O      5.8.0-rc1.stable #118
-> [  +0.000001] Hardware name: Gigabyte Technology Co., Ltd. TRX40 DESIGNARE/TRX40 DESIGNARE, BIOS F4c 03/05/2020
-> [  +0.000000] Workqueue: events dm_irq_work_func [amdgpu]
-> [  +0.000001] RIP: 0010:dal_gpio_open_ex+0x1b/0x40 [amdgpu]
-> [  +0.000001] Code: 08 89 47 10 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 83 7f 08 00 75 0f 48 83 7f 18 00 74 15 89 77 20 e9 65 07 00 00 <0f> 0b e8 ae 5b 8a e0 b8 05 00 00 00 c3 0f 0b e8 a1
-> 5b 8a e0 b8 06
-> [  +0.000000] RSP: 0018:ffffc90002e93b90 EFLAGS: 00010282
-> [  +0.000001] RAX: 0000000000000000 RBX: ffff889fa4736ca0 RCX: 0000000000000000
-> [  +0.000000] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffff889fa011ff00
-> [  +0.000001] RBP: 0000000000000003 R08: 0000000000000001 R09: 0000000000000231
-> [  +0.000000] R10: 000000000000017f R11: ffff889fbeea4b84 R12: ffffc90002e93c74
-> [  +0.000000] R13: 0000000000000000 R14: ffff889fa4736ca0 R15: ffff889fb0e2c100
-> [  +0.000001] FS:  0000000000000000(0000) GS:ffff889fbee80000(0000) knlGS:0000000000000000
-> [  +0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000001] CR2: 00001ee62a52b000 CR3: 000000174d175000 CR4: 0000000000340ea0
-> [  +0.000000] Call Trace:
-> [  +0.000000]  dal_ddc_open+0x2d/0xe0 [amdgpu]
-> [  +0.000001]  ? dm_read_reg_func+0x33/0xa0 [amdgpu]
-> [  +0.000000]  dce_aux_transfer_raw+0xb4/0xa30 [amdgpu]
-> [  +0.000000]  ? hrtimer_try_to_cancel+0x28/0x100
-> [  +0.000001]  dm_dp_aux_transfer+0x8f/0xf0 [amdgpu]
-> [  +0.000000]  drm_dp_dpcd_access+0x6b/0x110 [drm_kms_helper]
-> [  +0.000000]  drm_dp_dpcd_read+0xb6/0xf0 [drm_kms_helper]
-> [  +0.000001]  dm_helpers_dp_read_dpcd+0x28/0x50 [amdgpu]
-> [  +0.000000]  core_link_read_dpcd.part.0+0x1f/0x30 [amdgpu]
-> [  +0.000000]  read_hpd_rx_irq_data+0x39/0x90 [amdgpu]
-> [  +0.000001]  dc_link_handle_hpd_rx_irq+0x74/0x7c0 [amdgpu]
-> [  +0.000000]  handle_hpd_rx_irq+0x62/0x2e0 [amdgpu]
-> [  +0.000000]  ? __schedule+0x252/0x6a0
-> [  +0.000001]  ? finish_task_switch+0x18d/0x280
-> [  +0.000000]  dm_irq_work_func+0x43/0x50 [amdgpu]
-> [  +0.000000]  process_one_work+0x1d2/0x390
-> [  +0.000000]  worker_thread+0x225/0x3b0
-> [  +0.000001]  ? process_one_work+0x390/0x390
-> [  +0.000000]  kthread+0xf9/0x130
-> [  +0.000000]  ? kthread_park+0x90/0x90
-> [  +0.000001]  ret_from_fork+0x1f/0x30
-> [  +0.000000] ---[ end trace 0ce8685fac3db6b6 ]---
-> [  +0.002807] int3: 0000 [#1] SMP
-> [  +0.000001] CPU: 58 PID: 504 Comm: kworker/58:1 Tainted: P        W  O      5.8.0-rc1.stable #118
-> [  +0.000001] Hardware name: Gigabyte Technology Co., Ltd. TRX40 DESIGNARE/TRX40 DESIGNARE, BIOS F4c 03/05/2020
-> [  +0.000000] Workqueue: events dm_irq_work_func [amdgpu]
-> [  +0.000001] RIP: 0010:kgdb_breakpoint+0x10/0x20
-> [  +0.000001] Code: 4d f9 ff eb c5 cc cc cc cc cc 0f 1f 44 00 00 31 c0 c3 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 f0 ff 05 3c be 3e 01 0f ae f8 cc <0f> ae f8 f0 ff 0d 2e be 3e 01 c3 0f 1f 44 00 00 0f
-> 1f 44 00 00 e8
-> [  +0.000000] RSP: 0018:ffffc90002e93b88 EFLAGS: 00000202
-> [  +0.000001] RAX: 0000000000000000 RBX: ffff889fa4736ca0 RCX: 0000000000000000
-> [  +0.000001] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffff889fa011ff00
-> [  +0.000000] RBP: 0000000000000003 R08: 0000000000000001 R09: 0000000000000231
-> [  +0.000001] R10: 000000000000017f R11: ffff889fbeea4b84 R12: ffffc90002e93c74
-> [  +0.000000] R13: 0000000000000000 R14: ffff889fa4736ca0 R15: ffff889fb0e2c100
-> [  +0.000001] FS:  0000000000000000(0000) GS:ffff889fbee80000(0000) knlGS:0000000000000000
-> [  +0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000001] CR2: 00001ee62a52b000 CR3: 000000174d175000 CR4: 0000000000340ea0
-> [  +0.000000] Call Trace:
-> [  +0.000001]  dal_gpio_open_ex+0x22/0x40 [amdgpu]
-> [  +0.000000]  dal_ddc_open+0x2d/0xe0 [amdgpu]
-> [  +0.000000]  ? dm_read_reg_func+0x33/0xa0 [amdgpu]
-> [  +0.000001]  dce_aux_transfer_raw+0xb4/0xa30 [amdgpu]
-> [  +0.000000]  ? hrtimer_try_to_cancel+0x28/0x100
-> [  +0.000000]  dm_dp_aux_transfer+0x8f/0xf0 [amdgpu]
-> [  +0.000001]  drm_dp_dpcd_access+0x6b/0x110 [drm_kms_helper]
-> [  +0.000000]  drm_dp_dpcd_read+0xb6/0xf0 [drm_kms_helper]
-> [  +0.000000]  dm_helpers_dp_read_dpcd+0x28/0x50 [amdgpu]
-> [  +0.000001]  core_link_read_dpcd.part.0+0x1f/0x30 [amdgpu]
-> [  +0.000000]  read_hpd_rx_irq_data+0x39/0x90 [amdgpu]
-> [  +0.000000]  dc_link_handle_hpd_rx_irq+0x74/0x7c0 [amdgpu]
-> [  +0.000001]  handle_hpd_rx_irq+0x62/0x2e0 [amdgpu]
-> [  +0.000000]  ? __schedule+0x252/0x6a0
-> [  +0.000000]  ? finish_task_switch+0x18d/0x280
-> [  +0.000001]  dm_irq_work_func+0x43/0x50 [amdgpu]
-> [  +0.000000]  process_one_work+0x1d2/0x390
-> [  +0.000000]  worker_thread+0x225/0x3b0
-> [  +0.000001]  ? process_one_work+0x390/0x390
-> [  +0.000000]  kthread+0xf9/0x130
-> [  +0.000000]  ? kthread_park+0x90/0x90
-> [  +0.000001]  ret_from_fork+0x1f/0x30
-> [  +0.000000] Modules linked in: vfio_pci vfio_virqfd vfio_iommu_type1 vfio xfs rfcomm xt_MASQUERADE xt_conntrack ipt_REJECT iptable_mangle iptable_nat nf_nat ebtable_filter ebtables ip6table_filter
-> ip6_tables tun bridge pmbus cmac pmbus_core ee1004 jc42 bnep sunrpc vfat fat dm_mirror dm_region_hash dm_log iwlmvm wmi_bmof mac80211 kvm_amd kvm libarc4 uvcvideo iwlwifi btusb btrtl btbcm btintel
-> videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 snd_hda_codec_hdmi videobuf2_common snd_usb_audio bluetooth videodev input_leds snd_hda_intel cfg80211 snd_usbmidi_lib joydev snd_intel_dspcfg
-> snd_rawmidi mc snd_hda_codec xpad ff_memless snd_hwdep thunderbolt ecdh_generic snd_seq ecc snd_hda_core irqbypass rfkill i2c_nvidia_gpu efi_pstore pcspkr snd_seq_device bfq snd_pcm snd_timer zenpower
-> snd i2c_piix4 rtc_cmos tpm_crb tpm_tis tpm_tis_core tpm wmi button binfmt_misc dm_crypt sd_mod uas usb_storage hid_generic usbhid hid ext4 mbcache jbd2 amdgpu gpu_sched ttm drm_kms_helper syscopyarea
-> sysfillrect
-> [  +0.000018]  sysimgblt crc32_pclmul ahci crc32c_intel fb_sys_fops libahci igb ccp cec xhci_pci libata i2c_algo_bit rng_core nvme xhci_hcd drm nvme_core t10_pi nbd usbmon it87 hwmon_vid fuse i2c_dev
-> i2c_core ipv6 autofs4 [last unloaded: nvidia]
-> [  +0.021468] ---[ end trace 0ce8685fac3db6b7 ]---
-> [  +0.000000] RIP: 0010:kgdb_breakpoint+0x10/0x20
-> [  +0.000001] Code: 4d f9 ff eb c5 cc cc cc cc cc 0f 1f 44 00 00 31 c0 c3 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 f0 ff 05 3c be 3e 01 0f ae f8 cc <0f> ae f8 f0 ff 0d 2e be 3e 01 c3 0f 1f 44 00 00 0f
-> 1f 44 00 00 e8
-> [  +0.000000] RSP: 0018:ffffc90002e93b88 EFLAGS: 00000202
-> [  +0.000001] RAX: 0000000000000000 RBX: ffff889fa4736ca0 RCX: 0000000000000000
-> [  +0.000001] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffff889fa011ff00
-> [  +0.000000] RBP: 0000000000000003 R08: 0000000000000001 R09: 0000000000000231
-> [  +0.000001] R10: 000000000000017f R11: ffff889fbeea4b84 R12: ffffc90002e93c74
-> [  +0.000000] R13: 0000000000000000 R14: ffff889fa4736ca0 R15: ffff889fb0e2c100
-> [  +0.000001] FS:  0000000000000000(0000) GS:ffff889fbee80000(0000) knlGS:0000000000000000
-> [  +0.000000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000000] CR2: 00001ee62a52b000 CR3: 000000174d175000 CR4: 0000000000340ea0
-> [  +0.000001] Kernel panic - not syncing: Fatal exception in interrupt
-> [  +0.001035] Kernel Offset: disabled
-> 
-> 
-> The 'amdgpu_dm_irq_schedule_work FAILED src 8' errors were from previous plugs of this adapter.
-> 
-> On 5.7-rc7 kernel I also tried booting, I also see the 'amdgpu_dm_irq_schedule_work FAILED' errors
-> but it seems for now that the crash doesn't happen, but it might have beeing luck.
-> 
-> On top of all this, I tried a 3rd dongle and it does appear to work flawlessly (no messages in dmesg).
-Disregard this. The 3rd dongle also caused my kernel to crash yestarday.
+From: pengzhou <PengJu.Zhou@amd.com>
 
-Best regards,
-	Maxim Levitsky
+issue:
+originally we kickoff IB test asynchronously with driver's init, thus
+the IB test may still running when the driver loading done (modprobe amdgpu done).
+if we shutdown VM immediately after amdgpu driver loaded then GPU may
+hang because the IB test is still running
 
-> 
-> Best regards,
-> 	Maxim Levitsky
+fix:
+make IB test synchronize with driver init thus it won't still running
+when we shutdown the VM.
 
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 457f5d2..4f54660 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3292,8 +3292,16 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	/* must succeed. */
+ 	amdgpu_ras_resume(adev);
+ 
+-	queue_delayed_work(system_wq, &adev->delayed_init_work,
++	if (amdgpu_sriov_vf(adev)) {
++		r = amdgpu_ib_ring_tests(adev);
++		if (r) {
++			DRM_ERROR("ib ring test failed (%d).\n", r);
++			return r;
++		}
++	} else {
++		queue_delayed_work(system_wq, &adev->delayed_init_work,
+ 			   msecs_to_jiffies(AMDGPU_RESUME_MS));
++	}
+ 
+ 	r = sysfs_create_files(&adev->dev->kobj, amdgpu_dev_attributes);
+ 	if (r) {
+@@ -3329,7 +3337,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	DRM_INFO("amdgpu: finishing device.\n");
+-	flush_delayed_work(&adev->delayed_init_work);
++	if (!amdgpu_sriov_vf(adev))
++		flush_delayed_work(&adev->delayed_init_work);
+ 	adev->shutdown = true;
+ 
+ 	/* make sure IB test finished before entering exclusive mode
+@@ -3425,7 +3434,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 	if (fbcon)
+ 		amdgpu_fbdev_set_suspend(adev, 1);
+ 
+-	cancel_delayed_work_sync(&adev->delayed_init_work);
++	if (!amdgpu_sriov_vf(adev))
++		cancel_delayed_work_sync(&adev->delayed_init_work);
+ 
+ 	if (!amdgpu_device_has_dc_support(adev)) {
+ 		/* turn off display hw */
+@@ -3528,8 +3538,16 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
+ 	if (r)
+ 		return r;
+ 
+-	queue_delayed_work(system_wq, &adev->delayed_init_work,
++	if (amdgpu_sriov_vf(adev)) {
++		r = amdgpu_ib_ring_tests(adev);
++		if (r) {
++			DRM_ERROR("ib ring test failed (%d).\n", r);
++			return r;
++		}
++	} else {
++		queue_delayed_work(system_wq, &adev->delayed_init_work,
+ 			   msecs_to_jiffies(AMDGPU_RESUME_MS));
++	}
+ 
+ 	if (!amdgpu_device_has_dc_support(adev)) {
+ 		/* pin cursors */
+@@ -3554,7 +3572,8 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
+ 		return r;
+ 
+ 	/* Make sure IB tests flushed */
+-	flush_delayed_work(&adev->delayed_init_work);
++	if (!amdgpu_sriov_vf(adev))
++		flush_delayed_work(&adev->delayed_init_work);
+ 
+ 	/* blat the mode back in */
+ 	if (fbcon) {
+-- 
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
