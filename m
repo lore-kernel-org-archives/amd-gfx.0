@@ -8,63 +8,60 @@ X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C20DC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 16:20:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A46DAC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 16:25:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CD392558F
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 16:20:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6ED2125590
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2020 16:25:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoCUjDrV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CD392558F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IWykJUcl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6ED2125590
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E2889D8A;
-	Mon, 29 Jun 2020 16:20:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28FF389CD5;
+	Mon, 29 Jun 2020 16:25:31 +0000 (UTC)
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
  [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3074989D8A
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 16:20:49 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id z13so17136946wrw.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 09:20:49 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84E3C89CD5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 16:25:29 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id k6so17162828wrn.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2020 09:25:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bVNJjB2QEsEYo8Dhb6xZ25V60tc2kgFpBPizhEjIdRk=;
- b=WoCUjDrV6ZzpNNSM6mmURmA9DajcHTmodKQBxmLO5m8ulKACqpzohIxOllWWapP64M
- m3gzU0HrAEZ33pil2sgnxp5uBnWR5LY+A5gE2KoOk2CbsP0+5FoWwZrvaKLADh2b60R5
- 3R0+DgRBmIsn5TYghGyu7npu35szIaGAXfaYI5ht7kp/Qz+mu2clTlFpemfcRVMSPt8z
- YUUvJKiifuc5T6C3Om35A70TrwEo2njbhkUkMgR/KtS90iqKBqUJH7jZvn7O9aUGOFZc
- 8VoC23FRK/bxK6d+DEhuLbHbxvWCzeIIJM5WYfh4XTKs8EPAa4EMNU7uLViWGj8NqLYe
- RlDg==
+ :cc; bh=EaZAkmkRX0QBkd0Hmx1WQEgrlHAMmznRS7ZksQBtNGQ=;
+ b=IWykJUclFnWL4FB0L8NSNAp3baiw35kKBRHDqDoT8h29NXWPH6iJ+I8Cmoym/wvj0v
+ UIKgE3db3rfCCiJp0P59MJ9vYcBA5xKlceTb9o78sOOaKhLmRSK7C1N1JFDAi7l9MB3D
+ K06i+an+l0/IvX7RIyZVJeCsSuERoPbEaZR0TKOdMgDsge5p3yJyKecCGTtJNIvTNoaR
+ gSN1ZFh02aD5XaABHRCqMAqi//g6T7WWh9wWeqCd+UFqoLKVcHi+pfJ3EpvB1jeJsH26
+ 4IpZF0STCTUhzLiE0lIuF7RKyA0LbjED9+dvWsj6/lh5BC0JIjBWSq/sdjhy4Oq1KxvY
+ c+fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=bVNJjB2QEsEYo8Dhb6xZ25V60tc2kgFpBPizhEjIdRk=;
- b=d5dCnbYjapWusXpTeBlRO76w/e4PyYlp+wJDtJ8r57QVsMOIXsIvFqoAKcTVsPER2d
- FW7DJzYCZDVmrKDtknYYUKlubgguzXkyGonL339QkIbSpesz+p0FnaB4pQUc4BqSs5s6
- 2jjVO8Eb8W7/LHlHiheP4eTfqOQf7tmIoDnkvEG281XTNceiQt+ohQB5tvKPmFUDr0xc
- O0MC+Hp3W1/epel6/j2jFXC44qbzSchHh1SZD5FsHiUWkIlD3EZ8DzOPwa4u0bjAPNme
- Eh0GI5YerGcIgnzZl1EB2sHaxVurbrMiZspoKhSK6bPyfEvwh4iNrriMQl3awGkfig0+
- mgYw==
-X-Gm-Message-State: AOAM531o2Qz6f04TnFcLI/gxoVUfmh5gdPl567QP3iDhkYlg+gUhSZJ2
- qqNcoYwkQMmeuOg8PZZ+j8u9wCXFWQXtZDiF7rvrCg==
-X-Google-Smtp-Source: ABdhPJyMw+6o9fpetObqBmwQaiMfHUHtM/c/qNau4a3dtXSYrW3xh5pmIdjwPFKKmAHEleXZdLNR/IeWAXYKb2Rq+B0=
-X-Received: by 2002:a5d:68cc:: with SMTP id p12mr17501734wrw.111.1593447647844; 
- Mon, 29 Jun 2020 09:20:47 -0700 (PDT)
+ bh=EaZAkmkRX0QBkd0Hmx1WQEgrlHAMmznRS7ZksQBtNGQ=;
+ b=AmX+JYrbdUhsENYkOsziwy6XHJh33bgl72iOIrVFcEMRP8QYi5GJLnJAZqY/CcT+S6
+ vp3q4pUS8zpC5ohsEnUC4Zov6g+7ZMHc2aTfwYuGNKS/mfoyUiWeWz/1ddcVsV++Ugrf
+ jqvP4/saFUcjsxaC1ShP4JhKtKbXoClq6DYF4Aw+rfFVzIobncU63gYuBcoctlenVJ+K
+ s22gH+3Pz9yKKmKtZ53jGSBHVDzXlChYeFM7XqIj/BaYF01gsuwYqRRgtD9QAoch3FSr
+ 2zeiAimCB6VbfgMv4GlB/fRxrMP2g8HzKRMcP0oWadVUIeTxrOSAl/s6HAXXJv/pQU4U
+ a1dA==
+X-Gm-Message-State: AOAM531LdYK0LFSQ/lrkBIu+0sUT7SNC2yKQHR5oCUmg9KUCAumMwRS/
+ MQKAPe/zRfZSt7M8kvt8Tu4nP64MKDbL+iI1yng=
+X-Google-Smtp-Source: ABdhPJxuVjyl3J64TssA5AOx8T90aGM3txYNgGigeAYJJBw+ei1BQk6EATs7cnBWyipL57ZzlSjb7rZ9At4newGL9bs=
+X-Received: by 2002:a5d:5549:: with SMTP id g9mr18777748wrw.419.1593447928105; 
+ Mon, 29 Jun 2020 09:25:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200629153652.101179-1-alexander.deucher@amd.com>
- <0af93aef-1173-58dd-f44a-5e2e36eba17c@amd.com>
- <5f57c33d-dfd7-1f1f-f448-e05963caa9ec@amd.com>
-In-Reply-To: <5f57c33d-dfd7-1f1f-f448-e05963caa9ec@amd.com>
+References: <20200628111848.1234-1-evan.quan@amd.com>
+In-Reply-To: <20200628111848.1234-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 29 Jun 2020 12:20:36 -0400
-Message-ID: <CADnq5_PmHGXXxocZeXCOW-rESXNo9aStpT4eb4Zg+jRRmoONkg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: Revalidate bandwidth before
- commiting DC updates"
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Date: Mon, 29 Jun 2020 12:25:17 -0400
+Message-ID: <CADnq5_NnQbOXs+oWEeb3xvgeVZEPKLCjiRWkBaS7e8zRfeNuBQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: fix compile error with ARCH=arc
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,81 +73,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ kernel test robot <lkp@intel.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2020 at 12:13 PM Kazlauskas, Nicholas
-<nicholas.kazlauskas@amd.com> wrote:
+On Sun, Jun 28, 2020 at 7:19 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> On 2020-06-29 11:40 a.m., Kazlauskas, Nicholas wrote:
-> > On 2020-06-29 11:36 a.m., Alex Deucher wrote:
-> >> Seems to cause stability issues for some users.
-> >>
-> >> This reverts commit a24eaa5c51255b344d5a321f1eeb3205f2775498.
-> >>
-> >> Bug:
-> >> https://gitlab.freedesktop.org/drm/amd/-/issues/1191
-> >>
-> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >
-> > I don't see the error in their log. How do we know this commit is
-> > actually causing the issue?
-> >
-> > I don't really want to revert this commit because it means that we
-> > missed rejecting a commit during atomic check, meaning we're either
-> > going to get underflow on the screen or a pipe hang.
-> >
-> > Regards,
-> > Nicholas Kazlauskas
+> Fix the compile error below:
+> drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c: In function 'smu_v11_0_init_microcode':
+> >> arch/arc/include/asm/bug.h:22:2: error: implicit declaration of function 'pr_warn'; did you mean 'pci_warn'? [-Werror=implicit-function-declaration]
+>       22 |  pr_warn("BUG: failure at %s:%d/%s()!\n", __FILE__, __LINE__, __func__); \
+>          |  ^~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:176:3: note: in expansion of macro 'BUG'
+>      176 |   BUG();
 >
-> Actually, we only want to be doing this on full updates - it's not a
-> very fast operation. Not sure if this is causing their stability issue
-> though.
+> Change-Id: I4e969082c41f8a8c91f1b0d19eb853eb0a2e0c0d
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-Maybe.  Several people have reported reverting it fixes hangs.  Maybe
-something in the validation code hangs?  Maybe some sort of software
-deadlock?
+I think this is probably a missing include.  We use BUG() elsewhere in
+the driver with no problems.
 
 Alex
 
-
+> ---
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> Regards,
-> Nicholas Kazlauskas
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> index 677f8adb920c..48e15885e9c3 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> @@ -173,7 +173,8 @@ int smu_v11_0_init_microcode(struct smu_context *smu)
+>                 chip_name = "sienna_cichlid";
+>                 break;
+>         default:
+> -               BUG();
+> +               dev_err(adev->dev, "Unsupported ASIC type %d\n", adev->asic_type);
+> +               return -EINVAL;
+>         }
 >
-> >
-> >> ---
-> >>   drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ------
-> >>   1 file changed, 6 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> >> b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> >> index 67402d75e67e..94230bb3195d 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> >> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> >> @@ -2607,12 +2607,6 @@ void dc_commit_updates_for_stream(struct dc *dc,
-> >>       copy_stream_update_to_stream(dc, context, stream, stream_update);
-> >> -    if (!dc->res_pool->funcs->validate_bandwidth(dc, context, false)) {
-> >> -        DC_ERROR("Mode validation failed for stream update!\n");
-> >> -        dc_release_state(context);
-> >> -        return;
-> >> -    }
-> >> -
-> >>       commit_planes_for_stream(
-> >>                   dc,
-> >>                   srf_updates,
-> >>
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> >
+>         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_smc.bin", chip_name);
+> --
+> 2.27.0
 >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
