@@ -2,105 +2,101 @@ Return-Path: <SRS0=hrZh=AL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 812DAC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2020 08:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE718C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2020 08:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 438E120759
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2020 08:05:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 89F6F206E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2020 08:56:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TCPvpvo1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 438E120759
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UXAFyTtB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89F6F206E2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E927789A60;
-	Tue, 30 Jun 2020 08:05:26 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47BD889A60
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2020 08:05:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12A6889DC2;
+	Tue, 30 Jun 2020 08:56:03 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700081.outbound.protection.outlook.com [40.107.70.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F247F89DC2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2020 08:56:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M4arbnuq3tpAzuJoYRrqSxNxDrI+mdDvtWn/aaw3NXmggPTcz0J0Df5z+MrRXF7pwMZCQKrTGKMkUo6vhatgOkJ+FYyyeiH7ax2/k6D/2BtnszEwLaev+2QSO5VoMj5KZ6qV5F7jsOrcOz40amZ2OHylzc/TdJGAC9RQw1/2uWA1y8qkGsP43Ff16pTDWgQXjQ67HgAiPw46iXDsXfdCq/Z6QBfXOMN4pPglawoutusvVnP5Fooy9eEy2/6wt4MIRbiahNROO8wN5uLk+xsED2qO5bm8YurV2JJ3RplFiSR9CWZaYGD+PQUI4NySSTR0m0Axi4mYv6M3MPkoq7mOCQ==
+ b=DqZdYVks7dZl2EstXMbD346E4il6G07ZRAy8nnX1i9gYobVQ4dhZl06AeFdvx4Jcyie2UwgZwsSWER8Rm+2/s6qBSa1EstUAiDayg4m40xmWBVbZ50WppXEdwpST7Mn0oZe6yuH2xkU0vLRfI6L4CbbxSA1opGzkjgoKJ5AYFLkd6LcLHtfb1be/3MDsVabKlArFU3LhjD/s9W1SKjxa/tFB8JYyS0jBNJ7U4DnzuGcydsXgUEgNJ9iM79ud7WQYN7CCpCfBYBh1AlCACyu18AYVPlfgPp4JJxxlf+Sz3Mnn1t4/QyZ5iFM7wyNrNZX9SOFuKbRl5tXUI/ZTXCBZgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tTzsDbRyzcH/KAgeP7px6IIx/n9epAkYHt3PToPOesw=;
- b=CwmFs0iejuHT7+FFFa7WmGZQLxw5fC+AsE/KjI7/nP37z5IAQlJiaLam/gbnbrtC/JcjavxejVG5JF3g5j7sQm1EhU4byfSoHtAed8vckPMPFZ8PsW/z5UpbqssDkLy32ESpUhyVsTwBVYijF9jYwABTOzBYZJDvWM993APZSI6oWFkrpHcHCCAwYkVYWDJ5KW3P3ouq1X7MPisCIo1j+mB/KSZDs/l0Hh7tUroNQbBkCglGJHLM5NJKsOECJE35jL2R8RHDhzwW6DApVNelio5u2I2B7veQfM35EvIv80UT1wjyCEXE9Bsx4Bg7S8xxuHw7edySREAWhCQ4p/GlzA==
+ bh=9leQqKLxZSgq8Oyk60g0VEUUleTP6vLYvhr5mYlgkXM=;
+ b=aoc/2PUsMCY1gndMXdWCxlf9nyNaj5FhH2C9/gb+kdFB3LbF/IPkQClKD0CEwBq8haNAdH7YRFI70bU2KlySfE+stjKLL8NzE4WJriHtNbodfxc/HbPXohHhsBRkkuR7lgyM0A+U0aLzyepQqNB92615qx1a7N7Hw+4pJL+B7xqbjcV2xyWvGxPvvYffD0iZxsSBAgrVocHyd/8L/ek9kOL/Bv+TMpH3S00QTfJRkJiKCrr3bPcf6YaQbmT6hI46g0gbARgBW/dyVFI1NJZ0vwDZVclWAMzpo5baL8PFAzu91UgdCtYLyeY+5ZBjbZ7IQaJiFG11584uQnhATCI59w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tTzsDbRyzcH/KAgeP7px6IIx/n9epAkYHt3PToPOesw=;
- b=TCPvpvo1Idua5fTr4Vg/6GAJ7lFWFRdkNKBXvQWO5VQAXa0HyOe5lk/Prf2cpliWoukaADkmtdpmXzW5t0lBzYsAdB4uS17TR6EMvqvZvisPwwcSbVGKOUfER1DkWiIfn4UC1ykACwpJB4EZP5Wm9bQrF+HCeW4mPplL3hARPMc=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB2515.namprd12.prod.outlook.com (2603:10b6:207:40::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.21; Tue, 30 Jun
- 2020 08:05:21 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d%6]) with mapi id 15.20.3131.027; Tue, 30 Jun 2020
- 08:05:21 +0000
-Subject: Re: [PATCH] gpu/drm: Replace "%p" with "%pK"
-To: Tiezhu Yang <yangtiezhu@loongson.cn>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <1593502561-15190-1-git-send-email-yangtiezhu@loongson.cn>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <26fcd5ec-4e90-8b98-8fbb-605f5906ad75@amd.com>
-Date: Tue, 30 Jun 2020 10:05:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <1593502561-15190-1-git-send-email-yangtiezhu@loongson.cn>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR05CA0127.eurprd05.prod.outlook.com
- (2603:10a6:207:2::29) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ bh=9leQqKLxZSgq8Oyk60g0VEUUleTP6vLYvhr5mYlgkXM=;
+ b=UXAFyTtBmmz+el1KqnHQYv8XkH+g+hW8aAtjaFfQsaJFDZ8AueHWSGhjzSz2UM+kjjjEIM9jLKNBn470WMOxyhahPivn978ZZWYoNfjyaGy2GwIol+OEW1O37gY/C1m5OeVfvQWgU7Nolj1DrkLeYxi+Xd9T1X3oPwRUizkAUQw=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB3691.namprd12.prod.outlook.com (2603:10b6:5:1c5::30) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3131.20; Tue, 30 Jun 2020 08:55:59 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::81eb:c31f:a63a:20eb]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::81eb:c31f:a63a:20eb%8]) with mapi id 15.20.3153.020; Tue, 30 Jun 2020
+ 08:55:58 +0000
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/amdgpu: support access regs outside of mmio bar"
+Date: Tue, 30 Jun 2020 16:55:41 +0800
+Message-Id: <20200630085541.9048-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK2PR02CA0127.apcprd02.prod.outlook.com
+ (2603:1096:202:16::11) To DM6PR12MB4075.namprd12.prod.outlook.com
+ (2603:10b6:5:21d::8)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM3PR05CA0127.eurprd05.prod.outlook.com (2603:10a6:207:2::29) with Microsoft
+Received: from hawzhang-System-Product-Master.amd.com (58.247.170.242) by
+ HK2PR02CA0127.apcprd02.prod.outlook.com (2603:1096:202:16::11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3131.20 via Frontend Transport; Tue, 30 Jun 2020 08:05:20 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ 15.20.3131.21 via Frontend Transport; Tue, 30 Jun 2020 08:55:57 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 404334cd-f06b-4961-7fc5-08d81ccc5593
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2515:
+X-MS-Office365-Filtering-Correlation-Id: 5ddc1c2f-30ab-4e46-45b8-08d81cd36857
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3691:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB251581E39ECC75E8BFB5FD33836F0@BL0PR12MB2515.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:298;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3691C7EBFF67899ABBB7B65CFC6F0@DM6PR12MB3691.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:175;
 X-Forefront-PRVS: 0450A714CB
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BnKO4hF/8Fo14mLOTuHfyFYjRBBmPNShjivcJlKzpB390tNEYaukwDE3F2qwXVXvIslhOtyfbm2rMs07cIP+GNCvHoXVJ4QJZqZI6XY+5HSGzfOWCtB6mNRx/+SYOpMeKgBPwMtcvtreykaBmKCv/r/UPMy5pu6JyyV4r2oRw76VXBRrDb052pHIsZ35sxbhot6sGhpr647Tqe+fQT0eHf7ibdCG2ST/O5rfDMq5E8cc/Q5iIGy/18j5ZiE54W3pdjk/db3rQpp6Mzn8RcMQF6MGpQTEQEIWJivapYoRpHBch8MXQaQYW6WUh9mtytVNZRpKBnXRRYbvH3tHk6W8CYXAHf8e/xL+TaRb5bVIdk/PGWEa6XDWzi3lSPF7IA5s
+X-Microsoft-Antispam-Message-Info: v1HYyYqaWDyPm4wpX5dcDGtkA3cW8NyOiizhl5Sgsgzt6Fw48xaBVw+2qjyuGLeI02FcWWNQmV6LmgulHhF1e+wwGaGKNRqOFEAyHHK0ddW6V6smaY5sSTp6dtip3JEdvN1nuKlNIB1FkcX6J4GY6T/f99kjZoZn/LlhYOiKNYOz/oqcNAhvp4iGUHCzg/UgGbDL62Ql/U7E4CJIOkR/eB1HuZnR4psri3L/6wS2yho/m3yuvKkEAwuRYZ7gqZpFrUV1YKDES7fBxEyNnUHnxYnpU9PLdYPO2w9Fye9kGuMkhJfJ01fJtp9birPOod6mecpMgBCuxVMMiixtGGH7gw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(376002)(136003)(346002)(396003)(366004)(16526019)(110136005)(31696002)(478600001)(86362001)(8676002)(4326008)(83380400001)(5660300002)(8936002)(186003)(6666004)(36756003)(52116002)(2906002)(31686004)(316002)(6636002)(6486002)(66946007)(66476007)(66556008)(2616005)(43740500002);
+ SFS:(4636009)(136003)(376002)(39860400002)(346002)(396003)(366004)(6666004)(2616005)(86362001)(956004)(52116002)(26005)(6486002)(478600001)(186003)(1076003)(83380400001)(36756003)(7696005)(5660300002)(6916009)(4326008)(316002)(8676002)(66476007)(66556008)(2906002)(66946007)(8936002)(16526019);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: dFLUDjdn/Ns7XVcssuFo2CRnZfz6F0n2/1OcVgk2dXMQbrJNFPJQ06TMMVCLbXREBR32/hUYgSZHLrah0UQzo9ogHxRHNfCmhi75781F9Q9wdHa9QfQEp6pl2OvLr+baupts+l6E7YDAwwgHmrs5L4REE8AJ2lCHZBvon3FYx4vmuIiixTpswDITKwkhO/hyXl2KBYwdIhpF6LSoT3DXOKOIg/PR7rJDzBx4VQLkyHpbtU9PtGRDNJU/ZRSrU4zTCH5ZoLyG/XSewy6g2sRhCXC2rrSV6Zj3aVZRimnLJmRDwNAZ8hCZ16Gi+cuZPyB5kiLyqD6JKvv9TtPMJFx6wVV+sKAiwUKULQdetY+iqV/OszYTIQRmm8zwW3xYnl0MMU4AFRz2K2CfmeeBqZ4za2RC3TAOm8aVnAcdtL1iUcaClsryUgOGpMCOQGg+OLtj3LZkhreI5V2247Edskme03Y4G0QBCBk0TT9TkopBfdR8TyKfUtmYi5HfSyA0ifmenMRIg6FqzcUrR6rDVkd3RT9a8uJJCWuaUDhm46n4Izf1lAUzkJcgDomiQh3wgozN
+X-MS-Exchange-AntiSpam-MessageData: KkhyYAwDYgeeUyy0sX6qa0LwZOpWBn2Ix7I4w6h3vbOU2FHwTv7jNnAd6w65nBuipKQ4fw7AVPQKP/u9pD++ab4QJrrw7JJYEop7VBG/eKOTpmXcZWXfGx1ycURHPCex1NWejKC1MmRLRVnAjVLE8azwUk6BsT1AB/6hs+BQirIQn+qbMLPtgHlgSnSrMp6oU5Ax2WVxB8gPkY0WPSQlYEhwDmHZTZgMT1vCc1A274BPKPTh74BJ3uW9uDizN/9vDK2PbzbQzfG5MZ5cWgSX8RaU9+E0iJyJqyUjCIwI6AeyHnoe9GpVWqR19L70RV55x3y7+DI63frfwJgMbMINl8ZnhDTuDKb19roMiMpD/yEwktjJe/kIP1sr5kmJEhqGVHxHWV8/V6jOSOCUI/P8gNA15dplRlF6SZGS40vM6Os/NDbmjbPy82BhfMgmfNECNOcb7XXf9TbmBQRjo0wE/lyX+8WwiheGT1QySrflTNDALK8vHAUHkoTXysVQyxh+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 404334cd-f06b-4961-7fc5-08d81ccc5593
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ddc1c2f-30ab-4e46-45b8-08d81cd36857
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2020 08:05:21.0609 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2020 08:55:58.8327 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Tk0qewnCQ7fw7+jXYcmrwDUasRgY8tnLD9jl9XiMtv3V2vdPCXwX0ZcalU5AaaJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2515
+X-MS-Exchange-CrossTenant-UserPrincipalName: 57r/gVpPj1wg9SOcvFXufGONJ+UiApNfficz5HxR0iFmev219f5oSLT2jW2oP3STj5t8osapZmC+Qn/l/+hMYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3691
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,63 +108,209 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.06.20 um 09:36 schrieb Tiezhu Yang:
-> When I update the latest kernel, I see the following "____ptrval____" boot
-> messages. Use "%pK" instead of "%p" so that the cpu address can be printed
-> when the kptr_restrict sysctl is set to 1.
->
-> Both radeon_fence_driver_start_ring() and amdgpu_fence_driver_start_ring()
-> have this similar issue, fix them.
->
-> [    1.872600] radeon 0000:01:05.0: fence driver on ring 0 use gpu addr 0x0000000048000c00 and cpu addr 0x(____ptrval____)
-> [    1.879095] radeon 0000:01:05.0: fence driver on ring 5 use gpu addr 0x0000000040056038 and cpu addr 0x(____ptrval____)
+This reverts commit e318290d4845026623924a42435eafd101f669ac.
+Fallback to a stable base until we have a correct new one
 
-We can probably just completely drop the CPU address here.
+Signed-off-by:Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 19 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 45 +++++++++++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h  |  4 +--
+ 3 files changed, 39 insertions(+), 29 deletions(-)
 
-Christian.
-
->
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 5 ++---
->   drivers/gpu/drm/radeon/radeon_fence.c     | 2 +-
->   2 files changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index d878fe7..d4d1e8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -422,9 +422,8 @@ int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
->   	ring->fence_drv.irq_type = irq_type;
->   	ring->fence_drv.initialized = true;
->   
-> -	DRM_DEV_DEBUG(adev->dev, "fence driver on ring %s use gpu addr "
-> -		      "0x%016llx, cpu addr 0x%p\n", ring->name,
-> -		      ring->fence_drv.gpu_addr, ring->fence_drv.cpu_addr);
-> +	DRM_DEV_DEBUG(adev->dev, "fence driver on ring %s use gpu addr 0x%016llx, cpu addr 0x%pK\n",
-> +		      ring->name, ring->fence_drv.gpu_addr, ring->fence_drv.cpu_addr);
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
-> index 43f2f93..c51b094 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fence.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fence.c
-> @@ -865,7 +865,7 @@ int radeon_fence_driver_start_ring(struct radeon_device *rdev, int ring)
->   	}
->   	radeon_fence_write(rdev, atomic64_read(&rdev->fence_drv[ring].last_seq), ring);
->   	rdev->fence_drv[ring].initialized = true;
-> -	dev_info(rdev->dev, "fence driver on ring %d use gpu addr 0x%016llx and cpu addr 0x%p\n",
-> +	dev_info(rdev->dev, "fence driver on ring %d use gpu addr 0x%016llx and cpu addr 0x%pK\n",
->   		 ring, rdev->fence_drv[ring].gpu_addr, rdev->fence_drv[ring].cpu_addr);
->   	return 0;
->   }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 110234d..80f32b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1013,10 +1013,10 @@ int amdgpu_gpu_wait_for_idle(struct amdgpu_device *adev);
+ 
+ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
+ 			       uint32_t *buf, size_t size, bool write);
+-uint32_t amdgpu_device_rreg(struct amdgpu_device *adev, uint32_t reg,
+-			    uint32_t acc_flags);
+-void amdgpu_device_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
++uint32_t amdgpu_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
+ 			uint32_t acc_flags);
++void amdgpu_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
++		    uint32_t acc_flags);
+ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
+ 		    uint32_t acc_flags);
+ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value);
+@@ -1035,8 +1035,8 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+  */
+ #define AMDGPU_REGS_NO_KIQ    (1<<1)
+ 
+-#define RREG32_NO_KIQ(reg) amdgpu_device_rreg(adev, (reg), AMDGPU_REGS_NO_KIQ)
+-#define WREG32_NO_KIQ(reg, v) amdgpu_device_wreg(adev, (reg), (v), AMDGPU_REGS_NO_KIQ)
++#define RREG32_NO_KIQ(reg) amdgpu_mm_rreg(adev, (reg), AMDGPU_REGS_NO_KIQ)
++#define WREG32_NO_KIQ(reg, v) amdgpu_mm_wreg(adev, (reg), (v), AMDGPU_REGS_NO_KIQ)
+ 
+ #define RREG32_KIQ(reg) amdgpu_kiq_rreg(adev, (reg))
+ #define WREG32_KIQ(reg, v) amdgpu_kiq_wreg(adev, (reg), (v))
+@@ -1044,9 +1044,9 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ #define RREG8(reg) amdgpu_mm_rreg8(adev, (reg))
+ #define WREG8(reg, v) amdgpu_mm_wreg8(adev, (reg), (v))
+ 
+-#define RREG32(reg) amdgpu_device_rreg(adev, (reg), 0)
+-#define DREG32(reg) printk(KERN_INFO "REGISTER: " #reg " : 0x%08X\n", amdgpu_device_rreg(adev, (reg), 0))
+-#define WREG32(reg, v) amdgpu_device_wreg(adev, (reg), (v), 0)
++#define RREG32(reg) amdgpu_mm_rreg(adev, (reg), 0)
++#define DREG32(reg) printk(KERN_INFO "REGISTER: " #reg " : 0x%08X\n", amdgpu_mm_rreg(adev, (reg), 0))
++#define WREG32(reg, v) amdgpu_mm_wreg(adev, (reg), (v), 0)
+ #define REG_SET(FIELD, v) (((v) << FIELD##_SHIFT) & FIELD##_MASK)
+ #define REG_GET(FIELD, v) (((v) << FIELD##_SHIFT) & FIELD##_MASK)
+ #define RREG32_PCIE(reg) adev->pcie_rreg(adev, (reg))
+@@ -1084,7 +1084,6 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ 		WREG32_PLL(reg, tmp_);				\
+ 	} while (0)
+ 
+-
+ #define WREG32_SMC_P(_Reg, _Val, _Mask)                         \
+ 	do {                                                    \
+ 		u32 tmp = RREG32_SMC(_Reg);                     \
+@@ -1093,7 +1092,7 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ 		WREG32_SMC(_Reg, tmp);                          \
+ 	} while (0)
+ 
+-#define DREG32_SYS(sqf, adev, reg) seq_printf((sqf), #reg " : 0x%08X\n", amdgpu_device_rreg((adev), (reg), false))
++#define DREG32_SYS(sqf, adev, reg) seq_printf((sqf), #reg " : 0x%08X\n", amdgpu_mm_rreg((adev), (reg), false))
+ #define RREG32_IO(reg) amdgpu_io_rreg(adev, (reg))
+ #define WREG32_IO(reg, v) amdgpu_io_wreg(adev, (reg), (v))
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7a4e965..7a61085 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -301,10 +301,10 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
+ }
+ 
+ /*
+- * device register access helper functions.
++ * MMIO register access helper functions.
+  */
+ /**
+- * amdgpu_device_rreg - read a register
++ * amdgpu_mm_rreg - read a memory mapped IO register
+  *
+  * @adev: amdgpu_device pointer
+  * @reg: dword aligned register offset
+@@ -312,8 +312,8 @@ void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
+  *
+  * Returns the 32 bit value from the offset specified.
+  */
+-uint32_t amdgpu_device_rreg(struct amdgpu_device *adev, uint32_t reg,
+-			    uint32_t acc_flags)
++uint32_t amdgpu_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
++			uint32_t acc_flags)
+ {
+ 	uint32_t ret;
+ 
+@@ -322,9 +322,15 @@ uint32_t amdgpu_device_rreg(struct amdgpu_device *adev, uint32_t reg,
+ 
+ 	if ((reg * 4) < adev->rmmio_size)
+ 		ret = readl(((void __iomem *)adev->rmmio) + (reg * 4));
+-	else
+-		ret = adev->pcie_rreg(adev, (reg * 4));
+-	trace_amdgpu_device_rreg(adev->pdev->device, reg, ret);
++	else {
++		unsigned long flags;
++
++		spin_lock_irqsave(&adev->mmio_idx_lock, flags);
++		writel((reg * 4), ((void __iomem *)adev->rmmio) + (mmMM_INDEX * 4));
++		ret = readl(((void __iomem *)adev->rmmio) + (mmMM_DATA * 4));
++		spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
++	}
++	trace_amdgpu_mm_rreg(adev->pdev->device, reg, ret);
+ 	return ret;
+ }
+ 
+@@ -370,19 +376,24 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
+ 		BUG();
+ }
+ 
+-void static inline amdgpu_device_wreg_no_kiq(struct amdgpu_device *adev, uint32_t reg,
+-					     uint32_t v, uint32_t acc_flags)
++void static inline amdgpu_mm_wreg_mmio(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint32_t acc_flags)
+ {
+-	trace_amdgpu_device_wreg(adev->pdev->device, reg, v);
++	trace_amdgpu_mm_wreg(adev->pdev->device, reg, v);
+ 
+ 	if ((reg * 4) < adev->rmmio_size)
+ 		writel(v, ((void __iomem *)adev->rmmio) + (reg * 4));
+-	else
+-		adev->pcie_wreg(adev, (reg * 4), v);
++	else {
++		unsigned long flags;
++
++		spin_lock_irqsave(&adev->mmio_idx_lock, flags);
++		writel((reg * 4), ((void __iomem *)adev->rmmio) + (mmMM_INDEX * 4));
++		writel(v, ((void __iomem *)adev->rmmio) + (mmMM_DATA * 4));
++		spin_unlock_irqrestore(&adev->mmio_idx_lock, flags);
++	}
+ }
+ 
+ /**
+- * amdgpu_device_wreg - write to a register
++ * amdgpu_mm_wreg - write to a memory mapped IO register
+  *
+  * @adev: amdgpu_device pointer
+  * @reg: dword aligned register offset
+@@ -391,13 +402,13 @@ void static inline amdgpu_device_wreg_no_kiq(struct amdgpu_device *adev, uint32_
+  *
+  * Writes the value specified to the offset specified.
+  */
+-void amdgpu_device_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
+-			uint32_t acc_flags)
++void amdgpu_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
++		    uint32_t acc_flags)
+ {
+ 	if (!(acc_flags & AMDGPU_REGS_NO_KIQ) && amdgpu_sriov_runtime(adev))
+ 		return amdgpu_kiq_wreg(adev, reg, v);
+ 
+-	amdgpu_device_wreg_no_kiq(adev, reg, v, acc_flags);
++	amdgpu_mm_wreg_mmio(adev, reg, v, acc_flags);
+ }
+ 
+ /*
+@@ -416,7 +427,7 @@ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev, uint32_t reg, uint32_t
+ 			return adev->gfx.rlc.funcs->rlcg_wreg(adev, reg, v);
+ 	}
+ 
+-	amdgpu_device_wreg_no_kiq(adev, reg, v, acc_flags);
++	amdgpu_mm_wreg_mmio(adev, reg, v, acc_flags);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index 5da20fc..63e734a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -35,7 +35,7 @@
+ #define AMDGPU_JOB_GET_TIMELINE_NAME(job) \
+ 	 job->base.s_fence->finished.ops->get_timeline_name(&job->base.s_fence->finished)
+ 
+-TRACE_EVENT(amdgpu_device_rreg,
++TRACE_EVENT(amdgpu_mm_rreg,
+ 	    TP_PROTO(unsigned did, uint32_t reg, uint32_t value),
+ 	    TP_ARGS(did, reg, value),
+ 	    TP_STRUCT__entry(
+@@ -54,7 +54,7 @@ TRACE_EVENT(amdgpu_device_rreg,
+ 		      (unsigned long)__entry->value)
+ );
+ 
+-TRACE_EVENT(amdgpu_device_wreg,
++TRACE_EVENT(amdgpu_mm_wreg,
+ 	    TP_PROTO(unsigned did, uint32_t reg, uint32_t value),
+ 	    TP_ARGS(did, reg, value),
+ 	    TP_STRUCT__entry(
+-- 
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
