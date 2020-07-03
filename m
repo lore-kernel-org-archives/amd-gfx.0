@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 982EAC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FE5FC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6EADB207DA
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:55:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4EF17207DA
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:58:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YIIaIhMp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EADB207DA
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="r6RlcePQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4EF17207DA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 380676E1E0;
-	Fri,  3 Jul 2020 08:55:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB72C6E081;
+	Fri,  3 Jul 2020 08:58:41 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00FE76E1F5
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2020 08:55:36 +0000 (UTC)
+ (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 930816E081
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2020 08:58:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jyqIMm6qXSzBAxBW11WkNBnQkAdgW6nkxM7x1YJAGw6OYvM/RrfX2Im4XRAp1KtmbnIvmlk83HBA4xCx0HhKP9tn4fffqRI8Cj9c3rwrK+KDgFC9ecN7jyrmYZwsSd8Xm/l1TA4OsiKnbwcKsuh+qunNixB1JHvYhU8fdQWY1xrkNMrm+HjvOG2b2ZXrJbTIRLla+PtFVHEawgDCezsIGPfQVAWUMdz9F6vcFPSZsHbS2LQT2aXWY7wWGC4IXmg3wf9vo5HOAckYNu8N5uEYRZ72tpc1K9GUWKM6oxzb7TPkJbTYB82K4H9hiIvOJjYy8BkXrYS1ggZJXfyHB/1JMQ==
+ b=dyIJPudMA2L3RbtC5MgqKQWLVEmmC6hyX5nmCGbWnhd74x/x2UYVtpEomchjkePXCRtwytPGVvGZi3p8GCxvcG8VfMD/P/Ha4ZKtG/P41ruiVu/e1d425H+Z70EU1X7CA9ycrilBJBD0ADD/FwXCUjwTCJ071MkMuoiMxKnlxFsdtG+ROaNXWgP13WEVXZmTd+FLCAGiiuIisFmlBrcdS6QwaPAjPt5VAb1GjWYx+hdS4Sc8QQSq14KgfFtt2b09gdKzs9SItaNsTWM/WfUPZiujqvpnGEwHqpEGzvRyiSNw0fWBrScH9jultcsZrZxP3Fz5XDVbXUwqQgYf8Ff0jA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J65BLtVnHEIT5ifJd24pwPWGTa/qmGtW+RBTgiHnS0Y=;
- b=EqIGjep8o3y6V54NjRt/dMkhDeBv0kxlHXBml7jqkv8sAK0ioGOfroFMtQuhTMNxfzXnmGpUMhknTiPVInBD4io9y8+96gipo4YpzhVbKSzsLTxrGPQ4owiYMabe46WaaWHabmwRvymsjEf14k5Cv7c/3r9LStn8VxO3dCddRK9fOhqkQlbxOEB3MFVNnsT0J3wWhxpFcjea+C1HRYd0bWftuJDW0df681hUTumfjUGv9Xe7pEjpNQy8KuDEVqqRBh0ankKlZPky+IQNPOT7XHHcc6Ug/E+YA8Ny0nuZZ/kRZRDPfs7uRKDGfg9NHpFp64g1LnLKYYTgimstQjEJnQ==
+ bh=tH81CEMayicF12c/7suUU2IRHu55Kq5JpiLD+8sTPcM=;
+ b=Pj7kx4F8P3WAFQY240OYtanG9ZK3xaQOw8ame39VGuw9ic3WJOvUjZxmEvpWvngr8nis4kvj4eUBFaDLZ/NFeq63TQqwifLSruR0nVBX9HBl3nOBhcROgzcGZnhAbA31zOHd50IFEh2xEyuYddUU9q08O6QNgDQm+v0kQz5sss/TrE8Y99xRoGWPvnyOzlnXBplbuikAyssQio2lbEqpPaJVUTp1K64XtdeqlL9KShIfpQjXL6ymRxgnNnka1lKLYn/q7nbyKDhKe+4dXLd05m3WT/vK6WG1Q0SCMAjAZjRwK2oEyt3jG057JkQ247wz9UzGRdrbTJ9l3SZJkjinLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J65BLtVnHEIT5ifJd24pwPWGTa/qmGtW+RBTgiHnS0Y=;
- b=YIIaIhMpicxwOt85nViLuGozRhM/L20VNYGMK2/6sFS4ksCekiCgyl6aCX2VXnWTpSzIS32k57XwX2NpUmjOgZ/quE4j0rfvxRqUnyWt/lYHykeNsfzZKIikppZrXmad6gFfKa4wfOjEaxHWNIbYDzoBuGy/bwIOH68SZY9cenk=
+ bh=tH81CEMayicF12c/7suUU2IRHu55Kq5JpiLD+8sTPcM=;
+ b=r6RlcePQ6ujpjv63V0DlMga840oh9dTQdlCEc5DPcwsR2R2j9ByofFi9oJYVLz08Ax+8rRYVKiLXc+Mb89GYTMrpOU12TCkfz+nE7k+5kUEsqJe3oykGY7SFNN0oOfszf7BhC6VvvoiXd5nADcZGG0EhTUYddAZrYLG4JTqrP+c=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,57 +48,55 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB4353.namprd12.prod.outlook.com (2603:10b6:5:2a6::12) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3153.20; Fri, 3 Jul 2020 08:55:36 +0000
+ 15.20.3153.20; Fri, 3 Jul 2020 08:58:39 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3153.023; Fri, 3 Jul 2020
- 08:55:36 +0000
+ 08:58:39 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amd/powerplay: correct the supported pcie GenSpeed
- and LaneCount
-Date: Fri,  3 Jul 2020 16:55:15 +0800
-Message-Id: <20200703085515.7552-2-evan.quan@amd.com>
+Subject: [PATCH 1/6] drm/amd/powerplay: correct Navi1X temperature limit
+ settings
+Date: Fri,  3 Jul 2020 16:58:13 +0800
+Message-Id: <20200703085818.7800-1-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200703085515.7552-1-evan.quan@amd.com>
-References: <20200703085515.7552-1-evan.quan@amd.com>
-X-ClientProxiedBy: HK2PR03CA0062.apcprd03.prod.outlook.com
- (2603:1096:202:17::32) To DM6PR12MB2619.namprd12.prod.outlook.com
+X-ClientProxiedBy: HK2P15301CA0023.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:202:1::33) To DM6PR12MB2619.namprd12.prod.outlook.com
  (2603:10b6:5:45::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
- HK2PR03CA0062.apcprd03.prod.outlook.com (2603:1096:202:17::32) with Microsoft
+ HK2P15301CA0023.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::33) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.15 via Frontend Transport; Fri, 3 Jul 2020 08:55:34 +0000
+ 15.20.3174.1 via Frontend Transport; Fri, 3 Jul 2020 08:58:38 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 365ee7f3-a34e-4f6d-4822-08d81f2ed9ff
+X-MS-Office365-Filtering-Correlation-Id: c72f293b-5a19-455e-0df8-08d81f2f4735
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4353:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4353780295B4CEDDE76CA8D7E46A0@DM6PR12MB4353.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4353DC5261D354B633D1E38BE46A0@DM6PR12MB4353.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
 X-Forefront-PRVS: 045315E1EE
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9L7nKRXKVS0Jm0Zq+AU2/5MiMrtHTK/SKugDO0HyL5m89Xcc+IS8UxKPBWdPJtaxDXQQvbRT64LrZsO5cd1iESMsq2WjZCq/XKzn7Fq3tN4EekdiOa30FQbHa09hKqZTkAnILEpPv3ajCL/6hDSjz4qXSplAmlQrV5At8OckXxURUqfEMgKtWEa0SW0w+sGt055qvCgld67wugKKioSIQWzAij+p6h2+w/3W1nJDgXU1VGVqD0sMCpXZ0hedoanXAJrFtLVLoHtSCGex+2Zma4tyr4bmk+cNRy3GkkedXPKMIRPitN//KyL2sZlLWtME4N1mBfcT8bXFhwBKkDdwig==
+X-Microsoft-Antispam-Message-Info: kKOd8V9J+rGcsc5YYrJAb6tPSXrtSyCVQqhkXVFZVcFJVYtPoe2gIrg0lJrIpPLeIp5XPnBnP6cMEd1NrkHb7c27NV0hi2fQzjfl8TVrF8Ty2hVlHgJgth4/pH+lSarAT1Gzkiv4T1PAhY0zWNqGtvALaln2mJNIc4q7qAIlvoOB8gZ/wuDQl7Sc34AxpneCgN4Q4wgSlfip+ViSdBrIZ5Zl4QmY6uxlyKJIui6XDdGkudq/qgRAyERIqRqjhLUHP3ByCTLs6+4F0tBIIYcJ4ZGokMTvtg29KJyPEYNuyjdctlqWC1n575WyJRLvNb73L6Du0eV5yXW+3U5UN+Qczs00G8BN0DPGbIlbTmt7CiAYwIpMfic+ProEXvIYvX4X
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(956004)(478600001)(86362001)(4326008)(6486002)(8676002)(2906002)(8936002)(5660300002)(36756003)(83380400001)(6666004)(2616005)(6916009)(186003)(316002)(44832011)(66476007)(52116002)(1076003)(26005)(66946007)(66556008)(16526019)(7696005);
+ SFS:(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(956004)(478600001)(86362001)(4326008)(6486002)(8676002)(2906002)(8936002)(5660300002)(36756003)(83380400001)(6666004)(2616005)(6916009)(186003)(316002)(44832011)(66476007)(52116002)(1076003)(26005)(66946007)(66556008)(16526019)(7696005)(32563001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: AH1+fNdbAtdKOHgAONOuPU0OxU3ZVGwPluwHyQgunJ8c9aWD6C/sdKuHZgFOLb45GEqx6eV/3iUCEutllD0TsvBRGEnKytVPA1r1M1/id86TNlTD2IV/Wfk12DYHLktzs7daDLV/SblZSGXJggLIucNA+Y79mKUuQnRxAsRXMv+mWuvlIyigR1EapjfAEr3W/f6s5Vs0fxZbotLNpK5bIRtKKpVHJaiAGijUmY28Pa46fTv3EpZ24oKlpO1o5nxdHUabmO1dXuAicR++TM9y9bN+1N+XDyTSSD+33yL+J2AG/0gxuRnc4WL36x3rWbwCdYVB4KIbVOfT8DWo1Fx4EZt1bSohx0wmYJhI2K7QUV9kVWimh/tJg6EfIZaQBaar1Uo20NptAhJOPsHpG6aZmgkpsfJ+83xS96XjzHRTAkEAR7ZZy9qyenVHg8+Dhvp1/zhq1IqrtnKL+XcMIhuKJ6r8rS4d3kNK0I2TILJU9IAXvUpY7EO5dLPm+KeSTGa5
+X-MS-Exchange-AntiSpam-MessageData: 6XhUfRkjBoGgdv2mo+5I3pm+++ilqr0q3H2/JdfxQLz47JNLX6F6wKKw1+7XCwSjg3lUAYPQPXS/EgPwoJvpAR96yXYeAJSg8hSz55P32xKvLL2Mpvlf7RbmXikjfe/9yGkxTHoJsk+h0zczXqqRPqn7CsBKVBsF/Sm1fsrlm8O95H9pHvlFzNYYJEBs3yAEERF8VDnMEwW1I7qFmEgyi8eDfVvX2zYRDkI1ndAQD55WtMDnQIwByQPotQUkG52DEKcDP4JiRnvlHEUefJHf/8TGnYkgsJUdmHDVYkSdFHMq0zuDlBKhKEgaSoaBuuk/orXZ8CEo/CoW0cnvF3zvWom33fPN8XkgJ1FXVkADAdwj7WqfwOppxGND4e+UkC4RHHSSgLT0ruP1/21+7hDXtg4jzXJ4hFei+WWPozr1cebzSBSsobFvuKjxG2MWPf0bRDDHGpHbsx5cWwMhO88JKJH2TNQP8ObLwJ8cz51tOzgE2xvnHc+t2lpA04HKYNj2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 365ee7f3-a34e-4f6d-4822-08d81f2ed9ff
+X-MS-Exchange-CrossTenant-Network-Message-Id: c72f293b-5a19-455e-0df8-08d81f2f4735
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2020 08:55:36.1026 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2020 08:58:39.3617 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6xypU4GFCxpEyKSfv8aCK+h/088ZlMsB6aKnce1TlsYNVprJW5EzvlasG8gZknaE
+X-MS-Exchange-CrossTenant-UserPrincipalName: WDjmrNAkJK0Y1UXJbpz3janlzYoxUKhk5YbmKp4UN3QOj7QynJGjxYduRGcR24tZ
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4353
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,106 +115,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The LCLK dpm table setup should be performed in .update_pcie_parameters().
-Otherwise, the updated GenSpeed and LaneCount information will be lost.
+These are needed for temp1/2/3 related hwmon interfaces.
 
-Change-Id: I028c26ca0e54098cb93d9e9266719f1762ba2d7e
+Change-Id: I4fe04dc65ba2153bbb9c507769a9d8ddeac66094
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c      | 17 +++++++----------
- .../gpu/drm/amd/powerplay/sienna_cichlid_ppt.c  | 17 +++++++----------
- 2 files changed, 14 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |  6 +-----
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  4 ++++
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 17 +++++++++++++----
+ 3 files changed, 18 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+index 3687e7620eb8..0b33cde05133 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -56,10 +56,6 @@
+ 
+ #define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_i2c))
+ 
+-#define CTF_OFFSET_EDGE			5
+-#define CTF_OFFSET_HOTSPOT		5
+-#define CTF_OFFSET_HBM			5
+-
+ #define MSG_MAP(msg, index, valid_in_vf) \
+ 	[SMU_MSG_##msg] = {1, (index), (valid_in_vf)}
+ #define ARCTURUS_FEA_MAP(smu_feature, arcturus_feature) \
+@@ -1048,7 +1044,7 @@ static int arcturus_get_thermal_temperature_range(struct smu_context *smu,
+ 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 	range->mem_crit_max = pptable->TmemLimit *
+ 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-	range->mem_emergency_max = (pptable->TmemLimit + CTF_OFFSET_HBM)*
++	range->mem_emergency_max = (pptable->TmemLimit + CTF_OFFSET_MEM)*
+ 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 311166f1975c..4de3cdcae437 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -66,6 +66,10 @@
+ #define WORKLOAD_MAP(profile, workload) \
+ 	[profile] = {1, (workload)}
+ 
++#define CTF_OFFSET_EDGE			5
++#define CTF_OFFSET_HOTSPOT		5
++#define CTF_OFFSET_MEM			5
++
+ static const struct smu_temperature_range smu11_thermal_policy[] =
+ {
+ 	{-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 99000},
 diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 3db5e663aa6f..97d14539c95e 100644
+index 97d14539c95e..350b469646bd 100644
 --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -693,7 +693,6 @@ static int navi10_set_default_dpm_table(struct smu_context *smu)
- 	PPTable_t *driver_ppt = smu->smu_table.driver_pptable;
- 	struct smu_11_0_dpm_table *dpm_table;
- 	int ret = 0;
--	int i;
- 
- 	/* socclk dpm table setup */
- 	dpm_table = &dpm_context->dpm_tables.soc_table;
-@@ -857,12 +856,6 @@ static int navi10_set_default_dpm_table(struct smu_context *smu)
- 		dpm_table->max = dpm_table->dpm_levels[0].value;
- 	}
- 
--	/* lclk dpm table setup */
--	for (i = 0; i < MAX_PCIE_CONF; i++) {
--		dpm_context->dpm_tables.pcie_table.pcie_gen[i] = driver_ppt->PcieGenSpeed[i];
--		dpm_context->dpm_tables.pcie_table.pcie_lane[i] = driver_ppt->PcieLaneCount[i];
--	}
--
- 	return 0;
- }
- 
-@@ -1936,12 +1929,16 @@ static int navi10_update_pcie_parameters(struct smu_context *smu,
- 				     uint32_t pcie_gen_cap,
- 				     uint32_t pcie_width_cap)
+@@ -1856,13 +1856,22 @@ static int navi10_get_uclk_dpm_states(struct smu_context *smu, uint32_t *clocks_
+ static int navi10_get_thermal_temperature_range(struct smu_context *smu,
+ 						struct smu_temperature_range *range)
  {
-+	struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	int ret, i;
- 	uint32_t smu_pcie_arg;
-+	int ret, i;
+-	struct smu_table_context *table_context = &smu->smu_table;
+-	struct smu_11_0_powerplay_table *powerplay_table = table_context->power_play_table;
++	PPTable_t *pptable = smu->smu_table.driver_pptable;
  
--	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
--	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-+	/* lclk dpm table setup */
-+	for (i = 0; i < MAX_PCIE_CONF; i++) {
-+		dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pptable->PcieGenSpeed[i];
-+		dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pptable->PcieLaneCount[i];
-+	}
+-	if (!range || !powerplay_table)
++	if (!range)
+ 		return -EINVAL;
  
- 	for (i = 0; i < NUM_LINK_LEVELS; i++) {
- 		smu_pcie_arg = (i << 16) |
-diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 7a108676f90a..46be02e4b93c 100644
---- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -601,7 +601,6 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
- 	PPTable_t *driver_ppt = smu->smu_table.driver_pptable;
- 	struct smu_11_0_dpm_table *dpm_table;
- 	int ret = 0;
--	int i;
+-	range->max = powerplay_table->software_shutdown_temp *
++	range->max = pptable->TedgeLimit *
++		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	range->edge_emergency_max = (pptable->TedgeLimit + CTF_OFFSET_EDGE) *
++		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	range->hotspot_crit_max = pptable->ThotspotLimit *
++		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	range->hotspot_emergency_max = (pptable->ThotspotLimit + CTF_OFFSET_HOTSPOT) *
++		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	range->mem_crit_max = pptable->TmemLimit *
++		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	range->mem_emergency_max = (pptable->TmemLimit + CTF_OFFSET_MEM)*
+ 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
  
- 	/* socclk dpm table setup */
- 	dpm_table = &dpm_context->dpm_tables.soc_table;
-@@ -819,12 +818,6 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
- 		dpm_table->max = dpm_table->dpm_levels[0].value;
- 	}
- 
--	/* lclk dpm table setup */
--	for (i = 0; i < MAX_PCIE_CONF; i++) {
--		dpm_context->dpm_tables.pcie_table.pcie_gen[i] = driver_ppt->PcieGenSpeed[i];
--		dpm_context->dpm_tables.pcie_table.pcie_lane[i] = driver_ppt->PcieLaneCount[i];
--	}
--
  	return 0;
- }
- 
-@@ -1722,12 +1715,16 @@ static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
- 					 uint32_t pcie_gen_cap,
- 					 uint32_t pcie_width_cap)
- {
-+	struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	int ret, i;
- 	uint32_t smu_pcie_arg;
-+	int ret, i;
- 
--	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
--	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-+	/* lclk dpm table setup */
-+	for (i = 0; i < MAX_PCIE_CONF; i++) {
-+		dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pptable->PcieGenSpeed[i];
-+		dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pptable->PcieLaneCount[i];
-+	}
- 
- 	for (i = 0; i < NUM_LINK_LEVELS; i++) {
- 		smu_pcie_arg = (i << 16) |
 -- 
 2.27.0
 
