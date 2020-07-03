@@ -6,36 +6,32 @@ X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE230C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 07:47:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5C5FC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 07:47:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD6A82073E
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 07:47:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD6A82073E
+	by mail.kernel.org (Postfix) with ESMTPS id B19CF2073E
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 07:47:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B19CF2073E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCFC6E334;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 835116E364;
 	Mon,  6 Jul 2020 07:47:10 +0000 (UTC)
 Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4D3F6E2A5
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2020 14:29:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06106E223
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2020 13:49:44 +0000 (UTC)
 Received: from hopp.molgen.mpg.de (hopp.molgen.mpg.de [141.14.25.186])
- by mx.molgen.mpg.de (Postfix) with ESMTP id A5F59206442E7;
- Fri,  3 Jul 2020 16:29:45 +0200 (CEST)
+ by mx.molgen.mpg.de (Postfix) with ESMTP id 9D27E20646DD8;
+ Fri,  3 Jul 2020 15:49:42 +0200 (CEST)
 From: Paul Menzel <pmenzel@molgen.mpg.de>
 To: Linus Torvalds <torvalds@linux-foundation.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v3 3/3] drm/amdgpu: Change type of module param
- `ppfeaturemask` to hexint
-Date: Fri,  3 Jul 2020 16:29:39 +0200
-Message-Id: <20200703142939.28663-3-pmenzel@molgen.mpg.de>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH v2 1/2] moduleparams: Add hexint type parameter
+Date: Fri,  3 Jul 2020 15:49:39 +0200
+Message-Id: <20200703134940.27054-1-pmenzel@molgen.mpg.de>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200703142939.28663-1-pmenzel@molgen.mpg.de>
-References: <20200703142939.28663-1-pmenzel@molgen.mpg.de>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 06 Jul 2020 07:47:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -51,53 +47,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Paul Menzel <pmenzel@molgen.mpg.de>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The newly added hexint helper is more convenient for bitmasks.
-
-Before:
-
-    $ more /sys/module/amdgpu/parameters/ppfeaturemask
-    4294950911
-
-After:
-
-    $ more /sys/module/amdgpu/parameters/ppfeaturemask
-    0xffffbfff
-
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 126e74758a34..5c4263335cba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -391,12 +391,12 @@ MODULE_PARM_DESC(sched_hw_submission, "the max number of HW submissions (default
- module_param_named(sched_hw_submission, amdgpu_sched_hw_submission, int, 0444);
- 
- /**
-- * DOC: ppfeaturemask (uint)
-+ * DOC: ppfeaturemask (hexint)
-  * Override power features enabled. See enum PP_FEATURE_MASK in drivers/gpu/drm/amd/include/amd_shared.h.
-  * The default is the current set of stable power features.
-  */
- MODULE_PARM_DESC(ppfeaturemask, "all power features enabled (default))");
--module_param_named(ppfeaturemask, amdgpu_pp_feature_mask, uint, 0444);
-+module_param_named(ppfeaturemask, amdgpu_pp_feature_mask, hexint, 0444);
- 
- /**
-  * DOC: forcelongtraining (uint)
--- 
-2.26.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rm9yIGJpdG1hc2tzIHByaW50aW5nIHZhbHVlcyBpbiBoZXggaXMgbW9yZSBjb252ZW5pZW50LgoK
+UHJlZml4IHdpdGggYDB4YCB0byBtYWtlIGl0IGNsZWFyLCB0aGF0IGl04oCZcyBhIGhleCB2YWx1
+ZSwgYW5kIHBhZCBpdApvdXQuCgpVc2luZyB0aGUgaGVscGVyIGZvciBgYW1kZ3B1LnBwZmVhdHVy
+ZW1hc2tgLCBpdCB3aWxsIGxvb2sgbGlrZSBiZWxvdy4KCkJlZm9yZToKCiAgICAkIG1vcmUgL3N5
+cy9tb2R1bGUvYW1kZ3B1L3BhcmFtZXRlcnMvcHBmZWF0dXJlbWFzawogICAgNDI5NDk1MDkxMQoK
+QWZ0ZXI6CgogICAgJCBtb3JlIC9zeXMvbW9kdWxlL2FtZGdwdS9wYXJhbWV0ZXJzL3BwZmVhdHVy
+ZW1hc2sKICAgIDB4ZmZmZmJmZmYKCkNjOiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCkNj
+OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpTaWduZWQtb2ZmLWJ5OiBQYXVsIE1lbnpl
+bCA8cG1lbnplbEBtb2xnZW4ubXBnLmRlPgotLS0KdjI6IEFkZHJlc3MgcmV2aWV3IGNvbW1lbnRz
+OiBSZW5hbWUgaGV4IHRvIGhleGludCwgYW5kIHBhZCBzaXplcwoKIGluY2x1ZGUvbGludXgvbW9k
+dWxlcGFyYW0uaCB8ICA3ICsrKysrKy0KIGtlcm5lbC9wYXJhbXMuYyAgICAgICAgICAgICB8IDE3
+ICsrKysrKysrKy0tLS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDkg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9tb2R1bGVwYXJhbS5oIGIv
+aW5jbHVkZS9saW51eC9tb2R1bGVwYXJhbS5oCmluZGV4IDNlZjkxN2ZmMDk2NC4uY2ZmNzI2MWU5
+OGJiIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L21vZHVsZXBhcmFtLmgKKysrIGIvaW5jbHVk
+ZS9saW51eC9tb2R1bGVwYXJhbS5oCkBAIC0xMTgsNyArMTE4LDcgQEAgc3RydWN0IGtwYXJhbV9h
+cnJheQogICogeW91IGNhbiBjcmVhdGUgeW91ciBvd24gYnkgZGVmaW5pbmcgdGhvc2UgdmFyaWFi
+bGVzLgogICoKICAqIFN0YW5kYXJkIHR5cGVzIGFyZToKLSAqCWJ5dGUsIHNob3J0LCB1c2hvcnQs
+IGludCwgdWludCwgbG9uZywgdWxvbmcKKyAqCWJ5dGUsIGhleGludCwgc2hvcnQsIHVzaG9ydCwg
+aW50LCB1aW50LCBsb25nLCB1bG9uZwogICoJY2hhcnA6IGEgY2hhcmFjdGVyIHBvaW50ZXIKICAq
+CWJvb2w6IGEgYm9vbCwgdmFsdWVzIDAvMSwgeS9uLCBZL04uCiAgKglpbnZib29sOiB0aGUgYWJv
+dmUsIG9ubHkgc2Vuc2UtcmV2ZXJzZWQgKE4gPSB0cnVlKS4KQEAgLTQ0OCw2ICs0NDgsMTEgQEAg
+ZXh0ZXJuIGludCBwYXJhbV9zZXRfdWxsb25nKGNvbnN0IGNoYXIgKnZhbCwgY29uc3Qgc3RydWN0
+IGtlcm5lbF9wYXJhbSAqa3ApOwogZXh0ZXJuIGludCBwYXJhbV9nZXRfdWxsb25nKGNoYXIgKmJ1
+ZmZlciwgY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJhbSAqa3ApOwogI2RlZmluZSBwYXJhbV9jaGVj
+a191bGxvbmcobmFtZSwgcCkgX19wYXJhbV9jaGVjayhuYW1lLCBwLCB1bnNpZ25lZCBsb25nIGxv
+bmcpCiAKK2V4dGVybiBjb25zdCBzdHJ1Y3Qga2VybmVsX3BhcmFtX29wcyBwYXJhbV9vcHNfaGV4
+aW50OworZXh0ZXJuIGludCBwYXJhbV9zZXRfaGV4aW50KGNvbnN0IGNoYXIgKnZhbCwgY29uc3Qg
+c3RydWN0IGtlcm5lbF9wYXJhbSAqa3ApOworZXh0ZXJuIGludCBwYXJhbV9nZXRfaGV4aW50KGNo
+YXIgKmJ1ZmZlciwgY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJhbSAqa3ApOworI2RlZmluZSBwYXJh
+bV9jaGVja19oZXhpbnQobmFtZSwgcCkgcGFyYW1fY2hlY2tfdWludChuYW1lLCBwKQorCiBleHRl
+cm4gY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJhbV9vcHMgcGFyYW1fb3BzX2NoYXJwOwogZXh0ZXJu
+IGludCBwYXJhbV9zZXRfY2hhcnAoY29uc3QgY2hhciAqdmFsLCBjb25zdCBzdHJ1Y3Qga2VybmVs
+X3BhcmFtICprcCk7CiBleHRlcm4gaW50IHBhcmFtX2dldF9jaGFycChjaGFyICpidWZmZXIsIGNv
+bnN0IHN0cnVjdCBrZXJuZWxfcGFyYW0gKmtwKTsKZGlmZiAtLWdpdCBhL2tlcm5lbC9wYXJhbXMu
+YyBiL2tlcm5lbC9wYXJhbXMuYwppbmRleCA4ZTU2ZjhiMTJkOGYuLjQ4NzI2MWViODM2ZiAxMDA2
+NDQKLS0tIGEva2VybmVsL3BhcmFtcy5jCisrKyBiL2tlcm5lbC9wYXJhbXMuYwpAQCAtMjMzLDE0
+ICsyMzMsMTUgQEAgY2hhciAqcGFyc2VfYXJncyhjb25zdCBjaGFyICpkb2luZywKIAlFWFBPUlRf
+U1lNQk9MKHBhcmFtX29wc18jI25hbWUpCiAKIAotU1RBTkRBUkRfUEFSQU1fREVGKGJ5dGUsCXVu
+c2lnbmVkIGNoYXIsCQkiJWhodSIsIGtzdHJ0b3U4KTsKLVNUQU5EQVJEX1BBUkFNX0RFRihzaG9y
+dCwJc2hvcnQsCQkJIiVoaSIsICBrc3RydG9zMTYpOwotU1RBTkRBUkRfUEFSQU1fREVGKHVzaG9y
+dCwJdW5zaWduZWQgc2hvcnQsCQkiJWh1IiwgIGtzdHJ0b3UxNik7Ci1TVEFOREFSRF9QQVJBTV9E
+RUYoaW50LAkJaW50LAkJCSIlaSIsICAga3N0cnRvaW50KTsKLVNUQU5EQVJEX1BBUkFNX0RFRih1
+aW50LAl1bnNpZ25lZCBpbnQsCQkiJXUiLCAgIGtzdHJ0b3VpbnQpOwotU1RBTkRBUkRfUEFSQU1f
+REVGKGxvbmcsCWxvbmcsCQkJIiVsaSIsICBrc3RydG9sKTsKLVNUQU5EQVJEX1BBUkFNX0RFRih1
+bG9uZywJdW5zaWduZWQgbG9uZywJCSIlbHUiLCAga3N0cnRvdWwpOwotU1RBTkRBUkRfUEFSQU1f
+REVGKHVsbG9uZywJdW5zaWduZWQgbG9uZyBsb25nLAkiJWxsdSIsIGtzdHJ0b3VsbCk7CitTVEFO
+REFSRF9QQVJBTV9ERUYoYnl0ZSwJdW5zaWduZWQgY2hhciwJCSIlaGh1IiwgIGtzdHJ0b3U4KTsK
+K1NUQU5EQVJEX1BBUkFNX0RFRihzaG9ydCwJc2hvcnQsCQkJIiVoaSIsICAga3N0cnRvczE2KTsK
+K1NUQU5EQVJEX1BBUkFNX0RFRih1c2hvcnQsCXVuc2lnbmVkIHNob3J0LAkJIiVodSIsICAga3N0
+cnRvdTE2KTsKK1NUQU5EQVJEX1BBUkFNX0RFRihpbnQsCQlpbnQsCQkJIiVpIiwgICAga3N0cnRv
+aW50KTsKK1NUQU5EQVJEX1BBUkFNX0RFRih1aW50LAl1bnNpZ25lZCBpbnQsCQkiJXUiLCAgICBr
+c3RydG91aW50KTsKK1NUQU5EQVJEX1BBUkFNX0RFRihsb25nLAlsb25nLAkJCSIlbGkiLCAgIGtz
+dHJ0b2wpOworU1RBTkRBUkRfUEFSQU1fREVGKHVsb25nLAl1bnNpZ25lZCBsb25nLAkJIiVsdSIs
+ICAga3N0cnRvdWwpOworU1RBTkRBUkRfUEFSQU1fREVGKHVsbG9uZywJdW5zaWduZWQgbG9uZyBs
+b25nLAkiJWxsdSIsICBrc3RydG91bGwpOworU1RBTkRBUkRfUEFSQU1fREVGKGhleGludCwJdW5z
+aWduZWQgaW50LAkJIiUjMDh4Iiwga3N0cnRvdWludCk7CiAKIGludCBwYXJhbV9zZXRfY2hhcnAo
+Y29uc3QgY2hhciAqdmFsLCBjb25zdCBzdHJ1Y3Qga2VybmVsX3BhcmFtICprcCkKIHsKLS0gCjIu
+MjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
