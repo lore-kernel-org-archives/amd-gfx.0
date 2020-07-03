@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D313C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:34:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B972C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:34:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F86B207FF
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:34:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 13238207FF
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2020 08:34:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pkoHHIpS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F86B207FF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uWpdzGYP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13238207FF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D24156E1F2;
-	Fri,  3 Jul 2020 08:34:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6B1E6E1F5;
+	Fri,  3 Jul 2020 08:34:03 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDD126E1F2
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2020 08:33:59 +0000 (UTC)
+ (mail-mw2nam12on2044.outbound.protection.outlook.com [40.107.244.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9350A6E1F5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2020 08:34:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WA3HzGIB0MTwRk2WnZHF0oFKnner6+WEEevUqAweWbcF6e+BzN3V5AFHlq+WFkIMOzuHWMOaoNv5rJYWtiXuAKNB8AR4aUdYzNKectMXWbkM9aXHtt+UitnEzCD9Fq/EBPuGzj7ZXj+Q46EiAHXZZTyOOye0Gk3hq3pgO/7k/Uuvkz0431wB1M2SKVaKfGNBRZiHDSsPava0i4KIOR2NKrIirmtHA/3gLnM+5ZaGcXwW4UCqHVOq+YUjzQb/j5W/ZICUcVq/0qAD85uqdSNR40VsDwNU3PjuDgTl1BiiOepr32r1WW5jQVT1TiH1Ee6JqUe24la/z0jNMPLFO+9E9w==
+ b=Xt3+VlKfuz+VOShOzpYiRbu6jvi86mCteogRNZVXsNkgGCnwgDIMtRpxl1hSE5KtwJ0HGg4iP+uCbLCGXqlqTJjYrSyhtMVJV3eWZmh9kj/8lFzhF+X230u5nm9b7iNU1BmKHvMcBthEOYBviTn3dyKg1cxr+dunP/4Hx2S3FB4EBkXAjc92Ox4E2w0yUZomfkaZqRmMMAG+eNV+DRIKCn+8dcg0bn7vXqTuYX7xrh5KG3eSFOCRMOyc7a3L4OgKzG5GKbK1HPpwPC98URjJlDgeKkYDTO+ZuTC6h+WL6tWmJrQRuk4W23CA9P86myLzJswC8hgTNSqb3hDBGG4Paw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1iFrs6zt91+r8heIkasp4rkOFTrVqKoX6w3O0U5Jwhk=;
- b=jdg2bY9ea8GcCTOwjfteeyupppgevoHlejBzGJZurQJVMOcG4mdwN9ctdyPgNSpopFuo3b1uK9zKZOzpUSKoL0o1y9GWslHiNxIR4TEocgjUHUVQADGlX3PaGq7oVT+In+sYF7E9ni/iQ4xuYTjCadYw7xnDiN7xrJPqOoDFFvKGLUkd8mEK7GfD4y1eQnXbrlL+CfRmH5+On9dY5r6zIFj2Eumyux6/YFEF2rVQO6Ygx8XB+9OKcUEOKeNxhfuiIe4RxEKulHZjPrFWPH5161akPj2smIhhTDeL2dTMcMW7qpLOxWQuJs3suBJ92LdMiZq6LKBTbXn4Ci+Wc5hBDA==
+ bh=qLvdr6uQ52VEFZK+pz88H8QX24gaybekAL0wwuMVTJQ=;
+ b=KxdzRZ7a1myJKDDb0+VNFVMAMaHN24icIugvBnTYOTipW0+w2z8TRFoK2dHSYf+tChdWhQCJzYSmDouKlIePjDAuPpmdEBHH8XCVZikw8DFs3MwE451EVwhd+Ph/z67rui/xc9vViI91rrluXuQU+3sSbAL6w50kI1pgdzRUZExASDuiw+gYsUdCC+aormkYjnFVPIkUKhbTFF7xuGfdPqcJFfHIojz9Pse4Me7pFUV687SruKwQbKJM1acsW0E9YWFKgd3LaQJYOn7VTbsuoB1r/t8V4Wypex+ysVoGTWg6Q40LLpQOs7G/Lem+lxtTHig/4uF8diHP3p93FCs17w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1iFrs6zt91+r8heIkasp4rkOFTrVqKoX6w3O0U5Jwhk=;
- b=pkoHHIpSaGDXebjWrYfJhXDSuaqobTpyU4WxvOByM5qXCBtwr6HVYleGnjGiGOE7KL+GNErs4htaLH/LrGUkTDRZa3NAoZERTJWeHxUTmIjFfYxRYU0zWSMNM60g76gdPTd6axPEH9oj77+/ZLwS9t66uJhz+7RRopw+vm6PkXo=
+ bh=qLvdr6uQ52VEFZK+pz88H8QX24gaybekAL0wwuMVTJQ=;
+ b=uWpdzGYPIxmo1f3ThH+v/r/Lx4BU8i4rGsxMTOmzK/+2sLcEkl3UgH22iEJaJ+uvVc8i7Uwy9eFMXAqYUv980lyU0rTEWBIjkR7dEyY//sAU3x6Dy7P/F3A7svnVXH3gYCVURFouYrGkyrCKsMoUWJr/UO2wOGQ0R7g1aYobmIA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3153.27; Fri, 3 Jul 2020 08:33:58 +0000
+ 15.20.3153.27; Fri, 3 Jul 2020 08:34:01 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3153.023; Fri, 3 Jul 2020
- 08:33:58 +0000
+ 08:34:01 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 09/14] drm/amd/powerplay: drop unnecessary Navi1x specific APIs
-Date: Fri,  3 Jul 2020 16:32:58 +0800
-Message-Id: <20200703083303.478-9-evan.quan@amd.com>
+Subject: [PATCH 10/14] drm/amd/powerplay: drop unnecessary Sienna Cichlid
+ specific APIs
+Date: Fri,  3 Jul 2020 16:32:59 +0800
+Message-Id: <20200703083303.478-10-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200703083303.478-1-evan.quan@amd.com>
 References: <20200703083303.478-1-evan.quan@amd.com>
@@ -69,35 +70,35 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR02CA0139.apcprd02.prod.outlook.com (2603:1096:202:16::23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3153.22 via Frontend Transport; Fri, 3 Jul 2020 08:33:57 +0000
+ 15.20.3153.22 via Frontend Transport; Fri, 3 Jul 2020 08:34:00 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8cebb93e-3b92-4413-b2c7-08d81f2bd4b5
+X-MS-Office365-Filtering-Correlation-Id: 84561c66-c47f-473d-a2c2-08d81f2bd65f
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3962:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB39622CEF047754656AC64AE8E46A0@DM6PR12MB3962.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:341;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB396245D3497D728698045CF3E46A0@DM6PR12MB3962.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-Forefront-PRVS: 045315E1EE
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U/rXlTeVTB6WNXM4F1r1xvTWQGt4cTv6EyW5WcvEIgNfkjgoJydnaWVcjgtRgLhb8GGKuOH0WGmEykqvDtrLGMhb42oYj6F6Lmwdb9sN+irtqfM+Sq3NxGWJFj1hYiDpGVTs+uzG2OLz6LyeZTNMMOW5WbLbqGAo8oIaQ/W5cU+hldv4itwvgiRKm+pdOfVaJwSldQeFDZnuTiPw5bGUNKDv3eKlg2cgEhI57z+tDqF78YLhPw0bJO+8+1nzLrvZkTh2tm1ddqXMdJw1xfBfpJ2Qdj1k1X12Kmm9Faobpi6MgnzQ7YCG7k1kemBEcGSxAtUnJFUxiLVQxn+eN43dPN+KWnBU1vDd1iZvgtqdNdZPM4u2EDbOS8Z+z1uuby5c
+X-Microsoft-Antispam-Message-Info: XpPD6moRWyUo5lJnUaTCkR2DJ55ucOMh8gJzB3G43kzPTgxNnYZdhBk9UVbL/xQgEufa3xkYV55XTE8DPD9jwfd/7LYF6rjnbeyR7UIMithfZMHg8j8K9KrpU9FPwgh+xOrVhrNFEa1ocRNcckFypQ4tVWSgZTRL3QPsv7u+J5wFRcDg6gRpoqDL/tY3JbyC7nmNqeG52i/bOK+hoK/joM18RVfw9Cxtmiu06AiDUq+otlEka57dmbvIqFlsX4V4sY7lUnNyVwdCRCV0mPhWLEwWdV9uzp8aA1SXoouKetXENqPvTrE0f/GP8tQrBu36dkpVKlidTv1ZDkIOOSmhMQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(83380400001)(44832011)(4326008)(36756003)(8936002)(7696005)(956004)(2616005)(6486002)(52116002)(478600001)(66946007)(16526019)(26005)(186003)(66476007)(5660300002)(1076003)(66556008)(8676002)(316002)(86362001)(6916009)(2906002)(32563001);
+ SFS:(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(83380400001)(44832011)(4326008)(36756003)(8936002)(7696005)(956004)(2616005)(6486002)(52116002)(478600001)(66946007)(16526019)(26005)(186003)(66476007)(5660300002)(1076003)(66556008)(8676002)(316002)(86362001)(6916009)(2906002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: KHm3Hd2rFaCJiHaD0O2Fe7zLwtewIFTjtl4dlm3ARHNLeOIqBUhQbUA/x5SoVw2Ctek3pNfbqmd1XoG4uozqk35FvyFdEpZ24M5hOUxJHAtoomWp4DQseRZwiiJ+4R/gzAUUD6MyuyOaNN8cYwMYuenU5rKMztNFLDjUEISmkQK6JSDo+mbAEouOtMK9fz3szv505R+wAp70dt/fEUdLanZrK5dAvh9Zpy7p1P17iEdEtqOy8WuMlaz+h8mwY6hoiofe/s/PRUJFecH/RVvuUSXv9543Wrn3rdEDehTRbhbko4I78l78qEQ2CoNG9QY2w+d5UpvKl2izCnSBLXH3F7bpHYWR6kL7no0oB4wLbdHYm0vaNDwBAN8jh4P9ogNPZdk2KECuziljKL4AXKtbgD+ujtYZrcCSrCEDMeX3Ok2cl+F+m8a6BBg7KUnCtKecyHbZkvamZ93DDXRpGR3MO5TaiSCFxaoI4WC8xkQuIVuzSJmU8t/27VxwGhdu8YKj
+X-MS-Exchange-AntiSpam-MessageData: 26kN5KKbMCiJQiW1aLj5qXoIcpaIaNcET2J4RgHhYEVHQxC7f6t+55G64RUT/RQQU63A9m/RvVTk+OwbIjL16Mk0cSE9OR98jPm9uAej56DLKxamKAaU3Sd1yy8rQhNs2HX+Pz4zOYaYu01zWrgrNbu/qHqFqWmh0f4MlHhIzTGHOsJO5q/DGLDXjCjh177qXz5BtL7Fm/RYsKzXGQG4oGW360YP8PHUCltlypr3KwbyKnM0Vrxj5bEdtwsGF93PZe431eG8C5VlTNLS5bFJmTnVfu5SoqBciYhVRQUTwZBoOwpmnVFXKl1Po8kv0IMOBbacSvD4N6p62CyxFaq6xNOeLmBKjKAMgNCXVFx5XTpxyrLlemp9UFQfFwCYmKJmCi6mEgnraw5chawGmDirG8ai8vU4J0gWsLRvyQj0AwOrFp0gTBUTnWF3q+Rr/Xg3GOBmAZKmnERp9RTZpJmMGxZ0uJsT5sYyLCKenhOsTARNPXq5tnJcEM3p9lpisCqw
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cebb93e-3b92-4413-b2c7-08d81f2bd4b5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84561c66-c47f-473d-a2c2-08d81f2bd65f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2020 08:33:58.8515 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2020 08:34:01.6480 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b7uhLdy/uSZGlKlhHUjYqsM6Rtnhv2gmxaFMnPSxvjLSVnAU6Kc3POI7IVoNpywy
+X-MS-Exchange-CrossTenant-UserPrincipalName: F/rrjOmg3vQPjDcs4emFyQGeiJSpyyd1A6iUp0SJYBUwZzSyO4MhyEh+fXoJkTvw
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3962
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,21 +120,21 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 As a common performance level setting API is used. Then these
 ASIC specific APIs are not needed any more.
 
-Change-Id: I2c8831b9d00618c6578ee42b34e26892c5dba515
+Change-Id: I04c810859794b07ce8905a8df797ed6b5ae116a8
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 248 +--------------------
- 1 file changed, 1 insertion(+), 247 deletions(-)
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 178 +-----------------
+ 1 file changed, 1 insertion(+), 177 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index d3e11d81c0ad..6d638a67bc4d 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1376,59 +1376,6 @@ static int navi10_display_config_changed(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+index 8fae7dd982c7..27f77bde184f 100644
+--- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+@@ -1181,59 +1181,6 @@ static int sienna_cichlid_display_config_changed(struct smu_context *smu)
  	return ret;
  }
  
--static int navi10_force_dpm_limit_value(struct smu_context *smu, bool highest)
+-static int sienna_cichlid_force_dpm_limit_value(struct smu_context *smu, bool highest)
 -{
 -	int ret = 0, i = 0;
 -	uint32_t min_freq, max_freq, force_freq;
@@ -152,7 +153,7 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -			return ret;
 -
 -		force_freq = highest ? max_freq : min_freq;
--		ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, force_freq, force_freq);
+-		ret = sienna_cichlid_set_soft_freq_limited_range(smu, clk_type, force_freq, force_freq);
 -		if (ret)
 -			return ret;
 -	}
@@ -160,7 +161,7 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -	return ret;
 -}
 -
--static int navi10_unforce_dpm_levels(struct smu_context *smu)
+-static int sienna_cichlid_unforce_dpm_levels(struct smu_context *smu)
 -{
 -	int ret = 0, i = 0;
 -	uint32_t min_freq, max_freq;
@@ -178,7 +179,7 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -		if (ret)
 -			return ret;
 -
--		ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
+-		ret = sienna_cichlid_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
 -		if (ret)
 -			return ret;
 -	}
@@ -186,19 +187,20 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -	return ret;
 -}
 -
- static int navi10_get_gpu_power(struct smu_context *smu, uint32_t *value)
+ static int sienna_cichlid_get_gpu_power(struct smu_context *smu, uint32_t *value)
  {
  	if (!value)
-@@ -1681,47 +1628,6 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
+@@ -1486,50 +1433,6 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
  	return ret;
  }
  
--static int navi10_get_profiling_clk_mask(struct smu_context *smu,
+-static int sienna_cichlid_get_profiling_clk_mask(struct smu_context *smu,
 -					 enum amd_dpm_forced_level level,
 -					 uint32_t *sclk_mask,
 -					 uint32_t *mclk_mask,
 -					 uint32_t *soc_mask)
 -{
+-	struct amdgpu_device *adev = smu->adev;
 -	int ret = 0;
 -	uint32_t level_count = 0;
 -
@@ -210,7 +212,9 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -			*mclk_mask = 0;
 -	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
 -		if(sclk_mask) {
+-			amdgpu_gfx_off_ctrl(adev, false);
 -			ret = smu_v11_0_get_dpm_level_count(smu, SMU_SCLK, &level_count);
+-			amdgpu_gfx_off_ctrl(adev, true);
 -			if (ret)
 -				return ret;
 -			*sclk_mask = level_count - 1;
@@ -234,121 +238,48 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -	return ret;
 -}
 -
- static int navi10_notify_smc_display_config(struct smu_context *smu)
+ static int sienna_cichlid_notify_smc_display_config(struct smu_context *smu)
  {
  	struct smu_clocks min_clocks = {0};
-@@ -1954,155 +1860,6 @@ static int navi10_get_uclk_dpm_states(struct smu_context *smu, uint32_t *clocks_
+@@ -1761,82 +1664,6 @@ static int sienna_cichlid_get_uclk_dpm_states(struct smu_context *smu, uint32_t
  	return 0;
  }
  
--static int navi10_set_performance_level(struct smu_context *smu,
+-static int sienna_cichlid_set_performance_level(struct smu_context *smu,
 -					enum amd_dpm_forced_level level);
 -
--static int navi10_set_standard_performance_level(struct smu_context *smu)
+-static int sienna_cichlid_set_standard_performance_level(struct smu_context *smu)
 -{
 -	struct amdgpu_device *adev = smu->adev;
 -	int ret = 0;
 -	uint32_t sclk_freq = 0, uclk_freq = 0;
 -
 -	switch (adev->asic_type) {
--	case CHIP_NAVI10:
--		sclk_freq = NAVI10_UMD_PSTATE_PROFILING_GFXCLK;
--		uclk_freq = NAVI10_UMD_PSTATE_PROFILING_MEMCLK;
--		break;
--	case CHIP_NAVI14:
--		sclk_freq = NAVI14_UMD_PSTATE_PROFILING_GFXCLK;
--		uclk_freq = NAVI14_UMD_PSTATE_PROFILING_MEMCLK;
--		break;
+-	/* TODO: need to set specify clk value by asic type, not support yet*/
 -	default:
 -		/* by default, this is same as auto performance level */
--		return navi10_set_performance_level(smu, AMD_DPM_FORCED_LEVEL_AUTO);
+-		return sienna_cichlid_set_performance_level(smu, AMD_DPM_FORCED_LEVEL_AUTO);
 -	}
 -
--	ret = smu_v11_0_set_soft_freq_limited_range(smu, SMU_SCLK, sclk_freq, sclk_freq);
+-	ret = sienna_cichlid_set_soft_freq_limited_range(smu, SMU_SCLK, sclk_freq, sclk_freq);
 -	if (ret)
 -		return ret;
--	ret = smu_v11_0_set_soft_freq_limited_range(smu, SMU_UCLK, uclk_freq, uclk_freq);
+-	ret = sienna_cichlid_set_soft_freq_limited_range(smu, SMU_UCLK, uclk_freq, uclk_freq);
 -	if (ret)
 -		return ret;
 -
 -	return ret;
 -}
 -
--static int navi10_set_peak_performance_level(struct smu_context *smu)
+-static int sienna_cichlid_set_peak_performance_level(struct smu_context *smu)
 -{
--	struct amdgpu_device *adev = smu->adev;
 -	int ret = 0;
--	uint32_t sclk_freq = 0, uclk_freq = 0;
 -
--	switch (adev->asic_type) {
--	case CHIP_NAVI10:
--		switch (adev->pdev->revision) {
--		case 0xf0: /* XTX */
--		case 0xc0:
--			sclk_freq = NAVI10_PEAK_SCLK_XTX;
--			break;
--		case 0xf1: /* XT */
--		case 0xc1:
--			sclk_freq = NAVI10_PEAK_SCLK_XT;
--			break;
--		default: /* XL */
--			sclk_freq = NAVI10_PEAK_SCLK_XL;
--			break;
--		}
--		break;
--	case CHIP_NAVI14:
--		switch (adev->pdev->revision) {
--		case 0xc7: /* XT */
--		case 0xf4:
--			sclk_freq = NAVI14_UMD_PSTATE_PEAK_XT_GFXCLK;
--			break;
--		case 0xc1: /* XTM */
--		case 0xf2:
--			sclk_freq = NAVI14_UMD_PSTATE_PEAK_XTM_GFXCLK;
--			break;
--		case 0xc3: /* XLM */
--		case 0xf3:
--			sclk_freq = NAVI14_UMD_PSTATE_PEAK_XLM_GFXCLK;
--			break;
--		case 0xc5: /* XTX */
--		case 0xf6:
--			sclk_freq = NAVI14_UMD_PSTATE_PEAK_XLM_GFXCLK;
--			break;
--		default: /* XL */
--			sclk_freq = NAVI14_UMD_PSTATE_PEAK_XL_GFXCLK;
--			break;
--		}
--		break;
--	case CHIP_NAVI12:
--		sclk_freq = NAVI12_UMD_PSTATE_PEAK_GFXCLK;
--		break;
--	default:
--		ret = smu_v11_0_get_dpm_level_range(smu,
--						    SMU_SCLK,
--						    NULL,
--						    &sclk_freq);
--		if (ret)
--			return ret;
--	}
--
--	ret = smu_v11_0_get_dpm_level_range(smu,
--					    SMU_UCLK,
--					    NULL,
--					    &uclk_freq);
--	if (ret)
--		return ret;
--
--	ret = smu_v11_0_set_soft_freq_limited_range(smu, SMU_SCLK, sclk_freq, sclk_freq);
--	if (ret)
--		return ret;
--	ret = smu_v11_0_set_soft_freq_limited_range(smu, SMU_UCLK, uclk_freq, uclk_freq);
--	if (ret)
--		return ret;
--
+-	/* TODO: not support yet*/
 -	return ret;
 -}
 -
--static int navi10_set_performance_level(struct smu_context *smu,
+-static int sienna_cichlid_set_performance_level(struct smu_context *smu,
 -					enum amd_dpm_forced_level level)
 -{
 -	int ret = 0;
@@ -365,7 +296,7 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -		ret = smu_unforce_dpm_levels(smu);
 -		break;
 -	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
--		ret = navi10_set_standard_performance_level(smu);
+-		ret = sienna_cichlid_set_standard_performance_level(smu);
 -		break;
 -	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
 -	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
@@ -380,7 +311,7 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -		smu_force_clk_levels(smu, SMU_SOCCLK, 1 << soc_mask, false);
 -		break;
 -	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
--		ret = navi10_set_peak_performance_level(smu);
+-		ret = sienna_cichlid_set_peak_performance_level(smu);
 -		break;
 -	case AMD_DPM_FORCED_LEVEL_MANUAL:
 -	case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
@@ -390,29 +321,29 @@ index d3e11d81c0ad..6d638a67bc4d 100644
 -	return ret;
 -}
 -
- static int navi10_get_thermal_temperature_range(struct smu_context *smu,
+ static int sienna_cichlid_get_thermal_temperature_range(struct smu_context *smu,
  						struct smu_temperature_range *range)
  {
-@@ -2622,18 +2379,15 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.pre_display_config_changed = navi10_pre_display_config_changed,
- 	.display_config_changed = navi10_display_config_changed,
- 	.notify_smc_display_config = navi10_notify_smc_display_config,
--	.force_dpm_limit_value = navi10_force_dpm_limit_value,
--	.unforce_dpm_levels = navi10_unforce_dpm_levels,
- 	.is_dpm_running = navi10_is_dpm_running,
- 	.get_fan_speed_percent = navi10_get_fan_speed_percent,
- 	.get_fan_speed_rpm = navi10_get_fan_speed_rpm,
- 	.get_power_profile_mode = navi10_get_power_profile_mode,
- 	.set_power_profile_mode = navi10_set_power_profile_mode,
--	.get_profiling_clk_mask = navi10_get_profiling_clk_mask,
- 	.set_watermarks_table = navi10_set_watermarks_table,
- 	.read_sensor = navi10_read_sensor,
- 	.get_uclk_dpm_states = navi10_get_uclk_dpm_states,
--	.set_performance_level = navi10_set_performance_level,
+@@ -2684,18 +2511,15 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.pre_display_config_changed = sienna_cichlid_pre_display_config_changed,
+ 	.display_config_changed = sienna_cichlid_display_config_changed,
+ 	.notify_smc_display_config = sienna_cichlid_notify_smc_display_config,
+-	.force_dpm_limit_value = sienna_cichlid_force_dpm_limit_value,
+-	.unforce_dpm_levels = sienna_cichlid_unforce_dpm_levels,
+ 	.is_dpm_running = sienna_cichlid_is_dpm_running,
+ 	.get_fan_speed_percent = sienna_cichlid_get_fan_speed_percent,
+ 	.get_fan_speed_rpm = sienna_cichlid_get_fan_speed_rpm,
+ 	.get_power_profile_mode = sienna_cichlid_get_power_profile_mode,
+ 	.set_power_profile_mode = sienna_cichlid_set_power_profile_mode,
+-	.get_profiling_clk_mask = sienna_cichlid_get_profiling_clk_mask,
+ 	.set_watermarks_table = sienna_cichlid_set_watermarks_table,
+ 	.read_sensor = sienna_cichlid_read_sensor,
+ 	.get_uclk_dpm_states = sienna_cichlid_get_uclk_dpm_states,
+-	.set_performance_level = sienna_cichlid_set_performance_level,
 +	.set_performance_level = smu_v11_0_set_performance_level,
- 	.get_thermal_temperature_range = navi10_get_thermal_temperature_range,
- 	.display_disable_memory_clock_switch = navi10_display_disable_memory_clock_switch,
- 	.get_power_limit = navi10_get_power_limit,
+ 	.get_thermal_temperature_range = sienna_cichlid_get_thermal_temperature_range,
+ 	.display_disable_memory_clock_switch = sienna_cichlid_display_disable_memory_clock_switch,
+ 	.get_power_limit = sienna_cichlid_get_power_limit,
 -- 
 2.27.0
 
