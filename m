@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDD28C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4777C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 93E6120715
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:05:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B37AC20715
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:05:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ii7JiVlT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93E6120715
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="P7YhvvOO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B37AC20715
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBBE6E2E9;
-	Mon,  6 Jul 2020 05:05:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79F276E301;
+	Mon,  6 Jul 2020 05:05:48 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C39E96E2E9
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2020 05:05:44 +0000 (UTC)
+ (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE5FA6E301
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2020 05:05:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kt0t2/u9gmh0gyhQg9jf6j68zEw/li6FrzmX3ou8YqYtiSU4uyjdUhIhn+l51rLwNfWaRlPFhx0YZ0TV0oxTMyAwFKFbSLmfXKuL+CvcUK2uKBPhlDmqxuJxiogcG3peeg/wv+s+mbKMtMPqFiz/mcL0IO/q2zsv9tbekOdnrPL950Mq3TEarpRyIlbjLfyjoyKP2xnm3YwH/L9wfQ+ETcjR1uo0jVXyVpPAHkDD7nLESX5HRhokliSWdSsVBoUblG5dKrNTYef63HKjlZsbLpqH9IGFHsj3e86ufaQLu1Hl8PgJIPU0g3843B2EvksBupM3ZE8wPZEz8cKTr1fPoA==
+ b=OUunY6SaAsUsThUrUrDWZcyZqRcF3+CQ9y040pPkHpAy8G7anN7KnKu5Cz+UXzBr0bFUfHW2mwnOg3g+3akItpC+Qxt2Yy7KCA/0dqOM9zi72i7ZIo3QNG57jCseGrSuOxeeYf7Uf7OCB0Pgn79ajv7Kp8E63PEmLYH6TopYtGUFsD/sgXBVZvrEerLTbPiwDQ1QdifPcXIlh6EPTagFIT4y4fhVvzw+Qhma7igdrxji6shmk8T5C/PKrIrUiFg8j8/UZRP9ZiZQqyV+8EFpo32TXsxWcbDVvnR5LhKy0UpzrOJbwiLAwjoczSKg29A/TKcsOlzHrs9Kxt1DZ4h9mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0hIJO2jbcmydc6Ap0TSDIkwRQJ0vdiuLej6vv259Em4=;
- b=As3MViYht1Ie/mZpIH+NW+a/BlsnLzJJNHH+hcPvgmUKWhSI6AJB0NafbbBrn0MPNR5JzhgfPGnE9pLRLGb0r2jPd7TX/gPkzXUEfu9pCJ9u4vLWTmGxxr+rvsLxcAgagYUBLC553ZhPbDreP/RWzpoOmdWibS1SSJHdSiXn2OcjjvTlsUdNgpaBTVIbbc0vo8UH/tr0qv7o31otrwRW4I4fd5v2Bsb76h/6h0dAexyPW+R8U7/XaJ4HWxOJjLBWu/XPwqoQ1SAj57iTJdzf9xSSuOjShlXb7PHX5lrV77NEonp301M3H/iXgkKKSPnpaD2/nllDsBa1aa5NKs1Q0Q==
+ bh=eBLziQfQoXWosYh+sGUre7LvDGSVUgZepm+2+W7SplU=;
+ b=J31iwwcUGr6nY6smAsX0hYXaBtywOxgCP2c7azkxbBDBYWoyuTf3y2a2yWtL8mPc8vgSh+McbxpqmlMmC40a+D8kf4IOMjAca2YWQRWTYLL6BwECkrQXX6EfEmidV0sEZGARpO5h9ed9TccHHxSkhtr5Eywe4u12aglOShtv52Y2ZTB5+jdjA1RVEhde3W/Yp+axqlR7/3spi5Q2pcPP+Q4f++Vq2Zx9sjMLarnU+uYS4qBHRTaHDLMxwbyZjQIZK8MQn7lffyl+k0t/cI+ERv+K89SUORLFVYi0nJWxVB4YDmJKpK5JvL33yAKdKhbR0h/oDDkHJbQXG0lKfERxfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0hIJO2jbcmydc6Ap0TSDIkwRQJ0vdiuLej6vv259Em4=;
- b=Ii7JiVlT1nnwpJ2z4LyfDEXJda+J8KTM8yPQlfS21KuDXEBME5VFN7YKtWvE1VKmpXd0feoFe1Y8ThcC5kcMh61EhbawWpBI90M0O4YXuKF+wZUs2KHYCDl22LMrldyXSbLKx8t5aFwWcmVotgfQlFTAI6yJ9qAhxSySN7tVB34=
+ bh=eBLziQfQoXWosYh+sGUre7LvDGSVUgZepm+2+W7SplU=;
+ b=P7YhvvOOT/WXiOHDee9cRxhWJTpWy8cKshsL1Karot5/n6mHzdb+DcdvWMUUnASNeuFgWAA/f1D/0n++WKq8RKFDn09hEFx71gRrNCXUA5Eey4FEo8fQLeCmded6yMhHH54aYp7KoovLUOx48tvhZ2IzlCle+NnPHLQpaR65VkI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from MN2PR12MB3774.namprd12.prod.outlook.com (2603:10b6:208:16a::13)
  by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.20; Mon, 6 Jul
- 2020 05:05:43 +0000
+ 2020 05:05:47 +0000
 Received: from MN2PR12MB3774.namprd12.prod.outlook.com
  ([fe80::9ca1:81ba:bd45:53f4]) by MN2PR12MB3774.namprd12.prod.outlook.com
  ([fe80::9ca1:81ba:bd45:53f4%5]) with mapi id 15.20.3153.029; Mon, 6 Jul 2020
- 05:05:43 +0000
+ 05:05:47 +0000
 From: Huang Rui <ray.huang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/12] drm/amdgpu: use register distance member instead of
- hardcode in GMC10
-Date: Mon,  6 Jul 2020 13:05:00 +0800
-Message-Id: <20200706050509.714975-4-ray.huang@amd.com>
+Subject: [PATCH 04/12] drm/amdgpu: use register distance member instead of
+ hardcode in VCN1/JEPG1
+Date: Mon,  6 Jul 2020 13:05:01 +0800
+Message-Id: <20200706050509.714975-5-ray.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200706050509.714975-1-ray.huang@amd.com>
 References: <20200706050509.714975-1-ray.huang@amd.com>
@@ -70,35 +70,35 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from hr-amd.amd.com (58.247.170.242) by
  HK2PR0302CA0017.apcprd03.prod.outlook.com (2603:1096:202::27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.13 via Frontend Transport; Mon, 6 Jul 2020 05:05:40 +0000
+ 15.20.3174.13 via Frontend Transport; Mon, 6 Jul 2020 05:05:44 +0000
 X-Mailer: git-send-email 2.25.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3720169a-aaab-40b1-0e84-08d8216a3c3d
+X-MS-Office365-Filtering-Correlation-Id: 46a7b774-e65d-4d0e-b249-08d8216a3e3c
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4470:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB44709124DE54C568EC25CC90EC690@MN2PR12MB4470.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4470B57A006A5C1A3B6A0EB1EC690@MN2PR12MB4470.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-Forefront-PRVS: 04569283F9
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S60oLdDM3qryKXbBrctLRh5sY3rXaxlkVrOt9jT4jk8MJf4K1dCHnZ6J10zV0CI4M3Wb8t9OtaKSuhHHLbYYjR9zxvKSjj3wvcS57t5Sux7YJXt+QP28OtYNt0PY6EUM7mL1Zfm7LRc5JmNmvyHjwYTFZMnGvmbB5LNTl5cSqz504k7JJEH2Xaax9l/G2zfKU34gjoNTzUkn5QWxO2e+AFIC7iBRc/3vJv0BIUgPkqAXVtFD8kMIJUjiMAx8cHx/ZsjUWgoZuWTuzKgnN85iChWBYe3UiY535FHnIHL9hZsDOYJRdkPE8mfVGEPjWp+t71dWpxh6ux8O2ZklKEWL+g==
+X-Microsoft-Antispam-Message-Info: dSwFgmqGxMUJ4c9D4L153Wo88mXILK8hbHQ0cd5A2O9TSTl2iC2lZ3FdDgPEIdjq0pZadHkkr5lJedzvfRRFkQslyckD96IJM42ptYKbrXP0iW6bPovlwRkUBXxcoLlWElauQW9VgAqnak0vCfqvkPp6seRhdSMELuRiv223M3O5KyuTFBXAEXWJGfOVrJZKNT4whpu9D9M7+1oqbdg+NVK20lMJLv6x7kgvZu876fmoIZ9GoW9pSwhRX+G66RXvyFSiUgIlLOcvEL6aeXTlZxOAkO3nldDgqA8LQfslMBPh6Bo5a8Hos1SrbZEaihUdBUgkuymBx9q0Q0mBShd46Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3774.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(39860400002)(396003)(366004)(346002)(136003)(376002)(6666004)(26005)(54906003)(66476007)(7696005)(52116002)(8936002)(66556008)(66946007)(36756003)(478600001)(5660300002)(86362001)(6916009)(2616005)(186003)(6486002)(2906002)(316002)(1076003)(8676002)(16526019)(956004)(4326008)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Ka6dMUlIyUHsmgIbVs1Fgqq4X0Ck2aJml1eDA39LKmpZuX4jFKkqn3a9FJySgsLz9LUoTzAX1q07n3doWGyWWUMVjPv/GK6jOfBFe5D45z6k/FZl+XXlZXsLwYLRY4xA7fsA7jTh//v6pqAJn6npSuWC03FKCa6N2+vCGWFveNWlO7DgkUHlUaRZ1ScqN8zrHTNIKFYM6sDVR4pSLty9sSuw2dMOlV5o323DUmPf8WtwtNco9GnSZOnIa062J0SPLzbuYRZkzPzeDHKFER2nXxdONK/QWk73lwMOIFD6i2kSIf9LT8sAdApixUkumOedVUAkNECs1Q+EOfgDJ0tfLMyvxiwK2bjYbuXbdR5cxb3iN5k++S4QnAZ/9hLbcEdTG2MNIxM2NH1l1WiIzKSsUFfa8/27Oes0QbhWOv1uyDNa1y3dvah6HJSb+8xqPHERRs2hHQ8CIOa76f4JjEUiyQXZtlP+DoL9vkStPDiiAfX+sQcGtjIFllan1iuzbKus
+X-MS-Exchange-AntiSpam-MessageData: Xd+vHx6pSw6Z9m1WT/lJmPgjBSU0hfZwRUB+UM+HNeSuIi2Rm53aMwf6sXZOEq3dFyl9loFV94YydvZ21lyUbUmsxMzyXbrEACQ3CLrsWp18zEY8ZNI6ebH1rG678c1Qkivu6eDyhEyQcqrcijcDBdTnx6bgz5MJktk4iXzA8xquiVS9jsVjdphYJ6LWBUKvv+CK4K+5qQBaSOT2A4vUnPEKXw3LDXhon1nvMloRtfOvm2HCj11hw1KBzyK4XWKOfR8hZ2hT3+VaMT8brO4EOFv2bLDuxIIxGsR1dYEfnuQhX41cEhzo8ZwrghcK7W9YmxRurHfPxxS9y3ypGqt3f12R/Hv722g8vZROrQDnjr+JyXn0Jl+YQDtV2iTVV4WxzzwWvSOkRotIULL8zils8HxBX1RdA380mUq8mAN4pWPyYtWK3BTXBRY14E1qFyypJo/OfF/BWa9V6S3FZb524cY5ot8y+OpGDSkvXU2cue+bgVov9+c7T8+wiiHw4PXB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3720169a-aaab-40b1-0e84-08d8216a3c3d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46a7b774-e65d-4d0e-b249-08d8216a3e3c
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3774.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2020 05:05:43.6697 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2020 05:05:47.1168 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J0pu1ll10l8pgmaO+pNrgiJj8p9ELLZuUe52tQ+7WFADlQQf2vUMO7SdgaPv5VS+QlPYskOvmycLYQb+Ucc77g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: qxZBWGLiPs7lZnEALZf/XNGj821UWI9c6/Bj1MV1pzBRAq4J2zqJM14AEe2ei8WeLGaR0svqFwlSioOLUiJZdg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,146 +120,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch updates to use register distance member instead of hardcode
-in GMC10.
+This patch updates to use register distance member instead of
+hardcode in VCN1/JEPG1. They are for the same ASIC.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 Tested-by: AnZhong Huang <anzhong.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 43 ++++++++++++++++----------
- 1 file changed, 26 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c  | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index bfe62985afff..8f29f79f820d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -86,7 +86,7 @@ gmc_v10_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
- 		/* MM HUB */
- 		hub = &adev->vmhub[AMDGPU_MMHUB_0];
- 		for (i = 0; i < 16; i++) {
--			reg = hub->vm_context0_cntl + i;
-+			reg = hub->vm_context0_cntl + hub->ctx_distance * i;
- 			tmp = RREG32(reg);
- 			tmp &= ~bits[AMDGPU_MMHUB_0];
- 			WREG32(reg, tmp);
-@@ -95,7 +95,7 @@ gmc_v10_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
- 		/* GFX HUB */
- 		hub = &adev->vmhub[AMDGPU_GFXHUB_0];
- 		for (i = 0; i < 16; i++) {
--			reg = hub->vm_context0_cntl + i;
-+			reg = hub->vm_context0_cntl + hub->ctx_distance * i;
- 			tmp = RREG32(reg);
- 			tmp &= ~bits[AMDGPU_GFXHUB_0];
- 			WREG32(reg, tmp);
-@@ -105,7 +105,7 @@ gmc_v10_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
- 		/* MM HUB */
- 		hub = &adev->vmhub[AMDGPU_MMHUB_0];
- 		for (i = 0; i < 16; i++) {
--			reg = hub->vm_context0_cntl + i;
-+			reg = hub->vm_context0_cntl + hub->ctx_distance * i;
- 			tmp = RREG32(reg);
- 			tmp |= bits[AMDGPU_MMHUB_0];
- 			WREG32(reg, tmp);
-@@ -114,7 +114,7 @@ gmc_v10_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
- 		/* GFX HUB */
- 		hub = &adev->vmhub[AMDGPU_GFXHUB_0];
- 		for (i = 0; i < 16; i++) {
--			reg = hub->vm_context0_cntl + i;
-+			reg = hub->vm_context0_cntl + hub->ctx_distance * i;
- 			tmp = RREG32(reg);
- 			tmp |= bits[AMDGPU_GFXHUB_0];
- 			WREG32(reg, tmp);
-@@ -283,7 +283,8 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 	if (use_semaphore) {
- 		for (i = 0; i < adev->usec_timeout; i++) {
- 			/* a read return value of 1 means semaphore acuqire */
--			tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_sem + eng);
-+			tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_sem +
-+					    hub->eng_distance * eng);
- 			if (tmp & 0x1)
- 				break;
- 			udelay(1);
-@@ -293,18 +294,19 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 			DRM_ERROR("Timeout waiting for sem acquire in VM flush!\n");
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+index 4c6c7544b400..bc300283b6ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+@@ -377,7 +377,7 @@ static void jpeg_v1_0_decode_ring_emit_vm_flush(struct amdgpu_ring *ring,
+ 	pd_addr = amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
  
--	WREG32_NO_KIQ(hub->vm_inv_eng0_req + eng, inv_req);
-+	WREG32_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req);
+ 	/* wait for register write */
+-	data0 = hub->ctx0_ptb_addr_lo32 + vmid * 2;
++	data0 = hub->ctx0_ptb_addr_lo32 + vmid * hub->ctx_addr_distance;
+ 	data1 = lower_32_bits(pd_addr);
+ 	mask = 0xffffffff;
+ 	jpeg_v1_0_decode_ring_emit_reg_wait(ring, data0, data1, mask);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index 6dcc3ce0c00a..927c330fad21 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -1539,7 +1539,7 @@ static void vcn_v1_0_dec_ring_emit_vm_flush(struct amdgpu_ring *ring,
+ 	pd_addr = amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
  
- 	/*
- 	 * Issue a dummy read to wait for the ACK register to be cleared
- 	 * to avoid a false ACK due to the new fast GRBM interface.
- 	 */
- 	if (vmhub == AMDGPU_GFXHUB_0)
--		RREG32_NO_KIQ(hub->vm_inv_eng0_req + eng);
-+		RREG32_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng);
+ 	/* wait for register write */
+-	data0 = hub->ctx0_ptb_addr_lo32 + vmid * 2;
++	data0 = hub->ctx0_ptb_addr_lo32 + vmid * hub->ctx_addr_distance;
+ 	data1 = lower_32_bits(pd_addr);
+ 	mask = 0xffffffff;
+ 	vcn_v1_0_dec_ring_emit_reg_wait(ring, data0, data1, mask);
+@@ -1679,7 +1679,8 @@ static void vcn_v1_0_enc_ring_emit_vm_flush(struct amdgpu_ring *ring,
+ 	pd_addr = amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
  
- 	/* Wait for ACK with a delay.*/
- 	for (i = 0; i < adev->usec_timeout; i++) {
--		tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_ack + eng);
-+		tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_ack +
-+				    hub->eng_distance * eng);
- 		tmp &= 1 << vmid;
- 		if (tmp)
- 			break;
-@@ -318,7 +320,8 @@ static void gmc_v10_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 		 * add semaphore release after invalidation,
- 		 * write with 0 means semaphore release
- 		 */
--		WREG32_NO_KIQ(hub->vm_inv_eng0_sem + eng, 0);
-+		WREG32_NO_KIQ(hub->vm_inv_eng0_sem +
-+			      hub->eng_distance * eng, 0);
- 
- 	spin_unlock(&adev->gmc.invalidate_lock);
- 
-@@ -358,8 +361,8 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 		struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
- 		const unsigned eng = 17;
- 		u32 inv_req = gmc_v10_0_get_invalidate_req(vmid, flush_type);
--		u32 req = hub->vm_inv_eng0_req + eng;
--		u32 ack = hub->vm_inv_eng0_ack + eng;
-+		u32 req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
-+		u32 ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
- 
- 		amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_req,
- 				1 << vmid);
-@@ -502,16 +505,21 @@ static uint64_t gmc_v10_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
- 	if (use_semaphore)
- 		/* a read return value of 1 means semaphore acuqire */
- 		amdgpu_ring_emit_reg_wait(ring,
--					  hub->vm_inv_eng0_sem + eng, 0x1, 0x1);
-+					  hub->vm_inv_eng0_sem +
-+					  hub->eng_distance * eng, 0x1, 0x1);
- 
--	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 + (2 * vmid),
-+	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 +
-+			      (hub->ctx_addr_distance * vmid),
- 			      lower_32_bits(pd_addr));
- 
--	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_hi32 + (2 * vmid),
-+	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_hi32 +
-+			      (hub->ctx_addr_distance * vmid),
- 			      upper_32_bits(pd_addr));
- 
--	amdgpu_ring_emit_reg_write_reg_wait(ring, hub->vm_inv_eng0_req + eng,
--					    hub->vm_inv_eng0_ack + eng,
-+	amdgpu_ring_emit_reg_write_reg_wait(ring, hub->vm_inv_eng0_req +
-+					    hub->eng_distance * eng,
-+					    hub->vm_inv_eng0_ack +
-+					    hub->eng_distance * eng,
- 					    req, 1 << vmid);
- 
- 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
-@@ -520,7 +528,8 @@ static uint64_t gmc_v10_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
- 		 * add semaphore release after invalidation,
- 		 * write with 0 means semaphore release
- 		 */
--		amdgpu_ring_emit_wreg(ring, hub->vm_inv_eng0_sem + eng, 0);
-+		amdgpu_ring_emit_wreg(ring, hub->vm_inv_eng0_sem +
-+				      hub->eng_distance * eng, 0);
- 
- 	return pd_addr;
+ 	/* wait for reg writes */
+-	vcn_v1_0_enc_ring_emit_reg_wait(ring, hub->ctx0_ptb_addr_lo32 + vmid * 2,
++	vcn_v1_0_enc_ring_emit_reg_wait(ring, hub->ctx0_ptb_addr_lo32 +
++					vmid * hub->ctx_addr_distance,
+ 					lower_32_bits(pd_addr), 0xffffffff);
  }
+ 
 -- 
 2.25.1
 
