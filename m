@@ -2,70 +2,80 @@ Return-Path: <SRS0=Hy8X=AR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B636C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 13:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7844CC433E3
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 13:07:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72B8C2070C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 13:07:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4B8D72070C
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 13:07:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AwSit3Gf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72B8C2070C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fH8C6p+U"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B8D72070C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C21689FD9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF2589FDE;
 	Mon,  6 Jul 2020 13:07:22 +0000 (UTC)
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 392006E1F9;
- Mon,  6 Jul 2020 10:51:53 +0000 (UTC)
-Received: by mail-pg1-x534.google.com with SMTP id e8so18214753pgc.5;
- Mon, 06 Jul 2020 03:51:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=R/RUPCaSPqzoFwBjt5s1qtV4yHRYyUYf0BU1jozcpBU=;
- b=AwSit3Gf5PYGY93Tmt+Kj7h2kTByWoVXR81moWArdR2ge4xAna+YOKUPxH+tLQb9bR
- jyqAuOnY7kjQvo+HZJG3RZnt5NLWZEKwBYoctlk2WLLnWOv5mlQ8yf2gmu+YcYIgVICE
- 5Y6f4RN015nD7DvyubGQt+dKlb6K9vnCjaFvz8EBFg+jHWDDbR95ZZTEhvSc1x5MKRaS
- 2wK7ouj/aNaZ4wQGaoN/D1ThobsjB8kSrAIcjyYxlux6AACrOi5ftT417K+xRdVAfb7h
- QNrSRnC4yJxZwkqkwhKI7tWguUjJwpmI3TinyGmrFLwAuEG3yo+IjbhRHifFTHuSPMRo
- kUZA==
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BA16E393
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2020 12:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594038548;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type;
+ bh=Mc/ldKPt/EXYFlwVXR6UGMdQ57wZ+ah4uNI5EbcP1/0=;
+ b=fH8C6p+UgDsq5cD3Zm2p9gbV1gUvcyZs5s9us7VJZkcVCE9Th3pIrkAaTJcReyr8safaNy
+ SgNUZcgyER3EgEuk7lFEUtSBuPYNcKG9IrFJ75hTJEsM9yizYNyZv11UUNMBicaKjvqRBy
+ jiWqpI+X0Dm+lpKGZzvXuBe8SBf+3KQ=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-455-tpfKAknsNBKfmmPXgw56rA-1; Mon, 06 Jul 2020 08:29:06 -0400
+X-MC-Unique: tpfKAknsNBKfmmPXgw56rA-1
+Received: by mail-qv1-f71.google.com with SMTP id j18so24789428qvk.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jul 2020 05:29:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=R/RUPCaSPqzoFwBjt5s1qtV4yHRYyUYf0BU1jozcpBU=;
- b=YAVi5+dRn9/QMEmPkOn5cgXIaZ2DZYpv/4RHifdSkDKOzPNDdUgiiWSOS/8akbFlnR
- RW0jfWG+DSWKLgjuVshd4alOid8DUVpNsKS/I8yNQY/2/SpNRTAvjA0NCJecWr/zxAVO
- QiJ/dbmll2tNZsTFKVf9jxL93LrWgi1ng4YvHv1R1/YdoLznmGMk5M5hIUACg4U1XPKW
- dXuLIJr0PoY3EWVoj3tUXh3tAj13gy0ql1XfRBkQ30nuu80OVTEIlj2Uwc47Sbfyi0ck
- loIu3Ca3GS4Xon/jPRSRBvR601oEZ7gPBiRjGnRaCTodbkB7fmTa95/dzH0ZZAxzC6dm
- eg7A==
-X-Gm-Message-State: AOAM5324iDQjkdV8iRIVthqjCmSKfqAPfBtqYR2zWn3ZHd60nRevgX83
- y2w3jQbnvF5XPBR+n1iTfIQ=
-X-Google-Smtp-Source: ABdhPJzo2KxljopNGnnYYgVtn6J6oNotuUUuKIWxrB4m4Qan2wouJie6csZ3xM0wnNm954jMLKNnNg==
-X-Received: by 2002:aa7:96d1:: with SMTP id h17mr15164848pfq.141.1594032712827; 
- Mon, 06 Jul 2020 03:51:52 -0700 (PDT)
-Received: from blackclown ([103.88.82.87])
- by smtp.gmail.com with ESMTPSA id a16sm19112710pgj.27.2020.07.06.03.51.49
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 06 Jul 2020 03:51:52 -0700 (PDT)
-Date: Mon, 6 Jul 2020 16:21:38 +0530
-From: Suraj Upadhyay <usuraj35@gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Mc/ldKPt/EXYFlwVXR6UGMdQ57wZ+ah4uNI5EbcP1/0=;
+ b=JRD9F5ni+UKLrguF0I780hbWGfiBO/7OZhRWLCsc4wiw3TdHzIDGOKYtMPBImZwPLe
+ 6RudpII4LPsxlhzmkFkQoZzi8D4DEsUeRGV5H2921gpLJKbp3J5mEUlroXG1hwnJc+95
+ sKqyRrgDMoVUofxxXF59cG42cJ4ZBYhQL66h1YOplXXNFNc0bpi7WyruWKegSpVFkEw7
+ NgZfcvzr7hvxPqyNidzarzfsAYfS4ty9ST2/whbqbpwEJviK1NVsx1FzKodeg1uUttj2
+ G5bFPYY3eCr6ZPbOzlrH58bHNS9LVU6Qsg3R0kqN3eWBUUFIZUZ2nmi0JRIM+wKgkTSk
+ ChwQ==
+X-Gm-Message-State: AOAM531xLZpl1zyhl2YvTEyxG+ADkOE9GdFx5TViZOz20BgefqgpV18L
+ y+8E1B4qyvj9z0sFJgA81ipttN5WOO6Ox1/bdDp8j/WDnMIe8P8h12NoIT0RlW81uSTIFMRzGE5
+ WFuqV5cBa1Z7cABoCS58jFSQPAQ==
+X-Received: by 2002:a05:6214:d4d:: with SMTP id
+ 13mr13540402qvr.22.1594038544912; 
+ Mon, 06 Jul 2020 05:29:04 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxMy8mu7HXUm95aP+rznm4nycrjLabnqqCu0tSzaAU0UirnpXs5EwtEIjiB8f3YLEf4kXnE0A==
+X-Received: by 2002:a05:6214:d4d:: with SMTP id
+ 13mr13540380qvr.22.1594038544638; 
+ Mon, 06 Jul 2020 05:29:04 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id u6sm22032735qtc.34.2020.07.06.05.29.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2020 05:29:04 -0700 (PDT)
+From: trix@redhat.com
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch
-Subject: [Proposal] drm: amd: Convert logging to drm_* functions with
- drm_device parameter
-Message-ID: <20200706105138.GA10722@blackclown>
-MIME-Version: 1.0
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: [PATCH] drm/radeon: fix double free
+Date: Mon,  6 Jul 2020 05:28:57 -0700
+Message-Id: <20200706122857.27661-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.1
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Mailman-Approved-At: Mon, 06 Jul 2020 13:07:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,69 +88,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1207271193=="
+Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Tom Rix <trix@redhat.com>
 
---===============1207271193==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4Ckj6UjgE2iN1+kY"
-Content-Disposition: inline
+clang static analysis flags this error
 
+drivers/gpu/drm/radeon/ci_dpm.c:5652:9: warning: Use of memory after it is freed [unix.Malloc]
+                kfree(rdev->pm.dpm.ps[i].ps_priv);
+                      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/radeon/ci_dpm.c:5654:2: warning: Attempt to free released memory [unix.Malloc]
+        kfree(rdev->pm.dpm.ps);
+        ^~~~~~~~~~~~~~~~~~~~~~
 
---4Ckj6UjgE2iN1+kY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+problem is reported in ci_dpm_fini, with these code blocks.
 
-Hii Maintainers,
-	I recently came across this list of janatorial tasks
-for starters on DRM subsystem [1]. One of the tasks is replacing
-conventional dmesg macros (like dev_info(), dev_warn() and dev_err())
-with DRM dmesg macros [2]. And I need your input whether the
-conversions to DRM dmesg macros are worth it or not.
-I would like to start working on this task if this needs the change.
+	for (i = 0; i < rdev->pm.dpm.num_ps; i++) {
+		kfree(rdev->pm.dpm.ps[i].ps_priv);
+	}
+	kfree(rdev->pm.dpm.ps);
 
-Thank you,
-Suraj Upadhyay.
+The first free happens in ci_parse_power_table where it cleans up locally
+on a failure.  ci_dpm_fini also does a cleanup.
 
-[1] https://dri.freedesktop.org/docs/drm/gpu/todo.html.
-[2] https://dri.freedesktop.org/docs/drm/gpu/todo.html#convert-logging-to-drm-functions-with-drm-device-paramater
+	ret = ci_parse_power_table(rdev);
+	if (ret) {
+		ci_dpm_fini(rdev);
+		return ret;
+	}
 
+So remove the cleanup in ci_parse_power_table and
+move the num_ps calculation to inside the loop so ci_dpm_fini
+will know how many array elements to free.
 
---4Ckj6UjgE2iN1+kY
-Content-Type: application/pgp-signature; name="signature.asc"
+Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/gpu/drm/radeon/ci_dpm.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-iQIzBAABCgAdFiEE7AbCa0kOsMJ4cx0j+gRsbIfe744FAl8DAjEACgkQ+gRsbIfe
-745WZw//YOzOBQIp/VcMTmvfWL5OMXrDiO1HUDdlbKkXY9udgjpKya2Wd2KOaZ8y
-bzONIfbS8u4uizmAUXktdrZRpCIkOAGQuCReHUzzfDNHWyTBlQHkXn5gSFyIq+Er
-qprmLOVEgXNRRvniO6iQ41RqmdgihzMqPW5XGR3NuVeG8bw3DC56C/7W/kKjK4kL
-jOLc3DDzH2G+n0gxFCSV5uCSk2XIese21nvCx+xS3ohsOTtCCggM0SH/xZ9WTaPi
-zCuXJKN3ItLqseba/4b5kB23oWFM/nZPzvPkeEv1xzN8u3QFJgVKh7Rc06+mKvWp
-DD6V4d+YYTspxnVsyga/uB+LWCB2JA/o4Wa9SZl49vy4R32lZJKilMdGcOrjNIUQ
-m/YPeu6rpFUluPMnxGB+Shlrn3iHjBC6NQdV52lTFAoExt5pCZN1v/35QZWFrCPN
-RlFxDHjMffSstnwdKHua6nGfxe+MPscvlp3B9NAVrTlBPBNckLU3hzzTCgRxg4Wo
-a1FvlCO90AvZ5BVllnZQUhjiz5lvwlphvjnpuuD6ziYZeKrqOO0r1Tvqd1HipE6F
-ovvf6fHhnQleMHumiy1g9uChAHkS9oxvrKqBVjYEBhaN4bjUUf9huSEXaoP2y7qb
-5Ql8JdkqzhK2cxUbnvnZMya9dsiZPhG8e7rkR2TTsq8B5FxfYqc=
-=fw+t
------END PGP SIGNATURE-----
-
---4Ckj6UjgE2iN1+kY--
-
---===============1207271193==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
+index 86ac032275bb..ba20c6f03719 100644
+--- a/drivers/gpu/drm/radeon/ci_dpm.c
++++ b/drivers/gpu/drm/radeon/ci_dpm.c
+@@ -5563,6 +5563,7 @@ static int ci_parse_power_table(struct radeon_device *rdev)
+ 	if (!rdev->pm.dpm.ps)
+ 		return -ENOMEM;
+ 	power_state_offset = (u8 *)state_array->states;
++	rdev->pm.dpm.num_ps = 0;
+ 	for (i = 0; i < state_array->ucNumEntries; i++) {
+ 		u8 *idx;
+ 		power_state = (union pplib_power_state *)power_state_offset;
+@@ -5572,10 +5573,8 @@ static int ci_parse_power_table(struct radeon_device *rdev)
+ 		if (!rdev->pm.power_state[i].clock_info)
+ 			return -EINVAL;
+ 		ps = kzalloc(sizeof(struct ci_ps), GFP_KERNEL);
+-		if (ps == NULL) {
+-			kfree(rdev->pm.dpm.ps);
++		if (ps == NULL)
+ 			return -ENOMEM;
+-		}
+ 		rdev->pm.dpm.ps[i].ps_priv = ps;
+ 		ci_parse_pplib_non_clock_info(rdev, &rdev->pm.dpm.ps[i],
+ 					      non_clock_info,
+@@ -5597,8 +5596,8 @@ static int ci_parse_power_table(struct radeon_device *rdev)
+ 			k++;
+ 		}
+ 		power_state_offset += 2 + power_state->v2.ucNumDPMLevels;
++		rdev->pm.dpm.num_ps = i + 1;
+ 	}
+-	rdev->pm.dpm.num_ps = state_array->ucNumEntries;
+ 
+ 	/* fill in the vce power states */
+ 	for (i = 0; i < RADEON_MAX_VCE_LEVELS; i++) {
+-- 
+2.18.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1207271193==--
