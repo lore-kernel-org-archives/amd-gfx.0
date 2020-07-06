@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CAE36C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:06:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25B7BC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:06:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D39120715
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:06:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EE81D20715
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2020 05:06:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XDQ4uOvz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D39120715
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZdI5DmCo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE81D20715
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54DA76E30F;
-	Mon,  6 Jul 2020 05:06:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B33AE6E31D;
+	Mon,  6 Jul 2020 05:06:09 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A00626E30F
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2020 05:06:04 +0000 (UTC)
+ (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C93686E31D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2020 05:06:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lElkgpbGWAGeR0R0Ygt14stFWglvWG7SChqSmoHMVgTRNshqTGJDj/Z/V6RwbztswYTu7qgt5vWejYYfxshO02cTeEGBfOSkBdOdFffbjBiWhQ6hTzkwE0NLHKRhchMCzCgEOi+IkbKdou2vSdfca9QZwgARByCe3ZqiN1SsMx8vao28dwDthvRVlmSEbe5msYKSi1236Klf9kER5uDfX9ZtGgFYDK9pQYizmUubyUneKAp6uj4MH3SI74o0a6QVPkukZadMi/gjCGLJ80mPQwfVnAXfX0sDTabkm/PjQ8QpVbAGDHqjO6OuY9BVMgiVsPT086Tp8lKLK4ILLlsZYw==
+ b=e3ItSsQ4pIgMlwfHzDaXgChQrMQ+MtwHqhLBZ2fJOLl5orv4JnHbVSos79znDX1QA/rnmMDeWro0MvGTLgmsPzNJfg+egNUaxQ0jY6/dAcszkaAvJhyUiGlRMEjfxr0LwiJ+KrSiCWqiQmpqO66tA7LUrZjENuu84Wuc+c6x1lAI2ClVsVMwQiXRUJk/jQ0QsdaQRtn6j3lAMZUmAnQX9kw+VsZAfFn48oPOEXHSxVHdYR3lxzWY1PTGjXHQp5BAxLJJpun+pg64DVShkHxkAQ3Ji0jZbHs6eLVL2pnN/8Jsbwlr8X4CNa79oSx+/2SuIxiWNxfsAp0iODcjVi841g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k0iKxGpOd0A8h1KLQ9RMavh3ig0CvqzblgDYc6ZBAuw=;
- b=efj2exz8O0k3hl9RwYXBHA6HzvDPSMEkGTC3aQrrF1CkUSv3ODSHJMBWD8DfyTZtWVF6PZMj9fFa0zh8AOgZF2/iTulifJTk3ygH26cmzB98Yzv2UxbL0CZ0p725EDhOlc6v8FhR9tWkpFSGmmA/rksFsIZPGeRgid3SzL/NYm/ioyennJRjCsnP3cP31h8alRwZy0ooKoUFD1bgBEOpukx/yBHJrh2ATAnGXHADkxrjRk0ivNUWdXSDDIjbk7IwSV1uP7yBFmgtvU83czd59FdXNFPFQ2rgFgYAjzcfUH50HrErsgXGPxgQ7jhuhEmCYWvbso9Oa4c5uazpU/P8Ag==
+ bh=aaLDAKtGnntzzwxlC+hVbxYoDRmWfIQEQqtCmB4N9JA=;
+ b=OAut1YubqhlyNZR3EWc6N1IpTvjSCviP/RmW5GhM5sW9EtNpwtlL4mfDcjSGrXoUXau3kbKgDERIsQczQwQf3qGypfOPyp1wnjxWpopynMPghLW5jHPk3hrTc1JCbiXTyzIE9CUmsLs/euRitBluQooIk36tfsX74y6KxlFZhMNAF+iOK1nh/wEHCaCbXjgB8+nl+t6B/HEKxq2HKea2Aj0iuRNLpiMQ8EzcVdxLvwxtypA5cD/Eg/99EZlGXIyQJYY/noEOLEI7GscruJ9i+uFhHOVJxZy41WwXMlaus2v7Vs1qaaPe9M+r5t3nlwXAgZCXhfm4DdFlSy0xt0PKKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k0iKxGpOd0A8h1KLQ9RMavh3ig0CvqzblgDYc6ZBAuw=;
- b=XDQ4uOvzbxz8dPhJ5o7UyoW9QNM2H35BMipgD8hyk5Hc48ECskmGaNmF/9W8REpeoKsUtQublC2MTIEisMFizf1r/y9ElieEQezbu3J2ZtlzqEsCs4cYcPxbxrPhs5rkZRXKpsmIIW+4Q30Chyb3AOZuuqhVNTh2wCxCrSFNgDI=
+ bh=aaLDAKtGnntzzwxlC+hVbxYoDRmWfIQEQqtCmB4N9JA=;
+ b=ZdI5DmCo0QmBuW3ferTC1sJuz9o7HWZsVrULcM825buT3MhcSyZGJMyRru/JkmbU8/S0RCCY/wXzef8fbiwFD6oIwU6brNq+RvEXgiMERayQ9KMjxmk3z22g82bJJbgh5CnOHg9kQU1qeRGAPwCKRa+NBeu7BBzgzjvEK+cMDvQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from MN2PR12MB3774.namprd12.prod.outlook.com (2603:10b6:208:16a::13)
  by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.20; Mon, 6 Jul
- 2020 05:06:03 +0000
+ 2020 05:06:07 +0000
 Received: from MN2PR12MB3774.namprd12.prod.outlook.com
  ([fe80::9ca1:81ba:bd45:53f4]) by MN2PR12MB3774.namprd12.prod.outlook.com
  ([fe80::9ca1:81ba:bd45:53f4%5]) with mapi id 15.20.3153.029; Mon, 6 Jul 2020
- 05:06:03 +0000
+ 05:06:07 +0000
 From: Huang Rui <ray.huang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 09/12] drm/amdgpu: use register distance member instead of
- hardcode in gfxhub v2.1
-Date: Mon,  6 Jul 2020 13:05:06 +0800
-Message-Id: <20200706050509.714975-10-ray.huang@amd.com>
+Subject: [PATCH 10/12] drm/amdgpu: use register distance member instead of
+ hardcode in mmhub v1
+Date: Mon,  6 Jul 2020 13:05:07 +0800
+Message-Id: <20200706050509.714975-11-ray.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200706050509.714975-1-ray.huang@amd.com>
 References: <20200706050509.714975-1-ray.huang@amd.com>
@@ -70,35 +70,35 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from hr-amd.amd.com (58.247.170.242) by
  HK2PR0302CA0017.apcprd03.prod.outlook.com (2603:1096:202::27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.13 via Frontend Transport; Mon, 6 Jul 2020 05:06:00 +0000
+ 15.20.3174.13 via Frontend Transport; Mon, 6 Jul 2020 05:06:04 +0000
 X-Mailer: git-send-email 2.25.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7f67ed47-4c8e-40ae-a4a0-08d8216a4834
+X-MS-Office365-Filtering-Correlation-Id: b02d03cc-7af5-493e-400a-08d8216a4a2f
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4470:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB447094036383F081BB4A9450EC690@MN2PR12MB4470.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1201;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB447019E4F58B3379BCBD8C0AEC690@MN2PR12MB4470.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:854;
 X-Forefront-PRVS: 04569283F9
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Qa/jTr9l5RiIY5rk/mfmGx5SOwh0OYfTrJyBbOnbZ/TWZh4YbhRXr+t2gbJEucKjIX5wmRMGvloGMLwPkHtZxgBVZiglrrHGYafuXEVCjX0tGirdtFlwGccQi8nTHlLkceVFibE7rrbtKhnVscVA5D5EuEXQaHQ6Cpmun4Lg4fQAJRO6RphJg9FRDKtBYrIwmlygLngjhh1wMHL8JsF9m+PFju+YnKeC/JrbbEyHsXu8XlC0Y32WhyK0Y/RNktrBwmfzSL1nVMUHdme7zIcQmMEzcgsWS8xKkmBVfo5k4/SQzzijveqbdoN+JD5MgQLg
+X-Microsoft-Antispam-Message-Info: OVqN2dc5mRMOnM0f+nqqxvfp79Lz+sfZdOEykFz8lgh3Gb0ZKaQbC+n3Xh+AHwBqv3OCFL4c6ARPJISr5NNbavq1g+2Wgbv6NZrBDPJrgRnflK9B2v+eQgVzoPDjeoad7fKsKZ1QIStNbInT4X76L7dmTpW2rI6fuguHb95yVq2C2IEAuKd2j/3nYkKlEcV3cY3DZ2K6KPpWzcrMmg9eEVFd5W+1urdndbcMi6qWZFhvSdNhOH2Hv0kfOjrtyouM5MIuey6VyX+f9+2fXAt4C3YF3oAcRbxWW5GdzLYOgs8kBO61iGr4ZK2PDMJNcBJoP+mRdee0lcmrQjfS9ynj7A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3774.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(39860400002)(396003)(366004)(346002)(136003)(376002)(26005)(54906003)(66476007)(7696005)(52116002)(8936002)(66556008)(66946007)(36756003)(478600001)(5660300002)(86362001)(6916009)(2616005)(186003)(6486002)(2906002)(316002)(1076003)(8676002)(16526019)(956004)(4326008)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: /Rh4mrDQuxaXPdgMHCqR7idZy60VTsuL7d5JO8uROpGoPrAepPNmbeM3JgN/RJdmraWQOf6afkFhHtoSN1lZG1vhhZHshohM+mHxs5NgVCLO488o9iLN9iIBguTfQCkphijbbBTP+DwvHbBBxTX7rWxH5sFo+XnSkbosJ8aeFGN/XvU0gU6Ii0LSe52/xiFiau3Oku1M3rgSxlD6Rv3jnoebZXcPFtKtFwwy1hda0mfyrk7OTOl7UJJFdGzxs5Sp5ot3+EaJo/DylPnSO4WGVp0Wt73n0jOnRET4ND2Gw5HxJ0F9UqxtakTiqxdBCh35FSd9elciu+fsSvgSgvOUl48jy1tX9TPx+QKSvk00KvjDpVzQFoLEmw++2mXlS/BzGoPjE83sE0zwjdlFLNPz7yVN5uvcw9FkH5yG8Sz8mRdtmz9gs51R2aunZzoA9sJu/n+Aghu6G/U7vS1JGyYXsR9VvwvjjoCwI1bKvFytcOTKrfEZwwAaxIRHXGi/vMy4
+X-MS-Exchange-AntiSpam-MessageData: 6ZfroaoSmKG6XWUnF0wv6Fb5BF4vzKNIqXZqFKOiHBWP4ILxBtSa07pVrRu+BVbvMoOpb7vz4qNkgIpBBCMh2ix/Z4XPdpERfk66nMU1GXbRTjWRk84GVg8lOVNjmP7r5ayLJE0m87EYyYW3WMsXTL1FsC9NO/11+5ZQLxdoj2scfHhvqdqIaVKGMMNxJg5qtyZRtjLEAk3itrnhPCQ+J69i5BaR7EQHzVRmqiv9vScgW7f78lTxdBI45XcGklm+GLAQl1zln0SezBYREsJr5OADMHDDp+Ep08QwUw44IpJJvkwGAmKMCgjObP9gIxV0o5Tg8yoCFwGqPnr6wUmD5Hqo7h+ElM2SrUfAubEYBAiOFqAyG8E0+d1Cp+UctFZW1Z26gwg37t5qHA/ox61VWy/ug1Ikw6+DyZDUssE7qaRmjXOgPqFTWf8Rnf0V36zKtIftJXahuAPO2vDL2HIbsuFhdydN9u7+GCeTiCLI9hyt2M22gRpNHGfN6fAbzu4a
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f67ed47-4c8e-40ae-a4a0-08d8216a4834
+X-MS-Exchange-CrossTenant-Network-Message-Id: b02d03cc-7af5-493e-400a-08d8216a4a2f
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3774.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2020 05:06:03.7293 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2020 05:06:07.0094 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V5BRmScQXq1WEk2IqI7yL11lKVYck0TGoltXD3ZCQcy1zPsQLBaSxHFySQlufbTEtkr0Z9ltkPX4olmUfoV29g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 86q3HgkwGXxY+Aho0b3frcfPctVZwDz0tmpc75SojBNvw0mhA1MU9E+9ClYIGaKzgvNPwxkdFw3/9Gtg8VjLiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,104 +121,104 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This patch updates to use register distance member instead of hardcode
-in gfxhub v2.1.
+in mmhub v1.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 Tested-by: AnZhong Huang <anzhong.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 39 +++++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 39 +++++++++++++++----------
  1 file changed, 24 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index 39c9c7856d0f..fa0bca3e1f73 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -49,15 +49,15 @@ u64 gfxhub_v2_1_get_mc_fb_offset(struct amdgpu_device *adev)
- void gfxhub_v2_1_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index ec3a40dd52e5..dffcb93ecee5 100755
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -54,15 +54,15 @@ u64 mmhub_v1_0_get_fb_location(struct amdgpu_device *adev)
+ void mmhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
  				uint64_t page_table_base)
  {
--	/* two registers distance between mmGCVM_CONTEXT0_* to mmGCVM_CONTEXT1_* */
--	int offset = mmGCVM_CONTEXT1_PAGE_TABLE_BASE_ADDR_LO32
--			- mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32;
-+	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+-	/* two registers distance between mmVM_CONTEXT0_* to mmVM_CONTEXT1_* */
+-	int offset = mmVM_CONTEXT1_PAGE_TABLE_BASE_ADDR_LO32
+-			- mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32;
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
  
- 	WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
--				offset * vmid, lower_32_bits(page_table_base));
+ 	WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
+-			offset * vmid, lower_32_bits(page_table_base));
 +			    hub->ctx_addr_distance * vmid,
 +			    lower_32_bits(page_table_base));
  
- 	WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
--				offset * vmid, upper_32_bits(page_table_base));
+ 	WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
+-			offset * vmid, upper_32_bits(page_table_base));
 +			    hub->ctx_addr_distance * vmid,
 +			    upper_32_bits(page_table_base));
  }
  
- static void gfxhub_v2_1_init_gart_aperture_regs(struct amdgpu_device *adev)
-@@ -207,6 +207,7 @@ static void gfxhub_v2_1_disable_identity_aperture(struct amdgpu_device *adev)
+ static void mmhub_v1_0_init_gart_aperture_regs(struct amdgpu_device *adev)
+@@ -230,6 +230,7 @@ static void mmhub_v1_0_disable_identity_aperture(struct amdgpu_device *adev)
  
- static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
+ static void mmhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
  {
-+	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
- 	int i;
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
+ 	unsigned num_level, block_size;
  	uint32_t tmp;
- 
-@@ -236,25 +237,31 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
+ 	int i;
+@@ -268,25 +269,31 @@ static void mmhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
+ 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
  				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
  				    !amdgpu_noretry);
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i, tmp);
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32, i*2, 0);
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32, i*2, 0);
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,  i*2,
+-		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_CNTL, i, tmp);
+-		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32, i*2, 0);
+-		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32, i*2, 0);
+-		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32, i*2,
 -			lower_32_bits(adev->vm_manager.max_pfn - 1));
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32, i*2,
+-		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32, i*2,
 -			upper_32_bits(adev->vm_manager.max_pfn - 1));
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
++		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_CNTL,
 +				    i * hub->ctx_distance, tmp);
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
++		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
 +				    i * hub->ctx_addr_distance, 0);
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
++		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
 +				    i * hub->ctx_addr_distance, 0);
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
++		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
 +				    i * hub->ctx_addr_distance,
 +				    lower_32_bits(adev->vm_manager.max_pfn - 1));
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
++		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
 +				    i * hub->ctx_addr_distance,
 +				    upper_32_bits(adev->vm_manager.max_pfn - 1));
  	}
  }
  
- static void gfxhub_v2_1_program_invalidation(struct amdgpu_device *adev)
+ static void mmhub_v1_0_program_invalidation(struct amdgpu_device *adev)
  {
-+	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
  	unsigned i;
  
- 	for (i = 0 ; i < 18; ++i) {
- 		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
+ 	for (i = 0; i < 18; ++i) {
+ 		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
 -				    2 * i, 0xffffffff);
 +				    i * hub->eng_addr_distance, 0xffffffff);
- 		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
+ 		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
 -				    2 * i, 0x1f);
 +				    i * hub->eng_addr_distance, 0x1f);
  	}
  }
  
-@@ -288,12 +295,14 @@ int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev)
+@@ -333,12 +340,14 @@ int mmhub_v1_0_gart_enable(struct amdgpu_device *adev)
  
- void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
+ void mmhub_v1_0_gart_disable(struct amdgpu_device *adev)
  {
-+	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
  	u32 tmp;
  	u32 i;
  
  	/* Disable all tables */
  	for (i = 0; i < 16; i++)
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_CNTL, i, 0);
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_CNTL,
+-		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT0_CNTL, i, 0);
++		WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT0_CNTL,
 +				    i * hub->ctx_distance, 0);
  
  	/* Setup TLB control */
- 	tmp = RREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL);
+ 	tmp = RREG32_SOC15(MMHUB, 0, mmMC_VM_MX_L1_TLB_CNTL);
 -- 
 2.25.1
 
