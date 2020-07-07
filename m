@@ -2,66 +2,110 @@ Return-Path: <SRS0=Rnur=AS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59BB5C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 15:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CE63C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 15:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B7D52065D
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 15:12:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D6F4520870
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 15:41:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pMBw7q2C"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B7D52065D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="M7+iA3Kc"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6F4520870
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC866E0AD;
-	Tue,  7 Jul 2020 15:12:17 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC8B96E07D;
- Tue,  7 Jul 2020 15:12:16 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id z13so45553255wrw.5;
- Tue, 07 Jul 2020 08:12:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9gOopT7I1OsIRVZ7gP8eL3IBFb1IUCjqvEssUF76BG4=;
- b=pMBw7q2CFOQfGmvkpqC/zFRqxOWQ1b7p2+cEAWcF3mCdub5F2Ib4bRWeyCUg8D9e/p
- OGctjFDilSnopnt9CwMBPoMjshPumFWLq+24vUZa/F+8z0eQcB5V125GtWHS7J8FCBAi
- olXgEecpuFIpgRHSivW/kY39xGYXlGu1D5YAZkaMvByYxB0WBPXJX21Iay/n/zfvv5B1
- XGan0uHFhRQj6e7e1PtHNfloLwBgxjg7XKveppNjrMStBeWdP3RUa9AbGRv90xmUTNf+
- daK4lBDjMHXd+pKrdwj5T7auAYljz+YtqyjZCcarbyAW5kreekC8mDfKzY3A4oDORsMc
- MWQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9gOopT7I1OsIRVZ7gP8eL3IBFb1IUCjqvEssUF76BG4=;
- b=P9GSJKsASGtltoN3rrMZsUpzg6X/iLrPo1Sfh4Wgck9GRhs0nFwTn8KxFFjt7VMI21
- k2UAMSXwO7FHBbYl0DAQi80pcHAwJ4FVJhOHGzhnhzNHB8oDaWFif3D2H8j5csD+s10g
- 5yzA+RXXRyk/+si873sSc9rBtx8cZk5Fuw9Z8B6pYxa4PDSBdyHZ/RAzvBgBuKhOWBwD
- t0d435OLRxhVqgzAG07fKdpaVUyA9zOry2gl0urW5gDlWBeByFSSfsyGfsM7ruzcHelf
- Swg0gfEn2zWuMqjnLuB9x7Bs2/6nCHelhz/OkzDcid8FfE+l/uYNp5rSNlc5CVpAJfVD
- jS8A==
-X-Gm-Message-State: AOAM530HoU0itMfgNJW0SX6aBewUMV37e17Xlx5vjRGj/hRGXFfxdUkL
- X32ufquuR9VwtKxeCO9Qf7jRTkOJxY/K4YEvX14=
-X-Google-Smtp-Source: ABdhPJzyL7Ci3JIid8hEd7ueUZ+ZnZ09+gKP6KqRip8QlXnvviomlhUgfqgfQEoWKehK4g+kzJ1CJo+batzFSMZXVBI=
-X-Received: by 2002:adf:dd8d:: with SMTP id x13mr53383056wrl.362.1594134735494; 
- Tue, 07 Jul 2020 08:12:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9135D6E21E;
+	Tue,  7 Jul 2020 15:41:50 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC78D6E229
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 15:41:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h/1yg1zFhD7flBZAJzwWnin8HbUS+awmjZK5dWqvl6rcvnnGoSfAm6i3MGbDPmtL/lCl7ZEL+DYbKm78XDsGjA2e/7uCW6RD4R8W7SS5KVSjGvOrDeZvbllsjRpHAFMNXcvwuCGsuQA720PAYihz3GW6KZwwxrRPK3UecLnqoFqOzg2PRibBzwDgwX/VugAR/SarKGegPc/BQsp5Fcj83+FxUZhxrEiYt6GCz0C9GpIoOaskWnSjo7Xlzs0Mrg3mg9BkHJiHs0BU+6TlliADx+8QF95HsH9bJPeqt9WfdoQWkZanEo92mmFsfLboeTcDlVvWPFpgk+x6enEBRw9iRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dNG0qjVFmhga/JNeDwutLLLS6Yd5K5P5VjP4aQCNqDA=;
+ b=DpwDaI+UiZkWCf8ynN6wkT80RO0rhD/8UUqFF8h38udG8rYpJaqhDji1VRPnXJ2nihHb46hgsCev3CBCD6TnFH17p8gVoBOQoHgsoqiM39cnUMDEi03l2YCSFncGteJFguto8NLVDwcFoBLNIuIBkfIr/4BKWOtc8rxhhSOO7y+i9HMmpmIcP43X7h6MKf0G1InDZXPDK4xujmaTGSsDJkmv35k67V1P/OHw1slgkzfJqjyA9Qa2TsVNJlm1PvG1lr9LOutHuoUBgJtc+yQ0zmcBpbwVKwmVeVVmJLS5U9slc2ac+rmeGF8cWEVAtZ/xfNXg+OzEThg/YANmQNIlWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dNG0qjVFmhga/JNeDwutLLLS6Yd5K5P5VjP4aQCNqDA=;
+ b=M7+iA3Kc5DmfcGJJMDkhu1cCxkcdrjeleaND54dnf/aykwK5fG/v2BZPAksSRrDZzQFiXOn5EKUhmYewcGzF7Wi67MtspYD5RpWqkQswDpqsZBUvPzj6PmMHbBzSNXMtDdtWwZuMJTkh15r8/2/VDQYDGnihnaMaJryED39tQUw=
+Received: from DM5PR18CA0058.namprd18.prod.outlook.com (2603:10b6:3:22::20) by
+ DM5PR12MB1627.namprd12.prod.outlook.com (2603:10b6:4:10::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3153.29; Tue, 7 Jul 2020 15:41:42 +0000
+Received: from DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:22:cafe::a8) by DM5PR18CA0058.outlook.office365.com
+ (2603:10b6:3:22::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.20 via Frontend
+ Transport; Tue, 7 Jul 2020 15:41:41 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT064.mail.protection.outlook.com (10.13.172.234) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3153.24 via Frontend Transport; Tue, 7 Jul 2020 15:41:41 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Jul 2020
+ 10:41:40 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Jul 2020
+ 10:41:39 -0500
+Received: from DESKTOP-3JO4JG6.localdomain (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Tue, 7 Jul 2020 10:41:39 -0500
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Add missing CW4 programming for DCN30
+Date: Tue, 7 Jul 2020 11:41:01 -0400
+Message-ID: <20200707154101.5715-1-nicholas.kazlauskas@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200706122857.27661-1-trix@redhat.com>
-In-Reply-To: <20200706122857.27661-1-trix@redhat.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Jul 2020 11:12:04 -0400
-Message-ID: <CADnq5_PZEg=tW1Nku_=g4FDbL2qXBf=xz9JuFik0fAR3_SSffQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix double free
-To: trix@redhat.com
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(346002)(376002)(39860400002)(396003)(46966005)(86362001)(6916009)(336012)(47076004)(2616005)(70206006)(70586007)(44832011)(1076003)(5660300002)(54906003)(426003)(316002)(83380400001)(6666004)(478600001)(36756003)(82740400003)(2906002)(356005)(82310400002)(186003)(26005)(8936002)(8676002)(81166007)(4326008);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c8186a77-fc4e-44f1-066d-08d8228c3e86
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1627:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB162755F89DBDD609422C6038EC660@DM5PR12MB1627.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Forefront-PRVS: 0457F11EAF
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iynaI/fZGmuuzYhMzGgmZYhjqrPvdoCZLpC6QzcPctFQVnr5yuwxffMnwgabHMkAmgEmaZnJPijgVZDYtvO9XH9pw5CgLuUyf1Er8qFPX87K8wbWLtGV1Fy4rvNsZs7eayMUy4hpsKqKK0BMtVVuYYJ4SefndIugQKNHQh89XGJvFiw64TF1RHUh8rm6LNEhZiyLUIAH5LZkWLyxhEvGFu1mot90lYeT1Rn0ri2XVGffzgSghrk8ovgOfIt532NnHXgACyQs+hPvmJoByp6Gf3PuHz4UiKjr8V1gyZXYwIsCdpcw0YP0dRdWxui3B0vGmSmWpWyVH0kxAFnB2EJwqtDew15pip9alX7OF1YW7l7WLTX898O4m+X2LDixaglo9r+EmRDsPxwCiBwIC8wYZQ==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2020 15:41:41.1822 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8186a77-fc4e-44f1-066d-08d8228c3e86
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,101 +117,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+[Why]
+To support inbox1 in CW4 we need to actually program CW4 instead of
+region 4 for newer firmware.
 
-Alex
+This is done correctly on DCN20/DCN21 but this code wasn't added to
+DCN30.
 
-On Mon, Jul 6, 2020 at 8:29 AM <trix@redhat.com> wrote:
->
-> From: Tom Rix <trix@redhat.com>
->
-> clang static analysis flags this error
->
-> drivers/gpu/drm/radeon/ci_dpm.c:5652:9: warning: Use of memory after it is freed [unix.Malloc]
->                 kfree(rdev->pm.dpm.ps[i].ps_priv);
->                       ^~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/radeon/ci_dpm.c:5654:2: warning: Attempt to free released memory [unix.Malloc]
->         kfree(rdev->pm.dpm.ps);
->         ^~~~~~~~~~~~~~~~~~~~~~
->
-> problem is reported in ci_dpm_fini, with these code blocks.
->
->         for (i = 0; i < rdev->pm.dpm.num_ps; i++) {
->                 kfree(rdev->pm.dpm.ps[i].ps_priv);
->         }
->         kfree(rdev->pm.dpm.ps);
->
-> The first free happens in ci_parse_power_table where it cleans up locally
-> on a failure.  ci_dpm_fini also does a cleanup.
->
->         ret = ci_parse_power_table(rdev);
->         if (ret) {
->                 ci_dpm_fini(rdev);
->                 return ret;
->         }
->
-> So remove the cleanup in ci_parse_power_table and
-> move the num_ps calculation to inside the loop so ci_dpm_fini
-> will know how many array elements to free.
->
-> Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
->
-> Signed-off-by: Tom Rix <trix@redhat.com>
-> ---
->  drivers/gpu/drm/radeon/ci_dpm.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-> index 86ac032275bb..ba20c6f03719 100644
-> --- a/drivers/gpu/drm/radeon/ci_dpm.c
-> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
-> @@ -5563,6 +5563,7 @@ static int ci_parse_power_table(struct radeon_device *rdev)
->         if (!rdev->pm.dpm.ps)
->                 return -ENOMEM;
->         power_state_offset = (u8 *)state_array->states;
-> +       rdev->pm.dpm.num_ps = 0;
->         for (i = 0; i < state_array->ucNumEntries; i++) {
->                 u8 *idx;
->                 power_state = (union pplib_power_state *)power_state_offset;
-> @@ -5572,10 +5573,8 @@ static int ci_parse_power_table(struct radeon_device *rdev)
->                 if (!rdev->pm.power_state[i].clock_info)
->                         return -EINVAL;
->                 ps = kzalloc(sizeof(struct ci_ps), GFP_KERNEL);
-> -               if (ps == NULL) {
-> -                       kfree(rdev->pm.dpm.ps);
-> +               if (ps == NULL)
->                         return -ENOMEM;
-> -               }
->                 rdev->pm.dpm.ps[i].ps_priv = ps;
->                 ci_parse_pplib_non_clock_info(rdev, &rdev->pm.dpm.ps[i],
->                                               non_clock_info,
-> @@ -5597,8 +5596,8 @@ static int ci_parse_power_table(struct radeon_device *rdev)
->                         k++;
->                 }
->                 power_state_offset += 2 + power_state->v2.ucNumDPMLevels;
-> +               rdev->pm.dpm.num_ps = i + 1;
->         }
-> -       rdev->pm.dpm.num_ps = state_array->ucNumEntries;
->
->         /* fill in the vce power states */
->         for (i = 0; i < RADEON_MAX_VCE_LEVELS; i++) {
-> --
-> 2.18.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+[How]
+Copy over the missing code. It doesn't need address translation since
+DCN30 uses virtual addressing.
+
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+---
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c | 21 ++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
+index ba8d0bfb5522..215178b8d415 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
+@@ -153,11 +153,22 @@ void dmub_dcn30_setup_windows(struct dmub_srv *dmub,
+ 
+ 	offset = cw4->offset;
+ 
+-	REG_WRITE(DMCUB_REGION4_OFFSET, offset.u.low_part);
+-	REG_WRITE(DMCUB_REGION4_OFFSET_HIGH, offset.u.high_part);
+-	REG_SET_2(DMCUB_REGION4_TOP_ADDRESS, 0, DMCUB_REGION4_TOP_ADDRESS,
+-		  cw4->region.top - cw4->region.base - 1, DMCUB_REGION4_ENABLE,
+-		  1);
++	/* New firmware can support CW4. */
++	if (dmub->fw_version > DMUB_FW_VERSION(1, 0, 10)) {
++		REG_WRITE(DMCUB_REGION3_CW4_OFFSET, offset.u.low_part);
++		REG_WRITE(DMCUB_REGION3_CW4_OFFSET_HIGH, offset.u.high_part);
++		REG_WRITE(DMCUB_REGION3_CW4_BASE_ADDRESS, cw4->region.base);
++		REG_SET_2(DMCUB_REGION3_CW4_TOP_ADDRESS, 0,
++			  DMCUB_REGION3_CW4_TOP_ADDRESS, cw4->region.top,
++			  DMCUB_REGION3_CW4_ENABLE, 1);
++	} else {
++		REG_WRITE(DMCUB_REGION4_OFFSET, offset.u.low_part);
++		REG_WRITE(DMCUB_REGION4_OFFSET_HIGH, offset.u.high_part);
++		REG_SET_2(DMCUB_REGION4_TOP_ADDRESS, 0,
++			  DMCUB_REGION4_TOP_ADDRESS,
++			  cw4->region.top - cw4->region.base - 1,
++			  DMCUB_REGION4_ENABLE, 1);
++	}
+ 
+ 	offset = cw5->offset;
+ 
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
