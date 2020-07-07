@@ -2,101 +2,118 @@ Return-Path: <SRS0=Rnur=AS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78ACEC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 08:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED372C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 13:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 370C12063A
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 08:04:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 714632075B
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 13:07:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="d6znRepV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 370C12063A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="qFswgmZF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 714632075B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3DE289F63;
-	Tue,  7 Jul 2020 08:04:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2042.outbound.protection.outlook.com [40.107.93.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46FF989F4F
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 08:04:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S3CyuV6nkeUEz3LKozXxdpU1B2NUTQ4Kzw+wXtGaHWPBEKa1uIJn0Pxqp78zbbsXzJcP6bVqL4aUlZIpY1kowWTBgZhg+7/tOV18PZst/VIy4SddsQ7k2ZBzDj5BtfbLkkP+rzS15uQceG4qyZ10gaMIxr6oZpVj64zdjiUo2O00Ntc6Pu0REeLb0EojkEMJ9nKGm65A8PA20GyGgo8ozQLE4U9bQV3MOHuvZ8VNBfRDmPrxbNr/U/KPu1mHKhgXNKyED1wW7Z9QFOS4z0AtjYqNQM3X37Hg3Y/MImI5XsSfcyrzM/GuvM4RMl8pbRCxwLvE/UWXlNwB7lhqNe4WIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iAYNc3ieBedYkLenOfs64FzoDp5DNfGXXmnsfReQnkA=;
- b=mrjnLe9JFFZuvc55BZ4YT0yTAmE3VohsVrP1Yxi56O2Teq7f2g/2JEeLCQmda8zwU3wuG2NnG0s8HSBU+dyiTItutq0/P/Pl1i95QkPoDLUuvXV7ksIeio4Cg1lTrNUaW6TJZNoYlr+Nc9j7HOtSs0OfFEHXr7GAccM2B00QWitfzwB9ATQP3sCzyG4rLrpn8O1wVO5Dx1NBg96h/z1F8hPcVaMuIbo46BSZFx8DHj8+eTpfxb9qqX1ivFz2WegX2d9l5JuzlBpJJn6Au4tBIL1n5ERjzbA+Qt3h6NveZdetXvzAJOBqDS7YlcL8zJHwrSbvaFhkpbRYTdwXVZ/tWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iAYNc3ieBedYkLenOfs64FzoDp5DNfGXXmnsfReQnkA=;
- b=d6znRepVhIPbwX5LJZxo5ePc2FeEddMfs1g34+7B5T/hVkQjZDOnaSH1l6Tw5ILs+TkdDA7+hCS/QuohPlYF9qf/BBTWe6o9FWezh2tk1SLq2zm5EZZfxKdt9juvjbVh2T0pV3D7e4M039dtcnEMHRbDEuxTR8Hjhbpc9lF6MDM=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN6PR12MB1425.namprd12.prod.outlook.com (2603:10b6:404:1f::19)
- by BN6PR12MB1233.namprd12.prod.outlook.com (2603:10b6:404:1c::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.23; Tue, 7 Jul
- 2020 08:04:00 +0000
-Received: from BN6PR12MB1425.namprd12.prod.outlook.com
- ([fe80::ecba:2f1b:24eb:9e5b]) by BN6PR12MB1425.namprd12.prod.outlook.com
- ([fe80::ecba:2f1b:24eb:9e5b%3]) with mapi id 15.20.3153.029; Tue, 7 Jul 2020
- 08:03:59 +0000
-From: Aaron Liu <aaron.liu@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: correct vram type and width for emulation mode
-Date: Tue,  7 Jul 2020 16:03:41 +0800
-Message-Id: <20200707080341.4270-1-aaron.liu@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR02CA0144.apcprd02.prod.outlook.com
- (2603:1096:202:16::28) To BN6PR12MB1425.namprd12.prod.outlook.com
- (2603:10b6:404:1f::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F3789A62;
+	Tue,  7 Jul 2020 13:07:04 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D748989A62
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 13:07:02 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200707130701euoutp02dedb0907617150f2af743c7d0a13d700~fekLwarlq2241622416euoutp021
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 13:07:01 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200707130701euoutp02dedb0907617150f2af743c7d0a13d700~fekLwarlq2241622416euoutp021
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1594127221;
+ bh=U2aVauy2+JpINyhil7vNueItQM70I3jBlub5F2RoPaI=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=qFswgmZFPK21NxIp6LjhjIWdiP4hnMa3W/Dfea/0ql20x5k+AP4j4Ar51Tq07mcW+
+ 8tdm5eAwtL8UhhUVSdd8dvvh5J9wY9QzKexvo81d2o9wZXB0qtguzJ41V0ouWd/AKg
+ cPL3NP/bhevlP7zW1sSyyJfI+Srq6V9E1ewDsGM4=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200707130700eucas1p17f35c74c6cf62fd3a0373037b209f6e3~fekLfBnmJ2868428684eucas1p1D;
+ Tue,  7 Jul 2020 13:07:00 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id B4.42.06456.473740F5; Tue,  7
+ Jul 2020 14:07:00 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200707130700eucas1p1b618f2a9e6f8f5be3c97c762220300a0~fekLBimdw1405714057eucas1p1A;
+ Tue,  7 Jul 2020 13:07:00 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200707130700eusmtrp1b04bf2435e172dc545c8cedac0e8af43~fekLAyDGx0101401014eusmtrp18;
+ Tue,  7 Jul 2020 13:07:00 +0000 (GMT)
+X-AuditID: cbfec7f2-809ff70000001938-7e-5f0473748f5b
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id D4.D7.06314.473740F5; Tue,  7
+ Jul 2020 14:07:00 +0100 (BST)
+Received: from [106.210.88.143] (unknown [106.210.88.143]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200707130659eusmtip1477441c2867581295ee26f9e4279cfdb~fekKW-Wv62686526865eusmtip1N;
+ Tue,  7 Jul 2020 13:06:59 +0000 (GMT)
+Subject: Re: [PATCH v7 04/36] drm: amdgpu: fix common struct sg_table
+ related issues
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <ef43cce1-40dc-77fd-1107-33c64d947ed1@samsung.com>
+Date: Tue, 7 Jul 2020 15:06:59 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from aaliu.amd.com (58.247.170.242) by
- HK2PR02CA0144.apcprd02.prod.outlook.com (2603:1096:202:16::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3153.23 via Frontend Transport; Tue, 7 Jul 2020 08:03:58 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e8da8fd9-d27d-45ab-2da1-08d8224c4df4
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1233:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN6PR12MB123314C7C47512F5E138BC27F0660@BN6PR12MB1233.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:127;
-X-Forefront-PRVS: 0457F11EAF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wEkvrCnx5IG902bvCYP+zCzAkKtZtL4JI+dIcfITswiYD1DbU20bfY2k5SXCcsVF5Wp7LiJNiCxdqS/l2BGM5Ojswj+r0rpcXmp0SN74eY/cR34NxxOQ5x/fIw8EsYTj1vbogkkHlQdvdGQFW92dQbVZk6ZDhOGz9Cs2lc6Vw4hrC7yZ7gTE5UOssRzeOcZzN1Vz+wt1RQEDekwMp942GRQta/bpoJ4uV5xSshZp95wBvee614D8C8M2zYkuMX/8NUJSJiWfFe2wddQl/VwMyul0QCLxgRcSMiuP/FA3HdJEV/jrtsi7uFR6YADw6ZxC3IMgucMTGv29XQXXnGHGyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR12MB1425.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(396003)(376002)(366004)(136003)(346002)(316002)(86362001)(8676002)(26005)(5660300002)(956004)(6916009)(83380400001)(2616005)(2906002)(66476007)(16526019)(6666004)(66556008)(66946007)(6486002)(44832011)(478600001)(36756003)(4326008)(52116002)(186003)(7696005)(1076003)(8936002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Zw5TceUVIiI4hneUZgN98zsn0DLceBzIGqkols97+xVfUi0+JHSyX3+gOTI1KII4MvN16BdJvG1p0uw2heUw74nh7v64VwEAaaqHZaep/zpKba4nMQKG/xDmUQWWSRmFCOaW/24sJE66f0gm0WB2aVobQaK3/WnBIkMeSRyHE6HLoNgaVVocoTYIYTZHIgeeNmS4PpQUYrG+RPP70940O7KNTDB29lpm4YqmgYiFE3wjKIGblqe+sRkOiMbq1HRIJO05tyJelW+SowJP+zkOd1yPoVkyVyly2j6MbBNfKc+oxR128LpALzir1K8zYCxHLlG5QVse+ok90dI49+qehmWPU4/JsYcfsTJK7zto18mrueVxT7ZFy3XlOv1a0TthKmBkuWebm9hVpwZ/HvAKGwrD8TGXRmU0L2vTWmscEH2IUFHoQ3UAh3steiwXlHn6d9K1LY2QNYYXnKhGVHCCF2nSel7OwnQVK81eeJ6F2kKidIqUGKOvgm4Vg4HZm5PX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8da8fd9-d27d-45ab-2da1-08d8224c4df4
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1425.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2020 08:03:59.8919 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xjBNV1JktyINc1CNGo3f1iq9u2qTFx2tAHL9YAJIwtE1LSI5jmHqevzrO5W8l/lo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1233
+In-Reply-To: <bfbdf1ee-c970-d862-cc81-4712c34b7685@amd.com>
+Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa1BMYRjH5z23TnHytkXPxLgsg0QJM47J5DI+nC8GX/rQDFmc2aK2Zs8W
+ +UAKq6wmlWiZalS6iLJtF+XWzlLZKabShFSohrJTcs2M0u4Rffv/n+f3PM/7n3lZUjFI+7AR
+ Gp2o1agilYwbVf1k/NkanUSFra2o9+MvtDYTfFZ3Pc0Xlp9y4e9cKad5e++Unay+SPId30YY
+ vuTmY4LPexjEf+14S/Cm95003153jeEbRvvprZxwpu03I5TllCHh/vc8Sqj53kcLvecbCaGy
+ 4KTweuI9KWR0FSGh/mUCI6SaS5HwxbRw96xQt82HxMiIOFEbELzfLdzebiJiCuYcM1rWJSDz
+ 7BTkygLeAD+6Cl1SkBurwMUILnV8ImXzFUGNrY6WzRcEd5OHXaZHJpprkdwoQnBVP0TIZgTB
+ B8sLJ+WJQ+B0tplxNLywFUFRvtVJkbiagDc/PzgpBgdCij2FcWgOB4PhTRrh0BReBjlWPe3Q
+ c/E+KP9YQ8iMBzRn91MO7YqDIFc/4GRIvAiSqq6SsvaGV/25zmOAk1kY7xmdGmCnzA4YzvGR
+ M3jCUKP5b54FYMswUDKfhOBt6y0X2RgQtCdeQTIVBN2tvxjHIhL7QnldgFzeBs8GExl5vzt0
+ 2T3kN7hDevVlUi5zcO6sQqaXg7Hx9r+zDc/byDSkNM5IZpyRxjgjjfH/3TxElSJvMVaKUotS
+ oEY86i+poqRYjdr/YHSUCU39PttE41gt+tZ2wIIwi5SzuXAVFaagVXFSfJQFAUsqvbjtLbZ9
+ Cu6QKv64qI0O08ZGipIFzWcppTe3/vrHvQqsVunEI6IYI2qnuwTr6pOAsgYfWDMjB6ig+nmh
+ 99y7dKlbAh4l5S62Tub/7rxsWB2zsMyTe2z/HJ3+lA8cMNo0vVX3vZLHmzYWLt30DnPqsYT+
+ yiUDfgY2N35kBdvHnKl6kb7Sf2u2L7fnxi68MxO6y0x63xMtTbqWkMNxRzqH1EW3JvQ9ZiVT
+ UTJc3GCoU1JSuCpwFamVVH8AnoTEznkDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrJIsWRmVeSWpSXmKPExsVy+t/xu7olxSzxBv+X8Vj0njvJZDHtzm5W
+ i6XrG9ktNs5Yz2rx9j6Q+3/bRGaLK1/fs1msXH2UyWLBfmuLL1ceMllsenyN1eLyrjlsFgc/
+ PGF14PVovfSXzWPNvDWMHnu/LWDx2P7tAavH/e7jTB6bl9R73P73mNlj8o3ljB67bzawefRt
+ WcXo8XmTXAB3lJ5NUX5pSapCRn5xia1StKGFkZ6hpYWekYmlnqGxeayVkamSvp1NSmpOZllq
+ kb5dgl7G28ubmAqW8FfMOmTUwLiFp4uRk0NCwETi38kdjF2MXBxCAksZJbbc+c4OkZCRODmt
+ gRXCFpb4c62LDaLoLaPEifd9YAlhgTCJ/xNnMoMkRASOMEocPLWECcRhFtjGJPF66S6oud8Y
+ Jd50z2YCaWETMJToegsyi5ODV8BOoufuBLA4i4CKxLwj7WBjRQXiJJZvmc8OUSMocXLmExYQ
+ m1PAWmJ++1OwGmYBM4l5mx8yQ9jyEs1bZ0PZ4hK3nsxnmsAoNAtJ+ywkLbOQtMxC0rKAkWUV
+ o0hqaXFuem6xoV5xYm5xaV66XnJ+7iZGYLRvO/Zz8w7GSxuDDzEKcDAq8fBmJLLEC7EmlhVX
+ 5h5ilOBgVhLhdTp7Ok6INyWxsiq1KD++qDQntfgQoynQcxOZpUST84GJKK8k3tDU0NzC0tDc
+ 2NzYzEJJnLdD4GCMkEB6YklqdmpqQWoRTB8TB6dUA6P1len5y36bVQR9Sa8/Nmta8L8XG9zY
+ Cv9WKU2axvL5/9qss0vCztyIEox9f0uq77yy50zxKM8zc4N9p1ks9jWYyfyw7sHaNz2K69lc
+ rCOjFc7efin6p1kgyvdY3m9rjVUTsjt/fN3V+nw97+SUtVnbdsxYubF9rkP1Wa2/R/69LbhV
+ W5OzeUeJEktxRqKhFnNRcSIAjDRWAQwDAAA=
+X-CMS-MailID: 20200707130700eucas1p1b618f2a9e6f8f5be3c97c762220300a0
+X-Msg-Generator: CA
+X-RootMTR: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
+References: <20200619103636.11974-1-m.szyprowski@samsung.com>
+ <CGME20200619103655eucas1p28ea4bf59428550217c8962666d6f077b@eucas1p2.samsung.com>
+ <20200619103636.11974-5-m.szyprowski@samsung.com>
+ <bfbdf1ee-c970-d862-cc81-4712c34b7685@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,45 +125,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aaron Liu <aaron.liu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For APU, vram type is DDR4 and vram width is 64
-For dGPU, vram type is GDDR6 and vram width is 128
-
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 9e6b039328df..8e30a57afe18 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -846,12 +846,12 @@ static int gmc_v10_0_sw_init(void *handle)
- 
- 	spin_lock_init(&adev->gmc.invalidate_lock);
- 
--	if (amdgpu_emu_mode == 1) {
--		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_GDDR6;
--		adev->gmc.vram_width = 1 * 128; /* numchan * chansize */
--	} else if (adev->asic_type == CHIP_VANGOGH && amdgpu_emu_mode == 1){
-+	if ((adev->flags & AMD_IS_APU) && amdgpu_emu_mode == 1) {
- 		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_DDR4;
- 		adev->gmc.vram_width = 64;
-+	} else if (amdgpu_emu_mode == 1) {
-+		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_GDDR6;
-+		adev->gmc.vram_width = 1 * 128; /* numchan * chansize */
- 	} else {
- 		r = amdgpu_atomfirmware_get_vram_info(adev,
- 				&vram_width, &vram_type, &vram_vendor);
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgQ2hyaXN0aWFuLAoKT24gMjIuMDYuMjAyMCAxNToyNywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90
+ZToKPiBBbSAxOS4wNi4yMCB1bSAxMjozNiBzY2hyaWViIE1hcmVrIFN6eXByb3dza2k6Cj4+IFRo
+ZSBEb2N1bWVudGF0aW9uL0RNQS1BUEktSE9XVE8udHh0IHN0YXRlcyB0aGF0IHRoZSBkbWFfbWFw
+X3NnKCkgCj4+IGZ1bmN0aW9uCj4+IHJldHVybnMgdGhlIG51bWJlciBvZiB0aGUgY3JlYXRlZCBl
+bnRyaWVzIGluIHRoZSBETUEgYWRkcmVzcyBzcGFjZS4KPj4gSG93ZXZlciB0aGUgc3Vic2VxdWVu
+dCBjYWxscyB0byB0aGUgZG1hX3N5bmNfc2dfZm9yX3tkZXZpY2UsY3B1fSgpIGFuZAo+PiBkbWFf
+dW5tYXBfc2cgbXVzdCBiZSBjYWxsZWQgd2l0aCB0aGUgb3JpZ2luYWwgbnVtYmVyIG9mIHRoZSBl
+bnRyaWVzCj4+IHBhc3NlZCB0byB0aGUgZG1hX21hcF9zZygpLgo+Pgo+PiBzdHJ1Y3Qgc2dfdGFi
+bGUgaXMgYSBjb21tb24gc3RydWN0dXJlIHVzZWQgZm9yIGRlc2NyaWJpbmcgYSAKPj4gbm9uLWNv
+bnRpZ3VvdXMKPj4gbWVtb3J5IGJ1ZmZlciwgdXNlZCBjb21tb25seSBpbiB0aGUgRFJNIGFuZCBn
+cmFwaGljcyBzdWJzeXN0ZW1zLiBJdAo+PiBjb25zaXN0cyBvZiBhIHNjYXR0ZXJsaXN0IHdpdGgg
+bWVtb3J5IHBhZ2VzIGFuZCBETUEgYWRkcmVzc2VzIChzZ2wgCj4+IGVudHJ5KSwKPj4gYXMgd2Vs
+bCBhcyB0aGUgbnVtYmVyIG9mIHNjYXR0ZXJsaXN0IGVudHJpZXM6IENQVSBwYWdlcyAob3JpZ19u
+ZW50cyAKPj4gZW50cnkpCj4+IGFuZCBETUEgbWFwcGVkIHBhZ2VzIChuZW50cyBlbnRyeSkuCj4+
+Cj4+IEl0IHR1cm5lZCBvdXQgdGhhdCBpdCB3YXMgYSBjb21tb24gbWlzdGFrZSB0byBtaXN1c2Ug
+bmVudHMgYW5kIAo+PiBvcmlnX25lbnRzCj4+IGVudHJpZXMsIGNhbGxpbmcgRE1BLW1hcHBpbmcg
+ZnVuY3Rpb25zIHdpdGggYSB3cm9uZyBudW1iZXIgb2YgZW50cmllcyBvcgo+PiBpZ25vcmluZyB0
+aGUgbnVtYmVyIG9mIG1hcHBlZCBlbnRyaWVzIHJldHVybmVkIGJ5IHRoZSBkbWFfbWFwX3NnKCkK
+Pj4gZnVuY3Rpb24uCj4+Cj4+IFRvIGF2b2lkIHN1Y2ggaXNzdWVzLCBsZXRzIHVzZSBhIGNvbW1v
+biBkbWEtbWFwcGluZyB3cmFwcGVycyBvcGVyYXRpbmcKPj4gZGlyZWN0bHkgb24gdGhlIHN0cnVj
+dCBzZ190YWJsZSBvYmplY3RzIGFuZCB1c2Ugc2NhdHRlcmxpc3QgcGFnZQo+PiBpdGVyYXRvcnMg
+d2hlcmUgcG9zc2libGUuIFRoaXMsIGFsbW9zdCBhbHdheXMsIGhpZGVzIHJlZmVyZW5jZXMgdG8g
+dGhlCj4+IG5lbnRzIGFuZCBvcmlnX25lbnRzIGVudHJpZXMsIG1ha2luZyB0aGUgY29kZSByb2J1
+c3QsIGVhc2llciB0byBmb2xsb3cKPj4gYW5kIGNvcHkvcGFzdGUgc2FmZS4KPj4KPj4gU2lnbmVk
+LW9mZi1ieTogTWFyZWsgU3p5cHJvd3NraSA8bS5zenlwcm93c2tpQHNhbXN1bmcuY29tPgo+PiBS
+ZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+
+Cj4gQW55IG9iamVjdGlvbiB0aGF0IHdlIHBpY2sgdGhpcyBvbmUgYW5kIHRoZSByYWRlb24gdXAg
+aW50byBvdXIgCj4gYnJhbmNoZXMgZm9yIHVwc3RyZWFtaW5nPwo+Cj4gVGhhdCBzaG91bGQgYWJv
+dXQgY2xhc2hlcyB3aXRoIG90aGVyIGRyaXZlciBjaGFuZ2VzLgoKSSdtIGZpbmUuIFRoaXMgb25l
+IGFuZCByYWRlb24gZG9lc24ndCBkZXBlbmQgb24gdGhlIHByaW1lIGNoYW5nZXMsIHNvIGl0IApz
+aG91bGQgbWVyZ2UgZmluZSB2aWEgeW91ciB0cmVlLiBJIHdpbGwgdHJ5IHRvIGFzayBmb3IgbW9y
+ZSByZXZpZXcgb2YgCnRoZSByZW1haW5pbmcgcGF0Y2hlcyBhbmQgdGhlbiB0cnkgbWVyZ2luZyB2
+aWEgZHJtLW1pc2MuCgpCZXN0IHJlZ2FyZHMKLS0gCk1hcmVrIFN6eXByb3dza2ksIFBoRApTYW1z
+dW5nIFImRCBJbnN0aXR1dGUgUG9sYW5kCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
