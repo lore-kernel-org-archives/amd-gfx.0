@@ -2,118 +2,101 @@ Return-Path: <SRS0=Rnur=AS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED372C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 13:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33BAEC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 13:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 714632075B
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 13:07:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B9B9A2075B
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2020 13:15:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="qFswgmZF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 714632075B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ylc70Foe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9B9A2075B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F3789A62;
-	Tue,  7 Jul 2020 13:07:04 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D748989A62
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 13:07:02 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200707130701euoutp02dedb0907617150f2af743c7d0a13d700~fekLwarlq2241622416euoutp021
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 13:07:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20200707130701euoutp02dedb0907617150f2af743c7d0a13d700~fekLwarlq2241622416euoutp021
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1594127221;
- bh=U2aVauy2+JpINyhil7vNueItQM70I3jBlub5F2RoPaI=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=qFswgmZFPK21NxIp6LjhjIWdiP4hnMa3W/Dfea/0ql20x5k+AP4j4Ar51Tq07mcW+
- 8tdm5eAwtL8UhhUVSdd8dvvh5J9wY9QzKexvo81d2o9wZXB0qtguzJ41V0ouWd/AKg
- cPL3NP/bhevlP7zW1sSyyJfI+Srq6V9E1ewDsGM4=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200707130700eucas1p17f35c74c6cf62fd3a0373037b209f6e3~fekLfBnmJ2868428684eucas1p1D;
- Tue,  7 Jul 2020 13:07:00 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id B4.42.06456.473740F5; Tue,  7
- Jul 2020 14:07:00 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200707130700eucas1p1b618f2a9e6f8f5be3c97c762220300a0~fekLBimdw1405714057eucas1p1A;
- Tue,  7 Jul 2020 13:07:00 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200707130700eusmtrp1b04bf2435e172dc545c8cedac0e8af43~fekLAyDGx0101401014eusmtrp18;
- Tue,  7 Jul 2020 13:07:00 +0000 (GMT)
-X-AuditID: cbfec7f2-809ff70000001938-7e-5f0473748f5b
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id D4.D7.06314.473740F5; Tue,  7
- Jul 2020 14:07:00 +0100 (BST)
-Received: from [106.210.88.143] (unknown [106.210.88.143]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200707130659eusmtip1477441c2867581295ee26f9e4279cfdb~fekKW-Wv62686526865eusmtip1N;
- Tue,  7 Jul 2020 13:06:59 +0000 (GMT)
-Subject: Re: [PATCH v7 04/36] drm: amdgpu: fix common struct sg_table
- related issues
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <ef43cce1-40dc-77fd-1107-33c64d947ed1@samsung.com>
-Date: Tue, 7 Jul 2020 15:06:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52BC48813A;
+	Tue,  7 Jul 2020 13:15:23 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690072.outbound.protection.outlook.com [40.107.69.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D00AA8813A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2020 13:15:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PiApfbScMk/Ki7DSaxOepOnrLY1ckmGT1DHNtJLiZjojBwBtlqLFrE8DS/FX1VAttGDnlPrKnDBBXf0MQuoH7aTW3KhemG536Jy8ecWQ5eQ7JF8z86EMuhOVjhvfYjkemJxzQS/lIbu3K+JYkVwVySFQCMtn7az7sEiEcm3RK0TNvFkTxFoskF1l976UBiWlA3zsGg7O1+b3wsD3hD5D1o7WUCtMnynfdUlZOD2AA0t1Kp6YNylgfCXonpMyY9jFd/gy7cPoO1sypmE7S9bzaZfPLDH1mEvZKhp2T74TvPQRoTlK+znVyS3mHiKqK/dF2nzkBJ6jz6LNy1EN6j4A3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KFz6/TvSdM2pekrvxCwVYTxVStew+r3yoT46VRrDJww=;
+ b=gDsfg4Ly9+ABOLeiBkessM31CWK8I0ht5OJ9sEv3O3fzNiQYL5RJWV1SjrWMY0bvCC+o6yjHKv1YC96l0KS337Ovy/vpedg4Q19ToaDd7rcqZ05eFr+Tmk+qoUJY9e0xiolG1tNhRYzttT//h+7mrykVYW1jyhMhz85IZPAwR7sKiJX95Kq/UEXiTaAMPIJz31ubbMGEVeZbibxmCY56lVMWJA/2naZsNem8nYLHbKwlqxTGdeMWoQtA17q0bmRgNGniXe4WprM/wnOzxdSECNDJcchTqwTgdvI09cctKC2o3JFUNf3Fja76CYgqEPa8DOk4eImwqnArmBdQGI5Omw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KFz6/TvSdM2pekrvxCwVYTxVStew+r3yoT46VRrDJww=;
+ b=ylc70FoeGcNZyGN2ZWJr4DpuxULKUwVq2uvSqiGfLjo5SBAZz1SzWd6gmttES8+2wvgypZytShIo1kb3WhSsaPjcbxfiTXUdlmAzVykVmu2nElvKXY49vBdFL8RGBQ0GI3G9jpoiAuhGVmiAsSMX/SmF1FGXEoCgVO4G5Z5mnW0=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com (2603:10b6:300:114::19)
+ by MW2PR12MB2459.namprd12.prod.outlook.com (2603:10b6:907:c::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.27; Tue, 7 Jul
+ 2020 13:15:20 +0000
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::f518:2921:b1e3:fea2]) by MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::f518:2921:b1e3:fea2%10]) with mapi id 15.20.3153.029; Tue, 7 Jul 2020
+ 13:15:20 +0000
+From: Likun Gao <likun.gao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] tests/amdgpu: set emit fence flag for multi fence
+Date: Tue,  7 Jul 2020 21:15:04 +0800
+Message-Id: <20200707131504.2994506-1-likun.gao@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: HK2PR0302CA0012.apcprd03.prod.outlook.com
+ (2603:1096:202::22) To MWHPR12MB1854.namprd12.prod.outlook.com
+ (2603:10b6:300:114::19)
 MIME-Version: 1.0
-In-Reply-To: <bfbdf1ee-c970-d862-cc81-4712c34b7685@amd.com>
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa1BMYRjH5z23TnHytkXPxLgsg0QJM47J5DI+nC8GX/rQDFmc2aK2Zs8W
- +UAKq6wmlWiZalS6iLJtF+XWzlLZKabShFSohrJTcs2M0u4Rffv/n+f3PM/7n3lZUjFI+7AR
- Gp2o1agilYwbVf1k/NkanUSFra2o9+MvtDYTfFZ3Pc0Xlp9y4e9cKad5e++Unay+SPId30YY
- vuTmY4LPexjEf+14S/Cm95003153jeEbRvvprZxwpu03I5TllCHh/vc8Sqj53kcLvecbCaGy
- 4KTweuI9KWR0FSGh/mUCI6SaS5HwxbRw96xQt82HxMiIOFEbELzfLdzebiJiCuYcM1rWJSDz
- 7BTkygLeAD+6Cl1SkBurwMUILnV8ImXzFUGNrY6WzRcEd5OHXaZHJpprkdwoQnBVP0TIZgTB
- B8sLJ+WJQ+B0tplxNLywFUFRvtVJkbiagDc/PzgpBgdCij2FcWgOB4PhTRrh0BReBjlWPe3Q
- c/E+KP9YQ8iMBzRn91MO7YqDIFc/4GRIvAiSqq6SsvaGV/25zmOAk1kY7xmdGmCnzA4YzvGR
- M3jCUKP5b54FYMswUDKfhOBt6y0X2RgQtCdeQTIVBN2tvxjHIhL7QnldgFzeBs8GExl5vzt0
- 2T3kN7hDevVlUi5zcO6sQqaXg7Hx9r+zDc/byDSkNM5IZpyRxjgjjfH/3TxElSJvMVaKUotS
- oEY86i+poqRYjdr/YHSUCU39PttE41gt+tZ2wIIwi5SzuXAVFaagVXFSfJQFAUsqvbjtLbZ9
- Cu6QKv64qI0O08ZGipIFzWcppTe3/vrHvQqsVunEI6IYI2qnuwTr6pOAsgYfWDMjB6ig+nmh
- 99y7dKlbAh4l5S62Tub/7rxsWB2zsMyTe2z/HJ3+lA8cMNo0vVX3vZLHmzYWLt30DnPqsYT+
- yiUDfgY2N35kBdvHnKl6kb7Sf2u2L7fnxi68MxO6y0x63xMtTbqWkMNxRzqH1EW3JvQ9ZiVT
- UTJc3GCoU1JSuCpwFamVVH8AnoTEznkDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrJIsWRmVeSWpSXmKPExsVy+t/xu7olxSzxBv+X8Vj0njvJZDHtzm5W
- i6XrG9ktNs5Yz2rx9j6Q+3/bRGaLK1/fs1msXH2UyWLBfmuLL1ceMllsenyN1eLyrjlsFgc/
- PGF14PVovfSXzWPNvDWMHnu/LWDx2P7tAavH/e7jTB6bl9R73P73mNlj8o3ljB67bzawefRt
- WcXo8XmTXAB3lJ5NUX5pSapCRn5xia1StKGFkZ6hpYWekYmlnqGxeayVkamSvp1NSmpOZllq
- kb5dgl7G28ubmAqW8FfMOmTUwLiFp4uRk0NCwETi38kdjF2MXBxCAksZJbbc+c4OkZCRODmt
- gRXCFpb4c62LDaLoLaPEifd9YAlhgTCJ/xNnMoMkRASOMEocPLWECcRhFtjGJPF66S6oud8Y
- Jd50z2YCaWETMJToegsyi5ODV8BOoufuBLA4i4CKxLwj7WBjRQXiJJZvmc8OUSMocXLmExYQ
- m1PAWmJ++1OwGmYBM4l5mx8yQ9jyEs1bZ0PZ4hK3nsxnmsAoNAtJ+ywkLbOQtMxC0rKAkWUV
- o0hqaXFuem6xoV5xYm5xaV66XnJ+7iZGYLRvO/Zz8w7GSxuDDzEKcDAq8fBmJLLEC7EmlhVX
- 5h5ilOBgVhLhdTp7Ok6INyWxsiq1KD++qDQntfgQoynQcxOZpUST84GJKK8k3tDU0NzC0tDc
- 2NzYzEJJnLdD4GCMkEB6YklqdmpqQWoRTB8TB6dUA6P1len5y36bVQR9Sa8/Nmta8L8XG9zY
- Cv9WKU2axvL5/9qss0vCztyIEox9f0uq77yy50zxKM8zc4N9p1ks9jWYyfyw7sHaNz2K69lc
- rCOjFc7efin6p1kgyvdY3m9rjVUTsjt/fN3V+nw97+SUtVnbdsxYubF9rkP1Wa2/R/69LbhV
- W5OzeUeJEktxRqKhFnNRcSIAjDRWAQwDAAA=
-X-CMS-MailID: 20200707130700eucas1p1b618f2a9e6f8f5be3c97c762220300a0
-X-Msg-Generator: CA
-X-RootMTR: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200619103655eucas1p28ea4bf59428550217c8962666d6f077b
-References: <20200619103636.11974-1-m.szyprowski@samsung.com>
- <CGME20200619103655eucas1p28ea4bf59428550217c8962666d6f077b@eucas1p2.samsung.com>
- <20200619103636.11974-5-m.szyprowski@samsung.com>
- <bfbdf1ee-c970-d862-cc81-4712c34b7685@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from lnx-glk.amd.com (58.247.170.242) by
+ HK2PR0302CA0012.apcprd03.prod.outlook.com (2603:1096:202::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3174.15 via Frontend Transport; Tue, 7 Jul 2020 13:15:18 +0000
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 658ee1ff-81bb-48bf-2ec0-08d82277cc64
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2459:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24597C72175B771081039DFAEF660@MW2PR12MB2459.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1013;
+X-Forefront-PRVS: 0457F11EAF
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GXhLIclNM8Ona0xltV19s113eWSOWqzoV5VZnH/SUrHMyIQQdg2TPRIfGtc/ATOB4rtryotmS9J/j+bN4O0fkVpbKgkF3n3GwnOyT43VxnP/jDhcDrnivyK9y0V1i2HA7H7CabDgr8ajcDSR0ZxAqe1R4+9b+B2ey/uvOFBTW37YTMxpCkXtOSiJpEO+6UsvMQjZ9T/2vr6a8JTrvGpIefONARmOq2AeuaZIiUr5YhB8uquqdnGaXIpGaebrOCK7302jQ3iKa1BxH2zTGLEJIas3ptF4es5PGO0BJnv6dxEwpMZCHBpyRn7fy62K6ap0+vzNjHn4bcwLdbkLXOKzRA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1854.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(396003)(366004)(376002)(39860400002)(346002)(6916009)(5660300002)(8676002)(6666004)(7696005)(16526019)(186003)(44832011)(52116002)(36756003)(4326008)(316002)(66556008)(86362001)(6486002)(54906003)(26005)(66476007)(66946007)(2616005)(8936002)(956004)(2906002)(478600001)(1076003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 00XvXoXkX8eJq/0VwyWxfbcG4vVuQW0LRwGUJtPkzpaWd8CcK00y/dHjdbX2XgqXz3TSz6h2DG3K/YzNtEF+3dvLxup8F3hgpg/c4dhEheLneVnsWrsS4kFGMGFqWpnNc6JcxHS5IzmLIIGEGqMP7OA/YK8CtBw+WIiaSKgtH0pVY/ibFDVfx1Un1VuddZEz3u2m0M07ld+lEBDDmhjZMC3A+Xb8prwnVRQ3yJ/rNqVRsfvpOnWXWLJfFMZBBX05crJmKeT6ksD8S+8c8dpJDl1NH8Lu7BJ4E/opwyr7d3cNerB3KlkQEZjEBbqcB5KP9YSz2aoeSLiZB8JE6Ea0TKOO7d5wCodm8Ol100SGEltH3AVjB3KoJJMraSOpMYwb28d5nnZKZLGGXkuJxtUwS3n0LQjM91Z+yrZ5mhFN7RRbTh8xdZUbGDc9yRAMGWMfqiS+LTzzGeWqHnT38QrXngE6zms4q7cMP9Fg8t7Rhs2i5222os9hotdbMYx73GOv
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 658ee1ff-81bb-48bf-2ec0-08d82277cc64
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1854.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2020 13:15:20.1573 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l29M916/WilSxs8EwjeDDxdAlTuO4HwWrLDXuSV4S2j+EVmcL1MfqqynC/QpVOQh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,50 +108,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <hawking.zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgQ2hyaXN0aWFuLAoKT24gMjIuMDYuMjAyMCAxNToyNywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90
-ZToKPiBBbSAxOS4wNi4yMCB1bSAxMjozNiBzY2hyaWViIE1hcmVrIFN6eXByb3dza2k6Cj4+IFRo
-ZSBEb2N1bWVudGF0aW9uL0RNQS1BUEktSE9XVE8udHh0IHN0YXRlcyB0aGF0IHRoZSBkbWFfbWFw
-X3NnKCkgCj4+IGZ1bmN0aW9uCj4+IHJldHVybnMgdGhlIG51bWJlciBvZiB0aGUgY3JlYXRlZCBl
-bnRyaWVzIGluIHRoZSBETUEgYWRkcmVzcyBzcGFjZS4KPj4gSG93ZXZlciB0aGUgc3Vic2VxdWVu
-dCBjYWxscyB0byB0aGUgZG1hX3N5bmNfc2dfZm9yX3tkZXZpY2UsY3B1fSgpIGFuZAo+PiBkbWFf
-dW5tYXBfc2cgbXVzdCBiZSBjYWxsZWQgd2l0aCB0aGUgb3JpZ2luYWwgbnVtYmVyIG9mIHRoZSBl
-bnRyaWVzCj4+IHBhc3NlZCB0byB0aGUgZG1hX21hcF9zZygpLgo+Pgo+PiBzdHJ1Y3Qgc2dfdGFi
-bGUgaXMgYSBjb21tb24gc3RydWN0dXJlIHVzZWQgZm9yIGRlc2NyaWJpbmcgYSAKPj4gbm9uLWNv
-bnRpZ3VvdXMKPj4gbWVtb3J5IGJ1ZmZlciwgdXNlZCBjb21tb25seSBpbiB0aGUgRFJNIGFuZCBn
-cmFwaGljcyBzdWJzeXN0ZW1zLiBJdAo+PiBjb25zaXN0cyBvZiBhIHNjYXR0ZXJsaXN0IHdpdGgg
-bWVtb3J5IHBhZ2VzIGFuZCBETUEgYWRkcmVzc2VzIChzZ2wgCj4+IGVudHJ5KSwKPj4gYXMgd2Vs
-bCBhcyB0aGUgbnVtYmVyIG9mIHNjYXR0ZXJsaXN0IGVudHJpZXM6IENQVSBwYWdlcyAob3JpZ19u
-ZW50cyAKPj4gZW50cnkpCj4+IGFuZCBETUEgbWFwcGVkIHBhZ2VzIChuZW50cyBlbnRyeSkuCj4+
-Cj4+IEl0IHR1cm5lZCBvdXQgdGhhdCBpdCB3YXMgYSBjb21tb24gbWlzdGFrZSB0byBtaXN1c2Ug
-bmVudHMgYW5kIAo+PiBvcmlnX25lbnRzCj4+IGVudHJpZXMsIGNhbGxpbmcgRE1BLW1hcHBpbmcg
-ZnVuY3Rpb25zIHdpdGggYSB3cm9uZyBudW1iZXIgb2YgZW50cmllcyBvcgo+PiBpZ25vcmluZyB0
-aGUgbnVtYmVyIG9mIG1hcHBlZCBlbnRyaWVzIHJldHVybmVkIGJ5IHRoZSBkbWFfbWFwX3NnKCkK
-Pj4gZnVuY3Rpb24uCj4+Cj4+IFRvIGF2b2lkIHN1Y2ggaXNzdWVzLCBsZXRzIHVzZSBhIGNvbW1v
-biBkbWEtbWFwcGluZyB3cmFwcGVycyBvcGVyYXRpbmcKPj4gZGlyZWN0bHkgb24gdGhlIHN0cnVj
-dCBzZ190YWJsZSBvYmplY3RzIGFuZCB1c2Ugc2NhdHRlcmxpc3QgcGFnZQo+PiBpdGVyYXRvcnMg
-d2hlcmUgcG9zc2libGUuIFRoaXMsIGFsbW9zdCBhbHdheXMsIGhpZGVzIHJlZmVyZW5jZXMgdG8g
-dGhlCj4+IG5lbnRzIGFuZCBvcmlnX25lbnRzIGVudHJpZXMsIG1ha2luZyB0aGUgY29kZSByb2J1
-c3QsIGVhc2llciB0byBmb2xsb3cKPj4gYW5kIGNvcHkvcGFzdGUgc2FmZS4KPj4KPj4gU2lnbmVk
-LW9mZi1ieTogTWFyZWsgU3p5cHJvd3NraSA8bS5zenlwcm93c2tpQHNhbXN1bmcuY29tPgo+PiBS
-ZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+
-Cj4gQW55IG9iamVjdGlvbiB0aGF0IHdlIHBpY2sgdGhpcyBvbmUgYW5kIHRoZSByYWRlb24gdXAg
-aW50byBvdXIgCj4gYnJhbmNoZXMgZm9yIHVwc3RyZWFtaW5nPwo+Cj4gVGhhdCBzaG91bGQgYWJv
-dXQgY2xhc2hlcyB3aXRoIG90aGVyIGRyaXZlciBjaGFuZ2VzLgoKSSdtIGZpbmUuIFRoaXMgb25l
-IGFuZCByYWRlb24gZG9lc24ndCBkZXBlbmQgb24gdGhlIHByaW1lIGNoYW5nZXMsIHNvIGl0IApz
-aG91bGQgbWVyZ2UgZmluZSB2aWEgeW91ciB0cmVlLiBJIHdpbGwgdHJ5IHRvIGFzayBmb3IgbW9y
-ZSByZXZpZXcgb2YgCnRoZSByZW1haW5pbmcgcGF0Y2hlcyBhbmQgdGhlbiB0cnkgbWVyZ2luZyB2
-aWEgZHJtLW1pc2MuCgpCZXN0IHJlZ2FyZHMKLS0gCk1hcmVrIFN6eXByb3dza2ksIFBoRApTYW1z
-dW5nIFImRCBJbnN0aXR1dGUgUG9sYW5kCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+From: Likun Gao <Likun.Gao@amd.com>
+
+Set AMDGPU_IB_FLAG_EMIT_MEM_SYNC flag for specific ASIC when test multi
+fence.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Change-Id: I41e5cb19d9ca72c1d396cc28d1b54c31773fe4d5
+---
+ include/drm/amdgpu_drm.h   | 2 ++
+ tests/amdgpu/basic_tests.c | 6 ++++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+index 4fe35d60..8a4d7da9 100644
+--- a/include/drm/amdgpu_drm.h
++++ b/include/drm/amdgpu_drm.h
+@@ -586,6 +586,8 @@ union drm_amdgpu_cs {
+  */
+ #define AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID (1 << 4)
+ 
++#define AMDGPU_IB_FLAG_EMIT_MEM_SYNC  (1 << 6)
++
+ struct drm_amdgpu_cs_chunk_ib {
+ 	__u32 _pad;
+ 	/** AMDGPU_IB_FLAG_* */
+diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c
+index 57496c82..c0f7ec33 100644
+--- a/tests/amdgpu/basic_tests.c
++++ b/tests/amdgpu/basic_tests.c
+@@ -45,6 +45,8 @@ static  amdgpu_device_handle device_handle;
+ static  uint32_t  major_version;
+ static  uint32_t  minor_version;
+ static  uint32_t  family_id;
++static  uint32_t  chip_rev;
++static  uint32_t  chip_id;
+ 
+ static void amdgpu_query_info_test(void);
+ static void amdgpu_command_submission_gfx(void);
+@@ -607,6 +609,8 @@ int suite_basic_tests_init(void)
+ 		return CUE_SINIT_FAILED;
+ 
+ 	family_id = gpu_info.family_id;
++	chip_rev = gpu_info.chip_rev;
++	chip_id = gpu_info.chip_external_rev;
+ 
+ 	return CUE_SUCCESS;
+ }
+@@ -1769,6 +1773,8 @@ static void amdgpu_command_submission_multi_fence_wait_all(bool wait_all)
+ 	ib_info[0].ib_mc_address = ib_result_ce_mc_address;
+ 	ib_info[0].size = i;
+ 	ib_info[0].flags = AMDGPU_IB_FLAG_CE;
++	if (chip_id == (chip_rev + 0x28))
++		ib_info[0].flags |= AMDGPU_IB_FLAG_EMIT_MEM_SYNC;
+ 
+ 	/* IT_WAIT_ON_CE_COUNTER */
+ 	ptr = ib_result_cpu;
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
