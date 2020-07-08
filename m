@@ -2,109 +2,111 @@ Return-Path: <SRS0=Rlnb=AT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98E12C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 14:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E5EAC433E1
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 14:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55D5B20663
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 14:15:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4277A206DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 14:31:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PfnjRdMs"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55D5B20663
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KXHXB9gF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4277A206DF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7CFF6E0FE;
-	Wed,  8 Jul 2020 14:15:36 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 289C86E0FE;
- Wed,  8 Jul 2020 14:15:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBBB6E282;
+	Wed,  8 Jul 2020 14:31:01 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760045.outbound.protection.outlook.com [40.107.76.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32B5D6E154;
+ Wed,  8 Jul 2020 14:31:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JU1ICW1wrPPUkKEugGvx7D2vHv6OgYCbMHtT+Yb+W9vDuV31t27ltnmlOheMvU7PANkjVfhgKTTFF3fmhx6xoGnWt/pfn6Giy/GeMN+YYGKWybL+xrLBDlArgf0nZgf9Y8YUOkc/4LLAZafn8poMyYBt0CV61yjeARTm0PJZaJF2ThdVrFTfNhTM7CArgDxkY59f68pk7BTJPyGdB/t7YpjN++ZvW4uWFhyryxWuZXW1NlZdl2zkC7T0w+f0L9bpdJtxXnUVWyXBzwF+IBOJi2E7CIdAPgGcQzF994K9Wsiyx+TG4s/RyK+82gJU/zoPEjY2rKXZEBcp3NIWZEQQIg==
+ b=n3rm1KARj6BwSDZb98b1xN5lTXxGK0GvEAe3Hzksu/i/AcBNyrbltOk9grNU3SjGYALsOsLyaBIsPVCCTZme99i1mmQucpGCX7ZyRCRl9uiglK14419KhpNtE8Pi5HHGAeGJp5JMqL4iDQJw825woYgCCRt74Q2CsBQzxMqvPjwj+vvGkYTmTMkpY2M2culLrf1uRq+CIfmc5LQ5S52reYdYjLlQrGWE9Ys61WIG+8trm3zAS9WHKFg94rKVnq1XXwVRP51rAshVx9MPpt6ifaZl3Zc8fqLYsofaxI47V3FAwImmeOlfsgkLElov+MsxkJ3+yTqzyuPxwl02Zk/xEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVDqfgz7qexdySD1c8h0k5gnxzIgEWBZQmrqwTR4UEI=;
- b=AT25ZL9wvMlEi5OasTe0+43Bn2M0oUe54LjY0jWWPMEZWohWAQZf9mcmRyoUcA6DJ8sJo375x0fm0ac/zGesK5we6xfLcXLSZm3Z3nL7VNU4w8g8rWqAegaZNsUGfkFRbpjS3LYQE8XrP+atGeXq1Lqw+NtOd5ZB3SNX7lqeojq1Xtx9iZJTOFSM1C5hyfVCQKtLGb60IR9Gu72fLm72KI+dzqb70jbEOt4MRHxkppzgnGoJkVAiRq6QDeZ3t8pxNH41WI9rDAJIa0VZ/W6hcbOapAXuiZXMExYhwYLpCh6rzjgr3JssLupr+fdAS9exLLuGXGrUsP0l4nKPauBEWg==
+ bh=5lHt9gHWev91MLJwMuSJWepZ7CXUlQvfwzw/h/ZWk/M=;
+ b=RINcIIOh6VEBKuPJKiCIdlStL0/tCxe7vZCbpq7V23cD/VCFrRhCh1pJI3hOs0wobGfHjDrgBXHAP54PuNEnZERZRLp8Ql45TwMiGL18uLV5E/wIfM+Lk3nU3LiGa5NZX1MnBo35DHo1dObExHudqIkHywV8CYoWoIYSLgNa4Mn7QLogdpm4lQwppy8EHv8S48bEoOfBMIkgeY4LBELge/eGS2lGtLeMiJV1XTSx6Wb81WASvr+vQQF4vQvmAToyfK8p3Bj4Q3w9o0oazZb4UpFbwgjJC4s1YgfQrAX5TTMZAfvlz4RGeqHWHdBrIWSbHYIzpYxRWQ7FhBzuMXTyuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVDqfgz7qexdySD1c8h0k5gnxzIgEWBZQmrqwTR4UEI=;
- b=PfnjRdMsKF4H9tpHuGB/gLThXD+gACR87MG/izh0JgLoj8JYwu0TWlU1358UMN+ZGO9EOkjv2YoAsB+xXv3ZDgKorSQLM0pALqIpiPlhs1UrV7NcXNmZXcB1yfI26jMl6wcYYkhOlGWN6i9yABMn/ktqsedDCYcjkzd4NaBYx+k=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4174.namprd12.prod.outlook.com (2603:10b6:208:15f::12)
+ bh=5lHt9gHWev91MLJwMuSJWepZ7CXUlQvfwzw/h/ZWk/M=;
+ b=KXHXB9gFuKcX0y2vRPltmSoDsRVx/2SqFUaU/VNCYiPi3Vkhk7/etZDbGXKRW9Sw8+/FxltfZhTU7/9GclNk5UHo71nzxSZQbaR7t/X00laIr7D7HS9VQ6X+fe21FxFx0yh/etXgRDMII073IZkoc0abuxthkWxrEUahq2mngRM=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3191.namprd12.prod.outlook.com (2603:10b6:a03:133::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.21; Wed, 8 Jul
- 2020 14:15:34 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::c8b3:24f3:c561:97d9]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::c8b3:24f3:c561:97d9%6]) with mapi id 15.20.3174.022; Wed, 8 Jul 2020
- 14:15:34 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Aaron Ma <aaron.ma@canonical.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Koenig, 
- Christian" <Christian.Koenig@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, 
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "mapengyu@gmail.com" <mapengyu@gmail.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Wed, 8 Jul
+ 2020 14:30:57 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::110f:a75f:beb8:96c6]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::110f:a75f:beb8:96c6%7]) with mapi id 15.20.3153.030; Wed, 8 Jul 2020
+ 14:30:57 +0000
 Subject: Re: [PATCH] drm/amd/display: add dmcub check on RENOIR
-Thread-Topic: [PATCH] drm/amd/display: add dmcub check on RENOIR
-Thread-Index: AQHWVQAgnaNk9h6zXkulu0L1fGPYvKj9umEI
-Date: Wed, 8 Jul 2020 14:15:33 +0000
-Message-ID: <MN2PR12MB448842FC1EBC1B8662C3624BF7670@MN2PR12MB4488.namprd12.prod.outlook.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Aaron Ma <aaron.ma@canonical.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mapengyu@gmail.com" <mapengyu@gmail.com>
 References: <20200708081622.3109902-1-aaron.ma@canonical.com>
-In-Reply-To: <20200708081622.3109902-1-aaron.ma@canonical.com>
-Accept-Language: en-US
+ <MN2PR12MB448842FC1EBC1B8662C3624BF7670@MN2PR12MB4488.namprd12.prod.outlook.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <349fe037-2daf-f73a-5e28-725d3953e1a5@amd.com>
+Date: Wed, 8 Jul 2020 10:30:52 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <MN2PR12MB448842FC1EBC1B8662C3624BF7670@MN2PR12MB4488.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-08T14:15:33.247Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
-authentication-results: canonical.com; dkim=none (message not signed)
- header.d=none;canonical.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [172.58.187.241]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 22bd0231-f53f-44d9-5c98-08d823496110
-x-ms-traffictypediagnostic: MN2PR12MB4174:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB417417D344F3751C5D4FFC10F7670@MN2PR12MB4174.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:983;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ssaEno97akpoAdoBogwjp7wWrD+4oa57a1DTGAAOyT7DUmYkG+WEavYeEU0UhF2Iif/XLS79PBmQk3j1YbTEuhxKvJ2Q+pO8n4gTM4dL3uek2oWACOBkFK51Eez0zbF2wBv5Mrm/ANMoVPcIZ/h3dzAP2NoLVWz1vKIEXleK7Vg73BIjd3+PP4jOW9PaQL+XsTDdlHNBqnfowbb4tHmiYc8VHPbklEvECB5SifzNwYo51tayMD2TFUSgiYIxx4c+dhq453gSmvXUwaZCUtuYvUFMiaoOXHKLzU3YotQkVpUssogCD0WbFX/wVDCRVmlGfMil9QAQnXuAKuKjwY8i6Si3SoCjBJqhvwmyIJpUnBBcmPFGNTHvsI9/EV3BSi1T6ISXuYMZA0jh7d7GDXOtdjpXt4ml3bG9w3CF7Hcu9ANFXF7i9olqKYRpC7X+cwnV
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(39860400002)(366004)(376002)(346002)(396003)(478600001)(186003)(8676002)(6506007)(53546011)(26005)(71200400001)(83380400001)(76116006)(66446008)(66476007)(66946007)(64756008)(66556008)(52536014)(5660300002)(166002)(86362001)(2906002)(966005)(9686003)(55016002)(45080400002)(33656002)(7696005)(8936002)(19627405001)(316002)(110136005)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: nmrC4/vY5X+ZSt952AQCgB1H0rjLAOiRJuZ2XTG/3tkmJHf3U+vvxLlc1M6x2Zgvzatetys8r3BpSa+EiXIXPj5fTNFDkcVNPjgaup2+vPWDioTAUqiKru+tIuXLWmAtCRfKsSLgm/A59aT9C0JHDte5DUcX2xKQzkBS29XKpnP3mO1a+JmKBTul8w8JvpUq2Z5Pl7UsIoD1C8royLTngAGgOkWKZDhAr1oOgXhRrrQ7lLNaBJ7UMBMEjxdr2sx1AN/Ul0/u0xJzEB9tcsUoEz+LpwHkyCiaPZ0+7KLyMlk2ptBpzkODs2zv8LCZs/KqHzvI3zzWM6fY/Y9wpXBk/phBt/s7SeAfxHqXUiI1xBGjb/NwKTiIObKFfOVBnkee1QTfLP6V3ANOBKiFg3ZTwQII5KgvTtTUHMbE6vToTNsnWXHzxyqzv5jQ9rEMRnoFn0oDXlJVJ0IbLF50YGz+LIsueuqcmc51XjvA5oJs1wJbD6FOLWn4iqyk/ITQ03jF
+X-ClientProxiedBy: YQBPR01CA0080.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:3::16) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.1.180] (24.212.165.133) by
+ YQBPR01CA0080.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:3::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3174.21 via Frontend Transport; Wed, 8 Jul 2020 14:30:55 +0000
+X-Originating-IP: [24.212.165.133]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 9833d430-22c9-4335-c5ce-08d8234b870a
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3191:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB31917555F4DFB02C2C861B02EC670@BYAPR12MB3191.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dREkkg+eyLS41MsxBTNB+BFBhfJoxrb/DZcxH9GTOUO67w0On2BsZjZD9pUtS8EYDtHvmWvAmnhRZakhRLsPRm0ajU8vds7f0+oT/sRiFodsYGUv1Zq8I4SDpfb+GMjN9HL+EU+QDj376NewO79HXlUnHibVA+wPy9HkWeXc/60dXHtsUlDnuaKZTdv+4sm3y7jN4Fym/jE5hUdb+BbR+0JfquLO3OurOWBeAOdhAHP/lDVTKh/MZtlRE/4vDtLhr+8rgHyot4GwFHDB/h9ZiX9o3htqN6s9r7bithyXUCUzN+e5gDzUg5qpUr+vzFigMMJfCwDfODRRUl7N6K8FS9NJOYQ7VksEP98N/bqGnIlGsGWxtZKljd82yzHqcD5dAsDKkhv4QydX1Gq1isWdY68b4pAK68v0Q2LA/7J9+Rv90+hOYchwKWvMOzctmaX26rDS0RPbm1CkiprfPSMVAnmXVZCxkACZrCl9T6RD3BM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(136003)(376002)(39860400002)(396003)(346002)(66946007)(16526019)(186003)(66476007)(66556008)(8936002)(966005)(26005)(36756003)(316002)(110136005)(16576012)(31696002)(2906002)(83380400001)(86362001)(31686004)(5660300002)(53546011)(6486002)(52116002)(956004)(2616005)(478600001)(8676002)(6666004)(921003)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: yD15UbnMrAYfSKNXggMnFfwj5vXkRaiP9l4zYgR/KtBPWMoPpXO24OJHp8yAHOSeSiDGaCwbJ7UXZLBGC5NE3lBcLQMdXW+8t5+AsfZsr08xPsY6p1i+GbcCu4l+NhNY5asQzBJwPNjdXjZ8R3wZc/FIFGacT2bEK4jwpop/qS1yfFwX2zslrfCItIVhm2hwtwTtwGNgSlJxeG8zEZNlaGdDdGOXwzhCI5puNt54Hf0mCb1WmPGfXnnQvfGu+sNovYyoxhrHf90BA0iy7YNzM1+FexUjq1mbbLe9Y7XXgS3tKs16eWDOGKCuVMnpH6vjOP7xfNBqP2XhUrNNe6uXNLmpvkF5EFVJgDxC2Fvj91NkH+hlgBj8ysv+tGWYT303l6VHs+v/sq7/luyroqk4k13VVUBWPBJ4GN6kDjnsHuKEyc2dJvBvVsFSyA7Lx8u72mmkS+D2IblHfxao+aV86nBEwJLuzlv564rdXzD8ZOijor7BNgPcP2CWvcNKgTtT
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9833d430-22c9-4335-c5ce-08d8234b870a
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22bd0231-f53f-44d9-5c98-08d823496110
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2020 14:15:33.9100 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6hL1WO+u3Uv724Tia7zta/fIsyISKpcz5CMdwR6S7Llw1tJR0fAiTuPgW0OCSubEwhTxkCcdXQ87+ytnWeoGlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4174
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2020 14:30:57.2452 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CSgrypL1x3/5X5PI3h011TCVEtYUEOC7IBuK1WSlT0g6kGmiHZ4ZfYgsPtf0TIOb/B+UtcuigYUz07jTdzSm5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3191
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,166 +118,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0440623803=="
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="windows-1252"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0440623803==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_"
+Looks good to me.
 
---_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[AMD Public Use]
+Regards,
+Nicholas Kazlauskas
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Aaron Ma <aaron.ma@canonical.com>
-Sent: Wednesday, July 8, 2020 4:16 AM
-To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christi=
-an <Christian.Koenig@amd.com>; airlied@linux.ie <airlied@linux.ie>; daniel@=
-ffwll.ch <daniel@ffwll.ch>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.fr=
-eedesktop.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedeskto=
-p.org>; linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; mapeng=
-yu@gmail.com <mapengyu@gmail.com>; aaron.ma@canonical.com <aaron.ma@canonic=
-al.com>
-Subject: [PATCH] drm/amd/display: add dmcub check on RENOIR
+On 2020-07-08 10:15 a.m., Deucher, Alexander wrote:
+> [AMD Public Use]
+> =
 
-RENOIR loads dmub fw not dmcu, check dmcu only will prevent loading iram,
-it breaks backlight control.
+> =
 
-Bug: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbu=
-gzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D208277&amp;data=3D02%7C01%7Calexand=
-er.deucher%40amd.com%7Cf922a1848f1f4cc4934f08d823174036%7C3dd8961fe4884e608=
-e11a82d994e183d%7C0%7C0%7C637297930080282163&amp;sdata=3DlimstWv5pwvdqDRpKo=
-KpCZcutV4pmqhdqR7CFEimR2Q%3D&amp;reserved=3D0
-Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> [AMD Public Use]
+> =
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 10ac8076d4f2..db5e0bb0d935 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1358,7 +1358,7 @@ static int dm_late_init(void *handle)
-         struct dmcu *dmcu =3D NULL;
-         bool ret;
+> =
 
--       if (!adev->dm.fw_dmcu)
-+       if (!adev->dm.fw_dmcu && !adev->dm.dmub_fw)
-                 return detect_mst_link_for_all_connectors(adev->ddev);
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> ------------------------------------------------------------------------
+> *From:* Aaron Ma <aaron.ma@canonical.com>
+> *Sent:* Wednesday, July 8, 2020 4:16 AM
+> *To:* Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) =
 
-         dmcu =3D adev->dm.dc->res_pool->dmcu;
---
-2.25.1
+> <Sunpeng.Li@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; =
 
+> Koenig, Christian <Christian.Koenig@amd.com>; airlied@linux.ie =
 
---_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+> <airlied@linux.ie>; daniel@ffwll.ch <daniel@ffwll.ch>; =
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Aaron Ma &lt;aaron.ma=
-@canonical.com&gt;<br>
-<b>Sent:</b> Wednesday, July 8, 2020 4:16 AM<br>
-<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
-o) &lt;Sunpeng.Li@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd=
-.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; airlied@linux=
-.ie &lt;airlied@linux.ie&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;;
- amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; dri-d=
-evel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;; linux-k=
-ernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;; mapengyu@gmail.=
-com &lt;mapengyu@gmail.com&gt;; aaron.ma@canonical.com &lt;aaron.ma@canonic=
-al.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: add dmcub check on RENOIR</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">RENOIR loads dmub fw not dmcu, check dmcu only wil=
-l prevent loading iram,<br>
-it breaks backlight control.<br>
-<br>
-Bug: <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
-%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D208277&amp;amp;data=3D02=
-%7C01%7Calexander.deucher%40amd.com%7Cf922a1848f1f4cc4934f08d823174036%7C3d=
-d8961fe4884e608e11a82d994e183d%7C0%7C0%7C637297930080282163&amp;amp;sdata=
-=3DlimstWv5pwvdqDRpKoKpCZcutV4pmqhdqR7CFEimR2Q%3D&amp;amp;reserved=3D0">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbugzill=
-a.kernel.org%2Fshow_bug.cgi%3Fid%3D208277&amp;amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7Cf922a1848f1f4cc4934f08d823174036%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637297930080282163&amp;amp;sdata=3DlimstWv5pwvdqDR=
-pKoKpCZcutV4pmqhdqR7CFEimR2Q%3D&amp;amp;reserved=3D0</a><br>
-Signed-off-by: Aaron Ma &lt;aaron.ma@canonical.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index 10ac8076d4f2..db5e0bb0d935 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -1358,7 &#43;1358,7 @@ static int dm_late_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dmcu *dmcu =3D NULL=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;dm.fw_dmcu)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;dm.fw_dmcu &amp;&am=
-p; !adev-&gt;dm.dmub_fw)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return detect_mst_link_for_all_connectors(adev-&gt;dd=
-ev);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dmcu =3D adev-&gt;dm.dc-&g=
-t;res_pool-&gt;dmcu;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; =
 
---_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_--
+> dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; =
 
---===============0440623803==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; =
+
+> mapengyu@gmail.com <mapengyu@gmail.com>; aaron.ma@canonical.com =
+
+> <aaron.ma@canonical.com>
+> *Subject:* [PATCH] drm/amd/display: add dmcub check on RENOIR
+> RENOIR loads dmub fw not dmcu, check dmcu only will prevent loading iram,
+> it breaks backlight control.
+> =
+
+> Bug: =
+
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D208277 =
+
+> <https://bugzilla.kernel.org/show_bug.cgi?id=3D208277>
+> Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+> ---
+>  =A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  =A01 file changed, 1 insertion(+), 1 deletion(-)
+> =
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c =
+
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 10ac8076d4f2..db5e0bb0d935 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1358,7 +1358,7 @@ static int dm_late_init(void *handle)
+>  =A0=A0=A0=A0=A0=A0=A0=A0 struct dmcu *dmcu =3D NULL;
+>  =A0=A0=A0=A0=A0=A0=A0=A0 bool ret;
+> =
+
+> -=A0=A0=A0=A0=A0=A0 if (!adev->dm.fw_dmcu)
+> +=A0=A0=A0=A0=A0=A0 if (!adev->dm.fw_dmcu && !adev->dm.dmub_fw)
+>  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return detect_mst_link_=
+for_all_connectors(adev->ddev);
+> =
+
+>  =A0=A0=A0=A0=A0=A0=A0=A0 dmcu =3D adev->dm.dc->res_pool->dmcu;
+> -- =
+
+> 2.25.1
+> =
+
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> =
+
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0440623803==--
