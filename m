@@ -2,42 +2,109 @@ Return-Path: <SRS0=Rlnb=AT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31DC1C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 11:42:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98E12C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 14:15:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E7FA020656
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 11:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7FA020656
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id 55D5B20663
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2020 14:15:37 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PfnjRdMs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55D5B20663
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3DCE89C1C;
-	Wed,  8 Jul 2020 11:42:31 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7661989C1C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2020 11:42:30 +0000 (UTC)
-Received: from deinhandtuch.molgen.mpg.de (deinhandtuch.molgen.mpg.de
- [141.14.18.250])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 28C15206462B7;
- Wed,  8 Jul 2020 13:42:29 +0200 (CEST)
-Subject: Re: [PATCH v2] drm/amdgpu: fix system hang issue during GPU reset
-To: Dennis Li <Dennis.Li@amd.com>
-References: <20200708074800.10093-1-Dennis.Li@amd.com>
-From: Paul Menzel <pmenzel+amd-gfx@molgen.mpg.de>
-Message-ID: <b398cbc4-7dfa-c5de-e806-492e08f2da37@molgen.mpg.de>
-Date: Wed, 8 Jul 2020 13:42:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7CFF6E0FE;
+	Wed,  8 Jul 2020 14:15:36 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 289C86E0FE;
+ Wed,  8 Jul 2020 14:15:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JU1ICW1wrPPUkKEugGvx7D2vHv6OgYCbMHtT+Yb+W9vDuV31t27ltnmlOheMvU7PANkjVfhgKTTFF3fmhx6xoGnWt/pfn6Giy/GeMN+YYGKWybL+xrLBDlArgf0nZgf9Y8YUOkc/4LLAZafn8poMyYBt0CV61yjeARTm0PJZaJF2ThdVrFTfNhTM7CArgDxkY59f68pk7BTJPyGdB/t7YpjN++ZvW4uWFhyryxWuZXW1NlZdl2zkC7T0w+f0L9bpdJtxXnUVWyXBzwF+IBOJi2E7CIdAPgGcQzF994K9Wsiyx+TG4s/RyK+82gJU/zoPEjY2rKXZEBcp3NIWZEQQIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RVDqfgz7qexdySD1c8h0k5gnxzIgEWBZQmrqwTR4UEI=;
+ b=AT25ZL9wvMlEi5OasTe0+43Bn2M0oUe54LjY0jWWPMEZWohWAQZf9mcmRyoUcA6DJ8sJo375x0fm0ac/zGesK5we6xfLcXLSZm3Z3nL7VNU4w8g8rWqAegaZNsUGfkFRbpjS3LYQE8XrP+atGeXq1Lqw+NtOd5ZB3SNX7lqeojq1Xtx9iZJTOFSM1C5hyfVCQKtLGb60IR9Gu72fLm72KI+dzqb70jbEOt4MRHxkppzgnGoJkVAiRq6QDeZ3t8pxNH41WI9rDAJIa0VZ/W6hcbOapAXuiZXMExYhwYLpCh6rzjgr3JssLupr+fdAS9exLLuGXGrUsP0l4nKPauBEWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RVDqfgz7qexdySD1c8h0k5gnxzIgEWBZQmrqwTR4UEI=;
+ b=PfnjRdMsKF4H9tpHuGB/gLThXD+gACR87MG/izh0JgLoj8JYwu0TWlU1358UMN+ZGO9EOkjv2YoAsB+xXv3ZDgKorSQLM0pALqIpiPlhs1UrV7NcXNmZXcB1yfI26jMl6wcYYkhOlGWN6i9yABMn/ktqsedDCYcjkzd4NaBYx+k=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4174.namprd12.prod.outlook.com (2603:10b6:208:15f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.21; Wed, 8 Jul
+ 2020 14:15:34 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::c8b3:24f3:c561:97d9]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::c8b3:24f3:c561:97d9%6]) with mapi id 15.20.3174.022; Wed, 8 Jul 2020
+ 14:15:34 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Aaron Ma <aaron.ma@canonical.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Koenig, 
+ Christian" <Christian.Koenig@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, 
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "mapengyu@gmail.com" <mapengyu@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: add dmcub check on RENOIR
+Thread-Topic: [PATCH] drm/amd/display: add dmcub check on RENOIR
+Thread-Index: AQHWVQAgnaNk9h6zXkulu0L1fGPYvKj9umEI
+Date: Wed, 8 Jul 2020 14:15:33 +0000
+Message-ID: <MN2PR12MB448842FC1EBC1B8662C3624BF7670@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20200708081622.3109902-1-aaron.ma@canonical.com>
+In-Reply-To: <20200708081622.3109902-1-aaron.ma@canonical.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-08T14:15:33.247Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+authentication-results: canonical.com; dkim=none (message not signed)
+ header.d=none;canonical.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [172.58.187.241]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 22bd0231-f53f-44d9-5c98-08d823496110
+x-ms-traffictypediagnostic: MN2PR12MB4174:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB417417D344F3751C5D4FFC10F7670@MN2PR12MB4174.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:983;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ssaEno97akpoAdoBogwjp7wWrD+4oa57a1DTGAAOyT7DUmYkG+WEavYeEU0UhF2Iif/XLS79PBmQk3j1YbTEuhxKvJ2Q+pO8n4gTM4dL3uek2oWACOBkFK51Eez0zbF2wBv5Mrm/ANMoVPcIZ/h3dzAP2NoLVWz1vKIEXleK7Vg73BIjd3+PP4jOW9PaQL+XsTDdlHNBqnfowbb4tHmiYc8VHPbklEvECB5SifzNwYo51tayMD2TFUSgiYIxx4c+dhq453gSmvXUwaZCUtuYvUFMiaoOXHKLzU3YotQkVpUssogCD0WbFX/wVDCRVmlGfMil9QAQnXuAKuKjwY8i6Si3SoCjBJqhvwmyIJpUnBBcmPFGNTHvsI9/EV3BSi1T6ISXuYMZA0jh7d7GDXOtdjpXt4ml3bG9w3CF7Hcu9ANFXF7i9olqKYRpC7X+cwnV
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(39860400002)(366004)(376002)(346002)(396003)(478600001)(186003)(8676002)(6506007)(53546011)(26005)(71200400001)(83380400001)(76116006)(66446008)(66476007)(66946007)(64756008)(66556008)(52536014)(5660300002)(166002)(86362001)(2906002)(966005)(9686003)(55016002)(45080400002)(33656002)(7696005)(8936002)(19627405001)(316002)(110136005)(921003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: nmrC4/vY5X+ZSt952AQCgB1H0rjLAOiRJuZ2XTG/3tkmJHf3U+vvxLlc1M6x2Zgvzatetys8r3BpSa+EiXIXPj5fTNFDkcVNPjgaup2+vPWDioTAUqiKru+tIuXLWmAtCRfKsSLgm/A59aT9C0JHDte5DUcX2xKQzkBS29XKpnP3mO1a+JmKBTul8w8JvpUq2Z5Pl7UsIoD1C8royLTngAGgOkWKZDhAr1oOgXhRrrQ7lLNaBJ7UMBMEjxdr2sx1AN/Ul0/u0xJzEB9tcsUoEz+LpwHkyCiaPZ0+7KLyMlk2ptBpzkODs2zv8LCZs/KqHzvI3zzWM6fY/Y9wpXBk/phBt/s7SeAfxHqXUiI1xBGjb/NwKTiIObKFfOVBnkee1QTfLP6V3ANOBKiFg3ZTwQII5KgvTtTUHMbE6vToTNsnWXHzxyqzv5jQ9rEMRnoFn0oDXlJVJ0IbLF50YGz+LIsueuqcmc51XjvA5oJs1wJbD6FOLWn4iqyk/ITQ03jF
 MIME-Version: 1.0
-In-Reply-To: <20200708074800.10093-1-Dennis.Li@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22bd0231-f53f-44d9-5c98-08d823496110
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2020 14:15:33.9100 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6hL1WO+u3Uv724Tia7zta/fIsyISKpcz5CMdwR6S7Llw1tJR0fAiTuPgW0OCSubEwhTxkCcdXQ87+ytnWeoGlQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4174
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,171 +116,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Tao Zhou <Tao.Zhou1@amd.com>,
- Guchun Chen <Guchun.Chen@amd.com>, amd-gfx@lists.freedesktop.org,
- Hawkin Zhang <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============0970648403=="
+Content-Type: multipart/mixed; boundary="===============0440623803=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a cryptographically signed message in MIME format.
-
---===============0970648403==
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms090109090205040000010506"
-
-This is a cryptographically signed message in MIME format.
-
---------------ms090109090205040000010506
-Content-Type: text/plain; charset=utf-8
+--===============0440623803==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Dear Dennis,
+[AMD Public Use]
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Aaron Ma <aaron.ma@canonical.com>
+Sent: Wednesday, July 8, 2020 4:16 AM
+To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christi=
+an <Christian.Koenig@amd.com>; airlied@linux.ie <airlied@linux.ie>; daniel@=
+ffwll.ch <daniel@ffwll.ch>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.fr=
+eedesktop.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedeskto=
+p.org>; linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; mapeng=
+yu@gmail.com <mapengyu@gmail.com>; aaron.ma@canonical.com <aaron.ma@canonic=
+al.com>
+Subject: [PATCH] drm/amd/display: add dmcub check on RENOIR
+
+RENOIR loads dmub fw not dmcu, check dmcu only will prevent loading iram,
+it breaks backlight control.
+
+Bug: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbu=
+gzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D208277&amp;data=3D02%7C01%7Calexand=
+er.deucher%40amd.com%7Cf922a1848f1f4cc4934f08d823174036%7C3dd8961fe4884e608=
+e11a82d994e183d%7C0%7C0%7C637297930080282163&amp;sdata=3DlimstWv5pwvdqDRpKo=
+KpCZcutV4pmqhdqR7CFEimR2Q%3D&amp;reserved=3D0
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 10ac8076d4f2..db5e0bb0d935 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1358,7 +1358,7 @@ static int dm_late_init(void *handle)
+         struct dmcu *dmcu =3D NULL;
+         bool ret;
+
+-       if (!adev->dm.fw_dmcu)
++       if (!adev->dm.fw_dmcu && !adev->dm.dmub_fw)
+                 return detect_mst_link_for_all_connectors(adev->ddev);
+
+         dmcu =3D adev->dm.dc->res_pool->dmcu;
+--
+2.25.1
 
 
-Thank you for you patch.
+--_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 2020-07-08 09:48, Dennis Li wrote:
-> During GPU reset, driver should hold on all external access to
-> GPU, otherwise psp will randomly fail to do post, and then cause
-> system hang.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Aaron Ma &lt;aaron.ma=
+@canonical.com&gt;<br>
+<b>Sent:</b> Wednesday, July 8, 2020 4:16 AM<br>
+<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
+o) &lt;Sunpeng.Li@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd=
+.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; airlied@linux=
+.ie &lt;airlied@linux.ie&gt;; daniel@ffwll.ch &lt;daniel@ffwll.ch&gt;;
+ amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; dri-d=
+evel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;; linux-k=
+ernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;; mapengyu@gmail.=
+com &lt;mapengyu@gmail.com&gt;; aaron.ma@canonical.com &lt;aaron.ma@canonic=
+al.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: add dmcub check on RENOIR</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">RENOIR loads dmub fw not dmcu, check dmcu only wil=
+l prevent loading iram,<br>
+it breaks backlight control.<br>
+<br>
+Bug: <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D208277&amp;amp;data=3D02=
+%7C01%7Calexander.deucher%40amd.com%7Cf922a1848f1f4cc4934f08d823174036%7C3d=
+d8961fe4884e608e11a82d994e183d%7C0%7C0%7C637297930080282163&amp;amp;sdata=
+=3DlimstWv5pwvdqDRpKoKpCZcutV4pmqhdqR7CFEimR2Q%3D&amp;amp;reserved=3D0">
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fbugzill=
+a.kernel.org%2Fshow_bug.cgi%3Fid%3D208277&amp;amp;data=3D02%7C01%7Calexande=
+r.deucher%40amd.com%7Cf922a1848f1f4cc4934f08d823174036%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637297930080282163&amp;amp;sdata=3DlimstWv5pwvdqDR=
+pKoKpCZcutV4pmqhdqR7CFEimR2Q%3D&amp;amp;reserved=3D0</a><br>
+Signed-off-by: Aaron Ma &lt;aaron.ma@canonical.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 10ac8076d4f2..db5e0bb0d935 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -1358,7 &#43;1358,7 @@ static int dm_late_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dmcu *dmcu =3D NULL=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;dm.fw_dmcu)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;dm.fw_dmcu &amp;&am=
+p; !adev-&gt;dm.dmub_fw)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return detect_mst_link_for_all_connectors(adev-&gt;dd=
+ev);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dmcu =3D adev-&gt;dm.dc-&g=
+t;res_pool-&gt;dmcu;<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Maybe update the commit message summary to read:
+--_000_MN2PR12MB448842FC1EBC1B8662C3624BF7670MN2PR12MB4488namp_--
 
-> Avoid external GPU access on GPU reset to fix system hang
-
-As I am also experiencing system hangs, it would be great to have more
-details. What systems are affected? What PSP firmware version? Will the
-PSP firmware be fixed, or is the Linux driver violating the API.
-
-How can the hang be reproduced?
-
-Lastly, please explain your changes? Why does `atomic_read()` help for
-example?
-
-> v2:
-> 1. add rwlock for some ioctls, debugfs and file-close function.
-> 2. change to use dqm->is_resetting and dqm_lock for protection in kfd
-> driver.
-> 3. remove try_lock and change adev->in_gpu_reset as atomic, to avoid
-> re-enter GPU recovery for the same GPU hang.
->=20
-> Signed-off-by: Dennis Li <Dennis.Li@amd.com>
-> Change-Id: I7f77a72795462587ed7d5f51fe53a594a0f1f708
-
-[=E2=80=A6]
-
-
-Kind regards,
-
-Paul
-
-
---------------ms090109090205040000010506
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCC
-EFowggUSMIID+qADAgECAgkA4wvV+K8l2YEwDQYJKoZIhvcNAQELBQAwgYIxCzAJBgNVBAYT
-AkRFMSswKQYDVQQKDCJULVN5c3RlbXMgRW50ZXJwcmlzZSBTZXJ2aWNlcyBHbWJIMR8wHQYD
-VQQLDBZULVN5c3RlbXMgVHJ1c3QgQ2VudGVyMSUwIwYDVQQDDBxULVRlbGVTZWMgR2xvYmFs
-Um9vdCBDbGFzcyAyMB4XDTE2MDIyMjEzMzgyMloXDTMxMDIyMjIzNTk1OVowgZUxCzAJBgNV
-BAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1dHNjaGVu
-IEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNVBAMTJERG
-Ti1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjCCASIwDQYJKoZIhvcNAQEBBQAD
-ggEPADCCAQoCggEBAMtg1/9moUHN0vqHl4pzq5lN6mc5WqFggEcVToyVsuXPztNXS43O+FZs
-FVV2B+pG/cgDRWM+cNSrVICxI5y+NyipCf8FXRgPxJiZN7Mg9mZ4F4fCnQ7MSjLnFp2uDo0p
-eQcAIFTcFV9Kltd4tjTTwXS1nem/wHdN6r1ZB+BaL2w8pQDcNb1lDY9/Mm3yWmpLYgHurDg0
-WUU2SQXaeMpqbVvAgWsRzNI8qIv4cRrKO+KA3Ra0Z3qLNupOkSk9s1FcragMvp0049ENF4N1
-xDkesJQLEvHVaY4l9Lg9K7/AjsMeO6W/VRCrKq4Xl14zzsjz9AkH4wKGMUZrAcUQDBHHWekC
-AwEAAaOCAXQwggFwMA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUk+PYMiba1fFKpZFK4OpL
-4qIMz+EwHwYDVR0jBBgwFoAUv1kgNgB5oKAia4zV8mHSuCzLgkowEgYDVR0TAQH/BAgwBgEB
-/wIBAjAzBgNVHSAELDAqMA8GDSsGAQQBga0hgiwBAQQwDQYLKwYBBAGBrSGCLB4wCAYGZ4EM
-AQICMEwGA1UdHwRFMEMwQaA/oD2GO2h0dHA6Ly9wa2kwMzM2LnRlbGVzZWMuZGUvcmwvVGVs
-ZVNlY19HbG9iYWxSb290X0NsYXNzXzIuY3JsMIGGBggrBgEFBQcBAQR6MHgwLAYIKwYBBQUH
-MAGGIGh0dHA6Ly9vY3NwMDMzNi50ZWxlc2VjLmRlL29jc3ByMEgGCCsGAQUFBzAChjxodHRw
-Oi8vcGtpMDMzNi50ZWxlc2VjLmRlL2NydC9UZWxlU2VjX0dsb2JhbFJvb3RfQ2xhc3NfMi5j
-ZXIwDQYJKoZIhvcNAQELBQADggEBAIcL/z4Cm2XIVi3WO5qYi3FP2ropqiH5Ri71sqQPrhE4
-eTizDnS6dl2e6BiClmLbTDPo3flq3zK9LExHYFV/53RrtCyD2HlrtrdNUAtmB7Xts5et6u5/
-MOaZ/SLick0+hFvu+c+Z6n/XUjkurJgARH5pO7917tALOxrN5fcPImxHhPalR6D90Bo0fa3S
-PXez7vTXTf/D6OWST1k+kEcQSrCFWMBvf/iu7QhCnh7U3xQuTY+8npTD5+32GPg8SecmqKc2
-2CzeIs2LgtjZeOJVEqM7h0S2EQvVDFKvaYwPBt/QolOLV5h7z/0HJPT8vcP9SpIClxvyt7bP
-ZYoaorVyGTkwggWNMIIEdaADAgECAgwcOtRQhH7u81j4jncwDQYJKoZIhvcNAQELBQAwgZUx
-CzAJBgNVBAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1
-dHNjaGVuIEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNV
-BAMTJERGTi1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjAeFw0xNjExMDMxNTI0
-NDhaFw0zMTAyMjIyMzU5NTlaMGoxCzAJBgNVBAYTAkRFMQ8wDQYDVQQIDAZCYXllcm4xETAP
-BgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxhbmNrLUdlc2VsbHNjaGFmdDEVMBMG
-A1UEAwwMTVBHIENBIC0gRzAyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnhx4
-59Lh4WqgOs/Md04XxU2yFtfM15ZuJV0PZP7BmqSJKLLPyqmOrADfNdJ5PIGBto2JBhtRRBHd
-G0GROOvTRHjzOga95WOTeura79T21FWwwAwa29OFnD3ZplQs6HgdwQrZWNi1WHNJxn/4mA19
-rNEBUc5urSIpZPvZi5XmlF3v3JHOlx3KWV7mUteB4pwEEfGTg4npPAJbp2o7arxQdoIq+Pu2
-OsvqhD7Rk4QeaX+EM1QS4lqd1otW4hE70h/ODPy1xffgbZiuotWQLC6nIwa65Qv6byqlIX0q
-Zuu99Vsu+r3sWYsL5SBkgecNI7fMJ5tfHrjoxfrKl/ErTAt8GQIDAQABo4ICBTCCAgEwEgYD
-VR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYwKQYDVR0gBCIwIDANBgsrBgEEAYGt
-IYIsHjAPBg0rBgEEAYGtIYIsAQEEMB0GA1UdDgQWBBTEiKUH7rh7qgwTv9opdGNSG0lwFjAf
-BgNVHSMEGDAWgBST49gyJtrV8UqlkUrg6kviogzP4TCBjwYDVR0fBIGHMIGEMECgPqA8hjpo
-dHRwOi8vY2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jcmwvY2Fjcmwu
-Y3JsMECgPqA8hjpodHRwOi8vY2RwMi5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1
-Yi9jcmwvY2FjcmwuY3JsMIHdBggrBgEFBQcBAQSB0DCBzTAzBggrBgEFBQcwAYYnaHR0cDov
-L29jc3AucGNhLmRmbi5kZS9PQ1NQLVNlcnZlci9PQ1NQMEoGCCsGAQUFBzAChj5odHRwOi8v
-Y2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNy
-dDBKBggrBgEFBQcwAoY+aHR0cDovL2NkcDIucGNhLmRmbi5kZS9nbG9iYWwtcm9vdC1nMi1j
-YS9wdWIvY2FjZXJ0L2NhY2VydC5jcnQwDQYJKoZIhvcNAQELBQADggEBABLpeD5FygzqOjj+
-/lAOy20UQOGWlx0RMuPcI4nuyFT8SGmK9lD7QCg/HoaJlfU/r78ex+SEide326evlFAoJXIF
-jVyzNltDhpMKrPIDuh2N12zyn1EtagqPL6hu4pVRzcBpl/F2HCvtmMx5K4WN1L1fmHWLcSap
-dhXLvAZ9RG/B3rqyULLSNN8xHXYXpmtvG0VGJAndZ+lj+BH7uvd3nHWnXEHC2q7iQlDUqg0a
-wIqWJgdLlx1Q8Dg/sodv0m+LN0kOzGvVDRCmowBdWGhhusD+duKV66pBl+qhC+4LipariWaM
-qK5ppMQROATjYeNRvwI+nDcEXr2vDaKmdbxgDVwwggWvMIIEl6ADAgECAgweKlJIhfynPMVG
-/KIwDQYJKoZIhvcNAQELBQAwajELMAkGA1UEBhMCREUxDzANBgNVBAgMBkJheWVybjERMA8G
-A1UEBwwITXVlbmNoZW4xIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MRUwEwYD
-VQQDDAxNUEcgQ0EgLSBHMDIwHhcNMTcxMTE0MTEzNDE2WhcNMjAxMTEzMTEzNDE2WjCBizEL
-MAkGA1UEBhMCREUxIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MTQwMgYDVQQL
-DCtNYXgtUGxhbmNrLUluc3RpdHV0IGZ1ZXIgbW9sZWt1bGFyZSBHZW5ldGlrMQ4wDAYDVQQL
-DAVNUElNRzEUMBIGA1UEAwwLUGF1bCBNZW56ZWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
-ggEKAoIBAQDIh/UR/AX/YQ48VWWDMLTYtXjYJyhRHMc81ZHMMoaoG66lWB9MtKRTnB5lovLZ
-enTIUyPsCrMhTqV9CWzDf6v9gOTWVxHEYqrUwK5H1gx4XoK81nfV8oGV4EKuVmmikTXiztGz
-peyDmOY8o/EFNWP7YuRkY/lPQJQBeBHYq9AYIgX4StuXu83nusq4MDydygVOeZC15ts0tv3/
-6WmibmZd1OZRqxDOkoBbY3Djx6lERohs3IKS6RKiI7e90rCSy9rtidJBOvaQS9wvtOSKPx0a
-+2pAgJEVzZFjOAfBcXydXtqXhcpOi2VCyl+7+LnnTz016JJLsCBuWEcB3kP9nJYNAgMBAAGj
-ggIxMIICLTAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcD
-AgYIKwYBBQUHAwQwHQYDVR0OBBYEFHM0Mc3XjMLlhWpp4JufRELL4A/qMB8GA1UdIwQYMBaA
-FMSIpQfuuHuqDBO/2il0Y1IbSXAWMCAGA1UdEQQZMBeBFXBtZW56ZWxAbW9sZ2VuLm1wZy5k
-ZTB9BgNVHR8EdjB0MDigNqA0hjJodHRwOi8vY2RwMS5wY2EuZGZuLmRlL21wZy1nMi1jYS9w
-dWIvY3JsL2NhY3JsLmNybDA4oDagNIYyaHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzIt
-Y2EvcHViL2NybC9jYWNybC5jcmwwgc0GCCsGAQUFBwEBBIHAMIG9MDMGCCsGAQUFBzABhido
-dHRwOi8vb2NzcC5wY2EuZGZuLmRlL09DU1AtU2VydmVyL09DU1AwQgYIKwYBBQUHMAKGNmh0
-dHA6Ly9jZHAxLnBjYS5kZm4uZGUvbXBnLWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNydDBC
-BggrBgEFBQcwAoY2aHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzItY2EvcHViL2NhY2Vy
-dC9jYWNlcnQuY3J0MEAGA1UdIAQ5MDcwDwYNKwYBBAGBrSGCLAEBBDARBg8rBgEEAYGtIYIs
-AQEEAwYwEQYPKwYBBAGBrSGCLAIBBAMGMA0GCSqGSIb3DQEBCwUAA4IBAQCQs6bUDROpFO2F
-Qz2FMgrdb39VEo8P3DhmpqkaIMC5ZurGbbAL/tAR6lpe4af682nEOJ7VW86ilsIJgm1j0ueY
-aOuL8jrN4X7IF/8KdZnnNnImW3QVni6TCcc+7+ggci9JHtt0IDCj5vPJBpP/dKXLCN4M+exl
-GXYpfHgxh8gclJPY1rquhQrihCzHfKB01w9h9tWZDVMtSoy9EUJFhCXw7mYUsvBeJwZesN2B
-fndPkrXx6XWDdU3S1LyKgHlLIFtarLFm2Hb5zAUR33h+26cN6ohcGqGEEzgIG8tXS8gztEaj
-1s2RyzmKd4SXTkKR3GhkZNVWy+gM68J7jP6zzN+cMYIDmjCCA5YCAQEwejBqMQswCQYDVQQG
-EwJERTEPMA0GA1UECAwGQmF5ZXJuMREwDwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4
-LVBsYW5jay1HZXNlbGxzY2hhZnQxFTATBgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzF
-RvyiMA0GCWCGSAFlAwQCAQUAoIIB8TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
-SIb3DQEJBTEPFw0yMDA3MDgxMTQyMjlaMC8GCSqGSIb3DQEJBDEiBCDgVIppPh7RezK7kSf8
-8FUItFRFJiyNsc3v3fcs+OkswzBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
-hkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcG
-BSsOAwIHMA0GCCqGSIb3DQMCAgEoMIGJBgkrBgEEAYI3EAQxfDB6MGoxCzAJBgNVBAYTAkRF
-MQ8wDQYDVQQIDAZCYXllcm4xETAPBgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxh
-bmNrLUdlc2VsbHNjaGFmdDEVMBMGA1UEAwwMTVBHIENBIC0gRzAyAgweKlJIhfynPMVG/KIw
-gYsGCyqGSIb3DQEJEAILMXygejBqMQswCQYDVQQGEwJERTEPMA0GA1UECAwGQmF5ZXJuMREw
-DwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4LVBsYW5jay1HZXNlbGxzY2hhZnQxFTAT
-BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBAMaZ
-FaPq56fWrtdpIdBs3/KmwKlpyaBSqYtAAQq0NlpxT5KtHru6dMLWh1chBkdaBtRgNjDd6xQY
-7f6hd5KFEUBEF54i0Ko1MWX26KsmsGtjtt3VdY2ewoQnkfGBFbY7TnElukFzMdSinzdyJCAm
-bWt2+oqEIr5K/1EFzyXB9Q9+Lg1jTQIKgFghWZYqlytZB8oYmUlHQX2sbrl035sqUQ1FBVME
-WLNeDMwLwPvxZ6hdAswNJsNQ6pd/yx/P2yDHlgFB5sIJIttHtBOhgs48vYZ2cxRgwybi2Std
-bHsI3Sa7Ff1Vv4jVMKWY0sO723wdwnvqf4I4IJTTPzMSf/9OzxUAAAAAAAA=
---------------ms090109090205040000010506--
-
---===============0970648403==
+--===============0440623803==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -224,4 +278,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0970648403==--
+--===============0440623803==--
