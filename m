@@ -2,81 +2,73 @@ Return-Path: <SRS0=lnB5=AU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE031C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 14:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B750C433E1
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 15:10:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B284A2074A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 14:28:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 19F522077D
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 15:10:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UrpSVLa3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B284A2074A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AnLG4RWL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19F522077D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 820FF6EA55;
-	Thu,  9 Jul 2020 14:28:42 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD636EA55;
- Thu,  9 Jul 2020 14:28:41 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id f7so2637829wrw.1;
- Thu, 09 Jul 2020 07:28:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4480E6EA89;
+	Thu,  9 Jul 2020 15:10:00 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF586E532;
+ Thu,  9 Jul 2020 15:09:59 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id l2so2205488wmf.0;
+ Thu, 09 Jul 2020 08:09:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=7tqZDmODxpfwBrZOHP4mWeKzffcGLgXr9vfeGZmKNBU=;
- b=UrpSVLa3i4fx+oUjE8nAxb4rXdCD53H/8bOIv4xQumhe0e7CQ8MSbyobjYuUDN+elj
- 5ckDUsYJlUFwMBITNVVhAuDD1ntL6R5si8UkCbrFwBa1o23XClPoW3CKS4dWxyoxcntP
- dJqsDgcKZ7AO7FkD0aTnLTbBnG66j8oAWeBRelevedSmD8Zs032jXTG9snLK4ogose0T
- xszt4fue3yxbEy3JONwHirds5693uN2B9BDJL9fArtc7BMdD97zIbltXJ8ct7rLVTDTB
- mAZaIj2edOMdCqYTfAGZZGyWQ0m80neg9YFUm9WSoDmvWI989Ihja/q5tJJwk4C760/1
- ToVg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/FTbf7yEj86M0Mbd52ilmGUJbrcQv5fTqmfwuWq+Efk=;
+ b=AnLG4RWLv3ZsmrlOtWVm8mrhNfksacx2s6w1Kd3bvod4/F/DB1kn/gTl8lX7UATy8K
+ eNeXOyaWwrPqJMj/BIRN4F1moSer0rNsg2uXleMhckssp9tiXsXei36uocj43QI8C72w
+ xDrst8xUeSlPx3KN/aSpcxLHTAsxYhPanzhm/8c/ffNfn35oWqoE4qrznkRKdi5G8Nle
+ fPLLW06HApp8H8ibwJhBaAlL2QwKBqsKw2IAJMOutqDke0vb5lr1DFgL14C8JFAyLRW+
+ tKmj9CqFHoZFKIzk8ZQ2THiFviZjL0BFAd8NxtvYrbD5Qo0rFlLf4hJIGyBjmWiX3kx/
+ tMxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=7tqZDmODxpfwBrZOHP4mWeKzffcGLgXr9vfeGZmKNBU=;
- b=h+De0IDEQ4E96jmRmg6obyOvKz0ia8yp/1Q8gDdWGnhPCvakCNouZ+v3NqC/DWXP3R
- pLavqvzKylJ7ws+JoW1KNZ1PatGui8OyE6qpDWbRGRQKXEb29NyITRbufGkTwP2dS//t
- +TsEg1t/H/5yfb27h+UTLUqd52Opr9Rgco8TIzeKr95u6ZZC3te0NSzdafphasZ6oaT9
- Bm5Ox3pf+M65Mig+ykHX/mRm02tYXdFMcEI2AHtWGQFCrxXwyPvj4qT+OPNixhtXOWUY
- wzcPtIzTGo/L2JAFEcFnHvXg7inrITxL0PQ3txL3Fi2Ki6p1CzFkIu8rTduEV93JbKSi
- ds8Q==
-X-Gm-Message-State: AOAM530+8K5OS/EwEOJQb2GWkbEcK1gTPkhD1u1pldZ83f9aiS1DO8cv
- rgkmM9b+q8xCOqHWr4La5AecftZC
-X-Google-Smtp-Source: ABdhPJyn8DKog/l6kOIY+x27ufbwVcpLzTGrf++rITJqcgOZsb4u39XLOgBaVXLNO9Fzi5QL+9FCzw==
-X-Received: by 2002:adf:f14c:: with SMTP id y12mr62667346wro.30.1594304919952; 
- Thu, 09 Jul 2020 07:28:39 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id d28sm4735671wrc.50.2020.07.09.07.28.38
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 Jul 2020 07:28:39 -0700 (PDT)
-Subject: Re: [Intel-gfx] [PATCH 03/25] dma-buf.rst: Document why idenfinite
- fences are a bad idea
-To: Daniel Vetter <daniel@ffwll.ch>, Daniel Stone <daniel@fooishbar.org>
-References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
- <20200707201229.472834-4-daniel.vetter@ffwll.ch>
- <CAPj87rO4mm-+sQbP07cgM8-=b6Q8Jbh5G0FsV8rwYx2hnEzPkA@mail.gmail.com>
- <20200709080458.GO3278063@phenom.ffwll.local>
- <CAPj87rPtD04099=sBzL2jKN6NNFNnM-hH3qfOLL10nPoF==VbA@mail.gmail.com>
- <CAKMK7uG6T+86+11CKpRpEY8v6_Xrm=hWv01tzPPLHq_H7p-AuA@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <4f42300f-9733-5536-ef25-95ed8f25bcf8@gmail.com>
-Date: Thu, 9 Jul 2020 16:28:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/FTbf7yEj86M0Mbd52ilmGUJbrcQv5fTqmfwuWq+Efk=;
+ b=moZD3Bvk6mkXNv7dWA0BTSfzbbMsYOpIUEMgbHyUzNrSd8BVIGqHCSCMI6C1EyrVME
+ ZvvmEZDpK0+YA52XEavirpj3A0s2TciAioH5g8yeJ2wYbG/JuYd2QI9xGwgzX+H47Ehh
+ 2ZpRp7YhAPOi78X7FL9Vz7b0+VJziVyhO2jIZB48I2797xQvkXvifzY4Myf3FOlsC0+l
+ GAtS7dOPaOJNg4k2wWGd/+rU94lwsw7CDpyi0hJY0UdM6GWletNnmGf+Kv8ikTCZN7iM
+ /vdCu2X4JZVSZBvy8IBue0lkeIe9acgS0J922iMYBNQU3Vu28UkKezulhOv8RF1SJnwx
+ B/hw==
+X-Gm-Message-State: AOAM532EB9faJYpwAbcYoCNoU0OZzZurmEELJWEeWfAvJ/TYCgv3fLzb
+ R24BF+hbfmu6FaiqkcRFb2MzFo7N
+X-Google-Smtp-Source: ABdhPJzeMaB59JogoKjXboxbIq5d7jyKf2mXTFSQRknpYUm0go4JW7CBYvWmmSbKC9dS9aSQJSyRkA==
+X-Received: by 2002:a1c:f203:: with SMTP id s3mr494829wmc.126.1594307397779;
+ Thu, 09 Jul 2020 08:09:57 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:34c8:3a64:f9c6:7523])
+ by smtp.gmail.com with ESMTPSA id f197sm5553889wme.33.2020.07.09.08.09.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jul 2020 08:09:57 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/ttm: further cleanup ttm_mem_reg handling
+Date: Thu,  9 Jul 2020 17:09:55 +0200
+Message-Id: <20200709150956.2218-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uG6T+86+11CKpRpEY8v6_Xrm=hWv01tzPPLHq_H7p-AuA@mail.gmail.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,102 +80,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Steve Pronovost <spronovo@microsoft.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Jesse Natalie <jenatali@microsoft.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Mika Kuoppala <mika.kuoppala@intel.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Madhav.Chauhan@amd.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 09.07.20 um 14:31 schrieb Daniel Vetter:
-> On Thu, Jul 9, 2020 at 2:11 PM Daniel Stone <daniel@fooishbar.org> wrote:
->> On Thu, 9 Jul 2020 at 09:05, Daniel Vetter <daniel@ffwll.ch> wrote:
->>> On Thu, Jul 09, 2020 at 08:36:43AM +0100, Daniel Stone wrote:
->>>> On Tue, 7 Jul 2020 at 21:13, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
->>>>> Comes up every few years, gets somewhat tedious to discuss, let's
->>>>> write this down once and for all.
->>>> Thanks for writing this up! I wonder if any of the notes from my reply
->>>> to the previous-version thread would be helpful to more explicitly
->>>> encode the carrot of dma-fence's positive guarantees, rather than just
->>>> the stick of 'don't do this'. ;) Either way, this is:
->>> I think the carrot should go into the intro section for dma-fence, this
->>> section here is very much just the "don't do this" part. The previous
->>> patches have an attempt at encoding this a bit, maybe see whether there's
->>> a place for your reply (or parts of it) to fit?
->> Sounds good to me.
->>
->>>> Acked-by: Daniel Stone <daniels@collabora.com>
->>>>
->>>>> What I'm not sure about is whether the text should be more explicit in
->>>>> flat out mandating the amdkfd eviction fences for long running compute
->>>>> workloads or workloads where userspace fencing is allowed.
->>>> ... or whether we just say that you can never use dma-fence in
->>>> conjunction with userptr.
->>> Uh userptr is entirely different thing. That one is ok. It's userpsace
->>> fences or gpu futexes or future fences or whatever we want to call them.
->>> Or is there some other confusion here?.
->> I mean generating a dma_fence from a batch which will try to page in
->> userptr. Given that userptr could be backed by absolutely anything at
->> all, it doesn't seem smart to allow fences to rely on a pointer to an
->> mmap'ed NFS file. So it seems like batches should be mutually
->> exclusive between arbitrary SVM userptr and generating a dma-fence?
-> Locking is Tricky (tm) but essentially what at least amdgpu does is
-> pull in the backing storage before we publish any dma-fence. And then
-> some serious locking magic to make sure that doesn't race with a core
-> mm invalidation event. So for your case here the cs ioctl just blocks
-> until the nfs pages are pulled in.
-
-Yeah, we had some iterations until all was settled.
-
-Basic idea is the following:
-1. Have a sequence counter increased whenever a change to the page 
-tables happens.
-2. During CS grab the current value of this counter.
-3. Get all the pages you need in an array.
-4. Prepare CS, grab the low level lock the MM notifier waits for and 
-double check the counter.
-5. If the counter is still the same all is well and the DMA-fence pushed 
-to the hardware.
-6. If the counter has changed repeat.
-
-Can result in a nice live lock when you constantly page things in/out, 
-but that is expected behavior.
-
-Christian.
-
->
-> Once we've committed for the dma-fence it's only the other way round,
-> i.e. core mm will stall on the dma-fence if it wants to throw out
-> these pages again. More or less at least. That way we never have a
-> dma-fence depending upon any core mm operations. The only pain here is
-> that this severely limits what you can do in the critical path towards
-> signalling a dma-fence, because the tldr is "no interacting with core
-> mm at all allowed".
->
->> Speaking of entirely different things ... the virtio-gpu bit really
->> doesn't belong in this patch.
-> Oops, dunno where I lost that as a sparate patch. Will split out again :-(
-> -Daniel
->
->> Cheers,
->> Daniel
->
->
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+U3RvcCB0b3VjaGluZyB0aGUgYmFja2VuZCBwcml2YXRlIHBvaW50ZXIgYWxsdG9nZXRoZXIgYW5k
+Cm1ha2Ugc3VyZSB3ZSBuZXZlciBwdXQgdGhlIHNhbWUgbWVtIHR3aWNlIGJ5LgoKU2lnbmVkLW9m
+Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgICAgfCA0NiArKysrKysrKysrKysrKysrKysrLS0t
+LS0tLS0tLS0tLS0KIGluY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmggfCAgMiAtLQogMiBm
+aWxlcyBjaGFuZ2VkLCAyNiBpbnNlcnRpb25zKCspLCAyMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90
+dG1fYm8uYwppbmRleCAwYzEzZmU5NmM3ZTMuLjdiZTM2Yjk5OTZlZCAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9i
+by5jCkBAIC0zMTIsNyArMzEyLDYgQEAgc3RhdGljIGludCB0dG1fYm9faGFuZGxlX21vdmVfbWVt
+KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCiAJCQlpZiAoYmRldi0+ZHJpdmVyLT5tb3Zl
+X25vdGlmeSkKIAkJCQliZGV2LT5kcml2ZXItPm1vdmVfbm90aWZ5KGJvLCBldmljdCwgbWVtKTsK
+IAkJCWJvLT5tZW0gPSAqbWVtOwotCQkJbWVtLT5tbV9ub2RlID0gTlVMTDsKIAkJCWdvdG8gbW92
+ZWQ7CiAJCX0KIAl9CkBAIC02MTYsNyArNjE1LDYgQEAgc3RhdGljIHZvaWQgdHRtX2JvX3JlbGVh
+c2Uoc3RydWN0IGtyZWYgKmtyZWYpCiAJdHRtX2JvX2NsZWFudXBfbWVtdHlwZV91c2UoYm8pOwog
+CWRtYV9yZXN2X3VubG9jayhiby0+YmFzZS5yZXN2KTsKIAotCUJVR19PTihiby0+bWVtLm1tX25v
+ZGUgIT0gTlVMTCk7CiAJYXRvbWljX2RlYygmdHRtX2JvX2dsb2IuYm9fY291bnQpOwogCWRtYV9m
+ZW5jZV9wdXQoYm8tPm1vdmluZyk7CiAJaWYgKCF0dG1fYm9fdXNlc19lbWJlZGRlZF9nZW1fb2Jq
+ZWN0KGJvKSkKQEAgLTg0MywxMiArODQxLDI5IEBAIHN0YXRpYyBpbnQgdHRtX21lbV9ldmljdF9m
+aXJzdChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKIAlyZXR1cm4gcmV0OwogfQogCitzdGF0
+aWMgaW50IHR0bV9ib19tZW1fZ2V0KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCisJCQkg
+IGNvbnN0IHN0cnVjdCB0dG1fcGxhY2UgKnBsYWNlLAorCQkJICBzdHJ1Y3QgdHRtX21lbV9yZWcg
+Km1lbSkKK3sKKwlzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiA9ICZiby0+YmRldi0+
+bWFuW21lbS0+bWVtX3R5cGVdOworCisJbWVtLT5tbV9ub2RlID0gTlVMTDsKKwlpZiAoIW1hbi0+
+ZnVuYyB8fCAhbWFuLT5mdW5jLT5nZXRfbm9kZSkKKwkJcmV0dXJuIDA7CisKKwlyZXR1cm4gbWFu
+LT5mdW5jLT5nZXRfbm9kZShtYW4sIGJvLCBwbGFjZSwgbWVtKTsKK30KKwogdm9pZCB0dG1fYm9f
+bWVtX3B1dChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBzdHJ1Y3QgdHRtX21lbV9yZWcg
+Km1lbSkKIHsKIAlzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiA9ICZiby0+YmRldi0+
+bWFuW21lbS0+bWVtX3R5cGVdOwogCi0JaWYgKG1lbS0+bW1fbm9kZSkKLQkJKCptYW4tPmZ1bmMt
+PnB1dF9ub2RlKShtYW4sIG1lbSk7CisJaWYgKCFtYW4tPmZ1bmMgfHwgIW1hbi0+ZnVuYy0+cHV0
+X25vZGUpCisJCXJldHVybjsKKworCW1hbi0+ZnVuYy0+cHV0X25vZGUobWFuLCBtZW0pOworCW1l
+bS0+bW1fbm9kZSA9IE5VTEw7CisJbWVtLT5tZW1fdHlwZSA9IFRUTV9QTF9TWVNURU07CiB9CiBF
+WFBPUlRfU1lNQk9MKHR0bV9ib19tZW1fcHV0KTsKIApAQCAtOTAyLDcgKzkxNyw3IEBAIHN0YXRp
+YyBpbnQgdHRtX2JvX21lbV9mb3JjZV9zcGFjZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJv
+LAogCiAJdGlja2V0ID0gZG1hX3Jlc3ZfbG9ja2luZ19jdHgoYm8tPmJhc2UucmVzdik7CiAJZG8g
+ewotCQlyZXQgPSAoKm1hbi0+ZnVuYy0+Z2V0X25vZGUpKG1hbiwgYm8sIHBsYWNlLCBtZW0pOwor
+CQlyZXQgPSB0dG1fYm9fbWVtX2dldChibywgcGxhY2UsIG1lbSk7CiAJCWlmIChsaWtlbHkoIXJl
+dCkpCiAJCQlicmVhazsKIAkJaWYgKHVubGlrZWx5KHJldCAhPSAtRU5PU1BDKSkKQEAgLTEwMzIs
+NyArMTA0Nyw2IEBAIGludCB0dG1fYm9fbWVtX3NwYWNlKHN0cnVjdCB0dG1fYnVmZmVyX29iamVj
+dCAqYm8sCiAJaWYgKHVubGlrZWx5KHJldCkpCiAJCXJldHVybiByZXQ7CiAKLQltZW0tPm1tX25v
+ZGUgPSBOVUxMOwogCWZvciAoaSA9IDA7IGkgPCBwbGFjZW1lbnQtPm51bV9wbGFjZW1lbnQ7ICsr
+aSkgewogCQljb25zdCBzdHJ1Y3QgdHRtX3BsYWNlICpwbGFjZSA9ICZwbGFjZW1lbnQtPnBsYWNl
+bWVudFtpXTsKIAkJc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW47CkBAIC0xMDQ0LDIw
+ICsxMDU4LDE2IEBAIGludCB0dG1fYm9fbWVtX3NwYWNlKHN0cnVjdCB0dG1fYnVmZmVyX29iamVj
+dCAqYm8sCiAJCQlnb3RvIGVycm9yOwogCiAJCXR5cGVfZm91bmQgPSB0cnVlOwotCQltZW0tPm1t
+X25vZGUgPSBOVUxMOwotCQlpZiAobWVtLT5tZW1fdHlwZSA9PSBUVE1fUExfU1lTVEVNKQotCQkJ
+cmV0dXJuIDA7Ci0KLQkJbWFuID0gJmJkZXYtPm1hblttZW0tPm1lbV90eXBlXTsKLQkJcmV0ID0g
+KCptYW4tPmZ1bmMtPmdldF9ub2RlKShtYW4sIGJvLCBwbGFjZSwgbWVtKTsKKwkJcmV0ID0gdHRt
+X2JvX21lbV9nZXQoYm8sIHBsYWNlLCBtZW0pOwogCQlpZiAocmV0ID09IC1FTk9TUEMpCiAJCQlj
+b250aW51ZTsKIAkJaWYgKHVubGlrZWx5KHJldCkpCiAJCQlnb3RvIGVycm9yOwogCisJCW1hbiA9
+ICZiZGV2LT5tYW5bbWVtLT5tZW1fdHlwZV07CiAJCXJldCA9IHR0bV9ib19hZGRfbW92ZV9mZW5j
+ZShibywgbWFuLCBtZW0sIGN0eC0+bm9fd2FpdF9ncHUpOwogCQlpZiAodW5saWtlbHkocmV0KSkg
+ewotCQkJKCptYW4tPmZ1bmMtPnB1dF9ub2RlKShtYW4sIG1lbSk7CisJCQl0dG1fYm9fbWVtX3B1
+dChibywgbWVtKTsKIAkJCWlmIChyZXQgPT0gLUVCVVNZKQogCQkJCWNvbnRpbnVlOwogCkBAIC0x
+MDc2LDEyICsxMDg2LDggQEAgaW50IHR0bV9ib19tZW1fc3BhY2Uoc3RydWN0IHR0bV9idWZmZXJf
+b2JqZWN0ICpibywKIAkJCWdvdG8gZXJyb3I7CiAKIAkJdHlwZV9mb3VuZCA9IHRydWU7Ci0JCW1l
+bS0+bW1fbm9kZSA9IE5VTEw7Ci0JCWlmIChtZW0tPm1lbV90eXBlID09IFRUTV9QTF9TWVNURU0p
+Ci0JCQlyZXR1cm4gMDsKLQogCQlyZXQgPSB0dG1fYm9fbWVtX2ZvcmNlX3NwYWNlKGJvLCBwbGFj
+ZSwgbWVtLCBjdHgpOwotCQlpZiAocmV0ID09IDAgJiYgbWVtLT5tbV9ub2RlKQorCQlpZiAobGlr
+ZWx5KCFyZXQpKQogCQkJcmV0dXJuIDA7CiAKIAkJaWYgKHJldCAmJiByZXQgIT0gLUVCVVNZKQpA
+QCAtMTEyOSw3ICsxMTM1LDcgQEAgc3RhdGljIGludCB0dG1fYm9fbW92ZV9idWZmZXIoc3RydWN0
+IHR0bV9idWZmZXJfb2JqZWN0ICpibywKIAkJZ290byBvdXRfdW5sb2NrOwogCXJldCA9IHR0bV9i
+b19oYW5kbGVfbW92ZV9tZW0oYm8sICZtZW0sIGZhbHNlLCBjdHgpOwogb3V0X3VubG9jazoKLQlp
+ZiAocmV0ICYmIG1lbS5tbV9ub2RlKQorCWlmIChyZXQpCiAJCXR0bV9ib19tZW1fcHV0KGJvLCAm
+bWVtKTsKIAlyZXR1cm4gcmV0OwogfQpAQCAtMTE0NCw3ICsxMTUwLDcgQEAgc3RhdGljIGJvb2wg
+dHRtX2JvX3BsYWNlc19jb21wYXQoY29uc3Qgc3RydWN0IHR0bV9wbGFjZSAqcGxhY2VzLAogCWZv
+ciAoaSA9IDA7IGkgPCBudW1fcGxhY2VtZW50OyBpKyspIHsKIAkJY29uc3Qgc3RydWN0IHR0bV9w
+bGFjZSAqaGVhcCA9ICZwbGFjZXNbaV07CiAKLQkJaWYgKG1lbS0+bW1fbm9kZSAmJiAobWVtLT5z
+dGFydCA8IGhlYXAtPmZwZm4gfHwKKwkJaWYgKChtZW0tPnN0YXJ0IDwgaGVhcC0+ZnBmbiB8fAog
+CQkgICAgIChoZWFwLT5scGZuICE9IDAgJiYgKG1lbS0+c3RhcnQgKyBtZW0tPm51bV9wYWdlcykg
+PiBoZWFwLT5scGZuKSkpCiAJCQljb250aW51ZTsKIApkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0v
+dHRtL3R0bV9ib19kcml2ZXIuaCBiL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmgKaW5k
+ZXggYWExZjM5OGMyZWE3Li43MzIxNjdjYWQxMzAgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL3R0
+bS90dG1fYm9fZHJpdmVyLmgKKysrIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaApA
+QCAtNTY0LDggKzU2NCw2IEBAIGludCB0dG1fYm9fbWVtX3NwYWNlKHN0cnVjdCB0dG1fYnVmZmVy
+X29iamVjdCAqYm8sCiAJCSAgICAgc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4ICpjdHgpOwogCiB2
+b2lkIHR0bV9ib19tZW1fcHV0KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sIHN0cnVjdCB0
+dG1fbWVtX3JlZyAqbWVtKTsKLXZvaWQgdHRtX2JvX21lbV9wdXRfbG9ja2VkKHN0cnVjdCB0dG1f
+YnVmZmVyX29iamVjdCAqYm8sCi0JCQkgICBzdHJ1Y3QgdHRtX21lbV9yZWcgKm1lbSk7CiAKIGlu
+dCB0dG1fYm9fZGV2aWNlX3JlbGVhc2Uoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYpOwogCi0t
+IAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
