@@ -2,71 +2,105 @@ Return-Path: <SRS0=lnB5=AU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5236AC433E3
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 08:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BC66C433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 10:40:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 297EC2070E
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 08:09:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4473820708
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 10:40:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Z8SGMweg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 297EC2070E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DttUfllo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4473820708
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60BA6EA20;
-	Thu,  9 Jul 2020 08:09:16 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD9A6EA06
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 08:09:15 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id f2so1316463wrp.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 01:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=xILi+P7oxRN9bsl9W4i3+0ke3SSO/cGJKcOayGROABg=;
- b=Z8SGMwegjGqLUQQfKqZmW8OnZt4atfyK+euHQ66oyCKzXXabJQBna2CgnG6gYEwSxx
- JTBXk5cMDf6pHwZTG/X54Jme6aPmwyba+D85KHNMCZiewSxIUuN5gy8I1HAZsFiE5L39
- Zasqwt5fVM3jrkrCUHQ9O5XKDxbXPWsMXZZ4Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=xILi+P7oxRN9bsl9W4i3+0ke3SSO/cGJKcOayGROABg=;
- b=OfhF0uJJrBkEkZSZxtT3UaRHpEZ5qL+pxAo2/zDy5T/BHn/PwUYXumxIlutKBTkHj5
- iABAeCa9Ltfu2n2nJo2MnekdjgA8ufbfndmPomLxoK+RxCBpRpacQIJH4+OWllZsIdoE
- pdjKgbjjrqDfN9KLlGO2TdQssgbZzCBtZAoQKlln9O6IvkMvytOfFHdIgqtGzhH1j3+g
- 2ZtccwgfCfhWac1ongDZh3k1XJDeq4SB5y9SmGmlodNN/41/xQe9NWrIMtkUWBOYyJb+
- arnxsjvDYvY6gL+loWwwBeWlcOz+fK0a71lTCVs+tyhTqOP4BFSl/PHu7eIRvrycaMYo
- ZEjw==
-X-Gm-Message-State: AOAM532cDvY764tdcH/CtnWtskJ9ieG4HHk/2VoMU6rr4m2vsNS9zbmn
- Q6BOadOTbiUvbaEqcEzuNwJ4sg==
-X-Google-Smtp-Source: ABdhPJyXjosHa1e1FEUu0z2TQteu7t+nU4sUeh2Velm8Y72+jQHU242c3Oro8DJvZSDfcbp2iGZgaA==
-X-Received: by 2002:adf:828b:: with SMTP id 11mr66734825wrc.58.1594282154016; 
- Thu, 09 Jul 2020 01:09:14 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id d132sm3541640wmd.35.2020.07.09.01.09.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jul 2020 01:09:13 -0700 (PDT)
-Date: Thu, 9 Jul 2020 10:09:11 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 02/25] dma-fence: prime lockdep annotations
-Message-ID: <20200709080911.GP3278063@phenom.ffwll.local>
-References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
- <20200707201229.472834-3-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC9C56E1E2;
+	Thu,  9 Jul 2020 10:40:58 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B03BA6E1E2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 10:40:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E17nfNiGiobSIIvnCrU3svF6SVhKBLoH491mHmw8a8daurGCTmEZ2T9VYSx6uypMQkd0fKbCEbNaeEkvwnAIeiK2UdNn+pihpD1k5JObBRyTVqUAb0rn6XumFOcegb8R6n3JtjvvVrqayls6Xh7D79PYAGRevqEU093qRFQxi5wui0NE+nqAzxqhGYnZ5PWmkGBpf7y9LBmtUcIZA/+UDTBJrlCwp9SmCx5Bp+xmWjm3bFihSyVJX72vWUk8hHWIQaPSrh5mwQwfu92QNllmqW1MxFAgwAnNZmJM4f+YTAvyqqxFSWFNGz8x+shDVsNfyG49W4KG4uuTiQWao1ch/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ovPHTXaCQVbggEV2nS5PEduiiegR4Fg1+QxodNkscxc=;
+ b=klTbXcXeXuHW5J3mok2tmY5WX2+VyHgwRSFjN9doV9YF3Mmn4eTfPbfgWxTlHoY0FwnwRXpyJb+PcrQMbnD3c76oqbKNYzG1ks3vGkPuBF4+231NwVK+ggVBdmp4wnWgCQDz8+ni3qjWXS0ewISmouFOw9BhgVG9SRSKMY+fJf+tqrV7J1Zy872ifL+cpr0XpymbROft6Ym1DSX5QqogS47FxLAFTFLSGvOJN+8XilfCguFeRgx2SnjXXrmqQs0XWv/U9VskMMC9VWmpoy62deP/6B0wCel4pY3dhEeQ1nVO+iTK+e7ryZq4LgXdgfi31xlXYsK5AtDHNnBSio3/Ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ovPHTXaCQVbggEV2nS5PEduiiegR4Fg1+QxodNkscxc=;
+ b=DttUflloPGYZu4LjOMyVvlTC6XHrLDR9MEo8v8YAUdObf/bDU33F1J7WL5G5gmeHZp6mgMmgHbT5HxNgRkKivCu4ROxA66VWwUtpIlvNnk1i6ljA5aVxRlk6LZWYTg1e1WYHAKyGgcPGtGoTMoxKI8JfBd6u4cbgRhy0xoESLaY=
+Received: from MWHPR13CA0014.namprd13.prod.outlook.com (2603:10b6:300:16::24)
+ by BL0PR12MB2580.namprd12.prod.outlook.com (2603:10b6:207:3e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Thu, 9 Jul
+ 2020 10:40:56 +0000
+Received: from CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:16:cafe::98) by MWHPR13CA0014.outlook.office365.com
+ (2603:10b6:300:16::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.9 via Frontend
+ Transport; Thu, 9 Jul 2020 10:40:56 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT026.mail.protection.outlook.com (10.13.175.67) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3174.21 via Frontend Transport; Thu, 9 Jul 2020 10:40:56 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 9 Jul 2020
+ 05:40:55 -0500
+Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 9 Jul 2020 05:40:54 -0500
+From: chen gong <curry.gong@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/smu: correct a mistake
+Date: Thu, 9 Jul 2020 18:40:51 +0800
+Message-ID: <1594291251-5282-1-git-send-email-curry.gong@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200707201229.472834-3-daniel.vetter@ffwll.ch>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(46966005)(70206006)(82740400003)(8936002)(36756003)(47076004)(2906002)(26005)(186003)(426003)(2616005)(336012)(86362001)(4326008)(316002)(5660300002)(54906003)(6666004)(478600001)(8676002)(70586007)(82310400002)(7696005)(6916009)(356005)(66574015)(81166007)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b0e9ea27-7a46-49be-7fcc-08d823f48fae
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2580:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB25801DBEA87020F6AC980A1B9D640@BL0PR12MB2580.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:361;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ya83DTDcXRFFlGwfsxS1z8aV/Aj1d8mQoqTE5mxpQSQQsd0vYBVpbZeuD2H+4s+bQJir04u8w+cQi/+7dqCrYrcOPJqcPQor+fWc3CBPcwqu8jIxYpVci99oAE+Jc7cdxULDY0yW4MuLZ1X05DBZRLc5sOWvR71wqPz4yJCZCCRA0mdWj7x4HSnuZJp+YDc3Z6iMPL1dqfyaVDq/LUIDQKi8xdBmUJMoyTPv+JzZxRZCo2Gkp1xWFX5jXwj7naY3EWjVFXK/5XSzuCD39tJjQX71HFULvVljNkSNcHdfMi72x7PV1ewkY+adk7722JWER4b+uOb2GMPb2aezwCt3xoLnvjqQfsdJ+3hKUSlZiE71qeeDWhzrZyO/oup5RnCrrBNCh/gSA/CSNYH0Yo2yPw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2020 10:40:56.0776 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0e9ea27-7a46-49be-7fcc-08d823f48fae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT026.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,278 +112,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- linaro-mm-sig@lists.linaro.org, Jason Gunthorpe <jgg@mellanox.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@intel.com>,
- linux-media@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Evan.Quan@amd.com, chen gong <curry.gong@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jason,
+Corresponding to smu_workload_get_type(smu, type) is "get_workload_type"
 
-Below the paragraph I've added after our discussions around dma-fences
-outside of drivers/gpu. Good enough for an ack on this, or want something
-changed?
+Signed-off-by: chen gong <curry.gong@amd.com>
+---
+ drivers/gpu/drm/amd/powerplay/smu_internal.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks, Daniel
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+index afd786b..31e1fcb 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -77,7 +77,7 @@
+ #define smu_feature_get_index(smu, fea)					smu_ppt_funcs(get_smu_feature_index, -EINVAL, smu, fea)
+ #define smu_table_get_index(smu, tab)					smu_ppt_funcs(get_smu_table_index, -EINVAL, smu, tab)
+ #define smu_power_get_index(smu, src)					smu_ppt_funcs(get_smu_power_index, -EINVAL, smu, src)
+-#define smu_workload_get_type(smu, type)				smu_ppt_funcs(get_smu_power_index, -EINVAL, smu, type)
++#define smu_workload_get_type(smu, type)				smu_ppt_funcs(get_workload_type, -EINVAL, smu, type)
+ #define smu_run_btc(smu)						smu_ppt_funcs(run_btc, 0, smu)
+ #define smu_get_allowed_feature_mask(smu, feature_mask, num)		smu_ppt_funcs(get_allowed_feature_mask, 0, smu, feature_mask, num)
+ #define smu_store_cc6_data(smu, st, cc6_dis, pst_dis, pst_sw_dis)	smu_ppt_funcs(store_cc6_data, 0, smu, st, cc6_dis, pst_dis, pst_sw_dis)
+-- 
+2.7.4
 
-> + * Note that only GPU drivers have a reasonable excuse for both requiring
-> + * &mmu_interval_notifier and &shrinker callbacks at the same time as ha=
-ving to
-> + * track asynchronous compute work using &dma_fence. No driver outside of
-> + * drivers/gpu should ever call dma_fence_wait() in such contexts.
-
-
-On Tue, Jul 07, 2020 at 10:12:06PM +0200, Daniel Vetter wrote:
-> Two in one go:
-> - it is allowed to call dma_fence_wait() while holding a
->   dma_resv_lock(). This is fundamental to how eviction works with ttm,
->   so required.
-> =
-
-> - it is allowed to call dma_fence_wait() from memory reclaim contexts,
->   specifically from shrinker callbacks (which i915 does), and from mmu
->   notifier callbacks (which amdgpu does, and which i915 sometimes also
->   does, and probably always should, but that's kinda a debate). Also
->   for stuff like HMM we really need to be able to do this, or things
->   get real dicey.
-> =
-
-> Consequence is that any critical path necessary to get to a
-> dma_fence_signal for a fence must never a) call dma_resv_lock nor b)
-> allocate memory with GFP_KERNEL. Also by implication of
-> dma_resv_lock(), no userspace faulting allowed. That's some supremely
-> obnoxious limitations, which is why we need to sprinkle the right
-> annotations to all relevant paths.
-> =
-
-> The one big locking context we're leaving out here is mmu notifiers,
-> added in
-> =
-
-> commit 23b68395c7c78a764e8963fc15a7cfd318bf187f
-> Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Date:   Mon Aug 26 22:14:21 2019 +0200
-> =
-
->     mm/mmu_notifiers: add a lockdep map for invalidate_range_start/end
-> =
-
-> that one covers a lot of other callsites, and it's also allowed to
-> wait on dma-fences from mmu notifiers. But there's no ready-made
-> functions exposed to prime this, so I've left it out for now.
-> =
-
-> v2: Also track against mmu notifier context.
-> =
-
-> v3: kerneldoc to spec the cross-driver contract. Note that currently
-> i915 throws in a hard-coded 10s timeout on foreign fences (not sure
-> why that was done, but it's there), which is why that rule is worded
-> with SHOULD instead of MUST.
-> =
-
-> Also some of the mmu_notifier/shrinker rules might surprise SoC
-> drivers, I haven't fully audited them all. Which is infeasible anyway,
-> we'll need to run them with lockdep and dma-fence annotations and see
-> what goes boom.
-> =
-
-> v4: A spelling fix from Mika
-> =
-
-> v5: #ifdef for CONFIG_MMU_NOTIFIER. Reported by 0day. Unfortunately
-> this means lockdep enforcement is slightly inconsistent, it won't spot
-> GFP_NOIO and GFP_NOFS allocations in the wrong spot if
-> CONFIG_MMU_NOTIFIER is disabled in the kernel config. Oh well.
-> =
-
-> v5: Note that only drivers/gpu has a reasonable (or at least
-> historical) excuse to use dma_fence_wait() from shrinker and mmu
-> notifier callbacks. Everyone else should either have a better memory
-> manager model, or better hardware. This reflects discussions with
-> Jason Gunthorpe.
-> =
-
-> Cc: Jason Gunthorpe <jgg@mellanox.com>
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: kernel test robot <lkp@intel.com>
-> Reviewed-by: Thomas Hellstr=F6m <thomas.hellstrom@intel.com> (v4)
-> Cc: Mika Kuoppala <mika.kuoppala@intel.com>
-> Cc: Thomas Hellstrom <thomas.hellstrom@intel.com>
-> Cc: linux-media@vger.kernel.org
-> Cc: linaro-mm-sig@lists.linaro.org
-> Cc: linux-rdma@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Christian K=F6nig <christian.koenig@amd.com>
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> ---
->  Documentation/driver-api/dma-buf.rst |  6 ++++
->  drivers/dma-buf/dma-fence.c          | 46 ++++++++++++++++++++++++++++
->  drivers/dma-buf/dma-resv.c           |  8 +++++
->  include/linux/dma-fence.h            |  1 +
->  4 files changed, 61 insertions(+)
-> =
-
-> diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-=
-api/dma-buf.rst
-> index 05d856131140..f8f6decde359 100644
-> --- a/Documentation/driver-api/dma-buf.rst
-> +++ b/Documentation/driver-api/dma-buf.rst
-> @@ -133,6 +133,12 @@ DMA Fences
->  .. kernel-doc:: drivers/dma-buf/dma-fence.c
->     :doc: DMA fences overview
->  =
-
-> +DMA Fence Cross-Driver Contract
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +.. kernel-doc:: drivers/dma-buf/dma-fence.c
-> +   :doc: fence cross-driver contract
-> +
->  DMA Fence Signalling Annotations
->  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->  =
-
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index 0005bc002529..af1d8ea926b3 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -64,6 +64,52 @@ static atomic64_t dma_fence_context_counter =3D ATOMIC=
-64_INIT(1);
->   *   &dma_buf.resv pointer.
->   */
->  =
-
-> +/**
-> + * DOC: fence cross-driver contract
-> + *
-> + * Since &dma_fence provide a cross driver contract, all drivers must fo=
-llow the
-> + * same rules:
-> + *
-> + * * Fences must complete in a reasonable time. Fences which represent k=
-ernels
-> + *   and shaders submitted by userspace, which could run forever, must b=
-e backed
-> + *   up by timeout and gpu hang recovery code. Minimally that code must =
-prevent
-> + *   further command submission and force complete all in-flight fences,=
- e.g.
-> + *   when the driver or hardware do not support gpu reset, or if the gpu=
- reset
-> + *   failed for some reason. Ideally the driver supports gpu recovery wh=
-ich only
-> + *   affects the offending userspace context, and no other userspace
-> + *   submissions.
-> + *
-> + * * Drivers may have different ideas of what completion within a reason=
-able
-> + *   time means. Some hang recovery code uses a fixed timeout, others a =
-mix
-> + *   between observing forward progress and increasingly strict timeouts.
-> + *   Drivers should not try to second guess timeout handling of fences f=
-rom
-> + *   other drivers.
-> + *
-> + * * To ensure there's no deadlocks of dma_fence_wait() against other lo=
-cks
-> + *   drivers should annotate all code required to reach dma_fence_signal=
-(),
-> + *   which completes the fences, with dma_fence_begin_signalling() and
-> + *   dma_fence_end_signalling().
-> + *
-> + * * Drivers are allowed to call dma_fence_wait() while holding dma_resv=
-_lock().
-> + *   This means any code required for fence completion cannot acquire a
-> + *   &dma_resv lock. Note that this also pulls in the entire established
-> + *   locking hierarchy around dma_resv_lock() and dma_resv_unlock().
-> + *
-> + * * Drivers are allowed to call dma_fence_wait() from their &shrinker
-> + *   callbacks. This means any code required for fence completion cannot
-> + *   allocate memory with GFP_KERNEL.
-> + *
-> + * * Drivers are allowed to call dma_fence_wait() from their &mmu_notifi=
-er
-> + *   respectively &mmu_interval_notifier callbacks. This means any code =
-required
-> + *   for fence completeion cannot allocate memory with GFP_NOFS or GFP_N=
-OIO.
-> + *   Only GFP_ATOMIC is permissible, which might fail.
-> + *
-> + * Note that only GPU drivers have a reasonable excuse for both requiring
-> + * &mmu_interval_notifier and &shrinker callbacks at the same time as ha=
-ving to
-> + * track asynchronous compute work using &dma_fence. No driver outside of
-> + * drivers/gpu should ever call dma_fence_wait() in such contexts.
-> + */
-> +
->  static const char *dma_fence_stub_get_name(struct dma_fence *fence)
->  {
->          return "stub";
-> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-> index e7d7197d48ce..0e6675ec1d11 100644
-> --- a/drivers/dma-buf/dma-resv.c
-> +++ b/drivers/dma-buf/dma-resv.c
-> @@ -36,6 +36,7 @@
->  #include <linux/export.h>
->  #include <linux/mm.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/mmu_notifier.h>
->  =
-
->  /**
->   * DOC: Reservation Object Overview
-> @@ -116,6 +117,13 @@ static int __init dma_resv_lockdep(void)
->  	if (ret =3D=3D -EDEADLK)
->  		dma_resv_lock_slow(&obj, &ctx);
->  	fs_reclaim_acquire(GFP_KERNEL);
-> +#ifdef CONFIG_MMU_NOTIFIER
-> +	lock_map_acquire(&__mmu_notifier_invalidate_range_start_map);
-> +	__dma_fence_might_wait();
-> +	lock_map_release(&__mmu_notifier_invalidate_range_start_map);
-> +#else
-> +	__dma_fence_might_wait();
-> +#endif
->  	fs_reclaim_release(GFP_KERNEL);
->  	ww_mutex_unlock(&obj.lock);
->  	ww_acquire_fini(&ctx);
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 3f288f7db2ef..09e23adb351d 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -360,6 +360,7 @@ dma_fence_get_rcu_safe(struct dma_fence __rcu **fence=
-p)
->  #ifdef CONFIG_LOCKDEP
->  bool dma_fence_begin_signalling(void);
->  void dma_fence_end_signalling(bool cookie);
-> +void __dma_fence_might_wait(void);
->  #else
->  static inline bool dma_fence_begin_signalling(void)
->  {
-> -- =
-
-> 2.27.0
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
