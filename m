@@ -8,61 +8,61 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A64A4C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1D6CC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:32:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6884A206DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:29:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 84E4F20720
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:32:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wy3LxzCi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6884A206DF
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tRqf4rM6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84E4F20720
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343A26EB2D;
-	Thu,  9 Jul 2020 20:29:21 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED026EB2D
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 20:29:20 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id g10so6985849wmc.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 13:29:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47D426EB2F;
+	Thu,  9 Jul 2020 20:32:46 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC8716EB2F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 20:32:44 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id f18so3254980wml.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 13:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HxN/pR+gEQ0oBr6/1JVic57ZB6YAseAnhk7XaZhFgRQ=;
- b=Wy3LxzCiUeuX/iMqLXmkQeviH9mBwm+m7zeAUb5YidkSwQMXoTXW4CqKRWawBwLUtJ
- O3GbVKK9Swock2p2xtP7pJsKUsLuJaB8wfuwjK3r1y6t3Eh9bah8E//rp5Kta90VHJAi
- 5AwkJF5cXUPcD2E/z/RAcB2Y5LLOJE6kk/LG4FbW3c695E2AABonKnMZ3gF6lVcfz6g6
- 0Qx9xxTO0NqyVuGzWCmS7AIa6CtNJ99pZ+Z4yOqhIaCmlKnkyjND+8U3zTEjMOXo2Wtl
- PUW6jHoxtdGipYZsDqRK8PyB917g4XHdWYM20Q3Z3rw06F4TAnl1yUGyqKbDYBsiTq7/
- 7zXA==
+ :cc; bh=k7Mbzaw7e150j1K3ZppILaL+FXuxzVTNEa78yLHBzbk=;
+ b=tRqf4rM6cJIedqOSH3GwM0eElM98qam5POb4Em62+tXrFac4ArCK9UHAyWGjruGHoM
+ s8zk7iLNqTGss9lcnFrTVSMvqxkaRTURX/yFPSdoUgU+oAvghB1IrjpTCi3qrdPBOTVJ
+ cmcoaS5JATBMOC9ePSJXRKUYDpfeuVksCn+y2vzqv6rFJ0Zef1lWX1PZGx4R1BIh7i1p
+ oaLxItz+bFDPCEIa3f4ogfQEFL/lIMLg6GrQ0neNPWLGzOtGLZH0pT1Xn63H3RezlLoB
+ 1vmFJC6/yNrbXpQEW2I0FoEBXqH8dpMnIbjogG5Nw6guSXZPThs/tTZMDJUIaIrxYDSe
+ SJRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=HxN/pR+gEQ0oBr6/1JVic57ZB6YAseAnhk7XaZhFgRQ=;
- b=E0fhjMDyOnrqUTzoyz6hQbyPESmXrtvTPngQdEWQKwmPBHYqKJ6AJSi8abHgHNpA8P
- j02L0hyoLKJjAdwZTi3S39rFarl9Hxrtq/Bb5HoLhTOpTBWyWBoW/22BPNuzP+NXJEXN
- pX8STzxjk9b4TF2qbm8bFLRwIwKKeEccnbfauW/mmv6IjDjKhRP6P6kKECav/vSjPGMT
- GbPFJxUzFvHyb1aCnvkpf+2fZhU1n81XxiuIIAIFz93LHrd/na6eimmpSncuu3uqsP9r
- xnlKp38rG3OeZbR6tG8s01O0B08cQ1glc+T61rMTlq+C/sWF5+akC71V6vHTwrnsjldo
- I5vw==
-X-Gm-Message-State: AOAM533WxVvEcaFwEC8NcKVw6oJux+5OKoKhZI5BiGNcoqGNuKjdge8X
- MvYEYNoKVikN9varZ6Kcsljw2gQ5sSz1qNfodws=
-X-Google-Smtp-Source: ABdhPJyonV1YZAnce9bgMZcad0sdWQ0nG6jFc3ilLmallshs4UrgjvWBnSRqyhk++Q0FHVruS9yiFkyKDdtA3Sezh8g=
-X-Received: by 2002:a7b:c7c2:: with SMTP id z2mr1650992wmk.39.1594326557418;
- Thu, 09 Jul 2020 13:29:17 -0700 (PDT)
+ bh=k7Mbzaw7e150j1K3ZppILaL+FXuxzVTNEa78yLHBzbk=;
+ b=GMUOvfqectSa67RNzEToUTqWEOIRg5Iy+Eo1ELTlS2rH7e3GZUSfsdaeYFotgTZj/6
+ Ld7ktMmWQSX/ym4Sas4NrbULIZduQ6bGzh2ZKHB/dKnSvVt6ls7z6JBMeQluPkxkytMe
+ fZh/LZMMts56rkSmKK7MkIZyAToGHWQUAwNCigQMYS6BsRB4EJnJ8Si6ptBk+PyGqhQd
+ u3o/xf7QxBwa3zIfLdYOldOCJIQYxE9WHJfIYgt2YmZUhvVsy9zaSv3qsGaIYK/ryAjh
+ vLTeT8DHS9vK/fi8Lr6Oih62aiRl5jtvp0Dvxi6MDMAfdMse138IMrzo6ne+ORaRAjen
+ I5tw==
+X-Gm-Message-State: AOAM530RhL6OOe3TWmzeecQQQ3I9gTpy6CNFBSl4f3tBiO7Z8jhUdTE5
+ XaPBT4KOeelDGNVgAHddSzfq1WlBUqs6KqP13Oc=
+X-Google-Smtp-Source: ABdhPJwEsbovqQK85RUcIpS0MTjhZPArioISp1H1MdQ9JFAvyZEFbViqCy8sUTf9tPqHnYQwfnHW7/SDmIFW30usW6I=
+X-Received: by 2002:a1c:de07:: with SMTP id v7mr1737393wmg.56.1594326763261;
+ Thu, 09 Jul 2020 13:32:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200702094447.8158-1-evan.quan@amd.com>
- <20200702094447.8158-4-evan.quan@amd.com>
-In-Reply-To: <20200702094447.8158-4-evan.quan@amd.com>
+References: <20200702094702.8223-1-evan.quan@amd.com>
+ <20200702094702.8223-4-evan.quan@amd.com>
+In-Reply-To: <20200702094702.8223-4-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Jul 2020 16:29:06 -0400
-Message-ID: <CADnq5_MBEE4+SxV9XMCVr1X+M4ZxWwfvL4_pTH3Oxkm8O+Z8Aw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/powerplay: drop unused code and wrapper
- around clock retrieving
+Date: Thu, 9 Jul 2020 16:32:31 -0400
+Message-ID: <CADnq5_NvLz_0PbDe+GEWSv7J5a0zyLmGc9EYy7zPriyaAS2dbQ@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amd/powerplay: put dpm frequency setting common
+ code in smu_v11_0.c
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,340 +82,441 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 2, 2020 at 5:45 AM Evan Quan <evan.quan@amd.com> wrote:
+On Thu, Jul 2, 2020 at 5:47 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Clean code by dropping unnecessary ones.
+> As designed the common code shared among all smu v11 ASCIs go to
+> smu_v11_0.c. This helps to maintain clear code layers.
 >
-> Change-Id: Idf89ef6fa787b61cd8baf8ded7e3f323bdcef189
+> Change-Id: I1f848eba0b6b56f8b5ef6f0888ee6955ba1d2070
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 
 Series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |  8 +++-
->  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  3 --
->  drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  8 +---
->  drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h |  8 ----
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  8 +++-
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c    |  4 +-
->  .../drm/amd/powerplay/sienna_cichlid_ppt.c    |  8 +++-
->  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  1 -
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 47 +------------------
->  drivers/gpu/drm/amd/powerplay/smu_v12_0.c     | 41 ----------------
->  10 files changed, 22 insertions(+), 114 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 65 --------------
+>  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  6 --
+>  drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h | 14 ++++
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 38 +++++----
+>  .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 18 ++--
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 84 +++++++++++++++++++
+>  6 files changed, 129 insertions(+), 96 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index 2e04ac1d8ff9..5b793e354704 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -1212,8 +1212,13 @@ static int arcturus_read_sensor(struct smu_context *smu,
->                 *(uint32_t *)data *= 100;
->                 *size = 4;
->                 break;
-> +       case AMDGPU_PP_SENSOR_VDDGFX:
-> +               ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
-> +               *size = 4;
-> +               break;
->         default:
-> -               ret = smu_v11_0_read_sensor(smu, sensor, data, size);
-> +               ret = -EOPNOTSUPP;
-> +               break;
->         }
->         mutex_unlock(&smu->sensor_lock);
->
-> @@ -2566,7 +2571,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
->         .set_default_dpm_table = arcturus_set_default_dpm_table,
->         .populate_umd_state_clk = arcturus_populate_umd_state_clk,
->         .get_thermal_temperature_range = arcturus_get_thermal_temperature_range,
-> -       .get_current_clk_freq_by_table = arcturus_get_current_clk_freq_by_table,
->         .print_clk_levels = arcturus_print_clk_levels,
->         .force_clk_levels = arcturus_force_clk_levels,
->         .read_sensor = arcturus_read_sensor,
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index f3bc1f16b0a4..43b4a31b0ffd 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -476,9 +476,6 @@ struct pptable_funcs {
->         int (*get_fan_speed_rpm)(struct smu_context *smu, uint32_t *speed);
->         int (*set_watermarks_table)(struct smu_context *smu, void *watermarks,
->                                     struct dm_pp_wm_sets_with_clock_ranges_soc15 *clock_ranges);
-> -       int (*get_current_clk_freq_by_table)(struct smu_context *smu,
-> -                                            enum smu_clk_type clk_type,
-> -                                            uint32_t *value);
->         int (*get_thermal_temperature_range)(struct smu_context *smu, struct smu_temperature_range *range);
->         int (*get_uclk_dpm_states)(struct smu_context *smu, uint32_t *clocks_in_khz, uint32_t *num_states);
->         int (*set_default_od_settings)(struct smu_context *smu);
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-> index d07bf4fe6e4a..f2f0b738fb4c 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-> @@ -197,19 +197,13 @@ int smu_v11_0_get_current_power_limit(struct smu_context *smu,
->
->  int smu_v11_0_set_power_limit(struct smu_context *smu, uint32_t n);
->
-> -int smu_v11_0_get_current_clk_freq(struct smu_context *smu,
-> -                                         enum smu_clk_type clk_id,
-> -                                         uint32_t *value);
-> -
->  int smu_v11_0_init_max_sustainable_clocks(struct smu_context *smu);
->
->  int smu_v11_0_enable_thermal_alert(struct smu_context *smu);
->
->  int smu_v11_0_disable_thermal_alert(struct smu_context *smu);
->
-> -int smu_v11_0_read_sensor(struct smu_context *smu,
-> -                                enum amd_pp_sensors sensor,
-> -                                void *data, uint32_t *size);
-> +int smu_v11_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value);
->
->  int smu_v11_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32_t clk);
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
-> index d29f75223987..0c1e1455c68f 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
-> @@ -60,10 +60,6 @@ int smu_v12_0_powergate_jpeg(struct smu_context *smu, bool gate);
->
->  int smu_v12_0_set_gfx_cgpg(struct smu_context *smu, bool enable);
->
-> -int smu_v12_0_read_sensor(struct smu_context *smu,
-> -                         enum amd_pp_sensors sensor,
-> -                         void *data, uint32_t *size);
-> -
->  uint32_t smu_v12_0_get_gfxoff_status(struct smu_context *smu);
->
->  int smu_v12_0_gfx_off_control(struct smu_context *smu, bool enable);
-> @@ -77,10 +73,6 @@ int smu_v12_0_set_default_dpm_tables(struct smu_context *smu);
->  int smu_v12_0_get_enabled_mask(struct smu_context *smu,
->                                       uint32_t *feature_mask, uint32_t num);
->
-> -int smu_v12_0_get_current_clk_freq(struct smu_context *smu,
-> -                                         enum smu_clk_type clk_id,
-> -                                         uint32_t *value);
-> -
->  int smu_v12_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type clk_type,
->                                                  uint32_t *min, uint32_t *max);
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index 3dab6f0e9578..1f96a8ac3fa8 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -1707,8 +1707,13 @@ static int navi10_read_sensor(struct smu_context *smu,
->                 *(uint32_t *)data *= 100;
->                 *size = 4;
->                 break;
-> +       case AMDGPU_PP_SENSOR_VDDGFX:
-> +               ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
-> +               *size = 4;
-> +               break;
->         default:
-> -               ret = smu_v11_0_read_sensor(smu, sensor, data, size);
-> +               ret = -EOPNOTSUPP;
-> +               break;
->         }
->         mutex_unlock(&smu->sensor_lock);
->
-> @@ -2399,7 +2404,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
->         .set_default_dpm_table = navi10_set_default_dpm_table,
->         .dpm_set_vcn_enable = navi10_dpm_set_vcn_enable,
->         .dpm_set_jpeg_enable = navi10_dpm_set_jpeg_enable,
-> -       .get_current_clk_freq_by_table = navi10_get_current_clk_freq_by_table,
->         .print_clk_levels = navi10_print_clk_levels,
->         .force_clk_levels = navi10_force_clk_levels,
->         .populate_umd_state_clk = navi10_populate_umd_state_clk,
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index d77e6de95b18..00fac13f06d6 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -907,7 +907,8 @@ static int renoir_read_sensor(struct smu_context *smu,
->                 *size = 4;
->                 break;
->         default:
-> -               ret = smu_v12_0_read_sensor(smu, sensor, data, size);
-> +               ret = -EOPNOTSUPP;
-> +               break;
->         }
->         mutex_unlock(&smu->sensor_lock);
->
-> @@ -941,7 +942,6 @@ static const struct pptable_funcs renoir_ppt_funcs = {
->         .get_current_power_state = renoir_get_current_power_state,
->         .dpm_set_vcn_enable = renoir_dpm_set_vcn_enable,
->         .dpm_set_jpeg_enable = renoir_dpm_set_jpeg_enable,
-> -       .get_current_clk_freq_by_table = renoir_get_current_clk_freq_by_table,
->         .force_dpm_limit_value = renoir_force_dpm_limit_value,
->         .unforce_dpm_levels = renoir_unforce_dpm_levels,
->         .get_workload_type = renoir_get_workload_type,
-> diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> index e6e9583b1180..7078afbd9a6b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> @@ -1510,8 +1510,13 @@ static int sienna_cichlid_read_sensor(struct smu_context *smu,
->                 *(uint32_t *)data *= 100;
->                 *size = 4;
->                 break;
-> +       case AMDGPU_PP_SENSOR_VDDGFX:
-> +               ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
-> +               *size = 4;
-> +               break;
->         default:
-> -               ret = smu_v11_0_read_sensor(smu, sensor, data, size);
-> +               ret = -EOPNOTSUPP;
-> +               break;
->         }
->         mutex_unlock(&smu->sensor_lock);
->
-> @@ -2480,7 +2485,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
->         .set_default_dpm_table = sienna_cichlid_set_default_dpm_table,
->         .dpm_set_vcn_enable = sienna_cichlid_dpm_set_vcn_enable,
->         .dpm_set_jpeg_enable = sienna_cichlid_dpm_set_jpeg_enable,
-> -       .get_current_clk_freq_by_table = sienna_cichlid_get_current_clk_freq_by_table,
->         .print_clk_levels = sienna_cichlid_print_clk_levels,
->         .force_clk_levels = sienna_cichlid_force_clk_levels,
->         .populate_umd_state_clk = sienna_cichlid_populate_umd_state_clk,
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> index f0fb74a05f80..8fbfa0562007 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> @@ -86,7 +86,6 @@
->  #define smu_dpm_set_vcn_enable(smu, enable)                            smu_ppt_funcs(dpm_set_vcn_enable, 0, smu, enable)
->  #define smu_dpm_set_jpeg_enable(smu, enable)                           smu_ppt_funcs(dpm_set_jpeg_enable, 0, smu, enable)
->  #define smu_set_watermarks_table(smu, tab, clock_ranges)               smu_ppt_funcs(set_watermarks_table, 0, smu, tab, clock_ranges)
-> -#define smu_get_current_clk_freq_by_table(smu, clk_type, value)                smu_ppt_funcs(get_current_clk_freq_by_table, 0, smu, clk_type, value)
->  #define smu_thermal_temperature_range_update(smu, range, rw)           smu_ppt_funcs(thermal_temperature_range_update, 0, smu, range, rw)
->  #define smu_get_thermal_temperature_range(smu, range)                  smu_ppt_funcs(get_thermal_temperature_range, 0, smu, range)
->  #define smu_register_irq_handler(smu)                                  smu_ppt_funcs(register_irq_handler, 0, smu)
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index 952e21234929..560ddf382e4f 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -1084,26 +1084,6 @@ int smu_v11_0_set_power_limit(struct smu_context *smu, uint32_t n)
->         return 0;
->  }
->
-> -int smu_v11_0_get_current_clk_freq(struct smu_context *smu,
-> -                                         enum smu_clk_type clk_id,
-> -                                         uint32_t *value)
-> -{
-> -       int ret = 0;
-> -       uint32_t freq = 0;
-> -
-> -       if (clk_id >= SMU_CLK_COUNT || !value)
-> -               return -EINVAL;
-> -
-> -       ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
-> -       if (ret)
-> -               return ret;
-> -
-> -       freq *= 100;
-> -       *value = freq;
-> -
-> -       return ret;
-> -}
-> -
->  int smu_v11_0_enable_thermal_alert(struct smu_context *smu)
->  {
->         int ret = 0;
-> @@ -1153,7 +1133,7 @@ static uint16_t convert_to_vddc(uint8_t vid)
->         return (uint16_t) ((6200 - (vid * 25)) / SMU11_VOLTAGE_SCALE);
->  }
->
-> -static int smu_v11_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value)
-> +int smu_v11_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value)
->  {
->         struct amdgpu_device *adev = smu->adev;
->         uint32_t vdd = 0, val_vid = 0;
-> @@ -1172,31 +1152,6 @@ static int smu_v11_0_get_gfx_vdd(struct smu_context *smu, uint32_t *value)
->
->  }
->
-> -int smu_v11_0_read_sensor(struct smu_context *smu,
-> -                                enum amd_pp_sensors sensor,
-> -                                void *data, uint32_t *size)
-> -{
-> -       int ret = 0;
-> -
-> -       if(!data || !size)
-> -               return -EINVAL;
-> -
-> -       switch (sensor) {
-> -       case AMDGPU_PP_SENSOR_VDDGFX:
-> -               ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
-> -               *size = 4;
-> -               break;
-> -       default:
-> -               ret = -EOPNOTSUPP;
-> -               break;
-> -       }
-> -
-> -       if (ret)
-> -               *size = 0;
-> -
-> -       return ret;
-> -}
-> -
->  int
->  smu_v11_0_display_clock_voltage_request(struct smu_context *smu,
->                                         struct pp_display_clock_request
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> index 4fb3f4984206..e46fc6178235 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> @@ -203,27 +203,6 @@ int smu_v12_0_set_gfx_cgpg(struct smu_context *smu, bool enable)
->                 NULL);
->  }
->
-> -int smu_v12_0_read_sensor(struct smu_context *smu,
-> -                                enum amd_pp_sensors sensor,
-> -                                void *data, uint32_t *size)
-> -{
-> -       int ret = 0;
-> -
-> -       if(!data || !size)
-> -               return -EINVAL;
-> -
-> -       switch (sensor) {
-> -       default:
-> -               ret = -EOPNOTSUPP;
-> -               break;
-> -       }
-> -
-> -       if (ret)
-> -               *size = 0;
-> -
-> -       return ret;
-> -}
-> -
->  /**
->   * smu_v12_0_get_gfxoff_status - get gfxoff status
->   *
-> @@ -337,26 +316,6 @@ int smu_v12_0_get_enabled_mask(struct smu_context *smu,
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index 95685bb9582a..6839faaab611 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -284,71 +284,6 @@ int smu_get_dpm_freq_range(struct smu_context *smu,
 >         return ret;
 >  }
 >
-> -int smu_v12_0_get_current_clk_freq(struct smu_context *smu,
-> -                                         enum smu_clk_type clk_id,
-> -                                         uint32_t *value)
+> -int smu_get_dpm_freq_by_index(struct smu_context *smu, enum smu_clk_type clk_type,
+> -                             uint16_t level, uint32_t *value)
 > -{
-> -       int ret = 0;
-> -       uint32_t freq = 0;
+> -       int ret = 0, clk_id = 0;
+> -       uint32_t param;
 > -
-> -       if (clk_id >= SMU_CLK_COUNT || !value)
+> -       if (!value)
 > -               return -EINVAL;
 > -
-> -       ret = smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
+> -       if (!smu_clk_dpm_is_enabled(smu, clk_type))
+> -               return 0;
+> -
+> -       clk_id = smu_clk_get_index(smu, clk_type);
+> -       if (clk_id < 0)
+> -               return clk_id;
+> -
+> -       param = (uint32_t)(((clk_id & 0xffff) << 16) | (level & 0xffff));
+> -
+> -       ret = smu_send_smc_msg_with_param(smu, SMU_MSG_GetDpmFreqByIndex,
+> -                                         param, value);
 > -       if (ret)
 > -               return ret;
 > -
-> -       freq *= 100;
-> -       *value = freq;
+> -       /* BIT31:  0 - Fine grained DPM, 1 - Dicrete DPM
+> -        * now, we un-support it */
+> -       *value = *value & 0x7fffffff;
 > -
 > -       return ret;
 > -}
 > -
->  int smu_v12_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type clk_type,
->                                                  uint32_t *min, uint32_t *max)
+> -int smu_get_dpm_level_count(struct smu_context *smu, enum smu_clk_type clk_type,
+> -                           uint32_t *value)
+> -{
+> -       return smu_get_dpm_freq_by_index(smu, clk_type, 0xff, value);
+> -}
+> -
+> -int smu_get_dpm_level_range(struct smu_context *smu, enum smu_clk_type clk_type,
+> -                           uint32_t *min_value, uint32_t *max_value)
+> -{
+> -       int ret = 0;
+> -       uint32_t level_count = 0;
+> -
+> -       if (!min_value && !max_value)
+> -               return -EINVAL;
+> -
+> -       if (min_value) {
+> -               /* by default, level 0 clock value as min value */
+> -               ret = smu_get_dpm_freq_by_index(smu, clk_type, 0, min_value);
+> -               if (ret)
+> -                       return ret;
+> -       }
+> -
+> -       if (max_value) {
+> -               ret = smu_get_dpm_level_count(smu, clk_type, &level_count);
+> -               if (ret)
+> -                       return ret;
+> -
+> -               ret = smu_get_dpm_freq_by_index(smu, clk_type, level_count - 1, max_value);
+> -               if (ret)
+> -                       return ret;
+> -       }
+> -
+> -       return ret;
+> -}
+> -
+>  bool smu_clk_dpm_is_enabled(struct smu_context *smu, enum smu_clk_type clk_type)
 >  {
+>         enum smu_feature_mask feature_id = 0;
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index ae16cc4c2b2d..66912884f093 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -715,16 +715,10 @@ int smu_switch_power_profile(struct smu_context *smu,
+>                              enum PP_SMC_POWER_PROFILE type,
+>                              bool en);
+>  int smu_get_smc_version(struct smu_context *smu, uint32_t *if_version, uint32_t *smu_version);
+> -int smu_get_dpm_freq_by_index(struct smu_context *smu, enum smu_clk_type clk_type,
+> -                             uint16_t level, uint32_t *value);
+> -int smu_get_dpm_level_count(struct smu_context *smu, enum smu_clk_type clk_type,
+> -                           uint32_t *value);
+>  int smu_get_dpm_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
+>                            uint32_t *min, uint32_t *max);
+>  int smu_set_soft_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
+>                             uint32_t min, uint32_t max);
+> -int smu_get_dpm_level_range(struct smu_context *smu, enum smu_clk_type clk_type,
+> -                           uint32_t *min_value, uint32_t *max_value);
+>  enum amd_dpm_forced_level smu_get_performance_level(struct smu_context *smu);
+>  int smu_force_performance_level(struct smu_context *smu, enum amd_dpm_forced_level level);
+>  int smu_set_display_count(struct smu_context *smu, uint32_t count);
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> index 070f1f0f9926..3d746b75396e 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> @@ -265,4 +265,18 @@ int smu_v11_0_set_performance_level(struct smu_context *smu,
+>  int smu_v11_0_set_power_source(struct smu_context *smu,
+>                                enum smu_power_src_type power_src);
+>
+> +int smu_v11_0_get_dpm_freq_by_index(struct smu_context *smu,
+> +                                   enum smu_clk_type clk_type,
+> +                                   uint16_t level,
+> +                                   uint32_t *value);
+> +
+> +int smu_v11_0_get_dpm_level_count(struct smu_context *smu,
+> +                                 enum smu_clk_type clk_type,
+> +                                 uint32_t *value);
+> +
+> +int smu_v11_0_get_dpm_level_range(struct smu_context *smu,
+> +                                 enum smu_clk_type clk_type,
+> +                                 uint32_t *min_value,
+> +                                 uint32_t *max_value);
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index d88b2f200d94..d96e8334b5e2 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -881,13 +881,13 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+>                 if (ret)
+>                         return size;
+>
+> -               ret = smu_get_dpm_level_count(smu, clk_type, &count);
+> +               ret = smu_v11_0_get_dpm_level_count(smu, clk_type, &count);
+>                 if (ret)
+>                         return size;
+>
+>                 if (!navi10_is_support_fine_grained_dpm(smu, clk_type)) {
+>                         for (i = 0; i < count; i++) {
+> -                               ret = smu_get_dpm_freq_by_index(smu, clk_type, i, &value);
+> +                               ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
+>                                 if (ret)
+>                                         return size;
+>
+> @@ -895,10 +895,10 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+>                                                 cur_value == value ? "*" : "");
+>                         }
+>                 } else {
+> -                       ret = smu_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
+> +                       ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
+>                         if (ret)
+>                                 return size;
+> -                       ret = smu_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
+> +                       ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
+>                         if (ret)
+>                                 return size;
+>
+> @@ -1058,11 +1058,11 @@ static int navi10_force_clk_levels(struct smu_context *smu,
+>                         soft_min_level = (soft_min_level >= 1 ? 1 : 0);
+>                 }
+>
+> -               ret = smu_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+> +               ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+>                 if (ret)
+>                         return size;
+>
+> -               ret = smu_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+> +               ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+>                 if (ret)
+>                         return size;
+>
+> @@ -1110,7 +1110,7 @@ static int navi10_get_clock_by_type_with_latency(struct smu_context *smu,
+>         case SMU_SOCCLK:
+>         case SMU_MCLK:
+>         case SMU_UCLK:
+> -               ret = smu_get_dpm_level_count(smu, clk_type, &level_count);
+> +               ret = smu_v11_0_get_dpm_level_count(smu, clk_type, &level_count);
+>                 if (ret)
+>                         return ret;
+>
+> @@ -1118,7 +1118,7 @@ static int navi10_get_clock_by_type_with_latency(struct smu_context *smu,
+>                 clocks->num_levels = level_count;
+>
+>                 for (i = 0; i < level_count; i++) {
+> -                       ret = smu_get_dpm_freq_by_index(smu, clk_type, i, &freq);
+> +                       ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &freq);
+>                         if (ret)
+>                                 return ret;
+>
+> @@ -1493,21 +1493,21 @@ static int navi10_get_profiling_clk_mask(struct smu_context *smu,
+>                         *mclk_mask = 0;
+>         } else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
+>                 if(sclk_mask) {
+> -                       ret = smu_get_dpm_level_count(smu, SMU_SCLK, &level_count);
+> +                       ret = smu_v11_0_get_dpm_level_count(smu, SMU_SCLK, &level_count);
+>                         if (ret)
+>                                 return ret;
+>                         *sclk_mask = level_count - 1;
+>                 }
+>
+>                 if(mclk_mask) {
+> -                       ret = smu_get_dpm_level_count(smu, SMU_MCLK, &level_count);
+> +                       ret = smu_v11_0_get_dpm_level_count(smu, SMU_MCLK, &level_count);
+>                         if (ret)
+>                                 return ret;
+>                         *mclk_mask = level_count - 1;
+>                 }
+>
+>                 if(soc_mask) {
+> -                       ret = smu_get_dpm_level_count(smu, SMU_SOCCLK, &level_count);
+> +                       ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &level_count);
+>                         if (ret)
+>                                 return ret;
+>                         *soc_mask = level_count - 1;
+> @@ -1831,12 +1831,18 @@ static int navi10_set_peak_performance_level(struct smu_context *smu)
+>                 sclk_freq = NAVI12_UMD_PSTATE_PEAK_GFXCLK;
+>                 break;
+>         default:
+> -               ret = smu_get_dpm_level_range(smu, SMU_SCLK, NULL, &sclk_freq);
+> +               ret = smu_v11_0_get_dpm_level_range(smu,
+> +                                                   SMU_SCLK,
+> +                                                   NULL,
+> +                                                   &sclk_freq);
+>                 if (ret)
+>                         return ret;
+>         }
+>
+> -       ret = smu_get_dpm_level_range(smu, SMU_UCLK, NULL, &uclk_freq);
+> +       ret = smu_v11_0_get_dpm_level_range(smu,
+> +                                           SMU_UCLK,
+> +                                           NULL,
+> +                                           &uclk_freq);
+>         if (ret)
+>                 return ret;
+>
+> @@ -2331,15 +2337,15 @@ static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
+>         if (smu_version < 0x2A3200)
+>                 return 0;
+>
+> -       ret = smu_get_dpm_level_count(smu, SMU_UCLK, &uclk_count);
+> +       ret = smu_v11_0_get_dpm_level_count(smu, SMU_UCLK, &uclk_count);
+>         if (ret)
+>                 return ret;
+>
+> -       ret = smu_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)0, &uclk_min);
+> +       ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)0, &uclk_min);
+>         if (ret)
+>                 return ret;
+>
+> -       ret = smu_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)(uclk_count - 1), &uclk_max);
+> +       ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)(uclk_count - 1), &uclk_max);
+>         if (ret)
+>                 return ret;
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> index dfe192ce33ab..f2bbe56798d7 100644
+> --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> @@ -789,13 +789,13 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+>                 if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
+>                         amdgpu_gfx_off_ctrl(adev, false);
+>
+> -               ret = smu_get_dpm_level_count(smu, clk_type, &count);
+> +               ret = smu_v11_0_get_dpm_level_count(smu, clk_type, &count);
+>                 if (ret)
+>                         goto print_clk_out;
+>
+>                 if (!sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
+>                         for (i = 0; i < count; i++) {
+> -                               ret = smu_get_dpm_freq_by_index(smu, clk_type, i, &value);
+> +                               ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
+>                                 if (ret)
+>                                         goto print_clk_out;
+>
+> @@ -803,10 +803,10 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+>                                                 cur_value == value ? "*" : "");
+>                         }
+>                 } else {
+> -                       ret = smu_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
+> +                       ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
+>                         if (ret)
+>                                 goto print_clk_out;
+> -                       ret = smu_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
+> +                       ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
+>                         if (ret)
+>                                 goto print_clk_out;
+>
+> @@ -901,11 +901,11 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+>                         soft_min_level = (soft_min_level >= 1 ? 1 : 0);
+>                 }
+>
+> -               ret = smu_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+> +               ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+>                 if (ret)
+>                         goto forec_level_out;
+>
+> -               ret = smu_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+> +               ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+>                 if (ret)
+>                         goto forec_level_out;
+>
+> @@ -1312,7 +1312,7 @@ static int sienna_cichlid_get_profiling_clk_mask(struct smu_context *smu,
+>         } else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
+>                 if(sclk_mask) {
+>                         amdgpu_gfx_off_ctrl(adev, false);
+> -                       ret = smu_get_dpm_level_count(smu, SMU_SCLK, &level_count);
+> +                       ret = smu_v11_0_get_dpm_level_count(smu, SMU_SCLK, &level_count);
+>                         amdgpu_gfx_off_ctrl(adev, true);
+>                         if (ret)
+>                                 return ret;
+> @@ -1320,14 +1320,14 @@ static int sienna_cichlid_get_profiling_clk_mask(struct smu_context *smu,
+>                 }
+>
+>                 if(mclk_mask) {
+> -                       ret = smu_get_dpm_level_count(smu, SMU_MCLK, &level_count);
+> +                       ret = smu_v11_0_get_dpm_level_count(smu, SMU_MCLK, &level_count);
+>                         if (ret)
+>                                 return ret;
+>                         *mclk_mask = level_count - 1;
+>                 }
+>
+>                 if(soc_mask) {
+> -                       ret = smu_get_dpm_level_count(smu, SMU_SOCCLK, &level_count);
+> +                       ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &level_count);
+>                         if (ret)
+>                                 return ret;
+>                         *soc_mask = level_count - 1;
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> index 6c8b4230cbe2..03be59492af1 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> @@ -1905,3 +1905,87 @@ int smu_v11_0_set_power_source(struct smu_context *smu,
+>                                         NULL);
+>  }
+>
+> +int smu_v11_0_get_dpm_freq_by_index(struct smu_context *smu,
+> +                                   enum smu_clk_type clk_type,
+> +                                   uint16_t level,
+> +                                   uint32_t *value)
+> +{
+> +       int ret = 0, clk_id = 0;
+> +       uint32_t param;
+> +
+> +       if (!value)
+> +               return -EINVAL;
+> +
+> +       if (!smu_clk_dpm_is_enabled(smu, clk_type))
+> +               return 0;
+> +
+> +       clk_id = smu_clk_get_index(smu, clk_type);
+> +       if (clk_id < 0)
+> +               return clk_id;
+> +
+> +       param = (uint32_t)(((clk_id & 0xffff) << 16) | (level & 0xffff));
+> +
+> +       ret = smu_send_smc_msg_with_param(smu,
+> +                                         SMU_MSG_GetDpmFreqByIndex,
+> +                                         param,
+> +                                         value);
+> +       if (ret)
+> +               return ret;
+> +
+> +       /*
+> +        * BIT31:  0 - Fine grained DPM, 1 - Dicrete DPM
+> +        * now, we un-support it
+> +        */
+> +       *value = *value & 0x7fffffff;
+> +
+> +       return ret;
+> +}
+> +
+> +int smu_v11_0_get_dpm_level_count(struct smu_context *smu,
+> +                                 enum smu_clk_type clk_type,
+> +                                 uint32_t *value)
+> +{
+> +       return smu_v11_0_get_dpm_freq_by_index(smu,
+> +                                              clk_type,
+> +                                              0xff,
+> +                                              value);
+> +}
+> +
+> +int smu_v11_0_get_dpm_level_range(struct smu_context *smu,
+> +                                 enum smu_clk_type clk_type,
+> +                                 uint32_t *min_value,
+> +                                 uint32_t *max_value)
+> +{
+> +       uint32_t level_count = 0;
+> +       int ret = 0;
+> +
+> +       if (!min_value && !max_value)
+> +               return -EINVAL;
+> +
+> +       if (min_value) {
+> +               /* by default, level 0 clock value as min value */
+> +               ret = smu_v11_0_get_dpm_freq_by_index(smu,
+> +                                                     clk_type,
+> +                                                     0,
+> +                                                     min_value);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       if (max_value) {
+> +               ret = smu_v11_0_get_dpm_level_count(smu,
+> +                                                   clk_type,
+> +                                                   &level_count);
+> +               if (ret)
+> +                       return ret;
+> +
+> +               ret = smu_v11_0_get_dpm_freq_by_index(smu,
+> +                                                     clk_type,
+> +                                                     level_count - 1,
+> +                                                     max_value);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       return ret;
+> +}
 > --
 > 2.27.0
 >
