@@ -8,61 +8,61 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66B62C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40341C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FA522076A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:50:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0DFC120672
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 20:54:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EG03zqPY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FA522076A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B3cME9/2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DFC120672
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0E26EB37;
-	Thu,  9 Jul 2020 20:50:58 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1A66EB37
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 20:50:57 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id s10so3723145wrw.12
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 13:50:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACC646EB37;
+	Thu,  9 Jul 2020 20:54:36 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C36926EB37
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 20:54:35 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id f2so3748610wrp.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 13:54:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ldLlN569TZoZWvIaE6kqOoLRr0lf/eanVEM6JGUdxaU=;
- b=EG03zqPYm3MAtQfzefQf1tP6l+oKinphw6wOrIicB0aRjoF9Ch/TtukxkJEyWDBhYz
- UbogFnh3Xn3F4h73VawgUQfC48kuiW2BAQXvBOJQLXQwct8wbOEDWq9v0PIxww1nxDKX
- 0SdJBT7YH6ee4LD4uLZFH1yutKzN9elszbkdQFspWCpsO6rZ73RCi4K04IV/w9s3kTnn
- h/bS3A39DWH6zujppZ7MT4JgHkCpOJORs3sG/Oe3Z1egTk/yyvAcgLuRftNi9QeBjjKr
- eGQjWV8uV59uMUEo/z3BYlXd4bbGW1LxNfBCcqd8MFUT5duKHgbPTh7s3bML/JcRweFV
- jF8A==
+ :cc; bh=YoGcXZFZ8BcTDEYFePvFfogWqMW037TK9tkm4Vei/0Q=;
+ b=B3cME9/2WR877kw5Szo4bJqDCXMsFmuLNv7PuQCEZRBew1PaYcr3tOblIU3wLZkGcp
+ 37Ro559dbZhiymKgGtD55dUmbnSu/wRrJFyVydl5kzf62rNN6pNMuX/vOczHlYFGnIvx
+ deaNTg8/U4CpSK1RebqGzNwkozNZQIYJAculKEYQ6kgyylxHsNcdNM6jrdqJJV3EeB3D
+ SQSTAfyi7Y905TaTGlXJQSwNiLD+WJs3fwtswrJYUFlNjWzh/tMuIcihbcocjouKr5W0
+ 7PWWNFREAaZxK2NreV0kaT+fpupRUR6jUy6kCuS2Rk411JXQL6ygTnhdjFrqdRr2mROm
+ 7img==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ldLlN569TZoZWvIaE6kqOoLRr0lf/eanVEM6JGUdxaU=;
- b=ccpQE0xTCHB1IU/2Ul0+kdSgowT7Puqre4NB4L+qR365irIBS06rv2I2yqFXBqNzbR
- v41ZLMDAfUCltNEDl8phCeUDvfEdML3zak+XWm7pVn4hDZaX0eN5z2FwxNGyDlddiHyf
- jE/5fktBDuwoaL/jFul5qIZo23uQma+PtU5m7IFYXodJAypoWppuOAsE3lCkttWBqhjn
- 4lVaZHrWpZ94FPJO4ykLYOvkxzukAWKCVn9j14gkCTFg1Yr0aIuvGhBeoWgIEPujlG0I
- bCvy70Ce5FJsOYAVscjmxWMX5K3ZBTLEvo/ZOfgDU8IaWnY3S6wmr/AoH2BrvRfJsKpM
- 9OgA==
-X-Gm-Message-State: AOAM531V0BDHRjwZ0i9grM0CemW+kLbna/PRYTeBj8p/G/ZenvbtjN6v
- UuluvFFGUAeByoIOTsLSUyDZey3A/2NHWqILoSyIa6JO
-X-Google-Smtp-Source: ABdhPJxy7/ctb/rAoEN3hLhdiulJJkRHXb0ezysEto1hldI9gRtP9KlDX6RH4k6WSCNserMf6qeZIxFL+rGQqnEAj9s=
-X-Received: by 2002:adf:dd8d:: with SMTP id x13mr63783853wrl.362.1594327856119; 
- Thu, 09 Jul 2020 13:50:56 -0700 (PDT)
+ bh=YoGcXZFZ8BcTDEYFePvFfogWqMW037TK9tkm4Vei/0Q=;
+ b=AzjbfAPflzzswaCukN8x8TIJxMSXmxBqke1Kl6viUsfYm1eIuzTtx9CjNAfXhJ4cKe
+ 9G4s6g2U+oyiQKo1/x8dzX+W0j73TfKjNVZG6VKo7lhfWcbBeTZnbbzLlFGcSraRTqhX
+ MVlUDRjSoYkTrruZnsUmoBPE90WM8e3O/hLE27kl0Oy3wqORX+VaFoRxIOq3WLhpzg1Q
+ NGLsxwZmX/qexv/fylenbqUge0z0KX7WWj41LJ34Fb0yTMw+5HIoN5nT1a1g4lkYOpxq
+ Gz71D60IepSKyNJV/+gpGDaB3XF0vKoheIVXJNdJL1bdTkenSE2iCQlGet7IvQ3jYSKz
+ 8NQA==
+X-Gm-Message-State: AOAM530taN7dIRKEcMWLF3OLReHWmuUujs73XojoW1PiZIZurBu1Vni3
+ hyAIzPnhtf1aMddurx14WajWvrkiPpZzHpesZzPdH8ES
+X-Google-Smtp-Source: ABdhPJygFBN0MI0fBbbXpOaqXzWZHeVMR/On+e9VZoqBvv8PM6f/YjdKU+tSKtM2qkbmTgGY4XKcRPupFR9BnN9bJ3I=
+X-Received: by 2002:adf:ef89:: with SMTP id d9mr69048169wro.124.1594328074438; 
+ Thu, 09 Jul 2020 13:54:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200703085515.7552-1-evan.quan@amd.com>
- <20200703085515.7552-2-evan.quan@amd.com>
-In-Reply-To: <20200703085515.7552-2-evan.quan@amd.com>
+References: <20200703085818.7800-1-evan.quan@amd.com>
+ <20200703085818.7800-6-evan.quan@amd.com>
+In-Reply-To: <20200703085818.7800-6-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Jul 2020 16:50:45 -0400
-Message-ID: <CADnq5_O=Upoc3-L+AbSEGoOQLE+FVOEZw-e2G8VwPXRLntZMqQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: correct the supported pcie
- GenSpeed and LaneCount
+Date: Thu, 9 Jul 2020 16:54:23 -0400
+Message-ID: <CADnq5_NnQOKu2kG6-WLepoXpSXNRZz-wWgLVvJbCCfDYXQ74Xg@mail.gmail.com>
+Subject: Re: [PATCH 6/6] drm/amd/powerplay: drop unused code around thermal
+ range setting
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,116 +82,243 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 3, 2020 at 4:55 AM Evan Quan <evan.quan@amd.com> wrote:
+On Fri, Jul 3, 2020 at 4:59 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> The LCLK dpm table setup should be performed in .update_pcie_parameters().
-> Otherwise, the updated GenSpeed and LaneCount information will be lost.
+> Leftover of previous cleanups.
 >
-> Change-Id: I028c26ca0e54098cb93d9e9266719f1762ba2d7e
+> Change-Id: I36a018349647125513e47edda66db2005bd8b0c5
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 
 Series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks,
-
-Alex
-
 > ---
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c      | 17 +++++++----------
->  .../gpu/drm/amd/powerplay/sienna_cichlid_ppt.c  | 17 +++++++----------
->  2 files changed, 14 insertions(+), 20 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 32 -------------------
+>  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 --
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 32 -------------------
+>  .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 32 -------------------
+>  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 --
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 16 ++--------
+>  6 files changed, 3 insertions(+), 113 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index 209ccf38c020..56dc20a617fd 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -2314,37 +2314,6 @@ static void arcturus_log_thermal_throttling_event(struct smu_context *smu)
+>                         log_buf);
+>  }
+>
+> -static int arcturus_set_thermal_range(struct smu_context *smu,
+> -                                      struct smu_temperature_range range)
+> -{
+> -       struct amdgpu_device *adev = smu->adev;
+> -       int low = SMU_THERMAL_MINIMUM_ALERT_TEMP;
+> -       int high = SMU_THERMAL_MAXIMUM_ALERT_TEMP;
+> -       uint32_t val;
+> -       struct smu_table_context *table_context = &smu->smu_table;
+> -       struct smu_11_0_powerplay_table *powerplay_table = table_context->power_play_table;
+> -
+> -       low = max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
+> -                       range.min / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
+> -       high = min((uint16_t)SMU_THERMAL_MAXIMUM_ALERT_TEMP, powerplay_table->software_shutdown_temp);
+> -
+> -       if (low > high)
+> -               return -EINVAL;
+> -
+> -       val = RREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CREDIT, 5);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_HW_ENA, 1);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTH_MASK, 0);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTL_MASK, 0);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, (high & 0xff));
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, (low & 0xff));
+> -       val = val & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK);
+> -
+> -       WREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL, val);
+> -
+> -       return 0;
+> -}
+> -
+>  static const struct pptable_funcs arcturus_ppt_funcs = {
+>         /* translate smu index into arcturus specific index */
+>         .get_smu_msg_index = arcturus_get_smu_msg_index,
+> @@ -2427,7 +2396,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+>         .set_df_cstate = arcturus_set_df_cstate,
+>         .allow_xgmi_power_down = arcturus_allow_xgmi_power_down,
+>         .log_thermal_throttling_event = arcturus_log_thermal_throttling_event,
+> -       .set_thermal_range = arcturus_set_thermal_range,
+>  };
+>
+>  void arcturus_set_ppt_funcs(struct smu_context *smu)
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index dede24959652..52e5603dcc97 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -480,7 +480,6 @@ struct pptable_funcs {
+>         int (*set_cpu_power_state)(struct smu_context *smu);
+>         bool (*is_dpm_running)(struct smu_context *smu);
+>         int (*tables_init)(struct smu_context *smu, struct smu_table *tables);
+> -       int (*set_thermal_fan_table)(struct smu_context *smu);
+>         int (*get_fan_speed_percent)(struct smu_context *smu, uint32_t *speed);
+>         int (*get_fan_speed_rpm)(struct smu_context *smu, uint32_t *speed);
+>         int (*set_watermarks_table)(struct smu_context *smu, void *watermarks,
+> @@ -570,7 +569,6 @@ struct pptable_funcs {
+>         int (*disable_umc_cdr_12gbps_workaround)(struct smu_context *smu);
+>         int (*set_power_source)(struct smu_context *smu, enum smu_power_src_type power_src);
+>         void (*log_thermal_throttling_event)(struct smu_context *smu);
+> -       int (*set_thermal_range)(struct smu_context *smu, struct smu_temperature_range range);
+>  };
+>
+>  typedef enum {
 > diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index 3db5e663aa6f..97d14539c95e 100644
+> index a04a0ba632a9..41bd6d157271 100644
 > --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
 > +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -693,7 +693,6 @@ static int navi10_set_default_dpm_table(struct smu_context *smu)
->         PPTable_t *driver_ppt = smu->smu_table.driver_pptable;
->         struct smu_11_0_dpm_table *dpm_table;
->         int ret = 0;
-> -       int i;
->
->         /* socclk dpm table setup */
->         dpm_table = &dpm_context->dpm_tables.soc_table;
-> @@ -857,12 +856,6 @@ static int navi10_set_default_dpm_table(struct smu_context *smu)
->                 dpm_table->max = dpm_table->dpm_levels[0].value;
->         }
->
-> -       /* lclk dpm table setup */
-> -       for (i = 0; i < MAX_PCIE_CONF; i++) {
-> -               dpm_context->dpm_tables.pcie_table.pcie_gen[i] = driver_ppt->PcieGenSpeed[i];
-> -               dpm_context->dpm_tables.pcie_table.pcie_lane[i] = driver_ppt->PcieLaneCount[i];
-> -       }
-> -
->         return 0;
+> @@ -2340,37 +2340,6 @@ static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
+>         return navi10_dummy_pstate_control(smu, true);
 >  }
 >
-> @@ -1936,12 +1929,16 @@ static int navi10_update_pcie_parameters(struct smu_context *smu,
->                                      uint32_t pcie_gen_cap,
->                                      uint32_t pcie_width_cap)
->  {
-> +       struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
->         PPTable_t *pptable = smu->smu_table.driver_pptable;
-> -       int ret, i;
->         uint32_t smu_pcie_arg;
-> +       int ret, i;
+> -static int navi10_set_thermal_range(struct smu_context *smu,
+> -                                      struct smu_temperature_range range)
+> -{
+> -       struct amdgpu_device *adev = smu->adev;
+> -       int low = SMU_THERMAL_MINIMUM_ALERT_TEMP;
+> -       int high = SMU_THERMAL_MAXIMUM_ALERT_TEMP;
+> -       uint32_t val;
+> -       struct smu_table_context *table_context = &smu->smu_table;
+> -       struct smu_11_0_powerplay_table *powerplay_table = table_context->power_play_table;
+> -
+> -       low = max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
+> -                       range.min / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
+> -       high = min((uint16_t)SMU_THERMAL_MAXIMUM_ALERT_TEMP, powerplay_table->software_shutdown_temp);
+> -
+> -       if (low > high)
+> -               return -EINVAL;
+> -
+> -       val = RREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CREDIT, 5);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_HW_ENA, 1);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTH_MASK, 0);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTL_MASK, 0);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, (high & 0xff));
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, (low & 0xff));
+> -       val = val & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK);
+> -
+> -       WREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL, val);
+> -
+> -       return 0;
+> -}
+> -
+>  static const struct pptable_funcs navi10_ppt_funcs = {
+>         .tables_init = navi10_tables_init,
+>         .alloc_dpm_context = navi10_allocate_dpm_context,
+> @@ -2452,7 +2421,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+>         .run_btc = navi10_run_btc,
+>         .disable_umc_cdr_12gbps_workaround = navi10_disable_umc_cdr_12gbps_workaround,
+>         .set_power_source = smu_v11_0_set_power_source,
+> -       .set_thermal_range = navi10_set_thermal_range,
+>  };
 >
-> -       struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
-> -       struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-> +       /* lclk dpm table setup */
-> +       for (i = 0; i < MAX_PCIE_CONF; i++) {
-> +               dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pptable->PcieGenSpeed[i];
-> +               dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pptable->PcieLaneCount[i];
-> +       }
->
->         for (i = 0; i < NUM_LINK_LEVELS; i++) {
->                 smu_pcie_arg = (i << 16) |
+>  void navi10_set_ppt_funcs(struct smu_context *smu)
 > diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> index 7a108676f90a..46be02e4b93c 100644
+> index 4180b9196504..ebe8b5a88f0b 100644
 > --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 > +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> @@ -601,7 +601,6 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
->         PPTable_t *driver_ppt = smu->smu_table.driver_pptable;
->         struct smu_11_0_dpm_table *dpm_table;
->         int ret = 0;
-> -       int i;
->
->         /* socclk dpm table setup */
->         dpm_table = &dpm_context->dpm_tables.soc_table;
-> @@ -819,12 +818,6 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
->                 dpm_table->max = dpm_table->dpm_levels[0].value;
->         }
->
-> -       /* lclk dpm table setup */
-> -       for (i = 0; i < MAX_PCIE_CONF; i++) {
-> -               dpm_context->dpm_tables.pcie_table.pcie_gen[i] = driver_ppt->PcieGenSpeed[i];
-> -               dpm_context->dpm_tables.pcie_table.pcie_lane[i] = driver_ppt->PcieLaneCount[i];
-> -       }
-> -
->         return 0;
+> @@ -1795,37 +1795,6 @@ static bool sienna_cichlid_is_baco_supported(struct smu_context *smu)
+>         return (val & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK) ? true : false;
 >  }
 >
-> @@ -1722,12 +1715,16 @@ static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
->                                          uint32_t pcie_gen_cap,
->                                          uint32_t pcie_width_cap)
+> -static int sienna_cichlid_set_thermal_range(struct smu_context *smu,
+> -                                      struct smu_temperature_range range)
+> -{
+> -       struct amdgpu_device *adev = smu->adev;
+> -       int low = SMU_THERMAL_MINIMUM_ALERT_TEMP;
+> -       int high = SMU_THERMAL_MAXIMUM_ALERT_TEMP;
+> -       uint32_t val;
+> -       struct smu_table_context *table_context = &smu->smu_table;
+> -       struct smu_11_0_7_powerplay_table *powerplay_table = table_context->power_play_table;
+> -
+> -       low = max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
+> -                       range.min / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
+> -       high = min((uint16_t)SMU_THERMAL_MAXIMUM_ALERT_TEMP, powerplay_table->software_shutdown_temp);
+> -
+> -       if (low > high)
+> -               return -EINVAL;
+> -
+> -       val = RREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CREDIT, 5);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_HW_ENA, 1);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTH_MASK, 0);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_INTL_MASK, 0);
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, (high & 0xff));
+> -       val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, (low & 0xff));
+> -       val = val & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK);
+> -
+> -       WREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL, val);
+> -
+> -       return 0;
+> -}
+> -
+>  static void sienna_cichlid_dump_pptable(struct smu_context *smu)
 >  {
-> +       struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
->         PPTable_t *pptable = smu->smu_table.driver_pptable;
-> -       int ret, i;
->         uint32_t smu_pcie_arg;
-> +       int ret, i;
+>         struct smu_table_context *table_context = &smu->smu_table;
+> @@ -2563,7 +2532,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+>         .baco_exit = smu_v11_0_baco_exit,
+>         .get_dpm_ultimate_freq = sienna_cichlid_get_dpm_ultimate_freq,
+>         .set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
+> -       .set_thermal_range = sienna_cichlid_set_thermal_range,
+>  };
 >
-> -       struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
-> -       struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-> +       /* lclk dpm table setup */
-> +       for (i = 0; i < MAX_PCIE_CONF; i++) {
-> +               dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pptable->PcieGenSpeed[i];
-> +               dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pptable->PcieLaneCount[i];
-> +       }
+>  void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> index db11b9e28646..8c5cf3860e38 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> @@ -60,7 +60,6 @@
+>  #define smu_populate_umd_state_clk(smu)                                        smu_ppt_funcs(populate_umd_state_clk, 0, smu)
+>  #define smu_set_default_od8_settings(smu)                              smu_ppt_funcs(set_default_od8_settings, 0, smu)
+>  #define smu_tables_init(smu, tab)                                      smu_ppt_funcs(tables_init, 0, smu, tab)
+> -#define smu_set_thermal_fan_table(smu)                                 smu_ppt_funcs(set_thermal_fan_table, 0, smu)
+>  #define smu_enable_thermal_alert(smu)                                  smu_ppt_funcs(enable_thermal_alert, 0, smu)
+>  #define smu_disable_thermal_alert(smu)                                 smu_ppt_funcs(disable_thermal_alert, 0, smu)
+>  #define smu_smc_read_sensor(smu, sensor, data, size)                   smu_ppt_funcs(read_sensor, -EINVAL, smu, sensor, data, size)
+> @@ -90,7 +89,6 @@
+>  #define smu_asic_set_performance_level(smu, level)                     smu_ppt_funcs(set_performance_level, -EINVAL, smu, level)
+>  #define smu_dump_pptable(smu)                                          smu_ppt_funcs(dump_pptable, 0, smu)
+>  #define smu_update_pcie_parameters(smu, pcie_gen_cap, pcie_width_cap)  smu_ppt_funcs(update_pcie_parameters, 0, smu, pcie_gen_cap, pcie_width_cap)
+> -#define smu_set_thermal_range(smu, range)                              smu_ppt_funcs(set_thermal_range, 0, smu, range)
+>  #define smu_disable_umc_cdr_12gbps_workaround(smu)                     smu_ppt_funcs(disable_umc_cdr_12gbps_workaround, 0, smu)
+>  #define smu_set_power_source(smu, power_src)                           smu_ppt_funcs(set_power_source, 0, smu, power_src)
+>  #define smu_i2c_eeprom_init(smu, control)                              smu_ppt_funcs(i2c_eeprom_init, 0, smu, control)
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> index 86a118a3a80c..f711c1da1cad 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> @@ -1085,20 +1085,10 @@ int smu_v11_0_set_power_limit(struct smu_context *smu, uint32_t n)
 >
->         for (i = 0; i < NUM_LINK_LEVELS; i++) {
->                 smu_pcie_arg = (i << 16) |
+>  int smu_v11_0_enable_thermal_alert(struct smu_context *smu)
+>  {
+> -       int ret = 0;
+> -       struct amdgpu_device *adev = smu->adev;
+> -
+> -       if (smu->smu_table.thermal_controller_type) {
+> -               ret = amdgpu_irq_get(adev, &smu->irq_source, 0);
+> -               if (ret)
+> -                       return ret;
+> +       if (smu->smu_table.thermal_controller_type)
+> +               return amdgpu_irq_get(smu->adev, &smu->irq_source, 0);
+>
+> -               ret = smu_set_thermal_fan_table(smu);
+> -               if (ret)
+> -                       return ret;
+> -       }
+> -
+> -       return ret;
+> +       return 0;
+>  }
+>
+>  int smu_v11_0_disable_thermal_alert(struct smu_context *smu)
 > --
 > 2.27.0
 >
