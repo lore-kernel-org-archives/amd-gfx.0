@@ -2,84 +2,47 @@ Return-Path: <SRS0=lnB5=AU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6783DC433E2
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A84FC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3BEE520767
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:29:36 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=fooishbar-org.20150623.gappssmtp.com header.i=@fooishbar-org.20150623.gappssmtp.com header.b="mWsbJ7c1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BEE520767
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+	by mail.kernel.org (Postfix) with ESMTPS id 5BED620672
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:30:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BED620672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADABD6E9AE;
-	Thu,  9 Jul 2020 07:29:35 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91D3A6E9AE
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 07:29:34 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id z15so1197232wrl.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 00:29:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QLf3JWPj0alwMi3/QRK8jDSx0ygp/lxS9WUKSf5Y9tw=;
- b=mWsbJ7c1Re2d9RBWekoBuMXpKqp4ZN8n8E5QnYOQ7I8pw4whUhM43DgUPhtiKn/f6z
- 155YPwfhIjA7johhSPICPnskx/exhclt3ZpMgwyJyDBrwu8YpMxeDC8DUsjUCB1V+vpR
- KVKDTIiLovHqY8AQ7BhTLDBLYAnsXJzhBJw/5G4tWNKBTrIvmd9GNRgczysicPPyOwPf
- Q0mRSSrrSm+MC6laNfVmjJoQEbVGHte2dV2HYa1DBfvP8MWGysE/+jj+RoShwSTP99BG
- NfNEIlpR59Yf7DEyJIyhO/QpvszamWuFoiEgSOhk9JP/ag7Vk1NUbg6eFJfVh1OKr2UG
- EnNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QLf3JWPj0alwMi3/QRK8jDSx0ygp/lxS9WUKSf5Y9tw=;
- b=dSypINgiWdGQ5Bf7f/pjDFMgKf3dAY/xbUQcSzpNDfwL2FsJcR52KedZZxVa5QfE/d
- Xr+NTQYW5S6QtA2EfWGpAvCK2oLMQoFP1086iMNsDvrc3x0ujgNE/FUXXwYu1fwToiGI
- amRmM7f+mJY1p1DTCeVgi+UIUe56+ZeVW5oZx77AmtEbTxfpu42ZDZhe7M8EqCeTLDy5
- oB0B1LLCw7M5m5AUHIpWwjn1Yy9CjBfTXGF9tFfB63aX/8f15YNgQBcZUK4ZWSpAsU+B
- zNTxowYYaxkS/tKPmtS/msjD8vsqNLnRvh+nunuCRopr0mCl1A629hUC2mYn3qMLKoXa
- uoKA==
-X-Gm-Message-State: AOAM533Jh2IghNP0Obf4bpgONjTxk1rp3m6t0gDvHblogcDQLgeI4bZ/
- 6voKEctTYWlfO/FHeS/azJsYaEbscXSxRvxskkvJFQ==
-X-Google-Smtp-Source: ABdhPJyvjHsNIlAxHFL2C3MHVJKQZNLaDmrtK3luRNyuNIM3xw0dKhfnraR2CdqxwXkaHTztP0s2DSUpfaQvwqc35Hg=
-X-Received: by 2002:a5d:664e:: with SMTP id f14mr62231186wrw.6.1594279773059; 
- Thu, 09 Jul 2020 00:29:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AFBA6E9B4;
+	Thu,  9 Jul 2020 07:30:27 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C11B36E999
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 05:41:50 +0000 (UTC)
+Received: from [192.168.0.6] (ip5f5af27e.dynamic.kabel-deutschland.de
+ [95.90.242.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5D15920646095;
+ Thu,  9 Jul 2020 07:41:47 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Subject: drm: BUG: unable to handle page fault for address: 17ec6000
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>
+Message-ID: <10b8419e-9e98-56c4-f4ab-9463cccd8f60@molgen.mpg.de>
+Date: Thu, 9 Jul 2020 07:41:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
- <20200604081224.863494-4-daniel.vetter@ffwll.ch>
- <159186243606.1506.4437341616828968890@build.alporthouse.com>
- <CAPM=9ty6r1LuXAH_rf98GH0R9yN3x8xzKPjZG3QyvokpQBR-Hg@mail.gmail.com>
- <CAPj87rM0S2OPssf+WA+pjanT-0Om3yuUM1zUJCv4qTx5VYE=Fw@mail.gmail.com>
- <159255511144.7737.12635440776531222029@build.alporthouse.com>
- <CAKMK7uHEwj6jiZkRZ5PaCUNWcuU9oE4KYm4XHZwHnFzEuChZ7w@mail.gmail.com>
- <159255801588.7737.4425728073225310839@build.alporthouse.com>
- <20200619094309.GT20149@phenom.ffwll.local>
-In-Reply-To: <20200619094309.GT20149@phenom.ffwll.local>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 9 Jul 2020 08:29:21 +0100
-Message-ID: <CAPj87rOMzBUBWv7kJRvbX3tor-v=3=ZuGeRu0Ws8BOJ=OxX3XA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 03/18] dma-fence: basic lockdep annotations
-To: Chris Wilson <chris@chris-wilson.co.uk>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- linux-rdma <linux-rdma@vger.kernel.org>, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- DRI Development <dri-devel@lists.freedesktop.org>, 
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, 
- Mika Kuoppala <mika.kuoppala@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Linux Media Mailing List <linux-media@vger.kernel.org>
+Content-Language: en-US
+X-Mailman-Approved-At: Thu, 09 Jul 2020 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,177 +54,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Nathan Chancellor <natechancellor@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-Jumping in after a couple of weeks where I've paged most everything
-out of my brain ...
+Dear Linux folks,
 
-On Fri, 19 Jun 2020 at 10:43, Daniel Vetter <daniel@ffwll.ch> wrote:
-> On Fri, Jun 19, 2020 at 10:13:35AM +0100, Chris Wilson wrote:
-> > > The proposed patches might very well encode the wrong contract, that's
-> > > all up for discussion. But fundamentally questioning that we need one
-> > > is missing what upstream is all about.
-> >
-> > Then I have not clearly communicated, as my opinion is not that
-> > validation is worthless, but that the implementation is enshrining a
-> > global property on a low level primitive that prevents it from being
-> > used elsewhere. And I want to replace completion [chains] with fences, and
-> > bio with fences, and closures with fences, and what other equivalencies
-> > there are in the kernel. The fence is as central a locking construct as
-> > struct completion and deserves to be a foundational primitive provided
-> > by kernel/ used throughout all drivers for discrete problem domains.
-> >
-> > This is narrowing dma_fence whereby adding
-> >       struct lockdep_map *dma_fence::wait_map
-> > and annotating linkage, allows you to continue to specify that all
-> > dma_fence used for a particular purpose must follow common rules,
-> > without restricting the primitive for uses outside of this scope.
->
-> Somewhere else in this thread I had discussions with Jason Gunthorpe about
-> this topic. It might maybe change somewhat depending upon exact rules, but
-> his take is very much "I don't want dma_fence in rdma". Or pretty close to
-> that at least.
->
-> Similar discussions with habanalabs, they're using dma_fence internally
-> without any of the uapi. Discussion there has also now concluded that it's
-> best if they remove them, and simply switch over to a wait_queue or
-> completion like every other driver does.
->
-> The next round of the patches already have a paragraph to at least
-> somewhat limit how non-gpu drivers use dma_fence. And I guess actual
-> consensus might be pointing even more strongly at dma_fence being solely
-> something for gpus and closely related subsystem (maybe media) for syncing
-> dma-buf access.
->
-> So dma_fence as general replacement for completion chains I think just
-> wont happen.
->
-> What might make sense is if e.g. the lockdep annotations could be reused,
-> at least in design, for wait_queue or completion or anything else
-> really. I do think that has a fair chance compared to the automagic
-> cross-release annotations approach, which relied way too heavily on
-> guessing where barriers are. My experience from just a bit of playing
-> around with these patches here and discussing them with other driver
-> maintainers is that accurately deciding where critical sections start and
-> end is a job for humans only. And if you get it wrong, you will have a
-> false positive.
->
-> And you're indeed correct that if we'd do annotations for completions and
-> wait queues, then that would need to have a class per semantically
-> equivalent user, like we have lockdep classes for mutexes, not just one
-> overall.
->
-> But dma_fence otoh is something very specific, which comes with very
-> specific rules attached - it's not a generic wait_queue at all. Originally
-> it did start out as one even, but it is a very specialized wait_queue.
->
-> So there's imo two cases:
->
-> - Your completion is entirely orthogonal of dma_fences, and can never ever
->   block a dma_fence. Don't use dma_fence for this, and no problem. It's
->   just another wait_queue somewhere.
->
-> - Your completion can eventually, maybe through lots of convolutions and
->   depdencies, block a dma_fence. In that case full dma_fence rules apply,
->   and the only thing you can do with a custom annotation is make the rules
->   even stricter. E.g. if a sub-timeline in the scheduler isn't allowed to
->   take certain scheduler locks. But the userspace visible/published fence
->   do take them, maybe as part of command submission or retirement.
->   Entirely hypotethical, no idea any driver actually needs this.
 
-I don't claim to understand the implementation of i915's scheduler and
-GEM handling, and it seems like there's some public context missing
-here. But to me, the above is a good statement of what I (and a lot of
-other userspace) have been relying on - that dma-fence is a very
-tightly scoped thing which is very predictable but in extremis.
+Building Linux v5.8-rc4-25-gbfe91da29bfad with Clang/LLD 
+1:11~++20200701093119+ffee8040534-1~exp1 from Debian experimental for 
+32-bit (`ARCH=i386`), starting Weston (Wayland) or X.Org Server results 
+in non-working screen, and Linux shows the trace below [1].
 
-It would be great to have something like this enshrined in dma-fence
-documentation, visible to both kernel and external users. The
-properties we've so far been assuming for the graphics pipeline -
-covering production & execution of vertex/fragment workloads on the
-GPU, framebuffer display, and to the extent this is necessary
-involving compute - are something like this:
+> [  502.044997] BUG: unable to handle page fault for address: 17ec6000
+> [  502.045650] #PF: supervisor write access in kernel mode
+> [  502.046301] #PF: error_code(0x0002) - not-present page
+> [  502.046956] *pde = 00000000 
+> [  502.047612] Oops: 0002 [#1] SMP
+> [  502.048269] CPU: 0 PID: 2125 Comm: Xorg.wrap Not tainted 5.8.0-rc4-00105-g4da71f1ee6263 #141
+> [  502.048967] Hardware name: System manufacturer System Product Name/F2A85-M PRO, BIOS 6601 11/25/2014
+> [  502.049686] EIP: __srcu_read_lock+0x11/0x20
+> [  502.050413] Code: 83 e0 03 50 56 68 72 c6 99 dd 68 46 c6 99 dd e8 3a c8 fe ff 83 c4 10 eb ce 0f 1f 44 00 00 55 89 e5 8b 48 68 8b 40 7c 83 e1 01 <64> ff 04 88 f0 83 44 24 fc 00 89 c8 5d c3 90 0f 1f 44 00 00 55 89
+> [  502.052027] EAX: 00000000 EBX: f36671b8 ECX: 00000000 EDX: 00000286
+> [  502.052856] ESI: f3f94eb8 EDI: f3e51c00 EBP: f303dd9c ESP: f303dd9c
+> [  502.053695] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010246
+> [  502.054543] CR0: 80050033 CR2: 17ec6000 CR3: 2eea2000 CR4: 000406d0
+> [  502.055402] Call Trace:
+> [  502.056275]  drm_minor_acquire+0x6f/0x140 [drm]
+> [  502.057162]  drm_stub_open+0x2e/0x110 [drm]
+> [  502.058049]  chrdev_open+0xdd/0x1e0
+> [  502.058937]  do_dentry_open+0x21d/0x330
+> [  502.059828]  vfs_open+0x23/0x30
+> [  502.060718]  path_openat+0x947/0xd60
+> [  502.061610]  ? unlink_anon_vmas+0x53/0x120
+> [  502.062504]  do_filp_open+0x6d/0x100
+> [  502.063404]  ? __alloc_fd+0x73/0x140
+> [  502.064305]  do_sys_openat2+0x1b3/0x2a0
+> [  502.065217]  __ia32_sys_openat+0x90/0xb0
+> [  502.066128]  ? prepare_exit_to_usermode+0xa/0x20
+> [  502.067046]  do_fast_syscall_32+0x68/0xd0
+> [  502.067970]  do_SYSENTER_32+0x12/0x20
+> [  502.068902]  entry_SYSENTER_32+0x9f/0xf2
+> [  502.069839] EIP: 0xb7ef14f9
+> [  502.070764] Code: Bad RIP value.
+> [  502.071689] EAX: ffffffda EBX: ffffff9c ECX: bfa6a2ac EDX: 00008002
+> [  502.072654] ESI: 00000000 EDI: b7ed1000 EBP: bfa6b2c8 ESP: bfa6a1c0
+> [  502.073630] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00000246
+> [  502.074615] Modules linked in: af_packet k10temp r8169 realtek i2c_piix4 snd_hda_codec_realtek snd_hda_codec_generic ohci_pci ohci_hcd ehci_pci snd_hda_codec_hdmi ehci_hcd radeon i2c_algo_bit snd_hda_intel ttm snd_intel_dspcfg snd_hda_codec drm_kms_helper snd_hda_core snd_pcm cfbimgblt cfbcopyarea cfbfillrect snd_timer sysimgblt syscopyarea sysfillrect snd fb_sys_fops xhci_pci xhci_hcd soundcore acpi_cpufreq drm drm_panel_orientation_quirks agpgart ipv6 nf_defrag_ipv6
+> [  502.077895] CR2: 0000000017ec6000
+> [  502.079050] ---[ end trace ced4517b63a6db26 ]---
+> [  502.080214] EIP: __srcu_read_lock+0x11/0x20
+> [  502.081392] Code: 83 e0 03 50 56 68 72 c6 99 dd 68 46 c6 99 dd e8 3a c8 fe ff 83 c4 10 eb ce 0f 1f 44 00 00 55 89 e5 8b 48 68 8b 40 7c 83 e1 01 <64> ff 04 88 f0 83 44 24 fc 00 89 c8 5d c3 90 0f 1f 44 00 00 55 89
+> [  502.083891] EAX: 00000000 EBX: f36671b8 ECX: 00000000 EDX: 00000286
+> [  502.085148] ESI: f3f94eb8 EDI: f3e51c00 EBP: f303dd9c ESP: f303dd9c
+> [  502.086406] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010246
+> [  502.087675] CR0: 80050033 CR2: 17ec6000 CR3: 2eea2000 CR4: 000406d0
 
-A single dma-fence with no dependencies represents (the tail of) a
-unit of work, which has been all but committed to the hardware. Once
-committed to the hardware, this work will complete (successfully or in
-error) in bounded time. The unit of work referred to by a dma-fence
-may carry dependencies on other dma-fences, which must of course be
-subject to the same restrictions as above. No action from any
-userspace component is required to ensure that the completion occurs.
+> $ dmesg | ./scripts/decodecode
+> [ 55.784870] Code: 83 e0 03 50 56 68 ca c6 99 cf 68 9e c6 99 cf e8 3a c8 fe ff 83 c4 10 eb ce 0f 1f 44 00 00 55 89 e5 8b 48 68 8b 40 7c 83 e1 01 <64> ff 04 88 f0 83 44 24 fc 00 89 c8 5d c3 90 0f 1f 44 00 00 55 89
+> All code
+> ========
+>    0:	83 e0 03             	and    $0x3,%eax
+>    3:	50                   	push   %eax
+>    4:	56                   	push   %esi
+>    5:	68 ca c6 99 cf       	push   $0xcf99c6ca
+>    a:	68 9e c6 99 cf       	push   $0xcf99c69e
+>    f:	e8 3a c8 fe ff       	call   0xfffec84e
+>   14:	83 c4 10             	add    $0x10,%esp
+>   17:	eb ce                	jmp    0xffffffe7
+>   19:	0f 1f 44 00 00       	nopl   0x0(%eax,%eax,1)
+>   1e:	55                   	push   %ebp
+>   1f:	89 e5                	mov    %esp,%ebp
+>   21:	8b 48 68             	mov    0x68(%eax),%ecx
+>   24:	8b 40 7c             	mov    0x7c(%eax),%eax
+>   27:	83 e1 01             	and    $0x1,%ecx
+>   2a:*	64 ff 04 88          	incl   %fs:(%eax,%ecx,4)		<-- trapping instruction
+>   2e:	f0 83 44 24 fc 00    	lock addl $0x0,-0x4(%esp)
+>   34:	89 c8                	mov    %ecx,%eax
+>   36:	5d                   	pop    %ebp
+>   37:	c3                   	ret    
+>   38:	90                   	nop
+>   39:	0f 1f 44 00 00       	nopl   0x0(%eax,%eax,1)
+>   3e:	55                   	push   %ebp
+>   3f:	89                   	.byte 0x89
+> 
+> Code starting with the faulting instruction
+> ===========================================
+>    0:	64 ff 04 88          	incl   %fs:(%eax,%ecx,4)
+>    4:	f0 83 44 24 fc 00    	lock addl $0x0,-0x4(%esp)
+>    a:	89 c8                	mov    %ecx,%eax
+>    c:	5d                   	pop    %ebp
+>    d:	c3                   	ret    
+>    e:	90                   	nop
+>    f:	0f 1f 44 00 00       	nopl   0x0(%eax,%eax,1)
+>   14:	55                   	push   %ebp
+>   15:	89                   	.byte 0x89
 
-The cases I know of which legitimately blow holes in this are:
-  - the work is scheduled but GPU execution resource contention
-prevents it from completion, e.g. something on a higher-priority
-context repeatedly gets scheduled in front of it - this is OK because
-by definition it's what should happen
-  - the work is scheduled but CPU execution resource contention
-prevents it from completion, e.g. the DRM scheduler does not get to
-trigger the hardware to execute the work - this is OK because at this
-point we have a big system-wide problem
-  - the work is scheduled but non-execution resource contention
-prevents it from making progress, e.g. VRAM contention and/or a paging
-storm - this is OK because again we have a larger problem here and we
-can't reasonably expect the driver to solve this
-  - the work is executed but execution does not complete due to the
-nature of the work, e.g. a chain of work contains a hostile compute
-shader which does not complete in any reasonable time - this is OK
-because we require TDR; even without a smart compositor detecting
-based on fence waits that the work is unsuitable and should not hold
-up other work, the driver will probably ban the context and lock it
-out anyway
 
-The first three are general system resource-overload cases, no
-different from the CPU-side equivalent where it's up to the admin to
-impose ulimits to prevent forkbombs or runaway memory usage, or up to
-the user to run fewer Electron apps. The last one is more difficult,
-because we can't solve the halting problem to know ahead of time that
-the user has submitted an infinite workload, so we have to live with
-that as a real hazard and mitigate it where we can (by returning -EIO
-and killing the app from inside Mesa).
+Kind regards,
 
-If repurposing dma-fence for non-graphics uses (like general-purpose
-compute or driver-internal tracking for things other than GPU
-workloads) makes it more difficult to guarantee the above properties,
-then I don't want to do it. Maybe the answer is that dma-fence gets
-split into its core infrastructure which can be used for completion
-chains, with actual dma-fence being layered above generic completion
-APIs: other-completion-API can consume fences, but fences _cannot_
-consume non-fence things.
+Paul
 
-This does force a split between graphics (GL/Vulkan/display) workloads
-and compute (CL/oneAPI/HSA/CUDA), which I get is really difficult to
-resolve in the driver. But the two are hard split anyway: graphics
-requires upfront and explicit buffer management, in return dangling
-the carrot that you can pipeline your workloads and expect completion
-in reasonable time. General-purpose compute lets you go far more YOLO
-on resource access, including full userptr SVM, but the flipside is
-that your execution time might be measured in weeks; as a result you
-don't get to do execution pipelining because even if you could, it's
-not a big enough win relative to your execution time to be worth the
-extra driver and system complexity. I don't think there's a reasonable
-lowest common denominator between the two that we can try to reuse a
-generic model for both, because you make too many compromises to try
-to fit conflicting interests.
 
-In the pre-syncobj days, we did look at what we called 'empty fences'
-or 'future fences' with the ChromeOS team: a synchronisation object
-which wasn't backed by a promise of completion as dma-fence is, but
-instead by the meta-promise (from userspace) of a promise of
-completion. Ultimately it never became a real thing for the same
-reason that swsync isn't either; it needed so much special-case
-handling and so many disclaimers and opt-ins everywhere that by the
-end, we weren't sure why we were trying to shoehorn it into dma-fence
-apart from dma-fence already existing - but by removing all its
-guarantees, we also removed all its usefulness as a primitive.
-
-Cheers,
-Daniel
+[1]: https://github.com/ClangBuiltLinux/linux/issues/1081
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
