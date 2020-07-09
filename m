@@ -2,47 +2,69 @@ Return-Path: <SRS0=lnB5=AU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A84FC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:30:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D20AC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5BED620672
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:30:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5BED620672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id D9EFC20767
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2020 07:32:54 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=fooishbar-org.20150623.gappssmtp.com header.i=@fooishbar-org.20150623.gappssmtp.com header.b="zLm4SSk5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9EFC20767
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AFBA6E9B4;
-	Thu,  9 Jul 2020 07:30:27 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C11B36E999
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 05:41:50 +0000 (UTC)
-Received: from [192.168.0.6] (ip5f5af27e.dynamic.kabel-deutschland.de
- [95.90.242.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5D15920646095;
- Thu,  9 Jul 2020 07:41:47 +0200 (CEST)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: drm: BUG: unable to handle page fault for address: 17ec6000
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- LKML <linux-kernel@vger.kernel.org>
-Message-ID: <10b8419e-9e98-56c4-f4ab-9463cccd8f60@molgen.mpg.de>
-Date: Thu, 9 Jul 2020 07:41:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9C56E9AE;
+	Thu,  9 Jul 2020 07:32:54 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5E06E9B4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2020 07:32:53 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id f7so1244150wrw.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2020 00:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Jud8gvQk5riwJAQJGuwXf/WPCVvJ3Rgrb7LcC+OGLek=;
+ b=zLm4SSk5z97AJg6wYQWGtiXRJWSitYdo31xqKn0gBxQYkDc/O8TNqgmdajvWHTc0Kq
+ rGwaApXSclxBjqko2/Imk9PsR/5u4P/dFPZ9vnPTcqas0kKsEXgqhgF3t0RafiX5Slpt
+ JeQpVI0kr0Ku8fqaHq0LjC1TI8jp96YL96hlw5mEdqcM3BGaUheuStZw9Zp7Ip4b+qMo
+ G8ZaPEuNqWQyW5xojChELdclmASsdPKtzfHhPpgkGLUC1m/SFhDwvbCu0ULyt2e6O4l4
+ gmydb794XLx3M6/yeu4lieZBx/uX1mX0dOMcySh4xW9eVoMMSL0MVJyZib2fBoxie8xs
+ axQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Jud8gvQk5riwJAQJGuwXf/WPCVvJ3Rgrb7LcC+OGLek=;
+ b=llPsQxKx730CY46Q3RowIqKtKbJSbIcyJ2Vt4Qq6iGR/BsnH5VNcBm5oCEFuJvdjl8
+ 5hgyvNqS5vMgTQJS1NngBi0IFVym86u+rsUqhTcAsBxrkzg9E3t1g0IfnhnC6P/V90Sx
+ Ctxq3e+Q3CbDpBmOWQbZ45Y8C/r8Oz1eQz9a4X5qWk5d5xwdtReKoCqBsrG/tKwawGqK
+ A1uRIUjw7J5NV8hJDlYCTiYq+1AnS9D0qvH8nR+vnLVHDfeSxDxe/HwxFw66PeZxJ5rf
+ EVrg8Qlmdb+a2Ef8byRsGk5zN+GB+XqMSkkN+OpsG45hPShlKsFZ920InsuUqXTBBU8r
+ rVoQ==
+X-Gm-Message-State: AOAM530ZjmmHoqQ32TcQ31V8yuT1RW26MHyKWxpXFX1dxlmSWFCBokpT
+ JUsXxzf0DuwWY4oHm508/3heea2/5pJSFNURDWGMxA==
+X-Google-Smtp-Source: ABdhPJwgsWk0Cll+yWUxQEOGAdwXBKFxNE0yBvBai49LXxv7MVRksA8PL+EvQ8au/BG5aRKV6xpbDv9YTf7SNQSV164=
+X-Received: by 2002:a5d:66ca:: with SMTP id k10mr50931091wrw.244.1594279971984; 
+ Thu, 09 Jul 2020 00:32:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Language: en-US
-X-Mailman-Approved-At: Thu, 09 Jul 2020 07:30:26 +0000
+References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
+ <20200707201229.472834-2-daniel.vetter@ffwll.ch>
+ <20c0a95b-8367-4f26-d058-1cb265255283@amd.com>
+ <CAKMK7uFe7Pz4=UUkkunBms8vUrzwEpWJmScOMLO4KdADM43vnw@mail.gmail.com>
+In-Reply-To: <CAKMK7uFe7Pz4=UUkkunBms8vUrzwEpWJmScOMLO4KdADM43vnw@mail.gmail.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 9 Jul 2020 08:32:41 +0100
+Message-ID: <CAPj87rNXneE+Vry4aSV11=Qv2mbUsFjCLmNzRmx-Oeqj=u9dyw@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 01/25] dma-fence: basic lockdep annotations
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,113 +76,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nathan Chancellor <natechancellor@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Linux folks,
-
-
-Building Linux v5.8-rc4-25-gbfe91da29bfad with Clang/LLD 
-1:11~++20200701093119+ffee8040534-1~exp1 from Debian experimental for 
-32-bit (`ARCH=i386`), starting Weston (Wayland) or X.Org Server results 
-in non-working screen, and Linux shows the trace below [1].
-
-> [  502.044997] BUG: unable to handle page fault for address: 17ec6000
-> [  502.045650] #PF: supervisor write access in kernel mode
-> [  502.046301] #PF: error_code(0x0002) - not-present page
-> [  502.046956] *pde = 00000000 
-> [  502.047612] Oops: 0002 [#1] SMP
-> [  502.048269] CPU: 0 PID: 2125 Comm: Xorg.wrap Not tainted 5.8.0-rc4-00105-g4da71f1ee6263 #141
-> [  502.048967] Hardware name: System manufacturer System Product Name/F2A85-M PRO, BIOS 6601 11/25/2014
-> [  502.049686] EIP: __srcu_read_lock+0x11/0x20
-> [  502.050413] Code: 83 e0 03 50 56 68 72 c6 99 dd 68 46 c6 99 dd e8 3a c8 fe ff 83 c4 10 eb ce 0f 1f 44 00 00 55 89 e5 8b 48 68 8b 40 7c 83 e1 01 <64> ff 04 88 f0 83 44 24 fc 00 89 c8 5d c3 90 0f 1f 44 00 00 55 89
-> [  502.052027] EAX: 00000000 EBX: f36671b8 ECX: 00000000 EDX: 00000286
-> [  502.052856] ESI: f3f94eb8 EDI: f3e51c00 EBP: f303dd9c ESP: f303dd9c
-> [  502.053695] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010246
-> [  502.054543] CR0: 80050033 CR2: 17ec6000 CR3: 2eea2000 CR4: 000406d0
-> [  502.055402] Call Trace:
-> [  502.056275]  drm_minor_acquire+0x6f/0x140 [drm]
-> [  502.057162]  drm_stub_open+0x2e/0x110 [drm]
-> [  502.058049]  chrdev_open+0xdd/0x1e0
-> [  502.058937]  do_dentry_open+0x21d/0x330
-> [  502.059828]  vfs_open+0x23/0x30
-> [  502.060718]  path_openat+0x947/0xd60
-> [  502.061610]  ? unlink_anon_vmas+0x53/0x120
-> [  502.062504]  do_filp_open+0x6d/0x100
-> [  502.063404]  ? __alloc_fd+0x73/0x140
-> [  502.064305]  do_sys_openat2+0x1b3/0x2a0
-> [  502.065217]  __ia32_sys_openat+0x90/0xb0
-> [  502.066128]  ? prepare_exit_to_usermode+0xa/0x20
-> [  502.067046]  do_fast_syscall_32+0x68/0xd0
-> [  502.067970]  do_SYSENTER_32+0x12/0x20
-> [  502.068902]  entry_SYSENTER_32+0x9f/0xf2
-> [  502.069839] EIP: 0xb7ef14f9
-> [  502.070764] Code: Bad RIP value.
-> [  502.071689] EAX: ffffffda EBX: ffffff9c ECX: bfa6a2ac EDX: 00008002
-> [  502.072654] ESI: 00000000 EDI: b7ed1000 EBP: bfa6b2c8 ESP: bfa6a1c0
-> [  502.073630] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00000246
-> [  502.074615] Modules linked in: af_packet k10temp r8169 realtek i2c_piix4 snd_hda_codec_realtek snd_hda_codec_generic ohci_pci ohci_hcd ehci_pci snd_hda_codec_hdmi ehci_hcd radeon i2c_algo_bit snd_hda_intel ttm snd_intel_dspcfg snd_hda_codec drm_kms_helper snd_hda_core snd_pcm cfbimgblt cfbcopyarea cfbfillrect snd_timer sysimgblt syscopyarea sysfillrect snd fb_sys_fops xhci_pci xhci_hcd soundcore acpi_cpufreq drm drm_panel_orientation_quirks agpgart ipv6 nf_defrag_ipv6
-> [  502.077895] CR2: 0000000017ec6000
-> [  502.079050] ---[ end trace ced4517b63a6db26 ]---
-> [  502.080214] EIP: __srcu_read_lock+0x11/0x20
-> [  502.081392] Code: 83 e0 03 50 56 68 72 c6 99 dd 68 46 c6 99 dd e8 3a c8 fe ff 83 c4 10 eb ce 0f 1f 44 00 00 55 89 e5 8b 48 68 8b 40 7c 83 e1 01 <64> ff 04 88 f0 83 44 24 fc 00 89 c8 5d c3 90 0f 1f 44 00 00 55 89
-> [  502.083891] EAX: 00000000 EBX: f36671b8 ECX: 00000000 EDX: 00000286
-> [  502.085148] ESI: f3f94eb8 EDI: f3e51c00 EBP: f303dd9c ESP: f303dd9c
-> [  502.086406] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010246
-> [  502.087675] CR0: 80050033 CR2: 17ec6000 CR3: 2eea2000 CR4: 000406d0
-
-> $ dmesg | ./scripts/decodecode
-> [ 55.784870] Code: 83 e0 03 50 56 68 ca c6 99 cf 68 9e c6 99 cf e8 3a c8 fe ff 83 c4 10 eb ce 0f 1f 44 00 00 55 89 e5 8b 48 68 8b 40 7c 83 e1 01 <64> ff 04 88 f0 83 44 24 fc 00 89 c8 5d c3 90 0f 1f 44 00 00 55 89
-> All code
-> ========
->    0:	83 e0 03             	and    $0x3,%eax
->    3:	50                   	push   %eax
->    4:	56                   	push   %esi
->    5:	68 ca c6 99 cf       	push   $0xcf99c6ca
->    a:	68 9e c6 99 cf       	push   $0xcf99c69e
->    f:	e8 3a c8 fe ff       	call   0xfffec84e
->   14:	83 c4 10             	add    $0x10,%esp
->   17:	eb ce                	jmp    0xffffffe7
->   19:	0f 1f 44 00 00       	nopl   0x0(%eax,%eax,1)
->   1e:	55                   	push   %ebp
->   1f:	89 e5                	mov    %esp,%ebp
->   21:	8b 48 68             	mov    0x68(%eax),%ecx
->   24:	8b 40 7c             	mov    0x7c(%eax),%eax
->   27:	83 e1 01             	and    $0x1,%ecx
->   2a:*	64 ff 04 88          	incl   %fs:(%eax,%ecx,4)		<-- trapping instruction
->   2e:	f0 83 44 24 fc 00    	lock addl $0x0,-0x4(%esp)
->   34:	89 c8                	mov    %ecx,%eax
->   36:	5d                   	pop    %ebp
->   37:	c3                   	ret    
->   38:	90                   	nop
->   39:	0f 1f 44 00 00       	nopl   0x0(%eax,%eax,1)
->   3e:	55                   	push   %ebp
->   3f:	89                   	.byte 0x89
-> 
-> Code starting with the faulting instruction
-> ===========================================
->    0:	64 ff 04 88          	incl   %fs:(%eax,%ecx,4)
->    4:	f0 83 44 24 fc 00    	lock addl $0x0,-0x4(%esp)
->    a:	89 c8                	mov    %ecx,%eax
->    c:	5d                   	pop    %ebp
->    d:	c3                   	ret    
->    e:	90                   	nop
->    f:	0f 1f 44 00 00       	nopl   0x0(%eax,%eax,1)
->   14:	55                   	push   %ebp
->   15:	89                   	.byte 0x89
-
-
-Kind regards,
-
-Paul
-
-
-[1]: https://github.com/ClangBuiltLinux/linux/issues/1081
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGksCgpPbiBXZWQsIDggSnVsIDIwMjAgYXQgMTY6MTMsIERhbmllbCBWZXR0ZXIgPGRhbmllbC52
+ZXR0ZXJAZmZ3bGwuY2g+IHdyb3RlOgo+IE9uIFdlZCwgSnVsIDgsIDIwMjAgYXQgNDo1NyBQTSBD
+aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+ID4gQ291
+bGQgd2UgbWVyZ2UgdGhpcyBjb250cm9sbGVkIGJ5IGEgc2VwYXJhdGUgY29uZmlnIG9wdGlvbj8K
+PiA+Cj4gPiBUaGlzIHdheSB3ZSBjb3VsZCBoYXZlIHRoZSBjaGVja3MgdXBzdHJlYW0gd2l0aG91
+dCBoYXZpbmcgdG8gZml4IGFsbCB0aGUKPiA+IHN0dWZmIGJlZm9yZSB3ZSBkbyB0aGlzPwo+Cj4g
+U2luY2UgaXQncyBmdWxseSBvcHQtaW4gYW5ub3RhdGlvbnMgbm90aGluZyBibG93cyB1cCBpZiB3
+ZSBkb24ndCBtZXJnZQo+IGFueSBhbm5vdGF0aW9ucy4gU28gd2UgY291bGQgc3RhcnQgbWVyZ2lu
+ZyB0aGUgZmlyc3QgMyBwYXRjaGVzLiBBZnRlcgo+IHRoYXQgdGhlIGZ1biBzdGFydHMgLi4uCj4K
+PiBNeSByb3VnaCBpZGVhIHdhcyB0aGF0IGZpcnN0IEknZCB0cnkgdG8gdGFja2xlIGRpc3BsYXks
+IHRodXMgZmFyCj4gdGhlcmUncyAyIGFjdHVhbCBpc3N1ZXMgaW4gZHJpdmVyczoKPiAtIGFtZGdw
+dSBoYXMgc29tZSBkbWFfcmVzdl9sb2NrIGluIGNvbW1pdF90YWlsLCBwbHVzIGEga21hbGxvYy4g
+SQo+IHRoaW5rIHRob3NlIHNob3VsZCBiZSBmYWlybHkgZWFzeSB0byBmaXggKEknZCB0cnkgYSBz
+dGFiIGF0IHRoZW0gZXZlbikKPiAtIHZtd2dmeCBoYXMgYSBmdWxsIG9uIGxvY2tpbmcgaW52ZXJz
+aW9uIHdpdGggZG1hX3Jlc3ZfbG9jayBpbgo+IGNvbW1pdF90YWlsLCBhbmQgdGhhdCBvbmUgaXMg
+ZnVuY3Rpb25hbC4gTm90IGp1c3QgcmVhZGluZyBzb21ldGhpbmcKPiB3aGljaCB3ZSBjYW4gc2Fm
+ZWx5IGFzc3VtZSB0byBiZSBpbnZhcmlhbnQgYW55d2F5IChsaWtlIHRoZSB0bXogZmxhZwo+IGZv
+ciBhbWRncHUsIG9yIHdoYXRldmVyIGl0IHdhcykuCj4KPiBJJ3ZlIGRvbmUgYSBwaWxlIG1vcmUg
+YW5ub3RhdGlvbnMgcGF0Y2hlcyBmb3Igb3RoZXIgYXRvbWljIGRyaXZlcnMKPiBub3csIHNvIGhv
+cGVmdWxseSB0aGF0IGZsdXNoZXMgb3V0IGFueSByZW1haW5pbmcgb2ZmZW5kZXJzIGhlcmUuIFNp
+bmNlCj4gc29tZSBvZiB0aGUgYW5ub3RhdGlvbnMgYXJlIGluIGhlbHBlciBjb2RlIHdvcnN0IGNh
+c2Ugd2UgbWlnaHQgbmVlZCBhCj4gZGV2LT5tb2RlX2NvbmZpZy5icm9rZW5fYXRvbWljX2NvbW1p
+dCBmbGFnIHRvIGRpc2FibGUgdGhlbS4gQXQgbGVhc3QKPiBmb3Igbm93IEkgaGF2ZSAwIHBsYW5z
+IHRvIG1lcmdlIGFueSBvZiB0aGVzZSB3aGlsZSB0aGVyZSdzIGtub3duCj4gdW5zb2x2ZWQgaXNz
+dWVzLiBNYXliZSBpZiBzb21lIGRyaXZlcnMgdGFrZSBmb3JldmVyIHRvIGdldCBmaXhlZCB3ZQo+
+IGNhbiB0aGVuIGFwcGx5IHNvbWUgZHVjdC10YXBlIGZvciB0aGUgYXRvbWljIGhlbHBlciBhbm5v
+dGF0aW9uIHBhdGNoLgo+IEluc3RlYWQgb2YgYSBmbGFnIHdlIGNhbiBhbHNvIGNvcHlwYXN0YSB0
+aGUgYXRvbWljX2NvbW1pdF90YWlsIGhvb2ssCj4gbGVhdmluZyB0aGUgYW5ub3RhdGlvbnMgb3V0
+IGFuZCBhZGRpbmcgYSBodWdlIHdhcm5pbmcgYWJvdXQgdGhhdC4KCkhvdyBhYm91dCBhbiBvcHQt
+aW4gZHJtX2RyaXZlciBEUklWRVJfREVBRExPQ0tfSEFQUFkgZmxhZz8gQXQgZmlyc3QKdGhpcyBj
+b3VsZCBqdXN0IGRpc2FibGUgdGhlIGFubm90YXRpb25zIGFuZCBub3RoaW5nIGVsc2UsIGJ1dCBh
+cyB3ZQpzZWUgdGhlIGFubm90YXRpb25zIGdhaW5pbmcgcmVhbC13b3JsZCB0ZXN0aW5nIGFuZCBt
+YXR1cml0eSwgd2UgY291bGQKZXZlbnR1YWxseSBtYWtlIGl0IHRhaW50IHRoZSBrZXJuZWwuCgpD
+aGVlcnMsCkRhbmllbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
