@@ -2,108 +2,72 @@ Return-Path: <SRS0=NsFz=AV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53D40C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 13:01:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 605FCC433E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 13:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2544720720
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 13:01:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 29687207BB
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 13:58:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fRAELXzY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2544720720
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZmLZjaik"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29687207BB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F2D16EC43;
-	Fri, 10 Jul 2020 13:01:25 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700063.outbound.protection.outlook.com [40.107.70.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF656E0D1;
- Fri, 10 Jul 2020 13:01:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FJkzxDsVxd6UWgRY7nMqJaKwlXKR11wXCEl60F7mqXjKv2dgpITL8xW0uZ1B/94WXGkHUAqlaSSH2xAcZ14pASWckhLnhwHyui+uK+rWbnA60CioyzgrpyH0SK2LlBasF4xYsrawnVbqXJPc4Qvuz1vD5yPcGJMuWMgpyseJxG4a9L2RnBR8vTBl2KU6UwVYimABFPHnczFlwJh55ugxBnGKnIJCeHY9RWQqDEs3E2VHAuVaQzIeM092vEkvQUXAJU+KpEE6/TccsG5kbau6zYtNpVKFYglLJR2kt9ODWjE8FdtJNul08iq30zmiVfPfj9R063T/m1BzQ4GeVdPSog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tvoj0UPxl5sV1BKedq5MB5ya7NKN4pwFxxf9skzqc5A=;
- b=QJIRHdMM49AUpfb9tPhRVBiUJBgz3TRJrvjnEUrrxO7ahcuLHjMY+22l7s59GcibLz2oL1wEEKemfjY2LRmaCjWPDRm1SsI5e8ZKVsa6DvsWSt6INeR0REjlYrY8L0pM0Tcn2AUvA/ArXY6SV3j92va5KXwcIzLoPDhs8FDyrcewKxC0WE+XG7HwZnlhRwIGqBAS0mS4Uv0/sUSGlCXpDgjHgE8r7aHXiJ1A/oprFnH1tD6TTaOXQ0/bHnbA7jWWmRQUrDWsTLqR0RCnHEekMy+menTR6hltJIkdfk2bw+pEdoT9+Yrs/ONhWQxz5UrSe5WwqJO20ktT/namX9qCbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tvoj0UPxl5sV1BKedq5MB5ya7NKN4pwFxxf9skzqc5A=;
- b=fRAELXzYpnbCo7qdLnST2p6fw9QAzWJJ3pHGCDDfJtQ4RbYkzJvQg/W5jugk3cNsP8afARLtjTSLbmeXSQ2Rts0brdR4953pbSbnj7kFTI0e9pfTiZKHZUhmqAcC0PjIP1S0TQ6AEEKXipQdbSE/vInn/jIkFYI0B7/bCchozDU=
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3837.namprd12.prod.outlook.com (2603:10b6:208:166::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.21; Fri, 10 Jul
- 2020 13:01:18 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d%6]) with mapi id 15.20.3174.023; Fri, 10 Jul 2020
- 13:01:17 +0000
-Subject: Re: [PATCH 02/25] dma-fence: prime lockdep annotations
-To: Jason Gunthorpe <jgg@mellanox.com>
-References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
- <20200707201229.472834-3-daniel.vetter@ffwll.ch>
- <20200709080911.GP3278063@phenom.ffwll.local>
- <20200710124357.GB23821@mellanox.com>
- <5c163d74-4a28-1d74-be86-099b4729a2e0@amd.com>
- <20200710125453.GC23821@mellanox.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <4f4a2cf7-f505-8494-1461-bd467870481e@amd.com>
-Date: Fri, 10 Jul 2020 15:01:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <20200710125453.GC23821@mellanox.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR05CA0112.eurprd05.prod.outlook.com
- (2603:10a6:207:2::14) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD2F56EC5C;
+	Fri, 10 Jul 2020 13:58:20 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE6F6EC64
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2020 13:58:20 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id z63so5240573qkb.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2020 06:58:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JJ2I2UoinWiGAZBnJ5CkY/Tnmc2u5tqmwgXsrbZW8t8=;
+ b=ZmLZjaikHoe2mPHMlMszKO7NHmZNOx9qEZVNabl0Xfj4BirGWbclUQnGZSc/hPEjDC
+ qbvgGP0dmqE2ufTHf2ZSMAxFB4oCl2oPW9lkb+xyygDZ5/4SBoJEpntw5h9GLuBoBiOh
+ OPvmkLZctJCgiFF2Bkd/Va+DWx3nCdy1qfnpWLMXejMM7VzGhB8wb7GxCmLPSvfnxQiP
+ wLMtIPT9dt1h034q41eRIhD+3REEcCr9uTVZgq2dyUTgS6zNKygn3XMp44dOB/6nylHt
+ pqphxr8J7PzdjPC8/S+incWbVkXXNppQhxpDfhMKQ1VW2ND/yw5BGKHGulXO/ltrQ8kn
+ 2+og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JJ2I2UoinWiGAZBnJ5CkY/Tnmc2u5tqmwgXsrbZW8t8=;
+ b=HKwvAJFyvdV9FO14xCTrtX+sdrHZmlnGDP/nEh1Q26V8UPTlfDjAem5kyIVR0mTFU8
+ dlYXavnnC1iZYWZ/kczeIqJmdjH1OWtD9KpO5R7QZBAiSKY5Qd3MLWs7Mb3XiMricnc+
+ /BAHAlHLa+7AZdUxL816JF5/TkEPLmjT6yL08Mv4NRVn8mWEzdMRCWDC+NziynkhWxo3
+ vsoqXaBeFc/jHr8TJ3devvY9WYkjU6UFdEf/hW+JS2PUNxbS5jVxyhz/SW1TYxA9P1Gk
+ hwpWcoVQ57S+u+8meUwHLqiRu42rM2WUbC4J2eYprsLy1M0fMlBnOneukZ8LoJ1QvfaU
+ h6CA==
+X-Gm-Message-State: AOAM530vxbq8E+x0naNfO1RMj2csLz5j6pqPBBV+KrkQbjGUvbCFcGqg
+ ccf9y2eEyW2eosl7tummepEk27tO
+X-Google-Smtp-Source: ABdhPJxNwrSYMS1tCagWWhuI8qI3H9RBoOsu+uDchhRCh59g2htWoEKetirOyUZNql5FkGA2vTeoaA==
+X-Received: by 2002:a37:bd06:: with SMTP id n6mr49037905qkf.344.1594389499004; 
+ Fri, 10 Jul 2020 06:58:19 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.66.138])
+ by smtp.gmail.com with ESMTPSA id h197sm7594482qke.51.2020.07.10.06.58.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2020 06:58:18 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/display: create fake mst encoders ahead of time
+ (v2)
+Date: Fri, 10 Jul 2020 09:58:07 -0400
+Message-Id: <20200710135807.806548-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM3PR05CA0112.eurprd05.prod.outlook.com (2603:10a6:207:2::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.22 via Frontend Transport; Fri, 10 Jul 2020 13:01:15 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 654f8270-9a84-4446-88d7-08d824d15574
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3837:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3837B2385A43A1D20210668F83650@MN2PR12MB3837.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xRLiOYHxG5vTItW5egYmGcyj2/QGyI/CtGDYhznnJ7R+Ntr6izpVJGlvR2P5oHalT33iFcyv6YGRb2WmeJpjZQ5I9z1OJ9w7X8cLtBVD6HBh1cPUKxD2YVSQE0LxnfdaByHrLlGKePgoYk5aLhNJAi/hYVAOUtaZcLDniru2cWZ4XbfoxA+pK77voQkO16Jp0ws7LPv89gBoRszWMaMZ++2mqF+TShGO+MIQ/77L1zVeqMewzntInmm/7VzlHcPmx1WfL4x+sap0Z7SM5jWgXLJKSlB0VdrNqG2UFmJAOU9TF/Q+3O6d6PGEMCImX/T0lMdjCR6HuPDApZrqdqXJHhqkr5f8qTymcd11j6z2STYzY+jlX+beKCz6l7Bv7gf7
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(136003)(376002)(366004)(396003)(39860400002)(31696002)(86362001)(5660300002)(186003)(2906002)(52116002)(31686004)(6486002)(54906003)(6666004)(6916009)(16526019)(83380400001)(66556008)(66946007)(36756003)(316002)(478600001)(4326008)(7416002)(66574015)(8936002)(8676002)(2616005)(66476007)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Cp/XSdTj4fK0jBEt08abf2CDWwk/t//b6f9CU9BkqlDdICPd/8+QeMo30jSK3XW+ZWMRu2HlyjHQYolwSukXWY/5pTgyhZ9wjEuQ//evrWRgws1MXibgHuGF2qEbf3tZVWFBObiukkm9SrxKl+o8RN5hfq6TfWOjlxDTyb8W/M/5LPadF4m5GsPnBf4Sn/CEMjXKTl4BY/x98q++otSIneHE3u/UjQ15Iw/eiZhJ20pW5ClvxZgRVUClZ+o4ySL5ABP6P/QS2BHkU1MWXfYSihv2c7rgwhL7HSUzPNVCFkIEkNmzVbL8xSNQAAT6Tdc7P8LaGYMBCj3rzYnsCKyAn32pM8ooURKAUcdMiQsK+i5LzxVgajHwZsQU6LDtu9VSZqnPPeQa306sdXe/+dUvI0xCDPgcfNsN5pKxV723OzkPslEE26SbO0dNKIjJaSP1Lh9x3kmdAunHvP+qwvkZ2ZPWm2PYMPuBLIVj9wbfTKuk716/HKE934Mf4xoTmtxkr2BXYtOVpmZVbvVmnmsy5nhxFLBA4UPixetKQp25luyXPYckWV0nj9s3p7k5EW7B
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 654f8270-9a84-4446-88d7-08d824d15574
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2020 13:01:17.7848 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qdzPPeSxnFTZhRMskH2h0e3xvWnqWdX/cpk660JRGnCwVgVSA5HIezqnQF9Rag7X
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3837
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +79,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, linux-rdma@vger.kernel.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@intel.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTAuMDcuMjAgdW0gMTQ6NTQgc2NocmllYiBKYXNvbiBHdW50aG9ycGU6Cj4gT24gRnJpLCBK
-dWwgMTAsIDIwMjAgYXQgMDI6NDg6MTZQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
-Pj4gQW0gMTAuMDcuMjAgdW0gMTQ6NDMgc2NocmllYiBKYXNvbiBHdW50aG9ycGU6Cj4+PiBPbiBU
-aHUsIEp1bCAwOSwgMjAyMCBhdCAxMDowOToxMUFNICswMjAwLCBEYW5pZWwgVmV0dGVyIHdyb3Rl
-Ogo+Pj4+IEhpIEphc29uLAo+Pj4+Cj4+Pj4gQmVsb3cgdGhlIHBhcmFncmFwaCBJJ3ZlIGFkZGVk
-IGFmdGVyIG91ciBkaXNjdXNzaW9ucyBhcm91bmQgZG1hLWZlbmNlcwo+Pj4+IG91dHNpZGUgb2Yg
-ZHJpdmVycy9ncHUuIEdvb2QgZW5vdWdoIGZvciBhbiBhY2sgb24gdGhpcywgb3Igd2FudCBzb21l
-dGhpbmcKPj4+PiBjaGFuZ2VkPwo+Pj4+Cj4+Pj4gVGhhbmtzLCBEYW5pZWwKPj4+Pgo+Pj4+PiAr
-ICogTm90ZSB0aGF0IG9ubHkgR1BVIGRyaXZlcnMgaGF2ZSBhIHJlYXNvbmFibGUgZXhjdXNlIGZv
-ciBib3RoIHJlcXVpcmluZwo+Pj4+PiArICogJm1tdV9pbnRlcnZhbF9ub3RpZmllciBhbmQgJnNo
-cmlua2VyIGNhbGxiYWNrcyBhdCB0aGUgc2FtZSB0aW1lIGFzIGhhdmluZyB0bwo+Pj4+PiArICog
-dHJhY2sgYXN5bmNocm9ub3VzIGNvbXB1dGUgd29yayB1c2luZyAmZG1hX2ZlbmNlLiBObyBkcml2
-ZXIgb3V0c2lkZSBvZgo+Pj4+PiArICogZHJpdmVycy9ncHUgc2hvdWxkIGV2ZXIgY2FsbCBkbWFf
-ZmVuY2Vfd2FpdCgpIGluIHN1Y2ggY29udGV4dHMuCj4+PiBJIHdhcyBob3Bpbmcgd2UnZCBnZXQg
-dG8gJ25vIGRyaXZlciBvdXRzaWRlIEdQVSBzaG91bGQgZXZlbiB1c2UKPj4+IGRtYV9mZW5jZSgp
-Jwo+PiBNeSBsYXN0IHN0YXR1cyB3YXMgdGhhdCBWNEwgY291bGQgY29tZSB1c2UgZG1hX2ZlbmNl
-cyBhcyB3ZWxsLgo+IEknbSBzdXJlIGxvdHMgb2YgcGxhY2VzICpjb3VsZCogdXNlIGl0LCBidXQg
-SSB0aGluayBJIHVuZGVyc3Rvb2QgdGhhdAo+IGl0IGlzIGEgYmFkIGlkZWEgdW5sZXNzIHlvdSBo
-YXZlIHRvIGZpdCBpbnRvIHRoZSBEUk0gdUFQST8KCkl0IHdvdWxkIGJlIGEgYml0IHF1ZXN0aW9u
-YWJsZSBpZiB5b3UgdXNlIHRoZSBjb250YWluZXIgb2JqZWN0cyB3ZSBjYW1lIAp1cCB3aXRoIGlu
-IHRoZSBEUk0gc3Vic3lzdGVtIG91dHNpZGUgb2YgaXQuCgpCdXQgdXNpbmcgdGhlIGRtYV9mZW5j
-ZSBpdHNlbGYgbWFrZXMgc2Vuc2UgZm9yIGV2ZXJ5dGhpbmcgd2hpY2ggY291bGQgZG8gCmFzeW5j
-IERNQSBpbiBnZW5lcmFsLgoKPiBZb3UgYXJlIGJldHRlciB0byBkbyBzb21ldGhpbmcgY29udGFp
-bmVkIGluIHRoZSBzaW5nbGUgZHJpdmVyIHdoZXJlCj4gbG9ja2luZyBjYW4gYmUgYW5hbHl6ZWQu
-Cj4KPj4gSSdtIG5vdCAxMDAlIHN1cmUsIGJ1dCB3b3VsZG4ndCBNTVUgbm90aWZpZXIgKyBkbWFf
-ZmVuY2UgYmUgYSB2YWxpZCB1c2UgY2FzZQo+PiBmb3IgdGhpbmdzIGxpa2UgY3VzdG9tIEZQR0Eg
-aW50ZXJmYWNlcyBhcyB3ZWxsPwo+IEkgZG9uJ3QgdGhpbmsgd2Ugc2hvdWxkIGV4cGFuZCB0aGUg
-bGlzdCBvZiBkcml2ZXJzIHRoYXQgdXNlIHRoaXMKPiB0ZWNobmlxdWUuCj4gRHJpdmVycyB0aGF0
-IGNhbid0IHN1c3BlbmQgc2hvdWxkIHBpbiBtZW1vcnksIG5vdCB1c2UgYmxvY2tlZAo+IG5vdGlm
-aWVycyB0byBjcmVhdGVkIHBpbm5lZCBtZW1vcnkuCgpBZ3JlZWQgdG90YWxseSwgaXQncyBhIGNv
-bXBsZXRlIHBhaW4gdG8gbWFpbnRhaW4gZXZlbiBmb3IgdGhlIEdQVSBkcml2ZXJzLgoKVW5mb3J0
-dW5hdGVseSB0aGF0IGRvZXNuJ3QgY2hhbmdlIHVzZXJzIGZyb20gcmVxdWVzdGluZyBpdC4gU28g
-SSdtIApwcmV0dHkgc3VyZSB3ZSBhcmUgZ29pbmcgdG8gc2VlIG1vcmUgb2YgdGhpcy4KCkNocmlz
-dGlhbi4KCj4KPiBKYXNvbgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+Prevents a warning in the MST create connector case.
+
+v2: create global fake encoders rather per connector fake encoders
+to avoid running out of encoder indices.
+
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1108
+Fixes: c6385e503aeaf9 ("drm/amdgpu: drop legacy drm load and unload callbacks")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 ++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 11 +++-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 53 +++++++++----------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  3 ++
+ 4 files changed, 48 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0e5d99a85307..74d8e61f30e4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -978,6 +978,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	/* Update the actual used number of crtc */
+ 	adev->mode_info.num_crtc = adev->dm.display_indexes_num;
+ 
++	/* create fake encoders for MST */
++	dm_dp_create_fake_mst_encoders(adev);
++
+ 	/* TODO: Add_display_info? */
+ 
+ 	/* TODO use dynamic cursor width */
+@@ -1001,6 +1004,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 
+ static void amdgpu_dm_fini(struct amdgpu_device *adev)
+ {
++	int i;
++
++	for (i = 0; i < AMDGPU_DM_MAX_CRTC; i++) {
++		drm_encoder_cleanup(&adev->dm.mst_encoders[i].base);
++	}
++
+ 	amdgpu_dm_audio_fini(adev);
+ 
+ 	amdgpu_dm_destroy_drm_device(&adev->dm);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 86c132ddc452..3f50328fe537 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -43,6 +43,9 @@
+  */
+ 
+ #define AMDGPU_DM_MAX_DISPLAY_INDEX 31
++
++#define AMDGPU_DM_MAX_CRTC 6
++
+ /*
+ #include "include/amdgpu_dal_power_if.h"
+ #include "amdgpu_dm_irq.h"
+@@ -330,6 +333,13 @@ struct amdgpu_display_manager {
+ 	 * available in FW
+ 	 */
+ 	const struct gpu_info_soc_bounding_box_v1_0 *soc_bounding_box;
++
++	/**
++	 * @mst_encoders:
++	 *
++	 * fake encoders used for DP MST.
++	 */
++	struct amdgpu_encoder mst_encoders[AMDGPU_DM_MAX_CRTC];
+ };
+ 
+ struct amdgpu_dm_connector {
+@@ -358,7 +368,6 @@ struct amdgpu_dm_connector {
+ 	struct amdgpu_dm_dp_aux dm_dp_aux;
+ 	struct drm_dp_mst_port *port;
+ 	struct amdgpu_dm_connector *mst_port;
+-	struct amdgpu_encoder *mst_encoder;
+ 	struct drm_dp_aux *dsc_aux;
+ 
+ 	/* TODO see if we can merge with ddc_bus or make a dm_connector */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index cf15248739f7..176973da18ef 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -95,7 +95,6 @@ dm_dp_mst_connector_destroy(struct drm_connector *connector)
+ {
+ 	struct amdgpu_dm_connector *aconnector =
+ 		to_amdgpu_dm_connector(connector);
+-	struct amdgpu_encoder *amdgpu_encoder = aconnector->mst_encoder;
+ 
+ 	if (aconnector->dc_sink) {
+ 		dc_link_remove_remote_sink(aconnector->dc_link,
+@@ -105,8 +104,6 @@ dm_dp_mst_connector_destroy(struct drm_connector *connector)
+ 
+ 	kfree(aconnector->edid);
+ 
+-	drm_encoder_cleanup(&amdgpu_encoder->base);
+-	kfree(amdgpu_encoder);
+ 	drm_connector_cleanup(connector);
+ 	drm_dp_mst_put_port_malloc(aconnector->port);
+ 	kfree(aconnector);
+@@ -243,7 +240,11 @@ static struct drm_encoder *
+ dm_mst_atomic_best_encoder(struct drm_connector *connector,
+ 			   struct drm_connector_state *connector_state)
+ {
+-	return &to_amdgpu_dm_connector(connector)->mst_encoder->base;
++	struct drm_device *dev = connector->dev;
++	struct amdgpu_device *adev = dev->dev_private;
++	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(connector_state->crtc);
++
++	return &adev->dm.mst_encoders[acrtc->crtc_id].base;
+ }
+ 
+ static int
+@@ -306,31 +307,27 @@ static const struct drm_encoder_funcs amdgpu_dm_encoder_funcs = {
+ 	.destroy = amdgpu_dm_encoder_destroy,
+ };
+ 
+-static struct amdgpu_encoder *
+-dm_dp_create_fake_mst_encoder(struct amdgpu_dm_connector *connector)
++void
++dm_dp_create_fake_mst_encoders(struct amdgpu_device *adev)
+ {
+-	struct drm_device *dev = connector->base.dev;
+-	struct amdgpu_device *adev = dev->dev_private;
+-	struct amdgpu_encoder *amdgpu_encoder;
+-	struct drm_encoder *encoder;
+-
+-	amdgpu_encoder = kzalloc(sizeof(*amdgpu_encoder), GFP_KERNEL);
+-	if (!amdgpu_encoder)
+-		return NULL;
++	struct drm_device *dev = adev->ddev;
++	int i;
+ 
+-	encoder = &amdgpu_encoder->base;
+-	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(adev);
++	for (i = 0; i < AMDGPU_DM_MAX_CRTC; i++) {
++		struct amdgpu_encoder *amdgpu_encoder = &adev->dm.mst_encoders[i];
++		struct drm_encoder *encoder = &amdgpu_encoder->base;
+ 
+-	drm_encoder_init(
+-		dev,
+-		&amdgpu_encoder->base,
+-		&amdgpu_dm_encoder_funcs,
+-		DRM_MODE_ENCODER_DPMST,
+-		NULL);
++		encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(adev);
+ 
+-	drm_encoder_helper_add(encoder, &amdgpu_dm_encoder_helper_funcs);
++		drm_encoder_init(
++			dev,
++			&amdgpu_encoder->base,
++			&amdgpu_dm_encoder_funcs,
++			DRM_MODE_ENCODER_DPMST,
++			NULL);
+ 
+-	return amdgpu_encoder;
++		drm_encoder_helper_add(encoder, &amdgpu_dm_encoder_helper_funcs);
++	}
+ }
+ 
+ static struct drm_connector *
+@@ -343,6 +340,7 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	struct amdgpu_device *adev = dev->dev_private;
+ 	struct amdgpu_dm_connector *aconnector;
+ 	struct drm_connector *connector;
++	int i;
+ 
+ 	aconnector = kzalloc(sizeof(*aconnector), GFP_KERNEL);
+ 	if (!aconnector)
+@@ -369,9 +367,10 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 		master->dc_link,
+ 		master->connector_id);
+ 
+-	aconnector->mst_encoder = dm_dp_create_fake_mst_encoder(master);
+-	drm_connector_attach_encoder(&aconnector->base,
+-				     &aconnector->mst_encoder->base);
++	for (i = 0; i < AMDGPU_DM_MAX_CRTC; i++) {
++		drm_connector_attach_encoder(&aconnector->base,
++					     &adev->dm.mst_encoders[i].base);
++	}
+ 
+ 	connector->max_bpc_property = master->base.max_bpc_property;
+ 	if (connector->max_bpc_property)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+index d2c56579a2cc..b38bd68121ce 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+@@ -35,6 +35,9 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+ 				       struct amdgpu_dm_connector *aconnector,
+ 				       int link_index);
+ 
++void
++dm_dp_create_fake_mst_encoders(struct amdgpu_device *adev);
++
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
+ 				       struct dc_state *dc_state);
+-- 
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
