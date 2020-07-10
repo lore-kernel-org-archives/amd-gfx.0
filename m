@@ -7,106 +7,100 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6949BC433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 15:33:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C73E1C433E5
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 15:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E9482065D
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 15:33:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9C8E02065D
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 15:33:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="mA0M4MBU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E9482065D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="APHiDp0U"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C8E02065D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2746EC80;
-	Fri, 10 Jul 2020 15:33:38 +0000 (UTC)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130080.outbound.protection.outlook.com [40.107.13.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77FCA6EC6A;
- Fri, 10 Jul 2020 14:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA6746EC7E;
+	Fri, 10 Jul 2020 15:33:37 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2053.outbound.protection.outlook.com [40.107.22.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 652D06EA94;
+ Fri, 10 Jul 2020 12:55:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oh89sztPYZ+0BG8IiCrSx/Iq8Eq1nXjGauB9lnldukmNwIcGfPbMl0g7kyUx3/RjVWeB0RM79082aiB8BIR94sVisA//GlXuUjVQpugWjiowg0y83pTDETxbiWMH27hfgrdRr5YVZXW2/GbBl3/kC1U7jXa44gqTllkquySTHQIf2wG2PZ5Iiuh+R0FtZioF65hBc6RWZV57kLKVyI/LJRngrmHsAJ/WYYSYJTPUdBVlDTo6LnhXkye6yR+/cY1R69WJliN32VKkQtTUf/AIcHtDYrwYzFDTNOEhX0nQGMZ1o83S6TlYH1cMaVTQU1nSOHX3RLzBZui+0KW/5Fszcg==
+ b=lIJcsai6v7B9AdjTiwsgjm/Ek2c9OJkfqkhF4nWPE1O82Hur7xdhRoRAUqd0h378zLi07A5CgqKpk1FsWOn4SDirFiJabxy8qf6a3eX3BbFaojdRfCUA54+nFsmAQlmgybuAkZMdGnqYfZrXLedB3hUNQDGmKu4zMPexY9SSwjWsOYk0xHPIpuF4F2utA2jSRGAygVptDKLkBxJZ8K9di0rTd9JnDyS0RkIbEcnixg2uSRpviRCgQJpiPQ7cgGoorMWTn7CCbixtiMXZJmq9fTmFxkVXnLNFz1SdXq+RQqDHdNjJlCIT3QVyNvuCZPaK0veUx1VXsfh9CNB7qmNh7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JFytuY/EUc+LqnEc77x9oWQqtc40rlGKmYy91akT1SY=;
- b=RXUrNj42ZJCGfeaPHENanBd7w1DS3gJOOq3LvGH9qSG7/RApCXPUAE3xJO6aDorpjPGp2AoITdEj1Ag0BJpZM0SIBNpguTJhJZVQUJ/TmkhLoOorxTh2aIk1yD3/LL4MGHqlqIGWm0LNGXWk5TTgpye4qt6CVevbcC/6CbQAmdQLEyx+OREtADeplyOwbLlIxf2UaHae6uURiu4WDLdTzRD9LhPOvJ4TD55elHJZwpV2LQXy/aYeHfkXg/5a5uxOe3jFBMvCRJRSdeFdBNY081WLkiIyDtbreXqVCMOIEC68fhcoCkLbIQcLeswTGeEbnQBh39sgKTyw1rKIkxWqlA==
+ bh=3Ch8zA0yuTfSbvl+1lBIGR6rCDTXaFa+NX74MClc074=;
+ b=RDNuo5GIC94HZMUbXLnPBqCibqssiDx7c08VBuuETraBwLcjTf/5q0xLVf3GABuS4jVTFWBo6aX5h9k0GeDDN/mghGiEyNr0KUEJ3uF1SIqDiQ8BRBLYVisLP2LTlRQN8n6TtLr8mz5/lXWjlHei3VDTEv4IhMiG2BAAcY8UyY5qFfQMgXoZhhvUa7BddgWWKW+2/ZvrpwyeFT4hoE7eqWeS0NkvrVvbpd5G7j9Iv4AqjLEvVu6WetIWxucMqDkXa1uOtLburzxF7ZgO5UIoi8VF9AzWrczLkU8LUEbq6kI6HDBT+yLd7VnRxe+JSY9CnLsfbjWHWxVRGZdq7Ob2jA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
  dkim=pass header.d=mellanox.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JFytuY/EUc+LqnEc77x9oWQqtc40rlGKmYy91akT1SY=;
- b=mA0M4MBUoBxBwLHtPVcGHxYa3oKbpbQyWnit3rpp0HRCCuQSOcNgwbtafymAFu01faQQ9VTIudxbJcZRy3ZTtt8MYpDJAUi5sMKcpeO3MUa+uJW3605hxAAWuSgL0n847kqNFzEfWBPukn0Uhwoh4V6q6MRkbP36BMAO0ZcHOHg=
-Authentication-Results: ffwll.ch; dkim=none (message not signed)
- header.d=none;ffwll.ch; dmarc=none action=none header.from=mellanox.com;
+ bh=3Ch8zA0yuTfSbvl+1lBIGR6rCDTXaFa+NX74MClc074=;
+ b=APHiDp0UgPBmf7wwG7m5YpnyMcZ56meTx1jaB4UnwQM4avdhuCYzPsU11oBx542ucWzy18ou4GDt2SPnJe6x+Br3Jf+LxGex4Sz87QGrgETEwW46L1cZt6YEWNrNN3AshLLnSvfkiKG2PR0eh0rHcOaPtZRGmdGW9yMq5n0JVrQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=mellanox.com;
 Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (2603:10a6:803:44::15)
- by VI1PR05MB5583.eurprd05.prod.outlook.com (2603:10a6:803:99::17)
+ by VI1PR05MB3229.eurprd05.prod.outlook.com (2603:10a6:802:23::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.23; Fri, 10 Jul
- 2020 14:23:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.21; Fri, 10 Jul
+ 2020 12:54:56 +0000
 Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
  ([fe80::848b:fcd0:efe3:189e]) by VI1PR05MB4141.eurprd05.prod.outlook.com
  ([fe80::848b:fcd0:efe3:189e%7]) with mapi id 15.20.3174.022; Fri, 10 Jul 2020
- 14:23:51 +0000
-Date: Fri, 10 Jul 2020 11:23:47 -0300
+ 12:54:56 +0000
+Date: Fri, 10 Jul 2020 09:54:53 -0300
 From: Jason Gunthorpe <jgg@mellanox.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Subject: Re: [PATCH 02/25] dma-fence: prime lockdep annotations
-Message-ID: <20200710142347.GE23821@mellanox.com>
+Message-ID: <20200710125453.GC23821@mellanox.com>
 References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
  <20200707201229.472834-3-daniel.vetter@ffwll.ch>
  <20200709080911.GP3278063@phenom.ffwll.local>
  <20200710124357.GB23821@mellanox.com>
  <5c163d74-4a28-1d74-be86-099b4729a2e0@amd.com>
- <20200710125453.GC23821@mellanox.com>
- <4f4a2cf7-f505-8494-1461-bd467870481e@amd.com>
- <20200710134826.GD23821@mellanox.com>
- <CAKMK7uGSUULTmL=bDXty6U4e37dzLHzu7wgUyOxo2CvR9KvXGg@mail.gmail.com>
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uGSUULTmL=bDXty6U4e37dzLHzu7wgUyOxo2CvR9KvXGg@mail.gmail.com>
-X-ClientProxiedBy: BL1PR13CA0060.namprd13.prod.outlook.com
- (2603:10b6:208:257::35) To VI1PR05MB4141.eurprd05.prod.outlook.com
+In-Reply-To: <5c163d74-4a28-1d74-be86-099b4729a2e0@amd.com>
+X-ClientProxiedBy: BL0PR02CA0133.namprd02.prod.outlook.com
+ (2603:10b6:208:35::38) To VI1PR05MB4141.eurprd05.prod.outlook.com
  (2603:10a6:803:44::15)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (156.34.48.30) by
- BL1PR13CA0060.namprd13.prod.outlook.com (2603:10b6:208:257::35) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.9 via Frontend
- Transport; Fri, 10 Jul 2020 14:23:51 +0000
+ BL0PR02CA0133.namprd02.prod.outlook.com (2603:10b6:208:35::38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3174.22 via Frontend Transport; Fri, 10 Jul 2020 12:54:56 +0000
 Received: from jgg by mlx with local (Exim 4.93)	(envelope-from
- <jgg@mellanox.com>)	id 1jttwJ-008I6d-H5; Fri, 10 Jul 2020 11:23:47 -0300
+ <jgg@mellanox.com>)	id 1jtsYH-0087rq-HA; Fri, 10 Jul 2020 09:54:53 -0300
 X-Originating-IP: [156.34.48.30]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 765aa671-94f1-4fce-ce18-08d824dcde35
-X-MS-TrafficTypeDiagnostic: VI1PR05MB5583:
-X-Microsoft-Antispam-PRVS: <VI1PR05MB558313F48966B67B238810F0CF650@VI1PR05MB5583.eurprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-Forefront-PRVS: 046060344D
+X-MS-Office365-Filtering-Correlation-Id: c6238e3c-1b9d-4d98-f86c-08d824d0725f
+X-MS-TrafficTypeDiagnostic: VI1PR05MB3229:
+X-Microsoft-Antispam-PRVS: <VI1PR05MB32293F12B27A0CA97A86C3C8CF650@VI1PR05MB3229.eurprd05.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sJ3mBl5qubWb0h+JRWVh2IO4BddLMQv+Br478jHO0mdF+Gmj7sFN1+udP6Lb8Zqggj0yJZLqE2FGhKfGNdrRc6lbK6Vdu/Jkixz8onYhPqxxSRDD7VYlbF2Rasc2AMoZ5TcM6+LQ4MoXQ9+uKIOXBCb7chk1QBdTOSaPuajkI+FEWFE4PoaCGjogbXe2zQIdJImpdqbLzeq5QuBRpcI1DXW9Cm9DLTaz14gWccVdj3W3SanXwt8Zik5eJhxr9qKOupN3IILpho6HhWW/Wfh0VaQyqEVZeh7TYaPHu1EEJI3nhOiamGPfD+ZpiqHiwmhbJLJRLiwiRNQpyQrWpa+96Q==
+X-Microsoft-Antispam-Message-Info: 006ZVbwkYBD5Gp3eq7KDNFnNkLZWr56nPCUN0JWxTxRRCcS28614UpATD6v85cjrkg6aeKfSYUnAXfvHUdT9blGRuDQ/eFaE3SCqPS+8RG7N8Yt1TCoZYg1+Qz6zL2bS2cF263YtYxWV1gxOe8a6UxR+FhudkSjmczoB2ib7E3xoSFR95Rj/SVkjUokpR6GpXFn1xHUa4rV0Z5+neiW0GprFx8TwJDlf75rjXNp7jNKhMESd92XbP2OdLL+1OhWw9uKk6jmE/PMHs/mWyDR4/g/GX/XNQrtOT47ACACHll0bXKok3Bq1Rl9uMQbttQvq
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR05MB4141.eurprd05.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(376002)(396003)(366004)(346002)(39860400002)(5660300002)(86362001)(36756003)(7416002)(26005)(6916009)(316002)(478600001)(83380400001)(2616005)(186003)(1076003)(2906002)(8936002)(426003)(4326008)(54906003)(66476007)(66946007)(66556008)(9746002)(8676002)(9786002)(33656002);
+ SFS:(4636009)(396003)(136003)(376002)(346002)(39860400002)(366004)(316002)(2616005)(36756003)(66574015)(9746002)(9786002)(4326008)(86362001)(8936002)(8676002)(66556008)(2906002)(83380400001)(33656002)(66476007)(26005)(186003)(5660300002)(7416002)(426003)(54906003)(1076003)(66946007)(6916009)(478600001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: cppyrSEFdAgkQ1i7W9q/voX0DbtbyyOVjwrEIOo4B7uYYODS8hmJEImRWNNtUiiOZNbaGtDnkKXCJRabgq7Bp4V5pamVdLqGNBMZzoizlzvRIc4PSgtdlF+13VePfAl+oWKQk9qlVh9blVl6PeuQYddj/USevZucky7iGVoqrg2GZ5DN2jMpZhpOaAXMbPu2PunbQ5KcLnjeYp1oJ5ZFWvNgBeIsmktajZlGxvfjkOhMNcqpA0LNpCo5GIpwIT52tIiYKLwRLQ0phw422o6y72JoJWSAwKGLaxj+zVWRs9pmtw6lHvYZwCwaoBSM2OZQeoLsZ7j0uncXth5RBLfm+/2Bv3rmRL42O8pmdQQ2NsxdQPoCFIy/30Yb5MD2tdELN2LR1o4k3i7R1AdJsyZqLM5BvRmDpRJbdg3Nwu/FEhp378GOFB8T6hAOnKknTA8vl95ONAs2NyV2N0CubuBtYkdKjh39nFGqTwJCU9QwM2Q=
+X-MS-Exchange-AntiSpam-MessageData: x/VQeRd+7Cp0juXJJrqziJsMY/7/JYcPyIGcbF19z8FfXhEwQz3JnK9hfLetuPwARoo7VcnXvhF9Em1ckBci4Bne8+xpSSNtlUGwOhaUBMZj466AmLLbyw0kfgaple6lGhjcwbHt+cIRXYh475GaTyG17Iw1z0H729a0D+yflMJZUPLy+iVyJl9KQbBjRucLs2gK9kK6mLc9Oqd777LDIXqUyKAQ0ROBPXxs4TjErnQYRQZ4QoS0limmwj80JQnyrmDPxqJWo3y/ToRHwB4ldnRIBvK8Lxtcs6kKxyBXR2EjRnmd3+CcH9qR1Y+hm1ktOyS3dUeybhLKMqpgdV8hlAPcOhKJWAek6oo3nHOeHJcmMhfkpmyeGH1CCVx/9gWj0eS7TCeC/fwM50OQMKFJKoQ1kOrv2BnRWUcVPui3Ben3hKeWfTv++TDPCZkp3hUVlvp86DwYkpgr8w9gJnpx8Wn49XXtRuRT9Vv0Oy1ymqw=
 X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 765aa671-94f1-4fce-ce18-08d824dcde35
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6238e3c-1b9d-4d98-f86c-08d824d0725f
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR05MB4141.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2020 14:23:51.4197 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2020 12:54:56.5004 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: a652971c-7d2e-4d9b-a6a4-d149256f461b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zwF71M+iqtNMffEf9NDildz9GQ391BR6YYfGlkhI/j0w0yOozGHG4f48p0kC5CNi1e2iLtFsRIITXUxwN0ma/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB5583
+X-MS-Exchange-CrossTenant-UserPrincipalName: mK3J3M1s4NF/OY07BRyHQMYi1GoYqPubjJpYwdDJMlykRrCyVk+DwafBpSfZssYfpNMyMfRb7zk+fV0xvoz8cQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3229
 X-Mailman-Approved-At: Fri, 10 Jul 2020 15:33:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,61 +113,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>, kernel test robot <lkp@intel.com>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
+Cc: kernel test robot <lkp@intel.com>, linux-rdma@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  DRI Development <dri-devel@lists.freedesktop.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
  Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
  Mika Kuoppala <mika.kuoppala@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2020 at 04:02:35PM +0200, Daniel Vetter wrote:
-
-> > dma_fence only possibly makes some sense if you intend to expose the
-> > completion outside a single driver.
-> >
-> > The prefered kernel design pattern for this is to connect things with
-> > a function callback.
-> >
-> > So the actual use case of dma_fence is quite narrow and tightly linked
-> > to DRM.
-> >
-> > I don't think we should spread this beyond DRM, I can't see a reason.
-> 
-> Yeah v4l has a legit reason to use dma_fence, android wants that
-> there. 
-
-'legit' in the sense the v4l is supposed to trigger stuff in DRM when
-V4L DMA completes? I would still see that as part of DRM
-
-Or is it building a parallel DRM like DMA completion graph?
-
-> > Trying to improve performance of limited HW by using sketchy
-> > techniques at the cost of general system stability should be a NAK.
->
-> Well that's pretty much gpu drivers, all the horrors for a bit more speed :-)
-> 
-> On the text itself, should I upgrade to "must not" instead of "should
-> not"? Or more needed?
-
-Fundamentally having some unknowable graph of dependencies where parts
-of the graph can be placed in critical regions like notifiers is a
-complete maintenance nightmare.
-
-I think building systems like this should be discouraged :\
-
-Jason
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCBKdWwgMTAsIDIwMjAgYXQgMDI6NDg6MTZQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBBbSAxMC4wNy4yMCB1bSAxNDo0MyBzY2hyaWViIEphc29uIEd1bnRob3JwZToK
+PiA+IE9uIFRodSwgSnVsIDA5LCAyMDIwIGF0IDEwOjA5OjExQU0gKzAyMDAsIERhbmllbCBWZXR0
+ZXIgd3JvdGU6Cj4gPiA+IEhpIEphc29uLAo+ID4gPiAKPiA+ID4gQmVsb3cgdGhlIHBhcmFncmFw
+aCBJJ3ZlIGFkZGVkIGFmdGVyIG91ciBkaXNjdXNzaW9ucyBhcm91bmQgZG1hLWZlbmNlcwo+ID4g
+PiBvdXRzaWRlIG9mIGRyaXZlcnMvZ3B1LiBHb29kIGVub3VnaCBmb3IgYW4gYWNrIG9uIHRoaXMs
+IG9yIHdhbnQgc29tZXRoaW5nCj4gPiA+IGNoYW5nZWQ/Cj4gPiA+IAo+ID4gPiBUaGFua3MsIERh
+bmllbAo+ID4gPiAKPiA+ID4gPiArICogTm90ZSB0aGF0IG9ubHkgR1BVIGRyaXZlcnMgaGF2ZSBh
+IHJlYXNvbmFibGUgZXhjdXNlIGZvciBib3RoIHJlcXVpcmluZwo+ID4gPiA+ICsgKiAmbW11X2lu
+dGVydmFsX25vdGlmaWVyIGFuZCAmc2hyaW5rZXIgY2FsbGJhY2tzIGF0IHRoZSBzYW1lIHRpbWUg
+YXMgaGF2aW5nIHRvCj4gPiA+ID4gKyAqIHRyYWNrIGFzeW5jaHJvbm91cyBjb21wdXRlIHdvcmsg
+dXNpbmcgJmRtYV9mZW5jZS4gTm8gZHJpdmVyIG91dHNpZGUgb2YKPiA+ID4gPiArICogZHJpdmVy
+cy9ncHUgc2hvdWxkIGV2ZXIgY2FsbCBkbWFfZmVuY2Vfd2FpdCgpIGluIHN1Y2ggY29udGV4dHMu
+Cj4gPiBJIHdhcyBob3Bpbmcgd2UnZCBnZXQgdG8gJ25vIGRyaXZlciBvdXRzaWRlIEdQVSBzaG91
+bGQgZXZlbiB1c2UKPiA+IGRtYV9mZW5jZSgpJwo+IAo+IE15IGxhc3Qgc3RhdHVzIHdhcyB0aGF0
+IFY0TCBjb3VsZCBjb21lIHVzZSBkbWFfZmVuY2VzIGFzIHdlbGwuCgpJJ20gc3VyZSBsb3RzIG9m
+IHBsYWNlcyAqY291bGQqIHVzZSBpdCwgYnV0IEkgdGhpbmsgSSB1bmRlcnN0b29kIHRoYXQKaXQg
+aXMgYSBiYWQgaWRlYSB1bmxlc3MgeW91IGhhdmUgdG8gZml0IGludG8gdGhlIERSTSB1QVBJPwoK
+WW91IGFyZSBiZXR0ZXIgdG8gZG8gc29tZXRoaW5nIGNvbnRhaW5lZCBpbiB0aGUgc2luZ2xlIGRy
+aXZlciB3aGVyZQpsb2NraW5nIGNhbiBiZSBhbmFseXplZC4KCj4gSSdtIG5vdCAxMDAlIHN1cmUs
+IGJ1dCB3b3VsZG4ndCBNTVUgbm90aWZpZXIgKyBkbWFfZmVuY2UgYmUgYSB2YWxpZCB1c2UgY2Fz
+ZQo+IGZvciB0aGluZ3MgbGlrZSBjdXN0b20gRlBHQSBpbnRlcmZhY2VzIGFzIHdlbGw/CgpJIGRv
+bid0IHRoaW5rIHdlIHNob3VsZCBleHBhbmQgdGhlIGxpc3Qgb2YgZHJpdmVycyB0aGF0IHVzZSB0
+aGlzCnRlY2huaXF1ZS4gCgpEcml2ZXJzIHRoYXQgY2FuJ3Qgc3VzcGVuZCBzaG91bGQgcGluIG1l
+bW9yeSwgbm90IHVzZSBibG9ja2VkCm5vdGlmaWVycyB0byBjcmVhdGVkIHBpbm5lZCBtZW1vcnku
+CgpKYXNvbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
