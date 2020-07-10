@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA4DFC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 04:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0461C433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 04:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A749720720
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 04:48:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 81B0720720
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 04:48:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2dRTf4NE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A749720720
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aLk78SWq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81B0720720
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7506A6EB67;
-	Fri, 10 Jul 2020 04:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5205D6EB6C;
+	Fri, 10 Jul 2020 04:48:33 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0D666EB68
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2020 04:48:29 +0000 (UTC)
+ (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A80346EB68
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2020 04:48:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ntplxdev5HELDCewh0/ZJmGNiwP8t2Sto0/cHB2B7C7qz8TeoDPmzASRkPFOKrQxzVwHZTVekbUqVQtEyShbEsSoE4Cai/PtrG4l61N+j9HPq/HmH0CcjyZ3lIXgsI97d4c2Qy6mxlGHUmw8VeBv3J9fUuSPW+EmJV9Pu1riXjP92aXNqU2mn4h2OyaxZZRk4MaFLBM69ZTd+CMQiuKCfdL3rCFe2MZSJUD9KnEt7DfbHvnjkKNOiOsEZz8wYhlNlv0MAzpPZPp/g54l9mSP3YcUe4gKJH+lngvaSvxauNDPyB0+wzNkbWFruNTRsl+DCDvdP2/YZOK7Dz7QGPpcUA==
+ b=AlgXppVMe2Bj3IanQCc4p5PSprRAWcXLvjwQ8ogh25owcFWkm+oPxe58H9TxED3IPoNS0WdsuAI9Kqi1hiC0HME8VT7E24eV8FrSsxPCa1uW/+OU67P0KfrCAEymECi4ukVehBr+xjtYLl8sGED93ELXXFKwUc2S7xCyz69AFDbmNTDghiO4uuwBXMTUHzszPY2Ra/NnkOYGk0D+Sd5RP1JZe3AhUQvImQldarEfEluyZlq8ygFzTM+i2C3dn4GVtldK8uWMmVCXiG/yfE9c+mE08stxRqxPR7Yi0VqQuMrx+Qnn2dIVSodvqlaVoLJLpnOsEL+SXIEz1WrUa9od6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fh+6TwlXoTax4u5HZBNoT1k/phmMucvjHM2k7ovyRcY=;
- b=U+/yEKmTQXKfnm4OmaTSP7xHmBCal960X8oXD9YP4KwAw8vhonus/gG6ozVlIHE+eEApm47R0s4aMtz84JhdqYO72411jWYy0q2/tDzJdw0k0KCnifnuuJb3Mm01e5+7IcVPOMhNhqmghPi0fSzmnI0V3w2ZAAyh1L5OaqSfsWS4M1WQuVzG1HIdWLpYMUeQdBgxtxYZJrXHaQ8U1GNmzvrBl3MLhsAoJ3T/d4CLfi9UMIDv+Wx5HSx356NcXVIyAcwZyEu24c1t3vQ8F20ox2XtmaVGf7TzcA+VBnWLTSlheXViCLZHj9zX46g9PMKbOZeNkZkl+9x4BZuzgiWL+g==
+ bh=7nxwHbgHNtS1viCALvKdE/xzaEsmFVTkLWLyd5HMXQY=;
+ b=UbtCGNHhoG0xWayGmgrHXpt1y7c4ccRrSjtqji1pJ5hoCYl5gqLzcQvMSK6x06fBJ5TgyE6vFv6qY1X+80hdX0UvGG+XkLYHZc8weVuCq1mxZt8KaYFP3PRK2Lre4CFs11qc/4TaAs0FeZ9gXYrnayitQ0C2Wx+LdOqNeBXWDk2zQRInnFeoKoBujp06efu6P2iaBonai7/yuW7MYVwxsykHjD0wqlvXw9k/ZsVaOPife2St8RAcL2LU8YW9VPHiP5fRWJ2ZmjHZ21KiN7dG4p3QiZ7OBiWxdFBENUVLmtvGlt+nhvWi7XAXAnC89hwCVPrjIJ3RuZ756CVAZTjDTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fh+6TwlXoTax4u5HZBNoT1k/phmMucvjHM2k7ovyRcY=;
- b=2dRTf4NEdsO78hGaWN/vpiQtJEQ+eeqUneqag8N2s45Lq7ilO3TkZfJ+1K4DBYf7Nx5joODM8FY+hXxmCaH1gyOvBqGI91iwO02i4Ro7H6AI6NSFQdu82EldZjnSr+N/No9soQBqyKo2AM89riTNussbBbWicyVwMTrC4DztfXk=
+ bh=7nxwHbgHNtS1viCALvKdE/xzaEsmFVTkLWLyd5HMXQY=;
+ b=aLk78SWq5wHmqTTosgvll2oz4OnOpCNUy6Pf+8wu4hcId6VJADAh/Am/WlW/4IlcCuVboKhpK2xCRSymlVVSWFrQIaMbbqAV9j0JmNy/98R6Seq02bDdv05bioe3/e9sRK/h8dNG8UUaluBNTX3dZ0UcwTlwo9dFxlQxOe6aBVE=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM5PR12MB2360.namprd12.prod.outlook.com (2603:10b6:4:bb::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.21; Fri, 10 Jul 2020 04:48:28 +0000
+ 15.20.3174.21; Fri, 10 Jul 2020 04:48:30 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3174.023; Fri, 10 Jul 2020
- 04:48:28 +0000
+ 04:48:30 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 11/16] drm/amd/powerplay: drop unnecessary Sienna Cichlid
- specific APIs
-Date: Fri, 10 Jul 2020 12:47:41 +0800
-Message-Id: <20200710044746.23538-11-evan.quan@amd.com>
+Subject: [PATCH 12/16] drm/amd/powerplay: drop Sienna Cichlid specific
+ set_soft_freq_limited_range
+Date: Fri, 10 Jul 2020 12:47:42 +0800
+Message-Id: <20200710044746.23538-12-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200710044746.23538-1-evan.quan@amd.com>
 References: <20200710044746.23538-1-evan.quan@amd.com>
@@ -70,34 +70,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR03CA0059.apcprd03.prod.outlook.com (2603:1096:202:17::29) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.9 via Frontend Transport; Fri, 10 Jul 2020 04:48:26 +0000
+ 15.20.3195.9 via Frontend Transport; Fri, 10 Jul 2020 04:48:28 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 732dc288-aaba-4e54-fa06-08d8248c7cc3
+X-MS-Office365-Filtering-Correlation-Id: 81dcbee8-88bc-4864-ddd3-08d8248c7dde
 X-MS-TrafficTypeDiagnostic: DM5PR12MB2360:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2360C31348CF85BA41F90692E4650@DM5PR12MB2360.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB23602A1CFC26B50CC0531691E4650@DM5PR12MB2360.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:813;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: f2CWVYn80Hd0FhwsISXjka/y2lNC6vGTXh2Ux0lj+dJw9pFEVmGR7SaLbiBKrbeWBl31BpZAWl7SPAQgR5s3XRfcnDMjBxXu28rBFqn9CvddAQDhboQpKkrOqW+dq7RrdClVGJWGxffWgT/dzxE4NMivyvq07IYBR9Pmzq96ii/72UvlQHOiGxBM9zbM2IhPie+mfQgYMe/nqJeHAtT0h7faKVcu1wRkS8pok7TILmg+JxrTMd/yCih/H94EUhYUuGhgVdMe5mUqZCsExD7B/XIBjKqv2zJ6ETZyaLw6LvNizvt6f7cm5wV3fFpJix49p9+yBzSVdmhnivzPpNVLCQ==
+X-Microsoft-Antispam-Message-Info: 4STtBz+73ZCV7ff5n1ZEsZDPiBFJ3HUFFL2On/nDeWzgxrRLCPCVmEsUqxTTIH+2dFhiN6IR1LB1pma2pbj0kp7/q4SBn5wQ2jpsywWBj4t1pW+4HybzHlvVCxeUJtWZ5PfggZN3MTjUD7Twjrg8V0fs/O0Lq2MYowWTLLCIibESsxJLVrrzoo6AmqT2yGXBILbjD9IfpxbNcCMiApKl30PuiN82xIzbFVIdJ2PKkBTf2qeiZG0sjBf37MSz3TPPb72IAm4KNXwNyBta4ZaAwIoBVaFoBVGzeSI9UvCghgh8y7eZV1y9HKjT1RFThCV99DD3iX9xQuwAth/6mqOvzA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(39860400002)(396003)(376002)(346002)(136003)(2906002)(4326008)(8676002)(8936002)(83380400001)(6486002)(44832011)(7696005)(52116002)(186003)(16526019)(956004)(2616005)(26005)(6916009)(316002)(478600001)(86362001)(6666004)(5660300002)(66556008)(1076003)(66476007)(36756003)(66946007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: O8ziOrGu9c7TPJxIyQTdb8o0JeR2JdCz6Ulcids87As2BXBwacM7eSwtdW0qnYL/MUVTzbe6YB4l8p7nKrpKK4FMX3+FkyIc9MZZ22TNpcfjVTgF8n9FEmEJWI6Nm9D/nfuIrhZfN6AElATyCximDQ2KjB+BmVrD2Qz/ToQEk1O0W57aa4/jLAxc8WlcjiMJ+kmPRYac8O+RB3o/rVBp9t+i3u6mbZK9BcAGT7Zr/udkmqR8mIrhGpP65S+mVjxsqARBT2aJ0yzzEhn6+34hExiLr3JT6/8TccyAMbEPE6C1l/DGVLlgDw/4JfNU+6s9zTyJXxd7d4puzUiISBpfyJMjsPaqi4MpnplRWbLnn8EJKuK0mzEQvaHRrl/vvBiQ++sLNhbc56/CgwOf7bDrAPZIRbToHzRawo00gkWUZsTy7lIf/ZMCsfHO/lIomJfd160TI//M0t/mPSsZTR62ZfT/DwpQ5D2U4NH0/yUKo4QFK8XS4raMnD9/Nkf9EoeG
+X-MS-Exchange-AntiSpam-MessageData: Ujix9NRwPyAactOpnstz3h180ZYXxcGRoq4chWMx7FjKZMFgTG0zSWdz6y9uDrHXQ5SnxPrVQITIzSOiLlNi4tp2iNThUpI+FdvIf7upCQ1+x1vrPSRyaZ+imTQh6epcJGWvwN7yiLmzGLOFdVFQEGNdKsMPm9+W3104mxMaBleSOiGlHrhjgORyfQNKaqx0MsG1zMfO5m1Nh6flshdT4Gh5MkM6ufCTusDA1Y4njE33+j31WMLQcAoX2XADsb2M+E4h3Qj/9W2snKctx0G1y/flbEuf07a8F0mJjdpurEAlx6CkOh7HV6jNvSS3WcB1KnMmgrXR3RAHulhjCX8Bu9rjPuasKP4Hj8QLZtUmsV4hT50wUYMxtgm16603y2ToiZnhMouGSdKovOWc0Sk1MRuqJLj6lj9JBCzgAPCZckUHgjCWix7dlQ2pfxmNtWql0Q5LPbE+NHGlOS0ieO1NlFMSnNarPBsRL2tztrBd0d2GISY56ACUJVLbM0KfcL4L
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 732dc288-aaba-4e54-fa06-08d8248c7cc3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81dcbee8-88bc-4864-ddd3-08d8248c7dde
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2020 04:48:28.2693 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2020 04:48:30.1073 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GfOaDmadSM5fTGIJ9eXotPPCb0V5d87A7ACn1ow4Qt1xKFJDmUwURpfOpraRKSVu
+X-MS-Exchange-CrossTenant-UserPrincipalName: V245LnF1TZZwl+VnYOtLHoYHcrY3qDJPmPr+JEL4FEakQ61qtbUhX0b6u27+It5K
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,234 +116,126 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As a common performance level setting API is used. Then these
-ASIC specific APIs are not needed any more.
+Use the common smu_v11_0_set_soft_freq_limited_range.
 
-Change-Id: I04c810859794b07ce8905a8df797ed6b5ae116a8
+Change-Id: I9f8772880b324ce9e741291751bb1b8ff4c36ea3
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 178 +-----------------
- 1 file changed, 1 insertion(+), 177 deletions(-)
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 20 ++-----------------
+ drivers/gpu/drm/amd/powerplay/smu_internal.h  |  1 -
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 20 +++++++++++++++----
+ 3 files changed, 18 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 8fae7dd982c7..27f77bde184f 100644
+index 27f77bde184f..141944df97b0 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -1181,59 +1181,6 @@ static int sienna_cichlid_display_config_changed(struct smu_context *smu)
- 	return ret;
+@@ -1046,22 +1046,6 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	return size;
  }
  
--static int sienna_cichlid_force_dpm_limit_value(struct smu_context *smu, bool highest)
+-int sienna_cichlid_set_soft_freq_limited_range(struct smu_context *smu,
+-				      enum smu_clk_type clk_type,
+-				      uint32_t min, uint32_t max)
 -{
--	int ret = 0, i = 0;
--	uint32_t min_freq, max_freq, force_freq;
--	enum smu_clk_type clk_type;
+-	struct amdgpu_device *adev = smu->adev;
+-	int ret;
 -
--	enum smu_clk_type clks[] = {
--		SMU_GFXCLK,
--		SMU_MCLK,
--		SMU_SOCCLK,
--	};
--
--	for (i = 0; i < ARRAY_SIZE(clks); i++) {
--		clk_type = clks[i];
--		ret = smu_v11_0_get_dpm_ultimate_freq(smu, clk_type, &min_freq, &max_freq);
--		if (ret)
--			return ret;
--
--		force_freq = highest ? max_freq : min_freq;
--		ret = sienna_cichlid_set_soft_freq_limited_range(smu, clk_type, force_freq, force_freq);
--		if (ret)
--			return ret;
--	}
+-	if (clk_type == SMU_GFXCLK)
+-		amdgpu_gfx_off_ctrl(adev, false);
+-	ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min, max);
+-	if (clk_type == SMU_GFXCLK)
+-		amdgpu_gfx_off_ctrl(adev, true);
 -
 -	return ret;
 -}
 -
--static int sienna_cichlid_unforce_dpm_levels(struct smu_context *smu)
--{
--	int ret = 0, i = 0;
--	uint32_t min_freq, max_freq;
--	enum smu_clk_type clk_type;
--
--	enum smu_clk_type clks[] = {
--		SMU_GFXCLK,
--		SMU_MCLK,
--		SMU_SOCCLK,
--	};
--
--	for (i = 0; i < ARRAY_SIZE(clks); i++) {
--		clk_type = clks[i];
--		ret = smu_v11_0_get_dpm_ultimate_freq(smu, clk_type, &min_freq, &max_freq);
--		if (ret)
--			return ret;
--
+ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+ 				   enum smu_clk_type clk_type, uint32_t mask)
+ {
+@@ -1097,7 +1081,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+ 		if (ret)
+ 			goto forec_level_out;
+ 
 -		ret = sienna_cichlid_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
--		if (ret)
--			return ret;
--	}
--
--	return ret;
--}
--
- static int sienna_cichlid_get_gpu_power(struct smu_context *smu, uint32_t *value)
- {
- 	if (!value)
-@@ -1486,50 +1433,6 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
++		ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
+ 		if (ret)
+ 			goto forec_level_out;
+ 		break;
+@@ -2566,7 +2550,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.baco_enter = smu_v11_0_baco_enter,
+ 	.baco_exit = smu_v11_0_baco_exit,
+ 	.get_dpm_ultimate_freq = sienna_cichlid_get_dpm_ultimate_freq,
+-	.set_soft_freq_limited_range = sienna_cichlid_set_soft_freq_limited_range,
++	.set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
+ 	.override_pcie_parameters = smu_v11_0_override_pcie_parameters,
+ 	.set_thermal_range = sienna_cichlid_set_thermal_range,
+ };
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+index 1c808ffe3ab1..91d3965bbe80 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -93,7 +93,6 @@
+ #define smu_asic_set_performance_level(smu, level)			smu_ppt_funcs(set_performance_level, -EINVAL, smu, level)
+ #define smu_dump_pptable(smu)						smu_ppt_funcs(dump_pptable, 0, smu)
+ #define smu_get_dpm_clk_limited(smu, clk_type, dpm_level, freq)		smu_ppt_funcs(get_dpm_clk_limited, -EINVAL, smu, clk_type, dpm_level, freq)
+-#define smu_set_soft_freq_limited_range(smu, clk_type, min, max)	smu_ppt_funcs(set_soft_freq_limited_range, -EINVAL, smu, clk_type, min, max)
+ #define smu_override_pcie_parameters(smu)				smu_ppt_funcs(override_pcie_parameters, 0, smu)
+ #define smu_update_pcie_parameters(smu, pcie_gen_cap, pcie_width_cap)	smu_ppt_funcs(update_pcie_parameters, 0, smu, pcie_gen_cap, pcie_width_cap)
+ #define smu_set_thermal_range(smu, range)				smu_ppt_funcs(set_thermal_range, 0, smu, range)
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index f96ff062eb64..c2779d0b51f6 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1745,9 +1745,12 @@ int smu_v11_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type c
  	return ret;
  }
  
--static int sienna_cichlid_get_profiling_clk_mask(struct smu_context *smu,
--					 enum amd_dpm_forced_level level,
--					 uint32_t *sclk_mask,
--					 uint32_t *mclk_mask,
--					 uint32_t *soc_mask)
--{
--	struct amdgpu_device *adev = smu->adev;
--	int ret = 0;
--	uint32_t level_count = 0;
--
--	if (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK) {
--		if (sclk_mask)
--			*sclk_mask = 0;
--	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK) {
--		if (mclk_mask)
--			*mclk_mask = 0;
--	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
--		if(sclk_mask) {
--			amdgpu_gfx_off_ctrl(adev, false);
--			ret = smu_v11_0_get_dpm_level_count(smu, SMU_SCLK, &level_count);
--			amdgpu_gfx_off_ctrl(adev, true);
--			if (ret)
--				return ret;
--			*sclk_mask = level_count - 1;
--		}
--
--		if(mclk_mask) {
--			ret = smu_v11_0_get_dpm_level_count(smu, SMU_MCLK, &level_count);
--			if (ret)
--				return ret;
--			*mclk_mask = level_count - 1;
--		}
--
--		if(soc_mask) {
--			ret = smu_v11_0_get_dpm_level_count(smu, SMU_SOCCLK, &level_count);
--			if (ret)
--				return ret;
--			*soc_mask = level_count - 1;
--		}
--	}
--
--	return ret;
--}
--
- static int sienna_cichlid_notify_smc_display_config(struct smu_context *smu)
+-int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_type clk_type,
+-			    uint32_t min, uint32_t max)
++int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu,
++					  enum smu_clk_type clk_type,
++					  uint32_t min,
++					  uint32_t max)
  {
- 	struct smu_clocks min_clocks = {0};
-@@ -1761,82 +1664,6 @@ static int sienna_cichlid_get_uclk_dpm_states(struct smu_context *smu, uint32_t
- 	return 0;
++	struct amdgpu_device *adev = smu->adev;
+ 	int ret = 0, clk_id = 0;
+ 	uint32_t param;
+ 
+@@ -1755,12 +1758,16 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
+ 	if (clk_id < 0)
+ 		return clk_id;
+ 
++	if (clk_type == SMU_GFXCLK &&
++	    adev->asic_type == CHIP_SIENNA_CICHLID)
++		amdgpu_gfx_off_ctrl(adev, false);
++
+ 	if (max > 0) {
+ 		param = (uint32_t)((clk_id << 16) | (max & 0xffff));
+ 		ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxByFreq,
+ 						  param, NULL);
+ 		if (ret)
+-			return ret;
++			goto out;
+ 	}
+ 
+ 	if (min > 0) {
+@@ -1768,9 +1775,14 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
+ 		ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinByFreq,
+ 						  param, NULL);
+ 		if (ret)
+-			return ret;
++			goto out;
+ 	}
+ 
++out:
++	if (clk_type == SMU_GFXCLK &&
++	    adev->asic_type == CHIP_SIENNA_CICHLID)
++		amdgpu_gfx_off_ctrl(adev, true);
++
+ 	return ret;
  }
  
--static int sienna_cichlid_set_performance_level(struct smu_context *smu,
--					enum amd_dpm_forced_level level);
--
--static int sienna_cichlid_set_standard_performance_level(struct smu_context *smu)
--{
--	struct amdgpu_device *adev = smu->adev;
--	int ret = 0;
--	uint32_t sclk_freq = 0, uclk_freq = 0;
--
--	switch (adev->asic_type) {
--	/* TODO: need to set specify clk value by asic type, not support yet*/
--	default:
--		/* by default, this is same as auto performance level */
--		return sienna_cichlid_set_performance_level(smu, AMD_DPM_FORCED_LEVEL_AUTO);
--	}
--
--	ret = sienna_cichlid_set_soft_freq_limited_range(smu, SMU_SCLK, sclk_freq, sclk_freq);
--	if (ret)
--		return ret;
--	ret = sienna_cichlid_set_soft_freq_limited_range(smu, SMU_UCLK, uclk_freq, uclk_freq);
--	if (ret)
--		return ret;
--
--	return ret;
--}
--
--static int sienna_cichlid_set_peak_performance_level(struct smu_context *smu)
--{
--	int ret = 0;
--
--	/* TODO: not support yet*/
--	return ret;
--}
--
--static int sienna_cichlid_set_performance_level(struct smu_context *smu,
--					enum amd_dpm_forced_level level)
--{
--	int ret = 0;
--	uint32_t sclk_mask, mclk_mask, soc_mask;
--
--	switch (level) {
--	case AMD_DPM_FORCED_LEVEL_HIGH:
--		ret = smu_force_dpm_limit_value(smu, true);
--		break;
--	case AMD_DPM_FORCED_LEVEL_LOW:
--		ret = smu_force_dpm_limit_value(smu, false);
--		break;
--	case AMD_DPM_FORCED_LEVEL_AUTO:
--		ret = smu_unforce_dpm_levels(smu);
--		break;
--	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
--		ret = sienna_cichlid_set_standard_performance_level(smu);
--		break;
--	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
--	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
--		ret = smu_get_profiling_clk_mask(smu, level,
--						 &sclk_mask,
--						 &mclk_mask,
--						 &soc_mask);
--		if (ret)
--			return ret;
--		smu_force_clk_levels(smu, SMU_SCLK, 1 << sclk_mask, false);
--		smu_force_clk_levels(smu, SMU_MCLK, 1 << mclk_mask, false);
--		smu_force_clk_levels(smu, SMU_SOCCLK, 1 << soc_mask, false);
--		break;
--	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
--		ret = sienna_cichlid_set_peak_performance_level(smu);
--		break;
--	case AMD_DPM_FORCED_LEVEL_MANUAL:
--	case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
--	default:
--		break;
--	}
--	return ret;
--}
--
- static int sienna_cichlid_get_thermal_temperature_range(struct smu_context *smu,
- 						struct smu_temperature_range *range)
- {
-@@ -2684,18 +2511,15 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.pre_display_config_changed = sienna_cichlid_pre_display_config_changed,
- 	.display_config_changed = sienna_cichlid_display_config_changed,
- 	.notify_smc_display_config = sienna_cichlid_notify_smc_display_config,
--	.force_dpm_limit_value = sienna_cichlid_force_dpm_limit_value,
--	.unforce_dpm_levels = sienna_cichlid_unforce_dpm_levels,
- 	.is_dpm_running = sienna_cichlid_is_dpm_running,
- 	.get_fan_speed_percent = sienna_cichlid_get_fan_speed_percent,
- 	.get_fan_speed_rpm = sienna_cichlid_get_fan_speed_rpm,
- 	.get_power_profile_mode = sienna_cichlid_get_power_profile_mode,
- 	.set_power_profile_mode = sienna_cichlid_set_power_profile_mode,
--	.get_profiling_clk_mask = sienna_cichlid_get_profiling_clk_mask,
- 	.set_watermarks_table = sienna_cichlid_set_watermarks_table,
- 	.read_sensor = sienna_cichlid_read_sensor,
- 	.get_uclk_dpm_states = sienna_cichlid_get_uclk_dpm_states,
--	.set_performance_level = sienna_cichlid_set_performance_level,
-+	.set_performance_level = smu_v11_0_set_performance_level,
- 	.get_thermal_temperature_range = sienna_cichlid_get_thermal_temperature_range,
- 	.display_disable_memory_clock_switch = sienna_cichlid_display_disable_memory_clock_switch,
- 	.get_power_limit = sienna_cichlid_get_power_limit,
 -- 
 2.27.0
 
