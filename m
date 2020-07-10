@@ -2,110 +2,116 @@ Return-Path: <SRS0=NsFz=AV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38E1CC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 08:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7323EC433E3
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 08:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8817206A5
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 08:21:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 485AB207DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2020 08:27:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0TZqgAHc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8817206A5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aDi8G8Vj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 485AB207DF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A5456EB94;
-	Fri, 10 Jul 2020 08:21:27 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCBF56EB94
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2020 08:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E57006EB9B;
+	Fri, 10 Jul 2020 08:27:00 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 389866EB94
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2020 08:26:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SZil9zfWRsYuJvQliqk6wKjpWj6GtN84bM/z76U6drJQwEMdkW6ZwrhiZvxKmYlYGEuJ98OlhhyqSM58uoSpMGmUoECBMrN7KhLJrNRFPKlFaHdlRH0Qxqjtelb8BALXL/WsR2Gv9EmJXlpZQFh02EsgDse8/iU6AszZUnEhlQ78ZHjO3vyWE9pMYSrQLtNfbDt3aPeY/c8+STxBPJMvXOap3CLsrAe5Nxd7pqLk6qPU78a+EjONI1dRduFyx2w0BNrXfceoCmSYkYRmTSwBRTePoX29x1tN4WwKSVHsZ4w40pVMswCmHQBvStX1Zdzlboqk7UfT49zZpzDWK1TStA==
+ b=BzVuQRhXQccgZC2CDFiMXomCKoGoPLGyjmo02YH2CIAZQwWvs+OrqBc3bqcoaZK37RnbOd5Z+NgEUyg4BXNre1Mxky0JRFIOlCJKRpor9O2Z/iD/BCbRV27vLz2j5q7vqbKKhPVmMMNn6mW47y2b/OP0xf9EXY44y2qAjROrW2F3ErtXmZw9t3U0wawexFrtRhMpMg8Cs4qUX8Cq8XrBnTVcPx/Bf9+J7yif++bhwvZoNkI0PBtW7cN1qjbegqedvNuItWD/MRYKTUKXiM2Ezqi64So2I7iV364EEqe6o3UhbaNbR3229RhXv+1m+t92+3+AEpLH/f77BJI3bD/PNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b7zEfq0WjveegVx2XTQG4PO6m8Bs6i2pBUKnDSYm7Yk=;
- b=gEDjsLTO6yL/oG9YjxDbQYb6zdFaVxY0a/g9i2iUUutUBfyySBUFNKlfrDw5bj5xOhWA5hiUW14RG4ZXweb8X8IOCu49H0tStQSB4c+sZKzbQXI18tUhWtjnAVb4vRQ8ik5vjYESdHK7uqzC3hr0pbkYRZ1cThKOmorZPfu93VzklAhxnj22KsGt+fPUR9GSgRKxyThx6FBtZg1ClzdC3j6jz7VI+BHuDdPAgx/1a/pA7xedcmgptf7DZoTY7h5p8JxVBcCvBacjswAmV/ARvoXIpmGcUzerIusoa3UUq2CGOQfqQRRIfY1l1YT1y3K3HNB822S0fr7AhY8OdZjjcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=KanfbNel31yngSdsIJSAG4+yRdU8fhLjRlX9+D2JGR8=;
+ b=OWVq3eE1gk3UX1LZZ57/9sD9GfvBi6lv8G2TQSYWV70lQzX197G6428HDN22A5ZjuquxxAf472mvr493SjdpPWj6H1zEMWqF9Z/b8aSl2UX0Epat6uPN4gvYelJGCBwc6ssyc1XpPCBReO9Uua05glg00YtSITxNJou/z3C9uBE6QAPCyov0M2sCTyzXDBRGcmLp5BRMFcFPdTQJ2UJ8jr315nwHsJcZ54cJ2T9XaTWTT0KlqOtnFLvKH0FXgG2HgVnPxCsSEV7AdVFDRTCe/BgfcyNYs/SqseFpBD3cthxLeIcWTA46G7fcxt6QPyCz9ArXae/RIGfE5MeyQk5btQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b7zEfq0WjveegVx2XTQG4PO6m8Bs6i2pBUKnDSYm7Yk=;
- b=0TZqgAHcXWqnD3eIJyDDgjYhtow/1zSKmEDLOWwjEunANw3ORgfNlj8xWM4groO0abn8EjrcoViXPtOrVdGjHRB/Qj4BFIzFQQK60LIkU94GJUmh4GEmD4Pcbc8xe+cQ00parh5AzkjsfIMHxFL9jn747WkRfud3fAmbDZX1rkU=
-Received: from BN6PR10CA0023.namprd10.prod.outlook.com (2603:10b6:405:1::33)
- by BN6PR1201MB0083.namprd12.prod.outlook.com (2603:10b6:405:54::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Fri, 10 Jul
- 2020 08:21:23 +0000
-Received: from BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:1:cafe::b5) by BN6PR10CA0023.outlook.office365.com
- (2603:10b6:405:1::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22 via Frontend
- Transport; Fri, 10 Jul 2020 08:21:23 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT055.mail.protection.outlook.com (10.13.177.62) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3174.21 via Frontend Transport; Fri, 10 Jul 2020 08:21:23 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 10 Jul
- 2020 03:21:23 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 10 Jul
- 2020 03:21:22 -0500
-Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Fri, 10 Jul 2020 03:21:21 -0500
-From: chen gong <curry.gong@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/powerplay: Target power profile mode should be the
- second parameter of renoir_set_power_profile_mode
-Date: Fri, 10 Jul 2020 16:21:18 +0800
-Message-ID: <1594369278-7808-1-git-send-email-curry.gong@amd.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ bh=KanfbNel31yngSdsIJSAG4+yRdU8fhLjRlX9+D2JGR8=;
+ b=aDi8G8VjWbLuLCuxRj7puIs2MqnXwAEclnGDv0KOavg8MBu0KjJvhbj1SH8O+c8A4Ba0Uyp6IfTqpDRLa6RAaFWlJlTyAtkqe/Do/5jiMXCqblHBdf6Q40ANhvSqiLoKJPmrYU4+CQNN798MsNd1kk8h8F7yJRlI+ogYxmqmN2k=
+Received: from CH2PR12MB4101.namprd12.prod.outlook.com (2603:10b6:610:a8::22)
+ by CH2PR12MB3688.namprd12.prod.outlook.com (2603:10b6:610:28::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.20; Fri, 10 Jul
+ 2020 08:26:53 +0000
+Received: from CH2PR12MB4101.namprd12.prod.outlook.com
+ ([fe80::b9c2:5b76:382a:c5d]) by CH2PR12MB4101.namprd12.prod.outlook.com
+ ([fe80::b9c2:5b76:382a:c5d%8]) with mapi id 15.20.3174.021; Fri, 10 Jul 2020
+ 08:26:52 +0000
+From: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/4] drm/amdgpu: add psp mode1 reset mode
+Thread-Topic: [PATCH 2/4] drm/amdgpu: add psp mode1 reset mode
+Thread-Index: AQHWVn18m6ktZHNKBkaqeZkRCPujmKkAW4+AgAAC5fCAABa/gIAABURw
+Date: Fri, 10 Jul 2020 08:26:52 +0000
+Message-ID: <CH2PR12MB4101A4B1EC55B266D9A6155C8C650@CH2PR12MB4101.namprd12.prod.outlook.com>
+References: <20200710054626.2487-1-Wenhui.Sheng@amd.com>
+ <20200710054626.2487-2-Wenhui.Sheng@amd.com>
+ <DM6PR12MB40752D83CCCC8F1891FF3115FC650@DM6PR12MB4075.namprd12.prod.outlook.com>
+ <CH2PR12MB41012FB7A7DE5B1F13ABC3AB8C650@CH2PR12MB4101.namprd12.prod.outlook.com>
+ <DM6PR12MB4075DA10EBDBB8D3BE6F12BDFC650@DM6PR12MB4075.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB4075DA10EBDBB8D3BE6F12BDFC650@DM6PR12MB4075.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-10T06:35:10Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=c7832111-3d76-42aa-9bd4-0000dacf5f0d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-10T08:26:49Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 9eaac970-20b4-4c80-a340-0000abf73d66
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ffe030ff-548f-4cd2-a273-08d824aaffee
+x-ms-traffictypediagnostic: CH2PR12MB3688:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB36889BA16EACD1C9027FF2D08C650@CH2PR12MB3688.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qdi/tfX4tcdJn/j5cdHTb2gtNHYybecG9JqedURzF7AtEn9YUArirI5nI9IN2YsPtq8zz9/ry9I65GRUuENxGgZeWbimaB/LM+1nEzsJ/areVA/eo0AwJngjkKqVwWJBSr1VeQMza0SJn2ApmKVXcGxGSTarP6oqmG9V2yw7CaGZpEAG51Un91Jt7oKrcrUWXBw/lg5gdPBVlCu2dA5O/R0qeviVV4wi+I93MErqe8ulNyo5JQttPwezsXh1XrmIhZcWTCEETX1oWRRI//9G6hndseIYIyqLhySs3fmEGvHsiJLVBBbBqhA9u7llc1YcsZYMZaSZs05lBgTjGGya/w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(346002)(39860400002)(136003)(376002)(46966005)(8676002)(5660300002)(36756003)(54906003)(70586007)(6666004)(316002)(70206006)(4326008)(86362001)(6916009)(26005)(8936002)(478600001)(82740400003)(47076004)(81166007)(82310400002)(83380400001)(2616005)(426003)(336012)(356005)(186003)(7696005)(2906002);
+ SFS:(4636009)(376002)(346002)(396003)(366004)(136003)(39860400002)(86362001)(83380400001)(71200400001)(5660300002)(4326008)(110136005)(53546011)(6506007)(7696005)(55016002)(66556008)(478600001)(19627235002)(9686003)(2906002)(316002)(33656002)(26005)(52536014)(66446008)(186003)(66476007)(8936002)(76116006)(8676002)(66946007)(64756008);
  DIR:OUT; SFP:1101; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 683a9f19-3034-4d13-a2b9-08d824aa3b8c
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0083:
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB0083117CE263935BC7569D8C9D650@BN6PR1201MB0083.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:519;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rXs/O3Ue1I6TH33Z5nR0A5A4tNqiq4+KMQapbo2EH66ou4pwKKYtAYWR3QH1ugcypkJV8N1XU0YdjmRq409zIZ4AJNXAvD59HFuulC1LcUgOgdN8C5/RYfjr3jyqsiHfpRKINhFaEm6Wm0W8BeOeLo92wxPnePKqSpj4gGLLG48V57o9MYMHTQR1E44RAvUqG8jNPjmnAj0e21R2cn12h2MTtxkf8LvaZ8q0gkc7vhh3inhX3W8PELs4IEShBBEny0SuvRzVikEvWMk7dQOGIlt84xOX7bWBdAYEXR629kqBNrjbuUB066v1pWUo6Tj+T/qSueMWNWYLaJ2h/2FnERvp6UJWhGgZxMvkAqrBHpvsuvfVnb7xPVYAYSG4eYxPI0Ykw4VfhUTlAjdXnOf3Rg==
+x-ms-exchange-antispam-messagedata: OpIuUs1+Z+Lyhx0BqW8ZJm79xlDItUr5vSpbqz3mMkEXuvMLwX5MZSrqAZXtTm/ivKirXiooAB+5pkaRPAJFj8d4Zz41HSfCjMsXBHFz3oie6u57xstLki6bnm+Jxlbfxp0C4mIKMMpV36zUYLOA6TlxH9KTe8YbGxlw48GxhvcvbXdj2tcDblOUJa0NWzeF70X0mvxt+D6GaKB7MPJQ6lN+CokpyusSM0wmNxNTvoMtj/R00XdVrTbMn/W7VK9ISBOB1Hza0xtY448M8G+lPD/U4g13yektM/3eF/cl5xOOM8Cwgr1R53Vr2ts20xTAvkFdgOnYPlY6RYBgbX7GyCdbJTrD/XbIJKt2rtO3QE0BU7C1aJ8WqcpJGydgZN/cO5r4pjczuu+vIMqiYOvF5echXroHsMGxFlQBjliZJd5fJ/8IBxbCmPFfeCUcTGwMPIJJ3wsRE/BRaJ8s0Ul93de6ZvihX1XAAgL7KRYM3QPCdzKuak2vXVOAVbYMxrCX
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2020 08:21:23.4598 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 683a9f19-3034-4d13-a2b9-08d824aa3b8c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT055.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0083
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffe030ff-548f-4cd2-a273-08d824aaffee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jul 2020 08:26:52.9257 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QDfSZcPWPCMyy59nlNka9l1aWFHsbU+DhzT0Q2c3wIQvx5uydcjIsZTlCTdl6NiNO0x2xNwjpE1nGJcGsZMj8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3688
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,48 +123,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan.Quan@amd.com, chen gong <curry.gong@amd.com>
+Cc: "Gao, Likun" <Likun.Gao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A small mistake
+[AMD Public Use]
 
-Signed-off-by: chen gong <curry.gong@amd.com>
+Got it, Thanks Hawking!
+
+Brs
+Wenhui
+-----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang@amd.com> 
+Sent: Friday, July 10, 2020 4:07 PM
+To: Sheng, Wenhui <Wenhui.Sheng@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Gao, Likun <Likun.Gao@amd.com>
+Subject: RE: [PATCH 2/4] drm/amdgpu: add psp mode1 reset mode
+
+[AMD Public Use]
+
+Hi @Sheng, Wenhui,
+
+Regarding the following corner cases that need to differentiate legacy mode 1 and new mode 1
+
+1). Emergency start
+Create a new function in amdgpu_ras.c, called amdgpu_ras_emergency_start, where only execute the emergency start for the following configuration
+Vega20 with PMFW version < 0x284300
+
+2). the use_baco logic in amdgpu_device_gpu_recovery The remaining (in_ras_intr && !use_baco) are all serving for the emergency start case. we use in_emergency_start or other proper name to replace use_baco
+
+3). the use_baco logic in amdgpu_device_suspend_display_audio
+It's safe to unified legacy mode 1 and new mode 1 to AMD_RESET_METHOD_MODE1. The same behavior from driver perspective
+
+4). Issue PP_MP1_STATE_SHUTDOWN (i.e. PrepareMp1ForShutdown) in suspend Same as 3). PrepareMp1ForShutdown is require for the new mode 1 reset as well. Please try it
+
+Regards,
+Hawking
+
+-----Original Message-----
+From: Sheng, Wenhui <Wenhui.Sheng@amd.com>
+Sent: Friday, July 10, 2020 14:53
+To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Gao, Likun <Likun.Gao@amd.com>
+Subject: RE: [PATCH 2/4] drm/amdgpu: add psp mode1 reset mode
+
+[AMD Public Use]
+
+Hi @Zhang, Hawking
+
+I tried to hide mp0/mp1 mode1 reset under AMD_RESET_METHOD_MODE1,  while it seems that we need to tackle the difference in function amdgpu_device_gpu_recover, like following change in 3rd patch:
+
+@@ -4275,16 +4277,18 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	int i, r = 0;
+ 	bool in_ras_intr = amdgpu_ras_intr_triggered();
+-	bool use_baco =
+-		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+-		true : false;
++	bool is_full_reset = false;
+ 	bool audio_suspended = false;
+ 
++	if ((amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ||
++	    (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_MODE1))
++		is_full_reset = true;
+
+That's the reason I add new AMD_RESET_METHOD_PSP_MODE1.
+
+Brs
+Wenhui
+
+-----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Friday, July 10, 2020 2:35 PM
+To: Sheng, Wenhui <Wenhui.Sheng@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Gao, Likun <Likun.Gao@amd.com>
+Subject: RE: [PATCH 2/4] drm/amdgpu: add psp mode1 reset mode
+
+[AMD Public Use]
+
+Hi @Sheng, Wenhui,
+
+I'm thinking of hiding the MP0/MP1 mode 1 reset under AMD_RESET_METHOD_MODE1. the callback function reset is per ASIC function, where nv_asic_reset and soc15_aisc_reset serve for NV series and pre-NV series respectively.
+
+The new mode 1 reset will be used starting from sienna_cichlid. It should be quite strait forward for us to either initialize a flag like is_smu_support_mode1 during sw_init or even check the asic_type in nv_asic_mode1_reset to decide whether we use psp_gpu_reset or smu_gpu_reset.etc.
+
+That's saying, we don't need to change the reset_method interface, where we decide whether we go to BACO/mode reset/pci config space reset.etc. We just differentiate the approach (i.e. psp or smu) in nv_asic_mode1_reset.
+
+Thoughts?
+
+Regards,
+Hawking
+-----Original Message-----
+From: Sheng, Wenhui <Wenhui.Sheng@amd.com>
+Sent: Friday, July 10, 2020 13:46
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Gao, Likun <Likun.Gao@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: add psp mode1 reset mode
+
+AMD_RESET_METHOD_MODE1 will be used by SMU
+mode1 reset for sienna cichlid, so add
+AMD_RESET_METHOD_PSP_MODE1 for psp mode1 reset.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/nv.c            | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/soc15.c         | 6 +++---
+ 4 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-index f286c1e..ae87c46 100644
---- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-@@ -683,18 +683,18 @@ static int renoir_set_power_profile_mode(struct smu_context *smu, long *input, u
- 	uint32_t profile_mode = input[size];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 4de93cef79b9..0682a270c17b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -580,7 +580,8 @@ enum amd_reset_method {
+ 	AMD_RESET_METHOD_MODE0,
+ 	AMD_RESET_METHOD_MODE1,
+ 	AMD_RESET_METHOD_MODE2,
+-	AMD_RESET_METHOD_BACO
++	AMD_RESET_METHOD_BACO,
++	AMD_RESET_METHOD_PSP_MODE1,
+ };
  
- 	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
--		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
-+		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index fec6cf3f0c8a..565dc59a9e89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2119,7 +2119,7 @@ static bool amdgpu_device_check_vram_lost(struct amdgpu_device *adev)
+ 	 */
+ 	switch (amdgpu_asic_reset_method(adev)) {
+ 	case AMD_RESET_METHOD_BACO:
+-	case AMD_RESET_METHOD_MODE1:
++	case AMD_RESET_METHOD_PSP_MODE1:
+ 		return true;
+ 	default:
+ 		return false;
+@@ -4174,7 +4174,7 @@ static bool amdgpu_device_lock_adev(struct amdgpu_device *adev, bool trylock)
+ 	atomic_inc(&adev->gpu_reset_counter);
+ 	adev->in_gpu_reset = true;
+ 	switch (amdgpu_asic_reset_method(adev)) {
+-	case AMD_RESET_METHOD_MODE1:
++	case AMD_RESET_METHOD_PSP_MODE1:
+ 		adev->mp1_state = PP_MP1_STATE_SHUTDOWN;
+ 		break;
+ 	case AMD_RESET_METHOD_MODE2:
+@@ -4220,7 +4220,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+ 	 */
+ 	reset_method = amdgpu_asic_reset_method(adev);
+ 	if ((reset_method != AMD_RESET_METHOD_BACO) &&
+-	     (reset_method != AMD_RESET_METHOD_MODE1))
++	     (reset_method != AMD_RESET_METHOD_PSP_MODE1))
  		return -EINVAL;
- 	}
  
- 	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
--	workload_type = smu_workload_get_type(smu, smu->power_profile_mode);
-+	workload_type = smu_workload_get_type(smu, profile_mode);
- 	if (workload_type < 0) {
- 		/*
- 		 * TODO: If some case need switch to powersave/default power mode
- 		 * then can consider enter WORKLOAD_COMPUTE/WORKLOAD_CUSTOM for power saving.
- 		 */
--		dev_err_once(smu->adev->dev, "Unsupported power profile mode %d on RENOIR\n",smu->power_profile_mode);
-+		dev_err_once(smu->adev->dev, "Unsupported power profile mode %d on RENOIR\n", profile_mode);
- 		return -EINVAL;
- 	}
+ 	p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index 356849136d1d..1d27dd3676ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -265,7 +265,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
  
--- 
-2.7.4
-
+ 	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
+ 
+-	dev_info(adev->dev, "GPU mode1 reset\n");
++	dev_info(adev->dev, "GPU psp mode1 reset\n");
+ 
+ 	/* disable BM */
+ 	pci_clear_master(adev->pdev);
+@@ -274,7 +274,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
+ 
+ 	ret = psp_gpu_reset(adev);
+ 	if (ret)
+-		dev_err(adev->dev, "GPU mode1 reset failed\n");
++		dev_err(adev->dev, "GPU psp mode1 reset failed\n");
+ 
+ 	pci_restore_state(adev->pdev);
+ 
+@@ -310,7 +310,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+ 	if (!amdgpu_sriov_vf(adev) && smu_baco_is_support(smu))
+ 		return AMD_RESET_METHOD_BACO;
+ 	else
+-		return AMD_RESET_METHOD_MODE1;
++		return AMD_RESET_METHOD_PSP_MODE1;
+ }
+ 
+ static int nv_asic_reset(struct amdgpu_device *adev) diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 8c739b285915..86ce2f165038 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -479,7 +479,7 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
+ 
+ 	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
+ 
+-	dev_info(adev->dev, "GPU mode1 reset\n");
++	dev_info(adev->dev, "GPU psp mode1 reset\n");
+ 
+ 	/* disable BM */
+ 	pci_clear_master(adev->pdev);
+@@ -488,7 +488,7 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
+ 
+ 	ret = psp_gpu_reset(adev);
+ 	if (ret)
+-		dev_err(adev->dev, "GPU mode1 reset failed\n");
++		dev_err(adev->dev, "GPU psp mode1 reset failed\n");
+ 
+ 	pci_restore_state(adev->pdev);
+ 
+@@ -559,7 +559,7 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+ 	if (baco_reset)
+ 		return AMD_RESET_METHOD_BACO;
+ 	else
+-		return AMD_RESET_METHOD_MODE1;
++		return AMD_RESET_METHOD_PSP_MODE1;
+ }
+ 
+ static int soc15_asic_reset(struct amdgpu_device *adev)
+--
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
