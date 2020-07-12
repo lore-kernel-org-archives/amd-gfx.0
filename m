@@ -2,105 +2,112 @@ Return-Path: <SRS0=2sAf=AX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,DATE_IN_PAST_24_48,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05413C433E0
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2020 03:27:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3554FC433DF
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2020 05:31:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA6F920748
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2020 03:27:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E5C472072D
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2020 05:31:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PqDN6G7i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA6F920748
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pv6ZPoH3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5C472072D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2586E408;
-	Sun, 12 Jul 2020 03:27:19 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 742346E408
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jul 2020 03:27:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43CB76E44C;
+	Sun, 12 Jul 2020 05:31:11 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1576E43A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jul 2020 05:31:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PvBr7xTRIZN3Pa52aXJAzv02ENyfiebwR1BTXaI1rUn4STK0P4BZvHQGIANF9JHzDSME7hZ+mN3SnwOGCLg+7mWI8KXNzEKoDzxSzs/Qiz7AGv+0ueGaoucPQmuIBD8vC6hgnWWWY6JRH7668AVdY9SlCNNbGP/JGwlwKEzXHDE2wF+NJES+NGfB9yS01lT0xQ+2JNpltFrkWaEheRx3OUXVWU0l0Lh+OwnULl1/X6s34DGEaLcR1IZwiEz1Tze3TpOjakhhqJUZC3kqNKYyLE7UZmvv9FAkSLmjHEUITHBxjPc+kYInTKfpNx7BVzqUTBaBlkXV1xasAJPyJhcvFw==
+ b=bbgMPr/A+7/YpPQZDNWTBcC9NCpbniN5ggQZekg7q+ZfG3BR+WmVT1/o54ssOyzbMO4jQMybHPJflpJ5WH9wHSzZsJmVXIbf1MFsgPoO/+f3yqo5bwnTuukfxbVXdAfYN2fuypD48sFpHmPvrvDM6t60o7T/BzAwRW7PWxQDRIkNq8Biy+LlgS8aPbt/4ekIYhBfTfM1cCX0n+dVo5Ln4TW2Js6EB4IHTb5ZLMy48n/CChfQegimhi1zuo9Bg4/A1e989gO5O9c6lLwuOXtblSAlVG35CcFUQw5/OsQUtU1GNHAf8XeSGHuE22qquFqfY9PyxjMJEd3pI/JuozXW4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NCVmwlBTvgoIjaWxwrUt2VKphg3vb8NcJOALue/obD0=;
- b=EncRubLmIsQDizSa26y6DLhFkRMyjRhe/Lz3M7r4IOylQY0jRoWgemb3XZfcWvlXZNEPGUlmI65oCPZl3uIeDyW53QSVyU13txoFSg6s3iqyNRZZJEGiugBsrRSm7AECiHDdq8y6yLHdLeCtVoEdYX9oFrgU9T1+3gKM4455Zv4ZHs+DEqfZWF69dhG6mwJk5+XR3X6acaKPj+0vVZUq0EQJmokmLB5I+I8u5nS/pqnstuTdVnsrYJETUHs6vmZfY/JAdfskfoUst4gYgwkTWxG4QSezEJIniz7YiewLmjSAw7JjMzBHyvYdZZh4cFinr8CjsRnVszHyC+J3O5KnsA==
+ bh=r01VKFI/bQyoE0TvJq7+jCiTGXsuI3akSR/kH9nBOpk=;
+ b=XpgmRPhKkBHgpEKQOvElBo4P7yRagBrsp7rkUoZJiqEpewI/VCmy2TnYXKPnqiMzgVpnvPn3+wnOUxMlrfRDgjTT4EZFT+9pmsbaVn0NtX+zWbsb0xsYLdxSk+aMW9tEFbKgyyG07umPYzw918Rf30kAgJ9QvXKiarVjQr5I0PG6CcMhDnKtDB/jpoUvX1GxhPiy/A0O2seInyZ77n1wDPPj32LokBL/nmYLcYmIiT9NDNfVZeQlxdhIqiPW+CsNQH1+DlMJ/MZfT5ebgaI0U/YExiNJ1psf8NuYprbHhre5gz6IthIBCmv4/CIggs063pwvRJIGHoL5JCQ/N6fGNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NCVmwlBTvgoIjaWxwrUt2VKphg3vb8NcJOALue/obD0=;
- b=PqDN6G7iyF1sacbJbSSF0Fjjtz0SmCELi3jDpNpa+exToGAnUVTfUvxg1PUIPdQCOJM8xK/TtKfZvNyVkPBF7ihifSVGNRTegb2/hQvdfQA6tq3g8z/93fSAq1Tqj4ClT8w7GZ3GrRy/SyH2r5rgw5EJnNT9TC4kUrfqSkv0bj8=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- DM5PR12MB1657.namprd12.prod.outlook.com (2603:10b6:4:d::21) with
+ bh=r01VKFI/bQyoE0TvJq7+jCiTGXsuI3akSR/kH9nBOpk=;
+ b=pv6ZPoH3PtJYYT5G3iET2m4NiInxjg1/m2ZScG2oV/s+cbiIv2C1aLcnteR6MPfctjst+fzsj+3Z+DTuPEnMu7S/Wl4QeRL3PDERQXfdPWotpjoRKUhPfmZmQdKqWQExyGK8XJSu6rubWgfy+IDofmc3G9QlSkcX5GXzwQaADVo=
+Received: from DM5PR12MB2533.namprd12.prod.outlook.com (2603:10b6:4:b0::10) by
+ DM5PR12MB1580.namprd12.prod.outlook.com (2603:10b6:4:10::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.24; Sun, 12 Jul 2020 03:27:10 +0000
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::f5e6:e937:2eac:18cf]) by DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::f5e6:e937:2eac:18cf%3]) with mapi id 15.20.3174.025; Sun, 12 Jul 2020
- 03:27:10 +0000
-Subject: Re: [PATCH v2] drm/amdgpu: fix system hang issue during GPU reset
-To: Dennis Li <Dennis.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Tao.Zhou1@amd.com, Hawking.Zhang@amd.com,
- Guchun.Chen@amd.com
+ 15.20.3174.21; Sun, 12 Jul 2020 05:31:05 +0000
+Received: from DM5PR12MB2533.namprd12.prod.outlook.com
+ ([fe80::2d85:c08d:4782:e3a]) by DM5PR12MB2533.namprd12.prod.outlook.com
+ ([fe80::2d85:c08d:4782:e3a%7]) with mapi id 15.20.3174.025; Sun, 12 Jul 2020
+ 05:31:05 +0000
+From: "Li, Dennis" <Dennis.Li@amd.com>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Chen, Guchun"
+ <Guchun.Chen@amd.com>
+Subject: RE: [PATCH v2] drm/amdgpu: fix system hang issue during GPU reset
+Thread-Topic: [PATCH v2] drm/amdgpu: fix system hang issue during GPU reset
+Thread-Index: AQHWVPw2uPUSRy+wOEGvOPUoL/1b2qkA5CAAgAKLGkA=
+Date: Sun, 12 Jul 2020 05:31:04 +0000
+Message-ID: <DM5PR12MB25339DDF3260D96583D495EFED630@DM5PR12MB2533.namprd12.prod.outlook.com>
 References: <20200708074800.10093-1-Dennis.Li@amd.com>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <c3ecb8a0-1b7e-36fa-1e8d-be8754990a9c@amd.com>
-Date: Fri, 10 Jul 2020 10:33:16 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-In-Reply-To: <20200708074800.10093-1-Dennis.Li@amd.com>
+ <c3ecb8a0-1b7e-36fa-1e8d-be8754990a9c@amd.com>
+In-Reply-To: <c3ecb8a0-1b7e-36fa-1e8d-be8754990a9c@amd.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0025.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::38) To DM6PR12MB4340.namprd12.prod.outlook.com
- (2603:10b6:5:2a8::7)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:b0fc:6680:3785:5814]
- (2607:fea8:3edf:49b0:b0fc:6680:3785:5814) by
- YTXPR0101CA0025.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.21 via Frontend Transport; Sun, 12 Jul 2020 03:27:09 +0000
-X-Originating-IP: [2607:fea8:3edf:49b0:b0fc:6680:3785:5814]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 14f0dd5a-9245-4a71-b27c-08d82613762f
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1657:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1657AA1F3325BD3C3E31A288EA630@DM5PR12MB1657.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:506;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HJF7U8QARVk+k/WZ94d/46jUWEqb7JODcn8/4bQgsdhsKoGRzsL9RmQ7tYXCHEPy+Fham3lgeLBy7xozmNdSPNZsOAi5wzo5INvdYZ6J87+KPCAtprPUtvv0hA/2KPR4KJTM64CjUmKMmGmsewucC5DcGVK3V+0dZ1cN0NNjLBIyUVuTXC4a8UouTf2AtsvkA5bPbZHFoLRW2hjU9gqqEDmQ6pQYXTdG6M/mQjD+bFTCymmzLzQr01o4lDmBAC3alQN0Db2Tw+OrG3tWy9hE3taE1b1Gs+IkNDGNTpdNsYSOGZAvh1VeBurxFxu7+ebGhPsP7HS6X5+TCRgJqmPtqVE405rbdHQiM53knGhRi3BJ33o7tdDdE0/CFLiYSp+F
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-12T05:30:56Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=2e55b35c-2f11-4fce-87d5-50003ea883e8;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [180.167.199.182]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 5200196e-59ee-401b-3373-08d82624c5e8
+x-ms-traffictypediagnostic: DM5PR12MB1580:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB1580A6EAF740BA83333F1D07ED630@DM5PR12MB1580.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:565;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: SH2LixfbgcuQ7MqMAQOQEnrMLYOPMlmd95V6c0SD3D3FIbucjCYmxOY5krZKYXLBK0BUfYjJopqh7l91fwo0qHTy9xpgn9EYglluNJq2QjwUekH1gazzzbIHeNadG0Tb6XHQ7vHV/qqdnyDDepn8fIrcHUr68qiZAqvbA5g/1bCL5To9KZi+1NjanHaMONwUfo1QSo4HhiLiGl8ftG3KOVLER+D3OpPz/TbalxWLcRiJ1P+2uaka9UByhLybAXrF0ZKrAUxGTW7bxrejOXBS6SoCIV6396yRidK5KaOKohTdcKQzOOICalaM2Yl70mE6OhOh8+q4NwXsC7U9fUqui45J2+qZQDrgsrMFovoFMAE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2533.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(366004)(478600001)(31686004)(5660300002)(316002)(8676002)(6486002)(53546011)(8936002)(6636002)(36756003)(186003)(30864003)(16526019)(2616005)(2906002)(6666004)(66556008)(66476007)(66946007)(83380400001)(31696002)(86362001)(52116002)(43740500002)(559001)(579004);
+ SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(366004)(478600001)(5660300002)(66476007)(64756008)(66446008)(66946007)(66556008)(55016002)(52536014)(9686003)(71200400001)(83380400001)(8676002)(186003)(26005)(86362001)(110136005)(2906002)(53546011)(6506007)(6636002)(76116006)(33656002)(316002)(8936002)(7696005)(921003)(559001)(579004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: +kGFxSY2eZ1VaI1lcolIYOrPLJdWaA9MnpatBFco49sNpoBRsKEA1GLR7IS3BasPBUib3BCDGwCcxZYvuHdURiFyP8/ppDrPWl8Mdw+8Nri1C46cKWUsnp9CZdvCKZDQn4g/1rKOpj07AEax6IdhoeDq+6pHIHzIY3OrPTfoDbREPpRH0jbKNebDOcYTKM1IUE/4BT5W0MPK46gKDmvvVoPW3e27ZUWCrBZA2wj5f14cCznJaLBb+dm8K5EV1KtA58NUvzQ9Hy3xC+Bb3pFo8Cogw2zWx7A6SDZnImA1ZQ1KJBJeD4y1dQkaQW4ohbFpvvETc285Ehg4z55nGwCRvEONXHUQgki2+M2y+jGRVurDvYvQJcZfpHO4jcTQ9QzG9HBP80PGOBxbxWFSAYoj0DcmAi0/7eOE/56H4IWtu8JbYeIkjBI+hetNFLiBOiYe62AQl1GzG0Irq1X84XIAPnqld8LP3UIPflh5e10NTqPoAbyiB9pl02AhUx+J+lB+GRv59wGEgCU0SMX3VN0SoSwtqrSyg3QJHrKlGOC94m0Png7ttPbMNzzZxXUkRaqj
+x-ms-exchange-antispam-messagedata: 0DRXQBGvX+a9DuqPbL2Hm1X1ISPkiI+bA/ZTnh5U04rahl9g7DfC9JUm2nRyx0NKyE/otKlbLewiTbMHE1Iv0KtWT5/IihfQaVTUa7GlFirLwmCgZLoygqC/vPugqpCZCNsDUro+37GOTDzX+YN7SULlD0mhdzeXaB1c+Ok2QAiAsyz1xQPZtdbstIo8ndtE/IYKQ+EqFiI8BLGW/6Kcz2icxmJIM9UD1wAF7g/zrhaFr2k9G9l2nlgoLssBm24GF/0GYSO77kLAmpzDGX1tJ1REAVMe+wCEgs6Wcnhep/PfF74O+15/dX0u5K8bMQw5N1F1dNanyfBfSr+3IjJSXnEsveIYqHeKLEHMMTj/zMw8OQvX7xJthtrt6e0s9DUzs7THUJVg6/JsZnLpR6cV7rLnbupJf5t/7gvMnHlxbcqwDwkh8tihgVpP7yCjDWLXCzG9D8Fdj/yCaHUCyI1L8ZKaj6fDJn6zioeLPthKqPml5JhaSYpGZsHfRl74RoPq
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14f0dd5a-9245-4a71-b27c-08d82613762f
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2020 03:27:10.5939 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lDgbx708KQfMhHhyFpan7gdJg/64zAhlvXy58FF5jZnq3UKGKrQ9Oygx2DHdsskj6C5o9gNfWUOKNP3ri2ngDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1657
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2533.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5200196e-59ee-401b-3373-08d82624c5e8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jul 2020 05:31:05.0774 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kGSCUNoJhCHlVZM2Bcn+1Mmrecd8MxdfHVxCbVtMQvCvwF8/MR/OPBrREgYkj+Ef
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,10 +119,20 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+-----Original Message-----
+From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com> 
+Sent: Friday, July 10, 2020 10:33 PM
+To: Li, Dennis <Dennis.Li@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
+Subject: Re: [PATCH v2] drm/amdgpu: fix system hang issue during GPU reset
 
 
 On 7/8/20 3:48 AM, Dennis Li wrote:
@@ -360,9 +377,9 @@ On 7/8/20 3:48 AM, Dennis Li wrote:
 > +
 > +	down_write(&adev->reset_sem);
 
-
 Christian raised a concern in V1 that the change introduces a much higher chance 
 of aborting a GPU reset due to collision
+[Dennis] In V1 patch, try_lock also will fail when other threads hold adev->lock_reset, which is a bug. Therefore I changed to use atomic_cmpxchg in V2 to fix this issue. If GPU is doing recovery, it make sense to reject the new recovery request.
 
 >   
 >   	atomic_inc(&adev->gpu_reset_counter);
