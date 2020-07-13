@@ -2,68 +2,106 @@ Return-Path: <SRS0=fQkT=AY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F221CC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 14:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67AD3C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 15:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B992D2065F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 14:53:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1C4F320771
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 15:39:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U9WNwiwj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B992D2065F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="S/z20ZtB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C4F320771
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 832C46E397;
-	Mon, 13 Jul 2020 14:53:33 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD9D26E397
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 14:53:32 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id k6so16879471wrn.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 07:53:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SOdUdT+jkqXpw6WPd0OvsXrVl5HuCwTvqdn+2TD0/XY=;
- b=U9WNwiwjBvRWUc3r0GMU02IYJnoG5LrUpDIA/IuscN7YTMqfGuztxnJcaqHDjmpxSy
- oBGa4ylpAz3gZerSS0BneYObx2hXXb4Hy0mpV59LA8FJ2SZ886xwcOrdes3CaNfQgEyA
- CmMoLWJhQ2/Tffe60WqWLOFNcj2sB+htJbSV5+Y1j6YKatzXC+lJb5+dRodBIDFcC5qE
- qbuYHNFp3oGpp1N0PtmnTych/CxP7F3N/rb4RweVqgJGyCGdE2iqVM7gvxvB896zyic4
- PKOh39+c4yqBKo2Ph+F75CYBbKROwGedV+ryNg5Uj32eVBbmZexyR6PjTQRihwcJyNMa
- MSvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SOdUdT+jkqXpw6WPd0OvsXrVl5HuCwTvqdn+2TD0/XY=;
- b=LUkGOIl8dBR81IRgEwFNU/9sLlWTfAu0+HxAxpHHooM5gwp1V6i3iNVmAlsP1gUUD6
- YCgU5uLUs14w1pF/EX2dRTc7492RIybZuSoixxvwmZl8cq5AWfgRLsGhlVx46sYXm7K9
- 6hjH6i+bRukHnFrWsiZEd/YowRPgpfy3VqspAUoahXRhqHgMkE8nTH3l6/MG2AnWsM2y
- h5o24Ckfxkqq41PPAPMY35ziL7irM8pvvcKOLQ76zHsnJ8MOXD37l8GiU07TeFq6ePvN
- /8ooBZXyezD+eHsfojcdunPgKhV4sChUuFoasmXu+X1kFgkjQa8+GBs7Yk09uroTB66s
- Rw9A==
-X-Gm-Message-State: AOAM533KX8ffltMf4LV7e7YoArv43wK7Kfo/acQlrKhPDKDd6tDfhj42
- BglFuocNyOV99rtiwccN4ARAacFO9r4RxWpf/Ps=
-X-Google-Smtp-Source: ABdhPJwGNAyMZxyuF3nIK1OmBRPdVq7ciyeYZOe3TA3wVMMwXxux9rQYW1AwGuyICjipmyHA1Prn+XScmitpWW5hYlE=
-X-Received: by 2002:a5d:5549:: with SMTP id g9mr84875203wrw.419.1594652011424; 
- Mon, 13 Jul 2020 07:53:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B36C76E063;
+	Mon, 13 Jul 2020 15:39:33 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9E616E063
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 15:39:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HdzUdogrP8WZdWyAFIqzdgEM/vN+dMvSEXQ1G1Wk2F0J7v5FihDszbk2nQCLDk9UKCCgqTko0aH1cAJd3umPxvkCAM39ufUzprEQq6Juh7800vMwIXFaQSGXi0POkJySSXLzi+YDD7V8nO9kC7Avg4S9JJUfvMqZkw9ofMNGcqOmOv+FHYQd24dlxxmYkp7i7bRNAqDZaTqttYATHP8vsQfDxSrpXGuflqnOH+WuRwqD8JzJhvZqTVEu/PPnkDrcaVaV+rIRAt8ordXE18nrWkCVuOKCcnxcZinnTbVWNAN1yHXUG08zbL9w4Ud9QGmwi9WznxqaJ1xoMMiT/gtErA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ALm6Kt0ZpvNRU+WaebvNOWUhogfJRin4MjVwc9O9dDc=;
+ b=Xd+6hJgu4HzLX6FeBcfkyIYBN3dQWeIs6hilBQafpq9p4O1oEf60+WwvEPgvoe4pp20Oe6b84kpucBKmh8YYOgZNOj3L6zumLZxpbHl88EPihoOd4zeP3slw3MKYza6Y8ugkbK8y5ptLhhI/y7eCvv0gF3p4p7DxEgpYxT6ZpAYc+YcyGjZ92kniblejGRA4GOP3jiIapyV1ZAjmn6/N/efgkooOyUwCZZxDbTyhNUOm956O/7PNRrZQ4ZlBbvyt8IP/Wch1wEPOYmD3LlNhZ7vQkh5qvmbyiR7M4IulEPMibnvsuWlHkvS+QY0hrJt2n/nFicCULFLuRJI4g1Gw2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ALm6Kt0ZpvNRU+WaebvNOWUhogfJRin4MjVwc9O9dDc=;
+ b=S/z20ZtBxJuUqT2jQUuFCD3lFO2p+duB31AGoCjuk2WVniEOd59KPrIw2PXoUkRsg/vnwyvlDinu3ADrweO3tUI/xoI94095io/NlhjX5t6I3QQ6OxMa2g3mkv+ljtzN+h17eC3Hfhf/UlWMOtTDe4u2Da1f7p2+GKOHXCzKzyo=
+Received: from BN6PR19CA0105.namprd19.prod.outlook.com (2603:10b6:404:a0::19)
+ by MN2PR12MB4285.namprd12.prod.outlook.com (2603:10b6:208:1d7::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Mon, 13 Jul
+ 2020 15:39:30 +0000
+Received: from BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:a0:cafe::59) by BN6PR19CA0105.outlook.office365.com
+ (2603:10b6:404:a0::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22 via Frontend
+ Transport; Mon, 13 Jul 2020 15:39:30 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT041.mail.protection.outlook.com (10.13.177.18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3174.21 via Frontend Transport; Mon, 13 Jul 2020 15:39:30 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 13 Jul
+ 2020 10:39:29 -0500
+Received: from DESKTOP-3JO4JG6.localdomain (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Mon, 13 Jul 2020 10:39:29 -0500
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/display: Add missing DCN30 registers and fields
+ for OTG_CRC_CNTL2
+Date: Mon, 13 Jul 2020 11:39:07 -0400
+Message-ID: <20200713153908.14815-1-nicholas.kazlauskas@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200710044746.23538-1-evan.quan@amd.com>
- <20200710044746.23538-12-evan.quan@amd.com>
-In-Reply-To: <20200710044746.23538-12-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jul 2020 10:53:20 -0400
-Message-ID: <CADnq5_MuK_-ycTiWcyLR=VJ2Xqvrkdwp4-ozOR4dZS_eFMvxCg@mail.gmail.com>
-Subject: Re: [PATCH 12/16] drm/amd/powerplay: drop Sienna Cichlid specific
- set_soft_freq_limited_range
-To: Evan Quan <evan.quan@amd.com>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(39860400002)(396003)(346002)(376002)(46966005)(83380400001)(47076004)(2906002)(44832011)(1076003)(82740400003)(8936002)(6916009)(86362001)(356005)(8676002)(54906003)(5660300002)(6666004)(81166007)(336012)(478600001)(2616005)(186003)(426003)(70206006)(70586007)(316002)(26005)(4326008)(82310400002)(36756003);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 647021e4-d692-483e-0ede-08d82742eee8
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4285:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB428544E6A3C91BBED10E3FE7EC600@MN2PR12MB4285.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KoW6jPBC340j3VtZ9LyzhtiNMEmF2Z7X+qCak/OH6Kp16uSvtuYY3JNw3nadApfLcAKsmujb+5yhP5oa8A519GmGxYaNwrYzHRTvTAv9o63GRZW622HufbYwHFBeoCGP8vg9WnJEEEC0KcfAOiclImULQ2Yyi91okakQR+Uwl6jrdd0xlvSxWsLd12IqfOk28ZbOtxCJsPtBpEmPws88b5EElsYkO2jqSYrEyoJDoRK0OOP7rxJONgAeH9xTo3EELbIW8QybCWmsWlxAyr8PdfEznxNsRoCMes7CqmpuVMfX3jJ7FFA6mTXp1CjX9rjiOp9apPCntHeEWZYxEBESU7BHgYnYyWdPaTd1ZrfuKjJbHEM2aG0JnQYxlmfFSGfwH0dGSRmT/fLYwdnhCmgm6g==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2020 15:39:30.2005 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 647021e4-d692-483e-0ede-08d82742eee8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,145 +113,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2020 at 12:48 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Use the common smu_v11_0_set_soft_freq_limited_range.
->
-> Change-Id: I9f8772880b324ce9e741291751bb1b8ff4c36ea3
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+[Why]
+When enabling the debugfs for CRC capture we hit assertions caused by
+register address and field masks and shifts missing.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+[How]
+We want these registers programmed, so add in the SRI/SF entries for
+this register.
 
-> ---
->  .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 20 ++-----------------
->  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  1 -
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 20 +++++++++++++++----
->  3 files changed, 18 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> index 27f77bde184f..141944df97b0 100644
-> --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-> @@ -1046,22 +1046,6 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
->         return size;
->  }
->
-> -int sienna_cichlid_set_soft_freq_limited_range(struct smu_context *smu,
-> -                                     enum smu_clk_type clk_type,
-> -                                     uint32_t min, uint32_t max)
-> -{
-> -       struct amdgpu_device *adev = smu->adev;
-> -       int ret;
-> -
-> -       if (clk_type == SMU_GFXCLK)
-> -               amdgpu_gfx_off_ctrl(adev, false);
-> -       ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min, max);
-> -       if (clk_type == SMU_GFXCLK)
-> -               amdgpu_gfx_off_ctrl(adev, true);
-> -
-> -       return ret;
-> -}
-> -
->  static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
->                                    enum smu_clk_type clk_type, uint32_t mask)
->  {
-> @@ -1097,7 +1081,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
->                 if (ret)
->                         goto forec_level_out;
->
-> -               ret = sienna_cichlid_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
-> +               ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq);
->                 if (ret)
->                         goto forec_level_out;
->                 break;
-> @@ -2566,7 +2550,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
->         .baco_enter = smu_v11_0_baco_enter,
->         .baco_exit = smu_v11_0_baco_exit,
->         .get_dpm_ultimate_freq = sienna_cichlid_get_dpm_ultimate_freq,
-> -       .set_soft_freq_limited_range = sienna_cichlid_set_soft_freq_limited_range,
-> +       .set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
->         .override_pcie_parameters = smu_v11_0_override_pcie_parameters,
->         .set_thermal_range = sienna_cichlid_set_thermal_range,
->  };
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> index 1c808ffe3ab1..91d3965bbe80 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> @@ -93,7 +93,6 @@
->  #define smu_asic_set_performance_level(smu, level)                     smu_ppt_funcs(set_performance_level, -EINVAL, smu, level)
->  #define smu_dump_pptable(smu)                                          smu_ppt_funcs(dump_pptable, 0, smu)
->  #define smu_get_dpm_clk_limited(smu, clk_type, dpm_level, freq)                smu_ppt_funcs(get_dpm_clk_limited, -EINVAL, smu, clk_type, dpm_level, freq)
-> -#define smu_set_soft_freq_limited_range(smu, clk_type, min, max)       smu_ppt_funcs(set_soft_freq_limited_range, -EINVAL, smu, clk_type, min, max)
->  #define smu_override_pcie_parameters(smu)                              smu_ppt_funcs(override_pcie_parameters, 0, smu)
->  #define smu_update_pcie_parameters(smu, pcie_gen_cap, pcie_width_cap)  smu_ppt_funcs(update_pcie_parameters, 0, smu, pcie_gen_cap, pcie_width_cap)
->  #define smu_set_thermal_range(smu, range)                              smu_ppt_funcs(set_thermal_range, 0, smu, range)
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index f96ff062eb64..c2779d0b51f6 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -1745,9 +1745,12 @@ int smu_v11_0_get_dpm_ultimate_freq(struct smu_context *smu, enum smu_clk_type c
->         return ret;
->  }
->
-> -int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_type clk_type,
-> -                           uint32_t min, uint32_t max)
-> +int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu,
-> +                                         enum smu_clk_type clk_type,
-> +                                         uint32_t min,
-> +                                         uint32_t max)
->  {
-> +       struct amdgpu_device *adev = smu->adev;
->         int ret = 0, clk_id = 0;
->         uint32_t param;
->
-> @@ -1755,12 +1758,16 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
->         if (clk_id < 0)
->                 return clk_id;
->
-> +       if (clk_type == SMU_GFXCLK &&
-> +           adev->asic_type == CHIP_SIENNA_CICHLID)
-> +               amdgpu_gfx_off_ctrl(adev, false);
-> +
->         if (max > 0) {
->                 param = (uint32_t)((clk_id << 16) | (max & 0xffff));
->                 ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxByFreq,
->                                                   param, NULL);
->                 if (ret)
-> -                       return ret;
-> +                       goto out;
->         }
->
->         if (min > 0) {
-> @@ -1768,9 +1775,14 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
->                 ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinByFreq,
->                                                   param, NULL);
->                 if (ret)
-> -                       return ret;
-> +                       goto out;
->         }
->
-> +out:
-> +       if (clk_type == SMU_GFXCLK &&
-> +           adev->asic_type == CHIP_SIENNA_CICHLID)
-> +               amdgpu_gfx_off_ctrl(adev, true);
-> +
->         return ret;
->  }
->
-> --
-> 2.27.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
+index d4106dd5a9b0..33f13c1e7520 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
+@@ -98,6 +98,7 @@
+ 	SRI(OTG_GSL_WINDOW_Y, OTG, inst),\
+ 	SRI(OTG_VUPDATE_KEEPOUT, OTG, inst),\
+ 	SRI(OTG_DSC_START_POSITION, OTG, inst),\
++	SRI(OTG_CRC_CNTL2, OTG, inst),\
+ 	SRI(OTG_DRR_TRIGGER_WINDOW, OTG, inst),\
+ 	SRI(OTG_DRR_V_TOTAL_CHANGE, OTG, inst),\
+ 	SRI(OPTC_DATA_FORMAT_CONTROL, ODM, inst),\
+@@ -248,6 +249,10 @@
+ 	SF(OTG0_OTG_GSL_CONTROL, OTG_MASTER_UPDATE_LOCK_GSL_EN, mask_sh), \
+ 	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_X, mask_sh), \
+ 	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_LINE_NUM, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DSC_MODE, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_STREAM_COMBINE_MODE, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_STREAM_SPLIT_MODE, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_FORMAT, mask_sh),\
+ 	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG0_SRC_SEL, mask_sh),\
+ 	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG1_SRC_SEL, mask_sh),\
+ 	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_NUM_OF_INPUT_SEGMENT, mask_sh),\
+@@ -280,6 +285,10 @@
+ 	SF(OTG0_OTG_GSL_CONTROL, OTG_MASTER_UPDATE_LOCK_GSL_EN, mask_sh), \
+ 	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_X, mask_sh), \
+ 	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_LINE_NUM, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DSC_MODE, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_STREAM_COMBINE_MODE, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_STREAM_SPLIT_MODE, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_FORMAT, mask_sh),\
+ 	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG0_SRC_SEL, mask_sh),\
+ 	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG1_SRC_SEL, mask_sh),\
+ 	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG2_SRC_SEL, mask_sh),\
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
