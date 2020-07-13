@@ -2,108 +2,107 @@ Return-Path: <SRS0=fQkT=AY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEEDDC433EB
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 16:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA6CEC433EB
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 16:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C5312065F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 16:30:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9DAA3206F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 16:39:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dDC4GKVD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C5312065F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jHtykKTw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DAA3206F5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 504C26E508;
-	Mon, 13 Jul 2020 16:30:53 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692A06E508
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 16:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30B7A6E2D3;
+	Mon, 13 Jul 2020 16:39:25 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE19B6E4AA;
+ Mon, 13 Jul 2020 16:39:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YTmIZRaWENHUaBpC2xNCLiN5pqUCaohkYb0ztCirZBXLhFbnrtRrtL3jOPRViaB+hhuhR3wQQFrXEJOYqK9FrU8I7aqsWGDLytkFoG1+wpmCNwjKNsHzZIz1pFnSt+Yv/9p9bgluVR58IgnTVPFnDfz+PJVXAGZ1Tc7BurU8pmHRoeS+cycSDJL958deGYX3o6zehlpVrQbOYIakGNc0fw+XuQIO859gQPW/smnjl5KkNUuhVWmZvyjDyq7Y8eTasRMVS6+IPt1XgI5hIiwA7qn/LnKR0BQ4nMqa/afmCS4rZ/n7mOtIZNTjoYy6DKzntZ3b3QEsGVLjGsL2jXpT0Q==
+ b=EXsLTD+sRKtJQtS1vKvXcuFHwu+Kh2oXRDenKEn/Lanmmwc8fcaCaif+u9b5Pg6zy7mT+ea8iTLvX+b+E7N+ffWTu/EyDivenZLi3B4rdNgzDnQfc6n+5v3BL5RoD1Rb4kK3BdegxtXpN2tavtK6AIKa0gCZpjRuJBXvNBQlLog8bkX8jIEP0IONr7XE5aye/RyyiPm4KbUYpQuja2YUeHMWDyUhXJb1Ls3l5dmMhaL1fBlnwL1dBhg5ZvmriIkEmbL1qpvLBh+YcqMHRLNxapIqQsySxmChKiBrawlFOea5uMdNdGU4FmknZXcYym/3j+NjwewFno/IYSlkFvqHiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hRtBj7yiNwEUScziJHIuZG7c73ZQmy9aDSMVO9K5haY=;
- b=FfUpxOy/vuhwXSNFv7JDuV6Hi1y4aZr0jqtvccgsaCovRvngkL7ae9S2oq3HmO/tMkwj+9cFyPoU80ekUXzb0C+CIVi0Wk1KmX206B8MSQDdnV1zS23F9LAOa8GudOLvfsZgEaLsUundqXgrF4pM8l21RnoxSrF9Mi6JCJmxRqngDVLJcMmm5pC7YfsOIg9jYxjN+IQsgugPSQaoTvgUJXCe8MvaeFqMnauIxUMfnsRaGsuk2/9Lk5T8sH7df6iBqB62kht3fMYq7kV7H0de5yvVlGSmxIzI1zUQiDjxQBMQ5Lb9OU9cgxKcC+5KcdjXV+4QI0eNNOMlpius3G61XA==
+ bh=mRhv7DRhkNyzQHUXQ1THZXEaPIDGwjr5YaNPjydTyDc=;
+ b=g+VJueQqGIV6DycSW1mwCdTk0CasQDvuFjMASa/BMKA8FetCvl+aOjioryfEmw8NcAmn49kTEsrUT2egEEAPJox5jC+ejlffA8mibq7SkLxoKcdeu8VvWQfoD3qGXNHu7c5Jr+zeMD5Zw6dB4tPIPYfWoj3lgz26QhLHoGEGYQYS67z9tHYJo7eHfKvvMLSXZrOs9AVoUelUyTcSkATZDTFfihmnASwBzUbpOa4uklRO0i/xt0ur/MTwPdP2zk0d9//JMCBqQdfT4U6mR3fyJoqC+tZPZfUFItt6vrYu+J1PbJj5MWZjKXvD2kYDnVgKLP3YpXOmnnzuR62xrGxo4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hRtBj7yiNwEUScziJHIuZG7c73ZQmy9aDSMVO9K5haY=;
- b=dDC4GKVDOaxtGLgZdKlDYHDI8L1LkFDNsldJJYFZLDLaYQzg6ggC5EkbyuBdoF7LP8cNq0fOa+4Xut3oyowBCfspakUh0qvLr+fjDnwEAwnVnBFZkwZkJUUS67OUSkruP2xXBGNLHdhV/8swwRPfkYAx6yspDg44Vz5VUNvObew=
-Received: from MW3PR12MB4554.namprd12.prod.outlook.com (2603:10b6:303:55::21)
- by MWHPR12MB1760.namprd12.prod.outlook.com (2603:10b6:300:112::19)
+ bh=mRhv7DRhkNyzQHUXQ1THZXEaPIDGwjr5YaNPjydTyDc=;
+ b=jHtykKTw6wt0BT3Y19+Fw+CE8VZYVSXsBchjx0JywVunf0snTKu6wRZhfYZrLB3WpuyR8RWDef9nMUYdS+BvoIAo+48LfodIKfK1E4g9CIta01WcqsEqEKwfIKeQBXcF4bPk3ekRSKE146cjtv0kcGYh2g7ko6++gtSzCZLN+L8=
+Authentication-Results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4405.namprd12.prod.outlook.com (2603:10b6:208:26d::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Mon, 13 Jul
- 2020 16:30:49 +0000
-Received: from MW3PR12MB4554.namprd12.prod.outlook.com
- ([fe80::f54a:55ae:1157:742]) by MW3PR12MB4554.namprd12.prod.outlook.com
- ([fe80::f54a:55ae:1157:742%3]) with mapi id 15.20.3174.025; Mon, 13 Jul 2020
- 16:30:49 +0000
-From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amd/display: Allow for vblank enabled with no
- active planes
-Thread-Topic: [PATCH 2/2] drm/amd/display: Allow for vblank enabled with no
- active planes
-Thread-Index: AQHWWSvPQR9pk1PSAEaT4iE6ZdYbyKkFsxhm
-Date: Mon, 13 Jul 2020 16:30:49 +0000
-Message-ID: <MW3PR12MB45546EFA0E61D396729AB02AF9600@MW3PR12MB4554.namprd12.prod.outlook.com>
-References: <20200713153908.14815-1-nicholas.kazlauskas@amd.com>,
- <20200713153908.14815-2-nicholas.kazlauskas@amd.com>
-In-Reply-To: <20200713153908.14815-2-nicholas.kazlauskas@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-13T16:30:49.834Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.55.211]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 55988267-9c6c-4843-f4fd-08d8274a1a54
-x-ms-traffictypediagnostic: MWHPR12MB1760:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR12MB1760F37DBACF1E4A66C7D389F9600@MWHPR12MB1760.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2657;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: c63DCkDkHv3upjikpy3AF6jigEgM93oK67Act+t5CaDBl9V67Bi+osg6PCNxxHrDdgqmvKXohbL8bXeTo2g5VeRydHLsuBilXHtqvXdfzA9VHOd7nSl2JMGK9UPaZ1JBFWXGy6pf3KTpj3ZJRTqQ/ZoVzHFwese3OGcnxL+Tmwv6vgmPjbW/rBIyJILSyVc5aVRMNfCG43a+B5xAdF60k+R/etOYvSsgXzImv/ceDl6SG6Xa4dWsRu7T3eOydgHyGpWEpgX0HmCUvfx22HjdZTRdq5XUGcrKV9YBHNbqGS3zRe5PnZ8E2HgG2DcOoWtwN47BKgpA5Fc5fTddrJcCrA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4554.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(136003)(39860400002)(366004)(376002)(346002)(2906002)(316002)(186003)(83380400001)(26005)(76116006)(91956017)(66946007)(66446008)(64756008)(66556008)(66476007)(86362001)(9686003)(55016002)(5660300002)(478600001)(52536014)(8676002)(30864003)(19627405001)(7696005)(71200400001)(33656002)(110136005)(8936002)(53546011)(6506007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: GFZsrxKDuzP1rJrvpmkOLsahfxtq2qvhCAZenDWgQHM4etKxR2Mr3IztXO8OUr5WMo8rOUg8YwfT9OkyH5iFzy3aj+7aEXICQjNEbpCuHOi+2e6uBqCeMR57hUlGqZbybYkUtme1Ip9P3csNunEYKwwhGjM5NibAVGkwBDXULIwX7VMIWZIDdLw9/GMXj7Q/ExgATGZhmAZLnJW7LSKsglraIYilH9zS3Ku76K2Q9nVoH8yMriyxuFdZUvwziybn2ZftQdzs18Eu03qF85T23CLORgJ0rIzg5RBzo0CUwZ305sQntOU1h9nogu6DNCUNbngJz8gRzQ0qv3KD8I4sUDpNUfGeJCDRoXR9npEm5okIs6ZepecGI/p1z5/kWHrxNdhB0JiJn0YSEUvG70yxOUIw8HG0ZDoXOtls2pNxQ8z7nU/lAAcBUYJ1+Agv6WgYqI4U4JQ/vPnEqcsRcHgtZ2SvR+FMrn2y2Jz3nv55mtJbeso5iVnZYQekoH55jwVp
+ 2020 16:39:20 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::a16e:8812:b4c0:918d]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::a16e:8812:b4c0:918d%6]) with mapi id 15.20.3174.025; Mon, 13 Jul 2020
+ 16:39:20 +0000
+Subject: Re: [PATCH 01/25] dma-fence: basic lockdep annotations
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
+ <20200707201229.472834-2-daniel.vetter@ffwll.ch>
+ <20c0a95b-8367-4f26-d058-1cb265255283@amd.com>
+ <20200713162610.GS3278063@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <e9e838fb-ec83-f7e0-e978-b57d8892b3f0@amd.com>
+Date: Mon, 13 Jul 2020 18:39:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+In-Reply-To: <20200713162610.GS3278063@phenom.ffwll.local>
+Content-Language: en-US
+X-ClientProxiedBy: AM3PR07CA0127.eurprd07.prod.outlook.com
+ (2603:10a6:207:8::13) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM3PR07CA0127.eurprd07.prod.outlook.com (2603:10a6:207:8::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.16 via Frontend Transport; Mon, 13 Jul 2020 16:39:18 +0000
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: fb7bc2fc-44dc-4b2d-2fda-08d8274b4aaf
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4405:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB440551E8AE028CF3C9E9D4A183600@MN2PR12MB4405.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 96PYQEa6kmq2ISiHqT3r4YtxPvln7svEDRPmiwOAGtUpv3RmW0+EdVknuhTkEaCCpXwj2Ucd+RXWfRVdY61PIyC0UdkamMb2ck5xnGkvRysZl2pSFWPNm/x0wxp7CXfTJ0dly+oCD3vTq3Vsuq17q16zdRssYIwvr2osqd33EKKcrzEz4qzJBTGSXmvtX5baRo1yVE1lKSNroFEKSxEJfCw4l7AMaNhBhhW1Ulqi0FHEzJGRFVqve9BUwVUm6bVpbVdqqJjqdHRN488td20TIdbun6vErQm1S/b/vFN1rbUKQFPjtNzurZKMT41j78DjbEqCh0mQPI3Tzext8/FlvMvQtPi2cRnnzN0voMVYV53cUSGdvNYVaDo2+LZI+kTiBR4vjksSWeb+sQM00oKo1CW5wo7r9He6b851hsDkuwwVKPSMO/Q6hp1U7wxPizQE+ZFeFsB1Znnj2INquad0dw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(6666004)(2616005)(83380400001)(31686004)(54906003)(966005)(36756003)(16526019)(66946007)(45080400002)(478600001)(52116002)(6486002)(316002)(8676002)(8936002)(6916009)(66574015)(4326008)(86362001)(5660300002)(7416002)(66476007)(2906002)(66556008)(30864003)(31696002)(186003)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 6luUZ46mwLA5VzUu6E7nyUkBleUyHj5JRJ4IsL30gyBgYwFyykaE7ao9bowRbOnw1THflM74nw72u9gfpbKkdQcRSvV71Nl0ZF90gPcV1/EgFg+PocgFD/6EPSzGaAef4IRkfCnFdHf93kt+eDZr0AsmjbeOPOuS6mJsOKtMHjyUJeu+mn+1Y/dAH7AEncjmpIbn4gQ/kUxv0OoJ6fYBuIxFiC2vua+uD/4b0m5vPUvk/tuI8LpOpiV0Z++jZoQtjoc+WaoT4j+GVjIfaqffD+/JGBew6C/7Pu+//ecLduDxTGS215Am0Lpc/DXyT+XVZgCArNDi0Mgd9mAEnh5aiM47bqV9ITPsuxCyB/7hUg1EgIZ0GfBK55aNc7JaTTlThstCKVtLOWUdOK+gKt9/E648xPkrji4KTNOao1Y6MqexmPB4WCpUvGclNYtVwXVg/JISdXB14osW8L5bq6oEKuCc+MQfiNwAJi85LlXDEIeSEbPvzgioAPkwj4WpujLVefDNr/ID80aLz/MA6D9idbV+24o8olS5O89FwVG2H1lYCf4vOD8Qm1d4gq8MdByl
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb7bc2fc-44dc-4b2d-2fda-08d8274b4aaf
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4554.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55988267-9c6c-4843-f4fd-08d8274a1a54
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2020 16:30:49.4409 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ekCzMF9ZnIeyeZKs5kJNsgpag3hoVQxBJWrWdw9gq0ztxf4/xXavtoY71HyMcKQ9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1760
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2020 16:39:20.5028 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mAlix4rT/fjZhHKwCooiQTvZWpZy/NAF4yMWGdvOQc57hbj8E0/mvWOBhraQII1I
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4405
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,1009 +114,338 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1550740414=="
+Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@intel.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
+ linux-media@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1550740414==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_MW3PR12MB45546EFA0E61D396729AB02AF9600MW3PR12MB4554namp_"
-
---_000_MW3PR12MB45546EFA0E61D396729AB02AF9600MW3PR12MB4554namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-________________________________
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Sent: July 13, 2020 11:39 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Lakha, Bhawanpreet =
-<Bhawanpreet.Lakha@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: Allow for vblank enabled with no acti=
-ve planes
-
-[Why]
-CRC capture doesn't work when the active plane count is 0 since we
-currently tie both vblank and pageflip interrupts to active_plane_count
-greater than 0.
-
-[How]
-The frontend is what generates the vblank interrupts while the backend
-is what generates pageflip interrupts. Both have a requirement for
-the CRTC to be active, so control the overall interrupt state based
-on that instead.
-
-Pageflip interrupts need to be enabled based on active plane count, but
-we actually rely on power gating to take care of disabling the interrupt
-for us on pipes that can be power gated.
-
-For pipes that can't be power gated it's still fine to leave it enabled
-since the interrupt only triggers after the address has been written
-to that particular pipe - which we won't be doing without an active
-plane.
-
-The issue we had before with this setup was that we couldn't force
-the state back on. We were essentially manipulating the refcount
-to enable or disable as needed in a two pass approach.
-
-However, there is a function that solves this problem more elegantly:
-amdgpu_irq_update() will unconditionally call the set based on what it
-thinks the current enablement state is.
-
-This leaves two future TODO items for our IRQ handling:
-- Disabling IRQs in commit tail instead of atomic commit
-- Mapping the pageflip interrupt to VUPDATE or something that's tied to
-  the frontend instead of the backend since the mapping to CRTC is not
-  correct
-
-Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 168 ++++++++----------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 -
- 2 files changed, 78 insertions(+), 91 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d9f8e9c26390..05160c6bbc03 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4719,7 +4719,6 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
-         }
-
-         state->active_planes =3D cur->active_planes;
--       state->interrupts_enabled =3D cur->interrupts_enabled;
-         state->vrr_params =3D cur->vrr_params;
-         state->vrr_infopacket =3D cur->vrr_infopacket;
-         state->abm_level =3D cur->abm_level;
-@@ -5393,29 +5392,19 @@ static int count_crtc_active_planes(struct drm_crtc=
-_state *new_crtc_state)
-         return num_active;
- }
-
--/*
-- * Sets whether interrupts should be enabled on a specific CRTC.
-- * We require that the stream be enabled and that there exist active
-- * DC planes on the stream.
-- */
--static void
--dm_update_crtc_interrupt_state(struct drm_crtc *crtc,
--                              struct drm_crtc_state *new_crtc_state)
-+static void dm_update_crtc_active_planes(struct drm_crtc *crtc,
-+                                        struct drm_crtc_state *new_crtc_st=
-ate)
- {
-         struct dm_crtc_state *dm_new_crtc_state =3D
-                 to_dm_crtc_state(new_crtc_state);
-
-         dm_new_crtc_state->active_planes =3D 0;
--       dm_new_crtc_state->interrupts_enabled =3D false;
-
-         if (!dm_new_crtc_state->stream)
-                 return;
-
-         dm_new_crtc_state->active_planes =3D
-                 count_crtc_active_planes(new_crtc_state);
--
--       dm_new_crtc_state->interrupts_enabled =3D
--               dm_new_crtc_state->active_planes > 0;
- }
-
- static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
-@@ -5426,13 +5415,7 @@ static int dm_crtc_helper_atomic_check(struct drm_cr=
-tc *crtc,
-         struct dm_crtc_state *dm_crtc_state =3D to_dm_crtc_state(state);
-         int ret =3D -EINVAL;
-
--       /*
--        * Update interrupt state for the CRTC. This needs to happen whenev=
-er
--        * the CRTC has changed or whenever any of its planes have changed.
--        * Atomic check satisfies both of these requirements since the CRTC
--        * is added to the state by DRM during drm_atomic_helper_check_plan=
-es.
--        */
--       dm_update_crtc_interrupt_state(crtc, state);
-+       dm_update_crtc_active_planes(crtc, state);
-
-         if (unlikely(!dm_crtc_state->stream &&
-                      modeset_required(state, NULL, dm_crtc_state->stream))=
-) {
-@@ -6547,8 +6530,10 @@ static void manage_dm_interrupts(struct amdgpu_devic=
-e *adev,
-                                  bool enable)
- {
-         /*
--        * this is not correct translation but will work as soon as VBLANK
--        * constant is the same as PFLIP
-+        * We have no guarantee that the frontend index maps to the same
-+        * backend index - some even map to more than one.
-+        *
-+        * TODO: Use a different interrupt or check DC itself for the mappi=
-ng.
-          */
-         int irq_type =3D
-                 amdgpu_display_crtc_idx_to_irq_type(
-@@ -6571,6 +6556,19 @@ static void manage_dm_interrupts(struct amdgpu_devic=
-e *adev,
-         }
- }
-
-+static void dm_update_pflip_irq_state(struct amdgpu_device *adev,
-+                                     struct amdgpu_crtc *acrtc)
-+{
-+       int irq_type =3D
-+               amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
-+
-+       /**
-+        * This reads the current state for the IRQ and force reapplies
-+        * the setting to hardware.
-+        */
-+       amdgpu_irq_update(adev, &adev->pageflip_irq, irq_type);
-+}
-+
- static bool
- is_scaling_state_different(const struct dm_connector_state *dm_state,
-                            const struct dm_connector_state *old_dm_state)
-@@ -7154,7 +7152,16 @@ static void amdgpu_dm_commit_planes(struct drm_atomi=
-c_state *state,
-                         usleep_range(1000, 1100);
-                 }
-
--               if (acrtc_attach->base.state->event) {
-+               /**
-+                * Prepare the flip event for the pageflip interrupt to han=
-dle.
-+                *
-+                * This only works in the case where we've already turned o=
-n the
-+                * appropriate hardware blocks (eg. HUBP) so in the transit=
-ion case
-+                * from 0 -> n planes we have to skip a hardware generated =
-event
-+                * and rely on sending it from software.
-+                */
-+               if (acrtc_attach->base.state->event &&
-+                   acrtc_state->active_planes > 0) {
-                         drm_crtc_vblank_get(pcrtc);
-
-                         spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-@@ -7223,6 +7230,24 @@ static void amdgpu_dm_commit_planes(struct drm_atomi=
-c_state *state,
-                                                      &bundle->stream_updat=
-e,
-                                                      dc_state);
-
-+               /**
-+                * Enable or disable the interrupts on the backend.
-+                *
-+                * Most pipes are put into power gating when unused.
-+                *
-+                * When power gating is enabled on a pipe we lose the
-+                * interrupt enablement state when power gating is disabled=
-.
-+                *
-+                * So we need to update the IRQ control state in hardware
-+                * whenever the pipe turns on (since it could be previously
-+                * power gated) or off (since some pipes can't be power gat=
-ed
-+                * on some ASICs).
-+                */
-+               if (dm_old_crtc_state->active_planes !=3D acrtc_state->acti=
-ve_planes)
-+                       dm_update_pflip_irq_state(
-+                               (struct amdgpu_device *)dev->dev_private,
-+                               acrtc_attach);
-+
-                 if ((acrtc_state->update_type > UPDATE_TYPE_FAST) &&
-                                 acrtc_state->stream->link->psr_settings.ps=
-r_version !=3D DC_PSR_VERSION_UNSUPPORTED &&
-                                 !acrtc_state->stream->link->psr_settings.p=
-sr_feature_enabled)
-@@ -7323,64 +7348,6 @@ static void amdgpu_dm_commit_audio(struct drm_device=
- *dev,
-         }
- }
-
--/*
-- * Enable interrupts on CRTCs that are newly active, undergone
-- * a modeset, or have active planes again.
-- *
-- * Done in two passes, based on the for_modeset flag:
-- * Pass 1: For CRTCs going through modeset
-- * Pass 2: For CRTCs going from 0 to n active planes
-- *
-- * Interrupts can only be enabled after the planes are programmed,
-- * so this requires a two-pass approach since we don't want to
-- * just defer the interrupts until after commit planes every time.
-- */
--static void amdgpu_dm_enable_crtc_interrupts(struct drm_device *dev,
--                                            struct drm_atomic_state *state=
-,
--                                            bool for_modeset)
--{
--       struct amdgpu_device *adev =3D dev->dev_private;
--       struct drm_crtc *crtc;
--       struct drm_crtc_state *old_crtc_state, *new_crtc_state;
--       int i;
--#ifdef CONFIG_DEBUG_FS
--       enum amdgpu_dm_pipe_crc_source source;
--#endif
--
--       for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
--                                     new_crtc_state, i) {
--               struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
--               struct dm_crtc_state *dm_new_crtc_state =3D
--                       to_dm_crtc_state(new_crtc_state);
--               struct dm_crtc_state *dm_old_crtc_state =3D
--                       to_dm_crtc_state(old_crtc_state);
--               bool modeset =3D drm_atomic_crtc_needs_modeset(new_crtc_sta=
-te);
--               bool run_pass;
--
--               run_pass =3D (for_modeset && modeset) ||
--                          (!for_modeset && !modeset &&
--                           !dm_old_crtc_state->interrupts_enabled);
--
--               if (!run_pass)
--                       continue;
--
--               if (!dm_new_crtc_state->interrupts_enabled)
--                       continue;
--
--               manage_dm_interrupts(adev, acrtc, true);
--
--#ifdef CONFIG_DEBUG_FS
--               /* The stream has changed so CRC capture needs to re-enable=
-d. */
--               source =3D dm_new_crtc_state->crc_src;
--               if (amdgpu_dm_is_valid_crc_source(source)) {
--                       amdgpu_dm_crtc_configure_crc_source(
--                               crtc, dm_new_crtc_state,
--                               dm_new_crtc_state->crc_src);
--               }
--#endif
--       }
--}
--
- /*
-  * amdgpu_dm_crtc_copy_transient_flags - copy mirrored flags from DRM to D=
-C
-  * @crtc_state: the DRM CRTC state
-@@ -7420,12 +7387,10 @@ static int amdgpu_dm_atomic_commit(struct drm_devic=
-e *dev,
-          * in atomic check.
-          */
-         for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crt=
-c_state, i) {
--               struct dm_crtc_state *dm_old_crtc_state =3D to_dm_crtc_stat=
-e(old_crtc_state);
--               struct dm_crtc_state *dm_new_crtc_state =3D to_dm_crtc_stat=
-e(new_crtc_state);
-                 struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
-
--               if (dm_old_crtc_state->interrupts_enabled &&
--                   (!dm_new_crtc_state->interrupts_enabled ||
-+               if (old_crtc_state->active &&
-+                   (!new_crtc_state->active ||
-                      drm_atomic_crtc_needs_modeset(new_crtc_state)))
-                         manage_dm_interrupts(adev, acrtc, false);
-         }
-@@ -7704,8 +7669,34 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_=
-atomic_state *state)
-                                                 dm_new_crtc_state);
-         }
-
--       /* Enable interrupts for CRTCs going through a modeset. */
--       amdgpu_dm_enable_crtc_interrupts(dev, state, true);
-+       /**
-+        * Enable interrupts for CRTCs that are newly enabled or went throu=
-gh
-+        * a modeset. It was intentionally deferred until after the front e=
-nd
-+        * state was modified to wait until the OTG was on and so the IRQ
-+        * handlers didn't access stale or invalid state.
-+        */
-+       for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc=
-_state, i) {
-+               struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
-+
-+               if (new_crtc_state->active &&
-+                   (!old_crtc_state->active ||
-+                    drm_atomic_crtc_needs_modeset(new_crtc_state))) {
-+                       manage_dm_interrupts(adev, acrtc, true);
-+#ifdef CONFIG_DEBUG_FS
-+                       /**
-+                        * Frontend may have changed so reapply the CRC cap=
-ture
-+                        * settings for the stream.
-+                        */
-+                       dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_sta=
-te);
-+
-+                       if (amdgpu_dm_is_valid_crc_source(dm_new_crtc_state=
-->crc_src)) {
-+                               amdgpu_dm_crtc_configure_crc_source(
-+                                       crtc, dm_new_crtc_state,
-+                                       dm_new_crtc_state->crc_src);
-+                       }
-+#endif
-+               }
-+       }
-
-         for_each_new_crtc_in_state(state, crtc, new_crtc_state, j)
-                 if (new_crtc_state->async_flip)
-@@ -7720,9 +7711,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
-tomic_state *state)
-                                                 dm, crtc, wait_for_vblank)=
-;
-         }
-
--       /* Enable interrupts for CRTCs going from 0 to n active planes. */
--       amdgpu_dm_enable_crtc_interrupts(dev, state, false);
--
-         /* Update audio instances for each connector. */
-         amdgpu_dm_commit_audio(dev, state);
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 94d3ff727c25..82cdf07b4bd0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -414,7 +414,6 @@ struct dm_crtc_state {
-
-         int update_type;
-         int active_planes;
--       bool interrupts_enabled;
-
-         int crc_skip_count;
-         enum amdgpu_dm_pipe_crc_source crc_src;
---
-2.25.1
-
-
---_000_MW3PR12MB45546EFA0E61D396729AB02AF9600MW3PR12MB4554namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: <font size=3D"2"><span style=3D"font-size:11pt">Bhawanpreet La=
-kha &lt;Bhawanpreet.Lakha@amd.com&gt;</span></font><br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Nicholas Kazlauskas &=
-lt;nicholas.kazlauskas@amd.com&gt;<br>
-<b>Sent:</b> July 13, 2020 11:39 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;; Lakha,=
- Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/display: Allow for vblank enabled with =
-no active planes</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-CRC capture doesn't work when the active plane count is 0 since we<br>
-currently tie both vblank and pageflip interrupts to active_plane_count<br>
-greater than 0.<br>
-<br>
-[How]<br>
-The frontend is what generates the vblank interrupts while the backend<br>
-is what generates pageflip interrupts. Both have a requirement for<br>
-the CRTC to be active, so control the overall interrupt state based<br>
-on that instead.<br>
-<br>
-Pageflip interrupts need to be enabled based on active plane count, but<br>
-we actually rely on power gating to take care of disabling the interrupt<br=
->
-for us on pipes that can be power gated.<br>
-<br>
-For pipes that can't be power gated it's still fine to leave it enabled<br>
-since the interrupt only triggers after the address has been written<br>
-to that particular pipe - which we won't be doing without an active<br>
-plane.<br>
-<br>
-The issue we had before with this setup was that we couldn't force<br>
-the state back on. We were essentially manipulating the refcount<br>
-to enable or disable as needed in a two pass approach.<br>
-<br>
-However, there is a function that solves this problem more elegantly:<br>
-amdgpu_irq_update() will unconditionally call the set based on what it<br>
-thinks the current enablement state is.<br>
-<br>
-This leaves two future TODO items for our IRQ handling:<br>
-- Disabling IRQs in commit tail instead of atomic commit<br>
-- Mapping the pageflip interrupt to VUPDATE or something that's tied to<br>
-&nbsp; the frontend instead of the backend since the mapping to CRTC is not=
-<br>
-&nbsp; correct<br>
-<br>
-Cc: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
-Signed-off-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas@amd.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 168 &#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;----------<br>
-&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |&nbsp;&nbsp; 1 -<br>
-&nbsp;2 files changed, 78 insertions(&#43;), 91 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index d9f8e9c26390..05160c6bbc03 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -4719,7 &#43;4719,6 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;active_planes =
-=3D cur-&gt;active_planes;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;interrupts_enabled =3D cur-=
-&gt;interrupts_enabled;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;vrr_params =3D c=
-ur-&gt;vrr_params;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;vrr_infopacket =
-=3D cur-&gt;vrr_infopacket;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state-&gt;abm_level =3D cu=
-r-&gt;abm_level;<br>
-@@ -5393,29 &#43;5392,19 @@ static int count_crtc_active_planes(struct drm_=
-crtc_state *new_crtc_state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return num_active;<br>
-&nbsp;}<br>
-&nbsp;<br>
--/*<br>
-- * Sets whether interrupts should be enabled on a specific CRTC.<br>
-- * We require that the stream be enabled and that there exist active<br>
-- * DC planes on the stream.<br>
-- */<br>
--static void<br>
--dm_update_crtc_interrupt_state(struct drm_crtc *crtc,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc_state *new_crtc_state)<br>
-&#43;static void dm_update_crtc_active_planes(struct drm_crtc *crtc,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; struct drm_crtc_state *new_crtc_state)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dm_crtc_state *dm_n=
-ew_crtc_state =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; to_dm_crtc_state(new_crtc_state);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state-&gt;acti=
-ve_planes =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state-&gt;interrupts_enab=
-led =3D false;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dm_new_crtc_state-&gt=
-;stream)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state-&gt;acti=
-ve_planes =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; count_crtc_active_planes(new_crtc_state);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state-&gt;interrupts_enab=
-led =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dm_new_crtc_state-&gt;active_planes &gt; 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,<br>
-@@ -5426,13 &#43;5415,7 @@ static int dm_crtc_helper_atomic_check(struct dr=
-m_crtc *crtc,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dm_crtc_state *dm_c=
-rtc_state =3D to_dm_crtc_state(state);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D -EINVAL;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Update interrupt state for th=
-e CRTC. This needs to happen whenever<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the CRTC has changed or whene=
-ver any of its planes have changed.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Atomic check satisfies both o=
-f these requirements since the CRTC<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * is added to the state by DRM =
-during drm_atomic_helper_check_planes.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_update_crtc_interrupt_state(crtc, =
-state);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_update_crtc_active_planes(crtc=
-, state);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(!dm_crtc_stat=
-e-&gt;stream &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; modeset_required(state,=
- NULL, dm_crtc_state-&gt;stream))) {<br>
-@@ -6547,8 &#43;6530,10 @@ static void manage_dm_interrupts(struct amdgpu_d=
-evice *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool enable)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * this is not correct translati=
-on but will work as soon as VBLANK<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * constant is the same as PFLIP=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * We have no guarantee that=
- the frontend index maps to the same<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * backend index - some even=
- map to more than one.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TODO: Use a different int=
-errupt or check DC itself for the mapping.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int irq_type =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_display_crtc_idx_to_irq_type(<br>
-@@ -6571,6 &#43;6556,19 @@ static void manage_dm_interrupts(struct amdgpu_d=
-evice *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static void dm_update_pflip_irq_state(struct amdgpu_device *adev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct amdgpu_crtc *acrtc)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int irq_type =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_display_crtc_idx_to_irq_type(adev, acrtc-&gt;crtc_id)=
-;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * This reads the current st=
-ate for the IRQ and force reapplies<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the setting to hardware.<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_irq_update(adev, &amp;adev=
--&gt;pageflip_irq, irq_type);<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static bool<br>
-&nbsp;is_scaling_state_different(const struct dm_connector_state *dm_state,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; const struct dm_connector_state *old_dm_state)<br>
-@@ -7154,7 &#43;7152,16 @@ static void amdgpu_dm_commit_planes(struct drm_a=
-tomic_state *state,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uslee=
-p_range(1000, 1100);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (acrtc_attach-&gt;base.state-&gt;event) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /**<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * Prepare the flip event for the pageflip interrupt to=
- handle.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * This only works in the case where we've already turn=
-ed on the<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * appropriate hardware blocks (eg. HUBP) so in the tra=
-nsition case<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * from 0 -&gt; n planes we have to skip a hardware gen=
-erated event<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * and rely on sending it from software.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (acrtc_attach-&gt;base.state-&gt;event &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc_state-&gt;active_planes &gt; 0=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_c=
-rtc_vblank_get(pcrtc);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_=
-lock_irqsave(&amp;pcrtc-&gt;dev-&gt;event_lock, flags);<br>
-@@ -7223,6 &#43;7230,24 @@ static void amdgpu_dm_commit_planes(struct drm_a=
-tomic_state *state,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; &amp;bundle-&gt;stream_update,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; dc_state);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /**<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * Enable or disable the interrupts on the backend.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * Most pipes are put into power gating when unused.<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * When power gating is enabled on a pipe we lose the<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * interrupt enablement state when power gating is disa=
-bled.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * So we need to update the IRQ control state in hardwa=
-re<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * whenever the pipe turns on (since it could be previo=
-usly<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * power gated) or off (since some pipes can't be power=
- gated<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * on some ASICs).<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (dm_old_crtc_state-&gt;active_planes !=3D acrtc_state-&gt=
-;active_planes)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_update_pf=
-lip_irq_state(<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (struct amdgpu_device *)dev-&gt;dev_pri=
-vate,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc_attach);<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if ((acrtc_state-&gt;update_type &gt; UPDATE_TYPE_FAS=
-T) &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc_state-&gt;stream-&gt;link-=
-&gt;psr_settings.psr_version !=3D DC_PSR_VERSION_UNSUPPORTED &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !acrtc_state-&gt;stream-&gt;link=
--&gt;psr_settings.psr_feature_enabled)<br>
-@@ -7323,64 &#43;7348,6 @@ static void amdgpu_dm_commit_audio(struct drm_de=
-vice *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
--/*<br>
-- * Enable interrupts on CRTCs that are newly active, undergone<br>
-- * a modeset, or have active planes again.<br>
-- *<br>
-- * Done in two passes, based on the for_modeset flag:<br>
-- * Pass 1: For CRTCs going through modeset<br>
-- * Pass 2: For CRTCs going from 0 to n active planes<br>
-- *<br>
-- * Interrupts can only be enabled after the planes are programmed,<br>
-- * so this requires a two-pass approach since we don't want to<br>
-- * just defer the interrupts until after commit planes every time.<br>
-- */<br>
--static void amdgpu_dm_enable_crtc_interrupts(struct drm_device *dev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_atomic_state *state,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool for_modeset)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-&g=
-t;dev_private;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc *crtc;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_crtc_state *old_crtc_state=
-, *new_crtc_state;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
--#ifdef CONFIG_DEBUG_FS<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amdgpu_dm_pipe_crc_source source=
-;<br>
--#endif<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for_each_oldnew_crtc_in_state(state, =
-crtc, old_crtc_state,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_crt=
-c_state, i) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct dm_crtc_state *dm_new_crtc_state =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to_dm_crtc_state=
-(new_crtc_state);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct dm_crtc_state *dm_old_crtc_state =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to_dm_crtc_state=
-(old_crtc_state);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bool modeset =3D drm_atomic_crtc_needs_modeset(new_crtc_state);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bool run_pass;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; run_pass =3D (for_modeset &amp;&amp; modeset) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; (!for_modeset &amp;&amp; !modeset &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; !dm_old_crtc_state-&gt;interrupts_enabled);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!run_pass)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!dm_new_crtc_state-&gt;interrupts_enabled)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; manage_dm_interrupts(adev, acrtc, true);<br>
--<br>
--#ifdef CONFIG_DEBUG_FS<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* The stream has changed so CRC capture needs to re-enabled. */=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; source =3D dm_new_crtc_state-&gt;crc_src;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_dm_is_valid_crc_source(source)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dm_crtc_c=
-onfigure_crc_source(<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; crtc, dm_new_crtc_state,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state-&gt;crc_src);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
--#endif<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--}<br>
--<br>
-&nbsp;/*<br>
-&nbsp; * amdgpu_dm_crtc_copy_transient_flags - copy mirrored flags from DRM=
- to DC<br>
-&nbsp; * @crtc_state: the DRM CRTC state<br>
-@@ -7420,12 &#43;7387,10 @@ static int amdgpu_dm_atomic_commit(struct drm_d=
-evice *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * in atomic check.<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for_each_oldnew_crtc_in_st=
-ate(state, crtc, old_crtc_state, new_crtc_state, i) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct dm_crtc_state *dm_old_crtc_state =3D to_dm_crtc_state(old=
-_crtc_state);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct dm_crtc_state *dm_new_crtc_state =3D to_dm_crtc_state(new=
-_crtc_state);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);<b=
-r>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (dm_old_crtc_state-&gt;interrupts_enabled &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (!dm_new_crtc_state-&gt;interrupts_enabl=
-ed ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (old_crtc_state-&gt;active &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (!new_crtc_state-&gt;active ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_atomic_crtc_needs_m=
-odeset(new_crtc_state)))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; manag=
-e_dm_interrupts(adev, acrtc, false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -7704,8 &#43;7669,34 @@ static void amdgpu_dm_atomic_commit_tail(struct =
-drm_atomic_state *state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc=
-_state);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Enable interrupts for CRTCs going =
-through a modeset. */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dm_enable_crtc_interrupts(dev,=
- state, true);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Enable interrupts for CRT=
-Cs that are newly enabled or went through<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * a modeset. It was intenti=
-onally deferred until after the front end<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * state was modified to wai=
-t until the OTG was on and so the IRQ<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * handlers didn't access st=
-ale or invalid state.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for_each_oldnew_crtc_in_state(sta=
-te, crtc, old_crtc_state, new_crtc_state, i) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (new_crtc_state-&gt;active &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (!old_crtc_state-&gt;active ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_atomic_crtc_needs_modeset(=
-new_crtc_state))) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; manage_dm_in=
-terrupts(adev, acrtc, true);<br>
-&#43;#ifdef CONFIG_DEBUG_FS<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Fron=
-tend may have changed so reapply the CRC capture<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * sett=
-ings for the stream.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_=
-state =3D to_dm_crtc_state(new_crtc_state);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_d=
-m_is_valid_crc_source(dm_new_crtc_state-&gt;crc_src)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dm_crtc_configure_crc_source(<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; crtc, dm_new_crtc_state,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; dm_new_crtc_state-&gt;crc_src);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;#endif<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for_each_new_crtc_in_state=
-(state, crtc, new_crtc_state, j)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (new_crtc_state-&gt;async_flip)<br>
-@@ -7720,9 &#43;7711,6 @@ static void amdgpu_dm_atomic_commit_tail(struct d=
-rm_atomic_state *state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm, crtc, w=
-ait_for_vblank);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Enable interrupts for CRTCs going =
-from 0 to n active planes. */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dm_enable_crtc_interrupts(dev,=
- state, false);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Update audio instances =
-for each connector. */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dm_commit_audio(dev=
-, state);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.h<br>
-index 94d3ff727c25..82cdf07b4bd0 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h<br>
-@@ -414,7 &#43;414,6 @@ struct dm_crtc_state {<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int update_type;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int active_planes;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool interrupts_enabled;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int crc_skip_count;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amdgpu_dm_pipe_crc_so=
-urce crc_src;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MW3PR12MB45546EFA0E61D396729AB02AF9600MW3PR12MB4554namp_--
-
---===============1550740414==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1550740414==--
+QW0gMTMuMDcuMjAgdW0gMTg6MjYgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IEhpIENocmlzdGlh
+biwKPgo+IE9uIFdlZCwgSnVsIDA4LCAyMDIwIGF0IDA0OjU3OjIxUE0gKzAyMDAsIENocmlzdGlh
+biBLw7ZuaWcgd3JvdGU6Cj4+IENvdWxkIHdlIG1lcmdlIHRoaXMgY29udHJvbGxlZCBieSBhIHNl
+cGFyYXRlIGNvbmZpZyBvcHRpb24/Cj4+Cj4+IFRoaXMgd2F5IHdlIGNvdWxkIGhhdmUgdGhlIGNo
+ZWNrcyB1cHN0cmVhbSB3aXRob3V0IGhhdmluZyB0byBmaXggYWxsIHRoZQo+PiBzdHVmZiBiZWZv
+cmUgd2UgZG8gdGhpcz8KPiBEaXNjdXNzaW9ucyBkaWVkIG91dCBhIGJpdCwgZG8geW91IGNvbnNp
+ZGVyIHRoaXMgYSBibG9ja2VyIGZvciB0aGUgZmlyc3QKPiB0d28gcGF0Y2hlcywgb3IgZ29vZCBm
+b3IgYW4gYWNrIG9uIHRoZXNlPwoKWWVzLCBJIHRoaW5rIHRoZSBmaXJzdCB0d28gY2FuIGJlIG1l
+cmdlZCB3aXRob3V0IGNhdXNpbmcgYW55IHBhaW4uIEZlZWwgCmZyZWUgdG8gYWRkIG15IGFiIG9u
+IHRoZW0uCgpBbmQgdGhlIHRoaXJkIG9uZSBjYW4gZ28gaW4gaW1tZWRpYXRlbHkgYXMgd2VsbC4K
+ClRoYW5rcywKQ2hyaXN0aWFuLgoKPgo+IExpa2UgSSBzYWlkIEkgZG9uJ3QgcGxhbiB0byBtZXJn
+ZSBwYXRjaGVzIHdoZXJlIEkga25vdyBpdCBjYXVzZXMgYSBsb2NrZGVwCj4gc3BsYXQgd2l0aCBh
+IGRyaXZlciBzdGlsbC4gQXQgbGVhc3QgZm9yIG5vdy4KPgo+IFRoYW5rcywgRGFuaWVsCj4KPj4g
+VGhhbmtzLAo+PiBDaHJpc3RpYW4uCj4+Cj4+IEFtIDA3LjA3LjIwIHVtIDIyOjEyIHNjaHJpZWIg
+RGFuaWVsIFZldHRlcjoKPj4+IERlc2lnbiBpcyBzaW1pbGFyIHRvIHRoZSBsb2NrZGVwIGFubm90
+YXRpb25zIGZvciB3b3JrZXJzLCBidXQgd2l0aAo+Pj4gc29tZSB0d2lzdHM6Cj4+Pgo+Pj4gLSBX
+ZSB1c2UgYSByZWFkLWxvY2sgZm9yIHRoZSBleGVjdXRpb24vd29ya2VyL2NvbXBsZXRpb24gc2lk
+ZSwgc28gdGhhdAo+Pj4gICAgIHRoaXMgZXhwbGljaXQgYW5ub3RhdGlvbiBjYW4gYmUgbW9yZSBs
+aWJlcmFsbHkgc3ByaW5rbGVkIGFyb3VuZC4KPj4+ICAgICBXaXRoIHJlYWQgbG9ja3MgbG9ja2Rl
+cCBpc24ndCBnb2luZyB0byBjb21wbGFpbiBpZiB0aGUgcmVhZC1zaWRlCj4+PiAgICAgaXNuJ3Qg
+bmVzdGVkIHRoZSBzYW1lIHdheSB1bmRlciBhbGwgY2lyY3Vtc3RhbmNlcywgc28gQUJCQSBkZWFk
+bG9ja3MKPj4+ICAgICBhcmUgb2suIFdoaWNoIHRoZXkgYXJlLCBzaW5jZSB0aGlzIGlzIGFuIGFu
+bm90YXRpb24gb25seS4KPj4+Cj4+PiAtIFdlJ3JlIHVzaW5nIG5vbi1yZWN1cnNpdmUgbG9ja2Rl
+cCByZWFkIGxvY2sgbW9kZSwgc2luY2UgaW4gcmVjdXJzaXZlCj4+PiAgICAgcmVhZCBsb2NrIG1v
+ZGUgbG9ja2RlcCBkb2VzIG5vdCBjYXRjaCByZWFkIHNpZGUgaGF6YXJkcy4gQW5kIHdlCj4+PiAg
+ICAgX3ZlcnlfIG11Y2ggd2FudCByZWFkIHNpZGUgaGF6YXJkcyB0byBiZSBjYXVnaHQuIEZvciBm
+dWxsIGRldGFpbHMgb2YKPj4+ICAgICB0aGlzIGxpbWl0YXRpb24gc2VlCj4+Pgo+Pj4gICAgIGNv
+bW1pdCBlOTE0OTg1ODk3NDYwNjVlM2FlOTVkOWEwMGIwNjhlNTI1ZWVjMzRmCj4+PiAgICAgQXV0
+aG9yOiBQZXRlciBaaWpsc3RyYSA8cGV0ZXJ6QGluZnJhZGVhZC5vcmc+Cj4+PiAgICAgRGF0ZTog
+ICBXZWQgQXVnIDIzIDEzOjEzOjExIDIwMTcgKzAyMDAKPj4+Cj4+PiAgICAgICAgIGxvY2tpbmcv
+bG9ja2RlcC9zZWxmdGVzdHM6IEFkZCBtaXhlZCByZWFkLXdyaXRlIEFCQkEgdGVzdHMKPj4+Cj4+
+PiAtIFRvIGFsbG93IG5lc3Rpbmcgb2YgdGhlIHJlYWQtc2lkZSBleHBsaWNpdCBhbm5vdGF0aW9u
+cyB3ZSBleHBsaWNpdGx5Cj4+PiAgICAga2VlcCB0cmFjayBvZiB0aGUgbmVzdGluZy4gbG9ja19p
+c19oZWxkKCkgYWxsb3dzIHVzIHRvIGRvIHRoYXQuCj4+Pgo+Pj4gLSBUaGUgd2FpdC1zaWRlIGFu
+bm90YXRpb24gaXMgYSB3cml0ZSBsb2NrLCBhbmQgZW50aXJlbHkgZG9uZSB3aXRoaW4KPj4+ICAg
+ICBkbWFfZmVuY2Vfd2FpdCgpIGZvciBldmVyeW9uZSBieSBkZWZhdWx0Lgo+Pj4KPj4+IC0gVG8g
+YmUgYWJsZSB0byBmcmVlbHkgYW5ub3RhdGUgaGVscGVyIGZ1bmN0aW9ucyBJIHdhbnQgdG8gbWFr
+ZSBpdCBvawo+Pj4gICAgIHRvIGNhbGwgZG1hX2ZlbmNlX2JlZ2luL2VuZF9zaWduYWxsaW5nIGZy
+b20gc29mdC9oYXJkaXJxIGNvbnRleHQuCj4+PiAgICAgRmlyc3QgYXR0ZW1wdCB3YXMgdXNpbmcg
+dGhlIGhhcmRpcnEgbG9ja2luZyBjb250ZXh0IGZvciB0aGUgd3JpdGUKPj4+ICAgICBzaWRlIGlu
+IGxvY2tkZXAsIGJ1dCB0aGlzIGZvcmNlcyBhbGwgbm9ybWFsIHNwaW5sb2NrcyBuZXN0ZWQgd2l0
+aGluCj4+PiAgICAgZG1hX2ZlbmNlX2JlZ2luL2VuZF9zaWduYWxsaW5nIHRvIGJlIHNwaW5sb2Nr
+cy4gVGhhdCBib2xsb2Nrcy4KPj4+Cj4+PiAgICAgVGhlIGFwcHJvYWNoIG5vdyBpcyB0byBzaW1w
+bGUgY2hlY2sgaW5fYXRvbWljKCksIGFuZCBmb3IgdGhlc2UgY2FzZXMKPj4+ICAgICBlbnRpcmVs
+eSByZWx5IG9uIHRoZSBtaWdodF9zbGVlcCgpIGNoZWNrIGluIGRtYV9mZW5jZV93YWl0KCkuIFRo
+YXQKPj4+ICAgICB3aWxsIGNhdGNoIGFueSB3cm9uZyBuZXN0aW5nIGFnYWluc3Qgc3BpbmxvY2tz
+IGZyb20gc29mdC9oYXJkaXJxCj4+PiAgICAgY29udGV4dHMuCj4+Pgo+Pj4gVGhlIGlkZWEgaGVy
+ZSBpcyB0aGF0IGV2ZXJ5IGNvZGUgcGF0aCB0aGF0J3MgY3JpdGljYWwgZm9yIGV2ZW50dWFsbHkK
+Pj4+IHNpZ25hbGxpbmcgYSBkbWFfZmVuY2Ugc2hvdWxkIGJlIGFubm90YXRlZCB3aXRoCj4+PiBk
+bWFfZmVuY2VfYmVnaW4vZW5kX3NpZ25hbGxpbmcuIFRoZSBhbm5vdGF0aW9uIGlkZWFsbHkgc3Rh
+cnRzIHJpZ2h0Cj4+PiBhZnRlciBhIGRtYV9mZW5jZSBpcyBwdWJsaXNoZWQgKGFkZGVkIHRvIGEg
+ZG1hX3Jlc3YsIGV4cG9zZWQgYXMgYQo+Pj4gc3luY19maWxlIGZkLCBhdHRhY2hlZCB0byBhIGRy
+bV9zeW5jb2JqIGZkLCBvciBhbnl0aGluZyBlbHNlIHRoYXQKPj4+IG1ha2VzIHRoZSBkbWFfZmVu
+Y2UgdmlzaWJsZSB0byBvdGhlciBrZXJuZWwgdGhyZWFkcyksIHVwIHRvIGFuZAo+Pj4gaW5jbHVk
+aW5nIHRoZSBkbWFfZmVuY2Vfd2FpdCgpLiBFeGFtcGxlcyBhcmUgaXJxIGhhbmRsZXJzLCB0aGUK
+Pj4+IHNjaGVkdWxlciBydCB0aHJlYWRzLCB0aGUgdGFpbCBvZiBleGVjYnVmIChhZnRlciB0aGUg
+Y29ycmVzcG9uZGluZwo+Pj4gZmVuY2VzIGFyZSB2aXNpYmxlKSwgYW55IHdvcmtlcnMgdGhhdCBl
+bmQgdXAgc2lnbmFsbGluZyBkbWFfZmVuY2VzIGFuZAo+Pj4gcmVhbGx5IGFueXRoaW5nIGVsc2Uu
+IE5vdCBhbm5vdGF0ZWQgc2hvdWxkIGJlIGNvZGUgcGF0aHMgdGhhdCBvbmx5Cj4+PiBjb21wbGV0
+ZSBmZW5jZXMgb3Bwb3J0dW5pc3RpY2FsbHkgYXMgdGhlIGdwdSBwcm9ncmVzc2VzLCBsaWtlIGUu
+Zy4KPj4+IHNocmlua2VyL2V2aWN0aW9uIGNvZGUuCj4+Pgo+Pj4gVGhlIG1haW4gY2xhc3Mgb2Yg
+ZGVhZGxvY2tzIHRoaXMgaXMgc3VwcG9zZWQgdG8gY2F0Y2ggYXJlOgo+Pj4KPj4+IFRocmVhZCBB
+Ogo+Pj4KPj4+IAltdXRleF9sb2NrKEEpOwo+Pj4gCW11dGV4X3VubG9jayhBKTsKPj4+Cj4+PiAJ
+ZG1hX2ZlbmNlX3NpZ25hbCgpOwo+Pj4KPj4+IFRocmVhZCBCOgo+Pj4KPj4+IAltdXRleF9sb2Nr
+KEEpOwo+Pj4gCWRtYV9mZW5jZV93YWl0KCk7Cj4+PiAJbXV0ZXhfdW5sb2NrKEEpOwo+Pj4KPj4+
+IFRocmVhZCBCIGlzIGJsb2NrZWQgb24gQSBzaWduYWxsaW5nIHRoZSBmZW5jZSwgYnV0IEEgbmV2
+ZXIgZ2V0cyBhcm91bmQKPj4+IHRvIHRoYXQgYmVjYXVzZSBpdCBjYW5ub3QgYWNxdWlyZSB0aGUg
+bG9jayBBLgo+Pj4KPj4+IE5vdGUgdGhhdCBkbWFfZmVuY2Vfd2FpdCgpIGlzIGFsbG93ZWQgdG8g
+YmUgbmVzdGVkIHdpdGhpbgo+Pj4gZG1hX2ZlbmNlX2JlZ2luL2VuZF9zaWduYWxsaW5nIHNlY3Rp
+b25zLiBUbyBhbGxvdyB0aGlzIHRvIGhhcHBlbiB0aGUKPj4+IHJlYWQgbG9jayBuZWVkcyB0byBi
+ZSB1cGdyYWRlZCB0byBhIHdyaXRlIGxvY2ssIHdoaWNoIG1lYW5zIHRoYXQgYW55Cj4+PiBvdGhl
+ciBsb2NrIGlzIGFjcXVpcmVkIGJldHdlZW4gdGhlIGRtYV9mZW5jZV9iZWdpbl9zaWduYWxsaW5n
+KCkgY2FsbCBhbmQKPj4+IHRoZSBjYWxsIHRvIGRtYV9mZW5jZV93YWl0KCksIGFuZCBzdGlsbCBo
+ZWxkLCB0aGlzIHdpbGwgcmVzdWx0IGluIGFuCj4+PiBpbW1lZGlhdGUgbG9ja2RlcCBjb21wbGFp
+bnQuIFRoZSBvbmx5IG90aGVyIG9wdGlvbiB3b3VsZCBiZSB0byBub3QKPj4+IGFubm90YXRlIHN1
+Y2ggY2FsbHMsIGRlZmVhdGluZyB0aGUgcG9pbnQuIFRoZXJlZm9yZSB0aGVzZSBhbm5vdGF0aW9u
+cwo+Pj4gY2Fubm90IGJlIHNwcmlua2xlZCBvdmVyIHRoZSBjb2RlIGVudGlyZWx5IG1pbmRsZXNz
+IHRvIGF2b2lkIGZhbHNlCj4+PiBwb3NpdGl2ZXMuCj4+Pgo+Pj4gT3JpZ2luYWxseSBJIGhvcGUg
+dGhhdCB0aGUgY3Jvc3MtcmVsZWFzZSBsb2NrZGVwIGV4dGVuc2lvbnMgd291bGQKPj4+IGFsbGV2
+aWF0ZSB0aGUgbmVlZCBmb3IgZXhwbGljaXQgYW5ub3RhdGlvbnM6Cj4+Pgo+Pj4gaHR0cHM6Ly9u
+YW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJG
+bHduLm5ldCUyRkFydGljbGVzJTJGNzA5ODQ5JTJGJmFtcDtkYXRhPTAyJTdDMDElN0NjaHJpc3Rp
+YW4ua29lbmlnJTQwYW1kLmNvbSU3Q2EzZjRiZjI5YWQ5NjQwZjU2YTUzMDhkODI3NDk3NzBlJTdD
+M2RkODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzMwMjU0Mzc3MDg3
+MDI4MyZhbXA7c2RhdGE9alNIV0clMkZORVo5TnFnVDRWMmw2MnNFVmpmTWVINWElMkY0QmJoMVNQ
+cktmJTJGdyUzRCZhbXA7cmVzZXJ2ZWQ9MAo+Pj4KPj4+IEJ1dCB0aGVyZSdzIGEgZmV3IHJlYXNv
+bnMgd2h5IHRoYXQncyBub3QgYW4gb3B0aW9uOgo+Pj4KPj4+IC0gSXQncyBub3QgaGFwcGVuaW5n
+IGluIHVwc3RyZWFtLCBzaW5jZSBpdCBnb3QgcmV2ZXJ0ZWQgZHVlIHRvIHRvbwo+Pj4gICAgIG1h
+bnkgZmFsc2UgcG9zaXRpdmVzOgo+Pj4KPj4+IAljb21taXQgZTk2NmVhZWViNjIzZjA5OTc1ZWYz
+NjJjMjg2NmZhZTZmODY4NDRmOQo+Pj4gCUF1dGhvcjogSW5nbyBNb2xuYXIgPG1pbmdvQGtlcm5l
+bC5vcmc+Cj4+PiAJRGF0ZTogICBUdWUgRGVjIDEyIDEyOjMxOjE2IDIwMTcgKzAxMDAKPj4+Cj4+
+PiAJICAgIGxvY2tpbmcvbG9ja2RlcDogUmVtb3ZlIHRoZSBjcm9zcy1yZWxlYXNlIGxvY2tpbmcg
+Y2hlY2tzCj4+Pgo+Pj4gCSAgICBUaGlzIGNvZGUgKENPTkZJR19MT0NLREVQX0NST1NTUkVMRUFT
+RT15IGFuZCBDT05GSUdfTE9DS0RFUF9DT01QTEVUSU9OUz15KSwKPj4+IAkgICAgd2hpbGUgaXQg
+Zm91bmQgYSBudW1iZXIgb2Ygb2xkIGJ1Z3MgaW5pdGlhbGx5LCB3YXMgYWxzbyBjYXVzaW5nIHRv
+byBtYW55Cj4+PiAJICAgIGZhbHNlIHBvc2l0aXZlcyB0aGF0IGNhdXNlZCBwZW9wbGUgdG8gZGlz
+YWJsZSBsb2NrZGVwIC0gd2hpY2ggaXMgYXJndWFibHkKPj4+IAkgICAgYSB3b3JzZSBvdmVyYWxs
+IG91dGNvbWUuCj4+Pgo+Pj4gLSBjcm9zcy1yZWxlYXNlIHVzZXMgdGhlIGNvbXBsZXRlKCkgY2Fs
+bCB0byBhbm5vdGF0ZSB0aGUgZW5kIG9mCj4+PiAgICAgY3JpdGljYWwgc2VjdGlvbnMsIGZvciBk
+bWFfZmVuY2UgdGhhdCB3b3VsZCBiZSBkbWFfZmVuY2Vfc2lnbmFsKCkuCj4+PiAgICAgQnV0IHdl
+IGRvIG5vdCB3YW50IGFsbCBkbWFfZmVuY2Vfc2lnbmFsKCkgY2FsbHMgdG8gYmUgdHJlYXRlZCBh
+cwo+Pj4gICAgIGNyaXRpY2FsLCBzaW5jZSBtYW55IGFyZSBvcHBvcnR1bmlzdGljIGNsZWFudXAg
+b2YgZ3B1IHJlcXVlc3RzLiBJZgo+Pj4gICAgIHRoZXNlIGdldCBzdHVjayB0aGVyZSdzIHN0aWxs
+IHRoZSBtYWluIGNvbXBsZXRpb24gaW50ZXJydXB0IGFuZAo+Pj4gICAgIHdvcmtlcnMgd2hvIGNh
+biB1bmJsb2NrIGV2ZXJ5b25lLiBBdXRvbWF0aWNhbGx5IGFubm90YXRpbmcgYWxsCj4+PiAgICAg
+ZG1hX2ZlbmNlX3NpZ25hbCgpIGNhbGxzIHdvdWxkIGhlbmNlIGNhdXNlIGZhbHNlIHBvc2l0aXZl
+cy4KPj4+Cj4+PiAtIGNyb3NzLXJlbGVhc2UgaGFkIHNvbWUgZWR1Y2F0ZWQgZ3Vlc3NlcyBmb3Ig
+d2hlbiBhIGNyaXRpY2FsIHNlY3Rpb24KPj4+ICAgICBzdGFydHMsIGxpa2UgZnJlc2ggc3lzY2Fs
+bCBvciBmcmVzaCB3b3JrIGNhbGxiYWNrLiBUaGlzIHdvdWxkIGFnYWluCj4+PiAgICAgY2F1c2Ug
+ZmFsc2UgcG9zaXRpdmVzIHdpdGhvdXQgZXhwbGljaXQgYW5ub3RhdGlvbnMsIHNpbmNlIGZvcgo+
+Pj4gICAgIGRtYV9mZW5jZSB0aGUgY3JpdGljYWwgc2VjdGlvbnMgb25seSBzdGFydHMgd2hlbiB3
+ZSBwdWJsaXNoIGEgZmVuY2UuCj4+Pgo+Pj4gLSBGdXJ0aGVybW9yZSB0aGVyZSBjYW4gYmUgY2Fz
+ZXMgd2hlcmUgYSB0aHJlYWQgbmV2ZXIgZG9lcyBhCj4+PiAgICAgZG1hX2ZlbmNlX3NpZ25hbCwg
+YnV0IGlzIHN0aWxsIGNyaXRpY2FsIGZvciByZWFjaGluZyBjb21wbGV0aW9uIG9mCj4+PiAgICAg
+ZmVuY2VzLiBPbmUgZXhhbXBsZSB3b3VsZCBiZSBhIHNjaGVkdWxlciBrdGhyZWFkIHdoaWNoIHBp
+Y2tzIHVwIGpvYnMKPj4+ICAgICBhbmQgcHVzaGVzIHRoZW0gaW50byBoYXJkd2FyZSwgd2hlcmUg
+dGhlIGludGVycnVwdCBoYW5kbGVyIG9yCj4+PiAgICAgYW5vdGhlciBjb21wbGV0aW9uIHRocmVh
+ZCBjYWxscyBkbWFfZmVuY2Vfc2lnbmFsKCkuIEJ1dCBpZiB0aGUKPj4+ICAgICBzY2hlZHVsZXIg
+dGhyZWFkIGhhbmdzLCB0aGVuIGFsbCB0aGUgZmVuY2VzIGhhbmcsIGhlbmNlIHdlIG5lZWQgdG8K
+Pj4+ICAgICBtYW51YWxseSBhbm5vdGF0ZSBpdC4gY3Jvc3MtcmVsZWFzZSBhaW1lZCB0byBzb2x2
+ZSB0aGlzIGJ5IGNoYWluaW5nCj4+PiAgICAgY3Jvc3MtcmVsZWFzZSBkZXBlbmRlbmNpZXMsIGJ1
+dCB0aGUgZGVwZW5kZW5jeSBmcm9tIHNjaGVkdWxlciB0aHJlYWQKPj4+ICAgICB0byB0aGUgY29t
+cGxldGlvbiBpbnRlcnJ1cHQgaGFuZGxlciBnb2VzIHRocm91Z2ggaHcgd2hlcmUKPj4+ICAgICBj
+cm9zcy1yZWxlYXNlIGNvZGUgY2FuJ3Qgb2JzZXJ2ZSBpdC4KPj4+Cj4+PiBJbiBzaG9ydCwgd2l0
+aG91dCBtYW51YWwgYW5ub3RhdGlvbnMgYW5kIGNhcmVmdWwgcmV2aWV3IG9mIHRoZSBzdGFydAo+
+Pj4gYW5kIGVuZCBvZiBjcml0aWNhbCBzZWN0aW9ucywgY3Jvc3MtcmVsZXNlIGRlcGVuZGVuY3kg
+dHJhY2tpbmcgZG9lc24ndAo+Pj4gd29yay4gV2UgbmVlZCBleHBsaWNpdCBhbm5vdGF0aW9ucy4K
+Pj4+Cj4+PiB2MjogaGFuZGxlIHNvZnQvaGFyZGlycSBjdHggYmV0dGVyIGFnYWluc3Qgd3JpdGUg
+c2lkZSBhbmQgZG9udCBmb3JnZXQKPj4+IEVYUE9SVF9TWU1CT0wsIGRyaXZlcnMgY2FuJ3QgdXNl
+IHRoaXMgb3RoZXJ3aXNlLgo+Pj4KPj4+IHYzOiBLZXJuZWxkb2MuCj4+Pgo+Pj4gdjQ6IFNvbWUg
+c3BlbGxpbmcgZml4ZXMgZnJvbSBNaWthCj4+Pgo+Pj4gdjU6IEFtZW5kIGNvbW1pdCBtZXNzYWdl
+IHRvIGV4cGxhaW4gaW4gZGV0YWlsIHdoeSBjcm9zcy1yZWxlYXNlIGlzbid0Cj4+PiB0aGUgc29s
+dXRpb24uCj4+Pgo+Pj4gdjY6IFB1bGwgb3V0IG1pc3BsYWNlZCAucnN0IGh1bmsuCj4+Pgo+Pj4g
+Q2M6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Pj4gUmV2aWV3ZWQt
+Ynk6IFRob21hcyBIZWxsc3Ryw7ZtIDx0aG9tYXMuaGVsbHN0cm9tQGludGVsLmNvbT4KPj4+IFJl
+dmlld2VkLWJ5OiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50
+ZWwuY29tPgo+Pj4gQ2M6IE1pa2EgS3VvcHBhbGEgPG1pa2Eua3VvcHBhbGFAaW50ZWwuY29tPgo+
+Pj4gQ2M6IFRob21hcyBIZWxsc3Ryb20gPHRob21hcy5oZWxsc3Ryb21AaW50ZWwuY29tPgo+Pj4g
+Q2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwo+Pj4gQ2M6IGxpbmFyby1tbS1zaWdAbGlz
+dHMubGluYXJvLm9yZwo+Pj4gQ2M6IGxpbnV4LXJkbWFAdmdlci5rZXJuZWwub3JnCj4+PiBDYzog
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IENjOiBpbnRlbC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4+PiBDYzogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28u
+dWs+Cj4+PiBDYzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4Lmlu
+dGVsLmNvbT4KPj4+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
+b20+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVs
+LmNvbT4KPj4+IC0tLQo+Pj4gICAgRG9jdW1lbnRhdGlvbi9kcml2ZXItYXBpL2RtYS1idWYucnN0
+IHwgICA2ICsKPj4+ICAgIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYyAgICAgICAgICB8IDE2
+MSArKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+ICAgIGluY2x1ZGUvbGludXgvZG1hLWZl
+bmNlLmggICAgICAgICAgICB8ICAxMiArKwo+Pj4gICAgMyBmaWxlcyBjaGFuZ2VkLCAxNzkgaW5z
+ZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RyaXZlci1hcGkv
+ZG1hLWJ1Zi5yc3QgYi9Eb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvZG1hLWJ1Zi5yc3QKPj4+IGlu
+ZGV4IDdmYjdiNjYxZmViZC4uMDVkODU2MTMxMTQwIDEwMDY0NAo+Pj4gLS0tIGEvRG9jdW1lbnRh
+dGlvbi9kcml2ZXItYXBpL2RtYS1idWYucnN0Cj4+PiArKysgYi9Eb2N1bWVudGF0aW9uL2RyaXZl
+ci1hcGkvZG1hLWJ1Zi5yc3QKPj4+IEBAIC0xMzMsNiArMTMzLDEyIEBAIERNQSBGZW5jZXMKPj4+
+ICAgIC4uIGtlcm5lbC1kb2M6OiBkcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMKPj4+ICAgICAg
+IDpkb2M6IERNQSBmZW5jZXMgb3ZlcnZpZXcKPj4+ICtETUEgRmVuY2UgU2lnbmFsbGluZyBBbm5v
+dGF0aW9ucwo+Pj4gK35+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4+PiArCj4+PiAr
+Li4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYwo+Pj4gKyAgIDpkb2M6
+IGZlbmNlIHNpZ25hbGxpbmcgYW5ub3RhdGlvbgo+Pj4gKwo+Pj4gICAgRE1BIEZlbmNlcyBGdW5j
+dGlvbnMgUmVmZXJlbmNlCj4+PiAgICB+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KPj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMgYi9kcml2ZXJzL2RtYS1i
+dWYvZG1hLWZlbmNlLmMKPj4+IGluZGV4IDY1NmU5YWMyZDAyOC4uMDAwNWJjMDAyNTI5IDEwMDY0
+NAo+Pj4gLS0tIGEvZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS5jCj4+PiArKysgYi9kcml2ZXJz
+L2RtYS1idWYvZG1hLWZlbmNlLmMKPj4+IEBAIC0xMTAsNiArMTEwLDE2MCBAQCB1NjQgZG1hX2Zl
+bmNlX2NvbnRleHRfYWxsb2ModW5zaWduZWQgbnVtKQo+Pj4gICAgfQo+Pj4gICAgRVhQT1JUX1NZ
+TUJPTChkbWFfZmVuY2VfY29udGV4dF9hbGxvYyk7Cj4+PiArLyoqCj4+PiArICogRE9DOiBmZW5j
+ZSBzaWduYWxsaW5nIGFubm90YXRpb24KPj4+ICsgKgo+Pj4gKyAqIFByb3ZpbmcgY29ycmVjdG5l
+c3Mgb2YgYWxsIHRoZSBrZXJuZWwgY29kZSBhcm91bmQgJmRtYV9mZW5jZSB0aHJvdWdoIGNvZGUK
+Pj4+ICsgKiByZXZpZXcgYW5kIHRlc3RpbmcgaXMgdHJpY2t5IGZvciBhIGZldyByZWFzb25zOgo+
+Pj4gKyAqCj4+PiArICogKiBJdCBpcyBhIGNyb3NzLWRyaXZlciBjb250cmFjdCwgYW5kIHRoZXJl
+Zm9yZSBhbGwgZHJpdmVycyBtdXN0IGZvbGxvdyB0aGUKPj4+ICsgKiAgIHNhbWUgcnVsZXMgZm9y
+IGxvY2sgbmVzdGluZyBvcmRlciwgY2FsbGluZyBjb250ZXh0cyBmb3IgdmFyaW91cyBmdW5jdGlv
+bnMKPj4+ICsgKiAgIGFuZCBhbnl0aGluZyBlbHNlIHNpZ25pZmljYW50IGZvciBpbi1rZXJuZWwg
+aW50ZXJmYWNlcy4gQnV0IGl0IGlzIGFsc28KPj4+ICsgKiAgIGltcG9zc2libGUgdG8gdGVzdCBh
+bGwgZHJpdmVycyBpbiBhIHNpbmdsZSBtYWNoaW5lLCBoZW5jZSBicnV0ZS1mb3JjZSBOIHZzLgo+
+Pj4gKyAqICAgTiB0ZXN0aW5nIG9mIGFsbCBjb21iaW5hdGlvbnMgaXMgaW1wb3NzaWJsZS4gRXZl
+biBqdXN0IGxpbWl0aW5nIHRvIHRoZQo+Pj4gKyAqICAgcG9zc2libGUgY29tYmluYXRpb25zIGlz
+IGluZmVhc2libGUuCj4+PiArICoKPj4+ICsgKiAqIFRoZXJlIGlzIGFuIGVub3Jtb3VzIGFtb3Vu
+dCBvZiBkcml2ZXIgY29kZSBpbnZvbHZlZC4gRm9yIHJlbmRlciBkcml2ZXJzCj4+PiArICogICB0
+aGVyZSdzIHRoZSB0YWlsIG9mIGNvbW1hbmQgc3VibWlzc2lvbiwgYWZ0ZXIgZmVuY2VzIGFyZSBw
+dWJsaXNoZWQsCj4+PiArICogICBzY2hlZHVsZXIgY29kZSwgaW50ZXJydXB0IGFuZCB3b3JrZXJz
+IHRvIHByb2Nlc3Mgam9iIGNvbXBsZXRpb24sCj4+PiArICogICBhbmQgdGltZW91dCwgZ3B1IHJl
+c2V0IGFuZCBncHUgaGFuZyByZWNvdmVyeSBjb2RlLiBQbHVzIGZvciBpbnRlZ3JhdGlvbgo+Pj4g
+KyAqICAgd2l0aCBjb3JlIG1tIHdpdGggaGF2ZSAmbW11X25vdGlmaWVyLCByZXNwZWN0aXZlbHkg
+Jm1tdV9pbnRlcnZhbF9ub3RpZmllciwKPj4+ICsgKiAgIGFuZCAmc2hyaW5rZXIuIEZvciBtb2Rl
+c2V0dGluZyBkcml2ZXJzIHRoZXJlJ3MgdGhlIGNvbW1pdCB0YWlsIGZ1bmN0aW9ucwo+Pj4gKyAq
+ICAgYmV0d2VlbiB3aGVuIGZlbmNlcyBmb3IgYW4gYXRvbWljIG1vZGVzZXQgYXJlIHB1Ymxpc2hl
+ZCwgYW5kIHdoZW4gdGhlCj4+PiArICogICBjb3JyZXNwb25kaW5nIHZibGFuayBjb21wbGV0ZXMs
+IGluY2x1ZGluZyBhbnkgaW50ZXJydXB0IHByb2Nlc3NpbmcgYW5kCj4+PiArICogICByZWxhdGVk
+IHdvcmtlcnMuIEF1ZGl0aW5nIGFsbCB0aGF0IGNvZGUsIGFjcm9zcyBhbGwgZHJpdmVycywgaXMg
+bm90Cj4+PiArICogICBmZWFzaWJsZS4KPj4+ICsgKgo+Pj4gKyAqICogRHVlIHRvIGhvdyBtYW55
+IG90aGVyIHN1YnN5c3RlbXMgYXJlIGludm9sdmVkIGFuZCB0aGUgbG9ja2luZyBoaWVyYXJjaGll
+cwo+Pj4gKyAqICAgdGhpcyBwdWxscyBpbiB0aGVyZSBpcyBleHRyZW1lbHkgdGhpbiB3aWdnbGUt
+cm9vbSBmb3IgZHJpdmVyLXNwZWNpZmljCj4+PiArICogICBkaWZmZXJlbmNlcy4gJmRtYV9mZW5j
+ZSBpbnRlcmFjdHMgd2l0aCBhbG1vc3QgYWxsIG9mIHRoZSBjb3JlIG1lbW9yeQo+Pj4gKyAqICAg
+aGFuZGxpbmcgdGhyb3VnaCBwYWdlIGZhdWx0IGhhbmRsZXJzIHZpYSAmZG1hX3Jlc3YsIGRtYV9y
+ZXN2X2xvY2soKSBhbmQKPj4+ICsgKiAgIGRtYV9yZXN2X3VubG9jaygpLiBPbiB0aGUgb3RoZXIg
+c2lkZSBpdCBhbHNvIGludGVyYWN0cyB0aHJvdWdoIGFsbAo+Pj4gKyAqICAgYWxsb2NhdGlvbiBz
+aXRlcyB0aHJvdWdoICZtbXVfbm90aWZpZXIgYW5kICZzaHJpbmtlci4KPj4+ICsgKgo+Pj4gKyAq
+IEZ1cnRoZXJtb3JlIGxvY2tkZXAgZG9lcyBub3QgaGFuZGxlIGNyb3NzLXJlbGVhc2UgZGVwZW5k
+ZW5jaWVzLCB3aGljaCBtZWFucwo+Pj4gKyAqIGFueSBkZWFkbG9ja3MgYmV0d2VlbiBkbWFfZmVu
+Y2Vfd2FpdCgpIGFuZCBkbWFfZmVuY2Vfc2lnbmFsKCkgY2FuJ3QgYmUgY2F1Z2h0Cj4+PiArICog
+YXQgcnVudGltZSB3aXRoIHNvbWUgcXVpY2sgdGVzdGluZy4gVGhlIHNpbXBsZXN0IGV4YW1wbGUg
+aXMgb25lIHRocmVhZAo+Pj4gKyAqIHdhaXRpbmcgb24gYSAmZG1hX2ZlbmNlIHdoaWxlIGhvbGRp
+bmcgYSBsb2NrOjoKPj4+ICsgKgo+Pj4gKyAqICAgICBsb2NrKEEpOwo+Pj4gKyAqICAgICBkbWFf
+ZmVuY2Vfd2FpdChCKTsKPj4+ICsgKiAgICAgdW5sb2NrKEEpOwo+Pj4gKyAqCj4+PiArICogd2hp
+bGUgdGhlIG90aGVyIHRocmVhZCBpcyBzdHVjayB0cnlpbmcgdG8gYWNxdWlyZSB0aGUgc2FtZSBs
+b2NrLCB3aGljaAo+Pj4gKyAqIHByZXZlbnRzIGl0IGZyb20gc2lnbmFsbGluZyB0aGUgZmVuY2Ug
+dGhlIHByZXZpb3VzIHRocmVhZCBpcyBzdHVjayB3YWl0aW5nCj4+PiArICogb246Ogo+Pj4gKyAq
+Cj4+PiArICogICAgIGxvY2soQSk7Cj4+PiArICogICAgIHVubG9jayhBKTsKPj4+ICsgKiAgICAg
+ZG1hX2ZlbmNlX3NpZ25hbChCKTsKPj4+ICsgKgo+Pj4gKyAqIEJ5IG1hbnVhbGx5IGFubm90YXRp
+bmcgYWxsIGNvZGUgcmVsZXZhbnQgdG8gc2lnbmFsbGluZyBhICZkbWFfZmVuY2Ugd2UgY2FuCj4+
+PiArICogdGVhY2ggbG9ja2RlcCBhYm91dCB0aGVzZSBkZXBlbmRlbmNpZXMsIHdoaWNoIGFsc28g
+aGVscHMgd2l0aCB0aGUgdmFsaWRhdGlvbgo+Pj4gKyAqIGhlYWRhY2hlIHNpbmNlIG5vdyBsb2Nr
+ZGVwIGNhbiBjaGVjayBhbGwgdGhlIHJ1bGVzIGZvciB1czo6Cj4+PiArICoKPj4+ICsgKiAgICBj
+b29raWUgPSBkbWFfZmVuY2VfYmVnaW5fc2lnbmFsbGluZygpOwo+Pj4gKyAqICAgIGxvY2soQSk7
+Cj4+PiArICogICAgdW5sb2NrKEEpOwo+Pj4gKyAqICAgIGRtYV9mZW5jZV9zaWduYWwoQik7Cj4+
+PiArICogICAgZG1hX2ZlbmNlX2VuZF9zaWduYWxsaW5nKGNvb2tpZSk7Cj4+PiArICoKPj4+ICsg
+KiBGb3IgdXNpbmcgZG1hX2ZlbmNlX2JlZ2luX3NpZ25hbGxpbmcoKSBhbmQgZG1hX2ZlbmNlX2Vu
+ZF9zaWduYWxsaW5nKCkgdG8KPj4+ICsgKiBhbm5vdGF0ZSBjcml0aWNhbCBzZWN0aW9ucyB0aGUg
+Zm9sbG93aW5nIHJ1bGVzIG5lZWQgdG8gYmUgb2JzZXJ2ZWQ6Cj4+PiArICoKPj4+ICsgKiAqIEFs
+bCBjb2RlIG5lY2Vzc2FyeSB0byBjb21wbGV0ZSBhICZkbWFfZmVuY2UgbXVzdCBiZSBhbm5vdGF0
+ZWQsIGZyb20gdGhlCj4+PiArICogICBwb2ludCB3aGVyZSBhIGZlbmNlIGlzIGFjY2Vzc2libGUg
+dG8gb3RoZXIgdGhyZWFkcywgdG8gdGhlIHBvaW50IHdoZXJlCj4+PiArICogICBkbWFfZmVuY2Vf
+c2lnbmFsKCkgaXMgY2FsbGVkLiBVbi1hbm5vdGF0ZWQgY29kZSBjYW4gY29udGFpbiBkZWFkbG9j
+ayBpc3N1ZXMsCj4+PiArICogICBhbmQgZHVlIHRvIHRoZSB2ZXJ5IHN0cmljdCBydWxlcyBhbmQg
+bWFueSBjb3JuZXIgY2FzZXMgaXQgaXMgaW5mZWFzaWJsZSB0bwo+Pj4gKyAqICAgY2F0Y2ggdGhl
+c2UganVzdCB3aXRoIHJldmlldyBvciBub3JtYWwgc3RyZXNzIHRlc3RpbmcuCj4+PiArICoKPj4+
+ICsgKiAqICZzdHJ1Y3QgZG1hX3Jlc3YgZGVzZXJ2ZXMgYSBzcGVjaWFsIG5vdGUsIHNpbmNlIHRo
+ZSByZWFkZXJzIGFyZSBvbmx5Cj4+PiArICogICBwcm90ZWN0ZWQgYnkgcmN1LiBUaGlzIG1lYW5z
+IHRoZSBzaWduYWxsaW5nIGNyaXRpY2FsIHNlY3Rpb24gc3RhcnRzIGFzIHNvb24KPj4+ICsgKiAg
+IGFzIHRoZSBuZXcgZmVuY2VzIGFyZSBpbnN0YWxsZWQsIGV2ZW4gYmVmb3JlIGRtYV9yZXN2X3Vu
+bG9jaygpIGlzIGNhbGxlZC4KPj4+ICsgKgo+Pj4gKyAqICogVGhlIG9ubHkgZXhjZXB0aW9uIGFy
+ZSBmYXN0IHBhdGhzIGFuZCBvcHBvcnR1bmlzdGljIHNpZ25hbGxpbmcgY29kZSwgd2hpY2gKPj4+
+ICsgKiAgIGNhbGxzIGRtYV9mZW5jZV9zaWduYWwoKSBwdXJlbHkgYXMgYW4gb3B0aW1pemF0aW9u
+LCBidXQgaXMgbm90IHJlcXVpcmVkIHRvCj4+PiArICogICBndWFyYW50ZWUgY29tcGxldGlvbiBv
+ZiBhICZkbWFfZmVuY2UuIFRoZSB1c3VhbCBleGFtcGxlIGlzIGEgd2FpdCBJT0NUTAo+Pj4gKyAq
+ICAgd2hpY2ggY2FsbHMgZG1hX2ZlbmNlX3NpZ25hbCgpLCB3aGlsZSB0aGUgbWFuZGF0b3J5IGNv
+bXBsZXRpb24gcGF0aCBnb2VzCj4+PiArICogICB0aHJvdWdoIGEgaGFyZHdhcmUgaW50ZXJydXB0
+IGFuZCBwb3NzaWJsZSBqb2IgY29tcGxldGlvbiB3b3JrZXIuCj4+PiArICoKPj4+ICsgKiAqIFRv
+IGFpZCBjb21wb3NhYmlsaXR5IG9mIGNvZGUsIHRoZSBhbm5vdGF0aW9ucyBjYW4gYmUgZnJlZWx5
+IG5lc3RlZCwgYXMgbG9uZwo+Pj4gKyAqICAgYXMgdGhlIG92ZXJhbGwgbG9ja2luZyBoaWVyYXJj
+aHkgaXMgY29uc2lzdGVudC4gVGhlIGFubm90YXRpb25zIGFsc28gd29yawo+Pj4gKyAqICAgYm90
+aCBpbiBpbnRlcnJ1cHQgYW5kIHByb2Nlc3MgY29udGV4dC4gRHVlIHRvIGltcGxlbWVudGF0aW9u
+IGRldGFpbHMgdGhpcwo+Pj4gKyAqICAgcmVxdWlyZXMgdGhhdCBjYWxsZXJzIHBhc3MgYW4gb3Bh
+cXVlIGNvb2tpZSBmcm9tCj4+PiArICogICBkbWFfZmVuY2VfYmVnaW5fc2lnbmFsbGluZygpIHRv
+IGRtYV9mZW5jZV9lbmRfc2lnbmFsbGluZygpLgo+Pj4gKyAqCj4+PiArICogKiBWYWxpZGF0aW9u
+IGFnYWluc3QgdGhlIGNyb3NzIGRyaXZlciBjb250cmFjdCBpcyBpbXBsZW1lbnRlZCBieSBwcmlt
+aW5nCj4+PiArICogICBsb2NrZGVwIHdpdGggdGhlIHJlbGV2YW50IGhpZXJhcmNoeSBhdCBib290
+LXVwLiBUaGlzIG1lYW5zIGV2ZW4ganVzdAo+Pj4gKyAqICAgdGVzdGluZyB3aXRoIGEgc2luZ2xl
+IGRldmljZSBpcyBlbm91Z2ggdG8gdmFsaWRhdGUgYSBkcml2ZXIsIGF0IGxlYXN0IGFzCj4+PiAr
+ICogICBmYXIgYXMgZGVhZGxvY2tzIHdpdGggZG1hX2ZlbmNlX3dhaXQoKSBhZ2FpbnN0IGRtYV9m
+ZW5jZV9zaWduYWwoKSBhcmUKPj4+ICsgKiAgIGNvbmNlcm5lZC4KPj4+ICsgKi8KPj4+ICsjaWZk
+ZWYgQ09ORklHX0xPQ0tERVAKPj4+ICtzdHJ1Y3QgbG9ja2RlcF9tYXAJZG1hX2ZlbmNlX2xvY2tk
+ZXBfbWFwID0gewo+Pj4gKwkubmFtZSA9ICJkbWFfZmVuY2VfbWFwIgo+Pj4gK307Cj4+PiArCj4+
+PiArLyoqCj4+PiArICogZG1hX2ZlbmNlX2JlZ2luX3NpZ25hbGxpbmcgLSBiZWdpbiBhIGNyaXRp
+Y2FsIERNQSBmZW5jZSBzaWduYWxsaW5nIHNlY3Rpb24KPj4+ICsgKgo+Pj4gKyAqIERyaXZlcnMg
+c2hvdWxkIHVzZSB0aGlzIHRvIGFubm90YXRlIHRoZSBiZWdpbm5pbmcgb2YgYW55IGNvZGUgc2Vj
+dGlvbgo+Pj4gKyAqIHJlcXVpcmVkIHRvIGV2ZW50dWFsbHkgY29tcGxldGUgJmRtYV9mZW5jZSBi
+eSBjYWxsaW5nIGRtYV9mZW5jZV9zaWduYWwoKS4KPj4+ICsgKgo+Pj4gKyAqIFRoZSBlbmQgb2Yg
+dGhlc2UgY3JpdGljYWwgc2VjdGlvbnMgYXJlIGFubm90YXRlZCB3aXRoCj4+PiArICogZG1hX2Zl
+bmNlX2VuZF9zaWduYWxsaW5nKCkuCj4+PiArICoKPj4+ICsgKiBSZXR1cm5zOgo+Pj4gKyAqCj4+
+PiArICogT3BhcXVlIGNvb2tpZSBuZWVkZWQgYnkgdGhlIGltcGxlbWVudGF0aW9uLCB3aGljaCBu
+ZWVkcyB0byBiZSBwYXNzZWQgdG8KPj4+ICsgKiBkbWFfZmVuY2VfZW5kX3NpZ25hbGxpbmcoKS4K
+Pj4+ICsgKi8KPj4+ICtib29sIGRtYV9mZW5jZV9iZWdpbl9zaWduYWxsaW5nKHZvaWQpCj4+PiAr
+ewo+Pj4gKwkvKiBleHBsaWNpdGx5IG5lc3RpbmcgLi4uICovCj4+PiArCWlmIChsb2NrX2lzX2hl
+bGRfdHlwZSgmZG1hX2ZlbmNlX2xvY2tkZXBfbWFwLCAxKSkKPj4+ICsJCXJldHVybiB0cnVlOwo+
+Pj4gKwo+Pj4gKwkvKiByZWx5IG9uIG1pZ2h0X3NsZWVwIGNoZWNrIGZvciBzb2Z0L2hhcmRpcnEg
+bG9ja3MgKi8KPj4+ICsJaWYgKGluX2F0b21pYygpKQo+Pj4gKwkJcmV0dXJuIHRydWU7Cj4+PiAr
+Cj4+PiArCS8qIC4uLiBhbmQgbm9uLXJlY3Vyc2l2ZSByZWFkbG9jayAqLwo+Pj4gKwlsb2NrX2Fj
+cXVpcmUoJmRtYV9mZW5jZV9sb2NrZGVwX21hcCwgMCwgMCwgMSwgMSwgTlVMTCwgX1JFVF9JUF8p
+Owo+Pj4gKwo+Pj4gKwlyZXR1cm4gZmFsc2U7Cj4+PiArfQo+Pj4gK0VYUE9SVF9TWU1CT0woZG1h
+X2ZlbmNlX2JlZ2luX3NpZ25hbGxpbmcpOwo+Pj4gKwo+Pj4gKy8qKgo+Pj4gKyAqIGRtYV9mZW5j
+ZV9lbmRfc2lnbmFsbGluZyAtIGVuZCBhIGNyaXRpY2FsIERNQSBmZW5jZSBzaWduYWxsaW5nIHNl
+Y3Rpb24KPj4+ICsgKgo+Pj4gKyAqIENsb3NlcyBhIGNyaXRpY2FsIHNlY3Rpb24gYW5ub3RhdGlv
+biBvcGVuZWQgYnkgZG1hX2ZlbmNlX2JlZ2luX3NpZ25hbGxpbmcoKS4KPj4+ICsgKi8KPj4+ICt2
+b2lkIGRtYV9mZW5jZV9lbmRfc2lnbmFsbGluZyhib29sIGNvb2tpZSkKPj4+ICt7Cj4+PiArCWlm
+IChjb29raWUpCj4+PiArCQlyZXR1cm47Cj4+PiArCj4+PiArCWxvY2tfcmVsZWFzZSgmZG1hX2Zl
+bmNlX2xvY2tkZXBfbWFwLCBfUkVUX0lQXyk7Cj4+PiArfQo+Pj4gK0VYUE9SVF9TWU1CT0woZG1h
+X2ZlbmNlX2VuZF9zaWduYWxsaW5nKTsKPj4+ICsKPj4+ICt2b2lkIF9fZG1hX2ZlbmNlX21pZ2h0
+X3dhaXQodm9pZCkKPj4+ICt7Cj4+PiArCWJvb2wgdG1wOwo+Pj4gKwo+Pj4gKwl0bXAgPSBsb2Nr
+X2lzX2hlbGRfdHlwZSgmZG1hX2ZlbmNlX2xvY2tkZXBfbWFwLCAxKTsKPj4+ICsJaWYgKHRtcCkK
+Pj4+ICsJCWxvY2tfcmVsZWFzZSgmZG1hX2ZlbmNlX2xvY2tkZXBfbWFwLCBfVEhJU19JUF8pOwo+
+Pj4gKwlsb2NrX21hcF9hY3F1aXJlKCZkbWFfZmVuY2VfbG9ja2RlcF9tYXApOwo+Pj4gKwlsb2Nr
+X21hcF9yZWxlYXNlKCZkbWFfZmVuY2VfbG9ja2RlcF9tYXApOwo+Pj4gKwlpZiAodG1wKQo+Pj4g
+KwkJbG9ja19hY3F1aXJlKCZkbWFfZmVuY2VfbG9ja2RlcF9tYXAsIDAsIDAsIDEsIDEsIE5VTEws
+IF9USElTX0lQXyk7Cj4+PiArfQo+Pj4gKyNlbmRpZgo+Pj4gKwo+Pj4gKwo+Pj4gICAgLyoqCj4+
+PiAgICAgKiBkbWFfZmVuY2Vfc2lnbmFsX2xvY2tlZCAtIHNpZ25hbCBjb21wbGV0aW9uIG9mIGEg
+ZmVuY2UKPj4+ICAgICAqIEBmZW5jZTogdGhlIGZlbmNlIHRvIHNpZ25hbAo+Pj4gQEAgLTE3MCwx
+NCArMzI0LDE5IEBAIGludCBkbWFfZmVuY2Vfc2lnbmFsKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNl
+KQo+Pj4gICAgewo+Pj4gICAgCXVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+PiAgICAJaW50IHJldDsK
+Pj4+ICsJYm9vbCB0bXA7Cj4+PiAgICAJaWYgKCFmZW5jZSkKPj4+ICAgIAkJcmV0dXJuIC1FSU5W
+QUw7Cj4+PiArCXRtcCA9IGRtYV9mZW5jZV9iZWdpbl9zaWduYWxsaW5nKCk7Cj4+PiArCj4+PiAg
+ICAJc3Bpbl9sb2NrX2lycXNhdmUoZmVuY2UtPmxvY2ssIGZsYWdzKTsKPj4+ICAgIAlyZXQgPSBk
+bWFfZmVuY2Vfc2lnbmFsX2xvY2tlZChmZW5jZSk7Cj4+PiAgICAJc3Bpbl91bmxvY2tfaXJxcmVz
+dG9yZShmZW5jZS0+bG9jaywgZmxhZ3MpOwo+Pj4gKwlkbWFfZmVuY2VfZW5kX3NpZ25hbGxpbmco
+dG1wKTsKPj4+ICsKPj4+ICAgIAlyZXR1cm4gcmV0Owo+Pj4gICAgfQo+Pj4gICAgRVhQT1JUX1NZ
+TUJPTChkbWFfZmVuY2Vfc2lnbmFsKTsKPj4+IEBAIC0yMTAsNiArMzY5LDggQEAgZG1hX2ZlbmNl
+X3dhaXRfdGltZW91dChzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgYm9vbCBpbnRyLCBzaWduZWQg
+bG9uZyB0aW1lb3V0KQo+Pj4gICAgCW1pZ2h0X3NsZWVwKCk7Cj4+PiArCV9fZG1hX2ZlbmNlX21p
+Z2h0X3dhaXQoKTsKPj4+ICsKPj4+ICAgIAl0cmFjZV9kbWFfZmVuY2Vfd2FpdF9zdGFydChmZW5j
+ZSk7Cj4+PiAgICAJaWYgKGZlbmNlLT5vcHMtPndhaXQpCj4+PiAgICAJCXJldCA9IGZlbmNlLT5v
+cHMtPndhaXQoZmVuY2UsIGludHIsIHRpbWVvdXQpOwo+Pj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUv
+bGludXgvZG1hLWZlbmNlLmggYi9pbmNsdWRlL2xpbnV4L2RtYS1mZW5jZS5oCj4+PiBpbmRleCAz
+MzQ3YzU0ZjNhODcuLjNmMjg4ZjdkYjJlZiAxMDA2NDQKPj4+IC0tLSBhL2luY2x1ZGUvbGludXgv
+ZG1hLWZlbmNlLmgKPj4+ICsrKyBiL2luY2x1ZGUvbGludXgvZG1hLWZlbmNlLmgKPj4+IEBAIC0z
+NTcsNiArMzU3LDE4IEBAIGRtYV9mZW5jZV9nZXRfcmN1X3NhZmUoc3RydWN0IGRtYV9mZW5jZSBf
+X3JjdSAqKmZlbmNlcCkKPj4+ICAgIAl9IHdoaWxlICgxKTsKPj4+ICAgIH0KPj4+ICsjaWZkZWYg
+Q09ORklHX0xPQ0tERVAKPj4+ICtib29sIGRtYV9mZW5jZV9iZWdpbl9zaWduYWxsaW5nKHZvaWQp
+Owo+Pj4gK3ZvaWQgZG1hX2ZlbmNlX2VuZF9zaWduYWxsaW5nKGJvb2wgY29va2llKTsKPj4+ICsj
+ZWxzZQo+Pj4gK3N0YXRpYyBpbmxpbmUgYm9vbCBkbWFfZmVuY2VfYmVnaW5fc2lnbmFsbGluZyh2
+b2lkKQo+Pj4gK3sKPj4+ICsJcmV0dXJuIHRydWU7Cj4+PiArfQo+Pj4gK3N0YXRpYyBpbmxpbmUg
+dm9pZCBkbWFfZmVuY2VfZW5kX3NpZ25hbGxpbmcoYm9vbCBjb29raWUpIHt9Cj4+PiArc3RhdGlj
+IGlubGluZSB2b2lkIF9fZG1hX2ZlbmNlX21pZ2h0X3dhaXQodm9pZCkge30KPj4+ICsjZW5kaWYK
+Pj4+ICsKPj4+ICAgIGludCBkbWFfZmVuY2Vfc2lnbmFsKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNl
+KTsKPj4+ICAgIGludCBkbWFfZmVuY2Vfc2lnbmFsX2xvY2tlZChzdHJ1Y3QgZG1hX2ZlbmNlICpm
+ZW5jZSk7Cj4+PiAgICBzaWduZWQgbG9uZyBkbWFfZmVuY2VfZGVmYXVsdF93YWl0KHN0cnVjdCBk
+bWFfZmVuY2UgKmZlbmNlLAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
