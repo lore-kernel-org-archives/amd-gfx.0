@@ -2,76 +2,44 @@ Return-Path: <SRS0=fQkT=AY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B1FAC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 08:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBCC0C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 13:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 321982065D
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 08:38:47 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vcYC9MzS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 321982065D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7777A20738
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 13:10:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7777A20738
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5636E4AD;
-	Mon, 13 Jul 2020 08:38:46 +0000 (UTC)
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [IPv6:2a00:1450:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07EC96E150
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 08:38:43 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id a1so15570003ejg.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 01:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=MWSjISawslL5FK02vEoeW/8lkkAu2qJgPjeQ2BLlVfs=;
- b=vcYC9MzSpeN/QQl7HkVNYVA+4qbK/YNiIbKtVnqecZ099z4Lv4lgIy0gte3LchbENl
- WDcCismlCQsKf/8wq11fSH7wUZOTMAFdmlPZtwi6ubJY9Ny0RzcRTDutb13kP9NPtqLl
- TD3EXNhZ40VbGmmShsgY9YKAv+sJ0T3NTplCyu8kDGUZZdTZjpqnPImrLlwvX4qZ9LwC
- /m0h5DWb5jUJ9BNSmS4/byZ0+ra79x17YS0btLrNqOfjxeOsRvKDdCBvuTpEYgGL17AN
- AFhPVH/SuUR9aclQnAGZD1D8X7T6atk2Wb/uDHfDyEL9jpgCxM8Xzd7hJf68lj03LFwe
- kN5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=MWSjISawslL5FK02vEoeW/8lkkAu2qJgPjeQ2BLlVfs=;
- b=kwD127P7baXeFoeMKWW8z82WlUXfBDKqp25XjxccyF8RnCniuZyL35XyRmz97M7ZUm
- qGbJnsfEKNn0P5N4vKPxpZDeIwaZtHfatG4RG3PP/UbO0y6jEKXlKw3KGj8yTGqtxGes
- paI46jtHHS2XSrGHTeEq1j39frAg+drHt5hnr2RVM7XGzlaF07/6YjjGo2NHNuVv58YW
- sX8CefnIkBIjpIKevJSr9dQjX3R59r6Gdv09h24Vos2uXT8bB/HDp9iBCTgHP+12sKww
- E5SsfQ74ztdsJJqlIUP87dtN/9hqLGVX870f7xupMh6PPfNk0ot6xc2MV5FP1qOqUehb
- jRng==
-X-Gm-Message-State: AOAM530bLFDVncL9AKqR4n3ua8fhj5WfVY0ehVM2En+6Cb6jfDNB+/xj
- Ibdu8AC5BSg2yYZIp60Rndms4RQO
-X-Google-Smtp-Source: ABdhPJx925dMxO1mlext7JkUPoUsPuzrdXSrMbgaDdsN+Xc/bfwDeRoBdedXJnDsUSggeBaASnl1kg==
-X-Received: by 2002:a17:906:4a87:: with SMTP id
- x7mr75049163eju.44.1594629522288; 
- Mon, 13 Jul 2020 01:38:42 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id v9sm4847777ejd.102.2020.07.13.01.38.41
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 13 Jul 2020 01:38:41 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: use ARRAY_SIZE() to add amdgpu debugfs files
-To: Xiaojie Yuan <xiaojie.yuan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200713055950.19611-1-xiaojie.yuan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <59e9b843-ee3f-2b70-f9eb-f96289be3a9a@gmail.com>
-Date: Mon, 13 Jul 2020 10:38:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC3D6E0DF;
+	Mon, 13 Jul 2020 13:10:04 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4F16E0DF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 13:10:03 +0000 (UTC)
+Received: from [192.168.178.35] (unknown [88.130.155.162])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 588D9206442E2;
+ Mon, 13 Jul 2020 15:10:00 +0200 (CEST)
+Subject: Re: [PATCH v2] drm/amdgpu: fix system hang issue during GPU reset
+To: Dennis Li <Dennis.Li@amd.com>
+References: <20200708074800.10093-1-Dennis.Li@amd.com>
+ <b398cbc4-7dfa-c5de-e806-492e08f2da37@molgen.mpg.de>
+ <DM5PR12MB2533EF1CF7F4AC2D83DCC2DDED650@DM5PR12MB2533.namprd12.prod.outlook.com>
+From: Paul Menzel <pmenzel+amd-gfx@molgen.mpg.de>
+Message-ID: <8cc739a2-b0ab-1423-b3d2-a823217ae168@molgen.mpg.de>
+Date: Mon, 13 Jul 2020 15:10:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200713055950.19611-1-xiaojie.yuan@amd.com>
+In-Reply-To: <DM5PR12MB2533EF1CF7F4AC2D83DCC2DDED650@DM5PR12MB2533.namprd12.prod.outlook.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,76 +52,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Alex Deucher <alexdeucher@gmail.com>, Tao Zhou <Tao.Zhou1@amd.com>,
+ amd-gfx@lists.freedesktop.org, Guchun Chen <Guchun.Chen@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.07.20 um 07:59 schrieb Xiaojie Yuan:
-> to easily add new debugfs file w/o changing the hardcoded list count.
-
-In general a good idea, but I would rather like to see 
-amdgpu_debugfs_add_files() completely removed and debugfs_create_file() 
-used directly instead.
-
-Christian.
-
->
-> Signed-off-by: Xiaojie Yuan <xiaojie.yuan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 6 ++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c   | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c    | 3 ++-
->   3 files changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index b8ce43c28116..58d4c219178a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -781,8 +781,10 @@ int amdgpu_debugfs_fence_init(struct amdgpu_device *adev)
->   {
->   #if defined(CONFIG_DEBUG_FS)
->   	if (amdgpu_sriov_vf(adev))
-> -		return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_fence_list_sriov, 1);
-> -	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_fence_list, 2);
-> +		return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_fence_list_sriov,
-> +						ARRAY_SIZE(amdgpu_debugfs_fence_list_sriov));
-> +	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_fence_list,
-> +					ARRAY_SIZE(amdgpu_debugfs_fence_list));
->   #else
->   	return 0;
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 77d988a0033f..8c64d8d6cb82 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -928,7 +928,8 @@ static const struct drm_info_list amdgpu_debugfs_gem_list[] = {
->   int amdgpu_debugfs_gem_init(struct amdgpu_device *adev)
->   {
->   #if defined(CONFIG_DEBUG_FS)
-> -	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_gem_list, 1);
-> +	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_gem_list,
-> +					ARRAY_SIZE(amdgpu_debugfs_gem_list));
->   #endif
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index 4ffc32b78745..dcd492170598 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -468,7 +468,8 @@ static const struct drm_info_list amdgpu_debugfs_sa_list[] = {
->   int amdgpu_debugfs_sa_init(struct amdgpu_device *adev)
->   {
->   #if defined(CONFIG_DEBUG_FS)
-> -	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_sa_list, 1);
-> +	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_sa_list,
-> +					ARRAY_SIZE(amdgpu_debugfs_sa_list));
->   #else
->   	return 0;
->   #endif
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RGVhciBEZW5uaXMsCgoKQW0gMTAuMDcuMjAgdW0gMTA6Mzkgc2NocmllYiBMaSwgRGVubmlzOgoK
+PiBJIHVzZWQgb3VyIGludGVybmFsIHRvb2wgdG8gbWFrZSBHUFUgaGFuZyBhbmQgZG8gc3RyZXNz
+IHRlc3QuCgpJbnRlcmVzdGluZy4gSSB3YW50IHRvIGhhdmUgc3VjaCBhIHRvb2wuIDstKQoKU28g
+eW91IG5vdGljZWQgaXQgZHVyaW5nIHRlc3Rpbmcgd2l0aCB0aGF0IHRvb2wsIGFuZCBub3QgYnkg
+c29tZWJvZHkgCmV4cGVyaWVuY2luZyB0aGlzIGluIHByb2R1Y3Rpb24/Cgo+IEluIGtlcm5lbCwg
+d2hlbiBHUFUgaGFuZywgZHJpdmVyIGhhcyBtdWx0aS1wYXRocyB0byBlbnRlciAKPiBhbWRncHVf
+ZGV2aWNlX2dwdV9yZWNvdmVyLCB0aGUgIGF0b21pYyAgYWRldi0+aW5fZ3B1X3Jlc2V0IGlzIHVz
+ZWQKPiB0byBhdm9pZCByZS1lbnRlcmluZyBHUFUgcmVjb3ZlcnkuIER1cmluZyBHUFUgcmVzZXQg
+YW5kIHJlc3VtZSwgaXQKPiBpcyB1bnNhZmUgdGhhdCBvdGhlciB0aHJlYWRzIGFjY2VzcyBHUFUs
+IHdoaWNoIG1heWJlIGNhdXNlIEdQVSByZXNldCAKPiBmYWlsZWQuIFRoZXJlZm9yZSB0aGUgbmV3
+IHJ3X3NlbWFwaG9yZSAgYWRldi0+cmVzZXRfc2VtIGlzIAo+IGludHJvZHVjZWQsIHdoaWNoIHBy
+b3RlY3QgR1BVIGZyb20gYmVpbmcgYWNjZXNzZWQgYnkgZXh0ZXJuYWwKPiB0aHJlYWRzIHdoZW4g
+ZG9pbmcgcmVjb3ZlcnkuCgpUaGFuayB5b3UgZm9yIHRoZSBleHBsYW5hdGlvbi4gSXTigJlkIGJl
+IGdyZWF0IGlmIHlvdSBhZGRlZCB0aGlzIHRvIHRoZQpjb21taXQgbWVzc2FnZS4KCgpLaW5kIHJl
+Z2FyZHMsCgpQYXVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
