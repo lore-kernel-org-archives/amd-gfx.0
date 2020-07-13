@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6ADC4C433E8
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 07:10:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1D42C433F8
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 07:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A80C2076D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 07:10:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A80C2076D
+	by mail.kernel.org (Postfix) with ESMTPS id B17AE2076D
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 07:10:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B17AE2076D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4CE66E914;
-	Tue, 14 Jul 2020 07:09:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 771416E93B;
+	Tue, 14 Jul 2020 07:10:06 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24FC16E839
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 23:48:46 +0000 (UTC)
-IronPort-SDR: vPzzAW/IZp2YGSrFJYjHMgZfh1JMn8BFfUhLEICnJM/XeFi66C0sgJPuE7xCwRHqZWH6+e5wLt
- Yp9uLk9NlwmA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9681"; a="136227008"
-X-IronPort-AV: E=Sophos;i="5.75,349,1589266800"; d="scan'208";a="136227008"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25006E839
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 23:48:45 +0000 (UTC)
+IronPort-SDR: 1LJob5AgCSZ4RXh3O14zSNKzQ5qnvrg5MRkZe/f2IigIONa9PEkVxk10fbCq66C8rGpQ9q/+KW
+ vlLrC+YUaSsw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9681"; a="136227006"
+X-IronPort-AV: E=Sophos;i="5.75,349,1589266800"; d="scan'208";a="136227006"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2020 16:48:46 -0700
-IronPort-SDR: tV81P1EHE6ArAwCH7kXPVlxq4xceAQw5O+9OlkyrmpfO6wxzUFCly09pwe6KFnrxhA62MNEgS8
- BWC0+8tcEbYw==
+ 13 Jul 2020 16:48:45 -0700
+IronPort-SDR: /tnDm7xCM0ITyTa3ULW8zhR0g9VhUAxKhEXMsB7rnWmWxYq2zGAirZOXRV6pMWBOoeFAJwphTI
+ 41RmA2m/qCxw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,349,1589266800"; d="scan'208";a="281570462"
+X-IronPort-AV: E=Sophos;i="5.75,349,1589266800"; d="scan'208";a="281570459"
 Received: from romley-ivt3.sc.intel.com ([172.25.110.60])
  by orsmga003.jf.intel.com with ESMTP; 13 Jul 2020 16:48:45 -0700
 From: Fenghua Yu <fenghua.yu@intel.com>
@@ -51,10 +51,9 @@ To: "Thomas Gleixner" <tglx@linutronix.de>, "Joerg Roedel" <joro@8bytes.org>,
  "Jacob Jun Pan" <jacob.jun.pan@intel.com>,
  "Dave Jiang" <dave.jiang@intel.com>, "Sohil Mehta" <sohil.mehta@intel.com>,
  "Ravi V Shankar" <ravi.v.shankar@intel.com>
-Subject: [PATCH v6 09/12] x86/process: Clear PASID state for a newly
- forked/cloned thread
-Date: Mon, 13 Jul 2020 16:48:04 -0700
-Message-Id: <1594684087-61184-10-git-send-email-fenghua.yu@intel.com>
+Subject: [PATCH v6 08/12] fork: Clear PASID for new mm
+Date: Mon, 13 Jul 2020 16:48:03 -0700
+Message-Id: <1594684087-61184-9-git-send-email-fenghua.yu@intel.com>
 X-Mailer: git-send-email 2.5.0
 In-Reply-To: <1594684087-61184-1-git-send-email-fenghua.yu@intel.com>
 References: <1594684087-61184-1-git-send-email-fenghua.yu@intel.com>
@@ -79,63 +78,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The PASID state has to be cleared on forks, since the child has a
-different address space. The PASID is also cleared for thread clone. While
-it would be correct to inherit the PASID in this case, it is unknown
-whether the new task will use ENQCMD. Giving it the PASID "just in case"
-would have the downside of increased context switch overhead to setting
-the PASID MSR.
+When a new mm is created, its PASID should be cleared, i.e. the PASID is
+initialized to its init state 0 on both ARM and X86.
 
-Since #GP faults have to be handled on any threads that were created before
-the PASID was assigned to the mm of the process, newly created threads
-might as well be treated in a consistent way.
-
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Fenghua Yu <fenghua.yu@intel.com>
 Reviewed-by: Tony Luck <tony.luck@intel.com>
 ---
 v2:
-- Modify init_task_pasid().
+- Add this patch to initialize PASID value for a new mm.
 
- arch/x86/kernel/process.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ include/linux/mm_types.h | 2 ++
+ kernel/fork.c            | 8 ++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index f362ce0d5ac0..1b1492e337a6 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -121,6 +121,21 @@ static int set_new_tls(struct task_struct *p, unsigned long tls)
- 		return do_set_thread_area_64(p, ARCH_SET_FS, tls);
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index d61285cfe027..d60d2ec10881 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -22,6 +22,8 @@
+ #endif
+ #define AT_VECTOR_SIZE (2*(AT_VECTOR_SIZE_ARCH + AT_VECTOR_SIZE_BASE + 1))
+ 
++/* Initial PASID value is 0. */
++#define INIT_PASID	0
+ 
+ struct address_space;
+ struct mem_cgroup;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 142b23645d82..43b5f112604d 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1007,6 +1007,13 @@ static void mm_init_owner(struct mm_struct *mm, struct task_struct *p)
+ #endif
  }
  
-+/* Initialize the PASID state for the forked/cloned thread. */
-+static void init_task_pasid(struct task_struct *task)
++static void mm_init_pasid(struct mm_struct *mm)
 +{
-+	struct ia32_pasid_state *ppasid;
-+
-+	/*
-+	 * Initialize the PASID state so that the PASID MSR will be
-+	 * initialized to its initial state (0) by XRSTORS when the task is
-+	 * scheduled for the first time.
-+	 */
-+	ppasid = get_xsave_addr(&task->thread.fpu.state.xsave, XFEATURE_PASID);
-+	if (ppasid)
-+		ppasid->pasid = INIT_PASID;
++#ifdef CONFIG_IOMMU_SUPPORT
++	mm->pasid = INIT_PASID;
++#endif
 +}
 +
- int copy_thread_tls(unsigned long clone_flags, unsigned long sp,
- 		    unsigned long arg, struct task_struct *p, unsigned long tls)
+ static void mm_init_uprobes_state(struct mm_struct *mm)
  {
-@@ -174,6 +189,9 @@ int copy_thread_tls(unsigned long clone_flags, unsigned long sp,
- 	task_user_gs(p) = get_user_gs(current_pt_regs());
- #endif
- 
-+	if (static_cpu_has(X86_FEATURE_ENQCMD))
-+		init_task_pasid(p);
-+
- 	/* Set a new TLS for the child thread? */
- 	if (clone_flags & CLONE_SETTLS)
- 		ret = set_new_tls(p, tls);
+ #ifdef CONFIG_UPROBES
+@@ -1035,6 +1042,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ 	mm_init_cpumask(mm);
+ 	mm_init_aio(mm);
+ 	mm_init_owner(mm, p);
++	mm_init_pasid(mm);
+ 	RCU_INIT_POINTER(mm->exe_file, NULL);
+ 	mmu_notifier_subscriptions_init(mm);
+ 	init_tlb_flush_pending(mm);
 -- 
 2.19.1
 
