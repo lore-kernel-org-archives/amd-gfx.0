@@ -7,113 +7,116 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96941C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 03:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8B44C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 05:34:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65D662068F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 03:50:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B70452068F
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2020 05:34:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Z7LBjf3M"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65D662068F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WR+0VhnF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B70452068F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D68F6E151;
-	Mon, 13 Jul 2020 03:50:19 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38E706E151
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 03:50:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8496F6E4A2;
+	Mon, 13 Jul 2020 05:34:05 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1F5B6E4A2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2020 05:34:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ST3LPVcccdq6q2p9Ko0vXNlyvDY5zpekHfF/oOfmUj7Xwhf0wDJdGG7HolOINf173camHQRcnBX5ROmXOCnEvcfCOVgvma4I6nuBhfDlAgvlVz0ydLR+Uxq+AAIw7ufwCzY6ML2n7aUTDuwll0fGyejPIaNRvFgPJVLoFpXJISJj1PKxJjEu6hZIpzbbDO4iKa3BGjUXc3clu4gLySOTUJ6Jt+B33UdEbljkuh2SkhkBUt9DorUQvxGgmFXSS/lms95azknMvAsfD/nu3/rdbT2AQyGDpyIHEOCnjMkrxHuaGqVfoGGgZqFkfgHyyShBXTH/rVoQ6nBfFgw+zr7Icw==
+ b=jb4Jg1KVnzF9yTqaD9i+BdzutbmKbzkMQNnt7gBJR+DOYNW7evzPUTJHh833rvgdxshh7B6h7OOtq9QXhMrnGvW7LzMkSi9lDgto7+COvjEhtYJOqykkLsKa9/Gkcj6mOYNputu5GH4QOqrpgIlaveVGoZTK0DKaoWC7vlMMo39eBdgT7zdOXW1BNdCpImRmh26p3hhCEKpEnNPRzGBgBTduEE3COEDJ44IHRJ4ADoRSVKHlQKWyFboDdn7Rj9sBMjMG/HbkchHq2+L/ALB2plS2ZDO3bojd3fdUIXdfsi11o8AwAi+31C5jN9TdPB3KWYWQYIgconb6Ne2TWGH2Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fQSniUGKGVeg45kvgdgvNRKdeLfumcHK5pjc4CwtzY=;
- b=TWvsBRdCgoK4ylFRELsqqtJdQ+4RUm1ZBpEjHsZdcrCBFThUwmSkvP7F7F0LCapax+fIxipafbO+xpEOlWFCGl1al2jnC2xTPQ4uYGqlX5xnz85qhbJY3e4JF1gkWm2RLjm+NvjbQfrM5y5BTGVcUAVYujHjUVDYx/OaMk7QyfTitPuEqkJ1ImATo0sOdVf/xcznKExzoR7RrvVbt2muGY/p8tkLOjGX3p6Hbw6MgYzCqRO/Egfkg2zUaVfjojlGxhYM2ZzwOVefQxogi1Br1Lw4bh3yU6CZ4vAtLw5LFFSmvJMZheA3idW2H9xeEJfSUZYIsx/RwEhHGS94nu/1IQ==
+ bh=3W51l0UGppM4Ro4his/meU9mn5yrhNyi+Em+bbLWVRo=;
+ b=VOzmgvQo2BmQoL7hR69Jaraktp9qIH7KieXAd1SWc5sIR87B3YIMfemGGFtxswEjAye1dyHxRNopSv7aqV1vSs3hczG+dP1imHDBZq6NioNV2mXRpChrQdVn+oDQGhQSLx0OfCpDB5Lk7xSwUBspVeVFS7rb+jxDxEUr6RzSSgBsbJ3hj9BihgyrMq/8PHYUanQ0pDN3xPC2bDlPPOW5pNDJmA3CelplSD4DcmHxFY7a7MDki9oETTLTDEL7+0TAYwRAdB3jsPywZNc30pzgk0mlZYhKj6a/p2vorfsr0YBLohZ8d25ceDWXfYlA+U2X4OH+JQY6/Z/UlWc3NxrEVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fQSniUGKGVeg45kvgdgvNRKdeLfumcHK5pjc4CwtzY=;
- b=Z7LBjf3M98DBeAvClDfTx7Xb3ILxFdNMKh5AWPVW/DYzNftNqLTh2yFGSng9SNkEvosW+JsUSgMQQH4s0fCrDLjGjpNdiY7rTAbkD02HrNnOgy7nORK7Awfuubq/BJ8mFmIkkNewi60OTUL2Fqx3hsUQVmO/ggMAhtpaMLlD+dI=
-Received: from CH2PR12MB4101.namprd12.prod.outlook.com (2603:10b6:610:a8::22)
- by CH2PR12MB4166.namprd12.prod.outlook.com (2603:10b6:610:78::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.24; Mon, 13 Jul
- 2020 03:50:16 +0000
-Received: from CH2PR12MB4101.namprd12.prod.outlook.com
- ([fe80::b9c2:5b76:382a:c5d]) by CH2PR12MB4101.namprd12.prod.outlook.com
- ([fe80::b9c2:5b76:382a:c5d%8]) with mapi id 15.20.3174.025; Mon, 13 Jul 2020
- 03:50:16 +0000
-From: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=3W51l0UGppM4Ro4his/meU9mn5yrhNyi+Em+bbLWVRo=;
+ b=WR+0VhnFCzl1Jpfd1uHDtspoCUMmjTCBFB3HQteJJZNyYQ7qGNcvuvOajVRyLw/1U1PuRVBacFiM8gCCTkIjI/1JdJOnkRc4dvdeMXG4HEICe8RHvtqJbRhnDmwRRgqSd1ZMPyNs7SayS31IssidOborlFtFBEY3/wjWgwhKuw0=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB3771.namprd12.prod.outlook.com (2603:10b6:5:1ca::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3174.23; Mon, 13 Jul 2020 05:34:02 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::84dc:a0e7:6158:ce4e]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::84dc:a0e7:6158:ce4e%6]) with mapi id 15.20.3174.025; Mon, 13 Jul 2020
+ 05:34:02 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 3/3] drm/amdgpu: add module parameter choose reset mode
-Thread-Topic: [PATCH 3/3] drm/amdgpu: add module parameter choose reset mode
-Thread-Index: AQHWVsTJimX8BCD3jEWMkXVx0EvoHqkE3joAgAAEnwA=
-Date: Mon, 13 Jul 2020 03:50:15 +0000
-Message-ID: <CH2PR12MB4101A9590AD9FD1C42A78B928C600@CH2PR12MB4101.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 2/3] drm/amdgpu: enable mode1 reset
+Thread-Topic: [PATCH 2/3] drm/amdgpu: enable mode1 reset
+Thread-Index: AQHWVsTIuhm+lb46CU6Eb1vFPWi5JqkE/iBw
+Date: Mon, 13 Jul 2020 05:34:02 +0000
+Message-ID: <DM6PR12MB4075C3BFA9392B51C2370243FC600@DM6PR12MB4075.namprd12.prod.outlook.com>
 References: <20200710141644.1601-1-Wenhui.Sheng@amd.com>
- <20200710141644.1601-3-Wenhui.Sheng@amd.com>
- <DM6PR12MB2619E50018140895EA78C7D7E4600@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2619E50018140895EA78C7D7E4600@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <20200710141644.1601-2-Wenhui.Sheng@amd.com>
+In-Reply-To: <20200710141644.1601-2-Wenhui.Sheng@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=bc815b64-27ce-45a0-8466-000090a8eab2;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-13T03:27:11Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-13T05:33:34Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=2a2b8b8b-d092-457a-83e4-0000ad3f0125;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-07-13T03:50:10Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-07-13T05:33:27Z
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
  Unrestricted
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 14ef5ce1-d4c9-4564-a709-0000a34383fc
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 44f26c51-fffb-4a3d-bdec-0000729ece28
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_justification: I confirm the recipients are approved for sharing this
- content
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-13T05:33:59Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: d8196d74-7d12-44c6-860d-00003d10db66
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 5ba0c9f5-70ee-4619-4178-08d826dfdaa1
-x-ms-traffictypediagnostic: CH2PR12MB4166:
+x-ms-office365-filtering-correlation-id: 16f489e8-e6ce-47bd-fb69-08d826ee59d1
+x-ms-traffictypediagnostic: DM6PR12MB3771:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB416609F1B3F4A9269957B0068C600@CH2PR12MB4166.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:84;
+x-microsoft-antispam-prvs: <DM6PR12MB3771DA87661B7B9561BB1196FC600@DM6PR12MB3771.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4941;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Giae89E7zQsKiwleNKrOh34KEo5Ol1fTNJvVbIj9y4n9rVrVRFJNqdddA3jq1y0vH9IBlIOpZ+PPT3JN0gAvc4KQJAK17astbZytOMeMZ1KdLmyTFTQUl3nwB/dkJoJZiurrzhtaeybmy1iXEBRfm/Un70kVwwYuK2IZmwIdLyf6u8RKBrQXT7iFipzcqqE+VlCZBwyCwszvNBe0TKh6dAb8EGnvPiOJmnZbOoq/Kokg5xYgZuSznDBqKBVKSB7oGaRG5+zFar5knKwuj9eGhsZBtuqaq6XDchGvxKBJz3MBTXkN+cRMkZ9i45a07cL7j68bg8r0KvGBjtI6iGhb/G3Px1LZ457is06Igx2qjbU=
+x-microsoft-antispam-message-info: 9wMP1vq+GFuU3bEf/iiPdTFtULzFCH+XqlS6l52SV1/rJ7xttAYHRO+KQXWmVqim2PWH37Dr+4P74uX1xtk+K9B1pSdvH4jqJb1ahnoesXiSIx3h5f3uxJv+/VPHvAHpSPJcMEzryeprML/RkVTMu6vEabMUQYvVOMmS3X+uG10mJudpg9BkwwTUK+NnDrS051NG1Xqo7C9QtznlbP33D6MLijsBXCTcvRN/wgky904R9F8939fJgA8q06wgUXl1sXiezUszQy8bK7D01aVzUa1qoQDk32bAoQ5Bs9pLqZopj4Jcg3/JzaLVhO7zEMS4VUlUnnwyMWEdy0LXFrBd1g==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(396003)(136003)(39860400002)(376002)(366004)(45080400002)(8676002)(2906002)(478600001)(83380400001)(5660300002)(4326008)(966005)(52536014)(316002)(9686003)(6506007)(53546011)(7696005)(110136005)(8936002)(86362001)(54906003)(186003)(33656002)(66556008)(55016002)(71200400001)(66476007)(66946007)(26005)(66446008)(64756008)(76116006);
+ SFS:(4636009)(346002)(366004)(376002)(39860400002)(136003)(396003)(7696005)(8676002)(4326008)(53546011)(6506007)(8936002)(33656002)(110136005)(71200400001)(316002)(83380400001)(186003)(26005)(76116006)(2906002)(55016002)(86362001)(52536014)(5660300002)(478600001)(66556008)(66476007)(66946007)(66446008)(64756008)(9686003);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: pElfKX4ZTxaMAXP7+7T5oXPaed+P9BtFutlwIoJFlyz6kSRVyV2QdQeV2bBhGchs3mApupDTl+diZo0oXtFQClCBeSdSAI8Pd79mY3LKTEsTENNA+iVWmLKkWkWw7fQduv4Ph/WFiQJhLY3HWbC2+cY1gUAY+QyhNY0dgxOXUJNh78a+q+pGw+T1BJXkxpIu0RIGKsosjbBQq5dbGv2ACVMjaxPNP8q6Qf7zqZb0iYZqQ86l4KX+2BFqRCRIxCVvmFIs8AC4Px8fitxoK6XuXcXsQRPLdfWDwlCefcu5KoO2oBMJTsT9hm3tg/5Gpqqu75Gcdu3hFPXV6uZrgOY4AvP5fr0P558xQfJ+iLnKc+hj92wnnG3FgnvJO7PMGI2b/VB6sn0KdJilZF2sLd/ZXTCmxPjhutFbyfvPNwW3xQPjSr1NqELJ+FjkwljWYACWMBkggFwMHsRecKxvdSVmpNWMWi9/4a+ioUSGMyLKpQAaIsaIPkd9rlwsZVYbYkj6
+x-ms-exchange-antispam-messagedata: sjFwSQDLkIWUlPD0uuwGGNcwllR3PKRAXdTS8oIMVjj1OQVEtsjH/obW3JzhVfAh+t6MRqlM39yLqSB9ptxB2YbIQS0kx8DZPRxPT9KlFvrDugTeUggYjD5gHAYzdWUe+HErA3/tlZNDaEBsQjgc1d57yjuhGwCJ/1MhIiXQyljEvPL1yd9So+FV8LR7VI36HdWo0kwa+rauyCShxcRLkHaUz1s3fLzFrHUKoQpSnjreEKxqIQ9XliAIUHYevrRdlai4LI0sHTBd+7/7e+hkemENQ1yJDSktTcB0l0sXSxuMzcypAsfVFf2ZcWpZiiPDOa9YKmE63axDFqgql3seN4yalWCIp8O7OgYphbQNEkS1sWPTFr4M4KrtgFE3r5fJ982MGwUJqr/sjg/l+3hOUuwmB0kL4xxDuK6wKVCh2OznA7Tfsqnkv/U8EQeG4AnHTlpJVYX4OFbuNAXXpizfpolN8EYSNa992VVd+ysPlH8A/7ZkRBTV3XeD0/P7aR8w
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ba0c9f5-70ee-4619-4178-08d826dfdaa1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2020 03:50:15.8935 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16f489e8-e6ce-47bd-fb69-08d826ee59d1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2020 05:34:02.3203 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Qykp//AtCnIeu323rRors+KY9pK3rIe0dGBC1wnbJ9KDe0MoBKhj4yMkeEqcKy6x4rSz7v2I44K6Rs+iKCVqYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4166
+X-MS-Exchange-CrossTenant-userprincipalname: iYvnIH0BWbrRVEVhATtxId9X85MEQLDtauy9T7SFQyn/kPb5pHf8PhiLSeOA27TkpTTYTySqFnOzjdARKepRvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3771
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,144 +128,213 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gao, Likun" <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: "Gao, Likun" <Likun.Gao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+[AMD Public Use]
 
-[AMD Official Use Only - Internal Distribution Only]
+V2 looks good to me expect for the following that can be improved
 
++	if (need_emergency_restart && amdgpu_ras_get_context(adev)->reboot) {
 
+The check of reboot could be centralized to the new function amdgpu_ras_need_emergency_restart you added in amdgpu_ras.c. And it would be better you can make amdgpu_ras_need_emergency_restart related as a separated patch so that it helps to isolate ras recovery related issue from general gpu reset issue. 
 
+Regards,
+Hawking
 -----Original Message-----
-From: Quan, Evan <Evan.Quan@amd.com>
-Sent: Monday, July 13, 2020 11:30 AM
-To: Sheng, Wenhui <Wenhui.Sheng@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Gao, Likun <Likun.Gao@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: add module parameter choose reset mode
-
-[AMD Official Use Only - Internal Distribution Only]
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Wenhui Sheng
-Sent: Friday, July 10, 2020 10:17 PM
+From: Sheng, Wenhui <Wenhui.Sheng@amd.com> 
+Sent: Friday, July 10, 2020 22:17
 To: amd-gfx@lists.freedesktop.org
-Cc: Gao, Likun <Likun.Gao@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: add module parameter choose reset mode
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Gao, Likun <Likun.Gao@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: enable mode1 reset
 
-Default value is auto, doesn't change
-original reset method logic.
+For sienna cichlid, add mode1 reset path for sGPU.
+And fix some corner cases about mode1 mode reuse.
 
-v2: change to use parameter reset_method
+v2: hiding MP0/MP1 mode1 reset under AMD_RESET_METHOD_MODE1
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- drivers/gpu/drm/amd/amdgpu/cik.c        | 4 ++++
- drivers/gpu/drm/amd/amdgpu/nv.c         | 4 ++++
- drivers/gpu/drm/amd/amdgpu/soc15.c      | 5 +++++
- drivers/gpu/drm/amd/amdgpu/vi.c         | 4 ++++
- 6 files changed, 26 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 23 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/nv.c            | 19 +++++++++++-------
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c |  2 +-
+ 5 files changed, 37 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 4de93cef79b9..06bfb8658dec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -196,6 +196,7 @@ static const bool debug_evictions; /* = false */  #endif
-
- extern int amdgpu_tmz;
-+extern int amdgpu_reset_method;
-
- #ifdef CONFIG_DRM_AMDGPU_SI
- extern int amdgpu_si_support;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 94c83a9d4987..ed9f32b89f36 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -154,6 +154,7 @@ int amdgpu_mes = 0;
- int amdgpu_noretry = 1;
- int amdgpu_force_asic_type = -1;
- int amdgpu_tmz = 0;
-+int amdgpu_reset_method = -1; /* auto */
-
- struct amdgpu_mgpu_info mgpu_info = {
- .mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
-@@ -793,6 +794,13 @@ module_param_named(abmlevel, amdgpu_dm_abm_level, uint, 0444);  MODULE_PARM_DESC(tmz, "Enable TMZ feature (-1 = auto, 0 = off (default), 1 = on)");  module_param_named(tmz, amdgpu_tmz, int, 0444);
-
-+/**
-+ * DOC: reset_method (int)
-+ * SMU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 =
-+mode1, 3 = mode2, 4 = baco)  */ MODULE_PARM_DESC(reset_method, "SMU
-+reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3
-+= mode2, 4 = baco)"); module_param_named(reset_method,
-+amdgpu_reset_method, int, 0444);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index fec6cf3f0c8a..6ce6e6bb8b50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4274,18 +4274,19 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	struct amdgpu_hive_info *hive = NULL;
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	int i, r = 0;
+-	bool in_ras_intr = amdgpu_ras_intr_triggered();
+-	bool use_baco =
+-		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+-		true : false;
++	bool need_emergency_restart = false;
+ 	bool audio_suspended = false;
+ 
++	/**
++	 * Special case: RAS triggered and full reset isn't supported
++	 */
++	need_emergency_restart = amdgpu_ras_need_emergency_restart(adev);
 +
- static const struct pci_device_id pciidlist[] = {  #ifdef  CONFIG_DRM_AMDGPU_SI  {0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI}, diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index fe306d0f73f7..a99418cd2f5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1326,6 +1326,10 @@ cik_asic_reset_method(struct amdgpu_device *adev)  {  bool baco_reset;
-
-+if (amdgpu_reset_method == AMD_RESET_METHOD_LEGACY ||
-+    amdgpu_reset_method == AMD_RESET_METHOD_BACO) return
-+amdgpu_reset_method;
+ 	/*
+ 	 * Flush RAM to disk so that after reboot
+ 	 * the user can read log and see why the system rebooted.
+ 	 */
+-	if (in_ras_intr && !use_baco && amdgpu_ras_get_context(adev)->reboot) {
+-
++	if (need_emergency_restart && amdgpu_ras_get_context(adev)->reboot) {
+ 		DRM_WARN("Emergency reboot.");
+ 
+ 		ksys_sync_helper();
+@@ -4293,7 +4294,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	}
+ 
+ 	dev_info(adev->dev, "GPU %s begin!\n",
+-		(in_ras_intr && !use_baco) ? "jobs stop":"reset");
++		need_emergency_restart ? "jobs stop":"reset");
+ 
+ 	/*
+ 	 * Here we trylock to avoid chain of resets executing from @@ -4365,7 +4366,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		amdgpu_fbdev_set_suspend(tmp_adev, 1);
+ 
+ 		/* disable ras on ALL IPs */
+-		if (!(in_ras_intr && !use_baco) &&
++		if (!need_emergency_restart &&
+ 		      amdgpu_device_ip_need_full_reset(tmp_adev))
+ 			amdgpu_ras_suspend(tmp_adev);
+ 
+@@ -4377,12 +4378,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 
+ 			drm_sched_stop(&ring->sched, job ? &job->base : NULL);
+ 
+-			if (in_ras_intr && !use_baco)
++			if (need_emergency_restart)
+ 				amdgpu_job_stop_all_jobs_on_sched(&ring->sched);
+ 		}
+ 	}
+ 
+-	if (in_ras_intr && !use_baco)
++	if (need_emergency_restart)
+ 		goto skip_sched_resume;
+ 
+ 	/*
+@@ -4459,7 +4460,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ skip_sched_resume:
+ 	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+ 		/*unlock kfd: SRIOV would do it separately */
+-		if (!(in_ras_intr && !use_baco) && !amdgpu_sriov_vf(tmp_adev))
++		if (!need_emergency_restart && !amdgpu_sriov_vf(tmp_adev))
+ 	                amdgpu_amdkfd_post_reset(tmp_adev);
+ 		if (audio_suspended)
+ 			amdgpu_device_resume_display_audio(tmp_adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 3a3fa8567c94..6f06e1214622 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2135,3 +2135,14 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
+ 		amdgpu_ras_reset_gpu(adev);
+ 	}
+ }
 +
- switch (adev->asic_type) {
- case CHIP_BONAIRE:
- case CHIP_HAWAII:
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index 9f1240bd0310..309ff402d7be 100644
++bool amdgpu_ras_need_emergency_restart(struct amdgpu_device *adev) {
++	if (adev->asic_type == CHIP_VEGA20 &&
++	    adev->pm.fw_version <= 0x283400) {
++		return !(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) &&
++				amdgpu_ras_intr_triggered();
++	}
++
++	return false;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index e7df5d8429f8..b2667342cf67 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -633,4 +633,5 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev);
+ 
+ void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool ready);
+ 
++bool amdgpu_ras_need_emergency_restart(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index 356849136d1d..9f1240bd0310 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -311,6 +311,10 @@ nv_asic_reset_method(struct amdgpu_device *adev)  {  struct smu_context *smu = &adev->smu;
-
-+if (amdgpu_reset_method == AMD_RESET_METHOD_MODE1 ||
-+    amdgpu_reset_method == AMD_RESET_METHOD_BACO) return
-+amdgpu_reset_method;
+@@ -265,17 +265,21 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
+ 
+ 	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
+ 
+-	dev_info(adev->dev, "GPU mode1 reset\n");
+-
+ 	/* disable BM */
+ 	pci_clear_master(adev->pdev);
+ 
+ 	pci_save_state(adev->pdev);
+ 
+-	ret = psp_gpu_reset(adev);
++	if (amdgpu_dpm_is_mode1_reset_supported(adev)) {
++		dev_info(adev->dev, "GPU smu mode1 reset\n");
++		ret = amdgpu_dpm_mode1_reset(adev);
++	} else {
++		dev_info(adev->dev, "GPU psp mode1 reset\n");
++		ret = psp_gpu_reset(adev);
++	}
 +
-[Quan, Evan] I kind of wonder what's the expected behavior if user specifies amdgpu_reset_mthod as "0 = legacy" here? User's settings seems ignored silently?
-[Wenhui, Sheng] yes, if this asic doesn't support legacy, should choose one by auto, do you think this is make sense? Do we need add more debug message here?
-
- if (smu_baco_is_support(smu))
- return AMD_RESET_METHOD_BACO;
- else
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 8c739b285915..a8a134f7bb61 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -532,6 +532,11 @@ soc15_asic_reset_method(struct amdgpu_device *adev)  bool baco_reset = false;  struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-
-+if (amdgpu_reset_method == AMD_RESET_METHOD_MODE1 ||
-+    amdgpu_reset_method == AMD_RESET_METHOD_MODE2 ||
-+amdgpu_reset_method == AMD_RESET_METHOD_BACO) return
-+amdgpu_reset_method;
+ 	if (ret)
+ 		dev_err(adev->dev, "GPU mode1 reset failed\n");
+-
+ 	pci_restore_state(adev->pdev);
+ 
+ 	/* wait for asic to come out of reset */ @@ -307,7 +311,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)  {
+ 	struct smu_context *smu = &adev->smu;
+ 
+-	if (!amdgpu_sriov_vf(adev) && smu_baco_is_support(smu))
++	if (smu_baco_is_support(smu))
+ 		return AMD_RESET_METHOD_BACO;
+ 	else
+ 		return AMD_RESET_METHOD_MODE1;
+@@ -319,15 +323,16 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 	struct smu_context *smu = &adev->smu;
+ 
+ 	if (nv_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
++		dev_info(adev->dev, "GPU BACO reset\n");
 +
- switch (adev->asic_type) {
- case CHIP_RAVEN:
- case CHIP_RENOIR:
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c index 4e5e91888d87..2cc8ad19ebed 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -710,6 +710,10 @@ vi_asic_reset_method(struct amdgpu_device *adev)  {  bool baco_reset;
-
-+if (amdgpu_reset_method == AMD_RESET_METHOD_LEGACY ||
-+    amdgpu_reset_method == AMD_RESET_METHOD_BACO) return
-+amdgpu_reset_method;
-+
- switch (adev->asic_type) {
- case CHIP_FIJI:
- case CHIP_TONGA:
+ 		ret = smu_baco_enter(smu);
+ 		if (ret)
+ 			return ret;
+ 		ret = smu_baco_exit(smu);
+ 		if (ret)
+ 			return ret;
+-	} else {
++	} else
+ 		ret = nv_asic_mode1_reset(adev);
+-	}
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index 4f7d064e16e4..014815bcae93 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -2039,7 +2039,7 @@ static bool navi10_is_baco_supported(struct smu_context *smu)
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t val;
+ 
+-	if (!smu_v11_0_baco_is_support(smu))
++	if (amdgpu_sriov_vf(adev) || (!smu_v11_0_baco_is_support(smu)))
+ 		return false;
+ 
+ 	val = RREG32_SOC15(NBIO, 0, mmRCC_BIF_STRAP0);
 --
 2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7C259262f416404c23d64108d824dbf044%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637299874389349093&amp;sdata=uyCH2W4ox82ta%2BZRO4PXeYhHf2o7RH3fMoawcsFy3M4%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
