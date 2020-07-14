@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A4DBC43445
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA0E0C43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03370223C6
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 83F03223C6
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WSdaLTui"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03370223C6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mWwuKsEw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83F03223C6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E846E852;
-	Tue, 14 Jul 2020 18:24:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E2E6E84C;
+	Tue, 14 Jul 2020 18:24:42 +0000 (UTC)
 Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
  [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0756E84A
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:40 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id g13so13573504qtv.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:40 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9F46E84C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:41 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id d27so13590160qtg.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=h2c5t/5PDU+tMKMKCW70cfR7Hk122tsZk8cAkz8we1g=;
- b=WSdaLTuibZ6dlUTuZqUPVpi9NE68saUfZFgMMbTunl28PD4K0DEwUzUPpXnrQniaay
- oaf2r2pi0AbpNaB5sLwDfJfjMqjzglHDPIKjU9jBz2v/M0I3a6G5jES6D7eD3NMRV9ml
- 20lpt66kK30OMD91bc+s6TeJGzNR3zz/B6gkUgOJ/DEzFHTvTDitAWLr3RwJmqyZ4n8N
- l12btGIB4FEix2IiS1xYqTo3LgYKCjHdRSRI0LPu1Tf9aPI8NHCwCPNWVFMDfvThBiJS
- J+fxoRo07VuaBJYK7k3mUZ+YBD8db59JfcSRemXSOkxC0FYRugGpSop8JRiYh+JYoM+p
- tmXQ==
+ bh=kKRza7tQNVekkdlxf8wR1cP0Pmb4CSUpX6PfCdsF8vc=;
+ b=mWwuKsEwKEokMgi3WQ8lHxlGqtW9ozVzXnYqhmcrsQfEXrISP0y/FzftZyUcCgrQES
+ wfBdqV62z9hy6wxFW25k3OhoMdK8uguqQeWjcxQkc5HhBybt2XzcOoscdXxwx9B6pUHO
+ Sz7zoqQkIx05gfK9BKcnVQZbVYPQtQaIZj1VaZQ8wHIU0ZmDmRTIBn2oMF/fn95C2eS2
+ vhu4vm8th8xMVyayU3R+09cRAdL5/MduuN+HIy+VhOrWBSXMkpAyHz2f4CLjE2XlWQD7
+ r01cj2fA0Ck93bX7xuto+/ig45IYx1cSYHcctV3fZlsyWu6YWw0REpT0oUx3kxN2bWXF
+ uCDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=h2c5t/5PDU+tMKMKCW70cfR7Hk122tsZk8cAkz8we1g=;
- b=eLYAOS732kDSq0AtYvitaSTiTGPfk1o3UApMIvaJtr1jECMF8lFzO8SdH8apLedI0G
- baxTjnX69fDCyuQ5KHqZA0mQ3xiDulBiKrR8zOfU62lBsS/7hNeqSqPXbC3qOyJUmr5j
- Zx9hIZRq3kE25qmw3hsHizPr2dJacQKk0KhPb3c+9RjGWGjwgqhfwOM+8uJhIBA+beZ5
- FYyt3DrQ7jd01NYmdmMMoN+8nGiOjmAEU4SOdDtiHnQlcq1qzrwSGTdQ3srZS42pEe17
- PrdGY2Y6hhZRDCRGDoBHZ6JYbRQ/kpY4r0YEcjbqdG3B71z8nJ5pUmii7MGUIt1LfgpI
- HoAg==
-X-Gm-Message-State: AOAM532ryyQ30fuXDWgss1auPA1V0dmtq8rTHJbue0I/rFDVyOPxcopx
- k40z2x8f4R00nDp7uRcCKDiXattK
-X-Google-Smtp-Source: ABdhPJzwuR5ZmCzor6ttM9SIgShlJ0+Krf3hv3K+9ozzlWDCqhfaUL1wOoaZZHXTpgfDOD9ZQl/cNQ==
-X-Received: by 2002:ac8:4c85:: with SMTP id j5mr6364572qtv.219.1594751078959; 
- Tue, 14 Jul 2020 11:24:38 -0700 (PDT)
+ bh=kKRza7tQNVekkdlxf8wR1cP0Pmb4CSUpX6PfCdsF8vc=;
+ b=O4OfH5ED801LyngejLyiSMuvvnu3PGCwRPD3p9Y1xBzeJV5oUMqBukLy/auxZ2dGbB
+ u8YAQvhbeRqxA/m2DplDU/Mnh71khfQXJGvaHaZPFfxFNXueNzB0IrNHj+Gw0oI5qz2U
+ yerZ1UBY3W5E/xQYh9VTNiSCWtJOtOhZsqUAlFqBokcftiyxSe9po7eKRTvee8mXHsMG
+ VmSMotwz/7+UhzN4wWgXeL6r8HPSLe7K9FvD6Cx/nlPqgm57dTPtWOxldba35J1v3btH
+ tPDx/PbGqS/CM5COpt4tckSlr+BrP3sQEQYVQ5XnM9w6PAT8fK6309zetmZDMEVfLRXe
+ FkFw==
+X-Gm-Message-State: AOAM5307yPrci8ZkbyN4XyPOyYqW38ORJocZ02om1GXL1BB67E7Pa3A7
+ WqWXIdmturpBkxHQnt9R1/M5IepM
+X-Google-Smtp-Source: ABdhPJw3cD+qvM9el8diTvwY7xejcNt5eqHsARn4Ow8OzW35lwoBXaMq9Rjyb0rAbNHKnLIApbEXyw==
+X-Received: by 2002:ac8:4d5d:: with SMTP id x29mr6116899qtv.358.1594751080372; 
+ Tue, 14 Jul 2020 11:24:40 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.37
+ by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 11:24:38 -0700 (PDT)
+ Tue, 14 Jul 2020 11:24:39 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 23/42] drm/amdgpu: add psp support for navy_flounder
-Date: Tue, 14 Jul 2020 14:23:34 -0400
-Message-Id: <20200714182353.2164930-24-alexander.deucher@amd.com>
+Subject: [PATCH 24/42] drm/amdgpu: add psp block for navy_flounder
+Date: Tue, 14 Jul 2020 14:23:35 -0400
+Message-Id: <20200714182353.2164930-25-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200714182353.2164930-1-alexander.deucher@amd.com>
 References: <20200714182353.2164930-1-alexander.deucher@amd.com>
@@ -89,101 +89,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jiansong Chen <Jiansong.Chen@amd.com>
 
-Currently skip ASD FW loading and ih reroute per
-sienna_cichlid.
+Add psp and smu block for navy_flounder with
+psp firmware load type.
 
 Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  8 ++++++--
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 12 ++++++++++--
- 2 files changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 40706334f7a8..aab5ffc03a6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -99,6 +99,7 @@ static int psp_early_init(void *handle)
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
- 	case CHIP_SIENNA_CICHLID:
-+	case CHIP_NAVY_FLOUNDER:
- 		psp_v11_0_set_psp_funcs(psp);
- 		psp->autoload_supported = true;
- 		break;
-@@ -498,7 +499,9 @@ static int psp_asd_load(struct psp_context *psp)
- 	 * add workaround to bypass it for sriov now.
- 	 * TODO: add version check to make it common
- 	 */
--	if (amdgpu_sriov_vf(psp->adev) || (psp->adev->asic_type == CHIP_SIENNA_CICHLID))
-+	if (amdgpu_sriov_vf(psp->adev) ||
-+	    (psp->adev->asic_type == CHIP_SIENNA_CICHLID) ||
-+	    (psp->adev->asic_type == CHIP_NAVY_FLOUNDER))
- 		return 0;
- 
- 	cmd = kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
-@@ -1763,7 +1766,8 @@ static int psp_np_fw_load(struct psp_context *psp)
- 			continue;
- 
- 		if (psp->autoload_supported &&
--		    adev->asic_type == CHIP_SIENNA_CICHLID &&
-+		    (adev->asic_type == CHIP_SIENNA_CICHLID ||
-+		     adev->asic_type == CHIP_NAVY_FLOUNDER) &&
- 		    (ucode->ucode_id == AMDGPU_UCODE_ID_SDMA1 ||
- 		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA2 ||
- 		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA3))
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 423386272920..77f99811cd85 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -57,6 +57,8 @@ MODULE_FIRMWARE("amdgpu/arcturus_asd.bin");
- MODULE_FIRMWARE("amdgpu/arcturus_ta.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_sos.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_asd.bin");
-+MODULE_FIRMWARE("amdgpu/navy_flounder_sos.bin");
-+MODULE_FIRMWARE("amdgpu/navy_flounder_asd.bin");
- 
- /* address block */
- #define smnMP1_FIRMWARE_FLAGS		0x3010024
-@@ -100,6 +102,9 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 	case CHIP_SIENNA_CICHLID:
- 		chip_name = "sienna_cichlid";
- 		break;
-+	case CHIP_NAVY_FLOUNDER:
-+		chip_name = "navy_flounder";
-+		break;
- 	default:
- 		BUG();
- 	}
-@@ -108,7 +113,8 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 	if (err)
- 		return err;
- 
--	if (adev->asic_type != CHIP_SIENNA_CICHLID) {
-+	if (adev->asic_type != CHIP_SIENNA_CICHLID &&
-+	    adev->asic_type != CHIP_NAVY_FLOUNDER) {
- 		err = psp_init_asd_microcode(psp, chip_name);
- 		if (err)
- 			return err;
-@@ -173,6 +179,7 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 		}
- 		break;
- 	case CHIP_SIENNA_CICHLID:
-+	case CHIP_NAVY_FLOUNDER:
- 		break;
- 	default:
- 		BUG();
-@@ -397,7 +404,8 @@ static int psp_v11_0_ring_init(struct psp_context *psp,
- 	struct amdgpu_device *adev = psp->adev;
- 
- 	if ((!amdgpu_sriov_vf(adev)) &&
--	    (adev->asic_type != CHIP_SIENNA_CICHLID))
-+	    (adev->asic_type != CHIP_SIENNA_CICHLID) &&
-+	    (adev->asic_type != CHIP_NAVY_FLOUNDER))
- 		psp_v11_0_reroute_ih(psp);
- 
- 	ring = &psp->km_ring;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 383db88f4995..e62426a2a929 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -512,6 +512,11 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
+ 		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
++		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
++			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
++		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
++		    is_support_sw_smu(adev))
++			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+ 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+ 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
 -- 
 2.25.4
 
