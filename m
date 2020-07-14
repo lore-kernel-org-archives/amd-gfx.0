@@ -2,101 +2,69 @@ Return-Path: <SRS0=Dt/2=AZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BAB3C433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 04:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C90D9C433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 04:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4370A207BB
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 04:18:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 931CC20773
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 04:26:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="s21mbahm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4370A207BB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjS2gMhV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 931CC20773
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14BCE6E8B1;
-	Tue, 14 Jul 2020 04:18:51 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDA36E8B1
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 04:18:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YNEFZwiBG3eRsWaDksfjI3lzzLU5Ui78U7uat7fbd53lcaYLI9mbiye1JTu5WBryVNfT7hZRQ1TBatGGeZWliDA5+A1Fsfz9YdxtXuxPEIYrI7KjMVddXqfuW1YMiwAnh+/zaDMrlyihXsRsoVVlA4+4W3zvz0XbRb2N/Gw1FrUBSMuKD1IR46evunFu6gO5AN3kHUQ0T+MkPONM2Fj1wYq0+SmlzNUA9i0r/a0veYDdZ6PVZejzb/JWtPJBJBCkYnvL2SrPeddiTQnxgKcLd1G8jPcdBJ7DMHjN49FubAQ6xSEJbFoW35oBKB/DrbYqpq8Dccbws1Sj0R7ctDvCjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mjB2cqvetwBtA0wHTTfMTwyzRdXO2qV2PL8nCOWz8mg=;
- b=OTvxrHB05xcG5KhPHo3tlLC0RO7sbNFRTwBcAlcZpjsacDnT/QJLrhcWMqeRl6PYTvLd49ZidMUflzfRX5xYS3GElT2Acb6w76Q0FGhLQTxlgiVCQtCf9cvkN8UHA9WTZ4NULq27BZrqlsDzE+vHu1lqmAUPDLnnUpkB5A1UGKUtHamuJoTS4Yi15liGek+Bzqn9R7CSL+nzu9WIX/p4x0EvDSBVLDLXnj2Mfitp6l09o0bRqCmqWETECvuZNiPSeTa6f1i9JmjRDoM+8Okv6SSMyDg/abQnbxdXfQgeqOZ+W4e6mC7ijExy2bOhQOoN0FGPHgn5qh2JvYnG9nHWYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mjB2cqvetwBtA0wHTTfMTwyzRdXO2qV2PL8nCOWz8mg=;
- b=s21mbahmuqpn/KhQq+afhsZbMhqBd2PE5qsXRSJgi43kEEakEhoI5RYsHf59fBJ7kad/moXuyGYXz8PUJQ3x5VRXiGWlPDGX14RvkM3nEaZDeVrxKE5HJPPRy2F1ZbG8ViCBnQpln2xBGiMOKSXRqRIyDglH/sQxv29m/EG9ScQ=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MW2PR12MB2586.namprd12.prod.outlook.com (2603:10b6:907:11::21)
- by MW2PR12MB2394.namprd12.prod.outlook.com (2603:10b6:907:f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Tue, 14 Jul
- 2020 04:18:42 +0000
-Received: from MW2PR12MB2586.namprd12.prod.outlook.com
- ([fe80::693d:7e71:3a0d:b6d4]) by MW2PR12MB2586.namprd12.prod.outlook.com
- ([fe80::693d:7e71:3a0d:b6d4%7]) with mapi id 15.20.3174.025; Tue, 14 Jul 2020
- 04:18:42 +0000
-From: Xiaojie Yuan <xiaojie.yuan@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	tom.stdenis@amd.com
-Subject: [PATCH UMR] Fix off-by-one error for decoding sdma linear write packet
-Date: Tue, 14 Jul 2020 12:18:30 +0800
-Message-Id: <20200714041830.29358-1-xiaojie.yuan@amd.com>
-X-Mailer: git-send-email 2.20.1
-X-ClientProxiedBy: HK2PR03CA0063.apcprd03.prod.outlook.com
- (2603:1096:202:17::33) To MW2PR12MB2586.namprd12.prod.outlook.com
- (2603:10b6:907:11::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3BF46E8B2;
+	Tue, 14 Jul 2020 04:26:50 +0000 (UTC)
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
+ [IPv6:2a00:1450:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB866E8B2;
+ Tue, 14 Jul 2020 04:26:49 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id dr13so20040603ejc.3;
+ Mon, 13 Jul 2020 21:26:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nqCoGwxLWGUFRBYoJniUFlye2WrM2A+0xdgEnvNr9HI=;
+ b=hjS2gMhVrldRfX3nM6QqxvhIBoyg9YiGOpunLo7+C+MAYqRCaHWRjc0EqMdI0eZh4d
+ lZsSl4Uoz/i5Qd4RehsEgZkuQ/zn5S1+aGGWVcbHbZeY+SDQcwcFJsrmkfKVZsyBqz40
+ K2rV/M7xTm+iZwrj46EfWNYBRe5QzEv6H9IG7uzqOBNYLXHeoCRm/7MIVOw3eqgoGzCX
+ 4bgP5xgf61QiKBCkGF1fXAJ/rm2H0M4bZTYfAbGVMPJvLifWOzJaR58np44JvgxL5dxt
+ RGmX+kqg2+TfzwVfZJC8JCrCyeZHbZI/x3N3tHtg/iDSnlHVlSxuwNOUVZKZtDhqHSW3
+ U/2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nqCoGwxLWGUFRBYoJniUFlye2WrM2A+0xdgEnvNr9HI=;
+ b=B4b6OpYGfTEgye9wkNK1/9nEDeYt7TgxGLCQ6OSyACtxn9jvOoraU3kcrZCMynUerv
+ RiJvsdpG9nh8no0yDxhvAl0akz/aVHU64f3UJS0cFna2oIhOfHJ4NVBxU8x5CFjstHfd
+ 430NpyJ0L9r3YSH2VzALZ/8ILyxEXuMfWZth+WnMt2TOOPv8nzqDO2D+qfxhP5dFSzh3
+ p0W+JM+J+zn40ozG7y6PI46cLqkJmwaV1yEHxOE1cukfhAu94Vrj5EA/1ShDC5vdUAF0
+ PkGjSzMPdBuO+DeYwtzU1Gtzm5X1nY5m71OIwh+kr3DXICHVMMfKHlZ2laP7EoP/gPd0
+ rO8w==
+X-Gm-Message-State: AOAM532EabRU5srWOP1LPaZnOPddHgOehHwEtF8ohPufprteq2+5J5hA
+ JoLmktPXHv8lun1iFr68JZzohl2AiKdK1tj1wuA=
+X-Google-Smtp-Source: ABdhPJyPDtsENIHNU9Sfmr51ejVDY+d4x8zX0rxlLIs3+2mdIDMKPJT7NPJBw+4IDkIkNNUnG4jMzB2P403XW0Ib2Lk=
+X-Received: by 2002:a17:906:40cb:: with SMTP id
+ a11mr2656590ejk.340.1594700807554; 
+ Mon, 13 Jul 2020 21:26:47 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from c0.amd.com (58.247.170.242) by
- HK2PR03CA0063.apcprd03.prod.outlook.com (2603:1096:202:17::33) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.9 via Frontend Transport; Tue, 14 Jul 2020 04:18:41 +0000
-X-Mailer: git-send-email 2.20.1
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: df53062d-cf26-4ed7-531b-08d827acfe0d
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2394:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB23944BCC9B07ACBC88664D8689610@MW2PR12MB2394.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:139;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kaq1NQow5/OJ6SGjOo7asCsmnuXWoUXmk2kcn7R+/jYJ/kUSJFbDP9BE/mGgGsfHkwUOIqPtNSc6hiuwZFrGECnCS4pVOLCa/5GoQMF9CyV/tEiIQaon3Cz00NObbHf1APki7/FUlgCAB4JZiAmNSnmXqP0SBZx2+h9186yeiPEyTEfDMy6PMhe11fS6JqW0SiSWAWERiGi8aVtt4WVvP+XumB4qpZIfrZ9ccZepJrYdnuU9qE1aYLlW0oIkj9aNpoSgsUyz9xZ5ddwPTJmmXheCXN5tb+k4btnf8YHjG1p76A1TqwP6ytSKtRbOWzguH6BYJV6awsRYpMKtSKYdNQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW2PR12MB2586.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(396003)(136003)(376002)(346002)(39860400002)(26005)(478600001)(83380400001)(8676002)(7696005)(44832011)(16526019)(4326008)(186003)(6636002)(66946007)(6486002)(5660300002)(66556008)(52116002)(8936002)(1076003)(2906002)(956004)(316002)(86362001)(2616005)(36756003)(66476007)(6666004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Jhh5AkfyAUS8oGJMdD+CCbD0eK5aaBEZQVcEe9oEa9aTDwepnA7y24RTKYnbhraIOJPLY06k/cQxw9/FrOIaDjN8tkxcZnqV8lFnXojOdmLDs4071SU5evk0LC3xjXOpOYc/w/cUkX0pkKt/yS1TZ4my/K+Nnwu3Phj04NSE7LbEeJb74BKXDWV/qxDMb2jW8eRTqV+LuR+ay7bEIMR+SBzs94MC/nvlXWIWnagp79zvOnk2RLWuaenbMuZyG7TzmSwX/dinqyiL7W/GoWpOjjstpSCBE1mZphC6jz7e8SiOQ24Gw0e/cVrjwMB7nMZbKSsHhxR9R3ks33Qv3Rfl2lZzFLX3Rm+Z20kRRKXnkCfZctQo5CiZK6Yt96jNGdXZEAIaP9R1T7hHrs7sQpl0WF3YebTqMkBlImN1UvubEKLwIn8NWZKbWgRyxrdIm1OumEHONu9Z3cdReAwgSj1vlU6obvomVy4df99Re6Xcbh9r8xLP0pCP4cXOAzRhK74A
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df53062d-cf26-4ed7-531b-08d827acfe0d
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB2586.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2020 04:18:42.5697 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AsHPYF3f9MFKIvKQwfDekyAV22cxm26y5iSBzbhMOPLc0I+1p2r1U2I4H6qKLO5G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2394
+References: <20200714031435.13362-1-Felix.Kuehling@amd.com>
+ <20200714031435.13362-2-Felix.Kuehling@amd.com>
+ <CAPM=9tzjQGg2OMrptD6qJv0yEvY+S7mS6oXNxe21UoWk+6-Ung@mail.gmail.com>
+ <4245d340-f4f6-eeb5-40a6-3afd7754852c@amd.com>
+In-Reply-To: <4245d340-f4f6-eeb5-40a6-3afd7754852c@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 14 Jul 2020 14:26:36 +1000
+Message-ID: <CAPM=9tz3UC8VuP=n_OAF5LnAmXSVR32LztqeEWtssnodMj70dQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amdkfd: Add IPC API
+To: Felix Kuehling <felix.kuehling@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,49 +76,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaojie Yuan <xiaojie.yuan@amd.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-COUNT in linear write packet represents dword number - 1
+On Tue, 14 Jul 2020 at 14:09, Felix Kuehling <felix.kuehling@amd.com> wrote:
+>
+> Am 2020-07-13 um 11:28 p.m. schrieb Dave Airlie:
+> > On Tue, 14 Jul 2020 at 13:14, Felix Kuehling <Felix.Kuehling@amd.com> wrote:
+> >> This allows exporting and importing buffers. The API generates handles
+> >> that can be used with the HIP IPC API, i.e. big numbers rather than
+> >> file descriptors.
+> > First up why? I get the how.
+>
+> The "why" is compatibility with HIP code ported from CUDA. The
+> equivalent CUDA IPC API works with handles that can be communicated
+> through e.g. a pipe or shared memory. You can't do that with file
+> descriptors.
 
-Before fix:
-navi10.sdma0.ring[   0] == 0x00000002    .w. OPCODE: [WRITE], SUB-OPCODE: [0], LINEAR_WRITE
-navi10.sdma0.ring[   1] == 0x00400a60    ... |---+ WORD [1]: DST_ADDR_LO: 0x00400a60
-navi10.sdma0.ring[   2] == 0x00000000    ... |---+ WORD [2]: DST_ADDR_HI: 0x00000000
-navi10.sdma0.ring[   3] == 0x00000000    ... |---+ WORD [3]: COUNT: 0x00000000
-navi10.sdma0.ring[   4] == 0xdeadbeef    ...
+Okay that sort of useful information should definitely be in the patch
+description.
 
-After fix:
-navi10.sdma0.ring[   0] == 0x00000002    .w. OPCODE: [WRITE], SUB-OPCODE: [0], LINEAR_WRITE
-navi10.sdma0.ring[   1] == 0x00400a60    ... |---+ WORD [1]: DST_ADDR_LOa: 0x00400a60
-navi10.sdma0.ring[   2] == 0x00000000    ... |---+ WORD [2]: DST_ADDR_HIb: 0x00000000
-navi10.sdma0.ring[   3] == 0x00000000    ... |---+ WORD [3]: COUNTc: 0x00000000
-navi10.sdma0.ring[   4] == 0xdeadbeef    ... \---+ WORD [4]: DATA: 0xdeadbeef
+>
+> https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE.html#group__CUDART__DEVICE_1g8a37f7dfafaca652391d0758b3667539
+>
+> https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE.html#group__CUDART__DEVICE_1g01050a29fefde385b1042081ada4cde9
+>
+> >
+> >> + * @share_handle is a 128 bit random number generated with
+> >> + * @get_random_bytes. This number should be very hard to guess.
+> >> + * Knowledge of the @share_handle implies authorization to access
+> >> + * the shared memory. User mode should treat it like a secret key.
+> >> + * It can be used to import this BO in a different process context
+> >> + * for IPC buffer sharing. The handle will be valid as long as the
+> >> + * underlying BO exists. If the same BO is exported multiple times,
+> > Do we have any examples of any APIs in the kernel that operate like
+> > this? That don't at least layer some sort of file permissions  and
+> > access control on top?
+>
+> SystemV shared memory APIs (shmget, shmat) work similarly. There are
+> some permissions that can be specified by the exporter in shmget.
+> However, the handles are just numbers and much easier to guess (they are
+> 32-bit integers). The most restrictive permissions would allow only the
+> exporting UID to attach to the shared memory segment.
+>
+> I think DRM flink works similarly as well, with a global name IDR used
+> for looking up GEM objects using global object names.
 
-Signed-off-by: Xiaojie Yuan <xiaojie.yuan@amd.com>
----
- src/lib/ring_decode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+flink is why I asked, because flink was a mistake and not one I'd care
+to make again.
+shm is horrible also, but at least has some permissions on what users
+can attack it.
 
-diff --git a/src/lib/ring_decode.c b/src/lib/ring_decode.c
-index c3b5d18..a74229d 100644
---- a/src/lib/ring_decode.c
-+++ b/src/lib/ring_decode.c
-@@ -1819,7 +1819,7 @@ static void parse_next_sdma_pkt(struct umr_asic *asic, struct umr_ring_decoder *
- 						case 2: printf("DST_ADDR_HI: %s0x%08lx%s", YELLOW, (unsigned long)ib, RST);
- 							break;
- 						case 3: printf("COUNT: %s0x%08lx%s", BLUE, (unsigned long)ib, RST);
--							decoder->sdma.n_words += ib - 1;
-+							decoder->sdma.n_words += ib;
- 							break;
- 						default: printf("DATA: %s0x%08lx%s", BLUE, (unsigned long)ib, RST);
- 							break;
--- 
-2.20.1
+> > The reason fd's are good is that combined with unix sockets, you can't
+> > sniff it, you can't ptrace a process and find it, you can't write it
+> > out in a coredump and have someone access it later.
+>
+> Arguably ptrace and core dumps give you access to all the memory
+> contents already. So you don't need the shared memory handle to access
+> memory in that case.
 
+core dumps might not dump this memory though, but yeah ptrace would
+likely already mean you have access.
+
+> > Maybe someone who knows security can ack merging this sort of uAPI
+> > design, I'm not confident in what it's doing is in any ways a good
+> > idea. I might have to ask some people to take a closer look.
+>
+> Please do. We have tried to make this API as secure as possible within
+> the constraints of the user mode API we needed to implement.
+
+I'll see if I hear back, but also if danvet has any input like I
+suppose it's UUID based buffer access, so maybe 128-bit is enough and
+you have enough entropy not to create anything insanely predictable.
+
+Dave.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
