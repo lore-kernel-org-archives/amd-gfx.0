@@ -7,61 +7,67 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFB96C433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AFCCAC433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 10:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 811BE221F7
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:59:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 80C2422203
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 10:49:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="JjXl30Be"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 811BE221F7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="bOeL2MUd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80C2422203
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B3DA6E804;
-	Tue, 14 Jul 2020 09:59:33 +0000 (UTC)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 325F86E819
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 09:59:32 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id k22so13510734oib.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 02:59:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 307D06E8B4;
+	Tue, 14 Jul 2020 10:49:15 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50D0B6E8B2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 10:49:14 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id f18so20769415wrs.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 03:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=P8l6FryZA/keVvXZxlVWCIThf2OhcjulZofupovGm64=;
- b=JjXl30BetKudJTECMqXFHImpbHoIMJwSlaxINv3XDnK+9+Tr9N4ASZCG80YQJhQQYs
- T3mQ1QXsNczwOdwVusg9i/jHB3mHw1vkbHHqnTVRescmoWMv79nbDTyGZqLouvo7PVY5
- Ny7CdSKe4B5cGITJ2pqyXTuhrBe67YunCv/+M=
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=XFyCObAFNGAkAD33iucRxardqlG+NdnL+BA8ka5PPr4=;
+ b=bOeL2MUd2f8AlWSJD3wmjK7kX/u8xZmjsUmMQeJzGK+l98O+GbJDKEx2q+dtP0Ysuw
+ ahdh9hOxfLzdYsrsSCIb4+jsBwaVOfOB9g1F7JaVOZ01TKCuMezHAGJnllnKMSUhc5F+
+ Oz3Dlt8i1yKPbH5ek0krA47zpw8DZA2RsafPc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=P8l6FryZA/keVvXZxlVWCIThf2OhcjulZofupovGm64=;
- b=ftrjwMvVD0asYMIIzeMqDlDZDJB7MzCXxKYhN8zE5lVdOXQHxkDP0VZSIy821/o9EC
- 3ky17ahcW8dGbiaAa6y9oNPgrrIzAFiyswWE7r23g12enPRmL812eoKMzPbKKSlZJJDj
- sEgl8XDys91zkIzoD8NeJuZnjTuLUIud/jO7DTUKaMMeYwrQeqJxgdnRpmwfO8OUdrCX
- lgkg6ssxUoYLmwsZQhYj6HX5i9nQy6aVoJzQRx64AXyjrnm6QeKMwwQRO/8JlKqqPE0x
- pZHdSWEFEmxHYvGHMeui6oYsRH265RCP/s8joKP8M8vPofj2dfDmZ9JgsIxyEM9NBIp9
- LfJQ==
-X-Gm-Message-State: AOAM532wdknHHv/QuiDL/w8Er2w1xAC0CohRYm5inGv01SHAm+EnE+IN
- g3twRe8MOn+itM3BsVrEleqRzcX8Dq6pHXkpnPHORA==
-X-Google-Smtp-Source: ABdhPJxzz/S8lATGQ/0IMYNwtQjDlAlFcSobX9FbPzm4XdALVWpg/Y5C8vwjamXN8Z0EGUWFlRHk8Cbz+tDX12mNXeA=
-X-Received: by 2002:aca:cc8e:: with SMTP id c136mr2959277oig.128.1594720771402; 
- Tue, 14 Jul 2020 02:59:31 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=XFyCObAFNGAkAD33iucRxardqlG+NdnL+BA8ka5PPr4=;
+ b=s2M5n0lbiQemHpvQPhMfzBiTVRrgaNtogrXpX/UE+sZ9Drke7M8mVlfgGkRuVQ8UUq
+ vnq0CZXymfchQp8GhusGr81DuN1ae9Jj1gk5yifnunY7/BAU8lX3zAd10kdqgzUwDOPD
+ 2c/qKrISxAk2+xByRsTFmUdj56IVhnJMbDYwl/Cs61Sj4zYqz+VLuxkM1xlr4Eupl2OX
+ vH5wAWcuY4gwARlvPFSxb5mQsVDl7WOQtGxtdr3jfYO4MI8iKTg3zxsJNXT71OwILqIf
+ pRv3twM5OUyMcaLLLVXi3WzSH23pagQA1DIIeC9QKfYVCvZz6rf3NhgShxQbydpFe4E1
+ NpvA==
+X-Gm-Message-State: AOAM531mzEATdbj6nJl2DbtviQSLg1Z1A9XdSmeMe/dxR8DgjgreEZfV
+ oX4v2JWxA654pBxgkNK8UxQuHQ==
+X-Google-Smtp-Source: ABdhPJxzCDVzf3ULPsu9gK9KiSaB34ZTvYO1lf6Ch0WaVTCD95UxXPy23Q0JcDyFOFTm8A13sseYqQ==
+X-Received: by 2002:adf:c44d:: with SMTP id a13mr4551346wrg.205.1594723752919; 
+ Tue, 14 Jul 2020 03:49:12 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id u17sm27474975wrp.70.2020.07.14.03.49.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2020 03:49:12 -0700 (PDT)
+Date: Tue, 14 Jul 2020 12:49:10 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 19/25] drm/amdgpu: s/GFP_KERNEL/GFP_ATOMIC in scheduler
+ code
+Message-ID: <20200714104910.GC3278063@phenom.ffwll.local>
 References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
- <20200707201229.472834-5-daniel.vetter@ffwll.ch>
- <20200712222716.4rhvj7hryiecjthv@smtp.gmail.com>
- <20200714095717.njwk2u4tkgro54jn@smtp.gmail.com>
-In-Reply-To: <20200714095717.njwk2u4tkgro54jn@smtp.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 14 Jul 2020 11:59:20 +0200
-Message-ID: <CAKMK7uGu4N2oe04N=haUodmVCLi6HnqFDORkObx8EPUQrEJ+MQ@mail.gmail.com>
-Subject: Re: [PATCH 04/25] drm/vkms: Annotate vblank timer
-To: Melissa Wen <melissa.srw@gmail.com>
+ <20200707201229.472834-20-daniel.vetter@ffwll.ch>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200707201229.472834-20-daniel.vetter@ffwll.ch>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,82 +79,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- linux-rdma <linux-rdma@vger.kernel.org>,
+Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Trevor Woerner <twoerner@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ linaro-mm-sig@lists.linaro.org, Daniel Vetter <daniel.vetter@intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBKdWwgMTQsIDIwMjAgYXQgMTE6NTcgQU0gTWVsaXNzYSBXZW4gPG1lbGlzc2Euc3J3
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiAwNy8xMiwgUm9kcmlnbyBTaXF1ZWlyYSB3cm90ZToK
-PiA+IEhpLAo+ID4KPiA+IEV2ZXJ5dGhpbmcgbG9va3MgZmluZSB0byBtZSwgSSBqdXN0IG5vdGlj
-ZWQgdGhhdCB0aGUgYW1kZ3B1IHBhdGNoZXMgZGlkCj4gPiBub3QgYXBwbHkgc21vb3RobHksIGhv
-d2V2ZXIgaXQgd2FzIHRyaXZpYWwgdG8gZml4IHRoZSBpc3N1ZXMuCj4gPgo+ID4gUmV2aWV3ZWQt
-Ynk6IFJvZHJpZ28gU2lxdWVpcmEgPHJvZHJpZ29zaXF1ZWlyYW1lbG9AZ21haWwuY29tPgo+ID4K
-PiA+IE1lbGlzc2EsCj4gPiBTaW5jZSB5b3UgYXJlIHVzaW5nIHZrbXMgcmVndWxhcmx5LCBjb3Vs
-ZCB5b3UgdGVzdCB0aGlzIHBhdGNoIGFuZCByZXZpZXcKPiA+IGl0PyBSZW1lbWJlciB0byBhZGQg
-eW91ciBUZXN0ZWQtYnkgd2hlbiB5b3UgZmluaXNoLgo+ID4KPiBIaSwKPgo+IEkndmUgYXBwbGll
-ZCB0aGUgcGF0Y2ggc2VyaWVzLCByYW4gc29tZSB0ZXN0cyBvbiB2a21zLCBhbmQgZm91bmQgbm8K
-PiBpc3N1ZXMuIEkgbWVhbiwgdGhpbmdzIGhhdmUgcmVtYWluZWQgc3RhYmxlLgo+Cj4gVGVzdGVk
-LWJ5OiBNZWxpc3NhIFdlbiA8bWVsaXNzYS5zcndAZ21haWwuY29tPgoKRGlkIHlvdSB0ZXN0IHdp
-dGggQ09ORklHX1BST1ZFX0xPQ0tJTkcgZW5hYmxlZCBpbiB0aGUga2VybmVsIC5jb25maWc/Cldp
-dGhvdXQgdGhhdCBlbmFibGVkLCB0aGVyZSdzIG5vdCByZWFsbHkgYW55IGNoYW5nZSBoZXJlLCBi
-dXQgd2l0aAp0aGF0IGVuYWJsZWQgdGhlcmUgbWlnaHQgYmUgc29tZSBsb2NrZGVwIHNwbGF0cyBp
-biBkbWVzZyBpbmRpY2F0aW5nIGEKcHJvYmxlbS4KClRoYW5rcywgRGFuaWVsCj4KPiA+IFRoYW5r
-cwo+ID4KPiA+IE9uIDA3LzA3LCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+ID4gPiBUaGlzIGlzIG5l
-ZWRlZCB0byBzaWduYWwgdGhlIGZlbmNlcyBmcm9tIHBhZ2UgZmxpcHMsIGFubm90YXRlIGl0Cj4g
-PiA+IGFjY29yZGluZ2x5LiBXZSBuZWVkIHRvIGFubm90YXRlIGVudGlyZSB0aW1lciBjYWxsYmFj
-ayBzaW5jZSBpZiB3ZSBnZXQKPiA+ID4gc3R1Y2sgYW55d2hlcmUgaW4gdGhlcmUsIHRoZW4gdGhl
-IHRpbWVyIHN0b3BzLCBhbmQgaGVuY2UgZmVuY2VzIHN0b3AuCj4gPiA+IEp1c3QgYW5ub3RhdGlu
-ZyB0aGUgdG9wIHBhcnQgdGhhdCBkb2VzIHRoZSB2YmxhbmsgaGFuZGxpbmcgaXNuJ3QKPiA+ID4g
-ZW5vdWdoLgo+ID4gPgo+ID4gPiBDYzogbGludXgtbWVkaWFAdmdlci5rZXJuZWwub3JnCj4gPiA+
-IENjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKPiA+ID4gQ2M6IGxpbnV4LXJkbWFA
-dmdlci5rZXJuZWwub3JnCj4gPiA+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-ID4gPiBDYzogaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gPiBDYzogQ2hyaXMg
-V2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4gPiA+IENjOiBNYWFydGVuIExhbmto
-b3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgo+ID4gPiBDYzogQ2hyaXN0
-aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+ID4gPiBTaWduZWQtb2ZmLWJ5
-OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4KPiA+ID4gQ2M6IFJvZHJp
-Z28gU2lxdWVpcmEgPHJvZHJpZ29zaXF1ZWlyYW1lbG9AZ21haWwuY29tPgo+ID4gPiBDYzogSGFu
-ZWVuIE1vaGFtbWVkIDxoYW1vaGFtbWVkLnNhQGdtYWlsLmNvbT4KPiA+ID4gQ2M6IERhbmllbCBW
-ZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KPiA+ID4gLS0tCj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0v
-dmttcy92a21zX2NydGMuYyB8IDggKysrKysrKy0KPiA+ID4gIDEgZmlsZSBjaGFuZ2VkLCA3IGlu
-c2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiA+ID4KPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS92a21zL3ZrbXNfY3J0Yy5jIGIvZHJpdmVycy9ncHUvZHJtL3ZrbXMvdmttc19j
-cnRjLmMKPiA+ID4gaW5kZXggYWM4NWUxNzQyOGY4Li5hNTNhNDA4NDhhNzIgMTAwNjQ0Cj4gPiA+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS92a21zL3ZrbXNfY3J0Yy5jCj4gPiA+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS92a21zL3ZrbXNfY3J0Yy5jCj4gPiA+IEBAIC0xLDUgKzEsNyBAQAo+ID4gPiAg
-Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjArCj4gPiA+Cj4gPiA+ICsjaW5jbHVk
-ZSA8bGludXgvZG1hLWZlbmNlLmg+Cj4gPiA+ICsKPiA+ID4gICNpbmNsdWRlIDxkcm0vZHJtX2F0
-b21pYy5oPgo+ID4gPiAgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hlbHBlci5oPgo+ID4gPiAg
-I2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+Cj4gPiA+IEBAIC0xNCw3ICsxNiw5IEBA
-IHN0YXRpYyBlbnVtIGhydGltZXJfcmVzdGFydCB2a21zX3ZibGFua19zaW11bGF0ZShzdHJ1Y3Qg
-aHJ0aW1lciAqdGltZXIpCj4gPiA+ICAgICBzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSAmb3V0cHV0
-LT5jcnRjOwo+ID4gPiAgICAgc3RydWN0IHZrbXNfY3J0Y19zdGF0ZSAqc3RhdGU7Cj4gPiA+ICAg
-ICB1NjQgcmV0X292ZXJydW47Cj4gPiA+IC0gICBib29sIHJldDsKPiA+ID4gKyAgIGJvb2wgcmV0
-LCBmZW5jZV9jb29raWU7Cj4gPiA+ICsKPiA+ID4gKyAgIGZlbmNlX2Nvb2tpZSA9IGRtYV9mZW5j
-ZV9iZWdpbl9zaWduYWxsaW5nKCk7Cj4gPiA+Cj4gPiA+ICAgICByZXRfb3ZlcnJ1biA9IGhydGlt
-ZXJfZm9yd2FyZF9ub3coJm91dHB1dC0+dmJsYW5rX2hydGltZXIsCj4gPiA+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgb3V0cHV0LT5wZXJpb2RfbnMpOwo+ID4gPiBAQCAt
-NDksNiArNTMsOCBAQCBzdGF0aWMgZW51bSBocnRpbWVyX3Jlc3RhcnQgdmttc192Ymxhbmtfc2lt
-dWxhdGUoc3RydWN0IGhydGltZXIgKnRpbWVyKQo+ID4gPiAgICAgICAgICAgICAgICAgICAgIERS
-TV9ERUJVR19EUklWRVIoIkNvbXBvc2VyIHdvcmtlciBhbHJlYWR5IHF1ZXVlZFxuIik7Cj4gPiA+
-ICAgICB9Cj4gPiA+Cj4gPiA+ICsgICBkbWFfZmVuY2VfZW5kX3NpZ25hbGxpbmcoZmVuY2VfY29v
-a2llKTsKPiA+ID4gKwo+ID4gPiAgICAgcmV0dXJuIEhSVElNRVJfUkVTVEFSVDsKPiA+ID4gIH0K
-PiA+ID4KPiA+ID4gLS0KPiA+ID4gMi4yNy4wCj4gPiA+Cj4gPgo+ID4gLS0KPiA+IFJvZHJpZ28g
-U2lxdWVpcmEKPiA+IGh0dHBzOi8vc2lxdWVpcmEudGVjaAo+Cj4KCgotLSAKRGFuaWVsIFZldHRl
-cgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwu
-Y2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Tue, Jul 07, 2020 at 10:12:23PM +0200, Daniel Vetter wrote:
+> My dma-fence lockdep annotations caught an inversion because we
+> allocate memory where we really shouldn't:
+> =
+
+> 	kmem_cache_alloc+0x2b/0x6d0
+> 	amdgpu_fence_emit+0x30/0x330 [amdgpu]
+> 	amdgpu_ib_schedule+0x306/0x550 [amdgpu]
+> 	amdgpu_job_run+0x10f/0x260 [amdgpu]
+> 	drm_sched_main+0x1b9/0x490 [gpu_sched]
+> 	kthread+0x12e/0x150
+> =
+
+> Trouble right now is that lockdep only validates against GFP_FS, which
+> would be good enough for shrinkers. But for mmu_notifiers we actually
+> need !GFP_ATOMIC, since they can be called from any page laundering,
+> even if GFP_NOFS or GFP_NOIO are set.
+> =
+
+> I guess we should improve the lockdep annotations for
+> fs_reclaim_acquire/release.
+> =
+
+> Ofc real fix is to properly preallocate this fence and stuff it into
+> the amdgpu job structure. But GFP_ATOMIC gets the lockdep splat out of
+> the way.
+> =
+
+> v2: Two more allocations in scheduler paths.
+> =
+
+> Frist one:
+> =
+
+> 	__kmalloc+0x58/0x720
+> 	amdgpu_vmid_grab+0x100/0xca0 [amdgpu]
+> 	amdgpu_job_dependency+0xf9/0x120 [amdgpu]
+> 	drm_sched_entity_pop_job+0x3f/0x440 [gpu_sched]
+> 	drm_sched_main+0xf9/0x490 [gpu_sched]
+> =
+
+> Second one:
+> =
+
+> 	kmem_cache_alloc+0x2b/0x6d0
+> 	amdgpu_sync_fence+0x7e/0x110 [amdgpu]
+> 	amdgpu_vmid_grab+0x86b/0xca0 [amdgpu]
+> 	amdgpu_job_dependency+0xf9/0x120 [amdgpu]
+> 	drm_sched_entity_pop_job+0x3f/0x440 [gpu_sched]
+> 	drm_sched_main+0xf9/0x490 [gpu_sched]
+> =
+
+> Cc: linux-media@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> Cc: linux-rdma@vger.kernel.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Christian K=F6nig <christian.koenig@amd.com>
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+
+Has anyone from amd side started looking into how to fix this properly?
+
+I looked a bit into fixing this with mempool, and the big guarantee we
+need is that
+- there's a hard upper limit on how many allocations we minimally need to
+  guarantee forward progress. And the entire vmid allocation and
+  amdgpu_sync_fence stuff kinda makes me question that's a valid
+  assumption.
+
+- mempool_free must be called without any locks in the way which are held
+  while we call mempool_alloc. Otherwise we again have a nice deadlock
+  with no forward progress. I tried auditing that, but got lost in amdgpu
+  and scheduler code. Some lockdep annotations for mempool.c might help,
+  but they're not going to catch everything. Plus it would be again manual
+  annotations because this is yet another cross-release issue. So not sure
+  that helps at all.
+
+iow, not sure what to do here. Ideas?
+
+Cheers, Daniel
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c   | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c  | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index 8d84975885cd..a089a827fdfe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -143,7 +143,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struc=
+t dma_fence **f,
+>  	uint32_t seq;
+>  	int r;
+>  =
+
+> -	fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_KERNEL);
+> +	fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOMIC);
+>  	if (fence =3D=3D NULL)
+>  		return -ENOMEM;
+>  =
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ids.c
+> index 267fa45ddb66..a333ca2d4ddd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -208,7 +208,7 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_vm *vm,
+>  	if (ring->vmid_wait && !dma_fence_is_signaled(ring->vmid_wait))
+>  		return amdgpu_sync_fence(sync, ring->vmid_wait);
+>  =
+
+> -	fences =3D kmalloc_array(sizeof(void *), id_mgr->num_ids, GFP_KERNEL);
+> +	fences =3D kmalloc_array(sizeof(void *), id_mgr->num_ids, GFP_ATOMIC);
+>  	if (!fences)
+>  		return -ENOMEM;
+>  =
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sync.c
+> index 8ea6c49529e7..af22b526cec9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> @@ -160,7 +160,7 @@ int amdgpu_sync_fence(struct amdgpu_sync *sync, struc=
+t dma_fence *f)
+>  	if (amdgpu_sync_add_later(sync, f))
+>  		return 0;
+>  =
+
+> -	e =3D kmem_cache_alloc(amdgpu_sync_slab, GFP_KERNEL);
+> +	e =3D kmem_cache_alloc(amdgpu_sync_slab, GFP_ATOMIC);
+>  	if (!e)
+>  		return -ENOMEM;
+>  =
+
+> -- =
+
+> 2.27.0
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
