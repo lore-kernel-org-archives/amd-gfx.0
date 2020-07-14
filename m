@@ -2,106 +2,70 @@ Return-Path: <SRS0=Dt/2=AZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27BF5C433E7
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 17:54:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7225AC433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF93A225A9
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 17:54:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 43F5E223C6
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3k8lsHk8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF93A225A9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQTi96N0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43F5E223C6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B75156E0F6;
-	Tue, 14 Jul 2020 17:54:30 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9C436E0F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 17:54:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ms0Jz6yamJ/xnZczKueGA8eD/t+nSKXcSaC5VfJIDn8LlGrKFkyfR6Sj5roMaFHRR+k1S19Y9AzvadopW7lnOnnL5jY8xQkMowTqEpwCZIotGDxvep8vtWteBg5csCSDA+d3DdTmjTbq7N4wTREIBBTQsjAFqWeqJ8yUW+AfEPDlWJ6FrU1tL0caTa5iPuf+omuQJYAmJCJrejiYNPgzwd6JVDaKt6dj/58B3r117cC5BHKjCGJMYQuC/bE/sTE+RwTpIrr8QYvLR7eqbV8GmK4xEE5OjEyVvQIpMefqXo2xjrk3/E89hhpsaTp5wiXYzWnvfdHHVa+Mo2KU4flDEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a9x08YdDJSUG/R+p0FJeQVw9b6nlVmuE9G7txmPL+KU=;
- b=Oe9lCTwXCQWfl0v4t7vU2xF5Su/rhDNXBnpLECoIPvBOcVx1noIPiCaMmaJgNYGMom7rYzCLsBtGc9kme40flvclvFpBamrNTiyEtQAHQfX3x0+Kkhq4HGhyo9KBfxajC7r/BoKroeFhATqJTJqaZSdBXnnQ7JTIl/X9DHg9PhZWfOF/EPkbpU9Lm2+SMGaQL4iNMWCUdjSjeo9/ZPBRy2WD7mNOd0/mgkFu+mhqWq0pObgREevUF+uB6y05zOj1ULWAATulbzjX5+WBxUr/e5YBrDN8EI/5Eu4okEW4uql9CVFfYZUwV/L8AkQ3vYgXPEOk0Qve48mrnFcA+bZkog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a9x08YdDJSUG/R+p0FJeQVw9b6nlVmuE9G7txmPL+KU=;
- b=3k8lsHk8r+7qd9iE+0+fSdIEol0BoU/KAMB9cDIUCUsuX9z89hNInn4S2nbgvV+ppYXdcWveZ/NX+jr1jKThqS8XxSa1kFbkIpE6SRNhmlbvi0F4gbjllsViVtRRUFRXJUAl4IA2VYN09vM4McgsgJ0IGqZNjzMBNpyw7GN4+vs=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
- DM6PR12MB2940.namprd12.prod.outlook.com (2603:10b6:5:15f::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.22; Tue, 14 Jul 2020 17:54:27 +0000
-Received: from DM5PR12MB2583.namprd12.prod.outlook.com
- ([fe80::9dc3:cdc3:f733:39cd]) by DM5PR12MB2583.namprd12.prod.outlook.com
- ([fe80::9dc3:cdc3:f733:39cd%5]) with mapi id 15.20.3174.026; Tue, 14 Jul 2020
- 17:54:27 +0000
-Subject: Re: [PATCH 1/1] drm/amdkfd: sparse: fix incorrect type in assignment
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- amber.lin@amd.com
-References: <20200626233951.11724-1-Felix.Kuehling@amd.com>
- <39c3aad4-3676-1ade-e56c-db9cf8573e94@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <eeae96ed-9dc9-bc46-9859-e5b3ffa189f0@amd.com>
-Date: Tue, 14 Jul 2020 13:54:25 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <39c3aad4-3676-1ade-e56c-db9cf8573e94@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0067.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::44) To DM5PR12MB2583.namprd12.prod.outlook.com
- (2603:10b6:4:b3::28)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B786E5A2;
+	Tue, 14 Jul 2020 18:24:09 +0000 (UTC)
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4C36E5A2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:08 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id j80so16542923qke.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bcceYwZ40lTOD+0aqHbMstXn9E8dUqseU9+Gvrz3EVg=;
+ b=XQTi96N0mxH2DCD+pG0LjLyzgc+yldSa5bdyAgrVYb64WfqDMSyTsoXS4I6VBakaaq
+ 5N8HufgC4EDDVWitdrkqiJ++XFVWGt3dXIvWsODvsb+bw/WOTlRMpknK+FqjXFDEXA1V
+ /hxJkFyjp3X/ggvcgOAEU27qCMxk4jRxpSDxyqDL+nkEfvcgnLjSodD3kSnX25YqSuej
+ nV8NdRVUksHu2IOwlUszNoNBjDVozpjwXFcbpv8GaQojRJ4+aLI+gx4sS29enyVGGvG0
+ W7YfDa0hsIyyVRYPmdxnHZ20ggOqEo20C1QH6mB1REudUMPE9lKX33r0WlF6t1pDZXyB
+ TfaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=bcceYwZ40lTOD+0aqHbMstXn9E8dUqseU9+Gvrz3EVg=;
+ b=bmgVWjVMNv+iZBVkJH8wQS8DceAtpsSzCRmq7rRYxHhF/bTPB43udSGGnbyyxEuOlp
+ /CpaE5Kzbn45fA/suLWix+4emO21GShDFoDGURCJ8dTwMvkRWx/gcDKIppDWoc9yYkjA
+ JhHc4QUnEZ4DB8QM3fyLTToh5hBSfagt9Iqy8X/VPpEKxkqEoY2rqyvyi+JUVGBZ4zM4
+ 1f0VtuyVdi/VEuIIHiMIfY++F6VZRGU+8xvl+7YNVpghA6FTe/imtwImo3c/ks2EO+5C
+ E3RDtA8cCGaVgR/tAxW+vWAIw5IUofQmMTQ1Oil8r8W//q8WkKdoFYZrivE3tf2BEFSo
+ qaTw==
+X-Gm-Message-State: AOAM533YjhYUkaybH9kwP3IloOPJpIzvi4/jYePC7E8x300oOyISoupy
+ eZUbZSZirrFt43K7m1KXc50n4PuN
+X-Google-Smtp-Source: ABdhPJwo6NTp6c2dl+fEqnCOAayRK5iH8VdH/NLXxgd0z2zZAkmrWWp8Lk1DB3EcYdaQBaZ2phaiXg==
+X-Received: by 2002:a37:7803:: with SMTP id t3mr5914003qkc.358.1594751047338; 
+ Tue, 14 Jul 2020 11:24:07 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2020 11:24:06 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 00/42] Navy Flounder support
+Date: Tue, 14 Jul 2020 14:23:11 -0400
+Message-Id: <20200714182353.2164930-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.38] (165.204.55.251) by
- YTXPR0101CA0067.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::44) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22 via Frontend
- Transport; Tue, 14 Jul 2020 17:54:26 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 61d98e13-84e6-460f-ba76-08d8281ef35b
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2940:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2940F2F24C294ED0262586A9E6610@DM6PR12MB2940.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:176;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QseRpxipJo2pj0yI950vughEOaYi/ANAwKZ4wC6X41rnYcxa66tZiGO7WQCZ/NTGQ4FBL5MxtBupS1RWPD0v2+SXhY6r2XofFLktpuy55IXKs+nOUajaRvJMbyhPg6DOtnXqF05iqzZ+mjcTD6Escyqxq/P3W5Fwenl8ErZB2ZhweLZBp5eZ0l2PSMzm4Xr8GeKbK0Ub5Ianbrk0PinamQc0YPTlnSvDXVGzTMk85XK+bcVfZllogQs9yBP0JwGo5Fh4cZZPode1E9WkC+OWRt0Opbqh68Qne+DP+CKAwf2ghDB1ZB3Pceb/fX59e2znseY72jvnZs747DFFZoyYPQUtwBRwbgPj7U5Ohy/XkLgvl/nBZQP86Thx/1QDkBdErY7jrvF2fn35tbPvdoMC65uP0l4KHyLHCFUrIzB6Wzc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(6636002)(6486002)(53546011)(316002)(45080400002)(31696002)(8676002)(16576012)(5660300002)(8936002)(966005)(52116002)(36756003)(478600001)(2906002)(31686004)(66946007)(66556008)(2616005)(16526019)(186003)(83380400001)(26005)(956004)(66476007)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: OQnVTjzAjc8ueK9vre3puZeojoVvZXWabrVWFuVq/2RGqgKrB6KdMKKnuQgG2knF7xD9sVHiKc/OTuicX1CfxNf7hdQ5MXcyDF0IEZJqndjny/0MYKYnSOewrHCG7bMVPkyTyQvj9pYR0bM+2DHHAm7zTvkCgiIAwuCV/UhoNMXvK8xwLqSuBbCivfeRrmY/phMhsf0tXrqbiKvN9zFAFTE99gtjOFh3YlGOkzdcUTpgXigSTwyH+52XWrHR0zPX4p077ViXDUPYvg0XyQfOUeB29s8YxpAYlw8bx3aE3bupv4kNWIlewsowQEaHJL1IvSrPihCWHGuvccxjwuuAd5/qVaydoAeI2E7/oJujvEewS4NMzfhUbguXer+UUGvWNxVTVDZn/fnrjDpRE70XkejhGWISpcKSgovY1JIs+YVwaNubFzl+aXjaah0RZcHQDPykz0lJWeZDRJF/o2yWParQfmwLr3Z+awRIMBtFD2Vw6pWmbT0gJCi4RlNLGOvp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61d98e13-84e6-460f-ba76-08d8281ef35b
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2020 17:54:27.3178 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w4zXCpYgmGZlo/1yaJHJDPBqA5vN4AqxnPqT7cJf8fVxU1XIvNLxYx+5Abt9JHXH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2940
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,55 +77,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Philip Yang <Philip.Yang@amd.com>
+This patch set adds initial support for Navy Flounder GPUs.
 
-On 2020-07-06 1:45 p.m., Felix Kuehling wrote:
-> Ping.
->
-> Am 2020-06-26 um 7:39 p.m. schrieb Felix Kuehling:
->> The correct way to implement the fops->poll callback uses EPOLL* macros.
->>
->> For reference see also:
->> commit a9a08845e9ac ("vfs: do bulk POLL* -> EPOLL* replacement")
->> commit 7a163b2195cd ("unify {de,}mangle_poll(), get rid of kernel-side POLL...")
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Fixes: 73b753a11ae9 ("drm/amdkfd: Provide SMI events watch")
->> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->> index f3782627407f..7b348bf9df21 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
->> @@ -59,13 +59,14 @@ static const struct file_operations kfd_smi_ev_fops = {
->>   static __poll_t kfd_smi_ev_poll(struct file *filep,
->>   				struct poll_table_struct *wait)
->>   {
->> -	__poll_t mask;
->>   	struct kfd_smi_client *client = filep->private_data;
->> +	__poll_t mask = 0;
->>   
->>   	poll_wait(filep, &client->wait_queue, wait);
->>   
->>   	spin_lock(&client->lock);
->> -	mask = kfifo_is_empty(&client->fifo) ? 0 : POLLIN | POLLRDNORM;
->> +	if (!kfifo_is_empty(&client->fifo))
->> +		mask = EPOLLIN | EPOLLRDNORM;
->>   	spin_unlock(&client->lock);
->>   
->>   	return mask;
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cphilip.yang%40amd.com%7C1359cbce5ac84b5dd02608d821d46a48%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637296543503819875&amp;sdata=Q1KlOB%2FlF1GdUHTMD8a5NycjBDGhSDxo7qlIT8kyXeE%3D&amp;reserved=0
+Bhawanpreet Lakha (1):
+  drm/amd/display: add DC support for navy flounder
+
+Boyuan Zhang (5):
+  drm/amdgpu: add navy_flounder vcn firmware support
+  drm/amdgpu: add vcn ip block for navy_flounder
+  drm/amdgpu: enable VCN3.0 PG and CG for navy_flounder
+  drm/amdgpu: enable VCN3.0 DPG for navy_flounder
+  drm/amdgpu: enable JPEG3.0 PG and CG for navy_flounder
+
+Chengming Gui (2):
+  drm/amdkfd: Support navy_flounder KFD
+  drm/amdkfd: Add kfd2kgd_funcs for navy_flounder kfd support
+
+Huang Rui (1):
+  drm/amdgpu: expand to add multiple trap event irq id
+
+Jiansong Chen (32):
+  drm/amdgpu: add navy_flounder asic type
+  drm/amdgpu: add navy_flounder gpu info firmware
+  drm/amdgpu: set fw load type for navy_flounder
+  drm/amdgpu: set asic family and ip blocks for navy_flounder
+  drm/amdgpu/gfx10: add support for navy_flounder firmware
+  drm/amdgpu/gmc10: add navy_flounder support
+  drm/amdgpu/gfx10: add clockgating support for navy_flounder
+  drm/amdgpu/soc15: add support for navy_flounder
+  drm/amdgpu: initialize IP offset for navy_flounder
+  drm/amdgpu: add support on mmhub for navy_flounder
+  drm/amdgpu: add common ip block for navy_flounder
+  drm/amdgpu: add gmc ip block for navy_flounder
+  drm/amdgpu: add ih ip block for navy_flounder
+  drm/amdgpu: add gfx ip block for navy_flounder
+  drm/amdgpu: add sdma ip block for navy_flounder
+  drm/amdgpu: add virtual display support for navy_flounder.
+  drm/amdgpu: force pa_sc_tile_steering_override to 0 for navy_flounder
+  drm/amdgpu: add gmc cg support for navy_flounder
+  drm/amdgpu/powerplay: add smu support for navy_flounder
+  drm/amdgpu: add smu block for navy_flounder
+  drm/amdgpu: add psp support for navy_flounder
+  drm/amdgpu: add psp block for navy_flounder
+  drm/amdgpu: use front door firmware loading for navy_flounder
+  drm/amdgpu/gfx10: add gc golden setting for navy_flounder
+  drm/amdgpu: enable cp_fw_write_wait for navy_flounder
+  drm/amdgpu: enable GFX clock gating for navy_flounder
+  drm/amdgpu: support athub cg setting for navy_flounder
+  drm/amd/powerplay: set VCN1 pg only for sienna_cichlid
+  drm/amdgpu: enable athub/mmhub PG for navy_flounder
+  drm/amdgpu: enable mc CG and LS for navy_flounder
+  drm/amdgpu: enable hdp CG and LS for navy_flounder
+  drm/amdgpu: enable ih CG for navy_flounder
+
+Tao Zhou (1):
+  drm/amdgpu: configure navy_flounder gfx according to gfx 10.3
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  7 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  8 ++
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 76 +++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 27 ++++--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c       |  6 ++
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |  1 +
+ drivers/gpu/drm/amd/amdgpu/nv.c               | 44 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        | 12 ++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 87 +++++++++++++------
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 20 +++++
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  1 +
+ .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 +-
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  1 +
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  1 +
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 20 +++--
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 15 +++-
+ include/drm/amd_asic_type.h                   |  1 +
+ 24 files changed, 300 insertions(+), 51 deletions(-)
+
+-- 
+2.25.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
