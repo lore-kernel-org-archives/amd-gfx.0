@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB8A8C433EB
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AC83C433F1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C5230223C6
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 74B59227BF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zsr94m0J"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5230223C6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MktB8KjD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74B59227BF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94F1D6E82F;
-	Tue, 14 Jul 2020 18:24:21 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 608326E82C
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:20 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id e13so16532599qkg.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 291C66E830;
+	Tue, 14 Jul 2020 18:24:25 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063DF6E830
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:24 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id b25so13614564qto.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=gSfH/+zWwJqeeAp/9m4MbsvFvmHbUNhJd2hFx3ik6Ss=;
- b=Zsr94m0JinAOR6i4pVPtDWtS2WVjWPJP/nTy7DSPZ6T+yUDaaDDZ0rJYGnBSv0ffl8
- 5LgdrlU6EwKP1BVf/3miZ+0M7FJ1E8hVVhK4mg/uk+ZFOKDeEmmEgkjbUSbibPN9t7Mi
- Ve0cYUorpkX5XYqGjrCLBoLYMy7PJU6YmPKFsDsWbOJnxdvxExF4/9weRoO6SmrkFI28
- jxhD8R280rNdZgirVSkWQHV+40rR/F1ujqMP2jQf6exUvy6b7yRlBcEB6tLPwt2YaYXc
- 66Fd/RkqgGkvk5UZlR453trisX0qX2AHEDz/LbYhpP6RiYuW67GYhYnilG7qd2A97y22
- xO1w==
+ bh=uzc+ABtnRXhr6HUcvJh7A5OEv0JAWiqkWbFvdtgXphw=;
+ b=MktB8KjD8hvlqKG5phqOH5PR/oOvRFVnmyQAdhmJth/XuMtoquYWCOc2Fn6Iw6GS/y
+ VwrhLQDfbvW6EvZCJcEXvCZ5kSeDlVsuQquOIok7OLJbSO5g38YlBlep3EAHsnoVH5yb
+ Zdrfm33M/dctDsAm15kM6rmmuBtG9JifWfGoiPAajrC6fnoSCnifeNjrTxYC9uF6e4Qs
+ anbZ+/DD83BloONnMg6Zvme8VKT+JrmS4U2ZNrcOKjO/thtP4PRc+MdA+0Hdmbx5exZI
+ e9tJGbwsaWLLZPzkb6f5TU8iUjWAp6Z9YW9RQyi28pAY5Yoe4j3qT8EpTcZpIPCcttmj
+ DEVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=gSfH/+zWwJqeeAp/9m4MbsvFvmHbUNhJd2hFx3ik6Ss=;
- b=W9DPgt7Dm0N5fxCyhkpvnIj5CZMh/GgjqzFXpiSpx+arUiLEgN3DONRS1wResZpjmg
- 3wK3bbRUalZ6TIpDL8UObmd9O22+3pJPOoJBgzSQ55Y+9vbDtKvDmAL5R0anaUkFBqsp
- MnKEZez2CvBEzUf1Ha7mpHQ0CUE0yocZ7z9zM6fcXpepshCqpMG8XhaQlh4tncpg6FId
- wrnG4G2PqrdsMeYUZFLUWLEVLzTm/+QQUUBISKKnljTAy7uOb30Y6rCqCMp4fZ4FJTt/
- DTGRLKsc4/ehVNXqfeTZWlvPYaM6J2qyXEh+HqX0+ICKeUkvgPn7zGDh+SJ9wqu1Xgsq
- jh9A==
-X-Gm-Message-State: AOAM531/k1okIp5yOW9YbEJ3JcSbwRDbChQXlM6Unont84tQObhDgY8K
- ZmS8QuCEEVyTyAaa0HY7IbNu1wEn
-X-Google-Smtp-Source: ABdhPJzPPf4dgllQt7qBtWjTsBUKk/JexB9QJ1Hat/2AqAyjyPoQDHwPvcknEa99AyuonaK/S6M8fg==
-X-Received: by 2002:a37:45cb:: with SMTP id s194mr5981913qka.74.1594751059315; 
- Tue, 14 Jul 2020 11:24:19 -0700 (PDT)
+ bh=uzc+ABtnRXhr6HUcvJh7A5OEv0JAWiqkWbFvdtgXphw=;
+ b=PuJ526uX7jcUZBygK+zTrjWZKzUKG+5PIKKyICXsv8lYT0ZRfH4ked4izM/zuv9Si9
+ h81D/D/hzsr1tTbWK2Bgg1blGmOaxVyOhTwcpGGLI41xZbhQ0w71gT1X+X+vy/IFR0CO
+ 1C54WNBq2aWjn4rD9OzIkWHvGyiBhplJ+rtmfZ+gRpbMcyAd18wxi9NvgFCc+CrN/Jtx
+ iMpeuvhDZAGCqrDNp8LPtrG7dyRgK4O36wOLOfE4ANMHiEvS5YxkvxlN6iaUhNncGd/9
+ OGLZgiva3dR6OuAilzTs2DGGi5Xw5tbIIyy9oEFvOtN4rSg+fILfc07W0rJnbiCIAQXP
+ dRSg==
+X-Gm-Message-State: AOAM533uFy4r9OQoN2fCzk0eJ7QMdWM96CuWQeoJACFT0AekasRvZWjp
+ Jwg5WSHk3pTDK7HJGIYml28P69+y
+X-Google-Smtp-Source: ABdhPJyao6Ns6PFnCfoPBVpsFF5nUgV4K75+GEhROHdl80eyIBMNc8tf2R+ppoZmyOKEKEvfHtsGWQ==
+X-Received: by 2002:ac8:3563:: with SMTP id z32mr6125074qtb.244.1594751063026; 
+ Tue, 14 Jul 2020 11:24:23 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.18
+ by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 11:24:18 -0700 (PDT)
+ Tue, 14 Jul 2020 11:24:22 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/42] drm/amdgpu/gfx10: add clockgating support for
- navy_flounder
-Date: Tue, 14 Jul 2020 14:23:19 -0400
-Message-Id: <20200714182353.2164930-9-alexander.deucher@amd.com>
+Subject: [PATCH 11/42] drm/amdgpu: add support on mmhub for navy_flounder
+Date: Tue, 14 Jul 2020 14:23:22 -0400
+Message-Id: <20200714182353.2164930-12-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200714182353.2164930-1-alexander.deucher@amd.com>
 References: <20200714182353.2164930-1-alexander.deucher@amd.com>
@@ -81,7 +80,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Tao Zhou <Tao.Zhou1@amd.com>,
  Jiansong Chen <Jiansong.Chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -90,26 +89,59 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jiansong Chen <Jiansong.Chen@amd.com>
 
-Same as navi10.
+navy_flounder has the same mmhub IP version with sienna_cichlid,
+follow its setting.
 
 Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Tao Zhou <Tao.Zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 60b8da3e7321..401e9607becc 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -7476,6 +7476,7 @@ static int gfx_v10_0_set_clockgating_state(void *handle,
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+index d820fa02e6e8..5500f9d8d18f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+@@ -390,6 +390,7 @@ static void mmhub_v2_0_update_medium_grain_clock_gating(struct amdgpu_device *ad
+ 
+ 	switch (adev->asic_type) {
  	case CHIP_SIENNA_CICHLID:
 +	case CHIP_NAVY_FLOUNDER:
- 		gfx_v10_0_update_gfx_clock_gating(adev,
- 						 state == AMD_CG_STATE_GATE);
+ 		def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid);
+ 		def1 = data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2_Sienna_Cichlid);
+ 		break;
+@@ -422,6 +423,7 @@ static void mmhub_v2_0_update_medium_grain_clock_gating(struct amdgpu_device *ad
+ 
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
++	case CHIP_NAVY_FLOUNDER:
+ 		if (def != data)
+ 			WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid, data);
+ 		if (def1 != data1)
+@@ -443,6 +445,7 @@ static void mmhub_v2_0_update_medium_grain_light_sleep(struct amdgpu_device *ade
+ 
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
++	case CHIP_NAVY_FLOUNDER:
+ 		def  = data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid);
+ 		break;
+ 	default:
+@@ -458,6 +461,7 @@ static void mmhub_v2_0_update_medium_grain_light_sleep(struct amdgpu_device *ade
+ 	if (def != data) {
+ 		switch (adev->asic_type) {
+ 		case CHIP_SIENNA_CICHLID:
++		case CHIP_NAVY_FLOUNDER:
+ 			WREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid, data);
+ 			break;
+ 		default:
+@@ -499,6 +503,7 @@ void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)
+ 
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
++	case CHIP_NAVY_FLOUNDER:
+ 		data  = RREG32_SOC15(MMHUB, 0, mmMM_ATC_L2_MISC_CG_Sienna_Cichlid);
+ 		data1 = RREG32_SOC15(MMHUB, 0, mmDAGB0_CNTL_MISC2_Sienna_Cichlid);
  		break;
 -- 
 2.25.4
