@@ -2,113 +2,81 @@ Return-Path: <SRS0=Dt/2=AZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12E6BC433EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B9EEC433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB90B208C3
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:27:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6CAD9208C3
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:28:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tuXeAAvA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB90B208C3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9MDky5M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CAD9208C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FFC06E0A8;
-	Tue, 14 Jul 2020 09:27:41 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 676C66E0A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 09:27:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mJS3DgskoOHxON2/PtnaQ4gbF7mdNhWcVwu7ycp/1ESqZG5XYEalgQ+FEXxtvh4eb24cw1m/RR7z1m6yqA43XOWOwsSm+T9lpnfeFZCebEeqxsQXVtxNczvq0FjFSDZf10KIGvLNx02nJhLMnd0nrFGx2hhfhDOVKcRRAydPfUaOMY6hjcOSfcqBvFta/u5m2kMG35RU1WhwUAaZkwj2A5W2gPcm93LDbdddE1qZSQl4gABChWdTt/nF0K3rABGzEwXCdKA/vEBGVlfHoiGEboo1y2AUQ20NEn30/9b3ZQRl+SG0+9ROPDKqRHTAYtkLmyPlgu06CE0AfirD/OGQ1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RI6LVXMzAspIqWIyQ14cLShpitwyCVW4IqPEnJdpHfw=;
- b=cKsPE68WYs94s1KXQ+gUh04+JVD1WpAjzRR/v8JXBGGCn2pMcLe+8MZNOsSkc3EwFTQhovdh7oR5qSFS3ei23cEnPt5xTh9Sn6zafkgmeAb8zL7ZJBjhvmux+xxefMKlOYpiJbCPQ/km2R5KlYhdOUSUy2YCxwQLdbqwAUzSdE+chUctnCKfuun+SMunY0MARUmn3/eFlcSy+N/faNbMB3sEiB4lYxllK2E3kVij4ROc0vfMP4bSEBqqsbnX/Fb9SAu3MukStvi6k8vp3Cqgb63j4ZtW0/sNZgU3aafQXXJJyFXkUWChtxETWNpveKWzSQ9iWc8paMrV+7pcNsRi0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RI6LVXMzAspIqWIyQ14cLShpitwyCVW4IqPEnJdpHfw=;
- b=tuXeAAvAaZzdpelodleeauXz7+FKYjMJBIcEKBex6x2iWMjDD2KySoai0FOBSS+Yk5CUTYjv97K8a1K0SHp56zeaNY4ckELx+BIZlXah96ew6fkvQ7exNLGDlKABbHPtaW4Rcijjh3Ek7m8HRtvJJTYNioG6ZeI3x4/NQvK1puo=
-Received: from DM5PR12MB2533.namprd12.prod.outlook.com (2603:10b6:4:b0::10) by
- DM5PR12MB1929.namprd12.prod.outlook.com (2603:10b6:3:106::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.23; Tue, 14 Jul 2020 09:27:38 +0000
-Received: from DM5PR12MB2533.namprd12.prod.outlook.com
- ([fe80::2d85:c08d:4782:e3a]) by DM5PR12MB2533.namprd12.prod.outlook.com
- ([fe80::2d85:c08d:4782:e3a%7]) with mapi id 15.20.3174.026; Tue, 14 Jul 2020
- 09:27:37 +0000
-From: "Li, Dennis" <Dennis.Li@amd.com>
-To: "Zhang, Jack (Jian)" <Jack.Zhang1@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>, 
- "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 3/5] drm/amd/sriov add mmsch_v3 interface
-Thread-Topic: [PATCH 3/5] drm/amd/sriov add mmsch_v3 interface
-Thread-Index: AQHWWYkUlv3CAvYm7ECtP2EwHnJbk6kGfTkAgAAq0lCAAB7/0IAAADrggAAHdNA=
-Date: Tue, 14 Jul 2020 09:27:37 +0000
-Message-ID: <DM5PR12MB25330817B8632081D931F0FFED610@DM5PR12MB2533.namprd12.prod.outlook.com>
-References: <1594694808-7706-1-git-send-email-Jack.Zhang1@amd.com>
- <DM5PR12MB2533AF4D5366ABD73AFA4199ED610@DM5PR12MB2533.namprd12.prod.outlook.com>
- <DM5PR1201MB02044924FD97D6217D2DCB65BB610@DM5PR1201MB0204.namprd12.prod.outlook.com>
- <DM5PR1201MB020400CF71F56330AF9052FCBB610@DM5PR1201MB0204.namprd12.prod.outlook.com>
- <DM5PR1201MB0204812CFD0B3906FFE46593BB610@DM5PR1201MB0204.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR1201MB0204812CFD0B3906FFE46593BB610@DM5PR1201MB0204.namprd12.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-14T04:35:01Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=917ecda8-6f28-442c-9002-7f1b0bc1d125;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 5a5780a7-58d3-40b3-b0b2-08d827d8262d
-x-ms-traffictypediagnostic: DM5PR12MB1929:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB1929BC9BA1CA78D805C58A0AED610@DM5PR12MB1929.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: c0EYvhchFNRB1oVnm2xX2fxRgf15BZXD5U79LsVos1DGl+ZVA/qjmQpRReRjgW+VSYObj+hFIVvIpNRe2TwE1ShA7BFdmZ3DAbwlhtm+Qz7KSNUuGTrAWWAP5n6litjpoSWNbvZtFOvPSz6fiNPN1cpVWtoTuynpONZt2C+I1K8eWpguCOkw3s9CA6C+nzzzKKfoo2N60ON0pb8e0+Rpbb60ygTS5ykSbET/XLx4aXIRoLC2iV+9kDtPNZW6TJRECQqkjuWFh2jZlCqSi23NK1nryUxLoMgKSt+yoKIE07lF7UlWRFl9Bbx3We4sjVIRPig8E/7GRhszDXOdYNvxVxJYKuyIH26Z+mzQdT1kB4s=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2533.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(7696005)(8676002)(6506007)(53546011)(33656002)(110136005)(71200400001)(8936002)(186003)(45080400002)(76116006)(26005)(2906002)(52536014)(5660300002)(66946007)(86362001)(55016002)(66446008)(66556008)(64756008)(66476007)(83380400001)(966005)(9686003)(498600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: sSkJX7Gk7uVFBeqMmllBVEYOrTALnE/4oroA32W7XAXSehDmajhOmKSo8eF6VYBf7W20UX/LONf0Fir4a9/ZMAGNyfUCb/7eS79UjCDW7lGxWA5qfODR+gaufAYVipJj6u9GvKk8xbNQ4oN5tbvohdBqnK8lC6il4uDl3dN7BbxfBrrVgIrL31GWLmTOEW6a/qwvPsr0swMPIvaOFm0a2Qo+jyhPvqBdjkt8GlJ8j2HBo2K6PWat46lwIKiT9ri3Ic78DZh3O56o41CVB0+5N8ka0DG6Mc0tWBXKDd8F63tsPtDsPRC7chiaAeN9/nNKjilKZKwOFjpyhxi5fwwP7lPIvPQOZ+tLgLGBsEEy+LhAsLqczTqdx5eELpyaQIIFbqQi6SVbL0PQ6tNopvx0WdgZe9tOEXoN/zxaNiU+ELaAjUU4bPc1XBHkMG+rvFHNiabaerXvVVTHDRde8IZhBbamn29hogkASC+9DQm+2FprlirO1ZD8exA5KWcerFzY
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA486E7E2;
+	Tue, 14 Jul 2020 09:28:17 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE166E593;
+ Tue, 14 Jul 2020 09:28:15 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id f18so20459391wrs.0;
+ Tue, 14 Jul 2020 02:28:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=Yb6pOJywA24wMvEKXpudcS+IoJWPzT24gjxu1xfgKOs=;
+ b=g9MDky5McmDDSf7HJNMqV9eaOvZdV6W+3rSpG9O2h5t/xEDltYJzR3v+J7M9I3nmjx
+ Ah/2qj1wyzbfzPggNV6e//H1WuQh2mOXaELeAAzC4623ZGk+8o5btNM9THPxxkniw4uH
+ tgXi07vN/VvbSJDUYEw2JO7zVegC96eZdqWaFLLnsncBuTDrOxdwxiL4NH2Yya4Q977x
+ J0EKAmhbug5rxixS6hzI3baGTjXGL8E6cgkb0zT9p0RWPnsn6D/TVcSQLBfeJTTpjNP1
+ uKRf9LcTS+oBAb3O5jw+VsliYY+Q8B5hqxbeYCAp1WztdWnRu34mZnfqGbFeK2QeYa1x
+ YpZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=Yb6pOJywA24wMvEKXpudcS+IoJWPzT24gjxu1xfgKOs=;
+ b=LfmqkgC8hB4leV6G+1v4CTtkWRcsxoxePOZ9sttwsFe0L7mnMDF0rPAjS5e1FJW+FG
+ SbF9hJAYB9Y93/8OYY1zOQ+a6COMEhmH4Fj+nay0PK8RKAsgSu8/IoLp+EJVrR5Gtv8c
+ CYU1PT8UF7PGWteqFEdAaJC6kdddcIvMR76NN0HHZayck80Ptz5N9Qqbdz/jSNhHfio2
+ cmAnTbPPja+kDo7dS8SAn8AzagEXjm2u+saobbEe1RnCpdNYn16MksyqUhqhTFJyDb0D
+ lAnkhU6OlgYvLCbkCcQBWpnyjJKuK4UOpjIBW+VFCoeKwjhz7zlm3cDqFjnapzen9bLE
+ iaBw==
+X-Gm-Message-State: AOAM531+U/ZnNjKnzwt+RqwMLLxJ+0Gh/0fkXQyPuCme433DcwY3zycw
+ FBm2j7VGkz9kSCx3xEUQVQdMk9Hn
+X-Google-Smtp-Source: ABdhPJz5dTrAlwHhGulVhPnVCJlU2RQAue3MD59DpOCPQSClrafY0ow167Yno90932GkJsWgjJPWBQ==
+X-Received: by 2002:adf:fd8b:: with SMTP id d11mr4344446wrr.371.1594718893964; 
+ Tue, 14 Jul 2020 02:28:13 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id w14sm28064723wrt.55.2020.07.14.02.28.13
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 14 Jul 2020 02:28:13 -0700 (PDT)
+Subject: Re: [PATCH 1/1] drm/amdkfd: Add IPC API
+To: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+References: <20200714031435.13362-1-Felix.Kuehling@amd.com>
+ <20200714031435.13362-2-Felix.Kuehling@amd.com>
+ <CAPM=9tzjQGg2OMrptD6qJv0yEvY+S7mS6oXNxe21UoWk+6-Ung@mail.gmail.com>
+ <4245d340-f4f6-eeb5-40a6-3afd7754852c@amd.com>
+ <CAPM=9tz3UC8VuP=n_OAF5LnAmXSVR32LztqeEWtssnodMj70dQ@mail.gmail.com>
+ <20200714085850.GX3278063@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <97e221e7-ea50-a02d-0791-0555a256e374@gmail.com>
+Date: Tue, 14 Jul 2020 11:28:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2533.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a5780a7-58d3-40b3-b0b2-08d827d8262d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2020 09:27:37.8443 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: d9LGhOf1VDZcXu9ahVmGprRtVeHWKbAn28o2kPjzZFBXi3duJixG0sWixNQVe8+L
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1929
+In-Reply-To: <20200714085850.GX3278063@phenom.ffwll.local>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,225 +88,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Am 14.07.20 um 10:58 schrieb Daniel Vetter:
+> On Tue, Jul 14, 2020 at 02:26:36PM +1000, Dave Airlie wrote:
+>> On Tue, 14 Jul 2020 at 14:09, Felix Kuehling <felix.kuehling@amd.com> wrote:
+>>> Am 2020-07-13 um 11:28 p.m. schrieb Dave Airlie:
+>>>> On Tue, 14 Jul 2020 at 13:14, Felix Kuehling <Felix.Kuehling@amd.com> wrote:
+>>>>> This allows exporting and importing buffers. The API generates handles
+>>>>> that can be used with the HIP IPC API, i.e. big numbers rather than
+>>>>> file descriptors.
+>>>> First up why? I get the how.
+>>> The "why" is compatibility with HIP code ported from CUDA. The
+>>> equivalent CUDA IPC API works with handles that can be communicated
+>>> through e.g. a pipe or shared memory. You can't do that with file
+>>> descriptors.
+>> Okay that sort of useful information should definitely be in the patch
+>> description.
+>>
+>>> https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE.html#group__CUDART__DEVICE_1g8a37f7dfafaca652391d0758b3667539
+>>>
+>>> https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE.html#group__CUDART__DEVICE_1g01050a29fefde385b1042081ada4cde9
+>>>
+>>>>> + * @share_handle is a 128 bit random number generated with
+>>>>> + * @get_random_bytes. This number should be very hard to guess.
+>>>>> + * Knowledge of the @share_handle implies authorization to access
+>>>>> + * the shared memory. User mode should treat it like a secret key.
+>>>>> + * It can be used to import this BO in a different process context
+>>>>> + * for IPC buffer sharing. The handle will be valid as long as the
+>>>>> + * underlying BO exists. If the same BO is exported multiple times,
+>>>> Do we have any examples of any APIs in the kernel that operate like
+>>>> this? That don't at least layer some sort of file permissions  and
+>>>> access control on top?
+>>> SystemV shared memory APIs (shmget, shmat) work similarly. There are
+>>> some permissions that can be specified by the exporter in shmget.
+>>> However, the handles are just numbers and much easier to guess (they are
+>>> 32-bit integers). The most restrictive permissions would allow only the
+>>> exporting UID to attach to the shared memory segment.
+>>>
+>>> I think DRM flink works similarly as well, with a global name IDR used
+>>> for looking up GEM objects using global object names.
+>> flink is why I asked, because flink was a mistake and not one I'd care
+>> to make again.
+>> shm is horrible also, but at least has some permissions on what users
+>> can attack it.
+> Yeah this smells way too much like flink. I had the same reaction, and
+> kinda sad that we have to do this because nvidia defines how this works
+> with 0 input from anyone else. Oh well, the world sucks.
+>
+>>>> The reason fd's are good is that combined with unix sockets, you can't
+>>>> sniff it, you can't ptrace a process and find it, you can't write it
+>>>> out in a coredump and have someone access it later.
+>>> Arguably ptrace and core dumps give you access to all the memory
+>>> contents already. So you don't need the shared memory handle to access
+>>> memory in that case.
+>> core dumps might not dump this memory though, but yeah ptrace would
+>> likely already mean you have access.
+>>
+>>>> Maybe someone who knows security can ack merging this sort of uAPI
+>>>> design, I'm not confident in what it's doing is in any ways a good
+>>>> idea. I might have to ask some people to take a closer look.
+>>> Please do. We have tried to make this API as secure as possible within
+>>> the constraints of the user mode API we needed to implement.
+>> I'll see if I hear back, but also if danvet has any input like I
+>> suppose it's UUID based buffer access, so maybe 128-bit is enough and
+>> you have enough entropy not to create anything insanely predictable.
+> So one idea that crossed my mind is if we don't want to do this as a
+> generic dma-buf handle converter.
+>
+> Something like /dev/dri/cuda_is_nasty (maybe slightly nicer name) which
+> provides a generic dma-buf <-> cuda uuid converter. With separate access
+> restrictions, so admins can decide whether they want to allow this
+> silliness, or not. Anyone else who wants to reimplement cuda will need
+> this too, so that's another reason for splitting this out.
+>
+> Wrt security: I think assuming that there's none and the lookup has a
+> side-channel you can use to efficiently scan the entire range is probably
+> the safe approach here. This is way out of my league, but I think people
+> who know how to do this won't have a much harder time scanning this than
+> the flink space.
+>
+> Also, if we have one common uuid->dma-buf converter, we might actually
+> have a chance to proof the "it's not secure" assumption wrong. Also, we
+> might be able to tie this into cgroups or namespaces or similar that way.
+>
+> Just some thoughts to give my initial "eek, why this" reaction a bit more
+> substance :-) No idea whether this would work or make more sense.
 
-Hi, Jack,
-      Thanks for your expiation. It looks good to me.
+Yeah, my initial reaction was the same. On the pro side is that we use 
+more than the 32bits flink did as identifier.
 
-Best Regards
-Dennis Li
 
------Original Message-----
-From: Zhang, Jack (Jian) <Jack.Zhang1@amd.com> 
-Sent: Tuesday, July 14, 2020 5:01 PM
-To: Li, Dennis <Dennis.Li@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: RE: [PATCH 3/5] drm/amd/sriov add mmsch_v3 interface
+What we could maybe do to improve this is to link DMA-buf file 
+descriptors into the file system from userspace. And then we could just 
+do something like:
 
-Hi, Dennis,
+open("/tmp/dma-buf-0x0123-4567-89AB-CDEF-0123-4567-89AB-CDEF", "rw");
 
-I gave some feedback in the comments.
-Thank you for your review.
+But to be honest I don't really know the fs code that well enough to 
+judge if this is possible or not.
 
-Best Regards,
-Jack Zhang
 
------Original Message-----
-From: Li, Dennis <Dennis.Li@amd.com>
-Sent: Tuesday, July 14, 2020 12:35 PM
-To: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH 3/5] drm/amd/sriov add mmsch_v3 interface
+Or we let DMA-bufs appear under some directory of /sys by their name so 
+that applications can open and use them.
 
-[AMD Official Use Only - Internal Distribution Only]
+Regards,
+Christian.
 
-Hi, Jack,
-      Please see the following comments. 
+>
+> Cheers, Daniel
 
-Best Regards
-Dennis Li
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jack Zhang
-Sent: Tuesday, July 14, 2020 10:47 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH 3/5] drm/amd/sriov add mmsch_v3 interface
-
-For VCN3.0 SRIOV, Guest driver needs to communicate with mmsch to set the World Switch for MM appropriately. This patch add the interface for mmsch_v3.0.
-
-Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mmsch_v3_0.h | 130 ++++++++++++++++++++++++
- 1 file changed, 130 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/mmsch_v3_0.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmsch_v3_0.h b/drivers/gpu/drm/amd/amdgpu/mmsch_v3_0.h
-new file mode 100644
-index 000000000000..3e4e858a6965
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/mmsch_v3_0.h
-@@ -0,0 +1,130 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person 
-+obtaining a
-+ * copy of this software and associated documentation files (the 
-+"Software"),
-+ * to deal in the Software without restriction, including without 
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, 
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom 
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be 
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __MMSCH_V3_0_H__
-+#define __MMSCH_V3_0_H__
-+
-+#include "amdgpu_vcn.h"
-+
-+#define MMSCH_VERSION_MAJOR	3
-+#define MMSCH_VERSION_MINOR	0
-+#define MMSCH_VERSION	(MMSCH_VERSION_MAJOR << 16 | MMSCH_VERSION_MINOR)
-+
-+enum mmsch_v3_0_command_type {
-+	MMSCH_COMMAND__DIRECT_REG_WRITE = 0,
-+	MMSCH_COMMAND__DIRECT_REG_POLLING = 2,
-+	MMSCH_COMMAND__DIRECT_REG_READ_MODIFY_WRITE = 3,
-+	MMSCH_COMMAND__INDIRECT_REG_WRITE = 8,
-+	MMSCH_COMMAND__END = 0xf
-+};
-+
-+struct mmsch_v3_0_table_info {
-+	uint32_t init_status;
-+	uint32_t table_offset;
-+	uint32_t table_size;
-+};
-+
-+struct mmsch_v3_0_init_header {
-+	uint32_t version;
-+	uint32_t total_size;
-+	struct mmsch_v3_0_table_info inst[AMDGPU_MAX_VCN_INSTANCES]; };
-
-[Dennis]  You have defined total_size, why inst size is AMDGPU_MAX_VCN_INSTANCES, which will cause memory waste.
-[Jack] In our case, AMDGPU_MAX_VCN_INSTANCES is a fixed number, which equals 2.  And struct mmsch_v3_0_table_info occupy 3 dws.  Thus there's not too much memory waste.
-
-+struct mmsch_v3_0_cmd_direct_reg_header {
-+	uint32_t reg_offset   : 28;
-+	uint32_t command_type : 4;
-+};
-+
-+struct mmsch_v3_0_cmd_indirect_reg_header {
-+	uint32_t reg_offset    : 20;
-+	uint32_t reg_idx_space : 8;
-+	uint32_t command_type  : 4;
-+};
-+
-+struct mmsch_v3_0_cmd_direct_write {
-+	struct mmsch_v3_0_cmd_direct_reg_header cmd_header;
-+	uint32_t reg_value;
-+};
-+
-+struct mmsch_v3_0_cmd_direct_read_modify_write {
-+	struct mmsch_v3_0_cmd_direct_reg_header cmd_header;
-+	uint32_t write_data;
-+	uint32_t mask_value;
-+};
-+
-+struct mmsch_v3_0_cmd_direct_polling {
-+	struct mmsch_v3_0_cmd_direct_reg_header cmd_header;
-+	uint32_t mask_value;
-+	uint32_t wait_value;
-+};
-+
-+struct mmsch_v3_0_cmd_end {
-+	struct mmsch_v3_0_cmd_direct_reg_header cmd_header; };
-+
-+struct mmsch_v3_0_cmd_indirect_write {
-+	struct mmsch_v3_0_cmd_indirect_reg_header cmd_header;
-+	uint32_t reg_value;
-+};
-+
-+#define MMSCH_V3_0_INSERT_DIRECT_RD_MOD_WT(reg, mask, data) { \
-+	size = sizeof(struct mmsch_v3_0_cmd_direct_read_modify_write); \
-+	size_dw = size / 4; \
-+	direct_rd_mod_wt.cmd_header.reg_offset = reg; \
-+	direct_rd_mod_wt.mask_value = mask; \
-+	direct_rd_mod_wt.write_data = data; \
-+	memcpy((void *)table_loc, &direct_rd_mod_wt, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
-
-[Dennis]  direct_rd_mod_wt, table_loc and table_size are local variables, it is better not to define them in macro, which are not very readable. 
-[Jack] we inherited the code format from mmsch_v2.0 and mmsch_v1.0. And It will only be used in sriov. So it is not very convenient to re-arch the implemention of this part.
-
-+#define MMSCH_V3_0_INSERT_DIRECT_WT(reg, value) { \
-+	size = sizeof(struct mmsch_v3_0_cmd_direct_write); \
-+	size_dw = size / 4; \
-+	direct_wt.cmd_header.reg_offset = reg; \
-+	direct_wt.reg_value = value; \
-+	memcpy((void *)table_loc, &direct_wt, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
-+
-+#define MMSCH_V3_0_INSERT_DIRECT_POLL(reg, mask, wait) { \
-+	size = sizeof(struct mmsch_v3_0_cmd_direct_polling); \
-+	size_dw = size / 4; \
-+	direct_poll.cmd_header.reg_offset = reg; \
-+	direct_poll.mask_value = mask; \
-+	direct_poll.wait_value = wait; \
-+	memcpy((void *)table_loc, &direct_poll, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
-
-[Dennis]  The same as the above
-
-+#define MMSCH_V3_0_INSERT_END() { \
-+	size = sizeof(struct mmsch_v3_0_cmd_end); \
-+	size_dw = size / 4; \
-+	memcpy((void *)table_loc, &end, size); \
-+	table_loc += size_dw; \
-+	table_size += size_dw; \
-+}
-
-[Dennis]  The same as the above
-
-+#endif
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7CDennis.Li%40amd.com%7Cc07550519dd145540e3908d827a0355b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637302916336069337&amp;sdata=a%2FFXCiFaX91GhQesxkKipSC0S0hpaKoDw5l1ZoCHrck%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
