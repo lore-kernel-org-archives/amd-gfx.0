@@ -4,70 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFCCAC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 10:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF376C433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 10:57:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80C2422203
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 10:49:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9134722206
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 10:57:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="bOeL2MUd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80C2422203
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="soSy8qQF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9134722206
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307D06E8B4;
-	Tue, 14 Jul 2020 10:49:15 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D0B6E8B2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 10:49:14 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id f18so20769415wrs.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 03:49:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=XFyCObAFNGAkAD33iucRxardqlG+NdnL+BA8ka5PPr4=;
- b=bOeL2MUd2f8AlWSJD3wmjK7kX/u8xZmjsUmMQeJzGK+l98O+GbJDKEx2q+dtP0Ysuw
- ahdh9hOxfLzdYsrsSCIb4+jsBwaVOfOB9g1F7JaVOZ01TKCuMezHAGJnllnKMSUhc5F+
- Oz3Dlt8i1yKPbH5ek0krA47zpw8DZA2RsafPc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=XFyCObAFNGAkAD33iucRxardqlG+NdnL+BA8ka5PPr4=;
- b=s2M5n0lbiQemHpvQPhMfzBiTVRrgaNtogrXpX/UE+sZ9Drke7M8mVlfgGkRuVQ8UUq
- vnq0CZXymfchQp8GhusGr81DuN1ae9Jj1gk5yifnunY7/BAU8lX3zAd10kdqgzUwDOPD
- 2c/qKrISxAk2+xByRsTFmUdj56IVhnJMbDYwl/Cs61Sj4zYqz+VLuxkM1xlr4Eupl2OX
- vH5wAWcuY4gwARlvPFSxb5mQsVDl7WOQtGxtdr3jfYO4MI8iKTg3zxsJNXT71OwILqIf
- pRv3twM5OUyMcaLLLVXi3WzSH23pagQA1DIIeC9QKfYVCvZz6rf3NhgShxQbydpFe4E1
- NpvA==
-X-Gm-Message-State: AOAM531mzEATdbj6nJl2DbtviQSLg1Z1A9XdSmeMe/dxR8DgjgreEZfV
- oX4v2JWxA654pBxgkNK8UxQuHQ==
-X-Google-Smtp-Source: ABdhPJxzCDVzf3ULPsu9gK9KiSaB34ZTvYO1lf6Ch0WaVTCD95UxXPy23Q0JcDyFOFTm8A13sseYqQ==
-X-Received: by 2002:adf:c44d:: with SMTP id a13mr4551346wrg.205.1594723752919; 
- Tue, 14 Jul 2020 03:49:12 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id u17sm27474975wrp.70.2020.07.14.03.49.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 03:49:12 -0700 (PDT)
-Date: Tue, 14 Jul 2020 12:49:10 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 19/25] drm/amdgpu: s/GFP_KERNEL/GFP_ATOMIC in scheduler
- code
-Message-ID: <20200714104910.GC3278063@phenom.ffwll.local>
-References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
- <20200707201229.472834-20-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 394F56E0DE;
+	Tue, 14 Jul 2020 10:57:22 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A511E6E0DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 10:57:20 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06EAuxOa077273;
+ Tue, 14 Jul 2020 10:57:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=vBU2QIH4dLhpISZDy3iGJ2QdEzBeF97nSpmac36o04w=;
+ b=soSy8qQF+N75EAKupN+A8EXKXSU/IJMMAWVz+u1RJthPQfakoSWp6nour2GJ0QJGYs2P
+ FfucdEm5nj5Rq6CozvcjiZWFeOGFfoHxa/crmwoDLxxWVQOtoRJ1tkodr2ilsIwn8iAx
+ 90YBrF8nk1oJeOFbcgGIFNVhM2tlv0oH+so1VHEcqIs+pZRePQz/lwIjyQdZrVS4B9Ss
+ QGQd9gnQ6D4R1c0c6MXu9RDdW51DC26K0oXyDmlnR5RMTINqczE5hwgIVkl5DS8WZ+Td
+ wvDSAy1o8vivaaNy4QyHAuKeTOhBphXe+WSXjfUyml+1KdT9rgnVHhbEGXqDpUmcwAuq 3g== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 32762nchrk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 14 Jul 2020 10:57:16 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06EAqfdq022571;
+ Tue, 14 Jul 2020 10:57:16 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3030.oracle.com with ESMTP id 327qbxdhfm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 14 Jul 2020 10:57:16 +0000
+Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 06EAvAXU016894;
+ Tue, 14 Jul 2020 10:57:10 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 14 Jul 2020 03:57:09 -0700
+Date: Tue, 14 Jul 2020 13:57:00 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: remove an unnecessary NULL check
+Message-ID: <20200714105700.GC294318@mwanda>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200707201229.472834-20-daniel.vetter@ffwll.ch>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9681
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ spamscore=0
+ mlxlogscore=999 bulkscore=0 malwarescore=0 mlxscore=0 phishscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007140083
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9681
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ malwarescore=0 spamscore=0
+ clxscore=1011 priorityscore=1501 mlxlogscore=999 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 phishscore=0 adultscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2007140084
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,169 +87,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- linaro-mm-sig@lists.linaro.org, Daniel Vetter <daniel.vetter@intel.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: kernel-janitors@vger.kernel.org,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Anthony Koo <Anthony.Koo@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, Yongqiang Sun <yongqiang.sun@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Martin Leung <martin.leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 07, 2020 at 10:12:23PM +0200, Daniel Vetter wrote:
-> My dma-fence lockdep annotations caught an inversion because we
-> allocate memory where we really shouldn't:
-> =
+The "stream" pointer can't be NULL and it's dereferenced on the line
+before so the check doesn't make sense.
 
-> 	kmem_cache_alloc+0x2b/0x6d0
-> 	amdgpu_fence_emit+0x30/0x330 [amdgpu]
-> 	amdgpu_ib_schedule+0x306/0x550 [amdgpu]
-> 	amdgpu_job_run+0x10f/0x260 [amdgpu]
-> 	drm_sched_main+0x1b9/0x490 [gpu_sched]
-> 	kthread+0x12e/0x150
-> =
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Trouble right now is that lockdep only validates against GFP_FS, which
-> would be good enough for shrinkers. But for mmu_notifiers we actually
-> need !GFP_ATOMIC, since they can be called from any page laundering,
-> even if GFP_NOFS or GFP_NOIO are set.
-> =
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4f97329d9daf..7e58f242dab9 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2324,7 +2324,7 @@ static void commit_planes_for_stream(struct dc *dc,
+ 
+ 	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
+ 		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
+-			if (stream && should_use_dmub_lock(stream->link)) {
++			if (should_use_dmub_lock(stream->link)) {
+ 				union dmub_hw_lock_flags hw_locks = { 0 };
+ 				struct dmub_hw_lock_inst_flags inst_flags = { 0 };
+ 
+-- 
+2.27.0
 
-> I guess we should improve the lockdep annotations for
-> fs_reclaim_acquire/release.
-> =
-
-> Ofc real fix is to properly preallocate this fence and stuff it into
-> the amdgpu job structure. But GFP_ATOMIC gets the lockdep splat out of
-> the way.
-> =
-
-> v2: Two more allocations in scheduler paths.
-> =
-
-> Frist one:
-> =
-
-> 	__kmalloc+0x58/0x720
-> 	amdgpu_vmid_grab+0x100/0xca0 [amdgpu]
-> 	amdgpu_job_dependency+0xf9/0x120 [amdgpu]
-> 	drm_sched_entity_pop_job+0x3f/0x440 [gpu_sched]
-> 	drm_sched_main+0xf9/0x490 [gpu_sched]
-> =
-
-> Second one:
-> =
-
-> 	kmem_cache_alloc+0x2b/0x6d0
-> 	amdgpu_sync_fence+0x7e/0x110 [amdgpu]
-> 	amdgpu_vmid_grab+0x86b/0xca0 [amdgpu]
-> 	amdgpu_job_dependency+0xf9/0x120 [amdgpu]
-> 	drm_sched_entity_pop_job+0x3f/0x440 [gpu_sched]
-> 	drm_sched_main+0xf9/0x490 [gpu_sched]
-> =
-
-> Cc: linux-media@vger.kernel.org
-> Cc: linaro-mm-sig@lists.linaro.org
-> Cc: linux-rdma@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Christian K=F6nig <christian.koenig@amd.com>
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-
-Has anyone from amd side started looking into how to fix this properly?
-
-I looked a bit into fixing this with mempool, and the big guarantee we
-need is that
-- there's a hard upper limit on how many allocations we minimally need to
-  guarantee forward progress. And the entire vmid allocation and
-  amdgpu_sync_fence stuff kinda makes me question that's a valid
-  assumption.
-
-- mempool_free must be called without any locks in the way which are held
-  while we call mempool_alloc. Otherwise we again have a nice deadlock
-  with no forward progress. I tried auditing that, but got lost in amdgpu
-  and scheduler code. Some lockdep annotations for mempool.c might help,
-  but they're not going to catch everything. Plus it would be again manual
-  annotations because this is yet another cross-release issue. So not sure
-  that helps at all.
-
-iow, not sure what to do here. Ideas?
-
-Cheers, Daniel
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c   | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c  | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
-> =
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_fence.c
-> index 8d84975885cd..a089a827fdfe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -143,7 +143,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struc=
-t dma_fence **f,
->  	uint32_t seq;
->  	int r;
->  =
-
-> -	fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_KERNEL);
-> +	fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOMIC);
->  	if (fence =3D=3D NULL)
->  		return -ENOMEM;
->  =
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ids.c
-> index 267fa45ddb66..a333ca2d4ddd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -208,7 +208,7 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_vm *vm,
->  	if (ring->vmid_wait && !dma_fence_is_signaled(ring->vmid_wait))
->  		return amdgpu_sync_fence(sync, ring->vmid_wait);
->  =
-
-> -	fences =3D kmalloc_array(sizeof(void *), id_mgr->num_ids, GFP_KERNEL);
-> +	fences =3D kmalloc_array(sizeof(void *), id_mgr->num_ids, GFP_ATOMIC);
->  	if (!fences)
->  		return -ENOMEM;
->  =
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sync.c
-> index 8ea6c49529e7..af22b526cec9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> @@ -160,7 +160,7 @@ int amdgpu_sync_fence(struct amdgpu_sync *sync, struc=
-t dma_fence *f)
->  	if (amdgpu_sync_add_later(sync, f))
->  		return 0;
->  =
-
-> -	e =3D kmem_cache_alloc(amdgpu_sync_slab, GFP_KERNEL);
-> +	e =3D kmem_cache_alloc(amdgpu_sync_slab, GFP_ATOMIC);
->  	if (!e)
->  		return -ENOMEM;
->  =
-
-> -- =
-
-> 2.27.0
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
