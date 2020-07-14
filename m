@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D602C433ED
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78342C433F1
 	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8B22223C6
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:25:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 524C3223C6
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:25:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UAy10hhU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8B22223C6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XPSbxPIf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 524C3223C6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9446E6E867;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C31A96E871;
 	Tue, 14 Jul 2020 18:25:05 +0000 (UTC)
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4116E867
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:25:05 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id m8so7932504qvk.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:25:05 -0700 (PDT)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3B8B6E867
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:25:03 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id b185so16551446qkg.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:25:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=cNM8ASotWi/xtT8jkJHNLgsh/wqMq73HSQXzIgOyulI=;
- b=UAy10hhUICIOPVFqk4HmH3kH8an5+qzmgk+urqgU8rH1GLxOf1WuWwJcZr6qJKikzv
- 7O09L3LauCgE3GUzX3PJSPOD7MjD+oqbqK+RjIi4AZF0f1NB67m9ytyrraAlzfbrXhSC
- UsE/v0L/uQstmf1su4ZQDFxRtd7rTfGJlg0GAf80jFwUiz/mhKLhNP2FKTI1Py+rRFuM
- 3NJo+P1mpBIjFgQCO6Ln9qRbHCvh+qK24CQZfF1IdVyIlyIA5yKdAaHAnbHoEN0WYWHC
- tD/KuwCFeZcpV81hChRaxwjAqbUU8ZMdR3pFyYcresYHWBO4Fjae8AQgGLKe1DmhS6AI
- +46A==
+ bh=IFl3vOiFn5NKmwo+r0PCKGeFw7DQZO5BNmrJnNX9ELk=;
+ b=XPSbxPIfTVsTkxXmGe5Y/+dmzGwge4QGF33v9V7Zuo/oMQTb5Ir/FPKTrDqVEF8P76
+ +uHHrXXfiFceVsktJvgjuuX92vgMdYFr1GbeU4/qo+vgMu+/kMuCyF04yJaVVd3HBd0c
+ jl3dLuMlfeNtIkF5qPDn64ynUQEQoDkOi3HyaWM7pHwJlAuKR5bVIznz8ufExIVJwd4a
+ WQQ8/lS6+Cq8oy2+e6RYqwGgrhynKO6P+lESvXafTeWxy/8E0yXnaMMmb3ASKctouEh+
+ shCd4DtYI5PwYLgCvAxJQF9amJbLKdO/zRFDbnjBiDTYbuY8ijC+WR5CtNspeiQwGydW
+ SwSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=cNM8ASotWi/xtT8jkJHNLgsh/wqMq73HSQXzIgOyulI=;
- b=MZxNX+ePHNwLb/RHKirAuDTWKvBnC6AacXYThHLhjGOtVXURIShloBhY2REZGQPGkX
- uKFobK0k2kntiUxd+g8l5XRf67uLIPcTRoqfnEJ25qM0vbPojP+mPFve4sS1XYYnZjXI
- R6gs4Rb/pGiVqkuxiuTMooHX/Zmnum5nlimyCCVv1wJmKRv0wbG2UU8j+jxMjJBlhPB6
- LZLYp4GRobS8p5mMVhX3MeOYYCiBU9XlW3iFBThwtddhbG/JrE1ln7SDH9sm7XUL7bVi
- JVIXwBzPPmIXhqdcsiEifPu4SOpjNbyI1aEFzoSZB2ZKI6NRMZydX6NMvbBZ7IBNAOed
- x07A==
-X-Gm-Message-State: AOAM530EWlnemusITmU7HCDTE2JcXpTVwM2FjNfX5fQGD9B8j5oR8EhH
- bYQQTY4PlN/2d7ubfUUD6RCIyEb2
-X-Google-Smtp-Source: ABdhPJxYwfigvgxnDmKEBpNciIt4+e+mARFN7D4cEMGBtBZSg5rpuAjl+Xv/uP8mOrDaGQwv609ixQ==
-X-Received: by 2002:a0c:f548:: with SMTP id p8mr5920076qvm.149.1594751104079; 
- Tue, 14 Jul 2020 11:25:04 -0700 (PDT)
+ bh=IFl3vOiFn5NKmwo+r0PCKGeFw7DQZO5BNmrJnNX9ELk=;
+ b=h06SM46+dGmb9SwwPDeXy40lQHRegyPcJ28PF8cmGvX67dPO5JFxVsM+7neyWX/AL/
+ gzV95xmOrX6WdjMPAOq1RE/tUofjqdk9fJlDkGFU41PZfDd3qMKBqkl2sszbCJLxH7jT
+ RWq71BFK883PCpwRgsbgmq1o0P2NK4btiOVkwFNmYl77TNwJujiF8v9NCMMxcFbifFL6
+ IDamH0zuz9PK9pqdbQ+N/oXe0T9dVN+LcTCk1ss3re8hjJrdtmWXrJP4lNZLTjXxpI0G
+ IQJljT46Ps1Gzz9lm30pFkOJns8lE5YgQI1Lwb37XUNxlQGtS75OlD3kU/agU+Kx1IE1
+ leog==
+X-Gm-Message-State: AOAM530Fb/ZT5YsvyR0vBaKubj5yFMTzUVCkvPvePgltUBrhK55skrE2
+ dQIXiOCvJhWi5uKjhuz3p6RyqoEV
+X-Google-Smtp-Source: ABdhPJx5jv+AmMEW3Zb+UgqJCPsHfeZuddkawnrSV/vJiEFLBYQ+6EdLqQr2A8AD7kZfH7zQQn+1FA==
+X-Received: by 2002:a05:620a:1235:: with SMTP id
+ v21mr6079476qkj.454.1594751102779; 
+ Tue, 14 Jul 2020 11:25:02 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.25.02
+ by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.25.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 11:25:03 -0700 (PDT)
+ Tue, 14 Jul 2020 11:25:02 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 42/42] drm/amdgpu: enable ih CG for navy_flounder
-Date: Tue, 14 Jul 2020 14:23:53 -0400
-Message-Id: <20200714182353.2164930-43-alexander.deucher@amd.com>
+Subject: [PATCH 41/42] drm/amdgpu: enable hdp CG and LS for navy_flounder
+Date: Tue, 14 Jul 2020 14:23:52 -0400
+Message-Id: <20200714182353.2164930-42-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200714182353.2164930-1-alexander.deucher@amd.com>
 References: <20200714182353.2164930-1-alexander.deucher@amd.com>
@@ -89,26 +90,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jiansong Chen <Jiansong.Chen@amd.com>
 
-Enable ih CG by setting the corresponding flag.
+Enable hdp CG and LS by setting the corresponding flags.
 
 Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
 Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index dedc13b74b1a..3b26ddf6e7d7 100644
+index add0698df3fe..dedc13b74b1a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -767,7 +767,8 @@ static int nv_common_early_init(void *handle)
+@@ -765,7 +765,9 @@ static int nv_common_early_init(void *handle)
+ 			AMD_CG_SUPPORT_VCN_MGCG |
+ 			AMD_CG_SUPPORT_JPEG_MGCG |
  			AMD_CG_SUPPORT_MC_MGCG |
- 			AMD_CG_SUPPORT_MC_LS |
- 			AMD_CG_SUPPORT_HDP_MGCG |
--			AMD_CG_SUPPORT_HDP_LS;
-+			AMD_CG_SUPPORT_HDP_LS |
-+			AMD_CG_SUPPORT_IH_CG;
+-			AMD_CG_SUPPORT_MC_LS;
++			AMD_CG_SUPPORT_MC_LS |
++			AMD_CG_SUPPORT_HDP_MGCG |
++			AMD_CG_SUPPORT_HDP_LS;
  		adev->pg_flags = AMD_PG_SUPPORT_VCN |
  			AMD_PG_SUPPORT_VCN_DPG |
  			AMD_PG_SUPPORT_JPEG |
