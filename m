@@ -2,74 +2,76 @@ Return-Path: <SRS0=Dt/2=AZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4C4BC433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 14:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B903C433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 14:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5A2322515
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 14:31:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0BBF9222C8
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 14:37:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Ewf+GMeS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5A2322515
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="iuRVBH8+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BBF9222C8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8066B6E15B;
-	Tue, 14 Jul 2020 14:31:29 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18A386E15B
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 14:31:29 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id j4so22041932wrp.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 07:31:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99EA46E974;
+	Tue, 14 Jul 2020 14:37:05 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1BDA6E974
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 14:37:04 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id s10so22028448wrw.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 07:37:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=Ed/reeYJGTUlb4ySP35k6xiv1WgC2riT/Zo21y23//U=;
- b=Ewf+GMeScmyBFvFOvufdoDZRrV4/6flsTp734Xp/9GetkuBjRKOJnJ419fHD16cpdM
- AhYX/iXwFsLReavk7xNIjfwi7uzIpX1dGBAozfRZNkSYjhNoMz+bLN4RXXO/WCb5gmMZ
- 4rSM1Bm1WWSq9mBfYuICycp2sEeRqptusJlf4=
+ bh=wF/VaT8DAfIG5fED7pvNX/9WGcTfVpcYVq77cQoaxoo=;
+ b=iuRVBH8+TRNyPgj+Z9z3lwVU0fIVd9H33GGjVBafz4Xx1FC+2lXGIpr8MR0ooJzeB/
+ gWxZLKR8niHScPvZ8r74XEolr3j1PMWXkNBIbQ8nsrdCNWgyat52PgXSJFrNR+jW8g7p
+ VnU/KJVj8JuNXbwcUeVvyzNzjjHy8h+x88eIE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=Ed/reeYJGTUlb4ySP35k6xiv1WgC2riT/Zo21y23//U=;
- b=k4fonBH9TuSBKnU0BbJHyZi7gBi4ZmgzSkAGJvuaZI/FlHUVUqT8bKHBzZ7cNO2djw
- d3RcB456QiHcBHcL1a1TdvubhfuuLn3mzOE78I3sO0ceN5v2mafOZmEE2PvKXig+VFl6
- n10ep5OE3OncxXJ7V2Wu6PzDyH9mkpts62IQxyB5MoimGTszx8d8rgGaawEI5HtFqO/s
- FNuv11M1D1u9FY8gzGkv9nR5a/oEs22leg6PANFzMSKneZGjnv9F14NrTOy455Vpgs++
- R3MDrjosyaohJ49BScx9X2QyLJ26EFzZbZtRyLHqFz+nqyPNlQZPl3IllIrDfgaags6P
- flDg==
-X-Gm-Message-State: AOAM5324PaYCIBoHW+QZcWL/BE3C5fpbeU/wmJUqWMoEUaApXcL1CHMi
- rtaPtKI3Iysq+YaDMoeUqhCh8Q==
-X-Google-Smtp-Source: ABdhPJydohBAFr2y3Zo3uJbf1/CV8/Lg/F5ovzneHF4+jrt5NQvpk+Juk4QyRp3CnvJvu9Ou0xUmHQ==
-X-Received: by 2002:a05:6000:11cc:: with SMTP id
- i12mr5936896wrx.224.1594737087739; 
- Tue, 14 Jul 2020 07:31:27 -0700 (PDT)
+ bh=wF/VaT8DAfIG5fED7pvNX/9WGcTfVpcYVq77cQoaxoo=;
+ b=ov9i7kLiNsqgbImIXLwUzRIYj9C0V8wWdlPEpKHy86sup9a5muqlwSgrPCcXYDVwTO
+ H+V62V+/BzaYoMEjsQ8OQzUQ/v7+FtpqJqdYYOWKz27DLc7mZQpVGnYDRaQADZoqcQpx
+ Nl5LMCApIxdEyfcZcbpu5gazTRLpZxK/TD9TZSBiXu+XQbEL6XIJOrMS0i6yaKcUCf9a
+ pjFqH2rBElpAww7kiFPXN7A9XO+6l1hwdNa4TPfKZyXkNszmcOnrXrZ0Du8c5xrEwqdp
+ jDAAWFezst7USTXWWGMIzWOtYI9tkoHMkQYt4RguUfBX0H9zY9Lqx5LiS2hNMneGrrd5
+ 5nbw==
+X-Gm-Message-State: AOAM5311F9k6C/mP6iwyz5NoQjyngTJ0cAtDeYthB3eZVcazooIqKnvy
+ JpatfvhbECh8UgtxZN4eP6/BqlpV/mA=
+X-Google-Smtp-Source: ABdhPJwb8hfiCFzW/PO/PTBg270s2F2qovUkx1VslLeJazhOWdYpnCMOrVW0V1Ctjb2ViVgLds+1+w==
+X-Received: by 2002:a5d:4e48:: with SMTP id r8mr5898211wrt.309.1594737423379; 
+ Tue, 14 Jul 2020 07:37:03 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id d132sm4666892wmd.35.2020.07.14.07.31.26
+ by smtp.gmail.com with ESMTPSA id z8sm4882419wmg.39.2020.07.14.07.37.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 07:31:26 -0700 (PDT)
-Date: Tue, 14 Jul 2020 16:31:24 +0200
+ Tue, 14 Jul 2020 07:37:02 -0700 (PDT)
+Date: Tue, 14 Jul 2020 16:37:00 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 19/25] drm/amdgpu: s/GFP_KERNEL/GFP_ATOMIC in scheduler
- code
-Message-ID: <20200714143124.GG3278063@phenom.ffwll.local>
-References: <20200707201229.472834-1-daniel.vetter@ffwll.ch>
- <20200707201229.472834-20-daniel.vetter@ffwll.ch>
- <20200714104910.GC3278063@phenom.ffwll.local>
- <d3e85f62-e427-7f1c-0ff4-842ffe57172e@amd.com>
+Subject: Re: [PATCH 1/1] drm/amdkfd: Add IPC API
+Message-ID: <20200714143700.GH3278063@phenom.ffwll.local>
+References: <20200714031435.13362-1-Felix.Kuehling@amd.com>
+ <20200714031435.13362-2-Felix.Kuehling@amd.com>
+ <CAPM=9tzjQGg2OMrptD6qJv0yEvY+S7mS6oXNxe21UoWk+6-Ung@mail.gmail.com>
+ <4245d340-f4f6-eeb5-40a6-3afd7754852c@amd.com>
+ <CAPM=9tz3UC8VuP=n_OAF5LnAmXSVR32LztqeEWtssnodMj70dQ@mail.gmail.com>
+ <20200714085850.GX3278063@phenom.ffwll.local>
+ <97e221e7-ea50-a02d-0791-0555a256e374@gmail.com>
+ <20200714095338.GZ3278063@phenom.ffwll.local>
+ <750c7d7a-1cd3-be20-df35-bc6265b4740f@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d3e85f62-e427-7f1c-0ff4-842ffe57172e@amd.com>
+In-Reply-To: <750c7d7a-1cd3-be20-df35-bc6265b4740f@amd.com>
 X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,114 +84,287 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Dave Airlie <airlied@gmail.com>
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2020 at 01:40:11PM +0200, Christian K=F6nig wrote:
-> Am 14.07.20 um 12:49 schrieb Daniel Vetter:
-> > On Tue, Jul 07, 2020 at 10:12:23PM +0200, Daniel Vetter wrote:
-> > > My dma-fence lockdep annotations caught an inversion because we
-> > > allocate memory where we really shouldn't:
-> > > =
+On Tue, Jul 14, 2020 at 01:36:41PM +0200, Christian K=F6nig wrote:
+> Am 14.07.20 um 11:53 schrieb Daniel Vetter:
+> > On Tue, Jul 14, 2020 at 11:28:12AM +0200, Christian K=F6nig wrote:
+> > > Am 14.07.20 um 10:58 schrieb Daniel Vetter:
+> > > > On Tue, Jul 14, 2020 at 02:26:36PM +1000, Dave Airlie wrote:
+> > > > > On Tue, 14 Jul 2020 at 14:09, Felix Kuehling <felix.kuehling@amd.=
+com> wrote:
+> > > > > > Am 2020-07-13 um 11:28 p.m. schrieb Dave Airlie:
+> > > > > > > On Tue, 14 Jul 2020 at 13:14, Felix Kuehling <Felix.Kuehling@=
+amd.com> wrote:
+> > > > > > > > This allows exporting and importing buffers. The API genera=
+tes handles
+> > > > > > > > that can be used with the HIP IPC API, i.e. big numbers rat=
+her than
+> > > > > > > > file descriptors.
+> > > > > > > First up why? I get the how.
+> > > > > > The "why" is compatibility with HIP code ported from CUDA. The
+> > > > > > equivalent CUDA IPC API works with handles that can be communic=
+ated
+> > > > > > through e.g. a pipe or shared memory. You can't do that with fi=
+le
+> > > > > > descriptors.
+> > > > > Okay that sort of useful information should definitely be in the =
+patch
+> > > > > description.
+> > > > > =
 
-> > > 	kmem_cache_alloc+0x2b/0x6d0
-> > > 	amdgpu_fence_emit+0x30/0x330 [amdgpu]
-> > > 	amdgpu_ib_schedule+0x306/0x550 [amdgpu]
-> > > 	amdgpu_job_run+0x10f/0x260 [amdgpu]
-> > > 	drm_sched_main+0x1b9/0x490 [gpu_sched]
-> > > 	kthread+0x12e/0x150
-> > > =
+> > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Fdocs.nvidia.com%2Fcuda%2Fcuda-runtime-api%2Fgroup__CUDART__DEVICE.html=
+%23group__CUDART__DEVICE_1g8a37f7dfafaca652391d0758b3667539&amp;data=3D02%7=
+C01%7Cchristian.koenig%40amd.com%7C2e0b8a6d2aac49e0f6c908d827dbcb46%7C3dd89=
+61fe4884e608e11a82d994e183d%7C0%7C0%7C637303172250574336&amp;sdata=3DmDWVED=
+sP%2BKTvvhqYp%2BSstczPtEV9l7n%2B%2BuNj30de0sQ%3D&amp;reserved=3D0
+> > > > > > =
 
-> > > Trouble right now is that lockdep only validates against GFP_FS, which
-> > > would be good enough for shrinkers. But for mmu_notifiers we actually
-> > > need !GFP_ATOMIC, since they can be called from any page laundering,
-> > > even if GFP_NOFS or GFP_NOIO are set.
-> > > =
+> > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Fdocs.nvidia.com%2Fcuda%2Fcuda-runtime-api%2Fgroup__CUDART__DEVICE.html=
+%23group__CUDART__DEVICE_1g01050a29fefde385b1042081ada4cde9&amp;data=3D02%7=
+C01%7Cchristian.koenig%40amd.com%7C2e0b8a6d2aac49e0f6c908d827dbcb46%7C3dd89=
+61fe4884e608e11a82d994e183d%7C0%7C0%7C637303172250574336&amp;sdata=3Dyb80LA=
+1csqkctuF1rAXBpYgJT%2BkS0Nmfilnd8%2BjQSW4%3D&amp;reserved=3D0
+> > > > > > =
 
-> > > I guess we should improve the lockdep annotations for
-> > > fs_reclaim_acquire/release.
-> > > =
+> > > > > > > > + * @share_handle is a 128 bit random number generated with
+> > > > > > > > + * @get_random_bytes. This number should be very hard to g=
+uess.
+> > > > > > > > + * Knowledge of the @share_handle implies authorization to=
+ access
+> > > > > > > > + * the shared memory. User mode should treat it like a sec=
+ret key.
+> > > > > > > > + * It can be used to import this BO in a different process=
+ context
+> > > > > > > > + * for IPC buffer sharing. The handle will be valid as lon=
+g as the
+> > > > > > > > + * underlying BO exists. If the same BO is exported multip=
+le times,
+> > > > > > > Do we have any examples of any APIs in the kernel that operat=
+e like
+> > > > > > > this? That don't at least layer some sort of file permissions=
+  and
+> > > > > > > access control on top?
+> > > > > > SystemV shared memory APIs (shmget, shmat) work similarly. Ther=
+e are
+> > > > > > some permissions that can be specified by the exporter in shmge=
+t.
+> > > > > > However, the handles are just numbers and much easier to guess =
+(they are
+> > > > > > 32-bit integers). The most restrictive permissions would allow =
+only the
+> > > > > > exporting UID to attach to the shared memory segment.
+> > > > > > =
 
-> > > Ofc real fix is to properly preallocate this fence and stuff it into
-> > > the amdgpu job structure. But GFP_ATOMIC gets the lockdep splat out of
-> > > the way.
-> > > =
+> > > > > > I think DRM flink works similarly as well, with a global name I=
+DR used
+> > > > > > for looking up GEM objects using global object names.
+> > > > > flink is why I asked, because flink was a mistake and not one I'd=
+ care
+> > > > > to make again.
+> > > > > shm is horrible also, but at least has some permissions on what u=
+sers
+> > > > > can attack it.
+> > > > Yeah this smells way too much like flink. I had the same reaction, =
+and
+> > > > kinda sad that we have to do this because nvidia defines how this w=
+orks
+> > > > with 0 input from anyone else. Oh well, the world sucks.
+> > > > =
 
-> > > v2: Two more allocations in scheduler paths.
-> > > =
+> > > > > > > The reason fd's are good is that combined with unix sockets, =
+you can't
+> > > > > > > sniff it, you can't ptrace a process and find it, you can't w=
+rite it
+> > > > > > > out in a coredump and have someone access it later.
+> > > > > > Arguably ptrace and core dumps give you access to all the memory
+> > > > > > contents already. So you don't need the shared memory handle to=
+ access
+> > > > > > memory in that case.
+> > > > > core dumps might not dump this memory though, but yeah ptrace wou=
+ld
+> > > > > likely already mean you have access.
+> > > > > =
 
-> > > Frist one:
-> > > =
+> > > > > > > Maybe someone who knows security can ack merging this sort of=
+ uAPI
+> > > > > > > design, I'm not confident in what it's doing is in any ways a=
+ good
+> > > > > > > idea. I might have to ask some people to take a closer look.
+> > > > > > Please do. We have tried to make this API as secure as possible=
+ within
+> > > > > > the constraints of the user mode API we needed to implement.
+> > > > > I'll see if I hear back, but also if danvet has any input like I
+> > > > > suppose it's UUID based buffer access, so maybe 128-bit is enough=
+ and
+> > > > > you have enough entropy not to create anything insanely predictab=
+le.
+> > > > So one idea that crossed my mind is if we don't want to do this as a
+> > > > generic dma-buf handle converter.
+> > > > =
 
-> > > 	__kmalloc+0x58/0x720
-> > > 	amdgpu_vmid_grab+0x100/0xca0 [amdgpu]
-> > > 	amdgpu_job_dependency+0xf9/0x120 [amdgpu]
-> > > 	drm_sched_entity_pop_job+0x3f/0x440 [gpu_sched]
-> > > 	drm_sched_main+0xf9/0x490 [gpu_sched]
-> > > =
+> > > > Something like /dev/dri/cuda_is_nasty (maybe slightly nicer name) w=
+hich
+> > > > provides a generic dma-buf <-> cuda uuid converter. With separate a=
+ccess
+> > > > restrictions, so admins can decide whether they want to allow this
+> > > > silliness, or not. Anyone else who wants to reimplement cuda will n=
+eed
+> > > > this too, so that's another reason for splitting this out.
+> > > > =
 
-> > > Second one:
-> > > =
+> > > > Wrt security: I think assuming that there's none and the lookup has=
+ a
+> > > > side-channel you can use to efficiently scan the entire range is pr=
+obably
+> > > > the safe approach here. This is way out of my league, but I think p=
+eople
+> > > > who know how to do this won't have a much harder time scanning this=
+ than
+> > > > the flink space.
+> > > > =
 
-> > > 	kmem_cache_alloc+0x2b/0x6d0
-> > > 	amdgpu_sync_fence+0x7e/0x110 [amdgpu]
-> > > 	amdgpu_vmid_grab+0x86b/0xca0 [amdgpu]
-> > > 	amdgpu_job_dependency+0xf9/0x120 [amdgpu]
-> > > 	drm_sched_entity_pop_job+0x3f/0x440 [gpu_sched]
-> > > 	drm_sched_main+0xf9/0x490 [gpu_sched]
-> > > =
+> > > > Also, if we have one common uuid->dma-buf converter, we might actua=
+lly
+> > > > have a chance to proof the "it's not secure" assumption wrong. Also=
+, we
+> > > > might be able to tie this into cgroups or namespaces or similar tha=
+t way.
+> > > > =
 
-> > > Cc: linux-media@vger.kernel.org
-> > > Cc: linaro-mm-sig@lists.linaro.org
-> > > Cc: linux-rdma@vger.kernel.org
-> > > Cc: amd-gfx@lists.freedesktop.org
-> > > Cc: intel-gfx@lists.freedesktop.org
-> > > Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > Cc: Christian K=F6nig <christian.koenig@amd.com>
-> > > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > Has anyone from amd side started looking into how to fix this properly?
+> > > > Just some thoughts to give my initial "eek, why this" reaction a bi=
+t more
+> > > > substance :-) No idea whether this would work or make more sense.
+> > > Yeah, my initial reaction was the same. On the pro side is that we us=
+e more
+> > > than the 32bits flink did as identifier.
+> > flink started at 0, so in practice it was trivial to enumerate. Not even
+> > randomized.
+> > =
+
+> > But the thing is if your uuid lookup isn't guaranteed to be const and
+> > side-channel free, then you can use that to guess where ids are. Doesn't
+> > need to be much until you can brute-force the remaining bits. Engineeri=
+ng
+> > an implementation (not just the theory) that relies on the assumption t=
+hat
+> > full brute-force is the fastes option is very hard engineering. And I
+> > think here in the gpu world we just don't have any of that expertise.
 > =
 
-> Yeah I checked both and neither are any real problem.
-
-I'm confused ... do you mean "no real problem fixing them" or "not
-actually a real problem"?
-
-> > I looked a bit into fixing this with mempool, and the big guarantee we
-> > need is that
-> > - there's a hard upper limit on how many allocations we minimally need =
-to
-> >    guarantee forward progress. And the entire vmid allocation and
-> >    amdgpu_sync_fence stuff kinda makes me question that's a valid
-> >    assumption.
+> Well being able to look up up ids is not necessary a problem. See that ro=
+ot
+> can see all buffers for debugging purposes is most likely not even a bad
+> idea.
 > =
 
-> We do have hard upper limits for those.
+> When we manage it as an fs we can just add/remove the executable bit from
+> the directory to control enumeration.
 > =
 
-> The VMID allocation could as well just return the fence instead of putting
-> it into the sync object IIRC. So that just needs some cleanup and can avo=
-id
-> the allocation entirely.
+> And we can still have normal r/w permissions on the individual buffers as
+> well.
 
-Yeah embedding should be simplest solution of all.
+Yeah id look-up isn't a problem, it's that the uuid comes with nothing
+else like a fd or inode attached which would allows people to add some
+security checks and namespacing to it. Which means that the entire
+security boils down to "you can't guess the uuid", which means the
+hashtable lookup must be sidechannel proof. Which we're not going to be
+able to pull off I think :-)
 
-> The hardware fence is limited by the number of submissions we can have
-> concurrently on the ring buffers, so also not a problem at all.
+> > > What we could maybe do to improve this is to link DMA-buf file descri=
+ptors
+> > > into the file system from userspace. And then we could just do someth=
+ing
+> > > like:
+> > > =
 
-Ok that sounds good. Wrt releasing the memory again, is that also done
-without any of the allocation-side locks held? I've seen some vmid manager
-somewhere ...
+> > > open("/tmp/dma-buf-0x0123-4567-89AB-CDEF-0123-4567-89AB-CDEF", "rw");
+> > > =
+
+> > > But to be honest I don't really know the fs code that well enough to =
+judge
+> > > if this is possible or not.
+> > > =
+
+> > > =
+
+> > > Or we let DMA-bufs appear under some directory of /sys by their name =
+so that
+> > > applications can open and use them.
+> > Yeah dmabuffs might be another option, but not sure how that would work,
+> > since we want a creat() that takes in a dma-buf fd and then freezes tho=
+se
+> > two together forever. Maybe something like devpts, but I think that's a=
+lso
+> > somewhat considered a design mistake (because namespace or something el=
+se,
+> > I dunno). Since if we link all dma-buf by default into the fs, we again
+> > have the flink "free for everyone" security issues.
+> > =
+
+> > Hm I guess one option could be such a dmabufs, but still with an explic=
+it
+> > export step. And the export amounts to a creat() in dmabufs, using the
+> > uid/gid and entire security context of the process that has done the
+> > dmabuf2uuid export.
+> > =
+
+> > That would also give us namespacing for free, using fs namespaces. All
+> > we'd need is multiple instances of this dmabuffs. Plus I guess we'd nee=
+d a
+> > canonical mount point for this thing, and then a special ioctl on the r=
+oot
+> > node for creating a file from a dma-buf fd.
+> > =
+
+> > Feels mildly overengineered, but I think this would at least make the c=
+uda
+> > uuid stuff fit reasonably well into the overall linux architecture we
+> > have. Only bikeshed left would be to figure out where to mount this fs.
+> > Maybe /dev/dma-buf-uuids or something like that as the canonical thing.
+> > /sys feels misplaced, and we alread have /dev/pts for similar stuff.
+> =
+
+> Yeah a dmabuffs sounds overengineered to me as well.
+> =
+
+> It's a pity that we can't just open anonymous inodes under
+> /proc/$pid/fd/$fd.
+> =
+
+> This way we would just need to encode the pid and fd number in the id
+> transmitted to the other process and could solve it this way.
+> =
+
+> That an application changes the permissions of its own file descriptors
+> because it needs to implement some questionable API design is not a probl=
+em
+> of the kernel.
+
+Hm could we fix this by making the inode non-anon? Maybe also quite a pile
+of overkill ...
+
+Another classic issue is lifetime of these names, I guess these are
+supposed to be weak references, i.e. the uuid disappears with the last
+buffer reference (like flink) and doesn't hold a reference of its own
+(like dma-buf fd). Implementing that in a dmabuffs would be quite a pile
+of fun.
+
+So maybe it's a lot more nasty in the implementation, but dmabuffs feels a
+pile cleaner for all this. Also gives us a clear thing to throw at the
+next cuda reimplementation.
 -Daniel
 
 > =
@@ -200,79 +375,9 @@ somewhere ...
 
 > > =
 
-> > - mempool_free must be called without any locks in the way which are he=
-ld
-> >    while we call mempool_alloc. Otherwise we again have a nice deadlock
-> >    with no forward progress. I tried auditing that, but got lost in amd=
-gpu
-> >    and scheduler code. Some lockdep annotations for mempool.c might hel=
-p,
-> >    but they're not going to catch everything. Plus it would be again ma=
-nual
-> >    annotations because this is yet another cross-release issue. So not =
-sure
-> >    that helps at all.
-> > =
-
-> > iow, not sure what to do here. Ideas?
-> > =
-
-> > Cheers, Daniel
-> > =
-
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 2 +-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c   | 2 +-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c  | 2 +-
-> > >   3 files changed, 3 insertions(+), 3 deletions(-)
-> > > =
-
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_fence.c
-> > > index 8d84975885cd..a089a827fdfe 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > @@ -143,7 +143,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, s=
-truct dma_fence **f,
-> > >   	uint32_t seq;
-> > >   	int r;
-> > > -	fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_KERNEL);
-> > > +	fence =3D kmem_cache_alloc(amdgpu_fence_slab, GFP_ATOMIC);
-> > >   	if (fence =3D=3D NULL)
-> > >   		return -ENOMEM;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ids.c
-> > > index 267fa45ddb66..a333ca2d4ddd 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> > > @@ -208,7 +208,7 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_vm=
- *vm,
-> > >   	if (ring->vmid_wait && !dma_fence_is_signaled(ring->vmid_wait))
-> > >   		return amdgpu_sync_fence(sync, ring->vmid_wait);
-> > > -	fences =3D kmalloc_array(sizeof(void *), id_mgr->num_ids, GFP_KERNE=
-L);
-> > > +	fences =3D kmalloc_array(sizeof(void *), id_mgr->num_ids, GFP_ATOMI=
-C);
-> > >   	if (!fences)
-> > >   		return -ENOMEM;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_sync.c
-> > > index 8ea6c49529e7..af22b526cec9 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> > > @@ -160,7 +160,7 @@ int amdgpu_sync_fence(struct amdgpu_sync *sync, s=
-truct dma_fence *f)
-> > >   	if (amdgpu_sync_add_later(sync, f))
-> > >   		return 0;
-> > > -	e =3D kmem_cache_alloc(amdgpu_sync_slab, GFP_KERNEL);
-> > > +	e =3D kmem_cache_alloc(amdgpu_sync_slab, GFP_ATOMIC);
-> > >   	if (!e)
-> > >   		return -ENOMEM;
-> > > -- =
-
-> > > 2.27.0
-> > > =
-
+> > Wrt typing up an entire fs, I thought with all the libfs work that
+> > shouldn't be too hard to pull off.
+> > -Daniel
 > =
 
 
