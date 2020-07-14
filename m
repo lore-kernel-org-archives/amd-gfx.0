@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FC40C433E8
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0F94C433E7
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A2DF223C6
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AAB89223C6
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 18:24:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XHHkuCxr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A2DF223C6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f5iwo+zH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAB89223C6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E78356E861;
-	Tue, 14 Jul 2020 18:24:55 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C96F56E859
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:54 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id c139so16496811qkg.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68A9D6E862;
+	Tue, 14 Jul 2020 18:24:57 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03A736E862
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 18:24:56 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id 80so16517011qko.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 11:24:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=q5qox4sCR0t/00Xvit+CjGki2zMtBnP7RjDv7QDzNls=;
- b=XHHkuCxriWxNq67NE4UysGGwXczHCDXg8n/khuf5cKchrp5FGH1A3ScwkLhQJnoxb1
- 129aWOWjMSvmYEY5cZGEQhUFf0cAGiCN8CP1PCjDzgI11NpgcRXPGe3cwamo2r3JGso7
- EbST4P5x4awf8X0lTlnJ7XrB4TvxG2+/x6Kl1SKxqgbnAwQZ/LXNnEqfZzu2OpfKWjl+
- 3Zn2jDK1oLXpj6pqwmXwJvoa7ALwDoKU3rXfApxreEWaLQaSfYY2sL3herB+ZjouYS2q
- FzhOun0W+0Vuo5y/Kaw9yj0fzOyeHeqxOwr0Uhaul0Y2EaDBz4dv71xCoEslAy9wYHuC
- UCog==
+ bh=fnBdLHPuRXHFStiHjvk2Ku9uecP5ZkuITWCOVC7SkcQ=;
+ b=f5iwo+zHNEX94Vc/DGCrCwTVuzE/ZD6s+dDva/2ZSlKg3fv+N5yHgDb2Yl1ZWe9ygh
+ VR7+tdCOfuBzeffVXlfKOHzCocLKXxtyd/hnZJ4sG9/J/Z2vPhSn4/Gwy2lolNpckOQ7
+ ylzyXMU/FpQ51zIsoDGWMOZzadO8IjUssscrFJ9q1qm0r3GQm4TVawIHJoUMPhBzH0PF
+ Ok40anI6EnspU1qdondjURXDSQSrpJdB4h7cAQqs8BHOopJBoJ7SOKryRLPimwL9WuZn
+ PAgblZYh27CPYfPH9A2qIwKEuRFWvKprlpVfRfvufvjCN+NWOFZKDjrjeCwO+xtMb0Md
+ vV2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=q5qox4sCR0t/00Xvit+CjGki2zMtBnP7RjDv7QDzNls=;
- b=QFaJahJOso2F4o0L1+/Mh51rkPD9dSUt4nlWb6Ukg73ntaU4eaj8BfG9cO0ghvYKOX
- YyC4ISzOS+mSDJG0gvCAhTM1947eVeiSsm37x3OBmyv3pNW8C8NSBPN4KSuHnL86OihM
- IFalmtYxTM4GIWeXAs6EXf6TJhirj57mPl72VCgQqncAWZ039MiewXnuh0Z72uizdTxG
- NPPQdK+moFHdzjMQMH3ue8BkseyON7rGMobbZ3zW3z/+mR/hnLeq/jNgUZsw6KWjm0en
- q3PaATJtqEbGkXQmST9q/QB1fK+4yoe1HtYeaBCYgdeZUj1LuIszVu/INmjch7A7+qbb
- GDdA==
-X-Gm-Message-State: AOAM533thniP97l+kAHMN4WojQms87CXal+4NL4MoALaDIXSh9ivNb6P
- 2KQ/poyjhII33+HQWH3ZCV2bmPKe
-X-Google-Smtp-Source: ABdhPJxPfJ45qC4yjAL1QQHnuzRRlhRRHp/M/q8zARYoSopDMPJCV/Eau+ao/BtmQGNPGWr6V3t8VQ==
-X-Received: by 2002:a37:5a45:: with SMTP id o66mr5487987qkb.137.1594751093728; 
- Tue, 14 Jul 2020 11:24:53 -0700 (PDT)
+ bh=fnBdLHPuRXHFStiHjvk2Ku9uecP5ZkuITWCOVC7SkcQ=;
+ b=cBT2FvxBf16aJLmCVvd00vSPZ2x4KS6M2T3xZSUNh6cOwZv5byQFrozxAVne1BojgZ
+ vSP+guZtVVcsHTYtUFHRwoP4y07RERSzcjebXGH67aF2FlXwqInaHED0O9CpGtfoZW9e
+ YixYX2f5An9DxyFAbn6+GNKAz2OE36MtDOH5jc68VNw4MKpL9nvtIVGb/FlATySf5v8A
+ NTw3qI0R5uOZKZDlfsMwjyQY0Mo8W0i3UQho/6kWdAF7p2CnTpf9KA+7YKNbZog9/FV1
+ UqpstNFgehdWPLCyneU2UfQbzKqypiRw1I8O3Vl/8ZXTzASgZ4eF56FAF8ANQLRyR77M
+ SqGA==
+X-Gm-Message-State: AOAM531d7b4DSCjKN7y3tswXTYXeXqGOXO3SjGPIM/2nCfL8g3QnSRh9
+ 1MjUx+2ITwQoA7XREj32Jnmp5fZO
+X-Google-Smtp-Source: ABdhPJwwhqWuW0zrh5xIZQq0058VUz6OAQFAMIN4UMUtDkz7dta5ZWrwUwNWWkeF+S+xCfptIrxYjg==
+X-Received: by 2002:a37:45cb:: with SMTP id s194mr5984540qka.74.1594751094977; 
+ Tue, 14 Jul 2020 11:24:54 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.52
+ by smtp.gmail.com with ESMTPSA id d53sm26046456qtc.47.2020.07.14.11.24.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 11:24:53 -0700 (PDT)
+ Tue, 14 Jul 2020 11:24:54 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 34/42] drm/amdgpu: enable JPEG3.0 PG and CG for navy_flounder
-Date: Tue, 14 Jul 2020 14:23:45 -0400
-Message-Id: <20200714182353.2164930-35-alexander.deucher@amd.com>
+Subject: [PATCH 35/42] drm/amdgpu: enable GFX clock gating for navy_flounder
+Date: Tue, 14 Jul 2020 14:23:46 -0400
+Message-Id: <20200714182353.2164930-36-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200714182353.2164930-1-alexander.deucher@amd.com>
 References: <20200714182353.2164930-1-alexander.deucher@amd.com>
@@ -80,42 +80,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, Leo Liu <leo.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Jiansong Chen <Jiansong.Chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Boyuan Zhang <boyuan.zhang@amd.com>
+From: Jiansong Chen <Jiansong.Chen@amd.com>
 
-Enable JPEG3.0 PG and CG for navy_flounder by setting up the flags to the ASIC
+Enable GFX MGCG, CGCG and 3DCG for navy_flounder.
 
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 2af335b2edec..34f4e636b30d 100644
+index 34f4e636b30d..0fa1e561c2cc 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -755,9 +755,11 @@ static int nv_common_early_init(void *handle)
+@@ -755,7 +755,10 @@ static int nv_common_early_init(void *handle)
  		adev->external_rev_id = adev->rev_id + 0x28;
  		break;
  	case CHIP_NAVY_FLOUNDER:
--		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG;
-+		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG |
-+			AMD_CG_SUPPORT_JPEG_MGCG;
+-		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG |
++		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
++			AMD_CG_SUPPORT_GFX_CGCG |
++			AMD_CG_SUPPORT_GFX_3D_CGCG |
++			AMD_CG_SUPPORT_VCN_MGCG |
+ 			AMD_CG_SUPPORT_JPEG_MGCG;
  		adev->pg_flags = AMD_PG_SUPPORT_VCN |
--			AMD_PG_SUPPORT_VCN_DPG;
-+			AMD_PG_SUPPORT_VCN_DPG |
-+			AMD_PG_SUPPORT_JPEG;
- 		adev->external_rev_id = adev->rev_id + 0x32;
- 		break;
- 
+ 			AMD_PG_SUPPORT_VCN_DPG |
 -- 
 2.25.4
 
