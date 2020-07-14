@@ -2,76 +2,75 @@ Return-Path: <SRS0=Dt/2=AZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DB76C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:30:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73117C433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E66D2075F
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:30:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 48A6F21D7D
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 09:53:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+dX6HwG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E66D2075F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="AwNPx9VT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48A6F21D7D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B886E7EF;
-	Tue, 14 Jul 2020 09:30:46 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3C06E7EF
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 09:30:45 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id o11so20478477wrv.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 02:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=52RGIXSqgLUPC1F/0QuEfUlXa+exUDcyVkr+Fzi//C4=;
- b=g+dX6HwG7tjxm7EY5JIxUxlNpbC4mYynvkPR1Fe2ur66XDnUZUsnnlGG0AdHVT2X4E
- bM0N1esyVWkFk9d9vu8ZenOOAFeKrNuhs0Rp1sEtdpAsnj5odWIK24yem9bKi5/JmUV0
- IiYNs/OwSoihBkT2lhBjDqwo1JWtBlyG2VTwNMgeESzMaeNz7BVBj8Z9cJpDe0HJ7ve3
- DlNVHCUzUeBWW6NLd1UeZFofPLE15kiA9m4+D6huz2osSlOeqtdwXz16G4e80nuiDR/S
- wTSfQ8VNdcFoE97aVxFh+oDcQCoJi6ONh63BE5pFBtgB6feHpSeZarnuEUFmjA9bcTir
- WG1Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40186E7F1;
+	Tue, 14 Jul 2020 09:53:44 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF6D86E0A8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 09:53:42 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id b6so20521195wrs.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 02:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=zaSYM/qw1ksFU87P3s68GN96btH40hmproprU4x0zKA=;
+ b=AwNPx9VT3/TyBdgOcz9fyZjdmot3L7Vu2cvFSe6BT0hFLQI84TP1cxnDXYjpaYuFFQ
+ 0eIolLrMZL3GBPA85sUJFxBTve1a1pmrKMR5ynXirQ1xW2DxdQEdwlCmI9vXx985nrkN
+ ThFNSjAHFDqhZbYv18iMbioxACynwLbsF2AU8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=52RGIXSqgLUPC1F/0QuEfUlXa+exUDcyVkr+Fzi//C4=;
- b=FBri7I5Do9zBwPXt/9jtM40n5KJhEM/ozs/HmAyR/wDruuxOsg5i7ro+G4T4zq0Fef
- fe6Z5AZ9KstY9amGpvWhPTkJfGX4MyQ1tTX+5XshWvWcLb1vp4EPcwDQkA5cH8eHHfJ1
- Wx+pAE5+/j7eK/LsVVOubhTl4WmRYm8mujQAGa85uyPAnHSQxEHOSzlu+Jpp7KX4U933
- K/BxaGenTHPyNCADyNb+loOYcoZzobpD1Yy8VWYu/6BJI/sxQ5+Hf1jD3yi73mDjB0Ug
- Y0fwEbacFD66YfTW0Pw9OSlpVaFEmV5U91JdNagmT91St0DVKkfxBZOSPUdGMzHZw7Ci
- lHCA==
-X-Gm-Message-State: AOAM530ObgylkFzUOWM+03w1JQHodlHN2+3Mjnia2mYiJDnpOtJhECfr
- Lg8wlI3ErVr5Ik6ykr8hdhY=
-X-Google-Smtp-Source: ABdhPJyX3qb153Vuc5SXBpGz9uOveLph4wJ/VP9kvqRdkXCBPuuqJgv/X4uXEceMOF0Ss2lhmX0mGQ==
-X-Received: by 2002:adf:f203:: with SMTP id p3mr4078811wro.331.1594719043776; 
- Tue, 14 Jul 2020 02:30:43 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id z63sm3818419wmb.2.2020.07.14.02.30.42
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 14 Jul 2020 02:30:43 -0700 (PDT)
-Subject: Re: [PATCH v2] drm/amdgpu/sdma5: fix wptr overwritten in ->get_wptr()
-To: Xiaojie Yuan <xiaojie.yuan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200714090959.21777-1-xiaojie.yuan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <9e6142ee-2cc7-5e93-58a5-3bd13990ceaa@gmail.com>
-Date: Tue, 14 Jul 2020 11:30:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=zaSYM/qw1ksFU87P3s68GN96btH40hmproprU4x0zKA=;
+ b=f4jERE1EqSEuf+IRrEibo11CqNIedDr8x//A6LZMaQtDcP7v4RYKe8jR/fuYoTNNXU
+ 0wwh50JcpUjhDymY839bRcIbukmge4iTiLmS8hEGFs8Vxvyqi8hAFUBBEUbljSB3s8Vi
+ blPfWPBbxcL6bN++QhQAM4ZdiSo4PV/AZQpPCOKCppD9za7HCOAIYX8lg+sOwhA2LP0D
+ R5OLvkDJ9xOQHuVNpI5FjURbeoG1hXpsILoWbnocqb19l1EeEkd3y1HJ5RO8pAP74z0S
+ liW8mvzmk5TB7qhKk9Xd8tsDMtWS188PfX/Bf0gFhdNdWeLQsMs4d0en1Kn9BrI81Blf
+ K9Fg==
+X-Gm-Message-State: AOAM533byEfwAKYEn1Oc0gDL6o+q+QyyUqtpcH3EEhMcEihm2X8BiCdz
+ JN3Mi4vT195DiOYe46NN59wlgQ==
+X-Google-Smtp-Source: ABdhPJze8DCHXkBu0adWg+Pz2th+uGPVa1vkWx8NnwANfNbGW5A0xNe34f9dBQTLBV87qW3TQTgseA==
+X-Received: by 2002:adf:f6cb:: with SMTP id y11mr4179394wrp.100.1594720421487; 
+ Tue, 14 Jul 2020 02:53:41 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id k126sm3909591wme.17.2020.07.14.02.53.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2020 02:53:40 -0700 (PDT)
+Date: Tue, 14 Jul 2020 11:53:38 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: christian.koenig@amd.com
+Subject: Re: [PATCH 1/1] drm/amdkfd: Add IPC API
+Message-ID: <20200714095338.GZ3278063@phenom.ffwll.local>
+References: <20200714031435.13362-1-Felix.Kuehling@amd.com>
+ <20200714031435.13362-2-Felix.Kuehling@amd.com>
+ <CAPM=9tzjQGg2OMrptD6qJv0yEvY+S7mS6oXNxe21UoWk+6-Ung@mail.gmail.com>
+ <4245d340-f4f6-eeb5-40a6-3afd7754852c@amd.com>
+ <CAPM=9tz3UC8VuP=n_OAF5LnAmXSVR32LztqeEWtssnodMj70dQ@mail.gmail.com>
+ <20200714085850.GX3278063@phenom.ffwll.local>
+ <97e221e7-ea50-a02d-0791-0555a256e374@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200714090959.21777-1-xiaojie.yuan@amd.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <97e221e7-ea50-a02d-0791-0555a256e374@gmail.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,87 +82,200 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Le Ma <le.ma@amd.com>, likun.gao@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Dave Airlie <airlied@gmail.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTQuMDcuMjAgdW0gMTE6MDkgc2NocmllYiBYaWFvamllIFl1YW46Cj4gInU2NCAqd3B0ciIg
-cG9pbnRzIHRvIHRoZSB0aGUgd3B0ciB2YWx1ZSBpbiB3cml0ZSBiYWNrIGJ1ZmZlciBhbmQKPiAi
-KndwdHIgPSAoKndwdHIpID4+IDI7IiByZXN1bHRzIGluIHRoZSB2YWx1ZSBiZWluZyBvdmVyd3Jp
-dHRlbiBlYWNoIHRpbWUKPiB3aGVuIC0+Z2V0X3dwdHIoKSBpcyBjYWxsZWQuCj4KPiB1bXIgdXNl
-cyAvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvMC9hbWRncHVfcmluZ19zZG1hMCB0byBnZXQgcnB0ci93
-cHRyIGFuZAo+IGRlY29kZSByaW5nIGNvbnRlbnQgYW5kIGl0IGlzIGFmZmVjdGVkIGJ5IHRoaXMg
-aXNzdWUuCj4KPiBmaXggYW5kIHNpbXBsaWZ5IHRoZSBsb2dpYyBzaW1pbGFyIGFzIHNkbWFfdjRf
-MF9yaW5nX2dldF93cHRyKCkuCj4KPiB2MjogZml4IGZvciBzZG1hNS4yIGFzIHdlbGwKPgo+IFN1
-Z2dlc3RlZC1ieTogTGUgTWEgPGxlLm1hQGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogWGlhb2pp
-ZSBZdWFuIDx4aWFvamllLnl1YW5AYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvc2RtYV92NV8wLmMgfCAyNiArKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8yLmMgfCAyNiArKysrKysrKy0t
-LS0tLS0tLS0tLS0tLS0tLQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAz
-NiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zZG1hX3Y1XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jCj4g
-aW5kZXggYWJiMGFiNjUzYjEwLi5lMjIzMmRkMTJkOGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9zZG1hX3Y1XzAuYwo+IEBAIC0zMTUsMzAgKzMxNSwyMCBAQCBzdGF0aWMgdWludDY0
-X3Qgc2RtYV92NV8wX3JpbmdfZ2V0X3JwdHIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAg
-c3RhdGljIHVpbnQ2NF90IHNkbWFfdjVfMF9yaW5nX2dldF93cHRyKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZykKPiAgIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFk
-ZXY7Cj4gLQl1NjQgKndwdHIgPSBOVUxMOwo+IC0JdWludDY0X3QgbG9jYWxfd3B0ciA9IDA7Cj4g
-Kwl1NjQgd3B0cjsKPiAgIAo+ICAgCWlmIChyaW5nLT51c2VfZG9vcmJlbGwpIHsKPiAgIAkJLyog
-WFhYIGNoZWNrIGlmIHN3YXBwaW5nIGlzIG5lY2Vzc2FyeSBvbiBCRSAqLwo+IC0JCXdwdHIgPSAo
-KHU2NCAqKSZhZGV2LT53Yi53YltyaW5nLT53cHRyX29mZnNdKTsKPiAtCQlEUk1fREVCVUcoIndw
-dHIvZG9vcmJlbGwgYmVmb3JlIHNoaWZ0ID09IDB4JTAxNmxseFxuIiwgKndwdHIpOwo+IC0JCSp3
-cHRyID0gKCp3cHRyKSA+PiAyOwo+IC0JCURSTV9ERUJVRygid3B0ci9kb29yYmVsbCBhZnRlciBz
-aGlmdCA9PSAweCUwMTZsbHhcbiIsICp3cHRyKTsKPiArCQl3cHRyID0gUkVBRF9PTkNFKCooKHU2
-NCAqKSZhZGV2LT53Yi53YltyaW5nLT53cHRyX29mZnNdKSk7Cj4gKwkJRFJNX0RFQlVHKCJ3cHRy
-L2Rvb3JiZWxsIGJlZm9yZSBzaGlmdCA9PSAweCUwMTZsbHhcbiIsIHdwdHIpOwo+ICAgCX0gZWxz
-ZSB7Cj4gLQkJdTMyIGxvd2JpdCwgaGlnaGJpdDsKPiAtCj4gLQkJd3B0ciA9ICZsb2NhbF93cHRy
-Owo+IC0JCWxvd2JpdCA9IFJSRUczMihzZG1hX3Y1XzBfZ2V0X3JlZ19vZmZzZXQoYWRldiwgcmlu
-Zy0+bWUsIG1tU0RNQTBfR0ZYX1JCX1dQVFIpKSA+PiAyOwo+IC0JCWhpZ2hiaXQgPSBSUkVHMzIo
-c2RtYV92NV8wX2dldF9yZWdfb2Zmc2V0KGFkZXYsIHJpbmctPm1lLCBtbVNETUEwX0dGWF9SQl9X
-UFRSX0hJKSkgPj4gMjsKPiAtCj4gLQkJRFJNX0RFQlVHKCJ3cHRyIFslaV1oaWdoPT0gMHglMDh4
-IGxvdz09MHglMDh4XG4iLAo+IC0JCQkJcmluZy0+bWUsIGhpZ2hiaXQsIGxvd2JpdCk7Cj4gLQkJ
-KndwdHIgPSBoaWdoYml0Owo+IC0JCSp3cHRyID0gKCp3cHRyKSA8PCAzMjsKPiAtCQkqd3B0ciB8
-PSBsb3diaXQ7Cj4gKwkJd3B0ciA9IFJSRUczMihzZG1hX3Y1XzBfZ2V0X3JlZ19vZmZzZXQoYWRl
-diwgcmluZy0+bWUsIG1tU0RNQTBfR0ZYX1JCX1dQVFJfSEkpKTsKPiArCQl3cHRyID0gd3B0ciA8
-PCAzMjsKPiArCQl3cHRyIHw9IFJSRUczMihzZG1hX3Y1XzBfZ2V0X3JlZ19vZmZzZXQoYWRldiwg
-cmluZy0+bWUsIG1tU0RNQTBfR0ZYX1JCX1dQVFIpKTsKPiArCQlEUk1fREVCVUcoIndwdHIgYmVm
-b3JlIHNoaWZ0IFslaV0gd3B0ciA9PSAweCUwMTZsbHhcbiIsIHJpbmctPm1lLCB3cHRyKTsKPiAg
-IAl9Cj4gICAKPiAtCXJldHVybiAqd3B0cjsKPiArCXJldHVybiB3cHRyID4+IDI7Cj4gICB9Cj4g
-ICAKPiAgIC8qKgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1h
-X3Y1XzIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMi5jCj4gaW5kZXgg
-MWVmMTRiNjEwYTRmLi44MjRmM2UyM2MzZDkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvc2RtYV92NV8yLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zZG1hX3Y1XzIuYwo+IEBAIC0yNjIsMzAgKzI2MiwyMCBAQCBzdGF0aWMgdWludDY0X3Qgc2Rt
-YV92NV8yX3JpbmdfZ2V0X3JwdHIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAgc3RhdGlj
-IHVpbnQ2NF90IHNkbWFfdjVfMl9yaW5nX2dldF93cHRyKHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-ZykKPiAgIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4g
-LQl1NjQgKndwdHIgPSBOVUxMOwo+IC0JdWludDY0X3QgbG9jYWxfd3B0ciA9IDA7Cj4gKwl1NjQg
-d3B0cjsKPiAgIAo+ICAgCWlmIChyaW5nLT51c2VfZG9vcmJlbGwpIHsKPiAgIAkJLyogWFhYIGNo
-ZWNrIGlmIHN3YXBwaW5nIGlzIG5lY2Vzc2FyeSBvbiBCRSAqLwo+IC0JCXdwdHIgPSAoKHU2NCAq
-KSZhZGV2LT53Yi53YltyaW5nLT53cHRyX29mZnNdKTsKPiAtCQlEUk1fREVCVUcoIndwdHIvZG9v
-cmJlbGwgYmVmb3JlIHNoaWZ0ID09IDB4JTAxNmxseFxuIiwgKndwdHIpOwo+IC0JCSp3cHRyID0g
-KCp3cHRyKSA+PiAyOwo+IC0JCURSTV9ERUJVRygid3B0ci9kb29yYmVsbCBhZnRlciBzaGlmdCA9
-PSAweCUwMTZsbHhcbiIsICp3cHRyKTsKPiArCQl3cHRyID0gUkVBRF9PTkNFKCooKHU2NCAqKSZh
-ZGV2LT53Yi53YltyaW5nLT53cHRyX29mZnNdKSk7Cj4gKwkJRFJNX0RFQlVHKCJ3cHRyL2Rvb3Ji
-ZWxsIGJlZm9yZSBzaGlmdCA9PSAweCUwMTZsbHhcbiIsIHdwdHIpOwo+ICAgCX0gZWxzZSB7Cj4g
-LQkJdTMyIGxvd2JpdCwgaGlnaGJpdDsKPiAtCj4gLQkJd3B0ciA9ICZsb2NhbF93cHRyOwo+IC0J
-CWxvd2JpdCA9IFJSRUczMihzZG1hX3Y1XzJfZ2V0X3JlZ19vZmZzZXQoYWRldiwgcmluZy0+bWUs
-IG1tU0RNQTBfR0ZYX1JCX1dQVFIpKSA+PiAyOwo+IC0JCWhpZ2hiaXQgPSBSUkVHMzIoc2RtYV92
-NV8yX2dldF9yZWdfb2Zmc2V0KGFkZXYsIHJpbmctPm1lLCBtbVNETUEwX0dGWF9SQl9XUFRSX0hJ
-KSkgPj4gMjsKPiAtCj4gLQkJRFJNX0RFQlVHKCJ3cHRyIFslaV1oaWdoPT0gMHglMDh4IGxvdz09
-MHglMDh4XG4iLAo+IC0JCQkJcmluZy0+bWUsIGhpZ2hiaXQsIGxvd2JpdCk7Cj4gLQkJKndwdHIg
-PSBoaWdoYml0Owo+IC0JCSp3cHRyID0gKCp3cHRyKSA8PCAzMjsKPiAtCQkqd3B0ciB8PSBsb3di
-aXQ7Cj4gKwkJd3B0ciA9IFJSRUczMihzZG1hX3Y1XzJfZ2V0X3JlZ19vZmZzZXQoYWRldiwgcmlu
-Zy0+bWUsIG1tU0RNQTBfR0ZYX1JCX1dQVFJfSEkpKTsKPiArCQl3cHRyID0gd3B0ciA8PCAzMjsK
-PiArCQl3cHRyIHw9IFJSRUczMihzZG1hX3Y1XzJfZ2V0X3JlZ19vZmZzZXQoYWRldiwgcmluZy0+
-bWUsIG1tU0RNQTBfR0ZYX1JCX1dQVFIpKTsKPiArCQlEUk1fREVCVUcoIndwdHIgYmVmb3JlIHNo
-aWZ0IFslaV0gd3B0ciA9PSAweCUwMTZsbHhcbiIsIHJpbmctPm1lLCB3cHRyKTsKPiAgIAl9Cj4g
-ICAKPiAtCXJldHVybiAqd3B0cjsKPiArCXJldHVybiB3cHRyID4+IDI7Cj4gICB9Cj4gICAKPiAg
-IC8qKgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Tue, Jul 14, 2020 at 11:28:12AM +0200, Christian K=F6nig wrote:
+> Am 14.07.20 um 10:58 schrieb Daniel Vetter:
+> > On Tue, Jul 14, 2020 at 02:26:36PM +1000, Dave Airlie wrote:
+> > > On Tue, 14 Jul 2020 at 14:09, Felix Kuehling <felix.kuehling@amd.com>=
+ wrote:
+> > > > Am 2020-07-13 um 11:28 p.m. schrieb Dave Airlie:
+> > > > > On Tue, 14 Jul 2020 at 13:14, Felix Kuehling <Felix.Kuehling@amd.=
+com> wrote:
+> > > > > > This allows exporting and importing buffers. The API generates =
+handles
+> > > > > > that can be used with the HIP IPC API, i.e. big numbers rather =
+than
+> > > > > > file descriptors.
+> > > > > First up why? I get the how.
+> > > > The "why" is compatibility with HIP code ported from CUDA. The
+> > > > equivalent CUDA IPC API works with handles that can be communicated
+> > > > through e.g. a pipe or shared memory. You can't do that with file
+> > > > descriptors.
+> > > Okay that sort of useful information should definitely be in the patch
+> > > description.
+> > > =
+
+> > > > https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE=
+.html#group__CUDART__DEVICE_1g8a37f7dfafaca652391d0758b3667539
+> > > > =
+
+> > > > https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__DEVICE=
+.html#group__CUDART__DEVICE_1g01050a29fefde385b1042081ada4cde9
+> > > > =
+
+> > > > > > + * @share_handle is a 128 bit random number generated with
+> > > > > > + * @get_random_bytes. This number should be very hard to guess.
+> > > > > > + * Knowledge of the @share_handle implies authorization to acc=
+ess
+> > > > > > + * the shared memory. User mode should treat it like a secret =
+key.
+> > > > > > + * It can be used to import this BO in a different process con=
+text
+> > > > > > + * for IPC buffer sharing. The handle will be valid as long as=
+ the
+> > > > > > + * underlying BO exists. If the same BO is exported multiple t=
+imes,
+> > > > > Do we have any examples of any APIs in the kernel that operate li=
+ke
+> > > > > this? That don't at least layer some sort of file permissions  and
+> > > > > access control on top?
+> > > > SystemV shared memory APIs (shmget, shmat) work similarly. There are
+> > > > some permissions that can be specified by the exporter in shmget.
+> > > > However, the handles are just numbers and much easier to guess (the=
+y are
+> > > > 32-bit integers). The most restrictive permissions would allow only=
+ the
+> > > > exporting UID to attach to the shared memory segment.
+> > > > =
+
+> > > > I think DRM flink works similarly as well, with a global name IDR u=
+sed
+> > > > for looking up GEM objects using global object names.
+> > > flink is why I asked, because flink was a mistake and not one I'd care
+> > > to make again.
+> > > shm is horrible also, but at least has some permissions on what users
+> > > can attack it.
+> > Yeah this smells way too much like flink. I had the same reaction, and
+> > kinda sad that we have to do this because nvidia defines how this works
+> > with 0 input from anyone else. Oh well, the world sucks.
+> > =
+
+> > > > > The reason fd's are good is that combined with unix sockets, you =
+can't
+> > > > > sniff it, you can't ptrace a process and find it, you can't write=
+ it
+> > > > > out in a coredump and have someone access it later.
+> > > > Arguably ptrace and core dumps give you access to all the memory
+> > > > contents already. So you don't need the shared memory handle to acc=
+ess
+> > > > memory in that case.
+> > > core dumps might not dump this memory though, but yeah ptrace would
+> > > likely already mean you have access.
+> > > =
+
+> > > > > Maybe someone who knows security can ack merging this sort of uAPI
+> > > > > design, I'm not confident in what it's doing is in any ways a good
+> > > > > idea. I might have to ask some people to take a closer look.
+> > > > Please do. We have tried to make this API as secure as possible wit=
+hin
+> > > > the constraints of the user mode API we needed to implement.
+> > > I'll see if I hear back, but also if danvet has any input like I
+> > > suppose it's UUID based buffer access, so maybe 128-bit is enough and
+> > > you have enough entropy not to create anything insanely predictable.
+> > So one idea that crossed my mind is if we don't want to do this as a
+> > generic dma-buf handle converter.
+> > =
+
+> > Something like /dev/dri/cuda_is_nasty (maybe slightly nicer name) which
+> > provides a generic dma-buf <-> cuda uuid converter. With separate access
+> > restrictions, so admins can decide whether they want to allow this
+> > silliness, or not. Anyone else who wants to reimplement cuda will need
+> > this too, so that's another reason for splitting this out.
+> > =
+
+> > Wrt security: I think assuming that there's none and the lookup has a
+> > side-channel you can use to efficiently scan the entire range is probab=
+ly
+> > the safe approach here. This is way out of my league, but I think people
+> > who know how to do this won't have a much harder time scanning this than
+> > the flink space.
+> > =
+
+> > Also, if we have one common uuid->dma-buf converter, we might actually
+> > have a chance to proof the "it's not secure" assumption wrong. Also, we
+> > might be able to tie this into cgroups or namespaces or similar that wa=
+y.
+> > =
+
+> > Just some thoughts to give my initial "eek, why this" reaction a bit mo=
+re
+> > substance :-) No idea whether this would work or make more sense.
+> =
+
+> Yeah, my initial reaction was the same. On the pro side is that we use mo=
+re
+> than the 32bits flink did as identifier.
+
+flink started at 0, so in practice it was trivial to enumerate. Not even
+randomized.
+
+But the thing is if your uuid lookup isn't guaranteed to be const and
+side-channel free, then you can use that to guess where ids are. Doesn't
+need to be much until you can brute-force the remaining bits. Engineering
+an implementation (not just the theory) that relies on the assumption that
+full brute-force is the fastes option is very hard engineering. And I
+think here in the gpu world we just don't have any of that expertise.
+
+> What we could maybe do to improve this is to link DMA-buf file descriptors
+> into the file system from userspace. And then we could just do something
+> like:
+> =
+
+> open("/tmp/dma-buf-0x0123-4567-89AB-CDEF-0123-4567-89AB-CDEF", "rw");
+> =
+
+> But to be honest I don't really know the fs code that well enough to judge
+> if this is possible or not.
+> =
+
+> =
+
+> Or we let DMA-bufs appear under some directory of /sys by their name so t=
+hat
+> applications can open and use them.
+
+Yeah dmabuffs might be another option, but not sure how that would work,
+since we want a creat() that takes in a dma-buf fd and then freezes those
+two together forever. Maybe something like devpts, but I think that's also
+somewhat considered a design mistake (because namespace or something else,
+I dunno). Since if we link all dma-buf by default into the fs, we again
+have the flink "free for everyone" security issues.
+
+Hm I guess one option could be such a dmabufs, but still with an explicit
+export step. And the export amounts to a creat() in dmabufs, using the
+uid/gid and entire security context of the process that has done the
+dmabuf2uuid export.
+
+That would also give us namespacing for free, using fs namespaces. All
+we'd need is multiple instances of this dmabuffs. Plus I guess we'd need a
+canonical mount point for this thing, and then a special ioctl on the root
+node for creating a file from a dma-buf fd.
+
+Feels mildly overengineered, but I think this would at least make the cuda
+uuid stuff fit reasonably well into the overall linux architecture we
+have. Only bikeshed left would be to figure out where to mount this fs.
+Maybe /dev/dma-buf-uuids or something like that as the canonical thing.
+/sys feels misplaced, and we alread have /dev/pts for similar stuff.
+
+Wrt typing up an entire fs, I thought with all the libfs work that
+shouldn't be too hard to pull off.
+-Daniel
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
