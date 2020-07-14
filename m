@@ -2,106 +2,77 @@ Return-Path: <SRS0=Dt/2=AZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C6E6C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:29:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CB4DC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:35:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DAF121897
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:29:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3E70321835
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:35:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UE+H3o43"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DAF121897
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XkeUG+Zs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E70321835
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B41B16E117;
-	Tue, 14 Jul 2020 08:29:00 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EED96E117
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 08:28:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ehlZDqAYp45b0ln6xjUyPmcC9T1XnF2pZ4J+byCw7ZvccsYPMVS59LL2KVfKUGF+2yRcFqYGk6qnMwOSAqtBYNTqrdccsR274QlrLQkcf7OkV4DBI6C1lYkU6FpXIH4SvEZ3DdbxUt7mio+wF5750+zO2d0kyWCQfyaqz3K90VWpNWglvzGKA1LnNfX39SzT7sm8f5o/vumQZrHtfQ37GHA9Lcp+xHakN9FuXqWf27hApWruyqJxNQWzJK7aRaBCeftrVamatAeL0klwmMYV+Z6zDgEBjabtYpy8IWo3RjiOtOe9vo0pKdn2+awtJfOFMMrtGS+53q/pXLsqinB7Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n07VupxUZKP4VbnRgU7kHZ5pzcg8iknAEUljKPZFbeA=;
- b=Log3GaxBExofunYTaKdRq/Q8Cb/rV2PC7nFFwy39Oe5fgKujH+j+9lZJ4f9MD01M0vlgWtLGjjEnWbJd3zE72msp6satEZg2sSOOqyE5DRDaDjpDizXOYk5zWR5QzIb4Yt8CJaEVQRmxwd7geW8SwzCjhH/gLg4m2GYDimGFNLCD/IqEyRyLJax3EnM5U0ewpAb4uVPmZt+Mu1nEaSIpPeTdhH9c+usTXBpctQ2X3I+qGTOhYTPV0FBS5uPgWGoHtRcuKZcZgYJdHiNC8mZ+U2LEMKbAmHRdudZOi394gfPFlydmDh1jEYyu11IitZXT1yTTSNQjofPB68X5iX+wiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n07VupxUZKP4VbnRgU7kHZ5pzcg8iknAEUljKPZFbeA=;
- b=UE+H3o43GBfh2D5640r/fH1kSs32IS6OJd9wEAoqmRWVJCeh73fbrRkpQmEUJCwcvInlcLWydWpJR1yAkW918jqFrnb7e61y0dJy8R2HTESjevrNRBl3ER128xPdy5sUSiNch7qow0yIibJPpSTzNTPz/xAxMhOrt+5Po3BU5+M=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BY5PR12MB3764.namprd12.prod.outlook.com (2603:10b6:a03:1ac::17)
- by BYAPR12MB3317.namprd12.prod.outlook.com (2603:10b6:a03:d8::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.23; Tue, 14 Jul
- 2020 08:28:58 +0000
-Received: from BY5PR12MB3764.namprd12.prod.outlook.com
- ([fe80::bc19:eb90:1151:fc7a]) by BY5PR12MB3764.namprd12.prod.outlook.com
- ([fe80::bc19:eb90:1151:fc7a%3]) with mapi id 15.20.3174.026; Tue, 14 Jul 2020
- 08:28:57 +0000
-Subject: Re: Failed to find memory space for buffer eviction
-To: Felix Kuehling <felix.kuehling@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <9f1607ce-3f40-41f5-662f-501434625773@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <b9d9f58c-fdcb-1708-b19c-9da492e9d917@amd.com>
-Date: Tue, 14 Jul 2020 10:28:49 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBA3B6E26F;
+	Tue, 14 Jul 2020 08:35:49 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB776E26F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 08:35:48 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id z2so20284419wrp.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 01:35:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=X7UzuYtGlwDEVVME5HvN9Ae3cwkIO0FeBDG7v2EoQE4=;
+ b=XkeUG+ZsBdHV1CwrCkPAMgE2JWJJfyzdBO6+eM7vQZiB6Y7XKzbDDWHeruEDF5Zwzt
+ 5gbtV2DKpOj6gjBrUMwO7dDJzSp7Xi899ThRA3NirEEJbHOxsub4Ws0V+6arFJBiyV/O
+ 3XAxNU9t+ow4zrXFi7vIPxZSv+rqzpvL/aVeW8ix0ihX/AmN4wfBCxv//DFhvGeszsA8
+ +wcv9xvjzu7LkipACPHySNPGSYeUzJIFN7aDL06m+gpTUa+p7JspMCAZalAkWvIFQg/q
+ H5VDOFbiTdRlKeRHBs3gDNodAZjQnYLEt2wHdQMBy5Y0JFZAEWai54s63oslwYjnYKno
+ AlLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=X7UzuYtGlwDEVVME5HvN9Ae3cwkIO0FeBDG7v2EoQE4=;
+ b=r99iv2PjCRIZecfO5TRDE8oTXEehk662JwLvPsP/LIokphaj8jHlODnRelho6HhuAM
+ uxkuuQ5IRtSNFomlKe0LFN1YOhARvVPHQKeSqsIFX0FyOujQ1JTPygLPtjzSjwecjfa6
+ ofS0vZFv8Rt0C08FvFMCeHS6bVxUtHfkVBBU/xFHLtwX4fUCouSBFu5C/z3KSYSghZ+J
+ ErcijP/XW8vba5PWaVYcca8L2Ytg1G2pjNBb5Ha/wHletJnJUercSd2fSAJ5r8II7H8F
+ 51/HXYfSsOL39sxqQR6VV6H2zpGoP16CPoano3Nw+YYF6Ee4FA4HSYcSfCGyWz02nNhe
+ 98iA==
+X-Gm-Message-State: AOAM531ZNA+szin2d0sr4T0o3ev/eOn3VNBR5EH86l0vkNqqHRZMiPFe
+ UcVFbx0/74zm8v43or6miNVITqkX
+X-Google-Smtp-Source: ABdhPJykeXIck82dfrx6qB5/2DHPYgTNtShjlYcFfqjfaMn1nKL01A72XpaK2O/r0zq5//3JH9HUoQ==
+X-Received: by 2002:a5d:4b0f:: with SMTP id v15mr3753466wrq.216.1594715747178; 
+ Tue, 14 Jul 2020 01:35:47 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id j15sm26992519wrx.69.2020.07.14.01.35.46
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 14 Jul 2020 01:35:46 -0700 (PDT)
+Subject: Re: [PATCH 4/4] drm/amdgpu: add module parameter choose reset mode
+To: Wenhui Sheng <Wenhui.Sheng@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200714022911.3006-1-Wenhui.Sheng@amd.com>
+ <20200714022911.3006-4-Wenhui.Sheng@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <fc1653c7-1e3e-91fe-1692-e66ce1be59c3@gmail.com>
+Date: Tue, 14 Jul 2020 10:35:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
-In-Reply-To: <9f1607ce-3f40-41f5-662f-501434625773@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR08CA0035.eurprd08.prod.outlook.com
- (2603:10a6:208:d2::48) To BY5PR12MB3764.namprd12.prod.outlook.com
- (2603:10b6:a03:1ac::17)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR08CA0035.eurprd08.prod.outlook.com (2603:10a6:208:d2::48) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.21 via Frontend Transport; Tue, 14 Jul 2020 08:28:55 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4678a5f8-fac0-47bc-e75e-08d827cff36d
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3317:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB33174DFF4D6CF28FD8D835D983610@BYAPR12MB3317.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YO4uY4LI3LjaBf2OiecC6ook+DZcYyoMF7EITC7QLRY1xudDmFJB8myVZxYNlDX9Z9LyH0K2IuGYfNBV4PmSLDXcBV9E1Zr8K63MvngmNchl2hbPMohMpjLUtrV0P1lCiTUZQqg8OjegpHcLI9cndY0QQE++IYqhRVYuSTi2XbZ57NeFyy9xk2lJpaXs4KG0Fn6CS3sW9S88KeoJSwCwLF8sdnx54mKDs0bCPc9ibxfZ912tSQR3/L/ucO/5NvRNda1lzhs+6SmIPVO2A2OmSsq9+qL4p3lzURBRrFacGLYj7l2itEzcIGKDvDaxYqdDGbAiPrcoEo16C6M+uHaH7ZRh4PSB4oyNE7zTDhHajneY/uKI8JfDRBQrPnaGCgesElF0/ksPjCADxv+9qMhBQNlHSBYqVIFKx4UOYc8vH2NdRVOvujON0Uk1H7oaRl0h
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB3764.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(366004)(8676002)(8936002)(966005)(316002)(6486002)(2616005)(31686004)(6666004)(110136005)(16526019)(66556008)(52116002)(66476007)(66946007)(186003)(2906002)(478600001)(86362001)(83380400001)(36756003)(31696002)(5660300002)(37363001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: W0g9luXzVdOH4nMhphU9G3TIEJ/W+j09reBBeAmUZdMNQ2fbXH6GOClY6n3LwLPuzpjzlb4s6jLwhwm4IofQw8ft8Sk4TTThjWLu68YcHBh6zVL6ayI3Q9h5SujAsTZ8HhHckWoTJmrfKzUFtkMxtG0DPVNkweQoLxq+GAcpehJM45mMQsGhGG38XF7bAxN6BXGP2F1MSMVV28RSqHcGaTRUpNEdSgSni4omr+9CJpSREJm83k21+KrN7zkseGQ4mSuk0QD75zrFma+If6ftBcBSfitO19ORPfJIMb5wYFaZirZcfsGJqAg0WCSmqfvlmjUpi2QyqqJfgCRpoPX5VdM52reHm40JRB3N9hEEr7DPnpFI8iR39MTliMYgW9fatOVYtjtiR8jIzLiu7ONDOBmEGxoEPnlCAftCbdkcSG69uZD8sbLJJj3omFa4FRsbP6PNiihrBC0cxt1SnSG2JrUV4s05/C9TWa825m1AZcJvkO9WrFGIOK3Puvc7VsuIkDtlIw7xxz6gWUZMl+GWLBX0VyI3NMaydy6arbwb5mqslvVx4w6LXD+Q2hLeyWIa
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4678a5f8-fac0-47bc-e75e-08d827cff36d
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3764.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2020 08:28:57.6770 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Zbn8kuaJdveaDLP5Qyy3/9b6CkWeuY4cdXCwXE+5K1ay5EPWbxomOHED/Jbjvfw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3317
+In-Reply-To: <20200714022911.3006-4-Wenhui.Sheng@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,114 +84,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: christian.koenig@amd.com
+Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgRmVsaXgsCgp5ZXMgSSBhbHJlYWR5IHN0dW1ibGVkIG92ZXIgdGhpcyBhcyB3ZWxsIHF1aXRl
-IHJlY2VudGx5LgoKU2VlIHRoZSBmb2xsb3dpbmcgcGF0Y2ggd2hpY2ggSSBwdXNoZWQgdG8gZHJt
-LW1pc2MtbmV4dCBqdXN0IHllc3RlcmRheToKCmNvbW1pdCBlMDRiZTIzMTBiNWVhYzY4M2VjMDNi
-MDk2YzBlMjJjNGMyZTIzNTkzCkF1dGhvcjogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
-ZW5pZ0BhbWQuY29tPgpEYXRlOsKgwqAgTW9uIEp1bCA2IDE3OjMyOjU1IDIwMjAgKzAyMDAKCiDC
-oMKgwqAgZHJtL3R0bTogZnVydGhlciBjbGVhbnVwIHR0bV9tZW1fcmVnIGhhbmRsaW5nCgogwqDC
-oMKgIFN0b3AgdG91Y2hpbmcgdGhlIGJhY2tlbmQgcHJpdmF0ZSBwb2ludGVyIGFsbHRvZ2V0aGVy
-IGFuZAogwqDCoMKgIG1ha2Ugc3VyZSB3ZSBuZXZlciBwdXQgdGhlIHNhbWUgbWVtIHR3aWNlIGJ5
-LgoKIMKgwqDCoCBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+CiDCoMKgwqAgUmV2aWV3ZWQtYnk6IE1hZGhhdiBDaGF1aGFuIDxtYWRoYXYu
-Y2hhdWhhbkBhbWQuY29tPgogwqDCoMKgIExpbms6IGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNr
-dG9wLm9yZy9wYXRjaC8zNzU2MTMvCgoKQnV0IHRoaXMgc2hvdWxkbid0IGhhdmUgYmVlbiBwcm9i
-bGVtYXRpYyBzaW5jZSB3ZSB1c2VkIGEgZHVtbXkgdmFsdWUgZm9yIAptZW0tPm1tX25vZGUgaW4g
-dGhpcyBjYXNlLgoKV2hhdCBjb3VsZCBiZSBwcm9ibGVtYXRpYyBhbmQgcmVzdWx0IGlzIGFuIG92
-ZXJydW4gaXMgdGhhdCBUVE0gd2FzIGJ1Z2d5IAphbmQgY2FsbGVkIHB1dF9ub2RlIHR3aWNlIGZv
-ciB0aGUgc2FtZSBtZW1vcnkuCgpTbyBJJ3ZlIHNlZW4gdGhhdCB0aGUgY29kZSBuZWVkcyBmaXhp
-bmcgYXMgd2VsbCwgYnV0IEknbSBub3QgMTAwJSBzdXJlIApob3cgeW91IHJhbiBpbnRvIHlvdXIg
-cHJvYmxlbS4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDE0LjA3LjIwIHVtIDAyOjQ0IHNjaHJp
-ZWIgRmVsaXggS3VlaGxpbmc6Cj4gSSdtIHJ1bm5pbmcgaW50byB0aGlzIHByb2JsZW0gd2l0aCB0
-aGUgS0ZEIEV2aWN0aW9uVGVzdC4gVGhlIGxvZyBzbmlwcGV0Cj4gYmVsb3cgbG9va3MgbGlrZSBp
-dCByYW4gb3V0IG9mIEdUVCBzcGFjZSBmb3IgdGhlIGV2aWN0aW9uIG9mIGEgNjRNQgo+IGJ1ZmZl
-ci4gQnV0IHRoZW4gaXQgZHVtcHMgdGhlIHVzZWQgYW5kIGZyZWUgc3BhY2UgYW5kIHNob3dzIHBs
-ZW50eSBvZgo+IGZyZWUgc3BhY2UuCj4KPiBBcyBJIHVuZGVyc3RhbmQgaXQsIHRoZSBwZXItcGFn
-ZSBicmVha2Rvd24gb2YgdXNlZCBhbmQgZnJlZSBzcGFjZSBzaG93bgo+IGJ5IFRUTSBpcyB0aGUg
-R0FSVCBzcGFjZS4gU28gaXQncyBub3QgdmVyeSBtZWFuaW5nZnVsLgo+Cj4gV2hhdCBtYXR0ZXJz
-IG1vcmUgaXMgdGhlIEdUVCBzcGFjZSBtYW5hZ2VkIGJ5IGFtZGdwdV9ndHRfbWdyLmMuIEFuZAo+
-IHRoYXQncyB3aGVyZSB0aGUgcHJvYmxlbSBpcy4gSXQga2VlcHMgdHJhY2sgb2YgYXZhaWxhYmxl
-IEdUVCBzcGFjZSB3aXRoCj4gYW4gYXRvbWljIGNvdW50ZXIgaW4gYW1kZ3B1X2d0dF9tZ3IuYXZh
-aWxhYmxlLiBJdCBnZXRzIGRlY3JlbWVudGVkIGluCj4gYW1kZ3B1X2d0dF9tZ3JfbmV3IGFuZCBp
-bmNyZW1lbnRlZCBpbiBhbWRncHVfZ3R0X21ncl9kZWwuIFRoZSB0cm91YmxlCj4gaXMsIHRoYXQg
-VFRNIGRvZXNuJ3QgY2FsbCB0aGUgbGF0dGVyIGZvciB0dG1fbWVtX3JlZ3MgdGhhdCBkb24ndCBo
-YXZlIGFuCj4gbW1fbm9kZToKPgo+PiB2b2lkIHR0bV9ib19tZW1fcHV0KHN0cnVjdCB0dG1fYnVm
-ZmVyX29iamVjdCAqYm8sIHN0cnVjdCB0dG1fbWVtX3JlZyAqbWVtKQo+PiB7Cj4+ICDCoMKgwqDC
-oMKgwqDCoCBzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiA9ICZiby0+YmRldi0+bWFu
-W21lbS0+bWVtX3R5cGVdOwo+Pgo+PiAgwqDCoMKgwqDCoMKgwqAgaWYgKG1lbS0+bW1fbm9kZSkK
-Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAoKm1hbi0+ZnVuYy0+cHV0X25vZGUp
-KG1hbiwgbWVtKTsKPj4gfQo+IEdUVCBCT3MgdGhhdCBkb24ndCBoYXZlIEdBUlQgc3BhY2UgYWxs
-b2NhdGVkLCBkb24ndCBoYXRlIGFuIG1tX25vZGUuIFNvCj4gdGhlIGFtZGdwdV9ndHRfbWdyLmF2
-YWlsYWJsZSBjb3VudGVyIGRvZXNuJ3QgZ2V0IGluY3JlbWVudGVkIHdoZW4gYW4KPiB1bm1hcHBl
-ZCBHVFQgQk8gaXMgZnJlZWQsIGFuZCBldmVudHVhbGx5IHJ1bnMgb3V0IG9mIHNwYWNlLgo+Cj4g
-Tm93IEkga25vdyB3aGF0IHRoZSBwcm9ibGVtIGlzLCBidXQgSSBkb24ndCBrbm93IGhvdyB0byBm
-aXggaXQuIE1heWJlIGEKPiBkdW1teS1tbV9ub2RlIGZvciB1bm1hcHBlZCBHVFQgQk9zLCB0byB0
-cmljayBUVE0gaW50byBjYWxsaW5nIG91cgo+IHB1dF9ub2RlIGNhbGxiYWNrPyBPciBhIGNoYW5n
-ZSBpbiBUVE0gdG8gY2FsbCBwdXRfbm9kZSB1bmNvbmRpdGlvbmFsbHk/Cj4KPiBSZWdhcmRzLAo+
-ICDCoCBGZWxpeAo+Cj4KPiBbwqAgMzYwLjA4MjU1Ml0gW1RUTV0gRmFpbGVkIHRvIGZpbmQgbWVt
-b3J5IHNwYWNlIGZvciBidWZmZXIKPiAweDAwMDAwMDAwMjY0YzgyM2MgZXZpY3Rpb24KPiBbwqAg
-MzYwLjA5MDMzMV0gW1RUTV3CoCBObyBzcGFjZSBmb3IgMDAwMDAwMDAyNjRjODIzYyAoMTYzODQg
-cGFnZXMsCj4gNjU1MzZLLCA2NE0pCj4gW8KgIDM2MC4wOTAzMzRdIFtUVE1dwqDCoMKgIHBsYWNl
-bWVudFswXT0weDAwMDEwMDAyICgxKQo+IFvCoCAzNjAuMDkwMzM2XSBbVFRNXcKgwqDCoMKgwqAg
-aGFzX3R5cGU6IDEKPiBbwqAgMzYwLjA5MDMzN10gW1RUTV3CoMKgwqDCoMKgIHVzZV90eXBlOiAx
-Cj4gW8KgIDM2MC4wOTAzMzldIFtUVE1dwqDCoMKgwqDCoCBmbGFnczogMHgwMDAwMDAwQQo+IFvC
-oCAzNjAuMDkwMzQxXSBbVFRNXcKgwqDCoMKgwqAgZ3B1X29mZnNldDogMHhGRjAwMDAwMDAwCj4g
-W8KgIDM2MC4wOTAzNDJdIFtUVE1dwqDCoMKgwqDCoCBzaXplOiAxMDQ4NTc2Cj4gW8KgIDM2MC4w
-OTAzNDRdIFtUVE1dwqDCoMKgwqDCoCBhdmFpbGFibGVfY2FjaGluZzogMHgwMDA3MDAwMAo+IFvC
-oCAzNjAuMDkwMzQ2XSBbVFRNXcKgwqDCoMKgwqAgZGVmYXVsdF9jYWNoaW5nOiAweDAwMDEwMDAw
-Cj4gW8KgIDM2MC4wOTAzNDldIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDAwLTB4MDAwMDAwMDAw
-MDAwMDQwMjogMjogdXNlZAo+IFvCoCAzNjAuMDkwMzUyXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAw
-MDQwMi0weDAwMDAwMDAwMDAwMDA0MDQ6IDI6IHVzZWQKPiBbwqAgMzYwLjA5MDM1NF0gW1RUTV3C
-oCAweDAwMDAwMDAwMDAwMDA0MDQtMHgwMDAwMDAwMDAwMDAwNDA2OiAyOiB1c2VkCj4gW8KgIDM2
-MC4wOTAzNTVdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDA2LTB4MDAwMDAwMDAwMDAwMDQwODog
-MjogdXNlZAo+IFvCoCAzNjAuMDkwMzU3XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDQwOC0weDAw
-MDAwMDAwMDAwMDA0MGE6IDI6IHVzZWQKPiBbwqAgMzYwLjA5MDM1OV0gW1RUTV3CoCAweDAwMDAw
-MDAwMDAwMDA0MGEtMHgwMDAwMDAwMDAwMDAwNDBjOiAyOiB1c2VkCj4gW8KgIDM2MC4wOTAzNjFd
-IFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDBjLTB4MDAwMDAwMDAwMDAwMDQwZTogMjogdXNlZAo+
-IFvCoCAzNjAuMDkwMzYzXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDQwZS0weDAwMDAwMDAwMDAw
-MDA0MTA6IDI6IHVzZWQKPiBbwqAgMzYwLjA5MDM2NV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA0
-MTAtMHgwMDAwMDAwMDAwMDAwNDEyOiAyOiB1c2VkCj4gW8KgIDM2MC4wOTAzNjddIFtUVE1dwqAg
-MHgwMDAwMDAwMDAwMDAwNDEyLTB4MDAwMDAwMDAwMDAwMDQxNDogMjogdXNlZAo+IFvCoCAzNjAu
-MDkwMzY4XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDQxNC0weDAwMDAwMDAwMDAwMDA0MTU6IDE6
-IHVzZWQKPiBbwqAgMzYwLjA5MDM3MF0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA0MTUtMHgwMDAw
-MDAwMDAwMDAwNTE1OiAyNTY6IHVzZWQKPiBbwqAgMzYwLjA5MDM3Ml0gW1RUTV3CoCAweDAwMDAw
-MDAwMDAwMDA1MTUtMHgwMDAwMDAwMDAwMDAwNTE2OiAxOiB1c2VkCj4gW8KgIDM2MC4wOTAzNzRd
-IFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNTE2LTB4MDAwMDAwMDAwMDAwMDUxNzogMTogdXNlZAo+
-IFvCoCAzNjAuMDkwMzc2XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxNy0weDAwMDAwMDAwMDAw
-MDA1MTg6IDE6IHVzZWQKPiBbwqAgMzYwLjA5MDM3OF0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1
-MTgtMHgwMDAwMDAwMDAwMDAwNTE5OiAxOiB1c2VkCj4gW8KgIDM2MC4wOTAzNzldIFtUVE1dwqAg
-MHgwMDAwMDAwMDAwMDAwNTE5LTB4MDAwMDAwMDAwMDAwMDUxYTogMTogdXNlZAo+IFvCoCAzNjAu
-MDkwMzgxXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxYS0weDAwMDAwMDAwMDAwMDA1MWI6IDE6
-IHVzZWQKPiBbwqAgMzYwLjA5MDM4M10gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MWItMHgwMDAw
-MDAwMDAwMDAwNTFjOiAxOiB1c2VkCj4gW8KgIDM2MC4wOTAzODVdIFtUVE1dwqAgMHgwMDAwMDAw
-MDAwMDAwNTFjLTB4MDAwMDAwMDAwMDAwMDUxZDogMTogdXNlZAo+IFvCoCAzNjAuMDkwMzg3XSBb
-VFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxZC0weDAwMDAwMDAwMDAwMDA1MWY6IDI6IHVzZWQKPiBb
-wqAgMzYwLjA5MDM4OV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MWYtMHgwMDAwMDAwMDAwMDAw
-NTIxOiAyOiB1c2VkCj4gW8KgIDM2MC4wOTAzOTFdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNTIx
-LTB4MDAwMDAwMDAwMDAwMDUyMjogMTogdXNlZAo+IFvCoCAzNjAuMDkwMzkyXSBbVFRNXcKgIDB4
-MDAwMDAwMDAwMDAwMDUyMi0weDAwMDAwMDAwMDAwMDA1MjM6IDE6IHVzZWQKPiBbwqAgMzYwLjA5
-MDM5NF0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MjMtMHgwMDAwMDAwMDAwMDAwNTI0OiAxOiB1
-c2VkCj4gW8KgIDM2MC4wOTAzOTZdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNTI0LTB4MDAwMDAw
-MDAwMDAwMDUyNTogMTogdXNlZAo+IFvCoCAzNjAuMDkwMzk4XSBbVFRNXcKgIDB4MDAwMDAwMDAw
-MDAwMDUyNS0weDAwMDAwMDAwMDAwMDA2MjU6IDI1NjogdXNlZAo+IFvCoCAzNjAuMDkwNDAwXSBb
-VFRNXcKgIDB4MDAwMDAwMDAwMDAwMDYyNS0weDAwMDAwMDAwMDAwMDA3MjU6IDI1NjogdXNlZAo+
-IFvCoCAzNjAuMDkwNDAyXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDcyNS0weDAwMDAwMDAwMDAw
-MDA3Mjc6IDI6IHVzZWQKPiBbwqAgMzYwLjA5MDQwNF0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA3
-MjctMHgwMDAwMDAwMDAwMDAwN2MwOiAxNTM6IHVzZWQKPiBbwqAgMzYwLjA5MDQwNl0gW1RUTV3C
-oCAweDAwMDAwMDAwMDAwMDA3YzAtMHgwMDAwMDAwMDAwMDAwYjhhOiA5NzA6IHVzZWQKPiBbwqAg
-MzYwLjA5MDQwN10gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDBiOGEtMHgwMDAwMDAwMDAwMDAwYjhi
-OiAxOiB1c2VkCj4gW8KgIDM2MC4wOTA0MDldIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwYjhiLTB4
-MDAwMDAwMDAwMDAwMGJjYjogNjQ6IHVzZWQKPiBbwqAgMzYwLjA5MDQxMV0gW1RUTV3CoCAweDAw
-MDAwMDAwMDAwMDBiY2ItMHgwMDAwMDAwMDAwMDAwYmNkOiAyOiB1c2VkCj4gW8KgIDM2MC4wOTA0
-MTNdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwYmNkLTB4MDAwMDAwMDAwMDA0MDAwMDogMjU5MTIz
-OiBmcmVlCj4gW8KgIDM2MC4wOTA0MTVdIFtUVE1dwqAgdG90YWw6IDI2MTEyMCwgdXNlZCAxOTk3
-IGZyZWUgMjU5MTIzCj4gW8KgIDM2MC4wOTA0MTddIFtUVE1dwqAgbWFuIHNpemU6MTA0ODU3NiBw
-YWdlcywgZ3R0IGF2YWlsYWJsZToxNDM3MSBwYWdlcywKPiB1c2FnZTo0MDM5TUIKPgo+CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Am 14.07.20 um 04:29 schrieb Wenhui Sheng:
+> Default value is auto, doesn't change
+> original reset method logic.
+>
+> v2: change to use parameter reset_method
+> v3: add warn msg if specified mode isn't supported
+>
+> Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+> Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+>   drivers/gpu/drm/amd/amdgpu/cik.c        | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/nv.c         | 7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/si.c         | 5 +++++
+>   drivers/gpu/drm/amd/amdgpu/soc15.c      | 8 ++++++++
+>   drivers/gpu/drm/amd/amdgpu/vi.c         | 7 +++++++
+>   7 files changed, 43 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 4de93cef79b9..06bfb8658dec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -196,6 +196,7 @@ static const bool debug_evictions; /* = false */
+>   #endif
+>   
+>   extern int amdgpu_tmz;
+> +extern int amdgpu_reset_method;
+>   
+>   #ifdef CONFIG_DRM_AMDGPU_SI
+>   extern int amdgpu_si_support;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 94c83a9d4987..581d5fcac361 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -154,6 +154,7 @@ int amdgpu_mes = 0;
+>   int amdgpu_noretry = 1;
+>   int amdgpu_force_asic_type = -1;
+>   int amdgpu_tmz = 0;
+> +int amdgpu_reset_method = -1; /* auto */
+>   
+>   struct amdgpu_mgpu_info mgpu_info = {
+>   	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+> @@ -793,6 +794,13 @@ module_param_named(abmlevel, amdgpu_dm_abm_level, uint, 0444);
+>   MODULE_PARM_DESC(tmz, "Enable TMZ feature (-1 = auto, 0 = off (default), 1 = on)");
+>   module_param_named(tmz, amdgpu_tmz, int, 0444);
+>   
+> +/**
+> + * DOC: reset_method (int)
+> + * GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)
+> + */
+> +MODULE_PARM_DESC(reset_method, "GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)");
+> +module_param_named(reset_method, amdgpu_reset_method, int, 0444);
+> +
+>   static const struct pci_device_id pciidlist[] = {
+>   #ifdef  CONFIG_DRM_AMDGPU_SI
+>   	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+> index fe306d0f73f7..310bcf81256f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+> @@ -1326,6 +1326,13 @@ cik_asic_reset_method(struct amdgpu_device *adev)
+>   {
+>   	bool baco_reset;
+>   
+> +	if (amdgpu_reset_method == AMD_RESET_METHOD_LEGACY ||
+> +	    amdgpu_reset_method == AMD_RESET_METHOD_BACO)
+> +		return amdgpu_reset_method;
+> +	else if (amdgpu_reset_method != -1)
+
+When you return anyway you can also drop the else here and on other 
+occasions as well.
+
+Apart from that the patch looks good to me.
+
+We usually try to avoid adding more module parameters, but I think this 
+one is really justified.
+
+Thanks,
+Christian.
+
+> +		dev_warn(adev->dev, "Specified reset:%d isn't supported, using AUTO instead.\n",
+> +				  amdgpu_reset_method);
+> +
+>   	switch (adev->asic_type) {
+>   	case CHIP_BONAIRE:
+>   	case CHIP_HAWAII:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index 9f1240bd0310..486321bcab8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -311,6 +311,13 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+>   {
+>   	struct smu_context *smu = &adev->smu;
+>   
+> +	if (amdgpu_reset_method == AMD_RESET_METHOD_MODE1 ||
+> +	    amdgpu_reset_method == AMD_RESET_METHOD_BACO)
+> +		return amdgpu_reset_method;
+> +	else if (amdgpu_reset_method != -1)
+> +		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
+> +				  amdgpu_reset_method);
+> +
+>   	if (smu_baco_is_support(smu))
+>   		return AMD_RESET_METHOD_BACO;
+>   	else
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index 9d7b4ccd17b8..1b449291f068 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1229,6 +1229,11 @@ static bool si_asic_supports_baco(struct amdgpu_device *adev)
+>   static enum amd_reset_method
+>   si_asic_reset_method(struct amdgpu_device *adev)
+>   {
+> +	if (amdgpu_reset_method != AMD_RESET_METHOD_LEGACY &&
+> +	    amdgpu_reset_method != -1)
+> +		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
+> +				  amdgpu_reset_method);
+> +
+>   	return AMD_RESET_METHOD_LEGACY;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index 8c739b285915..40b343b25588 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -532,6 +532,14 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+>   	bool baco_reset = false;
+>   	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+>   
+> +	if (amdgpu_reset_method == AMD_RESET_METHOD_MODE1 ||
+> +	    amdgpu_reset_method == AMD_RESET_METHOD_MODE2 ||
+> +		amdgpu_reset_method == AMD_RESET_METHOD_BACO)
+> +		return amdgpu_reset_method;
+> +	else if (amdgpu_reset_method != -1)
+> +		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
+> +				  amdgpu_reset_method);
+> +
+>   	switch (adev->asic_type) {
+>   	case CHIP_RAVEN:
+>   	case CHIP_RENOIR:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index 4e5e91888d87..e4628c17802f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -710,6 +710,13 @@ vi_asic_reset_method(struct amdgpu_device *adev)
+>   {
+>   	bool baco_reset;
+>   
+> +	if (amdgpu_reset_method == AMD_RESET_METHOD_LEGACY ||
+> +	    amdgpu_reset_method == AMD_RESET_METHOD_BACO)
+> +		return amdgpu_reset_method;
+> +	else if (amdgpu_reset_method != -1)
+> +		dev_warn(adev->dev, "Specified reset method:%d isn't supported, using AUTO instead.\n",
+> +				  amdgpu_reset_method);
+> +
+>   	switch (adev->asic_type) {
+>   	case CHIP_FIJI:
+>   	case CHIP_TONGA:
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
