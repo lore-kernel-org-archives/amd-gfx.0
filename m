@@ -7,58 +7,58 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CBFEC433ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8DF0C433F1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CCD021582
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:07:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E94E21582
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2020 08:07:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Q5APidS1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CCD021582
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hChYVzHL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E94E21582
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF9A889930;
-	Tue, 14 Jul 2020 08:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCDC89935;
+	Tue, 14 Jul 2020 08:07:08 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2088.outbound.protection.outlook.com [40.107.93.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF05889930
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 08:07:01 +0000 (UTC)
+ (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D717089932
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2020 08:07:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QODmJ672OR6YWpuzuKKMZZHn0lXHpDGSUMGJIXtbsJxQzvId2Z0mqjJ27fbGNGnpMN9nFFBjGL6OmUi1uoI0cFw1YD8JlsMA066QHmc8t2CftBMp8hfW/zsYKL9unp5mUfskvbIZ9r7O0u3uZ1DCMKAt6IS+oB76FUeZGuCzD5w4tlHV7xDkloN/khmeID8d3NOi5tiqVhxl6ICYDXgZNFK10/TWVADCWfjMjCZfHFCr4IGK0YRwzOEhrX5GbgrxmIzKvNYURswnECNl6sHv9qk32moDuT6QBz2mupeXwhZOKXXOdYnTV29srL4fcZ2yW3gNkcogbAb4UTLrHJfLIg==
+ b=bSvYLMZGX3SPymfQw4m6kVXWYT1MIwGAFvxubHnUCNR7Sc53/aQ5iYWv6+aDuAmm7wCBl9Gm23fP0EDtH744inKN0QZp8V1oTEK2L4ZGk0BUpmZ2pun+1fJYj2ctJFNHWOgshnHmKGynuPJWOWjr3g5aBH5ZPrGZ7qc8Kh8AzCCBpQShV4bhJO4Wia0MocuRuMks/ed5sEmc9oWgueaC6QY4JY+3Rebu2z2pFwvFkeoEZK8MMVYfQgZ8qfzbahrp9SYa2gFQ2l44cZbascMCEDWS3QXLHygLiadyE01Rxpj/CGA63Sjc1UShRkJ9pA26GdqyhSOEHPu5cctj6eQVLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e55P8QzKAyFQqWMg+FqWymGTziPoZC69EnQhBZfuLT8=;
- b=oFpogQw7Gdp6BlKLozzWsnJp//jXP2RUOZG9aTbXlzU0XEFwt/wWBdcGGnFVS89M9+6uVgMeiLE/a3DG+tRwRWvdUmLvf3Z+sOwpxHfsavfOIbBGA6i7/HziF2ourgkBowlhX8QaC1Y7G2k7LBT4Arw6fQ816erkFTRDtgBAtBPWToWzfEtBBo8ZcaY8kNQBsXRMdRcDvA0waMT/6pKLo2SlerLaE2LKySzVGopIhF05irJfS5SAetMQZ1iqApP5w6sIJGvKSUQwLVK5XPkNs5Q7M6sSYO9sS4Ug14qPyLfQKeQjPzqS5mdChS+kdHRn7vjcli7Jg0NFVQzCBEfMgg==
+ bh=B/AAY/jSJOwVPQUUuecKiIxiXlnBh2CBNBrnoLxYKdY=;
+ b=T0lyNjjQXlYnlABbHLadti1SamsanMZg4sOXHR0pdZsPf/vaerBRZXdYjKbiVh6ePGE+VVhHnhPUXEZYgWMW7UoRdduChs6dNQWGKCGqa7KfxVGtSIEfikED/HHfzOZuTlL1f1tR/4ptP/wXL5LpZmKrbJvaLooD02yI5iqjqX79jhtxtGrF+GLmdZ+1QhbWwvq2PD8+NFWlVdZ3hz0H/Xu8WeGar1LXu934Y28rZ282Z4dNjVI72bfI2z0IVGv3oRm+9kYtuyUYAEzsmncPKQwxvaQCuB+aPr9v1X8gQ2LdcbnarJrRT7vBNyCm3OdQsqowGbevGHd0+PFGzUfYmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e55P8QzKAyFQqWMg+FqWymGTziPoZC69EnQhBZfuLT8=;
- b=Q5APidS1ub79oDdZy6z5wLuSDR/AklQfFcCougP0neYkyBbYFieQyweP+joHINu3hZ5S31zmnieZOhQ4Ak+3+AkI0rdEwYSD+dwZmqyla3BjhLFKv69DS1HVrB20G/mtvSUkijJ6F64mOjc1YRncUze2+wM5eQjq4xhN3g+Uwrg=
+ bh=B/AAY/jSJOwVPQUUuecKiIxiXlnBh2CBNBrnoLxYKdY=;
+ b=hChYVzHLL6+xjwwX6na6lRAWCOfmbPp2YRfBAGnOZr9igCN9W3rRyE2y8ZhTOP/LiBRqXkWWwQmu0u7+HuHFdBKESEjartRgCJLG06uaSjKxvgg03CREfEUkbYVEyfU60S0EXj2Km+UFdeMDKU/f47VX0UCImH81s1cIThP6gAA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB4355.namprd12.prod.outlook.com (2603:10b6:5:2a3::21) with
+ DM5PR1201MB0121.namprd12.prod.outlook.com (2603:10b6:4:56::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.22; Tue, 14 Jul 2020 08:07:00 +0000
+ 15.20.3174.24; Tue, 14 Jul 2020 08:07:03 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3174.025; Tue, 14 Jul 2020
- 08:07:00 +0000
+ 08:07:03 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 11/17] drm/amd/powerplay: maximum code sharing around
- watermarks setting
-Date: Tue, 14 Jul 2020 16:04:10 +0800
-Message-Id: <20200714080416.6506-11-evan.quan@amd.com>
+Subject: [PATCH 12/17] drm/amd/powerplay: move table setting common code to
+ smu_cmn.c
+Date: Tue, 14 Jul 2020 16:04:11 +0800
+Message-Id: <20200714080416.6506-12-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200714080416.6506-1-evan.quan@amd.com>
 References: <20200714080416.6506-1-evan.quan@amd.com>
@@ -70,35 +70,35 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR04CA0078.apcprd04.prod.outlook.com (2603:1096:202:15::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.22 via Frontend Transport; Tue, 14 Jul 2020 08:06:59 +0000
+ 15.20.3174.22 via Frontend Transport; Tue, 14 Jul 2020 08:07:02 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 774eb4cb-7262-422d-25ba-08d827cce2d3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4355:
+X-MS-Office365-Filtering-Correlation-Id: 7f6e0ff7-59f1-4e28-98f2-08d827cce465
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0121:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4355856A65E478D08B923853E4610@DM6PR12MB4355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:171;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB0121AB3526D719963E81CD1FE4610@DM5PR1201MB0121.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:590;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ygaIDaIJTiEPN3vvkdQbWSsGXDUr/1NVitY2ZJx7uIAW8mq+EA6J/3buW9cfRJCeD56G+AOCIxX5X4OMDs23zPQQy6hGwEdrLYvjZBxYKhwjVDjd8219Tty2el98q4mpHzPauUjutg7fVGCn2Wx+h3R6Iw7RbVkqjfteXgVFF9Ljka+rI25kkGEpKOiEXfqx9RDxu/CHV34yymm7hNxnr0ptQNviuZJ+ldsJQEBgP/Jinwg+8Ojl7oBuPRET1gI8N1B2gSVl9WeQpmtNvqgIufz4E6LoscVXwPE1ZrgjuZzFX3cMMxEEkdFfPeCNSUQyNmOqqHypzeEO3zXjahGkvA==
+X-Microsoft-Antispam-Message-Info: intw/yK0vagrrh6ortcJPTw7S4zJENIdqr+IZQexdRR57nC3qd0pf1+gjjZkeQOPJnhQIFx6u0eQl5M9xgB/m2jnTGcWCN9X0UK/+IQCe61OSgT+mNuhOZLaP7LoRjI23r0CAS+CQVR/dZpZTZVBgEHWe/ikMPrlnWFHehssmgVyaMIVjYtC7j0xEZXII7Ug/Bm6Xa9qrAlRY4t/pCwTrCr2BfD+CIcB0nSPsEI+Pf9HXPqy4cbKv/74Iix4szm8UrGi13XtJ1EDcTBNG0sbE9LBWu4Q2MnPAHT8zbqxY3zhDXzsh5G15LOzcJtAINWO
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(366004)(346002)(376002)(39860400002)(396003)(478600001)(83380400001)(316002)(4326008)(2616005)(8936002)(8676002)(36756003)(66946007)(66556008)(1076003)(44832011)(2906002)(956004)(66476007)(6486002)(5660300002)(52116002)(6666004)(186003)(30864003)(86362001)(7696005)(16526019)(26005)(6916009);
+ SFS:(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(36756003)(19627235002)(6486002)(6916009)(8676002)(8936002)(2906002)(186003)(44832011)(7696005)(4326008)(956004)(16526019)(83380400001)(30864003)(1076003)(86362001)(6666004)(2616005)(66556008)(66476007)(316002)(66946007)(478600001)(52116002)(26005)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Qu80KTp6xm/WRCM6ZweHifuxVr5d0nkpx3eEaqcWn325B1zuT7Hj1D3sP32FMhn7rc984/d/evKsMqBDNOu1cA2SERWsClI+OKj1+iSGi8aKRfjkdVLHbrIkRzeXoMoH26IDqgpC79ezJr1DLpJWDpzaMamGenAcwE1HxQAy3JlEerCgpcOJvNV3sJKREXOnG1S9OEnGxIRSpuJZQA6ZRDLLonmjF+rQgGUmqxCLCoqhJIs7Odr+DC+qU6InUfpb7C/9G+XaOxM93aBJhU5iZF7lmHHKeaDTbC8T5I5xuAu/s/LMMb3Oi9s3XreWhs/7Kea8wkx2CRZWycrAhV/bZPUXsU02Fg1dmtvg3RfEQLtyPiw2kGN7bTNAjVk9rPzTQp0SYbuWauyoHslrpd15rdt2Bv3EJDCVYir/irneVwqDOIGdteGom/VyrlmiUmWvN+hFh6dwIWFQKCr1Mtus/fLhpiXstKmuFjYoh+jRbF7AaFpqS57zorue8JKbdkLk
+X-MS-Exchange-AntiSpam-MessageData: c+6xBgOLo2UwAUMFFC2rc9ZEfclA1B9p9RK0dJ7ezNSyYPpiJM53O/nh5iH9y8A5bPhHVU22ShAK4j7dqq252uGHeMM6VEdppcrvQOvnM2HAUc2nZhiZ6/nyJHDSN8H2t0QpiRSQXzKYVrJV9tmb8lEVzjyzCTr2kKcrLDMHeRkNJ0HJRtfg/ppTP9rA12Zr+3hc1Zy8zMY9tSU9YNjgXZIfGO2pgjbeluaiOCyycK1RTM4LztPajct5kQWHqgbCb+7ehF77vhM/kK2ZuhkoFTC9YBHNbkwH2dcBGL6qdJ10222w7C1BEWlZsVk8ZmtzbHDR40Z4XpkxMV3/LWDCVM+nylcDmQVGIRDLKnICu90KOVdGJW9wuFL/E/vxldozaQNLQc1J64ddAmMdTdflkMiKbWWvAxE8WcqZW12Dmt9N7MHkZd8WUa1wNtv6gXPsfhOKtHL4OPHnqSnJJnoTEG85AuTapoL4hGStiHM0vBN++6nN+g2MUE3ijTVc2/bW
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 774eb4cb-7262-422d-25ba-08d827cce2d3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f6e0ff7-59f1-4e28-98f2-08d827cce465
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2020 08:07:00.7684 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2020 08:07:03.5418 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wJa0cBaTrGnI8utw9whBiDeefEW1nApg1ICwtDCQUUrVz0iLOgePj7ILWvXr5ybr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4355
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2L1HSVyxVJOfCZQnRekGvy9x8+fsCQvP7YKLbH6WKvQ1t9vM00YQh4/GcVs7yDrr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,493 +116,457 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Maximum code sharing.
+As they are shared by all ASICs.
 
-Change-Id: If20fe786024506659bcc31697fa0d00b3d4aa89f
+Change-Id: Ib5bda9adc519496904104225af9bfb6ece322186
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  19 +--
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  27 ++---
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |   2 +-
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 102 ++++++++--------
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c    |  85 +++++++-------
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 111 +++++++++---------
- drivers/gpu/drm/amd/powerplay/smu_internal.h  |   2 +-
- 7 files changed, 166 insertions(+), 182 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 41 -----------
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 14 ++--
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  3 -
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  2 -
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 16 ++---
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c    |  4 +-
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 12 ++--
+ drivers/gpu/drm/amd/powerplay/smu_cmn.c       | 69 +++++++++++++++++++
+ drivers/gpu/drm/amd/powerplay/smu_cmn.h       | 10 +++
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 11 ---
+ drivers/gpu/drm/amd/powerplay/smu_v12_0.c     |  2 +-
+ 11 files changed, 103 insertions(+), 81 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d9f8e9c26390..d8510a5c4c60 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1484,23 +1484,12 @@ static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device *adev)
- 		return 0;
- 	}
- 
--	mutex_lock(&smu->mutex);
--
--	/* pass data to smu controller */
--	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
--			!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
--		ret = smu_write_watermarks_table(smu);
--
--		if (ret) {
--			mutex_unlock(&smu->mutex);
--			DRM_ERROR("Failed to update WMTABLE!\n");
--			return ret;
--		}
--		smu->watermarks_bitmap |= WATERMARKS_LOADED;
-+	ret = smu_write_watermarks_table(smu);
-+	if (ret) {
-+		DRM_ERROR("Failed to update WMTABLE!\n");
-+		return ret;
- 	}
- 
--	mutex_unlock(&smu->mutex);
--
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index 5f13b97d0229..bc085e2302d4 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -208,47 +208,6 @@ int smu_get_power_num_states(struct smu_context *smu,
  	return 0;
  }
  
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index d68de02a0c90..5f13b97d0229 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1692,35 +1692,34 @@ int smu_allow_xgmi_power_down(struct smu_context *smu, bool en)
- 
- int smu_write_watermarks_table(struct smu_context *smu)
- {
--	void *watermarks_table = smu->smu_table.watermarks_table;
-+	int ret = 0;
- 
--	if (!watermarks_table)
--		return -EINVAL;
-+	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-+		return -EOPNOTSUPP;
- 
--	return smu_update_table(smu,
--				SMU_TABLE_WATERMARKS,
--				0,
--				watermarks_table,
--				true);
-+	mutex_lock(&smu->mutex);
-+
-+	ret = smu_set_watermarks_table(smu, NULL);
-+
-+	mutex_unlock(&smu->mutex);
-+
-+	return ret;
- }
- 
- int smu_set_watermarks_for_clock_ranges(struct smu_context *smu,
- 		struct dm_pp_wm_sets_with_clock_ranges_soc15 *clock_ranges)
- {
--	void *table = smu->smu_table.watermarks_table;
-+	int ret = 0;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
--	if (!table)
+-int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int argument,
+-		     void *table_data, bool drv2smu)
+-{
+-	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct amdgpu_device *adev = smu->adev;
+-	struct smu_table *table = &smu_table->driver_table;
+-	int table_id = smu_cmn_to_asic_specific_index(smu,
+-						      CMN2ASIC_MAPPING_TABLE,
+-						      table_index);
+-	uint32_t table_size;
+-	int ret = 0;
+-	if (!table_data || table_id >= SMU_TABLE_COUNT || table_id < 0)
 -		return -EINVAL;
 -
- 	mutex_lock(&smu->mutex);
+-	table_size = smu_table->tables[table_index].size;
+-
+-	if (drv2smu) {
+-		memcpy(table->cpu_addr, table_data, table_size);
+-		/*
+-		 * Flush hdp cache: to guard the content seen by
+-		 * GPU is consitent with CPU.
+-		 */
+-		amdgpu_asic_flush_hdp(adev, NULL);
+-	}
+-
+-	ret = smu_send_smc_msg_with_param(smu, drv2smu ?
+-					  SMU_MSG_TransferTableDram2Smu :
+-					  SMU_MSG_TransferTableSmu2Dram,
+-					  table_id | ((argument & 0xFFFF) << 16),
+-					  NULL);
+-	if (ret)
+-		return ret;
+-
+-	if (!drv2smu) {
+-		amdgpu_asic_flush_hdp(adev, NULL);
+-		memcpy(table_data, table->cpu_addr, table_size);
+-	}
+-
+-	return ret;
+-}
+-
+ bool is_support_sw_smu(struct amdgpu_device *adev)
+ {
+ 	if (adev->asic_type >= CHIP_ARCTURUS)
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+index 9b1b9bcf42fc..fbe2711591ad 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -526,7 +526,7 @@ static int arcturus_get_smu_metrics_data(struct smu_context *smu,
  
- 	if (!smu->disable_watermark &&
- 			smu_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
- 			smu_feature_is_enabled(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
--		smu_set_watermarks_table(smu, table, clock_ranges);
-+		ret = smu_set_watermarks_table(smu, clock_ranges);
+ 	if (!smu_table->metrics_time ||
+ 	     time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(1))) {
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_SMU_METRICS,
+ 				       0,
+ 				       smu_table->metrics_table,
+@@ -1214,7 +1214,7 @@ static int arcturus_get_power_profile_mode(struct smu_context *smu,
+ 			continue;
  
- 		if (!(smu->watermarks_bitmap & WATERMARKS_EXIST)) {
- 			smu->watermarks_bitmap |= WATERMARKS_EXIST;
-@@ -1730,7 +1729,7 @@ int smu_set_watermarks_for_clock_ranges(struct smu_context *smu,
+ 		if (smu_version >= 0x360d00) {
+-			result = smu_update_table(smu,
++			result = smu_cmn_update_table(smu,
+ 						  SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+ 						  workload_type,
+ 						  (void *)(&activity_monitor),
+@@ -1283,7 +1283,7 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
  
- 	mutex_unlock(&smu->mutex);
+ 	if ((profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) &&
+ 	     (smu_version >=0x360d00)) {
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+ 				       WORKLOAD_PPLIB_CUSTOM_BIT,
+ 				       (void *)(&activity_monitor),
+@@ -1318,7 +1318,7 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
+ 			break;
+ 		}
  
--	return 0;
-+	return ret;
- }
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+ 				       WORKLOAD_PPLIB_CUSTOM_BIT,
+ 				       (void *)(&activity_monitor),
+@@ -1908,7 +1908,7 @@ static int arcturus_i2c_eeprom_read_data(struct i2c_adapter *control,
  
- int smu_set_ac_dc(struct smu_context *smu)
+ 	mutex_lock(&adev->smu.mutex);
+ 	/* Now read data starting with that address */
+-	ret = smu_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req,
++	ret = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req,
+ 					true);
+ 	mutex_unlock(&adev->smu.mutex);
+ 
+@@ -1943,7 +1943,7 @@ static int arcturus_i2c_eeprom_write_data(struct i2c_adapter *control,
+ 	arcturus_fill_eeprom_i2c_req(&req, true, address, numbytes, data);
+ 
+ 	mutex_lock(&adev->smu.mutex);
+-	ret = smu_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req, true);
++	ret = smu_cmn_update_table(&adev->smu, SMU_TABLE_I2C_COMMANDS, 0, &req, true);
+ 	mutex_unlock(&adev->smu.mutex);
+ 
+ 	if (!ret) {
+@@ -2265,7 +2265,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+ 	.setup_pptable = arcturus_setup_pptable,
+ 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+ 	.check_fw_version = smu_v11_0_check_fw_version,
+-	.write_pptable = smu_v11_0_write_pptable,
++	.write_pptable = smu_cmn_write_pptable,
+ 	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+ 	.set_tool_table_location = smu_v11_0_set_tool_table_location,
+ 	.notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
 diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index ca097f91e963..366ab73ee83a 100644
+index 366ab73ee83a..547797e42992 100644
 --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
 +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -493,7 +493,7 @@ struct pptable_funcs {
- 	int (*tables_init)(struct smu_context *smu, struct smu_table *tables);
- 	int (*get_fan_speed_percent)(struct smu_context *smu, uint32_t *speed);
- 	int (*get_fan_speed_rpm)(struct smu_context *smu, uint32_t *speed);
--	int (*set_watermarks_table)(struct smu_context *smu, void *watermarks,
-+	int (*set_watermarks_table)(struct smu_context *smu,
- 				    struct dm_pp_wm_sets_with_clock_ranges_soc15 *clock_ranges);
- 	int (*get_thermal_temperature_range)(struct smu_context *smu, struct smu_temperature_range *range);
- 	int (*get_uclk_dpm_states)(struct smu_context *smu, uint32_t *clocks_in_khz, uint32_t *num_states);
+@@ -727,9 +727,6 @@ extern const struct amd_ip_funcs smu_ip_funcs;
+ extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
+ extern const struct amdgpu_ip_block_version smu_v12_0_ip_block;
+ 
+-int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int argument,
+-		     void *table_data, bool drv2smu);
+-
+ bool is_support_sw_smu(struct amdgpu_device *adev);
+ int smu_reset(struct smu_context *smu);
+ int smu_sys_get_pp_table(struct smu_context *smu, void **table);
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 70274552e3af..6f1377282ce3 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -159,8 +159,6 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+ 
+ int smu_v11_0_check_fw_version(struct smu_context *smu);
+ 
+-int smu_v11_0_write_pptable(struct smu_context *smu);
+-
+ int smu_v11_0_set_driver_table_location(struct smu_context *smu);
+ 
+ int smu_v11_0_set_tool_table_location(struct smu_context *smu);
 diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 3e91f9cc732c..9f036971e4cd 100644
+index 9f036971e4cd..8fd1dcdfed95 100644
 --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1576,67 +1576,65 @@ static int navi10_notify_smc_display_config(struct smu_context *smu)
- }
+@@ -488,7 +488,7 @@ static int navi10_get_smu_metrics_data(struct smu_context *smu,
+ 	mutex_lock(&smu->metrics_lock);
+ 	if (!smu_table->metrics_time ||
+ 	     time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(1))) {
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_SMU_METRICS,
+ 				       0,
+ 				       smu_table->metrics_table,
+@@ -1397,7 +1397,7 @@ static int navi10_get_power_profile_mode(struct smu_context *smu, char *buf)
+ 		if (workload_type < 0)
+ 			return -EINVAL;
  
- static int navi10_set_watermarks_table(struct smu_context *smu,
--				       void *watermarks, struct
--				       dm_pp_wm_sets_with_clock_ranges_soc15
--				       *clock_ranges)
-+				       struct dm_pp_wm_sets_with_clock_ranges_soc15 *clock_ranges)
- {
--	int i;
-+	Watermarks_t *table = smu->smu_table.watermarks_table;
- 	int ret = 0;
--	Watermarks_t *table = watermarks;
-+	int i;
+-		result = smu_update_table(smu,
++		result = smu_cmn_update_table(smu,
+ 					  SMU_TABLE_ACTIVITY_MONITOR_COEFF, workload_type,
+ 					  (void *)(&activity_monitor), false);
+ 		if (result) {
+@@ -1468,7 +1468,7 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
  
--	if (!table || !clock_ranges)
--		return -EINVAL;
-+	if (clock_ranges) {
-+		if (clock_ranges->num_wm_dmif_sets > 4 ||
-+		    clock_ranges->num_wm_mcif_sets > 4)
-+			return -EINVAL;
+ 	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
  
--	if (clock_ranges->num_wm_dmif_sets > 4 ||
--	    clock_ranges->num_wm_mcif_sets > 4)
--		return -EINVAL;
-+		for (i = 0; i < clock_ranges->num_wm_dmif_sets; i++) {
-+			table->WatermarkRow[1][i].MinClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_dcfclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].MaxClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].MinUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].MaxUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].WmSetting = (uint8_t)
-+					clock_ranges->wm_dmif_clocks_ranges[i].wm_set_id;
-+		}
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
+ 				       (void *)(&activity_monitor), false);
+ 		if (ret) {
+@@ -1512,7 +1512,7 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
+ 			break;
+ 		}
  
--	for (i = 0; i < clock_ranges->num_wm_dmif_sets; i++) {
--		table->WatermarkRow[1][i].MinClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_dcfclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].MaxClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].MinUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].MaxUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].WmSetting = (uint8_t)
--				clock_ranges->wm_dmif_clocks_ranges[i].wm_set_id;
--	}
-+		for (i = 0; i < clock_ranges->num_wm_mcif_sets; i++) {
-+			table->WatermarkRow[0][i].MinClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_socclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].MaxClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_socclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].MinUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].MaxUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].WmSetting = (uint8_t)
-+					clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
-+		}
- 
--	for (i = 0; i < clock_ranges->num_wm_mcif_sets; i++) {
--		table->WatermarkRow[0][i].MinClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_socclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].MaxClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_socclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].MinUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].MaxUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].WmSetting = (uint8_t)
--				clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
-+		smu->watermarks_bitmap |= WATERMARKS_EXIST;
- 	}
- 
--	smu->watermarks_bitmap |= WATERMARKS_EXIST;
--
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
+ 				       (void *)(&activity_monitor), true);
+ 		if (ret) {
+@@ -1635,7 +1635,7 @@ static int navi10_set_watermarks_table(struct smu_context *smu,
  	/* pass data to smu controller */
--	if (!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
-+	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
-+	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
- 		ret = smu_write_watermarks_table(smu);
+ 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
+ 	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
+-		ret = smu_write_watermarks_table(smu);
++		ret = smu_cmn_write_watermarks_table(smu);
  		if (ret) {
  			dev_err(smu->adev->dev, "Failed to update WMTABLE!");
+ 			return ret;
+@@ -1956,7 +1956,7 @@ static int navi10_set_default_od_settings(struct smu_context *smu)
+ 		(OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+ 	int ret = 0;
+ 
+-	ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, false);
++	ret = smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, false);
+ 	if (ret) {
+ 		dev_err(smu->adev->dev, "Failed to get overdrive table!\n");
+ 		return ret;
+@@ -2090,7 +2090,7 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
+ 		break;
+ 	case PP_OD_COMMIT_DPM_TABLE:
+ 		navi10_dump_od_table(smu, od_table);
+-		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, true);
++		ret = smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, true);
+ 		if (ret) {
+ 			dev_err(smu->adev->dev, "Failed to import overdrive table!\n");
+ 			return ret;
+@@ -2288,7 +2288,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.setup_pptable = navi10_setup_pptable,
+ 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+ 	.check_fw_version = smu_v11_0_check_fw_version,
+-	.write_pptable = smu_v11_0_write_pptable,
++	.write_pptable = smu_cmn_write_pptable,
+ 	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+ 	.set_tool_table_location = smu_v11_0_set_tool_table_location,
+ 	.notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
 diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-index e6789b28dd23..33990a107117 100644
+index 33990a107117..9289df9b7d8a 100644
 --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-@@ -813,59 +813,58 @@ static int renoir_set_performance_level(struct smu_context *smu,
-  */
- static int renoir_set_watermarks_table(
- 		struct smu_context *smu,
--		void *watermarks,
- 		struct dm_pp_wm_sets_with_clock_ranges_soc15 *clock_ranges)
- {
--	int i;
-+	Watermarks_t *table = smu->smu_table.watermarks_table;
- 	int ret = 0;
--	Watermarks_t *table = watermarks;
-+	int i;
+@@ -135,7 +135,7 @@ static int renoir_get_metrics_table(struct smu_context *smu,
  
--	if (!table || !clock_ranges)
--		return -EINVAL;
-+	if (clock_ranges) {
-+		if (clock_ranges->num_wm_dmif_sets > 4 ||
-+				clock_ranges->num_wm_mcif_sets > 4)
-+			return -EINVAL;
- 
--	if (clock_ranges->num_wm_dmif_sets > 4 ||
--			clock_ranges->num_wm_mcif_sets > 4)
--		return -EINVAL;
-+		/* save into smu->smu_table.tables[SMU_TABLE_WATERMARKS]->cpu_addr*/
-+		for (i = 0; i < clock_ranges->num_wm_dmif_sets; i++) {
-+			table->WatermarkRow[WM_DCFCLK][i].MinClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_dcfclk_clk_in_khz));
-+			table->WatermarkRow[WM_DCFCLK][i].MaxClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz));
-+			table->WatermarkRow[WM_DCFCLK][i].MinMclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz));
-+			table->WatermarkRow[WM_DCFCLK][i].MaxMclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_mem_clk_in_khz));
-+			table->WatermarkRow[WM_DCFCLK][i].WmSetting = (uint8_t)
-+					clock_ranges->wm_dmif_clocks_ranges[i].wm_set_id;
-+		}
- 
--	/* save into smu->smu_table.tables[SMU_TABLE_WATERMARKS]->cpu_addr*/
--	for (i = 0; i < clock_ranges->num_wm_dmif_sets; i++) {
--		table->WatermarkRow[WM_DCFCLK][i].MinClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_dcfclk_clk_in_khz));
--		table->WatermarkRow[WM_DCFCLK][i].MaxClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz));
--		table->WatermarkRow[WM_DCFCLK][i].MinMclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz));
--		table->WatermarkRow[WM_DCFCLK][i].MaxMclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_mem_clk_in_khz));
--		table->WatermarkRow[WM_DCFCLK][i].WmSetting = (uint8_t)
--				clock_ranges->wm_dmif_clocks_ranges[i].wm_set_id;
--	}
-+		for (i = 0; i < clock_ranges->num_wm_mcif_sets; i++) {
-+			table->WatermarkRow[WM_SOCCLK][i].MinClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_socclk_clk_in_khz));
-+			table->WatermarkRow[WM_SOCCLK][i].MaxClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_socclk_clk_in_khz));
-+			table->WatermarkRow[WM_SOCCLK][i].MinMclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_mem_clk_in_khz));
-+			table->WatermarkRow[WM_SOCCLK][i].MaxMclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_mem_clk_in_khz));
-+			table->WatermarkRow[WM_SOCCLK][i].WmSetting = (uint8_t)
-+					clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
-+		}
- 
--	for (i = 0; i < clock_ranges->num_wm_mcif_sets; i++) {
--		table->WatermarkRow[WM_SOCCLK][i].MinClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_socclk_clk_in_khz));
--		table->WatermarkRow[WM_SOCCLK][i].MaxClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_socclk_clk_in_khz));
--		table->WatermarkRow[WM_SOCCLK][i].MinMclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_mem_clk_in_khz));
--		table->WatermarkRow[WM_SOCCLK][i].MaxMclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_mem_clk_in_khz));
--		table->WatermarkRow[WM_SOCCLK][i].WmSetting = (uint8_t)
--				clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
-+		smu->watermarks_bitmap |= WATERMARKS_EXIST;
- 	}
- 
--	smu->watermarks_bitmap |= WATERMARKS_EXIST;
--
+ 	mutex_lock(&smu->metrics_lock);
+ 	if (!smu_table->metrics_time || time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(100))) {
+-		ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
++		ret = smu_cmn_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
+ 				(void *)smu_table->metrics_table, false);
+ 		if (ret) {
+ 			dev_info(smu->adev->dev, "Failed to export SMU metrics table!\n");
+@@ -865,7 +865,7 @@ static int renoir_set_watermarks_table(
  	/* pass data to smu controller */
--	if (!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
-+	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
-+	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
- 		ret = smu_write_watermarks_table(smu);
+ 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
+ 	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
+-		ret = smu_write_watermarks_table(smu);
++		ret = smu_cmn_write_watermarks_table(smu);
  		if (ret) {
  			dev_err(smu->adev->dev, "Failed to update WMTABLE!");
+ 			return ret;
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 5c524a57341a..fc9ed1c50cf7 100644
+index fc9ed1c50cf7..6b4faf4c888c 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -1369,66 +1369,65 @@ static int sienna_cichlid_notify_smc_display_config(struct smu_context *smu)
- }
+@@ -393,7 +393,7 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
+ 	mutex_lock(&smu->metrics_lock);
+ 	if (!smu_table->metrics_time ||
+ 	     time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(1))) {
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_SMU_METRICS,
+ 				       0,
+ 				       smu_table->metrics_table,
+@@ -1190,7 +1190,7 @@ static int sienna_cichlid_get_power_profile_mode(struct smu_context *smu, char *
+ 		if (workload_type < 0)
+ 			return -EINVAL;
  
- static int sienna_cichlid_set_watermarks_table(struct smu_context *smu,
--				       void *watermarks, struct
--				       dm_pp_wm_sets_with_clock_ranges_soc15
--				       *clock_ranges)
-+					       struct dm_pp_wm_sets_with_clock_ranges_soc15
-+					       *clock_ranges)
- {
--	int i;
-+	Watermarks_t *table = smu->smu_table.watermarks_table;
- 	int ret = 0;
--	Watermarks_t *table = watermarks;
-+	int i;
+-		result = smu_update_table(smu,
++		result = smu_cmn_update_table(smu,
+ 					  SMU_TABLE_ACTIVITY_MONITOR_COEFF, workload_type,
+ 					  (void *)(&activity_monitor), false);
+ 		if (result) {
+@@ -1261,7 +1261,7 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
  
--	if (!table || !clock_ranges)
--		return -EINVAL;
-+	if (clock_ranges) {
-+		if (clock_ranges->num_wm_dmif_sets > 4 ||
-+		    clock_ranges->num_wm_mcif_sets > 4)
-+			return -EINVAL;
-+
-+		for (i = 0; i < clock_ranges->num_wm_dmif_sets; i++) {
-+			table->WatermarkRow[1][i].MinClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_dcfclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].MaxClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].MinUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].MaxUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[1][i].WmSetting = (uint8_t)
-+					clock_ranges->wm_dmif_clocks_ranges[i].wm_set_id;
-+		}
+ 	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
  
--	if (clock_ranges->num_wm_dmif_sets > 4 ||
--	    clock_ranges->num_wm_mcif_sets > 4)
--                return -EINVAL;
--
--        for (i = 0; i < clock_ranges->num_wm_dmif_sets; i++) {
--		table->WatermarkRow[1][i].MinClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_dcfclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].MaxClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].MinUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].MaxUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_dmif_clocks_ranges[i].wm_max_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[1][i].WmSetting = (uint8_t)
--				clock_ranges->wm_dmif_clocks_ranges[i].wm_set_id;
--        }
--
--	for (i = 0; i < clock_ranges->num_wm_mcif_sets; i++) {
--		table->WatermarkRow[0][i].MinClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_socclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].MaxClock =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_socclk_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].MinUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].MaxUclk =
--			cpu_to_le16((uint16_t)
--			(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_mem_clk_in_khz /
--			1000));
--		table->WatermarkRow[0][i].WmSetting = (uint8_t)
--				clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
--        }
--
--	smu->watermarks_bitmap |= WATERMARKS_EXIST;
--
--	if (!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
-+		for (i = 0; i < clock_ranges->num_wm_mcif_sets; i++) {
-+			table->WatermarkRow[0][i].MinClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_socclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].MaxClock =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_socclk_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].MinUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_min_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].MaxUclk =
-+				cpu_to_le16((uint16_t)
-+				(clock_ranges->wm_mcif_clocks_ranges[i].wm_max_mem_clk_in_khz /
-+				1000));
-+			table->WatermarkRow[0][i].WmSetting = (uint8_t)
-+					clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
-+		}
-+
-+		smu->watermarks_bitmap |= WATERMARKS_EXIST;
-+	}
-+
-+	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
-+	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
- 		ret = smu_write_watermarks_table(smu);
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
+ 				       (void *)(&activity_monitor), false);
+ 		if (ret) {
+@@ -1305,7 +1305,7 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
+ 			break;
+ 		}
+ 
+-		ret = smu_update_table(smu,
++		ret = smu_cmn_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
+ 				       (void *)(&activity_monitor), true);
+ 		if (ret) {
+@@ -1428,7 +1428,7 @@ static int sienna_cichlid_set_watermarks_table(struct smu_context *smu,
+ 
+ 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
+ 	     !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
+-		ret = smu_write_watermarks_table(smu);
++		ret = smu_cmn_write_watermarks_table(smu);
  		if (ret) {
  			dev_err(smu->adev->dev, "Failed to update WMTABLE!");
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-index 5ff37b550cae..dd187e0020d5 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-+++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-@@ -78,7 +78,7 @@
- #define smu_get_current_shallow_sleep_clocks(smu, clocks)		smu_ppt_funcs(get_current_shallow_sleep_clocks, 0, smu, clocks)
- #define smu_dpm_set_vcn_enable(smu, enable)				smu_ppt_funcs(dpm_set_vcn_enable, 0, smu, enable)
- #define smu_dpm_set_jpeg_enable(smu, enable)				smu_ppt_funcs(dpm_set_jpeg_enable, 0, smu, enable)
--#define smu_set_watermarks_table(smu, tab, clock_ranges)		smu_ppt_funcs(set_watermarks_table, 0, smu, tab, clock_ranges)
-+#define smu_set_watermarks_table(smu, clock_ranges)			smu_ppt_funcs(set_watermarks_table, 0, smu, clock_ranges)
- #define smu_thermal_temperature_range_update(smu, range, rw)		smu_ppt_funcs(thermal_temperature_range_update, 0, smu, range, rw)
- #define smu_register_irq_handler(smu)					smu_ppt_funcs(register_irq_handler, 0, smu)
- #define smu_get_dpm_ultimate_freq(smu, param, min, max)			smu_ppt_funcs(get_dpm_ultimate_freq, 0, smu, param, min, max)
+ 			return ret;
+@@ -2408,7 +2408,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.setup_pptable = sienna_cichlid_setup_pptable,
+ 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+ 	.check_fw_version = smu_v11_0_check_fw_version,
+-	.write_pptable = smu_v11_0_write_pptable,
++	.write_pptable = smu_cmn_write_pptable,
+ 	.set_driver_table_location = smu_v11_0_set_driver_table_location,
+ 	.set_tool_table_location = smu_v11_0_set_tool_table_location,
+ 	.notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_cmn.c b/drivers/gpu/drm/amd/powerplay/smu_cmn.c
+index 814c21ca2edc..7f5439c649bc 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_cmn.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_cmn.c
+@@ -440,3 +440,72 @@ int smu_cmn_get_smc_version(struct smu_context *smu,
+ 
+ 	return ret;
+ }
++
++int smu_cmn_update_table(struct smu_context *smu,
++			 enum smu_table_id table_index,
++			 int argument,
++			 void *table_data,
++			 bool drv2smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct amdgpu_device *adev = smu->adev;
++	struct smu_table *table = &smu_table->driver_table;
++	int table_id = smu_cmn_to_asic_specific_index(smu,
++						      CMN2ASIC_MAPPING_TABLE,
++						      table_index);
++	uint32_t table_size;
++	int ret = 0;
++	if (!table_data || table_id >= SMU_TABLE_COUNT || table_id < 0)
++		return -EINVAL;
++
++	table_size = smu_table->tables[table_index].size;
++
++	if (drv2smu) {
++		memcpy(table->cpu_addr, table_data, table_size);
++		/*
++		 * Flush hdp cache: to guard the content seen by
++		 * GPU is consitent with CPU.
++		 */
++		amdgpu_asic_flush_hdp(adev, NULL);
++	}
++
++	ret = smu_send_smc_msg_with_param(smu, drv2smu ?
++					  SMU_MSG_TransferTableDram2Smu :
++					  SMU_MSG_TransferTableSmu2Dram,
++					  table_id | ((argument & 0xFFFF) << 16),
++					  NULL);
++	if (ret)
++		return ret;
++
++	if (!drv2smu) {
++		amdgpu_asic_flush_hdp(adev, NULL);
++		memcpy(table_data, table->cpu_addr, table_size);
++	}
++
++	return ret;
++}
++
++int smu_cmn_write_watermarks_table(struct smu_context *smu)
++{
++	void *watermarks_table = smu->smu_table.watermarks_table;
++
++	if (!watermarks_table)
++		return -EINVAL;
++
++	return smu_cmn_update_table(smu,
++				    SMU_TABLE_WATERMARKS,
++				    0,
++				    watermarks_table,
++				    true);
++}
++
++int smu_cmn_write_pptable(struct smu_context *smu)
++{
++	void *pptable = smu->smu_table.driver_pptable;
++
++	return smu_cmn_update_table(smu,
++				    SMU_TABLE_PPTABLE,
++				    0,
++				    pptable,
++				    true);
++}
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_cmn.h b/drivers/gpu/drm/amd/powerplay/smu_cmn.h
+index 9b1d2e9c1799..214e7787559a 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_cmn.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_cmn.h
+@@ -59,4 +59,14 @@ int smu_cmn_get_smc_version(struct smu_context *smu,
+ 			    uint32_t *if_version,
+ 			    uint32_t *smu_version);
+ 
++int smu_cmn_update_table(struct smu_context *smu,
++			 enum smu_table_id table_index,
++			 int argument,
++			 void *table_data,
++			 bool drv2smu);
++
++int smu_cmn_write_watermarks_table(struct smu_context *smu);
++
++int smu_cmn_write_pptable(struct smu_context *smu);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 323eb8a09c1f..4bf07a4ec853 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -769,17 +769,6 @@ int smu_v11_0_notify_memory_pool_location(struct smu_context *smu)
+ 	return ret;
+ }
+ 
+-int smu_v11_0_write_pptable(struct smu_context *smu)
+-{
+-	struct smu_table_context *table_context = &smu->smu_table;
+-	int ret = 0;
+-
+-	ret = smu_update_table(smu, SMU_TABLE_PPTABLE, 0,
+-			       table_context->driver_pptable, true);
+-
+-	return ret;
+-}
+-
+ int smu_v11_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32_t clk)
+ {
+ 	int ret;
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
+index 7964f14536bd..364358ad7566 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
+@@ -293,7 +293,7 @@ int smu_v12_0_set_default_dpm_tables(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 
+-	return smu_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, smu_table->clocks_table, false);
++	return smu_cmn_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, smu_table->clocks_table, false);
+ }
+ 
+ int smu_v12_0_mode2_reset(struct smu_context *smu){
 -- 
 2.27.0
 
