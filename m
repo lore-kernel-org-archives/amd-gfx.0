@@ -7,64 +7,61 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B14B2C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 16:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47B55C433E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 17:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 877B72065E
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 16:21:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1A9A720656
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 17:58:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VRp5yGnM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 877B72065E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLMvK32N"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A9A720656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDE66EBD4;
-	Wed, 15 Jul 2020 16:21:03 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02C6C6EBD4
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 16:21:01 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id a6so3352127wrm.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 09:21:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99106EBAB;
+	Wed, 15 Jul 2020 17:58:39 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CAB16EBAB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 17:58:38 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id z15so3667178wrl.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 10:58:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=CO3Cq2YDgI6uzexmjV0sagPUQk4IIaySBNIP7vG5r6E=;
- b=VRp5yGnM5AqIoMuSv/R9iiGeTrn+stsioxqHMq9nVvtutAFupvt6OtdE1URdokaQHf
- 8iWKi6XmfN5kVGULtye6PYIeGigAv5RsF1jdQcqfOrk6awr1EejG3HTdNYAG6aYAwU8f
- yGOtmQ3deO+6vm8TsrJ/ircnSvoMxTMsHPQSccgZftWTJWTculUhmIicGvcupcqYjCwP
- RPk0zb9EI4en1529Tj0n5J/3jhKa83QSiuT8JVCejvWE8Tnn4+DItLnJ8+owyZE0gu6S
- IXvQOrZJEGz3KEIg9orLElTg/KHnuLQVSp5ESxa4i3hpUMHwm8ot2wVYNWCL8IvBTXXZ
- lq4g==
+ :cc; bh=Kg52lOnalNxiPxP9kzQTKmcGAyfAk7IlVeAFPnBaLwI=;
+ b=NLMvK32Nctf1zEuMgHzhxY15ydrbZEGTUX8n3MdINxtPFSXc315ehTsj2tlpEW3DhR
+ xKyZXMm3hV5arSdDZJFxDxIH+gIYuqbpdOVIpivie3AxznzKdMEJ/TjXsTD4Mo+Auddk
+ WUiTblSWM9L9j+JS9h1gLDYgO3eRTLx1OhhWW3s2OmngjWzBHouIIYaM+EOv81NXkFET
+ Zcbqcf0ZwpmvcHQE3LPsVRRa8UBo3Im2YrZvP3WBw6viFaXn2ZI7lZwpr9pEdyJW1QBE
+ wHPx8vD7yC5PrGbTmdqYuKEq1FYNCEH8M2rShhE4LhvwJCRdALYEGwjDBJjnuDqx44M4
+ wdiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=CO3Cq2YDgI6uzexmjV0sagPUQk4IIaySBNIP7vG5r6E=;
- b=B3ibfx93fNTH2aSeRjDOAWb8XBKBbkRX8X9oQHQltVKfxWFemqwQx26ns1249ld+sb
- /H9z+5BfiIs2ra8DMzbqdLLXOTecA/UZBwkpsDKZesdAxQrEkWt4CwcI0YlFcMngk4Vm
- sYY85CFIVXR/kughxla3QxZSgsZFEY5uWCSvHc7Gus5DV9tWjdsVQKvEd9ZEkuo0Igew
- UYRwXHHm1nbFB8PJmyreWJHP8ZKsAeYs+bZ5leriXe9nmFt287q7VYhsO52w+jfqCtxR
- lY3zu0z4BBgF/j/TkEAJTDqd+juEO6gCqIvqccENy+WSR3g3bOT4oGcnz3JtE0wOIdVZ
- azjw==
-X-Gm-Message-State: AOAM533gce2jZhRyUQXLTGv9aGYIltyWbP76JXRitp64tLYyLFwnX7no
- sA7nd8e7omUFjUmyDNlULq4rodHYk2XnEk+p7qc=
-X-Google-Smtp-Source: ABdhPJy7XYhgPNG7WbJ3PH97Klttzk50Qg0rG/JnuhvX5B5vRwRPkR5dpfn1+SWctGZaSwag/VKE/VyN+sM+LI2k6QQ=
-X-Received: by 2002:a5d:68cc:: with SMTP id p12mr146268wrw.111.1594830060623; 
- Wed, 15 Jul 2020 09:21:00 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=Kg52lOnalNxiPxP9kzQTKmcGAyfAk7IlVeAFPnBaLwI=;
+ b=pfkQqLw/DzSpuIIKtncIkvGV7BHQ2ILWwmSernM3fpmQHtSirklZ+gDigRzsV/Lz3y
+ 43+Eou+ikx92Uz0SDYQAOrtcei9wtmq8woCnPSwjA2ptV3jTeWU+9u/M/hCDAWyZTuD8
+ WHNlVUn3nCAmcKl62zllhJaDiHN6RDEl31G+T9By6ihQWB9ROQG/iw065Tx64OfPRUov
+ 5AxMFug9U3fMC+GkCqliUsDdieMqpYfEEfSZBkop3uHrTludhxPFaMx/GuZeLnLjhL5a
+ LQDz4alWXv+1rmpyk9vOsyHtRC3Mf8c9VPo4jzDZdGAM+h17FOXfGhhnRLVaJkw2FHlI
+ fgyw==
+X-Gm-Message-State: AOAM532d6gqTWPu6BMFpMgyA2A/IlU8nhcd7sIblbkM1bDZiV6cQLjPl
+ 2dHj/cbBb9UGDzQjD01OUYoEqvx9WKh0upFYul/Alg==
+X-Google-Smtp-Source: ABdhPJwsXNACC3Iwazioayim6S/MIB3Y/FrGUSTIbuzhxx7egkrmvjwxwNBB++v4d7hE+uFvcterNVqnEe+2NQP0hgo=
+X-Received: by 2002:adf:dd8d:: with SMTP id x13mr545387wrl.362.1594835916708; 
+ Wed, 15 Jul 2020 10:58:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200714182353.2164930-1-alexander.deucher@amd.com>
- <20200714182353.2164930-2-alexander.deucher@amd.com>
- <6609b826-c7ce-398a-e3a8-d146797063c9@gmail.com>
- <CADnq5_MzQSLfdm2_z=2rtd90WbaDGGzv2g+Gkr0hxeXeydmshw@mail.gmail.com>
-In-Reply-To: <CADnq5_MzQSLfdm2_z=2rtd90WbaDGGzv2g+Gkr0hxeXeydmshw@mail.gmail.com>
+References: <20200714080416.6506-1-evan.quan@amd.com>
+In-Reply-To: <20200714080416.6506-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jul 2020 12:20:49 -0400
-Message-ID: <CADnq5_Nz=NFfhbp1F=aTjTeJf9Wmnkbq_QhuDceDJyYvhvpHMQ@mail.gmail.com>
-Subject: Re: [PATCH 01/42] drm/amdgpu: expand to add multiple trap event irq id
-To: Christian Koenig <christian.koenig@amd.com>
+Date: Wed, 15 Jul 2020 13:58:25 -0400
+Message-ID: <CADnq5_OBuTLPY9hcFzxCwesykAr3HcT6Etxar3xexhG4eNGNpw@mail.gmail.com>
+Subject: Re: [PATCH 01/17] drm/amd/powerplay: move the API shared by SMU v11
+ to smu_v11_0.c
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,90 +73,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKdWwgMTUsIDIwMjAgYXQgOToyNCBBTSBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVy
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiBXZWQsIEp1bCAxNSwgMjAyMCBhdCA1OjIxIEFNIENo
-cmlzdGlhbiBLw7ZuaWcKPiA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3Rl
-Ogo+ID4KPiA+IEFtIDE0LjA3LjIwIHVtIDIwOjIzIHNjaHJpZWIgQWxleCBEZXVjaGVyOgo+ID4g
-PiBGcm9tOiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+ID4gPgo+ID4gPiBTaWVubmFf
-Y2ljaGxpZCBoYXMgZm91ciBzZG1hIGluc3RhbmNlcywgYnV0IG90aGVyIGNoaXBzIGRvbid0Lgo+
-ID4gPiBTbyB3ZSBuZWVkIGV4cGFuZCB0byBhZGQgbXVsdGlwbGUgdHJhcCBldmVudCBpcnEgaWQg
-aW4gc2RtYQo+ID4gPiB2NS4yLgo+ID4gPgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkg
-PHJheS5odWFuZ0BhbWQuY29tPgo+ID4gPiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gPgo+ID4gUmV2aWV3ZWQtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiA+Cj4gPiBCdXQgc2lkZSBxdWVz
-dGlvbiB3aHkgZG8gd2UgaGF2ZSB0aGUgX1NpZW5uYV9DaWNobGlkIHBvc3RmaXggb24gdGhlIGRl
-ZmluZT8KPgo+IEkgc3VzcGVjdCB3aGVuIGl0IHdhcyBvcmlnaW5hbGx5IGFkZGVkIGl0IHdhcyBz
-cGVjaWZpYyB0byBzaWVubmEKPiBjaWNobGlkLCBidXQgaXQgc2hvdWxkIGJlIGRyb3BwZWQgc2lu
-Y2UgaXQncyBnZW5lcmljLgoKSnVzdCBjaGVja2VkIGFuZCBpdCdzIHNwZWNpZmljIHRvIHRoaXMg
-ZmFtaWx5IG9mIGFzaWNzLiAgT3RoZXIgYXNpY3MKdXNlIGEgZGlmZmVyZW50IGNsaWVudCBpZCBm
-b3IgU0RNQTMuICBTZWUgc29jMTVfaWhfY2xpZW50aWQuaC4KCkFsZXgKCj4KPiBBbGV4Cj4KPgo+
-ID4KPiA+IENocmlzdGlhbi4KPiA+Cj4gPiA+IC0tLQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NkbWFfdjVfMi5jIHwgNjcgKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0KPiA+
-ID4gICAxIGZpbGUgY2hhbmdlZCwgNDEgaW5zZXJ0aW9ucygrKSwgMjYgZGVsZXRpb25zKC0pCj4g
-PiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1
-XzIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMi5jCj4gPiA+IGluZGV4
-IDgyNGYzZTIzYzNkOS4uZGU4MzQyMjgzZmRiIDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzIuYwo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9zZG1hX3Y1XzIuYwo+ID4gPiBAQCAtMTE2NSw2ICsxMTY1LDQwIEBAIHN0YXRp
-YyBpbnQgc2RtYV92NV8yX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQo+ID4gPiAgICAgICByZXR1
-cm4gMDsKPiA+ID4gICB9Cj4gPiA+Cj4gPiA+ICtzdGF0aWMgdW5zaWduZWQgc2RtYV92NV8yX3Nl
-cV90b19pcnFfaWQoaW50IHNlcV9udW0pCj4gPiA+ICt7Cj4gPiA+ICsgICAgIHN3aXRjaCAoc2Vx
-X251bSkgewo+ID4gPiArICAgICBjYXNlIDA6Cj4gPiA+ICsgICAgICAgICAgICAgcmV0dXJuIFNP
-QzE1X0lIX0NMSUVOVElEX1NETUEwOwo+ID4gPiArICAgICBjYXNlIDE6Cj4gPiA+ICsgICAgICAg
-ICAgICAgcmV0dXJuIFNPQzE1X0lIX0NMSUVOVElEX1NETUExOwo+ID4gPiArICAgICBjYXNlIDI6
-Cj4gPiA+ICsgICAgICAgICAgICAgcmV0dXJuIFNPQzE1X0lIX0NMSUVOVElEX1NETUEyOwo+ID4g
-PiArICAgICBjYXNlIDM6Cj4gPiA+ICsgICAgICAgICAgICAgcmV0dXJuIFNPQzE1X0lIX0NMSUVO
-VElEX1NETUEzX1NpZW5uYV9DaWNobGlkOwo+ID4gPiArICAgICBkZWZhdWx0Ogo+ID4gPiArICAg
-ICAgICAgICAgIGJyZWFrOwo+ID4gPiArICAgICB9Cj4gPiA+ICsgICAgIHJldHVybiAtRUlOVkFM
-Owo+ID4gPiArfQo+ID4gPiArCj4gPiA+ICtzdGF0aWMgdW5zaWduZWQgc2RtYV92NV8yX3NlcV90
-b190cmFwX2lkKGludCBzZXFfbnVtKQo+ID4gPiArewo+ID4gPiArICAgICBzd2l0Y2ggKHNlcV9u
-dW0pIHsKPiA+ID4gKyAgICAgY2FzZSAwOgo+ID4gPiArICAgICAgICAgICAgIHJldHVybiBTRE1B
-MF81XzBfX1NSQ0lEX19TRE1BX1RSQVA7Cj4gPiA+ICsgICAgIGNhc2UgMToKPiA+ID4gKyAgICAg
-ICAgICAgICByZXR1cm4gU0RNQTFfNV8wX19TUkNJRF9fU0RNQV9UUkFQOwo+ID4gPiArICAgICBj
-YXNlIDI6Cj4gPiA+ICsgICAgICAgICAgICAgcmV0dXJuIFNETUEyXzVfMF9fU1JDSURfX1NETUFf
-VFJBUDsKPiA+ID4gKyAgICAgY2FzZSAzOgo+ID4gPiArICAgICAgICAgICAgIHJldHVybiBTRE1B
-M181XzBfX1NSQ0lEX19TRE1BX1RSQVA7Cj4gPiA+ICsgICAgIGRlZmF1bHQ6Cj4gPiA+ICsgICAg
-ICAgICAgICAgYnJlYWs7Cj4gPiA+ICsgICAgIH0KPiA+ID4gKyAgICAgcmV0dXJuIC1FSU5WQUw7
-Cj4gPiA+ICt9Cj4gPiA+ICsKPiA+ID4gICBzdGF0aWMgaW50IHNkbWFfdjVfMl9zd19pbml0KHZv
-aWQgKmhhbmRsZSkKPiA+ID4gICB7Cj4gPiA+ICAgICAgIHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-ZzsKPiA+ID4gQEAgLTExNzIsMzIgKzEyMDYsMTMgQEAgc3RhdGljIGludCBzZG1hX3Y1XzJfc3df
-aW5pdCh2b2lkICpoYW5kbGUpCj4gPiA+ICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+ID4gPgo+ID4gPiAgICAgICAvKiBT
-RE1BIHRyYXAgZXZlbnQgKi8KPiA+ID4gLSAgICAgciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYs
-IFNPQzE1X0lIX0NMSUVOVElEX1NETUEwLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgU0RNQTBfNV8wX19TUkNJRF9fU0RNQV9UUkFQLAo+ID4gPiAtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgJmFkZXYtPnNkbWEudHJhcF9pcnEpOwo+ID4gPiAtICAgICBpZiAocikKPiA+ID4g
-LSAgICAgICAgICAgICByZXR1cm4gcjsKPiA+ID4gLQo+ID4gPiAtICAgICAvKiBTRE1BIHRyYXAg
-ZXZlbnQgKi8KPiA+ID4gLSAgICAgciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIFNPQzE1X0lI
-X0NMSUVOVElEX1NETUExLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgU0RNQTFf
-NV8wX19TUkNJRF9fU0RNQV9UUkFQLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-JmFkZXYtPnNkbWEudHJhcF9pcnEpOwo+ID4gPiAtICAgICBpZiAocikKPiA+ID4gLSAgICAgICAg
-ICAgICByZXR1cm4gcjsKPiA+ID4gLQo+ID4gPiAtICAgICAvKiBTRE1BIHRyYXAgZXZlbnQgKi8K
-PiA+ID4gLSAgICAgciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIFNPQzE1X0lIX0NMSUVOVElE
-X1NETUEyLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgU0RNQTJfNV8wX19TUkNJ
-RF9fU0RNQV9UUkFQLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgJmFkZXYtPnNk
-bWEudHJhcF9pcnEpOwo+ID4gPiAtICAgICBpZiAocikKPiA+ID4gLSAgICAgICAgICAgICByZXR1
-cm4gcjsKPiA+ID4gLQo+ID4gPiAtICAgICAvKiBTRE1BIHRyYXAgZXZlbnQgKi8KPiA+ID4gLSAg
-ICAgciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIFNPQzE1X0lIX0NMSUVOVElEX1NETUEzX1Np
-ZW5uYV9DaWNobGlkLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgU0RNQTNfNV8w
-X19TUkNJRF9fU0RNQV9UUkFQLAo+ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgJmFk
-ZXYtPnNkbWEudHJhcF9pcnEpOwo+ID4gPiAtICAgICBpZiAocikKPiA+ID4gLSAgICAgICAgICAg
-ICByZXR1cm4gcjsKPiA+ID4gKyAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPnNkbWEubnVtX2lu
-c3RhbmNlczsgaSsrKSB7Cj4gPiA+ICsgICAgICAgICAgICAgciA9IGFtZGdwdV9pcnFfYWRkX2lk
-KGFkZXYsIHNkbWFfdjVfMl9zZXFfdG9faXJxX2lkKGkpLAo+ID4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBzZG1hX3Y1XzJfc2VxX3RvX3RyYXBfaWQoaSksCj4gPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZhZGV2LT5zZG1hLnRyYXBfaXJxKTsK
-PiA+ID4gKyAgICAgICAgICAgICBpZiAocikKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJl
-dHVybiByOwo+ID4gPiArICAgICB9Cj4gPiA+Cj4gPiA+ICAgICAgIHIgPSBzZG1hX3Y1XzJfaW5p
-dF9taWNyb2NvZGUoYWRldik7Cj4gPiA+ICAgICAgIGlmIChyKSB7Cj4gPgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Tue, Jul 14, 2020 at 4:04 AM Evan Quan <evan.quan@amd.com> wrote:
+>
+> To fit our original desgin and this can help to maintain
+> clear code layer.
+>
+> Change-Id: Id89476c14709b5676bbf043371a27f27b94a58ed
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 16 ---------------
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |  2 +-
+>  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  4 ----
+>  drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  4 ++++
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  4 ++--
+>  .../drm/amd/powerplay/sienna_cichlid_ppt.c    |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 20 +++++++++++++++++--
+>  7 files changed, 26 insertions(+), 26 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index 16ff64644e2e..0daea412d0a0 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -675,22 +675,6 @@ static int smu_late_init(void *handle)
+>         return 0;
+>  }
+>
+> -int smu_get_atom_data_table(struct smu_context *smu, uint32_t table,
+> -                           uint16_t *size, uint8_t *frev, uint8_t *crev,
+> -                           uint8_t **addr)
+> -{
+> -       struct amdgpu_device *adev = smu->adev;
+> -       uint16_t data_start;
+> -
+> -       if (!amdgpu_atom_parse_data_header(adev->mode_info.atom_context, table,
+> -                                          size, frev, crev, &data_start))
+> -               return -EINVAL;
+> -
+> -       *addr = (uint8_t *)adev->mode_info.atom_context->bios + data_start;
+> -
+> -       return 0;
+> -}
+> -
+>  static int smu_init_fb_allocations(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index 56dc20a617fd..03361d0194fe 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -488,7 +488,7 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                            smc_dpm_info);
+>
+> -       ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +       ret = smu_v11_0_get_atom_data_table(smu, index, NULL, NULL, NULL,
+>                                       (uint8_t **)&smc_dpm_table);
+>         if (ret)
+>                 return ret;
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index 52e5603dcc97..28894b8bab67 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -674,10 +674,6 @@ int smu_baco_exit(struct smu_context *smu);
+>
+>  int smu_mode2_reset(struct smu_context *smu);
+>
+> -extern int smu_get_atom_data_table(struct smu_context *smu, uint32_t table,
+> -                                  uint16_t *size, uint8_t *frev, uint8_t *crev,
+> -                                  uint8_t **addr);
+> -
+>  extern const struct amd_ip_funcs smu_ip_funcs;
+>
+>  extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> index 9b724e4aceaa..8a4053d8eb8c 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> @@ -175,6 +175,10 @@ int smu_v11_0_fini_power(struct smu_context *smu);
+>
+>  int smu_v11_0_check_fw_status(struct smu_context *smu);
+>
+> +int smu_v11_0_get_atom_data_table(struct smu_context *smu, uint32_t table,
+> +                           uint16_t *size, uint8_t *frev, uint8_t *crev,
+> +                           uint8_t **addr);
+> +
+>  int smu_v11_0_setup_pptable(struct smu_context *smu);
+>
+>  int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index 41bd6d157271..ff717b800086 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -467,7 +467,7 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                            smc_dpm_info);
+>
+> -       ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +       ret = smu_v11_0_get_atom_data_table(smu, index, NULL, NULL, NULL,
+>                                       (uint8_t **)&smc_dpm_table);
+>         if (ret)
+>                 return ret;
+> @@ -487,7 +487,7 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
+>                         sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
+>                 break;
+>         case 7: /* nv12 */
+> -               ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +               ret = smu_v11_0_get_atom_data_table(smu, index, NULL, NULL, NULL,
+>                                               (uint8_t **)&smc_dpm_table_v4_7);
+>                 if (ret)
+>                         return ret;
+> diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> index 48c5424f6f37..8a25921d28a9 100644
+> --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> @@ -398,7 +398,7 @@ static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                             smc_dpm_info);
+>
+> -       ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +       ret = smu_v11_0_get_atom_data_table(smu, index, NULL, NULL, NULL,
+>                                       (uint8_t **)&smc_dpm_table);
+>         if (ret)
+>                 return ret;
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> index fbd561a4d0eb..416aa536a57e 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> @@ -370,6 +370,22 @@ static int smu_v11_0_set_pptable_v2_1(struct smu_context *smu, void **table,
+>         return 0;
+>  }
+>
+> +int smu_v11_0_get_atom_data_table(struct smu_context *smu, uint32_t table,
+> +                           uint16_t *size, uint8_t *frev, uint8_t *crev,
+> +                           uint8_t **addr)
+> +{
+> +       struct amdgpu_device *adev = smu->adev;
+> +       uint16_t data_start;
+> +
+> +       if (!amdgpu_atom_parse_data_header(adev->mode_info.atom_context, table,
+> +                                          size, frev, crev, &data_start))
+> +               return -EINVAL;
+> +
+> +       *addr = (uint8_t *)adev->mode_info.atom_context->bios + data_start;
+> +
+> +       return 0;
+> +}
+
+This is not really smu11 specific.  I think it would be better in the
+smu_cmn file or even amdgpu_atombios.c.
+
+Patches 2-17:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> +
+>  int smu_v11_0_setup_pptable(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> @@ -406,7 +422,7 @@ int smu_v11_0_setup_pptable(struct smu_context *smu)
+>                 index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                                     powerplayinfo);
+>
+> -               ret = smu_get_atom_data_table(smu, index, &atom_table_size, &frev, &crev,
+> +               ret = smu_v11_0_get_atom_data_table(smu, index, &atom_table_size, &frev, &crev,
+>                                               (uint8_t **)&table);
+>                 if (ret)
+>                         return ret;
+> @@ -621,7 +637,7 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                             firmwareinfo);
+>
+> -       ret = smu_get_atom_data_table(smu, index, &size, &frev, &crev,
+> +       ret = smu_v11_0_get_atom_data_table(smu, index, &size, &frev, &crev,
+>                                       (uint8_t **)&header);
+>         if (ret)
+>                 return ret;
+> --
+> 2.27.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
