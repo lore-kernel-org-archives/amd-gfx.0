@@ -2,106 +2,109 @@ Return-Path: <SRS0=Zv7j=A2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 741B0C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 05:12:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F726C433E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 05:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E88020657
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 05:12:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2173E20657
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 05:50:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IQxuLSes"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E88020657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="c6FEOUBL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2173E20657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99F306E378;
-	Wed, 15 Jul 2020 05:12:20 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700070.outbound.protection.outlook.com [40.107.70.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815F56E378
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 05:12:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCC9E6E3B8;
+	Wed, 15 Jul 2020 05:50:20 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9826E3B8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 05:50:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I5brOfx4hAEGEmbfjp99SPX1XaLnn1KC4C6r+RiOfCC0GRPnz8GpPzvVrEluNWzfwWxZXg74jHSALp2wQw+Kiqc7r20m4kkdF4ZqW63IFXsmm6EbddJCkxSqZtxsIF3mXqEh7iq1HIibWI6fPZgjte8cxe3w72lUxp937AZNq7Cum6QuyH1sRDqUC6Wv5MELUfM2EZXaznEba7uPGz+/8t/j/i2thJMfY6O/7jLpIvLpcdVKeQRSn/wpw1AhlnpAlcpHQztvTSpq52ftFURoOtqIB8wugwmgfqyWnwqxRh7kJbINRHMVqVt4AnBjeddD1oITupoZfEVsgThosXJSWw==
+ b=Il37frFft3iBQq3q5sk7PlMi6aZ4dB7yCHanE3VPIv6M3Y8LbuETj+7YlD0nLQAI1coAGfzdDDwWuUqfSdpzt0O9c7+Qjp6bbOpDPnqVcoDVYucKGjpxaLtlupjT1+XBwtSJ4Hd4OuRFYmfUqCyw/5bze9LZsa6+3fYLR8FZL//cKkzZrWzZYu7Ijm97rOa0USZHJ3r3+17TvcARF8NLvbwabJZFn6HQDTnE4+cHtS/gb33DMuAVjlycl/Ozfvz59Wh5BnZLIink9pct9SL/fq7CglzhYqytDOEi6myRtUm7LSyY4x94dOF/yf3GUFvbt4a2V7qEMYLgPGvP4uJt6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VugXiLJcc6mdRNzSEssi4kNmn7qeJsvJVsHu/tOhNwE=;
- b=H8az+CXRdvgA40G13fTR/FkJWHqKiEKcK4halhLiQMTAeK/0rlK2gQfxTXNLupAOCDZCw7BZ16sScsujR4XSM0EJ/fUdsOKVFAhCl1KwBl7WlerV4hd+yg7LB/uaGkyAV9v6oS+SvR1bRgOWp/OHFgUA9IQGZ7lbQw+7RQN26rY5sprz0N5PJh0ujttNmmn7KjGZSkoURBhKmz3X1q6TqhhHJHV/9MbjyCb5QZTf7grQ72rElWCrplk9xsCNbgCPdSUXfHeW1ReWBOVKj1cEaxQUbuYKy3VZaXQg5jtbrGeALhL7eYquyXr9SGjNQG/NKD3+jWPnoi0NiF8FCduRpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=XEYeDfWW4tT5OrNq2KEGU2hdysv6dIyGcMhkSMKDDuE=;
+ b=GYhlP+RUfCM8qqpuzmWI5eOFzdf3xJm+Etv09tFwKcn8G+cpt+8+Vnh0OGQpobVc6AvXPa5+UDgywYYWRZ75dQap9wi2Rw+M53u0Y2G5n1lzLUtynJTxBGdzh0KoVnydSstrDSy8AqoxgamGtaGbvEy75klAD+wmlwX4kv9UrxqnmizjXAs39YA0etTrQLDVC446vUvBOJ+aGJ8tifwrYU15FclRSPdwLmvx+QJRvf6Bqvy57YCNWCwbzVucFkIwGhlYMZTMswDC9Gs4v42ShrEZ5EzE46Cvd42IBP9SF9VUFLKRFckUq5oMSlaEAvBdhL38j0FRlrWZfOmWHGxmPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VugXiLJcc6mdRNzSEssi4kNmn7qeJsvJVsHu/tOhNwE=;
- b=IQxuLSesda6WddY3Icv+6WH7oe0FhP+5Yhpl0UM3b2VeDDUo+vu9ZF1u+SZZuTOiP1mg9IeK6wpMlaJnNMfkPx5iujdcAeBCvtO5v8zR/nK2B2umzBCil0qirfO9066yehfvsKNHY90puIe18XpFpEHcV7ztanicX3Pyc3wGSOY=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.17; Wed, 15 Jul 2020 05:12:15 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3174.025; Wed, 15 Jul 2020
- 05:12:15 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Nirmoy Das <nirmoy.aiemd@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: do not disable SMU on vm reboot
-Thread-Topic: [PATCH] drm/amdgpu: do not disable SMU on vm reboot
-Thread-Index: AQHWVsk3YqDT4uW8WU6QaqTmf+mVxKkIH0/w
-Date: Wed, 15 Jul 2020 05:12:15 +0000
-Message-ID: <DM6PR12MB2619AD3F3A4ACB3221558162E47E0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200710145047.52383-1-nirmoy.das@amd.com>
-In-Reply-To: <20200710145047.52383-1-nirmoy.das@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=48bf36f3-a129-4aaa-8de6-00007c43450f;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-15T05:11:48Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: adde2c96-bddb-4b79-65ef-08d8287da3b8
-x-ms-traffictypediagnostic: DM5PR12MB2504:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB25048252AF3B310C8CDF9D13E47E0@DM5PR12MB2504.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4714;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yf5vUnMoV+BP+o04ETV3Tk1HvBh/iPKgOobz5uJZtxTs2SSNBkpOYV2+W7E105foPQFKLJMxlD+nI5Y4+oaRlCSJ35KnigOQYd2aG9nQcCzNTkxXophoTc5ReHROWvBw4jXiy7/rQOVuBVDCVnYLUYcqRGJ96qlksGZa2tfIzYiKxSyOpLg5Yr+bKhRDsnJYXKYk0o+Ftr0koOJh1TQ4kxVIZrwPIierZV/JAq9OpnFRkqod/KlI7amWIPZQwfQKbwaTYpYbkVxF6WKo4p10QjjV0MJqnZp42rwL8GgP8ckFmosiakOX/RiNnL7p54Y/wIL7425TnftiZ1XWBEf34g==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(136003)(376002)(39860400002)(396003)(346002)(71200400001)(83380400001)(55016002)(7696005)(53546011)(478600001)(9686003)(6506007)(5660300002)(8936002)(8676002)(54906003)(86362001)(26005)(33656002)(110136005)(2906002)(66556008)(66446008)(66946007)(52536014)(64756008)(66476007)(316002)(76116006)(186003)(4326008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 1Yp5CNqWKz8mXolukWvoFEVemiwvR+PKfrM7OULP0olbZvk5zec8dlcVWpYI1QGHe+P6iPUlxh6BEPWv0tZ60LO6XvFwyEmRHSfeDrPwC+wgn4tbjxqlGROHMvieg5wLoKct/7zpM4jKuxF7Piz7gY2QULWA7/YjCDbTze7xtlrWDLygMdBGqvWpG6dbygKkk7w1yFELi0j3blgCYOqgknFsdNJT70ZWBiitYlqb7ElE9jD9MquCePF3I6hbcl+Bzsz02zgE8CfpFnpwSvEAAtgoSYy3OXxXKHxNyhj8BzyTZ3zIrNlARZ2TvKrtzcSjrd4obpcztOuykVuDMliQgJl0VRpvYJUfzd6gTxOpXOl63vBCP6zqnm2MzJ6nK53zwOH0NA6fdZb4GQlLpjAKowHTGnjzJJ2UtMGSGDkbyg0VceugP3S2U9lm4OFvIy3Ii45Jl/C3kyeTWfofsyEYv2aRSdn0HBbRTH0XXXA74+re7RpayV93su9xb+lIu87K
+ bh=XEYeDfWW4tT5OrNq2KEGU2hdysv6dIyGcMhkSMKDDuE=;
+ b=c6FEOUBLQo++QMl9vfmaT8ZrNN632RtAn/Cmc+QpA4MxRUzo1XgVdXbHYhhI3hjB0r1+Rc2/D/fmXhjK2AAGa+ct6kqlf11ndjyYxXOVIfu3Cjs29N6k9H2cPVz4TEnwma8iUfEzbljDdo689QXJOAzt/Y3dpEokP47VUXJ6Dxc=
+Received: from MWHPR1601CA0003.namprd16.prod.outlook.com
+ (2603:10b6:300:da::13) by DM6PR12MB3900.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.21; Wed, 15 Jul
+ 2020 05:50:11 +0000
+Received: from CO1NAM11FT039.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:da:cafe::3a) by MWHPR1601CA0003.outlook.office365.com
+ (2603:10b6:300:da::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22 via Frontend
+ Transport; Wed, 15 Jul 2020 05:50:11 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT039.mail.protection.outlook.com (10.13.174.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3174.21 via Frontend Transport; Wed, 15 Jul 2020 05:50:10 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 15 Jul
+ 2020 00:50:09 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 15 Jul
+ 2020 00:50:09 -0500
+Received: from ubuntu.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 15 Jul 2020 00:50:08 -0500
+From: Jack Zhang <Jack.Zhang1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 5/5] drm/amd/sriov skip vcn powergating and dec_ring_test
+Date: Wed, 15 Jul 2020 13:49:36 +0800
+Message-ID: <1594792176-12913-1-git-send-email-Jack.Zhang1@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(39860400002)(136003)(396003)(346002)(46966005)(70206006)(47076004)(26005)(6666004)(36756003)(86362001)(478600001)(70586007)(54906003)(2906002)(186003)(82310400002)(8936002)(5660300002)(83380400001)(7696005)(6916009)(356005)(82740400003)(426003)(4326008)(8676002)(81166007)(316002)(336012)(2616005);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 16598491-5224-46b9-6d08-08d82882f007
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3900:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3900F975F43F5CD7C3941B1ABB7E0@DM6PR12MB3900.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yeL/248RIbfYN8AgdGboBI1dkVQk1XKQ+1RETo69y0F5mMGoOIobzgZ6RaWcT1ohGrIWNcueQtKWWojergBI5JTBcEcxn12VVwtHafcLgCeOTHCeKB/5bAK7PS6MoKLlB57JXnSiAvdyktJNaNS3gRe1eteIrZPX4cIZkwW8KSPaXrM/sW2lxwQGM9IIG78WP1573td9nHNAdhSiLIJfgZgKAgdnjjQTY3XqJOwO2p1DrMH276J2ylgGnUxTojiinCCnb0apMkAx4YgsP/d7leHEobTF57A+sTPJ143V99B6J48U9AgjcvTxp3BNL4dFJ2xuydeV4Fn17GOm7da8Y+4qoZkThxxUkL4P7KeRdYWinNRcMm5LG69d2Jd4VCn6FNbSbfMc3kaPR4IDj20MEg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adde2c96-bddb-4b79-65ef-08d8287da3b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2020 05:12:15.4869 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +uPggBtt7l1YXK3nOYqtUi79qwBLJstUMVc8PdktlVvtoX0cy39/CDgSVhuVCAhI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2504
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2020 05:50:10.8534 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16598491-5224-46b9-6d08-08d82882f007
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT039.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3900
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,49 +116,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Das,
- Nirmoy" <Nirmoy.Das@amd.com>
+Cc: Jack.Zhang1@amd.com, Leo.Liu@amd.com, Hawking.Zhang@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+1.Skip decode_ring test in VF, because VCN in SRIOV does not
+support direct register read/write.
 
-Acked-by: Evan Quan <evan.quan@amd.com>
+2.Skip powergating configuration in hw fini because
+VCN3.0 SRIOV doesn't support powergating.
 
------Original Message-----
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-Sent: Friday, July 10, 2020 10:51 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Das, Nirmoy <Nirmoy.Das@amd.com>
-Subject: [PATCH] drm/amdgpu: do not disable SMU on vm reboot
+V2: delete unneccessary white lines and refine implementation.
 
-For passthrough device,  we do baco reset after 1st vm boot so
-if we disable SMU on 1st VM shutdown baco reset will fail for
-2nd vm boot.
-
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 21 ++++++++++++++++-----
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d1adbc45d37b..07be61ce969a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1178,7 +1178,8 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
-  * unfortunately we can't detect certain
-  * hypervisors so just do this all the time.
-  */
--adev->mp1_state = PP_MP1_STATE_UNLOAD;
-+if (!amdgpu_passthrough(adev))
-+adev->mp1_state = PP_MP1_STATE_UNLOAD;
- amdgpu_device_ip_suspend(adev);
- adev->mp1_state = PP_MP1_STATE_NONE;
- }
---
-2.27.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 15ff30c53e24..92a55e40bc48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -421,6 +421,10 @@ int amdgpu_vcn_dec_ring_test_ring(struct amdgpu_ring *ring)
+ 	unsigned i;
+ 	int r;
+ 
++	/* VCN in SRIOV does not support direct register read/write */
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	WREG32(adev->vcn.inst[ring->me].external.scratch9, 0xCAFEDEAD);
+ 	r = amdgpu_ring_alloc(ring, 3);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 0a0ca10bf55b..910a4a32ff78 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -354,11 +354,13 @@ static int vcn_v3_0_hw_fini(void *handle)
+ 
+ 		ring = &adev->vcn.inst[i].ring_dec;
+ 
+-		if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+-			(adev->vcn.cur_state != AMD_PG_STATE_GATE &&
+-			RREG32_SOC15(VCN, i, mmUVD_STATUS)))
+-			vcn_v3_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
+-
++		if (!amdgpu_sriov_vf(adev)) {
++			if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
++					(adev->vcn.cur_state != AMD_PG_STATE_GATE &&
++					 RREG32_SOC15(VCN, i, mmUVD_STATUS))) {
++				vcn_v3_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
++			}
++		}
+ 		ring->sched.ready = false;
+ 
+ 		for (j = 0; j < adev->vcn.num_enc_rings; ++j) {
+@@ -1861,6 +1863,15 @@ static int vcn_v3_0_set_powergating_state(void *handle,
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int ret;
+ 
++	/* for SRIOV, guest should not control VCN Power-gating
++	 * MMSCH FW should control Power-gating and clock-gating
++	 * guest should avoid touching CGC and PG
++	 */
++	if (amdgpu_sriov_vf(adev)) {
++		adev->vcn.cur_state = AMD_PG_STATE_UNGATE;
++		return 0;
++	}
++
+ 	if(state == adev->vcn.cur_state)
+ 		return 0;
+ 
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
