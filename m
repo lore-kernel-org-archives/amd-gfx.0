@@ -2,107 +2,106 @@ Return-Path: <SRS0=Zv7j=A2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31951C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 14:24:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79BA2C433E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 15:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 025C22064B
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 14:24:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4793320658
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2020 15:14:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cViSMUJm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 025C22064B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="O6yBgspW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4793320658
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BBB6EB69;
-	Wed, 15 Jul 2020 14:24:52 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D3FC6EB69
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 14:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A37DD89FDE;
+	Wed, 15 Jul 2020 15:14:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4221489FDE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2020 15:14:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jeVSJry59GxEOcVnrRqFfrmQgyMW1HU+VI2OZIzpxcQ/baZQ7rN5NdYgVg4vnTZs/fVNDxFlQEVDRROE72gdvZbH/+hD2h4OFDxh9ACKF6cjUKKIURFyn2CIbTncf1iu2bOUH9SbafuXiDJvmo/J2QnCL6JsYluHErUk9OPW1h6XC355Xdl9WXmiTAHyuCeppppOgwWIa/7SyKNWsGfN45BYvMt2VPZt0erXVIhQPS8W+LJP5MA/KC9bF4mFp9aMSrzwyEuVberSDgj6DQI+/tXOOVsaqifQLLNwX8OxD+3zXSxVSmIEll4x9YqY2Pky9sha1XnsE/J0SPS+eUVNIA==
+ b=X90CLQat1/Zp7NvffE8J1eeKtf573bgBtX91H5kgW9mNDB9ODfT5Lfai2T7rbfiZ7z0esqGidKlEArpnyVjIqF5hfkb5Tq3iwmmH4IV9nFvLJazmXjQywGZAx7i7PbHNSzJywQM+QvD/zUM4oQ8F/6t4gJ0U9eid29oJ5mTykQVEy0+BEQitQxvDYbjFvjm9PvLfNL399bRuJ8ci5PLYkf1+7otLMO6xxcLwUMUodCF6yBDkd/gDRUeLlcPV7rCC/+8qbll/QL9ozv0NrqSvhXsSliWqN0hP7zKrISeOC7ByewdClBwfa1IdQUGsBEc7mCu9HOCO32M9JRQl3Yivog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gr5NmCogblQyQjiJ2ykc/GVxicdyUG2Bv9CTIdSGcbo=;
- b=STUtuQ1IquyGf//lmLzIR8hTvLl2rjwPX09p42KcQX3NlZbb0vlMDT1eDSmpfkSsEcFbYpLx4xNM4V5TDdfhYCrJk7/R37BVzAMtwA6FOaWWTTWlgy8IBmECApX6YbPJrD7demN3yEp2i+rPqCTyNpLGctrOrr7nho/Hg86YJXSg1Y4jpFdjFhsqi17AhwTKHkgju7Av4WhJqvwxSPl1dVsv4Ko6so/HPbbyc3tfx1Dq2qQ2V2MrmqHkQkJ9pyAe+TsO5/QqhD2fEFkgaketV7a6oeQ0ChLDrWmbvQ+zmY+yg1k1VZ+bwzJpu80LLNXOgwzkdo6AL5BdhZD7uaKVqQ==
+ bh=0S7MuU/yguYsabvCns6sGq6n/L5tQXbq/er0DdbMtiY=;
+ b=kFhHuLws2McH0gJ/mIQbpgekKmBy4RwpQNBXDdPs+qHxzJBRZU0faoOPH9haL4WaUttybicUcTNxE2aMYHbOcmqt01LghzFBgWYZCZN5Tkh2L7MKqHHvfwshmrO9a/rEo2rIu9rw8T8BREwOUd7690MT+Di1M/j4kvBMSyTjhDOq9DJFQpI5EDiTJ/oEwqFRbz8wpEq8muLPBTzqtm83EzUENjgAre/HGR1TRE9v1uZIoYQxiSMz686d8PF/QlhoQq14Kv+UaWEnZNEUMZaqpId5euT3HQrCynRphX25AT2MZ9xyed0+aKevsKKxzWHrf+HVLM0z9qUZMnnIIF4V8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gr5NmCogblQyQjiJ2ykc/GVxicdyUG2Bv9CTIdSGcbo=;
- b=cViSMUJmiK6nn5UkoDv/Xx6sTKPFCcfmRhxCpsoi5E+WOXzeWk8HRaYo0fmLKaxYK7RXC5hbTz5snmC1GgtZIIyRWMYZ8Fa54C/PrzTXEN4/amrRNJGn0CFwGRDhNiSnN46itmv5RFoysXOCL8VlyWdorUDO9iMws7MsdC1W2OY=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by BL0PR12MB2436.namprd12.prod.outlook.com (2603:10b6:207:42::19)
+ bh=0S7MuU/yguYsabvCns6sGq6n/L5tQXbq/er0DdbMtiY=;
+ b=O6yBgspWgR9n4XFZX783imc+dTviJnmp1v0p6EYGfsuNcg42FDHl58eFs2c9ZR2HiOc4FW4Eg8d4ihPCZKyi6shnXWzNUAenIDv2UlnZ+ht69C6zeozjall+tT3l4O16UU251hLZF9CcSSgkAsYXq4lm7sbV4FWhf9Km1M2/Hlo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
+ by SN1PR12MB2446.namprd12.prod.outlook.com (2603:10b6:802:26::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Wed, 15 Jul
- 2020 14:24:47 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::c8b3:24f3:c561:97d9]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::c8b3:24f3:c561:97d9%6]) with mapi id 15.20.3174.025; Wed, 15 Jul 2020
- 14:24:47 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.21; Wed, 15 Jul
+ 2020 15:14:03 +0000
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::180c:9e60:d3cd:e89d]) by SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::180c:9e60:d3cd:e89d%3]) with mapi id 15.20.3174.026; Wed, 15 Jul 2020
+ 15:14:03 +0000
 Subject: Re: Failed to find memory space for buffer eviction
-Thread-Topic: Failed to find memory space for buffer eviction
-Thread-Index: AQHWWXfmvrz9oebVwkmZIiUAjyuXEqkGvqiAgAEzjgCAAG9ggIAAUmpP
-Date: Wed, 15 Jul 2020 14:24:47 +0000
-Message-ID: <MN2PR12MB4488ECEC85B60DAB3CBC33EBF77E0@MN2PR12MB4488.namprd12.prod.outlook.com>
+To: christian.koenig@amd.com, amd-gfx list <amd-gfx@lists.freedesktop.org>
 References: <9f1607ce-3f40-41f5-662f-501434625773@amd.com>
  <b9d9f58c-fdcb-1708-b19c-9da492e9d917@amd.com>
- <e70417e0-82ae-2f9c-87a7-6e28a23ed6a0@amd.com>,
+ <e70417e0-82ae-2f9c-87a7-6e28a23ed6a0@amd.com>
  <3ad7692a-905f-c2e9-c93e-7f407a05204d@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <906ea9fe-4503-a764-3521-c781b6b0b658@amd.com>
+Date: Wed, 15 Jul 2020 11:14:01 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 In-Reply-To: <3ad7692a-905f-c2e9-c93e-7f407a05204d@gmail.com>
-Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-15T14:24:46.677Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [172.58.190.150]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: dbb115aa-d437-4c57-0575-08d828cad3b2
-x-ms-traffictypediagnostic: BL0PR12MB2436:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB24368556CA9011B5FDC49378F77E0@BL0PR12MB2436.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GOik4EMWDd4MwXps+VguuKcbDBTsSCoumJd78296McHiZ0rELi96JIe4H/aIyFj+O2mtGos5szble1MiKQj/PiM0HdK26XoYEWpV394VarUyO4VwQJYa5L3hCq4ryYQ4R5jOFkxGm4hWKozBqOwER0MJzasPEKw02181DllEHZjEtq4yktBxfGvyeh6j7rdbcL0VqqLP6uCr9EG4GrxSkj7e5SE8YX2WTAVqU0N4NXTdTAhAyRQB7Na4CnoeWRpcpHNVprGoUjNRz2tVFcA8IDh1Plc6wb1sx69GXyNKsPdnNSqOBXnBKBasGcDhF3C0aablxIxWZd7LSr/4X81rmvVIME6H+Fz87Crgz7CV/S75yvdIJBOIDhUzcx3dFWICrJh5yF00SCCt5aJDLWsXHir+pTjSa0qKxpuTbekROOU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(366004)(136003)(39860400002)(396003)(376002)(8936002)(55016002)(966005)(66476007)(66556008)(64756008)(9686003)(83380400001)(33656002)(71200400001)(7696005)(316002)(86362001)(66446008)(110136005)(52536014)(478600001)(26005)(2906002)(8676002)(53546011)(166002)(5660300002)(66574015)(45080400002)(19627405001)(6506007)(76116006)(66946007)(186003)(37363001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: EdRuqczneZB9oopKJE7VExojAijOvgxXhBJ99pZ7B+Ii2l9qBBx9yz7O1tmxNpUOyXxEfKzw7XvbR/jPbtgrvQnsdiUN1BHxa7mfeWaZbHHbGlnT0cWWjcMlqvcl5uvOHaSvDf2H4ms21Rj41SPPGMP804PmvI0uQDnFThYxeSWSjiCF9sAcxRb4vIQw48cRG9weiHP+w8rXNd3Oq88tay2pluiRJQKcCaLoOcPAW0mXWk6Wpa378q2PY3bo57JqMROKf0kkEw+qKAhzSNzAE8IZaA1ZiylM4J8MoR6OrFonfiYtbA/NTs7gRX3Je9nT71DTUZNnCJUtiSwgpK0I0sLc1P+YQIHmcwGug5oO/U81y8XG8djVR7vVnsCb/gi6GbKcFvz1/h7LPUU3FKaQRrEDjptZiJ2kjtUDLSwm+GwelR5q5G9BsXdagUeQVbqqMzyPXhKBETtFLsmJKVJmrY5Nm9U99W901XXbi93qCvP2+shYTz59c6dxww+JsfbH
+X-ClientProxiedBy: YQBPR0101CA0030.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00::43) To SN1PR12MB2414.namprd12.prod.outlook.com
+ (2603:10b6:802:2e::31)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.117.53.25) by
+ YQBPR0101CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00::43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.18 via Frontend Transport; Wed, 15 Jul 2020 15:14:03 +0000
+X-Originating-IP: [142.117.53.25]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 556164e2-44a6-492f-60a1-08d828d1b5b0
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2446:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2446C1A4A196B792535DDE96927E0@SN1PR12MB2446.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2+CDL+tzdbKd3WLg0sbE5nIprNl1soVZxA53F6D0gpvf3UkQo+D8YyWYTTibfG0Hl2/rDFaQyhwVizqrOToQJN9OXhVrZpANXfrmpgNQxj1f3hoBvXp4lFq4Se215ABcqTDSXC+1iB2QUw4wQSV5PdQuQj5G07xptWSggrgm6l0TrDRS6c9zKJci64HfOl4x4oO78YyfetLg8PsFK2nAAbEwIwD/ObnJ6Ce/uDDNp5oKJC69g/RhAGsoD46ptEH5dTNM6VWWs58EB9jLUvbCp8VlgKmXkkCKY2rbzguIMmnmnYwjgVbHp5AiXLhGkLvQ5lVFbvMqW2Ld/CvgyOf/VEFIuBIIQbL0F//NnRjp9Xd4wM+NLwAOPDpcDmGLCFcyjEvM6HMWNEFieDrOt7NqUYB11UhQRLeOB0/VznNxGEJiQMgUngP9iD+9b1D1BHNu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(346002)(376002)(136003)(396003)(366004)(2906002)(6916009)(956004)(2616005)(66574015)(86362001)(52116002)(31696002)(31686004)(45080400002)(26005)(16576012)(44832011)(186003)(478600001)(16526019)(966005)(8676002)(36756003)(5660300002)(6486002)(66476007)(66946007)(8936002)(66556008)(316002)(83380400001)(37363001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: DUOunt7LfACfB7TebaVboWoxpDXMmwLurL/0ICq4ZcOCZ5axcT64cuQ2wRAeojrFTSZ+Brv3RhVW/WrWiEgPACqLPiNdsgaodI6prvlDkqscyfej5V/R7emPqzCZLllpimqTvuweWtXa0Du8u7mObbonr85LCtPC6OtGpS1b2ufEQ99NlGBXVpTGFlkfjMwiogTmiZcX1T2pwfF2zWqm8keFig55mWf+aKaisv0AHfnWP87DW4ywR8t1WtAf8/1rK+znABOHOOSaDKiaTaCG0f6X/4IwzkmRIMftmn4smUpkSFA8nS0qfwY5zhPc5po6ucwxoUkI7Dp+r4nIqJ6/yMGTz27Dc8932NH5yo/F42lFssqN0RQXEizG70Qgf9qjO6C8dOOpXMvyXmyfxK1Ydd5/XgTqpR66jOMa4ujEL+HHBoQmCDzhi3FtffDV54axgJK1jaELPp2z56W+v3MAhkNPqu05XrpwQpCR8XKN1LBP9jnniuTbKFA8PHQH0bpD
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 556164e2-44a6-492f-60a1-08d828d1b5b0
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2414.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbb115aa-d437-4c57-0575-08d828cad3b2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2020 14:24:47.2053 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LgxeOqiTN0pnZ4evHCclOStvs5OUhSO879OrWLbR8Ssa+jZMuGxenWtyVo6N4AwuUgRR9EBYBnF4SwTF4ehPkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2436
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2020 15:14:03.6225 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CB98lqpLqTsUo6h4FfX01BTxxcmOrXbJGfYa3t6wOnkftJZ9nFRDgisvoDyk1HrHMfUvfDxDWeTw0aIqM4+RQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2446
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,603 +113,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1601571711=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1601571711==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488ECEC85B60DAB3CBC33EBF77E0MN2PR12MB4488namp_"
-
---_000_MN2PR12MB4488ECEC85B60DAB3CBC33EBF77E0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Public Use]
-
-Maybe we should re-test the problematic piglit test and if it's no longer a=
-n issue, revert:
-
-commit 24562523688bebc7ec17a88271b4e8c3fc337b74
-Author: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Date:   Fri Dec 15 12:09:16 2017 -0500
-
-    Revert "drm/amd/amdgpu: set gtt size according to system memory size on=
-ly"
-
-    This reverts commit ba851eed895c76be0eb4260bdbeb7e26f9ccfaa2.
-    With that change piglit max size tests (running with -t max.*size) are =
-causing
-    OOM and hard hang on my CZ with 1GB RAM.
-
-    Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-    Acked-by: Alex Deucher <alexander.deucher@amd.com>
-    Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
-    Reviewed-by: Roger He <Hongbo.He@amd.com>
-    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Christia=
-n K=F6nig <ckoenig.leichtzumerken@gmail.com>
-Sent: Wednesday, July 15, 2020 5:28 AM
-To: Kuehling, Felix <Felix.Kuehling@amd.com>; Koenig, Christian <Christian.=
-Koenig@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>
-Subject: Re: Failed to find memory space for buffer eviction
-
-Am 15.07.20 um 04:49 schrieb Felix Kuehling:
-> Am 2020-07-14 um 4:28 a.m. schrieb Christian K=F6nig:
->> Hi Felix,
->>
->> yes I already stumbled over this as well quite recently.
->>
->> See the following patch which I pushed to drm-misc-next just yesterday:
->>
->> commit e04be2310b5eac683ec03b096c0e22c4c2e23593
->> Author: Christian K=F6nig <christian.koenig@amd.com>
->> Date:   Mon Jul 6 17:32:55 2020 +0200
->>
->>      drm/ttm: further cleanup ttm_mem_reg handling
->>
->>      Stop touching the backend private pointer alltogether and
->>      make sure we never put the same mem twice by.
->>
->>      Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
->>      Reviewed-by: Madhav Chauhan <madhav.chauhan@amd.com>
->>      Link: https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3=
-A%2F%2Fpatchwork.freedesktop.org%2Fpatch%2F375613%2F&amp;data=3D02%7C01%7Ca=
-lexander.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd8961fe48=
-84e608e11a82d994e183d%7C0%7C0%7C637304021017509156&amp;sdata=3DzilZiBrs%2FV=
-rzhZuolVzhLSO2kIBDugp16HT58G7tX8w%3D&amp;reserved=3D0
->>
->>
->> But this shouldn't have been problematic since we used a dummy value
->> for mem->mm_node in this case.
-> Hmm, yeah, I was reading the code wrong. It's possible that I was really
-> just out of GTT space. But see below.
-
-It looks like it yes.
-
->> What could be problematic and result is an overrun is that TTM was
->> buggy and called put_node twice for the same memory.
->>
->> So I've seen that the code needs fixing as well, but I'm not 100% sure
->> how you ran into your problem.
-> This is in the KFD eviction test, which deliberately overcommits VRAM in
-> order to trigger lots of evictions. It will use some GTT space while BOs
-> are evicted. But shouldn't it move them further out of GTT and into
-> SYSTEM to free up GTT space?
-
-Yes, exactly that should happen.
-
-But for some reason it couldn't find a candidate to evict and the 14371
-pages left are just a bit to small for the buffer.
-
-Regards,
-Christian.
-
-> Your change "further cleanup ttm_mem_reg handling" removes a
-> mem->mm_node =3D NULL in ttm_bo_handle_move_mem in exactly the case where
-> a BO is moved from GTT to SYSTEM. I think that leads to a later put_node
-> call not happening or amdgpu_gtt_mgr_del returning before incrementing
-> mgr->available.
->
-> I can try if cherry-picking your two fixes will help with the eviction te=
-st.
->
-> Regards,
->    Felix
->
->
->> Regards,
->> Christian.
->>
->> Am 14.07.20 um 02:44 schrieb Felix Kuehling:
->>> I'm running into this problem with the KFD EvictionTest. The log snippe=
-t
->>> below looks like it ran out of GTT space for the eviction of a 64MB
->>> buffer. But then it dumps the used and free space and shows plenty of
->>> free space.
->>>
->>> As I understand it, the per-page breakdown of used and free space shown
->>> by TTM is the GART space. So it's not very meaningful.
->>>
->>> What matters more is the GTT space managed by amdgpu_gtt_mgr.c. And
->>> that's where the problem is. It keeps track of available GTT space with
->>> an atomic counter in amdgpu_gtt_mgr.available. It gets decremented in
->>> amdgpu_gtt_mgr_new and incremented in amdgpu_gtt_mgr_del. The trouble
->>> is, that TTM doesn't call the latter for ttm_mem_regs that don't have a=
-n
->>> mm_node:
->>>
->>>> void ttm_bo_mem_put(struct ttm_buffer_object *bo, struct ttm_mem_reg
->>>> *mem)
->>>> {
->>>>           struct ttm_mem_type_manager *man =3D
->>>> &bo->bdev->man[mem->mem_type];
->>>>
->>>>           if (mem->mm_node)
->>>>                   (*man->func->put_node)(man, mem);
->>>> }
->>> GTT BOs that don't have GART space allocated, don't hate an mm_node. So
->>> the amdgpu_gtt_mgr.available counter doesn't get incremented when an
->>> unmapped GTT BO is freed, and eventually runs out of space.
->>>
->>> Now I know what the problem is, but I don't know how to fix it. Maybe a
->>> dummy-mm_node for unmapped GTT BOs, to trick TTM into calling our
->>> put_node callback? Or a change in TTM to call put_node unconditionally?
->>>
->>> Regards,
->>>     Felix
->>>
->>>
->>> [  360.082552] [TTM] Failed to find memory space for buffer
->>> 0x00000000264c823c eviction
->>> [  360.090331] [TTM]  No space for 00000000264c823c (16384 pages,
->>> 65536K, 64M)
->>> [  360.090334] [TTM]    placement[0]=3D0x00010002 (1)
->>> [  360.090336] [TTM]      has_type: 1
->>> [  360.090337] [TTM]      use_type: 1
->>> [  360.090339] [TTM]      flags: 0x0000000A
->>> [  360.090341] [TTM]      gpu_offset: 0xFF00000000
->>> [  360.090342] [TTM]      size: 1048576
->>> [  360.090344] [TTM]      available_caching: 0x00070000
->>> [  360.090346] [TTM]      default_caching: 0x00010000
->>> [  360.090349] [TTM]  0x0000000000000400-0x0000000000000402: 2: used
->>> [  360.090352] [TTM]  0x0000000000000402-0x0000000000000404: 2: used
->>> [  360.090354] [TTM]  0x0000000000000404-0x0000000000000406: 2: used
->>> [  360.090355] [TTM]  0x0000000000000406-0x0000000000000408: 2: used
->>> [  360.090357] [TTM]  0x0000000000000408-0x000000000000040a: 2: used
->>> [  360.090359] [TTM]  0x000000000000040a-0x000000000000040c: 2: used
->>> [  360.090361] [TTM]  0x000000000000040c-0x000000000000040e: 2: used
->>> [  360.090363] [TTM]  0x000000000000040e-0x0000000000000410: 2: used
->>> [  360.090365] [TTM]  0x0000000000000410-0x0000000000000412: 2: used
->>> [  360.090367] [TTM]  0x0000000000000412-0x0000000000000414: 2: used
->>> [  360.090368] [TTM]  0x0000000000000414-0x0000000000000415: 1: used
->>> [  360.090370] [TTM]  0x0000000000000415-0x0000000000000515: 256: used
->>> [  360.090372] [TTM]  0x0000000000000515-0x0000000000000516: 1: used
->>> [  360.090374] [TTM]  0x0000000000000516-0x0000000000000517: 1: used
->>> [  360.090376] [TTM]  0x0000000000000517-0x0000000000000518: 1: used
->>> [  360.090378] [TTM]  0x0000000000000518-0x0000000000000519: 1: used
->>> [  360.090379] [TTM]  0x0000000000000519-0x000000000000051a: 1: used
->>> [  360.090381] [TTM]  0x000000000000051a-0x000000000000051b: 1: used
->>> [  360.090383] [TTM]  0x000000000000051b-0x000000000000051c: 1: used
->>> [  360.090385] [TTM]  0x000000000000051c-0x000000000000051d: 1: used
->>> [  360.090387] [TTM]  0x000000000000051d-0x000000000000051f: 2: used
->>> [  360.090389] [TTM]  0x000000000000051f-0x0000000000000521: 2: used
->>> [  360.090391] [TTM]  0x0000000000000521-0x0000000000000522: 1: used
->>> [  360.090392] [TTM]  0x0000000000000522-0x0000000000000523: 1: used
->>> [  360.090394] [TTM]  0x0000000000000523-0x0000000000000524: 1: used
->>> [  360.090396] [TTM]  0x0000000000000524-0x0000000000000525: 1: used
->>> [  360.090398] [TTM]  0x0000000000000525-0x0000000000000625: 256: used
->>> [  360.090400] [TTM]  0x0000000000000625-0x0000000000000725: 256: used
->>> [  360.090402] [TTM]  0x0000000000000725-0x0000000000000727: 2: used
->>> [  360.090404] [TTM]  0x0000000000000727-0x00000000000007c0: 153: used
->>> [  360.090406] [TTM]  0x00000000000007c0-0x0000000000000b8a: 970: used
->>> [  360.090407] [TTM]  0x0000000000000b8a-0x0000000000000b8b: 1: used
->>> [  360.090409] [TTM]  0x0000000000000b8b-0x0000000000000bcb: 64: used
->>> [  360.090411] [TTM]  0x0000000000000bcb-0x0000000000000bcd: 2: used
->>> [  360.090413] [TTM]  0x0000000000000bcd-0x0000000000040000: 259123:
->>> free
->>> [  360.090415] [TTM]  total: 261120, used 1997 free 259123
->>> [  360.090417] [TTM]  man size:1048576 pages, gtt available:14371 pages=
-,
->>> usage:4039MB
->>>
->>>
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
-.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexan=
-der.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd8961fe4884e60=
-8e11a82d994e183d%7C0%7C0%7C637304021017509156&amp;sdata=3DLVRisNun0DYM%2F5d=
-LthnxNiN0KgAq%2BAh5mXvnoYEjkR0%3D&amp;reserved=3D0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637304021017509156&amp;sdata=3DLVRisNun0DYM%2F5dLt=
-hnxNiN0KgAq%2BAh5mXvnoYEjkR0%3D&amp;reserved=3D0
-
---_000_MN2PR12MB4488ECEC85B60DAB3CBC33EBF77E0MN2PR12MB4488namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Maybe we should re-test the problematic piglit test and if it's no longer a=
-n issue, revert:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span>commit 24562523688bebc7ec17a88271b4e8c3fc337b74<br>
-</span>
-<div>Author: Andrey Grodzovsky &lt;andrey.grodzovsky@amd.com&gt;<br>
-</div>
-<div>Date: &nbsp; Fri Dec 15 12:09:16 2017 -0500<br>
-</div>
-<div><br>
-</div>
-<div>&nbsp; &nbsp; Revert &quot;drm/amd/amdgpu: set gtt size according to s=
-ystem memory size only&quot;<br>
-</div>
-<div>&nbsp; &nbsp; <br>
-</div>
-<div>&nbsp; &nbsp; This reverts commit ba851eed895c76be0eb4260bdbeb7e26f9cc=
-faa2.<br>
-</div>
-<div>&nbsp; &nbsp; With that change piglit max size tests (running with -t =
-max.*size) are causing<br>
-</div>
-<div>&nbsp; &nbsp; OOM and hard hang on my CZ with 1GB RAM.<br>
-</div>
-<div>&nbsp; &nbsp; <br>
-</div>
-<div>&nbsp; &nbsp; Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky@a=
-md.com&gt;<br>
-</div>
-<div>&nbsp; &nbsp; Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;=
-<br>
-</div>
-<div>&nbsp; &nbsp; Reviewed-by: Christian K=F6nig &lt;christian.koenig@amd.=
-com&gt;<br>
-</div>
-<div>&nbsp; &nbsp; Reviewed-by: Roger He &lt;Hongbo.He@amd.com&gt;<br>
-</div>
-<div>&nbsp; &nbsp; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.co=
-m&gt;<br>
-</div>
-<span></span><br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
-.leichtzumerken@gmail.com&gt;<br>
-<b>Sent:</b> Wednesday, July 15, 2020 5:28 AM<br>
-<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Koenig, Christia=
-n &lt;Christian.Koenig@amd.com&gt;; amd-gfx list &lt;amd-gfx@lists.freedesk=
-top.org&gt;<br>
-<b>Subject:</b> Re: Failed to find memory space for buffer eviction</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 15.07.20 um 04:49 schrieb Felix Kuehling:<br>
-&gt; Am 2020-07-14 um 4:28 a.m. schrieb Christian K=F6nig:<br>
-&gt;&gt; Hi Felix,<br>
-&gt;&gt;<br>
-&gt;&gt; yes I already stumbled over this as well quite recently.<br>
-&gt;&gt;<br>
-&gt;&gt; See the following patch which I pushed to drm-misc-next just yeste=
-rday:<br>
-&gt;&gt;<br>
-&gt;&gt; commit e04be2310b5eac683ec03b096c0e22c4c2e23593<br>
-&gt;&gt; Author: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
-&gt;&gt; Date:&nbsp;&nbsp; Mon Jul 6 17:32:55 2020 &#43;0200<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; drm/ttm: further cleanup ttm_mem_reg hand=
-ling<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; Stop touching the backend private pointer=
- alltogether and<br>
-&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; make sure we never put the same mem twice=
- by.<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; Signed-off-by: Christian K=F6nig &lt;chri=
-stian.koenig@amd.com&gt;<br>
-&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; Reviewed-by: Madhav Chauhan &lt;madhav.ch=
-auhan@amd.com&gt;<br>
-&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; Link: <a href=3D"https://nam11.safelinks.=
-protection.outlook.com/?url=3Dhttps%3A%2F%2Fpatchwork.freedesktop.org%2Fpat=
-ch%2F375613%2F&amp;amp;data=3D02%7C01%7Calexander.deucher%40amd.com%7Ce1919=
-2b295fc41a7fb4c08d828a168d4%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63=
-7304021017509156&amp;amp;sdata=3DzilZiBrs%2FVrzhZuolVzhLSO2kIBDugp16HT58G7t=
-X8w%3D&amp;amp;reserved=3D0">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fpatchwo=
-rk.freedesktop.org%2Fpatch%2F375613%2F&amp;amp;data=3D02%7C01%7Calexander.d=
-eucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd8961fe4884e608e11a=
-82d994e183d%7C0%7C0%7C637304021017509156&amp;amp;sdata=3DzilZiBrs%2FVrzhZuo=
-lVzhLSO2kIBDugp16HT58G7tX8w%3D&amp;amp;reserved=3D0</a><br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; But this shouldn't have been problematic since we used a dummy val=
-ue<br>
-&gt;&gt; for mem-&gt;mm_node in this case.<br>
-&gt; Hmm, yeah, I was reading the code wrong. It's possible that I was real=
-ly<br>
-&gt; just out of GTT space. But see below.<br>
-<br>
-It looks like it yes.<br>
-<br>
-&gt;&gt; What could be problematic and result is an overrun is that TTM was=
-<br>
-&gt;&gt; buggy and called put_node twice for the same memory.<br>
-&gt;&gt;<br>
-&gt;&gt; So I've seen that the code needs fixing as well, but I'm not 100% =
-sure<br>
-&gt;&gt; how you ran into your problem.<br>
-&gt; This is in the KFD eviction test, which deliberately overcommits VRAM =
-in<br>
-&gt; order to trigger lots of evictions. It will use some GTT space while B=
-Os<br>
-&gt; are evicted. But shouldn't it move them further out of GTT and into<br=
->
-&gt; SYSTEM to free up GTT space?<br>
-<br>
-Yes, exactly that should happen.<br>
-<br>
-But for some reason it couldn't find a candidate to evict and the 14371 <br=
->
-pages left are just a bit to small for the buffer.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt; Your change &quot;further cleanup ttm_mem_reg handling&quot; removes a=
-<br>
-&gt; mem-&gt;mm_node =3D NULL in ttm_bo_handle_move_mem in exactly the case=
- where<br>
-&gt; a BO is moved from GTT to SYSTEM. I think that leads to a later put_no=
-de<br>
-&gt; call not happening or amdgpu_gtt_mgr_del returning before incrementing=
-<br>
-&gt; mgr-&gt;available.<br>
-&gt;<br>
-&gt; I can try if cherry-picking your two fixes will help with the eviction=
- test.<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt;&nbsp; &nbsp; Felix<br>
-&gt;<br>
-&gt;<br>
-&gt;&gt; Regards,<br>
-&gt;&gt; Christian.<br>
-&gt;&gt;<br>
-&gt;&gt; Am 14.07.20 um 02:44 schrieb Felix Kuehling:<br>
-&gt;&gt;&gt; I'm running into this problem with the KFD EvictionTest. The l=
-og snippet<br>
-&gt;&gt;&gt; below looks like it ran out of GTT space for the eviction of a=
- 64MB<br>
-&gt;&gt;&gt; buffer. But then it dumps the used and free space and shows pl=
-enty of<br>
-&gt;&gt;&gt; free space.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; As I understand it, the per-page breakdown of used and free sp=
-ace shown<br>
-&gt;&gt;&gt; by TTM is the GART space. So it's not very meaningful.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; What matters more is the GTT space managed by amdgpu_gtt_mgr.c=
-. And<br>
-&gt;&gt;&gt; that's where the problem is. It keeps track of available GTT s=
-pace with<br>
-&gt;&gt;&gt; an atomic counter in amdgpu_gtt_mgr.available. It gets decreme=
-nted in<br>
-&gt;&gt;&gt; amdgpu_gtt_mgr_new and incremented in amdgpu_gtt_mgr_del. The =
-trouble<br>
-&gt;&gt;&gt; is, that TTM doesn't call the latter for ttm_mem_regs that don=
-'t have an<br>
-&gt;&gt;&gt; mm_node:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; void ttm_bo_mem_put(struct ttm_buffer_object *bo, struct t=
-tm_mem_reg<br>
-&gt;&gt;&gt;&gt; *mem)<br>
-&gt;&gt;&gt;&gt; {<br>
-&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct ttm_mem_type_manager *man =3D<br>
-&gt;&gt;&gt;&gt; &amp;bo-&gt;bdev-&gt;man[mem-&gt;mem_type];<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(mem-&gt;mm_node)<br>
-&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*man-&gt;func-&gt;put_node)(m=
-an, mem);<br>
-&gt;&gt;&gt;&gt; }<br>
-&gt;&gt;&gt; GTT BOs that don't have GART space allocated, don't hate an mm=
-_node. So<br>
-&gt;&gt;&gt; the amdgpu_gtt_mgr.available counter doesn't get incremented w=
-hen an<br>
-&gt;&gt;&gt; unmapped GTT BO is freed, and eventually runs out of space.<br=
->
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Now I know what the problem is, but I don't know how to fix it=
-. Maybe a<br>
-&gt;&gt;&gt; dummy-mm_node for unmapped GTT BOs, to trick TTM into calling =
-our<br>
-&gt;&gt;&gt; put_node callback? Or a change in TTM to call put_node uncondi=
-tionally?<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Regards,<br>
-&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; Felix<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; [&nbsp; 360.082552] [TTM] Failed to find memory space for buff=
-er<br>
-&gt;&gt;&gt; 0x00000000264c823c eviction<br>
-&gt;&gt;&gt; [&nbsp; 360.090331] [TTM]&nbsp; No space for 00000000264c823c =
-(16384 pages,<br>
-&gt;&gt;&gt; 65536K, 64M)<br>
-&gt;&gt;&gt; [&nbsp; 360.090334] [TTM]&nbsp;&nbsp;&nbsp; placement[0]=3D0x0=
-0010002 (1)<br>
-&gt;&gt;&gt; [&nbsp; 360.090336] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; has_ty=
-pe: 1<br>
-&gt;&gt;&gt; [&nbsp; 360.090337] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use_ty=
-pe: 1<br>
-&gt;&gt;&gt; [&nbsp; 360.090339] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags:=
- 0x0000000A<br>
-&gt;&gt;&gt; [&nbsp; 360.090341] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_of=
-fset: 0xFF00000000<br>
-&gt;&gt;&gt; [&nbsp; 360.090342] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size: =
-1048576<br>
-&gt;&gt;&gt; [&nbsp; 360.090344] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; availa=
-ble_caching: 0x00070000<br>
-&gt;&gt;&gt; [&nbsp; 360.090346] [TTM]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; defaul=
-t_caching: 0x00010000<br>
-&gt;&gt;&gt; [&nbsp; 360.090349] [TTM]&nbsp; 0x0000000000000400-0x000000000=
-0000402: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090352] [TTM]&nbsp; 0x0000000000000402-0x000000000=
-0000404: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090354] [TTM]&nbsp; 0x0000000000000404-0x000000000=
-0000406: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090355] [TTM]&nbsp; 0x0000000000000406-0x000000000=
-0000408: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090357] [TTM]&nbsp; 0x0000000000000408-0x000000000=
-000040a: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090359] [TTM]&nbsp; 0x000000000000040a-0x000000000=
-000040c: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090361] [TTM]&nbsp; 0x000000000000040c-0x000000000=
-000040e: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090363] [TTM]&nbsp; 0x000000000000040e-0x000000000=
-0000410: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090365] [TTM]&nbsp; 0x0000000000000410-0x000000000=
-0000412: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090367] [TTM]&nbsp; 0x0000000000000412-0x000000000=
-0000414: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090368] [TTM]&nbsp; 0x0000000000000414-0x000000000=
-0000415: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090370] [TTM]&nbsp; 0x0000000000000415-0x000000000=
-0000515: 256: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090372] [TTM]&nbsp; 0x0000000000000515-0x000000000=
-0000516: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090374] [TTM]&nbsp; 0x0000000000000516-0x000000000=
-0000517: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090376] [TTM]&nbsp; 0x0000000000000517-0x000000000=
-0000518: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090378] [TTM]&nbsp; 0x0000000000000518-0x000000000=
-0000519: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090379] [TTM]&nbsp; 0x0000000000000519-0x000000000=
-000051a: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090381] [TTM]&nbsp; 0x000000000000051a-0x000000000=
-000051b: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090383] [TTM]&nbsp; 0x000000000000051b-0x000000000=
-000051c: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090385] [TTM]&nbsp; 0x000000000000051c-0x000000000=
-000051d: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090387] [TTM]&nbsp; 0x000000000000051d-0x000000000=
-000051f: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090389] [TTM]&nbsp; 0x000000000000051f-0x000000000=
-0000521: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090391] [TTM]&nbsp; 0x0000000000000521-0x000000000=
-0000522: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090392] [TTM]&nbsp; 0x0000000000000522-0x000000000=
-0000523: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090394] [TTM]&nbsp; 0x0000000000000523-0x000000000=
-0000524: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090396] [TTM]&nbsp; 0x0000000000000524-0x000000000=
-0000525: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090398] [TTM]&nbsp; 0x0000000000000525-0x000000000=
-0000625: 256: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090400] [TTM]&nbsp; 0x0000000000000625-0x000000000=
-0000725: 256: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090402] [TTM]&nbsp; 0x0000000000000725-0x000000000=
-0000727: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090404] [TTM]&nbsp; 0x0000000000000727-0x000000000=
-00007c0: 153: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090406] [TTM]&nbsp; 0x00000000000007c0-0x000000000=
-0000b8a: 970: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090407] [TTM]&nbsp; 0x0000000000000b8a-0x000000000=
-0000b8b: 1: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090409] [TTM]&nbsp; 0x0000000000000b8b-0x000000000=
-0000bcb: 64: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090411] [TTM]&nbsp; 0x0000000000000bcb-0x000000000=
-0000bcd: 2: used<br>
-&gt;&gt;&gt; [&nbsp; 360.090413] [TTM]&nbsp; 0x0000000000000bcd-0x000000000=
-0040000: 259123:<br>
-&gt;&gt;&gt; free<br>
-&gt;&gt;&gt; [&nbsp; 360.090415] [TTM]&nbsp; total: 261120, used 1997 free =
-259123<br>
-&gt;&gt;&gt; [&nbsp; 360.090417] [TTM]&nbsp; man size:1048576 pages, gtt av=
-ailable:14371 pages,<br>
-&gt;&gt;&gt; usage:4039MB<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx@lists.freedesktop.org<br>
-&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
-%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=
-=3D02%7C01%7Calexander.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4=
-%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637304021017509156&amp;amp;sd=
-ata=3DLVRisNun0DYM%2F5dLthnxNiN0KgAq%2BAh5mXvnoYEjkR0%3D&amp;amp;reserved=
-=3D0">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calex=
-ander.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd8961fe4884e=
-608e11a82d994e183d%7C0%7C0%7C637304021017509156&amp;amp;sdata=3DLVRisNun0DY=
-M%2F5dLthnxNiN0KgAq%2BAh5mXvnoYEjkR0%3D&amp;amp;reserved=3D0</a><br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637304021017509156&amp;amp;sdata=3D=
-LVRisNun0DYM%2F5dLthnxNiN0KgAq%2BAh5mXvnoYEjkR0%3D&amp;amp;reserved=3D0">ht=
-tps://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.fre=
-edesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexan=
-der.deucher%40amd.com%7Ce19192b295fc41a7fb4c08d828a168d4%7C3dd8961fe4884e60=
-8e11a82d994e183d%7C0%7C0%7C637304021017509156&amp;amp;sdata=3DLVRisNun0DYM%=
-2F5dLthnxNiN0KgAq%2BAh5mXvnoYEjkR0%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB4488ECEC85B60DAB3CBC33EBF77E0MN2PR12MB4488namp_--
-
---===============1601571711==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1601571711==--
+CkFtIDIwMjAtMDctMTUgdW0gNToyOCBhLm0uIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPiBB
+bSAxNS4wNy4yMCB1bSAwNDo0OSBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+PiBBbSAyMDIwLTA3
+LTE0IHVtIDQ6MjggYS5tLiBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6Cj4+PiBIaSBGZWxpeCwK
+Pj4+Cj4+PiB5ZXMgSSBhbHJlYWR5IHN0dW1ibGVkIG92ZXIgdGhpcyBhcyB3ZWxsIHF1aXRlIHJl
+Y2VudGx5Lgo+Pj4KPj4+IFNlZSB0aGUgZm9sbG93aW5nIHBhdGNoIHdoaWNoIEkgcHVzaGVkIHRv
+IGRybS1taXNjLW5leHQganVzdCB5ZXN0ZXJkYXk6Cj4+Pgo+Pj4gY29tbWl0IGUwNGJlMjMxMGI1
+ZWFjNjgzZWMwM2IwOTZjMGUyMmM0YzJlMjM1OTMKPj4+IEF1dGhvcjogQ2hyaXN0aWFuIEvDtm5p
+ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pj4gRGF0ZTrCoMKgIE1vbiBKdWwgNiAxNzoz
+Mjo1NSAyMDIwICswMjAwCj4+Pgo+Pj4gwqDCoMKgwqAgZHJtL3R0bTogZnVydGhlciBjbGVhbnVw
+IHR0bV9tZW1fcmVnIGhhbmRsaW5nCj4+Pgo+Pj4gwqDCoMKgwqAgU3RvcCB0b3VjaGluZyB0aGUg
+YmFja2VuZCBwcml2YXRlIHBvaW50ZXIgYWxsdG9nZXRoZXIgYW5kCj4+PiDCoMKgwqDCoCBtYWtl
+IHN1cmUgd2UgbmV2ZXIgcHV0IHRoZSBzYW1lIG1lbSB0d2ljZSBieS4KPj4+Cj4+PiDCoMKgwqDC
+oCBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
+b20+Cj4+PiDCoMKgwqDCoCBSZXZpZXdlZC1ieTogTWFkaGF2IENoYXVoYW4gPG1hZGhhdi5jaGF1
+aGFuQGFtZC5jb20+Cj4+PiDCoMKgwqDCoCBMaW5rOgo+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlu
+a3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGcGF0Y2h3b3JrLmZy
+ZWVkZXNrdG9wLm9yZyUyRnBhdGNoJTJGMzc1NjEzJTJGJmFtcDtkYXRhPTAyJTdDMDElN0NmZWxp
+eC5rdWVobGluZyU0MGFtZC5jb20lN0NkODU5NTU2ZmIwZjA0NjU4MDgxMjA4ZDgyOGExNjc5NyU3
+QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzczMDQwMjA5OTI0
+MjMwNjgmYW1wO3NkYXRhPURwbm8zV21xZ3liJTJGa1JXem95ZTlUM3RCZzhCRWdDWE0wVEhHdzhw
+S0VTWSUzRCZhbXA7cmVzZXJ2ZWQ9MAo+Pj4KPj4+Cj4+PiBCdXQgdGhpcyBzaG91bGRuJ3QgaGF2
+ZSBiZWVuIHByb2JsZW1hdGljIHNpbmNlIHdlIHVzZWQgYSBkdW1teSB2YWx1ZQo+Pj4gZm9yIG1l
+bS0+bW1fbm9kZSBpbiB0aGlzIGNhc2UuCj4+IEhtbSwgeWVhaCwgSSB3YXMgcmVhZGluZyB0aGUg
+Y29kZSB3cm9uZy4gSXQncyBwb3NzaWJsZSB0aGF0IEkgd2FzIHJlYWxseQo+PiBqdXN0IG91dCBv
+ZiBHVFQgc3BhY2UuIEJ1dCBzZWUgYmVsb3cuCj4KPiBJdCBsb29rcyBsaWtlIGl0IHllcy4KCkkg
+Y2hlY2tlZC4gSSBkb24ndCBzZWUgYSBnZW5lcmFsIEdUVCBzcGFjZSBsZWFrLiBEdXJpbmcgdGhl
+IGV2aWN0aW9uCnRlc3QgdGhlIEdUVCB1c2FnZSBzcGlrZXMsIGJ1dCBhZnRlciBmaW5pc2hpbmcg
+dGhlIHRlc3QsIEdUVCB1c2FnZSBnb2VzCmJhY2sgZG93biB0byA3TUIuCgoKPgo+Pj4gV2hhdCBj
+b3VsZCBiZSBwcm9ibGVtYXRpYyBhbmQgcmVzdWx0IGlzIGFuIG92ZXJydW4gaXMgdGhhdCBUVE0g
+d2FzCj4+PiBidWdneSBhbmQgY2FsbGVkIHB1dF9ub2RlIHR3aWNlIGZvciB0aGUgc2FtZSBtZW1v
+cnkuCj4+Pgo+Pj4gU28gSSd2ZSBzZWVuIHRoYXQgdGhlIGNvZGUgbmVlZHMgZml4aW5nIGFzIHdl
+bGwsIGJ1dCBJJ20gbm90IDEwMCUgc3VyZQo+Pj4gaG93IHlvdSByYW4gaW50byB5b3VyIHByb2Js
+ZW0uCj4+IFRoaXMgaXMgaW4gdGhlIEtGRCBldmljdGlvbiB0ZXN0LCB3aGljaCBkZWxpYmVyYXRl
+bHkgb3ZlcmNvbW1pdHMgVlJBTSBpbgo+PiBvcmRlciB0byB0cmlnZ2VyIGxvdHMgb2YgZXZpY3Rp
+b25zLiBJdCB3aWxsIHVzZSBzb21lIEdUVCBzcGFjZSB3aGlsZSBCT3MKPj4gYXJlIGV2aWN0ZWQu
+IEJ1dCBzaG91bGRuJ3QgaXQgbW92ZSB0aGVtIGZ1cnRoZXIgb3V0IG9mIEdUVCBhbmQgaW50bwo+
+PiBTWVNURU0gdG8gZnJlZSB1cCBHVFQgc3BhY2U/Cj4KPiBZZXMsIGV4YWN0bHkgdGhhdCBzaG91
+bGQgaGFwcGVuLgo+Cj4gQnV0IGZvciBzb21lIHJlYXNvbiBpdCBjb3VsZG4ndCBmaW5kIGEgY2Fu
+ZGlkYXRlIHRvIGV2aWN0IGFuZCB0aGUKPiAxNDM3MSBwYWdlcyBsZWZ0IGFyZSBqdXN0IGEgYml0
+IHRvIHNtYWxsIGZvciB0aGUgYnVmZmVyLgoKVGhhdCB3b3VsZCBiZSBhIG5lc3RlZCBldmljdGlv
+bi4gQSBWUkFNIHRvIEdUVCBldmljdGlvbiByZXF1aXJlcyBhIEdUVAp0byBTWVNURU0gZXZpY3Rp
+b24gdG8gbWFrZSBzcGFjZSBpbiBHVFQuIElzIHRoYXQgZXZlbiBwb3NzaWJsZT8KClJlZ2FyZHMs
+CsKgIEZlbGl4CgoKPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4+IFlvdXIgY2hhbmdlICJm
+dXJ0aGVyIGNsZWFudXAgdHRtX21lbV9yZWcgaGFuZGxpbmciIHJlbW92ZXMgYQo+PiBtZW0tPm1t
+X25vZGUgPSBOVUxMIGluIHR0bV9ib19oYW5kbGVfbW92ZV9tZW0gaW4gZXhhY3RseSB0aGUgY2Fz
+ZSB3aGVyZQo+PiBhIEJPIGlzIG1vdmVkIGZyb20gR1RUIHRvIFNZU1RFTS4gSSB0aGluayB0aGF0
+IGxlYWRzIHRvIGEgbGF0ZXIgcHV0X25vZGUKPj4gY2FsbCBub3QgaGFwcGVuaW5nIG9yIGFtZGdw
+dV9ndHRfbWdyX2RlbCByZXR1cm5pbmcgYmVmb3JlIGluY3JlbWVudGluZwo+PiBtZ3ItPmF2YWls
+YWJsZS4KPj4KPj4gSSBjYW4gdHJ5IGlmIGNoZXJyeS1waWNraW5nIHlvdXIgdHdvIGZpeGVzIHdp
+bGwgaGVscCB3aXRoIHRoZQo+PiBldmljdGlvbiB0ZXN0Lgo+Pgo+PiBSZWdhcmRzLAo+PiDCoMKg
+IEZlbGl4Cj4+Cj4+Cj4+PiBSZWdhcmRzLAo+Pj4gQ2hyaXN0aWFuLgo+Pj4KPj4+IEFtIDE0LjA3
+LjIwIHVtIDAyOjQ0IHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4+Pj4gSSdtIHJ1bm5pbmcgaW50
+byB0aGlzIHByb2JsZW0gd2l0aCB0aGUgS0ZEIEV2aWN0aW9uVGVzdC4gVGhlIGxvZwo+Pj4+IHNu
+aXBwZXQKPj4+PiBiZWxvdyBsb29rcyBsaWtlIGl0IHJhbiBvdXQgb2YgR1RUIHNwYWNlIGZvciB0
+aGUgZXZpY3Rpb24gb2YgYSA2NE1CCj4+Pj4gYnVmZmVyLiBCdXQgdGhlbiBpdCBkdW1wcyB0aGUg
+dXNlZCBhbmQgZnJlZSBzcGFjZSBhbmQgc2hvd3MgcGxlbnR5IG9mCj4+Pj4gZnJlZSBzcGFjZS4K
+Pj4+Pgo+Pj4+IEFzIEkgdW5kZXJzdGFuZCBpdCwgdGhlIHBlci1wYWdlIGJyZWFrZG93biBvZiB1
+c2VkIGFuZCBmcmVlIHNwYWNlCj4+Pj4gc2hvd24KPj4+PiBieSBUVE0gaXMgdGhlIEdBUlQgc3Bh
+Y2UuIFNvIGl0J3Mgbm90IHZlcnkgbWVhbmluZ2Z1bC4KPj4+Pgo+Pj4+IFdoYXQgbWF0dGVycyBt
+b3JlIGlzIHRoZSBHVFQgc3BhY2UgbWFuYWdlZCBieSBhbWRncHVfZ3R0X21nci5jLiBBbmQKPj4+
+PiB0aGF0J3Mgd2hlcmUgdGhlIHByb2JsZW0gaXMuIEl0IGtlZXBzIHRyYWNrIG9mIGF2YWlsYWJs
+ZSBHVFQgc3BhY2UKPj4+PiB3aXRoCj4+Pj4gYW4gYXRvbWljIGNvdW50ZXIgaW4gYW1kZ3B1X2d0
+dF9tZ3IuYXZhaWxhYmxlLiBJdCBnZXRzIGRlY3JlbWVudGVkIGluCj4+Pj4gYW1kZ3B1X2d0dF9t
+Z3JfbmV3IGFuZCBpbmNyZW1lbnRlZCBpbiBhbWRncHVfZ3R0X21ncl9kZWwuIFRoZSB0cm91Ymxl
+Cj4+Pj4gaXMsIHRoYXQgVFRNIGRvZXNuJ3QgY2FsbCB0aGUgbGF0dGVyIGZvciB0dG1fbWVtX3Jl
+Z3MgdGhhdCBkb24ndAo+Pj4+IGhhdmUgYW4KPj4+PiBtbV9ub2RlOgo+Pj4+Cj4+Pj4+IHZvaWQg
+dHRtX2JvX21lbV9wdXQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywgc3RydWN0IHR0bV9t
+ZW1fcmVnCj4+Pj4+ICptZW0pCj4+Pj4+IHsKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVj
+dCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuID0KPj4+Pj4gJmJvLT5iZGV2LT5tYW5bbWVtLT5t
+ZW1fdHlwZV07Cj4+Pj4+Cj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAobWVtLT5tbV9ub2Rl
+KQo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICgqbWFuLT5mdW5jLT5w
+dXRfbm9kZSkobWFuLCBtZW0pOwo+Pj4+PiB9Cj4+Pj4gR1RUIEJPcyB0aGF0IGRvbid0IGhhdmUg
+R0FSVCBzcGFjZSBhbGxvY2F0ZWQsIGRvbid0IGhhdGUgYW4KPj4+PiBtbV9ub2RlLiBTbwo+Pj4+
+IHRoZSBhbWRncHVfZ3R0X21nci5hdmFpbGFibGUgY291bnRlciBkb2Vzbid0IGdldCBpbmNyZW1l
+bnRlZCB3aGVuIGFuCj4+Pj4gdW5tYXBwZWQgR1RUIEJPIGlzIGZyZWVkLCBhbmQgZXZlbnR1YWxs
+eSBydW5zIG91dCBvZiBzcGFjZS4KPj4+Pgo+Pj4+IE5vdyBJIGtub3cgd2hhdCB0aGUgcHJvYmxl
+bSBpcywgYnV0IEkgZG9uJ3Qga25vdyBob3cgdG8gZml4IGl0Lgo+Pj4+IE1heWJlIGEKPj4+PiBk
+dW1teS1tbV9ub2RlIGZvciB1bm1hcHBlZCBHVFQgQk9zLCB0byB0cmljayBUVE0gaW50byBjYWxs
+aW5nIG91cgo+Pj4+IHB1dF9ub2RlIGNhbGxiYWNrPyBPciBhIGNoYW5nZSBpbiBUVE0gdG8gY2Fs
+bCBwdXRfbm9kZQo+Pj4+IHVuY29uZGl0aW9uYWxseT8KPj4+Pgo+Pj4+IFJlZ2FyZHMsCj4+Pj4g
+wqDCoMKgIEZlbGl4Cj4+Pj4KPj4+Pgo+Pj4+IFvCoCAzNjAuMDgyNTUyXSBbVFRNXSBGYWlsZWQg
+dG8gZmluZCBtZW1vcnkgc3BhY2UgZm9yIGJ1ZmZlcgo+Pj4+IDB4MDAwMDAwMDAyNjRjODIzYyBl
+dmljdGlvbgo+Pj4+IFvCoCAzNjAuMDkwMzMxXSBbVFRNXcKgIE5vIHNwYWNlIGZvciAwMDAwMDAw
+MDI2NGM4MjNjICgxNjM4NCBwYWdlcywKPj4+PiA2NTUzNkssIDY0TSkKPj4+PiBbwqAgMzYwLjA5
+MDMzNF0gW1RUTV3CoMKgwqAgcGxhY2VtZW50WzBdPTB4MDAwMTAwMDIgKDEpCj4+Pj4gW8KgIDM2
+MC4wOTAzMzZdIFtUVE1dwqDCoMKgwqDCoCBoYXNfdHlwZTogMQo+Pj4+IFvCoCAzNjAuMDkwMzM3
+XSBbVFRNXcKgwqDCoMKgwqAgdXNlX3R5cGU6IDEKPj4+PiBbwqAgMzYwLjA5MDMzOV0gW1RUTV3C
+oMKgwqDCoMKgIGZsYWdzOiAweDAwMDAwMDBBCj4+Pj4gW8KgIDM2MC4wOTAzNDFdIFtUVE1dwqDC
+oMKgwqDCoCBncHVfb2Zmc2V0OiAweEZGMDAwMDAwMDAKPj4+PiBbwqAgMzYwLjA5MDM0Ml0gW1RU
+TV3CoMKgwqDCoMKgIHNpemU6IDEwNDg1NzYKPj4+PiBbwqAgMzYwLjA5MDM0NF0gW1RUTV3CoMKg
+wqDCoMKgIGF2YWlsYWJsZV9jYWNoaW5nOiAweDAwMDcwMDAwCj4+Pj4gW8KgIDM2MC4wOTAzNDZd
+IFtUVE1dwqDCoMKgwqDCoCBkZWZhdWx0X2NhY2hpbmc6IDB4MDAwMTAwMDAKPj4+PiBbwqAgMzYw
+LjA5MDM0OV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA0MDAtMHgwMDAwMDAwMDAwMDAwNDAyOiAy
+OiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzNTJdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDAyLTB4
+MDAwMDAwMDAwMDAwMDQwNDogMjogdXNlZAo+Pj4+IFvCoCAzNjAuMDkwMzU0XSBbVFRNXcKgIDB4
+MDAwMDAwMDAwMDAwMDQwNC0weDAwMDAwMDAwMDAwMDA0MDY6IDI6IHVzZWQKPj4+PiBbwqAgMzYw
+LjA5MDM1NV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA0MDYtMHgwMDAwMDAwMDAwMDAwNDA4OiAy
+OiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzNTddIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDA4LTB4
+MDAwMDAwMDAwMDAwMDQwYTogMjogdXNlZAo+Pj4+IFvCoCAzNjAuMDkwMzU5XSBbVFRNXcKgIDB4
+MDAwMDAwMDAwMDAwMDQwYS0weDAwMDAwMDAwMDAwMDA0MGM6IDI6IHVzZWQKPj4+PiBbwqAgMzYw
+LjA5MDM2MV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA0MGMtMHgwMDAwMDAwMDAwMDAwNDBlOiAy
+OiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzNjNdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDBlLTB4
+MDAwMDAwMDAwMDAwMDQxMDogMjogdXNlZAo+Pj4+IFvCoCAzNjAuMDkwMzY1XSBbVFRNXcKgIDB4
+MDAwMDAwMDAwMDAwMDQxMC0weDAwMDAwMDAwMDAwMDA0MTI6IDI6IHVzZWQKPj4+PiBbwqAgMzYw
+LjA5MDM2N10gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA0MTItMHgwMDAwMDAwMDAwMDAwNDE0OiAy
+OiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzNjhdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNDE0LTB4
+MDAwMDAwMDAwMDAwMDQxNTogMTogdXNlZAo+Pj4+IFvCoCAzNjAuMDkwMzcwXSBbVFRNXcKgIDB4
+MDAwMDAwMDAwMDAwMDQxNS0weDAwMDAwMDAwMDAwMDA1MTU6IDI1NjogdXNlZAo+Pj4+IFvCoCAz
+NjAuMDkwMzcyXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxNS0weDAwMDAwMDAwMDAwMDA1MTY6
+IDE6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDM3NF0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MTYt
+MHgwMDAwMDAwMDAwMDAwNTE3OiAxOiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzNzZdIFtUVE1dwqAg
+MHgwMDAwMDAwMDAwMDAwNTE3LTB4MDAwMDAwMDAwMDAwMDUxODogMTogdXNlZAo+Pj4+IFvCoCAz
+NjAuMDkwMzc4XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxOC0weDAwMDAwMDAwMDAwMDA1MTk6
+IDE6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDM3OV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MTkt
+MHgwMDAwMDAwMDAwMDAwNTFhOiAxOiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzODFdIFtUVE1dwqAg
+MHgwMDAwMDAwMDAwMDAwNTFhLTB4MDAwMDAwMDAwMDAwMDUxYjogMTogdXNlZAo+Pj4+IFvCoCAz
+NjAuMDkwMzgzXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxYi0weDAwMDAwMDAwMDAwMDA1MWM6
+IDE6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDM4NV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MWMt
+MHgwMDAwMDAwMDAwMDAwNTFkOiAxOiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzODddIFtUVE1dwqAg
+MHgwMDAwMDAwMDAwMDAwNTFkLTB4MDAwMDAwMDAwMDAwMDUxZjogMjogdXNlZAo+Pj4+IFvCoCAz
+NjAuMDkwMzg5XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUxZi0weDAwMDAwMDAwMDAwMDA1MjE6
+IDI6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDM5MV0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MjEt
+MHgwMDAwMDAwMDAwMDAwNTIyOiAxOiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzOTJdIFtUVE1dwqAg
+MHgwMDAwMDAwMDAwMDAwNTIyLTB4MDAwMDAwMDAwMDAwMDUyMzogMTogdXNlZAo+Pj4+IFvCoCAz
+NjAuMDkwMzk0XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDUyMy0weDAwMDAwMDAwMDAwMDA1MjQ6
+IDE6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDM5Nl0gW1RUTV3CoCAweDAwMDAwMDAwMDAwMDA1MjQt
+MHgwMDAwMDAwMDAwMDAwNTI1OiAxOiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTAzOThdIFtUVE1dwqAg
+MHgwMDAwMDAwMDAwMDAwNTI1LTB4MDAwMDAwMDAwMDAwMDYyNTogMjU2OiB1c2VkCj4+Pj4gW8Kg
+IDM2MC4wOTA0MDBdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAwNjI1LTB4MDAwMDAwMDAwMDAwMDcy
+NTogMjU2OiB1c2VkCj4+Pj4gW8KgIDM2MC4wOTA0MDJdIFtUVE1dwqAgMHgwMDAwMDAwMDAwMDAw
+NzI1LTB4MDAwMDAwMDAwMDAwMDcyNzogMjogdXNlZAo+Pj4+IFvCoCAzNjAuMDkwNDA0XSBbVFRN
+XcKgIDB4MDAwMDAwMDAwMDAwMDcyNy0weDAwMDAwMDAwMDAwMDA3YzA6IDE1MzogdXNlZAo+Pj4+
+IFvCoCAzNjAuMDkwNDA2XSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMDdjMC0weDAwMDAwMDAwMDAw
+MDBiOGE6IDk3MDogdXNlZAo+Pj4+IFvCoCAzNjAuMDkwNDA3XSBbVFRNXcKgIDB4MDAwMDAwMDAw
+MDAwMGI4YS0weDAwMDAwMDAwMDAwMDBiOGI6IDE6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDQwOV0g
+W1RUTV3CoCAweDAwMDAwMDAwMDAwMDBiOGItMHgwMDAwMDAwMDAwMDAwYmNiOiA2NDogdXNlZAo+
+Pj4+IFvCoCAzNjAuMDkwNDExXSBbVFRNXcKgIDB4MDAwMDAwMDAwMDAwMGJjYi0weDAwMDAwMDAw
+MDAwMDBiY2Q6IDI6IHVzZWQKPj4+PiBbwqAgMzYwLjA5MDQxM10gW1RUTV3CoCAweDAwMDAwMDAw
+MDAwMDBiY2QtMHgwMDAwMDAwMDAwMDQwMDAwOiAyNTkxMjM6Cj4+Pj4gZnJlZQo+Pj4+IFvCoCAz
+NjAuMDkwNDE1XSBbVFRNXcKgIHRvdGFsOiAyNjExMjAsIHVzZWQgMTk5NyBmcmVlIDI1OTEyMwo+
+Pj4+IFvCoCAzNjAuMDkwNDE3XSBbVFRNXcKgIG1hbiBzaXplOjEwNDg1NzYgcGFnZXMsIGd0dCBh
+dmFpbGFibGU6MTQzNzEKPj4+PiBwYWdlcywKPj4+PiB1c2FnZTo0MDM5TUIKPj4+Pgo+Pj4+Cj4+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBz
+Oi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUy
+RiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngm
+YW1wO2RhdGE9MDIlN0MwMSU3Q2ZlbGl4Lmt1ZWhsaW5nJTQwYW1kLmNvbSU3Q2Q4NTk1NTZmYjBm
+MDQ2NTgwODEyMDhkODI4YTE2Nzk3JTdDM2RkODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2Ql
+N0MwJTdDMCU3QzYzNzMwNDAyMDk5MjQyMzA2OCZhbXA7c2RhdGE9RFRRcGQ5RjhTVDJpMVZSOU40
+b0NVZmQ4OEZpbUk0d1NoVHZDJTJCZVIyWlNFJTNEJmFtcDtyZXNlcnZlZD0wCj4+Cj4KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
