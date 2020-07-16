@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEF37C43445
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A565EC4345A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0F5320787
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7707C20787
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJi1299C"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0F5320787
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxT2VsYw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7707C20787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3359D6ECFB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4D396ED00;
 	Thu, 16 Jul 2020 21:23:37 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B0586ECFE
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 21:23:36 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id z13so8640197wrw.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 14:23:36 -0700 (PDT)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69FF86ECFD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 21:23:35 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id o8so11722384wmh.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 14:23:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=aXY0929hnEyjy9oHOGYfW9PzPd1flXaXrUHyHSIX6Zc=;
- b=cJi1299CkLNFjsyjqbNDu4jyxRB08acQsJm65T3pB1jAvaFUsFzFwgO/vzSHHrGXz/
- FIFgPRlRFfajKXPTMDqjTvdVURtMf14XCJghqfamAJOucK7gt+jcjLBu5D4TIVCJxRK4
- 8zjeJ4J814nYUyOZjgWiVBmCm2jfx9c6aGI7rddllWP9hekDdIq+1u1vfkIGXPmFqY3A
- ddsFesj+mKlTJNaV/TNUdFZ6A/mf5kKPkEcrEnNzkKcbQSj7FRiFXFb+GqN+3uLn/azu
- t/7hUYgvzmg1mPD8qwyI/5///esJtOY/2/e2tQAkz55BfOxhIZ3tSjCrVRsgwS2aCfpB
- JAlQ==
+ bh=gjPABkw0SFio5RxcMqGewI4z+tsK1lN1GscIxb0PtOg=;
+ b=mxT2VsYwx71luHqPze3GeJ5LLTCCxjOe9ftF5Zq9I8zuO9wV4riCtxHsuSkxIztPDD
+ 95n1A2lkNfBalMl+W1IDd4v0KBx4IN9/+YveXo3TdwOZ8t1smuK+StyYP4PvOHXicfJb
+ IIABUfBbEvM/57Cv77Oo77r0Evian0c3kGSTofx/UQinrTypmcFG431D5stw6QhZl9cp
+ Cg00ArX+TnC4EWLjYnof/9mDSgyQknauNOL2hB5wHWgN1Qi/AH2NQoZvU+Pz3LCLLOfH
+ q6mZa5CtyVRoC7mLbgjbS66bBoLy7yDOeKNvKmIIRWcP0ogCXb9c2ohkmj04T3bBXNqn
+ It8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=aXY0929hnEyjy9oHOGYfW9PzPd1flXaXrUHyHSIX6Zc=;
- b=I4/4wDgc0/yV60aoJi6UwYuBpaNyCwYc8g6wChRkuRZLa4ebP47RxtOqXnsDfY7wp6
- R6Ij9kli9I82bSy8tJHiHB1IhBPmOxPsVA/UEQxLrRuRDS+V+u7BGDK6NU11UPwoFmmZ
- K0a8HSQf15qxfbGzfwwEqYNMBvnFNGB4NpxtfPSaqajZBK7ti8PJ7dcNUVOtZQ3Z/1xS
- te0ojRD5wVKwjH1o778pfZzEawPztCfzJmetLwy6bPuBmyNRQgl++CVi2ImyBX8Rh6lL
- aLE1DH4KTsv+l0HVeNBeJCp25Fykv3Sbn8asPVMAcCraVAuks4cxG1zeMDOpVc9WGrgS
- b4Pw==
-X-Gm-Message-State: AOAM531FhlWyfDBB4K/Wz8+XlqYy9AeTuffImqDfkxkB7rGdIicShb9q
- VbpwNmz85kZmL0sQ1nq8ysTek7o1T7s=
-X-Google-Smtp-Source: ABdhPJzA5JnAFux2S/yyQArXrpxp535lyPPhwcC4uFb4ZUgOO+99awKuCkLmt3N2f5vF4bxrDQu0Gg==
-X-Received: by 2002:a05:6000:86:: with SMTP id
- m6mr6737790wrx.173.1594934614618; 
- Thu, 16 Jul 2020 14:23:34 -0700 (PDT)
+ bh=gjPABkw0SFio5RxcMqGewI4z+tsK1lN1GscIxb0PtOg=;
+ b=SrsPwY0IHaLELKbwjMBsdPo25E2R/OGHlwitGb2zuQN0pxsikEnPWbMiNi9aZrY5m9
+ ex3iI7dOxCptnyaZltPWc9jMU/9VvkJMtOvuxvCCqnWzTFMcW5L9ThIjp2aOjreGP1dl
+ 251GsA+QMl7SaOMStjq2ju0Dgcc8gdkLykL4Bv5I1Z+xgLgmrN6KpwmYsRlaHCGRj8uu
+ EkIfy2hasqWpwVVW6xl5uzvUMCethQBS4IL0+kQ88qGaYJL4VEzwLn+gevhqfAwEQoYZ
+ MmFjV5ZLfR1dhUF2oE3gOUD/adSEHWBauhtyAaWN0eGiamy2buW2OBa+GM1wm4cNvlGK
+ 6eYw==
+X-Gm-Message-State: AOAM532IzrY377lizYTeRjfA5EARGvBXADHDVh4PgV12DI6UYqA28qV9
+ s1gIGm00gWvc7EcUWftKFBT8I6hE4rE=
+X-Google-Smtp-Source: ABdhPJyC4pRJ5vgI92++6ky3xWQ2QZGP+I+uTS7NP49mCHqdWyP290VwnQxusUFenlomM4qEjmKViQ==
+X-Received: by 2002:a1c:5646:: with SMTP id k67mr6265659wmb.61.1594934613759; 
+ Thu, 16 Jul 2020 14:23:33 -0700 (PDT)
 Received: from utente-Giga.homenet.telecomitalia.it
  (host-79-21-65-179.retail.telecomitalia.it. [79.21.65.179])
  by smtp.googlemail.com with ESMTPSA id c15sm10288696wme.23.2020.07.16.14.23.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2020 14:23:34 -0700 (PDT)
+ Thu, 16 Jul 2020 14:23:33 -0700 (PDT)
 From: Mauro Rossi <issor.oruam@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 26/27] drm/amdgpu: enable DC support for SI parts (v2)
-Date: Thu, 16 Jul 2020 23:22:50 +0200
-Message-Id: <20200716212251.1539094-27-issor.oruam@gmail.com>
+Subject: [PATCH v3 25/27] drm/amd/display: create plane rotation property for
+ Bonaire and later
+Date: Thu, 16 Jul 2020 23:22:49 +0200
+Message-Id: <20200716212251.1539094-26-issor.oruam@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200716212251.1539094-1-issor.oruam@gmail.com>
 References: <20200716212251.1539094-1-issor.oruam@gmail.com>
@@ -89,76 +89,32 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-amdgpu_device.c requires changes for SI chipsets support
-si.c require changes for Display Manager IP block enabling
+DCE6 chipsets do not support HW rotation
 
 [How]
-amdgpu_device.c: add SI families in amdgpu_device_asic_has_dc_support()
-si.c: changes in si_set_ip_blocks() for Display Manager IP blocks enablement
-
-(v1) NOTE: As per Kaveri and older amdgpu.dc=1 kernel cmdline is required
-
-(v2) fix for bc011f9350 ("drm/amdgpu: Change SI/CI gfx/sdma/smu init sequence")
-     remove CHIP_HAINAN support since it does not have physical DCE6 module
+rotation property is created for Bonaire and later
 
 Signed-off-by: Mauro Rossi <issor.oruam@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/si.c            | 10 ++++++++++
- 2 files changed, 16 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index aa5b54e5a1d7..cd5efa6c1c18 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2775,6 +2775,12 @@ bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type)
- {
- 	switch (asic_type) {
- #if defined(CONFIG_DRM_AMD_DC)
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+	case CHIP_TAHITI:
-+	case CHIP_PITCAIRN:
-+	case CHIP_VERDE:
-+	case CHIP_OLAND:
-+#endif
- 	case CHIP_BONAIRE:
- 	case CHIP_KAVERI:
- 	case CHIP_KABINI:
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 1b449291f068..5a112c7a35ca 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -52,6 +52,8 @@
- #include "bif/bif_3_0_d.h"
- #include "bif/bif_3_0_sh_mask.h"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index df46cf7cb374..25ffa89d5657 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6103,8 +6103,9 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+ 		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
  
-+#include "amdgpu_dm.h"
-+
- static const u32 tahiti_golden_registers[] =
- {
- 	mmAZALIA_SCLK_CONTROL, 0x00000030, 0x00000011,
-@@ -2546,6 +2548,10 @@ int si_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &si_smu_ip_block);
- 		if (adev->enable_virtual_display)
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-+#if defined(CONFIG_DRM_AMD_DC) && defined(CONFIG_DRM_AMD_DC_SI)
-+		else if (amdgpu_device_has_dc_support(adev))
-+			amdgpu_device_ip_block_add(adev, &dm_ip_block);
-+#endif
- 		else
- 			amdgpu_device_ip_block_add(adev, &dce_v6_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &uvd_v3_1_ip_block);
-@@ -2560,6 +2566,10 @@ int si_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &si_smu_ip_block);
- 		if (adev->enable_virtual_display)
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-+#if defined(CONFIG_DRM_AMD_DC) && defined(CONFIG_DRM_AMD_DC_SI)
-+		else if (amdgpu_device_has_dc_support(adev))
-+			amdgpu_device_ip_block_add(adev, &dm_ip_block);
-+#endif
- 		else
- 			amdgpu_device_ip_block_add(adev, &dce_v6_4_ip_block);
- 		amdgpu_device_ip_block_add(adev, &uvd_v3_1_ip_block);
+-	drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
+-					   supported_rotations);
++	if (dm->adev->asic_type >= CHIP_BONAIRE)
++		drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
++						   supported_rotations);
+ 
+ 	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+ 
 -- 
 2.25.1
 
