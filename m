@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10128C433EA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3104C433E8
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 13:14:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9452B20760
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 13:14:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C833C20760
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 13:14:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kmUkGkfT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9452B20760
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YIcjO54Y"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C833C20760
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 466636EC60;
-	Thu, 16 Jul 2020 13:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7141C89E3B;
+	Thu, 16 Jul 2020 13:14:59 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB9596EC60
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C59CF6EC61
  for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 13:14:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OEhJOMQWIT2PLpaZjO9LWhSYOL/M10VB+dju8ayZAB4Qv9pNNRW2h6wdQv6pNVK3OLfo2psUFi7JR4+9a0FLEcIoDP7gwmY6i8Qxl78YWtnhK/GdobIySnTtFNORKP97RQpeTR1CIO41FW9hLJahKDKTP3GvcD+2u7mMHtTs3lZahFZpCyA/fZzduRMv6pMWbmx85ghA1Qf6d+vAmrXNm48l81ZC4Pp3WajuTptMiin8pBY1w0XRnt8e4cLMcQI3a3kL2miq71jxGyVXcjt2yJ5DUmhCupLeEUFHY2RYpIw8vSeizJULM3Adz/KyoqXmNkbOleiHkDSq8Oi1UU3j/g==
+ b=TB5GS2+jccr4kxiNpOujz9yI/ghAezWauxOIDTKyp3y6mfnHKt3k1hRmtc+Y2Hj2tEvROBBVewGZ92CIC8ZHBRF2b7kxASkk3e/dzcuU9xZpSOwEldbE6JKL3xeLyDOX56iazYae6EnoLMFkTmp23lbK3yKXdZKeo3x2rViLuiY4a7MrjD4mUEuVgeurnqWAU1oWR4LMEmJF3gZCzQxzD2cnrVEq1F9i7gg6EWbayGA8O4KL1i7BRhtIXLIsK0DYmpoCvK2oOL+xSJ+fNe616NgkDxSzztBq6WWC94DFGsVotubiNZe8xd7SIY+xJ/Z3dKtxXVgydgcUBLso3LVAPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kXt+FzC7HqGYlkmWResWxdTnb5Q8bWGOdUeKSrsbWmE=;
- b=NCvUZnCwJ8bPauSWTIgckMrY4171aiJOQ9u00J+ewEy0nD01zkqnI34zxVCRWOeeX7uJQ9ntwxhL2EWj+biDnu1D0y/QtCd+a/svPbrUVnBwsjUpQfxjuGiYaPObHRkjDkQPxWoN99D8BQFbH9MS8xgJImGuF1ZabmbVgolJ7J3qpHdkn3ffJngnwvRjBZSSpXPJM2BV54TEa/fTHheGE3bnfF2X/3huBvzn+SpeLakwT+wzlw8Xy6/tUJiz6Z/eFnPuw8uxHOP+X4QanjREi6Dvh+2/LqglZnUgpVZyEvB08RupN+0n51VoRpnOxmFkA/LVQXv2fL11QZISdN5/5w==
+ bh=pLC+x+PjoQzXGRua9+nADl7iLmJxzliE8Tnboc1lr9A=;
+ b=k8tQsf7miVzHbxMePm8FtwH3QZxnPssSBlwgywrivnfY9VInx/4e2wS7qwdkPiHwfxfq1kC7vu++pYNcZccXTSD6RVbjaJYVnTZiJ6vzJs5HRKRXEqfNLzziK74IQu25YI7BDD8AIWAiUmuee+viHQmdMlNIlOdjJh3mK9dFGfEFB/9BZYJQZOFwRxRWePScH5TRFVVy7fwiv1E+M5NrgUGZ4ft3+vwo+CAm0ktoB9bEuHEFr35nrI5M2OBQDMdDwoXbkfJbSU/DUCkW5b0/Yjb45z5frwQpEYV5s+WetphjWi5N7EhEc2t70RqxIG2zjon9G3IGXJaBGdd3baFx2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kXt+FzC7HqGYlkmWResWxdTnb5Q8bWGOdUeKSrsbWmE=;
- b=kmUkGkfTksYobakyURKIwzN7ryuJym503CVtK1OPl5yeSaE9wrQ0Ar0p4uVN0A0gUCJPB0VJQUhKVavo6SJGuJ+KjYkky/56vOHZ1ExTB2hPNOdKnOyspKz0OEtz6XTUuOvflgnF80RYAofnpLRZCv3d5hp/SegaMlEQ+5oCgPU=
+ bh=pLC+x+PjoQzXGRua9+nADl7iLmJxzliE8Tnboc1lr9A=;
+ b=YIcjO54YxDFv1c4FDq4QPxcG6AxyqJIzejJ4vu+p1bmM/8EO8Nbd8LT2udzs8VVTcIGnYfR1+Alhl5ec8BmUuaSd9sRVvtQVoS5vAekpamN7H1635xKo72n7zoDkAb+5ArfaU+u+R0aavlO5Dvh3sCSP3fFeNuQGWhRXk1cbLdk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,19 @@ Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
  DM5PR1201MB0092.namprd12.prod.outlook.com (2603:10b6:4:54::22) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.21; Thu, 16 Jul 2020 13:14:56 +0000
+ 15.20.3174.21; Thu, 16 Jul 2020 13:14:57 +0000
 Received: from DM5PR12MB2517.namprd12.prod.outlook.com
  ([fe80::1c50:44e9:a4a2:2828]) by DM5PR12MB2517.namprd12.prod.outlook.com
  ([fe80::1c50:44e9:a4a2:2828%6]) with mapi id 15.20.3174.026; Thu, 16 Jul 2020
- 13:14:56 +0000
+ 13:14:57 +0000
 From: James Zhu <James.Zhu@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] Revert "drm/amdgpu/vcn: add shared memory restore after
- wake up from sleep."
-Date: Thu, 16 Jul 2020 09:14:46 -0400
-Message-Id: <1594905287-2895-1-git-send-email-James.Zhu@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu/vcn: merge shared memory into vcpu
+Date: Thu, 16 Jul 2020 09:14:47 -0400
+Message-Id: <1594905287-2895-2-git-send-email-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1594905287-2895-1-git-send-email-James.Zhu@amd.com>
+References: <1594905287-2895-1-git-send-email-James.Zhu@amd.com>
 X-ClientProxiedBy: YT1PR01CA0039.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b01:2e::8) To DM5PR12MB2517.namprd12.prod.outlook.com
  (2603:10b6:4:bb::13)
@@ -68,34 +69,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from work_495456.amd.com (165.204.55.251) by
  YT1PR01CA0039.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3195.17 via Frontend Transport; Thu, 16 Jul 2020 13:14:55 +0000
+ 15.20.3195.17 via Frontend Transport; Thu, 16 Jul 2020 13:14:56 +0000
 X-Mailer: git-send-email 2.7.4
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5d351270-29be-4505-c192-08d8298a3be6
+X-MS-Office365-Filtering-Correlation-Id: 74a31716-a8a1-4327-d744-08d8298a3c22
 X-MS-TrafficTypeDiagnostic: DM5PR1201MB0092:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB009218BF6B574B4BEE2D8534E47F0@DM5PR1201MB0092.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:60;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB00926935835E08CDC96FB407E47F0@DM5PR1201MB0092.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Dx2yxt10xeQHYuzoBm/goAvaYIOyxNniHLEc3O3OuGsy/8CqvkiOfRgexg2m1jqgCx0EnbJIbXMY8JbIrbF4MTyRf3uYpWBfykdcxdjcK/27B8tB4Qn7Fsk8K5cHTGBj1YOD9/6vdltf0QkEA/sIJmuQsJlhYtFDgqra4TtJs0FtahPRaYtrs1D1DO0fcptPImxq+kaQJHZvMVyvYpS6EBVBSIs7n38FOlmOL4YJGj9qnFEP/SFsHL18Y+8S8lim7t5JB6OYBau6CiDiqZuQPWKEqBsESLSEi/kIhKyerzeKuD7hzbWDGG2AncX+keQR+503JhhwzZBpycEUDU2VjQ==
+X-Microsoft-Antispam-Message-Info: DUxYsQCluztkBtn+yTC+kRWkE8QZ6FBxuJVMq9GxKsDii/TTDuqIwV61wFaIljepRFWubd5YTxHkUejhfxFZA/dc3ndRiPP1dP53APVICC03uRX0/LHMip38SUwk9QhnFd4Nl2tGd/dyHx1iSZHI5D7Y+3Hcx/ei01dk/MctaK1qAJAmmAZ1rbUjv1RDruewdnpUuWw8qsiQhZVoe6Uzym/MXBgIVGxT+cbICbVjbJF4OyvvNorh/W9xZyLN+lGllLI+7HrcZS6Fl2EuIIR08xqUO+uvzFz5022QS5Nh/2yTEPO0ARA2I+YgvQOmWN+eK8QnwL6smtKq88ejebVE3w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(376002)(346002)(396003)(136003)(39860400002)(6666004)(66946007)(7696005)(66556008)(66476007)(4326008)(478600001)(8676002)(6486002)(316002)(52116002)(2616005)(2906002)(956004)(26005)(186003)(16526019)(5660300002)(83380400001)(36756003)(86362001)(8936002)(6916009);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: asOZ1DscDBrpzZboC61fyejtesXRgz/Sr9xGSzUoU5JJEXLOl9d3QHVJwJa347zGbH5XSkqTlpo1orATQnSwbB+XDPuocprEZvWFArRe28lKwTPK6aEknNs0AoJUz0VYj7MHcK3mYdMkdfd+514eBGdE6Ezu7a5MyimNpBasMNcwshECbZXZMu6NUPfnTuFKLCzuLNNet83cEArdBsKQ9jzmwjHsaDEObYyQU/YQJxE59gXNzgbVUimIfaE1GyIJCcKWA58/Xvg/j8qHu/ve6aanOgx6sY3ifxwNv37nHZyhRtiJRPm+AcM/+2PVnyJDfLDIfxafsKnh0ZysnVOEQ5k5eN/aI/D/qYXGFBNxKpwn13/th3DYbcfCIz/jCo6wnTBQfcbUSiug/zuS9CgzPqDYpCJqZ7S65NfdrZH8zQjhb7aRYrRCzqZ8JN4IVFusVgCd2I/1QrSuKiWFjLmMQcqn/PfKzTWoD23a6oixp4/0tck16rp5FZnAsUgHsVpE
+X-MS-Exchange-AntiSpam-MessageData: CSPcsgu2c4Kp+yon7hKczItlBmycAztFTTOU+D82PmhaDpNp/eTVMTgI3gP6jelHp3acVb19n4C6IhMUhr6yw693xvwM5WoOTHm36Z2L53NyURh/PQXgu55KuH42e2JTib9wp1GRKHVGoIMwiduNgNx1wDiXA8WZWz5bgQCanmgJx2gS7aENPb7UoRM4gtGvsgMrNosNd+X/hJW+vRGYQsJu65q6jHGpRsjNV0pY2+oJL53bnI3ZhZoBR4CRj1EMnjDOmT0xGaop2TSrXmKfeJjwyWr8PCl8jOZgAjjvOMo/lqVvoIFRJ0jimLl/boniE/JP3XbehfIJ97nBt4nBjRWdFWjqmW2JecHAuWO8eK4U3zM5ZHBHNClfEZCszkY9mEDNlTgodr4sDJ7XRZE9AXGV3DIWlMHjY3PP4XEdmN84NxO8MibjwhOvD1ksUHk+Z6icmKx9hhyR8yzSb0nZlMs7c2yk1USE/7N9EdFK/xKYGk4Al5vBE0zit/amFmn0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d351270-29be-4505-c192-08d8298a3be6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74a31716-a8a1-4327-d744-08d8298a3c22
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2020 13:14:56.1608 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2020 13:14:56.5716 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WJGHLrKFuhMlhTNH83JjRcFkIREq3hy0Z50AOhcmJxosC2OXFZFbHSjy8VTDzuxB
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y4ZSGgnnEosyKmxupJsx+TkSNHWN2w7TFrVejeBi4dYcBVLqjXvCDyacaFcXb/tg
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0092
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,94 +115,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 41fd4db3eca29d10222f164cc1d56f60e3da97b8.
-To merge vcn firmware shared memory bo into vcn vcpu bo.
+Merge vcn firmware shared memory bo into vcn vcpu bo.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 28 +---------------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 18 ++++++------------
  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 -
- 2 files changed, 1 insertion(+), 28 deletions(-)
+ 2 files changed, 6 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 15ff30c..cbc2b30 100644
+index cbc2b30..8c77f9d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -58,7 +58,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+@@ -168,6 +168,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 	bo_size = AMDGPU_VCN_STACK_SIZE + AMDGPU_VCN_CONTEXT_SIZE;
+ 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
+ 		bo_size += AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode_size_bytes) + 8);
++	bo_size += AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared));
  
- int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
- {
--	unsigned long bo_size, fw_shared_bo_size;
-+	unsigned long bo_size;
- 	const char *fw_name;
- 	const struct common_firmware_header *hdr;
- 	unsigned char fw_check;
-@@ -198,9 +198,6 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
- 			dev_err(adev->dev, "VCN %d (%d) failed to allocate firmware shared bo\n", i, r);
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+ 		if (adev->vcn.harvest_config & (1 << i))
+@@ -181,6 +182,11 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
  			return r;
  		}
+ 
++		adev->vcn.inst[i].fw_shared_cpu_addr = adev->vcn.inst[i].cpu_addr +
++				bo_size - AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared));
++		adev->vcn.inst[i].fw_shared_gpu_addr = adev->vcn.inst[i].gpu_addr +
++				bo_size - AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared));
++
+ 		if (adev->vcn.indirect_sram) {
+ 			r = amdgpu_bo_create_kernel(adev, 64 * 2 * 4, PAGE_SIZE,
+ 					AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.inst[i].dpg_sram_bo,
+@@ -190,14 +196,6 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 				return r;
+ 			}
+ 		}
 -
--		fw_shared_bo_size = amdgpu_bo_size(adev->vcn.inst[i].fw_shared_bo);
--		adev->vcn.inst[i].saved_shm_bo = kvmalloc(fw_shared_bo_size, GFP_KERNEL);
+-		r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared)),
+-				PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.inst[i].fw_shared_bo,
+-				&adev->vcn.inst[i].fw_shared_gpu_addr, &adev->vcn.inst[i].fw_shared_cpu_addr);
+-		if (r) {
+-			dev_err(adev->dev, "VCN %d (%d) failed to allocate firmware shared bo\n", i, r);
+-			return r;
+-		}
  	}
  
  	return 0;
-@@ -216,7 +213,6 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
+@@ -213,10 +211,6 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
  		if (adev->vcn.harvest_config & (1 << j))
  			continue;
  
--		kvfree(adev->vcn.inst[j].saved_shm_bo);
- 		amdgpu_bo_free_kernel(&adev->vcn.inst[j].fw_shared_bo,
- 					  &adev->vcn.inst[j].fw_shared_gpu_addr,
- 					  (void **)&adev->vcn.inst[j].fw_shared_cpu_addr);
-@@ -266,17 +262,6 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
- 			return -ENOMEM;
- 
- 		memcpy_fromio(adev->vcn.inst[i].saved_bo, ptr, size);
+-		amdgpu_bo_free_kernel(&adev->vcn.inst[j].fw_shared_bo,
+-					  &adev->vcn.inst[j].fw_shared_gpu_addr,
+-					  (void **)&adev->vcn.inst[j].fw_shared_cpu_addr);
 -
--		if (adev->vcn.inst[i].fw_shared_bo == NULL)
--			return 0;
--
--		if (!adev->vcn.inst[i].saved_shm_bo)
--			return -ENOMEM;
--
--		size = amdgpu_bo_size(adev->vcn.inst[i].fw_shared_bo);
--		ptr = adev->vcn.inst[i].fw_shared_cpu_addr;
--
--		memcpy_fromio(adev->vcn.inst[i].saved_shm_bo, ptr, size);
- 	}
- 	return 0;
- }
-@@ -314,17 +299,6 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
- 			}
- 			memset_io(ptr, 0, size);
- 		}
--
--		if (adev->vcn.inst[i].fw_shared_bo == NULL)
--			return -EINVAL;
--
--		size = amdgpu_bo_size(adev->vcn.inst[i].fw_shared_bo);
--		ptr = adev->vcn.inst[i].fw_shared_cpu_addr;
--
--		if (adev->vcn.inst[i].saved_shm_bo != NULL)
--			memcpy_toio(ptr, adev->vcn.inst[i].saved_shm_bo, size);
--		else
--			memset_io(ptr, 0, size);
- 	}
- 	return 0;
- }
+ 		if (adev->vcn.indirect_sram) {
+ 			amdgpu_bo_free_kernel(&adev->vcn.inst[j].dpg_sram_bo,
+ 						  &adev->vcn.inst[j].dpg_sram_gpu_addr,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index e125e8b..b5e9088 100644
+index b5e9088..7a9b804 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -207,7 +207,6 @@ struct amdgpu_vcn_inst {
- 	atomic_t		dpg_enc_submission_cnt;
- 	void			*fw_shared_cpu_addr;
- 	uint64_t		fw_shared_gpu_addr;
--	void			*saved_shm_bo;
- };
- 
- struct amdgpu_vcn {
+@@ -199,7 +199,6 @@ struct amdgpu_vcn_inst {
+ 	struct amdgpu_irq_src	irq;
+ 	struct amdgpu_vcn_reg	external;
+ 	struct amdgpu_bo	*dpg_sram_bo;
+-	struct amdgpu_bo	*fw_shared_bo;
+ 	struct dpg_pause_state	pause_state;
+ 	void			*dpg_sram_cpu_addr;
+ 	uint64_t		dpg_sram_gpu_addr;
 -- 
 2.7.4
 
