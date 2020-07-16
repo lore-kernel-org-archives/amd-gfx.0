@@ -2,70 +2,70 @@ Return-Path: <SRS0=xwQz=A3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FFAEC433F2
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 938FCC43446
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 20E60207DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6513620787
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 21:23:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LWbEx36j"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20E60207DD
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FBogIQLS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6513620787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C73B6ECF4;
-	Thu, 16 Jul 2020 21:23:25 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1891C6ECF4
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 21:23:24 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id b6so8601197wrs.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 14:23:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5206ECFA;
+	Thu, 16 Jul 2020 21:23:34 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE456ECFB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 21:23:32 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id k6so8661827wrn.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 14:23:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=iwTPI0esP17Kv/FIvD6deYVyRSVj2+zzjLrHO6SV/Jg=;
- b=LWbEx36j+C1JcaTs+b3/Zre6oVvi2bs4vtAM/T6x2m6Cjs/0R9aJDihGqWg+bI7jFn
- nzK1lDi10A2Mso+EZTeR/4duMwCwfSjO5wdGNXWQQvbhXpCSsvq08r2zA0Dbzd11tcfJ
- zz1EXRIWCBKTwcSX/KuyC14UkXL5SRnAlF9Gei34bpQ/O7fSjN/HF2xvASyHb6X49F4O
- U0RjJ1ArGH6XnHDrdXkBBZ9+SIxslFNVGjHvlmca4b2RgMXJaXagXdAez3d3hWb/dSRR
- orm/pQmwGOgOmr0AeBvI2gdUycZbkCjr8Dhk6pwSF00/L8Vux0Xlhm9JtXC83rnrl0Ca
- KL3A==
+ bh=D8zHBqQShFenOhn5sUdTCaXue2kUqd5or1RvllBciTM=;
+ b=FBogIQLSwtT5j4rLRwi2fey8R46JpS5cIv+GKxtuKbxo9gk009uoD5oX+Z0M5OMhGO
+ RdnY+O4GshXH0fw1PxpPufR3V4t0rhFRxHIz3J2I8fUZBLTDsDg/jSjzsBXUK4+TYChB
+ u3YWMBRFLGFgrP5Jn9/CBgQx6zEVrxKHRVPmDJQ1leN7I31OH+fpZgswRn2q9vRtm2ad
+ +LaQpnKjRezjsqnmkoqxPo6qCPVzti2Y4yu6UyGwkFbZbvJRSUR3llVHA8ZFM1j+giwJ
+ 2vNTaj834wXhs9EyBlNamLwfJ3K92NFNhtO/3hk6i2o173XamPeiIeBbt2uch5Ta1cjd
+ PXSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=iwTPI0esP17Kv/FIvD6deYVyRSVj2+zzjLrHO6SV/Jg=;
- b=i+THBqhdIOWyjO+GS4IN5My052y4j54wDXCg7xUcij9iPCpgKwud5X93WpZBnrmw54
- H7Vh7PxEmXDOde9TEJ3WHqVGga8ZMApIAFYiGHgCdZtehMeywE00vUblp53DZpNxOZcJ
- 3J8ePYDrRRCI85HdgiI8C3hhQly0cB7JgK2k35k/cpYrMJPtaOEKS656ZjnwFd1Ps+At
- afgldX4SfWB23AEBvi1cdf2oB2glDTazS4bQhQbj4Wj9gigXzhRbN5fn9vMOvPfmYwjv
- 3EIYQr/ffq2f5FBWVZH7v+tzxm1LPiVFi3HG7TqenNzsgcXNv0T7vWTOYSw0xO+wZWpG
- VpYA==
-X-Gm-Message-State: AOAM530tJEOf4D0onXQhPIXljvveZ7mjPIjBaOJXaDAv+b3rRiK4dy55
- Zt9wRVi12DHpVGTRfcqcrKtI029JnTw=
-X-Google-Smtp-Source: ABdhPJxJYRZ49c4+qrYWVe+rQSXStLsMJKmj1jpM/RFzD6JuCyarzdHyZD9/P9BvR9W93XCivMgGjw==
-X-Received: by 2002:a5d:628b:: with SMTP id k11mr6902798wru.107.1594934602376; 
- Thu, 16 Jul 2020 14:23:22 -0700 (PDT)
+ bh=D8zHBqQShFenOhn5sUdTCaXue2kUqd5or1RvllBciTM=;
+ b=FXL/u1+qprRsPp4pzLFQs1t5oEqU5jDrEpCq1jbB/N9oWlMqB5waWlAX2TkGA3K5Q5
+ /WE3uhKtDfkHB/o18upxp2aKwUsFYNt7nFWpepg+me2h9N2bABBsXG0SSSj9f/CPTCll
+ 0HMu1664dFYTbBvYPImKzuZM2I1HpLWTbIqzlU8tvz/wQNV4ZVeFc9/Lmb6JBVXVUGpi
+ 570oFXSMfQ95WdleGK5b7MozIS1/I0w/1LX7A2d0TJEmHvcOHcC5IM30gUMcI0ESiRrl
+ l7YyoGW+cerZuiJGaRVy5QuV0wUchatbPUbZHJWA2dVQSNGZv5Ei5Wtama5jXn/2HDGJ
+ l56g==
+X-Gm-Message-State: AOAM533oSyJm5sNHfKsv2C8TAhOUqmSgCDsQvv+eBPa68hgLSRGk9K0j
+ KCoTf2XJ4DrkV9Vs6iR1eYWZtz/Bx28=
+X-Google-Smtp-Source: ABdhPJxO6ODspyUZW6vptiMhVSDR7x4Vb74Vbw6ZvfhRxXycrHnbLETSjrilXvLPvrZVsumRpkh6RA==
+X-Received: by 2002:adf:82b8:: with SMTP id 53mr7394967wrc.172.1594934611094; 
+ Thu, 16 Jul 2020 14:23:31 -0700 (PDT)
 Received: from utente-Giga.homenet.telecomitalia.it
  (host-79-21-65-179.retail.telecomitalia.it. [79.21.65.179])
- by smtp.googlemail.com with ESMTPSA id c15sm10288696wme.23.2020.07.16.14.23.21
+ by smtp.googlemail.com with ESMTPSA id c15sm10288696wme.23.2020.07.16.14.23.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jul 2020 14:23:22 -0700 (PDT)
+ Thu, 16 Jul 2020 14:23:30 -0700 (PDT)
 From: Mauro Rossi <issor.oruam@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 14/27] drm/amd/display: dce_ipp: add DCE6 specific macros,
- functions
-Date: Thu, 16 Jul 2020 23:22:38 +0200
-Message-Id: <20200716212251.1539094-15-issor.oruam@gmail.com>
+Subject: [PATCH v3 22/27] drm/amd/display: dce60_hw_sequencer: add DCE6
+ specific .cursor_lock
+Date: Thu, 16 Jul 2020 23:22:46 +0200
+Message-Id: <20200716212251.1539094-23-issor.oruam@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200716212251.1539094-1-issor.oruam@gmail.com>
 References: <20200716212251.1539094-1-issor.oruam@gmail.com>
@@ -89,159 +89,28 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-DCE6 does not have CURSOR2_DEGAMMA_MODE bit in DEGAMMA_CONTROL register
+kernel WARNING due to use of .cursor_lock = dce_pipe_control_lock inherited by dce110
 
 [How]
-Add DCE6 specific macros definitions for IPP masks
-DCE6 IPP macros will avoid buiding errors when using DCE6 headers
-Add dce60_ipp_set_degamma() function w/o Cursor2 Degamma programming
-Use dce60_ipp_set_degamma() in ipp_funcs dce60_ipp_funcs
-Add DCE6 specific dce60_ipp_construct
+DCE6 set .cursor_lock = dce60_pipe_control_lock
 
 Signed-off-by: Mauro Rossi <issor.oruam@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c | 46 ++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dce/dce_ipp.h | 49 ++++++++++++++++++++
- 2 files changed, 95 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c b/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c
-index ce30dbf579d4..80569a2734eb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c
-@@ -231,6 +231,22 @@ static void dce_ipp_set_degamma(
- 		  CURSOR2_DEGAMMA_MODE, degamma_type);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c
+index 37bd91883926..66e5a1ba2a58 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_hw_sequencer.c
+@@ -424,6 +424,7 @@ void dce60_hw_sequencer_construct(struct dc *dc)
  
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+static void dce60_ipp_set_degamma(
-+	struct input_pixel_processor *ipp,
-+	enum ipp_degamma_mode mode)
-+{
-+	struct dce_ipp *ipp_dce = TO_DCE_IPP(ipp);
-+	uint32_t degamma_type = (mode == IPP_DEGAMMA_MODE_HW_sRGB) ? 1 : 0;
-+
-+	ASSERT(mode == IPP_DEGAMMA_MODE_BYPASS || mode == IPP_DEGAMMA_MODE_HW_sRGB);
-+	/* DCE6 does not have CURSOR2_DEGAMMA_MODE bit in DEGAMMA_CONTROL reg */
-+	REG_SET_2(DEGAMMA_CONTROL, 0,
-+		  GRPH_DEGAMMA_MODE, degamma_type,
-+		  CURSOR_DEGAMMA_MODE, degamma_type);
-+}
-+#endif
-+
- static const struct ipp_funcs dce_ipp_funcs = {
- 	.ipp_cursor_set_attributes = dce_ipp_cursor_set_attributes,
- 	.ipp_cursor_set_position = dce_ipp_cursor_set_position,
-@@ -239,6 +255,17 @@ static const struct ipp_funcs dce_ipp_funcs = {
- 	.ipp_set_degamma = dce_ipp_set_degamma
- };
- 
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+static const struct ipp_funcs dce60_ipp_funcs = {
-+	.ipp_cursor_set_attributes = dce_ipp_cursor_set_attributes,
-+	.ipp_cursor_set_position = dce_ipp_cursor_set_position,
-+	.ipp_program_prescale = dce_ipp_program_prescale,
-+	.ipp_program_input_lut = dce_ipp_program_input_lut,
-+	.ipp_set_degamma = dce60_ipp_set_degamma
-+};
-+#endif
-+
-+
- /*****************************************/
- /* Constructor, Destructor               */
- /*****************************************/
-@@ -260,6 +287,25 @@ void dce_ipp_construct(
- 	ipp_dce->ipp_mask = ipp_mask;
- }
- 
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+void dce60_ipp_construct(
-+	struct dce_ipp *ipp_dce,
-+	struct dc_context *ctx,
-+	int inst,
-+	const struct dce_ipp_registers *regs,
-+	const struct dce_ipp_shift *ipp_shift,
-+	const struct dce_ipp_mask *ipp_mask)
-+{
-+	ipp_dce->base.ctx = ctx;
-+	ipp_dce->base.inst = inst;
-+	ipp_dce->base.funcs = &dce60_ipp_funcs;
-+
-+	ipp_dce->regs = regs;
-+	ipp_dce->ipp_shift = ipp_shift;
-+	ipp_dce->ipp_mask = ipp_mask;
-+}
-+#endif
-+
- void dce_ipp_destroy(struct input_pixel_processor **ipp)
- {
- 	kfree(TO_DCE_IPP(*ipp));
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.h b/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.h
-index ca04e97d44c3..0028d4bdd81b 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_ipp.h
-@@ -147,6 +147,46 @@
- 	IPP_SF(DCP0_DEGAMMA_CONTROL, CURSOR_DEGAMMA_MODE, mask_sh), \
- 	IPP_SF(DCP0_DEGAMMA_CONTROL, CURSOR2_DEGAMMA_MODE, mask_sh)
- 
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+#define IPP_DCE60_MASK_SH_LIST_DCE_COMMON_BASE(mask_sh) \
-+	IPP_SF(CUR_UPDATE, CURSOR_UPDATE_LOCK, mask_sh), \
-+	IPP_SF(CUR_CONTROL, CURSOR_EN, mask_sh), \
-+	IPP_SF(CUR_CONTROL, CURSOR_MODE, mask_sh), \
-+	IPP_SF(CUR_CONTROL, CURSOR_2X_MAGNIFY, mask_sh), \
-+	IPP_SF(CUR_CONTROL, CUR_INV_TRANS_CLAMP, mask_sh), \
-+	IPP_SF(CUR_POSITION, CURSOR_X_POSITION, mask_sh), \
-+	IPP_SF(CUR_POSITION, CURSOR_Y_POSITION, mask_sh), \
-+	IPP_SF(CUR_HOT_SPOT, CURSOR_HOT_SPOT_X, mask_sh), \
-+	IPP_SF(CUR_HOT_SPOT, CURSOR_HOT_SPOT_Y, mask_sh), \
-+	IPP_SF(CUR_COLOR1, CUR_COLOR1_BLUE, mask_sh), \
-+	IPP_SF(CUR_COLOR1, CUR_COLOR1_GREEN, mask_sh), \
-+	IPP_SF(CUR_COLOR1, CUR_COLOR1_RED, mask_sh), \
-+	IPP_SF(CUR_COLOR2, CUR_COLOR2_BLUE, mask_sh), \
-+	IPP_SF(CUR_COLOR2, CUR_COLOR2_GREEN, mask_sh), \
-+	IPP_SF(CUR_COLOR2, CUR_COLOR2_RED, mask_sh), \
-+	IPP_SF(CUR_SIZE, CURSOR_WIDTH, mask_sh), \
-+	IPP_SF(CUR_SIZE, CURSOR_HEIGHT, mask_sh), \
-+	IPP_SF(CUR_SURFACE_ADDRESS_HIGH, CURSOR_SURFACE_ADDRESS_HIGH, mask_sh), \
-+	IPP_SF(CUR_SURFACE_ADDRESS, CURSOR_SURFACE_ADDRESS, mask_sh), \
-+	IPP_SF(PRESCALE_GRPH_CONTROL, GRPH_PRESCALE_BYPASS, mask_sh), \
-+	IPP_SF(PRESCALE_VALUES_GRPH_R, GRPH_PRESCALE_SCALE_R, mask_sh), \
-+	IPP_SF(PRESCALE_VALUES_GRPH_R, GRPH_PRESCALE_BIAS_R, mask_sh), \
-+	IPP_SF(PRESCALE_VALUES_GRPH_G, GRPH_PRESCALE_SCALE_G, mask_sh), \
-+	IPP_SF(PRESCALE_VALUES_GRPH_G, GRPH_PRESCALE_BIAS_G, mask_sh), \
-+	IPP_SF(PRESCALE_VALUES_GRPH_B, GRPH_PRESCALE_SCALE_B, mask_sh), \
-+	IPP_SF(PRESCALE_VALUES_GRPH_B, GRPH_PRESCALE_BIAS_B, mask_sh), \
-+	IPP_SF(INPUT_GAMMA_CONTROL, GRPH_INPUT_GAMMA_MODE, mask_sh), \
-+	IPP_SF(DC_LUT_WRITE_EN_MASK, DC_LUT_WRITE_EN_MASK, mask_sh), \
-+	IPP_SF(DC_LUT_RW_MODE, DC_LUT_RW_MODE, mask_sh), \
-+	IPP_SF(DC_LUT_CONTROL, DC_LUT_DATA_R_FORMAT, mask_sh), \
-+	IPP_SF(DC_LUT_CONTROL, DC_LUT_DATA_G_FORMAT, mask_sh), \
-+	IPP_SF(DC_LUT_CONTROL, DC_LUT_DATA_B_FORMAT, mask_sh), \
-+	IPP_SF(DC_LUT_RW_INDEX, DC_LUT_RW_INDEX, mask_sh), \
-+	IPP_SF(DC_LUT_SEQ_COLOR, DC_LUT_SEQ_COLOR, mask_sh), \
-+	IPP_SF(DEGAMMA_CONTROL, GRPH_DEGAMMA_MODE, mask_sh), \
-+	IPP_SF(DEGAMMA_CONTROL, CURSOR_DEGAMMA_MODE, mask_sh)
-+#endif
-+
- #define IPP_REG_FIELD_LIST(type) \
- 	type CURSOR_UPDATE_LOCK; \
- 	type CURSOR_EN; \
-@@ -233,6 +273,15 @@ void dce_ipp_construct(struct dce_ipp *ipp_dce,
- 	const struct dce_ipp_shift *ipp_shift,
- 	const struct dce_ipp_mask *ipp_mask);
- 
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+void dce60_ipp_construct(struct dce_ipp *ipp_dce,
-+	struct dc_context *ctx,
-+	int inst,
-+	const struct dce_ipp_registers *regs,
-+	const struct dce_ipp_shift *ipp_shift,
-+	const struct dce_ipp_mask *ipp_mask);
-+#endif
-+
- void dce_ipp_destroy(struct input_pixel_processor **ipp);
- 
- #endif /* _DCE_IPP_H_ */
+ 	dc->hwseq->funcs.enable_display_power_gating = dce100_enable_display_power_gating;
+ 	dc->hwss.apply_ctx_for_surface = dce60_apply_ctx_for_surface;
++	dc->hwss.cursor_lock = dce60_pipe_control_lock;
+ 	dc->hwss.pipe_control_lock = dce60_pipe_control_lock;
+ 	dc->hwss.prepare_bandwidth = dce100_prepare_bandwidth;
+ 	dc->hwss.optimize_bandwidth = dce100_optimize_bandwidth;
 -- 
 2.25.1
 
