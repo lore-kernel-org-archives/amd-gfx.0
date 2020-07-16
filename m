@@ -6,48 +6,48 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 842A0C433E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 00:27:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D89CC433EB
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 00:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59B3B2072E
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 00:27:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D3BD020787
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2020 00:27:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLuU0jkQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59B3B2072E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4Z6UGAu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3BD020787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 911BE6E09A;
-	Thu, 16 Jul 2020 00:27:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 900D06E215;
+	Thu, 16 Jul 2020 00:27:40 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CAD76E09A
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 00:27:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAF4C6E215
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 00:27:38 +0000 (UTC)
 Received: from localhost (unknown [137.135.114.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3260C2071B;
- Thu, 16 Jul 2020 00:27:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6A72320787;
+ Thu, 16 Jul 2020 00:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594859251;
- bh=Q5UlqIA1A3qRPR75tCHh5CuH2UD4bFglVu0IacBATqc=;
+ s=default; t=1594859258;
+ bh=byFO9gItVELygOKCPDEq4IMrcBxDNLN8suiUyPYGC6A=;
  h=Date:From:To:To:To:To:Cc:Cc:Cc:Subject:In-Reply-To:References:
  From;
- b=ZLuU0jkQwsJ0uMnHbFI37tXt6UjghbgqwkWSZOxbHhavogPDZztcRDwUU0jKuB1CL
- uQf/axZ9BVgWyDwhfd7lUWWGqEwG4I6eV59w5xUBtUDHtcjU/ryupJ0FKQb42Ns3+6
- InfKTXlCPsgBul0lLHcoi6Rf8piWcF6PBWPXHQvA=
-Date: Thu, 16 Jul 2020 00:27:30 +0000
+ b=U4Z6UGAuG4dJhQYVBA4nmXr01MeQtWyYS2UT3Uh10rESBySQ7XQiCy2+oz2uLL4s9
+ EHWyT1XUmLYNzd6WJy4t6eNrQklJoOjBO2T4nfA+r7vb+S8HP5hpJuYa7pP5ZPt0sk
+ r5hAFo9epX/z+zMORCIC54s5qHqSX9hHWfTd2fLw=
+Date: Thu, 16 Jul 2020 00:27:37 +0000
 From: Sasha Levin <sashal@kernel.org>
 To: Sasha Levin <sashal@kernel.org>
 To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: Josip Pavic <Josip.Pavic@amd.com>
+To: hersen wu <hersenxs.wu@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 10/10] drm/amd/display: handle failed allocation during
- stream construction
-In-Reply-To: <20200710203325.1097188-11-Rodrigo.Siqueira@amd.com>
-References: <20200710203325.1097188-11-Rodrigo.Siqueira@amd.com>
-Message-Id: <20200716002731.3260C2071B@mail.kernel.org>
+Subject: Re: [PATCH 04/10] drm/amd/display: OLED panel backlight adjust not
+ work with external display connected
+In-Reply-To: <20200710203325.1097188-5-Rodrigo.Siqueira@amd.com>
+References: <20200710203325.1097188-5-Rodrigo.Siqueira@amd.com>
+Message-Id: <20200716002738.6A72320787@mail.kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,23 +77,19 @@ The bot has tested the following trees: v5.7.8, v5.4.51, v4.19.132, v4.14.188, v
 
 v5.7.8: Build OK!
 v5.4.51: Failed to apply! Possible dependencies:
-    d9e32672a1285 ("drm/amd/display: cleanup of construct and destruct funcs")
+    945628101be55 ("drm/amd/display: Add backlight support via AUX")
 
 v4.19.132: Failed to apply! Possible dependencies:
-    0e3d73f1a440e ("drm/amd/display: Add Raven2 definitions in dc")
+    0cafc82fae415 ("drm/amd/display: set backlight level limit to 1")
+    11c3ee48bd7c2 ("drm/amdgpu/display: add support for LVDS (v5)")
     1e7e86c43f38d ("drm/amd/display: decouple front and backend pgm using dpms_off as backend enable flag")
-    21e471f0850de ("drm/amd/display: Set dispclk and dprefclock directly")
-    24f7dd7ea98dc ("drm/amd/display: move pplib/smu notification to dccg block")
-    4e60536d093f4 ("drm/amd/display: Set DFS bypass flags for dce110")
-    5a83c93249098 ("drm/amd/display: Add support for toggling DFS bypass")
-    76d981a9fe823 ("Revert "drm/amd/display: make clk_mgr call enable_pme_wa"")
-    7ed4e6352c16f ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
-    84e7fc05a9270 ("drm/amd/display: rename dccg to clk_mgr")
+    206bbafe00dca ("drm/amd: Query and use ACPI backlight caps")
+    262485a50fd45 ("drm/amd/display: Expand dc to use 16.16 bit backlight")
+    694d0775ca94b ("drm/amd: Don't fail on backlight = 0")
     8c3db1284a016 ("drm/amdgpu: fill in amdgpu_dm_remove_sink_from_freesync_module")
+    945628101be55 ("drm/amd/display: Add backlight support via AUX")
     98e6436d3af5f ("drm/amd/display: Refactor FreeSync module")
-    ad908423ef86f ("drm/amd/display: support 48 MHZ refclk off")
-    d9673c920c035 ("drm/amd/display: Pass init_data into DCN resource creation")
-    d9e32672a1285 ("drm/amd/display: cleanup of construct and destruct funcs")
+    aa9c4abe466ac ("drm/amd/display: Refactor FPGA-specific link setup")
 
 v4.14.188: Failed to apply! Possible dependencies:
     1b0c0f9dc5ca6 ("drm/amdgpu: move userptr BOs to CPU domain during CS v2")
@@ -101,6 +97,7 @@ v4.14.188: Failed to apply! Possible dependencies:
     3fe89771cb0a6 ("drm/amdgpu: stop reserving the BO in the MMU callback v3")
     4562236b3bc0a ("drm/amd/dc: Add dc display driver (v2)")
     60de1c1740f39 ("drm/amdgpu: use a rw_semaphore for MMU notifiers")
+    945628101be55 ("drm/amd/display: Add backlight support via AUX")
     9a18999640fa6 ("drm/amdgpu: move MMU notifier related defines to amdgpu_mn.h")
     9cca0b8e5df0a ("drm/amdgpu: move amdgpu_cs_sysvm_access_required into find_mapping")
     a216ab09955d6 ("drm/amdgpu: fix userptr put_page handling")
@@ -115,6 +112,7 @@ v4.9.230: Failed to apply! Possible dependencies:
     5e5681788befb ("drm/amdgpu: move amdgpu_vce structure to vce header")
     660e855813f78 ("amdgpu: use drm sync objects for shared semaphores (v6)")
     78010cd9736ec ("dma-buf/fence: add an lockdep_assert_held()")
+    945628101be55 ("drm/amd/display: Add backlight support via AUX")
     95aa13f6b196d ("drm/amdgpu: move amdgpu_vcn structure to vcn header")
     95d0906f85065 ("drm/amdgpu: add initial vcn support and decode tests")
     9a18999640fa6 ("drm/amdgpu: move MMU notifier related defines to amdgpu_mn.h")
@@ -137,6 +135,7 @@ v4.4.230: Failed to apply! Possible dependencies:
     56467ebfb2548 ("drm/amdgpu: split VM PD and PT handling during CS")
     5e5681788befb ("drm/amdgpu: move amdgpu_vce structure to vce header")
     7270f8391df1a ("drm/amdgpu: add amdgpu_set_ib_value helper (v2)")
+    945628101be55 ("drm/amd/display: Add backlight support via AUX")
     95aa13f6b196d ("drm/amdgpu: move amdgpu_vcn structure to vcn header")
     9a18999640fa6 ("drm/amdgpu: move MMU notifier related defines to amdgpu_mn.h")
     a1d29476d666f ("drm/amdgpu: optionally enable GART debugfs file")
