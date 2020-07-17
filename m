@@ -2,37 +2,37 @@ Return-Path: <SRS0=DbcS=A4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29560C433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3476C433E7
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2F9E20737
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A9CE920737
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UQPvpVKM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2F9E20737
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JCOq2eDX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9CE920737
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07C26EE1B;
-	Fri, 17 Jul 2020 17:38:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF69D6EE15
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 17:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 148E46EE1C;
+	Fri, 17 Jul 2020 17:38:28 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9535C6EE1B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 17:38:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h3HsVg8LeLDgZxi1JhacTKz6eiFrvQt/ZGLxntIjJ1CBqnX6fJOD4ICDPEd3Jx/uDPWjGd8PCb5gbG5Vwq4398+lyJZmYh4JBVIGqvDQLUL+U+fhCW1gcJZybM/YRNpeIJG3EJjhDIwsN48vpnQ6nv5ieH/aSrlJidistFpmgLA+rLFGh62Dmcj2x+ehMZOTXQ4nsbCZLR1melZVjP2hvCYYqKIMytk2qTwBihbscirn0jX9luKz4YpEOjicoyJpNdF7vfs9ZNOyDZ1kTrXx4l5Go3P1eYXWacTvhPA6ynez1yGD7S+FKGJj679xQzlgtT4w5F04IX+KsM4ng1SbyQ==
+ b=LZIusxRQx5gxWY20uh5pVdcHwiOv4AXEY7WWvZ6Vc7/oeYq64Bl4EJOHEwEzgJmrSJj43oqsjNLRURh8APpyAG/RG/uRGOtKrwg6b/7xXTOcoYgLl9hUw3F2WxwtcwW/YZ/8Mkij3cexBz6DoOXJnc4Olh/HDE0NHV5RnTQJL/SODS8wr0N19OFlffBfg0nHWBq5/IY/MK7E/M7gU8ms7WPA0GGBquWIXJ+2xJLIk9H1Lmujvr7EgvQX2QAs2z9PLn9xRdpGEeMqjVO7G5LGAAv1+ote7v4P3efKfNNI1dcKEOQwk2TAEigtNSo2+IQKH7HHLzEecL/m0xeEzBj2nA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+uhpk1uSuGNT6nxw0WyhB72TlebG5fdAgaa6DoN9/wA=;
- b=kUtGSRzhXQhcrSTQntrsUtptt8Tcv8I8xR3N1im5rVX8NsvzrS10Rod2gCBagL9YLjdgo/hL4uIlIamoWJdTKqZMCdOPAVsMMeW6pPFv5FoOcG4WOqv7SXN/9yigWoZlVU86ILKdReRo6xKPkYknf5saGgdGGLax0f7eYBrCZz/u7b/dKHS5M2zcGQcbUGEMWWDTkgc44pDBXkKq/HkWhQ77JwE3d93a53rUGBBbbJ7V8B8FJG6KXiVkS9KMpaWoQwwrt/OOtnqKW5s3k+6AM71ipu0UFGM7OmVrxVy1W3DA+g7ynH1uOuL5m0pc+NEEG99Gqsc+lxp1zjOsLvheDw==
+ bh=QT4/E6cMVuMwSZRB1mztvSXzw15eAPVa7EP+3j59lyA=;
+ b=eQIU8gQ+flD+x/b2unNeXsGZmZy/xu7Wnoxio8D54PbMIFex9WkKMpdkXgtt26dfktHJkuDdwBmhaH2tzQCAmmMfaT88o0OjoZM/zKjjFvK5kkJWmyxX/ATIKv+WAuqqDIRtISg0KAf8epxblAc6S73ss9rwkExBD1y4w+KKCt4E2f23nTZBjv3Kv6YwMG2EJn5fLwIdYzKgdZVuBKfD9yuii4qfrMUniz39q3w2wSSt4e3mo98BzKjwBNPB8DHwgFw1lFbiPSsVIwrXIpXvd/DRYSzLDSf644U2VSSn2DcjmQ9PtccC4CJaZAI4mdzJjqiDywfio3OPLAwXAkucRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+uhpk1uSuGNT6nxw0WyhB72TlebG5fdAgaa6DoN9/wA=;
- b=UQPvpVKMbOXsbdESDf/+gOKJy8L4P9Wj+e5SDr+GJgrSYJwWCBlZgn5uA01zcpjaKEkwt/qYtQVBRxcmuUGhlvRELhgED9D/DFz5c1gtXjaw562xsOGM7Hr/iC9D5/0ClrG0hHB7Fn0Yu4ZLJGxe8UIqr8ZaiYj4VDrKRbk4jak=
-Received: from BN7PR02CA0012.namprd02.prod.outlook.com (2603:10b6:408:20::25)
- by BY5PR12MB4099.namprd12.prod.outlook.com (2603:10b6:a03:20f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.23; Fri, 17 Jul
- 2020 17:38:22 +0000
-Received: from BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:20:cafe::2b) by BN7PR02CA0012.outlook.office365.com
- (2603:10b6:408:20::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.17 via Frontend
- Transport; Fri, 17 Jul 2020 17:38:21 +0000
+ bh=QT4/E6cMVuMwSZRB1mztvSXzw15eAPVa7EP+3j59lyA=;
+ b=JCOq2eDXa+kCXfRlkKb4jpYhm9gzL35niud2n/RULbDpfCLsaGufgqhIlPeD15YamALD6J27HRta8+P2RwJpZAK5ix+UVZi6xDywV+Omxo2Yqk1vjSuqOydosyGT4Y5dE6hNu2TFH7C35PyA1y8rfqKtZFtfdW8NyEZQ1niyWHY=
+Received: from BN6PR11CA0041.namprd11.prod.outlook.com (2603:10b6:404:4b::27)
+ by DM5PR12MB2359.namprd12.prod.outlook.com (2603:10b6:4:b4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.18; Fri, 17 Jul
+ 2020 17:38:25 +0000
+Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:4b:cafe::94) by BN6PR11CA0041.outlook.office365.com
+ (2603:10b6:404:4b::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.18 via Frontend
+ Transport; Fri, 17 Jul 2020 17:38:25 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,25 +59,26 @@ X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT008.mail.protection.outlook.com (10.13.177.95) with Microsoft SMTP
+ BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 17:38:21 +0000
+ 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 17:38:23 +0000
 Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 17 Jul
- 2020 12:38:21 -0500
+ 2020 12:38:22 -0500
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 17 Jul
- 2020 12:38:21 -0500
+ 2020 12:38:22 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 17 Jul 2020 12:38:20 -0500
+ Transport; Fri, 17 Jul 2020 12:38:22 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/12] drm/amd/display: Implement AMD VSIF V3
-Date: Fri, 17 Jul 2020 13:38:04 -0400
-Message-ID: <20200717173813.11674-4-qingqing.zhuo@amd.com>
+Subject: [PATCH 05/12] drm/amd/display: rename dsc extended caps as dsc branch
+ decoder caps
+Date: Fri, 17 Jul 2020 13:38:06 -0400
+Message-ID: <20200717173813.11674-6-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200717173813.11674-1-qingqing.zhuo@amd.com>
 References: <20200717173813.11674-1-qingqing.zhuo@amd.com>
@@ -87,26 +88,26 @@ X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966005)(316002)(44832011)(81166007)(1076003)(356005)(54906003)(86362001)(2906002)(6666004)(4326008)(8936002)(36756003)(83380400001)(2616005)(26005)(478600001)(8676002)(336012)(426003)(47076004)(5660300002)(82310400002)(186003)(82740400003)(70586007)(6916009)(70206006);
+ SFS:(4636009)(396003)(346002)(376002)(39860400002)(136003)(46966005)(336012)(478600001)(44832011)(8676002)(6916009)(82740400003)(426003)(2616005)(36756003)(356005)(82310400002)(83380400001)(70586007)(8936002)(70206006)(81166007)(47076004)(4326008)(86362001)(54906003)(5660300002)(2906002)(316002)(1076003)(6666004)(26005)(186003);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 57668d1d-14de-443a-b651-08d82a783348
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4099:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB4099E3A5BD569B22561EBA57FB7C0@BY5PR12MB4099.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: b92a8d43-dfad-4e31-9e77-08d82a783419
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2359:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2359049A080CF189FB92E610FB7C0@DM5PR12MB2359.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ala1raikSvSQ1ksQ0+XfTSO/QKmGoJY6cJHPADoG/L/mU5/KfGJZoVNw9RA0DCTJjk+LJ4y2GMpsfNfQSJwB5HUXYJRl/5VdSzW6h7HhOEG/YdHOhfBNaZoSW+vxEyOtusahFcm5vfU8OXMb4Dy5l6G9TdfHI8QU5sUQNfempphyvm9qbm+N8v/bEauo0Yh/ao6geGJa3ZWP8Lgr5KOC9Itz4uVfp8iYBTvu58htwvN2u0ib/DbVRJq4GlajuIAe8kV2x873b5G8EcxIRRaOU8/UJgZDY8qFmIA3wmMIW5ek8/4cTLo8kjtf7wqZJ0ZGhPzfU0TEwhBvTl9dktItn0uxt+8ZIOEzRCTronrTeDSuoW70MpvZdPbkdiD3fV7uvQmFZD/t7nxMzB7TWZ390w==
+X-Microsoft-Antispam-Message-Info: tyyI0bkiE3NorAx+6+YgFkTl3hw0UumjPFqqAI3gT2k9n3PD+xDrolSZf0/4rd3lEFy7dMy3SeW3O4vKXlWgvyjs3tyNW1WMXDoOy3QPkkYCZsL1Zx6DSC2/PTKQ2BB6EnQLxI374cXdHJCSL2dzS9JXiZfwrIa6yQzTH7Y8MZoOKGeh2/lAHScWt4jmFiQemcpS+C6kJUmj1T1/QeY0f1TfrqXyCYAE/k30wV+wObNpjnWMJY6xB+djgKgkSaj7h4QFJTJrJjTiWH0E29juhUPmQ/W8MrwYQ0VL+BEmUvsOkdI7FSfkdMagLdWiOJaOfNGNvgJK2soodCfNyOgPjMzUw7B6AImsAvgAz4fiHNA0UDXs0lvxgQJARjqhcwtav5NT/5k7O2n/8r6n8PmjvA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 17:38:21.7340 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57668d1d-14de-443a-b651-08d82a783348
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 17:38:23.1021 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b92a8d43-dfad-4e31-9e77-08d82a783419
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4099
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2359
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,172 +121,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Reza Amini <Reza.Amini@amd.com>, Bhawanpreet.Lakha@amd.com
+ Wenjing Liu <wenjing.liu@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Reza Amini <Reza.Amini@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why]
-To support V3
+[why]
+The capability fields are reserved for DSC branch
+only to report the capability related to the
+branch's DSC decoder.
 
-[How]
-Generate new VSIF for V3
-
-Signed-off-by: Reza Amini <Reza.Amini@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_stream.c   | 19 +++++++++
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  7 ++++
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  6 +++
- .../amd/display/modules/freesync/freesync.c   | 41 +++++++++++++++++++
- 4 files changed, 73 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c  |  4 ++--
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h      |  4 ++--
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c       | 10 +++++-----
+ 4 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index d6989d115c5c..41c278519b67 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -244,6 +244,25 @@ struct dc_stream_status *dc_stream_get_status(
- 	return dc_stream_get_status_from_state(dc->current_state, stream);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f46db2f3c620..7d78205d3604 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4621,7 +4621,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 		dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
+ 				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
+-				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_ext_caps.raw,
++				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
+ 				      &dsc_caps);
+ #endif
+ 		link_bandwidth_kbps = dc_link_bandwidth_kbps(aconnector->dc_link,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 31c0b35bab67..277b29590fb9 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -3519,8 +3519,8 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 		status = core_link_read_dpcd(
+ 				link,
+ 				DP_DSC_BRANCH_OVERALL_THROUGHPUT_0,
+-				link->dpcd_caps.dsc_caps.dsc_ext_caps.raw,
+-				sizeof(link->dpcd_caps.dsc_caps.dsc_ext_caps.raw));
++				link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
++				sizeof(link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw));
+ 	}
  
-+#ifndef TRIM_FSFT
-+/**
-+ * dc_optimize_timing() - dc to optimize timing
-+ */
-+bool dc_optimize_timing(
-+	struct dc_crtc_timing *timing,
-+	unsigned int max_input_rate_in_khz)
-+{
-+	//optimization is expected to assing a value to these:
-+	//timing->pix_clk_100hz
-+	//timing->v_front_porch
-+	//timing->v_total
-+	//timing->fast_transport_output_rate_100hz;
-+	timing->fast_transport_output_rate_100hz = timing->pix_clk_100hz;
-+
-+	return true;
-+}
-+#endif
-+
- 
- /**
-  * dc_stream_set_cursor_attributes() - Update cursor attributes and set cursor surface address
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-index b7a8c71e3e39..1a87bc3da826 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-@@ -713,6 +713,9 @@ struct dc_crtc_timing_flags {
- 	uint32_t LTE_340MCSC_SCRAMBLE:1;
- 
- 	uint32_t DSC : 1; /* Use DSC with this timing */
-+#ifndef TRIM_FSFT
-+	uint32_t FAST_TRANSPORT: 1;
-+#endif
+ 	if (!dpcd_read_sink_ext_caps(link))
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index af177c087d3b..a8a3b0643505 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -726,7 +726,7 @@ union dpcd_dsc_basic_capabilities {
+ 	uint8_t raw[16];
  };
  
- enum dc_timing_3d_format {
-@@ -772,6 +775,10 @@ struct dc_crtc_timing {
- 	enum dc_aspect_ratio aspect_ratio;
- 	enum scanning_type scan_type;
+-union dpcd_dsc_ext_capabilities {
++union dpcd_dsc_branch_decoder_capabilities {
+ 	struct {
+ 		uint8_t BRANCH_OVERALL_THROUGHPUT_0;
+ 		uint8_t BRANCH_OVERALL_THROUGHPUT_1;
+@@ -737,7 +737,7 @@ union dpcd_dsc_ext_capabilities {
  
-+#ifndef TRIM_FSFT
-+	uint32_t fast_transport_output_rate_100hz;
-+#endif
-+
- 	struct dc_crtc_timing_flags flags;
- 	struct dc_dsc_config dsc_cfg;
+ struct dpcd_dsc_capabilities {
+ 	union dpcd_dsc_basic_capabilities dsc_basic_caps;
+-	union dpcd_dsc_ext_capabilities dsc_ext_caps;
++	union dpcd_dsc_branch_decoder_capabilities dsc_branch_decoder_caps;
  };
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index f2ed9bc5a319..f599a72dab50 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -419,6 +419,12 @@ struct dc_stream_status *dc_stream_get_status_from_state(
- struct dc_stream_status *dc_stream_get_status(
- 	struct dc_stream_state *dc_stream);
  
-+#ifndef TRIM_FSFT
-+bool dc_optimize_timing(
-+	struct dc_crtc_timing *timing,
-+	unsigned int max_input_rate_in_khz);
-+#endif
-+
- /*******************************************************************************
-  * Cursor interfaces - To manages the cursor within a stream
-  ******************************************************************************/
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index d3a5ba9ee782..7a2500fbf3f2 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -760,9 +760,35 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
- 
- 	infopacket->valid = true;
+ /* These parameters are from PSR capabilities reported by Sink DPCD */
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 0c7f247bb7de..8cdaa6eef5d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -747,7 +747,7 @@ static bool setup_dsc_config(
+ 	return is_dsc_possible;
  }
-+#ifndef TRIM_FSFT
-+static void build_vrr_infopacket_fast_transport_data(
-+	bool ftActive,
-+	unsigned int ftOutputRate,
-+	struct dc_info_packet *infopacket)
-+{
-+	/* PB9 : bit7 - fast transport Active*/
-+	unsigned char activeBit = (ftActive) ? 1 << 7 : 0;
-+
-+	infopacket->sb[1] &= ~activeBit;  //clear bit
-+	infopacket->sb[1] |=  activeBit;  //set bit
-+
-+	/* PB13 : Target Output Pixel Rate [kHz] - bits 7:0  */
-+	infopacket->sb[13] = ftOutputRate & 0xFF;
-+
-+	/* PB14 : Target Output Pixel Rate [kHz] - bits 15:8  */
-+	infopacket->sb[14] = (ftOutputRate >> 8) & 0xFF;
-+
-+	/* PB15 : Target Output Pixel Rate [kHz] - bits 23:16  */
-+	infopacket->sb[15] = (ftOutputRate >> 16) & 0xFF;
-+
-+}
-+#endif
  
- static void build_vrr_infopacket_v3(enum signal_type signal,
- 		const struct mod_vrr_params *vrr,
-+#ifndef TRIM_FSFT
-+		bool ftActive, unsigned int ftOutputRate,
-+#endif
- 		enum color_transfer_func app_tf,
- 		struct dc_info_packet *infopacket)
+-bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_data, const uint8_t *dpcd_dsc_ext_data, struct dsc_dec_dpcd_caps *dsc_sink_caps)
++bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_data, const uint8_t *dpcd_dsc_branch_decoder_caps, struct dsc_dec_dpcd_caps *dsc_sink_caps)
  {
-@@ -773,6 +799,13 @@ static void build_vrr_infopacket_v3(enum signal_type signal,
+ 	if (!dpcd_dsc_basic_data)
+ 		return false;
+@@ -818,14 +818,14 @@ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_da
+ 	}
  
- 	build_vrr_infopacket_fs2_data(app_tf, infopacket);
+ 	/* Extended caps */
+-	if (dpcd_dsc_ext_data == NULL) { // Extended DPCD DSC data can be null, e.g. because it doesn't apply to SST
++	if (dpcd_dsc_branch_decoder_caps == NULL) { // branch decoder DPCD DSC data can be null for non branch device
+ 		dsc_sink_caps->branch_overall_throughput_0_mps = 0;
+ 		dsc_sink_caps->branch_overall_throughput_1_mps = 0;
+ 		dsc_sink_caps->branch_max_line_width = 0;
+ 		return true;
+ 	}
  
-+#ifndef TRIM_FSFT
-+	build_vrr_infopacket_fast_transport_data(
-+			ftActive,
-+			ftOutputRate,
-+			infopacket);
-+#endif
-+
- 	build_vrr_infopacket_checksum(&payload_size, infopacket);
+-	dsc_sink_caps->branch_overall_throughput_0_mps = dpcd_dsc_ext_data[DP_DSC_BRANCH_OVERALL_THROUGHPUT_0 - DP_DSC_BRANCH_OVERALL_THROUGHPUT_0];
++	dsc_sink_caps->branch_overall_throughput_0_mps = dpcd_dsc_branch_decoder_caps[DP_DSC_BRANCH_OVERALL_THROUGHPUT_0 - DP_DSC_BRANCH_OVERALL_THROUGHPUT_0];
+ 	if (dsc_sink_caps->branch_overall_throughput_0_mps == 0)
+ 		dsc_sink_caps->branch_overall_throughput_0_mps = 0;
+ 	else if (dsc_sink_caps->branch_overall_throughput_0_mps == 1)
+@@ -835,7 +835,7 @@ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_da
+ 		dsc_sink_caps->branch_overall_throughput_0_mps += 600;
+ 	}
  
- 	infopacket->valid = true;
-@@ -795,7 +828,15 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+-	dsc_sink_caps->branch_overall_throughput_1_mps = dpcd_dsc_ext_data[DP_DSC_BRANCH_OVERALL_THROUGHPUT_1 - DP_DSC_BRANCH_OVERALL_THROUGHPUT_0];
++	dsc_sink_caps->branch_overall_throughput_1_mps = dpcd_dsc_branch_decoder_caps[DP_DSC_BRANCH_OVERALL_THROUGHPUT_1 - DP_DSC_BRANCH_OVERALL_THROUGHPUT_0];
+ 	if (dsc_sink_caps->branch_overall_throughput_1_mps == 0)
+ 		dsc_sink_caps->branch_overall_throughput_1_mps = 0;
+ 	else if (dsc_sink_caps->branch_overall_throughput_1_mps == 1)
+@@ -845,7 +845,7 @@ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_da
+ 		dsc_sink_caps->branch_overall_throughput_1_mps += 600;
+ 	}
  
- 	switch (packet_type) {
- 	case PACKET_TYPE_FS_V3:
-+#ifndef TRIM_FSFT
-+		build_vrr_infopacket_v3(
-+				stream->signal, vrr,
-+				stream->timing.flags.FAST_TRANSPORT,
-+				stream->timing.fast_transport_output_rate_100hz,
-+				app_tf, infopacket);
-+#else
- 		build_vrr_infopacket_v3(stream->signal, vrr, app_tf, infopacket);
-+#endif
- 		break;
- 	case PACKET_TYPE_FS_V2:
- 		build_vrr_infopacket_v2(stream->signal, vrr, app_tf, infopacket);
+-	dsc_sink_caps->branch_max_line_width = dpcd_dsc_ext_data[DP_DSC_BRANCH_MAX_LINE_WIDTH - DP_DSC_BRANCH_OVERALL_THROUGHPUT_0] * 320;
++	dsc_sink_caps->branch_max_line_width = dpcd_dsc_branch_decoder_caps[DP_DSC_BRANCH_MAX_LINE_WIDTH - DP_DSC_BRANCH_OVERALL_THROUGHPUT_0] * 320;
+ 	ASSERT(dsc_sink_caps->branch_max_line_width == 0 || dsc_sink_caps->branch_max_line_width >= 5120);
+ 
+ 	return true;
 -- 
 2.17.1
 
