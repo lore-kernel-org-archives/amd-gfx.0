@@ -2,111 +2,66 @@ Return-Path: <SRS0=DbcS=A4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EAC8C433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 03:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEE8FC433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 04:47:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3E9720672
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 03:32:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9B6AE20734
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 04:47:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VMH4c1ne"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3E9720672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VphZGRk6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B6AE20734
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0C56ECAC;
-	Fri, 17 Jul 2020 03:32:34 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B13F16ECAC
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 03:32:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MxWrbdvtrd8w4A3Kh1FM2WKdr80SnGZcrt2+HeJIIm3d5bLymFO7FBFOxNkvI5YhCijyuJftO+JWt4hx04DgZc3/0lusNZ4wpOTSHXqjzDsDjyut0o9h1cE/C5ySljYuN/4RnVmwE7niCvmZsPGTsCfUS8KpgSFRXYNIijAq2TrIpFyStvP6W7KdGzSBXv724iCL0aZMGxgMGh63duf03l/yWQKYg04id2UM1SYbJAuS9zJEhMBwse3I/1hfVpReTX9AuW7Mz9PxAwR4869M0ZJeTMlNYsjqfvtd5K1phz6NrVZLTvZeu/TPnFhWDG7AayiQjM3ylQ2RCPDJN5Wl1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lyG5aLJczKehDUu8WcVw8vgo8Czz8WFSft3oQnJvetw=;
- b=OpdeAyTCIBxtqzSSILpUE8aK8vOhKvGIRpZXhire2Cy7dKBDats1E9sL6Vy+Q0G3Z18oVGc8j9QFBM8Lofl8RBRLDkMsJFDZMFg5zpXhNv8f+zcf0pZcluAzs6aFqQz39Uc6HP4CFbCyLekZ/TXPaJpLiciAq1i4wO2oeImnag4Uhbj4zhLLt3kPhG8sllTZaNIoCMaOy7EbJENdPYr3al42nqNnFuvXYbN3lfFD5ZlWrmOuAILj0I15lD00fWKC4UX1LzbhE47zv+5BjIT7LrzFFYQ9o6UfnaQNB7+ICXa72zwJ1k09JwZ0es7OSgN8Ar8gNWsfqERVQu2mJsyjFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lyG5aLJczKehDUu8WcVw8vgo8Czz8WFSft3oQnJvetw=;
- b=VMH4c1ne+blfZcsyHxG4TE0q2o5HHr5vNt6Z/wDrqRv0N/OIBjViU26GOtmOHMLJ7Pi9swyxLSa+RhlgQr+bELtkArt2P5DPoSddg2g2MLgNJ1FkPLBEI3Yr6sVoO3idZ2/S/R4XI0tLhOGn03PqqQP6oMUMNwtENu6O2PJxwro=
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM5PR12MB2503.namprd12.prod.outlook.com (2603:10b6:4:b2::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.17; Fri, 17 Jul 2020 03:32:31 +0000
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::84dc:a0e7:6158:ce4e]) by DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::84dc:a0e7:6158:ce4e%7]) with mapi id 15.20.3195.022; Fri, 17 Jul 2020
- 03:32:31 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Clements, John" <John.Clements@amd.com>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: load asd for sienna cichlid
-Thread-Topic: [PATCH] drm/amdgpu: load asd for sienna cichlid
-Thread-Index: AdZb5s7W/orfS031TdOLk1oze16WOQABAokw
-Date: Fri, 17 Jul 2020 03:32:31 +0000
-Message-ID: <DM6PR12MB4075D12B2340BD4A7AF28C86FC7C0@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <MN2PR12MB4032A940BE0A5268028FFFFFFB7C0@MN2PR12MB4032.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB4032A940BE0A5268028FFFFFFB7C0@MN2PR12MB4032.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-17T03:03:45Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=0406ebc4-0dba-4c39-999d-0000cc23c581;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-17T03:32:29Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 4140ecea-6043-4e1b-ad3f-0000972dd218
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 72ed840d-38de-4532-2b0e-08d82a0209fb
-x-ms-traffictypediagnostic: DM5PR12MB2503:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB25032D34760E01AF006AC2E2FC7C0@DM5PR12MB2503.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3173;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8rZFvf5bDWpoAEIKOlgRWrVBa3NoooW00WRjk8ZRzD3skX8i7WL/fxTVAl2kEr9c3EPu65aMQLyL7JF3EaQpNOyBbTSR1eBiD+1iTYyzzwHjRABXpA6d/EIDUvt6inuoHNGmiT4TFOxA5aG91ZVXEwR8eFw8QZN8EWj1L4BuUHkvUY4RMkF/9kzXKqQd+5dtlUSIi67jNI3dWBGQDNm4KWGnLOmCZSoafNLltBStIgRdfVGiKJ5pa4gVmO3zf0pOnyL9+mH7wigme+w2V25FeWdYQH3gHPM743mUfp0bsInDYDGYgiZVcISUCbo3hN6v
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(366004)(136003)(8676002)(8936002)(52536014)(7696005)(76116006)(5660300002)(71200400001)(86362001)(66476007)(26005)(2906002)(66556008)(64756008)(55016002)(316002)(186003)(66946007)(53546011)(6506007)(110136005)(4744005)(66446008)(478600001)(33656002)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: Lmd9F8gzvNxyVC80ea0CkJxFL6570KPkWxm81kFVE8Mipl7kcQ8NNJAWGmZEEAE1IKneUNNiDasqwb7uHTGDzdAwb4P0qfIDOBC7o0kFtuQJHI+JosINbgYVeBpRkHn4L0343DHne5Y7+PkBHHYSYyE/3Y78fky3Z4uhkmAmoW0yjipMRXNKYtBG/NNFcHE5Mc1yIO3LMjnl5TGi4Ccl/xTxBhk7qPAOBhjNhbHRzZc/WdQFjXKOT+2FBiV/+VR9DgOgEQIviQht2f/Zp+wCBZAefncBd1qS3Axwo8jyp0VKnjE12JmcCwkqOqytHkD3q8zgLwL6XyjoEgDjMGFhCGtOIMGkMvOfSgfnoJy+NzGvyxi93jehEd4e7JHvdKg8r8F/jHCs9C7iZfijKEmY0F2BAf84FKHkmrW25+v+G3teLOraogeOnETy8TXkYl+ciGk3BWx6zfZppjqR57dxv3tcdlFQvv+Xk4rUnYY1YaH8iqNUIDQWigaS8v82tpJw
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DAA36ECD4;
+	Fri, 17 Jul 2020 04:47:33 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B07EA6ECD4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 04:47:31 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id q5so9622799wru.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2020 21:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=MJT8bVlxAjLYa3rL+nz1+6+26QXbsurxcltLjde/Xhk=;
+ b=VphZGRk6J/sF8yWdttPa7+uQDQgFKD3cBLt0NG04mlgUbxfsdyt9p4TzKxtDgPUxFR
+ lbn05YQcKr9mLBJlE1XYb+PzJRehGHAWf0qFF2zyIAnOBHB9FDPOC/w4W41iFjdOWkdH
+ kzfxqymvGTTmDeA0q5ODZkEodQRURW4NrdDGx4KYX88J//j0cO+lqy+15rqTFH0GhO2O
+ e5Alo42JV0bZ3uxkdxkMRpLLh3OY5fzDmmwQggg6PSZ2jtWSMKXiq9n9G6vbZ5zlfM0U
+ WGOl3mwz+xRQupkTTHLUbz5rjVPszSPJFP4ZFTcdhkKr1G5TpGSMMWg0R4xrN98CQe5K
+ iLHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MJT8bVlxAjLYa3rL+nz1+6+26QXbsurxcltLjde/Xhk=;
+ b=mdiz63eu/+ZNRuUz7+AEk/cdFYua3CDawYE0S+uK6fi5HAWfH2V4kiATTta+ujO50w
+ GjkyYEDML2JGVYnF40eCv6bc265CCkiPDOfJM0BMOqQNGSbxYKjygxsFu9XuewKuajzy
+ XQ8zgLjB6Hj8l8R1hBrROkEPhG0Bee/40hfAeXZfuOGZhNIjBqB8DhWYTKg8g8uJHRXT
+ DiJ7/17rOt/1WOfx17WkVJjuNVzuC71H5JtjRd8j2lHTo7M3FmhunsYF6y8vZvhqSWee
+ GypuvwJCNqynXV+OIeAFyykmSCrpezNFV/G145Fs7rjigjJ0et4N3dBhZV/CPmJMjHAg
+ uTqg==
+X-Gm-Message-State: AOAM531/fL6hM04oNVN+l5T8ANrk8HSxXhJRl8XjCwvfTdPwMAjP3FNk
+ vDR0X0StwXLb07+K03OiGraJmbxwZh6FSrbEi/0jTg==
+X-Google-Smtp-Source: ABdhPJw0eOAD57/5ga21BiZKBNc9KgibOeapDiBHWQpT9pvQjGjCiC/uZpGHFlc5DnjOtBVgfIjfyjqtVQSSOmJuLu8=
+X-Received: by 2002:adf:dd8d:: with SMTP id x13mr8219951wrl.362.1594961250188; 
+ Thu, 16 Jul 2020 21:47:30 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72ed840d-38de-4532-2b0e-08d82a0209fb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2020 03:32:31.7288 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hCdV55FddHH0z3H0NRyeOppuMm3oW5Lg4pJeGOLLLvR0bYrQ/pQnNUvSRN4WoRi/6IWgDnm682J6vk4pnDYCsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2503
+References: <20200716051226.23316-1-evan.quan@amd.com>
+In-Reply-To: <20200716051226.23316-1-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 17 Jul 2020 00:47:18 -0400
+Message-ID: <CADnq5_PnW+MMwcPEkE2V2bbvS96v5JdWQZ=2bfwo=AcQS4s2Uw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: widely share the API for data table
+ retrieving
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,140 +73,229 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0305134314=="
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0305134314==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB4075D12B2340BD4A7AF28C86FC7C0DM6PR12MB4075namp_"
-
---_000_DM6PR12MB4075D12B2340BD4A7AF28C86FC7C0DM6PR12MB4075namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Public Use]
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
-From: Clements, John <John.Clements@amd.com>
-Sent: Friday, July 17, 2020 11:04
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>; Zhang, Hawking <Hawking.Z=
-hang@amd.com>
-Subject: [PATCH] drm/amdgpu: load asd for sienna cichlid
-
-
-[AMD Public Use]
-
-Submitting patch to enable ASD loading for Sienna Cichlid
-
---_000_DM6PR12MB4075D12B2340BD4A7AF28C86FC7C0DM6PR12MB4075namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Thu, Jul 16, 2020 at 1:12 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
-	{mso-style-name:msipheader251902e5;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-compose;
-	font-family:"Arial",sans-serif;
-	color:#317100;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"msipheader251902e5" style=3D"margin:0in;margin-bottom:.0001pt">=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com=
-&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<br>
-Hawking<o:p></o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
-m&gt; <br>
-<b>Sent:</b> Friday, July 17, 2020 11:04<br>
-<b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Zhang, Hawki=
-ng &lt;Hawking.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: load asd for sienna cichlid<o:p></o:p><=
-/p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"msipheader251902e5" style=3D"margin:0in;margin-bottom:.0001pt">=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Submitting patch to enable ASD loading for Sienna Ci=
-chlid<o:p></o:p></p>
-</div>
-</body>
-</html>
+> Considering the data table retrieving can be more widely shared,
+> amdgpu_atombios.c is the right place.
+>
+> Change-Id: Id89476c14709b5676bbf043371a27f27b94a58ed
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 
---_000_DM6PR12MB4075D12B2340BD4A7AF28C86FC7C0DM6PR12MB4075namp_--
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
---===============0305134314==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c    | 17 +++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h    |  7 +++++++
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c      | 16 ----------------
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c    |  3 ++-
+>  drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h  |  4 ----
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c      |  5 +++--
+>  .../gpu/drm/amd/powerplay/sienna_cichlid_ppt.c  |  3 ++-
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c       |  5 +++--
+>  8 files changed, 34 insertions(+), 26 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> index c687432da426..29f767e026e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> @@ -2036,3 +2036,20 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> +int amdgpu_atombios_get_data_table(struct amdgpu_device *adev,
+> +                                  uint32_t table,
+> +                                  uint16_t *size,
+> +                                  uint8_t *frev,
+> +                                  uint8_t *crev,
+> +                                  uint8_t **addr)
+> +{
+> +       uint16_t data_start;
+> +
+> +       if (!amdgpu_atom_parse_data_header(adev->mode_info.atom_context, table,
+> +                                          size, frev, crev, &data_start))
+> +               return -EINVAL;
+> +
+> +       *addr = (uint8_t *)adev->mode_info.atom_context->bios + data_start;
+> +
+> +       return 0;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+> index fd8f18074f7a..1321ec09c734 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+> @@ -216,6 +216,13 @@ int amdgpu_atombios_get_svi2_info(struct amdgpu_device *adev,
+>                               u8 voltage_type,
+>                               u8 *svd_gpio_id, u8 *svc_gpio_id);
+>
+> +int amdgpu_atombios_get_data_table(struct amdgpu_device *adev,
+> +                                  uint32_t table,
+> +                                  uint16_t *size,
+> +                                  uint8_t *frev,
+> +                                  uint8_t *crev,
+> +                                  uint8_t **addr);
+> +
+>  void amdgpu_atombios_fini(struct amdgpu_device *adev);
+>  int amdgpu_atombios_init(struct amdgpu_device *adev);
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index 03125c8a2145..01d669a36e1f 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -676,22 +676,6 @@ static int smu_late_init(void *handle)
+>         return 0;
+>  }
+>
+> -int smu_get_atom_data_table(struct smu_context *smu, uint32_t table,
+> -                           uint16_t *size, uint8_t *frev, uint8_t *crev,
+> -                           uint8_t **addr)
+> -{
+> -       struct amdgpu_device *adev = smu->adev;
+> -       uint16_t data_start;
+> -
+> -       if (!amdgpu_atom_parse_data_header(adev->mode_info.atom_context, table,
+> -                                          size, frev, crev, &data_start))
+> -               return -EINVAL;
+> -
+> -       *addr = (uint8_t *)adev->mode_info.atom_context->bios + data_start;
+> -
+> -       return 0;
+> -}
+> -
+>  static int smu_init_fb_allocations(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index 56dc20a617fd..578c50e294c7 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -27,6 +27,7 @@
+>  #include "smu_internal.h"
+>  #include "atomfirmware.h"
+>  #include "amdgpu_atomfirmware.h"
+> +#include "amdgpu_atombios.h"
+>  #include "smu_v11_0.h"
+>  #include "smu11_driver_if_arcturus.h"
+>  #include "soc15_common.h"
+> @@ -488,7 +489,7 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                            smc_dpm_info);
+>
+> -       ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +       ret = amdgpu_atombios_get_data_table(smu->adev, index, NULL, NULL, NULL,
+>                                       (uint8_t **)&smc_dpm_table);
+>         if (ret)
+>                 return ret;
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index 70181ba7ee0c..ba9beffb887d 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -678,10 +678,6 @@ bool smu_mode1_reset_is_support(struct smu_context *smu);
+>  int smu_mode1_reset(struct smu_context *smu);
+>  int smu_mode2_reset(struct smu_context *smu);
+>
+> -extern int smu_get_atom_data_table(struct smu_context *smu, uint32_t table,
+> -                                  uint16_t *size, uint8_t *frev, uint8_t *crev,
+> -                                  uint8_t **addr);
+> -
+>  extern const struct amd_ip_funcs smu_ip_funcs;
+>
+>  extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index ead135f39c7e..0c21e5de8997 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -28,6 +28,7 @@
+>  #include "smu_internal.h"
+>  #include "atomfirmware.h"
+>  #include "amdgpu_atomfirmware.h"
+> +#include "amdgpu_atombios.h"
+>  #include "soc15_common.h"
+>  #include "smu_v11_0.h"
+>  #include "smu11_driver_if_navi10.h"
+> @@ -467,7 +468,7 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                            smc_dpm_info);
+>
+> -       ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +       ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
+>                                       (uint8_t **)&smc_dpm_table);
+>         if (ret)
+>                 return ret;
+> @@ -487,7 +488,7 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
+>                         sizeof(*smc_dpm_table) - sizeof(smc_dpm_table->table_header));
+>                 break;
+>         case 7: /* nv12 */
+> -               ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +               ret = amdgpu_atombios_get_data_table(adev, index, NULL, NULL, NULL,
+>                                               (uint8_t **)&smc_dpm_table_v4_7);
+>                 if (ret)
+>                         return ret;
+> diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> index 5faef41b63a3..389d8350534a 100644
+> --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+> @@ -28,6 +28,7 @@
+>  #include "smu_internal.h"
+>  #include "atomfirmware.h"
+>  #include "amdgpu_atomfirmware.h"
+> +#include "amdgpu_atombios.h"
+>  #include "smu_v11_0.h"
+>  #include "smu11_driver_if_sienna_cichlid.h"
+>  #include "soc15_common.h"
+> @@ -399,7 +400,7 @@ static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                             smc_dpm_info);
+>
+> -       ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
+> +       ret = amdgpu_atombios_get_data_table(smu->adev, index, NULL, NULL, NULL,
+>                                       (uint8_t **)&smc_dpm_table);
+>         if (ret)
+>                 return ret;
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> index 829c15984847..06a2ea12cba0 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> @@ -32,6 +32,7 @@
+>  #include "smu_internal.h"
+>  #include "atomfirmware.h"
+>  #include "amdgpu_atomfirmware.h"
+> +#include "amdgpu_atombios.h"
+>  #include "smu_v11_0.h"
+>  #include "soc15_common.h"
+>  #include "atom.h"
+> @@ -416,7 +417,7 @@ int smu_v11_0_setup_pptable(struct smu_context *smu)
+>                 index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                                     powerplayinfo);
+>
+> -               ret = smu_get_atom_data_table(smu, index, &atom_table_size, &frev, &crev,
+> +               ret = amdgpu_atombios_get_data_table(adev, index, &atom_table_size, &frev, &crev,
+>                                               (uint8_t **)&table);
+>                 if (ret)
+>                         return ret;
+> @@ -631,7 +632,7 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
+>         index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+>                                             firmwareinfo);
+>
+> -       ret = smu_get_atom_data_table(smu, index, &size, &frev, &crev,
+> +       ret = amdgpu_atombios_get_data_table(smu->adev, index, &size, &frev, &crev,
+>                                       (uint8_t **)&header);
+>         if (ret)
+>                 return ret;
+> --
+> 2.27.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0305134314==--
