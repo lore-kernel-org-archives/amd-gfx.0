@@ -2,105 +2,61 @@ Return-Path: <SRS0=DbcS=A4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7308C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 10:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4D2FC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 12:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 617A320734
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 10:48:53 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="e19CuEGo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 617A320734
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 90A5520717
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 12:23:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90A5520717
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3FF26E02E;
-	Fri, 17 Jul 2020 10:48:52 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24FC96E02E
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 10:48:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h3ygkJOSXnvuI5Av79FCXwNo8u3q7SZuyQsfW/8sMEXxVd3YDgVA3v7s2L2t3pciNN+qGj70+ZWMJ8jmwCOoBS/m+WMnRi45b5vmxF8+DAYKZtXEkg1eKgoiFl7u8UDmbsOvJiY04361eV0nX5cmYclaQJH0NJuqZAq5OITg1IaJ4soMdKCCkRpEfHb09PnNVNSoPE4WFM2o87B1aJKqXZbqJjaweECG5162jRQ+0OkIT8rYfzuHg1jG1CRHfmbYibtu+djvRR8U7yL5jO7rCEfczPv4zmr2dcIJT9J1W/GBbmuqBM5cnzvXdxAdtj6oltlLvSP0vb6P+QyGsrjB1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uiGzqTY49jS5QkenZt1nCmEa/aRCLM9oai8huraSz98=;
- b=bVi+BaQ+T0NNDP+sKwvSlWMo1dfE4ceTLCJ3ks3n95UTfEMYpf3zSEQVJdZYr5jNS/REm7zpz9wfcnJAyd2m+5jRBwNsP2UMzssHEhrUVLpXp6XadydV/9XuJXWip3OGL6FnPYGrgV5s+yDh9yZnvdsC378/YHkI8a8xcZjU34ngWOxDd9K/tHX3gYVtr8MW+Cgbpd8IGv/khkHyimHRthOoYULigHZ2aOw+wxhIQn9C2VL4+m6knk9Nu4WNr9W9OxYs02tU5GhBB4GXLxu5+QqHEJRJfzfMApqyUvyu1xn1ifirzcPjclBIu9Qxc5xy/m0KpuHfmFoQyABKoxDvCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uiGzqTY49jS5QkenZt1nCmEa/aRCLM9oai8huraSz98=;
- b=e19CuEGoCQkiE3ST/prxgntJTFis/x0L/7reJb+R2QXlGqmx+13NerGQY3vSeLhdJPSKUNXIbaFrkz1T8Uun4ipncRJoGd1yAK8OaX6u5U1+/DmTTbSxwtq6E9xMh9xj4Ic4SE+opAFF9BDcgu4mCFHi6ZJaa1zrrGKw2gJUOS4=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
- DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.17; Fri, 17 Jul 2020 10:48:46 +0000
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::1c50:44e9:a4a2:2828]) by DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::1c50:44e9:a4a2:2828%6]) with mapi id 15.20.3174.026; Fri, 17 Jul 2020
- 10:48:46 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu/vcn: merge shared memory into vcpu
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <1594905287-2895-1-git-send-email-James.Zhu@amd.com>
- <1594905287-2895-2-git-send-email-James.Zhu@amd.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-Message-ID: <326be57e-781f-77a0-6169-4b5cef926cf6@amd.com>
-Date: Fri, 17 Jul 2020 06:48:44 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-In-Reply-To: <1594905287-2895-2-git-send-email-James.Zhu@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0133.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::12) To DM5PR12MB2517.namprd12.prod.outlook.com
- (2603:10b6:4:bb::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB7F88089;
+	Fri, 17 Jul 2020 12:23:12 +0000 (UTC)
+X-Greylist: delayed 1002 seconds by postgrey-1.36 at gabe;
+ Fri, 17 Jul 2020 07:27:08 UTC
+Received: from lonlinode-sdnproxy-1.icoremail.net
+ (lonlinode-sdnproxy-1.icoremail.net [139.162.193.133])
+ by gabe.freedesktop.org (Postfix) with SMTP id EF3706ECEA;
+ Fri, 17 Jul 2020 07:27:08 +0000 (UTC)
+Received: from localhost.localdomain (unknown [218.77.105.7])
+ by c1app1 (Coremail) with SMTP id AQINCgDnhpnKThFfx6ivAQ--.31076S2;
+ Fri, 17 Jul 2020 15:10:03 +0800 (CST)
+From: Qiu Wenbo <qiuwenbo@phytium.com.cn>
+To: Evan Quan <evan.quan@amd.com>,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: fix a crash when overclocking Vega M
+Date: Fri, 17 Jul 2020 15:09:57 +0800
+Message-Id: <20200717070958.41489-1-qiuwenbo@phytium.com.cn>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.204] (165.204.55.251) by
- YT1PR01CA0133.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 10:48:45 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ddb07fcc-aaa1-499d-fe16-08d82a3efaea
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3355:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB33552C33EAFFE0FF737A2C23E47C0@DM6PR12MB3355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Vo+LtCQsVJhU2kh3r21aADulTi+UVQThMHjnjtVAj6mZssDsbKSmLAfemplPxIb1b3LbV4iF5P0k810xAgKNcyPY8Ftn1qWrEoOb4xpUzX/pSnUWz/Fqq7IX4ViWgvvGQFU8uRteXpUxW1xuj5xJEDSPp0V8O+6QyPI5UEy+te678xzRoFJlpuCrG+FDJX9aAxIC88KdSyqss0UaC7OsbKMT0cWdwjO4GvnRQ2mrmR5qKEu1LmeID6px1DhA32zLXS19cJdBtyM6aYJLlrWIWdTAUvwWq6aK7nIkBUFZGCMPyDT/MRk7Lzn4BxEdGIBpL1NZXgSXi6V1XSL1Z4YRL1ugRluSBWRfgUwOMyTmGIQ25MVCuowWmjft6H+EQOhW
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(366004)(396003)(136003)(346002)(376002)(36916002)(66946007)(26005)(66476007)(8676002)(66556008)(6486002)(8936002)(16526019)(478600001)(186003)(52116002)(5660300002)(2906002)(83380400001)(956004)(2616005)(31686004)(316002)(16576012)(53546011)(31696002)(36756003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Djg6x9F5HaF7KgqKqxYFgcOq7fQRLQRJsaDmM2/K+kBUUDs75fJfyn+mJfWM78LzEAnCLHEkNW+llwnAGl9JIt1KvDsp3eeVwHspD6i4Lh4gl0kNAlJbeU2FNuDg/QgYJcdUgUv1mVmsvu+dQWrpyloDVleKRaIPU3dbjPNqbyrSZTNXeGcecXEpFtGSlTl8FGes100Sgb87wdqf4hj68QP+WFqvR+EFaTv1VgNtaymrvvq3ZNgXh5HFRK6C/Qo/dJWHQIlcqvhdPyxxKle0KYoiC7+YeyYtlfWbhigvAori1iFwAnsAaXfDMawEB4kfNB6w0wLsM/QPKn5uf4xcNtE7+t3FtuX0Q110ucEMN5MR705aMYby13pguYIRonleSqOUZyNzaxf0ELbKrRLNmE9kBfTGUvDlRc07cws3f4TwxE33YobgYElUuki+eeNSOjlibWo01wKZlxjmDWZSSX20E4HKYZpLs9PfJ9kzOG+PYJEmbXHokkcsAnzTd+tS
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddb07fcc-aaa1-499d-fe16-08d82a3efaea
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 10:48:46.1746 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ucs9zNR/HbFDsoiDBtGOWCRjqqxuh7n/+xmsbH2jQ8ufzbhc71SEFbnaarMegSYH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3355
+X-CM-TRANSID: AQINCgDnhpnKThFfx6ivAQ--.31076S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr47Cw1UZF48WFWUJFyxKrg_yoW8CFWrpF
+ 93GrZ0vw15JFZrAFyxAF4rWFn7ZwnrZa4rKryUG390vw12qrW09FyDAFySgrW8Ga97Jr43
+ Kw47Z345JFsakrUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+ 1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+ 6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
+ 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+ 8cxan2IY04v7MxkIecxEwVAFwVW8CwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
+ WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
+ 67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
+ IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E3s1l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUjE1v3UUUUU==
+X-Originating-IP: [218.77.105.7]
+X-CM-SenderInfo: 5tlx4vhqerq15k1wx33pof0zgofq/
+X-Mailman-Approved-At: Fri, 17 Jul 2020 12:23:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,84 +68,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Chen Wandun <chenwandun@huawei.com>, David Airlie <airlied@linux.ie>,
+ Qiu Wenbo <qiuwenbo@phytium.com.cn>, YueHaibing <yuehaibing@huawei.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Eric Huang <JinHuiEric.Huang@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping ...
+Avoid kernel crash when vddci_control is SMU7_VOLTAGE_CONTROL_NONE and
+vddci_voltage_table is empty. It has been tested on Intel Hades Canyon
+(i7-8809G).
 
-On 2020-07-16 9:14 a.m., James Zhu wrote:
-> Merge vcn firmware shared memory bo into vcn vcpu bo.
->
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 18 ++++++------------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 -
->   2 files changed, 6 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index cbc2b30..8c77f9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -168,6 +168,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->   	bo_size = AMDGPU_VCN_STACK_SIZE + AMDGPU_VCN_CONTEXT_SIZE;
->   	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
->   		bo_size += AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode_size_bytes) + 8);
-> +	bo_size += AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared));
->   
->   	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
->   		if (adev->vcn.harvest_config & (1 << i))
-> @@ -181,6 +182,11 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->   			return r;
->   		}
->   
-> +		adev->vcn.inst[i].fw_shared_cpu_addr = adev->vcn.inst[i].cpu_addr +
-> +				bo_size - AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared));
-> +		adev->vcn.inst[i].fw_shared_gpu_addr = adev->vcn.inst[i].gpu_addr +
-> +				bo_size - AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared));
-> +
->   		if (adev->vcn.indirect_sram) {
->   			r = amdgpu_bo_create_kernel(adev, 64 * 2 * 4, PAGE_SIZE,
->   					AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.inst[i].dpg_sram_bo,
-> @@ -190,14 +196,6 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->   				return r;
->   			}
->   		}
-> -
-> -		r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared)),
-> -				PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.inst[i].fw_shared_bo,
-> -				&adev->vcn.inst[i].fw_shared_gpu_addr, &adev->vcn.inst[i].fw_shared_cpu_addr);
-> -		if (r) {
-> -			dev_err(adev->dev, "VCN %d (%d) failed to allocate firmware shared bo\n", i, r);
-> -			return r;
-> -		}
->   	}
->   
->   	return 0;
-> @@ -213,10 +211,6 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
->   		if (adev->vcn.harvest_config & (1 << j))
->   			continue;
->   
-> -		amdgpu_bo_free_kernel(&adev->vcn.inst[j].fw_shared_bo,
-> -					  &adev->vcn.inst[j].fw_shared_gpu_addr,
-> -					  (void **)&adev->vcn.inst[j].fw_shared_cpu_addr);
-> -
->   		if (adev->vcn.indirect_sram) {
->   			amdgpu_bo_free_kernel(&adev->vcn.inst[j].dpg_sram_bo,
->   						  &adev->vcn.inst[j].dpg_sram_gpu_addr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> index b5e9088..7a9b804 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -199,7 +199,6 @@ struct amdgpu_vcn_inst {
->   	struct amdgpu_irq_src	irq;
->   	struct amdgpu_vcn_reg	external;
->   	struct amdgpu_bo	*dpg_sram_bo;
-> -	struct amdgpu_bo	*fw_shared_bo;
->   	struct dpg_pause_state	pause_state;
->   	void			*dpg_sram_cpu_addr;
->   	uint64_t		dpg_sram_gpu_addr;
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=208489
+Fixes: ac7822b0026f ("drm/amd/powerplay: add smumgr support for VEGAM (v2)")
+Signed-off-by: Qiu Wenbo <qiuwenbo@phytium.com.cn>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+index 3da71a088b92..0ecc18b55ffb 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+@@ -644,9 +644,6 @@ static int vegam_get_dependency_volt_by_clk(struct pp_hwmgr *hwmgr,
+ 
+ 	/* sclk is bigger than max sclk in the dependence table */
+ 	*voltage |= (dep_table->entries[i - 1].vddc * VOLTAGE_SCALE) << VDDC_SHIFT;
+-	vddci = phm_find_closest_vddci(&(data->vddci_voltage_table),
+-			(dep_table->entries[i - 1].vddc -
+-					(uint16_t)VDDC_VDDCI_DELTA));
+ 
+ 	if (SMU7_VOLTAGE_CONTROL_NONE == data->vddci_control)
+ 		*voltage |= (data->vbios_boot_state.vddci_bootup_value *
+@@ -654,8 +651,13 @@ static int vegam_get_dependency_volt_by_clk(struct pp_hwmgr *hwmgr,
+ 	else if (dep_table->entries[i - 1].vddci)
+ 		*voltage |= (dep_table->entries[i - 1].vddci *
+ 				VOLTAGE_SCALE) << VDDC_SHIFT;
+-	else
++	else {
++		vddci = phm_find_closest_vddci(&(data->vddci_voltage_table),
++				(dep_table->entries[i - 1].vddc -
++						(uint16_t)VDDC_VDDCI_DELTA));
++
+ 		*voltage |= (vddci * VOLTAGE_SCALE) << VDDCI_SHIFT;
++	}
+ 
+ 	if (SMU7_VOLTAGE_CONTROL_NONE == data->mvdd_control)
+ 		*mvdd = data->vbios_boot_state.mvdd_bootup_value * VOLTAGE_SCALE;
+-- 
+2.27.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
