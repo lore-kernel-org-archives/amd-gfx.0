@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B954C433ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C842C433EB
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24A9120737
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E942B20737
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="D1g0443T"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24A9120737
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hk0XfFQS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E942B20737
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65AB26EE23;
-	Fri, 17 Jul 2020 17:38:33 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 808DA6EE1A
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 17:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40266EE1F;
+	Fri, 17 Jul 2020 17:38:30 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 598976EE1A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 17:38:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ch3Ik0VFMPWsfEmbDySvvrWTtwjARF/AEcEb1Rss2NB7QiYeZVohPdJYCSpzG1tGVNmkyKfTCxrRJSB/DNm2KCtSYUBCq3pcZv5MJHLM+w/VxgH6WfRr9xhZsbskGzr0k3yWfwdXmA8LtjwvX0qJXKENwbhWNiFKjVHNByhND8iAw1UcAQYQkZIw729xuWhmuhcMA+bnLTqfhQgB3fpFtN3Yb4LtOOHKn7yvSaWxPygobgE9C1Eo2b8KzFuDEcP6y1xRqvgo3L6L5py+FO8oU2krK9lEe0qWlldnj6WP7J5uL83d0B4V1K/TL04SBgULo/qN/vPOV39J4NoMkmD7Ow==
+ b=JmpbHgNvKUk4BXM/yKmYTFf3hJJ4lGg+iffC8rmY/JMIz6S5QpaQpX2R0UnqIBlx/VqX6KBWeHUbomAJnshnS04QUQlG6Hby1TUy9u1jsb07dYKHp3t+lBiy2YkA7jI188/RoP4s72VMTNDdviNcdJFb5YOYRyaXl2WOL+UtbgZK95kC+rODoV1i+D7yuHbfE/39a2ym5KTJrrnAbVsWoVBtsnOPRdy/A8QyBnX8MNXBgsAa2ESF/bOjnvfb2/swR9mgqL7uE5lXKwP0IfQKic5RBrC6AwybHUfYMO/myWKiyQJR5moYhjvNdWfcIAmIYM5fb4dL49ilf+Bs2tujiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ruFXpTcgFu/Fag11EQBR+aSoAt3povzv++wkehMFFs=;
- b=iHfs8HM1rOg5eWNAg2iaX0gSTFF4xDdJZIVbDw2SBDKulp3etR/BeOWNkcm/wWSSfr7qlJwrGrocgoGNkqeJb8hH8tBPuMmv4YZJPtie2ck3puFE7gd3XJ2Jt+po25Qcw1iod8hK4P93QcDm1t/Z30amCnNkOcRer9im1VVtoPEnpUJQ/jEk/5mLMNoZcaiGzumUMpVcEiyNVTt6LKpp2LOJjzzMqDkPZirInpSYvXwECbGbPYAQ3xJT3SnCIvc1EEQ1+FVFq/4H//cHfnjRUzzBPHJ/q/ykJ5zaVeVeI6t+/Nb6O/rHVgAMScgkxYs5MMWgf18LSQysrOJAALmZvQ==
+ bh=sE200ANjFRICcujqNkCWMgFvLiqM2z91qu0xvO9LHOQ=;
+ b=oKahsArAxIxLGljszwt6J3ezJFwQ6bpNLX4zJEzZjTKr6rlH3EWBBGOCdHHHYLCkgBrz4is/MQEpgqH7T9c/V3j63Bk16hAdCWxQyawPN1J95rzKTe2SrndH0nOkbD4KfTb5piABMcc3cIN+bFLBOezDmB6Fa8VqoxPyFsLyINezywd60ENgib3uIpSu1cX9jut8HMp5k/+94DUoN1pOSpW2eu3yehfbzpMSC5VQFPfoYa+uSJE5ECgbfSekjkIdOPfb+dWR18HAxeODJqy9Owy5jodWp/kVf1s0FrxMpg/4zDSKzd2K8cQZpcjzs1YXkCUnBX3ZJJGxJcoMODaiTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,45 +40,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ruFXpTcgFu/Fag11EQBR+aSoAt3povzv++wkehMFFs=;
- b=D1g0443Tb38Dq+ibTNSCEhK/+kM9I1MvsNNWBXvnsS8YcyB2/m1d1JKeCwmD4wKjNQtIaTexeJG9q6g6G6KZlqKV3cbSu6OmslZKC2wKhXw667AvpK1Uu80jsLQouwCXqyQREmaiLvGUwSNnbuwq8VZ63ARU9ek44EqFp7eTPLk=
-Received: from DM5PR18CA0090.namprd18.prod.outlook.com (2603:10b6:3:3::28) by
- BN8PR12MB3170.namprd12.prod.outlook.com (2603:10b6:408:98::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3174.23; Fri, 17 Jul 2020 17:38:25 +0000
-Received: from DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:3:cafe::ab) by DM5PR18CA0090.outlook.office365.com
- (2603:10b6:3:3::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.19 via Frontend
- Transport; Fri, 17 Jul 2020 17:38:25 +0000
+ bh=sE200ANjFRICcujqNkCWMgFvLiqM2z91qu0xvO9LHOQ=;
+ b=hk0XfFQSzt3GhODHKxOYInxeA/GePlY7BJzZiSdg0Av6h4XGK5uphjO6wAhuiw98SqWDpU/mtmAHt/96km3fu9PzTGDlcSws4EjmACg94+NslNYuOlxIxOJWSE3NbmEJUdiK+lIMauER6MuHx1Bhb7YEwX7X+8STBYP+lXLN+HY=
+Received: from BN6PR21CA0019.namprd21.prod.outlook.com (2603:10b6:404:8e::29)
+ by DM6PR12MB2828.namprd12.prod.outlook.com (2603:10b6:5:77::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.28; Fri, 17 Jul
+ 2020 17:38:27 +0000
+Received: from BN8NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:8e:cafe::51) by BN6PR21CA0019.outlook.office365.com
+ (2603:10b6:404:8e::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.7 via Frontend
+ Transport; Fri, 17 Jul 2020 17:38:27 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT065.mail.protection.outlook.com (10.13.172.109) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT049.mail.protection.outlook.com (10.13.177.157) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 17:38:25 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 17:38:27 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 17 Jul
- 2020 12:38:24 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 12:38:26 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 17 Jul
- 2020 12:38:24 -0500
+ 2020 12:38:26 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 17 Jul 2020 12:38:24 -0500
+ Transport; Fri, 17 Jul 2020 12:38:26 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/12] drm/amd/display: Improve compatibility by re-ordering
- info-packets
-Date: Fri, 17 Jul 2020 13:38:09 -0400
-Message-ID: <20200717173813.11674-9-qingqing.zhuo@amd.com>
+Subject: [PATCH 11/12] drm/amd/display: interface to obtain minimum plane size
+ caps
+Date: Fri, 17 Jul 2020 13:38:12 -0400
+Message-ID: <20200717173813.11674-12-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200717173813.11674-1-qingqing.zhuo@amd.com>
 References: <20200717173813.11674-1-qingqing.zhuo@amd.com>
@@ -86,28 +86,28 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(136003)(346002)(376002)(396003)(46966005)(70206006)(82740400003)(336012)(4326008)(2616005)(36756003)(26005)(356005)(1076003)(82310400002)(47076004)(2906002)(81166007)(86362001)(8936002)(316002)(6916009)(6666004)(426003)(8676002)(5660300002)(70586007)(478600001)(54906003)(186003)(44832011)(83380400001);
+ SFS:(4636009)(346002)(376002)(396003)(136003)(39860400002)(46966005)(4326008)(2616005)(70586007)(70206006)(81166007)(82740400003)(44832011)(47076004)(83380400001)(82310400002)(356005)(426003)(336012)(36756003)(86362001)(186003)(1076003)(2906002)(26005)(8676002)(316002)(6916009)(8936002)(5660300002)(478600001)(6666004)(54906003);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e814d71f-bba3-42b4-0b7a-08d82a78356f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3170:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB31703F4EE18AA15989F0E8DAFB7C0@BN8PR12MB3170.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-MS-Office365-Filtering-Correlation-Id: 1bd8bb71-07aa-40fd-37fc-08d82a783690
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2828:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2828B4BA8712FAF4ED73C786FB7C0@DM6PR12MB2828.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2Yte337azd93DPWpswBUdwydiYDAWaU5VP9KwznQ+mql11Z8EVglHeFZw0Xaw0Sf6PSe7CH2KJ8NScsAYq4spO9yIWk2QurUfW1PiBsVOUWojsrk9ZZnrJXRrpRRqv/tzU7aqJ/sXMw93wJBY6gdV7uaVfZZmZf4lG1RNzh1hCyeMWI2MIxOG4KdAw+iwraBF5U/YOXxHX4gb5KfeAwwcBWzTNgBGmbYjpsQ19UKU+c1Obvug0OsTgA+arHpwwBGCarB1/IZgkKA8iqFlJQk6uzme9T2POv15aw4zr0PP2nMI9YC/LBy3iFn3+DhWjdULZ9yRqwzqDJGTFhN/sHcz0SBazQdftpwAI1jWd6EFOFlO+T0S2EtovupxGwIciCOvWZdFWsyoZvecieUJJMUmQ==
+X-Microsoft-Antispam-Message-Info: URV4OIAh3EMPn5u9y3VeU+hyTpv1EtorudAGPF2KKfv0VWDwdI1QSL4HrsSoWLiKtaxmzPN5zcuBwzUBuFCzn8oaEbW9scCr55CuSS502WEG90VQxmrlAcE3ypCRc6KuDnzAZMGyEb69CQl0hbh4LKq7H2Gmwqxkdiqd8Tze8NVRV5X96sGeP/Vx4iqEI5W8YMw1eQuGkN7r651ZkPe7rloumx3L/Gn3TAWzqs8t0k9Q0XyTeP6DFVqvH4vAQIg30aNJgtfbCWQHLo7GkVzE+LSLqpKJ2giJLxeV9ZQyyj2+dC4MK8IS8nozKeItqWYZGAZdrIc0b2n81wjnCyarxNd9TOWBLnGx59y+wmEMFDV63spf+ChQX6ghlTpfy4bEUPRsNi3MtNgBhamtkKARAg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 17:38:25.2997 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e814d71f-bba3-42b4-0b7a-08d82a78356f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 17:38:27.2348 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bd8bb71-07aa-40fd-37fc-08d82a783690
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT049.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3170
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2828
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,55 +119,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Naveed Ashfaq <Naveed.Ashfaq@amd.com>, Eryk.Brol@amd.com,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Igor Kravchenko <Igor.Kravchenko@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Naveed Ashfaq <Naveed.Ashfaq@amd.com>
+From: Igor Kravchenko <Igor.Kravchenko@amd.com>
 
-[why]
-On DCN20, Some features would not be activated when ALLM was turned on.
-TV seemed to activate only the latest info packet sent, and the ALLM
-info packet was sent after the VSIF info packet.
+[Why]
+Implement an interface to obtain plane size caps
 
-The packet indices was also inconsistent between DCN10 and DCN20.
+[How]
+Add min_width, min_height fields to dc_plane_cap structure.
+Set values to 16x16 for discrete ASICs, and 64x64 for others.
 
-[how]
-Change the packet indices of DCN20 to match those of DCN10.
-This makes them consistent and also makes the vendor info packet
-be sent after the hfvsif info packet.
-
-Signed-off-by: Naveed Ashfaq <Naveed.Ashfaq@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Igor Kravchenko <Igor.Kravchenko@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c   | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                     | 3 +++
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 8 ++++++--
+ drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 4 +++-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 4 +++-
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 4 +++-
+ 5 files changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
-index 99a7ef6ab878..e3984f02b7b3 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
-@@ -152,11 +152,11 @@ static void enc2_stream_encoder_update_hdmi_info_packets(
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index e5a1a9eb6217..a5faedf66470 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -96,6 +96,9 @@ struct dc_plane_cap {
+ 		uint32_t nv12;
+ 		uint32_t fp16;
+ 	} max_downscale_factor;
++	// minimal width/height
++	uint32_t min_width;
++	uint32_t min_height;
+ };
  
- 	/*Always add mandatory packets first followed by optional ones*/
- 	enc2_update_hdmi_info_packet(enc1, 0, &info_frame->avi);
--	enc2_update_hdmi_info_packet(enc1, 5, &info_frame->hfvsif);
-+	enc2_update_hdmi_info_packet(enc1, 1, &info_frame->hfvsif);
- 	enc2_update_hdmi_info_packet(enc1, 2, &info_frame->gamut);
--	enc2_update_hdmi_info_packet(enc1, 1, &info_frame->vendor);
--	enc2_update_hdmi_info_packet(enc1, 3, &info_frame->spd);
--	enc2_update_hdmi_info_packet(enc1, 4, &info_frame->hdrsmd);
-+	enc2_update_hdmi_info_packet(enc1, 3, &info_frame->vendor);
-+	enc2_update_hdmi_info_packet(enc1, 4, &info_frame->spd);
-+	enc2_update_hdmi_info_packet(enc1, 5, &info_frame->hdrsmd);
- }
+ // Color management caps (DPP and MPC)
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+index a043ddae5149..70c6f917139e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+@@ -423,7 +423,9 @@ static const struct dc_plane_cap plane_cap = {
+ 				.argb8888 = 250,
+ 				.nv12 = 1,
+ 				.fp16 = 1
+-		}
++		},
++		64,
++		64
+ };
  
- static void enc2_stream_encoder_stop_hdmi_info_packets(
+ static const struct dc_plane_cap underlay_plane_cap = {
+@@ -447,7 +449,9 @@ static const struct dc_plane_cap underlay_plane_cap = {
+ 				.argb8888 = 1,
+ 				.nv12 = 250,
+ 				.fp16 = 1
+-		}
++		},
++		64,
++		64
+ };
+ 
+ #define CTX  ctx
+diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+index 51b3fe502670..5d83e8174005 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+@@ -424,7 +424,9 @@ static const struct dc_plane_cap plane_cap = {
+ 			.argb8888 = 250,
+ 			.nv12 = 1,
+ 			.fp16 = 1
+-	}
++	},
++	64,
++	64
+ };
+ 
+ #define CTX  ctx
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index c8c6225c7e9e..968a89bbcf24 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -1043,7 +1043,9 @@ static const struct dc_plane_cap plane_cap = {
+ 			.argb8888 = 250,
+ 			.nv12 = 250,
+ 			.fp16 = 1
+-	}
++	},
++	16,
++	16
+ };
+ static const struct resource_caps res_cap_nv14 = {
+ 		.num_timing_generator = 5,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index 7d82648bec90..88d41a385add 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -857,7 +857,9 @@ static const struct dc_plane_cap plane_cap = {
+ 			.argb8888 = 250,
+ 			.nv12 = 250,
+ 			.fp16 = 250
+-	}
++	},
++	64,
++	64
+ };
+ 
+ static const struct dc_debug_options debug_defaults_drv = {
 -- 
 2.17.1
 
