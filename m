@@ -2,37 +2,37 @@ Return-Path: <SRS0=DbcS=A4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55BF9C433E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29560C433E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2737320737
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F2F9E20737
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2020 17:38:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vuJLbu2C"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2737320737
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UQPvpVKM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2F9E20737
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E576E6EE15;
-	Fri, 17 Jul 2020 17:38:24 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0C76EE15
+	by gabe.freedesktop.org (Postfix) with ESMTP id A07C26EE1B;
+	Fri, 17 Jul 2020 17:38:27 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF69D6EE15
  for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2020 17:38:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ka3LK35SLTrZ4CfCzZ5NpdNXU/HoCrnfDqK17c10FDtt2cn0rR730CSjqw/hVOXldDgDg8XYDOZmc4axDRJ8Ea/M9nWrYufbFGC1r4icX2TyYkzd98FpkQ/hzr1lwglbSYjKpLpavwo/+Ef/8QoRPB2q8wVohVZW2p/kqGAiAOO0deUwnnwtcPZ00OPWkEE47kC49f4FJ81CzsNWnAZlxyJhzyBow2jKmjr45CT8uSIcao8Vqi0IeziK71Rmwj6U1htay709R8yHuT1zNUuEjzMeCyT3wh59t9n2ISbsdU9M8J2f0cwxS/G7oaLQIE6V3/FRNKz3Cg+Yz7XzoYz1SQ==
+ b=h3HsVg8LeLDgZxi1JhacTKz6eiFrvQt/ZGLxntIjJ1CBqnX6fJOD4ICDPEd3Jx/uDPWjGd8PCb5gbG5Vwq4398+lyJZmYh4JBVIGqvDQLUL+U+fhCW1gcJZybM/YRNpeIJG3EJjhDIwsN48vpnQ6nv5ieH/aSrlJidistFpmgLA+rLFGh62Dmcj2x+ehMZOTXQ4nsbCZLR1melZVjP2hvCYYqKIMytk2qTwBihbscirn0jX9luKz4YpEOjicoyJpNdF7vfs9ZNOyDZ1kTrXx4l5Go3P1eYXWacTvhPA6ynez1yGD7S+FKGJj679xQzlgtT4w5F04IX+KsM4ng1SbyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2LxdYIvu+sskzEXUsH3Mmu/nDOJ7jBLr9NIcC5isfMw=;
- b=Bqd7TX/KFvuh6KIlHdl7+TnjkPG1HrOJJN/k6il5A7kCq6IjrRlty2gJcAMVFiCuXAn7bv+0KXhbMgt5Bhbite8evgrhoGOllq+AxnvDJSXwS4V0MnEcFqsciYSU/UcfIeBKpcBH0Jmz0FXxQ7IzTSdXsV+zbcI92EeF4XIHo/HWrsOC+e8Uis3Gv4yMHUQfURT/UrJwHQEuAFuJXjvTkzUSpMD0ZL/RexVOpkQpiEi6RRGKmTPPtQBDBxVetSVUTVzdnARaBc1NGqzurFTXzKzz/FnfZt13ybY6VSlL6WzJcap5hFsKw0r04qBrSKrVDgFGS5Sxqf+uQyrB0eJh0Q==
+ bh=+uhpk1uSuGNT6nxw0WyhB72TlebG5fdAgaa6DoN9/wA=;
+ b=kUtGSRzhXQhcrSTQntrsUtptt8Tcv8I8xR3N1im5rVX8NsvzrS10Rod2gCBagL9YLjdgo/hL4uIlIamoWJdTKqZMCdOPAVsMMeW6pPFv5FoOcG4WOqv7SXN/9yigWoZlVU86ILKdReRo6xKPkYknf5saGgdGGLax0f7eYBrCZz/u7b/dKHS5M2zcGQcbUGEMWWDTkgc44pDBXkKq/HkWhQ77JwE3d93a53rUGBBbbJ7V8B8FJG6KXiVkS9KMpaWoQwwrt/OOtnqKW5s3k+6AM71ipu0UFGM7OmVrxVy1W3DA+g7ynH1uOuL5m0pc+NEEG99Gqsc+lxp1zjOsLvheDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2LxdYIvu+sskzEXUsH3Mmu/nDOJ7jBLr9NIcC5isfMw=;
- b=vuJLbu2CGTBTOci2SInCgvJ7PGxP+4HcLJLGghV1Ex6XSb0jfonIkzKMbJHh47pq9mk8+o8rok0bNAGFh1Ixd4bX6f2ZDvpzNQsx/yp2CEMdRDAkp+qK3PnJxSgqFlN2HsiICmHhuIb56iYT3OoAJeKVKwVywQ71JpkdlJoHTiQ=
-Received: from BN8PR16CA0004.namprd16.prod.outlook.com (2603:10b6:408:4c::17)
- by DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Fri, 17 Jul
- 2020 17:38:17 +0000
-Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:4c:cafe::5b) by BN8PR16CA0004.outlook.office365.com
- (2603:10b6:408:4c::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.18 via Frontend
- Transport; Fri, 17 Jul 2020 17:38:17 +0000
+ bh=+uhpk1uSuGNT6nxw0WyhB72TlebG5fdAgaa6DoN9/wA=;
+ b=UQPvpVKMbOXsbdESDf/+gOKJy8L4P9Wj+e5SDr+GJgrSYJwWCBlZgn5uA01zcpjaKEkwt/qYtQVBRxcmuUGhlvRELhgED9D/DFz5c1gtXjaw562xsOGM7Hr/iC9D5/0ClrG0hHB7Fn0Yu4ZLJGxe8UIqr8ZaiYj4VDrKRbk4jak=
+Received: from BN7PR02CA0012.namprd02.prod.outlook.com (2603:10b6:408:20::25)
+ by BY5PR12MB4099.namprd12.prod.outlook.com (2603:10b6:a03:20f::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.23; Fri, 17 Jul
+ 2020 17:38:22 +0000
+Received: from BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:20:cafe::2b) by BN7PR02CA0012.outlook.office365.com
+ (2603:10b6:408:20::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.17 via Frontend
+ Transport; Fri, 17 Jul 2020 17:38:21 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,25 +59,25 @@ X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ BN8NAM11FT008.mail.protection.outlook.com (10.13.177.95) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 17:38:15 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 17:38:21 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 17 Jul
- 2020 12:38:15 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 12:38:21 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 17 Jul
- 2020 12:38:14 -0500
+ 2020 12:38:21 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 17 Jul 2020 12:38:14 -0500
+ Transport; Fri, 17 Jul 2020 12:38:20 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/12] drm/amd/display: remove unhelpful 5ms delay
-Date: Fri, 17 Jul 2020 13:38:02 -0400
-Message-ID: <20200717173813.11674-2-qingqing.zhuo@amd.com>
+Subject: [PATCH 03/12] drm/amd/display: Implement AMD VSIF V3
+Date: Fri, 17 Jul 2020 13:38:04 -0400
+Message-ID: <20200717173813.11674-4-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200717173813.11674-1-qingqing.zhuo@amd.com>
 References: <20200717173813.11674-1-qingqing.zhuo@amd.com>
@@ -87,26 +87,26 @@ X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(136003)(376002)(346002)(396003)(46966005)(2616005)(36756003)(86362001)(186003)(8936002)(2906002)(6916009)(26005)(8676002)(4326008)(316002)(1076003)(54906003)(6666004)(82310400002)(70586007)(47076004)(81166007)(426003)(82740400003)(356005)(70206006)(44832011)(5660300002)(478600001)(83380400001)(336012);
+ SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966005)(316002)(44832011)(81166007)(1076003)(356005)(54906003)(86362001)(2906002)(6666004)(4326008)(8936002)(36756003)(83380400001)(2616005)(26005)(478600001)(8676002)(336012)(426003)(47076004)(5660300002)(82310400002)(186003)(82740400003)(70586007)(6916009)(70206006);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c32fe3f5-306a-4d25-1c7f-08d82a782fa3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3962:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB39629D2086C29C5F8CA2C123FB7C0@DM6PR12MB3962.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+X-MS-Office365-Filtering-Correlation-Id: 57668d1d-14de-443a-b651-08d82a783348
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4099:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4099E3A5BD569B22561EBA57FB7C0@BY5PR12MB4099.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /2ymxKUKp4H20a1AJmH7WpQRiDVRekpQMOkqoM+eHdvyqDgwyT5c66Q5LRFEkHcxOd8HGgJjRQA7zbk8zW2xuOFn0skZR/vTOsQqyb+TM3udcGqLLhqTs39f3smzPBsUMA+oCupTdGAW6N93CCdkkq8CWbT/j4MqwVIwB8XR2lkoJvT4nA4VOvj1EAykcnwFTa6BI8DjdQ+W/y74lPoVzzOQSg8iiiNsexX8ELXeigKFfFYqM3Lw41bMHLpE18o8SnNrZOlJA+3aIOVSVVbY3AodPj2g9IPX6zNf55ah7XjFLOqF09KM796uOahsRuq2vYjlY5uMZiUg75Toc0YaAroK2pVHbQUz7OYE0mIHuYE+SSoYyUm/LD2wXmcv354oXZO+AF2yR4TvZ1I9zp2klg==
+X-Microsoft-Antispam-Message-Info: Ala1raikSvSQ1ksQ0+XfTSO/QKmGoJY6cJHPADoG/L/mU5/KfGJZoVNw9RA0DCTJjk+LJ4y2GMpsfNfQSJwB5HUXYJRl/5VdSzW6h7HhOEG/YdHOhfBNaZoSW+vxEyOtusahFcm5vfU8OXMb4Dy5l6G9TdfHI8QU5sUQNfempphyvm9qbm+N8v/bEauo0Yh/ao6geGJa3ZWP8Lgr5KOC9Itz4uVfp8iYBTvu58htwvN2u0ib/DbVRJq4GlajuIAe8kV2x873b5G8EcxIRRaOU8/UJgZDY8qFmIA3wmMIW5ek8/4cTLo8kjtf7wqZJ0ZGhPzfU0TEwhBvTl9dktItn0uxt+8ZIOEzRCTronrTeDSuoW70MpvZdPbkdiD3fV7uvQmFZD/t7nxMzB7TWZ390w==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 17:38:15.6156 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c32fe3f5-306a-4d25-1c7f-08d82a782fa3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 17:38:21.7340 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57668d1d-14de-443a-b651-08d82a783348
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3962
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,45 +118,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <aric.cyr@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Bhawanpreet.Lakha@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Reza Amini <Reza.Amini@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Reza Amini <Reza.Amini@amd.com>
 
 [Why]
-Scaler vendor confirmed the 5ms was not helpful so no point in keeping
-it.
+To support V3
 
 [How]
-Revert 5ms delay after setting training pattern.
+Generate new VSIF for V3
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Ashley Thomas <Ashley.Thomas2@amd.com>
+Signed-off-by: Reza Amini <Reza.Amini@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ----
- 1 file changed, 4 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   | 19 +++++++++
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  7 ++++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  6 +++
+ .../amd/display/modules/freesync/freesync.c   | 41 +++++++++++++++++++
+ 4 files changed, 73 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 7ae6d903cf04..31c0b35bab67 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -1104,10 +1104,6 @@ static inline enum link_training_result perform_link_training_int(
- 	dpcd_pattern.v1_4.TRAINING_PATTERN_SET = DPCD_TRAINING_PATTERN_VIDEOIDLE;
- 	dpcd_set_training_pattern(link, dpcd_pattern);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index d6989d115c5c..41c278519b67 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -244,6 +244,25 @@ struct dc_stream_status *dc_stream_get_status(
+ 	return dc_stream_get_status_from_state(dc->current_state, stream);
+ }
  
--	/* delay 5ms after notifying sink of idle pattern before switching output */
--	if (link->connector_signal != SIGNAL_TYPE_EDP)
--		msleep(5);
--
- 	/* 4. mainlink output idle pattern*/
- 	dp_set_hw_test_pattern(link, DP_TEST_PATTERN_VIDEO_MODE, NULL, 0);
++#ifndef TRIM_FSFT
++/**
++ * dc_optimize_timing() - dc to optimize timing
++ */
++bool dc_optimize_timing(
++	struct dc_crtc_timing *timing,
++	unsigned int max_input_rate_in_khz)
++{
++	//optimization is expected to assing a value to these:
++	//timing->pix_clk_100hz
++	//timing->v_front_porch
++	//timing->v_total
++	//timing->fast_transport_output_rate_100hz;
++	timing->fast_transport_output_rate_100hz = timing->pix_clk_100hz;
++
++	return true;
++}
++#endif
++
  
+ /**
+  * dc_stream_set_cursor_attributes() - Update cursor attributes and set cursor surface address
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index b7a8c71e3e39..1a87bc3da826 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -713,6 +713,9 @@ struct dc_crtc_timing_flags {
+ 	uint32_t LTE_340MCSC_SCRAMBLE:1;
+ 
+ 	uint32_t DSC : 1; /* Use DSC with this timing */
++#ifndef TRIM_FSFT
++	uint32_t FAST_TRANSPORT: 1;
++#endif
+ };
+ 
+ enum dc_timing_3d_format {
+@@ -772,6 +775,10 @@ struct dc_crtc_timing {
+ 	enum dc_aspect_ratio aspect_ratio;
+ 	enum scanning_type scan_type;
+ 
++#ifndef TRIM_FSFT
++	uint32_t fast_transport_output_rate_100hz;
++#endif
++
+ 	struct dc_crtc_timing_flags flags;
+ 	struct dc_dsc_config dsc_cfg;
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index f2ed9bc5a319..f599a72dab50 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -419,6 +419,12 @@ struct dc_stream_status *dc_stream_get_status_from_state(
+ struct dc_stream_status *dc_stream_get_status(
+ 	struct dc_stream_state *dc_stream);
+ 
++#ifndef TRIM_FSFT
++bool dc_optimize_timing(
++	struct dc_crtc_timing *timing,
++	unsigned int max_input_rate_in_khz);
++#endif
++
+ /*******************************************************************************
+  * Cursor interfaces - To manages the cursor within a stream
+  ******************************************************************************/
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index d3a5ba9ee782..7a2500fbf3f2 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -760,9 +760,35 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
+ 
+ 	infopacket->valid = true;
+ }
++#ifndef TRIM_FSFT
++static void build_vrr_infopacket_fast_transport_data(
++	bool ftActive,
++	unsigned int ftOutputRate,
++	struct dc_info_packet *infopacket)
++{
++	/* PB9 : bit7 - fast transport Active*/
++	unsigned char activeBit = (ftActive) ? 1 << 7 : 0;
++
++	infopacket->sb[1] &= ~activeBit;  //clear bit
++	infopacket->sb[1] |=  activeBit;  //set bit
++
++	/* PB13 : Target Output Pixel Rate [kHz] - bits 7:0  */
++	infopacket->sb[13] = ftOutputRate & 0xFF;
++
++	/* PB14 : Target Output Pixel Rate [kHz] - bits 15:8  */
++	infopacket->sb[14] = (ftOutputRate >> 8) & 0xFF;
++
++	/* PB15 : Target Output Pixel Rate [kHz] - bits 23:16  */
++	infopacket->sb[15] = (ftOutputRate >> 16) & 0xFF;
++
++}
++#endif
+ 
+ static void build_vrr_infopacket_v3(enum signal_type signal,
+ 		const struct mod_vrr_params *vrr,
++#ifndef TRIM_FSFT
++		bool ftActive, unsigned int ftOutputRate,
++#endif
+ 		enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket)
+ {
+@@ -773,6 +799,13 @@ static void build_vrr_infopacket_v3(enum signal_type signal,
+ 
+ 	build_vrr_infopacket_fs2_data(app_tf, infopacket);
+ 
++#ifndef TRIM_FSFT
++	build_vrr_infopacket_fast_transport_data(
++			ftActive,
++			ftOutputRate,
++			infopacket);
++#endif
++
+ 	build_vrr_infopacket_checksum(&payload_size, infopacket);
+ 
+ 	infopacket->valid = true;
+@@ -795,7 +828,15 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+ 
+ 	switch (packet_type) {
+ 	case PACKET_TYPE_FS_V3:
++#ifndef TRIM_FSFT
++		build_vrr_infopacket_v3(
++				stream->signal, vrr,
++				stream->timing.flags.FAST_TRANSPORT,
++				stream->timing.fast_transport_output_rate_100hz,
++				app_tf, infopacket);
++#else
+ 		build_vrr_infopacket_v3(stream->signal, vrr, app_tf, infopacket);
++#endif
+ 		break;
+ 	case PACKET_TYPE_FS_V2:
+ 		build_vrr_infopacket_v2(stream->signal, vrr, app_tf, infopacket);
 -- 
 2.17.1
 
