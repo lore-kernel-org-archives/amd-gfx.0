@@ -2,110 +2,72 @@ Return-Path: <SRS0=r3ut=A7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C32B9C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 06:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F253CC433E4
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 08:21:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 810782080D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 06:07:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A3A0A21775
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 08:21:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1UZwi/pJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 810782080D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=gmx.net header.i=@gmx.net header.b="O7TMBOB2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3A0A21775
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gmx.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEEF689F4A;
-	Mon, 20 Jul 2020 06:07:53 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 368BC89F4A
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2020 06:07:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O0mPxP7wzfTNozqBxE8c1aIJKM2Ar/VnI3Iat4JfLUelIpogivoDWbp9LQHEP+ayuKQ3SoB48Yynzeqxv0IaA8YDJE+4zL/Dolf12f079mKb9xkPa73h1OJaXvZ+73wdNsdx/DKk0Np2xb2oI5qhKx/Mmhxvl+eyUl4aXZX16W6oRHJ26muythGyHRzl7jIiz+fYsDJPN+vDy5TEFDZUF1UMufdGc/zQQvHOSnHFT926yUt/dtCXNHfUqvl+d1YJjI6C4Cz90Ga+5bHIk+tyyiJjK0T9lbDdToCVC+lEgD7HlG1rx68DkieKKTqB71LP0AbrP2myrGY0NpJe1ocM6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4APvS9PNwXH9cbbHXS5bO4zf6zc/5xw6UmPD7/PRuiU=;
- b=Pz4YiaEnecOBZiyX1NcvkAL1RHjbPb1YibVmv1XQJOwyyM4a1xxDUx1PynJabXNB4NFIy3eaCyDeooQjODhYXizwEnIXHwRA96EG/anpoYU72lv4UG0PTxoI+50lZIGV+OHqkauYvmHzoOhfZ5v2p1Eil8qVQrWHgD0axVaSWxEsfF0qmVUWfhBIm3PCCBf62IGczBi6PAwxiuUNS8IS+M1u3f/ezqCa3auVyw0BDXh+Gb4BW5iQWr43r7ATuVY53i4wJCOfmUxxozgrtI4EynbDKgEctF4NerWJok2M6pivDAURo534soEAd4SYlhs0HGbI+YHSOrp5ix1ZaUMGzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4APvS9PNwXH9cbbHXS5bO4zf6zc/5xw6UmPD7/PRuiU=;
- b=1UZwi/pJyjkKRtOHGROMzJ6OyfKkFUSayE48RaVpxycrCG1cHXHxOgUJnhgL8l2si3p7hitMb/p0wRABB9Swg2469Y5rxXMAHbl7FL6oDdBIU1+qYTFS/VHVcCw56tnimf3cap4ECncUXxEOiYoQjer9sFlXqB6Wz/rK0tXdIX8=
-Received: from BYAPR12MB2888.namprd12.prod.outlook.com (2603:10b6:a03:137::24)
- by BYAPR12MB3032.namprd12.prod.outlook.com (2603:10b6:a03:dd::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.23; Mon, 20 Jul
- 2020 06:07:46 +0000
-Received: from BYAPR12MB2888.namprd12.prod.outlook.com
- ([fe80::f8df:794c:7431:2440]) by BYAPR12MB2888.namprd12.prod.outlook.com
- ([fe80::f8df:794c:7431:2440%7]) with mapi id 15.20.3174.030; Mon, 20 Jul 2020
- 06:07:46 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Li, Dennis" <Dennis.Li@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>,
- "Clements, John" <John.Clements@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add printing after executing page reservation
- to eeprom
-Thread-Topic: [PATCH] drm/amdgpu: add printing after executing page
- reservation to eeprom
-Thread-Index: AQHWXkQVjuJ4a7/i0Eu+7VVQhIvs3KkP+1PA
-Date: Mon, 20 Jul 2020 06:07:46 +0000
-Message-ID: <BYAPR12MB2888DAF98B8D151C9D6CB414B07B0@BYAPR12MB2888.namprd12.prod.outlook.com>
-References: <20200720031536.1822-1-guchun.chen@amd.com>
-In-Reply-To: <20200720031536.1822-1-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=a8e1f2c0-244c-45be-b1a3-00006a474c1c;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-20T06:06:38Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 359003fe-4c7c-452f-5e85-08d82c733938
-x-ms-traffictypediagnostic: BYAPR12MB3032:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB3032D2B3B61048F70C575FE9B07B0@BYAPR12MB3032.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1247;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jv9VH/fyJNgxJg4/O3wRxyoKtDRd2xYZNaMFJFK0TBntZOXPJ9rackBlMgXDIN4pvmQqbS0jUGLq0w7t1W/g5j9F7h7Ko/v1xAZT5GhbGKoL6tdVrfXCmffc4q171pUFgHZJNLkk2m2tsERoaIFxtqjr6qj6w3uqvrOB/duyqOFVVGxnmySfWUNaijsaumnDCyq8LCGAo6Gfa+N2aVahEKXZbVntpfQhyk4Da7sZkP1hDryuqLzgt2vjkq522HzaaP2Iz4yJrjyQkqjxfwFsdgMEZ0sJdBsm5ISd7P5qvSPJSBVWWX8UI7xgvM1u0YJBYKdarBVkeosfAQM53WRrHHeOaEWGFtNIVhfp04znBnA2edfNSFepYOK2XCf8Dvib
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB2888.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(366004)(39860400002)(136003)(396003)(316002)(110136005)(6506007)(53546011)(8936002)(86362001)(8676002)(2906002)(186003)(26005)(33656002)(7696005)(71200400001)(5660300002)(52536014)(6636002)(478600001)(55016002)(83380400001)(9686003)(64756008)(66556008)(66476007)(66946007)(76116006)(66446008)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 9D6ZJmWZInd3jzNq0YweqcQWluIsPrAVVQ0kNan6bJFM/By+gVZFovuJ8HPSLWRjFnyGlJmmzBdt5e9p5eH/m9kySFhpQpQ9VfFo0iSmiXvnxc1Ut4XnH2YJJKBkBRXD3NpaOioLzS9N2hzXJhEj8STOJiJ9zmimdPc3GVO/n5Tvlfu1Y3hNhX6a4iMTw9qcI8EJ162QVdSwrYyC8YB1Rlqa6AI9Ylg941xZ3LDUK2oPRsLzqckgLE+1zyhVTKbCpq2XdVQhafM44JR07BM+W7B9oQQqtyIklK7lvVoNS35dxxa0a2VjoH5X/un2E2Ahh4qPGu5i5OLCbOe2Fn00ZwfSaQGFW/grwwoJsFzgr1XHyesm0gH3Gbn+OUq/1HIXY44C/cNygHDs1mZOmtV9aOIXMlNr8IXliyXKQNruRHJ6/x+VQPX82mPhTlULfJ3ficb7BO1sseikchJP9onRHXHjsDNBOKhzHpKt2M0hCeLRZQrlbdDt7Ou0lKnr6Uw5
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A85989E06;
+	Mon, 20 Jul 2020 08:21:58 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 731FB89E06
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2020 08:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1595233314;
+ bh=1Q7CjeZf8Y3L/2Og33g51uL2ERmJH8GC1QbBVlEWQKs=;
+ h=X-UI-Sender-Class:To:Reply-To:From:Subject:Date;
+ b=O7TMBOB2biHuJEE7lBMCQJOXk5ZxStIQo57c2gaHFuAZV6+uapb193ToabFKfy8Cc
+ ft1sk+0Z9Wgc3XUVQrqKjLaTIEld02Bo5Qs1n9nzdB1/Uvd5d7D1oeHMRQIzFmHBWO
+ mRoTkl3DcLFE77r0/ZrjJDGeg1P3F+gWcOlb+7eM=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.1.5] ([178.27.135.239]) by mail.gmx.com (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1McH5a-1kXsL81nO0-00cjZ5 for
+ <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2020 10:21:54 +0200
+To: amd-gfx@lists.freedesktop.org
+From: Harvey <harv@gmx.de>
+Subject: Amdgpu kernel oops and freezing graphics
+Message-ID: <44e135ed-dfb7-533f-3c55-8e852a349762@gmx.de>
+Date: Mon, 20 Jul 2020 10:21:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB2888.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 359003fe-4c7c-452f-5e85-08d82c733938
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2020 06:07:46.3713 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jfPBcTwtzrjIJmB4XYZJ3jD46+4FRKLLNEYsiIRV9shrsFZM9xteZx66RAWV+r2m
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3032
+Content-Language: en-GB
+X-Provags-ID: V03:K1:iwj7ZP8YNlkggu20ITmstlyuKRIreO7ekbU4+rwu0Bk1Iaqm8Ub
+ 1t0LQfrJOwnei2gnKDSsDB5BAdptC8Y0UJuY6RrY8C/cBM+wtvZR7GCQbMZJ9+hEx/6ucgc
+ pHBKtLkMYUTML3gbqyXCGpJepjH14bjva/mJeadLp3uYeQk20GUg1AXLlMQKBKcvlUNatEs
+ R+lX8QGeSYzCFqrePdUow==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:G30ZQ+LzJTo=:95xsb1namx+m6rpRAB7HFC
+ qTw4ZIGoBFB68MZ6mIBkuDF+yqENxzilvaCGRn5cAqA/NQLj51BSHrtG2FSl7PUElSxWqMgWr
+ dG/D9WRkAviPEWpu1XZtMpYmLFCxhyB1W+ZPXB8QGaAJqMJtQf6SpS0hYra5ke0Q6flhM/a7D
+ kfiJYzk1qOK+8BSOYTDTT2AdkkkYQi8oE464DIOp2icAtDCpUupRDifo6rKhS4kqDMocVudIZ
+ p7II7AraPa31072Z97OzvB/KXOlNP1Vqfj75+j2cCozOjOSnR2Gl4mytQNBokXDUApphPkey7
+ 4MehuxZm5VzsTcTt1ryHaxsdGovvwf28umSk6CKnjqal+q5Acw+mxkpXpo6IQk4hrFWZIvJcn
+ KHMvK1qtLzQgdCcNaIrqLX7m93CRupIAxkmCJuXQA6SZpRB4HR+sygXYZwP4RtObOeyp1yP/w
+ 3wu78gKFxixwhq+uF3/C9rTp+IrDR1iynsCOddM7sOC2E3BzpI2BfMbtxRm5T6GkDIp97GKYI
+ MtuTP4s9zGyU3m25xOV5WT1SlUYgiocA34HFtLWnQZrqEFmqVea76guiggLtTU4MiIaxcWFP1
+ OOvCZkxwo2VZl0PymXe7YU2igbcBix6X8uJUv2S8sg8w43xKpK4kngnkWof1z9HPkOkifHaUU
+ +ZnDbzRkt9wRKhqeGSmeoHOKElHUXnU6j8WUpeeEw1VtNGZhyIx2zPi2NKo4gkea6SS1E7fgN
+ gWH2gLkR/CbcXz+gCOQUBJxAC76sTv8stvvlNuk9vr6J/XIGGeKj3rNG1B8YzvpoaarywWL34
+ 1Knjd8fyy7lK/aFXkuItjTR6Wflr/4xXO7cPj/FCukru4FECWW3I9zzQKZL508RCbiSohueTB
+ O3eKCQ0bfWy3epd6/QNFUaoUd4T5lp5iNgRZzCxynnESGq8fcUHoDb19XxDJRNr5eTp6p9HED
+ pdQShewzfHr0sALt+vn/hWE6Mznk5jwzinH1XFYLbe2/aV+ZfG2PKnk322HggrU1duR+phXT9
+ X87ek3PaaFdMj4OrqBLjNRU6/Otyhmivomaf0UL+joE6N/MRrtXo9NWLoe9wzpfWtQzeRGO8d
+ PG/0V7Sjwh4MaSd5ExD7uarVgJg7nMgfSxR+wnXulSdEkdcUrkJSoNKNY8vd60b0LHZL0cJpD
+ yfJfWnAi3X708eLJPqdaDdHpY4c4X9RBt1VejV/WqWhrr9Cr9HMPw74EpYJzhXqPMZJxK8y/H
+ 3+marn3cvgLZEx2so
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,55 +79,379 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: harv@gmx.de
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Hello,
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+this is my first post to this list so please be patient with me ;)
 
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Monday, July 20, 2020 11:16 AM
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: add printing after executing page reservation to eeprom
+The facts:
 
-This will tell users if the faulty page has been written to external eeprom device in dmesg log.
+it is now one week that I own a new laptop, a MSI Bravo 17 A4DDR/MS-17FK
+with Ryzen 7 4800U and hybrid graphics on a Radeon RX 5500M. I installed
+my beloved Archlinux but I can't start any graphics withpout kernel oops
+on it beside the normal console, even calling 'lspci' on the console is
+provoking errors.
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I am using linux kernel 5.7.9 and linux-firmware 20200619.e96c121
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 6f06e1214622..4a82a587de28 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1622,7 +1622,7 @@ static int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev)
- data = con->eh_data;
- save_count = data->count - control->num_recs;
- /* only new entries are saved */
--if (save_count > 0)
-+if (save_count > 0) {
- if (amdgpu_ras_eeprom_process_recods(control,
- &data->bps[control->num_recs],
- true,
-@@ -1631,6 +1631,9 @@ static int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev)
- return -EIO;
- }
+(FWIW: I even tried with a self-cmpiled kernel 5.8-rc5 and
+linux-firmware directly from the git repository - no changes)
 
-+dev_info(adev->dev, "Saved %d pages to EEPROM table.\n", save_count);
-+}
-+
- return 0;
- }
+The following is only part of the information I can provide but I didn't
+want to make this mail bigger than it already is.
+
+the lspci -k output is:
+
+00:00.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Root Complex
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Renoir Root Complex
+00:00.2 IOMMU: Advanced Micro Devices, Inc. [AMD] Renoir IOMMU
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Renoir IOMMU
+00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe
+Dummy Host Bridge
+00:01.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe GPP
+Bridge
+	Kernel driver in use: pcieport
+00:02.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe
+Dummy Host Bridge
+00:02.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe GPP
+Bridge
+	Kernel driver in use: pcieport
+00:02.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe GPP
+Bridge
+	Kernel driver in use: pcieport
+00:08.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir PCIe
+Dummy Host Bridge
+00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir Internal
+PCIe GPP Bridge to Bus
+	Kernel driver in use: pcieport
+00:08.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Renoir Internal
+PCIe GPP Bridge to Bus
+	Kernel driver in use: pcieport
+00:14.0 SMBus: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller
+(rev 51)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: piix4_smbus
+	Kernel modules: i2c_piix4, sp5100_tco
+00:14.3 ISA bridge: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridge
+(rev 51)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+00:18.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 0
+00:18.1 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 1
+00:18.2 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 2
+00:18.3 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 3
+	Kernel driver in use: k10temp
+	Kernel modules: k10temp
+00:18.4 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 4
+00:18.5 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 5
+00:18.6 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 6
+00:18.7 Host bridge: Advanced Micro Devices, Inc. [AMD] Renoir Device
+24: Function 7
+01:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 XL
+Upstream Port of PCI Express Switch (rev c1)
+	Kernel driver in use: pcieport
+02:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 XL
+Downstream Port of PCI Express Switch
+	Kernel driver in use: pcieport
+03:00.0 Display controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi
+14 [Radeon RX 5500/5500M / Pro 5500M] (rev c1)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: amdgpu
+	Kernel modules: amdgpu
+03:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10
+HDMI Audio
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+04:00.0 Network controller: Intel Corporation Wi-Fi 6 AX200 (rev 1a)
+	Subsystem: Intel Corporation Device 0084
+	Kernel driver in use: iwlwifi
+	Kernel modules: iwlwifi
+05:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
+RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: r8169
+	Kernel modules: r8169
+06:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+[AMD/ATI] Renoir (rev c6)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: amdgpu
+	Kernel modules: amdgpu
+06:00.2 Encryption controller: Advanced Micro Devices, Inc. [AMD] Family
+17h (Models 10h-1fh) Platform Security Processor
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Family 17h (Models
+10h-1fh) Platform Security Processor
+	Kernel driver in use: ccp
+	Kernel modules: ccp
+06:00.3 USB controller: Advanced Micro Devices, Inc. [AMD] Renoir USB 3.1
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: xhci_hcd
+	Kernel modules: xhci_pci
+06:00.4 USB controller: Advanced Micro Devices, Inc. [AMD] Renoir USB 3.1
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: xhci_hcd
+	Kernel modules: xhci_pci
+06:00.5 Multimedia controller: Advanced Micro Devices, Inc. [AMD]
+Raven/Raven2/FireFlight/Renoir Audio Processor (rev 01)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel modules: snd_pci_acp3x
+06:00.6 Audio device: Advanced Micro Devices, Inc. [AMD] Family 17h
+(Models 10h-1fh) HD Audio Controller
+	DeviceName: HD Audio Controller
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+07:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA
+Controller [AHCI mode] (rev 81)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: ahci
+07:00.1 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA
+Controller [AHCI mode] (rev 81)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device 12ac
+	Kernel driver in use: ahci
+
+The output of dmesg -l err,warn is:
+
+[    0.335758] TSC synchronization [CPU#0 -> CPU#8]:
+[    0.335759] Measured 4524 cycles TSC warp between CPUs, turning off
+TSC clock.
+[    0.335763]   #9 #10 #11 #12 #13 #14 #15
+[    0.388723] Expanded resource Reserved due to conflict with PCI Bus
+0000:00
+[    0.495565] pci 0000:00:00.2: can't derive routing for PCI INT A
+[    0.495566] pci 0000:00:00.2: PCI INT A: not connected
+[    0.497518]  PPR X2APIC NX GT IA GA PC GA_vAPIC
+[    0.507325] efifb: Ignoring BGRT: unexpected or invalid BMP data
+[    0.535452] Unstable clock detected, switching default tracing clock
+to "global"
+                If you want to keep using the local clock, then add:
+                  "trace_clock=local"
+                on the kernel command line
+[    1.822245] soc_button_array ACPI0011:00: Unknown button index 0
+upage 01 usage c6, ignoring
+[    1.843906] i2c_hid i2c-PNP0C50:0b: supply vdd not found, using dummy
+regulator
+[    1.843924] i2c_hid i2c-PNP0C50:0b: supply vddl not found, using
+dummy regulator
+[    1.865149] snd_pci_acp3x 0000:06:00.5: Invalid ACP audio mode : 0
+[    1.914676] sp5100-tco sp5100-tco: Watchdog hardware is disabled
+[    1.933349] platform regulatory.0: Direct firmware load for
+regulatory.db failed with error -2
+[    2.057649] iwlwifi 0000:04:00.0: api flags index 2 larger than
+supported by driver
+[    2.057914] iwlwifi 0000:04:00.0: Direct firmware load for
+iwl-debug-yoyo.bin failed with error -2
+[    2.256189] uvcvideo 1-4:1.0: Entity type for entity Extension 4 was
+not initialized!
+[    2.256194] uvcvideo 1-4:1.0: Entity type for entity Extension 3 was
+not initialized!
+[    2.256196] uvcvideo 1-4:1.0: Entity type for entity Processing 2 was
+not initialized!
+[    2.256198] uvcvideo 1-4:1.0: Entity type for entity Camera 1 was not
+initialized!
+[    2.373041] ATPX version 1, functions 0x00000001
+[    2.373173] ATPX Hybrid Graphics
+[    2.393743] [drm:amdgpu_get_bios [amdgpu]] *ERROR* ACPI VFCT table
+present but broken (too short #2)
+[    2.615299] thermal thermal_zone1: failed to read out thermal zone (-61)
+[    3.268390] SMU driver if version not matched
+[    3.989144] sos fw version = 0x110d32.
+[    4.160713] SMU driver if version not matched
+[    4.294363] [drm:mod_hdcp_add_display_to_topology [amdgpu]] *ERROR*
+Failed to add display topology, DTM TA is not initialized.
+[    4.294366] [drm] [Link 0] WARNING MOD_HDCP_STATUS_FAILURE IN STATE
+HDCP_UNINITIALIZED STAY COUNT 0
+[    5.705210] kauditd_printk_skb: 21 callbacks suppressed
+[   13.102593] kauditd_printk_skb: 10 callbacks suppressed
+[   26.297372] kauditd_printk_skb: 13 callbacks suppressed
+[   32.442652] kauditd_printk_skb: 6 callbacks suppressed
+[  415.086058] failed send message:     RunBtc (58) 	param: 0x00000000
+response 0xffffffc2
+[  415.086059] RunBtc failed!
+[  415.086101] [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR*
+resume of IP block <smu> failed -62
+[  415.086138] [drm:amdgpu_device_resume [amdgpu]] *ERROR*
+amdgpu_device_ip_resume failed (-62).
+[  415.204513] snd_hda_intel 0000:03:00.1: CORB reset timeout#2, CORBRP
+= 65535
+[  421.356866] ------------[ cut here ]------------
+[  421.357046] WARNING: CPU: 9 PID: 680 at
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:1517
+dm_suspend+0x4e/0x60 [amdgpu]
+[  421.357047] Modules linked in: iwlmvm joydev snd_hda_codec_realtek
+mousedev amdgpu uvcvideo mac80211 snd_hda_codec_generic
+snd_hda_codec_hdmi btusb videobuf2_vmalloc ledtrig_audio
+videobuf2_memops btrtl edac_mce_amd btbcm videobuf2_v4l2 btintel kvm_amd
+hid_multitouch snd_hda_intel msi_wmi videobuf2_common libarc4 bluetooth
+snd_intel_dspcfg hid_generic sparse_keymap kvm snd_hda_codec videodev
+nls_iso8859_1 nls_cp437 gpu_sched i2c_algo_bit vfat ecdh_generic fat ttm
+irqbypass iwlwifi mc ecc snd_hda_core drm_kms_helper snd_hwdep snd_pcm
+crct10dif_pclmul crc32_pclmul r8169 cec ghash_clmulni_intel snd_timer
+cfg80211 aesni_intel rc_core syscopyarea sysfillrect snd crypto_simd
+sp5100_tco realtek sysimgblt cryptd glue_helper fb_sys_fops psmouse ccp
+pcspkr input_leds i2c_piix4 k10temp snd_pci_acp3x soundcore libphy
+rfkill wmi battery ac i2c_hid tpm_crb hid tpm_tis tpm_tis_core tpm evdev
+mac_hid pinctrl_amd rng_core acpi_cpufreq soc_button_array drm
+crypto_user agpgart ip_tables x_tables serio_raw
+[  421.357115]  atkbd libps2 xhci_pci xhci_hcd i8042 serio ext4
+crc32c_generic crc32c_intel crc16 mbcache jbd2
+[  421.357128] CPU: 9 PID: 680 Comm: kworker/9:2 Not tainted
+5.7.9-arch1-1 #1
+[  421.357130] Hardware name: Micro-Star International Co., Ltd. Bravo
+17 A4DDR/MS-17FK, BIOS E17FKAMS.113 05/18/2020
+[  421.357138] Workqueue: pm pm_runtime_work
+[  421.357296] RIP: 0010:dm_suspend+0x4e/0x60 [amdgpu]
+[  421.357299] Code: 00 48 89 83 20 47 01 00 e8 ef fd ff ff 48 89 df e8
+27 a1 00 00 48 8b bb a0 2c 01 00 be 08 00 00 00 e8 86 c2 0f 00 31 c0 5b
+c3 <0f> 0b eb c1 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 0f 1f 44 00
+[  421.357300] RSP: 0018:ffffb34c00b4fcb0 EFLAGS: 00010286
+[  421.357302] RAX: ffffffffc10af180 RBX: ffffa34103ca0000 RCX:
+0000000000000000
+[  421.357304] RDX: 000000000000000a RSI: 0000000000000ff8 RDI:
+ffffa34103ca0000
+[  421.357305] RBP: 0000000000000005 R08: 0000000000000000 R09:
+0000000000000000
+[  421.357306] R10: 0000000000000002 R11: 00000000000000f0 R12:
+ffffa34103ca0000
+[  421.357307] R13: ffffa3411c4030b0 R14: ffffa34103ca0000 R15:
+ffffa3411f86c9b0
+[  421.357309] FS:  0000000000000000(0000) GS:ffffa3411f840000(0000)
+knlGS:0000000000000000
+[  421.357311] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  421.357312] CR2: 00005562a24d6010 CR3: 00000003d240a000 CR4:
+0000000000340ee0
+[  421.357313] Call Trace:
+[  421.357433]  amdgpu_device_ip_suspend_phase1+0x83/0xe0 [amdgpu]
+[  421.357546]  amdgpu_device_suspend+0x9b/0x2c0 [amdgpu]
+[  421.357553]  ? update_blocked_averages+0x539/0x620
+[  421.357664]  amdgpu_pmops_runtime_suspend+0x9e/0x140 [amdgpu]
+[  421.357672]  pci_pm_runtime_suspend+0x5e/0x170
+[  421.357678]  ? __switch_to_asm+0x40/0x70
+[  421.357683]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.357686]  vga_switcheroo_runtime_suspend+0x22/0xb0
+[  421.357689]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.357692]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.357694]  __rpm_callback+0x7b/0x130
+[  421.357697]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.357700]  rpm_callback+0x1f/0x70
+[  421.357703]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.357705]  rpm_suspend+0x174/0x6d0
+[  421.357709]  pm_runtime_work+0x94/0xa0
+[  421.357714]  process_one_work+0x1da/0x3d0
+[  421.357717]  worker_thread+0x4d/0x3e0
+[  421.357720]  ? rescuer_thread+0x3f0/0x3f0
+[  421.357722]  kthread+0x13e/0x160
+[  421.357726]  ? __kthread_bind_mask+0x60/0x60
+[  421.357728]  ret_from_fork+0x22/0x40
+[  421.357733] ---[ end trace 7a1af789893080c1 ]---
+[  421.357928] Oops: 0000 [#1] PREEMPT SMP NOPTI
+[  421.357931] CPU: 9 PID: 680 Comm: kworker/9:2 Tainted: G        W
+     5.7.9-arch1-1 #1
+[  421.357932] Hardware name: Micro-Star International Co., Ltd. Bravo
+17 A4DDR/MS-17FK, BIOS E17FKAMS.113 05/18/2020
+[  421.357936] Workqueue: pm pm_runtime_work
+[  421.358078] RIP: 0010:kernel_queue_uninit+0xd/0xf0 [amdgpu]
+[  421.358081] Code: ee 48 89 c7 e8 a4 f9 ff ff 84 c0 0f 84 3a 40 1a 00
+4c 89 e0 5d 41 5c 41 5d c3 0f 1f 00 0f 1f 44 00 00 55 48 8b 47 10 48 89
+fd <8b> 50 28 83 fa 02 74 78 83 fa 03 0f 84 b1 00 00 00 48 8b 7f 08 4c
+[  421.358083] RSP: 0018:ffffb34c00b4fca8 EFLAGS: 00010246
+[  421.358085] RAX: 0000000000000010 RBX: ffffa341022cdc00 RCX:
+0000000080800076
+[  421.358087] RDX: 0000000080800077 RSI: 0000000000000000 RDI:
+ffffa3411c874a80
+[  421.358089] RBP: ffffa3411c874a80 R08: 0000000000000001 R09:
+0000000000000001
+[  421.358091] R10: ffffa34118da0660 R11: dead000000000100 R12:
+ffffa341022cdd28
+[  421.358092] R13: ffffa3411c4030b0 R14: ffffa34103ca0000 R15:
+ffffa3411f86c9b0
+[  421.358095] FS:  0000000000000000(0000) GS:ffffa3411f840000(0000)
+knlGS:0000000000000000
+[  421.358097] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  421.358098] CR2: 0000000000000038 CR3: 00000003d240a000 CR4:
+0000000000340ee0
+[  421.358100] Call Trace:
+[  421.358240]  stop_cpsch+0x97/0xc0 [amdgpu]
+[  421.358376]  kgd2kfd_suspend.part.0+0x2f/0x40 [amdgpu]
+[  421.358489]  amdgpu_device_suspend+0xa7/0x2c0 [amdgpu]
+[  421.358493]  ? update_blocked_averages+0x539/0x620
+[  421.358604]  amdgpu_pmops_runtime_suspend+0x9e/0x140 [amdgpu]
+[  421.358609]  pci_pm_runtime_suspend+0x5e/0x170
+[  421.358612]  ? __switch_to_asm+0x40/0x70
+[  421.358616]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.358619]  vga_switcheroo_runtime_suspend+0x22/0xb0
+[  421.358622]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.358625]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.358628]  __rpm_callback+0x7b/0x130
+[  421.358631]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.358634]  rpm_callback+0x1f/0x70
+[  421.358637]  ? vga_switcheroo_runtime_resume+0x60/0x60
+[  421.358640]  rpm_suspend+0x174/0x6d0
+[  421.358645]  pm_runtime_work+0x94/0xa0
+[  421.358648]  process_one_work+0x1da/0x3d0
+[  421.358651]  worker_thread+0x4d/0x3e0
+[  421.358654]  ? rescuer_thread+0x3f0/0x3f0
+[  421.358657]  kthread+0x13e/0x160
+[  421.358660]  ? __kthread_bind_mask+0x60/0x60
+[  421.358663]  ret_from_fork+0x22/0x40
+[  421.358667] Modules linked in: iwlmvm joydev snd_hda_codec_realtek
+mousedev amdgpu uvcvideo mac80211 snd_hda_codec_generic
+snd_hda_codec_hdmi btusb videobuf2_vmalloc ledtrig_audio
+videobuf2_memops btrtl edac_mce_amd btbcm videobuf2_v4l2 btintel kvm_amd
+hid_multitouch snd_hda_intel msi_wmi videobuf2_common libarc4 bluetooth
+snd_intel_dspcfg hid_generic sparse_keymap kvm snd_hda_codec videodev
+nls_iso8859_1 nls_cp437 gpu_sched i2c_algo_bit vfat ecdh_generic fat ttm
+irqbypass iwlwifi mc ecc snd_hda_core drm_kms_helper snd_hwdep snd_pcm
+crct10dif_pclmul crc32_pclmul r8169 cec ghash_clmulni_intel snd_timer
+cfg80211 aesni_intel rc_core syscopyarea sysfillrect snd crypto_simd
+sp5100_tco realtek sysimgblt cryptd glue_helper fb_sys_fops psmouse ccp
+pcspkr input_leds i2c_piix4 k10temp snd_pci_acp3x soundcore libphy
+rfkill wmi battery ac i2c_hid tpm_crb hid tpm_tis tpm_tis_core tpm evdev
+mac_hid pinctrl_amd rng_core acpi_cpufreq soc_button_array drm
+crypto_user agpgart ip_tables x_tables serio_raw
+[  421.358700]  atkbd libps2 xhci_pci xhci_hcd i8042 serio ext4
+crc32c_generic crc32c_intel crc16 mbcache jbd2
+[  421.358710] CR2: 0000000000000038
+[  421.358714] ---[ end trace 7a1af789893080c2 ]---
+[  421.358848] RIP: 0010:kernel_queue_uninit+0xd/0xf0 [amdgpu]
+[  421.358851] Code: ee 48 89 c7 e8 a4 f9 ff ff 84 c0 0f 84 3a 40 1a 00
+4c 89 e0 5d 41 5c 41 5d c3 0f 1f 00 0f 1f 44 00 00 55 48 8b 47 10 48 89
+fd <8b> 50 28 83 fa 02 74 78 83 fa 03 0f 84 b1 00 00 00 48 8b 7f 08 4c
+[  421.358853] RSP: 0018:ffffb34c00b4fca8 EFLAGS: 00010246
+[  421.358855] RAX: 0000000000000010 RBX: ffffa341022cdc00 RCX:
+0000000080800076
+[  421.358857] RDX: 0000000080800077 RSI: 0000000000000000 RDI:
+ffffa3411c874a80
+[  421.358858] RBP: ffffa3411c874a80 R08: 0000000000000001 R09:
+0000000000000001
+[  421.358860] R10: ffffa34118da0660 R11: dead000000000100 R12:
+ffffa341022cdd28
+[  421.358862] R13: ffffa3411c4030b0 R14: ffffa34103ca0000 R15:
+ffffa3411f86c9b0
+[  421.358864] FS:  0000000000000000(0000) GS:ffffa3411f840000(0000)
+knlGS:0000000000000000
+[  421.358866] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  421.358868] CR2: 0000000000000038 CR3: 00000003d240a000 CR4:
+0000000000340ee0
+
+I suppose the amdgpu module is at fault here?
+
+Greetings
+Harvey
 
 --
-2.17.1
-
+I am root. If you see me laughing, you'd better have a backup!
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
