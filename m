@@ -2,103 +2,54 @@ Return-Path: <SRS0=r3ut=A7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5454C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 13:31:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 836FFC433FE
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 21:37:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 70E2720B1F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 13:31:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 53B2B22D04
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2020 21:37:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="QcrjeJXw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70E2720B1F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="2wjhfywz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53B2B22D04
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D9A89E36;
-	Mon, 20 Jul 2020 13:31:10 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F5B6E178;
- Mon, 20 Jul 2020 07:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
- bh=zKloZSiobw3jlXQasA0k5/s1eYMAWFXIkqzzZ8euj/s=; 
- b=QcrjeJXwuSPmu9x821YGFGbULY9Z/k1kL9nFrjryLU2K1nzPb3IgvMbRwoHytfaOZfmDTM6utBIAma4jKs7Dk6LRVoCHr+Is3JaCr6sIeehquMnw/yk3ezfIo/3vupqj4V/1pnJWxhbHj5r/wVVvbk/MI00pPG5KK4AMw9yXGS1Kkp189UmA/V/HVOdxiaqheH0Ahv9v9ek6DHZyCNEVvqf04fqTv+KhrQXGmZfRWbJIm6iTNFoP33OuKssy+Ej9LkijNF8T4WxZJWZCVXAo10mrcb4QW3lWX4Dlhwn0sL7gyUvAeR2Qa9tH4A4qEO3AFvlXC41nNzKe8ladbozSqw==;
-Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
- helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim)
- id 1jxQQF-0005um-Ez; Mon, 20 Jul 2020 09:41:15 +0200
-Subject: Re: [Mesa-dev] [XDC 2020] Virtual conference + Call for Proposals
- extended 2 weeks more
-From: =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>
-To: "Szwichtenberg, Radoslaw" <radoslaw.szwichtenberg@intel.com>,
- "events@lists.x.org" <events@lists.x.org>,
- "xorg-devel@lists.freedesktop.org" <xorg-devel@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-References: <4e5319c905109f9fe4ca48dee0e89d83ec73f2da.camel@igalia.com>
-Autocrypt: addr=siglesias@igalia.com; keydata=
- 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
- zYa9Fv+6Emblbj8n
-Message-ID: <b7a10661-2e4d-4462-98f6-de13226eeccc@igalia.com>
-Date: Mon, 20 Jul 2020 09:41:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E12E6E092;
+	Mon, 20 Jul 2020 21:37:50 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E27D89BBD;
+ Mon, 20 Jul 2020 21:37:48 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1C9C422CBB;
+ Mon, 20 Jul 2020 21:37:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595281068;
+ bh=0EJWnODGD4TNz5brZBkLw/E00QZ4S2pmfWX1+6zrt28=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=2wjhfywzi36Au7Tjv1CxGKEkkDKr6WZg9mY4vReym24f06FEiFrOMj4NbHjgJzncw
+ TG3y4P3YY+8svrDgPdzJnl5PO8bYsCzRys7Y21rqTkOMTxjg4fkFz4GE/UxhINpFSm
+ fo6WlfkR79bHfFlRJyse4eIQc2Ai9HXJTSURqxRo=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.7 26/40] drm/amdgpu/gfx10: fix race condition for kiq
+Date: Mon, 20 Jul 2020 17:37:01 -0400
+Message-Id: <20200720213715.406997-26-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200720213715.406997-1-sashal@kernel.org>
+References: <20200720213715.406997-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <4e5319c905109f9fe4ca48dee0e89d83ec73f2da.camel@igalia.com>
-X-Mailman-Approved-At: Mon, 20 Jul 2020 13:31:09 +0000
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,108 +61,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============1935797921=="
+Cc: Sasha Levin <sashal@kernel.org>, Jack Xiao <Jack.Xiao@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1935797921==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU
-Content-Type: multipart/mixed; boundary="mwiVjPF7I377Vg5TCaroOAumpIL9da1EC"
-
---mwiVjPF7I377Vg5TCaroOAumpIL9da1EC
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 7/3/20 4:41 PM, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Hi,
->=20
-> In the last meeting, X.Org Foundation board has decided that XDC 2020
-> will be a virtual conference, given the uncertain COVID-19 situation in=
-
-> Europe by September, including the possibility of a second wave,
-> outbreaks and travel restrictions, either in Poland or in other
-> countries.
->=20
-> XDC 2020 organization team agrees on this decision and it volunteered
-> to organize our first virtual XDC!
->=20
-> We would like to announce as well that the new CFP deadline is Sunday
-> July 19th 2020. Don't forget to submit your talk, demo and workshop
-> proposals!
->=20
-
-As approved in last board's meeting [0], CfP is extended until two weeks
-before the conference, or until we fill all the slots (whichever happens
-first). Please submit your talk proposals early!
-
-Last two years we had lots of talks about new and fresh development and
-we prioritized those over other kind of talks, as they had more
-potential for discussions and hallway track. However, this year that
-doesn't make too much sense, so we encourage our community to submit any
-talk related to open-source graphics stack, including those that focus
-on project status updates.
-
-Sam
-
-[0] https://www.x.org/wiki/BoardOfDirectors/MeetingSummaries/2020/07-16/
-
-> Thanks,
->=20
-> Sam
->=20
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-
-
---mwiVjPF7I377Vg5TCaroOAumpIL9da1EC--
-
---ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl8VSpEACgkQf/S6MvF9
-w0OoXQ//aV7u8Q3LO6+yzmhnP5Mr4K/j16dVyjxaUd6+kf95xT2ng9ivvEWqguHh
-XOeRPW6Mbs4hfW2SpUfeeKZtjRxEQ/G6H2wqVE7ZQR5UQfO0XwuTRJjuFeOSbqj9
-lrNvUh7eoZWPlQUEgjOpGMJJrJpI6lE9ibT3JP7HFS0ejmohiu5A5R+DKR5yLfX6
-VhbWmHe5xpiXZ2+Dwhhu0oJ+Mm+4qSftAuPRqrad15isfrVbJc763t+XoV+KyjJV
-P3RUlCSNgN6OwUukOMrAy7rgEQlExJkFU08t6wvQ755PvAyd7oU98hqSdl/uwc5D
-pqhnctVV+xbfHjL4OF9WYlykCNFYV13iQIJ5SCLLBb1ZNNTfcFzr2QjzFn50JA+C
-c4Ccli2RfoyumQjc9h0ucW4wiQraSrJPWydGK7YsXuzo8Fx9E5ib0aHC0khqR8gy
-2NLa9VkAm4pskRQdKtE3YLykpittd4ixjiMtsD8TeQXskLgzfRERwyO2tuJ6QR0A
-RdcnZuMDJRV7M32t7IcDhwrqwJubO36/bOOR9il7dfQ75vU6r2kGD2nHA+lBMZdZ
-ZBTEHIn/kMEZImLvb5SC0VQEKcXKy2FRv0QajJYzfuMlLEvZZHEX9Su2mYf5d0Z6
-jdGoRSuBydp+CuCLCCSk8OT9hhov8rZ5JvqPpxfB6jzcjmxBaI8=
-=UDoL
------END PGP SIGNATURE-----
-
---ZQoaTBgo848hWk0E0C9NphXkPLcGLe8RU--
-
---===============1935797921==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1935797921==--
+RnJvbTogSmFjayBYaWFvIDxKYWNrLlhpYW9AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDdk
+NjVhNTc3YmI1OGQ0ZjI3YTMzOThhNGMwY2IwYjAwYWI3ZDA1MTEgXQoKRHVyaW5nIHByZWVtcHRp
+b24gdGVzdCBmb3IgZ2Z4MTAsIGl0IHVzZXMga2lxIHRvIHRyaWdnZXIKZ2Z4IHByZWVtcHRpb24s
+IHdoaWNoIHdvdWxkIHJlc3VsdCBpbiByYWNlIGNvbmRpdGlvbgp3aXRoIGZsdXNoaW5nIFRMQiBm
+b3Iga2lxLgoKU2lnbmVkLW9mZi1ieTogSmFjayBYaWFvIDxKYWNrLlhpYW9AYW1kLmNvbT4KUmV2
+aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4KQWNrZWQtYnk6
+IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
+eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5
+OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3YxMF8wLmMgfCA5ICsrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDggaW5z
+ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Yx
+MF8wLmMKaW5kZXggMGUwZGFmMDAyMWI2MC4uZmY5NGY3NTY5NzhkNSAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKQEAgLTQ3NDYsMTIgKzQ3NDYsMTcgQEAgc3RhdGljIGlu
+dCBnZnhfdjEwXzBfcmluZ19wcmVlbXB0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKIAlz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7CiAJc3RydWN0IGFtZGdwdV9r
+aXEgKmtpcSA9ICZhZGV2LT5nZngua2lxOwogCXN0cnVjdCBhbWRncHVfcmluZyAqa2lxX3Jpbmcg
+PSAma2lxLT5yaW5nOworCXVuc2lnbmVkIGxvbmcgZmxhZ3M7CiAKIAlpZiAoIWtpcS0+cG1mIHx8
+ICFraXEtPnBtZi0+a2lxX3VubWFwX3F1ZXVlcykKIAkJcmV0dXJuIC1FSU5WQUw7CiAKLQlpZiAo
+YW1kZ3B1X3JpbmdfYWxsb2Moa2lxX3JpbmcsIGtpcS0+cG1mLT51bm1hcF9xdWV1ZXNfc2l6ZSkp
+CisJc3Bpbl9sb2NrX2lycXNhdmUoJmtpcS0+cmluZ19sb2NrLCBmbGFncyk7CisKKwlpZiAoYW1k
+Z3B1X3JpbmdfYWxsb2Moa2lxX3JpbmcsIGtpcS0+cG1mLT51bm1hcF9xdWV1ZXNfc2l6ZSkpIHsK
+KwkJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsKIAkJcmV0
+dXJuIC1FTk9NRU07CisJfQogCiAJLyogYXNzZXJ0IHByZWVtcHRpb24gY29uZGl0aW9uICovCiAJ
+YW1kZ3B1X3Jpbmdfc2V0X3ByZWVtcHRfY29uZF9leGVjKHJpbmcsIGZhbHNlKTsKQEAgLTQ3NjIs
+NiArNDc2Nyw4IEBAIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX3JpbmdfcHJlZW1wdF9pYihzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcgKnJpbmcpCiAJCQkJICAgKytyaW5nLT50cmFpbF9zZXEpOwogCWFtZGdwdV9y
+aW5nX2NvbW1pdChraXFfcmluZyk7CiAKKwlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZraXEtPnJp
+bmdfbG9jaywgZmxhZ3MpOworCiAJLyogcG9sbCB0aGUgdHJhaWxpbmcgZmVuY2UgKi8KIAlmb3Ig
+KGkgPSAwOyBpIDwgYWRldi0+dXNlY190aW1lb3V0OyBpKyspIHsKIAkJaWYgKHJpbmctPnRyYWls
+X3NlcSA9PQotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
