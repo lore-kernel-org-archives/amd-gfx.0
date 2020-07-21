@@ -7,107 +7,107 @@ X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4F7DC433E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07B5FC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 952F220709
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:04:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C3AE1206F2
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:11:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="24KKINPi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 952F220709
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Pozchla4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3AE1206F2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 605A36E122;
-	Tue, 21 Jul 2020 11:04:54 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9996E122
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 711696E175;
+	Tue, 21 Jul 2020 11:11:12 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770085.outbound.protection.outlook.com [40.107.77.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 447806E4AA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:11:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nal9Npu+ZZE7I1H28gkGE6jk+6jpK/n4NwD3pIQ171Z5DQ40Tb4GIkBsYme3DZxIUx+cgVfvk/TBFtFIf3wn8DgI+w5+TNBFU40S2N5J3KxNyhb+HmXgp/ylIoUwiJ09urIhMgwNzpiTNvIaJ8GhL6P6MNp4Qp1sDFSoD7IPa9kkdFu9NA0FRASPsQFg1WZvzBjEDUFaq3THmVSqkRy3FBXIRUcJ94KUeRb5ku6PbNu6ONsN3HFnaNK3hJ/tNOd1RScSEBexdV3rstWDa+skVbeLVu86bPCRMFTRJemTsaZTGixLdu6E6Z9idK5/5yTKhp/iN1nb/ky6WEYkIHpgXQ==
+ b=F92CXpZbkJ9Me2PRnJ9PzBNUwxC/Z5J1bxIVJE57+l55ySGHRNKA3LcyQxuuJaPebpe6S0Tm+q6UQZxB1js1hTYNrMpuTkm+C2ovkkLcmlevMuzKoD+8xL257dR4ussjj1ZRNyZqWnYazmkeDCzJEHQjaQviCLP7miZwQk6taUBqJqHuWu74OeugWS+RP+/YKMqZX4Bhcakht4Lsr0s8UbNMPZaFGYiOIhRhg6PDre76bUvv/QLjOGPhFo4dmjg570C3jltgh0A9VNaPdOIb7o/tw7OBnntlbl8jCQhyel0O5vNR5oA/ulw8qkBGFszU18oIVSgYiqntb/jkxDkzyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCH+8d1gOLeJ49PM/JImax0JNhYQIULEDjfLIZh39qA=;
- b=VOWoELxFvxdutIE3SKO/zsdZ9VfMkKZXcnhLPcheZ7wXVy/u4GtwRPC8hGnOx7eHpJccvdjMZa7GsfYRECstBA5+Bp/C6rr8ihDjhADoTCXjLeZisOvOJCKqH0bJsIDUF3eMyUEQn8tsw5mRGD/lt6pHLQcLzXE4v1T3hPVaUaL3siK3bUQjA/tiFiwIUX4BhbmCeDVjTmqcX4eKrzfoZAbBwI5n2ua40PyT4IER0u398V7k6AdRw3RwIwy41wENWXyM9xxe+LkEDKKibPD69Yv2xNh2jIA/lyrFnWBUtSSTzqnb4vPx87jB8z+TXQIZtrH6vwPFWBzEpjtJkjRmig==
+ bh=kbHEKRm/gCq9sa0ddMHy0FGWC8S1DCltXPAWVkA7qfc=;
+ b=K4Vszs+nB/+SoPCSEFSJdbHF4AQNX+rIWbeCfjyWoAffbrJjQUmA1Ag++KdYjRkf0mbmhTqfG3lR5FxuK8lFp1ifOTnX/oIxAE5h9tlZXsUKzzBP5Mg8/0CN7Pv2lqTyAO57GdKKoLQLBrDAGN5dwNUPxlGAL/Kji7WeiHeCb7yMdaAihRyPphJHFOeeBfTNOjsctOFeTkH5/mEyZoVlHeo0cQa6OhMK8r5oJZpW28D3GvRip2NqBM3Ov9x+kyCQ4lnBMqCnSTYI+djp/FYNDCrkrYMfqxoKfHJ2ISvoKpfSXL99u7kll5dQazPEm6gd7uw+1PqLuLsz7GYLKkzcSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCH+8d1gOLeJ49PM/JImax0JNhYQIULEDjfLIZh39qA=;
- b=24KKINPiofS4ABt1GY5DhgSVx32ouY507S2nd97pZW2n8AGAabMXooDgyO5KlzALGLx/Np1uQcua9PjvTI1smlGFpAIAbYbhQuFcP87rB3i5B+iFY1GE2XnZachUrkmWqnHZoiqkB/0Kt8tT/mc8dWyh1R6pNx/TM+DY6xrsE7w=
+ bh=kbHEKRm/gCq9sa0ddMHy0FGWC8S1DCltXPAWVkA7qfc=;
+ b=Pozchla42GExvRIzr0TP6Q+AedJU/CYUIb9MztNMoJROM2nkom8IirV75kSAHtHSBUMpTJtIITzMPVAI0WCjUcfTRA2825JTNh0ozj7g/a5EJ9vK5UeKzDFT2yuW4JNPFdGVHpUCWtvmEE0FbOW4PxDfbQPeClktAMJgJkbN05A=
 Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM6PR12MB2780.namprd12.prod.outlook.com (2603:10b6:5:4e::15) with
+ DM6PR12MB4385.namprd12.prod.outlook.com (2603:10b6:5:2a6::14) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.25; Tue, 21 Jul 2020 11:04:46 +0000
+ 15.20.3195.18; Tue, 21 Jul 2020 11:11:00 +0000
 Received: from DM6PR12MB4075.namprd12.prod.outlook.com
  ([fe80::84dc:a0e7:6158:ce4e]) by DM6PR12MB4075.namprd12.prod.outlook.com
  ([fe80::84dc:a0e7:6158:ce4e%8]) with mapi id 15.20.3216.021; Tue, 21 Jul 2020
- 11:04:46 +0000
+ 11:11:00 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 To: "Clements, John" <John.Clements@amd.com>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: expand sienna chichlid reg access support
-Thread-Topic: [PATCH] drm/amdgpu: expand sienna chichlid reg access support
-Thread-Index: AdZfRMbeLVrLWZiUScy7xMGsaeMiBQACeveA
-Date: Tue, 21 Jul 2020 11:04:46 +0000
-Message-ID: <DM6PR12MB407531859D722D1A7FAAE9E0FC780@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <MN2PR12MB403248E1E8B8387413126F4AFB780@MN2PR12MB4032.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB403248E1E8B8387413126F4AFB780@MN2PR12MB4032.namprd12.prod.outlook.com>
+ <amd-gfx@lists.freedesktop.org>, "Chen, Guchun" <Guchun.Chen@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: add RAS EEPROM support for sienna chichlid
+Thread-Topic: [PATCH] drm/amdgpu: add RAS EEPROM support for sienna chichlid
+Thread-Index: AdZfReQyfeCz96ROS/qexdQQqwQahwACUXwA
+Date: Tue, 21 Jul 2020 11:11:00 +0000
+Message-ID: <DM6PR12MB407565C7AF933B6B90687F93FC780@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <MN2PR12MB4032998A82134DFD3D09739EFB780@MN2PR12MB4032.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB4032998A82134DFD3D09739EFB780@MN2PR12MB4032.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-21T09:54:14Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-21T10:01:57Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=896ab18a-c36a-45e2-b47a-0000373cc5b9;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=0ead8133-92be-4bec-a672-0000b76dc115;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-21T11:04:44Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-21T11:10:58Z
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 4b115067-276b-4993-aa4f-000015443cf2
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 3d0b58e3-264d-4fac-a63b-0000f67cd7ae
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 9789dbb5-0d26-4000-f34c-08d82d65e14e
-x-ms-traffictypediagnostic: DM6PR12MB2780:
+x-ms-office365-filtering-correlation-id: f9b92a42-35e0-4d94-4323-08d82d66c021
+x-ms-traffictypediagnostic: DM6PR12MB4385:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB278095EB37803A6602166EF8FC780@DM6PR12MB2780.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2582;
+x-microsoft-antispam-prvs: <DM6PR12MB4385AE3AFAC9DC23E41EC696FC780@DM6PR12MB4385.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yje3txXdsInzTq/dUuHT/+Amx+2tCllFcerBbv+f+6aBZnXZte5q6qKy0UYW+wYv65O43nu2e3xzKFfXBRBpJ86DfoRySnSK3Kln0Uy50Z+CMg5Z2EHkHhwI4Kgyb98RRg3VYgdiZeAfscIShb+9xdjxxXa/793gLZSrJvSBjMm3RqvScAW2FJ1TnNTMs0GSdIqmCszTDXdOVnw0L6eC1WN0OsIZGzAhlCe0XrRvSsgAK7lgfDlaGnyVVs/izchBkidqeorqb5qtGsR8VddoiCOezffDkzsrh9DDMRKsfFGsyqBCZ7IagUVrv5BoGaIapSJCc5UsMTFliuX0okeMfA==
+x-microsoft-antispam-message-info: ESx+Gpc0EuBJulVF/pm8vBAlXGkh6d3v4FnFBvlJZZ0X5xTYGrGahztDE4m7EbD3oG38CNmMBFaL0No09XZsms18LDCxNGNPa2U61aGO/NxwHJikV1i6PbUaHcH8TLoezBKxjGQtPxoE8bg2l7XS2UJ57D1yet4x4Zh6uTRAmHLU6il0TM9s5LDwb7mpYA262uaaMKeaCY668Dnx4vKpC1CGEQ6FVjAmocoOsbg+B3StXWvdMjZYbGoCHGJRF95oFRbD3XFqpKEVJ1s/Kcxata3nOkPGlhQzQ79cR2lDLLjTaO5/0an7ODMG6GQ7fdCt
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(396003)(366004)(346002)(376002)(39860400002)(5660300002)(7696005)(2906002)(71200400001)(186003)(83380400001)(478600001)(52536014)(76116006)(86362001)(33656002)(66946007)(66476007)(66556008)(64756008)(66446008)(8936002)(8676002)(4744005)(26005)(316002)(53546011)(6506007)(55016002)(9686003)(110136005);
+ SFS:(4636009)(346002)(366004)(39860400002)(396003)(136003)(376002)(110136005)(71200400001)(8676002)(186003)(26005)(478600001)(6506007)(7696005)(66476007)(66556008)(64756008)(66446008)(76116006)(53546011)(66946007)(6636002)(2906002)(52536014)(316002)(55016002)(8936002)(4744005)(86362001)(9686003)(5660300002)(33656002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 9hFwRSCOoW3oNceEQu5SqyRCZjSy0a4SavaB3zQ1Jd+o6wmsUWpEr16sJo6HxcdAK3CrBlGZsCoXTr/QeYHFgY2EUxrY2ltpnCYfvjJEj2sBYElVh/SLpu3xw08cM8/UUvy87k78nc55YrVsVNe6s8QKCky6kj0/TD94G+TJ9C770IGvmF8+be8WwdxPF0LvENm+wYWhCHOz/zXOa2n/w9apVdm+eyRhZKnThlqybzuIQn79v1HegwMMwuBFLECGsB4VzymA1yfoamM457XGgjKPiu/+L/yd9jxkP31SQg8TYE0UGk0vcFx3Z2Y7+OD4WqnNtXYR9eb9aRTnqCS9QbVOzSbOCDDuYUTs3OHi5cu80MZQTmp5h7F3ytb3kDwWIPRNKujKvL+Iirc+g4yuvayShGFdij4+ZeoqQ6Qb0CPqJPV2zESs3y8Fsn4HfSYd2EsAiHzY9kWbAqlCo1sonLvpqcht93ZcUJg4J8kutuNRZNAOJRFsdljCwi28gJYu
+x-ms-exchange-antispam-messagedata: LYgncUbFJHROzZjxUGpZ4IzPjtZw55hPp2y1ZChX+W1iNkCR4ycrtyHx45X4b4QeUjjOcVy9mYOYnx1KLa7CPN2RFUR/4brzlkdWTkPSVG7jmuYbyoJgRVsHnAmgzaNaI6VP1gmiaeIft7mxHcZDWqCISiP7YgXFf96s/1cMJ9/Wz8JSWs0jh04r44yLGebmDjLqDlSdY/+E3aCNpzyyChQJwGxLSpEDm/0QB34rof/vKtjnnzSYEiiEwMQx8b8LUpPhqE7rLvEgI43gb8Q3FG6ZV7qNxwEKpzfJx+z7WIY3c8jgFJ6C4a+4xYBaMfnjJ8rlQiGLXiDYr+VPOZ/kfY90Us/2Engs0v8OR+/GU1B+fC+uY/5V/Hx5fVmWhuWefIIJRV7PNDL7368ofjonPjkHCHxGiSGB4pytqygxSXz+rmnoU/kjIUmr7eKAp6h1Prq4l1UJG7Va7lFtnneu+lwVgaxc2Vf6Ytd3hx0rQyG789/8ei6LY0DE0g2oaMVs
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9789dbb5-0d26-4000-f34c-08d82d65e14e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2020 11:04:46.6515 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9b92a42-35e0-4d94-4323-08d82d66c021
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2020 11:11:00.4860 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GboLcnQhlruFlxWXep3dgWLB7OSTLnqdsB4QNvufGxn6voaJRAGxGbdd8+fJA9feMUL+uw17v+UZOfAJxXn4wg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2780
+X-MS-Exchange-CrossTenant-userprincipalname: txj0OO2ZU5KnswG30mDf+aVU3BrQhgImFvnJ4qmLB0kvcU8Cckn//bAp0z6JGSCeZYglGurPm1h0Yt/YNfmB9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,38 +119,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0280410165=="
+Content-Type: multipart/mixed; boundary="===============1228570388=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0280410165==
+--===============1228570388==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_"
+	boundary="_000_DM6PR12MB407565C7AF933B6B90687F93FC780DM6PR12MB4075namp_"
 
---_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_
+--_000_DM6PR12MB407565C7AF933B6B90687F93FC780DM6PR12MB4075namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Public Use]
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+-              if (adev->asic_type !=3D CHIP_VEGA20 && adev->asic_type !=3D=
+ CHIP_ARCTURUS)
++             if (adev->asic_type !=3D CHIP_VEGA20           &&
++                 adev->asic_type !=3D CHIP_ARCTURUS         &&
++                 adev->asic_type !=3D CHIP_SIENNA_CICHLID)
+                               return 0;
+
+Does it make sense to check UMC RAS availability through amdgpu_ras_is_supp=
+orted, instead of check specific ASIC type one by one?
+
+Also, it would be good to merge the upcoming logic from Guchun where we hav=
+e a gloal flag to mark the availability of bad page retirement.
+
+Thoughts?
 
 Regards,
 Hawking
 From: Clements, John <John.Clements@amd.com>
-Sent: Tuesday, July 21, 2020 17:54
+Sent: Tuesday, July 21, 2020 18:02
 To: amd-gfx list <amd-gfx@lists.freedesktop.org>; Zhang, Hawking <Hawking.Z=
 hang@amd.com>
-Subject: [PATCH] drm/amdgpu: expand sienna chichlid reg access support
+Subject: [PATCH] drm/amdgpu: add RAS EEPROM support for sienna chichlid
 
 
 [AMD Public Use]
 
-Added support for dedicated 64bit read/write reg support for sienna chichli=
-d
+Submitting patch to enable RAS EEPROM support for sienna chichlid
 
---_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_
+--_000_DM6PR12MB407565C7AF933B6B90687F93FC780DM6PR12MB4075namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -215,8 +227,35 @@ div.WordSection1
 <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
 lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com=
-&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type !=3D CHIP_VEGA20 &amp;&a=
+mp; adev-&gt;asic_type !=3D CHIP_ARCTURUS)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type !=3D CHIP_VEGA20&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp;<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; adev-&gt;asic_type !=3D CHIP_A=
+RCTURUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp;<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; adev-&gt;asic_type !=3D CHIP_S=
+IENNA_CICHLID)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Does it make sense to check UMC RAS availability thr=
+ough amdgpu_ras_is_supported, instead of check specific ASIC type one by on=
+e?
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Also, it would be good to merge the upcoming logic f=
+rom Guchun where we have a gloal flag to mark the availability of bad page =
+retirement.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thoughts?<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Regards,<br>
 Hawking<o:p></o:p></p>
@@ -225,11 +264,11 @@ Hawking<o:p></o:p></p>
 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
 m&gt; <br>
-<b>Sent:</b> Tuesday, July 21, 2020 17:54<br>
+<b>Sent:</b> Tuesday, July 21, 2020 18:02<br>
 <b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Zhang, Hawki=
 ng &lt;Hawking.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: expand sienna chichlid reg access suppo=
-rt<o:p></o:p></p>
+<b>Subject:</b> [PATCH] drm/amdgpu: add RAS EEPROM support for sienna chich=
+lid<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -237,15 +276,15 @@ rt<o:p></o:p></p>
 <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
 lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Added support for dedicated 64bit read/write reg sup=
-port for sienna chichlid<o:p></o:p></p>
+<p class=3D"MsoNormal">Submitting patch to enable RAS EEPROM support for si=
+enna chichlid<o:p></o:p></p>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_--
+--_000_DM6PR12MB407565C7AF933B6B90687F93FC780DM6PR12MB4075namp_--
 
---===============0280410165==
+--===============1228570388==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -256,4 +295,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0280410165==--
+--===============1228570388==--
