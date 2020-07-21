@@ -8,67 +8,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C26FC433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C874CC433E1
 	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D0645206F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9C122206F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZAm1yI6F"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0645206F5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6sYOWR4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C122206F5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9053A892D8;
-	Tue, 21 Jul 2020 18:09:11 +0000 (UTC)
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8611892D8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600DA6E2F8;
+	Tue, 21 Jul 2020 18:09:12 +0000 (UTC)
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7A8892D8
  for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 18:09:10 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id ed14so9763708qvb.2
+Received: by mail-qv1-xf42.google.com with SMTP id t11so9761792qvk.1
  for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:09:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=OiZfw7BivxHe5t4WdvP/Xi1WL6cb53dPLe1UR1RAl2I=;
- b=ZAm1yI6FgWFbzbk1GyfW0KHC+K6YMoKZbsijISnzbaA8cSywzUw1PhqiBBREelXpl6
- yrNrzw9cuItT7tBIemzzz89ljPPoqJ/PNhNFryHNsuVD5GnHa9ia7BZs4GetEMv0bF3j
- hyrmpn9R04NhcxTU7BlrQ/Kl4eX5sQTPKfSiQetaeYcqmSVB5hORFPVJ9GmnEdPqYJXi
- CTeVBRtB+weDxs8Jv+XLy+xIYyhYf7bTDpWOlhHgNFAbvF0lsN3UPWONEBsHYC2OEukL
- eGdsYk8VQbu2OoHq4zklHTM1KqM1uKbkmPgoGoYvTHRghJKlxFFAFcMwLRsOrVhx4KZ4
- hOKA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/UrB7RJKkE+GqomEqpNLE/sQtmAP8IYOHTwch51bVxY=;
+ b=O6sYOWR4upQfMRlmXlj4qweZN7C1xVXo4leZo8UTqbeaRLutVJsLZcRxxGGeG4QQiX
+ xRC5UUN/4R77+AfaYeXWX+nx41AklNXMMXIIu3boDulnN3wSJLuxUdtXvFWfRr+KqZcH
+ siDAXhJacQ1Mfyl0AqAX/0LltbPK0SNm/63KVCw7CHE4gdkVDm6Bqnr0wfVY0oOZCDWc
+ +icVN4bWoyv3NNnl2BtPlOwksfsXcDcUD1g9n+Jpv0tPlQzJmCUUn9dUk2EASPo4JSY6
+ S5b29Dkh+XIEXUQa1Yo26qNm7owVYrQeSyfABh2ZHwn6+DPDHjelfOegz1XRT8Pqfe1i
+ XbTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=OiZfw7BivxHe5t4WdvP/Xi1WL6cb53dPLe1UR1RAl2I=;
- b=N7y0zahmIrgu0uvpdt4XVofGy7xGISAEYy0GiyBoJ8jen0tW6l/TPa+oXVjk71lJVY
- LHgXumqJDD92AefVsJmYl4t80hAuMK2s+b5njWWWFXcgWCaiqkqdyiY8Pyi+wqtyCRN6
- tZSNM8ufmmgPEiO5b59XvqEyDbx4TK5dKWKf7vbfThqcluWz7F/YgClfTkkznwaYMuMz
- N2WxDdd1k1pOssTbmS7a3+u6bxT4tFHQ7rMy5Hh+Ln91r/57JqQINkQCEosdHgR/6TfK
- dBdWdHMJjgA8Okt/CcMCCxIyh1TYBtqAePRE5yQOsAak+dBYyQx89Z6yYdDPPMsqyAWS
- 3ODg==
-X-Gm-Message-State: AOAM532tt1Xvld4kJsh0yyQ1kvjdUWxuWlsWOEhukKFewMpHaO2J7UQv
- ziGGBmCGssuMcCArEZCAl2URDFIg
-X-Google-Smtp-Source: ABdhPJw0AnB9OLK7uT80Llm/tgjkwffF96XfdmSUI/7P5LpWRDBQbnvdHOlKVkZ2E646nWmQ91p31Q==
-X-Received: by 2002:a05:6214:a6c:: with SMTP id
- ef12mr27533020qvb.74.1595354949193; 
- Tue, 21 Jul 2020 11:09:09 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/UrB7RJKkE+GqomEqpNLE/sQtmAP8IYOHTwch51bVxY=;
+ b=HQyVvQGw6vHQv31pkzkzMF4/bvuFc14Dr3FOx8sT4VnhiWTICpu32QZz1geQP1Q+oy
+ JNdfDvA+Anp++jPI5fQXZtwJkmBXPEXo1jghHx7MaVwsbLVCE4tsn/rWywPcfyn+iT3X
+ UTYlL9T4myc80C/nxDcSQbiOuC+RPL1jhCb9ejNwr5paAtlZXuV/rKrWY/HqqzqYnvxI
+ CG2b3U5MqxLChDk47WW+4alcKhP8m1e+r463zkQFbNWlDi542YvXpVQmL696wc7VWuLn
+ AQMKV/djVXFK1Yol7F75ciF0J0bOhQO8oldEyDofkUSVdcF1cLQuvBTI3L1kdreZfdvF
+ B+zg==
+X-Gm-Message-State: AOAM530qQSpIeFZP/0iVui9kpRzh1lsHVpnk/Kc9nqea2IVxlBIxrtiT
+ dwucfq1kp2Uwl4C6RTa4zW6lp12E
+X-Google-Smtp-Source: ABdhPJwiustCYdudPAwTi7uWNV2t6Dp4TvdDwUXEolhtKmqdx9iZNrrpn78OVumQW9G8vmqccjF9JA==
+X-Received: by 2002:a0c:e5cc:: with SMTP id u12mr27861335qvm.54.1595354945620; 
+ Tue, 21 Jul 2020 11:09:05 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id t65sm2957284qkf.119.2020.07.21.11.09.06
+ by smtp.gmail.com with ESMTPSA id t65sm2957284qkf.119.2020.07.21.11.09.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2020 11:09:08 -0700 (PDT)
+ Tue, 21 Jul 2020 11:09:05 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/6] drm/amdgpu: remove eeprom from the smu i2c handlers
-Date: Tue, 21 Jul 2020 14:08:46 -0400
-Message-Id: <20200721180850.813406-2-alexander.deucher@amd.com>
+Subject: [PATCH 1/6] drm/amdgpu: move i2c bus lock out of ras structure
+Date: Tue, 21 Jul 2020 14:08:45 -0400
+Message-Id: <20200721180850.813406-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20200721180850.813406-1-alexander.deucher@amd.com>
-References: <20200721180850.813406-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,174 +85,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The driver uses it for EEPROM access, but it's just an i2c bus.
+It's not really ras related.  It's just a lock for the
+bus in general.  This removes the ras dependency from
+the smu i2c bus.
 
 Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    | 52 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h    |  4 +-
- .../drm/amd/powerplay/smumgr/vega20_smumgr.c  |  4 +-
- 3 files changed, 30 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h |  1 -
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c     | 10 +++-------
+ 3 files changed, 4 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+index 7f3cd7185650..aa27fe65cdfa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+@@ -425,6 +425,7 @@ struct amdgpu_pm {
+ 	u32                     default_sclk;
+ 	u32                     default_mclk;
+ 	struct amdgpu_i2c_chan *i2c_bus;
++	bool                    bus_locked;
+ 	/* internal thermal controller on rv6xx+ */
+ 	enum amdgpu_int_thermal_type int_thermal_type;
+ 	struct device	        *int_hwmon_dev;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+index 7e8647a05df7..9e7d640920fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+@@ -47,7 +47,6 @@ struct amdgpu_ras_eeprom_control {
+ 	uint32_t next_addr;
+ 	unsigned int num_recs;
+ 	struct mutex tbl_mutex;
+-	bool bus_locked;
+ 	uint32_t tbl_byte_sum;
+ 	uint16_t i2c_address; // 8-bit represented address
+ };
 diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-index f3d0324c4a7f..d55bf64770c4 100644
+index 9bffbab35041..f3d0324c4a7f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
 +++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-@@ -536,12 +536,12 @@ static bool smu_v11_0_i2c_bus_unlock(struct i2c_adapter *control)
- 	return false;
+@@ -32,7 +32,6 @@
+ #include "amdgpu_amdkfd.h"
+ #include <linux/i2c.h>
+ #include <linux/pci.h>
+-#include "amdgpu_ras.h"
+ 
+ /* error codes */
+ #define I2C_OK                0
+@@ -592,14 +591,13 @@ static uint32_t smu_v11_0_i2c_eeprom_write_data(struct i2c_adapter *control,
+ static void lock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(i2c);
+-	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
+ 
+ 	if (!smu_v11_0_i2c_bus_lock(i2c)) {
+ 		DRM_ERROR("Failed to lock the bus from SMU");
+ 		return;
+ 	}
+ 
+-	control->bus_locked = true;
++	adev->pm.bus_locked = true;
  }
  
--/***************************** EEPROM I2C GLUE ****************************/
-+/***************************** I2C GLUE ****************************/
- 
--static uint32_t smu_v11_0_i2c_eeprom_read_data(struct i2c_adapter *control,
--					       uint8_t address,
--					       uint8_t *data,
--					       uint32_t numbytes)
-+static uint32_t smu_v11_0_i2c_read_data(struct i2c_adapter *control,
-+					uint8_t address,
-+					uint8_t *data,
-+					uint32_t numbytes)
+ static int trylock_bus(struct i2c_adapter *i2c, unsigned int flags)
+@@ -611,14 +609,13 @@ static int trylock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ static void unlock_bus(struct i2c_adapter *i2c, unsigned int flags)
  {
- 	uint32_t  ret = 0;
+ 	struct amdgpu_device *adev = to_amdgpu_device(i2c);
+-	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
  
-@@ -561,10 +561,10 @@ static uint32_t smu_v11_0_i2c_eeprom_read_data(struct i2c_adapter *control,
- 	return ret;
+ 	if (!smu_v11_0_i2c_bus_unlock(i2c)) {
+ 		DRM_ERROR("Failed to unlock the bus from SMU");
+ 		return;
+ 	}
+ 
+-	control->bus_locked = false;
++	adev->pm.bus_locked = false;
  }
  
--static uint32_t smu_v11_0_i2c_eeprom_write_data(struct i2c_adapter *control,
--						uint8_t address,
--						uint8_t *data,
--						uint32_t numbytes)
-+static uint32_t smu_v11_0_i2c_write_data(struct i2c_adapter *control,
-+					 uint8_t address,
-+					 uint8_t *data,
-+					 uint32_t numbytes)
- {
- 	uint32_t  ret;
- 
-@@ -624,7 +624,7 @@ static const struct i2c_lock_operations smu_v11_0_i2c_i2c_lock_ops = {
- 	.unlock_bus = unlock_bus,
- };
- 
--static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
-+static int smu_v11_0_i2c_xfer(struct i2c_adapter *i2c_adap,
- 			      struct i2c_msg *msgs, int num)
+ static const struct i2c_lock_operations smu_v11_0_i2c_i2c_lock_ops = {
+@@ -632,9 +629,8 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
  {
  	int i, ret;
-@@ -639,13 +639,13 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	struct amdgpu_device *adev = to_amdgpu_device(i2c_adap);
+-	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
  
- 	for (i = 0; i < num; i++) {
- 		if (msgs[i].flags & I2C_M_RD)
--			ret = smu_v11_0_i2c_eeprom_read_data(i2c_adap,
--							(uint8_t)msgs[i].addr,
--							msgs[i].buf, msgs[i].len);
-+			ret = smu_v11_0_i2c_read_data(i2c_adap,
-+						      (uint8_t)msgs[i].addr,
-+						      msgs[i].buf, msgs[i].len);
- 		else
--			ret = smu_v11_0_i2c_eeprom_write_data(i2c_adap,
--							 (uint8_t)msgs[i].addr,
--							 msgs[i].buf, msgs[i].len);
-+			ret = smu_v11_0_i2c_write_data(i2c_adap,
-+						       (uint8_t)msgs[i].addr,
-+						       msgs[i].buf, msgs[i].len);
- 
- 		if (ret != I2C_OK) {
- 			num = -EIO;
-@@ -657,18 +657,18 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	return num;
- }
- 
--static u32 smu_v11_0_i2c_eeprom_i2c_func(struct i2c_adapter *adap)
-+static u32 smu_v11_0_i2c_func(struct i2c_adapter *adap)
- {
- 	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
- }
- 
- 
--static const struct i2c_algorithm smu_v11_0_i2c_eeprom_i2c_algo = {
--	.master_xfer = smu_v11_0_i2c_eeprom_i2c_xfer,
--	.functionality = smu_v11_0_i2c_eeprom_i2c_func,
-+static const struct i2c_algorithm smu_v11_0_i2c_algo = {
-+	.master_xfer = smu_v11_0_i2c_xfer,
-+	.functionality = smu_v11_0_i2c_func,
- };
- 
--int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
-+int smu_v11_0_i2c_control_init(struct i2c_adapter *control)
- {
- 	struct amdgpu_device *adev = to_amdgpu_device(control);
- 	int res;
-@@ -676,8 +676,8 @@ int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
- 	control->owner = THIS_MODULE;
- 	control->class = I2C_CLASS_SPD;
- 	control->dev.parent = &adev->pdev->dev;
--	control->algo = &smu_v11_0_i2c_eeprom_i2c_algo;
--	snprintf(control->name, sizeof(control->name), "AMDGPU EEPROM");
-+	control->algo = &smu_v11_0_i2c_algo;
-+	snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
- 	control->lock_ops = &smu_v11_0_i2c_i2c_lock_ops;
- 
- 	res = i2c_add_adapter(control);
-@@ -687,7 +687,7 @@ int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
- 	return res;
- }
- 
--void smu_v11_0_i2c_eeprom_control_fini(struct i2c_adapter *control)
-+void smu_v11_0_i2c_control_fini(struct i2c_adapter *control)
- {
- 	i2c_del_adapter(control);
- }
-@@ -715,9 +715,9 @@ bool smu_v11_0_i2c_test_bus(struct i2c_adapter *control)
- 	smu_v11_0_i2c_init(control);
- 
- 	/* Write 0xde to address 0x0000 on the EEPROM */
--	ret = smu_v11_0_i2c_eeprom_write_data(control, I2C_TARGET_ADDR, data, 6);
-+	ret = smu_v11_0_i2c_write_data(control, I2C_TARGET_ADDR, data, 6);
- 
--	ret = smu_v11_0_i2c_eeprom_read_data(control, I2C_TARGET_ADDR, data, 6);
-+	ret = smu_v11_0_i2c_read_data(control, I2C_TARGET_ADDR, data, 6);
- 
- 	smu_v11_0_i2c_fini(control);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h
-index 973f28d68e70..44467c05f642 100644
---- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h
-+++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h
-@@ -28,7 +28,7 @@
- 
- struct i2c_adapter;
- 
--int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control);
--void smu_v11_0_i2c_eeprom_control_fini(struct i2c_adapter *control);
-+int smu_v11_0_i2c_control_init(struct i2c_adapter *control);
-+void smu_v11_0_i2c_control_fini(struct i2c_adapter *control);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-index c2e0fbbccf56..d1b7955bb4c7 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-@@ -523,7 +523,7 @@ static int vega20_smu_init(struct pp_hwmgr *hwmgr)
- 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size = sizeof(DpmActivityMonitorCoeffInt_t);
- 
- 	if (adev->psp.ras.ras) {
--		ret = smu_v11_0_i2c_eeprom_control_init(&adev->pm.smu_i2c);
-+		ret = smu_v11_0_i2c_control_init(&adev->pm.smu_i2c);
- 		if (ret)
- 			goto err4;
+-	if (!control->bus_locked) {
++	if (!adev->pm.bus_locked) {
+ 		DRM_ERROR("I2C bus unlocked, stopping transaction!");
+ 		return -EIO;
  	}
-@@ -563,7 +563,7 @@ static int vega20_smu_fini(struct pp_hwmgr *hwmgr)
- 	struct amdgpu_device *adev = hwmgr->adev;
- 
- 	if (adev->psp.ras.ras)
--		smu_v11_0_i2c_eeprom_control_fini(&adev->pm.smu_i2c);
-+		smu_v11_0_i2c_control_fini(&adev->pm.smu_i2c);
- 
- 	if (priv) {
- 		amdgpu_bo_free_kernel(&priv->smu_tables.entry[TABLE_PPTABLE].handle,
 -- 
 2.25.4
 
