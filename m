@@ -2,116 +2,100 @@ Return-Path: <SRS0=9beK=BA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2C11C433E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 08:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 849EAC433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 08:43:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CB0A2080D
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 08:09:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7CD8120684
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 08:43:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xpwhJq7E"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CB0A2080D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UV2AAjVx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CD8120684
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F06346E433;
-	Tue, 21 Jul 2020 08:09:31 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062.outbound.protection.outlook.com [40.107.237.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882D16E433
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 08:09:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4771F6E527;
+	Tue, 21 Jul 2020 08:43:07 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32D886E527
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 08:43:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c0/9B2MmTNUcyKJcoh7rrXPuMGSayd2K7GUO6mNhNf+ZksLbHH6Omq0PyrlQpR2P2oQUd1hNc56uxx1KqDiMWt78rw25lUb6uD/P0NRUr2GNMUBJDlLzgNGdtiqSTEhkBMYH8uXVxOsCz7DLD/sRYGqVDsaeZIVwG1Nu0DOhB3MvuvX4o5iRJ0Yja/uEjF8bD795vtGGORF/k2E+VU0lhnonpDU4lTS9tUeneoLxKVc6dzwaO3kadLATFut4i6LWlze8M/tlqqheykf0Gg5jBRQOkjmRBgrj0tm3pzGiuSTiQALvHnFPKtXHAkwyY8cNK+wFUEaMkodUhfoFQHa/sA==
+ b=J6xvkz1ZhULMbajwDXFgFrlx39rPB+8tFkfG9j+gPIcTb+wSoxFgdC1wq7Y31WGNAhR3bjdgzDG1uA7FrCdKkK6rkFNZ7nwhBpUPvIOoeE7tmZU/Jii9kob96aCdQ15UnGUcXo6VghDYk0TA9b8oTm3WIEg2dMlGscYkRYefCHIFTaEqkCXnXuutyTpLZv1S3kjJ+3/CqlXIBZYQr8EnqIa6XaQGEEpu5EgmRSkllQtY5OMW1rvcKEdURyW1QCEwjHoKtTYUR5D2Cyv4D4kFmLwaKTtnRTv0WPUDg95NTKPXu+bKoSQdPTcM/cwv3nX3rPnQm5uhxdCZxsJeh8cEAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JXDFG+0AMDUxmEmGDi0zEFP2r9M2H7tjqKIFWDsGWW8=;
- b=KccgqF+FjglM9lRvmu6uzUjK/Jm/SLZYNL1jWML9rkOGJYd/i9d57jdnoViUliRTpU9+kvqQetqwu+0z1AxOZcNVj9bPKkoZ6qo+OfO8EI9HRJkI0k52oF9yrO7HXOy1OSvCQm1dT32ZBE0xGUBWU5toypw0XU/mKVk3BoanuC6Wb2Z5BYaGghRSR4vowY3fPcfThpzbYXvVcFbdOXaTZl/PuNotzBzMSkfm5N4xGb659mpY/C1YSbw36E0kZjIB0EU/vncg7/rC4SIMs8Qvth3SS0Qs16asgjKVRz24OmRxzzt1zb2o0RenZ4O1LSqCTk+skdxCHp3NAyHq4qZ+HA==
+ bh=QGRMsWf32LtVmi4kdpS5P4x75XRrr2A71x8VIdwYSg4=;
+ b=biFD5wUozbgF0JpFHTUmukM1WT4U+b9ARdtuTNEYMd2/q226nGXqmNe1XyiZcUEAY3N9HY9OxLI/wf12C6gSjIxRsvaxn+w+uBOYzkkeyrVPKbYqdR0e3IrkyomKQwgHuRlqfWg/SpryNBXtyn4deIV4ToEmfRsFG98xCrPePmT2hMs/jkDEzyyEfc8AX4nP0LehFMlXQlzIqO5f2w7SuH7Y2cnS14iqRmPekwdDBLSUoQGAms2phYOg9dsKwXJDsl9SHm5YL/ba7mHlXkPQJdp4qbSGzpGpw2kdGMQCNOKWXzeFIrexMrZQpMGAkKpeLtQqIM2WKwD369f7538jOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JXDFG+0AMDUxmEmGDi0zEFP2r9M2H7tjqKIFWDsGWW8=;
- b=xpwhJq7E7Zy3iXE4SRXzpZvweMKjcQwtj5Yrjwz3T0QoNb26J8AZ62QOV0C8YsooYt8IiIhebnUtMFF3icERAyESCgD8E+4tcosWD2XELa6N3jzcenWxKlvcOPCd9rMrGQxtI+nGCQhbt4j98i/cyZT/IEcEW0bbG8KJ8i+DTIU=
-Received: from CY4PR12MB1270.namprd12.prod.outlook.com (2603:10b6:903:43::17)
- by CY4PR12MB1270.namprd12.prod.outlook.com (2603:10b6:903:43::17)
+ bh=QGRMsWf32LtVmi4kdpS5P4x75XRrr2A71x8VIdwYSg4=;
+ b=UV2AAjVxZLENF40+ARQOoimnB8pcEX3g0I9dVvgiX+oNDxWwgozhYbbQaN0oYiO7EzmtOVtL2ktyIcQgyEkqxfbz1SbaibQ7ms1AYtiJebQ6r5KkHyVn1C6jCJrzSwGFN4gQhma2sqyPjsKJeIORSbzHDfnNmyNYDzoPq2b+b0M=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com (2603:10b6:300:114::19)
+ by MW3PR12MB4571.namprd12.prod.outlook.com (2603:10b6:303:5c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.22; Tue, 21 Jul
- 2020 08:09:29 +0000
-Received: from CY4PR12MB1270.namprd12.prod.outlook.com
- ([fe80::98b2:95b6:a029:2820]) by CY4PR12MB1270.namprd12.prod.outlook.com
- ([fe80::98b2:95b6:a029:2820%12]) with mapi id 15.20.3174.030; Tue, 21 Jul
- 2020 08:09:29 +0000
-From: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>
-To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/powerplay: add msg map for mode1 reset
-Thread-Topic: [PATCH] drm/amd/powerplay: add msg map for mode1 reset
-Thread-Index: AQHWXx65tWE8e0/o+Eyc9wkV5qnFJqkRrKjQ
-Date: Tue, 21 Jul 2020 08:09:29 +0000
-Message-ID: <CY4PR12MB127017AB5F12A8DFE3F02CF78C780@CY4PR12MB1270.namprd12.prod.outlook.com>
-References: <20200721052039.1246295-1-likun.gao@amd.com>
-In-Reply-To: <20200721052039.1246295-1-likun.gao@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-21T08:09:11Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=972a73fd-3240-4974-9a42-00005af50b0d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-07-21T08:09:11Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 24dfa01d-cac7-43da-8c9b-0000b0261dc9
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b60598ff-bc28-414a-78de-08d82d4d64bc
-x-ms-traffictypediagnostic: CY4PR12MB1270:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB12703C906E9CB5699A0452A18C780@CY4PR12MB1270.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5236;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 30H7YcDHrI/uusDU5imoXTJl/Iuh4EpE3aAs51dffH4Nr2f+DhZ2H4yUjwzkeiK/gEawvFCfOP+uhPRU+KhxJxL5OmjS9lHu1IJg2eUsJwXJvXfvHLUTwAo4IfeO+5w+F5CxRT40YQuBmBKwL/ajEQciUb8v5/MZ9wMww3A8HAWqrWEXGFNdFixtu9Un7HSIqdbOgVVS2ItWLQoKvpxDRvj7ruD5KKrb29JIXpaHe+zTUkHXYZmDVV7umCp6OtsngJgq534IOsFkMYAtMU2CdV2atzGYO3XuJ7Qq6kvSux1E93/OV/8TAkqPbOmPRMSt
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1270.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(366004)(136003)(39860400002)(376002)(396003)(33656002)(54906003)(316002)(110136005)(7696005)(71200400001)(2906002)(83380400001)(8676002)(26005)(76116006)(4326008)(478600001)(9686003)(66946007)(66556008)(66476007)(64756008)(6506007)(53546011)(86362001)(5660300002)(52536014)(55016002)(66446008)(8936002)(186003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: n9i5zdah/MMd5N7+2PBuRE2Y2WZ+oF2RARqwCPEo1eTPWwch8iOGIWT+c1i903hr6YDDotGtCv09v1XF97RDvyWiSxd3xtu7n7e+c24XPkeyu8OrkvajbF/ImL2nGgS5KLCjPW5WzPEsYQ7zQC9fCYrnVnz7SjKyTKTeSHNK4P30eO0z0gYzysVJu2Z0PB1lj60kh4SysrZQgpVpgiWSnn+vF9tABR+QwnoRtyl2MTosLK0dwoPJO5Yet+I85mPECB5oWUZQ6Qgd8HdK0eGJMS66OJ/8oqBEkby4uGW8PO05BvQhm7G7c8HPyhxhxlWRrB4Vhh0p+ok6chR2jDY+rvqK76rbdom4shHO7N9DFA71GSGdXRMTnhSwsRuAA2pXFFDUk1xG7yRkMaM9N6jDKsjMUaQqj3UU4qwsfk9dK7c8x+qxFr4PZyJN3svJQa4QBzNTtcoGiQjtPDOvcuHMZ+q9kKYwRwa5f/45MDIfYI2j10zaZOnWbBjgBzIlTS2b
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.25; Tue, 21 Jul
+ 2020 08:43:05 +0000
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::f518:2921:b1e3:fea2]) by MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::f518:2921:b1e3:fea2%10]) with mapi id 15.20.3195.026; Tue, 21 Jul
+ 2020 08:43:04 +0000
+From: Likun Gao <likun.gao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: correct smu message for vf mode
+Date: Tue, 21 Jul 2020 16:42:45 +0800
+Message-Id: <20200721084245.1256165-1-likun.gao@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: HK2PR04CA0048.apcprd04.prod.outlook.com
+ (2603:1096:202:14::16) To MWHPR12MB1854.namprd12.prod.outlook.com
+ (2603:10b6:300:114::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from lnx-glk.amd.com (58.247.170.242) by
+ HK2PR04CA0048.apcprd04.prod.outlook.com (2603:1096:202:14::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.18 via Frontend Transport; Tue, 21 Jul 2020 08:43:02 +0000
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 8b6e5361-bd31-47f7-fdd8-08d82d52157b
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4571:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4571240A4C71DF90C0CF5DE9EF780@MW3PR12MB4571.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RFEGuZyxPKod1UwiVrCZ0V9Jh0gZ2BOuOdtFPvxRKvAZHTcw8FfXZ+XNdysKe5wvuePrnX8iMkFcZi6C59Mw7lprGgLZxE05WWfuNzRiPofn/PApA21U0W5iPSVEoh+vDZeS0uZr/3Tm3A5AnbdjNqbiuVK4FSoUP4+7zajyyn1bz45E2QQEcJhYBIu760f/IJMYff3qWmt6gvgsxA7YPa1NtDd95khXisoM9L7GkvWjGs9VTE74n2qJdMkEt3GC0hz4Lg40MYdMw3ZzII/E0Y/CbfvqiRrvMA7oZ/B3E840VTZxk1pPsnDAujT4lkcATvxNeerpGP/hQl8FrdYxJQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1854.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(346002)(396003)(39860400002)(376002)(366004)(2616005)(956004)(1076003)(8676002)(5660300002)(186003)(36756003)(16526019)(478600001)(6666004)(6916009)(316002)(66946007)(86362001)(6486002)(2906002)(66556008)(66476007)(4326008)(83380400001)(8936002)(26005)(44832011)(52116002)(7696005)(54906003)(15650500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: zfqeh9OBYOMYgn12xqWRMWoeajClmpisKH/Fmn/w8uYzDbRBL/fQdD/7hsndGySke9kXYQXX13rLLyEMNl2d6+0TtIyd03gMqot8vk6uiVUM4tHN0YQH/X/IZ52aX6P6fOSAitdREOOuGZRialkNMzKl1UqFjV5qljq7BqXIGdacp134lyt2CNq+6GKyl4El006hNF2W/X6v3eNJ59UbxxZUpEKK8+xJ6zyW4LTjzjs4pxJ6TTfqHBjDWmws49KPNZ4pfxmBs6f+xxMI/7Slp9ehutuKHhWPaplKHamdLuWNmwQpr8Xb3iOiwoBbbLHRgIIgH2BiWhr/kyoFzOhrjtZF291a6N1uXlKxutDoUapKCeDEfexqZKhnplCimaypeEdLzy5uDb5aIU/6zrc8TyRdP+l9hS3JoxlpqZ98Gq+9ag95bxBGvo8fFW976fSpxh/JbmSREkxXhbhs41MIKtRMNjCl/Q04Y+Gly8pXAnKKa8/XDb5aqnu90FPr58ji
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b6e5361-bd31-47f7-fdd8-08d82d52157b
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1854.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1270.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b60598ff-bc28-414a-78de-08d82d4d64bc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2020 08:09:29.7910 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nzKsz7Nh1/j/azVSr6Qtr6pIoHobT4NXRd4UsznlTjSEFrz89HcgS7uAMkrQrxUxdRPGgQl6qnlNJf4dL+ZFeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1270
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2020 08:43:04.7279 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W4wlc/9+YYxAIunvrESv7p3o4Rd/4buyrWxPxFRmOBTFpHGoFM7YDl7ady9RI225
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4571
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,51 +107,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Quan, Evan" <Evan.Quan@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: Likun Gao <Likun.Gao@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ Wenhui Sheng <Wenhui.Sheng@amd.com>, Hawking Zhang <hawking.zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
-
-Commit : 81a5f33903a30574 has already contains this change, not sure why it disappear in current branch.
-
-And does it make sense to set valid_in_vf to be true? Mode1 reset shouldn't be supported  in vf mode I  think.
-
-Brs
-Wenhui
------Original Message-----
-From: Gao, Likun <Likun.Gao@amd.com> 
-Sent: Tuesday, July 21, 2020 1:21 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Gao, Likun <Likun.Gao@amd.com>
-Subject: [PATCH] drm/amd/powerplay: add msg map for mode1 reset
-
 From: Likun Gao <Likun.Gao@amd.com>
 
-Mapping Mode1Reset message for sienna_cichlid.
+Set valid_in_vf to false for the message not support in vf mode on
+sienna cichlid.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: I9b8d39b10c7723af4589577fdbfa4acd5af6e85d
+Change-Id: Ib07fe7522eea39a14131945bb76be0b0935598ae
 ---
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 70 +++++++++----------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index cae8e776fafe..bf3d6bbba930 100644
+index bf3d6bbba930..d4156804bf41 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -118,6 +118,7 @@ static struct cmn2asic_msg_mapping sienna_cichlid_message_map[SMU_MSG_MAX_COUNT]
- 	MSG_MAP(PowerDownJpeg,			PPSMC_MSG_PowerDownJpeg,               1),
- 	MSG_MAP(BacoAudioD3PME,			PPSMC_MSG_BacoAudioD3PME,              1),
- 	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       1),
-+	MSG_MAP(Mode1Reset,                     PPSMC_MSG_Mode1Reset,		       1),
+@@ -71,10 +71,10 @@ static struct cmn2asic_msg_mapping sienna_cichlid_message_map[SMU_MSG_MAX_COUNT]
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+ 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
+ 	MSG_MAP(GetDriverIfVersion,		PPSMC_MSG_GetDriverIfVersion,          1),
+-	MSG_MAP(SetAllowedFeaturesMaskLow,	PPSMC_MSG_SetAllowedFeaturesMaskLow,   1),
+-	MSG_MAP(SetAllowedFeaturesMaskHigh,	PPSMC_MSG_SetAllowedFeaturesMaskHigh,  1),
+-	MSG_MAP(EnableAllSmuFeatures,		PPSMC_MSG_EnableAllSmuFeatures,        1),
+-	MSG_MAP(DisableAllSmuFeatures,		PPSMC_MSG_DisableAllSmuFeatures,       1),
++	MSG_MAP(SetAllowedFeaturesMaskLow,	PPSMC_MSG_SetAllowedFeaturesMaskLow,   0),
++	MSG_MAP(SetAllowedFeaturesMaskHigh,	PPSMC_MSG_SetAllowedFeaturesMaskHigh,  0),
++	MSG_MAP(EnableAllSmuFeatures,		PPSMC_MSG_EnableAllSmuFeatures,        0),
++	MSG_MAP(DisableAllSmuFeatures,		PPSMC_MSG_DisableAllSmuFeatures,       0),
+ 	MSG_MAP(EnableSmuFeaturesLow,		PPSMC_MSG_EnableSmuFeaturesLow,        1),
+ 	MSG_MAP(EnableSmuFeaturesHigh,		PPSMC_MSG_EnableSmuFeaturesHigh,       1),
+ 	MSG_MAP(DisableSmuFeaturesLow,		PPSMC_MSG_DisableSmuFeaturesLow,       1),
+@@ -82,43 +82,43 @@ static struct cmn2asic_msg_mapping sienna_cichlid_message_map[SMU_MSG_MAX_COUNT]
+ 	MSG_MAP(GetEnabledSmuFeaturesLow,       PPSMC_MSG_GetRunningSmuFeaturesLow,    1),
+ 	MSG_MAP(GetEnabledSmuFeaturesHigh,	PPSMC_MSG_GetRunningSmuFeaturesHigh,   1),
+ 	MSG_MAP(SetWorkloadMask,		PPSMC_MSG_SetWorkloadMask,             1),
+-	MSG_MAP(SetPptLimit,			PPSMC_MSG_SetPptLimit,                 1),
+-	MSG_MAP(SetDriverDramAddrHigh,		PPSMC_MSG_SetDriverDramAddrHigh,       1),
+-	MSG_MAP(SetDriverDramAddrLow,		PPSMC_MSG_SetDriverDramAddrLow,        1),
+-	MSG_MAP(SetToolsDramAddrHigh,		PPSMC_MSG_SetToolsDramAddrHigh,        1),
+-	MSG_MAP(SetToolsDramAddrLow,		PPSMC_MSG_SetToolsDramAddrLow,         1),
+-	MSG_MAP(TransferTableSmu2Dram,		PPSMC_MSG_TransferTableSmu2Dram,       1),
+-	MSG_MAP(TransferTableDram2Smu,		PPSMC_MSG_TransferTableDram2Smu,       1),
+-	MSG_MAP(UseDefaultPPTable,		PPSMC_MSG_UseDefaultPPTable,           1),
+-	MSG_MAP(EnterBaco,			PPSMC_MSG_EnterBaco,                   1),
+-	MSG_MAP(SetSoftMinByFreq,		PPSMC_MSG_SetSoftMinByFreq,            1),
+-	MSG_MAP(SetSoftMaxByFreq,		PPSMC_MSG_SetSoftMaxByFreq,            1),
++	MSG_MAP(SetPptLimit,			PPSMC_MSG_SetPptLimit,                 0),
++	MSG_MAP(SetDriverDramAddrHigh,		PPSMC_MSG_SetDriverDramAddrHigh,       0),
++	MSG_MAP(SetDriverDramAddrLow,		PPSMC_MSG_SetDriverDramAddrLow,        0),
++	MSG_MAP(SetToolsDramAddrHigh,		PPSMC_MSG_SetToolsDramAddrHigh,        0),
++	MSG_MAP(SetToolsDramAddrLow,		PPSMC_MSG_SetToolsDramAddrLow,         0),
++	MSG_MAP(TransferTableSmu2Dram,		PPSMC_MSG_TransferTableSmu2Dram,       0),
++	MSG_MAP(TransferTableDram2Smu,		PPSMC_MSG_TransferTableDram2Smu,       0),
++	MSG_MAP(UseDefaultPPTable,		PPSMC_MSG_UseDefaultPPTable,           0),
++	MSG_MAP(EnterBaco,			PPSMC_MSG_EnterBaco,                   0),
++	MSG_MAP(SetSoftMinByFreq,		PPSMC_MSG_SetSoftMinByFreq,            0),
++	MSG_MAP(SetSoftMaxByFreq,		PPSMC_MSG_SetSoftMaxByFreq,            0),
+ 	MSG_MAP(SetHardMinByFreq,		PPSMC_MSG_SetHardMinByFreq,            1),
+-	MSG_MAP(SetHardMaxByFreq,		PPSMC_MSG_SetHardMaxByFreq,            1),
++	MSG_MAP(SetHardMaxByFreq,		PPSMC_MSG_SetHardMaxByFreq,            0),
+ 	MSG_MAP(GetMinDpmFreq,			PPSMC_MSG_GetMinDpmFreq,               1),
+ 	MSG_MAP(GetMaxDpmFreq,			PPSMC_MSG_GetMaxDpmFreq,               1),
+ 	MSG_MAP(GetDpmFreqByIndex,		PPSMC_MSG_GetDpmFreqByIndex,           1),
+-	MSG_MAP(SetGeminiMode,			PPSMC_MSG_SetGeminiMode,               1),
+-	MSG_MAP(SetGeminiApertureHigh,		PPSMC_MSG_SetGeminiApertureHigh,       1),
+-	MSG_MAP(SetGeminiApertureLow,		PPSMC_MSG_SetGeminiApertureLow,        1),
+-	MSG_MAP(OverridePcieParameters,		PPSMC_MSG_OverridePcieParameters,      1),
+-	MSG_MAP(ReenableAcDcInterrupt,		PPSMC_MSG_ReenableAcDcInterrupt,       1),
+-	MSG_MAP(NotifyPowerSource,		PPSMC_MSG_NotifyPowerSource,           1),
+-	MSG_MAP(SetUclkFastSwitch,		PPSMC_MSG_SetUclkFastSwitch,           1),
+-	MSG_MAP(SetVideoFps,			PPSMC_MSG_SetVideoFps,                 1),
++	MSG_MAP(SetGeminiMode,			PPSMC_MSG_SetGeminiMode,               0),
++	MSG_MAP(SetGeminiApertureHigh,		PPSMC_MSG_SetGeminiApertureHigh,       0),
++	MSG_MAP(SetGeminiApertureLow,		PPSMC_MSG_SetGeminiApertureLow,        0),
++	MSG_MAP(OverridePcieParameters,		PPSMC_MSG_OverridePcieParameters,      0),
++	MSG_MAP(ReenableAcDcInterrupt,		PPSMC_MSG_ReenableAcDcInterrupt,       0),
++	MSG_MAP(NotifyPowerSource,		PPSMC_MSG_NotifyPowerSource,           0),
++	MSG_MAP(SetUclkFastSwitch,		PPSMC_MSG_SetUclkFastSwitch,           0),
++	MSG_MAP(SetVideoFps,			PPSMC_MSG_SetVideoFps,                 0),
+ 	MSG_MAP(PrepareMp1ForUnload,		PPSMC_MSG_PrepareMp1ForUnload,         1),
+-	MSG_MAP(AllowGfxOff,			PPSMC_MSG_AllowGfxOff,                 1),
+-	MSG_MAP(DisallowGfxOff,			PPSMC_MSG_DisallowGfxOff,              1),
+-	MSG_MAP(GetPptLimit,			PPSMC_MSG_GetPptLimit,                 1),
++	MSG_MAP(AllowGfxOff,			PPSMC_MSG_AllowGfxOff,                 0),
++	MSG_MAP(DisallowGfxOff,			PPSMC_MSG_DisallowGfxOff,              0),
++	MSG_MAP(GetPptLimit,			PPSMC_MSG_GetPptLimit,                 0),
+ 	MSG_MAP(GetDcModeMaxDpmFreq,		PPSMC_MSG_GetDcModeMaxDpmFreq,         1),
+-	MSG_MAP(ExitBaco,			PPSMC_MSG_ExitBaco,                    1),
+-	MSG_MAP(PowerUpVcn,			PPSMC_MSG_PowerUpVcn,                  1),
+-	MSG_MAP(PowerDownVcn,			PPSMC_MSG_PowerDownVcn,                1),
+-	MSG_MAP(PowerUpJpeg,			PPSMC_MSG_PowerUpJpeg,                 1),
+-	MSG_MAP(PowerDownJpeg,			PPSMC_MSG_PowerDownJpeg,               1),
+-	MSG_MAP(BacoAudioD3PME,			PPSMC_MSG_BacoAudioD3PME,              1),
+-	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       1),
+-	MSG_MAP(Mode1Reset,                     PPSMC_MSG_Mode1Reset,		       1),
++	MSG_MAP(ExitBaco,			PPSMC_MSG_ExitBaco,                    0),
++	MSG_MAP(PowerUpVcn,			PPSMC_MSG_PowerUpVcn,                  0),
++	MSG_MAP(PowerDownVcn,			PPSMC_MSG_PowerDownVcn,                0),
++	MSG_MAP(PowerUpJpeg,			PPSMC_MSG_PowerUpJpeg,                 0),
++	MSG_MAP(PowerDownJpeg,			PPSMC_MSG_PowerDownJpeg,               0),
++	MSG_MAP(BacoAudioD3PME,			PPSMC_MSG_BacoAudioD3PME,              0),
++	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       0),
++	MSG_MAP(Mode1Reset,                     PPSMC_MSG_Mode1Reset,		       0),
  };
  
  static struct cmn2asic_mapping sienna_cichlid_clk_map[SMU_CLK_COUNT] = {
 -- 
 2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
