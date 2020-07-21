@@ -8,64 +8,66 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C874CC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF369C433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C122206F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8400C206F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 18:09:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6sYOWR4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C122206F5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AbcG5PnR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8400C206F5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 600DA6E2F8;
-	Tue, 21 Jul 2020 18:09:12 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7A8892D8
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 18:09:10 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id t11so9761792qvk.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:09:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5113B6E421;
+	Tue, 21 Jul 2020 18:09:15 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B34086E10E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 18:09:11 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id l6so20239512qkc.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:09:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/UrB7RJKkE+GqomEqpNLE/sQtmAP8IYOHTwch51bVxY=;
- b=O6sYOWR4upQfMRlmXlj4qweZN7C1xVXo4leZo8UTqbeaRLutVJsLZcRxxGGeG4QQiX
- xRC5UUN/4R77+AfaYeXWX+nx41AklNXMMXIIu3boDulnN3wSJLuxUdtXvFWfRr+KqZcH
- siDAXhJacQ1Mfyl0AqAX/0LltbPK0SNm/63KVCw7CHE4gdkVDm6Bqnr0wfVY0oOZCDWc
- +icVN4bWoyv3NNnl2BtPlOwksfsXcDcUD1g9n+Jpv0tPlQzJmCUUn9dUk2EASPo4JSY6
- S5b29Dkh+XIEXUQa1Yo26qNm7owVYrQeSyfABh2ZHwn6+DPDHjelfOegz1XRT8Pqfe1i
- XbTw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=twMGEkdOC2Xs5I1flqbc7kkTt5buxo+JWIRI5WGvke8=;
+ b=AbcG5PnRj1G6OQJMOJWciyCEJSofrTe5iM5zPPg3yyem2FnPli0+WS+yjYSpsgBCuH
+ u8V2hA2KSpS+k6AU3GcBBhAP7+NWvIged74rvkkgCEyGjUgwCYd0DrHYOWi68jC2T231
+ vWi+0Req+iWPu366n+aYF/2RafhgxFzbaQQ2grzZgqZ5TvsEiyVX9KOMEU6ofjei6kIn
+ fqG/byw4eZSBtm1Rwu3tFVoLqnrDqsb2TgkXY2erfLEXScKUXSfszxnKqDZkXbS/06lE
+ YsvnU2w0OwzEQ6y925Piy1wpBS1Ze21P+8xkLvs/o1ujVx482VbANHaSqdYDR6O2Nm2U
+ xNUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/UrB7RJKkE+GqomEqpNLE/sQtmAP8IYOHTwch51bVxY=;
- b=HQyVvQGw6vHQv31pkzkzMF4/bvuFc14Dr3FOx8sT4VnhiWTICpu32QZz1geQP1Q+oy
- JNdfDvA+Anp++jPI5fQXZtwJkmBXPEXo1jghHx7MaVwsbLVCE4tsn/rWywPcfyn+iT3X
- UTYlL9T4myc80C/nxDcSQbiOuC+RPL1jhCb9ejNwr5paAtlZXuV/rKrWY/HqqzqYnvxI
- CG2b3U5MqxLChDk47WW+4alcKhP8m1e+r463zkQFbNWlDi542YvXpVQmL696wc7VWuLn
- AQMKV/djVXFK1Yol7F75ciF0J0bOhQO8oldEyDofkUSVdcF1cLQuvBTI3L1kdreZfdvF
- B+zg==
-X-Gm-Message-State: AOAM530qQSpIeFZP/0iVui9kpRzh1lsHVpnk/Kc9nqea2IVxlBIxrtiT
- dwucfq1kp2Uwl4C6RTa4zW6lp12E
-X-Google-Smtp-Source: ABdhPJwiustCYdudPAwTi7uWNV2t6Dp4TvdDwUXEolhtKmqdx9iZNrrpn78OVumQW9G8vmqccjF9JA==
-X-Received: by 2002:a0c:e5cc:: with SMTP id u12mr27861335qvm.54.1595354945620; 
- Tue, 21 Jul 2020 11:09:05 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=twMGEkdOC2Xs5I1flqbc7kkTt5buxo+JWIRI5WGvke8=;
+ b=Oab9bkEP9JgwiksUJqfoMdRbkc76kc0nMSw82glxts/7Kvc5mRqak9t+zhynPSNdaa
+ cS+RLpKGRBf5/fpAvKh8pYkFmfNx1u7fc5nAO8bsyq2195++bwxrXcnG4YAdNyZkUraR
+ OiAWWdj2j2ZJ4LknIinFGMIWqmzmdY+IA4f4m/OAWrOooTFDyNT7VKbfYUKGVP+pjgAP
+ SYqh8vHPYS1pVw13yzaRNJIK4U6MXFQ9pPmS+YYTfjkEbp8ZPJdr2V2cG5Gv4ZDSZ1T0
+ vXA8jYFMtFbqk1J5jYQSDJGC3JYJQ65tJiO044apKAfqCCZGREeuavmxc7h+dwHk4FDa
+ 6slA==
+X-Gm-Message-State: AOAM533R10VfqzQ+OOs40uUF1D+lT4wJDenJ9npiJANklHAYZSo8w6ok
+ uCHrvmEcBKhSN2BVdY6Pg189KlrT
+X-Google-Smtp-Source: ABdhPJzuvSaw2DoBR17ghTwaCOG6uC/Q/loneFIEmNGbu+s5R8TA9MLlOdGjZTUpY0BWJCYBIozcaQ==
+X-Received: by 2002:a37:9fd0:: with SMTP id i199mr7328646qke.248.1595354950635; 
+ Tue, 21 Jul 2020 11:09:10 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id t65sm2957284qkf.119.2020.07.21.11.09.00
+ by smtp.gmail.com with ESMTPSA id t65sm2957284qkf.119.2020.07.21.11.09.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2020 11:09:05 -0700 (PDT)
+ Tue, 21 Jul 2020 11:09:09 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/6] drm/amdgpu: move i2c bus lock out of ras structure
-Date: Tue, 21 Jul 2020 14:08:45 -0400
-Message-Id: <20200721180850.813406-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/6] drm/amdgpu/vega20: enable the smu i2c bus for all boards
+Date: Tue, 21 Jul 2020 14:08:47 -0400
+Message-Id: <20200721180850.813406-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20200721180850.813406-1-alexander.deucher@amd.com>
+References: <20200721180850.813406-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,97 +87,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's not really ras related.  It's just a lock for the
-bus in general.  This removes the ras dependency from
-the smu i2c bus.
+There is no longer a ras dependency so it's safe to expose
+on all boards.
 
 Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h |  1 -
- drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c     | 10 +++-------
- 3 files changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-index 7f3cd7185650..aa27fe65cdfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-@@ -425,6 +425,7 @@ struct amdgpu_pm {
- 	u32                     default_sclk;
- 	u32                     default_mclk;
- 	struct amdgpu_i2c_chan *i2c_bus;
-+	bool                    bus_locked;
- 	/* internal thermal controller on rv6xx+ */
- 	enum amdgpu_int_thermal_type int_thermal_type;
- 	struct device	        *int_hwmon_dev;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-index 7e8647a05df7..9e7d640920fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-@@ -47,7 +47,6 @@ struct amdgpu_ras_eeprom_control {
- 	uint32_t next_addr;
- 	unsigned int num_recs;
- 	struct mutex tbl_mutex;
--	bool bus_locked;
- 	uint32_t tbl_byte_sum;
- 	uint16_t i2c_address; // 8-bit represented address
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-index 9bffbab35041..f3d0324c4a7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-+++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
-@@ -32,7 +32,6 @@
- #include "amdgpu_amdkfd.h"
- #include <linux/i2c.h>
- #include <linux/pci.h>
--#include "amdgpu_ras.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+index d1b7955bb4c7..cf43629d29d2 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+@@ -522,11 +522,9 @@ static int vega20_smu_init(struct pp_hwmgr *hwmgr)
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].version = 0x01;
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size = sizeof(DpmActivityMonitorCoeffInt_t);
  
- /* error codes */
- #define I2C_OK                0
-@@ -592,14 +591,13 @@ static uint32_t smu_v11_0_i2c_eeprom_write_data(struct i2c_adapter *control,
- static void lock_bus(struct i2c_adapter *i2c, unsigned int flags)
- {
- 	struct amdgpu_device *adev = to_amdgpu_device(i2c);
--	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
+-	if (adev->psp.ras.ras) {
+-		ret = smu_v11_0_i2c_control_init(&adev->pm.smu_i2c);
+-		if (ret)
+-			goto err4;
+-	}
++	ret = smu_v11_0_i2c_control_init(&adev->pm.smu_i2c);
++	if (ret)
++		goto err4;
  
- 	if (!smu_v11_0_i2c_bus_lock(i2c)) {
- 		DRM_ERROR("Failed to lock the bus from SMU");
- 		return;
- 	}
+ 	return 0;
  
--	control->bus_locked = true;
-+	adev->pm.bus_locked = true;
- }
+@@ -562,8 +560,7 @@ static int vega20_smu_fini(struct pp_hwmgr *hwmgr)
+ 			(struct vega20_smumgr *)(hwmgr->smu_backend);
+ 	struct amdgpu_device *adev = hwmgr->adev;
  
- static int trylock_bus(struct i2c_adapter *i2c, unsigned int flags)
-@@ -611,14 +609,13 @@ static int trylock_bus(struct i2c_adapter *i2c, unsigned int flags)
- static void unlock_bus(struct i2c_adapter *i2c, unsigned int flags)
- {
- 	struct amdgpu_device *adev = to_amdgpu_device(i2c);
--	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
+-	if (adev->psp.ras.ras)
+-		smu_v11_0_i2c_control_fini(&adev->pm.smu_i2c);
++	smu_v11_0_i2c_control_fini(&adev->pm.smu_i2c);
  
- 	if (!smu_v11_0_i2c_bus_unlock(i2c)) {
- 		DRM_ERROR("Failed to unlock the bus from SMU");
- 		return;
- 	}
- 
--	control->bus_locked = false;
-+	adev->pm.bus_locked = false;
- }
- 
- static const struct i2c_lock_operations smu_v11_0_i2c_i2c_lock_ops = {
-@@ -632,9 +629,8 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
- {
- 	int i, ret;
- 	struct amdgpu_device *adev = to_amdgpu_device(i2c_adap);
--	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
- 
--	if (!control->bus_locked) {
-+	if (!adev->pm.bus_locked) {
- 		DRM_ERROR("I2C bus unlocked, stopping transaction!");
- 		return -EIO;
- 	}
+ 	if (priv) {
+ 		amdgpu_bo_free_kernel(&priv->smu_tables.entry[TABLE_PPTABLE].handle,
 -- 
 2.25.4
 
