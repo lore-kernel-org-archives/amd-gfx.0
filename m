@@ -2,102 +2,74 @@ Return-Path: <SRS0=9beK=BA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33A06C433E5
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 10:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A02FC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 10:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0536A20714
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 10:29:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ED6C920729
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 10:47:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DHMIyqjr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0536A20714
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=shipmail.org header.i=@shipmail.org header.b="SWKK5JDY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED6C920729
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B322E6E4C5;
-	Tue, 21 Jul 2020 10:29:43 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3271B6E4B7
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 10:29:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EbUkRdLG1YB3pVVFClBJtWJDiPaUNMhHsnDsbbJtlxQJFbikSsyZ10Kq3DpuGm43N1ldjyHCXX2YExd4NMs9sYRoGh12OF1ApLroZ5OuHD3IqDYWg+o17SVleZXFPpD5FoCXMeman7rlOM3reSZj6HkHUXkaMd3ccpdPbDsW5nQHX1QzOGSnwVKFrjShmEn2u+wiaAciY0cT10sC+1z+/unvxL07S7ypwoLzuOworF0/M7m8F5cLtUhFTBU86YV19nARUuz7ScHDak1ALHHhLXB4AlxgfoJX26AmLbi5QW9L1Yb8qd1B4JMwO215q1QQZdvGE9tzbWSeA0y8XAeN6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a2NoLgT8TL8fyFkCHLruD/Retu/N2TVcjRsB6n9Nbkw=;
- b=UoC80qHumlXbifc5/mQyFjLoX3gp14sCSBhd6BXxhFUrbNfysumqY3NeSC06ZBR3PZ9PmJ1YNwHwMTxb0vFOv0qxEZsLpUnABVPhTTWv/NgGp1i+Rz5EOcQvJQo3Xi0PIZR6clrULK2x2pxdc1ycL6K8eEWcsk6WbPwMlVYXrdJOj29zg1HfJ4iTkqH0oal9zyFTbXyaTyvFSk4bmRIwfvezAmE3fT+XDyjjaBQhQYdmaNAO4O2AA7Zg91f216Sl/54OCyoH0w7wvMv64K0HOBkazqxDQuThYF/7CaHq0BiITnmhm8y8mO4bDPje2YIeUuo8gCs8yLjYqLZj9MH8Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a2NoLgT8TL8fyFkCHLruD/Retu/N2TVcjRsB6n9Nbkw=;
- b=DHMIyqjr6olXXif67AdkbDoXHbzeFeq+b6b/6IyMNwNboCrCYJ2iZMtmIjpIo/md+9g4pDXuefwpgrrHf+/fcH7x/t7PuIf4h0ml9YuMU02HqqOV7XVIvgSaB5HBTGGjBf3A+xdvp4etI9XxOquqBfBuqFnNEqZu06KeLrixqoc=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3774.namprd12.prod.outlook.com (2603:10b6:208:16a::13)
- by MN2PR12MB4144.namprd12.prod.outlook.com (2603:10b6:208:15f::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.23; Tue, 21 Jul
- 2020 10:29:40 +0000
-Received: from MN2PR12MB3774.namprd12.prod.outlook.com
- ([fe80::9cd:9d82:d316:9285]) by MN2PR12MB3774.namprd12.prod.outlook.com
- ([fe80::9cd:9d82:d316:9285%4]) with mapi id 15.20.3216.020; Tue, 21 Jul 2020
- 10:29:40 +0000
-From: Huang Rui <ray.huang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/5] drm/amdgpu: add vmhub funcs helper
-Date: Tue, 21 Jul 2020 18:29:17 +0800
-Message-Id: <1595327359-120379-4-git-send-email-ray.huang@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1595327359-120379-1-git-send-email-ray.huang@amd.com>
-References: <1595327359-120379-1-git-send-email-ray.huang@amd.com>
-X-ClientProxiedBy: HKAPR04CA0008.apcprd04.prod.outlook.com
- (2603:1096:203:d0::18) To MN2PR12MB3774.namprd12.prod.outlook.com
- (2603:10b6:208:16a::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 684DD6E05F;
+	Tue, 21 Jul 2020 10:47:41 +0000 (UTC)
+Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
+ [213.80.101.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 733F36E05F;
+ Tue, 21 Jul 2020 10:47:40 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 634B53FAA9;
+ Tue, 21 Jul 2020 12:47:38 +0200 (CEST)
+Authentication-Results: ste-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=SWKK5JDY; 
+ dkim-atps=neutral
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Lnu7aDB-FEDZ; Tue, 21 Jul 2020 12:47:37 +0200 (CEST)
+Received: from mail1.shipmail.org (h-205-35.A357.priv.bahnhof.se
+ [155.4.205.35]) (Authenticated sender: mb878879)
+ by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id B619E3FA36;
+ Tue, 21 Jul 2020 12:47:33 +0200 (CEST)
+Received: from localhost.localdomain (h-205-35.A357.priv.bahnhof.se
+ [155.4.205.35])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id C976C36014B;
+ Tue, 21 Jul 2020 12:47:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1595328452; bh=SgSXLo8jlp/fUxGq5/reKrY6eohj3hTAWwVyZVHKpuw=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=SWKK5JDYlv6qtQrYz/vvU9mKdIqWPE5+OPb/yzw09qAZIG2pjw+OHeMsgSa4jHpuS
+ uZ9fdDlzD4wuNqhhrbfgV1ASbwsDxz6PZs1TKxFzA/6WXfA+IuNOgIOyKzdvMZWhVC
+ PNVEsDJjINjdKaof0Wvjc1rMMD4+T1qlUEMbp7y4=
+Subject: Re: [Linaro-mm-sig] [PATCH 1/2] dma-buf.rst: Document why indefinite
+ fences are a bad idea
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20200707201229.472834-4-daniel.vetter@ffwll.ch>
+ <20200709123339.547390-1-daniel.vetter@ffwll.ch>
+ <93b673b7-bb48-96eb-dc2c-bd4f9304000e@shipmail.org>
+ <20200721074157.GB3278063@phenom.ffwll.local>
+ <3603bb71-318b-eb53-0532-9daab62dce86@amd.com>
+ <57a5eb9d-b74f-8ce4-7199-94e911d9b68b@shipmail.org>
+ <2ca2c004-1e11-87f5-4bd8-761e1b44d21f@amd.com>
+ <74727f17-b3a5-ca12-6db6-e47543797b72@shipmail.org>
+ <CAKMK7uFfMi5M5EkCeG6=tjuDANH4=gDLnFpxCYU-E-xyrxwYUg@mail.gmail.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+Message-ID: <ae4e4188-39e6-ec41-c11d-91e9211b4d3a@shipmail.org>
+Date: Tue, 21 Jul 2020 12:47:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from hr-intel.amd.com (58.247.170.245) by
- HKAPR04CA0008.apcprd04.prod.outlook.com (2603:1096:203:d0::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3195.18 via Frontend Transport; Tue, 21 Jul 2020 10:29:38 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [58.247.170.245]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 059ff263-7107-42de-f47f-08d82d60f97d
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4144:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4144A207C246490A6247263AEC780@MN2PR12MB4144.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RE/dtp9zXrZUQixLuzchnaSPBAfQaUhmDFxIpj0GiCfdeS9++lnbviknBuijl+guodCBPIXymlsbssKcX7EabxoDG2PZ/LFJfd18/z1j1jVW1gbya8EusLp7BMJN5m3gJYL+DBmbd4t7HE4j5/r8nb5pxW4dNeJ6ZiPHtVPy8lrKaSx1JpCdrsw6iC/23oarGAs2SeVKDKTInCvIKiz6JrgdOpoUn6GbZI3lloBiiym5AGyizvwPoctEZnPT21UqHwrKtsxIunVATbJmbu9gM6GXogh2A+uv/F/FM8zutOBQm0GAz5yWhrJdKOxlsv0mPeTd7fal/cIfz4E2VXsHWg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3774.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(39860400002)(136003)(346002)(366004)(396003)(956004)(2616005)(7696005)(26005)(478600001)(16526019)(186003)(4326008)(52116002)(19627235002)(6486002)(6666004)(2906002)(66476007)(66556008)(36756003)(83380400001)(5660300002)(86362001)(66946007)(8676002)(6916009)(8936002)(316002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: zJRikeYbDHXgcCwaAiKleSKFtMgUu9MLwIV54pohZW5GRZ4dseJZGhal23OO7p4kmkC8ZxGw22snB3Ga/5vGnjczNbmT+oV0DXaKTTuYFztTX+3i9UcnE5rmzCCj5W3O/HGezEJ7/CLf+PKOPQqM2nF4WYa/iUJi3tQkZcyIQf01Kfj1Z++YH7kGZA9ZSLbKyel4DCykRou9TtxsjAdTkrVQp/HDzFLVTQ7AZQCaTnxdQPHGPv/UXEBUjpjY07WTbeMWhAPzBIsnqXybLBAfkND8lsPUYddMD+KCQSQGD0mi/Nnm/AcYbSiz34fbnBwPOYiGFdhM5LHBYFzPWYGS5ScvrdsZ0igQlyYSPLU7o0anZ5E5zrDGnXQ4WAFo9MpIFb71T+y8IhP4gYLZNa06Bv4C8aqFETGqdhBU6dahVui9OGU05R0l4piLQMdxUK8+R4mcaRwbgkXuUGjW6GQzTVBWegVxVXiaJGMIBFDFpas6wVbk9O5oSVUrfTA2SDAO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 059ff263-7107-42de-f47f-08d82d60f97d
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3774.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2020 10:29:40.4243 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vkTGO4i8X7DwKh8MObQ3QTn42KFwbl3A0p3aVmiJJAmMSy4pDPxJplK0VJS6841AjUbAYOZkx57soqT2uaX/Ow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4144
+In-Reply-To: <CAKMK7uFfMi5M5EkCeG6=tjuDANH4=gDLnFpxCYU-E-xyrxwYUg@mail.gmail.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,265 +81,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Huang Rui <ray.huang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Stone <daniels@collabora.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Steve Pronovost <spronovo@microsoft.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Jason Ekstrand <jason@jlekstrand.net>, Jesse Natalie <jenatali@microsoft.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to introduce vmhub funcs helper to add following callback
-(print_l2_protection_fault_status). Each GC/MMHUB register specific programming
-should be in gfxhub/mmhub level.
-
-Signed-off-by: Huang Rui <ray.huang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  7 +++++++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 34 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 34 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 25 ++---------------------
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 34 ++++++++++++++++++++++++++++++++
- 5 files changed, 111 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 1785a0e..bbecd87 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -74,6 +74,11 @@ struct amdgpu_gmc_fault {
- /*
-  * VMHUB structures, functions & helpers
-  */
-+struct amdgpu_vmhub_funcs {
-+	void (*print_l2_protection_fault_status)(struct amdgpu_device *adev,
-+						 uint32_t status);
-+};
-+
- struct amdgpu_vmhub {
- 	uint32_t	ctx0_ptb_addr_lo32;
- 	uint32_t	ctx0_ptb_addr_hi32;
-@@ -94,6 +99,8 @@ struct amdgpu_vmhub {
- 	uint32_t	eng_addr_distance; /* include LO32/HI32 */
- 
- 	uint32_t	vm_cntx_cntl_vm_fault;
-+
-+	const struct amdgpu_vmhub_funcs *vmhub_funcs;
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-index 993185f..14268ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -31,6 +31,33 @@
- 
- #include "soc15_common.h"
- 
-+static void
-+gfxhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
-+					     uint32_t status)
-+{
-+	dev_err(adev->dev,
-+		"GCVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
-+		status);
-+	dev_err(adev->dev, "\t Faulty UTCL2 client ID: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, CID));
-+	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-+	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-+	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-+	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-+	dev_err(adev->dev, "\t RW: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, RW));
-+}
-+
- u64 gfxhub_v2_0_get_fb_location(struct amdgpu_device *adev)
- {
- 	u64 base = RREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE);
-@@ -360,6 +387,10 @@ void gfxhub_v2_0_set_fault_enable_default(struct amdgpu_device *adev,
- 	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
- }
- 
-+static const struct amdgpu_vmhub_funcs gfxhub_v2_0_vmhub_funcs = {
-+	.print_l2_protection_fault_status = gfxhub_v2_0_print_l2_protection_fault_status,
-+};
-+
- void gfxhub_v2_0_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
-@@ -398,4 +429,7 @@ void gfxhub_v2_0_init(struct amdgpu_device *adev)
- 		GCVM_CONTEXT1_CNTL__READ_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		GCVM_CONTEXT1_CNTL__WRITE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		GCVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
-+
-+	if (hub->vmhub_funcs == NULL)
-+		hub->vmhub_funcs = &gfxhub_v2_0_vmhub_funcs;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index 07cae64..45fbce7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -31,6 +31,33 @@
- 
- #include "soc15_common.h"
- 
-+static void
-+gfxhub_v2_1_print_l2_protection_fault_status(struct amdgpu_device *adev,
-+					     uint32_t status)
-+{
-+	dev_err(adev->dev,
-+		"GCVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
-+		status);
-+	dev_err(adev->dev, "\t Faulty UTCL2 client ID: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, CID));
-+	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-+	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-+	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-+	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-+	dev_err(adev->dev, "\t RW: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		GCVM_L2_PROTECTION_FAULT_STATUS, RW));
-+}
-+
- u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev)
- {
- 	u64 base = RREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE);
-@@ -359,6 +386,10 @@ void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
- 	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
- }
- 
-+static const struct amdgpu_vmhub_funcs gfxhub_v2_1_vmhub_funcs = {
-+	.print_l2_protection_fault_status = gfxhub_v2_1_print_l2_protection_fault_status,
-+};
-+
- void gfxhub_v2_1_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
-@@ -397,6 +428,9 @@ void gfxhub_v2_1_init(struct amdgpu_device *adev)
- 		GCVM_CONTEXT1_CNTL__READ_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		GCVM_CONTEXT1_CNTL__WRITE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		GCVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
-+
-+	if (hub->vmhub_funcs == NULL)
-+		hub->vmhub_funcs = &gfxhub_v2_1_vmhub_funcs;
- }
- 
- int gfxhub_v2_1_get_xgmi_info(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index e6c8526..8f35e13 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -121,29 +121,8 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 			task_info.task_name, task_info.pid);
- 		dev_err(adev->dev, "  in page starting at address 0x%016llx from client %d\n",
- 			addr, entry->client_id);
--		if (!amdgpu_sriov_vf(adev)) {
--			dev_err(adev->dev,
--				"GCVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
--				status);
--			dev_err(adev->dev, "\t Faulty UTCL2 client ID: 0x%lx\n",
--				REG_GET_FIELD(status,
--				GCVM_L2_PROTECTION_FAULT_STATUS, CID));
--			dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
--				REG_GET_FIELD(status,
--				GCVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
--			dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
--				REG_GET_FIELD(status,
--				GCVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
--			dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
--				REG_GET_FIELD(status,
--				GCVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
--			dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
--				REG_GET_FIELD(status,
--				GCVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
--			dev_err(adev->dev, "\t RW: 0x%lx\n",
--				REG_GET_FIELD(status,
--				GCVM_L2_PROTECTION_FAULT_STATUS, RW));
--		}
-+		if (!amdgpu_sriov_vf(adev))
-+			hub->vmhub_funcs->print_l2_protection_fault_status(adev, status);
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index 48134b9..fb634c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -36,6 +36,33 @@
- #define mmDAGB0_CNTL_MISC2_Sienna_Cichlid                       0x0070
- #define mmDAGB0_CNTL_MISC2_Sienna_Cichlid_BASE_IDX              0
- 
-+static void
-+mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
-+					     uint32_t status)
-+{
-+	dev_err(adev->dev,
-+		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
-+		status);
-+	dev_err(adev->dev, "\t Faulty UTCL2 client ID: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		MMVM_L2_PROTECTION_FAULT_STATUS, CID));
-+	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		MMVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-+	dev_err(adev->dev, "\t WALKER_ERROR: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		MMVM_L2_PROTECTION_FAULT_STATUS, WALKER_ERROR));
-+	dev_err(adev->dev, "\t PERMISSION_FAULTS: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		MMVM_L2_PROTECTION_FAULT_STATUS, PERMISSION_FAULTS));
-+	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		MMVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
-+	dev_err(adev->dev, "\t RW: 0x%lx\n",
-+		REG_GET_FIELD(status,
-+		MMVM_L2_PROTECTION_FAULT_STATUS, RW));
-+}
-+
- void mmhub_v2_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
- 				uint64_t page_table_base)
- {
-@@ -351,6 +378,10 @@ void mmhub_v2_0_set_fault_enable_default(struct amdgpu_device *adev, bool value)
- 	WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_CNTL, tmp);
- }
- 
-+static const struct amdgpu_vmhub_funcs mmhub_v2_0_vmhub_funcs = {
-+	.print_l2_protection_fault_status = mmhub_v2_0_print_l2_protection_fault_status,
-+};
-+
- void mmhub_v2_0_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB_0];
-@@ -389,6 +420,9 @@ void mmhub_v2_0_init(struct amdgpu_device *adev)
- 		MMVM_CONTEXT1_CNTL__READ_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		MMVM_CONTEXT1_CNTL__WRITE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK |
- 		MMVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
-+
-+	if (hub->vmhub_funcs == NULL)
-+		hub->vmhub_funcs = &mmhub_v2_0_vmhub_funcs;
- }
- 
- static void mmhub_v2_0_update_medium_grain_clock_gating(struct amdgpu_device *adev,
--- 
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Ck9uIDcvMjEvMjAgMTE6NTAgQU0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4gT24gVHVlLCBKdWwg
+MjEsIDIwMjAgYXQgMTE6MzggQU0gVGhvbWFzIEhlbGxzdHLDtm0gKEludGVsKQo+IDx0aG9tYXNf
+b3NAc2hpcG1haWwub3JnPiB3cm90ZToKPj4KPj4gT24gNy8yMS8yMCAxMDo1NSBBTSwgQ2hyaXN0
+aWFuIEvDtm5pZyB3cm90ZToKPj4+IEFtIDIxLjA3LjIwIHVtIDEwOjQ3IHNjaHJpZWIgVGhvbWFz
+IEhlbGxzdHLDtm0gKEludGVsKToKPj4+PiBPbiA3LzIxLzIwIDk6NDUgQU0sIENocmlzdGlhbiBL
+w7ZuaWcgd3JvdGU6Cj4+Pj4+IEFtIDIxLjA3LjIwIHVtIDA5OjQxIHNjaHJpZWIgRGFuaWVsIFZl
+dHRlcjoKPj4+Pj4+IE9uIE1vbiwgSnVsIDIwLCAyMDIwIGF0IDAxOjE1OjE3UE0gKzAyMDAsIFRo
+b21hcyBIZWxsc3Ryw7ZtIChJbnRlbCkKPj4+Pj4+IHdyb3RlOgo+Pj4+Pj4+IEhpLAo+Pj4+Pj4+
+Cj4+Pj4+Pj4gT24gNy85LzIwIDI6MzMgUE0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4+Pj4+Pj4+
+IENvbWVzIHVwIGV2ZXJ5IGZldyB5ZWFycywgZ2V0cyBzb21ld2hhdCB0ZWRpb3VzIHRvIGRpc2N1
+c3MsIGxldCdzCj4+Pj4+Pj4+IHdyaXRlIHRoaXMgZG93biBvbmNlIGFuZCBmb3IgYWxsLgo+Pj4+
+Pj4+Pgo+Pj4+Pj4+PiBXaGF0IEknbSBub3Qgc3VyZSBhYm91dCBpcyB3aGV0aGVyIHRoZSB0ZXh0
+IHNob3VsZCBiZSBtb3JlCj4+Pj4+Pj4+IGV4cGxpY2l0IGluCj4+Pj4+Pj4+IGZsYXQgb3V0IG1h
+bmRhdGluZyB0aGUgYW1ka2ZkIGV2aWN0aW9uIGZlbmNlcyBmb3IgbG9uZyBydW5uaW5nCj4+Pj4+
+Pj4+IGNvbXB1dGUKPj4+Pj4+Pj4gd29ya2xvYWRzIG9yIHdvcmtsb2FkcyB3aGVyZSB1c2Vyc3Bh
+Y2UgZmVuY2luZyBpcyBhbGxvd2VkLgo+Pj4+Pj4+IEFsdGhvdWdoIChpbiBteSBodW1ibGUgb3Bp
+bmlvbikgaXQgbWlnaHQgYmUgcG9zc2libGUgdG8gY29tcGxldGVseQo+Pj4+Pj4+IHVudGFuZ2xl
+Cj4+Pj4+Pj4ga2VybmVsLWludHJvZHVjZWQgZmVuY2VzIGZvciByZXNvdXJjZSBtYW5hZ2VtZW50
+IGFuZCBkbWEtZmVuY2VzCj4+Pj4+Pj4gdXNlZCBmb3IKPj4+Pj4+PiBjb21wbGV0aW9uLSBhbmQg
+ZGVwZW5kZW5jeSB0cmFja2luZyBhbmQgbGlmdCBhIGxvdCBvZiByZXN0cmljdGlvbnMKPj4+Pj4+
+PiBmb3IgdGhlCj4+Pj4+Pj4gZG1hLWZlbmNlcywgaW5jbHVkaW5nIHByb2hpYml0aW5nIGluZmlu
+aXRlIG9uZXMsIEkgdGhpbmsgdGhpcwo+Pj4+Pj4+IG1ha2VzIHNlbnNlCj4+Pj4+Pj4gZGVzY3Jp
+YmluZyB0aGUgY3VycmVudCBzdGF0ZS4KPj4+Pj4+IFllYWggSSB0aGluayBhIGZ1dHVyZSBwYXRj
+aCBuZWVkcyB0byB0eXBlIHVwIGhvdyB3ZSB3YW50IHRvIG1ha2UgdGhhdAo+Pj4+Pj4gaGFwcGVu
+IChmb3Igc29tZSBjcm9zcyBkcml2ZXIgY29uc2lzdGVuY3kpIGFuZCB3aGF0IG5lZWRzIHRvIGJl
+Cj4+Pj4+PiBjb25zaWRlcmVkLiBTb21lIG9mIHRoZSBuZWNlc3NhcnkgcGFydHMgYXJlIGFscmVh
+ZHkgdGhlcmUgKHdpdGgKPj4+Pj4+IGxpa2UgdGhlCj4+Pj4+PiBwcmVlbXB0aW9uIGZlbmNlcyBh
+bWRrZmQgaGFzIGFzIGFuIGV4YW1wbGUpLCBidXQgSSB0aGluayBzb21lIGNsZWFyCj4+Pj4+PiBk
+b2NzCj4+Pj4+PiBvbiB3aGF0J3MgcmVxdWlyZWQgZnJvbSBib3RoIGh3LCBkcml2ZXJzIGFuZCB1
+c2Vyc3BhY2Ugd291bGQgYmUgcmVhbGx5Cj4+Pj4+PiBnb29kLgo+Pj4+PiBJJ20gY3VycmVudGx5
+IHdyaXRpbmcgdGhhdCB1cCwgYnV0IHByb2JhYmx5IHN0aWxsIG5lZWQgYSBmZXcgZGF5cwo+Pj4+
+PiBmb3IgdGhpcy4KPj4+PiBHcmVhdCEgSSBwdXQgZG93biBzb21lICh2ZXJ5KSBpbml0aWFsIHRo
+b3VnaHRzIGEgY291cGxlIG9mIHdlZWtzIGFnbwo+Pj4+IGJ1aWxkaW5nIG9uIGV2aWN0aW9uIGZl
+bmNlcyBmb3IgdmFyaW91cyBoYXJkd2FyZSBjb21wbGV4aXR5IGxldmVscyBoZXJlOgo+Pj4+Cj4+
+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0
+dHBzJTNBJTJGJTJGZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZyUyRnRob21hc2glMkZkb2NzJTJGLSUy
+RmJsb2IlMkZtYXN0ZXIlMkZVbnRhbmdsaW5nJTI1MjBkbWEtZmVuY2UlMjUyMGFuZCUyNTIwbWVt
+b3J5JTI1MjBhbGxvY2F0aW9uLm9kdCZhbXA7ZGF0YT0wMiU3QzAxJTdDY2hyaXN0aWFuLmtvZW5p
+ZyU0MGFtZC5jb20lN0M4OTc4YmJkNzgyM2U0YjQxNjYzNzA4ZDgyZDUyYWRkMyU3QzNkZDg5NjFm
+ZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzczMDkxODA0MjQzMTIzOTAmYW1w
+O3NkYXRhPXRUeHgydmZ6ZndMTTFJQkpTcXFBWlJ3MTYwNFIlMkYwYkkzTXdOMSUyRkJmMlZRJTNE
+JmFtcDtyZXNlcnZlZD0wCj4+Pj4KPj4+IEkgZG9uJ3QgdGhpbmsgdGhhdCB0aGlzIHdpbGwgZXZl
+ciBiZSBwb3NzaWJsZS4KPj4+Cj4+PiBTZWUgdGhhdCBEYW5pZWwgZGVzY3JpYmVzIGluIGhpcyB0
+ZXh0IGlzIHRoYXQgaW5kZWZpbml0ZSBmZW5jZXMgYXJlIGEKPj4+IGJhZCBpZGVhIGZvciBtZW1v
+cnkgbWFuYWdlbWVudCwgYW5kIEkgdGhpbmsgdGhhdCB0aGlzIGlzIGEgZml4ZWQgZmFjdC4KPj4+
+Cj4+PiBJbiBvdGhlciB3b3JkcyB0aGUgd2hvbGUgY29uY2VwdCBvZiBzdWJtaXR0aW5nIHdvcmsg
+dG8gdGhlIGtlcm5lbAo+Pj4gd2hpY2ggZGVwZW5kcyBvbiBzb21lIHVzZXIgc3BhY2UgaW50ZXJh
+Y3Rpb24gZG9lc24ndCB3b3JrIGFuZCBuZXZlciB3aWxsLgo+PiBXZWxsIHRoZSBpZGVhIGhlcmUg
+aXMgdGhhdCBtZW1vcnkgbWFuYWdlbWVudCB3aWxsICpuZXZlciogZGVwZW5kIG9uCj4+IGluZGVm
+aW5pdGUgZmVuY2VzOiBBcyBzb29uIGFzIHNvbWVvbmUgd2FpdHMgb24gYSBtZW1vcnkgbWFuYWdl
+ciBmZW5jZQo+PiAoYmUgaXQgZXZpY3Rpb24sIHNocmlua2VyIG9yIG1tdSBub3RpZmllcikgaXQg
+YnJlYWtzIG91dCBvZiBhbnkKPj4gZG1hLWZlbmNlIGRlcGVuZGVuY2llcyBhbmQgL29yIHVzZXIt
+c3BhY2UgaW50ZXJhY3Rpb24uIFRoZSB0ZXh0IHRyaWVzIHRvCj4+IGRlc2NyaWJlIHdoYXQncyBy
+ZXF1aXJlZCB0byBiZSBhYmxlIHRvIGRvIHRoYXQgKHNhdmUgZm9yIG5vbi1wcmVlbXB0aWJsZQo+
+PiBncHVzIHdoZXJlIHNvbWVvbmUgc3VibWl0cyBhIGZvcmV2ZXItcnVubmluZyBzaGFkZXIpLgo+
+IFllYWggSSB0aGluayB0aGF0IHBhcnQgb2YgeW91ciB0ZXh0IGlzIGdvb2QgdG8gZGVzY3JpYmUg
+aG93IHRvCj4gdW50YW5nbGUgbWVtb3J5IGZlbmNlcyBmcm9tIHN5bmNocm9uaXphdGlvbiBmZW5j
+ZXMgZ2l2ZW4gaG93IG11Y2ggdGhlCj4gaHcgY2FuIGRvLgo+Cj4+IFNvIHdoaWxlIEkgdGhpbmsg
+dGhpcyBpcyBwb3NzaWJsZSAodW50aWwgc29tZW9uZSBjb21lcyB1cCB3aXRoIGEgY2FzZQo+PiB3
+aGVyZSBpdCB3b3VsZG4ndCB3b3JrIG9mIGNvdXJzZSksIEkgZ3Vlc3MgRGFuaWVsIGhhcyBhIHBv
+aW50IGluIHRoYXQgaXQKPj4gd29uJ3QgaGFwcGVuIGJlY2F1c2Ugb2YgaW5lcnRpYSBhbmQgdGhl
+cmUgbWlnaHQgYmUgYmV0dGVyIG9wdGlvbnMuCj4gWWVhaCBpdCdzIGp1c3QgSSBkb24ndCBzZWUg
+bXVjaCBjaGFuY2UgZm9yIHNwbGl0dGluZyBkbWEtZmVuY2UgaXRzZWxmLgo+IFRoYXQncyBhbHNv
+IHdoeSBJJ20gbm90IHBvc2l0aXZlIG9uIHRoZSAibm8gaHcgcHJlZW1wdGlvbiwgb25seQo+IHNj
+aGVkdWxlciIgY2FzZTogWW91IHN0aWxsIGhhdmUgYSBkbWFfZmVuY2UgZm9yIHRoZSBiYXRjaCBp
+dHNlbGYsCj4gd2hpY2ggbWVhbnMgc3RpbGwgbm8gdXNlcnNwYWNlIGNvbnRyb2xsZWQgc3luY2hy
+b25pemF0aW9uIG9yIG90aGVyCj4gZm9ybSBvZiBpbmRlZmluaXRlIGJhdGNoZXMgYWxsb3dlZC4g
+U28gbm90IGdldHRpbmcgdXMgYW55IGNsb3NlciB0bwo+IGVuYWJsaW5nIHRoZSBjb21wdXRlIHVz
+ZSBjYXNlcyBwZW9wbGUgd2FudC4KClllcywgd2UgY2FuJ3QgZG8gbWFnaWMuIEFzIHNvb24gYXMg
+YW4gaW5kZWZpbml0ZSBiYXRjaCBtYWtlcyBpdCB0byBzdWNoIApoYXJkd2FyZSB3ZSd2ZSBsb3N0
+LiBCdXQgc2luY2Ugd2UgY2FuIGJyZWFrIG91dCB3aGlsZSB0aGUgYmF0Y2ggaXMgc3R1Y2sgCmlu
+IHRoZSBzY2hlZHVsZXIgd2FpdGluZywgd2hhdCBJIGJlbGlldmUgd2UgKmNhbiogZG8gd2l0aCB0
+aGlzIGFwcHJvYWNoIAppcyB0byBhdm9pZCBkZWFkbG9ja3MgZHVlIHRvIGxvY2FsbHkgdW5rbm93
+biBkZXBlbmRlbmNpZXMsIHdoaWNoIGhhcyAKc29tZSBiZWFyaW5nIG9uIHRoaXMgZG9jdW1lbnRh
+dGlvbiBwYXRjaCwgYW5kIGFsc28gdG8gYWxsb3cgbWVtb3J5IAphbGxvY2F0aW9uIGluIGRtYS1m
+ZW5jZSAobm90IG1lbW9yeS1mZW5jZSkgY3JpdGljYWwgc2VjdGlvbnMsIGxpa2UgZ3B1IApmYXVs
+dC0gYW5kIGVycm9yIGhhbmRsZXJzIHdpdGhvdXQgcmVzb3J0aW5nIHRvIHVzaW5nIG1lbW9yeSBw
+b29scy4KCkJ1dCBhZ2Fpbi4gSSdtIG5vdCBzYXlpbmcgd2Ugc2hvdWxkIGFjdHVhbGx5IGltcGxl
+bWVudCB0aGlzLiBCZXR0ZXIgdG8gCmNvbnNpZGVyIGl0IGFuZCByZWplY3QgaXQgdGhhbiBub3Qg
+Y29uc2lkZXIgaXQgYXQgYWxsLgoKL1Rob21hcwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
