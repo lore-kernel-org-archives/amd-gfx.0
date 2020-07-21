@@ -2,75 +2,104 @@ Return-Path: <SRS0=9beK=BA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9131DC433E8
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 17:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C557C433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 17:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66B67206C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 17:46:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BE06020717
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 17:59:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=shipmail.org header.i=@shipmail.org header.b="frDUmX6P"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66B67206C1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1GRfDdX0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE06020717
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB516E426;
-	Tue, 21 Jul 2020 17:46:36 +0000 (UTC)
-Received: from pio-pvt-msa1.bahnhof.se (pio-pvt-msa1.bahnhof.se [79.136.2.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97B406E2E6;
- Tue, 21 Jul 2020 17:46:34 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTP id CB49A41421;
- Tue, 21 Jul 2020 19:46:32 +0200 (CEST)
-Authentication-Results: pio-pvt-msa1.bahnhof.se; dkim=pass (1024-bit key;
- unprotected) header.d=shipmail.org header.i=@shipmail.org header.b="frDUmX6P";
- dkim-atps=neutral
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Received: from pio-pvt-msa1.bahnhof.se ([127.0.0.1])
- by localhost (pio-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 2pG5veMOGOdo; Tue, 21 Jul 2020 19:46:31 +0200 (CEST)
-Received: from mail1.shipmail.org (h-205-35.A357.priv.bahnhof.se
- [155.4.205.35]) (Authenticated sender: mb878879)
- by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id B8F983F3B9;
- Tue, 21 Jul 2020 19:46:26 +0200 (CEST)
-Received: from [192.168.0.100] (h-205-35.A357.priv.bahnhof.se [155.4.205.35])
- by mail1.shipmail.org (Postfix) with ESMTPSA id F165136010A;
- Tue, 21 Jul 2020 19:46:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1595353586; bh=4uB31R2+QdLg394hPLx29A25rPq/9GLfA0vttAkzBpo=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=frDUmX6Pb56r4nJFS91NmtvI7DLzeVhvjaHlEz2Xvk+tfoPGQteOV/5DOErazBDCW
- IA3s0raY3MXcOdWP58C+hrLKx9k+xPlQlWoYful1aGabjti0/uWInAu7ikzGlVMFNk
- AKA8JWBHfIhnINvYQnCl7wjhvT3kkO+EFiEACWis=
-Subject: Re: [Linaro-mm-sig] [PATCH 1/2] dma-buf.rst: Document why indefinite
- fences are a bad idea
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20200707201229.472834-4-daniel.vetter@ffwll.ch>
- <20200709123339.547390-1-daniel.vetter@ffwll.ch>
- <93b673b7-bb48-96eb-dc2c-bd4f9304000e@shipmail.org>
- <20200721074157.GB3278063@phenom.ffwll.local>
- <3603bb71-318b-eb53-0532-9daab62dce86@amd.com>
- <57a5eb9d-b74f-8ce4-7199-94e911d9b68b@shipmail.org>
- <2ca2c004-1e11-87f5-4bd8-761e1b44d21f@amd.com>
- <74727f17-b3a5-ca12-6db6-e47543797b72@shipmail.org>
- <CAKMK7uFfMi5M5EkCeG6=tjuDANH4=gDLnFpxCYU-E-xyrxwYUg@mail.gmail.com>
- <ae4e4188-39e6-ec41-c11d-91e9211b4d3a@shipmail.org>
- <f8f73b9f-ce8d-ea02-7caa-d50b75b72809@amd.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <6ed364c9-893b-8974-501a-418585eb4def@shipmail.org>
-Date: Tue, 21 Jul 2020 19:46:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <f8f73b9f-ce8d-ea02-7caa-d50b75b72809@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CA596E040;
+	Tue, 21 Jul 2020 17:59:32 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770051.outbound.protection.outlook.com [40.107.77.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA2B6E040
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 17:59:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hrcxUoIEhp+ayOYgJNORWLV8GO4QUF4Ehs/sOZQM5EtESlleaiTpa4ef+Zpv0sam4D6gZX71nQZinf1b3fvrxTBxOheO0i1ioNG0feaadw0YumEhUYn2fLsLFIyldWr2yHeQfgNtbhhpsDIY9DHzQtD/OPvK6m7+MSgeQG4f9CfJCB/A7O939smv4YmvE1970MaZmtjy6QVj/JDnVCFJseEU7tT14pKOhlZjBG2q+XfOquzEaJHT2Ezy411SqClF+sBKIkQzcvNApl5hhbxAgR33E0UyJEue56lL5vQ+cz/bZn8xursAcNatlkMiZYLxR914BV6xGsAxnxLtZPwcVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GoFIhdbwhPfILnNTK7HcTb8wN9M5PPLInZNhelATnXM=;
+ b=CtYG4J32l+Wf4FUiGi/57ioEilj6CQD8zgunK14t3Jap6M10XpGsaoa+IEhdwXQPR9hNvnEkYVzTpiES65BhIFNFoWBCVWHmDKbGPadYO0AjyG4Sqs41DomWUUH7KcFjUu7uu0iixH5fNivXwqE1bGDT2VTh9eJJKs3I3l7CwUaeSSgRhZMwIgSeHwYFRED85sixwqPIDZaZwB5F/pr5ZyqGuy1JJmduk4OOrxrJfooqaks2Q9QW6xwoEPXumIWs9Ti8e+Rgw5WkQjjYB6lg/BrjcUbltK1sZE5aZ1t1AMFHXW4gT2aOdnD9C2YKQfCRhAZOqO9x3XfAw/IsQlUiJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GoFIhdbwhPfILnNTK7HcTb8wN9M5PPLInZNhelATnXM=;
+ b=1GRfDdX0qewC1oMPAThlS+Gs9pzM5JfVrcqnurFpQcJKqGiy+ZEomDS5E4Ubc1TMx7pD6tdzYMP5fgN38SKiTYlHXwIO/sDSm1TUGUCMS93xPE7k+YpKbenrZemYKGJTAemaaL4Vk6ZJgjKzpi7byvVJRbUdz/VN8CCWWxbwlpE=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ DM6PR12MB3212.namprd12.prod.outlook.com (2603:10b6:5:186::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.18; Tue, 21 Jul 2020 17:59:29 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::f5e6:e937:2eac:18cf]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::f5e6:e937:2eac:18cf%4]) with mapi id 15.20.3195.026; Tue, 21 Jul 2020
+ 17:59:29 +0000
+Subject: Re: [PATCH] drm/amdgpu: fix warning in navi10_ih.c
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200721172224.570061-1-alexander.deucher@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <09fe6fec-4f17-cae8-80f8-f178940fb374@amd.com>
+Date: Tue, 21 Jul 2020 13:59:26 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <20200721172224.570061-1-alexander.deucher@amd.com>
 Content-Language: en-US
+X-ClientProxiedBy: BN6PR22CA0070.namprd22.prod.outlook.com
+ (2603:10b6:404:ca::32) To DM6PR12MB4340.namprd12.prod.outlook.com
+ (2603:10b6:5:2a8::7)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:646c:e41c:908f:f19b]
+ (2607:fea8:3edf:49b0:646c:e41c:908f:f19b) by
+ BN6PR22CA0070.namprd22.prod.outlook.com (2603:10b6:404:ca::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.18 via Frontend Transport; Tue, 21 Jul 2020 17:59:28 +0000
+X-Originating-IP: [2607:fea8:3edf:49b0:646c:e41c:908f:f19b]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: b5e4ac1a-9f14-48b5-786f-08d82d9fd049
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3212:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3212EC679649FCC13E60149AEA780@DM6PR12MB3212.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yrpC/eU4KGnurjyFRYYRKmhwtLMfop9DMQ/H6cJ/O8NiJ8KxbN5QG31guP5KvfJhCs1R5X2C9kszUXDVMmMXs1wrmstAB51VNNHOxBGBx6nsL3xR3rB8OowNQFsBW6z5ccZst0MAfRcc1e6zCm3RRpq11xK4n1+XkKxHuPtoEyo9r8sq7RmJ/UKFdLfCP0jcrPCxrvhVDXxLtVJPrv1SGt3yapstZhLFshukao22dCreaexOJgLDG7bIT0/Zm+FzuVaNymRv5MLf9E7CvJ1Np6qS8zt3hPEwswHm1nnqkNlw0YXRRxpm07WB744nEgmNSmZhCZsZqcAQpKygh5w7WZTNKJIw6p8IB/6Sa+K5t3WkFAyvn/LnrFekcYf5VB34
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(136003)(346002)(366004)(376002)(396003)(8936002)(6486002)(31696002)(53546011)(8676002)(31686004)(16526019)(186003)(316002)(86362001)(52116002)(4326008)(36756003)(66946007)(66476007)(66556008)(5660300002)(83380400001)(2906002)(2616005)(478600001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: lNle2HpSwOPOBu9WYUcm1319WYcpFPYjuePIWoDvokipa5qQWAlN+LnXeLswwU6Q24kW8uNaIK9EidUBXdGPQ3GGxtTmKoytAOXIQScNG2v/XCBuMrUzB/3uWrVEjXeXEQ3a7KFSjdMoDmw7BbS+Rl92T4FSC0VcSTWZtd+CEk176LctJajMcViUxTGAzduQ2BjEc3lfpKf2Qj8PvgJ/6Z0auJQ47yQIiLVGwIDmD/QsWARal98JgPE05ovtOrgfALpcNHfNBVp66IGplMuxHqWGRb0b2pi66GQc87SrTTu01DyTflO947HqwNMVahChnP5cpBctBdBQCKI4uuXd2N5C2h7SUM9+gZHt2ocKT+ZaQsMx/mzzpHA8TBCjoGWlUQohz0d5zo/vZVJU18CuDgwblHPiexB3qTK8ApG8KxjL77U5Qj9hX0kAvwi04heEI6rKnxmc8iXksJdeHnXQ+lzhByYhBoLfArGZtuX7xUxfn/xdFDVDaCPpaTP0h5El1YpDQs8V/P759UUJJsL/NRHHOMKJ2voNv3GXLJXxMGDY73mLWJU1AFyqDf1WJ5vN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5e4ac1a-9f14-48b5-786f-08d82d9fd049
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2020 17:59:29.1456 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wh+r4qp2IizLQgmrW1VFOXNbBUb+fRAxV5mMfYAq9B0KsxcDe490pihZumvksPy0Mp45ai97HwqrbHONh0+IUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3212
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,54 +111,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Stone <daniels@collabora.com>,
- linux-rdma <linux-rdma@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Steve Pronovost <spronovo@microsoft.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Jason Ekstrand <jason@jlekstrand.net>, Jesse Natalie <jenatali@microsoft.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- Mika Kuoppala <mika.kuoppala@intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDIwMjAtMDctMjEgMTU6NTksIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjEuMDcu
-MjAgdW0gMTI6NDcgc2NocmllYiBUaG9tYXMgSGVsbHN0csO2bSAoSW50ZWwpOgouLi4KPj4gWWVz
-LCB3ZSBjYW4ndCBkbyBtYWdpYy4gQXMgc29vbiBhcyBhbiBpbmRlZmluaXRlIGJhdGNoIG1ha2Vz
-IGl0IHRvIAo+PiBzdWNoIGhhcmR3YXJlIHdlJ3ZlIGxvc3QuIEJ1dCBzaW5jZSB3ZSBjYW4gYnJl
-YWsgb3V0IHdoaWxlIHRoZSBiYXRjaCAKPj4gaXMgc3R1Y2sgaW4gdGhlIHNjaGVkdWxlciB3YWl0
-aW5nLCB3aGF0IEkgYmVsaWV2ZSB3ZSAqY2FuKiBkbyB3aXRoIAo+PiB0aGlzIGFwcHJvYWNoIGlz
-IHRvIGF2b2lkIGRlYWRsb2NrcyBkdWUgdG8gbG9jYWxseSB1bmtub3duIAo+PiBkZXBlbmRlbmNp
-ZXMsIHdoaWNoIGhhcyBzb21lIGJlYXJpbmcgb24gdGhpcyBkb2N1bWVudGF0aW9uIHBhdGNoLCBh
-bmQgCj4+IGFsc28gdG8gYWxsb3cgbWVtb3J5IGFsbG9jYXRpb24gaW4gZG1hLWZlbmNlIChub3Qg
-bWVtb3J5LWZlbmNlKSAKPj4gY3JpdGljYWwgc2VjdGlvbnMsIGxpa2UgZ3B1IGZhdWx0LSBhbmQg
-ZXJyb3IgaGFuZGxlcnMgd2l0aG91dCAKPj4gcmVzb3J0aW5nIHRvIHVzaW5nIG1lbW9yeSBwb29s
-cy4KPgo+IEF2b2lkaW5nIGRlYWRsb2NrcyBpcyBvbmx5IHRoZSB0aXAgb2YgdGhlIGljZWJlcmcg
-aGVyZS4KPgo+IFdoZW4geW91IGFsbG93IHRoZSBrZXJuZWwgdG8gZGVwZW5kIG9uIHVzZXIgc3Bh
-Y2UgdG8gcHJvY2VlZCB3aXRoIHNvbWUgCj4gb3BlcmF0aW9uIHRoZXJlIGFyZSBhIGxvdCBtb3Jl
-IHRoaW5ncyB3aGljaCBuZWVkIGNvbnNpZGVyYXRpb24uCj4KPiBFLmcuIHdoYXQgaGFwcGVucyB3
-aGVuIGFuIHVzZXJzcGFjZSBwcm9jZXNzIHdoaWNoIGhhcyBzdWJtaXR0ZWQgc3R1ZmYgCj4gdG8g
-dGhlIGtlcm5lbCBpcyBraWxsZWQ/IEFyZSB0aGUgcHJlcGFyZWQgY29tbWFuZHMgc2VuZCB0byB0
-aGUgCj4gaGFyZHdhcmUgb3IgYWJvcnRlZCBhcyB3ZWxsPyBXaGF0IGRvIHdlIGRvIHdpdGggb3Ro
-ZXIgcHJvY2Vzc2VzIAo+IHdhaXRpbmcgZm9yIHRoYXQgc3R1ZmY/Cj4KPiBIb3cgdG8gd2UgZG8g
-cmVzb3VyY2UgYWNjb3VudGluZz8gV2hlbiBwcm9jZXNzZXMgbmVlZCB0byBibG9jayB3aGVuIAo+
-IHN1Ym1pdHRpbmcgdG8gdGhlIGhhcmR3YXJlIHN0dWZmIHdoaWNoIGlzIG5vdCByZWFkeSB3ZSBo
-YXZlIGEgcHJvY2VzcyAKPiB3ZSBjYW4gcHVuaXNoIGZvciBibG9ja2luZyByZXNvdXJjZXMuIEJ1
-dCBob3cgaXMga2VybmVsIG1lbW9yeSB1c2VkIAo+IGZvciBhIHN1Ym1pc3Npb24gYWNjb3VudGVk
-PyBIb3cgZG8gd2UgYXZvaWQgZGVueSBvZiBzZXJ2aWNlIGF0dGFja3MgCj4gaGVyZSB3ZXJlIHNv
-bWVib2R5IGVhdHMgdXAgYWxsIG1lbW9yeSBieSBkb2luZyBzdWJtaXNzaW9ucyB3aGljaCBjYW4n
-dCAKPiBmaW5pc2g/Cj4KSG1tLiBBcmUgdGhlc2UgcHJvYmxlbXMgcmVhbGx5IHVuaXF1ZSB0byB1
-c2VyLXNwYWNlIGNvbnRyb2xsZWQgCmRlcGVuZGVuY2llcz8gQ291bGRuJ3QgeW91IGhpdCB0aGUg
-c2FtZSBvciBzaW1pbGFyIHByb2JsZW1zIHdpdGggCm1pcy1iZWhhdmluZyBzaGFkZXJzIGJsb2Nr
-aW5nIHRpbWVsaW5lIHByb2dyZXNzPwoKL1Rob21hcwoKCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+
+Andrey
+
+On 7/21/20 1:22 PM, Alex Deucher wrote:
+> declarations after statements.  Trivial.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index f16909989c0d..350f1bf063c6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -58,11 +58,13 @@ static void
+>   force_update_wptr_for_self_int(struct amdgpu_device *adev,
+>   			       u32 threshold, u32 timeout, bool enabled)
+>   {
+> +	u32 ih_cntl, ih_rb_cntl;
+> +
+>   	if (adev->asic_type < CHIP_SIENNA_CICHLID)
+>   		return;
+>   
+> -	u32 ih_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_CNTL2);
+> -	u32 ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1);
+> +	ih_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_CNTL2);
+> +	ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1);
+>   
+>   	ih_cntl = REG_SET_FIELD(ih_cntl, IH_CNTL2,
+>   				SELF_IV_FORCE_WPTR_UPDATE_TIMEOUT, timeout);
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
