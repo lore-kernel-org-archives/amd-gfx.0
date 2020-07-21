@@ -8,98 +8,98 @@ X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56722C433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BB49C433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2640420720
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:01:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CD79620720
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:03:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="34Vs/kmQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2640420720
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gzycvxxC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD79620720
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D40486E423;
-	Tue, 21 Jul 2020 16:01:22 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 550D96E423
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 16:01:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9062D6E2E1;
+	Tue, 21 Jul 2020 16:03:57 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760058.outbound.protection.outlook.com [40.107.76.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED4746E2E1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 16:03:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UTSjtpIcxZmn9aiJ3GSzATRzG4/KySQjJNjDf7fZpJTWBvOflPmLFutDSGxzUKNjCpo9DEosXwCjec4EngCaND92z+qFnCzI2YvBlWymtWaH3Spx0cYDQubjMIYaik2hk9TE4EXRvW/DHd9RHgJg2cwjjp1n9wwPdFld0u0Bg+sGUlA/YGdhQtQA3Qq58s1Ti7fKP9OQPmGcFMPF32txMqQ1VU45xT6x/CSRs6WEtkDXSZbMmYejqCHKO2vNHzVycS0cH8dPo14mc7GOUkL94EsbvPnIbrPqgH7ZH8EB8Pzj/Zst20eZDstWvAv7uJ7l7CxCBbOMH4L33mSPv8j+jA==
+ b=RK5RdahVEyuHLn8rIK2mm1ffRIXKL4mONcHxmSpzKxHrfB+euftN8Qs6KAGt2181OppdE91UoOWQqfVZgENvl6dsHsljDXfXCbIq+xDkA/hy0s3jpxDJCc+TY8jME/ap6dJj1l9DUZjfastACD36dDBi1mFGT4u+ZTnBqExiq/A92lq3nWO8KiMlbcTYNSLsesiDIQlWUoFw30KiC9EJ7eP1B4i9jadgq09U07UDufVlv48WPTnxWNfO7hrcKX5oapyytrZ9o1c5Nc3pw2pW5CGoK3Qa3+pDqrRO+PLEYzmBAF20mvGxdv+p8M349fzwRQfLm3EeJfIHtQJ797PdHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3SdHhRf/FVdws5mqyRiwNvFb1Zaw5Cb+f8iVQpk+Mos=;
- b=m6iHXJ54xIFl8KC9/TP0vF7MN7vP1JNxCqrkUPKfdPIXaTv3qfbwOaVIntP0xU4h4WKdqvyJfAE17ys6qkFrDu80xzTDGNvD7b+eKOdMmw8TZemP/YXeDAIOaU1JNmH4ljhhn1S/xL1jPv7BGURAe51RfPYC2MJjsaDZNNsUvs6o9q/BG00ltmaW6OS7OCIi2CdjHAJ8sQpoGGK3rr/XK7f9KqJvWqefaDo1eDcayvfjy3qtxJleMc3R9/4xu9UceI8fi45i5TczyCCJHJawuUhFJWJgUu+PQKXF20gD9BAWxmgDZPGgiYGesAPmm6cUamxNNzYdvlL2PYTyYjZhoQ==
+ bh=IHphz7jGlLnWkHzsMdFDEAdGeYLGrylYNZv+RRGpauY=;
+ b=EtIFcD59+2fdhHLLbzPSLwPwdhgWlxTWXlJHQw03JIerQSqIvI6ph18EDH55WAHUdpe5SZVnu5OxeE7+7rOjETEjNWez+s3PuaSAhBiYSXzQqJmd0y57yOdlPxxZVfaYs86LilV1y74e1eh5jFcFoACogXLQHajd0NKOPVYTv5w3qevFkvtJk83Wcuu+9rJ+K9fptfHleWOzxebmtsNoD6LvMQukzaRBmpC7pqIP5k1l8MtKykkMhsThLKqRbvfEsmIqugUsUwNOALw5RqnS5xagiTPfCH2XeGgjnCYtQRoxZ+QYSr2kEN/pqnErTrHvt3X3Tl7TPNafh7jSMoVfcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3SdHhRf/FVdws5mqyRiwNvFb1Zaw5Cb+f8iVQpk+Mos=;
- b=34Vs/kmQ1ctswIHzOcqegRCLui6FKr4NdHokG+w013ra0eizR66Ebt4JDz5s+giqPfqdvqhPd3UbSLEV3kzmh/CMVLlKD5CPbIY9U5myYoybsFRut+QgZBVflnQ41yGIuEzFfCwQrIa3qCKLjWwKizowCLo0x1+WcdhKxZrRlYA=
+ bh=IHphz7jGlLnWkHzsMdFDEAdGeYLGrylYNZv+RRGpauY=;
+ b=gzycvxxCIyKUYV9+ejt0fr8VVK3HPbfKc7PrG7Q/g0c9nCvX/aNWxUH5eFeuRKsrQB1cun9cWThlJ5ZDTgSnnOT8dNdbqG9zVQYMpgiRyYtpk6DUs+iPUnWrtI5W1fGE5FKIVB4lUJon0paaiH+knmpaxs1m3zdg9SrEfmZbfF0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB2837.namprd12.prod.outlook.com (2603:10b6:a03:68::17)
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
+ by SA0PR12MB4590.namprd12.prod.outlook.com (2603:10b6:806:93::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.23; Tue, 21 Jul
- 2020 16:01:14 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::7d42:c932:e35f:71b1]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::7d42:c932:e35f:71b1%7]) with mapi id 15.20.3216.020; Tue, 21 Jul 2020
- 16:01:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.17; Tue, 21 Jul
+ 2020 16:03:54 +0000
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::5d1d:887c:3ba6:1d0d]) by SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::5d1d:887c:3ba6:1d0d%7]) with mapi id 15.20.3216.020; Tue, 21 Jul 2020
+ 16:03:54 +0000
 Subject: Re: [PATCH] drm/amd/display: Explicitly set stack size to 4
 To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20200721153801.11699-1-kent.russell@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <e874aba0-5719-8687-e425-c8d18be41d61@amd.com>
-Date: Tue, 21 Jul 2020 12:01:08 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <a1f1865c-1d47-f025-e7eb-eb0da2970915@amd.com>
+Date: Tue, 21 Jul 2020 12:03:53 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 In-Reply-To: <20200721153801.11699-1-kent.russell@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0089.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::28) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+X-ClientProxiedBy: YT1PR01CA0141.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::20) To SN1PR12MB2414.namprd12.prod.outlook.com
+ (2603:10b6:802:2e::31)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.148.234] (165.204.55.211) by
- YT1PR01CA0089.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::28) with Microsoft
+Received: from [192.168.2.100] (142.117.61.76) by
+ YT1PR01CA0141.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3195.18 via Frontend Transport; Tue, 21 Jul 2020 16:01:13 +0000
-X-Originating-IP: [165.204.55.211]
+ 15.20.3195.18 via Frontend Transport; Tue, 21 Jul 2020 16:03:54 +0000
+X-Originating-IP: [142.117.61.76]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ab56fddc-921a-4d9f-eb6b-08d82d8f4afe
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2837:
+X-MS-Office365-Filtering-Correlation-Id: bdc63217-e565-42c3-7920-08d82d8fab05
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4590:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB28372C74CE1AE6BE52967D1FEC780@BYAPR12MB2837.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <SA0PR12MB4590DCABABA01317B87EBC1F92780@SA0PR12MB4590.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WUltrbInX+0uWywNoXpd4ToWBst52Tk3yXIO6fQzv9oQOQX7zxgE+twxQ2eSwCL/TAvmYi3EioqPo/gN4tmdX5dtusdiB/aBfw9MuO6G6Ll+CXjWneo0rEBiRTqm5T7F9Vmdeeziq9wawOpCLeT9l4VyhVDzZ5yaYQZUeeoFCujWMAMjh5ojPOovDH08kYVBhHpXbD5CZkAEvRZkMaOqOC4JY9JW29Ck4vEid+oEBSQZW9j1cj9YgZhL1zWFjb1F0KpOThLBCpd+1Uco3bqXw7oP9gqp86hBoGTiwCM3TB9aTrwAE/0MxqVaty/JSTv02/X7C1Z8h4si3PWja6rvhpoRwVv8ES4XB2fN2uimR2zuH2ov+jTImlRbf1nqaD24
+X-Microsoft-Antispam-Message-Info: esZ/h/gl91qRR3ujyjoghIIs/HqnRU5TjlP6ZTrIkVrP1AZUUb5DwsdNvw/vLrppDFOwRMtJ4QoPCQlgZwARuj4TkTkX0Jod1Z6IAdZ/DBEGv53Myv6YGjStuyQ5RE+LGeebIOUIOzQliWLu2zwuulEExtHfJsKSNZfiaMNab1OdbUg4O5Y0z3rbIM/VtuVcvCmU84qaU1Xm8wT2G2tOmAB/cFf0VJKf6QIO1Q2wdD9g9dumK7VNtbyKkXxz6PgnJVfKoiAKEW/ZPErzdxAJTntB8pPxu4IzlyLW0NPttuSRjkC2HIpKpO7juKk6D7b3gCUm26WtCDldOBjSqjpWDlEWWgyXLs8YR/c0dK89RWrs7WRDEINiOedW/H9eawfV
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(136003)(39860400002)(366004)(376002)(346002)(83380400001)(478600001)(956004)(2616005)(66556008)(66476007)(6486002)(31696002)(66946007)(26005)(6666004)(16526019)(86362001)(8676002)(8936002)(2906002)(316002)(16576012)(53546011)(186003)(31686004)(52116002)(5660300002)(36756003)(43740500002);
+ SFS:(4636009)(39860400002)(366004)(396003)(346002)(136003)(376002)(83380400001)(52116002)(16576012)(316002)(66556008)(66476007)(66946007)(956004)(31696002)(2616005)(5660300002)(44832011)(26005)(186003)(16526019)(36756003)(86362001)(478600001)(2906002)(8676002)(8936002)(6486002)(31686004)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: isA94ydVwg2oHPbBbXb6qUnuAMsW50jARgOLURkJEHsQU8xsywt4KFI0gIE6xATXB5ZcOgsA0Iya/1tnXVr/dfCzoZkPYHaa9efIqFl6k4MUGMSpo6J/ze0Dgq8/gvUtT1hiTyswam7XLXas34itplO2lsONr+8IrdCv8iVW1eTy3xaSEiYL9f62zc8jpkmM/TA5yup6zZz7J3LhA81u7eqYKLgkNDW/+Sl3Ogo01ZHnO51owPfwFjehIy8lp8ZAMR6ff9+hqGzkj/mwfpUSJwtjAq8D29RYWns04xAbVhCNXWMHqYzGjDBf9L9dZxdWPokHRuyxftZ9TY89R00rXmAMe6XL7+dcjtNlciyL8q43IbCT/3h2puJ57HvaUadRTqfdYBkrQVM7osiRjr0lVDY4R0VcIJAR+yCt2r1gjHFULwT6G08HI4c/ei8+xxoZPIERtYft0GZn35zpn+4dvC7ktXz+XU1+KO10Bx+w1g8BuIq/ZlVDcbdI7mZDmi/1
+X-MS-Exchange-AntiSpam-MessageData: +kHO/sJplZ2aK/0SlZb7QPetKr986PwJEL+NV/7GUdq/y3H1pAwxeFMi/axv2HUdxhOYxp7hC2699vqhfWUvVJ7cNCW5GyD+W+fegAXUg9SPO8LMXpxfhNKl6Jmi6LE8pXemsj2M0HpcXn4doOfm4B+aNT/yHsQmFL5b73yCjQsKYytezzKOdWTnKG4uImwlqnzYHQGFONZOrDxdsOXdee4pSyN0r3iWfGpHP9IBfz8SgVtYMAKp8+A5dBvg03Fk3zle1yO97MP89XJMV26RJB2BBiOuPqgPsNU41bzZHjHAwuIA1aaJkqR/NBnUTdrngZy2bdvmEkr4pKFu0YYSZsZ5XNjVoQS3x1AkjBy7SgocKIauZRVrrfbYLZtGp0Cfs1SKdWiqGGvrN8Rh2Sn45JNaSqCExwaIl0lKmrRAz4IDWdIsMuYoHDG4+sykWvmv9+kiXbNH0FUZ7/r3dyHD1RDPcVzu2jDke0MJsBghyDqRVLnqNw9OpT+ujcsy/htu
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab56fddc-921a-4d9f-eb6b-08d82d8f4afe
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bdc63217-e565-42c3-7920-08d82d8fab05
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2414.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2020 16:01:13.8596 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2020 16:03:54.7330 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ViFoxzDCDGpazED3J0TlZro3PNvjGRG1oX2CphnXN8A/nRp4QU6FjXdCeII6BAy7bREhJuXcxLE8PtbIydZFkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2837
+X-MS-Exchange-CrossTenant-UserPrincipalName: FhYcXT/Y63Ro7M+Fdy2UOC85jYARoykT6/KNK14TLvFA5MBp5Y4YjY0S06a4Fjtfy6q7RvzfBSv8TXsGQOci+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4590
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,215 +111,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-07-21 11:38 a.m., Kent Russell wrote:
-> In certain kernels using GCC 8.2, we get compilation errors saying:
-> -mpreferred-stack-boundary=3 is not between 4 and 12
-> Explicitly set -mpreferred-stack-boundary=4 in the Display Makefiles,
-> even when SSE2 is enabled
-> 
-> Change-Id: Ic7c4637e2e521af2d0444d3b5886f710131c80ca
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
-
-Seems reasonable to me. I'd imagine we want this anyway since SIMD 
-generally wants to be 16-byte aligned anyway and this code has FP in it.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-Regards,
-Nicholas Kazlauskas
-
-> ---
->   drivers/gpu/drm/amd/display/dc/calcs/Makefile | 8 ++++----
->   drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 8 ++++----
->   drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 8 ++++----
->   drivers/gpu/drm/amd/display/dc/dcn30/Makefile | 8 ++++----
->   drivers/gpu/drm/amd/display/dc/dml/Makefile   | 9 +++++----
->   drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 8 ++++----
->   6 files changed, 25 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> index 4674aca8f206..5c519cec9039 100644
-> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> @@ -26,7 +26,9 @@
->   #
->   
->   ifdef CONFIG_X86
-> -calcs_ccflags := -mhard-float -msse
-> +# Certain kernels don't compile with -mpreferred-stack-boundary=3, so explicitly set it
-> +# to 4, even if we enable SSE2
-> +calcs_ccflags := -mhard-float -msse -mpreferred-stack-boundary=4
->   endif
->   
->   ifdef CONFIG_PPC64
-> @@ -40,12 +42,10 @@ endif
->   endif
->   
->   ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifndef IS_OLD_GCC
->   # Stack alignment mismatch, proceed with caution.
->   # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->   # (8B stack alignment).
-> -calcs_ccflags += -mpreferred-stack-boundary=4
-> -else
->   calcs_ccflags += -msse2
->   endif
->   endif
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> index 5fcaf78334ff..78d3e0563a4c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> @@ -10,7 +10,9 @@ DCN20 = dcn20_resource.o dcn20_init.o dcn20_hwseq.o dcn20_dpp.o dcn20_dpp_cm.o d
->   DCN20 += dcn20_dsc.o
->   
->   ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mhard-float -msse
-> +# Certain kernels don't compile with -mpreferred-stack-boundary=3, so explicitly set it
-> +# to 4, even if we enable SSE2
-> +CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
->   endif
->   
->   ifdef CONFIG_PPC64
-> @@ -24,12 +26,10 @@ endif
->   endif
->   
->   ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifndef IS_OLD_GCC
->   # Stack alignment mismatch, proceed with caution.
->   # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->   # (8B stack alignment).
-> -CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o += -mpreferred-stack-boundary=4
-> -else
->   CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o += -msse2
->   endif
->   endif
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> index 07684d3e375a..6183e8f141bb 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> @@ -6,7 +6,9 @@ DCN21 = dcn21_init.o dcn21_hubp.o dcn21_hubbub.o dcn21_resource.o \
->   	 dcn21_hwseq.o dcn21_link_encoder.o
->   
->   ifdef CONFIG_X86
-> -CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse
-> +# Certain kernels don't compile with -mpreferred-stack-boundary=3, so explicitly set it
-> +# to 4, even if we enable SSE2
-> +CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
->   endif
->   
->   ifdef CONFIG_PPC64
-> @@ -20,12 +22,10 @@ endif
->   endif
->   
->   ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifndef IS_OLD_GCC
->   # Stack alignment mismatch, proceed with caution.
->   # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->   # (8B stack alignment).
-> -CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o += -mpreferred-stack-boundary=4
-> -else
->   CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o += -msse2
->   endif
->   endif
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> index 025637a83c3b..0d803486e051 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/Makefile
-> @@ -33,19 +33,19 @@ DCN30 = dcn30_init.o dcn30_hubbub.o dcn30_hubp.o dcn30_dpp.o dcn30_optc.o \
->   
->   CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_optc.o := -mhard-float -msse -mpreferred-stack-boundary=4
->   
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse
-> +# Certain kernels don't compile with -mpreferred-stack-boundary=3, so explicitly set it
-> +# to 4, even if we enable SSE2
-> +CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
->   ifdef CONFIG_CC_IS_GCC
->   ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->   IS_OLD_GCC = 1
->   endif
->   endif
->   
-> -ifdef IS_OLD_GCC
-> +ifndef IS_OLD_GCC
->   # Stack alignment mismatch, proceed with caution.
->   # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->   # (8B stack alignment).
-> -CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -mpreferred-stack-boundary=4
-> -else
->   CFLAGS_$(AMDDALPATH)/dc/dcn30/dcn30_resource.o += -msse2
->   endif
->   
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 417331438c30..fc5e304c4dac 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -25,8 +25,11 @@
->   # It provides the general basic services required by other DAL
->   # subcomponents.
->   
-> +
->   ifdef CONFIG_X86
-> -dml_ccflags := -mhard-float -msse
-> +# Certain kernels don't compile with -mpreferred-stack-boundary=3, so explicitly set it
-> +# to 4, even if we enable SSE2
-> +dml_ccflags := -mhard-float -msse -mpreferred-stack-boundary=4
->   endif
->   
->   ifdef CONFIG_PPC64
-> @@ -40,12 +43,10 @@ endif
->   endif
->   
->   ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifndef IS_OLD_GCC
->   # Stack alignment mismatch, proceed with caution.
->   # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->   # (8B stack alignment).
-> -dml_ccflags += -mpreferred-stack-boundary=4
-> -else
->   dml_ccflags += -msse2
->   endif
->   endif
-> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> index ea29cf95d470..98695c66eaf1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> @@ -3,7 +3,9 @@
->   # Makefile for the 'dsc' sub-component of DAL.
->   
->   ifdef CONFIG_X86
-> -dsc_ccflags := -mhard-float -msse
-> +# Certain kernels don't compile with -mpreferred-stack-boundary=3, so explicitly set it
-> +# to 4, even if we enable SSE2
-> +dsc_ccflags := -mhard-float -msse -mpreferred-stack-boundary=4
->   endif
->   
->   ifdef CONFIG_PPC64
-> @@ -17,12 +19,10 @@ endif
->   endif
->   
->   ifdef CONFIG_X86
-> -ifdef IS_OLD_GCC
-> +ifndef IS_OLD_GCC
->   # Stack alignment mismatch, proceed with caution.
->   # GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
->   # (8B stack alignment).
-> -dsc_ccflags += -mpreferred-stack-boundary=4
-> -else
->   dsc_ccflags += -msse2
->   endif
->   endif
-> 
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjAyMC0wNy0yMSB1bSAxMTozOCBhLm0uIHNjaHJpZWIgS2VudCBSdXNzZWxsOgo+IEluIGNl
+cnRhaW4ga2VybmVscyB1c2luZyBHQ0MgOC4yLCB3ZSBnZXQgY29tcGlsYXRpb24gZXJyb3JzIHNh
+eWluZzoKPiAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT0zIGlzIG5vdCBiZXR3ZWVuIDQgYW5k
+IDEyCj4gRXhwbGljaXRseSBzZXQgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NCBpbiB0aGUg
+RGlzcGxheSBNYWtlZmlsZXMsCj4gZXZlbiB3aGVuIFNTRTIgaXMgZW5hYmxlZAoKQXMgSSB1bmRl
+cnN0YW5kIGl0LCAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeSBkb2VzIG5vdCBhZmZlY3QgdGhl
+IHN0YWNrCnNpemUsIGJ1dCB0aGUgYWxpZ25tZW50IG9mIHRoZSBzdGFjayBmcmFtZS4KClRoZSBH
+Q0MgbWFucGFnZSBleHBsYWlucyB0aGF0IG1peGluZyBkaWZmZXJlbnQgc3RhY2sgYm91bmRhcnkg
+c2V0dGluZ3MKY2FuIGxlYWQgdG8gZXJyb3JzIHdoZW4gZnVuY3Rpb25zIGNvbXBpbGVkIHdpdGgg
+c3RhY2stYm91bmRhcnk9MyBjYWxsCmZ1bmN0aW9ucyB3aXRoIHN0YWNrLWJvdW5kYXJ5PTQuIFRo
+YXQgc291bmRzIGxpa2Ugc2V0dGluZyBhIGRpZmZlcmVudApzdGFjayBib3VuZGFyeSBleHBsaWNp
+dGx5IGluIG9ubHkgc29tZSBwYXJ0cyBvZiB0aGUgY29kZSBpcyBwcm9iYWJseSBhCmJhZCBpZGVh
+LgoKUXVvdGUgZnJvbSB0aGUgZ2NjIG1hbmdhZ2U6Cgo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIFdh
+cm5pbmc6IFdoZW4gZ2VuZXJhdGluZyBjb2RlIGZvciB0aGUgeDg2LTY0IGFyY2hpdGVjdHVyZQo+
+IHdpdGggU1NFCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgZXh0ZW5zaW9ucyBkaXNhYmxlZCwgLW1w
+cmVmZXJyZWQtc3RhY2stYm91bmRhcnk9MyBjYW4gYmUKPiB1c2VkIHRvCj4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqAga2VlcCB0aGUgc3RhY2sgYm91bmRhcnkgYWxpZ25lZCB0byA4IGJ5dGUgYm91bmRh
+cnkuwqAgU2luY2UKPiB4ODYtNjQKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBQkkgcmVxdWlyZSAx
+NiBieXRlIHN0YWNrIGFsaWdubWVudCwgdGhpcyBpcyBBQkkKPiBpbmNvbXBhdGlibGUgYW5kCj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaW50ZW5kZWQgdG8gYmUgdXNlZCBpbiBjb250cm9sbGVkIGVu
+dmlyb25tZW50IHdoZXJlIHN0YWNrCj4gc3BhY2UgaXMKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBp
+bXBvcnRhbnQgbGltaXRhdGlvbi7CoCBUaGlzIG9wdGlvbiBsZWFkcyB0byB3cm9uZyBjb2RlIHdo
+ZW4KPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmdW5jdGlvbnMgY29tcGlsZWQgd2l0aCAxNiBieXRl
+IHN0YWNrIGFsaWdubWVudCAoc3VjaCBhcwo+IGZ1bmN0aW9ucwo+IMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGZyb20gYSBzdGFuZGFyZCBsaWJyYXJ5KSBhcmUgY2FsbGVkIHdpdGggbWlzYWxpZ25lZCBz
+dGFjay7CoAo+IEluIHRoaXMKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjYXNlLCBTU0UgaW5zdHJ1
+Y3Rpb25zIG1heSBsZWFkIHRvIG1pc2FsaWduZWQgbWVtb3J5IGFjY2Vzcwo+IHRyYXBzLgo+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIEluIGFkZGl0aW9uLCB2YXJpYWJsZSBhcmd1bWVudHMgYXJlIGhh
+bmRsZWQgaW5jb3JyZWN0bHkgZm9yCj4gMTYgYnl0ZQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFs
+aWduZWQgb2JqZWN0cyAoaW5jbHVkaW5nIHg4NyBsb25nIGRvdWJsZSBhbmQgX19pbnQxMjgpLAo+
+IGxlYWRpbmcKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0byB3cm9uZyByZXN1bHRzLsKgIFlvdSBt
+dXN0IGJ1aWxkIGFsbCBtb2R1bGVzIHdpdGgKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtbXByZWZl
+cnJlZC1zdGFjay1ib3VuZGFyeT0zLCBpbmNsdWRpbmcgYW55IGxpYnJhcmllcy7CoCBUaGlzCj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaW5jbHVkZXMgdGhlIHN5c3RlbSBsaWJyYXJpZXMgYW5kIHN0
+YXJ0dXAgbW9kdWxlcy4KClJlZ2FyZHMsCsKgIEZlbGl4CgoKPgo+IENoYW5nZS1JZDogSWM3YzQ2
+MzdlMmU1MjFhZjJkMDQ0NGQzYjU4ODZmNzEwMTMxYzgwY2EKPiBTaWduZWQtb2ZmLWJ5OiBLZW50
+IFJ1c3NlbGwgPGtlbnQucnVzc2VsbEBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUgfCA4ICsrKystLS0tCj4gIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9NYWtlZmlsZSB8IDggKysrKy0tLS0KPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01ha2VmaWxlIHwgOCArKysrLS0tLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAvTWFrZWZpbGUgfCA4ICsrKystLS0t
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUgICB8IDkgKysr
+KystLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kc2MvTWFrZWZpbGUgICB8
+IDggKysrKy0tLS0KPiAgNiBmaWxlcyBjaGFuZ2VkLCAyNSBpbnNlcnRpb25zKCspLCAyNCBkZWxl
+dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+Y2FsY3MvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFr
+ZWZpbGUKPiBpbmRleCA0Njc0YWNhOGYyMDYuLjVjNTE5Y2VjOTAzOSAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUKPiBAQCAtMjYsNyArMjYs
+OSBAQAo+ICAjCj4gIAo+ICBpZmRlZiBDT05GSUdfWDg2Cj4gLWNhbGNzX2NjZmxhZ3MgOj0gLW1o
+YXJkLWZsb2F0IC1tc3NlCj4gKyMgQ2VydGFpbiBrZXJuZWxzIGRvbid0IGNvbXBpbGUgd2l0aCAt
+bXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT0zLCBzbyBleHBsaWNpdGx5IHNldCBpdAo+ICsjIHRv
+IDQsIGV2ZW4gaWYgd2UgZW5hYmxlIFNTRTIKPiArY2FsY3NfY2NmbGFncyA6PSAtbWhhcmQtZmxv
+YXQgLW1zc2UgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+ICBlbmRpZgo+ICAKPiAgaWZk
+ZWYgQ09ORklHX1BQQzY0Cj4gQEAgLTQwLDEyICs0MiwxMCBAQCBlbmRpZgo+ICBlbmRpZgo+ICAK
+PiAgaWZkZWYgQ09ORklHX1g4Ngo+IC1pZmRlZiBJU19PTERfR0NDCj4gK2lmbmRlZiBJU19PTERf
+R0NDCj4gICMgU3RhY2sgYWxpZ25tZW50IG1pc21hdGNoLCBwcm9jZWVkIHdpdGggY2F1dGlvbi4K
+PiAgIyBHQ0MgPCA3LjEgY2Fubm90IGNvbXBpbGUgY29kZSB1c2luZyBgZG91YmxlYCBhbmQgLW1w
+cmVmZXJyZWQtc3RhY2stYm91bmRhcnk9Mwo+ICAjICg4QiBzdGFjayBhbGlnbm1lbnQpLgo+IC1j
+YWxjc19jY2ZsYWdzICs9IC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQKPiAtZWxzZQo+ICBj
+YWxjc19jY2ZsYWdzICs9IC1tc3NlMgo+ICBlbmRpZgo+ICBlbmRpZgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvTWFrZWZpbGUgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvTWFrZWZpbGUKPiBpbmRleCA1ZmNhZjc4MzM0ZmYu
+Ljc4ZDNlMDU2M2E0YyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvZGNuMjAvTWFrZWZpbGUKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+ZGNuMjAvTWFrZWZpbGUKPiBAQCAtMTAsNyArMTAsOSBAQCBEQ04yMCA9IGRjbjIwX3Jlc291cmNl
+Lm8gZGNuMjBfaW5pdC5vIGRjbjIwX2h3c2VxLm8gZGNuMjBfZHBwLm8gZGNuMjBfZHBwX2NtLm8g
+ZAo+ICBEQ04yMCArPSBkY24yMF9kc2Mubwo+ICAKPiAgaWZkZWYgQ09ORklHX1g4Ngo+IC1DRkxB
+R1NfJChBTUREQUxQQVRIKS9kYy9kY24yMC9kY24yMF9yZXNvdXJjZS5vIDo9IC1taGFyZC1mbG9h
+dCAtbXNzZQo+ICsjIENlcnRhaW4ga2VybmVscyBkb24ndCBjb21waWxlIHdpdGggLW1wcmVmZXJy
+ZWQtc3RhY2stYm91bmRhcnk9Mywgc28gZXhwbGljaXRseSBzZXQgaXQKPiArIyB0byA0LCBldmVu
+IGlmIHdlIGVuYWJsZSBTU0UyCj4gK0NGTEFHU18kKEFNRERBTFBBVEgpL2RjL2RjbjIwL2RjbjIw
+X3Jlc291cmNlLm8gOj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5k
+YXJ5PTQKPiAgZW5kaWYKPiAgCj4gIGlmZGVmIENPTkZJR19QUEM2NAo+IEBAIC0yNCwxMiArMjYs
+MTAgQEAgZW5kaWYKPiAgZW5kaWYKPiAgCj4gIGlmZGVmIENPTkZJR19YODYKPiAtaWZkZWYgSVNf
+T0xEX0dDQwo+ICtpZm5kZWYgSVNfT0xEX0dDQwo+ICAjIFN0YWNrIGFsaWdubWVudCBtaXNtYXRj
+aCwgcHJvY2VlZCB3aXRoIGNhdXRpb24uCj4gICMgR0NDIDwgNy4xIGNhbm5vdCBjb21waWxlIGNv
+ZGUgdXNpbmcgYGRvdWJsZWAgYW5kIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTMKPiAgIyAo
+OEIgc3RhY2sgYWxpZ25tZW50KS4KPiAtQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMjAvZGNu
+MjBfcmVzb3VyY2UubyArPSAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT00Cj4gLWVsc2UKPiAg
+Q0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMjAvZGNuMjBfcmVzb3VyY2UubyArPSAtbXNzZTIK
+PiAgZW5kaWYKPiAgZW5kaWYKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RjbjIxL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+bjIxL01ha2VmaWxlCj4gaW5kZXggMDc2ODRkM2UzNzVhLi42MTgzZThmMTQxYmIgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01ha2VmaWxlCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01ha2VmaWxlCj4gQEAgLTYs
+NyArNiw5IEBAIERDTjIxID0gZGNuMjFfaW5pdC5vIGRjbjIxX2h1YnAubyBkY24yMV9odWJidWIu
+byBkY24yMV9yZXNvdXJjZS5vIFwKPiAgCSBkY24yMV9od3NlcS5vIGRjbjIxX2xpbmtfZW5jb2Rl
+ci5vCj4gIAo+ICBpZmRlZiBDT05GSUdfWDg2Cj4gLUNGTEFHU18kKEFNRERBTFBBVEgpL2RjL2Rj
+bjIxL2RjbjIxX3Jlc291cmNlLm8gOj0gLW1oYXJkLWZsb2F0IC1tc3NlCj4gKyMgQ2VydGFpbiBr
+ZXJuZWxzIGRvbid0IGNvbXBpbGUgd2l0aCAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT0zLCBz
+byBleHBsaWNpdGx5IHNldCBpdAo+ICsjIHRvIDQsIGV2ZW4gaWYgd2UgZW5hYmxlIFNTRTIKPiAr
+Q0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMjEvZGNuMjFfcmVzb3VyY2UubyA6PSAtbWhhcmQt
+ZmxvYXQgLW1zc2UgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+ICBlbmRpZgo+ICAKPiAg
+aWZkZWYgQ09ORklHX1BQQzY0Cj4gQEAgLTIwLDEyICsyMiwxMCBAQCBlbmRpZgo+ICBlbmRpZgo+
+ICAKPiAgaWZkZWYgQ09ORklHX1g4Ngo+IC1pZmRlZiBJU19PTERfR0NDCj4gK2lmbmRlZiBJU19P
+TERfR0NDCj4gICMgU3RhY2sgYWxpZ25tZW50IG1pc21hdGNoLCBwcm9jZWVkIHdpdGggY2F1dGlv
+bi4KPiAgIyBHQ0MgPCA3LjEgY2Fubm90IGNvbXBpbGUgY29kZSB1c2luZyBgZG91YmxlYCBhbmQg
+LW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9Mwo+ICAjICg4QiBzdGFjayBhbGlnbm1lbnQpLgo+
+IC1DRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5vICs9IC1tcHJl
+ZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQKPiAtZWxzZQo+ICBDRkxBR1NfJChBTUREQUxQQVRIKS9k
+Yy9kY24yMS9kY24yMV9yZXNvdXJjZS5vICs9IC1tc3NlMgo+ICBlbmRpZgo+ICBlbmRpZgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAvTWFrZWZpbGUg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAvTWFrZWZpbGUKPiBpbmRleCAw
+MjU2MzdhODNjM2IuLjBkODAzNDg2ZTA1MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZGNuMzAvTWFrZWZpbGUKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNuMzAvTWFrZWZpbGUKPiBAQCAtMzMsMTkgKzMzLDE5IEBAIERDTjMwID0g
+ZGNuMzBfaW5pdC5vIGRjbjMwX2h1YmJ1Yi5vIGRjbjMwX2h1YnAubyBkY24zMF9kcHAubyBkY24z
+MF9vcHRjLm8gXAo+ICAKPiAgQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMzAvZGNuMzBfb3B0
+Yy5vIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT00Cj4g
+IAo+IC1DRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kY24zMC9kY24zMF9yZXNvdXJjZS5vIDo9IC1t
+aGFyZC1mbG9hdCAtbXNzZQo+ICsjIENlcnRhaW4ga2VybmVscyBkb24ndCBjb21waWxlIHdpdGgg
+LW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9Mywgc28gZXhwbGljaXRseSBzZXQgaXQKPiArIyB0
+byA0LCBldmVuIGlmIHdlIGVuYWJsZSBTU0UyCj4gK0NGTEFHU18kKEFNRERBTFBBVEgpL2RjL2Rj
+bjMwL2RjbjMwX3Jlc291cmNlLm8gOj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1tcHJlZmVycmVkLXN0
+YWNrLWJvdW5kYXJ5PTQKPiAgaWZkZWYgQ09ORklHX0NDX0lTX0dDQwo+ICBpZmVxICgkKGNhbGwg
+Y2MtaWZ2ZXJzaW9uLCAtbHQsIDA3MDEsIHkpLCB5KQo+ICBJU19PTERfR0NDID0gMQo+ICBlbmRp
+Zgo+ICBlbmRpZgo+ICAKPiAtaWZkZWYgSVNfT0xEX0dDQwo+ICtpZm5kZWYgSVNfT0xEX0dDQwo+
+ICAjIFN0YWNrIGFsaWdubWVudCBtaXNtYXRjaCwgcHJvY2VlZCB3aXRoIGNhdXRpb24uCj4gICMg
+R0NDIDwgNy4xIGNhbm5vdCBjb21waWxlIGNvZGUgdXNpbmcgYGRvdWJsZWAgYW5kIC1tcHJlZmVy
+cmVkLXN0YWNrLWJvdW5kYXJ5PTMKPiAgIyAoOEIgc3RhY2sgYWxpZ25tZW50KS4KPiAtQ0ZMQUdT
+XyQoQU1EREFMUEFUSCkvZGMvZGNuMzAvZGNuMzBfcmVzb3VyY2UubyArPSAtbXByZWZlcnJlZC1z
+dGFjay1ib3VuZGFyeT00Cj4gLWVsc2UKPiAgQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMzAv
+ZGNuMzBfcmVzb3VyY2UubyArPSAtbXNzZTIKPiAgZW5kaWYKPiAgCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4gaW5kZXggNDE3MzMxNDM4YzMwLi5mYzVl
+MzA0YzRkYWMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rt
+bC9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFr
+ZWZpbGUKPiBAQCAtMjUsOCArMjUsMTEgQEAKPiAgIyBJdCBwcm92aWRlcyB0aGUgZ2VuZXJhbCBi
+YXNpYyBzZXJ2aWNlcyByZXF1aXJlZCBieSBvdGhlciBEQUwKPiAgIyBzdWJjb21wb25lbnRzLgo+
+ICAKPiArCj4gIGlmZGVmIENPTkZJR19YODYKPiAtZG1sX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0
+IC1tc3NlCj4gKyMgQ2VydGFpbiBrZXJuZWxzIGRvbid0IGNvbXBpbGUgd2l0aCAtbXByZWZlcnJl
+ZC1zdGFjay1ib3VuZGFyeT0zLCBzbyBleHBsaWNpdGx5IHNldCBpdAo+ICsjIHRvIDQsIGV2ZW4g
+aWYgd2UgZW5hYmxlIFNTRTIKPiArZG1sX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1t
+cHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQKPiAgZW5kaWYKPiAgCj4gIGlmZGVmIENPTkZJR19Q
+UEM2NAo+IEBAIC00MCwxMiArNDMsMTAgQEAgZW5kaWYKPiAgZW5kaWYKPiAgCj4gIGlmZGVmIENP
+TkZJR19YODYKPiAtaWZkZWYgSVNfT0xEX0dDQwo+ICtpZm5kZWYgSVNfT0xEX0dDQwo+ICAjIFN0
+YWNrIGFsaWdubWVudCBtaXNtYXRjaCwgcHJvY2VlZCB3aXRoIGNhdXRpb24uCj4gICMgR0NDIDwg
+Ny4xIGNhbm5vdCBjb21waWxlIGNvZGUgdXNpbmcgYGRvdWJsZWAgYW5kIC1tcHJlZmVycmVkLXN0
+YWNrLWJvdW5kYXJ5PTMKPiAgIyAoOEIgc3RhY2sgYWxpZ25tZW50KS4KPiAtZG1sX2NjZmxhZ3Mg
+Kz0gLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+IC1lbHNlCj4gIGRtbF9jY2ZsYWdzICs9
+IC1tc3NlMgo+ICBlbmRpZgo+ICBlbmRpZgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZHNjL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RzYy9NYWtlZmlsZQo+IGluZGV4IGVhMjljZjk1ZDQ3MC4uOTg2OTVjNjZlYWYxIDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kc2MvTWFrZWZpbGUKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZHNjL01ha2VmaWxlCj4gQEAgLTMs
+NyArMyw5IEBACj4gICMgTWFrZWZpbGUgZm9yIHRoZSAnZHNjJyBzdWItY29tcG9uZW50IG9mIERB
+TC4KPiAgCj4gIGlmZGVmIENPTkZJR19YODYKPiAtZHNjX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0
+IC1tc3NlCj4gKyMgQ2VydGFpbiBrZXJuZWxzIGRvbid0IGNvbXBpbGUgd2l0aCAtbXByZWZlcnJl
+ZC1zdGFjay1ib3VuZGFyeT0zLCBzbyBleHBsaWNpdGx5IHNldCBpdAo+ICsjIHRvIDQsIGV2ZW4g
+aWYgd2UgZW5hYmxlIFNTRTIKPiArZHNjX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1t
+cHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQKPiAgZW5kaWYKPiAgCj4gIGlmZGVmIENPTkZJR19Q
+UEM2NAo+IEBAIC0xNywxMiArMTksMTAgQEAgZW5kaWYKPiAgZW5kaWYKPiAgCj4gIGlmZGVmIENP
+TkZJR19YODYKPiAtaWZkZWYgSVNfT0xEX0dDQwo+ICtpZm5kZWYgSVNfT0xEX0dDQwo+ICAjIFN0
+YWNrIGFsaWdubWVudCBtaXNtYXRjaCwgcHJvY2VlZCB3aXRoIGNhdXRpb24uCj4gICMgR0NDIDwg
+Ny4xIGNhbm5vdCBjb21waWxlIGNvZGUgdXNpbmcgYGRvdWJsZWAgYW5kIC1tcHJlZmVycmVkLXN0
+YWNrLWJvdW5kYXJ5PTMKPiAgIyAoOEIgc3RhY2sgYWxpZ25tZW50KS4KPiAtZHNjX2NjZmxhZ3Mg
+Kz0gLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+IC1lbHNlCj4gIGRzY19jY2ZsYWdzICs9
+IC1tc3NlMgo+ICBlbmRpZgo+ICBlbmRpZgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
