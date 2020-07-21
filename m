@@ -2,106 +2,73 @@ Return-Path: <SRS0=9beK=BA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB385C433E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:56:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4548AC433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 70B0B2073A
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:56:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1BE9C20792
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 16:52:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="g6Kbamjf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70B0B2073A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tgpm8jDS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BE9C20792
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 995B16E2C7;
-	Tue, 21 Jul 2020 16:56:28 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2081.outbound.protection.outlook.com [40.107.237.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1955C6E1A2
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 16:56:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eotnpWKmI3b+ekosRd+PsuYhdN8Mf28blT8woNuUSCdSWanH7H+0t9ydMc3Qjtnfrf3Z+DGML5iJcE4/+Zq5oYpw3fvxFKIvUdNSlhmUis5rYhjvtzEdYtgxRUAqBQ/clvMlTjXhP4hGfkKXo0XX3f6VUa4bo6eEV6s3S3c5PIu6YWuUDSlnvn+7HxU5MTPOWQkV28uqSQjP0unZB8O7Ximp87d4tA0GPQ66wgkArbqRXYwC8wGbBzpK5bkJ7E2Kva7SYhjZPvhMsK8XlxaoyJ8CFMdMJx5XoTJrhxntfVvtiQf+cmNttPmxSIbHiJ6+Slup9O5OSebexOJPlPBMEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oW/vwmAEz+TG9qAGtynEpXtJ8+fsMg/RtVhEDrb39Y0=;
- b=QVfYLWZ5iaYGESjXFvEzCIWvglzgwO9Ar1YvPGjcyfUGU8K594pVnzPJJ69wgKh+dbniDooxZYc7zfD5f7xEoaJ36AWmv3LtKJN4EjIoX7wiCFaWUucMFLdjV33iG/8dQDTJavsAgf4FUirCFbRZ+v82RA74/7I7b3EyDsAlNeyrbnHo0JoBpNvrDkWoMETf+KcgrSTmrIFvzPtvxDZ54jIQSKS1wYTpDpYRC1ApOAuun1jxe7lNdnWATM4Pwqwf9z4BsIDXPb6x0IQnFlIuf4VegL02aLG831ZjDVLU17JoTSc0oF7h6OuaWnuPXTCeVqzCQWQ6wgg5Ao6xQFK3NQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oW/vwmAEz+TG9qAGtynEpXtJ8+fsMg/RtVhEDrb39Y0=;
- b=g6KbamjfYBKRWONgO4cydroPnfYs6wUtMJ8EuebGo92PemKjzWHCzZjZdoCcCkD9OyXMCcyissQcx6ieveZoZsEPdinuZoZOYNFyMdgy5ZoAnBZNAv7CecVXJZEFvy1wEAh5jrDOhDrEcwEyKt6p5sKPfCbZ07QtcH5cwiWeHDM=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB3854.namprd12.prod.outlook.com (2603:10b6:208:16a::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.23; Tue, 21 Jul
- 2020 16:56:25 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::c8b3:24f3:c561:97d9]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::c8b3:24f3:c561:97d9%5]) with mapi id 15.20.3195.025; Tue, 21 Jul 2020
- 16:56:25 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 5/6] drm/amdgpu/navi1x: add SMU i2c support
-Thread-Topic: [PATCH 5/6] drm/amdgpu/navi1x: add SMU i2c support
-Thread-Index: AQHWX39hfLSzF5Z8UkakXbWVggy5dKkSQKXJ
-Date: Tue, 21 Jul 2020 16:56:24 +0000
-Message-ID: <MN2PR12MB44881AE65EFC4A6CA484C479F7780@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200721165240.296265-1-alexander.deucher@amd.com>,
- <20200721165240.296265-5-alexander.deucher@amd.com>
-In-Reply-To: <20200721165240.296265-5-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-21T16:56:24.329Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [172.58.190.150]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: dd5bdc9d-0399-4771-21b0-08d82d9700dc
-x-ms-traffictypediagnostic: MN2PR12MB3854:
-x-microsoft-antispam-prvs: <MN2PR12MB38548981D8CC77C11531D5BBF7780@MN2PR12MB3854.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3631;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: w0y8ips6/JoutTNLzcLO0r5tM2QUuqYpYBMCvi0Q1o1kOhkcbEfRhfzL+1pkmD1hr0kQQ5O6ysLw+l+1qu7+gyyuiyFA6wpj6DG/Arpi8D19/G+Mh1s/3hsnQBSx+7DOhbYky+ATGZtjjC1YQx0tr5qEImejEZ4tTYXNNtYLnJilwQ8tAEBfN1CZMwCMk1wDSCwOJJoUFElxhccwIDqENkWR3OwEueONeldW3QLLohAckQq8K7Ik8ZEurxzFqR5DemljstBD6uWcKaSNEPuVp7P8smvYZeHpCrXz9wrEJ823FSOI0lwRsG2m5Hnx4aLgZsGsuFfDPHG/MnR3t3wU86OYuoPjl6vlI3SuP8kzvbtLPB7DXA5KFvdDAkb3w11L
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(366004)(2906002)(33656002)(66946007)(52536014)(76116006)(8936002)(64756008)(6506007)(53546011)(110136005)(66476007)(66556008)(66446008)(9686003)(55016002)(8676002)(7696005)(478600001)(71200400001)(316002)(86362001)(5660300002)(26005)(19627405001)(83380400001)(186003)(357404004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: ziOIrw1etYAePTMYyfAG88JnYnNdOcMarhMijWkIEjRrgHO7WdIx9/A4+0qqv8Sn+U3KNqKGtYHJ/fEMZj5Mn9GB/eVcDhfhiPUyHzp7C86QvdfdMlTXHt/TvcPMyrZ28JLCa0z+QpDIiIN5nqoEB1Ad7196IGjhNBqmN4HywVSouyAlikuOJtKi4xn36efAozZb/CQmb8YoqoKFWH8OdX9PXwUfA/XiB5UeMlmztLPiMpZdtSRvSQYz6mCAFAOguxSOgfSveYM4YA4I+iRZr9eCy8iO6s9EAZUgexiNI4aW7IOt5K2+rQhZOS79vdxLDDhseJkLiHg3uqmr+hdr2xMXNPblcX14fn+Rkws9yJGBg+u704bMCasl4lEsKlv7sR4RLVS6Bnkw3Ji7rDvvTu0SE/VIe2uZpiLWIFe3lyCwwH9qBPFtS4lElq8tjvW1jRfGw0VU3ZMF1Ql3PWCkYhl+EAaJUpBaj2DdmqjRgqIDV9EXujyd3UaN+Y4puv4X
-x-ms-exchange-transport-forked: True
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8C1E89C93;
+	Tue, 21 Jul 2020 16:52:51 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1CA189C93
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 16:52:50 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id di5so9623827qvb.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 09:52:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=uL7NlRCwkJMFXKX8dHXCyPAyx/ncleGIUTDq6tPRLwU=;
+ b=Tgpm8jDSsUXylnr4dtw491NGuvNIJMQV58HesE9W24Fg+l1lbohf7rLAzV5o8EPBzu
+ LHdth6dH4VSZsB0hSfwqry1cHAzULVbatqOpDXT5VwTEucj0JeeMb/PGeJbdOo5n6qhK
+ z3LEZ4vRRTUE25yVRPimNX5J1Xm1BX/vK6njoNBpME2q21fD8h98wV2ezfMhKHe8wDnQ
+ 60QWLykYqakxbthlZKlrcr+NsALGndx9JW9PsBlaDxGGSjAR6s3R4/K0vOZWlLrCwd+U
+ bqPOPPXFhsTZCsxmu0xKY+CTY177QARybVKPVO4sZFkUm7eqItXvowQZ30bqYCzKoJKF
+ LLnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=uL7NlRCwkJMFXKX8dHXCyPAyx/ncleGIUTDq6tPRLwU=;
+ b=pkwADuMl6PSFbcDG+Ble3ni98YeK25I831FKbkgOB6poBIn2mLSnyuEmgS3tL2lwRB
+ RG1h09HoOcRY0jfX9wneX1vnxb1sVm8TNBbGFVIs01Rjboy4sPPmIE9FRVsUkAD9mIt/
+ lH3kmM1dpY2nFXqtkTz95Fnio9bjcbe83KIYqZJeMZR0cnpadLImInAk6kFaqsCdxWOI
+ QWiTd3b+Rgj3jf2suwmCALkwGe7zUADbmxCFVbT1T3rJ4UJ2U7kX7hDmUQNKHo4mFH5d
+ kKvKMgf8wQwl9SCl/v31D6IL2MWe9LAjBxBlUMSr98B/l+JO4jFJIGvX/8dNEQg9BvD1
+ Z5bA==
+X-Gm-Message-State: AOAM531URJIu4Jsq9+xnbZQcNvGIcFHU+kJMh+mQMps0VbOjkzOw6RjH
+ 8HpCrO5Sk7cBTGLcscdulc8MHkt4
+X-Google-Smtp-Source: ABdhPJx5810Eex6nDYKb+r+xRdYAcRe9vilsviDvGwzF+LEpzVUdE6kUwOG/doBbwdaXL+cpqY2QjQ==
+X-Received: by 2002:a0c:f214:: with SMTP id h20mr26694290qvk.131.1595350369597; 
+ Tue, 21 Jul 2020 09:52:49 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id d16sm2709212qkk.106.2020.07.21.09.52.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2020 09:52:49 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/6] drm/amdgpu: remove eeprom from the smu i2c handlers
+Date: Tue, 21 Jul 2020 12:52:36 -0400
+Message-Id: <20200721165240.296265-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20200721165240.296265-1-alexander.deucher@amd.com>
+References: <20200721165240.296265-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5bdc9d-0399-4771-21b0-08d82d9700dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2020 16:56:24.9508 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Wr30swv4dROgajUXIND8B8R3bFW/V4KTL4vIJ+8RmqGExZZdvaViqxAvyxrh2J4IPxzG7el22Y3ZN7fRkMCqwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3854
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,159 +80,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0408604054=="
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0408604054==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44881AE65EFC4A6CA484C479F7780MN2PR12MB4488namp_"
-
---_000_MN2PR12MB44881AE65EFC4A6CA484C479F7780MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Ignore this.  Sent out the wrong version.
-
-Alex
-________________________________
-From: Alex Deucher <alexdeucher@gmail.com>
-Sent: Tuesday, July 21, 2020 12:52 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH 5/6] drm/amdgpu/navi1x: add SMU i2c support
-
-Enable SMU i2c bus access for navi1x asics.
+The driver uses it for EEPROM access, but it's just an i2c bus.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c    | 52 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h    |  4 +-
+ .../drm/amd/powerplay/smumgr/vega20_smumgr.c  |  4 +-
+ 3 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index ead135f39c7e..56267e6c600e 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -23,6 +23,7 @@
-
- #include <linux/firmware.h>
- #include <linux/pci.h>
-+#include <linux/i2c.h>
- #include "amdgpu.h"
- #include "amdgpu_smu.h"
- #include "smu_internal.h"
-@@ -52,6 +53,8 @@
- #undef pr_info
- #undef pr_debug
-
-+#define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_=
-i2c))
-+
- #define FEATURE_MASK(feature) (1ULL << feature)
- #define SMC_DPM_FEATURE ( \
-         FEATURE_MASK(FEATURE_DPM_PREFETCHER_BIT) | \
---
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+index f3d0324c4a7f..d55bf64770c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+@@ -536,12 +536,12 @@ static bool smu_v11_0_i2c_bus_unlock(struct i2c_adapter *control)
+ 	return false;
+ }
+ 
+-/***************************** EEPROM I2C GLUE ****************************/
++/***************************** I2C GLUE ****************************/
+ 
+-static uint32_t smu_v11_0_i2c_eeprom_read_data(struct i2c_adapter *control,
+-					       uint8_t address,
+-					       uint8_t *data,
+-					       uint32_t numbytes)
++static uint32_t smu_v11_0_i2c_read_data(struct i2c_adapter *control,
++					uint8_t address,
++					uint8_t *data,
++					uint32_t numbytes)
+ {
+ 	uint32_t  ret = 0;
+ 
+@@ -561,10 +561,10 @@ static uint32_t smu_v11_0_i2c_eeprom_read_data(struct i2c_adapter *control,
+ 	return ret;
+ }
+ 
+-static uint32_t smu_v11_0_i2c_eeprom_write_data(struct i2c_adapter *control,
+-						uint8_t address,
+-						uint8_t *data,
+-						uint32_t numbytes)
++static uint32_t smu_v11_0_i2c_write_data(struct i2c_adapter *control,
++					 uint8_t address,
++					 uint8_t *data,
++					 uint32_t numbytes)
+ {
+ 	uint32_t  ret;
+ 
+@@ -624,7 +624,7 @@ static const struct i2c_lock_operations smu_v11_0_i2c_i2c_lock_ops = {
+ 	.unlock_bus = unlock_bus,
+ };
+ 
+-static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
++static int smu_v11_0_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 			      struct i2c_msg *msgs, int num)
+ {
+ 	int i, ret;
+@@ -639,13 +639,13 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 
+ 	for (i = 0; i < num; i++) {
+ 		if (msgs[i].flags & I2C_M_RD)
+-			ret = smu_v11_0_i2c_eeprom_read_data(i2c_adap,
+-							(uint8_t)msgs[i].addr,
+-							msgs[i].buf, msgs[i].len);
++			ret = smu_v11_0_i2c_read_data(i2c_adap,
++						      (uint8_t)msgs[i].addr,
++						      msgs[i].buf, msgs[i].len);
+ 		else
+-			ret = smu_v11_0_i2c_eeprom_write_data(i2c_adap,
+-							 (uint8_t)msgs[i].addr,
+-							 msgs[i].buf, msgs[i].len);
++			ret = smu_v11_0_i2c_write_data(i2c_adap,
++						       (uint8_t)msgs[i].addr,
++						       msgs[i].buf, msgs[i].len);
+ 
+ 		if (ret != I2C_OK) {
+ 			num = -EIO;
+@@ -657,18 +657,18 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	return num;
+ }
+ 
+-static u32 smu_v11_0_i2c_eeprom_i2c_func(struct i2c_adapter *adap)
++static u32 smu_v11_0_i2c_func(struct i2c_adapter *adap)
+ {
+ 	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
+ }
+ 
+ 
+-static const struct i2c_algorithm smu_v11_0_i2c_eeprom_i2c_algo = {
+-	.master_xfer = smu_v11_0_i2c_eeprom_i2c_xfer,
+-	.functionality = smu_v11_0_i2c_eeprom_i2c_func,
++static const struct i2c_algorithm smu_v11_0_i2c_algo = {
++	.master_xfer = smu_v11_0_i2c_xfer,
++	.functionality = smu_v11_0_i2c_func,
+ };
+ 
+-int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
++int smu_v11_0_i2c_control_init(struct i2c_adapter *control)
+ {
+ 	struct amdgpu_device *adev = to_amdgpu_device(control);
+ 	int res;
+@@ -676,8 +676,8 @@ int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
+ 	control->owner = THIS_MODULE;
+ 	control->class = I2C_CLASS_SPD;
+ 	control->dev.parent = &adev->pdev->dev;
+-	control->algo = &smu_v11_0_i2c_eeprom_i2c_algo;
+-	snprintf(control->name, sizeof(control->name), "AMDGPU EEPROM");
++	control->algo = &smu_v11_0_i2c_algo;
++	snprintf(control->name, sizeof(control->name), "AMDGPU SMU");
+ 	control->lock_ops = &smu_v11_0_i2c_i2c_lock_ops;
+ 
+ 	res = i2c_add_adapter(control);
+@@ -687,7 +687,7 @@ int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
+ 	return res;
+ }
+ 
+-void smu_v11_0_i2c_eeprom_control_fini(struct i2c_adapter *control)
++void smu_v11_0_i2c_control_fini(struct i2c_adapter *control)
+ {
+ 	i2c_del_adapter(control);
+ }
+@@ -715,9 +715,9 @@ bool smu_v11_0_i2c_test_bus(struct i2c_adapter *control)
+ 	smu_v11_0_i2c_init(control);
+ 
+ 	/* Write 0xde to address 0x0000 on the EEPROM */
+-	ret = smu_v11_0_i2c_eeprom_write_data(control, I2C_TARGET_ADDR, data, 6);
++	ret = smu_v11_0_i2c_write_data(control, I2C_TARGET_ADDR, data, 6);
+ 
+-	ret = smu_v11_0_i2c_eeprom_read_data(control, I2C_TARGET_ADDR, data, 6);
++	ret = smu_v11_0_i2c_read_data(control, I2C_TARGET_ADDR, data, 6);
+ 
+ 	smu_v11_0_i2c_fini(control);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h
+index 973f28d68e70..44467c05f642 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.h
+@@ -28,7 +28,7 @@
+ 
+ struct i2c_adapter;
+ 
+-int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control);
+-void smu_v11_0_i2c_eeprom_control_fini(struct i2c_adapter *control);
++int smu_v11_0_i2c_control_init(struct i2c_adapter *control);
++void smu_v11_0_i2c_control_fini(struct i2c_adapter *control);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+index c2e0fbbccf56..d1b7955bb4c7 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+@@ -523,7 +523,7 @@ static int vega20_smu_init(struct pp_hwmgr *hwmgr)
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size = sizeof(DpmActivityMonitorCoeffInt_t);
+ 
+ 	if (adev->psp.ras.ras) {
+-		ret = smu_v11_0_i2c_eeprom_control_init(&adev->pm.smu_i2c);
++		ret = smu_v11_0_i2c_control_init(&adev->pm.smu_i2c);
+ 		if (ret)
+ 			goto err4;
+ 	}
+@@ -563,7 +563,7 @@ static int vega20_smu_fini(struct pp_hwmgr *hwmgr)
+ 	struct amdgpu_device *adev = hwmgr->adev;
+ 
+ 	if (adev->psp.ras.ras)
+-		smu_v11_0_i2c_eeprom_control_fini(&adev->pm.smu_i2c);
++		smu_v11_0_i2c_control_fini(&adev->pm.smu_i2c);
+ 
+ 	if (priv) {
+ 		amdgpu_bo_free_kernel(&priv->smu_tables.entry[TABLE_PPTABLE].handle,
+-- 
 2.25.4
-
-
---_000_MN2PR12MB44881AE65EFC4A6CA484C479F7780MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Ignore this.&nbsp; Sent out the wrong version.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher@gmail.com&gt;<br>
-<b>Sent:</b> Tuesday, July 21, 2020 12:52 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 5/6] drm/amdgpu/navi1x: add SMU i2c support</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Enable SMU i2c bus access for navi1x asics.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 &#43;&#43;&#43;<br>
-&nbsp;1 file changed, 3 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index ead135f39c7e..56267e6c600e 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -23,6 &#43;23,7 @@<br>
-&nbsp;<br>
-&nbsp;#include &lt;linux/firmware.h&gt;<br>
-&nbsp;#include &lt;linux/pci.h&gt;<br>
-&#43;#include &lt;linux/i2c.h&gt;<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
-&nbsp;#include &quot;amdgpu_smu.h&quot;<br>
-&nbsp;#include &quot;smu_internal.h&quot;<br>
-@@ -52,6 &#43;53,8 @@<br>
-&nbsp;#undef pr_info<br>
-&nbsp;#undef pr_debug<br>
-&nbsp;<br>
-&#43;#define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.=
-smu_i2c))<br>
-&#43;<br>
-&nbsp;#define FEATURE_MASK(feature) (1ULL &lt;&lt; feature)<br>
-&nbsp;#define SMC_DPM_FEATURE ( \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_MASK(FEATURE_DPM_P=
-REFETCHER_BIT) | \<br>
--- <br>
-2.25.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB44881AE65EFC4A6CA484C479F7780MN2PR12MB4488namp_--
-
---===============0408604054==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0408604054==--
