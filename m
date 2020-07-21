@@ -2,61 +2,112 @@ Return-Path: <SRS0=9beK=BA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4579EC433E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4F7DC433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:04:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2514E20709
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2514E20709
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id 952F220709
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2020 11:04:54 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="24KKINPi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 952F220709
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 897146E05F;
-	Tue, 21 Jul 2020 11:03:11 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 233916E05F
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:03:11 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=localhost)
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1jxq37-000393-Fq; Tue, 21 Jul 2020 13:03:05 +0200
-Message-ID: <e38c494a544d7e0607ee89abcc6a85419e700011.camel@pengutronix.de>
-Subject: Re: [PATCH v4] drm/scheduler: Avoid accessing freed bad job.
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Luben Tuikov
- <luben.tuikov@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Jul 2020 13:03:04 +0200
-In-Reply-To: <2cef1ca3-115c-44ee-9caf-6cb8d6404796@amd.com>
-References: <1574715089-14875-1-git-send-email-andrey.grodzovsky@amd.com>
- <0de5ad33ca2ff86fee13a453aa9096c274afbd3c.camel@pengutronix.de>
- <d710aba7c3acc537bfb1c20362f7c8dbee421f02.camel@pengutronix.de>
- <740fb929-e788-075b-87db-e2524ed4b086@gmail.com>
- <CADnq5_Np=OFgqAb4TPRz5yqx1YZSwWybS=F6R_r6r01QRrzADA@mail.gmail.com>
- <61128c11-9e65-bc21-6306-ea4efea18b76@amd.com>
- <90de1234-a103-a695-4ad7-83b1486e15ee@amd.com>
- <02ba868c-e904-3681-c795-59a4e48926d5@amd.com>
- <b1ebac7c-5593-bc87-1f36-ea55503f05d1@amd.com>
- <4b5c56d2-4ce4-3626-623f-d4a8124d76fa@amd.com>
- <d4ba6ed9-604e-5e88-f427-679639dcf8e9@amd.com>
- <dbb2e7f0-85b7-f9e0-7875-144a8cca4993@amd.com>
- <2cef1ca3-115c-44ee-9caf-6cb8d6404796@amd.com>
-User-Agent: Evolution 3.36.3 (3.36.3-1.fc32) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 605A36E122;
+	Tue, 21 Jul 2020 11:04:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9996E122
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2020 11:04:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nal9Npu+ZZE7I1H28gkGE6jk+6jpK/n4NwD3pIQ171Z5DQ40Tb4GIkBsYme3DZxIUx+cgVfvk/TBFtFIf3wn8DgI+w5+TNBFU40S2N5J3KxNyhb+HmXgp/ylIoUwiJ09urIhMgwNzpiTNvIaJ8GhL6P6MNp4Qp1sDFSoD7IPa9kkdFu9NA0FRASPsQFg1WZvzBjEDUFaq3THmVSqkRy3FBXIRUcJ94KUeRb5ku6PbNu6ONsN3HFnaNK3hJ/tNOd1RScSEBexdV3rstWDa+skVbeLVu86bPCRMFTRJemTsaZTGixLdu6E6Z9idK5/5yTKhp/iN1nb/ky6WEYkIHpgXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iCH+8d1gOLeJ49PM/JImax0JNhYQIULEDjfLIZh39qA=;
+ b=VOWoELxFvxdutIE3SKO/zsdZ9VfMkKZXcnhLPcheZ7wXVy/u4GtwRPC8hGnOx7eHpJccvdjMZa7GsfYRECstBA5+Bp/C6rr8ihDjhADoTCXjLeZisOvOJCKqH0bJsIDUF3eMyUEQn8tsw5mRGD/lt6pHLQcLzXE4v1T3hPVaUaL3siK3bUQjA/tiFiwIUX4BhbmCeDVjTmqcX4eKrzfoZAbBwI5n2ua40PyT4IER0u398V7k6AdRw3RwIwy41wENWXyM9xxe+LkEDKKibPD69Yv2xNh2jIA/lyrFnWBUtSSTzqnb4vPx87jB8z+TXQIZtrH6vwPFWBzEpjtJkjRmig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iCH+8d1gOLeJ49PM/JImax0JNhYQIULEDjfLIZh39qA=;
+ b=24KKINPiofS4ABt1GY5DhgSVx32ouY507S2nd97pZW2n8AGAabMXooDgyO5KlzALGLx/Np1uQcua9PjvTI1smlGFpAIAbYbhQuFcP87rB3i5B+iFY1GE2XnZachUrkmWqnHZoiqkB/0Kt8tT/mc8dWyh1R6pNx/TM+DY6xrsE7w=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM6PR12MB2780.namprd12.prod.outlook.com (2603:10b6:5:4e::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.25; Tue, 21 Jul 2020 11:04:46 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::84dc:a0e7:6158:ce4e]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::84dc:a0e7:6158:ce4e%8]) with mapi id 15.20.3216.021; Tue, 21 Jul 2020
+ 11:04:46 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Clements, John" <John.Clements@amd.com>, amd-gfx list
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: expand sienna chichlid reg access support
+Thread-Topic: [PATCH] drm/amdgpu: expand sienna chichlid reg access support
+Thread-Index: AdZfRMbeLVrLWZiUScy7xMGsaeMiBQACeveA
+Date: Tue, 21 Jul 2020 11:04:46 +0000
+Message-ID: <DM6PR12MB407531859D722D1A7FAAE9E0FC780@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <MN2PR12MB403248E1E8B8387413126F4AFB780@MN2PR12MB4032.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB403248E1E8B8387413126F4AFB780@MN2PR12MB4032.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-21T09:54:14Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=896ab18a-c36a-45e2-b47a-0000373cc5b9;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-21T11:04:44Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 4b115067-276b-4993-aa4f-000015443cf2
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 9789dbb5-0d26-4000-f34c-08d82d65e14e
+x-ms-traffictypediagnostic: DM6PR12MB2780:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB278095EB37803A6602166EF8FC780@DM6PR12MB2780.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2582;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: yje3txXdsInzTq/dUuHT/+Amx+2tCllFcerBbv+f+6aBZnXZte5q6qKy0UYW+wYv65O43nu2e3xzKFfXBRBpJ86DfoRySnSK3Kln0Uy50Z+CMg5Z2EHkHhwI4Kgyb98RRg3VYgdiZeAfscIShb+9xdjxxXa/793gLZSrJvSBjMm3RqvScAW2FJ1TnNTMs0GSdIqmCszTDXdOVnw0L6eC1WN0OsIZGzAhlCe0XrRvSsgAK7lgfDlaGnyVVs/izchBkidqeorqb5qtGsR8VddoiCOezffDkzsrh9DDMRKsfFGsyqBCZ7IagUVrv5BoGaIapSJCc5UsMTFliuX0okeMfA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(396003)(366004)(346002)(376002)(39860400002)(5660300002)(7696005)(2906002)(71200400001)(186003)(83380400001)(478600001)(52536014)(76116006)(86362001)(33656002)(66946007)(66476007)(66556008)(64756008)(66446008)(8936002)(8676002)(4744005)(26005)(316002)(53546011)(6506007)(55016002)(9686003)(110136005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: 9hFwRSCOoW3oNceEQu5SqyRCZjSy0a4SavaB3zQ1Jd+o6wmsUWpEr16sJo6HxcdAK3CrBlGZsCoXTr/QeYHFgY2EUxrY2ltpnCYfvjJEj2sBYElVh/SLpu3xw08cM8/UUvy87k78nc55YrVsVNe6s8QKCky6kj0/TD94G+TJ9C770IGvmF8+be8WwdxPF0LvENm+wYWhCHOz/zXOa2n/w9apVdm+eyRhZKnThlqybzuIQn79v1HegwMMwuBFLECGsB4VzymA1yfoamM457XGgjKPiu/+L/yd9jxkP31SQg8TYE0UGk0vcFx3Z2Y7+OD4WqnNtXYR9eb9aRTnqCS9QbVOzSbOCDDuYUTs3OHi5cu80MZQTmp5h7F3ytb3kDwWIPRNKujKvL+Iirc+g4yuvayShGFdij4+ZeoqQ6Qb0CPqJPV2zESs3y8Fsn4HfSYd2EsAiHzY9kWbAqlCo1sonLvpqcht93ZcUJg4J8kutuNRZNAOJRFsdljCwi28gJYu
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9789dbb5-0d26-4000-f34c-08d82d65e14e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2020 11:04:46.6515 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GboLcnQhlruFlxWXep3dgWLB7OSTLnqdsB4QNvufGxn6voaJRAGxGbdd8+fJA9feMUL+uw17v+UZOfAJxXn4wg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2780
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,89 +119,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emily Deng <Emily.Deng@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- steven.price@arm.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0280410165=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andrey,
+--===============0280410165==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_"
 
-Am Mittwoch, den 12.02.2020, 11:33 -0500 schrieb Andrey Grodzovsky:
-> On 2/11/20 7:53 PM, Luben Tuikov wrote:
-> > On 2020-02-11 4:27 p.m., Andrey Grodzovsky wrote:
-> > > On 2/11/20 10:55 AM, Andrey Grodzovsky wrote:
-> > > > On 2/10/20 4:50 PM, Luben Tuikov wrote:
-> > > > > Hi Lucas,
-> > > > > 
-> > > > > Thank you for bringing awareness of this issue, publicly.
-> > > > > 
-> > > > > As soon as this patch showed up back in November of 2019,
-> > > > > I objected to it, privately.
-> > > > 
-> > > > I didn't find this objection in my mail actually
-> > Yes, I didn't send it to you.
-> > 
-> > > > > I suggested to instead use a _list_ to store the "state" of
-> > > > > all jobs of the same state. Then, at any time, timeout interrupt
-> > > > > or whatever, we can atomically (irq spinlock) move the timeout/bad
-> > > > > job to the timedout/cleanup/bad job list, and wake someone up
-> > > > > to deal with that list asynchronously, and return from the
-> > > > > interrupt/etc.
-> > > > > immediately.
-> > > > 
-> > > > Sounds a good idea to me, i think enough for us to have 2 lists,
-> > > > timeout list for jobs scheduled to HW and not yet completed
-> > > > (completion fence signaled) and cleanup list for those that did
-> > > > complete. This should give alternative solution to the race condition
-> > > > this patch was addressing without causing the break the Lucas
-> > > > reported. If no one objects I think i can try implement it.
-> > > > 
-> > > > Andrey
-> > > 
-> > > Thinking more i realize Luben is right about having also bad job list as
-> > > this is needed for normal job competition (by fence callback from
-> > > amdgpu_fence_process)  and you need to decide if you move it to cleanup
-> > > list from timeout list or not. If it's already in bad job list - meaning
-> > > that it's being processed by GPU recovery code you don't touch it,
-> > > otherwise you move it to cleanup list where it will be freed eventually
-> > > by invocation of drm_sched_get_cleanup_job.
-> > Yep...
-> > 
-> > Perhaps fewer lists, than "timeout", "bad" and "cleanup" could be had.
-> > I'd also name the "bad" list as "recovery" list, as that is what would
-> > be done to commands on that list.
-> > 
-> > "Timeout" is a status "timed-out", so perhaps just set the timeout
-> > flag and move it to a "done" list. (Note that the command can still
-> > complete asynchronously while on that list and while it has status
-> > "timed-out'.)
-> > 
-> > The idea is that,
-> > 1) it avoid contention and races when more than one context
-> >     can update the job at the same time, and
-> > 2) easy to process all jobs of a certain state and/or
-> >     move them around, etc.
-> > 
-> > Let's discuss it and come up with a plan. :-)
-> > 
-> > Regards,
-> > Luben
-> 
-> Sure, let me maybe come up with a draft patch so we have more concrete 
-> stuff to discuss and review.
+--_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-It seems we all dropped the ball on this one. I believe this is still
-an open issue. Has there been any progress from your side on fixing
-this?
+[AMD Public Use]
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
-Lucas
+Hawking
+From: Clements, John <John.Clements@amd.com>
+Sent: Tuesday, July 21, 2020 17:54
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>; Zhang, Hawking <Hawking.Z=
+hang@amd.com>
+Subject: [PATCH] drm/amdgpu: expand sienna chichlid reg access support
+
+
+[AMD Public Use]
+
+Added support for dedicated 64bit read/write reg support for sienna chichli=
+d
+
+--_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-compose;
+	font-family:"Arial",sans-serif;
+	color:#317100;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"msipheader251902e5" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com=
+&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
+m&gt; <br>
+<b>Sent:</b> Tuesday, July 21, 2020 17:54<br>
+<b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Zhang, Hawki=
+ng &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: expand sienna chichlid reg access suppo=
+rt<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader251902e5" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Added support for dedicated 64bit read/write reg sup=
+port for sienna chichlid<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB407531859D722D1A7FAAE9E0FC780DM6PR12MB4075namp_--
+
+--===============0280410165==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0280410165==--
