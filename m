@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F12AC433E5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 08:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28D0FC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 08:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E555B2084D
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 08:34:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F363A2084D
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 08:34:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qS9lZPea"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E555B2084D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kyIntst7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F363A2084D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 698C26E867;
-	Thu, 23 Jul 2020 08:34:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E66DF6E866;
+	Thu, 23 Jul 2020 08:34:17 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 473FD89C03
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 08:34:15 +0000 (UTC)
+ (mail-bn8nam11on2086.outbound.protection.outlook.com [40.107.236.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5A36E866
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 08:34:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Uu0nhdGb2E9K4ztjU++isJuzXyyo44o4gBHoviyJfn/6TO22YOrjFm6Fiu/uutW76kHCzT2tewHceejswAl9KCs4pFU4XPxhbFZLD5MRxiHt7FZhDvQeRCOrtmRbkE2dXsOnIij35EZZSrHnp4E2Xt4HRE103VnY08ED2z1OObQv4rLfzbil6GtmSflhYyebkfShbcM7J5Vowj5xQdlzUvG0Y+zhhO73jdSYHHt1ntoFXDTJnBdY35tO5YIP9e9K6kSjS17FirvB0E8+CGcILDeSnTiIEH3lkQiwzC3h7yhXBfjl6JTp40CEDIrHcwAc8mizrMjsuNPgIWjxbTvkEA==
+ b=amjpotSINSW/lZupOyVeU8C2114UPPR11VvGP2JI10OrepHKf5cxsm1qAIu3Nw7liLrUE2N+63JyNHWrtsfAKMbQHjmqmDH3bYGdkzSk33RgzimH7+5Xs69aK4hz0JXM7DUcK1t+M+W+1PaI9q4alI4clOYUxCVGv6cquGN9hzV6g2T3yUkYip4f4+1Mv8GZajER2F9ijaB4cqQ56l8kRhiXJjZXbJ8eeJc0IuAZD6Lae9Hyf1zchuh6dw5KK6nZoWhQy3UAieADOwSJizk2DeTgsSL/Leys5rSmrowZx+KSf+8mhrWGqQ5VJ7dpHc2vOrdQph8S26r0plSwjbGSmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+Pcu0rmZFyml2SuJSnB8TrAYVFmDP17CkU3XbYRtDY=;
- b=Bb0ELT1o42f2kJzDzOYZgAAXdj459JxRxyJKPF7MZ+hDrkvJg9wSLL+LHYY36SSDpkUJ856H7B60JGnfpBgLhbiQTsffEPcMQ4Dz9GkFVIX1a4tGqS6EJH5CO0h+dZFrHsGkMxh2p7arjKBmQLBAJsa81/grHAcdJ8j4L0EFoBkFFMIQRHJ6A0Huf962sopKh5ySU9uOoZI0e/y4h4F0A9UjyRG8alCcXnO/dXCN1h09xeN5R2bZtwBTrwliBAqQCjk3YvCUh6Pc/i1vzELM1qqMy0kWfjicoMxG0UFOVK34PPyWLDdA2jcPMW7NGf1ExzHH1XTfJVjsxzrJUngS4w==
+ bh=5r2O6JfzOI57RNulbexZIwN6gXYELplBvurx9XSxUGU=;
+ b=B0KmY+WE+cv9bee9giQFrDoxBnrd/5ra823Ys4ZEf61odylRA4FaE7r+MHIzznylNaoniXlhh1pRS1w82QrxuQjE8FGBwh7tfSx3tE2fCPBPYHt0+8/WKLOgjj7DVH2Oov9k28ci3vedHM5hX3xIRW7yLA+BAY4vi53p21HUFSb6czUyhx/ATzhE3CQEG1U/cBTY+cbCcFfOD61ujKn4PwvS59nQ1yiKDB/6OxuQSGUqqKkJx8gWZ3P8yLwGM0kHfPF7vysR0s5+f7s1eg9fn7YnzXCGvZigrzTiREjMyDQRIMtbyuvv+hEJ59Ty9U2tSvN5vXJsepUqjDuix7RvgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+Pcu0rmZFyml2SuJSnB8TrAYVFmDP17CkU3XbYRtDY=;
- b=qS9lZPea+nQwpG/QEGI8JTzPycMLvHxX/Q7S7hLUASZBcjjYV5uGkW2RwKWnQabUr87IH0lWss9i10+VoLKOZ87wt7+JNFhx3X59PPmdMDmuI0x+F5qW0atd2zByklzKglyDMp1K8kn6PIBPu2DJCE8lWx/tpbS8YqYpbpoksoE=
+ bh=5r2O6JfzOI57RNulbexZIwN6gXYELplBvurx9XSxUGU=;
+ b=kyIntst7B95qYkLoYmCU9d6pkVVKwAYScsOezGUcBnQTqj+Z+Hai88k7mj/56Ytb5aJQD3H36elfVIKio9aaF99WPm9HCh9b1Ra+5xECBTHgau/w94wP8phPejrN05plWRoO0r+Q3YO+HQ2zEUKEVqWKH9cRRpYAkPjn8qNjYxA=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,18 @@ Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
  by CY4PR1201MB0005.namprd12.prod.outlook.com (2603:10b6:903:d1::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.24; Thu, 23 Jul
- 2020 08:34:12 +0000
+ 2020 08:34:16 +0000
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e0b1:48e7:bcbc:351c]) by CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e0b1:48e7:bcbc:351c%11]) with mapi id 15.20.3216.024; Thu, 23 Jul
- 2020 08:34:12 +0000
+ 2020 08:34:16 +0000
 From: Guchun Chen <guchun.chen@amd.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Hawking.Zhang@amd.com, Dennis.Li@amd.com, Stanley.Yang@amd.com,
  Tao.Zhou1@amd.com, John.Clements@amd.com, lijo.lazar@amd.com
-Subject: [PATCH 2/9] drm/amdgpu: validate bad page threshold in ras
-Date: Thu, 23 Jul 2020 16:33:39 +0800
-Message-Id: <20200723083346.8743-3-guchun.chen@amd.com>
+Subject: [PATCH 3/9] drm/amdgpu: add bad gpu tag definition
+Date: Thu, 23 Jul 2020 16:33:40 +0800
+Message-Id: <20200723083346.8743-4-guchun.chen@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200723083346.8743-1-guchun.chen@amd.com>
 References: <20200723083346.8743-1-guchun.chen@amd.com>
@@ -71,34 +71,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
  HK0PR03CA0105.apcprd03.prod.outlook.com (2603:1096:203:b0::21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3216.21 via Frontend Transport; Thu, 23 Jul 2020 08:34:09 +0000
+ 15.20.3216.21 via Frontend Transport; Thu, 23 Jul 2020 08:34:12 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 57ab5608-0f23-4cff-4266-08d82ee32cfb
+X-MS-Office365-Filtering-Correlation-Id: b930158a-0e79-44ee-6883-08d82ee32efd
 X-MS-TrafficTypeDiagnostic: CY4PR1201MB0005:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB0005256D8B9D62137742CEF2F1760@CY4PR1201MB0005.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB000580F62253F24135ABE635F1760@CY4PR1201MB0005.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8xi9z/omo0uC6fLEe0CbkcZsMizgGJctvsk/tUOiUd9/77jx/RbskjjrLpQsp0QV1j4wRd5DfvVvgRY8EWz2Z6nl+AwqQx80OGkD/xilbaP6YZCklJcJWhA7XX3mntQ4sjwc93Oct7lBVeuXbPGNiL96IFTyoQruWIWWkxRKWnzHpJMsJ2ss36ieOdt1pzVwUxyXx8mYNsuZdz3CnHlpn5drCE/1ajqWfreDLlE99LmPyMZ92yndiU3M/SDw5BrRyDKSaqaEUdNZDkGrPlPe4uXVGauIsDUeatcpB5DFcokZqT04gfwCXkq2VZO7jPWnnP+t4L+Dx4BdDTMKMaq9Bg==
+X-Microsoft-Antispam-Message-Info: EYg0aBJ/5IN3YsAFMOKLjfz9Wb4IdOWKw2tVwDQWcRGrbPXLjfOP61lUyU6jRa/s4eVrU0U+KDfvQ+14+hcPe/mbcA2LflvE+r8ZFg/FhbYFPSPlsknNOYugTsjK8eCwYnArhcBq/Y0LNQTcMZEqQxuwDvqZDWdY0mBDEpK3TmyyJzXUzpEZnNWnqZ+8mLoWg+hIoJo+RVYkowU7y71eRfKT5Sypz5R5Dwwgtp/CxRF5InRopC/FZTIb7FY1GsHuvsofW4dfXeyNgjGMvzoPiZb1r6RUtQhgvUCUEAyeoe0Zw6NnybwGWYGeFUgzme74
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(366004)(8936002)(316002)(2616005)(36756003)(2906002)(16526019)(186003)(8676002)(6486002)(44832011)(4326008)(956004)(26005)(7696005)(478600001)(52116002)(5660300002)(66476007)(66556008)(66946007)(83380400001)(1076003)(6636002)(86362001)(6666004);
+ SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(366004)(8936002)(316002)(2616005)(36756003)(2906002)(16526019)(186003)(8676002)(6486002)(44832011)(4326008)(956004)(26005)(7696005)(4744005)(478600001)(52116002)(5660300002)(66476007)(66556008)(66946007)(83380400001)(1076003)(6636002)(86362001)(6666004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: toQ0N5jeOsp7bHxl6hW0tpAqDCdfv3z7ZP5bMyMLxMD5GizBIs0Pkg8ZKXK0zl2WbcsLOfuHNHiFW59axrmgcwe5ldAbiY/j1kvlk+GtfYMrL0wbJLbtWAFsuEv6dkBXKCkugKkQXIkzcfRP9RfAcSvxY38vFbdBVPVvAqIL+OLae3jQSeQ2PYlA7MNJMJl8Y2GHTkkKPBcZPfeAmgRt9BkHmpBmlpRwIOnKZWe/X4pyo5jzIvOl71k16ywk1yqF2xJqMjKmCWLK5IXuBnP/IT1hKTdNwvsVe/gelKrzoCEVm23j/K3G2lEffpi1QMX/qt1t9Qfye0R9ovoVO+CrxFT4ZAsEuo6t2bo5qlUwC9QDFCLSFgSO3Ch0e362/SJ3mYbTUwMbXoYQWthD/GmRodXpt03yhDTEOybGxxuF9qrPTDMbilCBG93sNEiBX1lvzMlcAH3bOQKsgnOK+H8EVP6b/dzv+LP6zCGjwZhnNxsCO1vlZ19ldT9Zkz5Sin4X
+X-MS-Exchange-AntiSpam-MessageData: oX9sEjxDoJDPBb++Yb6/79IXttbxLBzkTd+L/xhvMpKIGnRKIyjd03mdszoXlZ8wJK5OPlxUFfLXJRd+hVPg0HwIZ0IBPcr57xsKcAWdr/GfDhFkK0Y6Evc0agjmxMJ7sC8+1r0GFkuJDvQBhcnde2p9PnDub7siha1gYbOuA6cCcrDeBeYvD3yEXO3x6E2W1mTPVdq+sBeJBjzF+NcitVdd2GpNrfM+Xi0Am2gjxRf0jhgCYtdYDkSxluFlS//Ve8Syvc41KM0stCMFQU09HTPVfbdzpH6hGcaQcJOYOQDssihTRnNI4lfusIYWBXUnyg9/OkEVCMAUap4PCtyl049qInwX3wNIlrr7uaX4nI+FlhIgOsl4YBVlNLvkMbAELJ68JDhakHCx1tHjtOAeGNdp+5sDZj5pqfHlu0srcuQvesw3GsBioNf6HCNGwwCeG9JY3UYylf86en7KKXqG5hp6Z2xWe5LBw0Uy2fNBIAv56c5S4dhfkT4Z3UcS9OO/
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57ab5608-0f23-4cff-4266-08d82ee32cfb
+X-MS-Exchange-CrossTenant-Network-Message-Id: b930158a-0e79-44ee-6883-08d82ee32efd
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2020 08:34:12.3521 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2020 08:34:15.8736 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HpmNl+O8g8VR6aPyGCCEfHnoN5YTwPlStyc+5+U5wKtO6R2sGzSDD9+0AAHGphUmCIoBt3ZrQ+G1Zh872pW0fg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3NjmS3l6dJabIPv7sPyi1VixRDvNUDo8kOBZ42zTSXqpvV7mXjWDyKKFHw1hrOWo/B45VWxVDLLlx1Jjw1xHIA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0005
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,150 +112,24 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Guchun Chen <guchun.chen@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bad page threshold value should be valid in the range between
--1 and max records length of eeprom. It could determine when
-the GPU should be retired.
-
-v2: When using the default typical value, it should be min
-value between typical value and eeprom max records length.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 45 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  3 ++
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |  5 +++
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  2 +
- 4 files changed, 55 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 6f06e1214622..8daeb54917ed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -69,6 +69,9 @@ const char *ras_block_string[] = {
- /* inject address is 52 bits */
- #define	RAS_UMC_INJECT_ADDR_LIMIT	(0x1ULL << 52)
- 
-+/* typical ECC bad page rate(1 bad page per 100MB VRAM) */
-+#define RAS_BAD_PAGE_RATE		(100 * 1024 * 1024ULL)
-+
- enum amdgpu_ras_retire_page_reservation {
- 	AMDGPU_RAS_RETIRE_PAGE_RESERVED,
- 	AMDGPU_RAS_RETIRE_PAGE_PENDING,
-@@ -1700,6 +1703,44 @@ static bool amdgpu_ras_check_bad_page(struct amdgpu_device *adev,
- 	return ret;
- }
- 
-+static void amdgpu_ras_validate_threshold(struct amdgpu_device *adev,
-+					uint32_t max_length)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	int tmp_threshold = amdgpu_bad_page_threshold;
-+	u64 val;
-+
-+	/*
-+	 * Justification of value bad_page_cnt_threshold in ras structure
-+	 *
-+	 * Generally, -1 <= amdgpu_bad_page_threshold <= max record length
-+	 * in eeprom.
-+	 *    - If amdgpu_bad_page_threshold = -1,
-+	 *      bad_page_cnt_threshold = typical value by formula.
-+	 *    - If amdgpu_bad_page_threshold = 0,
-+	 *      bad_page_cnt_threshold = 0xFFFFFFFF,
-+	 *      and disable GPU retirement feature accordingly.
-+	 *    - When the value from user is 0 < amdgpu_bad_page_threshold <
-+	 *      max record length in eeprom, use it directly.
-+	 */
-+
-+	if (tmp_threshold < -1)
-+		tmp_threshold = -1;
-+	else if (tmp_threshold > max_length)
-+		tmp_threshold = max_length;
-+
-+	if (tmp_threshold == -1) {
-+		val = adev->gmc.mc_vram_size;
-+		do_div(val, RAS_BAD_PAGE_RATE);
-+		con->bad_page_cnt_threshold = min(lower_32_bits(val),
-+						max_length);
-+	} else if (tmp_threshold == 0) {
-+		con->bad_page_cnt_threshold = 0xFFFFFFFF;
-+	} else {
-+		con->bad_page_cnt_threshold = tmp_threshold;
-+	}
-+}
-+
- /* called in gpu recovery/init */
- int amdgpu_ras_reserve_bad_pages(struct amdgpu_device *adev)
- {
-@@ -1777,6 +1818,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_err_handler_data **data;
-+	uint32_t max_eeprom_records_len = 0;
- 	int ret;
- 
- 	if (con)
-@@ -1795,6 +1837,9 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
- 	atomic_set(&con->in_recovery, 0);
- 	con->adev = adev;
- 
-+	max_eeprom_records_len = amdgpu_ras_eeprom_get_record_max_length();
-+	amdgpu_ras_validate_threshold(adev, max_eeprom_records_len);
-+
- 	ret = amdgpu_ras_eeprom_init(&con->eeprom_control);
- 	if (ret)
- 		goto free;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index b2667342cf67..4672649a9293 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -336,6 +336,9 @@ struct amdgpu_ras {
- 	struct amdgpu_ras_eeprom_control eeprom_control;
- 
- 	bool error_query_ready;
-+
-+	/* bad page count threshold */
-+	uint32_t bad_page_cnt_threshold;
- };
- 
- struct ras_fs_data {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index c0096097bbcf..a2c982b1eac6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -499,6 +499,11 @@ int amdgpu_ras_eeprom_process_recods(struct amdgpu_ras_eeprom_control *control,
- 	return ret == num ? 0 : -EIO;
- }
- 
-+inline uint32_t amdgpu_ras_eeprom_get_record_max_length(void)
-+{
-+	return EEPROM_MAX_RECORD_NUM;
-+}
-+
- /* Used for testing if bugs encountered */
- #if 0
- void amdgpu_ras_eeprom_test(struct amdgpu_ras_eeprom_control *control)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-index 7e8647a05df7..b272840cb069 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
-@@ -85,6 +85,8 @@ int amdgpu_ras_eeprom_process_recods(struct amdgpu_ras_eeprom_control *control,
- 					    bool write,
- 					    int num);
- 
-+inline uint32_t amdgpu_ras_eeprom_get_record_max_length(void);
-+
- void amdgpu_ras_eeprom_test(struct amdgpu_ras_eeprom_control *control);
- 
- #endif // _AMDGPU_RAS_EEPROM_H
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhpcyB0YWcgd2lsbCBiZSBoaXJlZCBmb3IgYmFkIGdwdSBkZXRlY3Rpb24uCgpTaWduZWQtb2Zm
+LWJ5OiBHdWNodW4gQ2hlbiA8Z3VjaHVuLmNoZW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzX2VlcHJvbS5jIHwgMyArKysKIDEgZmlsZSBjaGFuZ2Vk
+LCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmFzX2VlcHJvbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3Jhc19lZXByb20uYwppbmRleCBhMmM5ODJiMWVhYzYuLjM1YzBjODQ5ZDQ5YiAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhc19lZXByb20uYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzX2VlcHJvbS5jCkBAIC00Niw2ICs0
+Niw5IEBACiAjZGVmaW5lIEVFUFJPTV9UQUJMRV9IRFJfVkFMIDB4NDE0ZDQ0NTIKICNkZWZpbmUg
+RUVQUk9NX1RBQkxFX1ZFUiAweDAwMDEwMDAwCiAKKy8qIEJhZCBHUFUgdGFnIOKAmEJBREfigJkg
+Ki8KKyNkZWZpbmUgRUVQUk9NX1RBQkxFX0hEUl9CQUQgMHg0MjQxNDQ0NworCiAvKiBBc3N1bWUg
+MiBNYml0IHNpemUgKi8KICNkZWZpbmUgRUVQUk9NX1NJWkVfQllURVMgMjU2MDAwCiAjZGVmaW5l
+IEVFUFJPTV9QQUdFX19TSVpFX0JZVEVTIDI1NgotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
