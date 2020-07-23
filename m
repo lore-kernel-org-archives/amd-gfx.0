@@ -2,71 +2,102 @@ Return-Path: <SRS0=nWm5=BC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA9D8C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 14:55:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AB23C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 16:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B852020709
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 14:55:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CD6F020709
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 16:10:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vgnXX4U1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B852020709
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="u/QUX3qV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD6F020709
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7146E6E0E1;
-	Thu, 23 Jul 2020 14:55:27 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E424B6E0E1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 14:55:25 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id b6so5452555wrs.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 07:55:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=uez/zxm9mCZzFG8NnpnH8JoxtlP8q3ai2rF2yaF8dfU=;
- b=vgnXX4U1HdSdBRSQmwbwrFrgf3v+yejttV0Ii/O7Y/hJIkDSlZ9U68QXeyc1k6z9FS
- 315alQ6wuKRt5xndizb4XPljdBi5XLRCjv0puDWgdOtuEhdPPMLmke06wSO3YHT4PA/a
- t/PX8c4/K0pBaJyAFkONvZd8ceGyR4w7440Cv2tlRx0lvG4qsTdjpjUZlwAX079c8deN
- h3SNOSniL9agOQNSHjyZIu7ZDgiK/sYDQBLU0vQ/1ojmvYz6ItWpxHw2mDdT5lRpNvSF
- RUa2tM8zRNv4qOLee88sDw7Z93+os/pY0aYynM9pYGXzFvLgPfIbPfFScytdUjlONTSL
- 9rZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=uez/zxm9mCZzFG8NnpnH8JoxtlP8q3ai2rF2yaF8dfU=;
- b=hKQixXsjFyGTsNnO15Lze303uGvwZv0zB8tv3g9AiuTjxJkn5d1tWafsfpZjQ+fGgU
- a8a75oCw+9I6c0H5nCMFT96sigIbQUVPD8IYF2ojHSFpsfjI8FN87dEutd3mPT3/clir
- AGU1cGDG51VaIWmrGFebJZp/BhA23DjSol9/VrcxU8QZJEAZHL07EGmrTyAN3izXsCrv
- zWDAzpDbxLe+u7k5IfyYqFBdwr7Z4G0zlWYuxMTlHTTZRGuDDeksB1tZ9eg1LFc45pBk
- JcsZtqTIDlRrQSjpM2fngK3oKWABIYeXwQggdZNmhgF0h7Syf0EFL6e/OVrjpbpwCqHq
- gYYg==
-X-Gm-Message-State: AOAM530KvO1EEPYzgtpqkwmZZB95oA8y0BFZbYYcwvIW4hhyusP3ZKDF
- koXE9CSabsmdVwACn2ratbkTO8uxuECYebhg+lr3wg==
-X-Google-Smtp-Source: ABdhPJwb1ogeycNPVPPBW3FxRs4MNTmv6f5KsrY1s5kwnfkeqnkmDgBfE9PGeW6AVSqCof9+fwkuxYrDcd6lMRKjqYo=
-X-Received: by 2002:a5d:6348:: with SMTP id b8mr4321108wrw.362.1595516124522; 
- Thu, 23 Jul 2020 07:55:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88FA76E193;
+	Thu, 23 Jul 2020 16:10:34 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 431726E193
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 16:10:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M84oIT1oB0Du82RvtC9XeU3sVprdB/fgj0oNnfgtl0BOhBaLadIz/Cfq7yrV4rXkAdr9+nK3sUfzWIKbc6BZHWK9LmsJOG78Dv8L70rJbVRYx+rr7Xb6wN19X7QWzqPToRnUaY6KRC6TQzqaKbgkPjCyNxYUS0eGHlAKj4XXXsVy1bH0T8FRqc92gGxTf7nSpIZ9O2mtrqJ54HrUtgar058SJlXOFEgZtBy3H5qf7p6WO7aJdfEuVnhDvnoZuBORxSSpVR93m+0zJ/3Y2amrzUFh4bvRI0rhmXIxCQgFj+5v3YNR6a6fz1+R4aaoJlkz842YT3qe8/fyIKacM2zn8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ugzlkbUuNmZhMXOaXDVvFAi3Rm1tw0fLg54jpZZ+Pmc=;
+ b=Ocw4peUntTo823FhHTr08nei08ivCzn7R2C/azzx7JmSVyHYsvdUha9WGCKNhsd44cIXkJN4wJEGuBQHotl0JPpcIV3JqFLDACMzXlS5vV04M05mQ2UvnyEJ/OoV+qQuxQDBsGUpHn3AKSY2rCSY6JTbQMkjqxNZF+GLoG8TJV3xSdB+RiJYjqoi4mtsrA0ENY57KhfsZYNQBpA2F7RPiKsImC5Hu4In6MIT2zI14ghFhHrkJuGVvGXXInLPQF01IbmhfimPUIPeNnhjFdotvoBmS2BZ+7sgQgvw8nrq5y4pu/aXlmnGxYSCcIIwYmAcje6QPCDVq+qq7Xmu25ug0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ugzlkbUuNmZhMXOaXDVvFAi3Rm1tw0fLg54jpZZ+Pmc=;
+ b=u/QUX3qV35LdIpTmjqV5ovHPryEF/joN7hxwzdJfzbhmv4QC30BpiezylST7wKzLvv29D0GN/HRSwZlKZ5/xitaRnTWdFvj0bntY3Q5GdsUANwEaP0eINfqOaskPmiCuzsDJxMTERsToV6UnJFUAJq4MHOAlAZDn35oGKLjPS4g=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
+ DM6PR12MB2748.namprd12.prod.outlook.com (2603:10b6:5:43::28) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3216.23; Thu, 23 Jul 2020 16:10:31 +0000
+Received: from DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::7860:3c62:4087:db16]) by DM5PR12MB2517.namprd12.prod.outlook.com
+ ([fe80::7860:3c62:4087:db16%4]) with mapi id 15.20.3195.028; Thu, 23 Jul 2020
+ 16:10:31 +0000
+From: James Zhu <James.Zhu@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/2] drm/amdgpu/vcn3.0: remove extra asic type check
+Date: Thu, 23 Jul 2020 12:10:21 -0400
+Message-Id: <1595520621-8216-2-git-send-email-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1595520621-8216-1-git-send-email-James.Zhu@amd.com>
+References: <1595520621-8216-1-git-send-email-James.Zhu@amd.com>
+X-ClientProxiedBy: YT1PR01CA0040.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::9) To DM5PR12MB2517.namprd12.prod.outlook.com
+ (2603:10b6:4:bb::13)
 MIME-Version: 1.0
-References: <20200710145047.52383-1-nirmoy.das@amd.com>
- <DM6PR12MB2619AD3F3A4ACB3221558162E47E0@DM6PR12MB2619.namprd12.prod.outlook.com>
- <CADnq5_P6Za6B3SStz-REdyDdarOtPPw7qTHdRGFn_14gohnkgw@mail.gmail.com>
- <1b485311-84b4-c8ce-6368-3a0534ef0fd3@amd.com>
- <43411c44-dce7-e215-5b7e-994d4ff4d1d1@amd.com>
-In-Reply-To: <43411c44-dce7-e215-5b7e-994d4ff4d1d1@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 Jul 2020 10:55:13 -0400
-Message-ID: <CADnq5_Pgamq_dA6zQVG2JYSa7dACrDgYtNkLsn3nZfGAgTTbng@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: do not disable SMU on vm reboot
-To: Nirmoy <nirmodas@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from work_495456.amd.com (165.204.55.251) by
+ YT1PR01CA0040.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3216.23 via Frontend Transport; Thu, 23 Jul 2020 16:10:31 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: d2df7b55-61bb-4a58-f442-08d82f22ec6b
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2748:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB27487638A7E22C1983492571E4760@DM6PR12MB2748.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RE3x5FECCPKo9XGVQTU8qqWqlSiRNoydyH4O5VtanwLBBRiGWBnGuuXkKE0pmuMf0rKE5fuOoRHFxJTCehRwyY4s3S1BeQLnoCmhSSnWtAt/Mzs7Buh/C8PyKRxAxrSu97T3P9cq3S0uYScSi6UGDcZveFLri+atR54lPtG9fixs4F8g0LvV+8XMlWFeFWAMaJHayt3irdKCupZYqSf3O41Cem7T6O9zzOq/0XNZS94jqJvwDe2SvkNyzakIdywYHNSRFM+RO2ImgQhOn6jHQux1IGcGTHnYMhRgoEhxlC9bokloxDNdoiLtuHvRewQZ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(478600001)(8936002)(8676002)(36756003)(83380400001)(4326008)(86362001)(6486002)(6916009)(2906002)(52116002)(7696005)(316002)(66556008)(66476007)(66946007)(26005)(16526019)(956004)(5660300002)(2616005)(6666004)(186003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: ZScojbck46zjUm+P61Jjw9Q1h5Vpb/BIMjZ+P9gOcZLBesihUy52jc7XBkE/4vq8esaI4U2wetOqAD4cJRCrBRbUM8jJHlryrNPEB7Py0z2VJ+uiPNkXFQw8MLEZgmlwh2lTVnSSDYfNs3l4XhaZTL4H0uokjYAdlnM8229w3MAD+ONFiqbzFZqbXTiuDWc4CncjYj+C6ArRKPgZ0Eh4k0Id/X22YGPIvVOLMKVUREYTqvd3fKEcizho/TXlAMWH8PDrglx8BFl/fowGdAP+PApoz8BcCJDQlwcFDUgcBiobG9eGLxAeBNJxuun61HfUI3eus0ln+8iXoCGRBIL1R1yltq3unUZc4cCPgKeUP60kZHd81aYOBPwKoBU/5VmjU7zFJzdHUXLjwatH4W+HH0PxKZUi71Cf9F9ZGDrOrgBmo3oXfHkShadhKt7+kaGHv84j1ZrutG5Ir0vOlVJURgUMj4bzxJcplAxyQDncZCY8Y6wbMsY/EoIg3kUKlZ6H
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2df7b55-61bb-4a58-f442-08d82f22ec6b
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2020 16:10:31.6987 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7YmrJD1U5P5IE8/HPB/7u0MLVebTfMadkdipKRWzwLTbFFM/IkeUev9znIWIfVBA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2748
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,123 +109,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
- Evan" <Evan.Quan@amd.com>, "Das, Nirmoy" <Nirmoy.Das@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: jamesz@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Great.  Thanks for checking.
+vcn ip block is already selected based on ASIC type during set_ip_blocks.
 
-Alex
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 29 +++++++++++++----------------
+ 1 file changed, 13 insertions(+), 16 deletions(-)
 
-On Thu, Jul 23, 2020 at 10:43 AM Nirmoy <nirmodas@amd.com> wrote:
->
-> Tested Device passthrough with polaris(rx 570), the patch had no effect.
->
-> With or without the patch I could only do passthrough 3 times before the
-> host throws
->
-> IOMMU error.
->
->
-> [ 210.762150] vfio-pci 0000:01:00.1: can't change power state from D0 to
-> D3hot (config space inaccessible)
->
-> [ 210.762732] vfio-pci 0000:01:00.0: can't change power state from D0 to
-> D3hot (config space inaccessible)
->
-> [ 210.899735] AMD-Vi: Completion-Wait loop timed out
->
-> [ 211.022824] AMD-Vi: Completion-Wait loop timed out
->
-> [ 211.145434] AMD-Vi: Completion-Wait loop timed out
->
-> [ 211.268250] AMD-Vi: Completion-Wait loop timed out
->
-> [ 211.778593] iommu ivhd0: AMD-Vi: Event logged [IOTLB_INV_TIMEOUT
-> device=01:00.0 address=0x107d5fb50]
->
-> [ 212.780494] iommu ivhd0: AMD-Vi: Event logged [IOTLB_INV_TIMEOUT
-> device=01:00.0 address=0x107d5fb90]
->
-> [ 212.781060] iommu ivhd0: AMD-Vi: Event logged [IOTLB_INV_TIMEOUT
-> device=01:00.0 address=0x107d5fbb0]
->
->
-> Regards,
->
-> Nirmoy
->
-> On 7/23/20 4:22 PM, Nirmoy wrote:
-> > Hi Alex,
-> >
-> > On 7/23/20 3:59 PM, Alex Deucher wrote:
-> >> Can you check and make sure this doesn't break polaris or some other
-> >> generation?
-> >
-> >
-> > Do you mean breaking device passthrough or normal operation ? I have a
-> > rx 570,
-> >
-> > I can test on that.
-> >
-> >
-> > Regards,
-> >
-> > Nirmoy
-> >
-> >
-> >>
-> >> Alex
-> >>
-> >> On Wed, Jul 15, 2020 at 1:12 AM Quan, Evan <Evan.Quan@amd.com> wrote:
-> >>> [AMD Official Use Only - Internal Distribution Only]
-> >>>
-> >>> Acked-by: Evan Quan <evan.quan@amd.com>
-> >>>
-> >>> -----Original Message-----
-> >>> From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-> >>> Sent: Friday, July 10, 2020 10:51 PM
-> >>> To: amd-gfx@lists.freedesktop.org
-> >>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan
-> >>> <Evan.Quan@amd.com>; Das, Nirmoy <Nirmoy.Das@amd.com>
-> >>> Subject: [PATCH] drm/amdgpu: do not disable SMU on vm reboot
-> >>>
-> >>> For passthrough device,  we do baco reset after 1st vm boot so
-> >>> if we disable SMU on 1st VM shutdown baco reset will fail for
-> >>> 2nd vm boot.
-> >>>
-> >>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> >>> ---
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
-> >>>   1 file changed, 2 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> index d1adbc45d37b..07be61ce969a 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>> @@ -1178,7 +1178,8 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
-> >>>    * unfortunately we can't detect certain
-> >>>    * hypervisors so just do this all the time.
-> >>>    */
-> >>> -adev->mp1_state = PP_MP1_STATE_UNLOAD;
-> >>> +if (!amdgpu_passthrough(adev))
-> >>> +adev->mp1_state = PP_MP1_STATE_UNLOAD;
-> >>>   amdgpu_device_ip_suspend(adev);
-> >>>   adev->mp1_state = PP_MP1_STATE_NONE;
-> >>>   }
-> >>> --
-> >>> 2.27.0
-> >>>
-> >>> _______________________________________________
-> >>> amd-gfx mailing list
-> >>> amd-gfx@lists.freedesktop.org
-> >>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7CNirmoy.Das%40amd.com%7Cf4018ca31bdf481e0bba08d82f1096b8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637311095591342103&amp;sdata=PvRVEMzHPeQnQC%2Bf7DI1Y3vnEZLnp9Af%2F07KAIQjKsM%3D&amp;reserved=0
-> >>>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 910a4a3..4edd5c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -88,23 +88,20 @@ static int vcn_v3_0_early_init(void *handle)
+ 		adev->vcn.num_enc_rings = 1;
+ 
+ 	} else {
+-		if (adev->asic_type == CHIP_SIENNA_CICHLID) {
+-			u32 harvest;
+-			int i;
+-
+-			adev->vcn.num_vcn_inst = VCN_INSTANCES_SIENNA_CICHLID;
+-			for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+-				harvest = RREG32_SOC15(VCN, i, mmCC_UVD_HARVESTING);
+-				if (harvest & CC_UVD_HARVESTING__UVD_DISABLE_MASK)
+-					adev->vcn.harvest_config |= 1 << i;
+-			}
++		u32 harvest;
++		int i;
++
++		adev->vcn.num_vcn_inst = VCN_INSTANCES_SIENNA_CICHLID;
++		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
++			harvest = RREG32_SOC15(VCN, i, mmCC_UVD_HARVESTING);
++			if (harvest & CC_UVD_HARVESTING__UVD_DISABLE_MASK)
++				adev->vcn.harvest_config |= 1 << i;
++		}
+ 
+-			if (adev->vcn.harvest_config == (AMDGPU_VCN_HARVEST_VCN0 |
+-						AMDGPU_VCN_HARVEST_VCN1))
+-				/* both instances are harvested, disable the block */
+-				return -ENOENT;
+-		} else
+-			adev->vcn.num_vcn_inst = 1;
++		if (adev->vcn.harvest_config == (AMDGPU_VCN_HARVEST_VCN0 |
++					AMDGPU_VCN_HARVEST_VCN1))
++			/* both instances are harvested, disable the block */
++			return -ENOENT;
+ 
+ 		adev->vcn.num_enc_rings = 2;
+ 	}
+-- 
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
