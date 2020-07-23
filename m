@@ -2,120 +2,86 @@ Return-Path: <SRS0=nWm5=BC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4937DC433E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 08:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25CD4C433E5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 13:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1913D2080D
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 08:46:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ECA6820714
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 13:10:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ro9aRLDP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1913D2080D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oquQCtXU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECA6820714
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9AD56E86B;
-	Thu, 23 Jul 2020 08:46:26 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3B046E86B
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 08:46:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jrH244CeTcxmCqSQ0n/IhktbMSrrkXmLBsMEYEX2lPd3fXlRuVS394yomtELipvhDIvfS5HRT7JVhpiniddj0QNsKVMgzG7fv3gmTZ84bjKLSbKBwEpA/FtvQ255NTx2gmgZiviIBWmJlnEY9o7jgXfvka0yyPiyHJGivpteLMtwfzOPMcnwD4I/xDpuqVO0ca/vi1o+VfOI+LsiNSUmc5qNYmgTvori/qqnaZ0YKgAk6/W1pI/9LJvNcygrrZyrBKaS3Z81mxrOlmsWTVg7T+1nCRXaQsAd/8cb9IphEMogzniCA0h7zoXfmUgyXCIu/w9mXq/tMCgoVfjBMNKclQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r41LFzDgouY5/YBJ4FqCwubp3olJsERMVIr1lH5pg4I=;
- b=DWt1PmPSQgdNAOiNOdVHXizYnLYvc8o/pZm8Tzgty0qc8lOdZhfUMRkEvgjZmO7837xxSm7Jx02mdLBqqaNeqc0yalCCwkRUHm8llpRI5W6DoQ43E/gEWWKKIcCU9tFTDuTGxaN6fvKISLYBMGtKzLpjLkvXIu414NHFLGa2lGJgn1r8pdJ8GaM1iHn4PaZbCxM7TEPewS6DJPwAefUPW8k+fWexbSNMsIckXUlEGf+AluUtOuAwU7NH/4Slo9ZYB1DjC5OblEGSotFJnuLABSBDf2BLcungZiGsXno5jPJisfUWCbizw636raSVkkYr+gH0HIJJItBcH8d3vQq4jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r41LFzDgouY5/YBJ4FqCwubp3olJsERMVIr1lH5pg4I=;
- b=Ro9aRLDPi9r3AlJWF9RJ0Dd+wPz1n9tqTRSTvfPlm1kTzA59Dd1DSkz45rL9xHEIgG1bx93R5kZDOo/fDlrVvgt7LudwmGW9IsgCeq4jbUbM5mCEbCsSZb20/NgeMLr3qlp+0RRRZ8xN8jzGKDibBS0AgBjHwgYgip5zFglY9vw=
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM5PR12MB2360.namprd12.prod.outlook.com (2603:10b6:4:bb::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3216.21; Thu, 23 Jul 2020 08:46:21 +0000
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::84dc:a0e7:6158:ce4e]) by DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::84dc:a0e7:6158:ce4e%8]) with mapi id 15.20.3216.021; Thu, 23 Jul 2020
- 08:46:21 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: update golden setting for sienna_cichlid
-Thread-Topic: [PATCH] drm/amdgpu: update golden setting for sienna_cichlid
-Thread-Index: AQHWYMO6bZfWH3lgYEqRZMUprMMzRKkU2dWQ
-Date: Thu, 23 Jul 2020 08:46:20 +0000
-Message-ID: <DM6PR12MB407597296DCFA18A33587359FC760@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <20200723073421.362630-1-likun.gao@amd.com>
-In-Reply-To: <20200723073421.362630-1-likun.gao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-23T08:46:17Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=44563b07-51d1-4221-ba36-000090d92a6a;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-07-23T08:46:12Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: dad2a132-f476-4d16-9ab9-0000f91443f0
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-23T08:46:18Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 6dca8bce-0395-4a54-be3f-0000b20dc720
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d51f40f2-a142-4018-afe3-08d82ee4df8a
-x-ms-traffictypediagnostic: DM5PR12MB2360:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB236098EE39FD83526F599CA1FC760@DM5PR12MB2360.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1079;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 28PkGqOiRzj79BfV+bOKWKXhx3Oq4ErrkJ187X1DikTBtHFYg+mq5rMG1TyOk54w3ueJhM7IHqCorc7p2FNZoOhFKVtMrVxDsiK7iFgXGKIFt7JZCQySNO7DUjvBMeRUT9ehtQDcJaS63u1bZtZtL0atGJBd5oQ3JEfjaN9vQFoBhXISOhvoNfMkJZXKzDGnpVdRidObFn4badYbLRn9a4s2192uj4sSNkPa0PrZ1+gYEceW8Jt387SkM4+RexaVTBaBrCMg2unj4fhPLqUC5zLUHYePDdL9bfMcZQ4cn8pyvoHQEMZga+n8MSQO3kIL35ZJLv5kJ7DelEW9MLf3Fg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(376002)(396003)(39860400002)(136003)(346002)(53546011)(478600001)(6506007)(8676002)(316002)(55016002)(2906002)(5660300002)(33656002)(8936002)(83380400001)(15650500001)(26005)(52536014)(9686003)(66446008)(64756008)(66476007)(76116006)(7696005)(66946007)(71200400001)(86362001)(66556008)(186003)(110136005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: F219g/KlxeOSC/MQNoXDPWzx6Jl4cWJGiTxbbWNoirNio7etkuCvj0QjFGVl+cr3iyNwAbpmf+ehKY61X+3NViYETTWMY2dUN9H6MVoshUcU1BoaE5TfgyMJyq9y4tEWv0Psar2+Q5F+A3n9DjcDKJZBIC1Qx5HpdJe6RBYvQuslnGazIrx0A7TQnTYAYk+CgsT2EjITUHOzEw7fvoa557Pt2haRswg7w1Pwm7Zm1tTcEo8b/6pe/+zEEZaLmOgy8GTjF48sJXJnuwI28Jzsxi5XEaQWpAu1CVcWcvWGvxTKH++EbTyaF5abWe+Tr8Vy2eTDmfztHZmrDXDja1EIr4RS4XtsZCVsgXLMMcwanBTs1Kh+jawEDCG42+49cGAtN9Pq3YCCgWukOoWKD3sF7bl5bZk/xpa+TSw41p4BWlk0RRjH6rtMcagZCmiSqsXTj9V6wl2vbnzE7EhJ+QJcjubcaKnlJFN+kmNVqDO9GafhpgraBbt4yWjQp+IC8Y2B
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0AE889B99;
+	Thu, 23 Jul 2020 13:10:28 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C585D89B99
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 13:10:26 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id gg18so2932624ejb.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 06:10:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=XSqHq8X+z+eqgZAUwAnsLVeGI2qe7R34nvlom6fKZgk=;
+ b=oquQCtXUYf3uEi0nHoa5YkBc1bm8FJJDUPBRC4RprHBnNQJVoUafyOUXrlmRiqsVv1
+ vWNSHtLmS2bjlOU7tRT0u5rxlIO0tON9IvgT4fEddeViYzsMqpBmxaWDZEgDIh4GdkGD
+ BwFf0lIXI5r2amq97X0ipV4T87sP/aEz4ViEzCvl7a+gO9KaJVxZ/2xREPLAgN2Pun9f
+ AH7HAPEmzVyTK0x9B5wQzGPF/EaU5rttXmgT42vezEqizppe0cTtHe8d4F+yPEyyCPUs
+ 7uY7f5IvRLs0MshxlfDgxJXcWy7DGTruJlOhs+5HLPcDdA8bhLIwt3R3OXNE9L1Oorye
+ EYVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=XSqHq8X+z+eqgZAUwAnsLVeGI2qe7R34nvlom6fKZgk=;
+ b=LHIKgOnbcUhGeNpZlM8alKX6xGCsFsmZw2I23SuzfUDcFvBZQ/NXiq3v8GVB4/nKhK
+ v7Bow4CP95mklxAiRuNRUb31Hba+Hn+dkLdesc9aUlYvnv7qyPhP5YYuOFcsGEU5jHy+
+ hxvUX0VVWffJ52TNJ611i9CA0/6Nuu5skZA6dWU97zX492w4zbiPkSYqBnZHSIesL8FC
+ QX7jfcJeupSX18f4+kcLEkEeN66AXL8C0dHtuUDlfOvxMK9n0UuQy0pmAES4MVXt/47R
+ 8Gb+QtNWh+e++fAC30r5dY/lVo5cQNTWRNl1rMjYpnrUZMZ0jUVtIWhhCIy/W9oMSM+P
+ l2aA==
+X-Gm-Message-State: AOAM5310hoSqoVIgOKivzC355ubkERGclNlvQ2My+TFGFpEy0tNTVV83
+ XWTCxKTqdnp0iQM9I7txJvo=
+X-Google-Smtp-Source: ABdhPJwBZQRt9HkjIC68V3BWFBbdR5GmPcnqJbJoaIfQlqw7BlejJfZfqhiJ5/E8hsxzPJG3wvRnJA==
+X-Received: by 2002:a17:906:2c53:: with SMTP id
+ f19mr4448307ejh.523.1595509825422; 
+ Thu, 23 Jul 2020 06:10:25 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id lc18sm1414680ejb.29.2020.07.23.06.10.24
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 23 Jul 2020 06:10:24 -0700 (PDT)
+Subject: Re: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module
+ parameter
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Yang, Stanley" <Stanley.Yang@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
+ "Clements, John" <John.Clements@amd.com>
+References: <20200722031415.4792-1-guchun.chen@amd.com>
+ <20200722031415.4792-2-guchun.chen@amd.com>
+ <DM5PR12MB25332D58B47ABB52BFBD1A4DED760@DM5PR12MB2533.namprd12.prod.outlook.com>
+ <BN6PR12MB128336C43F529CC62BEB4281F1760@BN6PR12MB1283.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <040f8c43-758d-e937-1d00-2ff4b118bde1@gmail.com>
+Date: Thu, 23 Jul 2020 15:10:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d51f40f2-a142-4018-afe3-08d82ee4df8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2020 08:46:20.9748 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TxsE1uY0Y/Np9ncTVXRFHcCt8p9pi8vDoxB64Dy3v19ap137fNl+4nGdaqQK6/2uU+jGQRc77SUwgOYNt71+Ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2360
+In-Reply-To: <BN6PR12MB128336C43F529CC62BEB4281F1760@BN6PR12MB1283.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,49 +93,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+I agree with Guchun as well.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+When you have a dynamic module parameter and change the bad page 
+threshold the GPU might just stop working suddenly.
+
+That is not a good idea as far as I can see.
 
 Regards,
-Hawking
------Original Message-----
-From: Gao, Likun <Likun.Gao@amd.com> 
-Sent: Thursday, July 23, 2020 15:34
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Gao, Likun <Likun.Gao@amd.com>
-Subject: [PATCH] drm/amdgpu: update golden setting for sienna_cichlid
+Christian.
 
-From: Likun Gao <Likun.Gao@amd.com>
+Am 23.07.20 um 05:47 schrieb Chen, Guchun:
+> [AMD Public Use]
+>
+> Hi Dennis,
+>
+> To be honest, your suggestion is considered when I start the design. My thought is in actual world, bad page threshold is one static configuration, it should be set once when probing.
+> So module parameter is one ideal choice for this.
+>
+> Regards,
+> Guchun
+>
+> -----Original Message-----
+> From: Li, Dennis <Dennis.Li@amd.com>
+> Sent: Thursday, July 23, 2020 8:32 AM
+> To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
+> Subject: RE: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module parameter
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Hi, Guchun,
+>        It is better to let user be able to change amdgpu_bad_page_threshold with sysfs, so that users no need to reboot system when they want to change their strategy.
+>
+> Best Regards
+> Dennis Li
+> -----Original Message-----
+> From: Chen, Guchun <Guchun.Chen@amd.com>
+> Sent: Wednesday, July 22, 2020 11:14 AM
+> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
+> Cc: Chen, Guchun <Guchun.Chen@amd.com>
+> Subject: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module parameter
+>
+> bad_page_threshold could be specified to detect and retire bad GPU if faulty bad pages exceed it.
+>
+> When it's -1, ras will use typical bad page failure value.
+>
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
+>   2 files changed, 12 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 06bfb8658dec..bb83ffb5e26a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -181,6 +181,7 @@ extern uint amdgpu_dm_abm_level;  extern struct amdgpu_mgpu_info mgpu_info;  extern int amdgpu_ras_enable;  extern uint amdgpu_ras_mask;
+> +extern int amdgpu_bad_page_threshold;
+>   extern int amdgpu_async_gfx_ring;
+>   extern int amdgpu_mcbp;
+>   extern int amdgpu_discovery;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index d28b95f721c4..f99671101746 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -161,6 +161,7 @@ struct amdgpu_mgpu_info mgpu_info = {  };  int amdgpu_ras_enable = -1;  uint amdgpu_ras_mask = 0xffffffff;
+> +int amdgpu_bad_page_threshold = -1;
+>   
+>   /**
+>    * DOC: vramlimit (int)
+> @@ -801,6 +802,16 @@ module_param_named(tmz, amdgpu_tmz, int, 0444);  MODULE_PARM_DESC(reset_method, "GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)");  module_param_named(reset_method, amdgpu_reset_method, int, 0444);
+>   
+> +/**
+> + * DOC: bad_page_threshold (int)
+> + * Bad page threshold configuration is driven by RMA(Return Merchandise
+> + * Authorization) policy, which is to specify the threshold value of
+> +faulty
+> + * pages detected by ECC, which may result in GPU's retirement if total
+> + * faulty pages by ECC exceed threshold value.
+> + */
+> +MODULE_PARM_DESC(bad_page_threshold, "Bad page threshold(-1 =
+> +auto(default typical value))"); module_param_named(bad_page_threshold,
+> +amdgpu_bad_page_threshold, int, 0444);
+> +
+>   static const struct pci_device_id pciidlist[] = {  #ifdef  CONFIG_DRM_AMDGPU_SI
+>   	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+> --
+> 2.17.1
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-Update golden setting for sienna_cichlid.
-
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: Id71876180033eedc10ecbabe5317369676034e19
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 61e89247faf3..8344c3b0b9b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -3082,7 +3082,7 @@ static const struct soc15_reg_golden golden_settings_gc_10_3[] =
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_SPI_RA0_CLK_CTRL, 0xff7f0fff, 0x30000100),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_SPI_RA1_CLK_CTRL, 0xff7f0fff, 0x7e000100),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCPF_GCR_CNTL, 0x0007ffff, 0x0000c000),
--	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_DEBUG3, 0xffffffff, 0x00000200),
-+	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_DEBUG3, 0xffffffff, 0x00000280),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_DEBUG4, 0xffffffff, 0x00800000),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_EXCEPTION_CONTROL, 0x7fff0f1f, 0x00b80000),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCR_GENERAL_CNTL_Sienna_Cichlid, 0x1ff1ffff, 0x00000500),
--- 
-2.25.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
