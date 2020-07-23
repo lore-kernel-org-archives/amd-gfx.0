@@ -2,46 +2,47 @@ Return-Path: <SRS0=9uL8=BD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,HK_RANDOM_REPLYTO,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,HK_RANDOM_REPLYTO,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DBBCDC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 00:11:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C80BFC433E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 00:11:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AFC2A206E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 00:11:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E6D0206E3
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 00:11:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="wJWQyTrN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFC2A206E3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="PqRfO9+G"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E6D0206E3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=protonmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AEE16E8AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24EA86E8A9;
 	Fri, 24 Jul 2020 00:11:07 +0000 (UTC)
-Received: from mail-40137.protonmail.ch (mail-40137.protonmail.ch
- [185.70.40.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73EB889B0B
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 22:58:34 +0000 (UTC)
-Date: Thu, 23 Jul 2020 22:58:25 +0000
+X-Greylist: delayed 393 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Jul 2020 21:16:53 UTC
+Received: from mail-40141.protonmail.ch (mail-40141.protonmail.ch
+ [185.70.40.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93BE16E486
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 21:16:53 +0000 (UTC)
+Date: Thu, 23 Jul 2020 21:10:15 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail; t=1595545112;
- bh=lg9xOnMsFhhdqALv0aeP/Vx2Gofelvm+74wmCknZsFo=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=wJWQyTrNxzYCugTunHerczbSVBPFAyOkFnBt7X5S1XVzsUu/CqTghfT5XKiJqfCMb
- G1g3xRBuQI4aoyJodntEqzHGTw4zt+dQyEA0OkIP7e/Z9Q+YFww7/QLZdrEgJ35/qn
- M4P8GF7YJgW5MjILTKRXcogl6z7WEMPnUhlcPT04=
-To: Kees Cook <keescook@chromium.org>
+ s=protonmail; t=1595538618;
+ bh=/v8hsn4vji93LSAwL+yRiHgNCReHoDDH4axY/SRPmKE=;
+ h=Date:To:From:Cc:Reply-To:Subject:From;
+ b=PqRfO9+GqZTufIG+oR4srHLcqDGsQQCoyux3C8Vt6Xz6kwNRHtX9CeN989yIimZ9w
+ A0+avVpS6Bn8ubJZ1TRxVT39JUxZbt5WngqQXKh1gn25FutDexD3jsLiaYILD0BGsd
+ 4Tz6V6YIpKZZi6+ZvJ9EqR5blmY+mVmbPEEk6D6s=
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 From: Mazin Rezk <mnrzk@protonmail.com>
-Subject: Re: [PATCH] amdgpu_dm: fix nonblocking atomic commit use-after-free
-Message-ID: <4KGdosy_NHW6FYCc2rCq4e71vYI7e4InqrLJ4S1GJsLcfjHv_INF-CzIYusOFqznOxyvflBTlFCXvyy7J37fn-QKfNOQK78MM38VdjdUXks=@protonmail.com>
-In-Reply-To: <202007231524.A24720C@keescook>
-References: <YIGsJ9LlFquvBI2iWPKhJwjKBwDUr_C-38oVpLJJHJ5rDCY_Zrrv392o6UPNxHoeQrcpLYC9U4fZdpD9ilz6Amg2IxkSexGLQMCQIBek8rc=@protonmail.com>
- <202007231524.A24720C@keescook>
+Subject: [PATCH] amdgpu_dm: fix nonblocking atomic commit use-after-free
+Message-ID: <YIGsJ9LlFquvBI2iWPKhJwjKBwDUr_C-38oVpLJJHJ5rDCY_Zrrv392o6UPNxHoeQrcpLYC9U4fZdpD9ilz6Amg2IxkSexGLQMCQIBek8rc=@protonmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Fri, 24 Jul 2020 00:11:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,12 +60,11 @@ Reply-To: Mazin Rezk <mnrzk@protonmail.com>
 Cc: "pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>,
  "anthony.ruhier@gmail.com" <anthony.ruhier@gmail.com>,
  "1i5t5.duncan@cox.net" <1i5t5.duncan@cox.net>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>, Mazin Rezk <mnrzk@protonmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "mnrzk@protonmail.com" <mnrzk@protonmail.com>,
  "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>,
  "regressions@leemhuis.info" <regressions@leemhuis.info>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
  "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
  "mphantomx@yahoo.com.br" <mphantomx@yahoo.com.br>,
@@ -75,60 +75,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, July 23, 2020 6:32 PM, Kees Cook <keescook@chromium.org> wrote:
+When amdgpu_dm_atomic_commit_tail is running in the workqueue,
+drm_atomic_state_put will get called while amdgpu_dm_atomic_commit_tail is
+running, causing a race condition where state (and then dm_state) is
+sometimes freed while amdgpu_dm_atomic_commit_tail is running. This bug has
+occurred since 5.7-rc1 and is well documented among polaris11 users [1].
 
-> On Thu, Jul 23, 2020 at 09:10:15PM +0000, Mazin Rezk wrote:
->
-> > When amdgpu_dm_atomic_commit_tail is running in the workqueue,
-> > drm_atomic_state_put will get called while amdgpu_dm_atomic_commit_tail is
-> > running, causing a race condition where state (and then dm_state) is
-> > sometimes freed while amdgpu_dm_atomic_commit_tail is running. This bug has
-> > occurred since 5.7-rc1 and is well documented among polaris11 users [1].
-> > Prior to 5.7, this was not a noticeable issue since the freelist pointer
-> > was stored at the beginning of dm_state (base), which was unused. After
-> > changing the freelist pointer to be stored in the middle of the struct, the
-> > freelist pointer overwrote the context, causing dc_state to become garbage
-> > data and made the call to dm_enable_per_frame_crtc_master_sync dereference
-> > a freelist pointer.
-> > This patch fixes the aforementioned issue by calling drm_atomic_state_get
-> > in amdgpu_dm_atomic_commit before drm_atomic_helper_commit is called and
-> > drm_atomic_state_put after amdgpu_dm_atomic_commit_tail is complete.
-> > According to my testing on 5.8.0-rc6, this should fix bug 207383 on
-> > Bugzilla [1].
-> > [1] https://bugzilla.kernel.org/show_bug.cgi?id=207383
->
-> Nice work tracking this down!
->
-> > Fixes: 3202fa62f ("slub: relocate freelist pointer to middle of object")
->
-> I do, however, object to this Fixes tag. :) The flaw appears to have
-> been with amdgpu_dm's reference tracking of "state" in the nonblocking
-> case. (How this reference counting is supposed to work correctly, though,
-> I'm not sure.) If I look at where the drm helper was split from being
-> the default callback, it looks like this was what introduced the bug:
->
-> da5c47f682ab ("drm/amd/display: Remove acrtc->stream")
->
-> ? 3202fa62f certainly exposed it much more quickly, but there was a race
-> even without 3202fa62f where something could have realloced the memory
-> and written over it.
->
-> -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
->
-> Kees Cook
+Prior to 5.7, this was not a noticeable issue since the freelist pointer
+was stored at the beginning of dm_state (base), which was unused. After
+changing the freelist pointer to be stored in the middle of the struct, the
+freelist pointer overwrote the context, causing dc_state to become garbage
+data and made the call to dm_enable_per_frame_crtc_master_sync dereference
+a freelist pointer.
+
+This patch fixes the aforementioned issue by calling drm_atomic_state_get
+in amdgpu_dm_atomic_commit before drm_atomic_helper_commit is called and
+drm_atomic_state_put after amdgpu_dm_atomic_commit_tail is complete.
+
+According to my testing on 5.8.0-rc6, this should fix bug 207383 on
+Bugzilla [1].
+
+[1] https://bugzilla.kernel.org/show_bug.cgi?id=207383
+
+Fixes: 3202fa62f ("slub: relocate freelist pointer to middle of object")
+Reported-by: Duncan <1i5t5.duncan@cox.net>
+Signed-off-by: Mazin Rezk <mnrzk@protonmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 86ffa0c2880f..86d6652872f2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7303,6 +7303,7 @@ static int amdgpu_dm_atomic_commit(struct drm_device *dev,
+ 	 * unset legacy_cursor_update
+ 	 */
+
++	drm_atomic_state_get(state);
+ 	return drm_atomic_helper_commit(dev, state, nonblock);
+
+ 	/*TODO Handle EINTR, reenable IRQ*/
+@@ -7628,6 +7629,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+
+ 	if (dc_state_temp)
+ 		dc_release_state(dc_state_temp);
++
++	drm_atomic_state_put(state);
+ }
 
 
-Thanks, I'll be sure to avoid using 3202fa62f as the cause next time.
-I just thought to do that because it was what made the use-after-free cause
-a noticeable bug.
+--
+2.27.0
 
-Also, by the way, I just realised the patch didn't completely solve the bug.
-Sorry about that, making an LKML thread on this was hasty on my part. Should
-I get further confirmation from the Bugzilla thread before submitting a patch
-for this bug in the future?
-
-Thanks,
-Mazin Rezk
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
