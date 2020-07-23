@@ -2,106 +2,118 @@ Return-Path: <SRS0=nWm5=BC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 373CDC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 21:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38423C433E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 22:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F03AA206E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 21:58:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F37CB20768
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 22:06:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4PtRPpVt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F03AA206E3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Abnl2kww"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F37CB20768
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43F836E0B9;
-	Thu, 23 Jul 2020 21:58:04 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5676E0B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 21:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30E3A6E215;
+	Thu, 23 Jul 2020 22:06:06 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A270E6E0B9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 22:06:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CDpUWV5SlQLpaQCyL8JwDwNMRKV62efrmhoA57KZG01Q8uxCwaBTkEVz7iTYT5YJLFI6OLtsbm8SAdv8YsKS1f0wKqboHMcY6z0E0D6WHwSwATNSeXdiZ4mnRiF0YXmUNOd8hSYTOBCgXa1lEtz6WSH/R2bYRGDO9sRtNlAWCuqqBVGzzN5nm10dXwSsrNxLo/A9L7Ipwu4H/uCUqfkSVGBitRflQlLkIwrF34ym4gREvG8eVuo7esKSYvIJ9PfWNW7xEmy5ltdza9d9hnWqr6p2lbTVW8uXDtlWfcRcQ6JW3IZ6bq9JARc0ljRKK5wApB7yHKlIu4LyppXU5Y+ZGQ==
+ b=PsjcqhcGZujEcDEgRZ/uKkSePRhEfFddCdkJ7euH/lwUfhAgkrEzpmv1iOEOlJD1bg72vEfK2+dJZ0IegepvDywyLULQOlCtVdIbV6qe7o/if1zTymsACQC7jfhMru1MaN49LGLX8UmuRskFD9gxNUj9FSwRlBpnyg6GAEbHr+EhOkT53ikpSBadPxkcIKfsRnHoA0qtMSF7t9Kk8Em16QgsVoCgtX0RgzLdJW2EnW4yXJp/MlZxVgzU2oe6JAMSeSLPX2TYWuRFsXWjJAY80dfnso7dktOSZl5fiJu5BD+iK/R7yzvc/LUqsdS9G+g29OWW7CS2RBUkBRA/0bQkDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aRhP1ijuiDH7BC52NjaLuoLyr+RJruLVfgzDmwVcrw4=;
- b=N7V4Redovii7dRIbxxdWv5Ddp8Ka83TFDzk3PgzH0JfZWkhc1NhNAUoAEM5wUBlk4PT2S6uMUhUb4HR/yuL94Onv9EzP1yyuMa5YSilFoXxzoPyq9fN2rdSB5KldTRhmD/qHmzYA7byF8CqxFEXKrSMF9/bnhk9+OoyYDZ4I26F4aHzbUVJMxklK+6ElNQbWFzclUHjQ8SWPi4S/pBzWmaTDLedbRJWrzKmeweHQB3Q2k7rY9GapSbmbmQsUzM+/q8e4HMSvIturLkAjL/tnovEfAMQbI0E1Lc7QsFZOHnZGxfoBDopqjK5oUWOELRCqzjgKPljzZIdGeJpmrx/yQg==
+ bh=rPfdSBqCw44Mr0VTma4v7Ou7DScSUIMJxClBdbumc9Y=;
+ b=SW+iTkrcjKFA1o0vbUZ14nUnhLAQ+ihfHeQikH6boluI+q/v/w2f2iuUBObfPAwsgykiRaLAzfoNdlfp7z1/6wGp+LTmG2sQaiqy81V7B7ColEj81oQb8wg/HL/6I0098d5Klac39C508wL9RrhC7KCp9gxV8g5nmz59PvS9dQvjMVvtkNOZCMC80ojxhj70RCuGOfmZQzUxvgQA/gBkniBUK1oXE0cZOlAUr5Xda0egfokIhBMBsZWAWohhKdPawWtU6KyV1g7VU5Nce/mbxvjg0QMHmnvuKTiJhrLhh9sQy893JgCr0Xx4P+f00DW221A8L8jJ3miywVA07qn5pg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aRhP1ijuiDH7BC52NjaLuoLyr+RJruLVfgzDmwVcrw4=;
- b=4PtRPpVt1uQDSjEINfmkIrbmy9IQNbB/9GDsMNGOJmpF76x/3drERRsS2E99SoJQ8FShRjzub/w3NwxG63J3NZQ/l4mdjjuDe0NaoOUr0aXiZ0JV/1zfUyL4XDKI8n7I1bp/+Ai5HW5NvJAIyKbGhtoVOuGXNRmGqdyjNgpKj90=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3374.namprd12.prod.outlook.com (2603:10b6:208:c9::17)
- by MN2PR12MB3406.namprd12.prod.outlook.com (2603:10b6:208:c9::24)
+ bh=rPfdSBqCw44Mr0VTma4v7Ou7DScSUIMJxClBdbumc9Y=;
+ b=Abnl2kwwUp+hkrqgutUFR1C1wqjIKZLfWYvx1JPpb9ldMRyvUWhd9dw6w7cjrYNEEu69gDSJbmr2OKOZ3V1K2yE3+AAZJHYgFbA3HahWY3lGfgfo42f6vzSCZ0178rupAoDWAHe5C06TdB2c9g4hNiULtwBSDBjzaqEdxsnjo58=
+Received: from CH2PR12MB4264.namprd12.prod.outlook.com (2603:10b6:610:a4::15)
+ by CH2PR12MB3704.namprd12.prod.outlook.com (2603:10b6:610:21::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.24; Thu, 23 Jul
- 2020 21:58:01 +0000
-Received: from MN2PR12MB3374.namprd12.prod.outlook.com
- ([fe80::8d68:4fd3:413f:cbeb]) by MN2PR12MB3374.namprd12.prod.outlook.com
- ([fe80::8d68:4fd3:413f:cbeb%4]) with mapi id 15.20.3216.024; Thu, 23 Jul 2020
- 21:58:01 +0000
-Subject: Re: [PATCH v2] drm/amdkfd: Add thermal throttling SMI event
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.21; Thu, 23 Jul
+ 2020 22:05:58 +0000
+Received: from CH2PR12MB4264.namprd12.prod.outlook.com
+ ([fe80::d5db:81e4:c1c3:841f]) by CH2PR12MB4264.namprd12.prod.outlook.com
+ ([fe80::d5db:81e4:c1c3:841f%6]) with mapi id 15.20.3216.024; Thu, 23 Jul 2020
+ 22:05:58 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: "Lin, Amber" <Amber.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdkfd: Add thermal throttling SMI event
+Thread-Topic: [PATCH v2] drm/amdkfd: Add thermal throttling SMI event
+Thread-Index: AQHWYEJrgg7ed9+j8UumSgkqsUd+eqkVr5wAgAACEXCAAAZzgIAAAgHg
+Date: Thu, 23 Jul 2020 22:05:58 +0000
+Message-ID: <CH2PR12MB426485CF587FF91537F658D1EE760@CH2PR12MB4264.namprd12.prod.outlook.com>
 References: <20200722160851.22437-1-mukul.joshi@amd.com>
  <942bcb77-da1c-de91-c1d8-10757401954e@amd.com>
  <MN2PR12MB42726B7B157DC5A66A4EE4ECEE760@MN2PR12MB4272.namprd12.prod.outlook.com>
-From: Amber Lin <Amber.Lin@amd.com>
-Message-ID: <652bc6be-435f-49dc-0274-80563cd44db8@amd.com>
-Date: Thu, 23 Jul 2020 17:57:57 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <MN2PR12MB42726B7B157DC5A66A4EE4ECEE760@MN2PR12MB4272.namprd12.prod.outlook.com>
+ <652bc6be-435f-49dc-0274-80563cd44db8@amd.com>
+In-Reply-To: <652bc6be-435f-49dc-0274-80563cd44db8@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::16) To MN2PR12MB3374.namprd12.prod.outlook.com
- (2603:10b6:208:c9::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.38.185] (165.204.54.211) by
- YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3216.20 via Frontend Transport; Thu, 23 Jul 2020 21:58:00 +0000
-X-Originating-IP: [165.204.54.211]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b95c5f65-38cb-492b-77ae-08d82f5377e2
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3406:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB34060026FE7FFA154C8E9AEFE1760@MN2PR12MB3406.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qED9fkRnhZGPGBsXHwkTMSqcKeLmMnkJGpmPPyCISbU3GqiJYkxKKysHvKWKFG+B2X088pcZdS2uiFeNVR7lOMj85doT4RryRyhVQbuKIMFNp7h4zj0+deXlX2hTw2wVGInYlGEaSF5++j/qigPC4dwZrzOFydmJYD5Q4Ohh/f+6PgyABC5XTKhMR6Z3k1p0uEFAHF/zpOpx82Cov1czGyGkWHlO8xbhbaOaExrHd1SI+j38yYFjpTogorUxqLN4KwCHg5aA6mIeVhZ/Hcej7UpLRCd3uzpa9YIiHcjCsQtj/R3yo43OzQDbvyd46ImGv96ReJ8S1XJwVcIH6G6mFd6SzhCXfb1coPsIPEwFivapekrJxsUrDRZy/ZjUD7Qw
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-23T22:05:52Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=785d783e-94f4-4f9c-af7f-0000271e1237;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-07-23T22:05:52Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 5903ab84-b76a-49ac-84a6-000024cc32cd
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_justification: My manager approved sharing of this content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.54.211]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 5421c2b9-e70a-4033-d5b8-08d82f549425
+x-ms-traffictypediagnostic: CH2PR12MB3704:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB3704D633319F62BBA656607BEE760@CH2PR12MB3704.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3044;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: XzGXBMXs7pq5c1vjcMfDtShoYjPvGi2v1cpZFZVAeDXHZhUzjq7873zDRItmU0stPDlfBN3uTAq8DUbKVTY7xRjRoUzfzk+kyLsnFbf/He8jSIinOAMwNjCyN5Z8rjMCYMtQtCBNkD42idDXr7ZMz3vFbJKJypww720XlW1fua8P4jNwzKfqmzevtrM4pLM1dtVnwM8d5ud9J4/i6Ni00hgkuqoYuWIFLxYQWOPYlQx0FnXDNW9QLEkKChWF6dVpprWIRvl4cRji58aE2ce8IyS/ozQAL+EKhlM+QDt1K6QIXJ9hSw/SMetVtpv2C2/H
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4264.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(366004)(136003)(39860400002)(376002)(346002)(66476007)(66556008)(5660300002)(66946007)(478600001)(30864003)(83380400001)(6666004)(52116002)(86362001)(31686004)(110136005)(6486002)(16526019)(8676002)(186003)(8936002)(316002)(16576012)(2616005)(36756003)(31696002)(2906002)(53546011)(956004)(4326008)(26005)(43740500002);
+ SFS:(4636009)(376002)(396003)(366004)(136003)(39860400002)(346002)(4326008)(83380400001)(110136005)(55016002)(8676002)(478600001)(7696005)(30864003)(8936002)(5660300002)(33656002)(9686003)(316002)(71200400001)(2906002)(6506007)(53546011)(52536014)(86362001)(66946007)(26005)(76116006)(66476007)(66556008)(186003)(66446008)(64756008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: s0jeuIEzHZ08lWeZd8yMd+laSbE3Nv5zMaLmVg4eT1n09Ivf+ROjPY0bImWPZdcUL5FMa0HGGE57VZLZMxFMwwOCrCbnP9PZvxcXxWrP7HZ4Pi1ej1eFDybAWpoMLDQGpEF/3+SuIleToEv0u8e4mezRsS3kH9IJCuFOIQ1q2HBGCzwh+QG0k0gATpzois+5lE87mDQut++fFDOA621CfU4B8dIlNpAMZh7OPZrJRfndJ5Jao3sc0/oleWCgEwSHo8cNBaSgYKViyQAB1cbIS4qv0tRFtM4+A2V5iLLlUBNzCCCVdfKh2wQHYXIqjBqDfyY7lSaet94kN2Fa2Qc2VeI+UZGNwOTUojN+V5iablzaMMB51Sq3TGj1/tTqudDZqQQukCAPuMfn80FvBYwEZKv7Y82Mk0CnD1EhkzQjrmtFE86NXgEbNYdVjFKmg2sD7UD/5Mc0L0zhWuhKGFrMzOT/sK73bWP081ZpG6ja0rGSrrNrJh7qmlbziIa4u8cy
+x-ms-exchange-antispam-messagedata: hijp2/Y/uY1vRPkHMFfm141HeoaOXeSSD8XnLZvb6sMIiSC/tXVeVSTRt76nWVttXRfnqQKSfh0UeDyA86Nc8On6UymLOdVh4f3Ja04M6bV669xUdY8j8lsKTbbQfhHFAI3vxjRtl1+HFJvH9vni+F6JNAqSZVsLs6Fp7Ap4LbjleCeq6yrufAxd9Bm//HvMp2SwKqkRhYVGJQYscyWkld9mCXeZ/5XBCYjfcvPdaisKsh92ZpS7Ps+21WyVMyPb+vqLdSq/dcAp1xGNrQKwV//jvwy65Io6b7IllstHAbXG3d932nwVuMorTimZEtgStJpavZiBJOKMxd72yIvJQsmBHupRh5wjKnRFCqLJbKBufBzx7Do2eDGEpRyMIhjxYvANTxW8fV5NxzoDdPXC1NuoeW8IX+pa4SX3sOd3ncx7Z9zcdf6Y0seoUm2iGF1ElfOx7oDzkqaRy4eJ8jPckVtpLCBm8CGyLNhZ9dZh7TuxGRF4q1A4EExLRCfiBRv6
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b95c5f65-38cb-492b-77ae-08d82f5377e2
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3374.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2020 21:58:01.5735 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ch6Xa0Wq9sbHrf+c8A7/W4fPvzYOve6QT3hbKer7psVYZF4ygpn2RYGpC+ch09c+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3406
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4264.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5421c2b9-e70a-4033-d5b8-08d82f549425
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2020 22:05:58.0906 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: niQMm7eMOMlZ1Ghy+LgHkFIEWLpdeY5H9ceXm+ZPFIgxsde8m0gkfBOyxt/H8FT1tJcE+Cz0DXH8j93fzkDMsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3704
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,10 +126,21 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+-----Original Message-----
+From: Lin, Amber <Amber.Lin@amd.com> 
+Sent: Thursday, July 23, 2020 5:58 PM
+To: Joshi, Mukul <Mukul.Joshi@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH v2] drm/amdkfd: Add thermal throttling SMI event
 
 
 
@@ -137,7 +160,7 @@ On 2020-07-23 5:41 p.m., Joshi, Mukul wrote:
 >
 > On 2020-07-22 12:08 p.m., Mukul Joshi wrote:
 >> Add support for reporting thermal throttling events through SMI.
->> Also, add a counter to count the number of throttling interrupts
+>> Also, add a counter to count the number of throttling interrupts 
 >> observed and report the count in the SMI event message.
 >>
 >> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
@@ -176,10 +199,10 @@ On 2020-07-23 5:41 p.m., Joshi, Mukul wrote:
 >>    int kgd2kfd_schedule_evict_and_restore_process(struct mm_struct *mm,
 >>    					       struct dma_fence *fence);
 >>    void kgd2kfd_set_sram_ecc_flag(struct kfd_dev *kfd);
->> +void kgd2kfd_smi_event_throttle(struct kfd_dev *kfd, uint32_t
+>> +void kgd2kfd_smi_event_throttle(struct kfd_dev *kfd, uint32_t 
 >> +throttle_bitmask);
 >>    
->>    #endif /* AMDGPU_AMDKFD_H_INCLUDED */ diff --git
+>>    #endif /* AMDGPU_AMDKFD_H_INCLUDED */ diff --git 
 >> a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 >> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 >> index 4bfedaab183f..d5e790f046b4 100644
@@ -204,7 +227,7 @@ On 2020-07-23 5:41 p.m., Joshi, Mukul wrote:
 >> +
 >>    #if defined(CONFIG_DEBUG_FS)
 >>    
->>    /* This function will send a package to HIQ to hang the HWS diff
+>>    /* This function will send a package to HIQ to hang the HWS diff 
 >> --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 >> b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
 >> index 7b348bf9df21..00c90b47155b 100644
@@ -247,21 +270,20 @@ On 2020-07-23 5:41 p.m., Joshi, Mukul wrote:
 >> +}
 >> +
 >> +void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
->> +					     uint32_t throttle_bitmask)
->> +{
+>> +					     uint32_t throttle_bitmask) {
 >> +	struct amdgpu_device *adev = (struct amdgpu_device *)dev->kgd;
 >> +	/*
 >> +	 * ThermalThrottle msg = gpu_id(4):throttle_bitmask(4):
 > gpu_id is not needed. The user calls ioctl with GPU specified and KFD returns an anonymous fd. Read from this anon_fd already identify the GPU.
 >
 > I agree with you. But I would prefer to keep gpu_id in the SMI event message. The benefit is it explicitly identifies the GPU sending the message. This way user-space doesn't need to maintain an internal mapping of anon_fd to gpu_id.
-We want to keep the message as short as possible so the 1K kfifo can 
-contain more events in case multiple events rush in and the user doesn't 
-consume fast enough. For the same reason vmfault event doesn't log 
-gpu_id. On the user side, the user shouldn't need to do the 
-anon_fd/gpu_id convert. That information should be already in their 
-structure. Instead of reading/parsing the message, the user reads from 
-their structure.
+We want to keep the message as short as possible so the 1K kfifo can contain more events in case multiple events rush in and the user doesn't consume fast enough. For the same reason vmfault event doesn't log gpu_id. On the user side, the user shouldn't need to do the anon_fd/gpu_id convert. That information should be already in their structure. Instead of reading/parsing the message, the user reads from their structure.
+
+MJ> OK that makes sense. I can remove the gpu_id from the message.
+
+Regards,
+Mukul
+
 >
 > Regards,
 > Mukul
@@ -282,7 +304,7 @@ their structure.
 >> +		       dev->id, throttle_bitmask,
 >> +		       atomic64_read(&adev->smu.throttle_int_counter));
 >> +
->> +	add_event_to_kfifo(dev, KFD_SMI_EVENT_THERMAL_THROTTLE, fifo_in,
+>> +	add_event_to_kfifo(dev, KFD_SMI_EVENT_THERMAL_THROTTLE, fifo_in, 
 >> +len); }
 >> +
 >>    void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
@@ -295,8 +317,8 @@ their structure.
 >> -	struct kfd_smi_client *client;
 >>    	int len;
 >>    
->>    	if (list_empty(&dev->smi_clients))
->> @@ -171,22 +220,7 @@ void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
+>>    	if (list_empty(&dev->smi_clients)) @@ -171,22 +220,7 @@ void 
+>> kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
 >>    	len = snprintf(fifo_in, 43, "%x %x:%s\n", KFD_SMI_EVENT_VMFAULT,
 >>    		task_info.pid, task_info.task_name);
 >>    
@@ -319,8 +341,8 @@ their structure.
 >> +	add_event_to_kfifo(dev, KFD_SMI_EVENT_VMFAULT, fifo_in, len);
 >>    }
 >>    
->>    int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd) diff --git
->> a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+>>    int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd) diff 
+>> --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
 >> b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
 >> index a9cb218fef96..15537b2cccb5 100644
 >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
@@ -328,7 +350,7 @@ their structure.
 >> @@ -25,5 +25,7 @@
 >>    
 >>    int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd);
->>    void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t
+>>    void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t 
 >> pasid);
 >> +void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
 >> +					     uint32_t throttle_bitmask);
@@ -347,7 +369,7 @@ their structure.
 >> +	atomic64_set(&smu->throttle_int_counter, 0);
 >>    	smu->watermarks_bitmap = 0;
 >>    	smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
->>    	smu->default_power_profile_mode =
+>>    	smu->default_power_profile_mode = 
 >> PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
 >> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
 >> b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
@@ -362,8 +384,8 @@ their structure.
 >> +	kgd2kfd_smi_event_throttle(smu->adev->kfd.dev, throttler_status);
 >>    }
 >>    
->>    static const struct pptable_funcs arcturus_ppt_funcs = { diff --git
->> a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+>>    static const struct pptable_funcs arcturus_ppt_funcs = { diff 
+>> --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
 >> b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
 >> index 896b443f1ce8..18ba421c59bd 100644
 >> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
@@ -393,7 +415,7 @@ their structure.
 >>    				if (!atomic_read(&adev->throttling_logging_enabled))
 >>    					return 0;
 >>    
->> diff --git a/include/uapi/linux/kfd_ioctl.h
+>> diff --git a/include/uapi/linux/kfd_ioctl.h 
 >> b/include/uapi/linux/kfd_ioctl.h index f738c3b53f4e..df6c7a43aadc
 >> 100644
 >> --- a/include/uapi/linux/kfd_ioctl.h
@@ -408,7 +430,6 @@ their structure.
 >>    
 >>    struct kfd_ioctl_smi_events_args {
 >>    	__u32 gpuid;	/* to KFD */
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
