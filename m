@@ -2,86 +2,72 @@ Return-Path: <SRS0=nWm5=BC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25CD4C433E5
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 13:10:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60565C433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 13:39:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ECA6820714
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 13:10:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 31335207BB
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 13:39:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oquQCtXU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECA6820714
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Te2JBpAO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31335207BB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0AE889B99;
-	Thu, 23 Jul 2020 13:10:28 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C585D89B99
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 13:10:26 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id gg18so2932624ejb.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 06:10:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D33236E0AF;
+	Thu, 23 Jul 2020 13:39:48 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D77DA6E0AF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 13:39:47 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id x5so4442555wmi.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 06:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=XSqHq8X+z+eqgZAUwAnsLVeGI2qe7R34nvlom6fKZgk=;
- b=oquQCtXUYf3uEi0nHoa5YkBc1bm8FJJDUPBRC4RprHBnNQJVoUafyOUXrlmRiqsVv1
- vWNSHtLmS2bjlOU7tRT0u5rxlIO0tON9IvgT4fEddeViYzsMqpBmxaWDZEgDIh4GdkGD
- BwFf0lIXI5r2amq97X0ipV4T87sP/aEz4ViEzCvl7a+gO9KaJVxZ/2xREPLAgN2Pun9f
- AH7HAPEmzVyTK0x9B5wQzGPF/EaU5rttXmgT42vezEqizppe0cTtHe8d4F+yPEyyCPUs
- 7uY7f5IvRLs0MshxlfDgxJXcWy7DGTruJlOhs+5HLPcDdA8bhLIwt3R3OXNE9L1Oorye
- EYVg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=z3thAE7GD5ddGvBwWXCMhp9kouhYFg8qk8EhdlhHhD4=;
+ b=Te2JBpAOiw8MBWVgCt0COdncSqOwsiqQwdqyUmFm/DVydjQ4aikXlD4wDL/yMF7KRr
+ R2KPsipNIolyrlyGmoScGtE2mEQgS9VzvT2Hcwe3sQtK24bzMQpV/RF4wtkGvGIIx9yP
+ DCj6Lvqe9UNL2UOCrni4v7i48EJpRzy28M6fLJ/xGCFw1QYTjnttJ4Ts41/dZN5tYJmZ
+ CyL2a42yceXS2uw2sEyrL/g8Rfo1QgZsEUDuUg2wPpAZb6oOBpKmntMAW8LpGlftjJsy
+ 2AuC/c+7hdNzSgARojYOakTKVJOr3sQk7Xogg/pa0+JBOIjcBaCvD4o+6u8SXxSzrqaV
+ jNsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=XSqHq8X+z+eqgZAUwAnsLVeGI2qe7R34nvlom6fKZgk=;
- b=LHIKgOnbcUhGeNpZlM8alKX6xGCsFsmZw2I23SuzfUDcFvBZQ/NXiq3v8GVB4/nKhK
- v7Bow4CP95mklxAiRuNRUb31Hba+Hn+dkLdesc9aUlYvnv7qyPhP5YYuOFcsGEU5jHy+
- hxvUX0VVWffJ52TNJ611i9CA0/6Nuu5skZA6dWU97zX492w4zbiPkSYqBnZHSIesL8FC
- QX7jfcJeupSX18f4+kcLEkEeN66AXL8C0dHtuUDlfOvxMK9n0UuQy0pmAES4MVXt/47R
- 8Gb+QtNWh+e++fAC30r5dY/lVo5cQNTWRNl1rMjYpnrUZMZ0jUVtIWhhCIy/W9oMSM+P
- l2aA==
-X-Gm-Message-State: AOAM5310hoSqoVIgOKivzC355ubkERGclNlvQ2My+TFGFpEy0tNTVV83
- XWTCxKTqdnp0iQM9I7txJvo=
-X-Google-Smtp-Source: ABdhPJwBZQRt9HkjIC68V3BWFBbdR5GmPcnqJbJoaIfQlqw7BlejJfZfqhiJ5/E8hsxzPJG3wvRnJA==
-X-Received: by 2002:a17:906:2c53:: with SMTP id
- f19mr4448307ejh.523.1595509825422; 
- Thu, 23 Jul 2020 06:10:25 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id lc18sm1414680ejb.29.2020.07.23.06.10.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 23 Jul 2020 06:10:24 -0700 (PDT)
-Subject: Re: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module
- parameter
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Yang, Stanley" <Stanley.Yang@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Clements, John" <John.Clements@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=z3thAE7GD5ddGvBwWXCMhp9kouhYFg8qk8EhdlhHhD4=;
+ b=ClyGhfwixrS9Du2RvzBwfhqn0QyMItbyAbESX6DAAN9oQ9qKQK3y8M2ocXRAjglm3/
+ 9yzTco8/DrL/Ici6XAzkevg4nWiWzZXwKJBbemcWdh3E2ABH6v068w8P+jooj4b8SBA6
+ l0UP5W2KdUlt5toGleSl2wb0NEvl8DgRKr7tc6ABPrxWGiREPvMW2PKB9gK1SwIIvFDd
+ BMsmOdNxKuDEkf/GYO0fKqZGyiOVLfIZvHMGXUfkkK+EydVm55RPq8Xj+aolwdG5oE4m
+ POknhoJwwNkx8OpqEglYVqlkC15mGviE/QSwbocXLLb5d7jyofvd5lRChtyhnGDV7USQ
+ tPvA==
+X-Gm-Message-State: AOAM53324IP4030vPArfrQ2R7jQtzK7GaYPh63UVXydml1Ww+1Nebe4y
+ 0sOrHTb9FghBbdWEgN/u4OrgYOKy+RYzc9FJz9mNgg==
+X-Google-Smtp-Source: ABdhPJypb9NkgyDIkbnNJ7QcYMXFoJSbiFLQyqhmIZoA4pdV+Hx3oXH04gnKp4OiSjZtKmlDgJx433+QDP/rV8xaOgM=
+X-Received: by 2002:a05:600c:252:: with SMTP id 18mr958615wmj.56.1595511586496; 
+ Thu, 23 Jul 2020 06:39:46 -0700 (PDT)
+MIME-Version: 1.0
 References: <20200722031415.4792-1-guchun.chen@amd.com>
  <20200722031415.4792-2-guchun.chen@amd.com>
  <DM5PR12MB25332D58B47ABB52BFBD1A4DED760@DM5PR12MB2533.namprd12.prod.outlook.com>
  <BN6PR12MB128336C43F529CC62BEB4281F1760@BN6PR12MB1283.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <040f8c43-758d-e937-1d00-2ff4b118bde1@gmail.com>
-Date: Thu, 23 Jul 2020 15:10:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <BN6PR12MB128336C43F529CC62BEB4281F1760@BN6PR12MB1283.namprd12.prod.outlook.com>
-Content-Language: en-US
+ <040f8c43-758d-e937-1d00-2ff4b118bde1@gmail.com>
+In-Reply-To: <040f8c43-758d-e937-1d00-2ff4b118bde1@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 23 Jul 2020 09:39:35 -0400
+Message-ID: <CADnq5_NF5oGihSBdof8wO6MJVVG6Nh2TwfMt2Kkk_5Uoyby0yQ@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module
+ parameter
+To: Christian Koenig <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,105 +79,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Yang,
+ Stanley" <Stanley.Yang@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Clements,
+ John" <John.Clements@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I agree with Guchun as well.
-
-When you have a dynamic module parameter and change the bad page 
-threshold the GPU might just stop working suddenly.
-
-That is not a good idea as far as I can see.
-
-Regards,
-Christian.
-
-Am 23.07.20 um 05:47 schrieb Chen, Guchun:
-> [AMD Public Use]
->
-> Hi Dennis,
->
-> To be honest, your suggestion is considered when I start the design. My thought is in actual world, bad page threshold is one static configuration, it should be set once when probing.
-> So module parameter is one ideal choice for this.
->
-> Regards,
-> Guchun
->
-> -----Original Message-----
-> From: Li, Dennis <Dennis.Li@amd.com>
-> Sent: Thursday, July 23, 2020 8:32 AM
-> To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-> Subject: RE: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module parameter
->
-> [AMD Official Use Only - Internal Distribution Only]
->
-> Hi, Guchun,
->        It is better to let user be able to change amdgpu_bad_page_threshold with sysfs, so that users no need to reboot system when they want to change their strategy.
->
-> Best Regards
-> Dennis Li
-> -----Original Message-----
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: Wednesday, July 22, 2020 11:14 AM
-> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-> Cc: Chen, Guchun <Guchun.Chen@amd.com>
-> Subject: [PATCH 1/5] drm/amdgpu: add bad page count threshold in module parameter
->
-> bad_page_threshold could be specified to detect and retire bad GPU if faulty bad pages exceed it.
->
-> When it's -1, ras will use typical bad page failure value.
->
-> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
->   2 files changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 06bfb8658dec..bb83ffb5e26a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -181,6 +181,7 @@ extern uint amdgpu_dm_abm_level;  extern struct amdgpu_mgpu_info mgpu_info;  extern int amdgpu_ras_enable;  extern uint amdgpu_ras_mask;
-> +extern int amdgpu_bad_page_threshold;
->   extern int amdgpu_async_gfx_ring;
->   extern int amdgpu_mcbp;
->   extern int amdgpu_discovery;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index d28b95f721c4..f99671101746 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -161,6 +161,7 @@ struct amdgpu_mgpu_info mgpu_info = {  };  int amdgpu_ras_enable = -1;  uint amdgpu_ras_mask = 0xffffffff;
-> +int amdgpu_bad_page_threshold = -1;
->   
->   /**
->    * DOC: vramlimit (int)
-> @@ -801,6 +802,16 @@ module_param_named(tmz, amdgpu_tmz, int, 0444);  MODULE_PARM_DESC(reset_method, "GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)");  module_param_named(reset_method, amdgpu_reset_method, int, 0444);
->   
-> +/**
-> + * DOC: bad_page_threshold (int)
-> + * Bad page threshold configuration is driven by RMA(Return Merchandise
-> + * Authorization) policy, which is to specify the threshold value of
-> +faulty
-> + * pages detected by ECC, which may result in GPU's retirement if total
-> + * faulty pages by ECC exceed threshold value.
-> + */
-> +MODULE_PARM_DESC(bad_page_threshold, "Bad page threshold(-1 =
-> +auto(default typical value))"); module_param_named(bad_page_threshold,
-> +amdgpu_bad_page_threshold, int, 0444);
-> +
->   static const struct pci_device_id pciidlist[] = {  #ifdef  CONFIG_DRM_AMDGPU_SI
->   	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
-> --
-> 2.17.1
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QWxzbyBub3RlIHRoYXQgbW9kdWxlIHBhcmFtZXRlcnMgYXJlIGdsb2JhbC4gIElmIHlvdSBjaGFu
+Z2UgdGhlCnBhcmFtZXRlciwgaXQgY2hhbmdlcyBpdCBmb3IgYWxsIEdQVXMgaW4gdGhlIHN5c3Rl
+bS4gIFRoYXQgbWF5IG5vdCBiZQp3aGF0IHRoZSBjdXN0b21lciB3YW50cy4KCkFsZXgKCk9uIFRo
+dSwgSnVsIDIzLCAyMDIwIGF0IDk6MTAgQU0gQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5pZy5sZWlj
+aHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gSSBhZ3JlZSB3aXRoIEd1Y2h1biBhcyB3
+ZWxsLgo+Cj4gV2hlbiB5b3UgaGF2ZSBhIGR5bmFtaWMgbW9kdWxlIHBhcmFtZXRlciBhbmQgY2hh
+bmdlIHRoZSBiYWQgcGFnZQo+IHRocmVzaG9sZCB0aGUgR1BVIG1pZ2h0IGp1c3Qgc3RvcCB3b3Jr
+aW5nIHN1ZGRlbmx5Lgo+Cj4gVGhhdCBpcyBub3QgYSBnb29kIGlkZWEgYXMgZmFyIGFzIEkgY2Fu
+IHNlZS4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4gQW0gMjMuMDcuMjAgdW0gMDU6NDcg
+c2NocmllYiBDaGVuLCBHdWNodW46Cj4gPiBbQU1EIFB1YmxpYyBVc2VdCj4gPgo+ID4gSGkgRGVu
+bmlzLAo+ID4KPiA+IFRvIGJlIGhvbmVzdCwgeW91ciBzdWdnZXN0aW9uIGlzIGNvbnNpZGVyZWQg
+d2hlbiBJIHN0YXJ0IHRoZSBkZXNpZ24uIE15IHRob3VnaHQgaXMgaW4gYWN0dWFsIHdvcmxkLCBi
+YWQgcGFnZSB0aHJlc2hvbGQgaXMgb25lIHN0YXRpYyBjb25maWd1cmF0aW9uLCBpdCBzaG91bGQg
+YmUgc2V0IG9uY2Ugd2hlbiBwcm9iaW5nLgo+ID4gU28gbW9kdWxlIHBhcmFtZXRlciBpcyBvbmUg
+aWRlYWwgY2hvaWNlIGZvciB0aGlzLgo+ID4KPiA+IFJlZ2FyZHMsCj4gPiBHdWNodW4KPiA+Cj4g
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+ID4gRnJvbTogTGksIERlbm5pcyA8RGVubmlz
+LkxpQGFtZC5jb20+Cj4gPiBTZW50OiBUaHVyc2RheSwgSnVseSAyMywgMjAyMCA4OjMyIEFNCj4g
+PiBUbzogQ2hlbiwgR3VjaHVuIDxHdWNodW4uQ2hlbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc7IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1k
+LmNvbT47IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBZYW5nLCBTdGFu
+bGV5IDxTdGFubGV5LllhbmdAYW1kLmNvbT47IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29t
+PjsgQ2xlbWVudHMsIEpvaG4gPEpvaG4uQ2xlbWVudHNAYW1kLmNvbT4KPiA+IFN1YmplY3Q6IFJF
+OiBbUEFUQ0ggMS81XSBkcm0vYW1kZ3B1OiBhZGQgYmFkIHBhZ2UgY291bnQgdGhyZXNob2xkIGlu
+IG1vZHVsZSBwYXJhbWV0ZXIKPiA+Cj4gPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gSW50ZXJu
+YWwgRGlzdHJpYnV0aW9uIE9ubHldCj4gPgo+ID4gSGksIEd1Y2h1biwKPiA+ICAgICAgICBJdCBp
+cyBiZXR0ZXIgdG8gbGV0IHVzZXIgYmUgYWJsZSB0byBjaGFuZ2UgYW1kZ3B1X2JhZF9wYWdlX3Ro
+cmVzaG9sZCB3aXRoIHN5c2ZzLCBzbyB0aGF0IHVzZXJzIG5vIG5lZWQgdG8gcmVib290IHN5c3Rl
+bSB3aGVuIHRoZXkgd2FudCB0byBjaGFuZ2UgdGhlaXIgc3RyYXRlZ3kuCj4gPgo+ID4gQmVzdCBS
+ZWdhcmRzCj4gPiBEZW5uaXMgTGkKPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gPiBG
+cm9tOiBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+Cj4gPiBTZW50OiBXZWRuZXNk
+YXksIEp1bHkgMjIsIDIwMjAgMTE6MTQgQU0KPiA+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsg
+WmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5p
+cy5MaUBhbWQuY29tPjsgWWFuZywgU3RhbmxleSA8U3RhbmxleS5ZYW5nQGFtZC5jb20+OyBaaG91
+MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IENsZW1lbnRzLCBKb2huIDxKb2huLkNsZW1lbnRz
+QGFtZC5jb20+Cj4gPiBDYzogQ2hlbiwgR3VjaHVuIDxHdWNodW4uQ2hlbkBhbWQuY29tPgo+ID4g
+U3ViamVjdDogW1BBVENIIDEvNV0gZHJtL2FtZGdwdTogYWRkIGJhZCBwYWdlIGNvdW50IHRocmVz
+aG9sZCBpbiBtb2R1bGUgcGFyYW1ldGVyCj4gPgo+ID4gYmFkX3BhZ2VfdGhyZXNob2xkIGNvdWxk
+IGJlIHNwZWNpZmllZCB0byBkZXRlY3QgYW5kIHJldGlyZSBiYWQgR1BVIGlmIGZhdWx0eSBiYWQg
+cGFnZXMgZXhjZWVkIGl0Lgo+ID4KPiA+IFdoZW4gaXQncyAtMSwgcmFzIHdpbGwgdXNlIHR5cGlj
+YWwgYmFkIHBhZ2UgZmFpbHVyZSB2YWx1ZS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBHdWNodW4g
+Q2hlbiA8Z3VjaHVuLmNoZW5AYW1kLmNvbT4KPiA+IC0tLQo+ID4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHUuaCAgICAgfCAgMSArCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYyB8IDExICsrKysrKysrKysrCj4gPiAgIDIgZmlsZXMgY2hhbmdl
+ZCwgMTIgaW5zZXJ0aW9ucygrKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+Cj4gPiBpbmRleCAwNmJmYjg2NThkZWMuLmJiODNmZmI1ZTI2YSAxMDA2NDQKPiA+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ID4gQEAgLTE4MSw2ICsxODEsNyBAQCBleHRlcm4gdWlu
+dCBhbWRncHVfZG1fYWJtX2xldmVsOyAgZXh0ZXJuIHN0cnVjdCBhbWRncHVfbWdwdV9pbmZvIG1n
+cHVfaW5mbzsgIGV4dGVybiBpbnQgYW1kZ3B1X3Jhc19lbmFibGU7ICBleHRlcm4gdWludCBhbWRn
+cHVfcmFzX21hc2s7Cj4gPiArZXh0ZXJuIGludCBhbWRncHVfYmFkX3BhZ2VfdGhyZXNob2xkOwo+
+ID4gICBleHRlcm4gaW50IGFtZGdwdV9hc3luY19nZnhfcmluZzsKPiA+ICAgZXh0ZXJuIGludCBh
+bWRncHVfbWNicDsKPiA+ICAgZXh0ZXJuIGludCBhbWRncHVfZGlzY292ZXJ5Owo+ID4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+ID4gaW5kZXggZDI4Yjk1ZjcyMWM0Li5m
+OTk2NzExMDE3NDYgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZHJ2LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+cnYuYwo+ID4gQEAgLTE2MSw2ICsxNjEsNyBAQCBzdHJ1Y3QgYW1kZ3B1X21ncHVfaW5mbyBtZ3B1
+X2luZm8gPSB7ICB9OyAgaW50IGFtZGdwdV9yYXNfZW5hYmxlID0gLTE7ICB1aW50IGFtZGdwdV9y
+YXNfbWFzayA9IDB4ZmZmZmZmZmY7Cj4gPiAraW50IGFtZGdwdV9iYWRfcGFnZV90aHJlc2hvbGQg
+PSAtMTsKPiA+Cj4gPiAgIC8qKgo+ID4gICAgKiBET0M6IHZyYW1saW1pdCAoaW50KQo+ID4gQEAg
+LTgwMSw2ICs4MDIsMTYgQEAgbW9kdWxlX3BhcmFtX25hbWVkKHRteiwgYW1kZ3B1X3RteiwgaW50
+LCAwNDQ0KTsgIE1PRFVMRV9QQVJNX0RFU0MocmVzZXRfbWV0aG9kLCAiR1BVIHJlc2V0IG1ldGhv
+ZCAoLTEgPSBhdXRvIChkZWZhdWx0KSwgMCA9IGxlZ2FjeSwgMSA9IG1vZGUwLCAyID0gbW9kZTEs
+IDMgPSBtb2RlMiwgNCA9IGJhY28pIik7ICBtb2R1bGVfcGFyYW1fbmFtZWQocmVzZXRfbWV0aG9k
+LCBhbWRncHVfcmVzZXRfbWV0aG9kLCBpbnQsIDA0NDQpOwo+ID4KPiA+ICsvKioKPiA+ICsgKiBE
+T0M6IGJhZF9wYWdlX3RocmVzaG9sZCAoaW50KQo+ID4gKyAqIEJhZCBwYWdlIHRocmVzaG9sZCBj
+b25maWd1cmF0aW9uIGlzIGRyaXZlbiBieSBSTUEoUmV0dXJuIE1lcmNoYW5kaXNlCj4gPiArICog
+QXV0aG9yaXphdGlvbikgcG9saWN5LCB3aGljaCBpcyB0byBzcGVjaWZ5IHRoZSB0aHJlc2hvbGQg
+dmFsdWUgb2YKPiA+ICtmYXVsdHkKPiA+ICsgKiBwYWdlcyBkZXRlY3RlZCBieSBFQ0MsIHdoaWNo
+IG1heSByZXN1bHQgaW4gR1BVJ3MgcmV0aXJlbWVudCBpZiB0b3RhbAo+ID4gKyAqIGZhdWx0eSBw
+YWdlcyBieSBFQ0MgZXhjZWVkIHRocmVzaG9sZCB2YWx1ZS4KPiA+ICsgKi8KPiA+ICtNT0RVTEVf
+UEFSTV9ERVNDKGJhZF9wYWdlX3RocmVzaG9sZCwgIkJhZCBwYWdlIHRocmVzaG9sZCgtMSA9Cj4g
+PiArYXV0byhkZWZhdWx0IHR5cGljYWwgdmFsdWUpKSIpOyBtb2R1bGVfcGFyYW1fbmFtZWQoYmFk
+X3BhZ2VfdGhyZXNob2xkLAo+ID4gK2FtZGdwdV9iYWRfcGFnZV90aHJlc2hvbGQsIGludCwgMDQ0
+NCk7Cj4gPiArCj4gPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCBwY2lpZGxp
+c3RbXSA9IHsgICNpZmRlZiAgQ09ORklHX0RSTV9BTURHUFVfU0kKPiA+ICAgICAgIHsweDEwMDIs
+IDB4Njc4MCwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9UQUhJVEl9LAo+ID4g
+LS0KPiA+IDIuMTcuMQo+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
