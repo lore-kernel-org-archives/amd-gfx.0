@@ -4,108 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 176D2C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 05:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3777FC433E4
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 05:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE25020714
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 05:12:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C7BD420714
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2020 05:19:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="oN2q5zXi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE25020714
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ovCkJ5Jj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7BD420714
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F646E0A6;
-	Thu, 23 Jul 2020 05:12:04 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1BE6E0A6
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 05:12:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 699F76E0A6;
+	Thu, 23 Jul 2020 05:19:09 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5E866E0A6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2020 05:19:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B1VD4N5n9SxmsgJaF37qyMu01SXWxMlhaJQqU6zo7KuX4bRV/ASONfhH1+ybPRhGAeEER2dYQ4SlSGxXCXzgIzQ/b627yp1TGeT3dzg6qWFx819d19m8DJdg7Dho+NssO9SgBhiClT6UsEtnszOxPJenLszCAW7kPOufQfjvhvRX22X3C1e09Kfk6zwQxDbXXLuS+XD8PpX5JKJgCzuekHq+gFzR7VAdktn64jo9QAlLwbeGQSWKj/Vdz73DiJIgU7CrZmXImSe4BLQYx/CSHU/1TPXUBzN41sQ7GKr5RmnrivFQkqDME7Pl2m+2kJKZe8C1NUDsgMeOgH2DeU4ThQ==
+ b=dUXEAv5VHbZQVdUH9V4v26L90qKX82BEneJzpXL9NY6tYF/xlUOhFwkaamAOUu8G9DTYPAxh9xNDj9JkTVb7jO+3jcew5dsB3pZ4A4BcNvPb/HmMso1cD5SaaZXFpDD7wtVjQ4H4CSrUG0eudGH3Ua/yMzDV7Ingl/4HK7pYxvZ6CKHMDsaiqJKeXNGq3wCf+s7Svu2yEdE/nFapyfMUJAcT5NkQgYgoep0rLNfKEgKJW8AMSPsg9eUH9hTz0pDer2tFcUPAL63+kwX/T1LwmIcOKNAEWCIKAY+3Dh4ocUuYfnR0xU6WNDNrfK481eFGdaUvOwJYCGfjQcL+nCswSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q3zWieEpNU61IiLpRfzSMIymfB4PSNs83e0ry+r6JJ8=;
- b=lDmn4E6dWQbG/X7S6Ku/IOWPkbAjfjO3BSRi9p6vxKP/ZNumbYTJ4cAn8BuZWqyEplLDmDPu/XVxdIjR1oVrLiPa6J0o0Cd5c7L7+E9LNXgJdp3b9K/sq8tt3xh+6XGYzRdzM6bg7W4OLuKvkkrgRmcg191ZEMmkfnXIoOeiKO3OaWa8PIAr2bDiqqi8nsJNgb3sqz4nUdJ46YVT/zrfUzpSsmmpraTk2/ptzJwgoxzOW1YImzTgacZtmTMcSP854Q/WN0LCG2Gek6DXQD9bfSV2ubqyjbsFpZWANfm+9MY7OAAslNwiT8poA/gJZZ1hsUFeyAaHTZ490tj0mKl7QA==
+ bh=QVh6j6iw199Uv0cj5LVfrvZQwt0EwMhoZ5OkTf7O9CM=;
+ b=dDigXlTWFHuh/MF5bKETue7rp6KDDiRPGQbORBBsKS1Rrtk1J1sMn1gB7sJXkZdcG5diTkWB/1DPNO2DidsANtVcMmOQKCglTl9Hoq5bSKfXlj0vYXz6MwP0L1nrf+eFMoIOSy5dF2oV9zBErYyO1J2Jdrjqdj7xN5D/pGaL5eK+dTMK+QDXjLpwmFEOawEo+S7Pplp0JM6JYl3VnjUvKmsm2B9nxdK6qw1SMMrbie2k4Uf4DdJgxSUThjZuPL8pwPF8qUUbelhazQKNPmDvyZ/lIG1sVGkiELB+B+0l1jPpp+UFiy82ssgazEqJnc9E0QidIGySJiuUMPlOdPzD/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q3zWieEpNU61IiLpRfzSMIymfB4PSNs83e0ry+r6JJ8=;
- b=oN2q5zXijDA1lZRFzfzTX4cIJWpuYl8S7P/IOSQCFFXmSz+Ob5c8k9i9a24epiwo6HHIBuyv6iZppQA95dtd6t9VQbE1YaGwMluUnrTg9bgpt3BCUnfQGQGXbUrTv4poUHUAv+K1IqhfSFvZ+SfNxBnubF4PymscHfhnDBbV8qA=
+ bh=QVh6j6iw199Uv0cj5LVfrvZQwt0EwMhoZ5OkTf7O9CM=;
+ b=ovCkJ5JjthZQNAFlN0L6FnF1ywe0riOCsB2dt0mg8MM6MkQ/1h0K2YvoHPukvU4J8odiqNhCkDfEQsZrsWAmQd3zOHjcpDg41DrV2Sihx/eLY+JWeU8AHizHgVeqPPideIwDaotn/2O1Hez8Uc5UW9fuV18rswFuU6MnExxHOmo=
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR12MB2470.namprd12.prod.outlook.com (2603:10b6:4:b4::39) with
+ DM6PR12MB3580.namprd12.prod.outlook.com (2603:10b6:5:11e::16) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3216.20; Thu, 23 Jul 2020 05:12:01 +0000
+ 15.20.3195.17; Thu, 23 Jul 2020 05:19:05 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3216.021; Thu, 23 Jul 2020
- 05:12:00 +0000
+ 05:19:05 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Zhu, Changfeng"
- <Changfeng.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Huang, Ray" <Ray.Huang@amd.com>
-Subject: RE: [PATCH] Revert "drm/amd/powerplay: drop unnecessary message
- support check"
-Thread-Topic: [PATCH] Revert "drm/amd/powerplay: drop unnecessary message
- support check"
-Thread-Index: AQHWX/5AGkluZ3ilk0aaBEkALrsTG6kTP01wgAFc2jA=
-Date: Thu, 23 Jul 2020 05:12:00 +0000
-Message-ID: <DM6PR12MB2619C943A0AB43FFC53BCECBE4760@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200722080045.4178-1-changfeng.zhu@amd.com>
- <MN2PR12MB417536617C127BDA31E875398E790@MN2PR12MB4175.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB417536617C127BDA31E875398E790@MN2PR12MB4175.namprd12.prod.outlook.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu/powerplay: add some documentation about memory
+ clock
+Thread-Topic: [PATCH] drm/amdgpu/powerplay: add some documentation about
+ memory clock
+Thread-Index: AQHWX39IYyYRuPoCWUat8mADHbKAkqkUon6w
+Date: Thu, 23 Jul 2020 05:19:05 +0000
+Message-ID: <DM6PR12MB2619C406BEEACDD73945A96BE4760@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200721165156.296200-1-alexander.deucher@amd.com>
+In-Reply-To: <20200721165156.296200-1-alexander.deucher@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-22T08:11:36Z; 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=9ae7ff53-066d-4dac-8863-825017a71e35;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-23T05:18:48Z;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=56551eca-97cc-437a-a877-0000ce1ae798;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 923312f4-c244-43de-0332-08d82ec6ee4f
-x-ms-traffictypediagnostic: DM5PR12MB2470:
+x-ms-office365-filtering-correlation-id: 8c2ae87e-1a25-4870-93a8-08d82ec7eb70
+x-ms-traffictypediagnostic: DM6PR12MB3580:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB2470A363EBEA11F85B14FCEBE4760@DM5PR12MB2470.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-microsoft-antispam-prvs: <DM6PR12MB3580500BA3082ECDC377659CE4760@DM6PR12MB3580.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:257;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: D5C1DGfWNoRsoIPWgmkAYW6W4TR0LxUF6/vrHRSNYu9pruugC0H62ACDQuMLeTL3XhsKnPS/oy5K68kVtwWuKimw0L9JoUrGb8Ak5hDSDIQYa8CaUXHRwnobR/KL0ytdZSuKTaCJJc8TXIlqUpBCWDHqevrdqOzKmoSpGMbHZU8CkMA3yeBkUxNHQZxAfowEt1wa6G4tX4pd0snklufWqVpyDeFpPBeTVsKJjyU3b/3WwLBFkRTdHV7W1W2Y3KUyAPxjSaYI/xO7LkPRZ6IwiR7il/UwqFYJcGfZBUXZSuK2HZkS9Kd2rlwiAxfFbfeToa2Lfwo2x2HaZVvdL5hNhUxgJ+ojx0FYmb1PyeR9nT4=
+x-microsoft-antispam-message-info: ZEZgOFpA14L0V4CBmZkkr5foiuZFaRkqUCA7MxwCNv7sDwXQ2IUz5lEVkmc7+KBfW140L+FhxqzEqBJYI7OsOV8dAVnTzWpkRKhh5ZheTwOngLt+EX37hRHzYb1r0mVxQToM/m+tK2ft161yUi1Eh8QOA6dRXcevDSklfTchlsimSc+ARmn4OVYman5NSmmETpykiKE224r4bhGrAe/06iwZDWNjKT5QYgJWD5WUxRkmlD+4PzrtV21CYgl1+fB2oahzp6odn7gkLy7v1tnV4oOED1H59LBVq8Uc/TQpEvBFaMG0lXHEW8nglw9XVd/bikCXF5c1H8sNQtgn36gvPI8DDK9Yt+7S0j9XIyxRq5Q=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(39860400002)(396003)(376002)(136003)(346002)(33656002)(45080400002)(26005)(316002)(110136005)(71200400001)(8936002)(5660300002)(2906002)(86362001)(66556008)(64756008)(966005)(52536014)(19627235002)(7696005)(478600001)(55016002)(6636002)(8676002)(9686003)(186003)(76116006)(66946007)(83380400001)(66476007)(6506007)(66446008)(53546011)(15650500001);
+ SFS:(4636009)(346002)(136003)(396003)(39860400002)(366004)(376002)(66476007)(66556008)(8936002)(2906002)(66946007)(76116006)(316002)(7696005)(66446008)(71200400001)(64756008)(110136005)(8676002)(53546011)(4326008)(9686003)(55016002)(33656002)(45080400002)(5660300002)(86362001)(52536014)(478600001)(186003)(966005)(83380400001)(6506007)(26005);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 5wje68le8GFBieLX8yuTo7If31YR2ceEqTuMqgU0l/5qpqHyDjgsPtCk/KrZIE7Xc4Sbg9yWSNEng1EYETlFRXKmq4jMzOK3TDgTlWRW+opJzEx7Fr4ltlVapWuHTnzl2KDjg2RXd4wOG0FJcJjQR9IgF6jtpZQdaRLOJTTjhhHx69zlU4lnAQGs5DBVw2Odu6UfU6D+ae4ilFdlCtCnoHCTkjCueg5OtTz7cxjibJYo7lzY2YXbgZ1QUkujPWxho5l35Ng8HFlOG29iKRaJJy5Rg8Y/OzCzRbCoIrEO7W/XLV7Ag0RMxwAfDsaANfBQpt9DuA4W1Xwtk3uHk/YH+/KgGhGyfq03n2pfvM3lAo+I4PO2i9ErOLgzbnnzcdi9Om11fkc9WLmmFIH/KyC/oOdKXeGsCUXy1IPGkxyJqs6MHgecO+dn0vPrKOE3nIO4rillnol9d1r53aPUQwmLcsc+/Y2Bbc8E7I/gkpfCJTnFGL+KNe9eS9EXAE9gYfgC
+x-ms-exchange-antispam-messagedata: U54YcgHymPwDvxvBZdeo/gFwcFpbl+CRH66dCgCr9anaIBFIB3yykr0SAhpBmONbzW1lZC/4zrge245KW/Sc4bagTBY6w6HgSvRkgPTePBKR6ib25lU1xWr03GnWiQXTUKQT3oebb4HKrv+6MBQe7Y3x5pZLJPSwkAkp8KB58pjRo/2wYaMmi1sNJEblgGpxMiY+O8bwINXEn3OjwPFmA92+LdPoIdUMLtFjhUecZRiB2Vkd9WNbNj27bxCOT6vSk+JPvtCO1m45KXM6+k6VA92LQ0/g12LRlBO4NEVlY6L5kj4asoyVpCemc63ZzGjdxhi70538Z9wqR8M4MhDrXRVzuFzvp5WWT91hjcKIRqmNtJgqzy6A4DZ0jEEBvB54gPIdlDtGTXiNJSXNw/Xf9UjG8ztnOrYzAv69hayzkvQm/3T1/ExDDo32oYSWnK/stz8WBM27JO1idAOp8ukPMvHcunKy95tYqaRQar7ae3ng4O+GQnZq4gQnmBQdPhIZ
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 923312f4-c244-43de-0332-08d82ec6ee4f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2020 05:12:00.7883 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c2ae87e-1a25-4870-93a8-08d82ec7eb70
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2020 05:19:05.4449 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TskYfnZJ266ja5/bG0cfvH+TycEt+EGcanIy4dU7JWc4aZy31QD+gjTKLQKfvk+s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2470
+X-MS-Exchange-CrossTenant-userprincipalname: FI1F0aU/7WcGE3crmSkAR/QskfyVzEn6Sr+tsCY2PniadUCE3epH0pUSfO12A/3B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,105 +115,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No,  the change below is not a good idea.
--#if defined(SWSMU_CODE_LAYER_L2) || defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
-+#if defined(SWSMU_CODE_LAYER_L1) || defined(SWSMU_CODE_LAYER_L2) || 
-+defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
-These are used to guard a clear code layer. I recently just cleaned up the code layer mess ups(which produced lots of redundant codes and made lock protection a disaster).
-
-To this specific one, whether or not to use smu_cmn API should be decided at ASIC level(${asic}_ppt.c).
-Each ASIC can have its own implementation or to use smu v11/v12 common API or even smu_cmn api(shared by all ASICs).
-But all of these should be decided at ASIC level.
-
-P.S. Likun sent out a patch which should fix the issue here.
-
-BR,
-Evan
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Feng, Kenneth
-Sent: Wednesday, July 22, 2020 4:12 PM
-To: Zhu, Changfeng <Changfeng.Zhu@amd.com>; amd-gfx@lists.freedesktop.org; Huang, Ray <Ray.Huang@amd.com>
-Subject: RE: [PATCH] Revert "drm/amd/powerplay: drop unnecessary message support check"
-
 [AMD Official Use Only - Internal Distribution Only]
 
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-
+Acked-by: Evan Quan <evan.quan@amd.com>
 
 -----Original Message-----
-From: Zhu, Changfeng <Changfeng.Zhu@amd.com> 
-Sent: Wednesday, July 22, 2020 4:01 PM
-To: amd-gfx@lists.freedesktop.org; Feng, Kenneth <Kenneth.Feng@amd.com>; Huang, Ray <Ray.Huang@amd.com>
-Cc: Zhu, Changfeng <Changfeng.Zhu@amd.com>
-Subject: [PATCH] Revert "drm/amd/powerplay: drop unnecessary message support check"
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+Sent: Wednesday, July 22, 2020 12:52 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/powerplay: add some documentation about memory clock
 
-From: changzhu <Changfeng.Zhu@amd.com>
+We expose the actual memory controller clock rate in Linux,
+not the effective memory clock of the DRAMs.  To translate
+it, it follows the following formula:
 
-From: Changfeng <Changfeng.Zhu@amd.com>
+Clock conversion (Mhz):
+HBM: effective_memory_clock = memory_controller_clock * 1
+G5:  effective_memory_clock = memory_controller_clock * 1
+G6:  effective_memory_clock = memory_controller_clock * 2
 
-The below 3 messages are not supported on Renoir SMU_MSG_PrepareMp1ForShutdown SMU_MSG_PrepareMp1ForUnload SMU_MSG_PrepareMp1ForReset
+DRAM data rate (MT/s):
+HBM: effective_memory_clock * 2 = data_rate
+G5:  effective_memory_clock * 4 = data_rate
+G6:  effective_memory_clock * 8 = data_rate
 
-It needs to revert patch:
-drm/amd/powerplay: drop unnecessary message support check to avoid set mp1 state fail during gpu reset on renoir.
+Bandwidth (MB/s):
+data_rate * vram_bit_width / 8 = memory_bandwidth
 
-Change-Id: Ib34d17ab88e1c88173827cca962d8154ad883ab7
-Signed-off-by: changfeng <Changfeng.Zhu@amd.com>
+Some examples:
+G5 on RX460:
+memory_controller_clock = 1750 Mhz
+effective_memory_clock = 1750 Mhz * 1 = 1750 Mhz
+data rate = 1750 * 4 = 7000 MT/s
+memory_bandwidth = 7000 * 128 bits / 8 = 112000 MB/s
+
+G6 on RX5600:
+memory_controller_clock = 900 Mhz
+effective_memory_clock = 900 Mhz * 2 = 1800 Mhz
+data rate = 1800 * 8 = 14400 MT/s
+memory_bandwidth = 14400 * 192 bits / 8 = 345600 MB/s
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 9 +++++++++
- drivers/gpu/drm/amd/powerplay/smu_cmn.h    | 2 +-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 46 ++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 838a369c9ec3..f778b00e49eb 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -34,6 +34,7 @@
- #include "sienna_cichlid_ppt.h"
- #include "renoir_ppt.h"
- #include "amd_pcie.h"
-+#include "smu_cmn.h"
- 
- /*
-  * DO NOT use these for err/warn/info/debug messages.
-@@ -1589,6 +1590,14 @@ int smu_set_mp1_state(struct smu_context *smu,
- 		return 0;
- 	}
- 
-+	/* some asics may not support those messages */
-+	if (smu_cmn_to_asic_specific_index(smu,
-+					   CMN2ASIC_MAPPING_MSG,
-+					   msg) < 0) {
-+		mutex_unlock(&smu->mutex);
-+		return 0;
-+	}
-+
- 	ret = smu_send_smc_msg(smu, msg, NULL);
- 	if (ret)
- 		dev_err(smu->adev->dev, "[PrepareMp1] Failed!\n"); diff --git a/drivers/gpu/drm/amd/powerplay/smu_cmn.h b/drivers/gpu/drm/amd/powerplay/smu_cmn.h
-index 98face8c5fd6..f9e63f18b157 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_cmn.h
-+++ b/drivers/gpu/drm/amd/powerplay/smu_cmn.h
-@@ -25,7 +25,7 @@
- 
- #include "amdgpu_smu.h"
- 
--#if defined(SWSMU_CODE_LAYER_L2) || defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
-+#if defined(SWSMU_CODE_LAYER_L1) || defined(SWSMU_CODE_LAYER_L2) || 
-+defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
- int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
- 				    enum smu_message_type msg,
- 				    uint32_t param,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index 20f39aa04fb9..dd05751f6b35 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -694,6 +694,52 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
+  * in each power level within a power state.  The pp_od_clk_voltage is used for
+  * this.
+  *
++ * Note that the actual memory controller clock rate are exposed, not
++ * the effective memory clock of the DRAMs. To translate it, use the
++ * following formula:
++ *
++ * Clock conversion (Mhz):
++ *
++ * HBM: effective_memory_clock = memory_controller_clock * 1
++ *
++ * G5: effective_memory_clock = memory_controller_clock * 1
++ *
++ * G6: effective_memory_clock = memory_controller_clock * 2
++ *
++ * DRAM data rate (MT/s):
++ *
++ * HBM: effective_memory_clock * 2 = data_rate
++ *
++ * G5: effective_memory_clock * 4 = data_rate
++ *
++ * G6: effective_memory_clock * 8 = data_rate
++ *
++ * Bandwidth (MB/s):
++ *
++ * data_rate * vram_bit_width / 8 = memory_bandwidth
++ *
++ * Some examples:
++ *
++ * G5 on RX460:
++ *
++ * memory_controller_clock = 1750 Mhz
++ *
++ * effective_memory_clock = 1750 Mhz * 1 = 1750 Mhz
++ *
++ * data rate = 1750 * 4 = 7000 MT/s
++ *
++ * memory_bandwidth = 7000 * 128 bits / 8 = 112000 MB/s
++ *
++ * G6 on RX5700:
++ *
++ * memory_controller_clock = 875 Mhz
++ *
++ * effective_memory_clock = 875 Mhz * 2 = 1750 Mhz
++ *
++ * data rate = 1750 * 8 = 14000 MT/s
++ *
++ * memory_bandwidth = 14000 * 256 bits / 8 = 448000 MB/s
++ *
+  * < For Vega10 and previous ASICs >
+  *
+  * Reading the file will display:
 --
-2.17.1
+2.25.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7C8105bfba31de4bb7bc7f08d82e16e403%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637310023202564830&amp;sdata=U0HuFMHcmQ6ZtPsdL%2FisRBIvR9J422uydwWuDOY%2BYF4%3D&amp;reserved=0
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7C7742fa0e5b484785420a08d82d966809%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637309471335428042&amp;sdata=370ted69cIqzuGSYStyhun%2FSGkknrdP%2FYtqfZETG1mc%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
