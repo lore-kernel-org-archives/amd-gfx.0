@@ -2,48 +2,48 @@ Return-Path: <SRS0=9uL8=BD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,HK_RANDOM_REPLYTO,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB674C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC67FC433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 87874206F0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:15:55 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="FIb+sm+k"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87874206F0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=protonmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 220D9206F6
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 220D9206F6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C226E994;
-	Fri, 24 Jul 2020 21:15:54 +0000 (UTC)
-Received: from mail4.protonmail.ch (mail4.protonmail.ch [185.70.40.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5236E98C
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2020 21:09:16 +0000 (UTC)
-Date: Fri, 24 Jul 2020 21:09:04 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail; t=1595624954;
- bh=Y8a3UGIVUH//nWWAHOfJ574aWDANSyRzuKfaeg2ulx4=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=FIb+sm+kToFyvdLp5N0/6hKTvNwAfMtyf/yJabXCCV82G7xS4BSSkPqbOzKTVkDfj
- Ti4DQ5zBK5IpE6qXC4tBSmqWqjrslvgzQUJ4uOgLCHAEbkLAvgXrweslc+EbfyMfwm
- 9gb/43k3dt2k56PceZP9puWUjg3j1CXGUlY6EIsw=
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-From: Mazin Rezk <mnrzk@protonmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E63076EA09;
+	Fri, 24 Jul 2020 21:21:42 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA2276E994;
+ Fri, 24 Jul 2020 21:20:02 +0000 (UTC)
+Received: from [192.168.0.7] (ip5f5af26d.dynamic.kabel-deutschland.de
+ [95.90.242.109])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 4C4162002EE2A;
+ Fri, 24 Jul 2020 23:20:00 +0200 (CEST)
 Subject: Re: [PATCH] amdgpu_dm: fix nonblocking atomic commit use-after-free
-Message-ID: <84wa2rcw2dJSFkRVMxsGwnf-BOUvLL6jFG8orKz4_sjwWChkTbrAUVmOupfV1AmPm0MxqbRGwtvn_v_EAMhM_ngI73p-sjscgKg106fcu4U=@protonmail.com>
-In-Reply-To: <3iDgskt5iP3y77MHUJ2_5uSThyUteHxPvVqoL5SpnpTIpz5cdkifyDOynpiVukS_peaYGOkn9bHSpvRYa-vFOCjUYH68taIuKyZqhOByAVI=@protonmail.com>
+To: Kees Cook <keescook@chromium.org>
 References: <YIGsJ9LlFquvBI2iWPKhJwjKBwDUr_C-38oVpLJJHJ5rDCY_Zrrv392o6UPNxHoeQrcpLYC9U4fZdpD9ilz6Amg2IxkSexGLQMCQIBek8rc=@protonmail.com>
- <ccd5d51b-b018-a3db-169b-ba6278a7be9f@amd.com>
- <3iDgskt5iP3y77MHUJ2_5uSThyUteHxPvVqoL5SpnpTIpz5cdkifyDOynpiVukS_peaYGOkn9bHSpvRYa-vFOCjUYH68taIuKyZqhOByAVI=@protonmail.com>
+ <202007231524.A24720C@keescook>
+ <a86cba0b-4513-e7c3-ae75-bb331433f664@molgen.mpg.de>
+ <202007241016.922B094AAA@keescook>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <3c92db94-3b62-a70b-8ace-f5e34e8f268f@molgen.mpg.de>
+Date: Fri, 24 Jul 2020 23:19:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 24 Jul 2020 21:15:53 +0000
+In-Reply-To: <202007241016.922B094AAA@keescook>
+Content-Language: en-US
+X-Mailman-Approved-At: Fri, 24 Jul 2020 21:21:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,208 +55,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Mazin Rezk <mnrzk@protonmail.com>
-Cc: "pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>,
- "anthony.ruhier@gmail.com" <anthony.ruhier@gmail.com>,
- "1i5t5.duncan@cox.net" <1i5t5.duncan@cox.net>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>, Mazin Rezk <mnrzk@protonmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@leemhuis.info" <regressions@leemhuis.info>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "mphantomx@yahoo.com.br" <mphantomx@yahoo.com.br>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: anthony.ruhier@gmail.com, 1i5t5.duncan@cox.net, sunpeng.li@amd.com,
+ Mazin Rezk <mnrzk@protonmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, regressions@leemhuis.info,
+ amd-gfx@lists.freedesktop.org, Alexander Deucher <Alexander.Deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, mphantomx@yahoo.com.br,
+ Harry Wentland <Harry.Wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, July 23, 2020 6:57 PM, Mazin Rezk <mnrzk@protonmail.com> wrote:
-
-> It seems that I spoke too soon. I ran the system for another hour after
-> submitting the patch and the bug just occurred. :/
->
-> Sadly, that means the bug isn't really fixed and that I have to go
-> investigate further.
->
-> At the very least, this patch seems to delay the occurrence of the bug
-> significantly which may help in further discovering the cause.
->
-> On Thursday, July 23, 2020 6:16 PM, Kazlauskas, Nicholas nicholas.kazlauskas@amd.com wrote:
->
-> > On 2020-07-23 5:10 p.m., Mazin Rezk wrote:
-> >
-> > > When amdgpu_dm_atomic_commit_tail is running in the workqueue,
-> > > drm_atomic_state_put will get called while amdgpu_dm_atomic_commit_tail is
-> > > running, causing a race condition where state (and then dm_state) is
-> > > sometimes freed while amdgpu_dm_atomic_commit_tail is running. This bug has
-> > > occurred since 5.7-rc1 and is well documented among polaris11 users [1].
-> > > Prior to 5.7, this was not a noticeable issue since the freelist pointer
-> > > was stored at the beginning of dm_state (base), which was unused. After
-> > > changing the freelist pointer to be stored in the middle of the struct, the
-> > > freelist pointer overwrote the context, causing dc_state to become garbage
-> > > data and made the call to dm_enable_per_frame_crtc_master_sync dereference
-> > > a freelist pointer.
-> > > This patch fixes the aforementioned issue by calling drm_atomic_state_get
-> > > in amdgpu_dm_atomic_commit before drm_atomic_helper_commit is called and
-> > > drm_atomic_state_put after amdgpu_dm_atomic_commit_tail is complete.
-> > > According to my testing on 5.8.0-rc6, this should fix bug 207383 on
-> > > Bugzilla [1].
-> > > [1] https://bugzilla.kernel.org/show_bug.cgi?id=207383
-> > > Fixes: 3202fa62f ("slub: relocate freelist pointer to middle of object")
-> > > Reported-by: Duncan 1i5t5.duncan@cox.net
-> > > Signed-off-by: Mazin Rezk mnrzk@protonmail.com
-> >
-> > Thanks for the investigation and your patch. I appreciate the help in
-> > trying to narrow down the root cause as this issue has been difficult to
-> > reproduce on my setups.
-> > Though I'm not sure this really resolves the issue - we make use of the
-> > drm_atomic_helper_commit helper function from DRM which internally does
-> > what you're doing with this patch:
-> > drm_atomic_state_get(state);
-> > if (nonblock)
-> > queue_work(system_unbound_wq, &state->commit_work);
-> >
-> >     else
-> >     	commit_tail(state);
-> >
-> >
-> > So even when it gets queued off to the unbound workqueue we still have a
-> > reference on the state.
-> > That reference gets dropped as part of commit tail helper in DRM as well:
-> > if (funcs && funcs->atomic_commit_tail)
-> >
-> >     	funcs->atomic_commit_tail(old_state);
-> >
-> >     else
-> >     	drm_atomic_helper_commit_tail(old_state);
-> >
-> >
-> > commit_time_ms = ktime_ms_delta(ktime_get(), start);
-> > if (commit_time_ms > 0)
-> >
-> >     	drm_self_refresh_helper_update_avg_times(old_state,
-> >     					 (unsigned long)commit_time_ms,
-> >     					 new_self_refresh_mask);
-> >
-> >
-> > drm_atomic_helper_commit_cleanup_done(old_state);
-> > drm_atomic_state_put(old_state);
->
-> I initially noticed that right after I wrote this patch so I was expecting
-> the patch to fail. However, after several hours of testing, the crash just
-> didn't occur so I believed the bug was fixed.
->
-> > So instead of a use after free happening when we access the state we get
-> > a double-free happening later at the end of commit tail in DRM.
-> > What I think would be the right next step here is to actually determine
-> > what sequence of IOCTLs and atomic commits are happening under your
-> > setup with a very verbose dmesg log. You can set a debug level for DRM
-> > in your kernel parameters with something like:
-> > drm.debug=0x54
-> > I don't see anything in amdgpu_dm.c that looks like it would be freeing
-> > the state so I suspect something in the core is this doing this.
->
-> Going through the KASAN use-after-free bug report in the Bugzilla
-> attachments, it appears that the state is being freed at the end of
-> commit_tail. Perhaps amdgpu_dm_atomic_commit_tail is being called on the
-> the same old state twice? I can't quite think of any other possible
-> explanation as to why that happens.
-
-I think I've more or less confirmed that this is the case.
-
-I created two padding variables, one to store debug magic numbers and one
-to store the freelist pointer. I had magic numbers for initialised,
-preuse, and used states. When the dm_atomic_state is initialised, the
-padding is set to the init magic number. Right before commit_tail is
-called, the padding is set to the preuse magic number. During
-dm_atomic_get_new_state checks the magic number to confirm that it
-was in the preuse state and then set it to used. If it failed that check
-and it was already in a used state, there was a breakpoint set so I could
-gather further information.
-
-At one point (presumably where the crash would have occurred), the debug
-padding variable was set to the used state during the call to commit_tail
-which I believe confirms my guess that amdgpu_dm_atomic_commit_tail is
-being called on the same state twice.
-
-What's weird, however, is that dmesg (w/ drm.debug=0x54) says this right
-before amdgpu_dm_atomic_commit_tail is called:
-
-[ 3277.580205] [drm:drm_atomic_state_init [drm]] Allocated atomic state 00000000a06f4024
-[ 3277.580262] [drm:drm_atomic_get_crtc_state [drm]] Added [CRTC:49:crtc-1] 000000003b9da5c1 state to 00000000a06f4024
-[ 3277.580316] [drm:drm_atomic_get_plane_state [drm]] Added [PLANE:44:plane-4] 000000003488c027 state to 00000000a06f4024
-[ 3277.580366] [drm:drm_atomic_set_fb_for_plane [drm]] Set [FB:103] for [PLANE:44:plane-4] state 000000003488c027
-[ 3277.580417] [drm:drm_atomic_check_only [drm]] checking 00000000a06f4024
-[ 3277.580519] [drm:drm_atomic_get_private_obj_state [drm]] Added new private object 0000000002a633ab state 00000000695dff15 to 00000000a06f4024
-[ 3277.580579] [drm:drm_atomic_nonblocking_commit [drm]] committing 00000000a06f4024 nonblocking
-[ 3277.582325] [drm:drm_atomic_state_default_clear [drm]] Clearing atomic state 00000000a06f4024
-[ 3277.582393] [drm:__drm_atomic_state_free [drm]] Freeing atomic state 00000000a06f4024
-
-From the log, I'm noticing that drm_atomic_nonblocking_commit is only
-called once and that whatever is calling the second non-blocking
-commit_tail on the same state doesn't seem to be using
-drm_atomic_nonblocking_commit.
-
-Perhaps someone with more knowledge of the code can give a possible
-explanation as to why that's happening.
-
-Thanks,
-Mazin Rezk
-
->
-> > > drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
-> > > 1 file changed, 3 insertions(+)
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > index 86ffa0c2880f..86d6652872f2 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > @@ -7303,6 +7303,7 @@ static int amdgpu_dm_atomic_commit(struct drm_device *dev,
-> > >
-> > > -   unset legacy_cursor_update
-> > >     */
-> > >
-> > >
-> > > -   drm_atomic_state_get(state);
-> >
-> > Also note that if the drm_atomic_helper_commit() call fails here then
-> > we're going to never free this structure. So we should really be
-> > checking the return code here below before trying to do this, if at all.
->
-> Oh right, that's true. I looked at amdgpu_dm_atomic_commit_tail and didn't
-> see any return statements in there, so I thought it was safe.
->
-> > Regards,
-> > Nicholas Kazlauskas
-> >
-> > >       return drm_atomic_helper_commit(dev, state, nonblock);
-> > >
-> > >       /*TODO Handle EINTR, reenable IRQ*/
-> > >
-> > >
-> > > @@ -7628,6 +7629,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
-> > >
-> > >       if (dc_state_temp)
-> > >       	dc_release_state(dc_state_temp);
-> > >
-> > >
-> > > -
-> > > -   drm_atomic_state_put(state);
-> > >     }
-> > >
-> > >
-> > > --
-> > > 2.27.0
->
-> Thanks,
-> Mazin Rezk
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+CkRlYXIgS2VlcywKCgpBbSAyNC4wNy4yMCB1bSAxOTozMyBzY2hyaWViIEtlZXMgQ29vazoKPiBP
+biBGcmksIEp1bCAyNCwgMjAyMCBhdCAwOTo0NToxOEFNICswMjAwLCBQYXVsIE1lbnplbCB3cm90
+ZToKPj4gQW0gMjQuMDcuMjAgdW0gMDA6MzIgc2NocmllYiBLZWVzIENvb2s6Cj4+PiBPbiBUaHUs
+IEp1bCAyMywgMjAyMCBhdCAwOToxMDoxNVBNICswMDAwLCBNYXppbiBSZXprIHdyb3RlOgo+PiBB
+cyBMaW51eCA1LjgtcmM3IGlzIGdvaW5nIHRvIGJlIHJlbGVhc2VkIHRoaXMgU3VuZGF5LCBJIHdv
+bmRlciwgaWYgY29tbWl0Cj4+IDMyMDJmYTYyZiAoInNsdWI6IHJlbG9jYXRlIGZyZWVsaXN0IHBv
+aW50ZXIgdG8gbWlkZGxlIG9mIG9iamVjdCIpIHNob3VsZCBiZQo+PiByZXZlcnRlZCBmb3Igbm93
+IHRvIGZpeCB0aGUgcmVncmVzc2lvbiBmb3IgdGhlIHVzZXJzIGFjY29yZGluZyB0byBMaW51eOKA
+mSBubwo+PiByZWdyZXNzaW9uIHBvbGljeS4gT25jZSB0aGUgQU1ER1BVL0RSTSBkcml2ZXIgaXNz
+dWUgaXMgZml4ZWQsIGl0IGNhbiBiZQo+PiByZWFwcGxpZWQuIEkga25vdyBpdOKAmXMgbm90IG9w
+dGltYWwsIGJ1dCBhcyBzb21lIHRlc3RpbmcgaXMgZ29pbmcgdG8gYmUKPj4gaW52b2x2ZWQgZm9y
+IHRoZSBmaXgsIEnigJlkIGFyZ3VlIGl04oCZcyB0aGUgYmVzdCBvcHRpb24gZm9yIHRoZSB1c2Vy
+cy4KPiAKPiBXZWxsLCB0aGUgU0xVQiBkZWZlbnNlIHdhcyBhbHJlYWR5IHJlbGVhc2VkIGluIHY1
+LjcsIHNvIEknbSBub3Qgc3VyZSBpdAo+IHJlYWxseSBoZWxwcyBmb3IgYW1kZ3B1X2RtIHVzZXJz
+IHNlZWluZyBpdCB0aGVyZSB0b28uCgpJbiBteSBvcGluaW9uLCBpdCB3b3VsZCBoZWxwLCBhcyB0
+aGUgc3RhYmxlIHJlbGVhc2UgY291bGQgcGljayB1cCB0aGUgCnJldmVydCwgb25lcyBpdOKAmXMg
+aW4gTGludXPigJkgbWFzdGVyIGJyYW5jaC4KCj4gVGhlcmUgd2FzIGEgZml4IHRvIGRpc2FibGUg
+dGhlIGFzeW5jIHBhdGggZm9yIHRoaXMgZHJpdmVyIHRoYXQgd29ya2VkCj4gYXJvdW5kIHRoZSBi
+dWcgdG9vLCB5ZXM/IFRoYXQgc2VlbXMgbGlrZSBhIHNhZmVyIGFuZCBtb3JlIGZvY3VzZWQKPiBj
+aGFuZ2UgdGhhdCBkb2Vzbid0IHJldmVydCB0aGUgU0xVQiBkZWZlbnNlIGZvciBhbGwgdXNlcnMs
+IGFuZCB3b3VsZAo+IGFjdHVhbGx5IHByb3ZpZGUgYSBjb21wbGV0ZSwgSSB0aGluaywgd29ya2Fy
+b3VuZCB3aGVyZWFzIHJldmVydGluZwo+IHRoZSBTTFVCIGNoYW5nZSBtZWFucyB0aGUgcmFjZSBz
+dGlsbCBleGlzdHMuIEZvciBleGFtcGxlLCBpdCB3b3VsZCBiZQo+IGhpdCB3aXRoIHNsYWIgcG9p
+c29uaW5nLCBldGMuCgpJIGRvIG5vdCBrbm93LiBJZiB0aGVyZSBpcyBzdWNoIGEgZml4LCB0aGF0
+IHdvdWxkIGJlIGdyZWF0LiBCdXQgaWYgeW91IApkbyBub3Qga25vdywgaG93IHNob3VsZCBhIG5v
+cm1hbCB1c2VyPyA7LSkKCgpLaW5kIHJlZ2FyZHMsCgpQYXVsCgoKS2luZCByZWdhcmRzLAoKUGF1
+bApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
