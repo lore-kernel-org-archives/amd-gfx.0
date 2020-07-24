@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E32E1C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86781C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B275C206F0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:08:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 596D2206F0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2020 21:08:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qDAICGkg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B275C206F0
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DugFD3iC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 596D2206F0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A03D6E88D;
-	Fri, 24 Jul 2020 21:08:01 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2080.outbound.protection.outlook.com [40.107.236.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF2C6E88D
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2020 21:08:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D97B6E98C;
+	Fri, 24 Jul 2020 21:08:05 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B94636E98C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2020 21:08:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oYh/209K0c8yMOYpwTRccVbT3BA/O4MVgZ8S7Qwxe2W5/c/gQjjXJHpMDXkzCLgx0i6WS7yba654/DxrirvJbtlns5Jp0iT9bSoPN6jLyTs6+W/ySumBl/PmeptUxPhH8blwF8vNowA8F575ZIoq7CZuY51G4vd9j1a3d7Br9ytw7eL7VSpx44Dzp9TrtDFakcBIVdc/aLZCXk+e7cCwwy7vlv9hOOBCN7xLNFcjE/0BQ+Y/Fw9iupfUC2Kr2vrv1rPQaiaOQaX/5bPY7BFdsRgkpViQX2krEJ4vYgBfOI3oGGpZiSnl1hFWwf8JoOqIoLgUCsvEEzSQOpmFhbZGvA==
+ b=LMGxvxPb0fyanu4A4WOyRb+hUD85w17g9egZHWu3sQhpHIDn6X/bN/RZst5I1VaRloAsb1LtQSeY/DSct8W/k9bbcm2izoCjeT7BOaj9aR2jXfZmS97+8uhYjWzaosjc5D/KZ6Xvea0KsNwak1jUfHlcOyIXYLvvxqJuFNVJ+E+azqyLWuVJCYrdNHPh/JAy/c/iWNOaaDuK34JcpXXsrSgZ9jqXS8LSwhMI2V3j2XtKw1q2A7rTXSWajFOyiYhL4QJJYLgknPBg0tHE+tNF5P8fnoJB7gHQZWk4uEnfHQacFkI4KsMgwNEn2sqE1CN6wAgWtEScQd3+Zd0MadNeOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Wcjkj6PCZiAtCNx/mVlTf2WV25ngJ70G5K9aoRKN98=;
- b=XkmOONwoarKc3bJMyW2OAVk/zD3x9Z8eA12YNMpHYNSNhuBaGtV2L5kusz/EloG2XZqynGTA3emOxLFlU4tUMXqLDKXJmuaVTrxtZk6OvGVmqkQZeUXD6QDDd1ZJsZPxXRogohsMoQ3etsZ2T7X4cqODZH172W5OlHApoIrcyKNRxAjbN4OU52+s+7RS0ebf+2ovyvWkktTiLnrKzQeHlotkN1KMiYY2tzLHYU1b/arFBoHrvUojXpjebSUE8D7CaiHAjiv8BN7g5qvNZuFFHzsCbOUSQDaC2XHoDLdtv9awYCSRr0u4e+0uV1hkPNL/5KA1kYakUjxkgDRVVvAyIg==
+ bh=iVhYw8/cYHe6SyZ8+o4ERJO+rJ6KcgLU9mcGBR9P0JE=;
+ b=Omp95yuIawtPWToplCh6ffYRAY6J0OTxIOu03rycu39I9ZMNVbSfhqyrleYeSTitK7VdD+kPtfi26RHkJlc+H+0sWqLT7Ub+kFji/vmx0Ya6P0Q3kf/OtTuTY8wUfUdkz76AD3gdEFV7oeqNai9l8BUxlz11JnJsBqZxkgsV/3zs0qJ8T/dRzBvKkwg3Bz919PHVrdT2zcXetkDZpCpg2VM+R1ddpTdxAqvhouKP7gLe2qkDEap+Pzqd+dHwYUH18L9Pee94zFutJBU2nEq7rSSGtJ4qGFItVeoU9dpNLr3S2o6FuLwuJjLbIJ6o8kS/Naw3PkxYLqIBuPc98JzHMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,44 +40,41 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Wcjkj6PCZiAtCNx/mVlTf2WV25ngJ70G5K9aoRKN98=;
- b=qDAICGkgUnpbao0g2ktZGz1eV/M/tL6IO7JSzO1TK/FvGqa9KTAsx2OO+QUer6Ltxn1jN36VmDngfLlXdx1AuuBQOFdM4MLUiZAmtKhSlx51BBTqJkmHnN8TN2HGX7RAnLncO0XxmfJVeOIiYoua6H9Gds0EFCp9RARJVz9AWcI=
-Received: from MWHPR1701CA0023.namprd17.prod.outlook.com
- (2603:10b6:301:14::33) by MN2PR12MB4341.namprd12.prod.outlook.com
- (2603:10b6:208:262::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.21; Fri, 24 Jul
- 2020 21:07:56 +0000
-Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:14:cafe::6b) by MWHPR1701CA0023.outlook.office365.com
- (2603:10b6:301:14::33) with Microsoft SMTP Server (version=TLS1_2,
+ bh=iVhYw8/cYHe6SyZ8+o4ERJO+rJ6KcgLU9mcGBR9P0JE=;
+ b=DugFD3iCeKzWRsbs4yE4a5arrRKozx/6lMZY2w5UwV+6qX2uRsLbUEQOoVKopDl5fcT+4tt3oFJYvMU8Wckb3WKTi6ssIgRr6/kbb/OnxAdr1qRfeTVMLiMeaMBve2uuyO1t+tyQ7Bn/IkvUu1I2I9M3rnGR/JXoZXj0yE/S6C0=
+Received: from BN4PR11CA0011.namprd11.prod.outlook.com (2603:10b6:403:1::21)
+ by MN2PR12MB3968.namprd12.prod.outlook.com (2603:10b6:208:16f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.20; Fri, 24 Jul
+ 2020 21:08:01 +0000
+Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:403:1:cafe::87) by BN4PR11CA0011.outlook.office365.com
+ (2603:10b6:403:1::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.23 via Frontend
- Transport; Fri, 24 Jul 2020 21:07:56 +0000
+ Transport; Fri, 24 Jul 2020 21:08:01 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3216.10 via Frontend Transport; Fri, 24 Jul 2020 21:07:55 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3216.10 via Frontend Transport; Fri, 24 Jul 2020 21:08:01 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 24 Jul
- 2020 16:07:54 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 24 Jul
- 2020 16:07:54 -0500
+ 2020 16:08:00 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 24 Jul 2020 16:07:48 -0500
+ Transport; Fri, 24 Jul 2020 16:07:54 -0500
 From: Eryk Brol <eryk.brol@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/15] drm/amd/display: [FW Promotion] Release 0.0.26
-Date: Fri, 24 Jul 2020 17:06:13 -0400
-Message-ID: <20200724210618.2709738-11-eryk.brol@amd.com>
+Subject: [PATCH 11/15] drm/amd/display: dchubbub p-state warning during
+ surface planes switch
+Date: Fri, 24 Jul 2020 17:06:14 -0400
+Message-ID: <20200724210618.2709738-12-eryk.brol@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200724210618.2709738-1-eryk.brol@amd.com>
 References: <20200724210618.2709738-1-eryk.brol@amd.com>
@@ -85,28 +82,28 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5027bb2b-4c86-4706-00fc-08d83015a2f6
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4341:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4341F7BB6916A6BA42198A8DE5770@MN2PR12MB4341.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
+X-MS-Office365-Filtering-Correlation-Id: 6239269f-69e2-48bd-b8c1-08d83015a65c
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3968:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3968E1E7336862B04F62EC4FE5770@MN2PR12MB3968.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pviG16Bo/4wbAhDChN30qO1swe6HNCpr6ZrdFfZR2OYBDb58Gr6bEQBbhVsOr9K72m03QsInxWr114q6DWJ2JRLsMtBZIv8hWt6CP8Ezk8jj9eA0In2pXNU9TbyKJmvnoI7x+wjBrdV4ieQR2TiOOJ9lX59KsKkmoL3hN7kHmAia0K8E/HpKIZs7A80Aj0iaDAOXOUZE60wuzfixMDJSLmDY4U1lLkkqhnNMTodOAJ/7AF7y7FFkRE7wM7c2smTq27cafrfgYZ0wFVLisUhUZSifCJQmnJapY+qFOpDeJ0sIiyrQ2u4uLmIKZoWgg09aBr09h3xIwVnS54jh5h1qB80z6zXkfvyY37M8Mak+E9PodQ7ODLewlwG3sL1IUtJ15csLUPz6nmKKUaalNfo7xQ==
+X-Microsoft-Antispam-Message-Info: eLcjFcnPAuGq4tzyrYrUj5DL594WBswsOenC3jwITZaZmdjFVCsVRXyeR6HSxOV2XUt76k0dZCb/qztLbuSDbAXQeNzXayGQAfeHzJu3ibpQH+vsGcSJ0wDh56VUPty4OBvUiLX9pKcQhhy2dwB7kIMyxFjFB564U1m53/PHu4ZugukTw0k5XEYjXfVaB5j49tiwpyAYwuFwGbwdOeb7dFcIwWRK5yznqsZLNLjRDNnETMhMtiJdVB7KtOjsVhu5dLUKG0NkoFf0A8DsN9Q00yWWL9lzUB2UzLstV2Mbjl/g7MHXTuT8ScsHSuL/wwiIzV/57w79xv1JVDeeuHgLMrxh9zgVJpySEFviJBMwIxPbnCXQ/L5kngFg5g3AWWygGJVU8dWBQ7srcBIqFTAanA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(39860400002)(396003)(376002)(346002)(46966005)(336012)(54906003)(2616005)(83380400001)(316002)(44832011)(426003)(8936002)(356005)(6916009)(82310400002)(8676002)(478600001)(2906002)(186003)(81166007)(5660300002)(36756003)(1076003)(4326008)(6666004)(70586007)(70206006)(47076004)(4744005)(26005)(82740400003)(86362001);
+ SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(46966005)(54906003)(83380400001)(8936002)(70586007)(86362001)(82310400002)(356005)(2906002)(70206006)(36756003)(1076003)(6666004)(478600001)(47076004)(316002)(2616005)(26005)(5660300002)(6916009)(186003)(44832011)(336012)(426003)(82740400003)(8676002)(81166007)(4326008);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2020 21:07:55.7683 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5027bb2b-4c86-4706-00fc-08d83015a2f6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2020 21:08:01.6036 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6239269f-69e2-48bd-b8c1-08d83015a65c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4341
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3968
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,39 +117,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Aric Cyr <Aric.Cyr@amd.com>, Eryk Brol <eryk.brol@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+ Rodrigo.Siqueira@amd.com, Stable <stable@vger.kernel.org>,
+ hersen wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anthony Koo <Anthony.Koo@amd.com>
+From: hersen wu <hersenxs.wu@amd.com>
 
-Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+[Why]
+ramp_up_dispclk_with_dpp is to change dispclk, dppclk and dprefclk
+according to bandwidth requirement. call stack: rv1_update_clocks -->
+update_clocks --> dcn10_prepare_bandwidth / dcn10_optimize_bandwidth
+--> prepare_bandwidth / optimize_bandwidth. before change dcn hw,
+prepare_bandwidth will be called first to allow enough clock,
+watermark for change, after end of dcn hw change, optimize_bandwidth
+is executed to lower clock to save power for new dcn hw settings.
+
+below is sequence of commit_planes_for_stream:
+step 1: prepare_bandwidth - raise clock to have enough bandwidth
+step 2: lock_doublebuffer_enable
+step 3: pipe_control_lock(true) - make dchubp register change will
+not take effect right way
+step 4: apply_ctx_for_surface - program dchubp
+step 5: pipe_control_lock(false) - dchubp register change take effect
+step 6: optimize_bandwidth --> dc_post_update_surfaces_to_stream
+for full_date, optimize clock to save power
+
+at end of step 1, dcn clocks (dprefclk, dispclk, dppclk) may be
+changed for new dchubp configuration. but real dcn hub dchubps are
+still running with old configuration until end of step 5. this need
+clocks settings at step 1 should not less than that before step 1.
+this is checked by two conditions: 1. if (should_set_clock(safe_to_lower
+, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz) ||
+new_clocks->dispclk_khz == clk_mgr_base->clks.dispclk_khz)
+2. request_dpp_div = new_clocks->dispclk_khz > new_clocks->dppclk_khz
+
+the second condition is based on new dchubp configuration. dppclk
+for new dchubp may be different from dppclk before step 1.
+for example, before step 1, dchubps are as below:
+pipe 0: recout=(0,40,1920,980) viewport=(0,0,1920,979)
+pipe 1: recout=(0,0,1920,1080) viewport=(0,0,1920,1080)
+for dppclk for pipe0 need dppclk = dispclk
+
+new dchubp pipe split configuration:
+pipe 0: recout=(0,0,960,1080) viewport=(0,0,960,1080)
+pipe 1: recout=(960,0,960,1080) viewport=(960,0,960,1080)
+dppclk only needs dppclk = dispclk /2.
+
+dispclk, dppclk are not lock by otg master lock. they take effect
+after step 1. during this transition, dispclk are the same, but
+dppclk is changed to half of previous clock for old dchubp
+configuration between step 1 and step 6. This may cause p-state
+warning intermittently.
+
+[How]
+for new_clocks->dispclk_khz == clk_mgr_base->clks.dispclk_khz, we
+need make sure dppclk are not changed to less between step 1 and 6.
+for new_clocks->dispclk_khz > clk_mgr_base->clks.dispclk_khz,
+new display clock is raised, but we do not know ratio of
+new_clocks->dispclk_khz and clk_mgr_base->clks.dispclk_khz,
+new_clocks->dispclk_khz /2 does not guarantee equal or higher than
+old dppclk. we could ignore power saving different between
+dppclk = displck and dppclk = dispclk / 2 between step 1 and step 6.
+as long as safe_to_lower = false, set dpclk = dispclk to simplify
+condition check.
+
+CC: Stable <stable@vger.kernel.org>
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
 Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Eryk Brol <eryk.brol@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    | 69 ++++++++++++++++++-
+ 1 file changed, 67 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index e013875b89ed..8b27cf0f1d51 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -36,10 +36,10 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+index 3fab9296918a..e133edc587d3 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+@@ -85,12 +85,77 @@ static int rv1_determine_dppclk_threshold(struct clk_mgr_internal *clk_mgr, stru
+ 	return disp_clk_threshold;
+ }
  
- /* Firmware versioning. */
- #ifdef DMUB_EXPOSE_VERSION
--#define DMUB_FW_VERSION_GIT_HASH 0xe6d590b09
-+#define DMUB_FW_VERSION_GIT_HASH 0x636e7b294
- #define DMUB_FW_VERSION_MAJOR 0
- #define DMUB_FW_VERSION_MINOR 0
--#define DMUB_FW_VERSION_REVISION 25
-+#define DMUB_FW_VERSION_REVISION 26
- #define DMUB_FW_VERSION_UCODE ((DMUB_FW_VERSION_MAJOR << 24) | (DMUB_FW_VERSION_MINOR << 16) | DMUB_FW_VERSION_REVISION)
- #endif
+-static void ramp_up_dispclk_with_dpp(struct clk_mgr_internal *clk_mgr, struct dc *dc, struct dc_clocks *new_clocks)
++static void ramp_up_dispclk_with_dpp(
++		struct clk_mgr_internal *clk_mgr,
++		struct dc *dc,
++		struct dc_clocks *new_clocks,
++		bool safe_to_lower)
+ {
+ 	int i;
+ 	int dispclk_to_dpp_threshold = rv1_determine_dppclk_threshold(clk_mgr, new_clocks);
+ 	bool request_dpp_div = new_clocks->dispclk_khz > new_clocks->dppclk_khz;
  
++	/* this function is to change dispclk, dppclk and dprefclk according to
++	 * bandwidth requirement. Its call stack is rv1_update_clocks -->
++	 * update_clocks --> dcn10_prepare_bandwidth / dcn10_optimize_bandwidth
++	 * --> prepare_bandwidth / optimize_bandwidth. before change dcn hw,
++	 * prepare_bandwidth will be called first to allow enough clock,
++	 * watermark for change, after end of dcn hw change, optimize_bandwidth
++	 * is executed to lower clock to save power for new dcn hw settings.
++	 *
++	 * below is sequence of commit_planes_for_stream:
++	 *
++	 * step 1: prepare_bandwidth - raise clock to have enough bandwidth
++	 * step 2: lock_doublebuffer_enable
++	 * step 3: pipe_control_lock(true) - make dchubp register change will
++	 * not take effect right way
++	 * step 4: apply_ctx_for_surface - program dchubp
++	 * step 5: pipe_control_lock(false) - dchubp register change take effect
++	 * step 6: optimize_bandwidth --> dc_post_update_surfaces_to_stream
++	 * for full_date, optimize clock to save power
++	 *
++	 * at end of step 1, dcn clocks (dprefclk, dispclk, dppclk) may be
++	 * changed for new dchubp configuration. but real dcn hub dchubps are
++	 * still running with old configuration until end of step 5. this need
++	 * clocks settings at step 1 should not less than that before step 1.
++	 * this is checked by two conditions: 1. if (should_set_clock(safe_to_lower
++	 * , new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz) ||
++	 * new_clocks->dispclk_khz == clk_mgr_base->clks.dispclk_khz)
++	 * 2. request_dpp_div = new_clocks->dispclk_khz > new_clocks->dppclk_khz
++	 *
++	 * the second condition is based on new dchubp configuration. dppclk
++	 * for new dchubp may be different from dppclk before step 1.
++	 * for example, before step 1, dchubps are as below:
++	 * pipe 0: recout=(0,40,1920,980) viewport=(0,0,1920,979)
++	 * pipe 1: recout=(0,0,1920,1080) viewport=(0,0,1920,1080)
++	 * for dppclk for pipe0 need dppclk = dispclk
++	 *
++	 * new dchubp pipe split configuration:
++	 * pipe 0: recout=(0,0,960,1080) viewport=(0,0,960,1080)
++	 * pipe 1: recout=(960,0,960,1080) viewport=(960,0,960,1080)
++	 * dppclk only needs dppclk = dispclk /2.
++	 *
++	 * dispclk, dppclk are not lock by otg master lock. they take effect
++	 * after step 1. during this transition, dispclk are the same, but
++	 * dppclk is changed to half of previous clock for old dchubp
++	 * configuration between step 1 and step 6. This may cause p-state
++	 * warning intermittently.
++	 *
++	 * for new_clocks->dispclk_khz == clk_mgr_base->clks.dispclk_khz, we
++	 * need make sure dppclk are not changed to less between step 1 and 6.
++	 * for new_clocks->dispclk_khz > clk_mgr_base->clks.dispclk_khz,
++	 * new display clock is raised, but we do not know ratio of
++	 * new_clocks->dispclk_khz and clk_mgr_base->clks.dispclk_khz,
++	 * new_clocks->dispclk_khz /2 does not guarantee equal or higher than
++	 * old dppclk. we could ignore power saving different between
++	 * dppclk = displck and dppclk = dispclk / 2 between step 1 and step 6.
++	 * as long as safe_to_lower = false, set dpclk = dispclk to simplify
++	 * condition check.
++	 * todo: review this change for other asic.
++	 **/
++	if (!safe_to_lower)
++		request_dpp_div = false;
++
+ 	/* set disp clk to dpp clk threshold */
+ 
+ 	clk_mgr->funcs->set_dispclk(clk_mgr, dispclk_to_dpp_threshold);
+@@ -209,7 +274,7 @@ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	/* program dispclk on = as a w/a for sleep resume clock ramping issues */
+ 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)
+ 			|| new_clocks->dispclk_khz == clk_mgr_base->clks.dispclk_khz) {
+-		ramp_up_dispclk_with_dpp(clk_mgr, dc, new_clocks);
++		ramp_up_dispclk_with_dpp(clk_mgr, dc, new_clocks, safe_to_lower);
+ 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
+ 		send_request_to_lower = true;
+ 	}
 -- 
 2.25.1
 
