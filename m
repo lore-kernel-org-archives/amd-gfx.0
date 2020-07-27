@@ -2,66 +2,48 @@ Return-Path: <SRS0=eP35=BG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,HK_RANDOM_REPLYTO,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C6EEC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 20:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4723CC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 20:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E6FD2074F
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 20:29:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A2FCA20786
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 20:48:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Abhihdkw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E6FD2074F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="jF0s0rqm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2FCA20786
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=protonmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BEF89FC8;
-	Mon, 27 Jul 2020 20:29:15 +0000 (UTC)
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
- [IPv6:2607:f8b0:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 675D389F8B
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 20:29:14 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id 12so15485695oir.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 13:29:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=73YZ6C/WMVxfbXt9d1rv6zoL2cv/ngsh0gOUW7Neh2s=;
- b=AbhihdkwYfhYy5V3bomV4xIrgTVhHKPEW51RCdBLFrfiRSz5Gm2EVe3es8K5BrW0yz
- RCTji1ApysS7Dvazgzj/Cjth2OMDG9HLBoT+c1TZOUrFvUrr6Z1vxHIZBFUWg8VHv1sd
- ZO5dWal0UXgscbWi/xxql4HtSzEkVv1BlzLL8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=73YZ6C/WMVxfbXt9d1rv6zoL2cv/ngsh0gOUW7Neh2s=;
- b=TXSRThRB9HFWXE9SX+pJ8xxB9EqO4egaRw3YCF7+lVC/ikp5+p7UoNGeGrmsYeBUaV
- X6XzQhFeztwnlndZct3s4YigbIHtEcK0dpNFiyHu84mDnIQnKNPKumccPN/IDAcIvdNa
- OXDHrzuJzzkUCfRC24Y5vX2A0vZ08MFoxEyOSj/bFTd3sXhuqukYoKLz/nYqIYeG4V5Q
- BOZOyuWgjgqKyejPCc564Al0rgkMU3U62+qM5EF2y3HA9/o9pB5QMNLASC8q1+nu662D
- hmlCjZb8UK4j4SIZzss/eKLU9tu92ZcFhWir7rmwLbUJDL4QZtgknkfZh2bzsiKTxct5
- gtCg==
-X-Gm-Message-State: AOAM531UqSY9i3cP+UOw5s0IdD26g8aO7tyq7UlQGK+xJu+B5Xg1Q8+m
- 3cfLn815OPTh8pj2ecKcwe5jvGvybv3TpeHrl7Yrbw==
-X-Google-Smtp-Source: ABdhPJyJyyIVoninyQrrQCgKZycFAY7tr1KlS8dq7xWMyXMb8JKOfOdddjMyzHGxJXWdTx7xaqReNJ5UnONfe5kRJgI=
-X-Received: by 2002:aca:da03:: with SMTP id r3mr920829oig.14.1595881753602;
- Mon, 27 Jul 2020 13:29:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <M0lxN5AUlPvzBKULfIBe5BZRwfQGXeMQCdWItYcQ-9P79y32WzExYK2Y0DwyNVtyGelqbvV07_lFk1oeT4cApbT-P_oH0bnxQbMmFsJv_xg=@protonmail.com>
- <ba078fb0-0dbc-df06-cfe9-f9537883f82a@amd.com>
- <e2f55480-c24f-6c85-08d3-21131a22d0bf@amd.com>
- <3b7e3e50-2ff7-eff3-2ffc-abaa4b36ce7f@amd.com>
-In-Reply-To: <3b7e3e50-2ff7-eff3-2ffc-abaa4b36ce7f@amd.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 27 Jul 2020 22:29:01 +0200
-Message-ID: <CAKMK7uHCu02P4tvhF4LQbtYeNciU61ONC9EZRmQ-0wEGFPzZgg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 843B689B68;
+	Mon, 27 Jul 2020 20:48:45 +0000 (UTC)
+Received: from mail-40138.protonmail.ch (mail-40138.protonmail.ch
+ [185.70.40.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEE589F8B;
+ Mon, 27 Jul 2020 20:27:10 +0000 (UTC)
+Date: Mon, 27 Jul 2020 20:27:03 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail; t=1595881628;
+ bh=L4/PzAU/PlbzwZ2pM51uKqp5OqHinU8wQ2m72zcFpIY=;
+ h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+ b=jF0s0rqm7pfzq1RbqLiBAPHmL5jPQVQRQbxaFTLpjxvthnH5rtUz6Ah/JfKsW+Ezn
+ V0gJRcz1wQFiX//qEie+nSWCYSkSVMMvEOBTvoJgqegQ53mBxNYUQ6un5xMn3xMo67
+ ovFGLELi6xu21otX+KxrLfGTgSd5V9YIT7lrLakk=
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+From: Mazin Rezk <mnrzk@protonmail.com>
 Subject: Re: [PATCH] drm/amd/display: Clear dm_state for fast updates
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Message-ID: <_8mO29uo4bTBeV3K8ZXjTwJA7HX3nPP0pdFIESyPYhiVyPdT4ejgJyp-kMVW3_UnqZsolGj8uP2C1dLvelaOgqiY6saKE_m97ECqhdIdr8o=@protonmail.com>
+In-Reply-To: <c8e3031a-b21f-2b19-9d39-7a01687c7f06@amd.com>
+References: <M0lxN5AUlPvzBKULfIBe5BZRwfQGXeMQCdWItYcQ-9P79y32WzExYK2Y0DwyNVtyGelqbvV07_lFk1oeT4cApbT-P_oH0bnxQbMmFsJv_xg=@protonmail.com>
+ <c8e3031a-b21f-2b19-9d39-7a01687c7f06@amd.com>
+MIME-Version: 1.0
+X-Mailman-Approved-At: Mon, 27 Jul 2020 20:48:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,6 +55,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Mazin Rezk <mnrzk@protonmail.com>
 Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
  "mphantomx@yahoo.com.br" <mphantomx@yahoo.com.br>,
  Duncan <1i5t5.duncan@cox.net>, Kees Cook <keescook@chromium.org>,
@@ -83,153 +66,168 @@ Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  Alexander Deucher <Alexander.Deucher@amd.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- "anthony.ruhier@gmail.com" <anthony.ruhier@gmail.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ "anthony.ruhier@gmail.com" <anthony.ruhier@gmail.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBKdWwgMjcsIDIwMjAgYXQgOToyOCBQTSBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+Cj4gQW0gMjcuMDcuMjAgdW0gMTY6MDUgc2Nocmll
-YiBLYXpsYXVza2FzLCBOaWNob2xhczoKPiA+IE9uIDIwMjAtMDctMjcgOTozOSBhLm0uLCBDaHJp
-c3RpYW4gS8O2bmlnIHdyb3RlOgo+ID4+IEFtIDI3LjA3LjIwIHVtIDA3OjQwIHNjaHJpZWIgTWF6
-aW4gUmV6azoKPiA+Pj4gVGhpcyBwYXRjaCBmaXhlcyBhIHJhY2UgY29uZGl0aW9uIHRoYXQgY2F1
-c2VzIGEgdXNlLWFmdGVyLWZyZWUgZHVyaW5nCj4gPj4+IGFtZGdwdV9kbV9hdG9taWNfY29tbWl0
-X3RhaWwuIFRoaXMgY2FuIG9jY3VyIHdoZW4gMiBub24tYmxvY2tpbmcKPiA+Pj4gY29tbWl0cwo+
-ID4+PiBhcmUgcmVxdWVzdGVkIGFuZCB0aGUgc2Vjb25kIG9uZSBmaW5pc2hlcyBiZWZvcmUgdGhl
-IGZpcnN0Lgo+ID4+PiBFc3NlbnRpYWxseSwKPiA+Pj4gdGhpcyBidWcgb2NjdXJzIHdoZW4gdGhl
-IGZvbGxvd2luZyBzZXF1ZW5jZSBvZiBldmVudHMgaGFwcGVuczoKPiA+Pj4KPiA+Pj4gMS4gTm9u
-LWJsb2NraW5nIGNvbW1pdCAjMSBpcyByZXF1ZXN0ZWQgdy8gYSBuZXcgZG1fc3RhdGUgIzEgYW5k
-IGlzCj4gPj4+IGRlZmVycmVkIHRvIHRoZSB3b3JrcXVldWUuCj4gPj4+Cj4gPj4+IDIuIE5vbi1i
-bG9ja2luZyBjb21taXQgIzIgaXMgcmVxdWVzdGVkIHcvIGEgbmV3IGRtX3N0YXRlICMyIGFuZCBp
-cwo+ID4+PiBkZWZlcnJlZCB0byB0aGUgd29ya3F1ZXVlLgo+ID4+Pgo+ID4+PiAzLiBDb21taXQg
-IzIgc3RhcnRzIGJlZm9yZSBjb21taXQgIzEsIGRtX3N0YXRlICMxIGlzIHVzZWQgaW4gdGhlCj4g
-Pj4+IGNvbW1pdF90YWlsIGFuZCBjb21taXQgIzIgY29tcGxldGVzLCBmcmVlaW5nIGRtX3N0YXRl
-ICMxLgo+ID4+Pgo+ID4+PiA0LiBDb21taXQgIzEgc3RhcnRzIGFmdGVyIGNvbW1pdCAjMiBjb21w
-bGV0ZXMsIHVzZXMgdGhlIGZyZWVkIGRtX3N0YXRlCj4gPj4+IDEgYW5kIGRlcmVmZXJlbmNlcyBh
-IGZyZWVsaXN0IHBvaW50ZXIgd2hpbGUgc2V0dGluZyB0aGUgY29udGV4dC4KPiA+Pgo+ID4+IFdl
-bGwgSSBvbmx5IGhhdmUgYSBvbmUgbWlsZSBoaWdoIHZpZXcgb24gdGhpcywgYnV0IHdoeSBkb24n
-dCB5b3UgbGV0Cj4gPj4gdGhlIHdvcmsgaXRlbXMgZXhlY3V0ZSBpbiBvcmRlcj8KPiA+Pgo+ID4+
-IFRoYXQgd291bGQgYmUgYmV0dGVyIGFueXdheSBjYXVzZSB0aGlzIHdheSB3ZSBkb24ndCB0cmln
-Z2VyIGEgY2FjaGUKPiA+PiBsaW5lIHBpbmcgcG9uZyBiZXR3ZWVuIENQVXMuCj4gPj4KPiA+PiBD
-aHJpc3RpYW4uCj4gPgo+ID4gV2UgdXNlIHRoZSBEUk0gaGVscGVycyBmb3IgbWFuYWdpbmcgZHJt
-X2F0b21pY19jb21taXRfc3RhdGUgYW5kIHRob3NlCj4gPiBoZWxwZXJzIGludGVybmFsbHkgcHVz
-aCBub24tYmxvY2tpbmcgY29tbWl0IHdvcmsgaW50byB0aGUgc3lzdGVtCj4gPiB1bmJvdW5kIHdv
-cmsgcXVldWUuCj4KPiBNaG0sIHdlbGwgaWYgeW91IHNlbmQgdGhvc2UgaGVscGVyIGF0b21pYyBj
-b21taXRzIGluIHRoZSBvcmRlciBBLEIgYW5kCj4gdGhleSBleGVjdXRlIGl0IGluIHRoZSBvcmRl
-ciBCLEEgSSB3b3VsZCBjYWxsIHRoYXQgYSBidWcgOikKClRoZSB3YXkgaXQgd29ya3MgaXMgaXQg
-cHVzaGVzIGFsbCBjb21taXRzIGludG8gdW5ib3VuZCB3b3JrIHF1ZXVlLCBidXQKdGhlbiBmb3Jj
-ZXMgc2VyaWFsaXphdGlvbiBhcyBuZWVkZWQuIFdlIGRvIF9ub3RfIHdhbnQgZS5nLiB1cGRhdGVz
-IG9uCmRpZmZlcmVudCBDUlRDIHRvIGJlIHNlcmlhbGl6ZWQsIHRoYXQgd291bGQgcmVzdWx0IGlu
-IGxvdHMgb2YganVkZGVyLgpBbmQgaHcgaXMgZnVubnkgZW5vdWdoIHRoYXQgdGhlcmUncyBhbGwg
-a2luZHMgb2YgZGVwZW5kZW5jaWVzLgoKVGhlIHdheSB5b3UgZm9yY2Ugc3luY2hyb25pemF0aW9u
-IGlzIGJ5IGFkZGluZyBvdGhlciBDUlRDIHN0YXRlCm9iamVjdHMuIFNvIGlmIERDIGlzIGJ1c3Rl
-ZCBhbmQgY2FuIG9ubHkgaGFuZGxlIGEgc2luZ2xlIHVwZGF0ZSBwZXIKd29yayBpdGVtLCB0aGVu
-IEkgZ3Vlc3MgeW91IGFsd2F5cyBuZWVkIGFsbCBDUlRDIHN0YXRlcyBhbmQgZXZlcnl0aGluZwp3
-aWxsIGJlIHJ1biBpbiBvcmRlci4gQnV0IHRoYXQgYWxzbyB0b3RhbGx5IGtpbGxzIG1vZGVybiBt
-dWx0aS1zY3JlZW4KY29tcG9zaXRvcnMuIFhvcmcgaXNuJ3QgbW9kZXJuLCBqdXN0IGluIGNhc2Ug
-dGhhdCdzIG5vdCBjbGVhciA6LSkKCkx1Y2tpbmcgYXQgdGhlIGNvZGUgaXQgc2VlbXMgbGlrZSB5
-b3UgaW5kZWVkIGhhdmUgb25seSBhIHNpbmdsZSBkbQpzdGF0ZSwgc28geWVhaCBnbG9iYWwgc3lu
-YyBpcyB3aGF0IHlvdSdsbCBuZWVkIGFzIGltbWVkaWF0ZSBmaXgsIGFuZAp0aGVuIG1heWJlIGZp
-eCB1cCBETSB0byBub3QgYmUgcXVpdGUgc28gc2lsbHkgLi4uIG9yIGF0IGxlYXN0IG9ubHkgZG8K
-dGhlIGRtIHN0YXRlIHN0dWZmIHdoZW4gcmVhbGx5IG5lZWRlZC4KCldlIGNvdWxkIGFsc28gc3By
-aW5rbGUgdGhlIGRybV9jcnRjX2NvbW1pdCBzdHJ1Y3R1cmUgYXJvdW5kIGEgYml0CihpdCdzIHRo
-ZSBnbHVlIHRoYXQgcHJvdmlkZXMgdGhlIHN5bmNocm9uaXphdGlvbiBhY3Jvc3MgY29tbWl0cyks
-IGJ1dApzaW5jZSB5b3VyIGRtIHN0YXRlIGlzIGdsb2JhbCBqdXN0IGdyYWJiaW5nIGFsbCBjcnRj
-IHN0YXRlcwp1bmNvbmRpdGlvbmFsbHkgYXMgcGFydCBvZiB0aGF0IGlzIHByb2JhYmx5IGJlc3Qu
-Cgo+ID4gV2hpbGUgd2UgY291bGQgZHVwbGljYXRlIGEgY29weSBvZiB0aGF0IGNvZGUgd2l0aCBu
-b3RoaW5nIGJ1dCB0aGUKPiA+IHdvcmtxdWV1ZSBjaGFuZ2VkIHRoYXQgaXNuJ3Qgc29tZXRoaW5n
-IEknZCByZWFsbHkgbGlrZSB0byBtYWludGFpbgo+ID4gZ29pbmcgZm9yd2FyZC4KPgo+IEknbSBu
-b3QgdGFsa2luZyBhYm91dCBkdXBsaWNhdGluZyB0aGUgY29kZSwgSSdtIHRhbGtpbmcgYWJvdXQg
-Zml4aW5nIHRoZQo+IGhlbHBlcnMuIEkgZG9uJ3Qga25vdyB0aGF0IGNvZGUgd2VsbCwgYnV0IGZy
-b20gdGhlIG91dHNpZGUgaXQgc291bmRzCj4gbGlrZSBhIGJ1ZyB0aGVyZS4KPgo+IEFuZCBleGVj
-dXRpbmcgd29yayBpdGVtcyBpbiB0aGUgb3JkZXIgdGhleSBhcmUgc3VibWl0dGVkIGlzIHRyaXZp
-YWwuCj4KPiBIYWQgYW55Ym9keSBwaW5nZWQgRGFuaWVsIG9yIG90aGVyIHBlb3BsZSBmYW1pbGlh
-ciB3aXRoIHRoZSBoZWxwZXIgY29kZQo+IGFib3V0IGl0PwoKWWVhaCBzb21ldGhpbmcgaXMgd3Jv
-bmcgaGVyZSwgYW5kIHRoZSBmaXggbG9va3MgaG9ycmlibGUgOi0pCgpBc2lkZSwgSSd2ZSBhbHNv
-IHNlZW4gc29tZSByZWNlbnQgZGlzY3Vzc2lvbiBmbGFyZSB1cCBhYm91dApkcm1fYXRvbWljX3N0
-YXRlX2dldC9wdXQgdXNlZCB0byBwYXBlciBvdmVyIHNvbWUgb3RoZXIgdXNlLWFmdGVyLWZyZWUs
-CmJ1dCB0aGlzIHRpbWUgcmVsYXRlZCB0byBpbnRlcnJ1cHQgaGFuZGxlcnMuIE1heWJlIGEgZmV3
-IHJ1bGVzIGFib3V0CnRoYXQ6Ci0gZG9udAotIGVzcGVjaWFsbHkgbm90IHdoZW4gaXQncyBpbnRl
-cnJ1cHQgaGFuZGxlcnMsIGJlY2F1c2UgeW91IGNhbid0IGNhbGwKZHJtX2F0b21pY19zdGF0ZV9w
-dXQgZnJvbSBpbnRlcnJ1cHQgaGFuZGxlcnMuCgpJbnN0ZWFkIGhhdmUgYW4gc3Bpbl9sb2NrX2ly
-cSB0byBwcm90ZWN0IHRoZSBzaGFyZWQgZGF0ZSB3aXRoIHlvdXIKaW50ZXJydXB0IGhhbmRsZXIs
-IGFuZCBfY29weV8gdGhlIGRhdGUgb3Zlci4gVGhpcyBpcyBlLmcuIHdoYXQKZHJtX2NydGNfYXJt
-X3ZibGFua19ldmVudCBkb2VzLgoKQ2hlZXJzLCBEYW5pZWwKCj4KPiBSZWdhcmRzLAo+IENocmlz
-dGlhbi4KPgo+ID4KPiA+IFJlZ2FyZHMsCj4gPiBOaWNob2xhcyBLYXpsYXVza2FzCj4gPgo+ID4+
-Cj4gPj4+Cj4gPj4+IFNpbmNlIHRoaXMgYnVnIGhhcyBvbmx5IGJlZW4gc3BvdHRlZCB3aXRoIGZh
-c3QgY29tbWl0cywgdGhpcyBwYXRjaAo+ID4+PiBmaXhlcwo+ID4+PiB0aGUgYnVnIGJ5IGNsZWFy
-aW5nIHRoZSBkbV9zdGF0ZSBpbnN0ZWFkIG9mIHVzaW5nIHRoZSBvbGQgZGNfc3RhdGUgZm9yCj4g
-Pj4+IGZhc3QgdXBkYXRlcy4gSW4gYWRkaXRpb24sIHNpbmNlIGRtX3N0YXRlIGlzIG9ubHkgdXNl
-ZCBmb3IgaXRzIGRjX3N0YXRlCj4gPj4+IGFuZCBhbWRncHVfZG1fYXRvbWljX2NvbW1pdF90YWls
-IHdpbGwgcmV0YWluIHRoZSBkY19zdGF0ZSBpZiBub25lIGlzCj4gPj4+IGZvdW5kLAo+ID4+PiBy
-ZW1vdmluZyB0aGUgZG1fc3RhdGUgc2hvdWxkIG5vdCBoYXZlIGFueSBjb25zZXF1ZW5jZXMgaW4g
-ZmFzdCB1cGRhdGVzLgo+ID4+Pgo+ID4+PiBUaGlzIHVzZS1hZnRlci1mcmVlIGJ1ZyBoYXMgZXhp
-c3RlZCBmb3IgYSB3aGlsZSBub3csIGJ1dCBvbmx5IGNhdXNlZCBhCj4gPj4+IG5vdGljZWFibGUg
-aXNzdWUgc3RhcnRpbmcgZnJvbSA1LjctcmMxIGR1ZSB0byAzMjAyZmE2MmYgKCJzbHViOgo+ID4+
-PiByZWxvY2F0ZQo+ID4+PiBmcmVlbGlzdCBwb2ludGVyIHRvIG1pZGRsZSBvZiBvYmplY3QiKSBt
-b3ZpbmcgdGhlIGZyZWVsaXN0IHBvaW50ZXIgZnJvbQo+ID4+PiBkbV9zdGF0ZS0+YmFzZSAod2hp
-Y2ggd2FzIHVudXNlZCkgdG8gZG1fc3RhdGUtPmNvbnRleHQgKHdoaWNoIGlzCj4gPj4+IGRlcmVm
-ZXJlbmNlZCkuCj4gPj4+Cj4gPj4+IEJ1Z3ppbGxhOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5v
-cmcvc2hvd19idWcuY2dpP2lkPTIwNzM4Mwo+ID4+PiBGaXhlczogYmQyMDBkMTkwZjQ1ICgiZHJt
-L2FtZC9kaXNwbGF5OiBEb24ndCByZXBsYWNlIHRoZSBkY19zdGF0ZQo+ID4+PiBmb3IgZmFzdCB1
-cGRhdGVzIikKPiA+Pj4gUmVwb3J0ZWQtYnk6IER1bmNhbiA8MWk1dDUuZHVuY2FuQGNveC5uZXQ+
-Cj4gPj4+IFNpZ25lZC1vZmYtYnk6IE1hemluIFJlemsgPG1ucnprQHByb3Rvbm1haWwuY29tPgo+
-ID4+PiAtLS0KPiA+Pj4gICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtLmMgfCAzNgo+ID4+PiArKysrKysrKysrKysrKy0tLS0tCj4gPj4+ICAgMSBmaWxlIGNoYW5n
-ZWQsIDI3IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCj4gPj4+Cj4gPj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4g
-Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+
-ID4+PiBpbmRleCA4NmZmYTBjMjg4MGYuLjcxMGVkYzcwZTM3ZSAxMDA2NDQKPiA+Pj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+ID4+PiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4g
-Pj4+IEBAIC04NzE3LDIwICs4NzE3LDM4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RtX2F0b21pY19j
-aGVjayhzdHJ1Y3QKPiA+Pj4gZHJtX2RldmljZSAqZGV2LAo+ID4+PiAgICAgICAgICAgICogdGhl
-IHNhbWUgcmVzb3VyY2UuIElmIHdlIGhhdmUgYSBuZXcgREMgY29udGV4dCBhcyBwYXJ0IG9mCj4g
-Pj4+ICAgICAgICAgICAgKiB0aGUgRE0gYXRvbWljIHN0YXRlIGZyb20gdmFsaWRhdGlvbiB3ZSBu
-ZWVkIHRvIGZyZWUgaXQgYW5kCj4gPj4+ICAgICAgICAgICAgKiByZXRhaW4gdGhlIGV4aXN0aW5n
-IG9uZSBpbnN0ZWFkLgo+ID4+PiArICAgICAgICAgKgo+ID4+PiArICAgICAgICAgKiBGdXJ0aGVy
-bW9yZSwgc2luY2UgdGhlIERNIGF0b21pYyBzdGF0ZSBvbmx5IGNvbnRhaW5zIHRoZSBEQwo+ID4+
-PiArICAgICAgICAgKiBjb250ZXh0IGFuZCBjYW4gc2FmZWx5IGJlIGFubnVsbGVkLCB3ZSBjYW4g
-ZnJlZSB0aGUgc3RhdGUKPiA+Pj4gKyAgICAgICAgICogYW5kIGNsZWFyIHRoZSBhc3NvY2lhdGVk
-IHByaXZhdGUgb2JqZWN0IG5vdyB0byBmcmVlCj4gPj4+ICsgICAgICAgICAqIHNvbWUgbWVtb3J5
-IGFuZCBhdm9pZCBhIHBvc3NpYmxlIHVzZS1hZnRlci1mcmVlIGxhdGVyLgo+ID4+PiAgICAgICAg
-ICAgICovCj4gPj4+IC0gICAgICAgIHN0cnVjdCBkbV9hdG9taWNfc3RhdGUgKm5ld19kbV9zdGF0
-ZSwgKm9sZF9kbV9zdGF0ZTsKPiA+Pj4KPiA+Pj4gLSAgICAgICAgbmV3X2RtX3N0YXRlID0gZG1f
-YXRvbWljX2dldF9uZXdfc3RhdGUoc3RhdGUpOwo+ID4+PiAtICAgICAgICBvbGRfZG1fc3RhdGUg
-PSBkbV9hdG9taWNfZ2V0X29sZF9zdGF0ZShzdGF0ZSk7Cj4gPj4+ICsgICAgICAgIGZvciAoaSA9
-IDA7IGkgPCBzdGF0ZS0+bnVtX3ByaXZhdGVfb2JqczsgaSsrKSB7Cj4gPj4+ICsgICAgICAgICAg
-ICBzdHJ1Y3QgZHJtX3ByaXZhdGVfb2JqICpvYmogPSBzdGF0ZS0+cHJpdmF0ZV9vYmpzW2ldLnB0
-cjsKPiA+Pj4KPiA+Pj4gLSAgICAgICAgaWYgKG5ld19kbV9zdGF0ZSAmJiBvbGRfZG1fc3RhdGUp
-IHsKPiA+Pj4gLSAgICAgICAgICAgIGlmIChuZXdfZG1fc3RhdGUtPmNvbnRleHQpCj4gPj4+IC0g
-ICAgICAgICAgICAgICAgZGNfcmVsZWFzZV9zdGF0ZShuZXdfZG1fc3RhdGUtPmNvbnRleHQpOwo+
-ID4+PiArICAgICAgICAgICAgaWYgKG9iai0+ZnVuY3MgPT0gYWRldi0+ZG0uYXRvbWljX29iai5m
-dW5jcykgewo+ID4+PiArICAgICAgICAgICAgICAgIGludCBqID0gc3RhdGUtPm51bV9wcml2YXRl
-X29ianMtMTsKPiA+Pj4KPiA+Pj4gLSAgICAgICAgICAgIG5ld19kbV9zdGF0ZS0+Y29udGV4dCA9
-IG9sZF9kbV9zdGF0ZS0+Y29udGV4dDsKPiA+Pj4gKyAgICAgICAgICAgICAgICBkbV9hdG9taWNf
-ZGVzdHJveV9zdGF0ZShvYmosCj4gPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICBzdGF0ZS0+
-cHJpdmF0ZV9vYmpzW2ldLnN0YXRlKTsKPiA+Pj4gKwo+ID4+PiArICAgICAgICAgICAgICAgIC8q
-IElmIGkgaXMgbm90IGF0IHRoZSBlbmQgb2YgdGhlIGFycmF5IHRoZW4gdGhlCj4gPj4+ICsgICAg
-ICAgICAgICAgICAgICogbGFzdCBlbGVtZW50IG5lZWRzIHRvIGJlIG1vdmVkIHRvIHdoZXJlIGkg
-d2FzCj4gPj4+ICsgICAgICAgICAgICAgICAgICogYmVmb3JlIHRoZSBhcnJheSBjYW4gc2FmZWx5
-IGJlIHRydW5jYXRlZC4KPiA+Pj4gKyAgICAgICAgICAgICAgICAgKi8KPiA+Pj4gKyAgICAgICAg
-ICAgICAgICBpZiAoaSAhPSBqKQo+ID4+PiArICAgICAgICAgICAgICAgICAgICBzdGF0ZS0+cHJp
-dmF0ZV9vYmpzW2ldID0KPiA+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgIHN0YXRlLT5wcml2
-YXRlX29ianNbal07Cj4gPj4+Cj4gPj4+IC0gICAgICAgICAgICBpZiAob2xkX2RtX3N0YXRlLT5j
-b250ZXh0KQo+ID4+PiAtICAgICAgICAgICAgICAgIGRjX3JldGFpbl9zdGF0ZShvbGRfZG1fc3Rh
-dGUtPmNvbnRleHQpOwo+ID4+PiArICAgICAgICAgICAgICAgIHN0YXRlLT5wcml2YXRlX29ianNb
-al0ucHRyID0gTlVMTDsKPiA+Pj4gKyAgICAgICAgICAgICAgICBzdGF0ZS0+cHJpdmF0ZV9vYmpz
-W2pdLnN0YXRlID0gTlVMTDsKPiA+Pj4gKyAgICAgICAgICAgICAgICBzdGF0ZS0+cHJpdmF0ZV9v
-YmpzW2pdLm9sZF9zdGF0ZSA9IE5VTEw7Cj4gPj4+ICsgICAgICAgICAgICAgICAgc3RhdGUtPnBy
-aXZhdGVfb2Jqc1tqXS5uZXdfc3RhdGUgPSBOVUxMOwo+ID4+PiArCj4gPj4+ICsgICAgICAgICAg
-ICAgICAgc3RhdGUtPm51bV9wcml2YXRlX29ianMgPSBqOwo+ID4+PiArICAgICAgICAgICAgICAg
-IGJyZWFrOwo+ID4+PiArICAgICAgICAgICAgfQo+ID4+PiAgICAgICAgICAgfQo+ID4+PiAgICAg
-ICB9Cj4gPj4+Cj4gPj4+IC0tCj4gPj4+IDIuMjcuMAo+ID4+Pgo+ID4+Cj4gPgo+Cj4gX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFp
-bGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCgoKCi0tIApEYW5p
-ZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxv
-Zy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Monday, July 27, 2020 9:26 AM, Kazlauskas, Nicholas <nicholas.kazlauskas@amd.com> wrote:
+
+> On 2020-07-27 1:40 a.m., Mazin Rezk wrote:
+> > This patch fixes a race condition that causes a use-after-free during
+> > amdgpu_dm_atomic_commit_tail. This can occur when 2 non-blocking commits
+> > are requested and the second one finishes before the first. Essentially,
+> > this bug occurs when the following sequence of events happens:
+> >
+> > 1. Non-blocking commit #1 is requested w/ a new dm_state #1 and is
+> > deferred to the workqueue.
+> >
+> > 2. Non-blocking commit #2 is requested w/ a new dm_state #2 and is
+> > deferred to the workqueue.
+> >
+> > 3. Commit #2 starts before commit #1, dm_state #1 is used in the
+> > commit_tail and commit #2 completes, freeing dm_state #1.
+> >
+> > 4. Commit #1 starts after commit #2 completes, uses the freed dm_state
+> > 1 and dereferences a freelist pointer while setting the context.
+> >
+> > Since this bug has only been spotted with fast commits, this patch fixes
+> > the bug by clearing the dm_state instead of using the old dc_state for
+> > fast updates. In addition, since dm_state is only used for its dc_state
+> > and amdgpu_dm_atomic_commit_tail will retain the dc_state if none is found,
+> > removing the dm_state should not have any consequences in fast updates.
+> >
+> > This use-after-free bug has existed for a while now, but only caused a
+> > noticeable issue starting from 5.7-rc1 due to 3202fa62f ("slub: relocate
+> > freelist pointer to middle of object") moving the freelist pointer from
+> > dm_state->base (which was unused) to dm_state->context (which is
+> > dereferenced).
+> >
+> > Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=207383
+> > Fixes: bd200d190f45 ("drm/amd/display: Don't replace the dc_state for fast updates")
+> > Reported-by: Duncan <1i5t5.duncan@cox.net>
+> > Signed-off-by: Mazin Rezk <mnrzk@protonmail.com>
+> > ---
+> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 36 ++++++++++++++-----
+> >   1 file changed, 27 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 86ffa0c2880f..710edc70e37e 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -8717,20 +8717,38 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+> >   		 * the same resource. If we have a new DC context as part of
+> >   		 * the DM atomic state from validation we need to free it and
+> >   		 * retain the existing one instead.
+> > +		 *
+> > +		 * Furthermore, since the DM atomic state only contains the DC
+> > +		 * context and can safely be annulled, we can free the state
+> > +		 * and clear the associated private object now to free
+> > +		 * some memory and avoid a possible use-after-free later.
+> >   		 */
+> > -		struct dm_atomic_state *new_dm_state, *old_dm_state;
+> >
+> > -		new_dm_state = dm_atomic_get_new_state(state);
+> > -		old_dm_state = dm_atomic_get_old_state(state);
+> > +		for (i = 0; i < state->num_private_objs; i++) {
+> > +			struct drm_private_obj *obj = state->private_objs[i].ptr;
+> >
+> > -		if (new_dm_state && old_dm_state) {
+> > -			if (new_dm_state->context)
+> > -				dc_release_state(new_dm_state->context);
+> > +			if (obj->funcs == adev->dm.atomic_obj.funcs) {
+> > +				int j = state->num_private_objs-1;
+> >
+> > -			new_dm_state->context = old_dm_state->context;
+> > +				dm_atomic_destroy_state(obj,
+> > +						state->private_objs[i].state);
+> > +
+> > +				/* If i is not at the end of the array then the
+> > +				 * last element needs to be moved to where i was
+> > +				 * before the array can safely be truncated.
+> > +				 */
+> > +				if (i != j)
+> > +					state->private_objs[i] =
+> > +						state->private_objs[j];
+> >
+> > -			if (old_dm_state->context)
+> > -				dc_retain_state(old_dm_state->context);
+> > +				state->private_objs[j].ptr = NULL;
+> > +				state->private_objs[j].state = NULL;
+> > +				state->private_objs[j].old_state = NULL;
+> > +				state->private_objs[j].new_state = NULL;
+> > +
+> > +				state->num_private_objs = j;
+> > +				break;
+> > +			}
+>
+> In the bug report itself I mentioned that I don't really like hacking
+> around the DRM core for resolving this patch but to go into more
+> specifics, it's really two issues of code maintenance:
+>
+> 1. It's iterating over internal structures and layout of private objects
+> in the state and modifying the state. The core doesn't really guarantee
+> how these things are going to be laid out and it may change in the future.
+>
+> 2. It's freeing an allocation we don't own from DM. DRM doesn't track
+> this state elsewhere for purposes of freeing, but nothing is really
+> stopping the core from doing this later down the line.
+>
+> The implementation itself is correct from a technical perspective, but
+> I'd rather it reside in DRM as a helper for code maintenance purposes.
+
+So would something like this in drm_atomic_helper.c work?
+
+void drm_atomic_helper_delete_private_obj(struct drm_atomic_state *state,
+					int i)
+{
+	struct drm_private_obj *obj = state->private_objs[i].ptr;
+	int end = state->num_private_objs-1;
+
+	obj->funcs->atomic_destroy_state(obj, state->private_objs[i].state);
+
+	/* If i is not at the end of the array then the last element
+	 * needs to be moved to where i was before the array can safely
+	 * be truncated.
+	 */
+	if (i != end)
+		state->private_objs[i] = state->private_objs[end];
+
+	state->private_objs[end].ptr = NULL;
+	state->private_objs[end].state = NULL;
+	state->private_objs[end].old_state = NULL;
+	state->private_objs[end].new_state = NULL;
+
+	state->num_private_objs = end;
+}
+
+I was considering doing something like that, but I wanted to avoid
+modifying DRM core to fix a bug in amdgpu. I guess this makes more sense
+though since it does seem rather unorthodox to make changes to
+drm_atomic_state outside of DRM core. Perhaps there will be a use for this
+function outside of this patch in the future.
+
+Thanks,
+Mazin Rezk
+
+>
+> Regards,
+> Nicholas Kazlauskas
+>
+> >   		}
+> >   	}
+> >
+> > --
+> > 2.27.0
+> >
+> > _______________________________________________
+> > dri-devel mailing list
+> > dri-devel@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> >
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
