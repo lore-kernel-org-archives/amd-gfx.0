@@ -2,58 +2,59 @@ Return-Path: <SRS0=eP35=BG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FCEEC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 19:46:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90CEDC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 19:54:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D095B206E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 19:46:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5F2BF2072E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 19:54:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jv6PtcZ2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D095B206E7
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bIhZ3RKQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F2BF2072E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C82D89F5B;
-	Mon, 27 Jul 2020 19:46:31 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C4A89F5B
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 19:46:30 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id f18so16058548wrs.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 12:46:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 378DF89DC0;
+	Mon, 27 Jul 2020 19:54:16 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD5389DC0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 19:54:15 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id y3so16059994wrl.4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 12:54:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jGdm1awsl6pAFVIJltSCzTLDW1ARjkPs5Aru4vfQaIQ=;
- b=Jv6PtcZ2zgdQB7LbMNtPZGKqfAluzbqq1D8ysL9IwNw3ov7n240U3lkOI7tkygAuF7
- hDRulhawBD8oMNIfibYz9tZ2u5A8abQXzqGS6J10dxHAusvkJwSYVGDh0caI5sjhb8xs
- 7EcDTV5w1G5DqRokDd5LHpLMUdPCUJfVrgSKpswlkMoXZP/65GgXLAZAX/bWu1Yjzv96
- 7786/s3BNr+hGVpszIsaEv41IxE84Rth1yVoZGF56AGQ6bbPxK6jyqBibIQFqTToWPWx
- CPk6NQDpBBv7i/NSDwQjDzFXqPcDNS20G/1BDx3S1ajnAco61+FHffy726WNkDIfFS3f
- 8K+Q==
+ :cc:content-transfer-encoding;
+ bh=J4v276q82fB7Tab9YJomPa0fFR3l8SmXFwVrHDevWF0=;
+ b=bIhZ3RKQSkn5aydlBtf4N2aznI7VrHUkfz6FAOLW7Z2NnIPNKIBgSBjAmsVzWmAxa5
+ /QAE2gqTOBefa630kzPZK/bOU4NHWkOIM1u6EBHqVkudin3XV3jmxOFlq+p2FNWX3DUy
+ +gsqzI1zyi/ZNaAHPMY6Q+q/rgBQVW7HV0tPxLUyzD4VifXlI9aIDSiC9rnSJaRkGY0r
+ 1BLrpZfm+6ZUM7jxJ+GHvNY5pHnplHDBnFNm+/l+TzlqPE/z81b70IsNdAGmJyGFTlcC
+ Fip6t5RSSscJc6xnxHMcVtOAYuRrM5jaG36vYxpDkxHJkKJthEBBcxmC7NtSLmzyPJUF
+ jIlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jGdm1awsl6pAFVIJltSCzTLDW1ARjkPs5Aru4vfQaIQ=;
- b=AOkgH47zm59i4waLKlBzPVZ8cYEhf1BSvfEPG9MmOoANNmLSoz9t4Q9rQh+EAyTcQg
- vZ4dT7HXnolfqK/JkBrJkldfue2Z86jn+bhATH+ZHIgyNynBPb/ZlnQSNb5jKzYS7+u5
- Y0zHhELkq5eq2bm2ggQZe3n7OLTXYErc96ZFHSQFblHrW2+mBUAL4ZinKZ51xjcDSGMv
- BazJvlG1bfH8ZQp/MFrDc2QdT+fBnYlF+nwf3cLu20f0tIQBwD/I5KDtkEARVh7jD+IT
- Gsvd+qMOVY41hRlMbm8CO05DsmxlGjIJKGGGXbZVCSpVkXLlX3Rh+KPveCSVTLI9fOpm
- do4A==
-X-Gm-Message-State: AOAM533gCXrpuHUCcO5X0x0NziHaH7baLfLDdAU911Cagbl9VHUAEg2W
- 54AZLzOqBRl1FOCMhOWhb8joUeweJZEbK19WQQs=
-X-Google-Smtp-Source: ABdhPJzQX3gyFJb3bsxZNqKNf+QS5qrYavEjhKbozIs4GjBm7B5szpLCSSV3VI/SIupWYqiSGbovf7y3elv97uxBAm0=
-X-Received: by 2002:adf:e712:: with SMTP id c18mr9046935wrm.92.1595879188587; 
- Mon, 27 Jul 2020 12:46:28 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=J4v276q82fB7Tab9YJomPa0fFR3l8SmXFwVrHDevWF0=;
+ b=SDOIWINozV6wHNdEYxwH08y8Zd8/rF84RofT7Vq/o+0aag8CiUX3but8qvy8jy7MiM
+ ZnXchjlI6omFauwMyFTeXvgLkdEqPAgoY0WihBEoy8YXq5QZHxY9rF28Gwzwu6Ioj6/Z
+ xjTKHT1rvuKlSVVINnB53kID8Z27R8PpZ/SVwQ28RqOtchK3KBYo8txCrkvoB2JjOIoo
+ nHVJ78AgmVRtlAhcvime6u2z1BFvr4qRyb3ClZrj/r1eH5vPtsZVEXN5xksGEKs8+GKi
+ 1rV3N2WDmiq+f7nnS/ruqnNQWyoM8HDxgGMAyB563zFH6NiLmN5k0pPhjV0SJ0q31KDq
+ 9TTA==
+X-Gm-Message-State: AOAM531hVIjPFrRTJq3DB7Zy9py3VSajhTShsUqsfw48tS6UgfgOm6uB
+ GLopc4urpIUGRoP1dwCjwcQnU15X8MecIQwiLA4=
+X-Google-Smtp-Source: ABdhPJw1CQNSixkETnlpRZzJMIypPxsbrLUllbZR4NFCJQoxLbcP+M924CU/Lsj6xikz5p4AwPxSVetI0O7wxNf57O4=
+X-Received: by 2002:adf:fd41:: with SMTP id h1mr23287823wrs.124.1595879653977; 
+ Mon, 27 Jul 2020 12:54:13 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200716212251.1539094-1-issor.oruam@gmail.com>
  <9139d78a-a242-f973-31ac-a07ce6436396@gmail.com>
@@ -63,12 +64,13 @@ References: <20200716212251.1539094-1-issor.oruam@gmail.com>
  <CADnq5_MGcptRH7vYMGhuoXN8SjdYvp7JQu2-WsiXy6VgpbucKQ@mail.gmail.com>
  <CAEQFVGYAE6aUKodW20rFUR9+CGNsYP+oNYfkNjYmDoZaLixCbw@mail.gmail.com>
  <CADnq5_PArAuyDRw_kLsomDa-Cr+dHZNF=WC3QyL6LjFPLhDaMg@mail.gmail.com>
-In-Reply-To: <CADnq5_PArAuyDRw_kLsomDa-Cr+dHZNF=WC3QyL6LjFPLhDaMg@mail.gmail.com>
-From: Mauro Rossi <issor.oruam@gmail.com>
-Date: Mon, 27 Jul 2020 21:46:17 +0200
-Message-ID: <CAEQFVGb_qJ=90z9Vq+u+gK=mfS0nVtF4hfjA1od7HZjzb+gqwA@mail.gmail.com>
+ <CAEQFVGb_qJ=90z9Vq+u+gK=mfS0nVtF4hfjA1od7HZjzb+gqwA@mail.gmail.com>
+In-Reply-To: <CAEQFVGb_qJ=90z9Vq+u+gK=mfS0nVtF4hfjA1od7HZjzb+gqwA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 27 Jul 2020 15:54:02 -0400
+Message-ID: <CADnq5_OzpM3ZNEX1Lm9cYYhvSPJ+=+BEEbZbDP8=afUagGPv7A@mail.gmail.com>
 Subject: Re:
-To: Alex Deucher <alexdeucher@gmail.com>
+To: Mauro Rossi <issor.oruam@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,707 +86,202 @@ Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
  Christian Koenig <christian.koenig@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0178055088=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0178055088==
-Content-Type: multipart/alternative; boundary="00000000000023e6ff05ab719435"
-
---00000000000023e6ff05ab719435
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jul 27, 2020 at 8:31 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-
-> On Sun, Jul 26, 2020 at 11:31 AM Mauro Rossi <issor.oruam@gmail.com>
-> wrote:
-> >
-> > Hello,
-> >
-> > On Fri, Jul 24, 2020 at 8:31 PM Alex Deucher <alexdeucher@gmail.com>
-> wrote:
-> >>
-> >> On Wed, Jul 22, 2020 at 3:57 AM Mauro Rossi <issor.oruam@gmail.com>
-> wrote:
-> >> >
-> >> > Hello,
-> >> > re-sending and copying full DL
-> >> >
-> >> > On Wed, Jul 22, 2020 at 4:51 AM Alex Deucher <alexdeucher@gmail.com>
-> wrote:
-> >> >>
-> >> >> On Mon, Jul 20, 2020 at 6:00 AM Mauro Rossi <issor.oruam@gmail.com>
-> wrote:
-> >> >> >
-> >> >> > Hi Christian,
-> >> >> >
-> >> >> > On Mon, Jul 20, 2020 at 11:00 AM Christian K=C3=B6nig
-> >> >> > <ckoenig.leichtzumerken@gmail.com> wrote:
-> >> >> > >
-> >> >> > > Hi Mauro,
-> >> >> > >
-> >> >> > > I'm not deep into the whole DC design, so just some general hig=
-h
-> level
-> >> >> > > comments on the cover letter:
-> >> >> > >
-> >> >> > > 1. Please add a subject line to the cover letter, my spam filte=
-r
-> thinks
-> >> >> > > that this is suspicious otherwise.
-> >> >> >
-> >> >> > My mistake in the editing of covert letter with git send-email,
-> >> >> > I may have forgot to keep the Subject at the top
-> >> >> >
-> >> >> > >
-> >> >> > > 2. Then you should probably note how well (badly?) is that
-> tested. Since
-> >> >> > > you noted proof of concept it might not even work.
-> >> >> >
-> >> >> > The Changelog is to be read as:
-> >> >> >
-> >> >> > [RFC] was the initial Proof of concept was the RFC and [PATCH v2]
-> was
-> >> >> > just a rebase onto amd-staging-drm-next
-> >> >> >
-> >> >> > this series [PATCH v3] has all the known changes required for DCE=
-6
-> specificity
-> >> >> > and based on a long offline thread with Alexander Deutcher and pa=
-st
-> >> >> > dri-devel chats with Harry Wentland.
-> >> >> >
-> >> >> > It was tested for my possibilities of testing with HD7750 and
-> HD7950,
-> >> >> > with checks in dmesg output for not getting "missing
-> registers/masks"
-> >> >> > kernel WARNING
-> >> >> > and with kernel build on Ubuntu 20.04 and with android-x86
-> >> >> >
-> >> >> > The proposal I made to Alex is that AMD testing systems will be
-> used
-> >> >> > for further regression testing,
-> >> >> > as part of review and validation for eligibility to
-> amd-staging-drm-next
-> >> >> >
-> >> >>
-> >> >> We will certainly test it once it lands, but presumably this is
-> >> >> working on the SI cards you have access to?
-> >> >
-> >> >
-> >> > Yes, most of my testing was done with android-x86  Android CTS (EGL,
-> GLES2, GLES3, VK)
-> >> >
-> >> > I am also in contact with a person with Firepro W5130M who is runnin=
-g
-> a piglit session
-> >> >
-> >> > I had bought an HD7850 to test with Pitcairn, but it arrived as
-> defective so I could not test with Pitcair
-> >> >
-> >> >
-> >> >>
-> >> >> > >
-> >> >> > > 3. How feature complete (HDMI audio?, Freesync?) is it?
-> >> >> >
-> >> >> > All the changes in DC impacting DCE8 (dc/dce80 path) were ported =
-to
-> >> >> > DCE6 (dc/dce60 path) in the last two years from initial submissio=
-n
-> >> >> >
-> >> >> > >
-> >> >> > > Apart from that it looks like a rather impressive piece of work
-> :)
-> >> >> > >
-> >> >> > > Cheers,
-> >> >> > > Christian.
-> >> >> >
-> >> >> > Thanks,
-> >> >> > please consider that most of the latest DCE6 specific parts were
-> >> >> > possible due to recent Alex support in getting the correct DCE6
-> >> >> > headers,
-> >> >> > his suggestions and continuous feedback.
-> >> >> >
-> >> >> > I would suggest that Alex comments on the proposed next steps to
-> follow.
-> >> >>
-> >> >> The code looks pretty good to me.  I'd like to get some feedback fr=
-om
-> >> >> the display team to see if they have any concerns, but beyond that =
-I
-> >> >> think we can pull it into the tree and continue improving it there.
-> >> >> Do you have a link to a git tree I can pull directly that contains
-> >> >> these patches?  Is this the right branch?
-> >> >> https://github.com/maurossi/linux/commits/kernel-5.8rc4_si_next
-> >> >>
-> >> >> Thanks!
-> >> >>
-> >> >> Alex
-> >> >
-> >> >
-> >> > The following branch was pushed with the series on top of
-> amd-staging-drm-next
-> >> >
-> >> > https://github.com/maurossi/linux/commits/kernel-5.6_si_drm-next
-> >>
-> >> I gave this a quick test on all of the SI asics and the various
-> >> monitors I had available and it looks good.  A few minor patches I
-> >> noticed are attached.  If they look good to you, I'll squash them into
-> >> the series when I commit it.  I've pushed it to my fdo tree as well:
-> >> https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Dsi_dc_support
-> >>
-> >> Thanks!
-> >>
-> >> Alex
-> >
-> >
-> > The new patches are ok and with the following infomation about piglit
-> tests,
-> > the series may be good to go.
-> >
-> > I have performed piglit tests on Tahiti HD7950 on kernel 5.8.0-rc6 with
-> AMD DC support for SI
-> > and comparison with vanilla kernel 5.8.0-rc6
-> >
-> > Results are the following
-> >
-> > [piglit gpu tests with kernel 5.8.0-rc6-amddcsi]
-> >
-> > utente@utente-desktop:~/piglit$ ./piglit run gpu .
-> > [26714/26714] skip: 1731, pass: 24669, warn: 15, fail: 288, crash: 11
-> > Thank you for running Piglit!
-> > Results have been written to /home/utente/piglit
-> >
-> > [piglit gpu tests with vanilla 5.8.0-rc6]
-> >
-> > utente@utente-desktop:~/piglit$ ./piglit run gpu .
-> > [26714/26714] skip: 1731, pass: 24673, warn: 13, fail: 283, crash: 14
-> > Thank you for running Piglit!
-> > Results have been written to /home/utente/piglit
-> >
-> > In the attachment the comparison of "5.8.0-rc6-amddcsi" vs "5.8.0-rc6"
-> vanilla
-> > and viceversa, I see no significant regression and in the delta of
-> failed tests I don't recognize DC related test cases,
-> > but you may also have a look.
->
-> Looks good to me.  The series is:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->
-
-Thank you Alex for review and the help in finalizing the series
-and to Harry who initially encouraged me and provided the feedbacks to
-previous v2 series
-
-
-
->
-> >
-> > dmesg for "5.8.0-rc6-amddcsi" is also provide the check the crashes
-> >
-> > Regarding the other user testing the series with Firepro W5130M
-> > he found an already existing issue in amdgpu si_support=3D1 which is
-> independent from my series and matches a problem alrady reported. [1]
-> >
->
-> amdgpu does not currently implement GPU reset support for SI.
->
-> Alex
->
-
-If you have in the plans to add support and prevent those crashes,
-the user would be glad to be available for glxgears and piglit testing
-on Firepro W5130M
-
-Please let me know
-
-Mauro
-
-
->
-> > Mauro
-> >
-> > [1] https://bbs.archlinux.org/viewtopic.php?id=3D249097
-> >
-> >>
-> >>
-> >> >
-> >> >>
-> >> >>
-> >> >> >
-> >> >> > Mauro
-> >> >> >
-> >> >> > >
-> >> >> > > Am 16.07.20 um 23:22 schrieb Mauro Rossi:
-> >> >> > > > The series adds SI support to AMD DC
-> >> >> > > >
-> >> >> > > > Changelog:
-> >> >> > > >
-> >> >> > > > [RFC]
-> >> >> > > > Preliminar Proof Of Concept, with DCE8 headers still used in
-> dce60_resources.c
-> >> >> > > >
-> >> >> > > > [PATCH v2]
-> >> >> > > > Rebase on amd-staging-drm-next dated 17-Oct-2018
-> >> >> > > >
-> >> >> > > > [PATCH v3]
-> >> >> > > > Add support for DCE6 specific headers,
-> >> >> > > > ad hoc DCE6 macros, funtions and fixes,
-> >> >> > > > rebase on current amd-staging-drm-next
-> >> >> > > >
-> >> >> > > >
-> >> >> > > > Commits [01/27]..[08/27] SI support added in various DC
-> components
-> >> >> > > >
-> >> >> > > > [PATCH v3 01/27] drm/amdgpu: add some required DCE6 registers
-> (v6)
-> >> >> > > > [PATCH v3 02/27] drm/amd/display: add asics info for SI parts
-> >> >> > > > [PATCH v3 03/27] drm/amd/display: dc/dce: add initial DCE6
-> support (v9b)
-> >> >> > > > [PATCH v3 04/27] drm/amd/display: dc/core: add SI/DCE6 suppor=
-t
-> (v2)
-> >> >> > > > [PATCH v3 05/27] drm/amd/display: dc/bios: add support for DC=
-E6
-> >> >> > > > [PATCH v3 06/27] drm/amd/display: dc/gpio: add support for
-> DCE6 (v2)
-> >> >> > > > [PATCH v3 07/27] drm/amd/display: dc/irq: add support for DCE=
-6
-> (v4)
-> >> >> > > > [PATCH v3 08/27] drm/amd/display: amdgpu_dm: add SI support
-> (v4)
-> >> >> > > >
-> >> >> > > > Commits [09/27]..[24/27] DCE6 specific code adaptions
-> >> >> > > >
-> >> >> > > > [PATCH v3 09/27] drm/amd/display: dc/clk_mgr: add support for
-> SI parts (v2)
-> >> >> > > > [PATCH v3 10/27] drm/amd/display: dc/dce60: set
-> max_cursor_size to 64
-> >> >> > > > [PATCH v3 11/27] drm/amd/display: dce_audio: add DCE6 specifi=
-c
-> macros,functions
-> >> >> > > > [PATCH v3 12/27] drm/amd/display: dce_dmcu: add DCE6 specific
-> macros
-> >> >> > > > [PATCH v3 13/27] drm/amd/display: dce_hwseq: add DCE6 specifi=
-c
-> macros,functions
-> >> >> > > > [PATCH v3 14/27] drm/amd/display: dce_ipp: add DCE6 specific
-> macros,functions
-> >> >> > > > [PATCH v3 15/27] drm/amd/display: dce_link_encoder: add DCE6
-> specific macros,functions
-> >> >> > > > [PATCH v3 16/27] drm/amd/display: dce_mem_input: add DCE6
-> specific macros,functions
-> >> >> > > > [PATCH v3 17/27] drm/amd/display: dce_opp: add DCE6 specific
-> macros,functions
-> >> >> > > > [PATCH v3 18/27] drm/amd/display: dce_transform: add DCE6
-> specific macros,functions
-> >> >> > > > [PATCH v3 19/27] drm/amdgpu: add some required DCE6 registers
-> (v7)
-> >> >> > > > [PATCH v3 20/27] drm/amd/display: dce_transform: DCE6 Scaling
-> Horizontal Filter Init
-> >> >> > > > [PATCH v3 21/27] drm/amd/display: dce60_hw_sequencer: add DCE=
-6
-> macros,functions
-> >> >> > > > [PATCH v3 22/27] drm/amd/display: dce60_hw_sequencer: add DCE=
-6
-> specific .cursor_lock
-> >> >> > > > [PATCH v3 23/27] drm/amd/display: dce60_timing_generator: add
-> DCE6 specific functions
-> >> >> > > > [PATCH v3 24/27] drm/amd/display: dc/dce60: use DCE6 headers
-> (v6)
-> >> >> > > >
-> >> >> > > >
-> >> >> > > > Commits [25/27]..[27/27] SI support final enablements
-> >> >> > > >
-> >> >> > > > [PATCH v3 25/27] drm/amd/display: create plane rotation
-> property for Bonarie and later
-> >> >> > > > [PATCH v3 26/27] drm/amdgpu: enable DC support for SI parts
-> (v2)
-> >> >> > > > [PATCH v3 27/27] drm/amd/display: enable SI support in the
-> Kconfig (v2)
-> >> >> > > >
-> >> >> > > >
-> >> >> > > > Signed-off-by: Mauro Rossi <issor.oruam@gmail.com>
-> >> >> > > >
-> >> >> > > > _______________________________________________
-> >> >> > > > amd-gfx mailing list
-> >> >> > > > amd-gfx@lists.freedesktop.org
-> >> >> > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> >> >> > >
-> >> >> > _______________________________________________
-> >> >> > amd-gfx mailing list
-> >> >> > amd-gfx@lists.freedesktop.org
-> >> >> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---00000000000023e6ff05ab719435
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jul 27, 2020 at 8:31 PM Alex =
-Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
-n Sun, Jul 26, 2020 at 11:31 AM Mauro Rossi &lt;<a href=3D"mailto:issor.oru=
-am@gmail.com" target=3D"_blank">issor.oruam@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hello,<br>
-&gt;<br>
-&gt; On Fri, Jul 24, 2020 at 8:31 PM Alex Deucher &lt;<a href=3D"mailto:ale=
-xdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt; wrote:<=
-br>
-&gt;&gt;<br>
-&gt;&gt; On Wed, Jul 22, 2020 at 3:57 AM Mauro Rossi &lt;<a href=3D"mailto:=
-issor.oruam@gmail.com" target=3D"_blank">issor.oruam@gmail.com</a>&gt; wrot=
-e:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Hello,<br>
-&gt;&gt; &gt; re-sending and copying full DL<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; On Wed, Jul 22, 2020 at 4:51 AM Alex Deucher &lt;<a href=3D"m=
-ailto:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt=
-; wrote:<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; On Mon, Jul 20, 2020 at 6:00 AM Mauro Rossi &lt;<a href=
-=3D"mailto:issor.oruam@gmail.com" target=3D"_blank">issor.oruam@gmail.com</=
-a>&gt; wrote:<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; Hi Christian,<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; On Mon, Jul 20, 2020 at 11:00 AM Christian K=C3=B6ni=
-g<br>
-&gt;&gt; &gt;&gt; &gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.c=
-om" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; Hi Mauro,<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; I&#39;m not deep into the whole DC design, so j=
-ust some general high level<br>
-&gt;&gt; &gt;&gt; &gt; &gt; comments on the cover letter:<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; 1. Please add a subject line to the cover lette=
-r, my spam filter thinks<br>
-&gt;&gt; &gt;&gt; &gt; &gt; that this is suspicious otherwise.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; My mistake in the editing of covert letter with git =
-send-email,<br>
-&gt;&gt; &gt;&gt; &gt; I may have forgot to keep the Subject at the top<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; 2. Then you should probably note how well (badl=
-y?) is that tested. Since<br>
-&gt;&gt; &gt;&gt; &gt; &gt; you noted proof of concept it might not even wo=
-rk.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; The Changelog is to be read as:<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; [RFC] was the initial Proof of concept was the RFC a=
-nd [PATCH v2] was<br>
-&gt;&gt; &gt;&gt; &gt; just a rebase onto amd-staging-drm-next<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; this series [PATCH v3] has all the known changes req=
-uired for DCE6 specificity<br>
-&gt;&gt; &gt;&gt; &gt; and based on a long offline thread with Alexander De=
-utcher and past<br>
-&gt;&gt; &gt;&gt; &gt; dri-devel chats with Harry Wentland.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; It was tested for my possibilities of testing with H=
-D7750 and HD7950,<br>
-&gt;&gt; &gt;&gt; &gt; with checks in dmesg output for not getting &quot;mi=
-ssing registers/masks&quot;<br>
-&gt;&gt; &gt;&gt; &gt; kernel WARNING<br>
-&gt;&gt; &gt;&gt; &gt; and with kernel build on Ubuntu 20.04 and with andro=
-id-x86<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; The proposal I made to Alex is that AMD testing syst=
-ems will be used<br>
-&gt;&gt; &gt;&gt; &gt; for further regression testing,<br>
-&gt;&gt; &gt;&gt; &gt; as part of review and validation for eligibility to =
-amd-staging-drm-next<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; We will certainly test it once it lands, but presumably t=
-his is<br>
-&gt;&gt; &gt;&gt; working on the SI cards you have access to?<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Yes, most of my testing was done with android-x86=C2=A0 Andro=
-id CTS (EGL, GLES2, GLES3, VK)<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; I am also in contact with a person with Firepro W5130M who is=
- running a piglit session<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; I had bought an HD7850 to test with Pitcairn, but it arrived =
-as defective so I could not test with Pitcair<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; 3. How feature complete (HDMI audio?, Freesync?=
-) is it?<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; All the changes in DC impacting DCE8 (dc/dce80 path)=
- were ported to<br>
-&gt;&gt; &gt;&gt; &gt; DCE6 (dc/dce60 path) in the last two years from init=
-ial submission<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; Apart from that it looks like a rather impressi=
-ve piece of work :)<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; Cheers,<br>
-&gt;&gt; &gt;&gt; &gt; &gt; Christian.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; Thanks,<br>
-&gt;&gt; &gt;&gt; &gt; please consider that most of the latest DCE6 specifi=
-c parts were<br>
-&gt;&gt; &gt;&gt; &gt; possible due to recent Alex support in getting the c=
-orrect DCE6<br>
-&gt;&gt; &gt;&gt; &gt; headers,<br>
-&gt;&gt; &gt;&gt; &gt; his suggestions and continuous feedback.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; I would suggest that Alex comments on the proposed n=
-ext steps to follow.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; The code looks pretty good to me.=C2=A0 I&#39;d like to g=
-et some feedback from<br>
-&gt;&gt; &gt;&gt; the display team to see if they have any concerns, but be=
-yond that I<br>
-&gt;&gt; &gt;&gt; think we can pull it into the tree and continue improving=
- it there.<br>
-&gt;&gt; &gt;&gt; Do you have a link to a git tree I can pull directly that=
- contains<br>
-&gt;&gt; &gt;&gt; these patches?=C2=A0 Is this the right branch?<br>
-&gt;&gt; &gt;&gt; <a href=3D"https://github.com/maurossi/linux/commits/kern=
-el-5.8rc4_si_next" rel=3D"noreferrer" target=3D"_blank">https://github.com/=
-maurossi/linux/commits/kernel-5.8rc4_si_next</a><br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; Thanks!<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; Alex<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; The following branch was pushed with the series on top of amd=
--staging-drm-next<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; <a href=3D"https://github.com/maurossi/linux/commits/kernel-5=
-.6_si_drm-next" rel=3D"noreferrer" target=3D"_blank">https://github.com/mau=
-rossi/linux/commits/kernel-5.6_si_drm-next</a><br>
-&gt;&gt;<br>
-&gt;&gt; I gave this a quick test on all of the SI asics and the various<br=
->
-&gt;&gt; monitors I had available and it looks good.=C2=A0 A few minor patc=
-hes I<br>
-&gt;&gt; noticed are attached.=C2=A0 If they look good to you, I&#39;ll squ=
-ash them into<br>
-&gt;&gt; the series when I commit it.=C2=A0 I&#39;ve pushed it to my fdo tr=
-ee as well:<br>
-&gt;&gt; <a href=3D"https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Dsi_d=
-c_support" rel=3D"noreferrer" target=3D"_blank">https://cgit.freedesktop.or=
-g/~agd5f/linux/log/?h=3Dsi_dc_support</a><br>
-&gt;&gt;<br>
-&gt;&gt; Thanks!<br>
-&gt;&gt;<br>
-&gt;&gt; Alex<br>
-&gt;<br>
-&gt;<br>
-&gt; The new patches are ok and with the following infomation about piglit =
-tests,<br>
-&gt; the series may be good to go.<br>
-&gt;<br>
-&gt; I have performed piglit tests on Tahiti HD7950 on kernel 5.8.0-rc6 wit=
-h AMD DC support for SI<br>
-&gt; and comparison with vanilla kernel 5.8.0-rc6<br>
-&gt;<br>
-&gt; Results are the following<br>
-&gt;<br>
-&gt; [piglit gpu tests with kernel 5.8.0-rc6-amddcsi]<br>
-&gt;<br>
-&gt; utente@utente-desktop:~/piglit$ ./piglit run gpu .<br>
-&gt; [26714/26714] skip: 1731, pass: 24669, warn: 15, fail: 288, crash: 11<=
-br>
-&gt; Thank you for running Piglit!<br>
-&gt; Results have been written to /home/utente/piglit<br>
-&gt;<br>
-&gt; [piglit gpu tests with vanilla 5.8.0-rc6]<br>
-&gt;<br>
-&gt; utente@utente-desktop:~/piglit$ ./piglit run gpu .<br>
-&gt; [26714/26714] skip: 1731, pass: 24673, warn: 13, fail: 283, crash: 14<=
-br>
-&gt; Thank you for running Piglit!<br>
-&gt; Results have been written to /home/utente/piglit<br>
-&gt;<br>
-&gt; In the attachment the comparison of &quot;5.8.0-rc6-amddcsi&quot; vs &=
-quot;5.8.0-rc6&quot; vanilla<br>
-&gt; and viceversa, I see no significant regression and in the delta of fai=
-led tests I don&#39;t recognize DC related test cases,<br>
-&gt; but you may also have a look.<br>
-<br>
-Looks good to me.=C2=A0 The series is:<br>
-Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" =
-target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br></blockquote><div><b=
-r></div><div>Thank you Alex for review and the help in finalizing the serie=
-s</div><div>and to Harry who initially encouraged me and provided the feedb=
-acks to previous v2 series</div><div><br></div><div>=C2=A0</div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt;<br>
-&gt; dmesg for &quot;5.8.0-rc6-amddcsi&quot; is also provide the check the =
-crashes<br>
-&gt;<br>
-&gt; Regarding the other user testing the series with Firepro W5130M<br>
-&gt; he found an already existing issue in amdgpu si_support=3D1 which is i=
-ndependent from my series and matches a problem alrady reported. [1]<br>
-&gt;<br>
-<br>
-amdgpu does not currently implement GPU reset support for SI.<br>
-<br>
-Alex<br></blockquote><div><br></div><div>If you have in the plans to add su=
-pport and prevent those crashes,=C2=A0</div><div>the user would be glad to =
-be available for glxgears and piglit testing on=C2=A0Firepro W5130M</div><d=
-iv><br></div><div>Please let me know</div><div><br></div><div>Mauro</div><d=
-iv>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; Mauro<br>
-&gt;<br>
-&gt; [1] <a href=3D"https://bbs.archlinux.org/viewtopic.php?id=3D249097" re=
-l=3D"noreferrer" target=3D"_blank">https://bbs.archlinux.org/viewtopic.php?=
-id=3D249097</a><br>
-&gt;<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; Mauro<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; Am 16.07.20 um 23:22 schrieb Mauro Rossi:<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; The series adds SI support to AMD DC<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Changelog:<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [RFC]<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Preliminar Proof Of Concept, with DCE8 hea=
-ders still used in dce60_resources.c<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v2]<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Rebase on amd-staging-drm-next dated 17-Oc=
-t-2018<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3]<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Add support for DCE6 specific headers,<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; ad hoc DCE6 macros, funtions and fixes,<br=
->
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; rebase on current amd-staging-drm-next<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Commits [01/27]..[08/27] SI support added =
-in various DC components<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 01/27] drm/amdgpu: add some requ=
-ired DCE6 registers (v6)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 02/27] drm/amd/display: add asic=
-s info for SI parts<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 03/27] drm/amd/display: dc/dce: =
-add initial DCE6 support (v9b)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 04/27] drm/amd/display: dc/core:=
- add SI/DCE6 support (v2)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 05/27] drm/amd/display: dc/bios:=
- add support for DCE6<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 06/27] drm/amd/display: dc/gpio:=
- add support for DCE6 (v2)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 07/27] drm/amd/display: dc/irq: =
-add support for DCE6 (v4)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 08/27] drm/amd/display: amdgpu_d=
-m: add SI support (v4)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Commits [09/27]..[24/27] DCE6 specific cod=
-e adaptions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 09/27] drm/amd/display: dc/clk_m=
-gr: add support for SI parts (v2)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 10/27] drm/amd/display: dc/dce60=
-: set max_cursor_size to 64<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 11/27] drm/amd/display: dce_audi=
-o: add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 12/27] drm/amd/display: dce_dmcu=
-: add DCE6 specific macros<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 13/27] drm/amd/display: dce_hwse=
-q: add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 14/27] drm/amd/display: dce_ipp:=
- add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 15/27] drm/amd/display: dce_link=
-_encoder: add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 16/27] drm/amd/display: dce_mem_=
-input: add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 17/27] drm/amd/display: dce_opp:=
- add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 18/27] drm/amd/display: dce_tran=
-sform: add DCE6 specific macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 19/27] drm/amdgpu: add some requ=
-ired DCE6 registers (v7)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 20/27] drm/amd/display: dce_tran=
-sform: DCE6 Scaling Horizontal Filter Init<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 21/27] drm/amd/display: dce60_hw=
-_sequencer: add DCE6 macros,functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 22/27] drm/amd/display: dce60_hw=
-_sequencer: add DCE6 specific .cursor_lock<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 23/27] drm/amd/display: dce60_ti=
-ming_generator: add DCE6 specific functions<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 24/27] drm/amd/display: dc/dce60=
-: use DCE6 headers (v6)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Commits [25/27]..[27/27] SI support final =
-enablements<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 25/27] drm/amd/display: create p=
-lane rotation property for Bonarie and later<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 26/27] drm/amdgpu: enable DC sup=
-port for SI parts (v2)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; [PATCH v3 27/27] drm/amd/display: enable S=
-I support in the Kconfig (v2)<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; Signed-off-by: Mauro Rossi &lt;<a href=3D"=
-mailto:issor.oruam@gmail.com" target=3D"_blank">issor.oruam@gmail.com</a>&g=
-t;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; __________________________________________=
-_____<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; amd-gfx mailing list<br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; <a href=3D"mailto:amd-gfx@lists.freedeskto=
-p.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a><br>
-&gt;&gt; &gt;&gt; &gt; &gt; &gt; <a href=3D"https://lists.freedesktop.org/m=
-ailman/listinfo/amd-gfx" rel=3D"noreferrer" target=3D"_blank">https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-&gt;&gt; &gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; _______________________________________________<br>
-&gt;&gt; &gt;&gt; &gt; amd-gfx mailing list<br>
-&gt;&gt; &gt;&gt; &gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" tar=
-get=3D"_blank">amd-gfx@lists.freedesktop.org</a><br>
-&gt;&gt; &gt;&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/lis=
-tinfo/amd-gfx" rel=3D"noreferrer" target=3D"_blank">https://lists.freedeskt=
-op.org/mailman/listinfo/amd-gfx</a><br>
-</blockquote></div></div>
-
---00000000000023e6ff05ab719435--
-
---===============0178055088==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0178055088==--
+T24gTW9uLCBKdWwgMjcsIDIwMjAgYXQgMzo0NiBQTSBNYXVybyBSb3NzaSA8aXNzb3Iub3J1YW1A
+Z21haWwuY29tPiB3cm90ZToKPgo+Cj4KPiBPbiBNb24sIEp1bCAyNywgMjAyMCBhdCA4OjMxIFBN
+IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3cm90ZToKPj4KPj4gT24gU3Vu
+LCBKdWwgMjYsIDIwMjAgYXQgMTE6MzEgQU0gTWF1cm8gUm9zc2kgPGlzc29yLm9ydWFtQGdtYWls
+LmNvbT4gd3JvdGU6Cj4+ID4KPj4gPiBIZWxsbywKPj4gPgo+PiA+IE9uIEZyaSwgSnVsIDI0LCAy
+MDIwIGF0IDg6MzEgUE0gQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+IHdyb3Rl
+Ogo+PiA+Pgo+PiA+PiBPbiBXZWQsIEp1bCAyMiwgMjAyMCBhdCAzOjU3IEFNIE1hdXJvIFJvc3Np
+IDxpc3Nvci5vcnVhbUBnbWFpbC5jb20+IHdyb3RlOgo+PiA+PiA+Cj4+ID4+ID4gSGVsbG8sCj4+
+ID4+ID4gcmUtc2VuZGluZyBhbmQgY29weWluZyBmdWxsIERMCj4+ID4+ID4KPj4gPj4gPiBPbiBX
+ZWQsIEp1bCAyMiwgMjAyMCBhdCA0OjUxIEFNIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21h
+aWwuY29tPiB3cm90ZToKPj4gPj4gPj4KPj4gPj4gPj4gT24gTW9uLCBKdWwgMjAsIDIwMjAgYXQg
+NjowMCBBTSBNYXVybyBSb3NzaSA8aXNzb3Iub3J1YW1AZ21haWwuY29tPiB3cm90ZToKPj4gPj4g
+Pj4gPgo+PiA+PiA+PiA+IEhpIENocmlzdGlhbiwKPj4gPj4gPj4gPgo+PiA+PiA+PiA+IE9uIE1v
+biwgSnVsIDIwLCAyMDIwIGF0IDExOjAwIEFNIENocmlzdGlhbiBLw7ZuaWcKPj4gPj4gPj4gPiA8
+Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+PiA+PiA+PiA+ID4KPj4g
+Pj4gPj4gPiA+IEhpIE1hdXJvLAo+PiA+PiA+PiA+ID4KPj4gPj4gPj4gPiA+IEknbSBub3QgZGVl
+cCBpbnRvIHRoZSB3aG9sZSBEQyBkZXNpZ24sIHNvIGp1c3Qgc29tZSBnZW5lcmFsIGhpZ2ggbGV2
+ZWwKPj4gPj4gPj4gPiA+IGNvbW1lbnRzIG9uIHRoZSBjb3ZlciBsZXR0ZXI6Cj4+ID4+ID4+ID4g
+Pgo+PiA+PiA+PiA+ID4gMS4gUGxlYXNlIGFkZCBhIHN1YmplY3QgbGluZSB0byB0aGUgY292ZXIg
+bGV0dGVyLCBteSBzcGFtIGZpbHRlciB0aGlua3MKPj4gPj4gPj4gPiA+IHRoYXQgdGhpcyBpcyBz
+dXNwaWNpb3VzIG90aGVyd2lzZS4KPj4gPj4gPj4gPgo+PiA+PiA+PiA+IE15IG1pc3Rha2UgaW4g
+dGhlIGVkaXRpbmcgb2YgY292ZXJ0IGxldHRlciB3aXRoIGdpdCBzZW5kLWVtYWlsLAo+PiA+PiA+
+PiA+IEkgbWF5IGhhdmUgZm9yZ290IHRvIGtlZXAgdGhlIFN1YmplY3QgYXQgdGhlIHRvcAo+PiA+
+PiA+PiA+Cj4+ID4+ID4+ID4gPgo+PiA+PiA+PiA+ID4gMi4gVGhlbiB5b3Ugc2hvdWxkIHByb2Jh
+Ymx5IG5vdGUgaG93IHdlbGwgKGJhZGx5PykgaXMgdGhhdCB0ZXN0ZWQuIFNpbmNlCj4+ID4+ID4+
+ID4gPiB5b3Ugbm90ZWQgcHJvb2Ygb2YgY29uY2VwdCBpdCBtaWdodCBub3QgZXZlbiB3b3JrLgo+
+PiA+PiA+PiA+Cj4+ID4+ID4+ID4gVGhlIENoYW5nZWxvZyBpcyB0byBiZSByZWFkIGFzOgo+PiA+
+PiA+PiA+Cj4+ID4+ID4+ID4gW1JGQ10gd2FzIHRoZSBpbml0aWFsIFByb29mIG9mIGNvbmNlcHQg
+d2FzIHRoZSBSRkMgYW5kIFtQQVRDSCB2Ml0gd2FzCj4+ID4+ID4+ID4ganVzdCBhIHJlYmFzZSBv
+bnRvIGFtZC1zdGFnaW5nLWRybS1uZXh0Cj4+ID4+ID4+ID4KPj4gPj4gPj4gPiB0aGlzIHNlcmll
+cyBbUEFUQ0ggdjNdIGhhcyBhbGwgdGhlIGtub3duIGNoYW5nZXMgcmVxdWlyZWQgZm9yIERDRTYg
+c3BlY2lmaWNpdHkKPj4gPj4gPj4gPiBhbmQgYmFzZWQgb24gYSBsb25nIG9mZmxpbmUgdGhyZWFk
+IHdpdGggQWxleGFuZGVyIERldXRjaGVyIGFuZCBwYXN0Cj4+ID4+ID4+ID4gZHJpLWRldmVsIGNo
+YXRzIHdpdGggSGFycnkgV2VudGxhbmQuCj4+ID4+ID4+ID4KPj4gPj4gPj4gPiBJdCB3YXMgdGVz
+dGVkIGZvciBteSBwb3NzaWJpbGl0aWVzIG9mIHRlc3Rpbmcgd2l0aCBIRDc3NTAgYW5kIEhENzk1
+MCwKPj4gPj4gPj4gPiB3aXRoIGNoZWNrcyBpbiBkbWVzZyBvdXRwdXQgZm9yIG5vdCBnZXR0aW5n
+ICJtaXNzaW5nIHJlZ2lzdGVycy9tYXNrcyIKPj4gPj4gPj4gPiBrZXJuZWwgV0FSTklORwo+PiA+
+PiA+PiA+IGFuZCB3aXRoIGtlcm5lbCBidWlsZCBvbiBVYnVudHUgMjAuMDQgYW5kIHdpdGggYW5k
+cm9pZC14ODYKPj4gPj4gPj4gPgo+PiA+PiA+PiA+IFRoZSBwcm9wb3NhbCBJIG1hZGUgdG8gQWxl
+eCBpcyB0aGF0IEFNRCB0ZXN0aW5nIHN5c3RlbXMgd2lsbCBiZSB1c2VkCj4+ID4+ID4+ID4gZm9y
+IGZ1cnRoZXIgcmVncmVzc2lvbiB0ZXN0aW5nLAo+PiA+PiA+PiA+IGFzIHBhcnQgb2YgcmV2aWV3
+IGFuZCB2YWxpZGF0aW9uIGZvciBlbGlnaWJpbGl0eSB0byBhbWQtc3RhZ2luZy1kcm0tbmV4dAo+
+PiA+PiA+PiA+Cj4+ID4+ID4+Cj4+ID4+ID4+IFdlIHdpbGwgY2VydGFpbmx5IHRlc3QgaXQgb25j
+ZSBpdCBsYW5kcywgYnV0IHByZXN1bWFibHkgdGhpcyBpcwo+PiA+PiA+PiB3b3JraW5nIG9uIHRo
+ZSBTSSBjYXJkcyB5b3UgaGF2ZSBhY2Nlc3MgdG8/Cj4+ID4+ID4KPj4gPj4gPgo+PiA+PiA+IFll
+cywgbW9zdCBvZiBteSB0ZXN0aW5nIHdhcyBkb25lIHdpdGggYW5kcm9pZC14ODYgIEFuZHJvaWQg
+Q1RTIChFR0wsIEdMRVMyLCBHTEVTMywgVkspCj4+ID4+ID4KPj4gPj4gPiBJIGFtIGFsc28gaW4g
+Y29udGFjdCB3aXRoIGEgcGVyc29uIHdpdGggRmlyZXBybyBXNTEzME0gd2hvIGlzIHJ1bm5pbmcg
+YSBwaWdsaXQgc2Vzc2lvbgo+PiA+PiA+Cj4+ID4+ID4gSSBoYWQgYm91Z2h0IGFuIEhENzg1MCB0
+byB0ZXN0IHdpdGggUGl0Y2Fpcm4sIGJ1dCBpdCBhcnJpdmVkIGFzIGRlZmVjdGl2ZSBzbyBJIGNv
+dWxkIG5vdCB0ZXN0IHdpdGggUGl0Y2Fpcgo+PiA+PiA+Cj4+ID4+ID4KPj4gPj4gPj4KPj4gPj4g
+Pj4gPiA+Cj4+ID4+ID4+ID4gPiAzLiBIb3cgZmVhdHVyZSBjb21wbGV0ZSAoSERNSSBhdWRpbz8s
+IEZyZWVzeW5jPykgaXMgaXQ/Cj4+ID4+ID4+ID4KPj4gPj4gPj4gPiBBbGwgdGhlIGNoYW5nZXMg
+aW4gREMgaW1wYWN0aW5nIERDRTggKGRjL2RjZTgwIHBhdGgpIHdlcmUgcG9ydGVkIHRvCj4+ID4+
+ID4+ID4gRENFNiAoZGMvZGNlNjAgcGF0aCkgaW4gdGhlIGxhc3QgdHdvIHllYXJzIGZyb20gaW5p
+dGlhbCBzdWJtaXNzaW9uCj4+ID4+ID4+ID4KPj4gPj4gPj4gPiA+Cj4+ID4+ID4+ID4gPiBBcGFy
+dCBmcm9tIHRoYXQgaXQgbG9va3MgbGlrZSBhIHJhdGhlciBpbXByZXNzaXZlIHBpZWNlIG9mIHdv
+cmsgOikKPj4gPj4gPj4gPiA+Cj4+ID4+ID4+ID4gPiBDaGVlcnMsCj4+ID4+ID4+ID4gPiBDaHJp
+c3RpYW4uCj4+ID4+ID4+ID4KPj4gPj4gPj4gPiBUaGFua3MsCj4+ID4+ID4+ID4gcGxlYXNlIGNv
+bnNpZGVyIHRoYXQgbW9zdCBvZiB0aGUgbGF0ZXN0IERDRTYgc3BlY2lmaWMgcGFydHMgd2VyZQo+
+PiA+PiA+PiA+IHBvc3NpYmxlIGR1ZSB0byByZWNlbnQgQWxleCBzdXBwb3J0IGluIGdldHRpbmcg
+dGhlIGNvcnJlY3QgRENFNgo+PiA+PiA+PiA+IGhlYWRlcnMsCj4+ID4+ID4+ID4gaGlzIHN1Z2dl
+c3Rpb25zIGFuZCBjb250aW51b3VzIGZlZWRiYWNrLgo+PiA+PiA+PiA+Cj4+ID4+ID4+ID4gSSB3
+b3VsZCBzdWdnZXN0IHRoYXQgQWxleCBjb21tZW50cyBvbiB0aGUgcHJvcG9zZWQgbmV4dCBzdGVw
+cyB0byBmb2xsb3cuCj4+ID4+ID4+Cj4+ID4+ID4+IFRoZSBjb2RlIGxvb2tzIHByZXR0eSBnb29k
+IHRvIG1lLiAgSSdkIGxpa2UgdG8gZ2V0IHNvbWUgZmVlZGJhY2sgZnJvbQo+PiA+PiA+PiB0aGUg
+ZGlzcGxheSB0ZWFtIHRvIHNlZSBpZiB0aGV5IGhhdmUgYW55IGNvbmNlcm5zLCBidXQgYmV5b25k
+IHRoYXQgSQo+PiA+PiA+PiB0aGluayB3ZSBjYW4gcHVsbCBpdCBpbnRvIHRoZSB0cmVlIGFuZCBj
+b250aW51ZSBpbXByb3ZpbmcgaXQgdGhlcmUuCj4+ID4+ID4+IERvIHlvdSBoYXZlIGEgbGluayB0
+byBhIGdpdCB0cmVlIEkgY2FuIHB1bGwgZGlyZWN0bHkgdGhhdCBjb250YWlucwo+PiA+PiA+PiB0
+aGVzZSBwYXRjaGVzPyAgSXMgdGhpcyB0aGUgcmlnaHQgYnJhbmNoPwo+PiA+PiA+PiBodHRwczov
+L2dpdGh1Yi5jb20vbWF1cm9zc2kvbGludXgvY29tbWl0cy9rZXJuZWwtNS44cmM0X3NpX25leHQK
+Pj4gPj4gPj4KPj4gPj4gPj4gVGhhbmtzIQo+PiA+PiA+Pgo+PiA+PiA+PiBBbGV4Cj4+ID4+ID4K
+Pj4gPj4gPgo+PiA+PiA+IFRoZSBmb2xsb3dpbmcgYnJhbmNoIHdhcyBwdXNoZWQgd2l0aCB0aGUg
+c2VyaWVzIG9uIHRvcCBvZiBhbWQtc3RhZ2luZy1kcm0tbmV4dAo+PiA+PiA+Cj4+ID4+ID4gaHR0
+cHM6Ly9naXRodWIuY29tL21hdXJvc3NpL2xpbnV4L2NvbW1pdHMva2VybmVsLTUuNl9zaV9kcm0t
+bmV4dAo+PiA+Pgo+PiA+PiBJIGdhdmUgdGhpcyBhIHF1aWNrIHRlc3Qgb24gYWxsIG9mIHRoZSBT
+SSBhc2ljcyBhbmQgdGhlIHZhcmlvdXMKPj4gPj4gbW9uaXRvcnMgSSBoYWQgYXZhaWxhYmxlIGFu
+ZCBpdCBsb29rcyBnb29kLiAgQSBmZXcgbWlub3IgcGF0Y2hlcyBJCj4+ID4+IG5vdGljZWQgYXJl
+IGF0dGFjaGVkLiAgSWYgdGhleSBsb29rIGdvb2QgdG8geW91LCBJJ2xsIHNxdWFzaCB0aGVtIGlu
+dG8KPj4gPj4gdGhlIHNlcmllcyB3aGVuIEkgY29tbWl0IGl0LiAgSSd2ZSBwdXNoZWQgaXQgdG8g
+bXkgZmRvIHRyZWUgYXMgd2VsbDoKPj4gPj4gaHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9wLm9yZy9+
+YWdkNWYvbGludXgvbG9nLz9oPXNpX2RjX3N1cHBvcnQKPj4gPj4KPj4gPj4gVGhhbmtzIQo+PiA+
+Pgo+PiA+PiBBbGV4Cj4+ID4KPj4gPgo+PiA+IFRoZSBuZXcgcGF0Y2hlcyBhcmUgb2sgYW5kIHdp
+dGggdGhlIGZvbGxvd2luZyBpbmZvbWF0aW9uIGFib3V0IHBpZ2xpdCB0ZXN0cywKPj4gPiB0aGUg
+c2VyaWVzIG1heSBiZSBnb29kIHRvIGdvLgo+PiA+Cj4+ID4gSSBoYXZlIHBlcmZvcm1lZCBwaWds
+aXQgdGVzdHMgb24gVGFoaXRpIEhENzk1MCBvbiBrZXJuZWwgNS44LjAtcmM2IHdpdGggQU1EIERD
+IHN1cHBvcnQgZm9yIFNJCj4+ID4gYW5kIGNvbXBhcmlzb24gd2l0aCB2YW5pbGxhIGtlcm5lbCA1
+LjguMC1yYzYKPj4gPgo+PiA+IFJlc3VsdHMgYXJlIHRoZSBmb2xsb3dpbmcKPj4gPgo+PiA+IFtw
+aWdsaXQgZ3B1IHRlc3RzIHdpdGgga2VybmVsIDUuOC4wLXJjNi1hbWRkY3NpXQo+PiA+Cj4+ID4g
+dXRlbnRlQHV0ZW50ZS1kZXNrdG9wOn4vcGlnbGl0JCAuL3BpZ2xpdCBydW4gZ3B1IC4KPj4gPiBb
+MjY3MTQvMjY3MTRdIHNraXA6IDE3MzEsIHBhc3M6IDI0NjY5LCB3YXJuOiAxNSwgZmFpbDogMjg4
+LCBjcmFzaDogMTEKPj4gPiBUaGFuayB5b3UgZm9yIHJ1bm5pbmcgUGlnbGl0IQo+PiA+IFJlc3Vs
+dHMgaGF2ZSBiZWVuIHdyaXR0ZW4gdG8gL2hvbWUvdXRlbnRlL3BpZ2xpdAo+PiA+Cj4+ID4gW3Bp
+Z2xpdCBncHUgdGVzdHMgd2l0aCB2YW5pbGxhIDUuOC4wLXJjNl0KPj4gPgo+PiA+IHV0ZW50ZUB1
+dGVudGUtZGVza3RvcDp+L3BpZ2xpdCQgLi9waWdsaXQgcnVuIGdwdSAuCj4+ID4gWzI2NzE0LzI2
+NzE0XSBza2lwOiAxNzMxLCBwYXNzOiAyNDY3Mywgd2FybjogMTMsIGZhaWw6IDI4MywgY3Jhc2g6
+IDE0Cj4+ID4gVGhhbmsgeW91IGZvciBydW5uaW5nIFBpZ2xpdCEKPj4gPiBSZXN1bHRzIGhhdmUg
+YmVlbiB3cml0dGVuIHRvIC9ob21lL3V0ZW50ZS9waWdsaXQKPj4gPgo+PiA+IEluIHRoZSBhdHRh
+Y2htZW50IHRoZSBjb21wYXJpc29uIG9mICI1LjguMC1yYzYtYW1kZGNzaSIgdnMgIjUuOC4wLXJj
+NiIgdmFuaWxsYQo+PiA+IGFuZCB2aWNldmVyc2EsIEkgc2VlIG5vIHNpZ25pZmljYW50IHJlZ3Jl
+c3Npb24gYW5kIGluIHRoZSBkZWx0YSBvZiBmYWlsZWQgdGVzdHMgSSBkb24ndCByZWNvZ25pemUg
+REMgcmVsYXRlZCB0ZXN0IGNhc2VzLAo+PiA+IGJ1dCB5b3UgbWF5IGFsc28gaGF2ZSBhIGxvb2su
+Cj4+Cj4+IExvb2tzIGdvb2QgdG8gbWUuICBUaGUgc2VyaWVzIGlzOgo+PiBSZXZpZXdlZC1ieTog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Cj4KPiBUaGFuayB5b3Ug
+QWxleCBmb3IgcmV2aWV3IGFuZCB0aGUgaGVscCBpbiBmaW5hbGl6aW5nIHRoZSBzZXJpZXMKPiBh
+bmQgdG8gSGFycnkgd2hvIGluaXRpYWxseSBlbmNvdXJhZ2VkIG1lIGFuZCBwcm92aWRlZCB0aGUg
+ZmVlZGJhY2tzIHRvIHByZXZpb3VzIHYyIHNlcmllcwo+CgpUaGFua3MgZm9yIHN0aWNraW5nIHdp
+dGggdGhpcyEKCj4KPj4KPj4KPj4gPgo+PiA+IGRtZXNnIGZvciAiNS44LjAtcmM2LWFtZGRjc2ki
+IGlzIGFsc28gcHJvdmlkZSB0aGUgY2hlY2sgdGhlIGNyYXNoZXMKPj4gPgo+PiA+IFJlZ2FyZGlu
+ZyB0aGUgb3RoZXIgdXNlciB0ZXN0aW5nIHRoZSBzZXJpZXMgd2l0aCBGaXJlcHJvIFc1MTMwTQo+
+PiA+IGhlIGZvdW5kIGFuIGFscmVhZHkgZXhpc3RpbmcgaXNzdWUgaW4gYW1kZ3B1IHNpX3N1cHBv
+cnQ9MSB3aGljaCBpcyBpbmRlcGVuZGVudCBmcm9tIG15IHNlcmllcyBhbmQgbWF0Y2hlcyBhIHBy
+b2JsZW0gYWxyYWR5IHJlcG9ydGVkLiBbMV0KPj4gPgo+Pgo+PiBhbWRncHUgZG9lcyBub3QgY3Vy
+cmVudGx5IGltcGxlbWVudCBHUFUgcmVzZXQgc3VwcG9ydCBmb3IgU0kuCj4+Cj4+IEFsZXgKPgo+
+Cj4gSWYgeW91IGhhdmUgaW4gdGhlIHBsYW5zIHRvIGFkZCBzdXBwb3J0IGFuZCBwcmV2ZW50IHRo
+b3NlIGNyYXNoZXMsCj4gdGhlIHVzZXIgd291bGQgYmUgZ2xhZCB0byBiZSBhdmFpbGFibGUgZm9y
+IGdseGdlYXJzIGFuZCBwaWdsaXQgdGVzdGluZyBvbiBGaXJlcHJvIFc1MTMwTQoKSW5pdGlhbCBw
+YXRjaCBoZXJlOgpodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvcGF0Y2gvMzgwNjQ4
+LwoKQWxleAoKPgo+IFBsZWFzZSBsZXQgbWUga25vdwo+Cj4gTWF1cm8KPgo+Pgo+Pgo+PiA+IE1h
+dXJvCj4+ID4KPj4gPiBbMV0gaHR0cHM6Ly9iYnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhw
+P2lkPTI0OTA5Nwo+PiA+Cj4+ID4+Cj4+ID4+Cj4+ID4+ID4KPj4gPj4gPj4KPj4gPj4gPj4KPj4g
+Pj4gPj4gPgo+PiA+PiA+PiA+IE1hdXJvCj4+ID4+ID4+ID4KPj4gPj4gPj4gPiA+Cj4+ID4+ID4+
+ID4gPiBBbSAxNi4wNy4yMCB1bSAyMzoyMiBzY2hyaWViIE1hdXJvIFJvc3NpOgo+PiA+PiA+PiA+
+ID4gPiBUaGUgc2VyaWVzIGFkZHMgU0kgc3VwcG9ydCB0byBBTUQgREMKPj4gPj4gPj4gPiA+ID4K
+Pj4gPj4gPj4gPiA+ID4gQ2hhbmdlbG9nOgo+PiA+PiA+PiA+ID4gPgo+PiA+PiA+PiA+ID4gPiBb
+UkZDXQo+PiA+PiA+PiA+ID4gPiBQcmVsaW1pbmFyIFByb29mIE9mIENvbmNlcHQsIHdpdGggRENF
+OCBoZWFkZXJzIHN0aWxsIHVzZWQgaW4gZGNlNjBfcmVzb3VyY2VzLmMKPj4gPj4gPj4gPiA+ID4K
+Pj4gPj4gPj4gPiA+ID4gW1BBVENIIHYyXQo+PiA+PiA+PiA+ID4gPiBSZWJhc2Ugb24gYW1kLXN0
+YWdpbmctZHJtLW5leHQgZGF0ZWQgMTctT2N0LTIwMTgKPj4gPj4gPj4gPiA+ID4KPj4gPj4gPj4g
+PiA+ID4gW1BBVENIIHYzXQo+PiA+PiA+PiA+ID4gPiBBZGQgc3VwcG9ydCBmb3IgRENFNiBzcGVj
+aWZpYyBoZWFkZXJzLAo+PiA+PiA+PiA+ID4gPiBhZCBob2MgRENFNiBtYWNyb3MsIGZ1bnRpb25z
+IGFuZCBmaXhlcywKPj4gPj4gPj4gPiA+ID4gcmViYXNlIG9uIGN1cnJlbnQgYW1kLXN0YWdpbmct
+ZHJtLW5leHQKPj4gPj4gPj4gPiA+ID4KPj4gPj4gPj4gPiA+ID4KPj4gPj4gPj4gPiA+ID4gQ29t
+bWl0cyBbMDEvMjddLi5bMDgvMjddIFNJIHN1cHBvcnQgYWRkZWQgaW4gdmFyaW91cyBEQyBjb21w
+b25lbnRzCj4+ID4+ID4+ID4gPiA+Cj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAwMS8yN10gZHJt
+L2FtZGdwdTogYWRkIHNvbWUgcmVxdWlyZWQgRENFNiByZWdpc3RlcnMgKHY2KQo+PiA+PiA+PiA+
+ID4gPiBbUEFUQ0ggdjMgMDIvMjddIGRybS9hbWQvZGlzcGxheTogYWRkIGFzaWNzIGluZm8gZm9y
+IFNJIHBhcnRzCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAwMy8yN10gZHJtL2FtZC9kaXNwbGF5
+OiBkYy9kY2U6IGFkZCBpbml0aWFsIERDRTYgc3VwcG9ydCAodjliKQo+PiA+PiA+PiA+ID4gPiBb
+UEFUQ0ggdjMgMDQvMjddIGRybS9hbWQvZGlzcGxheTogZGMvY29yZTogYWRkIFNJL0RDRTYgc3Vw
+cG9ydCAodjIpCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAwNS8yN10gZHJtL2FtZC9kaXNwbGF5
+OiBkYy9iaW9zOiBhZGQgc3VwcG9ydCBmb3IgRENFNgo+PiA+PiA+PiA+ID4gPiBbUEFUQ0ggdjMg
+MDYvMjddIGRybS9hbWQvZGlzcGxheTogZGMvZ3BpbzogYWRkIHN1cHBvcnQgZm9yIERDRTYgKHYy
+KQo+PiA+PiA+PiA+ID4gPiBbUEFUQ0ggdjMgMDcvMjddIGRybS9hbWQvZGlzcGxheTogZGMvaXJx
+OiBhZGQgc3VwcG9ydCBmb3IgRENFNiAodjQpCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAwOC8y
+N10gZHJtL2FtZC9kaXNwbGF5OiBhbWRncHVfZG06IGFkZCBTSSBzdXBwb3J0ICh2NCkKPj4gPj4g
+Pj4gPiA+ID4KPj4gPj4gPj4gPiA+ID4gQ29tbWl0cyBbMDkvMjddLi5bMjQvMjddIERDRTYgc3Bl
+Y2lmaWMgY29kZSBhZGFwdGlvbnMKPj4gPj4gPj4gPiA+ID4KPj4gPj4gPj4gPiA+ID4gW1BBVENI
+IHYzIDA5LzI3XSBkcm0vYW1kL2Rpc3BsYXk6IGRjL2Nsa19tZ3I6IGFkZCBzdXBwb3J0IGZvciBT
+SSBwYXJ0cyAodjIpCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAxMC8yN10gZHJtL2FtZC9kaXNw
+bGF5OiBkYy9kY2U2MDogc2V0IG1heF9jdXJzb3Jfc2l6ZSB0byA2NAo+PiA+PiA+PiA+ID4gPiBb
+UEFUQ0ggdjMgMTEvMjddIGRybS9hbWQvZGlzcGxheTogZGNlX2F1ZGlvOiBhZGQgRENFNiBzcGVj
+aWZpYyBtYWNyb3MsZnVuY3Rpb25zCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAxMi8yN10gZHJt
+L2FtZC9kaXNwbGF5OiBkY2VfZG1jdTogYWRkIERDRTYgc3BlY2lmaWMgbWFjcm9zCj4+ID4+ID4+
+ID4gPiA+IFtQQVRDSCB2MyAxMy8yN10gZHJtL2FtZC9kaXNwbGF5OiBkY2VfaHdzZXE6IGFkZCBE
+Q0U2IHNwZWNpZmljIG1hY3JvcyxmdW5jdGlvbnMKPj4gPj4gPj4gPiA+ID4gW1BBVENIIHYzIDE0
+LzI3XSBkcm0vYW1kL2Rpc3BsYXk6IGRjZV9pcHA6IGFkZCBEQ0U2IHNwZWNpZmljIG1hY3Jvcyxm
+dW5jdGlvbnMKPj4gPj4gPj4gPiA+ID4gW1BBVENIIHYzIDE1LzI3XSBkcm0vYW1kL2Rpc3BsYXk6
+IGRjZV9saW5rX2VuY29kZXI6IGFkZCBEQ0U2IHNwZWNpZmljIG1hY3JvcyxmdW5jdGlvbnMKPj4g
+Pj4gPj4gPiA+ID4gW1BBVENIIHYzIDE2LzI3XSBkcm0vYW1kL2Rpc3BsYXk6IGRjZV9tZW1faW5w
+dXQ6IGFkZCBEQ0U2IHNwZWNpZmljIG1hY3JvcyxmdW5jdGlvbnMKPj4gPj4gPj4gPiA+ID4gW1BB
+VENIIHYzIDE3LzI3XSBkcm0vYW1kL2Rpc3BsYXk6IGRjZV9vcHA6IGFkZCBEQ0U2IHNwZWNpZmlj
+IG1hY3JvcyxmdW5jdGlvbnMKPj4gPj4gPj4gPiA+ID4gW1BBVENIIHYzIDE4LzI3XSBkcm0vYW1k
+L2Rpc3BsYXk6IGRjZV90cmFuc2Zvcm06IGFkZCBEQ0U2IHNwZWNpZmljIG1hY3JvcyxmdW5jdGlv
+bnMKPj4gPj4gPj4gPiA+ID4gW1BBVENIIHYzIDE5LzI3XSBkcm0vYW1kZ3B1OiBhZGQgc29tZSBy
+ZXF1aXJlZCBEQ0U2IHJlZ2lzdGVycyAodjcpCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAyMC8y
+N10gZHJtL2FtZC9kaXNwbGF5OiBkY2VfdHJhbnNmb3JtOiBEQ0U2IFNjYWxpbmcgSG9yaXpvbnRh
+bCBGaWx0ZXIgSW5pdAo+PiA+PiA+PiA+ID4gPiBbUEFUQ0ggdjMgMjEvMjddIGRybS9hbWQvZGlz
+cGxheTogZGNlNjBfaHdfc2VxdWVuY2VyOiBhZGQgRENFNiBtYWNyb3MsZnVuY3Rpb25zCj4+ID4+
+ID4+ID4gPiA+IFtQQVRDSCB2MyAyMi8yN10gZHJtL2FtZC9kaXNwbGF5OiBkY2U2MF9od19zZXF1
+ZW5jZXI6IGFkZCBEQ0U2IHNwZWNpZmljIC5jdXJzb3JfbG9jawo+PiA+PiA+PiA+ID4gPiBbUEFU
+Q0ggdjMgMjMvMjddIGRybS9hbWQvZGlzcGxheTogZGNlNjBfdGltaW5nX2dlbmVyYXRvcjogYWRk
+IERDRTYgc3BlY2lmaWMgZnVuY3Rpb25zCj4+ID4+ID4+ID4gPiA+IFtQQVRDSCB2MyAyNC8yN10g
+ZHJtL2FtZC9kaXNwbGF5OiBkYy9kY2U2MDogdXNlIERDRTYgaGVhZGVycyAodjYpCj4+ID4+ID4+
+ID4gPiA+Cj4+ID4+ID4+ID4gPiA+Cj4+ID4+ID4+ID4gPiA+IENvbW1pdHMgWzI1LzI3XS4uWzI3
+LzI3XSBTSSBzdXBwb3J0IGZpbmFsIGVuYWJsZW1lbnRzCj4+ID4+ID4+ID4gPiA+Cj4+ID4+ID4+
+ID4gPiA+IFtQQVRDSCB2MyAyNS8yN10gZHJtL2FtZC9kaXNwbGF5OiBjcmVhdGUgcGxhbmUgcm90
+YXRpb24gcHJvcGVydHkgZm9yIEJvbmFyaWUgYW5kIGxhdGVyCj4+ID4+ID4+ID4gPiA+IFtQQVRD
+SCB2MyAyNi8yN10gZHJtL2FtZGdwdTogZW5hYmxlIERDIHN1cHBvcnQgZm9yIFNJIHBhcnRzICh2
+MikKPj4gPj4gPj4gPiA+ID4gW1BBVENIIHYzIDI3LzI3XSBkcm0vYW1kL2Rpc3BsYXk6IGVuYWJs
+ZSBTSSBzdXBwb3J0IGluIHRoZSBLY29uZmlnICh2MikKPj4gPj4gPj4gPiA+ID4KPj4gPj4gPj4g
+PiA+ID4KPj4gPj4gPj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogTWF1cm8gUm9zc2kgPGlzc29yLm9y
+dWFtQGdtYWlsLmNvbT4KPj4gPj4gPj4gPiA+ID4KPj4gPj4gPj4gPiA+ID4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gPj4gPj4gPiA+ID4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPj4gPj4gPj4gPiA+ID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKPj4gPj4gPj4gPiA+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cj4+ID4+ID4+ID4gPgo+PiA+PiA+PiA+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+ID4+ID4+ID4gYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKPj4gPj4gPj4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiA+PiA+PiA+
+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
