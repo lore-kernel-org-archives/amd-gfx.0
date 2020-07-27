@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81253C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 13:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BB95C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 13:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF4C0206D8
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 13:16:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF4C0206D8
+	by mail.kernel.org (Postfix) with ESMTPS id 3A885206D8
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2020 13:16:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A885206D8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wanadoo.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D07489CBE;
-	Mon, 27 Jul 2020 13:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C008289CC9;
+	Mon, 27 Jul 2020 13:16:23 +0000 (UTC)
 Received: from smtp.smtpout.orange.fr (smtp04.smtpout.orange.fr
  [80.12.242.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 757D489D5F
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 10:34:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98FA989D5C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2020 10:34:29 +0000 (UTC)
 Received: from localhost.localdomain ([93.23.16.147]) by mwinf5d60 with ME
- id 8Aae2300C3ANib903AafkC; Mon, 27 Jul 2020 12:34:39 +0200
+ id 8AaP2300L3ANib903AaQj9; Mon, 27 Jul 2020 12:34:27 +0200
 X-ME-Helo: localhost.localdomain
 X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Mon, 27 Jul 2020 12:34:39 +0200
+X-ME-Date: Mon, 27 Jul 2020 12:34:27 +0200
 X-ME-IP: 93.23.16.147
 From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch
-Subject: [PATCH 2/2] drm/radeon: avoid a useless memset
-Date: Mon, 27 Jul 2020 12:34:36 +0200
-Message-Id: <20200727103436.50793-1-christophe.jaillet@wanadoo.fr>
+Subject: [PATCH 1/2] drm/radeon: switch from 'pci_' to 'dma_' API
+Date: Mon, 27 Jul 2020 12:34:21 +0200
+Message-Id: <20200727103421.50739-1-christophe.jaillet@wanadoo.fr>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 27 Jul 2020 13:16:21 +0000
@@ -58,27 +58,171 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Avoid a memset after a call to 'dma_alloc_coherent()'.
-This is useless since
-commit 518a2f1925c3 ("dma-mapping: zero memory returned from dma_alloc_*")
+The wrappers in include/linux/pci-dma-compat.h should go away.
+
+The patch has been generated with the coccinelle script below and has been
+hand modified to replace GFP_ with a correct flag.
+It has been compile tested.
+
+When memory is allocated in 'radeon_gart_table_ram_alloc()' GFP_KERNEL
+can be used because its callers already use this flag.
+
+Both 'r100_pci_gart_init()' (r100.c) and 'rs400_gart_init()' (rs400.c)
+call 'radeon_gart_init()'.
+This function uses 'vmalloc'.
+
+
+@@
+@@
+-    PCI_DMA_BIDIRECTIONAL
++    DMA_BIDIRECTIONAL
+
+@@
+@@
+-    PCI_DMA_TODEVICE
++    DMA_TO_DEVICE
+
+@@
+@@
+-    PCI_DMA_FROMDEVICE
++    DMA_FROM_DEVICE
+
+@@
+@@
+-    PCI_DMA_NONE
++    DMA_NONE
+
+@@
+expression e1, e2, e3;
+@@
+-    pci_alloc_consistent(e1, e2, e3)
++    dma_alloc_coherent(&e1->dev, e2, e3, GFP_)
+
+@@
+expression e1, e2, e3;
+@@
+-    pci_zalloc_consistent(e1, e2, e3)
++    dma_alloc_coherent(&e1->dev, e2, e3, GFP_)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_free_consistent(e1, e2, e3, e4)
++    dma_free_coherent(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_map_single(e1, e2, e3, e4)
++    dma_map_single(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_unmap_single(e1, e2, e3, e4)
++    dma_unmap_single(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4, e5;
+@@
+-    pci_map_page(e1, e2, e3, e4, e5)
++    dma_map_page(&e1->dev, e2, e3, e4, e5)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_unmap_page(e1, e2, e3, e4)
++    dma_unmap_page(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_map_sg(e1, e2, e3, e4)
++    dma_map_sg(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_unmap_sg(e1, e2, e3, e4)
++    dma_unmap_sg(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_dma_sync_single_for_cpu(e1, e2, e3, e4)
++    dma_sync_single_for_cpu(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_dma_sync_single_for_device(e1, e2, e3, e4)
++    dma_sync_single_for_device(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_dma_sync_sg_for_cpu(e1, e2, e3, e4)
++    dma_sync_sg_for_cpu(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2, e3, e4;
+@@
+-    pci_dma_sync_sg_for_device(e1, e2, e3, e4)
++    dma_sync_sg_for_device(&e1->dev, e2, e3, e4)
+
+@@
+expression e1, e2;
+@@
+-    pci_dma_mapping_error(e1, e2)
++    dma_mapping_error(&e1->dev, e2)
+
+@@
+expression e1, e2;
+@@
+-    pci_set_dma_mask(e1, e2)
++    dma_set_mask(&e1->dev, e2)
+
+@@
+expression e1, e2;
+@@
+-    pci_set_consistent_dma_mask(e1, e2)
++    dma_set_coherent_mask(&e1->dev, e2)
 
 Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 ---
- drivers/gpu/drm/radeon/radeon_gart.c | 1 -
- 1 file changed, 1 deletion(-)
+If needed, see post from Christoph Hellwig on the kernel-janitors ML:
+   https://marc.info/?l=kernel-janitors&m=158745678307186&w=4
+---
+ drivers/gpu/drm/radeon/radeon_gart.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_gart.c b/drivers/gpu/drm/radeon/radeon_gart.c
-index b7ce254e5663..3808a753127b 100644
+index f178ba321715..b7ce254e5663 100644
 --- a/drivers/gpu/drm/radeon/radeon_gart.c
 +++ b/drivers/gpu/drm/radeon/radeon_gart.c
-@@ -85,7 +85,6 @@ int radeon_gart_table_ram_alloc(struct radeon_device *rdev)
+@@ -72,8 +72,8 @@ int radeon_gart_table_ram_alloc(struct radeon_device *rdev)
+ {
+ 	void *ptr;
+ 
+-	ptr = pci_alloc_consistent(rdev->pdev, rdev->gart.table_size,
+-				   &rdev->gart.table_addr);
++	ptr = dma_alloc_coherent(&rdev->pdev->dev, rdev->gart.table_size,
++				 &rdev->gart.table_addr, GFP_KERNEL);
+ 	if (ptr == NULL) {
+ 		return -ENOMEM;
+ 	}
+@@ -110,9 +110,8 @@ void radeon_gart_table_ram_free(struct radeon_device *rdev)
+ 			      rdev->gart.table_size >> PAGE_SHIFT);
  	}
  #endif
- 	rdev->gart.ptr = ptr;
--	memset((void *)rdev->gart.ptr, 0, rdev->gart.table_size);
- 	return 0;
+-	pci_free_consistent(rdev->pdev, rdev->gart.table_size,
+-			    (void *)rdev->gart.ptr,
+-			    rdev->gart.table_addr);
++	dma_free_coherent(&rdev->pdev->dev, rdev->gart.table_size,
++			  (void *)rdev->gart.ptr, rdev->gart.table_addr);
+ 	rdev->gart.ptr = NULL;
+ 	rdev->gart.table_addr = 0;
  }
- 
 -- 
 2.25.1
 
