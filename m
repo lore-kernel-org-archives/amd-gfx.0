@@ -2,75 +2,88 @@ Return-Path: <SRS0=z2P7=BH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAA56C433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 19:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECFD1C433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 21:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8241E207F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 19:46:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C2F1B206D4
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 21:58:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnBLXKs2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8241E207F5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="j0A3V9iy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2F1B206D4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C686E3CB;
-	Tue, 28 Jul 2020 19:46:26 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 371766E3D3;
- Tue, 28 Jul 2020 19:31:34 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id 6so15798589qtt.0;
- Tue, 28 Jul 2020 12:31:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UjriuwUrFe3JnfpGcdrsyLfiemXOEMJgHirDygAb170=;
- b=DnBLXKs29zvI1lqMHtzOQmUYICRL0HV7SdVxAYUWpDzp+OeQNWAsihxrWRmrLqx5hw
- V/mz4yk8dR+/HiOKLkukQF+iH/1wV+lXCEU5IpLdFR+Nr4KvMDIOV4IpAaa4Sc1a6cI5
- uEZO4sFf0YAiOi8NlYlVXqof05YNkMYlNhcHzOKDtCcZgqKaN6JLihS+FXwhlVssJ5nC
- ZFXXkrQW6Ck691VYbNY77aXTTJSUE5cW+/D4gUKH18Q3ilU7/qdTfRP2V7nhHjvdKcId
- H4TbmeefL4EYTkjGeTSy9mhEGEPi9HlVpoHAxyxY/VcwiFn4Ff4lVcQlgQoqlJlIfzS/
- UcDQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 242D26E2E2;
+	Tue, 28 Jul 2020 21:58:46 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 466346E14F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 21:58:44 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id x5so924047wmi.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 14:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=vFvBGR63kxi0CavnWAYuf+Wv1PziHL67xBV12ZHbnZk=;
+ b=j0A3V9iymWEPylW+8J5lFEXe46QGmjwmE7cf+StiiX8IaxO4kUSYzrXr5oGDz/HEiD
+ lIamJefth0ln//LmVmIosEEG+QOwM8+h0krzNgqa9EzKpU5ermlNsXIX1EdGqW/TklbR
+ El9XpzPo7lU1fW6KD3oNeqtdp0Mankae2ncmI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UjriuwUrFe3JnfpGcdrsyLfiemXOEMJgHirDygAb170=;
- b=t6GhY+3hYoZxe1n6tpPqX2Z9F5cV8ZUOAQW+uOYwu8CgAt5C14rXyFMwR2lt6UoItQ
- 1O5jSpgF0bNkgkhVTxRigIOTNIPoETGzH/qCWYWLL8l5kcUpL1cBqnFs34i/SulVcDAW
- tsSoCtNiyvekEJ6+afEv74y+V8DBGzT1Vep9Mr/nXtwrQS6z+9oyEGOIjiHz+GkXgMQu
- u4BW0M0LCbKeJr1z+RQFMrJxlzXS7eQvuqPc/veuKf5Cy1XQJI62dhZAOdWf+zTBscEJ
- +LceMpZT1WvvYY8KfEBXjFdDizjN6Ru1TdUIgcEgto17vI+4YL9ClHZllIfh+vanlQRe
- KDDg==
-X-Gm-Message-State: AOAM532rAZ5zN43wL7FN++Put98kF0WXEjDCDD3yxAGjWV7oQ8nT7Jwf
- AVPqBtnh/5pTPWx1DPbI7w==
-X-Google-Smtp-Source: ABdhPJwlAVn0RKlarj2u/vVBCsz1lO9982RRjCktsDisJ/Vchh3TVzj5DBbDoXFoTnmL0GLH7OmGGA==
-X-Received: by 2002:ac8:6f4a:: with SMTP id n10mr24304675qtv.363.1595964693541; 
- Tue, 28 Jul 2020 12:31:33 -0700 (PDT)
-Received: from localhost.localdomain (c-76-119-149-155.hsd1.ma.comcast.net.
- [76.119.149.155])
- by smtp.gmail.com with ESMTPSA id k48sm21410544qtc.14.2020.07.28.12.31.31
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=vFvBGR63kxi0CavnWAYuf+Wv1PziHL67xBV12ZHbnZk=;
+ b=Jux8u4V/teHLsVZg2fgFZ07k1O+dfhiV/VK39hT9NNj4m+775WVxg7RSa9ZgtQzkpa
+ 7x6fMucKDjJvqwppEG1cGnCE1mMzQY5pN3fmw9Qkl5NMi7Pq3m9+7tnFo+38T7JzqsQM
+ 9NNP4JKbk1V0Jc/UIhr+AjARrOXeWXsLsplDn0+PAavkTCVuT2ehFl75d5eBZQC7QKjs
+ 2KT6zuYQXk6Np2KkuEwulwpZJasplo5CHLZEh1QTzDnfzhS1xTm8VvxuCqheSJCsnTfj
+ vOCxqExPgUiC/9D5bkZQOHtwayaKb0p+uT4G+N1FatqbT7nE/y8ldbCwZxCLIK76I8tK
+ aq8A==
+X-Gm-Message-State: AOAM530cGF+PzEx+YRjgbNJm/D5pod9MagaMS/Ds42pI8bx2fFsEJw7Z
+ NnWR9K6rujmj5xlvdVgXzoB6qw==
+X-Google-Smtp-Source: ABdhPJwXjIGrOhB3qqvLPXS5vBOptuyY0SyPTUR6eqSZg6Arf7VTgu4ZzAkz15TWyQ+FgmxXbEU78w==
+X-Received: by 2002:a7b:cc12:: with SMTP id f18mr5459138wmh.129.1595973522904; 
+ Tue, 28 Jul 2020 14:58:42 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id t202sm355472wmt.20.2020.07.28.14.58.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2020 12:31:33 -0700 (PDT)
-From: Peilin Ye <yepeilin.cs@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [Linux-kernel-mentees] [PATCH] drm/amdgpu: Prevent kernel-infoleak in
- amdgpu_info_ioctl()
-Date: Tue, 28 Jul 2020 15:29:24 -0400
-Message-Id: <20200728192924.441570-1-yepeilin.cs@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 28 Jul 2020 14:58:42 -0700 (PDT)
+Date: Tue, 28 Jul 2020 23:58:40 +0200
+From: daniel@ffwll.ch
+To: 
+Subject: Re: [PATCH] amdgpu_dm: fix nonblocking atomic commit use-after-free
+Message-ID: <20200728215840.GH6419@phenom.ffwll.local>
+Mail-Followup-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ Mazin Rezk <mnrzk@protonmail.com>, Duncan <1i5t5.duncan@cox.net>,
+ anthony.ruhier@gmail.com, Kees Cook <keescook@chromium.org>,
+ sunpeng.li@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, regressions@leemhuis.info,
+ amd-gfx@lists.freedesktop.org,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, mphantomx@yahoo.com.br,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+References: <YIGsJ9LlFquvBI2iWPKhJwjKBwDUr_C-38oVpLJJHJ5rDCY_Zrrv392o6UPNxHoeQrcpLYC9U4fZdpD9ilz6Amg2IxkSexGLQMCQIBek8rc=@protonmail.com>
+ <202007231524.A24720C@keescook>
+ <a86cba0b-4513-e7c3-ae75-bb331433f664@molgen.mpg.de>
+ <202007241016.922B094AAA@keescook>
+ <3c92db94-3b62-a70b-8ace-f5e34e8f268f@molgen.mpg.de>
+ <_vGVoFJcOuoIAvGYtkyemUvqEFeZ-AdO4Jk8wsyVv3MwO-6NEVtULxnZzuBJNeHNkCsQ5Kxn5TPQ_VJ6qyj9wXXXX8v-hc3HptnCAu0UYsk=@protonmail.com>
+ <20200724215914.6297cc7e@ws>
+ <c7mHa5xU_kh7K9KM5P1UJoCY00b3Oxj3s_y3vr0LGQzUPtWlhv5JjjhT4CnnbDhuTZhCuHT2uMbjdDCZ-JLmHVlS7B_k-wj1OTmZpMD7cg4=@protonmail.com>
+ <0b0fbe35-75cf-ec90-7c3d-bdcedbe217b7@molgen.mpg.de>
+ <0edb1498-6c43-27cc-b2fb-71ea5ca1a56c@amd.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 28 Jul 2020 19:46:26 +0000
+Content-Disposition: inline
+In-Reply-To: <0edb1498-6c43-27cc-b2fb-71ea5ca1a56c@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,124 +95,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
- Hans de Goede <hdegoede@redhat.com>,
- linux-kernel-mentees@lists.linuxfoundation.org, Trek <trek00@inbox.ru>,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Evan Quan <evan.quan@amd.com>, Leo Liu <leo.liu@amd.com>,
- Peilin Ye <yepeilin.cs@gmail.com>, Dan Carpenter <dan.carpenter@oracle.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, mphantomx@yahoo.com.br,
+ Duncan <1i5t5.duncan@cox.net>, Kees Cook <keescook@chromium.org>,
+ sunpeng.li@amd.com, Mazin Rezk <mnrzk@protonmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ regressions@leemhuis.info, amd-gfx@lists.freedesktop.org,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, anthony.ruhier@gmail.com,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Compiler leaves a 4-byte hole near the end of `dev_info`, causing
-amdgpu_info_ioctl() to copy uninitialized kernel stack memory to userspace
-when `size` is greater than 356.
+On Tue, Jul 28, 2020 at 01:07:13PM -0400, Kazlauskas, Nicholas wrote:
+> On 2020-07-28 5:22 a.m., Paul Menzel wrote:
+> > Dear Linux folks,
+> > 
+> > 
+> > Am 25.07.20 um 07:20 schrieb Mazin Rezk:
+> > > On Saturday, July 25, 2020 12:59 AM, Duncan wrote:
+> > > 
+> > > > On Sat, 25 Jul 2020 03:03:52 +0000 Mazin Rezk wrote:
+> > > > 
+> > > > > > Am 24.07.20 um 19:33 schrieb Kees Cook:
+> > > > > > 
+> > > > > > > There was a fix to disable the async path for this driver that
+> > > > > > > worked around the bug too, yes? That seems like a safer and more
+> > > > > > > focused change that doesn't revert the SLUB defense for all
+> > > > > > > users, and would actually provide a complete, I think, workaround
+> > > > > 
+> > > > > That said, I haven't seen the async disabling patch. If you could
+> > > > > link to it, I'd be glad to test it out and perhaps we can use that
+> > > > > instead.
+> > > > 
+> > > > I'm confused. Not to put words in Kees' mouth; /I/ am confused (which
+> > > > admittedly could well be just because I make no claims to be a
+> > > > coder and am simply reading the bug and thread, but I'd appreciate some
+> > > > "unconfusing" anyway).
+> > > > 
+> > > > My interpretation of the "async disabling" reference was that it was to
+> > > > comment #30 on the bug:
+> > > > 
+> > > > https://bugzilla.kernel.org/show_bug.cgi?id=207383#c30
+> > > > 
+> > > > 
+> > > > ... which (if I'm not confused on this point too) appears to be yours.
+> > > > There it was stated...
+> > > > 
+> > > > I've also found that this bug exclusively occurs when commit_work is on
+> > > > the workqueue. After forcing drm_atomic_helper_commit to run all of the
+> > > > commits without adding to the workqueue and running the OS, the issue
+> > > > seems to have disappeared.
+> > > > <<<<
+> > > > 
+> > > > Would not forcing all commits to run directly, without placing them on
+> > > > the workqueue, be "async disabling"? That's what I /thought/ he was
+> > > > referencing.
+> > > 
+> > > Oh, I thought he was referring to a different patch. Kees, could I get
+> > > your confirmation on this?
+> > > 
+> > > The change I made actually affected all of the DRM code, although
+> > > this could
+> > > easily be changed to be specific to amdgpu. (By forcing blocking on
+> > > amdgpu_dm's non-blocking commit code)
+> > > 
+> > > That said, I'd still need to test further because I only did test it
+> > > for a
+> > > couple of hours then. Although it should work in theory.
+> > > 
+> > > > OTOH your base/context swap idea sounds like a possibly "less
+> > > > disturbance" workaround, if it works, and given the point in the
+> > > > commit cycle... (But if it's out Sunday it's likely too late to test
+> > > > and get it in now anyway; if it's another week, tho...)
+> > > 
+> > > The base/context swap idea should make the use-after-free behave how it
+> > > did in 5.6. Since the bug doesn't cause an issue in 5.6, it's less of a
+> > > "less disturbance" workaround and more of a "no disturbance" workaround.
+> > 
+> > Sorry for bothering, but is there now a solution, besides reverting the
+> > commits, to avoid freezes/crashes *without* performance regressions?
+> > 
+> > 
+> > Kind regards,
+> > 
+> > Paul
+> 
+> Mazin's "drm/amd/display: Clear dm_state for fast updates" change
+> accomplishes this, at least as a temporary hack.
 
-In 2015 we tried to fix this issue by doing `= {};` on `dev_info`, which
-unfortunately does not initialize that 4-byte hole. Fix it by using
-memset() instead.
+Yeah I gets it's horrible, but better than nothing. Reverting the old
+amdgpu change to a private state object is probably a lot more invasive.
 
-Cc: stable@vger.kernel.org
-Fixes: c193fa91b918 ("drm/amdgpu: information leak in amdgpu_info_ioctl()")
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Suggested-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Peilin Ye <yepeilin.cs@gmail.com>
----
-$ pahole -C "drm_amdgpu_info_device" drivers/gpu/drm/amd/amdgpu/amdgpu_kms.o
-struct drm_amdgpu_info_device {
-	__u32                      device_id;            /*     0     4 */
-	__u32                      chip_rev;             /*     4     4 */
-	__u32                      external_rev;         /*     8     4 */
-	__u32                      pci_rev;              /*    12     4 */
-	__u32                      family;               /*    16     4 */
-	__u32                      num_shader_engines;   /*    20     4 */
-	__u32                      num_shader_arrays_per_engine; /*    24     4 */
-	__u32                      gpu_counter_freq;     /*    28     4 */
-	__u64                      max_engine_clock;     /*    32     8 */
-	__u64                      max_memory_clock;     /*    40     8 */
-	__u32                      cu_active_number;     /*    48     4 */
-	__u32                      cu_ao_mask;           /*    52     4 */
-	__u32                      cu_bitmap[4][4];      /*    56    64 */
-	/* --- cacheline 1 boundary (64 bytes) was 56 bytes ago --- */
-	__u32                      enabled_rb_pipes_mask; /*   120     4 */
-	__u32                      num_rb_pipes;         /*   124     4 */
-	/* --- cacheline 2 boundary (128 bytes) --- */
-	__u32                      num_hw_gfx_contexts;  /*   128     4 */
-	__u32                      _pad;                 /*   132     4 */
-	__u64                      ids_flags;            /*   136     8 */
-	__u64                      virtual_address_offset; /*   144     8 */
-	__u64                      virtual_address_max;  /*   152     8 */
-	__u32                      virtual_address_alignment; /*   160     4 */
-	__u32                      pte_fragment_size;    /*   164     4 */
-	__u32                      gart_page_size;       /*   168     4 */
-	__u32                      ce_ram_size;          /*   172     4 */
-	__u32                      vram_type;            /*   176     4 */
-	__u32                      vram_bit_width;       /*   180     4 */
-	__u32                      vce_harvest_config;   /*   184     4 */
-	__u32                      gc_double_offchip_lds_buf; /*   188     4 */
-	/* --- cacheline 3 boundary (192 bytes) --- */
-	__u64                      prim_buf_gpu_addr;    /*   192     8 */
-	__u64                      pos_buf_gpu_addr;     /*   200     8 */
-	__u64                      cntl_sb_buf_gpu_addr; /*   208     8 */
-	__u64                      param_buf_gpu_addr;   /*   216     8 */
-	__u32                      prim_buf_size;        /*   224     4 */
-	__u32                      pos_buf_size;         /*   228     4 */
-	__u32                      cntl_sb_buf_size;     /*   232     4 */
-	__u32                      param_buf_size;       /*   236     4 */
-	__u32                      wave_front_size;      /*   240     4 */
-	__u32                      num_shader_visible_vgprs; /*   244     4 */
-	__u32                      num_cu_per_sh;        /*   248     4 */
-	__u32                      num_tcc_blocks;       /*   252     4 */
-	/* --- cacheline 4 boundary (256 bytes) --- */
-	__u32                      gs_vgt_table_depth;   /*   256     4 */
-	__u32                      gs_prim_buffer_depth; /*   260     4 */
-	__u32                      max_gs_waves_per_vgt; /*   264     4 */
-	__u32                      _pad1;                /*   268     4 */
-	__u32                      cu_ao_bitmap[4][4];   /*   272    64 */
-	/* --- cacheline 5 boundary (320 bytes) was 16 bytes ago --- */
-	__u64                      high_va_offset;       /*   336     8 */
-	__u64                      high_va_max;          /*   344     8 */
-	__u32                      pa_sc_tile_steering_override; /*   352     4 */
+> I've started work on a more large scale fix that we could get in in after.
 
-	/* XXX 4 bytes hole, try to pack */
-
-	__u64                      tcc_disabled_mask;    /*   360     8 */
-
-	/* size: 368, cachelines: 6, members: 49 */
-	/* sum members: 364, holes: 1, sum holes: 4 */
-	/* last cacheline: 48 bytes */
-};
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index a8c47aecd342..0047da06041f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -707,9 +707,10 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
- 		return n ? -EFAULT : 0;
- 	}
- 	case AMDGPU_INFO_DEV_INFO: {
--		struct drm_amdgpu_info_device dev_info = {};
-+		struct drm_amdgpu_info_device dev_info;
- 		uint64_t vm_size;
- 
-+		memset(&dev_info, 0, sizeof(dev_info));
- 		dev_info.device_id = dev->pdev->device;
- 		dev_info.chip_rev = adev->rev_id;
- 		dev_info.external_rev = adev->external_rev_id;
+Does that include a fix for the "stuff needed by irq handler"? Either way
+pls cc dri-devel, I think this is something worth of a bit wider
+discussion. Feels like unsolved homework from the entire "make DC
+integrate into linux" saga ...
+-Daniel
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
