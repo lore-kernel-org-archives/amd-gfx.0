@@ -2,88 +2,70 @@ Return-Path: <SRS0=z2P7=BH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECFD1C433E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 21:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D079C433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 22:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2F1B206D4
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 21:58:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D1629207E8
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 22:46:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="j0A3V9iy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2F1B206D4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EahJGeOt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1629207E8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 242D26E2E2;
-	Tue, 28 Jul 2020 21:58:46 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 466346E14F
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 21:58:44 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id x5so924047wmi.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 14:58:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=vFvBGR63kxi0CavnWAYuf+Wv1PziHL67xBV12ZHbnZk=;
- b=j0A3V9iymWEPylW+8J5lFEXe46QGmjwmE7cf+StiiX8IaxO4kUSYzrXr5oGDz/HEiD
- lIamJefth0ln//LmVmIosEEG+QOwM8+h0krzNgqa9EzKpU5ermlNsXIX1EdGqW/TklbR
- El9XpzPo7lU1fW6KD3oNeqtdp0Mankae2ncmI=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72FD96E42B;
+	Tue, 28 Jul 2020 22:46:34 +0000 (UTC)
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20C686E42B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 22:46:33 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id u64so20390320qka.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 15:46:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tSvVyydIDc42wIs5fafISeJb61IfSNb+wv4+9iqvlF8=;
+ b=EahJGeOtMFEX2Tjb+VdEGzSSQnTcrow66JRK3P5+0W5YCi5twq4BSFV0Ep4B3VkEDF
+ FDQFt14xGk3diLPu+Pdbq+vswOXeOzOzEzAyPCILncmV3vdChiT+hS9GCG0q7vo5dt33
+ AcvEquc3oTBI+3hTmC9rla4liLqHrV1UNMPKK/X/TYNRHD57zjVTfUf1i1PkLVgdOKR4
+ OZLOsihqs1w3eiprrU9i3ctUvdMxlLsmRdItjczTaobsNzuKEMnUtKI5xoQ0mc/EHHus
+ TxNWFctA3j+k1vMi4/nNeXIlIzpalfEEeZP574ndwI/qa5dWURdzTLoynzP+QGn8+saD
+ mToA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=vFvBGR63kxi0CavnWAYuf+Wv1PziHL67xBV12ZHbnZk=;
- b=Jux8u4V/teHLsVZg2fgFZ07k1O+dfhiV/VK39hT9NNj4m+775WVxg7RSa9ZgtQzkpa
- 7x6fMucKDjJvqwppEG1cGnCE1mMzQY5pN3fmw9Qkl5NMi7Pq3m9+7tnFo+38T7JzqsQM
- 9NNP4JKbk1V0Jc/UIhr+AjARrOXeWXsLsplDn0+PAavkTCVuT2ehFl75d5eBZQC7QKjs
- 2KT6zuYQXk6Np2KkuEwulwpZJasplo5CHLZEh1QTzDnfzhS1xTm8VvxuCqheSJCsnTfj
- vOCxqExPgUiC/9D5bkZQOHtwayaKb0p+uT4G+N1FatqbT7nE/y8ldbCwZxCLIK76I8tK
- aq8A==
-X-Gm-Message-State: AOAM530cGF+PzEx+YRjgbNJm/D5pod9MagaMS/Ds42pI8bx2fFsEJw7Z
- NnWR9K6rujmj5xlvdVgXzoB6qw==
-X-Google-Smtp-Source: ABdhPJwXjIGrOhB3qqvLPXS5vBOptuyY0SyPTUR6eqSZg6Arf7VTgu4ZzAkz15TWyQ+FgmxXbEU78w==
-X-Received: by 2002:a7b:cc12:: with SMTP id f18mr5459138wmh.129.1595973522904; 
- Tue, 28 Jul 2020 14:58:42 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id t202sm355472wmt.20.2020.07.28.14.58.41
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tSvVyydIDc42wIs5fafISeJb61IfSNb+wv4+9iqvlF8=;
+ b=bAx15DI8kGnq8hSp9O37IMXzCG/eAB/dOqPWbM1rl6VdG2pqpILaut+vlLEvuRtJHL
+ Qaj4Me1O9O5122aMq+G07msJTRQIH8PapsI4pyA4trrPcwhJEIb9gX6sn2zrVMX2PkWH
+ +ff1+6SDUwIGF9ffu1472WTt48pLp88+TN6X2i61idiJi+CE2hAc3x4J2Iz+M/RM69hl
+ mPaoPtPWU8czom45fqFKKpX+kpRXwY3qi9mNhK08XJmsdouGxYOx1elosVg/a7uBQ4LB
+ iKCbNxicwnCsfaMVFoB1BDQz+kn5jxX3kJNLtfRBoDoKLkz3ZPk78+/0qN3BS6C+Fie7
+ RXZA==
+X-Gm-Message-State: AOAM532MSk66fUAJxtaXSg6iUETZBS8CSRtAgbvergQSFoIj+XNyCs1B
+ lAHFSrT5G3JEnZczWR+Rf0Rug2Mt
+X-Google-Smtp-Source: ABdhPJxJY1OimaDwHc62i7IPavijl+fz0hmeNim4yvXYb/JIg7HkDeSl3p0fhRxRbJP+cAjMh2O2kw==
+X-Received: by 2002:a37:8f07:: with SMTP id r7mr8665312qkd.480.1595976391985; 
+ Tue, 28 Jul 2020 15:46:31 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.66.138])
+ by smtp.gmail.com with ESMTPSA id o17sm189233qtr.13.2020.07.28.15.46.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2020 14:58:42 -0700 (PDT)
-Date: Tue, 28 Jul 2020 23:58:40 +0200
-From: daniel@ffwll.ch
-To: 
-Subject: Re: [PATCH] amdgpu_dm: fix nonblocking atomic commit use-after-free
-Message-ID: <20200728215840.GH6419@phenom.ffwll.local>
-Mail-Followup-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
- Paul Menzel <pmenzel@molgen.mpg.de>,
- Mazin Rezk <mnrzk@protonmail.com>, Duncan <1i5t5.duncan@cox.net>,
- anthony.ruhier@gmail.com, Kees Cook <keescook@chromium.org>,
- sunpeng.li@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, regressions@leemhuis.info,
- amd-gfx@lists.freedesktop.org,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, mphantomx@yahoo.com.br,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-References: <YIGsJ9LlFquvBI2iWPKhJwjKBwDUr_C-38oVpLJJHJ5rDCY_Zrrv392o6UPNxHoeQrcpLYC9U4fZdpD9ilz6Amg2IxkSexGLQMCQIBek8rc=@protonmail.com>
- <202007231524.A24720C@keescook>
- <a86cba0b-4513-e7c3-ae75-bb331433f664@molgen.mpg.de>
- <202007241016.922B094AAA@keescook>
- <3c92db94-3b62-a70b-8ace-f5e34e8f268f@molgen.mpg.de>
- <_vGVoFJcOuoIAvGYtkyemUvqEFeZ-AdO4Jk8wsyVv3MwO-6NEVtULxnZzuBJNeHNkCsQ5Kxn5TPQ_VJ6qyj9wXXXX8v-hc3HptnCAu0UYsk=@protonmail.com>
- <20200724215914.6297cc7e@ws>
- <c7mHa5xU_kh7K9KM5P1UJoCY00b3Oxj3s_y3vr0LGQzUPtWlhv5JjjhT4CnnbDhuTZhCuHT2uMbjdDCZ-JLmHVlS7B_k-wj1OTmZpMD7cg4=@protonmail.com>
- <0b0fbe35-75cf-ec90-7c3d-bdcedbe217b7@molgen.mpg.de>
- <0edb1498-6c43-27cc-b2fb-71ea5ca1a56c@amd.com>
+ Tue, 28 Jul 2020 15:46:31 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 00/14] rework stolen pre-OS fb allocation handling
+Date: Tue, 28 Jul 2020 18:45:51 -0400
+Message-Id: <20200728224605.3919-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0edb1498-6c43-27cc-b2fb-71ea5ca1a56c@amd.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,110 +77,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, mphantomx@yahoo.com.br,
- Duncan <1i5t5.duncan@cox.net>, Kees Cook <keescook@chromium.org>,
- sunpeng.li@amd.com, Mazin Rezk <mnrzk@protonmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- regressions@leemhuis.info, amd-gfx@lists.freedesktop.org,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, anthony.ruhier@gmail.com,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 28, 2020 at 01:07:13PM -0400, Kazlauskas, Nicholas wrote:
-> On 2020-07-28 5:22 a.m., Paul Menzel wrote:
-> > Dear Linux folks,
-> > 
-> > 
-> > Am 25.07.20 um 07:20 schrieb Mazin Rezk:
-> > > On Saturday, July 25, 2020 12:59 AM, Duncan wrote:
-> > > 
-> > > > On Sat, 25 Jul 2020 03:03:52 +0000 Mazin Rezk wrote:
-> > > > 
-> > > > > > Am 24.07.20 um 19:33 schrieb Kees Cook:
-> > > > > > 
-> > > > > > > There was a fix to disable the async path for this driver that
-> > > > > > > worked around the bug too, yes? That seems like a safer and more
-> > > > > > > focused change that doesn't revert the SLUB defense for all
-> > > > > > > users, and would actually provide a complete, I think, workaround
-> > > > > 
-> > > > > That said, I haven't seen the async disabling patch. If you could
-> > > > > link to it, I'd be glad to test it out and perhaps we can use that
-> > > > > instead.
-> > > > 
-> > > > I'm confused. Not to put words in Kees' mouth; /I/ am confused (which
-> > > > admittedly could well be just because I make no claims to be a
-> > > > coder and am simply reading the bug and thread, but I'd appreciate some
-> > > > "unconfusing" anyway).
-> > > > 
-> > > > My interpretation of the "async disabling" reference was that it was to
-> > > > comment #30 on the bug:
-> > > > 
-> > > > https://bugzilla.kernel.org/show_bug.cgi?id=207383#c30
-> > > > 
-> > > > 
-> > > > ... which (if I'm not confused on this point too) appears to be yours.
-> > > > There it was stated...
-> > > > 
-> > > > I've also found that this bug exclusively occurs when commit_work is on
-> > > > the workqueue. After forcing drm_atomic_helper_commit to run all of the
-> > > > commits without adding to the workqueue and running the OS, the issue
-> > > > seems to have disappeared.
-> > > > <<<<
-> > > > 
-> > > > Would not forcing all commits to run directly, without placing them on
-> > > > the workqueue, be "async disabling"? That's what I /thought/ he was
-> > > > referencing.
-> > > 
-> > > Oh, I thought he was referring to a different patch. Kees, could I get
-> > > your confirmation on this?
-> > > 
-> > > The change I made actually affected all of the DRM code, although
-> > > this could
-> > > easily be changed to be specific to amdgpu. (By forcing blocking on
-> > > amdgpu_dm's non-blocking commit code)
-> > > 
-> > > That said, I'd still need to test further because I only did test it
-> > > for a
-> > > couple of hours then. Although it should work in theory.
-> > > 
-> > > > OTOH your base/context swap idea sounds like a possibly "less
-> > > > disturbance" workaround, if it works, and given the point in the
-> > > > commit cycle... (But if it's out Sunday it's likely too late to test
-> > > > and get it in now anyway; if it's another week, tho...)
-> > > 
-> > > The base/context swap idea should make the use-after-free behave how it
-> > > did in 5.6. Since the bug doesn't cause an issue in 5.6, it's less of a
-> > > "less disturbance" workaround and more of a "no disturbance" workaround.
-> > 
-> > Sorry for bothering, but is there now a solution, besides reverting the
-> > commits, to avoid freezes/crashes *without* performance regressions?
-> > 
-> > 
-> > Kind regards,
-> > 
-> > Paul
-> 
-> Mazin's "drm/amd/display: Clear dm_state for fast updates" change
-> accomplishes this, at least as a temporary hack.
+Split the allocations into two so we can still support the S3
+workarounds required on some platforms while also avoiding
+any artifacts when transitioning from bios to driver.
 
-Yeah I gets it's horrible, but better than nothing. Reverting the old
-amdgpu change to a private state object is probably a lot more invasive.
+In the future we could integrate handling of the ip discovery
+data and other vbios allocations into this helper function
+to consolidate handling of all of the vbios reservations.
 
-> I've started work on a more large scale fix that we could get in in after.
+Alex Deucher (14):
+  drm/amdgpu: handle bo size 0 in amdgpu_bo_create_kernel_at
+  drm/amdgpu: use create_at for the stolen pre-OS buffer
+  drm/amdgpu: use a define for the memory size of the vga emulator
+  drm/amdgpu: move stolen vga bo from amdgpu to amdgpu.gmc
+  drm/amdgpu: move keep stolen memory check into gmc core
+  drm/amdgpu: add support for extended stolen vga memory
+  drm/amdgpu/gmc: add new helper to get the FB size used by pre-OS
+    console
+  drm/amdgpu/gmc6: switch to using amdgpu_gmc_get_vbios_allocations
+  drm/amdgpu/gmc7: switch to using amdgpu_gmc_get_vbios_allocations
+  drm/amdgpu/gmc8: switch to using amdgpu_gmc_get_vbios_allocations
+  drm/amdgpu/gmc9: switch to using amdgpu_gmc_get_vbios_allocations
+  drm/amdgpu/gmc10: switch to using amdgpu_gmc_get_vbios_allocations
+  drm/amdgpu: drop the CPU pointers for the stolen vga bos
+  drm/amdgpu/gmc: disable keep_stolen_vga_memory on arcturus
 
-Does that include a fix for the "stuff needed by irq handler"? Either way
-pls cc dri-devel, I think this is something worth of a bit wider
-discussion. Feels like unsolved homework from the entire "make DC
-integrate into linux" saga ...
--Daniel
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  42 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h    |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  24 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  57 +++++-----
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      |   8 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  11 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  11 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 119 +++++++--------------
+ 10 files changed, 153 insertions(+), 138 deletions(-)
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
