@@ -2,70 +2,103 @@ Return-Path: <SRS0=z2P7=BH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 289B6C433E8
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 07:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54B52C433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 07:49:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EFB0621D95
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 07:41:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2601121D95
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 07:49:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="kRZZP/68"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EFB0621D95
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4dm+DNLd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2601121D95
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF266E1CF;
-	Tue, 28 Jul 2020 07:41:21 +0000 (UTC)
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E67DE89F19;
- Mon, 27 Jul 2020 20:52:42 +0000 (UTC)
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f1f3e8d0002>; Mon, 27 Jul 2020 13:52:29 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 27 Jul 2020 13:52:42 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 27 Jul 2020 13:52:42 -0700
-Received: from lenny.nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 27 Jul
- 2020 20:52:32 +0000
-From: Daniel Dadap <ddadap@nvidia.com>
-To: <dri-devel@lists.freedesktop.com>, <intel-gfx@lists.freedesktop.com>,
- <nouveau@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <bskeggs@redhat.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <david1.zhou@amd.com>
-Subject: [PATCH 1/4] drm: retrieve EDID via ACPI _DDC method
-Date: Mon, 27 Jul 2020 15:53:54 -0500
-Message-ID: <20200727205357.27839-2-ddadap@nvidia.com>
-X-Mailer: git-send-email 2.18.4
-In-Reply-To: <20200727205357.27839-1-ddadap@nvidia.com>
-References: <20200727205357.27839-1-ddadap@nvidia.com>
-X-NVConfidentiality: public
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D346E1F6;
+	Tue, 28 Jul 2020 07:49:55 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 553E76E1F6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 07:49:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LcsHjiB/aG4cuFOR2VTc8p8DjedS/aFu4jPP+aB/TmWlnALyh7RdR2uHtgIWpbxsrAfy7IV1S3emlNJjTjMZHliHKpscu2/MCeVQF+t7ZhXgxiMevCVaaGRMMUHnL/89VpmdTiOEuv8GyOGhLk0W2sB4zcmxEDVcwNZ4BhnYLOl4AGbtyb8JoTaQdDtPnLINaOsRUfQ342Z7OmPa9rVKhxLddTeEWEraruxIsfEQl7yFD0vO1EbUBDLnqKBFjXOmgXtdLMS+HN4mrNqcrBAt+h3xJwiGsqz/ku5jspu/euzHg9qTpLYTi2UiNBCtBi1BPHd2/rMmhPSFwjy0HL16kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RzJ/nMahNWkwpdlo7Vlq3uxE8BdOtG90gbJJcvJJEA8=;
+ b=dEZFMnjFGC94irxbfYE/UxDQOxG8NIriXIqXEo69hcb+rdsTbLuY4IT5OOEI1NXyhE8nGZ45tMt/iYQ9Rtp13ck+15+d/b3bigEH2FvYlD2BNwzP5cakked94zidkXkr/4OJ4RiOA9zoDFs5fU7DbP1ZvN4kvleC5fVSRIR0J5jd0gZX2t+1mMboZ2Y755ONKMQ2Mt6WCXREEDkBZOBy9KuyRoCYpHzQvvXjGgCLpTRcXiwahqvoPrq5XXG7YwaghwomtSyodUfqa6cN2rN66xtGqKC3jAIjZQEe1TlWjtQIYQKQc80iwBkx3xhCwImh5x82b7he7Pen8Poekg+9Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RzJ/nMahNWkwpdlo7Vlq3uxE8BdOtG90gbJJcvJJEA8=;
+ b=4dm+DNLdDlSBIAjGFKnZ3lZrQYh5LIiS9oQVI8oOx48lYU9WLtDvSLlZu8VaVmF5ZE3Lf8sJ9U4bcCTtoBWnFdNTd6MDLSwF+vpIZ5RdHgPajgjYewhNh/jegbyUvmBUFf0XFRVc/OZ0aRDcpSoZKFlDptOq37hsnRAwuF53ijo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR12MB1752.namprd12.prod.outlook.com (2603:10b6:903:120::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.24; Tue, 28 Jul
+ 2020 07:49:54 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::e0b1:48e7:bcbc:351c]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::e0b1:48e7:bcbc:351c%11]) with mapi id 15.20.3216.033; Tue, 28 Jul
+ 2020 07:49:54 +0000
+From: Guchun Chen <guchun.chen@amd.com>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Hawking.Zhang@amd.com, Dennis.Li@amd.com, andrey.grodzovsky@amd.com,
+ Tao.Zhou1@amd.com, John.Clements@amd.com, lijo.lazar@amd.com,
+ christian.koenig@amd.com, stanley.yang@amd.com
+Subject: [PATCH 00/12] BAD GPU retirement policy by total bad pages
+Date: Tue, 28 Jul 2020 15:49:22 +0800
+Message-Id: <20200728074934.12490-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HKAPR03CA0004.apcprd03.prod.outlook.com
+ (2603:1096:203:c8::9) To CY4PR12MB1287.namprd12.prod.outlook.com
+ (2603:10b6:903:40::8)
 MIME-Version: 1.0
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1595883149; bh=UqSzLrJiohm6rrbEzjfc0mS1Zrzbn9AmDtJKbOXt2Gg=;
- h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
- In-Reply-To:References:X-NVConfidentiality:MIME-Version:
- X-Originating-IP:X-ClientProxiedBy:Content-Type;
- b=kRZZP/68CdYabWyzBX/kauWmzPB2mBnGg3K+yaQt2Ytcq9XsyzCq0+iA36XdbqUTS
- cRtitV2b2sUrBijmtjwGrfBcBNyk70uyzVdfMYJx23EbiE1CoF+bEvqo4bmrKZ2iea
- AOCyPgcSFGiCpeBKH/Odfwdo6/hjSYf/6N0AnbSLUlWuomIfhFN1uWiNJUxt5RURQL
- TNsnnkr+HoilchVz/r88NbYvbWPQdFhF5RvxtlFbfVhQptcHR+8dRDgCzwtcE2Y38b
- sb4oLNE5AlFgVroJvOSa7XnOgzr9KPz4q87eCR6ACFqxmvwo4E5QGEjH/YUh2aNp+j
- LocE3f7AVP40Q==
-X-Mailman-Approved-At: Tue, 28 Jul 2020 07:41:20 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
+ HKAPR03CA0004.apcprd03.prod.outlook.com (2603:1096:203:c8::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.9 via Frontend Transport; Tue, 28 Jul 2020 07:49:50 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 3138d83a-5846-4a70-9b22-08d832cad0a7
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1752:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR12MB17529B96CEC6DCD2A496FFB1F1730@CY4PR12MB1752.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 62rFgF3HRuYRL5hDSMGl6HI8UkacEKeoDvXVj28RBmSfjDjoBE+ksqoAcCO4a/sGfhNsrSzof07qv4BmhtnCerZkKwSH3b6sXmjzTcQMBNnl35tPfdnjWYvCe72egsP9Jmhq8Hksd6kqC2Y21FCwm6CrVtnIAIBhuWWqMCIJRBRzhqdlZjFuAal4iazdtJlfZPscBHCFIQ4WNA8bXStzaxS8Z7blgtlxmlNhSHB+0vb24NqjaCBx5s5y56tI9jQlNPhsnDmT293UUH1CgILXcneIMZN7GBR5dvkGIWZjQjmsQvl3W2aLcREWxmLmIqZ+cG7Xqw/hQrDQGjPa945RAWfO7pJd3VqIK55eDqC94o6pf7VrWEoL9gJnCqurO+s7
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(376002)(366004)(396003)(346002)(39860400002)(2906002)(956004)(2616005)(1076003)(6486002)(66476007)(66556008)(4326008)(6636002)(66946007)(52116002)(478600001)(36756003)(44832011)(86362001)(83380400001)(316002)(6666004)(16526019)(186003)(26005)(5660300002)(7696005)(8936002)(8676002)(921003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: l0d6sRqmmXeMPCm3fFBue4ghMUtfAxufltMprNNmoJ4QYbl1m/yYzUQ1bkKnKzHmaIxSq6TsbXg4F52YWlM8FAl27Wo2XXFQS9xsZMAYT5C4bdbxTeFsYKx7LW3Zlm6ueuYu7MXyqWrUi7KCUMp6vnBeDu/In+NtsZ0tNzV3j8qlBceCYDaOYAKHsFOfcAzcwiYpC/5JS6CdLnot65F9oi7Pb2uRl75faWC/2OFKRaNUDYuXmE6Icn3x13pM9kKKxMBfZnik+bdZ5k8gDKDKyO8Hu3CE+O8z6f5ZlX+zT8/sJAU7PWJSofj2obCDD8QYIbTFQK1dW/97te0NXDRGzHhwmIyHm/BjMSb8BQDkYcY3dEjLIli9JZzy/SFNzRR96j2sywxJQ7o0iuYHrwkNSB4ewhwc9E1cTtQjf6chUUHJvDSNqo0q1hcHxyWe0ByiqW/cAHyeVjHTbjdQQx4p4+837G2GPlLKTX0Hyxj0zGSomAFS9EHE1Yi2Fdz9uNUq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3138d83a-5846-4a70-9b22-08d832cad0a7
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2020 07:49:54.1951 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0XJkri98l8CHybTK9Up7wUK6CWlGSCHIsLc1hbZwxCXBEXwleoLWK1Lv7LfhOwQRqjFVvsxZb4GMGXDfczvbWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1752
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,230 +110,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Dadap <ddadap@nvidia.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some notebook computer systems expose the EDID for the internal
-panel via the ACPI _DDC method. On some systems this is because
-the panel does not populate the hardware DDC lines, and on some
-systems with dynamic display muxes, _DDC is implemented to allow
-the internal panel's EDID to be read at any time, regardless of
-how the mux is switched.
+The series is to enable/disable bad page feature and apply different
+bad page reservation strategy by different bad page threshold
+configurations.
 
-The _DDC method can be implemented for each individual display
-output, so there could be an arbitrary number of outputs exposing
-their EDIDs via _DDC; however, in practice, this has only been
-implemented so far on systems with a single panel, so the current
-implementation of drm_get_edid_acpi() walks the outputs listed by
-each GPU's ACPI _DOD method and returns the first EDID successfully
-retrieved by any attached _DDC method. It may be necessary in the
-future to allow for the retrieval of distinct EDIDs for different
-output devices, but in order to do so, it will first be necessary
-to develop a way to correlate individual DRM outputs with their
-corresponding entities in ACPI.
+When the saved bad pages written to eeprom reach the threshold,
+one ras recovery will be issued immediately and the recovery will
+fail to tell user that the GPU is BAD and needs to be retired for
+further check or setting one valid bigger threshold value in next
+driver's probe to skip corresponding check.
 
-Signed-off-by: Daniel Dadap <ddadap@nvidia.com>
----
- drivers/gpu/drm/drm_edid.c | 161 +++++++++++++++++++++++++++++++++++++
- include/drm/drm_edid.h     |   1 +
- 2 files changed, 162 insertions(+)
+During bootup, similar bad page threshold check is conducted as
+well when eeprom get initialized, and it will possibly break boot
+up for user's awareness.
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 116451101426..f66d6bf048c6 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -34,6 +34,7 @@
- #include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/vga_switcheroo.h>
-+#include <linux/pci.h>
- 
- #include <drm/drm_displayid.h>
- #include <drm/drm_drv.h>
-@@ -2058,6 +2059,166 @@ struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
- }
- EXPORT_SYMBOL(drm_get_edid_switcheroo);
- 
-+#if defined(CONFIG_ACPI) && defined(CONFIG_PCI)
-+static u64 *get_dod_entries(acpi_handle handle, int *count)
-+{
-+	acpi_status status;
-+	struct acpi_buffer buf = { ACPI_ALLOCATE_BUFFER, NULL };
-+	union acpi_object *dod;
-+	int i;
-+	u64 *ret = NULL;
-+
-+	*count = 0;
-+
-+	status = acpi_evaluate_object(handle, "_DOD", NULL, &buf);
-+
-+	if (ACPI_FAILURE(status))
-+		return NULL;
-+
-+	dod = buf.pointer;
-+
-+	if (dod == NULL || dod->type != ACPI_TYPE_PACKAGE)
-+		goto done;
-+
-+	ret = kmalloc_array(dod->package.count, sizeof(*ret), GFP_KERNEL);
-+	if (ret == NULL)
-+		goto done;
-+
-+	for (i = 0; i < dod->package.count; i++) {
-+		if (dod->package.elements[i].type != ACPI_TYPE_INTEGER)
-+			continue;
-+		ret[*count] = dod->package.elements[i].integer.value;
-+		(*count)++;
-+	}
-+
-+done:
-+	kfree(buf.pointer);
-+	return ret;
-+}
-+
-+static void *do_acpi_ddc(acpi_handle handle)
-+{
-+	int i;
-+	void *ret = NULL;
-+
-+	/*
-+	 * The _DDC spec defines an integer argument for specifying the size of
-+	 * the EDID to be retrieved. A value of 1 requests a 128-byte EDID, and
-+	 * a value of 2 requests a 256-byte EDID. Attempt the larger read first.
-+	 */
-+	for (i = 2; i >= 1; i--) {
-+		struct acpi_buffer out = { ACPI_ALLOCATE_BUFFER, NULL };
-+		union acpi_object arg = { ACPI_TYPE_INTEGER };
-+		struct acpi_object_list in = { 1, &arg };
-+		union acpi_object *edid;
-+		acpi_status status;
-+
-+		arg.integer.value = i;
-+		status = acpi_evaluate_object(handle, "_DDC", &in, &out);
-+		edid = out.pointer;
-+
-+		if (ACPI_SUCCESS(status))
-+			ret = edid->buffer.pointer;
-+
-+		kfree(edid);
-+
-+		if (ret)
-+			break;
-+	}
-+
-+	return ret;
-+}
-+
-+static struct edid *first_edid_from_acpi_ddc(struct pci_dev *pdev)
-+{
-+	acpi_handle handle;
-+	acpi_status status;
-+	struct acpi_device *device = NULL;
-+	struct edid *ret = NULL;
-+	int num_dod_entries;
-+	u64 *dod_entries = NULL;
-+	struct list_head *node, *next;
-+
-+	handle = ACPI_HANDLE(&pdev->dev);
-+	if (handle == NULL)
-+		return NULL;
-+
-+	dod_entries = get_dod_entries(handle, &num_dod_entries);
-+	if (dod_entries == NULL || num_dod_entries == 0)
-+		goto done;
-+
-+	status = acpi_bus_get_device(handle, &device);
-+	if (ACPI_FAILURE(status) || device == NULL)
-+		goto done;
-+
-+	list_for_each_safe(node, next, &device->children) {
-+		struct acpi_device *child;
-+		u64 adr;
-+		int i;
-+
-+		child = list_entry(node, struct acpi_device, node);
-+		if (child == NULL)
-+			continue;
-+
-+		status = acpi_evaluate_integer(child->handle, "_ADR", NULL,
-+			&adr);
-+		if (ACPI_FAILURE(status))
-+			continue;
-+
-+		for (i = 0; i < num_dod_entries; i++) {
-+			if (adr == dod_entries[i]) {
-+				ret = do_acpi_ddc(child->handle);
-+
-+				if (ret != NULL)
-+					goto done;
-+			}
-+		}
-+	}
-+done:
-+	kfree(dod_entries);
-+	return ret;
-+}
-+
-+static struct edid *search_pci_class_for_acpi_ddc(unsigned int class)
-+{
-+	struct pci_dev *dev = NULL;
-+
-+	while ((dev = pci_get_class(class << 8, dev))) {
-+		struct edid *edid = first_edid_from_acpi_ddc(dev);
-+
-+		if (edid)
-+			return edid;
-+	}
-+
-+	return NULL;
-+}
-+#endif
-+
-+/**
-+ * drm_get_edid_acpi() - retrieve an EDID via the ACPI _DDC method
-+ *
-+ * Iterate over the ACPI namespace objects for all PCI VGA/3D controllers
-+ * and attempt to evaluate any present _DDC method handles, returning the
-+ * first successfully found EDID, or %NULL if none was found.
-+ */
-+struct edid *drm_get_edid_acpi(void)
-+{
-+#if defined(CONFIG_ACPI) && defined(CONFIG_PCI)
-+	struct edid *edid;
-+
-+	edid = search_pci_class_for_acpi_ddc(PCI_CLASS_DISPLAY_VGA);
-+	if (edid)
-+		return edid;
-+
-+	edid = search_pci_class_for_acpi_ddc(PCI_CLASS_DISPLAY_3D);
-+	if (edid)
-+		return edid;
-+#endif
-+
-+	return NULL;
-+}
-+EXPORT_SYMBOL(drm_get_edid_acpi);
-+
- /**
-  * drm_edid_duplicate - duplicate an EDID and the extensions
-  * @edid: EDID to duplicate
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index 34b15e3d070c..ec2fe6d98560 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -485,6 +485,7 @@ struct edid *drm_get_edid(struct drm_connector *connector,
- 			  struct i2c_adapter *adapter);
- struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
- 				     struct i2c_adapter *adapter);
-+struct edid *drm_get_edid_acpi(void);
- struct edid *drm_edid_duplicate(const struct edid *edid);
- int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid);
- int drm_add_override_edid_modes(struct drm_connector *connector);
+When user sets bad_page_threshold=0 once probing driver, bad page
+retirement feature is completely disabled, and driver has no chance to
+process bad page information record and write it to eeprom.
+
+Guchun Chen (12):
+  drm/amdgpu: add bad page count threshold in module parameter
+  drm/amdgpu: validate bad page threshold in ras
+  drm/amdgpu: add bad gpu tag definition
+  drm/amdgpu: break driver init process when it's bad GPU
+  drm/amdgpu: skip bad page reservation once issuing from eeprom write
+  drm/amdgpu: schedule ras recovery when reaching bad page threshold
+  drm/amdgpu: break GPU recovery once it's in bad state
+  drm/amdgpu: restore ras flags when user resets eeprom
+  drm/amdgpu: define one macro for RAS's sysfs/debugfs name
+  drm/amdgpu: decouple sysfs creating of bad page node
+  drm/amdgpu: disable page reservation when amdgpu_bad_page_threshold =
+    0
+  drm/amdgpu: reset eeprom once specifying one bigger threshold
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  32 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  11 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 186 ++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  19 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 102 +++++++++-
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |   5 +-
+ 8 files changed, 312 insertions(+), 53 deletions(-)
+
 -- 
-2.18.4
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
