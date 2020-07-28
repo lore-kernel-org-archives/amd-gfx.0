@@ -2,51 +2,105 @@ Return-Path: <SRS0=z2P7=BH=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B40FC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 14:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32CCFC433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 15:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8A47206D4
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 14:48:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8A47206D4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+	by mail.kernel.org (Postfix) with ESMTPS id 043D020786
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2020 15:43:28 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Cp55XOhS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 043D020786
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B86856E31D;
-	Tue, 28 Jul 2020 14:48:00 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B73B56E0F2;
- Tue, 28 Jul 2020 09:22:14 +0000 (UTC)
-Received: from [141.14.220.45] (g45.guest.molgen.mpg.de [141.14.220.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 4ADE82002EE3C;
- Tue, 28 Jul 2020 11:22:12 +0200 (CEST)
-Subject: Re: [PATCH] amdgpu_dm: fix nonblocking atomic commit use-after-free
-To: Mazin Rezk <mnrzk@protonmail.com>, Duncan <1i5t5.duncan@cox.net>
-References: <YIGsJ9LlFquvBI2iWPKhJwjKBwDUr_C-38oVpLJJHJ5rDCY_Zrrv392o6UPNxHoeQrcpLYC9U4fZdpD9ilz6Amg2IxkSexGLQMCQIBek8rc=@protonmail.com>
- <202007231524.A24720C@keescook>
- <a86cba0b-4513-e7c3-ae75-bb331433f664@molgen.mpg.de>
- <202007241016.922B094AAA@keescook>
- <3c92db94-3b62-a70b-8ace-f5e34e8f268f@molgen.mpg.de>
- <_vGVoFJcOuoIAvGYtkyemUvqEFeZ-AdO4Jk8wsyVv3MwO-6NEVtULxnZzuBJNeHNkCsQ5Kxn5TPQ_VJ6qyj9wXXXX8v-hc3HptnCAu0UYsk=@protonmail.com>
- <20200724215914.6297cc7e@ws>
- <c7mHa5xU_kh7K9KM5P1UJoCY00b3Oxj3s_y3vr0LGQzUPtWlhv5JjjhT4CnnbDhuTZhCuHT2uMbjdDCZ-JLmHVlS7B_k-wj1OTmZpMD7cg4=@protonmail.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Message-ID: <0b0fbe35-75cf-ec90-7c3d-bdcedbe217b7@molgen.mpg.de>
-Date: Tue, 28 Jul 2020 11:22:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 986416E1F8;
+	Tue, 28 Jul 2020 15:43:28 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B9766E1F3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2020 15:43:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MoZ28mNKH7gBnhKsIKBKQ/irDGF3ZFqA7dgUbb1B13vo7XErt0iafffGPFEUEDJT/SUJqyQORsIqdTI4u3JUCSm86QhTSyXoyYStkWvYx3TbRq8Fzyb2ANgJBbYoe76iOKgACYOSbCeRxoKpdQXqVqYX5qKUwSD68QlAtj2d3+SWqV2h0t1+dJH5w6fF6QI95rJSrG1feooHpvcCW8qzgdK09KDponZ63EGkaAKqhpjonncDe5pSGHy07jf4Ff8tcFGmi/eZ4yqZDCv16dLc8jabOZFaJUm0MLBrwAQEhU0CIl2YFE+zC3o/ULVLvR/cRrFjqXz9O+F7oGWaUgukbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQe61qLlSK1OALvzBVbkn3YOK7LPfGM2t2OVU8IXc2E=;
+ b=gSrSMFzaUWuy4qmYFRGjTr0TYky6QNyqCEFFqF7hTUPfMiHqL3m/f2wJ3a9/8lPBZDeSqLZiAHbd1FDyLMy+R55Vgp+tdQ8aNyNfSgeSUumMOfN16TpD26I0hD46UziheYSimcetXUQrFj+vtlCgbVqiiJsN2NLLtg5IqYZvfXsgOaND9vP4t//C6bYNcFvKNowYYqhpwyaKIk4qSi1mO5yAtVbImr+mwEtYcAemQmxQztJ+xqcX6jZ/6PetS9ZDR+y/8m+iftjgfWYmdvPbVEBPLeW/QUSdHEDwdawZmKx0hDgtqpjQ7rAx5aYzUTBUp4NerYX6WCTxdzPhq/WhIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQe61qLlSK1OALvzBVbkn3YOK7LPfGM2t2OVU8IXc2E=;
+ b=Cp55XOhSbI06n3WdYriBrkL7JWyEb+9Hr7vanZkWEn/wJnvsPGII/AwckjJBO34djGRBD0qhIxrb/gwEXvhxy7pnJ6Bu8hGUDG6p2zO1O/63RYiUXow3ogJn1ue/cz2WcV1ID2edMmdesPNbEAn+LvjhZ7Kx+L07X99AkXCjcuM=
+Received: from BN1PR10CA0007.namprd10.prod.outlook.com (2603:10b6:408:e0::12)
+ by DM5PR12MB1130.namprd12.prod.outlook.com (2603:10b6:3:75::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.21; Tue, 28 Jul
+ 2020 15:43:25 +0000
+Received: from BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e0:cafe::7d) by BN1PR10CA0007.outlook.office365.com
+ (2603:10b6:408:e0::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16 via Frontend
+ Transport; Tue, 28 Jul 2020 15:43:25 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT048.mail.protection.outlook.com (10.13.177.117) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3216.10 via Frontend Transport; Tue, 28 Jul 2020 15:43:25 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 28 Jul
+ 2020 10:43:23 -0500
+Received: from blakha.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Tue, 28 Jul 2020 10:43:22 -0500
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <nicholas.kazlauskas@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: parse ta firmware for navy_flounder
+Date: Tue, 28 Jul 2020 11:43:18 -0400
+Message-ID: <20200728154318.29805-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <c7mHa5xU_kh7K9KM5P1UJoCY00b3Oxj3s_y3vr0LGQzUPtWlhv5JjjhT4CnnbDhuTZhCuHT2uMbjdDCZ-JLmHVlS7B_k-wj1OTmZpMD7cg4=@protonmail.com>
-Content-Language: en-US
-X-Mailman-Approved-At: Tue, 28 Jul 2020 14:48:00 +0000
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: be667a90-2ae3-45ae-a2b3-08d8330cf718
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1130:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB113005D8E2E1340A3A635CCBF9730@DM5PR12MB1130.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:983;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Bl5NyjtXCSuWJancQhtTAPUMmkt2NPXVNliqcijS5ToP8BTtoY33moGEDHe7inM9JQhqFnrSqv1osr32dSoZ9RYaSapsaWOBpxhiu+f5pC4D0Pfbx91YqKFatRahzXSq09658ODPyWsp6Tq8wICQ3dH0zrp3NIKUdeg7Cr68nH2BQhULigomNNYdMZ6LfyNV1UiXYlzoe5yRuoQ+7LxWiBqEQ5Vluc/4OexyIT4wAd/12PyW1n66KX6qc+kLG7C0ZoNj2qUwJlCg5e/7rRUzOOxYdZHxWNyw/vUWdLqTSmKYWAHBdIX2o1inQ1Ukz4HQpSUSK612i0hFklkXWukPOm8czRt8aN8Vmv0CV/X7rdsylUVNLuYhCdqIZ+B5FoJJ8N6TkhpkvJi4JRZx8KOqTg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(396003)(39860400002)(136003)(376002)(346002)(46966005)(70586007)(70206006)(36756003)(426003)(110136005)(86362001)(356005)(83380400001)(2906002)(82310400002)(316002)(4326008)(7696005)(6666004)(8936002)(336012)(4744005)(1076003)(54906003)(2616005)(81166007)(5660300002)(26005)(82740400003)(186003)(47076004)(478600001)(8676002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2020 15:43:25.0706 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be667a90-2ae3-45ae-a2b3-08d8330cf718
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +112,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: anthony.ruhier@gmail.com, Kees Cook <keescook@chromium.org>,
- sunpeng.li@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, regressions@leemhuis.info,
- amd-gfx@lists.freedesktop.org, Alexander Deucher <Alexander.Deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, mphantomx@yahoo.com.br,
- Harry Wentland <Harry.Wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dear Linux folks,
+Use the same case as sienna_cichlid
 
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Am 25.07.20 um 07:20 schrieb Mazin Rezk:
-> On Saturday, July 25, 2020 12:59 AM, Duncan wrote:
-> 
->> On Sat, 25 Jul 2020 03:03:52 +0000 Mazin Rezk wrote:
->>
->>>> Am 24.07.20 um 19:33 schrieb Kees Cook:
->>>>
->>>>> There was a fix to disable the async path for this driver that
->>>>> worked around the bug too, yes? That seems like a safer and more
->>>>> focused change that doesn't revert the SLUB defense for all
->>>>> users, and would actually provide a complete, I think, workaround
->>>
->>> That said, I haven't seen the async disabling patch. If you could
->>> link to it, I'd be glad to test it out and perhaps we can use that
->>> instead.
->>
->> I'm confused. Not to put words in Kees' mouth; /I/ am confused (which
->> admittedly could well be just because I make no claims to be a
->> coder and am simply reading the bug and thread, but I'd appreciate some
->> "unconfusing" anyway).
->>
->> My interpretation of the "async disabling" reference was that it was to
->> comment #30 on the bug:
->>
->> https://bugzilla.kernel.org/show_bug.cgi?id=207383#c30
->>
->> ... which (if I'm not confused on this point too) appears to be yours.
->> There it was stated...
->>
->> I've also found that this bug exclusively occurs when commit_work is on
->> the workqueue. After forcing drm_atomic_helper_commit to run all of the
->> commits without adding to the workqueue and running the OS, the issue
->> seems to have disappeared.
->> <<<<
->>
->> Would not forcing all commits to run directly, without placing them on
->> the workqueue, be "async disabling"? That's what I /thought/ he was
->> referencing.
-> 
-> Oh, I thought he was referring to a different patch. Kees, could I get
-> your confirmation on this?
-> 
-> The change I made actually affected all of the DRM code, although this could
-> easily be changed to be specific to amdgpu. (By forcing blocking on
-> amdgpu_dm's non-blocking commit code)
-> 
-> That said, I'd still need to test further because I only did test it for a
-> couple of hours then. Although it should work in theory.
-> 
->> OTOH your base/context swap idea sounds like a possibly "less
->> disturbance" workaround, if it works, and given the point in the
->> commit cycle... (But if it's out Sunday it's likely too late to test
->> and get it in now anyway; if it's another week, tho...)
-> 
-> The base/context swap idea should make the use-after-free behave how it
-> did in 5.6. Since the bug doesn't cause an issue in 5.6, it's less of a
-> "less disturbance" workaround and more of a "no disturbance" workaround.
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index d488d250805d..e16874f30d5d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -179,12 +179,11 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
+ 		}
+ 		break;
+ 	case CHIP_SIENNA_CICHLID:
++	case CHIP_NAVY_FLOUNDER:
+ 		err = psp_init_ta_microcode(&adev->psp, chip_name);
+ 		if (err)
+ 			return err;
+ 		break;
+-	case CHIP_NAVY_FLOUNDER:
+-		break;
+ 	default:
+ 		BUG();
+ 	}
+-- 
+2.17.1
 
-Sorry for bothering, but is there now a solution, besides reverting the 
-commits, to avoid freezes/crashes *without* performance regressions?
-
-
-Kind regards,
-
-Paul
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
