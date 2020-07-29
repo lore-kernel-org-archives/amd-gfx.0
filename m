@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB0FFC433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A5C2C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 97FC5207F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3AB6120809
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y7SaASRC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97FC5207F5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RaaMTWmK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AB6120809
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E3356E5C6;
-	Wed, 29 Jul 2020 17:34:56 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6926E5C0
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:34:53 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id b25so18260939qto.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:34:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E87936E5C8;
+	Wed, 29 Jul 2020 17:35:01 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6BF6E5C8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:34:57 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id d27so18248711qtg.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HXUUfvZg3A+0k35I18KyPavM36goxHWhIef6kRdBYng=;
- b=Y7SaASRCsxlTDr/qBglxXFRs9Fd7s2swIgHw8Xg1/PgP4MywkT5mAQEQUgRSNmzila
- /AxgMCalO5DW1IH5kr2bXS9FLjjG5sFDp3JiRoXugGHByRtQfFUiSHI4Dj0edzb97y/2
- BpaueSVEe5edStKeGK2uMpaD4RzasWEpg5h1A3nNOa6GjI+CpeQSQ8j3F+2XMe/oNEt0
- UVoPq1SKwFJn3/Hi+ZELIOqzuOY7mPXTXCryj0Gxg8GENK98oCgjPUXc9EOdoiodXvHG
- yRQvvNhZkmJl1V4va8O19BOp1qCRIe1HUwSfl5wrKHya8Jr90CsDls7v1Gk9pFx1o8Dr
- R+AQ==
+ bh=hsaPWRZPPWCGsyXT4Tgs6cVV5lF4SXPXEroEBRBlo+c=;
+ b=RaaMTWmK2ec0NDO8SbnmoCX6sBCv/IhJohTZPEFEjKX4fgqktviQOGiRzwXbpcOC7A
+ YS7As9ZTfIs1RYeIrdmZ93YIrg1s7/CZ8ZtUukCTb2jWlVR5g95M3vU+PSzDeGQWGzH8
+ Ceh+JT2059vRlg1mKyZ/UUhuQkQkV1XT3xzuJyzcU2yU0tXyuDYf8hGrjh27LN9CVSK2
+ oYaTNn2wLX3WsOsTldDWGlEXSUspqrHfZUCGBjim2uQfY+gbDXOvWrC7cWewBGMcv+gS
+ +SG/S/KVjGuQLnTQVAqjG23HyKPur4qM+S/KfzTj49oe5kScuY1mlxdel28UhYt47/a/
+ I7PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HXUUfvZg3A+0k35I18KyPavM36goxHWhIef6kRdBYng=;
- b=YE5ph1uWEYYXI22UDLPkl5G2M3aawybMUb7vjdozZpRGlhOlNb3Qws1lkS10kNnOrj
- LSxFo0AWr2C0S8RktoZISat+l+Cd43O9VWr/hOl6wPaxQpO/Veprh3KPJB/VjNVjHxxT
- e8TFqkV62syz8OxZ2F7lOggp5HFSy8d+sZC89VuQ5BzMrsMLodrNPJ8PCXOtTk/pLIY1
- iHIPYHB66coF6Pl4Z3VWPOEBadrKy40WeqkCEYps0xHSHbzSEtxS/SWoXMyaFJvX+L+x
- zesGWu2SrOcFyVN2qxBViU0/SzZqZ1JUUsOM0YX5HwYRz7paa7XeIUQfR3bN/EYht8o7
- n5PA==
-X-Gm-Message-State: AOAM532xv1e1p3kC8VyhG4RbZAuZCOFXaNdbnfG40Eaue6TlRUqYF1Uu
- jvpU8+HUY76i5oCqov+IGqiCDiZg
-X-Google-Smtp-Source: ABdhPJzQJq1XYlIL1xLukWFnIphbPonuGWnvosYm8IzsZ1/AATPJz+DqII/p1nUJsaMZwpvEHM+llA==
-X-Received: by 2002:aed:3789:: with SMTP id j9mr15117314qtb.251.1596044089537; 
- Wed, 29 Jul 2020 10:34:49 -0700 (PDT)
+ bh=hsaPWRZPPWCGsyXT4Tgs6cVV5lF4SXPXEroEBRBlo+c=;
+ b=no/j+ufWiJxP/ht+D8HMwXblpTQUa77JgX79UTxdmH+mQlwMS8q7gZNv6lADGtqhKr
+ 9LB170AcKSgGjVzNIN+AvVZOsSjylcgJkktXt9cioYuoFX0cipsgcDV6lruIXdbTfO/D
+ TK6WipDMAPc8wehwjvRvwLVfvJ2WFj+s+s4dGwlJ3l8QwXZ2Sgouex1lLOEeUtBDNTED
+ Q+j9OPtMGMZpYdwn7zVL6HJqO//03QpNKC2KLV+b79DU+/Mn1BCQE6IZa8cmJ+IH1cK7
+ vx/ypIIrj7KfZjzj3zwsz5PhRop9YCMtJ7YsWPDQRR3PGjiLK+AbCO/6pl97LOYeZ8Yf
+ iOdA==
+X-Gm-Message-State: AOAM532rYb1pBrEqgZPHV7mStlF2ydoXz+Gs8eSC6sHkZIE8QKwkR3Qa
+ +q72bPtDmYfUIA+7DRcVcM4X62G6
+X-Google-Smtp-Source: ABdhPJx3zamt57fdgob4F+jqlFdwWMMc62k05TjycakcEze89eiEfl4ZPYe4A1SNp7TWgnxonGqDIQ==
+X-Received: by 2002:ac8:24d9:: with SMTP id t25mr26097272qtt.15.1596044096562; 
+ Wed, 29 Jul 2020 10:34:56 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.48
+ by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 10:34:49 -0700 (PDT)
+ Wed, 29 Jul 2020 10:34:56 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/17] drm/amdgpu: use a define for the memory size of the vga
- emulator
-Date: Wed, 29 Jul 2020 13:34:25 -0400
-Message-Id: <20200729173439.3698-4-alexander.deucher@amd.com>
+Subject: [PATCH 10/17] drm/amdgpu/gmc8: switch to using
+ amdgpu_gmc_get_vbios_allocations
+Date: Wed, 29 Jul 2020 13:34:32 -0400
+Message-Id: <20200729173439.3698-11-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200729173439.3698-1-alexander.deucher@amd.com>
 References: <20200729173439.3698-1-alexander.deucher@amd.com>
@@ -88,102 +88,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rather than open coding it everywhere.
+The new helper centralizes the logic in one place.
 
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h    | 2 ++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 4 ++--
- 6 files changed, 8 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 58e39429395f..2a7fbe21619d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -212,6 +212,8 @@ extern int amdgpu_cik_support;
- #define AMDGPUFB_CONN_LIMIT			4
- #define AMDGPU_BIOS_NUM_SCRATCH			16
- 
-+#define AMDGPU_VBIOS_VGA_ALLOCATION		(9 * 1024 * 1024) /* reserve 8MB for vga emulator and 1 MB for FB */
-+
- /* hard reset data */
- #define AMDGPU_ASIC_RESET_DATA                  0x39d5e86b
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 1a78073c2f05..040220e97cf3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -707,7 +707,7 @@ static unsigned gmc_v10_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	unsigned size;
- 
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
--		size = 9 * 1024 * 1024; /* reserve 8MB for vga emulator and 1 MB for FB */
-+		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport;
- 		u32 pitch;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 538e7ee35cdf..4de996868d32 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -805,7 +805,7 @@ static unsigned gmc_v6_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	unsigned size;
- 
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
--		size = 9 * 1024 * 1024; /* reserve 8MB for vga emulator and 1 MB for FB */
-+		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
- 		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 0f8e8aff9114..4113f2d33b75 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -970,7 +970,7 @@ static unsigned gmc_v7_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	unsigned size;
- 
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
--		size = 9 * 1024 * 1024; /* reserve 8MB for vga emulator and 1 MB for FB */
-+		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
- 		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index abe64010f0d5..f29ff9afcc10 100644
+index 8e3763ec268f..9ab65ca7df77 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1087,7 +1087,7 @@ static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	unsigned size;
+@@ -1094,9 +1094,7 @@ static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ 			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
+ 			4);
+ 	}
+-	/* return 0 if the pre-OS buffer uses up most of vram */
+-	if ((adev->gmc.real_vram_size - size) < (8 * 1024 * 1024))
+-		return 0;
++
+ 	return size;
+ }
  
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
--		size = 9 * 1024 * 1024; /* reserve 8MB for vga emulator and 1 MB for FB */
-+		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
- 		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index c5f94bab4a01..ac15d7678d24 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1077,11 +1077,11 @@ static unsigned gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	 * Check related code in gmc_v9_0_sw_fini
- 	 * */
- 	if (gmc_v9_0_keep_stolen_memory(adev))
--		return 9 * 1024 * 1024;
-+		return AMDGPU_VBIOS_VGA_ALLOCATION;
+@@ -1160,7 +1158,7 @@ static int gmc_v8_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
  
- 	d1vga_control = RREG32_SOC15(DCE, 0, mmD1VGA_CONTROL);
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
--		size = 9 * 1024 * 1024; /* reserve 8MB for vga emulator and 1 MB for FB */
-+		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport;
+-	adev->gmc.stolen_vga_size = gmc_v8_0_get_vbios_fb_size(adev);
++	amdgpu_gmc_get_vbios_allocations(adev);
  
+ 	/* Memory manager */
+ 	r = amdgpu_bo_init(adev);
+@@ -1739,7 +1737,8 @@ static const struct amdgpu_gmc_funcs gmc_v8_0_gmc_funcs = {
+ 	.emit_pasid_mapping = gmc_v8_0_emit_pasid_mapping,
+ 	.set_prt = gmc_v8_0_set_prt,
+ 	.get_vm_pde = gmc_v8_0_get_vm_pde,
+-	.get_vm_pte = gmc_v8_0_get_vm_pte
++	.get_vm_pte = gmc_v8_0_get_vm_pte,
++	.get_vbios_fb_size = gmc_v8_0_get_vbios_fb_size,
+ };
+ 
+ static const struct amdgpu_irq_src_funcs gmc_v8_0_irq_funcs = {
 -- 
 2.25.4
 
