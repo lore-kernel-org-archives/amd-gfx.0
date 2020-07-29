@@ -2,46 +2,45 @@ Return-Path: <SRS0=V/Q8=BI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2184C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7B56C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:57:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B80932076E
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:57:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BA42E2076E
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:57:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KKfqTc4y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B80932076E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HxvmQ9WZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA42E2076E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8262F6E43D;
-	Wed, 29 Jul 2020 02:57:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 588AB6E43C;
+	Wed, 29 Jul 2020 02:57:26 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A45236E43D
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 02:57:21 +0000 (UTC)
+ (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4A606E43F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 02:57:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K1Yyf7ooVP0Xkais2fWc0mBbmtPszLavb+zilYWy/Bq8E4taT28SDU8WcMNf82NGajvxE9IBeWPJlr7HgNQjN9U7U6iDwUFAbycLqntVmGNlCObixa6pOtvFVkeVuOzEd+j/KMU1/+uM2jQSemoesGXTElFtSRnt8hitsK75a23B03vdOym/2gnalI8sA3Uj6pQxGfdGDt6I/L5STjspqs4uqsEovN7WpZ3r9UU2ULB1kCK/jbbd5ChViJoIE7xnWjEowHfgE4qRCQSY7Q3WS3Cu5N6IBOfznXTKTel1Ss1kB3XcVeZjroMQrr4AX8cM3C4myf4dGry1F4BaagFD2w==
+ b=ANQnH43wI/9MUFO8yx6kS4cHio/iVQptbrBR3c/KMbMcykQ/zrnRzEZemc28I7RFJlzSPQ53JhXUgUa9MtMkkXhE1Q+KhzWUoZTCFJjATvuAZ0AJ3IiZQkR4dpmMGWqj3libQta3Ks07evN7hquhlZBcvU/cKL1t039JmJjgMZU1BaKvof5d5mm9olKDanuWjZvO56kMPP9JSxsh8H9cY9pBIyUkcKIwz9L/rOMDh5xZ/Jb7S2JB4fCaWHX+yMOv48fZHWbKVopqlAjA/XnAy5SHPsE0fJFDdsjFyPJ9oGb0Ik+eFIYCT69G1A8AL+49k8znoER+KSWH2ApbzbdLtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sT7axnBM296hL6oA2k833ygKm4cTpRglXczV/U3HZJI=;
- b=UUurVfkTd5cRuG1ewFI8wmDjcRHJ+HA2BmcTVOb6l40zATkTnASEi5h6kS4eg+9UOw92ABZs3Sdtx3Oc7q5nP3m2jPnL/UiYrX0rv/QC0YDpgOzdQQswjnXdFg2rQXGkZ361E1luu01JE9rlhZkvLvAgp+7+l8jhtoH6x9ILglRqkWcfuSXJHb9upgoVcmvNGCGfy/EEjlttUtl5FA5dhv5sd1qaNXVzNzTHi7AoAR3CTaD6GyPOPcmUdjbbVSEOh7DFr6c3uJgn0WR19D22HPY6wMCS/p6Y6Npu+yTWrqpPAHRLGhyw/kvrwDVRsuMdYGhLAf+22ag4bmA00b8dQQ==
+ bh=YwXvrVCtFqap6/kI8/T6znz92+5f9++eW7bBhUMnsng=;
+ b=G4l/mia4FvuqcelhuLO28TpguoUHbWuIdUtjbnEczW9IqzXPAsBj8hE/I1uXhlXH7ttohukq/CQTw44tmV+7Mmdz69XMA393rLLyr6kF0BVq25cEIBJFpZvd4MyoFsnQA5GXrLoHKE67TLZM8RrKS+mayZnqkEJAk1yNuhObFjZU8mgOGOul+ciWh0b9qoWLNs0FnGU0a83eZw3ZoacbhM5etDA51wPXojr/8vEBoiH3WBFttcj8R3soVi+5evAuVT24TMDA+dJMw6MIlXUVaW4rqYohsOM6BNjPCnHM4OSGhnHUaZbARj3OpVoxeDPLdR7FKmA6Va3dGG3HNxPwmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sT7axnBM296hL6oA2k833ygKm4cTpRglXczV/U3HZJI=;
- b=KKfqTc4y165u4y5gs4Qd0axeqC4Nu2Vfof/WnzH1HqKqTPNhj4tOhyjt5WaQ4QMcNhOKTRF6PoHTjaqIPjiyLXDgsEa1DaNDeYe6kdJNALC8hb3iiweMjMMMxiMqeXTSV/+KpX4zoplSZXAoiycnnpxkJWl+oST0oHmSnECrNqY=
+ bh=YwXvrVCtFqap6/kI8/T6znz92+5f9++eW7bBhUMnsng=;
+ b=HxvmQ9WZMuepBFdx9Mejn9MdQDQ6Di+TH7gF6a1fpYWE4GCkvx9o0I3ZhKuSsysEMSxCzxE1Vp05iETFF7VfO4f5TiGrwRD/FNesj79uOZOYjW37zIel+VJG7msrcna+0VeRSdU5l/jVpw26DyZBMUnIcYPIyNjkY0W8b/aLLe8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -49,20 +48,19 @@ Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
  by CY4PR12MB1285.namprd12.prod.outlook.com (2603:10b6:903:3e::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.26; Wed, 29 Jul
- 2020 02:57:20 +0000
+ 2020 02:57:23 +0000
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e0b1:48e7:bcbc:351c]) by CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e0b1:48e7:bcbc:351c%11]) with mapi id 15.20.3216.033; Wed, 29 Jul
- 2020 02:57:20 +0000
+ 2020 02:57:23 +0000
 From: Guchun Chen <guchun.chen@amd.com>
 To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  Hawking.Zhang@amd.com, Dennis.Li@amd.com, andrey.grodzovsky@amd.com,
  Tao.Zhou1@amd.com, John.Clements@amd.com, lijo.lazar@amd.com,
  christian.koenig@amd.com
-Subject: [PATCH 09/12] drm/amdgpu: add one definition for RAS's sysfs/debugfs
- name
-Date: Wed, 29 Jul 2020 10:56:26 +0800
-Message-Id: <20200729025629.19355-10-guchun.chen@amd.com>
+Subject: [PATCH 10/12] drm/amdgpu: decouple sysfs creating of bad page node
+Date: Wed, 29 Jul 2020 10:56:27 +0800
+Message-Id: <20200729025629.19355-11-guchun.chen@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200729025629.19355-1-guchun.chen@amd.com>
 References: <20200729025629.19355-1-guchun.chen@amd.com>
@@ -75,34 +73,34 @@ Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
  HK0PR01CA0066.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::30) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17 via Frontend
- Transport; Wed, 29 Jul 2020 02:57:17 +0000
+ Transport; Wed, 29 Jul 2020 02:57:20 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 342cd551-63f8-4c05-e098-08d8336b1c5a
+X-MS-Office365-Filtering-Correlation-Id: 417e708b-2a58-4194-d8a3-08d8336b1e18
 X-MS-TrafficTypeDiagnostic: CY4PR12MB1285:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB12858B792267DA7B7D913F23F1700@CY4PR12MB1285.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1285C441E845BF43F1222B4EF1700@CY4PR12MB1285.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:451;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0JKUxNbIIstqQqsbOnbTp4XoCJwGpS9un45lQlTjKkbq0zEk/F5ngMPbpUMZUIpu5c0qHE4YjMIlYyHPdGsLYg9l0FcGsVN2dSw6TFjUFAoaOZ+gGZpVcyHZddAB1uDDVoeyCTPzwZySBar9/s3tAJUq7PCCI3E2P/iPl4tXPJVVklxDmicXD6lURTJCM+TmyDUr8MrQ5LiAF9bweHb+pDsHHZTT+C6vzEDmegI+97D3tnO44HJntl6xwP/I7Q2b09oKWUoOh/Oei19+lKJ44FGEVYWUFW6gLB4KxldAJc3hDgPR8njj4OzyMjyOE/SXRlK5mCnWV55regzMqPAAiQ==
+X-Microsoft-Antispam-Message-Info: H6i3PFQAS8rblANqcgVx5kz1FVbAjA8Ebwr8Uk2tLneFvMG3hqQ86VmrfM+UBZKA9b0I/QaCkCZd1dl0r6Gbr8I/zn1UWWvO4eGEWLK7oyH7PUmdIvRSYk/anW/VWnkSpCrJen37sYDCIo1GisE4BIukLG8awxetUm6VTaSquTkun+dfoDzoTXME/RkrvOuXUClK0rd+8ELySnYFAb+1p9SxyJ9a0CFbLR9IjK0x1QoiRFfA30TtiNnNVd1D0xh1DIOW9IeZ9JdP0EbQy5r9WULgFfEoihNvysjQhqV8praMnRxq+E5QaYes7UkH9wy369epjiRjbjj3lWvtd0cXrA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(39860400002)(376002)(346002)(136003)(396003)(26005)(2906002)(66946007)(6636002)(52116002)(66556008)(8676002)(86362001)(66476007)(186003)(7696005)(16526019)(6666004)(44832011)(36756003)(5660300002)(4326008)(1076003)(316002)(8936002)(956004)(83380400001)(6486002)(478600001)(2616005);
+ SFS:(4636009)(366004)(39860400002)(376002)(346002)(136003)(396003)(26005)(2906002)(66946007)(6636002)(52116002)(66556008)(8676002)(86362001)(66476007)(186003)(7696005)(16526019)(44832011)(36756003)(5660300002)(4326008)(1076003)(316002)(8936002)(956004)(83380400001)(6486002)(478600001)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: TlqTciEk7VUhmZkQn/pH9K2hGaUSfdc+nY2IG1sy2UtotvbnDSviwcKprtPke5WDkWZCjjApjR/vRVdSxlX7KpjB7UPTW0dpGW0eWgEBqCKr7FhtsbkfybCbbFWDouUIKFWb9fyhI3pRKSbqsaW1d4I5YhyNQhW0JMJ9agBMaTrRWPOQOrHy5wQdeGyNLUeVA60q38+U0t5RwIK8hXHdyMrmO15PBw3v2jpDOqKaPW2DY82yiMA0aPzkMK6ilWunsiSK9ZCkbkn4y/mh/W6D+qk4hjNt1Rm3Y6+dQ1W7X1K6BIgK1zN6X9K7gqZ4nR0PZQPld6xoITXcAfgONcgeZf3eAzrTC0LMqdNzT7OzGZ0BFDUp62x5Obz6cHweG8PXhImDcYFJ6J4mYPFzomphlL9DR2kfnS2uv2uh94M/hZmvsf2WtFECiYqiDDjqdt+4Jk4lmZBf4wgJiFvtCGqR0bCu1Ba3jHK3Ih+gbxwv+DL/cO31vGeyR+2M7sEYqLVM
+X-MS-Exchange-AntiSpam-MessageData: AOKsosQSKur3TxiDCa1d5orpXMXliUwMdlGLg2q/t8sCD97rsMK4mFVBHnQKD92wxYVcLWkiW+g51NkjoUT7LVv7RrOU4AMUpwo9nlYhnJqkXqPnBp44y7GphEsq/Y1JvTOqPgCByEKPvGg3TK0QaI2mtr57XMHNYedkZXfy6Vo+Og5Hy2ltSK8XfWNMk0FPnJ6ijFWmL7y0pyrWCVG9YUi9s6ZmfkPO1PhuUx0IX8GsKXeCI1kv3s8XgCv0xKfBfJOS2ywi0d/fbWIPnvWchkXYoXxRIBR0/P8hHePmftpBqRDz1FUH+8nT0hyXoI8L40teg6dP4Ou/cFoGaJj5wNwL9Qfubn5Oe1Rsav8qamUrcoRGVs05Px2IHmNBog8h3dq8OZl1mJRzbjzUtui+0d3dVKnmmYPlPh8ir7U5PhCitqDzbEjCqhoVgiknuKQlB1hzxx7sc+8GXHveiaXY3tvMA432AD7winvzcfKSky2OAj0BfNER5mZtiKxHB+Ul
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 342cd551-63f8-4c05-e098-08d8336b1c5a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 417e708b-2a58-4194-d8a3-08d8336b1e18
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2020 02:57:20.5129 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2020 02:57:23.4586 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: STv7LKrGnoQ+AH02/XlGXQJ8eKKcfn7FxqRLJYeS2Yg1ADwsDXi9Tf2zmIMp4xXk+lKetiTA4ga60e+2H8g4Tg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: d6GuIz9mc8hNYFy0eaANAlc/D5xn/j9f0G/AIMaYstG1NKlXfrpCp1pBJmqC6XvJJTkWUMRkbBwAYmpuLCPSmg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,75 +119,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add one definition for the RAS module's FS name. It's used
-in both debugfs and sysfs cases.
-
-v2: Use static variable instead of macro definition.
+Bad page information should not be exposed by sysfs when
+bad page retirement is disabled, so decouple it from ras
+sysfs group creating, and add one guard before creating.
 
 Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 71 ++++++++++++++++---------
+ 1 file changed, 46 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index c519948ebcff..0328f7882199 100644
+index 0328f7882199..0b7317349bde 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -34,6 +34,8 @@
- #include "amdgpu_xgmi.h"
- #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+@@ -1027,6 +1027,35 @@ static ssize_t amdgpu_ras_sysfs_features_read(struct device *dev,
+ 	return scnprintf(buf, PAGE_SIZE, "feature mask: 0x%x\n", con->features);
+ }
  
-+static const char *RAS_FS_NAME = "ras";
++static void amdgpu_ras_sysfs_add_badpage_node(struct amdgpu_device *adev)
++{
++#if defined(HAVE_ATTRIBUTE_GROUP_BIN_ATTRS)
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct attribute_group group;
++	struct bin_attribute *bin_attrs[] = {
++		&con->badpages_attr,
++		NULL,
++	};
 +
- const char *ras_error_string[] = {
- 	"none",
- 	"parity",
-@@ -1037,7 +1039,7 @@ static int amdgpu_ras_sysfs_create_feature_node(struct amdgpu_device *adev)
- 		NULL
- 	};
- 	struct attribute_group group = {
--		.name = "ras",
-+		.name = RAS_FS_NAME,
- 		.attrs = attrs,
- #if defined(HAVE_ATTRIBUTE_GROUP_BIN_ATTRS)
- 		.bin_attrs = bin_attrs,
-@@ -1080,7 +1082,7 @@ static int amdgpu_ras_sysfs_remove_feature_node(struct amdgpu_device *adev)
- 		NULL
- 	};
- 	struct attribute_group group = {
--		.name = "ras",
-+		.name = RAS_FS_NAME,
- 		.attrs = attrs,
- #if defined(HAVE_ATTRIBUTE_GROUP_BIN_ATTRS)
- 		.bin_attrs = bin_attrs,
-@@ -1117,7 +1119,7 @@ int amdgpu_ras_sysfs_create(struct amdgpu_device *adev,
- 
- 	if (sysfs_add_file_to_group(&adev->dev->kobj,
- 				&obj->sysfs_attr.attr,
--				"ras")) {
-+				RAS_FS_NAME)) {
- 		put_obj(obj);
- 		return -EINVAL;
- 	}
-@@ -1137,7 +1139,7 @@ int amdgpu_ras_sysfs_remove(struct amdgpu_device *adev,
- 
- 	sysfs_remove_file_from_group(&adev->dev->kobj,
- 				&obj->sysfs_attr.attr,
--				"ras");
-+				RAS_FS_NAME);
- 	obj->attr_inuse = 0;
- 	put_obj(obj);
- 
-@@ -1183,7 +1185,8 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
++	con->badpages_attr = (struct bin_attribute) {
++		.attr = {
++			.name = "gpu_vram_bad_pages",
++			.mode = S_IRUGO,
++		},
++		.size = 0,
++		.private = NULL,
++		.read = amdgpu_ras_sysfs_badpages_read,
++	};
++
++	group.name = RAS_FS_NAME;
++	group.bin_attrs = bin_attrs;
++
++	sysfs_bin_attr_init(bin_attrs[0]);
++
++	sysfs_update_group(&adev->dev->kobj, &group);
++#endif
++}
++
+ static int amdgpu_ras_sysfs_create_feature_node(struct amdgpu_device *adev)
+ {
  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct drm_minor *minor = adev->ddev->primary;
+@@ -1034,16 +1063,9 @@ static int amdgpu_ras_sysfs_create_feature_node(struct amdgpu_device *adev)
+ 		&con->features_attr.attr,
+ 		NULL
+ 	};
+-	struct bin_attribute *bin_attrs[] = {
+-		&con->badpages_attr,
+-		NULL
+-	};
+ 	struct attribute_group group = {
+ 		.name = RAS_FS_NAME,
+ 		.attrs = attrs,
+-#if defined(HAVE_ATTRIBUTE_GROUP_BIN_ATTRS)
+-		.bin_attrs = bin_attrs,
+-#endif
+ 	};
  
--	con->dir = debugfs_create_dir("ras", minor->debugfs_root);
-+	con->dir = debugfs_create_dir(RAS_FS_NAME,
-+					minor->debugfs_root);
- 	debugfs_create_file("ras_ctrl", S_IWUGO | S_IRUGO, con->dir,
- 				adev, &amdgpu_ras_debugfs_ctrl_ops);
- 	debugfs_create_file("ras_eeprom_reset", S_IWUGO | S_IRUGO, con->dir,
+ 	con->features_attr = (struct device_attribute) {
+@@ -1054,22 +1076,22 @@ static int amdgpu_ras_sysfs_create_feature_node(struct amdgpu_device *adev)
+ 			.show = amdgpu_ras_sysfs_features_read,
+ 	};
+ 
+-	con->badpages_attr = (struct bin_attribute) {
+-		.attr = {
+-			.name = "gpu_vram_bad_pages",
+-			.mode = S_IRUGO,
+-		},
+-		.size = 0,
+-		.private = NULL,
+-		.read = amdgpu_ras_sysfs_badpages_read,
+-	};
+-
+ 	sysfs_attr_init(attrs[0]);
+-	sysfs_bin_attr_init(bin_attrs[0]);
+ 
+ 	return sysfs_create_group(&adev->dev->kobj, &group);
+ }
+ 
++static void amdgpu_ras_sysfs_remove_bad_page_node(struct amdgpu_device *adev)
++{
++#if defined(HAVE_ATTRIBUTE_GROUP_BIN_ATTRS)
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++
++	sysfs_remove_file_from_group(&adev->dev->kobj,
++				&con->badpages_attr.attr,
++				RAS_FS_NAME);
++#endif
++}
++
+ static int amdgpu_ras_sysfs_remove_feature_node(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+@@ -1077,16 +1099,9 @@ static int amdgpu_ras_sysfs_remove_feature_node(struct amdgpu_device *adev)
+ 		&con->features_attr.attr,
+ 		NULL
+ 	};
+-	struct bin_attribute *bin_attrs[] = {
+-		&con->badpages_attr,
+-		NULL
+-	};
+ 	struct attribute_group group = {
+ 		.name = RAS_FS_NAME,
+ 		.attrs = attrs,
+-#if defined(HAVE_ATTRIBUTE_GROUP_BIN_ATTRS)
+-		.bin_attrs = bin_attrs,
+-#endif
+ 	};
+ 
+ 	sysfs_remove_group(&adev->dev->kobj, &group);
+@@ -1155,6 +1170,9 @@ static int amdgpu_ras_sysfs_remove_all(struct amdgpu_device *adev)
+ 		amdgpu_ras_sysfs_remove(adev, &obj->head);
+ 	}
+ 
++	if (amdgpu_bad_page_threshold != 0)
++		amdgpu_ras_sysfs_remove_bad_page_node(adev);
++
+ 	amdgpu_ras_sysfs_remove_feature_node(adev);
+ 
+ 	return 0;
+@@ -1283,6 +1301,9 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
+ {
+ 	amdgpu_ras_sysfs_create_feature_node(adev);
+ 
++	if (amdgpu_bad_page_threshold != 0)
++		amdgpu_ras_sysfs_add_badpage_node(adev);
++
+ 	return 0;
+ }
+ 
 -- 
 2.17.1
 
