@@ -8,65 +8,63 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE80EC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3603C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4B56207F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 864D5207F5
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UK9tcgUN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4B56207F5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohTu7/k8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 864D5207F5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 874456E5BF;
-	Wed, 29 Jul 2020 17:34:49 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAC96E5BD
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:34:48 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id 11so23045988qkn.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:34:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F9786E133;
+	Wed, 29 Jul 2020 17:34:52 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D8F6E5BE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:34:49 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id g26so23043957qka.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:34:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8eIigWBTmFFXTzotMjIUc6+P8WCQicmqMWXewf/m8rI=;
- b=UK9tcgUNKVO+sYluJUEZwqRdQxuMmnDFB8HHQOcXk+ngopCAj17DlbOU5eaDF7zQmq
- 0MkxoqLd/aCpdLvDWJscl1gcNuENJylUN9IUSuyrHh/F9t+s14pNr8jIugcA8740Eg4W
- LiBr58sg6/IIRg1DfzhFFxHrl5FYcR31yeZ7UW2mpfZz3vQwefLrfPKOj42OIMGhL9fB
- RopgSBpoQEJqtKRsiue+c8fPv2CExv/jAmQUHMRZUYa6QZRdLum+nCb8rbByGeLJaF+j
- u0dfos73df6S+3dIv2kC+Howj7qX+9ltuVkiFBU/6f4AKZI53XBWi4M9bEaXuz0Lq+RS
- AJhQ==
+ bh=1tarS6IlLEJJT9eYW30QGrROKaWZf0PFl11yOyrkGdg=;
+ b=ohTu7/k8K/SBIe2oN/KzUmmt0rP2beE1R1iNCkNb52O8ejvdPFSrvVykpIm/n2cZXe
+ ybGLcQiAZdGWrT9iv0JrKIpqkgG0ciOVZhJwBWH5bTIKnAMRWDSY87D/wEraTae2eb+a
+ LmiK/W9MgBaG7KNZJKheHOdRP3l3HcGKVOjX60APSz4w+K2zos/vYz/pG4mwyS9zStlE
+ Li2B1bZEOxE9Da+LddPVAgWjj6LUMZeSGGVcrJMi7Y/RxoPcDDet7XRTrZxxHVsCi+os
+ dHQPY6fxWuqTk2jYNfZE3bd6A8zkcRiZDJurDEXgLhHqxjnlLJXrmkaBltxq0Eknoa5j
+ qEog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8eIigWBTmFFXTzotMjIUc6+P8WCQicmqMWXewf/m8rI=;
- b=PSUbMUZmZXQDjDH02QMDNQeyzSlEiCtPmcT5shArdwdvSbI7ZnCNS1UIEaZl5eB2YL
- 6y8/xZqRzXMylhY/XjwliR5GicpqF4zuo94wOYsY4Id8OmtBbjWsknLg/SOdtXZYkHzN
- Yd22H9ZAmV7GvD5Cq+WaqNYFoEKBKMeDgh96MXqugiXq6By/IlvvD/drYb9eBbQvEhsV
- fRWvQir+ev9pRMHV4c5QRZSxwY4wTOlyEYl8cTj6SVtuPjqAErl3EmDAhsR6mrMhsq7y
- +e77A1enDM4i1jXc6WP4rDj9ddrjLvHcbRtfRcW1lmrzGubuEEn7ioHOkXawexwnQ6ED
- id9Q==
-X-Gm-Message-State: AOAM532LL9MWRG8wVoc3O6O2Oy/nFNCl4NEkuRu8Cmddsbp75RzPlCH8
- eNn5l2mPQTQUpoEmiWXpV3EToyme
-X-Google-Smtp-Source: ABdhPJxaqYHI6xT73Yod+DL4mPjyWsZ0euJC8m1gcmWEClIZLspnupGZmsjMfXaRSljyw2Nh6TN2/g==
-X-Received: by 2002:a05:620a:4ec:: with SMTP id
- b12mr25924250qkh.266.1596044087325; 
- Wed, 29 Jul 2020 10:34:47 -0700 (PDT)
+ bh=1tarS6IlLEJJT9eYW30QGrROKaWZf0PFl11yOyrkGdg=;
+ b=n44VuAKNjicbdiODhPO9854hymyU5ZpfDPGnnhTuhctgKiwNqD7egC87d9ur7q9mqc
+ FNGcHTeSuunb8GQGmOFC3dadRUpNIZgxRFYP0u9XIzMLYKfdjZnDW/DF/vNCVZpEd3A9
+ HxqEnxlucru/4mbLMstyUYkEVd7l/HRA5GWYIwn9UD9SiTBz2VUPTl6PQa2gR6JOLbJ9
+ E597/u5H6bA4Q5lR5OYEurIsY5ZK82um9Z7A/6wW82qDnqLvS7k+LxEDQOVwDQnrxKEB
+ iNhFCCz4bgqOuEa2VaFqeUiCZeKRGOO48cbTQ+b3FtR6pucB80YTE/3AzCG9v91QC8qn
+ ogGA==
+X-Gm-Message-State: AOAM530AMKfwscE6daw4MTCE91F8B3pVLABHS5yw29w/GUGgu05WeqHP
+ virqHSsTRK2hnyvBm9gY+bqMxxw/
+X-Google-Smtp-Source: ABdhPJzBQ187aKPSQ29gDMLReUvaQq/h0yiRccT5ISW3Rs5NOEbH5MfJBtndIA3JKcm1xA8AhuV82w==
+X-Received: by 2002:a37:6883:: with SMTP id d125mr7023498qkc.160.1596044088416; 
+ Wed, 29 Jul 2020 10:34:48 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.46
+ by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 10:34:46 -0700 (PDT)
+ Wed, 29 Jul 2020 10:34:47 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 01/17] drm/amdgpu: handle bo size 0 in
- amdgpu_bo_create_kernel_at (v2)
-Date: Wed, 29 Jul 2020 13:34:23 -0400
-Message-Id: <20200729173439.3698-2-alexander.deucher@amd.com>
+Subject: [PATCH 02/17] drm/amdgpu: use create_at for the stolen pre-OS buffer
+Date: Wed, 29 Jul 2020 13:34:24 -0400
+Message-Id: <20200729173439.3698-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200729173439.3698-1-alexander.deucher@amd.com>
 References: <20200729173439.3698-1-alexander.deucher@amd.com>
@@ -89,30 +87,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just return early to match other bo_create functions.
+Should be functionally the same since nothing else is
+allocated at that point, but let's be exact.
 
-v2: check if the bo_ptr is NULL rather than checking the size.
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com> (v1)
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 5ac7b5561475..a3cf38d25fc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -374,6 +374,9 @@ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 605d266754f6..a188216bccc2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1979,10 +1979,10 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * This is used for VGA emulation and pre-OS scanout buffers to
+ 	 * avoid display artifacts while transitioning between pre-OS
+ 	 * and driver.  */
+-	r = amdgpu_bo_create_kernel(adev, adev->gmc.stolen_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_VRAM,
+-				    &adev->stolen_vga_memory,
+-				    NULL, &stolen_vga_buf);
++	r = amdgpu_bo_create_kernel_at(adev, 0, adev->gmc.stolen_size,
++				       AMDGPU_GEM_DOMAIN_VRAM,
++				       &adev->stolen_vga_memory,
++				       &stolen_vga_buf);
  	if (r)
  		return r;
  
-+	if ((*bo_ptr) == NULL)
-+		return 0;
-+
- 	/*
- 	 * Remove the original mem node and create a new one at the request
- 	 * position.
 -- 
 2.25.4
 
