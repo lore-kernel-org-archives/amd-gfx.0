@@ -5,75 +5,74 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDAD8C433E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 08:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DAA9C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 08:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B08852076E
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 08:44:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0BFDA206D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 08:47:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhahDjPE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B08852076E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kUmL798a"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BFDA206D8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4A96E48B;
-	Wed, 29 Jul 2020 08:44:20 +0000 (UTC)
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B51B6E48B
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 08:44:19 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id qc22so8682835ejb.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 01:44:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA636E488;
+	Wed, 29 Jul 2020 08:47:00 +0000 (UTC)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 429896E488
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 08:46:59 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id o18so2391025eds.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 01:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=cZGQoUUnZ8dTemrWaJeaXKPU/Y5J+l4SVUtK64Qg0CU=;
- b=dhahDjPECYSFPRO5lg/iGvmZhFzeCqgQ5SNsSBDls/eTa4i/8KNINDPc+5DK+RUCXw
- leq4cf20xInPW0d6bHwhYX2IFRxNeE4P4CbQKWmv3EwJaZXxH49t+wqXsJsi2bqBbYy7
- XgiZ3/25gegJwtVFfXivUNAdgOFh/1vX07IAeSOHHvQ6F7XI0Ud3fk4wRTl4EDlcv297
- Eoj8E0wDdgoosnRzdjokFmkm4midY0/QlxxmedPiuFzfQevFmoezDE+HBgQeDz+W4cuM
- AXOSI3czSFP5pu3RezirE5Tz3PkwhzED5mU2tWyDS94t1+tfY6KnzV4oX+IPa6pw8CSo
- FBsA==
+ bh=EbIWwXFXwwB3sahKpGqLw80MH3oxrX4XdZNt5FBWwL8=;
+ b=kUmL798atQuNfZOhIEd4BzSiX6N3D3bViKwp6nFKAoqqf7msKt6ciHnwtObOVlvRxh
+ etuexOW8I1sn1/z79VAsjA0NXph/HvsMM4XD59x+UhOpw09rZU+KRsq5xF3JvkLKIJBE
+ 4kJB2RMGO75qvOnM6xGkyTcmmS4C7vWPk8zCTtGCb0JNn92+npX/HwMTiVZXpnfjIJox
+ NKM08LAABHu+nu7EInWUV1HhrUuAqvey2I0WhyjKvP/bx9PK/piiqmaPYCGMY2Ss/fN4
+ Wy782zh/sAkJGHcyxSV0TguABU/Cgt/F6YYTJU7y1BEKlpeGs+N9tz5zMp/lUA1UGRhz
+ 31xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=cZGQoUUnZ8dTemrWaJeaXKPU/Y5J+l4SVUtK64Qg0CU=;
- b=R4llbqEp6YlYAkdzPqKky14Zrc/VwYmFky2qeVwTyBbUvwxTt0L/UZeJ9atOlIW60g
- 6+ngTA8pR8mnHgd3sHjrIkYg4UlZpby7uTXuzXQn/+kCs5Sh3OLtpza+QaOPqABpEYAU
- jjmo3KfBDOTZ2qXZVL7cLH3nsLrSn5qa9oLzNbJPsnFylfU/HKG/oBTSI0ZW8orJzyQP
- j78LSnHj2p79Yve1z3RlaZp5zXf/RS3aYkv7mwYwYaZJH20xSzKL5bPWsLX15lVmpZpX
- JgMggcT/q7bv+gMLMbYOaAIeqVSiEsK1aqE2NQrmST9db/U4ftqDAypidyjb8Bu6coQM
- 5XAA==
-X-Gm-Message-State: AOAM530w3s6uDC2oAtISaSAD6ry1BlE3s2/pEet0ji7YexFXxiWN9dYn
- R2JV6+LtsfVv2gK7ytV0GQo=
-X-Google-Smtp-Source: ABdhPJwk2iox1S7IVy7lkQFmHd5iS+vA6lx++6BpRyrxCDGNtQYtQ5nGZGKpoqALxBFosX1yOfINig==
-X-Received: by 2002:a17:906:17cc:: with SMTP id
- u12mr28605439eje.344.1596012257977; 
- Wed, 29 Jul 2020 01:44:17 -0700 (PDT)
+ bh=EbIWwXFXwwB3sahKpGqLw80MH3oxrX4XdZNt5FBWwL8=;
+ b=LX16dFGa0pBJesVzaWjPHUCtfbcgWlJRvwENhWRiKVm2q0jb0ndlnQHLQfgl7SZI75
+ NACEoCNnjDmZu0PALWDTCSNbj1tkwOitLNzYLxqXQ1wKfshwjCsgI4WdButr+Wk32npK
+ OMB7oXxh++RqrjlP58Y42Lkg1TKPl75vD4p57CUkAIy7h51ZdjS4g2TzUrTjDvkR9gyd
+ fsXOYW6iSeNFefLj5c+FR/d04nkbvCBJmZtfLAQbRS/DNHSZYU5wJ/t7ssVPqm0nnPvu
+ en5DKbuoaOSRtwoUzN4rkKHcaGx6Fs+mgsrsngRY1E+wwKYdMP+OqzfAztDs1vA9LFyU
+ VlMQ==
+X-Gm-Message-State: AOAM5325P0nE2YHJO0Y/6VmFKPIvCQXG0EVQ7dT5UDpD6DN+nz5dmu+k
+ 35SrEFDECln4U4yQgUQMwjU=
+X-Google-Smtp-Source: ABdhPJxcWaFkIojeVfZv3Fy0Ss3aqqzEM1VAiYsXNFSXmDEzQA+THSA5UNi6JWxs9witpOdFicC+AA==
+X-Received: by 2002:aa7:dacb:: with SMTP id x11mr28455145eds.280.1596012417957; 
+ Wed, 29 Jul 2020 01:46:57 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
  ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id p16sm1042876ejd.27.2020.07.29.01.44.17
+ by smtp.gmail.com with ESMTPSA id v9sm1014114ejd.102.2020.07.29.01.46.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2020 01:44:17 -0700 (PDT)
-Subject: Re: [PATCH 04/14] drm/amdgpu: move stolen vga bo from amdgpu to
- amdgpu.gmc
+ Wed, 29 Jul 2020 01:46:57 -0700 (PDT)
+Subject: Re: [PATCH 13/14] drm/amdgpu: drop the CPU pointers for the stolen
+ vga bos
 To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
 References: <20200728224605.3919-1-alexander.deucher@amd.com>
- <20200728224605.3919-5-alexander.deucher@amd.com>
+ <20200728224605.3919-14-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <021773e5-7d01-7296-2595-6ae9e11e61f8@gmail.com>
-Date: Wed, 29 Jul 2020 10:44:16 +0200
+Message-ID: <ebf8198e-65cc-2b69-e5ea-6ede3e6f0351@gmail.com>
+Date: Wed, 29 Jul 2020 10:46:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200728224605.3919-5-alexander.deucher@amd.com>
+In-Reply-To: <20200728224605.3919-14-alexander.deucher@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,164 +87,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: christian.koenig@amd.com
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.07.20 um 00:45 schrieb Alex Deucher:
-> Since that is where we store the other data related to
-> the stolen vga memory.
-
-Mhm, how about putting everything into struct amdgpu_mman instead?
-
-This stuff is not at all GMC related as far as I can see.
-
-We just put it into the GMC code because we have all the other memory 
-sizes there as well.
-
-Christian.
-
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 -
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 2 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 4 ++--
->   8 files changed, 11 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 2a7fbe21619d..899664357015 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -767,7 +767,6 @@ struct amdgpu_device {
->   	bool				is_atom_fw;
->   	uint8_t				*bios;
->   	uint32_t			bios_size;
-> -	struct amdgpu_bo		*stolen_vga_memory;
->   	uint32_t			bios_scratch_reg_offset;
->   	uint32_t			bios_scratch[AMDGPU_BIOS_NUM_SCRATCH];
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 9d58c56f6cfc..ddb64be670c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -213,7 +213,8 @@ struct amdgpu_gmc {
->   	uint8_t			vram_vendor;
->   	uint32_t                srbm_soft_reset;
->   	bool			prt_warning;
-> -	uint64_t		stolen_size;
-> +	uint64_t		stolen_vga_size;
-> +	struct amdgpu_bo	*stolen_vga_memory;
->   	uint32_t		sdpif_register;
->   	/* apertures */
->   	u64			shared_aperture_start;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index a188216bccc2..39781127d059 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1979,9 +1979,9 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->   	 * This is used for VGA emulation and pre-OS scanout buffers to
->   	 * avoid display artifacts while transitioning between pre-OS
->   	 * and driver.  */
-> -	r = amdgpu_bo_create_kernel_at(adev, 0, adev->gmc.stolen_size,
-> +	r = amdgpu_bo_create_kernel_at(adev, 0, adev->gmc.stolen_vga_size,
->   				       AMDGPU_GEM_DOMAIN_VRAM,
-> -				       &adev->stolen_vga_memory,
-> +				       &adev->gmc.stolen_vga_memory,
->   				       &stolen_vga_buf);
->   	if (r)
->   		return r;
-> @@ -2043,7 +2043,7 @@ void amdgpu_ttm_late_init(struct amdgpu_device *adev)
->   {
->   	void *stolen_vga_buf;
->   	/* return the VGA stolen memory (if any) back to VRAM */
-> -	amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga_buf);
-> +	amdgpu_bo_free_kernel(&adev->gmc.stolen_vga_memory, NULL, &stolen_vga_buf);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 040220e97cf3..337d70503970 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -812,7 +812,7 @@ static int gmc_v10_0_sw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	adev->gmc.stolen_size = gmc_v10_0_get_vbios_fb_size(adev);
-> +	adev->gmc.stolen_vga_size = gmc_v10_0_get_vbios_fb_size(adev);
->   
->   	/* Memory manager */
->   	r = amdgpu_bo_init(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index 4de996868d32..28ddb41a78c8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -862,7 +862,7 @@ static int gmc_v6_0_sw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	adev->gmc.stolen_size = gmc_v6_0_get_vbios_fb_size(adev);
-> +	adev->gmc.stolen_vga_size = gmc_v6_0_get_vbios_fb_size(adev);
->   
->   	r = amdgpu_bo_init(adev);
->   	if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 4113f2d33b75..8b8ecbb99d84 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -1035,7 +1035,7 @@ static int gmc_v7_0_sw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	adev->gmc.stolen_size = gmc_v7_0_get_vbios_fb_size(adev);
-> +	adev->gmc.stolen_vga_size = gmc_v7_0_get_vbios_fb_size(adev);
->   
->   	/* Memory manager */
->   	r = amdgpu_bo_init(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index f29ff9afcc10..8e3763ec268f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1160,7 +1160,7 @@ static int gmc_v8_0_sw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	adev->gmc.stolen_size = gmc_v8_0_get_vbios_fb_size(adev);
-> +	adev->gmc.stolen_vga_size = gmc_v8_0_get_vbios_fb_size(adev);
->   
->   	/* Memory manager */
->   	r = amdgpu_bo_init(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index ac15d7678d24..b66c60680dba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1243,7 +1243,7 @@ static int gmc_v9_0_sw_init(void *handle)
->   	if (r)
->   		return r;
->   
-> -	adev->gmc.stolen_size = gmc_v9_0_get_vbios_fb_size(adev);
-> +	adev->gmc.stolen_vga_size = gmc_v9_0_get_vbios_fb_size(adev);
->   
->   	/* Memory manager */
->   	r = amdgpu_bo_init(adev);
-> @@ -1282,7 +1282,7 @@ static int gmc_v9_0_sw_fini(void *handle)
->   	amdgpu_vm_manager_fini(adev);
->   
->   	if (gmc_v9_0_keep_stolen_memory(adev))
-> -		amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga_buf);
-> +		amdgpu_bo_free_kernel(&adev->gmc.stolen_vga_memory, NULL, &stolen_vga_buf);
->   
->   	amdgpu_gart_table_vram_free(adev);
->   	amdgpu_bo_fini(adev);
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjkuMDcuMjAgdW0gMDA6NDYgc2NocmllYiBBbGV4IERldWNoZXI6Cj4gV2UgbmV2ZXIgdXNl
+IHRoZW0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
+QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYyB8IDE2ICsrKysrLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlv
+bnMoKyksIDExIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV90dG0uYwo+IGluZGV4IGVjOTc1MjUxYjE3MS4uM2RmOWQ1YTUzNzQxIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IEBAIC0xOTE1LDcgKzE5MTUsNiBAQCBp
+bnQgYW1kZ3B1X3R0bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXVpbnQ2
+NF90IGd0dF9zaXplOwo+ICAgCWludCByOwo+ICAgCXU2NCB2aXNfdnJhbV9saW1pdDsKPiAtCXZv
+aWQgKnN0b2xlbl92Z2FfYnVmLCAqc3RvbGVuX2V4dGVuZGVkX2J1ZjsKPiAgIAo+ICAgCW11dGV4
+X2luaXQoJmFkZXYtPm1tYW4uZ3R0X3dpbmRvd19sb2NrKTsKPiAgIAo+IEBAIC0xOTgyLDE0ICsx
+OTgxLDE0IEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
+Cj4gICAJciA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsX2F0KGFkZXYsIDAsIGFkZXYtPmdtYy5z
+dG9sZW5fdmdhX3NpemUsCj4gICAJCQkJICAgICAgIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCj4g
+ICAJCQkJICAgICAgICZhZGV2LT5nbWMuc3RvbGVuX3ZnYV9tZW1vcnksCj4gLQkJCQkgICAgICAg
+JnN0b2xlbl92Z2FfYnVmKTsKPiArCQkJCSAgICAgICBOVUxMKTsKPiAgIAlpZiAocikKPiAgIAkJ
+cmV0dXJuIHI7Cj4gICAJciA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsX2F0KGFkZXYsIGFkZXYt
+PmdtYy5zdG9sZW5fdmdhX3NpemUsCj4gICAJCQkJICAgICAgIGFkZXYtPmdtYy5zdG9sZW5fZXh0
+ZW5kZWRfc2l6ZSwKPiAgIAkJCQkgICAgICAgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwKPiAgIAkJ
+CQkgICAgICAgJmFkZXYtPmdtYy5zdG9sZW5fZXh0ZW5kZWRfbWVtb3J5LAo+IC0JCQkJICAgICAg
+ICZzdG9sZW5fZXh0ZW5kZWRfYnVmKTsKPiArCQkJCSAgICAgICBOVUxMKTsKPiAgIAlpZiAocikK
+PiAgIAkJcmV0dXJuIHI7Cj4gICAKPiBAQCAtMjA0OCwxMyArMjA0NywxMCBAQCBpbnQgYW1kZ3B1
+X3R0bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgICovCj4gICB2b2lkIGFt
+ZGdwdV90dG1fbGF0ZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgewo+IC0J
+dm9pZCAqc3RvbGVuX3ZnYV9idWYsICpzdG9sZW5fZXh0ZW5kZWRfYnVmOwo+IC0KPiAgIAkvKiBy
+ZXR1cm4gdGhlIFZHQSBzdG9sZW4gbWVtb3J5IChpZiBhbnkpIGJhY2sgdG8gVlJBTSAqLwo+ICAg
+CWlmICghYWRldi0+Z21jLmtlZXBfc3RvbGVuX3ZnYV9tZW1vcnkpCj4gLQkJYW1kZ3B1X2JvX2Zy
+ZWVfa2VybmVsKCZhZGV2LT5nbWMuc3RvbGVuX3ZnYV9tZW1vcnksIE5VTEwsICZzdG9sZW5fdmdh
+X2J1Zik7Cj4gLQlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmFkZXYtPmdtYy5zdG9sZW5fZXh0ZW5k
+ZWRfbWVtb3J5LCBOVUxMLAo+IC0JCQkgICAgICAmc3RvbGVuX2V4dGVuZGVkX2J1Zik7Cj4gKwkJ
+YW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5nbWMuc3RvbGVuX3ZnYV9tZW1vcnksIE5VTEws
+IE5VTEwpOwo+ICsJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5nbWMuc3RvbGVuX2V4dGVu
+ZGVkX21lbW9yeSwgTlVMTCwgTlVMTCk7Cj4gICB9Cj4gICAKPiAgIC8qKgo+IEBAIC0yMDYyLDE1
+ICsyMDU4LDEzIEBAIHZvaWQgYW1kZ3B1X3R0bV9sYXRlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpCj4gICAgKi8KPiAgIHZvaWQgYW1kZ3B1X3R0bV9maW5pKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQo+ICAgewo+IC0Jdm9pZCAqc3RvbGVuX3ZnYV9idWY7Cj4gLQo+ICAgCWlm
+ICghYWRldi0+bW1hbi5pbml0aWFsaXplZCkKPiAgIAkJcmV0dXJuOwo+ICAgCj4gICAJYW1kZ3B1
+X3R0bV90cmFpbmluZ19yZXNlcnZlX3ZyYW1fZmluaShhZGV2KTsKPiAgIAkvKiByZXR1cm4gdGhl
+IHN0b2xlbiB2Z2EgbWVtb3J5IGJhY2sgdG8gVlJBTSAqLwo+ICAgCWlmIChhZGV2LT5nbWMua2Vl
+cF9zdG9sZW5fdmdhX21lbW9yeSkKPiAtCQlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmFkZXYtPmdt
+Yy5zdG9sZW5fdmdhX21lbW9yeSwgTlVMTCwgJnN0b2xlbl92Z2FfYnVmKTsKPiArCQlhbWRncHVf
+Ym9fZnJlZV9rZXJuZWwoJmFkZXYtPmdtYy5zdG9sZW5fdmdhX21lbW9yeSwgTlVMTCwgTlVMTCk7
+Cj4gICAJLyogcmV0dXJuIHRoZSBJUCBEaXNjb3ZlcnkgVE1SIG1lbW9yeSBiYWNrIHRvIFZSQU0g
+Ki8KPiAgIAlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmFkZXYtPmRpc2NvdmVyeV9tZW1vcnksIE5V
+TEwsIE5VTEwpOwo+ICAgCWFtZGdwdV90dG1fZndfcmVzZXJ2ZV92cmFtX2ZpbmkoYWRldik7Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
