@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E6E4C433E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23C1AC433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67C8D207F5
+	by mail.kernel.org (Postfix) with ESMTPS id EB64F207F5
 	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:34:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kpUFItnM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67C8D207F5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qSL4SsKw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB64F207F5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF386E5C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E80A6E5C3;
 	Wed, 29 Jul 2020 17:34:56 +0000 (UTC)
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4BB6E5C0
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6D3D6E5C1
  for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:34:54 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id l13so4869805qvt.10
+Received: by mail-qt1-x844.google.com with SMTP id c12so9241133qtn.9
  for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:34:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=DDymwZ64nOKQVp+UZ6s7IlleNOHqfxqgSwVWLOm7Yek=;
- b=kpUFItnMUIrrgPtTdrwzLfLK53UT1rrElg2Sxk4wBemQo4roj14x7t00T0lp20B8WZ
- CkqV1HLZk57QSPhcWq5oWPNgVxfpwIhH/b4rqosjcEjJLcmaqDPJmkwp6tSvnCEzO/Ph
- gngHcF1YBf5NZYVLPMSvxMx/Z7nhoJ69HtNpUFBNdBDzeVPj4JHgb5KQIWMkmOPYneGi
- UbhvCb9fl230UvpRkl0xKetV9qAWxzvzN0Sv0RiZb0PJNzZOXQisDnTKtq6qn7UoIDlC
- 52Cv8d8VArxUe46WAGwwr5oXE3O03mdYaSJ6eDQrqUQIdsEL3OEO8pmOfxvlZMSaw4wZ
- BPfA==
+ bh=nHU8LZNZG+kPCxXuRE//GdtqHcrRQ0zzMFto2MAgURQ=;
+ b=qSL4SsKwSkbhs9TkvO2QXx4MT804xICqMKn6/uufcDDQo1u7VWFZsvanVo/TjWQo0j
+ 4TdK4wW+P/1UD1zluE/m3EjuqBNOH/BwhyTr+Zp4rGyQgOy9fEXtjXYP0HBZJ7kUQh+/
+ 4xImc5ibQd+dhYHb0kzHHvZLTNFMcZ0AUyBUTX+pLTKw3crd/1jlF45c03Tdx16GtW93
+ d2DQQW+zLofB2q7V2DtMDgS7uGlWKCHK606qcJ0TYlf+dSdbTdF/9dBMfKJlsnRerwDX
+ XR4OqmhTOMLfZkV1KSjnHWhIAGZeI9LfOasZ3OC7a6xmjHgItGZe4I86hc4sRfQL4pOl
+ BowQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=DDymwZ64nOKQVp+UZ6s7IlleNOHqfxqgSwVWLOm7Yek=;
- b=exXDoZklOlxvCo8z+vUpJOagZlIMrkoXiJEUIX2iYigpsbPDUvFk/BLg04WVo2VDAR
- 6VtT/tgcAjww1Vr6gplPIL7x+/NQ8TVXgfVwtyPG4W3XbkI4hpVFfckw7d+fduWFEwJR
- Ud/Hq6KlxvMswPZx7GXbJCVdMtctbiFr+NtanWqPGE16vLD90HvLl7AbaK/XlLZSvriC
- 1FSd+4nXODWiG4j/hBFoPDlwIixPdmVgb9H2hlzzaHWOBQn0xrXQf8S1CniuVZfxo6h4
- 9DA7VDaClyVW3FcGDX4nxVqLvDkVPzgLwGTgV5jeFTHW7/P2XN8AeurVWdm0QcFK714y
- Vauw==
-X-Gm-Message-State: AOAM533c3PU28xhbpFBBwPHkUSGhGffXTHCNPZKkM3gERlQH/qf3z0Pc
- MMZF9i0SrVccIxERFLio8FNBMI0K
-X-Google-Smtp-Source: ABdhPJw/Nq5o5oUVosdVviCUrP7VkvUkbA3Uis9JTnecmJU6xjhswq1DpZIkgu/dTUa/3dFeSQfhPg==
-X-Received: by 2002:a0c:ea8e:: with SMTP id d14mr17677316qvp.37.1596044093467; 
- Wed, 29 Jul 2020 10:34:53 -0700 (PDT)
+ bh=nHU8LZNZG+kPCxXuRE//GdtqHcrRQ0zzMFto2MAgURQ=;
+ b=gMUf8RKQYQEgJGYlO56fUDKn97h//StyJxDHKomOYMZ8f6+aO4MZ2RqonLUxlFsk+p
+ ggG1qTViF356iLho6NcNJiQBwj2Bk3oSNx8ndjfXC8XqXqgc8eBjtKkL2e7oY1VcVXV9
+ 9wa52h02KWRtuPWChZh+YNg+VHb5NY7HM+mQxXprotN0lFMZB/2tdqBxq2xbgCE6ege0
+ laFynMjzcd3Lr+P5ddQj8/nL27iNz5e6wxUaBMGJ4C8rhKRs501w8nEpw+Q+c0PvS5Cq
+ IwZC/shbUrY7sKrMpLwDm6yfSt+EmM1IE1BRrRNIx9OhSvsSKlWWbK13lB6Vp0LRZEcz
+ eX7A==
+X-Gm-Message-State: AOAM530EHiJRcmiBJ5b1AD3bZJPV9arx6VJHKuNJroCF0D1VBwHdvaLM
+ vqilBHXEMlhaXDW617Jr4icyCyDt
+X-Google-Smtp-Source: ABdhPJx0g2X/X/nN8dOWjmOqL70OxguNmT/6gTRAbOvx60wPBBDMjJH4Hf6xEcPcbsif03Kl75lr/g==
+X-Received: by 2002:ac8:7a95:: with SMTP id x21mr18778482qtr.135.1596044090568; 
+ Wed, 29 Jul 2020 10:34:50 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.52
+ by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 10:34:52 -0700 (PDT)
+ Wed, 29 Jul 2020 10:34:50 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/17] drm/amdgpu/gmc: add new helper to get the FB size used
- by pre-OS console
-Date: Wed, 29 Jul 2020 13:34:29 -0400
-Message-Id: <20200729173439.3698-8-alexander.deucher@amd.com>
+Subject: [PATCH 04/17] drm/amdgpu: move stolen vga bo from amdgpu to amdgpu.gmc
+Date: Wed, 29 Jul 2020 13:34:26 -0400
+Message-Id: <20200729173439.3698-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200729173439.3698-1-alexander.deucher@amd.com>
 References: <20200729173439.3698-1-alexander.deucher@amd.com>
@@ -88,102 +87,147 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This adds a new gmc callback to get the size reserved by the pre-OS
-console and provides a helper function for use by gmc IP drivers.
+Since that is where we store the other data related to
+the stolen vga memory.
 
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 43 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  5 +++
- 2 files changed, 48 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 4 ++--
+ 8 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 21d2c8543f85..fc9e18aaa76e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -27,6 +27,7 @@
- #include <linux/io-64-nonatomic-lo-hi.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 2a7fbe21619d..899664357015 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -767,7 +767,6 @@ struct amdgpu_device {
+ 	bool				is_atom_fw;
+ 	uint8_t				*bios;
+ 	uint32_t			bios_size;
+-	struct amdgpu_bo		*stolen_vga_memory;
+ 	uint32_t			bios_scratch_reg_offset;
+ 	uint32_t			bios_scratch[AMDGPU_BIOS_NUM_SCRATCH];
  
- #include "amdgpu.h"
-+#include "amdgpu_gmc.h"
- #include "amdgpu_ras.h"
- #include "amdgpu_xgmi.h"
- 
-@@ -431,3 +432,45 @@ void amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hub_type,
- 		WREG32(reg, tmp);
- 	}
- }
-+
-+void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
-+{
-+	unsigned size;
-+
-+	/*
-+	 * TODO:
-+	 * Currently there is a bug where some memory client outside
-+	 * of the driver writes to first 8M of VRAM on S3 resume,
-+	 * this overrides GART which by default gets placed in first 8M and
-+	 * causes VM_FAULTS once GTT is accessed.
-+	 * Keep the stolen memory reservation until the while this is not solved.
-+	 */
-+	switch (adev->asic_type) {
-+	case CHIP_VEGA10:
-+	case CHIP_RAVEN:
-+	case CHIP_ARCTURUS:
-+	case CHIP_RENOIR:
-+		adev->gmc.keep_stolen_vga_memory = true;
-+		break;
-+	default:
-+		adev->gmc.keep_stolen_vga_memory = false;
-+		break;
-+	}
-+
-+	if (!amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE))
-+		size = 0;
-+	else
-+		size = amdgpu_gmc_get_vbios_fb_size(adev);
-+
-+	/* set to 0 if the pre-OS buffer uses up most of vram */
-+	if ((adev->gmc.real_vram_size - size) < (8 * 1024 * 1024))
-+		size = 0;
-+
-+	if (size > AMDGPU_VBIOS_VGA_ALLOCATION) {
-+		adev->gmc.stolen_vga_size = AMDGPU_VBIOS_VGA_ALLOCATION;
-+		adev->gmc.stolen_extended_size = size - adev->gmc.stolen_vga_size;
-+	} else {
-+		adev->gmc.stolen_vga_size = size;
-+		adev->gmc.stolen_extended_size = 0;
-+	}
-+}
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 8f4af955d72c..c2a85d0b1546 100644
+index 9d58c56f6cfc..ddb64be670c2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -131,6 +131,8 @@ struct amdgpu_gmc_funcs {
- 	void (*get_vm_pte)(struct amdgpu_device *adev,
- 			   struct amdgpu_bo_va_mapping *mapping,
- 			   uint64_t *flags);
-+	/* get the amount of memory used by the vbios for pre-OS console */
-+	unsigned int (*get_vbios_fb_size)(struct amdgpu_device *adev);
- };
- 
- struct amdgpu_xgmi {
-@@ -253,6 +255,7 @@ struct amdgpu_gmc {
- #define amdgpu_gmc_map_mtype(adev, flags) (adev)->gmc.gmc_funcs->map_mtype((adev),(flags))
- #define amdgpu_gmc_get_vm_pde(adev, level, dst, flags) (adev)->gmc.gmc_funcs->get_vm_pde((adev), (level), (dst), (flags))
- #define amdgpu_gmc_get_vm_pte(adev, mapping, flags) (adev)->gmc.gmc_funcs->get_vm_pte((adev), (mapping), (flags))
-+#define amdgpu_gmc_get_vbios_fb_size(adev) (adev)->gmc.gmc_funcs->get_vbios_fb_size((adev))
+@@ -213,7 +213,8 @@ struct amdgpu_gmc {
+ 	uint8_t			vram_vendor;
+ 	uint32_t                srbm_soft_reset;
+ 	bool			prt_warning;
+-	uint64_t		stolen_size;
++	uint64_t		stolen_vga_size;
++	struct amdgpu_bo	*stolen_vga_memory;
+ 	uint32_t		sdpif_register;
+ 	/* apertures */
+ 	u64			shared_aperture_start;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index a188216bccc2..39781127d059 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1979,9 +1979,9 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * This is used for VGA emulation and pre-OS scanout buffers to
+ 	 * avoid display artifacts while transitioning between pre-OS
+ 	 * and driver.  */
+-	r = amdgpu_bo_create_kernel_at(adev, 0, adev->gmc.stolen_size,
++	r = amdgpu_bo_create_kernel_at(adev, 0, adev->gmc.stolen_vga_size,
+ 				       AMDGPU_GEM_DOMAIN_VRAM,
+-				       &adev->stolen_vga_memory,
++				       &adev->gmc.stolen_vga_memory,
+ 				       &stolen_vga_buf);
+ 	if (r)
+ 		return r;
+@@ -2043,7 +2043,7 @@ void amdgpu_ttm_late_init(struct amdgpu_device *adev)
+ {
+ 	void *stolen_vga_buf;
+ 	/* return the VGA stolen memory (if any) back to VRAM */
+-	amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga_buf);
++	amdgpu_bo_free_kernel(&adev->gmc.stolen_vga_memory, NULL, &stolen_vga_buf);
+ }
  
  /**
-  * amdgpu_gmc_vram_full_visible - Check if full VRAM is visible through the BAR
-@@ -307,4 +310,6 @@ extern void
- amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hub_type,
- 			      bool enable);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 040220e97cf3..337d70503970 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -812,7 +812,7 @@ static int gmc_v10_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
  
-+void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev);
-+
- #endif
+-	adev->gmc.stolen_size = gmc_v10_0_get_vbios_fb_size(adev);
++	adev->gmc.stolen_vga_size = gmc_v10_0_get_vbios_fb_size(adev);
+ 
+ 	/* Memory manager */
+ 	r = amdgpu_bo_init(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 4de996868d32..28ddb41a78c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -862,7 +862,7 @@ static int gmc_v6_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	adev->gmc.stolen_size = gmc_v6_0_get_vbios_fb_size(adev);
++	adev->gmc.stolen_vga_size = gmc_v6_0_get_vbios_fb_size(adev);
+ 
+ 	r = amdgpu_bo_init(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 4113f2d33b75..8b8ecbb99d84 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -1035,7 +1035,7 @@ static int gmc_v7_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	adev->gmc.stolen_size = gmc_v7_0_get_vbios_fb_size(adev);
++	adev->gmc.stolen_vga_size = gmc_v7_0_get_vbios_fb_size(adev);
+ 
+ 	/* Memory manager */
+ 	r = amdgpu_bo_init(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index f29ff9afcc10..8e3763ec268f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1160,7 +1160,7 @@ static int gmc_v8_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	adev->gmc.stolen_size = gmc_v8_0_get_vbios_fb_size(adev);
++	adev->gmc.stolen_vga_size = gmc_v8_0_get_vbios_fb_size(adev);
+ 
+ 	/* Memory manager */
+ 	r = amdgpu_bo_init(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index ac15d7678d24..b66c60680dba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1243,7 +1243,7 @@ static int gmc_v9_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	adev->gmc.stolen_size = gmc_v9_0_get_vbios_fb_size(adev);
++	adev->gmc.stolen_vga_size = gmc_v9_0_get_vbios_fb_size(adev);
+ 
+ 	/* Memory manager */
+ 	r = amdgpu_bo_init(adev);
+@@ -1282,7 +1282,7 @@ static int gmc_v9_0_sw_fini(void *handle)
+ 	amdgpu_vm_manager_fini(adev);
+ 
+ 	if (gmc_v9_0_keep_stolen_memory(adev))
+-		amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga_buf);
++		amdgpu_bo_free_kernel(&adev->gmc.stolen_vga_memory, NULL, &stolen_vga_buf);
+ 
+ 	amdgpu_gart_table_vram_free(adev);
+ 	amdgpu_bo_fini(adev);
 -- 
 2.25.4
 
