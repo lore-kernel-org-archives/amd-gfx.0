@@ -2,73 +2,69 @@ Return-Path: <SRS0=V/Q8=BI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B265DC433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3567C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 21:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8BE972075F
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 800202082E
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 21:55:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bspGLr+u"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BE972075F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gKqQtSnc"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 800202082E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D46E6E5D4;
-	Wed, 29 Jul 2020 17:35:12 +0000 (UTC)
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA5B6E5CF
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:35:06 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id x12so9745523qtp.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:35:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9C496E7E5;
+	Wed, 29 Jul 2020 21:55:55 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 184816E7E5;
+ Wed, 29 Jul 2020 21:55:55 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id f18so4391151wml.3;
+ Wed, 29 Jul 2020 14:55:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Mna0avq8tH9ZcmAFkxZHqlv0gToIMbW0Z++vmAsXR1I=;
- b=bspGLr+uuwAXtRFUyEjh/igcon0oRpVHv7IXlRjnTbkfuS531w+axmK+cSJAGjc08F
- c9/w5ygGXGknm5Tcx2a9Pe25zKSJqjsmjJKF/Z/LsM+70QqVEHzExmACJHyfG6InaXLP
- jraFUXcg9pUyMP2MoYNM5r4gVKj5pe/t9lbTMaa355g08m6Hny6ANQS/MhV5RPrAIinh
- cOIR7ITLuhJZ5PN8eYyQ48Y8whrgk45Br7/RThKPbFOv+w31FoTw8Sc8GRbFwOWoIdH3
- 1sLPSK2oHkchIQQEkz/mFlpOMOP3H8X47zH2hQrYJUr7xLc/urZRk8fLmwGAGxqN1IAi
- FIqQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=TiiQwPk5+wOcxrYMTcSS5MR4bewjoZWHQZN/jXHtdiY=;
+ b=gKqQtSncl3aZQrpCwzujZGt/kEYgdOrn7K97OchbFtV6qAJ+AerT2QZqhONhgsO/BU
+ z+eftmao4cxw//G57++dPfV1FINhUppAQQhsT/QrFjwtFMpp0cbQ4Zi23vy1lOABTSfj
+ DzemwfZLHraQOvZsxJbCJkPlK9Ony3NEQ3qaXfkuESwBjY9Iq7Bs3wpIq1xs9FgYubT7
+ tGqLmMzUrrdj4wIkU08sVubHzFgyX5R57qpvcSNPBUk904JItj1EfOSZ1VlkIXYDUnqF
+ bl/Ew4Jtn9PCNpDGKyrYbSdgFV+iWzNy1G+Wj3EKEpi+WNyhKLt/DjD+c7afiDOu4c2v
+ 5GEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Mna0avq8tH9ZcmAFkxZHqlv0gToIMbW0Z++vmAsXR1I=;
- b=V4ejuCJZW0qQS2wYQy6DBL/s5/tKtoyM+Xu/3DpluyKytMT02U+OOl1cRXcKxDunii
- OWnCti+BAqf/XJSrz2IKjMaNGK6adoMLmRoQb1ZdUD0bKCTNi74+AvVWHw22rOtDE2Ti
- N1104ir9ZqHmlH+YdzRHYoKQiSpV/HrEGSyZQ7oP2yf1WSQHWdNE4Ww/NMHVnUmtP1X5
- 4qcnIjNjtsKIIU+n3/zpJisaH8lbuchoAa/6N2m/fLIvBHb1RTaUBj3piWzcHCUKPJWT
- W0zJTE2NbQWZ3j47g7wbnC+W4cXlIYissiv0kpnxzmTUW2Uti6zcv+kFDJxsxmwkVHm/
- s9zg==
-X-Gm-Message-State: AOAM531OXqnkV5iwTxavTeBhxyrzQk5oJMmcpYAqvCxVq8a8vJ4LoRhk
- VHcmxjOGSAR1BP8tq4UiXp8mMqli
-X-Google-Smtp-Source: ABdhPJzxSirePHkx9kPuonSCbXt46lSFu61UGJeSxYF2vCl4/x0hPspJEUpj1QEOyFGSsFlplDdxVA==
-X-Received: by 2002:ac8:67da:: with SMTP id r26mr25152988qtp.332.1596044105182; 
- Wed, 29 Jul 2020 10:35:05 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.35.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 10:35:04 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 17/17] drm/amdgpu: move vram usage by vbios to mman
-Date: Wed, 29 Jul 2020 13:34:39 -0400
-Message-Id: <20200729173439.3698-18-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20200729173439.3698-1-alexander.deucher@amd.com>
-References: <20200729173439.3698-1-alexander.deucher@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=TiiQwPk5+wOcxrYMTcSS5MR4bewjoZWHQZN/jXHtdiY=;
+ b=f+cqnLzttCLJfOqUpWKpnnBonypgQXSiKZdqTjO+HCqQGEBAuTQ12xHVI1zi80jXp3
+ mN6cjGio2rj61CXOsLU5x9UdVNRmedUE7zAYrLRnbzIi1F2qXQHtBPov4d24U21fqfCh
+ gkW4sJrTnhFUM9h1a9DZB7Z9UvEfNysS1nfJ1qpPVcaMOxZAVqZsAWvxJJLLCjOAs8GX
+ L5SfCa+B7SmhzlknEr/s587YYfryXCDytW0IbfnuC543VMmJ7imX+hYPymPDnRkI/NAW
+ oCzDrSiZz/O56mRblmTK4aAyl9tCsbqz+5yU/L27hMZ3T8qPHhBT3O8P2JqHjgAFoLl5
+ A9Ow==
+X-Gm-Message-State: AOAM533w5O8uxemm6/WwhcNY5JGU+MpJ8Epy8LUnmzn4Mpe8/uWN6pRy
+ DJeXTPdtHLf9KEhpTWTTjZ52PNEUs3GKHaULeUw=
+X-Google-Smtp-Source: ABdhPJy6xeXbe287qC13KOwKNKQS5Im4azlgXn6R3Xvzb5UezGM3otbEEztVP2ILmuILeliBoMojwbe/rnAUjzLzlrs=
+X-Received: by 2002:a1c:2:: with SMTP id 2mr10798884wma.79.1596059753614; Wed,
+ 29 Jul 2020 14:55:53 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200728192924.441570-1-yepeilin.cs@gmail.com>
+ <30b2a31f-77c2-56c1-ecde-875c6eea99d5@gmail.com>
+In-Reply-To: <30b2a31f-77c2-56c1-ecde-875c6eea99d5@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 29 Jul 2020 17:55:42 -0400
+Message-ID: <CADnq5_Pzz5A4kRyF061K+0hjsBEe7GT6j3zrfKZUrbjGcy1GBQ@mail.gmail.com>
+Subject: Re: [Linux-kernel-mentees] [PATCH] drm/amdgpu: Prevent
+ kernel-infoleak in amdgpu_info_ioctl()
+To: Christian Koenig <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,190 +76,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Xiaojie Yuan <xiaojie.yuan@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ Hans de Goede <hdegoede@redhat.com>, Trek <trek00@inbox.ru>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Leo Liu <leo.liu@amd.com>,
+ Peilin Ye <yepeilin.cs@gmail.com>, Dan Carpenter <dan.carpenter@oracle.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's related to the memory manager so move it there.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 12 -----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  4 ++--
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 20 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 13 ++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  6 +++---
- 6 files changed, 30 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 44fd0ef7394f..81f6412eb54f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -649,16 +649,6 @@ struct amdgpu_atcs {
- 	struct amdgpu_atcs_functions functions;
- };
- 
--/*
-- * Firmware VRAM reservation
-- */
--struct amdgpu_fw_vram_usage {
--	u64 start_offset;
--	u64 size;
--	struct amdgpu_bo *reserved_bo;
--	void *va;
--};
--
- /*
-  * CGS
-  */
-@@ -942,8 +932,6 @@ struct amdgpu_device {
- 	struct delayed_work     delayed_init_work;
- 
- 	struct amdgpu_virt	virt;
--	/* firmware VRAM reservation */
--	struct amdgpu_fw_vram_usage fw_vram_usage;
- 
- 	/* link all shadow bo */
- 	struct list_head                shadow_list;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 29f767e026e4..681f2ef739b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -1786,9 +1786,9 @@ static int amdgpu_atombios_allocate_fb_scratch(struct amdgpu_device *adev)
- 			(uint32_t)(ATOM_VRAM_BLOCK_SRIOV_MSG_SHARE_RESERVATION <<
- 			ATOM_VRAM_OPERATION_FLAGS_SHIFT)) {
- 			/* Firmware request VRAM reservation for SR-IOV */
--			adev->fw_vram_usage.start_offset = (start_addr &
-+			adev->mman.fw_vram_usage.start_offset = (start_addr &
- 				(~ATOM_VRAM_OPERATION_FLAGS_MASK)) << 10;
--			adev->fw_vram_usage.size = size << 10;
-+			adev->mman.fw_vram_usage.size = size << 10;
- 			/* Use the default scratch size */
- 			usage_bytes = 0;
- 		} else {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 1279053324f9..07a835d42b72 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -89,9 +89,9 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev)
- 			(uint32_t)(ATOM_VRAM_BLOCK_SRIOV_MSG_SHARE_RESERVATION <<
- 			ATOM_VRAM_OPERATION_FLAGS_SHIFT)) {
- 			/* Firmware request VRAM reservation for SR-IOV */
--			adev->fw_vram_usage.start_offset = (start_addr &
-+			adev->mman.fw_vram_usage.start_offset = (start_addr &
- 				(~ATOM_VRAM_OPERATION_FLAGS_MASK)) << 10;
--			adev->fw_vram_usage.size = size << 10;
-+			adev->mman.fw_vram_usage.size = size << 10;
- 			/* Use the default scratch size */
- 			usage_bytes = 0;
- 		} else {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index ea9b5b39f640..f81a33f79517 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1766,8 +1766,8 @@ static struct ttm_bo_driver amdgpu_bo_driver = {
-  */
- static void amdgpu_ttm_fw_reserve_vram_fini(struct amdgpu_device *adev)
- {
--	amdgpu_bo_free_kernel(&adev->fw_vram_usage.reserved_bo,
--		NULL, &adev->fw_vram_usage.va);
-+	amdgpu_bo_free_kernel(&adev->mman.fw_vram_usage.reserved_bo,
-+		NULL, &adev->mman.fw_vram_usage.va);
- }
- 
- /**
-@@ -1781,19 +1781,19 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
- {
- 	uint64_t vram_size = adev->gmc.visible_vram_size;
- 
--	adev->fw_vram_usage.va = NULL;
--	adev->fw_vram_usage.reserved_bo = NULL;
-+	adev->mman.fw_vram_usage.va = NULL;
-+	adev->mman.fw_vram_usage.reserved_bo = NULL;
- 
--	if (adev->fw_vram_usage.size == 0 ||
--	    adev->fw_vram_usage.size > vram_size)
-+	if (adev->mman.fw_vram_usage.size == 0 ||
-+	    adev->mman.fw_vram_usage.size > vram_size)
- 		return 0;
- 
- 	return amdgpu_bo_create_kernel_at(adev,
--					  adev->fw_vram_usage.start_offset,
--					  adev->fw_vram_usage.size,
-+					  adev->mman.fw_vram_usage.start_offset,
-+					  adev->mman.fw_vram_usage.size,
- 					  AMDGPU_GEM_DOMAIN_VRAM,
--					  &adev->fw_vram_usage.reserved_bo,
--					  &adev->fw_vram_usage.va);
-+					  &adev->mman.fw_vram_usage.reserved_bo,
-+					  &adev->mman.fw_vram_usage.va);
- }
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 6d7b83d967ce..95a513f7785f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -41,6 +41,16 @@
- 
- #define AMDGPU_POISON	0xd0bed0be
- 
-+/*
-+ * Firmware VRAM reservation
-+ */
-+struct amdgpu_fw_vram_usage {
-+	u64 start_offset;
-+	u64 size;
-+	struct amdgpu_bo *reserved_bo;
-+	void *va;
-+};
-+
- struct amdgpu_mman {
- 	struct ttm_bo_device		bdev;
- 	bool				mem_global_referenced;
-@@ -70,6 +80,9 @@ struct amdgpu_mman {
- 	uint8_t				*discovery_bin;
- 	uint32_t			discovery_tmr_size;
- 	struct amdgpu_bo		*discovery_memory;
-+
-+	/* firmware VRAM reservation */
-+	struct amdgpu_fw_vram_usage fw_vram_usage;
- };
- 
- struct amdgpu_copy_mem {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 5cae39d35c04..816e086f00d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -401,7 +401,7 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *adev,
- 	if (bp_block_size) {
- 		bp_cnt = bp_block_size / sizeof(uint64_t);
- 		for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
--			retired_page = *(uint64_t *)(adev->fw_vram_usage.va +
-+			retired_page = *(uint64_t *)(adev->mman.fw_vram_usage.va +
- 					bp_block_offset + bp_idx * sizeof(uint64_t));
- 			bp.retired_page = retired_page;
- 
-@@ -428,10 +428,10 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
- 	adev->virt.fw_reserve.p_pf2vf = NULL;
- 	adev->virt.fw_reserve.p_vf2pf = NULL;
- 
--	if (adev->fw_vram_usage.va != NULL) {
-+	if (adev->mman.fw_vram_usage.va != NULL) {
- 		adev->virt.fw_reserve.p_pf2vf =
- 			(struct amd_sriov_msg_pf2vf_info_header *)(
--			adev->fw_vram_usage.va + AMDGIM_DATAEXCHANGE_OFFSET);
-+			adev->mman.fw_vram_usage.va + AMDGIM_DATAEXCHANGE_OFFSET);
- 		AMDGPU_FW_VRAM_PF2VF_READ(adev, header.size, &pf2vf_size);
- 		AMDGPU_FW_VRAM_PF2VF_READ(adev, checksum, &checksum);
- 		AMDGPU_FW_VRAM_PF2VF_READ(adev, feature_flags, &adev->virt.gim_feature);
--- 
-2.25.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIFdlZCwgSnVsIDI5LCAyMDIwIGF0IDQ6MTEgQU0g
+Q2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3Rl
+Ogo+Cj4gQW0gMjguMDcuMjAgdW0gMjE6Mjkgc2NocmllYiBQZWlsaW4gWWU6Cj4gPiBDb21waWxl
+ciBsZWF2ZXMgYSA0LWJ5dGUgaG9sZSBuZWFyIHRoZSBlbmQgb2YgYGRldl9pbmZvYCwgY2F1c2lu
+Zwo+ID4gYW1kZ3B1X2luZm9faW9jdGwoKSB0byBjb3B5IHVuaW5pdGlhbGl6ZWQga2VybmVsIHN0
+YWNrIG1lbW9yeSB0byB1c2Vyc3BhY2UKPiA+IHdoZW4gYHNpemVgIGlzIGdyZWF0ZXIgdGhhbiAz
+NTYuCj4gPgo+ID4gSW4gMjAxNSB3ZSB0cmllZCB0byBmaXggdGhpcyBpc3N1ZSBieSBkb2luZyBg
+PSB7fTtgIG9uIGBkZXZfaW5mb2AsIHdoaWNoCj4gPiB1bmZvcnR1bmF0ZWx5IGRvZXMgbm90IGlu
+aXRpYWxpemUgdGhhdCA0LWJ5dGUgaG9sZS4gRml4IGl0IGJ5IHVzaW5nCj4gPiBtZW1zZXQoKSBp
+bnN0ZWFkLgo+ID4KPiA+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gPiBGaXhlczogYzE5
+M2ZhOTFiOTE4ICgiZHJtL2FtZGdwdTogaW5mb3JtYXRpb24gbGVhayBpbiBhbWRncHVfaW5mb19p
+b2N0bCgpIikKPiA+IEZpeGVzOiBkMzhjZWFmOTllZDAgKCJkcm0vYW1kZ3B1OiBhZGQgY29yZSBk
+cml2ZXIgKHY0KSIpCj4gPiBTdWdnZXN0ZWQtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50
+ZXJAb3JhY2xlLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6IFBlaWxpbiBZZSA8eWVwZWlsaW4uY3NA
+Z21haWwuY29tPgo+Cj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
+b2VuaWdAYW1kLmNvbT4KPgo+IEkgY2FuJ3QgY291bnQgaG93IG1hbnkgb2YgdGhvc2Ugd2UgaGF2
+ZSBmaXhlZCBvdmVyIHRoZSB5ZWFycy4KPgo+IEF0IHNvbWUgcG9pbnQgd2Ugc2hvdWxkIHByb2Jh
+Ymx5IGRvY3VtZW50IHRoYXQgdXNpbmcgIj0ge30iIG9yICI9IHsgMCB9Igo+IGluIHRoZSBrZXJu
+ZWwgaXMgYSByZWFsbHkgYmFkIGlkZWEgYW5kIHNob3VsZCBiZSBhdm9pZGVkLgo+Cj4gVGhhbmtz
+LAo+IENocmlzdGlhbi4KPgo+ID4gLS0tCj4gPiAkIHBhaG9sZSAtQyAiZHJtX2FtZGdwdV9pbmZv
+X2RldmljZSIgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5vCj4gPiBzdHJ1
+Y3QgZHJtX2FtZGdwdV9pbmZvX2RldmljZSB7Cj4gPiAgICAgICBfX3UzMiAgICAgICAgICAgICAg
+ICAgICAgICBkZXZpY2VfaWQ7ICAgICAgICAgICAgLyogICAgIDAgICAgIDQgKi8KPiA+ICAgICAg
+IF9fdTMyICAgICAgICAgICAgICAgICAgICAgIGNoaXBfcmV2OyAgICAgICAgICAgICAvKiAgICAg
+NCAgICAgNCAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgZXh0ZXJuYWxf
+cmV2OyAgICAgICAgIC8qICAgICA4ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAg
+ICAgICAgICAgICBwY2lfcmV2OyAgICAgICAgICAgICAgLyogICAgMTIgICAgIDQgKi8KPiA+ICAg
+ICAgIF9fdTMyICAgICAgICAgICAgICAgICAgICAgIGZhbWlseTsgICAgICAgICAgICAgICAvKiAg
+ICAxNiAgICAgNCAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgbnVtX3No
+YWRlcl9lbmdpbmVzOyAgIC8qICAgIDIwICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAg
+ICAgICAgICAgICAgICBudW1fc2hhZGVyX2FycmF5c19wZXJfZW5naW5lOyAvKiAgICAyNCAgICAg
+NCAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgZ3B1X2NvdW50ZXJfZnJl
+cTsgICAgIC8qICAgIDI4ICAgICA0ICovCj4gPiAgICAgICBfX3U2NCAgICAgICAgICAgICAgICAg
+ICAgICBtYXhfZW5naW5lX2Nsb2NrOyAgICAgLyogICAgMzIgICAgIDggKi8KPiA+ICAgICAgIF9f
+dTY0ICAgICAgICAgICAgICAgICAgICAgIG1heF9tZW1vcnlfY2xvY2s7ICAgICAvKiAgICA0MCAg
+ICAgOCAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgY3VfYWN0aXZlX251
+bWJlcjsgICAgIC8qICAgIDQ4ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAgICAg
+ICAgICAgICBjdV9hb19tYXNrOyAgICAgICAgICAgLyogICAgNTIgICAgIDQgKi8KPiA+ICAgICAg
+IF9fdTMyICAgICAgICAgICAgICAgICAgICAgIGN1X2JpdG1hcFs0XVs0XTsgICAgICAvKiAgICA1
+NiAgICA2NCAqLwo+ID4gICAgICAgLyogLS0tIGNhY2hlbGluZSAxIGJvdW5kYXJ5ICg2NCBieXRl
+cykgd2FzIDU2IGJ5dGVzIGFnbyAtLS0gKi8KPiA+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAg
+ICAgICAgIGVuYWJsZWRfcmJfcGlwZXNfbWFzazsgLyogICAxMjAgICAgIDQgKi8KPiA+ICAgICAg
+IF9fdTMyICAgICAgICAgICAgICAgICAgICAgIG51bV9yYl9waXBlczsgICAgICAgICAvKiAgIDEy
+NCAgICAgNCAqLwo+ID4gICAgICAgLyogLS0tIGNhY2hlbGluZSAyIGJvdW5kYXJ5ICgxMjggYnl0
+ZXMpIC0tLSAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgbnVtX2h3X2dm
+eF9jb250ZXh0czsgIC8qICAgMTI4ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAg
+ICAgICAgICAgICBfcGFkOyAgICAgICAgICAgICAgICAgLyogICAxMzIgICAgIDQgKi8KPiA+ICAg
+ICAgIF9fdTY0ICAgICAgICAgICAgICAgICAgICAgIGlkc19mbGFnczsgICAgICAgICAgICAvKiAg
+IDEzNiAgICAgOCAqLwo+ID4gICAgICAgX191NjQgICAgICAgICAgICAgICAgICAgICAgdmlydHVh
+bF9hZGRyZXNzX29mZnNldDsgLyogICAxNDQgICAgIDggKi8KPiA+ICAgICAgIF9fdTY0ICAgICAg
+ICAgICAgICAgICAgICAgIHZpcnR1YWxfYWRkcmVzc19tYXg7ICAvKiAgIDE1MiAgICAgOCAqLwo+
+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgdmlydHVhbF9hZGRyZXNzX2FsaWdu
+bWVudDsgLyogICAxNjAgICAgIDQgKi8KPiA+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAgICAg
+ICAgIHB0ZV9mcmFnbWVudF9zaXplOyAgICAvKiAgIDE2NCAgICAgNCAqLwo+ID4gICAgICAgX191
+MzIgICAgICAgICAgICAgICAgICAgICAgZ2FydF9wYWdlX3NpemU7ICAgICAgIC8qICAgMTY4ICAg
+ICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAgICAgICAgICAgICBjZV9yYW1fc2l6ZTsg
+ICAgICAgICAgLyogICAxNzIgICAgIDQgKi8KPiA+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAg
+ICAgICAgIHZyYW1fdHlwZTsgICAgICAgICAgICAvKiAgIDE3NiAgICAgNCAqLwo+ID4gICAgICAg
+X191MzIgICAgICAgICAgICAgICAgICAgICAgdnJhbV9iaXRfd2lkdGg7ICAgICAgIC8qICAgMTgw
+ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAgICAgICAgICAgICB2Y2VfaGFydmVz
+dF9jb25maWc7ICAgLyogICAxODQgICAgIDQgKi8KPiA+ICAgICAgIF9fdTMyICAgICAgICAgICAg
+ICAgICAgICAgIGdjX2RvdWJsZV9vZmZjaGlwX2xkc19idWY7IC8qICAgMTg4ICAgICA0ICovCj4g
+PiAgICAgICAvKiAtLS0gY2FjaGVsaW5lIDMgYm91bmRhcnkgKDE5MiBieXRlcykgLS0tICovCj4g
+PiAgICAgICBfX3U2NCAgICAgICAgICAgICAgICAgICAgICBwcmltX2J1Zl9ncHVfYWRkcjsgICAg
+LyogICAxOTIgICAgIDggKi8KPiA+ICAgICAgIF9fdTY0ICAgICAgICAgICAgICAgICAgICAgIHBv
+c19idWZfZ3B1X2FkZHI7ICAgICAvKiAgIDIwMCAgICAgOCAqLwo+ID4gICAgICAgX191NjQgICAg
+ICAgICAgICAgICAgICAgICAgY250bF9zYl9idWZfZ3B1X2FkZHI7IC8qICAgMjA4ICAgICA4ICov
+Cj4gPiAgICAgICBfX3U2NCAgICAgICAgICAgICAgICAgICAgICBwYXJhbV9idWZfZ3B1X2FkZHI7
+ICAgLyogICAyMTYgICAgIDggKi8KPiA+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAgICAgICAg
+IHByaW1fYnVmX3NpemU7ICAgICAgICAvKiAgIDIyNCAgICAgNCAqLwo+ID4gICAgICAgX191MzIg
+ICAgICAgICAgICAgICAgICAgICAgcG9zX2J1Zl9zaXplOyAgICAgICAgIC8qICAgMjI4ICAgICA0
+ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAgICAgICAgICAgICBjbnRsX3NiX2J1Zl9zaXpl
+OyAgICAgLyogICAyMzIgICAgIDQgKi8KPiA+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAgICAg
+ICAgIHBhcmFtX2J1Zl9zaXplOyAgICAgICAvKiAgIDIzNiAgICAgNCAqLwo+ID4gICAgICAgX191
+MzIgICAgICAgICAgICAgICAgICAgICAgd2F2ZV9mcm9udF9zaXplOyAgICAgIC8qICAgMjQwICAg
+ICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAgICAgICAgICAgICBudW1fc2hhZGVyX3Zp
+c2libGVfdmdwcnM7IC8qICAgMjQ0ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAgICAg
+ICAgICAgICAgICBudW1fY3VfcGVyX3NoOyAgICAgICAgLyogICAyNDggICAgIDQgKi8KPiA+ICAg
+ICAgIF9fdTMyICAgICAgICAgICAgICAgICAgICAgIG51bV90Y2NfYmxvY2tzOyAgICAgICAvKiAg
+IDI1MiAgICAgNCAqLwo+ID4gICAgICAgLyogLS0tIGNhY2hlbGluZSA0IGJvdW5kYXJ5ICgyNTYg
+Ynl0ZXMpIC0tLSAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgZ3Nfdmd0
+X3RhYmxlX2RlcHRoOyAgIC8qICAgMjU2ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAgICAg
+ICAgICAgICAgICAgICBnc19wcmltX2J1ZmZlcl9kZXB0aDsgLyogICAyNjAgICAgIDQgKi8KPiA+
+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAgICAgICAgIG1heF9nc193YXZlc19wZXJfdmd0OyAv
+KiAgIDI2NCAgICAgNCAqLwo+ID4gICAgICAgX191MzIgICAgICAgICAgICAgICAgICAgICAgX3Bh
+ZDE7ICAgICAgICAgICAgICAgIC8qICAgMjY4ICAgICA0ICovCj4gPiAgICAgICBfX3UzMiAgICAg
+ICAgICAgICAgICAgICAgICBjdV9hb19iaXRtYXBbNF1bNF07ICAgLyogICAyNzIgICAgNjQgKi8K
+PiA+ICAgICAgIC8qIC0tLSBjYWNoZWxpbmUgNSBib3VuZGFyeSAoMzIwIGJ5dGVzKSB3YXMgMTYg
+Ynl0ZXMgYWdvIC0tLSAqLwo+ID4gICAgICAgX191NjQgICAgICAgICAgICAgICAgICAgICAgaGln
+aF92YV9vZmZzZXQ7ICAgICAgIC8qICAgMzM2ICAgICA4ICovCj4gPiAgICAgICBfX3U2NCAgICAg
+ICAgICAgICAgICAgICAgICBoaWdoX3ZhX21heDsgICAgICAgICAgLyogICAzNDQgICAgIDggKi8K
+PiA+ICAgICAgIF9fdTMyICAgICAgICAgICAgICAgICAgICAgIHBhX3NjX3RpbGVfc3RlZXJpbmdf
+b3ZlcnJpZGU7IC8qICAgMzUyICAgICA0ICovCj4gPgo+ID4gICAgICAgLyogWFhYIDQgYnl0ZXMg
+aG9sZSwgdHJ5IHRvIHBhY2sgKi8KPiA+Cj4gPiAgICAgICBfX3U2NCAgICAgICAgICAgICAgICAg
+ICAgICB0Y2NfZGlzYWJsZWRfbWFzazsgICAgLyogICAzNjAgICAgIDggKi8KPiA+Cj4gPiAgICAg
+ICAvKiBzaXplOiAzNjgsIGNhY2hlbGluZXM6IDYsIG1lbWJlcnM6IDQ5ICovCj4gPiAgICAgICAv
+KiBzdW0gbWVtYmVyczogMzY0LCBob2xlczogMSwgc3VtIGhvbGVzOiA0ICovCj4gPiAgICAgICAv
+KiBsYXN0IGNhY2hlbGluZTogNDggYnl0ZXMgKi8KPiA+IH07Cj4gPgo+ID4gICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAzICsrLQo+ID4gICAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+ID4gaW5kZXggYThjNDdhZWNkMzQyLi4wMDQ3ZGEwNjA0
+MWYgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21z
+LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+ID4g
+QEAgLTcwNyw5ICs3MDcsMTAgQEAgc3RhdGljIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3Qg
+ZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUKPiA+ICAgICAgICAg
+ICAgICAgcmV0dXJuIG4gPyAtRUZBVUxUIDogMDsKPiA+ICAgICAgIH0KPiA+ICAgICAgIGNhc2Ug
+QU1ER1BVX0lORk9fREVWX0lORk86IHsKPiA+IC0gICAgICAgICAgICAgc3RydWN0IGRybV9hbWRn
+cHVfaW5mb19kZXZpY2UgZGV2X2luZm8gPSB7fTsKPiA+ICsgICAgICAgICAgICAgc3RydWN0IGRy
+bV9hbWRncHVfaW5mb19kZXZpY2UgZGV2X2luZm87Cj4gPiAgICAgICAgICAgICAgIHVpbnQ2NF90
+IHZtX3NpemU7Cj4gPgo+ID4gKyAgICAgICAgICAgICBtZW1zZXQoJmRldl9pbmZvLCAwLCBzaXpl
+b2YoZGV2X2luZm8pKTsKPiA+ICAgICAgICAgICAgICAgZGV2X2luZm8uZGV2aWNlX2lkID0gZGV2
+LT5wZGV2LT5kZXZpY2U7Cj4gPiAgICAgICAgICAgICAgIGRldl9pbmZvLmNoaXBfcmV2ID0gYWRl
+di0+cmV2X2lkOwo+ID4gICAgICAgICAgICAgICBkZXZfaW5mby5leHRlcm5hbF9yZXYgPSBhZGV2
+LT5leHRlcm5hbF9yZXZfaWQ7Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
