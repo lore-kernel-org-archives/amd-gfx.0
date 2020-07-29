@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E1B7C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2294EC433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 57668207F5
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ECAC32075F
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mqPjcvyL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57668207F5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VR+xy2j5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECAC32075F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A4C6E5D2;
-	Wed, 29 Jul 2020 17:35:04 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDE046E5CF
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:35:02 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id b2so657457qvp.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:35:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11C46E5CF;
+	Wed, 29 Jul 2020 17:35:09 +0000 (UTC)
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34BA26E5CF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:35:04 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id ed14so11246066qvb.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dQ+ioePqy3WB9Vvw4p2ICHHRrJEuCY1buN5X4vbhV3U=;
- b=mqPjcvyLkReLisU/8ZF4qpOBwD95Yd/UNOQ/dvWfNbXOBjf9b+iYG2Kne+0CxQKg4h
- IsbMvxaG0E6JlbQ278QwhXDU0ArsutDbope1hBkVkWGJyewK9CvHj/cLCFZZniQ5h8jA
- +Jtbr+3/TgEW03yFdNA4zkIpBBXIWN52Je+D2ado7rCKQ9zQPeNtwQnz5gAyoo2Fb6jb
- SJt85OI+Q2MSk4FIz25HDbTE2RgrLppUSZ5L/RlX3MYAf5WnKlQ8f5/toLEABXp/7J15
- uo+9eaPPxUureZlUO8TWLk0WSOW+nwL+AuM2EyY8Ua4ryjvL3f1q/Aut9ulDatZFDjUe
- 8uRw==
+ bh=h7veDK+5Wux/YxICIY2iWLMk1hh3KUtjDBKFTzk5pgQ=;
+ b=VR+xy2j508XMUxQwOpmspQMW2VMGHp0yRbdafoabDxNmKSKJnqCjyNEVqJoMgy/prv
+ 286DYDY1utALXHf+1mGK+GAcld/EBTG1PeGcvX+1ucwi/wBFtUGFuu9wwt4XDMrMoly6
+ oqS/6fyNScRIO8kZmPbZ2UK/Zji2Ku0RDYvQKO1DeglgbY5Ihx+TdM07UihEDU4hNxwq
+ MDpo/lcBmSQ3ySUCNXkSqSgle+8KLiACL8L9wvrO32DgaAB3R7H0Br3fx983ice99B/w
+ ggeytIz2hcpIH2BJqDHd+jcjG2hSvWziQs1R5QOE82zs/iIF7WZiK0/wsfdDzX7J2TLq
+ jq/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dQ+ioePqy3WB9Vvw4p2ICHHRrJEuCY1buN5X4vbhV3U=;
- b=UNU4SybUiNWg7GamgjmEy5tC/qFkYAStWmCB7I5gpUEMFScllkbMF0y2kBC9m227y0
- ADyJrotmYo5QyoOoODpFRkCENRn42DdW5KJGqzCXrPyVlgMqaZdOOnHSDdAtmSRbHg6X
- 1+Qyrf7EP+nT53HqIt+BWSmrkFaY9TKxstThGuCwU9Nn+NQhdW8czfn3+KiILaagIc6o
- SRaIGRIaFPpIlwe0cFPoLqsRd9hKCNYGXN7dOlxnx3o+BemoOPmVY8eLoMrmRhQWF/el
- Z4YiNLLcpbMB3eTWRH2/g3J/LVYd8zdJ98V11IzEUpd8qIG0YDAlb/vmy+7cqMhiFvZN
- ziPg==
-X-Gm-Message-State: AOAM5305HYeryVkCQrrCB7qktENmm2ba8JsUjiExjJbWZNKcbdFlZgPL
- ZoPzs3XZCPHgMW/Ub21W0JMGMh2z
-X-Google-Smtp-Source: ABdhPJwtqxrYYIFvmh0G2zRO3DJHeE+8YJ3pTbWOoryf07ZY46iz0ZPrycIneBNKfMrtboSby1dk6g==
-X-Received: by 2002:a0c:ec86:: with SMTP id u6mr20220763qvo.58.1596044101804; 
- Wed, 29 Jul 2020 10:35:01 -0700 (PDT)
+ bh=h7veDK+5Wux/YxICIY2iWLMk1hh3KUtjDBKFTzk5pgQ=;
+ b=ViOICVrrGKBjsvGuvBX2d4x+2sKlCauqFE0XkBAG/Kb5HuDWp7Wk9HKpwHfjBTcXHW
+ P7XVaSMKCs85l+JvvL669CIAoNGKAUDnZFTyCzo34w7T/5YlNvuVPlK67P7aJivjkMAw
+ nZHPyTIEdv7H/cqPOzotwWvjav3YMk5WQjSpDxRAayRNs5V2HfsiMdeRBk763dz7PsaM
+ LZPGyILbAME/9JptSr95LqLfvVGALgjt5puqB6asm24QXCrZv9t9npTigPBlJ/10WhBo
+ gx5EnwLIMfeoF+k839MFTHzklvM+sk8+P1GX74i+FXLRoIAiu2HnAcY2nts9fybYhc97
+ BXfg==
+X-Gm-Message-State: AOAM533gnVQx4NePHf+zOxRVg/FhkiWumtWrxvQfquuWXBATB8tHkdzF
+ LcfvUb860LxYUryzUtJU513S8nHu
+X-Google-Smtp-Source: ABdhPJw0BRSNHAQM9LFBwazczJMV8xVemhx6rr8bjqYnT78nK43YfecH1QXAbs56UxW2aLT/rdJwlw==
+X-Received: by 2002:a05:6214:3f3:: with SMTP id
+ cf19mr33322327qvb.94.1596044102861; 
+ Wed, 29 Jul 2020 10:35:02 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.35.00
+ by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.35.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 10:35:00 -0700 (PDT)
+ Wed, 29 Jul 2020 10:35:02 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 14/17] drm/amdgpu/gmc: disable keep_stolen_vga_memory on
- arcturus
-Date: Wed, 29 Jul 2020 13:34:36 -0400
-Message-Id: <20200729173439.3698-15-alexander.deucher@amd.com>
+Subject: [PATCH 15/17] drm/amdgpu: move stolen memory from gmc to mman
+Date: Wed, 29 Jul 2020 13:34:37 -0400
+Message-Id: <20200729173439.3698-16-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200729173439.3698-1-alexander.deucher@amd.com>
 References: <20200729173439.3698-1-alexander.deucher@amd.com>
@@ -81,35 +81,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I suspect the only reason this was set was to avoid touching
-the display related registers on arcturus.  Someone should
-double check this on arcturus with S3.
+It's more related to memory management than memory
+controller.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  5 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  6 ++++++
+ 4 files changed, 22 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index fc9e18aaa76e..0bd7b3797534 100644
+index 0bd7b3797534..213ef090bb0e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -448,7 +448,6 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
- 	switch (adev->asic_type) {
+@@ -449,10 +449,10 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
  	case CHIP_VEGA10:
  	case CHIP_RAVEN:
--	case CHIP_ARCTURUS:
  	case CHIP_RENOIR:
- 		adev->gmc.keep_stolen_vga_memory = true;
+-		adev->gmc.keep_stolen_vga_memory = true;
++		adev->mman.keep_stolen_vga_memory = true;
  		break;
+ 	default:
+-		adev->gmc.keep_stolen_vga_memory = false;
++		adev->mman.keep_stolen_vga_memory = false;
+ 		break;
+ 	}
+ 
+@@ -466,10 +466,10 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_device *adev)
+ 		size = 0;
+ 
+ 	if (size > AMDGPU_VBIOS_VGA_ALLOCATION) {
+-		adev->gmc.stolen_vga_size = AMDGPU_VBIOS_VGA_ALLOCATION;
+-		adev->gmc.stolen_extended_size = size - adev->gmc.stolen_vga_size;
++		adev->mman.stolen_vga_size = AMDGPU_VBIOS_VGA_ALLOCATION;
++		adev->mman.stolen_extended_size = size - adev->mman.stolen_vga_size;
+ 	} else {
+-		adev->gmc.stolen_vga_size = size;
+-		adev->gmc.stolen_extended_size = 0;
++		adev->mman.stolen_vga_size = size;
++		adev->mman.stolen_extended_size = 0;
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index c2a85d0b1546..d61bbde4c7d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -215,11 +215,6 @@ struct amdgpu_gmc {
+ 	uint8_t			vram_vendor;
+ 	uint32_t                srbm_soft_reset;
+ 	bool			prt_warning;
+-	uint64_t		stolen_vga_size;
+-	struct amdgpu_bo	*stolen_vga_memory;
+-	uint64_t		stolen_extended_size;
+-	struct amdgpu_bo	*stolen_extended_memory;
+-	bool			keep_stolen_vga_memory;
+ 	uint32_t		sdpif_register;
+ 	/* apertures */
+ 	u64			shared_aperture_start;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 3df9d5a53741..cc1a5b2876b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1978,16 +1978,16 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	 * This is used for VGA emulation and pre-OS scanout buffers to
+ 	 * avoid display artifacts while transitioning between pre-OS
+ 	 * and driver.  */
+-	r = amdgpu_bo_create_kernel_at(adev, 0, adev->gmc.stolen_vga_size,
++	r = amdgpu_bo_create_kernel_at(adev, 0, adev->mman.stolen_vga_size,
+ 				       AMDGPU_GEM_DOMAIN_VRAM,
+-				       &adev->gmc.stolen_vga_memory,
++				       &adev->mman.stolen_vga_memory,
+ 				       NULL);
+ 	if (r)
+ 		return r;
+-	r = amdgpu_bo_create_kernel_at(adev, adev->gmc.stolen_vga_size,
+-				       adev->gmc.stolen_extended_size,
++	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
++				       adev->mman.stolen_extended_size,
+ 				       AMDGPU_GEM_DOMAIN_VRAM,
+-				       &adev->gmc.stolen_extended_memory,
++				       &adev->mman.stolen_extended_memory,
+ 				       NULL);
+ 	if (r)
+ 		return r;
+@@ -2048,9 +2048,9 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ void amdgpu_ttm_late_init(struct amdgpu_device *adev)
+ {
+ 	/* return the VGA stolen memory (if any) back to VRAM */
+-	if (!adev->gmc.keep_stolen_vga_memory)
+-		amdgpu_bo_free_kernel(&adev->gmc.stolen_vga_memory, NULL, NULL);
+-	amdgpu_bo_free_kernel(&adev->gmc.stolen_extended_memory, NULL, NULL);
++	if (!adev->mman.keep_stolen_vga_memory)
++		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
++	amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+ }
+ 
+ /**
+@@ -2063,8 +2063,8 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 
+ 	amdgpu_ttm_training_reserve_vram_fini(adev);
+ 	/* return the stolen vga memory back to VRAM */
+-	if (adev->gmc.keep_stolen_vga_memory)
+-		amdgpu_bo_free_kernel(&adev->gmc.stolen_vga_memory, NULL, NULL);
++	if (adev->mman.keep_stolen_vga_memory)
++		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
+ 	/* return the IP Discovery TMR memory back to VRAM */
+ 	amdgpu_bo_free_kernel(&adev->discovery_memory, NULL, NULL);
+ 	amdgpu_ttm_fw_reserve_vram_fini(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 17c8d0d7bcc3..98af87f38f3e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -59,6 +59,12 @@ struct amdgpu_mman {
+ 	struct mutex				gtt_window_lock;
+ 	/* Scheduler entity for buffer moves */
+ 	struct drm_sched_entity			entity;
++
++	uint64_t		stolen_vga_size;
++	struct amdgpu_bo	*stolen_vga_memory;
++	uint64_t		stolen_extended_size;
++	struct amdgpu_bo	*stolen_extended_memory;
++	bool			keep_stolen_vga_memory;
+ };
+ 
+ struct amdgpu_copy_mem {
 -- 
 2.25.4
 
