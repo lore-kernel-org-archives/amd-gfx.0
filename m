@@ -2,74 +2,75 @@ Return-Path: <SRS0=V/Q8=BI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02678C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96A07C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC7AC207E8
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:34:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 455C320672
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 02:42:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EDiHjeh9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC7AC207E8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KoTN0O+W"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 455C320672
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 881116E431;
-	Wed, 29 Jul 2020 02:34:17 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750042.outbound.protection.outlook.com [40.107.75.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5356E430
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 02:34:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7126E430;
+	Wed, 29 Jul 2020 02:42:13 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B6656E430
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 02:42:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UhjnMN3gcSiEmFzQbTZALkcsgTlCgR38GZAm3pKBu448MKALw2pjP6WiaDqoaR44kuHj98fjtttdcvm5iDJyGrpu9jVtC1jxTdDcg13mBOrzOf4a/jNC94fKMJMdsAPruqPh29MJR4fOuI1skLSE9j4BDYCeab2MlXn31NB9by2YFvp/n0uK4yBnZq45hBOyu0dudDHi9+8DjtjwQxoSd9xbto++A9wu2LpbM7k6fHMwMiLCG5k1L3Cti1CxTWXzTQyt9GuO2L93G/yIxulkcTIEwtbBVM977WXj3RuJpWkKXKRetVp7TtUyAUkyu2N5DUvknzn28PywruFo0Rd+Vg==
+ b=O9jAgAqQH0h9yE0QKde4OTeYW138ROk4PJrAezXOSlhGE8t2e1jUC6QLJ9BxDle7u9TSKLE7zRrIigbo9YqwSxUpdQEQXkdr4XsvFw1qORZo2hLVFHjLiydzU3wkJ7i0xNehcxvuj0O0MEQO/ZqvT7rwHKpufYd4g8XHYe0NKfJarXaC63r3tD55GJoAZsnR7b0J4N91hnfreT3+4lp6raKRbaR75rF9/Uhu2LY3HHXIT+PyaEMu19jsahgzNw4mGQ8MROKruox0vQeRcgYvkqSI6i9Dol4AEXoMpZwvfcFppRQZva+XbhyURc0wxLf1g8AEPs9rI+xil32/WhX6uA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+ds04Mj24J2MEhhzIwRRu6o28W8u1uRishJdJqYfVHg=;
- b=BQdZaJKsxQfx5y3+k0kjLSVc01ifV+gSeosLAZoFs2DyF1WwpztGdUqclrfc5nUPUC8o7Yr8OVYsv95hMw0U7SLL29oq7GGRC24QzSYOdIcuKTPw+TkCpePQVR7aW67f7MRPROZ5dpoKIihvndnULokggmw0OpmGINCu1eDV0/iInOzLmV6+qkCSxR36M1g1rH+UMX418/WpujaJeng4N2OwuNpScQD7riv3daKddeosWV4czfciJOm4M14Rz2J5RE+72T2yrUu8w7WciD1oNdjCb69zPIFQjNVE4N+Jt6FTgM3E+pEYvUY9wsenLtGL19Ndg7JnswCZ7aUJdqNg9Q==
+ bh=v3MYllOckbamAmUYyqTUCUGPtkQ9DFqN3M17Jx3F9yU=;
+ b=kWAu24fiRT+WUTtBsZEp3I75t8M1oIvIkiQ4iAVsXZfnfKUi5+1PDaD4E5ANjhtG5tYTD2KLZglS0UN9/Zmy6Pza2nrQ5542AjwsScvOtFm/XTqMJj8hSN0WVelw6/Waklnnm/1M9aFYlSr9yNwIhtPUBQuuMU62TK0gd7dIrK2TyNPASPjVZr9cbPl2bOhqDUa4XI6O7fX95+TAhMupTSN1rXzyUvV1wPm9WFsnW4xyJaDi1mYW7MH5ZBRitBRp/+1Asz3OxTZCBmUUvzJfFuQ8GovAgQmwNdAJrQ2+ckGpwt5H379TNZamIymFulJgDFJi41+9JGY1stOSWvXgfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+ds04Mj24J2MEhhzIwRRu6o28W8u1uRishJdJqYfVHg=;
- b=EDiHjeh9FaE06OI7GOoCU+IzBkUsSDswnEIsF6l9ImGVIrbvrwvpqLZimqPIntqS+Vb+OURPjvfelAzlODYtEbpoJc8uHXufT1xWd6b5uqA5AJZaHyRUpq4nhAV4flhpAFv5tjt/ihO0Bo2gxDlHu3B4I9+rHOkaRDPVVJQneDs=
+ bh=v3MYllOckbamAmUYyqTUCUGPtkQ9DFqN3M17Jx3F9yU=;
+ b=KoTN0O+WAIDO0gWHSzay9IDOlBLX7NJH2ZnA4RFaVxgRwwblEGOlf2PJ/ma6a3aBoI3xyCOkMXJQyV9uW3R6LnyYwaveEYJ+CU/sxU0lE2hhIS8kgAzVa0M1k+7nnwLn/ZFAzMaslCWr1JaPCFPS/gPyC+ATBUCyLTLHKpW6RPE=
 Received: from BY5PR12MB3777.namprd12.prod.outlook.com (2603:10b6:a03:1a9::14)
- by BYAPR12MB3240.namprd12.prod.outlook.com (2603:10b6:a03:136::28)
+ by BY5PR12MB3873.namprd12.prod.outlook.com (2603:10b6:a03:1a3::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.28; Wed, 29 Jul
- 2020 02:34:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.24; Wed, 29 Jul
+ 2020 02:42:03 +0000
 Received: from BY5PR12MB3777.namprd12.prod.outlook.com
  ([fe80::391f:5cf2:69c7:9962]) by BY5PR12MB3777.namprd12.prod.outlook.com
  ([fe80::391f:5cf2:69c7:9962%7]) with mapi id 15.20.3216.034; Wed, 29 Jul 2020
- 02:34:10 +0000
+ 02:42:03 +0000
 From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
 To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add interface amdgpu_gfx_init_spm_golden
- for Navi1x
-Thread-Topic: [PATCH 1/2] drm/amdgpu: add interface amdgpu_gfx_init_spm_golden
- for Navi1x
-Thread-Index: AQHWZJ/If51w3Fy480WoSev5UcYb2qkdUOCAgACHP7A=
-Date: Wed, 29 Jul 2020 02:34:09 +0000
-Message-ID: <BY5PR12MB37773E8A11E29E6E7D55726495700@BY5PR12MB3777.namprd12.prod.outlook.com>
-References: <20200728052717.21071-1-tianci.yin@amd.com>,
- <737bbfe1-a030-b411-5ba2-e0704c03c76c@amd.com>
-In-Reply-To: <737bbfe1-a030-b411-5ba2-e0704c03c76c@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: reconfigure spm golden settings on Navi1x
+ after GFXOFF exit
+Thread-Topic: [PATCH 2/2] drm/amdgpu: reconfigure spm golden settings on
+ Navi1x after GFXOFF exit
+Thread-Index: AQHWZJ/JJnQa1rfOrkiiEaG9S8S0L6kdVPaAgACFS0k=
+Date: Wed, 29 Jul 2020 02:42:02 +0000
+Message-ID: <BY5PR12MB3777AC4248B8D2071DF21B7695700@BY5PR12MB3777.namprd12.prod.outlook.com>
+References: <20200728052717.21071-1-tianci.yin@amd.com>
+ <20200728052717.21071-2-tianci.yin@amd.com>,
+ <6bf4db16-25ca-4588-345e-c4919f1bdf30@amd.com>
+In-Reply-To: <6bf4db16-25ca-4588-345e-c4919f1bdf30@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-29T02:34:09.412Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-29T02:42:02.436Z;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
  Distribution
  Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
@@ -79,31 +80,31 @@ authentication-results: amd.com; dkim=none (message not signed)
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e882a24c-e09b-4e47-89c9-08d83367dfb6
-x-ms-traffictypediagnostic: BYAPR12MB3240:
+x-ms-office365-filtering-correlation-id: 0f5602e6-9f37-4333-4c30-08d83368f9b5
+x-ms-traffictypediagnostic: BY5PR12MB3873:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB3240388DF2EDF3DB5769B64295700@BYAPR12MB3240.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:651;
+x-microsoft-antispam-prvs: <BY5PR12MB387372194491209B7DC30BEA95700@BY5PR12MB3873.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: I2Y++LG0S79vJqc8TWQGlJiOd5ADZkeAIxI87rjIqBALX2itggta6ttsC8U5JhdbDgGZCmxxYLytNgCh8IKhzlaYkUDm/1xi8zPl0omCtMkU3zkXBtFOvYuZ7w+xUav4V1LCuozJxQ0XRXZsb4eWWaZCKX1NY60DrjMdMUtsQU27d0wldTL2Gm40SSdTOs1RZh3BNFJMjICWVjSaubCVvwaS8yzG5/AhBZVwW1dYKyNk+r/6P/ktDKr18Yq2vADV7fBW09tab0lT0hZDL/lDI0Ka+q9mzRTUl/3JNIO/JKgWeLnY3mp8OCMwhVZJP8Pxm3DMUdOhdeGdHh7DsfipkD/WTkucl0By44njMCG5sxHG4PI8oe+saYp2QovjwovB
+x-microsoft-antispam-message-info: VL1CE0WshJHKA2hZj+vjuNyUobCEPngVwxKOZQWvOws72Lx7HdbjR9auKGiuYM+to8PpmA0C93l81iA0DjJHZMl4wvd47g5ZFdCxqeQOh9YGkEouRo/vCM7GDEyjjXeqaDTb6ZxpXqH4J+1OKCM20FWIh9pFWFhvi0CYGno3ArNzvUjBt7ONhacE9DZGC6gICYa0vbwlxAxTTTGh24eb4xNNOSuFPw+UKXQNBUMHdoERpjfZIw+O7FCt8+cnCze8s81yeqwdrI/jk4La+MlvUJCpiK/Y0E3jPFQVfTvdRMN6nLx3jguVmPdLMrM3VADuk+7/V4rJBgoQZe/4SxWTm9l38u+H0bgt7iMjbHK7dLMqiWocHr00iBCPDp2ZdJv2
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BY5PR12MB3777.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(396003)(366004)(346002)(376002)(39860400002)(33656002)(66946007)(316002)(53546011)(71200400001)(4326008)(8676002)(26005)(66446008)(6506007)(52536014)(5660300002)(66476007)(66556008)(64756008)(91956017)(76116006)(83380400001)(2906002)(478600001)(86362001)(8936002)(54906003)(110136005)(186003)(7696005)(55016002)(19627405001)(9686003)(32563001);
+ SFS:(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(86362001)(2906002)(186003)(5660300002)(71200400001)(19627405001)(26005)(8936002)(110136005)(8676002)(54906003)(4326008)(53546011)(9686003)(316002)(52536014)(478600001)(55016002)(83380400001)(64756008)(33656002)(91956017)(66946007)(66446008)(66476007)(7696005)(6506007)(76116006)(66556008)(32563001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: OZ22d3L/z4FDklHUrEyepWreb0K2LYkTheMbsRmwlKVpDcpuEVTM9QWmY/jOk1UcpOcVdtGaJsJ3PPzQx65UAahDYRANkWzJ8nIbym0bCch/inoWo/sGp3WPnFW+8eFSVuLikp0V2PBJKA8UybeCb1gSNAd86IX+wnEZpRLLSlEsmt8feMYWQ0M8QpthqOO3MbDqvtFWtSjfaT9ICWZFt+Dgv2L1hyKEDPegdjKo7LLomBqs1rNFgUybzaeZoavLWLuhOl7Xr2I1hPCPNIEHeH8nDjbG4yYD+IqozSsYkfZ6IKh9Lfa3DdIRIyCqu36YtWGfJ3kS8sT1qk7U0h6And8ZE2Hgg78bCPw/4neVvoMSCllm71RPNrTSSVqdj38vKBRNNvZSlkVsAPo3IPZjsKKlABV6kb1xPo4m7HLECCCk19Fj5d4nx5HUICrHPWh5kr7D5vub4t+ssOViJnUkpfZQ8nwqh0wg8uewf8ciLf0kMXINo+XFcoesWGA8K6WE
+x-ms-exchange-antispam-messagedata: BS6BA/vkUoWWPAGJq6IUFKOOZxtMSALAQVpqnVpS9yLHk1EdVdF17uwAXbOFJ4y1kj0tg1g0fe8JGu6YhZpkvIaBWFAOZ9glc8u+xo/ocEOK8L7SGfcMM1l52IzUaJSoveCRIO+h8tlQUB5XZqDZYWEQuPKFOp9tMAcKy/pjmm+ebK0wJQk8gDpa5JVdpsUnC8SQ9TNBJTOTH1baRfbXAq14UBYZiPR6TPoEvGWikqZFQYtBGlnhNt5kAWxTqhRAF1ci9B7qcdoK0Nm24JUeVLBsKgJCxQN0r07Di3sgz2MfngVvycTrZt45O8IxsshNk+FplsRQzliB2bP6teLGKWKBokprrFIg0B3+rbGV0D2uzkmABJ/N3OfnQI21FM6awWkH4fQUVcnpFZikDjJerYi8/jD+MosdhByc3Y3IjATHBMXKOJl62guTXdOOAYl1Pa8u77kyIUCs5opcsW67h0k3EYETIZh+5/bzp7CpjqSYpDDN+hD7wSyRgefUjvqr
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3777.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e882a24c-e09b-4e47-89c9-08d83367dfb6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2020 02:34:09.8856 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f5602e6-9f37-4333-4c30-08d83368f9b5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2020 02:42:02.9909 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cgU6FOHD6z/Pt5rXs0qDEu1H5JYQfGTLlqEYqQFqLhBxlC9XjRaJR6NtOsOlHvWa86chkPl22DOBcQHkAtp8ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3240
+X-MS-Exchange-CrossTenant-userprincipalname: 5ovtzXJ0hoPOt7vEIg99HiQEUSH/RNnn03NBsCtIx+y8Bd7F/Dsx/SQcd6wxxJvOONor3Z89zMB60qbe0IYMlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3873
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,205 +122,111 @@ Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Hesik,
  Manjunatha" <Manjunatha.Swamy@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
  "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Zhang,
  Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============0175067116=="
+Content-Type: multipart/mixed; boundary="===============1383285194=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0175067116==
+--===============1383285194==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BY5PR12MB37773E8A11E29E6E7D55726495700BY5PR12MB3777namp_"
+	boundary="_000_BY5PR12MB3777AC4248B8D2071DF21B7695700BY5PR12MB3777namp_"
 
---_000_BY5PR12MB37773E8A11E29E6E7D55726495700BY5PR12MB3777namp_
+--_000_BY5PR12MB3777AC4248B8D2071DF21B7695700BY5PR12MB3777namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Thanks very much Luben!
+Thanks very much Lunben and Guchun!
 
 Regards,
 Rico
 ________________________________
 From: Tuikov, Luben <Luben.Tuikov@amd.com>
-Sent: Wednesday, July 29, 2020 2:29
+Sent: Wednesday, July 29, 2020 2:44
 To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
 <amd-gfx@lists.freedesktop.org>
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
 .Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Hesik, Christopher <Christ=
 opher.Hesik@amd.com>; Swamy, Manjunatha <Manjunatha.Swamy@amd.com>; Quan, E=
 van <Evan.Quan@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add interface amdgpu_gfx_init_spm_gold=
-en for Navi1x
+Subject: Re: [PATCH 2/2] drm/amdgpu: reconfigure spm golden settings on Nav=
+i1x after GFXOFF exit
 
 On 2020-07-28 1:27 a.m., Tianci Yin wrote:
 > From: "Tianci.Yin" <tianci.yin@amd.com>
 >
 > On Navi1x, the SPM golden settings will be lost after GFXOFF enter/exit,
 
-Use present tense:............... " are lost after "
+" are lost "
 
-> reconfiguration is needed. Make the configuration code as an interface fo=
-r
+> reconfigure the golden settings after GFXOFF exit.
 
-Add "so a reconfiguration is needed. "
+" so reconfigure ..."
 
-> future use.
 >
+> Change-Id: I9358ba9c65f241c36f8a35916170b19535148ee9
+> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm=
+/amd/powerplay/amdgpu_smu.c
+> index 55463e7a11e2..5da0436d41e0 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -1309,6 +1309,7 @@ static int smu_enable_umd_pstate(void *handle,
+>
+>        struct smu_context *smu =3D (struct smu_context*)(handle);
+>        struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
+> +     struct amdgpu_device *adev =3D smu->adev;
+>
+>        if (!smu->is_apu && !smu_dpm_ctx->dpm_context)
+>                return -EINVAL;
+> @@ -1324,6 +1325,16 @@ static int smu_enable_umd_pstate(void *handle,
+>                        amdgpu_device_ip_set_clockgating_state(smu->adev,
+>                                                               AMD_IP_BLOC=
+K_TYPE_GFX,
+>                                                               AMD_CG_STAT=
+E_UNGATE);
+> +
+> +                     if (adev->asic_type >=3D CHIP_NAVI10 &&
+> +                         adev->asic_type <=3D CHIP_NAVI12 &&
+> +                         (adev->pm.pp_feature & PP_GFXOFF_MASK)) {
+> +                             if (adev->gfx.funcs->init_spm_golden) {
+> +                                     dev_dbg(adev->dev,"GFXOFF exited, r=
+e-init SPM golden settings\n");
 
-If the lines of your commit message are too long, then "git push" complains
-about them. Sixty char wide is perfect, since "git log" indents them when
-displaying them.
+Space after comma is required.
 
-With this fixed, then Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+> +                                     amdgpu_gfx_init_spm_golden(adev);
+> +                             } else
+> +                                     dev_warn(adev->dev,"Callback init_s=
+pm_golden is NULL\n");
+
+Space after comma is required.
+
+Please add braces to the single statement of the "else". The reason for thi=
+s
+is that it complements the braces of the "if ( ) {" of the multi-line state=
+ment
+and closes the block. "checkpatch" calls it "unbalanced braces".
+
+With these three fixed, this patch is
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
 Regards,
 Luben
 
-> Change-Id: I172f3dc7f59da69b0364052dcad75a9c9aab019e
-> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 34 ++++++++++++++++++-------
->  2 files changed, 27 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.h
-> index 1e7a2b0997c5..a611e78dd4ba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -216,6 +216,7 @@ struct amdgpu_gfx_funcs {
->        int (*ras_error_inject)(struct amdgpu_device *adev, void *inject_i=
-f);
->        int (*query_ras_error_count) (struct amdgpu_device *adev, void *ra=
-s_error_status);
->        void (*reset_ras_error_count) (struct amdgpu_device *adev);
-> +     void (*init_spm_golden)(struct amdgpu_device *adev);
->  };
->
->  struct sq_work {
-> @@ -324,6 +325,7 @@ struct amdgpu_gfx {
->  #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gp=
-u_clock_counter((adev))
->  #define amdgpu_gfx_select_se_sh(adev, se, sh, instance) (adev)->gfx.func=
-s->select_se_sh((adev), (se), (sh), (instance))
->  #define amdgpu_gfx_select_me_pipe_q(adev, me, pipe, q, vmid) (adev)->gfx=
-.funcs->select_me_pipe_q((adev), (me), (pipe), (q), (vmid))
-> +#define amdgpu_gfx_init_spm_golden(adev) (adev)->gfx.funcs->init_spm_gol=
-den((adev))
->
->  /**
->   * amdgpu_gfx_create_bitmask - create a bitmask
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index db9f1e89a0f8..da21ad04ac0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -3307,6 +3307,29 @@ static void gfx_v10_0_set_kiq_pm4_funcs(struct amd=
-gpu_device *adev)
->        adev->gfx.kiq.pmf =3D &gfx_v10_0_kiq_pm4_funcs;
->  }
->
-> +static void gfx_v10_0_init_spm_golden_registers(struct amdgpu_device *ad=
-ev)
-> +{
-> +     switch (adev->asic_type) {
-> +     case CHIP_NAVI10:
-> +             soc15_program_register_sequence(adev,
-> +                                             golden_settings_gc_rlc_spm_=
-10_0_nv10,
-> +                                             (const u32)ARRAY_SIZE(golde=
-n_settings_gc_rlc_spm_10_0_nv10));
-> +             break;
-> +     case CHIP_NAVI14:
-> +             soc15_program_register_sequence(adev,
-> +                                             golden_settings_gc_rlc_spm_=
-10_1_nv14,
-> +                                             (const u32)ARRAY_SIZE(golde=
-n_settings_gc_rlc_spm_10_1_nv14));
-> +             break;
-> +     case CHIP_NAVI12:
-> +             soc15_program_register_sequence(adev,
-> +                                             golden_settings_gc_rlc_spm_=
-10_1_2_nv12,
-> +                                             (const u32)ARRAY_SIZE(golde=
-n_settings_gc_rlc_spm_10_1_2_nv12));
-> +             break;
-> +     default:
-> +             break;
-> +     }
-> +}
-> +
->  static void gfx_v10_0_init_golden_registers(struct amdgpu_device *adev)
->  {
->        switch (adev->asic_type) {
-> @@ -3317,9 +3340,6 @@ static void gfx_v10_0_init_golden_registers(struct =
-amdgpu_device *adev)
->                soc15_program_register_sequence(adev,
->                                                golden_settings_gc_10_0_nv=
-10,
->                                                (const u32)ARRAY_SIZE(gold=
-en_settings_gc_10_0_nv10));
-> -             soc15_program_register_sequence(adev,
-> -                                             golden_settings_gc_rlc_spm_=
-10_0_nv10,
-> -                                             (const u32)ARRAY_SIZE(golde=
-n_settings_gc_rlc_spm_10_0_nv10));
->                break;
->        case CHIP_NAVI14:
->                soc15_program_register_sequence(adev,
-> @@ -3328,9 +3348,6 @@ static void gfx_v10_0_init_golden_registers(struct =
-amdgpu_device *adev)
->                soc15_program_register_sequence(adev,
->                                                golden_settings_gc_10_1_nv=
-14,
->                                                (const u32)ARRAY_SIZE(gold=
-en_settings_gc_10_1_nv14));
-> -             soc15_program_register_sequence(adev,
-> -                                             golden_settings_gc_rlc_spm_=
-10_1_nv14,
-> -                                             (const u32)ARRAY_SIZE(golde=
-n_settings_gc_rlc_spm_10_1_nv14));
->                break;
->        case CHIP_NAVI12:
->                soc15_program_register_sequence(adev,
-> @@ -3339,9 +3356,6 @@ static void gfx_v10_0_init_golden_registers(struct =
-amdgpu_device *adev)
->                soc15_program_register_sequence(adev,
->                                                golden_settings_gc_10_1_2_=
-nv12,
->                                                (const u32)ARRAY_SIZE(gold=
-en_settings_gc_10_1_2_nv12));
-> -             soc15_program_register_sequence(adev,
-> -                                             golden_settings_gc_rlc_spm_=
-10_1_2_nv12,
-> -                                             (const u32)ARRAY_SIZE(golde=
-n_settings_gc_rlc_spm_10_1_2_nv12));
->                break;
->        case CHIP_SIENNA_CICHLID:
->                soc15_program_register_sequence(adev,
-> @@ -3360,6 +3374,7 @@ static void gfx_v10_0_init_golden_registers(struct =
-amdgpu_device *adev)
->        default:
->                break;
->        }
-> +     gfx_v10_0_init_spm_golden_registers(adev);
->  }
->
->  static void gfx_v10_0_scratch_init(struct amdgpu_device *adev)
-> @@ -4147,6 +4162,7 @@ static const struct amdgpu_gfx_funcs gfx_v10_0_gfx_=
-funcs =3D {
->        .read_wave_sgprs =3D &gfx_v10_0_read_wave_sgprs,
->        .read_wave_vgprs =3D &gfx_v10_0_read_wave_vgprs,
->        .select_me_pipe_q =3D &gfx_v10_0_select_me_pipe_q,
-> +     .init_spm_golden =3D &gfx_v10_0_init_spm_golden_registers,
->  };
->
->  static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
+> +                     }
+>                }
+>        } else {
+>                /* exit umd pstate, restore level, enable gfx cg*/
 >
 
 
---_000_BY5PR12MB37773E8A11E29E6E7D55726495700BY5PR12MB3777namp_
+--_000_BY5PR12MB3777AC4248B8D2071DF21B7695700BY5PR12MB3777namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -339,7 +246,7 @@ ign=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Thanks very much Luben!</div>
+Thanks very much Lunben and Guchun!</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <br>
@@ -356,7 +263,7 @@ Rico<br>
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Tuikov, Luben &lt;Lub=
 en.Tuikov@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, July 29, 2020 2:29<br>
+<b>Sent:</b> Wednesday, July 29, 2020 2:44<br>
 <b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
 edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Haw=
@@ -364,8 +271,8 @@ king &lt;Hawking.Zhang@amd.com&gt;; Xu, Feifei &lt;Feifei.Xu@amd.com&gt;; H=
 esik, Christopher &lt;Christopher.Hesik@amd.com&gt;; Swamy, Manjunatha &lt;=
 Manjunatha.Swamy@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;;
  Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: add interface amdgpu_gfx_init_s=
-pm_golden for Navi1x</font>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: reconfigure spm golden settings=
+ on Navi1x after GFXOFF exit</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
@@ -376,257 +283,110 @@ pm_golden for Navi1x</font>
 &gt; On Navi1x, the SPM golden settings will be lost after GFXOFF enter/exi=
 t,<br>
 <br>
-Use present tense:............... &quot; are lost after &quot;<br>
+&quot; are lost &quot;<br>
 <br>
-&gt; reconfiguration is needed. Make the configuration code as an interface=
- for<br>
+&gt; reconfigure the golden settings after GFXOFF exit.<br>
 <br>
-Add &quot;so a reconfiguration is needed. &quot;<br>
+&quot; so reconfigure ...&quot;<br>
 <br>
-&gt; future use.<br>
 &gt; <br>
+&gt; Change-Id: I9358ba9c65f241c36f8a35916170b19535148ee9<br>
+&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 11 +++++++++++<br>
+&gt;&nbsp; 1 file changed, 11 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/=
+drm/amd/powerplay/amdgpu_smu.c<br>
+&gt; index 55463e7a11e2..5da0436d41e0 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&gt; @@ -1309,6 +1309,7 @@ static int smu_enable_umd_pstate(void *handle,<b=
+r>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_context *smu =3D =
+(struct smu_context*)(handle);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *smu_=
+dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&gt;adev;=
 <br>
-If the lines of your commit message are too long, then &quot;git push&quot;=
- complains<br>
-about them. Sixty char wide is perfect, since &quot;git log&quot; indents t=
-hem when<br>
-displaying them.<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;is_apu &amp;&am=
+p; !smu_dpm_ctx-&gt;dpm_context)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; @@ -1324,6 +1325,16 @@ static int smu_enable_umd_pstate(void *handle,<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+device_ip_set_clockgating_state(smu-&gt;adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; AMD_IP_BLOCK_TYPE_GFX,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; AMD_CG_STATE_UNGATE);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =
+&gt;=3D CHIP_NAVI10 &amp;&amp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ adev-&gt;asic_type &lt;=3D CHIP_NAVI12 &amp;&amp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ (adev-&gt;pm.pp_feature &amp; PP_GFXOFF_MASK)) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.funcs-&gt;init_spm_golden) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; de=
+v_dbg(adev-&gt;dev,&quot;GFXOFF exited, re-init SPM golden settings\n&quot;=
+);<br>
 <br>
-With this fixed, then Reviewed-by: Luben Tuikov &lt;luben.tuikov@amd.com&gt=
-;<br>
+Space after comma is required.<br>
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; am=
+dgpu_gfx_init_spm_golden(adev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; de=
+v_warn(adev-&gt;dev,&quot;Callback init_spm_golden is NULL\n&quot;);<br>
+<br>
+Space after comma is required.<br>
+<br>
+Please add braces to the single statement of the &quot;else&quot;. The reas=
+on for this<br>
+is that it complements the braces of the &quot;if ( ) {&quot; of the multi-=
+line statement<br>
+and closes the block. &quot;checkpatch&quot; calls it &quot;unbalanced brac=
+es&quot;.<br>
+<br>
+With these three fixed, this patch is<br>
+Reviewed-by: Luben Tuikov &lt;luben.tuikov@amd.com&gt;<br>
 <br>
 Regards,<br>
 Luben<br>
 <br>
-&gt; Change-Id: I172f3dc7f59da69b0364052dcad75a9c9aab019e<br>
-&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |&nbsp; 2 ++<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp; | 34 ++++++++++++++=
-++++-------<br>
-&gt;&nbsp; 2 files changed, 27 insertions(+), 9 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gfx.h<br>
-&gt; index 1e7a2b0997c5..a611e78dd4ba 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h<br>
-&gt; @@ -216,6 +216,7 @@ struct amdgpu_gfx_funcs {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*ras_error_inject)(stru=
-ct amdgpu_device *adev, void *inject_if);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*query_ras_error_count)=
- (struct amdgpu_device *adev, void *ras_error_status);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*reset_ras_error_count=
-) (struct amdgpu_device *adev);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; void (*init_spm_golden)(struct amdgpu_device=
- *adev);<br>
-&gt;&nbsp; };<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; struct sq_work {<br>
-&gt; @@ -324,6 +325,7 @@ struct amdgpu_gfx {<br>
-&gt;&nbsp; #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)-&gt;gfx.fu=
-ncs-&gt;get_gpu_clock_counter((adev))<br>
-&gt;&nbsp; #define amdgpu_gfx_select_se_sh(adev, se, sh, instance) (adev)-&=
-gt;gfx.funcs-&gt;select_se_sh((adev), (se), (sh), (instance))<br>
-&gt;&nbsp; #define amdgpu_gfx_select_me_pipe_q(adev, me, pipe, q, vmid) (ad=
-ev)-&gt;gfx.funcs-&gt;select_me_pipe_q((adev), (me), (pipe), (q), (vmid))<b=
-r>
-&gt; +#define amdgpu_gfx_init_spm_golden(adev) (adev)-&gt;gfx.funcs-&gt;ini=
-t_spm_golden((adev))<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; /**<br>
-&gt;&nbsp;&nbsp; * amdgpu_gfx_create_bitmask - create a bitmask<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/=
-amd/amdgpu/gfx_v10_0.c<br>
-&gt; index db9f1e89a0f8..da21ad04ac0f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&gt; @@ -3307,6 +3307,29 @@ static void gfx_v10_0_set_kiq_pm4_funcs(struct =
-amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.kiq.pmf =3D &am=
-p;gfx_v10_0_kiq_pm4_funcs;<br>
-&gt;&nbsp; }<br>
-&gt;&nbsp; <br>
-&gt; +static void gfx_v10_0_init_spm_golden_registers(struct amdgpu_device =
-*adev)<br>
-&gt; +{<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
 &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; soc15_program_register_sequence(adev,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settings_gc_rlc_spm_10=
-_0_nv10,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)ARRAY_SIZE(golden_=
-settings_gc_rlc_spm_10_0_nv10));<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; break;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; soc15_program_register_sequence(adev,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settings_gc_rlc_spm_10=
-_1_nv14,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)ARRAY_SIZE(golden_=
-settings_gc_rlc_spm_10_1_nv14));<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; break;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; soc15_program_register_sequence(adev,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settings_gc_rlc_spm_10=
-_1_2_nv12,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)ARRAY_SIZE(golden_=
-settings_gc_rlc_spm_10_1_2_nv12));<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; break;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; break;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; +}<br>
-&gt; +<br>
-&gt;&nbsp; static void gfx_v10_0_init_golden_registers(struct amdgpu_device=
- *adev)<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) =
-{<br>
-&gt; @@ -3317,9 +3340,6 @@ static void gfx_v10_0_init_golden_registers(stru=
-ct amdgpu_device *adev)<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; soc15_program_register_sequence(adev,<br>
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settin=
-gs_gc_10_0_nv10,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)AR=
-RAY_SIZE(golden_settings_gc_10_0_nv10));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; soc15_program_register_sequence(adev,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settings_gc_rlc_spm_10=
-_0_nv10,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)ARRAY_SIZE(golden_=
-settings_gc_rlc_spm_10_0_nv10));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; soc15_program_register_sequence(adev,<br>
-&gt; @@ -3328,9 +3348,6 @@ static void gfx_v10_0_init_golden_registers(stru=
-ct amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; soc15_program_register_sequence(adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settin=
-gs_gc_10_1_nv14,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)AR=
-RAY_SIZE(golden_settings_gc_10_1_nv14));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; soc15_program_register_sequence(adev,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settings_gc_rlc_spm_10=
-_1_nv14,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)ARRAY_SIZE(golden_=
-settings_gc_rlc_spm_10_1_nv14));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; soc15_program_register_sequence(adev,<br>
-&gt; @@ -3339,9 +3356,6 @@ static void gfx_v10_0_init_golden_registers(stru=
-ct amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; soc15_program_register_sequence(adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settin=
-gs_gc_10_1_2_nv12,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)AR=
-RAY_SIZE(golden_settings_gc_10_1_2_nv12));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; soc15_program_register_sequence(adev,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_settings_gc_rlc_spm_10=
-_1_2_nv12,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const u32)ARRAY_SIZE(golden_=
-settings_gc_rlc_spm_10_1_2_nv12));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_SIENNA_CICHLID:<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; soc15_program_register_sequence(adev,<br>
-&gt; @@ -3360,6 +3374,7 @@ static void gfx_v10_0_init_golden_registers(stru=
-ct amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; gfx_v10_0_init_spm_golden_registers(adev);<b=
-r>
-&gt;&nbsp; }<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; static void gfx_v10_0_scratch_init(struct amdgpu_device *adev)<b=
-r>
-&gt; @@ -4147,6 +4162,7 @@ static const struct amdgpu_gfx_funcs gfx_v10_0_g=
-fx_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_wave_sgprs =3D &amp;gf=
-x_v10_0_read_wave_sgprs,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_wave_vgprs =3D &amp;gf=
-x_v10_0_read_wave_vgprs,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .select_me_pipe_q =3D &amp;g=
-fx_v10_0_select_me_pipe_q,<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; .init_spm_golden =3D &amp;gfx_v10_0_init_spm=
-_golden_registers,<br>
-&gt;&nbsp; };<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)=
-<br>
+;&nbsp;&nbsp;&nbsp; /* exit umd pstate, restore level, enable gfx cg*/<br>
 &gt; <br>
 <br>
 </div>
@@ -635,9 +395,9 @@ _golden_registers,<br>
 </body>
 </html>
 
---_000_BY5PR12MB37773E8A11E29E6E7D55726495700BY5PR12MB3777namp_--
+--_000_BY5PR12MB3777AC4248B8D2071DF21B7695700BY5PR12MB3777namp_--
 
---===============0175067116==
+--===============1383285194==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -648,4 +408,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0175067116==--
+--===============1383285194==--
