@@ -8,64 +8,65 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A5C2C433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F37C4C433E0
 	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3AB6120809
+	by mail.kernel.org (Postfix) with ESMTPS id CBE19207F5
 	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2020 17:35:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RaaMTWmK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AB6120809
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KVsWsuo1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBE19207F5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E87936E5C8;
-	Wed, 29 Jul 2020 17:35:01 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6BF6E5C8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67AD26E5CA;
+	Wed, 29 Jul 2020 17:35:02 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 243446E5CA
  for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 17:34:57 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id d27so18248711qtg.4
+Received: by mail-qk1-x742.google.com with SMTP id l64so16205789qkb.8
  for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2020 10:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=hsaPWRZPPWCGsyXT4Tgs6cVV5lF4SXPXEroEBRBlo+c=;
- b=RaaMTWmK2ec0NDO8SbnmoCX6sBCv/IhJohTZPEFEjKX4fgqktviQOGiRzwXbpcOC7A
- YS7As9ZTfIs1RYeIrdmZ93YIrg1s7/CZ8ZtUukCTb2jWlVR5g95M3vU+PSzDeGQWGzH8
- Ceh+JT2059vRlg1mKyZ/UUhuQkQkV1XT3xzuJyzcU2yU0tXyuDYf8hGrjh27LN9CVSK2
- oYaTNn2wLX3WsOsTldDWGlEXSUspqrHfZUCGBjim2uQfY+gbDXOvWrC7cWewBGMcv+gS
- +SG/S/KVjGuQLnTQVAqjG23HyKPur4qM+S/KfzTj49oe5kScuY1mlxdel28UhYt47/a/
- I7PA==
+ bh=zHNpl+LOqceyTzATokgDJbn7rrhFrKZSXVJV3VlMlyw=;
+ b=KVsWsuo15idZyA3VKtGXoDD5m9zlHkHctgCtcpHGtuftsDwZjm83LzaCV3+kSBFHmU
+ 3/AAo8/M7C9Vn0u102AHpz2DPKACLK54hb+MmIXvo57MhSwnsd3M4HFsoVMeGBHIGW+r
+ GMnxJpWKvTzjibXS670Kua5qlOXm4P8k7fHFG9xkssUSKHVkU2gpxvS6GpBDtCXRKA6t
+ ApmvHmB9XCncaTcMiR5p1bL6XnojSWymANId+P+Eb7Aku6nVoH8bwFJVjwQhQM5hv+jd
+ XuRWjUoZIp6ci2iv1IjoNL5chs3nN7bfJgO42Q4N5vQ6a4wtY+qRPj5faEgvUl9RTAat
+ WB2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=hsaPWRZPPWCGsyXT4Tgs6cVV5lF4SXPXEroEBRBlo+c=;
- b=no/j+ufWiJxP/ht+D8HMwXblpTQUa77JgX79UTxdmH+mQlwMS8q7gZNv6lADGtqhKr
- 9LB170AcKSgGjVzNIN+AvVZOsSjylcgJkktXt9cioYuoFX0cipsgcDV6lruIXdbTfO/D
- TK6WipDMAPc8wehwjvRvwLVfvJ2WFj+s+s4dGwlJ3l8QwXZ2Sgouex1lLOEeUtBDNTED
- Q+j9OPtMGMZpYdwn7zVL6HJqO//03QpNKC2KLV+b79DU+/Mn1BCQE6IZa8cmJ+IH1cK7
- vx/ypIIrj7KfZjzj3zwsz5PhRop9YCMtJ7YsWPDQRR3PGjiLK+AbCO/6pl97LOYeZ8Yf
- iOdA==
-X-Gm-Message-State: AOAM532rYb1pBrEqgZPHV7mStlF2ydoXz+Gs8eSC6sHkZIE8QKwkR3Qa
- +q72bPtDmYfUIA+7DRcVcM4X62G6
-X-Google-Smtp-Source: ABdhPJx3zamt57fdgob4F+jqlFdwWMMc62k05TjycakcEze89eiEfl4ZPYe4A1SNp7TWgnxonGqDIQ==
-X-Received: by 2002:ac8:24d9:: with SMTP id t25mr26097272qtt.15.1596044096562; 
- Wed, 29 Jul 2020 10:34:56 -0700 (PDT)
+ bh=zHNpl+LOqceyTzATokgDJbn7rrhFrKZSXVJV3VlMlyw=;
+ b=c80foTh1qSkz/pUMDJ6tDCLzWo9NvXVadj4aOOjQERXcUnFadRX/c5ROw3vGjoTgOs
+ ZW75JvT+6qSufFDhtxHE3GXieErdC6vvINHJwEBr9rSmyDHJHp1RFS4FDs9/fGw0wrQQ
+ taOTjNDmqR3c68nzFzDjUB5upBU3ZKYikx+cci9bmyocCWH+qh6scnjCQwNNDRyiA+vm
+ /ulGmC6bv0kWgzaq/JrzrKraagb6cmpPnCuxxOTS011cMhkzP3GgldhUXCAu7YSB+Za6
+ LhQGQkkb5oxcJdWrgXR5Swt/q35qP8MdOy5RoxFie5J2hVKZpzLWhFepAdYtXSV4QvWv
+ uL0Q==
+X-Gm-Message-State: AOAM531NfNxSBEqtG2hkIqg+tNaVPskA1zQACqDsFQIjXW2hLcV4v9CN
+ 1/gxiSz5GTpgwQSEGT3WgufV5WR0
+X-Google-Smtp-Source: ABdhPJwuwhN7WQqmrVkWMh+hVUVfAFZ4Ojog/zqOocrq5SgTDqV7S5LOxGjSrOhr32WL86REuF/cAQ==
+X-Received: by 2002:a05:620a:152d:: with SMTP id
+ n13mr32491108qkk.43.1596044095586; 
+ Wed, 29 Jul 2020 10:34:55 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.55
+ by smtp.gmail.com with ESMTPSA id z72sm2132956qka.107.2020.07.29.10.34.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 10:34:56 -0700 (PDT)
+ Wed, 29 Jul 2020 10:34:55 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 10/17] drm/amdgpu/gmc8: switch to using
+Subject: [PATCH 09/17] drm/amdgpu/gmc7: switch to using
  amdgpu_gmc_get_vbios_allocations
-Date: Wed, 29 Jul 2020 13:34:32 -0400
-Message-Id: <20200729173439.3698-11-alexander.deucher@amd.com>
+Date: Wed, 29 Jul 2020 13:34:31 -0400
+Message-Id: <20200729173439.3698-10-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200729173439.3698-1-alexander.deucher@amd.com>
 References: <20200729173439.3698-1-alexander.deucher@amd.com>
@@ -93,14 +94,14 @@ The new helper centralizes the logic in one place.
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 9 ++++-----
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 9 ++++-----
  1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 8e3763ec268f..9ab65ca7df77 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1094,9 +1094,7 @@ static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 8b8ecbb99d84..80c146df338a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -977,9 +977,7 @@ static unsigned gmc_v7_0_get_vbios_fb_size(struct amdgpu_device *adev)
  			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
  			4);
  	}
@@ -111,25 +112,25 @@ index 8e3763ec268f..9ab65ca7df77 100644
  	return size;
  }
  
-@@ -1160,7 +1158,7 @@ static int gmc_v8_0_sw_init(void *handle)
+@@ -1035,7 +1033,7 @@ static int gmc_v7_0_sw_init(void *handle)
  	if (r)
  		return r;
  
--	adev->gmc.stolen_vga_size = gmc_v8_0_get_vbios_fb_size(adev);
+-	adev->gmc.stolen_vga_size = gmc_v7_0_get_vbios_fb_size(adev);
 +	amdgpu_gmc_get_vbios_allocations(adev);
  
  	/* Memory manager */
  	r = amdgpu_bo_init(adev);
-@@ -1739,7 +1737,8 @@ static const struct amdgpu_gmc_funcs gmc_v8_0_gmc_funcs = {
- 	.emit_pasid_mapping = gmc_v8_0_emit_pasid_mapping,
- 	.set_prt = gmc_v8_0_set_prt,
- 	.get_vm_pde = gmc_v8_0_get_vm_pde,
--	.get_vm_pte = gmc_v8_0_get_vm_pte
-+	.get_vm_pte = gmc_v8_0_get_vm_pte,
-+	.get_vbios_fb_size = gmc_v8_0_get_vbios_fb_size,
+@@ -1372,7 +1370,8 @@ static const struct amdgpu_gmc_funcs gmc_v7_0_gmc_funcs = {
+ 	.emit_pasid_mapping = gmc_v7_0_emit_pasid_mapping,
+ 	.set_prt = gmc_v7_0_set_prt,
+ 	.get_vm_pde = gmc_v7_0_get_vm_pde,
+-	.get_vm_pte = gmc_v7_0_get_vm_pte
++	.get_vm_pte = gmc_v7_0_get_vm_pte,
++	.get_vbios_fb_size = gmc_v7_0_get_vbios_fb_size,
  };
  
- static const struct amdgpu_irq_src_funcs gmc_v8_0_irq_funcs = {
+ static const struct amdgpu_irq_src_funcs gmc_v7_0_irq_funcs = {
 -- 
 2.25.4
 
