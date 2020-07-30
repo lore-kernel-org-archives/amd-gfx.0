@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 259B0C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 09:15:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C6680C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 09:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED72220656
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 09:15:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9D8D920656
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 09:15:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="O6NTbnqo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED72220656
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vjFqrMDT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D8D920656
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B66A46E8A9;
-	Thu, 30 Jul 2020 09:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A70C6E8AA;
+	Thu, 30 Jul 2020 09:15:29 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 562896E8A9
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 09:15:24 +0000 (UTC)
+ (mail-dm6nam11on2057.outbound.protection.outlook.com [40.107.223.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1136E8AA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 09:15:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GGKcZY9Co86SLqP87PEtHpFhclRJ8Ov7zI4mtgYTpSMrQkUptyB5oZ6iYrrmt5NpOHSMOyOffDd9HiURAHoCwlpt9Gkjn+OIheXb9qttChPBdh3ZOhy2gkLfDAPGi1111xXa5H1pRK3E33pcD/aLE5hsYt9C/Wqr8+dMv+PoIXMQL6OhLfCelcSQ/f6DsNeKQ2lc7v/mP4f/lQuMAoj0OEh9+rFIrq3XHc8L+i1CMoog4i9QItNdh6hkHTbGdv7Bblj8V2Z179oMHlt4/r/jiGuLajB1z+2ERZUC+cdxDgj05iCCb9MQEFPyJPorSJiqkwwu5y3sr0ljGIu8X8dftA==
+ b=JAb0E7cXCfxdEughtixWtHmPn0sQ6CZEXMFs5uFSpbi0h3R6/PaLo1B345JLVHE1Qox3x0swBPPk3iHIslk796XsqWCudSP7GgyRoCqCSqo0ZbB+V4n+ZxTw/NdSDPIHf0c1gzBKiBgPyASo5bePyAhKje7DfAtLU2c4sKbwVx2abI76cVOaVKmKfqy9USQtxNTvYBOP/QxuHFH+LMPWV1/dKk4s2Yq8I0SUY1hVNNfk7KOiyQirMlO6sR5cGz48bYZenB+lF22O3tAmbmYPP3fxtHbuY+EKFtac36zE/aAPiqXMClGT/xz8RQJ9az8Q3TbK6KdHZT3bpA1hfyU2Fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CydBz5qXbRH17j6T3PmJ98KqYf+CSw/513L98Gr2Z38=;
- b=lEP0OQBTav1D+glb2oYnYIgjvHZjg6PbnQFu0avJXGPCTsnU5h0Yo3S4PBQIJOeT8Y4XqccuxGb6RZ6njxfdoiWrO5vB+vXB901XOaMayWNOmPRs+XqQ9Y0eVz9rCKOGx5D4Z8iJsE+1h5t04dPXfWKgTNEKciOBiMUsAeCpplZxSKSDrkHoH/zck56fpnlkgfWee3B3FxvD3mjYUW9vYsBZ3scdXASNB1O4rYAbUh1aC5rfG0+o6qijTxx7DM4xD/nIhPjkmGVM5iXjA9WXspxPoER1IsdI9q8qComHTJ/YCglLLCmXTW+5gXggqYM3O0loV1Mzv523z0aWTfNo1g==
+ bh=QDJUbcxLLjlM0yIeISKsmfIQJmOj3kh6hejUqcBhqmg=;
+ b=PKdXQ2kP6s6u5HRpSsRdc6F+W8zUhWhP5Mlb3wuTg7rOdaqmMc71GSqfCrPEo5MPCuLzcZWyi4ISD0ghssaAO//STus+imf/sLarcJWlBzPS6NYoJDJsGWDSOwhiQBqnQtGyCHeQjNTqa1pN0gysevYJkGfbnrDCOfQCZ5Fx726SJr3TOoAYPx8JMMQRoUvM3Ea5C/VzjeECBimXeGBooYmQpiuHrip11kRd4zVBwK1cAIB6QDzu27PlKAHZp7gUwL5PGtRJiGY2p2JD0p1aSKxysHQJmrZ8eSEMgrtQJx2YZFCuSljb0AZzLxFdFEsA26Je3s8SQjIrEugpcjRp3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CydBz5qXbRH17j6T3PmJ98KqYf+CSw/513L98Gr2Z38=;
- b=O6NTbnqoDiUXr2l0c5oHDpq0Cyt82bjHMIcAYD34rG80nIjHyymw30tp+8bL+0nKBUSgUY8V/ArpP2shEzNTyFgngo1f4iSdPHj5qCf6JFSnBRbx+Umk2R5Qyef+KWTgqTKjG4kMRHtRwIRJWGivemseiurTPJbMKim7O/syF+4=
+ bh=QDJUbcxLLjlM0yIeISKsmfIQJmOj3kh6hejUqcBhqmg=;
+ b=vjFqrMDT0Mee7d5Sg7qJaJY+6VFbbw6KpDtFjzqTM2dONeLOCU/t82ExukL7aibkHivjpSstOx+d9nnOqFQbYW0iCuCoF+k1F4xbJOV2Xd+zC8CkAs0yi8Y7REi4Zwwck8nBqUo01DjdIIRNG8Rgfon2nfrP9nWZq2/mitNI3fw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB4092.namprd12.prod.outlook.com (2603:10b6:5:214::14) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16; Thu, 30 Jul 2020 09:15:23 +0000
+ 15.20.3239.16; Thu, 30 Jul 2020 09:15:27 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Thu, 30 Jul 2020
- 09:15:23 +0000
+ 09:15:27 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 7/9] drm/amd/powerplay: add control method to bypass metrics
- cache on Renoir
-Date: Thu, 30 Jul 2020 17:14:34 +0800
-Message-Id: <20200730091436.4551-7-evan.quan@amd.com>
+Subject: [PATCH 8/9] drm/amd/powerplay: add control method to bypass metrics
+ cache on Vega20
+Date: Thu, 30 Jul 2020 17:14:35 +0800
+Message-Id: <20200730091436.4551-8-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200730091436.4551-1-evan.quan@amd.com>
 References: <20200730091436.4551-1-evan.quan@amd.com>
@@ -71,34 +71,34 @@ Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK0PR01CA0052.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16 via Frontend
- Transport; Thu, 30 Jul 2020 09:15:21 +0000
+ Transport; Thu, 30 Jul 2020 09:15:25 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a5a78627-ff38-49ff-091e-08d8346916c2
+X-MS-Office365-Filtering-Correlation-Id: 3b99f7d7-3a73-4e02-986c-08d83469192a
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4092:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4092DDB411B52AD3024B3C88E4710@DM6PR12MB4092.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4092087F07A9D419752173A9E4710@DM6PR12MB4092.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vb40/WbAq6vkJPayq1UE8AYNZPKsdYGc+I6XE+3rwvymsRnQdJtjyGM+b1rKRtF4fk2zXmGdeMy+VzrknneY9TMi6k8ytwjObMqfgL5NP7EtrdavvJP+thXpC1tz9FXTQYnCQjlhSHinOmsi+kAwlx1s8e5QkMtRzTYxOBiG79x+4cG3jnzJgK+KRJeaswkjgEuT3Uhuuq1yw/LRRNQSxmfGPeVsZutJLt8MaHPg3bkA/XfDHH7IjXQWmTRarn27phekUU+z9ocohO7mcLTLkGuErmoSGVwYyZf+ZCe23GOzxPvw81GpIMrdHaA28RRrfJz7E+w4Ta0Wo1aPnNmnvA==
+X-Microsoft-Antispam-Message-Info: b5lCnjNXsSLXJJ3vMqmyO4AtvzNTbGBvxslQKrJKORMlRKpcB33MHOGY9YVhrJ44W7YE3+FavLlTo0UxFw0LNB3A1u/Dob3a5wcFi3erwYNMKbnucWbdLJ1F6nhGRJEIQQzdWZRcctl5/mfryQkK7bAftKL2iK9m20tlfuFe7JCjO9RIQY8k7YAXkrZWtoMGEmAp8lQ7l8vQw2tlXPJy/Bkei0sAlcaEcrYGBbUjP7BV79CEmjAPYmGxMqCm4g856a56VPZmkZ+l8kxBBw8bZfY9AJ9L+n+6ddS9K3ARuYvggUj6gQ3uYNGVUoo1HXzReTkoTfLmiKsAnCYFZoLsfA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(376002)(39860400002)(346002)(136003)(396003)(16526019)(5660300002)(478600001)(4326008)(186003)(26005)(6916009)(44832011)(6666004)(316002)(6486002)(66946007)(66476007)(66556008)(7696005)(86362001)(1076003)(83380400001)(2906002)(8936002)(956004)(2616005)(8676002)(52116002)(36756003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: GRRE09g0fRParFGbJAXUb7QLs+MIRMhsANp2MDavdGyZNYsU3j8dtiWBuHOnCjrTknhBDpRCKxVTMus4xl4W70SA99tWE8LCBa7BXfRx4lIaOTaBP0Hom1Wdih0WX5YCBU4rUfWjVrOd9lL0G/HXt4H/Omw4j7dBBnbva31eXWkqOBYuUOv54o+lvR8aL8A4ar5pujuUSRJbpVYmDQogPjaFfgLZf0FQNORtbFWDItrZGpR2BFK7/+5+Hfn1YGZpttVJpqBX3XNiqCCIyByNoSnjaqirCufnQACJiQF8jj6uw2QDxxcRFX4qJzmMO3ahrEQUyhiv6ZhHEHompGrtKuuSVkyYhnr1S5rvzwGmYpyUZ0Gyf1U5rxZcU66Wamkv8A08cR9iAE52sxdqB1hYS5/D4IVgNk7o8zCt+8hXKzfZQYZMdqGMF4MQ46+jZIGufnvd6cS8ep6lPL1qESsL9VOCPArH7qQLcyDoVuGcessS/IFFJ1GATBw6xsw7XbsSyPheqDrd6glfVWWCD6CLmkFGHjKvPugz8Bg1Tf3ZV9BNMRuDPTHnfBVsIiWyel2emSnSpWSUf8Xxgsau3XWvHyYaJddPQAWBzX3fUkqJT0PEF9GFhyT5NlR9DBKWCcfczuo0TpXKrRvIB/ErfOzV4A==
+X-MS-Exchange-AntiSpam-MessageData: ZJeA/N2iGgXCGfvYLHHh8WnqqzoR0M5tpQqe0qSownkHczzkRGWhVo/S61mJjXGufld8stZHm//xfqUB5TwzWJGEg27rM6u9zBL3M5ZOjaG0UtHZWn1Y/u/1SKn/Al2hr4AOXlif1rip3m+90eI9wWDdr2eABD0/zmdvzTdHqIQkYHLaKkqZqODgqhrVKFT88iiXlCtXajcBab93seS8G9jn2+UXMIxxoaAhvnGT1CYXl9+uOdXYA9nADFihF3zsC+aesWWWkEXiea0ipR0UnEzXl+mK2IN0svQBQ/B0OkQ9hlxS9EgM3SxKkCNsQdLRY2MOMNdSH/EvJzoW0zY5QHkcNzeaUyxtzOARkUC23STPCAr0p83+1B3fHBc04Qor+90sID3LW4DOQZsM38V8AbkcTG3WiwhG8FOm9KvEWx37Lx7aY6VeytGrJQ7dDJq6ELdMIJ/nQU0xNDbTYwuKixsgx2z9FpySfmNY3nhslnJR4fqWuU6CJVQ5etFXveiSxn/mM8oKAkMIl6Tb50T6e6oQzddmymeBZaXvUkxwZM9DuBEz8IzJa5wbCrD+yB/uIwQOqDtdpES0Qh07vA4dY3pxfVoTYDUsE8srKCvE6aEasjb41VBSXHuzJ7EELFHoo0ZgIWc5f1nvLYUub9qVKA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5a78627-ff38-49ff-091e-08d8346916c2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b99f7d7-3a73-4e02-986c-08d83469192a
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 09:15:23.3379 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 09:15:27.3666 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AjogAI8tln39pucgL2oQoX1m51nT+pwqvLgfHuvpW2l3rmxi0IpGPMROADJ/LccG
+X-MS-Exchange-CrossTenant-UserPrincipalName: q8iFqJXVmoATUss6uSGU//DP+0YakfAxPOjQJvLRTx78delRtYn23Zooq9DT5Q2z
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4092
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,89 +120,103 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 As for the gpu metric export, metrics cache makes no sense. It's up to
 user to decide how often the metrics should be retrieved.
 
-Change-Id: I780aba0be35a35bd9c9727118b33625e7cc9bf1f
+Change-Id: I8836f7f096dceb08a90dd3c899d2e9ccea1ef1f3
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 31 ++++++++++++-------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-index 8d73781775bc..ecb90da88b81 100644
---- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-@@ -129,13 +129,17 @@ static struct cmn2asic_mapping renoir_workload_map[PP_SMC_POWER_PROFILE_COUNT] =
- };
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+index 77de8d88ae3a..f2f69ea5b695 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+@@ -2090,22 +2090,29 @@ static uint32_t vega20_dpm_get_mclk(struct pp_hwmgr *hwmgr, bool low)
+ 	return (mem_clk * 100);
+ }
  
- static int renoir_get_metrics_table(struct smu_context *smu,
--				    SmuMetrics_t *metrics_table)
+-static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr, SmuMetrics_t *metrics_table)
++static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr,
 +				    SmuMetrics_t *metrics_table,
 +				    bool bypass_cache)
  {
- 	struct smu_table_context *smu_table= &smu->smu_table;
+ 	struct vega20_hwmgr *data =
+ 			(struct vega20_hwmgr *)(hwmgr->backend);
  	int ret = 0;
  
- 	mutex_lock(&smu->metrics_lock);
--	if (!smu_table->metrics_time || time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(100))) {
-+
+-	if (!data->metrics_time || time_after(jiffies, data->metrics_time + HZ / 2)) {
+-		ret = smum_smc_table_manager(hwmgr, (uint8_t *)metrics_table,
+-				TABLE_SMU_METRICS, true);
 +	if (bypass_cache ||
-+	    !smu_table->metrics_time ||
-+	    time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(100))) {
- 		ret = smu_cmn_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
- 				(void *)smu_table->metrics_table, false);
++	    !data->metrics_time ||
++	    time_after(jiffies, data->metrics_time + HZ / 2)) {
++		ret = smum_smc_table_manager(hwmgr,
++					     (uint8_t *)(&data->metrics_table),
++					     TABLE_SMU_METRICS,
++					     true);
  		if (ret) {
-@@ -146,7 +150,9 @@ static int renoir_get_metrics_table(struct smu_context *smu,
- 		smu_table->metrics_time = jiffies;
- 	}
- 
--	memcpy(metrics_table, smu_table->metrics_table, sizeof(SmuMetrics_t));
-+	if (metrics_table)
-+		memcpy(metrics_table, smu_table->metrics_table, sizeof(SmuMetrics_t));
+ 			pr_info("Failed to export SMU metrics table!\n");
+ 			return ret;
+ 		}
+-		memcpy(&data->metrics_table, metrics_table, sizeof(SmuMetrics_t));
+ 		data->metrics_time = jiffies;
+-	} else
++	}
 +
- 	mutex_unlock(&smu->metrics_lock);
++	if (metrics_table)
+ 		memcpy(metrics_table, &data->metrics_table, sizeof(SmuMetrics_t));
  
  	return ret;
-@@ -375,7 +381,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 
- 	memset(&metrics, 0, sizeof(metrics));
- 
--	ret = renoir_get_metrics_table(smu, &metrics);
-+	ret = renoir_get_metrics_table(smu, &metrics, false);
- 	if (ret)
- 		return ret;
- 
-@@ -529,7 +535,7 @@ static int renoir_get_current_clk_freq_by_table(struct smu_context *smu,
- 	int ret = 0, clk_id = 0;
- 	SmuMetrics_t metrics;
- 
--	ret = renoir_get_metrics_table(smu, &metrics);
-+	ret = renoir_get_metrics_table(smu, &metrics, false);
- 	if (ret)
- 		return ret;
- 
-@@ -612,7 +618,7 @@ static int renoir_get_gpu_temperature(struct smu_context *smu, uint32_t *value)
- 	if (!value)
- 		return -EINVAL;
- 
--	ret = renoir_get_metrics_table(smu, &metrics);
-+	ret = renoir_get_metrics_table(smu, &metrics, false);
- 	if (ret)
- 		return ret;
- 
-@@ -632,7 +638,7 @@ static int renoir_get_current_activity_percent(struct smu_context *smu,
- 	if (!value)
- 		return -EINVAL;
- 
--	ret = renoir_get_metrics_table(smu, &metrics);
-+	ret = renoir_get_metrics_table(smu, &metrics, false);
- 	if (ret)
- 		return ret;
- 
-@@ -1018,7 +1024,7 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
- 	SmuMetrics_t metrics;
+@@ -2117,7 +2124,7 @@ static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,
  	int ret = 0;
+ 	SmuMetrics_t metrics_table;
  
--	ret = renoir_get_metrics_table(smu, &metrics);
-+	ret = renoir_get_metrics_table(smu, &metrics, true);
+-	ret = vega20_get_metrics_table(hwmgr, &metrics_table);
++	ret = vega20_get_metrics_table(hwmgr, &metrics_table, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2155,7 +2162,7 @@ static int vega20_get_current_activity_percent(struct pp_hwmgr *hwmgr,
+ 	int ret = 0;
+ 	SmuMetrics_t metrics_table;
+ 
+-	ret = vega20_get_metrics_table(hwmgr, &metrics_table);
++	ret = vega20_get_metrics_table(hwmgr, &metrics_table, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2185,7 +2192,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 
+ 	switch (idx) {
+ 	case AMDGPU_PP_SENSOR_GFX_SCLK:
+-		ret = vega20_get_metrics_table(hwmgr, &metrics_table);
++		ret = vega20_get_metrics_table(hwmgr, &metrics_table, false);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -2210,7 +2217,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_EDGE_TEMP:
+-		ret = vega20_get_metrics_table(hwmgr, &metrics_table);
++		ret = vega20_get_metrics_table(hwmgr, &metrics_table, false);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -2219,7 +2226,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_MEM_TEMP:
+-		ret = vega20_get_metrics_table(hwmgr, &metrics_table);
++		ret = vega20_get_metrics_table(hwmgr, &metrics_table, false);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -4281,7 +4288,7 @@ static ssize_t vega20_get_gpu_metrics(struct pp_hwmgr *hwmgr,
+ 	uint32_t fan_speed_rpm;
+ 	int ret;
+ 
+-	ret = vega20_get_metrics_table(hwmgr, &metrics);
++	ret = vega20_get_metrics_table(hwmgr, &metrics, true);
  	if (ret)
  		return ret;
  
