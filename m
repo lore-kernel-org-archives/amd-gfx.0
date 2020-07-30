@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39036C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 03:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBE43C433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 03:29:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F36922B48
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 03:29:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8CEA822B48
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 03:29:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1XxUSVYy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F36922B48
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bxpCjNQm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8CEA822B48
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C841B6E84C;
-	Thu, 30 Jul 2020 03:29:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 577576E84D;
+	Thu, 30 Jul 2020 03:29:22 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB1D06E84C
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 03:29:11 +0000 (UTC)
+ (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 188746E84D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 03:29:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bkEiaL4duCyrA0ExeN2k/DEXU0HCMEAaKiG20qPbdg+3kNHfQi+RvtfENouunkErEnI9sK5cKp8+YbMcYh3+iWxdctVfFX/vDs2fYjXCQzZTo25YZfv/YhTgCGhCGb0yvVfPD7Jz0xu8hGM0eBT/vGYHg9wlcorebTa8XvdtWiO21+CGZRXSTYFyI0ThgFfrptV4HgSQCI60JuI45vXM5Aw9Wn2WXZVKb/cJETf6rUYIjn2fdRleiXY6v6aSmB2Ddf8h07Grz/jLZiKF3xCrLj6tBDPaGMiP5RW4Bjkf8BhCPFap/wbAnlAGwwm4aHChOBSOanHgPJqudglWfms3AQ==
+ b=Otxzko7FlZdcqTIpvft0lrloYe9xPdj1iA50gX9bxGzzI5EoCMLR8xv9hOBlcmUhTOhWiko1p29ev5PmkgVYD9R5OVwu5mvSUOn07X03b+C1jBWRhJLanHlK6jI7EMMa13I7E4Unmzdc4VclFD9fW231R0tWP/Yt/4b5OE3x6THfXSG6nSRskC7hxCOKcFx3RZkUB52OQ/fouVgDhwkFauoLhuIgtCYKgKR55prx4WFybIkftWVQmODpMnq8IHQr0wWxoePCzQbATprcAWoAk+AWOyaWx0giNFLM0CXl3fg0IreEXDets5qCi8BaZ9+hEjKWlXUdocX8kotuiNVmVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pyQORd2UuS7xVYotcHg9FuMz3Eq34oA79GspzBq+M7E=;
- b=gN9YXmRDQVHyUHha2Npdclg/4pzufLBvlA3KG/vJks+9vd+XzGA5jm799sfym3FY3ckOnsekCWDjYiawx78lW3rW+ZqG9D8RNedXrGcGkMeatF1dZvVxFSNmoMWIDZsoidzOiVF7qVSCaQup6jMcHGYrrIQ3HybZPGeXzWtJyd9tVt4KCCq3Uw6R9HNJ3LCGpikl/KZKPXKg82lKzEpFzhdr6rPx+GPDOET8LMuP3w7Y6gc3mqU0iZc3t0gP/OP4xd1CzYyqLlLzcxyQ3540mFRciBor/Jih+Szz42zfHv+W/LbAqRTYa+2MQ6YDcaY0c3kZoa5XsbYJ5FsI4hBm8w==
+ bh=UuPtuHcCXn+Ewy3tyuwV0aNhNADAgng5KPCGFhhg8pg=;
+ b=H168qT1Senxfzcp1IuRDM7+SXH4d8jE4uikkWCCmRpXNVr1/D89tOgKIkeOn2FIbJAF9/nnG2UTG+/XJEA65lKjMqXH4iftszPFoc996vjnJwPnIlUtX9RDxitkwbzMfH9m9MGwglll9s4ZQhtaUC5WgWbInlG7ogs/HJgMdwHucnaagQGPdaWjKbJS4mkM6Inntuj/XnA3sPB+tAKJdHjEd4NaSXRxAXrScZ0PUymg56HJjTUW+5uWXuhAjYM994Sga0v2RQraf+d9SknNgFNPam6t2C2uiTd66qBQ/3ubZuBHLH8t/HyfycMsq9CiUu7zZ2/FIe/cHpUB75rcmMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pyQORd2UuS7xVYotcHg9FuMz3Eq34oA79GspzBq+M7E=;
- b=1XxUSVYyLoCqNW8E8T7VWC7e6i2U50zzJ3hgcoxeFWs0GdwttA76xyh8/v1Rv444lpLOmEuEZQlr1sSzXKjAouszJHQ442dAf7GTFHHgTHbIWLlNZwHOSS10rDIShS0AZ9WU7zdpFcD8U/2ZRXguytnhGUdtb2RNMSMb0nnBjlE=
+ bh=UuPtuHcCXn+Ewy3tyuwV0aNhNADAgng5KPCGFhhg8pg=;
+ b=bxpCjNQmSWrf230kWJGDH/GBaY//6UGUMhhunLd3mTP4McI51qH2wWCw1YbzPJEOrEOUv8OvtDKlJb4nqKQqwu9Kr44in+4Cf0W35iRYSJn86btZuNBWL3sHd55YpkVDddjYuz4HnuhZiHRR1R7eCo64WuTjmFRwofdyxBINeFg=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.17; Thu, 30 Jul 2020 03:29:10 +0000
+ 15.20.3239.17; Thu, 30 Jul 2020 03:29:19 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Thu, 30 Jul 2020
- 03:29:10 +0000
+ 03:29:19 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/8] drm/amd/powerplay: add new sysfs interface for retrieving
- gpu metrics(V2)
-Date: Thu, 30 Jul 2020 11:28:33 +0800
-Message-Id: <20200730032839.2517-2-evan.quan@amd.com>
+Subject: [PATCH 3/8] drm/amd/powerplay: implement SMU V11 common APIs for
+ retrieving link speed/width
+Date: Thu, 30 Jul 2020 11:28:34 +0800
+Message-Id: <20200730032839.2517-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200730032839.2517-1-evan.quan@amd.com>
 References: <20200730032839.2517-1-evan.quan@amd.com>
@@ -70,34 +70,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR02CA0176.apcprd02.prod.outlook.com (2603:1096:201:21::12) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.17 via Frontend Transport; Thu, 30 Jul 2020 03:29:08 +0000
+ 15.20.3239.17 via Frontend Transport; Thu, 30 Jul 2020 03:29:18 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 05f51be3-9613-487d-a80e-08d83438b8f3
+X-MS-Office365-Filtering-Correlation-Id: f1244d57-e4f4-4e53-efb1-08d83438be9d
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1355:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1355DC4BD198D0C63AEE91DBE4710@DM5PR12MB1355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1355D6DC22693C2DDDB3E530E4710@DM5PR12MB1355.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:33;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8hOyujbwkoNMl65PYYZbc0a/09Bxe1QtDYP8GOecUe2U+5nHrVksfqRgq/FWv0xzrDKXRHAzaxtcIrRXQR3vw0+uhpZnFpzDCaHVKz+WyA5oKEy0AY02Ru6mMTuXHmdOqBqIIpPf36cpMqdan+GAgkQgqR82kLNPG3PmVX9TfFL3xZRDnwLWPeSvNcu8IA5SnmGYJ8LvUO7XxXOuvhlr7jzuVi0gt91N2dUdFhXtdJbIVTbyz+uRYkjBKgKSlIe3Nx4UXJvYQs/EW+VM3tT0UeVz4rYLkYjsmLhnP4bviU0U9Xt5M+GYVsMhs5NZSQ3rLB3nmUUQXq9WPtO4iPgneA==
+X-Microsoft-Antispam-Message-Info: ZMOexDwuUfjFx57UwU/fMb7GPiyivbEX48LixQoF8U3ulTNHtxKrJk6RHUwwyH7OK8UFSg/S2T2EmhyzmPJlD7sClBzdFZ5ECbqq/YRIV76qeaLldIXEtpv9q1kF6rj0fKwq5g8B9woFw4Ny/909XIeap1wG8JRbPRLyaRqa6Jjiu4ye4XUF5MnxK9hd1dBTrim5Otmt8cr/0O8iPon6/Q6/12lCcmzQlIXU9tQvs2dtyqd779rnoUsuTF/E6JWiWMBFsbu0OziWxs6+odUOXIPu2MgH0Q8ViR/zlePHZhA0UIskC+Q27vyTLL022zSB
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(39860400002)(136003)(376002)(396003)(346002)(366004)(186003)(83380400001)(4326008)(6916009)(36756003)(2906002)(8676002)(8936002)(478600001)(66946007)(44832011)(2616005)(956004)(26005)(66476007)(66556008)(1076003)(6666004)(6486002)(5660300002)(86362001)(52116002)(7696005)(16526019)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: /XatXaS2uP6cnVm1iYILVjos8IsC8ElegC5eGf8S14ff6UZrAR5jjAKsrrPAJsbF3ey3+g9hR/FAt5es2KN5mGaSW+Zq3eOxMLgDN2zBWaCUzBLm8F07swKZVBANlgEFA0t5NOnwtXlMRHo1Ou5722MUZdtYx5B7xJqRW0xADqSJOKlDq4HHubmiuStAgorAIDt34ItD595YMOSBXvKdwEbWpNCFgt24qhguHRIrLY4W9TVvAJuwwIUoPHoWGG14iyHx8d0Szfxi0nLNIA2+9U5PL/n/joZYjLk+oC3SHepQFe89dJlshcdQd0YHwUMgKQNGtaOiboHnZiPsaVFZsC+k3fVt2RQy0u+kYSysBBE/7oBQA2SVy/7o9HfknibZH+9HJpRZ+nObKW727uNjmF71TZ68ZeXv60PDi3ftejf1vegdh6tqbft+SnD52rXLSn4GwfycEvReVxEL1HeRfUBD4vJlnkC8x6znEcCQgX9L1MCu6cOziz/vImEQQY7uJIK410jKkajzIL+f4XGcHO75AdDU0i7QrmoMxZXluIjpa522mOsdPgm7NeVC8UkDFBqJ9EpQjFZieBaY4RJGkkoToKQC7xdLxBTPYhRMNEWV5seWwxYE6TkOyV/LScQsLDYCmgp4MGuqgRW3wGxbLg==
+X-MS-Exchange-AntiSpam-MessageData: u+YrJoveA7k+r3z4hw5kcnhSc+xSmXcyH9+79bSMhSGz5hzAKGAHgRNjMc1dlvtSNCxoqPLaLk6eMbIP8VI67xE8+HTEx3/9yBs17bGGxqdd5AERLd71wRnD422zzyb9HXfPjLS40WBEBNX+7vIdvAXrCHKpp69JJzDCEjulcg/t+t/VT+/iWsSx2CYRhQmlA9DbdBUss4T/dGG/e/P7kpBqQN+FPdMg+T2e54cEebC2+25GZvR9v8ejurLT6z9wPJsAJ9CuLWQ+ic758nT9YB/XTb+mk5Y9iN7sAeSpLIaNkNh8HWYU/Gg4W7ZpHwn3R9NLxzWoA7W6EsFC10HqxBFlYSLyrIza+d7tMdbLRVoVGbhHJMCoo8qoMP/pay1B/HCVq7EwyhbZLc9ADADzLT02S4ZRl4mo3dNqaDrIxTh8Aw81gDFED1w1TUxxkQGKuV9r6U5wU5jK1kYE6JgkxzkyT+ircFjZ+RJ8b2ml6iI8fWdmUtEuZZd4fpYSeH2TV8Z/ceAUVEzVShPX0O7aRKAD5DJdVO4YO4+T6RrXcYmhNkWX9XYKg61cS0G5DIQ7z38d2mDcdoToWq6poE6MeeviN9ZDVHPcPxM4covSMm8hX+hcW9Imw4x2MNYpFoJKodBqGz2aUBu1R8AwhcCwZg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05f51be3-9613-487d-a80e-08d83438b8f3
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1244d57-e4f4-4e53-efb1-08d83438be9d
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 03:29:10.3331 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 03:29:19.6498 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DHUvs8dKTePrsjBOoxz794fAssjSwLyQeBjsOaAVzw9/Jjx6OBwbuYqHFvjyjqeE
+X-MS-Exchange-CrossTenant-UserPrincipalName: 662j7fjAvyCEoc2WNMelSs8wmqPyhBPgatO5KysgWEtYaNd9ubt5Lt3WwQbRAH4i
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1355
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,195 +116,178 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A new interface for UMD to retrieve gpu metrics data.
+This will be shared around all SMU V11 asics.
 
-V2: rich the documentation
-
-Change-Id: If7f3523915505c0ece0a56dfd476d2b8473440d4
+Change-Id: Iaa4554fb0e011b9f565d89375ac7b6a7eb525420
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- Documentation/gpu/amdgpu.rst                  |  6 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h       |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 57 +++++++++++++++++++
- .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 20 +++++++
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  3 +
- 6 files changed, 90 insertions(+)
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  8 +++
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  9 +---
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.h    |  3 --
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    |  8 +--
+ .../drm/amd/powerplay/sienna_cichlid_ppt.h    |  3 --
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 53 +++++++++++++++++++
+ 6 files changed, 65 insertions(+), 19 deletions(-)
 
-diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
-index 17112352f605..0f7679a7cf54 100644
---- a/Documentation/gpu/amdgpu.rst
-+++ b/Documentation/gpu/amdgpu.rst
-@@ -206,6 +206,12 @@ pp_power_profile_mode
- .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-    :doc: mem_busy_percent
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 6a42331aba8a..aeb12654257e 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -264,5 +264,13 @@ int smu_v11_0_get_dpm_level_range(struct smu_context *smu,
+ 				  uint32_t *min_value,
+ 				  uint32_t *max_value);
  
-+gpu_metrics
-+~~~~~~~~~~~~~~~~~~~~~
++int smu_v11_0_get_current_pcie_link_width_level(struct smu_context *smu);
 +
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+   :doc: gpu_metrics
++int smu_v11_0_get_current_pcie_link_width(struct smu_context *smu);
 +
- GPU Product Information
- =======================
++int smu_v11_0_get_current_pcie_link_speed_level(struct smu_context *smu);
++
++int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu);
++
+ #endif
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index 6aaf483858a0..3a3c555f0e82 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -917,7 +917,6 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 	uint32_t gen_speed, lane_width;
+ 	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
+ 	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
+-	struct amdgpu_device *adev = smu->adev;
+ 	PPTable_t *pptable = (PPTable_t *)table_context->driver_pptable;
+ 	OverDriveTable_t *od_table =
+ 		(OverDriveTable_t *)table_context->overdrive_table;
+@@ -971,12 +970,8 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 		}
+ 		break;
+ 	case SMU_PCIE:
+-		gen_speed = (RREG32_PCIE(smnPCIE_LC_SPEED_CNTL) &
+-			     PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK)
+-			>> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+-		lane_width = (RREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL) &
+-			      PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK)
+-			>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
++		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
++		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
+ 		for (i = 0; i < NUM_LINK_LEVELS; i++)
+ 			size += sprintf(buf + size, "%d: %s %s %dMhz %s\n", i,
+ 					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 0) ? "2.5GT/s," :
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.h b/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
+index 2abb4ba01db1..84dc5a1b6830 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
+@@ -49,9 +49,6 @@
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-index aa27fe65cdfa..b190c0af7db1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-@@ -369,6 +369,9 @@ enum amdgpu_pcie_gen {
- 		((adev)->powerplay.pp_funcs->set_ppfeature_status(\
- 			(adev)->powerplay.pp_handle, (ppfeatures)))
+ #define NAVI10_VOLTAGE_SCALE (4)
  
-+#define amdgpu_dpm_get_gpu_metrics(adev, table) \
-+		((adev)->powerplay.pp_funcs->get_gpu_metrics((adev)->powerplay.pp_handle, table))
-+
- struct amdgpu_dpm {
- 	struct amdgpu_ps        *ps;
- 	/* number of valid power states */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-index 6df405e6221d..0198acd320b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -2122,6 +2122,59 @@ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
- 	return count;
- }
+-#define smnPCIE_LC_SPEED_CNTL			0x11140290
+-#define smnPCIE_LC_LINK_WIDTH_CNTL		0x11140288
+-
+ extern void navi10_set_ppt_funcs(struct smu_context *smu);
  
-+/**
-+ * DOC: gpu_metrics
-+ *
-+ * The amdgpu driver provides a sysfs API for retrieving current gpu
-+ * metrics data. The file gpu_metrics is used for this. Reading the
-+ * file will dump all the current gpu metrics data.
-+ *
-+ * These data include temperature, frequency, engines utilization,
-+ * power consume, throttler status, fan speed and cpu core statistics(
-+ * available for APU only). That's it will give a snapshot of all sensors
-+ * at the same time.
-+ */
-+static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
-+				      struct device_attribute *attr,
-+				      char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = ddev->dev_private;
-+	void *gpu_metrics;
-+	ssize_t size = 0;
-+	int ret;
-+
-+	if (amdgpu_in_reset(adev))
-+		return -EPERM;
-+
-+	ret = pm_runtime_get_sync(ddev->dev);
-+	if (ret < 0) {
-+		pm_runtime_put_autosuspend(ddev->dev);
-+		return ret;
-+	}
-+
-+	down_read(&adev->reset_sem);
-+	if (is_support_sw_smu(adev))
-+		size = smu_sys_get_gpu_metrics(&adev->smu, &gpu_metrics);
-+	else if (adev->powerplay.pp_funcs->get_gpu_metrics)
-+		size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
-+	up_read(&adev->reset_sem);
-+
-+	if (size <= 0)
-+		goto out;
-+
-+	if (size >= PAGE_SIZE)
-+		size = PAGE_SIZE - 1;
-+
-+	memcpy(buf, gpu_metrics, size);
-+
-+out:
-+	pm_runtime_mark_last_busy(ddev->dev);
-+	pm_runtime_put_autosuspend(ddev->dev);
-+
-+	return size;
-+}
-+
- static struct amdgpu_device_attr amdgpu_device_attrs[] = {
- 	AMDGPU_DEVICE_ATTR_RW(power_dpm_state,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
- 	AMDGPU_DEVICE_ATTR_RW(power_dpm_force_performance_level,	ATTR_FLAG_BASIC),
-@@ -2145,6 +2198,7 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
- 	AMDGPU_DEVICE_ATTR_RW(pp_features,				ATTR_FLAG_BASIC),
- 	AMDGPU_DEVICE_ATTR_RO(unique_id,				ATTR_FLAG_BASIC),
- 	AMDGPU_DEVICE_ATTR_RW(thermal_throttling_logging,		ATTR_FLAG_BASIC),
-+	AMDGPU_DEVICE_ATTR_RO(gpu_metrics,				ATTR_FLAG_BASIC),
- };
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+index f64a1be94cb8..c15496aea50f 100644
+--- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+@@ -960,12 +960,8 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 		}
+ 		break;
+ 	case SMU_PCIE:
+-		gen_speed = (RREG32_PCIE(smnPCIE_LC_SPEED_CNTL) &
+-			     PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK)
+-			>> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
+-		lane_width = (RREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL) &
+-			      PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK)
+-			>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
++		gen_speed = smu_v11_0_get_current_pcie_link_speed(smu);
++		lane_width = smu_v11_0_get_current_pcie_link_width(smu);
+ 		for (i = 0; i < NUM_LINK_LEVELS; i++)
+ 			size += sprintf(buf + size, "%d: %s %s %dMhz %s\n", i,
+ 					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 0) ? "2.5GT/s," :
+diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.h b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.h
+index 8078886e4cbc..57e120c440ea 100644
+--- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.h
++++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.h
+@@ -31,7 +31,4 @@ typedef enum {
  
- static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
-@@ -2194,6 +2248,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 	} else if (DEVICE_ATTR_IS(pp_features)) {
- 		if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
- 			*states = ATTR_STATE_UNSUPPORTED;
-+	} else if (DEVICE_ATTR_IS(gpu_metrics)) {
-+		if (asic_type < CHIP_VEGA12)
-+			*states = ATTR_STATE_UNSUPPORTED;
- 	}
+ extern void sienna_cichlid_set_ppt_funcs(struct smu_context *smu);
  
- 	if (asic_type == CHIP_ARCTURUS) {
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index 5122f8e5436a..1900cfa20601 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -322,6 +322,7 @@ struct amd_pm_funcs {
- 	int (*asic_reset_mode_2)(void *handle);
- 	int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
- 	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
-+	ssize_t (*get_gpu_metrics)(void *handle, void **table);
- };
+-#define smnPCIE_LC_SPEED_CNTL                   0x11140290
+-#define smnPCIE_LC_LINK_WIDTH_CNTL              0x11140288
+-
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 26b4fff9e0d9..7f1229a0e8db 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -67,6 +67,19 @@ MODULE_FIRMWARE("amdgpu/navy_flounder_smc.bin");
  
- struct metrics_table_header {
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 55463e7a11e2..cf9c5205ef08 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -2516,3 +2516,23 @@ int smu_get_dpm_clock_table(struct smu_context *smu,
+ #define SMU11_MODE1_RESET_WAIT_TIME_IN_MS 500  //500ms
+ 
++#define LINK_WIDTH_MAX				6
++#define LINK_SPEED_MAX				3
++
++#define smnPCIE_LC_LINK_WIDTH_CNTL		0x11140288
++#define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK 0x00000070L
++#define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT 0x4
++#define smnPCIE_LC_SPEED_CNTL			0x11140290
++#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK 0xC000
++#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0xE
++
++static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
++static int link_speed[] = {25, 50, 80, 160};
++
+ int smu_v11_0_init_microcode(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+@@ -1917,3 +1930,43 @@ int smu_v11_0_get_dpm_level_range(struct smu_context *smu,
  
  	return ret;
  }
 +
-+ssize_t smu_sys_get_gpu_metrics(struct smu_context *smu,
-+				void **table)
++int smu_v11_0_get_current_pcie_link_width_level(struct smu_context *smu)
 +{
-+	ssize_t size;
++	struct amdgpu_device *adev = smu->adev;
 +
-+	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-+		return -EOPNOTSUPP;
-+
-+	if (!smu->ppt_funcs->get_gpu_metrics)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&smu->mutex);
-+
-+	size = smu->ppt_funcs->get_gpu_metrics(smu, table);
-+
-+	mutex_unlock(&smu->mutex);
-+
-+	return size;
++	return (RREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL) &
++		PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK)
++		>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
 +}
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index b57b10406390..a08155b83289 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -589,6 +589,7 @@ struct pptable_funcs {
- 	void (*log_thermal_throttling_event)(struct smu_context *smu);
- 	size_t (*get_pp_feature_mask)(struct smu_context *smu, char *buf);
- 	int (*set_pp_feature_mask)(struct smu_context *smu, uint64_t new_mask);
-+	ssize_t (*get_gpu_metrics)(struct smu_context *smu, void **table);
- };
- 
- typedef enum {
-@@ -791,5 +792,7 @@ int smu_get_dpm_clock_table(struct smu_context *smu,
- 
- int smu_get_status_gfxoff(struct amdgpu_device *adev, uint32_t *value);
- 
-+ssize_t smu_sys_get_gpu_metrics(struct smu_context *smu, void **table);
 +
- #endif
- #endif
++int smu_v11_0_get_current_pcie_link_width(struct smu_context *smu)
++{
++	uint32_t width_level;
++
++	width_level = smu_v11_0_get_current_pcie_link_width_level(smu);
++	if (width_level > LINK_WIDTH_MAX)
++		width_level = 0;
++
++	return link_width[width_level];
++}
++
++int smu_v11_0_get_current_pcie_link_speed_level(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++
++	return (RREG32_PCIE(smnPCIE_LC_SPEED_CNTL) &
++		PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK)
++		>> PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
++}
++
++int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu)
++{
++	uint32_t speed_level;
++
++	speed_level = smu_v11_0_get_current_pcie_link_speed_level(smu);
++	if (speed_level > LINK_SPEED_MAX)
++		speed_level = 0;
++
++	return link_speed[speed_level];
++}
 -- 
 2.28.0
 
