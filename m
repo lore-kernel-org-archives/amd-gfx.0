@@ -4,67 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFEEFC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 11:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 832AFC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 11:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C44462082E
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 11:41:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 56DFB2082E
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 11:46:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="MktR/StS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C44462082E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="YSOYQRtj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56DFB2082E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 945F86E1B9;
-	Thu, 30 Jul 2020 11:41:00 +0000 (UTC)
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29F926E1B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 11:40:59 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id v6so9055297ota.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 04:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=nBnifv01zRZgE/4c8IHk2gLlrDMiSDCUOUbT0VvRPoM=;
- b=MktR/StSDY8xQL4/wwQK1MgkX8qvUA0+ZcZpgz7jzUX7xloEaMleHb2Ic9KqrPa0YO
- XVFifhjVRNCf5HgHxL6lwOU8hIJIsw6xsjpwIrP0xOVGzYaM8gQVTgffN7r4GmH4dGBL
- cuaPlJF7xO93fcbEiinukTz2hQoJU83hMy6dE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=nBnifv01zRZgE/4c8IHk2gLlrDMiSDCUOUbT0VvRPoM=;
- b=mBTVgLa3k5ZDXhnqBSHiDPqv6GnjDzhdbo+0tPos9gwruxn9CbWbH5GwiP26BZxhrt
- jHHOz2H7meU6bfttFOvtnqHR6JSLOA1ZkRoWZUgTG50eKJhNsKJDnwIr3+MChE2Wg3WN
- z/IX3Dzccqd0DZsmQcboCk69wGi+ilbnrIQXxqiMrYExYy50XvsA7g6CzN/r1uc7MZqi
- 8jWnPo9aOPRXjYzV5jrJs6stYApGjC+aDNOzDx2bfi7B3pDpivaRJ7+46kVRaloCyP7b
- hyVOea3RzdNanQ5w6dsxpApR5ZejVybXnNcDxQMFex8nVJRf1uVEmFnKh5gLLtH6NnEM
- Nedw==
-X-Gm-Message-State: AOAM530uF8WImQ7TWpfTPWaV4zLv1PL9sQNA5hQEn4al/r8uLyufxVA1
- eiDiAZDIuvzqw96jgDSInJcOspS8Y2IYM6IA8wRqK8gG9YY=
-X-Google-Smtp-Source: ABdhPJwB/0BD6pCWvoNrZuRZ8MZwDHU6nh2kNIwsKx2RoRSrQ9OyjOpZyYMfT/5fBYLWFfKk2J2aMPJu6vTWikKdfjY=
-X-Received: by 2002:a05:6830:1e71:: with SMTP id
- m17mr2064327otr.188.1596109258470; 
- Thu, 30 Jul 2020 04:40:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CBAB6E1CD;
+	Thu, 30 Jul 2020 11:46:37 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE4E96E1CD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2020 11:46:35 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06UBgteV194717;
+ Thu, 30 Jul 2020 11:46:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=2q/ZlP1lhhy/+PVdT8tXC55z1/KqViF5q4rdKGdUfUA=;
+ b=YSOYQRtjp6e1GzpeDud0IcHKO4lMRHju9BXYQpcsE7xIb0P7MyGy+IIqkr3S+mIXTXmD
+ 7+N/C/EQdWBUtb0xiLgbwciR5LU2au4PqIp13UCeQLTu/rZHQyMg0ppGz1H2oR9T5ih7
+ 07C8EmzUgMLh5rnHpDydyu8ZZ+JLQfei8rQ66W2uzAnrc3tKwmh5ikQe2FaRDtcWQt2q
+ V1tPCy1rQLKuBioaTljgOKH1nrjFnaSVcB+n6TiZu2uTNS12v/Vh0zM9G316CNnEFGjV
+ uGpTa7qb6CZB3oCL88Ga3Fj4RgNp/zi7/GMYysk5ThixOQnoRtb3Q6b+Mo87M6eKE5qw qA== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 32hu1jk6e7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 30 Jul 2020 11:46:30 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06UBgof8145151;
+ Thu, 30 Jul 2020 11:46:29 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 32hu5x9g01-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 Jul 2020 11:46:29 +0000
+Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 06UBkNUW016639;
+ Thu, 30 Jul 2020 11:46:23 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 30 Jul 2020 04:46:22 -0700
+Date: Thu, 30 Jul 2020 14:46:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Harry Wentland <harry.wentland@amd.com>, Eryk Brol <eryk.brol@amd.com>
+Subject: [PATCH] drm/amd/display: fix dp_dsc_clock_en_read() debugfs function
+Message-ID: <20200730114613.GA59409@mwanda>
 MIME-Version: 1.0
-References: <20200728182704.1809-1-Felix.Kuehling@amd.com>
- <9994a650-8065-c51c-6454-47064d20c729@gmail.com>
- <7c389ab3-4322-ebd5-f042-e80204dbcfbc@amd.com>
- <MW3PR12MB4491D68CC4AEC80F9B724E46F7700@MW3PR12MB4491.namprd12.prod.outlook.com>
- <9b384c46-ec71-46be-ac60-1335e9682c05@email.android.com>
-In-Reply-To: <9b384c46-ec71-46be-ac60-1335e9682c05@email.android.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 30 Jul 2020 13:40:47 +0200
-Message-ID: <CAKMK7uEDPpqLtTqJztDNTUiG0UOZ7s75p3e4EqhMK98zc=fiAA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] drm/ttm: fix offset in VMAs with a pg_offs in
- ttm_bo_vm_access
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9697
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ mlxscore=0 adultscore=0 spamscore=0 phishscore=0 mlxlogscore=999
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007300087
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9697
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ clxscore=1011
+ malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ phishscore=0 mlxlogscore=999 lowpriorityscore=0 impostorscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2007300087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,68 +87,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Morichetti,
- Laurent" <Laurent.Morichetti@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stylon Wang <stylon.wang@amd.com>, kernel-janitors@vger.kernel.org,
+ Leo Li <sunpeng.li@amd.com>, Anthony Koo <Anthony.Koo@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKdWwgMjksIDIwMjAgYXQgNTozNCBQTSBLb2VuaWcsIENocmlzdGlhbgo8Q2hyaXN0
-aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IFN1cmUuCgpOb3RlIHRoYXQgZHJtLW1pc2Mt
-bmV4dCBpc24ndCB0aGUgcmlnaHQgYnJhbmNoIGZvciBjYzogc3RhYmxlIHN0dWZmLCBzZWUKCmh0
-dHBzOi8vZHJtLnBhZ2VzLmZyZWVkZXNrdG9wLm9yZy9tYWludGFpbmVyLXRvb2xzL2NvbW1pdHRl
-ci1kcm0tbWlzYy5odG1sI3doZXJlLWRvLWktYXBwbHktbXktcGF0Y2gKCkp1c3QgdG8gYXZvaWQg
-Y29uZnVzaW9uIGFuZCBuZWVkbGVzcyBjaGVycnlwaWNraW5nIGFjcm9zcyBicmFuY2hlcy4KLURh
-bmllbAoKPgo+IENocmlzdGlhbi4KPgo+IEFtIDI5LjA3LjIwMjAgMTc6MzAgc2NocmllYiAiRGV1
-Y2hlciwgQWxleGFuZGVyIiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT46Cj4KPiBbQU1EIFB1
-YmxpYyBVc2VdCj4KPgo+IENocmlzdGlhbiwgQ2FuIHlvdSBjYyBzdGFibGUgd2hlbiB5b3UgYXBw
-bHkgaXQgdG8gZHJtLW1pc2M/Cj4KPiBBbGV4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPiBGcm9tOiBLdWVobGluZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Cj4g
-U2VudDogV2VkbmVzZGF5LCBKdWx5IDI5LCAyMDIwIDEwOjE1IEFNCj4gVG86IEtvZW5pZywgQ2hy
-aXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnIDxkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsgYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsgRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPgo+IENjOiBNb3JpY2hldHRp
-LCBMYXVyZW50IDxMYXVyZW50Lk1vcmljaGV0dGlAYW1kLmNvbT4KPiBTdWJqZWN0OiBSZTogW1BB
-VENIIDEvMV0gZHJtL3R0bTogZml4IG9mZnNldCBpbiBWTUFzIHdpdGggYSBwZ19vZmZzIGluIHR0
-bV9ib192bV9hY2Nlc3MKPgo+IEFtIDIwMjAtMDctMjkgdW0gNDowOCBhLm0uIHNjaHJpZWIgQ2hy
-aXN0aWFuIEvDtm5pZzoKPiA+IEFtIDI4LjA3LjIwIHVtIDIwOjI3IHNjaHJpZWIgRmVsaXggS3Vl
-aGxpbmc6Cj4gPj4gVk1BcyB3aXRoIGEgcGdfb2ZmcyB0aGF0J3Mgb2Zmc2V0IGZyb20gdGhlIHN0
-YXJ0IG9mIHRoZSB2bWFfbm9kZSBuZWVkCj4gPj4gdG8gYWRqdXN0IHRoZSBvZmZzZXQgd2l0aGlu
-IHRoZSBCTyBhY2NvcmRpbmdseS4gVGhpcyBtYXRjaGVzIHRoZQo+ID4+IG9mZnNldCBjYWxjdWxh
-dGlvbiBpbiB0dG1fYm9fdm1fZmF1bHRfcmVzZXJ2ZWQuCj4gPj4KPiA+PiBTaWduZWQtb2ZmLWJ5
-OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPiA+PiBUZXN0ZWQtYnk6
-IExhdXJlbnQgTW9yaWNoZXR0aSA8bGF1cmVudC5tb3JpY2hldHRpQGFtZC5jb20+Cj4gPgo+ID4g
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-PiA+Cj4gPiBHb2luZyB0byBwaWNrIHRoYXQgdXAgZm9yIGluY2x1c2lvbiBpbiBkcm0tbWlzYy1u
-ZXh0Lgo+Cj4gVGhhbmtzLiBJJ2xsIHN1Ym1pdCBpdCB0byBhbWQtc3RhZ2luZy1kcm0tbmV4dCBz
-byBpdCBtYWtlcyBpdHMgd2F5IGludG8KPiBvdXIgREtNUyBicmFuY2ggcXVpY2tseS4KPgo+IEFs
-ZXgsIHdvdWxkIHlvdSBwdXNoIHRoaXMgdG8gZHJtLWZpeGVzPwo+Cj4gUmVnYXJkcywKPiAgIEZl
-bGl4Cj4KPgo+ID4KPiA+PiAtLS0KPiA+PiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3Zt
-LmMgfCA0ICsrKy0KPiA+PiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKPiA+Pgo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9i
-b192bS5jCj4gPj4gYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jCj4gPj4gaW5kZXgg
-Mzg5MTI4YjhjNGRkLi42MGI0MTQ0N2JlYzggMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL3R0bS90dG1fYm9fdm0uYwo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2Jv
-X3ZtLmMKPiA+PiBAQCAtNDA1LDggKzQwNSwxMCBAQCBzdGF0aWMgaW50IHR0bV9ib192bV9hY2Nl
-c3Nfa21hcChzdHJ1Y3QKPiA+PiB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4gPj4gICBpbnQgdHRt
-X2JvX3ZtX2FjY2VzcyhzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSwgdW5zaWduZWQgbG9uZyBh
-ZGRyLAo+ID4+ICAgICAgICAgICAgICAgIHZvaWQgKmJ1ZiwgaW50IGxlbiwgaW50IHdyaXRlKQo+
-ID4+ICAgewo+ID4+IC0gICAgdW5zaWduZWQgbG9uZyBvZmZzZXQgPSAoYWRkcikgLSB2bWEtPnZt
-X3N0YXJ0Owo+ID4+ICAgICAgIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8gPSB2bWEtPnZt
-X3ByaXZhdGVfZGF0YTsKPiA+PiArICAgIHVuc2lnbmVkIGxvbmcgb2Zmc2V0ID0gKGFkZHIpIC0g
-dm1hLT52bV9zdGFydCArCj4gPj4gKyAgICAgICAgKCh2bWEtPnZtX3Bnb2ZmIC0gZHJtX3ZtYV9u
-b2RlX3N0YXJ0KCZiby0+YmFzZS52bWFfbm9kZSkpCj4gPj4gKyAgICAgICAgIDw8IFBBR0VfU0hJ
-RlQpOwo+ID4+ICAgICAgIGludCByZXQ7Cj4gPj4gICAgICAgICBpZiAobGVuIDwgMSB8fCAob2Zm
-c2V0ICsgbGVuKSA+PiBQQUdFX1NISUZUID4gYm8tPm51bV9wYWdlcykKPiA+Cj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGlu
-ZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCgoKCi0tIApEYW5pZWwg
-VmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5m
-ZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+There are problems with the dp_dsc_clock_en_read() function.  Only one
+of the memory leak is a runtime bug.
+
+1)  It leaks memory on the -ENXIO and -EFAULT error paths.
+2)  There is a discrepency between rd_buf_size (10) and str_len (30).
+    Static analysis complain that this could lead to a buffer overflow,
+    but actually the buffer overflow is prevented by other factors.
+3)  The "rd_buf_ptr" is assigned "+= str_len" but the result is not used.
+    This leads to static checker warnings as well.  Also the "str_len"
+    is misleading because it's not the strlen() and in fact is beyond
+    the end of the buffer.
+4)  This code re-implements the simple_read_from_buffer() function.
+
+This code can be cleaned up by removing the allocation and using the
+simple_read_from_buffer() function.
+
+Fixes: c06e09b76639 ("drm/amd/display: Add DSC parameters logging to debugfs")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 38 +++----------------
+ 1 file changed, 5 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index e5a6d9115949..114962922ff3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -983,22 +983,13 @@ static ssize_t dp_dpcd_data_read(struct file *f, char __user *buf,
+ static ssize_t dp_dsc_clock_en_read(struct file *f, char __user *buf,
+ 				    size_t size, loff_t *pos)
+ {
+-	char *rd_buf = NULL;
+-	char *rd_buf_ptr = NULL;
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+ 	struct display_stream_compressor *dsc;
+ 	struct dcn_dsc_state dsc_state = {0};
+-	const uint32_t rd_buf_size = 10;
+ 	struct pipe_ctx *pipe_ctx;
+-	ssize_t result = 0;
+-	int i, r, str_len = 30;
+-
+-	rd_buf = kcalloc(rd_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!rd_buf)
+-		return -ENOMEM;
+-
+-	rd_buf_ptr = rd_buf;
++	char rd_buf[10];
++	int len;
++	int i;
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
+@@ -1014,27 +1005,8 @@ static ssize_t dp_dsc_clock_en_read(struct file *f, char __user *buf,
+ 	if (dsc)
+ 		dsc->funcs->dsc_read_state(dsc, &dsc_state);
+ 
+-	snprintf(rd_buf_ptr, str_len,
+-		"%d\n",
+-		dsc_state.dsc_clock_en);
+-	rd_buf_ptr += str_len;
+-
+-	while (size) {
+-		if (*pos >= rd_buf_size)
+-			break;
+-
+-		r = put_user(*(rd_buf + result), buf);
+-		if (r)
+-			return r; /* r = -EFAULT */
+-
+-		buf += 1;
+-		size -= 1;
+-		*pos += 1;
+-		result += 1;
+-	}
+-
+-	kfree(rd_buf);
+-	return result;
++	len = snprintf(rd_buf, sizeof(rd_buf), "%d\n", dsc_state.dsc_clock_en);
++	return simple_read_from_buffer(buf, size, pos, rd_buf, len);
+ }
+ 
+ static ssize_t dp_dsc_slice_width_read(struct file *f, char __user *buf,
+-- 
+2.27.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
