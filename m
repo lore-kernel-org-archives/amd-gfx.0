@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB63BC433E4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21E3CC433E3
 	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 20:37:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8ED0B2074B
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 20:37:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E81FD2074B
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2020 20:37:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="K5ZapqBv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8ED0B2074B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vA7Mo/pK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E81FD2074B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE8C6E0C2;
-	Thu, 30 Jul 2020 20:37:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934416E967;
- Thu, 30 Jul 2020 20:37:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 229076E967;
+	Thu, 30 Jul 2020 20:37:41 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 235196E968;
+ Thu, 30 Jul 2020 20:37:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Us10SLwZMQQ8zodDG+/f5f7j2tI2kOYNkbBy6IN9WuO/ZeIYEAvbtIU742gvTA8D1z2kqfGJLlm2qzLziPROjvBqMAP+4CLkxKKBqyvYHtVR9SSf1sUt/XH1MxxIwtUo8MhoRGaP8gMvKSfaWsI33TNzELKF6Ssx/e2OWUS3dhMZ+rtpo/FEOXuWPIPzqDzFloSsYywhptNcT3mBa6eQMdWBU3awafaSwatIO0YWXDzRBipxj1592s1c2F1A5VNftvTkoxA4R6TYt57SWKkdC9nTQURK2NF2dvnW49ehvKK0TaU0O6J2lMZoGt+WskZ+6gWW8510p6t4FJS0lBS7Dg==
+ b=YJqR9kZkhcqCO8JwwwTXelWqyxnmNPBaokxLeJSkxaC0O0DeFbDrPn/9346OeTMjZVb5pGZEMqTzj2XGpX/g/wYMjxfoaq84xl5qUkDX0qoO0bS+IkyWD95oO+fbQt+hkw4TQMCSKB5K52NvqHSVPyDiRTdvFXFyxm/4ej9R1lIts7AKfzJmAyFncRHqpecVGvmOiRmiNyU4ZNF1QDvsTVL6gVPYkczuXJiq/eOtMessBXx+TBic00ZwrbwSK5WoxQx+5Dv3Cp+vrIm/r0sViLsm7G2NfxlwYREjqXmVmiaJ+gbdI+nDF8Wuu0uM4whOUFx+FAUodOpG4cICLVqYqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GF0OwY5H9q+6V2tAxWB5b0Pe8xUd77HhnIMjZCsb+7U=;
- b=QcxGcYNIEzPsd6o8c1kH8Tu1eZ95AOlGpj+l7DoJClHuOqOjvPcQm0wb8aToXxbJgvii9/oSwfQGwFFJTa/lQG1UtK+sLSJ+V+OmfRfbHbXi2RLugg0eFDtr8TvoTlnv5zjk5bzxpKHqUa14F5tKRs3JgEqs9LDFBR2IQS6kcvsSI8fGgfRWcIC8Iw8nFcSxrLkmbxfYgD80awTYUm1jCXDdCFkzXBGSWBm8yJualzghQfWZRZdEO0wzjMR3OFTxDWlXb6YiNllDX1Ms0AV/AKi+WcSvG/+65Y+FDtn2zbZVC1h8TxdPOMlHF6pYqH0lyH4mV23ukqQ4XHVxnqHmDw==
+ bh=U8WVkK0B4fZvLwVomCw7YDgXkP8Ga+76xN2OM96rKOc=;
+ b=EuupxSiYxT9IkicJfRXLL/w+f/AUQ3HrNXoiKYOBDdP8/XTpqH6IhSc4kPelAiRlun+4SlJfuwkc/P8ZB8GWtBQYFO0YLplLiZIMyc83u7PZs50ydsoNSXFuUbObhQujA60etHaVsHhOgHPpOQ13bWlhOo9wz10kSImdFC4OP/ETZ2zqvNzANF/js4y1zUrnUPHcNu64kNrZf13iLNyL0DUpvLlly3s9KGLp1soU1INbon83SwRws4RPdpeoOoWWh5tcY+ssBsV7DW4mZL65qOENa8yG+lyWFWsbyrr/l63aYSsJQuaMtAwkGTNUOLh5bWwRKeTWY4JfUErkLziTkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GF0OwY5H9q+6V2tAxWB5b0Pe8xUd77HhnIMjZCsb+7U=;
- b=K5ZapqBvz/q/nK7PL1aZOi8dTicxDF6dmxI73JUekYbPKtzClkroDZWTJPWi/60FrJj5X+IvpJvBNislXzFAgfrX5t1wUph7LRn0lFELcXsQjkoCoqemiLRGSzVEiTV4tQp0xCmhrUipzIPBGKXLnKqUM5ebXNmJ/7vcdJa6m+A=
-Received: from MWHPR19CA0094.namprd19.prod.outlook.com (2603:10b6:320:1f::32)
- by MW2PR12MB2570.namprd12.prod.outlook.com (2603:10b6:907:a::13) with
+ bh=U8WVkK0B4fZvLwVomCw7YDgXkP8Ga+76xN2OM96rKOc=;
+ b=vA7Mo/pKlcctaPeAyngVAwqw4qxeF9gQKiDYR8VgjOhqLbRCXFMbX7SlZVGPqAfey4gstECQA/TuTejUQrKn44cVvV1IBdUpsA2yt8u8RipoqMlSTJGTLGnRjtUP5quU1SSoZRhF479JxXUll23kCJg92zEYq0ohVU64GRqtz8g=
+Received: from MWHPR19CA0085.namprd19.prod.outlook.com (2603:10b6:320:1f::23)
+ by DM5PR12MB2408.namprd12.prod.outlook.com (2603:10b6:4:b9::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.24; Thu, 30 Jul
- 2020 20:37:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.23; Thu, 30 Jul
+ 2020 20:37:33 +0000
 Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:320:1f:cafe::17) by MWHPR19CA0094.outlook.office365.com
- (2603:10b6:320:1f::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17 via Frontend
- Transport; Thu, 30 Jul 2020 20:37:34 +0000
+ (2603:10b6:320:1f:cafe::59) by MWHPR19CA0085.outlook.office365.com
+ (2603:10b6:320:1f::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16 via Frontend
+ Transport; Thu, 30 Jul 2020 20:37:33 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,24 +61,23 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3239.17 via Frontend Transport; Thu, 30 Jul 2020 20:37:34 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ 15.20.3239.17 via Frontend Transport; Thu, 30 Jul 2020 20:37:33 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 30 Jul
- 2020 15:37:32 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 15:37:30 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 30 Jul
- 2020 15:37:32 -0500
+ 2020 15:37:29 -0500
 Received: from DESKTOP-3JO4JG6.localdomain (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Thu, 30 Jul 2020 15:37:31 -0500
+ via Frontend Transport; Thu, 30 Jul 2020 15:37:29 -0500
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 5/7] drm/amd/display: Reset plane for anything that's not a
- FAST update
-Date: Thu, 30 Jul 2020 16:36:40 -0400
-Message-ID: <20200730203642.17553-6-nicholas.kazlauskas@amd.com>
+Subject: [PATCH 2/7] drm/amd/display: Reset plane when tiling flags change
+Date: Thu, 30 Jul 2020 16:36:37 -0400
+Message-ID: <20200730203642.17553-3-nicholas.kazlauskas@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
 References: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
@@ -86,28 +85,28 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c912bef-2eab-4e8b-ff6f-08d834c863fe
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2570:
-X-Microsoft-Antispam-PRVS: <MW2PR12MB257067E7C08C1481B140157CEC710@MW2PR12MB2570.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Office365-Filtering-Correlation-Id: ce1fe0fe-3422-4e0f-01c0-08d834c86324
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2408:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB24088146A0D4578A4D36D135EC710@DM5PR12MB2408.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lsDqLDZUSLJDGFB6zyRUTAFcEra2UNyYF1IMnH5z7e7xvMgA/Iy7HfTWT/YTLFtLgFkwTYLzj1QNjCOWjHVhWWey3NI9YKuGkZjV2hB1XtAg/fgXFSn/UnhC2H87TRW35ycxB0bJUTWYbVFo/UD64WoA7u6SqKooFNirFQdysXoGb/nw0/or25pu3x0WnT0y2tPM4IGq5Y9hUl3MVfEM89606fWoEDk1BFYg9qEpPt+bICe4ZeXjvApjQbKKnHyL2xiF6cn4wqpIROk76MpV4sm2HQZMkKFZzjCw/MqNDDj8Ed/vmkJ2KMPNx8KBC7VHO6p7iT54BAwTF9j7MDUDXYm+mGC5m4TzxhNMXc7l+xvEbxMrUHRxpQMxj4kwATuT6uvizyMpIgkpN3bLaptYlA==
+X-Microsoft-Antispam-Message-Info: qo8xm47dsBOVgYmpJkyOLksMxM0LdCoStUlfZyxaqUcQzch4ixodygxhCErTD2lpQRDJ976ajzN7/UEadJvlJWqHzkVMGnVt3FS6ER5lkSFdnM5msM0IRYq58AftKFhEihdVJT7qsj9l2rsXuWfKtcgm+5/0GQazf4OWh8LOp39e8XEJkzwxgr/8Ig5j1OU188mEmFKBhALN3wPjBRaR7xjWf3pSJa8MoJsvYscQXgh3CfNr39v8xVDxXvaBv/0kJDuhm6C2dw85rbjfp6se7wx0BHPWAEWi8vnl9HsgqJ81AvnHzw+vQzVPyNxsdmcjEC7nBXC4MqPTd84Q+EQD7MKEWWFhCBckvlmAMyNWePjUplk2FEVurf54THbVNZPwJdAwoPHj1ETZA+d3q/xCYw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(39860400002)(346002)(396003)(136003)(46966005)(478600001)(8936002)(36756003)(316002)(86362001)(6666004)(1076003)(450100002)(4326008)(44832011)(83380400001)(2616005)(54906003)(186003)(70206006)(82740400003)(356005)(336012)(81166007)(15650500001)(47076004)(426003)(82310400002)(70586007)(2906002)(110136005)(5660300002)(8676002)(26005);
+ SFS:(4636009)(376002)(136003)(396003)(39860400002)(346002)(46966005)(356005)(70586007)(83380400001)(82310400002)(86362001)(2616005)(70206006)(426003)(44832011)(6666004)(186003)(1076003)(26005)(336012)(478600001)(4326008)(8936002)(8676002)(450100002)(316002)(54906003)(2906002)(82740400003)(81166007)(36756003)(47076004)(5660300002)(110136005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 20:37:34.7045 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c912bef-2eab-4e8b-ff6f-08d834c863fe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 20:37:33.2713 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce1fe0fe-3422-4e0f-01c0-08d834c86324
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2570
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2408
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,6 +119,7 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Hersen Wu <hersenxs.wu@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -128,85 +128,61 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-MEDIUM or FULL updates can require global validation or affect
-bandwidth. By treating these all simply as surface updates we aren't
-actually passing this through DC global validation.
+Enabling or disable DCC or switching between tiled and linear formats
+can require bandwidth updates.
+
+They're currently skipping all DC validation by being treated as purely
+surface updates.
 
 [How]
-There's currently no way to pass surface updates through DC global
-validation, nor do I think it's a good idea to change the interface
-to accept these.
-
-DC global validation itself is currently stateless, and we can move
-our update type checking to be stateless as well by duplicating DC
-surface checks in DM based on DRM properties.
-
-We wanted to rely on DC automatically determining this since DC knows
-best, but DM is ultimately what fills in everything into DC plane
-state so it does need to know as well.
-
-There are basically only three paths that we exercise in DM today:
-
-1) Cursor (async update)
-2) Pageflip (fast update)
-3) Full pipe programming (medium/full updates)
-
-Which means that anything that's more than a pageflip really needs to
-go down path #3.
-
-So this change duplicates all the surface update checks based on DRM
-state instead inside of should_reset_plane().
-
-Next step is dropping dm_determine_update_type_for_commit and we no
-longer require the old DC state at all for global validation.
-
-Optimization can come later so we don't reset DC planes at all for
-MEDIUM udpates and avoid validation, but we might require some extra
-checks in DM to achieve this.
+Treat tiling_flag changes (which encode DCC state) as a condition for
+resetting the plane.
 
 Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Hersen Wu <hersenxs.wu@amd.com>
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0d5f45742bb5..2cbb29199e61 100644
+index 7cc5ab90ce13..bf1881bd492c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8336,6 +8336,31 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+@@ -8332,6 +8332,8 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 	 * TODO: Come up with a more elegant solution for this.
+ 	 */
+ 	for_each_oldnew_plane_in_state(state, other, old_other_state, new_other_state, i) {
++		struct dm_plane_state *old_dm_plane_state, *new_dm_plane_state;
++
+ 		if (other->type == DRM_PLANE_TYPE_CURSOR)
+ 			continue;
+ 
+@@ -8342,9 +8344,20 @@ static bool should_reset_plane(struct drm_atomic_state *state,
  		if (old_other_state->crtc != new_other_state->crtc)
  			return true;
  
-+		/* Src/dst size and scaling updates. */
-+		if (old_other_state->src_w != new_other_state->src_w ||
-+		    old_other_state->src_h != new_other_state->src_h ||
-+		    old_other_state->crtc_w != new_other_state->crtc_w ||
-+		    old_other_state->crtc_h != new_other_state->crtc_h)
+-		/* TODO: Remove this once we can handle fast format changes. */
+-		if (old_other_state->fb && new_other_state->fb &&
+-		    old_other_state->fb->format != new_other_state->fb->format)
++		/* Framebuffer checks fall at the end. */
++		if (!old_other_state->fb || !new_other_state->fb)
++			continue;
++
++		/* Pixel format changes can require bandwidth updates. */
++		if (old_other_state->fb->format != new_other_state->fb->format)
 +			return true;
 +
-+		/* Rotation / mirroring updates. */
-+		if (old_other_state->rotation != new_other_state->rotation)
-+			return true;
++		old_dm_plane_state = to_dm_plane_state(old_other_state);
++		new_dm_plane_state = to_dm_plane_state(new_other_state);
 +
-+		/* Blending updates. */
-+		if (old_other_state->pixel_blend_mode !=
-+		    new_other_state->pixel_blend_mode)
-+			return true;
-+
-+		/* Alpha updates. */
-+		if (old_other_state->alpha != new_other_state->alpha)
-+			return true;
-+
-+		/* Colorspace changes. */
-+		if (old_other_state->color_range != new_other_state->color_range ||
-+		    old_other_state->color_encoding != new_other_state->color_encoding)
-+			return true;
-+
- 		/* Framebuffer checks fall at the end. */
- 		if (!old_other_state->fb || !new_other_state->fb)
- 			continue;
++		/* Tiling and DCC changes also require bandwidth updates. */
++		if (old_dm_plane_state->tiling_flags !=
++		    new_dm_plane_state->tiling_flags)
+ 			return true;
+ 	}
+ 
 -- 
 2.25.1
 
