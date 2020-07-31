@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8A9CC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32F5BC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:43:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7B1CB2083E
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:43:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 085F72083E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:43:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WT1/eTNi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B1CB2083E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="heuBqycx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 085F72083E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 686976E991;
-	Fri, 31 Jul 2020 02:43:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4F96E992;
+	Fri, 31 Jul 2020 02:43:47 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B35D16E991
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:43:41 +0000 (UTC)
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 064976E992
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:43:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DmI3cGGK6vfCVMpo0/23aQULhWcd/jh4Qn9RM+kOghCGHM9rqf5xDMSvJ0urd6MUVV1nGI6+LO6tK/uuryXGjWMc8wCpfNy+BhN8ky52llbCR8hQm5sMKq4QBUI/0R8oJNjY07NgrucV+AIZR/vt320OrDsmBLHVibRJ7SU3Ds2n8knPubMgnm7zF4GiAGT2iFHfWantXdIT4qV3Of4X/4/GPpL7sMjuUYQpLkNlzc0CP9kMmPAiNFUQ0s9f+XIscArESrSfhUQaeVRIe5dbugzcwQFczaShkGLG+BFlEbB++9xd6Sl1GhhhQaZCgclGF1lRfA99Zr/BMQ90x+1NJw==
+ b=Zgf0WqsgBsC4mQ1gcp4rvv1O+a4eySpnzbQU5h1Oy7LAq1ttmeMUBes7M7PHhEvN9kEWIy78QOwNXTP4DatrDItVt52RGqjy/7XvIMzZqHVeFfzhK7HwnkES/cn3h9B+vr4jXV8e4KUqv7KdmUriCO0dPAj97GK6wuGG/XAmqhFrv4mQpqqUGsPjgVuZcEE+kXsx4bp9XsB3tJwOWVuqurCicWwq8z7divkENRdVlKCWM+helApt8rB4GO6W/IGeYsHXxIC2IAEmCWlbUb/XJB70lKhwpYVgJo11yJygQk53AwtZ5B/DxbEk0IvYtCZQ7qE27obkq/keXuX47yXYUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TT5eGUcnVpfS+MrGOycoa1X+MWLE4dF9vXN6Fm7wzoQ=;
- b=SKUlrTLgGzEeQefaYpeyuN+O87dGUjeb+HoAJmJ4GdglHC041xjG6niNv+okQNY5klO8jyO+qR45/ldc7ql4qfP9o/cJlgDLAWf2HD1jt7ap8TJyK/sxTvzRmp+PclsKutFmP0dYJ5XFtBaSkgrySsX9YdHbEg4Wq2DRpXxYZOVuI4MKK3xJcvU8KflC/9zCYEnuDcZ+Dvxtrtz6QhOBNQM2Fyag4wLP+NoR3zi4XNkpqrQ7/AN/zYob0dK2BRjufZotSlyxrrGSfryBEhTRadRYORSb2HdriMwDPvK0mlSvIAYu3+tmXOT8fXu69L2jyicmNt0vy7ZZIpVE7HkgCQ==
+ bh=Q5DPPglDZxFh0HbmJ1r1+XtoYTSAJgYn7rjX8pcPIcc=;
+ b=RJKcBAtEyukiXjYfUnn+OZiLRDhij+/ijiPEBqoUzymiv6SDh86M64xCMonlaniaTZ0E/OIuVpwmkt9qnmnehdGtLNTIe2OVQmZKAN1FXP6O08/5/c3W5hMonqPgau46nTU+yv/LAK68KFjjrQOpNYCZZLqKNBkg+MsalKl3gEFhEyxursOFqfccC0Tb+7Z1O+Ol/fXEknF8hCit8hnW3CJ4k7tFbe1xoHkiSlJNnfAFMBgiHj+ep8ZxLMqASEdHv838iRsDfIfc7bydgExOnXr1KwnaBu1bDFaLKn6t8KI1xltBAlNgCQMFBn1D3cdzusZcVbNPxdWj0gLOHxVW0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TT5eGUcnVpfS+MrGOycoa1X+MWLE4dF9vXN6Fm7wzoQ=;
- b=WT1/eTNi0OJ6eqcKrFK92ZtvlQurdi2OoE0onRh2bDfM7pnuxxscW4v9xa2OvYiX+bs6YRdAHeHj6IrGq9SiSqcn9Vt0uPlzwaqUJymkQxWri+wj/YlzcK1ZX0lfhphJsJLK6y8QfeOH+H2ZCqZRdleJLoEHp/8Tc99hxOLPEM4=
+ bh=Q5DPPglDZxFh0HbmJ1r1+XtoYTSAJgYn7rjX8pcPIcc=;
+ b=heuBqycxmsa/GvcaGayN8U2k4B9vDJFdW2xHS9EAQuPP+9/nnDmeGPrFIrCfdOVh0MZf/PsOtmE0SSQe8qW0HjbL9sat9qUOLO14OlF1BW7+8OZqHLw100AlcIXLQNEq3UEeIcdnU8Wxm0halh2UMOz0FRNc22VWNtyF/U01M4A=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,20 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16; Fri, 31 Jul 2020 02:43:39 +0000
+ 15.20.3239.16; Fri, 31 Jul 2020 02:43:44 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Fri, 31 Jul 2020
- 02:43:39 +0000
+ 02:43:44 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 01/17] drm/amd/powerplay: define an universal data structure
- for gpu metrics (V4)
-Date: Fri, 31 Jul 2020 10:43:00 +0800
-Message-Id: <20200731024316.28324-1-evan.quan@amd.com>
+Subject: [PATCH 02/17] drm/amd/powerplay: add new sysfs interface for
+ retrieving gpu metrics(V2)
+Date: Fri, 31 Jul 2020 10:43:01 +0800
+Message-Id: <20200731024316.28324-2-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200731024316.28324-1-evan.quan@amd.com>
+References: <20200731024316.28324-1-evan.quan@amd.com>
 X-ClientProxiedBy: HK2PR02CA0206.apcprd02.prod.outlook.com
  (2603:1096:201:20::18) To DM6PR12MB2619.namprd12.prod.outlook.com
  (2603:10b6:5:45::18)
@@ -68,34 +70,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR02CA0206.apcprd02.prod.outlook.com (2603:1096:201:20::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:43:37 +0000
+ 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:43:42 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: adfe4112-fec5-491c-3f55-08d834fb87de
+X-MS-Office365-Filtering-Correlation-Id: bdb5b022-fba2-4207-e430-08d834fb8ad1
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4435248D103025C1D60374D7E44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4435F04B4C408168A7468B7AE44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PRTN22RH9rFWlN6YAPZ7bmLgXJ1ptEJIM4fKpZxvLy9+1vil76ZP2Eg44/fOT294zpeBA62FYUTwckIaB4r/dEszNJf0QNIQIA6pXFmgQrkkkXeurT+NgrcQceXyopT68nJva3vpA/V2Fjf7eX7MPPFMdqXDjof/nskmB2GAaR1RUASc0JWvuodbxb4gEuy49U1U84Lcu6gKygiqO1Up80riZ6A4ENx306uU5BBZ7khBiYaSC54GpexDEl7iMAqsMTVfpLsIr5rJ30O4SdCswTRDa/vuDs5LnPRyxahqwMW5AExgOQlywU41iH8EIL/1u46OcM6f1r6Wyz02UVQKqg==
+X-Microsoft-Antispam-Message-Info: SGpWqxxZSc4HHYTY4A0WGcccGnI/Xh7JrUHmfrw6ds/zFIDu6eiI2E56UctdAjClFBou1Di2ExaQNsUIFIzqFeoL7gdA9DIRX5jEAJ/YlbHTil+U9eYdhn4Bur20B/0GaBHBGGGlWH9EdRayomS5kkheChfFnsJVxt02M1v3pA32wuvRml3R4i2CvQ8tqGGSR0vP0WPXw9dw0x4v0FthAQ+GBpwcsoUUsL7H9eDc0WmebJWjLRzjTy/5fSZzPCEX0i0S8i8Dl8ItiOZCrSEx+Li2TyOId5RNnu23P58XkSIXAF1MFT3Lpuvg/Y68rRFz3BVIIXMgZFw52Zt7T4dinQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(396003)(346002)(39860400002)(376002)(136003)(16526019)(186003)(6666004)(6486002)(36756003)(6916009)(8676002)(44832011)(83380400001)(956004)(26005)(66946007)(1076003)(5660300002)(66556008)(66476007)(4326008)(7696005)(2616005)(86362001)(2906002)(478600001)(8936002)(52116002)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Jn/FRdi3mUt2SkFgW9p4BwYusqV6BSn5u/XE7vJ8scw8I1HYOVLxKQkqmOir81TTXVEOgFfHGRb+L/e3EiR7qUzBmlt6EPUWdgA0ejoQWlQXR+e3wCXkO6L+2BvNf1G4TY7b6uTLK1QskYyAz73OfGzv5/x6bb1yK1ZYzjw5qPmqSVhtjUI509xxpGLdw6NC4zX+5hyyme9BgKR2McCLUzSLSN4YUEMU4mzzse0iEtUwTJQO93IA8BU5Kh9sMRp+eL2zFPI21pJknOx3SkkKslCeJJOX5Zwvx0wd3znN9yoQ538FiqCExvmU2EbBxyrUYrzt+v8xGd15/pnFP2oW8XqaEpTYzJv2nkRUsUH0suHeMJi6+BDDYNwcL+GnnF0EFl8zaqIknA10qaANueCR1b4LDFXGiprK+T021396qDkfTLKa9xRbX91/WXvhCYj6JFR5V4E+817eVat2zEs4RvVatdXoKgvC3K0GH1K5jQS2lGBL3wTTKoLGyJmU4FVqcOi+nXE3lGM28IwJJXIGFm8eXw+Q21dqnWMP+M3A7FnsinsJ8IMg+IJLTNv7tQiiJnEH2H9xT73rjkGjnlTYDjcxpn5kXZPnphUPohM5npqVrQceCmjyWUBQ1C13juXhI5iGWuZic3CAn+ChSQHyLw==
+X-MS-Exchange-AntiSpam-MessageData: uXegH8r8HF57sKsnf0hX4cHE6JHAKieE/pOAh3Fh76Okfdj1paTTiGuOyy3d57P6n4baVCDJjsQcbB2H4fDTRvgpKECMIGx3STmPkcHA67R2dHjGpNmO6dFEZzN989ga36n1iO5mcmH7QTMEklhZKiT7lUX2CfTHH9L8X+pPA0fcnEdMF3EXAMT7Y3StOFQuyCXp6FMYfOiIf78D44SD8fG4b49itEGKrOHSbfC9sNDivU+HXBkQNXzxxnCmxvjiKA8dv9JdH9yXhu+5uJSHLEQEWOOLtIkC1eHk9N623pdkWnd0p+O7RUMf0prV/zl+tAa4qj7eh3egUfzY6/lQbfVKK1aERu2swb9STD67RGsfzVpXx+r2EwJg2K2A2+z16V+5LQQ6PEpV/XQkA/tNom28RFHJuKtzeMLQ7HjsmJLUnh9Ewaon7kt9X8GQS0CFfU5uiEsKEU8XRbOSfw1we2jL1pTcmUHbFp9f4E0jHpNRphtYJEP2omHU/KXpy5JSOS93euCB/ggUZCvLzdRbXJp0k1+AfmfWgXp/bJ0FbOT+DHNdwvGjl7kX9CL8LAdbzx3D0BPcey+M+0VanyxdTIuE/8AuvlqOKyHGQfZ5rJVlMAv5e0LjuIJaVola9etkc5vqP1I27hNKjVE1XMmEoQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adfe4112-fec5-491c-3f55-08d834fb87de
+X-MS-Exchange-CrossTenant-Network-Message-Id: bdb5b022-fba2-4207-e430-08d834fb8ad1
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:43:39.5649 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:43:44.6240 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qbv8jLZGpQMJEVZApFM4OLNBouH7FeKQRd4OfRzfoIcFC+FyvBeQ+lqYVSCBcV9T
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZlHSaPeaktqWe/SAUXD+BT/+pUwtQP968oXUwC8Qxe+BI550Jjw75HKnfUghL1wF
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,135 +118,194 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thus we can provide an interface for UMD to retrieve gpu metrics data.
+A new interface for UMD to retrieve gpu metrics data.
 
-V2: better naming and comments
-V3: two structures created for dGPU and APU separately
-V4: add driver attached timestamp
+V2: rich the documentation
 
-Change-Id: Ibc2d5c642eff732c082f8447348749a44dc35be3
+Change-Id: If7f3523915505c0ece0a56dfd476d2b8473440d4
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/include/kgd_pp_interface.h    | 108 ++++++++++++++++++
- 1 file changed, 108 insertions(+)
+ Documentation/gpu/amdgpu.rst                  |  6 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h       |  3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 57 +++++++++++++++++++
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 20 +++++++
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  3 +
+ 6 files changed, 90 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index a7f92d0b3a90..5f38ee62c103 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -324,4 +324,112 @@ struct amd_pm_funcs {
- 	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
+index 17112352f605..0f7679a7cf54 100644
+--- a/Documentation/gpu/amdgpu.rst
++++ b/Documentation/gpu/amdgpu.rst
+@@ -206,6 +206,12 @@ pp_power_profile_mode
+ .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+    :doc: mem_busy_percent
+ 
++gpu_metrics
++~~~~~~~~~~~~~~~~~~~~~
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++   :doc: gpu_metrics
++
+ GPU Product Information
+ =======================
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+index aa27fe65cdfa..b190c0af7db1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+@@ -369,6 +369,9 @@ enum amdgpu_pcie_gen {
+ 		((adev)->powerplay.pp_funcs->set_ppfeature_status(\
+ 			(adev)->powerplay.pp_handle, (ppfeatures)))
+ 
++#define amdgpu_dpm_get_gpu_metrics(adev, table) \
++		((adev)->powerplay.pp_funcs->get_gpu_metrics((adev)->powerplay.pp_handle, table))
++
+ struct amdgpu_dpm {
+ 	struct amdgpu_ps        *ps;
+ 	/* number of valid power states */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index 6df405e6221d..0198acd320b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -2122,6 +2122,59 @@ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
+ 	return count;
+ }
+ 
++/**
++ * DOC: gpu_metrics
++ *
++ * The amdgpu driver provides a sysfs API for retrieving current gpu
++ * metrics data. The file gpu_metrics is used for this. Reading the
++ * file will dump all the current gpu metrics data.
++ *
++ * These data include temperature, frequency, engines utilization,
++ * power consume, throttler status, fan speed and cpu core statistics(
++ * available for APU only). That's it will give a snapshot of all sensors
++ * at the same time.
++ */
++static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
++				      struct device_attribute *attr,
++				      char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = ddev->dev_private;
++	void *gpu_metrics;
++	ssize_t size = 0;
++	int ret;
++
++	if (amdgpu_in_reset(adev))
++		return -EPERM;
++
++	ret = pm_runtime_get_sync(ddev->dev);
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(ddev->dev);
++		return ret;
++	}
++
++	down_read(&adev->reset_sem);
++	if (is_support_sw_smu(adev))
++		size = smu_sys_get_gpu_metrics(&adev->smu, &gpu_metrics);
++	else if (adev->powerplay.pp_funcs->get_gpu_metrics)
++		size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
++	up_read(&adev->reset_sem);
++
++	if (size <= 0)
++		goto out;
++
++	if (size >= PAGE_SIZE)
++		size = PAGE_SIZE - 1;
++
++	memcpy(buf, gpu_metrics, size);
++
++out:
++	pm_runtime_mark_last_busy(ddev->dev);
++	pm_runtime_put_autosuspend(ddev->dev);
++
++	return size;
++}
++
+ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
+ 	AMDGPU_DEVICE_ATTR_RW(power_dpm_state,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(power_dpm_force_performance_level,	ATTR_FLAG_BASIC),
+@@ -2145,6 +2198,7 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
+ 	AMDGPU_DEVICE_ATTR_RW(pp_features,				ATTR_FLAG_BASIC),
+ 	AMDGPU_DEVICE_ATTR_RO(unique_id,				ATTR_FLAG_BASIC),
+ 	AMDGPU_DEVICE_ATTR_RW(thermal_throttling_logging,		ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RO(gpu_metrics,				ATTR_FLAG_BASIC),
  };
  
-+struct metrics_table_header {
-+	uint16_t			structure_size;
-+	uint8_t				format_revision;
-+	uint8_t				content_revision;
-+};
+ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
+@@ -2194,6 +2248,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 	} else if (DEVICE_ATTR_IS(pp_features)) {
+ 		if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
+ 			*states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(gpu_metrics)) {
++		if (asic_type < CHIP_VEGA12)
++			*states = ATTR_STATE_UNSUPPORTED;
+ 	}
+ 
+ 	if (asic_type == CHIP_ARCTURUS) {
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 5f38ee62c103..0aec28fda058 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -322,6 +322,7 @@ struct amd_pm_funcs {
+ 	int (*asic_reset_mode_2)(void *handle);
+ 	int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
+ 	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
++	ssize_t (*get_gpu_metrics)(void *handle, void **table);
+ };
+ 
+ struct metrics_table_header {
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index 55463e7a11e2..cf9c5205ef08 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -2516,3 +2516,23 @@ int smu_get_dpm_clock_table(struct smu_context *smu,
+ 
+ 	return ret;
+ }
 +
-+struct gpu_metrics_v1_0 {
-+	struct metrics_table_header	common_header;
++ssize_t smu_sys_get_gpu_metrics(struct smu_context *smu,
++				void **table)
++{
++	ssize_t size;
 +
-+	/* Driver attached timestamp (in ns) */
-+	uint64_t			system_clock_counter;
++	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
++		return -EOPNOTSUPP;
 +
-+	/* Temperature */
-+	uint16_t			temperature_edge;
-+	uint16_t			temperature_hotspot;
-+	uint16_t			temperature_mem;
-+	uint16_t			temperature_vrgfx;
-+	uint16_t			temperature_vrsoc;
-+	uint16_t			temperature_vrmem;
++	if (!smu->ppt_funcs->get_gpu_metrics)
++		return -EOPNOTSUPP;
 +
-+	/* Utilization */
-+	uint16_t			average_gfx_activity;
-+	uint16_t			average_umc_activity; // memory controller
-+	uint16_t			average_mm_activity; // UVD or VCN
++	mutex_lock(&smu->mutex);
 +
-+	/* Power/Energy */
-+	uint16_t			average_socket_power;
-+	uint32_t			energy_accumulator;
++	size = smu->ppt_funcs->get_gpu_metrics(smu, table);
 +
-+	/* Average clocks */
-+	uint16_t			average_gfxclk_frequency;
-+	uint16_t			average_socclk_frequency;
-+	uint16_t			average_uclk_frequency;
-+	uint16_t			average_vclk0_frequency;
-+	uint16_t			average_dclk0_frequency;
-+	uint16_t			average_vclk1_frequency;
-+	uint16_t			average_dclk1_frequency;
++	mutex_unlock(&smu->mutex);
 +
-+	/* Current clocks */
-+	uint16_t			current_gfxclk;
-+	uint16_t			current_socclk;
-+	uint16_t			current_uclk;
-+	uint16_t			current_vclk0;
-+	uint16_t			current_dclk0;
-+	uint16_t			current_vclk1;
-+	uint16_t			current_dclk1;
++	return size;
++}
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+index b57b10406390..a08155b83289 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -589,6 +589,7 @@ struct pptable_funcs {
+ 	void (*log_thermal_throttling_event)(struct smu_context *smu);
+ 	size_t (*get_pp_feature_mask)(struct smu_context *smu, char *buf);
+ 	int (*set_pp_feature_mask)(struct smu_context *smu, uint64_t new_mask);
++	ssize_t (*get_gpu_metrics)(struct smu_context *smu, void **table);
+ };
+ 
+ typedef enum {
+@@ -791,5 +792,7 @@ int smu_get_dpm_clock_table(struct smu_context *smu,
+ 
+ int smu_get_status_gfxoff(struct amdgpu_device *adev, uint32_t *value);
+ 
++ssize_t smu_sys_get_gpu_metrics(struct smu_context *smu, void **table);
 +
-+	/* Throttle status */
-+	uint32_t			throttle_status;
-+
-+	/* Fans */
-+	uint16_t			current_fan_speed;
-+
-+	/* Link width/speed */
-+	uint8_t				pcie_link_width;
-+	uint8_t				pcie_link_speed; // in 0.1 GT/s
-+};
-+
-+struct gpu_metrics_v2_0 {
-+	struct metrics_table_header	common_header;
-+
-+	/* Driver attached timestamp (in ns) */
-+	uint64_t			system_clock_counter;
-+
-+	/* Temperature */
-+	uint16_t			temperature_gfx; // gfx temperature on APUs
-+	uint16_t			temperature_soc; // soc temperature on APUs
-+	uint16_t			temperature_core[8]; // CPU core temperature on APUs
-+	uint16_t			temperature_l3[2];
-+
-+	/* Utilization */
-+	uint16_t			average_gfx_activity;
-+	uint16_t			average_mm_activity; // UVD or VCN
-+
-+	/* Power/Energy */
-+	uint16_t			average_socket_power; // dGPU + APU power on A + A platform
-+	uint16_t			average_cpu_power;
-+	uint16_t			average_soc_power;
-+	uint16_t			average_gfx_power;
-+	uint16_t			average_core_power[8]; // CPU core power on APUs
-+
-+	/* Average clocks */
-+	uint16_t			average_gfxclk_frequency;
-+	uint16_t			average_socclk_frequency;
-+	uint16_t			average_uclk_frequency;
-+	uint16_t			average_fclk_frequency;
-+	uint16_t			average_vclk_frequency;
-+	uint16_t			average_dclk_frequency;
-+
-+	/* Current clocks */
-+	uint16_t			current_gfxclk;
-+	uint16_t			current_socclk;
-+	uint16_t			current_uclk;
-+	uint16_t			current_fclk;
-+	uint16_t			current_vclk;
-+	uint16_t			current_dclk;
-+	uint16_t			current_coreclk[8]; // CPU core clocks
-+	uint16_t			current_l3clk[2];
-+
-+	/* Throttle status */
-+	uint32_t			throttle_status;
-+
-+	/* Fans */
-+	uint16_t			fan_pwm;
-+
-+	uint16_t			padding;
-+};
-+
+ #endif
  #endif
 -- 
 2.28.0
