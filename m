@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43CB7C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EDAAC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A2BB2083E
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:44:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 500D02083E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:44:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PGVQXj0V"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A2BB2083E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3ZdeYOSQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 500D02083E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2CD26E998;
-	Fri, 31 Jul 2020 02:44:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F93F6E99B;
+	Fri, 31 Jul 2020 02:44:25 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E69B6E998
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:44:20 +0000 (UTC)
+ (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7683B6E99B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:44:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iyZ1nYB0G76XEqk7zdkfiyhLEsMQVj7alUif0gJqPzo72RIQ4dSgb/S5AMIPKwl9bObcGuicPMNDKIpQnd16sSLFMKggRKr6sAZvNBekonq4l8LmQ4IrPgzXBGHeMlrk5bXQhBI0Rs7gZIPEXWt7fr9AynggIVi+6gLf3eSEh+yd7NvBRwTgB1BjKRjLBLY63oScKlz8X4ak8T4EoGeETbKLoZ9OIDVTDF88xUZxOHjqDnsCtOquzgY9Y4l7HLg9qqyiXy18yeRmrgkCP50mq6QlTnd9f73Tq/48qEiQC6O1HFN7k9gWMPyuMm0moQCLlfr4oOkEP2S0bsZYyZ+gag==
+ b=laWTSwhPYqfKBS1N34AcGsnhBj42Xa4BAKoTU8Y92nsX5d+kJxd5ejVvoCOJ+60j/4sxr1kkUUarrARsjRqs/+zlm/ZjR2LHVQ4tsjdH2P28j8gsDeV05HRLam6rLutOx90MR800xDRb4t1sQUBnIGnwoj8Y6lTIh661xbKjf1dAJY+bNmkn4VLzUTGpulOvD8I6ZS41aO8hCEcLi7qaprUNsYpyEk0/hn1pGI5zj8rbCzt9PXZLcUaFyKBxD0JuipMQw0pzWcbst7H4rUqvz7V7TcB2dwa2fG3V66KChad1GgsM1iezbkr2YTQhdyS5sskYCl5FDlzdo+pBKAhzjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ScQhhERfiylCU430ZEXeDymAJS+qWMhTGKTCAjHCLWU=;
- b=mJnJ2uXfFplEmYyzfW1TZ68lKl+oY81TPcmgp13FPkPbmCiboo9gGaSpd80kQTI9PGuKJaxOObIJT0Fho7aI+UmsmKLQk66gaqvRDH+5OTgMMi7iDwUVy42AlDtOyZZg92QIUo1jmqVHnMCacXAcfwPZpfv9GGb3Ej+XIVcS5sA7E5tXzo50yEODp+0qbp4m7+fJO7hmizLdlnNLvf3noCS08R3ZLTafcY3KCZuZfPScn2vFEIRouyVXooDGJ8BcMbdqkIplszr5yon161FxMl42thKXKb48R2an4U7jAzpOnM4LqRETdgkL8BI/jJwI75yMk+HVklVUXeb3XkOG/A==
+ bh=vlZRBRNZ+jWeIUuAaMOW9OC7rxSdhA2yGpUFJ0V2BOw=;
+ b=E3HoZphHbJrF6LbZB4eB6+jJfCVqSOOZwbP5bCIt/CttShr15M/WFDWhHgYlMnK5rruX4ShYX1kZRjoJ0JOHacdwf2YcpMaxOfzchzPEgfCjtyI+PPqRGMKKuct8876AmxDzH5riaIwb22QsytDh/3ybQb+e+DDOxcCAZlHXodFCWFy61h15FgO7eSYc9Bmv8q6/2THzjZMp6PrB2BwCHe/c2vyVg6/pceSRoTk8ic/NVtP4MFCl6A31bxuPPDv6OSDQ9ZGZk0VKlRgFokOZ4/uUrIqOqRDB/3R5wHRAHKi9d7oJ910TSs0uBE6/BMi9PLWH/ADfD9TMfkZ3Mj5gIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ScQhhERfiylCU430ZEXeDymAJS+qWMhTGKTCAjHCLWU=;
- b=PGVQXj0VeyonMD94jRSB33LsLQ9wD/9KZs5pdqgSVu60bk3th87MGOm4Bye0Z4QfjOeEPCrNuZh3x9FOVHNqPQ1efnkYaL6jSA75/CLempzFOiVnTkux0Tp3I6JxC+9BDYu3apZ2XBarx1zFZiuxdkLUX1zLPDf0R2C/Ao9wybo=
+ bh=vlZRBRNZ+jWeIUuAaMOW9OC7rxSdhA2yGpUFJ0V2BOw=;
+ b=3ZdeYOSQjel7b3nRIEwi3i1vv0Yi3R6+YaIOYY58HZtnHTcH28ulBzAzHT3NRrYybmuaxnEwazIEkDmbFHGmmLu8Ern345oOO3nCcJSPCTuwUzyn1ZqEqDQ0D2AoPs0ZbJjOLTDGbiMOFL1NEgiUuWZo3t/WK663Aoy/ibmviD4=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16; Fri, 31 Jul 2020 02:44:19 +0000
+ 15.20.3239.16; Fri, 31 Jul 2020 02:44:22 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Fri, 31 Jul 2020
- 02:44:19 +0000
+ 02:44:22 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 10/17] drm/amd/powerplay: add Vega20 support for gpu metrics
+Subject: [PATCH 11/17] drm/amd/powerplay: add Vega12 support for gpu metrics
  export
-Date: Fri, 31 Jul 2020 10:43:09 +0800
-Message-Id: <20200731024316.28324-10-evan.quan@amd.com>
+Date: Fri, 31 Jul 2020 10:43:10 +0800
+Message-Id: <20200731024316.28324-11-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200731024316.28324-1-evan.quan@amd.com>
 References: <20200731024316.28324-1-evan.quan@amd.com>
@@ -70,34 +70,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR02CA0206.apcprd02.prod.outlook.com (2603:1096:201:20::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:44:17 +0000
+ 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:44:20 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7ba36e74-2640-40c8-7aa4-08d834fb9f8c
+X-MS-Office365-Filtering-Correlation-Id: 32606d77-7037-4bcc-84c7-08d834fba1ad
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB44350095B4FE3DE185F82E47E44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1013;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB443592B7798AF5396B7E6312E44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:346;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j2IJZ2pmy88/VVjFLDhNxSJ7nO3CzLjxLyM9RsxvtfJMMyxkxJfV6vlR+0v1dxAI3dqgM6ehUeYzFqb4KtwzqZ5exj8U0PA6PcPO+AuY8ad5brrHaHJs1io6koxA0tdKYID8bJBxyJH8MwWO5HcDpgFsgo0wHTTX2U4lUrVby8VFMkefCPj7WXdOo5nvfeCbp/6MJ+P8/uFsvWh/1dhpH2Ow6E2pcQLBVqA52VhnFEWtX28NbPdhhpK+4+27cxux6baqoCiPc/yR/yDTdF04aqPn66zNaDbKM2wAuorv+AEMZQO/NoeQOk4gcxMDmEhJ/9xPeqV6ckJ0Ct5UAUlnyA==
+X-Microsoft-Antispam-Message-Info: FT6I5OiQs+neWX3QnlNUiqBlhMj6JO3kIWRwnONCGVKAxdmIEbnSndgCE558aWmTw3RQXfJ6f9clWd2YIxPcyhMY+/AljL12gHTqC1zSO7CBWHy/Wsp750HztqG2jFy1EAdTNoYUVldPvHblztQyGU00QpRq48NKdFtd0GRUoEmkcfKPKy4p2sdV0hI/6R4VO9266D5GCGjG0ZLW8ADnK5f9qSHuyUhmGR+3N6nAkerkl/odKxrnhQHWRzW8BHJ6lBiLrDewvNK7VJRUrnESCYaaWB3rk2lMBbK47bXOBLipszU5wW2o8eAz13+7qxDqeai6cxbBLnSp9iwhkeXTyg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(396003)(346002)(39860400002)(376002)(136003)(16526019)(186003)(6666004)(6486002)(36756003)(6916009)(8676002)(44832011)(83380400001)(956004)(26005)(66946007)(1076003)(5660300002)(66556008)(66476007)(4326008)(7696005)(2616005)(86362001)(2906002)(478600001)(8936002)(52116002)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: UpBXzCrBiWpL6KMYLYhotzYmpT5pgCMpVfVeHkdNfaeEEaNomj4gn7G5pC+iaKDnWImt9As1rJxYm1coKtb8EJrI38ayKpT+gFBwBv5qi+ZhHdhDcVTYsIhIqViXlnPiM65fhrfx/10OS5s2GUEKutrCttz/jU/7YNwij7ntmokxVf5bhNr95D0pkInvAzuJzW8bcJ5o03LS5sRYwbXCxhBJTgMul5lqaLffiMmSkLgmBmaEis23FMoFkrn3J8IgR0/bhl8pYGb82k3lp79zTWhd66STiUKqWjKw3FSUD6ft7gqZDlkIYWQOJ0Ti8PcbKM+7ojhxGGFp0HrFUlCotNvEpO3K1yN0dr7yh+tdOVhwR3VhAOCbMkjH65wN8xLAKKFsfyny98CM7jLgSckTDltpoe5+ZVqdlFb5cRdkVM1hWTTJlfXM371e0twjQ/2I0hpirsbWW2A0KGaMQPH7wj6qUN1ScgINnEYRVZQAKCvcuUYfOAv4JiKh4PBQNwLqL0VORXzptZHXCWDTvgHxuGO2g68MZKPGnC1Zoyd/shh/+5MB/DodOxiQKQ73mgnVnmpVmEM/AN4Y5w54JqS9Jusy/UJgIJDTMOXcjKR2CKEppQDVO6tepPjtGlncO1c/2MCmsDaE1k2Tjafv6eshFw==
+X-MS-Exchange-AntiSpam-MessageData: +0hzvwTLKtU3OgBKRfxS6yG9Tibzm8GR+IHZId0NlmuV5+ldY0X+0GWenX3kq/dnRupQkDHOB9V64Agzy7GaIsDkiEvI/3Gr9VaqSgD+KcGnZkxiPsLk1Mm+dOkvl978owbxTGq9BZsuuHOuJ9dEnWCOBrQ4/kkA8b6BzjXNR4Px6BQJ0UuO9oY8An69dhU+EQ1PJQnJ0RiZsqx2Lv/9DHjCTEmc463yDVHpANTuLTqw68EFzj16h5DvbflINQvjaJd01Nb7aTrvVV1uGgqEsDIvMWF6W0opHPbXvzDtNQrwMA4SDjkrVnz7/Wiy9SuSkE/O3pHWe4Qttj2TnQyVRvlFzD0iM+4xrZs/39DF6f3XPiYYmNZdK9z8+onrCWHpFF4H797IQWxiF07dU9D6pE+c0I3PYjOOZVK8jBJPbdmf15WLfV8mFLgtJU7VVKJZ7UnAN4qwQuZPEsJPHBn6ZSjXbtG3wxz9s1Fz6lzlgE/Hms3kY8EEjROpZn7HtPGi0L2427Q+1QeSwWHKKH+qlqmMSSzfFk13Z6e4B9fk1ibzvJLT+vIdP2Wsb58NkdYj0UkLj03ow7nozFVPcrZT4VYxbNXHZ+Ge+x1BYz/oX79ixqOayLYJ7YY+EG02I+hIQmpbv7is6oShnNPTLaB1Rw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ba36e74-2640-40c8-7aa4-08d834fb9f8c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32606d77-7037-4bcc-84c7-08d834fba1ad
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:44:19.2533 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:44:22.8043 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qAPbd4mmkQ380FLgRF/MGiXgryZqpgT6SV3SC9EpBbrHVnU7Vb9haWEFr0lUh+ui
+X-MS-Exchange-CrossTenant-UserPrincipalName: yc4xK40l84CP1kFzna7WNErOXycT5jSuwYufRJPeXBJ9vHkhimIuX90fVlBey1jv
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,36 +118,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add Vega20 gpu metrics export interface.
+Add Vega12 gpu metrics export interface.
 
-Change-Id: I7b4ab850358cc6d7455889d9031a7111cba35ebd
+Change-Id: I2c910f523049f0f90eecb8d74cb73ebb39a22bd9
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 123 +++++++++++++++++-
- .../drm/amd/powerplay/hwmgr/vega20_hwmgr.h    |   1 +
- 2 files changed, 117 insertions(+), 7 deletions(-)
+ .../drm/amd/powerplay/hwmgr/vega12_hwmgr.c    | 111 ++++++++++++++++++
+ .../drm/amd/powerplay/hwmgr/vega12_hwmgr.h    |   1 +
+ 2 files changed, 112 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index bacbe2fa1f9a..037bebda2eae 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -55,6 +55,11 @@
- #define smnPCIE_LC_SPEED_CNTL			0x11140290
- #define smnPCIE_LC_LINK_WIDTH_CNTL		0x11140288
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+index a678a67f1c0d..40bb0c2e4e8c 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+@@ -47,6 +47,13 @@
+ #include "pp_thermal.h"
+ #include "vega12_baco.h"
  
++#define smnPCIE_LC_SPEED_CNTL			0x11140290
++#define smnPCIE_LC_LINK_WIDTH_CNTL		0x11140288
++
 +#define LINK_WIDTH_MAX				6
 +#define LINK_SPEED_MAX				3
 +static int link_width[] = {0, 1, 2, 4, 8, 12, 16};
 +static int link_speed[] = {25, 50, 80, 160};
-+
- static void vega20_set_default_registry_data(struct pp_hwmgr *hwmgr)
- {
- 	struct vega20_hwmgr *data =
-@@ -3265,6 +3270,46 @@ static int vega20_set_ppfeature_status(struct pp_hwmgr *hwmgr, uint64_t new_ppfe
+ 
+ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
+ 		enum pp_clock_type type, uint32_t mask);
+@@ -2095,6 +2102,46 @@ static int vega12_set_ppfeature_status(struct pp_hwmgr *hwmgr, uint64_t new_ppfe
  	return 0;
  }
  
-+static int vega20_get_current_pcie_link_width_level(struct pp_hwmgr *hwmgr)
++static int vega12_get_current_pcie_link_width_level(struct pp_hwmgr *hwmgr)
 +{
 +	struct amdgpu_device *adev = hwmgr->adev;
 +
@@ -156,18 +158,18 @@ index bacbe2fa1f9a..037bebda2eae 100644
 +		>> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
 +}
 +
-+static int vega20_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
++static int vega12_get_current_pcie_link_width(struct pp_hwmgr *hwmgr)
 +{
 +	uint32_t width_level;
 +
-+	width_level = vega20_get_current_pcie_link_width_level(hwmgr);
++	width_level = vega12_get_current_pcie_link_width_level(hwmgr);
 +	if (width_level > LINK_WIDTH_MAX)
 +		width_level = 0;
 +
 +	return link_width[width_level];
 +}
 +
-+static int vega20_get_current_pcie_link_speed_level(struct pp_hwmgr *hwmgr)
++static int vega12_get_current_pcie_link_speed_level(struct pp_hwmgr *hwmgr)
 +{
 +	struct amdgpu_device *adev = hwmgr->adev;
 +
@@ -176,50 +178,25 @@ index bacbe2fa1f9a..037bebda2eae 100644
 +		>> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
 +}
 +
-+static int vega20_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
++static int vega12_get_current_pcie_link_speed(struct pp_hwmgr *hwmgr)
 +{
 +	uint32_t speed_level;
 +
-+	speed_level = vega20_get_current_pcie_link_speed_level(hwmgr);
++	speed_level = vega12_get_current_pcie_link_speed_level(hwmgr);
 +	if (speed_level > LINK_SPEED_MAX)
 +		speed_level = 0;
 +
 +	return link_speed[speed_level];
 +}
 +
- static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+ static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
  		enum pp_clock_type type, char *buf)
  {
-@@ -3277,7 +3322,6 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
- 	struct phm_ppt_v3_information *pptable_information =
- 		(struct phm_ppt_v3_information *)hwmgr->pptable;
- 	PPTable_t *pptable = (PPTable_t *)pptable_information->smc_pptable;
--	struct amdgpu_device *adev = hwmgr->adev;
- 	struct pp_clock_levels_with_latency clocks;
- 	struct vega20_single_dpm_table *fclk_dpm_table =
- 			&(data->dpm_table.fclk_table);
-@@ -3371,12 +3415,10 @@ static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
- 		break;
- 
- 	case PP_PCIE:
--		current_gen_speed = (RREG32_PCIE(smnPCIE_LC_SPEED_CNTL) &
--			     PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK)
--			    >> PSWUSP0_PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
--		current_lane_width = (RREG32_PCIE(smnPCIE_LC_LINK_WIDTH_CNTL) &
--			      PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK)
--			    >> PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT;
-+		current_gen_speed =
-+			vega20_get_current_pcie_link_speed_level(hwmgr);
-+		current_lane_width =
-+			vega20_get_current_pcie_link_width_level(hwmgr);
- 		for (i = 0; i < NUM_LINK_LEVELS; i++) {
- 			if (i == 1 && data->pcie_parameters_override) {
- 				gen_speed = data->pcie_gen_level1;
-@@ -4218,6 +4260,72 @@ static int vega20_set_xgmi_pstate(struct pp_hwmgr *hwmgr,
- 	return ret;
+@@ -2682,6 +2729,69 @@ static int vega12_set_mp1_state(struct pp_hwmgr *hwmgr,
+ 	return 0;
  }
  
-+static void vega20_init_gpu_metrics_v1_0(struct gpu_metrics_v1_0 *gpu_metrics)
++static void vega12_init_gpu_metrics_v1_0(struct gpu_metrics_v1_0 *gpu_metrics)
 +{
 +	memset(gpu_metrics, 0xFF, sizeof(struct gpu_metrics_v1_0));
 +
@@ -231,34 +208,31 @@ index bacbe2fa1f9a..037bebda2eae 100644
 +	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
 +}
 +
-+static ssize_t vega20_get_gpu_metrics(struct pp_hwmgr *hwmgr,
++static ssize_t vega12_get_gpu_metrics(struct pp_hwmgr *hwmgr,
 +				      void **table)
 +{
-+	struct vega20_hwmgr *data =
-+			(struct vega20_hwmgr *)(hwmgr->backend);
++	struct vega12_hwmgr *data =
++			(struct vega12_hwmgr *)(hwmgr->backend);
 +	struct gpu_metrics_v1_0 *gpu_metrics =
 +			&data->gpu_metrics_table;
 +	SmuMetrics_t metrics;
 +	uint32_t fan_speed_rpm;
 +	int ret;
 +
-+	ret = vega20_get_metrics_table(hwmgr, &metrics);
++	ret = vega12_get_metrics_table(hwmgr, &metrics);
 +	if (ret)
 +		return ret;
 +
-+	vega20_init_gpu_metrics_v1_0(gpu_metrics);
++	vega12_init_gpu_metrics_v1_0(gpu_metrics);
 +
 +	gpu_metrics->temperature_edge = metrics.TemperatureEdge;
 +	gpu_metrics->temperature_hotspot = metrics.TemperatureHotspot;
 +	gpu_metrics->temperature_mem = metrics.TemperatureHBM;
 +	gpu_metrics->temperature_vrgfx = metrics.TemperatureVrGfx;
-+	gpu_metrics->temperature_vrsoc = metrics.TemperatureVrSoc;
-+	gpu_metrics->temperature_vrmem = metrics.TemperatureVrMem0;
++	gpu_metrics->temperature_vrmem = metrics.TemperatureVrMem;
 +
 +	gpu_metrics->average_gfx_activity = metrics.AverageGfxActivity;
 +	gpu_metrics->average_umc_activity = metrics.AverageUclkActivity;
-+
-+	gpu_metrics->average_socket_power = metrics.AverageSocketPower;
 +
 +	gpu_metrics->average_gfxclk_frequency = metrics.AverageGfxclkFrequency;
 +	gpu_metrics->average_socclk_frequency = metrics.AverageSocclkFrequency;
@@ -272,42 +246,42 @@ index bacbe2fa1f9a..037bebda2eae 100644
 +
 +	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
 +
-+	vega20_fan_ctrl_get_fan_speed_rpm(hwmgr, &fan_speed_rpm);
++	vega12_fan_ctrl_get_fan_speed_rpm(hwmgr, &fan_speed_rpm);
 +	gpu_metrics->current_fan_speed = (uint16_t)fan_speed_rpm;
 +
 +	gpu_metrics->pcie_link_width =
-+			vega20_get_current_pcie_link_width(hwmgr);
++			vega12_get_current_pcie_link_width(hwmgr);
 +	gpu_metrics->pcie_link_speed =
-+			vega20_get_current_pcie_link_speed(hwmgr);
++			vega12_get_current_pcie_link_speed(hwmgr);
 +
 +	*table = (void *)gpu_metrics;
 +
 +	return sizeof(struct gpu_metrics_v1_0);
 +}
 +
- static const struct pp_hwmgr_func vega20_hwmgr_funcs = {
- 	/* init/fini related */
- 	.backend_init = vega20_hwmgr_backend_init,
-@@ -4288,6 +4396,7 @@ static const struct pp_hwmgr_func vega20_hwmgr_funcs = {
- 	.smu_i2c_bus_access = vega20_smu_i2c_bus_access,
- 	.set_df_cstate = vega20_set_df_cstate,
- 	.set_xgmi_pstate = vega20_set_xgmi_pstate,
-+	.get_gpu_metrics = vega20_get_gpu_metrics,
+ static const struct pp_hwmgr_func vega12_hwmgr_funcs = {
+ 	.backend_init = vega12_hwmgr_backend_init,
+ 	.backend_fini = vega12_hwmgr_backend_fini,
+@@ -2739,6 +2849,7 @@ static const struct pp_hwmgr_func vega12_hwmgr_funcs = {
+ 	.get_ppfeature_status = vega12_get_ppfeature_status,
+ 	.set_ppfeature_status = vega12_set_ppfeature_status,
+ 	.set_mp1_state = vega12_set_mp1_state,
++	.get_gpu_metrics = vega12_get_gpu_metrics,
  };
  
- int vega20_hwmgr_init(struct pp_hwmgr *hwmgr)
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-index 2c3125f82b24..075c0094da9c 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-@@ -527,6 +527,7 @@ struct vega20_hwmgr {
+ int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h
+index 73875399666a..aa63ae41942d 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h
+@@ -399,6 +399,7 @@ struct vega12_hwmgr {
  
  	unsigned long                  metrics_time;
  	SmuMetrics_t                   metrics_table;
 +	struct gpu_metrics_v1_0        gpu_metrics_table;
+ };
  
- 	bool                           pcie_parameters_override;
- 	uint32_t                       pcie_gen_level1;
+ #define VEGA12_DPM2_NEAR_TDP_DEC                      10
 -- 
 2.28.0
 
