@@ -2,116 +2,101 @@ Return-Path: <SRS0=+arJ=BK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 478DCC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8A9CC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E73C207F5
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:34:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7B1CB2083E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:43:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fWWItvaz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E73C207F5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WT1/eTNi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B1CB2083E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 853B26E990;
-	Fri, 31 Jul 2020 02:34:47 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F376E990
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:34:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 686976E991;
+	Fri, 31 Jul 2020 02:43:43 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B35D16E991
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:43:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YLVhRgxxZM50fdW+ng61DSzg565JRDxHjbKvKDM/uyBRxtwiqjZZJv8BuHuoUNhR35r1XCfUKDsluiAfxzd+566SfxrupplpvSl3o7En2H8Udl/AnYiVM+/DBojqksiaJfPHN+JQFD0CKegggEp6INaW95g1BRexHtIimcKUFjf+LQFx1oMlrXBKDZMMFrBo6iVVDVgbEb2e9oRB6qQic87df1VjVUy2JBxExIzOIunFjleqhXXf4yPyfaQx5EyaL/LwtreVSzs0zV3KOsf2/BvLttR9wEQ5bQEaL1fvOZW57up0CSBblDgX4/KqXcWJOwTdcahwTD4oYPBwH4gRLg==
+ b=DmI3cGGK6vfCVMpo0/23aQULhWcd/jh4Qn9RM+kOghCGHM9rqf5xDMSvJ0urd6MUVV1nGI6+LO6tK/uuryXGjWMc8wCpfNy+BhN8ky52llbCR8hQm5sMKq4QBUI/0R8oJNjY07NgrucV+AIZR/vt320OrDsmBLHVibRJ7SU3Ds2n8knPubMgnm7zF4GiAGT2iFHfWantXdIT4qV3Of4X/4/GPpL7sMjuUYQpLkNlzc0CP9kMmPAiNFUQ0s9f+XIscArESrSfhUQaeVRIe5dbugzcwQFczaShkGLG+BFlEbB++9xd6Sl1GhhhQaZCgclGF1lRfA99Zr/BMQ90x+1NJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NKZV3mx8RTnL9gGhIy6i+kIhWljUVRermlfFqCipgTQ=;
- b=EPThh3HSPPCpGXjGbT7t7RtS5by2uLG5p7RzDPfYsrtWZkKRMQRp58w7XbJZP73dUP1nqDpYYTFgYGpHKyH84qaFz5QFrV3ZuHjo7bVoh+AzNnuAiPprk79ANLJxnr+XHAEjVS/xLobDqhK5FxMTuKOJa2MYa1TQW0pK86bPSxIE1QRSuc7zjuruq3AxAwWHn25y0njcjRWiFXaOE090+CcQUsn6Y0iWKWiMKmmZoqEEX4stMuJpt0E16uWobnKfAG58q98YVv5ffSzawd7aQajFb6FDs5MdoVrEaI7MMQJVpbHAxtAm+CzAeJYtmD8of7LZ+nC7j8kkCS4FWxYPkA==
+ bh=TT5eGUcnVpfS+MrGOycoa1X+MWLE4dF9vXN6Fm7wzoQ=;
+ b=SKUlrTLgGzEeQefaYpeyuN+O87dGUjeb+HoAJmJ4GdglHC041xjG6niNv+okQNY5klO8jyO+qR45/ldc7ql4qfP9o/cJlgDLAWf2HD1jt7ap8TJyK/sxTvzRmp+PclsKutFmP0dYJ5XFtBaSkgrySsX9YdHbEg4Wq2DRpXxYZOVuI4MKK3xJcvU8KflC/9zCYEnuDcZ+Dvxtrtz6QhOBNQM2Fyag4wLP+NoR3zi4XNkpqrQ7/AN/zYob0dK2BRjufZotSlyxrrGSfryBEhTRadRYORSb2HdriMwDPvK0mlSvIAYu3+tmXOT8fXu69L2jyicmNt0vy7ZZIpVE7HkgCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NKZV3mx8RTnL9gGhIy6i+kIhWljUVRermlfFqCipgTQ=;
- b=fWWItvazxV2nbZRmuThAi7sD9nkH60uR/aAs70cgbszfsaFEmPkhyf6RomaDy0oppK9AZl6yVTn12le1/oJA9VRJYEy62YUANY7M8Aa0Zjn9o1evfouIPqgCs5rvRZROKh//+SMPMk1YVpORnEkEVWEVCyhl5FsGWkhCeGX2ZVs=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1911.namprd12.prod.outlook.com (2603:10b6:903:121::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.33; Fri, 31 Jul
- 2020 02:34:39 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::e181:b736:5067:12f2]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::e181:b736:5067:12f2%9]) with mapi id 15.20.3239.019; Fri, 31 Jul 2020
- 02:34:39 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Clements, John" <John.Clements@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, 
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: RE: [PATCH 00/12] BAD GPU retirement policy by total bad pages
-Thread-Topic: [PATCH 00/12] BAD GPU retirement policy by total bad pages
-Thread-Index: AQHWZVPpvByIwWr/50WSgjJ4cIa1A6kgLpKAgADM0iA=
-Date: Fri, 31 Jul 2020 02:34:39 +0000
-Message-ID: <CY4PR12MB1287BD1A0CDD0172FB04179BF14E0@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <20200729025629.19355-1-guchun.chen@amd.com>
- <DM6PR12MB4075FF459BC25066C718845CFC710@DM6PR12MB4075.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB4075FF459BC25066C718845CFC710@DM6PR12MB4075.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-07-30T14:20:40Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=cfe8bc7e-e000-49d1-9ae1-0000b9d49405;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-07-31T02:34:36Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 8e859832-855b-4e49-834c-000061b4f3ce
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e9b7de18-a2c9-4757-797e-08d834fa4631
-x-ms-traffictypediagnostic: CY4PR12MB1911:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB1911E1058510875EA62D83A2F14E0@CY4PR12MB1911.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kfkg3fmVTUYpb0rzkgpjZ66Jdo6H0l0xYwZZlqfN439RwjGgX8xxF6qgFyKHLmTcGYnxTWgWfcC6brpQHh3FVGfIDmqhc59Fwj4rtoTOfeA6idBexmMAzhs5/7IUKmvP4bFurFQWVY6WCkHOCibNdfT5I4tS1GiNMdB+fkZOCd0TyfasO/nJ96CaXyLGWnN0ZssCQ+4dwbYNuOZZb4pvreTxojILb8w0eTji6zYW+J5DwtLNrnANdKqnPrz2vWONZ7YxXxMYpPKhtCAFyj6IMiLHVHNLq1uoUH6+UDJz0F0LC+NmqyGE11HtkouzV9aE4AJNcZrmw60sB66lcBeY5eT3i9tQHs/hdIUBw6iOhaXBUj6DAEBcHOFd3QZA3zak
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(366004)(39860400002)(396003)(136003)(83380400001)(55016002)(7696005)(52536014)(478600001)(71200400001)(33656002)(86362001)(110136005)(2906002)(316002)(26005)(66946007)(66556008)(53546011)(76116006)(186003)(6506007)(64756008)(8936002)(5660300002)(9686003)(66476007)(66446008)(8676002)(6636002)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: pssquqRMnkbxzt1S2Qfczur2O8AK0BgTD5xdIwplZ/NQFPNzCSNuosNdZQKrzYUEyL64nQluZybi8Ezesw+sK3Kux63O4VPepq2oTon+ntoeLpZ9ceiFNxAZgE33jBAEzGXPpTCcXvuGgFj4c8Ouap4Fh0TnmilXShNvIt1XJZLbnOKUEmpnCVZzaHp+P4as/EJxmw8ugrFyS52/eUTXA7MShvThIEUYN3uGlLcu4c/EsQzbcFvFcwav4050mVPXXKp0pyULTb/LzeEOeKTXVP/D8rNpyqJV0zEV39IWz1EnDa17Hryol8dEyxTzptAXnkY4FOEa31hm5oWWfC6mSQNoDLjpms/2VdxR0IKGBInxpl8Y5psbRv+566suTcuNLbkUSLDZLjI+1VS+ZBf8PkRsYVrMsMLRSstgGiVbStwnf1enLTMqfc3oWXBu+/dKDbfYdsZ+z/R5q22ib9W+jJZBIadP+VSxJQGJhFGeSlb8RpPIM4Bj/D+l1tm9rUif
+ bh=TT5eGUcnVpfS+MrGOycoa1X+MWLE4dF9vXN6Fm7wzoQ=;
+ b=WT1/eTNi0OJ6eqcKrFK92ZtvlQurdi2OoE0onRh2bDfM7pnuxxscW4v9xa2OvYiX+bs6YRdAHeHj6IrGq9SiSqcn9Vt0uPlzwaqUJymkQxWri+wj/YlzcK1ZX0lfhphJsJLK6y8QfeOH+H2ZCqZRdleJLoEHp/8Tc99hxOLPEM4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.16; Fri, 31 Jul 2020 02:43:39 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Fri, 31 Jul 2020
+ 02:43:39 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 01/17] drm/amd/powerplay: define an universal data structure
+ for gpu metrics (V4)
+Date: Fri, 31 Jul 2020 10:43:00 +0800
+Message-Id: <20200731024316.28324-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.28.0
+X-ClientProxiedBy: HK2PR02CA0206.apcprd02.prod.outlook.com
+ (2603:1096:201:20::18) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from equan-buildpc.amd.com (58.247.170.242) by
+ HK2PR02CA0206.apcprd02.prod.outlook.com (2603:1096:201:20::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:43:37 +0000
+X-Mailer: git-send-email 2.28.0
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: adfe4112-fec5-491c-3f55-08d834fb87de
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4435248D103025C1D60374D7E44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PRTN22RH9rFWlN6YAPZ7bmLgXJ1ptEJIM4fKpZxvLy9+1vil76ZP2Eg44/fOT294zpeBA62FYUTwckIaB4r/dEszNJf0QNIQIA6pXFmgQrkkkXeurT+NgrcQceXyopT68nJva3vpA/V2Fjf7eX7MPPFMdqXDjof/nskmB2GAaR1RUASc0JWvuodbxb4gEuy49U1U84Lcu6gKygiqO1Up80riZ6A4ENx306uU5BBZ7khBiYaSC54GpexDEl7iMAqsMTVfpLsIr5rJ30O4SdCswTRDa/vuDs5LnPRyxahqwMW5AExgOQlywU41iH8EIL/1u46OcM6f1r6Wyz02UVQKqg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(396003)(346002)(39860400002)(376002)(136003)(16526019)(186003)(6666004)(6486002)(36756003)(6916009)(8676002)(44832011)(83380400001)(956004)(26005)(66946007)(1076003)(5660300002)(66556008)(66476007)(4326008)(7696005)(2616005)(86362001)(2906002)(478600001)(8936002)(52116002)(316002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: Jn/FRdi3mUt2SkFgW9p4BwYusqV6BSn5u/XE7vJ8scw8I1HYOVLxKQkqmOir81TTXVEOgFfHGRb+L/e3EiR7qUzBmlt6EPUWdgA0ejoQWlQXR+e3wCXkO6L+2BvNf1G4TY7b6uTLK1QskYyAz73OfGzv5/x6bb1yK1ZYzjw5qPmqSVhtjUI509xxpGLdw6NC4zX+5hyyme9BgKR2McCLUzSLSN4YUEMU4mzzse0iEtUwTJQO93IA8BU5Kh9sMRp+eL2zFPI21pJknOx3SkkKslCeJJOX5Zwvx0wd3znN9yoQ538FiqCExvmU2EbBxyrUYrzt+v8xGd15/pnFP2oW8XqaEpTYzJv2nkRUsUH0suHeMJi6+BDDYNwcL+GnnF0EFl8zaqIknA10qaANueCR1b4LDFXGiprK+T021396qDkfTLKa9xRbX91/WXvhCYj6JFR5V4E+817eVat2zEs4RvVatdXoKgvC3K0GH1K5jQS2lGBL3wTTKoLGyJmU4FVqcOi+nXE3lGM28IwJJXIGFm8eXw+Q21dqnWMP+M3A7FnsinsJ8IMg+IJLTNv7tQiiJnEH2H9xT73rjkGjnlTYDjcxpn5kXZPnphUPohM5npqVrQceCmjyWUBQ1C13juXhI5iGWuZic3CAn+ChSQHyLw==
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adfe4112-fec5-491c-3f55-08d834fb87de
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9b7de18-a2c9-4757-797e-08d834fa4631
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2020 02:34:39.5551 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zh94vA56T4Gza1hIHiqdSSBzqWTL0a+tHWMpZWXDTRVGmlYJ1t5drfaZPqqK2n5+CmKTovV8u5OjmIenfi9oMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1911
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:43:39.5649 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qbv8jLZGpQMJEVZApFM4OLNBouH7FeKQRd4OfRzfoIcFC+FyvBeQ+lqYVSCBcV9T
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,107 +108,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com,
+ Evan Quan <evan.quan@amd.com>, Harish.Kasiviswanathan@amd.com,
+ nirmodas@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+Thus we can provide an interface for UMD to retrieve gpu metrics data.
 
-Thanks Hawking.
+V2: better naming and comments
+V3: two structures created for dGPU and APU separately
+V4: add driver attached timestamp
 
-I will conduct more tests today before pushing the patches.
+Change-Id: Ibc2d5c642eff732c082f8447348749a44dc35be3
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../gpu/drm/amd/include/kgd_pp_interface.h    | 108 ++++++++++++++++++
+ 1 file changed, 108 insertions(+)
 
-Regards,
-Guchun
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index a7f92d0b3a90..5f38ee62c103 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -324,4 +324,112 @@ struct amd_pm_funcs {
+ 	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
+ };
+ 
++struct metrics_table_header {
++	uint16_t			structure_size;
++	uint8_t				format_revision;
++	uint8_t				content_revision;
++};
++
++struct gpu_metrics_v1_0 {
++	struct metrics_table_header	common_header;
++
++	/* Driver attached timestamp (in ns) */
++	uint64_t			system_clock_counter;
++
++	/* Temperature */
++	uint16_t			temperature_edge;
++	uint16_t			temperature_hotspot;
++	uint16_t			temperature_mem;
++	uint16_t			temperature_vrgfx;
++	uint16_t			temperature_vrsoc;
++	uint16_t			temperature_vrmem;
++
++	/* Utilization */
++	uint16_t			average_gfx_activity;
++	uint16_t			average_umc_activity; // memory controller
++	uint16_t			average_mm_activity; // UVD or VCN
++
++	/* Power/Energy */
++	uint16_t			average_socket_power;
++	uint32_t			energy_accumulator;
++
++	/* Average clocks */
++	uint16_t			average_gfxclk_frequency;
++	uint16_t			average_socclk_frequency;
++	uint16_t			average_uclk_frequency;
++	uint16_t			average_vclk0_frequency;
++	uint16_t			average_dclk0_frequency;
++	uint16_t			average_vclk1_frequency;
++	uint16_t			average_dclk1_frequency;
++
++	/* Current clocks */
++	uint16_t			current_gfxclk;
++	uint16_t			current_socclk;
++	uint16_t			current_uclk;
++	uint16_t			current_vclk0;
++	uint16_t			current_dclk0;
++	uint16_t			current_vclk1;
++	uint16_t			current_dclk1;
++
++	/* Throttle status */
++	uint32_t			throttle_status;
++
++	/* Fans */
++	uint16_t			current_fan_speed;
++
++	/* Link width/speed */
++	uint8_t				pcie_link_width;
++	uint8_t				pcie_link_speed; // in 0.1 GT/s
++};
++
++struct gpu_metrics_v2_0 {
++	struct metrics_table_header	common_header;
++
++	/* Driver attached timestamp (in ns) */
++	uint64_t			system_clock_counter;
++
++	/* Temperature */
++	uint16_t			temperature_gfx; // gfx temperature on APUs
++	uint16_t			temperature_soc; // soc temperature on APUs
++	uint16_t			temperature_core[8]; // CPU core temperature on APUs
++	uint16_t			temperature_l3[2];
++
++	/* Utilization */
++	uint16_t			average_gfx_activity;
++	uint16_t			average_mm_activity; // UVD or VCN
++
++	/* Power/Energy */
++	uint16_t			average_socket_power; // dGPU + APU power on A + A platform
++	uint16_t			average_cpu_power;
++	uint16_t			average_soc_power;
++	uint16_t			average_gfx_power;
++	uint16_t			average_core_power[8]; // CPU core power on APUs
++
++	/* Average clocks */
++	uint16_t			average_gfxclk_frequency;
++	uint16_t			average_socclk_frequency;
++	uint16_t			average_uclk_frequency;
++	uint16_t			average_fclk_frequency;
++	uint16_t			average_vclk_frequency;
++	uint16_t			average_dclk_frequency;
++
++	/* Current clocks */
++	uint16_t			current_gfxclk;
++	uint16_t			current_socclk;
++	uint16_t			current_uclk;
++	uint16_t			current_fclk;
++	uint16_t			current_vclk;
++	uint16_t			current_dclk;
++	uint16_t			current_coreclk[8]; // CPU core clocks
++	uint16_t			current_l3clk[2];
++
++	/* Throttle status */
++	uint32_t			throttle_status;
++
++	/* Fans */
++	uint16_t			fan_pwm;
++
++	uint16_t			padding;
++};
++
+ #endif
+-- 
+2.28.0
 
------Original Message-----
-From: Zhang, Hawking <Hawking.Zhang@amd.com> 
-Sent: Thursday, July 30, 2020 10:21 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Subject: RE: [PATCH 00/12] BAD GPU retirement policy by total bad pages
-
-[AMD Public Use]
-
-The new series looks good to me in general, but still the following nitpicks
-
-Patch #1
-Default typical value --> default value
-
-Patch #4
-+		DRM_ERROR("Exceeding the bad_page_threshold parameter, "
-+				"disabling the GPU.\n");
-Let's use dev_err to have device pci bdf number in dmesg
-
-Patch #8
-Please remove the redundant {}
-+	} else {
-+		return -EIO;
-+	}
-
-Patch #12
-It would be better to use dev_info/dev_err for more readable information in mGPU case.
-
-+			DRM_INFO("Using one valid bigger bad page threshold "
-+					"and correcting eeprom header tag.\n");
-+			ret = amdgpu_ras_eeprom_correct_header_tag(control,
-+							EEPROM_TABLE_HDR_VAL);
-+		} else {
-+			*exceed_err_limit = true;
-+			DRM_ERROR("Exceeding the bad_page_threshold parameter, "
- 				"disabling the GPU.\n");
-
-The series is in high risk to introduce regression, please do conduct comprehensive testing before commit.
-
-With above address, the series is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-hawking
-
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com> 
-Sent: Wednesday, July 29, 2020 10:56
-To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH 00/12] BAD GPU retirement policy by total bad pages
-
-The series is to enable/disable bad page feature and apply different bad page reservation strategy by different bad page threshold configurations.
-
-When the saved bad pages written to eeprom reach the threshold, one ras recovery will be issued immediately and the recovery will fail to tell user that the GPU is BAD and needs to be retired for further check or setting one valid bigger threshold value in next driver's probe to skip corresponding check.
-
-During bootup, similar bad page threshold check is conducted as well when eeprom get initialized, and it will possibly break boot up for user's awareness.
-
-When user sets bad_page_threshold=0 once probing driver, bad page retirement feature is completely disabled, and driver has no chance to process bad page information record and write it to eeprom.
-
-Guchun Chen (12):
-  drm/amdgpu: add bad page count threshold in module parameter
-  drm/amdgpu: validate bad page threshold in ras
-  drm/amdgpu: add bad gpu tag definition
-  drm/amdgpu: break driver init process when it's bad GPU
-  drm/amdgpu: skip bad page reservation once issuing from eeprom write
-  drm/amdgpu: schedule ras recovery when reaching bad page threshold
-  drm/amdgpu: break GPU recovery once it's in bad state
-  drm/amdgpu: restore ras flags when user resets eeprom
-  drm/amdgpu: add one definition for RAS's sysfs/debugfs name
-  drm/amdgpu: decouple sysfs creating of bad page node
-  drm/amdgpu: disable page reservation when amdgpu_bad_page_threshold =
-    0
-  drm/amdgpu: update eeprom once specifying one bigger threshold
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  32 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  11 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 186 ++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  19 +-
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 121 +++++++++++-
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |   5 +-
- 8 files changed, 331 insertions(+), 53 deletions(-)
-
---
-2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
