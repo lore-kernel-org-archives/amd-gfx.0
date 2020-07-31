@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94B28C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84210C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6597C2083E
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:44:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5655B2083E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:45:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="niZakDBc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6597C2083E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="c5NoR8m6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5655B2083E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366966E99E;
-	Fri, 31 Jul 2020 02:44:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 172406E991;
+	Fri, 31 Jul 2020 02:45:03 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8394C6E99E
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:44:38 +0000 (UTC)
+ (mail-bn8nam11on2082.outbound.protection.outlook.com [40.107.236.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E3F6E991
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:45:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ExqkZwd8SncMbocza93xXiBvBKsT7cjAnfZfBtsSfwo5syDRUnzJm4io/ZX7Ss8ETMOXVQYJ7vi6G+6v639XlqSW9PBZOR7ubOyVYyxNpuormFSB7vN9blWoE6NiJN8ttZvg79tsAtcvTzDLXa7FgMmCR/Jn5raTq9qIVr9Tl/l3u+P3mMjzk4BqibXeYIG23H5B7YJkqokGqRKGrxpz+Y/G5X6F9eEiiFdAhiZZRkoQ7nRGLOdWM06oaMQz+s3BXtm+7zALMRUOetFYf4e43yTY2zMs0Z2VMMjslmZbvpuYzUlvOTMFEWyQolq8vfF6nhu0DfpQg9nwImzcEoSmsg==
+ b=cWKEnQM6/AOs3GPLIIW0IhXww8mmE3SvwQNIiOEgZCPcBUDlM0TQ/y2lIBS4sdE+yyPDVBjXiPN4gya9V5QI3kD8YWhAPscpZTynVbgRoPzL9Fm5A94drYRjXgwLbW3cOlyt5dDhJXrIJztNXtfOhIkcftdAy5IOfP8KvcUC6l1qcvR8cZHLIxe3a5htpuWEpKnBMFwsEodY2pX70yTL2OvUFzjQXlAnfx/kLxxIwFYa/NTe93GqNPNpDNFJDHB/6c+vtSoAcMU5MSaeVEYRgZCwicNSiVrgT25ER5Sgdy5VRuDmis3NBvYMbdeUnjI133wi1I+yGxcS/B/hZRx+IQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kQELiPsdcSAYJf7g4fA7g+36jT/9dG00vJ13GqK2Ag=;
- b=KIDTy1rPcauXwZPlK0NEUlBz/zzuknkDQkp0MUxim1xADOGh86m32ty729crqFmE9ggj//CN3Ny6bfGrxDaOJmqq7dpYTIv1YNnj2ox+PCpt0zOR3d8A+C9r0C+pQudQRd7DGOTOTywOnBGC55Vid1h+QkN3ssl8hGs3iMRh/b1WgP2DLMWgn7jPSk73uGW5ku9eg4KfLhXNfXFuXYZat+93ZgWe5lWAF8Z/NXrspHcoO9UQ/k2LI1azISxzrgKGkKqz+hNZRfYrl0bc+/iBzMTuC6w2S9JNJoALlkrxQH47eVlapMuU0t8mQVu1edHeM+s2IGjnS8C5FLAFaq2KTw==
+ bh=h9X103uXzuJsJn3fEjK8ScAWl6GNE7xnvRMFT3jY7gQ=;
+ b=mnesu0NK2Cb2F4XnEBgs/OyXOyy3GtdCBiXd/lfDWAAr24orWdk98/pQyctE2cBugiNeKg+Tqhcz2WuGXLYRHEE8dHQTtygtg3SliA12yec2fpYPjMUDWJiqY81FQYIAaC8QhyEShrDyx/aOu99/qxxuRn8ABhbs/UpZ6u+QfIcHxn0z5aTVih5/6lgKauKas2x1Zoi8cwt7m4sOkh8D/jk46PyoudmTcpsGJ+j0mvBjH0xOEQdWPhtfLPfMJzC2sZ7f6YYphDgYZT8vfRm3kjFUfmOXsfnmbHhbqcPMPsckjGH+WknaosfaMylq10J0clL05RcfywueKc0JiObSMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kQELiPsdcSAYJf7g4fA7g+36jT/9dG00vJ13GqK2Ag=;
- b=niZakDBcoRAnkF7AhdD50RlNHPlAzYFabxhD0RplW/lBwadnWouATqEFpd28EBrgybQiVG+iTTm5IDyeUCy37lie741RP4mXwEjU2OuIYQPTIQLEMyiPl2i34mg6hmSdCSEl8KYgr0n7D5LsVKdXmdna8+E7TTD9bRKwtxvVDC8=
+ bh=h9X103uXzuJsJn3fEjK8ScAWl6GNE7xnvRMFT3jY7gQ=;
+ b=c5NoR8m69ukqO1pVn4+k305u03hGqcmyKQ0G2qYBc9f5Gr2X9eZEewoK5KTkn4qBml1YN7/J11dATLZVnkm/j73+QDheN2nSA+WmhTGUHzvayMznw7TMXM3Y9wU+oNB9jDkLmW4feGaYzh5rPIhx9vRfHHiGe701MSQxgGpV+Xg=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16; Fri, 31 Jul 2020 02:44:37 +0000
+ 15.20.3239.16; Fri, 31 Jul 2020 02:45:00 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Fri, 31 Jul 2020
- 02:44:37 +0000
+ 02:45:00 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 14/17] drm/amd/powerplay: add control method to bypass metrics
- cache on Sienna Cichlid
-Date: Fri, 31 Jul 2020 10:43:13 +0800
-Message-Id: <20200731024316.28324-14-evan.quan@amd.com>
+Subject: [PATCH 15/17] drm/amd/powerplay: add control method to bypass metrics
+ cache on Renoir
+Date: Fri, 31 Jul 2020 10:43:14 +0800
+Message-Id: <20200731024316.28324-15-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200731024316.28324-1-evan.quan@amd.com>
 References: <20200731024316.28324-1-evan.quan@amd.com>
@@ -70,34 +70,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR02CA0206.apcprd02.prod.outlook.com (2603:1096:201:20::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:44:35 +0000
+ 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:44:58 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fbc0bc48-71a5-477e-0ada-08d834fbaa4e
+X-MS-Office365-Filtering-Correlation-Id: 793a8c2e-cd36-40c0-151a-08d834fbb839
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4435:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4435AB0A2E6D0FB887AED24CE44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <DM6PR12MB443544243181E31526F24963E44E0@DM6PR12MB4435.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: geaLWTILjnST/S2EpqWNrHTF5YTM9Q7QFYyDzz+NWjwsMh7fmc1eXtYld1LPyJsiulun37NVyseQrUV3Aiyqshq7CqZ/UiSlxlu4heEDdVAGURlsb/2PnjL/4XUdP0MuKCEIoo+WZBtO3JKbG6E754dRM3O73dOidcXIZpcFtFkgoYv2hhgio6JBiXopW6/RhQAH6A7/akOf+GKULAnkPCygydZgqm+ptiGnJmTNuBfHjCUAKKE0pFRa7eN1v+1DAbd3n9Bjr5db11OqKDtsDC/fK1XkGVix7CE1O1PHj8POUOlkBOuzZzR9/1QvXawOWkbvNWM7ZUdIYE1FwXnoWg==
+X-Microsoft-Antispam-Message-Info: 6txYhvyc00w3FeGN/XBdkuzteUwRwoB+sunLy2VCG4bzY7J9EbdXKGsE3hisE/tyTFt1YDRaz+V+SPO0v7AXIkCZL+WjEWgSNflZvvRFLp4OhuRE5Rjvksy6xugoxx2jmuAsfK23QPnq9bGM8ZGvF1u1TNWWE2aYNBu9VG8WKgEXEeViJ1rN2Xyysg4NludAfT4zpbDaZJKzbxhr+lsHJlbTUiOtbVtQKC7ZqBVKzA7dSiQR48Fte6kUV81uPm0K6xVl+RTscUY8yE5mpkHJ+Wc8j6N3RstudZyQUgAVhK8kV4irjLxvCvhBOuqBhMRU+KvJUEWv285kOGU2arKcEg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(396003)(346002)(39860400002)(376002)(136003)(16526019)(186003)(6666004)(6486002)(36756003)(6916009)(8676002)(44832011)(83380400001)(956004)(26005)(66946007)(1076003)(5660300002)(66556008)(66476007)(4326008)(7696005)(2616005)(86362001)(2906002)(478600001)(8936002)(52116002)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: sZ1qwiBVhu8K292W3aD9te1IUPQT8UMVtZsikbJbalCqwRS9hBEXZuBi+Or/DNYm4INXvAoQjtQ2NgswPD3rIMuaopvhhzJt+C5wbVOGKadIga2xQ5j1XoVGlyJH8WAvcyFV13Q0d8UOxKb9AgQmKAT2i0GcdmfoBnZ4i+/9EVR3k4rjoEoaNNHqS3bTMA2b0VF5/F6rV5OU1MjdRzQTQQfm+EXCR88TqWw0KrysiZIkfod4YmZ7Hca1mzB2QWLfMid1I+gt8wHrrFAWBSpnagkqO/9qa07wFZwXqN3EIKi0401U1Dk45HX3wDWK77X2MgZHRRAanVRkIDnxavApvKgITMAsmS5d+yWSluaDR92qTC7aJZYuPAMeNs+faXBEU6SwI1sjWDtU3yOGEwKUIpLVxbcUelO1G7z5MxtHf26Hv/iv1giFicBixqB61v+D25DDEad37G3opjQjt2awdf4ktA1UQkv5MCdGSUGsFx9ThIcZZ5rm69WmOGRCF8PnGfSQxNl3Qo5aD/xZN+Fq2bLKnlPSkQ0E4a9INW0zavFoefQBasWzg2aljCZeK3r7KIskZJg+BNbQ/jw+KzUUXmIDaLYQOKCyAEoPm261LyzgqQD09UhjUDRENwhIyohrPjos0Q0Gi+/2vRRr60qz/Q==
+X-MS-Exchange-AntiSpam-MessageData: 2mTD3sBXpSTC1uY1ddxEM8VS2YJDf4CgO5Qt6O2SaFetLYz27zzidUlGgUyaeHT8Pm9NrJl0VqpKdIRd3dRYOuUkO33ZpirTVNf+5teEgvzOXHzycybzZBA+2fJmpJQU3JCPpTXBuZGujDVvuAvzvmoMHwK7Ez8L3HtgexeGNnWhXAzkjIoie9Fj2IJoiOkfD3DWhSdGqH5YlvdpO+Jrez6/zWpDSKhh7zrD7OeGMn93hJ7T9wPVw0ZbFYenNsAV68gt2zBdEvXOvUPg2lX5RQSiXEs+Zhi5Y96cQOI55HsnomjShiA+HBAWY0JS+/pokH22UI2chvl0qgB6lXyV0iCgT8wWaoNqCpciJhS2PzlKK0bJH9rzKeeORdjGjthbEPupDxpr+biopecg9QjviV8dhs76XXlY+vwArczhczvnZW7be5v8aNXBN4L/z9Bske32br+qg85j24jll1oN3iF8tnTakFft5jAUaf+XzKkj6A2bcJ5qDq786yYHOGZOpicVdvhhlDV1pOzeqXToFWy1xBv3y3sqkJjUIIxg4Y2zlWi8gX+Iq1PJ0UiEVgZv4BZDNUpJmYl91XAlowmcATPsZNLbLvE6+Ms1NN0GKhF64xsWiMVRmF2b9HeWv58FsL63lsF7CsINm1xOrZTsLQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbc0bc48-71a5-477e-0ada-08d834fbaa4e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 793a8c2e-cd36-40c0-151a-08d834fbb839
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:44:37.2881 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:45:00.7458 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fiaYLHhXRUeEGSd1J+jBILiFhTU3/jBnYy1ZLw5N41yrFTnYEpF2Vim7Y5ONGCKB
+X-MS-Exchange-CrossTenant-UserPrincipalName: V0g0nIfI8Z+erp9aogkmLSSrRQQ39v0UQigMUB5D86QExixswtxFD4poP+mZxc9S
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,119 +121,91 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 As for the gpu metric export, metrics cache makes no sense. It's up to
 user to decide how often the metrics should be retrieved.
 
-Change-Id: Ic9d5f10b470584c82d4ca9035ab27fed44f0ac20
+Change-Id: I780aba0be35a35bd9c9727118b33625e7cc9bf1f
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 73 +++++++++++++------
- 1 file changed, 49 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 345b8571f716..a95c82a709d8 100644
---- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -407,17 +407,16 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- 	return -ENOMEM;
- }
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+index 61e8700a7bdb..4c1a506c3c17 100644
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+@@ -129,13 +129,17 @@ static struct cmn2asic_mapping renoir_workload_map[PP_SMC_POWER_PROFILE_COUNT] =
+ };
  
--static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
--					       MetricsMember_t member,
--					       uint32_t *value)
-+static int sienna_cichlid_get_metrics_table_locked(struct smu_context *smu,
-+						   SmuMetrics_t *metrics_table,
-+						   bool bypass_cache)
+ static int renoir_get_metrics_table(struct smu_context *smu,
+-				    SmuMetrics_t *metrics_table)
++				    SmuMetrics_t *metrics_table,
++				    bool bypass_cache)
  {
  	struct smu_table_context *smu_table= &smu->smu_table;
--	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
  	int ret = 0;
  
--	mutex_lock(&smu->metrics_lock);
--	if (!smu_table->metrics_time ||
--	     time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(1))) {
+ 	mutex_lock(&smu->metrics_lock);
+-	if (!smu_table->metrics_time || time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(100))) {
++
 +	if (bypass_cache ||
 +	    !smu_table->metrics_time ||
-+	    time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(1))) {
- 		ret = smu_cmn_update_table(smu,
- 				       SMU_TABLE_SMU_METRICS,
- 				       0,
-@@ -425,12 +424,50 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 				       false);
++	    time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(100))) {
+ 		ret = smu_cmn_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
+ 				(void *)smu_table->metrics_table, false);
  		if (ret) {
- 			dev_info(smu->adev->dev, "Failed to export SMU metrics table!\n");
--			mutex_unlock(&smu->metrics_lock);
- 			return ret;
- 		}
+@@ -146,7 +150,9 @@ static int renoir_get_metrics_table(struct smu_context *smu,
  		smu_table->metrics_time = jiffies;
  	}
  
+-	memcpy(metrics_table, smu_table->metrics_table, sizeof(SmuMetrics_t));
 +	if (metrics_table)
 +		memcpy(metrics_table, smu_table->metrics_table, sizeof(SmuMetrics_t));
 +
-+	return 0;
-+}
-+
-+static int sienna_cichlid_get_metrics_table(struct smu_context *smu,
-+					    SmuMetrics_t *metrics_table,
-+					    bool bypass_cache)
-+{
-+	int ret = 0;
-+
-+	mutex_lock(&smu->metrics_lock);
-+	ret = sienna_cichlid_get_metrics_table_locked(smu,
-+						      metrics_table,
-+						      bypass_cache);
-+	mutex_unlock(&smu->metrics_lock);
-+
-+	return ret;
-+}
-+
-+static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
-+					       MetricsMember_t member,
-+					       uint32_t *value)
-+{
-+	struct smu_table_context *smu_table= &smu->smu_table;
-+	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
-+	int ret = 0;
-+
-+	mutex_lock(&smu->metrics_lock);
-+
-+	ret = sienna_cichlid_get_metrics_table_locked(smu,
-+						      NULL,
-+						      false);
-+	if (ret) {
-+		mutex_unlock(&smu->metrics_lock);
-+		return ret;
-+	}
-+
- 	switch (member) {
- 	case METRICS_CURR_GFXCLK:
- 		*value = metrics->CurrClock[PPCLK_GFXCLK];
-@@ -2684,23 +2721,11 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
+ 	mutex_unlock(&smu->metrics_lock);
+ 
+ 	return ret;
+@@ -375,7 +381,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 
+ 	memset(&metrics, 0, sizeof(metrics));
+ 
+-	ret = renoir_get_metrics_table(smu, &metrics);
++	ret = renoir_get_metrics_table(smu, &metrics, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -529,7 +535,7 @@ static int renoir_get_current_clk_freq_by_table(struct smu_context *smu,
+ 	int ret = 0, clk_id = 0;
+ 	SmuMetrics_t metrics;
+ 
+-	ret = renoir_get_metrics_table(smu, &metrics);
++	ret = renoir_get_metrics_table(smu, &metrics, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -612,7 +618,7 @@ static int renoir_get_gpu_temperature(struct smu_context *smu, uint32_t *value)
+ 	if (!value)
+ 		return -EINVAL;
+ 
+-	ret = renoir_get_metrics_table(smu, &metrics);
++	ret = renoir_get_metrics_table(smu, &metrics, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -632,7 +638,7 @@ static int renoir_get_current_activity_percent(struct smu_context *smu,
+ 	if (!value)
+ 		return -EINVAL;
+ 
+-	ret = renoir_get_metrics_table(smu, &metrics);
++	ret = renoir_get_metrics_table(smu, &metrics, false);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1018,7 +1024,7 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
  	SmuMetrics_t metrics;
  	int ret = 0;
  
--	mutex_lock(&smu->metrics_lock);
--
--	ret = smu_cmn_update_table(smu,
--				   SMU_TABLE_SMU_METRICS,
--				   0,
--				   smu_table->metrics_table,
--				   false);
--	if (ret) {
--		dev_info(smu->adev->dev, "Failed to export SMU metrics table!\n");
--		mutex_unlock(&smu->metrics_lock);
-+	ret = sienna_cichlid_get_metrics_table(smu,
-+					       &metrics,
-+					       true);
-+	if (ret)
+-	ret = renoir_get_metrics_table(smu, &metrics);
++	ret = renoir_get_metrics_table(smu, &metrics, true);
+ 	if (ret)
  		return ret;
--	}
--	smu_table->metrics_time = jiffies;
--
--	memcpy(&metrics, smu_table->metrics_table, sizeof(SmuMetrics_t));
--
--	mutex_unlock(&smu->metrics_lock);
- 
- 	smu_v11_0_init_gpu_metrics_v1_0(gpu_metrics);
  
 -- 
 2.28.0
