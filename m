@@ -4,101 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C82FFC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60931C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 03:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9DB292083E
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 02:45:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EB22720829
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2020 03:42:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gccbFXqc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DB292083E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yOeOv30E"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB22720829
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67D216E993;
-	Fri, 31 Jul 2020 02:45:13 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2BB6E993
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 02:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD006E992;
+	Fri, 31 Jul 2020 03:42:12 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680072.outbound.protection.outlook.com [40.107.68.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D97866E992
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2020 03:42:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lmRZaoXgbK2ke5CFu5sb35tAKAadLTdm8p9e2HFho+XIYiMTaHEUWYjEGO032Ql6EZ9BW2mTq4cABTaQ23Ju+pxS2PtAJT8CagJn+GkbXejePbL1Rd+7MLvDd3x0FUnAg2WHc2+MexNRFFMN015bNM5fGjJWPnNQOv8S3qj3N8vDZpU86bFEU/deTfv3/xbY2L+/VZhSFv6hVMBGC8QYQu3jIHnwyqJfJOE/cVxGJJtTGFgYYCaaGQM3W4xCoCaHOY/w6ETcD40UWCQWY7w1h1W8MGHB+1anc5crC5nAPDubKKow5TSR1d8zSAFOUPCaYtPCFAsBuLp36w54bk0b5w==
+ b=V9HiTwEJqBe+cnixS6CLssUm8xAi2bSGS+ABjElKpAAXIM5H5SkkjUVR+UMDw9Hc48Kx0HnI1SI4RtHXYqJ2+hzCMEoLgTpk/BX1+ml99wgFR/R96rwpkZPQaTT4yqT/AQsgQhH96LwlnUut30BBoESQqPsGn2D+82YSJggupee8i0bELa4yIueKzTmOZ/B93k8e/YAvmfvkunvyNfk1nlKBNU95KU/rajl7Fhf4QAH6jCCDnik1jYEVFWpufCCSN94kdtadouNuoEthMxuTqux2Ewk8WcFHavR0hRmtzY3LPz+lt3toMc3ufQQw8512uzVwLmeni0dvH+P4oOJC8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jEdzmGCHwX2fR62+imZKlSMx42UnY9+50/JsOHb3GrE=;
- b=l05jdAwl/rghzjeJ0tkwdRD8I8G+pLf7AH5fViGa3oeu+w3W/QqIzGLnpsGVdgp3HhV2aPSir9/tsVuirRfCUYveZI8r3X5jyK72bmqQHig9fSc2sxV/K69GqNxR5xDnhKUWitm59cfKz4MJ4fN76+LxPvN2GfLBrkEGM0+/ddbX/ZgeVcRwjE8tPchntZErGFA0Z5yGzZoRfyzdAhedI73ztOu3c2j+gj4uK0Q2CPBoHss6c9eeQvCnvBt1cvSxkRHyL4pQEwygfDdGV9Ikbhy0c3RHi38JFh3sWIF/3PjfEJzOykjtanaBpe3haF1mBBif1YYQ4Wm1fVByxpX2+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=YqrUVHQOdcl5n1lcnvdOIHJ9lW1i3WSBMMNZrmKxx7w=;
+ b=C+Vk15xKmXDdja+iFdZCLWz7KdYAIm5PZZMGQYmGYrlIIxJOK8uManZGDmI6QvIqkW8bMzEgWbIoedvmdr0ZEdqRlQG+9/8bOTYp4xGENbctEezp07+XEHRDsZN4XAEjlOx+BiOoWiXowjkaRAs/DVEmb/guma4goA+5rqqlcW5f4EamzV9EkK8AdsYGd9S6vxbQlasRML+axtOlYU07sSOhVt5Ss41N9lWHTuLSuI0TOW6VPhRIiG9Uf9twcxq+d9a9jooyW9rbGwh16wjifU6eCnKN3yZkKg4dbSQaZCpgYDSIX4ngzCpPh5iXanZqNX7NrIBkS1F/oYmk3F7Xfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jEdzmGCHwX2fR62+imZKlSMx42UnY9+50/JsOHb3GrE=;
- b=gccbFXqcEA7w/rpPcgH8B64IMi9HcOrWbm1iUu0T9llt/2RF1eXjvht97Gehwr+EjsnmniidBNIDeTO6LX4QPXcm9LdDttD9+tOWazAn4r2RQN4wXrrZDQI7asCnUSh2u1Y3KaPKc/PARSuD/r7JBuBDLFRKs41URARK7tEFFk8=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB2618.namprd12.prod.outlook.com (2603:10b6:5:49::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.17; Fri, 31 Jul 2020 02:45:09 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.018; Fri, 31 Jul 2020
- 02:45:09 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 17/17] drm/amd/powerplay: add control method to bypass metrics
- cache on Vega12
-Date: Fri, 31 Jul 2020 10:43:16 +0800
-Message-Id: <20200731024316.28324-17-evan.quan@amd.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200731024316.28324-1-evan.quan@amd.com>
-References: <20200731024316.28324-1-evan.quan@amd.com>
-X-ClientProxiedBy: HK2PR02CA0206.apcprd02.prod.outlook.com
- (2603:1096:201:20::18) To DM6PR12MB2619.namprd12.prod.outlook.com
- (2603:10b6:5:45::18)
+ bh=YqrUVHQOdcl5n1lcnvdOIHJ9lW1i3WSBMMNZrmKxx7w=;
+ b=yOeOv30EmnbSpUBJLp9ZVM1/Y09dbzXw2JS6Pc3TkEPdBDg/F/1LmfXnBSqg+Tow84naSkRimIS2ybIiFuoH065KqB1kKfANkY2xz1SBFiWVhloO48Iu2m2ueVuXNwR1XJh7XlosYPxf59iEK6odbT+UpZyg3YWUPH8fZSPTFQk=
+Received: from MWHPR20CA0008.namprd20.prod.outlook.com (2603:10b6:300:13d::18)
+ by MWHPR12MB1743.namprd12.prod.outlook.com (2603:10b6:300:113::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Fri, 31 Jul
+ 2020 03:42:07 +0000
+Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:13d:cafe::e7) by MWHPR20CA0008.outlook.office365.com
+ (2603:10b6:300:13d::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.18 via Frontend
+ Transport; Fri, 31 Jul 2020 03:42:07 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3239.20 via Frontend Transport; Fri, 31 Jul 2020 03:42:07 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 30 Jul
+ 2020 22:42:06 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 30 Jul
+ 2020 22:42:06 -0500
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Thu, 30 Jul 2020 22:42:05 -0500
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: introduce a new parameter to configure how many
+ KCQ we want(v4)
+Date: Fri, 31 Jul 2020 11:42:03 +0800
+Message-ID: <1596166923-29057-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (58.247.170.242) by
- HK2PR02CA0206.apcprd02.prod.outlook.com (2603:1096:201:20::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16 via Frontend Transport; Fri, 31 Jul 2020 02:45:07 +0000
-X-Mailer: git-send-email 2.28.0
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
+X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 70e6c41a-780a-4651-f56b-08d834fbbd74
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2618:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2618BA2EEF6062811EE68A4DE44E0@DM6PR12MB2618.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e0266b65-5bf5-4837-6bcd-08d83503b2d2
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1743:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1743A12654A8319FD4054DA4844E0@MWHPR12MB1743.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8loWedC9XCa4EKlZHV7tUV7YWWOX+muJ0IrBHJ+LSEBf/cAUh4W15XPuehX8qTkiZO+hNNDFuif2ZMkwCMOTyEADkBIo+M6qS1Rf1x1xKQ+faGvrJkhH4eRDaT7zuncbElU+ooFWmhXXLn2Nve2HhaF57aCZh6LqFBvmg5FFWorlSJaTBCHE4wz+tpPufKvVL4ijQ7LdzKwzym1u41TXd03sOS/DaSkNJPJSfUkRqoMhUoK535Axs8ymEVraqwABqYb5ZR4vsfqK3KQvqMmRpJV6L7pnVWsC+/XoK6u9Z5VpS6V8peGAOkR84tYtb14zBAdpUnpaFXKqI9ig9PGR2w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+X-Microsoft-Antispam-Message-Info: vMFcm5M3/ymRPr5gWfmeY34Wy4xqS2oAmfs5SwjTPK3l672R2AI3Cu/8u8bDHv1ldcng/5bKqk9qRGRB5GC02D5x+Bm8uSAm3gNtvOQPfhFBZKBB3pIv/nQsSHrf4FQb7Yo4KdYV2byjFh9RouHd9AtXfz1GbOnZAKCAAx58T2IWs2JUDlPuWWg4eFS/KgEHJYvEJ28b++b4BSfRW95JhMKcgqdfFzy+n4HyTwguw05VYHpHeoRqxEWc1OtMNdrOZzl2UZufTdwGx0KsY9/uKA6XpclALOlDjN8oLcivEVsZUQZNThSZH0JUwzgIE9fCwt3VpsaC3YE3GzT1L+RW70MekWV+5awWuh3j7KkskFUKjAqW9Va3NXPrMpuycC3hlHHMdds/nBXhMoyQDM8nxA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(396003)(346002)(366004)(136003)(376002)(8936002)(1076003)(478600001)(6486002)(26005)(83380400001)(6916009)(16526019)(36756003)(186003)(2906002)(5660300002)(66946007)(8676002)(956004)(2616005)(6666004)(4326008)(7696005)(316002)(86362001)(66556008)(52116002)(66476007)(44832011);
+ SFS:(4636009)(376002)(136003)(396003)(346002)(39860400002)(46966005)(316002)(2616005)(7696005)(86362001)(8936002)(186003)(4326008)(83380400001)(6916009)(426003)(478600001)(70206006)(82310400002)(36756003)(70586007)(81166007)(356005)(26005)(30864003)(5660300002)(82740400003)(336012)(2906002)(47076004)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: F90wr/B4zLUnPYDNs7jYC+WKKD5FxZSuh8AUH3T9yprNshBitNJMR0Owhkngmn21F8ZyuIsMp37zSwN+54ps/sYtaW5C92j83uSSQOrSSO5YCjc+IC/gB/jxsz98N6W5ol52UiaHmqIH4RAIm8+wVfJuwdOa9YRZ+JR6Bi9ixGPiqf0nOyz17Tv+SqgQTdtBHf8QjQGTHrBvK0xQUlkxJgYpwsd2tFhb5wQ5SLp1DHNtyznOgLXUX1WUzpzT7K2TrWPYUYAJLnOfGYAEuQkYYDkuj1RZX5DW3qgTBWKZavYMOCScMKm86iaJ3lfsb9r5zHTBA540qxp5ec2Qqyr32OPUSyyguyaSXCfgikL/h1La/5rC3iQyy+4OeOsv3xI7MKj01rcamIeyoa+RtpHpMZsRoCPusFCfP9/RO+zThK/f63S3FC0smgPPl0kyB+B6AvuyqO328jZXwHwTgF3O4q/lSZJL7jsnHKKQG0YCmtbgTvMkYjhJIXa+L5PsGtUEATPrzxa5yDhASBWr0OzuhKH7L5Lr1SJLo1LTiyy/DsIBH4ZAKqpo+euDr3T0RqKLQeVARZx8uK6laPavgLTXTj3TEVpekQY4ZSIY1WsbmEk9KkfUQWw0wPbu3oOSx0sEt+X2SUm9PoFIUaG9LECbxw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70e6c41a-780a-4651-f56b-08d834fbbd74
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 02:45:09.4628 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2020 03:42:07.2544 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0266b65-5bf5-4837-6bcd-08d83503b2d2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yMatACYxjHYQBNBbyvLawonDgaBEp/D8/u7iFdimcIa3uHc/tGx34SWYiDHi4+KC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2618
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1743
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,110 +117,320 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com,
- Evan Quan <evan.quan@amd.com>, Harish.Kasiviswanathan@amd.com,
- nirmodas@amd.com
+Cc: Monk Liu <Monk.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As for the gpu metric export, metrics cache makes no sense. It's up to
-user to decide how often the metrics should be retrieved.
+what:
+the MQD's save and restore of KCQ (kernel compute queue)
+cost lots of clocks during world switch which impacts a lot
+to multi-VF performance
 
-Change-Id: Ic2a27ebc90f0a7cf581d0697c121b6d7df030f3b
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+how:
+introduce a paramter to control the number of KCQ to avoid
+performance drop if there is no kernel compute queue needed
+
+notes:
+this paramter only affects gfx 8/9/10
+
+v2:
+refine namings
+
+v3:
+choose queues for each ring to that try best to cross pipes evenly.
+
+v4:
+fix indentation
+some cleanupsin the gfx_compute_queue_acquire() function
+
+TODO:
+in the future we will let hypervisor driver to set this paramter
+automatically thus no need for user to configure it through
+modprobe in virtual machine
+
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
 ---
- .../drm/amd/powerplay/hwmgr/vega12_hwmgr.c    | 29 ++++++++++++-------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 52 +++++++++++++-----------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 30 +++++++++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      | 29 +++++++++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 31 +++++++++---------
+ 7 files changed, 80 insertions(+), 72 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index 40bb0c2e4e8c..c70c30175801 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1262,22 +1262,29 @@ static uint32_t vega12_dpm_get_mclk(struct pp_hwmgr *hwmgr, bool low)
- 	return (mem_clk * 100);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index e97c088..de11136 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -201,6 +201,7 @@ extern int amdgpu_si_support;
+ #ifdef CONFIG_DRM_AMDGPU_CIK
+ extern int amdgpu_cik_support;
+ #endif
++extern int amdgpu_num_kcq;
  
--static int vega12_get_metrics_table(struct pp_hwmgr *hwmgr, SmuMetrics_t *metrics_table)
-+static int vega12_get_metrics_table(struct pp_hwmgr *hwmgr,
-+				    SmuMetrics_t *metrics_table,
-+				    bool bypass_cache)
- {
- 	struct vega12_hwmgr *data =
- 			(struct vega12_hwmgr *)(hwmgr->backend);
- 	int ret = 0;
+ #define AMDGPU_VM_MAX_NUM_CTX			4096
+ #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 62ecac9..cf445bab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1199,6 +1199,11 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
  
--	if (!data->metrics_time || time_after(jiffies, data->metrics_time + HZ / 2)) {
--		ret = smum_smc_table_manager(hwmgr, (uint8_t *)metrics_table,
--				TABLE_SMU_METRICS, true);
-+	if (bypass_cache ||
-+	    !data->metrics_time ||
-+	    time_after(jiffies, data->metrics_time + HZ / 2)) {
-+		ret = smum_smc_table_manager(hwmgr,
-+					     (uint8_t *)(&data->metrics_table),
-+					     TABLE_SMU_METRICS,
-+					     true);
- 		if (ret) {
- 			pr_info("Failed to export SMU metrics table!\n");
- 			return ret;
- 		}
--		memcpy(&data->metrics_table, metrics_table, sizeof(SmuMetrics_t));
- 		data->metrics_time = jiffies;
--	} else
+ 	amdgpu_gmc_tmz_set(adev);
+ 
++	if (amdgpu_num_kcq > 8 || amdgpu_num_kcq < 0) {
++		amdgpu_num_kcq = 8;
++		dev_warn(adev->dev, "set kernel compute queue number to 8 due to invalid paramter provided by user\n");
 +	}
 +
-+	if (metrics_table)
- 		memcpy(metrics_table, &data->metrics_table, sizeof(SmuMetrics_t));
+ 	return 0;
+ }
  
- 	return ret;
-@@ -1288,7 +1295,7 @@ static int vega12_get_gpu_power(struct pp_hwmgr *hwmgr, uint32_t *query)
- 	SmuMetrics_t metrics_table;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 6291f5f..b545c40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -150,6 +150,7 @@ int amdgpu_noretry;
+ int amdgpu_force_asic_type = -1;
+ int amdgpu_tmz = 0;
+ int amdgpu_reset_method = -1; /* auto */
++int amdgpu_num_kcq = -1;
  
--	ret = vega12_get_metrics_table(hwmgr, &metrics_table);
-+	ret = vega12_get_metrics_table(hwmgr, &metrics_table, false);
- 	if (ret)
- 		return ret;
+ struct amdgpu_mgpu_info mgpu_info = {
+ 	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+@@ -765,6 +766,9 @@ module_param_named(tmz, amdgpu_tmz, int, 0444);
+ MODULE_PARM_DESC(reset_method, "GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)");
+ module_param_named(reset_method, amdgpu_reset_method, int, 0444);
  
-@@ -1339,7 +1346,7 @@ static int vega12_get_current_activity_percent(
- 	SmuMetrics_t metrics_table;
- 	int ret = 0;
++MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
++module_param_named(num_kcq, amdgpu_num_kcq, int, 0444);
++
+ static const struct pci_device_id pciidlist[] = {
+ #ifdef  CONFIG_DRM_AMDGPU_SI
+ 	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 8eff017..b43df8e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -202,40 +202,34 @@ bool amdgpu_gfx_is_high_priority_compute_queue(struct amdgpu_device *adev,
  
--	ret = vega12_get_metrics_table(hwmgr, &metrics_table);
-+	ret = vega12_get_metrics_table(hwmgr, &metrics_table, false);
- 	if (ret)
- 		return ret;
+ void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev)
+ {
+-	int i, queue, pipe, mec;
++	int i, queue, pipe;
+ 	bool multipipe_policy = amdgpu_gfx_is_multipipe_capable(adev);
++	int max_queues_per_mec = min(adev->gfx.mec.num_pipe_per_mec *
++				     adev->gfx.mec.num_queue_per_pipe,
++				     adev->gfx.num_compute_rings);
++
++	if (multipipe_policy) {
++		/* policy: make queues evenly cross all pipes on MEC1 only */
++		for (i = 0; i < max_queues_per_mec; i++) {
++			pipe = i % adev->gfx.mec.num_pipe_per_mec;
++			queue = (i / adev->gfx.mec.num_pipe_per_mec) %
++				adev->gfx.mec.num_queue_per_pipe;
++
++			set_bit(pipe * adev->gfx.mec.num_queue_per_pipe + queue,
++					adev->gfx.mec.queue_bitmap);
++		}
++	} else {
++		/* policy: amdgpu owns all queues in the given pipe */
++		for (i = 0; i < max_queues_per_mec; ++i) {
++			queue = i % adev->gfx.mec.num_queue_per_pipe;
++			pipe = (i / adev->gfx.mec.num_queue_per_pipe)
++				% adev->gfx.mec.num_pipe_per_mec;
  
-@@ -1387,7 +1394,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 		*size = 4;
+-	/* policy for amdgpu compute queue ownership */
+-	for (i = 0; i < AMDGPU_MAX_COMPUTE_QUEUES; ++i) {
+-		queue = i % adev->gfx.mec.num_queue_per_pipe;
+-		pipe = (i / adev->gfx.mec.num_queue_per_pipe)
+-			% adev->gfx.mec.num_pipe_per_mec;
+-		mec = (i / adev->gfx.mec.num_queue_per_pipe)
+-			/ adev->gfx.mec.num_pipe_per_mec;
+-
+-		/* we've run out of HW */
+-		if (mec >= adev->gfx.mec.num_mec)
+-			break;
+-
+-		if (multipipe_policy) {
+-			/* policy: amdgpu owns the first two queues of the first MEC */
+-			if (mec == 0 && queue < 2)
+-				set_bit(i, adev->gfx.mec.queue_bitmap);
+-		} else {
+-			/* policy: amdgpu owns all queues in the first pipe */
+-			if (mec == 0 && pipe == 0)
+-				set_bit(i, adev->gfx.mec.queue_bitmap);
++			set_bit(i, adev->gfx.mec.queue_bitmap);
+ 		}
+ 	}
+ 
+-	/* update the number of active compute rings */
+-	adev->gfx.num_compute_rings =
+-		bitmap_weight(adev->gfx.mec.queue_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
+-
+-	/* If you hit this case and edited the policy, you probably just
+-	 * need to increase AMDGPU_MAX_COMPUTE_RINGS */
+-	if (WARN_ON(adev->gfx.num_compute_rings > AMDGPU_MAX_COMPUTE_RINGS))
+-		adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
++	dev_info(adev->dev, "mec queue bitmap weight=%d\n", bitmap_weight(adev->gfx.mec.queue_bitmap, AMDGPU_MAX_COMPUTE_QUEUES));
+ }
+ 
+ void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index db9f1e8..3a93b3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4022,21 +4022,23 @@ static int gfx_v10_0_mec_init(struct amdgpu_device *adev)
+ 	amdgpu_gfx_compute_queue_acquire(adev);
+ 	mec_hpd_size = adev->gfx.num_compute_rings * GFX10_MEC_HPD_SIZE;
+ 
+-	r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
+-				      AMDGPU_GEM_DOMAIN_GTT,
+-				      &adev->gfx.mec.hpd_eop_obj,
+-				      &adev->gfx.mec.hpd_eop_gpu_addr,
+-				      (void **)&hpd);
+-	if (r) {
+-		dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
+-		gfx_v10_0_mec_fini(adev);
+-		return r;
+-	}
++	if (mec_hpd_size) {
++		r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
++									  AMDGPU_GEM_DOMAIN_GTT,
++									  &adev->gfx.mec.hpd_eop_obj,
++									  &adev->gfx.mec.hpd_eop_gpu_addr,
++									  (void **)&hpd);
++		if (r) {
++			dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
++			gfx_v10_0_mec_fini(adev);
++			return r;
++		}
+ 
+-	memset(hpd, 0, mec_hpd_size);
++		memset(hpd, 0, mec_hpd_size);
+ 
+-	amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
+-	amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
++		amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
++		amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
++	}
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
+ 		mec_hdr = (const struct gfx_firmware_header_v1_0 *)adev->gfx.mec_fw->data;
+@@ -7159,7 +7161,7 @@ static int gfx_v10_0_early_init(void *handle)
  		break;
- 	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
--		ret = vega12_get_metrics_table(hwmgr, &metrics_table);
-+		ret = vega12_get_metrics_table(hwmgr, &metrics_table, false);
- 		if (ret)
- 			return ret;
+ 	}
  
-@@ -1396,7 +1403,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_MEM_TEMP:
--		ret = vega12_get_metrics_table(hwmgr, &metrics_table);
-+		ret = vega12_get_metrics_table(hwmgr, &metrics_table, false);
- 		if (ret)
- 			return ret;
+-	adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
++	adev->gfx.num_compute_rings = amdgpu_num_kcq;
  
-@@ -2752,7 +2759,7 @@ static ssize_t vega12_get_gpu_metrics(struct pp_hwmgr *hwmgr,
- 	uint32_t fan_speed_rpm;
- 	int ret;
+ 	gfx_v10_0_set_kiq_pm4_funcs(adev);
+ 	gfx_v10_0_set_ring_funcs(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 8d72089..eb4b812 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1343,21 +1343,22 @@ static int gfx_v8_0_mec_init(struct amdgpu_device *adev)
+ 	amdgpu_gfx_compute_queue_acquire(adev);
  
--	ret = vega12_get_metrics_table(hwmgr, &metrics);
-+	ret = vega12_get_metrics_table(hwmgr, &metrics, true);
- 	if (ret)
- 		return ret;
+ 	mec_hpd_size = adev->gfx.num_compute_rings * GFX8_MEC_HPD_SIZE;
++	if (mec_hpd_size) {
++		r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
++									  AMDGPU_GEM_DOMAIN_VRAM,
++									  &adev->gfx.mec.hpd_eop_obj,
++									  &adev->gfx.mec.hpd_eop_gpu_addr,
++									  (void **)&hpd);
++		if (r) {
++			dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
++			return r;
++		}
  
+-	r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
+-				      AMDGPU_GEM_DOMAIN_VRAM,
+-				      &adev->gfx.mec.hpd_eop_obj,
+-				      &adev->gfx.mec.hpd_eop_gpu_addr,
+-				      (void **)&hpd);
+-	if (r) {
+-		dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
+-		return r;
+-	}
+-
+-	memset(hpd, 0, mec_hpd_size);
++		memset(hpd, 0, mec_hpd_size);
+ 
+-	amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
+-	amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
++		amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
++		amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
++	}
+ 
+ 	return 0;
+ }
+@@ -5294,7 +5295,7 @@ static int gfx_v8_0_early_init(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+ 	adev->gfx.num_gfx_rings = GFX8_NUM_GFX_RINGS;
+-	adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
++	adev->gfx.num_compute_rings = amdgpu_num_kcq;
+ 	adev->gfx.funcs = &gfx_v8_0_gfx_funcs;
+ 	gfx_v8_0_set_ring_funcs(adev);
+ 	gfx_v8_0_set_irq_funcs(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index e4e751f..43ad044 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1938,22 +1938,23 @@ static int gfx_v9_0_mec_init(struct amdgpu_device *adev)
+ 	/* take ownership of the relevant compute queues */
+ 	amdgpu_gfx_compute_queue_acquire(adev);
+ 	mec_hpd_size = adev->gfx.num_compute_rings * GFX9_MEC_HPD_SIZE;
++	if (mec_hpd_size) {
++		r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
++									  AMDGPU_GEM_DOMAIN_VRAM,
++									  &adev->gfx.mec.hpd_eop_obj,
++									  &adev->gfx.mec.hpd_eop_gpu_addr,
++									  (void **)&hpd);
++		if (r) {
++			dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
++			gfx_v9_0_mec_fini(adev);
++			return r;
++		}
+ 
+-	r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
+-				      AMDGPU_GEM_DOMAIN_VRAM,
+-				      &adev->gfx.mec.hpd_eop_obj,
+-				      &adev->gfx.mec.hpd_eop_gpu_addr,
+-				      (void **)&hpd);
+-	if (r) {
+-		dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
+-		gfx_v9_0_mec_fini(adev);
+-		return r;
+-	}
+-
+-	memset(hpd, 0, mec_hpd_size);
++		memset(hpd, 0, mec_hpd_size);
+ 
+-	amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
+-	amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
++		amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
++		amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
++	}
+ 
+ 	mec_hdr = (const struct gfx_firmware_header_v1_0 *)adev->gfx.mec_fw->data;
+ 
+@@ -4625,7 +4626,7 @@ static int gfx_v9_0_early_init(void *handle)
+ 		adev->gfx.num_gfx_rings = 0;
+ 	else
+ 		adev->gfx.num_gfx_rings = GFX9_NUM_GFX_RINGS;
+-	adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
++	adev->gfx.num_compute_rings = amdgpu_num_kcq;
+ 	gfx_v9_0_set_kiq_pm4_funcs(adev);
+ 	gfx_v9_0_set_ring_funcs(adev);
+ 	gfx_v9_0_set_irq_funcs(adev);
 -- 
-2.28.0
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
