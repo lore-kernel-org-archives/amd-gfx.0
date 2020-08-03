@@ -2,70 +2,71 @@ Return-Path: <SRS0=0vKA=BN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7219FC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 16:30:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 557B3C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 16:38:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 43F832075A
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 16:30:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 28309206DA
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 16:38:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="saVajQY6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43F832075A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ay/MFa5s"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28309206DA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0A426E2B6;
-	Mon,  3 Aug 2020 16:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC23D6E2CA;
+	Mon,  3 Aug 2020 16:38:02 +0000 (UTC)
 Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
  [IPv6:2607:f8b0:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 360A06E2B6
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 16:30:02 +0000 (UTC)
-Received: by mail-ot1-x341.google.com with SMTP id q9so12689503oth.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2020 09:30:02 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 157BB6E2C0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 16:38:01 +0000 (UTC)
+Received: by mail-ot1-x341.google.com with SMTP id o72so22775167ota.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2020 09:38:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=XRoNNxhuyYiDlwe8zH+MPm1Tx0OJZM+hf3uG7oBbQwE=;
- b=saVajQY6BG82JtnpqmvAh6NVqRlJ36fiV2nhLZ1GrTjFgrnAtKmHwVvToBKkrUbWP9
- k5eSJ4mTwRKdRUg4fImAFAZ114lRIf9fpbcnHQZ9sUn3j+AxNTz7F5ey8frhr1n09aWJ
- 50tnxdpenhrmGqw2kIidAVSV560mCQJ2Ex+NlHz818q49mi8CVfW+ZgovrXtZbLsX5A0
- cJZazzUOKRTXnPul9M/MKxUzaiErfy4IToCLZrRowDzJQuLlM5QhpH4e8JcR2nr7ktgT
- O1uPzYooLdOmBC0u2iXz0MCuBZw895jbT4iHco0pY9WBBuDdyUVRw0RvQ2WvfdBYuZxW
- aEWQ==
+ :mime-version:in-reply-to;
+ bh=i3ujLWpCu2fgHeP+0nyjKyg4nLHPUsm+jFPB87aKbPo=;
+ b=Ay/MFa5sDnTCBSjs0cZnCOe3XSNsY4XVD+0gATzERdynFx5BUJN4dXTDF/8fbyb+oE
+ s5Hz1EBBAdlsS49tz8dWDlgHr76KSvPz1a/bV7AowmuYyPoDf1EQipmULrB9dOsyH/iW
+ zmFiVwVly/4U+92RqLeQAez4ECKglbsehlvhtl0PZmxSaOgPCYtJjsnO2Dwn7R8k8Zbp
+ 4HEuKxdlBJFL5QQXRk4/b204OM3YEaZ9bToewyEsILzbWxtInkTldpl7HSFqy1kGHuIY
+ Y+QfKb4CDsZoS2/p/BTl+JSyJ3CJpQ7dwY3Q0cXJrVU9DkmLS/kjIaj8mwDXfbatnNCD
+ F7nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=XRoNNxhuyYiDlwe8zH+MPm1Tx0OJZM+hf3uG7oBbQwE=;
- b=U6+9wk1TAdxnkGGrlCJWmobvbcw3f+LTwYSXYMpdOl5s//EyVKij5jT2KHtdLRFRYb
- TvusrJV5N8ZYo9DxP6thmKTsV9AkMJZG3z43nrrt7NABeKS92rP1ZRs7rRJg06TsZiGL
- iov0PxHNl19UbaRZVGrt2144wu1XJlnH2ClPM2KclZycV3zb1U+lDcAZy0x4xLvQl6I/
- rEAO3/frqXgPGDteSmNuWFvFH6fuWOV47TWMjCET0RdVA1qcXZB8D2aRUulE81856004
- XHsrux2W49G7fgUWmDfsrVvHwaRLzrRxFx3L3qCjdwAvuei6JWh5gmxDChqfcwibhCKl
- OoNw==
-X-Gm-Message-State: AOAM5330TXX45aUFDowNMriXiZhqTh8eV0tPV8YOwD5z4OnRAjk/6vWS
- icTtNlmld//iHSeSooS5VvA=
-X-Google-Smtp-Source: ABdhPJxgN5XEWgCpUqzbmwfWR7iuvbVXKWfT6LkLMXEiGmvAm0xfIpmTH69zO7vHkGaMQYnWTsRvQw==
-X-Received: by 2002:a9d:6acc:: with SMTP id m12mr12477861otq.207.1596472201380; 
- Mon, 03 Aug 2020 09:30:01 -0700 (PDT)
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=i3ujLWpCu2fgHeP+0nyjKyg4nLHPUsm+jFPB87aKbPo=;
+ b=A94OFFrsyGV4lXhPrU5fQqCAEvINe0PcYz2jhIhD3zjAo7MyA7vf6jDdcpla0ESSqW
+ z5jiH+JG9hYc1Xc4zaCI5ptzn2Xk0jRUdkj3jKR596imRDdL9XLs8Ol55A//vhRJ2FKj
+ dU2X2VE+I0T20Idfx9o/FuhPjuaXpE7speaXqJVVt/13iynDacI2YnFLknhj7Ptvux0B
+ mIGiOCH3iUJ1WJqMpyOlPG7J9YbpsGulPhrtYKMCDXRkstRAbWo4tG24pgjhTHsNx/w3
+ 7NZ/78jwFaaqvZ9Ca0FMEcfF9Hkxvzil/9XXhFKWbUf+zK6zUGgoFRd5AsLop5H/kXZw
+ Kl9g==
+X-Gm-Message-State: AOAM532wzuTI03RAuhzSxr8CjdN+ZQRPy9xBRn7uoAsJ0yA8FdM3RDt7
+ 2AcUG5zrA6T2M20qYY1IPG4=
+X-Google-Smtp-Source: ABdhPJwHRjVRew/2CfzYoUSAc7aeuqkuGnRT68khLB1OufAy/GnkwjfbuZDzejV8HFhMAtHjIr+yRw==
+X-Received: by 2002:a9d:2c29:: with SMTP id f38mr13757280otb.234.1596472680404; 
+ Mon, 03 Aug 2020 09:38:00 -0700 (PDT)
 Received: from ?IPv6:2602:4b:a6ae:c000:6d4:c4ff:fe4a:ea6b?
  ([2602:4b:a6ae:c000:6d4:c4ff:fe4a:ea6b])
- by smtp.gmail.com with ESMTPSA id u19sm3039578oic.10.2020.08.03.09.29.59
+ by smtp.gmail.com with ESMTPSA id i11sm1755585otk.68.2020.08.03.09.37.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Aug 2020 09:30:00 -0700 (PDT)
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: put VCN/JPEG into PG ungate state
- before dpm table setup
-To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200803044648.28805-1-evan.quan@amd.com>
- <20200803044648.28805-2-evan.quan@amd.com>
+ Mon, 03 Aug 2020 09:37:59 -0700 (PDT)
+Subject: Re: [Bug][Regression][Bisected] pp_table writes began to fail for
+ Navi10 on amd-staging-drm-next
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <c9711af0-12c8-9da8-8a3f-859cdc26129f@gmail.com>
+ <DM6PR12MB2619B3A4D4FF0BD91C594E09E44E0@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <DM6PR12MB2619432DCDA1624DE36D7C97E44D0@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: Matt Coffin <mcoffin13@gmail.com>
 Autocrypt: addr=mcoffin13@gmail.com; keydata=
  mQINBFXzZLABEADfD/9dfQPD/Ho+NHBmduela1i/ZAuKmYkKHmu3xrqZvxguxzWPUgyJpTXh
@@ -141,13 +142,12 @@ Autocrypt: addr=mcoffin13@gmail.com; keydata=
  /CfIe6JJY5NEK7N0nZ3t4c/7/ys0uL5bKDJ2TT8N8MLPfmd4IPvrQTakWlNeaTir+PXLISug
  CmeZkKqj9XNAhrxWTXlEJiCAN7GbX+pI8bpOikCSc5RQf5gDxypiTNnCW6zFd6ia2giFR9P7
  tuwClJVHcEqY1gkUE/HKR1MQFfXl979G/1Ql1g==
-Message-ID: <9eacd2a5-12e7-0f2f-a078-ca7c99c1a390@gmail.com>
-Date: Mon, 3 Aug 2020 10:29:59 -0600
+Message-ID: <5c3c9f16-b636-dcb5-a90c-77b58ac2d7bb@gmail.com>
+Date: Mon, 3 Aug 2020 10:37:54 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200803044648.28805-2-evan.quan@amd.com>
-Content-Language: en-US
+In-Reply-To: <DM6PR12MB2619432DCDA1624DE36D7C97E44D0@DM6PR12MB2619.namprd12.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,150 +159,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: multipart/mixed; boundary="===============0816481208=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks Evan! I can confirm that this resolved the following GitLab
-issue. Thanks for CC'ing me!
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0816481208==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="3ovN1oAmoHSH17ezkXrgtLI7q3X5PXAYZ"
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/1243
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--3ovN1oAmoHSH17ezkXrgtLI7q3X5PXAYZ
+Content-Type: multipart/mixed; boundary="JmEk4xqcbztWCHOgyODbHCsKmP8FRf1fi"
 
-Series is Tested-by: Matt Coffin <mcoffin13@gmail.com>
+--JmEk4xqcbztWCHOgyODbHCsKmP8FRf1fi
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-On 8/2/20 10:46 PM, Evan Quan wrote:
-> As VCN related dpm table setup needs VCN be in PG ungate state. Same logics
-> applies to JPEG.
-> 
-> Change-Id: I94335efc4e0424cfe0991e984c938998fd8f1287
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 38 +++++++++++++++++-----
->  1 file changed, 30 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 85b04c48bd09..1349d05c5f3d 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -134,7 +134,8 @@ int smu_get_dpm_freq_range(struct smu_context *smu,
->  }
->  
->  static int smu_dpm_set_vcn_enable(struct smu_context *smu,
-> -				  bool enable)
-> +				  bool enable,
-> +				  int *previous_pg_state)
->  {
->  	struct smu_power_context *smu_power = &smu->smu_power;
->  	struct smu_power_gate *power_gate = &smu_power->power_gate;
-> @@ -148,6 +149,9 @@ static int smu_dpm_set_vcn_enable(struct smu_context *smu,
->  	if (atomic_read(&power_gate->vcn_gated) ^ enable)
->  		goto out;
->  
-> +	if (previous_pg_state)
-> +		*previous_pg_state = atomic_read(&power_gate->vcn_gated);
-> +
->  	ret = smu->ppt_funcs->dpm_set_vcn_enable(smu, enable);
->  	if (!ret)
->  		atomic_set(&power_gate->vcn_gated, !enable);
-> @@ -159,7 +163,8 @@ static int smu_dpm_set_vcn_enable(struct smu_context *smu,
->  }
->  
->  static int smu_dpm_set_jpeg_enable(struct smu_context *smu,
-> -				   bool enable)
-> +				   bool enable,
-> +				   int *previous_pg_state)
->  {
->  	struct smu_power_context *smu_power = &smu->smu_power;
->  	struct smu_power_gate *power_gate = &smu_power->power_gate;
-> @@ -173,6 +178,9 @@ static int smu_dpm_set_jpeg_enable(struct smu_context *smu,
->  	if (atomic_read(&power_gate->jpeg_gated) ^ enable)
->  		goto out;
->  
-> +	if (previous_pg_state)
-> +		*previous_pg_state = atomic_read(&power_gate->jpeg_gated);
-> +
->  	ret = smu->ppt_funcs->dpm_set_jpeg_enable(smu, enable);
->  	if (!ret)
->  		atomic_set(&power_gate->jpeg_gated, !enable);
-> @@ -212,7 +220,7 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
->  	 */
->  	case AMD_IP_BLOCK_TYPE_UVD:
->  	case AMD_IP_BLOCK_TYPE_VCN:
-> -		ret = smu_dpm_set_vcn_enable(smu, !gate);
-> +		ret = smu_dpm_set_vcn_enable(smu, !gate, NULL);
->  		if (ret)
->  			dev_err(smu->adev->dev, "Failed to power %s VCN!\n",
->  				gate ? "gate" : "ungate");
-> @@ -230,7 +238,7 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
->  				gate ? "gate" : "ungate");
->  		break;
->  	case AMD_IP_BLOCK_TYPE_JPEG:
-> -		ret = smu_dpm_set_jpeg_enable(smu, !gate);
-> +		ret = smu_dpm_set_jpeg_enable(smu, !gate, NULL);
->  		if (ret)
->  			dev_err(smu->adev->dev, "Failed to power %s JPEG!\n",
->  				gate ? "gate" : "ungate");
-> @@ -407,6 +415,7 @@ static int smu_late_init(void *handle)
->  {
->  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->  	struct smu_context *smu = &adev->smu;
-> +	int vcn_gate, jpeg_gate;
->  	int ret = 0;
->  
->  	if (!smu->pm_enabled)
-> @@ -418,6 +427,14 @@ static int smu_late_init(void *handle)
->  		return ret;
->  	}
->  
-> +	/*
-> +	 * 1. Power up VCN/JPEG as the succeeding smu_set_default_dpm_table()
-> +	 *    needs VCN/JPEG up.
-> +	 * 2. Save original gate states and then we can restore back afterwards.
-> +	 */
-> +	smu_dpm_set_vcn_enable(smu, true, &vcn_gate);
-> +	smu_dpm_set_jpeg_enable(smu, true, &jpeg_gate);
-> +
->  	/*
->  	 * Set initialized values (get from vbios) to dpm tables context such as
->  	 * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
-> @@ -429,6 +446,11 @@ static int smu_late_init(void *handle)
->  		return ret;
->  	}
->  
-> +	/* Restore back to original VCN/JPEG power gate states */
-> +	smu_dpm_set_vcn_enable(smu, !vcn_gate, NULL);
-> +	smu_dpm_set_jpeg_enable(smu, !vcn_gate, NULL);
-> +
-> +
->  	ret = smu_populate_umd_state_clk(smu);
->  	if (ret) {
->  		dev_err(adev->dev, "Failed to populate UMD state clocks!\n");
-> @@ -991,8 +1013,8 @@ static int smu_hw_init(void *handle)
->  
->  	if (smu->is_apu) {
->  		smu_powergate_sdma(&adev->smu, false);
-> -		smu_dpm_set_vcn_enable(smu, true);
-> -		smu_dpm_set_jpeg_enable(smu, true);
-> +		smu_dpm_set_vcn_enable(smu, true, NULL);
-> +		smu_dpm_set_jpeg_enable(smu, true, NULL);
->  		smu_set_gfx_cgpg(&adev->smu, true);
->  	}
->  
-> @@ -1132,8 +1154,8 @@ static int smu_hw_fini(void *handle)
->  
->  	if (smu->is_apu) {
->  		smu_powergate_sdma(&adev->smu, true);
-> -		smu_dpm_set_vcn_enable(smu, false);
-> -		smu_dpm_set_jpeg_enable(smu, false);
-> +		smu_dpm_set_vcn_enable(smu, false, NULL);
-> +		smu_dpm_set_jpeg_enable(smu, false, NULL);
->  	}
->  
->  	if (!smu->pm_enabled)
-> 
+Hi Evan,
+
+Thanks for the work. It would have taken me probably forever to find that=
+=2E
+
+I replied to your series with a Tested-by, and I tested locally. With
+edad8312cbbf9a33c86873fc4093664f150dd5c1 reverted to fix the sysfs
+interfaces, and your series, I once again have a 100% working OD system!
+
+Thanks for the snappy work,
+Matt
+
+On 8/2/20 10:50 PM, Quan, Evan wrote:
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Hi Matt,
+>
+> I just sent out two patches to fix the issue reported here. It worked
+on my local env.
+> Please confirm on your platform.
+> https://lists.freedesktop.org/archives/amd-gfx/2020-August/052245.html
+> https://lists.freedesktop.org/archives/amd-gfx/2020-August/052246.html
+>
+> BR,
+> Evan
+> -----Original Message-----
+> From: Quan, Evan
+> Sent: Friday, July 31, 2020 9:20 AM
+> To: Matt Coffin <mcoffin13@gmail.com>; amd-gfx@lists.freedesktop.org
+> Cc: Alex Deucher <alexdeucher@gmail.com>
+> Subject: RE: [Bug][Regression][Bisected] pp_table writes began to fail
+for Navi10 on amd-staging-drm-next
+>
+> Thanks for reporting this. I will check it.
+>
+> BR
+> Evan
+> -----Original Message-----
+> From: Matt Coffin <mcoffin13@gmail.com>
+> Sent: Thursday, July 30, 2020 10:25 PM
+> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Alex Deucher <alexdeucher@gmail.com>
+> Subject: [Bug][Regression][Bisected] pp_table writes began to fail for
+Navi10 on amd-staging-drm-next
+>
+> Hey Evan,
+>=20
+> I've been having an issue with uploading `pp_table`s on recent `amd-sta=
+ging-drm-next` kernels. I bisected the issue, and it came back to a commi=
+t of yours - ec8ee23f610578c71885a36ddfcf58d35cccab67.
+>=20
+> I didn't have your gitlab handle to CC you on the issue, so I thought I=
+'d at least alert you to it.
+>=20
+> Here's a link to the issue on GitLab:
+> https://gitlab.freedesktop.org/drm/amd/-/issues/1243
+>=20
+> I'd appreciate any help or insight you could offer here as I work on a =
+fix.
+>=20
+> First bad commit header:
+>=20
+> commit ec8ee23f610578c71885a36ddfcf58d35cccab67 (refs/bisect/bad)
+> Author: Evan Quan <evan.quan@amd.com>
+> Date:   Wed Jun 10 16:52:32 2020 +0800
+>=20
+>     drm/amd/powerplay: update Navi10 default dpm table setup
+>=20
+>     Cache all clocks levels for every dpm table. They are needed
+>     by other APIs.
+>=20
+>     Change-Id: I8114cf31e6ec8c9af4578d51749eb213befdcc71
+>     Signed-off-by: Evan Quan <evan.quan@amd.com>
+>     Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>=20
+> Thanks everyone, and cheers,
+> Matt Coffin
+>
+
+
+--JmEk4xqcbztWCHOgyODbHCsKmP8FRf1fi--
+
+--3ovN1oAmoHSH17ezkXrgtLI7q3X5PXAYZ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEwz6NkrTNYgbdBT2N4mzKau7FyAcFAl8oPWYACgkQ4mzKau7F
+yAcgEQ/9HvDUIhaZmvUC/jGF01OzJR0DhIXs52o2smSYtmOuXuS61bdY0/Pqss+F
+o3hdsN9FSDEJ8xJNr11iT7duLLAOoFL9ddcramO3FlW6UigmOxm4J2XMiGsswWBq
+GBBPovT/zNbkl8U/FwTF58ePSlIFp88JYKHshdxzVrLcRE66FbdD+7Rh9pwPuSnM
+7reAMpuuO2jxhEWuzDCyeMHvQClf4iBMYobRkN2lpfESUC1aAbtRWNAZqbIFn27p
+BfQ+ylpDuxDLW5iiYEd4J0vsffCZlaRomnsOHOb3lqmut/jBLW4b7GCQ+SfFsfhP
+aNUo2ku5I+FnxnoecwpXYxvHcfZWhTy/0zZZG4yJnpzcajjlXInXg1F1XF/D8KuK
+NuGlR0+KwnoZ5jEHLRZonk8+HqXnapGToucrfiFM4GjAK1/W1lzAmTKufE5YIH3l
+JBiBcG7fD9TFLWeuDdduRVsRjzOx/Zzi2mxWRiatjl+A5MLJn1XrLAkl7LeQyX6c
+pitx3sD9kI+jDguxxy9bP92LD4LQ2P1IonCp/0dVnKIcC+bx7kiPqFg9mdwXgb1o
+FBaUiYViaIfhhiOZJXcVW4MOUadF8hqHoIefxAUPvmD2+Yi290Seu4ZEJzqsfnjr
+Cb04Nqgcq7W3U68YaptXs6WfEW43gd6jj1hiEmov6GXepr0ZAIM=
+=gu2Y
+-----END PGP SIGNATURE-----
+
+--3ovN1oAmoHSH17ezkXrgtLI7q3X5PXAYZ--
+
+--===============0816481208==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0816481208==--
