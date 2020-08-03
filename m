@@ -2,62 +2,104 @@ Return-Path: <SRS0=0vKA=BN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92873C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 17:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9807AC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 19:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 69D1922B45
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 17:17:05 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Np7Qal28"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69D1922B45
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id CEEE0206D7
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 19:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEEE0206D7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADDE6E2D7;
-	Mon,  3 Aug 2020 17:17:06 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16A6A6E2D7
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 17:17:05 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9115022B4E
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 17:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596475023;
- bh=ZfW2vhvSScmUs7HxUE0FsgQ1dlDVdrRmbY/gG/hY7hg=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Np7Qal28gMw4vcH1iKZe+TCqR6WclB8Xl5dpKtQX+V2iYlgPe7V6F8enqvaZFIEk2
- I/Mthwxs+qNrkOId4Kwi++aCgOrG1nb2jiaXJkC5c1dj2bJ7lcaLS3wS0GK5Mj1eMN
- /F+YS18i6ApdnLrSIBlXk7GDgD7KvH9c8mG8Tmg8=
-Received: by mail-lf1-f54.google.com with SMTP id k13so20905694lfo.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2020 10:17:04 -0700 (PDT)
-X-Gm-Message-State: AOAM5313qFwqWTLECOuTZHHy1XADSHVSsJv8o9vAVizCdpXjw7A1DvKr
- k0/oRR026C+tx7YkpSsk26Y74QS26TywIKAtqHZA6A==
-X-Google-Smtp-Source: ABdhPJw3cLd2NyF1JTZLmIChK5azh663lCruYa9l5xMzdcEl0b7NT7N2OX4JjEA6xNE9eK5dDwiBzSwU4LUpGRtccrQ=
-X-Received: by 2002:a5d:65d2:: with SMTP id e18mr15622569wrw.70.1596475021990; 
- Mon, 03 Aug 2020 10:17:01 -0700 (PDT)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4676E152;
+	Mon,  3 Aug 2020 19:00:17 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFF2C89E43
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 17:34:16 +0000 (UTC)
+IronPort-SDR: BFfWm2N6MPWNggJAnoNiK2TgNDzvyk357c5LFb4PJxO3ggAV/CrBL7B9r0cCEM7A4et1JC9C6b
+ E8ezkkUol64Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9702"; a="149609846"
+X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="149609846"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2020 10:34:15 -0700
+IronPort-SDR: ziMvSzBOGauukD7LcvhWaE/PCYjetu+ox086xTHzOu8n7YHO7t4uc5+J2kYgPtrXosWptYXuNq
+ FjQ5ohxBh+eQ==
+X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="466609798"
+Received: from arossfer-mobl.amr.corp.intel.com (HELO [10.255.230.80])
+ ([10.255.230.80])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2020 10:34:14 -0700
+Subject: Re: [PATCH v6 12/12] x86/traps: Fix up invalid PASID
+To: Andy Lutomirski <luto@kernel.org>
 References: <1594684087-61184-1-git-send-email-fenghua.yu@intel.com>
  <1594684087-61184-13-git-send-email-fenghua.yu@intel.com>
  <CALCETrXnO4oh+WyxtSM-j_pP4QgkSg24=y76OBEHxXxAfJtPhA@mail.gmail.com>
  <f6d34d59-e6eb-ee9f-d247-8fb2f0e37549@intel.com>
  <CALCETrXLFwzCzoE8ZjciBO_WSK8StyTfO1yXVm4v2qFQZpfasg@mail.gmail.com>
  <12fbdc01-e444-8d10-5790-e3495fc8a837@intel.com>
-In-Reply-To: <12fbdc01-e444-8d10-5790-e3495fc8a837@intel.com>
-From: Andy Lutomirski <luto@kernel.org>
-Date: Mon, 3 Aug 2020 10:16:50 -0700
-X-Gmail-Original-Message-ID: <CALCETrWR1hL=eXAkn=OG1vtAPvC9n1jGqyNuyXpYw8QwPENo1A@mail.gmail.com>
-Message-ID: <CALCETrWR1hL=eXAkn=OG1vtAPvC9n1jGqyNuyXpYw8QwPENo1A@mail.gmail.com>
-Subject: Re: [PATCH v6 12/12] x86/traps: Fix up invalid PASID
-To: Dave Hansen <dave.hansen@intel.com>
+ <CALCETrWR1hL=eXAkn=OG1vtAPvC9n1jGqyNuyXpYw8QwPENo1A@mail.gmail.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+ z5cecg==
+Message-ID: <92a14516-1f63-5b5f-7f30-8870fe343c8e@intel.com>
+Date: Mon, 3 Aug 2020 10:34:13 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CALCETrWR1hL=eXAkn=OG1vtAPvC9n1jGqyNuyXpYw8QwPENo1A@mail.gmail.com>
+Content-Language: en-US
+X-Mailman-Approved-At: Mon, 03 Aug 2020 19:00:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,121 +118,41 @@ Cc: Ravi V Shankar <ravi.v.shankar@intel.com>,
  Joerg Roedel <joro@8bytes.org>, x86 <x86@kernel.org>,
  amd-gfx <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>,
  Ingo Molnar <mingo@redhat.com>, Fenghua Yu <fenghua.yu@intel.com>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- Sohil Mehta <sohil.mehta@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- Tony Luck <tony.luck@intel.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Borislav Petkov <bp@alien8.de>, Sohil Mehta <sohil.mehta@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Tony Luck <tony.luck@intel.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
  linux-kernel <linux-kernel@vger.kernel.org>,
  iommu <iommu@lists.linux-foundation.org>,
  Jacob Jun Pan <jacob.jun.pan@intel.com>, David Woodhouse <dwmw2@infradead.org>,
  Lu Baolu <baolu.lu@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 3, 2020 at 9:37 AM Dave Hansen <dave.hansen@intel.com> wrote:
->
-> On 8/3/20 8:12 AM, Andy Lutomirski wrote:
-> > I could easily be convinced that the PASID fixup is so trivial and so
-> > obviously free of misfiring in a way that causes an infinite loop that
-> > this code is fine.  But I think we first need to answer the bigger
-> > question of why we're doing a lazy fixup in the first place.
->
-> There was an (internal to Intel) implementation of this about a year ago
-> that used smp_call_function_many() to force the MSR state into all
-> threads of a process.  I took one look at it, decided there was a 0%
-> chance of it actually functioning and recommended we find another way.
-> While I'm sure it could be done more efficiently, the implementation I
-> looked at took ~200 lines of code and comments.  It started to look too
-> much like another instance of mm->cpumask for my comfort.
-
-If I were implementing this, I would try making switch_mm_irqs_off()
-do, roughly:
-
-void load_mm_pasid(...) {
-  if (cpu_feature_enabled(X86_FEATURE_ENQCMD))
-    tsk->xstate[offset] = READ_ONCE(next->context.pasid);
-}
-
-This costs one cache miss, although the cache line in question is
-about to be read anyway.  It might be faster to, instead, do:
-
-void load_mm_pasid(...) {
-  u32 pasid = READ_ONCE(next->context.pasid);
-
-  if (tsk->xstate[offset] != pasid)
-    tsk->state[offset] = pasid;
-}
-
-so we don't dirty the cache line in the common case.  The actual
-generated code ought to be pretty good -- surely the offset of PASID
-in XSTATE is an entry in an array somewhere that can be found with a
-single read, right?
-
-The READ_ONCE is because this could race against a write to
-context.pasid, so this code needs to be at the end of the function
-where it's protected by mm_cpumask.  With all this done, the pasid
-update is just on_each_cpu_mask(mm_cpumask(mm), load_mm_pasid, mm,
-true).
-
-This looks like maybe 20 lines of code.  As an added bonus, it lets us
-free PASIDs early if we ever decide we want to.
-
-
-
-
-May I take this opportunity to ask Intel to please put some real
-thought into future pieces of CPU state?  Here's a summary of some
-things we have:
-
-- Normal extended state (FPU, XMM, etc): genuinely per thread and only
-ever used explicitly.  Actually makes sense with XSAVE(C/S).
-
-- PKRU: affects CPL0-originated memory accesses, so it needs to be
-eagerly loaded in the kernel.  Does not make sense with XRSTOR(C/S),
-but it's in there anyway.
-
-- CR3: per-mm state.  Makes some sense in CR3, but it's tangled up
-with CR4 in nasty ways.
-
-- LDTR: per-mm on Linux and mostly obsolete everyone.  In it's own
-register, so it's not a big deal.
-
-- PASID: per-mm state (surely Intel always intended it to be per-mm,
-since it's for shared _virtual memory_!).  But for some reason it's in
-an MSR (which is slow), and it's cleverly, but not that cleverly,
-accessible with XSAVES/XRSTORS.  Doesn't actually make sense.  Also,
-PASID is lazy-loadable, but the mechanism for telling the kernel that
-a lazy load is needed got flubbed.
-
-- TILE: genuinely per-thread, but it's expensive so it's
-lazy-loadable.  But the lazy-load mechanism reuses #NM, and it's not
-fully disambiguated from the other use of #NM.  So it sort of works,
-but it's gross.
-
-- "KERNEL_GS_BASE", i.e. the shadow GS base.  This is logically
-per-user-thread state, but it's only accessible in MSRs.  For some
-reason this is *not* in XSAVES/XRSTORS state, nor is there any
-efficient way to access it at all.
-
-- Segment registers: can't be properly saved except by hypervisors,
-and can almost, but not quite, be properly loaded (assuming the state
-was sane to begin with) by normal kernels.  Just don't try to load 1,
-2, or 3 into any of them.
-
-Sometimes I think that this is all intended to be as confusing as
-possible and that it's all a ploy to keep context switches slow and
-complicated.  Maybe Intel doesn't actually want to compete with other
-architectures that can context switch quickly?
-
-
-It would be really nice if we had a clean way to load per-mm state
-(see my private emails about this), a clean way to load CPL3 register
-state, and a clean way to load per-user-thread *kernel* register state
-(e.g. PKRU and probably PKRS).  And there should be an exception that
-says "user code accessed a lazy-loaded resource that isn't loaded, and
-this is the resource it tried to access".
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gOC8zLzIwIDEwOjE2IEFNLCBBbmR5IEx1dG9taXJza2kgd3JvdGU6Cj4gLSBUSUxFOiBnZW51
+aW5lbHkgcGVyLXRocmVhZCwgYnV0IGl0J3MgZXhwZW5zaXZlIHNvIGl0J3MKPiBsYXp5LWxvYWRh
+YmxlLiAgQnV0IHRoZSBsYXp5LWxvYWQgbWVjaGFuaXNtIHJldXNlcyAjTk0sIGFuZCBpdCdzIG5v
+dAo+IGZ1bGx5IGRpc2FtYmlndWF0ZWQgZnJvbSB0aGUgb3RoZXIgdXNlIG9mICNOTS4gIFNvIGl0
+IHNvcnQgb2Ygd29ya3MsCj4gYnV0IGl0J3MgZ3Jvc3MuCgpGb3IgdGhvc2UgcGxheWluZyBhbG9u
+ZyBhdCBob21lLCB0aGVyZSdzIGEgbmV3IHdoaXRlcGFwZXIgb3V0IGZyb20gSW50ZWwKYWJvdXQg
+c29tZSBuZXcgQ1BVIGZlYXR1cmVzIHdoaWNoIGFyZSBnb2luZyB0byBiZSBmdW46Cgo+IGh0dHBz
+Oi8vc29mdHdhcmUuaW50ZWwuY29tL2NvbnRlbnQvZGFtL2RldmVsb3AvcHVibGljL3VzL2VuL2Rv
+Y3VtZW50cy9hcmNoaXRlY3R1cmUtaW5zdHJ1Y3Rpb24tc2V0LWV4dGVuc2lvbnMtcHJvZ3JhbW1p
+bmctcmVmZXJlbmNlLnBkZgoKV2hpY2ggcGFydCB3ZXJlIHlvdSB3b3JyaWVkIGFib3V0PyAgSSB0
+aG91Z2h0IGl0IHdhcyBmdWxseSBkaXNhbWJ1Z3VhdGVkCmZyb20gdGhpczoKCj4gV2hlbiBYRkQg
+Y2F1c2VzIGFuIGluc3RydWN0aW9uIHRvIGdlbmVyYXRlICNOTSwgdGhlIHByb2Nlc3NvciBsb2Fk
+cwo+IHRoZSBJQTMyX1hGRF9FUlIgTVNSIHRvIGlkZW50aWZ5IHRoZSBkaXNhYmxlZCBzdGF0ZSBj
+b21wb25lbnQocykuCj4gU3BlY2lmaWNhbGx5LCB0aGUgTVNSIGlzIGxvYWRlZCB3aXRoIHRoZSBs
+b2dpY2FsIEFORCBvZiB0aGUgSUEzMl9YRkQKPiBNU1IgYW5kIHRoZSBiaXRtYXAgY29ycmVzcG9u
+ZGluZyB0byB0aGUgc3RhdGUgY29tcG9uZW50cyByZXF1aXJlZCBieQo+IHRoZSBmYXVsdGluZyBp
+bnN0cnVjdGlvbi4KPiAKPiBEZXZpY2Utbm90LWF2YWlsYWJsZSBleGNlcHRpb25zIHRoYXQgYXJl
+IG5vdCBkdWUgdG8gWEZEIOKAlCB0aG9zZSAKPiByZXN1bHRpbmcgZnJvbSBzZXR0aW5nIENSMC5U
+UyB0byAxIOKAlCBkbyBub3QgbW9kaWZ5IHRoZSBJQTMyX1hGRF9FUlIKPiBNU1IuCgpTbyBpZiB5
+b3UgYWx3YXlzIG1ha2Ugc3VyZSB0byAqY2xlYXIqIElBMzJfWEZEX0VSUiBhZnRlciBoYW5kaW5n
+IGFuZCBYRkQKZXhjZXB0aW9uLCBhbnkgI05NJ3Mgd2l0aCBhIGNsZWFyIElBMzJfWEZEX0VSUiBh
+cmUgZnJvbSAibGVnYWN5IgpDUjAuVFM9MS4gIEFueSBiaXRzIHNldCBpbiBJQTMyX1hGRF9FUlIg
+bWVhbiBhIG5ldy1zdHlsZSBYRkQgZXhjZXB0aW9uLgoKQW0gSSBtaXNzaW5nIHNvbWV0aGluZz8K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
