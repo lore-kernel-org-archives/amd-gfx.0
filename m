@@ -4,50 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9807AC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 19:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDA0BC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 19:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CEEE0206D7
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 19:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEEE0206D7
+	by mail.kernel.org (Postfix) with ESMTPS id 351F7206D7
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 19:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 351F7206D7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4676E152;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13CB6E2ED;
 	Mon,  3 Aug 2020 19:00:17 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF2C89E43
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 17:34:16 +0000 (UTC)
-IronPort-SDR: BFfWm2N6MPWNggJAnoNiK2TgNDzvyk357c5LFb4PJxO3ggAV/CrBL7B9r0cCEM7A4et1JC9C6b
- E8ezkkUol64Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9702"; a="149609846"
-X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="149609846"
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92E6589D5E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 15:03:53 +0000 (UTC)
+IronPort-SDR: OclXhP233NiSalAEMrIe22/F3GLLqfZecI0mdd79WsDPV5Dx9EpA8LRUTlB4nypxePPzX+Horn
+ 81BRYKVyNfeg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9702"; a="140057781"
+X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="140057781"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2020 10:34:15 -0700
-IronPort-SDR: ziMvSzBOGauukD7LcvhWaE/PCYjetu+ox086xTHzOu8n7YHO7t4uc5+J2kYgPtrXosWptYXuNq
- FjQ5ohxBh+eQ==
-X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="466609798"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2020 08:03:53 -0700
+IronPort-SDR: Jnfxgatw79Je6t+dSPbcv95/xzHQnXXvkweXDkYm7QaWn0ziThSSeRmtM5CN0xZfZ+RhwdtxLj
+ KTMS2DRfK+8g==
+X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="466539194"
 Received: from arossfer-mobl.amr.corp.intel.com (HELO [10.255.230.80])
  ([10.255.230.80])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2020 10:34:14 -0700
+ 03 Aug 2020 08:03:52 -0700
 Subject: Re: [PATCH v6 12/12] x86/traps: Fix up invalid PASID
-To: Andy Lutomirski <luto@kernel.org>
+To: Andy Lutomirski <luto@kernel.org>, Fenghua Yu <fenghua.yu@intel.com>
 References: <1594684087-61184-1-git-send-email-fenghua.yu@intel.com>
  <1594684087-61184-13-git-send-email-fenghua.yu@intel.com>
  <CALCETrXnO4oh+WyxtSM-j_pP4QgkSg24=y76OBEHxXxAfJtPhA@mail.gmail.com>
- <f6d34d59-e6eb-ee9f-d247-8fb2f0e37549@intel.com>
- <CALCETrXLFwzCzoE8ZjciBO_WSK8StyTfO1yXVm4v2qFQZpfasg@mail.gmail.com>
- <12fbdc01-e444-8d10-5790-e3495fc8a837@intel.com>
- <CALCETrWR1hL=eXAkn=OG1vtAPvC9n1jGqyNuyXpYw8QwPENo1A@mail.gmail.com>
 From: Dave Hansen <dave.hansen@intel.com>
 Autocrypt: addr=dave.hansen@intel.com; keydata=
  xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
@@ -92,12 +87,12 @@ Autocrypt: addr=dave.hansen@intel.com; keydata=
  OPsw5tV/LmQ5GXH0JQ/TZXWygyRFyyI2FqNTx4WHqUn3yFj8rwTAU1tluRUYyeLy0ayUlKBH
  ybj0N71vWO936MqP6haFERzuPAIpxj2ezwu0xb1GjTk4ynna6h5GjnKgdfOWoRtoWndMZxbA
  z5cecg==
-Message-ID: <92a14516-1f63-5b5f-7f30-8870fe343c8e@intel.com>
-Date: Mon, 3 Aug 2020 10:34:13 -0700
+Message-ID: <f6d34d59-e6eb-ee9f-d247-8fb2f0e37549@intel.com>
+Date: Mon, 3 Aug 2020 08:03:51 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CALCETrWR1hL=eXAkn=OG1vtAPvC9n1jGqyNuyXpYw8QwPENo1A@mail.gmail.com>
+In-Reply-To: <CALCETrXnO4oh+WyxtSM-j_pP4QgkSg24=y76OBEHxXxAfJtPhA@mail.gmail.com>
 Content-Language: en-US
 X-Mailman-Approved-At: Mon, 03 Aug 2020 19:00:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -111,48 +106,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ravi V Shankar <ravi.v.shankar@intel.com>,
- Peter Zijlstra <peterz@infradead.org>, H Peter Anvin <hpa@zytor.com>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>,
- Dave Jiang <dave.jiang@intel.com>, Ashok Raj <ashok.raj@intel.com>,
- Joerg Roedel <joro@8bytes.org>, x86 <x86@kernel.org>,
+Cc: Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ Tony Luck <tony.luck@intel.com>, Dave Jiang <dave.jiang@intel.com>,
+ Ashok Raj <ashok.raj@intel.com>, Ravi V Shankar <ravi.v.shankar@intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Joerg Roedel <joro@8bytes.org>,
+ x86 <x86@kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>,
  amd-gfx <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Fenghua Yu <fenghua.yu@intel.com>,
- Borislav Petkov <bp@alien8.de>, Sohil Mehta <sohil.mehta@intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Tony Luck <tony.luck@intel.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- iommu <iommu@lists.linux-foundation.org>,
- Jacob Jun Pan <jacob.jun.pan@intel.com>, David Woodhouse <dwmw2@infradead.org>,
- Lu Baolu <baolu.lu@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ iommu <iommu@lists.linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Jacob Jun Pan <jacob.jun.pan@intel.com>,
+ H Peter Anvin <hpa@zytor.com>, Sohil Mehta <sohil.mehta@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw2@infradead.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Lu Baolu <baolu.lu@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gOC8zLzIwIDEwOjE2IEFNLCBBbmR5IEx1dG9taXJza2kgd3JvdGU6Cj4gLSBUSUxFOiBnZW51
-aW5lbHkgcGVyLXRocmVhZCwgYnV0IGl0J3MgZXhwZW5zaXZlIHNvIGl0J3MKPiBsYXp5LWxvYWRh
-YmxlLiAgQnV0IHRoZSBsYXp5LWxvYWQgbWVjaGFuaXNtIHJldXNlcyAjTk0sIGFuZCBpdCdzIG5v
-dAo+IGZ1bGx5IGRpc2FtYmlndWF0ZWQgZnJvbSB0aGUgb3RoZXIgdXNlIG9mICNOTS4gIFNvIGl0
-IHNvcnQgb2Ygd29ya3MsCj4gYnV0IGl0J3MgZ3Jvc3MuCgpGb3IgdGhvc2UgcGxheWluZyBhbG9u
-ZyBhdCBob21lLCB0aGVyZSdzIGEgbmV3IHdoaXRlcGFwZXIgb3V0IGZyb20gSW50ZWwKYWJvdXQg
-c29tZSBuZXcgQ1BVIGZlYXR1cmVzIHdoaWNoIGFyZSBnb2luZyB0byBiZSBmdW46Cgo+IGh0dHBz
-Oi8vc29mdHdhcmUuaW50ZWwuY29tL2NvbnRlbnQvZGFtL2RldmVsb3AvcHVibGljL3VzL2VuL2Rv
-Y3VtZW50cy9hcmNoaXRlY3R1cmUtaW5zdHJ1Y3Rpb24tc2V0LWV4dGVuc2lvbnMtcHJvZ3JhbW1p
-bmctcmVmZXJlbmNlLnBkZgoKV2hpY2ggcGFydCB3ZXJlIHlvdSB3b3JyaWVkIGFib3V0PyAgSSB0
-aG91Z2h0IGl0IHdhcyBmdWxseSBkaXNhbWJ1Z3VhdGVkCmZyb20gdGhpczoKCj4gV2hlbiBYRkQg
-Y2F1c2VzIGFuIGluc3RydWN0aW9uIHRvIGdlbmVyYXRlICNOTSwgdGhlIHByb2Nlc3NvciBsb2Fk
-cwo+IHRoZSBJQTMyX1hGRF9FUlIgTVNSIHRvIGlkZW50aWZ5IHRoZSBkaXNhYmxlZCBzdGF0ZSBj
-b21wb25lbnQocykuCj4gU3BlY2lmaWNhbGx5LCB0aGUgTVNSIGlzIGxvYWRlZCB3aXRoIHRoZSBs
-b2dpY2FsIEFORCBvZiB0aGUgSUEzMl9YRkQKPiBNU1IgYW5kIHRoZSBiaXRtYXAgY29ycmVzcG9u
-ZGluZyB0byB0aGUgc3RhdGUgY29tcG9uZW50cyByZXF1aXJlZCBieQo+IHRoZSBmYXVsdGluZyBp
-bnN0cnVjdGlvbi4KPiAKPiBEZXZpY2Utbm90LWF2YWlsYWJsZSBleGNlcHRpb25zIHRoYXQgYXJl
-IG5vdCBkdWUgdG8gWEZEIOKAlCB0aG9zZSAKPiByZXN1bHRpbmcgZnJvbSBzZXR0aW5nIENSMC5U
-UyB0byAxIOKAlCBkbyBub3QgbW9kaWZ5IHRoZSBJQTMyX1hGRF9FUlIKPiBNU1IuCgpTbyBpZiB5
-b3UgYWx3YXlzIG1ha2Ugc3VyZSB0byAqY2xlYXIqIElBMzJfWEZEX0VSUiBhZnRlciBoYW5kaW5n
-IGFuZCBYRkQKZXhjZXB0aW9uLCBhbnkgI05NJ3Mgd2l0aCBhIGNsZWFyIElBMzJfWEZEX0VSUiBh
-cmUgZnJvbSAibGVnYWN5IgpDUjAuVFM9MS4gIEFueSBiaXRzIHNldCBpbiBJQTMyX1hGRF9FUlIg
-bWVhbiBhIG5ldy1zdHlsZSBYRkQgZXhjZXB0aW9uLgoKQW0gSSBtaXNzaW5nIHNvbWV0aGluZz8K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 7/31/20 4:34 PM, Andy Lutomirski wrote:
+>> Thomas suggested to provide a reason for the #GP caused by executing ENQCMD
+>> without a valid PASID value programmed. #GP error codes are 16 bits and all
+>> 16 bits are taken. Refer to SDM Vol 3, Chapter 16.13 for details. The other
+>> choice was to reflect the error code in an MSR. ENQCMD can also cause #GP
+>> when loading from the source operand, so its not fully comprehending all
+>> the reasons. Rather than special case the ENQCMD, in future Intel may
+>> choose a different fault mechanism for such cases if recovery is needed on
+>> #GP.
+> Decoding the user instruction is ugly and sets a bad architecture
+> precedent, but we already do it in #GP for UMIP.  So I'm unconvinced.
+
+I'll try to do one more bit of convincing. :)
+
+In the end, we need a way to figure out if the #GP was from a known "OK"
+source that we can fix up.  You're right that we could fire up the
+instruction decoder to help answer that question.  But, it (also)
+doesn't easily yield a perfect answer as to the source of the #GP, it
+always involves a user copy, and it's a larger code impact than what
+we've got.
+
+I think I went and looked at fixup_umip_exception(), and compared it to
+the alternative which is essentially just these three lines of code:
+
+> +	/*
+> +	 * If the current task already has a valid PASID in the MSR,
+> +	 * the #GP must be for some other reason.
+> +	 */
+> +	if (current->has_valid_pasid)
+> +		return false;
+...> +	/* Now the current task has a valid PASID in the MSR. */
+> +	current->has_valid_pasid = 1;
+
+and *I* was convinced that instruction decoding wasn't worth it.
+
+There's a lot of stuff that fixup_umip_exception() does which we don't
+have to duplicate, but it's going to be really hard to get it anywhere
+near as compact as what we've got.
+
+I guess Fenghua could go give instruction decoding a shot and see how it
+looks, though.
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
