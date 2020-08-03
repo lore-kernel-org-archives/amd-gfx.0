@@ -2,109 +2,120 @@ Return-Path: <SRS0=0vKA=BN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 849C0C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 04:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DBDBC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 06:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FC492070A
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 04:50:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D5CF820678
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2020 06:00:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Cn+YFB1W"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FC492070A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yZI3QS3w"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5CF820678
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80AAD89E1D;
-	Mon,  3 Aug 2020 04:50:59 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C703389E1D
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 04:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05BFA89D73;
+	Mon,  3 Aug 2020 06:00:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98AC089D73
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2020 06:00:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iy9eJC9cau6u+oHuOOrfWLRLQD9lkmP4XX3WKd0P7BAVTcfXCQUejpjc7VAsfiX1OQk/m6IYYd/gpSk4hRixmBN6iC8CZmUBDtU5F+0Z00RXA9PCfjS6U3bPgAlVxIPDBeJdSXtBjBsd7v+4epveEGhwXngkeqAHFo4cG2S9My0IQQlNu4aGSWKWN+Auv4tooPEZ5BqAsAaOnjvkiDWu4lVsxKEzOu1Vf8SIGGXt2UwbHrgYyJJWGawpOGoY/2cG/f+EE8/4htSTzfGUSJJx6McAknzJde2PsYNzIL1DNhzfibSCCkyYiROrUXe4HEMIvTaTQ6FSNjATXXHyY77Ncw==
+ b=fWsACquZ9BhuIbpgYYYeU7RM955uZt6b7YFUnG5Ppb3sjqwPO5w/ONnEt/QmKkMm3XvRjZDZ4nYVkkp4/l6ixni6I8uTZ2pe2dHPiKmv40XsIid5Oy6TZNrjtutyVyrpuyo7RMKsJnTXP75AFnTe5GUvKKrJ+VJ4/tglBQYZlas4G+7YNk5M1BFgkNA2oFRPMNRZ6ymkCQbneo0Hg5MlCvIgPgeEbNq3ETnqwND9nGowyiJBiH165+9W18DAHsk8EpMpqvKKwpFfawlA/ALwgAdVW9/Hp0kdi+1jdJiscvtgM7T0DRLkGoVO2bukE2c1dNjOOFPgoBxMKSxcmv+H8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YODInUMPH+OZM1DEOddyjrV4pufQyMCbEzsa83Tdi7g=;
- b=jMfS6rzOdcwstCw5Sp09vBQNrgPxc+oe2QB3cyxH4YK+VE2KMYhtC9rcjE/RO5t68/die/Ve316qLrMDte7eT3r7vxmyJpRlfFzK2CoKCcJ+8QJrp04NEFvtEZFv8KiVBGlD7lKCS2w3Ir4TwKnGVvpYYdqnDlGVGWimNRajEIrItNpNiZfARbk0Rf4jLPMySDnLoGEKus6ODhHe05qE568TZdpnf6O9hfrXN/Wgs4swMmVxg1SiohHwssr6NeSZPhJMGjTEpke7J90CKBd2a7nI4/MOCOEt2jVjBI3NgOqYcKSnT9saLorOlG1YVcpTKkK/m3KGuuK/4HViQ7AAKQ==
+ bh=FU/PHtnKMZS7z+Eh4FDllLeJi2IG5AE02uezGH6NzVk=;
+ b=W9NZ9CCwvDeFoKnGydJQLVRtttWYurAGBCcsOtWqTKNM6Yq6r0lBHoYlg0PaL7dUTNCOncqAcNFVmbDv7bYEybpbPo8vNEY02tMHP/DoSjTsIsgsDMn4t6wElNnL+JrYguswK4AKMmuRsCuZ0E/x5Ik3svMOwaWHNJ+ldNwej25iNuf+OVDvVL4Gyg8NDmYzz87q2bfwZijOPRKhcThKmU0QA4FwrUb9RysPzEqHnGbVxfXagK4Sluei2NjJ32tQ8fm4/8mjbHc+C2wzOPAfoGxWT7BdKX/V3cXF+Ec8Avaf8iVjvFH8ylOJDD86tYKWk8eJzLg9ETjiCj4jjXNQdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YODInUMPH+OZM1DEOddyjrV4pufQyMCbEzsa83Tdi7g=;
- b=Cn+YFB1W0igMt9XCnj2WgpITunD11r/CqjsNgpPa4yR8QYNkutB4256MgkNC33/v7ozIU0nSiDp0G/d/HKcl6FrxteDrtgQ+mkhTDTh7hcfNl5cRIiQP5IGQsalw+gT41v4PoZTihF+ilM2i/mDrs/+QUQi1A+YcFD97ZS0ipMw=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM5PR1201MB0218.namprd12.prod.outlook.com (2603:10b6:4:4d::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.20; Mon, 3 Aug 2020 04:50:56 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.021; Mon, 3 Aug 2020
- 04:50:56 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Matt Coffin <mcoffin13@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [Bug][Regression][Bisected] pp_table writes began to fail for
- Navi10 on amd-staging-drm-next
-Thread-Topic: [Bug][Regression][Bisected] pp_table writes began to fail for
- Navi10 on amd-staging-drm-next
-Thread-Index: AQHWZn1GQd42tbb/yka/ETmxecxGwqkg5FXAgATxQDA=
-Date: Mon, 3 Aug 2020 04:50:56 +0000
-Message-ID: <DM6PR12MB2619432DCDA1624DE36D7C97E44D0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <c9711af0-12c8-9da8-8a3f-859cdc26129f@gmail.com>
- <DM6PR12MB2619B3A4D4FF0BD91C594E09E44E0@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2619B3A4D4FF0BD91C594E09E44E0@DM6PR12MB2619.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ bh=FU/PHtnKMZS7z+Eh4FDllLeJi2IG5AE02uezGH6NzVk=;
+ b=yZI3QS3wcK6tOG4rwmFkyhlGe/El0DKAa5EvTPf9wxcVOVjjkQpYg5DU5iTQPBcOs89a8SmNGHZRyGeZ3O2LoM6hKaGE2FoijaNdRexbi6G7iXTmufAI2x1ofw01dWxzvwHTghAbYoE3ybcnAC2uUmWFBjEmIoWxQdOgTN+Psnc=
+Received: from MN2PR12MB4032.namprd12.prod.outlook.com (2603:10b6:208:16d::32)
+ by MN2PR12MB4376.namprd12.prod.outlook.com (2603:10b6:208:26c::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Mon, 3 Aug
+ 2020 06:00:42 +0000
+Received: from MN2PR12MB4032.namprd12.prod.outlook.com
+ ([fe80::a8dc:41c8:6812:d235]) by MN2PR12MB4032.namprd12.prod.outlook.com
+ ([fe80::a8dc:41c8:6812:d235%7]) with mapi id 15.20.3239.016; Mon, 3 Aug 2020
+ 06:00:42 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amdgpu: enable RAS support for sienna
+Thread-Topic: [PATCH] drm/amdgpu: enable RAS support for sienna
+Thread-Index: AdZpW0yRASYpPXOeRrWELF9H7Dx0bQ==
+Date: Mon, 3 Aug 2020 06:00:42 +0000
+Message-ID: <MN2PR12MB403260349869815CF543201FFB4D0@MN2PR12MB4032.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: 
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=ea852cd8-1bd7-4cb5-ac8f-467a94fab1f3;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-07-31T01:19:38Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-03T06:00:38Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=8643324a-d5bd-44bd-b7fc-000054a2e6d2;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-08-03T06:00:33Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 41386be6-cc74-4c6b-a204-0000a744d7cd
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-08-03T06:00:39Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 8f3866d0-0945-49d2-ab65-000087e0a55e
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7e2bc82c-c733-4008-3b39-08d83768cf10
-x-ms-traffictypediagnostic: DM5PR1201MB0218:
-x-microsoft-antispam-prvs: <DM5PR1201MB0218A4576F4CDAE6C588A4D9E44D0@DM5PR1201MB0218.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-ms-office365-filtering-correlation-id: b2236f6f-d4a6-402a-733e-08d837728e60
+x-ms-traffictypediagnostic: MN2PR12MB4376:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB4376348C2E9104718735DD96FB4D0@MN2PR12MB4376.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GgApqoJGyqb7lCjs3We2z3AuWuaZ+sJNOm8v7acqL8NWrn+9Cu3FqKslDwRxG5SZsKhM623K3C2yM6wk6ZSjU4/OFZb6kaggrYHUHhZxLsjXJq5PIK9CsFArjIWkJ9OuOM2I7/IwJrA3Z77ad3qry29tUaNCkTVD2F818U1RoN12+BXUr1vomX44UIP1OjUbhoScWqfPJxqrHb6PUY/xf9s2CFPwQ7CO/sVTjSnFUbbJNmxebVyMg/pSSCIzNvsSBFk/jDWxF3U/X0ASHDoFNkGqxn/Kyz6ESUWTphZaeE41WYFxKyjGBCm2wh5mtl1xGjw7c4DkLO49Tat4EMQdvgjy0qZyqRucyqbekedphn8=
+x-microsoft-antispam-message-info: IYxWKEefZU396FrCS0JTLfG+HE23PoAFdXOfl60NtjnV9gWegMGLhAucVyjNzY3GhSHzZXxYvxs/pFEBvjXiJxyGhUgXHlv/V+YsOHB0Cfbefw0Gv+LVVXmKDZkmh8Fe9gY4pIRSFiIYBbPHnDcsM3t2QaDhK9covablnGGSxJDmKbdzDvQXpQRtNDs+VLsU+1HvlZ7oDQwS6C7QG4DFR95YGLRKRMDMkxJ8vJ3yHs0gagTHw39HPaKutu0zzMstTc4cfyaxZj9GQ+KhDKD3EdUiPwhhnnjkEaPyfRUnTcplP03mEOvZj7GErD0Yv7wPFWWUAZ50apLhfOALaJgkCQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4032.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(346002)(366004)(396003)(39860400002)(136003)(186003)(5660300002)(316002)(7696005)(66476007)(64756008)(8936002)(55016002)(9686003)(4326008)(66946007)(66556008)(71200400001)(478600001)(66446008)(966005)(110136005)(52536014)(33656002)(86362001)(6506007)(53546011)(76116006)(26005)(2906002)(83380400001)(8676002);
+ SFS:(4636009)(346002)(376002)(366004)(39860400002)(136003)(396003)(71200400001)(316002)(86362001)(7696005)(186003)(6506007)(110136005)(52536014)(33656002)(5660300002)(2906002)(6636002)(8936002)(66946007)(66446008)(64756008)(66556008)(66476007)(66616009)(26005)(76116006)(99936003)(478600001)(558084003)(9686003)(8676002)(55016002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: krxKfiDA0ld0lqSzNn0JZzs3R2W5+fiiN0Dp94EutrYBxPIHxuhfOPuHfp5+p8lRHA53l3tzXuxxwpf7j5yjORJcgkzfnOOeHJ9nzbATMKCMgb6hMBsCJhXmR3UEZoW38z0Wvm3W4A2Ij/LcZ1z4yY6IXb/h+TQxrHJupowwnD38xkjDt2ydnWtdzUVgD4TU8KHlqsJZ4bADaT/lpf8UauHiN97zP3hjzijzlm7GPr2SPRNmC+05hB/NH3V+5voqWYpAccjsVQYYrbeJRUnxaG7mlWJgM9RefceX5+h+NaJ3gdxiywWFHVhskmhhZ2QOs2NmKeY8jWj7sc6KloUPmoMuIB5W2pjaSrplJHgY6VwPUnLr6OHNY1kYYxQRpC23NptSwhu27SfKE5maoArVgHuwj/805uAo2NGjdHq5zOJxzammmm6KLCaaIz7ec44K1/ZfdCUOCGzz3qSqVpG/5+tQgDFk0T9+WQIMQ8oBDJ9NEQzWjXHkQuna3hc4vtNaWe7VeNpcW4P9aH2yzEW7F5weZ8GOC+HeKLpuqhQYApi8d0/w01nSA/DWfDXFmgQXVz5DX5X6GcwLzpp6sgymsQbh1mo8+9TLhkM3pcI0ItrmjfKTq/+MEIojtATUGdujYGCy7D88DQaZRrnAs2eVkA==
-x-ms-exchange-transport-forked: True
+x-ms-exchange-antispam-messagedata: FykmzoGbvHmedehGpSgYmMyE68CPA/degKrnfu6NIGhdWE3mgiTVKbAun/uvh1RrmD78/ooQ9D37K0/yTyk1RjO4HLbCgiDZRr/DXgNmcxmN0MYRySXGdqTEgcl09EO+gBvF+79jEAddoJNj0qjcWVPq+zrQ+4l/dC5v3ktuJK557aUKGPaoEHnW2xfS/LiRXrqp+cI5W/UFvU0c30b/NWn6kUTZ6VuN1S5HS25Y80R4O5khAlTVd33dv7ngeVOQHbBTSV0WiEvit/llTDpANGQc25xuyQhXSSxQ7+5AkFkxDZBNrsVT40rgkdTHwM9vlo2Sp6vVBgm0YRkdXO1si0FbRK3/mzazikk6sKES5lEzrb//t5v7eFKTteXN17vRRARPBzq08NS6dbuec2k7bp/Xg94GzA7bda/q1MRx0VJT2n1a3QVQF936IobHsgxY2Cflt/mjx5+27rDgwKhoEbOzU4HrI0SpjbIyRjXSy/QdEekNYsbkpCXoe878+MY8XUqfp6v1GUItD4Da1YKgFtodTN18oEK6RjQlrKhgSZ4fmzHN2e7RCtEERYkQgsbZXePS7ufEDTNRJAM9hPqCtsipFIblK+WRx533dPl8DP5uHR8xxGI6PVsBX13xlR7xc/eJDWQeLDgKDu51N+mYBA==
+Content-Type: multipart/mixed;
+ boundary="_004_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e2bc82c-c733-4008-3b39-08d83768cf10
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2020 04:50:56.1699 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4032.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2236f6f-d4a6-402a-733e-08d837728e60
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2020 06:00:42.5941 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0fisdf+pb2AcMbzcLioroCTFQcmsPK9+S+CnfUv0T1Mu3+9UE3Zdm/UGGVxpoHN2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0218
+X-MS-Exchange-CrossTenant-userprincipalname: jW+EHmgKRhuV3hrIXBmH00tgfY69/uA9uzQq5g/d+bbpOsx8IxoJj6ik2GGUU/x0hRvHBD6orjJ7bqF+BPEXnw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4376
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,89 +127,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+--_004_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_"
 
-Hi Matt,
+--_000_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I just sent out two patches to fix the issue reported here. It worked on my local env.
-Please confirm on your platform.
-https://lists.freedesktop.org/archives/amd-gfx/2020-August/052245.html
-https://lists.freedesktop.org/archives/amd-gfx/2020-August/052246.html
+[AMD Public Use]
 
-BR,
-Evan
------Original Message-----
-From: Quan, Evan
-Sent: Friday, July 31, 2020 9:20 AM
-To: Matt Coffin <mcoffin13@gmail.com>; amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [Bug][Regression][Bisected] pp_table writes began to fail for Navi10 on amd-staging-drm-next
+Submitting patch to turn on GECC error injection /query support for sienna =
+cichilid.
 
-Thanks for reporting this. I will check it.
+Thank you,
+John Clements
 
-BR
-Evan
------Original Message-----
-From: Matt Coffin <mcoffin13@gmail.com>
-Sent: Thursday, July 30, 2020 10:25 PM
-To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexdeucher@gmail.com>
-Subject: [Bug][Regression][Bisected] pp_table writes began to fail for Navi10 on amd-staging-drm-next
+--_000_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<p class=3D"msipheader251902e5" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#317100">[AMD Public Use]</s=
+pan></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Submitting patch to turn on GECC error injection /qu=
+ery support for sienna cichilid.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
+</div>
+</body>
+</html>
 
-Hey Evan,
+--_000_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_--
 
-I've been having an issue with uploading `pp_table`s on recent `amd-staging-drm-next` kernels. I bisected the issue, and it came back to a commit of yours - ec8ee23f610578c71885a36ddfcf58d35cccab67.
+--_004_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_
+Content-Type: application/octet-stream;
+	name="0001-drm-amdgpu-enable-RAS-support-for-sienna.patch"
+Content-Description: 0001-drm-amdgpu-enable-RAS-support-for-sienna.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-enable-RAS-support-for-sienna.patch"; size=1640;
+	creation-date="Mon, 03 Aug 2020 05:59:00 GMT";
+	modification-date="Mon, 03 Aug 2020 05:59:00 GMT"
+Content-Transfer-Encoding: base64
 
-I didn't have your gitlab handle to CC you on the issue, so I thought I'd at least alert you to it.
+RnJvbSAzM2U1ZDFiNWU3ODUyZDZjZTJiODVlYmY0YTA4NTBmZjVlZDE5YmFmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIENsZW1lbnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+
+CkRhdGU6IE1vbiwgMyBBdWcgMjAyMCAxMzo1NzozOSArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRy
+bS9hbWRncHU6IGVuYWJsZSBSQVMgc3VwcG9ydCBmb3Igc2llbm5hCgplbmFibGVkIEdFQ0MgZXJy
+b3IgaW5qZWN0aW9uIGFuZCBxdWVyeSBzdXBwb3J0CgpTaWduZWQtb2ZmLWJ5OiBKb2huIENsZW1l
+bnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+CkNoYW5nZS1JZDogSTJmODYwNzEyNDNiZGMyOTdj
+NGU4ZDIxNmZlYTY3MWFjMTkzMjZjMDQKLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcmFzLmMgfCA1ICsrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEw
+XzAuYyAgfCA0ICsrKysKIDIgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAyIGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
+YXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYwppbmRleCA4OWNi
+MGFlOWRhOWQuLjFhNTVmNmY0OTJmZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3Jhcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9yYXMuYwpAQCAtMTk2NSw4ICsxOTY1LDkgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3Jhc19jaGVj
+a19zdXBwb3J0ZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJKnN1cHBvcnRlZCA9IDA7
+CiAKIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpIHx8ICFhZGV2LT5pc19hdG9tX2Z3IHx8Ci0J
+ICAgIChhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9WRUdBMjAgJiYKLQkgICAgIGFkZXYtPmFzaWNf
+dHlwZSAhPSBDSElQX0FSQ1RVUlVTKSkKKwkgICAgKGFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX1ZF
+R0EyMCAgICYmCisJICAgICBhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9BUkNUVVJVUyAmJgorCSAg
+ICAgYWRldi0+YXNpY190eXBlICE9IENISVBfU0lFTk5BX0NJQ0hMSUQpKQogCQlyZXR1cm47CiAK
+IAlpZiAoYW1kZ3B1X2F0b21maXJtd2FyZV9tZW1fZWNjX3N1cHBvcnRlZChhZGV2KSkgewpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYwppbmRleCAzNWQyMWYzMzBiMGEuLmRkOTFh
+OTNkZTYyYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8w
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMKQEAgLTYzMyw2
+ICs2MzMsMTAgQEAgc3RhdGljIGludCBnbWNfdjEwXzBfbGF0ZV9pbml0KHZvaWQgKmhhbmRsZSkK
+IAlpZiAocikKIAkJcmV0dXJuIHI7CiAKKwlyID0gYW1kZ3B1X2dtY19yYXNfbGF0ZV9pbml0KGFk
+ZXYpOworCWlmIChyKQorCQlyZXR1cm4gcjsKKwogCXJldHVybiBhbWRncHVfaXJxX2dldChhZGV2
+LCAmYWRldi0+Z21jLnZtX2ZhdWx0LCAwKTsKIH0KIAotLSAKMi4xNy4xCgo=
 
-Here's a link to the issue on GitLab:
-https://gitlab.freedesktop.org/drm/amd/-/issues/1243
+--_004_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-I'd appreciate any help or insight you could offer here as I work on a fix.
-
-First bad commit header:
-
-commit ec8ee23f610578c71885a36ddfcf58d35cccab67 (refs/bisect/bad)
-Author: Evan Quan <evan.quan@amd.com>
-Date:   Wed Jun 10 16:52:32 2020 +0800
-
-    drm/amd/powerplay: update Navi10 default dpm table setup
-
-    Cache all clocks levels for every dpm table. They are needed
-    by other APIs.
-
-    Change-Id: I8114cf31e6ec8c9af4578d51749eb213befdcc71
-    Signed-off-by: Evan Quan <evan.quan@amd.com>
-    Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Thanks everyone, and cheers,
-Matt Coffin
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEwz6NkrTNYgbdBT2N4mzKau7FyAcFAl8i2FAACgkQ4mzKau7F
-yAfhzQ//a4EgvriD6AdSFUgYmmdMnf1iN+cIDj8JnTuoOgRs+hV2ObIywyE4HZCC
-yd1+GdY8/P1VerdC6d5wpTozUBWQGvCnJRnF2kJ7ZKyjsITtpOh6qUWTPbKi7GrU
-qz9DD+BIMIcRW/qp+sqVBE0z6vEJSbEkoCF4njV/Qzy178XFNnt0rrScGTsIa+yj
-gvUw51m3T9qzMl9pglpUxZv9k3jQfirMZYDv2O2Ds7CIptPGeHDiCW7aNRAPYrmF
-UYnt7a2W6fhOrG7x2In8sMECsE/uNa8GMqxAXenRPDok093owHs9zg5lVLbHvvA8
-z3iB11n8VT6TknW6YpCm5uE3Lynq1acAIoVO/8m7z56SAIco+xxTkOKt5SWxZGvS
-wQN9teaMXYSzHR/d/RTSZXjxBcOYgokIJrcb1hmJd5zw/gvZeeMfhCpyAbnhbOpR
-wC6wbic39xNza9sIZrg5NCSx6UcBpfwjKygN7HSutua1nZi9WbvviY6LL69JYhmK
-Jyg8RgjgiUPrLomtZx60vLi54dAupyDqJZv2FRHMQTxC+7HagHcDItK8a1KIoNIW
-wsvUbonsyyMMxvrTbMPcrTm+yRkFmaP+1fnpgjL1WCHgd4imcl68sV22D64OCT/4
-YzfWzhN+dIIUnfy0eWiiLMlOsEWGBN+YPVdLxodK0okjDcQJQTA=
-=CzXz
------END PGP SIGNATURE-----
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_004_MN2PR12MB403260349869815CF543201FFB4D0MN2PR12MB4032namp_--
