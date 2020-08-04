@@ -2,70 +2,73 @@ Return-Path: <SRS0=+8vs=BO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A0C1C433E1
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 21:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70437C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 21:32:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 070B922BED
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 21:32:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4F8B620842
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 21:32:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen-nl.20150623.gappssmtp.com header.i=@basnieuwenhuizen-nl.20150623.gappssmtp.com header.b="X5Hetv2i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 070B922BED
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen-nl.20150623.gappssmtp.com header.i=@basnieuwenhuizen-nl.20150623.gappssmtp.com header.b="0ckm9rEN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F8B620842
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE006E096;
-	Tue,  4 Aug 2020 21:32:11 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C52096E03E
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 21:32:09 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id d190so3957280wmd.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2020 14:32:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1CE6E067;
+	Tue,  4 Aug 2020 21:32:12 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA5B76E03E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 21:32:10 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id f12so2884591wru.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2020 14:32:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=basnieuwenhuizen-nl.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DF5yKzOPMXVYngQSBfD05wSpsfrYcHWC8kfD4ia0he8=;
- b=X5Hetv2i20phNPeysBMxrpvbCw1680QQcLa9h94KZpQN+puvrnT2Vt+tz59KPZLvst
- d7nxvSsNM980eMV3iuwL3f9MoryemPn4GwFytGIxtCBWDEh4ZR4QIIXvU112pZBrHXdw
- VGsUFwCinb3qG4QdVLVokiEBOeMGFknnSzvbj5XJ9w7FNMczQkMZC7CRU+JfHYiW4uNQ
- JrAMlNa7jwd0mdbtu593vZjlK3k+k8fiIsAQALmzchn+CqCTJFBQRirizzWwAnEmhnha
- oR8zBjHSRpD0+Z1NLI5n/B/Yv7EwnBmKcfrIZSU7Arm7oUvPSjQQEDEz20qdiSscZ8JZ
- kjIw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=hm6vvQCNB8lhjjgdZDH+zk/Q4v5q4HRwVjHg5LGRZhM=;
+ b=0ckm9rENEFCcymU6hW9vxnXVYLiWhXEw5apwIFjKkObWFHrbJ2W02ff5gHaGHeBQnm
+ TJpIU8wADhQj+Wiv1yUvycI0lLa9tzoZ13Knshda0VAXianJGjPp7cXaS4G/Qo2jQIHC
+ 1ZqqYfw5O0cGLGTnIP+COKU1JX5fHPEglwjCarOS3efgBRElL7J4MXKl+AujHoFejUPK
+ 7/A8lCWP8l2cQsvLF83Q3HpD0tM6nPbQrFv/Sadq+hOQc8mgSssZfDNg0wCiqO2bcngh
+ L5qWwfqiOyu3XKvqs6zb1nLpVDB3QfybdgmyGktiBPDdMbptqVQXLbVJ/vo33zBD9C7E
+ mg/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DF5yKzOPMXVYngQSBfD05wSpsfrYcHWC8kfD4ia0he8=;
- b=UpxPIvwpQJQ1nZCKT8suR46zXdLjHnBttJt6necwDlL0RXPSmm+TBvSitK4S7gRDqx
- Hqwum8VUCXCaPkNKk7dOeA9BQREFE6nDVBA9S1izZM4VnfC5aOlczxaPk+mIbt4jkooe
- fW1etYLBJ201xWEDwb92HCpF1jgZghEuhqXHuEYtm7hJcSVPgutr++aL8MW9Zy5jcYSG
- hcaT15q8bPayXk7HLzjeZ8+JdzhxHRHFYFqjPzqIZn/ULkzk0Wp3FW6hWJm87byCcwsF
- aVXfJnK9SWCU9qk8qSvUWX0zDL6t0NURbN3tFu9dgMUOaKl7zGpvboRzwVAer6qT2oHw
- wjZw==
-X-Gm-Message-State: AOAM532des7udMmQ+f8E2wZqsgQCjjIhY1VRtcSdonWLaE9+H0Y5LDpn
- LjsaOQmkZi670+B+UwFC1TZmrJ6nns+o0A==
-X-Google-Smtp-Source: ABdhPJyqjoYqAxdILDMHmmRCdSipij570vuqXhhbIObdvyHI//y80TnursbmM7JKudu5PlcObRw/AA==
-X-Received: by 2002:a1c:9803:: with SMTP id a3mr323249wme.57.1596576728200;
- Tue, 04 Aug 2020 14:32:08 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=hm6vvQCNB8lhjjgdZDH+zk/Q4v5q4HRwVjHg5LGRZhM=;
+ b=YInJt23DUaC8J4Rw1FVvcXJFHVHPSmCFIDbs2S5MjpY/m6mt25FJaYSM1q9zJZUsWD
+ yYj7fnB1Yevt9EG+NkNSI2B2FLVnRI4Rw8oiS/tVyK2Qe20HgSyUPv2CBx4oMy6dzac1
+ 7DUnmxV4McH+2xQsTCoDNJEnzm36JuTECC+B5lsa7VIsv3zOE6pJnVtLm5zBRcXxMVLe
+ /e4fz/NMNt6w4aAkpP1B5qKGS8XUI4XdBSGsUe/3tzsD9orQKYUE6ep9uKsuZVZEvGMj
+ TrdKFCkmGeBpSZglL7wyD7hgYyZai9vxaBdIIeZv33wCDNjw9y1eEFahp6caSdUwFldb
+ lvyA==
+X-Gm-Message-State: AOAM531/vToq5qIHHvNSDlaWJOfgF3zuaRu2surv2npRfPMQNwl667OE
+ a+7NkQNYDMzD1p+tU6cDDM2JbRmNW5cPAw==
+X-Google-Smtp-Source: ABdhPJwEZeJQb5h9FLNAtMw1J6L5MpeSuzX2gu6UNJc3EQQy6O1r3apIOmmtYIsnyn/BIDE6zZEQCg==
+X-Received: by 2002:adf:ea4f:: with SMTP id j15mr20857075wrn.253.1596576729235; 
+ Tue, 04 Aug 2020 14:32:09 -0700 (PDT)
 Received: from localhost.localdomain
  ([2a02:aa12:a77f:2000:ce92:471f:873f:fc56])
- by smtp.gmail.com with ESMTPSA id x11sm97612wmc.33.2020.08.04.14.32.07
+ by smtp.gmail.com with ESMTPSA id x11sm97612wmc.33.2020.08.04.14.32.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Aug 2020 14:32:07 -0700 (PDT)
+ Tue, 04 Aug 2020 14:32:08 -0700 (PDT)
 From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 0/8] amd/display: Add GFX9+ modifier support.
-Date: Tue,  4 Aug 2020 23:31:11 +0200
-Message-Id: <20200804213119.25091-1-bas@basnieuwenhuizen.nl>
+Subject: [PATCH 1/8] drm/amd/display: Do not silently accept DCC for
+ multiplane formats.
+Date: Tue,  4 Aug 2020 23:31:12 +0200
+Message-Id: <20200804213119.25091-2-bas@basnieuwenhuizen.nl>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200804213119.25091-1-bas@basnieuwenhuizen.nl>
+References: <20200804213119.25091-1-bas@basnieuwenhuizen.nl>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,63 +89,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This adds modifier support to radeonsi.
-It has been tested on
+Silently accepting it could result in corruption.
 
-- VEGA10, RAVEN, NAVI14
-- weston, sway, X with xf86-video-amdgpu (i.e. legacy path still works)
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-and includes some basic testing of the layout code.
-
-The main goal is to keep it somewhat simple and regression free, so
-on the display side this series only exposes what the current GPU
-can render to. While we could expose more I think that is more
-suitable for follow-up work as the benefit would be minimal and
-there are some more design discussion there to discuss that are
-orthogonal from the initial implementation.
-
-Similarly this series only exposes 32-bpp displayable DCC in the cases
-that radeonsi would use it and any extra capabilities here should be
-future work.
-
-I believe these are by far the most complicated modifiers we've seen
-up till now, mostly related to
-
-- GPU identification for cases where it matters wrt tiling.
-- Every generation having tiling layout changes
-- Compression settings.
-
-I believe the complexity is necessary as every layout should be different
-and all layouts should be the best in some situation (though not all
-combinations of GPU parameters will actually have an existing GPU).
-
-That said, on the render side the number of modifiers actually listed for
-a given GPU is ~10, and in the current implementation that is the same
-for the display side. (we could expose more actually differing layouts
-on the display side for cross-GPU compatibility, but I consider that
-out of scope for this initial work).
-
-This series can be found on
-https://github.com/BNieuwenhuizen/linux/tree/modifiers
-
-An userspace implementation in radeonsi can be found on
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6176
-
-Bas Nieuwenhuizen (8):
-  drm/amd/display: Do not silently accept DCC for multiplane formats.
-  drm/amd: Init modifier field of helper fb.
-  drm/amd/display: Honor the offset for plane 0.
-  drm/fourcc:  Add AMD DRM modifiers.
-  drm/amd/display: Refactor surface tiling setup.
-  drm/amd/display: Set DC options from modifiers.
-  drm/amd/display: Add formats for DCC with 2/3 planes.
-  drm/amd/display: Expose modifiers.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        |   2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 758 +++++++++++++++---
- include/uapi/drm/drm_fourcc.h                 | 115 +++
- 3 files changed, 775 insertions(+), 100 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f348693217d8..005331c772b7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3637,7 +3637,7 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
+ 		return 0;
+ 
+ 	if (format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
+-		return 0;
++		return -EINVAL;
+ 
+ 	if (!dc->cap_funcs.get_dcc_compression_cap)
+ 		return -EINVAL;
 -- 
 2.28.0
 
