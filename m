@@ -2,38 +2,66 @@ Return-Path: <SRS0=+8vs=BO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E7E3C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F359C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E59A2065E
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:24:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E59A2065E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ispras.ru
+	by mail.kernel.org (Postfix) with ESMTPS id DD0BA206D8
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:33:18 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kCsRsLi2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD0BA206D8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3962089D66;
-	Tue,  4 Aug 2020 20:24:09 +0000 (UTC)
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2D7888D9
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 20:13:31 +0000 (UTC)
-Received: from localhost.localdomain (unknown [46.188.10.168])
- by mail.ispras.ru (Postfix) with ESMTPSA id ADE5240A2071;
- Tue,  4 Aug 2020 20:13:28 +0000 (UTC)
-From: Alexander Monakov <amonakov@ispras.ru>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amd/display: use correct scale for actual_brightness
-Date: Tue,  4 Aug 2020 23:13:13 +0300
-Message-Id: <20200804201313.6464-1-amonakov@ispras.ru>
-X-Mailer: git-send-email 2.26.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0F16E4BB;
+	Tue,  4 Aug 2020 20:33:18 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 733676E4BB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 20:33:17 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id g8so3844612wmk.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2020 13:33:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Ba/vp9WP1dOScQnxeEY1wkyVef5JbFdpUB1JMTIzOXM=;
+ b=kCsRsLi2SD+QamBMmJpIn43hhCK0ce/RE0p2jh14AC5U4cP1tkt3v9dPjT1KpbiAJ1
+ FVXFFRdzlOeDOmtH1RjiyfmtSAh29ZCXsRP/cgsCPbh0LPzgZScU/5Tsz5q9LtZiDABm
+ xmEEoKOR2QML4R9zYbSEk4uxNT+nEWAERnunFM56H3pbImnhfeiGQX4fdDzXOc5Guaru
+ wSPWikTfJYCVlo8OQUMTaJM65enqaEmex/TPt1H7LGk+c1aw1z70qb3AtQLIXJ6O+VND
+ +sXAMJUsFvv6Ids7QQJ6fLqZx0zB2hS1Aoa2w5KkdWOUZp3SVeB1K+SH+6z6qlQhYZJk
+ T0cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Ba/vp9WP1dOScQnxeEY1wkyVef5JbFdpUB1JMTIzOXM=;
+ b=BR1sU9LxaedG7d3WQNcmCVsdMa5R0ChW0Rm/3jwSz/NjG0Q+JcZGJ5fZxnNu85xcsG
+ Y7TF+ec2RElaHOGaZCaXR6LriYdD/IYG0esylW7JjS2tdKiFsChAIagGreN9d9rBkM/7
+ Gq6fV5lM6FXTIdDGl5wlGKbx/LdOAiJKXuekNYfRP49drjUk4eq7UJlkgwGXMOeASRzg
+ 6fZUIkPCsdNMHkjJrDCzRE9L7TQ2OQU+VREqdX7L2JuJGXEYZShBCtZakNQQJImz55HO
+ d35//0F0ZHAIlg4SR9L7gtHvGKgLvkcky6uhyx0ppiSd9x7tFRdNHvA6APaLIe6HhXW3
+ xRIQ==
+X-Gm-Message-State: AOAM532r8GMX0gp50aMBYTVtOPndjJ0F9mM4k5RSF4ZTXZZ6NpS3wr7G
+ SVq1lBEVzQeQ5U0yHq6SY95m1Df61LAQsom7HYHQFg==
+X-Google-Smtp-Source: ABdhPJxU9B4e/oeIlSyvXTNo0Yyfhw5gksvyf2sQkr9hqJY7xbRottrbT/yc6ukyCamIoeFFVLeCKHUU+G28HdET6Y4=
+X-Received: by 2002:a7b:c941:: with SMTP id i1mr170673wml.73.1596573196039;
+ Tue, 04 Aug 2020 13:33:16 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 04 Aug 2020 20:24:07 +0000
+References: <20200803143519.GB346925@mwanda>
+In-Reply-To: <20200803143519.GB346925@mwanda>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 4 Aug 2020 16:33:04 -0400
+Message-ID: <CADnq5_OCkSv5dgtxy2r1VApwTKXQe6oZapA+1VF2aj4Ux77-wQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Indent an if statement
+To: Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,158 +73,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Alexander Monakov <amonakov@ispras.ru>, linux-kernel@vger.kernel.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Charlene Liu <Charlene.Liu@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>, kernel-janitors@vger.kernel.org,
+ Samson Tam <Samson.Tam@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ David Airlie <airlied@linux.ie>, Reza Amini <Reza.Amini@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Martin Leung <martin.leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Documentation for sysfs backlight level interface requires that
-values in both 'brightness' and 'actual_brightness' files are
-interpreted to be in range from 0 to the value given in the
-'max_brightness' file.
+Applied.  Thanks!
 
-With amdgpu, max_brightness gives 255, and values written by the user
-into 'brightness' are internally rescaled to a wider range. However,
-reading from 'actual_brightness' gives the raw register value without
-inverse rescaling. This causes issues for various userspace tools such
-as PowerTop and systemd that expect the value to be in the correct
-range.
+Alex
 
-Introduce a helper to retrieve internal backlight range. Use it to
-reimplement 'convert_brightness' as 'convert_brightness_from_user' and
-introduce 'convert_brightness_to_user'.
-
-Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
----
-v2: split convert_brightness to &_from_user and &_to_user (Nicholas)
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 81 +++++++++----------
- 1 file changed, 40 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 710edc70e37e..b60a763f3f95 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2881,51 +2881,50 @@ static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)
- 	return rc ? 0 : 1;
- }
- 
--static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
--			      const uint32_t user_brightness)
-+static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-+				unsigned *min, unsigned *max)
- {
--	u32 min, max, conversion_pace;
--	u32 brightness = user_brightness;
--
- 	if (!caps)
--		goto out;
-+		return 0;
- 
--	if (!caps->aux_support) {
--		max = caps->max_input_signal;
--		min = caps->min_input_signal;
--		/*
--		 * The brightness input is in the range 0-255
--		 * It needs to be rescaled to be between the
--		 * requested min and max input signal
--		 * It also needs to be scaled up by 0x101 to
--		 * match the DC interface which has a range of
--		 * 0 to 0xffff
--		 */
--		conversion_pace = 0x101;
--		brightness =
--			user_brightness
--			* conversion_pace
--			* (max - min)
--			/ AMDGPU_MAX_BL_LEVEL
--			+ min * conversion_pace;
-+	if (caps->aux_support) {
-+		// Firmware limits are in nits, DC API wants millinits.
-+		*max = 1000 * caps->aux_max_input_signal;
-+		*min = 1000 * caps->aux_min_input_signal;
- 	} else {
--		/* TODO
--		 * We are doing a linear interpolation here, which is OK but
--		 * does not provide the optimal result. We probably want
--		 * something close to the Perceptual Quantizer (PQ) curve.
--		 */
--		max = caps->aux_max_input_signal;
--		min = caps->aux_min_input_signal;
--
--		brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
--			       + user_brightness * max;
--		// Multiple the value by 1000 since we use millinits
--		brightness *= 1000;
--		brightness = DIV_ROUND_CLOSEST(brightness, AMDGPU_MAX_BL_LEVEL);
-+		// Firmware limits are 8-bit, PWM control is 16-bit.
-+		*max = 0x101 * caps->max_input_signal;
-+		*min = 0x101 * caps->min_input_signal;
- 	}
-+	return 1;
-+}
- 
--out:
--	return brightness;
-+static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
-+					uint32_t brightness)
-+{
-+	unsigned min, max;
-+
-+	if (!get_brightness_range(caps, &min, &max))
-+		return brightness;
-+
-+	// Rescale 0..255 to min..max
-+	return min + DIV_ROUND_CLOSEST((max - min) * brightness,
-+				       AMDGPU_MAX_BL_LEVEL);
-+}
-+
-+static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-+				      uint32_t brightness)
-+{
-+	unsigned min, max;
-+
-+	if (!get_brightness_range(caps, &min, &max))
-+		return brightness;
-+
-+	if (brightness < min)
-+		return 0;
-+	// Rescale min..max to 0..255
-+	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
-+				 max - min);
- }
- 
- static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-@@ -2941,7 +2940,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- 
- 	link = (struct dc_link *)dm->backlight_link;
- 
--	brightness = convert_brightness(&caps, bd->props.brightness);
-+	brightness = convert_brightness_from_user(&caps, bd->props.brightness);
- 	// Change brightness based on AUX property
- 	if (caps.aux_support)
- 		return set_backlight_via_aux(link, brightness);
-@@ -2958,7 +2957,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
- 
- 	if (ret == DC_ERROR_UNEXPECTED)
- 		return bd->props.brightness;
--	return ret;
-+	return convert_brightness_to_user(&dm->backlight_caps, ret);
- }
- 
- static const struct backlight_ops amdgpu_dm_backlight_ops = {
-
-base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
--- 
-2.26.2
-
+On Mon, Aug 3, 2020 at 10:35 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> The if statement wasn't indented so it's confusing.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> index ca26714c800e..c6b737dd8425 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -71,7 +71,7 @@ enum dce_version resource_parse_asic_id(struct hw_asic_id asic_id)
+>                 if (ASIC_REV_IS_TAHITI_P(asic_id.hw_internal_rev) ||
+>                     ASIC_REV_IS_PITCAIRN_PM(asic_id.hw_internal_rev) ||
+>                     ASIC_REV_IS_CAPEVERDE_M(asic_id.hw_internal_rev))
+> -               dc_version = DCE_VERSION_6_0;
+> +                       dc_version = DCE_VERSION_6_0;
+>                 else if (ASIC_REV_IS_OLAND_M(asic_id.hw_internal_rev))
+>                         dc_version = DCE_VERSION_6_4;
+>                 else
+> --
+> 2.27.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
