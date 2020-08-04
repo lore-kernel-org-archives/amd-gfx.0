@@ -2,68 +2,67 @@ Return-Path: <SRS0=+8vs=BO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CFFB2C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 19:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70943C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA43B20842
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 19:55:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4CEA621744
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:02:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwjnDDyu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA43B20842
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZgtVAZBU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CEA621744
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4984D6E2A9;
-	Tue,  4 Aug 2020 19:55:23 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9786E2A9
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 19:55:22 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id f7so38566444wrw.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2020 12:55:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8A1F89227;
+	Tue,  4 Aug 2020 20:02:11 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C26CE89227
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 20:02:10 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id f18so2891411wmc.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2020 13:02:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=boBTdRE+Kr6//OPQkLD2J8JPaLXPzNGJ1iYl9S0gmUk=;
- b=WwjnDDyuJaux0KCl7O80QbuJvZ+2YKdztr0plAsNPpZPIT5hjjTgcz6LzEbKyJL4Zi
- WHUxvTOAJxOYyZVMgu3vl061oFk2mhMPzCjw/L+5dM9VcbswsfQxEShif/7IwHoVIihA
- HcfRY9RbZZ3HK2a+Vr8p1VlG03fTo75wMhJT3eTZ0W20H53UzwfsT3srMQ6/Lhtq1jFg
- /vXlqTLX2y0QwFch8LcI3cN4Aca4ikG42ngY7qEOIHS0CYSCXQurDMPgkRspVPLMD4JH
- hbkG9ehoFK41c95ED7mRrmnXRsW+untE9xOox/EiWbLZQ0W1HiT37ZBANIXmDB4bl/Zh
- c1Tg==
+ :cc; bh=LLO/rcWBQPARE6ry1zojr30W4XyQOnnb/qFSIx4UP+M=;
+ b=ZgtVAZBUMcPfnaRAHct89SKDDE4beOACewbKWY+nTcXD1FNlFjrRWlC4U5m7OZV5ko
+ oswA705WuAoNtLYeC2qHTm3qduUAlTNtn/l/eKYiqY4ps5KIW1Qv5BUm8Nt3q6g1Yqmq
+ SOXt2ne1Ne73srnfL8AXTpriVzSP7+trf+vigcT1XyQM4DbSpUFNou1ZCKfdq7C1/dSA
+ KVnMnX+sD3WVzHYv6FeMx3qVZCPl5jvyUKltiPyMx7WMlGtfcTFZrd8i+fSY9nSjksv5
+ p4yw31kJGCoffsFtx4hhaFO3cZh8I5jSjHAdutTQtn2B2Npr2Qq5KToXIwUi8zPg9sMl
+ W9eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=boBTdRE+Kr6//OPQkLD2J8JPaLXPzNGJ1iYl9S0gmUk=;
- b=G++4dUsPeZwnFLg0dT2olQlkSn3Fu/QKsql42l9J4WDEGxPpWAi0TPTB7AVEIUxvVd
- QFA59oGLshLdQitryPO3l52YZtWo86EofStFQB5yYOW4ek2dRgDUn7v7q9byJps8NoBF
- PCVVKVQXR7n5cLXDaFOQTynzDxbZsEH3CHvC0umXvZE2J3VwMy4RzwuDAzEeBQ3vqhKa
- 5vSNC2Yl4C20Yk1uR7nWNVxUfJGqVagOiM/cndtRE5ymlmloQKcQWv5P5Ad2ZxM6Ec1u
- VoTXCzJrow1SQquVh+dXj/iMO1HnfwSxPWyZp4fnf1pS+807Pin+fmsxG2nA6GiVLdTR
- nFQQ==
-X-Gm-Message-State: AOAM5318iwVzXzFc/Uxvs151LGh6oFwkDPVCFYDZ40Txyt/4SClV3vHg
- D320YbrdA5Z7+Js7Od2Mcm8E0GCA1E6kYv0nMII=
-X-Google-Smtp-Source: ABdhPJxNCcVZL2/FYf9uFdyDNtXiuqWrWlt500f6OwFg/ZXFtyOozNArBExaqg0XuUr+vVrOJ/gT9AIspzbgMTRTkSI=
-X-Received: by 2002:adf:a351:: with SMTP id d17mr20551427wrb.111.1596570921498; 
- Tue, 04 Aug 2020 12:55:21 -0700 (PDT)
+ bh=LLO/rcWBQPARE6ry1zojr30W4XyQOnnb/qFSIx4UP+M=;
+ b=f9L+BPE2/hx2Aw09fAh0n9T3VkhKYxTO6GNQ1n5IaXs1Ay5nep586ZgnVhnFpkbWiC
+ 0cZulNelSd7EngWE4E8aRCmrxQi48RkCZHIrnCltEbvCDOiW/RH5JTh4xGKsm7sU68/v
+ e4EhAhqz58h8eJjAm+ZXYt4hJtKltRhXJ+qRwSDSd+SoDPgUG+nNEoai6ELF+UU3XuLE
+ Dp8UlSMHEIxy0VykDmKKB1ZnqPJTkReJmpkBFheJu+z8GDgLPWS/nrZZanWIAMu+WlNU
+ kZOQUza3OE6hlBrSI0JcgEgVIrHNiOFgad7YUR4A8TnEJ9LZbfHX03oQ9P8R6k16gTis
+ u1Tg==
+X-Gm-Message-State: AOAM532bk84oIiEsq9nV8Xb2ExrAUUD3CZQRVDJ8WPhxyeUEOZk1mCXW
+ IjjmN4HJc5KRPkqdZ2zwoZx8gY/K+X7HOSdgw6o=
+X-Google-Smtp-Source: ABdhPJwbAqAaLIgqlKJufuJ9QuyZujGywPIBRjtTns//NI8UNhIWX+UbOjAYnQYrq3dEE8rXr4flo7E2nbVE0h5+fSY=
+X-Received: by 2002:a1c:f70a:: with SMTP id v10mr79807wmh.39.1596571329459;
+ Tue, 04 Aug 2020 13:02:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200803044648.28805-1-evan.quan@amd.com>
- <20200803044648.28805-2-evan.quan@amd.com>
-In-Reply-To: <20200803044648.28805-2-evan.quan@amd.com>
+References: <44e135ed-dfb7-533f-3c55-8e852a349762@gmx.de>
+ <CADnq5_PcEo7sXFpEoKLj5q4J52ehtGjMvQzUFPHLcHObR3Q94A@mail.gmail.com>
+ <796fb0f5-d2fa-0456-5f5e-9413c9fb5a0f@gmx.de>
+In-Reply-To: <796fb0f5-d2fa-0456-5f5e-9413c9fb5a0f@gmx.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 Aug 2020 15:55:09 -0400
-Message-ID: <CADnq5_PdkoNLFM8ho-Yjq2sfOLkobZ3vTQbX9BdxgzU0eauhbg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: put VCN/JPEG into PG ungate state
- before dpm table setup
-To: Evan Quan <evan.quan@amd.com>
+Date: Tue, 4 Aug 2020 16:01:58 -0400
+Message-ID: <CADnq5_MP-j6JpW+q6XV5nqwXfgFOEvgZ_GBRP3uuinSn98CRng@mail.gmail.com>
+Subject: Re: Amdgpu kernel oops and freezing graphics
+To: harv@gmx.de
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,157 +74,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Matt Coffin <mcoffin13@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 3, 2020 at 12:47 AM Evan Quan <evan.quan@amd.com> wrote:
+On Tue, Jul 21, 2020 at 2:21 PM Harvey <harv@gmx.de> wrote:
 >
-> As VCN related dpm table setup needs VCN be in PG ungate state. Same logics
-> applies to JPEG.
+> Alex,
 >
-> Change-Id: I94335efc4e0424cfe0991e984c938998fd8f1287
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 38 +++++++++++++++++-----
->  1 file changed, 30 insertions(+), 8 deletions(-)
+> tnak you so much - you're my hero!
 >
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 85b04c48bd09..1349d05c5f3d 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -134,7 +134,8 @@ int smu_get_dpm_freq_range(struct smu_context *smu,
->  }
+> Am 21.07.20 um 18:17 schrieb Alex Deucher:
+> > On Mon, Jul 20, 2020 at 4:22 AM Harvey <harv@gmx.de> wrote:
+> >>
+> >> Hello,
+> >>
+> >> this is my first post to this list so please be patient with me ;)
+> >>
+> >> The facts:
+> >>
+> >> it is now one week that I own a new laptop, a MSI Bravo 17 A4DDR/MS-17FK
+> >> with Ryzen 7 4800U and hybrid graphics on a Radeon RX 5500M. I installed
+> >> my beloved Archlinux but I can't start any graphics withpout kernel oops
+> >> on it beside the normal console, even calling 'lspci' on the console is
+> >> provoking errors.
+> >>
+> >> I am using linux kernel 5.7.9 and linux-firmware 20200619.e96c121
+> >>
+> >> (FWIW: I even tried with a self-cmpiled kernel 5.8-rc5 and
+> >> linux-firmware directly from the git repository - no changes)
+> >>
+> >> The following is only part of the information I can provide but I didn't
+> >> want to make this mail bigger than it already is.
+> >
+> > Does appending amdgpu.runpm=0 on the kernel command line in grub help?
 >
->  static int smu_dpm_set_vcn_enable(struct smu_context *smu,
-> -                                 bool enable)
-> +                                 bool enable,
-> +                                 int *previous_pg_state)
->  {
->         struct smu_power_context *smu_power = &smu->smu_power;
->         struct smu_power_gate *power_gate = &smu_power->power_gate;
-> @@ -148,6 +149,9 @@ static int smu_dpm_set_vcn_enable(struct smu_context *smu,
->         if (atomic_read(&power_gate->vcn_gated) ^ enable)
->                 goto out;
+> Yes it does. Woohoo! The system is not freezing anymore! Can I provide
+> any further information to get this sorted?
 >
-> +       if (previous_pg_state)
-> +               *previous_pg_state = atomic_read(&power_gate->vcn_gated);
-> +
->         ret = smu->ppt_funcs->dpm_set_vcn_enable(smu, enable);
->         if (!ret)
->                 atomic_set(&power_gate->vcn_gated, !enable);
-> @@ -159,7 +163,8 @@ static int smu_dpm_set_vcn_enable(struct smu_context *smu,
->  }
->
->  static int smu_dpm_set_jpeg_enable(struct smu_context *smu,
-> -                                  bool enable)
-> +                                  bool enable,
-> +                                  int *previous_pg_state)
->  {
->         struct smu_power_context *smu_power = &smu->smu_power;
->         struct smu_power_gate *power_gate = &smu_power->power_gate;
-> @@ -173,6 +178,9 @@ static int smu_dpm_set_jpeg_enable(struct smu_context *smu,
->         if (atomic_read(&power_gate->jpeg_gated) ^ enable)
->                 goto out;
->
-> +       if (previous_pg_state)
-> +               *previous_pg_state = atomic_read(&power_gate->jpeg_gated);
-> +
->         ret = smu->ppt_funcs->dpm_set_jpeg_enable(smu, enable);
->         if (!ret)
->                 atomic_set(&power_gate->jpeg_gated, !enable);
-> @@ -212,7 +220,7 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
->          */
->         case AMD_IP_BLOCK_TYPE_UVD:
->         case AMD_IP_BLOCK_TYPE_VCN:
-> -               ret = smu_dpm_set_vcn_enable(smu, !gate);
-> +               ret = smu_dpm_set_vcn_enable(smu, !gate, NULL);
->                 if (ret)
->                         dev_err(smu->adev->dev, "Failed to power %s VCN!\n",
->                                 gate ? "gate" : "ungate");
-> @@ -230,7 +238,7 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
->                                 gate ? "gate" : "ungate");
->                 break;
->         case AMD_IP_BLOCK_TYPE_JPEG:
-> -               ret = smu_dpm_set_jpeg_enable(smu, !gate);
-> +               ret = smu_dpm_set_jpeg_enable(smu, !gate, NULL);
->                 if (ret)
->                         dev_err(smu->adev->dev, "Failed to power %s JPEG!\n",
->                                 gate ? "gate" : "ungate");
-> @@ -407,6 +415,7 @@ static int smu_late_init(void *handle)
->  {
->         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->         struct smu_context *smu = &adev->smu;
-> +       int vcn_gate, jpeg_gate;
->         int ret = 0;
->
->         if (!smu->pm_enabled)
-> @@ -418,6 +427,14 @@ static int smu_late_init(void *handle)
->                 return ret;
->         }
->
-> +       /*
-> +        * 1. Power up VCN/JPEG as the succeeding smu_set_default_dpm_table()
-> +        *    needs VCN/JPEG up.
-> +        * 2. Save original gate states and then we can restore back afterwards.
-> +        */
-> +       smu_dpm_set_vcn_enable(smu, true, &vcn_gate);
-> +       smu_dpm_set_jpeg_enable(smu, true, &jpeg_gate);
-> +
->         /*
->          * Set initialized values (get from vbios) to dpm tables context such as
->          * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
-> @@ -429,6 +446,11 @@ static int smu_late_init(void *handle)
->                 return ret;
->         }
->
-> +       /* Restore back to original VCN/JPEG power gate states */
-> +       smu_dpm_set_vcn_enable(smu, !vcn_gate, NULL);
-> +       smu_dpm_set_jpeg_enable(smu, !vcn_gate, NULL);
+> I will be happy to help investigating and testing if needed.
 
-Copy paste typo.  This should be !jpeg_gate.  With that fixed, the series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Does appending pci=noats on the kernel command line in grub also fix the issue?
 
 Alex
-
-> +
-> +
->         ret = smu_populate_umd_state_clk(smu);
->         if (ret) {
->                 dev_err(adev->dev, "Failed to populate UMD state clocks!\n");
-> @@ -991,8 +1013,8 @@ static int smu_hw_init(void *handle)
->
->         if (smu->is_apu) {
->                 smu_powergate_sdma(&adev->smu, false);
-> -               smu_dpm_set_vcn_enable(smu, true);
-> -               smu_dpm_set_jpeg_enable(smu, true);
-> +               smu_dpm_set_vcn_enable(smu, true, NULL);
-> +               smu_dpm_set_jpeg_enable(smu, true, NULL);
->                 smu_set_gfx_cgpg(&adev->smu, true);
->         }
->
-> @@ -1132,8 +1154,8 @@ static int smu_hw_fini(void *handle)
->
->         if (smu->is_apu) {
->                 smu_powergate_sdma(&adev->smu, true);
-> -               smu_dpm_set_vcn_enable(smu, false);
-> -               smu_dpm_set_jpeg_enable(smu, false);
-> +               smu_dpm_set_vcn_enable(smu, false, NULL);
-> +               smu_dpm_set_jpeg_enable(smu, false, NULL);
->         }
->
->         if (!smu->pm_enabled)
-> --
-> 2.28.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
