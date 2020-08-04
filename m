@@ -7,97 +7,100 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BD53C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:21:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12F7DC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 083382070A
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:21:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E1049204EA
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:35:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uRSImO4+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 083382070A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TF9eYOFD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1049204EA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0AFA89BBD;
-	Tue,  4 Aug 2020 16:21:20 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882676E484
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 16:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9623F89D99;
+	Tue,  4 Aug 2020 16:35:53 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4918C89D99
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 16:35:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mcqijRejEuODjm5bJGgIIvQtGO1yAZRFFY6ZFsF+4Fgq5i7l08FYpmYN/lYJ6RC4UHKYBbwgkU+OXSF76BTz9m1yAzZKUQtFnMA2xoHYK297NoreWjwfw9rTMAHgNCpdFCTtnVfZzpmNTKktYRUeIzsWqO0Cna6rUQngI75G4OzxNgORljnFNd0mC9h3/yrD8XRXrKrNqY51CeqLCQUfqO7OBqwdgA6dXzKViUfW0rQkgl5Yx9klwkPW5ZjxS3KnOYUMS+U5HgO2lnvIsfEoAPhzX5yOxExuwK+6Z31qFKUW7RxHZ8/XHgQEP0OXT/8u9mza7kYWo9b4k6CJAKa1og==
+ b=dgXMU+ZMaR6A2G+cX2t8b+eebNbHQrigP6RmNUz7F8oXCooGhaO/tLRfdPxgNOy3ElOKd/7bUmA9sLCt8q6jJj9jpohsFfMpWmf3xFNULlWxXESWqeiqkMwY2MQAzgXaw98FzoGMXkeWBN64r8XXmTKX2qEllSaz9V3bc+Ro3I77NLkbQ22D8m0oCYsARS7pmZXtnvpxW/Xy0cbyRfqcRQpfQWm4DH5OoleY1fEbeSFXBW6n/Ffg1WWx8bJ1wQQ3D9xdeWcHvRTPcIzT8MraPrNn6vpOUFL6dHEqvyAWaLzUYGwSv9S4VyssoXwuyAABkJ59pMkdeFYKfF37PRrf+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hv8coRyrgi3+34EaHkGH4iPHYKOflG1bdul2wCtpuMc=;
- b=U3gJ25S3nU7pUDV9NAIpR0YzJHpYNOtH5L94OCBvEj24RvyWLv8VYkpspH74LSnfjWq8lHTzo0QlIpCnkJIjvLkFR6hihfcE4QCDODQlCKPg+JNqTzOBM7qmqW1IZFS9epF6RWSwMuQrBMIRNtv/9i+ZqFjGcsgnIz7AhHUdkPr6iZGKDcFkseiXr7QVwOMi6Zhd/tgMd7d0Q3qKFZ4WHxO2Z8xTmv0Ur8GZSsQGyp03lDiHq/ObiwQ8QOvlgw1kePfKYgLOcqfiGV2S2G86aqT2LfFUF4w8xa4RRaG/P9BsfT8qUAgBLDZkEoZoNIM8/R+MfulHhx/N/vV/lEQSrg==
+ bh=hyI5Xgpwn+mMAzV+JsVF8ilweF0EK9ghwhcNodMQpAw=;
+ b=EWpDeBiXqFLwQ9psnQT72r9zMnO5S55ZpLwwvnm8NcoCP/0GW5miQ3D3LJYjUi+uNlJuju588eyfEyozaSqaPyk8NMT3RXBXNn10/3wUVgCCLLMdgobWRX1I+UPjjcDAbpi3xh50Ck6JaK9qQZZcw0iqqdtGOR/WG6pgbY8INFzs/vXAm3HZVk0QvU092XgmYg3W2TT39S21rJWDQvqCSTzJp1ePfWZZn4/xJQm40+hQphotVfNR0jrj3kJyw55vEb5hYYnT5RzRDKrGehE9Xf2MeVf4PoTsN4Udo2ranS2dqKT/mI20dzb5+VcqzeZOpiL3WhITnIUfA1VLzl+MAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hv8coRyrgi3+34EaHkGH4iPHYKOflG1bdul2wCtpuMc=;
- b=uRSImO4+nKV0dgkvskRXOgHDmdKGuPLkgaob1gorB13dDa/q3+B5UORw0h/O0tmllHwZ0AlVWHKjs6CEYvSmWTs6qlZX7JARI9gQZ79wfoGs3+SFqELSZYIG3Uciei/9zg+nyYD0zSDacnrYp0XyrQgIK7MFps7e7S+h2lrY7Y4=
+ bh=hyI5Xgpwn+mMAzV+JsVF8ilweF0EK9ghwhcNodMQpAw=;
+ b=TF9eYOFDkxS0XaUy5cYcWDns1gkYQJ1REmrZA6UwPhsxc3Z6/nF2CliYsfpDrVD+O2kw96CaHpTYqvO1WFJYv+mHg3ig261Exdkc+s/1Fm3Qy17mWAabRqMFuikRDpTTTOHAqMAeq2nSwAprIIKZsTm3C75tU6DIJN4CF1jLsvg=
 Authentication-Results: vger.kernel.org; dkim=none (message not signed)
  header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BY5PR12MB3796.namprd12.prod.outlook.com (2603:10b6:a03:1ae::31)
+ by BYAPR12MB2821.namprd12.prod.outlook.com (2603:10b6:a03:9b::30)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Tue, 4 Aug
- 2020 16:21:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16; Tue, 4 Aug
+ 2020 16:35:50 +0000
 Received: from BYAPR12MB3560.namprd12.prod.outlook.com
  ([fe80::7d42:c932:e35f:71b1]) by BYAPR12MB3560.namprd12.prod.outlook.com
  ([fe80::7d42:c932:e35f:71b1%7]) with mapi id 15.20.3239.021; Tue, 4 Aug 2020
- 16:21:14 +0000
+ 16:35:50 +0000
 Subject: Re: [PATCH] drm/amd/display: use correct scale for actual_brightness
-To: Alexander Monakov <amonakov@ispras.ru>, amd-gfx@lists.freedesktop.org
+To: Alexander Monakov <amonakov@ispras.ru>
 References: <20200803200218.2167-1-amonakov@ispras.ru>
+ <35b551fe-7c14-3d8e-4056-39975bd75105@amd.com>
+ <alpine.LNX.2.20.13.2008041922170.2454@monopod.intra.ispras.ru>
 From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <a3a167d9-9117-edc1-c761-b31fa3194f8b@amd.com>
-Date: Tue, 4 Aug 2020 12:21:08 -0400
+Message-ID: <f1bc6b02-0761-c3c0-d629-7b8f97bef8d7@amd.com>
+Date: Tue, 4 Aug 2020 12:35:45 -0400
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
-In-Reply-To: <20200803200218.2167-1-amonakov@ispras.ru>
+In-Reply-To: <alpine.LNX.2.20.13.2008041922170.2454@monopod.intra.ispras.ru>
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0125.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::34) To BYAPR12MB3560.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTXPR0101CA0071.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::48) To BYAPR12MB3560.namprd12.prod.outlook.com
  (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [172.31.148.234] (165.204.55.211) by
- YT1PR01CA0125.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::34) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16 via Frontend Transport; Tue, 4 Aug 2020 16:21:13 +0000
+ YTXPR0101CA0071.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::48) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17 via Frontend
+ Transport; Tue, 4 Aug 2020 16:35:49 +0000
 X-Originating-IP: [165.204.55.211]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 74d8b8b5-394a-415f-8258-08d838926862
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3796:
+X-MS-Office365-Filtering-Correlation-Id: adaea594-9d2a-4565-17b7-08d83894729d
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2821:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BY5PR12MB37963932C70781C3FC794289EC4A0@BY5PR12MB3796.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-Microsoft-Antispam-PRVS: <BYAPR12MB2821117F5A9DDC4C0E2D03D8EC4A0@BYAPR12MB2821.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WnFF/SRf0xb1o9PezCJhD0pcIqkHWHWwsmCLgaXF4JtptXTX/TjTLz5pEc9SSxNlzIZwpQvXs56xA29YE3oqIc/YfkudBRzBOqf5+aeAlj2SlDSFHarZ89C93ffuHE+kx8OCUu/EMcpa8GYdadQMerjBMdVB8LsGu/UP9Plwox1Kqe7b/BFe/HktlTaXBZWrMMpa/in0o4hjMjPLbSfG2DkP6fV7l6B7srrw4cqYVaMrGtI9VEtNKXjnF+J8fLDOjwstplHhxkySMVCdCNlQtCq3qRo/RPoVLttejMsbiAp1i42WUatNv+ViAFse7JI4ijsLQH0oJirLicglxMmNLp1dEAI1fV3bQx+7FVMpdUrX01+yPwhntARBo9nsDAONS7ZozrYyfmN/4yCKKshc3LmL5IMglVXPN+N0Phc+/k0VNho1vLuYwceB1y3AbNhPoB9dEtKO9QBMsE04ziCO9A==
+X-Microsoft-Antispam-Message-Info: Fe/cfLyPBvMBrUuOqiMtwVZJqXAZj+VvXj7gxa9cc4FczNNwHxWft8L1FN3njkEXVyqsLduz/JfwQGbWWhEEmyzfby3L3JePPCFbzECy48ww4pIKzuXIS3p4sZ/1Tomw/eRyZd3uSghJNtIf+A3CBB6prEixLsVeq/TvekIXGeTfNdDdoAnMLxo32QBYj9vDQq6dAo1SZ7u7pif/ppmp5ETWa5siYjUS410fE+k6/i8DHj7xQuNXWkj9UFIHLBE4ttZPdsrbysOR5aB4x6QzeyvN45M6IKTYEnFTMILNvwcupioRi5wouHzWedqcl+UMWsZmC1kk6pFTbGZ7APjfkXJWioqyEpa3bYlplr4lxPoWT6pAH1us56QDj/FwafEmjV9GIB+o5wFnMM/rc/oi1zNqKDWHPIxN6ev09+kJvtp2AmjLuiSfJ1AZ6MvBA9N6m7jQojhnDWxCSzfLTwTDOA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(376002)(39860400002)(366004)(136003)(396003)(966005)(52116002)(36756003)(316002)(5660300002)(6486002)(31686004)(53546011)(16576012)(86362001)(66946007)(83380400001)(956004)(2616005)(6666004)(31696002)(26005)(478600001)(8936002)(66556008)(66476007)(16526019)(2906002)(186003)(8676002)(4326008)(43740500002);
+ SFS:(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(316002)(16576012)(53546011)(16526019)(4326008)(6916009)(2906002)(52116002)(6486002)(966005)(186003)(8936002)(8676002)(478600001)(26005)(2616005)(66556008)(6666004)(956004)(86362001)(5660300002)(83380400001)(66476007)(36756003)(31686004)(66946007)(31696002)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: BsSLaNVcIP0hjapCgn5bqdw7Rgudigodi50riakIYO1HF3NWMub+Ec4hwa1hXHSwA8nt4Jw1psfbg5KMojnXbi4YXibI7ybvUHTXio/DwyIb8zcKytto4iub3MdMHwfXwZyHs3Km8QY9qSd+Pv1mmF4OcxNL1+eB4udm1O2e/1sKkBUeWxA1tbR+UnVKN/MxxA6D97jQZEe5B2v9JwPFW6Bw0hJqiX4k0yr1Z1fiWKCo1PLArLXaBRXDVWx+hidEj13b6cds3b5WFspJXRqjyxA4dwpFigInoFHnFMETp7TOGdC9ahEeFvm2GfESnKd17lBcWvaeYtCIrKH+PZ54Mo3H3l4GB5HHXtTPfhXru1ezj5BmH8G1/CLnVXFQVn8965ewulMsgjvGuwgIzEYxSgeRbdirwvO35xXvu7Av1n7iKp0DiLTtvkw3F5QDvtmePZL7elpPKKZP32Rdu9sBtOF/eaIfFdZx6sxf7Bt/FyDgceM1zgGsFS71jM8Efeg59clSHcpFZC1150lSBsR9ksJ9qUMZ5gqa7SirZrxY0d5F2pgGSRWCoX97r5QcM6CdkrDTOIJJURlVfich7C2h4Q2HyTpRUzsStY860kDQqImuq4GINc0qCh3BpAVxdrBPHWmsz+AjLx5kfzhXLGQEHw==
+X-MS-Exchange-AntiSpam-MessageData: sqS3d/MWmhhp7UcJapOfP82c6K/fTzLqCmWVZQ6jso7KNqYScLWWPjai0hD+hV+S3fEtawFmOquFDpxrWTlLuo/ES5W2Qk9v+IG/X8KxvtGqj5DmOs3wP1/tqZoP84VO8uNvlKLV13jBJkjXMLZT2rbCnq9mhX+gAwaYNR6STS4ygL3lX/6Y1TrXIRkMKcSup4HUdGqN9trChYyXCC1J/E2FjZdwXibYAiq78/44s/kWUf6Wy9YZBzMGbTCkGYRmL/iQG5HesUOVH3bZQPywFmDYuaPGlXcFv+zCKNb+VHnshes4ZPcfd6tRcH7Dbkwamgecpnq2uKsJxWlKY5vfQWLeplBAK0agaYHvPS0Dcjc6gKSRv9omiYuoVr4efxcuFQ2FhAWBkBq1X24H4LuIhOm47QGrGXL/sXAfk7raz27ccLcCiSJ0KBK9dfElMgHfYNS2KTt5gFvZ2he/LgEEyMlixoCDOAk+Z0FZ4/C+bnla0XZW+bw+mFMrZjEZfpRmP8pTB7HJk16LQe3nqtuT2x722EgNhCJUnlS9pe1NEhfZFcrvHrK1/8M2egxzh7QbCRYBUVnlLlXgDymb0Fs20lYAauXV/VfNgvwTQpeNbNDgk8HzloGnnBZpWzPWdQJ9cgN8buBWQ5/vu06wd29o5A==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74d8b8b5-394a-415f-8258-08d838926862
+X-MS-Exchange-CrossTenant-Network-Message-Id: adaea594-9d2a-4565-17b7-08d83894729d
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2020 16:21:14.3860 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2020 16:35:50.5176 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 985WGD26JGGec8Qi57yXt/DB8VPis6SdHI+N0PUDLw3hYcG403ohtvHIcbX/F6rBBVsqzxL8sVqRAUUc1NNWbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3796
+X-MS-Exchange-CrossTenant-UserPrincipalName: LGGS1dolp95Gn/6Sg4hV4/BfHwL5jzx4pxtyY5DERRfwclQ0Qch9n34TBeemfbGnrKs5s+/FE6+rgvTfClWs2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2821
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,154 +112,186 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-08-03 4:02 p.m., Alexander Monakov wrote:
-> Documentation for sysfs backlight level interface requires that
-> values in both 'brightness' and 'actual_brightness' files are
-> interpreted to be in range from 0 to the value given in the
-> 'max_brightness' file.
+On 2020-08-04 12:28 p.m., Alexander Monakov wrote:
 > 
-> With amdgpu, max_brightness gives 255, and values written by the user
-> into 'brightness' are internally rescaled to a wider range. However,
-> reading from 'actual_brightness' gives the raw register value without
-> inverse rescaling. This causes issues for various userspace tools such
-> as PowerTop and systemd that expect the value to be in the correct
-> range.
 > 
-> Introduce a helper to retrieve internal backlight range. Extend the
-> existing 'convert_brightness' function to handle conversion in both
-> directions.
+> On Tue, 4 Aug 2020, Kazlauskas, Nicholas wrote:
 > 
-> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+>> This is a cleaner change the other proposed patch since it doesn't need to
+> 
+> Can you give a URL to the other patch please?
 
-Overall approach seems reasonable, nice catch.
+Sorry, replied to the wrong email by accident here.
 
-I suggest to add convert_to_user_brightness() instead of making 
-from_user a flag and extending the current functionality though. It 
-makes it more clear from the call site what's happening.
+The other change was modifying the max_brightness range and rescaling 
+internal min/max defaults.
+
+I don't think it was sent out to the list yet.
 
 Regards,
 Nicholas Kazlauskas
 
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 ++++++++-----------
->   1 file changed, 32 insertions(+), 41 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 710edc70e37e..03e21e7b7917 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2881,51 +2881,42 @@ static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)
->   	return rc ? 0 : 1;
->   }
->   
-> -static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> -			      const uint32_t user_brightness)
-> +static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-> +				unsigned *min, unsigned *max)
->   {
-> -	u32 min, max, conversion_pace;
-> -	u32 brightness = user_brightness;
-> -
->   	if (!caps)
-> -		goto out;
-> +		return 0;
->   
-> -	if (!caps->aux_support) {
-> -		max = caps->max_input_signal;
-> -		min = caps->min_input_signal;
-> -		/*
-> -		 * The brightness input is in the range 0-255
-> -		 * It needs to be rescaled to be between the
-> -		 * requested min and max input signal
-> -		 * It also needs to be scaled up by 0x101 to
-> -		 * match the DC interface which has a range of
-> -		 * 0 to 0xffff
-> -		 */
-> -		conversion_pace = 0x101;
-> -		brightness =
-> -			user_brightness
-> -			* conversion_pace
-> -			* (max - min)
-> -			/ AMDGPU_MAX_BL_LEVEL
-> -			+ min * conversion_pace;
-> +	if (caps->aux_support) {
-> +		// Firmware limits are in nits, DC API wants millinits.
-> +		*max = 1000 * caps->aux_max_input_signal;
-> +		*min = 1000 * caps->aux_min_input_signal;
->   	} else {
-> -		/* TODO
-> -		 * We are doing a linear interpolation here, which is OK but
-> -		 * does not provide the optimal result. We probably want
-> -		 * something close to the Perceptual Quantizer (PQ) curve.
-> -		 */
-> -		max = caps->aux_max_input_signal;
-> -		min = caps->aux_min_input_signal;
-> -
-> -		brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
-> -			       + user_brightness * max;
-> -		// Multiple the value by 1000 since we use millinits
-> -		brightness *= 1000;
-> -		brightness = DIV_ROUND_CLOSEST(brightness, AMDGPU_MAX_BL_LEVEL);
-> +		// Firmware limits are 8-bit, PWM control is 16-bit.
-> +		*max = 0x101 * caps->max_input_signal;
-> +		*min = 0x101 * caps->min_input_signal;
->   	}
-> +	return 1;
-> +}
->   
-> -out:
-> -	return brightness;
-> +static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> +			      const uint32_t brightness, int from_user)
-> +{
-> +	unsigned min, max;
-> +
-> +	if (!get_brightness_range(caps, &min, &max))
-> +		return brightness;
-> +
-> +	if (from_user)
-> +		// Rescale 0..255 to min..max
-> +		return min + DIV_ROUND_CLOSEST((max - min) * brightness,
-> +					       AMDGPU_MAX_BL_LEVEL);
-> +
-> +	if (brightness < min)
-> +		return 0;
-> +	// Rescale min..max to 0..255
-> +	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
-> +				 max - min);
->   }
->   
->   static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-> @@ -2941,7 +2932,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
->   
->   	link = (struct dc_link *)dm->backlight_link;
->   
-> -	brightness = convert_brightness(&caps, bd->props.brightness);
-> +	brightness = convert_brightness(&caps, bd->props.brightness, 1);
->   	// Change brightness based on AUX property
->   	if (caps.aux_support)
->   		return set_backlight_via_aux(link, brightness);
-> @@ -2958,7 +2949,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
->   
->   	if (ret == DC_ERROR_UNEXPECTED)
->   		return bd->props.brightness;
-> -	return ret;
-> +	return convert_brightness(&dm->backlight_caps, ret, 0);
->   }
->   
->   static const struct backlight_ops amdgpu_dm_backlight_ops = {
+>> modify the exist conversion functions but I'd be worried about broken
+>> userspace relying on 0-255 as the only acceptable range.
 > 
-> base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
+> Not sure what you mean by this. Userspace simply reads the maximum value from
+> max_brightness sysfs file. On other gpu/firmware combinations it can be 7 or 9
+> for example, it just happens to be 255 with modern amdgpu. Minimum value is
+> always zero.
 > 
+> Value seen in max_brightness remains 255 with this patch, so as far as userspace
+> is concerned nothing is changed apart from value given by actual_brightness file.
+> 
+> Alexander
+> 
+>>
+>> Not an expert on existing implementations to point out a specific one though.
+>>
+>> Regards,
+>> Nicholas Kazlauskas
+>>
+>> On 2020-08-03 4:02 p.m., Alexander Monakov wrote:
+>>> Documentation for sysfs backlight level interface requires that
+>>> values in both 'brightness' and 'actual_brightness' files are
+>>> interpreted to be in range from 0 to the value given in the
+>>> 'max_brightness' file.
+>>>
+>>> With amdgpu, max_brightness gives 255, and values written by the user
+>>> into 'brightness' are internally rescaled to a wider range. However,
+>>> reading from 'actual_brightness' gives the raw register value without
+>>> inverse rescaling. This causes issues for various userspace tools such
+>>> as PowerTop and systemd that expect the value to be in the correct
+>>> range.
+>>>
+>>> Introduce a helper to retrieve internal backlight range. Extend the
+>>> existing 'convert_brightness' function to handle conversion in both
+>>> directions.
+>>>
+>>> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
+>>> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+>>> ---
+>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 ++++++++-----------
+>>>    1 file changed, 32 insertions(+), 41 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 710edc70e37e..03e21e7b7917 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -2881,51 +2881,42 @@ static int set_backlight_via_aux(struct dc_link
+>>> *link, uint32_t brightness)
+>>>    	return rc ? 0 : 1;
+>>>    }
+>>>    -static u32 convert_brightness(const struct amdgpu_dm_backlight_caps
+>>> *caps,
+>>> -			      const uint32_t user_brightness)
+>>> +static int get_brightness_range(const struct amdgpu_dm_backlight_caps
+>>> *caps,
+>>> +				unsigned *min, unsigned *max)
+>>>    {
+>>> -	u32 min, max, conversion_pace;
+>>> -	u32 brightness = user_brightness;
+>>> -
+>>>    	if (!caps)
+>>> -		goto out;
+>>> +		return 0;
+>>>    -	if (!caps->aux_support) {
+>>> -		max = caps->max_input_signal;
+>>> -		min = caps->min_input_signal;
+>>> -		/*
+>>> -		 * The brightness input is in the range 0-255
+>>> -		 * It needs to be rescaled to be between the
+>>> -		 * requested min and max input signal
+>>> -		 * It also needs to be scaled up by 0x101 to
+>>> -		 * match the DC interface which has a range of
+>>> -		 * 0 to 0xffff
+>>> -		 */
+>>> -		conversion_pace = 0x101;
+>>> -		brightness =
+>>> -			user_brightness
+>>> -			* conversion_pace
+>>> -			* (max - min)
+>>> -			/ AMDGPU_MAX_BL_LEVEL
+>>> -			+ min * conversion_pace;
+>>> +	if (caps->aux_support) {
+>>> +		// Firmware limits are in nits, DC API wants millinits.
+>>> +		*max = 1000 * caps->aux_max_input_signal;
+>>> +		*min = 1000 * caps->aux_min_input_signal;
+>>>    	} else {
+>>> -		/* TODO
+>>> -		 * We are doing a linear interpolation here, which is OK but
+>>> -		 * does not provide the optimal result. We probably want
+>>> -		 * something close to the Perceptual Quantizer (PQ) curve.
+>>> -		 */
+>>> -		max = caps->aux_max_input_signal;
+>>> -		min = caps->aux_min_input_signal;
+>>> -
+>>> -		brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
+>>> -			       + user_brightness * max;
+>>> -		// Multiple the value by 1000 since we use millinits
+>>> -		brightness *= 1000;
+>>> -		brightness = DIV_ROUND_CLOSEST(brightness,
+>>> AMDGPU_MAX_BL_LEVEL);
+>>> +		// Firmware limits are 8-bit, PWM control is 16-bit.
+>>> +		*max = 0x101 * caps->max_input_signal;
+>>> +		*min = 0x101 * caps->min_input_signal;
+>>>    	}
+>>> +	return 1;
+>>> +}
+>>>    -out:
+>>> -	return brightness;
+>>> +static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
+>>> +			      const uint32_t brightness, int from_user)
+>>> +{
+>>> +	unsigned min, max;
+>>> +
+>>> +	if (!get_brightness_range(caps, &min, &max))
+>>> +		return brightness;
+>>> +
+>>> +	if (from_user)
+>>> +		// Rescale 0..255 to min..max
+>>> +		return min + DIV_ROUND_CLOSEST((max - min) * brightness,
+>>> +					       AMDGPU_MAX_BL_LEVEL);
+>>> +
+>>> +	if (brightness < min)
+>>> +		return 0;
+>>> +	// Rescale min..max to 0..255
+>>> +	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
+>>> +				 max - min);
+>>>    }
+>>>      static int amdgpu_dm_backlight_update_status(struct backlight_device
+>>> *bd)
+>>> @@ -2941,7 +2932,7 @@ static int amdgpu_dm_backlight_update_status(struct
+>>> backlight_device *bd)
+>>>      	link = (struct dc_link *)dm->backlight_link;
+>>>    -	brightness = convert_brightness(&caps, bd->props.brightness);
+>>> +	brightness = convert_brightness(&caps, bd->props.brightness, 1);
+>>>    	// Change brightness based on AUX property
+>>>    	if (caps.aux_support)
+>>>    		return set_backlight_via_aux(link, brightness);
+>>> @@ -2958,7 +2949,7 @@ static int amdgpu_dm_backlight_get_brightness(struct
+>>> backlight_device *bd)
+>>>      	if (ret == DC_ERROR_UNEXPECTED)
+>>>    		return bd->props.brightness;
+>>> -	return ret;
+>>> +	return convert_brightness(&dm->backlight_caps, ret, 0);
+>>>    }
+>>>      static const struct backlight_ops amdgpu_dm_backlight_ops = {
+>>>
+>>> base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
+>>>
+>>
+>>
 
 _______________________________________________
 amd-gfx mailing list
