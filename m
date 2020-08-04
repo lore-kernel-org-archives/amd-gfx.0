@@ -2,120 +2,102 @@ Return-Path: <SRS0=+8vs=BO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D78BC433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 14:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF669C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17713208A9
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 14:21:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 94DFF22BED
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:18:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="LbH5l3pG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17713208A9
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="k0UUQGaN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94DFF22BED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B898789D7D;
-	Tue,  4 Aug 2020 14:21:09 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700065.outbound.protection.outlook.com [40.107.70.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A403D89D67
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 14:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29FC989893;
+	Tue,  4 Aug 2020 16:18:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D8D6E484
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 16:18:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JNsqFLZ1pq80O2DK1NjAivAXEjHGLEdpg7v0MlTBfzjbjn1+T1On4oGMD1nANNU+8uef85i5YWL7tOEwm9S68FZjbuWvaJCTXJ8K5kgxOKu5O8zB9SebNZZ/DIVt5NOntywGP7m4LoxcVLL+9C62jJ9o3QfLXYx2FKnvkNRxslpmhbvbpHgepav1t9tyEit3AUWCF0j/YOgbYAOGOhjR+eTtFB/qbY6IQpReVsM+EuxReQxb03DwDS/V+1sZTWHiMn0HUcXXlxGDWWGv3Oc862XUSzTlvrIeFnZhXYQJFGjKvdtpZAmIL6dbu1UVnRh1GnhdZN0uTNroER0pl9gM4g==
+ b=Ec/c63t4dcYjm6c7ykudn/di/RBXWutYU5cdER/1BbZbJ6sn0tqALthNXBeLyG6ZcAo0ueV1iVc8fTfSV1vfa6vwjQ+Osd2OGn+Cd4I0LWFAwxRnEPlNSIbqBLhkl3QHD7S6794i7wlJF/FRXUoLtkHx0OdXfKFWdqq39iZj3Z/Ua/ApkpUeQPfLg9hgE1rGTBqooKh/ZHEv1zFODkAUtPThfRjghjiLwMqNnOnzNBMgqJ7b7TsnTzARVie6hcvDFvYJOS3WKhxDtqNEyN9yBZqo4WhTL1S4Eu98bTwgkDxQC5HYi09scX1t8zxbSsQ1yCQULwmNc7vGeh+83H8LKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7rh0Wvesu5f8GtkNLgR7eRn+ssuPXxD1FS2lypUwOg=;
- b=gFhIv06UHGhvV+DZ6iGMFHRubF23d/xhAcQxH6pc751i/PPickRYWni+TEBvyK2ig1k/lhRbT5fuuQiBnqOhdOFKhuFALF97fiwLOhKZYHzx7YhDibC4VwHfxq2sOi/1gTz13kRGV2AVBip0zt2+lOUaYpRKEsxXsNOMxN0BdcKaKkkWkoU8sAyDgHgU182N6PbootxldQy9z6opYeVcispNSEgnL5yH1tUzuCh9ry9ahLK6cDKjCT8BgDektyvwAi4hcPqE+3lFRNqbnOXaK8NJbBEhxNVGLeRypo5j4qRdB7TdX5LaN+AandkOSdSIhIh63bXBkJB2yYI8IKTHUg==
+ bh=vfd94lMqUs5pZhvwnisUhLwtasfM7T1LBvVYia5xzHw=;
+ b=N1U2m++EXwfjYSq4VE8ad/iYXK+Q44nn6NFJpyJTrHonm2hhHpYmeuwUiTUzGVXBUmlfeSO5te3+MLicKddJTtG8Bk3uJWQ1AiF6X+CF6HNCMj20kDyz4eHoL7qKzobX+rx4VUd22xBTeK7n4M25TSEWqhIwiOhGaukp/wYP0P6WHv1vhn34EALxqGqzvi8Dd9qO26ool+9IpyBxm90rHXD6NFmj8KggiuSbPH8V7J1LqidlLuGR9GrMiZG8K0DbdEEXTj5tvQOQibp/DnDWB7qXzZC6ngd/6XbpUEZge6ZoDMvT4Xc2SG3Y08jTjU1tLwW7gT6duJcUjXPDETKNMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L7rh0Wvesu5f8GtkNLgR7eRn+ssuPXxD1FS2lypUwOg=;
- b=LbH5l3pGEA9WYm7rc3xG5qLuUqYHQGCtGMu39Uq4AF+KuN9vPv2oE3BewPu9Te7tPszZc7NLukpKcrTCu4hcAs5OhLo9EdEbKb7a3S9wc782uXAoz7hB2Fswpq5PSzJzGzmiK5I8DVaaJaH1Q0NrU6Hj7nu5YC6xdkT7wv1vUUM=
-Received: from DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17)
- by DM6PR12MB2777.namprd12.prod.outlook.com (2603:10b6:5:51::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.20; Tue, 4 Aug
- 2020 14:21:07 +0000
-Received: from DM6PR12MB4156.namprd12.prod.outlook.com
- ([fe80::7082:21ba:6e45:32ba]) by DM6PR12MB4156.namprd12.prod.outlook.com
- ([fe80::7082:21ba:6e45:32ba%9]) with mapi id 15.20.3239.022; Tue, 4 Aug 2020
- 14:21:07 +0000
-From: "Wu, Hersen" <hersenxs.wu@amd.com>
-To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Lin, Wayne"
- <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/dc: Read from DP_SINK_COUNT_ESI for DPDC r1.2 or
- higher
-Thread-Topic: [PATCH] drm/amd/dc: Read from DP_SINK_COUNT_ESI for DPDC r1.2 or
- higher
-Thread-Index: AQHWahGbzV42ZF8lxEuBv+vG0vjXkKkn+bSAgAAHDuA=
-Date: Tue, 4 Aug 2020 14:21:07 +0000
-Message-ID: <DM6PR12MB41561296553FE4EEAF8E2CFAFD4A0@DM6PR12MB4156.namprd12.prod.outlook.com>
-References: <20200804034218.612-1-Wayne.Lin@amd.com>
- <a7b841e16e781f433f8f68a5e957232357bd71fb.camel@amd.com>
-In-Reply-To: <a7b841e16e781f433f8f68a5e957232357bd71fb.camel@amd.com>
-Accept-Language: en-CA, en-US
+ bh=vfd94lMqUs5pZhvwnisUhLwtasfM7T1LBvVYia5xzHw=;
+ b=k0UUQGaNlXtcBKPDBR1NEXMP8REXlyrHks5Lx7u2EjVHzL6N5buGCXen1Q109nDULvZqFl0Wqf4W7C3tNrDeVxV8Hgw9PokvjdTJVrrlCw+ur0ewmZ+/Az9TGtArV3Pqq3PF6TMdtUNcuXcpb3O8k3zcFOOE2AQRvhXc8CJqBUE=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3575.namprd12.prod.outlook.com (2603:10b6:a03:ab::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Tue, 4 Aug
+ 2020 16:18:18 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::7d42:c932:e35f:71b1]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::7d42:c932:e35f:71b1%7]) with mapi id 15.20.3239.021; Tue, 4 Aug 2020
+ 16:18:18 +0000
+Subject: Re: [PATCH] drm/amd/display: use correct scale for actual_brightness
+To: Alexander Monakov <amonakov@ispras.ru>, amd-gfx@lists.freedesktop.org
+References: <20200803200218.2167-1-amonakov@ispras.ru>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <35b551fe-7c14-3d8e-4056-39975bd75105@amd.com>
+Date: Tue, 4 Aug 2020 12:18:11 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+In-Reply-To: <20200803200218.2167-1-amonakov@ispras.ru>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-04T14:21:03Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=a983cdc4-9ab5-482b-b5c4-0000fdae5a2a;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-08-04T14:21:03Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 1ff0b172-a5b4-45a6-b982-0000b835b222
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.54.211]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 63e6b974-2ef3-455e-85cd-08d83881a0ba
-x-ms-traffictypediagnostic: DM6PR12MB2777:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2777EC2917ECE799A43A5DCFFD4A0@DM6PR12MB2777.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4125;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IhQqLF0QSCbU8Tjifhe84RZ0vpDqn3qUqX7Q3DMKKc5u6y7u+57ewSdNnAoZNbrzRAnbqYXGlQlySJGylhg1uCUnNQmCVStIWKWblZREiAd+YZPhHxZ+kxro9o1MqWzWRucE9sBuNJSmLjjA3/tajpvIWNKC4Od/SoHNk2ukQjyCCeDu26M5FNDT4PeHaR6ch9fqU9Ad+j+5VmyKsPNAGrSBlqkkfnuBNYkDJIq9nYH5G/iFIFAIWcIXKPWcrN/S270yC4Snp80q5Xtmx6ce9dXBa0ZX1vwGZICVS2xLwcxSrtwLKanCZo013/iCtSar1bEw/QJgKj5bE6tYoZGbOg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4156.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(33656002)(26005)(5660300002)(83380400001)(478600001)(186003)(9686003)(86362001)(66446008)(64756008)(66556008)(52536014)(2906002)(4326008)(55016002)(71200400001)(54906003)(110136005)(7696005)(66476007)(6506007)(66946007)(76116006)(8936002)(8676002)(53546011)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: t66Vx69EK8AAHH97VEYR3ipZE9tRlO1X9T6SGucqQM6ixndx6GF5W42aXNmmluqwbiqH0ioSBUxQduorND3aCMBrfaw2NjHoajzsPb7YnCEH2sB5biHyGxUF6DaYs0qboQoWizY/N9i4GHMpk21yuMXsfYb/pv3QdhhBnVi5k9RZFLKf90oL05jqjYF4+sRfblpxcCKJOVBtiYRhEeyxtPvk77Q67S+CdnDkn1lIe7H83hW+tvB4p+EHaBk1EvsvkDP03MrUxvg3N95O+oYEag8XjyA8tLKqa+eCf9JErnNEpaHyxB1PqKOmZmjMwfvuIwdI5yku/CJXwCgRYRPlkQVC3GTuIymSLH62aTp3Jgm9xHgdEqdTwxUpVUA0FMMQnKNFbPjr5+g+92nFWY8Le5x4eXMY2GoS0JDaCSFbcaQSJ2FnKVLDNEN/cYMKLwGfl1BBrqLy1Aka49QhvEDfDWKm/1Oe5rhRT9dP2xQS4BzyCDGcX7zLHfoCcUBKtADJysKp8IP2HcY8YUEK+SzD7VE9wLX81HNxoFrfgnvPneW/lLFgXTx9HXo61azuMK4mV+pSFCDVq5t2jJaSyiCCEBxOcb1n8djR5FX9B5idUMf49NdtIV4mvw4lX4KDzZnvmaSgvtP88/QFIzu1RfIPZg==
+X-ClientProxiedBy: YT1PR01CA0002.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::15)
+ To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YT1PR01CA0002.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.16 via Frontend Transport; Tue, 4 Aug 2020 16:18:17 +0000
+X-Originating-IP: [165.204.55.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6b012456-7d34-40bc-d131-08d83891ff55
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3575:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB357544FDB2478F31CE53C01CEC4A0@BYAPR12MB3575.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hSrCVOuKf7XdBEjxZCD2aGgwxkdmqYSEzbdLay9dcoRaM6Z7eQpsFgf9Kpx3IhrzgUlAO7B6l78pQEBhqsa+BqtDpeGhq16Yi7JDMtMfssmWqM5KY4lNF95KFNXJGONtU3DxAB4cOVS7bkZhPHJlj+AHn+s8tLV4ZBIBz0j5oIS7ipPWbXhvTFfxu1fIxHUyJ6lnmexqSPPio85vgBAkTcVaK+a1wtzyChJshtiHm4u7sgarh8oOJYTvZl4F+SdcYWtCuAhjaxFPTSeV11fLhViQb/tT0TQbsVcXEo9/xTpQNYdCYziPdSnn5/s5y+uMfHe3uQl9Hig1Dcjlbelb7aw2gBjr2moGToixhFJUnJWyYjfixn+73eMUnTpf1Jjxps+CPt/50OHXpTVRkRwoZhuGzYyrJxl1tFNB2AUt01ftUZaITKTH8YgHQvaiil8cLinCgK/oP3pG6RGoqBJ/ow==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(346002)(376002)(396003)(136003)(366004)(6666004)(31686004)(31696002)(16576012)(8676002)(5660300002)(478600001)(966005)(316002)(8936002)(6486002)(86362001)(66556008)(66946007)(66476007)(53546011)(36756003)(26005)(4326008)(52116002)(956004)(16526019)(2616005)(186003)(83380400001)(2906002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 4vOZarAZ5s8u7gC+YygzMPmPEwFJVsf9E9enD9ogyb53OZl41Ku1yuU5uBV0QD+nr154vLXrBER0n12EdiDiWRVygE2tQ764B/Nrm1kePK4tTAwDqW7HZFn4U8LzOEGzaa4l3R8rrxb1SQHy1PS+oh3YCxiUNJn8KhLwp7ikcyYb/0LNKpp1MNHtEEPZGyslchwOz/QnKQaLa24kOl8x8g8qEt5usWrnbe1mmNQrHaDNiyBCzAKnQvnpP0i3f+qCMtaRL73M76UOYUSV0+/pFZ58zvpZfR+9v97rSF9XixOgkJy9Wefiav3LeBBY+/MgoUZNb5R8UpfrDJS6C3ZheXFTTTdf61NvuOqT5xrbNOyOcVm7e6JHH1RZ5qiW3ITCGICf/wiLMduC+/G2b/Y3HDcu4igFfvkfFfNE4mW12XXzTbaVYk+c9Q/pG7GyJMw3UIx9ny5K1YOblIM1KiCeoRo6h8t+65NM2cQQYMdk/PZILKHR2K2ASLwtC/j6YbAfSrDTy5dVur4M+QgkbVjLORlZC7AW73rpDC4HyBY7bcNRdnyW7R3mUp2TW5xcdoH5Bw9EpRQjj8UIUSV1CqEIP5fnxOWCet3dRFu4n0HKGDUt+Yz1SJwz2GYH3IEYFZYZWZnMtvtx4Uc01rLPRv5WiQ==
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b012456-7d34-40bc-d131-08d83891ff55
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4156.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63e6b974-2ef3-455e-85cd-08d83881a0ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2020 14:21:07.0474 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: p+cwDjqlmGLWcJq37FZF9sv9x2rVhKgq1T6WJQhedhmg86Iv2XCUPNHmRFztb0IE/BnsUdX6yc/tMuawCQspWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2777
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2020 16:18:18.1560 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MxS2+1/Y8wShdfzkOKL6kx1Kz0JRD5or/SuYX1CZWfFuf3zJ2NvmcJGPoZDIZtlXZxkFayTi+jnno8lRaXCE7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3575
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,64 +109,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Cheng, Tony" <Tony.Cheng@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>, "Liu, Wenjing" <Wenjing.Liu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+This is a cleaner change the other proposed patch since it doesn't need 
+to modify the exist conversion functions but I'd be worried about broken 
+userspace relying on 0-255 as the only acceptable range.
 
+Not an expert on existing implementations to point out a specific one 
+though.
 
+Regards,
+Nicholas Kazlauskas
 
------Original Message-----
-From: Pillai, Aurabindo <Aurabindo.Pillai@amd.com> 
-Sent: Tuesday, August 4, 2020 9:56 AM
-To: Lin, Wayne <Wayne.Lin@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Wu, Hersen <hersenxs.wu@amd.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
-Subject: Re: [PATCH] drm/amd/dc: Read from DP_SINK_COUNT_ESI for DPDC r1.2 or higher
-
-On Tue, 2020-08-04 at 11:42 +0800, Wayne Lin wrote:
-> [Why]
-> According to DP spec, DPRX with DPCD r1.2 or higher shall have the 
-> same Link/Sink Device Status field registers at DPCD Addresses 00200h 
-> through 00205h to the corresponding DPRX Event Status Indicator 
-> registers at DPCD Addresses 02002h through 0200Fh. We now only read 
-> from 02002h when DPCD revision number is r1.4 or higher while handling 
-> short HPD. Need to correct that.
+On 2020-08-03 4:02 p.m., Alexander Monakov wrote:
+> Documentation for sysfs backlight level interface requires that
+> values in both 'brightness' and 'actual_brightness' files are
+> interpreted to be in range from 0 to the value given in the
+> 'max_brightness' file.
 > 
-> [How]
-> Set to read from 02002h when DPCD is r1.2 or higher
-> 
-> Signed-off-by: Wayne Lin <
-> Wayne.Lin@amd.com
-> >
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 2bfa4e35c2cf..9fb1543b4c73 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -1834,9 +1834,9 @@ static enum dc_status read_hpd_rx_irq_data(
->  	 * fail, so we now explicitly read 6 bytes which is
->  	 * the req from the above mentioned test cases.
->  	 *
-> -	 * For DP 1.4 we need to read those from 2002h range.
-> +	 * For DPCD r1.2 or higher, we need to read those from 2002h
+> With amdgpu, max_brightness gives 255, and values written by the user
+> into 'brightness' are internally rescaled to a wider range. However,
+> reading from 'actual_brightness' gives the raw register value without
+> inverse rescaling. This causes issues for various userspace tools such
+> as PowerTop and systemd that expect the value to be in the correct
 > range.
->  	 */
-> -	if (link->dpcd_caps.dpcd_rev.raw < DPCD_REV_14)
-> +	if (link->dpcd_caps.dpcd_rev.raw < DPCD_REV_12)
->  		retval = core_link_read_dpcd(
->  			link,
->  			DP_SINK_COUNT,
+> 
+> Introduce a helper to retrieve internal backlight range. Extend the
+> existing 'convert_brightness' function to handle conversion in both
+> directions.
+> 
+> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 ++++++++-----------
+>   1 file changed, 32 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 710edc70e37e..03e21e7b7917 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2881,51 +2881,42 @@ static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)
+>   	return rc ? 0 : 1;
+>   }
+>   
+> -static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
+> -			      const uint32_t user_brightness)
+> +static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+> +				unsigned *min, unsigned *max)
+>   {
+> -	u32 min, max, conversion_pace;
+> -	u32 brightness = user_brightness;
+> -
+>   	if (!caps)
+> -		goto out;
+> +		return 0;
+>   
+> -	if (!caps->aux_support) {
+> -		max = caps->max_input_signal;
+> -		min = caps->min_input_signal;
+> -		/*
+> -		 * The brightness input is in the range 0-255
+> -		 * It needs to be rescaled to be between the
+> -		 * requested min and max input signal
+> -		 * It also needs to be scaled up by 0x101 to
+> -		 * match the DC interface which has a range of
+> -		 * 0 to 0xffff
+> -		 */
+> -		conversion_pace = 0x101;
+> -		brightness =
+> -			user_brightness
+> -			* conversion_pace
+> -			* (max - min)
+> -			/ AMDGPU_MAX_BL_LEVEL
+> -			+ min * conversion_pace;
+> +	if (caps->aux_support) {
+> +		// Firmware limits are in nits, DC API wants millinits.
+> +		*max = 1000 * caps->aux_max_input_signal;
+> +		*min = 1000 * caps->aux_min_input_signal;
+>   	} else {
+> -		/* TODO
+> -		 * We are doing a linear interpolation here, which is OK but
+> -		 * does not provide the optimal result. We probably want
+> -		 * something close to the Perceptual Quantizer (PQ) curve.
+> -		 */
+> -		max = caps->aux_max_input_signal;
+> -		min = caps->aux_min_input_signal;
+> -
+> -		brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
+> -			       + user_brightness * max;
+> -		// Multiple the value by 1000 since we use millinits
+> -		brightness *= 1000;
+> -		brightness = DIV_ROUND_CLOSEST(brightness, AMDGPU_MAX_BL_LEVEL);
+> +		// Firmware limits are 8-bit, PWM control is 16-bit.
+> +		*max = 0x101 * caps->max_input_signal;
+> +		*min = 0x101 * caps->min_input_signal;
+>   	}
+> +	return 1;
+> +}
+>   
+> -out:
+> -	return brightness;
+> +static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
+> +			      const uint32_t brightness, int from_user)
+> +{
+> +	unsigned min, max;
+> +
+> +	if (!get_brightness_range(caps, &min, &max))
+> +		return brightness;
+> +
+> +	if (from_user)
+> +		// Rescale 0..255 to min..max
+> +		return min + DIV_ROUND_CLOSEST((max - min) * brightness,
+> +					       AMDGPU_MAX_BL_LEVEL);
+> +
+> +	if (brightness < min)
+> +		return 0;
+> +	// Rescale min..max to 0..255
+> +	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
+> +				 max - min);
+>   }
+>   
+>   static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+> @@ -2941,7 +2932,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+>   
+>   	link = (struct dc_link *)dm->backlight_link;
+>   
+> -	brightness = convert_brightness(&caps, bd->props.brightness);
+> +	brightness = convert_brightness(&caps, bd->props.brightness, 1);
+>   	// Change brightness based on AUX property
+>   	if (caps.aux_support)
+>   		return set_backlight_via_aux(link, brightness);
+> @@ -2958,7 +2949,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+>   
+>   	if (ret == DC_ERROR_UNEXPECTED)
+>   		return bd->props.brightness;
+> -	return ret;
+> +	return convert_brightness(&dm->backlight_caps, ret, 0);
+>   }
+>   
+>   static const struct backlight_ops amdgpu_dm_backlight_ops = {
+> 
+> base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
+> 
 
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
