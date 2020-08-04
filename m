@@ -2,105 +2,69 @@ Return-Path: <SRS0=+8vs=BO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12F7DC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE26EC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E1049204EA
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:35:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AC72F20792
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 16:51:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TF9eYOFD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1049204EA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="IN57bkXj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC72F20792
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9623F89D99;
-	Tue,  4 Aug 2020 16:35:53 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4918C89D99
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 16:35:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dgXMU+ZMaR6A2G+cX2t8b+eebNbHQrigP6RmNUz7F8oXCooGhaO/tLRfdPxgNOy3ElOKd/7bUmA9sLCt8q6jJj9jpohsFfMpWmf3xFNULlWxXESWqeiqkMwY2MQAzgXaw98FzoGMXkeWBN64r8XXmTKX2qEllSaz9V3bc+Ro3I77NLkbQ22D8m0oCYsARS7pmZXtnvpxW/Xy0cbyRfqcRQpfQWm4DH5OoleY1fEbeSFXBW6n/Ffg1WWx8bJ1wQQ3D9xdeWcHvRTPcIzT8MraPrNn6vpOUFL6dHEqvyAWaLzUYGwSv9S4VyssoXwuyAABkJ59pMkdeFYKfF37PRrf+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hyI5Xgpwn+mMAzV+JsVF8ilweF0EK9ghwhcNodMQpAw=;
- b=EWpDeBiXqFLwQ9psnQT72r9zMnO5S55ZpLwwvnm8NcoCP/0GW5miQ3D3LJYjUi+uNlJuju588eyfEyozaSqaPyk8NMT3RXBXNn10/3wUVgCCLLMdgobWRX1I+UPjjcDAbpi3xh50Ck6JaK9qQZZcw0iqqdtGOR/WG6pgbY8INFzs/vXAm3HZVk0QvU092XgmYg3W2TT39S21rJWDQvqCSTzJp1ePfWZZn4/xJQm40+hQphotVfNR0jrj3kJyw55vEb5hYYnT5RzRDKrGehE9Xf2MeVf4PoTsN4Udo2ranS2dqKT/mI20dzb5+VcqzeZOpiL3WhITnIUfA1VLzl+MAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hyI5Xgpwn+mMAzV+JsVF8ilweF0EK9ghwhcNodMQpAw=;
- b=TF9eYOFDkxS0XaUy5cYcWDns1gkYQJ1REmrZA6UwPhsxc3Z6/nF2CliYsfpDrVD+O2kw96CaHpTYqvO1WFJYv+mHg3ig261Exdkc+s/1Fm3Qy17mWAabRqMFuikRDpTTTOHAqMAeq2nSwAprIIKZsTm3C75tU6DIJN4CF1jLsvg=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB2821.namprd12.prod.outlook.com (2603:10b6:a03:9b::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16; Tue, 4 Aug
- 2020 16:35:50 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::7d42:c932:e35f:71b1]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::7d42:c932:e35f:71b1%7]) with mapi id 15.20.3239.021; Tue, 4 Aug 2020
- 16:35:50 +0000
-Subject: Re: [PATCH] drm/amd/display: use correct scale for actual_brightness
-To: Alexander Monakov <amonakov@ispras.ru>
-References: <20200803200218.2167-1-amonakov@ispras.ru>
- <35b551fe-7c14-3d8e-4056-39975bd75105@amd.com>
- <alpine.LNX.2.20.13.2008041922170.2454@monopod.intra.ispras.ru>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <f1bc6b02-0761-c3c0-d629-7b8f97bef8d7@amd.com>
-Date: Tue, 4 Aug 2020 12:35:45 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-In-Reply-To: <alpine.LNX.2.20.13.2008041922170.2454@monopod.intra.ispras.ru>
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0071.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::48) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE00B6E48D;
+	Tue,  4 Aug 2020 16:51:32 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 740CB89FF7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2020 16:51:31 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id l2so27522832wrc.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2020 09:51:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=wUbgutt9s0+CCMHi1qud9oNrcmOOFtkb66mgbjS4rEA=;
+ b=IN57bkXjy0RshEYGFTxN/4j5lylwCW1mPwLmhq2YXvUbI3Wd9JDSoJzBPwZcL9ne3Z
+ Ex451xozQNGVqEwiyxyIjQvrJFe7P80s6Nq1GfTnu994wYpwFdGXVkScEPlhUYrsPQg7
+ 1pFzVXlji7qZ2Q3SbPmtYaDk7Q+aSkCa+EVNo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=wUbgutt9s0+CCMHi1qud9oNrcmOOFtkb66mgbjS4rEA=;
+ b=TZiRhSVTR419lcEu0/LnRZKn9RSJ4VdARAOCNLnYbMMigEcdbuinc/BUHN1wGw3NTH
+ rdL4DJtf0Y9fJDIlFfBbOJ3UZxdgRZ4bgTVWIAtJVbIi2QN8LeakNCJTv98rnGYYotl/
+ qr4RDK3MW29fblDoBDbewXxZHp9Ak4o5frsRINo9KJw7oa0yL5Eitp1oZhAUXzet6HUM
+ Inrb/z1trxFcQbh3Mu31CcCTmbUaSiNzvlUsluUnap4bNgUWSSsMrW2TxGHHH4ww1FbC
+ wJdlN1YLUTw3L+OB0DA3rqIKyxOgahgKKywP9LWDwSRDsSaG7hq8B277UAhZG/g40AbR
+ pRAg==
+X-Gm-Message-State: AOAM530cXgO0FkujuPwCvpFfQAh3pqXoZbmXxEcDNF+eR4sTbQhxhOy3
+ bySQk56QS8qFJl+ZEMosJAsReA==
+X-Google-Smtp-Source: ABdhPJyt77JgawFZyjfhRmRpXgrohlDBQM6vv3o2xf0fZLT0bJ/pclPUCZUGXIWMuIDtEjV+vmatWA==
+X-Received: by 2002:adf:fdce:: with SMTP id i14mr19848772wrs.273.1596559890052; 
+ Tue, 04 Aug 2020 09:51:30 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id o125sm5719234wma.27.2020.08.04.09.51.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Aug 2020 09:51:28 -0700 (PDT)
+Date: Tue, 4 Aug 2020 18:51:26 +0200
+From: daniel@ffwll.ch
+To: 
+Subject: Re: [RFC PATCH v1 0/22] backlight: add init macros and accessors
+Message-ID: <20200804165126.GM6419@phenom.ffwll.local>
+References: <20200802110636.1018743-1-sam@ravnborg.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.148.234] (165.204.55.211) by
- YTXPR0101CA0071.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::48) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17 via Frontend
- Transport; Tue, 4 Aug 2020 16:35:49 +0000
-X-Originating-IP: [165.204.55.211]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: adaea594-9d2a-4565-17b7-08d83894729d
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2821:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB2821117F5A9DDC4C0E2D03D8EC4A0@BYAPR12MB2821.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fe/cfLyPBvMBrUuOqiMtwVZJqXAZj+VvXj7gxa9cc4FczNNwHxWft8L1FN3njkEXVyqsLduz/JfwQGbWWhEEmyzfby3L3JePPCFbzECy48ww4pIKzuXIS3p4sZ/1Tomw/eRyZd3uSghJNtIf+A3CBB6prEixLsVeq/TvekIXGeTfNdDdoAnMLxo32QBYj9vDQq6dAo1SZ7u7pif/ppmp5ETWa5siYjUS410fE+k6/i8DHj7xQuNXWkj9UFIHLBE4ttZPdsrbysOR5aB4x6QzeyvN45M6IKTYEnFTMILNvwcupioRi5wouHzWedqcl+UMWsZmC1kk6pFTbGZ7APjfkXJWioqyEpa3bYlplr4lxPoWT6pAH1us56QDj/FwafEmjV9GIB+o5wFnMM/rc/oi1zNqKDWHPIxN6ev09+kJvtp2AmjLuiSfJ1AZ6MvBA9N6m7jQojhnDWxCSzfLTwTDOA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(316002)(16576012)(53546011)(16526019)(4326008)(6916009)(2906002)(52116002)(6486002)(966005)(186003)(8936002)(8676002)(478600001)(26005)(2616005)(66556008)(6666004)(956004)(86362001)(5660300002)(83380400001)(66476007)(36756003)(31686004)(66946007)(31696002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: sqS3d/MWmhhp7UcJapOfP82c6K/fTzLqCmWVZQ6jso7KNqYScLWWPjai0hD+hV+S3fEtawFmOquFDpxrWTlLuo/ES5W2Qk9v+IG/X8KxvtGqj5DmOs3wP1/tqZoP84VO8uNvlKLV13jBJkjXMLZT2rbCnq9mhX+gAwaYNR6STS4ygL3lX/6Y1TrXIRkMKcSup4HUdGqN9trChYyXCC1J/E2FjZdwXibYAiq78/44s/kWUf6Wy9YZBzMGbTCkGYRmL/iQG5HesUOVH3bZQPywFmDYuaPGlXcFv+zCKNb+VHnshes4ZPcfd6tRcH7Dbkwamgecpnq2uKsJxWlKY5vfQWLeplBAK0agaYHvPS0Dcjc6gKSRv9omiYuoVr4efxcuFQ2FhAWBkBq1X24H4LuIhOm47QGrGXL/sXAfk7raz27ccLcCiSJ0KBK9dfElMgHfYNS2KTt5gFvZ2he/LgEEyMlixoCDOAk+Z0FZ4/C+bnla0XZW+bw+mFMrZjEZfpRmP8pTB7HJk16LQe3nqtuT2x722EgNhCJUnlS9pe1NEhfZFcrvHrK1/8M2egxzh7QbCRYBUVnlLlXgDymb0Fs20lYAauXV/VfNgvwTQpeNbNDgk8HzloGnnBZpWzPWdQJ9cgN8buBWQ5/vu06wd29o5A==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adaea594-9d2a-4565-17b7-08d83894729d
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2020 16:35:50.5176 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LGGS1dolp95Gn/6Sg4hV4/BfHwL5jzx4pxtyY5DERRfwclQ0Qch9n34TBeemfbGnrKs5s+/FE6+rgvTfClWs2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2821
+Content-Disposition: inline
+In-Reply-To: <20200802110636.1018743-1-sam@ravnborg.org>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,188 +76,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Neil Armstrong <narmstrong@baylibre.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Andrzej Hajda <a.hajda@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ Manasi Navare <manasi.d.navare@intel.com>,
+ Daniel Thompson <daniel.thompson@linaro.org>,
+ Konrad Dybcio <konradybcio@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Zheng Bin <zhengbin13@huawei.com>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Robert Chiras <robert.chiras@nxp.com>, Vinay Simha BN <simhavcs@gmail.com>,
+ Hoegeun Kwon <hoegeun.kwon@samsung.com>,
+ =?utf-8?B?UGF3ZcWC?= Chmiel <pawel.mikolaj.chmiel@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Hans de Goede <hdegoede@redhat.com>, Jyri Sarha <jsarha@ti.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Jingoo Han <jingoohan1@gmail.com>,
+ Philippe CORNU <philippe.cornu@st.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ linux-renesas-soc@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Wambui Karuga <wambui.karugax@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-08-04 12:28 p.m., Alexander Monakov wrote:
-> 
-> 
-> On Tue, 4 Aug 2020, Kazlauskas, Nicholas wrote:
-> 
->> This is a cleaner change the other proposed patch since it doesn't need to
-> 
-> Can you give a URL to the other patch please?
-
-Sorry, replied to the wrong email by accident here.
-
-The other change was modifying the max_brightness range and rescaling 
-internal min/max defaults.
-
-I don't think it was sent out to the list yet.
-
-Regards,
-Nicholas Kazlauskas
-
-> 
->> modify the exist conversion functions but I'd be worried about broken
->> userspace relying on 0-255 as the only acceptable range.
-> 
-> Not sure what you mean by this. Userspace simply reads the maximum value from
-> max_brightness sysfs file. On other gpu/firmware combinations it can be 7 or 9
-> for example, it just happens to be 255 with modern amdgpu. Minimum value is
-> always zero.
-> 
-> Value seen in max_brightness remains 255 with this patch, so as far as userspace
-> is concerned nothing is changed apart from value given by actual_brightness file.
-> 
-> Alexander
-> 
->>
->> Not an expert on existing implementations to point out a specific one though.
->>
->> Regards,
->> Nicholas Kazlauskas
->>
->> On 2020-08-03 4:02 p.m., Alexander Monakov wrote:
->>> Documentation for sysfs backlight level interface requires that
->>> values in both 'brightness' and 'actual_brightness' files are
->>> interpreted to be in range from 0 to the value given in the
->>> 'max_brightness' file.
->>>
->>> With amdgpu, max_brightness gives 255, and values written by the user
->>> into 'brightness' are internally rescaled to a wider range. However,
->>> reading from 'actual_brightness' gives the raw register value without
->>> inverse rescaling. This causes issues for various userspace tools such
->>> as PowerTop and systemd that expect the value to be in the correct
->>> range.
->>>
->>> Introduce a helper to retrieve internal backlight range. Extend the
->>> existing 'convert_brightness' function to handle conversion in both
->>> directions.
->>>
->>> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
->>> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
->>> ---
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 ++++++++-----------
->>>    1 file changed, 32 insertions(+), 41 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index 710edc70e37e..03e21e7b7917 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -2881,51 +2881,42 @@ static int set_backlight_via_aux(struct dc_link
->>> *link, uint32_t brightness)
->>>    	return rc ? 0 : 1;
->>>    }
->>>    -static u32 convert_brightness(const struct amdgpu_dm_backlight_caps
->>> *caps,
->>> -			      const uint32_t user_brightness)
->>> +static int get_brightness_range(const struct amdgpu_dm_backlight_caps
->>> *caps,
->>> +				unsigned *min, unsigned *max)
->>>    {
->>> -	u32 min, max, conversion_pace;
->>> -	u32 brightness = user_brightness;
->>> -
->>>    	if (!caps)
->>> -		goto out;
->>> +		return 0;
->>>    -	if (!caps->aux_support) {
->>> -		max = caps->max_input_signal;
->>> -		min = caps->min_input_signal;
->>> -		/*
->>> -		 * The brightness input is in the range 0-255
->>> -		 * It needs to be rescaled to be between the
->>> -		 * requested min and max input signal
->>> -		 * It also needs to be scaled up by 0x101 to
->>> -		 * match the DC interface which has a range of
->>> -		 * 0 to 0xffff
->>> -		 */
->>> -		conversion_pace = 0x101;
->>> -		brightness =
->>> -			user_brightness
->>> -			* conversion_pace
->>> -			* (max - min)
->>> -			/ AMDGPU_MAX_BL_LEVEL
->>> -			+ min * conversion_pace;
->>> +	if (caps->aux_support) {
->>> +		// Firmware limits are in nits, DC API wants millinits.
->>> +		*max = 1000 * caps->aux_max_input_signal;
->>> +		*min = 1000 * caps->aux_min_input_signal;
->>>    	} else {
->>> -		/* TODO
->>> -		 * We are doing a linear interpolation here, which is OK but
->>> -		 * does not provide the optimal result. We probably want
->>> -		 * something close to the Perceptual Quantizer (PQ) curve.
->>> -		 */
->>> -		max = caps->aux_max_input_signal;
->>> -		min = caps->aux_min_input_signal;
->>> -
->>> -		brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
->>> -			       + user_brightness * max;
->>> -		// Multiple the value by 1000 since we use millinits
->>> -		brightness *= 1000;
->>> -		brightness = DIV_ROUND_CLOSEST(brightness,
->>> AMDGPU_MAX_BL_LEVEL);
->>> +		// Firmware limits are 8-bit, PWM control is 16-bit.
->>> +		*max = 0x101 * caps->max_input_signal;
->>> +		*min = 0x101 * caps->min_input_signal;
->>>    	}
->>> +	return 1;
->>> +}
->>>    -out:
->>> -	return brightness;
->>> +static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
->>> +			      const uint32_t brightness, int from_user)
->>> +{
->>> +	unsigned min, max;
->>> +
->>> +	if (!get_brightness_range(caps, &min, &max))
->>> +		return brightness;
->>> +
->>> +	if (from_user)
->>> +		// Rescale 0..255 to min..max
->>> +		return min + DIV_ROUND_CLOSEST((max - min) * brightness,
->>> +					       AMDGPU_MAX_BL_LEVEL);
->>> +
->>> +	if (brightness < min)
->>> +		return 0;
->>> +	// Rescale min..max to 0..255
->>> +	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
->>> +				 max - min);
->>>    }
->>>      static int amdgpu_dm_backlight_update_status(struct backlight_device
->>> *bd)
->>> @@ -2941,7 +2932,7 @@ static int amdgpu_dm_backlight_update_status(struct
->>> backlight_device *bd)
->>>      	link = (struct dc_link *)dm->backlight_link;
->>>    -	brightness = convert_brightness(&caps, bd->props.brightness);
->>> +	brightness = convert_brightness(&caps, bd->props.brightness, 1);
->>>    	// Change brightness based on AUX property
->>>    	if (caps.aux_support)
->>>    		return set_backlight_via_aux(link, brightness);
->>> @@ -2958,7 +2949,7 @@ static int amdgpu_dm_backlight_get_brightness(struct
->>> backlight_device *bd)
->>>      	if (ret == DC_ERROR_UNEXPECTED)
->>>    		return bd->props.brightness;
->>> -	return ret;
->>> +	return convert_brightness(&dm->backlight_caps, ret, 0);
->>>    }
->>>      static const struct backlight_ops amdgpu_dm_backlight_ops = {
->>>
->>> base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
->>>
->>
->>
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gU3VuLCBBdWcgMDIsIDIwMjAgYXQgMDE6MDY6MTRQTSArMDIwMCwgU2FtIFJhdm5ib3JnIHdy
+b3RlOgo+IFRoZSBiYWNrbGlnaHQgZHJpdmVycyB1c2VzIHNldmVyYWwgZGlmZmVyZW50IHBhdHRl
+cm5zIHdoZW4gcmVnaXN0ZXJpbmcKPiBhIGJhY2tsaWdodDoKPiAKPiAtIFJlZ2lzdGVyIGJhY2ts
+aWdodCBhbmQgYXNzaWduIHByb3BlcnRpZXMgbGF0ZXIKPiAtIERlZmluZSBhIGxvY2FsIGJhY2ts
+aWdodF9wcm9wZXJ0aWVzIHZhcmlhYmxlIGFuZCB1c2UgbWVtc2V0Cj4gLSBEZWZpbmUgYSBjb25z
+dCBiYWNrbGlnaHRfcHJvcGVydGllcyBhbmQgYXNzaWduIHJlbGV2YW50IHByb3BlcnRpZXMKPiAK
+PiBPbiB0b3Agb2YgdGhpcyB0aGVyZSB3YXMgZGlmZmVyZW5jZXMgaW4gd2hhdCBtZW1iZXJzIHdh
+cyBhc3NpZ25lZCBpbgo+IGJhY2tsaWdodF9wcm9wZXJ0aWVzLgo+IAo+IFRvIGFsaWduIGhvdyBi
+YWNrbGlnaHQgZHJpdmVycyBhcmUgaW5pdGlhbGl6ZWQgaW50cm9kdWNlIGZvbGxvd2luZyBoZWxw
+ZXIgbWFjcm9zOgo+IC0gREVDTEFSRV9CQUNLTElHSFRfSU5JVF9GSVJNV0FSRSgpCj4gLSBERUNM
+QVJFX0JBQ0tMSUdIVF9JTklUX1BMQVRGT1JNKCkKPiAtIERFQ0xBUkVfQkFDS0xJR0hUX0lOSVRf
+UkFXKCkKPiAKPiBUaGUgbWFjcm9zIGFyZSBpbnRyb2R1Y2VkIGluIHBhdGNoIDIuCj4gCj4gVGhl
+IGJhY2tsaWdodCBkcml2ZXJzIHVzZWQgZGlyZWN0IGFjY2VzcyB0byBiYWNrbGlnaHRfcHJvcGVy
+dGllcy4KPiBFbmNhcHN1bGF0ZSB0aGVzZSBpbiBnZXQvc2V0IGFjY2VzcyBvcGVyYXRpb25zIHJl
+c3VsdGluZyBpbiBmb2xsb3dpbmcgYmVuZWZpdHM6Cj4gLSBUaGUgZHJpdmVycyBubyBsb25nZXIg
+bmVlZCB0byBiZSBjb25jZXJuZWQgYWJvdXQgdGhlIGNvbmZ1c2luZyBwb3dlciBzdGF0ZXMsCj4g
+ICBhcyB0aGVyZSBpcyBub3cgb25seSBhIHNldF9wb3dlcl9vbigpIGFuZCBzZXRfcG93ZXJfb2Zm
+KCkgb3BlcmF0aW9uLgo+IC0gVGhlIGFjY2VzcyBtZXRob2RzIGNhbiBiZSBjYWxsZWQgd2l0aCBh
+IE5VTEwgcG9pbnRlciBzbyBsb2dpYyBhcm91bmQgdGhlCj4gICBhY2Nlc3MgY2FuIGJlIG1hZGUg
+c2ltcGxlci4KPiAtIFRoZSBjb2RlIGlzIGluIG1vc3QgY2FzZXMgbW9yZSByZWFkYWJsZSB3aXRo
+IHRoZSBhY2Nlc3Mgb3BlcmF0aW9ucy4KPiAtIFdoZW4gZXZlcnlvbmUgdXNlcyB0aGUgYWNjZXNz
+IG1ldGhvZHMgcmVmYWN0cm9yaW5nIGluIHRoZSBiYWNrbGlnaHQgY29yZSBpcyBzaW1wbGVyLgo+
+IAo+IFRoZSBnZXQvc2V0IG9wZXJhdGlvbnMgYXJlIGludHJvZHVjZWQgaW4gcGF0Y2ggMy4KPiAK
+PiBUaGUgZmlyc3QgcGF0Y2ggdHJpbXMgYmFja2xpZ2h0X3VwZGF0ZV9zdGF0dXMoKSBzbyBpdCBj
+YW4gYmUgY2FsbGVkIHdpdGggYSBOVUxMCj4gYmFja2xpZ2h0X2RldmljZS4gVGhlbiB0aGUgY2Fs
+bGVkIGRvIG5vdCBuZWVkIHRvIGFkZCB0aGlzIGNoZWNrIGp1c3QgdG8gYXZvaWQKPiBhIE5VTEwg
+cmVmZXJlbmNlLgo+IAo+IFRoZSBmb3VydGggcGF0Y2ggaW50cm9kdWNlIHRoZSBuZXcgbWFjcm9z
+IGFuZCBnZXQvc2V0IG9wZXJhdGlvbnMgZm9yIHRoZQo+IGdwaW8gYmFja2xpZ2h0IGRyaXZlciwg
+YXMgYW4gZXhhbXBsZS4KPiAKPiBUaGUgcmVtYWluaW5nIHBhdGNoZXMgdXBkYXRlcyBtb3N0IGJh
+Y2tsaWdodCB1c2VycyBpbiBkcml2ZXJzL2dwdS9kcm0vKgo+IFdpdGggdGhpcyBwYXRjaCBzZXQg
+YXBwbGllZCB0aGVuOgo+IC0gQWxtb3N0IGFsbCByZWZlcmVuY2VzIHRvIEZCX0JMQU5LKiBhcmUg
+Z29uZSBmcm9tIGRybS8qCj4gLSBBbGwgcGFuZWwgZHJpdmVycyB1c2VzIGRldm1fIHZhcmlhbnQg
+Zm9yIHJlZ2lzdGVyaW5nIGJhY2tsaWdodAo+IC0gQWxtb3N0IGFsbCBkaXJlY3QgcmVmZXJlbmNl
+cyB0byBiYWNrbGlnaHQgcHJvcGVydGllcyBhcmUgZ29uZQo+IAo+IFRoZSBkcm0vKiBwYXRjaGVz
+IGFyZSAgdXNlZCBhcyBleGFtcGxlcyBob3cgZHJpdmVycyBjYW4gYmVuZWZpdCBmcm9tIHRoZQo+
+IG5ldyBtYWNyb3MgYW5kIGdldC9zZXQgb3BlcmF0aW9ucy4KPiAKPiBJbmRpdmlkdWFsIHBhdGNo
+ZXMgYXJlIG9ubHkgc2VudCB0byB0aGUgcGVvcGxlIGxpc3RlZCBpbiB0aGUgcGF0Y2ggKyBhIGZl
+dyBtb3JlLgo+IFBsZWFzZSBjaGVjayBodHRwczovL2xvcmUua2VybmVsLm9yZy9kcmktZGV2ZWwv
+IGZvciB0aGUgZnVsbCBzZXJpZXMuCj4gCj4gRmVlZGJhY2sgd2VsY29tZSEKClNpbmNlIHRoaXMg
+bmVlZHMgYmFja2xpZ2h0IHBhdGNoZXMgcXVldWVkIHVwIG91dHNpZGUgb2YgZHJtIHRoZXJlJ3Mg
+dHdvCm9wdGlvbnM6CgotIG1lcmdlIHRoZSBiYWNrbGlnaHQgc3R1ZmYgdGhyb3VnaCBkcm0tbWlz
+YyAoaW1vIHNpbXBsZXN0LCB3ZSBoYXZlIGFsbAogIHRoZSBmYmRldiBzdHVmZiBpbiB0aGVyZSB0
+b28gYnkgbm93KQotIHNoYXJlZCB0b3BpYyBicmFuY2ggbWVyZ2VkIGluIGRybS1taXNjIGFuZCBv
+cHRpb25hbGx5IGJhY2tsaWdodCB0cmVlCgpPdGhlcndpc2UgdGhpcyBpcyBnb2luZyB0byBiZSBh
+IHBhaW4gdG8gbWVyZ2UuCi1EYW5pZWwKCj4gCj4gCVNhbQo+IAo+IENjOiBBbGV4IERldWNoZXIg
+PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4gQ2M6IEFuZHJ6ZWogSGFqZGEgPGEuaGFqZGFAc2Ftc3VuZy5jb20+Cj4gQ2M6IENo
+cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzogQ2hyaXMgV2ls
+c29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4gQ2M6IERhbmllbCBUaG9tcHNvbiA8ZGFu
+aWVsLnRob21wc29uQGxpbmFyby5vcmc+Cj4gQ2M6IEV6ZXF1aWVsIEdhcmNpYSA8ZXplcXVpZWxA
+dmFuZ3VhcmRpYXN1ci5jb20uYXI+Cj4gQ2M6IEhhbnMgZGUgR29lZGUgPGhkZWdvZWRlQHJlZGhh
+dC5jb20+Cj4gQ2M6IEhvZWdldW4gS3dvbiA8aG9lZ2V1bi5rd29uQHNhbXN1bmcuY29tPgo+IENj
+OiBJbmtpIERhZSA8aW5raS5kYWVAc2Ftc3VuZy5jb20+Cj4gQ2M6IEphbmkgTmlrdWxhIDxqYW5p
+Lm5pa3VsYUBsaW51eC5pbnRlbC5jb20+Cj4gQ2M6IEplcm5laiBTa3JhYmVjIDxqZXJuZWouc2ty
+YWJlY0BzaW9sLm5ldD4KPiBDYzogSmluZ29vIEhhbiA8amluZ29vaGFuMUBnbWFpbC5jb20+Cj4g
+Q2M6IEpvbmFzIEthcmxtYW4gPGpvbmFzQGt3aWJvby5zZT4KPiBDYzogSm9vbmFzIExhaHRpbmVu
+IDxqb29uYXMubGFodGluZW5AbGludXguaW50ZWwuY29tPgo+IENjOiBKeXJpIFNhcmhhIDxqc2Fy
+aGFAdGkuY29tPgo+IENjOiBLaWVyYW4gQmluZ2hhbSA8a2llcmFuLmJpbmdoYW0rcmVuZXNhc0Bp
+ZGVhc29uYm9hcmQuY29tPgo+IENjOiBLb25yYWQgRHliY2lvIDxrb25yYWR5YmNpb0BnbWFpbC5j
+b20+Cj4gQ2M6IExhdXJlbnQgUGluY2hhcnQgPGxhdXJlbnQucGluY2hhcnRAaWRlYXNvbmJvYXJk
+LmNvbT4KPiBDYzogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KPiBDYzogTGludXMg
+V2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgo+IENjOiBsaW51eC1yZW5lc2FzLXNv
+Y0B2Z2VyLmtlcm5lbC5vcmcKPiBDYzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hv
+cnN0QGxpbnV4LmludGVsLmNvbT4KPiBDYzogTWFuYXNpIE5hdmFyZSA8bWFuYXNpLmQubmF2YXJl
+QGludGVsLmNvbT4KPiBDYzogTmVpbCBBcm1zdHJvbmcgPG5hcm1zdHJvbmdAYmF5bGlicmUuY29t
+Pgo+IENjOiBQYXRyaWsgSmFrb2Jzc29uIDxwYXRyaWsuci5qYWtvYnNzb25AZ21haWwuY29tPgo+
+IENjOiBQYXdlxYIgQ2htaWVsIDxwYXdlbC5taWtvbGFqLmNobWllbEBnbWFpbC5jb20+Cj4gQ2M6
+IFBoaWxpcHBlIENPUk5VIDxwaGlsaXBwZS5jb3JudUBzdC5jb20+Cj4gQ2M6IFJvYiBDbGFyayA8
+cm9iZGNsYXJrQGdtYWlsLmNvbT4KPiBDYzogUm9iZXJ0IENoaXJhcyA8cm9iZXJ0LmNoaXJhc0Bu
+eHAuY29tPgo+IENjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5jb20+Cj4gQ2M6
+IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5ib3JnLm9yZz4KPiBDYzogU2ViYXN0aWFuIFJlaWNoZWwg
+PHNlYmFzdGlhbi5yZWljaGVsQGNvbGxhYm9yYS5jb20+Cj4gQ2M6IFRoaWVycnkgUmVkaW5nIDx0
+aGllcnJ5LnJlZGluZ0BnbWFpbC5jb20+Cj4gQ2M6IFRvbWkgVmFsa2VpbmVuIDx0b21pLnZhbGtl
+aW5lbkB0aS5jb20+Cj4gQ2M6ICJWaWxsZSBTeXJqw6Rsw6QiIDx2aWxsZS5zeXJqYWxhQGxpbnV4
+LmludGVsLmNvbT4KPiBDYzogVmluYXkgU2ltaGEgQk4gPHNpbWhhdmNzQGdtYWlsLmNvbT4KPiBD
+YzogV2FtYnVpIEthcnVnYSA8d2FtYnVpLmthcnVnYXhAZ21haWwuY29tPgo+IENjOiBaaGVuZyBC
+aW4gPHpoZW5nYmluMTNAaHVhd2VpLmNvbT4KPiAKPiBTYW0gUmF2bmJvcmcgKDIyKToKPiAgICAg
+ICBiYWNrbGlnaHQ6IFNpbGVudGx5IGZhaWwgYmFja2xpZ2h0X3VwZGF0ZV9zdGF0dXMoKSBpZiBu
+byBkZXZpY2UKPiAgICAgICBiYWNrbGlnaHQ6IEFkZCBERUNMQVJFXyogbWFjcm8gZm9yIGRldmlj
+ZSByZWdpc3RyYXRpb24KPiAgICAgICBiYWNrbGlnaHQ6IEFkZCBnZXQvc2V0IG9wZXJhdGlvbnMg
+Zm9yIGJyaWdodG5lc3MvcG93ZXIgcHJvcGVydGllcwo+ICAgICAgIGJhY2tsaWdodDogZ3Bpbzog
+VXNlIERFQ0xBUkVfQkFDS0xJR0hUX0lOSVRfUkFXIGFuZCBnZXQvc2V0dGVycwo+ICAgICAgIGRy
+bS9nbWE1MDA6IEJhY2tsaWdodCBzdXBwb3J0Cj4gICAgICAgZHJtL3BhbmVsOiBhc3VzLXowMHQt
+dG01cDUtbjM1NTk2OiBCYWNrbGlnaHQgdXBkYXRlCj4gICAgICAgZHJtL3BhbmVsOiBqZGktbHQw
+NzBtZTA1MDAwOiBCYWNrbGlnaHQgdXBkYXRlCj4gICAgICAgZHJtL3BhbmVsOiBub3ZhdGVrLW50
+MzU1MTA6IEJhY2tsaWdodCB1cGRhdGUKPiAgICAgICBkcm0vcGFuZWw6IG9yaXNldGVjaC1vdG04
+MDA5YTogQmFja2xpZ2h0IHVwZGF0ZQo+ICAgICAgIGRybS9wYW5lbDogcmF5ZGl1bS1ybTY3MTkx
+OiBCYWNrbGlnaHQgdXBkYXRlCj4gICAgICAgZHJtL3BhbmVsOiBzYW1zdW5nLXM2ZTYzbTA6IEJh
+Y2tsaWdodCB1cGRhdGUKPiAgICAgICBkcm0vcGFuZWw6IHNhbXN1bmctczZlNjNqMHgwMzogQmFj
+a2xpZ2h0IHVwZGF0ZQo+ICAgICAgIGRybS9wYW5lbDogc2Ftc3VuZy1zNmUzaGEyOiBCYWNrbGln
+aHQgdXBkYXRlCj4gICAgICAgZHJtL3BhbmVsOiBzb255LWFjeDQyNGFrcDogQmFja2xpZ2h0IHVw
+ZGF0ZQo+ICAgICAgIGRybS9wYW5lbDogc29ueS1hY3g1NjVha206IEJhY2tsaWdodCB1cGRhdGUK
+PiAgICAgICBkcm0vYnJpZGdlOiBwYXJhZGUtcHM4NjIyOiBCYWNrbGlnaHQgdXBkYXRlCj4gICAg
+ICAgZHJtL3RpbGNkYzogQmFja2xpZ2h0IHVwZGF0ZQo+ICAgICAgIGRybS9yYWRlb246IEJhY2ts
+aWdodCB1cGRhdGUKPiAgICAgICBkcm0vYW1kZ3B1L2F0b206IEJhY2tsaWdodCB1cGRhdGUKPiAg
+ICAgICBkcm0vaTkxNTogQmFja2xpZ2h0IHVwZGF0ZQo+ICAgICAgIGRybS9vbWFwOiBkaXNwbGF5
+OiBCYWNrbGlnaHQgdXBkYXRlCj4gICAgICAgZHJtL3NobW9iaWxlOiBCYWNrbGlnaHQgdXBkYXRl
+Cj4gCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2F0b21iaW9zX2VuY29kZXJzLmMgICAg
+IHwgIDE1ICsrLQo+ICBkcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3BhcmFkZS1wczg2MjIuYyAgICAg
+ICAgICAgICB8ICA0MyArKysrLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZ21hNTAwL2JhY2tsaWdo
+dC5jICAgICAgICAgICAgICAgICB8ICAzNSArKy0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL2dtYTUw
+MC9jZHZfZGV2aWNlLmMgICAgICAgICAgICAgICAgfCAgMjkgKysrLS0KPiAgZHJpdmVycy9ncHUv
+ZHJtL2dtYTUwMC9tZGZsZF9kZXZpY2UuYyAgICAgICAgICAgICAgfCAgIDkgKy0KPiAgZHJpdmVy
+cy9ncHUvZHJtL2dtYTUwMC9vYWt0cmFpbF9kZXZpY2UuYyAgICAgICAgICAgfCAgMTAgKy0KPiAg
+ZHJpdmVycy9ncHUvZHJtL2dtYTUwMC9vcHJlZ2lvbi5jICAgICAgICAgICAgICAgICAgfCAgIDIg
+Ky0KPiAgZHJpdmVycy9ncHUvZHJtL2dtYTUwMC9wc2JfZGV2aWNlLmMgICAgICAgICAgICAgICAg
+fCAgMTAgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2dtYTUwMC9wc2JfZHJ2LmMgICAgICAgICAgICAg
+ICAgICAgfCAgIDggKy0KPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wYW5l
+bC5jICAgICAgICAgfCAgODggKysrKysrKy0tLS0tLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9vbWFw
+ZHJtL2Rpc3BsYXlzL3BhbmVsLWRzaS1jbS5jICAgIHwgIDM1ICsrLS0tLQo+ICAuLi4vZ3B1L2Ry
+bS9wYW5lbC9wYW5lbC1hc3VzLXowMHQtdG01cDUtbjM1NTk2LmMgICB8ICAxNSArLS0KPiAgZHJp
+dmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWpkaS1sdDA3MG1lMDUwMDAuYyAgICAgfCAgMTcgKyst
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ub3ZhdGVrLW50MzU1MTAuYyAgICAgIHwg
+ICA5ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1vcmlzZXRlY2gtb3RtODAwOWEu
+YyAgIHwgIDE0ICstLQo+ICBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtcmF5ZGl1bS1ybTY3
+MTkxLmMgICAgICB8ICAxMSArLQo+ICBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3Vu
+Zy1zNmUzaGEyLmMgICAgICB8ICA2OCArKysrKystLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL3Bh
+bmVsL3BhbmVsLXNhbXN1bmctczZlNjNqMHgwMy5jICAgfCAgNTYgKysrKystLS0tLQo+ICBkcml2
+ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zNmU2M20wLmMgICAgICB8ICAyNSArKy0t
+LQo+ICBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc29ueS1hY3g0MjRha3AuYyAgICAgICB8
+ICA0OSArKy0tLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNvbnktYWN4NTY1
+YWttLmMgICAgICAgfCAgNDQgKysrLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9hdG9t
+Ymlvc19lbmNvZGVycy5jICAgICAgICAgfCAgMjMgKystLQo+ICBkcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL3JhZGVvbl9sZWdhY3lfZW5jb2RlcnMuYyAgICB8ICAxNSArKy0KPiAgZHJpdmVycy9ncHUv
+ZHJtL3NobW9iaWxlL3NobW9iX2RybV9iYWNrbGlnaHQuYyAgICAgfCAgMjAgKystLQo+ICBkcml2
+ZXJzL2dwdS9kcm0vdGlsY2RjL3RpbGNkY19wYW5lbC5jICAgICAgICAgICAgICB8ICAxMSArLQo+
+ICBkcml2ZXJzL3ZpZGVvL2JhY2tsaWdodC9ncGlvX2JhY2tsaWdodC5jICAgICAgICAgICB8ICAx
+NyArKy0KPiAgaW5jbHVkZS9saW51eC9iYWNrbGlnaHQuaCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgfCAxMjAgKysrKysrKysrKysrKysrKysrKysrCj4gIDI3IGZpbGVzIGNoYW5nZWQsIDM3NyBp
+bnNlcnRpb25zKCspLCA0MjEgZGVsZXRpb25zKC0pCj4gCj4gCgotLSAKRGFuaWVsIFZldHRlcgpT
+b2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
