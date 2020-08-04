@@ -8,64 +8,65 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AB89C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27270C433E1
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:08:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE35922B42
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:08:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0630722B42
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2020 20:08:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ouoh3vaN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE35922B42
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s9xx/Duk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0630722B42
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C40D6E4BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 411846E4BB;
 	Tue,  4 Aug 2020 20:08:49 +0000 (UTC)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2FB89E52;
- Tue,  4 Aug 2020 20:07:09 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id w14so15192377ljj.4;
- Tue, 04 Aug 2020 13:07:09 -0700 (PDT)
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B72876E4B6;
+ Tue,  4 Aug 2020 20:07:10 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id w14so15192452ljj.4;
+ Tue, 04 Aug 2020 13:07:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8X1vD9iMjbD58TZPHKwb4ye5PBWIjmiaZvRTOJ3otNU=;
- b=Ouoh3vaNcVVGD7H1kVwnvrVgU+wwepgvDoAEKRlV+AQ4Tf2O+YsRYKYjqgvyFNQB2o
- eROYCzwN/1rJZ+FMCt2vFYPMrt4X0Rmk9LoreTDEZAGNnFKT6V2YRSqWNc14awRYiFn7
- jEUkw6GM3xGAEjf3AXKOIgEMI3vjKawi3ItOG4+6Jl80xw80/Alin70MWgu/wjlM7d94
- c3jshDgkCYxxIq7vcFA18eAH30zhEryIJTkQW4bINYC9f/+SEEdxx8P4ZJ1UiSuqHgJU
- gVywg7cQU1OOxLn4t8RJCuKJx36zrpwywX8nIm3XL/Rs3oOwMK2kM33iP3Lm8D1toPPn
- YBQA==
+ bh=u8vVd3eNYQguySxvKcCaV5W8ooNVhtOP1CKm/UC6A7I=;
+ b=s9xx/Duk98DAB0+L8vFJMaT7WWygK0TAVyP8WfoNoaFx3f2OxDMsQm34eFo1UqG5Xr
+ d9dpxhegHqwtwtW6evsWeDD9utm7jF5dneGl3JlS/3ERywgRsNOPa5o0gke2M+69aSwY
+ O9wZPw8E8PiOT0Mo3LmYhFOdJvbUlxHqUTdcU3XwO1/LAH8DVBMbxlw8SIkK30Hdz+Za
+ KXs8UGhnHkIcTbM9q/sVxhDjpXK/r1vgmHsLL3AO8VYtuijNNqWECRksnrVnZ4x/i53X
+ KoS7hM2sZgmiDw2nxwUeo6qssL0XXACOrQKM150LTEUabBJ/VC+boW6XHPfAwM/xQEZR
+ mtDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8X1vD9iMjbD58TZPHKwb4ye5PBWIjmiaZvRTOJ3otNU=;
- b=QHEC44kTRgfJ7HYrdzKJhJ8CQtFfl5QmIdjNqei6hDOkanC575fLyzVz5OHnfWRJPt
- XUvOQzdi0MbFhiAQs0WLsst1LNOtW4MuysGDA2oQ3C+k019RjGEzY7f3NJpgeKRCgtAC
- u2piB+YkQbXHCxw4cl5leHJ6YKx4hdv4XV5v4K4xYAIITKZ1RMa+rEem8aXPP7R9K+0p
- Wx5d7j+SnzCYsxlkpLeAua7OFnJFVCnNbpI137b59E5a/ohTT9yY6mat7omOK0lOiL1B
- jbcYf/a2yjIcl2ryJaE+J5mqZWJ8MJqmsi11GlKZ9DZUNK99bODdqfYc4x7mgmqzxJVl
- ByZw==
-X-Gm-Message-State: AOAM532rrX+IygayrZ4nEV8Q9pYzxkx+eWGJKiaeSMRRSNofxF02/uGE
- dJbVbVLL+GFcQY6x69XYysE=
-X-Google-Smtp-Source: ABdhPJx1Y3+zg8EQVx5eowP9zlLeEH4mmso+i3MTOfkpYRGj2nf76AZey+5T5A6YD2go2MiFTnmiCg==
-X-Received: by 2002:a2e:a179:: with SMTP id u25mr11596380ljl.101.1596571626718; 
- Tue, 04 Aug 2020 13:07:06 -0700 (PDT)
+ bh=u8vVd3eNYQguySxvKcCaV5W8ooNVhtOP1CKm/UC6A7I=;
+ b=HyC9r/V3OFBAQFQQs0UvwGVS0iOnbZwL4cInkPV4nnIRnEROg2ClUftCjlRKedW61e
+ iHfv9sjJEFOMgLLrN3Bd/PdYLBQd1RC1hTg4NgR5Gtqy+Kgdyk7mwokKa5uMIjOx95o1
+ VCkBNrfFTrn4SxRqiXv0DeF6Ow8pD7POIovTKyQTjrr1vP6d0qx3OcMdUuzfKz8lIJej
+ KP4dZ5s/ZQP6U2kzlGUTycqzF+Lq+859AxewaM3LDSHopAhNU37S4E4UO9b+oojVxeKT
+ NemOLxmM7Y14IHW4SKsttt+bM4xvwsGBqZoEkIr0ucFcZHyCeQZYONzw2nvn3nm6iJzA
+ z2nQ==
+X-Gm-Message-State: AOAM533qwFV4ReUJw+DeGci6J2s0nIAwFooQ4og6CSh3B6knnwCcQXBn
+ wcXjEB5ZY0QHFdkptimHduk=
+X-Google-Smtp-Source: ABdhPJyBRrbSBhdu9xngj5VBMCOa3dus0RevnDqkrLCpPxaq4pkyHzKmzy8Eur5swB9DFOpFQqCLPg==
+X-Received: by 2002:a05:651c:c6:: with SMTP id
+ 6mr10769338ljr.237.1596571629160; 
+ Tue, 04 Aug 2020 13:07:09 -0700 (PDT)
 Received: from localhost.localdomain (h-82-196-111-59.NA.cust.bahnhof.se.
  [82.196.111.59])
- by smtp.gmail.com with ESMTPSA id g21sm3080020ljh.103.2020.08.04.13.07.05
+ by smtp.gmail.com with ESMTPSA id g21sm3080020ljh.103.2020.08.04.13.07.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Aug 2020 13:07:06 -0700 (PDT)
+ Tue, 04 Aug 2020 13:07:08 -0700 (PDT)
 From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
  christian.koenig@amd.com
-Subject: [PATCH 1/3] drm/amd/display: Constify dcn20_res_pool_funcs
-Date: Tue,  4 Aug 2020 22:06:53 +0200
-Message-Id: <20200804200655.30495-2-rikard.falkeborn@gmail.com>
+Subject: [PATCH 3/3] drm/amd/display: Constify dcn30_res_pool_funcs
+Date: Tue,  4 Aug 2020 22:06:55 +0200
+Message-Id: <20200804200655.30495-4-rikard.falkeborn@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200804200655.30495-1-rikard.falkeborn@gmail.com>
 References: <20200804200655.30495-1-rikard.falkeborn@gmail.com>
@@ -90,28 +91,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The only usage of dcn20_res_pool_funcs is to assign its address to a
+The only usage of dcn30_res_pool_funcs is to assign its address to a
 const pointer. Make it const to allow the compiler to put it in
 read-only memory.
 
 Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 2a5e7175926a..d7ce984a2ce3 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3320,7 +3320,7 @@ enum dc_status dcn20_patch_unknown_plane_state(struct dc_plane_state *plane_stat
- 	return DC_OK;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 653a571e366d..d474a6188445 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -2412,7 +2412,7 @@ static void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw
+ 		dml_init_instance(&dc->current_state->bw_ctx.dml, &dcn3_0_soc, &dcn3_0_ip, DML_PROJECT_DCN30);
  }
  
--static struct resource_funcs dcn20_res_pool_funcs = {
-+static const struct resource_funcs dcn20_res_pool_funcs = {
- 	.destroy = dcn20_destroy_resource_pool,
- 	.link_enc_create = dcn20_link_encoder_create,
- 	.panel_cntl_create = dcn20_panel_cntl_create,
+-static struct resource_funcs dcn30_res_pool_funcs = {
++static const struct resource_funcs dcn30_res_pool_funcs = {
+ 	.destroy = dcn30_destroy_resource_pool,
+ 	.link_enc_create = dcn30_link_encoder_create,
+ 	.panel_cntl_create = dcn30_panel_cntl_create,
 -- 
 2.28.0
 
