@@ -2,112 +2,66 @@ Return-Path: <SRS0=KaZi=BP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A010C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 17:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FA86C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 20:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7018D206B6
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 17:41:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0E2302076E
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 20:01:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hvHtM8Me"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7018D206B6
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="clorqv+G"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E2302076E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AFA06E835;
-	Wed,  5 Aug 2020 17:41:19 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770081.outbound.protection.outlook.com [40.107.77.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CAB16E834
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 17:41:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mq4jYttRP2Y3lw+i8eyEBMDXVnwx9bTwfKF2Z94ZacZgiHy7c3pPIEty0TR5FOu8GQBJR8pEKUIvfZkKk7Sot4YG3Zur07mcVnezYWk7UVDusHubkNdbjF3bY6LxHz00TaDgmmPAlh2SBW8Kzxwy4sICC0T0q1No9X9xXYzvc0QNz0/bFYHoM2vkE1nptBoieeWrkMznSwqNd1ZB5t+6o8QJuhgockgPV4zgpRQ4wfWt/eEyHj9rDN5bUOOPWSCKEgf+8bMFtAn80rPL30LCi8i2zDZ52UEugmlDX7SxcMF/Re+SEpGCZX1MlYyyKV1C5qz+ZNg0xSEiLZfpembUBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q9Agzt7iNk4McnaR2qaWLxRdiBZiGx48fk24De3KGCw=;
- b=dBD5GFHdcfVV47YxuGKzhY2uCgqpCwY7pASEhn7OnAfdeQjt5ST4hnPNyWe1+LU5xODhThDwkWGJUQKy3GZMX9cJGShpx2Psagilg7YT5ujKZrFTFWgTewwSKwqKESUPZiJUiQyfmh+5I11GLafZe/bfz669pRp8cNDYddpaVoqQSTvlbeJ2U2nZKJT07XrBytaPM9jJwUA7mjEpfw1Duy4gnoBm7DzDvgCcRqVldFodWrtO56t/m83OfwLVa8d8xI2uRAXtnPWTdAfL4gtW7oPOqTP5DcXGFfjO/Saa8ODNIF6jgFZTAvDHr8ElAci6FN+WRayVnI8bJv2RdUNSMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q9Agzt7iNk4McnaR2qaWLxRdiBZiGx48fk24De3KGCw=;
- b=hvHtM8Mez6jh2Vgp1j1vssUGaBliQvB2JPPW10e1IvXLOzz4cqZpQFqqce6q0h4HVcBiYegzktC6JMKZ9Id39MfzHHIW4KnLFs6Aj8vmiSm0onp0Y1/KqHqgKRLleljDJumHgZyTsQhrvQqRxC3xt/teWRL8hzIK2p18MjHBeZA=
-Received: from CO1PR15CA0084.namprd15.prod.outlook.com (2603:10b6:101:20::28)
- by BN7PR12MB2689.namprd12.prod.outlook.com (2603:10b6:408:29::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Wed, 5 Aug
- 2020 17:41:10 +0000
-Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:101:20:cafe::c5) by CO1PR15CA0084.outlook.office365.com
- (2603:10b6:101:20::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17 via Frontend
- Transport; Wed, 5 Aug 2020 17:41:10 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT068.mail.protection.outlook.com (10.13.175.142) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3261.16 via Frontend Transport; Wed, 5 Aug 2020 17:41:09 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 5 Aug 2020
- 12:41:04 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 5 Aug 2020
- 12:41:04 -0500
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Wed, 5 Aug 2020 12:41:04 -0500
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 8/9] drm/amd/display: Fix EDID parsing after resume from
- suspend
-Date: Wed, 5 Aug 2020 13:40:57 -0400
-Message-ID: <20200805174058.11736-9-qingqing.zhuo@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200805174058.11736-1-qingqing.zhuo@amd.com>
-References: <20200805174058.11736-1-qingqing.zhuo@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A8C6E834;
+	Wed,  5 Aug 2020 20:01:34 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 778066E834;
+ Wed,  5 Aug 2020 20:01:34 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id c15so5617368wrs.11;
+ Wed, 05 Aug 2020 13:01:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=sFMazUp0MhwJbVuexgj1bxt76f5CLnr6BJ4vAddg9SU=;
+ b=clorqv+GMwdktNqZ6yyQxXrKzFF6/uB+b5UtHOzV5SpjRSNFQ89UimVPAVq4+9+NSo
+ OHRqMlxYcEasQ3TVdW5ps6BHjWd7Y0TElNh/rAhBHZJ9VXFG8ud6KZAiF1Ik40MEn3ux
+ JSH7uR2kmM+6HCKQgIn6onU0fuQqfGIHGZrKkx5raOUaLR3nJCgCUm9y4bsf45vpFb7R
+ GAb5WCzsUSZJ3JhpIul+FGKcCtEklbMpGNS7tuionEjy3dJ/JTOmY2ZUws3eyk7qoPBo
+ UZv5Xc+GIR7hK6+W5zAO0YoeyZJX+f00gcwsw5G1mNngdt/2pMvtz+osrtNJ0cK/KS7a
+ r9Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=sFMazUp0MhwJbVuexgj1bxt76f5CLnr6BJ4vAddg9SU=;
+ b=KSi/+RYtJCyXMwLPLodfl8yDL1EtDtcO0ZgMXEm/AeXkT7wQJu/flT08w6yzEYSKoo
+ qY6rKcmrfez1RLANAyM814go6zFy4SS6AOgjB4Du3jS27YniIp432j3u8Ah/Xz1cBHKO
+ wWXnJ8fMKD88K1wjaR9UgYPgadrQrKhaf5ivakLZPbvY+bSL4i5f1aBmvwGyF+npgIna
+ v8krtc13sDHgINGRMUwPj8UEh++3R73sx/c13kJqe9n5rJdAF77t8bF9QSDmHWriRksg
+ eKPdUBytdVW0O7w1dzLye4kK8CXhUJd8A6amnu+yggZVVPIvLibqIvjLq8+5yv5qwRft
+ ZNRA==
+X-Gm-Message-State: AOAM53341IyG+Q4x+4cLXLM1/dME1x3Nu5tRZPmepGHAN6Xy/2MjgjC4
+ FmBjd7+Lo0ZgMylj8dI2srOF/XBHubA9/HycMSI=
+X-Google-Smtp-Source: ABdhPJzcEbloQmJvxKNefm95pR63lEvoWfrv/5u8FdjvGjUP4tRNqqhD2adAS9zjFX5NZBZdKixnLqEcd/X7qdyfync=
+X-Received: by 2002:a5d:494b:: with SMTP id r11mr4356598wrs.419.1596657693122; 
+ Wed, 05 Aug 2020 13:01:33 -0700 (PDT)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ec91160-9ea5-4304-22f1-08d83966bd66
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2689:
-X-Microsoft-Antispam-PRVS: <BN7PR12MB26890BB987CF58483792648AFB4B0@BN7PR12MB2689.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1091;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kGGYivWKKlIEWGhA98DmnubVK/UGAIScSD6ovmB6OX/I2pzcXldsudfnwoNn97AM8CNZFhnelfl2yEP9pi3j6UBgAPC3tiJ6LRkDmWe9bcSUEbFz8+eaIPGTxJtATs3DkjPjtNbsSiLnBRkM8cL6XWnFirB01MeD2/SGUycwOLkjOscOeL9DmM18ezAQOSyW1mQd09ctmxloUqCatPjPEBqnQgz7ouvjXmUn8m+WPGApKxaC/rz8JPdP+pAi0HB5IhJLF7KaA62dcvmZ4hwSE3pgFUGWgACH1W4iStDjrufWshtLaXmV3KiiPXLaMyRQQBHqjm8xAzJtY1Ed+bEsYyGJIUDLB09NLd2mTAErA8FCt3RV1Bxnt4lU0pDluE7gtA2XVmzD62yXsBkHn02S/Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(46966005)(8676002)(2616005)(82310400002)(1076003)(47076004)(82740400003)(70206006)(6666004)(83380400001)(6916009)(316002)(15650500001)(186003)(5660300002)(36756003)(86362001)(81166007)(54906003)(26005)(478600001)(426003)(356005)(2906002)(4326008)(8936002)(336012)(70586007)(44832011);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2020 17:41:09.8330 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ec91160-9ea5-4304-22f1-08d83966bd66
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2689
+References: <20200805113510.18277-1-colin.king@canonical.com>
+In-Reply-To: <20200805113510.18277-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 5 Aug 2020 16:01:22 -0400
+Message-ID: <CADnq5_NA9f2N3xkH4WAdDEP+0-5W0LkmTRy3yXqFdnWQmfsVmQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
+To: Colin King <colin.king@canonical.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,49 +73,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- stable@vger.kernel.org, Bhawanpreet.Lakha@amd.com
+Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Stylon Wang <stylon.wang@amd.com>
+On Wed, Aug 5, 2020 at 7:35 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There is a spelling mistake in a DRM_ERROR message. Fix it.
+>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 
-[Why]
-Resuming from suspend, CEA blocks from EDID are not parsed and no video
-modes can support YUV420. When this happens, output bpc cannot go over
-8-bit with 4K modes on HDMI.
+This is already fixed.
 
-[How]
-In amdgpu_dm_update_connector_after_detect(), drm_add_edid_modes() is
-called after drm_connector_update_edid_property() to fully parse EDID
-and update display info.
+Alex
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Stylon Wang <stylon.wang@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 53bf8f60d30c..bfb06c168fba 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2202,6 +2202,7 @@ void amdgpu_dm_update_connector_after_detect(
- 
- 			drm_connector_update_edid_property(connector,
- 							   aconnector->edid);
-+			drm_add_edid_modes(connector, aconnector->edid);
- 
- 			if (aconnector->dc_link->aux_mode)
- 				drm_dp_cec_set_edid(&aconnector->dm_dp_aux.aux,
--- 
-2.17.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 49d4514aa6ed..c68369731b20 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -2010,7 +2010,7 @@ static int psp_suspend(void *handle)
+>
+>         ret = psp_tmr_terminate(psp);
+>         if (ret) {
+> -               DRM_ERROR("Falied to terminate tmr\n");
+> +               DRM_ERROR("Failed to terminate tmr\n");
+>                 return ret;
+>         }
+>
+> --
+> 2.27.0
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
