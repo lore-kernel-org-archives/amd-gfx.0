@@ -2,106 +2,109 @@ Return-Path: <SRS0=KaZi=BP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24419C433E1
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 02:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DB98C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 03:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8EC122CAE
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 02:48:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A9D90207FC
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 03:14:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XYZx19s5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8EC122CAE
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rBeOEaLJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9D90207FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 436C26E49B;
-	Wed,  5 Aug 2020 02:48:21 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E77B76E49B
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 02:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5922A6E4BB;
+	Wed,  5 Aug 2020 03:14:37 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750048.outbound.protection.outlook.com [40.107.75.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E7E46E4BB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 03:14:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lHzIFmwmwayucoyeeCBHPHK83KRzpSL1m33LHOz0TqBCrasRkV8+jtNm5vCdSAQFNqZizdnHfS66Z5Pwl2qRVEK/7pCLTf6MI7cPtiI0/e/D9VD5Q8UyxFjS9EMzzGovzUJ+xVTWsz5GCX+XuchjYz0XfPTU7tDIPcpVGAEBjyK4qkn37HDMx9v3JK1t4R+kPWQg67gF+FIDB8b90fMEQFy5N7XozlMIKUcQbNRtWR0aDyBUrkNtTUJg4RBPqg5UisHh0wYHmzUl6JhmwTomVkLZIMXurTEEznOzLZ5zJKcxdRRksGlrAo+oHnnxAt8o8MjLSPjPNgXpSHXZifn5qg==
+ b=ewhFHoIcTYTY+Y9evVPzXmgs+F9AXVf5CaUsn7qBeSav97LJzzH1OKjrZ9xEpY2ahy4AyiW+YdEAKrGwMNyRBaL05smMaaTXVZA4pUrWlfoY/uiAvwTijYv9jJxtu/XoA8wNQxKNtxppqVlYT+MyqFGfGgwORGVCGvXp2KEvvWSrk6nXouNXM/VwdDmYzonVq8s2fYurTdPNOUXniKFSff17L6490V9orov+pJlzc2o1bBamaCP6XwhSNKsss4XuEBU4wz24Juai6CrbOXS2pTZIk+qsr5q0ICmXGUBWSYT7JCB5cPqtpE1s4x56XS5kT1V1c0MjnhsxnRQUUqc1UA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FwzteC1W0FIno2u96H0ajVzZ5Vl4cRjUVgTDKhDCjqY=;
- b=dKTcp7CUz7I/V3uUe6/aKutKbCGfvqEgB1LwJLMIsithbFA2GqD6E8zWrcybDUGD3rf3fCud9DGZeskFT8xSj7hGDbqdeizlEWGkUOImZgDYU3thEIBQZFzDWo83hcbPsPMQJhQZgt+BoI7fdRNL4vfy5Vdthl0XSxOZKvVl4NWHaBjeIrST/es+h4K2yhYZo1374fWHZa+rkwjucqsRSJmU9Kmvm/jSnTzHULMSVWHGrLQky9jDX2lKULDN0u9lyAtm6s8IebYMOK7IYe+97Wa0msh0thkziYsi2+BpUaG6k7m1w5Vkb2LNNNQ1hDzIWWZB9F/lGC9cC+Gt170t0A==
+ bh=5AxixGuHITJjrTuJMAUIiv9918MSmNu1X/MwAQSttlI=;
+ b=HSlTri2EwfgukdQuLu6cnG9FvrmVwAHkltejtaCOWwlfBW5FVv7yArylZb6OMBpCrS4mP2eEemEuZ+7jnt0UTMGbfxekIbj9yBFzD2oDfPyEHHEZFqBHbunyL0Yy1PCVWBjgqD4KY9LxoV6VQ3XIbkDADwLT+KJgVRwf/HseX8ROnEdwYWHaKPn1m+SEPj2die9FavAbUtr/BV4LDDBLlubM7qoV+oEHMGJOWbomQe0xDtzt2GR24/qW7syaGvAwyY3VGAxPoNoCMMUSYv28mHMl9TEc4W6pbLKKREaSmhBZY0x4ytCQL7ka6v5mkR6cOGkc7VUBA+X73wxHS8dc2w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FwzteC1W0FIno2u96H0ajVzZ5Vl4cRjUVgTDKhDCjqY=;
- b=XYZx19s5DE1I6CVaDyQeFbOeI1GrLuejrY1OeiGkMvK6KlPKS/5qGSxXTe8ES/VCem2eE849T8BSdqiGu1MqZO5r+BRVO/jRxvjiEWKyGmU8/VF8L1d9NxJDww4HkCnJfv+28bhI8GdyOJ+wQFGKC2+SiqtEpapDXlrQwh5/cNU=
-Received: from DM6PR12MB3097.namprd12.prod.outlook.com (2603:10b6:5:11d::25)
- by DM6PR12MB2764.namprd12.prod.outlook.com (2603:10b6:5:4a::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.22; Wed, 5 Aug
- 2020 02:48:18 +0000
-Received: from DM6PR12MB3097.namprd12.prod.outlook.com
- ([fe80::7dc9:5fa:cf73:2c54]) by DM6PR12MB3097.namprd12.prod.outlook.com
- ([fe80::7dc9:5fa:cf73:2c54%6]) with mapi id 15.20.3239.022; Wed, 5 Aug 2020
- 02:48:18 +0000
-From: "Bridgman, John" <John.Bridgman@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, =?iso-8859-1?Q?Michel_D=E4nzer?=
- <michel@daenzer.net>
-Subject: Re: Enabling AMDGPU by default for SI & CIK
-Thread-Topic: Enabling AMDGPU by default for SI & CIK
-Thread-Index: AQHWaSdYDaw07wjl10y/DThL0FNoQ6knossAgACWRQCAAJnE/A==
-Date: Wed, 5 Aug 2020 02:48:17 +0000
-Message-ID: <DM6PR12MB3097E61D23857E0342398E6EE84B0@DM6PR12MB3097.namprd12.prod.outlook.com>
-References: <CAP+8YyHwMPPTiPAEs0CV+K+NSWtQmKQ-1hL0CmoGvUjA=P_1+Q@mail.gmail.com>
- <6964a9dc-00dc-6e72-f3ad-b4c80c49ec68@daenzer.net>,
- <CADnq5_OzAfTyufz0qzOQYqMbkYYGx6FaFLi-nvRvvzLcYrFQcQ@mail.gmail.com>
-In-Reply-To: <CADnq5_OzAfTyufz0qzOQYqMbkYYGx6FaFLi-nvRvvzLcYrFQcQ@mail.gmail.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
+ bh=5AxixGuHITJjrTuJMAUIiv9918MSmNu1X/MwAQSttlI=;
+ b=rBeOEaLJ6x+To/v+FoKtvf00yqjOWCwtqAa8oxTKL8PXM0IpBNkxnKJ59t3/9Yq+J7+AWOsKP4DK8MQR+xzVx/SOWwIQABAA1auKb2N5IxX9jeNAcOs0pEo55QzNbaTBufNrzgv1CdLqjs/A4aTdhJfWMMDyuShOnjKyLmRZ0tk=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB2986.namprd12.prod.outlook.com (2603:10b6:5:39::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.20; Wed, 5 Aug 2020 03:14:26 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3239.021; Wed, 5 Aug 2020
+ 03:14:26 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH 17/17] drm/amd/powerplay: add control method to bypass
+ metrics cache on Vega12
+Thread-Topic: [PATCH 17/17] drm/amd/powerplay: add control method to bypass
+ metrics cache on Vega12
+Thread-Index: AQHWZuSbT+jxcRCUQkGJZXamRqsyM6kocZyAgABmVpA=
+Date: Wed, 5 Aug 2020 03:14:26 +0000
+Message-ID: <DM6PR12MB2619E44654B1DFFADCA0D21DE44B0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200731024316.28324-1-evan.quan@amd.com>
+ <20200731024316.28324-17-evan.quan@amd.com>
+ <CADnq5_N-mcV_d=NcrYUPY8PuPQV23f-mj-gdu-Lf5PLrHgCVKg@mail.gmail.com>
+In-Reply-To: <CADnq5_N-mcV_d=NcrYUPY8PuPQV23f-mj-gdu-Lf5PLrHgCVKg@mail.gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-05T02:48:17.066Z;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=63663d2a-b756-44a6-81e9-6aee3914a0a1;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-05T02:48:16Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [72.139.197.220]
+x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: de49a7fd-eff4-4cd1-4b65-08d838ea0204
-x-ms-traffictypediagnostic: DM6PR12MB2764:
+x-ms-office365-filtering-correlation-id: c6a03e78-0911-4ea2-cfbe-08d838eda8d5
+x-ms-traffictypediagnostic: DM6PR12MB2986:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2764D7EF816EE020EE18AD4CE84B0@DM6PR12MB2764.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-microsoft-antispam-prvs: <DM6PR12MB2986A8FA0A20987D37C7971DE44B0@DM6PR12MB2986.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: UcNYVzZiiQjw8Vi4IE2I6vlXpdu/hlUvUG1X0wtAm20uQTGalnFOJhIWPLY6wiZrWNkhOwrKOkSpuYEAuKnP2mkGsnAw1BJj5Yayt5c8y7RlERLYXWdhGhk2OKmD6Nz2LJPBjB7WhoG3l22c9WGbSHSYMdymQB8BnY/FE5oZQwkTAUjeW0wf0uQDglM2A2LRKo7hMq2k3LfebxfBQ1//6Eo3sHo8Ae1USAkjKBFtAFL1Sag4wqi39XiYeVnpRMR+W53G/m/B4jUAmvSZdHoWiYROZcENcqfRZY4vnGkqOXtpw9WRkYMCTfyGxjQ7GhEw6QGeP2YSN+d7g1Gyj5EJ/anzfEFnKrn+OI0cRCl7+kA=
+x-microsoft-antispam-message-info: GlA6mOEDI7RVJ4TlEkPehigywqOuujUfXj5dAoORJmpr8/aLlsXKIo2fmaIKvtwqJI5n8HQaSYFB9Qgnv+eYy+aG24nKVxRwNghxwQk/Dqo3XMWRcBpHitb0P5Bun9FdVntU1oKVEvBfF9bDiK3hnxET3UWplrslZVO2k+a53EEe1WW8n18ZBTVPZV8dQbLkb/uLEDkZJ/nxmpizY4weY+uhKv5/dMiTQEbCYhuGdeDL9TUUHHsbUiefdN1wTqan8MUyyadvoO/Xg8cmzpK4ioGBPy0fVKkCsws0+P4X8UcYeTP45ff5U4D7tYVh0cq/4XOrX8GifC2D0dpw+SELyz1gAd6qdUnVU0OzoedBxsNJd+lSiYr832V+0FqiGbTTuNhppsvtA4df6aul/mMsfw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3097.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(376002)(366004)(136003)(346002)(396003)(26005)(8936002)(66574015)(19627405001)(5660300002)(2906002)(52536014)(7696005)(66946007)(55016002)(71200400001)(166002)(478600001)(45080400002)(66446008)(86362001)(6506007)(66556008)(66476007)(4326008)(966005)(83380400001)(76116006)(53546011)(64756008)(54906003)(9686003)(186003)(316002)(110136005)(8676002)(33656002);
+ SFS:(4636009)(39860400002)(346002)(376002)(396003)(136003)(366004)(478600001)(186003)(26005)(55016002)(9686003)(66556008)(64756008)(966005)(7696005)(6506007)(53546011)(52536014)(66946007)(66446008)(66476007)(71200400001)(76116006)(8936002)(8676002)(86362001)(316002)(45080400002)(4326008)(83080400001)(54906003)(33656002)(83380400001)(5660300002)(6916009)(2906002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 382zWVj5U/uxF+IqowFcXVwb0b1Cz5Tx0sKQiC600Mf8OnBTiZ7iJYfIH4LPFphAEYlMVMhmm4YIrJx7ru/o3U5WhUkXM6+wvLyGLQUtP2ljktZph02wWZTI9YQmgmb5gucbBgBYaKOnoFojYQzFbzBj9+odLoYOT+xqTKoejFAOdSJycdYZLW38KcGIdFd8erkmrbZCmJh9qD10msCUJIkn85tpoYP3rs3yQ9eLCDuhv9gKWMYmHKO8Nq9j7ZQAXK1FrsrhSfmY0kQJJOux7gJEXTmA92nBAF+J2TClJvOxrR5cc/3CeCr5AX4lAUTnm/WgSNgT/XvTEbyUKPOc0yU84V0OQTzwXep+JXtiKR47hSq8aaR+mJkGJmVuWIlRoTLCRifdZqHsE0UtMUiadrv4CtM5DUOflkVDA1f5Ptm+L7IABDj58dGUIqnyKS2owHPtjxatYUfpEvMAcJWtx1fl3o5ORYTxKxc39n46sge2zlrRllvpTS14XavKqMFL5IiI4EpJzN/o0PQ/HZzSd2W5/7zwAH1ItGvVKRshzuSFbo9vfh7X6qVTN70U5eRCKvKUrbjhywkcYViaE8zowXiZ7WJtvfYbjSB7hf9ctdDQnbmZsWgPHVy/iK2d7+c5Jp8hwuqeD/kpthSqpvb0Hw==
+x-ms-exchange-antispam-messagedata: b+ngo3m9o1VK3aGdEHVS3/yNq9qgz8dMBpFAra3C+BnspLMrqDCDka1OkTi5hrVWzbUnxRuUUxW0qYrh/M5TpqHoQTnotHMVThlDCOO6cfcnuIAQxqZFuOENKRmL45n+JxVN1jV4OfN7rqOGWpFCz5Bb5Ta7+VM+nLAlwgwDXaUabtvJDk4lJbnL7jaHG1BZFY5Q/jBZINjaAHlK1CWos+8035FHwYLTrPEaee/sqZTl4G0BEXlEaESra+jvq8SHzZ1pZLlxVXs5r1EDx/4eGvPt/U5kBAA0DPk0TUKuUsnB/e4b9ZUJ+XagdwVKXFFlOU0neUgGQKaYK4XHgCc3N+jKj5LJxZfDOTfP+JT7v0CGEoE8OIkhl7hVhFeqim6c1AAvJnYOfbn0xiCN/rMDRvySKTIe4ML7UyKazg7H/x8pgaqQMrJa9JUbPhazmW70XQltDsJceSD2BjLH+fditZyEwhxxSOTYSIyb+qPTGrnKaMVHsDL9IB52AXWc3CRGOX/AIqIcQNOxxk99yxjPyBymSlTrRlMMnK8BT2WJn4Od0gqi2XGHYy4e2uZVNKbNWIoTV7+q3kK7eGfS2O52BRdWvvXdSP4ZjWRVBW/Cz2JgN7eCqH/ibP6jDj+y6sdY3QVdiCC5gtpybbe0QluY6w==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3097.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de49a7fd-eff4-4cd1-4b65-08d838ea0204
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2020 02:48:17.9034 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6a03e78-0911-4ea2-cfbe-08d838eda8d5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2020 03:14:26.3534 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: StS3JhXEPs9jjFxEd898va9/+3Iiod64/JdkAxCGP9ibFeddmDMAXykAdvUiP5v12EbomJgmOWO9SwF18GARGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2764
+X-MS-Exchange-CrossTenant-userprincipalname: r2mbFAuTbTF4C7RDYx7hf2HdUfCxWb06hUN4LblT8mgiolySmsf7W3jVT+f5B6Ek
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2986
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,214 +116,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: multipart/mixed; boundary="===============0508802794=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Das, Nirmoy" <Nirmoy.Das@amd.com>,
+ "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0508802794==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB3097E61D23857E0342398E6EE84B0DM6PR12MB3097namp_"
-
---_000_DM6PR12MB3097E61D23857E0342398E6EE84B0DM6PR12MB3097namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
 [AMD Official Use Only - Internal Distribution Only]
 
-At the risk of asking a dumb question, does amdgpu default to using DC on S=
-I and CI ?
+The cache is useful for the case like sysfs "amdgpu_pm_info". Which inquires many metrics data in a very short period.
+Without the cache, there will be multiple table transfers triggered(unnecessary as the PMFW sample interval is 1ms).
 
-I'm asking because a lot of people seem to be using amdgpu successfully wit=
-h analog outputs today on SI/CI... suggests that they are not using DC ?
+The unreasonable setting in our driver is the cache interval. For this special ASIC(vega12), 0.5S is used which is too big I think.
+It should not be bigger than the PMFW sample internal setting(1ms). Otherwise we may get outdated data.
 
-If so then would enabling HDMI/DP audio support without DC be sufficient to=
- flip the switch assuming we felt that other risks were manageable ?
+BR
+Evan
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: Wednesday, August 5, 2020 4:42 AM
+To: Quan, Evan <Evan.Quan@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Das, Nirmoy <Nirmoy.Das@amd.com>
+Subject: Re: [PATCH 17/17] drm/amd/powerplay: add control method to bypass metrics cache on Vega12
 
-Thanks,
-John
+Do we want the metrics cache at all? I can see arguments both ways.
+Patches 12-17 are:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
-cher <alexdeucher@gmail.com>
-Sent: August 4, 2020 1:35 PM
-To: Michel D=E4nzer <michel@daenzer.net>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; amd-gfx mailing list <amd-gfx@lists.freedesktop.org>=
-; Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: Re: Enabling AMDGPU by default for SI & CIK
-
-On Tue, Aug 4, 2020 at 4:38 AM Michel D=E4nzer <michel@daenzer.net> wrote:
+On Thu, Jul 30, 2020 at 10:45 PM Evan Quan <evan.quan@amd.com> wrote:
 >
-> On 2020-08-03 1:45 a.m., Bas Nieuwenhuizen wrote:
-> > Hi all,
-> >
-> > Now that we have recently made some progress on getting feature parity
-> > with the Radeon driver for SI, I'm wondering what it would take to
-> > make AMDGPU the default driver for these generations.
-> >
-> > As far as I understand AMDGPU has had these features for CIK for a
-> > while already but it is still not the default driver. What would it
-> > take to make it the default? What is missing and/or broken?
+> As for the gpu metric export, metrics cache makes no sense. It's up to
+> user to decide how often the metrics should be retrieved.
 >
-> The main blockers I'm aware of for CIK are:
+> Change-Id: Ic2a27ebc90f0a7cf581d0697c121b6d7df030f3b
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  .../drm/amd/powerplay/hwmgr/vega12_hwmgr.c    | 29 ++++++++++++-------
+>  1 file changed, 18 insertions(+), 11 deletions(-)
 >
-> 1) Lack of analogue connector support with DC
-> 2) Lack of HDMI/DP audio support without DC
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> index 40bb0c2e4e8c..c70c30175801 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> @@ -1262,22 +1262,29 @@ static uint32_t vega12_dpm_get_mclk(struct pp_hwmgr *hwmgr, bool low)
+>         return (mem_clk * 100);
+>  }
 >
+> -static int vega12_get_metrics_table(struct pp_hwmgr *hwmgr,
+> SmuMetrics_t *metrics_table)
+> +static int vega12_get_metrics_table(struct pp_hwmgr *hwmgr,
+> +                                   SmuMetrics_t *metrics_table,
+> +                                   bool bypass_cache)
+>  {
+>         struct vega12_hwmgr *data =
+>                         (struct vega12_hwmgr *)(hwmgr->backend);
+>         int ret = 0;
 >
-> 1) may apply to SI as well.
-
-Also, IIRC, there are suspend and resume problems with some CIK parts
-using amdgpu.
-
-Alex
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Cjohn.bri=
-dgman%40amd.com%7C26df81f9a6df4e2f9fbb08d8389cda79%7C3dd8961fe4884e608e11a8=
-2d994e183d%7C0%7C0%7C637321593620378481&amp;sdata=3DEp%2BYRRT1dAcE8zSDIaZiX=
-uVMb9gBVUnLnbtP1%2Be7Pkc%3D&amp;reserved=3D0
-
---_000_DM6PR12MB3097E61D23857E0342398E6EE84B0DM6PR12MB3097namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-At the risk of asking a dumb question, does amdgpu default to using DC on S=
-I and CI ?
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I'm asking because a lot of people seem to be using amdgpu successfully wit=
-h analog outputs today on SI/CI... suggests that they are not using DC ?</d=
-iv>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-If so then would enabling HDMI/DP audio support without DC be sufficient to=
- flip the switch assuming we felt that other risks were manageable ?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks,<br>
-John<br>
-</div>
-<div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
-r@gmail.com&gt;<br>
-<b>Sent:</b> August 4, 2020 1:35 PM<br>
-<b>To:</b> Michel D=E4nzer &lt;michel@daenzer.net&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; amd-gfx mailing list &lt;amd-gfx@=
-lists.freedesktop.org&gt;; Bas Nieuwenhuizen &lt;bas@basnieuwenhuizen.nl&gt=
-;<br>
-<b>Subject:</b> Re: Enabling AMDGPU by default for SI &amp; CIK</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+> -       if (!data->metrics_time || time_after(jiffies, data->metrics_time + HZ / 2)) {
+> -               ret = smum_smc_table_manager(hwmgr, (uint8_t *)metrics_table,
+> -                               TABLE_SMU_METRICS, true);
+> +       if (bypass_cache ||
+> +           !data->metrics_time ||
+> +           time_after(jiffies, data->metrics_time + HZ / 2)) {
+> +               ret = smum_smc_table_manager(hwmgr,
+> +                                            (uint8_t *)(&data->metrics_table),
+> +                                            TABLE_SMU_METRICS,
+> +                                            true);
+>                 if (ret) {
+>                         pr_info("Failed to export SMU metrics table!\n");
+>                         return ret;
+>                 }
+> -               memcpy(&data->metrics_table, metrics_table, sizeof(SmuMetrics_t));
+>                 data->metrics_time = jiffies;
+> -       } else
+> +       }
+> +
+> +       if (metrics_table)
+>                 memcpy(metrics_table, &data->metrics_table,
+> sizeof(SmuMetrics_t));
 >
-<div class=3D"PlainText">On Tue, Aug 4, 2020 at 4:38 AM Michel D=E4nzer &lt=
-;michel@daenzer.net&gt; wrote:<br>
-&gt;<br>
-&gt; On 2020-08-03 1:45 a.m., Bas Nieuwenhuizen wrote:<br>
-&gt; &gt; Hi all,<br>
-&gt; &gt;<br>
-&gt; &gt; Now that we have recently made some progress on getting feature p=
-arity<br>
-&gt; &gt; with the Radeon driver for SI, I'm wondering what it would take t=
-o<br>
-&gt; &gt; make AMDGPU the default driver for these generations.<br>
-&gt; &gt;<br>
-&gt; &gt; As far as I understand AMDGPU has had these features for CIK for =
-a<br>
-&gt; &gt; while already but it is still not the default driver. What would =
-it<br>
-&gt; &gt; take to make it the default? What is missing and/or broken?<br>
-&gt;<br>
-&gt; The main blockers I'm aware of for CIK are:<br>
-&gt;<br>
-&gt; 1) Lack of analogue connector support with DC<br>
-&gt; 2) Lack of HDMI/DP audio support without DC<br>
-&gt;<br>
-&gt;<br>
-&gt; 1) may apply to SI as well.<br>
-<br>
-Also, IIRC, there are suspend and resume problems with some CIK parts<br>
-using amdgpu.<br>
-<br>
-Alex<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Cjohn.bridgman%40amd.com%7C26df81f9a6df4e2f9fbb08d8389cda79%7C3dd8961=
-fe4884e608e11a82d994e183d%7C0%7C0%7C637321593620378481&amp;amp;sdata=3DEp%2=
-BYRRT1dAcE8zSDIaZiXuVMb9gBVUnLnbtP1%2Be7Pkc%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Cjohn.bridg=
-man%40amd.com%7C26df81f9a6df4e2f9fbb08d8389cda79%7C3dd8961fe4884e608e11a82d=
-994e183d%7C0%7C0%7C637321593620378481&amp;amp;sdata=3DEp%2BYRRT1dAcE8zSDIaZ=
-iXuVMb9gBVUnLnbtP1%2Be7Pkc%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB3097E61D23857E0342398E6EE84B0DM6PR12MB3097namp_--
-
---===============0508802794==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>         return ret;
+> @@ -1288,7 +1295,7 @@ static int vega12_get_gpu_power(struct pp_hwmgr *hwmgr, uint32_t *query)
+>         SmuMetrics_t metrics_table;
+>         int ret = 0;
+>
+> -       ret = vega12_get_metrics_table(hwmgr, &metrics_table);
+> +       ret = vega12_get_metrics_table(hwmgr, &metrics_table, false);
+>         if (ret)
+>                 return ret;
+>
+> @@ -1339,7 +1346,7 @@ static int vega12_get_current_activity_percent(
+>         SmuMetrics_t metrics_table;
+>         int ret = 0;
+>
+> -       ret = vega12_get_metrics_table(hwmgr, &metrics_table);
+> +       ret = vega12_get_metrics_table(hwmgr, &metrics_table, false);
+>         if (ret)
+>                 return ret;
+>
+> @@ -1387,7 +1394,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+>                 *size = 4;
+>                 break;
+>         case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
+> -               ret = vega12_get_metrics_table(hwmgr, &metrics_table);
+> +               ret = vega12_get_metrics_table(hwmgr, &metrics_table,
+> + false);
+>                 if (ret)
+>                         return ret;
+>
+> @@ -1396,7 +1403,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+>                 *size = 4;
+>                 break;
+>         case AMDGPU_PP_SENSOR_MEM_TEMP:
+> -               ret = vega12_get_metrics_table(hwmgr, &metrics_table);
+> +               ret = vega12_get_metrics_table(hwmgr, &metrics_table,
+> + false);
+>                 if (ret)
+>                         return ret;
+>
+> @@ -2752,7 +2759,7 @@ static ssize_t vega12_get_gpu_metrics(struct pp_hwmgr *hwmgr,
+>         uint32_t fan_speed_rpm;
+>         int ret;
+>
+> -       ret = vega12_get_metrics_table(hwmgr, &metrics);
+> +       ret = vega12_get_metrics_table(hwmgr, &metrics, true);
+>         if (ret)
+>                 return ret;
+>
+> --
+> 2.28.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
+> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cev
+> an.quan%40amd.com%7C1bca63d3f90048d72d9808d838b6dd64%7C3dd8961fe4884e6
+> 08e11a82d994e183d%7C0%7C0%7C637321705333790290&amp;sdata=b%2FJEpeIXuqH
+> H%2BkiBxqIYMGVyirYGsCs5RiUq%2Bqp64oE%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0508802794==--
