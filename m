@@ -2,67 +2,56 @@ Return-Path: <SRS0=KaZi=BP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7F48C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 21:28:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B86A1C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 21:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B097E2076E
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 21:28:09 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iss3pKtb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B097E2076E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 887E82076E
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 21:28:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 887E82076E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5569489C86;
-	Wed,  5 Aug 2020 21:28:09 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB6589C86;
- Wed,  5 Aug 2020 21:28:08 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id p20so7122394wrf.0;
- Wed, 05 Aug 2020 14:28:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6WPDYUZ14+12fa9p20hCnFswNLhVf+R408Nanv/qE7c=;
- b=iss3pKtb89pua0CYNGxRySekijxQv/pPUrxBJlx6jTqI33/ZnSwpLiE60rAIo2FXFX
- qEwOjRxQ4dX+8uANPFm+Bf0AF3rp9zQK1DHFk5C/lc2+Lqrq0Y9YxdB2ciIUBtelBnik
- JPcBOB1N8QHiYlEGc5BJpCTjdlP9CywTNzZwOwywmePVc6xR8qMt6Lq1Je29GxwjC3on
- X/mN58ZVFndDnCsCQ81O1xMH5e/Ra8+hnNlH1gvQTxBaXRgGZPtT5z4U+5/rbmA/V1WM
- S3h5uYntwkBuGosWAPCqgFin1Ow3Hdcvkaagh0gbhppllYzgloPtGxVg1xSJD8vqYrGh
- vSJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6WPDYUZ14+12fa9p20hCnFswNLhVf+R408Nanv/qE7c=;
- b=VHwaxPhZd6Hyw4TrW46H0PHGsBbLmhli6W1FxWRFNK4xqo+6Nb1pgPhdMoQRJt9Zt8
- V5O+sltVUaqg81nabDI/mAjh1JzPUAykMx3CGcxW/HUFxbaz6Sl3JoB8DzUQI5oeMMsE
- L1hh305IeD9iUO6EYRjVn9q+iWXhjWJEcehz5SpMAhGZnGEBG/1G6R8rGuujFuRr6aWx
- Z1lQwfv5fQv4Nd25Qy8s68hoQIgxuOag7O4zNjx1joJPGUUYaxMymynhPMpW+Wjp86Go
- ZIZTN/PhHNigoR+n7Cdfl5k5fSF+GBieAxA16s29voPDwJPG+w99aW8TQXr69FYaUSlS
- Kr6w==
-X-Gm-Message-State: AOAM530Q8FZ4nFDT6VDOQQwvJArB2yVL+DsU/o3gSdti6MnHgX6v/2zd
- A0l9PAOU2jknD+4Yk2ucZg4m2alEc9TkHR6lIb8=
-X-Google-Smtp-Source: ABdhPJyBK/cbBcI4rvHjV/DHrHtaqN/MY/CiyNmAQ6EUmLaiZjqOooeuhG5Pf+XAEhKEywNcSF4OaNQUAGDY+uG8v/g=
-X-Received: by 2002:a5d:618e:: with SMTP id j14mr4560853wru.374.1596662887120; 
- Wed, 05 Aug 2020 14:28:07 -0700 (PDT)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 598DB6E83E;
+	Wed,  5 Aug 2020 21:28:28 +0000 (UTC)
+X-Greylist: delayed 587 seconds by postgrey-1.36 at gabe;
+ Wed, 05 Aug 2020 21:03:18 UTC
+Received: from smtprelay.hostedemail.com (smtprelay0064.hostedemail.com
+ [216.40.44.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42BFD6E838
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 21:03:18 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+ [10.5.19.251])
+ by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 3365618353AAE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 20:53:31 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+ [216.40.38.60])
+ by smtprelay07.hostedemail.com (Postfix) with ESMTP id 5C1FC181D3026;
+ Wed,  5 Aug 2020 20:53:28 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-HE-Tag: farm00_4b167ce26fb2
+X-Filterd-Recvd-Size: 2363
+Received: from XPS-9350.home (unknown [47.151.133.149])
+ (Authenticated sender: joe@perches.com)
+ by omf16.hostedemail.com (Postfix) with ESMTPA;
+ Wed,  5 Aug 2020 20:53:26 +0000 (UTC)
+Message-ID: <a8ab7d75ef9df54bd193fc88e0670b30026e7e67.camel@perches.com>
+Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
+From: Joe Perches <joe@perches.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Colin King <colin.king@canonical.com>
+Date: Wed, 05 Aug 2020 13:53:25 -0700
+In-Reply-To: <CADnq5_NA9f2N3xkH4WAdDEP+0-5W0LkmTRy3yXqFdnWQmfsVmQ@mail.gmail.com>
 References: <20200805113510.18277-1-colin.king@canonical.com>
  <CADnq5_NA9f2N3xkH4WAdDEP+0-5W0LkmTRy3yXqFdnWQmfsVmQ@mail.gmail.com>
- <a8ab7d75ef9df54bd193fc88e0670b30026e7e67.camel@perches.com>
-In-Reply-To: <a8ab7d75ef9df54bd193fc88e0670b30026e7e67.camel@perches.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Aug 2020 17:27:55 -0400
-Message-ID: <CADnq5_P9hfv=Zt9+m47sFC0z202x+q-Otifv7a5z4afJamtQ2Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
-To: Joe Perches <joe@perches.com>
+User-Agent: Evolution 3.36.3-0ubuntu1 
+MIME-Version: 1.0
+X-Mailman-Approved-At: Wed, 05 Aug 2020 21:28:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,67 +65,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
  LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Colin King <colin.king@canonical.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 5, 2020 at 4:53 PM Joe Perches <joe@perches.com> wrote:
->
-> On Wed, 2020-08-05 at 16:01 -0400, Alex Deucher wrote:
-> > On Wed, Aug 5, 2020 at 7:35 AM Colin King <colin.king@canonical.com> wrote:
-> > > From: Colin Ian King <colin.king@canonical.com>
-> > >
-> > > There is a spelling mistake in a DRM_ERROR message. Fix it.
-> > >
-> > > Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> >
-> > This is already fixed.
->
-> This fix is not in today's -next.
->
-> Perhaps whatever tree it's fixed in should be in -next.
->
+On Wed, 2020-08-05 at 16:01 -0400, Alex Deucher wrote:
+> On Wed, Aug 5, 2020 at 7:35 AM Colin King <colin.king@canonical.com> wrote:
+> > From: Colin Ian King <colin.king@canonical.com>
+> > 
+> > There is a spelling mistake in a DRM_ERROR message. Fix it.
+> > 
+> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> 
+> This is already fixed.
 
-Weird.  It's in the drm-next tree as:
+This fix is not in today's -next.
 
-commit 4afaa61db9cf5250b5734c2531b226e7b3a3d691
-Author: Colin Ian King <colin.king@canonical.com>
-Date:   Fri Jul 10 09:37:58 2020 +0100
+Perhaps whatever tree it's fixed in should be in -next.
 
-    drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
 
-    There is a spelling mistake in a DRM_ERROR error message. Fix it.
+$ git show --oneline -s
+d15fe4ec0435 (HEAD, tag: next-20200805, origin/master, origin/HEAD) Add linux-next specific files for 20200805
 
-    Signed-off-by: Colin Ian King <colin.king@canonical.com>
-    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+$ git grep -i falied drivers
+drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c:                DRM_ERROR("Falied to terminate tmr\n");
 
-Alex
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+[]
+> > @@ -2010,7 +2010,7 @@ static int psp_suspend(void *handle)
+> > 
+> >         ret = psp_tmr_terminate(psp);
+> >         if (ret) {
+> > -               DRM_ERROR("Falied to terminate tmr\n");
+> > +               DRM_ERROR("Failed to terminate tmr\n");
+> >                 return ret;
+> >         }
 
->
-> $ git show --oneline -s
-> d15fe4ec0435 (HEAD, tag: next-20200805, origin/master, origin/HEAD) Add linux-next specific files for 20200805
->
-> $ git grep -i falied drivers
-> drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c:                DRM_ERROR("Falied to terminate tmr\n");
->
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> []
-> > > @@ -2010,7 +2010,7 @@ static int psp_suspend(void *handle)
-> > >
-> > >         ret = psp_tmr_terminate(psp);
-> > >         if (ret) {
-> > > -               DRM_ERROR("Falied to terminate tmr\n");
-> > > +               DRM_ERROR("Failed to terminate tmr\n");
-> > >                 return ret;
-> > >         }
->
->
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
