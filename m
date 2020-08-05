@@ -2,69 +2,79 @@ Return-Path: <SRS0=KaZi=BP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EC87C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 14:37:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF135C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 14:41:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6BD1E23331
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 14:37:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5A03F2332F
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 14:41:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SiJ/epb1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6BD1E23331
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=gmx.net header.i=@gmx.net header.b="VuUhO1KE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A03F2332F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gmx.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2112E6E454;
-	Wed,  5 Aug 2020 14:37:36 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A44896E454
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 14:37:34 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id g8so6039804wmk.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2020 07:37:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=5Y2awb+BmjY/ljAAKVw68Kxe6A199556EOrDPiOKTN8=;
- b=SiJ/epb1ia7uhv5+I5x52WjNb9pjkNs2SWIrhMEMalacoACpYSL6q4Cab5yjcKPVwK
- ey60Z9NCc/gjcEY/GqL+ogUP+XEYdq9p7rS3m1pURM+gEbIAWgLyLcvZBpmR5bBBCmuB
- UVcKJmWaqtlzADxpqHOVkNWnDHEDILaDaVN/lSrt8T2JybaspwnGZHThDHMTFNMGtKoR
- Mc5FtSRp/dKIhWMpZkYvME0enIDLRQsEsvpPCGxONRiBQoKuwuJIrT1WkP+sEV++Xcgm
- muf1Ay3sGEBzm7mlZNgbEI4zlbuRLNDWI6AIOaUJyoWYVL0wrD7b7N5wP8SDAAbdwwp2
- fxrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5Y2awb+BmjY/ljAAKVw68Kxe6A199556EOrDPiOKTN8=;
- b=YoqiWZkfBMsFKe4LjBpchP7edhDD8mT9EbFm3dp8oGu0yMWSkvKR1tfeU71K4irK5i
- QfK8OUD0bLn3tulrloVl0rAgQ3wyiZ66isMfNuTvJVEeri1y+7hUBIGHvgKQuhrjEoAb
- oV4p++ifdtiljY0loPOi/SNpwi4e9VhRLOcuJvIKGoHEITiIVEC7JvCX2tc1WHeefar3
- V8/mxrrY9Vvfkm0FIyq4SA6s7DeyhJK8QUQH9m7+tJXb94/ZZDifsDbQyNszFVtGq/jr
- 3bWQdnL9diA5MiZls56TvfzKrX15C8u+q5RPUSYhT6oGK01W+Ysi90ofmydnLl/6kHdB
- e28g==
-X-Gm-Message-State: AOAM5302p/0MVdgZd3dZ1A39JUknBk9yes3p7j+voCkcohdegE78lpy6
- 2cxw4jUmk/M3Y55YvGCRrgZvGw7pLFTu2Dj9ID0V4A==
-X-Google-Smtp-Source: ABdhPJz6R1xfT6qKggxFsLmCXQfeew9MXMvZXta8g7Xh71/QsLTYcAaTAx3Mb0JSGca9s1+qeJj0AWc1OL/3ySiPhFI=
-X-Received: by 2002:a7b:cb17:: with SMTP id u23mr3675602wmj.79.1596638253261; 
- Wed, 05 Aug 2020 07:37:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C09F089C84;
+	Wed,  5 Aug 2020 14:41:39 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5446889C84
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 14:41:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1596638496;
+ bh=+Rdn0YU9qRdPTm46j04ZJmkm9gEgdW9O2lK6gWJLNTg=;
+ h=X-UI-Sender-Class:Reply-To:Subject:To:References:From:Date:
+ In-Reply-To;
+ b=VuUhO1KEFyp8lAJu5wqVHucd7FeJCTSKKVQ5NRlRbz+Tehqy6mAiDECDkJfvESCzD
+ lI2OttEvitvZUfZJoAeB57fOzWFTSsB/QB7LcdjA33WRAyoeegJyIDY/s1cIoOI7Xg
+ CTq+RHvnCnYIvOIvsSJl2fGOY8qf1imAHDv4oxd4=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.3.2] ([79.157.110.246]) by mail.gmx.com (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MdNY8-1kcONU1Hsm-00ZPpX for
+ <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2020 16:41:36 +0200
+Subject: Re: Amdgpu kernel oops and freezing graphics
+To: amd-gfx@lists.freedesktop.org
+References: <44e135ed-dfb7-533f-3c55-8e852a349762@gmx.de>
+ <CADnq5_PcEo7sXFpEoKLj5q4J52ehtGjMvQzUFPHLcHObR3Q94A@mail.gmail.com>
+ <796fb0f5-d2fa-0456-5f5e-9413c9fb5a0f@gmx.de>
+ <CADnq5_MP-j6JpW+q6XV5nqwXfgFOEvgZ_GBRP3uuinSn98CRng@mail.gmail.com>
+From: Harvey <harv@gmx.de>
+Message-ID: <b4aa12e3-e9bc-bdb6-7583-a9bbbddf9be2@gmx.de>
+Date: Wed, 5 Aug 2020 16:41:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <CAP+8YyHwMPPTiPAEs0CV+K+NSWtQmKQ-1hL0CmoGvUjA=P_1+Q@mail.gmail.com>
- <6964a9dc-00dc-6e72-f3ad-b4c80c49ec68@daenzer.net>
- <CADnq5_OzAfTyufz0qzOQYqMbkYYGx6FaFLi-nvRvvzLcYrFQcQ@mail.gmail.com>
- <DM6PR12MB3097E61D23857E0342398E6EE84B0@DM6PR12MB3097.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB3097E61D23857E0342398E6EE84B0@DM6PR12MB3097.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Aug 2020 10:37:22 -0400
-Message-ID: <CADnq5_OU3O8j5WNc-mTB4XsvHwe2gdcMrPidk-aOfqB3EJsyfw@mail.gmail.com>
-Subject: Re: Enabling AMDGPU by default for SI & CIK
-To: "Bridgman, John" <John.Bridgman@amd.com>
+In-Reply-To: <CADnq5_MP-j6JpW+q6XV5nqwXfgFOEvgZ_GBRP3uuinSn98CRng@mail.gmail.com>
+Content-Language: de-DE
+X-Provags-ID: V03:K1:Avb5E0u2OOm9DfeklH4n4+Eoj4y4sqHjwc+pJyuiGaUb6Z0PC26
+ 01RLYnTzkJ1lP9xhhL5xdgN7Jyc9uPm1HYX4nrSYJXkWCEQuvoP8GF6yFrEmA6j7UYEYm2S
+ th76NzzfqfRxHjjkkg97ujxhZ8Ospjex+n9IT/G4R0bZGjOTJQClMAQYqtsu+yD4bEGa61D
+ Iol3bzFJXbpTgLhXURcqg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:+AB+GQmZDFw=:48Ci5QQkBkSKX93zhWVIl+
+ GEaDD+bVyitK7nCF8d4VyURpo1CT7NpDNuwQTA6FfqU537YFm7h1Z9ECiYU7VlUbIY7SYFS2O
+ H9RpkqiUkPP6RawcU1MbLAac1AxqYg9NbyFVhaU0qjlTenwKlSqJ/lKGz37PTrMC4ykSV/rSC
+ 21w7pflNYEFscrXegL5QwqTWagLtOJlEP5cV1oQjyhnQ59EsKh9TCznnCBD7xVu3DcbbMzUuD
+ fRHLxwmdtGNYdfw3ytjgRL+bxUgnje0Y5znm5l622bAyF4VRttF95kI5BWnJ1KjaGJclWgtnn
+ 4oaCUJ0E7RDGCxwnCl/ec/RzncE2JlGpVPZebizj/m0disa4mhuCiRiE7T74nd06TgBa3JhUB
+ Gzb/xnAhNMqOX5nUOdxbekP88vcdIq9q2mZqq6pzwj7sGcvLzWUSxkym7g6dSfpFFtrJGPEAV
+ d5EHU72F2sv35TQryPeIUpDLZGN4AAwYvFN1hVmITNqTS4L81ZhhzKvenP1uvzo+KKSDcWDgY
+ J1OnVVaOnQP2oSx1ZhPm9NRClI1bX5/ryDhWK4TI6dO8R1Y8oqNibh26j3BdtVLA3HWnD5no1
+ Z+c8fgAlV4RpVE+XlSMHpfONqeFLNHnv3PSgfmW/NF+zggByvHf2r0CD5GccjduFzvS8EiSO4
+ N8iRU5dKOBDqFXVLx7dviQDazxWdxpNtxzPTNbMGem4AH4Oj6d9KMsq6uR7QuL7O4jRb9lRRt
+ fUMgujjYVyXBWyzHIApAvbV/rg/4DujJ+NUXd+2r4m9hvPPY1oQUWi8nuTVZUMoKYgmd1xn+X
+ pTfUzo3VR5vpgttDhOQEOLOMF+VoyFf7EE7ePIG+zMvlV7FCL5lYL6cg+acmkPWDwDOsdhS7f
+ CY25V+0lP4Mr6KINR+O8LOwraTpDEI6suMioTmubnGcZ6/7oE1Fyh6FXwRcXJeOQukjTIusnL
+ Z/caHO/fW0/FfUy8xRW/gBnGVHAV782+grX+dYLzF3YFHGeSJecec9EWLX79RYl/YPfR4qEZz
+ XHnRwj9f+mMeax04XzNfzDF7zQY6+37rw32NVTCqFWOqpfs+Z4oAlLCTfdg/K/annq0qgjTlD
+ pdCQHlpZ8wrMMsG/GaZ6BfLGZk9ZMEgimbzjLrXjPLpLA7fs/IKFtuapRrHLJEWmNTo5xj5yD
+ duDsrLPDscFtWHRvP1HAOv1Vljt79133wCD9TRE0jMdUnrzHW1biTvXP7ekvkjNNtyCFrtXuk
+ r0k+qZ1RjnAKl36FW
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,61 +86,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: harv@gmx.de
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBBdWcgNCwgMjAyMCBhdCAxMDo0OCBQTSBCcmlkZ21hbiwgSm9obiA8Sm9obi5Ccmlk
-Z21hbkBhbWQuY29tPiB3cm90ZToKPgo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5h
-bCBEaXN0cmlidXRpb24gT25seV0KPgo+Cj4gQXQgdGhlIHJpc2sgb2YgYXNraW5nIGEgZHVtYiBx
-dWVzdGlvbiwgZG9lcyBhbWRncHUgZGVmYXVsdCB0byB1c2luZyBEQyBvbiBTSSBhbmQgQ0kgPwo+
-CgpEQyBpcyBkaXNhYmxlZCBieSBkZWZhdWx0IG9uIFNJIGFuZCBDSSBkdWUgdG8gdGhlIGxhY2sg
-b2YgYW5hbG9nCmVuY29kZXIgc3VwcG9ydC4KCj4gSSdtIGFza2luZyBiZWNhdXNlIGEgbG90IG9m
-IHBlb3BsZSBzZWVtIHRvIGJlIHVzaW5nIGFtZGdwdSBzdWNjZXNzZnVsbHkgd2l0aCBhbmFsb2cg
-b3V0cHV0cyB0b2RheSBvbiBTSS9DSS4uLiBzdWdnZXN0cyB0aGF0IHRoZXkgYXJlIG5vdCB1c2lu
-ZyBEQyA/CgpZZXMuCgo+Cj4gSWYgc28gdGhlbiB3b3VsZCBlbmFibGluZyBIRE1JL0RQIGF1ZGlv
-IHN1cHBvcnQgd2l0aG91dCBEQyBiZSBzdWZmaWNpZW50IHRvIGZsaXAgdGhlIHN3aXRjaCBhc3N1
-bWluZyB3ZSBmZWx0IHRoYXQgb3RoZXIgcmlza3Mgd2VyZSBtYW5hZ2VhYmxlID8KClBvc3NpYmx5
-LiAgVkNFIHN1cHBvcnQgZm9yIFNJIGlzIGFsc28gbWlzc2luZyBpbiBhbWRncHUuCgpJIHRoaW5r
-IHRoZSBiaWdnZXN0IGNoYWxsZW5nZSB3aWxsIGJlIG1ha2luZyBzdXJlIHRoaW5ncyBsaWtlIHN1
-c3BlbmQKYW5kIHJlc3VtZSB3b3JrLgoKQWxleAoKPgo+IFRoYW5rcywKPiBKb2huCj4KPiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91
-bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBvZiBBbGV4IERldWNoZXIgPGFs
-ZXhkZXVjaGVyQGdtYWlsLmNvbT4KPiBTZW50OiBBdWd1c3QgNCwgMjAyMCAxOjM1IFBNCj4gVG86
-IE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+Cj4gQ2M6IERldWNoZXIsIEFsZXhh
-bmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJp
-c3RpYW4uS29lbmlnQGFtZC5jb20+OyBhbWQtZ2Z4IG1haWxpbmcgbGlzdCA8YW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmc+OyBCYXMgTmlldXdlbmh1aXplbiA8YmFzQGJhc25pZXV3ZW5odWl6
-ZW4ubmw+Cj4gU3ViamVjdDogUmU6IEVuYWJsaW5nIEFNREdQVSBieSBkZWZhdWx0IGZvciBTSSAm
-IENJSwo+Cj4gT24gVHVlLCBBdWcgNCwgMjAyMCBhdCA0OjM4IEFNIE1pY2hlbCBEw6RuemVyIDxt
-aWNoZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+ID4KPiA+IE9uIDIwMjAtMDgtMDMgMTo0NSBhLm0u
-LCBCYXMgTmlldXdlbmh1aXplbiB3cm90ZToKPiA+ID4gSGkgYWxsLAo+ID4gPgo+ID4gPiBOb3cg
-dGhhdCB3ZSBoYXZlIHJlY2VudGx5IG1hZGUgc29tZSBwcm9ncmVzcyBvbiBnZXR0aW5nIGZlYXR1
-cmUgcGFyaXR5Cj4gPiA+IHdpdGggdGhlIFJhZGVvbiBkcml2ZXIgZm9yIFNJLCBJJ20gd29uZGVy
-aW5nIHdoYXQgaXQgd291bGQgdGFrZSB0bwo+ID4gPiBtYWtlIEFNREdQVSB0aGUgZGVmYXVsdCBk
-cml2ZXIgZm9yIHRoZXNlIGdlbmVyYXRpb25zLgo+ID4gPgo+ID4gPiBBcyBmYXIgYXMgSSB1bmRl
-cnN0YW5kIEFNREdQVSBoYXMgaGFkIHRoZXNlIGZlYXR1cmVzIGZvciBDSUsgZm9yIGEKPiA+ID4g
-d2hpbGUgYWxyZWFkeSBidXQgaXQgaXMgc3RpbGwgbm90IHRoZSBkZWZhdWx0IGRyaXZlci4gV2hh
-dCB3b3VsZCBpdAo+ID4gPiB0YWtlIHRvIG1ha2UgaXQgdGhlIGRlZmF1bHQ/IFdoYXQgaXMgbWlz
-c2luZyBhbmQvb3IgYnJva2VuPwo+ID4KPiA+IFRoZSBtYWluIGJsb2NrZXJzIEknbSBhd2FyZSBv
-ZiBmb3IgQ0lLIGFyZToKPiA+Cj4gPiAxKSBMYWNrIG9mIGFuYWxvZ3VlIGNvbm5lY3RvciBzdXBw
-b3J0IHdpdGggREMKPiA+IDIpIExhY2sgb2YgSERNSS9EUCBhdWRpbyBzdXBwb3J0IHdpdGhvdXQg
-REMKPiA+Cj4gPgo+ID4gMSkgbWF5IGFwcGx5IHRvIFNJIGFzIHdlbGwuCj4KPiBBbHNvLCBJSVJD
-LCB0aGVyZSBhcmUgc3VzcGVuZCBhbmQgcmVzdW1lIHByb2JsZW1zIHdpdGggc29tZSBDSUsgcGFy
-dHMKPiB1c2luZyBhbWRncHUuCj4KPiBBbGV4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5v
-dXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFp
-bG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDam9obi5icmlkZ21h
-biU0MGFtZC5jb20lN0MyNmRmODFmOWE2ZGY0ZTJmOWZiYjA4ZDgzODljZGE3OSU3QzNkZDg5NjFm
-ZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzczMjE1OTM2MjAzNzg0ODEmYW1w
-O3NkYXRhPUVwJTJCWVJSVDFkQWNFOHpTRElhWmlYdVZNYjlnQlZVbkxuYnRQMSUyQmU3UGtjJTNE
-JmFtcDtyZXNlcnZlZD0wCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Alex,
+
+Am 04.08.20 um 22:01 schrieb Alex Deucher:
+> On Tue, Jul 21, 2020 at 2:21 PM Harvey <harv@gmx.de> wrote:
+>>
+>> Alex,
+>>
+>> tnak you so much - you're my hero!
+>>
+>> Am 21.07.20 um 18:17 schrieb Alex Deucher:
+>>> On Mon, Jul 20, 2020 at 4:22 AM Harvey <harv@gmx.de> wrote:
+>>>>
+>>>> Hello,
+>>>>
+>>>> this is my first post to this list so please be patient with me ;)
+>>>>
+>>>> The facts:
+>>>>
+>>>> it is now one week that I own a new laptop, a MSI Bravo 17 A4DDR/MS-17FK
+>>>> with Ryzen 7 4800U and hybrid graphics on a Radeon RX 5500M. I installed
+>>>> my beloved Archlinux but I can't start any graphics withpout kernel oops
+>>>> on it beside the normal console, even calling 'lspci' on the console is
+>>>> provoking errors.
+>>>>
+>>>> I am using linux kernel 5.7.9 and linux-firmware 20200619.e96c121
+>>>>
+>>>> (FWIW: I even tried with a self-cmpiled kernel 5.8-rc5 and
+>>>> linux-firmware directly from the git repository - no changes)
+>>>>
+>>>> The following is only part of the information I can provide but I didn't
+>>>> want to make this mail bigger than it already is.
+>>>
+>>> Does appending amdgpu.runpm=0 on the kernel command line in grub help?
+>>
+>> Yes it does. Woohoo! The system is not freezing anymore! Can I provide
+>> any further information to get this sorted?
+>>
+>> I will be happy to help investigating and testing if needed.
+>
+> Does appending pci=noats on the kernel command line in grub also fix the issue?
+
+No, it does not. I tested with pci=noats on kernel 5.7.11 and 5.8 and on
+both the kernel oopses and freezes again. Only amdgpu.runpm=0 does the
+trick.
+
+FWIW, booting kernel 5.8 without any parameters does not work either.
+
+Greetings
+Harvey
+
+
+--
+I am root. If you see me laughing, you'd better have a backup!
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
