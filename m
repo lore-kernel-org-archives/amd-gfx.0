@@ -2,39 +2,111 @@ Return-Path: <SRS0=KaZi=BP=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE28EC433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 15:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 947C8C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 17:41:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9B39B22D05
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 15:39:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B39B22D05
+	by mail.kernel.org (Postfix) with ESMTPS id 63F212073E
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2020 17:41:05 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Bz90KmPY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63F212073E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E3556E81E;
-	Wed,  5 Aug 2020 15:39:53 +0000 (UTC)
-X-Greylist: delayed 440 seconds by postgrey-1.36 at gabe;
- Wed, 05 Aug 2020 15:39:52 UTC
-Received: from svt-ETHLX-2.amd.com (unknown [165.204.55.250])
- by gabe.freedesktop.org (Postfix) with ESMTP id 916EF6E81E
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 15:39:52 +0000 (UTC)
-Received: by svt-ETHLX-2.amd.com (Postfix, from userid 0)
- id 87D61184010C; Wed,  5 Aug 2020 11:32:31 -0400 (EDT)
-From: Bokun Zhang <Bokun.Zhang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] SWDEV-220451 - Query guest's information by VF2PF message -
- Guest side - part 1
-Date: Wed,  5 Aug 2020 11:32:21 -0400
-Message-Id: <20200805153222.33202-1-Bokun.Zhang@amd.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBFD89D52;
+	Wed,  5 Aug 2020 17:41:05 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6BCF89D52
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2020 17:41:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GWehwcaWl7ZAwmnUQxvq5GqrYBEySMpcxuap4WOEqa635wDT2qjhLkqA5KAbx7cxnx0byt5Y1XmN9VYtqWeYn/btA/P78wzRcpiPVqre7QE+FN0wamgUaGPFYdg7Ju+LvU4UtUUP99YdiIepauFesbTkfWFsEaAUyqpsuR8kugUdyAF5VnO8J5ZXLW3f/nuorlrj2kgSLbpOQ6pmaXxwwDhATrrGPqeRYhJuyNxB7LGah/dks0zJsDjnvAlZSf5XzlG7KQQqFdmNUD3h0cv81VYsWADk79rVOcjkHphw9PSitkH+0Yj+HDQQXEyzXPSKAaHg/tOCcNVzNmJN35wmxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C2K1ceP/icupOpk4vTNUa769aVD4kVssKQoxEhhmWTo=;
+ b=NVJZefureot7ZEtqgMZ6rBbzNTbd2+zY4CtDwhP6aowE5gZ7B1EVtvH4CUWmLUrysyX0tEtP2pA/bcXEn231kvkFwFypFtf+rNYZG8KKzI/ylTMnCmtJzWNWouvdXdeKCX5zHrvmYroemSKRqfIrfxVh5Li+0V0MAKLVe34ZE4KPxZOT96g0u5QgX+srGSCikIPH2tScH4cQGzQPet1Q+nlBIxi2kudF7KxhcpT5rP0322lFtIFtZDnlb+FEoSzZPIgM8iyoFiiH7vRcqv6JjuxvIGaTo66mbll4ctNLEGvuiC68MxE8b3fX5KNcZNyo1HTMZj+ALvrFO+LZzyhsVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C2K1ceP/icupOpk4vTNUa769aVD4kVssKQoxEhhmWTo=;
+ b=Bz90KmPYHUJvwwqvuZPhr+hWaU+AbxnYGiS9/L/G2/hZjHXc3Sg7mWdgc4H8Flqc9Bfwmqc8WJ8pfDRL2F4Mw2CM57N8ffPkgAAeIWGP/asCpxwQ/Htp0mZ3DCQNZom4ntkH7qVYT7KCqQP7kQ/k7wJy6x1AvzrTUaZQ2vRpKHU=
+Received: from MWHPR10CA0069.namprd10.prod.outlook.com (2603:10b6:300:2c::31)
+ by BL0PR12MB2450.namprd12.prod.outlook.com (2603:10b6:207:4d::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Wed, 5 Aug
+ 2020 17:41:01 +0000
+Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:2c:cafe::37) by MWHPR10CA0069.outlook.office365.com
+ (2603:10b6:300:2c::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17 via Frontend
+ Transport; Wed, 5 Aug 2020 17:41:01 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3261.16 via Frontend Transport; Wed, 5 Aug 2020 17:41:01 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 5 Aug 2020
+ 12:41:00 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 5 Aug 2020
+ 12:40:59 -0500
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 5 Aug 2020 12:40:59 -0500
+From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/9] drm/amd/display: Adjust static-ness of resource functions
+Date: Wed, 5 Aug 2020 13:40:50 -0400
+Message-ID: <20200805174058.11736-2-qingqing.zhuo@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200805174058.11736-1-qingqing.zhuo@amd.com>
+References: <20200805174058.11736-1-qingqing.zhuo@amd.com>
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 573e9c2b-5552-4555-c108-08d83966b83e
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2450:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2450B79A73BEE8F70E2EA76CFB4B0@BL0PR12MB2450.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:311;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: efoORR+ZufnSqE3GLCU1h/9WMx2yGORaTxmQTv2z7z7roO7dnzV0+cvZzEAWKFWvd8Y9WIUFY0Vy8tLUf9mNdi8eXrFVoN/8BLBrBsn5BjnDIhH13FGPj3i1i/rfmOJpajWjHHWK10plNOWpToZFjCctE5NfYHVeyG+0g1ToJILunrpeBCm1jET1DbHnkifl5qDOtt9GRoZNEoSMm/38scxUiMOQAn5eGkt0FXLPohbYS8AXey+iaBxdyr5dlhHdIinVP6Wh5oXqcg0wusU7cx9dj3xtoNl6q/U41+kGQSdr7xs2Wrb4O1NIC0lm8g4OuC4JuZnpVNvZvrib43f8T09LIqOKZk4dXMRJD+6GayIE+dqmN0UhmuTu7fFMN1c0/dmMDZ9N3XEeGYWLPm7mEw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(46966005)(36756003)(1076003)(4326008)(2616005)(47076004)(44832011)(478600001)(83380400001)(316002)(426003)(8936002)(54906003)(6666004)(70206006)(6916009)(82310400002)(186003)(356005)(81166007)(5660300002)(336012)(86362001)(82740400003)(2906002)(26005)(8676002)(70586007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2020 17:41:01.0214 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 573e9c2b-5552-4555-c108-08d83966b83e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2450
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,384 +118,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
+Cc: Joshua Aberback <joshua.aberback@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- Add guest side change to support VF2PF message
-- Fix coding style
+From: Joshua Aberback <joshua.aberback@amd.com>
 
-Change-Id: I82e5518cb10ec0b19fecaba7e05b02f4b7f2b409
-Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+[Why]
+Register definitions are asic-specific, so functions that use registers of
+a particular asic should be static, to be exposed in asic-specific function
+pointer structures.
+
+[How]
+ - make register-definition-using functions static
+ - make some functions non-static, for future use
+ - remove duplicate function definition
+
+Signed-off-by: Joshua Aberback <joshua.aberback@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  29 +-
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 276 ++++++++++++++++++++
- 2 files changed, 285 insertions(+), 20 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+ .../drm/amd/display/dc/dcn20/dcn20_resource.h |  1 -
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c | 27 ++++++++++---------
+ .../drm/amd/display/dc/dcn30/dcn30_resource.h |  3 +++
+ 3 files changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index b0b2bdc750df..ad2b2628ab67 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -24,6 +24,8 @@
- #ifndef AMDGPU_VIRT_H
- #define AMDGPU_VIRT_H
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h
+index 2c1959845c29..cdd39ee9761d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h
+@@ -95,7 +95,6 @@ struct display_stream_compressor *dcn20_dsc_create(
+ 	struct dc_context *ctx, uint32_t inst);
+ void dcn20_dsc_destroy(struct display_stream_compressor **dsc);
  
-+#include "amdgv_sriovmsg.h"
+-void dcn20_patch_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb);
+ void dcn20_cap_soc_clocks(
+ 		struct _vcs_dpi_soc_bounding_box_st *bb,
+ 		struct pp_smu_nv_clock_table max_clocks);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 653a571e366d..de53d26f61d5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -871,7 +871,7 @@ void dcn30_dpp_destroy(struct dpp **dpp)
+ 	*dpp = NULL;
+ }
+ 
+-struct dpp *dcn30_dpp_create(
++static struct dpp *dcn30_dpp_create(
+ 	struct dc_context *ctx,
+ 	uint32_t inst)
+ {
+@@ -889,7 +889,8 @@ struct dpp *dcn30_dpp_create(
+ 	kfree(dpp);
+ 	return NULL;
+ }
+-struct output_pixel_processor *dcn30_opp_create(
 +
- #define AMDGPU_SRIOV_CAPS_SRIOV_VBIOS  (1 << 0) /* vBIOS is sr-iov ready */
- #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is enabled on this GPU */
- #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a virtual function */
-@@ -69,7 +71,10 @@ struct amdgpu_virt_fw_reserve {
- 	struct amd_sriov_msg_vf2pf_info_header *p_vf2pf;
- 	unsigned int checksum_key;
++static struct output_pixel_processor *dcn30_opp_create(
+ 	struct dc_context *ctx, uint32_t inst)
+ {
+ 	struct dcn20_opp *opp =
+@@ -905,7 +906,7 @@ struct output_pixel_processor *dcn30_opp_create(
+ 	return &opp->base;
+ }
+ 
+-struct dce_aux *dcn30_aux_engine_create(
++static struct dce_aux *dcn30_aux_engine_create(
+ 	struct dc_context *ctx,
+ 	uint32_t inst)
+ {
+@@ -924,6 +925,7 @@ struct dce_aux *dcn30_aux_engine_create(
+ 
+ 	return &aux_engine->base;
+ }
++
+ #define i2c_inst_regs(id) { I2C_HW_ENGINE_COMMON_REG_LIST(id) }
+ 
+ static const struct dce_i2c_registers i2c_hw_regs[] = {
+@@ -943,7 +945,7 @@ static const struct dce_i2c_mask i2c_masks = {
+ 		I2C_COMMON_MASK_SH_LIST_DCN2(_MASK)
  };
+ 
+-struct dce_i2c_hw *dcn30_i2c_hw_create(
++static struct dce_i2c_hw *dcn30_i2c_hw_create(
+ 	struct dc_context *ctx,
+ 	uint32_t inst)
+ {
+@@ -958,6 +960,7 @@ struct dce_i2c_hw *dcn30_i2c_hw_create(
+ 
+ 	return dce_i2c_hw;
+ }
 +
- /*
-+ * Legacy GIM header
-+ *
-  * Defination between PF and VF
-  * Structures forcibly aligned to 4 to keep the same style as PF.
-  */
-@@ -89,15 +94,7 @@ enum AMDGIM_FEATURE_FLAG {
- 	AMDGIM_FEATURE_HW_PERF_SIMULATION = (1 << 3),
+ static struct mpc *dcn30_mpc_create(
+ 		struct dc_context *ctx,
+ 		int num_mpcc,
+@@ -1008,7 +1011,7 @@ struct hubbub *dcn30_hubbub_create(struct dc_context *ctx)
+ 	return &hubbub3->base;
+ }
+ 
+-struct timing_generator *dcn30_timing_generator_create(
++static struct timing_generator *dcn30_timing_generator_create(
+ 		struct dc_context *ctx,
+ 		uint32_t instance)
+ {
+@@ -1042,7 +1045,7 @@ static const struct encoder_feature_support link_enc_feature = {
+ 		.flags.bits.IS_TPS4_CAPABLE = true
  };
  
--struct amd_sriov_msg_pf2vf_info_header {
--	/* the total structure size in byte. */
--	uint32_t size;
--	/* version of this structure, written by the GIM */
--	uint32_t version;
--	/* reserved */
--	uint32_t reserved[2];
--} __aligned(4);
--struct  amdgim_pf2vf_info_v1 {
-+struct amdgim_pf2vf_info_v1 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_pf2vf_info_header header;
- 	/* max_width * max_height */
-@@ -116,6 +113,7 @@ struct  amdgim_pf2vf_info_v1 {
- 	unsigned int checksum;
- } __aligned(4);
+-struct link_encoder *dcn30_link_encoder_create(
++static struct link_encoder *dcn30_link_encoder_create(
+ 	const struct encoder_init_data *enc_init_data)
+ {
+ 	struct dcn20_link_encoder *enc20 =
+@@ -1063,7 +1066,7 @@ struct link_encoder *dcn30_link_encoder_create(
+ 	return &enc20->enc10.base;
+ }
  
-+/* TODO: below struct is duplicated to amd_sriov_msg_pf2vf_info */
- struct  amdgim_pf2vf_info_v2 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_pf2vf_info_header header;
-@@ -146,16 +144,6 @@ struct  amdgim_pf2vf_info_v2 {
- 	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 0, 0, (9 + sizeof(struct amd_sriov_msg_pf2vf_info_header)/sizeof(uint32_t)), 3)];
- } __aligned(4);
+-struct panel_cntl *dcn30_panel_cntl_create(const struct panel_cntl_init_data *init_data)
++static struct panel_cntl *dcn30_panel_cntl_create(const struct panel_cntl_init_data *init_data)
+ {
+ 	struct dce_panel_cntl *panel_cntl =
+ 		kzalloc(sizeof(struct dce_panel_cntl), GFP_KERNEL);
+@@ -1311,7 +1314,7 @@ static void dcn30_resource_destruct(struct dcn30_resource_pool *pool)
+ 		dcn_dccg_destroy(&pool->base.dccg);
+ }
  
--
--struct amd_sriov_msg_vf2pf_info_header {
--	/* the total structure size in byte. */
--	uint32_t size;
--	/*version of this structure, written by the guest */
--	uint32_t version;
--	/* reserved */
--	uint32_t reserved[2];
--} __aligned(4);
--
- struct amdgim_vf2pf_info_v1 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_vf2pf_info_header header;
-@@ -217,8 +205,9 @@ struct amdgim_vf2pf_info_v2 {
- 	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 64, 0, (12 + sizeof(struct amd_sriov_msg_vf2pf_info_header)/sizeof(uint32_t)), 0)];
- } __aligned(4);
+-struct hubp *dcn30_hubp_create(
++static struct hubp *dcn30_hubp_create(
+ 	struct dc_context *ctx,
+ 	uint32_t inst)
+ {
+@@ -1330,7 +1333,7 @@ struct hubp *dcn30_hubp_create(
+ 	return NULL;
+ }
  
-+/* TODO: below macro and typedef will cause compile error, need to remove */
- #define AMDGPU_FW_VRAM_VF2PF_VER 2
--typedef struct amdgim_vf2pf_info_v2 amdgim_vf2pf_info ;
-+typedef struct amd_sriov_msg_vf2pf_info amdgim_vf2pf_info;
+-bool dcn30_dwbc_create(struct dc_context *ctx, struct resource_pool *pool)
++static bool dcn30_dwbc_create(struct dc_context *ctx, struct resource_pool *pool)
+ {
+ 	int i;
+ 	uint32_t pipe_count = pool->res_cap->num_dwb;
+@@ -1355,7 +1358,7 @@ bool dcn30_dwbc_create(struct dc_context *ctx, struct resource_pool *pool)
+ 	return true;
+ }
  
- #define AMDGPU_FW_VRAM_VF2PF_WRITE(adev, field, val) \
- 	do { \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-new file mode 100644
-index 000000000000..5355827ed0ae
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -0,0 +1,276 @@
-+/*
-+ * Copyright 2018-2019 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
+-bool dcn30_mmhubbub_create(struct dc_context *ctx, struct resource_pool *pool)
++static bool dcn30_mmhubbub_create(struct dc_context *ctx, struct resource_pool *pool)
+ {
+ 	int i;
+ 	uint32_t pipe_count = pool->res_cap->num_dwb;
+@@ -2292,7 +2295,7 @@ static void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
+                (dcn3_0_soc.return_bus_width_bytes * (dcn3_0_soc.max_avg_sdp_bw_use_normal_percent / 100));
+ }
+ 
+-static void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
+ {
+ 	unsigned int i, j;
+ 	unsigned int num_states = 0;
+@@ -2683,7 +2686,7 @@ static bool dcn30_resource_construct(
+ 	if (!resource_construct(num_virtual_links, dc, &pool->base,
+ 			(!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment) ?
+ 			&res_create_funcs : &res_create_maximus_funcs)))
+-			goto create_fail;
++		goto create_fail;
+ 
+ 	/* HW Sequencer and Plane caps */
+ 	dcn30_hw_sequencer_construct(dc);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
+index 4b4a4d81c1e3..c9d5f94092a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
+@@ -79,4 +79,7 @@ enum dc_status dcn30_add_stream_to_ctx(
+ 		struct dc *dc,
+ 		struct dc_state *new_ctx,
+ 		struct dc_stream_state *dc_stream);
 +
-+#ifndef AMDGV_SRIOV_MSG__H_
-+#define AMDGV_SRIOV_MSG__H_
++void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
 +
-+/* unit in kilobytes */
-+#define AMD_SRIOV_MSG_VBIOS_OFFSET              0
-+#define AMD_SRIOV_MSG_VBIOS_SIZE_KB             64
-+#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB    AMD_SRIOV_MSG_VBIOS_SIZE_KB
-+#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB      4
-+
-+/*
-+ * layout
-+ * 0           64KB        65KB        66KB
-+ * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | ...
-+ * |   64KB    |   1KB     |   1KB     |
-+ */
-+#define AMD_SRIOV_MSG_SIZE_KB                   1
-+#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB
-+#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
-+#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
-+
-+/*
-+ * PF2VF history log:
-+ * v1 defined in amdgim
-+ * v2 current
-+ *
-+ * VF2PF history log:
-+ * v1 defined in amdgim
-+ * v2 defined in amdgim
-+ * v3 current
-+ */
-+#define AMD_SRIOV_MSG_FW_VRAM_PF2VF_VER			2
-+#define AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER			3
-+
-+#define AMD_SRIOV_MSG_RESERVE_UCODE		24
-+
-+enum amd_sriov_ucode_engine_id {
-+	AMD_SRIOV_UCODE_ID_VCE = 0,
-+	AMD_SRIOV_UCODE_ID_UVD,
-+	AMD_SRIOV_UCODE_ID_MC,
-+	AMD_SRIOV_UCODE_ID_ME,
-+	AMD_SRIOV_UCODE_ID_PFP,
-+	AMD_SRIOV_UCODE_ID_CE,
-+	AMD_SRIOV_UCODE_ID_RLC,
-+	AMD_SRIOV_UCODE_ID_RLC_SRLC,
-+	AMD_SRIOV_UCODE_ID_RLC_SRLG,
-+	AMD_SRIOV_UCODE_ID_RLC_SRLS,
-+	AMD_SRIOV_UCODE_ID_MEC,
-+	AMD_SRIOV_UCODE_ID_MEC2,
-+	AMD_SRIOV_UCODE_ID_SOS,
-+	AMD_SRIOV_UCODE_ID_ASD,
-+	AMD_SRIOV_UCODE_ID_TA_RAS,
-+	AMD_SRIOV_UCODE_ID_TA_XGMI,
-+	AMD_SRIOV_UCODE_ID_SMC,
-+	AMD_SRIOV_UCODE_ID_SDMA,
-+	AMD_SRIOV_UCODE_ID_SDMA2,
-+	AMD_SRIOV_UCODE_ID_VCN,
-+	AMD_SRIOV_UCODE_ID_DMCU,
-+	AMD_SRIOV_UCODE_ID__MAX
-+};
-+
-+#pragma pack(push, 1) 	// PF2VF / VF2PF data areas are byte packed
-+
-+union amd_sriov_msg_feature_flags {
-+	struct {
-+		uint32_t  error_log_collect  : 1;
-+		uint32_t  host_load_ucodes   : 1;
-+		uint32_t  host_flr_vramlost  : 1;
-+		uint32_t  mm_bw_management   : 1;
-+		uint32_t  pp_one_vf_mode     : 1;
-+		uint32_t  reserved           : 27;
-+	} flags;
-+	uint32_t      all;
-+};
-+
-+union amd_sriov_msg_os_info {
-+	struct {
-+		uint32_t  windows            : 1;
-+		uint32_t  reserved           : 31;
-+	} info;
-+	uint32_t      all;
-+};
-+
-+struct amd_sriov_msg_pf2vf_info_header {
-+	/* the total structure size in byte */
-+	uint32_t size;
-+	/* version of this structure, written by the HOST */
-+	uint32_t version;
-+	/* reserved */
-+	uint32_t reserved[2];
-+};
-+
-+struct amd_sriov_msg_pf2vf_info {
-+	/* header contains size and version */
-+	struct amd_sriov_msg_pf2vf_info_header header;
-+	/* use private key from mailbox 2 to create checksum */
-+	uint32_t checksum;
-+	/* The features flags of the HOST driver supports */
-+	union amd_sriov_msg_feature_flags feature_flags;
-+	/* (max_width * max_height * fps) / (16 * 16) */
-+	uint32_t hevc_enc_max_mb_per_second;
-+	/* (max_width * max_height) / (16 * 16) */
-+	uint32_t hevc_enc_max_mb_per_frame;
-+	/* (max_width * max_height * fps) / (16 * 16) */
-+	uint32_t avc_enc_max_mb_per_second;
-+	/* (max_width * max_height) / (16 * 16) */
-+	uint32_t avc_enc_max_mb_per_frame;
-+	/* MEC FW position in BYTE from the start of VF visible frame buffer */
-+	uint64_t mecfw_offset;
-+	/* MEC FW size in BYTE */
-+	uint32_t mecfw_size;
-+	/* UVD FW position in BYTE from the start of VF visible frame buffer */
-+	uint64_t uvdfw_offset;
-+	/* UVD FW size in BYTE */
-+	uint32_t uvdfw_size;
-+	/* VCE FW position in BYTE from the start of VF visible frame buffer */
-+	uint64_t vcefw_offset;
-+	/* VCE FW size in BYTE */
-+	uint32_t vcefw_size;
-+	/* Bad pages block position in BYTE */
-+	uint32_t bp_block_offset_low;
-+	uint32_t bp_block_offset_high;
-+	/* Bad pages block size in BYTE */
-+	uint32_t bp_block_size;
-+	/* frequency for VF to update the VF2PF area in msec, 0 = manual */
-+	uint32_t vf2pf_update_interval_ms;
-+	/* identification in ROCm SMI */
-+	uint64_t uuid;
-+	uint32_t fcn_idx;
-+	/* reserved */
-+	uint32_t reserved[256-26];
-+};
-+
-+struct amd_sriov_msg_vf2pf_info_header {
-+	/* the total structure size in byte */
-+	uint32_t size;
-+	/* version of this structure, written by the guest */
-+	uint32_t version;
-+	/* reserved */
-+	uint32_t reserved[2];
-+};
-+
-+struct amd_sriov_msg_vf2pf_info {
-+	/* header contains size and version */
-+	struct amd_sriov_msg_vf2pf_info_header header;
-+	uint32_t checksum;
-+	/* driver version */
-+	uint8_t  driver_version[64];
-+	/* driver certification, 1=WHQL, 0=None */
-+	uint32_t driver_cert;
-+	/* guest OS type and version */
-+	union amd_sriov_msg_os_info os_info;
-+	/* guest fb information in the unit of MB */
-+	uint32_t fb_usage;
-+	/* guest gfx engine usage percentage */
-+	uint32_t gfx_usage;
-+	/* guest gfx engine health percentage */
-+	uint32_t gfx_health;
-+	/* guest compute engine usage percentage */
-+	uint32_t compute_usage;
-+	/* guest compute engine health percentage */
-+	uint32_t compute_health;
-+	/* guest avc engine usage percentage. 0xffff means N/A */
-+	uint32_t avc_enc_usage;
-+	/* guest avc engine health percentage. 0xffff means N/A */
-+	uint32_t avc_enc_health;
-+	/* guest hevc engine usage percentage. 0xffff means N/A */
-+	uint32_t hevc_enc_usage;
-+	/* guest hevc engine usage percentage. 0xffff means N/A */
-+	uint32_t hevc_enc_health;
-+	/* combined encode/decode usage */
-+	uint32_t encode_usage;
-+	uint32_t decode_usage;
-+	/* Version of PF2VF that VF understands */
-+	uint32_t pf2vf_version_required;
-+	/* additional FB usage */
-+	uint32_t fb_vis_usage;
-+	uint32_t fb_vis_size;
-+	uint32_t fb_size;
-+	/* guest ucode data, each one is 1.25 Dword */
-+	struct {
-+		uint8_t  id;
-+		uint32_t version;
-+	} ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
-+
-+	/* reserved */
-+	uint32_t reserved[256-68];
-+};
-+
-+/* mailbox message send from guest to host  */
-+enum amd_sriov_mailbox_request_message {
-+	MB_REQ_MSG_REQ_GPU_INIT_ACCESS = 1,
-+	MB_REQ_MSG_REL_GPU_INIT_ACCESS,
-+	MB_REQ_MSG_REQ_GPU_FINI_ACCESS,
-+	MB_REQ_MSG_REL_GPU_FINI_ACCESS,
-+	MB_REQ_MSG_REQ_GPU_RESET_ACCESS,
-+	MB_REQ_MSG_REQ_GPU_INIT_DATA,
-+
-+	MB_REQ_MSG_LOG_VF_ERROR       = 200,
-+};
-+
-+/* mailbox message send from host to guest  */
-+enum amd_sriov_mailbox_response_message {
-+	MB_RES_MSG_CLR_MSG_BUF = 0,
-+	MB_RES_MSG_READY_TO_ACCESS_GPU = 1,
-+	MB_RES_MSG_FLR_NOTIFICATION,
-+	MB_RES_MSG_FLR_NOTIFICATION_COMPLETION,
-+	MB_RES_MSG_SUCCESS,
-+	MB_RES_MSG_FAIL,
-+	MB_RES_MSG_QUERY_ALIVE,
-+	MB_RES_MSG_GPU_INIT_DATA_READY,
-+
-+	MB_RES_MSG_TEXT_MESSAGE = 255
-+};
-+
-+/* version data stored in MAILBOX_MSGBUF_RCV_DW1 for future expansion */
-+enum amd_sriov_gpu_init_data_version {
-+	GPU_INIT_DATA_READY_V1 = 1,
-+};
-+
-+#pragma pack(pop)	// Restore previous packing option
-+
-+/* checksum function between host and guest */
-+unsigned int amd_sriov_msg_checksum(void *obj,
-+				unsigned long obj_size,
-+				unsigned int key,
-+				unsigned int checksum);
-+
-+/* assertion at compile time */
-+#ifdef __linux__
-+#define stringification(s) _stringification(s)
-+#define _stringification(s) #s
-+
-+_Static_assert(
-+	sizeof(struct amd_sriov_msg_vf2pf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
-+	"amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
-+
-+_Static_assert(
-+	sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
-+	"amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
-+
-+_Static_assert(
-+	AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
-+	"AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
-+
-+_Static_assert(
-+	AMD_SRIOV_MSG_RESERVE_UCODE > AMD_SRIOV_UCODE_ID__MAX,
-+	"AMD_SRIOV_MSG_RESERVE_UCODE must be bigger than AMD_SRIOV_UCODE_ID__MAX");
-+
-+#undef _stringification
-+#undef stringification
-+#endif
-+
-+#endif /* AMDGV_SRIOV_MSG__H_ */
+ #endif /* _DCN30_RESOURCE_H_ */
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
