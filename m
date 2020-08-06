@@ -2,76 +2,86 @@ Return-Path: <SRS0=X6dN=BQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16181C43445
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:05:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92428C433E4
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00768221E2
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:05:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9D8F222D03
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:10:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTHlbdAC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00768221E2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="iy1UdrUQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D8F222D03
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C72E16E8A1;
-	Thu,  6 Aug 2020 09:09:47 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BA996E8A1
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2020 09:09:47 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id r4so40278771wrx.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2020 02:09:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=qAKfEhawsmwVEi2+djfHKVAs7ogWYCoSnPnWOgWPx+8=;
- b=DTHlbdACjPYnBpx4KzkQViWlBN41W5cWT5+/UDrSQxRiMKlFOcDLcaBFbTdMBqjAMR
- adNAFQxCZRd4KZr8nGfwUOaMsOStHGXpbZiGRCeMjAxPM1M4Oj2cCNRQfj197/BKEkW9
- KgXkiH/xjh1B11SpuRod5vg2W63wTrFD7hm58LXqCYvEpqHuoREXx/A7cOw4vjb3n9Z4
- sCnNJzt2Q4ux2L6tQszl7p26lQyUJzcyKIxJ/qU/Qgl49RaJ6a2fUPrNiZDWnKf6rVha
- cTRdT/RHySNB7glYFPeQFEDN6CkXg2g4J23aAeLsWv0fn/cIwCt8SJueZu9ML5J42mM9
- VV7Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3121A6E181;
+	Thu,  6 Aug 2020 07:34:20 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB10689FDE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2020 07:34:18 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id g8so7936488wmk.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2020 00:34:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Hm62n5nWJfQYQSRT7FGneq7QpvGO136qnX0cS28TOP4=;
+ b=iy1UdrUQvj4AI5QzJyGQoO6FBXcrVB/n4g+YTAECDOb44jx4iDA09EXPKCIvJFoVs9
+ pLAdLlB/Yjh8tDgn7z+Pabpx2ZDO7wojvuzSPqrv/UcUB/VT/XJIu82TrcALtCdFtVeC
+ x3p892QNqvgJz6JgwOYqXmBdnRLykiYLr0LEA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=qAKfEhawsmwVEi2+djfHKVAs7ogWYCoSnPnWOgWPx+8=;
- b=EJTLADU585Y32hrboRWCXxdYFrS1xQX4RmfAqX2r8plFvU2IlvwpKHFrWiAb8zjw02
- 00/HIduf0bQ2N/gGT+hf6Lw+aQXk8Oy2Y/hwr5yfsS5w4CeRvxCyiiqzKDu0vEZFh6cC
- fa+qDza9CnTL2N2JBU5iKWqz1Xe89GkjNoOpkwR928wXO2D1ctWqewlbnF2UWvlYtVUw
- kUcHcWvhkDeDA4yaNm4Y+rw1ELQR2SeOUjQTHLzQO8e1tdfPmtRRTml/q3z/BgYgE/QR
- LVkX8u7Zuj6iaZ4CK8jBdeJyFYL3LGh/qPL87yrUX/sAdX3ni0FN5oe3yJcQSWmnMUiy
- qcHw==
-X-Gm-Message-State: AOAM532cA3Yk6GWnuBqj4LfufB2JptOAVYcr8NmGP7GSs0jCV4PVz2V6
- WQPzFn/xYiH5Stcxc7srLXkVbHyq
-X-Google-Smtp-Source: ABdhPJybVq3IKGA36dgC27Yg6sR+NCfLnwqlSxYMTTRwiLVLEQuZeMYK9k5w74pEV04hopaoTM6AMA==
-X-Received: by 2002:adf:fbc6:: with SMTP id d6mr6703909wrs.189.1596704985640; 
- Thu, 06 Aug 2020 02:09:45 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id y142sm6063008wmd.3.2020.08.06.02.09.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Aug 2020 02:09:45 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: Enable P2P dmabuf over XGMI
-To: Arunpravin <apaneers@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200806090433.148129-1-apaneers@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <cc373716-a0c6-4b14-4aef-5bea864bf3d6@gmail.com>
-Date: Thu, 6 Aug 2020 11:09:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=Hm62n5nWJfQYQSRT7FGneq7QpvGO136qnX0cS28TOP4=;
+ b=C+1XxXwXrLJjvWUuIjUv7PYvsyvhPkxP+e2nJG8thgT1RvaXO++ud1RPAZoQwHVqTA
+ LFFO0CQKIMtFExAVHuW63FVtBGJ8rvNG/I+7YlLptozWGH6LlXQjNfyG/rSpe6gjlX8t
+ 7yl/wkDGkooLkER7FCEbXl8PjDijQXDhjydvrkeyWUncvB5W0qcuq2wQK6X+CUwHShMg
+ Zh+nmQwDES1s/3Vdu61TTlqfalyIxr/mQMW1z0TXZcWByDThvEfN5UZKn8bGjndhdVwy
+ hSPNpLqodWt0sT4dBOzSWmyBatPJFd+RCgonwhxJUsUkQn34PrhOmgTelUN1qIN3d24M
+ Xp9Q==
+X-Gm-Message-State: AOAM5324Kw3fvkmGfUlPEtgbTRUuIoi+O5xauBP2mhfjPyp2wkAn8wRq
+ JdiB7MkLNJI1TrTiBes5tyW2xQ==
+X-Google-Smtp-Source: ABdhPJxPq3ysYOKZG3ngTkjjNcApdV2mBktQcQ2Zrr47LAqC//negOwZ9ogSW5b45w3DjOfK8YMsxQ==
+X-Received: by 2002:a05:600c:2209:: with SMTP id
+ z9mr6527177wml.70.1596699257216; 
+ Thu, 06 Aug 2020 00:34:17 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id w1sm5537739wmc.18.2020.08.06.00.34.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Aug 2020 00:34:16 -0700 (PDT)
+Date: Thu, 6 Aug 2020 09:34:14 +0200
+From: daniel@ffwll.ch
+To: 
+Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
+Message-ID: <20200806073414.GH6419@phenom.ffwll.local>
+Mail-Followup-To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Joe Perches <joe@perches.com>, Alex Deucher <alexdeucher@gmail.com>,
+ Colin King <colin.king@canonical.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ kernel-janitors@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>
+References: <20200805113510.18277-1-colin.king@canonical.com>
+ <CADnq5_NA9f2N3xkH4WAdDEP+0-5W0LkmTRy3yXqFdnWQmfsVmQ@mail.gmail.com>
+ <a8ab7d75ef9df54bd193fc88e0670b30026e7e67.camel@perches.com>
+ <CADnq5_P9hfv=Zt9+m47sFC0z202x+q-Otifv7a5z4afJamtQ2Q@mail.gmail.com>
+ <d720b466a2b4b7507a963f9a2605c7f81e82e7ba.camel@perches.com>
+ <20200806093641.5795690c@canb.auug.org.au>
 MIME-Version: 1.0
-In-Reply-To: <20200806090433.148129-1-apaneers@amd.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20200806093641.5795690c@canb.auug.org.au>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,99 +93,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Colin King <colin.king@canonical.com>,
+ Joe Perches <joe@perches.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDYuMDguMjAgdW0gMTE6MDQgc2NocmllYiBBcnVucHJhdmluOgo+IEFjY2VzcyB0aGUgZXhw
-b3J0ZWQgUDJQIGRtYWJ1ZiBvdmVyIFhHTUksIGlmIGF2YWlsYWJsZS4KPiBPdGhlcndpc2UsIGZh
-bGwgYmFjayB0byB0aGUgZXhpc3RpbmcgUENJZSBtZXRob2QuCj4KPiBTaWduZWQtb2ZmLWJ5OiBB
-cnVucHJhdmluIDxhcGFuZWVyc0BhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jIHwgMzQgKysrKysrKysrKysrKysrKysrKysrCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5oIHwgIDIgKysKPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgICAgfCAxOSArKysrKysr
-KysrLS0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgNTIgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMo
-LSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1h
-X2J1Zi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYwo+IGlu
-ZGV4IGZmZWIyMGYxMWMwNy4uNTg5ZDAwOGY5MWRmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jCj4gQEAgLTM1LDYgKzM1LDcgQEAKPiAgICNpbmNs
-dWRlICJhbWRncHVfZGlzcGxheS5oIgo+ICAgI2luY2x1ZGUgImFtZGdwdV9nZW0uaCIKPiAgICNp
-bmNsdWRlICJhbWRncHVfZG1hX2J1Zi5oIgo+ICsjaW5jbHVkZSAiYW1kZ3B1X3hnbWkuaCIKPiAg
-ICNpbmNsdWRlIDxkcm0vYW1kZ3B1X2RybS5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L2RtYS1idWYu
-aD4KPiAgICNpbmNsdWRlIDxsaW51eC9kbWEtZmVuY2UtYXJyYXkuaD4KPiBAQCAtNTYwLDMgKzU2
-MSwzNiBAQCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0KHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4gICAJb2JqLT5pbXBvcnRfYXR0YWNoID0gYXR0YWNoOwo+
-ICAgCXJldHVybiBvYmo7Cj4gICB9Cj4gKwo+ICsvKioKPiArICogYW1kZ3B1X2RtYWJ1Zl9pc194
-Z21pX2FjY2Vzc2libGUgLSBDaGVjayBpZiB4Z21pIGF2YWlsYWJsZSBmb3IgUDJQIHRyYW5zZmVy
-Cj4gKyAqCj4gKyAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIgb2YgdGhlIGltcG9ydGVy
-Cj4gKyAqIEBibzogYW1kZ3B1IGJ1ZmZlciBvYmplY3QKPiArICoKPiArICogUmV0dXJuczoKPiAr
-ICogVHJ1ZSBpZiBkbWFidWYgYWNjZXNzaWJsZSBvdmVyIHhnbWksIGZhbHNlIG90aGVyd2lzZS4K
-PiArICovCj4gK2Jvb2wgYW1kZ3B1X2RtYWJ1Zl9pc194Z21pX2FjY2Vzc2libGUoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsCj4gKwkJCQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibykKPiAr
-ewo+ICsJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSAmYm8tPnRiby5iYXNlOwo+ICsJc3Ry
-dWN0IGRybV9nZW1fb2JqZWN0ICpnb2JqOwo+ICsKPiArCWlmIChvYmotPmltcG9ydF9hdHRhY2gp
-IHsKPiArCQlzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiA9IG9iai0+aW1wb3J0X2F0dGFjaC0+ZG1h
-YnVmOwo+ICsKPiArCQlpZiAoZG1hX2J1Zi0+b3BzICE9ICZhbWRncHVfZG1hYnVmX29wcykKPiAr
-CQkJLyogTm8gWEdNSSB3aXRoIG5vbiBBTUQgR1BVcyAqLwo+ICsJCQlyZXR1cm4gZmFsc2U7Cj4g
-Kwo+ICsJCWdvYmogPSBkbWFfYnVmLT5wcml2Owo+ICsJCWJvID0gZ2VtX3RvX2FtZGdwdV9ibyhn
-b2JqKTsKPiArCX0KPiArCj4gKwlpZiAoYW1kZ3B1X3hnbWlfc2FtZV9oaXZlKGFkZXYsIGFtZGdw
-dV90dG1fYWRldihiby0+dGJvLmJkZXYpKSAmJgo+ICsJCQkoYm8tPnByZWZlcnJlZF9kb21haW5z
-ICYgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSkpCj4gKwkJcmV0dXJuIHRydWU7Cj4gKwo+ICsJcmV0
-dXJuIGZhbHNlOwo+ICt9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kbWFfYnVmLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1h
-X2J1Zi5oCj4gaW5kZXggZWM0NDdhN2I2YjI4Li4yYzVjODRhMDZiYjkgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuaAo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmgKPiBAQCAtMjksNiArMjksOCBA
-QCBzdHJ1Y3QgZG1hX2J1ZiAqYW1kZ3B1X2dlbV9wcmltZV9leHBvcnQoc3RydWN0IGRybV9nZW1f
-b2JqZWN0ICpnb2JqLAo+ICAgCQkJCQlpbnQgZmxhZ3MpOwo+ICAgc3RydWN0IGRybV9nZW1fb2Jq
-ZWN0ICphbWRncHVfZ2VtX3ByaW1lX2ltcG9ydChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ICAg
-CQkJCQkgICAgc3RydWN0IGRtYV9idWYgKmRtYV9idWYpOwo+ICtib29sIGFtZGdwdV9kbWFidWZf
-aXNfeGdtaV9hY2Nlc3NpYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICsJCQkJICAg
-ICAgc3RydWN0IGFtZGdwdV9ibyAqYm8pOwo+ICAgdm9pZCAqYW1kZ3B1X2dlbV9wcmltZV92bWFw
-KHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKTsKPiAgIHZvaWQgYW1kZ3B1X2dlbV9wcmltZV92
-dW5tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHZvaWQgKnZhZGRyKTsKPiAgIGludCBh
-bWRncHVfZ2VtX3ByaW1lX21tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosCj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRleCA3MWUwMDVjZjI5NTIuLjc3MWMy
-NzQ3OGJiMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gQEAg
-LTI4LDYgKzI4LDcgQEAKPiAgICNpbmNsdWRlIDxsaW51eC9kbWEtZmVuY2UtYXJyYXkuaD4KPiAg
-ICNpbmNsdWRlIDxsaW51eC9pbnRlcnZhbF90cmVlX2dlbmVyaWMuaD4KPiAgICNpbmNsdWRlIDxs
-aW51eC9pZHIuaD4KPiArI2luY2x1ZGUgPGxpbnV4L2RtYS1idWYuaD4KPiAgIAo+ICAgI2luY2x1
-ZGUgPGRybS9hbWRncHVfZHJtLmg+Cj4gICAjaW5jbHVkZSAiYW1kZ3B1LmgiCj4gQEAgLTM1LDYg
-KzM2LDcgQEAKPiAgICNpbmNsdWRlICJhbWRncHVfYW1ka2ZkLmgiCj4gICAjaW5jbHVkZSAiYW1k
-Z3B1X2dtYy5oIgo+ICAgI2luY2x1ZGUgImFtZGdwdV94Z21pLmgiCj4gKyNpbmNsdWRlICJhbWRn
-cHVfZG1hX2J1Zi5oIgo+ICAgCj4gICAvKioKPiAgICAqIERPQzogR1BVVk0KPiBAQCAtMTc3OCwx
-NSArMTc4MCwyNCBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwgc3RydWN0IGFtZGdwdV9ib192YSAqYm9fdmEsCj4gICAJCW5vZGVzID0gTlVMTDsK
-PiAgIAkJcmVzdiA9IHZtLT5yb290LmJhc2UuYm8tPnRiby5iYXNlLnJlc3Y7Cj4gICAJfSBlbHNl
-IHsKPiArCQlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9ICZiby0+dGJvLmJhc2U7Cj4gICAJ
-CXN0cnVjdCB0dG1fZG1hX3R0ICp0dG07Cj4gICAKPiArCQlyZXN2ID0gYm8tPnRiby5iYXNlLnJl
-c3Y7Cj4gKwkJaWYgKG9iai0+aW1wb3J0X2F0dGFjaCAmJiBib192YS0+aXNfeGdtaSkgewo+ICsJ
-CQlzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiA9IG9iai0+aW1wb3J0X2F0dGFjaC0+ZG1hYnVmOwo+
-ICsJCQlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdvYmogPSBkbWFfYnVmLT5wcml2Owo+ICsJCQlz
-dHJ1Y3QgYW1kZ3B1X2JvICphYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKGdvYmopOwo+ICsKPiArCQkJ
-aWYgKGFiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVlJBTSkKPiArCQkJCWJvID0gZ2Vt
-X3RvX2FtZGdwdV9ibyhnb2JqKTsKPiArCQl9Cj4gICAJCW1lbSA9ICZiby0+dGJvLm1lbTsKPiAg
-IAkJbm9kZXMgPSBtZW0tPm1tX25vZGU7Cj4gICAJCWlmIChtZW0tPm1lbV90eXBlID09IFRUTV9Q
-TF9UVCkgewo+ICAgCQkJdHRtID0gY29udGFpbmVyX29mKGJvLT50Ym8udHRtLCBzdHJ1Y3QgdHRt
-X2RtYV90dCwgdHRtKTsKPiAgIAkJCXBhZ2VzX2FkZHIgPSB0dG0tPmRtYV9hZGRyZXNzOwo+ICAg
-CQl9Cj4gLQkJcmVzdiA9IGJvLT50Ym8uYmFzZS5yZXN2Owo+ICAgCX0KPiAgIAo+ICAgCWlmIChi
-bykgewo+IEBAIC0yMTMyLDggKzIxNDMsMTAgQEAgc3RydWN0IGFtZGdwdV9ib192YSAqYW1kZ3B1
-X3ZtX2JvX2FkZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAlJTklUX0xJU1RfSEVB
-RCgmYm9fdmEtPnZhbGlkcyk7Cj4gICAJSU5JVF9MSVNUX0hFQUQoJmJvX3ZhLT5pbnZhbGlkcyk7
-Cj4gICAKPiAtCWlmIChibyAmJiBhbWRncHVfeGdtaV9zYW1lX2hpdmUoYWRldiwgYW1kZ3B1X3R0
-bV9hZGV2KGJvLT50Ym8uYmRldikpICYmCj4gLQkgICAgKGJvLT5wcmVmZXJyZWRfZG9tYWlucyAm
-IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pKSB7Cj4gKwlpZiAoIWJvKQo+ICsJCXJldHVybiBib192
-YTsKPiArCj4gKwlpZiAoYW1kZ3B1X2RtYWJ1Zl9pc194Z21pX2FjY2Vzc2libGUoYWRldiwgYm8p
-KSB7Cj4gICAJCWJvX3ZhLT5pc194Z21pID0gdHJ1ZTsKPiAgIAkJLyogUG93ZXIgdXAgWEdNSSBp
-ZiBpdCBjYW4gYmUgcG90ZW50aWFsbHkgdXNlZCAqLwo+ICAgCQlhbWRncHVfeGdtaV9zZXRfcHN0
-YXRlKGFkZXYsIEFNREdQVV9YR01JX1BTVEFURV9NQVhfVkVHQTIwKTsKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Thu, Aug 06, 2020 at 09:36:41AM +1000, Stephen Rothwell wrote:
+> Hi all,
+> 
+> On Wed, 05 Aug 2020 15:19:38 -0700 Joe Perches <joe@perches.com> wrote:
+> >
+> > On Wed, 2020-08-05 at 17:27 -0400, Alex Deucher wrote:
+> > > On Wed, Aug 5, 2020 at 4:53 PM Joe Perches <joe@perches.com> wrote:  
+> > > > On Wed, 2020-08-05 at 16:01 -0400, Alex Deucher wrote:  
+> > > > > On Wed, Aug 5, 2020 at 7:35 AM Colin King <colin.king@canonical.com> wrote:  
+> > > > > > From: Colin Ian King <colin.king@canonical.com>
+> > > > > > 
+> > > > > > There is a spelling mistake in a DRM_ERROR message. Fix it.
+> > > > > > 
+> > > > > > Signed-off-by: Colin Ian King <colin.king@canonical.com>  
+> > > > > 
+> > > > > This is already fixed.  
+> > > > 
+> > > > This fix is not in today's -next.
+> > > > 
+> > > > Perhaps whatever tree it's fixed in should be in -next.
+> > > >   
+> > > 
+> > > Weird.  It's in the drm-next tree as:
+> > > 
+> > > commit 4afaa61db9cf5250b5734c2531b226e7b3a3d691
+> > > Author: Colin Ian King <colin.king@canonical.com>
+> > > Date:   Fri Jul 10 09:37:58 2020 +0100
+> > > 
+> > >     drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
+> > > 
+> > >     There is a spelling mistake in a DRM_ERROR error message. Fix it.
+> > > 
+> > >     Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> > >     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > 
+> > > Alex
+> > >   
+> > > > $ git show --oneline -s
+> > > > d15fe4ec0435 (HEAD, tag: next-20200805, origin/master, origin/HEAD) Add linux-next specific files for 20200805
+> > > > 
+> > > > $ git grep -i falied drivers
+> > > > drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c:                DRM_ERROR("Falied to terminate tmr\n");
+> > > >   
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  
+> > > > []  
+> > > > > > @@ -2010,7 +2010,7 @@ static int psp_suspend(void *handle)
+> > > > > > 
+> > > > > >         ret = psp_tmr_terminate(psp);
+> > > > > >         if (ret) {
+> > > > > > -               DRM_ERROR("Falied to terminate tmr\n");
+> > > > > > +               DRM_ERROR("Failed to terminate tmr\n");
+> > > > > >                 return ret;
+> > > > > >         }  
+> > 
+> > Dunno.
+> > 
+> > Maybe it's due to some ordering of trees in
+> > how -next accumulates patches?
+> 
+> The spelling error is introduced in two commits:
+> 
+>   c564b8601ae9 ("drm/amdgpu: add TMR destory function for psp")
+> 
+> in Linus' tree between v5.8-rc4 and rc5
+> 
+>   90937420c44f ("drm/amdgpu: add TMR destory function for psp")
+> 
+> in the amdgpu tree between two merges by the drm tree.  In this same
+> interval, the error is corrected by commit
+> 
+>   4afaa61db9cf ("drm/amdgpu: fix spelling mistake "Falied" -> "Failed"")
+> 
+> so when David comes to merge the amdgpu tree in commit
+> 
+>   206739119508 ("Merge tag 'amd-drm-next-5.9-2020-07-17' of git://people.freedesktop.org/~agd5f/linux into drm-next")
+> 
+> the spelling error has been introduced on one side of the merge and
+> introduced and corrected on the other.  This would have produced a
+> conflict which David presumably resolved in haste by picking the HEAD
+> side of the merge instead of the MERGE_HEAD side (it happens).
+> 
+> This could have been avoided by not cherry-picking fix commits around
+> in the amdgpu process - instead having a fixes branch that is merged
+> into the next branch after the fixes branch has been accepted upstream
+> (that way there is only one commit for each fix and less conflicts).
+> 
+> I have to deal with these sort of conflicts (sometimes daily) due to
+> the drm processes.  Its a pain as I have to track down each conflict to
+> see if the same patches appear on both sides of merges and then try to
+> figure out what other changes occur.  (This is only slightly helped by
+> have the "cherry-picked from" tags in the fix commits.)
+
+Yeah cherry-picking breaks if you only occasionally cherry-pick - then
+stuff gets lost.
+
+I'd say just apply it once more for the merge window fixes pull.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
