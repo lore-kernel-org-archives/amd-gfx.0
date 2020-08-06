@@ -2,77 +2,73 @@ Return-Path: <SRS0=X6dN=BQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EED44C433F1
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3107BC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 12:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B551722D06
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:55:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 15DE223117
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 12:56:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQ0XPspg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B551722D06
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UKZC20zK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15DE223117
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 613636E161;
-	Thu,  6 Aug 2020 07:08:13 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F096E161
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2020 07:08:12 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id f12so7075997wru.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2020 00:08:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B00E6E8AD;
+	Thu,  6 Aug 2020 12:56:05 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1181B6E8AD
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2020 12:56:05 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id p14so8754582wmg.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2020 05:56:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=1Zl7T0esuBFnNTI4MSMIey5F9+ZI9M5OA2mjgbgFMDk=;
- b=kQ0XPspgISOnMqiQisCX3YW2XB6JCZNrvKevJFxHCTUwIWtQ3TB2w6dXeVv4MNaj04
- E19Eq3m/0aJivkUondO/qFwJ+pJWmtGxNyftTSxJau7kXdUPtATA9B4iffai4BQjGKQS
- rFVsIfyYiMggZj/O72iltcG5sJ1ova+Ot3oqInQgRxHyxrHiZR04WNBeTSbvUm8AOf9r
- 9iS+WqZSVEUbj3TpAqoGK3Y5/AmVeuDj2L0566fXdGAZ8vaztP6UZSLD0NYsfBO/FOm8
- jXW8NIZnIdvfqXHPoLa614Hc1aeRqOLHMtEIZB81Z1b/ktkB2M8hAkijQaBX8ZazpgFi
- AFtw==
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vMpAvCEN5GQDTcYzAsSNvWeDZNYvtxMFs6E/m3qK5LQ=;
+ b=UKZC20zKGa/ylesz44+koNmPGLfoVs/6X3YAhx0UR/YiBhhA3NTqH5Nv60CMbde7Fj
+ x5wpxgmE2d8ImatvAcx/Zgw+MPZ/TfGlmOKi5+b5rM/bCCBHTde3hKaucREKVUH2dCBh
+ MWUomKHItj8flmt4z+2I96OwcQIQ2DOyxGfmAd8hZ0XP0Ny4MQu7nta+g2RxQbs1AAu9
+ eAM3qYrtOewZh/Jfr425GcWncxiu8jEX1CHOAwwThYJ0sWvCfzLkb3h1oaZBIfJDrolw
+ VfQtRcADdvBIdHJ6+Gis470qUSGT8fldMzZiKWlbvAjupMP8VZKkAXgd5kiPRKfhwFhO
+ 0+2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=1Zl7T0esuBFnNTI4MSMIey5F9+ZI9M5OA2mjgbgFMDk=;
- b=K/CypZYyZgW+2dii0KukcQFyfjex0pmMc7xkJYJ1GVZk7HrOuh2k4S6nskzVyYWVZu
- 6c026AK5lcMd91jLegrg2tpOqBKOokv+KFO+yTNAEe7WMHXfvXgqGRKA7c1A/eXIk4Ti
- j89TFbGjrRCqywEFpyJ/EX8bIscyeVn/74gMz7K5rzDaC2DXqOxCKrPVwwOqOirnu8kA
- iL3dJhqegDXgcpS6FrrB4teq2WcFUMWd4n+4M0nWZHrZFFghAz7HiV1gIFMlOGTbGUey
- xfqTJDRn2PkxLx9CEVCH2sBOFPjUzbZjYg5heGkSyjBVpq9sPDR9VJF0vITPk7HgCWvd
- Pefg==
-X-Gm-Message-State: AOAM531V646/iDNK8BGaS7iFHDTwiFdbsPwSdHxSzotpsVDAxHCPEw+O
- 107KaS+fC36x0KPe05Mn60wSq1/P
-X-Google-Smtp-Source: ABdhPJxXIy5aQbT6Gft1+QP85Aw/vHsXzQmc+kQCHhisTnjSclJ4a9HjUgWD5x2I/k6t9YsTALHcIg==
-X-Received: by 2002:adf:dd01:: with SMTP id a1mr6445365wrm.301.1596697691242; 
- Thu, 06 Aug 2020 00:08:11 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id p22sm4960347wmc.38.2020.08.06.00.08.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Aug 2020 00:08:10 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: annotate a false positive recursive locking
-To: Dennis Li <Dennis.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, felix.kuehling@amd.com, Hawking.Zhang@amd.com
-References: <20200806070230.21457-1-Dennis.Li@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <84678659-b4a6-8332-a71b-28d1b412ae16@gmail.com>
-Date: Thu, 6 Aug 2020 09:08:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vMpAvCEN5GQDTcYzAsSNvWeDZNYvtxMFs6E/m3qK5LQ=;
+ b=f/sxcRxSG6J47JZlq2KZb3S3wYRvU04nGIvtTaFfiMbZjC+LukiVQDv3WnlQ73AnHR
+ XG/dkx3IZBaXls+qUeXQFLYMsgLDMRlzszdkIa5Fic3HBwLkFXMlHJ3v9dWiqhjLAqP5
+ w+wMgXFXDHUVZXspqD5k9Kb9/jqI3/hWCP6MbML7hrhz4ImPWPkjIhxT8fyRTYCWS9az
+ Nm3Ow//QhzJX5Z8GgTdmps+HpU/4srZnpHOkH7shHSkl3aYuJlUdaxZg4xo1myyK/Oec
+ zCzcJtpMBesOF2WDjXFIJV/YjKco/X54D5ZzKlyurdhQB35aqQlArLI8ow12139ERX+C
+ 6mOQ==
+X-Gm-Message-State: AOAM53152Sv60fItqyFe0G8iDaPJdPkF4rIj5Z3KWxjjsNvnzjH1DILD
+ RPjbqNi3zB65tIFEoy9vDiA=
+X-Google-Smtp-Source: ABdhPJykBzaSMLf39aho7jeG27qbJflBEhRtv+dYrP465NQ2SZ3EFe24Hje0z63Aba4M2QVDU1P/4w==
+X-Received: by 2002:a1c:c90d:: with SMTP id f13mr8090739wmb.25.1596718563562; 
+ Thu, 06 Aug 2020 05:56:03 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:27c4:33f6:883b:6c24])
+ by smtp.gmail.com with ESMTPSA id m126sm6530013wmf.3.2020.08.06.05.56.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Aug 2020 05:56:02 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: michel@daenzer.net,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: make sure userptr ttm is allocated
+Date: Thu,  6 Aug 2020 14:56:01 +0200
+Message-Id: <20200806125601.1394-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20200806070230.21457-1-Dennis.Li@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,109 +80,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.08.20 um 09:02 schrieb Dennis Li:
-> [  584.110304] ============================================
-> [  584.110590] WARNING: possible recursive locking detected
-> [  584.110876] 5.6.0-deli-v5.6-2848-g3f3109b0e75f #1 Tainted: G           OE
-> [  584.111164] --------------------------------------------
-> [  584.111456] kworker/38:1/553 is trying to acquire lock:
-> [  584.111721] ffff9b15ff0a47a0 (&adev->reset_sem){++++}, at: amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-> [  584.112112]
->                 but task is already holding lock:
-> [  584.112673] ffff9b1603d247a0 (&adev->reset_sem){++++}, at: amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-> [  584.113068]
->                 other info that might help us debug this:
-> [  584.113689]  Possible unsafe locking scenario:
->
-> [  584.114350]        CPU0
-> [  584.114685]        ----
-> [  584.115014]   lock(&adev->reset_sem);
-> [  584.115349]   lock(&adev->reset_sem);
-> [  584.115678]
->                  *** DEADLOCK ***
->
-> [  584.116624]  May be due to missing lock nesting notation
->
-> [  584.117284] 4 locks held by kworker/38:1/553:
-> [  584.117616]  #0: ffff9ad635c1d348 ((wq_completion)events){+.+.}, at: process_one_work+0x21f/0x630
-> [  584.117967]  #1: ffffac708e1c3e58 ((work_completion)(&con->recovery_work)){+.+.}, at: process_one_work+0x21f/0x630
-> [  584.118358]  #2: ffffffffc1c2a5d0 (&tmp->hive_lock){+.+.}, at: amdgpu_device_gpu_recover+0xae/0x1030 [amdgpu]
-> [  584.118786]  #3: ffff9b1603d247a0 (&adev->reset_sem){++++}, at: amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-> [  584.119222]
->                 stack backtrace:
-> [  584.119990] CPU: 38 PID: 553 Comm: kworker/38:1 Kdump: loaded Tainted: G           OE     5.6.0-deli-v5.6-2848-g3f3109b0e75f #1
-> [  584.120782] Hardware name: Supermicro SYS-7049GP-TRT/X11DPG-QT, BIOS 3.1 05/23/2019
-> [  584.121223] Workqueue: events amdgpu_ras_do_recovery [amdgpu]
-> [  584.121638] Call Trace:
-> [  584.122050]  dump_stack+0x98/0xd5
-> [  584.122499]  __lock_acquire+0x1139/0x16e0
-> [  584.122931]  ? trace_hardirqs_on+0x3b/0xf0
-> [  584.123358]  ? cancel_delayed_work+0xa6/0xc0
-> [  584.123771]  lock_acquire+0xb8/0x1c0
-> [  584.124197]  ? amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-> [  584.124599]  down_write+0x49/0x120
-> [  584.125032]  ? amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-> [  584.125472]  amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-> [  584.125910]  ? amdgpu_ras_error_query+0x1b8/0x2a0 [amdgpu]
-> [  584.126367]  amdgpu_ras_do_recovery+0x159/0x190 [amdgpu]
-> [  584.126789]  process_one_work+0x29e/0x630
-> [  584.127208]  worker_thread+0x3c/0x3f0
-> [  584.127621]  ? __kthread_parkme+0x61/0x90
-> [  584.128014]  kthread+0x12f/0x150
-> [  584.128402]  ? process_one_work+0x630/0x630
-> [  584.128790]  ? kthread_park+0x90/0x90
-> [  584.129174]  ret_from_fork+0x3a/0x50
->
-> Each adev has owned lock_class_key to avoid false positive
-> recursive locking.
-
-NAK, that is not a false positive but a real problem.
-
-The issue here is that we have multiple reset semaphores, one for each 
-device in the hive. If those are not acquired in the correct order we 
-deadlock.
-
-The real solution would be to move the reset_sem into the hive structure 
-and make sure that we lock it only once.
-
-Christian.
-
->
-> Signed-off-by: Dennis Li <Dennis.Li@amd.com>
-> Change-Id: I7571efeccbf15483982031d00504a353031a854a
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index e97c088d03b3..766dc8f8c8a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -967,6 +967,7 @@ struct amdgpu_device {
->   	atomic_t                        in_gpu_reset;
->   	enum pp_mp1_state               mp1_state;
->   	struct rw_semaphore	reset_sem;
-> +	struct lock_class_key lock_key;
->   	struct amdgpu_doorbell_index doorbell_index;
->   
->   	struct mutex			notifier_lock;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 6c572db42d92..d78df9312d34 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3037,6 +3037,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	mutex_init(&adev->virt.vf_errors.lock);
->   	hash_init(adev->mn_hash);
->   	init_rwsem(&adev->reset_sem);
-> +	lockdep_set_class(&adev->reset_sem, &adev->lock_key);
->   	atomic_set(&adev->in_gpu_reset, 0);
->   	mutex_init(&adev->psp.mutex);
->   	mutex_init(&adev->notifier_lock);
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+V2UgbmVlZCB0byBhbGxvY2F0ZSB0aGF0IG1hbnVhbGx5IG5vdy4KClNpZ25lZC1vZmYtYnk6IENo
+cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KRml4ZXM6IDJkZGVmMTc2
+NzhiYyAoSEVBRCkgZHJtL3R0bTogbWFrZSBUVCBjcmVhdGlvbiBwdXJlbHkgb3B0aW9uYWwgdjMK
+LS0tCiAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgICB8ICAy
+ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgICAgICAgICB8ICAy
+ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICAgICB8IDE3
+ICsrKysrKysrKysrLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
+LmggICAgICAgICB8ICA0ICsrLS0KIDQgZmlsZXMgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwg
+MTAgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2FtZGtmZF9ncHV2bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2FtZGtmZF9ncHV2bS5jCmluZGV4IDkwMTVjN2I3NmQ2MC4uNTVkMmU4NzBmZGRhIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCkBAIC01
+NjQsNyArNTY0LDcgQEAgc3RhdGljIGludCBpbml0X3VzZXJfcGFnZXMoc3RydWN0IGtnZF9tZW0g
+Km1lbSwgdWludDY0X3QgdXNlcl9hZGRyKQogCiAJbXV0ZXhfbG9jaygmcHJvY2Vzc19pbmZvLT5s
+b2NrKTsKIAotCXJldCA9IGFtZGdwdV90dG1fdHRfc2V0X3VzZXJwdHIoYm8tPnRiby50dG0sIHVz
+ZXJfYWRkciwgMCk7CisJcmV0ID0gYW1kZ3B1X3R0bV90dF9zZXRfdXNlcnB0cigmYm8tPnRibywg
+dXNlcl9hZGRyLCAwKTsKIAlpZiAocmV0KSB7CiAJCXByX2VycigiJXM6IEZhaWxlZCB0byBzZXQg
+dXNlcnB0cjogJWRcbiIsIF9fZnVuY19fLCByZXQpOwogCQlnb3RvIG91dDsKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwppbmRleCBkZTk3ODRiMGMxOWIuLmIyZGMzMjBlNzMw
+NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwpAQCAtMzMyLDcgKzMz
+Miw3IEBAIGludCBhbWRncHVfZ2VtX3VzZXJwdHJfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwgdm9pZCAqZGF0YSwKIAlibyA9IGdlbV90b19hbWRncHVfYm8oZ29iaik7CiAJYm8tPnByZWZl
+cnJlZF9kb21haW5zID0gQU1ER1BVX0dFTV9ET01BSU5fR1RUOwogCWJvLT5hbGxvd2VkX2RvbWFp
+bnMgPSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7Ci0JciA9IGFtZGdwdV90dG1fdHRfc2V0X3VzZXJw
+dHIoYm8tPnRiby50dG0sIGFyZ3MtPmFkZHIsIGFyZ3MtPmZsYWdzKTsKKwlyID0gYW1kZ3B1X3R0
+bV90dF9zZXRfdXNlcnB0cigmYm8tPnRibywgYXJncy0+YWRkciwgYXJncy0+ZmxhZ3MpOwogCWlm
+IChyKQogCQlnb3RvIHJlbGVhc2Vfb2JqZWN0OwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdHRtLmMKaW5kZXggMjg1NTc4MzlmMTMyLi42N2QyZWVmMmY5ZWIgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKQEAgLTE0MDcsMjEgKzE0MDcsMjYgQEAgc3Rh
+dGljIHZvaWQgYW1kZ3B1X3R0bV90dF91bnBvcHVsYXRlKHN0cnVjdCB0dG1fdHQgKnR0bSkKICAq
+IGFtZGdwdV90dG1fdHRfc2V0X3VzZXJwdHIgLSBJbml0aWFsaXplIHVzZXJwdHIgR1RUIHR0bV90
+dCBmb3IgdGhlIGN1cnJlbnQKICAqIHRhc2sKICAqCi0gKiBAdHRtOiBUaGUgdHRtX3R0IG9iamVj
+dCB0byBiaW5kIHRoaXMgdXNlcnB0ciBvYmplY3QgdG8KKyAqIEBibzogVGhlIHR0bV9idWZmZXJf
+b2JqZWN0IHRvIGJpbmQgdGhpcyB1c2VycHRyIHRvCiAgKiBAYWRkcjogIFRoZSBhZGRyZXNzIGlu
+IHRoZSBjdXJyZW50IHRhc2tzIFZNIHNwYWNlIHRvIHVzZQogICogQGZsYWdzOiBSZXF1aXJlbWVu
+dHMgb2YgdXNlcnB0ciBvYmplY3QuCiAgKgogICogQ2FsbGVkIGJ5IGFtZGdwdV9nZW1fdXNlcnB0
+cl9pb2N0bCgpIHRvIGJpbmQgdXNlcnB0ciBwYWdlcwogICogdG8gY3VycmVudCB0YXNrCiAgKi8K
+LWludCBhbWRncHVfdHRtX3R0X3NldF91c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0bSwgdWludDY0
+X3QgYWRkciwKLQkJCSAgICAgIHVpbnQzMl90IGZsYWdzKQoraW50IGFtZGdwdV90dG1fdHRfc2V0
+X3VzZXJwdHIoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKKwkJCSAgICAgIHVpbnQ2NF90
+IGFkZHIsIHVpbnQzMl90IGZsYWdzKQogewotCXN0cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAo
+dm9pZCAqKXR0bTsKKwlzdHJ1Y3QgYW1kZ3B1X3R0bV90dCAqZ3R0OwogCi0JaWYgKGd0dCA9PSBO
+VUxMKQotCQlyZXR1cm4gLUVJTlZBTDsKKwlpZiAoIWJvLT50dG0pIHsKKwkJLyogVE9ETzogV2Ug
+d2FudCBhIHNlcGFyYXRlIFRUTSBvYmplY3QgdHlwZSBmb3IgdXNlcnB0cnMgKi8KKwkJYm8tPnR0
+bSA9IGFtZGdwdV90dG1fdHRfY3JlYXRlKGJvLCAwKTsKKwkJaWYgKGJvLT50dG0gPT0gTlVMTCkK
+KwkJCXJldHVybiAtRU5PTUVNOworCX0KIAorCWd0dCA9ICh2b2lkKiliby0+dHRtOwogCWd0dC0+
+dXNlcnB0ciA9IGFkZHI7CiAJZ3R0LT51c2VyZmxhZ3MgPSBmbGFnczsKIApkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCmluZGV4IDM2YjAyNGZkMDc3ZS4uNDMzMTU2YzJlOGZi
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCkBAIC0xMzIsOCArMTMy
+LDggQEAgc3RhdGljIGlubGluZSBib29sIGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXNfZG9u
+ZShzdHJ1Y3QgdHRtX3R0ICp0dG0pCiAjZW5kaWYKIAogdm9pZCBhbWRncHVfdHRtX3R0X3NldF91
+c2VyX3BhZ2VzKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHBhZ2UgKipwYWdlcyk7Ci1pbnQg
+YW1kZ3B1X3R0bV90dF9zZXRfdXNlcnB0cihzdHJ1Y3QgdHRtX3R0ICp0dG0sIHVpbnQ2NF90IGFk
+ZHIsCi0JCQkJICAgICB1aW50MzJfdCBmbGFncyk7CitpbnQgYW1kZ3B1X3R0bV90dF9zZXRfdXNl
+cnB0cihzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAorCQkJICAgICAgdWludDY0X3QgYWRk
+ciwgdWludDMyX3QgZmxhZ3MpOwogYm9vbCBhbWRncHVfdHRtX3R0X2hhc191c2VycHRyKHN0cnVj
+dCB0dG1fdHQgKnR0bSk7CiBzdHJ1Y3QgbW1fc3RydWN0ICphbWRncHVfdHRtX3R0X2dldF91c2Vy
+bW0oc3RydWN0IHR0bV90dCAqdHRtKTsKIGJvb2wgYW1kZ3B1X3R0bV90dF9hZmZlY3RfdXNlcnB0
+cihzdHJ1Y3QgdHRtX3R0ICp0dG0sIHVuc2lnbmVkIGxvbmcgc3RhcnQsCi0tIAoyLjE3LjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
