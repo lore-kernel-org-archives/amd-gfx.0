@@ -2,86 +2,110 @@ Return-Path: <SRS0=X6dN=BQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92428C433E4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B23FFC433E5
 	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D8F222D03
+	by mail.kernel.org (Postfix) with ESMTPS id BF0B322D37
 	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2020 11:10:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="iy1UdrUQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D8F222D03
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZYrT6ZDr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF0B322D37
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3121A6E181;
-	Thu,  6 Aug 2020 07:34:20 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB10689FDE
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2020 07:34:18 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id g8so7936488wmk.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2020 00:34:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=Hm62n5nWJfQYQSRT7FGneq7QpvGO136qnX0cS28TOP4=;
- b=iy1UdrUQvj4AI5QzJyGQoO6FBXcrVB/n4g+YTAECDOb44jx4iDA09EXPKCIvJFoVs9
- pLAdLlB/Yjh8tDgn7z+Pabpx2ZDO7wojvuzSPqrv/UcUB/VT/XJIu82TrcALtCdFtVeC
- x3p892QNqvgJz6JgwOYqXmBdnRLykiYLr0LEA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=Hm62n5nWJfQYQSRT7FGneq7QpvGO136qnX0cS28TOP4=;
- b=C+1XxXwXrLJjvWUuIjUv7PYvsyvhPkxP+e2nJG8thgT1RvaXO++ud1RPAZoQwHVqTA
- LFFO0CQKIMtFExAVHuW63FVtBGJ8rvNG/I+7YlLptozWGH6LlXQjNfyG/rSpe6gjlX8t
- 7yl/wkDGkooLkER7FCEbXl8PjDijQXDhjydvrkeyWUncvB5W0qcuq2wQK6X+CUwHShMg
- Zh+nmQwDES1s/3Vdu61TTlqfalyIxr/mQMW1z0TXZcWByDThvEfN5UZKn8bGjndhdVwy
- hSPNpLqodWt0sT4dBOzSWmyBatPJFd+RCgonwhxJUsUkQn34PrhOmgTelUN1qIN3d24M
- Xp9Q==
-X-Gm-Message-State: AOAM5324Kw3fvkmGfUlPEtgbTRUuIoi+O5xauBP2mhfjPyp2wkAn8wRq
- JdiB7MkLNJI1TrTiBes5tyW2xQ==
-X-Google-Smtp-Source: ABdhPJxPq3ysYOKZG3ngTkjjNcApdV2mBktQcQ2Zrr47LAqC//negOwZ9ogSW5b45w3DjOfK8YMsxQ==
-X-Received: by 2002:a05:600c:2209:: with SMTP id
- z9mr6527177wml.70.1596699257216; 
- Thu, 06 Aug 2020 00:34:17 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w1sm5537739wmc.18.2020.08.06.00.34.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2020 00:34:16 -0700 (PDT)
-Date: Thu, 6 Aug 2020 09:34:14 +0200
-From: daniel@ffwll.ch
-To: 
-Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
-Message-ID: <20200806073414.GH6419@phenom.ffwll.local>
-Mail-Followup-To: Stephen Rothwell <sfr@canb.auug.org.au>,
- Joe Perches <joe@perches.com>, Alex Deucher <alexdeucher@gmail.com>,
- Colin King <colin.king@canonical.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- kernel-janitors@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>
-References: <20200805113510.18277-1-colin.king@canonical.com>
- <CADnq5_NA9f2N3xkH4WAdDEP+0-5W0LkmTRy3yXqFdnWQmfsVmQ@mail.gmail.com>
- <a8ab7d75ef9df54bd193fc88e0670b30026e7e67.camel@perches.com>
- <CADnq5_P9hfv=Zt9+m47sFC0z202x+q-Otifv7a5z4afJamtQ2Q@mail.gmail.com>
- <d720b466a2b4b7507a963f9a2605c7f81e82e7ba.camel@perches.com>
- <20200806093641.5795690c@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1AC66E8B0;
+	Thu,  6 Aug 2020 10:32:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC356E8B0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2020 10:32:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IksI6XhBP7KQLZloqlhmAG34ImX8Q4+Gb0y2UbctCww3KGhWOSvMxYh7BrXAdGZ/CZtRnzjW1vV8F1Scu8PRLROHKlmz3MAvTJ2PI9TJu22cXa67TbctE5R9RXT9FP8+H9T6RR87gydjVfe6dmtSna/BXMbzEMQjQ5JWc2tLbh7+TfMzpMmL2CuoUOeoeVrea4Dlq2PXy4xGMi1YDFgfmLW3YCKYJnDHuEn+QiekFDGw+nI5ml26icjnaGPkV/nJvpdYKl70cJz/fMiEb8BUJM+kAQTUkhW5Gcgl+n1pAjTGnmyh2/RGUwYgRDGOKIVDudtOx3Wgxkjv0owlMeD5XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ShH1yR7Q02PiYdgjiNHIFMERBWSNswIiuf1L3ACBn8c=;
+ b=afVh45PEdzKDaEq35eR0/tyLBK9XGmZBHTvereUIdPcMglf0M5vrQWy7+ke5tb/4h6XvzVQlNiK7ocxtVNVYaEU50Ue+84okHzOpOAWsCVQvFNhcDoUKHoqBbcj4HYqrKCVjU1uwSHD9NFDpf8WELeuR9wI9ET9rbmhcvovQZ3T0FYwVBUHM0TxWJSyq1KIYWOrXN4EJpOJlcByzGbEsYZBf/aB+VYdK+kXiYlBwVtRP13BsD9667mj/UqtSRCbBEMJYseb8ClRVLhDRygXtSTyRrevgfXHv4McnZ7zEm1J+evs79Hn7DA9N/pZwDLPbdIMh3/1nlVLyhVx13k/mcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ShH1yR7Q02PiYdgjiNHIFMERBWSNswIiuf1L3ACBn8c=;
+ b=ZYrT6ZDrAivowe9TtBvirCKLf9K3sZH1ettZ2K3ML5hzYmwESn5G31CIxgxQdQDTXNobf3V1p+sT46XsqfKoxIuYEC6SZxkbOfOabiEk5c5CkhwhCxGADS4LCTE2SqyIMHCpyjVwZ4TKOL1+tvo0hMmF0R9oujV55A8YrArYI2s=
+Received: from MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
+ by BL0PR12MB2466.namprd12.prod.outlook.com (2603:10b6:207:4e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Thu, 6 Aug
+ 2020 10:32:55 +0000
+Received: from MN2PR12MB4175.namprd12.prod.outlook.com
+ ([fe80::ad86:4e5e:66b8:3045]) by MN2PR12MB4175.namprd12.prod.outlook.com
+ ([fe80::ad86:4e5e:66b8:3045%8]) with mapi id 15.20.3239.022; Thu, 6 Aug 2020
+ 10:32:55 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/powerplay: update driver if file for
+ sienna_cichlid
+Thread-Topic: [PATCH] drm/amd/powerplay: update driver if file for
+ sienna_cichlid
+Thread-Index: AQHWa9X3snjFjXWUCEO3i9MfIKLnHKkraFSA
+Date: Thu, 6 Aug 2020 10:32:55 +0000
+Message-ID: <A4B25907-0FAF-4E6B-A308-0284F3E9857F@amd.com>
+References: <20200806094238.2022133-1-likun.gao@amd.com>
+In-Reply-To: <20200806094238.2022133-1-likun.gao@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=421e7950-4acc-426d-8733-0000844c4575;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-06T10:32:12Z; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [101.88.135.123]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: dc712616-2bcf-467f-5797-08d839f414c6
+x-ms-traffictypediagnostic: BL0PR12MB2466:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB2466D6ED46FC0B9E5A7287258E480@BL0PR12MB2466.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3826;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FN+NfMR4EB/ZUWyOHn8nNBrPppMcfUbrVRMP+3fIlofV8r2boJ0QiWE5InGGYXHK7FwMo1461gaboRZjDzReroxk/rjOqh4RmNd/yJh/OV5XcN50PhMWpHsm7U5WyORF1X/bsw98P5Uj2mxyW8ZUFJDPOOfxpOc5GWrPIW4r310Vz9BdEOlcwgVKSqQ4hZjrZcdpz0dzG5VY2xgUxr62iTSDLL4FnVxltWTJ4TCNVx/3pFPi7B9B45TKkhsPNWy/aMGwLyUO8+/Lga9fyBiqzOy4v6qn8tOwz7puUwSWmFfcNuBwdXU1+UXqJhGo/URwljOSW5Ie3DMzai9E2kxUkQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4175.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(39860400002)(396003)(346002)(366004)(136003)(6512007)(83380400001)(36756003)(478600001)(2616005)(186003)(2906002)(26005)(15650500001)(5660300002)(91956017)(76116006)(66446008)(64756008)(66556008)(66476007)(6506007)(8676002)(6486002)(33656002)(8936002)(86362001)(316002)(66946007)(4326008)(110136005)(54906003)(71200400001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: pPiBN/G03/Cg9Ij0Ba+ENNJh/YNzC7DGk4AWFocp1SMxlgFrUo2PqAvGNYlE639bnafYSIWjRretMNJ6nO0Y5lSAq0yc4C7XmyZzTp9FsKf1YwdIctEAGmmaL+s/YugMKiHACt+0IFB98WlaTe7alvZqY/qME3FKVwNcfuB7+8ynU579Hvug1hyKXN/NzGaGlMuYQiiuHlOwMZWNeTsP73spiZKjxll1eYBztSyS4xJsS6IUCexoE0+sb1t/QmZ+JaDLNHkOrNwtfoOOmCIQxhYRYv7/9aE2MGMk0B3VvmBYDVadTSNvlWIumWkrQKQdCxDEPQiVZUmiSgvLpT4gAxzit/IkvERl2w+dfF9Lk1vzPTEyHDdFR7AagSCTmCUj2CPTka6DXGMxya/8WAHE/ZpJ+f5YFfIPWnfLBz/23HDA6YfVt+9YO2x3lXGKSMPH4ijbZ+xNUZlkB7LWqjOdQrmcTOAV+sx+QiKoJV3w9YYBZsIcs9REtCxF6O38BFoNtgOZgISFVQI14DuTFLyUDTzCcJwU++Fh7e7knHLoYnrSO1W6DAeYQtiyKMyTUFRU+D9A5fXZwlUCEN3dU8KvD0on8iiReQuf3rlSDklQc2YJu4ho1YaHbrlFU2m3c3oRqoyrEy8r9ObDwfidLzfZpw==
+Content-ID: <E5FCD3C196E5304989AE51092F4BA18C@namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200806093641.5795690c@canb.auug.org.au>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4175.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc712616-2bcf-467f-5797-08d839f414c6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2020 10:32:55.5236 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: q1UbQomdnzot1Bl4BfCtNBaLb8EkkbTPrctHZ1X9/Mi9SFs4JHmcrUYON273QCqK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2466
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,121 +117,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Colin King <colin.king@canonical.com>,
- Joe Perches <joe@perches.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 06, 2020 at 09:36:41AM +1000, Stephen Rothwell wrote:
-> Hi all,
-> 
-> On Wed, 05 Aug 2020 15:19:38 -0700 Joe Perches <joe@perches.com> wrote:
-> >
-> > On Wed, 2020-08-05 at 17:27 -0400, Alex Deucher wrote:
-> > > On Wed, Aug 5, 2020 at 4:53 PM Joe Perches <joe@perches.com> wrote:  
-> > > > On Wed, 2020-08-05 at 16:01 -0400, Alex Deucher wrote:  
-> > > > > On Wed, Aug 5, 2020 at 7:35 AM Colin King <colin.king@canonical.com> wrote:  
-> > > > > > From: Colin Ian King <colin.king@canonical.com>
-> > > > > > 
-> > > > > > There is a spelling mistake in a DRM_ERROR message. Fix it.
-> > > > > > 
-> > > > > > Signed-off-by: Colin Ian King <colin.king@canonical.com>  
-> > > > > 
-> > > > > This is already fixed.  
-> > > > 
-> > > > This fix is not in today's -next.
-> > > > 
-> > > > Perhaps whatever tree it's fixed in should be in -next.
-> > > >   
-> > > 
-> > > Weird.  It's in the drm-next tree as:
-> > > 
-> > > commit 4afaa61db9cf5250b5734c2531b226e7b3a3d691
-> > > Author: Colin Ian King <colin.king@canonical.com>
-> > > Date:   Fri Jul 10 09:37:58 2020 +0100
-> > > 
-> > >     drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
-> > > 
-> > >     There is a spelling mistake in a DRM_ERROR error message. Fix it.
-> > > 
-> > >     Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> > >     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > 
-> > > Alex
-> > >   
-> > > > $ git show --oneline -s
-> > > > d15fe4ec0435 (HEAD, tag: next-20200805, origin/master, origin/HEAD) Add linux-next specific files for 20200805
-> > > > 
-> > > > $ git grep -i falied drivers
-> > > > drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c:                DRM_ERROR("Falied to terminate tmr\n");
-> > > >   
-> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  
-> > > > []  
-> > > > > > @@ -2010,7 +2010,7 @@ static int psp_suspend(void *handle)
-> > > > > > 
-> > > > > >         ret = psp_tmr_terminate(psp);
-> > > > > >         if (ret) {
-> > > > > > -               DRM_ERROR("Falied to terminate tmr\n");
-> > > > > > +               DRM_ERROR("Failed to terminate tmr\n");
-> > > > > >                 return ret;
-> > > > > >         }  
-> > 
-> > Dunno.
-> > 
-> > Maybe it's due to some ordering of trees in
-> > how -next accumulates patches?
-> 
-> The spelling error is introduced in two commits:
-> 
->   c564b8601ae9 ("drm/amdgpu: add TMR destory function for psp")
-> 
-> in Linus' tree between v5.8-rc4 and rc5
-> 
->   90937420c44f ("drm/amdgpu: add TMR destory function for psp")
-> 
-> in the amdgpu tree between two merges by the drm tree.  In this same
-> interval, the error is corrected by commit
-> 
->   4afaa61db9cf ("drm/amdgpu: fix spelling mistake "Falied" -> "Failed"")
-> 
-> so when David comes to merge the amdgpu tree in commit
-> 
->   206739119508 ("Merge tag 'amd-drm-next-5.9-2020-07-17' of git://people.freedesktop.org/~agd5f/linux into drm-next")
-> 
-> the spelling error has been introduced on one side of the merge and
-> introduced and corrected on the other.  This would have produced a
-> conflict which David presumably resolved in haste by picking the HEAD
-> side of the merge instead of the MERGE_HEAD side (it happens).
-> 
-> This could have been avoided by not cherry-picking fix commits around
-> in the amdgpu process - instead having a fixes branch that is merged
-> into the next branch after the fixes branch has been accepted upstream
-> (that way there is only one commit for each fix and less conflicts).
-> 
-> I have to deal with these sort of conflicts (sometimes daily) due to
-> the drm processes.  Its a pain as I have to track down each conflict to
-> see if the same patches appear on both sides of merges and then try to
-> figure out what other changes occur.  (This is only slightly helped by
-> have the "cherry-picked from" tags in the fix commits.)
-
-Yeah cherry-picking breaks if you only occasionally cherry-pick - then
-stuff gets lost.
-
-I'd say just apply it once more for the merge window fixes pull.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpS
+ZXZpZXdlZC1ieTogS2VubmV0aCBGZW5nIDxrZW5uZXRoLmZlbmdAYW1kLmNvbT4NCg0KDQrvu7/l
+nKggMjAyMC84LzYg5LiL5Y2INTo0Mu+8jOKAnEdhbywgTGlrdW7igJ08TGlrdW4uR2FvQGFtZC5j
+b20+IOWGmeWFpToNCg0KICAgIEZyb206IExpa3VuIEdhbyA8TGlrdW4uR2FvQGFtZC5jb20+DQoN
+CiAgICBVcGRhdGUgZHJpdmUgaWYgZmlsZSBmb3Igc2llbm5hX2NpY2hsaWQuDQoNCiAgICBTaWdu
+ZWQtb2ZmLWJ5OiBMaWt1biBHYW8gPExpa3VuLkdhb0BhbWQuY29tPg0KICAgIENoYW5nZS1JZDog
+SWY0MDU0NjFjZmJlMDEzM2NlYjYxZmExMjMyNzJiMmU1M2RiOTk3NTUNCiAgICAtLS0NCiAgICAg
+Li4uL2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZfc2llbm5hX2NpY2hsaWQu
+aCAgfCA2ICsrKy0tLQ0KICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211
+X3YxMV8wLmggICAgICAgICAgICAgICB8IDIgKy0NCiAgICAgMiBmaWxlcyBjaGFuZ2VkLCA0IGlu
+c2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQoNCiAgICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZl9zaWVubmFfY2ljaGxpZC5o
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZl9zaWVu
+bmFfY2ljaGxpZC5oDQogICAgaW5kZXggYWEyNzA4ZmNjYjZkLi41ZWY5YzkyZjU3YzQgMTAwNjQ0
+DQogICAgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZl
+cl9pZl9zaWVubmFfY2ljaGxpZC5oDQogICAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZl9zaWVubmFfY2ljaGxpZC5oDQogICAgQEAgLTI3LDcg
+KzI3LDcgQEANCiAgICAgLy8gKioqIElNUE9SVEFOVCAqKioNCiAgICAgLy8gU01VIFRFQU06IEFs
+d2F5cyBpbmNyZW1lbnQgdGhlIGludGVyZmFjZSB2ZXJzaW9uIGlmDQogICAgIC8vIGFueSBzdHJ1
+Y3R1cmUgaXMgY2hhbmdlZCBpbiB0aGlzIGZpbGUNCiAgICAtI2RlZmluZSBTTVUxMV9EUklWRVJf
+SUZfVkVSU0lPTiAweDM0DQogICAgKyNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT04gMHgz
+NQ0KDQogICAgICNkZWZpbmUgUFBUQUJMRV9TaWVubmFfQ2ljaGxpZF9TTVVfVkVSU0lPTiA1DQoN
+CiAgICBAQCAtMTI3LDcgKzEyNyw3IEBADQogICAgICNkZWZpbmUgRkVBVFVSRV9ERl9DU1RBVEVf
+QklUICAgICAgICAgICA0NQ0KICAgICAjZGVmaW5lIEZFQVRVUkVfMl9TVEVQX1BTVEFURV9CSVQg
+ICAgICAgNDYNCiAgICAgI2RlZmluZSBGRUFUVVJFX1NNTkNMS19EUE1fQklUICAgICAgICAgIDQ3
+DQogICAgLSNkZWZpbmUgRkVBVFVSRV9TUEFSRV80OF9CSVQgICAgICAgICAgICA0OA0KICAgICsj
+ZGVmaW5lIEZFQVRVUkVfUEVSTElOS19HTUlET1dOX0JJVCAgICAgNDgNCiAgICAgI2RlZmluZSBG
+RUFUVVJFX0dGWF9FRENfQklUICAgICAgICAgICAgIDQ5DQogICAgICNkZWZpbmUgRkVBVFVSRV9T
+UEFSRV81MF9CSVQgICAgICAgICAgICA1MA0KICAgICAjZGVmaW5lIEZFQVRVUkVfU1BBUkVfNTFf
+QklUICAgICAgICAgICAgNTENCiAgICBAQCAtMTY5LDcgKzE2OSw3IEBAIHR5cGVkZWYgZW51bSB7
+DQogICAgICNkZWZpbmUgRFBNX09WRVJSSURFX0RJU0FCTEVfREZMTF9QTExfU0hVVERPV04gICAg
+ICAgMHgwMDAwMDIwMA0KICAgICAjZGVmaW5lIERQTV9PVkVSUklERV9ESVNBQkxFX01FTU9SWV9U
+RU1QRVJBVFVSRV9SRUFEIDB4MDAwMDA0MDANCiAgICAgI2RlZmluZSBEUE1fT1ZFUlJJREVfRElT
+QUJMRV9WT0xUX0xJTktfVkNOX0RDRUZDTEsgICAweDAwMDAwODAwDQogICAgLSNkZWZpbmUgRFBN
+X09WRVJSSURFX0RJU0FCTEVfRkFTVF9GQ0xLX1RJTUVSICAgICAgICAgMHgwMDAwMTAwMA0KICAg
+ICsjZGVmaW5lIERQTV9PVkVSUklERV9FTkFCTEVfRkFTVF9GQ0xLX1RJTUVSICAgICAgICAgIDB4
+MDAwMDEwMDANCiAgICAgI2RlZmluZSBEUE1fT1ZFUlJJREVfRElTQUJMRV9WQ05fUEcgICAgICAg
+ICAgICAgICAgICAweDAwMDAyMDAwDQogICAgICNkZWZpbmUgRFBNX09WRVJSSURFX0RJU0FCTEVf
+Rk1BWF9WTUFYICAgICAgICAgICAgICAgMHgwMDAwNDAwMA0KDQogICAgZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaCBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaA0KICAgIGluZGV4IDZhNDIzMzFhYmE4
+YS4uNzM3YjZkMTQzNzJjIDEwMDY0NA0KICAgIC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2luYy9zbXVfdjExXzAuaA0KICAgICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2luYy9zbXVfdjExXzAuaA0KICAgIEBAIC0zMCw3ICszMCw3IEBADQogICAgICNkZWZp
+bmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fTlYxMCAweDM2DQogICAgICNkZWZpbmUgU01VMTFf
+RFJJVkVSX0lGX1ZFUlNJT05fTlYxMiAweDMzDQogICAgICNkZWZpbmUgU01VMTFfRFJJVkVSX0lG
+X1ZFUlNJT05fTlYxNCAweDM2DQogICAgLSNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05f
+U2llbm5hX0NpY2hsaWQgMHgzNA0KICAgICsjZGVmaW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9O
+X1NpZW5uYV9DaWNobGlkIDB4MzUNCiAgICAgI2RlZmluZSBTTVUxMV9EUklWRVJfSUZfVkVSU0lP
+Tl9OYXZ5X0Zsb3VuZGVyIDB4Mw0KDQogICAgIC8qIE1QIEFwZXJ0dXJlcyAqLw0KICAgIC0tDQog
+ICAgMi4yNS4xDQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
