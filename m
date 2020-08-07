@@ -2,112 +2,71 @@ Return-Path: <SRS0=Hu2c=BR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4363EC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 07:53:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFA34C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:24:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED214221E5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 07:53:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8723420866
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 08:24:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="X7PZneYl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED214221E5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="MlbP+Lv9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8723420866
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 858516E053;
-	Fri,  7 Aug 2020 07:53:36 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam04on0608.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe4d::608])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 819056E053
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 07:53:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O/b2DbuHn7uZ0GkIOXlxjKXdbaGvZSRjQn35uRkoJ7YWiCjqJzBS6ZObMYp1pIvg12z0nP4CxWjgcvoB/O7nGmxpwO85vj6Wx2g4+EOhY2Cj4rIKGAdem+cNCS1LaN608BjadXp4uJluCY9Le+dML3NbpMcZaVTXzaxjeULdCRrypmZTldgO7Pi5ysdtUMgkEPxv9fpdjQBT5JtOCHFvpRH/DhWTnIBuYbZ7QMZXo67bM8TrjKuahc3GHFDCvRrK7cOhHwV98Fj0R4ip3EFE7luWFHlk1bZAq9D34VLfTrE8QiVyEDBM10i/iDwSJjD/PQDaNw3NCZKuLCF+FYdIyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k0/ttBkANljb0IGvFtvp89LD7RUuc3ZrSNEVASX69AY=;
- b=eKyaGcLpwH4MIKrwIubQer1gS596uSoaLqY42ntUBW8jg08p9ryt8da2MvFF0nbcx6GTIypoWQTHwfJ48IsxWequTS6uTCrnCs5BNXrYLgL4mO5uVuhVxw+Bkqm09LdqE6W+aMphf9wOIVukr1yz2UwQwBKMLg3EGrHOeL7994A4WUjJNqFHUKY7j9XZBpsZgDffn1zZPfGmTzTigsKtvNjw1rQhuaxAbFdPfnhBSvKqIpQgYlH7zG7QE0koNFmrNA5I+n03i7FACMKYQmc0a7q83dvM/3vldJqY3SdSTwgP/M8+0m1x9tRXHDbEMdqFKmbuz6U5ygCeu9tG28fOkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k0/ttBkANljb0IGvFtvp89LD7RUuc3ZrSNEVASX69AY=;
- b=X7PZneYlTRFwO5zoSvBQOslwp2HwshSim96XP8c7uO+Ku272/ctaNZIc6mpAq8w8Xo8HRHmsv1K3q5IAcEcbfGOWePL6f4ruLr6vrNi2DlDXd55oNuI3hvx7ptBGSIHR/S2fWjcxTJJy53yzmzSK/bFUOcc9ho2+/LAYQlIs1aE=
-Received: from DM5PR08CA0048.namprd08.prod.outlook.com (2603:10b6:4:60::37) by
- MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.19; Fri, 7 Aug 2020 07:53:33 +0000
-Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:60:cafe::f8) by DM5PR08CA0048.outlook.office365.com
- (2603:10b6:4:60::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19 via Frontend
- Transport; Fri, 7 Aug 2020 07:53:33 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3216.10 via Frontend Transport; Fri, 7 Aug 2020 07:53:33 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 7 Aug 2020
- 02:53:33 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 7 Aug 2020
- 02:53:32 -0500
-Received: from yajunl-gv.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5 via Frontend
- Transport; Fri, 7 Aug 2020 02:53:31 -0500
-From: Dennis Li <Dennis.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <felix.kuehling@amd.com>, <Hawking.Zhang@amd.com>, <christian.koenig@amd.com>
-Subject: [PATCH v2] drm/amdgpu: annotate a false positive recursive locking
-Date: Fri, 7 Aug 2020 15:53:22 +0800
-Message-ID: <20200807075322.17254-1-Dennis.Li@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E54616E073;
+	Fri,  7 Aug 2020 08:24:11 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5826E073
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2020 08:24:11 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id y3so868094wrl.4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Aug 2020 01:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=nko1QZC191jx50LSl8Y7JHn+0emLCmSAq7jjr2cCLqg=;
+ b=MlbP+Lv9lo930mHTtkTOqKuvE4vE2POozSJ8t+o/2VEJO8DmSVUZFy/5rKueE4PF/O
+ T1cbMCEr5C3kGmbl/xXJnwleDyShukhC+SLhbfhP7th9NLS9qcg4p76f3Nx+wOVQX2R8
+ EgwC+eBhdDNQVUooZJBjvcDNUKTOdWLFCniBY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=nko1QZC191jx50LSl8Y7JHn+0emLCmSAq7jjr2cCLqg=;
+ b=Bxuw5XixHwYHtjqTvhE3qem152tl5oK+8ZpjeSI522IGarZV3pNajvKBhzJTrmF2jU
+ 158eO4TeF+AYKO4ua7W2eTgIzkQ1iFyYQgj4tDZdIflPvsl6oNmjRsJB/Wu60pb89Acc
+ MKN2xcPiz7ArLiIFPzjiyRHn/5zZU7UEd/qmsd3QOE6xUdHfLbDHa9SGuWFadB5fehL5
+ 2cNKDtpKx3NUk4PyhU97cd242u7gt9qQsxp9jSgykm1kPehDTB0wfzVEmVTYd3ewhhYf
+ QXUfNawLWlTWBzWlrGJje1NtOs9ra6nSQEtzXf77cDjyczHB9hA9L/2P+niE+1adfp/d
+ e2Zw==
+X-Gm-Message-State: AOAM530kQN2lrXSTbqBgwRApAUJbKT8dv2YwFtcGHnlDPxpl4NSAYnSV
+ SVgQaa7ExQWbIUHAYzO0blmkCPxEGoA=
+X-Google-Smtp-Source: ABdhPJyJvCHvO+j7ITuQqQswafoW+tiFLnuAMk2ec58Wy4rEkgAp/YMeHxL2tKzNhIFa7j+tbTVtpA==
+X-Received: by 2002:a5d:460c:: with SMTP id t12mr11487923wrq.334.1596788649294; 
+ Fri, 07 Aug 2020 01:24:09 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v8sm9829555wmb.24.2020.08.07.01.24.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Aug 2020 01:24:08 -0700 (PDT)
+Date: Fri, 7 Aug 2020 10:24:06 +0200
+From: daniel@ffwll.ch
+To: 
+Subject: Re: [PATCH 1/7] drm/amd/display: Store tiling_flags and tmz_surface
+ on dm_plane_state
+Message-ID: <20200807082406.GJ6419@phenom.ffwll.local>
+References: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
+ <20200730203642.17553-2-nicholas.kazlauskas@amd.com>
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6252590d-478f-4fce-3b51-08d83aa6fbcc
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4048:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4048A5D1173FD12D914768A1ED490@MN2PR12MB4048.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ERHMrRdzJn5EnHDbvskjUmdKgcN7R69a9VuC0oT8ylxMtpRGhq8w61/PgnMUJ3YvsWLW0TSJED3iRK5u/xxZTd1D8q0DjP0ngmpGGNp1mzTuzHQMHhBo4/WbCvPnuYkEBHEOsyFpLLPk61llKzhs+gtqqZSuxFykNOzid6ZoTZix68wFSP3yiHdMLVX3x38Zy8aGLMD6Fa9Uv0YQ9NnCLBXBDdQ6VRwmgVpYh8XLxuCxDEhdvQBK7AizbWR26vkyJNFfLfCUvqR3fKJS6X+w8wxs6i/mhLwDT4UBO0r3knHwx7gDGQeWGLmbW0HQUq5tgUhO+eFI4Hy1qou0b6tFv5LlJdVMoqzpJD9oFGe4KRfci/KXglyoZsFNPyDPaamMpjeXnQpHkJzqOOnS2vnSmaLj7YPBlRosm0E/oHhvpSk=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(376002)(346002)(396003)(39860400002)(46966005)(6666004)(4326008)(70586007)(8936002)(426003)(70206006)(110136005)(2906002)(316002)(82740400003)(47076004)(81166007)(5660300002)(356005)(82310400002)(6636002)(86362001)(2616005)(186003)(1076003)(36756003)(8676002)(7696005)(26005)(83380400001)(336012)(478600001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2020 07:53:33.5543 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6252590d-478f-4fce-3b51-08d83aa6fbcc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
+Content-Disposition: inline
+In-Reply-To: <20200730203642.17553-2-nicholas.kazlauskas@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,116 +78,193 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dennis Li <Dennis.Li@amd.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[  584.110304] ============================================
-[  584.110590] WARNING: possible recursive locking detected
-[  584.110876] 5.6.0-deli-v5.6-2848-g3f3109b0e75f #1 Tainted: G           OE
-[  584.111164] --------------------------------------------
-[  584.111456] kworker/38:1/553 is trying to acquire lock:
-[  584.111721] ffff9b15ff0a47a0 (&adev->reset_sem){++++}, at: amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-[  584.112112]
-               but task is already holding lock:
-[  584.112673] ffff9b1603d247a0 (&adev->reset_sem){++++}, at: amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-[  584.113068]
-               other info that might help us debug this:
-[  584.113689]  Possible unsafe locking scenario:
+On Thu, Jul 30, 2020 at 04:36:36PM -0400, Nicholas Kazlauskas wrote:
+> [Why]
+> Store these in advance so we can reuse them later in commit_tail without
+> having to reserve the fbo again.
+> 
+> These will also be used for checking for tiling changes when deciding
+> to reset the plane or not.
 
-[  584.114350]        CPU0
-[  584.114685]        ----
-[  584.115014]   lock(&adev->reset_sem);
-[  584.115349]   lock(&adev->reset_sem);
-[  584.115678]
-                *** DEADLOCK ***
+I've also dropped some comments on Bas' series for adding modifiers which
+might be relevant for shuffling all this. But yeah stuff this into plane
+state sounds like a good idea.
+-Daniel
 
-[  584.116624]  May be due to missing lock nesting notation
+> 
+> [How]
+> This change should mostly be a refactor. Only commit check is affected
+> for now and I'll drop the get_fb_info calls in prepare_planes and
+> commit_tail after.
+> 
+> This runs a prepass loop once we think that all planes have been added
+> to the context and replaces the get_fb_info calls with accessing the
+> dm_plane_state instead.
+> 
+> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 60 +++++++++++--------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
+>  2 files changed, 37 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 8d64f5fde7e2..7cc5ab90ce13 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3700,8 +3700,17 @@ static int fill_dc_scaling_info(const struct drm_plane_state *state,
+>  static int get_fb_info(const struct amdgpu_framebuffer *amdgpu_fb,
+>  		       uint64_t *tiling_flags, bool *tmz_surface)
+>  {
+> -	struct amdgpu_bo *rbo = gem_to_amdgpu_bo(amdgpu_fb->base.obj[0]);
+> -	int r = amdgpu_bo_reserve(rbo, false);
+> +	struct amdgpu_bo *rbo;
+> +	int r;
+> +
+> +	if (!amdgpu_fb) {
+> +		*tiling_flags = 0;
+> +		*tmz_surface = false;
+> +		return 0;
+> +	}
+> +
+> +	rbo = gem_to_amdgpu_bo(amdgpu_fb->base.obj[0]);
+> +	r = amdgpu_bo_reserve(rbo, false);
+>  
+>  	if (unlikely(r)) {
+>  		/* Don't show error message when returning -ERESTARTSYS */
+> @@ -4124,13 +4133,10 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+>  				    struct drm_crtc_state *crtc_state)
+>  {
+>  	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+> -	const struct amdgpu_framebuffer *amdgpu_fb =
+> -		to_amdgpu_framebuffer(plane_state->fb);
+> +	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+>  	struct dc_scaling_info scaling_info;
+>  	struct dc_plane_info plane_info;
+> -	uint64_t tiling_flags;
+>  	int ret;
+> -	bool tmz_surface = false;
+>  	bool force_disable_dcc = false;
+>  
+>  	ret = fill_dc_scaling_info(plane_state, &scaling_info);
+> @@ -4142,15 +4148,12 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+>  	dc_plane_state->clip_rect = scaling_info.clip_rect;
+>  	dc_plane_state->scaling_quality = scaling_info.scaling_quality;
+>  
+> -	ret = get_fb_info(amdgpu_fb, &tiling_flags, &tmz_surface);
+> -	if (ret)
+> -		return ret;
+> -
+>  	force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
+> -	ret = fill_dc_plane_info_and_addr(adev, plane_state, tiling_flags,
+> +	ret = fill_dc_plane_info_and_addr(adev, plane_state,
+> +					  dm_plane_state->tiling_flags,
+>  					  &plane_info,
+>  					  &dc_plane_state->address,
+> -					  tmz_surface,
+> +					  dm_plane_state->tmz_surface,
+>  					  force_disable_dcc);
+>  	if (ret)
+>  		return ret;
+> @@ -5753,6 +5756,10 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+>  		dc_plane_state_retain(dm_plane_state->dc_state);
+>  	}
+>  
+> +	/* Framebuffer hasn't been updated yet, so retain old flags. */
+> +	dm_plane_state->tiling_flags = old_dm_plane_state->tiling_flags;
+> +	dm_plane_state->tmz_surface = old_dm_plane_state->tmz_surface;
+> +
+>  	return &dm_plane_state->base;
+>  }
+>  
+> @@ -8557,13 +8564,9 @@ dm_determine_update_type_for_commit(struct amdgpu_display_manager *dm,
+>  			continue;
+>  
+>  		for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, j) {
+> -			const struct amdgpu_framebuffer *amdgpu_fb =
+> -				to_amdgpu_framebuffer(new_plane_state->fb);
+>  			struct dc_plane_info *plane_info = &bundle->plane_infos[num_plane];
+>  			struct dc_flip_addrs *flip_addr = &bundle->flip_addrs[num_plane];
+>  			struct dc_scaling_info *scaling_info = &bundle->scaling_infos[num_plane];
+> -			uint64_t tiling_flags;
+> -			bool tmz_surface = false;
+>  
+>  			new_plane_crtc = new_plane_state->crtc;
+>  			new_dm_plane_state = to_dm_plane_state(new_plane_state);
+> @@ -8610,16 +8613,12 @@ dm_determine_update_type_for_commit(struct amdgpu_display_manager *dm,
+>  
+>  			bundle->surface_updates[num_plane].scaling_info = scaling_info;
+>  
+> -			if (amdgpu_fb) {
+> -				ret = get_fb_info(amdgpu_fb, &tiling_flags, &tmz_surface);
+> -				if (ret)
+> -					goto cleanup;
+> -
+> +			if (new_plane_state->fb) {
+>  				ret = fill_dc_plane_info_and_addr(
+> -					dm->adev, new_plane_state, tiling_flags,
+> -					plane_info,
+> -					&flip_addr->address, tmz_surface,
+> -					false);
+> +					dm->adev, new_plane_state,
+> +					new_dm_plane_state->tiling_flags,
+> +					plane_info, &flip_addr->address,
+> +					new_dm_plane_state->tmz_surface, false);
+>  				if (ret)
+>  					goto cleanup;
+>  
+> @@ -8833,6 +8832,17 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>  		}
+>  	}
+>  
+> +	/* Prepass for updating tiling flags on new planes. */
+> +	for_each_new_plane_in_state(state, plane, new_plane_state, i) {
+> +		struct dm_plane_state *new_dm_plane_state = to_dm_plane_state(new_plane_state);
+> +		struct amdgpu_framebuffer *new_afb = to_amdgpu_framebuffer(new_plane_state->fb);
+> +
+> +		ret = get_fb_info(new_afb, &new_dm_plane_state->tiling_flags,
+> +				  &new_dm_plane_state->tmz_surface);
+> +		if (ret)
+> +			goto fail;
+> +	}
+> +
+>  	/* Remove exiting planes if they are modified */
+>  	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
+>  		ret = dm_update_plane_state(dc, state, plane,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 5b6f879a108c..ad025f5cfd3e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -409,6 +409,8 @@ struct dc_plane_state;
+>  struct dm_plane_state {
+>  	struct drm_plane_state base;
+>  	struct dc_plane_state *dc_state;
+> +	uint64_t tiling_flags;
+> +	bool tmz_surface;
+>  };
+>  
+>  struct dm_crtc_state {
+> -- 
+> 2.25.1
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-[  584.117284] 4 locks held by kworker/38:1/553:
-[  584.117616]  #0: ffff9ad635c1d348 ((wq_completion)events){+.+.}, at: process_one_work+0x21f/0x630
-[  584.117967]  #1: ffffac708e1c3e58 ((work_completion)(&con->recovery_work)){+.+.}, at: process_one_work+0x21f/0x630
-[  584.118358]  #2: ffffffffc1c2a5d0 (&tmp->hive_lock){+.+.}, at: amdgpu_device_gpu_recover+0xae/0x1030 [amdgpu]
-[  584.118786]  #3: ffff9b1603d247a0 (&adev->reset_sem){++++}, at: amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-[  584.119222]
-               stack backtrace:
-[  584.119990] CPU: 38 PID: 553 Comm: kworker/38:1 Kdump: loaded Tainted: G           OE     5.6.0-deli-v5.6-2848-g3f3109b0e75f #1
-[  584.120782] Hardware name: Supermicro SYS-7049GP-TRT/X11DPG-QT, BIOS 3.1 05/23/2019
-[  584.121223] Workqueue: events amdgpu_ras_do_recovery [amdgpu]
-[  584.121638] Call Trace:
-[  584.122050]  dump_stack+0x98/0xd5
-[  584.122499]  __lock_acquire+0x1139/0x16e0
-[  584.122931]  ? trace_hardirqs_on+0x3b/0xf0
-[  584.123358]  ? cancel_delayed_work+0xa6/0xc0
-[  584.123771]  lock_acquire+0xb8/0x1c0
-[  584.124197]  ? amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-[  584.124599]  down_write+0x49/0x120
-[  584.125032]  ? amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-[  584.125472]  amdgpu_device_gpu_recover+0x262/0x1030 [amdgpu]
-[  584.125910]  ? amdgpu_ras_error_query+0x1b8/0x2a0 [amdgpu]
-[  584.126367]  amdgpu_ras_do_recovery+0x159/0x190 [amdgpu]
-[  584.126789]  process_one_work+0x29e/0x630
-[  584.127208]  worker_thread+0x3c/0x3f0
-[  584.127621]  ? __kthread_parkme+0x61/0x90
-[  584.128014]  kthread+0x12f/0x150
-[  584.128402]  ? process_one_work+0x630/0x630
-[  584.128790]  ? kthread_park+0x90/0x90
-[  584.129174]  ret_from_fork+0x3a/0x50
-
-Each adev has owned lock_class_key to avoid false positive
-recursive locking.
-
-v2:
-1. register adev->lock_key into lockdep, otherwise lockdep will
-report the below warning
-
-[ 1216.705820] BUG: key ffff890183b647d0 has not been registered!
-[ 1216.705924] ------------[ cut here ]------------
-[ 1216.705972] DEBUG_LOCKS_WARN_ON(1)
-[ 1216.705997] WARNING: CPU: 20 PID: 541 at kernel/locking/lockdep.c:3743 lockdep_init_map+0x150/0x210
-
-Signed-off-by: Dennis Li <Dennis.Li@amd.com>
-Change-Id: I7571efeccbf15483982031d00504a353031a854a
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index e97c088d03b3..766dc8f8c8a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -967,6 +967,7 @@ struct amdgpu_device {
- 	atomic_t                        in_gpu_reset;
- 	enum pp_mp1_state               mp1_state;
- 	struct rw_semaphore	reset_sem;
-+	struct lock_class_key lock_key;
- 	struct amdgpu_doorbell_index doorbell_index;
- 
- 	struct mutex			notifier_lock;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 62ecac97fbd2..ae0a576f9895 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3037,6 +3037,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->virt.vf_errors.lock);
- 	hash_init(adev->mn_hash);
- 	init_rwsem(&adev->reset_sem);
-+	lockdep_register_key(&adev->lock_key);
-+	lockdep_set_class(&adev->reset_sem, &adev->lock_key);
- 	atomic_set(&adev->in_gpu_reset, 0);
- 	mutex_init(&adev->psp.mutex);
- 	mutex_init(&adev->notifier_lock);
-@@ -3411,6 +3413,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
- 		amdgpu_pmu_fini(adev);
- 	if (adev->discovery_bin)
- 		amdgpu_discovery_fini(adev);
-+
-+	lockdep_unregister_key(&adev->lock_key);
- }
- 
- 
 -- 
-2.17.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
