@@ -2,75 +2,107 @@ Return-Path: <SRS0=Hu2c=BR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85CD3C433E3
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 13:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B918C433E0
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 14:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B0F120866
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 13:37:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D802321744
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 14:27:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vPrchpkK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B0F120866
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="juQ3+Bue"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D802321744
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAE1F6E9E9;
-	Fri,  7 Aug 2020 13:37:04 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC23D6E9E9;
- Fri,  7 Aug 2020 13:37:03 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id r4so1702558wrx.9;
- Fri, 07 Aug 2020 06:37:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4LVGnEnOhzHJYp7k/0jPrqpIv6dziA/YJ8laLNioGFM=;
- b=vPrchpkKsG/T8AFiA7Yn7M46PLKiPZDNi/VQkH2XagE4mkxFfqePQ0DxXi+WpJ0U+R
- 6+Tigj2zd0aonU/AOQBMGGxh/7cj9dH4jhH2VUrWClb3vy1rnD1tCXk42aJL1AHYH9BG
- Q4Uz5H0srLIX9r+VyELVxP9kuxiAsEbUqq9hEoDmU5/crvFK+xwDOtq3mnLgQkLKHdLX
- ZrLAMvRodPLri/9wPmrIwsmz4cFf505+ZmWsdmEO9LLOySAhCm/VB094CFm7/MxkVVh0
- h70Gf9ij6xNTbK0wO3r9fgqqJItuYk3DK8aD5rK/6yo4wsXCG5VGzupDxsUhheb284q4
- WXFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4LVGnEnOhzHJYp7k/0jPrqpIv6dziA/YJ8laLNioGFM=;
- b=app3am3td3swYga6JyQU0BbERLak1SP3PV1MQunXL6kpq0Y+LwGRFWDCYVX/O1o0ok
- 3BK04QUhIESLoiFce1u+C1KyQfcOzexzGrfvG4tkkfqbHK5cQVLYQE0eg9s/oLITQwDN
- GXaidbGx8K0UgEmHWEi9jRIRdQg/ogOjqqXoaJ659lKsuqmoAQ1gC0gsT1irjYzTGQE2
- 7LLM/i5AlAIuBx9jtHmohoddZhx5xYNPd59QcZ1TJPtROh2H4oUdiYqrfj03C+Nur8Gk
- PXw5Z5ANnylbuo9HyY/73fnSCQWr0gnvC9szwYUSOjOHaJXJ+JqYsFg9kCSydHE+R8pq
- F8nA==
-X-Gm-Message-State: AOAM531vAkbtVk8P4sM1YmojcqsUngfBKjvBRjB6cTkZqy9fVOne2D9J
- kgabhjxW/eE1khHQVMd0Sx8csQNM
-X-Google-Smtp-Source: ABdhPJyy6/1Evq0AWxcj8cS24OPjPyqAVqG2TPNcf52PUYgYZc8VHPTAJXAA/0IWvQkVVjS73ndtbw==
-X-Received: by 2002:a5d:630b:: with SMTP id i11mr12856842wru.95.1596807422267; 
- Fri, 07 Aug 2020 06:37:02 -0700 (PDT)
-Received: from abel.fritz.box ([2a02:908:1252:fb60:8a1:e63e:700c:859e])
- by smtp.gmail.com with ESMTPSA id k126sm11084609wme.17.2020.08.07.06.37.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2020 06:37:01 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: adjust the pid in the grab_id trace point
-Date: Fri,  7 Aug 2020 15:36:58 +0200
-Message-Id: <20200807133658.1866-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200807133658.1866-1-christian.koenig@amd.com>
-References: <20200807133658.1866-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2116E9DA;
+	Fri,  7 Aug 2020 14:27:01 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C066E9DA;
+ Fri,  7 Aug 2020 14:27:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SjGO0DoEp+J2wBjdS6PyJf6HI/M+UqlrVNlXD7uqKy3YkaTJu1g8BwF04Tbr2B4Rb16ZGkoLuHAOrDbLeyMHvxvFzPmdlpMfq5sOacJpt/0tasNILyR2CIe+CDzTkGawRMUJSn0Jeo2rjEUT/6ezM14xUFRpvgZaycAuYIWlb6YQGVH38dI0b+LMj9fiKVSpluQuM47QCihyvB/lfVZDL+NlNaar59LHQrNGAJ680bzaI9HzrPsk75dda3wZ/Xja+REki+39tUI5Vmk+WCOVm1S2rQEAuM/nPRKT3bf6F88OgErrQ4p/vkoIwJhBjyeV8TqDdC3+UInatySXtYwFbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JqFS15gdHx2jjHC0BhkkA/3jhvNzI9MAORtYms3VN8I=;
+ b=V+kmudYk5cpEcgo1dvDM/8SrqTMvXgo5RUDMCZM+HbmmCi2xdk1ht8hSNHNl88TYSj2Kwd3SbvDnuiYG7Vr/u7Zv0Wo1ckCzocA1H2IwKMJ7tcMuWZU/rtgo2JhTdY6lbrxmEnbxWHA5eLJJlNDOw2TXrSAXBMkMopquEuBLqqKxrjguoOPyJP3oegB8y1OcVUVx0q/YQiW/DgpsGVuFgLjZmzlxJSV6Ongf9JPkXSKVEic7AxNOsRjkURLCNHMxsUz9WlzyuxjQ3vOShCUdEmn9Xi4u9Xne37tMhvvF8Mus+/YLpWZ7u5a9om8HUEJUr4mIzT31WnwmTKpE0ZlTrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JqFS15gdHx2jjHC0BhkkA/3jhvNzI9MAORtYms3VN8I=;
+ b=juQ3+Bue2zoT78JuhI01D0uHzhkY/FwbtVjoJJUdP+hh+FOHqCrqsKFqhQTU//MMBIddm2THeqv8atILxpCuUWVUjR1hWjva1bWP/5ayG04rGH3oEt9Q5aXlmzXepDrWvg6pKY7GrAcyB+oMBotVdfR7m1ru6BYUeodDABD/6L8=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3285.namprd12.prod.outlook.com (2603:10b6:a03:134::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Fri, 7 Aug
+ 2020 14:26:58 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::7d42:c932:e35f:71b1]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::7d42:c932:e35f:71b1%7]) with mapi id 15.20.3239.024; Fri, 7 Aug 2020
+ 14:26:57 +0000
+Subject: Re: [PATCH 5/7] drm/amd/display: Reset plane for anything that's not
+ a FAST update
+To: daniel@ffwll.ch
+References: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
+ <20200730203642.17553-6-nicholas.kazlauskas@amd.com>
+ <20200807083424.GM6419@phenom.ffwll.local>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <6790c248-d46c-d3e0-b87d-c73823556888@amd.com>
+Date: Fri, 7 Aug 2020 10:26:51 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+In-Reply-To: <20200807083424.GM6419@phenom.ffwll.local>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0056.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::33) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YTXPR0101CA0056.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19 via Frontend
+ Transport; Fri, 7 Aug 2020 14:26:56 +0000
+X-Originating-IP: [165.204.55.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6211666d-1d4c-4e9a-0c5b-08d83addf09c
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3285:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB328531200F036CBF9F87BA78EC490@BYAPR12MB3285.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6ZfkGZxleKRtdiLP3JZv1FjJopx/RRoObgjBUVDbj8fdmlLqI5rXhh9j23noRCKN8KkIsMW4AfMAbg1UtEiQHRsbRiDzumxEzL5XNxHwk57ThWQBLOYGkDd6w3XT+EL1eEHp+kvMMIVUTvlQvpDBzGKhxomGP/HAirEoXbMzzaczdZptmvLoO4JvS2pwNPWsWMoUAmpJRp6fZtNTj2qhQvNAw7RaiR4FELAu2zKzQCkFWxsAOF9dyag5AqkQfZQjQxb/S0Vu86fRUysNRMu0VtLiqxWXjGNvP1Nc7DyCxmf20L7TVaHH9kbGUvSbD7V8l99xB4VrCOsjXORnJ6kVElrAReQ3k41m7h3c5XLN1gDv+cVaAGypP09ZbhcG5XP7yL5dEqWbLgq0Cy1ZODGhPSGD1oU3zBXfcLpj4HMbrYA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(136003)(39860400002)(366004)(396003)(376002)(15650500001)(16576012)(8936002)(316002)(2906002)(66476007)(6666004)(5660300002)(66556008)(36756003)(66946007)(16526019)(186003)(52116002)(966005)(2616005)(54906003)(31696002)(6486002)(53546011)(26005)(83380400001)(86362001)(6916009)(478600001)(4326008)(8676002)(31686004)(956004)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 4YcVd3iX/QRCHjoKCPUqaVkcmY2GAMvtjYFGc4NZPVM88eLl33uwMnGTLWUeUeSmV3XQ+uor0cRV4KKsbxwJJlUflMGMdH1ncTkrQuOOubphzbdkNaW+p9eiLTTePMoWb+0br7WUU33jCZ1iVAi2tH5o4+1GkiDNpC0KZE4ysqNbUac6fy6UjhDrEqB5r5Q97A7/Xs45hQ5J5k1Yiw7rsvfgkgEAdoDpf5q6A5H0z3hJ68k2FUVPPcs16Df1Xfk1uINm4TXoTiMfQuqSikCvHUpJZWoI0mQWBcq0yFAgAd1+nsm9SKXmXDrxRb9XYFQYXK6cwNhLOVoxaYfOdKZSZjEycfSAKK0s/eHPNBvcYj8HJbVqQlbmRQwFY3F/7TrF34KvW2BM8QaIlsYOqSeiEe/SrwEWSfalvohaaT67PTDYM1Y1qVbPtRq4gZ4wP/1DmqS1PpW58pLjFex9wKtbd24orJxKkufm2z9GGE9vGytzatF9YfPkPmHaWR5ac1pXuT3yccs8MdT9uF7GNurCjB3rseYEcQesUN96fFADOXLq0YSflb0m0dSsbhWgCnLYlA4EkeLZdJLatnqKuDy8HIFr5YvWLYV2aYnVapFOvboxoVx+/xC8FDj8oYP9Eu7KqWkoKq/SZWMMr6pOKIvF9g==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6211666d-1d4c-4e9a-0c5b-08d83addf09c
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2020 14:26:57.7843 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FgPvJQbGkqwsKD3oN1wS/JknkYvaSGkBj+UehLq/s6EUtpABwCNp60jWY6r3v8/+V+osG0m0Llbw1tpa4+1ZMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,24 +114,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, daniel.vetter@ffwll.ch, Shashank.Sharma@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VHJhY2Ugc29tZXRoaW5nIHVzZWZ1bCBpbnN0ZWFkIG9mIHRoZSBwaWQgb2YgYSBrZXJuZWwgdGhy
-ZWFkIGhlcmUuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNl
-LmggfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKaW5kZXggNWRhMjBmYzE2NmQ5Li4wN2Y5OWVmNjlk
-OTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCkBAIC0yMjgs
-NiArMjI4LDcgQEAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3ZtX2dyYWJfaWQsCiAJCQkgICAgICksCiAK
-IAkgICAgVFBfZmFzdF9hc3NpZ24oCisJCQkgICBfX2VudHJ5LT5lbnQucGlkID0gdm0tPnRhc2tf
-aW5mby5waWQ7CiAJCQkgICBfX2VudHJ5LT5wYXNpZCA9IHZtLT5wYXNpZDsKIAkJCSAgIF9fYXNz
-aWduX3N0cihyaW5nLCByaW5nLT5uYW1lKQogCQkJICAgX19lbnRyeS0+dm1pZCA9IGpvYi0+dm1p
-ZDsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 2020-08-07 4:34 a.m., daniel@ffwll.ch wrote:
+> On Thu, Jul 30, 2020 at 04:36:40PM -0400, Nicholas Kazlauskas wrote:
+>> [Why]
+>> MEDIUM or FULL updates can require global validation or affect
+>> bandwidth. By treating these all simply as surface updates we aren't
+>> actually passing this through DC global validation.
+>>
+>> [How]
+>> There's currently no way to pass surface updates through DC global
+>> validation, nor do I think it's a good idea to change the interface
+>> to accept these.
+>>
+>> DC global validation itself is currently stateless, and we can move
+>> our update type checking to be stateless as well by duplicating DC
+>> surface checks in DM based on DRM properties.
+>>
+>> We wanted to rely on DC automatically determining this since DC knows
+>> best, but DM is ultimately what fills in everything into DC plane
+>> state so it does need to know as well.
+>>
+>> There are basically only three paths that we exercise in DM today:
+>>
+>> 1) Cursor (async update)
+>> 2) Pageflip (fast update)
+>> 3) Full pipe programming (medium/full updates)
+>>
+>> Which means that anything that's more than a pageflip really needs to
+>> go down path #3.
+>>
+>> So this change duplicates all the surface update checks based on DRM
+>> state instead inside of should_reset_plane().
+>>
+>> Next step is dropping dm_determine_update_type_for_commit and we no
+>> longer require the old DC state at all for global validation.
+> 
+> I think we do something similar in i915, where we have a "nothing except
+> base address changed" fast path, but for anything else we fully compute a
+> new state. Obviously you should try to keep global state synchronization
+> to a minimum for this step, so it's not entirely only 2 options.
+> 
+> Once we have the states, we compare them and figure out whether we can get
+> away with a fast modeset operation (maybe what you guys call medium
+> update). Anyway I think being slightly more aggressive with computing full
+> state, and then falling back to more optimized update again is a good
+> approach. Only risk is if we you have too much synchronization in your
+> locking (e.g. modern compositors do like to change tiling and stuff,
+> especially once you have modifiers enabled, so this shouldn't cause a sync
+> across crtc except when absolutely needed).
+> -Daniel
+
+Sounds like the right approach then.
+
+We can support tiling changes in the fast path, but the more optimized 
+version of that last check is really linear <-> tiled. That requires 
+global validation with DC to revalidate bandwidth and calculate 
+requestor parameters for HW. So we'll have to stall for some of these 
+changes unfortunately since we need the full HW state for validation.
+
+Regards,
+Nicholas Kazlauskas
+
+> 
+>>
+>> Optimization can come later so we don't reset DC planes at all for
+>> MEDIUM udpates and avoid validation, but we might require some extra
+>> checks in DM to achieve this.
+>>
+>> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+>> Cc: Hersen Wu <hersenxs.wu@amd.com>
+>> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>> ---
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++++++++++++++
+>>   1 file changed, 25 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 0d5f45742bb5..2cbb29199e61 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -8336,6 +8336,31 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+>>   		if (old_other_state->crtc != new_other_state->crtc)
+>>   			return true;
+>>   
+>> +		/* Src/dst size and scaling updates. */
+>> +		if (old_other_state->src_w != new_other_state->src_w ||
+>> +		    old_other_state->src_h != new_other_state->src_h ||
+>> +		    old_other_state->crtc_w != new_other_state->crtc_w ||
+>> +		    old_other_state->crtc_h != new_other_state->crtc_h)
+>> +			return true;
+>> +
+>> +		/* Rotation / mirroring updates. */
+>> +		if (old_other_state->rotation != new_other_state->rotation)
+>> +			return true;
+>> +
+>> +		/* Blending updates. */
+>> +		if (old_other_state->pixel_blend_mode !=
+>> +		    new_other_state->pixel_blend_mode)
+>> +			return true;
+>> +
+>> +		/* Alpha updates. */
+>> +		if (old_other_state->alpha != new_other_state->alpha)
+>> +			return true;
+>> +
+>> +		/* Colorspace changes. */
+>> +		if (old_other_state->color_range != new_other_state->color_range ||
+>> +		    old_other_state->color_encoding != new_other_state->color_encoding)
+>> +			return true;
+>> +
+>>   		/* Framebuffer checks fall at the end. */
+>>   		if (!old_other_state->fb || !new_other_state->fb)
+>>   			continue;
+>> -- 
+>> 2.25.1
+>>
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
