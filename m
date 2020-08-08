@@ -2,40 +2,114 @@ Return-Path: <SRS0=+Fjx=BT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DF88C433E1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82CFAC433DF
 	for <amd-gfx@archiver.kernel.org>; Sun,  9 Aug 2020 23:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A6CC0206A1
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Aug 2020 23:59:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6CC0206A1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ispras.ru
+	by mail.kernel.org (Postfix) with ESMTPS id 514B1206A1
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Aug 2020 23:59:12 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=mymailcheap.com header.i=@mymailcheap.com header.b="ylgj3ZeC";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=flygoat.com header.i=@flygoat.com header.b="MJHIzbWP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 514B1206A1
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=flygoat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4996E33F;
-	Sun,  9 Aug 2020 23:59:04 +0000 (UTC)
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB5E86E157
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2020 16:26:45 +0000 (UTC)
-Received: from monopod.intra.ispras.ru (unknown [10.10.3.121])
- by mail.ispras.ru (Postfix) with ESMTPS id B6F6C40A2045;
- Sun,  9 Aug 2020 16:26:42 +0000 (UTC)
-Date: Sun, 9 Aug 2020 19:26:42 +0300 (MSK)
-From: Alexander Monakov <amonakov@ispras.ru>
-To: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm/amd/display: use correct scale for
- actual_brightness
-In-Reply-To: <20200804201313.6464-1-amonakov@ispras.ru>
-Message-ID: <alpine.LNX.2.20.13.2008091925270.2454@monopod.intra.ispras.ru>
-References: <20200804201313.6464-1-amonakov@ispras.ru>
-User-Agent: Alpine 2.20.13 (LNX 116 2015-12-14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 759856E34C;
+	Sun,  9 Aug 2020 23:59:06 +0000 (UTC)
+X-Greylist: delayed 414 seconds by postgrey-1.36 at gabe;
+ Sat, 08 Aug 2020 13:58:17 UTC
+Received: from relay-us1.mymailcheap.com (relay-us1.mymailcheap.com
+ [51.81.35.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C43C8925D
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 13:58:17 +0000 (UTC)
+Received: from relay5.mymailcheap.com (relay5.mymailcheap.com [159.100.241.64])
+ by relay-us1.mymailcheap.com (Postfix) with ESMTPS id 8E6D920EBA
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 13:51:21 +0000 (UTC)
+Received: from relay3.mymailcheap.com (relay3.mymailcheap.com
+ [217.182.119.157])
+ by relay5.mymailcheap.com (Postfix) with ESMTPS id 0E0EA2008F
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 13:51:18 +0000 (UTC)
+Received: from filter2.mymailcheap.com (filter2.mymailcheap.com
+ [91.134.140.82])
+ by relay3.mymailcheap.com (Postfix) with ESMTPS id 8226F3F15F;
+ Sat,  8 Aug 2020 15:51:15 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by filter2.mymailcheap.com (Postfix) with ESMTP id 59A9E2A7CD;
+ Sat,  8 Aug 2020 15:51:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mymailcheap.com;
+ s=default; t=1596894675;
+ bh=aMvdZDiGSkgDY34UFhCXqMYg0yzNL97YlcKNxs7qbyM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=ylgj3ZeC6SrvHrTDxBpi2JJuB5D7RxGXVhJeE0bC76iqaf7IVqu6A2BNQtR2+U+DB
+ vnPnz11HPKDlUFGFTjtkk/cE8Wg0i+vxqh3wd6vNALWoLc8YA9TFTemd8zcarvpg8Q
+ QxW1w/GTjxJYHX953UiWIlZ0KKp1FyeP5OtJmmTY=
+X-Virus-Scanned: Debian amavisd-new at filter2.mymailcheap.com
+Received: from filter2.mymailcheap.com ([127.0.0.1])
+ by localhost (filter2.mymailcheap.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id pKApvAm2ixEj; Sat,  8 Aug 2020 15:51:13 +0200 (CEST)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by filter2.mymailcheap.com (Postfix) with ESMTPS;
+ Sat,  8 Aug 2020 15:51:13 +0200 (CEST)
+Received: from [213.133.102.83] (ml.mymailcheap.com [213.133.102.83])
+ by mail20.mymailcheap.com (Postfix) with ESMTP id 9CC79419E4;
+ Sat,  8 Aug 2020 13:51:11 +0000 (UTC)
+Authentication-Results: mail20.mymailcheap.com; dkim=pass (1024-bit key;
+ unprotected) header.d=flygoat.com header.i=@flygoat.com header.b="MJHIzbWP"; 
+ dkim-atps=neutral
+AI-Spam-Status: Not processed
+Received: from [0.0.0.0] (unknown [203.86.239.91])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id 14D50419E4;
+ Sat,  8 Aug 2020 13:51:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=flygoat.com;
+ s=default; t=1596894667;
+ bh=aMvdZDiGSkgDY34UFhCXqMYg0yzNL97YlcKNxs7qbyM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=MJHIzbWPjOIoXUO93z3n0T2+G0nMiFSPIIPlB237bMTBEFDgVBTc0BIb3nV+BtZRI
+ cz3Mi7mHVmLK9Qo6WQ41zTNeQtb+WGgVP/pA/Ak+NP31tLS6Eh4Ggn5xPVFuRLKTep
+ /wz/8xlJ0A/eVao6Qh2XTZxKy1TCkbsaHMUVB0j8=
+Subject: Re: [PATCH] gpu/drm: Remove TTM_PL_FLAG_WC of VRAM to fix
+ writecombine issue for Loongson64
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>
+References: <1596871502-3432-1-git-send-email-yangtiezhu@loongson.cn>
+ <20200808134147.GA5772@alpha.franken.de>
+From: Jiaxun Yang <jiaxun.yang@flygoat.com>
+Message-ID: <b7b16df1-d661-d59a-005b-da594ce9fc95@flygoat.com>
+Date: Sat, 8 Aug 2020 21:50:59 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
+In-Reply-To: <20200808134147.GA5772@alpha.franken.de>
+Content-Language: en-US
+X-Rspamd-Queue-Id: 9CC79419E4
+X-Spamd-Result: default: False [-0.10 / 10.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; R_DKIM_ALLOW(0.00)[flygoat.com:s=default];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ R_SPF_SOFTFAIL(0.00)[~all]; ML_SERVERS(-3.10)[213.133.102.83];
+ DKIM_TRACE(0.00)[flygoat.com:+];
+ DMARC_POLICY_ALLOW(0.00)[flygoat.com,none];
+ RCPT_COUNT_SEVEN(0.00)[8];
+ RCVD_IN_DNSWL_NONE(0.00)[213.133.102.83:from];
+ DMARC_POLICY_ALLOW_WITH_FAILURES(0.00)[];
+ RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ ASN(0.00)[asn:24940, ipnet:213.133.96.0/19, country:DE];
+ RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
+ HFILTER_HELO_BAREIP(3.00)[213.133.102.83,1]
+X-Rspamd-Server: mail20.mymailcheap.com
 X-Mailman-Approved-At: Sun, 09 Aug 2020 23:59:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,162 +122,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Huacai Chen <chenhc@lemote.com>, christian.koenig@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On Tue, 4 Aug 2020, Alexander Monakov wrote:
-
-> Documentation for sysfs backlight level interface requires that
-> values in both 'brightness' and 'actual_brightness' files are
-> interpreted to be in range from 0 to the value given in the
-> 'max_brightness' file.
-> 
-> With amdgpu, max_brightness gives 255, and values written by the user
-> into 'brightness' are internally rescaled to a wider range. However,
-> reading from 'actual_brightness' gives the raw register value without
-> inverse rescaling. This causes issues for various userspace tools such
-> as PowerTop and systemd that expect the value to be in the correct
-> range.
-> 
-> Introduce a helper to retrieve internal backlight range. Use it to
-> reimplement 'convert_brightness' as 'convert_brightness_from_user' and
-> introduce 'convert_brightness_to_user'.
-> 
-> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
-> ---
-> v2: split convert_brightness to &_from_user and &_to_user (Nicholas)
-
-Nicholas, does this implement the kind of split you had in mind?
-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 81 +++++++++----------
->  1 file changed, 40 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 710edc70e37e..b60a763f3f95 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2881,51 +2881,50 @@ static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)
->  	return rc ? 0 : 1;
->  }
->  
-> -static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> -			      const uint32_t user_brightness)
-> +static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-> +				unsigned *min, unsigned *max)
->  {
-> -	u32 min, max, conversion_pace;
-> -	u32 brightness = user_brightness;
-> -
->  	if (!caps)
-> -		goto out;
-> +		return 0;
->  
-> -	if (!caps->aux_support) {
-> -		max = caps->max_input_signal;
-> -		min = caps->min_input_signal;
-> -		/*
-> -		 * The brightness input is in the range 0-255
-> -		 * It needs to be rescaled to be between the
-> -		 * requested min and max input signal
-> -		 * It also needs to be scaled up by 0x101 to
-> -		 * match the DC interface which has a range of
-> -		 * 0 to 0xffff
-> -		 */
-> -		conversion_pace = 0x101;
-> -		brightness =
-> -			user_brightness
-> -			* conversion_pace
-> -			* (max - min)
-> -			/ AMDGPU_MAX_BL_LEVEL
-> -			+ min * conversion_pace;
-> +	if (caps->aux_support) {
-> +		// Firmware limits are in nits, DC API wants millinits.
-> +		*max = 1000 * caps->aux_max_input_signal;
-> +		*min = 1000 * caps->aux_min_input_signal;
->  	} else {
-> -		/* TODO
-> -		 * We are doing a linear interpolation here, which is OK but
-> -		 * does not provide the optimal result. We probably want
-> -		 * something close to the Perceptual Quantizer (PQ) curve.
-> -		 */
-> -		max = caps->aux_max_input_signal;
-> -		min = caps->aux_min_input_signal;
-> -
-> -		brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
-> -			       + user_brightness * max;
-> -		// Multiple the value by 1000 since we use millinits
-> -		brightness *= 1000;
-> -		brightness = DIV_ROUND_CLOSEST(brightness, AMDGPU_MAX_BL_LEVEL);
-> +		// Firmware limits are 8-bit, PWM control is 16-bit.
-> +		*max = 0x101 * caps->max_input_signal;
-> +		*min = 0x101 * caps->min_input_signal;
->  	}
-> +	return 1;
-> +}
->  
-> -out:
-> -	return brightness;
-> +static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
-> +					uint32_t brightness)
-> +{
-> +	unsigned min, max;
-> +
-> +	if (!get_brightness_range(caps, &min, &max))
-> +		return brightness;
-> +
-> +	// Rescale 0..255 to min..max
-> +	return min + DIV_ROUND_CLOSEST((max - min) * brightness,
-> +				       AMDGPU_MAX_BL_LEVEL);
-> +}
-> +
-> +static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-> +				      uint32_t brightness)
-> +{
-> +	unsigned min, max;
-> +
-> +	if (!get_brightness_range(caps, &min, &max))
-> +		return brightness;
-> +
-> +	if (brightness < min)
-> +		return 0;
-> +	// Rescale min..max to 0..255
-> +	return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
-> +				 max - min);
->  }
->  
->  static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-> @@ -2941,7 +2940,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
->  
->  	link = (struct dc_link *)dm->backlight_link;
->  
-> -	brightness = convert_brightness(&caps, bd->props.brightness);
-> +	brightness = convert_brightness_from_user(&caps, bd->props.brightness);
->  	// Change brightness based on AUX property
->  	if (caps.aux_support)
->  		return set_backlight_via_aux(link, brightness);
-> @@ -2958,7 +2957,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
->  
->  	if (ret == DC_ERROR_UNEXPECTED)
->  		return bd->props.brightness;
-> -	return ret;
-> +	return convert_brightness_to_user(&dm->backlight_caps, ret);
->  }
->  
->  static const struct backlight_ops amdgpu_dm_backlight_ops = {
-> 
-> base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
-> 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+CgrU2iAyMDIwLzgvOCDPws7nOTo0MSwgVGhvbWFzIEJvZ2VuZG9lcmZlciDQtLXAOgo+IE9uIFNh
+dCwgQXVnIDA4LCAyMDIwIGF0IDAzOjI1OjAyUE0gKzA4MDAsIFRpZXpodSBZYW5nIHdyb3RlOgo+
+PiBMb29uZ3NvbiBwcm9jZXNzb3JzIGhhdmUgYSB3cml0ZWNvbWJpbmUgaXNzdWUgdGhhdCBtYXli
+ZSBmYWlsZWQgdG8KPj4gd3JpdGUgYmFjayBmcmFtZWJ1ZmZlciB1c2VkIHdpdGggQVRJIFJhZGVv
+biBvciBBTUQgR1BVIGF0IHRpbWVzLAo+PiBhZnRlciBjb21taXQgOGEwOGU1MGNlZTY2ICgiZHJt
+OiBQZXJtaXQgdmlkZW8tYnVmZmVycyB3cml0ZWNvbWJpbmUKPj4gbWFwcGluZyBmb3IgTUlQUyIp
+LCB0aGVyZSBleGlzdHMgc29tZSBlcnJvcnMgc3VjaCBhcyBibHVycmVkIHNjcmVlbgo+PiBhbmQg
+bG9ja3VwLCBhbmQgc28gb24uCj4+Cj4+IFJlbW92ZSB0aGUgZmxhZyBUVE1fUExfRkxBR19XQyBv
+ZiBWUkFNIHRvIGZpeCB3cml0ZWNvbWJpbmUgaXNzdWUgZm9yCj4+IExvb25nc29uNjQgdG8gd29y
+ayB3ZWxsIHdpdGggQVRJIFJhZGVvbiBvciBBTUQgR1BVLCBhbmQgaXQgaGFzIG5vIGFueQo+PiBp
+bmZsdWVuY2Ugb24gdGhlIG90aGVyIHBsYXRmb3Jtcy4KPiB3ZWxsIGl0J3Mgbm90IG15IGNhbGwg
+dG8gdGFrZSBvciByZWplY3QgdGhpcyBwYXRjaCwgYnV0IEkgYWxyZWFkeQo+IGluZGljYXRlZCBp
+dCBtaWdodCBiZSBiZXR0ZXIgdG8gZGlzYWJsZSB3cml0ZWNvbWJpbmUgb24gdGhlIENQVQo+IGRl
+dGVjdGlvbiBzaWRlIChvciBkbyB5b3UgaGF2ZSBvdGhlciBkZXZpY2VzIHdoZXJlIHdyaXRlY29t
+YmluaW5nCj4gd29ya3MgPykuIFNvbWV0aGluZyBsaWtlIGJlbG93IHdpbGwgZGlzYmFsZSBpdCBm
+b3IgYWxsIGxvb25nc29uNjQgQ1BVcy4KPiBJZiB5b3Ugbm93IGZpbmQgb3V0IHdoZXJlIGl0IHdv
+cmtzIGFuZCB3aGVyZSBpdCBkb2Vzbid0LCB5b3UgY2FuIGV2ZW4KPiByZWR1Y2UgaXQgdG8gdGhl
+IHJlcXVpcmVkIG1pbml1bSBvZiBhZmZlY3RlZCBDUFVzLgpIaSBUaWV6aHUsIFRob21hcywKClll
+cywgd3JpdGVjb21iaW5lIHdvcmtzIHdlbGwgb24gTFM3QSdzIGludGVybmFsIEdQVS4uLi4KQW5k
+IGV2ZW4gd29ya3Mgd2VsbCB3aXRoIHNvbWUgQU1EIEdQVXMgKGluIG15IGNhc2UsIFJYNTUwKS4K
+ClRpZXpodSwgaXMgaXQgcG9zc2libGUgdG8gaW52ZXN0aWdhdGUgdGhlIGlzc3VlIGRlZXBlciBp
+biBMb29uZ3Nvbj8KUHJvYmFibHkgd2UganVzdCBuZWVkIHRvIGFkZCBzb21lIGJhcnJpZXIgdG8g
+bWFpbnRhaW4gdGhlIGRhdGEgY29oZXJlbmN5LApvciBkaXNhYmxlIHdyaXRlY29tYmluZSBmb3Ig
+QU1EIEdQVSdzIGNvbW1hbmQgYnVmZmVyIGFuZCBsZWF2ZSB0ZXh0dXJlL2ZyYW1lCmJ1ZmZlciB3
+YyBhY2NlbGVyYXRlZC4KClRoYW5rcy4KCi0gSmlheHVuCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
