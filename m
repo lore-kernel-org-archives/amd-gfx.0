@@ -1,73 +1,103 @@
-Return-Path: <SRS0=Hu2c=BR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=cqfu=BS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45B24C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 22:29:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9422AC433DF
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Aug 2020 01:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 118042177B
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2020 22:29:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3912B221E5
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Aug 2020 01:29:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/DJ37Kt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 118042177B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HyafE4/v"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3912B221E5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77D3C6E0C5;
-	Fri,  7 Aug 2020 22:29:17 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4747A6E0C5;
- Fri,  7 Aug 2020 22:29:16 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id h21so2479391qtp.11;
- Fri, 07 Aug 2020 15:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ULZyqVIcJH6DCc6VU7hcWK1YaNUKS4X0Mot+DWEUOzc=;
- b=i/DJ37KtkHPxF+b+vin/f2zzi9wjPUNNNuCmNLXjUyxaCAx4Xq3veQ37WN47mfUNFf
- uKONzPSiDiMlJoB8jbqdNVq5JEphMtAdrr/CuRBKuI6XyTe0x5VtoxXupqlqBo1DotvD
- gIJytJXrG8V5fziwBHpe3F210Q8Js1cdDKSaAuBRUdBTLa7KoU88jpZpzxGMjk5voiJu
- PRd/Tc7XM7FeHku5tItkydA/6/HK4ZgqihLIgZ0e/Viux6aW1OIgCBPLCqpB7lfQFE/X
- om4FQEQVGcnimcuBbpNnBLou/D/yc7kwBdNm/eF2asKBC6KY50aE5N8InnhvaDfkW3Yh
- /A6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ULZyqVIcJH6DCc6VU7hcWK1YaNUKS4X0Mot+DWEUOzc=;
- b=Kd4DGoeuQASLtYNNcm9v+evZI7E2sK7lu4hHTcmVh+TGo31D5EX5FtXD4lU0AHVkIJ
- 1m1GNGMDfkejtCicN5mMobwduXq8x/G/zjBDj7yJhBPxaSfta+qj/KFNkm3ayGtVS3Tc
- vd606xh0uPH/MJ780/n0E2annb9K56RApKls/3pyYKS1ipKL8Prb/Rr4669JhCqVFkNn
- LXVrmSdCIfCbp6AZ3vR4n+jul1coEmznPzvUDRfFnGl3vcOlpd2xBRKkTg9JQiV6RS+E
- tWBM6qncEGHDnNAXHrvkPcmIMWpaos1LmR8GtnqJNBuPjfsEIRYJJnWxtyHfnvPZHgsO
- AwAQ==
-X-Gm-Message-State: AOAM530N0DEBaXGz3L8UdTx8rPIJ7bDN2qfs6JzQs/3Efm7tRfzFyGO8
- ke7uG5jNWv1dZ2YqaOOwqceKosto
-X-Google-Smtp-Source: ABdhPJzd1SQ8D3Mog3bYxNYlUtjYMux3XtB/qZGm3RuEcWX+jspzi3spiWWyHD0qddDiSsX4Qxx+4g==
-X-Received: by 2002:ac8:3894:: with SMTP id f20mr16360077qtc.243.1596839355107; 
- Fri, 07 Aug 2020 15:29:15 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id 65sm8362272qkf.33.2020.08.07.15.29.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2020 15:29:14 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-5.9
-Date: Fri,  7 Aug 2020 18:28:43 -0400
-Message-Id: <20200807222843.3909-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1A606EA92;
+	Sat,  8 Aug 2020 01:29:35 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2044.outbound.protection.outlook.com [40.107.95.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC1E6EA92
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 01:29:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mPeEiuDndJFfX7eKAuZuvLVz8v72WKXZVHVkW/MvALKgRZlfoi4ShiTGheV3Aa7xNGWQjGwkx2PMRbZ09MhqTJKUAN7sG4VpdU7b42DBjd99vcWHJ0280clY9wGfZ5pGF+PvdMQcI8YVfeZrB/cBZX1tGZI4722SxgBDEDrmRjREEptNwsp6JAKoRqvtcMnvG1gIvrBTE2ydVExhYrYCkInOhMXWfXN36E6QSbwVsT5ZI5KcdQ3ez6FFJJQrF08KxWvhNF0I8NIYiVF20orugR1XqpZC8o1246pCAGbvz1wSLAz4e0P/YC0X9hln/ZVl5zzP+HakPNcyXL2rUUo8/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZAMb4s2Ok3U8v1+DsmKRlPgjRyTUlBt2RundLCyXO4k=;
+ b=nKSp9pVFu78NpiZvOWPtlhollSJHWB79ajmViU7YpaFMkvh+ilJOtydwsU4Yw5wLSU3hcpFwtKLgStgqLOUtWwfdSZ58SGA9JUNxJhl/FzIDk8BD3phrgPZ4HCIACCgwhpammv8Yb6We0VffvJTLAxmScI4qie1uZMbqu52Hso/GKBYCvhAhZS/R47UnOFYlICrXKGmxcSj8vfl2+1/blUSuPNmE8JIr1hy6nqLeQqk/JW3zV9ePQFB85O6X2VCCjJNggQR4dFFHy6wR7jHW16odW3FhBQVdo8tx0VpwA8+uBNwpowJFrRkm5t64k3ZFDK/icBbPCzE/aY+D1JJtRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZAMb4s2Ok3U8v1+DsmKRlPgjRyTUlBt2RundLCyXO4k=;
+ b=HyafE4/vlgYWO0VPpnth2oxuRnIqZ4Fy696Lgtv0wXoHM/kSquASVlaM5udlez4a3FYUZHZoiMSFElO5UC5u2Hn3tLc4WP3svvgmuWBGB10XH9mL8QabaH1SpbCHmHo4ALKjFRFlj4dWNr6SMvSMnX0hMye0T+H7qi8/NVDRpQk=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM6PR12MB3866.namprd12.prod.outlook.com (2603:10b6:5:1c6::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Sat, 8 Aug
+ 2020 01:29:32 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::3452:6d8f:e0ef:b45e]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::3452:6d8f:e0ef:b45e%6]) with mapi id 15.20.3239.024; Sat, 8 Aug 2020
+ 01:29:32 +0000
+Subject: Re: [PATCH] drm/amdgpu: Skip some registers config for SRIOV
+To: Liu ChengZhe <ChengZhe.Liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200807084839.730118-1-ChengZhe.Liu@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Message-ID: <7c1eaca0-8bbf-8d9f-1c2e-36a0d6047c42@amd.com>
+Date: Fri, 7 Aug 2020 21:29:41 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20200807084839.730118-1-ChengZhe.Liu@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YTBPR01CA0019.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::32) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.1.6] (108.162.131.176) by
+ YTBPR01CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3261.19 via Frontend Transport; Sat, 8 Aug 2020 01:29:31 +0000
+X-Originating-IP: [108.162.131.176]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: d9b31bc3-1bbc-456d-465e-08d83b3a8044
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3866:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3866907D1149626467D9A45799460@DM6PR12MB3866.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:302;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: h70yIJiBwCWQvGwQAq6wL97kTsFQNiZEJn6c1fa+avWyiyXIIbroquS6bOEZtSCir79VBiunY7j8E5IgxaXiNAkHXNcpHyH2QAUnKQ0hebHdYHGeliyiGFBh0ZqKLMuPALag3ehuYDaLaonVhhd9GuGkn4b1j4RtHNr13vZGkGLXQuFQ+etbJTYEBosYmd+EZ9B8WWOPUzBbw/iBO98/u9u91xcniRtzWGL3n/vdWJQenDvpsSveVi18rOLx+D70BC37c4XII7NV2Qx/QtG9ys7l9FJubRwcVH0wY5YVr7SVMPRo2ZAut3E7UaiAJj+NDZcUKsmQUs4rApgl70PSXGFRnIIBoXpRcdBgbyAWJRZUY8z0i64Ol/4cawrdR0b2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(346002)(376002)(396003)(39860400002)(136003)(478600001)(5660300002)(53546011)(86362001)(6486002)(66946007)(316002)(66556008)(16576012)(52116002)(66476007)(26005)(186003)(16526019)(6666004)(2616005)(31686004)(83380400001)(4326008)(44832011)(956004)(8676002)(54906003)(36756003)(8936002)(2906002)(31696002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: zrdRXrTN9Arn1bd0QfA8DzeansvoS9d6G8MK5N5T34MOgfRrlTiBUiwzRmhPWhduYT53OFslUyZfuGYUdZsXehkX3iqrg9jJ0ob1gDgJm20Qs6DOgLruUyoAHUfVABJCJZEuhy06wxzfrHcq2F3DxGv93WquMqyVtVbW/JV2gN0TwBhlQpiG5AEtxNRSJum/U/T2/7lBblASyxW2FK/1rMc9g8VXNF5KFX6Fowb6d2MHMQ7u+bgaIanlJ06gWcLtGsh/v1APyL7t8egEzb4TxkP9IizlIpaAbJPuAeQXBDuPGB8Oggq3oydUV19RRd7IcmcT/eRmBDBZzQuB/ta+fJZBaHcEaTHjvzl72dV42rXy4rdj2txA9kEkuLCiVnE/vIDphpOyxbqxHxdKaNn/Z4wj/JdQY4kSCnl3rlZaLYhfmRcPc6l9adk4gkq6kn/bWaLm6n+p8CnVwaNQNsUT76Zr8u/QWoOrxYRlAZshWivoxqvWrKL4F0ub6O9810CsL8vWPuGNSKqtn6XC3Aqf7zO1R8VI+OZnJZrn4cNVxVE3Mh96SNKkD2QHbmM1m2ot1fsrSIGyui4GnsUyGeJkDewo5nCO7GmxyQbYA8zcznW+dZqTcEv2YQR2OyiAXzaejNrRLmGO7tIBFULTi8Q41Q==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9b31bc3-1bbc-456d-465e-08d83b3a8044
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2020 01:29:32.1004 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dhEh7dUE4OJ1UJKgOcIMOjTaCptinXmP02Gf3jex1GLzw3mzEEsqpeZL9pOzf7pj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3866
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,208 +109,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Kevin Wang <Kevin1.Wang@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
-Fixes for 5.9.
+On 2020-08-07 04:48, Liu ChengZhe wrote:
+> Some registers are not accessible to virtual function setup, so
+> skip their initialization when in VF-SRIOV mode.
+> 
+> v2: move SRIOV VF check into specify functions;
+> modify commit description and comment.
+> 
+> Signed-off-by: Liu ChengZhe <ChengZhe.Liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 19 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 19 +++++++++++++++++++
+>  2 files changed, 38 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> index 1f6112b7fa49..80c906a0383f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> @@ -182,6 +182,12 @@ static void gfxhub_v2_1_init_cache_regs(struct amdgpu_device *adev)
+>  {
+>  	uint32_t tmp;
+>  
+> +	/* These registers are not accessible to VF-SRIOV.
+> +	 * The PF will program them instead.
+> +	 */
+> +	if (amdgpu_sriov_vf(adev))
+> +		return;
+> +
+>  	/* Setup L2 cache */
+>  	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_CNTL);
+>  	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, ENABLE_L2_CACHE, 1);
+> @@ -237,6 +243,12 @@ static void gfxhub_v2_1_enable_system_domain(struct amdgpu_device *adev)
+>  
+>  static void gfxhub_v2_1_disable_identity_aperture(struct amdgpu_device *adev)
+>  {
+> +	/* These registers are not accessible to VF-SRIOV.
+> +	 * The PF will program them instead.
+> +	 */
+> +	if (amdgpu_sriov_vf(adev))
+> +		return;
+> +
+>  	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32,
+>  		     0xFFFFFFFF);
+>  	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_HI32,
+> @@ -373,6 +385,13 @@ void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
+>  					  bool value)
+>  {
+>  	u32 tmp;
+> +
+> +	/* These registers are not accessible to VF-SRIOV.
+> +	 * The PF will program them instead.
+> +	 */
+> +	if (amdgpu_sriov_vf(adev))
+> +		return;
+> +
+>  	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL);
+>  	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
+>  			    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> index d83912901f73..8acb3b625afe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> @@ -181,6 +181,12 @@ static void mmhub_v2_0_init_cache_regs(struct amdgpu_device *adev)
+>  {
+>  	uint32_t tmp;
+>  
+> +	/* These registers are not accessible to VF-SRIOV.
+> +	 * The PF will program them instead.
+> +	 */
+> +	if (amdgpu_sriov_vf(adev))
+> +		return;
+> +
+>  	/* Setup L2 cache */
+>  	tmp = RREG32_SOC15(MMHUB, 0, mmMMVM_L2_CNTL);
+>  	tmp = REG_SET_FIELD(tmp, MMVM_L2_CNTL, ENABLE_L2_CACHE, 1);
+> @@ -236,6 +242,12 @@ static void mmhub_v2_0_enable_system_domain(struct amdgpu_device *adev)
+>  
+>  static void mmhub_v2_0_disable_identity_aperture(struct amdgpu_device *adev)
+>  {
+> +	/* These registers are not accessible to VF-SRIOV.
+> +	 * The PF will program them instead.
+> +	 */
+> +	if (amdgpu_sriov_vf(adev))
+> +		return;
+> +
+>  	WREG32_SOC15(MMHUB, 0,
+>  		     mmMMVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32,
+>  		     0xFFFFFFFF);
+> @@ -365,6 +377,13 @@ void mmhub_v2_0_gart_disable(struct amdgpu_device *adev)
+>  void mmhub_v2_0_set_fault_enable_default(struct amdgpu_device *adev, bool value)
+>  {
+>  	u32 tmp;
+> +
+> +	/* These registers are not accessible to VF-SRIOV.
+> +	 * The PF will program them instead.
+> +	 */
+> +	if (amdgpu_sriov_vf(adev))
+> +		return;
+> +
+>  	tmp = RREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_CNTL);
+>  	tmp = REG_SET_FIELD(tmp, MMVM_L2_PROTECTION_FAULT_CNTL,
+>  			    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
+> 
 
-The following changes since commit dc100bc8fae59aafd2ea2e1a1a43ef1f65f8a8bc:
-
-  Merge tag 'drm-msm-next-2020-07-30' of https://gitlab.freedesktop.org/drm/msm into drm-next (2020-08-05 08:05:31 +1000)
-
-are available in the Git repository at:
-
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.9-2020-08-07
-
-for you to fetch changes up to f87812284172a9809820d10143b573d833cd3f75:
-
-  drm/amdgpu: Fix bug where DPM is not enabled after hibernate and resume (2020-08-07 17:52:15 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-5.9-2020-08-07:
-
-amdgpu:
-- Re-add spelling typo fix
-- Sienna Cichlid fixes
-- Navy Flounder fixes
-- DC fixes
-- SMU i2c fix
-- Power fixes
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu/smu: rework i2c adpater registration
-
-Alvin Lee (1):
-      drm/amd/display: Don't compare dppclk before updating DTO
-
-Aric Cyr (2):
-      drm/amd/display: Fix DP Compliance tests 4.3.2.1 and 4.3.2.2
-      drm/amd/display: AMD OUI (DPCD 0x00300) skipped on some sink
-
-Bhawanpreet Lakha (2):
-      drm/amd/display: Use seperate dmcub firmware for navy_flounder
-      drm/amd/display: Use proper abm/backlight functions for DCN3
-
-Boyuan Zhang (1):
-      drm/amdgpu: update dec ring test for VCN 3.0
-
-Changfeng (2):
-      Revert "drm/amd/powerplay: drop unnecessary message support check"
-      drm/amd/powerplay: drop unnecessary message support check(v2)
-
-Colin Ian King (1):
-      drm/amdgpu: fix spelling mistake "Falied" -> "Failed"
-
-Dan Carpenter (1):
-      drm/amd/powerplay: off by one bugs in smu_cmn_to_asic_specific_index()
-
-Dmytro Laktyushkin (2):
-      drm/amd/display: Clean up global sync param retrieval
-      drm/amd/display: populate new dml variable
-
-Eric Bernstein (1):
-      drm/amd/display: Use parameter for call to set output mux
-
-Eryk Brol (2):
-      drm/amd/display: Rename bytes_pp to the correct bits_pp
-      drm/amd/display: Fix naming of DSC Debugfs entry
-
-Evan Quan (2):
-      drm/amd/powerplay: update swSMU VCN/JPEG PG logics
-      drm/amd/powerplay: put VCN/JPEG into PG ungate state before dpm table setup(V3)
-
-George Shen (1):
-      drm/amd/display: Change null plane state swizzle mode to 4kb_s
-
-Guchun Chen (1):
-      drm/amdgpu: add printing after executing page reservation to eeprom
-
-Harry Wentland (1):
-      drm/amd/display: Fix logger context
-
-Huang Rui (1):
-      drm/amdgpu: skip crit temperature values on APU (v2)
-
-Igor Kravchenko (2):
-      drm/amd/display: Read VBIOS Golden Settings Tbl
-      drm/amd/display: Display goes blank after inst
-
-James Zhu (1):
-      drm/amdgpu/jpeg3.0: remove extra asic type check
-
-Jiansong Chen (3):
-      drm/amd/powerplay: update driver if version for navy_flounder
-      drm/amdgpu: update GC golden setting for navy_flounder
-      drm/amdgpu: enable GFXOFF for navy_flounder
-
-JinZe.Xu (1):
-      drm/amd/display: Use helper function to check for HDMI signal
-
-John Clements (1):
-      drm/amdgpu: expand sienna chichlid reg access  support
-
-Jun Lei (1):
-      drm/amd/display: Disable idle optimizations before programming DCN
-
-Kenneth Feng (1):
-      drm/amd/powerplay: remove the dpm checking in the boot sequence
-
-Kevin Wang (1):
-      drm/amd/swsmu: allow asic to handle sensor type by itself
-
-Likun Gao (6):
-      drm/amd/powerplay: skip invalid msg when smu set mp1 state
-      drm/amd/powerplay: add msg map for mode1 reset
-      drm/amd/powerplay: correct smu message for vf mode
-      drm/amdgpu: update golden setting for sienna_cichlid
-      drm/amd/powerplay: update driver if file for sienna_cichlid
-      drm/amdgpu: use mode1 reset by default for sienna_cichlid
-
-Liu ChengZhe (2):
-      drm/amdgpu: fix PSP autoload twice in FLR
-      drm amdgpu: Skip tmr load for SRIOV
-
-Martin Tsai (1):
-      drm/amd/display: Check lane status again after link training done
-
-Reza Amini (1):
-      drm/amd/display: Allow asic specific FSFT timing optimization
-
-Sandeep Raghuraman (1):
-      drm/amdgpu: Fix bug where DPM is not enabled after hibernate and resume
-
-Stylon Wang (1):
-      drm/amd/display: Fix dmesg warning from setting abm level
-
-Wyatt Wood (1):
-      drm/amd/display: Use hw lock mgr
-
-hersen wu (1):
-      drm/amd/display: dchubbub p-state warning during surface planes switch
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c             |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  37 +++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   5 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |   7 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |   9 +-
- drivers/gpu/drm/amd/amdgpu/nv.c                    |  56 +++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |   2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  30 ++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  |  11 +-
- drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |   2 +
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |  81 ++++++++++++
- .../drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c |  69 +++++++++-
- .../amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c   |   7 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  18 ++-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  12 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  65 +++++++---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |  18 ++-
- drivers/gpu/drm/amd/display/dc/dc_bios_types.h     |   4 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h         |   4 +-
- drivers/gpu/drm/amd/display/dc/dc_types.h          |  14 ++
- .../gpu/drm/amd/display/dc/dce/dce_link_encoder.h  |   4 +-
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   2 +-
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |   4 +-
- .../drm/amd/display/dc/dcn10/dcn10_link_encoder.h  |  10 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c   |   2 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  27 ++++
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.h |   5 +
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c  |   3 +
- .../drm/amd/display/dc/dcn20/dcn20_link_encoder.c  |  14 +-
- .../drm/amd/display/dc/dcn20/dcn20_link_encoder.h  |   5 +-
- .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  53 +-------
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c  |   3 +
- .../amd/display/dc/dcn30/dcn30_dio_link_encoder.c  |  53 +++++++-
- .../amd/display/dc/dcn30/dcn30_dio_link_encoder.h  |   2 +
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c  |   5 +-
- .../gpu/drm/amd/display/dc/dml/display_mode_vba.c  |  17 +--
- .../gpu/drm/amd/display/dc/dml/display_mode_vba.h  |   7 +-
- .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h   |   3 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/dsc.h        |   2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h  |   5 +
- .../drm/amd/display/include/link_service_types.h   |   2 +
- .../drm/amd/display/modules/freesync/freesync.c    |   5 +-
- drivers/gpu/drm/amd/include/atomfirmware.h         |  54 +++++++-
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c         | 144 +++++++++++++++++++--
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       |  18 ---
- drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h     |   6 +-
- .../powerplay/inc/smu11_driver_if_sienna_cichlid.h |  21 ++-
- drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h      |   4 +-
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c         |  22 ----
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c         |   8 --
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 103 ++++++---------
- drivers/gpu/drm/amd/powerplay/smu_cmn.c            |  10 +-
- drivers/gpu/drm/amd/powerplay/smu_internal.h       |   3 -
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c          |   1 +
- drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c   |   5 +-
- 56 files changed, 807 insertions(+), 286 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
