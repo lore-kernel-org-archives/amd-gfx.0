@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80E1EC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 05:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0057CC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 05:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 524DC206B5
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 05:23:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C4356206B5
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 05:23:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nl/n64uQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 524DC206B5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1GrSNWZy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4356206B5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E82C889E9B;
-	Mon, 10 Aug 2020 05:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9320089F08;
+	Mon, 10 Aug 2020 05:23:55 +0000 (UTC)
 Received: from NAM04-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam08on2083.outbound.protection.outlook.com [40.107.101.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B519E89E9B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F3289F08
  for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 05:23:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EMoWb282ooRT8UUQimPMEb/X6DjEoi8ahwQIMQO2L+VVmYfGYoix22S4No4GPMRb8RV7ioHNcnd7awM2vDUbXezUCQIdi/lNcpXcL4IvjytlBIuWdKxaUKQ741DlW5wUbwIvdw0Ir29zfh99rDFV43dTKvu1yX/b7Lr7Mk8XS5FAIy22xZE34aez50BMXrBRPDIYfCOFJPVI02WKC3r+XYVzClYABH9cDX6245i01fuj3nhGBQH9V+/aIZAZ7g1DYtl16LSX35IHde9GjxJfmCJo8Q826NvYbd0Si/4lE4BXR6PwtTCnzzghNChhroRBRi0dUdY0/tvHAxpb+T4RHg==
+ b=LdEJh8Um8/hQmrQ38M0PJZhZx808kUQUH9coWQhPe6wKELqt+uo53NqqZHme1ClcibiVvNCy9BGztNd2EahInQuBs8jEdYx+RhPn7Fde1kHs8qqB13hknpifHUkyuiBqLrvbOqZYiataLXqibYmIA3B+2JXh0bR8pxTdEobx5IUi4nPtm2Bd4OWTeHb8YpkSLWqSaUGZxi0wPMJr4G1DDIczl4hMzId/r7uJ7Hsh/XexGhODPcd6B0M4haIFLIdjhmtBSubESUE/nBjjDGIfMkY/0BStWmHFfE3dNlLYfbOe8MvWU4CPXJDpPKeoAKlbtX1oQma/MNgz1KGcxlyLZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+qPeuKVOY4luriw3VLN3nku4N9HUmCszye3YKpJEaJw=;
- b=LbLQlemaufInP0wUldZ1H1c4nvV2eEbn5m22zQoCtW1I92nYRf2uEEBJwU4J00hLvCIoJz42XK4CtHlIfe0k0/DD1Bm/12HSkmhXCKMDPoHe0u8UgmkTmKCMOfx+avaI0D1OIm7AAzW+pYpYgyB7ZmolTjvKOGmZyTLrg7hhDT+T461VdJoUr9gDIaGAP9/2deRsblRRseYYk3zk+P2kSy4ns6RlxEOoFemIcHVKV0GwJikz+4BeP4A3rxv4BWIgqIvAQVFFNv+0RjAW3tJTFuiCQvImWV6I+awKp2cq4473udBQboRwCpfVVOBdCC0EzxPx6VkWxc6IL5BpLfbXyg==
+ bh=odrZa/8q8+2OU92gIDQaDpxGOQ7DLYjk9HYCNsJrFeM=;
+ b=Gof/+UBo1hbKOKYCGt6BnmnPWrjpN4EHh4qeQXODUHYVjScHHD4xCpVaV1in3Csy09z/xCUe9A2SPNQPGuM86rTmBUMD1ovbTGiXUHCyhs2m0bgwiGALvH7NmrnVw/WMAtvfO2C4BkxBi8innRZcVXfrQQOi4mZ9OKwo+uE5rOHcXCCwThKr3SSIhy0miSpZvVBdrPUuVA8zbSvS0TevSSheKQf9OhSJZK2OcGhrk8tm3JsmOTojWyIEhFIqNfYABgb6C1k2TVBsHZ+ot6GNcRBAECkbbj2opSfiAg8nge8LdNvBN2baWyCy/FB7eAezO4tjW/ijrN6AgpOOTpdXPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+qPeuKVOY4luriw3VLN3nku4N9HUmCszye3YKpJEaJw=;
- b=nl/n64uQx2Gqy9ocWgddbX9lP7XEtqQ5yy2PUD59tczP/WebqyHFK+3sf/2ygVMPNE0FZf/ui9bBgcIikS83cl0qfxZ7WNF+N7JJimgGid1usKEq2ONrZDFuh9VVNvdyNoTlmJ7+BNcHJL1R653wb1qczhmqj2L6Jq+0s1TSriw=
+ bh=odrZa/8q8+2OU92gIDQaDpxGOQ7DLYjk9HYCNsJrFeM=;
+ b=1GrSNWZytiDkl+L9vmv4Cn++QM8h/YMs7luljj2LtqR9e8Mzyw9jSBuqbWx2OjFf2SVZzwO0V4MU2ub+AoTtnx8PYXrAkoYVv47K041/ZPwBA1U2LWEPp2hPK0NRAcq/+V0wGaQ7Ho54F9/r50MnUnDbcj/Y0ijTvCbO7GaAFJo=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,21 @@ Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
  by CY4PR12MB1574.namprd12.prod.outlook.com (2603:10b6:910:e::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Mon, 10 Aug
- 2020 05:23:48 +0000
+ 2020 05:23:51 +0000
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e181:b736:5067:12f2]) by CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e181:b736:5067:12f2%9]) with mapi id 15.20.3261.022; Mon, 10 Aug 2020
- 05:23:48 +0000
+ 05:23:51 +0000
 From: Guchun Chen <guchun.chen@amd.com>
 To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
  lijo.lazar@amd.com, Tao.Zhou1@amd.com, John.Clements@amd.com
-Subject: [PATCH 1/2] drm/amdgpu: bypass querying ras error count registers
-Date: Mon, 10 Aug 2020 13:22:57 +0800
-Message-Id: <20200810052258.27961-1-guchun.chen@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: add debugfs node to toggle ras error cnt
+ harvest
+Date: Mon, 10 Aug 2020 13:22:58 +0800
+Message-Id: <20200810052258.27961-2-guchun.chen@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200810052258.27961-1-guchun.chen@amd.com>
+References: <20200810052258.27961-1-guchun.chen@amd.com>
 X-ClientProxiedBy: HK2PR0302CA0004.apcprd03.prod.outlook.com
  (2603:1096:202::14) To CY4PR12MB1287.namprd12.prod.outlook.com
  (2603:10b6:903:40::8)
@@ -68,34 +71,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
  HK2PR0302CA0004.apcprd03.prod.outlook.com (2603:1096:202::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.6 via Frontend Transport; Mon, 10 Aug 2020 05:23:45 +0000
+ 15.20.3283.6 via Frontend Transport; Mon, 10 Aug 2020 05:23:48 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 160c499a-0fe4-45a4-3f99-08d83ced8f29
+X-MS-Office365-Filtering-Correlation-Id: a1278f46-b49c-4ccf-a133-08d83ced90d2
 X-MS-TrafficTypeDiagnostic: CY4PR12MB1574:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB15744A2A0AE8823A1FC85642F1440@CY4PR12MB1574.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:113;
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1574AB7DABC19C85BC529734F1440@CY4PR12MB1574.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0bkg+Lwap120Mf2LwTpeLqtj4/cybiXwjjgiNRQKpENz6EQAW36iQcaWv/dGcg/pSXCYGdKzP7rl+4T05oVcdO/HcCisNQIUvXKJCkACpLq1EJ/M2yNWa3ipgUFbVzsN6M7jjlTvzywNYcWKZNUOq8ryiuLwXW2qZgaJPXW0MZgmbrtnmU3JBekt5oXKtenInU3Nj+2Ps5/Pcd/6hgMGVsCUgWTA2PqrPzISWVZnxzKq4fMvZZpikJT3BrA5/8om/5yJRvfaKKxtURAVPYdE5joPgz36Ec+lYPg269VZ7njyrbNHPlW8916DgnFor/jeo3kCPGyeDIKl0HQmcjl6bg==
+X-Microsoft-Antispam-Message-Info: 1Q2/ZZtvt6frHobSJm8S/g56MjIsg3D4ITkwyiKabN4YxwQEC+0hB22cMTbG28FmVpUomgHMEk9SpELsYndyp6MNsKfHyfsU8NiuK8vXmsjuPHBwwcGCAz/JVg728+CMUGWM0I88Hsssmnli8qU+ji0lLmjTlJltyr468SDUUvGz3hpEa7RqoCmdhUXc18YvsDhCIcEUcIdYDIrk0xM4MDTB4s6/PB6KR8cuC4xeeKsMHz/NK1wHp4j2JE2RdWcFfz1czMs1q3Qltmln28e0u3J0Z4O3gTrp0hUvJT/+sd+wl0qUuAb+z5Ba2Un2rnKuyHtI4hnGvkUc1Q4eHCKceg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(83380400001)(6666004)(2906002)(186003)(1076003)(6486002)(16526019)(956004)(8936002)(52116002)(7696005)(478600001)(4326008)(6636002)(66946007)(2616005)(66556008)(66476007)(8676002)(5660300002)(44832011)(316002)(86362001)(36756003)(26005);
+ SFS:(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(6666004)(2906002)(186003)(1076003)(6486002)(16526019)(956004)(8936002)(52116002)(7696005)(478600001)(4326008)(6636002)(66946007)(2616005)(66556008)(66476007)(8676002)(5660300002)(44832011)(316002)(86362001)(36756003)(26005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: y4emmjbMJX66+NOzub9mufAawBByrWgY/dTDtdC8JE9cRiMjQnzkQRGVyo37EhHn4asf1KVVtaSxBkVUBa8LtmAOdsYZCK1Jx9GKGHIId9wDWsAsWDJGObskUkijQ4GvLAQo89OyMkUg3o5gkDoO4FNX5Orbz7oEpuEFuBcMQxWjIpvWpiNIoaP6UUktHHF+0YHWgk+l6L9cmA0as61D7bIPUYpJz+VHZMvP1MGUdVAMOC/F1TSTypxRptEtcnpW0zyk1Hd6TkrRwYTXu1EBlnf9CpgM25t4ioels/MDxdShCJR/NooxZLHzi4RvGXRoHaNcpQjAUwqG4/GgGsM52FGBiJ/H8I+f33OjbVkS6tSyizsNoTPO2+1fQs0yO5mfE596L0BP9tqXwJEDtcLqztr8og3mr7bCn7ZFHWt4jMXF2gOy8bhrVriTmcBzta5+8e6F/9WttAaT1aSu22Zt3BbmSrfshYGachHJE94pkxIMomHDHvM9n46LRL5ZheZvWDsfwFW49X/TghoLm3RiUn6bGGoBgGOzUv80X8Lp9FzG2xAGZPy2G3qL9vRuf96zuuYn0WbBdXGyzgZfsaJckb5uxIHnjhNvo2fHTSmJX36OEhkRYpN7BPqGfdVLZafrvKI8Rp+4CyiJYpqPoiUaGg==
+X-MS-Exchange-AntiSpam-MessageData: phzsJC4Gv2JE1BWCmg/WGokRT1U0vPRLzaxsqsJNFdI6E5uEUPqf33Hc70W8pI/1Lxe1jyvlA4bGau7nRQ4eOKDsl+9HEAyD9Gr4sJAkk1nNaIReepdHb7pUvvVpDufqOPZ4PX2UmamVxU/OywnheFIHtjln16nGurAaOPBd/QNJwJ2WQweeBrS4OoLHF3V+4xQHInyni8purKWyuHtLT8UUmcah0Wh11B6QRiqgfxKcp/BI+Gx5euR2PjgDypNVVtLlkzKEpGTLCw7k0nD7wl2lUJprgXQPrGwJdyiTJshdAT6P7ITliol1QY+OClh/us+KeQSSdTLcY8jjW1mKlTBYwUttETHx8vmkbmXVrQXJDFEP8uJCTjTprqNl4NfR3B39lTEAnSyBw03DvYklIYE7ffG33Cqs1b3FibygY9LnHzw+QWfx677zi/GplTYsKFEurkm8znXxzT0Lq5GqscJ6VdJI7yKv0cftcDvmuIscDSwgOmwngIz9UcBH5hHldMlewc5QvZQns5wLpUnYEDjxgnSOr9Mtay8RSuS1Ko7plh024sPrAkrrvEICkN8voksbzTMkOWCBD2sAkQBhVk2PtscpkIZnKeui2Yr7ioNpFsHh+00JRBFsVmIlM+XVw62+q09tzBIUtRfsUNkxUQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 160c499a-0fe4-45a4-3f99-08d83ced8f29
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1278f46-b49c-4ccf-a133-08d83ced90d2
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2020 05:23:48.2824 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2020 05:23:51.1841 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PdTkBn5sKZvfbU1HdtkXQ9v5SojflOfdQ/szxNY0ENR6ovypDvNS+dlqxufnwjQ8QY9K1YlJH4d3wKDEAa2w1A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: PXFBxeOEPaOlaNx8kqP1/9e7liSlMWRfp9fhMBYJyJTtMQBeGR1ItlKDejAULKvfGTsVZaAmb4rkM0oIqUNZGw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1574
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,131 +117,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Once ras recovery is issued by ras sync flood interrupt or
-ras controller interrupt, add this guard to bypass or execute
-ras error count register harvest of all IPs.
+Before ras recovery is issued, user could operate this debugfs
+node to enable/disable the harvest of all RAS IPs' ras error
+count registers, which will help keep hardware's registers'
+status instead of cleaning up them.
 
 Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 22 ++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  3 ++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c  | 48 +++++++++++++------------
- 3 files changed, 41 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 89cb0ae9da9d..e6978b8e2143 100644
+index e6978b8e2143..31df6bf2dc1f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1547,17 +1547,19 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
- 	struct list_head device_list, *device_list_handle =  NULL;
- 	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev, false);
- 
--	/* Build list of devices to query RAS related errors */
--	if  (hive && adev->gmc.xgmi.num_physical_nodes > 1)
--		device_list_handle = &hive->device_list;
--	else {
--		INIT_LIST_HEAD(&device_list);
--		list_add_tail(&adev->gmc.xgmi.head, &device_list);
--		device_list_handle = &device_list;
--	}
-+	if (!ras->disable_ras_err_cnt_harvest) {
-+		/* Build list of devices to query RAS related errors */
-+		if  (hive && adev->gmc.xgmi.num_physical_nodes > 1) {
-+			device_list_handle = &hive->device_list;
-+		} else {
-+			INIT_LIST_HEAD(&device_list);
-+			list_add_tail(&adev->gmc.xgmi.head, &device_list);
-+			device_list_handle = &device_list;
-+		}
- 
--	list_for_each_entry(remote_adev, device_list_handle, gmc.xgmi.head) {
--		amdgpu_ras_log_on_err_counter(remote_adev);
-+		list_for_each_entry(remote_adev,
-+				device_list_handle, gmc.xgmi.head)
-+			amdgpu_ras_log_on_err_counter(remote_adev);
- 	}
- 
- 	if (amdgpu_device_should_recover_gpu(ras->adev))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 70a6fca73617..6b8d7bb83bb3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -343,6 +343,9 @@ struct amdgpu_ras {
- 
- 	/* bad page count threshold */
- 	uint32_t bad_page_cnt_threshold;
+@@ -1215,6 +1215,13 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+ 	 */
+ 	debugfs_create_bool("auto_reboot", S_IWUGO | S_IRUGO, con->dir,
+ 				&con->reboot);
 +
-+	/* disable ras error count harvest in recovery */
-+	bool disable_ras_err_cnt_harvest;
- };
++	/*
++	 * User could set this not to clean up hardware's error count register
++	 * of RAS IPs during ras recovery.
++	 */
++	debugfs_create_bool("disable_ras_err_cnt_harvest", 0644,
++			con->dir, &con->disable_ras_err_cnt_harvest);
+ }
  
- struct ras_fs_data {
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index e629156173d3..eadc9526d33f 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -302,6 +302,7 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 	uint32_t bif_doorbell_intr_cntl;
- 	struct ras_manager *obj = amdgpu_ras_find_obj(adev, adev->nbio.ras_if);
- 	struct ras_err_data err_data = {0, 0, 0, NULL};
-+	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
- 
- 	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL);
- 	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
-@@ -312,28 +313,31 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 						RAS_CNTLR_INTERRUPT_CLEAR, 1);
- 		WREG32_SOC15(NBIO, 0, mmBIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
- 
--		/*
--		 * clear error status after ras_controller_intr according to
--		 * hw team and count ue number for query
--		 */
--		nbio_v7_4_query_ras_error_count(adev, &err_data);
--
--		/* logging on error counter and printing for awareness */
--		obj->err_data.ue_count += err_data.ue_count;
--		obj->err_data.ce_count += err_data.ce_count;
--
--		if (err_data.ce_count)
--			dev_info(adev->dev, "%ld correctable hardware "
--					"errors detected in %s block, "
--					"no user action is needed.\n",
--					obj->err_data.ce_count,
--					adev->nbio.ras_if->name);
--
--		if (err_data.ue_count)
--			dev_info(adev->dev, "%ld uncorrectable hardware "
--					"errors detected in %s block\n",
--					obj->err_data.ue_count,
--					adev->nbio.ras_if->name);
-+		if (!ras->disable_ras_err_cnt_harvest) {
-+			/*
-+			 * clear error status after ras_controller_intr
-+			 * according to hw team and count ue number
-+			 * for query
-+			 */
-+			nbio_v7_4_query_ras_error_count(adev, &err_data);
-+
-+			/* logging on error cnt and printing for awareness */
-+			obj->err_data.ue_count += err_data.ue_count;
-+			obj->err_data.ce_count += err_data.ce_count;
-+
-+			if (err_data.ce_count)
-+				dev_info(adev->dev, "%ld correctable hardware "
-+						"errors detected in %s block, "
-+						"no user action is needed.\n",
-+						obj->err_data.ce_count,
-+						adev->nbio.ras_if->name);
-+
-+			if (err_data.ue_count)
-+				dev_info(adev->dev, "%ld uncorrectable hardware "
-+						"errors detected in %s block\n",
-+						obj->err_data.ue_count,
-+						adev->nbio.ras_if->name);
-+		}
- 
- 		dev_info(adev->dev, "RAS controller interrupt triggered "
- 					"by NBIF error\n");
+ void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
 -- 
 2.17.1
 
