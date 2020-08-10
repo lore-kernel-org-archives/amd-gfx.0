@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D34F1C433E3
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 19:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A9E51C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 19:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A864A207FF
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 19:13:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7C18022BEB
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 19:14:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="vy8Hp9Bm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A864A207FF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Idq5bmaV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C18022BEB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3C06E44E;
-	Mon, 10 Aug 2020 19:13:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A37E6E452;
+	Mon, 10 Aug 2020 19:14:25 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 482A76E44B;
- Mon, 10 Aug 2020 19:13:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF06F6E452;
+ Mon, 10 Aug 2020 19:14:24 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1199722B49;
- Mon, 10 Aug 2020 19:13:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7D70C207FF;
+ Mon, 10 Aug 2020 19:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597086831;
- bh=o4l7/CzR2RC+FJbDc3/jPbOByK3INs3SyymKtf/GbjQ=;
+ s=default; t=1597086864;
+ bh=DMfpQ+H8dZEgtsoidfttJ8FPsd91nK2KArIgGobJheI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vy8Hp9BmoTbH1vL6rDbWppFgeod3Hk0azk7fT6N5UaYqKXP+QyKyjvaJ7hlmScoqL
- IPzabJOBbC4LmiKkxdPkJUOX4eQaAj1FBwZf5umZ8OIhuh308pfShrC6+dyGs8othd
- 3VWMytucaQ2686MpgqjWurGJslUsUwInaaD0I0Ok=
+ b=Idq5bmaVOIlJ54gcC2NYArPzfi4Ielk4HFC8rSvX4ZjS6TIzul7btV7ETE0Jvxnt2
+ HSmp0VJ5XsFc0kqVPPUM5OPbo0bcJJzS+NoS2QRLuQDxrKo0SkGKx09R0tOSuLE12A
+ 1++/DcEFOqhFPK2BzWAoIvzn0MJdsA91OASfyVh0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 04/22] drm/radeon: Fix reference count leaks
+Subject: [PATCH AUTOSEL 4.9 04/17] drm/radeon: Fix reference count leaks
  caused by pm_runtime_get_sync
-Date: Mon, 10 Aug 2020 15:13:26 -0400
-Message-Id: <20200810191345.3795166-4-sashal@kernel.org>
+Date: Mon, 10 Aug 2020 15:14:05 -0400
+Message-Id: <20200810191418.3795394-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200810191345.3795166-1-sashal@kernel.org>
-References: <20200810191345.3795166-1-sashal@kernel.org>
+In-Reply-To: <20200810191418.3795394-1-sashal@kernel.org>
+References: <20200810191418.3795394-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -89,10 +89,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index d86110cdf0852..b2334349799d1 100644
+index 432ad7d73cb9b..99e23800cadc7 100644
 --- a/drivers/gpu/drm/radeon/radeon_display.c
 +++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -627,8 +627,10 @@ radeon_crtc_set_config(struct drm_mode_set *set,
+@@ -639,8 +639,10 @@ radeon_crtc_set_config(struct drm_mode_set *set)
  	dev = set->crtc->dev;
  
  	ret = pm_runtime_get_sync(dev->dev);
@@ -102,10 +102,10 @@ index d86110cdf0852..b2334349799d1 100644
  		return ret;
 +	}
  
- 	ret = drm_crtc_helper_set_config(set, ctx);
+ 	ret = drm_crtc_helper_set_config(set);
  
 diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index f6908e2f9e55a..41e8abd099784 100644
+index 30bd4a6a9d466..7648fd0d10751 100644
 --- a/drivers/gpu/drm/radeon/radeon_drv.c
 +++ b/drivers/gpu/drm/radeon/radeon_drv.c
 @@ -496,8 +496,10 @@ long radeon_drm_ioctl(struct file *filp,
@@ -121,10 +121,10 @@ index f6908e2f9e55a..41e8abd099784 100644
  	ret = drm_ioctl(filp, cmd, arg);
  	
 diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index dfee8f7d94ae5..2e28cf8118404 100644
+index 4388ddeec8d24..96d2a564d9a3c 100644
 --- a/drivers/gpu/drm/radeon/radeon_kms.c
 +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -659,8 +659,10 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+@@ -634,8 +634,10 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
  	file_priv->driver_priv = NULL;
  
  	r = pm_runtime_get_sync(dev->dev);
