@@ -2,69 +2,67 @@ Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6A06C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 14:20:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8121C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:38:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADFEC204EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 14:20:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9399223117
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:38:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="dbAw7ysG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADFEC204EC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ex3Z5zxw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9399223117
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58F7E6E435;
-	Mon, 10 Aug 2020 14:20:24 +0000 (UTC)
-Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
- [IPv6:2607:f8b0:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB4386E435
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 14:20:22 +0000 (UTC)
-Received: by mail-ot1-x341.google.com with SMTP id h22so7358889otq.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 07:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24B4389948;
+	Mon, 10 Aug 2020 15:38:37 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F44789948
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 15:38:35 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id x5so7999098wmi.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 08:38:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Ub0gAaFfwgEsp0Sm0HD3MINJ30LaVhiYSGrx9gDLIgw=;
- b=dbAw7ysGlG86B6WakK9JwM/v2xudIYbYznrQaD9fDdtsLyRHfot2DPqCYXpyeBDBrD
- dZ59w214pMZoLSMCJxGdkSknGqx4qMzUjY4cCDrAd1ex77IV1moyjaY9lxmX3hlPRpk7
- 9/xQ8/cLLy2u8u4I2IJxMBsvz42BYW0TBzvMw=
+ :cc; bh=9HDkfajPYullYtgeMKRzPIuRUyFXpvaTmVtuD4dMvpU=;
+ b=Ex3Z5zxwI7G0L/H8/ovgbnl1GkVcAZ5pzomB+YXbOkRVcuHmFiLV5HuKPTyWiD6g+6
+ gM2uuc70oB2/Gs/XBA6LjTsIUPamnWv6YOz8dvuKfVFonSoy/EiSJmrrLwMLFiGrExUr
+ sMLcLWQTdnz9NSWwwz2Fd7VFyDnyj1hL80EqHTddL8HJUPouWdDIhiLqir1I0LXGyPEL
+ GJ8URYwR97W9JkyyZeJQnLeiIWmuNCKpSrUwDeKJPDXvWAfmVVDcneSuf0bV9zZgCInK
+ Os6slxVivxSQDQ5xKKzsnom3qhjz3yKmkU/8ucHxnJExryYS5xlrKZHcDcf+iqQOesTY
+ OrAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Ub0gAaFfwgEsp0Sm0HD3MINJ30LaVhiYSGrx9gDLIgw=;
- b=huRO699cgVutgttohVw2D/I+SBIvYHHp/wKWVs0+HLlLy6UAQKrS466Hb1f23appB2
- fHPZBz0f+OaY/475QjINQtBveqvVn33mD+4cA3sRDdR0UETnIEOU8Jwv7qjstIgP+qOc
- jSf03HuEJAP5YHv/fS8EWOOwlUuDw5vc2kJs2BEHINfr0XyAs9zdKA1xs76xuSOHy8mu
- C7cshooKmrJGYJ4CkAwd/KFiKl/iYUfoA4i+xybTRUcWAzdMMYwce1FJilJ2x4RB/iYz
- VbySek7SJV5nfg+PF4mjrGBd426dsx5lQzdfDiHDROY9y36LqSqz/qeshKuaekGTKHVw
- c/sw==
-X-Gm-Message-State: AOAM531iPstgtZLxViXyylTKQzpvWwofm1Bpm7DImVARZ+SFbLZSeHXL
- 28qkoWAHg8M5CCFpZ8QSAj7S7g32ZRpugkglQkIWxg==
-X-Google-Smtp-Source: ABdhPJy2gb11i+jvriDbKIYqNodOlWjK6tF15m7SfxA6v0sBAcYU2tCQZrKnVJfDb6tQKY97wRYS+7kdJK/czUXsB5g=
-X-Received: by 2002:a05:6830:1e71:: with SMTP id
- m17mr1031970otr.188.1597069222064; 
- Mon, 10 Aug 2020 07:20:22 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=9HDkfajPYullYtgeMKRzPIuRUyFXpvaTmVtuD4dMvpU=;
+ b=gIiQRXBBO1jpUPll8EgB5rmqmxh1cEkCDTJ1YkvpZvNS0Ke2vwSVo5/PL072SPYMcp
+ K3PoP4NyK6KWLA26UAZAvpsVqeJT0GlxO4QjVgfec2rw/1B4YZiLoWiWzkvXH0hqv2jd
+ qnfazrhZM69c0vKar5ce/p/wivD+m658c53LipmpSy28/qMEW0OgkQvl9r+bUVvNsACc
+ KfLyEzXo0nNKOHyifiMGHDH3XILc8OZRrhuNTwGBWUN/wV3FDRPvgnWCpUzrm58OZ2W6
+ pqy9SUUj8Bh8k/FfaOQavwcMWg9GHedv+hBYA2j9V67e8wwtab4ZBhfF7aIsYJfOY6Dg
+ 17qQ==
+X-Gm-Message-State: AOAM5318PMNd78+8I+QCAGTjUg8uq2kathzdq7F/eF4AEMkBOYOIpe7F
+ oBLbAmYN2/Wwi7dt+qTNhqqFYzisV85VebjtNis=
+X-Google-Smtp-Source: ABdhPJytAO3sXsGh0JRAA92NnWQJyL9iTygpkSb4vU3BkFaOu1Gjbk9NucVxTW1pf1ELVAH1GJ1Uzq/LQG4GX7Rhupo=
+X-Received: by 2002:a7b:c941:: with SMTP id i1mr25552220wml.73.1597073913946; 
+ Mon, 10 Aug 2020 08:38:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200804213119.25091-1-bas@basnieuwenhuizen.nl>
- <20200804213119.25091-7-bas@basnieuwenhuizen.nl>
- <20200805073210.GU6419@phenom.ffwll.local>
- <20200810122820.GJ2352366@phenom.ffwll.local>
- <49e200cd-3df6-8a11-34f4-d1342a79f75e@daenzer.net>
- <20200810130935.GT2352366@phenom.ffwll.local>
- <CAP+8YyH0ufOc34Bis3PqfUR6XdE+6kRMasfgz1E4XUWJbbmB+A@mail.gmail.com>
-In-Reply-To: <CAP+8YyH0ufOc34Bis3PqfUR6XdE+6kRMasfgz1E4XUWJbbmB+A@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 10 Aug 2020 16:20:11 +0200
-Message-ID: <CAKMK7uGgTry5mnYczr8fxpcB2QFtiDYsYqdtAfVYDgC0jcsJ4g@mail.gmail.com>
-Subject: Re: [PATCH 6/8] drm/amd/display: Set DC options from modifiers.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+References: <20200808204235.12313-1-daniel@octaforge.org>
+ <20200808204235.12313-2-daniel@octaforge.org>
+In-Reply-To: <20200808204235.12313-2-daniel@octaforge.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 10 Aug 2020 11:38:22 -0400
+Message-ID: <CADnq5_P4fH0Bt6YcAy+msbeodhEts4knumsJxnGbgFXC+NojSA@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu/display: use GFP_ATOMIC in
+ dcn20_validate_bandwidth_internal
+To: Daniel Kolesa <daniel@octaforge.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,57 +74,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Stone <daniel@fooishbar.org>, "Wentland,
- Harry" <harry.wentland@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBBdWcgMTAsIDIwMjAgYXQgNDoxMyBQTSBCYXMgTmlldXdlbmh1aXplbgo8YmFzQGJh
-c25pZXV3ZW5odWl6ZW4ubmw+IHdyb3RlOgo+Cj4gT24gTW9uLCBBdWcgMTAsIDIwMjAgYXQgMzow
-OSBQTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3RlOgo+ID4KPiA+IE9uIE1v
-biwgQXVnIDEwLCAyMDIwIGF0IDAyOjQ5OjAwUE0gKzAyMDAsIE1pY2hlbCBEw6RuemVyIHdyb3Rl
-Ogo+ID4gPiBPbiAyMDIwLTA4LTEwIDI6MjggcC5tLiwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+
-ID4gPgo+ID4gPiA+IE9rIGp1c3QgbGVhcm5lZCB0aGF0IGFtZGdwdSBoYXQgc2V0L2dldF90aWxp
-bmcsIHNvIEknbSB1cGdyYWRpbmcgbXkgaWRlYQo+ID4gPiA+IGhlcmUgdG8gYSB2ZXJ5IHN0cm9u
-ZyByZWNvbW1lbmRhdGlvbiwgaS5lLiBwbGVhc2UgZG8gdGhpcyBleGNlcHQgaWYKPiA+ID4gPiB0
-aGVyZSdzIGFuZCBhbWQgZGR4IHdoaWNoIHNvbWVob3cgd2FudHMgdG8gY2hhbmdlIHRpbGluZyBt
-b2RlIHdoaWxlIGEgZmIKPiA+ID4gPiBleGlzdHMsIGFuZCBleHBlY3RzIHRoaXMgdG8gcHJvcGFn
-YXRlLgo+ID4gPiA+Cj4gPiA+ID4gSW4gaTkxNSB3ZSBldmVuIGRpc2FsbG93IHRoZSBzZXRfdGls
-aW5nIGlvY3RsIHdpdGggYW4gZXJyb3IgaWYgYW4gZmIKPiA+ID4gPiBleGlzdHMsIGp1c3QgdG8g
-bWFrZSBzdXJlIHVzZXJzcGFjZSBiZWhhdmVzLiBFdmVuIGlmIHVzZXJzcGFjZSB1c2VzCj4gPiA+
-ID4gc2V0X3RpbGluZywgdGhpcyB3YXkgd2UgY2FuIGF0IGxlYXN0IGVuZm9yY2UgdGhlIHNhbWUg
-c2VtYW50aWNzIG9mICJjbGllbnQKPiA+ID4gPiBjYW4ndCBwdWxsIGNvbXBvc2l0b3Igb3ZlciB0
-aGUgdGFibGUgd2l0aCBhIHNldF90aWxpbmcgYXQgdGhlIHdyb25nIHRpbWUiCj4gPiA+ID4gb2Yg
-bW9kaWZpZXJzLgo+ID4gPgo+ID4gPiBGV0lXLCB4Zjg2LXZpZGVvLWFtZGdwdSBkb2Vzbid0IGhh
-dmUgYW55IGNvZGUgdG8gc2V0IHRoZSB0aWxpbmcKPiA+ID4gbWV0YWRhdGEsIG9ubHkgTWVzYSBh
-bmQgcHJlc3VtYWJseSBBTUQncyBWdWxrYW4vT3BlbkdMIFVNRHMgZG8uCj4gPgo+ID4gQWggcmln
-aHQgeW91IGRvIGV2ZXJ5dGhpbmcgd2l0aCBnbGFtb3VyLCBzbyB0aGlzIHNob3VsZCBuZXZlciBz
-aG93IHVwIGFzIGEKPiA+IHByb2JsZW0uCj4KPiBJIHRoaW5rIGl0IGlzIGEgZ29vZCBpZGVhIHRv
-IGRvIHNvLCBidXQgY2Fubm90IGRvIGl0IGNvbXBsZXRlbHkgaW4KPiB0aGlzIHNlcmllcyBhcyB3
-ZSBkb24ndCBkZWZpbmUgbW9kaWZpZXJzIGZvciBHRlg2LUdGWDggR1BVIGdlbmVyYXRpb25zCj4g
-eWV0LiAod2FudGVkIHRvIGxlYXZlIHRoZXNlIG91dCBmb3IgYSBiaXQgdG8gcmVkdWNlIHRoZSBz
-Y29wZSBmb3IgdGhlCj4gaW5pdGlhbCB2ZXJzaW9uKQoKSG0gcmlnaHQsIHRoYXQgbWFrZXMgaXQg
-YSBiaXQgYXdrd2FyZC4KCj4gVGhhdCBzYWlkLCB0aGVyZSBpcyBhIHNlcmllcyB0aGF0IGNhcHR1
-cmVzIHRoZSB0aWxpbmcgZmxhZ3Mgb24gRkIKPiBjcmVhdGlvbjogaHR0cHM6Ly9wYXRjaHdvcmsu
-ZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy84MDEwOS8KClllYWgsIGJ1dCBpdCBvbmx5IHB1c2hlcyBp
-dCBkb3duIGludG8gdGhlIHN0YXRlIG9iamVjdHMuIEdvb2QgZmlyc3QKc3RlcCwgd2hhdCBJJ20g
-cHJvcG9zaW5nIGlzIHRvIHB1c2ggaXQgYWxsIHRoZSB3YXkgaW50byBhZGRmYi9zdHJ1Y3QKZHJt
-X2ZyYW1lYnVmZmVyLiBTaW5jZSBkcm1fZnJhbWVidWZmZXIgaXMgYWxzbyBhbiBpbnZhcmlhbnQg
-dGhpbmcgaXQKbWFrZXMgdGhlIG1vc3Qgc2Vuc2UgdG8ga2VlcCB0aGF0IHRoZXJlLiBJJ20gYWxz
-byBkaXNjdXNzaW5nIHdpdGgKTmljaG9sYXMgYWJvdXQgd2hhdCB3b3VsZCBiZSB0aGUgaWRlYWwg
-ZW5kIHN0YXRlLgoKQnV0IHllYWggbWF5YmUgb25lIHRoaW5nIGF0IHRpbWUuCi1EYW5pZWwKCj4K
-PiA+IC1EYW5pZWwKPiA+IC0tCj4gPiBEYW5pZWwgVmV0dGVyCj4gPiBTb2Z0d2FyZSBFbmdpbmVl
-ciwgSW50ZWwgQ29ycG9yYXRpb24KPiA+IGh0dHA6Ly9ibG9nLmZmd2xsLmNoCj4gPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4gYW1kLWdmeCBtYWls
-aW5nIGxpc3QKPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgoKLS0gCkRhbmll
-bCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9n
-LmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Sat, Aug 8, 2020 at 4:51 PM Daniel Kolesa <daniel@octaforge.org> wrote:
+>
+> GFP_KERNEL may and will sleep, and this is being executed in
+> a non-preemptible context; this will mess things up since it's
+> called inbetween DC_FP_START/END, and rescheduling will result
+> in the DC_FP_END later being called in a different context (or
+> just crashing if any floating point/vector registers/instructions
+> are used after the call is resumed in a different context).
+>
+> Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
+
+We should probably find a way to pre-allocate this, but in the
+meantime, I'll apply the patch.
+
+Thanks!
+
+Alex
+
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> index 991eddd10952..c31d1f30e505 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> @@ -3141,7 +3141,7 @@ static bool dcn20_validate_bandwidth_internal(struct dc *dc, struct dc_state *co
+>         int vlevel = 0;
+>         int pipe_split_from[MAX_PIPES];
+>         int pipe_cnt = 0;
+> -       display_e2e_pipe_params_st *pipes = kzalloc(dc->res_pool->pipe_count * sizeof(display_e2e_pipe_params_st), GFP_KERNEL);
+> +       display_e2e_pipe_params_st *pipes = kzalloc(dc->res_pool->pipe_count * sizeof(display_e2e_pipe_params_st), GFP_ATOMIC);
+>         DC_LOGGER_INIT(dc->ctx->logger);
+>
+>         BW_VAL_TRACE_COUNT();
+> --
+> 2.28.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
