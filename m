@@ -2,83 +2,85 @@ Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F2C0C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:44:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89096C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74A9E2080C
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:44:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5355022BEA
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:53:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="o99keg9q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74A9E2080C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=octaforge.org header.i=@octaforge.org header.b="oN8KihT3";
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IGjJXvmH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5355022BEA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=octaforge.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2D86E27C;
-	Mon, 10 Aug 2020 15:44:41 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02C7C6E25E;
- Mon, 10 Aug 2020 15:44:39 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07AFhXtJ153655;
- Mon, 10 Aug 2020 15:44:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=JvLiuuU3UgGUfrDifIj6lXvZMS7W5udsSPkBUIuvbkM=;
- b=o99keg9qf1qCDxOhoorD6MCLSCgG2oiYfCjODzVYEfkaELoMgwnwZ4iv8hQ9KEaneAda
- iiZsUsiNkXMJfMXxW+3gLZ2PW7raHV/Kq4Z/OpNKyBQH7DNsIOPntyB9k4UjdF00IIa+
- XBwbI6vHtVrPx2WuehFw/AG/dtsTgxnd+H+hjN5w6bXUes3s51e09EgqtC7Yl4MpRAKl
- eQrbhKPWAdiOe9r2eCsf8YkrrOsPemAZdBKucdRfYA5KUkBGCzPkVcV07irNbBwO5Ipb
- YsQG5z8AtbiO1F8Rl4JrhU9vkxqeJcuG/48hNkNhXFzjwZ0HcapCSuNxr7FW8iF/14xa fQ== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 32smpn79q6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 10 Aug 2020 15:44:35 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07AFJEiH003551;
- Mon, 10 Aug 2020 15:42:34 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 32t5y16wbq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 10 Aug 2020 15:42:34 +0000
-Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 07AFgNSI016391;
- Mon, 10 Aug 2020 15:42:23 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 10 Aug 2020 15:42:22 +0000
-Date: Mon, 10 Aug 2020 18:42:13 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] drm: amdgpu: Use the correct size when allocating memory
-Message-ID: <20200810154213.GM1793@kadam>
-References: <20200809203406.751971-1-christophe.jaillet@wanadoo.fr>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200809203406.751971-1-christophe.jaillet@wanadoo.fr>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9709
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- malwarescore=0
- suspectscore=0 mlxscore=0 adultscore=0 bulkscore=0 phishscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2008100115
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9709
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 lowpriorityscore=0
- bulkscore=0 impostorscore=0 phishscore=0 clxscore=1011 spamscore=0
- malwarescore=0 adultscore=0 mlxlogscore=999 mlxscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2008100116
+	by gabe.freedesktop.org (Postfix) with ESMTP id E014489FCE;
+	Mon, 10 Aug 2020 15:53:32 +0000 (UTC)
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F81289FCE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 15:53:31 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C7263ADD;
+ Mon, 10 Aug 2020 11:53:28 -0400 (EDT)
+Received: from imap1 ([10.202.2.51])
+ by compute7.internal (MEProxy); Mon, 10 Aug 2020 11:53:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=octaforge.org;
+ h=mime-version:message-id:in-reply-to:references:date:from:to
+ :cc:subject:content-type; s=fm1; bh=4tHZFyeA72S9jJUf22PurABmxWM7
+ Gs6M8zvxYihgZIU=; b=oN8KihT3RmRQocJnKpa2Lrq3yc0lUhNPHEgOif4JL1Po
+ XtEJbeWD8GM/N1H68H0M6HYeM0LlWRr9ZLKjb1+qBlxOMYIM96IPlUHO2ZiB+u6V
+ F8XZl8l8ZoTkk0pLg2clyZ/l9YkvINIw+PGSZh621yxKjwvQjePu2nUdNm6aRB+l
+ anb6lbndLYjwyvflXhX99Z4eYy4v0XUM8d5U1UYavPkVdnOCOVs4qzPYJxCUx1p7
+ yhbjvPF6oBSyY11x3KE5fZRVe/ZeyEzqMgu6ggn0HDEQjxL8HIdG0WGOePfHsA9i
+ oW7RBtgkFkm5KbcobApt/fBNK/HkZJdV1vua2UI+IA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=4tHZFy
+ eA72S9jJUf22PurABmxWM7Gs6M8zvxYihgZIU=; b=IGjJXvmHb+YlzkFga98YDw
+ rKTIWKUpxMqyD76V0M8K0+lQKy8Smvf33XkFODQBxyixYRUA4fnJENlGYGxvo7T1
+ dKXUr66gaorL92dAfuCpC4wgmfsC/MP4l50qqIwdWgrtnB6p2EG+6AoLU0+dOdg1
+ Z6xYP4EqDAt7xRH9MJo5ubd1AvxNUhzNPzNxhVOUE+7QtbSPZ0jCwKpB/xesqoFc
+ 3MbZQtmYutN1TvUgBuhSAC22UvHy0fd//hbwUiwjNos36YavXC8TqlD711j5Ix6d
+ 7Gp6TsSanwFf0glPEGN+CZmdFtwZqJAcKrgDwVpbNMpZAckqPPdAH9zSJ3uNQ9zw
+ ==
+X-ME-Sender: <xms:eG0xXxrqozbk-90L3EZf3ZIdIGlTqswubnjlFzWLsCIq1qXkRY_AVg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrkeekgdelhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedfffgrnhhi
+ vghlucfmohhlvghsrgdfuceouggrnhhivghlsehotghtrghfohhrghgvrdhorhhgqeenuc
+ ggtffrrghtthgvrhhnpefgveekveefveeiveekkefhieelhfffffdujefgjefgieeufeek
+ leejieeigfeiieenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghenucevlh
+ hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegurghnihgvlhes
+ ohgtthgrfhhorhhgvgdrohhrgh
+X-ME-Proxy: <xmx:eG0xXzolDCxddK_LGkQ2TzncebupTKt8IhjSPH48xLGts6nn_Vv4jQ>
+ <xmx:eG0xX-NNdj8kPWIBqxh2D25cj-QSUJadzwQsG0bMuQCS10ZvaiFRjw>
+ <xmx:eG0xX86HgDsaOfst0ofT9TDKpAb8gWA3UFOYVOQ2e6Z7IVDGS9wylA>
+ <xmx:eG0xXyG-mWEdWOIvWDWNaQ3f8bGCTbKMT2bjUE_xKv_QP3FFb87-5w>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 11FD5C200A6; Mon, 10 Aug 2020 11:53:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.3.0-143-g3d58b38-fm-20200806.002-g3d58b387
+Mime-Version: 1.0
+Message-Id: <e899ee03-a37f-4558-afed-e6bd07ce97db@www.fastmail.com>
+In-Reply-To: <CADnq5_P4fH0Bt6YcAy+msbeodhEts4knumsJxnGbgFXC+NojSA@mail.gmail.com>
+References: <20200808204235.12313-1-daniel@octaforge.org>
+ <20200808204235.12313-2-daniel@octaforge.org>
+ <CADnq5_P4fH0Bt6YcAy+msbeodhEts4knumsJxnGbgFXC+NojSA@mail.gmail.com>
+Date: Mon, 10 Aug 2020 17:53:07 +0200
+From: "Daniel Kolesa" <daniel@octaforge.org>
+To: "Alex Deucher" <alexdeucher@gmail.com>
+Subject: =?UTF-8?Q?Re:_[PATCH_1/1]_drm/amdgpu/display:_use_GFP=5FATOMIC_in_dcn20=5F?=
+ =?UTF-8?Q?validate=5Fbandwidth=5Finternal?=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,43 +92,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ori.Messinger@amd.com, airlied@linux.ie, bernard@vivo.com,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, sumit.semwal@linaro.org,
- colton.w.lewis@protonmail.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- alexander.deucher@amd.com, christian.koenig@amd.com, m.szyprowski@samsung.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Aug 09, 2020 at 10:34:06PM +0200, Christophe JAILLET wrote:
-> When '*sgt' is allocated, we must allocated 'sizeof(**sgt)' bytes instead
-> of 'sizeof(*sg)'. 'sg' (i.e. struct scatterlist) is smaller than
-> 'sgt' (i.e struct sg_table), so this could lead to memory corruption.
+On Mon, Aug 10, 2020, at 17:38, Alex Deucher wrote:
+> On Sat, Aug 8, 2020 at 4:51 PM Daniel Kolesa <daniel@octaforge.org> wrote:
+> >
+> > GFP_KERNEL may and will sleep, and this is being executed in
+> > a non-preemptible context; this will mess things up since it's
+> > called inbetween DC_FP_START/END, and rescheduling will result
+> > in the DC_FP_END later being called in a different context (or
+> > just crashing if any floating point/vector registers/instructions
+> > are used after the call is resumed in a different context).
+> >
+> > Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
+> 
+> We should probably find a way to pre-allocate this, but in the
+> meantime, I'll apply the patch.
 
-The sizeof(*sg) is bigger than sizeof(**sgt) so this wastes memory but
-it won't lead to corruption.
+Indeed. But this should work as an immediate solution for people experiencing issues. For me it completely stopped dmesg noise on ppc64le and aarch64, and seemingly even fixed the screen flicker problem on POWER that I had to formerly work around by forcing the clocks to high (been running it for days and it's worked perfectly fine with adaptive during the time).
 
-    11  struct scatterlist {
-    12          unsigned long   page_link;
-    13          unsigned int    offset;
-    14          unsigned int    length;
-    15          dma_addr_t      dma_address;
-    16  #ifdef CONFIG_NEED_SG_DMA_LENGTH
-    17          unsigned int    dma_length;
-    18  #endif
-    19  };
+Daniel
 
-    42  struct sg_table {
-    43          struct scatterlist *sgl;        /* the list */
-    44          unsigned int nents;             /* number of mapped entries */
-    45          unsigned int orig_nents;        /* original size of list */
-    46  };
-
-regards,
-dan carpenter
-
+> 
+> Thanks!
+> 
+> Alex
+> 
+> 
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> > index 991eddd10952..c31d1f30e505 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> > @@ -3141,7 +3141,7 @@ static bool dcn20_validate_bandwidth_internal(struct dc *dc, struct dc_state *co
+> >         int vlevel = 0;
+> >         int pipe_split_from[MAX_PIPES];
+> >         int pipe_cnt = 0;
+> > -       display_e2e_pipe_params_st *pipes = kzalloc(dc->res_pool->pipe_count * sizeof(display_e2e_pipe_params_st), GFP_KERNEL);
+> > +       display_e2e_pipe_params_st *pipes = kzalloc(dc->res_pool->pipe_count * sizeof(display_e2e_pipe_params_st), GFP_ATOMIC);
+> >         DC_LOGGER_INIT(dc->ctx->logger);
+> >
+> >         BW_VAL_TRACE_COUNT();
+> > --
+> > 2.28.0
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
