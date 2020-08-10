@@ -2,72 +2,56 @@ Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E67C2C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F855C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:49:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC4C42078E
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:35:03 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="VTJrN3qP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC4C42078E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id A2161206E9
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:49:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2161206E9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06DE36E446;
-	Mon, 10 Aug 2020 12:35:00 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F21D6E441
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 12:34:58 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id f12so7997922wru.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 05:34:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=mNu0044hd7zMyg8gy+6ZC5f1UxT3rb9zNuHQYJhU8jU=;
- b=VTJrN3qPEK8OZ+52GT/lHzakYVNOZVyDUZz/i83r7FuggMIejEdcvxDO3FjRBORg0m
- iqUM6iVRy5Xw/gg8bSudpKlAI1VMmk5j6AaflYQm3zBSu+A8U63lyNDYNfniwjG03vnr
- o+i3NQJMXmocZB5bpjYGzEAwzNQDN/o/Vk4cY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=mNu0044hd7zMyg8gy+6ZC5f1UxT3rb9zNuHQYJhU8jU=;
- b=i3Lq/z7KaRci4b1ZhAlL6j7A6Qqd8q7IgMvAgZatQxb8Iqnv23Tp5mkLckk5bPGN6N
- 860lMMul4lB5p/jnhenY2CRXCQr/2xfO+B8FgY+r5gZCoo/7eF00FYhu0XGyfMES3Apl
- 5FWzsR0vXXL/PYoeXXCUBGc6JUYKC8wLZ31DJVxGZoyV07kaACcSJwcNPwtQFRWFWq7x
- 6ONMi4H+d81YypYRIu34lK2MdMQvKhpn270W4h7hG+4WrMyBz8tr2D6rRTtSJBKewjnP
- Jsg2/R3IT/rAFbGuyl7b+ztpBRGrAfF8xfvLvtVqV8WMcJjKo8ppsLTYWU/ExgXYMh7x
- QeCw==
-X-Gm-Message-State: AOAM533pJhhUe5bKRckK42CCZ1sWGoS3D48yf8HSJWYd1B5nxajNqilO
- lzl3SLOcxgyc9tsmzr0DwM17a0O8D/8=
-X-Google-Smtp-Source: ABdhPJxqUxniiIiu3b4UpvXghdcPivkQQ+ASWszKMo1vXxd3axuIke5NaHvRUXdMC2EkRoLrfIsKKw==
-X-Received: by 2002:adf:9ec1:: with SMTP id b1mr1257133wrf.171.1597062896956; 
- Mon, 10 Aug 2020 05:34:56 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id x6sm19549362wmx.28.2020.08.10.05.34.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Aug 2020 05:34:56 -0700 (PDT)
-Date: Mon, 10 Aug 2020 14:34:54 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Subject: Re: [PATCH 7/7] drm/amd/display: Replace DRM private objects with
- subclassed DRM atomic state
-Message-ID: <20200810123454.GM2352366@phenom.ffwll.local>
-References: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
- <20200730203642.17553-8-nicholas.kazlauskas@amd.com>
- <20200807085214.GP6419@phenom.ffwll.local>
- <88c15278-9510-c7b9-76ff-62d425d721ed@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9606E40D;
+	Mon, 10 Aug 2020 12:49:04 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BC6516E40D;
+ Mon, 10 Aug 2020 12:49:02 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id CCC282A6042;
+ Mon, 10 Aug 2020 14:49:01 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id EcysNtrY1TyO; Mon, 10 Aug 2020 14:49:01 +0200 (CEST)
+Received: from thor (212.174.63.188.dynamic.wline.res.cust.swisscom.ch
+ [188.63.174.212])
+ by netline-mail3.netline.ch (Postfix) with ESMTPSA id 27D9D2A6016;
+ Mon, 10 Aug 2020 14:49:01 +0200 (CEST)
+Received: from localhost ([::1]) by thor with esmtp (Exim 4.94)
+ (envelope-from <michel@daenzer.net>)
+ id 1k57Ea-000Ve5-JI; Mon, 10 Aug 2020 14:49:00 +0200
+Subject: Re: [PATCH 6/8] drm/amd/display: Set DC options from modifiers.
+To: Daniel Vetter <daniel@ffwll.ch>, harry.wentland@amd.com,
+ daniel@fooishbar.org, maraeo@gmail.com
+References: <20200804213119.25091-1-bas@basnieuwenhuizen.nl>
+ <20200804213119.25091-7-bas@basnieuwenhuizen.nl>
+ <20200805073210.GU6419@phenom.ffwll.local>
+ <20200810122820.GJ2352366@phenom.ffwll.local>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Message-ID: <49e200cd-3df6-8a11-34f4-d1342a79f75e@daenzer.net>
+Date: Mon, 10 Aug 2020 14:49:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <88c15278-9510-c7b9-76ff-62d425d721ed@amd.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <20200810122820.GJ2352366@phenom.ffwll.local>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,49 +63,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, Harry Wentland <harry.wentland@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 07, 2020 at 10:32:11AM -0400, Kazlauskas, Nicholas wrote:
-> On 2020-08-07 4:52 a.m., daniel@ffwll.ch wrote:
-> > On Thu, Jul 30, 2020 at 04:36:42PM -0400, Nicholas Kazlauskas wrote:
-> > > @@ -440,7 +431,7 @@ struct dm_crtc_state {
-> > >   #define to_dm_crtc_state(x) container_of(x, struct dm_crtc_state, base)
-> > >   struct dm_atomic_state {
-> > > -	struct drm_private_state base;
-> > > +	struct drm_atomic_state base;
-> > >   	struct dc_state *context;
-> > 
-> > Also curiosity: Can't we just embed dc_state here, instead of a pointer?
-> > Then it would become a lot more obvious that mostly this is a state object
-> > container like drm_atomic_state, but for the DC specific state structures.
-> > And we could look into moving the actual DC states into drm private states
-> > perhaps (if that helps with the code structure and overall flow).
-> > 
-> > Maybe as next steps.
-> > -Daniel
-> > 
-> 
-> It's the refcounting that's the problem with this stuff. I'd like to move DC
-> to a model where we have no memory allocation/ownership but that might be a
-> bit of a more long term plan at this point.
-> 
-> Same with dc_plane_state and dc_stream_state as well - these could exist on
-> the DRM objects as long as they're not refcounted.
-
-Hm what's the refcounting problem you're having? Or is it the lack of
-refcounting, and dc having different ideas about lifetimes than atomic?
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAyMC0wOC0xMCAyOjI4IHAubS4sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4KPiBPayBqdXN0
+IGxlYXJuZWQgdGhhdCBhbWRncHUgaGF0IHNldC9nZXRfdGlsaW5nLCBzbyBJJ20gdXBncmFkaW5n
+IG15IGlkZWEKPiBoZXJlIHRvIGEgdmVyeSBzdHJvbmcgcmVjb21tZW5kYXRpb24sIGkuZS4gcGxl
+YXNlIGRvIHRoaXMgZXhjZXB0IGlmCj4gdGhlcmUncyBhbmQgYW1kIGRkeCB3aGljaCBzb21laG93
+IHdhbnRzIHRvIGNoYW5nZSB0aWxpbmcgbW9kZSB3aGlsZSBhIGZiCj4gZXhpc3RzLCBhbmQgZXhw
+ZWN0cyB0aGlzIHRvIHByb3BhZ2F0ZS4KPiAKPiBJbiBpOTE1IHdlIGV2ZW4gZGlzYWxsb3cgdGhl
+IHNldF90aWxpbmcgaW9jdGwgd2l0aCBhbiBlcnJvciBpZiBhbiBmYgo+IGV4aXN0cywganVzdCB0
+byBtYWtlIHN1cmUgdXNlcnNwYWNlIGJlaGF2ZXMuIEV2ZW4gaWYgdXNlcnNwYWNlIHVzZXMKPiBz
+ZXRfdGlsaW5nLCB0aGlzIHdheSB3ZSBjYW4gYXQgbGVhc3QgZW5mb3JjZSB0aGUgc2FtZSBzZW1h
+bnRpY3Mgb2YgImNsaWVudAo+IGNhbid0IHB1bGwgY29tcG9zaXRvciBvdmVyIHRoZSB0YWJsZSB3
+aXRoIGEgc2V0X3RpbGluZyBhdCB0aGUgd3JvbmcgdGltZSIKPiBvZiBtb2RpZmllcnMuCgpGV0lX
+LCB4Zjg2LXZpZGVvLWFtZGdwdSBkb2Vzbid0IGhhdmUgYW55IGNvZGUgdG8gc2V0IHRoZSB0aWxp
+bmcKbWV0YWRhdGEsIG9ubHkgTWVzYSBhbmQgcHJlc3VtYWJseSBBTUQncyBWdWxrYW4vT3BlbkdM
+IFVNRHMgZG8uCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwg
+ICAgICAgICAgICAgICBodHRwczovL3JlZGhhdC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFz
+dCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
