@@ -2,125 +2,65 @@ Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A00FCC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 06:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61928C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 07:37:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 467ED2073A
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 06:01:51 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4YwGhyaq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 467ED2073A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 88C8A2073A
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 07:37:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88C8A2073A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0E4D89E35;
-	Mon, 10 Aug 2020 06:01:50 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2067.outbound.protection.outlook.com [40.107.93.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4AD89E35
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 06:01:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xim+HdhHpad3tnb1Uleio8Rf/N8QmwuD8zFpHADRoyU24RKasZKjE8FPTLA842cL6nUfhAl03j3slhIXSMUwwof6QuGox9iR2s4f/xntUXyyWpNqnCEf7GARXOFUMVuhir2UTabxWORfgrnA7Nne2RwyvE1suYOPio5N33tOf/o6TIsnLCCWlaPnq5x7k6MOyHpc8Wj8n4Sp1tntw12iRLGtB66iqBfMQ9D5hbJSZLJxcmol0fgPXCbcULVugH+wNo01CwLsMJjzfjaXSQNqGgLnnjDfZCqY6lxXcw7V8Y4kzZ87oZmtN8JdNsDGsRsHrEUUQWOTCJxEgg3c3zbcFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5ANzRsclGbf/sk2ripmJ+3n5iekbjFgU8quDvuOuJGs=;
- b=Kq2DsG1gmU4Erz9/DcX82wZLNUhJU0CTQE+A+A/w5ShPxDvpfxOC3qTq+yU6ndzwe/3Ts/5GYOmS645fm2uIkH+tc0Bg4JqXfi2JacXpYvapb617cFTu14S6oKzX+QOuWbfE97xR+SsuY2BfBOyz3qw2O7gDSQv2vhRAi96fqO4APbblXd6/0ql23c34R+qiVQrplXUwxCU7lL9UpcCpRX7DMn8pFVASa0Lav+Xx7ls2ivyo9qAAafOgR740rmEX603XOSnmkFqDQYXEux4lpgcCw/US03owF4odnIW4DcylPFiUGKj3eGPvLkexfzUA2rBv1z4fluG4NtmPsE2twQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5ANzRsclGbf/sk2ripmJ+3n5iekbjFgU8quDvuOuJGs=;
- b=4YwGhyaqFTFbu7OCsblJ3ymBVVOuVoSHhhkqhvxxvli6P879YV/ckjVF8t52KX9hxkC6ftE/D303fTkx5NIdWXEpZs9NTF576n4n3f48SFshlE2vRzC8cUR3c0S+vAiVlitXaYmEYQrFkGV7bKmSMp+S+iIG8LPKukosnCIy04c=
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM5PR12MB1836.namprd12.prod.outlook.com (2603:10b6:3:114::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.20; Mon, 10 Aug 2020 06:01:44 +0000
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::84dc:a0e7:6158:ce4e]) by DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::84dc:a0e7:6158:ce4e%7]) with mapi id 15.20.3261.023; Mon, 10 Aug 2020
- 06:01:44 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Li, Dennis" <Dennis.Li@amd.com>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements,
- John" <John.Clements@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: add debugfs node to toggle ras error cnt
- harvest
-Thread-Topic: [PATCH 2/2] drm/amdgpu: add debugfs node to toggle ras error cnt
- harvest
-Thread-Index: AQHWbtZv9rvYObD71ku6EqDYULyBOakw2ZqA
-Date: Mon, 10 Aug 2020 06:01:44 +0000
-Message-ID: <DM6PR12MB40752683AAFA2982D4B273A0FC440@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <20200810052258.27961-1-guchun.chen@amd.com>
- <20200810052258.27961-2-guchun.chen@amd.com>
-In-Reply-To: <20200810052258.27961-2-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-10T06:01:40Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=989ee9cb-76e2-4e9c-8ec7-00000ac359b3;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-08-10T06:01:28Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 8912310c-d4da-4172-8bf8-00009c0713c3
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-08-10T06:01:42Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 7a61a653-e4d2-4211-9ced-00001028c814
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 51063057-cf5a-4037-3d5e-08d83cf2dc4a
-x-ms-traffictypediagnostic: DM5PR12MB1836:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB1836B7068CAA45C24FCF23CAFC440@DM5PR12MB1836.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2201;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0AT9QXhiUsyqIeifmXd554NyJdGph3g5a8CtOVoA2nCS+RMXgZKmOOIJbP3mfekUkn0AQBQ9IgFJ6SkitNetiEgmXHsPg1w69ns+ewzepyxXlD0mwOPNHCHUua2MLG64So8nFWPzKPHN6pJTVRooaKlvL4X0KTNjsRvj/DYseWmyWLnbev+ZdVTQglGdaGRnVRZ6d3/1irgZ+Wf3XOJMTNn5qOJSg45Pf8KOHvS+2PujzRrOofbyQDfcmixXwvWjyXez7iKkJCffvLts8xIRp0IRlnYFYUMp27wa9QcU1WoP/746Ig/NoQZFM4CqTczyEmAQ62WQETTOxSWlyBCA7pTkKnh+AYX+dfoAaVv2zvJYYTBznlyaAgofwxiWhqCA
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(39860400002)(376002)(346002)(366004)(136003)(186003)(2906002)(71200400001)(53546011)(6506007)(33656002)(26005)(316002)(7696005)(83380400001)(8936002)(66476007)(86362001)(64756008)(66556008)(6636002)(66946007)(8676002)(76116006)(55016002)(52536014)(9686003)(5660300002)(478600001)(66446008)(110136005)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: rdvfCOCM5Kp6ckcpS6nrpXceCMXnZD3Rbfric01cHyMb3jNYG7H93iiNgZawe5fTA6uNz+U3P5fGOtfT3BHwYO0DGOZC5BLv1aLTwaKgdNjoqT2cxEEU0ogy8GjV9JwrxLkvT60ijWWMSPW1CmCEc4IL046sT/LrcliJqvj2OPBzYlnNGBpZxeHXYcbbAZZ1K2XY0ykKOSIsk/aEu7luqqtEYHPJbDOeB2tbUQ4wPa87F6YELMf0po/aANzYedbmjNdWwYg29pVKuD/ac7vxzbUuJT+3hojLOioIws3muZuUtR1JayGwrMUTAnkGBfBEAe6G6RGsiWqckkTvD6/qsjgFyEsyAg7bwIaQGDrSp7+iB2uEZEPMCWUk3C7FclAZHZTwsJw7MSQh9E/PKq/W3757XTduHpMRiSwREkHJj8HX2VzOpx2S/mAUYjsz4AkI7StDILS/fpkjqWkM2BiTLZMGJswWVF79+JtoxHESsMKEqSOEBKH3KIwuqSYTVgJwK1jgAL5HIPER3zcgDZiQBVcorKb+kdjkkefN7vZ7kn2CdDqCWBo1NK/WWVJ2dGLKMcn3/U9wSQOQLYV4jOV3947zzwYmEBg7JwFrc3fsLQAKfamcodAO0n4Hpo1V7htMcrg0htWnb/jRdQujai7DHA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA8DA6E098;
+	Mon, 10 Aug 2020 07:36:10 +0000 (UTC)
+Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 751B46E115
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 00:58:22 +0000 (UTC)
+Received: from [10.130.0.75] (unknown [113.200.148.30])
+ by mail.loongson.cn (Coremail) with SMTP id AQAAf9DxmMWlmzBfhZcGAA--.2846S3;
+ Mon, 10 Aug 2020 08:58:14 +0800 (CST)
+Subject: Re: [PATCH] gpu/drm: Remove TTM_PL_FLAG_WC of VRAM to fix
+ writecombine issue for Loongson64
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+References: <1596871502-3432-1-git-send-email-yangtiezhu@loongson.cn>
+ <20200808134147.GA5772@alpha.franken.de>
+ <b7b16df1-d661-d59a-005b-da594ce9fc95@flygoat.com>
+ <38857c24-25c4-cff3-569e-5bcb773bfae6@amd.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <fb68c6ee-d455-24a0-524e-9b8a5033becd@loongson.cn>
+Date: Mon, 10 Aug 2020 08:58:13 +0800
+User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51063057-cf5a-4037-3d5e-08d83cf2dc4a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2020 06:01:44.6847 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DRN7Lsa0NtPdOgK89STJotYQ+TPs6wKy1uOQypZ1WmfbToF69+bWVHOhrSTk3ICIpJMjwQ5q+vFCYClDIDOa0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1836
+In-Reply-To: <38857c24-25c4-cff3-569e-5bcb773bfae6@amd.com>
+X-CM-TRANSID: AQAAf9DxmMWlmzBfhZcGAA--.2846S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFyUur48Zw1DtrWrJw4DXFb_yoW8tF4kpF
+ ZxKa1SgF4DJr4jyFnFqwn3XrWjkws5trW7Krn5CrWDu3sxtrnYgFyxKFWqvFWDur1fX3Wj
+ vF47WFyrua4ruFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzVAYIcxG8wCY
+ 02Avz4vE14v_twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+ 02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_
+ GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+ CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E3s1lIxAIcVC2z280aVAF
+ wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvj
+ xUcPfHUUUUU
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Mailman-Approved-At: Mon, 10 Aug 2020 07:36:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,55 +72,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huacai Chen <chenhc@lemote.com>,
+ linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
-
-Series is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com> 
-Sent: Monday, August 10, 2020 13:23
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: add debugfs node to toggle ras error cnt harvest
-
-Before ras recovery is issued, user could operate this debugfs node to enable/disable the harvest of all RAS IPs' ras error count registers, which will help keep hardware's registers'
-status instead of cleaning up them.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index e6978b8e2143..31df6bf2dc1f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1215,6 +1215,13 @@ static void amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
- 	 */
- 	debugfs_create_bool("auto_reboot", S_IWUGO | S_IRUGO, con->dir,
- 				&con->reboot);
-+
-+	/*
-+	 * User could set this not to clean up hardware's error count register
-+	 * of RAS IPs during ras recovery.
-+	 */
-+	debugfs_create_bool("disable_ras_err_cnt_harvest", 0644,
-+			con->dir, &con->disable_ras_err_cnt_harvest);
- }
- 
- void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
---
-2.17.1
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMDgvMDkvMjAyMCAwODoxMyBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAwOC4w
+OC4yMCB1bSAxNTo1MCBzY2hyaWViIEppYXh1biBZYW5nOgo+Pgo+Pgo+PiDlnKggMjAyMC84Lzgg
+5LiL5Y2IOTo0MSwgVGhvbWFzIEJvZ2VuZG9lcmZlciDlhpnpgZM6Cj4+PiBPbiBTYXQsIEF1ZyAw
+OCwgMjAyMCBhdCAwMzoyNTowMlBNICswODAwLCBUaWV6aHUgWWFuZyB3cm90ZToKPj4+PiBMb29u
+Z3NvbiBwcm9jZXNzb3JzIGhhdmUgYSB3cml0ZWNvbWJpbmUgaXNzdWUgdGhhdCBtYXliZSBmYWls
+ZWQgdG8KPj4+PiB3cml0ZSBiYWNrIGZyYW1lYnVmZmVyIHVzZWQgd2l0aCBBVEkgUmFkZW9uIG9y
+IEFNRCBHUFUgYXQgdGltZXMsCj4+Pj4gYWZ0ZXIgY29tbWl0IDhhMDhlNTBjZWU2NiAoImRybTog
+UGVybWl0IHZpZGVvLWJ1ZmZlcnMgd3JpdGVjb21iaW5lCj4+Pj4gbWFwcGluZyBmb3IgTUlQUyIp
+LCB0aGVyZSBleGlzdHMgc29tZSBlcnJvcnMgc3VjaCBhcyBibHVycmVkIHNjcmVlbgo+Pj4+IGFu
+ZCBsb2NrdXAsIGFuZCBzbyBvbi4KPj4+Pgo+Pj4+IFJlbW92ZSB0aGUgZmxhZyBUVE1fUExfRkxB
+R19XQyBvZiBWUkFNIHRvIGZpeCB3cml0ZWNvbWJpbmUgaXNzdWUgZm9yCj4+Pj4gTG9vbmdzb242
+NCB0byB3b3JrIHdlbGwgd2l0aCBBVEkgUmFkZW9uIG9yIEFNRCBHUFUsIGFuZCBpdCBoYXMgbm8g
+YW55Cj4+Pj4gaW5mbHVlbmNlIG9uIHRoZSBvdGhlciBwbGF0Zm9ybXMuCj4+PiB3ZWxsIGl0J3Mg
+bm90IG15IGNhbGwgdG8gdGFrZSBvciByZWplY3QgdGhpcyBwYXRjaCwgYnV0IEkgYWxyZWFkeQo+
+Pj4gaW5kaWNhdGVkIGl0IG1pZ2h0IGJlIGJldHRlciB0byBkaXNhYmxlIHdyaXRlY29tYmluZSBv
+biB0aGUgQ1BVCj4+PiBkZXRlY3Rpb24gc2lkZSAob3IgZG8geW91IGhhdmUgb3RoZXIgZGV2aWNl
+cyB3aGVyZSB3cml0ZWNvbWJpbmluZwo+Pj4gd29ya3MgPykuIFNvbWV0aGluZyBsaWtlIGJlbG93
+IHdpbGwgZGlzYmFsZSBpdCBmb3IgYWxsIGxvb25nc29uNjQgQ1BVcy4KPj4+IElmIHlvdSBub3cg
+ZmluZCBvdXQgd2hlcmUgaXQgd29ya3MgYW5kIHdoZXJlIGl0IGRvZXNuJ3QsIHlvdSBjYW4gZXZl
+bgo+Pj4gcmVkdWNlIGl0IHRvIHRoZSByZXF1aXJlZCBtaW5pdW0gb2YgYWZmZWN0ZWQgQ1BVcy4K
+Pj4gSGkgVGllemh1LCBUaG9tYXMsCj4+Cj4+IFllcywgd3JpdGVjb21iaW5lIHdvcmtzIHdlbGwg
+b24gTFM3QSdzIGludGVybmFsIEdQVS4uLi4KPj4gQW5kIGV2ZW4gd29ya3Mgd2VsbCB3aXRoIHNv
+bWUgQU1EIEdQVXMgKGluIG15IGNhc2UsIFJYNTUwKS4KPgo+IEluIHRoaXMgY2FzZSB0aGUgcGF0
+Y2ggaXMgYSBjbGVhciBOQUsgc2luY2UgeW91IGhhdmVuJ3Qgcm9vdCBjYXVzZWQgCj4gdGhlIGlz
+c3VlIGFuZCBhcmUganVzdCB3b3JraW5nIGFyb3VuZCBpdCBpbiBhIHZlcnkgcXVlc3Rpb25hYmxl
+IG1hbm5lci4KPgo+Pgo+PiBUaWV6aHUsIGlzIGl0IHBvc3NpYmxlIHRvIGludmVzdGlnYXRlIHRo
+ZSBpc3N1ZSBkZWVwZXIgaW4gTG9vbmdzb24/Cj4+IFByb2JhYmx5IHdlIGp1c3QgbmVlZCB0byBh
+ZGQgc29tZSBiYXJyaWVyIHRvIG1haW50YWluIHRoZSBkYXRhIAo+PiBjb2hlcmVuY3ksCj4+IG9y
+IGRpc2FibGUgd3JpdGVjb21iaW5lIGZvciBBTUQgR1BVJ3MgY29tbWFuZCBidWZmZXIgYW5kIGxl
+YXZlIAo+PiB0ZXh0dXJlL2ZyYW1lCj4+IGJ1ZmZlciB3YyBhY2NlbGVyYXRlZC4KPgo+IEhhdmUg
+eW91IG1vdmVkIGFueSBidWZmZXIgdG8gVlJBTSBhbmQgZm9yZ290IHRvIGFkZCBhbiBIRFAgCj4g
+Zmx1c2gvaW52YWxpZGF0ZT8KPgo+IFRoZSBhY2NlbGVyYXRpb24gaXMgbm90IG11Y2ggb2YgYSBw
+cm9ibGVtLCBidXQgaWYgV0MgZG9lc24ndCB3b3JrIGluIAo+IGdlbmVyYWwgeW91IG5lZWQgdG8g
+ZGlzYWJsZSBpdCBmb3IgdGhlIHdob2xlIENQVSBhbmQgbm90IGZvciAKPiBpbmRpdmlkdWFsIGRy
+aXZlcnMuCgpIaSBUaG9tYXMsIEppYXh1biBhbmQgQ2hyaXN0aWFuLAoKVGhhbmsgeW91IHZlcnkg
+bXVjaCBmb3IgeW91ciBzdWdnZXN0aW9ucy4KCkFjdHVhbGx5LCB0aGlzIHBhdGNoIGlzIGEgdGVt
+cG9yYXJ5IHNvbHV0aW9uIHRvIGp1c3QgbWFrZSBpdCB3b3JrIHdlbGwsCml0IGlzIG5vdCBhIHBy
+b3BlciBhbmQgZmluYWwgc29sdXRpb24uCgpJIHVuZGVyc3RhbmQgeW91ciBvcGluaW9ucywgaXQg
+d2lsbCB0YWtlIHNvbWUgdGltZSB0byBmaW5kIHRoZSByb290IGNhdXNlLgoKVGhhbmtzLApUaWV6
+aHUKCj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+Pgo+PiBUaGFua3MuCj4+Cj4+IC0gSmlh
+eHVuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
