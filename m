@@ -1,116 +1,110 @@
-Return-Path: <SRS0=+Fjx=BT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82CFAC433DF
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Aug 2020 23:59:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D8EBC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 03:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 514B1206A1
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Aug 2020 23:59:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DC96B206E9
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 03:59:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=mymailcheap.com header.i=@mymailcheap.com header.b="ylgj3ZeC";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=flygoat.com header.i=@flygoat.com header.b="MJHIzbWP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 514B1206A1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=flygoat.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="C/frqmWZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC96B206E9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 759856E34C;
-	Sun,  9 Aug 2020 23:59:06 +0000 (UTC)
-X-Greylist: delayed 414 seconds by postgrey-1.36 at gabe;
- Sat, 08 Aug 2020 13:58:17 UTC
-Received: from relay-us1.mymailcheap.com (relay-us1.mymailcheap.com
- [51.81.35.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C43C8925D
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 13:58:17 +0000 (UTC)
-Received: from relay5.mymailcheap.com (relay5.mymailcheap.com [159.100.241.64])
- by relay-us1.mymailcheap.com (Postfix) with ESMTPS id 8E6D920EBA
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 13:51:21 +0000 (UTC)
-Received: from relay3.mymailcheap.com (relay3.mymailcheap.com
- [217.182.119.157])
- by relay5.mymailcheap.com (Postfix) with ESMTPS id 0E0EA2008F
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2020 13:51:18 +0000 (UTC)
-Received: from filter2.mymailcheap.com (filter2.mymailcheap.com
- [91.134.140.82])
- by relay3.mymailcheap.com (Postfix) with ESMTPS id 8226F3F15F;
- Sat,  8 Aug 2020 15:51:15 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by filter2.mymailcheap.com (Postfix) with ESMTP id 59A9E2A7CD;
- Sat,  8 Aug 2020 15:51:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mymailcheap.com;
- s=default; t=1596894675;
- bh=aMvdZDiGSkgDY34UFhCXqMYg0yzNL97YlcKNxs7qbyM=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=ylgj3ZeC6SrvHrTDxBpi2JJuB5D7RxGXVhJeE0bC76iqaf7IVqu6A2BNQtR2+U+DB
- vnPnz11HPKDlUFGFTjtkk/cE8Wg0i+vxqh3wd6vNALWoLc8YA9TFTemd8zcarvpg8Q
- QxW1w/GTjxJYHX953UiWIlZ0KKp1FyeP5OtJmmTY=
-X-Virus-Scanned: Debian amavisd-new at filter2.mymailcheap.com
-Received: from filter2.mymailcheap.com ([127.0.0.1])
- by localhost (filter2.mymailcheap.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id pKApvAm2ixEj; Sat,  8 Aug 2020 15:51:13 +0200 (CEST)
-Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by filter2.mymailcheap.com (Postfix) with ESMTPS;
- Sat,  8 Aug 2020 15:51:13 +0200 (CEST)
-Received: from [213.133.102.83] (ml.mymailcheap.com [213.133.102.83])
- by mail20.mymailcheap.com (Postfix) with ESMTP id 9CC79419E4;
- Sat,  8 Aug 2020 13:51:11 +0000 (UTC)
-Authentication-Results: mail20.mymailcheap.com; dkim=pass (1024-bit key;
- unprotected) header.d=flygoat.com header.i=@flygoat.com header.b="MJHIzbWP"; 
- dkim-atps=neutral
-AI-Spam-Status: Not processed
-Received: from [0.0.0.0] (unknown [203.86.239.91])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by mail20.mymailcheap.com (Postfix) with ESMTPSA id 14D50419E4;
- Sat,  8 Aug 2020 13:51:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=flygoat.com;
- s=default; t=1596894667;
- bh=aMvdZDiGSkgDY34UFhCXqMYg0yzNL97YlcKNxs7qbyM=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=MJHIzbWPjOIoXUO93z3n0T2+G0nMiFSPIIPlB237bMTBEFDgVBTc0BIb3nV+BtZRI
- cz3Mi7mHVmLK9Qo6WQ41zTNeQtb+WGgVP/pA/Ak+NP31tLS6Eh4Ggn5xPVFuRLKTep
- /wz/8xlJ0A/eVao6Qh2XTZxKy1TCkbsaHMUVB0j8=
-Subject: Re: [PATCH] gpu/drm: Remove TTM_PL_FLAG_WC of VRAM to fix
- writecombine issue for Loongson64
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Tiezhu Yang <yangtiezhu@loongson.cn>
-References: <1596871502-3432-1-git-send-email-yangtiezhu@loongson.cn>
- <20200808134147.GA5772@alpha.franken.de>
-From: Jiaxun Yang <jiaxun.yang@flygoat.com>
-Message-ID: <b7b16df1-d661-d59a-005b-da594ce9fc95@flygoat.com>
-Date: Sat, 8 Aug 2020 21:50:59 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38FA96E030;
+	Mon, 10 Aug 2020 03:59:35 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A49F96E030
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 03:59:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dClZN9s8J78uGCPIZel01XHr3mQi82ZvXcpkmTbXh/NaqunIMB1qEi42zU/gEdBshBTXaPKig7V6qyRHJzQsEuC75xPqXklJlQNFQVmMRhRUrRi+j14OadeTT6z5Jg8aDwNBziQrqox8E0j5xeftik6Q8fcr+uFQezJ06fbha3871GgGnwHKNHDNkxegMCuIArYLnP9/husx7dfbLMSi70V3yFQ709JYMfkovu72Be9M3AL7K720LTusc55FV2z+WlRxG58W6CuOnh1JOX8YXcOjeuqxAEi2BH2mKFVplJ8dyy0qtwT/wCee9/eG7+JOGuuWz3g+sxxuIq9OCvnrnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H4ub0zTL+SjJ+mBdlNFK6/bBLEu1HhepufW/G/ndo2I=;
+ b=PZyVN0xU6fcsbCtns7gLdgbwbr+zLVaJN66lU54UeQKWsJ/qsiAtRnn4LiWrH6lGOURdj743Om3XtXMzbqp+qGZXLc/AyZI3k5gxyQnWr4/Fdzh+u4DLI3/Eqm/7B/Ow3Wrh2XJy1F5oMsAnuyez1FWnXe7wx/7M5pbDa8Slo+jcyARIGrQQVv+Fz5KIHc0qyaKXXGcLz3JumZpdO0LCvfylCvGjNNRypNL651qIx/Vnjj+1bBgpQqlPeV+GhQsNNFNtuDyhW6PpOReHYYT8+Sl2mYUBN/l1Ds9kvZZhcEHMTmSE/aTMyVmY0HoVNGB/em8kGtNJ4AcMluNo+4Gfuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H4ub0zTL+SjJ+mBdlNFK6/bBLEu1HhepufW/G/ndo2I=;
+ b=C/frqmWZB/8VyBJhhZTOazysJRALtyEV2ldFfEa+Uw/eortmabcHADFMKac+KpPCkWCjhuygdvK6MG7m/awOrzLjdoS3lHNeDNawXvSHHcc2ijTWGQkCumIRcOzOmc2bgTNHO6HdLk4m0czoyorM2rwKHnnjIkpSNLflKFz6fq0=
+Received: from CO2PR05CA0099.namprd05.prod.outlook.com (2603:10b6:104:1::25)
+ by CH2PR12MB4328.namprd12.prod.outlook.com (2603:10b6:610:a6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Mon, 10 Aug
+ 2020 03:59:31 +0000
+Received: from CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:104:1:cafe::21) by CO2PR05CA0099.outlook.office365.com
+ (2603:10b6:104:1::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.5 via Frontend
+ Transport; Mon, 10 Aug 2020 03:59:31 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT030.mail.protection.outlook.com (10.13.174.125) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3261.16 via Frontend Transport; Mon, 10 Aug 2020 03:59:30 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Sun, 9 Aug 2020
+ 22:59:30 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Sun, 9 Aug 2020
+ 22:59:30 -0500
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Sun, 9 Aug 2020 22:59:29 -0500
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix reload KMD hang on GFX10 KIQ
+Date: Mon, 10 Aug 2020 11:59:27 +0800
+Message-ID: <1597031967-25513-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20200808134147.GA5772@alpha.franken.de>
-Content-Language: en-US
-X-Rspamd-Queue-Id: 9CC79419E4
-X-Spamd-Result: default: False [-0.10 / 10.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; R_DKIM_ALLOW(0.00)[flygoat.com:s=default];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- R_SPF_SOFTFAIL(0.00)[~all]; ML_SERVERS(-3.10)[213.133.102.83];
- DKIM_TRACE(0.00)[flygoat.com:+];
- DMARC_POLICY_ALLOW(0.00)[flygoat.com,none];
- RCPT_COUNT_SEVEN(0.00)[8];
- RCVD_IN_DNSWL_NONE(0.00)[213.133.102.83:from];
- DMARC_POLICY_ALLOW_WITH_FAILURES(0.00)[];
- RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+];
- ASN(0.00)[asn:24940, ipnet:213.133.96.0/19, country:DE];
- RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[];
- HFILTER_HELO_BAREIP(3.00)[213.133.102.83,1]
-X-Rspamd-Server: mail20.mymailcheap.com
-X-Mailman-Approved-At: Sun, 09 Aug 2020 23:59:03 +0000
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 94cc2b3b-116c-42d2-a21f-08d83ce1c911
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4328:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB43289E015E66247A5E60B4DF84440@CH2PR12MB4328.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yCgqb0siZEGjzdVqJDsMzVagUvS1bL0mVQCgsZ4lOGsqiiXmUcc9CgWqB7fApZ4ggWGQajDInNq0w9nuCtldUXcZOUHSsxhGXwx6oHBNiupjb5KdER099iZv3mnRP/5ORdAVOG0FHdLSTmV+sWCTqIgDmrZlhkiMbs9AsA3Kawm4+inNh+BbguUqU+zhsTt6k0LEm1JMwKPWNvO5XoUf5hGPSD91YpeB++Om2y7s+ZY4frJ2zP9sjujxeJ/uCOE9PqMC7wbZpexM17/017WpAHk7Cyo0+/z+CEGFCOPEbjWjjmmS951WRTQKegFiyy4k1FsTLm1Qppb36VDgcRmRcICyxqsC4MpCdYIlblPB1RRfHwzRaXnUWX5scSs1nQqPjst52pdUTXikchgzlM4hSg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(39860400002)(396003)(136003)(346002)(46966005)(6916009)(186003)(316002)(81166007)(336012)(478600001)(47076004)(70206006)(2906002)(82740400003)(5660300002)(8936002)(356005)(2616005)(70586007)(426003)(83380400001)(36756003)(82310400002)(4326008)(26005)(7696005)(86362001)(8676002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2020 03:59:30.9880 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94cc2b3b-116c-42d2-a21f-08d83ce1c911
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,39 +116,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-mips@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Huacai Chen <chenhc@lemote.com>, christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="gbk"; Format="flowed"
+Cc: Monk Liu <Monk.Liu@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CgrU2iAyMDIwLzgvOCDPws7nOTo0MSwgVGhvbWFzIEJvZ2VuZG9lcmZlciDQtLXAOgo+IE9uIFNh
-dCwgQXVnIDA4LCAyMDIwIGF0IDAzOjI1OjAyUE0gKzA4MDAsIFRpZXpodSBZYW5nIHdyb3RlOgo+
-PiBMb29uZ3NvbiBwcm9jZXNzb3JzIGhhdmUgYSB3cml0ZWNvbWJpbmUgaXNzdWUgdGhhdCBtYXli
-ZSBmYWlsZWQgdG8KPj4gd3JpdGUgYmFjayBmcmFtZWJ1ZmZlciB1c2VkIHdpdGggQVRJIFJhZGVv
-biBvciBBTUQgR1BVIGF0IHRpbWVzLAo+PiBhZnRlciBjb21taXQgOGEwOGU1MGNlZTY2ICgiZHJt
-OiBQZXJtaXQgdmlkZW8tYnVmZmVycyB3cml0ZWNvbWJpbmUKPj4gbWFwcGluZyBmb3IgTUlQUyIp
-LCB0aGVyZSBleGlzdHMgc29tZSBlcnJvcnMgc3VjaCBhcyBibHVycmVkIHNjcmVlbgo+PiBhbmQg
-bG9ja3VwLCBhbmQgc28gb24uCj4+Cj4+IFJlbW92ZSB0aGUgZmxhZyBUVE1fUExfRkxBR19XQyBv
-ZiBWUkFNIHRvIGZpeCB3cml0ZWNvbWJpbmUgaXNzdWUgZm9yCj4+IExvb25nc29uNjQgdG8gd29y
-ayB3ZWxsIHdpdGggQVRJIFJhZGVvbiBvciBBTUQgR1BVLCBhbmQgaXQgaGFzIG5vIGFueQo+PiBp
-bmZsdWVuY2Ugb24gdGhlIG90aGVyIHBsYXRmb3Jtcy4KPiB3ZWxsIGl0J3Mgbm90IG15IGNhbGwg
-dG8gdGFrZSBvciByZWplY3QgdGhpcyBwYXRjaCwgYnV0IEkgYWxyZWFkeQo+IGluZGljYXRlZCBp
-dCBtaWdodCBiZSBiZXR0ZXIgdG8gZGlzYWJsZSB3cml0ZWNvbWJpbmUgb24gdGhlIENQVQo+IGRl
-dGVjdGlvbiBzaWRlIChvciBkbyB5b3UgaGF2ZSBvdGhlciBkZXZpY2VzIHdoZXJlIHdyaXRlY29t
-YmluaW5nCj4gd29ya3MgPykuIFNvbWV0aGluZyBsaWtlIGJlbG93IHdpbGwgZGlzYmFsZSBpdCBm
-b3IgYWxsIGxvb25nc29uNjQgQ1BVcy4KPiBJZiB5b3Ugbm93IGZpbmQgb3V0IHdoZXJlIGl0IHdv
-cmtzIGFuZCB3aGVyZSBpdCBkb2Vzbid0LCB5b3UgY2FuIGV2ZW4KPiByZWR1Y2UgaXQgdG8gdGhl
-IHJlcXVpcmVkIG1pbml1bSBvZiBhZmZlY3RlZCBDUFVzLgpIaSBUaWV6aHUsIFRob21hcywKClll
-cywgd3JpdGVjb21iaW5lIHdvcmtzIHdlbGwgb24gTFM3QSdzIGludGVybmFsIEdQVS4uLi4KQW5k
-IGV2ZW4gd29ya3Mgd2VsbCB3aXRoIHNvbWUgQU1EIEdQVXMgKGluIG15IGNhc2UsIFJYNTUwKS4K
-ClRpZXpodSwgaXMgaXQgcG9zc2libGUgdG8gaW52ZXN0aWdhdGUgdGhlIGlzc3VlIGRlZXBlciBp
-biBMb29uZ3Nvbj8KUHJvYmFibHkgd2UganVzdCBuZWVkIHRvIGFkZCBzb21lIGJhcnJpZXIgdG8g
-bWFpbnRhaW4gdGhlIGRhdGEgY29oZXJlbmN5LApvciBkaXNhYmxlIHdyaXRlY29tYmluZSBmb3Ig
-QU1EIEdQVSdzIGNvbW1hbmQgYnVmZmVyIGFuZCBsZWF2ZSB0ZXh0dXJlL2ZyYW1lCmJ1ZmZlciB3
-YyBhY2NlbGVyYXRlZC4KClRoYW5rcy4KCi0gSmlheHVuCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+GFX10 KIQ will hang if we try below steps:
+modprobe amdgpu
+rmmod amdgpu
+modprobe amdgpu sched_hw_submission=4
+
+Due to KIQ is always living there even after KMD unloaded
+thus when doing the realod KIQ will crash upon its register
+being programed by different values with the previous loading
+(the config like HQD addr, ring size, is easily changed if we alter
+the sched_hw_submission)
+
+the fix is we must inactive KIQ first before touching any
+of its registgers
+
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 622f442..0702c94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -6435,6 +6435,10 @@ static int gfx_v10_0_kiq_init_register(struct amdgpu_ring *ring)
+ 	struct v10_compute_mqd *mqd = ring->mqd_ptr;
+ 	int j;
+ 
++	/* inactivate the queue */
++	if (amdgpu_sriov_vf(adev))
++		WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, 0);
++
+ 	/* disable wptr polling */
+ 	WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);
+ 
+-- 
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
