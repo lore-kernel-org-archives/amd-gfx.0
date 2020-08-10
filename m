@@ -2,83 +2,73 @@ Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7876BC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5E1CC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 499502073A
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:30:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7A4E2206C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 12:30:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="COQkIbiy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 499502073A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="PlGnKZg8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A4E2206C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0406C6E421;
-	Mon, 10 Aug 2020 12:30:12 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 139B06E421;
- Mon, 10 Aug 2020 12:30:11 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id y3so7990805wrl.4;
- Mon, 10 Aug 2020 05:30:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=F5fkpkTMjACBHMKnWA31OBgWrBFMdm/ztMFr41HN3Fk=;
- b=COQkIbiygkbVDV4rF53Pu/1UGSrDVI7rCXDIMdYAcUcaeX4PQ3Xhx0XRpIlLPMEQQc
- jwkp2/Hx2Gu2IzzXvFAkzYf+dPENbKtDS7I7MpyYup58vxnY9XYNkwZoMvFx4Lhiv6mx
- UMabrFidq3zv0rlUwPxQ2YTXQdaELf+68y7N1+XiwgFMswczRkNw7PjVHLlAj76fM/F5
- tr//Z9RDtiLltDIUTsr7WbDK4zN2NQlxXUoJ8jRBpXqqrSasyvtn+xyVMBFcIJEXAil/
- rIXeGJ/XMen0TbGdWfseuWzIQ6RoFNIO9N4Xzgc2yO0UzX7k6FVDaj4sDkKWiHIc8Py/
- uZ5w==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1485C6E425;
+	Mon, 10 Aug 2020 12:30:37 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD8F6E426
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 12:30:35 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id t14so8150586wmi.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 05:30:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YcraacnMVnVuyd5b/t/uB9+lQrAeCH0nRzWFxR29iT4=;
+ b=PlGnKZg8i+L+2TslDrUoWT+r1WFAU/8Eyj6TmJkHPi8jPJUUwuFos7wKhHrLujesCE
+ oNrOo8yQgCkzigx6la5HMZNStNkI0HWHxgKcL+LKV1b6iyEoal82Ax3SNLobzxh1SrYt
+ C5Y1n0lVFEzlrlV9c8eRlVD0nULETMThc/hQk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=F5fkpkTMjACBHMKnWA31OBgWrBFMdm/ztMFr41HN3Fk=;
- b=s8F8cWXTnVAxsGNG1TzqNvy/n7xiSdDz2yRQqtBjCBm0qn2fenyNJJ/wZi81zSFXVP
- WTq9O350dUFnoTOr1DF1KBEp9YV2ODJ6ZT9TBH+jYJX++zGer2wa1J73OFaDQAPzclwE
- RWJgdq/28q/j518pTkjYJP52Gej3/CFXlFjrrfyWzInol2viCEl2xBsqgotzBV0RLDek
- 3WOScm9vy+5f/de6+j+yCPwevn8mY1yTNzMzBsacdhVVR16wbWhiE5IZLePxSIA6hEKd
- x+o0GgZuCqFaFN2Gtr0fr9B8dI9mWPYL6BnOZhtDmlK6a+AfwsEI3+nNAdB5fMgl+13p
- FSPw==
-X-Gm-Message-State: AOAM533kUrX5Yka8llB1FlizNYDmuFo8o/pYZfZDFJaYyetJZKKfEe51
- UCy45JRPH/D4AWg83TlipDGP3JX0
-X-Google-Smtp-Source: ABdhPJzZnvqWrK8QdxLKjvajs5uwmJI+L4i+INdbQG6F4jVVzGZnm/4FsfIHYgjj+oOsQz0IqUuq6Q==
-X-Received: by 2002:adf:c981:: with SMTP id f1mr24126725wrh.14.1597062609347; 
- Mon, 10 Aug 2020 05:30:09 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id 33sm21128487wri.16.2020.08.10.05.30.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Aug 2020 05:30:08 -0700 (PDT)
-Subject: Re: [PATCH 3/7] drm/amd/display: Avoid using unvalidated tiling_flags
- and tmz_surface in prepare_planes
-To: Daniel Vetter <daniel@ffwll.ch>,
- "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
- "Olsak, Marek" <Marek.Olsak@amd.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YcraacnMVnVuyd5b/t/uB9+lQrAeCH0nRzWFxR29iT4=;
+ b=YcPQcPpC22bSG93mtlFkCVh1d/QcyFZZQ1N/d5uKjM2zUnr6LJfOckupyc8CCbcm1d
+ fVLFwURY5MooDp5oATT2Wu8CU9LSJHOUsgbFi3iRDCyzRE4VPGb1rTzc3JKDEhp1w37u
+ HHXIDzUAXpb28Gbwl0BmaWXriKdhsvC09jeH2piM7IPO65W+cUhJVMR1FoveY1T+h9Tn
+ Fpq8xeG2BPkzCSWNB31/YqWOQCYm1IIopontiUCU67tEByrHROV1piy9mQnnaq9LrilX
+ yUditT9E6rikfKwMBPF1a1UXAdEvuFt99U21C1COD5HHuJNDvt1FplwbXFyvhH7oc/0t
+ wcaQ==
+X-Gm-Message-State: AOAM530YHpcss85KNpfWd+WhL5qPaQUg/wUWPbtV/b6EZmjvDehta4ih
+ OlkkEQZIf1JAPi1mJeGvJYy7WA==
+X-Google-Smtp-Source: ABdhPJzlh2zMJDYJXB+sntlITTkCJG5pHJTDdM2Z+smRKBsk1elwfTzzVNOM2N2lmuLpMQ2EWO7sCw==
+X-Received: by 2002:a1c:7313:: with SMTP id d19mr23696986wmb.147.1597062634172; 
+ Mon, 10 Aug 2020 05:30:34 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v11sm20808155wrr.10.2020.08.10.05.30.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Aug 2020 05:30:33 -0700 (PDT)
+Date: Mon, 10 Aug 2020 14:30:31 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Subject: Re: [PATCH 5/7] drm/amd/display: Reset plane for anything that's not
+ a FAST update
+Message-ID: <20200810123031.GK2352366@phenom.ffwll.local>
 References: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
- <20200730203642.17553-4-nicholas.kazlauskas@amd.com>
- <20200807083041.GL6419@phenom.ffwll.local>
- <4117cdee-2f5d-a8bd-1e80-1c550c9d9af3@amd.com>
- <20200810122553.GI2352366@phenom.ffwll.local>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <9fc38b52-6b46-fec8-e511-3fc3e9d2c151@gmail.com>
-Date: Mon, 10 Aug 2020 14:30:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <20200730203642.17553-6-nicholas.kazlauskas@amd.com>
+ <20200807083424.GM6419@phenom.ffwll.local>
+ <6790c248-d46c-d3e0-b87d-c73823556888@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20200810122553.GI2352366@phenom.ffwll.local>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <6790c248-d46c-d3e0-b87d-c73823556888@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,145 +80,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ dri-devel@lists.freedesktop.org, Hersen Wu <hersenxs.wu@amd.com>,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.08.20 um 14:25 schrieb Daniel Vetter:
-> On Fri, Aug 07, 2020 at 10:29:09AM -0400, Kazlauskas, Nicholas wrote:
->> On 2020-08-07 4:30 a.m., daniel@ffwll.ch wrote:
->>> On Thu, Jul 30, 2020 at 04:36:38PM -0400, Nicholas Kazlauskas wrote:
->>>> [Why]
->>>> We're racing with userspace as the flags could potentially change
->>>> from when we acquired and validated them in commit_check.
->>> Uh ... I didn't know these could change. I think my comments on Bas'
->>> series are even more relevant now. I think long term would be best to bake
->>> these flags in at addfb time when modifiers aren't set. And otherwise
->>> always use the modifiers flag, and completely ignore the legacy flags
->>> here.
->>> -Daniel
->>>
->> There's a set tiling/mod flags IOCTL that can be called after addfb happens,
->> so unless there's some sort of driver magic preventing this from working
->> when it's already been pinned for scanout then I don't see anything stopping
->> this from happening.
->>
->> I still need to review the modifiers series in a little more detail but that
->> looks like a good approach to fixing these kind of issues.
-> Yeah we had the same model for i915, but it's awkward and can surprise
-> compositors (since the client could change the tiling mode from underneath
-> the compositor). So freezing the tiling mode at addfb time is the right
-> thing to do, and anyway how things work with modifiers.
->
-> Ofc maybe good to audit the -amd driver, but hopefully it doesn't do
-> anything silly with changed tiling. If it does, it's kinda sad day.
+On Fri, Aug 07, 2020 at 10:26:51AM -0400, Kazlauskas, Nicholas wrote:
+> On 2020-08-07 4:34 a.m., daniel@ffwll.ch wrote:
+> > On Thu, Jul 30, 2020 at 04:36:40PM -0400, Nicholas Kazlauskas wrote:
+> > > [Why]
+> > > MEDIUM or FULL updates can require global validation or affect
+> > > bandwidth. By treating these all simply as surface updates we aren't
+> > > actually passing this through DC global validation.
+> > > 
+> > > [How]
+> > > There's currently no way to pass surface updates through DC global
+> > > validation, nor do I think it's a good idea to change the interface
+> > > to accept these.
+> > > 
+> > > DC global validation itself is currently stateless, and we can move
+> > > our update type checking to be stateless as well by duplicating DC
+> > > surface checks in DM based on DRM properties.
+> > > 
+> > > We wanted to rely on DC automatically determining this since DC knows
+> > > best, but DM is ultimately what fills in everything into DC plane
+> > > state so it does need to know as well.
+> > > 
+> > > There are basically only three paths that we exercise in DM today:
+> > > 
+> > > 1) Cursor (async update)
+> > > 2) Pageflip (fast update)
+> > > 3) Full pipe programming (medium/full updates)
+> > > 
+> > > Which means that anything that's more than a pageflip really needs to
+> > > go down path #3.
+> > > 
+> > > So this change duplicates all the surface update checks based on DRM
+> > > state instead inside of should_reset_plane().
+> > > 
+> > > Next step is dropping dm_determine_update_type_for_commit and we no
+> > > longer require the old DC state at all for global validation.
+> > 
+> > I think we do something similar in i915, where we have a "nothing except
+> > base address changed" fast path, but for anything else we fully compute a
+> > new state. Obviously you should try to keep global state synchronization
+> > to a minimum for this step, so it's not entirely only 2 options.
+> > 
+> > Once we have the states, we compare them and figure out whether we can get
+> > away with a fast modeset operation (maybe what you guys call medium
+> > update). Anyway I think being slightly more aggressive with computing full
+> > state, and then falling back to more optimized update again is a good
+> > approach. Only risk is if we you have too much synchronization in your
+> > locking (e.g. modern compositors do like to change tiling and stuff,
+> > especially once you have modifiers enabled, so this shouldn't cause a sync
+> > across crtc except when absolutely needed).
+> > -Daniel
+> 
+> Sounds like the right approach then.
+> 
+> We can support tiling changes in the fast path, but the more optimized
+> version of that last check is really linear <-> tiled. That requires global
+> validation with DC to revalidate bandwidth and calculate requestor
+> parameters for HW. So we'll have to stall for some of these changes
+> unfortunately since we need the full HW state for validation.
 
-Marek should know this right away, but I think we only set the tilling 
-flags once while exporting the BO and then never change them.
+Yeah I think that's perfectly ok, and probably worth it to still optimize
+for tiled->tiled changes. If you can. tiled<->untiled only happens for
+boot-splash, so no one cares, but with modifiers the idea is that tiling
+changes (especially once we get into the different compression modes
+amdgpu support, and which Bas' series tries to enable) are fairly common
+and should be doable without any stalls anywhere.
 
-Regards,
-Christian.
+Cheers, Daniel
 
->
-> Btw for i915 we even went a step further, and made the set_tiling ioctl
-> return an error if a framebuffer for that gem_bo existed. Just to make
-> sure we don't ever accidentally break this.
->
-> Cheers, Daniel
->
->> Regards,
->> Nicholas Kazlauskas
->>
->>>> [How]
->>>> We unfortunately can't drop this function in its entirety from
->>>> prepare_planes since we don't know the afb->address at commit_check
->>>> time yet.
->>>>
->>>> So instead of querying new tiling_flags and tmz_surface use the ones
->>>> from the plane_state directly.
->>>>
->>>> While we're at it, also update the force_disable_dcc option based
->>>> on the state from atomic check.
->>>>
->>>> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
->>>> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->>>> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
->>>> ---
->>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 36 ++++++++++---------
->>>>    1 file changed, 19 insertions(+), 17 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> index bf1881bd492c..f78c09c9585e 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> @@ -5794,14 +5794,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
->>>>    	struct list_head list;
->>>>    	struct ttm_validate_buffer tv;
->>>>    	struct ww_acquire_ctx ticket;
->>>> -	uint64_t tiling_flags;
->>>>    	uint32_t domain;
->>>>    	int r;
->>>> -	bool tmz_surface = false;
->>>> -	bool force_disable_dcc = false;
->>>> -
->>>> -	dm_plane_state_old = to_dm_plane_state(plane->state);
->>>> -	dm_plane_state_new = to_dm_plane_state(new_state);
->>>>    	if (!new_state->fb) {
->>>>    		DRM_DEBUG_DRIVER("No FB bound\n");
->>>> @@ -5845,27 +5839,35 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
->>>>    		return r;
->>>>    	}
->>>> -	amdgpu_bo_get_tiling_flags(rbo, &tiling_flags);
->>>> -
->>>> -	tmz_surface = amdgpu_bo_encrypted(rbo);
->>>> -
->>>>    	ttm_eu_backoff_reservation(&ticket, &list);
->>>>    	afb->address = amdgpu_bo_gpu_offset(rbo);
->>>>    	amdgpu_bo_ref(rbo);
->>>> +	/**
->>>> +	 * We don't do surface updates on planes that have been newly created,
->>>> +	 * but we also don't have the afb->address during atomic check.
->>>> +	 *
->>>> +	 * Fill in buffer attributes depending on the address here, but only on
->>>> +	 * newly created planes since they're not being used by DC yet and this
->>>> +	 * won't modify global state.
->>>> +	 */
->>>> +	dm_plane_state_old = to_dm_plane_state(plane->state);
->>>> +	dm_plane_state_new = to_dm_plane_state(new_state);
->>>> +
->>>>    	if (dm_plane_state_new->dc_state &&
->>>> -			dm_plane_state_old->dc_state != dm_plane_state_new->dc_state) {
->>>> -		struct dc_plane_state *plane_state = dm_plane_state_new->dc_state;
->>>> +	    dm_plane_state_old->dc_state != dm_plane_state_new->dc_state) {
->>>> +		struct dc_plane_state *plane_state =
->>>> +			dm_plane_state_new->dc_state;
->>>> +		bool force_disable_dcc = !plane_state->dcc.enable;
->>>> -		force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
->>>>    		fill_plane_buffer_attributes(
->>>>    			adev, afb, plane_state->format, plane_state->rotation,
->>>> -			tiling_flags, &plane_state->tiling_info,
->>>> -			&plane_state->plane_size, &plane_state->dcc,
->>>> -			&plane_state->address, tmz_surface,
->>>> -			force_disable_dcc);
->>>> +			dm_plane_state_new->tiling_flags,
->>>> +			&plane_state->tiling_info, &plane_state->plane_size,
->>>> +			&plane_state->dcc, &plane_state->address,
->>>> +			dm_plane_state_new->tmz_surface, force_disable_dcc);
->>>>    	}
->>>>    	return 0;
->>>> -- 
->>>> 2.25.1
->>>>
->>>> _______________________________________________
->>>> dri-devel mailing list
->>>> dri-devel@lists.freedesktop.org
->>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
+> Regards,
+> Nicholas Kazlauskas
+> 
+> > 
+> > > 
+> > > Optimization can come later so we don't reset DC planes at all for
+> > > MEDIUM udpates and avoid validation, but we might require some extra
+> > > checks in DM to achieve this.
+> > > 
+> > > Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> > > Cc: Hersen Wu <hersenxs.wu@amd.com>
+> > > Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> > > ---
+> > >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++++++++++++++
+> > >   1 file changed, 25 insertions(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > index 0d5f45742bb5..2cbb29199e61 100644
+> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > @@ -8336,6 +8336,31 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+> > >   		if (old_other_state->crtc != new_other_state->crtc)
+> > >   			return true;
+> > > +		/* Src/dst size and scaling updates. */
+> > > +		if (old_other_state->src_w != new_other_state->src_w ||
+> > > +		    old_other_state->src_h != new_other_state->src_h ||
+> > > +		    old_other_state->crtc_w != new_other_state->crtc_w ||
+> > > +		    old_other_state->crtc_h != new_other_state->crtc_h)
+> > > +			return true;
+> > > +
+> > > +		/* Rotation / mirroring updates. */
+> > > +		if (old_other_state->rotation != new_other_state->rotation)
+> > > +			return true;
+> > > +
+> > > +		/* Blending updates. */
+> > > +		if (old_other_state->pixel_blend_mode !=
+> > > +		    new_other_state->pixel_blend_mode)
+> > > +			return true;
+> > > +
+> > > +		/* Alpha updates. */
+> > > +		if (old_other_state->alpha != new_other_state->alpha)
+> > > +			return true;
+> > > +
+> > > +		/* Colorspace changes. */
+> > > +		if (old_other_state->color_range != new_other_state->color_range ||
+> > > +		    old_other_state->color_encoding != new_other_state->color_encoding)
+> > > +			return true;
+> > > +
+> > >   		/* Framebuffer checks fall at the end. */
+> > >   		if (!old_other_state->fb || !new_other_state->fb)
+> > >   			continue;
+> > > -- 
+> > > 2.25.1
+> > > 
+> > > _______________________________________________
+> > > dri-devel mailing list
+> > > dri-devel@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> > 
+> 
 
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
