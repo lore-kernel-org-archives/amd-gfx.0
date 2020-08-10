@@ -2,66 +2,83 @@ Return-Path: <SRS0=gp3V=BU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0C85C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F2C0C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:44:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A171D20774
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:44:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 74A9E2080C
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2020 15:44:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfSM0PWE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A171D20774
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="o99keg9q"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74A9E2080C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 574F36E03B;
-	Mon, 10 Aug 2020 15:44:18 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE9D6E03B
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 15:44:16 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id c15so8619094wrs.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2020 08:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PMYWkYTjaYuUxJD4TMCcOPHTGoX9dLNtOmcnno7KzvM=;
- b=dfSM0PWEIxSZsF/xMg9ViBcbN0u9g4fmxyaaLzptQG+I7UbJqmLIoE3dT23nDTKE3Y
- s59Yo831dt8/6U+EGtPwIxxIRJETg6lLo32sbYl2cnM+wkc+OZum4wnilUQ+pcFAM7f/
- JuIXFJE14dr4k3VY4b0faNWJDAj/xs1mszGvOGNvlxFi74bESAJzyFdxA4CBQkrBg6rs
- f6ts/7V7JupOUTmeQI5bJ1LVBAacNNw6RY97zLvyzpobPmPfSIreArFtjMpfce9FrW3a
- BhfUkDss65bh1nzda6kKLQDKRdlVfkSGDlE5zsLYkBmuQU0FHHir7wZ2nYM9GmH2YNDO
- EyaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PMYWkYTjaYuUxJD4TMCcOPHTGoX9dLNtOmcnno7KzvM=;
- b=GPR01aa0lnvh3OPckd/WrX9BBGAe4mw6W7fH4GEXNRvjXf1Lf16/SQlvsXTN91bZm+
- 7ta1hVTuzp1UXkw0+8+N8a6/D5DiMibIv1z//+ya4Qs888gGy8LFcUk7IjJV3m/bWu3n
- 1GZarXjeCovjT6NxHEJBuC+35TLLqHYFFW/4dDIEuWsozuXQm/2MRBucP5N8qli08ofl
- UOviARk4axmwlu+cYZkRXcvenpt7eOsw97ots6jPKoFX5JkCqumvXwqEjZarvOPiaxTW
- 6Dixi25weH0bwoxlJFzvYOIvuoB9mpk0upMnU6moVCOFIy5+P2dicN+a0GprJSl6gSSo
- rUpQ==
-X-Gm-Message-State: AOAM530IC98evBrs6Lvapp9bKBi/Lwrf06kTBwZWYP0CWETX+n8szFty
- Xd2Ts0MbjR+49xMERLEdxV71MUqmuK0SEYpDnwTn4w==
-X-Google-Smtp-Source: ABdhPJzRj26aNgez5wvE9MBJga2M+zxdmiuMNjnF/yphZQ4dRwJuY1PgJLUurbS7L6pmpZY1GPdRWG/zMd2ZeADsEJ8=
-X-Received: by 2002:adf:fd41:: with SMTP id h1mr26941448wrs.124.1597074254801; 
- Mon, 10 Aug 2020 08:44:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2D86E27C;
+	Mon, 10 Aug 2020 15:44:41 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02C7C6E25E;
+ Mon, 10 Aug 2020 15:44:39 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07AFhXtJ153655;
+ Mon, 10 Aug 2020 15:44:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=JvLiuuU3UgGUfrDifIj6lXvZMS7W5udsSPkBUIuvbkM=;
+ b=o99keg9qf1qCDxOhoorD6MCLSCgG2oiYfCjODzVYEfkaELoMgwnwZ4iv8hQ9KEaneAda
+ iiZsUsiNkXMJfMXxW+3gLZ2PW7raHV/Kq4Z/OpNKyBQH7DNsIOPntyB9k4UjdF00IIa+
+ XBwbI6vHtVrPx2WuehFw/AG/dtsTgxnd+H+hjN5w6bXUes3s51e09EgqtC7Yl4MpRAKl
+ eQrbhKPWAdiOe9r2eCsf8YkrrOsPemAZdBKucdRfYA5KUkBGCzPkVcV07irNbBwO5Ipb
+ YsQG5z8AtbiO1F8Rl4JrhU9vkxqeJcuG/48hNkNhXFzjwZ0HcapCSuNxr7FW8iF/14xa fQ== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2120.oracle.com with ESMTP id 32smpn79q6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 10 Aug 2020 15:44:35 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07AFJEiH003551;
+ Mon, 10 Aug 2020 15:42:34 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3020.oracle.com with ESMTP id 32t5y16wbq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 10 Aug 2020 15:42:34 +0000
+Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 07AFgNSI016391;
+ Mon, 10 Aug 2020 15:42:23 GMT
+Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 10 Aug 2020 15:42:22 +0000
+Date: Mon, 10 Aug 2020 18:42:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] drm: amdgpu: Use the correct size when allocating memory
+Message-ID: <20200810154213.GM1793@kadam>
+References: <20200809203406.751971-1-christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-References: <20200808204458.12482-1-daniel@octaforge.org>
-In-Reply-To: <20200808204458.12482-1-daniel@octaforge.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Aug 2020 11:44:03 -0400
-Message-ID: <CADnq5_O7oNTkjH65BBjKFnAEr7S6tBWVKqnscfqAL6cWdKnqiA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: add DCN support for aarch64
-To: Daniel Kolesa <daniel@octaforge.org>
+Content-Disposition: inline
+In-Reply-To: <20200809203406.751971-1-christophe.jaillet@wanadoo.fr>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9709
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ malwarescore=0
+ suspectscore=0 mlxscore=0 adultscore=0 bulkscore=0 phishscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2008100115
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9709
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 clxscore=1011 spamscore=0
+ malwarescore=0 adultscore=0 mlxlogscore=999 mlxscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2008100116
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,321 +90,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Ori.Messinger@amd.com, airlied@linux.ie, bernard@vivo.com,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, sumit.semwal@linaro.org,
+ colton.w.lewis@protonmail.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, christian.koenig@amd.com, m.szyprowski@samsung.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Sun, Aug 09, 2020 at 10:34:06PM +0200, Christophe JAILLET wrote:
+> When '*sgt' is allocated, we must allocated 'sizeof(**sgt)' bytes instead
+> of 'sizeof(*sg)'. 'sg' (i.e. struct scatterlist) is smaller than
+> 'sgt' (i.e struct sg_table), so this could lead to memory corruption.
 
-Alex
+The sizeof(*sg) is bigger than sizeof(**sgt) so this wastes memory but
+it won't lead to corruption.
 
-On Sat, Aug 8, 2020 at 4:51 PM Daniel Kolesa <daniel@octaforge.org> wrote:
->
-> This adds ARM64 support into the DCN. This mainly enables support
-> for Navi graphics cards. The dcn10 changes haven't been tested,
-> since I don't have the relevant hardware available, but there
-> is no way to conditionally disable them, so I've done them anyway.
->
-> Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
-> ---
->  drivers/gpu/drm/amd/display/Kconfig           |  2 +-
->  drivers/gpu/drm/amd/display/dc/calcs/Makefile |  7 ++
->  .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |  7 ++
->  drivers/gpu/drm/amd/display/dc/dcn10/Makefile |  7 ++
->  .../drm/amd/display/dc/dcn10/dcn10_resource.c | 81 ++++++++++++-------
->  drivers/gpu/drm/amd/display/dc/dcn20/Makefile |  4 +
->  drivers/gpu/drm/amd/display/dc/dcn21/Makefile |  4 +
->  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 13 +++
->  drivers/gpu/drm/amd/display/dc/dsc/Makefile   |  5 ++
->  drivers/gpu/drm/amd/display/dc/os_types.h     |  4 +
->  10 files changed, 102 insertions(+), 32 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 77569097a480..f24abf428534 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -6,7 +6,7 @@ config DRM_AMD_DC
->         bool "AMD DC - Enable new display engine"
->         default y
->         select SND_HDA_COMPONENT if SND_HDA_CORE
-> -       select DRM_AMD_DC_DCN if (X86 || PPC64) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
-> +       select DRM_AMD_DC_DCN if (X86 || PPC64 || (ARM64 && KERNEL_MODE_NEON)) && !(KCOV_INSTRUMENT_ALL && KCOV_ENABLE_COMPARISONS)
->         help
->           Choose this option if you want to use the new display engine
->           support for AMDGPU. This adds required support for Vega and
-> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> index 4674aca8f206..64f515d74410 100644
-> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> @@ -33,6 +33,10 @@ ifdef CONFIG_PPC64
->  calcs_ccflags := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_ARM64
-> +calcs_rcflags := -mgeneral-regs-only
-> +endif
-> +
->  ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
-> @@ -53,6 +57,9 @@ endif
->  CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calcs.o := $(calcs_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calc_auto.o := $(calcs_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/calcs/dcn_calc_math.o := $(calcs_ccflags) -Wno-tautological-compare
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calcs.o := $(calcs_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calc_auto.o := $(calcs_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/calcs/dcn_calc_math.o := $(calcs_rcflags)
->
->  BW_CALCS = dce_calcs.o bw_fixed.o custom_float.o
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index 52b1ce775a1e..1a495759a034 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -104,6 +104,13 @@ ifdef CONFIG_PPC64
->  CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
->  endif
->
-> +# prevent build errors:
-> +# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-> +# this file is unused on arm64, just like on ppc64
-> +ifdef CONFIG_ARM64
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := -mgeneral-regs-only
-> +endif
-> +
->  AMD_DAL_CLK_MGR_DCN21 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn21/,$(CLK_MGR_DCN21))
->
->  AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN21)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/Makefile b/drivers/gpu/drm/amd/display/dc/dcn10/Makefile
-> index 62ad1a11bff9..733e6e6e43bd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/Makefile
-> @@ -31,4 +31,11 @@ DCN10 = dcn10_init.o dcn10_resource.o dcn10_ipp.o dcn10_hw_sequencer.o \
->
->  AMD_DAL_DCN10 = $(addprefix $(AMDDALPATH)/dc/dcn10/,$(DCN10))
->
-> +# fix:
-> +# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-> +# aarch64 does not support soft-float, so use hard-float and handle this in code
-> +ifdef CONFIG_ARM64
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn10/dcn10_resource.o := -mgeneral-regs-only
-> +endif
-> +
->  AMD_DISPLAY_FILES += $(AMD_DAL_DCN10)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> index 17d5cb422025..07571f84e0f8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> @@ -1331,6 +1331,47 @@ static uint32_t read_pipe_fuses(struct dc_context *ctx)
->         return value;
->  }
->
-> +/*
-> + * Some architectures don't support soft-float (e.g. aarch64), on those
-> + * this function has to be called with hardfloat enabled, make sure not
-> + * to inline it so whatever fp stuff is done stays inside
-> + */
-> +static noinline void dcn10_resource_construct_fp(
-> +       struct dc *dc)
-> +{
-> +       if (dc->ctx->dce_version == DCN_VERSION_1_01) {
-> +               struct dcn_soc_bounding_box *dcn_soc = dc->dcn_soc;
-> +               struct dcn_ip_params *dcn_ip = dc->dcn_ip;
-> +               struct display_mode_lib *dml = &dc->dml;
-> +
-> +               dml->ip.max_num_dpp = 3;
-> +               /* TODO how to handle 23.84? */
-> +               dcn_soc->dram_clock_change_latency = 23;
-> +               dcn_ip->max_num_dpp = 3;
-> +       }
-> +       if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
-> +               dc->dcn_soc->urgent_latency = 3;
-> +               dc->debug.disable_dmcu = true;
-> +               dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
-> +       }
-> +
-> +
-> +       dc->dcn_soc->number_of_channels = dc->ctx->asic_id.vram_width / ddr4_dram_width;
-> +       ASSERT(dc->dcn_soc->number_of_channels < 3);
-> +       if (dc->dcn_soc->number_of_channels == 0)/*old sbios bug*/
-> +               dc->dcn_soc->number_of_channels = 2;
-> +
-> +       if (dc->dcn_soc->number_of_channels == 1) {
-> +               dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
-> +               dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
-> +               dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
-> +               dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
-> +               if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
-> +                       dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
-> +               }
-> +       }
-> +}
-> +
->  static bool dcn10_resource_construct(
->         uint8_t num_virtual_links,
->         struct dc *dc,
-> @@ -1482,37 +1523,15 @@ static bool dcn10_resource_construct(
->         memcpy(dc->dcn_ip, &dcn10_ip_defaults, sizeof(dcn10_ip_defaults));
->         memcpy(dc->dcn_soc, &dcn10_soc_defaults, sizeof(dcn10_soc_defaults));
->
-> -       if (dc->ctx->dce_version == DCN_VERSION_1_01) {
-> -               struct dcn_soc_bounding_box *dcn_soc = dc->dcn_soc;
-> -               struct dcn_ip_params *dcn_ip = dc->dcn_ip;
-> -               struct display_mode_lib *dml = &dc->dml;
-> -
-> -               dml->ip.max_num_dpp = 3;
-> -               /* TODO how to handle 23.84? */
-> -               dcn_soc->dram_clock_change_latency = 23;
-> -               dcn_ip->max_num_dpp = 3;
-> -       }
-> -       if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
-> -               dc->dcn_soc->urgent_latency = 3;
-> -               dc->debug.disable_dmcu = true;
-> -               dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 41.60f;
-> -       }
-> -
-> -
-> -       dc->dcn_soc->number_of_channels = dc->ctx->asic_id.vram_width / ddr4_dram_width;
-> -       ASSERT(dc->dcn_soc->number_of_channels < 3);
-> -       if (dc->dcn_soc->number_of_channels == 0)/*old sbios bug*/
-> -               dc->dcn_soc->number_of_channels = 2;
-> -
-> -       if (dc->dcn_soc->number_of_channels == 1) {
-> -               dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 19.2f;
-> -               dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = 17.066f;
-> -               dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = 14.933f;
-> -               dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 12.8f;
-> -               if (ASICREV_IS_RV1_F0(dc->ctx->asic_id.hw_internal_rev)) {
-> -                       dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = 20.80f;
-> -               }
-> -       }
-> +#if defined(CONFIG_ARM64)
-> +       /* Aarch64 does not support -msoft-float/-mfloat-abi=soft */
-> +       DC_FP_START();
-> +       dcn10_resource_construct_fp(dc);
-> +       DC_FP_END();
-> +#else
-> +       /* Other architectures we build for build this with soft-float */
-> +       dcn10_resource_construct_fp(dc);
-> +#endif
->
->         pool->base.pp_smu = dcn10_pp_smu_create(ctx);
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> index 5fcaf78334ff..624cb1341ef1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> @@ -17,6 +17,10 @@ ifdef CONFIG_PPC64
->  CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_ARM64
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mgeneral-regs-only
-> +endif
-> +
->  ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> index 07684d3e375a..51a2f3d4c194 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> @@ -13,6 +13,10 @@ ifdef CONFIG_PPC64
->  CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_ARM64
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mgeneral-regs-only
-> +endif
-> +
->  ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 417331438c30..dbc7e2abe379 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -33,6 +33,10 @@ ifdef CONFIG_PPC64
->  dml_ccflags := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_ARM64
-> +dml_rcflags := -mgeneral-regs-only
-> +endif
-> +
->  ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
-> @@ -60,6 +64,13 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags)
->  endif
->  ifdef CONFIG_DRM_AMD_DC_DCN3_0
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
-> @@ -67,6 +78,8 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
->  endif
->  CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_rcflags)
->
->  DML = display_mode_lib.o display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o \
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> index ea29cf95d470..f2624a1156e5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> @@ -10,6 +10,10 @@ ifdef CONFIG_PPC64
->  dsc_ccflags := -mhard-float -maltivec
->  endif
->
-> +ifdef CONFIG_ARM64
-> +dsc_rcflags := -mgeneral-regs-only
-> +endif
-> +
->  ifdef CONFIG_CC_IS_GCC
->  ifeq ($(call cc-ifversion, -lt, 0701, y), y)
->  IS_OLD_GCC = 1
-> @@ -28,6 +32,7 @@ endif
->  endif
->
->  CFLAGS_$(AMDDALPATH)/dc/dsc/rc_calc.o := $(dsc_ccflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dsc/rc_calc.o := $(dsc_rcflags)
->
->  DSC = dc_dsc.o rc_calc.o rc_calc_dpi.o
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-> index c3bbfe397e8d..330acaaed79a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/os_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-> @@ -55,6 +55,10 @@
->  #include <asm/fpu/api.h>
->  #define DC_FP_START() kernel_fpu_begin()
->  #define DC_FP_END() kernel_fpu_end()
-> +#elif defined(CONFIG_ARM64)
-> +#include <asm/neon.h>
-> +#define DC_FP_START() kernel_neon_begin()
-> +#define DC_FP_END() kernel_neon_end()
->  #elif defined(CONFIG_PPC64)
->  #include <asm/switch_to.h>
->  #include <asm/cputable.h>
-> --
-> 2.28.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+    11  struct scatterlist {
+    12          unsigned long   page_link;
+    13          unsigned int    offset;
+    14          unsigned int    length;
+    15          dma_addr_t      dma_address;
+    16  #ifdef CONFIG_NEED_SG_DMA_LENGTH
+    17          unsigned int    dma_length;
+    18  #endif
+    19  };
+
+    42  struct sg_table {
+    43          struct scatterlist *sgl;        /* the list */
+    44          unsigned int nents;             /* number of mapped entries */
+    45          unsigned int orig_nents;        /* original size of list */
+    46  };
+
+regards,
+dan carpenter
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
