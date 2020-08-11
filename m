@@ -2,104 +2,73 @@ Return-Path: <SRS0=t0+e=BV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0299C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:33:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCA3AC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0BB120771
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:33:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 82D9D206C3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:42:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aYommeG4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0BB120771
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UdtCloL2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82D9D206C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB8C6E366;
-	Tue, 11 Aug 2020 13:33:06 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31CBC6E366
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 13:33:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EYPNOarshvBoMlyzmin3msXv6Av3ikjb+mt6G7ZZzkCUvrvmVdPzbZZqBjP4++tU63CSgoyKb+QzWRib70mKGc0ePp8RgeHE5xTq9/XCIQaSD6lP6XpjYG8+FHp5iqW4E4xxfWM9T0JcNp1HtJh14Ekq4mL6iuEXngLszJ8I2q1llTRsUDaytmW5cFlkpDS8l2V/Vx5nFzCK/JEd0lcpMEOslgJ/CTBdkdVSzEpVzYypa8BDNkTFC0UzWedXym0TrCvOj5N8HeGcyvKy1cefMXQEVeS3WDo6HeAUm1M2BDDPs6yb6uXxS7RlknBYI70v2Ti+P1g0JU+63XGGksPVFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IKsWlQd7m3WZHnBfQGKqLae40lQsX7JDnZfIEpbxToE=;
- b=dMe920hhk+EeMGtVycLOXBoWp7kepVoc4eNOWlccAvnwuJW5H4qT/Do7lm0KGzPNVyPixmLMCO1CqbK35Vz4iMOx5CYXPxpMjbv6fWIOpMxW7sUFY+OL1KuTOY6OqFbMtmQVxhUALYw0vIErWG13NDNyqv+Nv6jROn6LjTtkzKdwlrGxrxXZb/bYov/UauW/ZSCevlPASAgX2itWyQz6iZzb77dKVgw+4qoSq9o3S4lAeHY9EfhVApKNnUDVDPc+sabv7mR3GZr8L/Gzhyhb5hE8tGl/iVxi9/u4IDbok8SNqXT1SXPhFoMfu3sgvYMpOgxyPJxv/7bB9Qm2uJTNMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IKsWlQd7m3WZHnBfQGKqLae40lQsX7JDnZfIEpbxToE=;
- b=aYommeG44ISdu6JYJDzfY7OL9kE/AUOZ8qhFojufOi1y1H6HI6MUxXMi+qozh0ANzQIMG2WuvyztT0+fhTfzbO4LYjnC3OwSpngihXnRgcV684b4UomY/sCfCnPalL3IDOZj79aM9jyAn/eyXnYKxaPJNls4veS9C27BRpUOpEs=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4032.namprd12.prod.outlook.com (2603:10b6:208:16d::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Tue, 11 Aug
- 2020 13:33:02 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb%7]) with mapi id 15.20.3261.024; Tue, 11 Aug 2020
- 13:33:02 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: fix the wrong sdma instance query for renoir
-Thread-Topic: [PATCH] drm/amdkfd: fix the wrong sdma instance query for renoir
-Thread-Index: AQHWb6iGiPH50dtQv0yf+q/I5m0RJqky6FXb
-Date: Tue, 11 Aug 2020 13:33:02 +0000
-Message-ID: <MN2PR12MB44889F3A0A27115B276BF95CF7450@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200811062716.2927620-1-ray.huang@amd.com>
-In-Reply-To: <20200811062716.2927620-1-ray.huang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-11T13:33:01.728Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [71.219.66.138]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 0172d35e-3dd5-4e5c-0c7a-08d83dfb122b
-x-ms-traffictypediagnostic: MN2PR12MB4032:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB403202CD5F5DB7258DCD8ACCF7450@MN2PR12MB4032.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:569;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Pm3bdLIPLUiJDWyMCKZNHo5e0BnLkb5REgtNHV6G4IgCaMu7gc49LAgVHuzbYPP3X/lEz6Ri/VHHlKc0CT4JrqayTtPNbaatY1QcRqaOsVMIjj9G3gAJHs1utNVgkDIiFv5ws3Y2QUGRjFgEzkVar9s2asEPOXWXGqpAg7AR1U4hVEwArb63qJYanUFe4IF/TcwYi4fWKVguDp/N7gALucuWbOkYUvotKK5n3Nvye6rJrbHgiy09Yh1UBobRuiOLyxDsirlOKtrFNX0+Huneqsxlyc7ylaB2H9GER5rnA8LnyU8HRQx37Dd9cNS+qHJ8vQhB300vLiju7z6bDXpIpjW/1t95WsR6+7j1xBH7Lx4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(186003)(7696005)(110136005)(26005)(316002)(966005)(166002)(33656002)(64756008)(66446008)(76116006)(71200400001)(66476007)(478600001)(66946007)(83380400001)(66556008)(53546011)(6506007)(19627405001)(45080400002)(5660300002)(2906002)(8936002)(4326008)(52536014)(86362001)(8676002)(55016002)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 0oLClQedmkD3+ix8GJ6bcepQqTCgUOWKkdWsbfVxZ9WBtLdX9eT+4sGmxehVStEOpgCyoQM/9jzuunPzdCM4tyn4vTZHQsvgTf1S8tMRn0OI4U9V11tqF/CfjguEIGVNSP6K1ZW217CtNhLNzROc/xOPkmgYmRpNgLdSVXF8w7HTgByQxkauTNP1wOarWA0N6bsokNee+3bD3CLFPnqU79njDy3KHgMVZxJmglArQ8G5msp9KisUg77XUiUs+0hIe0z2Z9vKkxVaQzJ2jwXdUI1GPfk6LcOWrCUAjpya4b4NaRGCo8d0DinZcYVRYNVOaxxLOIB5tGt7b9qs9L8CkqAaijUqUhojnO1q+ZNyypbOyjJxERiuID9+Q+eVvE4IsC91CbYa8AiG8vu5TILQebXrvg+fzzaYQ3cIdbZTPGOq0AXi6zr/89+JyooD0UdtB1smqS1I/ePaowJXE3ytyAi+4JWV6YLguP3Hlbh3DCJk5epjA0J9TI+93L1UhoDAUv0elcPqDxz2GPcH/881twKLvVKu7zeihsKOYwVPpBeFW9ZsJSpILmq/O84dA8u3ogxx3yWrAYtE9OiH0SJUcJJbx6exwwrs8JjFfItkXRRIDWeU5tvAlkOHHm/99ccn0GxKyCxzZcLiOIntRca2tQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3DC6E513;
+	Tue, 11 Aug 2020 13:42:27 +0000 (UTC)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E298A6E50C;
+ Tue, 11 Aug 2020 13:42:25 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id 2so1885760pjx.5;
+ Tue, 11 Aug 2020 06:42:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=acr0H6bjplSuH3jFhn/PRz6bXpxAqSXjdFwXNbPnR24=;
+ b=UdtCloL2EaQh4RPmsH4JGk21oKU+bstNRN0MFNJfd7QgJGlRbv6SGW9/k2X05bmZ+7
+ 32Ln0xXzJUt9BX1E3K0k8WyMIYLQDi/HhNYjYNxqJKS3AA2P9P4QzIk2VaovlaOAzyDG
+ p2uMMmRUYqpAwvyMBAawJkN+toi7QlZle5Npr6wFYVDo/xV4CUHB+8avlvc7LhKDr0zW
+ wkEOeWhYlBpS5IQ9pPhdvl8mJBuibEd4OeQYU/r7TmWiCiE2yBC/F/5F3gUiIMN5FcAP
+ Zvq30v17dVgJmvWyZe4lX3t/iAYP8cw4MLkzp4IDif8rXzjgZd0b+v3Uqj4D1DBGOs5z
+ BhRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=acr0H6bjplSuH3jFhn/PRz6bXpxAqSXjdFwXNbPnR24=;
+ b=jFIy+zHQ05zd7kHmVwdXHijOYG4Q4TYH8kVpIm3359hOIAh3JhgK24Vrk4bFmQwZvT
+ 1PpFWQLetF7xDVqTKtMgs0bIZLz0Sz+MBMEsLl+5L1X7o+UoDU041HdQP+ZOOKZmDbZS
+ RXhq+GuP5/ZDM65TGc0UqPDQarIMmWVOxvxaIQIdXU9mD+uaNiWxbG0IjekA2EAlkGy7
+ dSnplWwx8XeGCK7eBAg8Gd666sRrp0T2U4xzQHWQCurVyhjipGX7BjGJL+hDuaTkdBqd
+ B4T/6npEnCD88OKmSVphQ+ZAeM7FmPwyBt/5weNjkdRVuUOXmFNTwfauLYF1p9/uXTik
+ fs+g==
+X-Gm-Message-State: AOAM530uoOWVRAp9y8ZLUoKbUrkbUz6UjGxl42/4wHTILla7CTer6DTU
+ /ua/tVIoD8XfH1skCWFO/ij5lqhyLZiTUn+zVXDz9g==
+X-Google-Smtp-Source: ABdhPJxg9zr+OF3zRlqH9dkmkmCbrvGaJ5IDw55tVUj1Fomooaz0Dol415tx9iZWqC8iYBvpmqSlZtx4DIL02Czp2ss=
+X-Received: by 2002:a17:902:a50e:: with SMTP id
+ s14mr905557plq.164.1597153343910; 
+ Tue, 11 Aug 2020 06:42:23 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0172d35e-3dd5-4e5c-0c7a-08d83dfb122b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2020 13:33:02.2965 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ik8ONC7ZvWngmR+UiYubt0TdQnWxYJ2UbW68GDj3GReNDkfyuiAc30AP43jJfNicXTcNfG6dZYfkcJxTtBCMkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4032
+References: <20200730203642.17553-1-nicholas.kazlauskas@amd.com>
+ <20200730203642.17553-4-nicholas.kazlauskas@amd.com>
+ <20200807083041.GL6419@phenom.ffwll.local>
+ <4117cdee-2f5d-a8bd-1e80-1c550c9d9af3@amd.com>
+ <20200810122553.GI2352366@phenom.ffwll.local>
+ <9fc38b52-6b46-fec8-e511-3fc3e9d2c151@gmail.com>
+In-Reply-To: <9fc38b52-6b46-fec8-e511-3fc3e9d2c151@gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 11 Aug 2020 09:42:11 -0400
+Message-ID: <CAAxE2A5BXVJ9xQ=C6F=Df1MCGUKTjV7yR=6x5hu6vfARp1SD7Q@mail.gmail.com>
+Subject: Re: [PATCH 3/7] drm/amd/display: Avoid using unvalidated tiling_flags
+ and tmz_surface in prepare_planes
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,267 +80,426 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Content-Type: multipart/mixed; boundary="===============1823682697=="
+Cc: "Olsak, Marek" <Marek.Olsak@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>
+Content-Type: multipart/mixed; boundary="===============0021226093=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1823682697==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_"
+--===============0021226093==
+Content-Type: multipart/alternative; boundary="000000000000b7389d05ac9a3d36"
 
---_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
+--000000000000b7389d05ac9a3d36
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Public Use]
+There are a few cases when the flags can change, for example DCC can be
+disabled due to a hw limitation in the 3d engine. Modifiers give the
+misleading impression that they help with that, but they don't. They don't
+really help with anything.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Huang Ru=
-i <ray.huang@amd.com>
-Sent: Tuesday, August 11, 2020 2:27 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Huang, Ray <Ray.Huang@amd.com=
+Marek
+
+On Mon., Aug. 10, 2020, 08:30 Christian K=C3=B6nig, <
+ckoenig.leichtzumerken@gmail.com> wrote:
+
+> Am 10.08.20 um 14:25 schrieb Daniel Vetter:
+> > On Fri, Aug 07, 2020 at 10:29:09AM -0400, Kazlauskas, Nicholas wrote:
+> >> On 2020-08-07 4:30 a.m., daniel@ffwll.ch wrote:
+> >>> On Thu, Jul 30, 2020 at 04:36:38PM -0400, Nicholas Kazlauskas wrote:
+> >>>> [Why]
+> >>>> We're racing with userspace as the flags could potentially change
+> >>>> from when we acquired and validated them in commit_check.
+> >>> Uh ... I didn't know these could change. I think my comments on Bas'
+> >>> series are even more relevant now. I think long term would be best to
+> bake
+> >>> these flags in at addfb time when modifiers aren't set. And otherwise
+> >>> always use the modifiers flag, and completely ignore the legacy flags
+> >>> here.
+> >>> -Daniel
+> >>>
+> >> There's a set tiling/mod flags IOCTL that can be called after addfb
+> happens,
+> >> so unless there's some sort of driver magic preventing this from worki=
+ng
+> >> when it's already been pinned for scanout then I don't see anything
+> stopping
+> >> this from happening.
+> >>
+> >> I still need to review the modifiers series in a little more detail bu=
+t
+> that
+> >> looks like a good approach to fixing these kind of issues.
+> > Yeah we had the same model for i915, but it's awkward and can surprise
+> > compositors (since the client could change the tiling mode from
+> underneath
+> > the compositor). So freezing the tiling mode at addfb time is the right
+> > thing to do, and anyway how things work with modifiers.
+> >
+> > Ofc maybe good to audit the -amd driver, but hopefully it doesn't do
+> > anything silly with changed tiling. If it does, it's kinda sad day.
 >
-Subject: [PATCH] drm/amdkfd: fix the wrong sdma instance query for renoir
+> Marek should know this right away, but I think we only set the tilling
+> flags once while exporting the BO and then never change them.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Btw for i915 we even went a step further, and made the set_tiling ioctl
+> > return an error if a framebuffer for that gem_bo existed. Just to make
+> > sure we don't ever accidentally break this.
+> >
+> > Cheers, Daniel
+> >
+> >> Regards,
+> >> Nicholas Kazlauskas
+> >>
+> >>>> [How]
+> >>>> We unfortunately can't drop this function in its entirety from
+> >>>> prepare_planes since we don't know the afb->address at commit_check
+> >>>> time yet.
+> >>>>
+> >>>> So instead of querying new tiling_flags and tmz_surface use the ones
+> >>>> from the plane_state directly.
+> >>>>
+> >>>> While we're at it, also update the force_disable_dcc option based
+> >>>> on the state from atomic check.
+> >>>>
+> >>>> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> >>>> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> >>>> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> >>>> ---
+> >>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 36
+> ++++++++++---------
+> >>>>    1 file changed, 19 insertions(+), 17 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>> index bf1881bd492c..f78c09c9585e 100644
+> >>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >>>> @@ -5794,14 +5794,8 @@ static int dm_plane_helper_prepare_fb(struct
+> drm_plane *plane,
+> >>>>            struct list_head list;
+> >>>>            struct ttm_validate_buffer tv;
+> >>>>            struct ww_acquire_ctx ticket;
+> >>>> -  uint64_t tiling_flags;
+> >>>>            uint32_t domain;
+> >>>>            int r;
+> >>>> -  bool tmz_surface =3D false;
+> >>>> -  bool force_disable_dcc =3D false;
+> >>>> -
+> >>>> -  dm_plane_state_old =3D to_dm_plane_state(plane->state);
+> >>>> -  dm_plane_state_new =3D to_dm_plane_state(new_state);
+> >>>>            if (!new_state->fb) {
+> >>>>                    DRM_DEBUG_DRIVER("No FB bound\n");
+> >>>> @@ -5845,27 +5839,35 @@ static int dm_plane_helper_prepare_fb(struct
+> drm_plane *plane,
+> >>>>                    return r;
+> >>>>            }
+> >>>> -  amdgpu_bo_get_tiling_flags(rbo, &tiling_flags);
+> >>>> -
+> >>>> -  tmz_surface =3D amdgpu_bo_encrypted(rbo);
+> >>>> -
+> >>>>            ttm_eu_backoff_reservation(&ticket, &list);
+> >>>>            afb->address =3D amdgpu_bo_gpu_offset(rbo);
+> >>>>            amdgpu_bo_ref(rbo);
+> >>>> +  /**
+> >>>> +   * We don't do surface updates on planes that have been newly
+> created,
+> >>>> +   * but we also don't have the afb->address during atomic check.
+> >>>> +   *
+> >>>> +   * Fill in buffer attributes depending on the address here, but
+> only on
+> >>>> +   * newly created planes since they're not being used by DC yet an=
+d
+> this
+> >>>> +   * won't modify global state.
+> >>>> +   */
+> >>>> +  dm_plane_state_old =3D to_dm_plane_state(plane->state);
+> >>>> +  dm_plane_state_new =3D to_dm_plane_state(new_state);
+> >>>> +
+> >>>>            if (dm_plane_state_new->dc_state &&
+> >>>> -                  dm_plane_state_old->dc_state !=3D
+> dm_plane_state_new->dc_state) {
+> >>>> -          struct dc_plane_state *plane_state =3D
+> dm_plane_state_new->dc_state;
+> >>>> +      dm_plane_state_old->dc_state !=3D dm_plane_state_new->dc_stat=
+e) {
+> >>>> +          struct dc_plane_state *plane_state =3D
+> >>>> +                  dm_plane_state_new->dc_state;
+> >>>> +          bool force_disable_dcc =3D !plane_state->dcc.enable;
+> >>>> -          force_disable_dcc =3D adev->asic_type =3D=3D CHIP_RAVEN &=
+&
+> adev->in_suspend;
+> >>>>                    fill_plane_buffer_attributes(
+> >>>>                            adev, afb, plane_state->format,
+> plane_state->rotation,
+> >>>> -                  tiling_flags, &plane_state->tiling_info,
+> >>>> -                  &plane_state->plane_size, &plane_state->dcc,
+> >>>> -                  &plane_state->address, tmz_surface,
+> >>>> -                  force_disable_dcc);
+> >>>> +                  dm_plane_state_new->tiling_flags,
+> >>>> +                  &plane_state->tiling_info,
+> &plane_state->plane_size,
+> >>>> +                  &plane_state->dcc, &plane_state->address,
+> >>>> +                  dm_plane_state_new->tmz_surface,
+> force_disable_dcc);
+> >>>>            }
+> >>>>            return 0;
+> >>>> --
+> >>>> 2.25.1
+> >>>>
+> >>>> _______________________________________________
+> >>>> dri-devel mailing list
+> >>>> dri-devel@lists.freedesktop.org
+> >>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 
-Renoir only has one sdma instance, it will get failed once query the
-sdma1 registers. So use switch-case instead of static register array.
-
-Signed-off-by: Huang Rui <ray.huang@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 31 +++++++++++++------
- 1 file changed, 22 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 032d3c866280..23ccfe0ad5d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -197,19 +197,32 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu=
-_device *adev,
-                                 unsigned int engine_id,
-                                 unsigned int queue_id)
- {
--       uint32_t sdma_engine_reg_base[2] =3D {
--               SOC15_REG_OFFSET(SDMA0, 0,
--                                mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CN=
-TL,
--               SOC15_REG_OFFSET(SDMA1, 0,
--                                mmSDMA1_RLC0_RB_CNTL) - mmSDMA1_RLC0_RB_CN=
-TL
--       };
--       uint32_t retval =3D sdma_engine_reg_base[engine_id]
-+       uint32_t sdma_engine_reg_base =3D 0;
-+       uint32_t sdma_rlc_reg_offset;
-+
-+       switch (engine_id) {
-+       default:
-+               dev_warn(adev->dev,
-+                        "Invalid sdma engine id (%d), using engine id 0\n"=
-,
-+                        engine_id);
-+               /* fall through */
-+       case 0:
-+               sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA0, 0,
-+                               mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
-L;
-+               break;
-+       case 1:
-+               sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA1, 0,
-+                               mmSDMA1_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
-L;
-+               break;
-+       }
-+
-+       sdma_rlc_reg_offset =3D sdma_engine_reg_base
-                 + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL)=
-;
-
-         pr_debug("RLC register offset for SDMA%d RLC%d: 0x%x\n", engine_id=
-,
--                       queue_id, retval);
-+                queue_id, sdma_rlc_reg_offset);
-
--       return retval;
-+       return sdma_rlc_reg_offset;
- }
-
- static inline struct v9_mqd *get_mqd(void *mqd)
---
-2.25.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C575d3b20ab90469e7a5208d83dbfa612%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637327240654534583&amp;sdata=3Du%2By9MwOEH7bGIQbaj=
-nefKann2HyJ%2FWRG6I91FBgVakM%3D&amp;reserved=3D0
-
---_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
+--000000000000b7389d05ac9a3d36
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Huang Rui &lt;ray.huang@amd.c=
-om&gt;<br>
-<b>Sent:</b> Tuesday, August 11, 2020 2:27 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Huang, Ray &lt;R=
-ay.Huang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdkfd: fix the wrong sdma instance query for r=
-enoir</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Renoir only has one sdma instance, it will get fai=
-led once query the<br>
-sdma1 registers. So use switch-case instead of static register array.<br>
-<br>
-Signed-off-by: Huang Rui &lt;ray.huang@amd.com&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 31 +++++++++++++-----=
--<br>
-&nbsp;1 file changed, 22 insertions(+), 9 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-index 032d3c866280..23ccfe0ad5d4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-@@ -197,19 +197,32 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu=
-_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int engine_id,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int queue_id)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base[2] =3D =
-{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; SOC15_REG_OFFSET(SDMA0, 0,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_=
-RB_CNTL,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; SOC15_REG_OFFSET(SDMA1, 0,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA1_RLC0_RB_CNTL) - mmSDMA1_RLC0_=
-RB_CNTL<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval =3D sdma_engine_reg_b=
-ase[engine_id]<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base =3D 0;<=
+<div dir=3D"auto">There are a few cases when the flags can change, for exam=
+ple DCC can be disabled due to a hw limitation in the 3d engine. Modifiers =
+give the misleading impression that they help with that, but they don&#39;t=
+. They don&#39;t really help with anything.<div dir=3D"auto"><br></div><div=
+ dir=3D"auto">Marek</div></div><br><div class=3D"gmail_quote"><div dir=3D"l=
+tr" class=3D"gmail_attr">On Mon., Aug. 10, 2020, 08:30 Christian K=C3=B6nig=
+, &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.leichtzum=
+erken@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Am 1=
+0.08.20 um 14:25 schrieb Daniel Vetter:<br>
+&gt; On Fri, Aug 07, 2020 at 10:29:09AM -0400, Kazlauskas, Nicholas wrote:<=
 br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_reg_offset;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (engine_id) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_warn(adev-&gt;dev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Inva=
-lid sdma engine id (%d), using engine id 0\n&quot;,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; engine_id)=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* fall through */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA0, 0,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
-L;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1:<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA1, 0,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA1_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
-L;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_reg_offset =3D sdma_engine_r=
-eg_base<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_=
-CNTL);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC registe=
-r offset for SDMA%d RLC%d: 0x%x\n&quot;, engine_id,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_id, retval=
+&gt;&gt; On 2020-08-07 4:30 a.m., <a href=3D"mailto:daniel@ffwll.ch" target=
+=3D"_blank" rel=3D"noreferrer">daniel@ffwll.ch</a> wrote:<br>
+&gt;&gt;&gt; On Thu, Jul 30, 2020 at 04:36:38PM -0400, Nicholas Kazlauskas =
+wrote:<br>
+&gt;&gt;&gt;&gt; [Why]<br>
+&gt;&gt;&gt;&gt; We&#39;re racing with userspace as the flags could potenti=
+ally change<br>
+&gt;&gt;&gt;&gt; from when we acquired and validated them in commit_check.<=
+br>
+&gt;&gt;&gt; Uh ... I didn&#39;t know these could change. I think my commen=
+ts on Bas&#39;<br>
+&gt;&gt;&gt; series are even more relevant now. I think long term would be =
+best to bake<br>
+&gt;&gt;&gt; these flags in at addfb time when modifiers aren&#39;t set. An=
+d otherwise<br>
+&gt;&gt;&gt; always use the modifiers flag, and completely ignore the legac=
+y flags<br>
+&gt;&gt;&gt; here.<br>
+&gt;&gt;&gt; -Daniel<br>
+&gt;&gt;&gt;<br>
+&gt;&gt; There&#39;s a set tiling/mod flags IOCTL that can be called after =
+addfb happens,<br>
+&gt;&gt; so unless there&#39;s some sort of driver magic preventing this fr=
+om working<br>
+&gt;&gt; when it&#39;s already been pinned for scanout then I don&#39;t see=
+ anything stopping<br>
+&gt;&gt; this from happening.<br>
+&gt;&gt;<br>
+&gt;&gt; I still need to review the modifiers series in a little more detai=
+l but that<br>
+&gt;&gt; looks like a good approach to fixing these kind of issues.<br>
+&gt; Yeah we had the same model for i915, but it&#39;s awkward and can surp=
+rise<br>
+&gt; compositors (since the client could change the tiling mode from undern=
+eath<br>
+&gt; the compositor). So freezing the tiling mode at addfb time is the righ=
+t<br>
+&gt; thing to do, and anyway how things work with modifiers.<br>
+&gt;<br>
+&gt; Ofc maybe good to audit the -amd driver, but hopefully it doesn&#39;t =
+do<br>
+&gt; anything silly with changed tiling. If it does, it&#39;s kinda sad day=
+.<br>
+<br>
+Marek should know this right away, but I think we only set the tilling <br>
+flags once while exporting the BO and then never change them.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Btw for i915 we even went a step further, and made the set_tiling ioct=
+l<br>
+&gt; return an error if a framebuffer for that gem_bo existed. Just to make=
+<br>
+&gt; sure we don&#39;t ever accidentally break this.<br>
+&gt;<br>
+&gt; Cheers, Daniel<br>
+&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt; Nicholas Kazlauskas<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;&gt; [How]<br>
+&gt;&gt;&gt;&gt; We unfortunately can&#39;t drop this function in its entir=
+ety from<br>
+&gt;&gt;&gt;&gt; prepare_planes since we don&#39;t know the afb-&gt;address=
+ at commit_check<br>
+&gt;&gt;&gt;&gt; time yet.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; So instead of querying new tiling_flags and tmz_surface us=
+e the ones<br>
+&gt;&gt;&gt;&gt; from the plane_state directly.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; While we&#39;re at it, also update the force_disable_dcc o=
+ption based<br>
+&gt;&gt;&gt;&gt; on the state from atomic check.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Cc: Bhawanpreet Lakha &lt;<a href=3D"mailto:Bhawanpreet.La=
+kha@amd.com" target=3D"_blank" rel=3D"noreferrer">Bhawanpreet.Lakha@amd.com=
+</a>&gt;<br>
+&gt;&gt;&gt;&gt; Cc: Rodrigo Siqueira &lt;<a href=3D"mailto:Rodrigo.Siqueir=
+a@amd.com" target=3D"_blank" rel=3D"noreferrer">Rodrigo.Siqueira@amd.com</a=
+>&gt;<br>
+&gt;&gt;&gt;&gt; Signed-off-by: Nicholas Kazlauskas &lt;<a href=3D"mailto:n=
+icholas.kazlauskas@amd.com" target=3D"_blank" rel=3D"noreferrer">nicholas.k=
+azlauskas@amd.com</a>&gt;<br>
+&gt;&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=
+ | 36 ++++++++++---------<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 1 file changed, 19 insertions(+), 17 deletion=
+s(-)<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt;&gt;&gt;&gt; index bf1881bd492c..f78c09c9585e 100644<br>
+&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br=
+>
+&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br=
+>
+&gt;&gt;&gt;&gt; @@ -5794,14 +5794,8 @@ static int dm_plane_helper_prepare_=
+fb(struct drm_plane *plane,<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct list_head =
+list;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct ttm_valida=
+te_buffer tv;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct ww_acquire=
+_ctx ticket;<br>
+&gt;&gt;&gt;&gt; -=C2=A0 uint64_t tiling_flags;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t domain;<=
+br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int r;<br>
+&gt;&gt;&gt;&gt; -=C2=A0 bool tmz_surface =3D false;<br>
+&gt;&gt;&gt;&gt; -=C2=A0 bool force_disable_dcc =3D false;<br>
+&gt;&gt;&gt;&gt; -<br>
+&gt;&gt;&gt;&gt; -=C2=A0 dm_plane_state_old =3D to_dm_plane_state(plane-&gt=
+;state);<br>
+&gt;&gt;&gt;&gt; -=C2=A0 dm_plane_state_new =3D to_dm_plane_state(new_state=
 );<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; queue_id, sdma_rlc_reg_offset);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sdma_rlc_reg_offset;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static inline struct v9_mqd *get_mqd(void *mqd)<br>
--- <br>
-2.25.1<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!new_state-&g=
+t;fb) {<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 DRM_DEBUG_DRIVER(&quot;No FB bound\n&quot;);<br>
+&gt;&gt;&gt;&gt; @@ -5845,27 +5839,35 @@ static int dm_plane_helper_prepare=
+_fb(struct drm_plane *plane,<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 return r;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;&gt; -=C2=A0 amdgpu_bo_get_tiling_flags(rbo, &amp;tiling_flags)=
+;<br>
+&gt;&gt;&gt;&gt; -<br>
+&gt;&gt;&gt;&gt; -=C2=A0 tmz_surface =3D amdgpu_bo_encrypted(rbo);<br>
+&gt;&gt;&gt;&gt; -<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ttm_eu_backoff_re=
+servation(&amp;ticket, &amp;list);<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 afb-&gt;address =
+=3D amdgpu_bo_gpu_offset(rbo);<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_bo_ref(rbo=
+);<br>
+&gt;&gt;&gt;&gt; +=C2=A0 /**<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0* We don&#39;t do surface updates on planes =
+that have been newly created,<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0* but we also don&#39;t have the afb-&gt;add=
+ress during atomic check.<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0*<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0* Fill in buffer attributes depending on the=
+ address here, but only on<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0* newly created planes since they&#39;re not=
+ being used by DC yet and this<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0* won&#39;t modify global state.<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0*/<br>
+&gt;&gt;&gt;&gt; +=C2=A0 dm_plane_state_old =3D to_dm_plane_state(plane-&gt=
+;state);<br>
+&gt;&gt;&gt;&gt; +=C2=A0 dm_plane_state_new =3D to_dm_plane_state(new_state=
+);<br>
+&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (dm_plane_stat=
+e_new-&gt;dc_state &amp;&amp;<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 dm_plane_state_old-&gt;dc_state !=3D dm_plane_state_new-&gt;dc_state=
+) {<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dc_plane_state =
+*plane_state =3D dm_plane_state_new-&gt;dc_state;<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 dm_plane_state_old-&gt;dc_state !=3D=
+ dm_plane_state_new-&gt;dc_state) {<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dc_plane_state =
+*plane_state =3D<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 dm_plane_state_new-&gt;dc_state;<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bool force_disable_dcc=
+ =3D !plane_state-&gt;dcc.enable;<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 force_disable_dcc =3D =
+adev-&gt;asic_type =3D=3D CHIP_RAVEN &amp;&amp; adev-&gt;in_suspend;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 fill_plane_buffer_attributes(<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev, afb, plane_state-&gt;format, p=
+lane_state-&gt;rotation,<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 tiling_flags, &amp;plane_state-&gt;tiling_info,<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 &amp;plane_state-&gt;plane_size, &amp;plane_state-&gt;dcc,<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 &amp;plane_state-&gt;address, tmz_surface,<br>
+&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 force_disable_dcc);<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 dm_plane_state_new-&gt;tiling_flags,<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 &amp;plane_state-&gt;tiling_info, &amp;plane_state-&gt;plane_size,<b=
+r>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 &amp;plane_state-&gt;dcc, &amp;plane_state-&gt;address,<br>
+&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 dm_plane_state_new-&gt;tmz_surface, force_disable_dcc);<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt;&gt;&gt;&gt; -- <br>
+&gt;&gt;&gt;&gt; 2.25.1<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; _______________________________________________<br>
+&gt;&gt;&gt;&gt; dri-devel mailing list<br>
+&gt;&gt;&gt;&gt; <a href=3D"mailto:dri-devel@lists.freedesktop.org" target=
+=3D"_blank" rel=3D"noreferrer">dri-devel@lists.freedesktop.org</a><br>
+&gt;&gt;&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/=
+dri-devel" rel=3D"noreferrer noreferrer" target=3D"_blank">https://lists.fr=
+eedesktop.org/mailman/listinfo/dri-devel</a><br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C575d3b20ab90469e7a5208d83dbfa612%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637327240654534583&amp;amp;sdata=3D=
-u%2By9MwOEH7bGIQbajnefKann2HyJ%2FWRG6I91FBgVakM%3D&amp;amp;reserved=3D0">ht=
-tps://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.fre=
-edesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexan=
-der.deucher%40amd.com%7C575d3b20ab90469e7a5208d83dbfa612%7C3dd8961fe4884e60=
-8e11a82d994e183d%7C0%7C0%7C637327240654534583&amp;amp;sdata=3Du%2By9MwOEH7b=
-GIQbajnefKann2HyJ%2FWRG6I91FBgVakM%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank" rel=3D"n=
+oreferrer">amd-gfx@lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailm=
+an/listinfo/amd-gfx</a><br>
+</blockquote></div>
 
---_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_--
+--000000000000b7389d05ac9a3d36--
 
---===============1823682697==
+--===============0021226093==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -382,4 +510,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1823682697==--
+--===============0021226093==--
