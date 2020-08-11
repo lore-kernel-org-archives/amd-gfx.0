@@ -8,64 +8,66 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C277C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 16:05:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06A7CC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 16:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED3D5206B5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 16:05:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C9E56206B5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 16:05:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1HbtwEI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED3D5206B5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YUYioqnK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9E56206B5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8236E5B6;
-	Tue, 11 Aug 2020 16:05:09 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A15996E5B6
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 16:05:07 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id w9so9785717qts.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 09:05:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 646596E5B9;
+	Tue, 11 Aug 2020 16:05:10 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF59F6E5B6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 16:05:08 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id n129so6446025qkd.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 09:05:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SwUhasSdtXh1mJRt/UyMgfMvNuKGgDHLuMu1+9giF/Y=;
- b=E1HbtwEI3iqS4Ja+EXoQZwk4ujhzmS21kSb/nAdWJTA2V+6Dw1LB9u9BD8QpioIXZR
- uD9HsOAm0DE0VMubrXUmtES4ATTUNVEi+rc7sXe5PLjoerekeKTy4XX4pmBsxyg5+RsK
- zG5DHQ43Dnj0hTLbyABNWFQhbSb0AoTcPNbfPSEOD0HfhqJAd13SYeec3U0utCe2Y9va
- kaT3oCTmVjpW+cFa2bUg7zXnBjEm4TaHUtz7OuFon84ePckR2SgaH4iWA55ozs3M9lWx
- 6EzoFKBMGAjD4Gl8Niaq/T9yQ0PrHY4prlul6BFgMIPruuv1WXXQPnI8fudMquMJVjDL
- R8hg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=lnQqYRoZW0E0IIb42GLRuXbpo2s3E35txyYfms/I5cU=;
+ b=YUYioqnKZ0JctYctIOZ4Ik/WwKcb8tGO6WIsCjrFRQtOGSFlsE/oNHPgV8mz3oa66X
+ nxetWGTWiVgXUtMZXaF4QxNhG33i5ZSKAJI5/6tnr1EYp665YTaxrEtWOSGzT730jpM8
+ Kaa4cc5vZ8njWBLVFPByyZ7I/EdDDDqrCSVDJW9KMYjrDQ3eYywT0b3KPV/eJZk7E0mz
+ RRoTq1wuMgrjwp5yf338LPaG9iTFzEodnaWlQXE6ctmP4YqlqYuOqNndYNeHNXXLuT4+
+ q4E/0sLdnt/UBj7YfjdSyh/inGdul89fDef+WXuwuwIQIXoqWZUukzNRFgLqHrC3vtWz
+ EGCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SwUhasSdtXh1mJRt/UyMgfMvNuKGgDHLuMu1+9giF/Y=;
- b=JRTpxiTvqCRue9CUvQ4IyeB7zQvJM3xieJDr/L41SwmQPOhiQbmmmnIqbHXFpkRSoo
- lNJ94BUQtBxOhpdYxEFXmSBJncxMNP2jTcuNUfpr3U4DPzN2zGWzelgtEreyJTxuW7mk
- tWbrS/kK8lFjKnS7k7jneKelfIGp/0H1Qcd+afISe8ExiUMLau9xoFjRjytlJOFKNYA5
- H4vK72B4eXASa9H1EqKJj2VD/iKPeywMotEnjEZNWujPsjnDEqfMMaQ0KEKjoaO2VoX5
- L1FIvO715/GUuY7EzCtE3fPUFhm9/CzzAyg8W9+9EBwUnofKROLu0PsxcDSvNB1MlxFT
- ysog==
-X-Gm-Message-State: AOAM533wPgsbFQn1dYwsun5NdvG3aF08ED+qqARy1xiqJ2kY2dPZ5E53
- X1PfwULz0iD9+XxQqYjUtxL+1oF+
-X-Google-Smtp-Source: ABdhPJyxgUUBDNSeIGkJPFyO/0at/ZvU2XhyCKMhpZNp4EtlGUnf1zyDmJU01ay5FJh0gpBPplODvw==
-X-Received: by 2002:ac8:1e95:: with SMTP id c21mr1819009qtm.306.1597161906337; 
- Tue, 11 Aug 2020 09:05:06 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=lnQqYRoZW0E0IIb42GLRuXbpo2s3E35txyYfms/I5cU=;
+ b=eisosM8MwuZovk9j6dHQr74xWRVVQaAGuDolnH5rwa0GfUq7uOeSb0vxskPQpYtOz+
+ E1ozHHsOnw3sxaRaFhxyt7iCmeSnkKxuJ/LyDoqUn8sSpnd8OpFLRwArOX/M9AR5SUfF
+ 2rgp4ILEAZdhsRvETOPe0Q/RHH27pVVDzqISpNgU3x4rB5GwHF7TAwnfZ0F/ftisk7uv
+ IYrUNdk16HHUt+NBSqB1T8OX/DjmyvpCWmYha5JvTQswGB/p6VUiS79h1iimX8yrpry6
+ oHRLoFaQg5b5DKZYFWfAHNFdyu6ooy91utBhzd+A6RNueXQWhYCKamdnoDHtpd9Z7fSN
+ RxIA==
+X-Gm-Message-State: AOAM533g89Dp7GGGExg2szEMXkPefYgh0fXcXj0FYpldUxYmntTRdIBV
+ +5kB0S/W6NvdMG5K1xP++Lo9Su+p
+X-Google-Smtp-Source: ABdhPJyiAvKfKZL376PIcc5/Yr7WE+7eGnEU2eUToHRTbLiDGvI5gv6NH9Qg+GszH5RdBnd2lrVvqg==
+X-Received: by 2002:a37:4ccc:: with SMTP id z195mr1824221qka.270.1597161907571; 
+ Tue, 11 Aug 2020 09:05:07 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id e23sm18971868qto.15.2020.08.11.09.05.05
+ by smtp.gmail.com with ESMTPSA id e23sm18971868qto.15.2020.08.11.09.05.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2020 09:05:05 -0700 (PDT)
+ Tue, 11 Aug 2020 09:05:06 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: print where we get the vbios image from
-Date: Tue, 11 Aug 2020 12:04:56 -0400
-Message-Id: <20200811160457.1073325-1-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: note what type of reset we are using
+Date: Tue, 11 Aug 2020 12:04:57 -0400
+Message-Id: <20200811160457.1073325-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20200811160457.1073325-1-alexander.deucher@amd.com>
+References: <20200811160457.1073325-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,65 +86,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ACPI, ROM, PCI BAR, etc.
+When we reset the GPU, note what type of reset will be
+used.  This makes debugging different reset scenarios
+more clear as the driver may use different reset
+methods depending on conditions on the system.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 28 ++++++++++++++++++------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/cik.c   | 2 ++
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/si.c    | 2 ++
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/vi.c    | 2 ++
+ 5 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index b1172d93c99c..6333cada1e09 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -417,26 +417,40 @@ static inline bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index c2c67ab68a43..7e71ffbca93d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1366,8 +1366,10 @@ static int cik_asic_reset(struct amdgpu_device *adev)
+ 	int r;
  
- bool amdgpu_get_bios(struct amdgpu_device *adev)
+ 	if (cik_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
++		dev_info(adev->dev, "BACO reset\n");
+ 		r = amdgpu_dpm_baco_reset(adev);
+ 	} else {
++		dev_info(adev->dev, "PCI CONFIG reset\n");
+ 		r = cik_asic_pci_config_reset(adev);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index da8024c2826e..54e941e0db60 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -379,7 +379,7 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 	struct smu_context *smu = &adev->smu;
+ 
+ 	if (nv_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		dev_info(adev->dev, "GPU BACO reset\n");
++		dev_info(adev->dev, "BACO reset\n");
+ 
+ 		ret = smu_baco_enter(smu);
+ 		if (ret)
+@@ -387,8 +387,10 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 		ret = smu_baco_exit(smu);
+ 		if (ret)
+ 			return ret;
+-	} else
++	} else {
++		dev_info(adev->dev, "MODE1 reset\n");
+ 		ret = nv_asic_mode1_reset(adev);
++	}
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index e330884edd19..eaa2f071b139 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1302,6 +1302,8 @@ static int si_asic_reset(struct amdgpu_device *adev)
  {
--	if (amdgpu_atrm_get_bios(adev))
-+	if (amdgpu_atrm_get_bios(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from ATRM\n");
- 		goto success;
-+	}
+ 	int r;
  
--	if (amdgpu_acpi_vfct_bios(adev))
-+	if (amdgpu_acpi_vfct_bios(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from VFCT\n");
- 		goto success;
-+	}
++	dev_info(adev->dev, "PCI CONFIG reset\n");
++
+ 	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
  
--	if (igp_read_bios_from_vram(adev))
-+	if (igp_read_bios_from_vram(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from VRAM BAR\n");
- 		goto success;
-+	}
+ 	r = si_gpu_pci_config_reset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 84d811b6e48b..3cd98c144bc6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -580,10 +580,13 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
  
--	if (amdgpu_read_bios(adev))
-+	if (amdgpu_read_bios(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from ROM BAR\n");
- 		goto success;
-+	}
+ 	switch (soc15_asic_reset_method(adev)) {
+ 		case AMD_RESET_METHOD_BACO:
++			dev_info(adev->dev, "BACO reset\n");
+ 			return soc15_asic_baco_reset(adev);
+ 		case AMD_RESET_METHOD_MODE2:
++			dev_info(adev->dev, "MODE2 reset\n");
+ 			return amdgpu_dpm_mode2_reset(adev);
+ 		default:
++			dev_info(adev->dev, "MODE1 reset\n");
+ 			return soc15_asic_mode1_reset(adev);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index f6f2ed0830b1..f03314300ae3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -752,8 +752,10 @@ static int vi_asic_reset(struct amdgpu_device *adev)
+ 	int r;
  
--	if (amdgpu_read_bios_from_rom(adev))
-+	if (amdgpu_read_bios_from_rom(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from ROM\n");
- 		goto success;
-+	}
+ 	if (vi_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
++		dev_info(adev->dev, "BACO reset\n");
+ 		r = amdgpu_dpm_baco_reset(adev);
+ 	} else {
++		dev_info(adev->dev, "PCI CONFIG reset\n");
+ 		r = vi_asic_pci_config_reset(adev);
+ 	}
  
--	if (amdgpu_read_disabled_bios(adev))
-+	if (amdgpu_read_disabled_bios(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from disabled ROM BAR\n");
- 		goto success;
-+	}
- 
--	if (amdgpu_read_platform_bios(adev))
-+	if (amdgpu_read_platform_bios(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from platform\n");
- 		goto success;
-+	}
- 
- 	DRM_ERROR("Unable to locate a BIOS ROM\n");
- 	return false;
 -- 
 2.25.4
 
