@@ -2,114 +2,111 @@ Return-Path: <SRS0=t0+e=BV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9473C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 05:40:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92533C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:17:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AE64206B5
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 05:40:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 60149206B5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:17:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="v6Qb1iUh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AE64206B5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3w7FJ/TL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60149206B5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04086E0E5;
-	Tue, 11 Aug 2020 05:40:30 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 885606E0E5
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 05:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 097D96E0F4;
+	Tue, 11 Aug 2020 06:17:33 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 731736E0F4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 06:17:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ggDWn3S0HBIAolhv5XLwoQM0qc6RZmpFU63Lrnz2NB172M91027lijJMtwiGmKaxaa1UXM8X0cRfDz85+6eyWrumVMInVpehwFCjs1PHlN1cnenhXKkiF89JN+vw576n40XdVhHOLPmT4y+zcutaxQpxUrKyI7nJ+F+PRj8tpNnOztbF3x2CY42qECToaEq1Z85Jtpm1GfQCskJl+2cw/D2bfpea/ImTTsWlE5pkyHf4dh9YzSkBE0Riqyg0uGQ0cnb/XyoZ89MSKDjAGQF7Qp+v1Yz/4pL4EcbXOZ4okOP7H5IDScZFIhBltwZslxwgEKp+IMs3RScHAgVUHguMlw==
+ b=l/mj3GgO27N+LvWIRyNGH8+YN6SHojX2CGnR5KBobsrDifYjqPbZPlUikct16Nvc2pnTbHRm36zpP1/WeM2ao0hcvN8XZi8Ue0Asp/ysvRFi1PMkd/hqS+6x9iu28/sG/f6o2JlR63VFT91tntGh4glhD8c34qTwiEccdKfH1ObCffdBRqUf+IaVl50sRWJvLQiP981qfH2j+Df+ECGauKC4Uvee3vIQ+flIefq6CnQBN8lSqVyf08r/MDtLOe/pRNSrsPhBvSEMd3vX2NxmP1cqtDxzMNbFrp7uYBMpBGSCorzm0HwdZv+LCUzoRIm9tYpBhfmVQ3ay8vFX3mjBZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ci0mhL/gvlBvDe/b8gWewVhLA8El8Epl2evWYwAhKww=;
- b=Uq2LkTckeqPDFW3KZrP89goucudYjB4MU/tOMBx5KkgwMsOyW4OCB3e4rhTiYgqP/+ebJHsA7PqUgwYOdGVbcg0HgP69aezW+Nk8T+NAL4Vy2JyvG21632CSElK1wAo+Wo1XXtooFGs1D976TTCXj/q7hcnWzKaDU4FwFaqvwOJ3laJUpJ5voReKGIClJaUl0uQEdB7uKDHtUVBsMK5x1Stf50rdb6VZOq8f/UOFB/cKOtpcu+essU+7yXBdzHv1LVMN5WrtDKMJoK2+yTTwNLbiL/DBnrmF99UgKSRGl+DqQQqhOwmWgpa7+go+wdalg86LyjPFDNxr4N3nUlGYsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=i5Noi/0s5suq9QyLrZ3DamGTF64UzXB7Mpl9wTmpSjc=;
+ b=cdXWAtic9h2/AdmnCCM4fnKqe8igi+vu+W9YAIzZ0fodVhA1iKbciTfPsKADbusZ2eQgu+k3Gm8O933NCJL0K1Naf2wEvgiNzePmQZwnlAUprwP26i8Sd6q7OxnBLlP7QHuCqQV7eni+OStxVQFYQMJ9a7243+kxAvSsSMjMwhVxRb1lCemUP51VGpNWBykAXyVwjVIV298FYJwFHltRg2kq6cbbLcWTKPCG23kHuAHylhv7YWCMBDS0wspDajmzpN11Xhl5r/FS3iCiPbHkEnWfVCcyBi0ZYbH8UHhqodROk2E8WCHwEvg77T//U5wBF31mbBfVYgonNhZ/FGblzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ci0mhL/gvlBvDe/b8gWewVhLA8El8Epl2evWYwAhKww=;
- b=v6Qb1iUhXcMYp4GSgpvL+MfhLkNSjdA+6YxqzKqugR2Khswna0kmUvSYn7yEVsURcCEFJbqmv2DPaMp3Xp17YbtED4gRi8AweVZb+gRw2XfBeLg7sQwSU5fgmSNj4Pu1o1QJjl+VkeRO6Ne9K7nM4ZjC1rbF+jjnImcJRvGONe8=
-Received: from CY4PR12MB1814.namprd12.prod.outlook.com (2603:10b6:903:125::16)
- by CY4PR12MB1479.namprd12.prod.outlook.com (2603:10b6:910:d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Tue, 11 Aug
- 2020 05:40:27 +0000
-Received: from CY4PR12MB1814.namprd12.prod.outlook.com
- ([fe80::c42a:ccf3:cf89:1e1f]) by CY4PR12MB1814.namprd12.prod.outlook.com
- ([fe80::c42a:ccf3:cf89:1e1f%3]) with mapi id 15.20.3261.025; Tue, 11 Aug 2020
- 05:40:26 +0000
-From: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
-Thread-Topic: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
-Thread-Index: AQHWb4wUwvnDjaj8tkWzZIiZ9n6CHakyQR4AgAAhybA=
-Date: Tue, 11 Aug 2020 05:40:26 +0000
-Message-ID: <CY4PR12MB18146458BBB550452B591CC78C450@CY4PR12MB1814.namprd12.prod.outlook.com>
-References: <20200811030345.7334-1-Wenhui.Sheng@amd.com>
- <20200811030345.7334-3-Wenhui.Sheng@amd.com>
- <CY4PR12MB1287D926591767A3C6194E46F1450@CY4PR12MB1287.namprd12.prod.outlook.com>
-In-Reply-To: <CY4PR12MB1287D926591767A3C6194E46F1450@CY4PR12MB1287.namprd12.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-11T03:27:55Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=7f12ffd1-ddb7-4aa1-bd4d-0000b0eb5f1c;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-08-11T05:40:23Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 562b491f-489b-455e-a5af-0000c895ca8b
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8c814027-724f-4d29-e543-08d83db90d06
-x-ms-traffictypediagnostic: CY4PR12MB1479:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB1479167C6D42D2010355F9658C450@CY4PR12MB1479.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ZyRA7PbeT66yuYmbooyo7m/Nmt69TfpfKneNIcJ+rcys/3Ozler+U7XHDs3EyidN4HfPlgP8F/6jqvVtMoFeNlkK+aa+Yq365aCGXD9yEPF1q5BgnAGWqEVs8++mGPBC+f49dGLWzWAlcPWF7hFDvBFPjVMbP9jyPa/Rwh9OeKsQxGe/1X3M/Lky9OG+JHNK88zKvjFCyW0qLEfwoyeIG0eiZDxJxHzasbC1bU1kLymm2C0ZmGt6nqou9u0rnWZ/+KRhSMASkblYo2kqpYM2nba/Y7aHw8qEXsx5T4DGTXWJAVI1Rdb9b0QdUg7U2RBezUxRhZGbHaNJ8w4l5cMvoFyHnC6UgHy71+ByvnsvTjl12XTn63nsmT0PNYkPwYdwLLNK5otUzaaXCUmh5kmizySrFlKAwJVjMAI66qY+hfI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1814.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(366004)(396003)(39860400002)(376002)(346002)(64756008)(53546011)(6506007)(186003)(26005)(7696005)(8676002)(45080400002)(110136005)(8936002)(4326008)(2906002)(55016002)(9686003)(54906003)(316002)(66946007)(966005)(66446008)(66556008)(66476007)(52536014)(76116006)(5660300002)(83380400001)(86362001)(33656002)(478600001)(71200400001)(21314003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: G7RvhtP3WTY3sOotW82FmufjCsn+QcLIsgqnoQbGy8ZGpRu3Qrkd0F6NzNWN5rAaNnxed5QSTQr39KTRz7FQ76YV7JoJFDWR38Qpd9PB/eZxR79Nr8D2UlCLeKU+BKR1dHUKPwc3xyemQ7L8ukUDupAyQjuaYF8jaU6kviWE8gHXb3C4fpfcoX9tYQfvpXQu3n7AUCSwjA6MJPb/1m2sPEL7cRZ+CBO/CTgiKMmP8W2LLNZG/5gX10SoxHh2pGXxiixScXAmw1nRlcZ4bqZ+9VAE55JYh79m39Fdp1SE39sSY9kvin5dvrJvVWyBPSLHkzRR5VlV9vv28FCfL6FiIZXj3Xcc+UzEbU97JGJTjqQh5msALUX09SxLW5aiJdCeOCyVAQKxTeEkU5yVoOV9RmbvnEFfnfXfkoeY7P36M4w4KrD4wr5Czd/DK/trHTZPvSaO8sIK3VbylHD7G8j7uZjYmZy5r2gIvbD7tt0IU+1SuRcyL2o7deuERngif5sDWd7Gk5UkbF8fo5p96dbL1iLy+5Y1HahlWATaG5FEt1MO6JhNl/k/+WomEfKeBz0oSj6iVBedMDpR3eDuKfs6XMQoJcLBMGGjVFKhIgtmzYLsVgpDr+mQvp7m61V9G8+i6siw/LaMiNftAhXcYq+0eA==
+ bh=i5Noi/0s5suq9QyLrZ3DamGTF64UzXB7Mpl9wTmpSjc=;
+ b=3w7FJ/TLowNCySvmtwZPFWhAIxpq1/Y6PX8KBJV7Rxi4pYJkV/eyMizZwP9NUjoZOWuYAj7Sk95cftKlnyJoGJgcUWYB/YkQHpvWEwIAQw4Fy5rjgrU9VgACgTRjUDKuHl9lIrz5hVRNt3b78Khld/aPKTG60aqCTsQaCS+pIcA=
+Received: from MWHPR18CA0056.namprd18.prod.outlook.com (2603:10b6:300:39::18)
+ by MN2PR12MB3040.namprd12.prod.outlook.com (2603:10b6:208:ce::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.22; Tue, 11 Aug
+ 2020 06:17:25 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:39:cafe::df) by MWHPR18CA0056.outlook.office365.com
+ (2603:10b6:300:39::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19 via Frontend
+ Transport; Tue, 11 Aug 2020 06:17:25 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3261.16 via Frontend Transport; Tue, 11 Aug 2020 06:17:24 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 11 Aug
+ 2020 01:17:24 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 11 Aug
+ 2020 01:17:23 -0500
+Received: from yajunl-gv.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3 via Frontend
+ Transport; Tue, 11 Aug 2020 01:17:21 -0500
+From: Dennis Li <Dennis.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <felix.kuehling@amd.com>, <Hawking.Zhang@amd.com>, <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: refine create and release logic of hive info
+Date: Tue, 11 Aug 2020 14:17:10 +0800
+Message-ID: <20200811061710.20988-1-Dennis.Li@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4ccfddca-dc0c-4ff1-a0d4-08d83dbe371a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3040:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB30409E344225F14D2A01D6D1ED450@MN2PR12MB3040.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:862;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bUq+FZLnQ+MOR/bSBnyEUldiXZjGII4DQSbbGR3MOlopkcgsByGvoogFiRMEexsfrv81QMpGgOmFNP1k0rEtu7k9vhki8Yz+IL3wzuAXOleiHOnvz2K1V2+OEGVRHK+bLUddQ5lZFhL3tpVfq3sghl8WIxRdqx9t1A9uQ85Mb+kMZm24OxK7DG9akAnPumKEBH11x8S0FAKlEaBndW7VPAeihfXLdlkG2crX9eqbr9QJJvLnZfpJcyNzmIWWqNbpJ3b6FtB14gBzVJgu+O4vON9A37dPFPkNCTSts9/xFFCuOuHUnu9sTbJ9LW55Brnfe+YF76ZgUo8xRDdGkC5oGioaOLA/7nO4OmU4EsJBoitoZ3JJPBh3XA/zbG8rmdBxv1UYMgVTIzT2Cs8l7HcpsiXhvEl72n88oHCgEET0vfY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(396003)(136003)(376002)(39860400002)(46966005)(336012)(2616005)(83380400001)(8936002)(8676002)(70586007)(1076003)(7696005)(6666004)(426003)(186003)(26005)(5660300002)(30864003)(4326008)(6636002)(478600001)(2906002)(110136005)(47076004)(86362001)(356005)(82310400002)(82740400003)(36756003)(81166007)(70206006)(316002)(2101003);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1814.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c814027-724f-4d29-e543-08d83db90d06
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2020 05:40:26.8005 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vdXG983wcHubIcOjbiXbQn94jGa49bunGyYgKPxeKdKRVmg8Hcop5NmhFciudCGVIgaecKmjE4rwX0Gt6EuMqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1479
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 06:17:24.8928 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ccfddca-dc0c-4ff1-a0d4-08d83dbe371a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3040
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,289 +118,463 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Clements, John" <John.Clements@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: Dennis Li <Dennis.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+Change to dynamically create and release hive info object,
+which help driver support more hives in the future.
 
-Hi Gunchun,
+Signed-off-by: Dennis Li <Dennis.Li@amd.com>
 
-Thanks for pointing this out, for rap_test file node, I thought I need to use the same file mode as ras previously,  it seems that I'm wrong, for this rap_test file node, I think only S_IWUSR is enough, what's your opinion?
-
-Brs
-Wenhui 
-
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com> 
-Sent: Tuesday, August 11, 2020 11:33 AM
-To: Sheng, Wenhui <Wenhui.Sheng@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Clements, John <John.Clements@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
-
-[AMD Public Use]
-
-One comment inline, please check.
-
-Regards,
-Guchun
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Wenhui Sheng
-Sent: Tuesday, August 11, 2020 11:04 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Clements, John <John.Clements@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
-
-After amdgpu driver loading successfully, we can use RAP debugfs interface <debugfs_dir>/dri/xxx/rap_test to trigger RAP test.
-
-Currently only L0 validate test is supported.
-
-v2: refine amdgpu_rap.h
-
-Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c     | 127 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h     |  28 +++++
- 4 files changed, 159 insertions(+), 1 deletion(-)  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 0ba396e9d7e4..dec1927ca75d 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -55,7 +55,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
- 	amdgpu_vf_error.o amdgpu_sched.o amdgpu_debugfs.o amdgpu_ids.o \
- 	amdgpu_gmc.o amdgpu_mmhub.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
- 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
--	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o
-+	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 8a55b0bc044a..fdfdc2f678c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2840,7 +2840,7 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ {
+ 	struct amdgpu_device *adev =
+ 		container_of(__work, struct amdgpu_device, xgmi_reset_work);
+-	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev, 0);
++	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
  
- amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 3a4b31b1c4f2..0af249a1e35b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -34,6 +34,7 @@
- #include "amdgpu_pm.h"
- #include "amdgpu_dm_debugfs.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_rap.h"
- 
- /**
-  * amdgpu_debugfs_add_files - Add simple debugfs entries @@ -1623,6 +1624,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 
- 	amdgpu_debugfs_autodump_init(adev);
- 
-+	amdgpu_rap_debugfs_init(adev);
-+
- 	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_list,
- 					ARRAY_SIZE(amdgpu_debugfs_list));
+ 	/* It's a bug to not have a hive within this function */
+ 	if (WARN_ON(!hive))
+@@ -2878,6 +2878,7 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 	if (adev->asic_reset_res)
+ 		DRM_WARN("ASIC reset failed with error, %d for drm dev, %s",
+ 			 adev->asic_reset_res, adev->ddev->unique);
++	amdgpu_put_xgmi_hive(hive);
  }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
-new file mode 100644
-index 000000000000..46b2607a7bd1
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
-@@ -0,0 +1,127 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person 
-+obtaining a
-+ * copy of this software and associated documentation files (the 
-+"Software"),
-+ * to deal in the Software without restriction, including without 
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, 
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom 
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be 
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ *
-+ */
-+#include <linux/debugfs.h>
-+#include <linux/pm_runtime.h>
+ 
+ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+@@ -4286,11 +4287,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	 * We always reset all schedulers for device and all devices for XGMI
+ 	 * hive so that should take care of them too.
+ 	 */
+-	hive = amdgpu_get_xgmi_hive(adev, false);
++	hive = amdgpu_get_xgmi_hive(adev);
+ 	if (hive) {
+ 		if (atomic_cmpxchg(&hive->in_reset, 0, 1) != 0) {
+ 			DRM_INFO("Bailing on TDR for s_job:%llx, hive: %llx as another already in progress",
+ 				job ? job->base.id : -1, hive->hive_id);
++			amdgpu_put_xgmi_hive(hive);
+ 			return 0;
+ 		}
+ 		mutex_lock(&hive->hive_lock);
+@@ -4456,6 +4458,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	if (hive) {
+ 		atomic_set(&hive->in_reset, 0);
+ 		mutex_unlock(&hive->hive_lock);
++		amdgpu_put_xgmi_hive(hive);
+ 	}
+ 
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 5680f7eafcb1..e18606e322e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1514,7 +1514,7 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
+ 	struct amdgpu_device *remote_adev = NULL;
+ 	struct amdgpu_device *adev = ras->adev;
+ 	struct list_head device_list, *device_list_handle =  NULL;
+-	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev, false);
++	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
+ 
+ 	/* Build list of devices to query RAS related errors */
+ 	if  (hive && adev->gmc.xgmi.num_physical_nodes > 1)
+@@ -1525,6 +1525,8 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
+ 		device_list_handle = &device_list;
+ 	}
+ 
++	amdgpu_put_xgmi_hive(hive);
 +
-+#include "amdgpu.h"
-+#include "amdgpu_rap.h"
+ 	list_for_each_entry(remote_adev, device_list_handle, gmc.xgmi.head) {
+ 		amdgpu_ras_log_on_err_counter(remote_adev);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 67a756f4337b..5315d16539f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -35,11 +35,9 @@
+ 
+ static DEFINE_MUTEX(xgmi_mutex);
+ 
+-#define AMDGPU_MAX_XGMI_HIVE			8
+ #define AMDGPU_MAX_XGMI_DEVICE_PER_HIVE		4
+ 
+-static struct amdgpu_hive_info xgmi_hives[AMDGPU_MAX_XGMI_HIVE];
+-static unsigned hive_count = 0;
++static LIST_HEAD(xgmi_hive_list);
+ 
+ static const int xgmi_pcs_err_status_reg_vg20[] = {
+ 	smnXGMI0_PCS_GOPX16_PCS_ERROR_STATUS,
+@@ -171,59 +169,47 @@ static const struct amdgpu_pcs_ras_field wafl_pcs_ras_fields[] = {
+  *
+  */
+ 
++static struct attribute amdgpu_xgmi_hive_id = {
++	.name = "xgmi_hive_id",
++	.mode = S_IRUGO
++};
+ 
+-static ssize_t amdgpu_xgmi_show_hive_id(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct amdgpu_hive_info *hive =
+-			container_of(attr, struct amdgpu_hive_info, dev_attr);
+-
+-	return snprintf(buf, PAGE_SIZE, "%llu\n", hive->hive_id);
+-}
++static struct attribute *amdgpu_xgmi_hive_attrs[] = {
++	&amdgpu_xgmi_hive_id,
++	NULL
++};
+ 
+-static int amdgpu_xgmi_sysfs_create(struct amdgpu_device *adev,
+-				    struct amdgpu_hive_info *hive)
++static ssize_t amdgpu_xgmi_show_hive_id(struct kobject *kobj,
++	struct attribute *attr, char *buf)
+ {
+-	int ret = 0;
+-
+-	if (WARN_ON(hive->kobj))
+-		return -EINVAL;
+-
+-	hive->kobj = kobject_create_and_add("xgmi_hive_info", &adev->dev->kobj);
+-	if (!hive->kobj) {
+-		dev_err(adev->dev, "XGMI: Failed to allocate sysfs entry!\n");
+-		return -EINVAL;
+-	}
++	struct amdgpu_hive_info *hive = container_of(
++		kobj, struct amdgpu_hive_info, kobj);
+ 
+-	hive->dev_attr = (struct device_attribute) {
+-		.attr = {
+-			.name = "xgmi_hive_id",
+-			.mode = S_IRUGO,
++	if (attr == &amdgpu_xgmi_hive_id)
++		return snprintf(buf, PAGE_SIZE, "%llu\n", hive->hive_id);
+ 
+-		},
+-		.show = amdgpu_xgmi_show_hive_id,
+-	};
+-
+-	ret = sysfs_create_file(hive->kobj, &hive->dev_attr.attr);
+-	if (ret) {
+-		dev_err(adev->dev, "XGMI: Failed to create device file xgmi_hive_id\n");
+-		kobject_del(hive->kobj);
+-		kobject_put(hive->kobj);
+-		hive->kobj = NULL;
+-	}
+-
+-	return ret;
++	return 0;
+ }
+ 
+-static void amdgpu_xgmi_sysfs_destroy(struct amdgpu_device *adev,
+-				    struct amdgpu_hive_info *hive)
++static void amdgpu_xgmi_hive_release(struct kobject *kobj)
+ {
+-	sysfs_remove_file(hive->kobj, &hive->dev_attr.attr);
+-	kobject_del(hive->kobj);
+-	kobject_put(hive->kobj);
+-	hive->kobj = NULL;
++	struct amdgpu_hive_info *hive = container_of(
++		kobj, struct amdgpu_hive_info, kobj);
 +
-+/**
-+ * DOC: AMDGPU RAP debugfs test interface
-+ *
-+ * how to use?
-+ * echo opcode > <debugfs_dir>/dri/xxx/rap_test
-+ *
-+ * opcode:
-+ * currently, only 2 is supported by Linux host driver,
-+ * opcode 2 stands for TA_CMD_RAP__VALIDATE_L0, used to
-+ * trigger L0 policy validation, you can refer more detail
-+ * from header file ta_rap_if.h
-+ *
-+ */
-+static ssize_t amdgpu_rap_debugfs_write(struct file *f, const char __user *buf,
-+		size_t size, loff_t *pos)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
-+	struct ta_rap_shared_memory *rap_shared_mem;
-+	struct ta_rap_cmd_output_data *rap_cmd_output;
-+	struct drm_device *dev = adev->ddev;
-+	uint32_t op;
-+	int ret;
-+
-+	if (*pos || size != 2)
-+		return -EINVAL;
-+
-+	ret = kstrtouint_from_user(buf, size, *pos, &op);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_get_sync(dev->dev);
-+	if (ret < 0) {
-+		pm_runtime_put_autosuspend(dev->dev);
-+		return ret;
-+	}
-+
-+	/* make sure gfx core is on, RAP TA cann't handle
-+	 * GFX OFF case currently.
-+	 */
-+	amdgpu_gfx_off_ctrl(adev, false);
-+
-+	switch (op) {
-+	case 2:
-+		ret = psp_rap_invoke(&adev->psp, op);
-+
-+		if (ret == TA_RAP_STATUS__SUCCESS) {
-+			dev_info(adev->dev, "RAP L0 validate test success.\n");
-+		} else {
-+			rap_shared_mem = (struct ta_rap_shared_memory *)
-+					 adev->psp.rap_context.rap_shared_buf;
-+			rap_cmd_output = &(rap_shared_mem->rap_out_message.output);
-+
-+			dev_info(adev->dev, "RAP test failed, the output is:\n");
-+			dev_info(adev->dev, "\tlast_subsection: 0x%08x.\n",
-+				 rap_cmd_output->last_subsection);
-+			dev_info(adev->dev, "\tnum_total_validate: 0x%08x.\n",
-+				 rap_cmd_output->num_total_validate);
-+			dev_info(adev->dev, "\tnum_valid: 0x%08x.\n",
-+				 rap_cmd_output->num_valid);
-+			dev_info(adev->dev, "\tlast_validate_addr: 0x%08x.\n",
-+				 rap_cmd_output->last_validate_addr);
-+			dev_info(adev->dev, "\tlast_validate_val: 0x%08x.\n",
-+				 rap_cmd_output->last_validate_val);
-+			dev_info(adev->dev, "\tlast_validate_val_exptd: 0x%08x.\n",
-+				 rap_cmd_output->last_validate_val_exptd);
-+		}
-+		break;
-+	default:
-+		dev_info(adev->dev, "Unsupported op id: %d, ", op);
-+		dev_info(adev->dev, "Only support op 2(L0 validate test).\n");
-+	}
-+
-+	amdgpu_gfx_off_ctrl(adev, true);
-+	pm_runtime_mark_last_busy(dev->dev);
-+	pm_runtime_put_autosuspend(dev->dev);
-+
-+	return size;
-+}
-+
-+static const struct file_operations amdgpu_rap_debugfs_ops = {
-+	.owner = THIS_MODULE,
-+	.read = NULL,
-+	.write = amdgpu_rap_debugfs_write,
-+	.llseek = default_llseek
++	mutex_destroy(&hive->hive_lock);
++	kfree(hive);
+ }
+ 
++static const struct sysfs_ops amdgpu_xgmi_hive_ops = {
++	.show = amdgpu_xgmi_show_hive_id,
 +};
 +
-+void amdgpu_rap_debugfs_init(struct amdgpu_device *adev) { #if
-+defined(CONFIG_DEBUG_FS)
-+	struct drm_minor *minor = adev->ddev->primary;
++struct kobj_type amdgpu_xgmi_hive_type = {
++	.release = amdgpu_xgmi_hive_release,
++	.sysfs_ops = &amdgpu_xgmi_hive_ops,
++	.default_attrs = amdgpu_xgmi_hive_attrs,
++};
 +
-+	if (!adev->psp.rap_context.rap_initialized)
-+		return;
+ static ssize_t amdgpu_xgmi_show_device_id(struct device *dev,
+ 				     struct device_attribute *attr,
+ 				     char *buf)
+@@ -285,10 +271,9 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+ 	if (ret)
+ 		pr_err("failed to create xgmi_error\n");
+ 
+-
+ 	/* Create sysfs link to hive info folder on the first device */
+-	if (adev != hive->adev) {
+-		ret = sysfs_create_link(&adev->dev->kobj, hive->kobj,
++	if (hive->kobj.parent != (&adev->dev->kobj)) {
++		ret = sysfs_create_link(&adev->dev->kobj, &hive->kobj,
+ 					"xgmi_hive_info");
+ 		if (ret) {
+ 			dev_err(adev->dev, "XGMI: Failed to create link to hive info");
+@@ -296,9 +281,9 @@ static int amdgpu_xgmi_sysfs_add_dev_info(struct amdgpu_device *adev,
+ 		}
+ 	}
+ 
+-	sprintf(node, "node%d", hive->number_devices);
++	sprintf(node, "node%d", atomic_read(&hive->number_devices));
+ 	/* Create sysfs link form the hive folder to yourself */
+-	ret = sysfs_create_link(hive->kobj, &adev->dev->kobj, node);
++	ret = sysfs_create_link(&hive->kobj, &adev->dev->kobj, node);
+ 	if (ret) {
+ 		dev_err(adev->dev, "XGMI: Failed to create link from hive info");
+ 		goto remove_link;
+@@ -326,79 +311,89 @@ static void amdgpu_xgmi_sysfs_rem_dev_info(struct amdgpu_device *adev,
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_device_id);
+ 	device_remove_file(adev->dev, &dev_attr_xgmi_error);
+ 
+-	if (adev != hive->adev)
++	if (hive->kobj.parent != (&adev->dev->kobj))
+ 		sysfs_remove_link(&adev->dev->kobj,"xgmi_hive_info");
+ 
+-	sprintf(node, "node%d", hive->number_devices);
+-	sysfs_remove_link(hive->kobj, node);
++	sprintf(node, "node%d", atomic_read(&hive->number_devices));
++	sysfs_remove_link(&hive->kobj, node);
+ 
+ }
+-
+-
+-
+-struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev, int lock)
++struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev)
+ {
+-	int i;
+-	struct amdgpu_hive_info *tmp;
++	struct amdgpu_hive_info *hive = NULL, *tmp = NULL;
++	int ret = 0;
+ 
+ 	if (!adev->gmc.xgmi.hive_id)
+ 		return NULL;
+ 
+ 	mutex_lock(&xgmi_mutex);
+ 
+-	for (i = 0 ; i < hive_count; ++i) {
+-		tmp = &xgmi_hives[i];
+-		if (tmp->hive_id == adev->gmc.xgmi.hive_id) {
+-			if (lock)
+-				mutex_lock(&tmp->hive_lock);
+-			mutex_unlock(&xgmi_mutex);
+-			return tmp;
++	if (!list_empty(&xgmi_hive_list)) {
++		list_for_each_entry_safe(hive, tmp, &xgmi_hive_list, node)  {
++			if (hive->hive_id == adev->gmc.xgmi.hive_id)
++				goto pro_end;
+ 		}
+ 	}
+-	if (i >= AMDGPU_MAX_XGMI_HIVE) {
+-		mutex_unlock(&xgmi_mutex);
+-		return NULL;
 +
-+	debugfs_create_file("rap_test", S_IWUGO | S_IRUGO, minor->debugfs_root,
-+				adev, &amdgpu_rap_debugfs_ops);
-[Guchun]I believe S_IWUGO would be complained by checkpatch.pl if running it on top of your modifications, as it's one world writable permission. Perhaps, we should use S_IWUSR | S_IRUGO.
-
-+#endif
++	hive = kzalloc(sizeof(*hive), GFP_KERNEL);
++	if (!hive) {
++		dev_err(adev->dev, "XGMI: allocation failed\n");
++		hive = NULL;
++		goto pro_end;
+ 	}
+ 
+ 	/* initialize new hive if not exist */
+-	tmp = &xgmi_hives[hive_count++];
+-
+-	if (amdgpu_xgmi_sysfs_create(adev, tmp)) {
+-		mutex_unlock(&xgmi_mutex);
+-		return NULL;
++	ret = kobject_init_and_add(&hive->kobj,
++			&amdgpu_xgmi_hive_type,
++			&adev->dev->kobj,
++			"%s", "xgmi_hive_info");
++	if (ret) {
++		dev_err(adev->dev, "XGMI: failed initializing kobject for xgmi hive\n");
++		kfree(hive);
++		hive = NULL;
++		goto pro_end;
+ 	}
+ 
+-	tmp->adev = adev;
+-	tmp->hive_id = adev->gmc.xgmi.hive_id;
+-	INIT_LIST_HEAD(&tmp->device_list);
+-	mutex_init(&tmp->hive_lock);
+-	atomic_set(&tmp->in_reset, 0);
+-	task_barrier_init(&tmp->tb);
+-
+-	if (lock)
+-		mutex_lock(&tmp->hive_lock);
+-	tmp->pstate = AMDGPU_XGMI_PSTATE_UNKNOWN;
+-	tmp->hi_req_gpu = NULL;
++	hive->hive_id = adev->gmc.xgmi.hive_id;
++	INIT_LIST_HEAD(&hive->device_list);
++	INIT_LIST_HEAD(&hive->node);
++	mutex_init(&hive->hive_lock);
++	atomic_set(&hive->in_reset, 0);
++	atomic_set(&hive->number_devices, 0);
++	task_barrier_init(&hive->tb);
++	hive->pstate = AMDGPU_XGMI_PSTATE_UNKNOWN;
++	hive->hi_req_gpu = NULL;
+ 	/*
+ 	 * hive pstate on boot is high in vega20 so we have to go to low
+ 	 * pstate on after boot.
+ 	 */
+-	tmp->hi_req_count = AMDGPU_MAX_XGMI_DEVICE_PER_HIVE;
++	hive->hi_req_count = AMDGPU_MAX_XGMI_DEVICE_PER_HIVE;
++	list_add_tail(&hive->node, &xgmi_hive_list);
++
++pro_end:
++	if (hive)
++		kobject_get(&hive->kobj);
+ 	mutex_unlock(&xgmi_mutex);
++	return hive;
 +}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
-new file mode 100644
-index 000000000000..4a23d30fab62
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
-@@ -0,0 +1,28 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person 
-+obtaining a
-+ * copy of this software and associated documentation files (the 
-+"Software"),
-+ * to deal in the Software without restriction, including without 
-+limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, 
-+sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom 
-+the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be 
-+included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-+EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-+MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
-+SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
-+DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
-+OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
-+OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ *
-+ */
-+#ifndef _AMDGPU_RAP_H
-+#define _AMDGPU_RAP_H
+ 
+-	return tmp;
++void amdgpu_put_xgmi_hive(struct amdgpu_hive_info *hive)
++{
++	if (hive)
++		kobject_put(&hive->kobj);
+ }
+ 
+ int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev, int pstate)
+ {
+ 	int ret = 0;
+-	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev, 0);
++	struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev);
+ 	struct amdgpu_device *request_adev = hive->hi_req_gpu ?
+ 						hive->hi_req_gpu : adev;
+ 	bool is_hi_req = pstate == AMDGPU_XGMI_PSTATE_MAX_VEGA20;
+ 	bool init_low = hive->pstate == AMDGPU_XGMI_PSTATE_UNKNOWN;
+ 	bool locked;
+ 
++	amdgpu_put_xgmi_hive(hive);
+ 	/* fw bug so temporarily disable pstate switching */
+ 	return 0;
+ 
+@@ -453,7 +448,7 @@ int amdgpu_xgmi_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_dev
+ 
+ 	/* Each psp need to set the latest topology */
+ 	ret = psp_xgmi_set_topology_info(&adev->psp,
+-					 hive->number_devices,
++					 atomic_read(&hive->number_devices),
+ 					 &adev->psp.xgmi_context.top_info);
+ 	if (ret)
+ 		dev_err(adev->dev,
+@@ -515,7 +510,7 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 		adev->gmc.xgmi.node_id = adev->gmc.xgmi.physical_node_id + 16;
+ 	}
+ 
+-	hive = amdgpu_get_xgmi_hive(adev, 1);
++	hive = amdgpu_get_xgmi_hive(adev);
+ 	if (!hive) {
+ 		ret = -EINVAL;
+ 		dev_err(adev->dev,
+@@ -523,6 +518,7 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 			adev->gmc.xgmi.node_id, adev->gmc.xgmi.hive_id);
+ 		goto exit;
+ 	}
++	mutex_lock(&hive->hive_lock);
+ 
+ 	top_info = &adev->psp.xgmi_context.top_info;
+ 
+@@ -530,7 +526,7 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 	list_for_each_entry(entry, &hive->device_list, head)
+ 		top_info->nodes[count++].node_id = entry->node_id;
+ 	top_info->num_nodes = count;
+-	hive->number_devices = count;
++	atomic_set(&hive->number_devices, count);
+ 
+ 	task_barrier_add_task(&hive->tb);
+ 
+@@ -568,6 +564,7 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 
+ exit_unlock:
+ 	mutex_unlock(&hive->hive_lock);
++	amdgpu_put_xgmi_hive(hive);
+ exit:
+ 	if (!ret)
+ 		dev_info(adev->dev, "XGMI: Add node %d, hive 0x%llx.\n",
+@@ -576,7 +573,6 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 		dev_err(adev->dev, "XGMI: Failed to add node %d, hive 0x%llx ret: %d\n",
+ 			adev->gmc.xgmi.physical_node_id, adev->gmc.xgmi.hive_id,
+ 			ret);
+-
+ 	return ret;
+ }
+ 
+@@ -587,17 +583,27 @@ int amdgpu_xgmi_remove_device(struct amdgpu_device *adev)
+ 	if (!adev->gmc.xgmi.supported)
+ 		return -EINVAL;
+ 
+-	hive = amdgpu_get_xgmi_hive(adev, 1);
++	hive = amdgpu_get_xgmi_hive(adev);
+ 	if (!hive)
+ 		return -EINVAL;
+ 
++	mutex_lock(&hive->hive_lock);
+ 	task_barrier_rem_task(&hive->tb);
+ 	amdgpu_xgmi_sysfs_rem_dev_info(adev, hive);
++	if (hive->hi_req_gpu == adev)
++		hive->hi_req_gpu = NULL;
++	list_del(&adev->gmc.xgmi.head);
+ 	mutex_unlock(&hive->hive_lock);
+ 
+-	if(!(--hive->number_devices)){
+-		amdgpu_xgmi_sysfs_destroy(adev, hive);
+-		mutex_destroy(&hive->hive_lock);
++	amdgpu_put_xgmi_hive(hive);
 +
-+void amdgpu_rap_debugfs_init(struct amdgpu_device *adev); #endif
---
++	if(atomic_dec_return(&hive->number_devices) == 0) {
++		/* Remove the hive from global hive list */
++		mutex_lock(&xgmi_mutex);
++		list_del(&hive->node);
++		mutex_unlock(&xgmi_mutex);
++
++		amdgpu_put_xgmi_hive(hive);
+ 	}
+ 
+ 	return psp_xgmi_terminate(&adev->psp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+index 61720cd4a1ee..148560d63554 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -27,14 +27,13 @@
+ 
+ 
+ struct amdgpu_hive_info {
+-	uint64_t		hive_id;
+-	struct list_head	device_list;
+-	int number_devices;
++	struct kobject kobj;
++	uint64_t hive_id;
++	struct list_head device_list;
++	struct list_head node;
++	atomic_t number_devices;
+ 	struct mutex hive_lock;
+ 	atomic_t in_reset;
+-	struct kobject *kobj;
+-	struct device_attribute dev_attr;
+-	struct amdgpu_device *adev;
+ 	int hi_req_count;
+ 	struct amdgpu_device *hi_req_gpu;
+ 	struct task_barrier tb;
+@@ -51,7 +50,8 @@ struct amdgpu_pcs_ras_field {
+ 	uint32_t pcs_err_shift;
+ };
+ 
+-struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev, int lock);
++struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev);
++void amdgpu_put_xgmi_hive(struct amdgpu_hive_info *hive);
+ int amdgpu_xgmi_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_device *adev);
+ int amdgpu_xgmi_add_device(struct amdgpu_device *adev);
+ int amdgpu_xgmi_remove_device(struct amdgpu_device *adev);
+-- 
 2.17.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cguchun.chen%40amd.com%7C900c01aafb0c4fd363fa08d83da33e49%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637327118636879081&amp;sdata=OwEZNbL9khBXRmIPu714WAtEJ5bvR4nf2XU7IrsIatc%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
