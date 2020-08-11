@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26CC6C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10248C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:30:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F06E82054F
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:30:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D6EC12054F
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:30:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Xnrt7hpJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F06E82054F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0utx9sNf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6EC12054F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 700586E101;
-	Tue, 11 Aug 2020 06:30:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70F376E103;
+	Tue, 11 Aug 2020 06:30:31 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7CB6E0FB
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 06:30:26 +0000 (UTC)
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589A46E101
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 06:30:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IEv4FJ4IwRT/I/zTX57TbREoMp48yiLfVXgHXkhorGpDWwf8vFDKvzjM+PM7a4VNayPh7YuJSMSV9/TTF4/dL4xEJNhQmhAWaaho9krnE2ViLpbpvLth2MMzy5b8XG6syKmHvc4VZgAubfQPpMcoNojWEJwFC1SrRd0M0VAd64B0+PoDBSYKpnBEa1WeDdJ2FD9GuPata0Hb1TfG58kQV+mW7TMploKpY2a45T0Po/W5fG/AevI1M3nIgEs6DmyFAt3xIWQCHyaeGReVA4nJCcVDbfWYC1rfYtsnLIWruXsD81u0+sUJ6yr6av4gXMFdipJz/S4p7/HvGEuPKU09Aw==
+ b=EhGzkUwyuZVbN0PhlbhSHKzMabVaSP1sEwF046iQEJjXEcF4Y16TlVfnhZFyzWAWyTZovbMUXipBTXo+LzKtYT7FN8yGGJkVX1wC8376d4WLwRr3WnoIxXVk3GAMx/uUoArUgNrx+C01H//89Eom6XFHuSzDt6BTymP101zjCjEFDlr09bjqcOTJh/qLhR2jQtzFptssu+Zq0V3BWDpub+fbfA3MJKGTMMgrBdpDcO8OSI54g7y84eV+ihg9loZ3tFYECXNOZ2hqkSTUzw0CWjcfXkEmkGTKTpz6TNQac50YejKb4HTSCWNLb/J8unWlqrz9MQ6K2Zfb4PzrpOBtGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tr0aignBpGbllUk0PL5+BX6nuc7vIqgGx4T6qe8wkIk=;
- b=YK6LsEqfFbjM+kdTAZ3gN+OyFOA633pbHGFfPI9CS/tLMbz+Cny+9EGZRWJ4r3L0caShIZ5AXERSreHJI2iu957tmDbZ888DwznEQwPI96FJVxmd5ywSlCtxugPdHCa5oo40mjlCD+GXEuDt7DPwp2lPj5LL+h40APNfXwFUouK93ilg91ZUgwB8ztqQm0ZFkOeaHlfyXumRb2fITdVnM5Reto4CCivG6c6nPxNBG/JonG+0/DxPCcNu/WBHR/+g0Zm9J5xEPBz8xAlNgqc47E70khvlRoPburJvBJC+Uva1sUUHIqdq/2OMz4jMvYan9P4NBSLmQmrHCxQMTgz7Cw==
+ bh=0S4zKxYtjiTWGss3vRe7hOfY3Rlo2TtGEJHaQIcD5ls=;
+ b=BtucCw6l/o+EclMK1NiXneK2BB8+o/O5QdmvnBdBjUnCKq3fY8eqxgFiPMVhFzAjhf6NGIvGgQWAo7LaIP8aYvZf5kjBqlVDXW0nTuaAt25f5fk+z+WzA3GXZdvYxTw46eP05NUk6R6bOAGHDz/dEttHaMhy0EcSdEAajSwgQVacOpFy2e+WZPRymgGp+GUcpzFZAZ58RmhnL1kYJLnW3voFpoTCRfuNsSnyo3Jnt76IlT/GbJ6E8PoOWBfFUd1w2jymxRHEIdPu5R0vzEZbWEqDVIpn0WkZCL68acYIyLwCuoIPl5CZRSmlNdYV3nCROwuWBr654RNtyvZ2vGfMfA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tr0aignBpGbllUk0PL5+BX6nuc7vIqgGx4T6qe8wkIk=;
- b=Xnrt7hpJwWE09b9jAUlnNqL2UrdGYcTxfeHmLRX6oIjbmQTrPlh/43vfIpmbUTVbQqbkG3HVHzGZQGOuUTyJGuL4k8FB2X8NaBvH7VbeaM0Y+pmD/Nb1a7OkuO03mJfuCKounytBbzI8KnF9nV2NfP/KYWQWs8wm0VVSqFf+Sc4=
+ bh=0S4zKxYtjiTWGss3vRe7hOfY3Rlo2TtGEJHaQIcD5ls=;
+ b=0utx9sNfaUA3nHoDaPPQ0pyZ1w1Ft7b/wcC2oUvH/RWehrgkIqTctKwpYXuhKA9FHeR6VmwFidFM38uUAg8FE2JgbgnUCJ+GsnIIDDjRz6FSaE7WdN75zv1dxeDgl5q0ctSs4x4980iAzf7xehObb1VyfX16TYq42F60iZP+KoU=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from CY4PR12MB1814.namprd12.prod.outlook.com (2603:10b6:903:125::16)
  by CY4PR12MB1319.namprd12.prod.outlook.com (2603:10b6:903:41::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.21; Tue, 11 Aug
- 2020 06:30:24 +0000
+ 2020 06:30:27 +0000
 Received: from CY4PR12MB1814.namprd12.prod.outlook.com
  ([fe80::c42a:ccf3:cf89:1e1f]) by CY4PR12MB1814.namprd12.prod.outlook.com
  ([fe80::c42a:ccf3:cf89:1e1f%3]) with mapi id 15.20.3261.025; Tue, 11 Aug 2020
- 06:30:24 +0000
+ 06:30:27 +0000
 From: Wenhui Sheng <Wenhui.Sheng@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amdgpu: enable RAP TA load
-Date: Tue, 11 Aug 2020 14:30:06 +0800
-Message-Id: <20200811063007.7785-2-Wenhui.Sheng@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+Date: Tue, 11 Aug 2020 14:30:07 +0800
+Message-Id: <20200811063007.7785-3-Wenhui.Sheng@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200811063007.7785-1-Wenhui.Sheng@amd.com>
 References: <20200811063007.7785-1-Wenhui.Sheng@amd.com>
@@ -69,34 +69,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from HUI.amd.com (58.247.170.242) by
  HK2PR03CA0048.apcprd03.prod.outlook.com (2603:1096:202:17::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.5 via Frontend Transport; Tue, 11 Aug 2020 06:30:22 +0000
+ 15.20.3283.5 via Frontend Transport; Tue, 11 Aug 2020 06:30:25 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2e14c9f0-03cb-4cda-dc79-08d83dc007a8
+X-MS-Office365-Filtering-Correlation-Id: 3f013905-9ea9-4b77-d14e-08d83dc00920
 X-MS-TrafficTypeDiagnostic: CY4PR12MB1319:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1319DFBD01D80E6393F7CE0B8C450@CY4PR12MB1319.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1319A74FD122B07089BCE39E8C450@CY4PR12MB1319.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 34aiii5BRo2RgnPreKxVq/iAS94mUHMCy4RhuHR50a8AjCq2gErBLNrSnIFdDfAmB0l1vLDWfcRHKfIV9jgZNHkc+tkTUQi+PGVk5/agBUx68OZpi3gZXulybezRGucLJNXO4S5oRFph6PCmMuG506nBpXw3+IxVjRTLommo+SkO/EzctHH58c4V+3rb8ZAiFg8uWkn7/rmCuBw6XM6R78OQHM/TtIR00xYWoiZeTBxF92COyFrPR9BM9xVzHCArCAfCkhGUS06ymRSDs3jvD6VfZi7IccVPkLmmN0PsUtzxqpww946lluSRSraS2IEMIP/l2Z+yWJgnUAv5BicpsQ==
+X-Microsoft-Antispam-Message-Info: AgdE81ILnbZpksvnilVjOtgAA4IYMNWYxVcgkUrWWAptFQuy8ZCq7z0ZY8qN4DsF6Re2kTiUvVo53gWINjzKq0lvMsC1ICsJMlZnKa59MpHNeIBm2O5KnaxvV6pv9M4uJhubK/JfaU+owO1mpxh8GJn/L0ooMEeWNvcg8soog+13ovWugCXBzFm+Ik+kI50c032xDKFpuh7r5F6kgN1/NUDukigvBWRK9x0hlMpyWL9YGH1t9u8wVqJO3/YC3+76cFuZOi9BMSMYUN8vlwk/c25F1XeqfAkAo/YE22rb8HmnjZ1mWWCWu75fhNhjQZqKH0AzvFMq4pTxaPsf8EbkgJ+iznjibHObIVy9igOCaMbmSlF0SRKfVpGJkpJShBhf
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1814.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(316002)(54906003)(52116002)(5660300002)(4326008)(6916009)(1076003)(6486002)(86362001)(8676002)(2906002)(8936002)(36756003)(26005)(7696005)(16526019)(83380400001)(186003)(66556008)(6666004)(956004)(66476007)(66946007)(478600001)(2616005);
+ SFS:(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(316002)(54906003)(52116002)(5660300002)(4326008)(6916009)(1076003)(6486002)(86362001)(8676002)(2906002)(8936002)(36756003)(26005)(7696005)(16526019)(83380400001)(186003)(66556008)(6666004)(956004)(66476007)(66946007)(478600001)(2616005)(21314003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: GLSSkatzTxbcPyBbCpCLqT+eW0R7Nm2kYIzRqs5RfUPG6PT82ExVSg0XPuajkZh7p7pzQNNRMDHjXkudebWPpG5JN5Qvk63s3nkkN47zSbrikcFsE+K9PE9etrSSbYFfx4hvXW5+XZYa4uUQTdSTFWJLqs/0wgQtIP4qXKl5boQw1aGw6Xfp/psUTCwFy2RIQgCi4IH9qpD/QtrwAHp6/t1lecILf5QlAntchk4ZKcKOScoEK0nbqPWZJD+ng6yvol6vrYPnO41TynJennH7NBYr5WWLmkijFJuZj/70xjHqIoc5Ubuz2F32PYI/a936YRChSERo2cSkDub25TUQIfQNAKnbwCDgHJhZ2eegsk3j5PJEzg+zZ0p5TeilLzSlpYhXmVrTXdCT2kMu9okXtk+7upZT+ZRAGH5aRSnpP+RuWDIvAwrAz1PGEDTXOvZcjVLuN73D+QwzB/VTzyC45LXoA3P3/ewEAmk/mqIyzPFg6ApRzTb+U2Ta5AQtNoZRe/22F6julEQpbDDjZSyNbZYDY3OWL5gDgR1hP+7Y3zxlfgzthlCyp/oAejB/Ay0q0vH1Vu77Ox5rHhCstnqBFtpkH+KYJWzHVEVM+vi+fVYj9MPmSLb+60kxi4RNhwENy4SI8Jcok+p0Lutm7BNJ4w==
+X-MS-Exchange-AntiSpam-MessageData: WIJWLPRyLfk2yduT6wNe9xhb/Gr2X/v5NYppDs4QzYC+m3isiZ6z3GGecGjW48TTF+PED3mn084sKKjHhJ+hoZ7XD5PqLnXDaUZgXwH7Po8D4t24PV1PJwkAKO9jkKck5I0iWuFYj9YDYSJvuyW7bX0H7Ohw8NK4LI7Ik+Tr0ALsqfM073KpdwKFzn+tYRcrdvPmMt2gRIaIMLqcjqn+drxlwW0+EaLGpm1R+fg8Hz7FAKDnE/1OU47e4ozHOcXQGCfEesVVsmZLrCshmXm9lamzcB5j/9hQtTm/wBd5yPwpv6m2ze7L0WZXois/GjF5tKJHYjM7chWK732SxzYxsGSKS0nBWpmzuZSAkE409XgfZvdtSThtUc9zIbdcCKAhJft+wOq6eJceZmy6ycU2iZtodOjM1Tm6Fl0N+CqLxopn7A/ZHcfkvwJdjtAzM77h+IUpXttRg3U1F9e0WMPaQIEFx7r6aB0Z1uWw5jsvsp2lsuTXVx2fLIM71Nvdq8ymlSNirCPClyOSyh1fdoSvUN0fynGbAlJ70sPhsCg36iITHC1pyHE7/mPqkj3B6/WKFyQfwV+JZlxlNH/TYcikKqMq9vSLJM+0ozSfoh+Nr0YTZxvAhw+5WZTCe/s681o5R2BXXKLNjES7j3LbcU8YxA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e14c9f0-03cb-4cda-dc79-08d83dc007a8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f013905-9ea9-4b77-d14e-08d83dc00920
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1814.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 06:30:24.7645 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 06:30:27.1245 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XIDVgqF8n404LWVnes+K8+SzQSolcZThRVEYqhQduZ9gRg0d6Oy6Gpx0BAeNH6urdShNBsj0C6TZOeD7CTunJA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: IuF7gbqqwRMbap+kD/BBY7XdP/MtqgVVNrAYL4WM8w9t3/X8Hkd8gLzZ/7uTrLAK63b/RsYhYgWGghvau8iHLA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,320 +116,227 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable the RAP TA loading path and add RAP test
-trigger interface.
+After amdgpu driver loading successfully, we can use
+RAP debugfs interface <debugfs_dir>/dri/xxx/rap_test
+to trigger RAP test.
 
-v2: fix potential mem leak issue
+Currently only L0 validate test is supported.
+
+v2: refine amdgpu_rap.h
 
 Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 183 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h   |  17 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |   1 +
- 3 files changed, 201 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c     | 127 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h     |  30 +++++
+ 4 files changed, 161 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index c68369731b20..116a89990f39 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1430,6 +1430,168 @@ static int psp_dtm_terminate(struct psp_context *psp)
- }
- // DTM end
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 0ba396e9d7e4..dec1927ca75d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -55,7 +55,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_vf_error.o amdgpu_sched.o amdgpu_debugfs.o amdgpu_ids.o \
+ 	amdgpu_gmc.o amdgpu_mmhub.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+ 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+-	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o
++	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o
  
-+// RAP start
-+static int psp_rap_init_shared_buf(struct psp_context *psp)
+ amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 3a4b31b1c4f2..0af249a1e35b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_pm.h"
+ #include "amdgpu_dm_debugfs.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_rap.h"
+ 
+ /**
+  * amdgpu_debugfs_add_files - Add simple debugfs entries
+@@ -1623,6 +1624,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 
+ 	amdgpu_debugfs_autodump_init(adev);
+ 
++	amdgpu_rap_debugfs_init(adev);
++
+ 	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_list,
+ 					ARRAY_SIZE(amdgpu_debugfs_list));
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+new file mode 100644
+index 000000000000..87cbc9011b2d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+@@ -0,0 +1,127 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ *
++ */
++#include <linux/debugfs.h>
++#include <linux/pm_runtime.h>
++
++#include "amdgpu.h"
++#include "amdgpu_rap.h"
++
++/**
++ * DOC: AMDGPU RAP debugfs test interface
++ *
++ * how to use?
++ * echo opcode > <debugfs_dir>/dri/xxx/rap_test
++ *
++ * opcode:
++ * currently, only 2 is supported by Linux host driver,
++ * opcode 2 stands for TA_CMD_RAP__VALIDATE_L0, used to
++ * trigger L0 policy validation, you can refer more detail
++ * from header file ta_rap_if.h
++ *
++ */
++static ssize_t amdgpu_rap_debugfs_write(struct file *f, const char __user *buf,
++		size_t size, loff_t *pos)
 +{
++	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
++	struct ta_rap_shared_memory *rap_shared_mem;
++	struct ta_rap_cmd_output_data *rap_cmd_output;
++	struct drm_device *dev = adev->ddev;
++	uint32_t op;
 +	int ret;
 +
-+	/*
-+	 * Allocate 16k memory aligned to 4k from Frame Buffer (local
-+	 * physical) for rap ta <-> Driver
-+	 */
-+	ret = amdgpu_bo_create_kernel(psp->adev, PSP_RAP_SHARED_MEM_SIZE,
-+				      PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM,
-+				      &psp->rap_context.rap_shared_bo,
-+				      &psp->rap_context.rap_shared_mc_addr,
-+				      &psp->rap_context.rap_shared_buf);
++	if (*pos || size != 2)
++		return -EINVAL;
 +
-+	return ret;
-+}
-+
-+static int psp_rap_load(struct psp_context *psp)
-+{
-+	int ret;
-+	struct psp_gfx_cmd_resp *cmd;
-+
-+	cmd = kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
-+	if (!cmd)
-+		return -ENOMEM;
-+
-+	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
-+	memcpy(psp->fw_pri_buf, psp->ta_rap_start_addr, psp->ta_rap_ucode_size);
-+
-+	psp_prep_ta_load_cmd_buf(cmd,
-+				 psp->fw_pri_mc_addr,
-+				 psp->ta_rap_ucode_size,
-+				 psp->rap_context.rap_shared_mc_addr,
-+				 PSP_RAP_SHARED_MEM_SIZE);
-+
-+	ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
-+
-+	if (!ret) {
-+		psp->rap_context.rap_initialized = true;
-+		psp->rap_context.session_id = cmd->resp.session_id;
-+		mutex_init(&psp->rap_context.mutex);
-+	}
-+
-+	kfree(cmd);
-+
-+	return ret;
-+}
-+
-+static int psp_rap_unload(struct psp_context *psp)
-+{
-+	int ret;
-+	struct psp_gfx_cmd_resp *cmd;
-+
-+	cmd = kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
-+	if (!cmd)
-+		return -ENOMEM;
-+
-+	psp_prep_ta_unload_cmd_buf(cmd, psp->rap_context.session_id);
-+
-+	ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
-+
-+	kfree(cmd);
-+
-+	return ret;
-+}
-+
-+static int psp_rap_initialize(struct psp_context *psp)
-+{
-+	int ret;
-+
-+	/*
-+	 * TODO: bypass the initialize in sriov for now
-+	 */
-+	if (amdgpu_sriov_vf(psp->adev))
-+		return 0;
-+
-+	if (!psp->adev->psp.ta_rap_ucode_size ||
-+	    !psp->adev->psp.ta_rap_start_addr) {
-+		dev_info(psp->adev->dev, "RAP: optional rap ta ucode is not available\n");
-+		return 0;
-+	}
-+
-+	if (!psp->rap_context.rap_initialized) {
-+		ret = psp_rap_init_shared_buf(psp);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = psp_rap_load(psp);
++	ret = kstrtouint_from_user(buf, size, *pos, &op);
 +	if (ret)
 +		return ret;
 +
-+	ret = psp_rap_invoke(psp, TA_CMD_RAP__INITIALIZE);
-+	if (ret != TA_RAP_STATUS__SUCCESS) {
-+		psp_rap_unload(psp);
-+
-+		amdgpu_bo_free_kernel(&psp->rap_context.rap_shared_bo,
-+			      &psp->rap_context.rap_shared_mc_addr,
-+			      &psp->rap_context.rap_shared_buf);
-+
-+		psp->rap_context.rap_initialized = false;
-+
-+		dev_warn(psp->adev->dev, "RAP TA initialize fail.\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int psp_rap_terminate(struct psp_context *psp)
-+{
-+	int ret;
-+
-+	if (!psp->rap_context.rap_initialized)
-+		return 0;
-+
-+	ret = psp_rap_unload(psp);
-+
-+	psp->rap_context.rap_initialized = false;
-+
-+	/* free rap shared memory */
-+	amdgpu_bo_free_kernel(&psp->rap_context.rap_shared_bo,
-+			      &psp->rap_context.rap_shared_mc_addr,
-+			      &psp->rap_context.rap_shared_buf);
-+
-+	return ret;
-+}
-+
-+int psp_rap_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
-+{
-+	struct ta_rap_shared_memory *rap_cmd;
-+	int ret;
-+
-+	if (!psp->rap_context.rap_initialized)
-+		return -EINVAL;
-+
-+	if (ta_cmd_id != TA_CMD_RAP__INITIALIZE &&
-+	    ta_cmd_id != TA_CMD_RAP__VALIDATE_L0)
-+		return -EINVAL;
-+
-+	mutex_lock(&psp->rap_context.mutex);
-+
-+	rap_cmd = (struct ta_rap_shared_memory *)
-+		  psp->rap_context.rap_shared_buf;
-+	memset(rap_cmd, 0, sizeof(struct ta_rap_shared_memory));
-+
-+	rap_cmd->cmd_id = ta_cmd_id;
-+	rap_cmd->validation_method_id = METHOD_A;
-+
-+	ret = psp_ta_invoke(psp, rap_cmd->cmd_id, psp->rap_context.session_id);
-+	if (ret) {
-+		mutex_unlock(&psp->rap_context.mutex);
++	ret = pm_runtime_get_sync(dev->dev);
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(dev->dev);
 +		return ret;
 +	}
 +
-+	mutex_unlock(&psp->rap_context.mutex);
++	/* make sure gfx core is on, RAP TA cann't handle
++	 * GFX OFF case currently.
++	 */
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	return rap_cmd->rap_status;
-+}
-+// RAP end
++	switch (op) {
++	case 2:
++		ret = psp_rap_invoke(&adev->psp, op);
 +
- static int psp_hw_start(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
-@@ -1892,6 +2054,11 @@ static int psp_load_fw(struct amdgpu_device *adev)
- 		if (ret)
- 			dev_err(psp->adev->dev,
- 				"DTM: Failed to initialize DTM\n");
++		if (ret == TA_RAP_STATUS__SUCCESS) {
++			dev_info(adev->dev, "RAP L0 validate test success.\n");
++		} else {
++			rap_shared_mem = (struct ta_rap_shared_memory *)
++					 adev->psp.rap_context.rap_shared_buf;
++			rap_cmd_output = &(rap_shared_mem->rap_out_message.output);
 +
-+		ret = psp_rap_initialize(psp);
-+		if (ret)
-+			dev_err(psp->adev->dev,
-+				"RAP: Failed to initialize RAP\n");
- 	}
- 
- 	return 0;
-@@ -1942,6 +2109,7 @@ static int psp_hw_fini(void *handle)
- 
- 	if (psp->adev->psp.ta_fw) {
- 		psp_ras_terminate(psp);
-+		psp_rap_terminate(psp);
- 		psp_dtm_terminate(psp);
- 		psp_hdcp_terminate(psp);
- 	}
-@@ -2000,6 +2168,11 @@ static int psp_suspend(void *handle)
- 			DRM_ERROR("Failed to terminate dtm ta\n");
- 			return ret;
- 		}
-+		ret = psp_rap_terminate(psp);
-+		if (ret) {
-+			DRM_ERROR("Failed to terminate rap ta\n");
-+			return ret;
++			dev_info(adev->dev, "RAP test failed, the output is:\n");
++			dev_info(adev->dev, "\tlast_subsection: 0x%08x.\n",
++				 rap_cmd_output->last_subsection);
++			dev_info(adev->dev, "\tnum_total_validate: 0x%08x.\n",
++				 rap_cmd_output->num_total_validate);
++			dev_info(adev->dev, "\tnum_valid: 0x%08x.\n",
++				 rap_cmd_output->num_valid);
++			dev_info(adev->dev, "\tlast_validate_addr: 0x%08x.\n",
++				 rap_cmd_output->last_validate_addr);
++			dev_info(adev->dev, "\tlast_validate_val: 0x%08x.\n",
++				 rap_cmd_output->last_validate_val);
++			dev_info(adev->dev, "\tlast_validate_val_exptd: 0x%08x.\n",
++				 rap_cmd_output->last_validate_val_exptd);
 +		}
- 	}
- 
- 	ret = psp_asd_unload(psp);
-@@ -2078,6 +2251,11 @@ static int psp_resume(void *handle)
- 		if (ret)
- 			dev_err(psp->adev->dev,
- 				"DTM: Failed to initialize DTM\n");
-+
-+		ret = psp_rap_initialize(psp);
-+		if (ret)
-+			dev_err(psp->adev->dev,
-+				"RAP: Failed to initialize RAP\n");
- 	}
- 
- 	mutex_unlock(&adev->firmware.mutex);
-@@ -2343,6 +2521,11 @@ int parse_ta_bin_descriptor(struct psp_context *psp,
- 		psp->ta_dtm_ucode_size     = le32_to_cpu(desc->size_bytes);
- 		psp->ta_dtm_start_addr     = ucode_start_addr;
- 		break;
-+	case TA_FW_TYPE_PSP_RAP:
-+		psp->ta_rap_ucode_version  = le32_to_cpu(desc->fw_version);
-+		psp->ta_rap_ucode_size     = le32_to_cpu(desc->size_bytes);
-+		psp->ta_rap_start_addr     = ucode_start_addr;
 +		break;
- 	default:
- 		dev_warn(psp->adev->dev, "Unsupported TA type: %d\n", desc->fw_type);
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 623888bf30cb..919d2fb7427b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -29,6 +29,7 @@
- #include "psp_gfx_if.h"
- #include "ta_xgmi_if.h"
- #include "ta_ras_if.h"
-+#include "ta_rap_if.h"
- 
- #define PSP_FENCE_BUFFER_SIZE	0x1000
- #define PSP_CMD_BUFFER_SIZE	0x1000
-@@ -38,6 +39,7 @@
- #define PSP_TMR_SIZE	0x400000
- #define PSP_HDCP_SHARED_MEM_SIZE	0x4000
- #define PSP_DTM_SHARED_MEM_SIZE	0x4000
-+#define PSP_RAP_SHARED_MEM_SIZE	0x4000
- #define PSP_SHARED_MEM_SIZE		0x4000
- 
- struct psp_context;
-@@ -159,6 +161,15 @@ struct psp_dtm_context {
- 	struct mutex		mutex;
- };
- 
-+struct psp_rap_context {
-+	bool			rap_initialized;
-+	uint32_t		session_id;
-+	struct amdgpu_bo	*rap_shared_bo;
-+	uint64_t		rap_shared_mc_addr;
-+	void			*rap_shared_buf;
-+	struct mutex		mutex;
++	default:
++		dev_info(adev->dev, "Unsupported op id: %d, ", op);
++		dev_info(adev->dev, "Only support op 2(L0 validate test).\n");
++	}
++
++	amdgpu_gfx_off_ctrl(adev, true);
++	pm_runtime_mark_last_busy(dev->dev);
++	pm_runtime_put_autosuspend(dev->dev);
++
++	return size;
++}
++
++static const struct file_operations amdgpu_rap_debugfs_ops = {
++	.owner = THIS_MODULE,
++	.read = NULL,
++	.write = amdgpu_rap_debugfs_write,
++	.llseek = default_llseek
 +};
 +
- #define MEM_TRAIN_SYSTEM_SIGNATURE		0x54534942
- #define GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES	0x1000
- #define GDDR6_MEM_TRAINING_OFFSET		0x8000
-@@ -277,11 +288,16 @@ struct psp_context
- 	uint32_t			ta_dtm_ucode_size;
- 	uint8_t				*ta_dtm_start_addr;
- 
-+	uint32_t			ta_rap_ucode_version;
-+	uint32_t			ta_rap_ucode_size;
-+	uint8_t				*ta_rap_start_addr;
++void amdgpu_rap_debugfs_init(struct amdgpu_device *adev)
++{
++#if defined(CONFIG_DEBUG_FS)
++	struct drm_minor *minor = adev->ddev->primary;
 +
- 	struct psp_asd_context		asd_context;
- 	struct psp_xgmi_context		xgmi_context;
- 	struct psp_ras_context		ras;
- 	struct psp_hdcp_context 	hdcp_context;
- 	struct psp_dtm_context		dtm_context;
-+	struct psp_rap_context		rap_context;
- 	struct mutex			mutex;
- 	struct psp_memory_training_context mem_train_ctx;
- };
-@@ -357,6 +373,7 @@ int psp_ras_trigger_error(struct psp_context *psp,
- 
- int psp_hdcp_invoke(struct psp_context *psp, uint32_t ta_cmd_id);
- int psp_dtm_invoke(struct psp_context *psp, uint32_t ta_cmd_id);
-+int psp_rap_invoke(struct psp_context *psp, uint32_t ta_cmd_id);
- 
- int psp_rlc_autoload_start(struct psp_context *psp);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index 12a8bc8fca0b..3c23c6293ff9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -131,6 +131,7 @@ enum ta_fw_type {
- 	TA_FW_TYPE_PSP_RAS,
- 	TA_FW_TYPE_PSP_HDCP,
- 	TA_FW_TYPE_PSP_DTM,
-+	TA_FW_TYPE_PSP_RAP,
- };
- 
- struct ta_fw_bin_desc {
++	if (!adev->psp.rap_context.rap_initialized)
++		return;
++
++	debugfs_create_file("rap_test", S_IWUSR, minor->debugfs_root,
++				adev, &amdgpu_rap_debugfs_ops);
++#endif
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
+new file mode 100644
+index 000000000000..ec6d7632d3a0
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ *
++ */
++#ifndef _AMDGPU_RAP_H
++#define _AMDGPU_RAP_H
++
++#include "amdgpu.h"
++
++void amdgpu_rap_debugfs_init(struct amdgpu_device *adev);
++#endif
 -- 
 2.17.1
 
