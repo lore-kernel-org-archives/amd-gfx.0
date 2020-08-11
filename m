@@ -2,102 +2,113 @@ Return-Path: <SRS0=t0+e=BV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10248C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2755DC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D6EC12054F
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:30:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E856E20774
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 06:33:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0utx9sNf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6EC12054F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="v5Y64okr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E856E20774
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70F376E103;
-	Tue, 11 Aug 2020 06:30:31 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 589A46E101
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 06:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82836E0FB;
+	Tue, 11 Aug 2020 06:33:25 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam07on2064.outbound.protection.outlook.com [40.107.95.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A8D6E0FB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 06:33:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EhGzkUwyuZVbN0PhlbhSHKzMabVaSP1sEwF046iQEJjXEcF4Y16TlVfnhZFyzWAWyTZovbMUXipBTXo+LzKtYT7FN8yGGJkVX1wC8376d4WLwRr3WnoIxXVk3GAMx/uUoArUgNrx+C01H//89Eom6XFHuSzDt6BTymP101zjCjEFDlr09bjqcOTJh/qLhR2jQtzFptssu+Zq0V3BWDpub+fbfA3MJKGTMMgrBdpDcO8OSI54g7y84eV+ihg9loZ3tFYECXNOZ2hqkSTUzw0CWjcfXkEmkGTKTpz6TNQac50YejKb4HTSCWNLb/J8unWlqrz9MQ6K2Zfb4PzrpOBtGg==
+ b=SEuTeUZw6RmcC0kZBMQ3mIemYamZ1irOWEfN+3mL7r0/85AbiebW3v9ccey1tPWcByhCbqF97A9Hx2e35qvo+nF29mR1NpK8NWT10INZbvKb0o0jbGweZRZ9O811HsUqaHUUGlXV/n/NuyrGdKN0qEJloLqQoA8yJhXMpcfsGHAyq6ZQVAvNiWwb8svbkUkAKJcipzvN3anF3IDoN6S+ulMiMBoQ9f9Lx2h9FRG0pLJV/uLHYl6UT1Ckvkk7HMG6AIVDbytOybLJ//saq66HLSoNrtcdaTPaOd89tFRJZMDBLP71rJEUldS8JBagONuUD0IShvOU6HrU8JlJ2xhV6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0S4zKxYtjiTWGss3vRe7hOfY3Rlo2TtGEJHaQIcD5ls=;
- b=BtucCw6l/o+EclMK1NiXneK2BB8+o/O5QdmvnBdBjUnCKq3fY8eqxgFiPMVhFzAjhf6NGIvGgQWAo7LaIP8aYvZf5kjBqlVDXW0nTuaAt25f5fk+z+WzA3GXZdvYxTw46eP05NUk6R6bOAGHDz/dEttHaMhy0EcSdEAajSwgQVacOpFy2e+WZPRymgGp+GUcpzFZAZ58RmhnL1kYJLnW3voFpoTCRfuNsSnyo3Jnt76IlT/GbJ6E8PoOWBfFUd1w2jymxRHEIdPu5R0vzEZbWEqDVIpn0WkZCL68acYIyLwCuoIPl5CZRSmlNdYV3nCROwuWBr654RNtyvZ2vGfMfA==
+ bh=QRQhts//Oq3ARxBHN6Z3kviGPR1sITnFgMfHlz/oBXE=;
+ b=EaMXzXmfxZhSGmWJScI9RfwDeK8nWMs7uXbsgTR0oksg1MYnabCdVhG4OA2aWh9pMTAJGJzKv35ylWNtdmK74/iRDkGL21wMt+1l6KAz5bEJgXtvEP5MZ4PDhRH7qvojvClMHsscEIxiZDQreA/zjOklu9MDKwni3qwMEUUtBfY5RBJ/Lu1Kph/ZFA4xRCJwsj6TuU3hmh1SvCjYS7pp+wGynewb6WTAgXmajJh8Fp7LFnsJ2/GI0G3ZlFWjoTTtqvVM/Q88Nr3sfvY8ZD6cLrFt6fNXoUkFPwTqy6AhXwCcy5HRlhe6spOjARXPgKeCT6EqZg0gQTr/ie3ik3DUEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0S4zKxYtjiTWGss3vRe7hOfY3Rlo2TtGEJHaQIcD5ls=;
- b=0utx9sNfaUA3nHoDaPPQ0pyZ1w1Ft7b/wcC2oUvH/RWehrgkIqTctKwpYXuhKA9FHeR6VmwFidFM38uUAg8FE2JgbgnUCJ+GsnIIDDjRz6FSaE7WdN75zv1dxeDgl5q0ctSs4x4980iAzf7xehObb1VyfX16TYq42F60iZP+KoU=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from CY4PR12MB1814.namprd12.prod.outlook.com (2603:10b6:903:125::16)
- by CY4PR12MB1319.namprd12.prod.outlook.com (2603:10b6:903:41::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.21; Tue, 11 Aug
- 2020 06:30:27 +0000
-Received: from CY4PR12MB1814.namprd12.prod.outlook.com
- ([fe80::c42a:ccf3:cf89:1e1f]) by CY4PR12MB1814.namprd12.prod.outlook.com
- ([fe80::c42a:ccf3:cf89:1e1f%3]) with mapi id 15.20.3261.025; Tue, 11 Aug 2020
- 06:30:27 +0000
-From: Wenhui Sheng <Wenhui.Sheng@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
-Date: Tue, 11 Aug 2020 14:30:07 +0800
-Message-Id: <20200811063007.7785-3-Wenhui.Sheng@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200811063007.7785-1-Wenhui.Sheng@amd.com>
+ bh=QRQhts//Oq3ARxBHN6Z3kviGPR1sITnFgMfHlz/oBXE=;
+ b=v5Y64okrucQAVZhai8QCbWY7bdY4ioP2SD6n4aQaUvcnPT4dEPrQQt8WwNVKre2vxf+tLfU/I7peuB8pD1Y2kwIXSfVeu4zoEc7wpxz7RCRZfn/zhWzvKNM6zJKD2w2F0C0M85DoTewVvByjSjachrXeWUWyjGtFfqHZYyzPkig=
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
+ by CY4PR1201MB0120.namprd12.prod.outlook.com (2603:10b6:910:1c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.20; Tue, 11 Aug
+ 2020 06:33:18 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::e181:b736:5067:12f2]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::e181:b736:5067:12f2%9]) with mapi id 15.20.3261.024; Tue, 11 Aug 2020
+ 06:33:18 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+Thread-Topic: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+Thread-Index: AQHWb6jn47zqf0tBE0mh1DHDXo0Zoakycx/g
+Date: Tue, 11 Aug 2020 06:33:18 +0000
+Message-ID: <CY4PR12MB1287E925DC6659A9A37766D8F1450@CY4PR12MB1287.namprd12.prod.outlook.com>
 References: <20200811063007.7785-1-Wenhui.Sheng@amd.com>
-X-ClientProxiedBy: HK2PR03CA0048.apcprd03.prod.outlook.com
- (2603:1096:202:17::18) To CY4PR12MB1814.namprd12.prod.outlook.com
- (2603:10b6:903:125::16)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from HUI.amd.com (58.247.170.242) by
- HK2PR03CA0048.apcprd03.prod.outlook.com (2603:1096:202:17::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.5 via Frontend Transport; Tue, 11 Aug 2020 06:30:25 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3f013905-9ea9-4b77-d14e-08d83dc00920
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1319:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1319A74FD122B07089BCE39E8C450@CY4PR12MB1319.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AgdE81ILnbZpksvnilVjOtgAA4IYMNWYxVcgkUrWWAptFQuy8ZCq7z0ZY8qN4DsF6Re2kTiUvVo53gWINjzKq0lvMsC1ICsJMlZnKa59MpHNeIBm2O5KnaxvV6pv9M4uJhubK/JfaU+owO1mpxh8GJn/L0ooMEeWNvcg8soog+13ovWugCXBzFm+Ik+kI50c032xDKFpuh7r5F6kgN1/NUDukigvBWRK9x0hlMpyWL9YGH1t9u8wVqJO3/YC3+76cFuZOi9BMSMYUN8vlwk/c25F1XeqfAkAo/YE22rb8HmnjZ1mWWCWu75fhNhjQZqKH0AzvFMq4pTxaPsf8EbkgJ+iznjibHObIVy9igOCaMbmSlF0SRKfVpGJkpJShBhf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1814.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ <20200811063007.7785-3-Wenhui.Sheng@amd.com>
+In-Reply-To: <20200811063007.7785-3-Wenhui.Sheng@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-11T06:33:08Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=091ff8da-8e30-4a70-a253-0000e6b9c2ac;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-08-11T06:33:15Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 62240354-dd74-4c07-90c3-000077985fbf
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ee704d4b-1692-41b9-eb08-08d83dc06f74
+x-ms-traffictypediagnostic: CY4PR1201MB0120:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR1201MB01204A61F96722103AE94A54F1450@CY4PR1201MB0120.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4303;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: W4KgpFnom1jh2Tak5e8LGEpt+R0l67hM+ImtH0UadUIw23gt8cyrOCTsMaEMym0tr3KMldVkY7RXFnxWg/e8ssq5WH8FFUxO6W55NmT1YMs94Q60IYhz64nfRNKtUMRdn9FL/WeLnRyX39+dw7Gj66BAYUcozueFFJe1tmbuUE9syFRjIvBLhnytk9qek5n0i+7bRr6ftpc2oQ4Ovu8TY+eHQPIM4lZyTtmOl1shszstRPVCloxZ7RVjiEnFDoME2uAYsl1yyOILc+WwSqhTFiDg5jlrdWO0Fpdcf1UZNsQbRFOiuYYSxyOM3VHCob0Co+FKG0EnXvuOVxkKgmYuSYuDzCwFogQSSA/36tpRwSLzwgcaFsqFO9vUN1RjfsbQ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(316002)(54906003)(52116002)(5660300002)(4326008)(6916009)(1076003)(6486002)(86362001)(8676002)(2906002)(8936002)(36756003)(26005)(7696005)(16526019)(83380400001)(186003)(66556008)(6666004)(956004)(66476007)(66946007)(478600001)(2616005)(21314003);
+ SFS:(4636009)(346002)(136003)(366004)(39860400002)(376002)(396003)(4326008)(83380400001)(186003)(26005)(8936002)(71200400001)(66946007)(66446008)(8676002)(66476007)(64756008)(66556008)(52536014)(76116006)(55016002)(9686003)(86362001)(110136005)(5660300002)(33656002)(6506007)(53546011)(478600001)(2906002)(316002)(54906003)(7696005)(21314003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: WIJWLPRyLfk2yduT6wNe9xhb/Gr2X/v5NYppDs4QzYC+m3isiZ6z3GGecGjW48TTF+PED3mn084sKKjHhJ+hoZ7XD5PqLnXDaUZgXwH7Po8D4t24PV1PJwkAKO9jkKck5I0iWuFYj9YDYSJvuyW7bX0H7Ohw8NK4LI7Ik+Tr0ALsqfM073KpdwKFzn+tYRcrdvPmMt2gRIaIMLqcjqn+drxlwW0+EaLGpm1R+fg8Hz7FAKDnE/1OU47e4ozHOcXQGCfEesVVsmZLrCshmXm9lamzcB5j/9hQtTm/wBd5yPwpv6m2ze7L0WZXois/GjF5tKJHYjM7chWK732SxzYxsGSKS0nBWpmzuZSAkE409XgfZvdtSThtUc9zIbdcCKAhJft+wOq6eJceZmy6ycU2iZtodOjM1Tm6Fl0N+CqLxopn7A/ZHcfkvwJdjtAzM77h+IUpXttRg3U1F9e0WMPaQIEFx7r6aB0Z1uWw5jsvsp2lsuTXVx2fLIM71Nvdq8ymlSNirCPClyOSyh1fdoSvUN0fynGbAlJ70sPhsCg36iITHC1pyHE7/mPqkj3B6/WKFyQfwV+JZlxlNH/TYcikKqMq9vSLJM+0ozSfoh+Nr0YTZxvAhw+5WZTCe/s681o5R2BXXKLNjES7j3LbcU8YxA==
+x-ms-exchange-antispam-messagedata: K+KEHULsAgUiqJ6CRbXCNuVfoWfnULeBCLKcrA8r2LhgzUMJ3h6SnLpGGBx+/4PG1QptQ9QP+mcS5gpsLLLz8L1HqFjn6yAsjmH9XS96myL1u58L5uUgsRn1bgxmRTCJ12Y69FNGgwGXc9rk6NZgL+hBATlXN3zThbjYhwgdjpkZQf/I/n1tldmrOPJ67CNjlRz3D81NpTXE+keLWz8opndU99hzMonn+CsBJGd0q7LC2bMXEtb8ULGvy+StF2rk58rxcaettFItiqsjJUpVafFS5akWiMmU6m9yP7ZIlICkqwdJndFhrfyIIdsbVXV6OHE1C32u3KdRyT0evfXFnSPjet7rHN4bnCfb4EdzoA8STdtnCaTo4LAVTfqenZuMqDhyoWlNSYljZoc3OEkZesu1nnGrBGiAtN28S+jJ9Kz+QVxcjFJW6N6OgUovNCb5PMV4GAwuCD4aXAnb2AgP+VgbLPfyhIfxqL1CpSd/4fc6s2lE+w0RNSdJU726xG377O1KioTVHM617jftkVxqMO+GzcWkEd5p0Fr03D7DRmQ/Rx7PTrlWgywYT87Fif3bAGkTW1DeZObqV3nwzGJVdYY7hIyr/iLSvG0WkkO9E41OZNz4jS8QwA4WCzC3U5PswTPlu7epxF6/HavE9zA3hg==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f013905-9ea9-4b77-d14e-08d83dc00920
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1814.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 06:30:27.1245 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IuF7gbqqwRMbap+kD/BBY7XdP/MtqgVVNrAYL4WM8w9t3/X8Hkd8gLzZ/7uTrLAK63b/RsYhYgWGghvau8iHLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1319
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee704d4b-1692-41b9-eb08-08d83dc06f74
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2020 06:33:18.4464 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: j+U2T7TghxDzUMmRHa1EF5mo8YT0KcrfoBTS6bKHt97F1aZQD7MOghL3xHsO6XlhPWSfBW6QFEmQQjwYMLIgZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,16 +120,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: John Clements <John.Clements@amd.com>, Wenhui Sheng <Wenhui.Sheng@amd.com>,
- Guchun Chen <Guchun.Chen@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Clements, John" <John.Clements@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After amdgpu driver loading successfully, we can use
-RAP debugfs interface <debugfs_dir>/dri/xxx/rap_test
-to trigger RAP test.
+[AMD Public Use]
+
+Series is:
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+
+Regards,
+Guchun
+
+-----Original Message-----
+From: Sheng, Wenhui <Wenhui.Sheng@amd.com> 
+Sent: Tuesday, August 11, 2020 2:30 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chen, Guchun <Guchun.Chen@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Clements, John <John.Clements@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+
+After amdgpu driver loading successfully, we can use RAP debugfs interface <debugfs_dir>/dri/xxx/rap_test to trigger RAP test.
 
 Currently only L0 validate test is supported.
 
@@ -130,8 +154,7 @@ Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   3 +
  drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c     | 127 ++++++++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h     |  30 +++++
- 4 files changed, 161 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+ 4 files changed, 161 insertions(+), 1 deletion(-)  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
@@ -158,8 +181,7 @@ index 3a4b31b1c4f2..0af249a1e35b 100644
 +#include "amdgpu_rap.h"
  
  /**
-  * amdgpu_debugfs_add_files - Add simple debugfs entries
-@@ -1623,6 +1624,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+  * amdgpu_debugfs_add_files - Add simple debugfs entries @@ -1623,6 +1624,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
  
  	amdgpu_debugfs_autodump_init(adev);
  
@@ -177,22 +199,34 @@ index 000000000000..87cbc9011b2d
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
++ * Permission is hereby granted, free of charge, to any person 
++obtaining a
++ * copy of this software and associated documentation files (the 
++"Software"),
++ * to deal in the Software without restriction, including without 
++limitation
++ * the rights to use, copy, modify, merge, publish, distribute, 
++sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom 
++the
 + * Software is furnished to do so, subject to the following conditions:
 + *
-+ * The above copyright notice and this permission notice shall be included in
++ * The above copyright notice and this permission notice shall be 
++included in
 + * all copies or substantial portions of the Software.
 + *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
++EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
++MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
++SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
++DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
++OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
++OR
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + *
@@ -289,9 +323,8 @@ index 000000000000..87cbc9011b2d
 +	.llseek = default_llseek
 +};
 +
-+void amdgpu_rap_debugfs_init(struct amdgpu_device *adev)
-+{
-+#if defined(CONFIG_DEBUG_FS)
++void amdgpu_rap_debugfs_init(struct amdgpu_device *adev) { #if 
++defined(CONFIG_DEBUG_FS)
 +	struct drm_minor *minor = adev->ddev->primary;
 +
 +	if (!adev->psp.rap_context.rap_initialized)
@@ -310,22 +343,34 @@ index 000000000000..ec6d7632d3a0
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
++ * Permission is hereby granted, free of charge, to any person 
++obtaining a
++ * copy of this software and associated documentation files (the 
++"Software"),
++ * to deal in the Software without restriction, including without 
++limitation
++ * the rights to use, copy, modify, merge, publish, distribute, 
++sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom 
++the
 + * Software is furnished to do so, subject to the following conditions:
 + *
-+ * The above copyright notice and this permission notice shall be included in
++ * The above copyright notice and this permission notice shall be 
++included in
 + * all copies or substantial portions of the Software.
 + *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
++EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
++MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
++SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
++DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
++OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
++OR
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + *
@@ -335,11 +380,9 @@ index 000000000000..ec6d7632d3a0
 +
 +#include "amdgpu.h"
 +
-+void amdgpu_rap_debugfs_init(struct amdgpu_device *adev);
-+#endif
--- 
++void amdgpu_rap_debugfs_init(struct amdgpu_device *adev); #endif
+--
 2.17.1
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
