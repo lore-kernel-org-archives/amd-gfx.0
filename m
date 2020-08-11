@@ -2,100 +2,114 @@ Return-Path: <SRS0=t0+e=BV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 978F3C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 03:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9473C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 05:40:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5DFA2206DA
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 03:38:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5AE64206B5
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 05:40:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SynXG+t9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DFA2206DA
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="v6Qb1iUh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AE64206B5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E031D6E06B;
-	Tue, 11 Aug 2020 03:38:37 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D5AF6E06B
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 03:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B04086E0E5;
+	Tue, 11 Aug 2020 05:40:30 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 885606E0E5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 05:40:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c0+Hx3pIQTkjJNIlz0xINLG2/p7rj4tku5xhngRZuosWS3DDAJfnA9DkrtriB3rThV7qX/AroWBirEFMeu5TflHsYYVDc4H490HrZNhXWrScrI+EKg/qe/+wlFYGlN0z/LRnK7mVIyPGrEV59ldjUu13cG38xG1XnMeWGVKiURebMG+zemTJcwaKjHA5kr2RY7qT1EDIsAi6Qa8VFfAdFazyzTZ+obKYAqOonj8vSYAjBmXCaOblU7ulruL5jkGCRsuLH6QY7hUEy8r8MLBNh0QKulmtW0pnwi8DJC9sGJPW3zoMPeHyh+1euZ4sXRTduSHyXkHbC3tBHu/1AkNFfw==
+ b=ggDWn3S0HBIAolhv5XLwoQM0qc6RZmpFU63Lrnz2NB172M91027lijJMtwiGmKaxaa1UXM8X0cRfDz85+6eyWrumVMInVpehwFCjs1PHlN1cnenhXKkiF89JN+vw576n40XdVhHOLPmT4y+zcutaxQpxUrKyI7nJ+F+PRj8tpNnOztbF3x2CY42qECToaEq1Z85Jtpm1GfQCskJl+2cw/D2bfpea/ImTTsWlE5pkyHf4dh9YzSkBE0Riqyg0uGQ0cnb/XyoZ89MSKDjAGQF7Qp+v1Yz/4pL4EcbXOZ4okOP7H5IDScZFIhBltwZslxwgEKp+IMs3RScHAgVUHguMlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xWLfEN4oeQheeW632U6+Rj1I8UtuG2X674vt9owyU4g=;
- b=V2kV/Ub9Wnk7ORmN1HHFkv6i8OE5iSx6hfqRlx3PULFnvanIyxHPrst2wN1WxMg0SCMB5MGcGZ2g9vcrJYVmC7kj8A8B95l4sQCryKjxAy6mUCh+WKCdq193R/B/sLKvPDsnQgckiLIPypep0cCT1JU5ClQk0ey8FFJKase7QVFEbdQ+RZfhkXQXN3ILZcSxXIR8TE3kJbluPzU8tdPOkQcPh3J0BMlwO7BDzEySz+sp0kCc2uuegSQ2409Wfb4VZfAQcnZuA7bkQq9Z+BJgBRfndiBpJMqCSMm7Qy5pFYUo/4YVPu68ZWDxSLb5+LwUE+so7eFYSMTM3AC2AKe/sg==
+ bh=Ci0mhL/gvlBvDe/b8gWewVhLA8El8Epl2evWYwAhKww=;
+ b=Uq2LkTckeqPDFW3KZrP89goucudYjB4MU/tOMBx5KkgwMsOyW4OCB3e4rhTiYgqP/+ebJHsA7PqUgwYOdGVbcg0HgP69aezW+Nk8T+NAL4Vy2JyvG21632CSElK1wAo+Wo1XXtooFGs1D976TTCXj/q7hcnWzKaDU4FwFaqvwOJ3laJUpJ5voReKGIClJaUl0uQEdB7uKDHtUVBsMK5x1Stf50rdb6VZOq8f/UOFB/cKOtpcu+essU+7yXBdzHv1LVMN5WrtDKMJoK2+yTTwNLbiL/DBnrmF99UgKSRGl+DqQQqhOwmWgpa7+go+wdalg86LyjPFDNxr4N3nUlGYsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xWLfEN4oeQheeW632U6+Rj1I8UtuG2X674vt9owyU4g=;
- b=SynXG+t9HYOLMhBPiav0JHwgcNi7RJQPOZeUy66UjMd5VC51XM0LidTf4b67Yip8CcPQG4qFpnSE0RRV51gAdvSRrU+8/tKYstMWvW8NB6oZy8tkOU4pFizbQ1hRIGa4n0YaNfZkVQzNKMEDpOZSEiCeDxU2rlXerrebtJEIG4o=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB2891.namprd12.prod.outlook.com (2603:10b6:5:188::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.18; Tue, 11 Aug 2020 03:38:36 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::fcd0:74a:b9d0:6b66]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::fcd0:74a:b9d0:6b66%2]) with mapi id 15.20.3261.022; Tue, 11 Aug 2020
- 03:38:36 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: minor cleanups
-Date: Tue, 11 Aug 2020 11:38:13 +0800
-Message-Id: <20200811033813.1236-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.28.0
-X-ClientProxiedBy: HK0PR03CA0120.apcprd03.prod.outlook.com
- (2603:1096:203:b0::36) To DM6PR12MB2619.namprd12.prod.outlook.com
- (2603:10b6:5:45::18)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (58.247.170.242) by
- HK0PR03CA0120.apcprd03.prod.outlook.com (2603:1096:203:b0::36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.18 via Frontend Transport; Tue, 11 Aug 2020 03:38:34 +0000
-X-Mailer: git-send-email 2.28.0
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1d35d870-fe23-4be9-986b-08d83da80727
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2891:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB28911CE365CBA3FC9142D0A2E4450@DM6PR12MB2891.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:159;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hVAHo/d7OjfL/fq0oYyrL2QYcWU/25W2UxSjeoS2m9FNvycQj7Qvj0dz8CPrIZl47PPH3lI0sjBrbNG6r6uIm6ZXg8tHi6lBYAI+blTXKt1568NsZ37Dn/B3T6W21/uDzIgKPdkc3ab/baZfIBIlfmsTHjJ9GzmbPyeGIjqQukyVRW2rR40HKcaugWi1yA1ZS20kwgaCCQCaDKm/1vmWayPQPbqIFxsxGcAaXvcIRUSWkUDfjWW8C9d05KRfGNB6u9CKaCx71HgQfIfJMZ7VzccLAsb20pSBjoPfGwJ1V8GqaxJgsfexuD62rxv6RaZnRm1Ln52GcdgfU+i5ayGong==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ bh=Ci0mhL/gvlBvDe/b8gWewVhLA8El8Epl2evWYwAhKww=;
+ b=v6Qb1iUhXcMYp4GSgpvL+MfhLkNSjdA+6YxqzKqugR2Khswna0kmUvSYn7yEVsURcCEFJbqmv2DPaMp3Xp17YbtED4gRi8AweVZb+gRw2XfBeLg7sQwSU5fgmSNj4Pu1o1QJjl+VkeRO6Ne9K7nM4ZjC1rbF+jjnImcJRvGONe8=
+Received: from CY4PR12MB1814.namprd12.prod.outlook.com (2603:10b6:903:125::16)
+ by CY4PR12MB1479.namprd12.prod.outlook.com (2603:10b6:910:d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Tue, 11 Aug
+ 2020 05:40:27 +0000
+Received: from CY4PR12MB1814.namprd12.prod.outlook.com
+ ([fe80::c42a:ccf3:cf89:1e1f]) by CY4PR12MB1814.namprd12.prod.outlook.com
+ ([fe80::c42a:ccf3:cf89:1e1f%3]) with mapi id 15.20.3261.025; Tue, 11 Aug 2020
+ 05:40:26 +0000
+From: "Sheng, Wenhui" <Wenhui.Sheng@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+Thread-Topic: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+Thread-Index: AQHWb4wUwvnDjaj8tkWzZIiZ9n6CHakyQR4AgAAhybA=
+Date: Tue, 11 Aug 2020 05:40:26 +0000
+Message-ID: <CY4PR12MB18146458BBB550452B591CC78C450@CY4PR12MB1814.namprd12.prod.outlook.com>
+References: <20200811030345.7334-1-Wenhui.Sheng@amd.com>
+ <20200811030345.7334-3-Wenhui.Sheng@amd.com>
+ <CY4PR12MB1287D926591767A3C6194E46F1450@CY4PR12MB1287.namprd12.prod.outlook.com>
+In-Reply-To: <CY4PR12MB1287D926591767A3C6194E46F1450@CY4PR12MB1287.namprd12.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-11T03:27:55Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=7f12ffd1-ddb7-4aa1-bd4d-0000b0eb5f1c;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-08-11T05:40:23Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 562b491f-489b-455e-a5af-0000c895ca8b
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 8c814027-724f-4d29-e543-08d83db90d06
+x-ms-traffictypediagnostic: CY4PR12MB1479:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB1479167C6D42D2010355F9658C450@CY4PR12MB1479.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZyRA7PbeT66yuYmbooyo7m/Nmt69TfpfKneNIcJ+rcys/3Ozler+U7XHDs3EyidN4HfPlgP8F/6jqvVtMoFeNlkK+aa+Yq365aCGXD9yEPF1q5BgnAGWqEVs8++mGPBC+f49dGLWzWAlcPWF7hFDvBFPjVMbP9jyPa/Rwh9OeKsQxGe/1X3M/Lky9OG+JHNK88zKvjFCyW0qLEfwoyeIG0eiZDxJxHzasbC1bU1kLymm2C0ZmGt6nqou9u0rnWZ/+KRhSMASkblYo2kqpYM2nba/Y7aHw8qEXsx5T4DGTXWJAVI1Rdb9b0QdUg7U2RBezUxRhZGbHaNJ8w4l5cMvoFyHnC6UgHy71+ByvnsvTjl12XTn63nsmT0PNYkPwYdwLLNK5otUzaaXCUmh5kmizySrFlKAwJVjMAI66qY+hfI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1814.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(136003)(346002)(376002)(396003)(39860400002)(8676002)(16526019)(186003)(26005)(36756003)(478600001)(956004)(83380400001)(5660300002)(2616005)(52116002)(8936002)(7696005)(4326008)(44832011)(6486002)(316002)(1076003)(86362001)(6666004)(66946007)(66556008)(66476007)(6916009)(30864003)(2906002);
+ SFS:(4636009)(136003)(366004)(396003)(39860400002)(376002)(346002)(64756008)(53546011)(6506007)(186003)(26005)(7696005)(8676002)(45080400002)(110136005)(8936002)(4326008)(2906002)(55016002)(9686003)(54906003)(316002)(66946007)(966005)(66446008)(66556008)(66476007)(52536014)(76116006)(5660300002)(83380400001)(86362001)(33656002)(478600001)(71200400001)(21314003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: R+0aJJNBOYoHDnT9UVAx8RGaYaH5o6GZC9hmja/b+h99fDPq1LUgR+ZwZKecZQIH19cAHxBuhL0xnOaTcP+4+olD6HaZjIVIRJtG7OLOaV3xa/Ucr6DY04YvdyH5cZY1gqbHqHZhnA2hN9H1wKMvOgbw5IHArAe3KDuA0oVCJafhdUh3SPZCTzBSBy4Ouf7ET8cxVothPmrmpvMODuT26pRVb/XkCd6gpsTBijgnWCHUAMZjDsoNGXQgV88Mvr56TDAFV4hUYrQ4+rLVhX2JmybsrCfsHCKr3LqPHHKo7HFLIrWzPacVZNNb9y2rQctoYaDX6ONTqi6e5TdfoONWAIgNnSx7FdBtz5ftBpXHbU1iwwdhPyDWw7Xp0wcSoEYhQCM1Zd/rQpKkFN2yEX2kESoHpAGu5Mcx5/fmGSCPNHNILq0O3DdgbrmRsPJVhNnqfQjfpvwj1x3nbP3KogsMV4qRP2Q5BpPEFCxWFjMGTVQaKT/5SDl7eywzmOEzJZ57KBvzZMzZFzKdFTjYiW5Q2aCd+G33NQ/0mZQunXKMalqBXYME/FZsiEUdbxxllfFRJD2oKzwEQpCu809Gvvviw1vGpYErgZapDEOkimGKkSLSgrqw2NPyZbDr/8mrAxqt5djIEsTLOztOCsX7wDkosg==
+x-ms-exchange-antispam-messagedata: G7RvhtP3WTY3sOotW82FmufjCsn+QcLIsgqnoQbGy8ZGpRu3Qrkd0F6NzNWN5rAaNnxed5QSTQr39KTRz7FQ76YV7JoJFDWR38Qpd9PB/eZxR79Nr8D2UlCLeKU+BKR1dHUKPwc3xyemQ7L8ukUDupAyQjuaYF8jaU6kviWE8gHXb3C4fpfcoX9tYQfvpXQu3n7AUCSwjA6MJPb/1m2sPEL7cRZ+CBO/CTgiKMmP8W2LLNZG/5gX10SoxHh2pGXxiixScXAmw1nRlcZ4bqZ+9VAE55JYh79m39Fdp1SE39sSY9kvin5dvrJvVWyBPSLHkzRR5VlV9vv28FCfL6FiIZXj3Xcc+UzEbU97JGJTjqQh5msALUX09SxLW5aiJdCeOCyVAQKxTeEkU5yVoOV9RmbvnEFfnfXfkoeY7P36M4w4KrD4wr5Czd/DK/trHTZPvSaO8sIK3VbylHD7G8j7uZjYmZy5r2gIvbD7tt0IU+1SuRcyL2o7deuERngif5sDWd7Gk5UkbF8fo5p96dbL1iLy+5Y1HahlWATaG5FEt1MO6JhNl/k/+WomEfKeBz0oSj6iVBedMDpR3eDuKfs6XMQoJcLBMGGjVFKhIgtmzYLsVgpDr+mQvp7m61V9G8+i6siw/LaMiNftAhXcYq+0eA==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d35d870-fe23-4be9-986b-08d83da80727
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 03:38:35.9599 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: djOuaWY4qFPs5a+xWpAm2wRcYtQ88yJYb1pCdwUl3/cm28x6Llg9Xn7zHZnlJkl3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2891
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1814.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c814027-724f-4d29-e543-08d83db90d06
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2020 05:40:26.8005 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vdXG983wcHubIcOjbiXbQn94jGa49bunGyYgKPxeKdKRVmg8Hcop5NmhFciudCGVIgaecKmjE4rwX0Gt6EuMqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1479
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,289 +121,289 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: "Clements, John" <John.Clements@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drop unnecessary lock protections during hw setup which was confirmed
-to have no race condition. Drop also unnecessary null pointer checker.
+[AMD Public Use]
 
-Change-Id: Ida301ae7bad1abae15285c4e019eda4f7dc6e297
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+Hi Gunchun,
+
+Thanks for pointing this out, for rap_test file node, I thought I need to use the same file mode as ras previously,  it seems that I'm wrong, for this rap_test file node, I think only S_IWUSR is enough, what's your opinion?
+
+Brs
+Wenhui 
+
+-----Original Message-----
+From: Chen, Guchun <Guchun.Chen@amd.com> 
+Sent: Tuesday, August 11, 2020 11:33 AM
+To: Sheng, Wenhui <Wenhui.Sheng@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Clements, John <John.Clements@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+
+[AMD Public Use]
+
+One comment inline, please check.
+
+Regards,
+Guchun
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Wenhui Sheng
+Sent: Tuesday, August 11, 2020 11:04 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Clements, John <John.Clements@amd.com>; Sheng, Wenhui <Wenhui.Sheng@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: add debugfs interface for RAP test
+
+After amdgpu driver loading successfully, we can use RAP debugfs interface <debugfs_dir>/dri/xxx/rap_test to trigger RAP test.
+
+Currently only L0 validate test is supported.
+
+v2: refine amdgpu_rap.h
+
+Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 20 --------
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |  2 -
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  1 -
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  2 -
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    |  2 -
- drivers/gpu/drm/amd/powerplay/smu_internal.h  |  1 +
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 50 ++++---------------
- 7 files changed, 11 insertions(+), 67 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c     | 127 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h     |  28 +++++
+ 4 files changed, 159 insertions(+), 1 deletion(-)  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 1ffacc712e53..c70f94377644 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -361,20 +361,16 @@ static int smu_get_driver_allowed_feature_mask(struct smu_context *smu)
- 	int ret = 0;
- 	uint32_t allowed_feature_mask[SMU_FEATURE_MAX/32];
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 0ba396e9d7e4..dec1927ca75d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -55,7 +55,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_vf_error.o amdgpu_sched.o amdgpu_debugfs.o amdgpu_ids.o \
+ 	amdgpu_gmc.o amdgpu_mmhub.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+ 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+-	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o
++	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o
  
--	mutex_lock(&feature->mutex);
- 	bitmap_zero(feature->allowed, SMU_FEATURE_MAX);
--	mutex_unlock(&feature->mutex);
+ amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
  
- 	ret = smu_get_allowed_feature_mask(smu, allowed_feature_mask,
- 					     SMU_FEATURE_MAX/32);
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 3a4b31b1c4f2..0af249a1e35b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_pm.h"
+ #include "amdgpu_dm_debugfs.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_rap.h"
  
--	mutex_lock(&feature->mutex);
- 	bitmap_or(feature->allowed, feature->allowed,
- 		      (unsigned long *)allowed_feature_mask,
- 		      feature->feature_num);
--	mutex_unlock(&feature->mutex);
+ /**
+  * amdgpu_debugfs_add_files - Add simple debugfs entries @@ -1623,6 +1624,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
  
- 	return ret;
+ 	amdgpu_debugfs_autodump_init(adev);
+ 
++	amdgpu_rap_debugfs_init(adev);
++
+ 	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_list,
+ 					ARRAY_SIZE(amdgpu_debugfs_list));
  }
-@@ -576,9 +572,6 @@ static int smu_fini_fb_allocations(struct smu_context *smu)
- 	struct smu_table *tables = smu_table->tables;
- 	struct smu_table *driver_table = &(smu_table->driver_table);
- 
--	if (!tables)
--		return 0;
--
- 	if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
- 		amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
- 				      &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-@@ -2250,19 +2243,6 @@ int smu_set_deep_sleep_dcefclk(struct smu_context *smu, int clk)
- 	return ret;
- }
- 
--int smu_set_active_display_count(struct smu_context *smu, uint32_t count)
--{
--	int ret = 0;
--
--	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
--		return -EOPNOTSUPP;
--
--	if (smu->ppt_funcs->set_active_display_count)
--		ret = smu->ppt_funcs->set_active_display_count(smu, count);
--
--	return ret;
--}
--
- int smu_get_clock_by_type(struct smu_context *smu,
- 			  enum amd_pp_clock_type type,
- 			  struct amd_pp_clocks *clocks)
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 8b1025dc54fd..25679d60f7b4 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -386,11 +386,9 @@ static int arcturus_check_powerplay_table(struct smu_context *smu)
- 		table_context->power_play_table;
- 	struct smu_baco_context *smu_baco = &smu->smu_baco;
- 
--	mutex_lock(&smu_baco->mutex);
- 	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_BACO ||
- 	    powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_MACO)
- 		smu_baco->platform_support = true;
--	mutex_unlock(&smu_baco->mutex);
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 23c2279bd500..8de39b31e7c2 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -698,7 +698,6 @@ int smu_set_fan_speed_percent(struct smu_context *smu, uint32_t speed);
- int smu_get_fan_speed_rpm(struct smu_context *smu, uint32_t *speed);
- 
- int smu_set_deep_sleep_dcefclk(struct smu_context *smu, int clk);
--int smu_set_active_display_count(struct smu_context *smu, uint32_t count);
- 
- int smu_get_clock_by_type(struct smu_context *smu,
- 			  enum amd_pp_clock_type type,
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 42a60769c52f..61e2971be9f3 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -346,11 +346,9 @@ static int navi10_check_powerplay_table(struct smu_context *smu)
- 	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_HARDWAREDC)
- 		smu->dc_controlled_by_gpio = true;
- 
--	mutex_lock(&smu_baco->mutex);
- 	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_BACO ||
- 	    powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_MACO)
- 		smu_baco->platform_support = true;
--	mutex_unlock(&smu_baco->mutex);
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
-diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index c5935f0a065b..f55dd0c2f3c8 100644
---- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -294,11 +294,9 @@ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
- 		table_context->power_play_table;
- 	struct smu_baco_context *smu_baco = &smu->smu_baco;
- 
--	mutex_lock(&smu_baco->mutex);
- 	if (powerplay_table->platform_caps & SMU_11_0_7_PP_PLATFORM_CAP_BACO ||
- 	    powerplay_table->platform_caps & SMU_11_0_7_PP_PLATFORM_CAP_MACO)
- 		smu_baco->platform_support = true;
--	mutex_unlock(&smu_baco->mutex);
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-index 264073d4e263..e44d705780b9 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-+++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-@@ -42,6 +42,7 @@
- #define smu_check_fw_version(smu)					smu_ppt_funcs(check_fw_version, 0, smu)
- #define smu_write_pptable(smu)						smu_ppt_funcs(write_pptable, 0, smu)
- #define smu_set_min_dcef_deep_sleep(smu, clk)				smu_ppt_funcs(set_min_dcef_deep_sleep, 0, smu, clk)
-+#define smu_set_active_display_count(smu, count)			smu_ppt_funcs(set_active_display_count, 0, smu, count)
- #define smu_set_driver_table_location(smu)				smu_ppt_funcs(set_driver_table_location, 0, smu)
- #define smu_set_tool_table_location(smu)				smu_ppt_funcs(set_tool_table_location, 0, smu)
- #define smu_notify_memory_pool_location(smu)				smu_ppt_funcs(notify_memory_pool_location, 0, smu)
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 580889a02a94..4b6162863ed6 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -453,9 +453,6 @@ int smu_v11_0_init_power(struct smu_context *smu)
- {
- 	struct smu_power_context *smu_power = &smu->smu_power;
- 
--	if (smu_power->power_context || smu_power->power_context_size != 0)
--		return -EINVAL;
--
- 	smu_power->power_context = kzalloc(sizeof(struct smu_11_0_dpm_context),
- 					   GFP_KERNEL);
- 	if (!smu_power->power_context)
-@@ -469,9 +466,6 @@ int smu_v11_0_fini_power(struct smu_context *smu)
- {
- 	struct smu_power_context *smu_power = &smu->smu_power;
- 
--	if (!smu_power->power_context || smu_power->power_context_size == 0)
--		return -EINVAL;
--
- 	kfree(smu_power->power_context);
- 	smu_power->power_context = NULL;
- 	smu_power->power_context_size = 0;
-@@ -700,18 +694,16 @@ int smu_v11_0_set_tool_table_location(struct smu_context *smu)
- 
- int smu_v11_0_init_display_count(struct smu_context *smu, uint32_t count)
- {
--	int ret = 0;
- 	struct amdgpu_device *adev = smu->adev;
- 
- 	/* Navy_Flounder do not support to change display num currently */
- 	if (adev->asic_type == CHIP_NAVY_FLOUNDER)
- 		return 0;
- 
--	if (!smu->pm_enabled)
--		return ret;
--
--	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_NumOfDisplays, count, NULL);
--	return ret;
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_NumOfDisplays,
-+					       count,
-+					       NULL);
- }
- 
- 
-@@ -721,7 +713,6 @@ int smu_v11_0_set_allowed_mask(struct smu_context *smu)
- 	int ret = 0;
- 	uint32_t feature_mask[2];
- 
--	mutex_lock(&feature->mutex);
- 	if (bitmap_empty(feature->allowed, SMU_FEATURE_MAX) || feature->feature_num < 64)
- 		goto failed;
- 
-@@ -738,7 +729,6 @@ int smu_v11_0_set_allowed_mask(struct smu_context *smu)
- 		goto failed;
- 
- failed:
--	mutex_unlock(&feature->mutex);
- 	return ret;
- }
- 
-@@ -775,9 +765,6 @@ int smu_v11_0_notify_display_change(struct smu_context *smu)
- {
- 	int ret = 0;
- 
--	if (!smu->pm_enabled)
--		return ret;
--
- 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT) &&
- 	    smu->adev->gmc.vram_type == AMDGPU_VRAM_TYPE_HBM)
- 		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetUclkFastSwitch, 1, NULL);
-@@ -1185,12 +1172,10 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
- int smu_v11_0_set_xgmi_pstate(struct smu_context *smu,
- 				     uint32_t pstate)
- {
--	int ret = 0;
--	ret = smu_cmn_send_smc_msg_with_param(smu,
--					  SMU_MSG_SetXgmiMode,
--					  pstate ? XGMI_MODE_PSTATE_D0 : XGMI_MODE_PSTATE_D3,
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_SetXgmiMode,
-+					       pstate ? XGMI_MODE_PSTATE_D0 : XGMI_MODE_PSTATE_D3,
- 					  NULL);
--	return ret;
- }
- 
- static int smu_v11_0_set_irq_state(struct amdgpu_device *adev,
-@@ -1421,11 +1406,7 @@ int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
- 
- int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu)
- {
--	int ret = 0;
--
--	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
--
--	return ret;
-+	return smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
- }
- 
- static int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu, enum smu_v11_0_baco_seq baco_seq)
-@@ -1436,13 +1417,8 @@ static int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu, enum smu_v
- bool smu_v11_0_baco_is_support(struct smu_context *smu)
- {
- 	struct smu_baco_context *smu_baco = &smu->smu_baco;
--	bool baco_support;
--
--	mutex_lock(&smu_baco->mutex);
--	baco_support = smu_baco->platform_support;
--	mutex_unlock(&smu_baco->mutex);
- 
--	if (!baco_support)
-+	if (!smu_baco->platform_support)
- 		return false;
- 
- 	/* Arcturus does not support this bit mask */
-@@ -1529,13 +1505,7 @@ int smu_v11_0_baco_enter(struct smu_context *smu)
- 
- int smu_v11_0_baco_exit(struct smu_context *smu)
- {
--	int ret = 0;
--
--	ret = smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_EXIT);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_v11_0_baco_set_state(smu, SMU_BACO_STATE_EXIT);
- }
- 
- int smu_v11_0_mode1_reset(struct smu_context *smu)
--- 
-2.28.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+new file mode 100644
+index 000000000000..46b2607a7bd1
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
+@@ -0,0 +1,127 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person 
++obtaining a
++ * copy of this software and associated documentation files (the 
++"Software"),
++ * to deal in the Software without restriction, including without 
++limitation
++ * the rights to use, copy, modify, merge, publish, distribute, 
++sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom 
++the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be 
++included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
++EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
++MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
++SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
++DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
++OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
++OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ *
++ */
++#include <linux/debugfs.h>
++#include <linux/pm_runtime.h>
++
++#include "amdgpu.h"
++#include "amdgpu_rap.h"
++
++/**
++ * DOC: AMDGPU RAP debugfs test interface
++ *
++ * how to use?
++ * echo opcode > <debugfs_dir>/dri/xxx/rap_test
++ *
++ * opcode:
++ * currently, only 2 is supported by Linux host driver,
++ * opcode 2 stands for TA_CMD_RAP__VALIDATE_L0, used to
++ * trigger L0 policy validation, you can refer more detail
++ * from header file ta_rap_if.h
++ *
++ */
++static ssize_t amdgpu_rap_debugfs_write(struct file *f, const char __user *buf,
++		size_t size, loff_t *pos)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)file_inode(f)->i_private;
++	struct ta_rap_shared_memory *rap_shared_mem;
++	struct ta_rap_cmd_output_data *rap_cmd_output;
++	struct drm_device *dev = adev->ddev;
++	uint32_t op;
++	int ret;
++
++	if (*pos || size != 2)
++		return -EINVAL;
++
++	ret = kstrtouint_from_user(buf, size, *pos, &op);
++	if (ret)
++		return ret;
++
++	ret = pm_runtime_get_sync(dev->dev);
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(dev->dev);
++		return ret;
++	}
++
++	/* make sure gfx core is on, RAP TA cann't handle
++	 * GFX OFF case currently.
++	 */
++	amdgpu_gfx_off_ctrl(adev, false);
++
++	switch (op) {
++	case 2:
++		ret = psp_rap_invoke(&adev->psp, op);
++
++		if (ret == TA_RAP_STATUS__SUCCESS) {
++			dev_info(adev->dev, "RAP L0 validate test success.\n");
++		} else {
++			rap_shared_mem = (struct ta_rap_shared_memory *)
++					 adev->psp.rap_context.rap_shared_buf;
++			rap_cmd_output = &(rap_shared_mem->rap_out_message.output);
++
++			dev_info(adev->dev, "RAP test failed, the output is:\n");
++			dev_info(adev->dev, "\tlast_subsection: 0x%08x.\n",
++				 rap_cmd_output->last_subsection);
++			dev_info(adev->dev, "\tnum_total_validate: 0x%08x.\n",
++				 rap_cmd_output->num_total_validate);
++			dev_info(adev->dev, "\tnum_valid: 0x%08x.\n",
++				 rap_cmd_output->num_valid);
++			dev_info(adev->dev, "\tlast_validate_addr: 0x%08x.\n",
++				 rap_cmd_output->last_validate_addr);
++			dev_info(adev->dev, "\tlast_validate_val: 0x%08x.\n",
++				 rap_cmd_output->last_validate_val);
++			dev_info(adev->dev, "\tlast_validate_val_exptd: 0x%08x.\n",
++				 rap_cmd_output->last_validate_val_exptd);
++		}
++		break;
++	default:
++		dev_info(adev->dev, "Unsupported op id: %d, ", op);
++		dev_info(adev->dev, "Only support op 2(L0 validate test).\n");
++	}
++
++	amdgpu_gfx_off_ctrl(adev, true);
++	pm_runtime_mark_last_busy(dev->dev);
++	pm_runtime_put_autosuspend(dev->dev);
++
++	return size;
++}
++
++static const struct file_operations amdgpu_rap_debugfs_ops = {
++	.owner = THIS_MODULE,
++	.read = NULL,
++	.write = amdgpu_rap_debugfs_write,
++	.llseek = default_llseek
++};
++
++void amdgpu_rap_debugfs_init(struct amdgpu_device *adev) { #if
++defined(CONFIG_DEBUG_FS)
++	struct drm_minor *minor = adev->ddev->primary;
++
++	if (!adev->psp.rap_context.rap_initialized)
++		return;
++
++	debugfs_create_file("rap_test", S_IWUGO | S_IRUGO, minor->debugfs_root,
++				adev, &amdgpu_rap_debugfs_ops);
+[Guchun]I believe S_IWUGO would be complained by checkpatch.pl if running it on top of your modifications, as it's one world writable permission. Perhaps, we should use S_IWUSR | S_IRUGO.
 
++#endif
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
+new file mode 100644
+index 000000000000..4a23d30fab62
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.h
+@@ -0,0 +1,28 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person 
++obtaining a
++ * copy of this software and associated documentation files (the 
++"Software"),
++ * to deal in the Software without restriction, including without 
++limitation
++ * the rights to use, copy, modify, merge, publish, distribute, 
++sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom 
++the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be 
++included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
++EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
++MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT 
++SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
++DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
++OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
++OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ *
++ */
++#ifndef _AMDGPU_RAP_H
++#define _AMDGPU_RAP_H
++
++void amdgpu_rap_debugfs_init(struct amdgpu_device *adev); #endif
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cguchun.chen%40amd.com%7C900c01aafb0c4fd363fa08d83da33e49%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637327118636879081&amp;sdata=OwEZNbL9khBXRmIPu714WAtEJ5bvR4nf2XU7IrsIatc%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
