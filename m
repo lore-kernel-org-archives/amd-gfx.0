@@ -2,99 +2,104 @@ Return-Path: <SRS0=t0+e=BV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BFD9C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0299C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:33:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D419D20658
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:27:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A0BB120771
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2020 13:33:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wwdsIzt4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D419D20658
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aYommeG4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0BB120771
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8749D6E508;
-	Tue, 11 Aug 2020 13:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB8C6E366;
+	Tue, 11 Aug 2020 13:33:06 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5F9A6E508
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 13:27:41 +0000 (UTC)
+ (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31CBC6E366
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2020 13:33:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oOD1cSfbvWesIcxoSQzsXOyHPfllqGW0XSTi3T3KfLxo9r6F62UANHZi0htja/U7Muv4GiVN1WHY4c7EkpIkEPhTVu6aRTnEfCF4OAgcvhi2rkknaDYGt6fcu/cMZREIGYR9Dr7gwmwY7UPbruxtkCAmQ10R1S74jfZfvzZFNEDdWX4Xk+fzhwiy0Th6t/a4Lv1zrR4JUIoicd4UGpMllC5miKyZY3tggBn1TFoAdKsnE9f9eEFeTBaHwU2uCIZZ2VoLyq8QrNW4LaqDnlE+7mGpxERFUSC4KQkYr20Y/8JJk7Giw9EZpdfQAiNcIxjr412xCAqfFYu14vUfwFnswA==
+ b=EYPNOarshvBoMlyzmin3msXv6Av3ikjb+mt6G7ZZzkCUvrvmVdPzbZZqBjP4++tU63CSgoyKb+QzWRib70mKGc0ePp8RgeHE5xTq9/XCIQaSD6lP6XpjYG8+FHp5iqW4E4xxfWM9T0JcNp1HtJh14Ekq4mL6iuEXngLszJ8I2q1llTRsUDaytmW5cFlkpDS8l2V/Vx5nFzCK/JEd0lcpMEOslgJ/CTBdkdVSzEpVzYypa8BDNkTFC0UzWedXym0TrCvOj5N8HeGcyvKy1cefMXQEVeS3WDo6HeAUm1M2BDDPs6yb6uXxS7RlknBYI70v2Ti+P1g0JU+63XGGksPVFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LE0nmbpjqkd2apSpk80qDUChr57MvrAZ91q/31hvfpA=;
- b=fkC/MgG+0qvsSeR4dePamIflVN6dwDhwVrv9HTBWYlwcfbH9rUZZsgbbkTVGAnY+88pBtT3j1I0er6ueMfp+Cl6vcaHxTR9F9ctgv/6fBS80yd5Ph/G1sEM3DOfxa0/exBdARPgNGfKDu7Aw8rnSm9pQpl4uE/M4h8wlrnkbQaxkPjbhYlkpa3DOVqLLFnC8Hr+hCYB6pxEOOsGr/uKAeOpwNob0vQSNp1MHnIY7MUt4/piNlcGAr5rJj+ymZdjajpQHwDKiYm55Hp2vw+G4QPr5ZasOLNQg1XFA+EBc4AqcGfV/420/PzBMELaBsLzG4nbZ70x988rHMg8eFfo3uA==
+ bh=IKsWlQd7m3WZHnBfQGKqLae40lQsX7JDnZfIEpbxToE=;
+ b=dMe920hhk+EeMGtVycLOXBoWp7kepVoc4eNOWlccAvnwuJW5H4qT/Do7lm0KGzPNVyPixmLMCO1CqbK35Vz4iMOx5CYXPxpMjbv6fWIOpMxW7sUFY+OL1KuTOY6OqFbMtmQVxhUALYw0vIErWG13NDNyqv+Nv6jROn6LjTtkzKdwlrGxrxXZb/bYov/UauW/ZSCevlPASAgX2itWyQz6iZzb77dKVgw+4qoSq9o3S4lAeHY9EfhVApKNnUDVDPc+sabv7mR3GZr8L/Gzhyhb5hE8tGl/iVxi9/u4IDbok8SNqXT1SXPhFoMfu3sgvYMpOgxyPJxv/7bB9Qm2uJTNMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LE0nmbpjqkd2apSpk80qDUChr57MvrAZ91q/31hvfpA=;
- b=wwdsIzt4ViivSh6bGuwNEZg5G01L8YPWkumXOOFHC04APiUf1K7xIQHleF+GA+QIn/3Xj8pyZqnuMlazB2J/Eh+O8dwnh75WCpdId+dZMLGMG0rJvf5/D1UDvOPVzOxrPJ36KpgZHeiRrkQ39ttkhX5wP/LqFqlpHKJbK8CRq8Y=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
- by DM5PR12MB1595.namprd12.prod.outlook.com (2603:10b6:4:3::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.20; Tue, 11 Aug 2020 13:27:40 +0000
-Received: from DM6PR12MB3916.namprd12.prod.outlook.com
- ([fe80::e8b8:d8a1:5adb:614d]) by DM6PR12MB3916.namprd12.prod.outlook.com
- ([fe80::e8b8:d8a1:5adb:614d%4]) with mapi id 15.20.3261.024; Tue, 11 Aug 2020
- 13:27:39 +0000
-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 1/1] drm/amdgpu: add initial support for pci error handler
-Date: Tue, 11 Aug 2020 15:30:53 +0200
-Message-Id: <20200811133053.71123-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.27.0
-X-ClientProxiedBy: BN6PR03CA0101.namprd03.prod.outlook.com
- (2603:10b6:404:10::15) To DM6PR12MB3916.namprd12.prod.outlook.com
- (2603:10b6:5:1ca::21)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from brihaspati.amd.com (165.204.84.11) by
- BN6PR03CA0101.namprd03.prod.outlook.com (2603:10b6:404:10::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Tue, 11 Aug 2020 13:27:38 +0000
-X-Mailer: git-send-email 2.27.0
-X-Originating-IP: [165.204.84.11]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 667463db-338a-4ab2-3e9b-08d83dfa51b8
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1595:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB159560E248E3D375CBAD9C078B450@DM5PR12MB1595.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Rt5ia4bcsKlLQdXqSt+5DcChRr3ujJvNM6pb8bkjL0oE3GVl5ru4l1so3jaIas67yeIZZB3y/eobChjBoryaeESQeH8mVzyd373ig3TKlSAabjvlHSBF2g9rVU0xMSI7Dowp8t9SYtAv+/NfBcxa/ZFNCA3X4pp4S/SnPzZV965nbA8Ycb1twPm+dIiNCxLKTtTurEYuy4M6vhCfkfDKRTcXitzNOx1RriVLuep/bTvTU2CLyr7iq8mT+eKOwsIBeoOg1Pbk+z3b7LymCu6nZWSYMXH/kyZEi9cOoridk5vvvvQSDVt0RHNpx0bWRTDjxsXLFR+Y76DADbGD32ptRA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ bh=IKsWlQd7m3WZHnBfQGKqLae40lQsX7JDnZfIEpbxToE=;
+ b=aYommeG44ISdu6JYJDzfY7OL9kE/AUOZ8qhFojufOi1y1H6HI6MUxXMi+qozh0ANzQIMG2WuvyztT0+fhTfzbO4LYjnC3OwSpngihXnRgcV684b4UomY/sCfCnPalL3IDOZj79aM9jyAn/eyXnYKxaPJNls4veS9C27BRpUOpEs=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4032.namprd12.prod.outlook.com (2603:10b6:208:16d::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Tue, 11 Aug
+ 2020 13:33:02 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::889d:3c2f:a794:67fb%7]) with mapi id 15.20.3261.024; Tue, 11 Aug 2020
+ 13:33:02 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdkfd: fix the wrong sdma instance query for renoir
+Thread-Topic: [PATCH] drm/amdkfd: fix the wrong sdma instance query for renoir
+Thread-Index: AQHWb6iGiPH50dtQv0yf+q/I5m0RJqky6FXb
+Date: Tue, 11 Aug 2020 13:33:02 +0000
+Message-ID: <MN2PR12MB44889F3A0A27115B276BF95CF7450@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20200811062716.2927620-1-ray.huang@amd.com>
+In-Reply-To: <20200811062716.2927620-1-ray.huang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-11T13:33:01.728Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [71.219.66.138]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 0172d35e-3dd5-4e5c-0c7a-08d83dfb122b
+x-ms-traffictypediagnostic: MN2PR12MB4032:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB403202CD5F5DB7258DCD8ACCF7450@MN2PR12MB4032.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:569;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Pm3bdLIPLUiJDWyMCKZNHo5e0BnLkb5REgtNHV6G4IgCaMu7gc49LAgVHuzbYPP3X/lEz6Ri/VHHlKc0CT4JrqayTtPNbaatY1QcRqaOsVMIjj9G3gAJHs1utNVgkDIiFv5ws3Y2QUGRjFgEzkVar9s2asEPOXWXGqpAg7AR1U4hVEwArb63qJYanUFe4IF/TcwYi4fWKVguDp/N7gALucuWbOkYUvotKK5n3Nvye6rJrbHgiy09Yh1UBobRuiOLyxDsirlOKtrFNX0+Huneqsxlyc7ylaB2H9GER5rnA8LnyU8HRQx37Dd9cNS+qHJ8vQhB300vLiju7z6bDXpIpjW/1t95WsR6+7j1xBH7Lx4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(956004)(1076003)(4326008)(83380400001)(66476007)(26005)(316002)(16526019)(186003)(66556008)(44832011)(2616005)(6666004)(66946007)(478600001)(8676002)(36756003)(7696005)(5660300002)(52116002)(86362001)(2906002)(6916009)(6486002)(8936002);
+ SFS:(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(186003)(7696005)(110136005)(26005)(316002)(966005)(166002)(33656002)(64756008)(66446008)(76116006)(71200400001)(66476007)(478600001)(66946007)(83380400001)(66556008)(53546011)(6506007)(19627405001)(45080400002)(5660300002)(2906002)(8936002)(4326008)(52536014)(86362001)(8676002)(55016002)(9686003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: +YCFSrzQZMUhYcHiavddkiwD9ZQ4k/aYM3cfd3XooMaRwrQfl9oAdj7LnApabmHVLIeD8M1JaWGWXmJD36DpWVQDIEFo4GLK1Khqfo5uuMe2SMZ8C8UpoFMkhoNWjWcDZWSviLjyDbvY3eFt9io1YrA2lMGcsOqg6JFfxiFI/7pyfAQdHADKPHu3GOObjz6TVLfXldrtHw07HPzqUsjsH6aynb+LR7kVs0MLqlhU8oXEqX5IeTMcDlFrgWtzyQzPg5+tfwTDHDBy/Bfm8s8UQ+pLLTrJFhjMWJJ0WS1decRvueLgclpE6ftyuQEaeP6HOYNI3Zrt2AqE5h6oEpZPAnrMxfjxFuaXetDzIPzQAFRUbHVE49ACQv3sep9T4zs+8OsdTQg5pCCKRo6Zpu062VYKex2qeO2L0nOkIfzviPOwIZTzHPmjrkJiPcB+mLD6BfxICbWNghW//hLhtyhCieOnJGCC05057mYHNQ2s2D3GBJc9dKM5uJsQRTBKzWuq8C8rmw/JVrJQBIvtfH9V/fGekIM9jsi9hDMzeecyl5K/Ykn++bGNs5AK5AxrkA6V5282/ydaWbAbOO96lEJLeMVYKJBnlL9Dm8+ACz3R+TD6Z9fNZI6iQEbQdwejqrjR1qhi6xJznDHnuzGRh/Zhyw==
+x-ms-exchange-antispam-messagedata: 0oLClQedmkD3+ix8GJ6bcepQqTCgUOWKkdWsbfVxZ9WBtLdX9eT+4sGmxehVStEOpgCyoQM/9jzuunPzdCM4tyn4vTZHQsvgTf1S8tMRn0OI4U9V11tqF/CfjguEIGVNSP6K1ZW217CtNhLNzROc/xOPkmgYmRpNgLdSVXF8w7HTgByQxkauTNP1wOarWA0N6bsokNee+3bD3CLFPnqU79njDy3KHgMVZxJmglArQ8G5msp9KisUg77XUiUs+0hIe0z2Z9vKkxVaQzJ2jwXdUI1GPfk6LcOWrCUAjpya4b4NaRGCo8d0DinZcYVRYNVOaxxLOIB5tGt7b9qs9L8CkqAaijUqUhojnO1q+ZNyypbOyjJxERiuID9+Q+eVvE4IsC91CbYa8AiG8vu5TILQebXrvg+fzzaYQ3cIdbZTPGOq0AXi6zr/89+JyooD0UdtB1smqS1I/ePaowJXE3ytyAi+4JWV6YLguP3Hlbh3DCJk5epjA0J9TI+93L1UhoDAUv0elcPqDxz2GPcH/881twKLvVKu7zeihsKOYwVPpBeFW9ZsJSpILmq/O84dA8u3ogxx3yWrAYtE9OiH0SJUcJJbx6exwwrs8JjFfItkXRRIDWeU5tvAlkOHHm/99ccn0GxKyCxzZcLiOIntRca2tQ==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 667463db-338a-4ab2-3e9b-08d83dfa51b8
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 13:27:39.8570 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lHXWelZad6hjvW9HJzX6TiNivXeoEPmAqSemr9540HsYmi5/bbLyeA7CVAiLKLnqHAv+VcbiijzxhHX4YVmYZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1595
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0172d35e-3dd5-4e5c-0c7a-08d83dfb122b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2020 13:33:02.2965 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ik8ONC7ZvWngmR+UiYubt0TdQnWxYJ2UbW68GDj3GReNDkfyuiAc30AP43jJfNicXTcNfG6dZYfkcJxTtBCMkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4032
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,108 +111,275 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Nirmoy Das <nirmoy.das@amd.com>,
- christian.koenig@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Content-Type: multipart/mixed; boundary="===============1823682697=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch will ignore non-fatal errors and try to
-stop amdgpu's sw stack on fatal errors.
+--===============1823682697==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_"
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+--_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Huang Ru=
+i <ray.huang@amd.com>
+Sent: Tuesday, August 11, 2020 2:27 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Huang, Ray <Ray.Huang@amd.com=
+>
+Subject: [PATCH] drm/amdkfd: fix the wrong sdma instance query for renoir
+
+Renoir only has one sdma instance, it will get failed once query the
+sdma1 registers. So use switch-case instead of static register array.
+
+Signed-off-by: Huang Rui <ray.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 56 ++++++++++++++++++++++++-
- 1 file changed, 54 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 31 +++++++++++++------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index c1219af2e7d6..2b9ede3000ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -35,6 +35,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/vga_switcheroo.h>
- #include <drm/drm_probe_helper.h>
-+#include <drm/drm_atomic_helper.h>
- #include <linux/mmu_notifier.h>
- 
- #include "amdgpu.h"
-@@ -1516,6 +1517,58 @@ static struct drm_driver kms_driver = {
- 	.patchlevel = KMS_DRIVER_PATCHLEVEL,
- };
- 
-+static pci_ers_result_t amdgpu_pci_err_detected(struct pci_dev *pdev,
-+						pci_channel_state_t state)
-+{
-+	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = dev->dev_private;
-+	int i;
-+	int ret = PCI_ERS_RESULT_DISCONNECT;
-+
-+	switch (state) {
-+	case pci_channel_io_normal:
-+		ret = PCI_ERS_RESULT_CAN_RECOVER;
-+		break;
-+	default:
-+		/* Disable power management */
-+		adev->runpm = 0;
-+		/* Suspend all IO operations */
-+		amdgpu_fbdev_set_suspend(adev, 1);
-+		cancel_delayed_work_sync(&adev->delayed_init_work);
-+		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-+			struct amdgpu_ring *ring = adev->rings[i];
-+
-+			if (!ring || !ring->sched.thread)
-+				continue;
-+
-+			amdgpu_job_stop_all_jobs_on_sched(&ring->sched);
-+		}
-+
-+		if (adev->mode_info.mode_config_initialized) {
-+			if (!amdgpu_device_has_dc_support(adev))
-+				drm_helper_force_disable_all(adev->ddev);
-+			else
-+				drm_atomic_helper_shutdown(adev->ddev);
-+		}
-+
-+		amdgpu_fence_driver_fini(adev);
-+		amdgpu_fbdev_fini(adev);
-+		/* Try to close drm device to stop applications
-+		 * from opening dri files for further IO operations.
-+		 * TODO: This will throw warning as ttm is not
-+		 * cleaned perperly */
-+		drm_dev_fini(dev);
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct pci_error_handlers amdgpu_err_handler = {
-+       .error_detected = amdgpu_pci_err_detected,
-+};
-+
-+
- static struct pci_driver amdgpu_kms_pci_driver = {
- 	.name = DRIVER_NAME,
- 	.id_table = pciidlist,
-@@ -1523,10 +1576,9 @@ static struct pci_driver amdgpu_kms_pci_driver = {
- 	.remove = amdgpu_pci_remove,
- 	.shutdown = amdgpu_pci_shutdown,
- 	.driver.pm = &amdgpu_pm_ops,
-+	.err_handler = &amdgpu_err_handler,
- };
- 
--
--
- static int __init amdgpu_init(void)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 032d3c866280..23ccfe0ad5d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -197,19 +197,32 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu=
+_device *adev,
+                                 unsigned int engine_id,
+                                 unsigned int queue_id)
  {
- 	int r;
--- 
-2.27.0
+-       uint32_t sdma_engine_reg_base[2] =3D {
+-               SOC15_REG_OFFSET(SDMA0, 0,
+-                                mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CN=
+TL,
+-               SOC15_REG_OFFSET(SDMA1, 0,
+-                                mmSDMA1_RLC0_RB_CNTL) - mmSDMA1_RLC0_RB_CN=
+TL
+-       };
+-       uint32_t retval =3D sdma_engine_reg_base[engine_id]
++       uint32_t sdma_engine_reg_base =3D 0;
++       uint32_t sdma_rlc_reg_offset;
++
++       switch (engine_id) {
++       default:
++               dev_warn(adev->dev,
++                        "Invalid sdma engine id (%d), using engine id 0\n"=
+,
++                        engine_id);
++               /* fall through */
++       case 0:
++               sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA0, 0,
++                               mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
+L;
++               break;
++       case 1:
++               sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA1, 0,
++                               mmSDMA1_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
+L;
++               break;
++       }
++
++       sdma_rlc_reg_offset =3D sdma_engine_reg_base
+                 + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL)=
+;
+
+         pr_debug("RLC register offset for SDMA%d RLC%d: 0x%x\n", engine_id=
+,
+-                       queue_id, retval);
++                queue_id, sdma_rlc_reg_offset);
+
+-       return retval;
++       return sdma_rlc_reg_offset;
+ }
+
+ static inline struct v9_mqd *get_mqd(void *mqd)
+--
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
+r.deucher%40amd.com%7C575d3b20ab90469e7a5208d83dbfa612%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637327240654534583&amp;sdata=3Du%2By9MwOEH7bGIQbaj=
+nefKann2HyJ%2FWRG6I91FBgVakM%3D&amp;reserved=3D0
+
+--_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Huang Rui &lt;ray.huang@amd.c=
+om&gt;<br>
+<b>Sent:</b> Tuesday, August 11, 2020 2:27 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Huang, Ray &lt;R=
+ay.Huang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdkfd: fix the wrong sdma instance query for r=
+enoir</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Renoir only has one sdma instance, it will get fai=
+led once query the<br>
+sdma1 registers. So use switch-case instead of static register array.<br>
+<br>
+Signed-off-by: Huang Rui &lt;ray.huang@amd.com&gt;<br>
+---<br>
+&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 31 +++++++++++++-----=
+-<br>
+&nbsp;1 file changed, 22 insertions(+), 9 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+index 032d3c866280..23ccfe0ad5d4 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+@@ -197,19 +197,32 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu=
+_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int engine_id,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int queue_id)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base[2] =3D =
+{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; SOC15_REG_OFFSET(SDMA0, 0,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_=
+RB_CNTL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; SOC15_REG_OFFSET(SDMA1, 0,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA1_RLC0_RB_CNTL) - mmSDMA1_RLC0_=
+RB_CNTL<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval =3D sdma_engine_reg_b=
+ase[engine_id]<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base =3D 0;<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_reg_offset;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (engine_id) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(adev-&gt;dev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Inva=
+lid sdma engine id (%d), using engine id 0\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; engine_id)=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* fall through */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA0, 0,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
+L;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1:<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; sdma_engine_reg_base =3D SOC15_REG_OFFSET(SDMA1, 0,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA1_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNT=
+L;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_reg_offset =3D sdma_engine_r=
+eg_base<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_=
+CNTL);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC registe=
+r offset for SDMA%d RLC%d: 0x%x\n&quot;, engine_id,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_id, retval=
+);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; queue_id, sdma_rlc_reg_offset);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sdma_rlc_reg_offset;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static inline struct v9_mqd *get_mqd(void *mqd)<br>
+-- <br>
+2.25.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
+7C01%7Calexander.deucher%40amd.com%7C575d3b20ab90469e7a5208d83dbfa612%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637327240654534583&amp;amp;sdata=3D=
+u%2By9MwOEH7bGIQbajnefKann2HyJ%2FWRG6I91FBgVakM%3D&amp;amp;reserved=3D0">ht=
+tps://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.fre=
+edesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexan=
+der.deucher%40amd.com%7C575d3b20ab90469e7a5208d83dbfa612%7C3dd8961fe4884e60=
+8e11a82d994e183d%7C0%7C0%7C637327240654534583&amp;amp;sdata=3Du%2By9MwOEH7b=
+GIQbajnefKann2HyJ%2FWRG6I91FBgVakM%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB44889F3A0A27115B276BF95CF7450MN2PR12MB4488namp_--
+
+--===============1823682697==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1823682697==--
