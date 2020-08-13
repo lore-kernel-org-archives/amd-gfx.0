@@ -5,59 +5,58 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 13EAAC433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACA2DC433EA
 	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D942620768
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7D19B20768
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ddE7lgKD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D942620768
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tUoPJCOZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D19B20768
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB43B6E25C;
-	Thu, 13 Aug 2020 21:35:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 124596E262;
+	Thu, 13 Aug 2020 21:35:37 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
  (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A166F6E142
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 21:35:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DBF86E25D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 21:35:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OxvIQ2woVCYirKpVv0aybXGh9sFS6eBq5hcPkAJKtcU8EHhQKc0/Dlmpt8/GCprX+YM3hBkG8li+7eiwCiAarVgeaVDxmzyM27awPIgcDao1cBbXqNHcB7/8CkziszYOGyNvDEvZyJSBXUvEyvtjfDAhPZt9dkGEc8hL5UnwvwHr38AcvOXqiDy6xFR+SMbQadFAwztK/pq/CKfAbpkcyPY2MMozRpA4FiYCYYplWc/M/skbA8Vbri1GwugYcDTor9mw73o7dVg9/xAFm1pZ/1jIxYavi9bvz83Sq5D/9dC7oYfXfIgTuq0EtIHCbMU8NaNstteFQLqoLvWJ0QvdvQ==
+ b=mt3pjWJG4ZTgeBF40AnFrqKVyhkXDButwCe9qkHWqxGwk35YkewjdJPUDRL4th7yT+Brdiv4vISFRqxPEbkMvtUUwweJ7WWI+678cz/iOyb8WktODBXwa9Dizy/U7XBVVfMQ2bFJy/czCVK/v2YuqT9UoFljNiI+8Or+Bs8ls1uqw3eok06mBLH9p/SpEOrHzzg3eZjHsU7WCMDSrYHNk5aMVxEgXqjJIEaTHR2KjH+hyxcZqWMO4tDvC9pzA4iuuUMSc3rG1EDXvW82078btXYiQvh8G9s35MUJPEqaxGmThW01b3KRC9DXjmFZv0kpMAcpW+D8IHId0rNFPGsA/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZUoOFt2kMbD8sLyph/vxjny+hIzqYDI1C01lEkA2TMU=;
- b=LM7xectwN1r3Rez5hDAxYMM3H5HNE8zvZfpNULOYS4vyAf6Na5vjOqVxArYyBsDqx6Jjk7uLzxNZXJUODi/U7Cwdw6hs8BRs+/TOtfhEHlsA3WA9gtVDhmk7NzJ8x6qx9adBiseXLb/ca6KP5AUGHPkF0NZRRJB39+ndRdwVzggPp8J5iW65zhgvn+t4AGqUvPjBEo8cmbP2TsMWJmygM7vjg9zYPtmM8EGaJd/goexyGYC0bVLzXxDcTWlOYdAdm6mGkUkh/xWbiUUQ/UeZkThlOIfs+YZmzN0SF0PAEHGuJ0GcFrs7N+ND012WosrCn2qblSUDHiBL0t101a5URw==
+ bh=GDr3g3Iz17Cnouxs3bDOg8PRpxI4QZnwEmB3H0o7X74=;
+ b=I0G/WnHwc51u0pGvPG1/+A/5Z/bRTIvKMVxRNHQ9GekcpeWrB9lhV5cMvAGjmtOE5oD9JyoE8VUXKYEJ000vtrt/mnd1DxTQOWBwvk09HW6JKA8wfTzFJsWhv1RGIA2G66Oig6KCaro6hrVZ+dIGIvcVx9y7L57X0EdG5WyIaqqafryh/7zfPrrwR3gqVXKwBub1XwNsi8s50P26B7kE3lCZwVmP+hln50RxrTGsFdyCeQHSTlheohKYRw0oPyLc3eVRH1c1Ou2jqjd2xCox81pRvCv9K5ObCGf/NrfyanWP+Hxmhl8Y569k3FUHWF6hbJ/5Jz7AGzF1EJENPK7nNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZUoOFt2kMbD8sLyph/vxjny+hIzqYDI1C01lEkA2TMU=;
- b=ddE7lgKDj7gyFj/d5PPoiHjt2sUpy2FfZteAQITkqlAEaty7O7Gtl89DYaGRwNQFOYy94wojh7ABpuOQqW3Cpr5dTHkOheWozSpxUcVsDHYvgTcJPhRIjJODr6IoEPbTaYSB3kCYir+RXGyZlbFXrvcOOil0kKHcydOCMLlBOcA=
+ bh=GDr3g3Iz17Cnouxs3bDOg8PRpxI4QZnwEmB3H0o7X74=;
+ b=tUoPJCOZDWLrONtCY8+HBiENDoQ5rSUNCQEjiQVckU5uAoo8SwbNE9p/hJvLi0JzpKZOGS4T4jrqn2crUiyRDpdlT5DW9bVlmNVXz0EVSdyZbn6tjygABjxC1BNKK1GyRfhNpjnt6uoi8AJnvP8uaVemPmY4gbUHz2zPLwAW1sM=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20)
  by DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.19; Thu, 13 Aug 2020 21:35:28 +0000
+ 15.20.3261.19; Thu, 13 Aug 2020 21:35:33 +0000
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::75f2:ebaa:bca6:3db7]) by DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::75f2:ebaa:bca6:3db7%9]) with mapi id 15.20.3283.016; Thu, 13 Aug 2020
- 21:35:28 +0000
+ 21:35:33 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/17] drm/amd/display: create a function to decide mst link
- settings
-Date: Thu, 13 Aug 2020 17:33:44 -0400
-Message-Id: <20200813213356.1606886-6-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 12/17] drm/amd/display: Fix DSC force enable on SST
+Date: Thu, 13 Aug 2020 17:33:51 -0400
+Message-Id: <20200813213356.1606886-13-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200813213356.1606886-1-Rodrigo.Siqueira@amd.com>
 References: <20200813213356.1606886-1-Rodrigo.Siqueira@amd.com>
@@ -69,34 +68,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::2db6) by
  YTBPR01CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Thu, 13 Aug 2020 21:35:27 +0000
+ 15.20.3283.15 via Frontend Transport; Thu, 13 Aug 2020 21:35:32 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [2607:fea8:56e0:6d60::2db6]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d190b9aa-c3af-4191-8476-08d83fd0cc03
+X-MS-Office365-Filtering-Correlation-Id: 5436e727-2a96-451c-e207-08d83fd0cee3
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1355:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB135569648D17605DA0290A9298430@DM5PR12MB1355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB13550758BF1E627E52C541D398430@DM5PR12MB1355.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lddm7g2OI5NeQIkVNVYHPFB8XVI15F4Fb5Sve5yWk5F4/zVlFN3Cl+KT0DRb8mHdJltqICvO+NyyZiA8QV0mI2HaA6j2hVCOX6I4n96cKz6o3peKro27ggfTg6wgnyfrxBraU2sJOjPtzUKi2mAcCPNkmcqi7MwbtQb6Nwe/BgfZaxZY8+pRJTUNiv2rQJxWJ0hc+FNAS0nD+ojbkOx8aB8sbN5R2HKdp4peQ122QCjeQpBXYu9WjslfENo7m3Ew27W5sC0y3zJxQ23eQhA+xbFx5wZVbBeTgx24bf5g+kIR70ws8wCkO1YnLBTdr6VrgOgxB/rVIC2qOTmKWPFEzQ==
+X-Microsoft-Antispam-Message-Info: c6ZTGUTqn24zQ0axEGoduLi2rv7yjFcbjNBNYnW3g7cpEROwwd4+LQq/raYSC+pwwFoLANLaWKwNBt692WC3tv9zAuzaG2zfk6cCFwdln8by6qEQne5SRXeIeP8bR4nw4JcKCW2WAqS/C8LULGwICrs5hhBkyoYgwrSZwVUNPXBp5Xs0I7X+awoDC+4VdbfIJxJrPMwmLXATqGICWHPYzQQ7C+I4CkgI0HKNJpX9LLLw8mrYWlVT0b5169+E0r8jswt54zhGAguszi74pcn/S4XmkAnlGNoo0bFKp0maqkmXzuzgktb+yTRQhmagkn7Q4465un/3Ez9J6wciCLX28A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(2616005)(6512007)(83380400001)(6486002)(4326008)(316002)(478600001)(1076003)(6916009)(66476007)(66556008)(36756003)(52116002)(66946007)(2906002)(6506007)(8676002)(6666004)(54906003)(16526019)(8936002)(5660300002)(186003)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Dz7zoycOQEXwf6wYpmSOwvl9xyw/x1XFKhvAGBraxtpNf5dTtEUG/IMO5RiEMa7A28cOUIvk0XSDQdfr5Sayml3f0nhpELfONOaE5jioFKMfB13lwIb3eKSyt9iHtS/7LVbLiN5gig3nYw9MCoNyh7ftpdRhr/n/yPK2g0Gj+poFPW/vvXyn1qrmaQTZX3ds4WNssAX+3z1SKoTrFC+Llyjj8G8D/cdj+gCSCnmTamyBU5E7EzZgz3kSultQI+q7ygdxxZ8dlmLUY9AQHZitlhD8TNyUyax5rF9tmV73KsQz3cVAYvEMRm8seeYgh/5LYgghPyILPL5w5FNhKoj2Wcwl+63+a3sgM0zFrdNyg/RVpzECRF4VvC+VcIcph2EQNYRl0C5yIXUH33KGQtPjcE7dWOMwFjWKX5k1zgJx+TYnJlwTsXgTlJJT3/hcJrY3DqmDjYG5NmVN8fjMOTQrGjvi74NOExlKXWYzNzl5TpLxu0185YTGNjt4wJalUI1Xije5SE86R/w5mEksjQaVRcXinGXR6tZcGOHJQMf6UCks8lwPSCsEgla1WHeO0ND9UhMxguWdi1YoyBbI4b6kfSpAoGW1ckJKM79tcjIdtgUqq/kZQh2eYxzFIFwcPzWGnvEYqK3l7s199Dskbd5Q80Xknpq8mDBFDEH1yT1Exi3smVhDUmj/XJypUeLY+IUL
+X-MS-Exchange-AntiSpam-MessageData: 8vqb+/y2lzWCvo3XMuN2jxjyi4CdCg77N1/eIUZmgxKh1WITU1ipw39NZmJCBnRTYYe5l6Mr6arONrKzMYwjCMT01OlW1CFORXBdA8sTb9mUXXfrGv7QdSuD3PhyysF+mzyAq9PM6sV4lbWUm7c47bPYuy8WJ1nsyR5FR5j0NW2kTb4Z0WW8IFEfG8QuX3Qkjxg+MU4I09MUzXPBSqmRvLSlEnNf7ymyTogBtoYSrsEjNIcWE7o7+7Z+d4r7w0u8WpgBEAeu+9E4lxfrwi0aVnyvoEqUgqHxYiBkOWwPvmSEGeZczhI+aliONgoUz8/ZhnTU7CIYKfTsJ64Shp9hnI0JJGMVJLcNRuM+lzwqftMqlnqNHJT2Aw0nGo+vTpvYd1kXTM06m9eiGJmYYOTxzakNnX6R5gTT9vvPVYrZOfVKjs2RigfnifI5PZ3DBgKNT4JnH7RI+6PMyimolmmosf491PfaVAHhgKpU5AhldDLmSrV/x0YqmWsSfJF0CHiid8/tMA6MoXf7QN5qZ8ZqZI8unsTiP6qFUtWmFTCyo8JNwKS3ClBcUxede5cJEF6ZLrYxTTd0YWs1X01suo+3hHYXkIY9rsagtU48uoiMLJhAqUFWqX9HQtTpXqtjiGaMR5nQj2Eh/Q6tjKkDHhd5s3rKswddJ9mLfAagdyMj5qlLvlchOdz3fehLiQZaCbaZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d190b9aa-c3af-4191-8476-08d83fd0cc03
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5436e727-2a96-451c-e207-08d83fd0cee3
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 21:35:28.3107 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 21:35:33.1645 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F5kcrW+Y3hBCsPYk6Arqz8l2h07rrSUZTvjXhGvejjAbX00t9KSaHYPY/5qQ1YPvWx9TFRG4PsW/HklODbmWrw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /LXgfMDkhN67zQ9OviT4I7fdGOyIg6T9j311BxmpZnX2D8Uo3opO7FUCeOVhyUq5Fq6CC9bPgspw6cAIgHE/yw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1355
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,60 +108,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, Aurabindo.Pillai@amd.com,
- Tony Cheng <Tony.Cheng@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Eryk Brol <eryk.brol@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, stable@vger.kernel.org,
+ Wenjing Liu <Wenjing.Liu@amd.com>, Aurabindo.Pillai@amd.com,
+ Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Eryk Brol <eryk.brol@amd.com>
 
 [why]
-create a dedicated function to make mst link settings decision, so that
-the policy's decision is made in a unified place.
+Previously when force enabling DSC on SST display we unknowingly
+supressed lane count, which caused DSC to be enabled automatically.
 
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+[how]
+By adding an additional flag to force enable DSC in dc_dsc.c DSC can
+always be enabled with debugfs dsc_clock_en forced to 1
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Eryk Brol <eryk.brol@amd.com>
+Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  3 +++
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h          |  3 +++
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c      | 16 +++++++++++++++-
+ 3 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 1032551f84fc..e8d968af6af3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -2431,6 +2431,12 @@ static bool decide_edp_link_settings(struct dc_link *link, struct dc_link_settin
- 	return false;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9894d5718ed6..39d756588728 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4719,6 +4719,9 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 		if (dsc_caps.is_dsc_supported) {
++			/* Set DSC policy according to dsc_clock_en */
++			dc_dsc_policy_set_enable_dsc_when_not_needed(aconnector->dsc_settings.dsc_clock_en);
++
+ 			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
+ 						  &dsc_caps,
+ 						  aconnector->dc_link->ctx->dc->debug.dsc_min_slice_height_override,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+index 3800340a5b4f..768ab38d41cf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+@@ -51,6 +51,7 @@ struct dc_dsc_policy {
+ 	int min_slice_height; // Must not be less than 8
+ 	uint32_t max_target_bpp;
+ 	uint32_t min_target_bpp;
++	bool enable_dsc_when_not_needed;
+ };
+ 
+ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
+@@ -80,4 +81,6 @@ void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing,
+ 
+ void dc_dsc_policy_set_max_target_bpp_limit(uint32_t limit);
+ 
++void dc_dsc_policy_set_enable_dsc_when_not_needed(bool enable);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 8cdaa6eef5d3..da1b654833d5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -34,6 +34,9 @@
+ /* default DSC policy target bitrate limit is 16bpp */
+ static uint32_t dsc_policy_max_target_bpp_limit = 16;
+ 
++/* default DSC policy enables DSC only when needed */
++static bool dsc_policy_enable_dsc_when_not_needed;
++
+ static uint32_t dc_dsc_bandwidth_in_kbps_from_timing(
+ 	const struct dc_crtc_timing *timing)
+ {
+@@ -360,7 +363,7 @@ static bool decide_dsc_target_bpp_x16(
+ 
+ 	get_dsc_bandwidth_range(policy->min_target_bpp, policy->max_target_bpp,
+ 			dsc_common_caps, timing, &range);
+-	if (target_bandwidth_kbps >= range.stream_kbps) {
++	if (!policy->enable_dsc_when_not_needed && target_bandwidth_kbps >= range.stream_kbps) {
+ 		/* enough bandwidth without dsc */
+ 		*target_bpp_x16 = 0;
+ 		should_use_dsc = false;
+@@ -961,9 +964,20 @@ void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing, struct dc
+ 	/* internal upper limit, default 16 bpp */
+ 	if (policy->max_target_bpp > dsc_policy_max_target_bpp_limit)
+ 		policy->max_target_bpp = dsc_policy_max_target_bpp_limit;
++
++	/* enable DSC when not needed, default false */
++	if (dsc_policy_enable_dsc_when_not_needed)
++		policy->enable_dsc_when_not_needed = dsc_policy_enable_dsc_when_not_needed;
++	else
++		policy->enable_dsc_when_not_needed = false;
  }
  
-+static bool decide_mst_link_settings(const struct dc_link *link, struct dc_link_settings *link_setting)
-+{
-+	*link_setting = link->verified_link_cap;
-+	return true;
-+}
-+
- void decide_link_settings(struct dc_stream_state *stream,
- 	struct dc_link_settings *link_setting)
+ void dc_dsc_policy_set_max_target_bpp_limit(uint32_t limit)
  {
-@@ -2456,11 +2462,9 @@ void decide_link_settings(struct dc_stream_state *stream,
- 	 * TODO: add MST specific link training routine
- 	 */
- 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
--		*link_setting = link->verified_link_cap;
--		return;
--	}
--
--	if (link->connector_signal == SIGNAL_TYPE_EDP) {
-+		if (decide_mst_link_settings(link, link_setting))
-+			return;
-+	} else if (link->connector_signal == SIGNAL_TYPE_EDP) {
- 		if (decide_edp_link_settings(link, link_setting, req_bw))
- 			return;
- 	} else if (decide_dp_link_settings(link, link_setting, req_bw))
+ 	dsc_policy_max_target_bpp_limit = limit;
+ }
++
++void dc_dsc_policy_set_enable_dsc_when_not_needed(bool enable)
++{
++	dsc_policy_enable_dsc_when_not_needed = enable;
++}
 -- 
 2.28.0
 
