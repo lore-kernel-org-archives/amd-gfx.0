@@ -7,97 +7,97 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9385BC433E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 06:45:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BF9FC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 07:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62AA42078D
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 06:45:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CA57620716
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 07:04:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0DHzSVXI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62AA42078D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VWb29E2k"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA57620716
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 499376E0B9;
-	Thu, 13 Aug 2020 06:45:20 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2072.outbound.protection.outlook.com [40.107.236.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A12FB6E0B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 06:45:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84B486E452;
+	Thu, 13 Aug 2020 07:04:25 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680068.outbound.protection.outlook.com [40.107.68.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A20816E452
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 07:04:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A8NhdkMnn0yTZ+b5dBe3fx5mV9a+ZOZ7rp7IGheVK2yifJSiKLugWRhyXU9vlkh0W/zprTlkjxHMFp5lgQZIaCXeLDujtSygkr9hpzesLm/8Dcz50hebXONamJDhvdH2njuG2KfCr/vvitnUfX2ihQKLZ/zAZRmd7Jt6ZwjnVny5H4ZCGZCLdyfkQYYLgughHKMXnfoMFKC6agwMPHG23S6ZCrfhzIMV6QSjdn+bMApuNPoYDSjoYPjpeZ/IkHLZgK+0ck0c9mxeV02h7cTjgQq4g5zB3mFgSCq8JpYmpoWZuuTJFM++adO97wJOj8AzkSYTYy6t7tHGbUu2m1+8UA==
+ b=SBveTsPVy+sAtX//ZjuQfKy64uHh23GzX+RMc+4yXHpKVdGNQqd4pxNSqpEmotkF6kyYWfu++zy89HJ07GvWUVbyhUk7iLYPBt9NVBYv80YfycRrX/1/dDI8CQCEb7aIGBH8ilv188vdRXNHAe/l6fUxLdqewvdUp4/vx/NVh7XxCR8lVAjSF4Z2FZSip1U+iuAYPwqJW68ahsOhsg/wqB1Pt9GgMnS038yagenpmOkbTszE5RFLZEVONSqPEtWjNhkqHhDdB6WFTo96s3HDzh0bdr75ppszzuxizIuZ/wx5o0mXMFMBLp+Ey02xlLMKwez/g1ZseqZnnO871uVdXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7JNaYK0+skLn3IuwSXs6SHolFerFYVOngtaq5iOslE=;
- b=HABb2VnnFoGekEwWJAhukbCGsViCD3oDzqmGMvIBJ6Qh/d9pr2pdkzTptyJZJ60uY1ZKoEhhpE6gP07cbZ+jw/4V7FR1dMJitbkUXzbrk94UWmHkVBTvT3+t2i465k2JBRI0CUB5SScCLFtQtSmUed9CQe0KfI2JLHBDzBqop/PpEPh7u1u6Ncq8na8COP1GWmGH/RoKr/27n5zkSZ2HNs5BulhuXgcjYYSKroeUkv4JnFX9TFS+5028sp0EnTTgCQuQ3mDHLeRRd33nYJNiP3agL4Es0A5WOLCJhJsMcY6yENH6ie17wbKjq523lzX8HMCv/l6bwVV/fbSG/ILisg==
+ bh=zqotXSLqMZr0XvnfgWht3miaWfkadqAKgbYJOHo7NQE=;
+ b=Ggzs/Hrcup3OKCZIZdTVvWZCE+bvOEJq1CTfx61jUa/QXH0GNot9BH0BHaU/nNSV7NLzSKxOMCHnQZJcM6X7jZ79XTQMEXdiKTtO1BaxPlhOIh5aZeX1PMeOrNwjFHkbInQrkmWFXjzArXHZz9iES3rtZt+4vVRtsbAbZnzXl4b2S3BFCuulkx+zMJszKS41tygbQG+WBrhPml3qw2rkngYiuFlvaxVgoVTWHMss96VkJ0rD5NNF7X4LjtZ/5Rj2jPqcYpyoahkMGGywtmmD0c2jERyFHUBfzBF0zPyCsef9lMLTfmiYuztN7D1UczDjoeXzyaJHZLi25rzNAA7zzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7JNaYK0+skLn3IuwSXs6SHolFerFYVOngtaq5iOslE=;
- b=0DHzSVXIFoCYd7BL8r5//0wxTHC933Z57ENlU3otaTryInujU2xHeSBZfb1WIoHTlfF8tcNhmBToc9GPrF0eHFRpg0TyJuw2f1DyV6mQQZnevK8wW1vmoWYIF0TncjeshQddtQDg1BvZfjCSIeXlMqyN/cuCVGKas0AD6C1YCKY=
+ bh=zqotXSLqMZr0XvnfgWht3miaWfkadqAKgbYJOHo7NQE=;
+ b=VWb29E2kJot2EDmDKqFKYmdZVE6CltwgCSWtBbRzpKi4Yc23bX2IJcl/P1k0tgzYoBHyme7ncPNhNjL5c3m5US+YEx/PlfPmu/i6/WTDl6bmBEqrzlY2biFroCVKViTJenas7YHQl2NBgCLnE6uccwXOBK1SIOAp8OE1cswbM8E=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR1201MB0182.namprd12.prod.outlook.com (2603:10b6:910:18::8) with
+ by CY4PR1201MB0119.namprd12.prod.outlook.com (2603:10b6:910:1e::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.22; Thu, 13 Aug
- 2020 06:45:16 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.20; Thu, 13 Aug
+ 2020 07:04:18 +0000
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e181:b736:5067:12f2]) by CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::e181:b736:5067:12f2%9]) with mapi id 15.20.3261.024; Thu, 13 Aug 2020
- 06:45:16 +0000
+ 07:04:18 +0000
 From: Guchun Chen <guchun.chen@amd.com>
 To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
  Tao.Zhou1@amd.com, John.Clements@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: fix NULL pointer access issue when unloading
- driver
-Date: Thu, 13 Aug 2020 14:44:46 +0800
-Message-Id: <20200813064446.23994-1-guchun.chen@amd.com>
+Subject: [PATCH] drm/amdgpu: guard ras debugfs creation/removal based on
+ CONFIG_DEBUG_FS
+Date: Thu, 13 Aug 2020 15:03:59 +0800
+Message-Id: <20200813070359.31132-1-guchun.chen@amd.com>
 X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR0302CA0018.apcprd03.prod.outlook.com
- (2603:1096:202::28) To CY4PR12MB1287.namprd12.prod.outlook.com
+X-ClientProxiedBy: HKAPR03CA0027.apcprd03.prod.outlook.com
+ (2603:1096:203:c9::14) To CY4PR12MB1287.namprd12.prod.outlook.com
  (2603:10b6:903:40::8)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
- HK2PR0302CA0018.apcprd03.prod.outlook.com (2603:1096:202::28) with Microsoft
+ HKAPR03CA0027.apcprd03.prod.outlook.com (2603:1096:203:c9::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3305.13 via Frontend Transport; Thu, 13 Aug 2020 06:45:13 +0000
+ 15.20.3305.10 via Frontend Transport; Thu, 13 Aug 2020 07:04:15 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ce431108-d5f9-4ad5-6d99-08d83f546fe2
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0182:
+X-MS-Office365-Filtering-Correlation-Id: 3b257f24-172c-4268-38b8-08d83f571871
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0119:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB01824627509BE647838E1DF3F1430@CY4PR1201MB0182.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB011926C5C9A9B9E67D6FAB15F1430@CY4PR1201MB0119.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:785;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H1Or9LASMOlgRTcb/QdesKVrSHPVPUB9SBXpwqcBdxqfxZsueWg1ta5JuDPrTLvRoOTNM/ZAIRdVrXwszd0rb8uYkuEVhEO9+egKYGVE50gutXXQXCoXzj0QES5agZAVUna3UooMbG/2BRHF3NhmNxWXbsipdb/SNuFfLuh2QFzBsqPQEnTsuMh1EuDBJ1CBZ4+FfUdOWt0Gl/7I0dj7ciHN/n2FMVdDxO8xvlLSaDo57vkKadSQcUmoRm5zxjstKbUXXEVrKqNRZFtci/7vGBFesyIk0IuenZ7lLwU+1tVEqKl7qyoouaviChyYUUrvc15TVEd5lz1HuoMV/svhLg==
+X-Microsoft-Antispam-Message-Info: tJUcszwpuSjfISoSdfNT6lkEgfsjrs0q3bkjWP8e8k2Ed6PK/OO1H7tJ4N/NaBSvE45Wfm9biZe05uKR2x2JildYbqDFQW9MLlAKGKbX6m5p1XtbcZEMUWAxRD/xvml8ArOvo7GjwV7yBfbi1iWP796By1ZcnEcsIuZgHI5lfbxPgNFXwxGtMBvY0CjEoXcaha+xrvN30XsU3GX1IZNDXSWpMHNjG2BTKb8Ib4Y/sfZcKw0l7GGZm17Nlygliv5aI1cVwfImuFZ5on+Zts7O3S5Gao08uszotzXr9W8jxu184cc7nSoFy6eBtgZYhsOIXMj5gMnEj79XALfZ21n50Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(5660300002)(2906002)(36756003)(478600001)(44832011)(1076003)(52116002)(6666004)(7696005)(83380400001)(6486002)(8936002)(66946007)(2616005)(86362001)(4326008)(6636002)(66556008)(956004)(186003)(26005)(316002)(16526019)(8676002)(66476007);
+ SFS:(4636009)(396003)(376002)(366004)(136003)(39860400002)(346002)(7696005)(956004)(2616005)(2906002)(66556008)(478600001)(52116002)(66476007)(66946007)(6666004)(6486002)(1076003)(44832011)(4326008)(26005)(6636002)(16526019)(186003)(36756003)(5660300002)(316002)(8936002)(86362001)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: ZmhaE2gajEloHwkT/YnOyPI3CS2Z4xJ6pa0475h0c8Crn0Az5ft8ymdkkeXgvSXVqBOsmLLjPnIXhLRofDYYlwgAcbBE/dFZ7KwixVKdMnQftszGiIsU08hvONe8SCGvqys5GAC11gWIJYdEh6m12rRdAT4zWwdDuPP53JeQTVdIponl1musn1gIukon8SbVVtxMJLzXx9m7NrfH3fK/rXdFzoinid7MHlHsmsPfOGQcmdCjO5BQsxyOAd1jPv/OBg0NeXhrlKHAwynC917drA2u+qER38NZAmXk3Bpfy9UqBYqwWZlopjzztXUTVasNL3WivY2wISh11fCjVa80aGb+FxlOVBaUX+Ac+9cOktBP5iy5TBAi8TaeDHZIzrGZ9k3ub0NqH2/nl9+I7XfKUeUu88lZ2DK6gVGFSAplwTPVMpr2sw4Jj7YpbMYVFs3aAnwEFZaV0nthuoDzcYEcY6TQxwhaDQWqNW0eKp9zbkchv3zLcw1IpgtnQ9ksSHr7JrVYUDfXkCFkCPV5qsuBwXEsYWlgjGo+BJHG6aBfkG0Ukv4PMTQR8Cvu+LS+j4XTIYylD9ht/YDGwrywAAcswmn+o5AQR3DwpI/OVRvbP9jNsGkZ0t/iXdHXsBtDhKthQ6kx4ISbzXGIzn4+qROQ+A==
+X-MS-Exchange-AntiSpam-MessageData: /pLchZXSvk1nW+Pkj4rr8Pzsv5NysA0K58j9ZvR4/ETMTRoKLbORkiSqx6V7UANWbQJ8BbazBYyyVmvjngD2d2w1Uouk7LmzRgB1lqW56Jbt9g7XDLvKwK7JGD4ZVc+gEkGFpM+DKreO/nIUpEAStsS7r3ZavCy5mXxzzksm8MdIL+ufPOi/WCJtERQvbMgtT46s/f7u/Yhhu90ch4nJhcxjY1KUYTsHuKv5RHl/vaMCUVp2cRxeII2H+iXHDGZjBKTjntmurOB+I/2LiMfG7113GKA73QhiPWNB08LdlpciXNN+ammuRlmyzNxoeVwKv5TaVbIOwDJMZT3IUTOF8rhyDLPSv2L2xESVoD12grUT86ban5ZrgzgzwUBMQkxOEGMzV0Van3ruo77cdzwlr5QvNVnEayiTlH6WlPRh7EgoqQPtysCGN1Vxso7UkMhMHx5noGr49uFORuFL1pFeTlwyr6XdaVxFDeC7RjLobpaBIPXl0X0YM0+N3hdXZKOrP3d3gT2ZG0j15HPAQHQ08VahmmLtN1Iw19kOBQjqGMCMjmlbBLsGRyMh7fnRZyxp8Tck4BVoIRFrV9yQCkMgqrYLUj8jg2wGy7oN19HN53zfYLSd3qAoU/POfrSh8qEa+0cbjEejGZz8OpR+RA7UMA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce431108-d5f9-4ad5-6d99-08d83f546fe2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b257f24-172c-4268-38b8-08d83f571871
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 06:45:16.3366 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 07:04:18.0881 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wp/fwQFshuTbR91c+Wgt3nbGm463U6yBJM/EEi3IOMOF3ht/pRQLSTd5Tzb/ci7UpiHtAF1gqpPiGW/voD45nA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0182
+X-MS-Exchange-CrossTenant-UserPrincipalName: LPbb/ZMEEBCaCy3PdILCn6iJBIJ26l8fVN2AYFPsWx6usBmJ+FfKQB8tIppZqLM6+CMDShGJuEvuCXOA9TRvug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0119
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,75 +115,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When unloading driver by "modprobe -r amdgpu", one NULL pointer
-dereference bug occurs in ras debugfs releasing. The cause is the
-duplicated debugfs_remove, as drm debugfs_root dir has been cleaned
-up already by drm_minor_unregister.
-
-BUG: kernel NULL pointer dereference, address: 00000000000000a0
-PGD 0 P4D 0
-Oops: 0002 [#1] SMP PTI
-CPU: 11 PID: 1526 Comm: modprobe Tainted: G           OE     5.6.0-guchchen #1
-Hardware name: System manufacturer System Product Name/TUF Z370-PLUS GAMING II, BIOS 0411 09/21/2018
-RIP: 0010:down_write+0x15/0x40
-Code: eb de e8 7e 17 72 ff cc cc cc cc cc cc cc cc cc cc cc cc cc cc 0f 1f 44 00 00 53 48 89 fb e8 92
-d8 ff ff 31 c0 ba 01 00 00 00 <f0> 48 0f b1 13 75 0f 65 48 8b 04 25 c0 8b 01 00 48 89 43 08 5b c3
-RSP: 0018:ffffb1590386fcd0 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000000000a0 RCX: 0000000000000000
-RDX: 0000000000000001 RSI: ffffffff85b2fcc2 RDI: 00000000000000a0
-RBP: ffffb1590386fd30 R08: ffffffff85b2fcc2 R09: 000000000002b3c0
-R10: ffff97a330618c40 R11: 00000000000005f6 R12: ffff97a3481beb40
-R13: 00000000000000a0 R14: ffff97a3481beb40 R15: 0000000000000000
-FS:  00007fb11a717540(0000) GS:ffff97a376cc0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000000000a0 CR3: 00000004066d6006 CR4: 00000000003606e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- simple_recursive_removal+0x63/0x370
- ? debugfs_remove+0x60/0x60
- debugfs_remove+0x40/0x60
- amdgpu_ras_fini+0x82/0x230 [amdgpu]
- ? __kernfs_remove.part.17+0x101/0x1f0
- ? kernfs_name_hash+0x12/0x80
- amdgpu_device_fini+0x1c0/0x580 [amdgpu]
- amdgpu_driver_unload_kms+0x3e/0x70 [amdgpu]
- amdgpu_pci_remove+0x36/0x60 [amdgpu]
- pci_device_remove+0x3b/0xb0
- device_release_driver_internal+0xe5/0x1c0
- driver_detach+0x46/0x90
- bus_remove_driver+0x58/0xd0
- pci_unregister_driver+0x29/0x90
- amdgpu_exit+0x11/0x25 [amdgpu]
- __x64_sys_delete_module+0x13d/0x210
- do_syscall_64+0x5f/0x250
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
+It can avoid potential build warn/error when
+CONFIG_DEBUG_FS is not set.
 
 Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 6170d7d28495..35d5bf9e6f6f 100644
+index 35d5bf9e6f6f..e1d78cb448e2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1276,7 +1276,6 @@ void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
- 	if (!obj || !obj->ent)
- 		return;
+@@ -1244,6 +1244,7 @@ void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
  
--	debugfs_remove(obj->ent);
- 	obj->ent = NULL;
- 	put_obj(obj);
+ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+ {
++#if defined(CONFIG_DEBUG_FS)
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_manager *obj;
+ 	struct ras_fs_if fs_info;
+@@ -1266,6 +1267,7 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
+ 			amdgpu_ras_debugfs_create(adev, &fs_info);
+ 		}
+ 	}
++#endif
  }
-@@ -1290,7 +1289,6 @@ static void amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)
- 		amdgpu_ras_debugfs_remove(adev, &obj->head);
+ 
+ void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+@@ -1282,6 +1284,7 @@ void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+ 
+ static void amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)
+ {
++#if defined(CONFIG_DEBUG_FS)
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_manager *obj, *tmp;
+ 
+@@ -1290,6 +1293,7 @@ static void amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)
  	}
  
--	debugfs_remove_recursive(con->dir);
  	con->dir = NULL;
++#endif
  }
  /* debugfs end */
+ 
 -- 
 2.17.1
 
