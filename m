@@ -7,56 +7,56 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EFC2C433E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 842B4C433E1
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D3E9D20768
+	by mail.kernel.org (Postfix) with ESMTPS id 5699220768
 	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="u5ncypvN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3E9D20768
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Y+VF6auO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5699220768
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2476E277;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF8F6E264;
 	Thu, 13 Aug 2020 21:35:40 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82EAA6E25C
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 21:35:34 +0000 (UTC)
+ (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E527F6E261
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 21:35:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f0VHj5l+raskbQeNxkTb2IT1vO2+tQA/3h7BpkTqkgo7xtsLff0/eJsh3W1qHcagpmbaz3HQA8FAUC9L+FBnt0Yk/X6TVn1RyVhAKcG2WlB39WYzvEqVnmwLQ3t8HFURejGqizRuSBRm5+gU7JIGWtrrbz8AirKleTtWH0NrkaTe25U+ABR8KJ8DQa/GQsyab9f9v0KB67fFUHJU4TeCdDzLt04mEFUlU78/Z21nMfOHvt1Oyyqr+NDuo5I6stU1ATfcJZa5pVL7aihNw4eyjGIsKxlkgcplTVHE0JhE4as5cuFYyfWXjzZZOQz3ZUzoh24rD6BLjbxJ+or83U3reQ==
+ b=mWqTvADibeIa+6EIvuqsvD2uY0kqP7o0w8dAJdN/qr1oHshR95ZJHtpYrSRSZQtDgw7R4dbPjzMFhJNBH7iPJrKybacVal/ITk0vfHE/Zm4MosVvWg2V4ZzuSowgtdvTlNOFfMwPZadU16Xr9FHj18ED4369XOduFMBmIdYhIHOqF8ndWM2XKA2kvqAMFjHJxQMfcMPENmcUhU2pIg4rwyDskliBv1YkHKRo6ujsZv0qt1wxelhsVssGTO0E+OZh2x0wHP1SgNa0jDiG98OmXAogwZ5o/3YLVzkEZpRMVdW5dtf5GZCSSz84XYF26VDsN3W0Nn9zuoAuNH87cZ8KOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PP7jIf1pwnxhAYKRQ6MhQVC2gIR8IC7zT0UfTwYuYbA=;
- b=cauc5FOOqiwSjDhWbelrPJ9e7k0uW77D4grM3UFww3aRZkWnAKDH8M7OCiNfL1sCOvJaSPdJLDBlCNZw7OhuhFLeuuaCvkTz90yP+xvV1WGPI3at1YT2FWuelY7gJz7DKPgSKYMAKoey0ckHS9Txj8WUZEZ2Q+Srmoof+GBZtLJpFpQmHlMQUUiMpLVPV+poKkF1viHVHg1k2PzIgHVeMc61P4SNqon7KpZ+28i3DrLnB1rvp9pi+4TMK4GJnmW4gxESIPDNYxGY2+Ogt5Yg4xGfkfdCA6YVr09TpH6HZAfwzRqIAQKCkQULUfM0305EJrA1B/DLf4QQZ4W9Z5LGgA==
+ bh=O/iop1sG8i3A7spUx4fMvHSrEeDDKEULLWYTzKF5Ybk=;
+ b=iE1nJwDGBTCr9W+PHIPwQKn1L2bZI1vvZpN6Yd97vxBZ+d+L9OaAQUlogCsipM8eBa+rcgqjFxtnlyqDDqqjXtzukcC9JlvSVvZEj/oIov9Wfcw0nGe0C+1VnCD+0B+7bmjtVzlVtbZGOiMOYMHMeNZ4tVNgdFR2r8qeQTpDN83x7uTJG9JjFASlajZFAFR1S/8bp3wgdzEy6/AMff43uQFexWw2q4tft3NYtOrXMvV3+cSCNfxr2E3a5BR1VR+3vbUI/vIfKP8M/AHKxlr6kof8lcZGW7SxvuwHdeDojQQwl2uQJMS4C0oVXc8CSLiumyXuMST8JWvYHHJcW6pL+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PP7jIf1pwnxhAYKRQ6MhQVC2gIR8IC7zT0UfTwYuYbA=;
- b=u5ncypvNUhro3Bx0plfCouYvVbXk7TYnEdKi0ySEAqfCGq8pUw2Od0WVybQv/zYZcgruPwhYI0z0bsq23IeG7QoKUbqWtwZeJDbc7mYsggtaA9YILqj6THa/T+gtret+rFeClWHCL0Lw3UOMIrK1rD3/Lzw0whXZfVQ2qSznVOI=
+ bh=O/iop1sG8i3A7spUx4fMvHSrEeDDKEULLWYTzKF5Ybk=;
+ b=Y+VF6auOhxAZFkmztFqlYXrsc8E8c030n4jWuWtnpOaSiROs+vPMgZHlwYzsmZBQampuvQmFwkgfHxXbVA1LaMvH5NzysW9/So6mtgpcA0LtljE+fEvkCN5EcJVBVZOtKwHeLXdAVuhVy20W32+aOu29UZSZTVnry7DqWB1ol94=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20)
  by DM5PR12MB1355.namprd12.prod.outlook.com (2603:10b6:3:6e::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3261.19; Thu, 13 Aug 2020 21:35:31 +0000
+ 15.20.3261.19; Thu, 13 Aug 2020 21:35:35 +0000
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::75f2:ebaa:bca6:3db7]) by DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::75f2:ebaa:bca6:3db7%9]) with mapi id 15.20.3283.016; Thu, 13 Aug 2020
- 21:35:31 +0000
+ 21:35:35 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 09/17] drm/amd/display: Add read backlight interface
-Date: Thu, 13 Aug 2020 17:33:48 -0400
-Message-Id: <20200813213356.1606886-10-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 15/17] drm/amd/display: fix pow() crashing when given base 0
+Date: Thu, 13 Aug 2020 17:33:54 -0400
+Message-Id: <20200813213356.1606886-16-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200813213356.1606886-1-Rodrigo.Siqueira@amd.com>
 References: <20200813213356.1606886-1-Rodrigo.Siqueira@amd.com>
@@ -68,34 +68,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::2db6) by
  YTBPR01CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Thu, 13 Aug 2020 21:35:30 +0000
+ 15.20.3283.15 via Frontend Transport; Thu, 13 Aug 2020 21:35:34 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [2607:fea8:56e0:6d60::2db6]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0918f75f-6c86-42d1-ab83-08d83fd0cda6
+X-MS-Office365-Filtering-Correlation-Id: a7ebcac0-0201-4fe1-6d2a-08d83fd0d02b
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1355:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1355769E3AAC1B943E625F8F98430@DM5PR12MB1355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:312;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB13555D0AE90E327A60A0DC6898430@DM5PR12MB1355.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:612;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PTICSuiDM7bPYXwKnS20TK1QzDt6f7dQKBtDkIc0I1qXK6YZWrJO6uE8x268ZlA0EoBhSmEIHWNIWKfj4JDt4Z0rCyiqX7dzEBNlzD85zlNW2pdTvgqPxDY6SkmhPbhOjsznBKWdv+eG+s8HDDL9lsNdHpfy+CMtcxAaQYvOUeyQ+YPAH+qTgy+3lR/2BMcmf8Z2iXKx5DoVy25YD4hOyvCVzn8aMpiF8qaJMNR8A/VKPesUgGKNQmwe35t8JrOB9MdOruinDW6cSv0Ad6/4F7W5mHp3fdZm8yXj7xTMTJTSkPmSY7HXNOTCN4l54PAi
+X-Microsoft-Antispam-Message-Info: hBA7rdo7xQ2TkpVKGoBWrXDhz4lfHF1gs4Z6iaOYz65cig7NCHEtpNt7JjQyAkmGqCMI1dcpbOCxciGdjdiczM4KsVDD7ehdm8H7s1FjDAJqDX8xt7j4HmBLHXcudLWU0B3LSzpZ673roSvCSctKiJcDFvMUO6cWMbwJio1xSrD5fBmN7F2nk7W4c7cUjzVtX7zn4wxuDfoP5ilnEW/FpUOPrzEX3WDP5Jop2obEWwrQzyVNwZj9dxOVJEB49GyWQa0UflTPV1/XoWk8KlBo+cbhjoUPMy/2MCtOjsXl1oxfjP3Pz6dboizDaBVbj+XvqvBeQm4YWKdWgDDARElcGQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(2616005)(6512007)(83380400001)(6486002)(4326008)(316002)(478600001)(1076003)(6916009)(66476007)(66556008)(36756003)(52116002)(66946007)(2906002)(6506007)(8676002)(6666004)(54906003)(16526019)(8936002)(5660300002)(186003)(86362001);
+ SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(2616005)(6512007)(6486002)(4326008)(316002)(478600001)(1076003)(6916009)(66476007)(66556008)(36756003)(52116002)(66946007)(2906002)(6506007)(8676002)(6666004)(54906003)(16526019)(8936002)(5660300002)(186003)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: czW9+M/BubbhwqpoOT6qr+r3TmZwSUQKESHJfpcl8xE5yOm5U3hLkVagpjPjl5LlvVjujPSNfa1AL/6Dqvxsn6z21xVudJ7f8JkKVB/4rEGDSTgXFDGj6aBSsbz1mrsZ0WjORTgy1c5u7xozNPtvesW34Bcwnd3Z0mdfu1sVoFBT6Yy5qFNL+HZsuronKPQBNcs80yYd+S6zyVKuIHZgiH8hnLoIhiRvsg1AnuhM3HcZ/UrPV2tVN1asZCb0+vlH0ceBJziMDb7C/AnrmweaJV7j6Y/m5cIOe9b3nQ/S4AAV13KdsOpInZ1kf1NOYyQjLqIk/zJRt5j/bHe4Ap/Z5OILES5cIj7SB6th/l1UZCBjLPTmyNzLhoiPH5Ch50ZqDhFtZgipvUAmbUriQ8pr4cRlbvu/afeHh6mPvACJRyGvtk6ntm1sbAY8m9saCEdYXjQ925utiXcVWoDf9kLDTd9H3DY/1BWx7qEhykBSd4XbOX/qJhq3wx46axFixSxwiaTz6UQzpLNRCayTxojIlQclUUhi36IVgHERfPxzIUappgl9Lo0Epqro+rI0mlWM0rZADlOSGCPUv8xLw2vDalFywLmzyH60n+/5KJBvV+eMbGn5c2IPn464amtvopFIEdupuggZAu92HpeA+KhfkEHuv9r8BeyLW46K99E42rs4s5icsiBgU3P7IK1q+MHj
+X-MS-Exchange-AntiSpam-MessageData: KdKcm6hDbgva4CmPIQ4CvR4TlKKlheNZ9zoKj0TJTztEgtKZtRFRmBNqZEZpXgSNsCJ0iJcmzg7a9h6Vxgu9FYFmY1YCTcilpshj+S1cKy7NoBZFKdq/GAtNSiQZ3NpdmbXzO1Dfzipl09u2eVeofezYhjePMuk2P/R5A+4oRLK1WRwakTWux2yDvhfq6/5W7WlMBIkuhNphd1U7lf2qybcxiEJSnXz6leMIdeRdmLoJLauX+0cooaEfMdqxgTSvGcJy7+albFDD2einKVYT7aIbIx6Xry84XDtBQfrULAgdX3UcySODZEWjiQguXAfE3hwMhPAxWPEbMeD5o8Ik8xizgBMtqLlh9nQdzv+ZsvPp3Lpyw2TYwpL7ZKleVONyoxQKd+nWtHKSd1waZCPBTy8bAs4gvzWgMViVrUKJZXsINJtyQjYN+vAV4JMyB/9y14/dgqFsHPHPmUYKAIy+K4sjphxZ5FMwYqyEdOFYqWIObRm15eb2CW/DyUQTIIOCC4xJyC+8FjMhdYHsNWDOZfDADYJBf0rmNiZvCwU60hioZlku0fNbJX5AVBPWX4qOwH7tfuuWb+Mqv0G1I/B5APku+Tv+lrDp9O30M87Sypz0Q0bmfbNlOrO5o2oyO+bYPnYdeww9ngISs/PxgMl1jJEx4AwcDGENCyhyCzD4pm8=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0918f75f-6c86-42d1-ab83-08d83fd0cda6
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7ebcac0-0201-4fe1-6d2a-08d83fd0d02b
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 21:35:31.0667 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 21:35:35.3439 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PNd03Ks9kffb0BgEtcUi8vMNhHqLBXydlO/2+1NhRUuFQDXjIF3/3bevss0Wf5PoN5D5xJdJKLg7rzgIHem5FA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0eQkM+nz88N4rbGt1CBWa5cSLwYtYKLwW2WXKPdP9+BGUrHnn1bP89bekT+2GE5a8jGhlBYU6+bZWSRM5KofqA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1355
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,156 +108,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
- Yongqiang Sun <yongqiang.sun@amd.com>, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, stable@vger.kernel.org, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com, Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <yongqiang.sun@amd.com>
+From: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
 
-[Why & How]
-Add read backlight interface to get ABM data.
+[Why&How]
+pow(a,x) is implemented as exp(x*log(a)). log(0) will crash.
+So return 0^x = 0, unless x=0, convention seems to be 0^0 = 1.
 
-Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
 Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c      |  1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_abm.h         | 12 +++++++++++-
- drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c  |  6 ++++--
- .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c    |  2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/panel_cntl.h   |  1 +
- 5 files changed, 18 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/include/fixed31_32.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 0257a900fe2b..f42a17d765e3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -708,3 +708,4 @@ void dc_stream_log(const struct dc *dc, const struct dc_stream_state *stream)
- 			"\tlink: %d\n",
- 			stream->link->link_index);
- }
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h
-index a44effcda49f..e84d21605854 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.h
-@@ -46,6 +46,8 @@
- 	SR(BL1_PWM_USER_LEVEL), \
- 	SR(DC_ABM1_LS_MIN_MAX_PIXEL_VALUE_THRES), \
- 	SR(DC_ABM1_HGLS_REG_READ_PROGRESS), \
-+	SR(DC_ABM1_ACE_OFFSET_SLOPE_0), \
-+	SR(DC_ABM1_ACE_THRES_12), \
- 	SR(BIOS_SCRATCH_2)
- 
- #define ABM_DCN10_REG_LIST(id)\
-@@ -60,6 +62,8 @@
- 	SRI(BL1_PWM_USER_LEVEL, ABM, id), \
- 	SRI(DC_ABM1_LS_MIN_MAX_PIXEL_VALUE_THRES, ABM, id), \
- 	SRI(DC_ABM1_HGLS_REG_READ_PROGRESS, ABM, id), \
-+	SRI(DC_ABM1_ACE_OFFSET_SLOPE_0, ABM, id), \
-+	SRI(DC_ABM1_ACE_THRES_12, ABM, id), \
- 	NBIO_SR(BIOS_SCRATCH_2)
- 
- #define ABM_DCN20_REG_LIST() \
-@@ -74,10 +78,12 @@
- 	SR(BL1_PWM_USER_LEVEL), \
- 	SR(DC_ABM1_LS_MIN_MAX_PIXEL_VALUE_THRES), \
- 	SR(DC_ABM1_HGLS_REG_READ_PROGRESS), \
-+	SR(DC_ABM1_ACE_OFFSET_SLOPE_0), \
-+	SR(DC_ABM1_ACE_THRES_12), \
- 	NBIO_SR(BIOS_SCRATCH_2)
- 
- #if defined(CONFIG_DRM_AMD_DC_DCN3_0)
--#define ABM_DCN301_REG_LIST(id)\
-+#define ABM_DCN30_REG_LIST(id)\
- 	ABM_COMMON_REG_LIST_DCE_BASE(), \
- 	SRI(DC_ABM1_HG_SAMPLE_RATE, ABM, id), \
- 	SRI(DC_ABM1_LS_SAMPLE_RATE, ABM, id), \
-@@ -89,6 +95,8 @@
- 	SRI(BL1_PWM_USER_LEVEL, ABM, id), \
- 	SRI(DC_ABM1_LS_MIN_MAX_PIXEL_VALUE_THRES, ABM, id), \
- 	SRI(DC_ABM1_HGLS_REG_READ_PROGRESS, ABM, id), \
-+	SRI(DC_ABM1_ACE_OFFSET_SLOPE_0, ABM, id), \
-+	SRI(DC_ABM1_ACE_THRES_12, ABM, id), \
- 	NBIO_SR(BIOS_SCRATCH_2)
- #endif
- 
-@@ -208,6 +216,8 @@ struct dce_abm_registers {
- 	uint32_t BL1_PWM_USER_LEVEL;
- 	uint32_t DC_ABM1_LS_MIN_MAX_PIXEL_VALUE_THRES;
- 	uint32_t DC_ABM1_HGLS_REG_READ_PROGRESS;
-+	uint32_t DC_ABM1_ACE_OFFSET_SLOPE_0;
-+	uint32_t DC_ABM1_ACE_THRES_12;
- 	uint32_t MASTER_COMM_CNTL_REG;
- 	uint32_t MASTER_COMM_CMD_REG;
- 	uint32_t MASTER_COMM_DATA_REG1;
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-index 43781e77be43..a6d73d30837c 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-@@ -46,13 +46,14 @@
- #define FN(reg_name, field_name) \
- 	dce_panel_cntl->shift->field_name, dce_panel_cntl->mask->field_name
- 
--static unsigned int calculate_16_bit_backlight_from_pwm(struct dce_panel_cntl *dce_panel_cntl)
-+static unsigned int dce_get_16_bit_backlight_from_pwm(struct panel_cntl *panel_cntl)
+diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+index 89ef9f6860e5..16df2a485dd0 100644
+--- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
++++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+@@ -431,6 +431,9 @@ struct fixed31_32 dc_fixpt_log(struct fixed31_32 arg);
+  */
+ static inline struct fixed31_32 dc_fixpt_pow(struct fixed31_32 arg1, struct fixed31_32 arg2)
  {
- 	uint64_t current_backlight;
- 	uint32_t round_result;
- 	uint32_t pwm_period_cntl, bl_period, bl_int_count;
- 	uint32_t bl_pwm_cntl, bl_pwm, fractional_duty_cycle_en;
- 	uint32_t bl_period_mask, bl_pwm_mask;
-+	struct dce_panel_cntl *dce_panel_cntl = TO_DCE_PANEL_CNTL(panel_cntl);
- 
- 	pwm_period_cntl = REG_READ(BL_PWM_PERIOD_CNTL);
- 	REG_GET(BL_PWM_PERIOD_CNTL, BL_PWM_PERIOD, &bl_period);
-@@ -150,7 +151,7 @@ static uint32_t dce_panel_cntl_hw_init(struct panel_cntl *panel_cntl)
- 	REG_UPDATE(BL_PWM_GRP1_REG_LOCK,
- 			BL_PWM_GRP1_REG_LOCK, 0);
- 
--	current_backlight = calculate_16_bit_backlight_from_pwm(dce_panel_cntl);
-+	current_backlight = dce_get_16_bit_backlight_from_pwm(panel_cntl);
- 
- 	return current_backlight;
- }
-@@ -273,6 +274,7 @@ static const struct panel_cntl_funcs dce_link_panel_cntl_funcs = {
- 	.is_panel_powered_on = dce_is_panel_powered_on,
- 	.store_backlight_level = dce_store_backlight_level,
- 	.driver_set_backlight = dce_driver_set_backlight,
-+	.get_current_backlight = dce_get_16_bit_backlight_from_pwm,
- };
- 
- void dce_panel_cntl_construct(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index aa3ea6c79c27..3b4c356c5ba6 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -340,7 +340,7 @@ static const struct dce110_clk_src_mask cs_mask = {
- 
- #define abm_regs(id)\
- [id] = {\
--		ABM_DCN301_REG_LIST(id)\
-+		ABM_DCN30_REG_LIST(id)\
- }
- 
- static const struct dce_abm_registers abm_regs[] = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/panel_cntl.h b/drivers/gpu/drm/amd/display/dc/inc/hw/panel_cntl.h
-index f9ab5abb6462..48eac622c6a0 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/panel_cntl.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/panel_cntl.h
-@@ -49,6 +49,7 @@ struct panel_cntl_funcs {
- 	void (*store_backlight_level)(struct panel_cntl *panel_cntl);
- 	void (*driver_set_backlight)(struct panel_cntl *panel_cntl,
- 			uint32_t backlight_pwm_u16_16);
-+	uint32_t (*get_current_backlight)(struct panel_cntl *panel_cntl);
- };
- 
- struct panel_cntl_init_data {
++	if (arg1.value == 0)
++		return arg2.value == 0 ? dc_fixpt_one : dc_fixpt_zero;
++
+ 	return dc_fixpt_exp(
+ 		dc_fixpt_mul(
+ 			dc_fixpt_log(arg1),
 -- 
 2.28.0
 
