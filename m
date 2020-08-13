@@ -2,68 +2,44 @@ Return-Path: <SRS0=ZeSq=BX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49824C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 13:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A388C433E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 13:57:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 162FD20774
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 13:53:50 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HRyqBFD/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 162FD20774
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id E77A020791
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 13:57:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E77A020791
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5CB6E9F1;
-	Thu, 13 Aug 2020 13:53:49 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474486E9F1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 13:53:48 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id 9so4759070wmj.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 06:53:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SbLabdSl+OMTISjR/Kpmfpe/iR7NFq73gorTS5++2R8=;
- b=HRyqBFD/tWlT2+lom/LiRR348+VflMReO6ehhsMWYfKuktMhDuoSRV3BaDPIrJKXwq
- dC8wEpJGBBiFnMmFBHRqzujkbmPUMJh4uFfsc7LTqx43gPCbYR1jdzT3BRbRb3ZSL8fc
- /5nNwSamUbdFMv9ptYEU7LsH/drCvAjza+kynryW1tAUGCYZjPVyiSTPU1HYgWcdPS45
- poibkfneLVSH2II3/vnCWv0AW1xlA1x7KEghcqZY6NHNSpOFWtJOMH48E5iLu36J/K/U
- YWjliZje1XRr3bDrdZIh/KdhrdIISj2ags4F8NqaLLZMCVTxZKCUNfJaJWjKKMeGcOt8
- z86w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SbLabdSl+OMTISjR/Kpmfpe/iR7NFq73gorTS5++2R8=;
- b=U7ORf1sD6Eq1ZD63T5IyIrv2UAbQKY7tvzmP0DIPrCTQS1mKm5ysf6kA4ozpmD3chF
- nk4MqULDoJaGebjLlifJlGj9c/CLfWEf+k+iyratJrhy8nE/VagZ8haKCfwVI0aBnUtE
- BunFUA2pk3cA3GieWBtAeMhnkgC54kMaNNbG5Nkk1nYf/36sWJdKmE36js5j+o++Z/PC
- zp3X04AYn+aXSt5W9qmPsJVblrW1bv6zLRydgSa7LD2Xe8XEMoal5eNnrfBTFxzUrOe/
- JrtN5WvoTayb3ek5N6SX5YsKewvX7tBsp9f7EmhVujmAg45nLA5a+FZ3G0z/BBWwRXqs
- qG3A==
-X-Gm-Message-State: AOAM5300voHE41eXyBTecJ/0MPLdJJLr+2j9Bfn9kaN0qIikmc/F++1r
- Yw4MEPqWJF5NGG6fkqFT2M+P5mAWgWJ+VoYpiEk=
-X-Google-Smtp-Source: ABdhPJzWdmoNQoh8w9D0StlumsgzOPmChwpVgBeQmF9bCidpl4eUjdiJYB3MsSR1vJA057wa38aBotd+SBz9vKZbHuE=
-X-Received: by 2002:a7b:c941:: with SMTP id i1mr4440312wml.73.1597326826654;
- Thu, 13 Aug 2020 06:53:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE1426E9FF;
+	Thu, 13 Aug 2020 13:57:39 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88A156E9F5;
+ Thu, 13 Aug 2020 13:57:38 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5740DB19E;
+ Thu, 13 Aug 2020 13:57:59 +0000 (UTC)
+Subject: Re: [PATCH 19/20] drm/xlnx: Initialize DRM driver instance with CMA
+ helper macro
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-20-tzimmermann@suse.de>
+ <20200813133605.GJ6057@pendragon.ideasonboard.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <a8e39798-9812-e325-255a-e6536cb32339@suse.de>
+Date: Thu, 13 Aug 2020 15:57:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <20200813090819.32115-1-evan.quan@amd.com>
- <20200813090819.32115-4-evan.quan@amd.com>
- <90cf2433-2c27-5a76-d08b-6838a6aa8c88@amd.com>
-In-Reply-To: <90cf2433-2c27-5a76-d08b-6838a6aa8c88@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Aug 2020 09:53:35 -0400
-Message-ID: <CADnq5_PyXxBssM7kY8Z=5YDSV18OOb5kP_ammSt4sO+R-dmjxg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/powerplay: put those exposed power interfaces
- in amdgpu_dpm.c
-To: Nirmoy <nirmodas@amd.com>
+In-Reply-To: <20200813133605.GJ6057@pendragon.ideasonboard.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,1029 +51,192 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux@armlinux.org.uk, matthias.bgg@gmail.com,
+ thierry.reding@gmail.com, amd-gfx@lists.freedesktop.org, sam@ravnborg.org,
+ emil.velikov@collabora.com, abdiel.janulgue@linux.intel.com,
+ linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ oleksandr_andrushchenko@epam.com, michal.simek@xilinx.com, krzk@kernel.org,
+ jonathanh@nvidia.com, linux-rockchip@lists.infradead.org,
+ tomi.valkeinen@ti.com, bskeggs@redhat.com, xen-devel@lists.xenproject.org,
+ marek.olsak@amd.com, matthew.auld@intel.com, chunkuang.hu@kernel.org,
+ andi.shyti@intel.com, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, tianci.yin@amd.com, nirmoy.das@amd.com,
+ etnaviv@lists.freedesktop.org, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, rodrigo.vivi@intel.com,
+ linux-tegra@vger.kernel.org, evan.quan@amd.com, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tvrtko.ursulin@linux.intel.com,
+ chris@chris-wilson.co.uk, rodrigosiqueiramelo@gmail.com, hyun.kwon@xilinx.com,
+ aaron.liu@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ sw0312.kim@samsung.com, hjc@rock-chips.com, kyungmin.park@samsung.com,
+ miaoqinglang@huawei.com, kgene@kernel.org, alexander.deucher@amd.com,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
+Content-Type: multipart/mixed; boundary="===============1830858251=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Nirmoy makes some good points below, but I think those should be a
-follow up patch as this patch is just moving code around; no actual
-changes.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1830858251==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="tbCt2o5uFn9Z4Xo4P1cpCcyhXosV08OH6"
 
-Alex
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--tbCt2o5uFn9Z4Xo4P1cpCcyhXosV08OH6
+Content-Type: multipart/mixed; boundary="Orz2ZqpSWnksEfl2yo6RF3aBwExLujGG6";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
+ thierry.reding@gmail.com, krzk@kernel.org, sam@ravnborg.org,
+ emil.velikov@collabora.com, abdiel.janulgue@linux.intel.com,
+ linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ oleksandr_andrushchenko@epam.com, tomi.valkeinen@ti.com,
+ linux-tegra@vger.kernel.org, linux@armlinux.org.uk, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, kgene@kernel.org, bskeggs@redhat.com,
+ xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org,
+ matthew.auld@intel.com, chunkuang.hu@kernel.org, andi.shyti@intel.com,
+ linux-arm-msm@vger.kernel.org, marek.olsak@amd.com, tianci.yin@amd.com,
+ etnaviv@lists.freedesktop.org, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, rodrigo.vivi@intel.com,
+ matthias.bgg@gmail.com, evan.quan@amd.com, sean@poorly.run,
+ linux-arm-kernel@lists.infradead.org, tvrtko.ursulin@linux.intel.com,
+ amd-gfx@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ hyun.kwon@xilinx.com, rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com,
+ Felix.Kuehling@amd.com, xinhui.pan@amd.com, sw0312.kim@samsung.com,
+ hjc@rock-chips.com, miaoqinglang@huawei.com, kyungmin.park@samsung.com,
+ nirmoy.das@amd.com, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com
+Message-ID: <a8e39798-9812-e325-255a-e6536cb32339@suse.de>
+Subject: Re: [PATCH 19/20] drm/xlnx: Initialize DRM driver instance with CMA
+ helper macro
+References: <20200813083644.31711-1-tzimmermann@suse.de>
+ <20200813083644.31711-20-tzimmermann@suse.de>
+ <20200813133605.GJ6057@pendragon.ideasonboard.com>
+In-Reply-To: <20200813133605.GJ6057@pendragon.ideasonboard.com>
 
-On Thu, Aug 13, 2020 at 6:52 AM Nirmoy <nirmodas@amd.com> wrote:
->
-> Acked-by: Nirmoy Das <nirmoy.das@amd.com> for 1st 3 patches. Check for
-> below for
->
-> more comments.
->
-> On 8/13/20 11:08 AM, Evan Quan wrote:
-> > As other power interfaces.
-> >
-> > Change-Id: I5e3b85ae21c4b1d0239f54fa75247b33cfdb7ddc
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c | 425 ++++++++++++++++++++++++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h |  14 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c  | 423 -----------------------
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h  |   8 -
-> >   4 files changed, 439 insertions(+), 431 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> > index 2198148319e2..e114b5cbd8b0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> > @@ -28,6 +28,11 @@
-> >   #include "amdgpu_dpm.h"
-> >   #include "atom.h"
-> >   #include "amd_pcie.h"
-> > +#include "amdgpu_display.h"
-> > +#include "hwmgr.h"
-> > +#include <linux/power_supply.h>
-> > +
-> > +#define WIDTH_4K 3840
-> >
-> >   void amdgpu_dpm_print_class_info(u32 class, u32 class2)
-> >   {
-> > @@ -1262,3 +1267,423 @@ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
-> >
-> >       return ret;
-> >   }
-> > +
-> > +void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
-> > +{
-> > +     if (adev->pm.dpm_enabled) {
-> > +             mutex_lock(&adev->pm.mutex);
-> > +             if (power_supply_is_system_supplied() > 0)
-> > +                     adev->pm.ac_power = true;
-> > +             else
-> > +                     adev->pm.ac_power = false;
-> > +             if (adev->powerplay.pp_funcs &&
-> > +                 adev->powerplay.pp_funcs->enable_bapm)
-> > +                     amdgpu_dpm_enable_bapm(adev, adev->pm.ac_power);
-> > +             mutex_unlock(&adev->pm.mutex);
-> > +
-> > +             if (is_support_sw_smu(adev))
-> > +                     smu_set_ac_dc(&adev->smu);
-> > +     }
-> > +}
-> > +
-> > +int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
-> > +                        void *data, uint32_t *size)
-> > +{
-> > +     int ret = 0;
-> > +
-> > +     if (!data || !size)
-> > +             return -EINVAL;
-> > +
-> > +     if (is_support_sw_smu(adev))
-> > +             ret = smu_read_sensor(&adev->smu, sensor, data, size);
-> > +     else {
-> > +             if (adev->powerplay.pp_funcs && adev->powerplay.pp_funcs->read_sensor)
-> > +                     ret = adev->powerplay.pp_funcs->read_sensor((adev)->powerplay.pp_handle,
-> > +                                                                 sensor, data, size);
-> > +             else
-> > +                     ret = -EINVAL;
-> > +     }
-> > +
-> > +     return ret;
-> > +}
-> > +
-> > +void amdgpu_dpm_thermal_work_handler(struct work_struct *work)
-> > +{
-> > +     struct amdgpu_device *adev =
-> > +             container_of(work, struct amdgpu_device,
-> > +                          pm.dpm.thermal.work);
-> > +     /* switch to the thermal state */
-> > +     enum amd_pm_state_type dpm_state = POWER_STATE_TYPE_INTERNAL_THERMAL;
-> > +     int temp, size = sizeof(temp);
-> > +
-> > +     if (!adev->pm.dpm_enabled)
-> > +             return;
-> > +
-> > +     if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_TEMP,
-> > +                                 (void *)&temp, &size)) {
-> > +             if (temp < adev->pm.dpm.thermal.min_temp)
-> > +                     /* switch back the user state */
-> > +                     dpm_state = adev->pm.dpm.user_state;
-> > +     } else {
-> > +             if (adev->pm.dpm.thermal.high_to_low)
-> > +                     /* switch back the user state */
-> > +                     dpm_state = adev->pm.dpm.user_state;
-> > +     }
-> > +     mutex_lock(&adev->pm.mutex);
-> > +     if (dpm_state == POWER_STATE_TYPE_INTERNAL_THERMAL)
-> > +             adev->pm.dpm.thermal_active = true;
-> > +     else
-> > +             adev->pm.dpm.thermal_active = false;
-> > +     adev->pm.dpm.state = dpm_state;
-> > +     mutex_unlock(&adev->pm.mutex);
-> > +
-> > +     amdgpu_pm_compute_clocks(adev);
-> > +}
-> > +
-> > +static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
-> > +                                                  enum amd_pm_state_type dpm_state)
-> > +{
-> > +     int i;
-> > +     struct amdgpu_ps *ps;
-> > +     u32 ui_class;
-> > +     bool single_display = (adev->pm.dpm.new_active_crtc_count < 2) ?
-> > +             true : false;
-> > +
-> > +     /* check if the vblank period is too short to adjust the mclk */
-> > +     if (single_display && adev->powerplay.pp_funcs->vblank_too_short) {
-> > +             if (amdgpu_dpm_vblank_too_short(adev))
-> > +                     single_display = false;
-> > +     }
-> > +
-> > +     /* certain older asics have a separare 3D performance state,
-> > +      * so try that first if the user selected performance
-> > +      */
-> > +     if (dpm_state == POWER_STATE_TYPE_PERFORMANCE)
-> > +             dpm_state = POWER_STATE_TYPE_INTERNAL_3DPERF;
-> > +     /* balanced states don't exist at the moment */
-> > +     if (dpm_state == POWER_STATE_TYPE_BALANCED)
-> > +             dpm_state = POWER_STATE_TYPE_PERFORMANCE;
-> > +
-> > +restart_search:
-> > +     /* Pick the best power state based on current conditions */
-> > +     for (i = 0; i < adev->pm.dpm.num_ps; i++) {
-> > +             ps = &adev->pm.dpm.ps[i];
-> > +             ui_class = ps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK;
-> > +             switch (dpm_state) {
-> > +             /* user states */
-> > +             case POWER_STATE_TYPE_BATTERY:
-> > +                     if (ui_class == ATOM_PPLIB_CLASSIFICATION_UI_BATTERY) {
-> > +                             if (ps->caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
-> > +                                     if (single_display)
-> > +                                             return ps;
-> > +                             } else
-> > +                                     return ps;
-> > +                     }
-> > +                     break;
-> > +             case POWER_STATE_TYPE_BALANCED:
-> > +                     if (ui_class == ATOM_PPLIB_CLASSIFICATION_UI_BALANCED) {
-> > +                             if (ps->caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
-> > +                                     if (single_display)
-> > +                                             return ps;
-> > +                             } else
-> > +                                     return ps;
-> > +                     }
-> > +                     break;
-> > +             case POWER_STATE_TYPE_PERFORMANCE:
-> > +                     if (ui_class == ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE) {
-> > +                             if (ps->caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
-> > +                                     if (single_display)
-> > +                                             return ps;
-> > +                             } else
-> > +                                     return ps;
-> > +                     }
-> > +                     break;
-> > +             /* internal states */
-> > +             case POWER_STATE_TYPE_INTERNAL_UVD:
-> > +                     if (adev->pm.dpm.uvd_ps)
-> > +                             return adev->pm.dpm.uvd_ps;
-> > +                     else
->
->
-> We don't need the "else" here.
->
->
-> > +                             break;
-> > +             case POWER_STATE_TYPE_INTERNAL_UVD_SD:
-> > +                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_SDSTATE)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_UVD_HD:
-> > +                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_HDSTATE)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
-> > +                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_HD2STATE)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
-> > +                     if (ps->class2 & ATOM_PPLIB_CLASSIFICATION2_MVC)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_BOOT:
-> > +                     return adev->pm.dpm.boot_ps;
-> > +             case POWER_STATE_TYPE_INTERNAL_THERMAL:
-> > +                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_THERMAL)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_ACPI:
-> > +                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_ACPI)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_ULV:
-> > +                     if (ps->class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
-> > +                             return ps;
-> > +                     break;
-> > +             case POWER_STATE_TYPE_INTERNAL_3DPERF:
-> > +                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
-> > +                             return ps;
-> > +                     break;
-> > +             default:
-> > +                     break;
-> > +             }
-> > +     }
-> > +     /* use a fallback state if we didn't match */
-> > +     switch (dpm_state) {
-> > +     case POWER_STATE_TYPE_INTERNAL_UVD_SD:
-> > +             dpm_state = POWER_STATE_TYPE_INTERNAL_UVD_HD;
-> > +             goto restart_search;
-> > +     case POWER_STATE_TYPE_INTERNAL_UVD_HD:
-> > +     case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
-> > +     case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
-> > +             if (adev->pm.dpm.uvd_ps) {
-> > +                     return adev->pm.dpm.uvd_ps;
-> > +             } else {
-> > +                     dpm_state = POWER_STATE_TYPE_PERFORMANCE;
-> > +                     goto restart_search;
-> > +             }
-> > +     case POWER_STATE_TYPE_INTERNAL_THERMAL:
-> > +             dpm_state = POWER_STATE_TYPE_INTERNAL_ACPI;
-> > +             goto restart_search;
-> > +     case POWER_STATE_TYPE_INTERNAL_ACPI:
-> > +             dpm_state = POWER_STATE_TYPE_BATTERY;
-> > +             goto restart_search;
-> > +     case POWER_STATE_TYPE_BATTERY:
-> > +     case POWER_STATE_TYPE_BALANCED:
-> > +     case POWER_STATE_TYPE_INTERNAL_3DPERF:
-> > +             dpm_state = POWER_STATE_TYPE_PERFORMANCE;
-> > +             goto restart_search;
->
->
-> I think it will be a good idea to move restart_search block to a
-> function so we can easily
->
-> rule out any infinite loops with "goto restart_search" usages.
->
->
->
-> > +     default:
-> > +             break;
-> > +     }
-> > +
-> > +     return NULL;
-> > +}
-> > +
-> > +static void amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
-> > +{
-> > +     struct amdgpu_ps *ps;
-> > +     enum amd_pm_state_type dpm_state;
-> > +     int ret;
-> > +     bool equal = false;
-> > +
-> > +     /* if dpm init failed */
-> > +     if (!adev->pm.dpm_enabled)
-> > +             return;
-> > +
-> > +     if (adev->pm.dpm.user_state != adev->pm.dpm.state) {
-> > +             /* add other state override checks here */
-> > +             if ((!adev->pm.dpm.thermal_active) &&
-> > +                 (!adev->pm.dpm.uvd_active))
-> > +                     adev->pm.dpm.state = adev->pm.dpm.user_state;
-> > +     }
-> > +     dpm_state = adev->pm.dpm.state;
-> > +
-> > +     ps = amdgpu_dpm_pick_power_state(adev, dpm_state);
-> > +     if (ps)
-> > +             adev->pm.dpm.requested_ps = ps;
-> > +     else
-> > +             return;
->
->
-> nitpick:
->
-> if(!ns)
->
->      return;
->
-> adev->pm.dpm.requested_ps = ps;
->
->
-> > +
-> > +     if (amdgpu_dpm == 1 && adev->powerplay.pp_funcs->print_power_state) {
-> > +             printk("switching from power state:\n");
-> > +             amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_ps);
-> > +             printk("switching to power state:\n");
-> > +             amdgpu_dpm_print_power_state(adev, adev->pm.dpm.requested_ps);
-> > +     }
-> > +
-> > +     /* update whether vce is active */
-> > +     ps->vce_active = adev->pm.dpm.vce_active;
-> > +     if (adev->powerplay.pp_funcs->display_configuration_changed)
-> > +             amdgpu_dpm_display_configuration_changed(adev);
-> > +
-> > +     ret = amdgpu_dpm_pre_set_power_state(adev);
-> > +     if (ret)
-> > +             return;
-> > +
-> > +     if (adev->powerplay.pp_funcs->check_state_equal) {
-> > +             if (0 != amdgpu_dpm_check_state_equal(adev, adev->pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
->
->
-> We don't need that check as amdgpu_dpm_check_state_equal() should not
-> modify (default)value of
->
-> "equal" on error.
->
->
-> Nirmoy
->
-> > +                     equal = false;
-> > +     }
-> > +
-> > +     if (equal)
-> > +             return;
-> > +
-> > +     amdgpu_dpm_set_power_state(adev);
-> > +     amdgpu_dpm_post_set_power_state(adev);
-> > +
-> > +     adev->pm.dpm.current_active_crtcs = adev->pm.dpm.new_active_crtcs;
-> > +     adev->pm.dpm.current_active_crtc_count = adev->pm.dpm.new_active_crtc_count;
-> > +
-> > +     if (adev->powerplay.pp_funcs->force_performance_level) {
-> > +             if (adev->pm.dpm.thermal_active) {
-> > +                     enum amd_dpm_forced_level level = adev->pm.dpm.forced_level;
-> > +                     /* force low perf level for thermal */
-> > +                     amdgpu_dpm_force_performance_level(adev, AMD_DPM_FORCED_LEVEL_LOW);
-> > +                     /* save the user's level */
-> > +                     adev->pm.dpm.forced_level = level;
-> > +             } else {
-> > +                     /* otherwise, user selected level */
-> > +                     amdgpu_dpm_force_performance_level(adev, adev->pm.dpm.forced_level);
-> > +             }
-> > +     }
-> > +}
-> > +
-> > +void amdgpu_pm_compute_clocks(struct amdgpu_device *adev)
-> > +{
-> > +     int i = 0;
-> > +
-> > +     if (!adev->pm.dpm_enabled)
-> > +             return;
-> > +
-> > +     if (adev->mode_info.num_crtc)
-> > +             amdgpu_display_bandwidth_update(adev);
-> > +
-> > +     for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> > +             struct amdgpu_ring *ring = adev->rings[i];
-> > +             if (ring && ring->sched.ready)
-> > +                     amdgpu_fence_wait_empty(ring);
-> > +     }
-> > +
-> > +     if (is_support_sw_smu(adev)) {
-> > +             struct smu_dpm_context *smu_dpm = &adev->smu.smu_dpm;
-> > +             smu_handle_task(&adev->smu,
-> > +                             smu_dpm->dpm_level,
-> > +                             AMD_PP_TASK_DISPLAY_CONFIG_CHANGE,
-> > +                             true);
-> > +     } else {
-> > +             if (adev->powerplay.pp_funcs->dispatch_tasks) {
-> > +                     if (!amdgpu_device_has_dc_support(adev)) {
-> > +                             mutex_lock(&adev->pm.mutex);
-> > +                             amdgpu_dpm_get_active_displays(adev);
-> > +                             adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
-> > +                             adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
-> > +                             adev->pm.pm_display_cfg.min_vblank_time = amdgpu_dpm_get_vblank_time(adev);
-> > +                             /* we have issues with mclk switching with refresh rates over 120 hz on the non-DC code. */
-> > +                             if (adev->pm.pm_display_cfg.vrefresh > 120)
-> > +                                     adev->pm.pm_display_cfg.min_vblank_time = 0;
-> > +                             if (adev->powerplay.pp_funcs->display_configuration_change)
-> > +                                     adev->powerplay.pp_funcs->display_configuration_change(
-> > +                                                                     adev->powerplay.pp_handle,
-> > +                                                                     &adev->pm.pm_display_cfg);
-> > +                             mutex_unlock(&adev->pm.mutex);
-> > +                     }
-> > +                     amdgpu_dpm_dispatch_task(adev, AMD_PP_TASK_DISPLAY_CONFIG_CHANGE, NULL);
-> > +             } else {
-> > +                     mutex_lock(&adev->pm.mutex);
-> > +                     amdgpu_dpm_get_active_displays(adev);
-> > +                     amdgpu_dpm_change_power_state_locked(adev);
-> > +                     mutex_unlock(&adev->pm.mutex);
-> > +             }
-> > +     }
-> > +}
-> > +
-> > +void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
-> > +{
-> > +     int ret = 0;
-> > +
-> > +     if (adev->family == AMDGPU_FAMILY_SI) {
-> > +             mutex_lock(&adev->pm.mutex);
-> > +             if (enable) {
-> > +                     adev->pm.dpm.uvd_active = true;
-> > +                     adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
-> > +             } else {
-> > +                     adev->pm.dpm.uvd_active = false;
-> > +             }
-> > +             mutex_unlock(&adev->pm.mutex);
-> > +
-> > +             amdgpu_pm_compute_clocks(adev);
-> > +     } else {
-> > +             ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
-> > +             if (ret)
-> > +                     DRM_ERROR("Dpm %s uvd failed, ret = %d. \n",
-> > +                               enable ? "enable" : "disable", ret);
-> > +
-> > +             /* enable/disable Low Memory PState for UVD (4k videos) */
-> > +             if (adev->asic_type == CHIP_STONEY &&
-> > +                     adev->uvd.decode_image_width >= WIDTH_4K) {
-> > +                     struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
-> > +
-> > +                     if (hwmgr && hwmgr->hwmgr_func &&
-> > +                         hwmgr->hwmgr_func->update_nbdpm_pstate)
-> > +                             hwmgr->hwmgr_func->update_nbdpm_pstate(hwmgr,
-> > +                                                                    !enable,
-> > +                                                                    true);
-> > +             }
-> > +     }
-> > +}
-> > +
-> > +void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
-> > +{
-> > +     int ret = 0;
-> > +
-> > +     if (adev->family == AMDGPU_FAMILY_SI) {
-> > +             mutex_lock(&adev->pm.mutex);
-> > +             if (enable) {
-> > +                     adev->pm.dpm.vce_active = true;
-> > +                     /* XXX select vce level based on ring/task */
-> > +                     adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
-> > +             } else {
-> > +                     adev->pm.dpm.vce_active = false;
-> > +             }
-> > +             mutex_unlock(&adev->pm.mutex);
-> > +
-> > +             amdgpu_pm_compute_clocks(adev);
-> > +     } else {
-> > +             ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
-> > +             if (ret)
-> > +                     DRM_ERROR("Dpm %s vce failed, ret = %d. \n",
-> > +                               enable ? "enable" : "disable", ret);
-> > +     }
-> > +}
-> > +
-> > +void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
-> > +{
-> > +     int i;
-> > +
-> > +     if (adev->powerplay.pp_funcs->print_power_state == NULL)
-> > +             return;
-> > +
-> > +     for (i = 0; i < adev->pm.dpm.num_ps; i++)
-> > +             amdgpu_dpm_print_power_state(adev, &adev->pm.dpm.ps[i]);
-> > +
-> > +}
-> > +
-> > +void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable)
-> > +{
-> > +     int ret = 0;
-> > +
-> > +     ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_JPEG, !enable);
-> > +     if (ret)
-> > +             DRM_ERROR("Dpm %s jpeg failed, ret = %d. \n",
-> > +                       enable ? "enable" : "disable", ret);
-> > +}
-> > +
-> > +int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
-> > +{
-> > +     int r;
-> > +
-> > +     if (adev->powerplay.pp_funcs && adev->powerplay.pp_funcs->load_firmware) {
-> > +             r = adev->powerplay.pp_funcs->load_firmware(adev->powerplay.pp_handle);
-> > +             if (r) {
-> > +                     pr_err("smu firmware loading failed\n");
-> > +                     return r;
-> > +             }
-> > +             *smu_version = adev->pm.fw_version;
-> > +     }
-> > +     return 0;
-> > +}
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-> > index 5a2344f839f2..dff4a5f99bb0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-> > @@ -548,4 +548,18 @@ int amdgpu_dpm_set_clockgating_by_smu(struct amdgpu_device *adev,
-> >   int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
-> >                                 bool acquire);
-> >
-> > +void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev);
-> > +
-> > +int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
-> > +                        void *data, uint32_t *size);
-> > +
-> > +void amdgpu_dpm_thermal_work_handler(struct work_struct *work);
-> > +
-> > +void amdgpu_pm_compute_clocks(struct amdgpu_device *adev);
-> > +void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable);
-> > +void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable);
-> > +void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable);
-> > +void amdgpu_pm_print_power_states(struct amdgpu_device *adev);
-> > +int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version);
-> > +
-> >   #endif
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > index 1705e328c6fc..9874f947e2ad 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > @@ -29,17 +29,14 @@
-> >   #include "amdgpu_drv.h"
-> >   #include "amdgpu_pm.h"
-> >   #include "amdgpu_dpm.h"
-> > -#include "amdgpu_display.h"
-> >   #include "amdgpu_smu.h"
-> >   #include "atom.h"
-> > -#include <linux/power_supply.h>
-> >   #include <linux/pci.h>
-> >   #include <linux/hwmon.h>
-> >   #include <linux/hwmon-sysfs.h>
-> >   #include <linux/nospec.h>
-> >   #include <linux/pm_runtime.h>
-> >   #include "hwmgr.h"
-> > -#define WIDTH_4K 3840
-> >
-> >   static const struct cg_flag_name clocks[] = {
-> >       {AMD_CG_SUPPORT_GFX_MGCG, "Graphics Medium Grain Clock Gating"},
-> > @@ -81,45 +78,6 @@ static const struct hwmon_temp_label {
-> >       {PP_TEMP_MEM, "mem"},
-> >   };
-> >
-> > -void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
-> > -{
-> > -     if (adev->pm.dpm_enabled) {
-> > -             mutex_lock(&adev->pm.mutex);
-> > -             if (power_supply_is_system_supplied() > 0)
-> > -                     adev->pm.ac_power = true;
-> > -             else
-> > -                     adev->pm.ac_power = false;
-> > -             if (adev->powerplay.pp_funcs &&
-> > -                 adev->powerplay.pp_funcs->enable_bapm)
-> > -                     amdgpu_dpm_enable_bapm(adev, adev->pm.ac_power);
-> > -             mutex_unlock(&adev->pm.mutex);
-> > -
-> > -             if (is_support_sw_smu(adev))
-> > -                     smu_set_ac_dc(&adev->smu);
-> > -     }
-> > -}
-> > -
-> > -int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
-> > -                        void *data, uint32_t *size)
-> > -{
-> > -     int ret = 0;
-> > -
-> > -     if (!data || !size)
-> > -             return -EINVAL;
-> > -
-> > -     if (is_support_sw_smu(adev))
-> > -             ret = smu_read_sensor(&adev->smu, sensor, data, size);
-> > -     else {
-> > -             if (adev->powerplay.pp_funcs && adev->powerplay.pp_funcs->read_sensor)
-> > -                     ret = adev->powerplay.pp_funcs->read_sensor((adev)->powerplay.pp_handle,
-> > -                                                                 sensor, data, size);
-> > -             else
-> > -                     ret = -EINVAL;
-> > -     }
-> > -
-> > -     return ret;
-> > -}
-> > -
-> >   /**
-> >    * DOC: power_dpm_state
-> >    *
-> > @@ -3636,338 +3594,6 @@ static const struct attribute_group *hwmon_groups[] = {
-> >       NULL
-> >   };
-> >
-> > -void amdgpu_dpm_thermal_work_handler(struct work_struct *work)
-> > -{
-> > -     struct amdgpu_device *adev =
-> > -             container_of(work, struct amdgpu_device,
-> > -                          pm.dpm.thermal.work);
-> > -     /* switch to the thermal state */
-> > -     enum amd_pm_state_type dpm_state = POWER_STATE_TYPE_INTERNAL_THERMAL;
-> > -     int temp, size = sizeof(temp);
-> > -
-> > -     if (!adev->pm.dpm_enabled)
-> > -             return;
-> > -
-> > -     if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_TEMP,
-> > -                                 (void *)&temp, &size)) {
-> > -             if (temp < adev->pm.dpm.thermal.min_temp)
-> > -                     /* switch back the user state */
-> > -                     dpm_state = adev->pm.dpm.user_state;
-> > -     } else {
-> > -             if (adev->pm.dpm.thermal.high_to_low)
-> > -                     /* switch back the user state */
-> > -                     dpm_state = adev->pm.dpm.user_state;
-> > -     }
-> > -     mutex_lock(&adev->pm.mutex);
-> > -     if (dpm_state == POWER_STATE_TYPE_INTERNAL_THERMAL)
-> > -             adev->pm.dpm.thermal_active = true;
-> > -     else
-> > -             adev->pm.dpm.thermal_active = false;
-> > -     adev->pm.dpm.state = dpm_state;
-> > -     mutex_unlock(&adev->pm.mutex);
-> > -
-> > -     amdgpu_pm_compute_clocks(adev);
-> > -}
-> > -
-> > -static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
-> > -                                                  enum amd_pm_state_type dpm_state)
-> > -{
-> > -     int i;
-> > -     struct amdgpu_ps *ps;
-> > -     u32 ui_class;
-> > -     bool single_display = (adev->pm.dpm.new_active_crtc_count < 2) ?
-> > -             true : false;
-> > -
-> > -     /* check if the vblank period is too short to adjust the mclk */
-> > -     if (single_display && adev->powerplay.pp_funcs->vblank_too_short) {
-> > -             if (amdgpu_dpm_vblank_too_short(adev))
-> > -                     single_display = false;
-> > -     }
-> > -
-> > -     /* certain older asics have a separare 3D performance state,
-> > -      * so try that first if the user selected performance
-> > -      */
-> > -     if (dpm_state == POWER_STATE_TYPE_PERFORMANCE)
-> > -             dpm_state = POWER_STATE_TYPE_INTERNAL_3DPERF;
-> > -     /* balanced states don't exist at the moment */
-> > -     if (dpm_state == POWER_STATE_TYPE_BALANCED)
-> > -             dpm_state = POWER_STATE_TYPE_PERFORMANCE;
-> > -
-> > -restart_search:
-> > -     /* Pick the best power state based on current conditions */
-> > -     for (i = 0; i < adev->pm.dpm.num_ps; i++) {
-> > -             ps = &adev->pm.dpm.ps[i];
-> > -             ui_class = ps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK;
-> > -             switch (dpm_state) {
-> > -             /* user states */
-> > -             case POWER_STATE_TYPE_BATTERY:
-> > -                     if (ui_class == ATOM_PPLIB_CLASSIFICATION_UI_BATTERY) {
-> > -                             if (ps->caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
-> > -                                     if (single_display)
-> > -                                             return ps;
-> > -                             } else
-> > -                                     return ps;
-> > -                     }
-> > -                     break;
-> > -             case POWER_STATE_TYPE_BALANCED:
-> > -                     if (ui_class == ATOM_PPLIB_CLASSIFICATION_UI_BALANCED) {
-> > -                             if (ps->caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
-> > -                                     if (single_display)
-> > -                                             return ps;
-> > -                             } else
-> > -                                     return ps;
-> > -                     }
-> > -                     break;
-> > -             case POWER_STATE_TYPE_PERFORMANCE:
-> > -                     if (ui_class == ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE) {
-> > -                             if (ps->caps & ATOM_PPLIB_SINGLE_DISPLAY_ONLY) {
-> > -                                     if (single_display)
-> > -                                             return ps;
-> > -                             } else
-> > -                                     return ps;
-> > -                     }
-> > -                     break;
-> > -             /* internal states */
-> > -             case POWER_STATE_TYPE_INTERNAL_UVD:
-> > -                     if (adev->pm.dpm.uvd_ps)
-> > -                             return adev->pm.dpm.uvd_ps;
-> > -                     else
-> > -                             break;
-> > -             case POWER_STATE_TYPE_INTERNAL_UVD_SD:
-> > -                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_SDSTATE)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_UVD_HD:
-> > -                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_HDSTATE)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
-> > -                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_HD2STATE)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
-> > -                     if (ps->class2 & ATOM_PPLIB_CLASSIFICATION2_MVC)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_BOOT:
-> > -                     return adev->pm.dpm.boot_ps;
-> > -             case POWER_STATE_TYPE_INTERNAL_THERMAL:
-> > -                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_THERMAL)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_ACPI:
-> > -                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_ACPI)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_ULV:
-> > -                     if (ps->class2 & ATOM_PPLIB_CLASSIFICATION2_ULV)
-> > -                             return ps;
-> > -                     break;
-> > -             case POWER_STATE_TYPE_INTERNAL_3DPERF:
-> > -                     if (ps->class & ATOM_PPLIB_CLASSIFICATION_3DPERFORMANCE)
-> > -                             return ps;
-> > -                     break;
-> > -             default:
-> > -                     break;
-> > -             }
-> > -     }
-> > -     /* use a fallback state if we didn't match */
-> > -     switch (dpm_state) {
-> > -     case POWER_STATE_TYPE_INTERNAL_UVD_SD:
-> > -             dpm_state = POWER_STATE_TYPE_INTERNAL_UVD_HD;
-> > -             goto restart_search;
-> > -     case POWER_STATE_TYPE_INTERNAL_UVD_HD:
-> > -     case POWER_STATE_TYPE_INTERNAL_UVD_HD2:
-> > -     case POWER_STATE_TYPE_INTERNAL_UVD_MVC:
-> > -             if (adev->pm.dpm.uvd_ps) {
-> > -                     return adev->pm.dpm.uvd_ps;
-> > -             } else {
-> > -                     dpm_state = POWER_STATE_TYPE_PERFORMANCE;
-> > -                     goto restart_search;
-> > -             }
-> > -     case POWER_STATE_TYPE_INTERNAL_THERMAL:
-> > -             dpm_state = POWER_STATE_TYPE_INTERNAL_ACPI;
-> > -             goto restart_search;
-> > -     case POWER_STATE_TYPE_INTERNAL_ACPI:
-> > -             dpm_state = POWER_STATE_TYPE_BATTERY;
-> > -             goto restart_search;
-> > -     case POWER_STATE_TYPE_BATTERY:
-> > -     case POWER_STATE_TYPE_BALANCED:
-> > -     case POWER_STATE_TYPE_INTERNAL_3DPERF:
-> > -             dpm_state = POWER_STATE_TYPE_PERFORMANCE;
-> > -             goto restart_search;
-> > -     default:
-> > -             break;
-> > -     }
-> > -
-> > -     return NULL;
-> > -}
-> > -
-> > -static void amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
-> > -{
-> > -     struct amdgpu_ps *ps;
-> > -     enum amd_pm_state_type dpm_state;
-> > -     int ret;
-> > -     bool equal = false;
-> > -
-> > -     /* if dpm init failed */
-> > -     if (!adev->pm.dpm_enabled)
-> > -             return;
-> > -
-> > -     if (adev->pm.dpm.user_state != adev->pm.dpm.state) {
-> > -             /* add other state override checks here */
-> > -             if ((!adev->pm.dpm.thermal_active) &&
-> > -                 (!adev->pm.dpm.uvd_active))
-> > -                     adev->pm.dpm.state = adev->pm.dpm.user_state;
-> > -     }
-> > -     dpm_state = adev->pm.dpm.state;
-> > -
-> > -     ps = amdgpu_dpm_pick_power_state(adev, dpm_state);
-> > -     if (ps)
-> > -             adev->pm.dpm.requested_ps = ps;
-> > -     else
-> > -             return;
-> > -
-> > -     if (amdgpu_dpm == 1 && adev->powerplay.pp_funcs->print_power_state) {
-> > -             printk("switching from power state:\n");
-> > -             amdgpu_dpm_print_power_state(adev, adev->pm.dpm.current_ps);
-> > -             printk("switching to power state:\n");
-> > -             amdgpu_dpm_print_power_state(adev, adev->pm.dpm.requested_ps);
-> > -     }
-> > -
-> > -     /* update whether vce is active */
-> > -     ps->vce_active = adev->pm.dpm.vce_active;
-> > -     if (adev->powerplay.pp_funcs->display_configuration_changed)
-> > -             amdgpu_dpm_display_configuration_changed(adev);
-> > -
-> > -     ret = amdgpu_dpm_pre_set_power_state(adev);
-> > -     if (ret)
-> > -             return;
-> > -
-> > -     if (adev->powerplay.pp_funcs->check_state_equal) {
-> > -             if (0 != amdgpu_dpm_check_state_equal(adev, adev->pm.dpm.current_ps, adev->pm.dpm.requested_ps, &equal))
-> > -                     equal = false;
-> > -     }
-> > -
-> > -     if (equal)
-> > -             return;
-> > -
-> > -     amdgpu_dpm_set_power_state(adev);
-> > -     amdgpu_dpm_post_set_power_state(adev);
-> > -
-> > -     adev->pm.dpm.current_active_crtcs = adev->pm.dpm.new_active_crtcs;
-> > -     adev->pm.dpm.current_active_crtc_count = adev->pm.dpm.new_active_crtc_count;
-> > -
-> > -     if (adev->powerplay.pp_funcs->force_performance_level) {
-> > -             if (adev->pm.dpm.thermal_active) {
-> > -                     enum amd_dpm_forced_level level = adev->pm.dpm.forced_level;
-> > -                     /* force low perf level for thermal */
-> > -                     amdgpu_dpm_force_performance_level(adev, AMD_DPM_FORCED_LEVEL_LOW);
-> > -                     /* save the user's level */
-> > -                     adev->pm.dpm.forced_level = level;
-> > -             } else {
-> > -                     /* otherwise, user selected level */
-> > -                     amdgpu_dpm_force_performance_level(adev, adev->pm.dpm.forced_level);
-> > -             }
-> > -     }
-> > -}
-> > -
-> > -void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
-> > -{
-> > -     int ret = 0;
-> > -
-> > -     if (adev->family == AMDGPU_FAMILY_SI) {
-> > -             mutex_lock(&adev->pm.mutex);
-> > -             if (enable) {
-> > -                     adev->pm.dpm.uvd_active = true;
-> > -                     adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
-> > -             } else {
-> > -                     adev->pm.dpm.uvd_active = false;
-> > -             }
-> > -             mutex_unlock(&adev->pm.mutex);
-> > -
-> > -             amdgpu_pm_compute_clocks(adev);
-> > -     } else {
-> > -             ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
-> > -             if (ret)
-> > -                     DRM_ERROR("Dpm %s uvd failed, ret = %d. \n",
-> > -                               enable ? "enable" : "disable", ret);
-> > -
-> > -             /* enable/disable Low Memory PState for UVD (4k videos) */
-> > -             if (adev->asic_type == CHIP_STONEY &&
-> > -                     adev->uvd.decode_image_width >= WIDTH_4K) {
-> > -                     struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
-> > -
-> > -                     if (hwmgr && hwmgr->hwmgr_func &&
-> > -                         hwmgr->hwmgr_func->update_nbdpm_pstate)
-> > -                             hwmgr->hwmgr_func->update_nbdpm_pstate(hwmgr,
-> > -                                                                    !enable,
-> > -                                                                    true);
-> > -             }
-> > -     }
-> > -}
-> > -
-> > -void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
-> > -{
-> > -     int ret = 0;
-> > -
-> > -     if (adev->family == AMDGPU_FAMILY_SI) {
-> > -             mutex_lock(&adev->pm.mutex);
-> > -             if (enable) {
-> > -                     adev->pm.dpm.vce_active = true;
-> > -                     /* XXX select vce level based on ring/task */
-> > -                     adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
-> > -             } else {
-> > -                     adev->pm.dpm.vce_active = false;
-> > -             }
-> > -             mutex_unlock(&adev->pm.mutex);
-> > -
-> > -             amdgpu_pm_compute_clocks(adev);
-> > -     } else {
-> > -             ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
-> > -             if (ret)
-> > -                     DRM_ERROR("Dpm %s vce failed, ret = %d. \n",
-> > -                               enable ? "enable" : "disable", ret);
-> > -     }
-> > -}
-> > -
-> > -void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
-> > -{
-> > -     int i;
-> > -
-> > -     if (adev->powerplay.pp_funcs->print_power_state == NULL)
-> > -             return;
-> > -
-> > -     for (i = 0; i < adev->pm.dpm.num_ps; i++)
-> > -             amdgpu_dpm_print_power_state(adev, &adev->pm.dpm.ps[i]);
-> > -
-> > -}
-> > -
-> > -void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable)
-> > -{
-> > -     int ret = 0;
-> > -
-> > -     ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_JPEG, !enable);
-> > -     if (ret)
-> > -             DRM_ERROR("Dpm %s jpeg failed, ret = %d. \n",
-> > -                       enable ? "enable" : "disable", ret);
-> > -}
-> > -
-> > -int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
-> > -{
-> > -     int r;
-> > -
-> > -     if (adev->powerplay.pp_funcs && adev->powerplay.pp_funcs->load_firmware) {
-> > -             r = adev->powerplay.pp_funcs->load_firmware(adev->powerplay.pp_handle);
-> > -             if (r) {
-> > -                     pr_err("smu firmware loading failed\n");
-> > -                     return r;
-> > -             }
-> > -             *smu_version = adev->pm.fw_version;
-> > -     }
-> > -     return 0;
-> > -}
-> > -
-> >   int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
-> >   {
-> >       int ret;
-> > @@ -4028,55 +3654,6 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
-> >       amdgpu_device_attr_remove_groups(adev, &adev->pm.pm_attr_list);
-> >   }
-> >
-> > -void amdgpu_pm_compute_clocks(struct amdgpu_device *adev)
-> > -{
-> > -     int i = 0;
-> > -
-> > -     if (!adev->pm.dpm_enabled)
-> > -             return;
-> > -
-> > -     if (adev->mode_info.num_crtc)
-> > -             amdgpu_display_bandwidth_update(adev);
-> > -
-> > -     for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> > -             struct amdgpu_ring *ring = adev->rings[i];
-> > -             if (ring && ring->sched.ready)
-> > -                     amdgpu_fence_wait_empty(ring);
-> > -     }
-> > -
-> > -     if (is_support_sw_smu(adev)) {
-> > -             struct smu_dpm_context *smu_dpm = &adev->smu.smu_dpm;
-> > -             smu_handle_task(&adev->smu,
-> > -                             smu_dpm->dpm_level,
-> > -                             AMD_PP_TASK_DISPLAY_CONFIG_CHANGE,
-> > -                             true);
-> > -     } else {
-> > -             if (adev->powerplay.pp_funcs->dispatch_tasks) {
-> > -                     if (!amdgpu_device_has_dc_support(adev)) {
-> > -                             mutex_lock(&adev->pm.mutex);
-> > -                             amdgpu_dpm_get_active_displays(adev);
-> > -                             adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
-> > -                             adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
-> > -                             adev->pm.pm_display_cfg.min_vblank_time = amdgpu_dpm_get_vblank_time(adev);
-> > -                             /* we have issues with mclk switching with refresh rates over 120 hz on the non-DC code. */
-> > -                             if (adev->pm.pm_display_cfg.vrefresh > 120)
-> > -                                     adev->pm.pm_display_cfg.min_vblank_time = 0;
-> > -                             if (adev->powerplay.pp_funcs->display_configuration_change)
-> > -                                     adev->powerplay.pp_funcs->display_configuration_change(
-> > -                                                                     adev->powerplay.pp_handle,
-> > -                                                                     &adev->pm.pm_display_cfg);
-> > -                             mutex_unlock(&adev->pm.mutex);
-> > -                     }
-> > -                     amdgpu_dpm_dispatch_task(adev, AMD_PP_TASK_DISPLAY_CONFIG_CHANGE, NULL);
-> > -             } else {
-> > -                     mutex_lock(&adev->pm.mutex);
-> > -                     amdgpu_dpm_get_active_displays(adev);
-> > -                     amdgpu_dpm_change_power_state_locked(adev);
-> > -                     mutex_unlock(&adev->pm.mutex);
-> > -             }
-> > -     }
-> > -}
-> > -
-> >   /*
-> >    * Debugfs info
-> >    */
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h
-> > index d9ae2b49a402..45a22e101d15 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h
-> > @@ -79,18 +79,10 @@ struct amdgpu_device_attr_entry {
-> >                            amdgpu_get_##_name, NULL,                  \
-> >                            _flags, ##__VA_ARGS__)
-> >
-> > -void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev);
-> >   int amdgpu_pm_sysfs_init(struct amdgpu_device *adev);
-> >   int amdgpu_pm_virt_sysfs_init(struct amdgpu_device *adev);
-> >   void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev);
-> >   void amdgpu_pm_virt_sysfs_fini(struct amdgpu_device *adev);
-> > -void amdgpu_pm_print_power_states(struct amdgpu_device *adev);
-> > -int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version);
-> > -void amdgpu_pm_compute_clocks(struct amdgpu_device *adev);
-> > -void amdgpu_dpm_thermal_work_handler(struct work_struct *work);
-> > -void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable);
-> > -void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable);
-> > -void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable);
-> >
-> >   int amdgpu_debugfs_pm_init(struct amdgpu_device *adev);
-> >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+--Orz2ZqpSWnksEfl2yo6RF3aBwExLujGG6
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 13.08.20 um 15:36 schrieb Laurent Pinchart:
+> Hi Thomas,
+>=20
+> Thank you for the patch.
+>=20
+> On Thu, Aug 13, 2020 at 10:36:43AM +0200, Thomas Zimmermann wrote:
+>> The xlnx driver uses CMA helpers with default callback functions.
+>> Initialize the driver structure with the rsp CMA helper macro. The
+>> driver is being converted to use GEM object functions as part of
+>> this change.
+>>
+>> Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
+>> to their default implementations, so they are just kept empty now.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>  drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
+>>  1 file changed, 1 insertion(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xln=
+x/zynqmp_dpsub.c
+>> index 26328c76305b..058044dcc062 100644
+>> --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+>> +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+>> @@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver =3D=
+ {
+>>  	.driver_features		=3D DRIVER_MODESET | DRIVER_GEM |
+>>  					  DRIVER_ATOMIC,
+>> =20
+>> -	.prime_handle_to_fd		=3D drm_gem_prime_handle_to_fd,
+>> -	.prime_fd_to_handle		=3D drm_gem_prime_fd_to_handle,
+>> -	.gem_prime_export		=3D drm_gem_prime_export,
+>> -	.gem_prime_import		=3D drm_gem_prime_import,
+>> -	.gem_prime_get_sg_table		=3D drm_gem_cma_prime_get_sg_table,
+>> -	.gem_prime_import_sg_table	=3D drm_gem_cma_prime_import_sg_table,
+>> -	.gem_prime_vmap			=3D drm_gem_cma_prime_vmap,
+>> -	.gem_prime_vunmap		=3D drm_gem_cma_prime_vunmap,
+>> -	.gem_prime_mmap			=3D drm_gem_cma_prime_mmap,
+>> -	.gem_free_object_unlocked	=3D drm_gem_cma_free_object,
+>> -	.gem_vm_ops			=3D &drm_gem_cma_vm_ops,
+>> -	.dumb_create			=3D zynqmp_dpsub_dumb_create,
+>> -	.dumb_destroy			=3D drm_gem_dumb_destroy,
+>> +	DRM_GEM_CMA_DRIVER_OPS_VMAP_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_creat=
+e),
+>=20
+> The only effective change here is
+>=20
+> -	.gem_prime_import_sg_table	=3D drm_gem_cma_prime_import_sg_table,
+> -	.gem_prime_mmap			=3D drm_gem_cma_prime_mmap,
+> +	.gem_prime_import_sg_table	=3D drm_gem_cma_prime_import_sg_table_vmap=
+,
+> +	.gem_prime_mmap			=3D drm_gem_prime_mmap,
+>=20
+> The change is significant, and I have a hard time following the code to=
+
+> verify that it's correct, or if it's an undesired side effect. If it's
+> correct, could the change be mentioned in the commit message, with at
+> least a brief explanation of why this is correct, and what the
+> consequences here ?
+
+I think this is a mistake that I didn't notice. Thanks for spotting it.
+Initializing the driver structure
+DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE should fix it. I'll change this
+for the patch's next revision.
+
+Best regards
+Thomas
+
+>=20
+>> =20
+>>  	.fops				=3D &zynqmp_dpsub_drm_fops,
+>> =20
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--Orz2ZqpSWnksEfl2yo6RF3aBwExLujGG6--
+
+--tbCt2o5uFn9Z4Xo4P1cpCcyhXosV08OH6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl81RswUHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPfqAgAoOYcX5UFEbejKi/wGBq3HxlV2lCp
+5M6+u8OsIfDWcmroBE+YK419eRwDbsNeDSbzHs7GVQ7SOEeltGdgRpf7QuaUgupn
+VJmuMSjAwqbV0l5nyd5DD0Tr2Z/QOxaLAguvxUcSTOdYWAuqLwTo6X5+butu86YB
+tEBhKOk6Vzm8C5KA3Loy27We59QzBmDHJ+cdzEhsM1AG0SPJ5sePjMiKFMM3Mo4u
+8+HQ3wVLzYAQVhK7Q8bUM/6yIv+AQaAfoNtG3zPI7q9FKKKMbBbTVQV0YeZUKC4T
+kIHdnG+dlK834qYxJmlxWwcU8XjHoiAbQYJDfpmjeYw++Xz1MePDB6MG2g==
+=PGhi
+-----END PGP SIGNATURE-----
+
+--tbCt2o5uFn9Z4Xo4P1cpCcyhXosV08OH6--
+
+--===============1830858251==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1830858251==--
