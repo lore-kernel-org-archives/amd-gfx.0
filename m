@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61F6EC433E8
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAE27C433EA
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 326D920768
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AC64720768
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 21:35:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="G2N3PCw2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 326D920768
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qOpS2HV/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC64720768
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE326E266;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAABD6EA20;
 	Thu, 13 Aug 2020 21:35:40 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D51A6E264
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 21:35:37 +0000 (UTC)
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3248D6E261
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 21:35:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DBqRQoy93GZfNPlV0U+r1JLW/Gev6KoJUZxs3aA2eAdDhLWm+KwQeQSsT0wCpYhxnOZN4ZI7D5j+VDEpENBILOyng7pOBfg7EGzK/gdbxwX+n2UecGIRrxG/mzHajxHK+NsrfqJBuB1NnztuB5WQIGQKhZDss48NpV4GB8hZFQ96ZhLUImwnAqSVv0Cpm5MrZQqvtCqxpb5zLBJkOQXDLtMk27u+zf6LV++57O/nLLsfpduv/gqxsnPNQf94RBKqG0iV/fHNh4ClrGBrMsNJ+h8mz7TkzKQrTQgDI7J/ipZmsGIEAEvlabSNrDYMSs6RL0IGBRJ5kFHy9emZ8tfmYg==
+ b=n7EBQ45Q+PE9b99btCaQn8jLBNS7AQDmAjZ4CzWneEbnfqEDXux35hzicfYoTToxKWdEMwHQ60wozzFhXsV0o5nRNNtqqjlbxGOHYOnj6eabe5xTGyfvH252t4aBeSJ6kZrPMkMELo6mjt4LiOG4XUoGwQkc81Q17MV3yEf5Jrt/FnvGwCFkX8fNLAc/rbtvdD4xJ2OimM+uIdlxud3r2fSLijzEy3XJji0u2qihttZdOjfT95o0bzUkdkbQaEZynRZYlhRiyOtiucxmKsfY+8tR8+i0xH3MCELKVmXiCejyCqbaCCKJF34NkvCdgIkS2knl8BEmLALVbN4n78Qavw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GXK4w3coOzwoRwOdb6ommcTYCZUkWjawdLfsr+SxHrE=;
- b=I25zYT+fYKxBcIxFShfouTRhrzl0Imz0Q5GYhHNhqLxwE/rj3mloppe/TiWnuXceQwC7nngN4/Tv4MQGRTNmj/K91hjasZFGa7ik9nEHBI+kui1a7ok3S9OLUuyucimGGT1Ovi0VljH1+2o74PkEgLJLHhRlX/uwCNbLxxpJGQIVK6YoeEOE+cbWNnT8NYA1BKGd1BkX/1OtVopykk3slx8rcdTpKvgvOjg0JYRthSH/YhB80I3w7Se31iTO5Pf/UcjURYZhomGPjMtpaZ2AaBqcYpnHGgdQckMW+vwEA+48z6x0/YFB1zpADbsn0AdjP/L+EK3KxOVCl1h5fj6dbw==
+ bh=ZsW30lCA4W8E3TQ0YaoKP5hjdhafH8Wcf+mF1klQ1gE=;
+ b=Z52kQMrYwR8mbCBl2G3cq5QS8pDYWx06FChy+xGya///cluVkYOxmJHahVSURxCmwVVGEcEWGJ1Uj4C3Y98LvdfMRhv9irl9bVtbTMmYTGBNtHKNtGXRmRwAXrvuxIPFWA4d7ylTYjkh1jkH3zJmsMidBRvce0pIwHDvQx0kXdXnA/qF4smpSL0c0uz/urEqaWGhpvK8n4j9KPSLJv/P//u0Ar1rZd2CESSMRmvoxu1qSdZ/ejPspt5UMcpMQJi3GyVylJ4RAmpKGWjzWfEcryjnHh9JGw6r8bjuBTr7KaX/9eU/V1ASfDTKhrXj/hYnKdihLXX6gJn9/uK+2zYKfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GXK4w3coOzwoRwOdb6ommcTYCZUkWjawdLfsr+SxHrE=;
- b=G2N3PCw2mPftQdZ743pdAU4aGwxyQYF63mqfixsy9a0zZnmjNIhEaLhGjIDNYOIiImmIYjaLJ7WL1rJSgbbed0AKmtvyaywGTdV3M+mcd2WlJX4br65RIhhd45LG9wb97n5hGhpYgb6eN+lkPHv52mpjJvXn1yHMM/9kDUSO9Ac=
+ bh=ZsW30lCA4W8E3TQ0YaoKP5hjdhafH8Wcf+mF1klQ1gE=;
+ b=qOpS2HV/RSAPDqC0zVCB5boCfo63MjjO5/l1CUGYlk6f9TuDQ0YDXatGKpNacB6sa5kSvmxnXJaDDFrIFvAP3ujQDDZocpCVRAj7DEB6Z9FXN1khGdGzMUj7BJezEry7cB7Er8vvpT1kFEAhINlEKVuCzJZEWKzfYwIkWQPtpHk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -54,10 +54,9 @@ Received: from DM6PR12MB4124.namprd12.prod.outlook.com
  21:35:36 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 16/17] drm/amd/display: Mask DPCD field to avoid reading
- unsupported field value
-Date: Thu, 13 Aug 2020 17:33:55 -0400
-Message-Id: <20200813213356.1606886-17-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 17/17] drm/amd/display: [FW Promotion] Release 0.0.29
+Date: Thu, 13 Aug 2020 17:33:56 -0400
+Message-Id: <20200813213356.1606886-18-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200813213356.1606886-1-Rodrigo.Siqueira@amd.com>
 References: <20200813213356.1606886-1-Rodrigo.Siqueira@amd.com>
@@ -69,34 +68,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::2db6) by
  YTBPR01CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Thu, 13 Aug 2020 21:35:35 +0000
+ 15.20.3283.15 via Frontend Transport; Thu, 13 Aug 2020 21:35:36 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [2607:fea8:56e0:6d60::2db6]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 92eba52c-e79b-4f51-74d7-08d83fd0d09c
+X-MS-Office365-Filtering-Correlation-Id: 9b8e31a4-dff3-47a1-1132-08d83fd0d104
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1355:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1355FF3FE44E60F952C2420098430@DM5PR12MB1355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB13550AE43780E34259799DFA98430@DM5PR12MB1355.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6tJ2A2MpkSssjk6Vr65pddhR/0wi2/4opf7tH8gYZtUBuqBOi6YfrW+TOLehfmy2PYphQa7nieyVTAeG4Y+3/H3BHej9ZoM7O+TTP+UAN17moSYBny+6Yx+Do+UUp7Akb/4SLZecw1HA52biOQIh6P0XVyJQGnoKJgrDXyg3mH4kBr2Sfw2clak1Avuu48RuM87skDgJnRdPPUKODlVJbXROLTTqCF9egidVPQg/toGBV0r4ks1ERANOicnp5aaVn/ov3SuLlVJZmipeFIeseeZuG/A5KWFAFuuS4WI8m+wfTkH7amSQVzSWe0abxIAy9AaCs5WEyHxwNMsEG8l4yA==
+X-Microsoft-Antispam-Message-Info: bNmvsIzdORqVUieLykpyksSl3pnBK9exCz6jBnaeG7qwItLgHjVg26Vxgf6VSBs6WIqOgUinr7smAk+0of5aRnVZppwfdh21dwL0a51MeES34WZ9rTUsaBLwCXRKmISrgNx+gUC51MpQSzxIV9Ps2iasGv4YUb4iMhV/AV/vO+Gplub7+gXO5rLahYMypDL3/tydqV2LbeKp1u5ro/QJNEAIJ6laLl2QkZ7S84lCHEV1/rw+jCIh4tGyP0b77HO0vuIWFrhgqG42AxhzzLupSnqtSgHauT/waUECtuIcjZGpWzenmzQj1FXHPCIwuamxD3usb5ZwxkCeiwZ8tQ6VHA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(2616005)(6512007)(83380400001)(6486002)(4326008)(316002)(478600001)(1076003)(6916009)(66476007)(66556008)(36756003)(52116002)(66946007)(2906002)(6506007)(8676002)(6666004)(54906003)(16526019)(8936002)(5660300002)(186003)(86362001);
+ SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(2616005)(6512007)(83380400001)(6486002)(4326008)(316002)(478600001)(1076003)(6916009)(66476007)(66556008)(36756003)(52116002)(66946007)(2906002)(6506007)(8676002)(6666004)(16526019)(8936002)(5660300002)(186003)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: snUx2SDKx9UpstYgxOQc3ZMgvLR+dBqtrnrfGeAGHmBHP6xVecsOeHx/FLtZBPG/HYHqvYdiIECd/Y/PKkFBhK/+hrSTr1cw1CEt2XjpBk5bxnjKXXyWdy9TcRR8bSR4rJBUxP3mNrgWFYthp0fKHR2lPTDTW5RfeX1T3tB2uDVmeW8H4Q5OLulGZp1UQgfVSgmm0VKjfDeOKPU+Ot0SDBo/jOUf69B31kh3pBGpTK67+bdOWpoZf4SCVBZX5wrdH0w7knV8Mrs/evKocsPudgDUEAuhRyYNFE3HwIYszFbO5OvwJeO6KoMOdgKKhhkLu4IkEjWOSBsjzRewRGCLnRS7LftD+gfmsiPg8dbwXDrr3AMNzmgRj+KfPoL1e6WkTA+uGKRS6SdmphCtayO6m9c8RCCEwqhUVJlH3gAbBRss2r1H6ukIHkkV0ILT9SSjXRCmB7YK4uu/wnWhpNxFLivWU/atPKBk1W8dtOlaLPlMKMHGHqwmaeyL1bpmXnwy4Bzl7E08wADUJVcoWUt5j11w6l5tvAeA2fJ5EFo7Jj603WDFqWht62q28TliuX8R+NoImUREojaSe93QCeSRw3V/OVN4IWHcLcdPFuhglyrcKXuFHk2z2mZhxM1oMDfUQ1XI6/zQctnRKRzAWZPc/JS8+RLW0tfpf8HZFel/YTk=
+X-MS-Exchange-AntiSpam-MessageData: n7pFlzWZG6kaYBDfYzZZ6dZL+33vK0D5B/BFnibzpaCKHc9XKKgpCUu8HoRvKM/8DiyssIjrVtNZSTW+zfaySLK4ManqliP1ub1aoWjjXCMZayPtOtL2uEjhjXgwkdBKWJt1rXNk42G7ziKIEG58kYEMXj/WcKp2Fep+HzY3svKdpnywk9262SHbFha365+Hdd0Uau/+Z4amcKrwbQOX5YzSm4bncxjok6Pa9XDEZ/U3c6by+SmsfIbetRxbt4s6xlOU1fn5PVRIwutnWFLEiOqJqZsDdodDkegHJuQ69gLv5xK9MOAvOmNNmka1GDcu/QFCgD/QtYU6yGK2LQNAASZU89blZ0FsYE9ZYmGbv4BGo9wfx7p6Qt7sQkS1A2PNmA3rL6PRsA8MhxyL38kpBvUy3L4b2+gg6m4TaV5bmnOPepj7C8YMNliG4l15qqQgnBtOGX2X1Eha+9bbOLp0PSwSgJ1I440b3gHdiJJWOSO5P4WaO+JZ9N9Wica+EUVg2fK5qXvRawUCs3msJv51IRqSlDaYecxYi6DkxZ8RCp3Gs4zb48wZEgQJ69JPftNypSvMvS+x7KelqXvJE+tEv/Y0851ymrdHZ4tyhDUhNyxwh4vWYS03ZqHY1RnrqkriObgLsjfHgvxNqr9J2toWqeEyWJgvDYrUUICLPMjfLnQ=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92eba52c-e79b-4f51-74d7-08d83fd0d09c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b8e31a4-dff3-47a1-1132-08d83fd0d104
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 21:35:36.0667 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2020 21:35:36.7468 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q9IZaufKJFmGX9FLSw71KhqqUpoJYg/u74zylNLqFP5H9ra2gSrUjTjg8taMrlMWKlj4U/lT+F7Uh+N8WydtPg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: T5/0YL+WWvN79iRkdOsLdUv6G7y0wmCSm3hy6uwBdH1Pw4P7DIfU5PQZ9PbqIUwbzmzkYFg0amYlBTptoL1x6g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1355
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,49 +108,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Jaehyun Chung <jaehyun.chung@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Wenjing Liu <Wenjing.Liu@amd.com>,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com, Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jaehyun Chung <jaehyun.chung@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
-[Why]
-DSC will be disabled if DPCD 0006F[6:3] is set to a non-zero value
-because bits 6:3 are not currently supported. When 6:3 is populated, an
-unsupported INCREMENT OF bits_per_pixel value is read (DPCD 0006F[2:0])
+[Header Changes]
+ - Add command for panel power seq control
 
-[How]
-Mask the INCREMENT OF bits_per_pixel field so that values in the
-unsupported field are ignored.
-
-Signed-off-by: Jaehyun Chung <jaehyun.chung@amd.com>
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index da1b654833d5..4c844cfaa956 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -192,8 +192,10 @@ static bool dsc_throughput_from_dpcd(int dpcd_throughput, int *throughput)
- }
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index b58ed6538eab..d7e7f2eda92f 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -36,10 +36,10 @@
  
+ /* Firmware versioning. */
+ #ifdef DMUB_EXPOSE_VERSION
+-#define DMUB_FW_VERSION_GIT_HASH 0x3f7e3738b
++#define DMUB_FW_VERSION_GIT_HASH 0x4e5b2f46f
+ #define DMUB_FW_VERSION_MAJOR 0
+ #define DMUB_FW_VERSION_MINOR 0
+-#define DMUB_FW_VERSION_REVISION 28
++#define DMUB_FW_VERSION_REVISION 29
+ #define DMUB_FW_VERSION_TEST 0
+ #define DMUB_FW_VERSION_VBIOS 0
+ #define DMUB_FW_VERSION_HOTFIX 0
+@@ -213,6 +213,7 @@ enum dmub_cmd_vbios_type {
+ 	DMUB_CMD__VBIOS_DIG1_TRANSMITTER_CONTROL = 1,
+ 	DMUB_CMD__VBIOS_SET_PIXEL_CLOCK = 2,
+ 	DMUB_CMD__VBIOS_ENABLE_DISP_POWER_GATING = 3,
++	DMUB_CMD__VBIOS_LVTMA_CONTROL = 15,
+ };
  
--static bool dsc_bpp_increment_div_from_dpcd(int bpp_increment_dpcd, uint32_t *bpp_increment_div)
-+static bool dsc_bpp_increment_div_from_dpcd(uint8_t bpp_increment_dpcd, uint32_t *bpp_increment_div)
- {
-+	// Mask bpp increment dpcd field to avoid reading other fields
-+	bpp_increment_dpcd &= 0x7;
- 
- 	switch (bpp_increment_dpcd) {
- 	case 0:
+ //==============================================================================
 -- 
 2.28.0
 
