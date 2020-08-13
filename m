@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.0 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9378AC433F2
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:38:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48237C43467
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:38:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7142A2080C
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:38:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7142A2080C
+	by mail.kernel.org (Postfix) with ESMTPS id 26A4C20781
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 08:38:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26A4C20781
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E87276E9E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 941806E9E2;
 	Thu, 13 Aug 2020 08:37:11 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E176E9DA;
- Thu, 13 Aug 2020 08:37:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A75586E9A3;
+ Thu, 13 Aug 2020 08:37:08 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2ACFFB5A7;
- Thu, 13 Aug 2020 08:37:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4D6F9B5A8;
+ Thu, 13 Aug 2020 08:37:29 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -49,10 +49,9 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
  tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
  miaoqinglang@huawei.com, emil.velikov@collabora.com
-Subject: [PATCH 19/20] drm/xlnx: Initialize DRM driver instance with CMA
- helper macro
-Date: Thu, 13 Aug 2020 10:36:43 +0200
-Message-Id: <20200813083644.31711-20-tzimmermann@suse.de>
+Subject: [PATCH 18/20] drm/xen: Introduce GEM object functions
+Date: Thu, 13 Aug 2020 10:36:42 +0200
+Message-Id: <20200813083644.31711-19-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200813083644.31711-1-tzimmermann@suse.de>
 References: <20200813083644.31711-1-tzimmermann@suse.de>
@@ -80,44 +79,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The xlnx driver uses CMA helpers with default callback functions.
-Initialize the driver structure with the rsp CMA helper macro. The
-driver is being converted to use GEM object functions as part of
-this change.
-
-Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
-to their default implementations, so they are just kept empty now.
+GEM object functions deprecate several similar callback interfaces in
+struct drm_driver. This patch replaces the per-driver callbacks with
+per-instance callbacks in xen. The only exception is gem_prime_mmap,
+which is non-trivial to convert.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+ drivers/gpu/drm/xen/xen_drm_front.c     | 12 +-----------
+ drivers/gpu/drm/xen/xen_drm_front.h     |  2 ++
+ drivers/gpu/drm/xen/xen_drm_front_gem.c | 15 +++++++++++++++
+ 3 files changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-index 26328c76305b..058044dcc062 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-@@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
- 	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
- 					  DRIVER_ATOMIC,
+diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xen_drm_front.c
+index 3e660fb111b3..bd9af1875af1 100644
+--- a/drivers/gpu/drm/xen/xen_drm_front.c
++++ b/drivers/gpu/drm/xen/xen_drm_front.c
+@@ -433,7 +433,7 @@ static int xen_drm_drv_dumb_create(struct drm_file *filp,
+ 	return ret;
+ }
  
--	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
--	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
--	.gem_prime_export		= drm_gem_prime_export,
--	.gem_prime_import		= drm_gem_prime_import,
--	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
--	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
--	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
--	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
--	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
--	.gem_free_object_unlocked	= drm_gem_cma_free_object,
--	.gem_vm_ops			= &drm_gem_cma_vm_ops,
--	.dumb_create			= zynqmp_dpsub_dumb_create,
--	.dumb_destroy			= drm_gem_dumb_destroy,
-+	DRM_GEM_CMA_DRIVER_OPS_VMAP_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
+-static void xen_drm_drv_free_object_unlocked(struct drm_gem_object *obj)
++void xen_drm_drv_free_object_unlocked(struct drm_gem_object *obj)
+ {
+ 	struct xen_drm_front_drm_info *drm_info = obj->dev->dev_private;
+ 	int idx;
+@@ -481,22 +481,12 @@ static const struct file_operations xen_drm_dev_fops = {
+ 	.mmap           = xen_drm_front_gem_mmap,
+ };
  
- 	.fops				= &zynqmp_dpsub_drm_fops,
+-static const struct vm_operations_struct xen_drm_drv_vm_ops = {
+-	.open           = drm_gem_vm_open,
+-	.close          = drm_gem_vm_close,
+-};
+-
+ static struct drm_driver xen_drm_driver = {
+ 	.driver_features           = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+ 	.release                   = xen_drm_drv_release,
+-	.gem_vm_ops                = &xen_drm_drv_vm_ops,
+-	.gem_free_object_unlocked  = xen_drm_drv_free_object_unlocked,
+ 	.prime_handle_to_fd        = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle        = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = xen_drm_front_gem_import_sg_table,
+-	.gem_prime_get_sg_table    = xen_drm_front_gem_get_sg_table,
+-	.gem_prime_vmap            = xen_drm_front_gem_prime_vmap,
+-	.gem_prime_vunmap          = xen_drm_front_gem_prime_vunmap,
+ 	.gem_prime_mmap            = xen_drm_front_gem_prime_mmap,
+ 	.dumb_create               = xen_drm_drv_dumb_create,
+ 	.fops                      = &xen_drm_dev_fops,
+diff --git a/drivers/gpu/drm/xen/xen_drm_front.h b/drivers/gpu/drm/xen/xen_drm_front.h
+index f92c258350ca..93e60c1db550 100644
+--- a/drivers/gpu/drm/xen/xen_drm_front.h
++++ b/drivers/gpu/drm/xen/xen_drm_front.h
+@@ -160,4 +160,6 @@ int xen_drm_front_page_flip(struct xen_drm_front_info *front_info,
+ void xen_drm_front_on_frame_done(struct xen_drm_front_info *front_info,
+ 				 int conn_idx, u64 fb_cookie);
  
++void xen_drm_drv_free_object_unlocked(struct drm_gem_object *obj);
++
+ #endif /* __XEN_DRM_FRONT_H_ */
+diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+index f0b85e094111..7b315c08bcfc 100644
+--- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
++++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+@@ -56,6 +56,19 @@ static void gem_free_pages_array(struct xen_gem_object *xen_obj)
+ 	xen_obj->pages = NULL;
+ }
+ 
++static const struct vm_operations_struct xen_drm_drv_vm_ops = {
++	.open           = drm_gem_vm_open,
++	.close          = drm_gem_vm_close,
++};
++
++static const struct drm_gem_object_funcs xen_drm_front_gem_object_funcs = {
++	.free = xen_drm_drv_free_object_unlocked,
++	.get_sg_table = xen_drm_front_gem_get_sg_table,
++	.vmap = xen_drm_front_gem_prime_vmap,
++	.vunmap = xen_drm_front_gem_prime_vunmap,
++	.vm_ops = &xen_drm_drv_vm_ops,
++};
++
+ static struct xen_gem_object *gem_create_obj(struct drm_device *dev,
+ 					     size_t size)
+ {
+@@ -66,6 +79,8 @@ static struct xen_gem_object *gem_create_obj(struct drm_device *dev,
+ 	if (!xen_obj)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	xen_obj->base.funcs = &xen_drm_front_gem_object_funcs;
++
+ 	ret = drm_gem_object_init(dev, &xen_obj->base, size);
+ 	if (ret < 0) {
+ 		kfree(xen_obj);
 -- 
 2.28.0
 
