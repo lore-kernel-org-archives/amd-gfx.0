@@ -2,70 +2,69 @@ Return-Path: <SRS0=ZeSq=BX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8158BC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 03:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1097C433E1
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 04:25:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 568F6206A4
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 03:36:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6CDD120768
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 04:25:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i57o7MNy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 568F6206A4
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hg+bref4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CDD120768
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD8976E198;
-	Thu, 13 Aug 2020 03:36:21 +0000 (UTC)
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [IPv6:2607:f8b0:4864:20::82a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A71436E02E;
- Thu, 13 Aug 2020 03:36:20 +0000 (UTC)
-Received: by mail-qt1-x82a.google.com with SMTP id e5so3337007qth.5;
- Wed, 12 Aug 2020 20:36:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 156176E1BE;
+	Thu, 13 Aug 2020 04:25:40 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 866BD6E1BE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2020 04:25:38 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id k18so3370130qtm.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2020 21:25:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=u3YsIH4LmQEWWazGHUZ0k7Mgfr21Zk+t0dzVe2tvcCI=;
- b=i57o7MNyY61UqvqfmUXJcEnocEWmqmChiWGq3/Ndl01G3s9mMLSu+Q+9YuJRTYC330
- YWa+pO08s0ne0pL2JTdiudNS1fOMKWWsSROLnR/QFyfrtaKMNlpQaOH89uwrU2sG9CI4
- d5SpMdXJjkOFeT3GU8GYeeFIyCpl6ePDzv8D4I4N1mk7Q1oRSJu7k5yLkGYOub2GYcKL
- ao3tWAZnKRU4dvBOCFbmcZDA97/zP0Xgnt9nn0flbMBNSmoqCkqcXMzonRrHC9bYuQo8
- NXL+5VsX3X5ZZxAluT16lcZVbj0fCXknvnELBOH4Nb4vbD+/rj/ShQ/5bPpMzEGq1cf0
- I02g==
+ bh=PH8jNdAWKz9+rZ3n3Z6dxbhyEPb93rpC2pv5bqDUa9E=;
+ b=Hg+bref4pAGvZGZqT3ahTgvBINqry5oLKfm2oe8/MtkiSRVJpIqVRMuOJW9Qf+vWco
+ hLUexDVgv4w2VA0df09fp9Rxf3pYsToY7BDzMgBc5Wn9SpYWV8qcmV7+lZLfJRexEpms
+ Y2i49s8+MpXIA/3be8nAhlxFluu6Z6NxqlIzzW5qDns0THCr/3m92zN+jAH+eyE6zPpJ
+ zWsUSMznP5oo/RrON4s1Ra6S88pNgWhPErlryGMEnbJe4OXeCRJunO9DxKOhPAtRi4NB
+ NxnRtR8W/u7sd+cJllaDK/FH9ANXs8hE55Uc8N2iPWEaYQI2ys3xpx2O3H25j+jY72yU
+ iDGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=u3YsIH4LmQEWWazGHUZ0k7Mgfr21Zk+t0dzVe2tvcCI=;
- b=FjOviX6ZKClGONRY8tV/CXTRJeSGRapjjl7nd25WXoOJpkfbToNsaCf89g+Ezv5i3Y
- laukRK9s5wbNV6aNwjz1Ebjsu8fU9gY4sPX+vWozY8/w4hVElpoIE/2QpRg87q+KuKma
- EcN5AQVxNGPrZMl0jvAE5sLeUTvQ092JL6WJre+xjiZOTIEiuH4t/3c3HWMM3i4lSYSL
- WzVUiJDs55FNq6d+DZVG4rAg3SnXTrXKDk5/zJ7r0IjIhsOgXuzH/31jY77KSmLcE0nf
- ASBtIAO95nc/33kDOeZf9QNGL4tKgkzOAdIrAkqw2qtXJ7MfQCbR2nWwdFrlX9J93ezS
- fTTg==
-X-Gm-Message-State: AOAM530QCdxThDjb9Vhxo7oeZylV2wd7sYczGsiKSHMHI0mThq5m8WO/
- oVxJeWrmK64CPqEFOFRkKrywlG9j
-X-Google-Smtp-Source: ABdhPJwx9/w/+52eu1C9up6WJ4QZI0TP6/D9tPep5qdLVQ64+4+b8369au7UDu9MbojncDwldJkxIg==
-X-Received: by 2002:ac8:4747:: with SMTP id k7mr3116481qtp.76.1597289779364;
- Wed, 12 Aug 2020 20:36:19 -0700 (PDT)
+ bh=PH8jNdAWKz9+rZ3n3Z6dxbhyEPb93rpC2pv5bqDUa9E=;
+ b=bpfc6gZxtYi2EIe6fXviLMp+/r4i+hqjJrs/QWzp/s6Hvqq+Q5hbPDLnsv+/HtONdq
+ fu3uLtpNPGeuyFFUfiiCFlN0103ioUwoI0A8lZo0vHBt/qDL4+6F6OEUUkdMx6acA1rG
+ luvvPkSNC6U6AtoNOTIr/Gn0JwY9/6ccGJWfUPuudPvn3O33JU2S8jH2vVRQH9rtp+B8
+ 7f5llnJqRM/6ZPpFZQd8A3QMt2mBwuYRwy9w4nl3Jeh3TwXjBw3FRzlTne6FjdqRV8pE
+ KUd4wbrHKIvP7uLwEuac5CthtSxcUhKT7WW4U71Af4iFJPZPfogpad9qUE8nb+8qVapN
+ cswQ==
+X-Gm-Message-State: AOAM530/qBPRMKkccaVFyYZvB+6srMgN0Bk5Q8vF9cyjsCOTLTrvWbv9
+ 0YZ/l7y9gG/Dv8B8zwMfRrL3GCdc
+X-Google-Smtp-Source: ABdhPJzoS9HkuoJHpNLulUsqxWLj23B4NG2x+BxmlUn4cBGrV+Umu+7NgLXD3TqiVsUQZVWeCMWXQg==
+X-Received: by 2002:aed:2352:: with SMTP id i18mr3346289qtc.167.1597292737494; 
+ Wed, 12 Aug 2020 21:25:37 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id g4sm4814283qtp.89.2020.08.12.20.36.17
+ by smtp.gmail.com with ESMTPSA id d20sm4265414qkl.36.2020.08.12.21.25.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Aug 2020 20:36:18 -0700 (PDT)
+ Wed, 12 Aug 2020 21:25:36 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-5.9
-Date: Wed, 12 Aug 2020 23:36:10 -0400
-Message-Id: <20200813033610.4008-1-alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: drop log message in amdgpu_dpm_baco_reset()
+Date: Thu, 13 Aug 2020 00:25:19 -0400
+Message-Id: <20200813042519.4793-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,76 +84,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+The caller does this now for all reset types.  This is now
+a duplicate call.
 
-Fixes for 5.9.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-The following changes since commit f87812284172a9809820d10143b573d833cd3f75:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
+index 2082c0acd216..1c661c7ab49f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
+@@ -1110,8 +1110,6 @@ int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
+ 	struct smu_context *smu = &adev->smu;
+ 	int ret = 0;
+ 
+-	dev_info(adev->dev, "GPU BACO reset\n");
+-
+ 	if (is_support_sw_smu(adev)) {
+ 		ret = smu_baco_enter(smu);
+ 		if (ret)
+-- 
+2.25.4
 
-  drm/amdgpu: Fix bug where DPM is not enabled after hibernate and resume (2020-08-07 17:52:15 -0400)
-
-are available in the Git repository at:
-
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.9-2020-08-12
-
-for you to fetch changes up to f41ed88cbd6f025f7a683a11a74f901555fba11c:
-
-  drm/amdgpu/display: use GFP_ATOMIC in dcn20_validate_bandwidth_internal (2020-08-10 18:09:46 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-5.9-2020-08-12:
-
-amdgpu:
-- Fix allocation size
-- SR-IOV fixes
-- Vega20 SMU feature state caching fix
-- Fix custom pptable handling
-- Arcturus golden settings update
-- Several display fixes
-
-----------------------------------------------------------------
-Anthony Koo (2):
-      drm/amd/display: Fix LFC multiplier changing erratically
-      drm/amd/display: Switch to immediate mode for updating infopackets
-
-Aric Cyr (1):
-      drm/amd/display: Fix incorrect backlight register offset for DCN
-
-Christophe JAILLET (1):
-      drm: amdgpu: Use the correct size when allocating memory
-
-Daniel Kolesa (1):
-      drm/amdgpu/display: use GFP_ATOMIC in dcn20_validate_bandwidth_internal
-
-Evan Quan (2):
-      drm/amd/powerplay: correct Vega20 cached smu feature state
-      drm/amd/powerplay: correct UVD/VCE PG state on custom pptable uploading
-
-Jaehyun Chung (1):
-      drm/amd/display: Blank stream before destroying HDCP session
-
-Liu ChengZhe (1):
-      drm/amdgpu: Skip some registers config for SRIOV
-
-Stylon Wang (1):
-      drm/amd/display: Fix EDID parsing after resume from suspend
-
-shiwu.zhang (1):
-      drm/amdgpu: update gc golden register for arcturus
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  1 +
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c           | 19 ++++++++++
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c            | 19 ++++++++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 +
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  3 +-
- .../gpu/drm/amd/display/dc/dce/dce_panel_cntl.h    |  2 +-
- .../amd/display/dc/dcn10/dcn10_stream_encoder.c    | 16 ++++----
- .../amd/display/dc/dcn10/dcn10_stream_encoder.h    | 14 +++++++
- .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  2 +-
- .../drm/amd/display/modules/freesync/freesync.c    | 36 ++++++++++++++----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 44 ++++++++++------------
- 12 files changed, 114 insertions(+), 45 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
