@@ -2,69 +2,72 @@ Return-Path: <SRS0=ZeSq=BX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21126C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 03:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8158BC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 03:36:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E36B72076C
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 03:05:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 568F6206A4
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2020 03:36:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNlQ0bls"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E36B72076C
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i57o7MNy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 568F6206A4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA926E02E;
-	Thu, 13 Aug 2020 03:05:34 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 577B16E02E;
- Thu, 13 Aug 2020 03:05:33 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id 184so3742744wmb.0;
- Wed, 12 Aug 2020 20:05:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD8976E198;
+	Thu, 13 Aug 2020 03:36:21 +0000 (UTC)
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [IPv6:2607:f8b0:4864:20::82a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A71436E02E;
+ Thu, 13 Aug 2020 03:36:20 +0000 (UTC)
+Received: by mail-qt1-x82a.google.com with SMTP id e5so3337007qth.5;
+ Wed, 12 Aug 2020 20:36:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Myl3bFwznHFNQ2g0jYsBuDlEUVLZ6Z6r5iszfd59ycU=;
- b=QNlQ0blsYkwXBxeGe0XE5iyRHFdVMdR11/SX6mIROSlaycORt2nWCkOCGAeZnLYHAD
- 8z9UbTJlUmkBjeW6rUIP9tFOK/yz2O790Jo2qb+yeSfQTllXAq7CTy7jfAHpyr9vVXkH
- GaJfhlYHi3g5cEx6zz0Qg9yzlgo55lEIjCLKZvdbzwD6209s62ukaZ1ODnkyogyjaiD9
- qjo4lSQwjuNSPNXt3095jJsT+r7Yfk9XB5jPwuwNCGzd3uz68MmAJMR/InEoXxt4vFqd
- XM6nOikw7keYiW+m9GDcEeu+BzQBAy1LRQ343bOIb5kQltL8FD58q62CwQNOpKWptju7
- WcKw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=u3YsIH4LmQEWWazGHUZ0k7Mgfr21Zk+t0dzVe2tvcCI=;
+ b=i57o7MNyY61UqvqfmUXJcEnocEWmqmChiWGq3/Ndl01G3s9mMLSu+Q+9YuJRTYC330
+ YWa+pO08s0ne0pL2JTdiudNS1fOMKWWsSROLnR/QFyfrtaKMNlpQaOH89uwrU2sG9CI4
+ d5SpMdXJjkOFeT3GU8GYeeFIyCpl6ePDzv8D4I4N1mk7Q1oRSJu7k5yLkGYOub2GYcKL
+ ao3tWAZnKRU4dvBOCFbmcZDA97/zP0Xgnt9nn0flbMBNSmoqCkqcXMzonRrHC9bYuQo8
+ NXL+5VsX3X5ZZxAluT16lcZVbj0fCXknvnELBOH4Nb4vbD+/rj/ShQ/5bPpMzEGq1cf0
+ I02g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Myl3bFwznHFNQ2g0jYsBuDlEUVLZ6Z6r5iszfd59ycU=;
- b=pns2JXtxQpf7FqjHOK2vxAp2c5DpayTS8fvUDJZ/Q85W/2etR4IT6p25bXgK9clnUX
- lyF/KvFsfzYdqfpYOUZrxmil4CBBoBW1jxW8Uf18GqItQCWyE8/7iZSvu612X8ILubhq
- 53oeAzRwjNUk2zNcrZH8GxEZRPnCDGRheAEizwCiGO4jh6IDQN0Cg81kjVuei26lcS18
- cZiWpbQvN8h6RbSfMEGjuThtMwtSsZVf6miClGNx4mXHgNDVvchPbVy+jncSt1yHTTZS
- 2unEO+R8xpqtnso+3sMI89Rov6djBaoYCowIP3i5vIgMpGaS4oEcoKY6jD/VTTfo7n0j
- z29Q==
-X-Gm-Message-State: AOAM530Tt86rOBRPuZk7FDumTacYBqvCIuY8uxUMxzOUUnQnaQawJF2H
- WhTfpOGCA1mRkfQKrKY/71ZnrYwAhNP7HD3gw40=
-X-Google-Smtp-Source: ABdhPJzO62wB9p0C4iQcvSDR5yazEgL+SxiLC+lVba0NxGcwOBnUvEU8yVnOzl3NjKwGf8Zbolyg9vKPUFoEXP+ztPU=
-X-Received: by 2002:a05:600c:252:: with SMTP id
- 18mr2273491wmj.56.1597287931862; 
- Wed, 12 Aug 2020 20:05:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200727205357.27839-1-ddadap@nvidia.com>
- <20200727205357.27839-2-ddadap@nvidia.com>
- <20200808221114.5rfnys76ozoj62wv@wunner.de>
- <3aa06548-b7b4-6753-7169-88e9b2d80acc@nvidia.com>
-In-Reply-To: <3aa06548-b7b4-6753-7169-88e9b2d80acc@nvidia.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=u3YsIH4LmQEWWazGHUZ0k7Mgfr21Zk+t0dzVe2tvcCI=;
+ b=FjOviX6ZKClGONRY8tV/CXTRJeSGRapjjl7nd25WXoOJpkfbToNsaCf89g+Ezv5i3Y
+ laukRK9s5wbNV6aNwjz1Ebjsu8fU9gY4sPX+vWozY8/w4hVElpoIE/2QpRg87q+KuKma
+ EcN5AQVxNGPrZMl0jvAE5sLeUTvQ092JL6WJre+xjiZOTIEiuH4t/3c3HWMM3i4lSYSL
+ WzVUiJDs55FNq6d+DZVG4rAg3SnXTrXKDk5/zJ7r0IjIhsOgXuzH/31jY77KSmLcE0nf
+ ASBtIAO95nc/33kDOeZf9QNGL4tKgkzOAdIrAkqw2qtXJ7MfQCbR2nWwdFrlX9J93ezS
+ fTTg==
+X-Gm-Message-State: AOAM530QCdxThDjb9Vhxo7oeZylV2wd7sYczGsiKSHMHI0mThq5m8WO/
+ oVxJeWrmK64CPqEFOFRkKrywlG9j
+X-Google-Smtp-Source: ABdhPJwx9/w/+52eu1C9up6WJ4QZI0TP6/D9tPep5qdLVQ64+4+b8369au7UDu9MbojncDwldJkxIg==
+X-Received: by 2002:ac8:4747:: with SMTP id k7mr3116481qtp.76.1597289779364;
+ Wed, 12 Aug 2020 20:36:19 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.66.138])
+ by smtp.gmail.com with ESMTPSA id g4sm4814283qtp.89.2020.08.12.20.36.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2020 20:36:18 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Aug 2020 23:05:20 -0400
-Message-ID: <CADnq5_Mzgb=KsqCzmRc_wc+NB_a7OqkEzfV-upJQ=77B7zcpgA@mail.gmail.com>
-Subject: Re: [Nouveau] [PATCH 1/4] drm: retrieve EDID via ACPI _DDC method
-To: Daniel Dadap <ddadap@nvidia.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.9
+Date: Wed, 12 Aug 2020 23:36:10 -0400
+Message-Id: <20200813033610.4008-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,90 +79,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chunming Zhou <david1.zhou@amd.com>,
- nouveau <nouveau@lists.freedesktop.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.com,
- Lukas Wunner <lukas@wunner.de>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, dri-devel@lists.freedesktop.com,
- Ben Skeggs <bskeggs@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2020 at 10:31 PM Daniel Dadap <ddadap@nvidia.com> wrote:
->
-> Thanks, Lukas. I've incorporated your feedback into my local tree, but
-> will wait for additional feedback from the individual DRM driver
-> maintainers before sending out a series v2.
->
-> On 8/8/20 5:11 PM, Lukas Wunner wrote:
-> > On Mon, Jul 27, 2020 at 03:53:54PM -0500, Daniel Dadap wrote:
-> >> +             for (i = 0; i < num_dod_entries; i++) {
-> >> +                     if (adr == dod_entries[i]) {
-> >> +                             ret = do_acpi_ddc(child->handle);
-> >> +
-> >> +                             if (ret != NULL)
-> >> +                                     goto done;
-> > I guess ideally we'd want to correlate the display objects with
-> > drm_connectors or at least constrain the search to Display Type
-> > "Internal/Integrated Digital Flat Panel" instead of picking the
-> > first EDID found.  Otherwise we might erroneously use the DDC
-> > for an externally attached display.
->
->
-> Yes, we'd definitely need a way to do this if this functionality ever
-> needs to be extended to systems with more than one _DDC method.
-> Unfortunately, this will be much easier said than done, since I'm not
-> aware of any way to reliably do map _DOD entries to connectors in a GPU
-> driver, especially when we're talking about possibly correlating
-> connectors on multiple GPUs which mux to the same internal display or
-> external connector. All systems which I am aware of that implement ACPI
-> _DDC do so for a single internal panel. I don't believe there's any
-> reason to ever retrieve an EDID via ACPI _DDC for an external panel, but
-> a hypothetical design with multiple internal panels, more than one of
-> which needs to retrieve an EDID via ACPI _DDC, would certainly be
-> problematic.
->
->
-> On at least the system I'm working with for the various switcheroo and
-> platform-x86 driver patches I've recently sent off, the dGPU has an ACPI
-> _DOD table and one _DDC method corresponding to one of the _DOD entries,
-> but the iGPU has neither a _DOD table nor a _DDC method. Either GPU can
-> be connected to the internal panel via the dynamically switchable mux,
-> and the internal panel's EDID is available via _DDC to allow a
-> disconnected GPU to read the EDID. Since only the DGPU has _DOD and
-> _DDC, and there's no obvious way to associate connectors on the iGPU
-> with connectors on the dGPU, I've implemented the ACPI _DDC EDID
-> retrieval with the "first available" implementation you see here. I'm
-> open to other ideas if you have them, but didn't see a good way to
-> search for the "right" _DDC implementation should there be more than one.
->
->
-> As for preventing the ACPI EDID retrieval from being used for external
-> panels, I've done this in the individual DRM drivers that call into the
-> new drm_edid_acpi() API since it seemed that each DRM driver had its own
-> way of distinguishing display connector types. If there's a good way to
-> filter for internal panels in DRM core, I'd be happy to do that instead.
+Hi Dave, Daniel,
 
-I can double check with our ACPI and vbios teams, but I'm not sure
-that we ever used the _DDC method on any AMD platforms.  Even if we
-did, the driver is still able to get the integrated panel's mode info
-via other means.  In general, external connectors would always get the
-EDID via i2c or aux.  The only use case we ever had to hardcoding an
-EDID was for some really old server chips so they would always think
-something was connected if you wanted to attach a crash cart.  That
-EDID was stored in the vbios, not ACPI.
+Fixes for 5.9.
 
-As for enumerating which displays were muxed or not and the local
-mappings to acpi ids, etc., we had a whole set of ATPX methods to do
-that if anyone is interested:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/amd/include/amd_acpi.h
+The following changes since commit f87812284172a9809820d10143b573d833cd3f75:
 
-Alex
+  drm/amdgpu: Fix bug where DPM is not enabled after hibernate and resume (2020-08-07 17:52:15 -0400)
+
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.9-2020-08-12
+
+for you to fetch changes up to f41ed88cbd6f025f7a683a11a74f901555fba11c:
+
+  drm/amdgpu/display: use GFP_ATOMIC in dcn20_validate_bandwidth_internal (2020-08-10 18:09:46 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.9-2020-08-12:
+
+amdgpu:
+- Fix allocation size
+- SR-IOV fixes
+- Vega20 SMU feature state caching fix
+- Fix custom pptable handling
+- Arcturus golden settings update
+- Several display fixes
+
+----------------------------------------------------------------
+Anthony Koo (2):
+      drm/amd/display: Fix LFC multiplier changing erratically
+      drm/amd/display: Switch to immediate mode for updating infopackets
+
+Aric Cyr (1):
+      drm/amd/display: Fix incorrect backlight register offset for DCN
+
+Christophe JAILLET (1):
+      drm: amdgpu: Use the correct size when allocating memory
+
+Daniel Kolesa (1):
+      drm/amdgpu/display: use GFP_ATOMIC in dcn20_validate_bandwidth_internal
+
+Evan Quan (2):
+      drm/amd/powerplay: correct Vega20 cached smu feature state
+      drm/amd/powerplay: correct UVD/VCE PG state on custom pptable uploading
+
+Jaehyun Chung (1):
+      drm/amd/display: Blank stream before destroying HDCP session
+
+Liu ChengZhe (1):
+      drm/amdgpu: Skip some registers config for SRIOV
+
+Stylon Wang (1):
+      drm/amd/display: Fix EDID parsing after resume from suspend
+
+shiwu.zhang (1):
+      drm/amdgpu: update gc golden register for arcturus
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c           | 19 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c            | 19 ++++++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  3 +-
+ .../gpu/drm/amd/display/dc/dce/dce_panel_cntl.h    |  2 +-
+ .../amd/display/dc/dcn10/dcn10_stream_encoder.c    | 16 ++++----
+ .../amd/display/dc/dcn10/dcn10_stream_encoder.h    | 14 +++++++
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  2 +-
+ .../drm/amd/display/modules/freesync/freesync.c    | 36 ++++++++++++++----
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 44 ++++++++++------------
+ 12 files changed, 114 insertions(+), 45 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
