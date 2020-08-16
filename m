@@ -2,41 +2,76 @@ Return-Path: <SRS0=yJoC=B3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E627AC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 06:31:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D7A7C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 07:09:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C06FD20716
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 06:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C06FD20716
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 4419F2072D
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 07:09:22 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ee6estnC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4419F2072D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75D086E051;
-	Mon, 17 Aug 2020 06:31:34 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B47626E051
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 06:31:33 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 149BDAD73;
- Mon, 17 Aug 2020 06:31:57 +0000 (UTC)
-Subject: Re: TTM/nouveau conflict in drm-misc-next
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <2f7ae285-b51e-409f-9110-534bb68ec0ad@email.android.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <737111f0-3789-5e7d-3862-ca1a7c5050e8@suse.de>
-Date: Mon, 17 Aug 2020 08:31:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 449AF6E462;
+	Mon, 17 Aug 2020 07:08:08 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B97F86E10C;
+ Sun, 16 Aug 2020 07:32:21 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id t23so10158745qto.3;
+ Sun, 16 Aug 2020 00:32:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iFZnS/H//cCqZ9Tw8SLrqXxLr+Us0XncDMx+0csqM/0=;
+ b=Ee6estnCpmTZM2d8Ec7sUyucvgxufFBgzRNx4J7Ya3/fM1RgwV5Y1m5mIRvKjao3xn
+ LC5fdc9me6r5H0/jPNtc1VKFoRbCF7l1lJzHFKX4Jrwb9lHeHnzqF4eBB7dSp4OdfG4v
+ 3w9+he6p2XM3o9yEHqUKW3zS9RsC9Jx060V287sDr976ZAJ2h57evfVm3wCQLuKiOuti
+ N3bjHm2Mf6Vy8J/ajzy712FVyXVnLMNjm+ibmv+bNnYb6WF7mM65UO6dyoJvBeFGeIeK
+ BK95Y5hWfbg1ZLDSveIMjaHqTuWaS26kA7odMQK2XdZ+G/GhNtJ+Y6MhgrnvBWaN/c63
+ QbyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iFZnS/H//cCqZ9Tw8SLrqXxLr+Us0XncDMx+0csqM/0=;
+ b=Mm8AynsNjiXVKWXMnvV7d6ZHJ7PZxxeJNnn1ey5u6uZRRbWzuXDQQL7O//BT9zrZCc
+ oRtCXNJEuLdrSwDURrJNcZWV+yfYt53xZLhW5t098SHR2R65zv/M/5g+gnVcP94qgdYn
+ hIRfSp6Smp8YgPhHm/O7LKx1y5j0zvtUutB+kAppzoU89IMZJd1aa5inJ0FLTmvw/3sq
+ dsEn/BwAQ0MZaiajwVBW4py0Si0jKmd2syVDCdadkx8R8bsRNhsYDHbGcLb/R7T+CSxt
+ glROCNCzKkcZnjAIjtKIhj0SfZyUKTgq+kd+U2oHVFp8PF+dChx3Qr+Bg/PxaP1YwRtc
+ WMiw==
+X-Gm-Message-State: AOAM533ZkLYDk7ETf5ooCv6+sebUO8gBsVMyWOoTXIWZZkAFyuc6G5ao
+ k5N/TL5ikw0CYf4KUJEAntU=
+X-Google-Smtp-Source: ABdhPJwR4kKG/SUUTDLLLFXMrlH6ZZa/0RcpTycMvCDMqdZva0Aq7jclXCddTQ5uuGc9JUMM2Ji4Mw==
+X-Received: by 2002:ac8:604f:: with SMTP id k15mr8921302qtm.338.1597563139833; 
+ Sun, 16 Aug 2020 00:32:19 -0700 (PDT)
+Received: from tong-desktop.local ([2601:5c0:c100:b9d:4032:a79a:238d:9f7a])
+ by smtp.googlemail.com with ESMTPSA id 2sm13231609qki.46.2020.08.16.00.32.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 16 Aug 2020 00:32:19 -0700 (PDT)
+From: Tong Zhang <ztong0001@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ Rodrigo.Siqueira@amd.com, wenjing.liu@amd.com, Bhawanpreet.Lakha@amd.com,
+ abdoulaye.berthe@amd.com, hersenxs.wu@amd.com, jinlong.zhang@amd.com,
+ aric.cyr@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: should check error using DC_OK
+Date: Sun, 16 Aug 2020 03:32:12 -0400
+Message-Id: <20200816073214.980424-1-ztong0001@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <2f7ae285-b51e-409f-9110-534bb68ec0ad@email.android.com>
+X-Mailman-Approved-At: Mon, 17 Aug 2020 07:08:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,155 +83,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1875208030=="
+Cc: ztong0001@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1875208030==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="u3dIidn9r3ohvCD92s0BvgEbxSiZZsTfC"
+core_link_read_dpcd returns only DC_OK(1) and DC_ERROR_UNEXPECTED(-1),
+the caller should check error using DC_OK instead of checking against 0
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---u3dIidn9r3ohvCD92s0BvgEbxSiZZsTfC
-Content-Type: multipart/mixed; boundary="QjsVuS16iLAbXpRvnGF42ggzpRcmYMQLP";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Message-ID: <737111f0-3789-5e7d-3862-ca1a7c5050e8@suse.de>
-Subject: Re: TTM/nouveau conflict in drm-misc-next
-References: <2f7ae285-b51e-409f-9110-534bb68ec0ad@email.android.com>
-In-Reply-To: <2f7ae285-b51e-409f-9110-534bb68ec0ad@email.android.com>
+Signed-off-by: Tong Zhang <ztong0001@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
---QjsVuS16iLAbXpRvnGF42ggzpRcmYMQLP
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 14.08.20 um 18:21 schrieb Koenig, Christian:
->=20
->=20
-> Am 14.08.2020 17:53 schrieb Alex Deucher <alexdeucher@gmail.com>:
->=20
->     On Fri, Aug 14, 2020 at 11:22 AM Christian K=C3=B6nig
->     <christian.koenig@amd.com> wrote:
->     >
->     > Hey Thomas & Alex,
->     >
->     > well the TTM and Nouveau changes look good to me, but this comple=
-tely
->     > broke amdgpu.
->     >
->     > Alex any idea what is going on here?
->=20
->     What's broken in amdgpu?=C2=A0 There shouldn't be any ttm changes i=
-n amdgpu
->     for drm-next.=C2=A0 Those all go through drm-misc.
->=20
->=20
-> It's not a TTM change.
->=20
-> The backmerge of drm-next into drm-misc-next broke amdgpu so that even
-> glxgears doesn't work anymore.
->=20
-> But each individual merge head still works fine as far as I can say.
->=20
-> Any idea how to track that down?
-
-The backmerge brought in
-
-  Fixes: 16e6eea29d7b ("Merge tag 'amd-drm-fixes-5.9-2020-08-07' ...)
-
-which has quite a few commit. Maybe it's in one of them.
-
-Best regards
-Thomas
-
->=20
-> Christian.
->=20
->=20
->     Alex
->=20
->     >
->     > Regards,
->     > Christian.
->     >
->     > Am 12.08.20 um 21:10 schrieb Thomas Zimmermann:
->     > > Hi Christian and Ben,
->     > >
->     > > I backmerged drm-next into drm-misc-next and had a conflict bet=
-ween ttm
->     > > and nouveau. struct ttm_mem_res got renamed to struct ttm_resou=
-rce. I
->     > > updated nouveau to the new name, test-built, and pushed the res=
-ult to
->     > > drm-misc-next. If either of you has a minute, you may want to d=
-ouble
->     > > check the merge.
->     > >
->     > > Best regards
->     > > Thomas
->     > >
->     >
->     > _______________________________________________
->     > amd-gfx mailing list
->     > amd-gfx@lists.freedesktop.org
->     > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F=
-%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C0=
-1%7Cchristian.koenig%40amd.com%7Ca1aefc1ee22a4e733df908d8406a395c%7C3dd89=
-61fe4884e608e11a82d994e183d%7C0%7C0%7C637330172275088649&amp;sdata=3DX2ZJ=
-UETwoq884Xtg66sDudjXB%2F3s%2BgRglnh33gpU4Hc%3D&amp;reserved=3D0
->=20
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---QjsVuS16iLAbXpRvnGF42ggzpRcmYMQLP--
-
---u3dIidn9r3ohvCD92s0BvgEbxSiZZsTfC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl86JEMUHHR6aW1tZXJt
-YW5uQHN1c2UuZGUACgkQaA3BHVMLeiMHBgf/d9PW3aNNPItTrvpgAi31Cb65hbII
-k2c/B1KEOa8xAwREGKszpgeunCdszVENj1Rs9o95Wdh0MXSqCtI09onnJORBiySr
-87oNUkQWIp0Ujo5MUHigxeyWDEINwXDRYx3oNqUbthvhxTQEkuPbgXnJAsn0qAWU
-lCk5VRdxqKkAVyUL2+v8H9GwJ+ugWdm3lp5VvzwecrI8Yy2w0QxKlXfz9DzdGlvz
-SFoWnNAbv0Eqo0mZT4jnD/WrXENnD+JPcCgWS5plBYqCeZ7vPWM6Qtvshs/zNdzm
-a82msWiPDTyesNZwvOcLFUSjZGhEsInAI819vakgzPxJUvlS04FbNVz1Vw==
-=3FZH
------END PGP SIGNATURE-----
-
---u3dIidn9r3ohvCD92s0BvgEbxSiZZsTfC--
-
---===============1875208030==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 5cb7b834e459..a60a457fcc8f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -4376,9 +4376,9 @@ bool dc_link_get_backlight_level_nits(struct dc_link *link,
+ 			link->connector_signal != SIGNAL_TYPE_DISPLAY_PORT))
+ 		return false;
+ 
+-	if (!core_link_read_dpcd(link, DP_SOURCE_BACKLIGHT_CURRENT_PEAK,
++	if (core_link_read_dpcd(link, DP_SOURCE_BACKLIGHT_CURRENT_PEAK,
+ 			dpcd_backlight_get.raw,
+-			sizeof(union dpcd_source_backlight_get)))
++			sizeof(union dpcd_source_backlight_get)) != DC_OK)
+ 		return false;
+ 
+ 	*backlight_millinits_avg =
+@@ -4417,9 +4417,9 @@ bool dc_link_read_default_bl_aux(struct dc_link *link, uint32_t *backlight_milli
+ 		link->connector_signal != SIGNAL_TYPE_DISPLAY_PORT))
+ 		return false;
+ 
+-	if (!core_link_read_dpcd(link, DP_SOURCE_BACKLIGHT_LEVEL,
++	if (core_link_read_dpcd(link, DP_SOURCE_BACKLIGHT_LEVEL,
+ 		(uint8_t *) backlight_millinits,
+-		sizeof(uint32_t)))
++		sizeof(uint32_t)) != DC_OK)
+ 		return false;
+ 
+ 	return true;
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1875208030==--
