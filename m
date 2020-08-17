@@ -2,67 +2,108 @@ Return-Path: <SRS0=yJoC=B3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 124E7C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 17:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0DA0C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 19:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D50A62063A
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 17:59:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8BDC12065D
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 19:33:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h6ZG5ld+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D50A62063A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pn8EpP7/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BDC12065D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7764989DF7;
-	Mon, 17 Aug 2020 17:59:41 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 057B189DF7
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 17:59:41 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id x5so13988573wmi.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 10:59:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xpqTsrG3Vt+9rDMAnpoJVGMbucsRUJ6l/Nbc7i/7gDA=;
- b=h6ZG5ld+KvETec+uQL+lRN1c5eWYIQtVdKcid3x29ZR6yoRvAKfH5SNMoqyuhoXHqY
- vn3Yq0Mkz234dFO8/B7pWQ72jTjCf39QvXhvWIoqLGReggdC6HOPcQdWBUE5OcN3yN2J
- k0GMO2isL+iYSCyS8Ki6wat/iJPKx1SGR8a5mfMBmStrFeNgQk4/DGy6a/7gEtB46B5Z
- RUTbyfgnL1BUp1/FciwUEhZjN4snWastUJ6yA5f1r+HPzORjvhbblR1O6qIG0aQz8Skk
- Q8W/nc1k6kjrufjywWABDg81yz4UpSwLugQq6Mh4GvuHGCUBh8jIm130wFdVCFH8Axmr
- bUEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xpqTsrG3Vt+9rDMAnpoJVGMbucsRUJ6l/Nbc7i/7gDA=;
- b=iegGhhH98cX3l4kOqrUxDygVLx048VTFe6+NwQYaMoI9YAm0EdcYWAC9ZHNBbi1W88
- qVTjZUcAP++xGL9l9v+lPPFiLr1WZnwSgTi4BXlPIls1wD06Oj5RdEniW0Ylpsydpb51
- mtPX0pBzG2xtd3PAdedIGxHpyj/RMxhvy18bZoWtcuo9b7DQdD90jZI6I8ZsM5Gi20SF
- O0Qbi/qTlvbKrl/chjpfz6HhHyVWa81DemNB0MTtIbw3E41TDFe+QJ5CJN5PWZnLphHo
- /4iZt+3B/OY3iIB6UswB+NkvoY7hzewMh8UMEtbnPv2Rx/4qVI7eFYW6Al/LnFYqa1Fg
- hpQg==
-X-Gm-Message-State: AOAM530hitHANdT4Nmx49x05fsMWfwkkccBnG9GkPBCiuNjiJFxaat8V
- lKCT+WQbbUhdK4oikbGO88NLm1Ixfvwoogzc6t8=
-X-Google-Smtp-Source: ABdhPJybgXSXlNHDmYFUVQMVyBXKeZlv0ylOpLrcNbwC8oQGiSf5RCUwjbU9ykGlb6A3yx619pF76myTqoQg/AUf36I=
-X-Received: by 2002:a7b:c941:: with SMTP id i1mr15423755wml.73.1597687179587; 
- Mon, 17 Aug 2020 10:59:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40FD089EF7;
+	Mon, 17 Aug 2020 19:33:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B48789EF7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 19:33:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MMAyfimcOmxWU4/NyoS8JVikO4p8HIKdQ4uL3xnIiyFCsU+tr3jKMElse1zIePGas5AJWnOuA4v/L3Qxcev6fDTiCv4+IQVO/nsUVT1lAjRHciDuZ0lft/5sww497n89EgtMAMRp+9M0ggyFQimWLUpkf8ck4fyKZ0Das4kx1Vfqqxp5b6Ofocr+uCQM6qyPgWIU9Q7dhpCSJm8HBsVO73bPOaEVccSUcSnrXN6TXvpMdibXp14f5HUB0+SDGfWgfcI0xDbg5D8WUS4v+KXFi51z3Fcc743/51WmCdOzzMFMulTkZpEczWtgu7xHhvZUHa6H36Ku+PcFUQcwTlWr2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LE0BAX5PE0gEN8c9vqT7a8bK7jvZfc0RL84di2dDpnQ=;
+ b=m3dR62cdJ0sfwKKMTq727x/ZxnOk/JTXyxNoc6J8OxHIuMjc9wVrHsnTPCkRnHANk9P/YUMKtRcmqEigFtK0FsWYQeyokKgpjyzHCy5GNtXRPORJ8qsirbu5qgpkUSEUnOsela8JxH6AjNVJs3dd7H9Vy1rhdCBJGyDHcUOeA7mC19hdue52f7TFTNCX36aV0QnxMk3GKrHohw75td7zA5CqF46nbmMW9tkS2Q/GexpujA2FQNg0Lg7SKyZgH/3JsFj5ex7dL2wXWIAnN3dlR24YBnqQ/9bB1u4HHcMqSJDrIWgVp/Fi0MlY+pZa0Idfq92bb9nGNeEXy+RWglWdEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LE0BAX5PE0gEN8c9vqT7a8bK7jvZfc0RL84di2dDpnQ=;
+ b=pn8EpP7/LZOnI3PGeH+gFApehNY02LtBsep3/4r4P+uPKJL5yhP0wDgvDL4j8ha/+KecSZY48lEiviTZdKY269BktImp2tlGfdkQeXxZA2yXO+aAGfH5W77fNoMtjvbdwPZEEgi49T5+AxNG0yADiWVQrDaxjAvoWWHHV4uTw+Y=
+Received: from MWHPR1201CA0011.namprd12.prod.outlook.com
+ (2603:10b6:301:4a::21) by BY5PR12MB3748.namprd12.prod.outlook.com
+ (2603:10b6:a03:1ad::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.16; Mon, 17 Aug
+ 2020 19:33:48 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:4a:cafe::a8) by MWHPR1201CA0011.outlook.office365.com
+ (2603:10b6:301:4a::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.15 via Frontend
+ Transport; Mon, 17 Aug 2020 19:33:48 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3283.16 via Frontend Transport; Mon, 17 Aug 2020 19:33:46 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 17 Aug
+ 2020 14:33:45 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 17 Aug
+ 2020 14:33:45 -0500
+Received: from blakha.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Mon, 17 Aug 2020 14:33:44 -0500
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: Add dsc_to_stream_resource for dcn3
+Date: Mon, 17 Aug 2020 15:32:53 -0400
+Message-ID: <20200817193253.24385-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20200804201313.6464-1-amonakov@ispras.ru>
- <alpine.LNX.2.20.13.2008161149010.7727@monopod.intra.ispras.ru>
-In-Reply-To: <alpine.LNX.2.20.13.2008161149010.7727@monopod.intra.ispras.ru>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Aug 2020 13:59:28 -0400
-Message-ID: <CADnq5_OaTdfVGCvENTr3tDrU+9jR0VYo-49sjByOQR4EwDWwPA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: use correct scale for
- actual_brightness
-To: Alexander Monakov <amonakov@ispras.ru>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c7b2d3c6-4bd0-4a9c-7e50-08d842e4759e
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3748:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB37487416943ADFD736523C71F95F0@BY5PR12MB3748.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tVH9tN6s3gRIp3FhIsz7LDZjtArMEP1cQkJduyTxD952WDgE83EZ1S3wH4jFvAbIfHSMWGpnfmFqlZXM45z44ZJGh3xahFD7luAQAhPFPaSnkCYA9zzv6vnn72jSSWat3qudTIuxs+/m+7UKrW90J5MrpBsJzFNRoJXblI1AMhvs/JHANAHvhC66QWEkcfM32RWEXroCQf2MU0MnN0igAEYvMxWn1eqUMtYGF7LGocTPkY7Xg5OWByDnmVWaOB/CCaO/ZIJkpjvKKKoW2H1FZ1cd81mJodHG3mW1YGbHz8PyQYS/3LDYIGneQ34ATAAG1kzIlt1TEntU0yc3Ny/fNSB+p19q1GDi/VPEl8z+LauqJXwWvCLdTU1cbaqO0azi0DdgIhbPqxWOBY1WCGX1mg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(376002)(396003)(346002)(46966005)(6666004)(36756003)(6636002)(47076004)(26005)(8936002)(2616005)(336012)(4326008)(1076003)(82740400003)(7696005)(478600001)(82310400002)(356005)(6862004)(86362001)(81166007)(426003)(70586007)(37006003)(5660300002)(316002)(70206006)(2906002)(54906003)(186003)(8676002);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2020 19:33:46.4654 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7b2d3c6-4bd0-4a9c-7e50-08d842e4759e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3748
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,175 +115,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: mikita.lipski@amd.com, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ nicholas.kazlauskas@amd.com, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2020 at 3:09 AM Alexander Monakov <amonakov@ispras.ru> wrote:
->
-> Ping.
+Without this, enabling dsc will cause a nullptr
 
-Patch looks good to me:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Mikita Lipski <Mikita.Lipski@amd.com>
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Nick, unless you have any objections, I'll go ahead and apply it.
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index 1ee9087eec76..957fc37b971e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -2424,6 +2424,7 @@ static const struct resource_funcs dcn30_res_pool_funcs = {
+ 	.populate_dml_pipes = dcn30_populate_dml_pipes_from_context,
+ 	.acquire_idle_pipe_for_layer = dcn20_acquire_idle_pipe_for_layer,
+ 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
++	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
+ 	.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
+ 	.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
+ 	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
+-- 
+2.17.1
 
-Alex
-
->
-> On Tue, 4 Aug 2020, Alexander Monakov wrote:
->
-> > Documentation for sysfs backlight level interface requires that
-> > values in both 'brightness' and 'actual_brightness' files are
-> > interpreted to be in range from 0 to the value given in the
-> > 'max_brightness' file.
-> >
-> > With amdgpu, max_brightness gives 255, and values written by the user
-> > into 'brightness' are internally rescaled to a wider range. However,
-> > reading from 'actual_brightness' gives the raw register value without
-> > inverse rescaling. This causes issues for various userspace tools such
-> > as PowerTop and systemd that expect the value to be in the correct
-> > range.
-> >
-> > Introduce a helper to retrieve internal backlight range. Use it to
-> > reimplement 'convert_brightness' as 'convert_brightness_from_user' and
-> > introduce 'convert_brightness_to_user'.
-> >
-> > Bug: https://bugzilla.kernel.org/show_bug.cgi?id=203905
-> > Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1242
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> > Signed-off-by: Alexander Monakov <amonakov@ispras.ru>
-> > ---
-> > v2: split convert_brightness to &_from_user and &_to_user (Nicholas)
-> >
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 81 +++++++++----------
-> >  1 file changed, 40 insertions(+), 41 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 710edc70e37e..b60a763f3f95 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -2881,51 +2881,50 @@ static int set_backlight_via_aux(struct dc_link *link, uint32_t brightness)
-> >       return rc ? 0 : 1;
-> >  }
-> >
-> > -static u32 convert_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> > -                           const uint32_t user_brightness)
-> > +static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-> > +                             unsigned *min, unsigned *max)
-> >  {
-> > -     u32 min, max, conversion_pace;
-> > -     u32 brightness = user_brightness;
-> > -
-> >       if (!caps)
-> > -             goto out;
-> > +             return 0;
-> >
-> > -     if (!caps->aux_support) {
-> > -             max = caps->max_input_signal;
-> > -             min = caps->min_input_signal;
-> > -             /*
-> > -              * The brightness input is in the range 0-255
-> > -              * It needs to be rescaled to be between the
-> > -              * requested min and max input signal
-> > -              * It also needs to be scaled up by 0x101 to
-> > -              * match the DC interface which has a range of
-> > -              * 0 to 0xffff
-> > -              */
-> > -             conversion_pace = 0x101;
-> > -             brightness =
-> > -                     user_brightness
-> > -                     * conversion_pace
-> > -                     * (max - min)
-> > -                     / AMDGPU_MAX_BL_LEVEL
-> > -                     + min * conversion_pace;
-> > +     if (caps->aux_support) {
-> > +             // Firmware limits are in nits, DC API wants millinits.
-> > +             *max = 1000 * caps->aux_max_input_signal;
-> > +             *min = 1000 * caps->aux_min_input_signal;
-> >       } else {
-> > -             /* TODO
-> > -              * We are doing a linear interpolation here, which is OK but
-> > -              * does not provide the optimal result. We probably want
-> > -              * something close to the Perceptual Quantizer (PQ) curve.
-> > -              */
-> > -             max = caps->aux_max_input_signal;
-> > -             min = caps->aux_min_input_signal;
-> > -
-> > -             brightness = (AMDGPU_MAX_BL_LEVEL - user_brightness) * min
-> > -                            + user_brightness * max;
-> > -             // Multiple the value by 1000 since we use millinits
-> > -             brightness *= 1000;
-> > -             brightness = DIV_ROUND_CLOSEST(brightness, AMDGPU_MAX_BL_LEVEL);
-> > +             // Firmware limits are 8-bit, PWM control is 16-bit.
-> > +             *max = 0x101 * caps->max_input_signal;
-> > +             *min = 0x101 * caps->min_input_signal;
-> >       }
-> > +     return 1;
-> > +}
-> >
-> > -out:
-> > -     return brightness;
-> > +static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
-> > +                                     uint32_t brightness)
-> > +{
-> > +     unsigned min, max;
-> > +
-> > +     if (!get_brightness_range(caps, &min, &max))
-> > +             return brightness;
-> > +
-> > +     // Rescale 0..255 to min..max
-> > +     return min + DIV_ROUND_CLOSEST((max - min) * brightness,
-> > +                                    AMDGPU_MAX_BL_LEVEL);
-> > +}
-> > +
-> > +static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-> > +                                   uint32_t brightness)
-> > +{
-> > +     unsigned min, max;
-> > +
-> > +     if (!get_brightness_range(caps, &min, &max))
-> > +             return brightness;
-> > +
-> > +     if (brightness < min)
-> > +             return 0;
-> > +     // Rescale min..max to 0..255
-> > +     return DIV_ROUND_CLOSEST(AMDGPU_MAX_BL_LEVEL * (brightness - min),
-> > +                              max - min);
-> >  }
-> >
-> >  static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-> > @@ -2941,7 +2940,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-> >
-> >       link = (struct dc_link *)dm->backlight_link;
-> >
-> > -     brightness = convert_brightness(&caps, bd->props.brightness);
-> > +     brightness = convert_brightness_from_user(&caps, bd->props.brightness);
-> >       // Change brightness based on AUX property
-> >       if (caps.aux_support)
-> >               return set_backlight_via_aux(link, brightness);
-> > @@ -2958,7 +2957,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
-> >
-> >       if (ret == DC_ERROR_UNEXPECTED)
-> >               return bd->props.brightness;
-> > -     return ret;
-> > +     return convert_brightness_to_user(&dm->backlight_caps, ret);
-> >  }
-> >
-> >  static const struct backlight_ops amdgpu_dm_backlight_ops = {
-> >
-> > base-commit: bcf876870b95592b52519ed4aafcf9d95999bc9c
-> >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
