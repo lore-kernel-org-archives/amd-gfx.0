@@ -2,106 +2,109 @@ Return-Path: <SRS0=yJoC=B3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A03FC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 14:18:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A6C7C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 14:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED73E20786
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 14:18:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 29FEF2078B
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 14:46:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DxsCrMET"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED73E20786
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="V77wgU8c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29FEF2078B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A42CB6E0F5;
-	Mon, 17 Aug 2020 14:18:39 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57986E0F5
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 14:18:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C37F66E0DA;
+	Mon, 17 Aug 2020 14:46:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64C636E0DA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 14:46:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hhq0nDITZ9UYySewDZAP8hsmt1CPEjrPBEjEHiwtibmkrSKKpS5kIBAuJdcePe3ja9JqS9T+hbneJ0ndBz/JC4DM3IlIf8NG3GbtUmddu7dwBUjIK/yvb2nTw87wCKf/wYAcXuoNwHGPjn2k86hoON7r8Vf3DzagOE7tcVVuzZ69vytmtz4gGFxL4ATtRcZ4ozRUzhLpK6zhRnYDzQUsaEGIVczE6bu05riVgDSA7hOTUZGzNltT36j7HFLmwcyBwLFhkY+K94fSKq6cMtvt7Kfol4Kh9VjxJOju9fGwhfhAxH6szYzMy7jEZ2HhUcplJ/bGlwmtuZgDP6gXFfb/Nw==
+ b=UqKwFFn2J6FJHj/Ua86eChivSAQhWGhyllOfTpGNQvYXpkiZahzabn0MeGBgvhyEw0zkPfiNkglkORwJOpwYuYQWAfViqmnW83UbWy+dgjK0c0MZzLDKU0v5oJJ5H2N+DFr3HMrZDrIi8Dv5BxAMN+8aWQdxc+Sl6RoSkJIW31ZFdDDtv+UwW4s5pwZhdw3YvJIrWl+FgUiS3mDGlPgNaQv7X8OLAeHBwCa167ru4x8PVqnS14zu7y53irX10UEKEci/gCfQm4MZFHVMcCxc0dNg2IQb+VZLoBew6TV/YsDVWDmkQKetxu8EQ4cvnF7QqBXDBBAO3wBz82LN1R+6TQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YC1cDlv7rNwzAk/zPiF/xWEYTD3e/vbhOdyiC3jjeoY=;
- b=k4azbbKPAYSNG5z4GmWHRGYQkhlhZ4FJBObqK9ilfshuYtlB2rBKaY1XPcEJvPJJIlOuOIiufuPSyOeHsqBvcAtfHWRgiSUVH15Z80uh4PvqbiQTNLZWLmN8pNT92t9R7PMbNQvqmElPc4JfYGeW2Acz6+rGLXFuk9HfawJ1zb6OSJ2ebganbkJOhPM7+b3PRDmSN4LAL/DAT3uhS55IItsY7KrC8vZfThbf2MXtjIufgOIOyRZbJcqPlhog3eNtztpBpDOadBMTXtxaQErZdOaf+8FNMPessc/uWISj6Qbzxrz3mzm2vPiouZqjZ1pXsKI9yO97D/UmfLRw+lKHLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=nLu9QB98nFbschPVabLnsL6e8kRGS+dcR77GiIqqwx4=;
+ b=WABHqKmn17UG7Pyhaicl8Uvcv9JIGpDjfx6AooXAfzunWvwcIvuryUArVvLQsu04UG4TlEBEHSDzifID88j583HU9Hs7dTUnnq7eIRYisb+wHQ19kksZK5VF2TQ8675M9bgiPHkP/tEAed7Ir8aBoezCYoGe0fJWA7CzLPo5HaAzxYi3XjP3y2WRaWPmnbg8pTRjsLtn+wlSJPQUyOS9l+aniw9CPxi2CZwUIOrFCEpK08WB/JGDdToiHTi6/jQlpp7to6WoqFlI/f2mM7z8HucrDwA/dKE7OBBKX/h4FeX6nCBXiC6ZSr9JZ1y4WAYA3Ui7s6BkC35sR2v/aMoElQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YC1cDlv7rNwzAk/zPiF/xWEYTD3e/vbhOdyiC3jjeoY=;
- b=DxsCrMET9yX0wJkg5+CikJTDgdcJu/6EaaLfx573ptvmj4KVsL/F+KG7vah12CIQZ0DRxQ8dP9iSGPk4gKUuwahWnAoZzhZuyM0iX2VEmw5j4Ag4Pw3O3KKKwp5W0tezGkEpSj9CJr2XV3IRg2yK3MqGKX8n6nnsz9+P4SAjvrw=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.22; Mon, 17 Aug
- 2020 14:18:31 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb%7]) with mapi id 15.20.3283.027; Mon, 17 Aug 2020
- 14:18:31 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/5] drm/amd/pm: disable/enable deep sleep features on UMD
- pstate enter/exit
-Thread-Topic: [PATCH 1/5] drm/amd/pm: disable/enable deep sleep features on
- UMD pstate enter/exit
-Thread-Index: AQHWdHCbKTRk2aV5UkWFa/gOaMAPvak8WaXQ
-Date: Mon, 17 Aug 2020 14:18:31 +0000
-Message-ID: <MN2PR12MB44883413B33942A7F2AA052CF75F0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200817082942.25733-1-evan.quan@amd.com>
-In-Reply-To: <20200817082942.25733-1-evan.quan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-08-17T14:18:31.189Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [71.219.66.138]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 51805560-53cf-4752-3f40-08d842b86b7d
-x-ms-traffictypediagnostic: MN2PR12MB4471:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4471B2609222D9F534E183C9F75F0@MN2PR12MB4471.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:160;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yZJBgyZN2GLkMZI5yZBSyBvqXgKFY34Wc+nqZqGZapuBk30JzvK0rK7OC4r3U9sSPN91FdIs0r2vEswTu6aeNdN085S3xfaFbk6/3xprA1RH9j5CaG1pyDP738E5JHhsI3ksexfCIvN5Pa8EYAhvbC+bpdMP2hTbCaV9iUFDAzkihGLO9kK3JbVxbs9O5uKBfiUvxMMxaUQoer+Nz5eieQw7GJjqDniuJa9+udEkDoKGXVXh69VT/x8z9lsnTRpABad/IuS/M2JxWyWKphlDdvtx8iccj+Wcx48lUN2w+L0SJ7RqXW8KAfJVenjLSClM
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(8676002)(66476007)(33656002)(76116006)(186003)(9686003)(26005)(66446008)(64756008)(66556008)(5660300002)(66946007)(52536014)(7696005)(2906002)(478600001)(8936002)(71200400001)(316002)(86362001)(53546011)(19627405001)(83380400001)(55016002)(110136005)(6506007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: sS+aG09roIeh2OEWgcWO1naM6jdihKvC28fr9Yw1sNzTfcT9RiyMGz5PpqhhO2iAvroV2JDlF2n1muz8KBoJQJSXD1AXcD12VNOx2TOz8ap0YhUN9B7P/B6RJhsxVmB4lCfDZIp8/ouUaOO3Hw2L5Qe5hr9oT3zhlt90vE59hQ9WyHJqMNncifH4GmAubYqCzxMyBHoacp0QzhE2tArQDc972vZJ99ydvOg6/EmM21mghT6ZSYmRstGlHSLloe0KJe5EQZLRQz+MaY+XHniVPcVzDmhmqQnno4k63NZmes463A8OhSPgnzFtAY+JiSoOcoY0RCkqOfw9+l2ATOETMZBTeNRoyb392W0sf9X/sJ7Gy9TGLiknHmmjq9zuorWNcLSOmLph5Gk4dWfSnO52uSzdVigumRj55KrUP3imhzwuU99BXUzZRuPdXWayYmBn1XqfaOemoSeqnJQB+DzQxa4iaubPJVdMlOgRbinbWLUydqi+wLJ8i2OX7PbfY+EpqgFmZd2YJY2r3fIgkvlIQQqwTxqyVoEfVUA4DQQqaPj4TY+NK0TR8veHrgF+UYvqwH6bPLac2HDf+Qj11dedYE4g65l67MUxaMppoMoZpJSLUDF5fLPDqSG4z+ABTngXDTYtPvv7UvKjzBwox1BBvA==
+ bh=nLu9QB98nFbschPVabLnsL6e8kRGS+dcR77GiIqqwx4=;
+ b=V77wgU8cz6Scp6Z+W46q/3vrhD7BBGXml/gQoYrH14373LX09bfzilhcha/0KQp1TBhNetGgWQZTsl08orBH/C8EoSz78FoxPuT51aDoWueYK5YvYZt9nuT1XBHVqhr7FV7Fp9J67KtbgI3FFu6C+NvHowUiPf4w2LzGW3T8Jqk=
+Received: from DM5PR07CA0108.namprd07.prod.outlook.com (2603:10b6:4:ae::37) by
+ MN2PR12MB3535.namprd12.prod.outlook.com (2603:10b6:208:105::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.20; Mon, 17 Aug
+ 2020 14:46:00 +0000
+Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:ae:cafe::6f) by DM5PR07CA0108.outlook.office365.com
+ (2603:10b6:4:ae::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.16 via Frontend
+ Transport; Mon, 17 Aug 2020 14:46:00 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3283.16 via Frontend Transport; Mon, 17 Aug 2020 14:46:00 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 17 Aug
+ 2020 09:45:59 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 17 Aug
+ 2020 09:45:59 -0500
+Received: from navi10-sut.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3 via Frontend
+ Transport; Mon, 17 Aug 2020 09:45:57 -0500
+From: Jiansong Chen <Jiansong.Chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] Revert "drm/amdgpu: disable gfxoff for navy_flounder"
+Date: Mon, 17 Aug 2020 22:45:49 +0800
+Message-ID: <20200817144549.16407-1-Jiansong.Chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 00b0db55-f4c9-4692-d77b-08d842bc4208
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3535:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3535D4BBD61F812C70FB1F99EA5F0@MN2PR12MB3535.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:345;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YsQP4J88Tm5RH//bbQU22huhIDNWYYsw3zo2NVMICV1k8lV4xbYFCd4BoiNYWLwGhzeb6oUEwUQyZjnyh/cmzaKy8suu1uOuQaPkJH5U34fjm29MmqwhUzlhUAeFP760pclSaNe9fgJ9KcjKMdmgxV9flhkCFeg/ebJc/zsPLXOgYSewTqvx0JkXduEj5KXtXHQbYl2ruE4D0c+0lf5YEtDVCaQK2wETqKqunQgQgihcBwg3i+5EP/Oqi4YrKWiv9YrS7Yj59kebapNnwpp7W4d44Ixcq2QndpZfDng+30Bm/1O9XvxwLhUJXMwSL/Mhd659m8rmvAbvat8d4bIg2gOAqzPMqphhhDtYzVIpwxVOLzXgvWZ/xn+bpCFN9rkQ3I7x24ba8Aux9aD3OOYiyw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(346002)(376002)(39860400002)(46966005)(7696005)(8936002)(36756003)(26005)(2906002)(6666004)(2616005)(70206006)(4744005)(1076003)(426003)(54906003)(478600001)(4326008)(83380400001)(82740400003)(81166007)(316002)(6916009)(336012)(8676002)(86362001)(5660300002)(356005)(47076004)(186003)(70586007)(82310400002);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51805560-53cf-4752-3f40-08d842b86b7d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2020 14:18:31.6446 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6DZNcx/TdZ2ILwvHLFkDd9r883lgH0LnGjor22V3YizehQFjdnJOjCHKh05w/zLHYRjLeMbPOTeqlpvTCSifFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2020 14:46:00.1246 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00b0db55-f4c9-4692-d77b-08d842bc4208
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3535
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,285 +116,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1697647577=="
+Cc: tao.zhou1@amd.com, kenneth.feng@amd.com,
+ Jiansong Chen <Jiansong.Chen@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1697647577==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB44883413B33942A7F2AA052CF75F0MN2PR12MB4488namp_"
-
---_000_MN2PR12MB44883413B33942A7F2AA052CF75F0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Public Use]
-
-You can probably just squash patches 2-5 into one patch.  Either way, serie=
-s is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-
-________________________________
-From: Quan, Evan <Evan.Quan@amd.com>
-Sent: Monday, August 17, 2020 4:29 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
-md.com>
-Subject: [PATCH 1/5] drm/amd/pm: disable/enable deep sleep features on UMD =
-pstate enter/exit
-
-Add deep sleep disablement/enablement on UMD pstate entering/exiting.
-
-Change-Id: I4fbc02bb4a390ab82293a5ff9c91f2a8beb0a3c9
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+This reverts commit 6a72ad7e387c6fec821c230fda3460f79fc0f877.
+Newly released sdma fw (51.52) provides a fix for the issue.
 ---
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     | 1 +
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   | 2 ++
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h | 1 +
- 3 files changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
-pm/inc/amdgpu_smu.h
-index 7cc707ec21c3..4c5c041af4ee 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -597,6 +597,7 @@ struct pptable_funcs {
-         ssize_t (*get_gpu_metrics)(struct smu_context *smu, void **table);
-         int (*enable_mgpu_fan_boost)(struct smu_context *smu);
-         int (*gfx_ulv_control)(struct smu_context *smu, bool enablement);
-+       int (*deep_sleep_control)(struct smu_context *smu, bool enablement)=
-;
- };
-
- typedef enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index 221b5c923ce1..8eb5b92903cd 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1441,6 +1441,7 @@ static int smu_enable_umd_pstate(void *handle,
-                                                                AMD_IP_BLOC=
-K_TYPE_GFX,
-                                                                AMD_CG_STAT=
-E_UNGATE);
-                         smu_gfx_ulv_control(smu, false);
-+                       smu_deep_sleep_control(smu, false);
-                 }
-         } else {
-                 /* exit umd pstate, restore level, enable gfx cg*/
-@@ -1448,6 +1449,7 @@ static int smu_enable_umd_pstate(void *handle,
-                         if (*level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_EXI=
-T)
-                                 *level =3D smu_dpm_ctx->saved_dpm_level;
-                         smu_dpm_ctx->enable_umd_pstate =3D false;
-+                       smu_deep_sleep_control(smu, true);
-                         smu_gfx_ulv_control(smu, true);
-                         amdgpu_device_ip_set_clockgating_state(smu->adev,
-                                                                AMD_IP_BLOC=
-K_TYPE_GFX,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/=
-amd/pm/swsmu/smu_internal.h
-index 2fe29c6a00ce..c88f8fab1bae 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-@@ -93,6 +93,7 @@
- #define smu_get_pp_feature_mask(smu, buf)                               sm=
-u_ppt_funcs(get_pp_feature_mask, 0, smu, buf)
- #define smu_set_pp_feature_mask(smu, new_mask)                          sm=
-u_ppt_funcs(set_pp_feature_mask, 0, smu, new_mask)
- #define smu_gfx_ulv_control(smu, enablement)                            sm=
-u_ppt_funcs(gfx_ulv_control, 0, smu, enablement)
-+#define smu_deep_sleep_control(smu, enablement)                           =
-     smu_ppt_funcs(deep_sleep_control, 0, smu, enablement)
-
- #endif
- #endif
---
-2.28.0
-
-
---_000_MN2PR12MB44883413B33942A7F2AA052CF75F0MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt">
-You can probably just squash patches 2-5 into one patch.&nbsp; Either way, =
-series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt">
-<br>
-</div>
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan@amd.com&gt;<br>
-<b>Sent:</b> Monday, August 17, 2020 4:29 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
- &lt;Evan.Quan@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 1/5] drm/amd/pm: disable/enable deep sleep features =
-on UMD pstate enter/exit</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Add deep sleep disablement/enablement on UMD pstat=
-e entering/exiting.<br>
-<br>
-Change-Id: I4fbc02bb4a390ab82293a5ff9c91f2a8beb0a3c9<br>
-Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp;&nbsp; | 1 +=
-<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp; | 2 ++<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu_internal.h | 1 +<br>
-&nbsp;3 files changed, 4 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
-pm/inc/amdgpu_smu.h<br>
-index 7cc707ec21c3..4c5c041af4ee 100644<br>
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h<br>
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h<br>
-@@ -597,6 +597,7 @@ struct pptable_funcs {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t (*get_gpu_metrics)=
-(struct smu_context *smu, void **table);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*enable_mgpu_fan_boos=
-t)(struct smu_context *smu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*gfx_ulv_control)(str=
-uct smu_context *smu, bool enablement);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*deep_sleep_control)(struct smu_=
-context *smu, bool enablement);<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;typedef enum {<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c<br>
-index 221b5c923ce1..8eb5b92903cd 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-@@ -1441,6 +1441,7 @@ static int smu_enable_umd_pstate(void *handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; AMD_IP_BLOCK_TYPE_GFX,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; AMD_CG_STATE_UNGATE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_g=
-fx_ulv_control(smu, false);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_deep_sleep_c=
-ontrol(smu, false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* exit umd pstate, restore level, enable gfx cg*/<br=
->
-@@ -1448,6 +1449,7 @@ static int smu_enable_umd_pstate(void *handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*=
-level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *level =3D smu_dpm_ctx-&gt;saved=
-_dpm_level;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_d=
-pm_ctx-&gt;enable_umd_pstate =3D false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_deep_sleep_c=
-ontrol(smu, true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_g=
-fx_ulv_control(smu, true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_set_clockgating_state(smu-&gt;adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; AMD_IP_BLOCK_TYPE_GFX,<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/=
-amd/pm/swsmu/smu_internal.h<br>
-index 2fe29c6a00ce..c88f8fab1bae 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h<br>
-@@ -93,6 +93,7 @@<br>
-&nbsp;#define smu_get_pp_feature_mask(smu, buf)&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; smu_ppt_funcs(get_pp_feature_mask, 0, smu, buf)<br>
-&nbsp;#define smu_set_pp_feature_mask(smu, new_mask)&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_ppt_funcs(set_pp_f=
-eature_mask, 0, smu, new_mask)<br>
-&nbsp;#define smu_gfx_ulv_control(smu, enablement)&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_ppt_func=
-s(gfx_ulv_control, 0, smu, enablement)<br>
-+#define smu_deep_sleep_control(smu, enablement)&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; smu_ppt_funcs(deep_sleep_control, 0, smu, enablement)<br>
-&nbsp;<br>
-&nbsp;#endif<br>
-&nbsp;#endif<br>
--- <br>
-2.28.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB44883413B33942A7F2AA052CF75F0MN2PR12MB4488namp_--
-
---===============1697647577==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index e87d43537013..e527be22a3d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -3610,9 +3610,6 @@ static void gfx_v10_0_check_gfxoff_flag(struct amdgpu_device *adev)
+ 		if (!gfx_v10_0_navi10_gfxoff_should_enable(adev))
+ 			adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+ 		break;
+-	case CHIP_NAVY_FLOUNDER:
+-		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+-		break;
+ 	default:
+ 		break;
+ 	}
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1697647577==--
