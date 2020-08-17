@@ -2,78 +2,106 @@ Return-Path: <SRS0=yJoC=B3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.4 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AD54C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:53:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5489C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 14:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CB232065D
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 13:53:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AC0AF20674
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 14:18:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ER9qrmKi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CB232065D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xt9xw40Q"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC0AF20674
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE216E0DB;
-	Mon, 17 Aug 2020 13:53:17 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4DA46E0D6;
- Mon, 17 Aug 2020 13:53:15 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id d190so13283500wmd.4;
- Mon, 17 Aug 2020 06:53:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=PB4lsVzCOSUh8WXQFJcJL2KMW0Ueh1j9kQm3ZMhDPDA=;
- b=ER9qrmKi1FV2XXSczO38aOtcIeJadIEZCOBZF2ZBEB0pK7vN6eFb0HKktqny9YoWuW
- rviEeXwTpukMQuUCT45gDY2c1SATfFshU97O95HXefgaoJC/cbKoKNcI3x4+rrQWzoxe
- m6m6uBmoNhK/iM0OpDEXOjtPY280LPQKw4UYq7N8jjr5F/CbOwX1C5B7JeyQtBEgi5RV
- BXdy6yZxBC8MNLUMKETFTC+Ieuy5ScNfvOvmuCQvNEId7xwQ2rSiHCkGi9qBH3F8bO8Z
- RatgwP3R1iFBoJ+/Y8JJVAdjqiwX5i4f8h5icQAAr5oQyJ5mAWS+0MBOsPirRLVK16pM
- MXCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=PB4lsVzCOSUh8WXQFJcJL2KMW0Ueh1j9kQm3ZMhDPDA=;
- b=BM3PazodhwNXoCw1AoCbEK7aVp/4VgnlMf9P1x64bVaK6yxHiJTl+I8GXvYpJ+Am+W
- oUsfGZIvBIMikC7parTvHNibtSZqknjganM4zql84CGz7lsgY4t3ZChfClqYrudP3qky
- jBTTMz5byyaUwSoAmjxAAZyzoQSc6/17JncFvZyey+X7rZQKi1OgGzNLUuvmnVJ6JLkC
- z59aDAVwQSUwwuSmrLOWP8i2qlzfNWc00GOlzV+iL2jFETUtT8/WpdNoIm/sF403fnlO
- CmMfHUSYAIb69hHYuDm/+4Pvsl6fUQZPDLgiVYRptZ/tfq29yMl1nsSekprt8ryHVSyo
- qAHA==
-X-Gm-Message-State: AOAM532U9KYtRaNW8U5l3F4PLH3Tf10/nxXFi7SOjN6PIvMtCwuk4H4X
- GuzDgeyyQksCKb+T+1GQ7+U=
-X-Google-Smtp-Source: ABdhPJwfNskltmIx3iHrjpVIvVr03XOCtBRbtXG0lhAH/ZVyL4Z5OyrAJaSMUdz0hRzRk6l+1DRHnA==
-X-Received: by 2002:a1c:2646:: with SMTP id m67mr15341798wmm.137.1597672394338; 
- Mon, 17 Aug 2020 06:53:14 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id 145sm31690597wma.20.2020.08.17.06.53.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Aug 2020 06:53:13 -0700 (PDT)
-Subject: Re: [PATCH 1/2] drm/scheduler: Scheduler priority fixes (v2)
-To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20200815024852.4355-1-luben.tuikov@amd.com>
- <20200815024852.4355-2-luben.tuikov@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <07c04016-4415-5dd3-c92a-be81e1b7a5f8@gmail.com>
-Date: Mon, 17 Aug 2020 15:53:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200815024852.4355-2-luben.tuikov@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0606F6E0F0;
+	Mon, 17 Aug 2020 14:18:22 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5606E0F0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 14:18:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h5kRilqgX3hmCABRZnXLySoAcrRanvVLiXdrDSSJjUf8dGHjZ3PZH8iGxbd4DJW2jGD3EN2Tpy7Dx2T4sVs91mXIxq1Lq9Tyqqh/nfiSBYBK7fZpqcDIjQZW+/j/qTWDKrf7c6TWnkZK8DobXj9tu8pUOWz32YGWHQQ31KA1WW8wvMmV/p8dzGibJ5D7U5EYqyPNvv2iimmgk3cKf/ttfS4fFV/VTQyzVWVrJqVyP1xNQ9GHCRMhrk8j7yrE4kPt57JQNJdSNgNJJkmwXxBP8nqecaXGKjPyozmSsgxQ6w65KKxNm3xVC35Qux2LfIQlGhetvJpAg5ygGbCjoYHxVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jk0LY2dBq2tnHwEK9mO3J15LI3bB0JAiRJKD0oRwjHY=;
+ b=GcyqykjnmY5zUfFu1vrsvD9/2/aW206LNQJ57fYX2AAqioc3x6zXZyXHJMkLnqubOnV3/YwJ4NdYAV+Dsm05JITA4XMJ34y/NG49NONBCmSLovKI7hBHZ/cbq4tz5/pEBBOYukp0hXjXB2uwUAND32n39sN3ATzr8uhbtMLnH1QiqDqq1DuB2a84DZYMNSsGr1f42vRQtxe102KRzvL3ojxm0MjasZknVclpit9JopJWcimDf7obm6sN6/UjQdcyncheoMGYEpu/juv6JRahEsPUz8XnvJsal9g2QTfqkl3hzDT1G5X/Ry1+PvUwwXjiuEHK3cT1bZLW7chuc4SVgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jk0LY2dBq2tnHwEK9mO3J15LI3bB0JAiRJKD0oRwjHY=;
+ b=xt9xw40Qbuh+jvZCP5Og0uUpYGKVit6U4/4d2+EzJFgbIPaVaDJzD9e6ZX9c6mudGYKqYfRQPD4XVo8mFZYRrMYshTIFYYpmuJVj1pNOQJWM+4XSAuOXJJhOetPFlmErk6rxqVnr1vv47yO0fLLfLqf9ggzZC2D3zqIhuUUNTi8=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB2434.namprd12.prod.outlook.com (2603:10b6:207:4d::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.22; Mon, 17 Aug
+ 2020 14:18:18 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::889d:3c2f:a794:67fb%7]) with mapi id 15.20.3283.027; Mon, 17 Aug 2020
+ 14:18:18 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/5] drm/amd/pm: disable/enable gfx ulv on UMD pstate
+ enter/exit
+Thread-Topic: [PATCH 1/5] drm/amd/pm: disable/enable gfx ulv on UMD pstate
+ enter/exit
+Thread-Index: AQHWdGr1PxTYUSPqiUeW9OohcRA2Bqk8WW0c
+Date: Mon, 17 Aug 2020 14:18:18 +0000
+Message-ID: <MN2PR12MB448862FA29FD0870E45A423BF75F0@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20200817074917.9607-1-evan.quan@amd.com>
+In-Reply-To: <20200817074917.9607-1-evan.quan@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-17T14:18:18.376Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [71.219.66.138]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: d4629219-9abf-4259-1ab5-08d842b863cd
+x-ms-traffictypediagnostic: BL0PR12MB2434:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB2434C980A246CFE0E024B53AF75F0@BL0PR12MB2434.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:160;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: oO3nIi3Yb4ebJKfNeVcLgLVBhdlc5O0xbA7Epn9pg4slfNIFUrKtRwdZQxFDuuBia+OLzHoRk7jV+6JvJTs9/9rBRWolfIJkU0DlFItAlkpI0uwWavGJ+I3WXqeqjTkdqhyfTA5JWG0sqiWo8fisowQR9KCADoOwMY7NaSVX+QmTwNODfV1c/i/A9T/428gHGyN5r3/EGmGAj7MggGv2fyawlizX3d1cm2LYAkJweX5MBpPrgHFL7+vCE6/ju2fokkXhI6+EWo8R64UP5ZOi237AU1/vnLMCKrxHaa4TGAnp9C0GiLBLmH6G+DWElffG
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(376002)(136003)(346002)(396003)(5660300002)(7696005)(55016002)(86362001)(9686003)(83380400001)(66446008)(66556008)(66476007)(52536014)(76116006)(64756008)(53546011)(66946007)(6506007)(71200400001)(110136005)(2906002)(8936002)(186003)(26005)(478600001)(8676002)(33656002)(19627405001)(316002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: kck1L0b6EztScjgaXDyzpEUPdl0GIT45JMdNhnUju7be3n8gLcshohkRfeOrUVWq7nkJDPUKEjTnbrMsQph8J+QkxKd7M2clmg5vUzox0JkWh3sljZo6eeDnXH/0231r1SadrzcUNKr+i/x5FwNLLqoDjIO/N6c9bz2hsonclqSabHAzduvC22kK3ZgcTGP/Uwh34wbiKJQ3utwF1yxws3YmDIUrTSPcabR8lo52dmayEdCIQ2h0DWRS1E3g1EuDusKx7OA+Ja8dFLreD4c9Rt04JJ+NHao2H1p26Y/Ke2Ld5PsGXh1KW/6CQaAeW7c7Xr+Xot5Ae7kiOIpFdyC5v1IIZ1o7BHmfo9WC+sLX1EEjbbqr2ibyg931SYKl4AVb5X/6pdDLTRmt3biB06ZwCSSx87XyMsI8XLk9ugy3MYOzN+EBe4lvZRg4Lx0x49kuTmlmyHMB/+0AV/k9UFekoLRmwTmcveX4SgA9mgze8IUvD4Y6mEntTj+tbJ8qwguSdHKAauLX3dNHzAqKlIZwKStoYxJm99p+M6LeQYH5LDN0witrlXxBHxxcC+b2pG2eIRIL1D80eWtvMkCSgEPIE9+qWidpex4y5CnOYF2w9UUj4GMAm0LrSvzQby17OCWPtBDVl50UShEcXgCHkNBEqg==
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4629219-9abf-4259-1ab5-08d842b863cd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2020 14:18:18.7581 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VNVAJMjvt3cQTZZ+PBhOQdPdz8J9x4U8rQT9ArVBA738kooVE8iNhq05YMKOEfQNyfhbpS+cVG3ELyFVXxMTZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,152 +113,284 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1964802986=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTUuMDguMjAgdW0gMDQ6NDggc2NocmllYiBMdWJlbiBUdWlrb3Y6Cj4gUmVtb3ZlIERSTV9T
-Q0hFRF9QUklPUklUWV9MT1csIGFzIGl0IHdhcyB1c2VkCj4gaW4gb25seSBvbmUgcGxhY2UuCj4K
-PiBSZW5hbWUgYW5kIHNlcGFyYXRlIGJ5IGEgbGluZQo+IERSTV9TQ0hFRF9QUklPUklUWV9NQVgg
-dG8gRFJNX1NDSEVEX1BSSU9SSVRZX0NPVU5UCj4gYXMgaXQgcmVwcmVzZW50cyBhICh0b3RhbCkg
-Y291bnQgb2Ygc2FpZAo+IHByaW9yaXRpZXMgYW5kIGl0IGlzIHVzZWQgYXMgc3VjaCBpbiBsb29w
-cwo+IHRocm91Z2hvdXQgdGhlIGNvZGUuICgwLWJhc2VkIGluZGV4aW5nIGlzIHRoZQo+IHRoZSBj
-b3VudCBudW1iZXIuKQo+Cj4gUmVtb3ZlIHJlZHVuZGFudCB3b3JkIEhJR0ggaW4gcHJpb3JpdHkg
-bmFtZXMsCj4gYW5kIHJlbmFtZSAqS0VSTkVMKiB0byAqSElHSCosIGFzIGl0IHJlYWxseQo+IG1l
-YW5zIHRoYXQsIGhpZ2guCj4KPiB2MjogQWRkIGJhY2sgS0VSTkVMIGFuZCByZW1vdmUgU1cgYW5k
-IEhXLAo+ICAgICAgaW4gbGlldSBvZiBhIHNpbmdsZSBISUdIIGJldHdlZW4gTk9STUFMIGFuZCBL
-RVJORUwuCj4KPiBTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQu
-Y29tPgoKSSBjYW4ndCByZWFsbHkganVkZ2UgdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiBNQVggYW5k
-IENPVU5ULCBidXQgdGhlIHdlIApyZW5hbWUgdGhlIHZhbHVlcyBhbmQgZ2V0IHJpZCBvZiB0aGUg
-aW52YWxpZCBvbmUgc291bmRzIGxpa2UgYSBnb29kIGlkZWEgCnRvIG1lLgoKUmV2aWV3ZWQtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gZm9yIHRoZSBzZXJp
-ZXMuCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jICAg
-fCAgNCArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgICB8
-ICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jICB8ICAy
-ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oICB8ICAyICst
-Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2NoZWQuYyB8ICA2ICsrKy0t
-LQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jICAgfCAgMiArLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgICAgfCAgNCArKy0tCj4g
-ICBpbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggICAgICAgICAgICAgICB8IDEyICsrKysrKyst
-LS0tLQo+ICAgOCBmaWxlcyBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMo
-LSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKPiBpbmRleCBkODVk
-MTNmN2EwNDMuLjY4ZWFhNGY2ODdhNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfY3R4LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3R4LmMKPiBAQCAtNDYsNyArNDYsNyBAQCBjb25zdCB1bnNpZ25lZCBpbnQgYW1kZ3B1
-X2N0eF9udW1fZW50aXRpZXNbQU1ER1BVX0hXX0lQX05VTV0gPSB7Cj4gICBzdGF0aWMgaW50IGFt
-ZGdwdV9jdHhfcHJpb3JpdHlfcGVybWl0KHN0cnVjdCBkcm1fZmlsZSAqZmlscCwKPiAgIAkJCQkg
-ICAgICBlbnVtIGRybV9zY2hlZF9wcmlvcml0eSBwcmlvcml0eSkKPiAgIHsKPiAtCWlmIChwcmlv
-cml0eSA8IDAgfHwgcHJpb3JpdHkgPj0gRFJNX1NDSEVEX1BSSU9SSVRZX01BWCkKPiArCWlmIChw
-cmlvcml0eSA8IDAgfHwgcHJpb3JpdHkgPj0gRFJNX1NDSEVEX1BSSU9SSVRZX0NPVU5UKQo+ICAg
-CQlyZXR1cm4gLUVJTlZBTDsKPiAgIAo+ICAgCS8qIE5PUk1BTCBhbmQgYmVsb3cgYXJlIGFjY2Vz
-c2libGUgYnkgZXZlcnlvbmUgKi8KPiBAQCAtNjUsNyArNjUsNyBAQCBzdGF0aWMgaW50IGFtZGdw
-dV9jdHhfcHJpb3JpdHlfcGVybWl0KHN0cnVjdCBkcm1fZmlsZSAqZmlscCwKPiAgIHN0YXRpYyBl
-bnVtIGdmeF9waXBlX3ByaW9yaXR5IGFtZGdwdV9jdHhfc2NoZWRfcHJpb190b19jb21wdXRlX3By
-aW8oZW51bSBkcm1fc2NoZWRfcHJpb3JpdHkgcHJpbykKPiAgIHsKPiAgIAlzd2l0Y2ggKHByaW8p
-IHsKPiAtCWNhc2UgRFJNX1NDSEVEX1BSSU9SSVRZX0hJR0hfSFc6Cj4gKwljYXNlIERSTV9TQ0hF
-RF9QUklPUklUWV9ISUdIOgo+ICAgCWNhc2UgRFJNX1NDSEVEX1BSSU9SSVRZX0tFUk5FTDoKPiAg
-IAkJcmV0dXJuIEFNREdQVV9HRlhfUElQRV9QUklPX0hJR0g7Cj4gICAJZGVmYXVsdDoKPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jCj4gaW5kZXggNzVkMzdkZmI1MWFhLi5i
-YjllNTQ4MWZmM2MgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2pvYi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5j
-Cj4gQEAgLTI1MSw3ICsyNTEsNyBAQCB2b2lkIGFtZGdwdV9qb2Jfc3RvcF9hbGxfam9ic19vbl9z
-Y2hlZChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkKQo+ICAgCWludCBpOwo+ICAgCj4g
-ICAJLyogU2lnbmFsIGFsbCBqb2JzIG5vdCB5ZXQgc2NoZWR1bGVkICovCj4gLQlmb3IgKGkgPSBE
-Uk1fU0NIRURfUFJJT1JJVFlfTUFYIC0gMTsgaSA+PSBEUk1fU0NIRURfUFJJT1JJVFlfTUlOOyBp
-LS0pIHsKPiArCWZvciAoaSA9IERSTV9TQ0hFRF9QUklPUklUWV9DT1VOVCAtIDE7IGkgPj0gRFJN
-X1NDSEVEX1BSSU9SSVRZX01JTjsgaS0tKSB7Cj4gICAJCXN0cnVjdCBkcm1fc2NoZWRfcnEgKnJx
-ID0gJnNjaGVkLT5zY2hlZF9ycVtpXTsKPiAgIAo+ICAgCQlpZiAoIXJxKQo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYwo+IGluZGV4IDEzZWE4ZWJjNDIxYy4uNmQ0ZmM3
-OWJmODRhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
-aW5nLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jCj4g
-QEAgLTI2Nyw3ICsyNjcsNyBAQCBpbnQgYW1kZ3B1X3JpbmdfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+ICAgCQkJJnJpbmctPnNjaGVk
-Owo+ICAgCX0KPiAgIAo+IC0JZm9yIChpID0gMDsgaSA8IERSTV9TQ0hFRF9QUklPUklUWV9NQVg7
-ICsraSkKPiArCWZvciAoaSA9IERSTV9TQ0hFRF9QUklPUklUWV9NSU47IGkgPCBEUk1fU0NIRURf
-UFJJT1JJVFlfQ09VTlQ7ICsraSkKPiAgIAkJYXRvbWljX3NldCgmcmluZy0+bnVtX2pvYnNbaV0s
-IDApOwo+ICAgCj4gICAJcmV0dXJuIDA7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfcmluZy5oCj4gaW5kZXggZGE4NzFkODRiNzQyLi43MTEyMTM3Njg5ZGIgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaAo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKPiBAQCAtMjQzLDcgKzI0Myw3IEBA
-IHN0cnVjdCBhbWRncHVfcmluZyB7Cj4gICAJYm9vbAkJCWhhc19jb21wdXRlX3ZtX2J1ZzsKPiAg
-IAlib29sCQkJbm9fc2NoZWR1bGVyOwo+ICAgCj4gLQlhdG9taWNfdAkJbnVtX2pvYnNbRFJNX1ND
-SEVEX1BSSU9SSVRZX01BWF07Cj4gKwlhdG9taWNfdAkJbnVtX2pvYnNbRFJNX1NDSEVEX1BSSU9S
-SVRZX0NPVU5UXTsKPiAgIAlzdHJ1Y3QgbXV0ZXgJCXByaW9yaXR5X211dGV4Owo+ICAgCS8qIHBy
-b3RlY3RlZCBieSBwcmlvcml0eV9tdXRleCAqLwo+ICAgCWludAkJCXByaW9yaXR5Owo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2NoZWQuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zY2hlZC5jCj4gaW5kZXggYzc5OTY5MWRmYTg0
-Li4xNzY2MWVkZTk0ODggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3NjaGVkLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-c2NoZWQuYwo+IEBAIC0zNiwxNCArMzYsMTQgQEAgZW51bSBkcm1fc2NoZWRfcHJpb3JpdHkgYW1k
-Z3B1X3RvX3NjaGVkX3ByaW9yaXR5KGludCBhbWRncHVfcHJpb3JpdHkpCj4gICB7Cj4gICAJc3dp
-dGNoIChhbWRncHVfcHJpb3JpdHkpIHsKPiAgIAljYXNlIEFNREdQVV9DVFhfUFJJT1JJVFlfVkVS
-WV9ISUdIOgo+IC0JCXJldHVybiBEUk1fU0NIRURfUFJJT1JJVFlfSElHSF9IVzsKPiArCQlyZXR1
-cm4gRFJNX1NDSEVEX1BSSU9SSVRZX0hJR0g7Cj4gICAJY2FzZSBBTURHUFVfQ1RYX1BSSU9SSVRZ
-X0hJR0g6Cj4gLQkJcmV0dXJuIERSTV9TQ0hFRF9QUklPUklUWV9ISUdIX1NXOwo+ICsJCXJldHVy
-biBEUk1fU0NIRURfUFJJT1JJVFlfSElHSDsKPiAgIAljYXNlIEFNREdQVV9DVFhfUFJJT1JJVFlf
-Tk9STUFMOgo+ICAgCQlyZXR1cm4gRFJNX1NDSEVEX1BSSU9SSVRZX05PUk1BTDsKPiAgIAljYXNl
-IEFNREdQVV9DVFhfUFJJT1JJVFlfTE9XOgo+ICAgCWNhc2UgQU1ER1BVX0NUWF9QUklPUklUWV9W
-RVJZX0xPVzoKPiAtCQlyZXR1cm4gRFJNX1NDSEVEX1BSSU9SSVRZX0xPVzsKPiArCQlyZXR1cm4g
-RFJNX1NDSEVEX1BSSU9SSVRZX01JTjsKPiAgIAljYXNlIEFNREdQVV9DVFhfUFJJT1JJVFlfVU5T
-RVQ6Cj4gICAJCXJldHVybiBEUk1fU0NIRURfUFJJT1JJVFlfVU5TRVQ7Cj4gICAJZGVmYXVsdDoK
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gaW5kZXggMjBmYTA0OTdh
-YWE0Li42MGUyZDMyNjdhZTUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3R0bS5jCj4gQEAgLTIxMTQsNyArMjExNCw3IEBAIHZvaWQgYW1kZ3B1X3R0bV9zZXRfYnVmZmVy
-X2Z1bmNzX3N0YXR1cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBlbmFibGUpCj4g
-ICAJCXJpbmcgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nOwo+ICAgCQlzY2hlZCA9ICZy
-aW5nLT5zY2hlZDsKPiAgIAkJciA9IGRybV9zY2hlZF9lbnRpdHlfaW5pdCgmYWRldi0+bW1hbi5l
-bnRpdHksCj4gLQkJCQkgICAgICAgICAgRFJNX1NDSEVEX1BSSU9SSVRZX0tFUk5FTCwgJnNjaGVk
-LAo+ICsJCQkJCSAgRFJNX1NDSEVEX1BSSU9SSVRZX0tFUk5FTCwgJnNjaGVkLAo+ICAgCQkJCQkg
-IDEsIE5VTEwpOwo+ICAgCQlpZiAocikgewo+ICAgCQkJRFJNX0VSUk9SKCJGYWlsZWQgc2V0dGlu
-ZyB1cCBUVE0gQk8gbW92ZSBlbnRpdHkgKCVkKVxuIiwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVy
-L3NjaGVkX21haW4uYwo+IGluZGV4IDJmMzE5MTAyYWU5Zi4uMTlmMzgxZTVlNjYxIDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMKPiBAQCAtNjIzLDcgKzYyMyw3IEBA
-IGRybV9zY2hlZF9zZWxlY3RfZW50aXR5KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQp
-Cj4gICAJCXJldHVybiBOVUxMOwo+ICAgCj4gICAJLyogS2VybmVsIHJ1biBxdWV1ZSBoYXMgaGln
-aGVyIHByaW9yaXR5IHRoYW4gbm9ybWFsIHJ1biBxdWV1ZSovCj4gLQlmb3IgKGkgPSBEUk1fU0NI
-RURfUFJJT1JJVFlfTUFYIC0gMTsgaSA+PSBEUk1fU0NIRURfUFJJT1JJVFlfTUlOOyBpLS0pIHsK
-PiArCWZvciAoaSA9IERSTV9TQ0hFRF9QUklPUklUWV9DT1VOVCAtIDE7IGkgPj0gRFJNX1NDSEVE
-X1BSSU9SSVRZX01JTjsgaS0tKSB7Cj4gICAJCWVudGl0eSA9IGRybV9zY2hlZF9ycV9zZWxlY3Rf
-ZW50aXR5KCZzY2hlZC0+c2NoZWRfcnFbaV0pOwo+ICAgCQlpZiAoZW50aXR5KQo+ICAgCQkJYnJl
-YWs7Cj4gQEAgLTg1MSw3ICs4NTEsNyBAQCBpbnQgZHJtX3NjaGVkX2luaXQoc3RydWN0IGRybV9n
-cHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIAlzY2hlZC0+bmFtZSA9IG5hbWU7Cj4gICAJc2NoZWQt
-PnRpbWVvdXQgPSB0aW1lb3V0Owo+ICAgCXNjaGVkLT5oYW5nX2xpbWl0ID0gaGFuZ19saW1pdDsK
-PiAtCWZvciAoaSA9IERSTV9TQ0hFRF9QUklPUklUWV9NSU47IGkgPCBEUk1fU0NIRURfUFJJT1JJ
-VFlfTUFYOyBpKyspCj4gKwlmb3IgKGkgPSBEUk1fU0NIRURfUFJJT1JJVFlfTUlOOyBpIDwgRFJN
-X1NDSEVEX1BSSU9SSVRZX0NPVU5UOyBpKyspCj4gICAJCWRybV9zY2hlZF9ycV9pbml0KHNjaGVk
-LCAmc2NoZWQtPnNjaGVkX3JxW2ldKTsKPiAgIAo+ICAgCWluaXRfd2FpdHF1ZXVlX2hlYWQoJnNj
-aGVkLT53YWtlX3VwX3dvcmtlcik7Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2dwdV9zY2hl
-ZHVsZXIuaCBiL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAo+IGluZGV4IDI2YjA0ZmY2MjY3
-Ni4uZWQ5OTg0NjRkZWQ0IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIu
-aAo+ICsrKyBiL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAo+IEBAIC0zMywxNCArMzMsMTYg
-QEAKPiAgIHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlcjsKPiAgIHN0cnVjdCBkcm1fc2NoZWRfcnE7
-Cj4gICAKPiArLyogVGhlc2UgYXJlIG9mdGVuIHVzZWQgYXMgYW4gKGluaXRpYWwpIGluZGV4Cj4g
-KyAqIHRvIGFuIGFycmF5LCBhbmQgYXMgc3VjaCBzaG91bGQgc3RhcnQgYXQgMC4KPiArICovCj4g
-ICBlbnVtIGRybV9zY2hlZF9wcmlvcml0eSB7Cj4gICAJRFJNX1NDSEVEX1BSSU9SSVRZX01JTiwK
-PiAtCURSTV9TQ0hFRF9QUklPUklUWV9MT1cgPSBEUk1fU0NIRURfUFJJT1JJVFlfTUlOLAo+ICAg
-CURSTV9TQ0hFRF9QUklPUklUWV9OT1JNQUwsCj4gLQlEUk1fU0NIRURfUFJJT1JJVFlfSElHSF9T
-VywKPiAtCURSTV9TQ0hFRF9QUklPUklUWV9ISUdIX0hXLAo+ICsJRFJNX1NDSEVEX1BSSU9SSVRZ
-X0hJR0gsCj4gICAJRFJNX1NDSEVEX1BSSU9SSVRZX0tFUk5FTCwKPiAtCURSTV9TQ0hFRF9QUklP
-UklUWV9NQVgsCj4gKwo+ICsJRFJNX1NDSEVEX1BSSU9SSVRZX0NPVU5ULAo+ICAgCURSTV9TQ0hF
-RF9QUklPUklUWV9JTlZBTElEID0gLTEsCj4gICAJRFJNX1NDSEVEX1BSSU9SSVRZX1VOU0VUID0g
-LTIKPiAgIH07Cj4gQEAgLTI3Myw3ICsyNzUsNyBAQCBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIg
-ewo+ICAgCXVpbnQzMl90CQkJaHdfc3VibWlzc2lvbl9saW1pdDsKPiAgIAlsb25nCQkJCXRpbWVv
-dXQ7Cj4gICAJY29uc3QgY2hhcgkJCSpuYW1lOwo+IC0Jc3RydWN0IGRybV9zY2hlZF9ycQkJc2No
-ZWRfcnFbRFJNX1NDSEVEX1BSSU9SSVRZX01BWF07Cj4gKwlzdHJ1Y3QgZHJtX3NjaGVkX3JxCQlz
-Y2hlZF9ycVtEUk1fU0NIRURfUFJJT1JJVFlfQ09VTlRdOwo+ICAgCXdhaXRfcXVldWVfaGVhZF90
-CQl3YWtlX3VwX3dvcmtlcjsKPiAgIAl3YWl0X3F1ZXVlX2hlYWRfdAkJam9iX3NjaGVkdWxlZDsK
-PiAgIAlhdG9taWNfdAkJCWh3X3JxX2NvdW50OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+--===============1964802986==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB448862FA29FD0870E45A423BF75F0MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB448862FA29FD0870E45A423BF75F0MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+You can probably just squash patches 2-5 into one patch.  Either way, serie=
+s is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+________________________________
+From: Quan, Evan <Evan.Quan@amd.com>
+Sent: Monday, August 17, 2020 3:49 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
+md.com>
+Subject: [PATCH 1/5] drm/amd/pm: disable/enable gfx ulv on UMD pstate enter=
+/exit
+
+Add gfx ulv disablement/enablement on UMD pstate entering/exiting.
+
+Change-Id: Ieb38fdb5975b563f24c0b172fedd01acf99afb10
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h | 1 +
+ 3 files changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
+pm/inc/amdgpu_smu.h
+index bbe4a343e9f1..7cc707ec21c3 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -596,6 +596,7 @@ struct pptable_funcs {
+         int (*set_pp_feature_mask)(struct smu_context *smu, uint64_t new_m=
+ask);
+         ssize_t (*get_gpu_metrics)(struct smu_context *smu, void **table);
+         int (*enable_mgpu_fan_boost)(struct smu_context *smu);
++       int (*gfx_ulv_control)(struct smu_context *smu, bool enablement);
+ };
+
+ typedef enum {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c
+index 7d17c4f1b489..221b5c923ce1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1440,6 +1440,7 @@ static int smu_enable_umd_pstate(void *handle,
+                         amdgpu_device_ip_set_clockgating_state(smu->adev,
+                                                                AMD_IP_BLOC=
+K_TYPE_GFX,
+                                                                AMD_CG_STAT=
+E_UNGATE);
++                       smu_gfx_ulv_control(smu, false);
+                 }
+         } else {
+                 /* exit umd pstate, restore level, enable gfx cg*/
+@@ -1447,6 +1448,7 @@ static int smu_enable_umd_pstate(void *handle,
+                         if (*level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_EXI=
+T)
+                                 *level =3D smu_dpm_ctx->saved_dpm_level;
+                         smu_dpm_ctx->enable_umd_pstate =3D false;
++                       smu_gfx_ulv_control(smu, true);
+                         amdgpu_device_ip_set_clockgating_state(smu->adev,
+                                                                AMD_IP_BLOC=
+K_TYPE_GFX,
+                                                                AMD_CG_STAT=
+E_GATE);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/=
+amd/pm/swsmu/smu_internal.h
+index 264073d4e263..2fe29c6a00ce 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+@@ -92,6 +92,7 @@
+ #define smu_get_asic_power_limits(smu)                                  sm=
+u_ppt_funcs(get_power_limit, 0, smu)
+ #define smu_get_pp_feature_mask(smu, buf)                               sm=
+u_ppt_funcs(get_pp_feature_mask, 0, smu, buf)
+ #define smu_set_pp_feature_mask(smu, new_mask)                          sm=
+u_ppt_funcs(set_pp_feature_mask, 0, smu, new_mask)
++#define smu_gfx_ulv_control(smu, enablement)                           smu=
+_ppt_funcs(gfx_ulv_control, 0, smu, enablement)
+
+ #endif
+ #endif
+--
+2.28.0
+
+
+--_000_MN2PR12MB448862FA29FD0870E45A423BF75F0MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+You can probably just squash patches 2-5 into one patch.&nbsp; Either way, =
+series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan@amd.com&gt;<br>
+<b>Sent:</b> Monday, August 17, 2020 3:49 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
+ &lt;Evan.Quan@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 1/5] drm/amd/pm: disable/enable gfx ulv on UMD pstat=
+e enter/exit</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Add gfx ulv disablement/enablement on UMD pstate e=
+ntering/exiting.<br>
+<br>
+Change-Id: Ieb38fdb5975b563f24c0b172fedd01acf99afb10<br>
+Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp;&nbsp; | 1 +=
+<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp; | 2 ++<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu_internal.h | 1 +<br>
+&nbsp;3 files changed, 4 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/=
+pm/inc/amdgpu_smu.h<br>
+index bbe4a343e9f1..7cc707ec21c3 100644<br>
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h<br>
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h<br>
+@@ -596,6 +596,7 @@ struct pptable_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_pp_feature_mask)=
+(struct smu_context *smu, uint64_t new_mask);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t (*get_gpu_metrics)=
+(struct smu_context *smu, void **table);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*enable_mgpu_fan_boos=
+t)(struct smu_context *smu);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*gfx_ulv_control)(struct smu_con=
+text *smu, bool enablement);<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;typedef enum {<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c<br>
+index 7d17c4f1b489..221b5c923ce1 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
+@@ -1440,6 +1440,7 @@ static int smu_enable_umd_pstate(void *handle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_set_clockgating_state(smu-&gt;adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; AMD_IP_BLOCK_TYPE_GFX,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; AMD_CG_STATE_UNGATE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_gfx_ulv_cont=
+rol(smu, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* exit umd pstate, restore level, enable gfx cg*/<br=
+>
+@@ -1447,6 +1448,7 @@ static int smu_enable_umd_pstate(void *handle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*=
+level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_EXIT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *level =3D smu_dpm_ctx-&gt;saved=
+_dpm_level;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_d=
+pm_ctx-&gt;enable_umd_pstate =3D false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_gfx_ulv_cont=
+rol(smu, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_set_clockgating_state(smu-&gt;adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; AMD_IP_BLOCK_TYPE_GFX,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; AMD_CG_STATE_GATE);<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/=
+amd/pm/swsmu/smu_internal.h<br>
+index 264073d4e263..2fe29c6a00ce 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h<br>
+@@ -92,6 +92,7 @@<br>
+&nbsp;#define smu_get_asic_power_limits(smu)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; smu_ppt_funcs(get_power_limit, 0, smu)<br>
+&nbsp;#define smu_get_pp_feature_mask(smu, buf)&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; smu_ppt_funcs(get_pp_feature_mask, 0, smu, buf)<br>
+&nbsp;#define smu_set_pp_feature_mask(smu, new_mask)&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_ppt_funcs(set_pp_f=
+eature_mask, 0, smu, new_mask)<br>
++#define smu_gfx_ulv_control(smu, enablement)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_ppt_funcs(gfx_ulv_c=
+ontrol, 0, smu, enablement)<br>
+&nbsp;<br>
+&nbsp;#endif<br>
+&nbsp;#endif<br>
+-- <br>
+2.28.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB448862FA29FD0870E45A423BF75F0MN2PR12MB4488namp_--
+
+--===============1964802986==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1964802986==--
