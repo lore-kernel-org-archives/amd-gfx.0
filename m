@@ -2,103 +2,99 @@ Return-Path: <SRS0=yJoC=B3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D302EC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 10:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B06D9C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 10:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9AA892067C
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 10:06:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 70615206FA
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2020 10:35:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="RBoUGcWt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9AA892067C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Xiv3DQT/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70615206FA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35D5389C6A;
-	Mon, 17 Aug 2020 10:06:33 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690048.outbound.protection.outlook.com [40.107.69.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5270A89C6A
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 10:06:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 241F96E075;
+	Mon, 17 Aug 2020 10:35:32 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46A316E075
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2020 10:35:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MF4BbX4OjpG5pvPBLU/QDyMcOpzwdnHiSL3e+6QsaWMuVlAzmCnO0qaxr8MNIK2L8rKN5bBurQuVbzKn1J3NIHurFf2749HhJazP8QzfhQuRIFxgp2LBX2FvFCY3Kc+IdpcZlNuTgDVJrN7q2gTNmoQUTmqynvkPyr41ihm5WY751vy6L2ivRux++ALvMULr2t6ZKq9nifGO9WdXymOsW9iKSHsZQi8Hz4Q5zyI/zPzsrZSA7vAawVrkMeRrfT6tC/tvA7nvd9UnxDs5EeTPoXgOm3gYZa3wLzZcDGXVGpCEpxiQFXkap/E7SOjOLHIZ3bQAgc3XJhuMGZVWG+UIbg==
+ b=kPTYrpyodIwgi7797kt+LXrbmKx4WK/QP0yE9kvAgFMtfVEqZ1qQP3EBi+Kvy8qV1F2Lq3V0EYK7pgsCTKyL0siPgg6pwxeG32OJ1BdDAIxJALF/WU9vwcEzdPuMPkY+I+4rkhMrRsLqQh2dK9ElGr9A4lXpvTHbicAUXi8rkyxqQB1yvZ22jdPLMfHM/in3CwIsw6eURQpB1gGHkDOdtEPs7YZJCs+1J9heRyWjXlmemwQ8Vx41qEa9DwYT4QwDxCJbBN/SZ7paQ5aZBHMNEGtzQ7w6QbAWyGKP6maT7u6ccp771yQiGk6bPpZJEPR07QXkLUGaz4KcyqtErjsLCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GluPUxC4KmvnuhsneFto6e/82ngEToSsRsDckPhW0Q4=;
- b=aNxxwpZwRiYwYRcItBDA5YUvx86FYLpQv1aKJ13pB0emFDEn4wbf1dNkeJxJWkDRkdS2LxUS5FpnxHWyd7N87kwKa2y6ZWREltX2boYx+ULDeXlFI5EyyMFRqKsgvnWZxn0Xgx93/3qw/wlu7phnGESMcLM2NpxKmIK2LkxMfdyQuZdcAW2Wqg4rkn7fENADnjJQS9Hhq1Sjh+rrSujoiD6P2/2bfMO92l8NX7IfQQyAgsIy/zsM0D/UAZBM+g3Bd4ESbQ86ycMHbHGpXpruDVHKv0mx0yiS4oWkyN8sp/ki9Lsz9txdlf2RdEQpE2iPg0bnWSG79i3TTPUfxyXkDw==
+ bh=7tpiytrrsYfCOC504qvZr/6SMDhiYJJPFAXuzoB95V4=;
+ b=gb9UYaNRJqEnKM8nMY9vND4q9uu/luvfSsYt73hwJTPqwD6tnxhqVb43+dVDlP7+sbQCiIomku+eWMeV+9asVp7QE7Kyeihhm6LErDMKyib7QnhW0lhx72BTpMm55HtrCNxu5swD9e7jxC8x+QU9+0MCbG8aki2O2RzHWx4mSuuqGcq1uUuVeeZoHcVUFUS+I/TnKflluhbH9nPllnIYOq9N8UfBZ3kD0x9XwrZFuufxVhAOYtbdY6nAhHjRVFeRuCVCsMy0FbwpwcMvB3uKpxDFy4a/ne6eUMXa+G6m80cZLnENdsHXXXs4x7Z4ybWre0hlSbxn9R/2JKDFpvWGfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GluPUxC4KmvnuhsneFto6e/82ngEToSsRsDckPhW0Q4=;
- b=RBoUGcWtt1e/+TRBw+2x306kqHtvKjzpxy+4FoNB3orYo3j6gLdgGiY0WxzWwoY358Djo7MkdDAi3k8N9u5wyQVMcpE5xV+ejMY46pkLC2yLKzkFKjhsl93DyctrBtbklcpx699lj1kxlr10z+5X0fWtahrI8sbLI/AdMqKaByU=
+ bh=7tpiytrrsYfCOC504qvZr/6SMDhiYJJPFAXuzoB95V4=;
+ b=Xiv3DQT/BbCtH0eYk4UvPGXBEJXGmgr3VN/hXOGxWNXSZ4Zyn4+CmEnU6Y5JHTxe2nIugOx02NUXj0KbpU6A0/TMIY2bbIsBOLdr0Nd6vYFO/RDAlXiyLClHJQTV8LsN729A9qLlK2unPmKYkBLvO8vKFPCXKKqgJuMtjm2NGtw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4318.namprd12.prod.outlook.com (2603:10b6:208:1d8::12)
+Received: from MN2PR12MB3022.namprd12.prod.outlook.com (2603:10b6:208:ce::32)
+ by MN2PR12MB3440.namprd12.prod.outlook.com (2603:10b6:208:d0::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.15; Mon, 17 Aug
- 2020 10:06:30 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d%6]) with mapi id 15.20.3283.027; Mon, 17 Aug 2020
- 10:06:30 +0000
-Subject: Re: [PATCH] drm/amdgpu: add condition check for trace_amdgpu_cs()
-To: Kevin Wang <kevin1.wang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200817090445.26479-1-kevin1.wang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <5f3f62d9-e507-6579-b7b3-8ca05028532d@amd.com>
-Date: Mon, 17 Aug 2020 12:06:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20200817090445.26479-1-kevin1.wang@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR05CA0014.eurprd05.prod.outlook.com (2603:10a6:205::27)
- To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ 2020 10:35:22 +0000
+Received: from MN2PR12MB3022.namprd12.prod.outlook.com
+ ([fe80::44b3:9382:383e:ab93]) by MN2PR12MB3022.namprd12.prod.outlook.com
+ ([fe80::44b3:9382:383e:ab93%4]) with mapi id 15.20.3283.027; Mon, 17 Aug 2020
+ 10:35:22 +0000
+From: Kevin Wang <kevin1.wang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2] drm/amdgpu: add condition check for trace_amdgpu_cs()
+Date: Mon, 17 Aug 2020 18:34:55 +0800
+Message-Id: <20200817103455.11405-1-kevin1.wang@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK2PR02CA0204.apcprd02.prod.outlook.com
+ (2603:1096:201:20::16) To MN2PR12MB3022.namprd12.prod.outlook.com
+ (2603:10b6:208:ce::32)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR05CA0014.eurprd05.prod.outlook.com (2603:10a6:205::27) with Microsoft
+Received: from kevin-u1804-kvm.amd.com (58.247.170.245) by
+ HK2PR02CA0204.apcprd02.prod.outlook.com (2603:1096:201:20::16) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Mon, 17 Aug 2020 10:06:29 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ 15.20.3283.15 via Frontend Transport; Mon, 17 Aug 2020 10:35:20 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [58.247.170.245]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 868e0e5f-f4ee-491f-78fe-08d842953608
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4318:
+X-MS-Office365-Filtering-Correlation-Id: 85c78392-d46e-4626-ddcb-08d842993ea6
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3440:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43185B54C2EB9462CCD0DFB5835F0@MN2PR12MB4318.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB34409864AFD9663137E1A958A25F0@MN2PR12MB3440.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: d8/PDbHcleOTbNx07Z8Jy7dOO+scJnCfR7xyGnXOkorJaImeG7zaq8sj5vwVrBAEauK4HGqRmCqQGl0qjKOQ/Hwr1KX5qDseyeLUrOXW79Wa27s2ZADjKV9KQ94SHXpISsfcmw8OFEUaODTVGCQAG/VKvJslCGYRsdpe43UHNmkWnFZepc2YaHbQnreFqdKhCSba9NLjIVc59VWjQZRA20jXfia3xN1Ie2bZ9nWG/KNE7zxVqEARyhLBK8LX9yQTBTMOQEIjUESBYK8PWJr4HDoKUdYMW096UPeSVxzYMq3c57HOVdX1kSdAlABKloI0b5CWJZ6Q/gKHzc8N9tJmJc3QheJJe5s3EXOWn+x8gpvnFLbjjtV9HGx1TAfhW6uR
+X-Microsoft-Antispam-Message-Info: 0cGUcQW6uho+gKNaBdW+sDNVhSqJJ83pxZp0qebNxNVAa+s7/j8sAI8qcQiQDcMkve/PLwb5co4MIAWRFig1cTo8o7lJsXbCEtyhyXs6EiwbjyDp3LKhRUSeBnwvh0DtdsiVcIDdgaftYUFo152HGRdO5G1tBJ/lkgB670pK8bZCBs71frboxia9UkeWDb1H3AVPsYWm3koOcwwrB9/45tOaqvtnK31A6ml7tPP1KqZRUP2hyOMZ/tB0e+l/HpUS1HOC+fovKizVe6q2E1BrNDVu6YVpWV6wIgmlpShD6bRyNtZZRwa1PzpNQJt17rOfXhG1OLhCyB3O5e2WeFD1zA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(136003)(376002)(396003)(39860400002)(2906002)(6486002)(36756003)(83380400001)(66946007)(66556008)(8676002)(66476007)(86362001)(31696002)(16526019)(2616005)(478600001)(52116002)(31686004)(316002)(6666004)(186003)(8936002)(5660300002)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3022.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(376002)(396003)(39860400002)(346002)(4326008)(6486002)(2906002)(83380400001)(7696005)(52116002)(478600001)(6666004)(36756003)(26005)(8676002)(5660300002)(66556008)(66476007)(66946007)(316002)(1076003)(186003)(6916009)(2616005)(956004)(8936002)(86362001)(16526019);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: X4iY2Mh+A4gGNBSWi2bu6R+WafkcqKA1GSzYHN/2CR8Q8VlS1GvLHvmNrEhmojm0CsZgYlVT7vpP1FPLPx6ahhFHefvNgR1AQNuR6xgv07HDA8e8s4UnpF6Vbpo6IWPf1+VAXCUKhv1MIGQ1J91HA+64yGt7SviQQNm4/vrV4hKxAhvIEMQ8W0pUaVv2404k5h6BGlDSmsU0HTA/W1aOPbopkkbOr5IBCmHpFErBHu0Z0T+S3DrMxuG7nO+ecmygKuX/rwp++hVRkHgUf73eLWbamHNOlA/rxsM7IykbEnyovrxCdMJ+WTrF+7R95qN/xSYnUR0QUaezRJBise+saEnHHZUjbw9g1p5IbDn+9J3h1036ZSTqGKZr4BElsslKppo5FENWppLgo6swo5FT/bZIvRJB+HKeVU7jghpoxL4Pk6fKWhJCXkcJAQR1HAJ7lQ2hjDXsnFDVb3oVTw7nuTcn0lLrJrSnXCyIVrzbn8ufaj96VYr5MY4Ezz8lOQVgpEEHquKNZIe/XscJqnngITc4PAfOT2oY0460gRYQcmeE66piX6ZBsJTE/iQKvv0t+nekqnC0752+gTRUyMZkkw4CBMlXJYl/2AXFiUSnpkZ0m9r3E0shdeYSQyFmD07yWn8WUpOUDiIASPoTlOmpfxrmIQe+CmRflpwm3NqKtZt9eOfTUSdX0QJ5kUMH+3Km993VSoCh5VNJvKhf2fRXFA==
+X-MS-Exchange-AntiSpam-MessageData: nvm4v0IrqYsE6opIUg+FsYB0Yoxw/nhaPbPtVMbeFvLKi2170tLeJTKqxFt3Pjfx45rfuE4snU86x5jrNB/qBOZ6ksDc12+FPklu2F4ST5fJjiGqMWrdIfp8Y592exIp9ywfeI7RvDIB5HsZRf5CvvVOpEB60/XxVKvepGLd+hfaFN/8uC6UnGBDRmvLITVpB/rEwcsYuEk2VDgifRwCZFLz1hGOWoRoXT9331JSzKFZalXcFmcg8YSGonx/DhKpy8nQ2878Cr4EbXlhrufl26bWjrobLGZYJZxhQBICbQ/k2ZNqpe4tobnhPjpquBPga1sl7592R84c4yCR6dbflqS2Kw9AkMGCSRb7W7o3OJmkSId13SR3i/zIQ5sMP69na96Q3Q7Jgj773AekqCxKh/JpDAgRkxsKbICpXbxsbB4X0ll+4Pq3sIes+eQrhwbCsg2Iah9qJRqPoSD/ejln0PBtCh4VShGzaRgVoMxVL4zS1fE/EzYfHvLm6HDI+UNJ3D23+4tGP6bIVngUMgIhKzyuBmwaINqR1ANCN5Rw+PMbP1IwPeNK9Dz9Rh+fyRtkp34NqpkOer3onjmyCIy33i2NkEmG2G7qr/s/NuJVQuGySUyaubvA1fK3NkRLCRD3R2+RnjMFyVuKwB8B2uKaHg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 868e0e5f-f4ee-491f-78fe-08d842953608
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85c78392-d46e-4626-ddcb-08d842993ea6
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3022.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2020 10:06:30.0798 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2020 10:35:22.4726 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1giDd/lCU6wQ8OGiJo7oBht3FEuZ6yylOrEy/EcoilAnvS4UXgwunlzp5pzPbope
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4318
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2UhvH/LAz3j0jKQ1H5C6kHeiuQp5XVppyb3yJhbC45+iRb4lsQK6OYU8pBSbd5gN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,40 +106,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Kevin Wang <kevin1.wang@amd.com>, Christian.Koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.08.20 um 11:04 schrieb Kevin Wang:
-> add trace event enabled check to avoid nop loop when submit multi ibs
-> in amdgpu_cs_ioctl() function.
+v1:
+add trace event enabled check to avoid nop loop when submit multi ibs
+in amdgpu_cs_ioctl() function.
 
-Maybe we should change the trace point instead to trace all IBs with 
-just a single call.
+v2:
+add a new wrapper function to trace all amdgpu cs ibs.
 
->
-> Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index ffbcaf4bfb8b..409694f074ac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1319,8 +1319,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   
->   	reserved_buffers = true;
->   
-> -	for (i = 0; i < parser.job->num_ibs; i++)
-> -		trace_amdgpu_cs(&parser, i);
-> +	if (trace_amdgpu_cs_enabled())
-> +		for (i = 0; i < parser.job->num_ibs; i++)
-> +			trace_amdgpu_cs(&parser, i);
->   
->   	r = amdgpu_cs_vm_handling(&parser);
->   	if (r)
+Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index ffbcaf4bfb8b..1921e61a37b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1275,13 +1275,24 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 	return r;
+ }
+ 
++static void trace_amdgpu_cs_ibs(struct amdgpu_cs_parser *parser)
++{
++	int i;
++
++	if (!trace_amdgpu_cs_enabled())
++		return;
++
++	for (i = 0; i < parser->job->num_ibs; i++)
++		trace_amdgpu_cs(parser, i);
++}
++
+ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ {
+ 	struct amdgpu_device *adev = dev->dev_private;
+ 	union drm_amdgpu_cs *cs = data;
+ 	struct amdgpu_cs_parser parser = {};
+ 	bool reserved_buffers = false;
+-	int i, r;
++	int r;
+ 
+ 	if (amdgpu_ras_intr_triggered())
+ 		return -EHWPOISON;
+@@ -1319,8 +1330,7 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 
+ 	reserved_buffers = true;
+ 
+-	for (i = 0; i < parser.job->num_ibs; i++)
+-		trace_amdgpu_cs(&parser, i);
++	trace_amdgpu_cs_ibs(&parser);
+ 
+ 	r = amdgpu_cs_vm_handling(&parser);
+ 	if (r)
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
