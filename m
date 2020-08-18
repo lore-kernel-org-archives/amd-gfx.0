@@ -7,101 +7,99 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CFA20C433E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 08:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C69BC433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 08:26:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A3E99206B5
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 08:18:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4F42C206B5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 08:26:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="17vXr/5e"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3E99206B5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ekvvS/s7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F42C206B5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C26899F0;
-	Tue, 18 Aug 2020 08:18:35 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D778D899F0
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2020 08:18:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4D2E89CDD;
+	Tue, 18 Aug 2020 08:26:52 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF3AE89CDD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2020 08:26:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ADHGcXwTQd1aSHsWatjqClJEl/QJ+DTMbzD5ZgRSrW4nqQtdxhl64beLXsH1fePhHpt7KEN74t0nzSfVg4POCSh0JoulR+/p/oTHzEW5VTgP+b0J93ZNrBpbxVqHm0WHFDYcGxdIpegGFkXUwsV4EKfB5N5vrOcAE/nbHUCtxUjQxwNBXYu/Nc9pwVmswNDnwabYg7iMH8eV5ApB9S7FPiRuNgKR8Ro3B5mZ7yPqOjcGawAKsJ3huWXBjWzRVrkUpCSAIowGqN2aE6qiMmXoQ9lxEMxlpxfIAKvn/C1c5/F3jivDXq4wkUugf5gQFLtr5cVUEfKvKx1I0WjtNF4T/Q==
+ b=UgM4mfhtvlCPFMj85o3270d7wSByAT0LeS4jl+4FSrJKR02WdNLvPq5n0FsEJdZl7HdufzJRcrTNR5HUjqkWg8uv4yV910vxOko7f8JoVnzUEvVoOhci+TGnvJjn4xyx5WjxL6OQp1xn10vyzSyP173B3NjbeW6c4GxVb3zg8bntROdbHJf3Iwz+8iQgELVvXN+F4yt5KONDCYtXN4jTkzHnlX6bzXzYM1O6SBCHsMxXvrx2mB8XZJXeWO62j5mUZ+p60LHalvnQfXQZb0MPrVnttOs/ooeUZcJmp+2LzPhuoiU9uvzCS4oYalfXSGyAnkWMdzMYdML0JYKkFw31wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8/VgvMsefszsO0mNgpeedV7P0neXFhG/YF9XfeukO6E=;
- b=VMDBelEl2l+kJ/PSNQcqRPcsQANK9H5+Thw3uXFDFjmgfH9pBfM+syza6qjoKqHJvON4KHFKbawqDxMfcNoFgt9MmUNpMggyyc+o2obvCmNBr8ngLy29Lh/hArfya8ZHWDTK7nBgdqkcNlRgU62gkn8ltEEiu/WdRbqbQEYa2XD+ZNDZPa9UV3Vr1slozI/6ccr4hza3ELe0mCSD0lUjlsxjJNfBzDjm4gxaXD4Q4nHCjV8bo7uFHih1ShmRzjNdOucVtZ028pOlapbt0EeIe3xs0ru+Wr6Li5lD/Xu+uZah3JNjTXbC5r7qDrvuXrcgm0GNcabZIh4YCJArfNYoew==
+ bh=8pM6GRfzpcJaB6ElpVgCTibbHfdhB+yT+Ocn6wpXQ8c=;
+ b=FWIbFo15kWjOzHQhbmtxYONT7f0FNB7gMoHzlIQT4uL2C7bT470JR9/xfdFTTcaCFLoTQwdX5FBXLn0lkjc8EH5uvd8B3zhqKdz0SFykBvCzUfvQC+kbUdGUqFVuubCRXIrBw1l2ybob5ksXk8CsEaRPK9Fn+1wfPD/cUANgxAeO7inuNS5Jt47q5pKuG4oDJzcFWSS/DiuHZ3nTKN20aU6XviWQcMPLeeU8i313bpKtjBWG9L6VnTSWG4wDZviME1EM0l/P00SOYkg9l+z91Pa/ckGOyKQXP9XM12HvwYYBaY7ci8go4iiCdk8dT2iToyW2F66cUsZqqxEoOCeuyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8/VgvMsefszsO0mNgpeedV7P0neXFhG/YF9XfeukO6E=;
- b=17vXr/5exL/FD7qSvFCs7sxLXEJsMO6oatFzclWK7q/yJ+AtaCHB69pYbKfMwqM6fOqBdIN0u2LaT6bGCO8S9kv87XAquUdc0bdtAnj9nunOze86mitR56NvpAN2ulFhfTg4yfvvLBIV87WOyuBfJvoigXwxAuw3jECG0JuUbBc=
+ bh=8pM6GRfzpcJaB6ElpVgCTibbHfdhB+yT+Ocn6wpXQ8c=;
+ b=ekvvS/s76IzSWemfSi1zzmPLXSgVVOdirMq7QEOj8UM/uTLimqy8SoriIjMQQxV3yoJPG5nawrrt3dwWif8guqpP41wEa7ybhlBVMdvlUH46r/FhzynSF4XDB8hncuoNEwzabB+MSVhAZJQl9ILNyuoH7VJZTcteITvtxVrANIg=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
- by DM6PR12MB3354.namprd12.prod.outlook.com (2603:10b6:5:11f::33) with
+ by DM6PR12MB4418.namprd12.prod.outlook.com (2603:10b6:5:28e::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.20; Tue, 18 Aug
- 2020 08:18:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24; Tue, 18 Aug
+ 2020 08:26:47 +0000
 Received: from DM6PR12MB3916.namprd12.prod.outlook.com
  ([fe80::e8b8:d8a1:5adb:614d]) by DM6PR12MB3916.namprd12.prod.outlook.com
  ([fe80::e8b8:d8a1:5adb:614d%4]) with mapi id 15.20.3283.028; Tue, 18 Aug 2020
- 08:18:28 +0000
-Subject: Re: [PATCH] drm/amdgpu: Fix repeatly flr issue
-To: "Deng, Emily" <Emily.Deng@amd.com>, "Das, Nirmoy" <Nirmoy.Das@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20200812091943.438905-1-Emily.Deng@amd.com>
- <71d5893c-453f-7c3e-7a20-e1234920dbba@amd.com>
- <BY5PR12MB411548B0210D9C173431A7A78F5C0@BY5PR12MB4115.namprd12.prod.outlook.com>
+ 08:26:47 +0000
+Subject: Re: [PATCH 4/4] drm/amdgpu/pm: only hide average power on SI and
+ pre-RENOIR APUs
+To: amd-gfx@lists.freedesktop.org
+References: <20200817195329.1971490-1-alexander.deucher@amd.com>
+ <20200817195329.1971490-4-alexander.deucher@amd.com>
 From: Nirmoy <nirmodas@amd.com>
-Message-ID: <25565c81-f902-7e1a-7282-e9ef4e34e6ba@amd.com>
-Date: Tue, 18 Aug 2020 10:22:08 +0200
+Message-ID: <4d83c901-cec1-a004-bc64-7e77d674d377@amd.com>
+Date: Tue, 18 Aug 2020 10:30:27 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <BY5PR12MB411548B0210D9C173431A7A78F5C0@BY5PR12MB4115.namprd12.prod.outlook.com>
+In-Reply-To: <20200817195329.1971490-4-alexander.deucher@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: AM4PR05CA0020.eurprd05.prod.outlook.com (2603:10a6:205::33)
- To DM6PR12MB3916.namprd12.prod.outlook.com
+X-ClientProxiedBy: AM0PR10CA0089.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:15::42) To DM6PR12MB3916.namprd12.prod.outlook.com
  (2603:10b6:5:1ca::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [IPv6:2003:c5:8f2b:8b00:ad4a:160b:54c5:6c69]
  (2003:c5:8f2b:8b00:ad4a:160b:54c5:6c69) by
- AM4PR05CA0020.eurprd05.prod.outlook.com (2603:10a6:205::33) with Microsoft
+ AM0PR10CA0089.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:15::42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Tue, 18 Aug 2020 08:18:27 +0000
+ 15.20.3283.16 via Frontend Transport; Tue, 18 Aug 2020 08:26:46 +0000
 X-Originating-IP: [2003:c5:8f2b:8b00:ad4a:160b:54c5:6c69]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 416da6b9-06f4-4af2-8e06-08d8434f4944
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3354:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB335477479BD674C8EB2CF5688B5C0@DM6PR12MB3354.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: 161ebd0b-2e1f-49db-a68e-08d843507288
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4418:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4418F7594CC097958FA933078B5C0@DM6PR12MB4418.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:530;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A+cUZzNNo010VxvIlR8kTTfyiiKEC7JgwU5XJ0FmTs+4B/fYIuPetGca/mWTD72bU5BXsd8vcAMs54f94I4P0UW/spQqJMd38Ajj10Em0uJ64CXaPOPbmPqZJYMAGW3QFtI5BCZso6tadRqQ57nQhw66GlYpniS3B96jw8LLXhwE+jj9s5V5vI/xil3zF2QwdcHKjaD4qHGyKtUd7edCVFGszEiulL8e/gNqtbVnn2FrnrcfDdcjXZB6lvou7gDTL4iaK65vusypcfzJS1qPwpTp2Y4VXKISUu0yL8O+XjrgOMBTFvjiNA5XM7d2ggxi0hh98SUy4ZB3ByhrJsheC6MljAGh13C4XUXV4Sbku4ZubV79s2/1KdXXC+dTqkHZ
+X-Microsoft-Antispam-Message-Info: /eqlPa+oRXBQq3wK7cJs6Cj3IQgftjhZ5tHrEWr4+CqwFzYlN1hf1LzWhU+kx7xv86w3XOBwl9Xw7Y730aT0ZXiH3I7jM1ZuknundPx8FxP7BHHcT8EZYY+Ri/Pwa2XPx9Xw/tPpcbcxfacGLxdBefjj6eRq4xPSmzxHJ3YubsrY+v951ikE006hv+O8e6JbM5ThxnHyZyeDKLUvfYnoEh6cU+CxNaRcYkJiI/uTJcjeTliVvxeNU8f+mKzRaDeAVBcsrFilNm/5rP7HnnJ267roHstzx5C+pHTbOhFcf55UqwWGJNen4jvn2xSk9Ww/5TW8EjqzScPn6eUrMfuZtW769XVxDu467ec/gMVr5so0c0GUxWfiiZ0nrBPYnT46
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(346002)(366004)(136003)(376002)(478600001)(316002)(6486002)(8936002)(6666004)(5660300002)(31686004)(66556008)(66476007)(66946007)(8676002)(2906002)(52116002)(83380400001)(53546011)(36756003)(16526019)(186003)(110136005)(31696002)(2616005)(43740500002);
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(66946007)(31696002)(6666004)(83380400001)(478600001)(2906002)(6486002)(31686004)(8936002)(6916009)(2616005)(8676002)(186003)(16526019)(66476007)(66556008)(36756003)(52116002)(53546011)(5660300002)(316002)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: ygU/kqZyUHCDuCyH2ynNXr6QFTjsBq0mdd0KX2j2KBOenIFkq54G5dNdCX7P4J4//KB2TSDxSma10fNWiw5yM4Rnlhig6cs6BPF+iWqLPPqpn157IJpa5dG8opzVkya18vLdl5Nod89SpeyQOlk3ERnRRsuxEb3mxKNCu6GzejyltzJPJKtSnO396bKEFAmeoPNx/0uBYhsVW6nEPQm4t45yvxtDGSGIGzyd/m8PZTwtJyEw1JgryCPDhIt/RamTw7+44F3/3A7Xub0+l48Kf1E1nkcNFYejqHynjBNLGf9bdt7AmeUdLradx1ddXCpBMzV3tHZ1/2W076R2lupwwp0pxSpIfPkvR5y36LvcYW5eusWtP25NhsPG/20mZ7kGdeBpf77k2rcxXpf11ChFL2iZ0m197N8+RqZmV4+IUbd9jtf5wgealfB8xe+4rkbh76DUsUpOeITOpbTvWzhmodXuaC+IFuyhSML/7hAclcg+sCGt9m3h464oly8E+Z7ZSL2CNqctQ8y3ifXD4FV6VVzxFlQvoBw6gjnzVmivofMTyecHCCPx/pXhcjX/tmd7I6/H25kox5Ch3AymkibtYIj5tPz7semXS8ywhXwUwl195VsnIwRM+EvPQt1xlXSUnzhz8kN1xvdnswQyzGI0TlnViujQn7WUmX1FdcUOuCQh3TZXIzRYgEAk2nUZsf2JM58N8eB48Y8SFR3boPk9Bw==
+X-MS-Exchange-AntiSpam-MessageData: MYCcplQKe7eFIJyZcx8g4Z8pmkQTV/X2WebkiNrBAzl0TrvcrJLfUr145Qq6g8VzPSQ3nLkvAgmZh/ymNfGhhyETdy0UH+6ddWReSledB6R09kOC3YmjO3xuV1QnWkKggp4/SbiNQQGsbuGDVdKmPS1N7OAmeNJo6Fhh95czjOEfs9WiT9dbCbAFi39mz2bNB9qNUxNP41Y6CBV4mEXx90pJw4TcnIMn/YvtSceqU41VRRPW5mfmLyjJoSU701iM1iXvrTrxthrTwo0SO6gL2rtdquVFiNFt89k9wreNObXH/DvqSfd1s+nOYaY0YVSn+QiMVUjWdVrphg1t4MYCKJM1zVAlJy3trg3WCc2N9hIYZ5+yRoDtFyQXZY19G1pgxaqe7agnKEY+RaB+VwnG63MCNQuUBfsZCox/UO+ycmdDreZzGheDkudRRpPwTDM9ZSBoxsrzhVJCvEGvh5C1b2sNMOYIgvafLucrrbJCcUy83GEoG+vbLlA8EmXs2ta/kW15FUWQhc3BBAftvWmQnr32UYRMtv/1bjgLQGejXAq6Gdd0KO+uMB94FKiUTcRfAMjmzWCSE3tuiuGDqDc4e8LwoIQevPWkiv36nc34gHmGOmH0RvSzGXhwbIP63MKbKinf7Ol2jnefG6y0vxNdbZFQvJn310StrzkLz8rCGlx5z0bHr0ZyqZJB4ParWAFUS1IOPY+rfupHUIcvC3I0WQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 416da6b9-06f4-4af2-8e06-08d8434f4944
+X-MS-Exchange-CrossTenant-Network-Message-Id: 161ebd0b-2e1f-49db-a68e-08d843507288
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2020 08:18:28.4901 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2020 08:26:47.1687 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jozuZPrXFg3EzEW98CNdGPDrgwIelaRhhwTaRk5C+Xj8AhvHO5LVwLpB/+B5iOBgCpuhsDvuC7hRwiW2PuQ8zw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3354
+X-MS-Exchange-CrossTenant-UserPrincipalName: xJDZuN/FwfEHeCetmqbjAUGMbB9tacM8hWKS6ri3Z0e9UELIpzcgkUYULnyTNJLM09xjvIK4ZsBjFbh6csIACw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4418
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,171 +116,41 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Series is Acked-by: Nirmoy Das <nirmoy.das@amd.com>
 
-On 8/18/20 4:48 AM, Deng, Emily wrote:
-> [AMD Official Use Only - Internal Distribution Only]
+On 8/17/20 9:53 PM, Alex Deucher wrote:
+> We can get this on RENOIR and newer via the SMU metrics
+> table.
 >
->> -----Original Message-----
->> From: Das, Nirmoy <Nirmoy.Das@amd.com>
->> Sent: Wednesday, August 12, 2020 8:18 PM
->> To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH] drm/amdgpu: Fix repeatly flr issue
->>
->>
->> On 8/12/20 11:19 AM, Emily.Deng wrote:
->>> From: jqdeng <Emily.Deng@amd.com>
->>>
->>> Only for no job running test case need to do recover in flr
->>> notification.
->>> For having job in mirror list, then let guest driver to hit job
->>> timeout, and then do recover.
->>>
->>> Signed-off-by: jqdeng <Emily.Deng@amd.com>
->>> Change-Id: Ic6234fce46fa1655ba81c4149235eeac75e75868
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 20 +++++++++++++++++++-
->>>    drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 22 ++++++++++++++++++++-
->> -
->>>    2 files changed, 39 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>> index fe31cbeccfe9..12fe5164aaf3 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
->>> @@ -238,6 +238,9 @@ static void xgpu_ai_mailbox_flr_work(struct
->> work_struct *work)
->>>    struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt,
->> flr_work);
->>>    struct amdgpu_device *adev = container_of(virt, struct
->> amdgpu_device, virt);
->>>    int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
->>> +int i;
->>> +bool need_do_recover = true;
->>
->> We should find a better name for "need_do_recover", may be
->> "need_to_recover" ?
-> Thanks, will modify later.
->>
->>> +struct drm_sched_job *job;
->>>
->>>    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
->>>     * otherwise the mailbox msg will be ruined/reseted by
->>> @@ -258,10 +261,25 @@ static void xgpu_ai_mailbox_flr_work(struct
->> work_struct *work)
->>>    flr_done:
->>>    up_read(&adev->reset_sem);
->>> +for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->>> +struct amdgpu_ring *ring = adev->rings[i];
->>> +
->>> +if (!ring || !ring->sched.thread)
->>> +continue;
->>> +
->>> +spin_lock(&ring->sched.job_list_lock);
->>> +job = list_first_entry_or_null(&ring->sched.ring_mirror_list,
->>> +struct drm_sched_job, node);
->>> +spin_unlock(&ring->sched.job_list_lock);
->>> +if (job) {
->>> +need_do_recover = false;
->>> +break;
->>> +}
->>> +}
->>
->> This 1st job retrieval logic can move to a function as there are two
->> instance of it.
->> Sorry, I didn't get your point.
-
-
-xgpu_ai_mailbox_flr_work() and xgpu_nv_mailbox_flr_work() are using same logic under
-"flr_done:"  label trying to retrieve 1st job entry to determine if we should do recover or not.
-
-We could move that logic into a function like:
-
-
-bool function_name ()
-{
-	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-		struct amdgpu_ring *ring = adev->rings[i];
-
-		if (!ring || !ring->sched.thread)
-			continue;
-
-		spin_lock(&ring->sched.job_list_lock);
-		job = list_first_entry_or_null(&ring->sched.ring_mirror_list, struct drm_sched_job, node);
-		spin_unlock(&ring->sched.job_list_lock);
-		if (job)
-			return true;
-			
-	}
-
-	return false;
-}
-
-and use that in xgpu_ai_mailbox_flr_work() and 
-xgpu_nv_mailbox_flr_work() instead of
-
-having two copy of that logic.
-
-
-
-Nirmoy
-
->>
->>>    /* Trigger recovery for world switch failure if no TDR */
->>>    if (amdgpu_device_should_recover_gpu(adev)
->>> -&& adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT)
->>> +&& (need_do_recover || adev->sdma_timeout ==
->> MAX_SCHEDULE_TIMEOUT))
->>>    amdgpu_device_gpu_recover(adev, NULL);
->>>    }
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>> index 6f55172e8337..fc92c494df0b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
->>> @@ -259,6 +259,9 @@ static void xgpu_nv_mailbox_flr_work(struct
->> work_struct *work)
->>>    struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt,
->> flr_work);
->>>    struct amdgpu_device *adev = container_of(virt, struct
->> amdgpu_device, virt);
->>>    int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
->>> +int i;
->>> +bool need_do_recover = true;
->>> +struct drm_sched_job *job;
->>>
->>>    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
->>>     * otherwise the mailbox msg will be ruined/reseted by
->>> @@ -279,10 +282,25 @@ static void xgpu_nv_mailbox_flr_work(struct
->> work_struct *work)
->>>    flr_done:
->>>    up_read(&adev->reset_sem);
->>> +for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->>> +struct amdgpu_ring *ring = adev->rings[i];
->>> +
->>> +if (!ring || !ring->sched.thread)
->>> +continue;
->>> +
->>> +spin_lock(&ring->sched.job_list_lock);
->>> +job = list_first_entry_or_null(&ring->sched.ring_mirror_list,
->>> +struct drm_sched_job, node);
->>> +spin_unlock(&ring->sched.job_list_lock);
->>> +if (job) {
->>> +need_do_recover = false;
->>> +break;
->>> +}
->>> +}
->>>
->>>    /* Trigger recovery for world switch failure if no TDR */
->>> -if (amdgpu_device_should_recover_gpu(adev)
->>> -&& (adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
->>> +if (amdgpu_device_should_recover_gpu(adev) && (need_do_recover
->> ||
->>> +adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
->>>    adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
->>>    adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
->>>    adev->video_timeout == MAX_SCHEDULE_TIMEOUT))
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index f2e70655e8d9..a77f7347fdfc 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -3312,12 +3312,17 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+>   
+>   	if (((adev->flags & AMD_IS_APU) ||
+>   	     adev->family == AMDGPU_FAMILY_SI) &&	/* not implemented yet */
+> -	    (attr == &sensor_dev_attr_power1_average.dev_attr.attr ||
+> -	     attr == &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
+> +	    (attr == &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
+>   	     attr == &sensor_dev_attr_power1_cap_min.dev_attr.attr||
+>   	     attr == &sensor_dev_attr_power1_cap.dev_attr.attr))
+>   		return 0;
+>   
+> +	if (((adev->family == AMDGPU_FAMILY_SI) ||
+> +	     ((adev->flags & AMD_IS_APU) &&
+> +	      (adev->asic_type < CHIP_RENOIR))) &&	/* not implemented yet */
+> +	    (attr == &sensor_dev_attr_power1_average.dev_attr.attr))
+> +		return 0;
+> +
+>   	if (!is_support_sw_smu(adev)) {
+>   		/* hide max/min values if we can't both query and manage the fan */
+>   		if ((!adev->powerplay.pp_funcs->set_fan_speed_percent &&
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
