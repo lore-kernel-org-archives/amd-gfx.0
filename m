@@ -7,99 +7,101 @@ X-Spam-Status: No, score=-13.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF355C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 07:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFA20C433E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 08:18:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C08DC2067C
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 07:58:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A3E99206B5
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2020 08:18:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="zbCYQdEV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C08DC2067C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="17vXr/5e"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3E99206B5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4845589CA0;
-	Tue, 18 Aug 2020 07:58:12 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5029489CA0;
- Tue, 18 Aug 2020 07:58:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C26899F0;
+	Tue, 18 Aug 2020 08:18:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D778D899F0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2020 08:18:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eZs8fIUbZD7GbH+Wq+6a5fpD6XsRqDl8h3dY4m1woQBlu19iIha4EiWF9Kdm+1hg0im+r5Di/6K6hcEZJ7ZSVRRKtAma+/2zRpOyoUhHvT5aFDCmYfL6y2go7sWo6p7mjU7rmepCzBYwMUt4TEdXJft6cBhvgUG4XGXS+uLuJmC9wHzPFY2iWzPOjrSvcKz9Py7WWNuR85YWw5F2iKmnvhfmEJzx09a931xBisP/7M3qbjUq6kWy8O7fAEKx+jQai7jcYaesFMjUqvdoxVE06cyZKFMAjvfWN9m7Es2z2SwkIQQChJlIs5fBvFilIAVwgSjQAFThXqbWHi++ILINjw==
+ b=ADHGcXwTQd1aSHsWatjqClJEl/QJ+DTMbzD5ZgRSrW4nqQtdxhl64beLXsH1fePhHpt7KEN74t0nzSfVg4POCSh0JoulR+/p/oTHzEW5VTgP+b0J93ZNrBpbxVqHm0WHFDYcGxdIpegGFkXUwsV4EKfB5N5vrOcAE/nbHUCtxUjQxwNBXYu/Nc9pwVmswNDnwabYg7iMH8eV5ApB9S7FPiRuNgKR8Ro3B5mZ7yPqOjcGawAKsJ3huWXBjWzRVrkUpCSAIowGqN2aE6qiMmXoQ9lxEMxlpxfIAKvn/C1c5/F3jivDXq4wkUugf5gQFLtr5cVUEfKvKx1I0WjtNF4T/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7EK3lX3GavvNjO3+ZjPDvyQVZn6K0CH5jRYSdwxdRs8=;
- b=fE3zIDS4LX2Ku9CxkxQjK1CKVhYq3m0Zjoo4ZLh8V4MDhYiHKCzR2KTCtQLNX9AmaDmHWEwi8iyE5nfCtx9WX52QHH76kvFbn68wIYd1jYID8yVLWV8z2x9spyjpRSNQ172ZxRT8kM68dWuDH8sXAE4ICxrXrPAnGTu8i/QAh8uAfj66kpnaUc9Gd89rGimUNgZ+g/gNLv8RVURsDZb4X05YzVY0RfuX70Xits8o/KSS6AHxSN4WH4zHt+pAx1bAdfQLAOMGmrpZkz4YS4DKztNA2lVXf1gfYfyYkiAltc9lWxdab63bNkqtbN8iAJY9hQygMbNazReCWpyDHZNFUA==
+ bh=8/VgvMsefszsO0mNgpeedV7P0neXFhG/YF9XfeukO6E=;
+ b=VMDBelEl2l+kJ/PSNQcqRPcsQANK9H5+Thw3uXFDFjmgfH9pBfM+syza6qjoKqHJvON4KHFKbawqDxMfcNoFgt9MmUNpMggyyc+o2obvCmNBr8ngLy29Lh/hArfya8ZHWDTK7nBgdqkcNlRgU62gkn8ltEEiu/WdRbqbQEYa2XD+ZNDZPa9UV3Vr1slozI/6ccr4hza3ELe0mCSD0lUjlsxjJNfBzDjm4gxaXD4Q4nHCjV8bo7uFHih1ShmRzjNdOucVtZ028pOlapbt0EeIe3xs0ru+Wr6Li5lD/Xu+uZah3JNjTXbC5r7qDrvuXrcgm0GNcabZIh4YCJArfNYoew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7EK3lX3GavvNjO3+ZjPDvyQVZn6K0CH5jRYSdwxdRs8=;
- b=zbCYQdEVC3hKC33YhhQECD43R9+w4pQ4Nq8irQ4eXhiYboCF7Ps372F/ysmOC8EagGhR/QDnUrPE9Qs9YNsQ6GWagmwpK0TDLMudkeF6Ftt6p3RHpRjHp1l5OrNxBmdx74ZKayKgsyjuXNckBLTsbTT5SumN1Zvm8Gzpf8AzRyI=
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3696.namprd12.prod.outlook.com (2603:10b6:208:169::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.16; Tue, 18 Aug
- 2020 07:58:06 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::a16e:8812:b4c0:918d%6]) with mapi id 15.20.3283.028; Tue, 18 Aug 2020
- 07:58:06 +0000
-Subject: Re: [PATCH 1/2] drm: allow limiting the scatter list size.
-To: Gerd Hoffmann <kraxel@redhat.com>, dri-devel@lists.freedesktop.org
-References: <20200818074828.9509-1-kraxel@redhat.com>
- <20200818074828.9509-2-kraxel@redhat.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <9c355d64-1a61-eb59-be80-d9fc863ddf22@amd.com>
-Date: Tue, 18 Aug 2020 09:57:59 +0200
+ bh=8/VgvMsefszsO0mNgpeedV7P0neXFhG/YF9XfeukO6E=;
+ b=17vXr/5exL/FD7qSvFCs7sxLXEJsMO6oatFzclWK7q/yJ+AtaCHB69pYbKfMwqM6fOqBdIN0u2LaT6bGCO8S9kv87XAquUdc0bdtAnj9nunOze86mitR56NvpAN2ulFhfTg4yfvvLBIV87WOyuBfJvoigXwxAuw3jECG0JuUbBc=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3916.namprd12.prod.outlook.com (2603:10b6:5:1ca::21)
+ by DM6PR12MB3354.namprd12.prod.outlook.com (2603:10b6:5:11f::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.20; Tue, 18 Aug
+ 2020 08:18:28 +0000
+Received: from DM6PR12MB3916.namprd12.prod.outlook.com
+ ([fe80::e8b8:d8a1:5adb:614d]) by DM6PR12MB3916.namprd12.prod.outlook.com
+ ([fe80::e8b8:d8a1:5adb:614d%4]) with mapi id 15.20.3283.028; Tue, 18 Aug 2020
+ 08:18:28 +0000
+Subject: Re: [PATCH] drm/amdgpu: Fix repeatly flr issue
+To: "Deng, Emily" <Emily.Deng@amd.com>, "Das, Nirmoy" <Nirmoy.Das@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20200812091943.438905-1-Emily.Deng@amd.com>
+ <71d5893c-453f-7c3e-7a20-e1234920dbba@amd.com>
+ <BY5PR12MB411548B0210D9C173431A7A78F5C0@BY5PR12MB4115.namprd12.prod.outlook.com>
+From: Nirmoy <nirmodas@amd.com>
+Message-ID: <25565c81-f902-7e1a-7282-e9ef4e34e6ba@amd.com>
+Date: Tue, 18 Aug 2020 10:22:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <20200818074828.9509-2-kraxel@redhat.com>
+In-Reply-To: <BY5PR12MB411548B0210D9C173431A7A78F5C0@BY5PR12MB4115.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-ClientProxiedBy: AM0PR04CA0061.eurprd04.prod.outlook.com
- (2603:10a6:208:1::38) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+X-ClientProxiedBy: AM4PR05CA0020.eurprd05.prod.outlook.com (2603:10a6:205::33)
+ To DM6PR12MB3916.namprd12.prod.outlook.com
+ (2603:10b6:5:1ca::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR04CA0061.eurprd04.prod.outlook.com (2603:10a6:208:1::38) with Microsoft
+Received: from [IPv6:2003:c5:8f2b:8b00:ad4a:160b:54c5:6c69]
+ (2003:c5:8f2b:8b00:ad4a:160b:54c5:6c69) by
+ AM4PR05CA0020.eurprd05.prod.outlook.com (2603:10a6:205::33) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.15 via Frontend Transport; Tue, 18 Aug 2020 07:58:02 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ 15.20.3283.15 via Frontend Transport; Tue, 18 Aug 2020 08:18:27 +0000
+X-Originating-IP: [2003:c5:8f2b:8b00:ad4a:160b:54c5:6c69]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 36acc88a-ea0c-4a23-69c9-08d8434c7067
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3696:
+X-MS-Office365-Filtering-Correlation-Id: 416da6b9-06f4-4af2-8e06-08d8434f4944
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3354:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB36969E49B6CBE62456F3C3FF835C0@MN2PR12MB3696.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB335477479BD674C8EB2CF5688B5C0@DM6PR12MB3354.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jJICQZ3vvUC4qYRzVNIOVqMXwL/+LNv5lZtjFzTQjNwObH0kgjsE7yvI2pxg4XO5NBuwnR7kd3VESzYYGrad9apkwXaN69Hg75mKzwJbp4nOqNpOZGtve4KZEfzl8GtCiwL2tyJqPuyo5iXRIVJSxx/HMRSobk+JfFm2SLbNIwMFYUwo6eJeD/WckmWYC86bgM6Iu559vakJ4aAZMixOM3IY+sTfcWjtO1/fn7EvgwtAlJPpVzSZO0H1U2gF1lytAGJPedJKLftV+d26QTVaNYJwYISy2IMpyhxwcOZKhEq9kNwlNB590qR2H4sBoRAApHJoMxIFPJTp/hgfe8CY0OKUFDaAQBEXPrz6j8rRs8Z1M6Ai2U/5snLsd2ENMfCF
+X-Microsoft-Antispam-Message-Info: A+cUZzNNo010VxvIlR8kTTfyiiKEC7JgwU5XJ0FmTs+4B/fYIuPetGca/mWTD72bU5BXsd8vcAMs54f94I4P0UW/spQqJMd38Ajj10Em0uJ64CXaPOPbmPqZJYMAGW3QFtI5BCZso6tadRqQ57nQhw66GlYpniS3B96jw8LLXhwE+jj9s5V5vI/xil3zF2QwdcHKjaD4qHGyKtUd7edCVFGszEiulL8e/gNqtbVnn2FrnrcfDdcjXZB6lvou7gDTL4iaK65vusypcfzJS1qPwpTp2Y4VXKISUu0yL8O+XjrgOMBTFvjiNA5XM7d2ggxi0hh98SUy4ZB3ByhrJsheC6MljAGh13C4XUXV4Sbku4ZubV79s2/1KdXXC+dTqkHZ
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(346002)(366004)(39860400002)(31696002)(186003)(8676002)(478600001)(2616005)(86362001)(52116002)(66476007)(83380400001)(66556008)(66946007)(54906003)(8936002)(31686004)(5660300002)(316002)(36756003)(16526019)(4326008)(7416002)(2906002)(6666004)(30864003)(6486002)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3916.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(346002)(366004)(136003)(376002)(478600001)(316002)(6486002)(8936002)(6666004)(5660300002)(31686004)(66556008)(66476007)(66946007)(8676002)(2906002)(52116002)(83380400001)(53546011)(36756003)(16526019)(186003)(110136005)(31696002)(2616005)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 09Pu6O3+2dUkDSYKZtIndy6NYcL9CdYi/HAycGaO4ooDsRNLJg0RJxl6jmYSi1bX0o4mDR0IMW7IAz+6pbjkSGVzK6g26HcOLzr1RT/fs5J/F4HbZz8y5SKDv2gcI7Jg3GPV8N146v7po4R4DrZITRZqrQe/QAUdmNQtLUfTs3gt3xDElNe8T09Rv7j2SGDoYOH/UvnIxNv8VNqG6TQzVhUGDqxpjoRo8h8HpEQCZ607DbpyhW23gK6tmnxSBTng/sC6f+T6IMEc4Y+zdDSqv1UJxG5NeHyrNHBPFyaI9GE30uI350ZEuP+xUiMbWOUOHNlC4R5ME60+iq6sbpHExL/zQQvIq9sSBFiIFoPS1nGI4GQ1ztAgvUPpIdTi+u8YPebhrYUMbu6XrDGpbU1DyWByO9i38lEJNhX5JiP8gX9QF1oO7HSebvPcIho3qvj0sNhtLFCkaXG1yL0ijQY9RmozJmQbd2XRiSlsQOb2V3cuZWsIW+czaZ7Oyci9XiE/HWAU15iCBkcPsOTZEYNb6c73N2I5qesFpIYWpnxlYKDyxhEMnwAGxnK6k5L8TZP4q5ItU4HutfU+uPHIRChEKMIJ/to7Tgb71yxf4u7SMshFRfbmm533e0ZWWDmzHnldBl5n0rrTpXEK8pGYa15EcSf6LHUkZYLaQGe3itrAbIAQSEzVdsv5gRcRgiaEkVRPsJurA7FUHwJA1hUgxX6fIQ==
+X-MS-Exchange-AntiSpam-MessageData: ygU/kqZyUHCDuCyH2ynNXr6QFTjsBq0mdd0KX2j2KBOenIFkq54G5dNdCX7P4J4//KB2TSDxSma10fNWiw5yM4Rnlhig6cs6BPF+iWqLPPqpn157IJpa5dG8opzVkya18vLdl5Nod89SpeyQOlk3ERnRRsuxEb3mxKNCu6GzejyltzJPJKtSnO396bKEFAmeoPNx/0uBYhsVW6nEPQm4t45yvxtDGSGIGzyd/m8PZTwtJyEw1JgryCPDhIt/RamTw7+44F3/3A7Xub0+l48Kf1E1nkcNFYejqHynjBNLGf9bdt7AmeUdLradx1ddXCpBMzV3tHZ1/2W076R2lupwwp0pxSpIfPkvR5y36LvcYW5eusWtP25NhsPG/20mZ7kGdeBpf77k2rcxXpf11ChFL2iZ0m197N8+RqZmV4+IUbd9jtf5wgealfB8xe+4rkbh76DUsUpOeITOpbTvWzhmodXuaC+IFuyhSML/7hAclcg+sCGt9m3h464oly8E+Z7ZSL2CNqctQ8y3ifXD4FV6VVzxFlQvoBw6gjnzVmivofMTyecHCCPx/pXhcjX/tmd7I6/H25kox5Ch3AymkibtYIj5tPz7semXS8ywhXwUwl195VsnIwRM+EvPQt1xlXSUnzhz8kN1xvdnswQyzGI0TlnViujQn7WUmX1FdcUOuCQh3TZXIzRYgEAk2nUZsf2JM58N8eB48Y8SFR3boPk9Bw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36acc88a-ea0c-4a23-69c9-08d8434c7067
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 416da6b9-06f4-4af2-8e06-08d8434f4944
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3916.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2020 07:58:05.8774 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2020 08:18:28.4901 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z4VJmiF3KGPP5fNKMfyzPdSkIDfSPdlh7Bt+1JDU+qYuLI5f6uclcHajsFQnLHmO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3696
+X-MS-Exchange-CrossTenant-UserPrincipalName: jozuZPrXFg3EzEW98CNdGPDrgwIelaRhhwTaRk5C+Xj8AhvHO5LVwLpB/+B5iOBgCpuhsDvuC7hRwiW2PuQ8zw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,311 +113,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, Sandy Huang <hjc@rock-chips.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>, Maxime Ripard <mripard@kernel.org>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- "open list:DRM DRIVERS FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Lucas Stach <l.stach@pengutronix.de>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.08.20 um 09:48 schrieb Gerd Hoffmann:
-> Add max_segment argument to drm_prime_pages_to_sg().  When set pass it
-> through to the __sg_alloc_table_from_pages() call, otherwise use
-> SCATTERLIST_MAX_SEGMENT.
+
+On 8/18/20 4:48 AM, Deng, Emily wrote:
+> [AMD Official Use Only - Internal Distribution Only]
 >
-> Also add max_segment field to gem objects and pass it to
-> drm_prime_pages_to_sg() calls in drivers and helpers.
->
-> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+>> -----Original Message-----
+>> From: Das, Nirmoy <Nirmoy.Das@amd.com>
+>> Sent: Wednesday, August 12, 2020 8:18 PM
+>> To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH] drm/amdgpu: Fix repeatly flr issue
+>>
+>>
+>> On 8/12/20 11:19 AM, Emily.Deng wrote:
+>>> From: jqdeng <Emily.Deng@amd.com>
+>>>
+>>> Only for no job running test case need to do recover in flr
+>>> notification.
+>>> For having job in mirror list, then let guest driver to hit job
+>>> timeout, and then do recover.
+>>>
+>>> Signed-off-by: jqdeng <Emily.Deng@amd.com>
+>>> Change-Id: Ic6234fce46fa1655ba81c4149235eeac75e75868
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 20 +++++++++++++++++++-
+>>>    drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 22 ++++++++++++++++++++-
+>> -
+>>>    2 files changed, 39 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>> index fe31cbeccfe9..12fe5164aaf3 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>> @@ -238,6 +238,9 @@ static void xgpu_ai_mailbox_flr_work(struct
+>> work_struct *work)
+>>>    struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt,
+>> flr_work);
+>>>    struct amdgpu_device *adev = container_of(virt, struct
+>> amdgpu_device, virt);
+>>>    int timeout = AI_MAILBOX_POLL_FLR_TIMEDOUT;
+>>> +int i;
+>>> +bool need_do_recover = true;
+>>
+>> We should find a better name for "need_do_recover", may be
+>> "need_to_recover" ?
+> Thanks, will modify later.
+>>
+>>> +struct drm_sched_job *job;
+>>>
+>>>    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
+>>>     * otherwise the mailbox msg will be ruined/reseted by
+>>> @@ -258,10 +261,25 @@ static void xgpu_ai_mailbox_flr_work(struct
+>> work_struct *work)
+>>>    flr_done:
+>>>    up_read(&adev->reset_sem);
+>>> +for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>>> +struct amdgpu_ring *ring = adev->rings[i];
+>>> +
+>>> +if (!ring || !ring->sched.thread)
+>>> +continue;
+>>> +
+>>> +spin_lock(&ring->sched.job_list_lock);
+>>> +job = list_first_entry_or_null(&ring->sched.ring_mirror_list,
+>>> +struct drm_sched_job, node);
+>>> +spin_unlock(&ring->sched.job_list_lock);
+>>> +if (job) {
+>>> +need_do_recover = false;
+>>> +break;
+>>> +}
+>>> +}
+>>
+>> This 1st job retrieval logic can move to a function as there are two
+>> instance of it.
+>> Sorry, I didn't get your point.
 
-I'm missing an explanation why this should be useful (it certainly is).
 
-And the maximum segment size seems misplaced in the GEM object. This is 
-usually a property of the device or even completely constant.
+xgpu_ai_mailbox_flr_work() and xgpu_nv_mailbox_flr_work() are using same logic under
+"flr_done:"  label trying to retrieve 1st job entry to determine if we should do recover or not.
 
-Christian.
+We could move that logic into a function like:
 
-> ---
->   include/drm/drm_gem.h                       |  8 ++++++++
->   include/drm/drm_prime.h                     |  3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  3 ++-
->   drivers/gpu/drm/drm_gem_shmem_helper.c      |  3 ++-
->   drivers/gpu/drm/drm_prime.c                 | 10 +++++++---
->   drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 ++-
->   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
->   drivers/gpu/drm/msm/msm_gem.c               |  3 ++-
->   drivers/gpu/drm/msm/msm_gem_prime.c         |  3 ++-
->   drivers/gpu/drm/nouveau/nouveau_prime.c     |  3 ++-
->   drivers/gpu/drm/radeon/radeon_prime.c       |  3 ++-
->   drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++++--
->   drivers/gpu/drm/tegra/gem.c                 |  3 ++-
->   drivers/gpu/drm/vgem/vgem_drv.c             |  3 ++-
->   drivers/gpu/drm/xen/xen_drm_front_gem.c     |  3 ++-
->   15 files changed, 43 insertions(+), 17 deletions(-)
->
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 337a48321705..dea5e92e745b 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -241,6 +241,14 @@ struct drm_gem_object {
->   	 */
->   	size_t size;
->   
-> +	/**
-> +	 * @max_segment:
-> +	 *
-> +	 * Max size for scatter list segments.  When unset the default
-> +	 * (SCATTERLIST_MAX_SEGMENT) is used.
-> +	 */
-> +	size_t max_segment;
-> +
->   	/**
->   	 * @name:
->   	 *
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index 9af7422b44cf..2c3689435cb4 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -88,7 +88,8 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr);
->   int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
->   int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
->   
-> -struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages);
-> +struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages,
-> +				       size_t max_segment);
->   struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->   				     int flags);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 519ce4427fce..5e8a9760b33f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -303,7 +303,8 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->   	switch (bo->tbo.mem.mem_type) {
->   	case TTM_PL_TT:
->   		sgt = drm_prime_pages_to_sg(bo->tbo.ttm->pages,
-> -					    bo->tbo.num_pages);
-> +					    bo->tbo.num_pages,
-> +					    obj->max_segment);
->   		if (IS_ERR(sgt))
->   			return sgt;
->   
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 4b7cfbac4daa..cfb979d808fd 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -656,7 +656,8 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_object *obj)
->   
->   	WARN_ON(shmem->base.import_attach);
->   
-> -	return drm_prime_pages_to_sg(shmem->pages, obj->size >> PAGE_SHIFT);
-> +	return drm_prime_pages_to_sg(shmem->pages, obj->size >> PAGE_SHIFT,
-> +				     obj->max_segment);
->   }
->   EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
->   
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 1693aa7c14b5..27c783fd6633 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -802,7 +802,8 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
->    *
->    * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
->    */
-> -struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages)
-> +struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_pages,
-> +				       size_t max_segment)
->   {
->   	struct sg_table *sg = NULL;
->   	int ret;
-> @@ -813,8 +814,11 @@ struct sg_table *drm_prime_pages_to_sg(struct page **pages, unsigned int nr_page
->   		goto out;
->   	}
->   
-> -	ret = sg_alloc_table_from_pages(sg, pages, nr_pages, 0,
-> -				nr_pages << PAGE_SHIFT, GFP_KERNEL);
-> +	if (max_segment == 0 || max_segment > SCATTERLIST_MAX_SEGMENT)
-> +		max_segment = SCATTERLIST_MAX_SEGMENT;
-> +	ret = __sg_alloc_table_from_pages(sg, pages, nr_pages, 0,
-> +					  nr_pages << PAGE_SHIFT,
-> +					  max_segment, GFP_KERNEL);
->   	if (ret)
->   		goto out;
->   
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> index f06e19e7be04..e5b6e7996f80 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> @@ -103,7 +103,8 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
->   		int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
->   		struct sg_table *sgt;
->   
-> -		sgt = drm_prime_pages_to_sg(etnaviv_obj->pages, npages);
-> +		sgt = drm_prime_pages_to_sg(etnaviv_obj->pages, npages,
-> +					    etnaviv_obj->base.max_segment);
->   		if (IS_ERR(sgt)) {
->   			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
->   				PTR_ERR(sgt));
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> index 6d9e5c3c4dd5..f327676450bd 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> @@ -19,7 +19,8 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
->   		return ERR_PTR(-EINVAL);
->   
-> -	return drm_prime_pages_to_sg(etnaviv_obj->pages, npages);
-> +	return drm_prime_pages_to_sg(etnaviv_obj->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index b2f49152b4d4..f805419bb84a 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -126,7 +126,8 @@ static struct page **get_pages(struct drm_gem_object *obj)
->   
->   		msm_obj->pages = p;
->   
-> -		msm_obj->sgt = drm_prime_pages_to_sg(p, npages);
-> +		msm_obj->sgt = drm_prime_pages_to_sg(p, npages,
-> +						     obj->max_segment);
->   		if (IS_ERR(msm_obj->sgt)) {
->   			void *ptr = ERR_CAST(msm_obj->sgt);
->   
-> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-> index d7c8948427fe..a5a412564c7f 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-> @@ -19,7 +19,8 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
->   		return NULL;
->   
-> -	return drm_prime_pages_to_sg(msm_obj->pages, npages);
-> +	return drm_prime_pages_to_sg(msm_obj->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *msm_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> index bae6a3eccee0..56a2e916d51a 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> @@ -32,7 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
->   	int npages = nvbo->bo.num_pages;
->   
-> -	return drm_prime_pages_to_sg(nvbo->bo.ttm->pages, npages);
-> +	return drm_prime_pages_to_sg(nvbo->bo.ttm->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *nouveau_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
-> index b906e8fbd5f3..503e35625045 100644
-> --- a/drivers/gpu/drm/radeon/radeon_prime.c
-> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
-> @@ -36,7 +36,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	struct radeon_bo *bo = gem_to_radeon_bo(obj);
->   	int npages = bo->tbo.num_pages;
->   
-> -	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages);
-> +	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages,
-> +				     obj->max_segment);
->   }
->   
->   void *radeon_gem_prime_vmap(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> index b9275ba7c5a5..444657e03c16 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> @@ -85,7 +85,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
->   
->   	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
->   
-> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages);
-> +	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages,
-> +					    rk_obj->base.max_segment);
->   	if (IS_ERR(rk_obj->sgt)) {
->   		ret = PTR_ERR(rk_obj->sgt);
->   		goto err_put_pages;
-> @@ -442,7 +443,8 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	int ret;
->   
->   	if (rk_obj->pages)
-> -		return drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages);
-> +		return drm_prime_pages_to_sg(rk_obj->pages, rk_obj->num_pages,
-> +					     obj->max_segment);
->   
->   	sgt = kzalloc(sizeof(*sgt), GFP_KERNEL);
->   	if (!sgt)
-> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-> index 723df142a981..8d98b02a8d21 100644
-> --- a/drivers/gpu/drm/tegra/gem.c
-> +++ b/drivers/gpu/drm/tegra/gem.c
-> @@ -284,7 +284,8 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
->   
->   	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
->   
-> -	bo->sgt = drm_prime_pages_to_sg(bo->pages, bo->num_pages);
-> +	bo->sgt = drm_prime_pages_to_sg(bo->pages, bo->num_pages,
-> +					bo->gem.max_segment);
->   	if (IS_ERR(bo->sgt)) {
->   		err = PTR_ERR(bo->sgt);
->   		goto put_pages;
-> diff --git a/drivers/gpu/drm/vgem/vgem_drv.c b/drivers/gpu/drm/vgem/vgem_drv.c
-> index 313339bbff90..d25c93b5a2c1 100644
-> --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> @@ -321,7 +321,8 @@ static struct sg_table *vgem_prime_get_sg_table(struct drm_gem_object *obj)
->   {
->   	struct drm_vgem_gem_object *bo = to_vgem_bo(obj);
->   
-> -	return drm_prime_pages_to_sg(bo->pages, bo->base.size >> PAGE_SHIFT);
-> +	return drm_prime_pages_to_sg(bo->pages, bo->base.size >> PAGE_SHIFT,
-> +				     obj->max_segment);
->   }
->   
->   static struct drm_gem_object* vgem_prime_import(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> index f0b85e094111..362fe5311b1b 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> @@ -179,7 +179,8 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
->   	if (!xen_obj->pages)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	return drm_prime_pages_to_sg(xen_obj->pages, xen_obj->num_pages);
-> +	return drm_prime_pages_to_sg(xen_obj->pages, xen_obj->num_pages,
-> +				     gem_obj->max_segment);
->   }
->   
->   struct drm_gem_object *
 
+bool function_name ()
+{
+	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+		struct amdgpu_ring *ring = adev->rings[i];
+
+		if (!ring || !ring->sched.thread)
+			continue;
+
+		spin_lock(&ring->sched.job_list_lock);
+		job = list_first_entry_or_null(&ring->sched.ring_mirror_list, struct drm_sched_job, node);
+		spin_unlock(&ring->sched.job_list_lock);
+		if (job)
+			return true;
+			
+	}
+
+	return false;
+}
+
+and use that in xgpu_ai_mailbox_flr_work() and 
+xgpu_nv_mailbox_flr_work() instead of
+
+having two copy of that logic.
+
+
+
+Nirmoy
+
+>>
+>>>    /* Trigger recovery for world switch failure if no TDR */
+>>>    if (amdgpu_device_should_recover_gpu(adev)
+>>> -&& adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT)
+>>> +&& (need_do_recover || adev->sdma_timeout ==
+>> MAX_SCHEDULE_TIMEOUT))
+>>>    amdgpu_device_gpu_recover(adev, NULL);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>> index 6f55172e8337..fc92c494df0b 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+>>> @@ -259,6 +259,9 @@ static void xgpu_nv_mailbox_flr_work(struct
+>> work_struct *work)
+>>>    struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt,
+>> flr_work);
+>>>    struct amdgpu_device *adev = container_of(virt, struct
+>> amdgpu_device, virt);
+>>>    int timeout = NV_MAILBOX_POLL_FLR_TIMEDOUT;
+>>> +int i;
+>>> +bool need_do_recover = true;
+>>> +struct drm_sched_job *job;
+>>>
+>>>    /* block amdgpu_gpu_recover till msg FLR COMPLETE received,
+>>>     * otherwise the mailbox msg will be ruined/reseted by
+>>> @@ -279,10 +282,25 @@ static void xgpu_nv_mailbox_flr_work(struct
+>> work_struct *work)
+>>>    flr_done:
+>>>    up_read(&adev->reset_sem);
+>>> +for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>>> +struct amdgpu_ring *ring = adev->rings[i];
+>>> +
+>>> +if (!ring || !ring->sched.thread)
+>>> +continue;
+>>> +
+>>> +spin_lock(&ring->sched.job_list_lock);
+>>> +job = list_first_entry_or_null(&ring->sched.ring_mirror_list,
+>>> +struct drm_sched_job, node);
+>>> +spin_unlock(&ring->sched.job_list_lock);
+>>> +if (job) {
+>>> +need_do_recover = false;
+>>> +break;
+>>> +}
+>>> +}
+>>>
+>>>    /* Trigger recovery for world switch failure if no TDR */
+>>> -if (amdgpu_device_should_recover_gpu(adev)
+>>> -&& (adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
+>>> +if (amdgpu_device_should_recover_gpu(adev) && (need_do_recover
+>> ||
+>>> +adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
+>>>    adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
+>>>    adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
+>>>    adev->video_timeout == MAX_SCHEDULE_TIMEOUT))
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
