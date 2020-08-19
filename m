@@ -2,45 +2,45 @@ Return-Path: <SRS0=7tPq=B5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C7DDC433E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 05:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AF2CC433E5
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 05:01:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 390522078D
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 05:01:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5F4452078D
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2020 05:01:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pOD7xbke"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 390522078D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="R3GMbZFY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F4452078D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30E8E89B18;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D19C89F0A;
 	Wed, 19 Aug 2020 05:01:04 +0000 (UTC)
 Received: from NAM04-SN1-obe.outbound.protection.outlook.com
  (mail-eopbgr700087.outbound.protection.outlook.com [40.107.70.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E54E89B12;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4845B89B18;
  Wed, 19 Aug 2020 05:01:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BXG81a/rK3nz6U2UZP/AUtoiPi8dyTTQPkhLq+wzPkM7QwrmTQsJeMBwd2TKlWL7pOfMivyp5N+yXGHU5gE/dQzmSOU//LNNNfxHJM2NBWdJosUJCUmHKit76wCAMY+0wlEXLu0CCGZUPSzo9al8dDvGL+1MqUkMd4LNwnL7Of78qynF7crRAYxDvpGPuLkvNVpv/mKPQqajnRJMRE93TgXrHbG0WjDxttzu7u4yN6Z+VVfgEdt2dEyEJOcAQaggKwXmpnH+IIQ7YZ1eLuUOsBZhYZB3HjTPkDMy5ey3MgnOgavJRgbrC9fzcaEVc3P5INkDF7iNo4/6GX1gHnxSXA==
+ b=gJvwUpQ4d0OFZN1XBwJ8xMoqNoJwm1q7zpqLdnIpidRGdITpM6wVw32GeM8F2EUWuKZsxIZgrZhcl88s1LjFVT6acR6L9N0MOxKK3PqH3PAH2FJjKmlBqXcYn3ojc6qCut92GD8GY58YEaNbiYeW99VbxUGcEnc1vimQrrMdXKyUdnqzB20fKSUUwf2VOozdGOCnuTQ/J7ii4fvKx5Fg9LmgzhbLwmhN8sSwLN2zcHDlaR+k8w0FKGYFx0kGPsJPT520RK6mRG6cdd6Vhz9FGaQwM2UOWwvfwbaMDOXuUEYdmo/S45skkPBUW9wqL0YgY8FZfEpPAH7A5wK57Kch7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5XmyULn2pfl8uVHeBYcGqBxSoAWwOay9anDszPAo2nk=;
- b=aOPo9CRPmMbs7PHxqgB7IiPqv+FfuUK3Afsr79v/xLVrUgRFMZIydVEy7ZnBh7fWmX/1L5M6qmnLAXAy3fFWCKpe53UGBXW7yJuLPszS2023HE9RRvvvqgLOIICq+ROWpQFk2ptnBVMnzrL4oK+WWee1d+NyASKM8JOYocZTxGYlmMLn96HMjpl9YbWcE1Yr52+iRjEXsCnZiPs8WO+wnoeVQlVeuIar8vl0tfYI6fErjDeb14T6xIzff5Tjd+sPU8FHY1k19/P/WLTjABFYWybN+AUhyquZGU99CM/2CvuEA0MkfXEkYoZnqrgp+3ukVTE1T/o+eNa3z9+OAPpDmg==
+ bh=BOtVYHQ+IwAD0+sK2JkU+3v07JnhsAAbvemtZnsLWzE=;
+ b=is5xRaWr2t9rW+6xl7J32U9ovZnG8xidlrITTUsDaaMEchuIojQ3dBVDtu6tv/UdF5RaD2wIPU9roqp03fAg2GH/8wTJtN77UfJm2/wFcdih5JLCo8W0iitGORk1UuKp24jkX+2SRoggy0K4hRypB7VNyDWM5JlQmCcOMMAl99BwiTJHrlpTVttttsup0bO+NMxM4lz2Mg+4Fvu2bMBEnODlgMGYvstqoKETuvegkA06RZuRWUoghJX2KFCcWPW3NfQuRCdS0gTrkktzLnKxlNSZvl3XQ/lfWM0oAaA71Kwldap/Pfu9Oe/EPcS+DWp6I29kbOrln/7btXYiviZ3ZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5XmyULn2pfl8uVHeBYcGqBxSoAWwOay9anDszPAo2nk=;
- b=pOD7xbkefc5+8F3yJJdJ3SJQWuzs69lPph6KY09kCh6g2552ENmo4kA7Wxa26XkJq7L7ZmWizg+IRDM/PB5twv/5sr/hKHAiAzDTQ+QcEZZ67OeBi7mMROUEmeeQacSUJ52p107YmaVZOc/XkGWR6HRVc3duWz6X4GT6QOJqcoo=
+ bh=BOtVYHQ+IwAD0+sK2JkU+3v07JnhsAAbvemtZnsLWzE=;
+ b=R3GMbZFYG6IQ6h2L3m35aU0QflReXdETC82wBgpFFMXUTMgAHWJQd38AC4U+VxMr564b1QaRQYSgd37QlvNe0IBmzLIFySWYilhOgg0zB6uylr83jmxkNCRjbSqMKeM+ilPKHXZEZafExsztU6hU47Y1qegBGW4+GrdmAHWgTzw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,20 @@ Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
  by DM6PR12MB2618.namprd12.prod.outlook.com (2603:10b6:5:49::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.15; Wed, 19 Aug
- 2020 05:00:57 +0000
+ 2020 05:00:59 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::3452:6d8f:e0ef:b45e]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::3452:6d8f:e0ef:b45e%6]) with mapi id 15.20.3305.024; Wed, 19 Aug 2020
- 05:00:57 +0000
+ 05:00:59 +0000
 From: Luben Tuikov <luben.tuikov@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/3] Embed drm_device and eliminate use of dev_private (v2)
-Date: Wed, 19 Aug 2020 01:00:39 -0400
-Message-Id: <20200819050042.7370-1-luben.tuikov@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: Embed drm_device into amdgpu_device (v2)
+Date: Wed, 19 Aug 2020 01:00:42 -0400
+Message-Id: <20200819050042.7370-4-luben.tuikov@amd.com>
 X-Mailer: git-send-email 2.28.0.215.g878e727637
+In-Reply-To: <20200819050042.7370-1-luben.tuikov@amd.com>
+References: <20200819050042.7370-1-luben.tuikov@amd.com>
 X-ClientProxiedBy: YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29)
  To DM6PR12MB3962.namprd12.prod.outlook.com
  (2603:10b6:5:1ce::21)
@@ -68,33 +70,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from 255.255.255.255 (255.255.255.255) by
  YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3283.16 via Frontend Transport; Wed, 19 Aug 2020 05:00:57 +0000
+ 15.20.3283.16 via Frontend Transport; Wed, 19 Aug 2020 05:00:59 +0000
 X-Mailer: git-send-email 2.28.0.215.g878e727637
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 54a01104-eeb4-4f87-5ddb-08d843fcdbfe
+X-MS-Office365-Filtering-Correlation-Id: 1a8ddffc-a655-4c79-dc6b-08d843fcdd2b
 X-MS-TrafficTypeDiagnostic: DM6PR12MB2618:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2618590950B533B124F6330E995D0@DM6PR12MB2618.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB261890DDEDEF46DD1B05DDF4995D0@DM6PR12MB2618.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gsXqs1GQ+oQF5tf1kYe1gNjpNpkMwhuj8/lhNrcAAM54A8ajR33y3BHSl0k2l1uXtlOGE7yziZlbhueRNOmvPEXBzb2rm9uzD+yqS3t+Ao2nZn2h3I87Cma/v9tM75VFx8LDNwp/lu4JQegkHiYiJkVAWQM0IjxMtcYzcyFTw6iqxSmFAATJFgjl1nRdJzoNV6+5jN1HmECjdtxXzx2fF6wPf+LYgEW4jitmmcQKmh/goBajbBacMdq/TQUd5jrg3BXJ2s1LhtzjClB0DditxDrCqi5kxVf9HLA3NoL/zHVaRCBu+YaqTg8jDGZ9h0e6TjKcfVoCS7o0B+jx2ChwHd6EZF5Ru8dRQdB5iI7he9zbmcu6x7a6l0CkSjzvCbTU
+X-Microsoft-Antispam-Message-Info: zKboyuUcVcRFu38K1j2eeWh8wuF267jh4hGRpiSWoYRaTufDxuzgbNtkm78hDADyvsQ7fr0oOYT+2K1h1edmz7Lws5tmch0TPhN/FkHVCGTQjKy9o+9OJWSV1FnrIEg8bgM/7Bz/BGFUESCAs5Xuett5bR+bQk+E9dvbqBI/YD1MwGhVQGuy2dduC2dmjJ37RtgHudV5p7GGqT5+O3FdK4s/e+bi2drp/6qvhvy5WQuBq5kh26Kg8uhaH/vPymV7NefNDLNQXKrkkSsRgz9ypKfxWwp9t3YEXXQSucqXNeMH75yDUEuwUGl5DbUEIYxZaZ+sqPEKDYkcGl1HW2arAUvfdVa4PD0U0DiLcslsFsvn4tIvDqInGyKnE3SUJDyY
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(26005)(110011004)(83380400001)(16576012)(316002)(2906002)(4326008)(36756003)(54906003)(8676002)(1076003)(478600001)(186003)(66556008)(66476007)(6486002)(44832011)(66946007)(5660300002)(52116002)(6666004)(8936002)(86362001)(956004)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 4Ux+UCSDnyrq4uup2mdy+2iP/+3sJZoZynsGnEjjkbRVxdCjTRfFywr/L5wswDKHP6hV5Y6cztA2OTeQk0n5g7wtaQL43Lmixh9IIkcYtdq2x9SpIbJmRf7Q4Q8HXZb5w0j4zWmZX6827Tev3uD1WJXYr8Z5mrOQ1W19BvM2bF1oGKvAJns0ecRWgC38oe71cVMGRwzrHPq9NqmIdc77ryzZhm4Tp+WEplCJ7XQiOnz6wIz7hg8tz/KgtegqoTZtLUzSa3OpULDYaaneD4CNGtXBHNFptHXKJ8E4soo2ja85NvTyotDpUdNU+nRCFgx5kM4nFIAWHTpVujQIra3qPvgP+4zml/hmGHFg+8+tZ6mBKx4nwE3rJJ4tcx7GT5hzCNLGWSp0I0kfULwNx3sEc9b+Yb6byoNo2FhpLAw5nAFEdCaTo8s/9easn1NA1Ji4NIfsc/WBeffmNm/f5AwhWsWvlzu51XqmVPexnsr7MXIIg5/+bGL+yFNvIQwZc6xVbJMEUYH5/Z/TzWoClmjP6rIbTe+xm6WBabnjIWMZthWJntYQyjy2ADJornvr9DLxYRmejdfGPU0VkEJeHJ83FWVqquHNcIav4ES/pgKpOv0w+zAxC9IjmqQUymPJ8nl3l+hRnkFc8SuGF/RUG9d9Dg==
+X-MS-Exchange-AntiSpam-MessageData: MOYhn+RBYr9aumSBUaSomKX8KG7/qjYpQyVjbPlQ+DR7mTnTASrsyhgLDhKsIoro84azbJasd0I132ffc6Dg4iRCas1Jeg95rFeZbkxrhKyvKMJZKj5gRjUDEL6ywnA/JWtdnOLdr6++RCiAJTbjU817C573F/KLD0UcZw4Rg2bYb8s9TiyU6si+oYx0EuyCj8ZyD3kDbfzKhM6RymusidQjEiRof/zN4BfMjQY+lVOMQw5AbJ8AEXJVvSaHztjNRolL33EBF1K6EnnREgiyk81+P8ytGZu0BSOLKf7Xi6/XevEE1zxLM1IPxXHfTeLdNQ1AQGmtrEA3eegAqJY7w/rrC1o3RAacdzn0wz++SCWJruffHM/hpI3BMFM9f32AEJ1xPtuE2Ef6ni/A7vFwP6CNAjy5yy9sB7G1hgmsaLZUTIe85+tpYoi2yGrvjuodp+OEfOWY9RhkJyLOwYuaHorwYyo71s0+TG/GtmLB1phsDo2esPxidxxYd36gMNDb7PLdTFMLzQ2Pb7CU3NRpQFYL/w8HX+hz0jIewSWKMmZQxWqi/SiaSZyNpqJ7G/Cz775la76ck2avoDrJuPDESPc792w7y1wX0azIWMSc1RkGxdFNZf2hj1ARHxjQ7ItmfOiFsMnP5cDWoNN/WJwjXQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54a01104-eeb4-4f87-5ddb-08d843fcdbfe
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a8ddffc-a655-4c79-dc6b-08d843fcdd2b
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2020 05:00:57.5464 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2020 05:00:59.5773 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P7Hr3O2wbvQoPPdUyocJm2Zl+jrmE7ZnEHfP6yhIrCzWSp9pK56ZpjDuADVtiB/G
+X-MS-Exchange-CrossTenant-UserPrincipalName: DEJ91C0tlxzGpDJnITpxg3CnyfUWbpg3Z+88qdelwEKPsjm8LLdrJchO95jWPtxX
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2618
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,80 +116,300 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As per the comments in include/drm/drm_device.h, struct
-drm_device::dev_private seems to be obsolete and it's
-recommended that drivers embed struct drm_device into their
-larger per-device structure.
+a) Embed struct drm_device into struct amdgpu_device.
+b) Modify the inline-f drm_to_adev() accordingly.
+c) Modify the inline-f adev_to_drm() accordingly.
+d) Eliminate the use of drm_device.dev_private,
+   in amdgpu.
+e) Switch from using drm_dev_alloc() to
+   drm_dev_init().
+f) Add a DRM driver release function, which frees
+   the container amdgpu_device after all krefs on
+   the contained drm_device have been released.
 
-This patchset embeds struct drm_device into struct
-amdgpu_device, adds inline functions to access both
-structures from one another, adds a DRM driver release
-callback to free the container struct amdgpu_device, and
-eliminates using struct drm_device::dev_private.
+v2: Split out adding adev_to_drm() into its own
+    patch (previous commit), making this patch
+    more succinct and clear. More detailed commit
+    description.
 
-v2: Split out patch 2/2 into two patches.
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 10 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 43 ++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 20 +++-------
+ 4 files changed, 43 insertions(+), 45 deletions(-)
 
-Luben Tuikov (3):
-  drm/amdgpu: drm_device to amdgpu_device by inline-f (v2)
-  drm/amdgpu: Get DRM dev from adev by inline-f
-  drm/amdgpu: Embed drm_device into amdgpu_device (v2)
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  16 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   8 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  16 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c   |   2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |  20 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 186 ++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  61 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  42 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  53 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c  |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        |  20 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  12 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c   |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       |  14 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c        |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c       |  20 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  36 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c       |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c     |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      |   6 +-
- drivers/gpu/drm/amd/amdgpu/atombios_crtc.c    |  22 +-
- drivers/gpu/drm/amd/amdgpu/atombios_dp.c      |   6 +-
- .../gpu/drm/amd/amdgpu/atombios_encoders.c    |  36 +--
- drivers/gpu/drm/amd/amdgpu/atombios_i2c.c     |   2 +-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  94 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  96 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 104 +++----
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  94 +++---
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c      |  40 +--
- drivers/gpu/drm/amd/amdgpu/df_v3_6.c          |   2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 145 +++++----
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |   3 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |   2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   8 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |   4 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   8 +-
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |   6 +-
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 274 +++++++++---------
- 54 files changed, 774 insertions(+), 768 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 735480cc7dcf..107a6ec920f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -724,8 +724,8 @@ struct amd_powerplay {
+ #define AMDGPU_MAX_DF_PERFMONS 4
+ struct amdgpu_device {
+ 	struct device			*dev;
+-	struct drm_device		*ddev;
+ 	struct pci_dev			*pdev;
++	struct drm_device		ddev;
+ 
+ #ifdef CONFIG_DRM_AMD_ACP
+ 	struct amdgpu_acp		acp;
+@@ -990,12 +990,12 @@ struct amdgpu_device {
+ 
+ static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+ {
+-	return ddev->dev_private;
++	return container_of(ddev, struct amdgpu_device, ddev);
+ }
+ 
+ static inline struct drm_device *adev_to_drm(struct amdgpu_device *adev)
+ {
+-	return adev->ddev;
++	return &adev->ddev;
+ }
+ 
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+@@ -1004,8 +1004,6 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+ }
+ 
+ int amdgpu_device_init(struct amdgpu_device *adev,
+-		       struct drm_device *ddev,
+-		       struct pci_dev *pdev,
+ 		       uint32_t flags);
+ void amdgpu_device_fini(struct amdgpu_device *adev);
+ int amdgpu_gpu_wait_for_idle(struct amdgpu_device *adev);
+@@ -1195,7 +1193,7 @@ static inline void *amdgpu_atpx_get_dhandle(void) { return NULL; }
+ extern const struct drm_ioctl_desc amdgpu_ioctls_kms[];
+ extern const int amdgpu_max_kms_ioctl;
+ 
+-int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags);
++int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags);
+ void amdgpu_driver_unload_kms(struct drm_device *dev);
+ void amdgpu_driver_lastclose_kms(struct drm_device *dev);
+ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 07012d71eeea..6e529548e708 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1216,7 +1216,8 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
+  * Callback for the switcheroo driver.  Suspends or resumes the
+  * the asics before or after it is powered up using ACPI methods.
+  */
+-static void amdgpu_switcheroo_set_state(struct pci_dev *pdev, enum vga_switcheroo_state state)
++static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
++					enum vga_switcheroo_state state)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 	int r;
+@@ -2977,8 +2978,6 @@ static const struct attribute *amdgpu_dev_attributes[] = {
+  * amdgpu_device_init - initialize the driver
+  *
+  * @adev: amdgpu_device pointer
+- * @ddev: drm dev pointer
+- * @pdev: pci dev pointer
+  * @flags: driver flags
+  *
+  * Initializes the driver info and hw (all asics).
+@@ -2986,18 +2985,15 @@ static const struct attribute *amdgpu_dev_attributes[] = {
+  * Called at driver startup.
+  */
+ int amdgpu_device_init(struct amdgpu_device *adev,
+-		       struct drm_device *ddev,
+-		       struct pci_dev *pdev,
+ 		       uint32_t flags)
+ {
++	struct drm_device *ddev = adev_to_drm(adev);
++	struct pci_dev *pdev = adev->pdev;
+ 	int r, i;
+ 	bool boco = false;
+ 	u32 max_MBps;
+ 
+ 	adev->shutdown = false;
+-	adev->dev = &pdev->dev;
+-	adev->ddev = ddev;
+-	adev->pdev = pdev;
+ 	adev->flags = flags;
+ 
+ 	if (amdgpu_force_asic_type >= 0 && amdgpu_force_asic_type < CHIP_LAST)
+@@ -3451,9 +3447,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 	struct drm_connector_list_iter iter;
+ 	int r;
+ 
+-	if (dev == NULL || dev->dev_private == NULL) {
++	if (!dev)
+ 		return -ENODEV;
+-	}
+ 
+ 	adev = drm_to_adev(dev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 38023c879db1..6866c515f00a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1082,7 +1082,7 @@ static struct drm_driver kms_driver;
+ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 			    const struct pci_device_id *ent)
+ {
+-	struct drm_device *dev;
++	struct drm_device *ddev;
+ 	struct amdgpu_device *adev;
+ 	unsigned long flags = ent->driver_data;
+ 	int ret, retry = 0;
+@@ -1138,36 +1138,42 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	dev = drm_dev_alloc(&kms_driver, &pdev->dev);
+-	if (IS_ERR(dev))
+-		return PTR_ERR(dev);
++	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
++	if (!adev)
++		return -ENOMEM;
++
++	adev->dev  = &pdev->dev;
++	adev->pdev = pdev;
++	ddev = adev_to_drm(adev);
++	ret = drm_dev_init(ddev, &kms_driver, &pdev->dev);
++	if (ret)
++		goto err_free;
+ 
+ 	if (!supports_atomic)
+-		dev->driver_features &= ~DRIVER_ATOMIC;
++		ddev->driver_features &= ~DRIVER_ATOMIC;
+ 
+ 	ret = pci_enable_device(pdev);
+ 	if (ret)
+ 		goto err_free;
+ 
+-	dev->pdev = pdev;
++	ddev->pdev = pdev;
++	pci_set_drvdata(pdev, ddev);
+ 
+-	pci_set_drvdata(pdev, dev);
+-
+-	ret = amdgpu_driver_load_kms(dev, ent->driver_data);
++	ret = amdgpu_driver_load_kms(adev, ent->driver_data);
+ 	if (ret)
+ 		goto err_pci;
+ 
+ retry_init:
+-	ret = drm_dev_register(dev, ent->driver_data);
++	ret = drm_dev_register(ddev, ent->driver_data);
+ 	if (ret == -EAGAIN && ++retry <= 3) {
+ 		DRM_INFO("retry init %d\n", retry);
+ 		/* Don't request EX mode too frequently which is attacking */
+ 		msleep(5000);
+ 		goto retry_init;
+-	} else if (ret)
++	} else if (ret) {
+ 		goto err_pci;
++	}
+ 
+-	adev = drm_to_adev(dev);
+ 	ret = amdgpu_debugfs_init(adev);
+ 	if (ret)
+ 		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
+@@ -1177,7 +1183,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ err_pci:
+ 	pci_disable_device(pdev);
+ err_free:
+-	drm_dev_put(dev);
++	drm_dev_put(ddev);
+ 	return ret;
+ }
+ 
+@@ -1197,6 +1203,14 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 	drm_dev_put(dev);
+ }
+ 
++static void amdgpu_driver_release(struct drm_device *ddev)
++{
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	drm_dev_fini(ddev);
++	kfree(adev);
++}
++
+ static void
+ amdgpu_pci_shutdown(struct pci_dev *pdev)
+ {
+@@ -1491,6 +1505,7 @@ static struct drm_driver kms_driver = {
+ 	.open = amdgpu_driver_open_kms,
+ 	.postclose = amdgpu_driver_postclose_kms,
+ 	.lastclose = amdgpu_driver_lastclose_kms,
++	.release   = amdgpu_driver_release,
+ 	.irq_handler = amdgpu_irq_handler,
+ 	.ioctls = amdgpu_ioctls_kms,
+ 	.gem_free_object_unlocked = amdgpu_gem_object_free,
+@@ -1525,8 +1540,6 @@ static struct pci_driver amdgpu_kms_pci_driver = {
+ 	.driver.pm = &amdgpu_pm_ops,
+ };
+ 
+-
+-
+ static int __init amdgpu_init(void)
+ {
+ 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 47cd3558f9c7..f2a4fdcd542d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -86,7 +86,7 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
+ 	amdgpu_unregister_gpu_instance(adev);
+ 
+ 	if (adev->rmmio == NULL)
+-		goto done_free;
++		return;
+ 
+ 	if (adev->runpm) {
+ 		pm_runtime_get_sync(dev->dev);
+@@ -96,10 +96,6 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
+ 	amdgpu_acpi_fini(adev);
+ 
+ 	amdgpu_device_fini(adev);
+-
+-done_free:
+-	kfree(adev);
+-	dev->dev_private = NULL;
+ }
+ 
+ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+@@ -130,22 +126,18 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
+ /**
+  * amdgpu_driver_load_kms - Main load function for KMS.
+  *
+- * @dev: drm dev pointer
++ * @adev: pointer to struct amdgpu_device
+  * @flags: device flags
+  *
+  * This is the main load function for KMS (all asics).
+  * Returns 0 on success, error on failure.
+  */
+-int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
++int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
+ {
+-	struct amdgpu_device *adev;
++	struct drm_device *dev;
+ 	int r, acpi_status;
+ 
+-	adev = kzalloc(sizeof(struct amdgpu_device), GFP_KERNEL);
+-	if (adev == NULL) {
+-		return -ENOMEM;
+-	}
+-	dev->dev_private = (void *)adev;
++	dev = adev_to_drm(adev);
+ 
+ 	if (amdgpu_has_atpx() &&
+ 	    (amdgpu_is_atpx_hybrid() ||
+@@ -160,7 +152,7 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
+ 	 * properly initialize the GPU MC controller and permit
+ 	 * VRAM allocation
+ 	 */
+-	r = amdgpu_device_init(adev, dev, dev->pdev, flags);
++	r = amdgpu_device_init(adev, flags);
+ 	if (r) {
+ 		dev_err(&dev->pdev->dev, "Fatal error during GPU init\n");
+ 		goto out;
 -- 
 2.28.0.215.g878e727637
 
