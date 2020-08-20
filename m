@@ -2,70 +2,71 @@ Return-Path: <SRS0=nMzJ=B6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32072C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:20:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8A66C433E1
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 21:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1485204FD
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 18:20:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A2C3620748
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 21:05:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMZz2dIN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1485204FD
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sPwLea+4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2C3620748
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 736236E9B7;
-	Thu, 20 Aug 2020 18:20:32 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF8A6E9AA;
- Thu, 20 Aug 2020 18:20:31 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id a5so3018460wrm.6;
- Thu, 20 Aug 2020 11:20:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 487E46EA66;
+	Thu, 20 Aug 2020 21:05:16 +0000 (UTC)
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAC86EA66
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 21:05:15 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id j10so1584346qvo.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 14:05:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=zx2aiS5u/hckouAkg5PnRRNt9/H2zFBAnmQ4nJmER3I=;
- b=gMZz2dINC8zpXVORxgXuG419lwuL2jppPFpi9E8y9ViJ5rFQVNH5ukaLokAx1UNnAk
- LnFjj1ja6vrOsfCmyvCtvycL5UbeTjrswVf/fz474oCsgo7KR4DwDs8+9yME2QzSyP1t
- btNlhjDwesjZHpPkIwvSAFxi/3ehi3qZZhRwoz1aMyqAsF+kD90DdJmoGoBYMl1yK/MX
- 1wieGOerjuYByQQswCybYzTMyJ+NRHx4ec4IWNJs8+7licRAvCwVBOLRJwCWxHFjcfS/
- aJ+seiC59nGep1PKg4bc8wt71F4XQ/swv4ch3ygt87iK0ZLccKXrRsjnwDF9FQbmOMRP
- lSQA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Mxrs+rEyOM/oKwKOc1sEJ7DXTwDwaRq343pfEwja/Hs=;
+ b=sPwLea+4XcnW2ImRtIYmSoRcfEEg0AFnTIxBtoG0NdLhulalCz5GQoMVaF7mQ8y0ev
+ fkVSURUGbDiHMqWhMiGXXE/je6wblaVr3elBbpL7CfEzj2+T8CkebWXNN801ee3Sja8a
+ JReofH98+9eqDvr6vIEbTJVVTPT0lnkZXf7NgnSx81YQJwuNpDwPivNagPfSQZSc4n1a
+ NvRYjB+6US/7Ms6VScBAITSIKTMlqQsm2h4HFVfRKT3qVVETTmm4NX8OeeXzSgD/aSPb
+ JYvf6B6pZpMG/jE/AKMmZqMF6BTZatCox0W9qTTwG1dzUlxLaaDn4Mw4psOc1FFQDGOq
+ EAfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=zx2aiS5u/hckouAkg5PnRRNt9/H2zFBAnmQ4nJmER3I=;
- b=uluvB1w9LU+HxsiH39Ibu66OcHlTf6wRJxrxj68xW/IQluVGcyA7cjbYKdKrWRqT26
- x4OOBa1O+m2fQIUJtpzA+SQKkYbwWJe/+GCOHwGdwetIIZmr65tIrIh859eecfQOvlEL
- NtWXh7K7QiuVco3H8MZRK8P2NSzyBB2Bvx/VFeWHA8tQIp38LOkhZBxrvv4qMOGCdcl1
- zGG5fRJQ4vwmjfNR37LlQuzTmz5sdQPoeial8R7aDA/h9eUhcgRo5Kc90UE1lHjBsHQX
- BDcgJI0CtCGOUz9Vdn+PYGiGWT8YYQge8NP8l+iD6PQ0HX0k8wx8f6txNbCT05B06IOf
- hX0A==
-X-Gm-Message-State: AOAM532gPYJeTjcsXoU/LINQDgNO43I7Np0zb9WRBicEQ8UY+Mo12X33
- XUAMISEOUJzFmA7LsDHYKUAJOLm59/xwQaneB+E=
-X-Google-Smtp-Source: ABdhPJyCgPFZTTFbee2LsSre9fQTTAa/kvTeNAYYXu+7XbLwA7kVTe9RGC+WZR3sqKRc/e35BaY8uJLdg3H4gsxzS/w=
-X-Received: by 2002:adf:a351:: with SMTP id d17mr4280713wrb.111.1597947629882; 
- Thu, 20 Aug 2020 11:20:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200820052600.3069895-1-furquan@google.com>
- <20200820075241.3160534-1-furquan@google.com>
- <5c7dbcd6-b4c5-f7e5-40d5-b65d8ff58030@amd.com>
-In-Reply-To: <5c7dbcd6-b4c5-f7e5-40d5-b65d8ff58030@amd.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Mxrs+rEyOM/oKwKOc1sEJ7DXTwDwaRq343pfEwja/Hs=;
+ b=bkswBHPRln/T1zgI+wO/Rq+5hY8po1pVLPp6aRvhJFYLowrvBEzt1dix1W733TIo6p
+ 72du0ZG/mKnBdfLk/OPMH+qLE1BmfpgSq1unbmO7xTuqREf2YrakqRNFDQxKMT2XiN+Z
+ i9uX4drzbiRs04UQnJO2MtspHk0Il3JaruPr4tBoyhERBhXshSqciGhbt4jq3SS7FAks
+ c1kn1URpw5+7jR/wrqyGjjB/5XUTE9foFY/MfwmL7QjWPYE5/Db6XGZKWdsynovXv6I6
+ dUd7P6w3PpkVQ28mHbiJk7qbJLHVG3cOUOBNVbve1+dg0IU0ncerghEKfhsJPJAp7LiD
+ RVdA==
+X-Gm-Message-State: AOAM530wPLOskvLzn9RkDJuQyzE3invmgFn2PT1568jta9T0AHXfW43q
+ kiNJvpfOqzCEKi80mHfrfjPiMguTkV0=
+X-Google-Smtp-Source: ABdhPJwX3kWnfw+fazBX9Eo0j660+Xus62lkXX0Jh7V+3EaA3JKGcA3F1LGlzTELEKUixS0QswSjgw==
+X-Received: by 2002:ad4:52e3:: with SMTP id p3mr767646qvu.70.1597957514114;
+ Thu, 20 Aug 2020 14:05:14 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id h23sm3161747qkl.38.2020.08.20.14.05.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2020 14:05:13 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Aug 2020 14:20:18 -0400
-Message-ID: <CADnq5_NEoM1RGoLS=a0HDtN20rOvKndiYCFRnzrc3JQn5ePzpQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drivers: gpu: amd: Initialize amdgpu_dm_backlight_caps
- object to 0 in amdgpu_dm_update_backlight_caps
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: enable ATHUB clock gatting
+Date: Thu, 20 Aug 2020 17:05:03 -0400
+Message-Id: <20200820210504.1311186-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,50 +78,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, deepak.sharma@amd.com,
- Furquan Shaikh <furquan@google.com>, Leo Li <sunpeng.li@amd.com>,
- adurbin@google.com, Roman Li <roman.li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ "Prike.Liang" <Prike.Liang@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Huang Rui <ray.huang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIFRodSwgQXVnIDIwLCAyMDIwIGF0IDU6MDEgQU0g
-Q2hyaXN0aWFuIEvDtm5pZwo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IEFt
-IDIwLjA4LjIwIHVtIDA5OjUyIHNjaHJpZWIgRnVycXVhbiBTaGFpa2g6Cj4gPiBJbiBgYW1kZ3B1
-X2RtX3VwZGF0ZV9iYWNrbGlnaHRfY2FwcygpYCwgdGhlcmUgaXMgYSBsb2NhbAo+ID4gYGFtZGdw
-dV9kbV9iYWNrbGlnaHRfY2Fwc2Agb2JqZWN0IHRoYXQgaXMgZmlsbGVkIGluIGJ5Cj4gPiBgYW1k
-Z3B1X2FjcGlfZ2V0X2JhY2tsaWdodF9jYXBzKClgLiBIb3dldmVyLCB0aGlzIG9iamVjdCBpcwo+
-ID4gdW5pbml0aWFsaXplZCBiZWZvcmUgdGhlIGNhbGwgYW5kIGhlbmNlIHRoZSBzdWJzZXF1ZW50
-IGNoZWNrIGZvcgo+ID4gYXV4X3N1cHBvcnQgY2FuIGZhaWwgc2luY2UgaXQgaXMgbm90IGluaXRp
-YWxpemVkIGJ5Cj4gPiBgYW1kZ3B1X2FjcGlfZ2V0X2JhY2tsaWdodF9jYXBzKClgIGFzIHdlbGwu
-IFRoaXMgY2hhbmdlIGluaXRpYWxpemVzCj4gPiB0aGlzIGxvY2FsIGBhbWRncHVfZG1fYmFja2xp
-Z2h0X2NhcHNgIG9iamVjdCB0byAwLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IEZ1cnF1YW4gU2hh
-aWtoIDxmdXJxdWFuQGdvb2dsZS5jb20+Cj4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Cj4gPiAtLS0KPiA+IHYyOiBTd2l0Y2hlZCB0
-byB1c2luZyBtZW1zZXQgZm9yIGluaXRpYWxpemF0aW9uIG9mIG9iamVjdC4KPiA+Cj4gPiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMiArKwo+ID4g
-ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gPiBpbmRleCBlNGIz
-M2M2N2I2MzQuLmRhMDcyOTk4Y2U0OCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiA+IEBAIC0yODU1LDYgKzI4NTUs
-OCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fdXBkYXRlX2JhY2tsaWdodF9jYXBzKHN0cnVjdCBh
-bWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSkKPiA+ICAgI2lmIGRlZmluZWQoQ09ORklHX0FDUEkp
-Cj4gPiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RtX2JhY2tsaWdodF9jYXBzIGNhcHM7Cj4gPgo+ID4g
-KyAgICAgbWVtc2V0KCZjYXBzLCAwLCBzaXplb2YoY2FwcykpOwo+ID4gKwo+ID4gICAgICAgaWYg
-KGRtLT5iYWNrbGlnaHRfY2Fwcy5jYXBzX3ZhbGlkKQo+ID4gICAgICAgICAgICAgICByZXR1cm47
-Cj4gPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-PiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
-dmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+From: "Prike.Liang" <Prike.Liang@amd.com>
+
+Enable ATHUB clock gatting set in Renoir series.
+
+Signed-off-by: Prike.Liang <Prike.Liang@amd.com>
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Huang Rui <ray.huang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/athub_v1_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c
+index 847ca9b3ce4e..3ea557864320 100644
+--- a/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/athub_v1_0.c
+@@ -73,6 +73,7 @@ int athub_v1_0_set_clockgating(struct amdgpu_device *adev,
+ 	case CHIP_VEGA12:
+ 	case CHIP_VEGA20:
+ 	case CHIP_RAVEN:
++	case CHIP_RENOIR:
+ 		athub_update_medium_grain_clock_gating(adev,
+ 				state == AMD_CG_STATE_GATE);
+ 		athub_update_medium_grain_light_sleep(adev,
+-- 
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
