@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 057BCC433E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:17:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0DF9C433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CF82B22C9F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:17:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B8D9E22D03
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:17:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="FdUKsA4R"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF82B22C9F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ppWpKCLK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8D9E22D03
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E9856EB44;
-	Fri, 21 Aug 2020 16:17:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E97036EB30;
+	Fri, 21 Aug 2020 16:17:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 271B66EB14;
- Fri, 21 Aug 2020 16:17:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C31826EB42;
+ Fri, 21 Aug 2020 16:17:30 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 434C122CAF;
- Fri, 21 Aug 2020 16:17:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DB2CE20FC3;
+ Fri, 21 Aug 2020 16:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026647;
- bh=eVcPTzL9hbKoVXDtsQ64VvN+g9cHH5uG0hbLgDgR5vc=;
+ s=default; t=1598026650;
+ bh=ruq5kshuWTRTFeOWoXMJfwIyv19Lf6HI+P4YcFiPdoU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FdUKsA4Rofp17CjpZD2xC4rs3Ue0UQmHhcrX/zK16ScVTOv9hEh2pPsoR/UiY9/YI
- kyBpKX9XX2tx00wqQO90CnjgQOXtsbSp/XfwDgef9vpnc+PLrcqExY4DP2ssIHF56h
- 94nbEWYVXmW86eLelb02YSmkuNpZfccGdMMKmhqc=
+ b=ppWpKCLKuNo9eM/3Kv/dZ4nWp9AoxdQNT5BtPxMorUBUkH2DTo/cVBqguo0gY0Dtj
+ e8IZa38qazSKqt4OSVRWiSIWDWL1V+AbrnUPQxE94Jgz6JsAKot+MyaqdikX1G2w3i
+ 74IVJHT3OEk7PlXkmDxayZ/iCnx6pTzia1B2Y/J4=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 18/48] drm/amdgpu: fix ref count leak in
- amdgpu_driver_open_kms
-Date: Fri, 21 Aug 2020 12:16:34 -0400
-Message-Id: <20200821161704.348164-18-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 21/48] drm/amdgpu/display: fix ref count leak when
+ pm_runtime_get_sync fails
+Date: Fri, 21 Aug 2020 12:16:37 -0400
+Message-Id: <20200821161704.348164-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821161704.348164-1-sashal@kernel.org>
 References: <20200821161704.348164-1-sashal@kernel.org>
@@ -71,40 +71,71 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Navid Emamdoost <navid.emamdoost@gmail.com>
 
-[ Upstream commit 9ba8923cbbe11564dd1bf9f3602add9a9cfbb5c6 ]
+[ Upstream commit f79f94765f8c39db0b7dec1d335ab046aac03f20 ]
 
-in amdgpu_driver_open_kms the call to pm_runtime_get_sync increments the
-counter even in case of failure, leading to incorrect
-ref count. In case of failure, decrement the ref count before returning.
+The call to pm_runtime_get_sync increments the counter even in case of
+failure, leading to incorrect ref count.
+In case of failure, decrement the ref count before returning.
 
 Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 2a7da26008a27..fcc5905a7535d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -976,7 +976,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index ece55c8fa6733..cda0a76a733d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -719,8 +719,10 @@ amdgpu_connector_lvds_detect(struct drm_connector *connector, bool force)
  
- 	r = pm_runtime_get_sync(dev->dev);
- 	if (r < 0)
--		return r;
-+		goto pm_put;
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
  
- 	fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
- 	if (unlikely(!fpriv)) {
-@@ -1027,6 +1027,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	if (encoder) {
+@@ -857,8 +859,10 @@ amdgpu_connector_vga_detect(struct drm_connector *connector, bool force)
  
- out_suspend:
- 	pm_runtime_mark_last_busy(dev->dev);
-+pm_put:
- 	pm_runtime_put_autosuspend(dev->dev);
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
  
- 	return r;
+ 	encoder = amdgpu_connector_best_single_encoder(connector);
+@@ -980,8 +984,10 @@ amdgpu_connector_dvi_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
+ 
+ 	if (!force && amdgpu_connector_check_hpd_status_unchanged(connector)) {
+@@ -1330,8 +1336,10 @@ amdgpu_connector_dp_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
+ 
+ 	if (!force && amdgpu_connector_check_hpd_status_unchanged(connector)) {
 -- 
 2.25.1
 
