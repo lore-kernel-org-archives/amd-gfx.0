@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1EB2C433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9AF1C433E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B909420658
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AE862207DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMjDhs7s"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B909420658
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyydPQLl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE862207DF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64FE16EB7A;
-	Fri, 21 Aug 2020 16:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E06C6EB83;
+	Fri, 21 Aug 2020 16:20:29 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9766EB7A;
- Fri, 21 Aug 2020 16:20:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBF286EB83;
+ Fri, 21 Aug 2020 16:20:26 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8369F22BEB;
- Fri, 21 Aug 2020 16:20:24 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BA7AC22D02;
+ Fri, 21 Aug 2020 16:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026825;
- bh=mR6oGR+NyHCaBD7rYApwSslo3Nk/GcTOScozNAXPbPE=;
+ s=default; t=1598026826;
+ bh=tlTF8E8wCpC1Qkz2QnzGhofEoJGVooxBzEgBu1YNSlk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SMjDhs7sA2MmiQm6D3VIgxjHKzi9mkIJVSPh+l7rhXb/2vMixHDyzlCx+y1xKVmGR
- fzmOVYcdp/QBlDlXli5PKN5MuiLazFWeqS7P7kh8DGk6JmvuQcR0TpA5zNV/ZHmaSj
- FXyQ3UEm51WjQaO/GxTRuA5pseGS+N009MUpO+HQ=
+ b=gyydPQLle/jSJMOJF9r2PrJa+hvojJcJSA0W2XMTyW0ERrKu2ZhnQyDs2P2fHRDHb
+ KlO1ybUJuXKDOfNQGpVaRXOu8mwIAd9Pm1YMZ7+551My9eDVTWWg98m4c8Ur5ItLXD
+ PIM+wYMYakdFQflQOaX/CrS4GIlNKxPyi++eKwmY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 08/22] drm/amd/display: fix ref count leak in
- amdgpu_drm_ioctl
-Date: Fri, 21 Aug 2020 12:20:00 -0400
-Message-Id: <20200821162014.349506-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 09/22] drm/amdgpu: fix ref count leak in
+ amdgpu_display_crtc_set_config
+Date: Fri, 21 Aug 2020 12:20:01 -0400
+Message-Id: <20200821162014.349506-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821162014.349506-1-sashal@kernel.org>
 References: <20200821162014.349506-1-sashal@kernel.org>
@@ -71,37 +71,49 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Navid Emamdoost <navid.emamdoost@gmail.com>
 
-[ Upstream commit 5509ac65f2fe5aa3c0003237ec629ca55024307c ]
+[ Upstream commit e008fa6fb41544b63973a529b704ef342f47cc65 ]
 
-in amdgpu_drm_ioctl the call to pm_runtime_get_sync increments the
-counter even in case of failure, leading to incorrect
+in amdgpu_display_crtc_set_config, the call to pm_runtime_get_sync
+increments the counter even in case of failure, leading to incorrect
 ref count. In case of failure, decrement the ref count before returning.
 
 Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 8d6668cedf6db..eb3c54e1f1ca8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -443,11 +443,12 @@ long amdgpu_drm_ioctl(struct file *filp,
- 	dev = file_priv->minor->dev;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index c555781685ea8..d3ee8f19f1ef9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -296,7 +296,7 @@ int amdgpu_crtc_set_config(struct drm_mode_set *set)
+ 
  	ret = pm_runtime_get_sync(dev->dev);
  	if (ret < 0)
 -		return ret;
 +		goto out;
  
- 	ret = drm_ioctl(filp, cmd, arg);
+ 	ret = drm_crtc_helper_set_config(set);
  
- 	pm_runtime_mark_last_busy(dev->dev);
+@@ -311,7 +311,7 @@ int amdgpu_crtc_set_config(struct drm_mode_set *set)
+ 	   take the current one */
+ 	if (active && !adev->have_disp_power_ref) {
+ 		adev->have_disp_power_ref = true;
+-		return ret;
++		goto out;
+ 	}
+ 	/* if we have no active crtcs, then drop the power ref
+ 	   we got before */
+@@ -320,6 +320,7 @@ int amdgpu_crtc_set_config(struct drm_mode_set *set)
+ 		adev->have_disp_power_ref = false;
+ 	}
+ 
 +out:
+ 	/* drop the power reference we got coming in here */
  	pm_runtime_put_autosuspend(dev->dev);
  	return ret;
- }
 -- 
 2.25.1
 
