@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09F15C433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B963CC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D161820FC3
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:16:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9051B21741
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:16:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="nMHUqRKJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D161820FC3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="p3ydnfZy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9051B21741
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 172DA6EB2E;
-	Fri, 21 Aug 2020 16:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 345F76EB31;
+	Fri, 21 Aug 2020 16:16:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D49126EB2E;
- Fri, 21 Aug 2020 16:16:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89AFA6EB2A;
+ Fri, 21 Aug 2020 16:16:17 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DD2B12224D;
- Fri, 21 Aug 2020 16:16:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A4FB322B4B;
+ Fri, 21 Aug 2020 16:16:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026578;
- bh=aeNLfbOxc1fi4O4pUGXUtGAphJ/8yx6rS/qKYDWhY34=;
+ s=default; t=1598026577;
+ bh=GwiJXLRvB5e9CxSOmoT4bs9rK/an/E+PE8TN3zdX0ds=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nMHUqRKJvojsv7bdiGwB1NXBKoc6OWu8CDYXvGpe0D3hcp3ypC7sKar5lCuORgQVZ
- khOXQgUEfN6yvnavTK4JKugsEjzLm9XuX2/ihiPjMuDSaC67XdY01UDmJvVFO7Bd0P
- NxjF05cj9O8nsOZ5B3WVb2tXTo/f5jB63maiGvQQ=
+ b=p3ydnfZyVn0JyMvopUIBr4IsITathHq5DRnFcbaGZ0yMrulQsEJIOFqIx5Sfse9Mw
+ wEd3M/JeEQqjmcZUqJIEEy8uEKmfD47/UQOIWKagG3qVCNdKH4qIVN4bEcDnjZzoNR
+ swTeyBuCSSfUNrshA6BG+QgU9yDWTuA42rc2UEbQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 27/61] drm/amdgpu/fence: fix ref count leak when
+Subject: [PATCH AUTOSEL 5.7 26/61] drm/amdgpu/display: fix ref count leak when
  pm_runtime_get_sync fails
-Date: Fri, 21 Aug 2020 12:15:11 -0400
-Message-Id: <20200821161545.347622-27-sashal@kernel.org>
+Date: Fri, 21 Aug 2020 12:15:10 -0400
+Message-Id: <20200821161545.347622-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821161545.347622-1-sashal@kernel.org>
 References: <20200821161545.347622-1-sashal@kernel.org>
@@ -61,46 +61,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Navid Emamdoost <navid.emamdoost@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
 
-[ Upstream commit e520d3e0d2818aafcdf9d8b60916754d8fedc366 ]
+[ Upstream commit f79f94765f8c39db0b7dec1d335ab046aac03f20 ]
 
 The call to pm_runtime_get_sync increments the counter even in case of
 failure, leading to incorrect ref count.
 In case of failure, decrement the ref count before returning.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 892c1e9a1eb04..bf82b25e1aa32 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -746,8 +746,10 @@ static int amdgpu_debugfs_gpu_recover(struct seq_file *m, void *data)
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index f355d9a752d29..a1aec205435de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -716,8 +716,10 @@ amdgpu_connector_lvds_detect(struct drm_connector *connector, bool force)
  
- 	r = pm_runtime_get_sync(dev->dev);
--	if (r < 0)
-+	if (r < 0) {
-+		pm_runtime_put_autosuspend(dev->dev);
- 		return 0;
-+	}
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
  
- 	seq_printf(m, "gpu recover\n");
- 	amdgpu_device_gpu_recover(adev, NULL);
+ 	if (encoder) {
+@@ -854,8 +856,10 @@ amdgpu_connector_vga_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
+ 
+ 	encoder = amdgpu_connector_best_single_encoder(connector);
+@@ -977,8 +981,10 @@ amdgpu_connector_dvi_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
+ 
+ 	if (!force && amdgpu_connector_check_hpd_status_unchanged(connector)) {
+@@ -1328,8 +1334,10 @@ amdgpu_connector_dp_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
+ 
+ 	if (!force && amdgpu_connector_check_hpd_status_unchanged(connector)) {
 -- 
 2.25.1
 
