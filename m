@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7887EC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B7ACC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E5D422BEB
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 20B4020656
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 16:20:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="MhDBASUC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E5D422BEB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcxa9MeK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20B4020656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA686EB68;
-	Fri, 21 Aug 2020 16:20:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0005A6EB80;
+	Fri, 21 Aug 2020 16:20:25 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4AD36EB68;
- Fri, 21 Aug 2020 16:20:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01FC36EB59;
+ Fri, 21 Aug 2020 16:20:23 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CACD522DA7;
- Fri, 21 Aug 2020 16:20:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1EB8322BEA;
+ Fri, 21 Aug 2020 16:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026821;
- bh=ZaBMNIsh2vw+yV1I+VottfZQarJABVQjDGZJK+ZPxb0=;
+ s=default; t=1598026822;
+ bh=qNEvP+YxjN9cHUGvRDWTfOl1iZ6hTNDjEXd2QmD7820=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MhDBASUCYpM4CfTkOfbOCZBujyjhazFJ5uG8Z5PH9KyhBF97TgKw5HSDHIUmxbLeQ
- n1TqaViSF/+XXxRW6qatiqYU5LDsiGp8+ehJDA3AE6mn+2rk7ZuYtxHPc+1AfXp8tO
- ctSIwWgz+71y7NocwRJ249a7796j5erspccogSFI=
+ b=kcxa9MeKCZJ3JTDU/vP9SsL2GcVz+7P7KyEeKvbZmPtchIqDvwCaPXYHN2RCAwKzQ
+ h/l7vMcBLfNw9q1IcAdcJIJI0leQocmxyRdxguHIpfyTLZ101/o3eyGmB+DO1D506K
+ 2cQ1kWN+6lFYusFuI7EiCpUokeRzYnuAMaDHXih4=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 05/22] drm/amdkfd: Fix reference count leaks.
-Date: Fri, 21 Aug 2020 12:19:57 -0400
-Message-Id: <20200821162014.349506-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 06/22] drm/radeon: fix multiple reference count
+ leak
+Date: Fri, 21 Aug 2020 12:19:58 -0400
+Message-Id: <20200821162014.349506-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821162014.349506-1-sashal@kernel.org>
 References: <20200821162014.349506-1-sashal@kernel.org>
@@ -60,95 +61,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Qiushi Wu <wu000273@umn.edu>, Alex Deucher <alexander.deucher@amd.com>
+ Aditya Pakki <pakki001@umn.edu>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qiushi Wu <wu000273@umn.edu>
+From: Aditya Pakki <pakki001@umn.edu>
 
-[ Upstream commit 20eca0123a35305e38b344d571cf32768854168c ]
+[ Upstream commit 6f2e8acdb48ed166b65d47837c31b177460491ec ]
 
-kobject_init_and_add() takes reference even when it fails.
-If this function returns an error, kobject_put() must be called to
-properly clean up the memory associated with the object.
+On calling pm_runtime_get_sync() the reference count of the device
+is incremented. In case of failure, decrement the
+reference count before returning the error.
 
-Signed-off-by: Qiushi Wu <wu000273@umn.edu>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Aditya Pakki <pakki001@umn.edu>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 20 +++++++++++++++-----
+ drivers/gpu/drm/radeon/radeon_connectors.c | 20 +++++++++++++++-----
  1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 2acbd43f9a531..965489b20429c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -841,8 +841,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index bebcef2ce6b88..a9f1d99bb6f99 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -886,8 +886,10 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
  
- 	ret = kobject_init_and_add(dev->kobj_node, &node_type,
- 			sys_props.kobj_nodes, "%d", id);
--	if (ret < 0)
-+	if (ret < 0) {
-+		kobject_put(dev->kobj_node);
- 		return ret;
-+	}
- 
- 	dev->kobj_mem = kobject_create_and_add("mem_banks", dev->kobj_node);
- 	if (!dev->kobj_mem)
-@@ -885,8 +887,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 			return -ENOMEM;
- 		ret = kobject_init_and_add(mem->kobj, &mem_type,
- 				dev->kobj_mem, "%d", i);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(mem->kobj);
- 			return ret;
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
 +		}
+ 	}
  
- 		mem->attr.name = "properties";
- 		mem->attr.mode = KFD_SYSFS_FILE_MODE;
-@@ -904,8 +908,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 			return -ENOMEM;
- 		ret = kobject_init_and_add(cache->kobj, &cache_type,
- 				dev->kobj_cache, "%d", i);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(cache->kobj);
- 			return ret;
+ 	if (encoder) {
+@@ -1021,8 +1023,10 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
 +		}
+ 	}
  
- 		cache->attr.name = "properties";
- 		cache->attr.mode = KFD_SYSFS_FILE_MODE;
-@@ -923,8 +929,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 			return -ENOMEM;
- 		ret = kobject_init_and_add(iolink->kobj, &iolink_type,
- 				dev->kobj_iolink, "%d", i);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(iolink->kobj);
- 			return ret;
+ 	encoder = radeon_best_single_encoder(connector);
+@@ -1158,8 +1162,10 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
 +		}
+ 	}
  
- 		iolink->attr.name = "properties";
- 		iolink->attr.mode = KFD_SYSFS_FILE_MODE;
-@@ -976,8 +984,10 @@ static int kfd_topology_update_sysfs(void)
- 		ret = kobject_init_and_add(sys_props.kobj_topology,
- 				&sysprops_type,  &kfd_device->kobj,
- 				"topology");
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(sys_props.kobj_topology);
- 			return ret;
+ 	encoder = radeon_best_single_encoder(connector);
+@@ -1241,8 +1247,10 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
 +		}
+ 	}
  
- 		sys_props.kobj_nodes = kobject_create_and_add("nodes",
- 				sys_props.kobj_topology);
+ 	if (radeon_connector->detected_hpd_without_ddc) {
+@@ -1681,8 +1689,10 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
+ 
+ 	if (!drm_kms_helper_is_poll_worker()) {
+ 		r = pm_runtime_get_sync(connector->dev->dev);
+-		if (r < 0)
++		if (r < 0) {
++			pm_runtime_put_autosuspend(connector->dev->dev);
+ 			return connector_status_disconnected;
++		}
+ 	}
+ 
+ 	if (!force && radeon_check_hpd_status_unchanged(connector)) {
 -- 
 2.25.1
 
