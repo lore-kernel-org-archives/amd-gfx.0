@@ -1,75 +1,109 @@
-Return-Path: <SRS0=nMzJ=B6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=r7JW=B7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AC01C433E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 21:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B451AC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 00:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 720E720748
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2020 21:05:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8AEBF207BB
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2020 00:42:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sgx3cA2s"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 720E720748
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IoswEnUE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AEBF207BB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0343E6EA67;
-	Thu, 20 Aug 2020 21:05:18 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 677B96EA67
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 21:05:16 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id x6so1605499qvr.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2020 14:05:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Ca/AkDCC7a9Vi3rt04Vmd5UTqLmIKzQG5LHrugwDIXo=;
- b=sgx3cA2sWvaJuI4ATAQSjGRM9imR1eJuhzr4l9JDGRIi5AYMutcVscPs8o1SKtKoas
- Frq1VOPyQqbRsKIl+asY00Mop95NcAGGZWksbQRRDltmx9TCjKGop1KlTrhpjZCrptQz
- x2Brx1xceLNUSS0flsJjs60QEpwylZB3GWdLFu1fnc9TZ4AhM3yu3Zsu8N0zAcF6MEZX
- 5oBcl7xXFH/DcACeyK4KAQ37KgT89euhrVxQGlrdHxN2tuYyaKuLl3L/p5iE7ZT7iUnD
- NhHHDYQG50Zh6AL+urPv2PgolWqhJfJN4wra7IDthLfBKcpOpHknEPHEMDkip78obuHx
- 4xZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Ca/AkDCC7a9Vi3rt04Vmd5UTqLmIKzQG5LHrugwDIXo=;
- b=tks/qhA95L/C9/Jfkf8w9tIINm4/LTMzjWJjNEBlze/Iw6hUBjasRixUI85iDRWg+Y
- lSnwv/CDCEBSjYLCKkT4hpRiWcfmnlZXS7aru4JQn9MUj9WermNU7OFTuFCMyOCgaK+p
- 79YM4X59Y6D3bZXVcAQoAYh02ewe/EYj6Q7FuV2QDNkN1eFRkQdzPcSId5Ic8mYqPGbY
- yOyHmDoELveY50AWXSS9HLjUgN2raQw8Ufu6JjdKdzJalNj/qdwX5XqLG/pcMtwC7Ris
- b5TVHRcZsIu+Mba+xXPxAsZKtjPDeCbcF4L3aUh3H5/qocfiGy5hMVeN+NIEDvL920oD
- fpHA==
-X-Gm-Message-State: AOAM530ULjgEJHcY90muSNttb7r22GbxVP8fTZqXZjXVMFRYzMubulgY
- m365mTrOr364Sl2oGfuXOZqTz8gtrt8=
-X-Google-Smtp-Source: ABdhPJzP5DWPZrh0hp89t9r1GzBL0q8OntDr6BKsuDA1wYIGJ4yrcQkZaD09MoeFAvXRAwPfhtckyQ==
-X-Received: by 2002:a05:6214:11a8:: with SMTP id
- u8mr771059qvv.88.1597957515309; 
- Thu, 20 Aug 2020 14:05:15 -0700 (PDT)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h23sm3161747qkl.38.2020.08.20.14.05.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2020 14:05:14 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: enable HDP clock gatting
-Date: Thu, 20 Aug 2020 17:05:04 -0400
-Message-Id: <20200820210504.1311186-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20200820210504.1311186-1-alexander.deucher@amd.com>
-References: <20200820210504.1311186-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 243536EA85;
+	Fri, 21 Aug 2020 00:42:04 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760058.outbound.protection.outlook.com [40.107.76.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4866EA85;
+ Fri, 21 Aug 2020 00:42:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mAVXYt7Nb4ysq3S3hjOdMoPQrfvIbWlzKly5iECDnkKDeEvImQY47kPujpBbv7QAmyYvz3/QlrHr4WJpknYw/ZBg3mNiKJMS6Ll4Qt9LcWSr1zPhP0+MrjyPyMGqgS+GACXq6T5ku4uPWjqj8qBZYvtqcnNzQQOF9X37TmkE3JlIRUfASzhFPKw2g49QQJ/55GOMlqY8QBhgGjHMeBTSg/4xO/bpPXNF13IHJUM/EZwVn3BVkXB6Yl+jH0oT/TUqeaqBvb9M81NvbRneBHUzpWXwhaTneBKCr0k5THjDPfKy3Wo8eL54euv7sqL6abG+Yf4bJFntW6X2CTHqgJFfKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bXnBqlMTikO1Mmzej4O3q0TMlNm43vNfrW7jdDJjwTM=;
+ b=m7kQ15zsElSyBXReseWbRNih4YJIbaHMkMzVyh/A2IiMxGxdnDYGhCObDHbj2nRUHoepni91qdrrQZaIPnxjpqTyLCWt2Fb72b8etiO4cEaD4110aLK9HOU4IdM8AJbrZVoXBM1E6F5+cKFpS8i8SjieiArqC6OtzFc+VzfsOVIM79Fthcr3WjvcqXy/pTjpEPNklekkIe6iU8c+MyRe79kWxyjft5dWzsznOuADAAr6DBqkxuiknxqRKNv7lrMCV4wXXfGm8RI9tblXVpTTNSa/082c43CeO6WJwLYWEBjxpK5sFCVvHWmSYLWRFzJ9qz8jB3BYz/Dzt/uBQ2RPYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bXnBqlMTikO1Mmzej4O3q0TMlNm43vNfrW7jdDJjwTM=;
+ b=IoswEnUECz4rGEPxuIESg4Zvfc330ttz2mcV4g93rT79+jUhgJLpVtc3NZAhz6IFjDWDgwTbFBekYAaZfH836wZ2ZsN1cK+mhkMWFIV7qgjXn/yWDutfBUXzPYV09i/5JanshobovTq/7ZlDd4ht7PbSxb5sUwS2HFZy4/8edlk=
+Received: from DM5PR12MB2533.namprd12.prod.outlook.com (2603:10b6:4:b0::10) by
+ DM6PR12MB4298.namprd12.prod.outlook.com (2603:10b6:5:21e::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3305.26; Fri, 21 Aug 2020 00:42:01 +0000
+Received: from DM5PR12MB2533.namprd12.prod.outlook.com
+ ([fe80::b184:d0e4:c548:df63]) by DM5PR12MB2533.namprd12.prod.outlook.com
+ ([fe80::b184:d0e4:c548:df63%7]) with mapi id 15.20.3305.026; Fri, 21 Aug 2020
+ 00:42:01 +0000
+From: "Li, Dennis" <Dennis.Li@amd.com>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Zuo, Jerry" <Jerry.Zuo@amd.com>
+Subject: RE: [PATCH] drm/amd/display: remove unintended executable mode
+Thread-Topic: [PATCH] drm/amd/display: remove unintended executable mode
+Thread-Index: AQHWdgFN5RxpUMiy2ki/zUpsHmcnuqlBub3A
+Date: Fri, 21 Aug 2020 00:42:01 +0000
+Message-ID: <DM5PR12MB25339FED33ECA4DABF7830B3ED5B0@DM5PR12MB2533.namprd12.prod.outlook.com>
+References: <20200819081808.26796-1-lukas.bulwahn@gmail.com>
+In-Reply-To: <20200819081808.26796-1-lukas.bulwahn@gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-21T00:41:55Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=010041bf-f40c-43f4-bec0-fc466a7b714a;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: c0598ecd-29c2-4ba8-9883-08d8456b04aa
+x-ms-traffictypediagnostic: DM6PR12MB4298:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB429826441CC8CD515799B930ED5B0@DM6PR12MB4298.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 3TEavBBa6SebdvOI7D2znb+0VohAEVlhwGdVDFykq/6QOoOEbZ1Yj4nLehudfbdBa3cNagVhZ4433q/FIJ+ElfXtWF8Qr7x6rz0SHkbe6t7dG5NOx8TfrT3CUGVqd5v3kU+4764NoPIdFFlI41NND75OPFncXsD/NfOe8Mnc/1PMzcV6nxWAxp+vh92sVQ+/COBaWD6MiRfXWbQ4eqnyeVLErVIC7Nn/ihUhSvaOkcxHV7Z3ra7ibaQuqr3hIWbNX/pFscHomhiknj/df3UnrQhBX7Cho/wI3+AZp6jOL7T28eftrctV9xYqouqGSXi3F7YNKJoqQDLZm+PK7wFnig==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2533.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(396003)(136003)(376002)(366004)(2906002)(33656002)(478600001)(8676002)(86362001)(4326008)(9686003)(6636002)(110136005)(55016002)(66476007)(8936002)(76116006)(66946007)(7696005)(71200400001)(54906003)(316002)(66446008)(66556008)(64756008)(83380400001)(52536014)(5660300002)(26005)(186003)(53546011)(6506007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: FIC7F8tUQblTXKwPVrT0MIrOFkY9z8oeNxZwwCZH0Tmhod7iYN/93RY5yDF3F0nu1Yd8Wl2sHCfT8aixJJdg9ea70FNXhrwJNqkPVg9JfIBRDfwNlD/Iu9MJ9tBPXAJE25ke8Pg1srbhxlfWHHYD6SEZPabvrFLCb6Nz8//hg7YDGQhkbYlb1934yH606D6spoRBB6RkY6xMxV47akVf2bbUsSKBvaatwx5dMGALpWrEnhY40BXP/QesgWa9LHMLSoa6C0DBgk9zv4hjcLmc0PKwUcqi3OV8Pzyquv65Sy7jp3CV/MwPPT6nzJUK2ItRKmy9ab1m5O28/b8ZXCm/JHXAr0eamIDz4cuhUXj63QicZRM56XdAHQIUlpBovOODDGPtLrw3Dejsy9vovJQTEFGtxYQG8+Ojpb9e00JUstBWK3gj0PoFRydNboOrThz0GAE1uc0y+2VxxMQcBQrGfq/l6lHblGfuJ/FrVF1VLUB8RhJR+2lBAx1UbdoMwGbtgx6CcmzKfZF5qIe8B4UjBbwJxoQSIXTwCJUevoS2bIT4OoRP+HdrkbIx8mdtneuofcWmrdpiIlpC3UnKYdq1cEjO7ZBGVvFP1jaHsuprpo4w0dh6x6Pu6t6yB+5pcv7cwbwaarxN8/JJrb7j82/lyA==
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2533.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0598ecd-29c2-4ba8-9883-08d8456b04aa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2020 00:42:01.3902 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wLp5NiriZszzbTYW9MEW1ynq+5CYNuIf65tCGu7YDXaLeLMMhLIMnS79tCTA0PPZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4298
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,43 +115,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- "Prike.Liang" <Prike.Liang@amd.com>, Evan Quan <evan.quan@amd.com>,
- Huang Rui <ray.huang@amd.com>
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Prike.Liang" <Prike.Liang@amd.com>
+[AMD Official Use Only - Internal Distribution Only]
 
-Enabe HDP SD/DS clock gatting in Renoir series.
+Hi, Lukas,
+      Thanks for your fix. This issue was caused by that I modified these files in windows system with Samba. I will take care in the future. 
 
-Signed-off-by: Prike.Liang <Prike.Liang@amd.com>
-Reviewed-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Best Regards
+Dennis Li
+-----Original Message-----
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com> 
+Sent: Wednesday, August 19, 2020 4:18 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
+Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Chen, Guchun <Guchun.Chen@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>; Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Subject: [PATCH] drm/amd/display: remove unintended executable mode
+
+Besides the intended change, commit 4cc1178e166a ("drm/amdgpu: replace DRM prefix with PCI device info for gfx/mmhub") also set the source files mmhub_v1_0.c and gfx_v9_4.c to be executable, i.e., changed fromold mode
+644 to new mode 755.
+
+Commit 241b2ec9317e ("drm/amd/display: Add dcn30 Headers (v2)") added the four header files {dpcs,dcn}_3_0_0_{offset,sh_mask}.h as executable, i.e., mode 755.
+
+Set to the usual modes for source and headers files and clean up those mistakes. No functional change.
+
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+applies cleanly on current master and next-20200819
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 3cd98c144bc6..3c3a7adad024 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1452,7 +1452,8 @@ static void soc15_update_hdp_light_sleep(struct amdgpu_device *adev, bool enable
- 	uint32_t def, data;
- 
- 	if (adev->asic_type == CHIP_VEGA20 ||
--		adev->asic_type == CHIP_ARCTURUS) {
-+		adev->asic_type == CHIP_ARCTURUS ||
-+		adev->asic_type == CHIP_RENOIR) {
- 		def = data = RREG32(SOC15_REG_OFFSET(HDP, 0, mmHDP_MEM_POWER_CTRL));
- 
- 		if (enable && (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS))
--- 
-2.25.4
+Alex, Christian, please pick this minor non-urgent cleanup patch.
 
+Dennis, Jerry, please ack.
+
+Dennis, Jerry, you might want to check your development environment introducing those executable modes on files.
+
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c                         | 0
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c                       | 0
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h   | 0
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h  | 0  drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_offset.h  | 0  drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_sh_mask.h | 0
+ 6 files changed, 0 insertions(+), 0 deletions(-)  mode change 100755 => 100644 drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
+ mode change 100755 => 100644 drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_offset.h
+ mode change 100755 => 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_sh_mask.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_offset.h
+old mode 100755
+new mode 100644
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_sh_mask.h
+old mode 100755
+new mode 100644
+--
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
