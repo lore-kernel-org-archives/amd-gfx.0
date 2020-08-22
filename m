@@ -2,60 +2,54 @@ Return-Path: <SRS0=N2cc=CA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BB13C433EB
-	for <amd-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 09:02:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AE49C433DF
+	for <amd-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 09:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB5CE20825
-	for <amd-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 09:02:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB5CE20825
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+	by mail.kernel.org (Postfix) with ESMTPS id 98628207DA
+	for <amd-gfx@archiver.kernel.org>; Sat, 22 Aug 2020 09:59:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98628207DA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6FB36E417;
-	Sat, 22 Aug 2020 09:02:28 +0000 (UTC)
-X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
- Sat, 22 Aug 2020 08:35:51 UTC
-Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3B5356E417;
- Sat, 22 Aug 2020 08:35:51 +0000 (UTC)
-Received: from bogon.localdomain (unknown [113.200.148.30])
- by mail.loongson.cn (Coremail) with SMTP id AQAAf9Dxn9_r1kBfbIIMAA--.1301S2;
- Sat, 22 Aug 2020 16:27:24 +0800 (CST)
-From: Youling Tang <tangyouling@loongson.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH] gpu: amd: Remove duplicate semicolons at the end of line
-Date: Sat, 22 Aug 2020 16:27:23 +0800
-Message-Id: <1598084843-32270-1-git-send-email-tangyouling@loongson.cn>
-X-Mailer: git-send-email 2.1.0
-X-CM-TRANSID: AQAAf9Dxn9_r1kBfbIIMAA--.1301S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw4DuF1fKF1kCr1fKry7Awb_yoW8Cr48pw
- 45JryF93y5AFZYqa97AFyUWFWDAa4qqFWxKryUCasa93Z8AryDtr1rG3y2krWUKFW7Cw1S
- qFn7uFWUWF92yr7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
- F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4j6F
- 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY02Avz4vE14v_GFyl42xK
- 82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2
- IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
- 6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
- IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxU4kucDUUUU
-X-CM-SenderInfo: 5wdqw5prxox03j6o00pqjv00gofq/
-X-Mailman-Approved-At: Sat, 22 Aug 2020 09:02:26 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C14C6E44A;
+	Sat, 22 Aug 2020 09:59:29 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 403D46E44A;
+ Sat, 22 Aug 2020 09:59:28 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id A21602A6042;
+ Sat, 22 Aug 2020 11:59:27 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id LofK0gntuQk3; Sat, 22 Aug 2020 11:59:27 +0200 (CEST)
+Received: from thor (212.174.63.188.dynamic.wline.res.cust.swisscom.ch
+ [188.63.174.212])
+ by netline-mail3.netline.ch (Postfix) with ESMTPSA id 299122A6016;
+ Sat, 22 Aug 2020 11:59:27 +0200 (CEST)
+Received: from [::1] by thor with esmtp (Exim 4.94)
+ (envelope-from <michel@daenzer.net>)
+ id 1k9QJ4-000AKQ-Nb; Sat, 22 Aug 2020 11:59:26 +0200
+Subject: Re: [PATCH] drm/amdgpu/dc: Require primary plane to be enabled
+ whenever the CRTC is
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
+ Leo Li <sunpeng.li@amd.com>
+References: <20200821165758.1106210-1-michel@daenzer.net>
+ <58dc5ed0-307e-74c9-1a8b-1e998be04900@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Message-ID: <91391bb3-a855-1a29-2d2e-a31856c99946@daenzer.net>
+Date: Sat, 22 Aug 2020 11:59:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <58dc5ed0-307e-74c9-1a8b-1e998be04900@amd.com>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,52 +61,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove duplicate semicolons at the end of line.
-
-Signed-off-by: Youling Tang <tangyouling@loongson.cn>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c                 | 2 +-
- drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index e99bef6..8603a26 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -1108,7 +1108,7 @@ static int vcn_v2_5_mmsch_start(struct amdgpu_device *adev,
- {
- 	uint32_t data = 0, loop = 0, size = 0;
- 	uint64_t addr = table->gpu_addr;
--	struct mmsch_v1_1_init_header *header = NULL;;
-+	struct mmsch_v1_1_init_header *header = NULL;
- 
- 	header = (struct mmsch_v1_1_init_header *)table->cpu_addr;
- 	size = header->total_size;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-index afdd4f0..b320931 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-@@ -467,7 +467,7 @@ static void fetch_pipe_params(struct display_mode_lib *mode_lib)
- 		mode_lib->vba.AudioSampleLayout[mode_lib->vba.NumberOfActivePlanes] =
- 			1;
- 		mode_lib->vba.DRAMClockChangeLatencyOverride = 0.0;
--		mode_lib->vba.DSCEnabled[mode_lib->vba.NumberOfActivePlanes] = dout->dsc_enable;;
-+		mode_lib->vba.DSCEnabled[mode_lib->vba.NumberOfActivePlanes] = dout->dsc_enable;
- 		mode_lib->vba.DSCEnable[mode_lib->vba.NumberOfActivePlanes] = dout->dsc_enable;
- 		mode_lib->vba.NumberOfDSCSlices[mode_lib->vba.NumberOfActivePlanes] =
- 				dout->dsc_slices;
--- 
-2.1.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAyMC0wOC0yMSA4OjA3IHAubS4sIEthemxhdXNrYXMsIE5pY2hvbGFzIHdyb3RlOgo+IE9u
+IDIwMjAtMDgtMjEgMTI6NTcgcC5tLiwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+IEZyb206IE1p
+Y2hlbCBEw6RuemVyIDxtZGFlbnplckByZWRoYXQuY29tPgo+Pgo+PiBEb24ndCBjaGVjayBkcm1f
+Y3J0Y19zdGF0ZTo6YWN0aXZlIGZvciB0aGlzIGVpdGhlciwgcGVyIGl0cwo+PiBkb2N1bWVudGF0
+aW9uIGluIGluY2x1ZGUvZHJtL2RybV9jcnRjLmg6Cj4+Cj4+IMKgICogSGVuY2UgZHJpdmVycyBt
+dXN0IG5vdCBjb25zdWx0IEBhY3RpdmUgaW4gdGhlaXIgdmFyaW91cwo+PiDCoCAqICZkcm1fbW9k
+ZV9jb25maWdfZnVuY3MuYXRvbWljX2NoZWNrIGNhbGxiYWNrIHRvIHJlamVjdCBhbiBhdG9taWMK
+Pj4gwqAgKiBjb21taXQuCj4+Cj4+IFRoZSBhdG9taWMgaGVscGVycyBkaXNhYmxlIHRoZSBDUlRD
+IGFzIG5lZWRlZCBmb3IgZGlzYWJsaW5nIHRoZSBwcmltYXJ5Cj4+IHBsYW5lLgo+Pgo+PiBUaGlz
+IHByZXZlbnRzIGF0IGxlYXN0IHRoZSBmb2xsb3dpbmcgcHJvYmxlbXMgaWYgdGhlIHByaW1hcnkg
+cGxhbmUgZ2V0cwo+PiBkaXNhYmxlZCAoZS5nLiBkdWUgdG8gZGVzdHJveWluZyB0aGUgRkIgYXNz
+aWduZWQgdG8gdGhlIHByaW1hcnkgcGxhbmUsCj4+IGFzIGhhcHBlbnMgZS5nLiB3aXRoIG11dHRl
+ciBpbiBXYXlsYW5kIG1vZGUpOgo+Pgo+PiAqIFRvZ2dsaW5nIENSVEMgYWN0aXZlIHRvIDEgZmFp
+bGVkIGlmIHRoZSBjdXJzb3IgcGxhbmUgd2FzIGVuYWJsZWQKPj4gwqDCoCAoZS5nLiB2aWEgbGVn
+YWN5IERQTVMgcHJvcGVydHkgJiBjdXJzb3IgaW9jdGwpLgo+PiAqIEVuYWJsaW5nIHRoZSBjdXJz
+b3IgcGxhbmUgZmFpbGVkLCBlLmcuIHZpYSB0aGUgbGVnYWN5IGN1cnNvciBpb2N0bC4KPiAKPiBX
+ZSBwcmV2aW91c2x5IGhhZCB0aGUgcmVxdWlyZW1lbnQgdGhhdCB0aGUgcHJpbWFyeSBwbGFuZSBt
+dXN0IGJlIGVuYWJsZWQKPiBidXQgc29tZSB1c2Vyc3BhY2UgZXhwZWN0cyB0aGF0IHRoZXkgY2Fu
+IGVuYWJsZSBqdXN0IHRoZSBvdmVybGF5IHBsYW5lCj4gd2l0aG91dCBhbnl0aGluZyBlbHNlLgo+
+IAo+IEkgdGhpbmsgdGhlIGNocm9tdWl1bW9zIGF0b21pY3Rlc3QgdmFsaWRhdGVzIHRoYXQgdGhp
+cyB3b3JrcyBhcyB3ZWxsOgo+IAo+IFNvIGlzIERSTSBnb2luZyBmb3J3YXJkIHRoZW4gd2l0aCB0
+aGUgZXhwZWN0YXRpb24gdGhhdCB0aGlzIGlzIHdyb25nCj4gYmVoYXZpb3IgZnJvbSB1c2Vyc3Bh
+Y2U/Cj4gCj4gV2UgcmVxdWlyZSBhdCBsZWFzdCBvbmUgcGxhbmUgdG8gYmUgZW5hYmxlZCB0byBk
+aXNwbGF5IGEgY3Vyc29yLCBidXQgaXQKPiBkb2Vzbid0IG5lY2Vzc2FyaWx5IG5lZWQgdG8gYmUg
+dGhlIHByaW1hcnkuCgpJdCdzIGEgInBpY2sgeW91ciBwb2lzb24iIHNpdHVhdGlvbjoKCjEpIEN1
+cnJlbnRseSB0aGUgY2hlY2tzIGFyZSBpbnZhbGlkIChhdG9taWNfY2hlY2sgbXVzdCBub3QgZGVj
+aWRlIGJhc2VkCm9uIGRybV9jcnRjX3N0YXRlOjphY3RpdmUpLCBhbmQgaXQncyBlYXN5IGZvciBs
+ZWdhY3kgS01TIHVzZXJzcGFjZSB0bwphY2NpZGVudGFsbHkgaGl0IGVycm9ycyB0cnlpbmcgdG8g
+ZW5hYmxlL21vdmUgdGhlIGN1cnNvciBvciBzd2l0Y2ggRFBNUwpvZmYg4oaSIG9uLgoKMikgQWNj
+dXJhdGVseSByZWplY3Rpbmcgb25seSBhdG9taWMgc3RhdGVzIHdoZXJlIHRoZSBjdXJzb3IgcGxh
+bmUgaXMKZW5hYmxlZCBidXQgYWxsIG90aGVyIHBsYW5lcyBhcmUgb2ZmIHdvdWxkIGJyZWFrIHRo
+ZSBLTVMgaGVscGVyIGNvZGUsCndoaWNoIGNhbiBvbmx5IGRlYWwgd2l0aCB0aGUgIkNSVEMgb24g
+JiBwcmltYXJ5IHBsYW5lIG9mZiBpcyBub3QKYWxsb3dlZCIgY2FzZSBzcGVjaWZpY2FsbHkuCgoz
+KSBUaGlzIHBhdGNoIGFkZHJlc3NlcyAxKSAmIDIpIGJ1dCBtYXkgYnJlYWsgZXhpc3RpbmcgYXRv
+bWljIHVzZXJzcGFjZQp3aGljaCB3YW50cyB0byBlbmFibGUgYW4gb3ZlcmxheSBwbGFuZSB3aGls
+ZSBkaXNhYmxpbmcgdGhlIHByaW1hcnkgcGxhbmUuCgoKSSBkbyB0aGluayBpbiBwcmluY2lwbGUg
+YXRvbWljIHVzZXJzcGFjZSBpcyBleHBlY3RlZCB0byBoYW5kbGUgY2FzZSAzKQphbmQgbGVhdmUg
+dGhlIHByaW1hcnkgcGxhbmUgZW5hYmxlZC4gSG93ZXZlciwgdGhpcyBpcyBub3QgaWRlYWwgZnJv
+bSBhbgplbmVyZ3kgY29uc3VtcHRpb24gUG9WLiBUaGVyZWZvcmUsIGhlcmUncyBhbm90aGVyIGlk
+ZWEgZm9yIGEgcG9zc2libGUKd2F5IG91dCBvZiB0aGlzIHF1YWdtaXJlOgoKYW1kZ3B1X2RtIGRv
+ZXMgbm90IHJlamVjdCBhbnkgYXRvbWljIHN0YXRlcyBiYXNlZCBvbiB3aGljaCBwbGFuZXMgYXJl
+CmVuYWJsZWQgaW4gaXQuIElmIHRoZSBjdXJzb3IgcGxhbmUgaXMgZW5hYmxlZCBidXQgYWxsIG90
+aGVyIHBsYW5lcyBhcmUKb2ZmLCBhbWRncHVfZG0gaW50ZXJuYWxseSBlaXRoZXI6CgphKSBFbmFi
+bGVzIGFuIG92ZXJsYXkgcGxhbmUgYW5kIG1ha2VzIGl0IGludmlzaWJsZSwgZS5nLiBieSBhc3Np
+Z25pbmcgYQptaW5pbXVtIHNpemUgRkIgd2l0aCBhbHBoYSA9IDAuCgpiKSBFbmFibGVzIHRoZSBw
+cmltYXJ5IHBsYW5lIGFuZCBhc3NpZ25zIGEgbWluaW11bSBzaXplIEZCIChzY2FsZWQgdXAgdG8K
+dGhlIHJlcXVpcmVkIHNpemUpIGNvbnRhaW5pbmcgYWxsIGJsYWNrLCBwb3NzaWJseSB1c2luZyBj
+b21wcmVzc2lvbi4KKFRyeWluZyB0byBtaW5pbWl6ZSB0aGUgbWVtb3J5IGJhbmR3aWR0aCkKCgpE
+b2VzIGVpdGhlciBvZiB0aGVzZSBzZWVtIGZlYXNpYmxlPyBJZiBib3RoIGRvLCB3aGljaCBvbmUg
+d291bGQgYmUKcHJlZmVyYWJsZT8KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAg
+ICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHBzOi8vcmVkaGF0LmNvbQpMaWJyZSBzb2Z0d2Fy
+ZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9w
+ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
