@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B940FC433E3
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:36:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97FA9C433E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:37:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91C0822CE3
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:36:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6EC8622CE3
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:37:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyjciXwa"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91C0822CE3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgtUfMt3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EC8622CE3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 003616E311;
-	Mon, 24 Aug 2020 16:36:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B864B6E2E6;
+	Mon, 24 Aug 2020 16:37:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAEF66E311;
- Mon, 24 Aug 2020 16:36:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D6726E2E6;
+ Mon, 24 Aug 2020 16:37:00 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C447522EBD;
- Mon, 24 Aug 2020 16:36:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7BF7622C9F;
+ Mon, 24 Aug 2020 16:36:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598287017;
- bh=483GrcA7svNWzy8Q8L2xYtZFXyb1m8QzsUVZ+WM9R88=;
+ s=default; t=1598287020;
+ bh=S7ECAN+qn/s+wnh0kJhI7SdCw/kXvFwD8mdYQzpRZbk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jyjciXwax+KWDg1petEqZT6UfzCL4RL5HKzAqUP9idPqtmW6tldoXCo2cOk6zqB7N
- A3u3B3vZFeZtJtvNUwKJnXunqT3x2vDpxVmjt+ML6gWfHSrXKXIYYi4JxZdHTGSDM0
- umC2CLID7+Ejquq6jbdfgsPO5aMlPzEEZEooDp/Q=
+ b=mgtUfMt3PnTYGw20EiVSz0yF1a0leKujTyIgz05XAagFXp9vVWNQsgWhHZrVX3Yt7
+ y7iJIJsFvUvpjDhc1rbXSJJG5mNqNrGaxhPYv3qDZksE/1MQD/BJYz/COn0gouPwTT
+ d/oGO8YXv0OMaDxmvHf2v3MEuHmEYxCfVcUc42ME=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 17/54] drm/amd/powerplay: correct UVD/VCE PG state
- on custom pptable uploading
-Date: Mon, 24 Aug 2020 12:35:56 -0400
-Message-Id: <20200824163634.606093-17-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.7 19/54] drm/amd/display: Switch to immediate mode
+ for updating infopackets
+Date: Mon, 24 Aug 2020 12:35:58 -0400
+Message-Id: <20200824163634.606093-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200824163634.606093-1-sashal@kernel.org>
 References: <20200824163634.606093-1-sashal@kernel.org>
@@ -61,46 +62,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Evan Quan <evan.quan@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, Ashley Thomas <Ashley.Thomas2@amd.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <evan.quan@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
-[ Upstream commit 2c5b8080d810d98e3e59617680218499b17c84a1 ]
+[ Upstream commit abba907c7a20032c2d504fd5afe3af7d440a09d0 ]
 
-The UVD/VCE PG state is managed by UVD and VCE IP. It's error-prone to
-assume the bootup state in SMU based on the dpm status.
+[Why]
+Using FRAME_UPDATE will result in infopacket to be potentially updated
+one frame late.
+In commit stream scenarios for previously active stream, some stale
+infopacket data from previous config might be erroneously sent out on
+initial frame after stream is re-enabled.
 
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+[How]
+Switch to using IMMEDIATE_UPDATE mode
+
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Ashley Thomas <Ashley.Thomas2@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 6 ------
- 1 file changed, 6 deletions(-)
+ .../amd/display/dc/dcn10/dcn10_stream_encoder.c  | 16 ++++++++--------
+ .../amd/display/dc/dcn10/dcn10_stream_encoder.h  | 14 ++++++++++++++
+ 2 files changed, 22 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index f714d65de07e1..eeacd12caded1 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -1644,12 +1644,6 @@ static void vega20_init_powergate_state(struct pp_hwmgr *hwmgr)
- 
- 	data->uvd_power_gated = true;
- 	data->vce_power_gated = true;
--
--	if (data->smu_features[GNLD_DPM_UVD].enabled)
--		data->uvd_power_gated = false;
--
--	if (data->smu_features[GNLD_DPM_VCE].enabled)
--		data->vce_power_gated = false;
- }
- 
- static int vega20_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
+index 7eba9333c3285..66ce9092e9950 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
+@@ -121,35 +121,35 @@ void enc1_update_generic_info_packet(
+ 	switch (packet_index) {
+ 	case 0:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC0_FRAME_UPDATE, 1);
++				AFMT_GENERIC0_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 1:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC1_FRAME_UPDATE, 1);
++				AFMT_GENERIC1_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 2:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC2_FRAME_UPDATE, 1);
++				AFMT_GENERIC2_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 3:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC3_FRAME_UPDATE, 1);
++				AFMT_GENERIC3_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 4:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC4_FRAME_UPDATE, 1);
++				AFMT_GENERIC4_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 5:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC5_FRAME_UPDATE, 1);
++				AFMT_GENERIC5_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 6:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC6_FRAME_UPDATE, 1);
++				AFMT_GENERIC6_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	case 7:
+ 		REG_UPDATE(AFMT_VBI_PACKET_CONTROL1,
+-				AFMT_GENERIC7_FRAME_UPDATE, 1);
++				AFMT_GENERIC7_IMMEDIATE_UPDATE, 1);
+ 		break;
+ 	default:
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h
+index f9b9e221c698b..7507000a99ac4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.h
+@@ -273,7 +273,14 @@ struct dcn10_stream_enc_registers {
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC2_FRAME_UPDATE, mask_sh),\
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC3_FRAME_UPDATE, mask_sh),\
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC4_FRAME_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC0_IMMEDIATE_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC1_IMMEDIATE_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC2_IMMEDIATE_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC3_IMMEDIATE_UPDATE, mask_sh),\
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC4_IMMEDIATE_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC5_IMMEDIATE_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC6_IMMEDIATE_UPDATE, mask_sh),\
++	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC7_IMMEDIATE_UPDATE, mask_sh),\
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC5_FRAME_UPDATE, mask_sh),\
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC6_FRAME_UPDATE, mask_sh),\
+ 	SE_SF(DIG0_AFMT_VBI_PACKET_CONTROL1, AFMT_GENERIC7_FRAME_UPDATE, mask_sh),\
+@@ -337,7 +344,14 @@ struct dcn10_stream_enc_registers {
+ 	type AFMT_GENERIC2_FRAME_UPDATE;\
+ 	type AFMT_GENERIC3_FRAME_UPDATE;\
+ 	type AFMT_GENERIC4_FRAME_UPDATE;\
++	type AFMT_GENERIC0_IMMEDIATE_UPDATE;\
++	type AFMT_GENERIC1_IMMEDIATE_UPDATE;\
++	type AFMT_GENERIC2_IMMEDIATE_UPDATE;\
++	type AFMT_GENERIC3_IMMEDIATE_UPDATE;\
+ 	type AFMT_GENERIC4_IMMEDIATE_UPDATE;\
++	type AFMT_GENERIC5_IMMEDIATE_UPDATE;\
++	type AFMT_GENERIC6_IMMEDIATE_UPDATE;\
++	type AFMT_GENERIC7_IMMEDIATE_UPDATE;\
+ 	type AFMT_GENERIC5_FRAME_UPDATE;\
+ 	type AFMT_GENERIC6_FRAME_UPDATE;\
+ 	type AFMT_GENERIC7_FRAME_UPDATE;\
 -- 
 2.25.1
 
