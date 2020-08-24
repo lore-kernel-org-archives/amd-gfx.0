@@ -1,105 +1,110 @@
-Return-Path: <SRS0=Mvn9=CB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=//M4=CC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C914C433E1
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2020 15:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9943CC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 03:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E96B20706
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2020 15:28:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5157620774
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 03:00:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="M/beSRNs"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E96B20706
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XPQfLFHh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5157620774
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDEA96E50D;
-	Sun, 23 Aug 2020 15:28:51 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB656E50D
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2020 15:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 725E16E133;
+	Mon, 24 Aug 2020 03:00:02 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5693D6E133;
+ Mon, 24 Aug 2020 03:00:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TAQee08xgCzPKG03onbeF3A+q5poQCVdmCHNflpsvWKZUYIfI+I06Bzk2IVG7UDzvEUROI0OS4yxuu1/PTKidoF76aWZnjODjYlHMlIJflU3JTlwQR24o5Z6Mn4FAjXjUd1bcvKt0yHBTf2Xr8WOcih8eqntFBuzdFqpGfjFE0nmU3opFOhdnybwoNJAb8uxQRVUnglm5aRNBR0mrXFNmSblqZ2RFm1MQzyar+4eCzzHxs9iiDnPImVdzym96SETiUKRwLcDTmMFeQm1GmUwgCuMwVaIibu4zuVP+62ZFFjXGOvNFKRBPaY/IMfJFClqVQx+SKBm5ZscAgOMsUuprA==
+ b=mEv5reILA8pxVZy3y3/cvKgbC18MGH1xDmwCq/y6qYYqQG45s1hBsfmoHwIIlAhmAbwVtItrIrS1cfmOj0+bFUXvJNIwUMeY/JnzEShOKOcSOSj63MiIcbyuhZnxi6s/PqlrNrQLU9w5I+76pHEn+uStu1l1kC4BSBy7n/XofFIR3T9kDo33DH6L7tgstFUcE4apHj474Fua6LFewwupskYL7GWjTZwa7JDRTo7pyMFcrzk/NpdmvM6y57PFTgxEZRQsmWB/ADjvqyUdnxDDeywKQbqZFrWWHKhfw/JFy5BGKOgmfPltmhM7Rjy/o306rs/2ocwgK+eBNoXqbkYobw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UcgUQFEwggOKKuD8+e2FZi2m0NZ7+p+MybbbRfrV6Ts=;
- b=APKnGy8BKFA2Zld9HRWAdcLv4EAWbg8EhmFfI/TlmpCPLR8Y3hurF3IpitVAr+OtSAzPKcs8q0RGOldRESXuy9TA5GgEKE8kgVJXvYrYZ++kLCnci8ympnvvyE+bhhnmOH9zL1elGHqpdcg+MP+ONzDAkZcBHjSolCs5wd2hK7h2aLAfPPu/H/pAUq3eI3uWL7CKH0uklzJCMeGqDnWY0ZwGwRIqKN/fny9SWlRecKTADcDI490etNda+enJfM6SH8yyV0dwIdR8xs14cxF8JxhinpIVaw3uHNWEub91f5peddv6iravqO8pnKfbb3/U8PJGDfiWtIa+nzFbPnb4ow==
+ bh=bp/n/rUELe40i3VwidhnXPqSVLx566S1P8511LvH1/U=;
+ b=iTMoi/NVNxUaQ1P9IYW9Ugub4mkMEonm0RAWimbINvIgi370DWCJm9jtbwglMCzHhkT+bpL+ypzu7X1Yzv8ijpERMeeKfRWcksqgSvj7gsHbd5dhbXjCHHq1fBGxGesCtR3otdqZ33N0yljQ1VAFV0Qv+QXJa5HHnnL8HQYTr1AFrAB/NuhGQMyrICS7xmS4pMckUhwGbeOS2SjbRXiA9+EnZZjWc7NNobPHFjNQDPLtkfV1k/UfG/sSQp6Li2G5mZlc6DIwgePs4qgGbTtOTa4hHaLOan4E9Z+zSK1LeDh+r+N5oet8rxDHKBg7Q3WWrKu31NjqZbofr04NYCVs5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UcgUQFEwggOKKuD8+e2FZi2m0NZ7+p+MybbbRfrV6Ts=;
- b=M/beSRNsjIW/fnvVC+HMM8/KK2HfdNkeuT2S9zpCDQQPfzAA42hlww5wgrvC9uTaa6o/3C+PaqAgK/9HUZhXykG3ommWHFxb4WFPWheKmsmfcaqnIkifni4SP45bMGRkdr4dEJHiMUnLuSePyyECsiZTv2DJublSgil616T231I=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (52.132.199.31) by
- SA0PR12MB4573.namprd12.prod.outlook.com (20.181.63.24) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3305.25; Sun, 23 Aug 2020 15:28:46 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::d548:1236:cb4f:1be9]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::d548:1236:cb4f:1be9%7]) with mapi id 15.20.3305.026; Sun, 23 Aug 2020
- 15:28:46 +0000
-Subject: Re: [PATCH v6] drm/amdkfd: implement the dGPU fallback path for apu
- (v6)
-To: Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200823120728.387671-1-ray.huang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <a1ed0b23-c117-b37b-1d59-00127e1a71ff@amd.com>
-Date: Sun, 23 Aug 2020 11:28:44 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20200823120728.387671-1-ray.huang@amd.com>
+ bh=bp/n/rUELe40i3VwidhnXPqSVLx566S1P8511LvH1/U=;
+ b=XPQfLFHhbJeAZqYvRT4zBPw0A/CvZ+X/yzNU1ThibWMcwo6vCp/QEDNJlyLG2fHoKYuq1Ax1JpKtu39xp4QTe8AxVcqHWqXhUqd94ta65rF0uAJgd2/EKpKLpffHqE8yIwbvGBlfywg2bEE+IQQwdoqWmLdXwn22SHESMO6y1VQ=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3305.25; Mon, 24 Aug 2020 02:59:58 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3305.026; Mon, 24 Aug 2020
+ 02:59:58 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Randy Dunlap <rdunlap@infradead.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH -next] amdgpu: fix Documentation builds for pm/ file
+ movement
+Thread-Topic: [PATCH -next] amdgpu: fix Documentation builds for pm/ file
+ movement
+Thread-Index: AQHWeZ2/gKc8SM9oYEuNNVO303NlTKlGkcVw
+Date: Mon, 24 Aug 2020 02:59:58 +0000
+Message-ID: <DM6PR12MB261924212A1791B949B43903E4560@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <88d43daf-f29b-0fbe-cf58-930e8caca0e7@infradead.org>
+In-Reply-To: <88d43daf-f29b-0fbe-cf58-930e8caca0e7@infradead.org>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::14) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from 255.255.255.255 (255.255.255.255) by
- YTXPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24 via Frontend
- Transport; Sun, 23 Aug 2020 15:28:45 +0000
-X-Originating-IP: [142.116.113.11]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 340e63ec-d206-45bc-bddd-08d847793982
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4573:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SA0PR12MB4573C475EF8EDB0F4B148A3792590@SA0PR12MB4573.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J5sN4o9tXDRZGaLtdbPOKUe3K0PhT3tqW+9V9kj8mo6Wd593Q7ujNMux35zJys927vii2F7fQZR786kmh5fpwEXutdqc4tPybBAVp4BT/gkRzklZ3up6J9tVMFP246wUsQq5gVq3SDvagEYpbspMFno6IeBLRSKtvjDrqvFsTU3D0A8UT3ksOB6Y4oFd/1U0xO3sYim0GpKScGbk8mKv1rbUCT1RknQpPrx2YqBpmqRtEM5JcYTX9FHMw0pfAdJ/+8613QrlldhfneZ7JTTZs6/1gFbv81QwyQVHJTt/2Fw0MZDKXVvj2ut/FfZGeDcau7hqy8rLl8G/xEV9lRM05J+UT7W3EVuZSAqmJtdxLnLcBHxS4or75wtJT4IfAaWE
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(39860400002)(376002)(136003)(396003)(186003)(26005)(36756003)(30864003)(52116002)(66556008)(44832011)(2906002)(31686004)(66476007)(5660300002)(956004)(66946007)(2616005)(6486002)(83380400001)(86362001)(8936002)(16576012)(8676002)(31696002)(316002)(478600001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=9849b35e-e708-485c-86c9-380acc7d4970;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-24T02:58:55Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: infradead.org; dkim=none (message not signed)
+ header.d=none;infradead.org; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: cfc1c739-094a-4a22-7732-08d847d9c977
+x-ms-traffictypediagnostic: DM5PR12MB2504:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB250412619511C1C58DDA2CB4E4560@DM5PR12MB2504.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1775;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: AggqE5jCggN+HIPHA4hZZfvyEHbs43TXLu+ea91YmGQ7G0N9+x9j1eVvmxpkSKg3s8LuM7bCLq0QZf0YWa6N7YPtMcrALFLVnFaMNqsgpLaVCJIsqC+WQRqSXaqhB9m5ZDjExUp45xP4oYVsU5dXyWYLV3cyCjFYerePMga7Y25Dg72jKXB/BP73fKNJ6KvgbTTU4q7+Knx2VGNFvN3gxxJU7WpZTGk2nF44NbB6gzRLcjyAmBRR0UBfF3iU4T1XTH/lDp3fDxapnGauQz6SeN01mged3uC0QdI3AadcVMLlqKJLvvB3mlKR2XRGivSm
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(39860400002)(136003)(396003)(376002)(26005)(53546011)(6506007)(186003)(76116006)(71200400001)(66556008)(7696005)(64756008)(6636002)(66946007)(2906002)(5660300002)(55016002)(9686003)(66446008)(66476007)(52536014)(110136005)(83380400001)(8936002)(86362001)(4326008)(8676002)(316002)(33656002)(478600001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: p1946KtpP5rzntAqOZITyURCdZFCp4Srd0DbgQmFh5XSgE5vqD4/vCTvdFGG0CfPAXC+0Cd1QrgYztYwU8bptiyo2HyZJ6/CUXuoXYeGykqau0OeuXU30zHzMCekzwqggUfZSpLqMFwHKR/5VNgh9Q8r6MDE4zQp7un+RzmKs1i9rfBx/6Lr2oWJ8QZevXxQCtp45XgLqkjiu0GQOlPxKM2MM28pHNXmuloPuDXk6iPXuTIkGva26KYnQ5eXxFqYuk93cvuc2KxyaCg+47HSwW6htB1sAlyEk9e4vnmSMjq0I3W1rV/6zvq7fsFaN1398+Qi1NVmU0cN3mKM0IrziTBMzILesRcjyg0DUfUMczude4lDtmleqo3CKwN7mB+GtB4gHG8b/y1p05eE6hlW8ZNlJmJcr9RoyVIxxgct40DYwg4rvJ7xFvc7O+7ciicsDzN5erQ3Fzl9lsoLP6kvoVRdLxstc9l3PwytpZ5v7xSqlM7p9+DOt7Pc+6fN82yBLgEakrfWcJt5TPTm/iq5HGB9q33kJzeg5qG1tJrrLLox7I/Zp+ph5LOyEAX2a0FpLZjeX9pmdUZkHz/WyUEDlvrYY5hviKmnced8746IqgCAZH+2bjRRH8xTy3CPWrtwJbGZscp5b0yNnagM9hn/vw==
+x-ms-exchange-antispam-messagedata: IDHAwuuUBBRB4M2YJhfCwLg+N/x5ffj+7bNFxNnfn/W/x/sgySXsH6Htl4H5jtY9h6MZgnVMlk92WiO/a+t21bowPEIkZyNcBRNB+C/A+q1xt9AF1bw209mNObqWmSrBxAb0LrOl290x0otdoTnbGiGRvBEHHPmX3UOszxMvKibrGKai8id3U2D5CPH/YfEZaOxgXWfsQxJAXj8d/6tZd2W/PTPKPd0WbsIcE1rtaDywUGqxE7m7uh/2h5pnk0oeOimLyZK070PbVUjEafc9yLfXgqd9IvkaGngxfY2OtrzNqCTw4rZuWFb9MaiJgkm+tEBttdwZ8sobO2/dSDKx8LDVxNF2fFqcp7NIxi/l9kROdRPX1bDurbkFstlKQXLB1K4tqOPB4sWuNibpOv237ojtV9E5GWj9iePPpyHbUtdVliQu/0vXzdcP6pdhHINM2BpSXoo5crNCPd2FqP40EfJKMYi+eFb843hK8lbujDfFop7lcbdYgZgHJ/GTZSwLigQCx3OaaIn+VqMI3iMAEsoAzIXmUHvymBUNxRDnITEPNY+/91LwBXRy6oCG+bUzezVppeww6sIlFlCZY1bfvi1W1gldnbAGX94d3+jDuOdRJpNWhUZEC+33pWpNQw/YBeB9rmD7dweh1E5HdKm1yg==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 340e63ec-d206-45bc-bddd-08d847793982
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2414.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2020 15:28:46.1765 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IMTpSRfm0AXFBwfUg5VGNug4GVXwNkS/QCx59CZOdfORQ+TV7mRdEq0ClSQrO3AfLYh+ZBHGnD0ou6MelKwG1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4573
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfc1c739-094a-4a22-7732-08d847d9c977
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2020 02:59:58.5280 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: O6k+0tTPACRWMlu3YsDEiOTVBY/KTo5yn3qoWO0RAmJGdCSjDxZ4BUADQpcGFlWK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2504
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,360 +116,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2020-08-23 um 8:07 a.m. schrieb Huang Rui:
-> We still have a few iommu issues which need to address, so force raven
-> as "dgpu" path for the moment.
->
-> This is to add the fallback path to bypass IOMMU if IOMMU v2 is disabled
-> or ACPI CRAT table not correct.
->
-> v2: Use ignore_crat parameter to decide whether it will go with IOMMUv2.
-> v3: Align with existed thunk, don't change the way of raven, only renoir
->     will use "dgpu" path by default.
-> v4: don't update global ignore_crat in the driver, and revise fallback
->     function if CRAT is broken.
-> v5: refine acpi crat good but no iommu support case, and rename the
->     title.
-> v6: fix the issue of dGPU initialized firstly, just modify the report
->     value in the node_show().
->
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
+[AMD Official Use Only - Internal Distribution Only]
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Thanks for fixing this. The patch is reviewed-by: Evan Quan <evan.quan@amd.com>
 
+BR
+Evan
+-----Original Message-----
+From: Randy Dunlap <rdunlap@infradead.org>
+Sent: Monday, August 24, 2020 6:36 AM
+To: dri-devel <dri-devel@lists.freedesktop.org>; LKML <linux-kernel@vger.kernel.org>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>
+Cc: Quan, Evan <Evan.Quan@amd.com>; Stephen Rothwell <sfr@canb.auug.org.au>
+Subject: [PATCH -next] amdgpu: fix Documentation builds for pm/ file movement
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  5 ++-
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c         | 22 +++++++++++--
->  drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c       |  4 +--
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  5 ++-
->  .../amd/amdkfd/kfd_device_queue_manager_v9.c  |  2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  4 +--
->  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c        | 10 +++---
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 ++-
->  drivers/gpu/drm/amd/amdkfd/kfd_topology.c     | 31 ++++++++++++++++---
->  10 files changed, 70 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index a9a4319c24ae..189f9d7e190d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -684,11 +684,14 @@ MODULE_PARM_DESC(debug_largebar,
->   * Ignore CRAT table during KFD initialization. By default, KFD uses the ACPI CRAT
->   * table to get information about AMD APUs. This option can serve as a workaround on
->   * systems with a broken CRAT table.
-> + *
-> + * Default is auto (according to asic type, iommu_v2, and crat table, to decide
-> + * whehter use CRAT)
->   */
->  int ignore_crat;
->  module_param(ignore_crat, int, 0444);
->  MODULE_PARM_DESC(ignore_crat,
-> -	"Ignore CRAT table during KFD initialization (0 = use CRAT (default), 1 = ignore CRAT)");
-> +	"Ignore CRAT table during KFD initialization (0 = auto (default), 1 = ignore CRAT)");
->  
->  /**
->   * DOC: halt_if_hws_hang (int)
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 1b60e0ed6b5c..3ec5322ba88d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1258,7 +1258,7 @@ bool kfd_dev_is_large_bar(struct kfd_dev *dev)
->  		return true;
->  	}
->  
-> -	if (dev->device_info->needs_iommu_device)
-> +	if (dev->use_iommu_v2)
->  		return false;
->  
->  	amdgpu_amdkfd_get_local_mem_info(dev->kgd, &mem_info);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> index 59557e3e206a..aba40df189d9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -740,6 +740,25 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
->  	return 0;
->  }
->  
-> +
-> +#ifdef CONFIG_ACPI
-> +
-> +static bool kfd_ignore_crat(void)
-> +{
-> +	bool ret;
-> +
-> +	if (ignore_crat)
-> +		return true;
-> +
-> +#ifndef KFD_SUPPORT_IOMMU_V2
-> +	ret = true;
-> +#else
-> +	ret = false;
-> +#endif
-> +
-> +	return ret;
-> +}
-> +
->  /*
->   * kfd_create_crat_image_acpi - Allocates memory for CRAT image and
->   * copies CRAT from ACPI (if available).
-> @@ -751,7 +770,6 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
->   *
->   *	Return 0 if successful else return error code
->   */
-> -#ifdef CONFIG_ACPI
->  int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
->  {
->  	struct acpi_table_header *crat_table;
-> @@ -775,7 +793,7 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
->  		return -EINVAL;
->  	}
->  
-> -	if (ignore_crat) {
-> +	if (kfd_ignore_crat()) {
->  		pr_info("CRAT table disabled by module option\n");
->  		return -ENODATA;
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
-> index 3e5904f8876a..e4159b5f83d5 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
-> @@ -309,7 +309,7 @@ static int dbgdev_address_watch_nodiq(struct kfd_dbgdev *dbgdev,
->  	for (i = 0; i < adw_info->num_watch_points; i++) {
->  		dbgdev_address_watch_set_registers(adw_info, &addrHi, &addrLo,
->  				&cntl, i, pdd->qpd.vmid,
-> -				dbgdev->dev->device_info->needs_iommu_device);
-> +				dbgdev->dev->use_iommu_v2);
->  
->  		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
->  		pr_debug("\t\t%20s %08x\n", "register index :", i);
-> @@ -399,7 +399,7 @@ static int dbgdev_address_watch_diq(struct kfd_dbgdev *dbgdev,
->  	for (i = 0; i < adw_info->num_watch_points; i++) {
->  		dbgdev_address_watch_set_registers(adw_info, &addrHi, &addrLo,
->  				&cntl, i, vmid,
-> -				dbgdev->dev->device_info->needs_iommu_device);
-> +				dbgdev->dev->use_iommu_v2);
->  
->  		pr_debug("\t\t%30s\n", "* * * * * * * * * * * * * * * * * *");
->  		pr_debug("\t\t%20s %08x\n", "register index :", i);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 2c030c2b5b8d..fdf64d361be3 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -112,6 +112,7 @@ static const struct kfd_device_info carrizo_device_info = {
->  	.num_xgmi_sdma_engines = 0,
->  	.num_sdma_queues_per_engine = 2,
->  };
-> +#endif
->  
->  static const struct kfd_device_info raven_device_info = {
->  	.asic_family = CHIP_RAVEN,
-> @@ -130,7 +131,6 @@ static const struct kfd_device_info raven_device_info = {
->  	.num_xgmi_sdma_engines = 0,
->  	.num_sdma_queues_per_engine = 2,
->  };
-> -#endif
->  
->  static const struct kfd_device_info hawaii_device_info = {
->  	.asic_family = CHIP_HAWAII,
-> @@ -688,6 +688,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->  		goto gws_error;
->  	}
->  
-> +	/* If CRAT is broken, won't set iommu enabled */
-> +	kfd_double_confirm_iommu_support(kfd);
-> +
->  	if (kfd_iommu_device_init(kfd)) {
->  		dev_err(kfd_device, "Error initializing iommuv2\n");
->  		goto device_iommu_error;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> index 95a82ac455f2..309f63a0b34a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> @@ -62,7 +62,7 @@ static int update_qpd_v9(struct device_queue_manager *dqm,
->  				SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
->  					SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
->  		if (amdgpu_noretry &&
-> -		    !dqm->dev->device_info->needs_iommu_device)
-> +		    !dqm->dev->use_iommu_v2)
->  			qpd->sh_mem_config |=
->  				1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
->  
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-> index 78714f9a8b11..798303c3c7ac 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-> @@ -321,7 +321,7 @@ static void kfd_init_apertures_vi(struct kfd_process_device *pdd, uint8_t id)
->  	pdd->lds_base = MAKE_LDS_APP_BASE_VI();
->  	pdd->lds_limit = MAKE_LDS_APP_LIMIT(pdd->lds_base);
->  
-> -	if (!pdd->dev->device_info->needs_iommu_device) {
-> +	if (!pdd->dev->use_iommu_v2) {
->  		/* dGPUs: SVM aperture starting at 0
->  		 * with small reserved space for kernel.
->  		 * Set them to CANONICAL addresses.
-> @@ -423,7 +423,7 @@ int kfd_init_apertures(struct kfd_process *process)
->  				return -EINVAL;
->  			}
->  
-> -			if (!dev->device_info->needs_iommu_device) {
-> +			if (!dev->use_iommu_v2) {
->  				/* dGPUs: the reserved space for kernel
->  				 * before SVM
->  				 */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-> index 4d3b4188b9a1..0c0269497e51 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-> @@ -41,7 +41,7 @@ int kfd_iommu_check_device(struct kfd_dev *kfd)
->  	struct amd_iommu_device_info iommu_info;
->  	int err;
->  
-> -	if (!kfd->device_info->needs_iommu_device)
-> +	if (!kfd->use_iommu_v2)
->  		return -ENODEV;
->  
->  	iommu_info.flags = 0;
-> @@ -63,7 +63,7 @@ int kfd_iommu_device_init(struct kfd_dev *kfd)
->  	unsigned int pasid_limit;
->  	int err;
->  
-> -	if (!kfd->device_info->needs_iommu_device)
-> +	if (!kfd->use_iommu_v2)
->  		return 0;
->  
->  	iommu_info.flags = 0;
-> @@ -109,7 +109,7 @@ int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd)
->  	struct kfd_process *p = pdd->process;
->  	int err;
->  
-> -	if (!dev->device_info->needs_iommu_device || pdd->bound == PDD_BOUND)
-> +	if (!dev->use_iommu_v2 || pdd->bound == PDD_BOUND)
->  		return 0;
->  
->  	if (unlikely(pdd->bound == PDD_BOUND_SUSPENDED)) {
-> @@ -284,7 +284,7 @@ static void kfd_unbind_processes_from_device(struct kfd_dev *kfd)
->   */
->  void kfd_iommu_suspend(struct kfd_dev *kfd)
->  {
-> -	if (!kfd->device_info->needs_iommu_device)
-> +	if (!kfd->use_iommu_v2)
->  		return;
->  
->  	kfd_unbind_processes_from_device(kfd);
-> @@ -304,7 +304,7 @@ int kfd_iommu_resume(struct kfd_dev *kfd)
->  	unsigned int pasid_limit;
->  	int err;
->  
-> -	if (!kfd->device_info->needs_iommu_device)
-> +	if (!kfd->use_iommu_v2)
->  		return 0;
->  
->  	pasid_limit = kfd_get_pasid_limit();
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 60243798cce2..641b964387ec 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -308,12 +308,14 @@ struct kfd_dev {
->  
->  	/* xGMI */
->  	uint64_t hive_id;
-> -    
->  	/* UUID */
->  	uint64_t unique_id;
->  
->  	bool pci_atomic_requested;
->  
-> +	/* Use IOMMU v2 flag */
-> +	bool use_iommu_v2;
-> +
->  	/* SRAM ECC flag */
->  	atomic_t sram_ecc_flag;
->  
-> @@ -1009,6 +1011,7 @@ struct kfd_dev *kfd_device_by_pci_dev(const struct pci_dev *pdev);
->  struct kfd_dev *kfd_device_by_kgd(const struct kgd_dev *kgd);
->  int kfd_topology_enum_kfd_devices(uint8_t idx, struct kfd_dev **kdev);
->  int kfd_numa_node_to_apic_id(int numa_node_id);
-> +void kfd_double_confirm_iommu_support(struct kfd_dev *gpu);
->  
->  /* Interrupts */
->  int kfd_interrupt_init(struct kfd_dev *dev);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index cbb8535abf0c..cf1cd7ec0457 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -466,7 +466,7 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
->  	sysfs_show_32bit_prop(buffer, "cpu_cores_count",
->  			dev->node_props.cpu_cores_count);
->  	sysfs_show_32bit_prop(buffer, "simd_count",
-> -			dev->node_props.simd_count);
-> +			dev->gpu ? dev->node_props.simd_count : 0);
->  	sysfs_show_32bit_prop(buffer, "mem_banks_count",
->  			dev->node_props.mem_banks_count);
->  	sysfs_show_32bit_prop(buffer, "caches_count",
-> @@ -545,7 +545,7 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
->  		 * If the ASIC is APU except Kaveri, set local memory size
->  		 * to 0 to disable local memory support
->  		 */
-> -		if (!dev->gpu->device_info->needs_iommu_device
-> +		if (!dev->gpu->use_iommu_v2
->  			|| dev->gpu->device_info->asic_family == CHIP_KAVERI) {
->  			amdgpu_amdkfd_get_local_mem_info(dev->gpu->kgd,
->  				&local_mem_info);
-> @@ -1197,7 +1197,7 @@ static struct kfd_topology_device *kfd_assign_gpu(struct kfd_dev *gpu)
->  		/* Discrete GPUs need their own topology device list
->  		 * entries. Don't assign them to CPU/APU nodes.
->  		 */
-> -		if (!gpu->device_info->needs_iommu_device &&
-> +		if (!gpu->use_iommu_v2 &&
->  		    dev->node_props.cpu_cores_count)
->  			continue;
->  
-> @@ -1452,7 +1452,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
->  	* Overwrite ATS capability according to needs_iommu_device to fix
->  	* potential missing corresponding bit in CRAT of BIOS.
->  	*/
-> -	if (dev->gpu->device_info->needs_iommu_device)
-> +	if (dev->gpu->use_iommu_v2)
->  		dev->node_props.capability |= HSA_CAP_ATS_PRESENT;
->  	else
->  		dev->node_props.capability &= ~HSA_CAP_ATS_PRESENT;
-> @@ -1579,6 +1579,29 @@ int kfd_numa_node_to_apic_id(int numa_node_id)
->  	return kfd_cpumask_to_apic_id(cpumask_of_node(numa_node_id));
->  }
->  
-> +void kfd_double_confirm_iommu_support(struct kfd_dev *gpu)
-> +{
-> +	struct kfd_topology_device *dev;
-> +
-> +	gpu->use_iommu_v2 = false;
-> +
-> +	if (!gpu->device_info->needs_iommu_device)
-> +		return;
-> +
-> +	down_read(&topology_lock);
-> +
-> +	/* Only use IOMMUv2 if there is an APU topology node with no GPU
-> +	 * assigned yet. This GPU will be assigned to it.
-> +	 */
-> +	list_for_each_entry(dev, &topology_device_list, list)
-> +		if (dev->node_props.cpu_cores_count &&
-> +		    dev->node_props.simd_count &&
-> +		    !dev->gpu)
-> +			gpu->use_iommu_v2 = true;
-> +
-> +	up_read(&topology_lock);
-> +}
-> +
->  #if defined(CONFIG_DEBUG_FS)
->  
->  int kfd_debugfs_hqds_by_device(struct seq_file *m, void *data)
+From: Randy Dunlap <rdunlap@infradead.org>
+
+Fix Documentation errors for amdgpu.rst due to file rename (moved to another subdirectory).
+
+Error: Cannot open file ../drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+WARNING: kernel-doc '../scripts/kernel-doc -rst -enable-lineno -function hwmon ../drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c' failed with return code 1
+
+Fixes: e098bc9612c2 ("drm/amd/pm: optimize the power related source code layout")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Evan Quan <evan.quan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+---
+ Documentation/gpu/amdgpu.rst |   24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+--- linux-next-20200821.orig/Documentation/gpu/amdgpu.rst
++++ linux-next-20200821/Documentation/gpu/amdgpu.rst
+@@ -153,7 +153,7 @@ This section covers hwmon and power/ther  HWMON Interfaces
+ ----------------
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: hwmon
+
+ GPU sysfs Power State Interfaces
+@@ -164,52 +164,52 @@ GPU power controls are exposed via sysfs  power_dpm_state  ~~~~~~~~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: power_dpm_state
+
+ power_dpm_force_performance_level
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: power_dpm_force_performance_level
+
+ pp_table
+ ~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: pp_table
+
+ pp_od_clk_voltage
+ ~~~~~~~~~~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: pp_od_clk_voltage
+
+ pp_dpm_*
+ ~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: pp_dpm_sclk pp_dpm_mclk pp_dpm_socclk pp_dpm_fclk pp_dpm_dcefclk pp_dpm_pcie
+
+ pp_power_profile_mode
+ ~~~~~~~~~~~~~~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: pp_power_profile_mode
+
+ *_busy_percent
+ ~~~~~~~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: gpu_busy_percent
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: mem_busy_percent
+
+ gpu_metrics
+ ~~~~~~~~~~~~~~~~~~~~~
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: gpu_metrics
+
+ GPU Product Information
+@@ -239,7 +239,7 @@ serial_number
+ unique_id
+ ---------
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: unique_id
+
+ GPU Memory Usage Information
+@@ -289,7 +289,7 @@ PCIe Accounting Information  pcie_bw
+ -------
+
+-.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+    :doc: pcie_bw
+
+ pcie_replay_count
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
