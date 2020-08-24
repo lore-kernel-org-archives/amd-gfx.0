@@ -2,73 +2,100 @@ Return-Path: <SRS0=//M4=CC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09D66C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 07:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3B5EC433E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 08:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBBED2087D
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 07:43:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 826A42072D
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 08:04:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IDiUiAk9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBBED2087D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uML9qV+U"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 826A42072D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E759A6E1B5;
-	Mon, 24 Aug 2020 07:43:39 +0000 (UTC)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5C66E1B5;
- Mon, 24 Aug 2020 07:43:39 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id f26so8486106ljc.8;
- Mon, 24 Aug 2020 00:43:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=LwplKGrJx3eQBkv1HvhogR0iGUz1klnaWD2nLVc/pI4=;
- b=IDiUiAk9BpRYOruP/JHY1bGmA7UtWlohHPDqUBNgSvKOzJ5H5w0Sod/KKKGlyRh/+d
- BYzWjWxA8vtVC8pMu0NUbO8c59a29JeYqkMq2I73f1Q7AozEPB+suBAX8fVbpVxn5QxN
- lSVf/h0bZxEcz4yYfDw0pEwtzzqAI6NcVCZjM/7FoHvRQTMdDMfPJ/1DkQ8lX0soqVek
- AWqdmfJgtTB/gNNjUVzCLfD0d/wQSiz/BNJKuVzookp9f977ig5H4BFm7BAPr4t3UTMr
- +UaDpuWuzE12rtg3uFWLTIF16UVZ7SvMhCMRhvPsYpLE3IYEgpcLvrL8pxI7A0Ra5/2I
- K/DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=LwplKGrJx3eQBkv1HvhogR0iGUz1klnaWD2nLVc/pI4=;
- b=mNxV8wwUKM8vpukNsR+boT5DxX2bovjxcq6s7WITGdMtEayMU5ixPazaxuL9yGuYA4
- fMiUBedPFk5gRJBT2QH0dYbSdU9HQQ37YiNqjVMWlmAjWGMfsKGp2KK2Y9hSk35jGw3B
- NQTd7+Y7IZcDurEr9IiyKXTfq6UMJ+kS5+2V9vmCgD4t0X9LrDRP3AB8e/ggwzYkjy0+
- FCUT73HPYenZbE+m7Nok6hXSPIgmhwDOO3yh4DuAjodR5e5uspFOXnJDzlKyCGWDPXO6
- ItzYeIiH4L6lTregzlXtDZIkmdskSs5BsqRUR/mzw4bH0zY0YhfO2kMJemZBnDdogH2h
- mGKw==
-X-Gm-Message-State: AOAM5314GMJrdQS0W4Bp3LGvFklpUnEqnLVmv3QQDLzt7AwJHDYSguf0
- gM+K9txUF/nlbG9/g7r+4oY=
-X-Google-Smtp-Source: ABdhPJzYqVPorqe6mnw5YmSW0FCNzpD4BgyJZEcDuMQFlGlIccSXEzHKIGzsCsFBBljbVNRGkH3C1Q==
-X-Received: by 2002:a2e:7210:: with SMTP id n16mr2154087ljc.262.1598255017700; 
- Mon, 24 Aug 2020 00:43:37 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id h18sm39871lfk.86.2020.08.24.00.43.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2020 00:43:37 -0700 (PDT)
-Date: Mon, 24 Aug 2020 10:43:27 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/dc: Require primary plane to be enabled
- whenever the CRTC is
-Message-ID: <20200824104327.559503f7@eldfell>
-In-Reply-To: <91391bb3-a855-1a29-2d2e-a31856c99946@daenzer.net>
-References: <20200821165758.1106210-1-michel@daenzer.net>
- <58dc5ed0-307e-74c9-1a8b-1e998be04900@amd.com>
- <91391bb3-a855-1a29-2d2e-a31856c99946@daenzer.net>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 084F06E1A3;
+	Mon, 24 Aug 2020 08:04:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F41C66E1A3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 08:04:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gdPezcDX0FiFCBVCK32SMXG+pGEqVGomntTX5Cwiou7AiRHle5DrsqwzKf6m1oIpPov/1WL1Ax29GCMg3HUGiLP9eM0thUvHZXKI56FzfJsfGXQVe8qEm0+YbDyhKQCBo4UWihjdTSJSQK6HIHauLonJIfqqhsGD+RJNbxqGeX/8qa4FxAlkpzvsxaarRFpqWJ0V2Uq86OzBE7CPoUcatU4LKcD0rq236vw5h1fG2JQ69BUonDV7301fbCU1uon4SKr4agSvgydxYLRbX1Gjyyvgo1hBZQEPYZZGcZTZ/gc1mDXDYnxO6NYxONu0anQ6XwR/KymLOvgT8hMvsouL3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EdjO6taV/2eziJvFChlM9kJ54LtFmwwaIvKayrB6/Z4=;
+ b=NVUuPLnSXrcKuMFX3aFoQQfOLXiLRsXEeo4NnGUtfw3m/wm7tFPzkROBizcxgaAf4S1pMmoScWeYiD459gwInNqHG3uyXy3BmsYcKBgDFcq2sSwBXOvh0aTjiwTLCmcSXH5Pjdat5jdn8S6TpbPVAa7+QhKehdZipQx0YMM5+jeZ98OrdFJiOnNgloEbt9tcJec5drsHwwMu2QVLTUxHgDtPCUEdW7TBF81zSJXu6quONTm8lURnsjYOm4e2UevQm3CFUB+CodI0XSCanOELPLuXyL/UzocvThol7k87Djo9U6e7j7MD0z3XJLXejpnYmdT6FFnZel91pd+F0w8Acg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EdjO6taV/2eziJvFChlM9kJ54LtFmwwaIvKayrB6/Z4=;
+ b=uML9qV+UNXk0XnU7cwSP+5ZlkWe/S6bE8Cz1rvXgEn0dkVzEQG43O3dc19Y16FeSOG935gxVqkDidkHaIsF+GsJa387KP2g98QMIDA3WyFmuzk71RP5fTQsJu4neAuDFymbvtrmHQGYzndVh3S6dP8H656S7ork0Brsx9zHCoaA=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB2891.namprd12.prod.outlook.com (2603:10b6:5:188::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3305.24; Mon, 24 Aug 2020 08:04:10 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3305.026; Mon, 24 Aug 2020
+ 08:04:10 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/4] drm/amd/pm: drop unnecessary feature->mutex lock
+ protections
+Date: Mon, 24 Aug 2020 16:03:47 +0800
+Message-Id: <20200824080350.32504-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.28.0
+X-ClientProxiedBy: HK0PR03CA0103.apcprd03.prod.outlook.com
+ (2603:1096:203:b0::19) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from 255.255.255.255 (255.255.255.255) by
+ HK0PR03CA0103.apcprd03.prod.outlook.com (2603:1096:203:b0::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3305.24 via Frontend Transport; Mon, 24 Aug 2020 08:04:08 +0000
+X-Mailer: git-send-email 2.28.0
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: fb74c4f9-bdf7-4d8d-acfb-08d84804483f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2891:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2891212E1907815599359B11E4560@DM6PR12MB2891.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:651;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MlPt1+ABa0Nu3NdXPN3R90P5tI9UY4jbZ9vS3fCHoq1UecAQiQJXhVFTFBWpRZa/xTXtAKq2wcT/+vLNB1z7Ee4bOv6D9LP7DWmAxuU3/0l+33fLE7iVY63nwDPJb/JdgaDtkhjhkaEIzEl+IsAs/uJl+iABxMK/scoHGMH6/t2FmBb06U4b6TCCIIX7nYqa1lojkYakRSj2JBv7oXJLUjz9kmOMl4xItBtgL00yXnpA+SUsmgJOzYlUxvVU9Rih8MjippLvElrWtfozU8F+d7NBwFhpeaEJ/7ilzCKIpRFTt6/1HWP0QQ1c4lV7lbuDrzHIaozyHMN3MTfpU0etNg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(346002)(39860400002)(376002)(396003)(52116002)(1076003)(5660300002)(44832011)(26005)(8936002)(186003)(36756003)(8676002)(66556008)(66476007)(956004)(86362001)(6486002)(478600001)(2906002)(83380400001)(4326008)(2616005)(316002)(16576012)(66946007)(6916009)(6666004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: uV/Jitni7PZDtSn2sB8LefmbBV0UkFhHRSGum28EtI4FsUMUMLxjq+DdY3QswUGwmC966d0RMCGkFQSWJ2f1fWiWF+PgaZ7qxlkG+4ay0ye70UM6xOrVIjww/T5lMPlqvMH2DytRKpKUAoRlCb4HqPkPJW1OrlQJePzvdwXy9ZHd4lQm1OM43HFqGR1OVKA4otbbLVVEVl4Dw1u+cw0AI1laW402qXD+OnTPmpMS2ieaCeLYed9hT4hhdpsENREOe09FtZWC03D4VypZQKJPIsEFURhGLDawtpf3/oLxHEWt4wQ55d/JaCqTrSBn7SoJeKFFq8cmhNU5FdjWUrNyqb9Bm6ndGcff7Gve2LMXwzMTlSTwSEcAsqrQ9RSlnUtEC/Ug/CQvmNR76RJ9DUm0dSLB5CzbtLGK+W3PgNZ2/GXE9ABcyGfiMxo/R05G8mXTaJ8kkjFhJcd/WS4u8Zjr3VIF80KusYf+Vc0FqWT24SRLyq9SewA4obrVdiO9AlYkGfYc7iadb1kVT6CFnOjCZIvyyPt36HrpcRPaBN+yYwOQPvlsh1HhAoOUho0MWz5+tkqZi5MvQFAcLeNAo9WcZ69+TRug8L7yMpZu17qlnYoGrt/0ClQT+pngdhAT2zjZyRvaYQ1mpO6P1NPS8Y2hvg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb74c4f9-bdf7-4d8d-acfb-08d84804483f
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2020 08:04:10.4785 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rCEmlE8BPzQprzSOoOR3HaaUFqFLCnaeU+4qdhDausj2w04Xdw7DO8a+0xr9o+U5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,143 +107,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1143713252=="
+Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1143713252==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/OCe4xJ9_5URsE0E98COHEyp"; protocol="application/pgp-signature"
+As it is confirmed to have no race condition during hw setup.
 
---Sig_/OCe4xJ9_5URsE0E98COHEyp
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Change-Id: I096d7ab0855ff59b0ecb56fd9d6d9946b3605fc8
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 4 ----
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 --
+ 2 files changed, 6 deletions(-)
 
-On Sat, 22 Aug 2020 11:59:26 +0200
-Michel D=C3=A4nzer <michel@daenzer.net> wrote:
-
-> On 2020-08-21 8:07 p.m., Kazlauskas, Nicholas wrote:
-> > On 2020-08-21 12:57 p.m., Michel D=C3=A4nzer wrote: =20
-> >> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> >>
-> >> Don't check drm_crtc_state::active for this either, per its
-> >> documentation in include/drm/drm_crtc.h:
-> >>
-> >> =C2=A0 * Hence drivers must not consult @active in their various
-> >> =C2=A0 * &drm_mode_config_funcs.atomic_check callback to reject an ato=
-mic
-> >> =C2=A0 * commit.
-> >>
-> >> The atomic helpers disable the CRTC as needed for disabling the primary
-> >> plane.
-> >>
-> >> This prevents at least the following problems if the primary plane gets
-> >> disabled (e.g. due to destroying the FB assigned to the primary plane,
-> >> as happens e.g. with mutter in Wayland mode):
-> >>
-> >> * Toggling CRTC active to 1 failed if the cursor plane was enabled
-> >> =C2=A0=C2=A0 (e.g. via legacy DPMS property & cursor ioctl).
-> >> * Enabling the cursor plane failed, e.g. via the legacy cursor ioctl. =
-=20
-> >=20
-> > We previously had the requirement that the primary plane must be enabled
-> > but some userspace expects that they can enable just the overlay plane
-> > without anything else.
-> >=20
-> > I think the chromuiumos atomictest validates that this works as well:
-> >=20
-> > So is DRM going forward then with the expectation that this is wrong
-> > behavior from userspace?
-> >=20
-> > We require at least one plane to be enabled to display a cursor, but it
-> > doesn't necessarily need to be the primary. =20
->=20
-> It's a "pick your poison" situation:
->=20
-> 1) Currently the checks are invalid (atomic_check must not decide based
-> on drm_crtc_state::active), and it's easy for legacy KMS userspace to
-> accidentally hit errors trying to enable/move the cursor or switch DPMS
-> off =E2=86=92 on.
->=20
-> 2) Accurately rejecting only atomic states where the cursor plane is
-> enabled but all other planes are off would break the KMS helper code,
-> which can only deal with the "CRTC on & primary plane off is not
-> allowed" case specifically.
->=20
-> 3) This patch addresses 1) & 2) but may break existing atomic userspace
-> which wants to enable an overlay plane while disabling the primary plane.
->=20
->=20
-> I do think in principle atomic userspace is expected to handle case 3)
-> and leave the primary plane enabled.
-
-Hi,
-
-my opinion as a userspace developer is that enabling a CRTC without a
-primary plane has traditionally not worked, so userspace cannot *rely*
-on it ever working. I think legacy KMS API does not even allow to
-express that really, or has built-in assumptions that it doesn't work -
-you can call the legacy cursor ioctls, they don't fail, but also the
-CRTC remains off. Correct me if this is not true.
-
-Atomic userspace OTOH is required to test the strange (and all!) cases
-like this to see if they work or not, and carry on with a fallback if
-they don't. Userspace that wants to use a CRTC without a primary plane
-likely needs other CRTC properties as well, like background color.
-
-I would guess that when two regressions conflict, the older userspace
-would win. Hence legacy KMS using Mutter should keep working, while
-atomic userspace is left with increased power consumption. Not using a
-hardware cursor (Mutter) is much more easily an end-user visible
-regression than slightly shorter battery life.
-
-Atomic test commits are allowed to fail at any time for any reason and
-something that previously worked can fail on the next frame or on the
-next kernel, as far as I understand.
-
-Sounds like the helpers you refer to are inadequate for your case.
-Can't you fix the helpers in the long run and land this patch as an
-immediate fix?
-
-
-Thanks,
-pq
-
---Sig_/OCe4xJ9_5URsE0E98COHEyp
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl9Db58ACgkQI1/ltBGq
-qqf97g//c1DTrMrYA/OP85hXeTS9zYFVXFWv+d38iBxtAGbCuMmZ4Aewa08n7Frp
-ZxauVpTjF74HDma2XQ8IGDqQFRtveRbtVgxOXSU9bg9IKxPwJapVdeC69Z75ob/p
-qSIZhP/i40qmVL/N+lXhzmCOOIJSCkbb8W/mOTyzmLyPWhLboO4y1QsOlxCvcJoA
-kvmTB0QyT73H0LDSEtnAneL/eSp3qJ55sVDCBHXix8TCiEKaLCGjUP+tqIdjMn40
-3da+qlPYk901F48/L2SzciGKo+aGWwQfFW30ekg5vndDVLX5jxpAFt8mzbYQcqlA
-cxc1jkBwgD/7raEc6tT9L5wS2OJY3n0Ifw8w51Ee3QIJ2BZfrW8XHb1bw+ZCPBx3
-6rVw8WVDy1fz4owrZAAd4Sn8B97qzx/E9ISbsr8lHP6kNaCgpqkoE8bmo/E/yA94
-WKT0vhgekPNjTB/tWs46q6NcoL3SIV8xoyybJ8x6HS4R9TvXFDUdzWPOML387Fe0
-QvExP2UEwEliivCFiJZCBlGY6/ZLs+IsYiOJpWW6q1uTf2wCnbX6RroV795KUDhp
-Q0qGlbhoVkaOsgTM13Fw6XD3bcc8y+ZL7X2FwtSE8am8ZGtukOAo9/MjjbfTD5AE
-0e+7IX5d9EeT21B6afOCINjoEb0kJQbfFiheCNt65gIi9ENNcqo=
-=NCKp
------END PGP SIGNATURE-----
-
---Sig_/OCe4xJ9_5URsE0E98COHEyp--
-
---===============1143713252==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 09dc5303762b..b7cad8ef6153 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -361,20 +361,16 @@ static int smu_get_driver_allowed_feature_mask(struct smu_context *smu)
+ 	int ret = 0;
+ 	uint32_t allowed_feature_mask[SMU_FEATURE_MAX/32];
+ 
+-	mutex_lock(&feature->mutex);
+ 	bitmap_zero(feature->allowed, SMU_FEATURE_MAX);
+-	mutex_unlock(&feature->mutex);
+ 
+ 	ret = smu_get_allowed_feature_mask(smu, allowed_feature_mask,
+ 					     SMU_FEATURE_MAX/32);
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(&feature->mutex);
+ 	bitmap_or(feature->allowed, feature->allowed,
+ 		      (unsigned long *)allowed_feature_mask,
+ 		      feature->feature_num);
+-	mutex_unlock(&feature->mutex);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 548db1edd352..28a19ffd22a1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -721,7 +721,6 @@ int smu_v11_0_set_allowed_mask(struct smu_context *smu)
+ 	int ret = 0;
+ 	uint32_t feature_mask[2];
+ 
+-	mutex_lock(&feature->mutex);
+ 	if (bitmap_empty(feature->allowed, SMU_FEATURE_MAX) || feature->feature_num < 64)
+ 		goto failed;
+ 
+@@ -738,7 +737,6 @@ int smu_v11_0_set_allowed_mask(struct smu_context *smu)
+ 		goto failed;
+ 
+ failed:
+-	mutex_unlock(&feature->mutex);
+ 	return ret;
+ }
+ 
+-- 
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1143713252==--
