@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8044DC433E3
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11D3CC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 56D3020738
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:15:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DC8EB20738
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 16:15:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anjUYqwf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56D3020738
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qw6d25q6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC8EB20738
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7C96E314;
-	Mon, 24 Aug 2020 16:15:57 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 603956E30C
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 16:15:55 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id m7so7865138qki.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 09:15:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F35F6E30C;
+	Mon, 24 Aug 2020 16:15:58 +0000 (UTC)
+Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
+ [IPv6:2607:f8b0:4864:20::830])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 112DA895E7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 16:15:58 +0000 (UTC)
+Received: by mail-qt1-x830.google.com with SMTP id s16so6548401qtn.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 09:15:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=msJrEhsB7QgClSWliPWpRiF5oCt6obmXcLEN4KQvRvk=;
- b=anjUYqwfMgJ8ZTQAXJ3iHJ8KGHg4tO1uXOCLiS3CmAuwEahRi6kc7QIfdxWv3s44qh
- OJA6uqFFU24HzfCtRVVp9PM4lBSjtFLt0N7Y8q/28L4DcPxxjk42Cw1bBR86Z0Id+18J
- 6SwFTys5i67TWwHE2lwwCqjLwV7gKOE1zxV1sl+2o3xzcZPML/k2cTEWIH/cbshlDMUp
- cOPlx/q96/3GyW34iJXtGjAK7U0kn20MLVIQJTqKjxmD0Yj7Z1+RgAy/Bq87jLPowVzT
- tUf0JuF5SKlGUEECPA8omvPBrS8kW6Lz5SzMmse/h4KJMZU3HVtYAhQIZGY12iEbWySF
- nNrQ==
+ bh=5vvo0N4SS//73AF8Wqlh2L8mW4gR0UDB7inaBxBnobQ=;
+ b=Qw6d25q68RTHhHnDqlNJwfG/F/HJXkzniuYH2mM/cia5Ah/2GI5v52TTQJVEm11Ueq
+ n2j3ksyisRKInW8lXy1esSztqTbCriEHqNpNz69x7KKhuHcrAjga5/W2RVUqe8jNnxYk
+ lX6Ubmayeo/jGstQef3Oxbe12heOnc3z9c60T2ZG5xqqCc8Uu4Be3qt6pj5X9l2IaBdK
+ etwCJOnYbdTPSqRulHxW1vDPm3zCpMlK+J0eR5Ct4hKTAuXp7XgPGjleWQAd3N0abrQm
+ Bsf2L+ldoX80GOh7SmR8K6keJzvxiOQZ/LNlmepvF/4uyDCWJcjA+ZexA6p9hp83XRn7
+ JRvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=msJrEhsB7QgClSWliPWpRiF5oCt6obmXcLEN4KQvRvk=;
- b=AgpzTuhlQ+sfnP4gIFKgT0GTWy52vjyntMYS1KNTX73wqvwtVumjrYNMuezungN6Nm
- zJeK8XDQaTTJQ53fr+R2R/opGwG6E1PlKSQihkqvm0HA3ault24he0icGGMSSdlJvT6B
- 0U34/D/ueRQRen5qFSK05b1BH0O6LW3cbfGIN6jd5uqBieWvJeOQENkH6xm4iHJgGZ3K
- N7AAnZ87Szq0CZY82K0j6gvaDpfUBFxRSF7ydqgleRx+8Go+Z3gEkWMTnTH0NTKlLLm6
- lNKmvMWTm/4nOHJz4WOuOiRV73lcShtZ8YEFJi04EyWcownw/1q2dlCQ9QMJxic4NbB/
- kKfQ==
-X-Gm-Message-State: AOAM5323l8e2atnarWFnpD8KSui430n2Uj6odDmkwfIzu6D//30iuxK+
- JbGk6Ka7qhZj0nEYjaBw4kliRR2lt18=
-X-Google-Smtp-Source: ABdhPJz61Ze51GP2/3vcRFvIc+439X72bR7J8MErG84pwc4Pcg/Di7ZfdYR8ZvYVtpPBg02nAV5+Wg==
-X-Received: by 2002:a05:620a:2481:: with SMTP id
- i1mr5250294qkn.139.1598285750272; 
- Mon, 24 Aug 2020 09:15:50 -0700 (PDT)
+ bh=5vvo0N4SS//73AF8Wqlh2L8mW4gR0UDB7inaBxBnobQ=;
+ b=mr31FmWopW52mJxDdHQVohhfAN5xfdm2Mhg9wd4g8nmvoDM9wpKAJPVqXQE6ZEvsCZ
+ JGHZtFgAIPa+uOxyi9Qszc5nju0B/N37TTfZLGxQUhvQR5ZkXNYNGb+BhT3EyDuXxsD0
+ wpixrS48Bkf5IS+stnRj+WWwHfQQhMLo3xvhqzsb8AzhYTQjhitjSG4gg5NCi1onfSIS
+ LeyYmrHNK4wnl+Yv85RtHBWC8H1NI1ZGkFeWoxVR6nyEi/FK8jIzFkVQ3ejxwLMl+O4K
+ Qgn2hPwu/H2TchawoOogKOKhsH+ijnYLPu+5bkilbkinA/MtE8Ll06dLAa7rLE0ZwzPo
+ zd+g==
+X-Gm-Message-State: AOAM5310ryZ5FflGNBnV1Ypvj/5bIDn/8Jcdb4zsCb1Yj7tz9HaFherB
+ Bf3x9XYliU7HerMrkyZxFXpivnHRm/4=
+X-Google-Smtp-Source: ABdhPJwOTZ4Dz7ZK7LHus6lBLdCxIjCtP0LrFyxgeT7Xo9bRZG0n7sCGmN6MUxWLyNIvclYS+RqDqw==
+X-Received: by 2002:aed:3ead:: with SMTP id n42mr5630666qtf.5.1598285752942;
+ Mon, 24 Aug 2020 09:15:52 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id q7sm9654097qkf.35.2020.08.24.09.15.49
+ by smtp.gmail.com with ESMTPSA id q7sm9654097qkf.35.2020.08.24.09.15.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2020 09:15:49 -0700 (PDT)
+ Mon, 24 Aug 2020 09:15:52 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/8] drm/amdgpu: add pre_asic_init callback for VI
-Date: Mon, 24 Aug 2020 12:15:24 -0400
-Message-Id: <20200824161527.2001591-5-alexander.deucher@amd.com>
+Subject: [PATCH 6/8] drm/amdgpu: add pre_asic_init callback for SOC15
+Date: Mon, 24 Aug 2020 12:15:25 -0400
+Message-Id: <20200824161527.2001591-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200824161527.2001591-1-alexander.deucher@amd.com>
 References: <20200824161527.2001591-1-alexander.deucher@amd.com>
@@ -87,36 +86,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Nothing to do for this family.
+We need to restore some registers prior to running asic
+init to work around a firmware bug.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 35 +++++++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/soc15.c    |  7 ++++++
+ 3 files changed, 26 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index a92880c67841..9bcd0eebc6d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1068,6 +1068,10 @@ static bool vi_need_reset_on_init(struct amdgpu_device *adev)
- 	return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 624f7fcf5eba..bcd201926bf4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1075,6 +1075,20 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *adev)
+ 	return amdgpu_gart_table_vram_alloc(adev);
  }
  
-+static void vi_pre_asic_init(struct amdgpu_device *adev)
++/**
++ * gmc_v9_0_save_registers - saves regs
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * This saves potential register values that should be
++ * restored upon resume
++ */
++static void gmc_v9_0_save_registers(struct amdgpu_device *adev)
 +{
++	if (adev->asic_type == CHIP_RAVEN)
++		adev->gmc.sdpif_register = RREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0);
 +}
 +
- static const struct amdgpu_asic_funcs vi_asic_funcs =
+ static int gmc_v9_0_sw_init(void *handle)
  {
- 	.read_disabled_bios = &vi_read_disabled_bios,
-@@ -1088,6 +1092,7 @@ static const struct amdgpu_asic_funcs vi_asic_funcs =
- 	.need_reset_on_init = &vi_need_reset_on_init,
- 	.get_pcie_replay_count = &vi_get_pcie_replay_count,
- 	.supports_baco = &vi_asic_supports_baco,
-+	.pre_asic_init = &vi_pre_asic_init,
+ 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
+@@ -1229,6 +1243,8 @@ static int gmc_v9_0_sw_init(void *handle)
+ 
+ 	amdgpu_vm_manager_init(adev);
+ 
++	gmc_v9_0_save_registers(adev);
++
+ 	return 0;
+ }
+ 
+@@ -1282,7 +1298,7 @@ static void gmc_v9_0_init_golden_registers(struct amdgpu_device *adev)
+  *
+  * This restores register values, saved at suspend.
+  */
+-static void gmc_v9_0_restore_registers(struct amdgpu_device *adev)
++void gmc_v9_0_restore_registers(struct amdgpu_device *adev)
+ {
+ 	if (adev->asic_type == CHIP_RAVEN)
+ 		WREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0, adev->gmc.sdpif_register);
+@@ -1386,20 +1402,6 @@ static int gmc_v9_0_hw_init(void *handle)
+ 	return r;
+ }
+ 
+-/**
+- * gmc_v9_0_save_registers - saves regs
+- *
+- * @adev: amdgpu_device pointer
+- *
+- * This saves potential register values that should be
+- * restored upon resume
+- */
+-static void gmc_v9_0_save_registers(struct amdgpu_device *adev)
+-{
+-	if (adev->asic_type == CHIP_RAVEN)
+-		adev->gmc.sdpif_register = RREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0);
+-}
+-
+ /**
+  * gmc_v9_0_gart_disable - gart disable
+  *
+@@ -1440,8 +1442,6 @@ static int gmc_v9_0_suspend(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	gmc_v9_0_save_registers(adev);
+-
+ 	return 0;
+ }
+ 
+@@ -1450,7 +1450,6 @@ static int gmc_v9_0_resume(void *handle)
+ 	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	gmc_v9_0_restore_registers(adev);
+ 	r = gmc_v9_0_hw_init(adev);
+ 	if (r)
+ 		return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
+index e0585e8c6c1b..c415c439f690 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
+@@ -26,4 +26,6 @@
+ 
+ extern const struct amd_ip_funcs gmc_v9_0_ip_funcs;
+ extern const struct amdgpu_ip_block_version gmc_v9_0_ip_block;
++
++void gmc_v9_0_restore_registers(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 3cd98c144bc6..a239261e4990 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -1029,6 +1029,11 @@ static uint64_t soc15_get_pcie_replay_count(struct amdgpu_device *adev)
+ 	return (nak_r + nak_g);
+ }
+ 
++static void soc15_pre_asic_init(struct amdgpu_device *adev)
++{
++	gmc_v9_0_restore_registers(adev);
++}
++
+ static const struct amdgpu_asic_funcs soc15_asic_funcs =
+ {
+ 	.read_disabled_bios = &soc15_read_disabled_bios,
+@@ -1049,6 +1054,7 @@ static const struct amdgpu_asic_funcs soc15_asic_funcs =
+ 	.need_reset_on_init = &soc15_need_reset_on_init,
+ 	.get_pcie_replay_count = &soc15_get_pcie_replay_count,
+ 	.supports_baco = &soc15_supports_baco,
++	.pre_asic_init = &soc15_pre_asic_init,
  };
  
- #define CZ_REV_BRISTOL(rev)	 \
+ static const struct amdgpu_asic_funcs vega20_asic_funcs =
+@@ -1072,6 +1078,7 @@ static const struct amdgpu_asic_funcs vega20_asic_funcs =
+ 	.need_reset_on_init = &soc15_need_reset_on_init,
+ 	.get_pcie_replay_count = &soc15_get_pcie_replay_count,
+ 	.supports_baco = &soc15_supports_baco,
++	.pre_asic_init = &soc15_pre_asic_init,
+ };
+ 
+ static int soc15_common_early_init(void *handle)
 -- 
 2.25.4
 
