@@ -7,62 +7,60 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F7AFC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 18:25:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E42F7C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 18:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0FBC20738
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 18:25:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B624E20639
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2020 18:33:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daV5NP6K"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0FBC20738
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tPwpv4uu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B624E20639
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 958AF6E452;
-	Mon, 24 Aug 2020 18:25:42 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDBC6E452;
- Mon, 24 Aug 2020 18:25:41 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id r15so9820281wrp.13;
- Mon, 24 Aug 2020 11:25:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB506E3F0;
+	Mon, 24 Aug 2020 18:33:20 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 501736E3F0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 18:33:19 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id s20so4542220wmj.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2020 11:33:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Bq5hRh6dg9CMA08TsyveabYMk5mqrcCNLEtAUVdySnw=;
- b=daV5NP6KOQoVdPhRTGodqQ1JzkNkgZDMhtCfKtrZere0DfYHigFpCO3yp7egRNWQ0H
- /MtuQ1mXghrxISQDgOLetOnRz7TuPJz+sCIcUlnTrR1dG21Tb8F5Sl1zqzguMFMTuF3u
- 7mG4P5obRsoI0OmXWg2XsMjrlxxbOSY8qSnP7vc+F7unlZa8DUJcQMZ+6AaOB/Ca1GTq
- o8limkjqvpNJK0ga98DoiGCLFrsUsovgBPL2eiFyIqsmjZV+vGEHl3/c3giTnwJyivZc
- 1kUug3HpHJBLiAW4H3Omvg0DjWkXnQDeOGf5ImqqvF7vTgH27KqTlvit8K4ZgH5bRedm
- jl8A==
+ :cc; bh=/xk4alZBKUBft2QNIM3sd2pnlnq/fgEOx6mp9lwkGfI=;
+ b=tPwpv4uu2TcoWsoDx6S0I58LsR+SS7VtQmnq5Frdya/SL9qCtcVbQyFc0tkLCxHZ8Z
+ lOkTaBR5GHWF7TdVsHaBoYpNJd4PNSnFw6XxwLU3jrz09Egc5LWTiTSoN8Loo7u0sLau
+ /MvFdVeLISWDK88p+9a6yr+06vk9sVrOWEagFcc5O+eh2PvdnXqXdIL1ejoh9unDp0DR
+ +rL0kEi6BeLP1Na6UD2uX6+iq3Gnn3iH6zmJAx2teHaWW0m8MEQitJRMVqbcxy5tpjIe
+ hP6pLZ8Lpys/k7z0fT2QPLv4sG8Bq94Dy3i4EzObSF/u+uEgUYQQro+I5oVlAOIKVlSb
+ Iuvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Bq5hRh6dg9CMA08TsyveabYMk5mqrcCNLEtAUVdySnw=;
- b=LKsHqPSeMYJkVxyUy58IrjbQ2j2ZQffcUf28q81Ep+ks3eZBtLA3k5MAEdPSQzeLfX
- 20cxlq8rO7MxASdhULecRo9m9roQRMKfnbIJOe5M+dnM+a25tkoaZxMOxIDg14fWbRfs
- Zn04I1yajZ9ADwtcEvQOLyMhddIYtKuq4DXW4J66VwOdXyCNNf3n+IiwZxjKkyzRscmn
- 7aFH/Xx9x+Qn6pED1z6SKIQMOFs5QnZSr9pvWdxbo5ZcDnLBmFZAkNTY4H32kkIGhi4f
- l/iZCYI2KkbuXQZXU8aawND217SKqE5XAlT9pMvZSIePJPHaOqZOG6nB78VpuNRCX+c1
- wZqQ==
-X-Gm-Message-State: AOAM533qokV4bMMMQdgCJYh0+jVROR1FRXPJ+MBLYDIEaNDqMdse0EO8
- BkhYaLrT5OhSODOQ3jjm0Gn0BAkk5wR+wdGJEPo=
-X-Google-Smtp-Source: ABdhPJyfe2oCjJZx3F1PpVwy8oM7f8wrIEpDwj0rmv3wnnbE2x01swwhENf8HW/Y5/48gXRk7Fq6pyaNCGKpuT2dGTw=
-X-Received: by 2002:adf:edca:: with SMTP id v10mr3893592wro.124.1598293540053; 
- Mon, 24 Aug 2020 11:25:40 -0700 (PDT)
+ bh=/xk4alZBKUBft2QNIM3sd2pnlnq/fgEOx6mp9lwkGfI=;
+ b=E3nGdmSRGMaHk23mfZqLZn6iTohR0KoaPtK1lUXO1RWUsQkk/P6dyS8Itz9rU8LmTm
+ V3hUL22ddYAq58kS3tcfYJkC+jH66FUezjt2Z+HfwjzXKTyTZKB0waqSO2CfMiNYQEgf
+ GAYfLwThyXaAymC9L3c8i09kh05Mfsa7AoXAu6Fp5+MUBJhpbsY72oZ6j0Cpc7pOmKAg
+ okoTLuOXGGXiMiYZRVV1hG2HkLxIphB5Vuf9ehtnd/N2uUNpIUWWhSPbvfYF9YBrLRLx
+ juPH0ZeZ0n26F1EMX+x1imxQpEyOUcjO0dWtmr4uCkEgMpROfLr1av0jlyF2f9Kq8hak
+ Gbgg==
+X-Gm-Message-State: AOAM532KovPDMX2nLJfUw8c/71WDCI07rlO15oJJ66HxiaCnA64DBpj6
+ 8qW9PlghUUh8J8eopc45M+sccMRhARM2HrPOg1Q=
+X-Google-Smtp-Source: ABdhPJyc3wEQVkM1IOOMvL1fCbES2Z6Aq4D3uP/I3VVsEz8rSesMHmhd6tOuGsava4nxv6e0ZzWKFKd0SLoD07P+IsE=
+X-Received: by 2002:a7b:c941:: with SMTP id i1mr519411wml.73.1598293997744;
+ Mon, 24 Aug 2020 11:33:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200824163751.606577-1-sashal@kernel.org>
- <20200824163751.606577-35-sashal@kernel.org>
-In-Reply-To: <20200824163751.606577-35-sashal@kernel.org>
+References: <20200824114916.11808-1-samuel.pitoiset@gmail.com>
+In-Reply-To: <20200824114916.11808-1-samuel.pitoiset@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Aug 2020 14:25:29 -0400
-Message-ID: <CADnq5_OouGpkpOeW+6=vhLOba-jWDDw_TDuzcTzKtcJ1T0U=yw@mail.gmail.com>
-Subject: Re: [PATCH AUTOSEL 5.4 35/38] Revert "drm/amdgpu: disable gfxoff for
- navy_flounder"
-To: Sasha Levin <sashal@kernel.org>
+Date: Mon, 24 Aug 2020 14:33:06 -0400
+Message-ID: <CADnq5_NVpA7VJU09==zmK4K-O1+mUWZAGxW7PFuCnpmiFO_18w@mail.gmail.com>
+Subject: Re: [RFC PATCH] drm/amdgpu: add support for user trap handlers
+To: Samuel Pitoiset <samuel.pitoiset@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,58 +72,393 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Jiansong Chen <Jiansong.Chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>,
- Kenneth Feng <kenneth.feng@amd.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 24, 2020 at 12:38 PM Sasha Levin <sashal@kernel.org> wrote:
+On Mon, Aug 24, 2020 at 7:57 AM Samuel Pitoiset
+<samuel.pitoiset@gmail.com> wrote:
 >
-> From: Jiansong Chen <Jiansong.Chen@amd.com>
+> A trap handler can be used by userspace to catch shader exceptions
+> like divide by zero, memory violations etc.
 >
-> [ Upstream commit da2446b66b5e2c7f3ab63912c8d999810e35e8b3 ]
+> On GFX6-GFX8, the registers used to configure TBA/TMA aren't
+> privileged while on GFX9+ they are per VMID and privileged,
+> so that only the KMD can configure them.
 >
-> This reverts commit 9c9b17a7d19a8e21db2e378784fff1128b46c9d3.
-> Newly released sdma fw (51.52) provides a fix for the issue.
+> This introduces a new CS chunk that can be used to set the
+> TBA/TMA virtual address at submit time.
 >
-> Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
-> Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> TODO:
+> - add GFX 6,7 and 10 support
+> - rebase on top of amd-staging-drm-next (this branch currently
+> hangs my GPU at boot)
+>
+> Signed-off-by: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 31 +++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h  |  4 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  |  4 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 15 ++++++++-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 42 ++++++++++++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 19 +++++++++++
+>  include/uapi/drm/amdgpu_drm.h            |  8 +++++
+>  9 files changed, 126 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index a512ccbc4dea..6ca5c4912e3a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -104,6 +104,19 @@ static int amdgpu_cs_bo_handles_chunk(struct amdgpu_cs_parser *p,
+>         return r;
+>  }
+>
+> +static int amdgpu_cs_user_trap_chunk(struct amdgpu_cs_parser *p,
+> +                                    struct drm_amdgpu_cs_chunk_trap *data,
+> +                                    uint64_t *tba_addr, uint64_t *tma_addr)
+> +{
+> +       if (!data->tba_addr || !data->tma_addr)
+> +               return -EINVAL;
+> +
+> +       *tba_addr = data->tba_addr;
+> +       *tma_addr = data->tma_addr;
+> +
+> +       return 0;
+> +}
+> +
+>  static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs *cs)
+>  {
+>         struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
+> @@ -112,6 +125,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
+>         uint64_t *chunk_array;
+>         unsigned size, num_ibs = 0;
+>         uint32_t uf_offset = 0;
+> +       uint64_t tba_addr = 0, tma_addr = 0;
+>         int i;
+>         int ret;
+>
+> @@ -214,6 +228,19 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
+>
+>                         break;
+>
+> +               case AMDGPU_CHUNK_ID_TRAP:
+> +                       size = sizeof(struct drm_amdgpu_cs_chunk_trap);
+> +                       if (p->chunks[i].length_dw * sizeof(uint32_t) < size) {
+> +                               ret = -EINVAL;
+> +                               goto free_partial_kdata;
+> +                       }
+> +
+> +                       ret = amdgpu_cs_user_trap_chunk(p, p->chunks[i].kdata,
+> +                                                       &tba_addr, &tma_addr);
+> +                       if (ret)
+> +                               goto free_partial_kdata;
+> +                       break;
+> +
+>                 case AMDGPU_CHUNK_ID_DEPENDENCIES:
+>                 case AMDGPU_CHUNK_ID_SYNCOBJ_IN:
+>                 case AMDGPU_CHUNK_ID_SYNCOBJ_OUT:
+> @@ -239,6 +266,10 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
+>
+>         if (p->uf_entry.tv.bo)
+>                 p->job->uf_addr = uf_offset;
+> +
+> +       p->job->tba_addr = tba_addr;
+> +       p->job->tma_addr = tma_addr;
+> +
+>         kfree(chunk_array);
+>
+>         /* Use this opportunity to fill in task info for the vm */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 26127c7d2f32..1e703119e4c2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -88,9 +88,10 @@
+>   * - 3.37.0 - L2 is invalidated before SDMA IBs, needed for correctness
+>   * - 3.38.0 - Add AMDGPU_IB_FLAG_EMIT_MEM_SYNC
+>   * - 3.39.0 - DMABUF implicit sync does a full pipeline sync
+> + * - 3.40.0 - Add AMDGPU_CHUNK_ID_TRAP
+>   */
+>  #define KMS_DRIVER_MAJOR       3
+> -#define KMS_DRIVER_MINOR       39
+> +#define KMS_DRIVER_MINOR       40
+>  #define KMS_DRIVER_PATCHLEVEL  0
+>
+>  int amdgpu_vram_limit = 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> index 8e58325bbca2..fd0d56724b4d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> @@ -58,6 +58,10 @@ struct amdgpu_vmid {
+>         uint32_t                oa_base;
+>         uint32_t                oa_size;
+>
+> +       /* user trap */
+> +       uint64_t                tba_addr;
+> +       uint64_t                tma_addr;
+> +
+>         unsigned                pasid;
+>         struct dma_fence        *pasid_mapping;
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index 81caac9b958a..b8ed5b13ea44 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -62,6 +62,10 @@ struct amdgpu_job {
+>         /* user fence handling */
+>         uint64_t                uf_addr;
+>         uint64_t                uf_sequence;
+> +
+> +       /* user trap handling */
+> +       uint64_t                tba_addr;
+> +       uint64_t                tma_addr;
+>  };
+>
+>  int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned num_ibs,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index da871d84b742..1f165a6295d9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -197,6 +197,9 @@ struct amdgpu_ring_funcs {
+>         void (*soft_recovery)(struct amdgpu_ring *ring, unsigned vmid);
+>         int (*preempt_ib)(struct amdgpu_ring *ring);
+>         void (*emit_mem_sync)(struct amdgpu_ring *ring);
+> +       void (*emit_trap_handler)(struct amdgpu_ring *ring,
+> +                                 uint32_t vmid,
+> +                                 uint64_t tba_addr, uint64_t tma_addr);
+>  };
+>
+>  struct amdgpu_ring {
+> @@ -265,6 +268,7 @@ struct amdgpu_ring {
+>  #define amdgpu_ring_emit_vm_flush(r, vmid, addr) (r)->funcs->emit_vm_flush((r), (vmid), (addr))
+>  #define amdgpu_ring_emit_fence(r, addr, seq, flags) (r)->funcs->emit_fence((r), (addr), (seq), (flags))
+>  #define amdgpu_ring_emit_gds_switch(r, v, db, ds, wb, ws, ab, as) (r)->funcs->emit_gds_switch((r), (v), (db), (ds), (wb), (ws), (ab), (as))
+> +#define amdgpu_ring_emit_trap_handler(r, v, tba, tma) (r)->funcs->emit_trap_handler((r), (v), (tba), (tma))
+>  #define amdgpu_ring_emit_hdp_flush(r) (r)->funcs->emit_hdp_flush((r))
+>  #define amdgpu_ring_emit_switch_buffer(r) (r)->funcs->emit_switch_buffer((r))
+>  #define amdgpu_ring_emit_cntxcntl(r, d) (r)->funcs->emit_cntxcntl((r), (d))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 71e005cf2952..24916082de0b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1076,6 +1076,9 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>                 id->gws_size != job->gws_size ||
+>                 id->oa_base != job->oa_base ||
+>                 id->oa_size != job->oa_size);
+> +       bool trap_handler_needed = ring->funcs->emit_trap_handler && (
+> +               id->tba_addr != job->tba_addr ||
+> +               id->tma_addr != job->tma_addr);
+>         bool vm_flush_needed = job->vm_needs_flush;
+>         struct dma_fence *fence = NULL;
+>         bool pasid_mapping_needed = false;
+> @@ -1088,6 +1091,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>
+>         if (amdgpu_vmid_had_gpu_reset(adev, id)) {
+>                 gds_switch_needed = true;
+> +               trap_handler_needed = true;
+>                 vm_flush_needed = true;
+>                 pasid_mapping_needed = true;
+>         }
+> @@ -1099,12 +1103,14 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>         mutex_unlock(&id_mgr->lock);
+>
+>         gds_switch_needed &= !!ring->funcs->emit_gds_switch;
+> +       trap_handler_needed &= !!ring->funcs->emit_trap_handler;
+>         vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
+>                         job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
+>         pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
+>                 ring->funcs->emit_wreg;
+>
+> -       if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync)
+> +       if (!vm_flush_needed && !gds_switch_needed &&
+> +           !trap_handler_needed && !need_pipe_sync)
+>                 return 0;
+>
+>         if (ring->funcs->init_cond_exec)
+> @@ -1158,6 +1164,13 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>                                             job->oa_size);
+>         }
+>
+> +       if (ring->funcs->emit_trap_handler && trap_handler_needed) {
+> +               id->tba_addr = job->tba_addr;
+> +               id->tma_addr = job->tma_addr;
+> +               amdgpu_ring_emit_trap_handler(ring, job->vmid, job->tba_addr,
+> +                                             job->tma_addr);
+> +       }
+> +
+>         if (ring->funcs->patch_cond_exec)
+>                 amdgpu_ring_patch_cond_exec(ring, patch_offset);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index 33f1c4a46ebe..59db577e8c8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -5222,6 +5222,40 @@ static void gfx_v8_0_ring_emit_gds_switch(struct amdgpu_ring *ring,
+>         amdgpu_ring_write(ring, (1 << (oa_size + oa_base)) - (1 << oa_base));
+>  }
+>
+> +static void gfx_v8_0_ring_emit_trap_handler(struct amdgpu_ring *ring,
+> +                                           uint32_t vmid,
+> +                                           uint64_t tba_addr,
+> +                                           uint64_t tma_addr)
+> +{
+> +       if (ring->funcs->type == AMDGPU_RING_TYPE_GFX) {
+> +               static const u32 regs[] = {
+> +                       mmSPI_SHADER_TBA_LO_PS,
+> +                       mmSPI_SHADER_TBA_LO_VS,
+> +                       mmSPI_SHADER_TBA_LO_GS,
+> +                       mmSPI_SHADER_TBA_LO_ES,
+> +                       mmSPI_SHADER_TBA_LO_HS,
+> +                       mmSPI_SHADER_TBA_LO_LS,
+> +               };
+> +               int i;
+> +
+> +               for (i = 0; i < ARRAY_SIZE(regs); i++) {
+> +                       amdgpu_ring_write(ring, PACKET3(PACKET3_SET_SH_REG, 4));
+> +                       amdgpu_ring_write(ring, regs[i] - PACKET3_SET_SH_REG_START);
+> +                       amdgpu_ring_write(ring, lower_32_bits(tba_addr >> 8));
+> +                       amdgpu_ring_write(ring, upper_32_bits(tba_addr >> 8));
+> +                       amdgpu_ring_write(ring, lower_32_bits(tma_addr >> 8));
+> +                       amdgpu_ring_write(ring, upper_32_bits(tma_addr >> 8));
+> +               }
+> +       } else {
+> +               amdgpu_ring_write(ring, PACKET3(PACKET3_SET_SH_REG, 4));
+> +               amdgpu_ring_write(ring, mmCOMPUTE_TBA_LO - PACKET3_SET_SH_REG_START);
+> +               amdgpu_ring_write(ring, lower_32_bits(tba_addr >> 8));
+> +               amdgpu_ring_write(ring, upper_32_bits(tba_addr >> 8));
+> +               amdgpu_ring_write(ring, lower_32_bits(tma_addr >> 8));
+> +               amdgpu_ring_write(ring, upper_32_bits(tma_addr >> 8));
+> +       }
+> +}
+> +
+>  static uint32_t wave_read_ind(struct amdgpu_device *adev, uint32_t simd, uint32_t wave, uint32_t address)
+>  {
+>         WREG32(mmSQ_IND_INDEX,
+> @@ -6890,7 +6924,8 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_gfx = {
+>                 5 + /* HDP_INVL */
+>                 12 + 12 + /* FENCE x2 */
+>                 2 + /* SWITCH_BUFFER */
+> -               5, /* SURFACE_SYNC */
+> +               5 + /* SURFACE_SYNC */
+> +               36, /* gfx_v8_0_ring_emit_trap_handler */
+>         .emit_ib_size = 4, /* gfx_v8_0_ring_emit_ib_gfx */
+>         .emit_ib = gfx_v8_0_ring_emit_ib_gfx,
+>         .emit_fence = gfx_v8_0_ring_emit_fence_gfx,
+> @@ -6909,6 +6944,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_gfx = {
+>         .emit_wreg = gfx_v8_0_ring_emit_wreg,
+>         .soft_recovery = gfx_v8_0_ring_soft_recovery,
+>         .emit_mem_sync = gfx_v8_0_emit_mem_sync,
+> +       .emit_trap_handler = gfx_v8_0_ring_emit_trap_handler,
+>  };
+>
+>  static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
+> @@ -6926,7 +6962,8 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
+>                 7 + /* gfx_v8_0_ring_emit_pipeline_sync */
+>                 VI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /* gfx_v8_0_ring_emit_vm_flush */
+>                 7 + 7 + 7 + /* gfx_v8_0_ring_emit_fence_compute x3 for user fence, vm fence */
+> -               7, /* gfx_v8_0_emit_mem_sync_compute */
+> +               7 + /* gfx_v8_0_emit_mem_sync_compute */
+> +               6, /* gfx_v8_0_emit_trap_handler */
+>         .emit_ib_size = 7, /* gfx_v8_0_ring_emit_ib_compute */
+>         .emit_ib = gfx_v8_0_ring_emit_ib_compute,
+>         .emit_fence = gfx_v8_0_ring_emit_fence_compute,
+> @@ -6940,6 +6977,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
+>         .pad_ib = amdgpu_ring_generic_pad_ib,
+>         .emit_wreg = gfx_v8_0_ring_emit_wreg,
+>         .emit_mem_sync = gfx_v8_0_emit_mem_sync_compute,
+> +       .emit_trap_handler = gfx_v8_0_ring_emit_trap_handler,
+>  };
+>
+>  static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_kiq = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index cb9d60a4e05e..4fc00f196085 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -4162,6 +4162,23 @@ static void gfx_v9_0_ring_emit_gds_switch(struct amdgpu_ring *ring,
+>                                    (1 << (oa_size + oa_base)) - (1 << oa_base));
+>  }
+>
+> +static void gfx_v9_0_ring_emit_trap_handler(struct amdgpu_ring *ring,
+> +                                           uint32_t vmid,
+> +                                           uint64_t tba_addr,
+> +                                           uint64_t tma_addr)
+> +{
+> +       struct amdgpu_device *adev = ring->adev;
+> +
+> +       mutex_lock(&adev->srbm_mutex);
+> +       soc15_grbm_select(adev, 0, 0, 0, vmid);
+> +       WREG32_SOC15_RLC(GC, 0, mmSQ_SHADER_TBA_LO, lower_32_bits(tba_addr >> 8));
+> +       WREG32_SOC15_RLC(GC, 0, mmSQ_SHADER_TBA_HI, upper_32_bits(tba_addr >> 8));
+> +       WREG32_SOC15_RLC(GC, 0, mmSQ_SHADER_TMA_LO, lower_32_bits(tma_addr >> 8));
+> +       WREG32_SOC15_RLC(GC, 0, mmSQ_SHADER_TMA_HI, upper_32_bits(tma_addr >> 8));
+> +       soc15_grbm_select(adev, 0, 0, 0, 0);
+> +       mutex_unlock(&adev->srbm_mutex);
 
-Support for this chip does not exist in 5.4 or any other older trees.
-Please drop this.
+This won't work.  This updates registers via MMIO using the CPU.  We
+need to have the registers updated asynchronously via the CP so they
+get updated when the specific jobs are executed by the engine.  vmid's
+are shared resources and are assigned dynamically via the kernel
+driver.  If you update via MMIO the changes take effect immediately
+rather than when the actual work is scheduled on the engine.
+Unfortunately, at the moment, I don't see a way to do this with the CP
+with the packets that are currently available.
 
 Alex
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 3 ---
->  1 file changed, 3 deletions(-)
+
+> +}
+> +
+>  static const u32 vgpr_init_compute_shader[] =
+>  {
+>         0xb07c0000, 0xbe8000ff,
+> @@ -6720,6 +6737,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
+>         .emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
+>         .soft_recovery = gfx_v9_0_ring_soft_recovery,
+>         .emit_mem_sync = gfx_v9_0_emit_mem_sync,
+> +       .emit_trap_handler = gfx_v9_0_ring_emit_trap_handler,
+>  };
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 3a5b4efa7a5e6..64d96eb0a2337 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -617,9 +617,6 @@ static void gfx_v10_0_check_gfxoff_flag(struct amdgpu_device *adev)
->         case CHIP_NAVI10:
->                 adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
->                 break;
-> -       case CHIP_NAVY_FLOUNDER:
-> -               adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
-> -               break;
->         default:
->                 break;
->         }
+>  static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
+> @@ -6756,6 +6774,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
+>         .emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
+>         .emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
+>         .emit_mem_sync = gfx_v9_0_emit_mem_sync,
+> +       .emit_trap_handler = gfx_v9_0_ring_emit_trap_handler,
+>  };
+>
+>  static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_kiq = {
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 3218576e109d..7eae264adb5d 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -551,6 +551,7 @@ struct drm_amdgpu_gem_va {
+>  #define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
+>  #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08
+>  #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09
+> +#define AMDGPU_CHUNK_ID_TRAP            0x0a
+>
+>  struct drm_amdgpu_cs_chunk {
+>         __u32           chunk_id;
+> @@ -645,6 +646,13 @@ struct drm_amdgpu_cs_chunk_syncobj {
+>         __u64 point;
+>  };
+>
+> +struct drm_amdgpu_cs_chunk_trap {
+> +       /** Trap Base Address */
+> +       __u64 tba_addr;
+> +       /** Trap Memory Address */
+> +       __u64 tma_addr;
+> +};
+> +
+>  #define AMDGPU_FENCE_TO_HANDLE_GET_SYNCOBJ     0
+>  #define AMDGPU_FENCE_TO_HANDLE_GET_SYNCOBJ_FD  1
+>  #define AMDGPU_FENCE_TO_HANDLE_GET_SYNC_FILE_FD        2
 > --
-> 2.25.1
+> 2.28.0
 >
 > _______________________________________________
 > amd-gfx mailing list
