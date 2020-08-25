@@ -7,101 +7,112 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0AE3C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 03:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 364B2C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 03:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63692207D3
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 03:25:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DBC922083B
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 03:39:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DPyjJqPe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63692207D3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vE8vEBGp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBC922083B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1786E81C;
-	Tue, 25 Aug 2020 03:25:11 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2058.outbound.protection.outlook.com [40.107.236.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8735E6E81C
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 03:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C7936E82D;
+	Tue, 25 Aug 2020 03:39:32 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 554816E835
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 03:39:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lq4ToCs2qFZmm/6UeADZl4dcatVYz2rrpNid+u+ADV8oFct1PPgzi7D0YPWIqS6nPIOHEmraNJ83IrpFAbI8t5p5CNuTVTR9zsUG08381AL+ZByrAk2tQnRbIibmcDjvjF3GF0MqG/O0hl9Dh9/tWJpCfdvFcATXEPiDs87JCu9YMvbnbaGJXDw0cUku0e+ntWcGCYe6RLA6DzmDMV142glUbN2IMF9gXopEbUYrURM55tJxQLhRSYNfb0mO7TQdXXAinQZdpSUD6qIYnlbf4yK8S8Zh3HnDSh8AxqCkBeZKi2VuS8laqS2gp2oYvj5R17slr2tDCLGH/59OsLJMHw==
+ b=lx+D0lZ7RLsDI/bCaMwbz6GyEW1yyTx0BItCi/q0XeBNq5o7t8LDQT1+XhxA27IDsUAhuoJQs2ZZjXz9Wk+vBH5mAeAkCExBnPUBqrcz7vcLHFnRFz6ktg8zh5GyVvGmzrTl5Fnh5Y+rJOdcbh5E0DyteeZG8SP6hnu5pVLyrn0Z0Jd8aYg/gmdSzfj3slmgdp/1C86uD6j3j7VaLfLj0jCzJSKyj2qqZIBXTK+9LH2do8/UQSbSIVxGDeRjYWNM3DHE+uYAeszkY/chL6c+W2XfYWx1ntQnBcWV3e552+cQQz1nv8vcJP/v/idZdJRQLeW0exJAmltXfyE3iYa4JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XKVMxRFkyuV/Qfnl3AU9guViKTFilRq73KjZBXuc6Cs=;
- b=TrhJGVd2PohPI2cCdSRvrP98kpLErnIUZHIo8BnJINxVbuE8iwhl7kMT4ds+Pa8dZwS7U8LzwVKf4lXBHT4yWU2Vpjy51Veh0tEmGM1WwPK/DHw3QnduhDQ4X10EsJHXvrUjeTeJav5l0U4wPOisMUvdThzMOjaXT0tXskFOdkiXIKK/mtIE+swnAnkAxyGWVlm1bTVb8yLBtaUWeE7BusHSO4RJf8N+e9jpdRtovvKCoADoD+1ocjpccYx3VqqYo9Y5REVIj13tVfCihKnuZ2d7XW4HyqV0r5A7M/Ami+PHtbU8HeaJxswfXkTepwgdgs++1F/tzhWirMrMguHiew==
+ bh=xfLNH0EQPk+pT76CsaMb1I0MTzT8kCbU8IXAc1+gz38=;
+ b=W5QmeexGeXdyPbMZYfnWsgvNVEit+mJCls84g4U1mt7Lqjofqlcr7W6XZsEiMgqldxML+WzVrcocjtllmNctOMZDRxFOoGc5HLi109BC4PmThaW1tNSG68I6yCKNbcii+9xVSXn0Cr3BnLwwyBuUWJBktXLXhazwjgfJTP8xwrtWFH0KLh9JXE+5W4l/tPBvscCUurz5gkIH+z78AHStexTK/Nj4ZgL+s5t+G/A5pTzsqoAcq35NMYrDCTx08EmnjaupUhCB5lg1Nzj4Sv4HL9EWZ9lNaXVCbmZ3sUM2ttW8ruV1f2GDxvJ+6tENa5dGIp+muxW537alFFlKA8B1kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XKVMxRFkyuV/Qfnl3AU9guViKTFilRq73KjZBXuc6Cs=;
- b=DPyjJqPelgV5wpA2oTFCkuUaBd6kW9CTrmiLLqdHTaB78kYfYiumO2uTOKImKi+Wg8SFLNkoWve+s8ORrY07H3Ot0BBrV6nmCVRcQRxrlTIzeSbrIX2VzbV0KZjFIXHklLWy6fYnfpxrAHikFnPYgV9MIm0Jbtejxkcs3VFct8Q=
-Received: from CH2PR12MB4326.namprd12.prod.outlook.com (2603:10b6:610:af::11)
- by CH2PR12MB3765.namprd12.prod.outlook.com (2603:10b6:610:25::18)
+ bh=xfLNH0EQPk+pT76CsaMb1I0MTzT8kCbU8IXAc1+gz38=;
+ b=vE8vEBGpnI6HrN9yOGpn1rohRxLEXtp1tGiwFktxC5bIKuttMlXYfW+inpX+P6/JxMg1QKZi7M9pgiGOI+yLoC+BtsGKNQw9BTtxeZmPT8a/Drp7XbmgBFKhbYlqtOBl6LOA4jimGJVZ2QR4CPEZ+MufQ3AUjuwENjZbPKNjOKk=
+Received: from MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
+ by MN2PR12MB3984.namprd12.prod.outlook.com (2603:10b6:208:16f::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Tue, 25 Aug
- 2020 03:25:06 +0000
-Received: from CH2PR12MB4326.namprd12.prod.outlook.com
- ([fe80::f564:86dc:de1a:63b7]) by CH2PR12MB4326.namprd12.prod.outlook.com
- ([fe80::f564:86dc:de1a:63b7%3]) with mapi id 15.20.3305.026; Tue, 25 Aug 2020
- 03:25:06 +0000
-From: "Chen, Jiansong (Simon)" <Jiansong.Chen@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Gui, Jack" <Jack.Gui@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add asd fw check before loading asd
-Thread-Topic: [PATCH] drm/amdgpu: add asd fw check before loading asd
-Thread-Index: AQHWeo6vuh7lGrw16EWg+6jvrLQAc6lIKW/A
-Date: Tue, 25 Aug 2020 03:25:06 +0000
-Message-ID: <CH2PR12MB43269AE2D426AAFA27134419EA570@CH2PR12MB4326.namprd12.prod.outlook.com>
-References: <20200825032015.22192-1-tao.zhou1@amd.com>
-In-Reply-To: <20200825032015.22192-1-tao.zhou1@amd.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24; Tue, 25 Aug
+ 2020 03:39:26 +0000
+Received: from MN2PR12MB4175.namprd12.prod.outlook.com
+ ([fe80::9d0e:bc15:1b8f:84ad]) by MN2PR12MB4175.namprd12.prod.outlook.com
+ ([fe80::9d0e:bc15:1b8f:84ad%2]) with mapi id 15.20.3305.026; Tue, 25 Aug 2020
+ 03:39:26 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: correct the thermal alert temperature limit
+ settings
+Thread-Topic: [PATCH] drm/amd/pm: correct the thermal alert temperature limit
+ settings
+Thread-Index: AQHWeotEvR/RQOMGLEmSfm+K/SXXK6lILWAQ
+Date: Tue, 25 Aug 2020 03:39:25 +0000
+Message-ID: <MN2PR12MB4175966E2D643254D4D05F828E570@MN2PR12MB4175.namprd12.prod.outlook.com>
+References: <20200825025458.21396-1-evan.quan@amd.com>
+In-Reply-To: <20200825025458.21396-1-evan.quan@amd.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=30b64b34-d163-402a-ba81-bbbb1ee97c65;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-25T03:39:19Z; 
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-25T03:24:44Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=691446c8-5504-48e6-820b-00001776d72a;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-08-25T03:39:19Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 7cd6ace7-7b47-485f-bed3-00004287afae
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_justification: I confirm the recipients are approved for sharing this
+ content
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b86ebee2-3abe-4b83-aed5-08d848a676ad
-x-ms-traffictypediagnostic: CH2PR12MB3765:
+x-ms-office365-filtering-correlation-id: 090468c9-d4a0-44b3-0bd1-08d848a876f9
+x-ms-traffictypediagnostic: MN2PR12MB3984:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB3765228FE5FA698943769AFAEA570@CH2PR12MB3765.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2276;
+x-microsoft-antispam-prvs: <MN2PR12MB398411488DADD4A2D53F336B8E570@MN2PR12MB3984.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1824;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ArieWRFMMe4DhdNnvTsl7uonhGslStoOpEi474MOwL1paFKf85vXvsBzW1nQZ8q1njB1Vi4QPYXj4DhlPcZCmqKo70nvH9f2RPcm4n+uzrKA3MMSx/6MCUBzotoRq7hQGRZPdgn+HE2vs9EQnfNm1L6Gbmje29+XU9oPgF18hA8O96tpg5CLo3F0F3m0eWA6Gbq3+jwwil6zSuVIPxwEKKwuSYbutqY6CbUUuHvCnBKBV+XbeYkHDe6xjo7NNvXz6CikeqAIICg//bAf3CYKngD+5p+fQWD/qTEwcx6DygRnLSj3/W6fiSuUSax5tSfKl/H4NOfuGY8fjMi7a8FkQQ==
+x-microsoft-antispam-message-info: 3HJjIDg4DpGOwrP5hmDq/JAyNUlAPe7aWPZs5024OWztb69oeHS0RN9aItv9u1yykCl6L8cE/I/2K4MK2RkUXEGL/Mlx7H4t2fBpJzl6Oj2d7BnFYlhw6anFEKvaDKI0BKTXVa7XEYwUBaQ17cdlO7XwsF+3FiIuSV8F2RqqIPyTRnAKFW6xr/kEzySL5Nqn84N8nCaZ8arnKBULfwmbqWSew9FdYuhTr1plNrtjMrzN5/ogIIEeboyO5D2pmJ+oMd5aqlHUlH8MQmdf12mlvA6NMnzisIrzYARNGlogtsShf7ylGMqfVq2U2qrYy+mtcteD8c42Rw7Qt5IxWgxbWg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4326.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(366004)(396003)(136003)(376002)(478600001)(2906002)(33656002)(83380400001)(8936002)(26005)(5660300002)(6636002)(55016002)(86362001)(6506007)(76116006)(110136005)(66556008)(66476007)(66946007)(7696005)(316002)(66446008)(64756008)(53546011)(8676002)(52536014)(71200400001)(9686003)(186003);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4175.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(316002)(4326008)(53546011)(7696005)(6506007)(478600001)(26005)(15650500001)(55016002)(8676002)(9686003)(86362001)(52536014)(2906002)(33656002)(186003)(71200400001)(8936002)(83380400001)(5660300002)(64756008)(66556008)(66946007)(66476007)(76116006)(110136005)(66446008);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: QqLcuuZde9P6Bq2lrw3CzTKT5CQze061O3uFoD7lqv4PQ2waY2Fl9OmAiYxsKcyk/RoTZcIP9izFOz/RcIksx7QbG/WM0NArR6EF3SPYih2OOB8emlKGcAimw81yfdr4U+9kL1Qtgg9va9lG63yZnDTxEIxzAmJUhgvygnGxaHqHByJ2TCi+/55SUgxeTkMgydRzJwW1m179veWb4hQDWWbaRcemTML7jyCDUAEO9EXk0X/YvlJEDudO2gCtsWEt7eYqp1wWsVLnZFo1cDkQGLdtAxEgdlSvBKoDmFPgk/4nygyvBhCb7nP6entLzXl7PhOGJIraHwa72IdOmpvN2PbpsCu1/FGQ8Eq2+HYl+udxc6xVWUq5Zm/bWrboIjfBZICqN7vp2mArJ+wBFVCs+Sx6OjHTzOPs6TmffOjr48LTgW7LujdlSyO57ssaREUIGoChF4GxaSfm9O11LEQyhSF/6dSiHU8PLnxgI4AOJra+GYBZ4zE3OjL8nIudxrRgI6ekmrwq5sHaqfoebxinKJxNLRupGFBoPM7Xtr5bAolax8wCEu8V6tWnxKTnYKroWDiYVM8svhkYOwV4OP9Omh1HHn6zbbSsghDhtEeFS5KHd3Ay250cvpLfMPw7wcwIKTk3Nre1CfOk0Qr5L8uWSw==
+x-ms-exchange-antispam-messagedata: O2W4D1Q8T1XgZr/z7uuGiQc7mnys0hkr5SAkc2SLfqetTZTbMi6agqebpxx17LUaBzPaZK7AUUlRApGkxupEcSSxRrytjPb9t/CTd2g+wADikiCQr+9+NKkO7AO5+kP3N2HIIQrL1lwEBwiZLcamUIg2xgyVocwZYLfboBy07C19YoafTY9Bk5WXi19u5GYJWLXW1ZMxY5d57vGebtut5k02p+xRIJNiw8HU4bcaONaFQ+B9QGt8P9aElCTfUdGSjI0hL9+BGdSrvj+YjWeNUxcMNxHSBbzFdEvya5UGUkzlDkHM9bD3u/vXU+vPgTWgPUSChn1YmDMSaM65SaF36vFnNspi/M6SDKQnem7wOTyWA9oK5rUlBhReXk1bK72q1Xm7RkEYRTDQdjp+2ZNeV6A395uM09XHAhkqetz68fKlGohTqfo3lLTz1ObrOEtz3Dk/UI/GCWQPwFJj7vR4toeWPa/m+Y1hp4pe4fpyD7Snnvotjbwg58R3QJ2+uglBxbOKifO+xZLwIvTz2nFnIIpznHaqVVhf3Zsi35GOY8ISji6LbmQQzia38cTCUUnKaCk/TnQ+BOayGQeCy03/V2efWU24ryx/mRC43l4ZsSec9lv6EJPe6OOvgk6b23naFOi1gpLbrMAsDsODqTlzbA==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b86ebee2-3abe-4b83-aed5-08d848a676ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2020 03:25:06.4580 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4175.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 090468c9-d4a0-44b3-0bd1-08d848a876f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2020 03:39:25.9877 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x7PFO8PZCc5QyGrckNTrT3q50fxlvsyT9EGeXxyyUDmcqmME2t9VpqeiBPI4jiO/Iv2cuDbYsc7WfVUZMDJ7zw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3765
+X-MS-Exchange-CrossTenant-userprincipalname: V/t7rrI8LUwn7ldCUDoylFE21nEe9YwXE+5z4iK1DCuyKYls1Jhb1o/Z4bRsOnqn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3984
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,6 +124,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -120,40 +132,138 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Reviewed-by: Jiansong Chen <Jiansong.Chen@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+
+
 
 -----Original Message-----
-From: Zhou1, Tao <Tao.Zhou1@amd.com>
-Sent: Tuesday, August 25, 2020 11:20 AM
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Jiansong (Simon) <Jiansong.Chen@amd.com>; Gui, Jack <Jack.Gui@amd.com>
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amdgpu: add asd fw check before loading asd
+From: Quan, Evan <Evan.Quan@amd.com> 
+Sent: Tuesday, August 25, 2020 10:55 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+Subject: [PATCH] drm/amd/pm: correct the thermal alert temperature limit settings
 
-asd is not ready for some ASICs in early stage, and psp->asd_fw is more generic than ASIC name in the check
+Do the maths in celsius degree. This can fix the issues caused by the changes below:
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+drm/amd/pm: correct Vega20 swctf limit setting
+drm/amd/pm: correct Vega12 swctf limit setting
+drm/amd/pm: correct Vega10 swctf limit setting
+
+Change-Id: Ia49936240106a3172d10ffc44e51d3c9ba00763d
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/vega10_thermal.c   | 15 +++++++--------
+ .../drm/amd/pm/powerplay/hwmgr/vega12_thermal.c   | 15 +++++++--------
+ .../drm/amd/pm/powerplay/hwmgr/vega20_thermal.c   | 15 +++++++--------
+ 3 files changed, 21 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index c22fb0194df7..d6c38e24f130 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -522,8 +522,7 @@ static int psp_asd_load(struct psp_context *psp)
-  * add workaround to bypass it for sriov now.
-  * TODO: add version check to make it common
-  */
--if (amdgpu_sriov_vf(psp->adev) ||
--    (psp->adev->asic_type == CHIP_NAVY_FLOUNDER))
-+if (amdgpu_sriov_vf(psp->adev) || !psp->asd_fw)
- return 0;
-
- cmd = kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+index ce9514c881ec..d572ba4ec9b1 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_thermal.c
+@@ -367,14 +367,13 @@ static int vega10_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+ 		(struct phm_ppt_v2_information *)(hwmgr->pptable);
+ 	struct phm_tdp_table *tdp_table = pp_table_info->tdp_table;
+ 	struct amdgpu_device *adev = hwmgr->adev;
+-	int low = VEGA10_THERMAL_MINIMUM_ALERT_TEMP *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-	int high = VEGA10_THERMAL_MAXIMUM_ALERT_TEMP *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	int low = VEGA10_THERMAL_MINIMUM_ALERT_TEMP;
++	int high = VEGA10_THERMAL_MAXIMUM_ALERT_TEMP;
+ 	uint32_t val;
+ 
+-	if (low < range->min)
+-		low = range->min;
++	/* compare them in unit celsius degree */
++	if (low < range->min / PP_TEMPERATURE_UNITS_PER_CENTIGRADES)
++		low = range->min / PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 	if (high > tdp_table->usSoftwareShutdownTemp)
+ 		high = tdp_table->usSoftwareShutdownTemp;
+ 
+@@ -385,8 +384,8 @@ static int vega10_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+ 
+ 	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CREDIT, 5);
+ 	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_HW_ENA, 1);
+-	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, (high / PP_TEMPERATURE_UNITS_PER_CENTIGRADES));
+-	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, (low / PP_TEMPERATURE_UNITS_PER_CENTIGRADES));
++	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, high);
++	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, low);
+ 	val &= (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK) &
+ 			(~THM_THERMAL_INT_CTRL__THERM_INTH_MASK_MASK) &
+ 			(~THM_THERMAL_INT_CTRL__THERM_INTL_MASK_MASK);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_thermal.c
+index e755fc0c9886..7ace439dcde7 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_thermal.c
+@@ -173,14 +173,13 @@ static int vega12_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+ 	struct phm_ppt_v3_information *pptable_information =
+ 		(struct phm_ppt_v3_information *)hwmgr->pptable;
+ 	struct amdgpu_device *adev = hwmgr->adev;
+-	int low = VEGA12_THERMAL_MINIMUM_ALERT_TEMP *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-	int high = VEGA12_THERMAL_MAXIMUM_ALERT_TEMP *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	int low = VEGA12_THERMAL_MINIMUM_ALERT_TEMP;
++	int high = VEGA12_THERMAL_MAXIMUM_ALERT_TEMP;
+ 	uint32_t val;
+ 
+-	if (low < range->min)
+-		low = range->min;
++	/* compare them in unit celsius degree */
++	if (low < range->min / PP_TEMPERATURE_UNITS_PER_CENTIGRADES)
++		low = range->min / PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 	if (high > pptable_information->us_software_shutdown_temp)
+ 		high = pptable_information->us_software_shutdown_temp;
+ 
+@@ -191,8 +190,8 @@ static int vega12_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+ 
+ 	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CREDIT, 5);
+ 	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_HW_ENA, 1);
+-	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, (high / PP_TEMPERATURE_UNITS_PER_CENTIGRADES));
+-	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, (low / PP_TEMPERATURE_UNITS_PER_CENTIGRADES));
++	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, high);
++	val = REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, low);
+ 	val = val & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK);
+ 
+ 	WREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL, val); diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+index a9bc9d16641a..364162ddaa9c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_thermal.c
+@@ -243,14 +243,13 @@ static int vega20_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+ 	struct phm_ppt_v3_information *pptable_information =
+ 		(struct phm_ppt_v3_information *)hwmgr->pptable;
+ 	struct amdgpu_device *adev = hwmgr->adev;
+-	int low = VEGA20_THERMAL_MINIMUM_ALERT_TEMP *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-	int high = VEGA20_THERMAL_MAXIMUM_ALERT_TEMP *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
++	int low = VEGA20_THERMAL_MINIMUM_ALERT_TEMP;
++	int high = VEGA20_THERMAL_MAXIMUM_ALERT_TEMP;
+ 	uint32_t val;
+ 
+-	if (low < range->min)
+-		low = range->min;
++	/* compare them in unit celsius degree */
++	if (low < range->min / PP_TEMPERATURE_UNITS_PER_CENTIGRADES)
++		low = range->min / PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 	if (high > pptable_information->us_software_shutdown_temp)
+ 		high = pptable_information->us_software_shutdown_temp;
+ 
+@@ -261,8 +260,8 @@ static int vega20_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+ 
+ 	val = CGS_REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, MAX_IH_CREDIT, 5);
+ 	val = CGS_REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, THERM_IH_HW_ENA, 1);
+-	val = CGS_REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, (high / PP_TEMPERATURE_UNITS_PER_CENTIGRADES));
+-	val = CGS_REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, (low / PP_TEMPERATURE_UNITS_PER_CENTIGRADES));
++	val = CGS_REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTH, high);
++	val = CGS_REG_SET_FIELD(val, THM_THERMAL_INT_CTRL, DIG_THERM_INTL, 
++low);
+ 	val = val & (~THM_THERMAL_INT_CTRL__THERM_TRIGGER_MASK_MASK);
+ 
+ 	WREG32_SOC15(THM, 0, mmTHM_THERMAL_INT_CTRL, val);
 --
-2.17.1
-
+2.28.0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
