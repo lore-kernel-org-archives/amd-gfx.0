@@ -2,57 +2,67 @@ Return-Path: <SRS0=LR/f=CD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.9 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54D48C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 14:55:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F524C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 15:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 309D42075F
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 14:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 309D42075F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 711D32072D
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2020 15:53:40 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oENxH/IX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 711D32072D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78B036E566;
-	Tue, 25 Aug 2020 14:55:32 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2CFBC6E42B;
- Tue, 25 Aug 2020 14:55:31 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 230AD2A6042;
- Tue, 25 Aug 2020 16:55:30 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id kODSs_kEuStS; Tue, 25 Aug 2020 16:55:29 +0200 (CEST)
-Received: from thor (212.174.63.188.dynamic.wline.res.cust.swisscom.ch
- [188.63.174.212])
- by netline-mail3.netline.ch (Postfix) with ESMTPSA id 7C3372A6016;
- Tue, 25 Aug 2020 16:55:29 +0200 (CEST)
-Received: from [::1] by thor with esmtp (Exim 4.94)
- (envelope-from <michel@daenzer.net>)
- id 1kAaMC-000Yv0-Tj; Tue, 25 Aug 2020 16:55:28 +0200
-Subject: Re: [PATCH] drm/amdgpu/dc: Require primary plane to be enabled
- whenever the CRTC is
-To: Pekka Paalanen <ppaalanen@gmail.com>,
- "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-References: <20200821165758.1106210-1-michel@daenzer.net>
- <58dc5ed0-307e-74c9-1a8b-1e998be04900@amd.com>
- <91391bb3-a855-1a29-2d2e-a31856c99946@daenzer.net>
- <20200824104327.559503f7@eldfell>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Message-ID: <b8bc3e37-d9b3-2aeb-8580-f265f1b8c830@daenzer.net>
-Date: Tue, 25 Aug 2020 16:55:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2248C6E378;
+	Tue, 25 Aug 2020 15:53:40 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50ED56E378
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 15:53:38 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id q14so2103973wrn.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2020 08:53:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ngF6uQU7ixuw1XTRo+qAFuLlBMgKSvdUAuJUoOBqwdY=;
+ b=oENxH/IXbCa/MPNT8mGgy1BtL89X9h94SDCQwQl6tUx0iUKzrqpfP45kt0ebBHNq7b
+ OySqEWJUENyZqq8yEOyjca0OPruEEFawqb+hMxLlfAICzl1ISqM1YKh1HFrExLSpXOEl
+ iPo5/2xoKKqeOl8hQe+whRwZBmV+uGbpIbG02POnN/W6MgYohaVTV3XKwT4Ri6/jo+1T
+ gUb+J+y55v4CXi1X8pOQUzousxQ1BfJWC8Cek4kDiZZmBeoyGu5ZA/Sei0UZCr+o9Rnf
+ 7UtpSL6E5lC2p0QBcjf+9k6GZKZXG0/JRARQTNC/sw3Pp2b5ZQ4a74aVvPwxq2wr8tMG
+ SQgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ngF6uQU7ixuw1XTRo+qAFuLlBMgKSvdUAuJUoOBqwdY=;
+ b=PZyPeoyHZfpJepUxXdo+2UkMGw/nvOzSEc4FepA2OLiq4bcBoNEVEaVg8OSkkGz5Xj
+ Rob07CcvH33aycEFo023tz9iRbPU9MH4yyjjMUZMpNLvypCmzbV50nTZNDlv2Ox1+STw
+ fIws+44EFQwg9EibThw+BrQ/qXAYwI0q31CCWhB4H9iTtKpOiXIGsxzeAyPFfIKLjtPy
+ N/7c9nReFhMGlqd3+rqhC1omSjvNZRMSoDJTv8veOSJT2M4Th51n1u02lk0/ZDm7s3Tb
+ 64nOUejMswX1WC+ddMFd88Y3mnWyOGL5HxORaJlSr0W7l9DvIO7Q1mFWDhxutjwym0/w
+ WYtw==
+X-Gm-Message-State: AOAM530kXwV/SSkjZtsrQCVzNGzKrgKTU19iYBC5UoB8btyzs8mjpzBT
+ JMe5pimYBp78xV9lgdWwUfO4klgXsdGGHA1nKXk=
+X-Google-Smtp-Source: ABdhPJwcSV0L9bNnZQyxrgFaK3WFC/84MX5EFoIJAAr/QfLV3IcsmFfcULizfNldA9Qq0O10yVKdLzISnQftAl9vzaE=
+X-Received: by 2002:a5d:6085:: with SMTP id w5mr11115815wrt.362.1598370816918; 
+ Tue, 25 Aug 2020 08:53:36 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200824104327.559503f7@eldfell>
-Content-Language: en-CA
+References: <20200825111843.GA285523@mwanda>
+In-Reply-To: <20200825111843.GA285523@mwanda>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Aug 2020 11:53:25 -0400
+Message-ID: <CADnq5_O0f7NdR92PSKFS0zrN4oFb_WJXX1E_HQ9uHzM-4NL2OQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu/si: Fix buffer overflow in
+ si_get_register_value()
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: multipart/mixed; boundary="000000000000c3237905adb5b4d3"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,88 +74,270 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Jivin <alex.jivin@amd.com>, Frederick Lawler <fred@fredlawl.com>,
+ David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Sonny Jiang <sonny.jiang@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-LS0tLS1CRUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQpIYXNoOiBTSEExCgpPbiAyMDIwLTA4
-LTI0IDk6NDMgYS5tLiwgUGVra2EgUGFhbGFuZW4gd3JvdGU6Cj4gT24gU2F0LCAyMiBBdWcgMjAy
-MCAxMTo1OToyNiArMDIwMCBNaWNoZWwgRMOkbnplcgo+IDxtaWNoZWxAZGFlbnplci5uZXQ+IHdy
-b3RlOgo+PiBPbiAyMDIwLTA4LTIxIDg6MDcgcC5tLiwgS2F6bGF1c2thcywgTmljaG9sYXMgd3Jv
-dGU6Cj4+PiBPbiAyMDIwLTA4LTIxIDEyOjU3IHAubS4sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+
-Pj4+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtZGFlbnplckByZWRoYXQuY29tPgo+Pj4+Cj4+Pj4g
-RG9uJ3QgY2hlY2sgZHJtX2NydGNfc3RhdGU6OmFjdGl2ZSBmb3IgdGhpcyBlaXRoZXIsIHBlciBp
-dHMKPj4+PiBkb2N1bWVudGF0aW9uIGluIGluY2x1ZGUvZHJtL2RybV9jcnRjLmg6Cj4+Pj4KPj4+
-PiAqIEhlbmNlIGRyaXZlcnMgbXVzdCBub3QgY29uc3VsdCBAYWN0aXZlIGluIHRoZWlyIHZhcmlv
-dXMgKgo+Pj4+ICZkcm1fbW9kZV9jb25maWdfZnVuY3MuYXRvbWljX2NoZWNrIGNhbGxiYWNrIHRv
-IHJlamVjdCBhbgo+Pj4+IGF0b21pYyAqIGNvbW1pdC4KPj4+Pgo+Pj4+IFRoZSBhdG9taWMgaGVs
-cGVycyBkaXNhYmxlIHRoZSBDUlRDIGFzIG5lZWRlZCBmb3IgZGlzYWJsaW5nCj4+Pj4gdGhlIHBy
-aW1hcnkgcGxhbmUuCj4+Pj4KPj4+PiBUaGlzIHByZXZlbnRzIGF0IGxlYXN0IHRoZSBmb2xsb3dp
-bmcgcHJvYmxlbXMgaWYgdGhlIHByaW1hcnkKPj4+PiBwbGFuZSBnZXRzIGRpc2FibGVkIChlLmcu
-IGR1ZSB0byBkZXN0cm95aW5nIHRoZSBGQiBhc3NpZ25lZAo+Pj4+IHRvIHRoZSBwcmltYXJ5IHBs
-YW5lLCBhcyBoYXBwZW5zIGUuZy4gd2l0aCBtdXR0ZXIgaW4gV2F5bGFuZAo+Pj4+IG1vZGUpOgo+
-Pj4+Cj4+Pj4gKiBUb2dnbGluZyBDUlRDIGFjdGl2ZSB0byAxIGZhaWxlZCBpZiB0aGUgY3Vyc29y
-IHBsYW5lIHdhcwo+Pj4+IGVuYWJsZWQgKGUuZy4gdmlhIGxlZ2FjeSBEUE1TIHByb3BlcnR5ICYg
-Y3Vyc29yIGlvY3RsKS4gKgo+Pj4+IEVuYWJsaW5nIHRoZSBjdXJzb3IgcGxhbmUgZmFpbGVkLCBl
-LmcuIHZpYSB0aGUgbGVnYWN5IGN1cnNvcgo+Pj4+IGlvY3RsLgo+Pj4KPj4+IFdlIHByZXZpb3Vz
-bHkgaGFkIHRoZSByZXF1aXJlbWVudCB0aGF0IHRoZSBwcmltYXJ5IHBsYW5lIG11c3QKPj4+IGJl
-IGVuYWJsZWQgYnV0IHNvbWUgdXNlcnNwYWNlIGV4cGVjdHMgdGhhdCB0aGV5IGNhbiBlbmFibGUK
-Pj4+IGp1c3QgdGhlIG92ZXJsYXkgcGxhbmUgd2l0aG91dCBhbnl0aGluZyBlbHNlLgo+Pj4KPj4+
-IEkgdGhpbmsgdGhlIGNocm9tdWl1bW9zIGF0b21pY3Rlc3QgdmFsaWRhdGVzIHRoYXQgdGhpcyB3
-b3Jrcwo+Pj4gYXMgd2VsbDoKPj4+Cj4+PiBTbyBpcyBEUk0gZ29pbmcgZm9yd2FyZCB0aGVuIHdp
-dGggdGhlIGV4cGVjdGF0aW9uIHRoYXQgdGhpcyBpcwo+Pj4gd3JvbmcgYmVoYXZpb3IgZnJvbSB1
-c2Vyc3BhY2U/Cj4+Pgo+Pj4gV2UgcmVxdWlyZSBhdCBsZWFzdCBvbmUgcGxhbmUgdG8gYmUgZW5h
-YmxlZCB0byBkaXNwbGF5IGEKPj4+IGN1cnNvciwgYnV0IGl0IGRvZXNuJ3QgbmVjZXNzYXJpbHkg
-bmVlZCB0byBiZSB0aGUgcHJpbWFyeS4KPj4KPj4gSXQncyBhICJwaWNrIHlvdXIgcG9pc29uIiBz
-aXR1YXRpb246Cj4+Cj4+IDEpIEN1cnJlbnRseSB0aGUgY2hlY2tzIGFyZSBpbnZhbGlkIChhdG9t
-aWNfY2hlY2sgbXVzdCBub3QKPj4gZGVjaWRlIGJhc2VkIG9uIGRybV9jcnRjX3N0YXRlOjphY3Rp
-dmUpLCBhbmQgaXQncyBlYXN5IGZvciBsZWdhY3kKPj4gS01TIHVzZXJzcGFjZSB0byBhY2NpZGVu
-dGFsbHkgaGl0IGVycm9ycyB0cnlpbmcgdG8gZW5hYmxlL21vdmUKPj4gdGhlIGN1cnNvciBvciBz
-d2l0Y2ggRFBNUyBvZmYg4oaSIG9uLgo+Pgo+PiAyKSBBY2N1cmF0ZWx5IHJlamVjdGluZyBvbmx5
-IGF0b21pYyBzdGF0ZXMgd2hlcmUgdGhlIGN1cnNvcgo+PiBwbGFuZSBpcyBlbmFibGVkIGJ1dCBh
-bGwgb3RoZXIgcGxhbmVzIGFyZSBvZmYgd291bGQgYnJlYWsgdGhlCj4+IEtNUyBoZWxwZXIgY29k
-ZSwgd2hpY2ggY2FuIG9ubHkgZGVhbCB3aXRoIHRoZSAiQ1JUQyBvbiAmIHByaW1hcnkKPj4gcGxh
-bmUgb2ZmIGlzIG5vdCBhbGxvd2VkIiBjYXNlIHNwZWNpZmljYWxseS4KPj4KPj4gMykgVGhpcyBw
-YXRjaCBhZGRyZXNzZXMgMSkgJiAyKSBidXQgbWF5IGJyZWFrIGV4aXN0aW5nIGF0b21pYwo+PiB1
-c2Vyc3BhY2Ugd2hpY2ggd2FudHMgdG8gZW5hYmxlIGFuIG92ZXJsYXkgcGxhbmUgd2hpbGUgZGlz
-YWJsaW5nCj4+IHRoZSBwcmltYXJ5IHBsYW5lLgo+Pgo+Pgo+PiBJIGRvIHRoaW5rIGluIHByaW5j
-aXBsZSBhdG9taWMgdXNlcnNwYWNlIGlzIGV4cGVjdGVkIHRvIGhhbmRsZQo+PiBjYXNlIDMpIGFu
-ZCBsZWF2ZSB0aGUgcHJpbWFyeSBwbGFuZSBlbmFibGVkLgo+Cj4gSGksCj4KPiBteSBvcGluaW9u
-IGFzIGEgdXNlcnNwYWNlIGRldmVsb3BlciBpcyB0aGF0IGVuYWJsaW5nIGEgQ1JUQwo+IHdpdGhv
-dXQgYSBwcmltYXJ5IHBsYW5lIGhhcyB0cmFkaXRpb25hbGx5IG5vdCB3b3JrZWQsIHNvIHVzZXJz
-cGFjZQo+IGNhbm5vdCAqcmVseSogb24gaXQgZXZlciB3b3JraW5nLiBJIHRoaW5rIGxlZ2FjeSBL
-TVMgQVBJIGRvZXMgbm90Cj4gZXZlbiBhbGxvdyB0byBleHByZXNzIHRoYXQgcmVhbGx5LCBvciBo
-YXMgYnVpbHQtaW4gYXNzdW1wdGlvbnMgdGhhdAo+IGl0IGRvZXNuJ3Qgd29yayAtIHlvdSBjYW4g
-Y2FsbCB0aGUgbGVnYWN5IGN1cnNvciBpb2N0bHMsIHRoZXkKPiBkb24ndCBmYWlsLCBidXQgYWxz
-byB0aGUgQ1JUQyByZW1haW5zIG9mZi4gQ29ycmVjdCBtZSBpZiB0aGlzIGlzCj4gbm90IHRydWUu
-Cj4KPiBBdG9taWMgdXNlcnNwYWNlIE9UT0ggaXMgcmVxdWlyZWQgdG8gdGVzdCB0aGUgc3RyYW5n
-ZSAoYW5kIGFsbCEpCj4gY2FzZXMgbGlrZSB0aGlzIHRvIHNlZSBpZiB0aGV5IHdvcmsgb3Igbm90
-LCBhbmQgY2Fycnkgb24gd2l0aCBhCj4gZmFsbGJhY2sgaWYgdGhleSBkb24ndC4gVXNlcnNwYWNl
-IHRoYXQgd2FudHMgdG8gdXNlIGEgQ1JUQyB3aXRob3V0Cj4gYSBwcmltYXJ5IHBsYW5lIGxpa2Vs
-eSBuZWVkcyBvdGhlciBDUlRDIHByb3BlcnRpZXMgYXMgd2VsbCwgbGlrZQo+IGJhY2tncm91bmQg
-Y29sb3IuCj4KPiBJIHdvdWxkIGd1ZXNzIHRoYXQgd2hlbiB0d28gcmVncmVzc2lvbnMgY29uZmxp
-Y3QsIHRoZSBvbGRlcgo+IHVzZXJzcGFjZSB3b3VsZCB3aW4uIEhlbmNlIGxlZ2FjeSBLTVMgdXNp
-bmcgTXV0dGVyIHNob3VsZCBrZWVwCj4gd29ya2luZywgd2hpbGUgYXRvbWljIHVzZXJzcGFjZSBp
-cyBsZWZ0IHdpdGggaW5jcmVhc2VkIHBvd2VyCj4gY29uc3VtcHRpb24uIE5vdCB1c2luZyBhIGhh
-cmR3YXJlIGN1cnNvciAoTXV0dGVyKSBpcyBtdWNoIG1vcmUKPiBlYXNpbHkgYW4gZW5kLXVzZXIg
-dmlzaWJsZSByZWdyZXNzaW9uIHRoYW4gc2xpZ2h0bHkgc2hvcnRlcgo+IGJhdHRlcnkgbGlmZS4K
-Pgo+IEF0b21pYyB0ZXN0IGNvbW1pdHMgYXJlIGFsbG93ZWQgdG8gZmFpbCBhdCBhbnkgdGltZSBm
-b3IgYW55IHJlYXNvbgo+IGFuZCBzb21ldGhpbmcgdGhhdCBwcmV2aW91c2x5IHdvcmtlZCBjYW4g
-ZmFpbCBvbiB0aGUgbmV4dCBmcmFtZSBvcgo+IG9uIHRoZSBuZXh0IGtlcm5lbCwgYXMgZmFyIGFz
-IEkgdW5kZXJzdGFuZC4KCkFsbCBvZiB0aGlzIGJhc2ljYWxseSBtYXRjaGVzIG15IHVuZGVyc3Rh
-bmRpbmcuCgoKPiBTb3VuZHMgbGlrZSB0aGUgaGVscGVycyB5b3UgcmVmZXIgdG8gYXJlIGluYWRl
-cXVhdGUgZm9yIHlvdXIgY2FzZS4KPiBDYW4ndCB5b3UgZml4IHRoZSBoZWxwZXJzIGluIHRoZSBs
-b25nIHJ1biBhbmQgbGFuZCB0aGlzIHBhdGNoIGFzIGFuCj4gaW1tZWRpYXRlIGZpeD8KCkknZCBy
-YXRoZXIgbGVhdmUgd29ya2luZyBvbiB0aG9zZSBoZWxwZXJzIHRvIEtNUyBkZXZlbG9wZXJzLiA6
-KQoKCi0gLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAg
-ICAgICAgICBodHRwczovL3JlZGhhdC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAg
-ICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCi0tLS0tQkVHSU4gUEdQ
-IFNJR05BVFVSRS0tLS0tCgppRjBFQVJFQ0FCMFdJUVN3bjY4MXZwRkZJWmdKVVJSYWdhK09hdHV5
-QUFVQ1gwVW1YQUFLQ1JCYWdhK09hdHV5CkFJZU5BSm9DOVVnT3JGK3FCcTA4dU95amFWN1ZmcCtQ
-Z0FDZlNwM25YQjN1bjNMVVpReHJ2YXhNQU9OK2VJcz0KPVBiZDIKLS0tLS1FTkQgUEdQIFNJR05B
-VFVSRS0tLS0tCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--000000000000c3237905adb5b4d3
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, Aug 25, 2020 at 7:21 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> The values for "se_num" and "sh_num" come from the user in the ioctl.
+> They can be in the 0-255 range but if they're more than
+> AMDGPU_GFX_MAX_SE (4) or AMDGPU_GFX_MAX_SH_PER_SE (2) then it results in
+> an out of bounds read.
+>
+> I split this function into to two to make the error handling simpler.
+>
+> Fixes: dd5dfa61b4ff ("drm/amdgpu: refine si_read_register")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+Good catch.  This is more defensive, but It's a much simpler check to
+validate these in the caller.  See the attached patch.
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/si.c | 157 +++++++++++++++++---------------
+>  1 file changed, 85 insertions(+), 72 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index e330884edd19..ccf39a6932ae 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1051,81 +1051,90 @@ static struct amdgpu_allowed_register_entry si_allowed_read_registers[] = {
+>         {PA_SC_RASTER_CONFIG, true},
+>  };
+>
+> -static uint32_t si_get_register_value(struct amdgpu_device *adev,
+> -                                     bool indexed, u32 se_num,
+> -                                     u32 sh_num, u32 reg_offset)
+> -{
+> -       if (indexed) {
+> -               uint32_t val;
+> -               unsigned se_idx = (se_num == 0xffffffff) ? 0 : se_num;
+> -               unsigned sh_idx = (sh_num == 0xffffffff) ? 0 : sh_num;
+> -
+> -               switch (reg_offset) {
+> -               case mmCC_RB_BACKEND_DISABLE:
+> -                       return adev->gfx.config.rb_config[se_idx][sh_idx].rb_backend_disable;
+> -               case mmGC_USER_RB_BACKEND_DISABLE:
+> -                       return adev->gfx.config.rb_config[se_idx][sh_idx].user_rb_backend_disable;
+> -               case mmPA_SC_RASTER_CONFIG:
+> -                       return adev->gfx.config.rb_config[se_idx][sh_idx].raster_config;
+> -               }
+> +static int si_get_register_value_indexed(struct amdgpu_device *adev,
+> +                                         u32 se_num, u32 sh_num,
+> +                                         u32 reg_offset, u32 *value)
+> +{
+> +       unsigned se_idx = (se_num == 0xffffffff) ? 0 : se_num;
+> +       unsigned sh_idx = (sh_num == 0xffffffff) ? 0 : sh_num;
+>
+> -               mutex_lock(&adev->grbm_idx_mutex);
+> -               if (se_num != 0xffffffff || sh_num != 0xffffffff)
+> -                       amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff);
+> +       if (se_idx >= AMDGPU_GFX_MAX_SE ||
+> +           sh_idx >= AMDGPU_GFX_MAX_SH_PER_SE)
+> +               return -EINVAL;
+>
+> -               val = RREG32(reg_offset);
+> +       switch (reg_offset) {
+> +       case mmCC_RB_BACKEND_DISABLE:
+> +               *value = adev->gfx.config.rb_config[se_idx][sh_idx].rb_backend_disable;
+> +               return 0;
+> +       case mmGC_USER_RB_BACKEND_DISABLE:
+> +               *value = adev->gfx.config.rb_config[se_idx][sh_idx].user_rb_backend_disable;
+> +               return 0;
+> +       case mmPA_SC_RASTER_CONFIG:
+> +               *value = adev->gfx.config.rb_config[se_idx][sh_idx].raster_config;
+> +               return 0;
+> +       }
+>
+> -               if (se_num != 0xffffffff || sh_num != 0xffffffff)
+> -                       amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+> -               mutex_unlock(&adev->grbm_idx_mutex);
+> -               return val;
+> -       } else {
+> -               unsigned idx;
+> -
+> -               switch (reg_offset) {
+> -               case mmGB_ADDR_CONFIG:
+> -                       return adev->gfx.config.gb_addr_config;
+> -               case mmMC_ARB_RAMCFG:
+> -                       return adev->gfx.config.mc_arb_ramcfg;
+> -               case mmGB_TILE_MODE0:
+> -               case mmGB_TILE_MODE1:
+> -               case mmGB_TILE_MODE2:
+> -               case mmGB_TILE_MODE3:
+> -               case mmGB_TILE_MODE4:
+> -               case mmGB_TILE_MODE5:
+> -               case mmGB_TILE_MODE6:
+> -               case mmGB_TILE_MODE7:
+> -               case mmGB_TILE_MODE8:
+> -               case mmGB_TILE_MODE9:
+> -               case mmGB_TILE_MODE10:
+> -               case mmGB_TILE_MODE11:
+> -               case mmGB_TILE_MODE12:
+> -               case mmGB_TILE_MODE13:
+> -               case mmGB_TILE_MODE14:
+> -               case mmGB_TILE_MODE15:
+> -               case mmGB_TILE_MODE16:
+> -               case mmGB_TILE_MODE17:
+> -               case mmGB_TILE_MODE18:
+> -               case mmGB_TILE_MODE19:
+> -               case mmGB_TILE_MODE20:
+> -               case mmGB_TILE_MODE21:
+> -               case mmGB_TILE_MODE22:
+> -               case mmGB_TILE_MODE23:
+> -               case mmGB_TILE_MODE24:
+> -               case mmGB_TILE_MODE25:
+> -               case mmGB_TILE_MODE26:
+> -               case mmGB_TILE_MODE27:
+> -               case mmGB_TILE_MODE28:
+> -               case mmGB_TILE_MODE29:
+> -               case mmGB_TILE_MODE30:
+> -               case mmGB_TILE_MODE31:
+> -                       idx = (reg_offset - mmGB_TILE_MODE0);
+> -                       return adev->gfx.config.tile_mode_array[idx];
+> -               default:
+> -                       return RREG32(reg_offset);
+> -               }
+> +       mutex_lock(&adev->grbm_idx_mutex);
+> +       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+> +               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff);
+> +
+> +       *value = RREG32(reg_offset);
+> +
+> +       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+> +               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+> +       mutex_unlock(&adev->grbm_idx_mutex);
+> +       return 0;
+> +}
+> +
+> +static uint32_t si_get_register_value(struct amdgpu_device *adev,
+> +                                     u32 reg_offset)
+> +{
+> +       unsigned idx;
+> +
+> +       switch (reg_offset) {
+> +       case mmGB_ADDR_CONFIG:
+> +               return adev->gfx.config.gb_addr_config;
+> +       case mmMC_ARB_RAMCFG:
+> +               return adev->gfx.config.mc_arb_ramcfg;
+> +       case mmGB_TILE_MODE0:
+> +       case mmGB_TILE_MODE1:
+> +       case mmGB_TILE_MODE2:
+> +       case mmGB_TILE_MODE3:
+> +       case mmGB_TILE_MODE4:
+> +       case mmGB_TILE_MODE5:
+> +       case mmGB_TILE_MODE6:
+> +       case mmGB_TILE_MODE7:
+> +       case mmGB_TILE_MODE8:
+> +       case mmGB_TILE_MODE9:
+> +       case mmGB_TILE_MODE10:
+> +       case mmGB_TILE_MODE11:
+> +       case mmGB_TILE_MODE12:
+> +       case mmGB_TILE_MODE13:
+> +       case mmGB_TILE_MODE14:
+> +       case mmGB_TILE_MODE15:
+> +       case mmGB_TILE_MODE16:
+> +       case mmGB_TILE_MODE17:
+> +       case mmGB_TILE_MODE18:
+> +       case mmGB_TILE_MODE19:
+> +       case mmGB_TILE_MODE20:
+> +       case mmGB_TILE_MODE21:
+> +       case mmGB_TILE_MODE22:
+> +       case mmGB_TILE_MODE23:
+> +       case mmGB_TILE_MODE24:
+> +       case mmGB_TILE_MODE25:
+> +       case mmGB_TILE_MODE26:
+> +       case mmGB_TILE_MODE27:
+> +       case mmGB_TILE_MODE28:
+> +       case mmGB_TILE_MODE29:
+> +       case mmGB_TILE_MODE30:
+> +       case mmGB_TILE_MODE31:
+> +               idx = (reg_offset - mmGB_TILE_MODE0);
+> +               return adev->gfx.config.tile_mode_array[idx];
+> +       default:
+> +               return RREG32(reg_offset);
+>         }
+>  }
+> +
+>  static int si_read_register(struct amdgpu_device *adev, u32 se_num,
+>                              u32 sh_num, u32 reg_offset, u32 *value)
+>  {
+> @@ -1138,8 +1147,12 @@ static int si_read_register(struct amdgpu_device *adev, u32 se_num,
+>                 if (reg_offset != si_allowed_read_registers[i].reg_offset)
+>                         continue;
+>
+> -               *value = si_get_register_value(adev, indexed, se_num, sh_num,
+> -                                              reg_offset);
+> +               if (indexed)
+> +                       return si_get_register_value_indexed(adev,
+> +                                                            se_num, sh_num,
+> +                                                            reg_offset, value);
+> +
+> +               *value = si_get_register_value(adev, reg_offset);
+>                 return 0;
+>         }
+>         return -EINVAL;
+> --
+> 2.28.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--000000000000c3237905adb5b4d3
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-drm-amdgpu-Fix-buffer-overflow-in-INFO-ioctl.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amdgpu-Fix-buffer-overflow-in-INFO-ioctl.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_kea4oh2s0>
+X-Attachment-Id: f_kea4oh2s0
+
+RnJvbSAyZDZjMWFiYWVhYjU0NTYxNDUyYjE0YzVkNzAyZjUxMjM1YWU1YTcwIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFR1ZSwgMjUgQXVnIDIwMjAgMTE6NDM6NDUgLTA0MDAKU3ViamVjdDogW1BBVENI
+XSBkcm0vYW1kZ3B1OiBGaXggYnVmZmVyIG92ZXJmbG93IGluIElORk8gaW9jdGwKClRoZSB2YWx1
+ZXMgZm9yICJzZV9udW0iIGFuZCAic2hfbnVtIiBjb21lIGZyb20gdGhlIHVzZXIgaW4gdGhlIGlv
+Y3RsLgpUaGV5IGNhbiBiZSBpbiB0aGUgMC0yNTUgcmFuZ2UgYnV0IGlmIHRoZXkncmUgbW9yZSB0
+aGFuCkFNREdQVV9HRlhfTUFYX1NFICg0KSBvciBBTURHUFVfR0ZYX01BWF9TSF9QRVJfU0UgKDIp
+IHRoZW4gaXQgcmVzdWx0cyBpbgphbiBvdXQgb2YgYm91bmRzIHJlYWQuCgpSZXBvcnRlZC1ieTog
+RGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPgpTaWduZWQtb2ZmLWJ5OiBB
+bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgNCArKysrCiAxIGZpbGUgY2hhbmdlZCwgNCBp
+bnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2ttcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCmluZGV4
+IDdhZThiMGVlNDYxMC4uOWY4MGVhZWFmMGFlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfa21zLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2ttcy5jCkBAIC02NjksOCArNjY5LDEyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2luZm9f
+aW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxl
+CiAJCSAqIGluIHRoZSBiaXRmaWVsZHMgKi8KIAkJaWYgKHNlX251bSA9PSBBTURHUFVfSU5GT19N
+TVJfU0VfSU5ERVhfTUFTSykKIAkJCXNlX251bSA9IDB4ZmZmZmZmZmY7CisJCWVsc2UgaWYgKHNl
+X251bSA+PSBBTURHUFVfR0ZYX01BWF9TRSkKKwkJCXJldHVybiAtRUlOVkFMOwogCQlpZiAoc2hf
+bnVtID09IEFNREdQVV9JTkZPX01NUl9TSF9JTkRFWF9NQVNLKQogCQkJc2hfbnVtID0gMHhmZmZm
+ZmZmZjsKKwkJZWxzZSBpZiAoc2hfbnVtID49IEFNREdQVV9HRlhfTUFYX1NIX1BFUl9TRSkKKwkJ
+CXJldHVybiAtRUlOVkFMOwogCiAJCWlmIChpbmZvLT5yZWFkX21tcl9yZWcuY291bnQgPiAxMjgp
+CiAJCQlyZXR1cm4gLUVJTlZBTDsKLS0gCjIuMjUuNAoK
+--000000000000c3237905adb5b4d3
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--000000000000c3237905adb5b4d3--
