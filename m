@@ -2,108 +2,75 @@ Return-Path: <SRS0=g3tc=CE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D8CAC433E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:16:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DD3CC433E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E68A20678
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:16:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DD3C9206FA
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:24:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="s8+Acbyn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E68A20678
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tP5Q+Auy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD3C9206FA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 077AB6EA05;
-	Wed, 26 Aug 2020 08:16:51 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95D626EA05
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 08:16:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jf4C4oa/FZwO7nrFoZuzqMrMRH6g7kEOI9T6l0xFLmF7ibPtfWKzNS2jcN9Aog9IzhNEZOHTmoHLl9jmmgg5bs4buwSDFzAiNtkLSzH9Q8fApqW8DuFiu244+V1xYH13211I9b5/fn6hrWuUkwzrpjsYOLfoSLZzASDpO9iNIGLxzhNp6dRkncXbKjH0w+A/T9OCGX3wdYkCxXM/lUWJ0/kP3wCGDEVjUbrHm/RuT2RC8zCMD1+/Twg4rg+ItIljV7lnOpzeIpDtx+ap7jxdQoz7C9RPQ7gHzh92ga0pR2csHMBHbbhVJ3v6+T0J4MjUU/aUjz+l3VCf/ORl5YZ+Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g2Wt0AQeZnI6Bbsb4k/YnMczV/745yDoAXkKGgkXxLQ=;
- b=VpQsxQry6APcVFLEb63ZnHaeK862XSeABmEP5H48q4EDlDemI043XjWJ9jyBhd06NLe/XvF0EqJp2Uj3xQMRwDzPpp5LwK5B2K+78ZSAs2YQO5S2sCjwux9EjVGTkfDyafm1wHz1uYDGnpyUZnIs9JHrheIOT7Pxyig5SHfr3LVZ5B1h7je7tNgEiCbfz270QPan63d9jDlGz2MMKI/CCXZgPudp1Rd0Id68vmffgQF5nomAA2JXIs1ReE/4BaMRXSMblgmbEfZ/x0i9r3dMHGAnN6IOiJyTZkQN9SHVyURws7xmTDvUPg2t/UGmL8Lh1thw+Z6ishJ54ai1AfVjJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g2Wt0AQeZnI6Bbsb4k/YnMczV/745yDoAXkKGgkXxLQ=;
- b=s8+AcbynMmO7ur6YiYmZ4lQRj0yrBCwI+Ezzmb1Qp2xA2wpSF4iRSXfAM+4tkhhlUv8hHTJA/IX+GTuqYooO14yqYHrtAfbNs3FJ2FPimlh4MZHUxvofA2sxVaNs1+2pOOpQRuErDmH/ymRc7YUwlQV96BGmUhLcT+TBv0/i6yE=
-Received: from DM5PR12MB2533.namprd12.prod.outlook.com (2603:10b6:4:b0::10) by
- DM5PR1201MB0233.namprd12.prod.outlook.com (2603:10b6:4:55::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3305.26; Wed, 26 Aug 2020 08:16:43 +0000
-Received: from DM5PR12MB2533.namprd12.prod.outlook.com
- ([fe80::b184:d0e4:c548:df63]) by DM5PR12MB2533.namprd12.prod.outlook.com
- ([fe80::b184:d0e4:c548:df63%7]) with mapi id 15.20.3305.032; Wed, 26 Aug 2020
- 08:16:43 +0000
-From: "Li, Dennis" <Dennis.Li@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: correct SE number for arcturus gfx ras
-Thread-Topic: [PATCH] drm/amdgpu: correct SE number for arcturus gfx ras
-Thread-Index: AQHWe33wR6q1Mgh0WkCvYzRhLOmI16lKC1Jg
-Date: Wed, 26 Aug 2020 08:16:43 +0000
-Message-ID: <DM5PR12MB25337F42471DE18E54741FEAED540@DM5PR12MB2533.namprd12.prod.outlook.com>
-References: <20200826075236.28735-1-guchun.chen@amd.com>
-In-Reply-To: <20200826075236.28735-1-guchun.chen@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-26T08:16:37Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=70e9a4e8-4a8d-447c-964d-f7a4fb58f4be;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 41150bb5-b98b-43a2-2f35-08d849985e15
-x-ms-traffictypediagnostic: DM5PR1201MB0233:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB0233CC3E2D37483295717118ED540@DM5PR1201MB0233.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:792;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0yh7jQeXGA0NMcnXcifEb+3UE77F5Sebc5t2+JaVQeQfRQ3Lh+BMYKU7xSRr3iX9/ee9I7B6qopCkzi7l8BIEdxgU+o9tqHBxRjjt2HQpJ1VOOcFq1bIx7F8l27Dgpr/uudleDKuf+l6V2o7LIm6wTY0Uhnkaw1qV54nFzku+3+WkAhSzlpjUnht5iokeXcHtIQ5Xxn2Vp/tfaFQG77w6Z6BAQKjkPaVGSbYoYQWqbhHn2rDKxVM6ZxCvgCW8H1E650frCMigushrCJsIHYQRAIndhie1S5Js1Q6Sg7ezXgPTp9OBgULcFmez6K0ftey
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2533.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(71200400001)(53546011)(6506007)(6636002)(9686003)(26005)(186003)(7696005)(478600001)(8936002)(2906002)(76116006)(66946007)(83380400001)(66556008)(110136005)(86362001)(8676002)(52536014)(64756008)(66476007)(33656002)(5660300002)(316002)(55016002)(66446008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: ocFvZo3rkxRtM1UYE1y3XfVwnmpHe5HZYMGkiZhaN9Qz35DLEKeAk5T7FcBRtLoaQTMQ/L8Cr7WO6skk7tj8AT5qQQxO5Av4Iv8R421W8FFeHQmnLVl8ncqI2QlOByWmqWjYT44UY/qOXmWIDt1tptZCEnwNshKijUZhq3WdfTkId6iTG9QAE5KQgZ4BY1mHtof1OuenfS50/Inlfn8/fZwUqB2/T1fgXZfPJ+/JoJeFdfOGqFj2HCvQBhsK/rDtv2WZdbfPucI21VdTjpYm7DnMeU/KQHA49VpSnhWnPIlK4fzhGsKF8cDq1lnevXnzUU+s4AfWRlCuQWOUj1Q5HYBJ6J6KeDNG5hpkzzYWS79qFwdayG/SE6o7zxZHryYXwrjBoPf5EkZx+mxNdm2/RJjKqeGhf2N3Oib+y5zlhaSikP4FNlqsWV3+USSRNMNFRG1WDt5ghsKlSv+G72j0RapIpebw0SJYEWbhVoOvmS5+y49KJzbRX5XH9EeGYSBf4MTznc/hJe56NFeuQOmNzSxBA6B7Uzf0pQiA0VR4X8KhpuofobwDqmQECNXfiC5BrX+HpHGF+mcozPyaVem+7H63B4fpiJALj1T2VMKF90EBzVxSY8cTU1JuCkZFtSXgoFRLRDaKqyPyk3JKe5jZxw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC6A96EA35;
+	Wed, 26 Aug 2020 08:24:38 +0000 (UTC)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C1F6E103;
+ Wed, 26 Aug 2020 08:24:37 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id v12so494342lfo.13;
+ Wed, 26 Aug 2020 01:24:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=3Ipj/II5VYl9n/n1H5gkxgubI6iQKx/PZUESvR4EHeo=;
+ b=tP5Q+AuytDC4hyZW/DV8n8gFPqVq9qo4k8NpN63MWucwusCKjFjciwL4mHwr3N/f/b
+ xYm/oQOB+7rkjJt5leFbJTPbsbZzcKQC10OzFoIqFk5kwtfom/D4tnEdqXago2GecNAY
+ uv66WrJ0oRqGqzkSuYbmMHwJ8u778UQ6cdCRLkS5ZmTXY7EcEc6pykbm3zSiJ5KZWUqU
+ yb4fBNhncZWH8SuxhgN2AZAbOMWZ6/km82d5RpB3RTU8WNGbLdURCPuArZ4uhWnicvWX
+ L/XijxV57CADUnCN02OkBitdxKUxEUEiZVeW3IopRG3roS5FkE3WXT0xQVg/RkmFMoVz
+ XTaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=3Ipj/II5VYl9n/n1H5gkxgubI6iQKx/PZUESvR4EHeo=;
+ b=lS9Gf/VyhzFi2HvgGwhwrApVC+t/FGN8xGImLXaR0QVKJPfhjCNPgT5dbobLG7GrKz
+ rlMnMee7odg3kfloYSRn8SR0Jt5YkBmRJCn6FfCQ4EJGtd3cVGMytyOg4Bnrj7CLuJHy
+ BNNF26CAdj8QTEqgNVqBOEcRLubta3Pr6kkpGhv+aaJVdYGY2sheEgxDQEVxRkzejlXD
+ zNfKPPll1CQarIYVrT0eaHWWP2RhhpvVDdEvoSZStC1TDiKIxqJaB3MBQVmca/dqCCoO
+ RA4Dy29W6UVCNnoEpGazrP3wSYDuXM0MKSr4DTuPVc3ymMWfhDZE07yLNKb50BpR3TYK
+ uJrw==
+X-Gm-Message-State: AOAM533eoHbJn/trK1YSAse2O56mWw/Hjv8dBDiZeiAF9oi/jUl98na3
+ SOEfjb+xElW/SyyreH++C3M=
+X-Google-Smtp-Source: ABdhPJyAQ4VkWnOAPEG5PLgarqePcKFXVE3H6wvYktaF7HFAiMM69PPW+UGKmWj0ZrV//9ixqNoBiQ==
+X-Received: by 2002:a05:6512:3610:: with SMTP id
+ f16mr6743780lfs.8.1598430276088; 
+ Wed, 26 Aug 2020 01:24:36 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id l3sm337969lji.115.2020.08.26.01.24.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Aug 2020 01:24:35 -0700 (PDT)
+Date: Wed, 26 Aug 2020 11:24:23 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/dc: Require primary plane to be enabled
+ whenever the CRTC is
+Message-ID: <20200826112423.6a8637a2@eldfell>
+In-Reply-To: <15b4eb58-a51b-b2fd-f51d-1576d50914cc@amd.com>
+References: <20200821165758.1106210-1-michel@daenzer.net>
+ <58dc5ed0-307e-74c9-1a8b-1e998be04900@amd.com>
+ <91391bb3-a855-1a29-2d2e-a31856c99946@daenzer.net>
+ <15b4eb58-a51b-b2fd-f51d-1576d50914cc@amd.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2533.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41150bb5-b98b-43a2-2f35-08d849985e15
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2020 08:16:43.4698 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fKknZm4/3Xgf1hu0UVkTxp7C5T/LyUQh+Gq6alhdpfp40CAIt7EEp6FKtMXOSifv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0233
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,52 +82,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Leo Li <sunpeng.li@amd.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1082790333=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+--===============1082790333==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG"; protocol="application/pgp-signature"
+
+--Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 25 Aug 2020 12:58:19 -0400
+"Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
+
+> On 2020-08-22 5:59 a.m., Michel D=C3=A4nzer wrote:
+> > On 2020-08-21 8:07 p.m., Kazlauskas, Nicholas wrote: =20
+> >> On 2020-08-21 12:57 p.m., Michel D=C3=A4nzer wrote: =20
+> >>> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> >>>
+> >>> Don't check drm_crtc_state::active for this either, per its
+> >>> documentation in include/drm/drm_crtc.h:
+> >>>
+> >>>  =C2=A0 * Hence drivers must not consult @active in their various
+> >>>  =C2=A0 * &drm_mode_config_funcs.atomic_check callback to reject an a=
+tomic
+> >>>  =C2=A0 * commit.
+> >>>
+> >>> The atomic helpers disable the CRTC as needed for disabling the prima=
+ry
+> >>> plane.
+> >>>
+> >>> This prevents at least the following problems if the primary plane ge=
+ts
+> >>> disabled (e.g. due to destroying the FB assigned to the primary plane,
+> >>> as happens e.g. with mutter in Wayland mode):
+> >>>
+> >>> * Toggling CRTC active to 1 failed if the cursor plane was enabled
+> >>>  =C2=A0=C2=A0 (e.g. via legacy DPMS property & cursor ioctl).
+> >>> * Enabling the cursor plane failed, e.g. via the legacy cursor ioctl.=
+ =20
+> >>
+> >> We previously had the requirement that the primary plane must be enabl=
+ed
+> >> but some userspace expects that they can enable just the overlay plane
+> >> without anything else.
+> >>
+> >> I think the chromuiumos atomictest validates that this works as well:
+> >>
+> >> So is DRM going forward then with the expectation that this is wrong
+> >> behavior from userspace?
+> >>
+> >> We require at least one plane to be enabled to display a cursor, but it
+> >> doesn't necessarily need to be the primary. =20
+> >=20
+> > It's a "pick your poison" situation:
+> >=20
+> > 1) Currently the checks are invalid (atomic_check must not decide based
+> > on drm_crtc_state::active), and it's easy for legacy KMS userspace to
+> > accidentally hit errors trying to enable/move the cursor or switch DPMS
+> > off =E2=86=92 on.
+> >=20
+> > 2) Accurately rejecting only atomic states where the cursor plane is
+> > enabled but all other planes are off would break the KMS helper code,
+> > which can only deal with the "CRTC on & primary plane off is not
+> > allowed" case specifically.
+> >=20
+> > 3) This patch addresses 1) & 2) but may break existing atomic userspace
+> > which wants to enable an overlay plane while disabling the primary plan=
+e.
+> >=20
+> >=20
+> > I do think in principle atomic userspace is expected to handle case 3)
+> > and leave the primary plane enabled. However, this is not ideal from an
+> > energy consumption PoV. Therefore, here's another idea for a possible
+> > way out of this quagmire:
+> >=20
+> > amdgpu_dm does not reject any atomic states based on which planes are
+> > enabled in it. If the cursor plane is enabled but all other planes are
+> > off, amdgpu_dm internally either:
+> >=20
+> > a) Enables an overlay plane and makes it invisible, e.g. by assigning a
+> > minimum size FB with alpha =3D 0.
+> >=20
+> > b) Enables the primary plane and assigns a minimum size FB (scaled up to
+> > the required size) containing all black, possibly using compression.
+> > (Trying to minimize the memory bandwidth)
+> >=20
+> >=20
+> > Does either of these seem feasible? If both do, which one would be
+> > preferable?
+> >=20
+> >  =20
+>=20
+> It's really the same solution since DCN doesn't make a distinction=20
+> between primary or overlay planes in hardware. DCE doesn't have overlay=20
+> planes enabled so this is not relevant there.
+>=20
+> The old behavior (pre 5.1?) was to silently accept the commit even=20
+> though the screen would be completely black instead of outright=20
+> rejecting the commit.
+>=20
+> I almost wonder if that makes more sense in the short term here since=20
+> the only "userspace" affected here is IGT. We'll fail the CRC checks,=20
+> but no userspace actually tries to actively use a cursor with no primary=
+=20
+> plane enabled from my understanding.
+
+Hi,
+
+I believe that there exists userspace that will *accidentally* attempt
+to update the cursor plane while primary plane or whole CRTC is off.
+Some versions of Mutter might do that on racy conditions, I suspect.
+These are legacy KMS users, not atomic KMS.
+
+However, I do not believe there exists any userspace that would
+actually expect the display to show the cursor plane alone without a
+primary plane. Therefore I'd be ok with legacy cursor ioctls silently
+succeeding. Atomic commits not. So the difference has to be in the
+translation from legacy UAPI to kernel internal atomic interface.
+
+> In the long term I think we can work on getting cursor actually on the=20
+> screen in this case, though I can't say I really like having to reserve=20
+> some small buffer (eg. 16x16) for allowing lightup on this corner case.
+
+Why would you bother implementing that?
+
+Is there really an IGT test that unconditionally demands cursor plane
+to be usable without any other planes?
 
 
-Reviewed-by: Dennis Li <Dennis.Li@amd.com>
+Thanks,
+pq
 
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com> 
-Sent: Wednesday, August 26, 2020 3:53 PM
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: correct SE number for arcturus gfx ras
+--Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-Arcturus GFX has 8 SEs and 16 CUs per SE, so when resetting EDC related register, all CUs needs to be visited, otherwise, garbage data from EDC regisger of missed SEs would present.
+-----BEGIN PGP SIGNATURE-----
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl9GHDcACgkQI1/ltBGq
+qqc2RQ//Vklg+9Jw32uLDkbWZT484poN+2/opcHURbpEiCSBlOHXRfrW683Kh81V
+rLoXEurm7Lwy3pmNI4hwtTh/pdWSeyxggds35CKfpuuf99CNRwix8xNC3I7gOxYy
+LYRP4LA0EwlzDxnuOurhjSu2W22fzzQ+NbAn9ntbNe06vwCjUJOeNq9ffXwp8EWy
+ApvXbPobBBcH+krl6VcRWeaCD+Wi3SuEGhGSECdo3M17sV4jgBpyShdoci+CBlxO
+78m0tEGmHE+wh6FflXV+NOyemNB8fAHsBAqisx8tDUF5rYhUKCppB2CqRYZPjPex
+rLCtUfMqPHLY8c4HcjnVKtnHpgZt++NGuOqJiDE91aoE5GJpDF1YAtlqMvwQ8k7l
+DJFyPdhBhHBx9A8F+GujK4ypMeQuJU+uH+sD9UNp9G5EP1ZQ6CvlpAcVsK0VpJd3
+VkQ0IwkpEftahTY2Yl2b3rXvmR9srnEnLbeLzCFAFbR1z2QeHIAQ3Xf1ynrFa9bV
+bAJuRBBKM+uFa3iun405tBOLsUeMIUayTaoRY07YJMBFBd9NqXEK/azf8sRvlryb
+Os3qsTPAnjhWiB9QGtbIYD2wfcDP6IN1EK2iEn1r+H+b/aLxv4YRFBJeQjqsPpUy
+hYqXMdXPlDP+Czr+43PhO7paraPKbCo7okTfJNlyf4Zlifnbn3U=
+=2LVE
+-----END PGP SIGNATURE-----
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-index 46351db36922..bd85aed3523a 100755
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-@@ -57,10 +57,10 @@ static const struct soc15_reg_entry gfx_v9_4_edc_counter_regs[] = {
- 	/* SPI */
- 	{ SOC15_REG_ENTRY(GC, 0, mmSPI_EDC_CNT), 0, 4, 1 },
- 	/* SQ */
--	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_CNT), 0, 4, 16 },
--	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_DED_CNT), 0, 4, 16 },
--	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_INFO), 0, 4, 16 },
--	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_SEC_CNT), 0, 4, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_CNT), 0, 8, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_DED_CNT), 0, 8, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_INFO), 0, 8, 16 },
-+	{ SOC15_REG_ENTRY(GC, 0, mmSQ_EDC_SEC_CNT), 0, 8, 16 },
- 	/* SQC */
- 	{ SOC15_REG_ENTRY(GC, 0, mmSQC_EDC_CNT), 0, 4, 6 },
- 	{ SOC15_REG_ENTRY(GC, 0, mmSQC_EDC_CNT2), 0, 4, 6 },
---
-2.17.1
+--Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG--
+
+--===============1082790333==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1082790333==--
