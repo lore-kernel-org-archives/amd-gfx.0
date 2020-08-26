@@ -2,75 +2,67 @@ Return-Path: <SRS0=g3tc=CE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DD3CC433E1
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DDF9EC433E3
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD3C9206FA
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:24:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ADF7F206FA
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 08:29:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tP5Q+Auy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD3C9206FA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nbhLuHC4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADF7F206FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC6A96EA35;
-	Wed, 26 Aug 2020 08:24:38 +0000 (UTC)
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0C1F6E103;
- Wed, 26 Aug 2020 08:24:37 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id v12so494342lfo.13;
- Wed, 26 Aug 2020 01:24:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2C276EA05;
+	Wed, 26 Aug 2020 08:29:45 +0000 (UTC)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561D56E0E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 08:29:44 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id mt12so548342pjb.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 01:29:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=3Ipj/II5VYl9n/n1H5gkxgubI6iQKx/PZUESvR4EHeo=;
- b=tP5Q+AuytDC4hyZW/DV8n8gFPqVq9qo4k8NpN63MWucwusCKjFjciwL4mHwr3N/f/b
- xYm/oQOB+7rkjJt5leFbJTPbsbZzcKQC10OzFoIqFk5kwtfom/D4tnEdqXago2GecNAY
- uv66WrJ0oRqGqzkSuYbmMHwJ8u778UQ6cdCRLkS5ZmTXY7EcEc6pykbm3zSiJ5KZWUqU
- yb4fBNhncZWH8SuxhgN2AZAbOMWZ6/km82d5RpB3RTU8WNGbLdURCPuArZ4uhWnicvWX
- L/XijxV57CADUnCN02OkBitdxKUxEUEiZVeW3IopRG3roS5FkE3WXT0xQVg/RkmFMoVz
- XTaA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aeW7wBZWZfuCRDPaIAoh9dQimxGhWguqZpvDABTyzRE=;
+ b=nbhLuHC4bDxBygmBiD6xkbOiKPb7aapHXldEgSyQsNjdCj4eBrWfCc6w1hfKi3blly
+ crV/6oyNO1EgupBi/OMdisCDF9TzztgRAEetn6KQdEOid+usiAmp6XvaNe+LBKgAYBuW
+ y9+uo5xB0shaApOHXJOwdbdnwZWCY5oRRo2kmqFLZ5Fy+SE0m6ifg3VMIRTI5XSkHETu
+ 2O2yXiYusnYHHImSP6WHLa8vKT9Pq2CwF27sj4eNKAzHCODIhmcWecW6ia+1AthvBCe6
+ 9+3zymXonkzNYYKnlMXjfGECJW2AOak3DgQnQw8/UJHiJVF0iccN2qAoSA1B7Pv5rkUQ
+ Jr0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=3Ipj/II5VYl9n/n1H5gkxgubI6iQKx/PZUESvR4EHeo=;
- b=lS9Gf/VyhzFi2HvgGwhwrApVC+t/FGN8xGImLXaR0QVKJPfhjCNPgT5dbobLG7GrKz
- rlMnMee7odg3kfloYSRn8SR0Jt5YkBmRJCn6FfCQ4EJGtd3cVGMytyOg4Bnrj7CLuJHy
- BNNF26CAdj8QTEqgNVqBOEcRLubta3Pr6kkpGhv+aaJVdYGY2sheEgxDQEVxRkzejlXD
- zNfKPPll1CQarIYVrT0eaHWWP2RhhpvVDdEvoSZStC1TDiKIxqJaB3MBQVmca/dqCCoO
- RA4Dy29W6UVCNnoEpGazrP3wSYDuXM0MKSr4DTuPVc3ymMWfhDZE07yLNKb50BpR3TYK
- uJrw==
-X-Gm-Message-State: AOAM533eoHbJn/trK1YSAse2O56mWw/Hjv8dBDiZeiAF9oi/jUl98na3
- SOEfjb+xElW/SyyreH++C3M=
-X-Google-Smtp-Source: ABdhPJyAQ4VkWnOAPEG5PLgarqePcKFXVE3H6wvYktaF7HFAiMM69PPW+UGKmWj0ZrV//9ixqNoBiQ==
-X-Received: by 2002:a05:6512:3610:: with SMTP id
- f16mr6743780lfs.8.1598430276088; 
- Wed, 26 Aug 2020 01:24:36 -0700 (PDT)
-Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id l3sm337969lji.115.2020.08.26.01.24.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2020 01:24:35 -0700 (PDT)
-Date: Wed, 26 Aug 2020 11:24:23 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/dc: Require primary plane to be enabled
- whenever the CRTC is
-Message-ID: <20200826112423.6a8637a2@eldfell>
-In-Reply-To: <15b4eb58-a51b-b2fd-f51d-1576d50914cc@amd.com>
-References: <20200821165758.1106210-1-michel@daenzer.net>
- <58dc5ed0-307e-74c9-1a8b-1e998be04900@amd.com>
- <91391bb3-a855-1a29-2d2e-a31856c99946@daenzer.net>
- <15b4eb58-a51b-b2fd-f51d-1576d50914cc@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aeW7wBZWZfuCRDPaIAoh9dQimxGhWguqZpvDABTyzRE=;
+ b=nzXRWCvfUDbJYNmwmkLIoGfMzQcAWJwuQiGIxv2KN7oN+1AObIRhAJdC7ljyTMN5vz
+ U44y3yTntSkdzsPd/k8v9WhhpJEvmu7kQ4b3VxwDGW1SaSt9nF44vDIlqtRF51ieloJQ
+ TEQrDMZ5vW6NnZSo9JWDyVXfrdgiRrUC3BOfcqsjKM2e+oxP9pzg15Zebgnz0YLSo1rw
+ almUAHZ+6kcNEwQZ+ackSoZc3xIpSJsPpvs85F+V0dl+1xmzDri+4Wq1TXV2HpuZlNz/
+ 1ktX+gmDnZXiXIT8l9yzz/w6XL073Xfj8urwJJW5foxTqlekmhEDTlzCeQr+/XdoRBV9
+ 5c4w==
+X-Gm-Message-State: AOAM533YJQBlfubBg2uJiQo7+AWwR4Wju3vbWXcMFkM9l+5IOEOj5Up5
+ 2OzpPgbzXI60QADCLwsPa0JpC8sFOBsm2uXtgcOgUpl9
+X-Google-Smtp-Source: ABdhPJzXXW/t46whfwO2zHe6J8TS9/XNnvTVNnTYZTb9ZiIo2Yj4KKhSRlfiSLV48pMnBXA5krHUVbnJCyuzotFgmcs=
+X-Received: by 2002:a17:90a:a081:: with SMTP id
+ r1mr5041040pjp.115.1598430583958; 
+ Wed, 26 Aug 2020 01:29:43 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200825191223.7795-1-mukul.joshi@amd.com>
+In-Reply-To: <20200825191223.7795-1-mukul.joshi@amd.com>
+From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius@gmail.com>
+Date: Wed, 26 Aug 2020 10:29:32 +0200
+Message-ID: <CA+nq7Ds2Xr63Bk_SGiaaFbeT+JzwTwyP=143s=_q4T+zTao2qA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Add GPU reset SMI event
+To: Mukul Joshi <mukul.joshi@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,167 +74,327 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1082790333=="
+Cc: felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0474567229=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1082790333==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG"; protocol="application/pgp-signature"
+--===============0474567229==
+Content-Type: multipart/alternative; boundary="00000000000027ae9a05adc39fc4"
 
---Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG
-Content-Type: text/plain; charset=UTF-8
+--00000000000027ae9a05adc39fc4
+Content-Type: text/plain; charset="UTF-8"
+
+Hi, see inline comment below.
+
+Den tis 25 aug. 2020 21:12Mukul Joshi <mukul.joshi@amd.com> skrev:
+
+> Add support for reporting GPU reset events through SMI. KFD
+> would report both pre and post GPU reset events.
+>
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c     |  4 +++
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h       |  2 ++
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 30 +++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |  1 +
+>  include/uapi/linux/kfd_ioctl.h              |  2 ++
+>  5 files changed, 39 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index e1cd6599529f..aad1ecfa1239 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -812,6 +812,8 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
+>         if (!kfd->init_complete)
+>                 return 0;
+>
+> +       kfd_smi_event_update_gpu_reset(kfd, false);
+> +
+>         kfd->dqm->ops.pre_reset(kfd->dqm);
+>
+>         kgd2kfd_suspend(kfd, false);
+> @@ -833,6 +835,8 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+>         if (!kfd->init_complete)
+>                 return 0;
+>
+> +       kfd_smi_event_update_gpu_reset(kfd, true);
+> +
+>         ret = kfd_resume(kfd);
+>         if (ret)
+>                 return ret;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 18bc711f97ae..b1a2979e086f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -312,6 +312,8 @@ struct kfd_dev {
+>         /* Clients watching SMI events */
+>         struct list_head smi_clients;
+>         spinlock_t smi_lock;
+> +
+> +       uint64_t reset_seq_num;
+>  };
+>
+>  enum kfd_mempool {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> index 4d4b6e3ab697..448abfdde230 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -174,6 +174,36 @@ static void add_event_to_kfifo(struct kfd_dev *dev,
+> unsigned int smi_event,
+>         rcu_read_unlock();
+>  }
+>
+> +void kfd_smi_event_update_gpu_reset(struct kfd_dev *dev, bool post_reset)
+> +{
+> +       /*
+> +        * GpuReset msg = Reset seq number (incremented for
+> +        * every reset message sent before GPU reset).
+> +        * 1 byte event + 1 byte space + 16 bytes seq num +
+> +        * 1 byte \n + 1 byte \0 = 20
+> +        */
+> +       char fifo_in[20];
+> +       int len;
+> +       unsigned int event;
+> +
+> +       if (list_empty(&dev->smi_clients)) {
+> +               return;
+> +       }
+> +
+> +       memset(fifo_in, 0x0, sizeof(fifo_in));
+> +
+> +       if (post_reset) {
+> +               event = KFD_SMI_EVENT_GPU_POST_RESET;
+> +       } else {
+> +               event = KFD_SMI_EVENT_GPU_PRE_RESET;
+> +               ++(dev->reset_seq_num);
+> +       }
+> +
+> +       len = snprintf(fifo_in, 4, "%x %llx\n", event, dev->reset_seq_num);
+>
+
+I think the 4 will cause truncation of the message here.
+
+Regards
+Nils
+
++
+> +       add_event_to_kfifo(dev, event, fifo_in, len);
+> +}
+> +
+>  void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
+>                                              uint32_t throttle_bitmask)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+> b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+> index 15537b2cccb5..b9b0438202e2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+> @@ -27,5 +27,6 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t
+> *fd);
+>  void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid);
+>  void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,
+>                                              uint32_t throttle_bitmask);
+> +void kfd_smi_event_update_gpu_reset(struct kfd_dev *dev, bool post_reset);
+>
+>  #endif
+> diff --git a/include/uapi/linux/kfd_ioctl.h
+> b/include/uapi/linux/kfd_ioctl.h
+> index cb1f963a84e0..8b7368bfbd84 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -453,6 +453,8 @@ enum kfd_smi_event {
+>          KFD_SMI_EVENT_NONE = 0, /* not used */
+>          KFD_SMI_EVENT_VMFAULT = 1, /* event start counting at 1 */
+>          KFD_SMI_EVENT_THERMAL_THROTTLE = 2,
+> +       KFD_SMI_EVENT_GPU_PRE_RESET = 3,
+> +       KFD_SMI_EVENT_GPU_POST_RESET = 4,
+>  };
+>
+>  #define KFD_SMI_EVENT_MASK_FROM_INDEX(i) (1ULL << ((i) - 1))
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--00000000000027ae9a05adc39fc4
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 25 Aug 2020 12:58:19 -0400
-"Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
+<div dir=3D"auto"><div>Hi, see inline comment below.<br><br><div class=3D"g=
+mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Den tis 25 aug. 2020 21:1=
+2Mukul Joshi &lt;<a href=3D"mailto:mukul.joshi@amd.com">mukul.joshi@amd.com=
+</a>&gt; skrev:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Add support for rep=
+orting GPU reset events through SMI. KFD<br>
+would report both pre and post GPU reset events.<br>
+<br>
+Signed-off-by: Mukul Joshi &lt;<a href=3D"mailto:mukul.joshi@amd.com" targe=
+t=3D"_blank" rel=3D"noreferrer">mukul.joshi@amd.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_device.c=C2=A0 =C2=A0 =C2=A0|=C2=A0 4 =
++++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_priv.h=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
+=A0 2 ++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 30 ++++++++++++++++++++=
++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h |=C2=A0 1 +<br>
+=C2=A0include/uapi/linux/kfd_ioctl.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 |=C2=A0 2 ++<br>
+=C2=A05 files changed, 39 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c<br>
+index e1cd6599529f..aad1ecfa1239 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+@@ -812,6 +812,8 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!kfd-&gt;init_complete)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0kfd_smi_event_update_gpu_reset(kfd, false);<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kfd-&gt;dqm-&gt;ops.pre_reset(kfd-&gt;dqm);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kgd2kfd_suspend(kfd, false);<br>
+@@ -833,6 +835,8 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!kfd-&gt;init_complete)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0kfd_smi_event_update_gpu_reset(kfd, true);<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D kfd_resume(kfd);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
+dkfd/kfd_priv.h<br>
+index 18bc711f97ae..b1a2979e086f 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+@@ -312,6 +312,8 @@ struct kfd_dev {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Clients watching SMI events */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct list_head smi_clients;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 spinlock_t smi_lock;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t reset_seq_num;<br>
+=C2=A0};<br>
+<br>
+=C2=A0enum kfd_mempool {<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/=
+amd/amdkfd/kfd_smi_events.c<br>
+index 4d4b6e3ab697..448abfdde230 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c<br>
+@@ -174,6 +174,36 @@ static void add_event_to_kfifo(struct kfd_dev *dev, un=
+signed int smi_event,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 rcu_read_unlock();<br>
+=C2=A0}<br>
+<br>
++void kfd_smi_event_update_gpu_reset(struct kfd_dev *dev, bool post_reset)<=
+br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * GpuReset msg =3D Reset seq number (increment=
+ed for<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * every reset message sent before GPU reset).<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * 1 byte event + 1 byte space + 16 bytes seq n=
+um +<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * 1 byte \n + 1 byte \0 =3D 20<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char fifo_in[20];<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int len;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int event;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (list_empty(&amp;dev-&gt;smi_clients)) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0memset(fifo_in, 0x0, sizeof(fifo_in));<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (post_reset) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0event =3D KFD_SMI_E=
+VENT_GPU_POST_RESET;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0event =3D KFD_SMI_E=
+VENT_GPU_PRE_RESET;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0++(dev-&gt;reset_se=
+q_num);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0len =3D snprintf(fifo_in, 4, &quot;%x %llx\n&qu=
+ot;, event, dev-&gt;reset_seq_num);<br></blockquote></div></div><div dir=3D=
+"auto"><br></div><div dir=3D"auto">I think the 4 will cause truncation of t=
+he message here.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Regards=
+</div><div dir=3D"auto">Nils</div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0add_event_to_kfifo(dev, event, fifo_in, len);<b=
+r>
++}<br>
++<br>
+=C2=A0void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0uint32_t throttle_bitmask)<br>
+=C2=A0{<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/=
+amd/amdkfd/kfd_smi_events.h<br>
+index 15537b2cccb5..b9b0438202e2 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h<br>
+@@ -27,5 +27,6 @@ int kfd_smi_event_open(struct kfd_dev *dev, uint32_t *fd)=
+;<br>
+=C2=A0void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid=
+);<br>
+=C2=A0void kfd_smi_event_update_thermal_throttling(struct kfd_dev *dev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0uint32_t throttle_bitmask);<br>
++void kfd_smi_event_update_gpu_reset(struct kfd_dev *dev, bool post_reset);=
+<br>
+<br>
+=C2=A0#endif<br>
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.=
+h<br>
+index cb1f963a84e0..8b7368bfbd84 100644<br>
+--- a/include/uapi/linux/kfd_ioctl.h<br>
++++ b/include/uapi/linux/kfd_ioctl.h<br>
+@@ -453,6 +453,8 @@ enum kfd_smi_event {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0KFD_SMI_EVENT_NONE =3D 0, /* not used */<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0KFD_SMI_EVENT_VMFAULT =3D 1, /* event sta=
+rt counting at 1 */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0KFD_SMI_EVENT_THERMAL_THROTTLE =3D 2,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0KFD_SMI_EVENT_GPU_PRE_RESET =3D 3,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0KFD_SMI_EVENT_GPU_POST_RESET =3D 4,<br>
+=C2=A0};<br>
+<br>
+=C2=A0#define KFD_SMI_EVENT_MASK_FROM_INDEX(i) (1ULL &lt;&lt; ((i) - 1))<br=
+>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank" rel=3D"n=
+oreferrer">amd-gfx@lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailm=
+an/listinfo/amd-gfx</a><br>
+</blockquote></div></div></div>
 
-> On 2020-08-22 5:59 a.m., Michel D=C3=A4nzer wrote:
-> > On 2020-08-21 8:07 p.m., Kazlauskas, Nicholas wrote: =20
-> >> On 2020-08-21 12:57 p.m., Michel D=C3=A4nzer wrote: =20
-> >>> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> >>>
-> >>> Don't check drm_crtc_state::active for this either, per its
-> >>> documentation in include/drm/drm_crtc.h:
-> >>>
-> >>>  =C2=A0 * Hence drivers must not consult @active in their various
-> >>>  =C2=A0 * &drm_mode_config_funcs.atomic_check callback to reject an a=
-tomic
-> >>>  =C2=A0 * commit.
-> >>>
-> >>> The atomic helpers disable the CRTC as needed for disabling the prima=
-ry
-> >>> plane.
-> >>>
-> >>> This prevents at least the following problems if the primary plane ge=
-ts
-> >>> disabled (e.g. due to destroying the FB assigned to the primary plane,
-> >>> as happens e.g. with mutter in Wayland mode):
-> >>>
-> >>> * Toggling CRTC active to 1 failed if the cursor plane was enabled
-> >>>  =C2=A0=C2=A0 (e.g. via legacy DPMS property & cursor ioctl).
-> >>> * Enabling the cursor plane failed, e.g. via the legacy cursor ioctl.=
- =20
-> >>
-> >> We previously had the requirement that the primary plane must be enabl=
-ed
-> >> but some userspace expects that they can enable just the overlay plane
-> >> without anything else.
-> >>
-> >> I think the chromuiumos atomictest validates that this works as well:
-> >>
-> >> So is DRM going forward then with the expectation that this is wrong
-> >> behavior from userspace?
-> >>
-> >> We require at least one plane to be enabled to display a cursor, but it
-> >> doesn't necessarily need to be the primary. =20
-> >=20
-> > It's a "pick your poison" situation:
-> >=20
-> > 1) Currently the checks are invalid (atomic_check must not decide based
-> > on drm_crtc_state::active), and it's easy for legacy KMS userspace to
-> > accidentally hit errors trying to enable/move the cursor or switch DPMS
-> > off =E2=86=92 on.
-> >=20
-> > 2) Accurately rejecting only atomic states where the cursor plane is
-> > enabled but all other planes are off would break the KMS helper code,
-> > which can only deal with the "CRTC on & primary plane off is not
-> > allowed" case specifically.
-> >=20
-> > 3) This patch addresses 1) & 2) but may break existing atomic userspace
-> > which wants to enable an overlay plane while disabling the primary plan=
-e.
-> >=20
-> >=20
-> > I do think in principle atomic userspace is expected to handle case 3)
-> > and leave the primary plane enabled. However, this is not ideal from an
-> > energy consumption PoV. Therefore, here's another idea for a possible
-> > way out of this quagmire:
-> >=20
-> > amdgpu_dm does not reject any atomic states based on which planes are
-> > enabled in it. If the cursor plane is enabled but all other planes are
-> > off, amdgpu_dm internally either:
-> >=20
-> > a) Enables an overlay plane and makes it invisible, e.g. by assigning a
-> > minimum size FB with alpha =3D 0.
-> >=20
-> > b) Enables the primary plane and assigns a minimum size FB (scaled up to
-> > the required size) containing all black, possibly using compression.
-> > (Trying to minimize the memory bandwidth)
-> >=20
-> >=20
-> > Does either of these seem feasible? If both do, which one would be
-> > preferable?
-> >=20
-> >  =20
->=20
-> It's really the same solution since DCN doesn't make a distinction=20
-> between primary or overlay planes in hardware. DCE doesn't have overlay=20
-> planes enabled so this is not relevant there.
->=20
-> The old behavior (pre 5.1?) was to silently accept the commit even=20
-> though the screen would be completely black instead of outright=20
-> rejecting the commit.
->=20
-> I almost wonder if that makes more sense in the short term here since=20
-> the only "userspace" affected here is IGT. We'll fail the CRC checks,=20
-> but no userspace actually tries to actively use a cursor with no primary=
-=20
-> plane enabled from my understanding.
+--00000000000027ae9a05adc39fc4--
 
-Hi,
-
-I believe that there exists userspace that will *accidentally* attempt
-to update the cursor plane while primary plane or whole CRTC is off.
-Some versions of Mutter might do that on racy conditions, I suspect.
-These are legacy KMS users, not atomic KMS.
-
-However, I do not believe there exists any userspace that would
-actually expect the display to show the cursor plane alone without a
-primary plane. Therefore I'd be ok with legacy cursor ioctls silently
-succeeding. Atomic commits not. So the difference has to be in the
-translation from legacy UAPI to kernel internal atomic interface.
-
-> In the long term I think we can work on getting cursor actually on the=20
-> screen in this case, though I can't say I really like having to reserve=20
-> some small buffer (eg. 16x16) for allowing lightup on this corner case.
-
-Why would you bother implementing that?
-
-Is there really an IGT test that unconditionally demands cursor plane
-to be usable without any other planes?
-
-
-Thanks,
-pq
-
---Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl9GHDcACgkQI1/ltBGq
-qqc2RQ//Vklg+9Jw32uLDkbWZT484poN+2/opcHURbpEiCSBlOHXRfrW683Kh81V
-rLoXEurm7Lwy3pmNI4hwtTh/pdWSeyxggds35CKfpuuf99CNRwix8xNC3I7gOxYy
-LYRP4LA0EwlzDxnuOurhjSu2W22fzzQ+NbAn9ntbNe06vwCjUJOeNq9ffXwp8EWy
-ApvXbPobBBcH+krl6VcRWeaCD+Wi3SuEGhGSECdo3M17sV4jgBpyShdoci+CBlxO
-78m0tEGmHE+wh6FflXV+NOyemNB8fAHsBAqisx8tDUF5rYhUKCppB2CqRYZPjPex
-rLCtUfMqPHLY8c4HcjnVKtnHpgZt++NGuOqJiDE91aoE5GJpDF1YAtlqMvwQ8k7l
-DJFyPdhBhHBx9A8F+GujK4ypMeQuJU+uH+sD9UNp9G5EP1ZQ6CvlpAcVsK0VpJd3
-VkQ0IwkpEftahTY2Yl2b3rXvmR9srnEnLbeLzCFAFbR1z2QeHIAQ3Xf1ynrFa9bV
-bAJuRBBKM+uFa3iun405tBOLsUeMIUayTaoRY07YJMBFBd9NqXEK/azf8sRvlryb
-Os3qsTPAnjhWiB9QGtbIYD2wfcDP6IN1EK2iEn1r+H+b/aLxv4YRFBJeQjqsPpUy
-hYqXMdXPlDP+Czr+43PhO7paraPKbCo7okTfJNlyf4Zlifnbn3U=
-=2LVE
------END PGP SIGNATURE-----
-
---Sig_/IhHeS0+PZZ/b_0Qj=e1ITzG--
-
---===============1082790333==
+--===============0474567229==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -253,4 +405,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1082790333==--
+--===============0474567229==--
