@@ -2,65 +2,52 @@ Return-Path: <SRS0=g3tc=CE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81FF6C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 428DFC433E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:54:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 53EE320707
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:45:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 18007221E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:54:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HGuzgciR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53EE320707
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGzfb6MU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18007221E2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17A5C6EA9A;
-	Wed, 26 Aug 2020 13:45:25 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF086EA97;
- Wed, 26 Aug 2020 13:45:24 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id a5so1859859wrm.6;
- Wed, 26 Aug 2020 06:45:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=++y7/K31LPJngXEb//+paNGMvF79bvnqTxG0ZZl/pyQ=;
- b=HGuzgciRBqpk93tftVYp8/pBWAnJfTd05f9qK3uR5cedrE8qBeZeUKfSEBopDI/bkD
- jJKkw1KbGfmLS6eMSwn8soRusFl+v6czYv98W0Ac6ECtjnskM06BuG+216I+UXiXtNU5
- T0zajnuQOPLN6rub/ottCNDWzAHNI4ij/mLWAmprx2S+85WDSuQgaRraBPNdJR2bVtEF
- hriV2QK/gcK0aANLnSoi+J5WDdySEFXC/kyGGq1W3uEoHnRp4dp+rVORfMByABi/ldwN
- 07rEoKOqiZ0HAnlveDS/DYiI6ukKAKfPzEHlwPMTz9zwVfhTzl4fgK5KczRbvpzpJH2l
- cFFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=++y7/K31LPJngXEb//+paNGMvF79bvnqTxG0ZZl/pyQ=;
- b=JII61rX3+qAszpNovkOZi7IHH2Q/wwSO0ETnfUj/sK8zSZ2KlxzwpvlubbAsyC2RRS
- nGWtT0X1ZjLYoX50E9/j5Pm/4npR1t+2AlrrNlG73pc6Bom51VfVB2r0bck3XGYahOQv
- 94flW/hkgunxRpRxqxF/qPPD9D7nSX6LPcs1za7GlPg71UR/3sVY+I9FjHTDxEm2QRjS
- h6llRfOZnyu+J4T770KyY7SbqCPYG5k4zpQsxJax7uZfAANRN5TZYv3SwbT/xbzRDID/
- BTMJ7wtJulHUEZBbPE5GnCXJgGpuxy3NFJRIy9EXoZ5fjtyiIx7n7OyeOPe8TZbBfXt8
- Jtfg==
-X-Gm-Message-State: AOAM533CO5e/ojJBWwywU+il6dh6d+K4OPsuqnQ2J7q7s7Z54aBEqMG/
- lucUn/XPfhbsw8+/2oyYPdC4ALmaclSSSwnqPAI=
-X-Google-Smtp-Source: ABdhPJyWLZf68RNxOWOSnhdQdEdsARIS1o2p7/AZSaEeiSmSPPJ3xUskhAhaxBnxVSxkyAMdrF4A8Zw/JIKcxfqlQNw=
-X-Received: by 2002:a5d:6085:: with SMTP id w5mr15374902wrt.362.1598449522813; 
- Wed, 26 Aug 2020 06:45:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200826132501.11564-1-dinghao.liu@zju.edu.cn>
-In-Reply-To: <20200826132501.11564-1-dinghao.liu@zju.edu.cn>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Aug 2020 09:45:11 -0400
-Message-ID: <CADnq5_NxEGXboksEV61XpixU+Vwj8q9A=cTvz_-BeapwN59+Mw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix memleak in amdgpu_dm_mode_config_init
-To: Dinghao Liu <dinghao.liu@zju.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B19F96EA93;
+	Wed, 26 Aug 2020 13:54:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB696EA93
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:54:01 +0000 (UTC)
+Received: from localhost (unknown [70.37.104.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AA46B208E4;
+ Wed, 26 Aug 2020 13:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598450040;
+ bh=DWANWOdqFDKadvNTwEolzEOYV0PXcTUKWzNlhcmRJcg=;
+ h=Date:From:To:To:To:To:CC:Cc:Cc:Subject:In-Reply-To:References:
+ From;
+ b=mGzfb6MUy4qIWd4B3uAa/BQzKbc4AA103KqVFWJDl0VccyMHe/jmYWvBPXdYos5R2
+ ZqOO/edmcSM+5feN5DQwkgGhhCETRLQ8IdK0ZIcpzbLgoHPG+WYaHUSVrdcvr9rOAw
+ OsPyhHDKOUSqc/Y+edeTs2YbN9hx9k7++9HSjDXI=
+Date: Wed, 26 Aug 2020 13:54:00 +0000
+From: Sasha Levin <sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+To: Qingqing Zhuo <qingqing.zhuo@amd.com>
+To: Stylon Wang <stylon.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 8/9] drm/amd/display: Fix EDID parsing after resume from
+ suspend
+In-Reply-To: <20200805174058.11736-9-qingqing.zhuo@amd.com>
+References: <20200805174058.11736-9-qingqing.zhuo@amd.com>
+Message-Id: <20200826135400.AA46B208E4@mail.kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,70 +59,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Kangjie Lu <kjlu@umn.edu>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Roman Li <roman.li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, stable@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Hi
 
-Alex
+[This is an automated email]
 
-On Wed, Aug 26, 2020 at 9:37 AM Dinghao Liu <dinghao.liu@zju.edu.cn> wrote:
->
-> When amdgpu_display_modeset_create_props() fails, state and
-> state->context should be freed to prevent memleak. It's the
-> same when amdgpu_dm_audio_init() fails.
->
-> Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index df9338257ae0..2476e40c67ef 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2834,12 +2834,18 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
->                                     &dm_atomic_state_funcs);
->
->         r = amdgpu_display_modeset_create_props(adev);
-> -       if (r)
-> +       if (r) {
-> +               dc_release_state(state->context);
-> +               kfree(state);
->                 return r;
-> +       }
->
->         r = amdgpu_dm_audio_init(adev);
-> -       if (r)
-> +       if (r) {
-> +               dc_release_state(state->context);
-> +               kfree(state);
->                 return r;
-> +       }
->
->         return 0;
->  }
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
+
+The bot has tested the following trees: v5.8.2, v5.7.16, v5.4.59, v4.19.140, v4.14.193, v4.9.232, v4.4.232.
+
+v5.8.2: Build OK!
+v5.7.16: Build OK!
+v5.4.59: Build OK!
+v4.19.140: Failed to apply! Possible dependencies:
+    1f6010a96273 ("drm/amd/display: Improve spelling, grammar, and formatting of amdgpu_dm.c comments")
+    8c3db1284a01 ("drm/amdgpu: fill in amdgpu_dm_remove_sink_from_freesync_module")
+    98e6436d3af5 ("drm/amd/display: Refactor FreeSync module")
+    dcd5fb82ffb4 ("drm/amd/display: Fix reference counting for struct dc_sink.")
+    e6142dd51142 ("drm/amd/display: Prevent dpcd reads with passive dongles")
+
+v4.14.193: Failed to apply! Possible dependencies:
+    1b0c0f9dc5ca ("drm/amdgpu: move userptr BOs to CPU domain during CS v2")
+    1ed3d2567c80 ("drm/amdgpu: keep the MMU lock until the update ends v4")
+    3fe89771cb0a ("drm/amdgpu: stop reserving the BO in the MMU callback v3")
+    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+    60de1c1740f3 ("drm/amdgpu: use a rw_semaphore for MMU notifiers")
+    9a18999640fa ("drm/amdgpu: move MMU notifier related defines to amdgpu_mn.h")
+    9cca0b8e5df0 ("drm/amdgpu: move amdgpu_cs_sysvm_access_required into find_mapping")
+    a216ab09955d ("drm/amdgpu: fix userptr put_page handling")
+    b72cf4fca2bb ("drm/amdgpu: move taking mmap_sem into get_user_pages v2")
+    ca666a3c298f ("drm/amdgpu: stop using BO status for user pages")
+
+v4.9.232: Failed to apply! Possible dependencies:
+    1cec20f0ea0e ("dma-buf: Restart reservation_object_wait_timeout_rcu() after writes")
+    248a1d6f1ac4 ("drm/amd: fix include notation and remove -Iinclude/drm flag")
+    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+    78010cd9736e ("dma-buf/fence: add an lockdep_assert_held()")
+    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
+    fedf54132d24 ("dma-buf: Restart reservation_object_get_fences_rcu() after writes")
+
+v4.4.232: Failed to apply! Possible dependencies:
+    0f477c6dea70 ("staging/android/sync: add sync_fence_create_dma")
+    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
+    248a1d6f1ac4 ("drm/amd: fix include notation and remove -Iinclude/drm flag")
+    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
+    375fb53ec1be ("staging: android: replace explicit NULL comparison")
+    395dec6f6bc5 ("Documentation: add doc for sync_file_get_fence()")
+    4325198180e5 ("drm/amdgpu: remove GART page addr array")
+    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+    62304fb1fc08 ("dma-buf/sync_file: de-stage sync_file")
+    a1d29476d666 ("drm/amdgpu: optionally enable GART debugfs file")
+    a8fe58cec351 ("drm/amd: add ACP driver support")
+    b70f014d58b9 ("drm/amdgpu: change default sched jobs to 32")
+    c784c82a3fd6 ("Documentation: add Sync File doc")
+    d4cab38e153d ("staging/android: prepare sync_file for de-staging")
+    d7fdb0ae9d11 ("staging/android: rename sync_fence to sync_file")
+    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
+    fac8434dab96 ("Documentation: Fix some grammar mistakes in sync_file.txt")
+    fdba11f4079e ("drm/amdgpu: move all Kconfig options to amdgpu/Kconfig")
+
+
+NOTE: The patch will not be queued to stable trees until it is upstream.
+
+How should we proceed with this patch?
+
+-- 
+Thanks
+Sasha
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
