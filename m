@@ -2,58 +2,65 @@ Return-Path: <SRS0=g3tc=CE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87F66C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81FF6C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 35E64208E4
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:37:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 35E64208E4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+	by mail.kernel.org (Postfix) with ESMTPS id 53EE320707
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 13:45:25 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HGuzgciR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53EE320707
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D98866EA82;
-	Wed, 26 Aug 2020 13:37:04 +0000 (UTC)
-X-Greylist: delayed 544 seconds by postgrey-1.36 at gabe;
- Wed, 26 Aug 2020 13:34:27 UTC
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by gabe.freedesktop.org (Postfix) with ESMTP id 23B9B6E116
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 13:34:26 +0000 (UTC)
-Received: from localhost.localdomain (unknown [210.32.144.184])
- by mail-app2 (Coremail) with SMTP id by_KCgCHj+evYkZfePY0Ag--.11819S4;
- Wed, 26 Aug 2020 21:25:08 +0800 (CST)
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
-To: dinghao.liu@zju.edu.cn,
-	kjlu@umn.edu
-Subject: [PATCH] drm/amd/display: Fix memleak in amdgpu_dm_mode_config_init
-Date: Wed, 26 Aug 2020 21:24:58 +0800
-Message-Id: <20200826132501.11564-1-dinghao.liu@zju.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: by_KCgCHj+evYkZfePY0Ag--.11819S4
-X-Coremail-Antispam: 1UD129KBjvdXoWrtryUGr13uw1kJryUCryUKFg_yoWDtwc_Ga
- yUXrWfXr4aya1qqFy7ArZ3Z34vyFZ8XF4kGry7tasYvry7G34Utry8Xrn5G3WrurWI9FyY
- vF4YgFn3AwnxKjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb-kFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
- wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
- vE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
- 87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
- 8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_
- Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
- xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK
- 67AK6ry8MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GFWkJr1UJwCFx2IqxV
- CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
- 6r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
- WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG
- 6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
- W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjHGQDUUUUU==
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAg0EBlZdtPrBDAAMsJ
-X-Mailman-Approved-At: Wed, 26 Aug 2020 13:37:04 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A5C6EA9A;
+	Wed, 26 Aug 2020 13:45:25 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF086EA97;
+ Wed, 26 Aug 2020 13:45:24 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id a5so1859859wrm.6;
+ Wed, 26 Aug 2020 06:45:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=++y7/K31LPJngXEb//+paNGMvF79bvnqTxG0ZZl/pyQ=;
+ b=HGuzgciRBqpk93tftVYp8/pBWAnJfTd05f9qK3uR5cedrE8qBeZeUKfSEBopDI/bkD
+ jJKkw1KbGfmLS6eMSwn8soRusFl+v6czYv98W0Ac6ECtjnskM06BuG+216I+UXiXtNU5
+ T0zajnuQOPLN6rub/ottCNDWzAHNI4ij/mLWAmprx2S+85WDSuQgaRraBPNdJR2bVtEF
+ hriV2QK/gcK0aANLnSoi+J5WDdySEFXC/kyGGq1W3uEoHnRp4dp+rVORfMByABi/ldwN
+ 07rEoKOqiZ0HAnlveDS/DYiI6ukKAKfPzEHlwPMTz9zwVfhTzl4fgK5KczRbvpzpJH2l
+ cFFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=++y7/K31LPJngXEb//+paNGMvF79bvnqTxG0ZZl/pyQ=;
+ b=JII61rX3+qAszpNovkOZi7IHH2Q/wwSO0ETnfUj/sK8zSZ2KlxzwpvlubbAsyC2RRS
+ nGWtT0X1ZjLYoX50E9/j5Pm/4npR1t+2AlrrNlG73pc6Bom51VfVB2r0bck3XGYahOQv
+ 94flW/hkgunxRpRxqxF/qPPD9D7nSX6LPcs1za7GlPg71UR/3sVY+I9FjHTDxEm2QRjS
+ h6llRfOZnyu+J4T770KyY7SbqCPYG5k4zpQsxJax7uZfAANRN5TZYv3SwbT/xbzRDID/
+ BTMJ7wtJulHUEZBbPE5GnCXJgGpuxy3NFJRIy9EXoZ5fjtyiIx7n7OyeOPe8TZbBfXt8
+ Jtfg==
+X-Gm-Message-State: AOAM533CO5e/ojJBWwywU+il6dh6d+K4OPsuqnQ2J7q7s7Z54aBEqMG/
+ lucUn/XPfhbsw8+/2oyYPdC4ALmaclSSSwnqPAI=
+X-Google-Smtp-Source: ABdhPJyWLZf68RNxOWOSnhdQdEdsARIS1o2p7/AZSaEeiSmSPPJ3xUskhAhaxBnxVSxkyAMdrF4A8Zw/JIKcxfqlQNw=
+X-Received: by 2002:a5d:6085:: with SMTP id w5mr15374902wrt.362.1598449522813; 
+ Wed, 26 Aug 2020 06:45:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200826132501.11564-1-dinghao.liu@zju.edu.cn>
+In-Reply-To: <20200826132501.11564-1-dinghao.liu@zju.edu.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 26 Aug 2020 09:45:11 -0400
+Message-ID: <CADnq5_NxEGXboksEV61XpixU+Vwj8q9A=cTvz_-BeapwN59+Mw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix memleak in amdgpu_dm_mode_config_init
+To: Dinghao Liu <dinghao.liu@zju.edu.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,58 +73,69 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Stylon Wang <stylon.wang@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Kangjie Lu <kjlu@umn.edu>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Roman Li <roman.li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org,
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org
-MIME-Version: 1.0
+ LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When amdgpu_display_modeset_create_props() fails, state and
-state->context should be freed to prevent memleak. It's the
-same when amdgpu_dm_audio_init() fails.
+Applied.  Thanks!
 
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index df9338257ae0..2476e40c67ef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2834,12 +2834,18 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
- 				    &dm_atomic_state_funcs);
- 
- 	r = amdgpu_display_modeset_create_props(adev);
--	if (r)
-+	if (r) {
-+		dc_release_state(state->context);
-+		kfree(state);
- 		return r;
-+	}
- 
- 	r = amdgpu_dm_audio_init(adev);
--	if (r)
-+	if (r) {
-+		dc_release_state(state->context);
-+		kfree(state);
- 		return r;
-+	}
- 
- 	return 0;
- }
--- 
-2.17.1
-
+On Wed, Aug 26, 2020 at 9:37 AM Dinghao Liu <dinghao.liu@zju.edu.cn> wrote:
+>
+> When amdgpu_display_modeset_create_props() fails, state and
+> state->context should be freed to prevent memleak. It's the
+> same when amdgpu_dm_audio_init() fails.
+>
+> Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index df9338257ae0..2476e40c67ef 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2834,12 +2834,18 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
+>                                     &dm_atomic_state_funcs);
+>
+>         r = amdgpu_display_modeset_create_props(adev);
+> -       if (r)
+> +       if (r) {
+> +               dc_release_state(state->context);
+> +               kfree(state);
+>                 return r;
+> +       }
+>
+>         r = amdgpu_dm_audio_init(adev);
+> -       if (r)
+> +       if (r) {
+> +               dc_release_state(state->context);
+> +               kfree(state);
+>                 return r;
+> +       }
+>
+>         return 0;
+>  }
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
