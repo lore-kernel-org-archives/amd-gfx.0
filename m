@@ -7,60 +7,61 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EED4CC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 15:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED3C1C433E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 15:09:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C28F720825
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 15:08:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C01C42078A
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2020 15:09:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwGdTI66"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C28F720825
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kpQth1GW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C01C42078A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2B96E992;
-	Wed, 26 Aug 2020 15:08:18 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C52156E992
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 15:08:17 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id y3so2156733wrl.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 08:08:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87B996E992;
+	Wed, 26 Aug 2020 15:09:45 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29A176EA5B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 15:09:44 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id 2so2147358wrj.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2020 08:09:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PYnPqPMGvVqXJ7oaU1S8r68LLmGRUDY2SSCFG8ScRfQ=;
- b=RwGdTI66kC0syfK8GDDZ2HYak6FdO412rycb7+HC9D17KvU3814MjaoSm6LhqXEVac
- k0ucBSGVgF3ImV9yPiI+b/xWvEtEF2WqdlFxW901759zO43hbB7Rhh8JjCPt6azmZGFZ
- 7P2DCcw4jLl83BxZIj7jSR7APw0SGvrYm/AbnLbSG9S8tLYofUFCZWnPb0HgfS8wfEbg
- s4aAnKTMwD3JwgJiX+510vt+Us2hXirJLsg4uG6uRt+NWic7xTC5r0acmgFFfJLCLLIo
- 9NoOdU4o/rRgH1Fx0FViWraPgTJeHTPu9PRj5whnEuRmoMjZ/8Lm1/APpIaloF9FifI5
- YUNg==
+ :cc; bh=kCWzu+UhwY+RPijmcJ2m1VPYXKd7OYBZpb8+6+oBbBc=;
+ b=kpQth1GWJvMS/ZrA5J94eBoKpTLVfbp9/hBa4TQc9fyyVtbV3izMiVBZYmueJZkivX
+ TrZ9mLQnyRJXv4PZjm2J4zfliiKLbx0ZSBYDz497m/oZccNI2ZtGgP4WEzMGGX1lYT9A
+ E1Kf26YcxM1A8c94FBO5GCOTGTRGVZKdgPnycUaRFXL+KlHkrEpKz90x+N8MikVgzte+
+ 0xchuFLldenHap9UffU7cLItZiPqSB19XduVVgzoUncX7YMJlAKy/pqfgWLaky229vUC
+ WzZywf37n9OBb2vjrdaSc1l6SSgIOuPjLvkrfVzEpom5spyh/BQKeks2lxbMGV7DMxGZ
+ BUeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=PYnPqPMGvVqXJ7oaU1S8r68LLmGRUDY2SSCFG8ScRfQ=;
- b=nJhM/sYW2wlqSsclJrshtg/AGw3KAdk4qVnXu4tTRU4OK+iwNP+NlOxgasbbuYrb6q
- qCRJuKZS1Zk8YgVFb215Hrii4nkiSjyJjHabssSR9zLEl2AN5XYQxBSQHSKSnJR3FwfT
- XIogd4tOT+AxMmRyj1JtxI+22JS9IqWviWlaAgc9rnn7TQV9Vcm+oeNVAW+bA9Bk4+aw
- 4Zy19GqnopS19OS+NpNI9Z9ihFekPAlAtzDa73Q4UYqQf6RztaciCQDWhX8zGMkZXJX4
- ueW07Ga/KiWabxSt9tewq09HdtHvmd1fSEcEPdRXTWZG+ZtabZR/u+UKw3wIBig8cxSU
- OWTw==
-X-Gm-Message-State: AOAM530SP722auRwxUcAB0w8ojlvtnJj0AbckLCYEOW+xwVDqNhRDyLM
- 5E1Mov9lzYzJhGm56U8x31FIOaU2iOLABAFA57g=
-X-Google-Smtp-Source: ABdhPJx/TWYx5Cffboy3VjSw45K5xgLTgEkqnFN3wywbgs/roRdw7MUfa2aZutNo5FuFARt69GNeKj7moM4QPYGQSG0=
-X-Received: by 2002:adf:fecc:: with SMTP id q12mr16487221wrs.374.1598454496154; 
- Wed, 26 Aug 2020 08:08:16 -0700 (PDT)
+ bh=kCWzu+UhwY+RPijmcJ2m1VPYXKd7OYBZpb8+6+oBbBc=;
+ b=M3fpkJCSeeprdo3DzI6j9wq9WreVsdZh0/mrnv1OR7TKXXouz83TCxBH5qx3n2g12q
+ paJO7Z2cMLCsE4kD156t+jr6pw8rR5uldMoaxn5x0tSkCecfYTG+lUMZEnJxwWxCJ/OX
+ PQai4gCXHGeTINv8P/UwkBfpIhk1rTTSlTOcB23+PEAg4Uyj/W2NOualx2Qiej5R7l1g
+ v+QbKFiT1ehinabyqrI/BCAqfg0cRpK0XlLYm+cKH8WVUiKe3prspkRbHK/Dx3mwv4Lq
+ hpk1HSf4BvbDRXVVW0KLa+xZLT1xjhWFVHeuWfHmOwNbNz/aSUclJxTE+N6eI5ApeFRO
+ zsyQ==
+X-Gm-Message-State: AOAM532aKJ3uDd+b2bHNazUdPvBbn8T8qBUyEliceuHnuylXpMU/Nowq
+ MWvs2xjZDHapkpuGMFnwL69KUjmxRyh9iR192xrZW30pHL0=
+X-Google-Smtp-Source: ABdhPJxV1cKIWLrUZ+T2bHlpxiqMYlqPgW49WJAwkG8AuY4X1J9/mvj1+45HF7b7/tCLnjdchzWIN+nOE/PGbQTpMwQ=
+X-Received: by 2002:a5d:6085:: with SMTP id w5mr15698518wrt.362.1598454582657; 
+ Wed, 26 Aug 2020 08:09:42 -0700 (PDT)
 MIME-Version: 1.0
 References: <1598453182-6946-1-git-send-email-andrey.grodzovsky@amd.com>
- <1598453182-6946-2-git-send-email-andrey.grodzovsky@amd.com>
-In-Reply-To: <1598453182-6946-2-git-send-email-andrey.grodzovsky@amd.com>
+ <1598453182-6946-3-git-send-email-andrey.grodzovsky@amd.com>
+In-Reply-To: <1598453182-6946-3-git-send-email-andrey.grodzovsky@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Aug 2020 11:08:04 -0400
-Message-ID: <CADnq5_Peom5X8Lox-kPD5bANHttHd2AYqEBwdCXJd3c=ka7QXg@mail.gmail.com>
-Subject: Re: [PATCH 1/7] drm/amdgpu: Implement DPC recovery
+Date: Wed, 26 Aug 2020 11:09:31 -0400
+Message-ID: <CADnq5_PPtMQTPMY3QNc1bVoNdeF_a-2WrhW3hEN5r4h4eRGk+g@mail.gmail.com>
+Subject: Re: [PATCH 2/7] drm/amdgpu: Avoid accessing HW when suspending SW
+ state
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,385 +81,307 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2020 at 10:47 AM Andrey Grodzovsky
+On Wed, Aug 26, 2020 at 10:46 AM Andrey Grodzovsky
 <andrey.grodzovsky@amd.com> wrote:
 >
-> Add DPC handlers with basic recovery functionality.
+> At this point the ASIC is already post reset by the HW/PSP
+> so the HW not in proper state to be configured for suspension,
+> some bloks might be even gated and so best is to avoid touching it.
 >
 > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   9 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 181 ++++++++++++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   9 +-
->  3 files changed, 196 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 37 ++++++++++++++++++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |  6 +++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |  6 +++++
+>  drivers/gpu/drm/amd/amdgpu/atom.c          |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 18 +++++++++------
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  |  3 +++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c     |  3 +++
+>  8 files changed, 64 insertions(+), 11 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 49ea9fa..3399242 100644
+> index 3399242..3489622 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -49,6 +49,8 @@
->  #include <linux/rbtree.h>
->  #include <linux/hashtable.h>
->  #include <linux/dma-fence.h>
-> +#include <linux/pci.h>
-> +#include <linux/aer.h>
+> @@ -992,6 +992,7 @@ struct amdgpu_device {
+>         atomic_t                        throttling_logging_enabled;
+>         struct ratelimit_state          throttling_logging_rs;
+>         uint32_t                        ras_features;
+> +       bool                            in_dpc;
+>  };
 >
->  #include <drm/ttm/ttm_bo_api.h>
->  #include <drm/ttm/ttm_bo_driver.h>
-> @@ -1263,6 +1265,13 @@ static inline int amdgpu_dm_display_resume(struct amdgpu_device *adev) { return
->  void amdgpu_register_gpu_instance(struct amdgpu_device *adev);
->  void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev);
->
-> +pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev,
-> +                                          pci_channel_state_t state);
-> +pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev);
-> +pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev);
-> +void amdgpu_pci_resume(struct pci_dev *pdev);
-> +
-> +
->  #include "amdgpu_object.h"
->
->  /* used by df_v3_6.c and amdgpu_pmu.c */
+>  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5a948ed..84f8d14 100644
+> index 84f8d14..e1bbefd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -350,7 +350,9 @@ uint32_t amdgpu_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
+> @@ -319,6 +319,9 @@ uint32_t amdgpu_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
+>  {
+>         uint32_t ret;
+>
+> +       if (adev->in_dpc)
+> +               return 0;
+> +
+>         if (!(acc_flags & AMDGPU_REGS_NO_KIQ) && amdgpu_sriov_runtime(adev))
+>                 return amdgpu_kiq_rreg(adev, reg);
+>
+> @@ -350,8 +353,10 @@ uint32_t amdgpu_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
 >   *
 >   * Returns the 8 bit value from the offset specified.
 >   */
-> -uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset) {
-> +uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset)
-> +{
-> +
+> -uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset)
+> -{
+> +uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset) {
 
 Unrelated whitespace changes.
 
+> +
+> +       if (adev->in_dpc)
+> +               return 0;
+>
 >         if (offset < adev->rmmio_size)
 >                 return (readb(adev->rmmio + offset));
->         BUG();
-> @@ -371,7 +373,9 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset) {
+> @@ -373,8 +378,10 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset)
 >   *
 >   * Writes the value specified to the offset specified.
 >   */
-> -void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value) {
-> +void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
-> +{
-> +
+> -void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
+> -{
+> +void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value) {
 
 Unrelated whitespace changes.
 
+> +
+> +       if (adev->in_dpc)
+> +               return;
+>
 >         if (offset < adev->rmmio_size)
 >                 writeb(value, adev->rmmio + offset);
->         else
-> @@ -380,6 +384,7 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
+> @@ -384,6 +391,8 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
 >
 >  void static inline amdgpu_mm_wreg_mmio(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint32_t acc_flags)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +               return;
+>
 >         trace_amdgpu_mm_wreg(adev->pdev->device, reg, v);
 >
->         if ((reg * 4) < adev->rmmio_size)
-> @@ -407,6 +412,7 @@ void static inline amdgpu_mm_wreg_mmio(struct amdgpu_device *adev, uint32_t reg,
+> @@ -412,6 +421,8 @@ void static inline amdgpu_mm_wreg_mmio(struct amdgpu_device *adev, uint32_t reg,
 >  void amdgpu_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
 >                     uint32_t acc_flags)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +               return;
+>
 >         if (!(acc_flags & AMDGPU_REGS_NO_KIQ) && amdgpu_sriov_runtime(adev))
 >                 return amdgpu_kiq_wreg(adev, reg, v);
->
-> @@ -461,6 +467,7 @@ u32 amdgpu_io_rreg(struct amdgpu_device *adev, u32 reg)
+> @@ -427,6 +438,9 @@ void amdgpu_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
+>  void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
+>                     uint32_t acc_flags)
+>  {
+> +       if (adev->in_dpc)
+> +               return;
+> +
+>         if (amdgpu_sriov_fullaccess(adev) &&
+>                 adev->gfx.rlc.funcs &&
+>                 adev->gfx.rlc.funcs->is_rlcg_access_range) {
+> @@ -448,6 +462,9 @@ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev, uint32_t reg, uint32_t
+>   */
+>  u32 amdgpu_io_rreg(struct amdgpu_device *adev, u32 reg)
+>  {
+> +       if (adev->in_dpc)
+> +               return 0;
+> +
+>         if ((reg * 4) < adev->rio_mem_size)
+>                 return ioread32(adev->rio_mem + (reg * 4));
+>         else {
+> @@ -467,6 +484,8 @@ u32 amdgpu_io_rreg(struct amdgpu_device *adev, u32 reg)
 >   */
 >  void amdgpu_io_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +               return;
+>
 >         if ((reg * 4) < adev->rio_mem_size)
 >                 iowrite32(v, adev->rio_mem + (reg * 4));
->         else {
-> @@ -480,6 +487,7 @@ void amdgpu_io_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
+> @@ -487,6 +506,8 @@ void amdgpu_io_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
 >   */
 >  u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +               return 0;
+>
 >         if (index < adev->doorbell.num_doorbells) {
 >                 return readl(adev->doorbell.ptr + index);
->         } else {
-> @@ -500,6 +508,7 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
+> @@ -508,6 +529,8 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
 >   */
 >  void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +               return;
+>
 >         if (index < adev->doorbell.num_doorbells) {
 >                 writel(v, adev->doorbell.ptr + index);
->         } else {
-> @@ -518,6 +527,7 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
+> @@ -527,6 +550,8 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
 >   */
 >  u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +               return 0;
+>
 >         if (index < adev->doorbell.num_doorbells) {
 >                 return atomic64_read((atomic64_t *)(adev->doorbell.ptr + index));
->         } else {
-> @@ -538,6 +548,7 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
+> @@ -548,6 +573,8 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
 >   */
 >  void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
 >  {
-> +
-
-Unrelated whitespace changes.
-
+> +       if (adev->in_dpc)
+> +                       return;
+>
 >         if (index < adev->doorbell.num_doorbells) {
 >                 atomic64_set((atomic64_t *)(adev->doorbell.ptr + index), v);
->         } else {
-> @@ -2989,6 +3000,7 @@ static const struct attribute *amdgpu_dev_attributes[] = {
->         NULL
->  };
+> @@ -4790,7 +4817,9 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+>
+>         pci_restore_state(pdev);
+>
+> +       adev->in_dpc = true;
+>         r = amdgpu_device_ip_suspend(adev);
+> +       adev->in_dpc = false;
+>         if (r)
+>                 goto out;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index d698142..50c42c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -693,6 +693,9 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+>         struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>         struct amdgpu_ring *ring = &kiq->ring;
+>
+> +       if (adev->in_dpc)
+> +               return 0;
+> +
+>         BUG_ON(!ring->funcs->emit_rreg);
+>
+>         spin_lock_irqsave(&kiq->ring_lock, flags);
+> @@ -757,6 +760,9 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v)
+>
+>         BUG_ON(!ring->funcs->emit_wreg);
+>
+> +       if (adev->in_dpc)
+> +               return;
+> +
+>         spin_lock_irqsave(&kiq->ring_lock, flags);
+>         amdgpu_ring_alloc(ring, 32);
+>         amdgpu_ring_emit_wreg(ring, reg, v);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index d6c38e2..555ef59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -219,6 +219,9 @@ int psp_wait_for(struct psp_context *psp, uint32_t reg_index,
+>         int i;
+>         struct amdgpu_device *adev = psp->adev;
+>
+> +       if (psp->adev->in_dpc)
+> +               return 0;
+> +
+>         for (i = 0; i < adev->usec_timeout; i++) {
+>                 val = RREG32(reg_index);
+>                 if (check_changed) {
+> @@ -245,6 +248,9 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>         bool ras_intr = false;
+>         bool skip_unsupport = false;
+>
+> +       if (psp->adev->in_dpc)
+> +               return 0;
+> +
+>         mutex_lock(&psp->mutex);
+>
+>         memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+> index 4cfc786..613dac1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -750,6 +750,7 @@ static void atom_op_jump(atom_exec_context *ctx, int *ptr, int arg)
+>                                         DRM_ERROR("atombios stuck in loop for more than %dsecs aborting\n",
+>                                                   ATOM_CMD_TIMEOUT_SEC);
+>                                         ctx->abort = true;
+> +                                       dump_stack();
+
+Leftover from debug?
+
+>                                 }
+>                         } else {
+>                                 /* jiffies wrap around we will just wait a little longer */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 2db195e..86f268e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -6980,15 +6980,19 @@ static int gfx_v10_0_hw_fini(void *handle)
+>
+>         amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+>         amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+> +
+> +       if (!adev->in_dpc) {
+>  #ifndef BRING_UP_DEBUG
+> -       if (amdgpu_async_gfx_ring) {
+> -               r = gfx_v10_0_kiq_disable_kgq(adev);
+> -               if (r)
+> -                       DRM_ERROR("KGQ disable failed\n");
+> -       }
+> +               if (amdgpu_async_gfx_ring) {
+> +                       r = gfx_v10_0_kiq_disable_kgq(adev);
+> +                       if (r)
+> +                               DRM_ERROR("KGQ disable failed\n");
+> +               }
+>  #endif
+> -       if (amdgpu_gfx_disable_kcq(adev))
+> -               DRM_ERROR("KCQ disable failed\n");
+> +               if (amdgpu_gfx_disable_kcq(adev))
+> +                       DRM_ERROR("KCQ disable failed\n");
+> +       }
+> +
+>         if (amdgpu_sriov_vf(adev)) {
+>                 gfx_v10_0_cp_gfx_enable(adev, false);
+>                 /* Program KIQ position of RLC_CP_SCHEDULERS during destroy */
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 8462b30..306461d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -224,9 +224,12 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
+>  {
+>         int ret = 0;
 >
 > +
 
 Unrelated whitespace changes.
 
->  /**
->   * amdgpu_device_init - initialize the driver
->   *
-> @@ -3207,6 +3219,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->                 }
->         }
+>         if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>                 return -EOPNOTSUPP;
 >
-> +       pci_enable_pcie_error_reporting(adev->ddev.pdev);
 > +
-> +
->         /* Post card if necessary */
->         if (amdgpu_device_need_post(adev)) {
->                 if (!adev->bios) {
-> @@ -3359,6 +3374,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->         if (r)
->                 dev_err(adev->dev, "amdgpu_pmu_init failed\n");
->
-> +       if (pci_save_state(pdev))
-> +               DRM_ERROR("Failed to save PCI state!!\n");
 > +
 
-This will break suspend.
+Unrelated whitespace changes.
 
->         return 0;
+>         switch (block_type) {
+>         /*
+>          * Some legacy code of amdgpu_vcn.c and vcn_v2*.c still uses
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index a58ea08..02cf55e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -112,6 +112,9 @@ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+>         struct amdgpu_device *adev = smu->adev;
+>         int ret = 0, index = 0;
 >
->  failed:
-> @@ -4701,3 +4719,162 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
->
->         return 0;
->  }
+> +       if (smu->adev->in_dpc)
+> +               return 0;
 > +
-> +/**
-> + * amdgpu_pci_error_detected - Called when a PCI error is detected.
-> + * @pdev: PCI device struct
-> + * @state: PCI channel state
-> + *
-> + * Description: Called when a PCI error is detected.
-> + *
-> + * Return: PCI_ERS_RESULT_NEED_RESET or PCI_ERS_RESULT_DISCONNECT.
-> + */
-> +pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_state_t state)
-> +{
-> +       struct drm_device *dev = pci_get_drvdata(pdev);
-> +       struct amdgpu_device *adev = drm_to_adev(dev);
-> +
-> +       DRM_INFO("PCI error: detected callback, state(%d)!!\n", state);
-> +
-> +       switch (state) {
-> +       case pci_channel_io_normal:
-> +               return PCI_ERS_RESULT_CAN_RECOVER;
-> +       case pci_channel_io_frozen: {
-> +               /* Fatal error, prepare for slot reset */
-> +
-> +               amdgpu_device_lock_adev(adev);
-> +               return PCI_ERS_RESULT_NEED_RESET;
-> +       }
-> +       case pci_channel_io_perm_failure:
-> +               /* Permanent error, prepare for device removal */
-> +               return PCI_ERS_RESULT_DISCONNECT;
-> +       }
-> +       return PCI_ERS_RESULT_NEED_RESET;
-> +}
-> +
-> +/**
-> + * amdgpu_pci_mmio_enabled - Enable MMIO and dump debug registers
-> + * @pdev: pointer to PCI device
-> + */
-> +pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev)
-> +{
-> +
-> +       DRM_INFO("PCI error: mmio enabled callback!!\n");
-> +
-> +       /* TODO - dump whatever for debugging purposes */
-> +
-> +       /* This called only if amdgpu_pci_error_detected returns
-> +        * PCI_ERS_RESULT_CAN_RECOVER. Read/write to the device still
-> +        * works, no need to reset slot.
-> +        */
-> +
-> +       return PCI_ERS_RESULT_RECOVERED;
-> +}
-> +
-> +/**
-> + * amdgpu_pci_slot_reset - Called when PCI slot has been reset.
-> + * @pdev: PCI device struct
-> + *
-> + * Description: This routine is called by the pci error recovery
-> + * code after the PCI slot has been reset, just before we
-> + * should resume normal operations.
-> + */
-> +pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
-> +{
-> +       struct drm_device *dev = pci_get_drvdata(pdev);
-> +       struct amdgpu_device *adev = drm_to_adev(dev);
-> +       int r;
-> +       bool vram_lost;
-> +
-> +       DRM_INFO("PCI error: slot reset callback!!\n");
-> +
-> +       pci_restore_state(pdev);
-> +
-> +       r = amdgpu_device_ip_suspend(adev);
-> +       if (r)
-> +               goto out;
-> +
-> +
-> +       /* post card */
-> +       r = amdgpu_atom_asic_init(adev->mode_info.atom_context);
-> +       if (r)
-> +               goto out;
-> +
-> +       r = amdgpu_device_ip_resume_phase1(adev);
-> +       if (r)
-> +               goto out;
-> +
-> +       vram_lost = amdgpu_device_check_vram_lost(adev);
-> +       if (vram_lost) {
-> +               DRM_INFO("VRAM is lost due to GPU reset!\n");
-> +               amdgpu_inc_vram_lost(adev);
-> +       }
-> +
-> +       r = amdgpu_gtt_mgr_recover(
-> +               &adev->mman.bdev.man[TTM_PL_TT]);
-> +       if (r)
-> +               goto out;
-> +
-> +       r = amdgpu_device_fw_loading(adev);
-> +       if (r)
-> +               return r;
-> +
-> +       r = amdgpu_device_ip_resume_phase2(adev);
-> +       if (r)
-> +               goto out;
-> +
-> +       if (vram_lost)
-> +               amdgpu_device_fill_reset_magic(adev);
-> +
-> +       /*
-> +        * Add this ASIC as tracked as reset was already
-> +        * complete successfully.
-> +        */
-> +       amdgpu_register_gpu_instance(adev);
-> +
-> +       r = amdgpu_device_ip_late_init(adev);
-> +       if (r)
-> +               goto out;
-> +
-> +       amdgpu_fbdev_set_suspend(adev, 0);
-> +
-> +       /* must succeed. */
-> +       amdgpu_ras_resume(adev);
-> +
-> +
-> +       amdgpu_irq_gpu_reset_resume_helper(adev);
-> +       r = amdgpu_ib_ring_tests(adev);
-> +       if (r)
-> +               goto out;
-> +
-> +       r = amdgpu_device_recover_vram(adev);
-> +
-> +out:
-> +
-> +       if (!r)
-> +               DRM_INFO("PCIe error recovery succeeded\n");
-> +       else {
-> +               DRM_ERROR("PCIe error recovery failed, err:%d", r);
-> +               amdgpu_device_unlock_adev(adev);
-> +       }
-> +
-> +       return r ? PCI_ERS_RESULT_DISCONNECT : PCI_ERS_RESULT_RECOVERED;
-> +}
-> +
-> +/**
-> + * amdgpu_pci_resume() - resume normal ops after PCI reset
-> + * @pdev: pointer to PCI device
-> + *
-> + * Called when the error recovery driver tells us that its
-> + * OK to resume normal operation. Use completion to allow
-> + * halted scsi ops to resume.
-> + */
-> +void amdgpu_pci_resume(struct pci_dev *pdev)
-> +{
-> +       struct drm_device *dev = pci_get_drvdata(pdev);
-> +       struct amdgpu_device *adev = drm_to_adev(dev);
-> +
-> +       amdgpu_device_unlock_adev(adev);
-> +
-> +       DRM_INFO("PCI error: resume callback!!\n");
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index d984c6a..4bbcc70 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -31,7 +31,6 @@
->  #include <drm/drm_pciids.h>
->  #include <linux/console.h>
->  #include <linux/module.h>
-> -#include <linux/pci.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/vga_switcheroo.h>
->  #include <drm/drm_probe_helper.h>
-> @@ -1534,6 +1533,13 @@ static struct drm_driver kms_driver = {
->         .patchlevel = KMS_DRIVER_PATCHLEVEL,
->  };
->
-> +static struct pci_error_handlers amdgpu_pci_err_handler = {
-> +       .error_detected = amdgpu_pci_error_detected,
-> +       .mmio_enabled   = amdgpu_pci_mmio_enabled,
-> +       .slot_reset     = amdgpu_pci_slot_reset,
-> +       .resume         = amdgpu_pci_resume,
-> +};
-> +
->  static struct pci_driver amdgpu_kms_pci_driver = {
->         .name = DRIVER_NAME,
->         .id_table = pciidlist,
-> @@ -1541,6 +1547,7 @@ static struct pci_driver amdgpu_kms_pci_driver = {
->         .remove = amdgpu_pci_remove,
->         .shutdown = amdgpu_pci_shutdown,
->         .driver.pm = &amdgpu_pm_ops,
-> +       .err_handler = &amdgpu_pci_err_handler,
->  };
->
->  static int __init amdgpu_init(void)
+>         index = smu_cmn_to_asic_specific_index(smu,
+>                                                CMN2ASIC_MAPPING_MSG,
+>                                                msg);
 > --
 > 2.7.4
 >
