@@ -1,106 +1,60 @@
 Return-Path: <SRS0=kQKQ=CG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.9 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97444C433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 07:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A7E6C433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 07:37:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 554E1208C9
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 07:30:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AB37320776
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 07:37:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WzW2dnKc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 554E1208C9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=163.com header.i=@163.com header.b="QZm0nPXL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB37320776
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECE296EB69;
-	Fri, 28 Aug 2020 07:29:59 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30DBE6EB69
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 07:29:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O/ultkpXiV0VMGC989nKJZaf2L97UMQIfc9lV+TlhtDuc0h6TFll/HLIht0Qigk93QmBumfBM1xYRM20NRKtbZm4LR1rIchpH0CSWLt8scxYQ0q0/NVR6JFMeiaVra5ObWO7IC5BB3MoElf8MMOHAoEj0BRvXCtrVY2o2LPpkwdIEejjwz4nIO3FMkpyht8mIAOmZbZskZJjKSr/CNsafwi/OuyaNuyQwpdxbOAXCcSTKJQO7W6Aq9XsX6LiPExKsFSn3TZxR9RcQffl7MZNtITZqMeNwN5XlQpcokFeAxZDLFvqa7gvaAY4ciCkqrOkQCelduJEZf7YRjz0QJFEKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AJR5NrhwIGQxyyXzJ6D1EF9dCXfMzeYv4Ss7MFzfnmU=;
- b=EECkqCqycNPDVv9PlWD5hpmAd26NeJJTcPmx+NvVGHX/62NDfOCGhnHrbWI0YgV4K80igt3ne6EnTMBeYV6IfupN5TV++C3JX8xPZFPiQ8VvhWnN+7O+1/lNDKZ9o/AxsSXAlvyqC6L9yID26KghMWhGWS2MAYp4wQ1zDDNuDOLvA4vwvKc+mq5XzvThdGDm4xHdeUwkplXSzRAwkDj4TA2ybSuCogiyIMky5jNFUfBl94a1V7zzZcSdvtrESThYVTajYegNVYVG0tWjfnv9icRMRQUbRCFqUFpS9sfUGXBB3h6NzL6OEulK8CX/2yWvMD5v4OLEsy+YV0vIjLJzEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AJR5NrhwIGQxyyXzJ6D1EF9dCXfMzeYv4Ss7MFzfnmU=;
- b=WzW2dnKcpNJvaY1hKr7aB5MOvfERphCnUIrXQTWtFfOWLpLCYKLaFlJIS4zxd72ezqkAXQD062M5dneVuw0q7W9f+zuZ+PKKNfrrRMFaFQpWqWYMGn+I3wl6tci0I407MPLmtlMXatvorHAGiTDgwAwH6tpDOeWvVmoPpBM7PGc=
-Received: from DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22)
- by DM6PR12MB3690.namprd12.prod.outlook.com (2603:10b6:5:149::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.26; Fri, 28 Aug
- 2020 07:29:57 +0000
-Received: from DM5PR12MB1708.namprd12.prod.outlook.com
- ([fe80::7865:b161:9dd1:7c5]) by DM5PR12MB1708.namprd12.prod.outlook.com
- ([fe80::7865:b161:9dd1:7c5%10]) with mapi id 15.20.3305.032; Fri, 28 Aug 2020
- 07:29:56 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Das, Nirmoy" <Nirmoy.Das@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/1] drm/amdgpu: rework ip block reinit for sriov
-Thread-Topic: [PATCH 1/1] drm/amdgpu: rework ip block reinit for sriov
-Thread-Index: AQHWfITdmXlZOGalnUqmD8sY4cKI+alNIKfw
-Date: Fri, 28 Aug 2020 07:29:56 +0000
-Message-ID: <DM5PR12MB1708A7B24C9A36455E45A89784520@DM5PR12MB1708.namprd12.prod.outlook.com>
-References: <20200827151858.55326-1-nirmoy.das@amd.com>
-In-Reply-To: <20200827151858.55326-1-nirmoy.das@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=04606ec5-7360-4239-80fc-00000dbb4bea;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-28T07:28:38Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2685ecc4-b9df-436a-e468-08d84b242a08
-x-ms-traffictypediagnostic: DM6PR12MB3690:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB369088A73F1ECE2D36BE509C84520@DM6PR12MB3690.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2582;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: h8yDNsJpteV96hlzHLCJp/Cv+MBXk+WWgvkjaKxVn2ZkpkacuAgfLUCHBstkvcvU2tpzu83IxiTsx/PkmlDXgfCy6jpy+TheLOqenLhrBz3fLhSzvxWWGdeTgFjwDKs5dbEF9GCyKCjNnJdKimUSj5fbYNbmeHpoMGKq0WfFDCJ1Ix3ZD73OPuk3erToYq/tkNG83L9s2bdMPXpFnjVAerkx0Wr0Alka29KmQBWIfD0N4lHquePq/vZRwsZmK7jveOtz/+I45lLAR8/zhzFQ3x9juCiyRv8NrsD79Y2toI1/Bj+YwRfs1602E+Cv+3elE8u2nCpsLnbwuvCaVYre8A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1708.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(366004)(2906002)(8676002)(478600001)(186003)(110136005)(54906003)(53546011)(7696005)(5660300002)(6506007)(33656002)(316002)(26005)(52536014)(9686003)(55016002)(76116006)(66446008)(64756008)(66476007)(66556008)(66946007)(4326008)(83380400001)(86362001)(8936002)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: h3LNczxmFsj3dLpZTFWW85qvdUisP+LeqCfRs4Fm2A20LpAy0YOC1/NPPHtrIIeYOi9qTo9q9gOYWPcMOHQA9XDo0eo/G1qTvC1qN/QJrwcuY0Sltw0SMbvOgFCEyTaJXxsp5/3Qzwe4riTLQTlQR8t+f9e+DMEJwIOvr3HIF39Mh5mGjrDEBUbiB4ZKNwC9/pkNvYbDYe4H/7oWYez2ScISKnY3lo3hE9O+BNvJ5MnyWJ31N5Wyombu4RikiAivlwB0doYbTI5s6bmL7wcT76i4sb9sX3mwg1tK6VP2tAWefd6OjhZQKE9HltMRaZzScn/czcTLpXBQXCdNeoCyY+v7Tb+KqRvacwGLusNSCBuJzKJ5/zB4yXCj8XSru9Q9fRARkCyzNnBg/7r37dhiVKAq/gjtXZCf5yKXRf7/R91qBlwkXb03TDTtyS9HxIPVUBKxz9vd6FPOhZxSelaioZbTdlz0iqc6wM2/h9FYcoH1A06udW5Oe7Pvurrpllx0vqMUpnkF93jJcngIXKulFHqriMP+D3l7wG+vPq+H23s+IlNT/pvKQvYN6yHIHIfZ+ML549Y/PaROB8bi1kGaPrnnnIQaReDewbsbOsL8fbvjHXXAMrfBAxjpzPTIU+GIYwSW+t4zywghWNxobTlp+Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 774A0888AE;
+	Fri, 28 Aug 2020 07:37:50 +0000 (UTC)
+Received: from m13120.mail.163.com (m13120.mail.163.com [220.181.13.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A80AE6E05F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 01:43:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=jvKvq
+ EuVEemomvJuUYkFtMmfoO9QgXqsGpVFt255psY=; b=QZm0nPXLYNG/XufgdFw0e
+ 4Hq87pdb3ok6igZzJxZFJQWH9yvCaLlHRycOhZmox2J8oiZlXT2DXCZIKwPpnnOA
+ V5PQinxgKmEFxtP8wFd2wjbMEb/H6XO/BB7JOcEpAa3qTgQ6eb5oVn1OhkTy5nOn
+ RIVP4wLUx+e4FYsiP+qM8w=
+Received: from erdong2018$163.com ( [118.242.3.34] ) by
+ ajax-webmail-wmsvr120 (Coremail) ; Fri, 28 Aug 2020 09:43:18 +0800 (CST)
+X-Originating-IP: [118.242.3.34]
+Date: Fri, 28 Aug 2020 09:43:18 +0800 (CST)
+From: =?GBK?B?1cW2/rar?= <erdong2018@163.com>
+To: "Tom St Denis" <tstdenis82@gmail.com>
+Subject: Re:Re: 0001-Fix-a-array-bound-overflow-bug-in-function-umr_clock
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
+ Copyright (c) 2002-2020 www.mailtech.cn 163com
+In-Reply-To: <CAAzXoRJ+S6qaE_UaN0gNtkHPQcp+toMcUA1-8fLhU37rDdHyRQ@mail.gmail.com>
+References: <5eb9e79.42da.1742ef91f76.Coremail.erdong2018@163.com>
+ <CAAzXoRJ+S6qaE_UaN0gNtkHPQcp+toMcUA1-8fLhU37rDdHyRQ@mail.gmail.com>
+X-CM-CTRLDATA: bnscO2Zvb3Rlcl9odG09MTYyOTo1Ng==
+Content-Type: multipart/mixed; 
+ boundary="----=_Part_15902_98584569.1598578998330"
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1708.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2685ecc4-b9df-436a-e468-08d84b242a08
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2020 07:29:56.7387 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mV86XccZtALugbaBGcpf9F4pSfSKZmgC17d28+Lq0pT4ISRKlwmP58lysdkuN6y2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3690
+Message-ID: <3ffa3550.11d0.17432bbbc3a.Coremail.erdong2018@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: eMGowAAXX8o2YUhfW1FgAA--.55760W
+X-CM-SenderInfo: phug00jjsqimi6rwjhhfrp/1tbiRAeNc1SIgn9c3wACsd
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Mailman-Approved-At: Fri, 28 Aug 2020 07:37:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,199 +66,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Deng,
- Emily" <Emily.Deng@amd.com>, "Gu, JiaWei \(Will\)" <JiaWei.Gu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+------=_Part_15902_98584569.1598578998330
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_15904_1053011878.1598578998330"
 
-Please don't change those code unless you have a full stress test and a solid reason (what bug fixed or what new feature introduced )
+------=_Part_15904_1053011878.1598578998330
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Otherwise if it's a pure personal refactor or cleanup it will be not necessary
+WWVzLCB5b3UgYXJlIHJpZ2h0LiBOZXcgcGF0Y2ggaXMgaW4gYXR0YWNobWVudC4KCgp0aGFua3Mu
+CgoKCgoKCgoKCgoKCgoKCgrU2iAyMDIwLTA4LTI4IDAxOjE0OjAyo6wiVG9tIFN0IERlbmlzIiA8
+dHN0ZGVuaXM4MkBnbWFpbC5jb20+INC0tcCjugoKaXNuJ3QgYSBiZXR0ZXIgZml4IHRvIHNpbXBs
+eSBkZWxldGUgdGhlIGxpbmU/ICBUaGUgcHJpbnQgc2VlbXMgcmVkdW5kYW50IHRvIG1lLgoKClRv
+bQoKCk9uIFRodSwgQXVnIDI3LCAyMDIwIGF0IDk6MjcgQU0g1cW2/rarIDxlcmRvbmcyMDE4QDE2
+My5jb20+IHdyb3RlOgoKCgoKCgoKCgogCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
+------=_Part_15904_1053011878.1598578998330
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-_____________________________________
-Monk Liu|GPU Virtualization Team |AMD
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPlllcywgeW91IGFyZSBy
+aWdodC4gTmV3IHBhdGNoIGlzIGluIGF0dGFjaG1lbnQuPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2lu
+OiAwOyI+PGJyPjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPnRoYW5rcy48L2Rpdj48cCBz
+dHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvcD48
+cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwv
+cD48ZGl2IHN0eWxlPSJwb3NpdGlvbjpyZWxhdGl2ZTt6b29tOjEiPjwvZGl2PjxkaXYgaWQ9ImRp
+dk5ldGVhc2VNYWlsQ2FyZCI+PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L3A+PHA+
+1NogMjAyMC0wOC0yOCAwMToxNDowMqOsIlRvbSBTdCBEZW5pcyIgJmx0O3RzdGRlbmlzODJAZ21h
+aWwuY29tJmd0OyDQtLXAo7o8L3A+PGJsb2NrcXVvdGUgaWQ9ImlzUmVwbHlDb250ZW50IiBzdHls
+ZT0iUEFERElORy1MRUZUOiAxZXg7IE1BUkdJTjogMHB4IDBweCAwcHggMC44ZXg7IEJPUkRFUi1M
+RUZUOiAjY2NjIDFweCBzb2xpZCI+PGRpdiBkaXI9Imx0ciI+aXNuJ3QgYSBiZXR0ZXIgZml4IHRv
+IHNpbXBseSBkZWxldGUgdGhlIGxpbmU/Jm5ic3A7IFRoZSBwcmludCBzZWVtcyByZWR1bmRhbnQg
+dG8gbWUuPGRpdj48YnI+PC9kaXY+PGRpdj5Ub208L2Rpdj48L2Rpdj48YnI+PGRpdiBjbGFzcz0i
+Z21haWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiIGNsYXNzPSJnbWFpbF9hdHRyIj5PbiBUaHUsIEF1
+ZyAyNywgMjAyMCBhdCA5OjI3IEFNINXFtv62qyAmbHQ7PGEgaHJlZj0ibWFpbHRvOmVyZG9uZzIw
+MThAMTYzLmNvbSI+ZXJkb25nMjAxOEAxNjMuY29tPC9hPiZndDsgd3JvdGU6PGJyPjwvZGl2Pjxi
+bG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHggMHB4IDBweCAw
+LjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtwYWRkaW5nLWxlZnQ6
+MWV4Ij48ZGl2IHN0eWxlPSJsaW5lLWhlaWdodDoxLjc7Y29sb3I6cmdiKDAsMCwwKTtmb250LXNp
+emU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PHAgc3R5bGU9Im1hcmdpbjowcHgiPjxicj48L3A+
+PC9kaXY+PGJyPjxicj48c3BhbiB0aXRsZT0ibmV0ZWFzZWZvb3RlciI+PHA+Jm5ic3A7PC9wPjwv
+c3Bhbj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxicj4K
+YW1kLWdmeCBtYWlsaW5nIGxpc3Q8YnI+CjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnPC9hPjxicj4KPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4IiByZWw9Im5vcmVmZXJyZXIiIHRhcmdldD0iX2JsYW5rIj5odHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L2E+PGJy
+Pgo8L2Jsb2NrcXVvdGU+PC9kaXY+CjwvYmxvY2txdW90ZT48L2Rpdj48YnI+PGJyPjxzcGFuIHRp
+dGxlPSJuZXRlYXNlZm9vdGVyIj48cD4mbmJzcDs8L3A+PC9zcGFuPg==
+------=_Part_15904_1053011878.1598578998330--
 
+------=_Part_15902_98584569.1598578998330
+Content-Type: application/octet-stream; 
+	name=0001-Delete-redundant-print-info-to-reslove-a-array-bound.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="0001-Delete-redundant-print-info-to-reslove-a-array-bound.patch"
 
------Original Message-----
-From: Das, Nirmoy <Nirmoy.Das@amd.com>
-Sent: Thursday, August 27, 2020 11:19 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Gu, JiaWei (Will) <JiaWei.Gu@amd.com>; Deng, Emily <Emily.Deng@amd.com>; Das, Nirmoy <Nirmoy.Das@amd.com>
-Subject: [PATCH 1/1] drm/amdgpu: rework ip block reinit for sriov
-
-This patch removes some unwanted code duplication and simplifies sriov's ip block reinit logic.
-
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 117 +++++++++++----------
- 1 file changed, 60 insertions(+), 57 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 696a61cc3ac6..0db6db03bcd3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2587,77 +2587,80 @@ int amdgpu_device_ip_suspend(struct amdgpu_device *adev)
- return r;
- }
-
--static int amdgpu_device_ip_reinit_early_sriov(struct amdgpu_device *adev)
-+/** amdgpu_device_is_early_ip_block_sriov - check for early ip_blocks
-+ *
-+ * @ip_block: ip block that need to be check
-+ *
-+ * Returns a tri-state value for a given ip block.
-+ * If an ip block requires early reinit sriov then return 1 or 0 otherwise.
-+ * Return -1 on invalid ip block.
-+ *
-+ */
-+
-+static int
-+amdgpu_device_is_early_ip_block_sriov(const enum amd_ip_block_type
-+ip_block)
- {
--int i, r;
-+switch (ip_block) {
-+/* early ip blocks */
-+case AMD_IP_BLOCK_TYPE_GMC:
-+case AMD_IP_BLOCK_TYPE_COMMON:
-+case AMD_IP_BLOCK_TYPE_PSP:
-+case AMD_IP_BLOCK_TYPE_IH:
-+return 1;
-+/* late ip blocks */
-+case AMD_IP_BLOCK_TYPE_SMC:
-+case AMD_IP_BLOCK_TYPE_DCE:
-+case AMD_IP_BLOCK_TYPE_GFX:
-+case AMD_IP_BLOCK_TYPE_SDMA:
-+case AMD_IP_BLOCK_TYPE_UVD:
-+case AMD_IP_BLOCK_TYPE_VCE:
-+case AMD_IP_BLOCK_TYPE_VCN:
-+return 0;
-+/* invalid ip block */
-+default:
-+return -1;
-+}
-+}
-
--static enum amd_ip_block_type ip_order[] = {
--AMD_IP_BLOCK_TYPE_GMC,
--AMD_IP_BLOCK_TYPE_COMMON,
--AMD_IP_BLOCK_TYPE_PSP,
--AMD_IP_BLOCK_TYPE_IH,
--};
-+static int amdgpu_device_ip_reinit_sriov(struct amdgpu_device *adev,
-+ const int is_early)
-+{
-+int i;
-
- for (i = 0; i < adev->num_ip_blocks; i++) {
--int j;
-+int r = 0;
-+bool init_ip;
- struct amdgpu_ip_block *block;
-+enum amd_ip_block_type ip_block;
-
- block = &adev->ip_blocks[i];
- block->status.hw = false;
-+ip_block = block->version->type;
-+init_ip = (is_early ==
-+   amdgpu_device_is_early_ip_block_sriov(ip_block));
-
--for (j = 0; j < ARRAY_SIZE(ip_order); j++) {
--
--if (block->version->type != ip_order[j] ||
--!block->status.valid)
--continue;
-+if (!init_ip ||
-+    (!is_early && block->status.hw) ||
-+    !block->status.valid)
-+continue;
-
--r = block->version->funcs->hw_init(adev);
--DRM_INFO("RE-INIT-early: %s %s\n", block->version->funcs->name, r?"failed":"succeeded");
--if (r)
--return r;
--block->status.hw = true;
-+if (init_ip && (ip_block == AMD_IP_BLOCK_TYPE_SMC)) {
-+r = block->version->funcs->resume(adev);
-+goto show_log;
- }
--}
--
--return 0;
--}
-
--static int amdgpu_device_ip_reinit_late_sriov(struct amdgpu_device *adev) -{
--int i, r;
--
--static enum amd_ip_block_type ip_order[] = {
--AMD_IP_BLOCK_TYPE_SMC,
--AMD_IP_BLOCK_TYPE_DCE,
--AMD_IP_BLOCK_TYPE_GFX,
--AMD_IP_BLOCK_TYPE_SDMA,
--AMD_IP_BLOCK_TYPE_UVD,
--AMD_IP_BLOCK_TYPE_VCE,
--AMD_IP_BLOCK_TYPE_VCN
--};
--
--for (i = 0; i < ARRAY_SIZE(ip_order); i++) {
--int j;
--struct amdgpu_ip_block *block;
-+if (init_ip)
-+r = block->version->funcs->hw_init(adev);
-
--for (j = 0; j < adev->num_ip_blocks; j++) {
--block = &adev->ip_blocks[j];
-+show_log:
-+DRM_INFO("RE-INIT-%s: %s %s\n", is_early ? "early":"late",
-+ block->version->funcs->name, r ? "failed":"succeeded");
-
--if (block->version->type != ip_order[i] ||
--!block->status.valid ||
--block->status.hw)
--continue;
-+if (r)
-+return r;
-
--if (block->version->type == AMD_IP_BLOCK_TYPE_SMC)
--r = block->version->funcs->resume(adev);
--else
--r = block->version->funcs->hw_init(adev);
-+block->status.hw = true;
-
--DRM_INFO("RE-INIT-late: %s %s\n", block->version->funcs->name, r?"failed":"succeeded");
--if (r)
--return r;
--block->status.hw = true;
--}
- }
-
- return 0;
-@@ -3901,7 +3904,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- amdgpu_amdkfd_pre_reset(adev);
-
- /* Resume IP prior to SMC */
--r = amdgpu_device_ip_reinit_early_sriov(adev);
-+r = amdgpu_device_ip_reinit_sriov(adev, 1);
- if (r)
- goto error;
-
-@@ -3914,7 +3917,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- return r;
-
- /* now we are okay to resume SMC/CP/SDMA */
--r = amdgpu_device_ip_reinit_late_sriov(adev);
-+r = amdgpu_device_ip_reinit_sriov(adev, 0);
- if (r)
- goto error;
-
---
-2.28.0
+RnJvbSBlNjVhYzAwN2U0YWY1MWEwYmZmNWE5ZDQ0ZjRjZWY3NGIzMTVkMjg4IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBFcmRvbmcgemhhbmcgPGVyZG9uZzIwMThAMTYzLmNvbT4KRGF0
+ZTogRnJpLCAyOCBBdWcgMjAyMCAwOTozMzoxMiArMDgwMApTdWJqZWN0OiBbUEFUQ0hdICAgICBE
+ZWxldGUgcmVkdW5kYW50IHByaW50IGluZm8gdG8gcmVzbG92ZSBhIGFycmF5IGJvdW5kCiBvdmVy
+ZmxvdyBpc3N1ZSBpbiB1bXJfY2xvY2tfbWFudWFsLgoKICAgIElmIGkgaW5wdXQgYSB3cm9uZyBj
+bG9jayBuYW1lIG9yIGEgbmFtZSBub3QgZXhpc3QgaW4gYXNpY19jbG9ja3Mgd2hlbiB1c2UgdW1y
+IHNldCBjbG9jaywKdGhlIGZ1bmN0aW9uIHVtcl9jbG9ja19tYW51YWwgdHJ5IHRvIGFjY2VzcyBh
+cnJheSBhc2ljX2Nsb2Nrcy5jbG9ja1tpXSB3aXRoIGluZGV4IFVNUl9DTE9DS19NQVgsCmZpbmFs
+IHRoZSB1bXIgZW5jb3VudGVyIGEgZWdtZW50YXRpb24gZmF1bHQuCi0tLQogc3JjL2FwcC9jbG9j
+ay5jIHwgNCArKystCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2FwcC9jbG9jay5jIGIvc3JjL2FwcC9jbG9jay5jCmluZGV4
+IDEwMWRhNmYuLjcwYjNlMGIgMTAwNjQ0Ci0tLSBhL3NyYy9hcHAvY2xvY2suYworKysgYi9zcmMv
+YXBwL2Nsb2NrLmMKQEAgLTExNyw3ICsxMTcsOSBAQCB2b2lkIHVtcl9jbG9ja19tYW51YWwoc3Ry
+dWN0IHVtcl9hc2ljICphc2ljLCBjb25zdCBjaGFyKiBjbG9ja19uYW1lLCB2b2lkKiB2YWx1ZQog
+CQkJCWJyZWFrOwogCQkJfQogCQl9Ci0JCXByaW50X2Nsb2NrKGFzaWNfY2xvY2tzLmNsb2Nrc1tp
+XSwgYXNpYyk7CisKKwkJaWYoaSA9PSBVTVJfQ0xPQ0tfTUFYKQorCQkJcHJpbnRmKCJbRVJST1Jd
+OiBNYXliZSB3cm9uZyBjbG9jayBuYW1lIG9yIG5vdCBzdXBwb3J0IHNvIGZhciFcbiIpOwogCX0g
+ZWxzZSB7CiAJCXByaW50ZigiW0VSUk9SXTogSW52YWxpZCBpbnB1dCFcbiIpOwogCX0KLS0gCjIu
+MTcuMQoK
+------=_Part_15902_98584569.1598578998330
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+------=_Part_15902_98584569.1598578998330--
+
