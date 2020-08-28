@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F258C433E2
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95221C433E7
 	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 17:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 068E620776
+	by mail.kernel.org (Postfix) with ESMTPS id 6DC4320776
 	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 17:59:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZKoPlaWO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 068E620776
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghsrLEol"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DC4320776
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9B566EB4F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3DE26EB61;
 	Fri, 28 Aug 2020 17:59:11 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D116E50B
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 17:59:07 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id w186so296914qkd.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 10:59:07 -0700 (PDT)
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D98CE6E50D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 17:59:08 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id k18so102093qtm.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 10:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=eDwkUQWvSYjraAwHJTv6XtRAiYldIBbsM2t0m3xdop8=;
- b=ZKoPlaWOI42nLNGPhkRE7+euFv5/fcNFFpxsG7/calFzKyxWuvarUgotIDrBsSVkc4
- uL8Za5DhavrwPrt00bZ/zNv3sKdRfQG6I+skdQ/PrlwEUL9sLep/Ccp19wlbkW6WwwvV
- wRKeYFT/Bbaht5VaYpE0iU02jGosww+naxwk4NEbWrof3l3CV9H7PXgX4lHsiqN5sRxN
- 148zlevrqjSetd87hPfPc3Rcrg9JpNSrDm2IcH/EPegWBIZfZqHg+bXTyq33eVjX9SCl
- TD27o1f/rk9jy3OGiQUzDTYWNrQGqFMfeKquxdMcPPOvSpjWIiGUwStulB2pHAq1S7lm
- E0qw==
+ bh=6pyiAd8L94ohxiDsMLd7KGVSqh1hADSxZoMbllyxEco=;
+ b=ghsrLEol88qK/plEdqXjegZTb0fbeLazoyGYmkPXAicDhvxX0NR0Ln00QQu33Y1deq
+ 6c5NHqbx/+z/JoZdSzT00wOuv0Hz95AvxIBqqDZuOmDPrwS8WkzK+DOpccFgBIgVHevu
+ xvGJQq17LrjtgxMVz39QmBHNsez4LKT0osm741o3kZVlU1bddptRmDuGmhHh5L6ZyznU
+ AYmiA+AIqejB9aY03bSbkY9dc+Y4Raqe80xNr14GdeBA8zbm7CJV1YyQlvYfpSkHwxP2
+ TuYhbMJAJAbw2g25HSV8JOud0O4LoUxJtKQUJJS+OAuJ/VLdG4rgpz7FP8n37s7bYt3V
+ h8iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=eDwkUQWvSYjraAwHJTv6XtRAiYldIBbsM2t0m3xdop8=;
- b=BeoP/wRHVdUeEU9qut9gM/OEF+LVQXt3EaRxtWRJ+vwWwMCUGE0MQB0Ymser4UnAjw
- b95dBX1WAQmEXO/jvwX5QD+4w4APndKDR1nC0am+akRYQ7Jnhq7smWtewTsVQ1hkwgS2
- od3FqMvrT8Z3zdMCAfLYAZWLmT8VhpzcT+vm/TLVabz17Ihq1+Tf/2Wgz4Ie1C6S/JYw
- MVLCan/T8dhD0whwpyvufzmdhm8mKBPDohpbl559FXyL3yjF/obgs1T6ctc1q4LR39MJ
- fMpXThEd1SHFaaIL7Z/7yWWU4dUU6p+Y+iGw5MGdpB8xvBiNzZoPylsfUBC5vQ30UIII
- CbkQ==
-X-Gm-Message-State: AOAM533AzU0P6iayP/nMGTbZE94kWiTE37S8WgsSPfMwmczzIu1SNsL7
- dcFVzsJLN1ch1wwHDvbHPpePSP2Xux4=
-X-Google-Smtp-Source: ABdhPJxS8B02L4NqYBuOZ4RwAnnmefCXiDHEX7qb3sPvqQVxckULjvgElg/JNN/7+s9EaGT9zvKXZw==
-X-Received: by 2002:a05:620a:122c:: with SMTP id
- v12mr306377qkj.113.1598637545763; 
- Fri, 28 Aug 2020 10:59:05 -0700 (PDT)
+ bh=6pyiAd8L94ohxiDsMLd7KGVSqh1hADSxZoMbllyxEco=;
+ b=SkTm9NIBKSsg6caJaf9gkLhb1Mkes9Z7szLAntXl00PWLxCYVrZyhEfAOroy+LrlhU
+ dtDq9VmHrd2pjuADZoNB9WeUmd1PYKsqfZKdTcvgyCrWH7QLJTsAwkmh0MMmwJJVaDbB
+ up6ICWdPuIHsYBA1/imfh1Y5VRyN5v/CDLxRyDtSCKe+pNdAX10t/SHyFRuRKWJJZPV7
+ Q9MvfVwT+JE6Rue3srufpTIg8Vij+0/cO2gysgrNaxzlaZ2omVLrqfGdYTconAii5NiA
+ 7IDXndoetOH0zI8z7P8/B3WiBBWnnBC5KipPWSxwbYBJWws0krGRGNmnVJCJlvobek+g
+ u5tw==
+X-Gm-Message-State: AOAM530rr1HJ9cM0Ko9WgJSesO+BsE1HDmKoJwBXUgcS6EfvJscP3dmO
+ ttfk+Ts+GLk9ZwRk/B1y6AfX+8e/VKk=
+X-Google-Smtp-Source: ABdhPJwl/hIO6tFzeZ7q33wP9VHpikWO/tF1MwwWPqmJfgj9OLHSm5eYTyoobrwoWf46HZv3S7RzRQ==
+X-Received: by 2002:ac8:1415:: with SMTP id k21mr2761668qtj.374.1598637547810; 
+ Fri, 28 Aug 2020 10:59:07 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id x28sm1278129qki.55.2020.08.28.10.59.04
+ by smtp.gmail.com with ESMTPSA id x28sm1278129qki.55.2020.08.28.10.59.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2020 10:59:05 -0700 (PDT)
+ Fri, 28 Aug 2020 10:59:07 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/6] drm/amdgpu/swsmu: drop set_fan_speed_percent (v2)
-Date: Fri, 28 Aug 2020 13:58:51 -0400
-Message-Id: <20200828175853.2378523-4-alexander.deucher@amd.com>
+Subject: [PATCH 6/6] drm/amdgpu/swsmu: handle manual fan readback on SMU11
+Date: Fri, 28 Aug 2020 13:58:53 -0400
+Message-Id: <20200828175853.2378523-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200828175853.2378523-1-alexander.deucher@amd.com>
 References: <20200828175853.2378523-1-alexander.deucher@amd.com>
@@ -87,159 +86,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No longer needed as we can calculate it based on
-the fan's max rpm.
+Need to read back from registers for manual mode rather than
+using the metrics table.
 
-v2: minor code rework
-
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1164
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  1 -
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  3 --
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  9 ++++--
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 -
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 -
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 -
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 31 +------------------
- 7 files changed, 8 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c     | 11 ++++++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c       | 11 ++++++++---
+ .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 11 ++++++++---
+ 3 files changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 0ca997f83fb6..d22a759b6b43 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -573,7 +573,6 @@ struct pptable_funcs {
- 	int (*conv_power_profile_to_pplib_workload)(int power_profile);
- 	uint32_t (*get_fan_control_mode)(struct smu_context *smu);
- 	int (*set_fan_control_mode)(struct smu_context *smu, uint32_t mode);
--	int (*set_fan_speed_percent)(struct smu_context *smu, uint32_t speed);
- 	int (*set_fan_speed_rpm)(struct smu_context *smu, uint32_t speed);
- 	int (*set_xgmi_pstate)(struct smu_context *smu, uint32_t pstate);
- 	int (*gfx_off_control)(struct smu_context *smu, bool enable);
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index 2a3f1ee4a50b..8307e2b790da 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -200,9 +200,6 @@ int
- smu_v11_0_set_fan_control_mode(struct smu_context *smu,
- 			       uint32_t mode);
- 
--int
--smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed);
--
- int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
- 				       uint32_t speed);
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 53e2051432bf..7a55ece1f124 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2217,14 +2217,19 @@ int smu_get_fan_speed_percent(struct smu_context *smu, uint32_t *speed)
- int smu_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
- {
- 	int ret = 0;
-+	uint32_t rpm;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
- 	mutex_lock(&smu->mutex);
- 
--	if (smu->ppt_funcs->set_fan_speed_percent)
--		ret = smu->ppt_funcs->set_fan_speed_percent(smu, speed);
-+	if (smu->ppt_funcs->set_fan_speed_rpm) {
-+		if (speed > 100)
-+			speed = 100;
-+		rpm = speed * smu->fan_max_rpm / 100;
-+		ret = smu->ppt_funcs->set_fan_speed_rpm(smu, rpm);
-+	}
- 
- 	mutex_unlock(&smu->mutex);
- 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 1998e7916fef..f6d9b0db3e82 100644
+index f6d9b0db3e82..2ce6ad9c6609 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -2363,7 +2363,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	.display_clock_voltage_request = smu_v11_0_display_clock_voltage_request,
- 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
- 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
--	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
- 	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
- 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index d5c25e538a03..87b5f9ff4021 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2631,7 +2631,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.display_clock_voltage_request = smu_v11_0_display_clock_voltage_request,
- 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
- 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
--	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
- 	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
- 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 97e54d382862..863372436b98 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -2778,7 +2778,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.display_clock_voltage_request = smu_v11_0_display_clock_voltage_request,
- 	.get_fan_control_mode = smu_v11_0_get_fan_control_mode,
- 	.set_fan_control_mode = smu_v11_0_set_fan_control_mode,
--	.set_fan_speed_percent = smu_v11_0_set_fan_speed_percent,
- 	.set_fan_speed_rpm = smu_v11_0_set_fan_speed_rpm,
- 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
- 	.gfx_off_control = smu_v11_0_gfx_off_control,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index ec20e839f555..5abc06f7c9f3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1099,35 +1099,6 @@ smu_v11_0_set_fan_static_mode(struct smu_context *smu, uint32_t mode)
- 	return 0;
+@@ -1123,9 +1123,14 @@ static int arcturus_get_fan_speed_rpm(struct smu_context *smu,
+ 	if (!speed)
+ 		return -EINVAL;
+ 
+-	return arcturus_get_smu_metrics_data(smu,
+-					     METRICS_CURR_FANSPEED,
+-					     speed);
++	switch (smu_v11_0_get_fan_control_mode(smu)) {
++	case AMD_FAN_CTRL_AUTO:
++		return arcturus_get_smu_metrics_data(smu,
++						     METRICS_CURR_FANSPEED,
++						     speed);
++	default:
++		return smu_v11_0_get_fan_speed_rpm(smu, speed);
++	}
  }
  
--int
--smu_v11_0_set_fan_speed_percent(struct smu_context *smu, uint32_t speed)
--{
--	struct amdgpu_device *adev = smu->adev;
--	uint32_t duty100, duty;
--	uint64_t tmp64;
--
--	if (speed > 100)
--		speed = 100;
--
--	if (smu_v11_0_auto_fan_control(smu, 0))
--		return -EINVAL;
--
--	duty100 = REG_GET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL1),
--				CG_FDO_CTRL1, FMAX_DUTY100);
--	if (!duty100)
--		return -EINVAL;
--
--	tmp64 = (uint64_t)speed * duty100;
--	do_div(tmp64, 100);
--	duty = (uint32_t)tmp64;
--
--	WREG32_SOC15(THM, 0, mmCG_FDO_CTRL0,
--		     REG_SET_FIELD(RREG32_SOC15(THM, 0, mmCG_FDO_CTRL0),
--				   CG_FDO_CTRL0, FDO_STATIC_DUTY, duty));
--
--	return smu_v11_0_set_fan_static_mode(smu, FDO_PWM_MODE_STATIC);
--}
--
- int
- smu_v11_0_set_fan_control_mode(struct smu_context *smu,
- 			       uint32_t mode)
-@@ -1136,7 +1107,7 @@ smu_v11_0_set_fan_control_mode(struct smu_context *smu,
+ static int arcturus_get_fan_parameters(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 87b5f9ff4021..42d53cca7360 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1362,9 +1362,14 @@ static int navi10_get_fan_speed_rpm(struct smu_context *smu,
+ 	if (!speed)
+ 		return -EINVAL;
  
- 	switch (mode) {
- 	case AMD_FAN_CTRL_NONE:
--		ret = smu_v11_0_set_fan_speed_percent(smu, 100);
-+		ret = smu_v11_0_set_fan_speed_rpm(smu, smu->fan_max_rpm);
- 		break;
- 	case AMD_FAN_CTRL_MANUAL:
- 		ret = smu_v11_0_auto_fan_control(smu, 0);
+-	return navi10_get_smu_metrics_data(smu,
+-					   METRICS_CURR_FANSPEED,
+-					   speed);
++	switch (smu_v11_0_get_fan_control_mode(smu)) {
++	case AMD_FAN_CTRL_AUTO:
++		return navi10_get_smu_metrics_data(smu,
++						   METRICS_CURR_FANSPEED,
++						   speed);
++	default:
++		return smu_v11_0_get_fan_speed_rpm(smu, speed);
++	}
+ }
+ 
+ static int navi10_get_fan_parameters(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 863372436b98..5c22611d5878 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1169,9 +1169,14 @@ static int sienna_cichlid_get_fan_speed_rpm(struct smu_context *smu,
+ 	if (!speed)
+ 		return -EINVAL;
+ 
+-	return sienna_cichlid_get_smu_metrics_data(smu,
+-						   METRICS_CURR_FANSPEED,
+-						   speed);
++	switch (smu_v11_0_get_fan_control_mode(smu)) {
++	case AMD_FAN_CTRL_AUTO:
++		return sienna_cichlid_get_smu_metrics_data(smu,
++							   METRICS_CURR_FANSPEED,
++							   speed);
++	default:
++		return smu_v11_0_get_fan_speed_rpm(smu, speed);
++	}
+ }
+ 
+ static int sienna_cichlid_get_fan_parameters(struct smu_context *smu)
 -- 
 2.25.4
 
