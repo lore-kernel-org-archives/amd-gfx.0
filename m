@@ -2,65 +2,67 @@ Return-Path: <SRS0=kQKQ=CG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EC05C433E7
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 09:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BBEFC43461
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 12:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 242F9208D5
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 09:40:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2017C2078A
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 12:42:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZK+v2bmQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 242F9208D5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hEXF7p+9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2017C2078A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 642D76EB8B;
-	Fri, 28 Aug 2020 09:40:42 +0000 (UTC)
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 146796EB8B
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 09:40:41 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id w25so559410ljo.12
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 02:40:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4ACE6E4A1;
+	Fri, 28 Aug 2020 12:41:59 +0000 (UTC)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D8D6E4A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 12:41:57 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id h19so1106901ljg.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 05:41:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZUip6H2+jjLmhsYJSfGTRg7Ifd0FUyC3bIqJ6snuBqc=;
- b=ZK+v2bmQLBjTkyTKleZ4cfX+TpXVVDGN80D4Cqhya1JdXh0uk4uzMDHh2YlIQSpubL
- Z10w4VCoiKA/QgWuuZ5KY2SSF/NdAfsZ8Z7nPX9LBb/JyULoZ5s1U1uF9CiBp4+Wkz87
- UVyBls0s8KH5oRJgVt7FdhME4Vx55DOD4UbsTASNmspQx/J3yK4b0UHT8fabcBfERM7O
- 66e2Tt7LkEfbLu/tG5Z8CwjGrynpQGPYK1M6cFDHBJI9/2UsJ6JIxk2cLkqBUoKGZpo3
- HRM3wL3Z+XZD/kWUuGbHjv9zynSMwTgAPsurI1JevBX9DJAIZHRJewlsm5WQYkde7sIN
- Jojg==
+ :cc; bh=+AXyLde/McwZE68yzUwRnxRscooo0bLcFKX0N91aaRk=;
+ b=hEXF7p+9K4QDhtHlKh49Sw65dqUnt6qCnG0PA4YdxW6Y8k8VgCEB7kVYyd5XuYrzrJ
+ m8Xu6HlO+ReqDwW0WoE/VH/1topdu9qcEOSxhivAS3TDw14rHlqnB6Ys0cKtM0GZDBwp
+ rfADTuWukF8QkErKfvA4lQsBm3DhWMS7Yw1CD0xn5eV4djKQyFsD9PVKRNq0Z0JCYJNU
+ YkAylksl4GBQXwUiSOdHJ02jepSLL+4oxMuhFHJe9nNdr+RE7vKGELWDWJ0WU0711yU4
+ 9UZwn36G5R522hdkxyvpyO6xavVuEqyc2Y0cmYq0r+cL0FD7MD6WF/p76Df+RbQR+5sG
+ Eh5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ZUip6H2+jjLmhsYJSfGTRg7Ifd0FUyC3bIqJ6snuBqc=;
- b=QtF+gPc6cI84Dzx94EV/XocD7bg3tOLWRf8DHCde7F80STnJjwq1H7xN4l1NWyDgMC
- g3v4JaHql0Phn4rst0FF5XfKLfG7X+VfI0Ct6Oavn26NrmhpEK0iUKEVDdpNCfM+anyf
- 4Le5O35VMd06mCPBhxcV7nl5XHn4gvrsOxsmBOLeG6DgWkV203UsWgRnbQOpKcqGgBeZ
- b9V3UYq7HT3VZhruHQ8y+iB6wvFNfMpoD2gyofQCjEyGczLvWP49KpKhEX7YL6qG7/l3
- K7+RciJ2CItbPeZJ+nAdGuwClCMccfAx/O5pUMNjgwGrDj1IsJMpW0I2Wc7Hj+Mo9mLj
- zZ+A==
-X-Gm-Message-State: AOAM5303ESIlLgXfqWU/HNuGsu+txPWLODnfdN1pr0rdUWCWVgklGN9i
- aYBaTcNWTTeyDEk85u2qZhmHS0nH1dlu0ZKBcxYzag==
-X-Google-Smtp-Source: ABdhPJyobFr8wlwoGMVpjT4BBlaiB53c0xbtwloUtEybXVxTnB6o94g4sI9w40AbLQ+tg744duwQYVnD0klCkIcxAA4=
-X-Received: by 2002:a2e:9dd0:: with SMTP id x16mr472930ljj.144.1598607638931; 
- Fri, 28 Aug 2020 02:40:38 -0700 (PDT)
+ bh=+AXyLde/McwZE68yzUwRnxRscooo0bLcFKX0N91aaRk=;
+ b=PLJZ7sahY8x4DsQZR6vYOlMr634WbzkGaFg3T4myThtzrGlac/mKffbLoSeFFAONYf
+ Rc7OaZ9kbHg4NucAftbw4N2JRkCLRruuGXTOzKjM2m6HNo8HC+dy41y3Ru6dHNIK5f50
+ Tkr8vnZIL5HbaMMsjtmCddoAbA33qakPCowi9yzME+DfojY2K5bTwH+dqgtugRS489iG
+ BYmk2h5DSVj5tABOdEp/XZ00iLPl4tccZdtMkiriBRJRgdmjWZ9ZB4jStkaUZ1bR2FlL
+ BpdSKTLu/tLr4UseO4Eeu2aXJ692GyX2xdoTX5uanihND0dJU7LnIRXdyPzScr2uXb70
+ r0wQ==
+X-Gm-Message-State: AOAM533pleyXbv6xBOLNnudB+n++lmVGXYJaj3rIo923EYmxHt3pZ6Db
+ YhfA9xWl3dMNvFDrRWQHR8JiUb8LCDykC4aV+ys=
+X-Google-Smtp-Source: ABdhPJyvt6gVEBUmJd76B/h25INpBxuVQIJEQvtfmi8LrtnT9wsh3AsHRqGy8qC223pkAR7ruUa45uVvdI7nYuQLIW4=
+X-Received: by 2002:a2e:86d9:: with SMTP id n25mr882405ljj.444.1598618516247; 
+ Fri, 28 Aug 2020 05:41:56 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200823104532.1024798-1-sam@ravnborg.org>
-In-Reply-To: <20200823104532.1024798-1-sam@ravnborg.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 28 Aug 2020 11:40:28 +0200
-Message-ID: <CACRpkdaQ9bYrvVdBtz_7=juG175G+WRXbebfkt61tGqtGGoH5Q@mail.gmail.com>
-Subject: Re: [PATCH v2 0/24] backlight: add init macros and accessors
-To: Sam Ravnborg <sam@ravnborg.org>
+References: <5eb9e79.42da.1742ef91f76.Coremail.erdong2018@163.com>
+ <CAAzXoRJ+S6qaE_UaN0gNtkHPQcp+toMcUA1-8fLhU37rDdHyRQ@mail.gmail.com>
+ <3ffa3550.11d0.17432bbbc3a.Coremail.erdong2018@163.com>
+In-Reply-To: <3ffa3550.11d0.17432bbbc3a.Coremail.erdong2018@163.com>
+From: Tom St Denis <tstdenis82@gmail.com>
+Date: Fri, 28 Aug 2020 08:41:45 -0400
+Message-ID: <CAAzXoR+Lx9C1X9MGnGjnNjV1u8ExEdwE9OiSja2XenqqC71vdA@mail.gmail.com>
+Subject: Re: Re: 0001-Fix-a-array-bound-overflow-bug-in-function-umr_clock
+To: =?UTF-8?B?5byg5LqM5Lic?= <erdong2018@163.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,126 +74,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, Andrzej Hajda <a.hajda@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Lee Jones <lee.jones@linaro.org>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Manasi Navare <manasi.d.navare@intel.com>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Konrad Dybcio <konradybcio@gmail.com>, amd-gfx@lists.freedesktop.org,
- Zheng Bin <zhengbin13@huawei.com>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Robert Chiras <robert.chiras@nxp.com>, Vinay Simha BN <simhavcs@gmail.com>,
- Hoegeun Kwon <hoegeun.kwon@samsung.com>,
- =?UTF-8?Q?Pawe=C5=82_Chmiel?= <pawel.mikolaj.chmiel@gmail.com>,
- Jonas Karlman <jonas@kwiboo.se>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hans de Goede <hdegoede@redhat.com>, Jyri Sarha <jsarha@ti.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Jingoo Han <jingoohan1@gmail.com>,
- Philippe CORNU <philippe.cornu@st.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Rob Clark <robdclark@gmail.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Wambui Karuga <wambui.karugax@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0823467338=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Aug 23, 2020 at 12:45 PM Sam Ravnborg <sam@ravnborg.org> wrote:
+--===============0823467338==
+Content-Type: multipart/alternative; boundary="000000000000cad95905adef6061"
 
-> The first patch trims backlight_update_status() so it can be called with a NULL
-> backlight_device. Then the caller do not need to add this check just to avoid
-> a NULL reference.
->
-> The backlight drivers uses several different patterns when registering
-> a backlight:
->
-> - Register backlight and assign properties later
-> - Define a local backlight_properties variable and use memset
-> - Define a const backlight_properties and assign relevant properties
->
-> On top of this there was differences in what members was assigned.
->
-> To align how backlight drivers are initialized introduce following helper macros:
-> - DECLARE_BACKLIGHT_INIT_FIRMWARE()
-> - DECLARE_BACKLIGHT_INIT_PLATFORM()
-> - DECLARE_BACKLIGHT_INIT_RAW()
->
-> The macros are introduced in patch 2.
->
-> The backlight drivers used direct access to backlight_properties.
-> Encapsulate these in get/set access operations resulting in following benefits:
-> - The access methods can be called with a NULL pointer so logic around the
->   access can be made simpler.
-> - The update_brightness and enable_brightness simplifies the users
-> - The code is in most cases more readable with the access operations.
-> - When everyone uses the access methods refactoring in the backlight core is simpler.
->
-> The get/set operations are introduced in patch 3.
->
-> The gpio backlight driver received a small overhaul in a set of three patches.
-> The result is a smaller and more readable driver.
->
-> The remaining patches updates all backlight users in drivers/gpu/drm/*
-> With this patch set all of drivers/gpu/drm/:
-> - All backlight references to FB_BLANK* are gone from drm/*
-> - All direct references to backlight properties are gone
-> - All panel drivers uses the devm_ variant for registering backlight
->   Daniel Vetter had some concerns with this for future updates,
->   but we are aligned now and can update if refoctoring demands it
-> - All panel drivers uses the backlight support in drm_panel
->
-> Individual patches are only sent to the people listed in the patch + a few more.
-> Please check https://lore.kernel.org/dri-devel/ for the full series.
->
-> v2:
->   - Documented BACKLIGHT_PROPS as it may be used by drivers
->   - Dropped backlight_set_power_{on,off}, they were a mistake (Daniel)
->   - Added backlight_update_brightness() and use it (Daniel)
->   - Added backlight_enable_brightness() and use it
->   - Moved remaining drm_panel driver to use backlight support in drm_panel
->   - gpio backlight driver overhaul
->
-> The patches are made on top of the for-backlight-next branch at
-> https://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight.git
-> The branch needs v5.8-rc1 backported to build as dev_err_probe()
-> is used.
->
-> The first 6 patches are candidates for the backlight tree.
-> If they are applied then this should preferably be to an immutable
-> branch we can merge to drm-misc-next where the drm patches shall go.
->
-> The drm patches has known conflics and shall *not* be applied to the
-> backlight tree, they are included in this patchset to show how the
-> new functions are used.
->
-> Diffstat for the drm bits alone looks nice:
->  25 files changed, 243 insertions(+), 460 deletions(-)
->
-> Feedback welcome!
+--000000000000cad95905adef6061
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for trying to make backlight easier for developers.
-I am a big supporter of this type of simplifications and
-generalizations, it is what makes DRM great.
+Thanks, applied!
 
-The series:
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
+In future patches can you please add a Signed-off line (e.g. use "-s" with
+git when forming the commit).
 
-Yours,
-Linus Walleij
+Tom
+
+On Thu, Aug 27, 2020 at 9:43 PM =E5=BC=A0=E4=BA=8C=E4=B8=9C <erdong2018@163=
+.com> wrote:
+
+> Yes, you are right. New patch is in attachment.
+>
+> thanks.
+>
+>
+>
+>
+>
+>
+> =E5=9C=A8 2020-08-28 01:14:02=EF=BC=8C"Tom St Denis" <tstdenis82@gmail.co=
+m> =E5=86=99=E9=81=93=EF=BC=9A
+>
+> isn't a better fix to simply delete the line?  The print seems redundant
+> to me.
+>
+> Tom
+>
+> On Thu, Aug 27, 2020 at 9:27 AM =E5=BC=A0=E4=BA=8C=E4=B8=9C <erdong2018@1=
+63.com> wrote:
+>
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>
+>
+>
+>
+
+--000000000000cad95905adef6061
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks, applied!<div><br></div><div>In future patches can =
+you please add a Signed-off line (e.g. use &quot;-s&quot; with git when for=
+ming the commit).<br><div><br></div><div>Tom</div></div></div><br><div clas=
+s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Aug 27, 202=
+0 at 9:43 PM =E5=BC=A0=E4=BA=8C=E4=B8=9C &lt;<a href=3D"mailto:erdong2018@1=
+63.com">erdong2018@163.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
+04,204);padding-left:1ex"><div style=3D"line-height:1.7;color:rgb(0,0,0);fo=
+nt-size:14px;font-family:Arial"><div style=3D"margin:0px">Yes, you are righ=
+t. New patch is in attachment.</div><div style=3D"margin:0px"><br></div><di=
+v style=3D"margin:0px">thanks.</div><p style=3D"margin:0px"><br></p><p styl=
+e=3D"margin:0px"><br></p><p style=3D"margin:0px"><br></p><p style=3D"margin=
+:0px"><br></p><div style=3D"zoom:1"></div><div id=3D"gmail-m_87353949788937=
+09641divNeteaseMailCard"></div><p style=3D"margin:0px"><br></p><p>=E5=9C=A8=
+ 2020-08-28 01:14:02=EF=BC=8C&quot;Tom St Denis&quot; &lt;<a href=3D"mailto=
+:tstdenis82@gmail.com" target=3D"_blank">tstdenis82@gmail.com</a>&gt; =E5=
+=86=99=E9=81=93=EF=BC=9A</p><blockquote id=3D"gmail-m_8735394978893709641is=
+ReplyContent" style=3D"padding-left:1ex;margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204)"><div dir=3D"ltr">isn&#39;t a better fix to si=
+mply delete the line?=C2=A0 The print seems redundant to me.<div><br></div>=
+<div>Tom</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Thu, Aug 27, 2020 at 9:27 AM =E5=BC=A0=E4=BA=8C=E4=B8=9C=
+ &lt;<a href=3D"mailto:erdong2018@163.com" target=3D"_blank">erdong2018@163=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex"><div style=3D"line-height:1.7;color:rgb(0,0,0);font-size:14px;font-fami=
+ly:Arial"><p style=3D"margin:0px"><br></p></div><br><br><span title=3D"nete=
+asefooter"><p>=C2=A0</p></span>____________________________________________=
+___<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+</blockquote></div><br><br><span title=3D"neteasefooter"><p>=C2=A0</p></spa=
+n></blockquote></div>
+
+--000000000000cad95905adef6061--
+
+--===============0823467338==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0823467338==--
