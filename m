@@ -7,60 +7,60 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB5E2C433E6
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 19:19:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F9E7C433E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 19:23:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3E9E2073A
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 19:19:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 692DF2073A
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 19:23:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evnoEYva"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3E9E2073A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hMdR+SjT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 692DF2073A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BFA16E519;
-	Fri, 28 Aug 2020 19:19:50 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 516816E519
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 19:19:49 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id c19so250457wmd.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 12:19:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035D16E519;
+	Fri, 28 Aug 2020 19:23:53 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C48A6E519
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 19:23:51 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id x7so179664wro.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 12:23:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xIo15YsjT5D7Ga8CTcYbUiWome3UMxrIjS2BSzNSYu4=;
- b=evnoEYvakkdyZ9J6pn5ZlLzthcVysK9pABuOPCFc7pG07MjC7HRQh2W1GLF2Xiyg3d
- TPNctTGu/pEuEXnmLEXW3ePSV7rA7090bvhnBaUZbomvFJnSFxyFjX9mO76QP/ZdpLfN
- nEKM0RGFDZolyMVVV8giAom4gisnvqqUcrzU0DghkSR55WKfSggX9hMjjxeVqJJsj/qY
- WjvK6emTvDyt2zIS3yeUr4mzJldaoyUn7LOFBz10qe6xzfRS6r++9YNNN8+U887sRaNt
- hX+9BsHY97FN9l1FQHeZt2QVaLcoXztG6pCUHeAG7ocd4Nfgu8JEqtyFfRi8cWyP87Tb
- WUFA==
+ :cc; bh=Ykj2z9N1lo5iLQzRZBMfktEy57K+ZG4a1crthQTBbSA=;
+ b=hMdR+SjTdfkWWELD4kXFGChFrgmVApaDHKGfdZKv6J/D7zgnbYZdwWsDGVvnvHayLm
+ gRlIKF84j/HihpZ7zVeeCBVgWRewPMtehx480cA79RBvfsO22uzTFs/cMTYPDFi+KE6E
+ 9h9tRGdc2bKrKX6Auspxyr0uGHRbJx5VRoNRAEQ9rVFBQGd5qhxbUXMvPeAYv88enZSu
+ ccNcHwZBE6dU68M+dQl3jha68/v4afVHKf1GiTxby564U8If5Li9uQk0zTNLS4g8E2UF
+ SpPmt12PU3ycXHSqOXcRXrzVDSVigxlegk+0wPTNInDTzgacHk0+dpuh79z51RvGKK3s
+ ARJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=xIo15YsjT5D7Ga8CTcYbUiWome3UMxrIjS2BSzNSYu4=;
- b=ck2cLRHBttDMR05f/ny7zm/5Yc7n+0FiO+PtEwleSgFsIHi6gQXXwWuFvNY4SLA7DG
- SyNE1nvQ4dAOAne0ZfMbLtMiYJfsruz6N3+J4MXTuj62OjW5vcNmHXsRUsvgGU7gC0bZ
- OH0nfgAW1/5/1CdCDZuIWWHN6UiiCL6ouTJPXarCJxn6m2iGRSyccu23jMO6JNhPdyqn
- nFnOPFie27f3ujH1GrJZZsHNn5FO8oQ30G30Q5geDVCJB37DiQWZYW6MaTc7n+UMqKO+
- m3DAyv/0ywJ/uu9djTzqGpq5TgLO4UeXCQ0qiiBGUdABau0iZ73191fwyZ7KIHm4TQs0
- S2bg==
-X-Gm-Message-State: AOAM530kirfSfIwUaSSIXSdA/HY4BA2Ox5xlhYl0yPqt1ItiperP6RRh
- EQ4jnjr6GI8+IFybjzMy/R42Glb4vAE5sxL8WBc=
-X-Google-Smtp-Source: ABdhPJxU5Olc2BOER0DvE4MiOx8ipDz4LgExoveLAUa2226XNb0bSvOFXQJVM8Bf5ya6yQC+1Bb3Ftss4GfsmN4jZwg=
-X-Received: by 2002:a7b:c941:: with SMTP id i1mr148931wml.73.1598642387874;
- Fri, 28 Aug 2020 12:19:47 -0700 (PDT)
+ bh=Ykj2z9N1lo5iLQzRZBMfktEy57K+ZG4a1crthQTBbSA=;
+ b=Uyf8kYAiyCjU+/h2KXtudZJVUL9nPKq0fUUF8orcTOKnQoGJeCY9z5sCYTTEDCsNfl
+ jpUNpEkuByALTWKdg43OO45I++ToDoiJbG7YZTpgBpcKWlzKH2O4/g6ZsvSXSiSKCQuc
+ 2GphWIMYIx7S0mWs+4bQogNv8tE5in7SJJi2B7MDAklFu5DQ+X0oZS3cP0sCez6mh676
+ 1sb5OOhssQBaxVIfMrr3WPzlbzNtM+s4N9BSdQwG41mxz+3mH4D162Imx0P6n1l5OIgu
+ 9x3Tj6Dh/F3lHlTfeD3/4bLmjrnky4MCZSusRgBPrDdFobxoZM8ZCJAIJ+nTbeF5UYfz
+ mSJQ==
+X-Gm-Message-State: AOAM533vNR+eQIbCxhN44aheeNujLx2rhRPhcn/m7uhkZ52SiFP0ErkI
+ Vk4scSPwxLMuFSMP+TQMXnvpkaIBF72z35YIuV4=
+X-Google-Smtp-Source: ABdhPJz4fhuiYmK21HT+sS13DpltDEsAUeqqKF3DlTuOkcZkpIz1nRCdXf7VgMB2zS1MGJliEf1TbXTiJr/XHH6V+Ck=
+X-Received: by 2002:a5d:494b:: with SMTP id r11mr405019wrs.419.1598642629991; 
+ Fri, 28 Aug 2020 12:23:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <1598630743-21155-1-git-send-email-andrey.grodzovsky@amd.com>
- <1598630743-21155-6-git-send-email-andrey.grodzovsky@amd.com>
-In-Reply-To: <1598630743-21155-6-git-send-email-andrey.grodzovsky@amd.com>
+ <1598630743-21155-2-git-send-email-andrey.grodzovsky@amd.com>
+In-Reply-To: <1598630743-21155-2-git-send-email-andrey.grodzovsky@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Aug 2020 15:19:36 -0400
-Message-ID: <CADnq5_PrsW0rrkeKOgYm5ZG7f86etycgmnbYYbewGXozGLwoqA@mail.gmail.com>
-Subject: Re: [PATCH v2 5/7] drm/amdgpu: Fix consecutive DPC recovery failures.
+Date: Fri, 28 Aug 2020 15:23:38 -0400
+Message-ID: <CADnq5_PEW=4Gkm6WmcYCh2wYOdPF5pas+4pp4=EvueH8wE38dA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] drm/amdgpu: Implement DPC recovery
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,228 +84,290 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Fri, Aug 28, 2020 at 12:06 PM Andrey Grodzovsky
 <andrey.grodzovsky@amd.com> wrote:
 >
-> Cache the PCI state on boot and before each case were we might
-> loose it.
+> Add DPC handlers with basic recovery functionality.
 >
-> v2: Add pci_restore_state while caching the PCI state to avoid
-> breaking PCI core logic for stuff like suspend/resume.
+> v2: remove pci_save_state to avoid breaking suspend/resume
 >
 > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 59 ++++++++++++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +-
->  drivers/gpu/drm/amd/amdgpu/nv.c            |  4 +-
->  drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 +-
->  5 files changed, 67 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   9 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 169 ++++++++++++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   9 +-
+>  3 files changed, 184 insertions(+), 3 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index cac51e8..5e74db6 100644
+> index 49ea9fa..3399242 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -992,7 +992,9 @@ struct amdgpu_device {
->         atomic_t                        throttling_logging_enabled;
->         struct ratelimit_state          throttling_logging_rs;
->         uint32_t                        ras_features;
-> +
->         bool                            in_pci_err_recovery;
-> +       struct pci_saved_state          *pci_state;
->  };
+> @@ -49,6 +49,8 @@
+>  #include <linux/rbtree.h>
+>  #include <linux/hashtable.h>
+>  #include <linux/dma-fence.h>
+> +#include <linux/pci.h>
+> +#include <linux/aer.h>
 >
->  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> @@ -1272,6 +1274,10 @@ pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev);
->  pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev);
->  void amdgpu_pci_resume(struct pci_dev *pdev);
+>  #include <drm/ttm/ttm_bo_api.h>
+>  #include <drm/ttm/ttm_bo_driver.h>
+> @@ -1263,6 +1265,13 @@ static inline int amdgpu_dm_display_resume(struct amdgpu_device *adev) { return
+>  void amdgpu_register_gpu_instance(struct amdgpu_device *adev);
+>  void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev);
 >
-> +bool amdgpu_device_cache_pci_state(struct pci_dev *pdev);
-> +bool amdgpu_device_load_pci_state(struct pci_dev *pdev);
+> +pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev,
+> +                                          pci_channel_state_t state);
+> +pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev);
+> +pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev);
+> +void amdgpu_pci_resume(struct pci_dev *pdev);
 > +
 > +
->
 >  #include "amdgpu_object.h"
 >
+>  /* used by df_v3_6.c and amdgpu_pmu.c */
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 06664a9..7f1b970 100644
+> index 5a948ed..937f8b0 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1284,7 +1284,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
->                 dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+> @@ -350,7 +350,8 @@ uint32_t amdgpu_mm_rreg(struct amdgpu_device *adev, uint32_t reg,
+>   *
+>   * Returns the 8 bit value from the offset specified.
+>   */
+> -uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset) {
+> +uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset)
+> +{
+>         if (offset < adev->rmmio_size)
+>                 return (readb(adev->rmmio + offset));
+>         BUG();
+> @@ -371,7 +372,8 @@ uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset) {
+>   *
+>   * Writes the value specified to the offset specified.
+>   */
+> -void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value) {
+> +void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
+> +{
+>         if (offset < adev->rmmio_size)
+>                 writeb(value, adev->rmmio + offset);
+>         else
+> @@ -2989,6 +2991,7 @@ static const struct attribute *amdgpu_dev_attributes[] = {
+>         NULL
+>  };
 >
->                 pci_set_power_state(dev->pdev, PCI_D0);
-> -               pci_restore_state(dev->pdev);
-> +               amdgpu_device_load_pci_state(dev->pdev);
->                 r = pci_enable_device(dev->pdev);
->                 if (r)
->                         DRM_WARN("pci_enable_device failed (%d)\n", r);
-> @@ -1297,7 +1297,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
->                 drm_kms_helper_poll_disable(dev);
->                 dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
->                 amdgpu_device_suspend(dev, true);
-> -               pci_save_state(dev->pdev);
-> +               amdgpu_device_cache_pci_state(dev->pdev);
->                 /* Shut down the device */
->                 pci_disable_device(dev->pdev);
->                 pci_set_power_state(dev->pdev, PCI_D3cold);
-> @@ -3402,6 +3402,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->         if (r)
->                 dev_err(adev->dev, "amdgpu_pmu_init failed\n");
->
-> +       /* Have stored pci confspace at hand for restore in sudden PCI error */
-> +       if (!amdgpu_device_cache_pci_state(adev->pdev))
-> +               DRM_WARN("Failed to cache PCI state!");
-
-We should call pci_restore_state(pdev) here rather than in the helpers
-otherwise we incur the extra overhead in all cases and it's not
-necessary.
-
->         return 0;
->
->  failed:
-> @@ -3428,6 +3431,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
->         flush_delayed_work(&adev->delayed_init_work);
->         adev->shutdown = true;
->
-> +       kfree(adev->pci_state);
 > +
->         /* make sure IB test finished before entering exclusive mode
->          * to avoid preemption on IB test
->          * */
-> @@ -4853,7 +4858,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->         /* wait for asic to come out of reset */
->         msleep(500);
+>  /**
+>   * amdgpu_device_init - initialize the driver
+>   *
+> @@ -3207,6 +3210,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>                 }
+>         }
 >
-> -       pci_restore_state(pdev);
-> +       amdgpu_device_load_pci_state(pdev);
+> +       pci_enable_pcie_error_reporting(adev->ddev.pdev);
+> +
+> +
+>         /* Post card if necessary */
+>         if (amdgpu_device_need_post(adev)) {
+>                 if (!adev->bios) {
+> @@ -4701,3 +4707,162 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
 >
->         /* confirm  ASIC came out of reset */
->         for (i = 0; i < adev->usec_timeout; i++) {
-> @@ -4932,8 +4937,10 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->
->  out:
->
-> -       if (!r)
-> +       if (!r) {
-> +               amdgpu_device_cache_pci_state(adev->pdev);
->                 DRM_INFO("PCIe error recovery succeeded\n");
-> +       }
->         else {
->                 DRM_ERROR("PCIe error recovery failed, err:%d", r);
->                 amdgpu_device_unlock_adev(adev);
-> @@ -4972,3 +4979,47 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
->
->         amdgpu_device_unlock_adev(adev);
+>         return 0;
 >  }
 > +
-> +bool amdgpu_device_cache_pci_state(struct pci_dev *pdev)
+> +/**
+> + * amdgpu_pci_error_detected - Called when a PCI error is detected.
+> + * @pdev: PCI device struct
+> + * @state: PCI channel state
+> + *
+> + * Description: Called when a PCI error is detected.
+> + *
+> + * Return: PCI_ERS_RESULT_NEED_RESET or PCI_ERS_RESULT_DISCONNECT.
+> + */
+> +pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_state_t state)
 > +{
 > +       struct drm_device *dev = pci_get_drvdata(pdev);
 > +       struct amdgpu_device *adev = drm_to_adev(dev);
-> +       int r;
 > +
-> +       r = pci_save_state(pdev);
-> +       if (!r) {
-> +               kfree(adev->pci_state);
+> +       DRM_INFO("PCI error: detected callback, state(%d)!!\n", state);
 > +
-> +               adev->pci_state = pci_store_saved_state(pdev);
-> +               pci_restore_state(pdev);
-
-We don't want to restore this here.  See my comment above.
-
+> +       switch (state) {
+> +       case pci_channel_io_normal:
+> +               return PCI_ERS_RESULT_CAN_RECOVER;
+> +       case pci_channel_io_frozen: {
+> +               /* Fatal error, prepare for slot reset */
 > +
-> +               if (!adev->pci_state) {
-> +                       DRM_ERROR("Failed to store PCI saved state");
-> +                       return false;
-> +               }
-> +       } else {
-> +               DRM_WARN("Failed to save PCI state, err:%d\n", r);
-> +               return false;
+> +               amdgpu_device_lock_adev(adev);
+> +               return PCI_ERS_RESULT_NEED_RESET;
 > +       }
-> +
-> +       return true;
+> +       case pci_channel_io_perm_failure:
+> +               /* Permanent error, prepare for device removal */
+> +               return PCI_ERS_RESULT_DISCONNECT;
+> +       }
+> +       return PCI_ERS_RESULT_NEED_RESET;
 > +}
 > +
-> +bool amdgpu_device_load_pci_state(struct pci_dev *pdev)
+> +/**
+> + * amdgpu_pci_mmio_enabled - Enable MMIO and dump debug registers
+> + * @pdev: pointer to PCI device
+> + */
+> +pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev)
+> +{
+> +
+> +       DRM_INFO("PCI error: mmio enabled callback!!\n");
+> +
+> +       /* TODO - dump whatever for debugging purposes */
+> +
+> +       /* This called only if amdgpu_pci_error_detected returns
+> +        * PCI_ERS_RESULT_CAN_RECOVER. Read/write to the device still
+> +        * works, no need to reset slot.
+> +        */
+> +
+> +       return PCI_ERS_RESULT_RECOVERED;
+> +}
+> +
+> +/**
+> + * amdgpu_pci_slot_reset - Called when PCI slot has been reset.
+> + * @pdev: PCI device struct
+> + *
+> + * Description: This routine is called by the pci error recovery
+> + * code after the PCI slot has been reset, just before we
+> + * should resume normal operations.
+> + */
+> +pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
 > +{
 > +       struct drm_device *dev = pci_get_drvdata(pdev);
 > +       struct amdgpu_device *adev = drm_to_adev(dev);
 > +       int r;
+> +       bool vram_lost;
 > +
-> +       if (!adev->pci_state)
-> +               return false;
+> +       DRM_INFO("PCI error: slot reset callback!!\n");
 > +
-> +       r = pci_load_saved_state(pdev, adev->pci_state);
+> +       pci_restore_state(pdev);
 > +
-> +       if (!r) {
-> +               pci_restore_state(pdev);
-> +       } else {
-> +               DRM_WARN("Failed to load PCI state, err:%d\n", r);
-> +               return false;
+> +       r = amdgpu_device_ip_suspend(adev);
+> +       if (r)
+> +               goto out;
+> +
+> +
+> +       /* post card */
+> +       r = amdgpu_atom_asic_init(adev->mode_info.atom_context);
+> +       if (r)
+> +               goto out;
+> +
+> +       r = amdgpu_device_ip_resume_phase1(adev);
+> +       if (r)
+> +               goto out;
+> +
+> +       vram_lost = amdgpu_device_check_vram_lost(adev);
+> +       if (vram_lost) {
+> +               DRM_INFO("VRAM is lost due to GPU reset!\n");
+> +               amdgpu_inc_vram_lost(adev);
 > +       }
+> +
+> +       r = amdgpu_gtt_mgr_recover(
+> +               &adev->mman.bdev.man[TTM_PL_TT]);
+> +       if (r)
+> +               goto out;
+> +
+> +       r = amdgpu_device_fw_loading(adev);
+> +       if (r)
+> +               return r;
+> +
+> +       r = amdgpu_device_ip_resume_phase2(adev);
+> +       if (r)
+> +               goto out;
+> +
+> +       if (vram_lost)
+> +               amdgpu_device_fill_reset_magic(adev);
+> +
+> +       /*
+> +        * Add this ASIC as tracked as reset was already
+> +        * complete successfully.
+> +        */
+> +       amdgpu_register_gpu_instance(adev);
+> +
+> +       r = amdgpu_device_ip_late_init(adev);
+> +       if (r)
+> +               goto out;
+> +
+> +       amdgpu_fbdev_set_suspend(adev, 0);
+> +
+> +       /* must succeed. */
+> +       amdgpu_ras_resume(adev);
+> +
+> +
+> +       amdgpu_irq_gpu_reset_resume_helper(adev);
+> +       r = amdgpu_ib_ring_tests(adev);
+> +       if (r)
+> +               goto out;
+> +
+> +       r = amdgpu_device_recover_vram(adev);
+> +
+> +out:
+> +
+> +       if (!r)
+> +               DRM_INFO("PCIe error recovery succeeded\n");
+> +       else {
+> +               DRM_ERROR("PCIe error recovery failed, err:%d", r);
+> +               amdgpu_device_unlock_adev(adev);
+> +       }
+> +
+> +       return r ? PCI_ERS_RESULT_DISCONNECT : PCI_ERS_RESULT_RECOVERED;
+> +}
+> +
+> +/**
+> + * amdgpu_pci_resume() - resume normal ops after PCI reset
+> + * @pdev: pointer to PCI device
+> + *
+> + * Called when the error recovery driver tells us that its
+> + * OK to resume normal operation. Use completion to allow
+> + * halted scsi ops to resume.
+> + */
+> +void amdgpu_pci_resume(struct pci_dev *pdev)
+> +{
+> +       struct drm_device *dev = pci_get_drvdata(pdev);
+> +       struct amdgpu_device *adev = drm_to_adev(dev);
+> +
+> +       amdgpu_device_unlock_adev(adev);
+> +
+> +       DRM_INFO("PCI error: resume callback!!\n");
 > +}
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 4bbcc70..7a6482a 100644
+> index d984c6a..4bbcc70 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1320,7 +1320,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
->                 if (amdgpu_is_atpx_hybrid()) {
->                         pci_ignore_hotplug(pdev);
->                 } else {
-> -                       pci_save_state(pdev);
-> +                       amdgpu_device_cache_pci_state(pdev);
->                         pci_disable_device(pdev);
->                         pci_ignore_hotplug(pdev);
->                         pci_set_power_state(pdev, PCI_D3cold);
-> @@ -1353,7 +1353,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
->                         pci_set_master(pdev);
->                 } else {
->                         pci_set_power_state(pdev, PCI_D0);
-> -                       pci_restore_state(pdev);
-> +                       amdgpu_device_load_pci_state(pdev);
->                         ret = pci_enable_device(pdev);
->                         if (ret)
->                                 return ret;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 4d14023..0ec6603 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -311,7 +311,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
->         /* disable BM */
->         pci_clear_master(adev->pdev);
+> @@ -31,7 +31,6 @@
+>  #include <drm/drm_pciids.h>
+>  #include <linux/console.h>
+>  #include <linux/module.h>
+> -#include <linux/pci.h>
+
+Is this intended?  Seems unrelated.  I think this should be part of
+the previous patch.
+
+Alex
+
+
+>  #include <linux/pm_runtime.h>
+>  #include <linux/vga_switcheroo.h>
+>  #include <drm/drm_probe_helper.h>
+> @@ -1534,6 +1533,13 @@ static struct drm_driver kms_driver = {
+>         .patchlevel = KMS_DRIVER_PATCHLEVEL,
+>  };
 >
-> -       pci_save_state(adev->pdev);
-> +       amdgpu_device_cache_pci_state(adev->pdev);
+> +static struct pci_error_handlers amdgpu_pci_err_handler = {
+> +       .error_detected = amdgpu_pci_error_detected,
+> +       .mmio_enabled   = amdgpu_pci_mmio_enabled,
+> +       .slot_reset     = amdgpu_pci_slot_reset,
+> +       .resume         = amdgpu_pci_resume,
+> +};
+> +
+>  static struct pci_driver amdgpu_kms_pci_driver = {
+>         .name = DRIVER_NAME,
+>         .id_table = pciidlist,
+> @@ -1541,6 +1547,7 @@ static struct pci_driver amdgpu_kms_pci_driver = {
+>         .remove = amdgpu_pci_remove,
+>         .shutdown = amdgpu_pci_shutdown,
+>         .driver.pm = &amdgpu_pm_ops,
+> +       .err_handler = &amdgpu_pci_err_handler,
+>  };
 >
->         if (amdgpu_dpm_is_mode1_reset_supported(adev)) {
->                 dev_info(adev->dev, "GPU smu mode1 reset\n");
-> @@ -323,7 +323,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
->
->         if (ret)
->                 dev_err(adev->dev, "GPU mode1 reset failed\n");
-> -       pci_restore_state(adev->pdev);
-> +       amdgpu_device_load_pci_state(adev->pdev);
->
->         /* wait for asic to come out of reset */
->         for (i = 0; i < adev->usec_timeout; i++) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 2f93c47..ddd55e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -484,13 +484,13 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
->         /* disable BM */
->         pci_clear_master(adev->pdev);
->
-> -       pci_save_state(adev->pdev);
-> +       amdgpu_device_cache_pci_state(adev->pdev);
->
->         ret = psp_gpu_reset(adev);
->         if (ret)
->                 dev_err(adev->dev, "GPU mode1 reset failed\n");
->
-> -       pci_restore_state(adev->pdev);
-> +       amdgpu_device_load_pci_state(adev->pdev);
->
->         /* wait for asic to come out of reset */
->         for (i = 0; i < adev->usec_timeout; i++) {
+>  static int __init amdgpu_init(void)
 > --
 > 2.7.4
 >
