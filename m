@@ -2,108 +2,107 @@ Return-Path: <SRS0=kQKQ=CG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C732AC433E7
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 16:06:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC9D0C433E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 16:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92D06207DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 16:06:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 90DC9207DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 16:06:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WhpbvxWW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92D06207DF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="USMxpyDC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90DC9207DF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 083B86E4D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 288256E4EC;
 	Fri, 28 Aug 2020 16:06:06 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760075.outbound.protection.outlook.com [40.107.76.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE816E4EC
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 16:06:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107E66E4CB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 16:06:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FYqKJH9xAKf+RWxgYvr2U3mHZ6PSa8eC0Tc5/Bs6yhZIbZFztj8yUH5KTpCZ6HES+dY0rWzTm0fVVix1s1xpiULG71TS1bnCujo1ABZiGv8UpiAFbZ4PDjcK0VgTmjcnTyORTMhz2793QvUMOZqp1fMW7YlGDC+LqbT2oWRERzQDlKHjS+ioHA7mirMLcQ0cS57mm7h6tHjnNzDlzoAMDkZ3cwg1KORIQKP0ZfdH+EkkPY01MWLDZOTMg0AtnnxgmihWkz/NDVo8uKHx1IKnLEY9oZ/Glhfn7+J+JmQ/H6oj5TkaT40AWFyKj5UIovhTxSnnYmuXGrU/5jbDfddZBA==
+ b=YORhFthlR63u9RmgV1P/xn7bUN+mLBvxoBuwWbT4aTGNErdCNm+xkado5EpO2B+Jv6YucMwHh9nEJ9DsUSsI8sdsaH5mxMKe1XuB+/Lw6vOR5IeDaKaQPIe7FtnJIpUsXv2NhA3QfpMH/TBB0R256InIvOhkqJw3i3qhOsgr4y8nO/8ohOK/039OfBbBvvT0xVt6WA9TOBq+6TEOOuuyOgTlT3lc/n6eXz239c2QTw+a+fEBdShYXnwEDsF/xT1vvQC4GLnruovVN8v4d5UaBkjxTFcwvALB/grwspfrA6usjZi1tH8N6wt+MPbnsY3l69CofcpP6npqxfLiVw+R0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fPSQP9zwV4RlyItPfMH97M6+K7PyiZsdkIHXC6F2DgU=;
- b=hm/KZpIQ8OwQXInuc1ddcrecuAhV/Si1lBSJHrionOON6EFxzwub0AKUTzWiVMIPHoPFzyLtVcsTY/ETujcxi1BFw91N544tn7FAkqq3hjCKxo6fPRPNamPd9C5HNtVNZPKQuCiEDRmzKzID3K3sQC6cCH4kH4UA+XBqklJc4XXBY9d2HDVALZfPUtPCtY7ZD50JtJ6XeZZlfI/Oh0ugB8wmb9sokIXQXLBHWEtQ4LOhO9eTZ/DxPXyO5yUdnJSm8SMbdRgRipjrJ6GNNEYwWmy+r33glsNwGH5hVyl7usyvMpMTCqVgsAndS5Lln/Ec1vtADpGXu8LeVfoKGhhwug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17)
- smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=permerror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=n70SOJcrj2gSLNmGF0nUUu0uQXfHtsIr5GMcoqQSzhA=;
+ b=Tf7Q9QNRAjufL/R4lApnXbpMz1I6lJvxWQYSvWafkH8hp6GLqc+yngHWRv7MNNpWeMgUGrRpjaRrYYpRTEx3QPRZSXUS5F2MZa5uw1tBLmjrzXjk9oi+oas8uVjMw+m4rc8L6swCjAjTW+rziHv25noIULdQGoWwap7pPpPogaQpBkVNudwZq4eOZbaAB/b39jdZxEDddgBnJi+2sGJxXDx/fAFSeA3lX21wMeA1ijUyRD+VvCW3tVIlrNX/x0rqvk3Vut/WbEbD6IU2NRz7h4kKxMzBSlupNC6ctjs8+2NSDoS+6a12VHBgXEZJo1A8PTD9OTEtUNomggX2hBQ9UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fPSQP9zwV4RlyItPfMH97M6+K7PyiZsdkIHXC6F2DgU=;
- b=WhpbvxWW+cfwdxVhvqqlNnh4iiKg2Rl3QLvlwHb98tF1mj7Bda+ANyaURROij0qKbhUgKCNRjg5tRlziC5TGxaH6E8yj1R/V6l1fdipOrnqs1fu7NByOGeWogXmwBDRYhsrBn6+QhpQ93U+AipspxJDvRl6A7PM5jcDrPrAYkeQ=
-Received: from MWHPR18CA0040.namprd18.prod.outlook.com (2603:10b6:320:31::26)
- by DM5PR12MB1258.namprd12.prod.outlook.com (2603:10b6:3:79::14) with
+ bh=n70SOJcrj2gSLNmGF0nUUu0uQXfHtsIr5GMcoqQSzhA=;
+ b=USMxpyDCRFPEXCZZvSmCeE0gSNMWHPIxE1mGmmFImUGeDLld0CGGdalF5uWQPdSaCgA24iZIB9NaWcEMqUuDvmzdyygJr801pm0zXIoDpGEFMMlla1HzUW/wbo3c2RboaHXe7W5se5oIjTBqWSgsLpOVFzLUyVLw7jH60JhJtrk=
+Received: from MWHPR18CA0048.namprd18.prod.outlook.com (2603:10b6:320:31::34)
+ by DM6PR12MB2603.namprd12.prod.outlook.com (2603:10b6:5:49::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Fri, 28 Aug
- 2020 16:05:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.26; Fri, 28 Aug
+ 2020 16:05:59 +0000
 Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:320:31:cafe::e) by MWHPR18CA0040.outlook.office365.com
- (2603:10b6:320:31::26) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:320:31:cafe::d8) by MWHPR18CA0048.outlook.office365.com
+ (2603:10b6:320:31::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19 via Frontend
- Transport; Fri, 28 Aug 2020 16:05:55 +0000
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
- (message not signed) header.d=none;lists.freedesktop.org; dmarc=permerror
- action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
+ Transport; Fri, 28 Aug 2020 16:05:59 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
  CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3326.19 via Frontend Transport; Fri, 28 Aug 2020 16:05:53 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
+ 15.20.3326.19 via Frontend Transport; Fri, 28 Aug 2020 16:05:59 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 28 Aug
- 2020 11:05:53 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 28 Aug
- 2020 11:05:53 -0500
+ 2020 11:05:56 -0500
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Fri, 28 Aug 2020 11:05:52 -0500
+ via Frontend Transport; Fri, 28 Aug 2020 11:05:55 -0500
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 0/7] Implement PCI Error Recovery on Navi12
-Date: Fri, 28 Aug 2020 12:05:36 -0400
-Message-ID: <1598630743-21155-1-git-send-email-andrey.grodzovsky@amd.com>
+Subject: [PATCH v2 3/7] drm/amdgpu: Block all job scheduling activity during
+ DPC recovery
+Date: Fri, 28 Aug 2020 12:05:39 -0400
+Message-ID: <1598630743-21155-4-git-send-email-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1598630743-21155-1-git-send-email-andrey.grodzovsky@amd.com>
+References: <1598630743-21155-1-git-send-email-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c406ad20-d839-46e8-a466-08d84b6c3dc4
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1258:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1258979100F9E2B294DF65E5EA520@DM5PR12MB1258.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: c18f9d34-1a50-4c82-7e54-08d84b6c4108
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2603:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2603852B769B8F82306ADC33EA520@DM6PR12MB2603.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7JE3OckpOx36//+bXjFCkA3t54KOACISlVRLqsI4HW4oM/MjWw1F5KY2x16wPj+E1vgvj/0jfe0sNn4ckMgbyYmrxwDV+3xNoGbmwb9S/KqE0ZOyGYKsEsqNoNk6X0OuSPxUiYpjhsAOJxE3J+FDwV4a1/+4O+ii2kOQxbkIOFQy3cSYVgvyVC8JIkTIqIhpMHFxtw/PNshW7GIsmNgklO5yqk//3ETE8042V2udQOWlr2YfVP+4jjxALht25wtKYmvBJtuG/aLvTlsbTOXuieMHS6QnTqB0NXkEl3CZBt95wlKsM6PLuZCpSEt9Aea50nT1+x8813RNMd5nL7mxTQuUt4l46etHK0tTebgZTBGhLIldzgwUkB7B7qE9vNOQA5Shss/hOrDvDfAoQhyQ3A==
+X-Microsoft-Antispam-Message-Info: +wmdSD/Ku6EHKdqS9OYce5ZxdPR+4/UM+AQkk9I8qS2+5yEGvE4rWQZxk9i4AlaEhEUDKkb455UgyXw9QcIpes2Avatxk/BaeMk2StL7y/CY8fCqNz/5ewXqh1h2zILD2p04Zt8JI3oVQ6bKlWkagXIsJHA9Rq+psF5e40A00njUgFx9GFVaWWzMDZKCP56XgLCyhjVTgVj3iJupnICXA+KbDqx/66jXvhEa5z9+JvyyWujKoxkcyDHKqU8DgZWPtWmwP8GbteMmoSBQHhwt9hyY+ofn4/eU0Vs7NuzOekqgKGiYy57wyA20ufqaLOtSTpDPUc2xOV7/6ztKXYocyRJeL5OhXceIiQ/8T8pz2SfVIKhFFAayvNOJLFmA4be0vvYgiL7ZNaBhH13j3FMQYw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(46966005)(70586007)(8936002)(478600001)(70206006)(7696005)(83380400001)(6916009)(54906003)(6666004)(4326008)(44832011)(47076004)(36756003)(8676002)(316002)(186003)(336012)(2616005)(82310400002)(86362001)(63350400001)(81166007)(82740400003)(26005)(356005)(426003)(5660300002)(2906002);
+ SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(46966005)(6666004)(2616005)(36756003)(7696005)(54906003)(426003)(81166007)(336012)(356005)(4326008)(86362001)(82740400003)(316002)(83380400001)(186003)(26005)(82310400002)(8936002)(44832011)(2906002)(478600001)(8676002)(70206006)(6916009)(47076004)(70586007)(5660300002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2020 16:05:53.6214 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c406ad20-d839-46e8-a466-08d84b6c3dc4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2020 16:05:59.0982 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c18f9d34-1a50-4c82-7e54-08d84b6c4108
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1258
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,43 +121,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Many PCI bus controllers are able to detect a variety of hardware PCI errors on the bus, 
-such as parity errors on the data and address buses,  A typical action taken is to disconnect 
-the affected device, halting all I/O to it. Typically, a reconnection mechanism is also offered, 
-so that the affected PCI device(s) are reset and put back into working condition. 
-In our case the reconnection mechanism is facilitated by kernel Downstream Port Containment (DPC) 
-driver which will intercept the PCIe error, remove (isolate) the faulting device and reset the PCI 
-link of the device after which it will call into PCIe recovery code of the PCI core. 
-This code will call hooks which are implemented in this patchset where the error is 
-first reported at which point we block the GPU scheduler, next DPC resets the 
-PCI link which generates HW interrupt which is intercepted by SMU/PSP who 
-start executing mode1 reset of the ASIC, next step is slot reset hook is called 
-at which point we wait for ASIC reset to complete, restore PCI config space and run 
-HW suspend/resume sequence to resinit the ASIC. 
-Last hook called is resume normal operation at which point we will restart the GPU scheduler.
+DPC recovery involves ASIC reset just as normal GPU recovery so blosk
+SW GPU scedulers and wait on all concurent GPU resets.
 
-Andrey Grodzovsky (7):
-  drm/amdgpu: Implement DPC recovery
-  drm/amdgpu: Avoid accessing HW when suspending SW state
-  drm/amdgpu: Block all job scheduling activity during DPC recovery
-  drm/amdgpu: Fix SMU error failure
-  drm/amdgpu: Fix consecutive DPC recovery failures.
-  drm/amdgpu: Trim amdgpu_pci_slot_reset by reusing code.
-  drm/amdgpu: Disable DPC for XGMI for now.
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 57 +++++++++++++++++++++++++++---
+ 1 file changed, 53 insertions(+), 4 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  16 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 296 ++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  13 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |   6 +
- drivers/gpu/drm/amd/amdgpu/atom.c          |   1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  18 +-
- drivers/gpu/drm/amd/amdgpu/nv.c            |   4 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c         |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  |   3 +
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c     |   3 +
- 11 files changed, 348 insertions(+), 22 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index e67cbf2..9a367a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4745,6 +4745,20 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
+ 	return 0;
+ }
+ 
++static void amdgpu_cancel_all_tdr(struct amdgpu_device *adev)
++{
++	int i;
++
++	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
++		struct amdgpu_ring *ring = adev->rings[i];
++
++		if (!ring || !ring->sched.thread)
++			continue;
++
++		cancel_delayed_work_sync(&ring->sched.work_tdr);
++	}
++}
++
+ /**
+  * amdgpu_pci_error_detected - Called when a PCI error is detected.
+  * @pdev: PCI device struct
+@@ -4758,16 +4772,38 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
++	int i;
+ 
+ 	DRM_INFO("PCI error: detected callback, state(%d)!!\n", state);
+ 
+ 	switch (state) {
+ 	case pci_channel_io_normal:
+ 		return PCI_ERS_RESULT_CAN_RECOVER;
+-	case pci_channel_io_frozen: {
+-		/* Fatal error, prepare for slot reset */
++	case pci_channel_io_frozen: { /* Fatal error, prepare for slot reset */
++
++		/*
++		 * Cancel and wait for all TDRs in progress if failing to
++		 * set  adev->in_gpu_reset in amdgpu_device_lock_adev
++		 *
++		 * Locking adev->reset_sem will perevent any external access
++		 * to GPU during PCI error recovery
++		 */
++		while (!amdgpu_device_lock_adev(adev, NULL))
++			amdgpu_cancel_all_tdr(adev);
++
++		/*
++		 * Block any work scheduling as we do for regualr GPU reset
++		 * for the duration of the recoveryq
++		 */
++		for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
++			struct amdgpu_ring *ring = adev->rings[i];
++
++			if (!ring || !ring->sched.thread)
++				continue;
++
++			drm_sched_stop(&ring->sched, NULL);
++		}
+ 
+-		amdgpu_device_lock_adev(adev);
+ 		return PCI_ERS_RESULT_NEED_RESET;
+ 	}
+ 	case pci_channel_io_perm_failure:
+@@ -4900,8 +4936,21 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
++	int i;
+ 
+-	amdgpu_device_unlock_adev(adev);
+ 
+ 	DRM_INFO("PCI error: resume callback!!\n");
++
++	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
++		struct amdgpu_ring *ring = adev->rings[i];
++
++		if (!ring || !ring->sched.thread)
++			continue;
++
++
++		drm_sched_resubmit_jobs(&ring->sched);
++		drm_sched_start(&ring->sched, true);
++	}
++
++	amdgpu_device_unlock_adev(adev);
+ }
 -- 
 2.7.4
 
