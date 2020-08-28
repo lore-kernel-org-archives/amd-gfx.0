@@ -2,109 +2,107 @@ Return-Path: <SRS0=kQKQ=CG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AEB86C433E2
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 14:16:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C842C433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 14:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7AE2F20848
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 14:16:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 484E2208CA
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2020 14:21:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="M0fIr40g"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7AE2F20848
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GhWQaRwd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 484E2208CA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354EF6E4B6;
-	Fri, 28 Aug 2020 14:16:15 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2071.outbound.protection.outlook.com [40.107.236.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC366E4B6
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 14:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A3BF6E4C1;
+	Fri, 28 Aug 2020 14:21:15 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 035D66E4C1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2020 14:21:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gwv8d8p9dCCeCVOOe0CIQaimolysf/zF7wiT/hWcWBiBcMQFEL+PibYfqQ+k2NVP/ICQhgwMYzbUUNJcA4UDfnIpZTWKMQ4Csp2Qbb0V1+VQkE8Qn3oqipzSx+w1QbVDl/BPJDWNtolRiamEuzv/q5kn7ilnDzg/6z02ynRY0U4EP6RMB13fqI/pMxrtvCj8IWwTXPNlQ4RDGfROEsKFxT7hJXT5nENFQRFmeb9QyAQwQO5eCUWqPSAOGnK7aBxjXyzmT7VJn659/4g9duEgDdK2/uFX1J/EmW5/Yp0skFBwWqXq9pSi7/sRizHraaLHBazfLnudrhnHz3kEo2kdSA==
+ b=j7CjG8Q0J//XVAUzCmltYAtGw7IowZY/8COme0pvl6Wpjzr9jRbpbv3pg5VdjCQdpngigTVRXbEF3NlhviRBy7ZIZkIQf4OoLSVwv/qKWKQFC4qKRzvpPygy2JkbSdPXsaeZLz5jr0fhKAj+wAhHYKrIkXI4UEmWhCjp82M3jlh9nEWpdpkh+jBn4okHf2wqB6w9mp6IXJ9ftvFY8TrgJBA0N8vOsTNO3lij6IAw0bfXorEUyOA0B9hJPteaXq2pp+aHbDhAlU9zndEHMvSvoNelSEJrwCZPq7yxIn7b6f4kqRik+Rv6acCBsCxdsBOZbXpPHRpZAK4Rzm8vJupxAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uI7rUs0GirTCEzeWOlkoDcgz1FKFdtlOHsMq2czpkFE=;
- b=c+0jBzxaOlcRV9voKcEPyq9n+lWFPVhucdhwE2a9cp84YAAWMGgcrEGtskWGgHOlG8gYGcipUpSmlvATbOIg5AQEsk8VZJ1UdjWlwTcbYFb9D15SzkXwGLa73cc+V1Ciy+va1RI0ouXYmN1ZWP29KGcu77C0gHlgwkbfX3XyQ9rqL+ebRlChWwIn58MsowcQzGjIqJLwdjzQescc2ixauWEWjyqZcPd2OKxP+yWKquqLacRRpFQ4lrNTpjXwV6jTEyCikYyu3e7VR6jl/p3w3OnRc6ab7EfZ0ipxUJ3C54BIxH3xwPH0uHSCtx42w0le7V5wltRqvAPSkV3MCMHVCA==
+ bh=VHUSVWlmz4Fh5VKzjlNCjSxUd4TBRyQcifjIAWu6pDM=;
+ b=lVlfLE6n8tjALKLTWUe+AT6Eq6zaz2Lb3SBox5aRDtLGuzgxolzcvU9VPOVdb9JUEmR4naqAxfX+Zy6QUvq7D1V9cAY0+VSLjPRHVV3avV+65TCrcODYYJr6ERr5eEFWM/Fz0gHMXkXYBf2nTkKm2IYUP8OfTZuikxKbvd829ZAgGD0kjwPXNL3k+d2EvHESxzLarDXsN2leqVja8Q4deZ2Zu/w92XsttMZPLPN43xfTSS1XUMeTqgvs0yCnKhQlhNawjbbSJ86loy8zw9yVceJfxFIdrFESnxKPUyu7Vsimd2MQ7K9TStRpZjQwOV6M0U5CrDpzjPD/9RieIDWWEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uI7rUs0GirTCEzeWOlkoDcgz1FKFdtlOHsMq2czpkFE=;
- b=M0fIr40giW5/SA/n8rRCPfe8GcrEWVCLuL7EjUbk678Ftip53WVVHLb38Y7yD6wE37wslwjtWZ6QeTz0NjPkpw653UdnjhvUOk99eQu4Ol/XudQQoP/4gPDdhqJSP+M7WPOrCTg8LtXx9h4EVKnvsWJzN3BvpW7hlVgVhP9oilM=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB3917.namprd12.prod.outlook.com (2603:10b6:208:166::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Fri, 28 Aug
- 2020 14:16:11 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb%7]) with mapi id 15.20.3305.032; Fri, 28 Aug 2020
- 14:16:11 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Das, Nirmoy" <Nirmoy.Das@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: Re: [PATCH 1/4] drm/amd/pm: drop unnecessary feature->mutex lock
- protections(V2)
-Thread-Topic: [PATCH 1/4] drm/amd/pm: drop unnecessary feature->mutex lock
- protections(V2)
-Thread-Index: AQHWerRMcZx73Z0Y4Eaae2ib5VXkG6lLhD4AgAGtegCAAGRGRg==
-Date: Fri, 28 Aug 2020 14:16:11 +0000
-Message-ID: <MN2PR12MB4488907B07E4FF9AE362BE7BF7520@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200825074923.32345-1-evan.quan@amd.com>
- <efc66f15-2291-dcdf-79eb-ce2085614360@amd.com>,
- <92deaaac-9ac5-8005-7070-2965367701b6@gmail.com>
-In-Reply-To: <92deaaac-9ac5-8005-7070-2965367701b6@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-08-28T14:16:11.076Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=VHUSVWlmz4Fh5VKzjlNCjSxUd4TBRyQcifjIAWu6pDM=;
+ b=GhWQaRwd34LnaYHhFtXQSFj3fa1XIOeF1NFUMe6oEH4B9jGm9PUx8I5QnlG89l0R2nKh3HF7JMIu/eAIz61Mi/loFvePONC9Oel+09EvxKPAHj521d28RIuZ4UD3srMyGBeQ1GAd8ZZ2Ebi889gHNWzGj1Z3bQiXcrUqpimZUwY=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [172.58.203.211]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a2fbf50a-0e1b-4da0-6ed3-08d84b5ceaab
-x-ms-traffictypediagnostic: MN2PR12MB3917:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3917C78BD8C7D2CD05E5901EF7520@MN2PR12MB3917.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1051;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6xMTcq7tIR7AkGtLeB9xEeUY3nVIjvSqB7yvEDr9v5vDN3XlEQyHfdT65xFUpUPwwxaS8hmOP4kdFSKnD+h3aOGGahKHYD0UJ1KGWzyq/mcUO7DOzE9YXZ3QZQB6gdExpdblumpX20tCnVAGh+5PVGXmGtCk/4seBCOwnZiqt/L+gLWXD13qt4dBNmXGLohle6ODzRzDVawsMKm4XB4Dkr5/9T+T4DzkqTmsP8T306f+zGflUW+jxP4gU9MnGiTt4qEpE3jVDLEEjSdwKBVVLyT5TAYmcu0D7FR2y8exU2f2RzwrOg4vDoNecbAoaP5kEsIKpU6AD1gTZuIZKjwfOgY6X7hQhttqz63ZfLruhKo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(376002)(136003)(346002)(396003)(86362001)(2906002)(186003)(19627405001)(53546011)(52536014)(7696005)(9686003)(55016002)(166002)(6636002)(45080400002)(66476007)(66946007)(8676002)(66446008)(64756008)(66556008)(76116006)(66574015)(478600001)(8936002)(71200400001)(316002)(33656002)(5660300002)(83380400001)(110136005)(6506007)(26005)(966005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: LafoB/pPFZfrfF2tNykHetgHK0jiaIoOjq8B/Xxuf8Y8foJDE4lLDhWakuui/LGTTZpjIMgk8NHtgOsnSB7fvBMYB6RnYb09/KsagQU5dBkm1J7DUYpTGVgvGsJPjNFpo8Szz9XEGD5Y7/xtCHfLaB2B5j/MrcU2A8NpdX8CuhSGt/qaWV6zAwkUMoF5j2fEbdGit15a/PC/RcxNSdoMcUalAAzrFKjJ2u0ErwZsuf2qx/DDL+2/FZ1PjxqIS1w2eMde4lZ9n6ZEzK1hjlwRDehBh5ymJLJxrVBR95NjZRX/zMCBzbd0Ltshe6k3vgeBOQjvYqYmUyTienDO5zVJdQAx5Ds4w2ECSl7tn2+Wu+41R9ERiZHUOFtaJ+cZkEa0QNtWLMBO+TAMNqRONIY4svuJuwuc8yupDDQfyOczWaFa3Vq+L9/WepfW0TeWZ4+xSZSsMwayCtYK9/sGaJH2S/uohCbjr1QSjHPkwiUwCt0POxI2znEYqpub42xcaUIjH8OtymDRtIPCog56M4MuHAjq2b7Tp3ZHeO1lDNR2eIrSsdbVyffiWv1i892+EXXLxDyBfSKOAb4hWCecBljDNgdm/hIFX0rdKaMFdd6PiIdkCnlemqwerDUzqOJR0ZFyX+PdO1BNorrcfehvtHsQ/Q==
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ DM5PR12MB2439.namprd12.prod.outlook.com (2603:10b6:4:b4::32) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3326.21; Fri, 28 Aug 2020 14:21:11 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::60b8:886b:2c51:2983]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::60b8:886b:2c51:2983%3]) with mapi id 15.20.3326.023; Fri, 28 Aug 2020
+ 14:21:11 +0000
+Subject: Re: [PATCH 5/7] drm/amdgpu: Fix consecutive DPC recoveries failure.
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <1598453182-6946-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1598453182-6946-6-git-send-email-andrey.grodzovsky@amd.com>
+ <CADnq5_NtAaNd3_XYrs4K8uLFF49Xv-46801Cy3Y0fNuLG_YPoA@mail.gmail.com>
+ <0c2ada8e-5dde-0165-c8b3-cf6d6d3fba46@amd.com>
+ <CADnq5_MJEsSp1UKXDf-1saNTKV_i3E6vtnMCgGesAz=Resk78Q@mail.gmail.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <45fdf263-69f7-1c9e-770b-8adaf8574c26@amd.com>
+Date: Fri, 28 Aug 2020 10:21:09 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <CADnq5_MJEsSp1UKXDf-1saNTKV_i3E6vtnMCgGesAz=Resk78Q@mail.gmail.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::31) To DM6PR12MB4340.namprd12.prod.outlook.com
+ (2603:10b6:5:2a8::7)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from 255.255.255.255 (255.255.255.255) by
+ YTXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19 via Frontend
+ Transport; Fri, 28 Aug 2020 14:21:10 +0000
+X-Originating-IP: [2607:fea8:3edf:49b0:a840:fdae:31dc:3ab6]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: cfc1d7a1-cda0-4f71-d9d6-08d84b5d9ce5
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2439:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB24399118F35CA523C71BF07CEA520@DM5PR12MB2439.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Sue9zEYrs/H8yBXJrUfVJQ2c7Mkk/nSQjKlBY3V9paEuIXLsbUCUrYrlfBvpzB+m/qI+iSZdt1JzQAI0dO2HkpkjUMSKAYLa9/c5m9hy/Jw2EUFETXXc86hcyO2Rk1UaUqufkLDhQiXggBUMVYCX3QSZl9X/6GTBcryi/ymfb+L0ffmbZiUKFycr3Ia1C6HGhnVWZDOwbqGQX36NHcxJdkI2LSUDmsjAVR++BB8hy7MlIRHKMMo5bI/y33vlsUz9Bveqb/MSR+4zsSDXASeYYrlKUPoekcR5rGhufmkN2zRSbHBa3XkL43l+nExcJVVe1DZrrZoa+3ffkLqCR0fUJZk/lqwEN+0SwYnWRlWbwTUacWBS4ttyd4iRqxal5Xf3v85MoEqtkzQ3aD68sFHYEE3f2LMoG2x4oF9fL5zGQ+g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(376002)(136003)(366004)(346002)(6916009)(4326008)(8676002)(30864003)(54906003)(956004)(45080400002)(16576012)(2616005)(316002)(966005)(478600001)(5660300002)(8936002)(2906002)(52116002)(66476007)(86362001)(66556008)(36756003)(31686004)(31696002)(53546011)(6486002)(186003)(83380400001)(66946007)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: sRtwA6jCW5J4H8bigJgjdxSNnNGE/+p75bKSpE7cIDQ5Cfbc5yyotZl2izwfcPFtwUmLTbxFEqQGdjGpU3JNy8I+U4tH36PWQaMRNzSOTRd+7ds3rL4lhcZ7JbjjEo7aAy3JKO6KyYIhZhhK6g1HjUmeLLmTnL2DjTpf/+RPNZS2yJBztmNOJl+n9ATIo044YR+WIiDicXMTT8X123DHmVLh/19L1fkUK3PBNrWw2pjlXlyk5PhA456q/jKqYxE6vN/maSrIsZrb49+etgTicv85lqfBmlCZZZnj+JMZxVJVRLYG7HUD8l/TtxOtfr09hUgFoZatt0FOe+/anpJ6El+AUsJsiG0vK2SlUeAB/8a8iPE0+vgDahKIUsD+QjYm3hipWTL2m2b28BWXjEo605zDj/aocKeMl3B+hmgS6ehw8fg/Gk9oIBe63r8zUgFKD0hGFg3Ku/4dkoVgTEKKQkAXHl+vyxCtvGuN3mC2hRjAvBStifGI7JtRSIXAtIErer8nbLvvovIfKb6TIIa4g+PAAw8CXtGiedHgyqF2p7dxnu+t2U8IOacdq2mpCXiIuG/Sjaet7JkEjoOwV60fDt/FK5Cb4PNZgoJ+EfCSFgJphkO6uU/OtU4Y5ovAq9UrwKfA5HgTmCc0Jz62+kGuSJZR7gVDDoaW4L2U2ow2hnTjVCiPHxkLG3ouG4/0g9IvEQysAteqJEtkF1cl1/GeEg==
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfc1d7a1-cda0-4f71-d9d6-08d84b5d9ce5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2fbf50a-0e1b-4da0-6ed3-08d84b5ceaab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2020 14:16:11.8157 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BeyrHu5t6H1EMsw75Ksqytxxpj0D9ZsMjPEBVqYQfSvtQumwDUXR1RNE7zM/KW+GCaqEajQRQhGBp0uWxLj0ow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3917
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2020 14:21:11.1595 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 74PBz0d/JjQ3HnDbs2HLrsWmio3bc1VuakXkh4VR31Fwa8lGELKEc3lmw7AGUVQWpKlqi3XhJdoXSG+Vyhp2Ug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2439
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,307 +114,327 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0946444980=="
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, Nirmoy <nirmodas@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0946444980==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488907B07E4FF9AE362BE7BF7520MN2PR12MB4488namp_"
 
---_000_MN2PR12MB4488907B07E4FF9AE362BE7BF7520MN2PR12MB4488namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 8/28/20 10:13 AM, Alex Deucher wrote:
+> On Thu, Aug 27, 2020 at 10:54 AM Andrey Grodzovsky
+> <Andrey.Grodzovsky@amd.com> wrote:
+>>
+>> On 8/26/20 11:20 AM, Alex Deucher wrote:
+>>> On Wed, Aug 26, 2020 at 10:46 AM Andrey Grodzovsky
+>>> <andrey.grodzovsky@amd.com> wrote:
+>>>> DPC recovery after prev. DPC recovery or after prev. MODE1 reset fails
+>>>> unles you save the cashe the saved PCI confspace to load it after
+>>>> each new reset.
+>>>> Also use same cached state for other use case of restoring PCI confspace
+>>>> such as GPU mode1 or VGA switheroo.
+>>>>
+>>> We don't want to keep the saved state around in the pci core
+>>> otherwise, the pci core will assume we are managing the saved state
+>>> for suspend and resume.  I think we want logic like this:
+>>>
+>>> At driver load time:
+>>> pci_save_state(pdev);
+>>> adev->pci_state = pci_store_saved_state(pdev);
+>>> pci_restore_state(adev->pdev);
+>>>
+>>> then in the case of dpc, do:
+>>> pci_load_saved_state(pdev, adev->pci_state);
+>>>
+>>> For all the other cases, just leave the code as is.
+>>
+>> Actually, as we already discussed - caching the PCI confspace only once on boot
+>> and not doing it again after each subsequent
+>> controlled or spontaneous reset runs the risk of loading back outdated confspace
+>> settings. I am not sure if and when but, is it indeed
+>> possible we make changes to PCI confspace registers during runtime and so the
+>> cached state from boot might be outdated
+>> to load back ?
+> As Christain noted we may change config space at load time if we
+> resize the BAR.  So we should probably save config space at the end of
+> the driver load init sequence.  This saved state is just a backup in
+> case something kills pci config space without saving it.  I think it's
+> fine to update the cached copy whenever we call pci_save_state(), but
+> what we don't want to do is call pci_save_state() at init time without
+> calling pci_restore_state().  pci_save_state() caches a copy of the
+> save state in the pdev structure.  The pci core uses the presence of
+> this cached state to make decisions about whether the driver or the
+> core should handle a bunch of stuff at suspend/resume.  If the cached
+> state is present, it assumes the driver will be handling all of the
+> pci related state management for power management.  I'd rather keep
+> that in the core.  I think the patch is good, but this part needs to
+> be reworked:
 
-[AMD Official Use Only - Internal Distribution Only]
 
-This code gets called during suspend and resume and GPU reset as well.  Are=
- those cases properly covered?
+In this case I believe the patch should stay as is with the only change at
+adding pci_restore_state(pdev) in amdgpu_device_cache_pci_state after the call
+to pci_store_saved_state - right ?
 
-Alex
+Andrey
 
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Christia=
-n K=F6nig <ckoenig.leichtzumerken@gmail.com>
-Sent: Friday, August 28, 2020 4:16 AM
-To: Das, Nirmoy <Nirmoy.Das@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
-Subject: Re: [PATCH 1/4] drm/amd/pm: drop unnecessary feature->mutex lock p=
-rotections(V2)
 
-The explanation sounds sane, but since I don't know the affected code at
-all the series is only Acked-by: Christian K=F6nig <christian.koenig@amd.co=
-m>
-
-Maybe wait for Alex to give you an rb if you are unsure, otherwise feel
-free to commit.
-
-Christian.
-
-Am 27.08.20 um 08:39 schrieb Nirmoy:
-> Series is Acked-by: Nirmoy Das <nirmoy.das@amd.com>
+>
+> @@ -3401,8 +3401,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>          if (r)
+>                  dev_err(adev->dev, "amdgpu_pmu_init failed\n");
+>
+> -       if (pci_save_state(pdev))
+> -               DRM_ERROR("Failed to save PCI state!!\n");
+> +       /* Have stored pci confspace at hand for restore in sudden PCI error */
+> +       if (!amdgpu_device_cache_pci_state(adev->pdev))
+> +               DRM_WARN("Failed to cache PCI state!");
+>
+> Something like this:
+>
+> @@ -3401,8 +3401,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>          if (r)
+>                  dev_err(adev->dev, "amdgpu_pmu_init failed\n");
+>
+> -       if (pci_save_state(pdev))
+> -               DRM_ERROR("Failed to save PCI state!!\n");
+> +       /* Have stored pci confspace at hand for restore in sudden PCI error */
+> +       if (!amdgpu_device_cache_pci_state(adev->pdev))
+> +               DRM_WARN("Failed to cache PCI state!");
+> +       if (!amdgpu_device_load_pci_state(adev->pdev))
+> +               DRM_WARN("Failed to restore PCI state!");
+>
+> This way we have a cached copy in the driver but not in the pci core.
 >
 >
-> On 8/25/20 9:49 AM, Evan Quan wrote:
->> As these operations are performed in hardware setup and there
->> is actually no race conditions during this period considering:
->> 1. the hardware setup is serial and cannnot be in parallel
->> 2. all other operations can be performed only after hardware
->>     setup complete.
->>
->> V2: rich the commit log description
->>
->> Change-Id: I096d7ab0855ff59b0ecb56fd9d6d9946b3605fc8
->> Signed-off-by: Evan Quan <evan.quan@amd.com>
->> ---
->>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 4 ----
->>   drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 --
->>   2 files changed, 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> index 09dc5303762b..b7cad8ef6153 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
->> @@ -361,20 +361,16 @@ static int
->> smu_get_driver_allowed_feature_mask(struct smu_context *smu)
->>       int ret =3D 0;
->>       uint32_t allowed_feature_mask[SMU_FEATURE_MAX/32];
->>   -    mutex_lock(&feature->mutex);
->>       bitmap_zero(feature->allowed, SMU_FEATURE_MAX);
->> -    mutex_unlock(&feature->mutex);
->>         ret =3D smu_get_allowed_feature_mask(smu, allowed_feature_mask,
->>                            SMU_FEATURE_MAX/32);
->>       if (ret)
->>           return ret;
->>   -    mutex_lock(&feature->mutex);
->>       bitmap_or(feature->allowed, feature->allowed,
->>                 (unsigned long *)allowed_feature_mask,
->>                 feature->feature_num);
->> -    mutex_unlock(&feature->mutex);
->>         return ret;
->>   }
->> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->> b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->> index 548db1edd352..28a19ffd22a1 100644
->> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
->> @@ -721,7 +721,6 @@ int smu_v11_0_set_allowed_mask(struct smu_context
->> *smu)
->>       int ret =3D 0;
->>       uint32_t feature_mask[2];
->>   -    mutex_lock(&feature->mutex);
->>       if (bitmap_empty(feature->allowed, SMU_FEATURE_MAX) ||
->> feature->feature_num < 64)
->>           goto failed;
->>   @@ -738,7 +737,6 @@ int smu_v11_0_set_allowed_mask(struct
->> smu_context *smu)
->>           goto failed;
->>     failed:
->> -    mutex_unlock(&feature->mutex);
->>       return ret;
->>   }
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
-.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexan=
-der.deucher%40amd.com%7Ccad2767c7837431f94f308d84b2ab750%7C3dd8961fe4884e60=
-8e11a82d994e183d%7C0%7C0%7C637341994162774368&amp;sdata=3Db8PVt6zfQJXYlVunp=
-FMY12knU8ZlJ7UE0ojZjhAWJdY%3D&amp;reserved=3D0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7Ccad2767c7837431f94f308d84b2ab750%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637341994162774368&amp;sdata=3Db8PVt6zfQJXYlVunpFM=
-Y12knU8ZlJ7UE0ojZjhAWJdY%3D&amp;reserved=3D0
-
---_000_MN2PR12MB4488907B07E4FF9AE362BE7BF7520MN2PR12MB4488namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-This code gets called during suspend and resume and GPU reset as well.&nbsp=
-; Are those cases properly covered?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
-.leichtzumerken@gmail.com&gt;<br>
-<b>Sent:</b> Friday, August 28, 2020 4:16 AM<br>
-<b>To:</b> Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 1/4] drm/amd/pm: drop unnecessary feature-&gt;mu=
-tex lock protections(V2)</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The explanation sounds sane, but since I don't kno=
-w the affected code at
-<br>
-all the series is only Acked-by: Christian K=F6nig &lt;christian.koenig@amd=
-.com&gt;<br>
-<br>
-Maybe wait for Alex to give you an rb if you are unsure, otherwise feel <br=
+> Alex
 >
-free to commit.<br>
-<br>
-Christian.<br>
-<br>
-Am 27.08.20 um 08:39 schrieb Nirmoy:<br>
-&gt; Series is Acked-by: Nirmoy Das &lt;nirmoy.das@amd.com&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; On 8/25/20 9:49 AM, Evan Quan wrote:<br>
-&gt;&gt; As these operations are performed in hardware setup and there<br>
-&gt;&gt; is actually no race conditions during this period considering:<br>
-&gt;&gt; 1. the hardware setup is serial and cannnot be in parallel<br>
-&gt;&gt; 2. all other operations can be performed only after hardware<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp; setup complete.<br>
-&gt;&gt;<br>
-&gt;&gt; V2: rich the commit log description<br>
-&gt;&gt;<br>
-&gt;&gt; Change-Id: I096d7ab0855ff59b0ecb56fd9d6d9946b3605fc8<br>
-&gt;&gt; Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; | 4 ----<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 --<br>
-&gt;&gt; &nbsp; 2 files changed, 6 deletions(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c <br>
-&gt;&gt; b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-&gt;&gt; index 09dc5303762b..b7cad8ef6153 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-&gt;&gt; @@ -361,20 +361,16 @@ static int <br>
-&gt;&gt; smu_get_driver_allowed_feature_mask(struct smu_context *smu)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t allowed_feature_mask[SMU_F=
-EATURE_MAX/32];<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; mutex_lock(&amp;feature-&gt;mutex);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap_zero(feature-&gt;allowed, SM=
-U_FEATURE_MAX);<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;feature-&gt;mutex);<br>
-&gt;&gt; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_allowed_feat=
-ure_mask(smu, allowed_feature_mask,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; SMU_FEATURE_MAX/32);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;=
-<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; mutex_lock(&amp;feature-&gt;mutex);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap_or(feature-&gt;allowed, feat=
-ure-&gt;allowed,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; (unsigned long *)allowed_feature_mask,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; feature-&gt;feature_num);<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;feature-&gt;mutex);<br>
-&gt;&gt; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&gt; &nbsp; }<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c <br>
-&gt;&gt; b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
-&gt;&gt; index 548db1edd352..28a19ffd22a1 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
-&gt;&gt; @@ -721,7 +721,6 @@ int smu_v11_0_set_allowed_mask(struct smu_cont=
-ext <br>
-&gt;&gt; *smu)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_mask[2];<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; mutex_lock(&amp;feature-&gt;mutex);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bitmap_empty(feature-&gt;allowe=
-d, SMU_FEATURE_MAX) || <br>
-&gt;&gt; feature-&gt;feature_num &lt; 64)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failed=
-;<br>
-&gt;&gt; &nbsp; @@ -738,7 +737,6 @@ int smu_v11_0_set_allowed_mask(struct <=
-br>
-&gt;&gt; smu_context *smu)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failed=
-;<br>
-&gt;&gt; &nbsp; &nbsp; failed:<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;feature-&gt;mutex);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&gt; &nbsp; }<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx@lists.freedesktop.org<br>
-&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
-%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=
-=3D02%7C01%7Calexander.deucher%40amd.com%7Ccad2767c7837431f94f308d84b2ab750=
-%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637341994162774368&amp;amp;sd=
-ata=3Db8PVt6zfQJXYlVunpFMY12knU8ZlJ7UE0ojZjhAWJdY%3D&amp;amp;reserved=3D0">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calex=
-ander.deucher%40amd.com%7Ccad2767c7837431f94f308d84b2ab750%7C3dd8961fe4884e=
-608e11a82d994e183d%7C0%7C0%7C637341994162774368&amp;amp;sdata=3Db8PVt6zfQJX=
-YlVunpFMY12knU8ZlJ7UE0ojZjhAWJdY%3D&amp;amp;reserved=3D0</a><br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7Ccad2767c7837431f94f308d84b2ab750%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637341994162774368&amp;amp;sdata=3D=
-b8PVt6zfQJXYlVunpFMY12knU8ZlJ7UE0ojZjhAWJdY%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
-deucher%40amd.com%7Ccad2767c7837431f94f308d84b2ab750%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637341994162774368&amp;amp;sdata=3Db8PVt6zfQJXYlVunp=
-FMY12knU8ZlJ7UE0ojZjhAWJdY%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB4488907B07E4FF9AE362BE7BF7520MN2PR12MB4488namp_--
-
---===============0946444980==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>
+>> Andrey
+>>
+>>
+>>> Alex
+>>>
+>>>
+>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 +++
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 60 +++++++++++++++++++++++++++---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +-
+>>>>    drivers/gpu/drm/amd/amdgpu/nv.c            |  4 +-
+>>>>    drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 +-
+>>>>    5 files changed, 66 insertions(+), 12 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>> index 3489622..42ee208 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>> @@ -992,7 +992,9 @@ struct amdgpu_device {
+>>>>           atomic_t                        throttling_logging_enabled;
+>>>>           struct ratelimit_state          throttling_logging_rs;
+>>>>           uint32_t                        ras_features;
+>>>> +
+>>> Unrelated whitespace changes.
+>>>
+>>>>           bool                            in_dpc;
+>>>> +       struct pci_saved_state          *pci_state;
+>>>>    };
+>>>>
+>>>>    static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+>>>> @@ -1272,6 +1274,10 @@ pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev);
+>>>>    pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev);
+>>>>    void amdgpu_pci_resume(struct pci_dev *pdev);
+>>>>
+>>>> +bool amdgpu_device_cache_pci_state(struct pci_dev *pdev);
+>>>> +bool amdgpu_device_load_pci_state(struct pci_dev *pdev);
+>>>> +
+>>>> +
+>>>>
+>>>>    #include "amdgpu_object.h"
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> index d9e3994..2c088df 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> @@ -1283,7 +1283,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
+>>>>                   dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+>>>>
+>>>>                   pci_set_power_state(dev->pdev, PCI_D0);
+>>>> -               pci_restore_state(dev->pdev);
+>>>> +               amdgpu_device_load_pci_state(dev->pdev);
+>>>>                   r = pci_enable_device(dev->pdev);
+>>>>                   if (r)
+>>>>                           DRM_WARN("pci_enable_device failed (%d)\n", r);
+>>>> @@ -1296,7 +1296,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
+>>>>                   drm_kms_helper_poll_disable(dev);
+>>>>                   dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+>>>>                   amdgpu_device_suspend(dev, true);
+>>>> -               pci_save_state(dev->pdev);
+>>>> +               amdgpu_device_cache_pci_state(dev->pdev);
+>>>>                   /* Shut down the device */
+>>>>                   pci_disable_device(dev->pdev);
+>>>>                   pci_set_power_state(dev->pdev, PCI_D3cold);
+>>>> @@ -3401,8 +3401,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>>>>           if (r)
+>>>>                   dev_err(adev->dev, "amdgpu_pmu_init failed\n");
+>>>>
+>>>> -       if (pci_save_state(pdev))
+>>>> -               DRM_ERROR("Failed to save PCI state!!\n");
+>>>> +       /* Have stored pci confspace at hand for restore in sudden PCI error */
+>>>> +       if (!amdgpu_device_cache_pci_state(adev->pdev))
+>>>> +               DRM_WARN("Failed to cache PCI state!");
+>>>>
+>>>>           return 0;
+>>>>
+>>>> @@ -3430,6 +3431,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+>>>>           flush_delayed_work(&adev->delayed_init_work);
+>>>>           adev->shutdown = true;
+>>>>
+>>>> +       kfree(adev->pci_state);
+>>>> +
+>>>>           /* make sure IB test finished before entering exclusive mode
+>>>>            * to avoid preemption on IB test
+>>>>            * */
+>>>> @@ -4855,7 +4858,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+>>>>           /* wait for asic to come out of reset */
+>>>>           msleep(500);
+>>>>
+>>>> -       pci_restore_state(pdev);
+>>>> +       amdgpu_device_load_pci_state(pdev);
+>>>>
+>>>>           /* confirm  ASIC came out of reset */
+>>>>           for (i = 0; i < adev->usec_timeout; i++) {
+>>>> @@ -4934,8 +4937,10 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+>>>>
+>>>>    out:
+>>>>
+>>>> -       if (!r)
+>>>> +       if (!r) {
+>>>> +               amdgpu_device_cache_pci_state(adev->pdev);
+>>>>                   DRM_INFO("PCIe error recovery succeeded\n");
+>>>> +       }
+>>>>           else {
+>>>>                   DRM_ERROR("PCIe error recovery failed, err:%d", r);
+>>>>                   amdgpu_device_unlock_adev(adev);
+>>>> @@ -4974,3 +4979,46 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
+>>>>
+>>>>           amdgpu_device_unlock_adev(adev);
+>>>>    }
+>>>> +
+>>>> +bool amdgpu_device_cache_pci_state(struct pci_dev *pdev)
+>>>> +{
+>>>> +       struct drm_device *dev = pci_get_drvdata(pdev);
+>>>> +       struct amdgpu_device *adev = drm_to_adev(dev);
+>>>> +       int r;
+>>>> +
+>>>> +       r = pci_save_state(pdev);
+>>>> +       if (!r) {
+>>>> +               kfree(adev->pci_state);
+>>>> +
+>>>> +               adev->pci_state = pci_store_saved_state(pdev);
+>>>> +
+>>>> +               if (!adev->pci_state) {
+>>>> +                       DRM_ERROR("Failed to store PCI saved state");
+>>>> +                       return false;
+>>>> +               }
+>>>> +       } else {
+>>>> +               DRM_WARN("Failed to save PCI state, err:%d\n", r);
+>>>> +               return false;
+>>>> +       }
+>>>> +
+>>>> +       return true;
+>>>> +}
+>>>> +
+>>>> +bool amdgpu_device_load_pci_state(struct pci_dev *pdev)
+>>>> +{
+>>>> +       struct drm_device *dev = pci_get_drvdata(pdev);
+>>>> +       struct amdgpu_device *adev = drm_to_adev(dev);
+>>>> +       int r;
+>>>> +
+>>>> +       if (!adev->pci_state)
+>>>> +               return false;
+>>>> +
+>>>> +       r = pci_load_saved_state(pdev, adev->pci_state);
+>>>> +
+>>>> +       if (!r) {
+>>>> +               pci_restore_state(pdev);
+>>>> +       } else {
+>>>> +               DRM_WARN("Failed to load PCI state, err:%d\n", r);
+>>>> +               return false;
+>>>> +       }
+>>>> +}
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> index 4bbcc70..7a6482a 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> @@ -1320,7 +1320,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>>>>                   if (amdgpu_is_atpx_hybrid()) {
+>>>>                           pci_ignore_hotplug(pdev);
+>>>>                   } else {
+>>>> -                       pci_save_state(pdev);
+>>>> +                       amdgpu_device_cache_pci_state(pdev);
+>>>>                           pci_disable_device(pdev);
+>>>>                           pci_ignore_hotplug(pdev);
+>>>>                           pci_set_power_state(pdev, PCI_D3cold);
+>>>> @@ -1353,7 +1353,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+>>>>                           pci_set_master(pdev);
+>>>>                   } else {
+>>>>                           pci_set_power_state(pdev, PCI_D0);
+>>>> -                       pci_restore_state(pdev);
+>>>> +                       amdgpu_device_load_pci_state(pdev);
+>>>>                           ret = pci_enable_device(pdev);
+>>>>                           if (ret)
+>>>>                                   return ret;
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>> index 4d14023..0ec6603 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>> @@ -311,7 +311,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
+>>>>           /* disable BM */
+>>>>           pci_clear_master(adev->pdev);
+>>>>
+>>>> -       pci_save_state(adev->pdev);
+>>>> +       amdgpu_device_cache_pci_state(adev->pdev);
+>>>>
+>>>>           if (amdgpu_dpm_is_mode1_reset_supported(adev)) {
+>>>>                   dev_info(adev->dev, "GPU smu mode1 reset\n");
+>>>> @@ -323,7 +323,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
+>>>>
+>>>>           if (ret)
+>>>>                   dev_err(adev->dev, "GPU mode1 reset failed\n");
+>>>> -       pci_restore_state(adev->pdev);
+>>>> +       amdgpu_device_load_pci_state(adev->pdev);
+>>>>
+>>>>           /* wait for asic to come out of reset */
+>>>>           for (i = 0; i < adev->usec_timeout; i++) {
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>> index 2f93c47..ddd55e3 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>> @@ -484,13 +484,13 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
+>>>>           /* disable BM */
+>>>>           pci_clear_master(adev->pdev);
+>>>>
+>>>> -       pci_save_state(adev->pdev);
+>>>> +       amdgpu_device_cache_pci_state(adev->pdev);
+>>>>
+>>>>           ret = psp_gpu_reset(adev);
+>>>>           if (ret)
+>>>>                   dev_err(adev->dev, "GPU mode1 reset failed\n");
+>>>>
+>>>> -       pci_restore_state(adev->pdev);
+>>>> +       amdgpu_device_load_pci_state(adev->pdev);
+>>>>
+>>>>           /* wait for asic to come out of reset */
+>>>>           for (i = 0; i < adev->usec_timeout; i++) {
+>>>> --
+>>>> 2.7.4
+>>>>
+>>>> _______________________________________________
+>>>> amd-gfx mailing list
+>>>> amd-gfx@lists.freedesktop.org
+>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7CAndrey.Grodzovsky%40amd.com%7C3d5f35b27c9c4055150908d84b5c81cb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637342207973407357&amp;sdata=qA1xTpuY1JtOTPf7m1WhpH%2BFqVv8GA5CDMu%2BJa3Ds4o%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0946444980==--
