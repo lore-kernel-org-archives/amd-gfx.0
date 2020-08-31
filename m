@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D68C0C43461
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F738C433E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:31:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD91E214DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:31:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1D58C214DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:31:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="WkGRhuKx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD91E214DB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qugv0lKS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D58C214DB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61BD56E3A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABEE56E3A4;
 	Mon, 31 Aug 2020 15:31:12 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9296D6E395;
- Mon, 31 Aug 2020 15:31:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16F276E395;
+ Mon, 31 Aug 2020 15:31:12 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 35067214D8;
- Mon, 31 Aug 2020 15:31:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DDFB32083E;
+ Mon, 31 Aug 2020 15:31:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598887870;
- bh=huelgF8JzQ81vNIaCdGm2nn+1vKAlvrXCvum3Q88YJM=;
+ s=default; t=1598887872;
+ bh=yQDsG4Dukt9Zl7PbICuxCz2UQrfZce1uCsChE6idIWQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WkGRhuKxb8lxV/UfU0eM9DT9ScrOTqoWY20GRVdPlZLL3S52vCX73WgF/8f2LgVpZ
- FdSe91pIk2QCATRSKPUAr2gEngHgSoXN+2gs+3EUM3U5DwbVc9Z8pq1YhPnujiuxd5
- jMmvngVwePUSc3nYt25NslwLHSXWbc3fRVw3s5fo=
+ b=Qugv0lKSc96wj3kfmUp4a4IReJDoj9u8bmRU/PRnxG//3ZMGGmskVEihr9MJJfsyD
+ OetDcDkmj8eWcGB69mOWXjpDAHX3LAm4phgr7ZtjDecT7PLgyNoETza389E1HAdQA+
+ 4ppPVQ2qn3UAceCAy/I560xm62BhS3iOEqMHK/jI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 19/23] drivers: gpu: amd: Initialize
- amdgpu_dm_backlight_caps object to 0 in amdgpu_dm_update_backlight_caps
-Date: Mon, 31 Aug 2020 11:30:35 -0400
-Message-Id: <20200831153039.1024302-19-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 20/23] drm/amd/display: Retry AUX write when fail
+ occurs
+Date: Mon, 31 Aug 2020 11:30:36 -0400
+Message-Id: <20200831153039.1024302-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200831153039.1024302-1-sashal@kernel.org>
 References: <20200831153039.1024302-1-sashal@kernel.org>
@@ -61,39 +62,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Furquan Shaikh <furquan@google.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogRnVycXVhbiBTaGFpa2ggPGZ1cnF1YW5AZ29vZ2xlLmNvbT4KClsgVXBzdHJlYW0gY29t
-bWl0IDU4OTY1ODU1MTJlNTE1NjQ4MjMzNWU5MDJmN2M3MzkzYjk0MGRhNTEgXQoKSW4gYGFtZGdw
-dV9kbV91cGRhdGVfYmFja2xpZ2h0X2NhcHMoKWAsIHRoZXJlIGlzIGEgbG9jYWwKYGFtZGdwdV9k
-bV9iYWNrbGlnaHRfY2Fwc2Agb2JqZWN0IHRoYXQgaXMgZmlsbGVkIGluIGJ5CmBhbWRncHVfYWNw
-aV9nZXRfYmFja2xpZ2h0X2NhcHMoKWAuIEhvd2V2ZXIsIHRoaXMgb2JqZWN0IGlzCnVuaW5pdGlh
-bGl6ZWQgYmVmb3JlIHRoZSBjYWxsIGFuZCBoZW5jZSB0aGUgc3Vic2VxdWVudCBjaGVjayBmb3IK
-YXV4X3N1cHBvcnQgY2FuIGZhaWwgc2luY2UgaXQgaXMgbm90IGluaXRpYWxpemVkIGJ5CmBhbWRn
-cHVfYWNwaV9nZXRfYmFja2xpZ2h0X2NhcHMoKWAgYXMgd2VsbC4gVGhpcyBjaGFuZ2UgaW5pdGlh
-bGl6ZXMKdGhpcyBsb2NhbCBgYW1kZ3B1X2RtX2JhY2tsaWdodF9jYXBzYCBvYmplY3QgdG8gMC4K
-ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
-ClNpZ25lZC1vZmYtYnk6IEZ1cnF1YW4gU2hhaWtoIDxmdXJxdWFuQGdvb2dsZS5jb20+ClNpZ25l
-ZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVk
-LW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAyICsrCiAxIGZpbGUgY2hh
-bmdlZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKaW5kZXggMmMwZWI3MTQwY2EwZS4uNTI2ZTQxNjFkZjQ1
-NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jCkBAIC0yMDY0LDYgKzIwNjQsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fdXBkYXRl
-X2JhY2tsaWdodF9jYXBzKHN0cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSkKICNpZiBk
-ZWZpbmVkKENPTkZJR19BQ1BJKQogCXN0cnVjdCBhbWRncHVfZG1fYmFja2xpZ2h0X2NhcHMgY2Fw
-czsKIAorCW1lbXNldCgmY2FwcywgMCwgc2l6ZW9mKGNhcHMpKTsKKwogCWlmIChkbS0+YmFja2xp
-Z2h0X2NhcHMuY2Fwc192YWxpZCkKIAkJcmV0dXJuOwogCi0tIAoyLjI1LjEKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+From: Wayne Lin <Wayne.Lin@amd.com>
+
+[ Upstream commit ef67d792a2fc578319399f605fbec2f99ecc06ea ]
+
+[Why]
+In dm_dp_aux_transfer() now, we forget to handle AUX_WR fail cases. We
+suppose every write wil get done successfully and hence some AUX
+commands might not sent out indeed.
+
+[How]
+Check if AUX_WR success. If not, retry it.
+
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 28a6c7b2ef4bb..2f858507ca702 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -101,7 +101,7 @@ static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	result = dc_link_aux_transfer_raw(TO_DM_AUX(aux)->ddc_service, &payload,
+ 				      &operation_result);
+ 
+-	if (payload.write)
++	if (payload.write && result >= 0)
+ 		result = msg->size;
+ 
+ 	if (result < 0)
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
