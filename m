@@ -8,98 +8,100 @@ X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AA6EC433E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 21:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92E87C433E2
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 21:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26D6B2067C
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 21:05:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5F8C22067C
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 21:09:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fOu1I4cS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26D6B2067C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QvIQoNwv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F8C22067C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A854D6E418;
-	Mon, 31 Aug 2020 21:05:55 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750083.outbound.protection.outlook.com [40.107.75.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 163126E418
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 21:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC396E418;
+	Mon, 31 Aug 2020 21:09:57 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::60e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E63C6E418
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 21:09:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aDlAZ0p9IZ5yu38nuKujodp88GEU4P0uSYfkyL4uaeF15DmzGNwHlSnneipo0AlrCMVuT17NsUdAxhs3nI7AjhngK23WuniHT51w4x4pRFYSUYJnTaE0Go5teDT4p9lp+tLZKc07TN7bdBMv63Aww/Kf++228p5fQ78iqybqxIgo+iI6KYgZgybkjGn3bwy0vQAgW5sRtm06funp5+oF6cnb7Qx1UxwPs5NZ6Q8kvh3JWLErMgBABNvojHWZhKv322nJB1U7TVaW6P47ejUSQqM7xZJobwKK+sBcuK0/1xANC+xMcmKn3hLvHQvYr0AfPi9Ci/BHpLc/M1bfPA/Fmg==
+ b=K3I6QJxONldPvtI+f3UBW5xT67I8KfcISz+ZF0ueJnyGYvaNjM+5Mvo2nBV3BK2OmBbPETSp59WZ2vHuJDnfZn318MgXdgPDygVGpD186NSCwGbtHh/Ko5+CUAjI+sMO/fwhJjbUseimFY24h7X6MX53Tbo6xGf0I8JTxE4lTteO/BEJUlgLkLgQcozEx0tpXvjKJK+uftjbR+snZ9xgO+OVIrpZa8vHewULGrtt2X2ATzVB5l7aa23W03drtGUdOYWeLppQRLmFoYYXeaiLEbdbn+2VO/o2KVG787yUHxeTeyUiXAn04lK2D8jM/Z8dS4NzDy3Y6NrHEG8UV/E1rA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KGCmec7zJ5bXTofCUpo8QSVq6SztJrkCIABUnPSu6fs=;
- b=nrTwpd/46YRoP01rSirA1uQ/uHUkHRI7AVA0H/Nq1Z7kJiPBo4FTkWOWk3prX2NKrUVKIrK2rapCJQjcCz8B0oREXlqfKKXuqeALlm5+F0h9f3fITzqUqNgEb74yOfGdQnxLxf8xVQjlMFTdDOgk873ZAFxr1+xToqYduhWB0IaQOoIldRSbKCzoXAo59DGhUJBqyugjplbxw5xDPhuTVXK3dl3wlCLH6AUn0E9A4fFngw21J7n9WNFYAmhCXLWzvMNYFsNczK8pfOVjTIusxMMeHEb8NG7XFY4EG6slJQhhUyb5xBqSbmL/MSPIabYoc1fdfYEWUbyqE6+PhRpabg==
+ bh=jGMmeNTfuUssPiy8f126PDQRZxn98HerjykqpUm5ajI=;
+ b=IDfoKmkS+7IdYLdec00ojbBlaN7UFPXj2OaanOOVt53OzOMTHSXU2olXoZGPVX95NOsBz3QiMzc+26k4A0Mj/iIT8W2/JJ/9SaS3Bu+yCaHpVyvU3+XV3Xjov2AghyzKxwZIptVrpZB3S3bcpZBVTWkDKLLU0abpuhjkl5LIu+EgjYZyVL7RjbE8ukjmT3q/Hldwuvn+jgLy9FbY14tkujg6kwpBX43q7NpSaIa6nW2tcupmP8xSse0z/UOuXcP1GLfoHZgSHfAkmEit1gbt51k4RXhvDjss2KpQsIK8pXuZOdSJTVUGl6tICl7U29/WTOdOprsEt88v/KxjBinZ/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KGCmec7zJ5bXTofCUpo8QSVq6SztJrkCIABUnPSu6fs=;
- b=fOu1I4cSTUhRn4rqF9j45PWCeQ3MT8XwKnGWlOMaQDbeuW+H/DZlPNbLZIm3mBv+UMdN25OJTbj+IcMDl6hFEBlWtZQG4P33rIofscjdTQkeLzu/QFR+UpjFgxyYvX0L1V7DZeS1y1YFz2jX3RPdghwVEv3tT+b01E8m4PzYwRk=
+ bh=jGMmeNTfuUssPiy8f126PDQRZxn98HerjykqpUm5ajI=;
+ b=QvIQoNwvoWx1P+0oAAEn0uVSWA+YuffMc5EGQIzDBjmcwleLjMfNhIAuu4mgCTHa7ErAA9SRtbR9QfGpawk9qkKQMTeBAgqpQtge1GKzsGtilmRN36AqSqzfWL0NMbha+FZi5gv/aKxHjQTQf+/eFHPRqj7xToVYaQJKaY1gFJA=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB2617.namprd12.prod.outlook.com (2603:10b6:5:4a::14) with
+ by DM6PR12MB3179.namprd12.prod.outlook.com (2603:10b6:5:183::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.25; Mon, 31 Aug
- 2020 21:05:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.24; Mon, 31 Aug
+ 2020 21:09:50 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::3452:6d8f:e0ef:b45e]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::3452:6d8f:e0ef:b45e%6]) with mapi id 15.20.3326.025; Mon, 31 Aug 2020
- 21:05:52 +0000
-Subject: Re: [PATCH v3 5/8] drm/amdgpu: Fix consecutive DPC recovery failures.
+ 21:09:50 +0000
+Subject: Re: [PATCH v3 7/8] drm/amdgpu: Disable DPC for XGMI for now.
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
  amd-gfx@lists.freedesktop.org
 References: <1598889049-28321-1-git-send-email-andrey.grodzovsky@amd.com>
- <1598889049-28321-6-git-send-email-andrey.grodzovsky@amd.com>
+ <1598889049-28321-8-git-send-email-andrey.grodzovsky@amd.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <7f867417-4287-9aea-a939-38dc9947940c@amd.com>
-Date: Mon, 31 Aug 2020 17:05:50 -0400
+Message-ID: <7518f239-e1bf-f46d-fe88-8920c60ca25d@amd.com>
+Date: Mon, 31 Aug 2020 17:09:48 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.2.0
-In-Reply-To: <1598889049-28321-6-git-send-email-andrey.grodzovsky@amd.com>
+In-Reply-To: <1598889049-28321-8-git-send-email-andrey.grodzovsky@amd.com>
 Content-Language: en-CA
-X-ClientProxiedBy: YT1PR01CA0056.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::25) To DM6PR12MB3962.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTXPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::40) To DM6PR12MB3962.namprd12.prod.outlook.com
  (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from 255.255.255.255 (255.255.255.255) by
- YT1PR01CA0056.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3326.19 via Frontend Transport; Mon, 31 Aug 2020 21:05:51 +0000
+ YTXPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::40) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19 via Frontend
+ Transport; Mon, 31 Aug 2020 21:09:49 +0000
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 77d3c352-7596-44ac-6e60-08d84df1a4ac
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2617:
+X-MS-Office365-Filtering-Correlation-Id: bca18b7e-8cc3-4c0e-648d-08d84df232ac
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3179:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB26175849C9CBB593BA7A8E1399510@DM6PR12MB2617.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3179954D2A4041504406745999510@DM6PR12MB3179.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: o2TltpIaogWlOYM+NAOge5fNv3AI46rgrzmTaDoDLhvdwtWz4ykw9zvThCUmMpCvALCsPv/5iP+q9f9b1TOTt+zBN751Z//OLfuW9AmYI8VY3GaCHlJDDixJKwnEzZXsYFgjenXe2dil0fNON6Hpbs6kX/qEbT316MIsuEW/RTcMztdHpx5x+e9/XBOli816ieMqnSnKrbNTpapa2Hr94DvKdTv5qmnl4bjeuxzc+VtNwYRqorHdH3QO51A+h4Ztbji9g3ZlIb+SlTlvFiO4ZL4yBEWDQHxCDVBiBgi3/PhRfTuBIfWEGbZfsY4XSxn1rZarAI+nx5iqlDoFQYCasBPXeL1Eueazkh+Rpa4Txc02lmD9/Wge+2/JkUpC+MYD
+X-Microsoft-Antispam-Message-Info: /e65yMyrZ7onIJqxNk+x4uWDqtXZkgszq73sx5qxlseR1q5Z6g4jMgrJTJLMkMRC665vI4Efc33jfxNYtBEwZ1qbNLLtlIxbfBMkb3PafE3dz79Jal+vkbb1taH87eOrLSKKGkYEP8Ds3ArNEPxZeG6s1A0bIWlAMjfHuaX/Q5Rh3VS3P9xXqp72t80v+JniI6ZblAxw2/M4HFAAcNyFp0GPvq2aTz98rHz4nb/63XjnjcfH96RXIBrhFPmyKhxdazJBbSNJmSsWaRF/gPWnNgL/jWYrPqB57t00GO3AL4pq0n46k2A++6CYgPKU76Ej0qXlfpHbyo6h/nZdbVE6rPA8wMBEfKADLnE/0Fmd90kw8Yj8/xUZ33F/AzHji3Up
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(396003)(136003)(366004)(346002)(8936002)(83380400001)(31696002)(16576012)(5660300002)(316002)(186003)(66946007)(8676002)(52116002)(2906002)(478600001)(4326008)(956004)(2616005)(36756003)(86362001)(53546011)(66556008)(31686004)(44832011)(6486002)(66476007)(26005)(43740500002);
+ SFS:(4636009)(366004)(376002)(39860400002)(346002)(136003)(396003)(316002)(16576012)(4326008)(186003)(66556008)(478600001)(86362001)(44832011)(6486002)(66946007)(66476007)(31696002)(2906002)(83380400001)(53546011)(8676002)(8936002)(5660300002)(26005)(52116002)(956004)(36756003)(2616005)(31686004)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: ArRq9JRQ09+wYriWGXEhEz93q02H0IHQ30bE9sCBL1SshX3t/p4445QgHCDVZ4aCa7wMSXD0j9XsXoSEc0+9LsDNHLaCdZ4SwJn8O1JIapXHAuGM5Ae2M/GXjA+gCqUQQiZ8+Jc5DvfqAr3MGlWrGXPmcg6E5dExrNvfynevEp8qU6gJ3jdes8q2am6zsJJb3/11sslEvAUFRuGIGrEm8hknIUjIEG3jJXFk/NBSmfaWEKpciAlsWfJB/8ChoxjnMr7/zzfrSUABiSEocmBqGJwE17DwIkP74Azdbar9VGK0NcvOS23X9nr+9juzxCqLZhGPK70yV3UrGjzsEa0FOxQfPPfSCWmUlMNNphwcpAgbx2tCDpmriEFFqRn5hFw59Opd7OS3ONoOuk2X3b1pEVa/mTOQjeh5IzkwtW2dSMmBzM7XmMCivVVoPPjnUSsJ8cPTMQhN0h6eum3ZNstcaVcob6ER9lU7kGsXMgHm7c6F3or73TS8YB0bXFvDes+5IzkmZHehhkic0BHCjiELik5WKNjiK/ysFC70tQgfUqr6K5AWW7mgcCYfTM3WgwOB/ud0Bc6jL5nwxnQwsPm0GLyH05FwhWpC2pt6W68if+0G/84cOJuFptlIpVLrRTPgWsSC4tju9dDHv8J41h6KPw==
+X-MS-Exchange-AntiSpam-MessageData: SqX53hNB632Y67NvHgsGok/RZWntymvFMEvgr+jVcyJ+y1DwFl4W3SiHniWqYqZeQq2lb0mPaqMOHvs+MDFmiFAY0WpIy+QSFdCxq9qZWe8/EatG8fWdLLBfRRriUdLgjqebyfgBq388KMAsd5Ngyks9zNmiUMfkSmA2qLHX+FL1JrzOlDuPsmL6IPlqL6v2RbfRrdxmWDTxAVKm5mLVG8y+6oztCC6Am7q2Dhaq1MLbS0E6uAFjdCtMksM1V9+G2Bx/HrkdVjENivq3budzfB6bbEuaq+5EwlH7TTyHhAjifJu6QGZFlk5eDGfMz9NbhO6PEcx4M8X/ZaTAvP6Q+qqb2MM5bVXM0X9DyQnVL/K8SbV1J8yhUlwkNJDSFpmnvIGvNaOgsyrH01mB81suBjU8EjKk37ng1gHnXipRIlh5jtmeVwUrgq19TC7d3W1F7H1LyYL9MYuxEqrsiQccWtI5Pf0htMRpwsduAOLhv6LDHzfu7cXYG+0/gDkEITddaG+YCGNsiYwQp9458g7Iwb+UNLyfIs5bul6QkEIR1mOAnsSf/5ssLTOIWImAHOVanGfnGFeikqMYte3AcF64ooOMb+KeqxB09PtMBqXdTU5xZBVDOkBjUat8rR2X4BwkCi6klkiLAejR7+4z+k+gHQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77d3c352-7596-44ac-6e60-08d84df1a4ac
+X-MS-Exchange-CrossTenant-Network-Message-Id: bca18b7e-8cc3-4c0e-648d-08d84df232ac
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2020 21:05:52.0174 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2020 21:09:50.5295 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nJUYSqDOn6545OC9HrJylGSe2NvmyoszzskVTYfd/m//Z36ZPnFnhmMt5mhwOySd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2617
+X-MS-Exchange-CrossTenant-UserPrincipalName: DRbD4bpcTL36x8mCWokqBEGmFHbTZUGaasJ0deSD47q+BvUklNZaNCrm8lpp0M/E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3179
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,234 +121,43 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2020-08-31 11:50 a.m., Andrey Grodzovsky wrote:
-> Cache the PCI state on boot and before each case were we might
-> loose it.
+> XGMI support is more complicated then single device support as
 
-Typo: "were" --> "where".
+Typo: "then" --> "than".
 
-> 
-> v2: Add pci_restore_state while caching the PCI state to avoid
-> breaking PCI core logic for stuff like suspend/resume.
-> 
-> v3: Extract pci_restore_state from amdgpu_device_cache_pci_state
-> to avoid superflous restores during GPU resets and suspend/resumes.
-> 
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62 ++++++++++++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +-
->  drivers/gpu/drm/amd/amdgpu/nv.c            |  4 +-
->  drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 +-
->  5 files changed, 71 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index cac51e8..5e74db6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -992,7 +992,9 @@ struct amdgpu_device {
->  	atomic_t			throttling_logging_enabled;
->  	struct ratelimit_state		throttling_logging_rs;
->  	uint32_t			ras_features;
-> +
->  	bool                            in_pci_err_recovery;
-> +	struct pci_saved_state          *pci_state;
->  };
->  
->  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> @@ -1272,6 +1274,10 @@ pci_ers_result_t amdgpu_pci_mmio_enabled(struct pci_dev *pdev);
->  pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev);
->  void amdgpu_pci_resume(struct pci_dev *pdev);
->  
-> +bool amdgpu_device_cache_pci_state(struct pci_dev *pdev);
-> +bool amdgpu_device_load_pci_state(struct pci_dev *pdev);
-> +
-> +
+> questions of synchronization between the device recovering from
+> PCI error and other members of the hive is required.
 
-Unnecessary extra line added.
+Typo: "is" --> "are", as the subject of this long sentence changes
+from "XGMI support" to "questions", which is plural: "questions ... _are_ required."
 
 Regards,
 Luben
 
->  
->  #include "amdgpu_object.h"
->  
+> Leaving this for next round.
+> 
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 4a009ca..0329b43 100644
+> index b31868a..fe720c2 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1282,7 +1282,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
->  		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+> @@ -4781,6 +4781,11 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
 >  
->  		pci_set_power_state(dev->pdev, PCI_D0);
-> -		pci_restore_state(dev->pdev);
-> +		amdgpu_device_load_pci_state(dev->pdev);
->  		r = pci_enable_device(dev->pdev);
->  		if (r)
->  			DRM_WARN("pci_enable_device failed (%d)\n", r);
-> @@ -1295,7 +1295,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
->  		drm_kms_helper_poll_disable(dev);
->  		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
->  		amdgpu_device_suspend(dev, true);
-> -		pci_save_state(dev->pdev);
-> +		amdgpu_device_cache_pci_state(dev->pdev);
->  		/* Shut down the device */
->  		pci_disable_device(dev->pdev);
->  		pci_set_power_state(dev->pdev, PCI_D3cold);
-> @@ -3400,6 +3400,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	if (r)
->  		dev_err(adev->dev, "amdgpu_pmu_init failed\n");
+>  	DRM_INFO("PCI error: detected callback, state(%d)!!\n", state);
 >  
-> +	/* Have stored pci confspace at hand for restore in sudden PCI error */
-> +	if (amdgpu_device_cache_pci_state(adev->pdev))
-> +		pci_restore_state(pdev);
-> +
->  	return 0;
->  
->  failed:
-> @@ -3426,6 +3430,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
->  	flush_delayed_work(&adev->delayed_init_work);
->  	adev->shutdown = true;
->  
-> +	kfree(adev->pci_state);
-> +
->  	/* make sure IB test finished before entering exclusive mode
->  	 * to avoid preemption on IB test
->  	 * */
-> @@ -4850,7 +4856,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->  	/* wait for asic to come out of reset */
->  	msleep(500);
->  
-> -	pci_restore_state(pdev);
-> +	amdgpu_device_load_pci_state(pdev);
->  
->  	/* confirm  ASIC came out of reset */
->  	for (i = 0; i < adev->usec_timeout; i++) {
-> @@ -4930,6 +4936,9 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
->  out:
->  
->  	if (!r) {
-> +		if (amdgpu_device_cache_pci_state(adev->pdev))
-> +			pci_restore_state(adev->pdev);
-> +
->  		DRM_INFO("PCIe error recovery succeeded\n");
->  	} else {
->  		DRM_ERROR("PCIe error recovery failed, err:%d", r);
-> @@ -4969,3 +4978,50 @@ void amdgpu_pci_resume(struct pci_dev *pdev)
->  
->  	amdgpu_device_unlock_adev(adev);
->  }
-> +
-> +bool amdgpu_device_cache_pci_state(struct pci_dev *pdev)
-> +{
-> +	struct drm_device *dev = pci_get_drvdata(pdev);
-> +	struct amdgpu_device *adev = drm_to_adev(dev);
-> +	int r;
-> +
-> +	r = pci_save_state(pdev);
-> +	if (!r) {
-> +		kfree(adev->pci_state);
-> +
-> +		adev->pci_state = pci_store_saved_state(pdev);
-> +
-> +		if (!adev->pci_state) {
-> +			DRM_ERROR("Failed to store PCI saved state");
-> +			return false;
-> +		}
-> +	} else {
-> +		DRM_WARN("Failed to save PCI state, err:%d\n", r);
-> +		return false;
+> +	if (adev->gmc.xgmi.num_physical_nodes > 1) {
+> +		DRM_WARN("No support for XGMI hive yet...");
+> +		return PCI_ERS_RESULT_DISCONNECT;
 > +	}
 > +
-> +	return true;
-> +}
-> +
-> +bool amdgpu_device_load_pci_state(struct pci_dev *pdev)
-> +{
-> +	struct drm_device *dev = pci_get_drvdata(pdev);
-> +	struct amdgpu_device *adev = drm_to_adev(dev);
-> +	int r;
-> +
-> +	if (!adev->pci_state)
-> +		return false;
-> +
-> +	r = pci_load_saved_state(pdev, adev->pci_state);
-> +
-> +	if (!r) {
-> +		pci_restore_state(pdev);
-> +	} else {
-> +		DRM_WARN("Failed to load PCI state, err:%d\n", r);
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 4bbcc70..7a6482a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1320,7 +1320,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
->  		if (amdgpu_is_atpx_hybrid()) {
->  			pci_ignore_hotplug(pdev);
->  		} else {
-> -			pci_save_state(pdev);
-> +			amdgpu_device_cache_pci_state(pdev);
->  			pci_disable_device(pdev);
->  			pci_ignore_hotplug(pdev);
->  			pci_set_power_state(pdev, PCI_D3cold);
-> @@ -1353,7 +1353,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
->  			pci_set_master(pdev);
->  		} else {
->  			pci_set_power_state(pdev, PCI_D0);
-> -			pci_restore_state(pdev);
-> +			amdgpu_device_load_pci_state(pdev);
->  			ret = pci_enable_device(pdev);
->  			if (ret)
->  				return ret;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 4d14023..0ec6603 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -311,7 +311,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
->  	/* disable BM */
->  	pci_clear_master(adev->pdev);
->  
-> -	pci_save_state(adev->pdev);
-> +	amdgpu_device_cache_pci_state(adev->pdev);
->  
->  	if (amdgpu_dpm_is_mode1_reset_supported(adev)) {
->  		dev_info(adev->dev, "GPU smu mode1 reset\n");
-> @@ -323,7 +323,7 @@ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
->  
->  	if (ret)
->  		dev_err(adev->dev, "GPU mode1 reset failed\n");
-> -	pci_restore_state(adev->pdev);
-> +	amdgpu_device_load_pci_state(adev->pdev);
->  
->  	/* wait for asic to come out of reset */
->  	for (i = 0; i < adev->usec_timeout; i++) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 2f93c47..ddd55e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -484,13 +484,13 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
->  	/* disable BM */
->  	pci_clear_master(adev->pdev);
->  
-> -	pci_save_state(adev->pdev);
-> +	amdgpu_device_cache_pci_state(adev->pdev);
->  
->  	ret = psp_gpu_reset(adev);
->  	if (ret)
->  		dev_err(adev->dev, "GPU mode1 reset failed\n");
->  
-> -	pci_restore_state(adev->pdev);
-> +	amdgpu_device_load_pci_state(adev->pdev);
->  
->  	/* wait for asic to come out of reset */
->  	for (i = 0; i < adev->usec_timeout; i++) {
+>  	switch (state) {
+>  	case pci_channel_io_normal:
+>  		return PCI_ERS_RESULT_CAN_RECOVER;
 > 
 
 _______________________________________________
