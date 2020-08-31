@@ -2,37 +2,37 @@ Return-Path: <SRS0=7vr2=CJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC28FC433E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27CD7C433E2
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5284520719
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:50:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E95D620719
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2020 15:51:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CItGnaEb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5284520719
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2i/LPxFN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E95D620719
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC6D389A32;
-	Mon, 31 Aug 2020 15:50:58 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062.outbound.protection.outlook.com [40.107.94.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBE1B89A32
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 15:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C1E89A88;
+	Mon, 31 Aug 2020 15:51:04 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690053.outbound.protection.outlook.com [40.107.69.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A531089A88
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 15:51:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JVusaWlsOPET1gG+fs3P/w7xSTI+wGM+Khu5JVIwRNbiID7QCR2g5TRkk1XwAwrCH+NbOi8vCIOSTflOOsb8jwU2JuaC2e9/ui8wpzyB1NaZL+KalwHkP2O9lOOhb6Iyc0XPcERIVIsqggoxguE8Ueya83vg7He8AQElrypiTn/OkS7OWrwJFuvcQEiGOunKX9EfPnA8A3eeobKEPV2QSepPpyW5EParG3ktSLa7WLZ6juy7/CmoEfWDrLE2aVTZRlyFB9PSAHJPLB68db22yzzoe2IcPxNbL9HpwO0RVuBwQbqSpKq79E2jURY2H4DxCjB5g8jZA+wS1YUzIZGnCQ==
+ b=C+DyONVdSXnPIvWiZomNn2uTqradwUxXARx41aYTiVAx10nqLF6PBW61HLS5R1533/sDmUV3tbGeN6Gmg52cVMW2nB2IlLaCzU1LwyhMkqtw78vLF6eFk5x63hajxn5zUHJeltCrhndZhSCtcBjSw0SpJgtJrM6m/ZXzD3LVE5SAIFUzqj/FywZXseU7f+DGhZfQOEv2Bg6vDxXxf7flRvoRglpBLJpCNWNt9qUVqWkF2wkz/gn7wmf+g/T97ahv8HaXI8OJkuvpMFQklLV0stgyPdovpMREecd5mw2YULM24ZN6Z16iABylINmE0TIlrbZTGeS7wRz6wwkwA2VvKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5H1rB+lUR9gIRjGIfzy4Of4YQCwbOkYJol8Lo2GsFPk=;
- b=kr4iDolGPrnGUUbvBgxgD+4Q2ia66Lpr3olVE+U2RQ8AvVfptkIKcAKeMtCJY0fVFE3et5JZZO218cAvINHs/3Zxy9ov7uA/USIZ7yUOXqH/Rb++VMrksq/WJoMkfMeNxZHIuS9MEKWNqEWM7xpZ1IPxK9PykTldS+uKjLhlWE/E0nCVhEzLDpir3quAPTAPMLnxjbYmE73MFkRt6KGpCC9v87wUXOISR6WgnJUEsmlnDhrq1wLZaOuzjPuw9fq9mlDp40JOLIy3nhbdIOgY7SBWYteqAXMB3bgGJZfSF9i+U8n6NzsT4OiVUjiG1WfwBjpjHNJB/73FTK5Zmg+vmw==
+ bh=njqfqAfE2T/C8HMQQoO4xS39I4xrNa4cW4LVRBiVcF0=;
+ b=Cm/xu3PyxA+zTBYy6bmXQiCwcflCy19+/8FoYwQQr6mUItoD5TFQ+jXrEyX3XqnWTXOI/iiKOajAkpGDN3lfJBCiUVpDl2Nyku3Aqn4DR5WJlUdhN6PfjeN4JxcA/2bocnnq6bGhao3vgtVy5H0iwSTxSTlSac4Xay+r2eIuddOj7X23x5r94iV3mMRTePMYRJNxr7LrtwTQCoqJXW4hYelR+YUM+RRt3CqEmd4uC+XGxmlgFfOJuzDTV3vuoQ+2rpvshqnBJJ2KodFEu57SLsJyEBXPH1Ww21CHvncF+AG/SWMSOlagFPc/OF6QYFT8uZkVO82tSp4LosLiErlpdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5H1rB+lUR9gIRjGIfzy4Of4YQCwbOkYJol8Lo2GsFPk=;
- b=CItGnaEbU4Why6ywL9waae1GsZAn9qwSKvAtrNIrrirG/vWu7/vd4xTeQOcjYtXbpVShsIWqiKKVHoIj+l/6GOVXgMpt7S0PPiHmwwLyL7O7hB3HPWlZy64uNoxEcza+J6jGDGtbP2ATKOgwq9icvuA+9+WRKLbawRi79Isr74M=
-Received: from MWHPR14CA0068.namprd14.prod.outlook.com (2603:10b6:300:81::30)
- by MW3PR12MB4363.namprd12.prod.outlook.com (2603:10b6:303:56::14)
+ bh=njqfqAfE2T/C8HMQQoO4xS39I4xrNa4cW4LVRBiVcF0=;
+ b=2i/LPxFNsybFhC22wWs2Dm0SXZd0klUPr4wdlaYIzVI1kupD+a3nA2FltvRFeluGw04UAGRn1fV9Ot8+BG/gFi2YnyMwrXO1fr/P3xw3ZiaKROfUmHnix1ftlqypGqH4r/dpyjP3WclACeuKpk7vYkXFtwQdlhi5ZOHubwAxg54=
+Received: from CO1PR15CA0077.namprd15.prod.outlook.com (2603:10b6:101:20::21)
+ by BY5PR12MB3859.namprd12.prod.outlook.com (2603:10b6:a03:1a8::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.23; Mon, 31 Aug
- 2020 15:50:56 +0000
-Received: from CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:81:cafe::f9) by MWHPR14CA0068.outlook.office365.com
- (2603:10b6:300:81::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.25; Mon, 31 Aug
+ 2020 15:51:01 +0000
+Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:101:20:cafe::d2) by CO1PR15CA0077.outlook.office365.com
+ (2603:10b6:101:20::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.19 via Frontend
- Transport; Mon, 31 Aug 2020 15:50:56 +0000
+ Transport; Mon, 31 Aug 2020 15:51:01 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,51 +59,53 @@ X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT058.mail.protection.outlook.com (10.13.174.164) with Microsoft SMTP
+ CO1NAM11FT068.mail.protection.outlook.com (10.13.175.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3326.19 via Frontend Transport; Mon, 31 Aug 2020 15:50:56 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ 15.20.3326.19 via Frontend Transport; Mon, 31 Aug 2020 15:51:01 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 31 Aug
- 2020 10:50:55 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 10:51:00 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 31 Aug
- 2020 10:50:55 -0500
+ 2020 10:51:00 -0500
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Mon, 31 Aug 2020 10:50:54 -0500
+ via Frontend Transport; Mon, 31 Aug 2020 10:50:59 -0500
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 0/8] Implement PCI Error Recovery on Navi12
-Date: Mon, 31 Aug 2020 11:50:41 -0400
-Message-ID: <1598889049-28321-1-git-send-email-andrey.grodzovsky@amd.com>
+Subject: [PATCH v3 4/8] drm/amdgpu: Fix SMU error failure
+Date: Mon, 31 Aug 2020 11:50:45 -0400
+Message-ID: <1598889049-28321-5-git-send-email-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1598889049-28321-1-git-send-email-andrey.grodzovsky@amd.com>
+References: <1598889049-28321-1-git-send-email-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e890d3b3-1724-44e4-0532-08d84dc5a645
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4363:
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4363C2759EE1DAC9BD153DEEEA510@MW3PR12MB4363.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 664bab54-71a1-4423-c01a-08d84dc5a911
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3859:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB38593B5F192A6D899A047890EA510@BY5PR12MB3859.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gtvQiLxsa4Gy/DtJ6zrW7sSp0h5ICcCjSP2OoTBD5NxSqYdXSKNE3AYMQ+DYJXiPvCzOQC5hH9jhWAoz0KwhEysSOwfgocc5LQ1Y5g32fGaZiGJBvrY1MeECAdoorRQoN7rqUktPxbpeUp45IWoQtcmCdz3Dm2wUwlDz7Q8ei7hXlZxvGSbboGul3fs2Pp3oZA8hHNWMdqk87tg8ZaBaUrt6nBczER2eV7Y65O6578gmNfXT3uqFxGRd3t09KOGzdvIyVbwmf3ZXzbg2XUtEwR9Q23D/BX6IQeyoMe09nPIf8f4vzyWQbT6ltm6PK3fPULqzzgvBV+Ke2rqI+zFeR2h8tleTFCEhuurbwdHAHcsiZcrVUv1fFCIIaUFSEJrsCmiGw06ljXF8e93WPkFuvA==
+X-Microsoft-Antispam-Message-Info: WFB2gF4M+Xg7yXf7nNrP+aCtVunzg9N+7wh2UWXN5Dft5J9QRdFb/gt9p9XKiLa5k/ZRfvw4mwl9FRRgcb3r12f8gfbXIGK9wWrzbiNh4M6ZsqB9WFNd/PhrHlgMJcCnpk8HMqsaHr2CLmVmG7afoMreTSMJjHxitaHuBdBxkhM8CM6A+BsDvwNabQLctJI4Drk7grn2Qjid1tuBdazyOz1/AJkZHL5OkO4IULUK5H/rrGXRJXMO7s9GxSqo4g6hGenF0VA/oj5r4aoLIEtMFfIijzUMCCJahGlNeKi7vs47UoCScW5ZRxKYb5bb8xH54KxaVLwPMrs1ZEN+tKPqZRlyWMrzBjBtLKAvDU38FJCzMiB/pVdq1cAUcPjziCsw1rWwYZinIzpND6x5M75Zmw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(396003)(346002)(376002)(46966005)(2906002)(86362001)(54906003)(6666004)(478600001)(5660300002)(82740400003)(186003)(336012)(47076004)(26005)(316002)(82310400002)(7696005)(83380400001)(4326008)(6916009)(81166007)(8936002)(44832011)(356005)(426003)(2616005)(36756003)(8676002)(70206006)(70586007);
+ SFS:(4636009)(376002)(396003)(39860400002)(346002)(136003)(46966005)(54906003)(336012)(82740400003)(426003)(70586007)(2616005)(70206006)(47076004)(26005)(44832011)(81166007)(6666004)(356005)(186003)(82310400002)(478600001)(83380400001)(6916009)(8936002)(316002)(8676002)(86362001)(4326008)(5660300002)(2906002)(36756003)(7696005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2020 15:50:56.4763 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e890d3b3-1724-44e4-0532-08d84dc5a645
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2020 15:51:01.1754 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 664bab54-71a1-4423-c01a-08d84dc5a911
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4363
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3859
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,42 +124,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Many PCI bus controllers are able to detect a variety of hardware PCI errors on the bus, 
-such as parity errors on the data and address buses,  A typical action taken is to disconnect 
-the affected device, halting all I/O to it. Typically, a reconnection mechanism is also offered, 
-so that the affected PCI device(s) are reset and put back into working condition. 
-In our case the reconnection mechanism is facilitated by kernel Downstream Port Containment (DPC) 
-driver which will intercept the PCIe error, remove (isolate) the faulting device after which it 
-will call into PCIe recovery code of the PCI core. 
-This code will call hooks which are implemented in this patchset where the error is 
-first reported at which point we block the GPU scheduler, next DPC resets the 
-PCI link which generates HW interrupt which is intercepted by SMU/PSP who 
-start executing mode1 reset of the ASIC, next step is slot reset hook is called 
-at which point we wait for ASIC reset to complete, restore PCI config space and run 
-HW suspend/resume sequence to resinit the ASIC. 
-Last hook called is resume normal operation at which point we will restart the GPU scheduler.
+Wait for HW/PSP initiated ASIC reset to complete before
+starting the recovery operations.
 
-Andrey Grodzovsky (8):
-  drm/amdgpu: Implement DPC recovery
-  drm/amdgpu: Avoid accessing HW when suspending SW state
-  drm/amdgpu: Block all job scheduling activity during DPC recovery
-  drm/amdgpu: Fix SMU error failure
-  drm/amdgpu: Fix consecutive DPC recovery failures.
-  drm/amdgpu: Trim amdgpu_pci_slot_reset by reusing code.
-  drm/amdgpu: Disable DPC for XGMI for now.
-  drm/amdgpu: Minor checkpatch fix
+v2: Remove typo
 
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  16 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 298 ++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  13 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |   6 +
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  18 +-
- drivers/gpu/drm/amd/amdgpu/nv.c            |   4 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c         |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c     |   3 +
- 9 files changed, 346 insertions(+), 22 deletions(-)
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index c569523..4a009ca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4841,14 +4841,32 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct pci_dev *pdev)
+ {
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	int r;
++	int r, i;
+ 	bool vram_lost;
++	u32 memsize;
+ 
+ 	DRM_INFO("PCI error: slot reset callback!!\n");
+ 
++	/* wait for asic to come out of reset */
++	msleep(500);
++
+ 	pci_restore_state(pdev);
+ 
+-	adev->in_pci_err_recovery = true;
++	/* confirm  ASIC came out of reset */
++	for (i = 0; i < adev->usec_timeout; i++) {
++		memsize = amdgpu_asic_get_config_memsize(adev);
++
++		if (memsize != 0xffffffff)
++			break;
++		udelay(1);
++	}
++	if (memsize == 0xffffffff) {
++		r = -ETIME;
++		goto out;
++	}
++
++	/* TODO Call amdgpu_pre_asic_reset instead */
++	adev->in_pci_err_recovery = true;	
+ 	r = amdgpu_device_ip_suspend(adev);
+ 	adev->in_pci_err_recovery = false;
+ 	if (r)
 -- 
 2.7.4
 
