@@ -2,68 +2,44 @@ Return-Path: <SRS0=dANk=CK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F3A2C43461
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 06:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F71BC433E6
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 07:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65C292071B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 06:23:25 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JgWRyGDu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65C292071B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id 91EFA204EC
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 07:07:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91EFA204EC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 151FD6E5AB;
-	Tue,  1 Sep 2020 06:23:25 +0000 (UTC)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431056E229
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2020 06:23:23 +0000 (UTC)
-Received: by mail-pg1-x542.google.com with SMTP id 31so132686pgy.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2020 23:23:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=VISh9+UX16Kxomq7MvNQPeqw53Cit+NbcKfa5TeuC+c=;
- b=JgWRyGDuju2lJa6EhPUya9PhsI+iDwgHD/YJaTrxa3MrijyvOsLmc/VCRAUvS07uXe
- 4GSw5Sa8QZkHCAOxQA83aw1RaizicMSf5jyqq6HstcEXFIg9d6xePUCtbH+KrjJUC7YL
- uzM+2QKnKNxuHZWn8OTQx0PHDN/s3QOsiqQww=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=VISh9+UX16Kxomq7MvNQPeqw53Cit+NbcKfa5TeuC+c=;
- b=A0nJe9cuuBQLLuNH2GrAIyj5dNmOpbl0B0pfQVw2f4tphBr6czDCjTUHwEnK/8q1WW
- isxzXlW5GPF2GCBsjyKMQKADLBuFces3GSUmGQI6BmIvYOh+SXGh1fm9S5j4AMywkr79
- A+1lISDhjVo9DInr0EWkebKqcF4GSgWsSz1cHkRNCPeUPjshUVEN2Y823ZuxWmmWMDba
- Jct4wVx6v4lheBZXy7dURUeeUWn6HU69WGcf6nLoWOb94HFY0SbgiJr74GxfaHYGeqbF
- GCCP0MGQpZFY0bjLVvGiPAWXioUnIqq0vBoScCP8Bg/OxoctFFzw8zb87ukB3GZA9jH8
- H3og==
-X-Gm-Message-State: AOAM531aSREDeHY6E+KdFxLzQ7frN8I5TUFmN2ma+n+DINKhaRjaO5Sy
- lmmd+6q3cd0wo3UEGLk5HAuHzA==
-X-Google-Smtp-Source: ABdhPJzBsGh6rqlyfq2U0mHIrlmG0brZn6FHdYjOIhyHsLFqK/eR46xR+BGy5SV1mrg0bbCJwCAfwQ==
-X-Received: by 2002:a63:cd0b:: with SMTP id i11mr227551pgg.306.1598941402803; 
- Mon, 31 Aug 2020 23:23:22 -0700 (PDT)
-Received: from localhost ([2401:fa00:9:15:7220:84ff:fe09:cabc])
- by smtp.gmail.com with ESMTPSA id lh6sm249339pjb.15.2020.08.31.23.23.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Aug 2020 23:23:22 -0700 (PDT)
-From: Sam McNally <sammc@chromium.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Subject: [PATCH 4/5] drm_dp_cec: add plumbing in preparation for MST support
-Date: Tue,  1 Sep 2020 16:22:18 +1000
-Message-Id: <20200901162133.4.I900b1b80709b7632a47d0ddb4cd375b4a3616c9e@changeid>
-X-Mailer: git-send-email 2.28.0.402.g5ffc5be6b7-goog
-In-Reply-To: <20200901162133.1.I8693156f555875e5c8342e86ab37ce968dfdd277@changeid>
-References: <20200901162133.1.I8693156f555875e5c8342e86ab37ce968dfdd277@changeid>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401936E22D;
+	Tue,  1 Sep 2020 07:07:05 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 232776E22D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2020 07:07:04 +0000 (UTC)
+Received: from [192.168.0.2] (ip5f5af668.dynamic.kabel-deutschland.de
+ [95.90.246.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 1EC5B2002EE2A;
+ Tue,  1 Sep 2020 09:07:02 +0200 (CEST)
+Subject: Re: [PATCH 1/1] drm/amdgpu: disable gpu-sched load balance for uvd
+To: Nirmoy Das <nirmoy.das@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200831104553.10207-1-nirmoy.das@amd.com>
+From: Paul Menzel <pmenzel+amd-gfx@molgen.mpg.de>
+Message-ID: <83ada1bd-ced4-8422-f90e-502c30477798@molgen.mpg.de>
+Date: Tue, 1 Sep 2020 09:07:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <20200831104553.10207-1-nirmoy.das@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,198 +51,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- Imre Deak <imre.deak@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- David Francis <David.Francis@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Hans Verkuil <hans.verkuil@cisco.com>, Ben Skeggs <bskeggs@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Wambui Karuga <wambui.karugax@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>, Sam McNally <sammc@chromium.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Matt Roper <matthew.d.roper@intel.com>,
- Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
- dri-devel@lists.freedesktop.org, Manasi Navare <manasi.d.navare@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Tianci Yin <Tianci.Yin@amd.com>, Leo Liu <Leo.Liu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hans Verkuil <hans.verkuil@cisco.com>
-
-Signed-off-by: Hans Verkuil <hans.verkuil@cisco.com>
-[sammc@chromium.org:
- - rebased
- - removed polling-related changes
- - moved the calls to drm_dp_cec_(un)set_edid() into the next patch
-]
-Signed-off-by: Sam McNally <sammc@chromium.org>
----
-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
- drivers/gpu/drm/drm_dp_cec.c                  | 22 ++++++++++---------
- drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
- drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
- include/drm/drm_dp_helper.h                   |  6 +++--
- 5 files changed, 19 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 461fa4da0a34..6e7075893ec9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -419,7 +419,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
- 
- 	drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
- 	drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
--				      &aconnector->base);
-+				      &aconnector->base, false);
- 
- 	if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP)
- 		return;
-diff --git a/drivers/gpu/drm/drm_dp_cec.c b/drivers/gpu/drm/drm_dp_cec.c
-index 3ab2609f9ec7..04ab7b88055c 100644
---- a/drivers/gpu/drm/drm_dp_cec.c
-+++ b/drivers/gpu/drm/drm_dp_cec.c
-@@ -14,6 +14,7 @@
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
- #include <drm/drm_dp_helper.h>
-+#include <drm/drm_dp_mst_helper.h>
- 
- /*
-  * Unfortunately it turns out that we have a chicken-and-egg situation
-@@ -338,8 +339,6 @@ void drm_dp_cec_set_edid(struct drm_dp_aux *aux, const struct edid *edid)
- 	if (aux->cec.adap) {
- 		if (aux->cec.adap->capabilities == cec_caps &&
- 		    aux->cec.adap->available_log_addrs == num_las) {
--			/* Unchanged, so just set the phys addr */
--			cec_s_phys_addr_from_edid(aux->cec.adap, edid);
- 			goto unlock;
- 		}
- 		/*
-@@ -364,15 +363,16 @@ void drm_dp_cec_set_edid(struct drm_dp_aux *aux, const struct edid *edid)
- 	if (cec_register_adapter(aux->cec.adap, connector->dev->dev)) {
- 		cec_delete_adapter(aux->cec.adap);
- 		aux->cec.adap = NULL;
--	} else {
--		/*
--		 * Update the phys addr for the new CEC adapter. When called
--		 * from drm_dp_cec_register_connector() edid == NULL, so in
--		 * that case the phys addr is just invalidated.
--		 */
--		cec_s_phys_addr_from_edid(aux->cec.adap, edid);
- 	}
- unlock:
-+	/*
-+	 * Update the phys addr for the new CEC adapter. When called
-+	 * from drm_dp_cec_register_connector() edid == NULL, so in
-+	 * that case the phys addr is just invalidated.
-+	 */
-+	if (aux->cec.adap && edid) {
-+		cec_s_phys_addr_from_edid(aux->cec.adap, edid);
-+	}
- 	mutex_unlock(&aux->cec.lock);
- }
- EXPORT_SYMBOL(drm_dp_cec_set_edid);
-@@ -418,6 +418,7 @@ EXPORT_SYMBOL(drm_dp_cec_unset_edid);
-  * drm_dp_cec_register_connector() - register a new connector
-  * @aux: DisplayPort AUX channel
-  * @connector: drm connector
-+ * @is_mst: set to true if this is an MST branch
-  *
-  * A new connector was registered with associated CEC adapter name and
-  * CEC adapter parent device. After registering the name and parent
-@@ -425,12 +426,13 @@ EXPORT_SYMBOL(drm_dp_cec_unset_edid);
-  * CEC and to register a CEC adapter if that is the case.
-  */
- void drm_dp_cec_register_connector(struct drm_dp_aux *aux,
--				   struct drm_connector *connector)
-+				   struct drm_connector *connector, bool is_mst)
- {
- 	WARN_ON(aux->cec.adap);
- 	if (WARN_ON(!aux->transfer))
- 		return;
- 	aux->cec.connector = connector;
-+	aux->cec.is_mst = is_mst;
- 	INIT_DELAYED_WORK(&aux->cec.unregister_work,
- 			  drm_dp_cec_unregister_work);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 82b9de274f65..744cb55572f9 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6261,7 +6261,7 @@ intel_dp_connector_register(struct drm_connector *connector)
- 	intel_dp->aux.dev = connector->kdev;
- 	ret = drm_dp_aux_register(&intel_dp->aux);
- 	if (!ret)
--		drm_dp_cec_register_connector(&intel_dp->aux, connector);
-+		drm_dp_cec_register_connector(&intel_dp->aux, connector, false);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index 49dd0cbc332f..671a70e95cd1 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1414,7 +1414,7 @@ nouveau_connector_create(struct drm_device *dev,
- 	switch (type) {
- 	case DRM_MODE_CONNECTOR_DisplayPort:
- 	case DRM_MODE_CONNECTOR_eDP:
--		drm_dp_cec_register_connector(&nv_connector->aux, connector);
-+		drm_dp_cec_register_connector(&nv_connector->aux, connector, false);
- 		break;
- 	}
- 
-diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index 85513eeb2196..12bca1b9512b 100644
---- a/include/drm/drm_dp_helper.h
-+++ b/include/drm/drm_dp_helper.h
-@@ -1495,12 +1495,14 @@ struct drm_connector;
-  * @lock: mutex protecting this struct
-  * @adap: the CEC adapter for CEC-Tunneling-over-AUX support.
-  * @connector: the connector this CEC adapter is associated with
-+ * @is_mst: this is an MST branch
-  * @unregister_work: unregister the CEC adapter
-  */
- struct drm_dp_aux_cec {
- 	struct mutex lock;
- 	struct cec_adapter *adap;
- 	struct drm_connector *connector;
-+	bool is_mst;
- 	struct delayed_work unregister_work;
- };
- 
-@@ -1746,7 +1748,7 @@ drm_dp_has_quirk(const struct drm_dp_desc *desc, u32 edid_quirks,
- #ifdef CONFIG_DRM_DP_CEC
- void drm_dp_cec_irq(struct drm_dp_aux *aux);
- void drm_dp_cec_register_connector(struct drm_dp_aux *aux,
--				   struct drm_connector *connector);
-+				   struct drm_connector *connector, bool is_mst);
- void drm_dp_cec_unregister_connector(struct drm_dp_aux *aux);
- void drm_dp_cec_set_edid(struct drm_dp_aux *aux, const struct edid *edid);
- void drm_dp_cec_unset_edid(struct drm_dp_aux *aux);
-@@ -1757,7 +1759,7 @@ static inline void drm_dp_cec_irq(struct drm_dp_aux *aux)
- 
- static inline void
- drm_dp_cec_register_connector(struct drm_dp_aux *aux,
--			      struct drm_connector *connector)
-+			      struct drm_connector *connector, bool is_mst)
- {
- }
- 
--- 
-2.28.0.402.g5ffc5be6b7-goog
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RGVhciBOaXJtb3ksCgoKQW0gMzEuMDguMjAgdW0gMTI6NDUgc2NocmllYiBOaXJtb3kgRGFzOgo+
+IFVWRCBkZXBlbmRlbnQgam9icyBzaG91bGQgcnVuIG9uIHRoZSBzYW1lIHVkdiBpbnN0YW5jZS4K
+CldoeT8gRGF0YXNoZWV0PyBQZXJmb3JtYW5jZSByZWFzb25zPyBXaGF0IGhhcHBlbnMgaWYgdGhl
+eSBkbyBub3QgcnVuIG9uIAp0aGUgVVZEIGluc3RhbmNlPyBBcmUgdGhlcmUgYnVnIHJlcG9ydHM/
+CgpJdOKAmWQgYmUgZ3JlYXQgaWYgeW91IGV4dGVuZGVkIHRoZSBjb21taXQgbWVzc2FnZS4KCj4g
+VGhpcyBwYXRjaCBkaXNhYmxlcyBncHUgc2NoZWR1bGVyJ3MgbG9hZCBiYWxhbmNlciBmb3IKPiBh
+IGNvbnRleHQgd2hpY2ggYmluZHMgam9icyBmcm9tIHNhbWUgdGhlIGNvbnRleHQgdG8gYSB1ZHYK
+PiBpbnN0YW5jZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBOaXJtb3kgRGFzIDxuaXJtb3kuZGFzQGFt
+ZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMg
+fCA0ICsrKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
+LSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0
+eC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4gaW5kZXggNTkw
+MzJjMjZmYzgyLi43Y2QzOThkMjU0OTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2N0eC5jCj4gQEAgLTExNCw3ICsxMTQsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9jdHhf
+aW5pdF9lbnRpdHkoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwgdTMyIGh3X2lwLAo+ICAgCXNjaGVk
+cyA9IGFkZXYtPmdwdV9zY2hlZFtod19pcF1baHdfcHJpb10uc2NoZWQ7Cj4gICAJbnVtX3NjaGVk
+cyA9IGFkZXYtPmdwdV9zY2hlZFtod19pcF1baHdfcHJpb10ubnVtX3NjaGVkczsKPiAKPiAtCWlm
+IChod19pcCA9PSBBTURHUFVfSFdfSVBfVkNOX0VOQyB8fCBod19pcCA9PSBBTURHUFVfSFdfSVBf
+VkNOX0RFQykgewo+ICsJaWYgKGh3X2lwID09IEFNREdQVV9IV19JUF9WQ05fRU5DIHx8Cj4gKwkg
+ICAgaHdfaXAgPT0gQU1ER1BVX0hXX0lQX1ZDTl9ERUMgfHwKPiArCSAgICBod19pcCA9PSBBTURH
+UFVfSFdfSVBfVVZEKSB7Cj4gICAJCXNjaGVkID0gZHJtX3NjaGVkX3BpY2tfYmVzdChzY2hlZHMs
+IG51bV9zY2hlZHMpOwo+ICAgCQlzY2hlZHMgPSAmc2NoZWQ7Cj4gICAJCW51bV9zY2hlZHMgPSAx
+OwoKCktpbmQgcmVnYXJkcywKClBhdWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
