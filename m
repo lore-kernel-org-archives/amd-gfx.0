@@ -2,68 +2,79 @@ Return-Path: <SRS0=dANk=CK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B318AC433E2
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 13:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2854AC433E2
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 13:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82E8E206FA
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 13:49:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EBE3E206FA
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2020 13:54:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D5qPDBm3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82E8E206FA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QcWr/NOQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBE3E206FA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC456E443;
-	Tue,  1 Sep 2020 13:49:15 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC8316E443;
- Tue,  1 Sep 2020 13:49:13 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id j2so1615459wrx.7;
- Tue, 01 Sep 2020 06:49:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4529B6E26F;
+	Tue,  1 Sep 2020 13:54:56 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 878056E26F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2020 13:54:55 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id c15so1621727wrs.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2020 06:54:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JN2TAINgVriuHamMrm/wuUCpHn6MFcaks74KKwgtbuM=;
- b=D5qPDBm3o7WYYAUT0auZq1z6+Udgq8TcoIPES1yIOmyd6i7xXuoaYluUlrDLOXoPEq
- Wzcx0qTqCE5mAANSloFI+NYg7mgV7QP2k2kZpLMt9e5XprtqiW+LKQ66wCNxCtMVWwjw
- jcNdgtlucQ5vn4aZqEQ1KrDlPG2eNnZsp40Hn71hwtnAJXheDeSNKFWQ0P+JUE4rAQt0
- yK9dExnXzTJjb5EyioyxQvNx0bz5cUVBCPCzql8u/QM5Oct/v1/7Pcf2sIDNGQr/+2Rt
- c8cXXZ+eKJp3N/KeqEi6Pk9JrEHRo5YNWIHsu6gv1uHlzRQXguW7EE9AFVV8jFnHNAni
- kKbQ==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=426STFC7PsducJ3IxdqpQYyKtiDl8EE0W/8IkDQyLYw=;
+ b=QcWr/NOQZSxRtIa54fQh14LYgvOyzDVyc1E4Cyyxu9eXi/kSWL1128PVZR0xcyhXV5
+ dzsOce6Gly4HDpUPtNpJ0SytDT3Kx7TVnFjY8Hee/6EjGNICSLYTiknZrQLQ8+/TPTxb
+ htvTDH0Xn3cVMgX5QUSbZspVNvsLf1sddsmfMqJTlk4gtTEhEmdz8aoJVFXJWzqET1eu
+ LIiT+HHL5/z2DeriQgDWGcsNhumZhSZ8xcjz/mTLu8aYVpum5zMZDkHy2V3gEnKiaQOU
+ 9YXBFO+vkTeyJBXVp/pbj3chsSMP34RvdTIFuQAOchH/pOEKVucsdUkpm9fnobQ3H10n
+ gLvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JN2TAINgVriuHamMrm/wuUCpHn6MFcaks74KKwgtbuM=;
- b=gla6BaPCypije3psKiE1lgF5La0DYVqN2WhE7XEDVqEv5JdkbzcVD6t6QZM07xeytp
- Gh4OsY/5kstbAmjGPQs5mUEMHfFo9d/EDlkgRtkCHUQIoDkpFoZ16s+0YA9z03vMk8pM
- SM7T81i14PmMQiVtefE/5qSGyKurWcbUGJ5ksLNd9/kaXA2V4gdzIGgtXRk/D+rOEaV6
- whonSkmbtZ6P6jsuZt9xwmczmU2PLegBUgoUSWqIxezpnvCKvp0PSNkpgFYtN5o51CWM
- tYFq03dyor3bTEHsDDr7whdN9pJtLibj0hF/lqWuRFxohHu81i9dceLONt/B9mZEz2u9
- +CsQ==
-X-Gm-Message-State: AOAM532mRxq1NwMzL+RTq4rhWirHkiEIECfAMCtQ7Sp28QOLngYPg7Bj
- j4xDY65C1Ara468XydRnI2QuWQ5uffOmns5j6UA=
-X-Google-Smtp-Source: ABdhPJzb2BQTN3JfyyF0tsCSiLTj8F+Wt02ScIbtTaF0TevnsX2Bjb0BDvOnnmrssPMDNal9zYIx1uGueEOHJ9mSZpc=
-X-Received: by 2002:a5d:494b:: with SMTP id r11mr2095910wrs.419.1598968152300; 
- Tue, 01 Sep 2020 06:49:12 -0700 (PDT)
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=426STFC7PsducJ3IxdqpQYyKtiDl8EE0W/8IkDQyLYw=;
+ b=tLw3ihNHQHHTPf8QUlRt1VzVa8xRBaND2hY9z1h52J0cNPULaLMAHnqdJ6FQPFGxiK
+ 3+FYupR+JvIJwHXq5kJsN/U6rqoI5glZmAcvKGCWfZelZkdhSzkdUHXXutlkxXqJx6Av
+ 5o1V5Izb6QMHK/Hw07ioMNrilwG6ILpaFF13WW/0qBOuQreA3lip6vB34Gs5uba1fJVw
+ HX/db7ZcFwtRz/5eXl241ZlQIULT461Uyl+JPOS11RbVNcCVpjMaAfMOc94hG2AjIJWY
+ 0y4HCz8VCVxpYo/yC3exJjTF3IpfUG+V1HA6JRhL5NWCb28nHrkMb+mQvKjmROvioFem
+ qEIg==
+X-Gm-Message-State: AOAM53260Znips8uHlDcmIDqK0VvKWm0/M/jst4RZmiY0AwzMc/xBt+r
+ gV+Fnnb/k4VQ19PoYnQpA0gSiTbYgDU=
+X-Google-Smtp-Source: ABdhPJyf5RvOnzldjZ/dia98eWZ8kCqH+0hDKaZ7lME6kSKzcwxMUuZmXuO0+Yf/0wkGMnxruF6Rdg==
+X-Received: by 2002:adf:8306:: with SMTP id 6mr2030856wrd.256.1598968494114;
+ Tue, 01 Sep 2020 06:54:54 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id y1sm1835847wma.36.2020.09.01.06.54.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Sep 2020 06:54:52 -0700 (PDT)
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIIFYyXSBkcm0vYW1kZ3B1OiBEbyBub3Qg?=
+ =?UTF-8?Q?move_root_PT_bo_to_relocated_list?=
+To: "Liu, Monk" <Monk.Liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <SN6PR12MB28007664AFF433168DF33CC787190@SN6PR12MB2800.namprd12.prod.outlook.com>
+ <DM5PR12MB1708207A4C9E047F17B4DAA5842E0@DM5PR12MB1708.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <3066e4cb-0ffe-d26b-228b-6cdad7de4702@gmail.com>
+Date: Tue, 1 Sep 2020 15:54:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200819050042.7370-1-luben.tuikov@amd.com>
- <20200819050042.7370-4-luben.tuikov@amd.com>
- <20200901074430.GU2352366@phenom.ffwll.local>
-In-Reply-To: <20200901074430.GU2352366@phenom.ffwll.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Sep 2020 09:49:00 -0400
-Message-ID: <CADnq5_ONe-myo-2534QG9KKU2Xs1RWD7s+uBt6ffNj=RgBgT6g@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Embed drm_device into amdgpu_device (v2)
-To: Daniel Vetter <daniel@ffwll.ch>
+In-Reply-To: <DM5PR12MB1708207A4C9E047F17B4DAA5842E0@DM5PR12MB1708.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,347 +86,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 1, 2020 at 3:44 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Wed, Aug 19, 2020 at 01:00:42AM -0400, Luben Tuikov wrote:
-> > a) Embed struct drm_device into struct amdgpu_device.
-> > b) Modify the inline-f drm_to_adev() accordingly.
-> > c) Modify the inline-f adev_to_drm() accordingly.
-> > d) Eliminate the use of drm_device.dev_private,
-> >    in amdgpu.
-> > e) Switch from using drm_dev_alloc() to
-> >    drm_dev_init().
-> > f) Add a DRM driver release function, which frees
-> >    the container amdgpu_device after all krefs on
-> >    the contained drm_device have been released.
-> >
-> > v2: Split out adding adev_to_drm() into its own
-> >     patch (previous commit), making this patch
-> >     more succinct and clear. More detailed commit
-> >     description.
-> >
-> > Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 10 ++---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++-----
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 43 ++++++++++++++--------
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 20 +++-------
-> >  4 files changed, 43 insertions(+), 45 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index 735480cc7dcf..107a6ec920f7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -724,8 +724,8 @@ struct amd_powerplay {
-> >  #define AMDGPU_MAX_DF_PERFMONS 4
-> >  struct amdgpu_device {
-> >       struct device                   *dev;
-> > -     struct drm_device               *ddev;
-> >       struct pci_dev                  *pdev;
-> > +     struct drm_device               ddev;
-> >
-> >  #ifdef CONFIG_DRM_AMD_ACP
-> >       struct amdgpu_acp               acp;
-> > @@ -990,12 +990,12 @@ struct amdgpu_device {
-> >
-> >  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> >  {
-> > -     return ddev->dev_private;
-> > +     return container_of(ddev, struct amdgpu_device, ddev);
-> >  }
-> >
-> >  static inline struct drm_device *adev_to_drm(struct amdgpu_device *adev)
-> >  {
-> > -     return adev->ddev;
-> > +     return &adev->ddev;
-> >  }
-> >
-> >  static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
-> > @@ -1004,8 +1004,6 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
-> >  }
-> >
-> >  int amdgpu_device_init(struct amdgpu_device *adev,
-> > -                    struct drm_device *ddev,
-> > -                    struct pci_dev *pdev,
-> >                      uint32_t flags);
-> >  void amdgpu_device_fini(struct amdgpu_device *adev);
-> >  int amdgpu_gpu_wait_for_idle(struct amdgpu_device *adev);
-> > @@ -1195,7 +1193,7 @@ static inline void *amdgpu_atpx_get_dhandle(void) { return NULL; }
-> >  extern const struct drm_ioctl_desc amdgpu_ioctls_kms[];
-> >  extern const int amdgpu_max_kms_ioctl;
-> >
-> > -int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags);
-> > +int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags);
-> >  void amdgpu_driver_unload_kms(struct drm_device *dev);
-> >  void amdgpu_driver_lastclose_kms(struct drm_device *dev);
-> >  int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 07012d71eeea..6e529548e708 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -1216,7 +1216,8 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
-> >   * Callback for the switcheroo driver.  Suspends or resumes the
-> >   * the asics before or after it is powered up using ACPI methods.
-> >   */
-> > -static void amdgpu_switcheroo_set_state(struct pci_dev *pdev, enum vga_switcheroo_state state)
-> > +static void amdgpu_switcheroo_set_state(struct pci_dev *pdev,
-> > +                                     enum vga_switcheroo_state state)
-> >  {
-> >       struct drm_device *dev = pci_get_drvdata(pdev);
-> >       int r;
-> > @@ -2977,8 +2978,6 @@ static const struct attribute *amdgpu_dev_attributes[] = {
-> >   * amdgpu_device_init - initialize the driver
-> >   *
-> >   * @adev: amdgpu_device pointer
-> > - * @ddev: drm dev pointer
-> > - * @pdev: pci dev pointer
-> >   * @flags: driver flags
-> >   *
-> >   * Initializes the driver info and hw (all asics).
-> > @@ -2986,18 +2985,15 @@ static const struct attribute *amdgpu_dev_attributes[] = {
-> >   * Called at driver startup.
-> >   */
-> >  int amdgpu_device_init(struct amdgpu_device *adev,
-> > -                    struct drm_device *ddev,
-> > -                    struct pci_dev *pdev,
-> >                      uint32_t flags)
-> >  {
-> > +     struct drm_device *ddev = adev_to_drm(adev);
-> > +     struct pci_dev *pdev = adev->pdev;
-> >       int r, i;
-> >       bool boco = false;
-> >       u32 max_MBps;
-> >
-> >       adev->shutdown = false;
-> > -     adev->dev = &pdev->dev;
-> > -     adev->ddev = ddev;
-> > -     adev->pdev = pdev;
-> >       adev->flags = flags;
-> >
-> >       if (amdgpu_force_asic_type >= 0 && amdgpu_force_asic_type < CHIP_LAST)
-> > @@ -3451,9 +3447,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
-> >       struct drm_connector_list_iter iter;
-> >       int r;
-> >
-> > -     if (dev == NULL || dev->dev_private == NULL) {
-> > +     if (!dev)
-> >               return -ENODEV;
->
-> Random comment, but is this really still needed?
->
-
-Probably not.  I think it's just left over from when we forked radeon.
-
-Alex
-
-
-> This pattern goes back to dri1 shadow attach trickery where everything was
-> horrible and we could end up with a device but not a device and trying to
-> suspend it.
->
-> With a proper kms pci device you shouldn't ever end up in this situation
-> where the drm_device doesn't exist or isn't completely set up, but we're
-> trying to suspend. Maybe wrap in a WARN_ON at least?
-> -Daniel
->
-> > -     }
-> >
-> >       adev = drm_to_adev(dev);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index 38023c879db1..6866c515f00a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -1082,7 +1082,7 @@ static struct drm_driver kms_driver;
-> >  static int amdgpu_pci_probe(struct pci_dev *pdev,
-> >                           const struct pci_device_id *ent)
-> >  {
-> > -     struct drm_device *dev;
-> > +     struct drm_device *ddev;
-> >       struct amdgpu_device *adev;
-> >       unsigned long flags = ent->driver_data;
-> >       int ret, retry = 0;
-> > @@ -1138,36 +1138,42 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
-> >       if (ret)
-> >               return ret;
-> >
-> > -     dev = drm_dev_alloc(&kms_driver, &pdev->dev);
-> > -     if (IS_ERR(dev))
-> > -             return PTR_ERR(dev);
-> > +     adev = kzalloc(sizeof(*adev), GFP_KERNEL);
-> > +     if (!adev)
-> > +             return -ENOMEM;
-> > +
-> > +     adev->dev  = &pdev->dev;
-> > +     adev->pdev = pdev;
-> > +     ddev = adev_to_drm(adev);
-> > +     ret = drm_dev_init(ddev, &kms_driver, &pdev->dev);
-> > +     if (ret)
-> > +             goto err_free;
-> >
-> >       if (!supports_atomic)
-> > -             dev->driver_features &= ~DRIVER_ATOMIC;
-> > +             ddev->driver_features &= ~DRIVER_ATOMIC;
-> >
-> >       ret = pci_enable_device(pdev);
-> >       if (ret)
-> >               goto err_free;
-> >
-> > -     dev->pdev = pdev;
-> > +     ddev->pdev = pdev;
-> > +     pci_set_drvdata(pdev, ddev);
-> >
-> > -     pci_set_drvdata(pdev, dev);
-> > -
-> > -     ret = amdgpu_driver_load_kms(dev, ent->driver_data);
-> > +     ret = amdgpu_driver_load_kms(adev, ent->driver_data);
-> >       if (ret)
-> >               goto err_pci;
-> >
-> >  retry_init:
-> > -     ret = drm_dev_register(dev, ent->driver_data);
-> > +     ret = drm_dev_register(ddev, ent->driver_data);
-> >       if (ret == -EAGAIN && ++retry <= 3) {
-> >               DRM_INFO("retry init %d\n", retry);
-> >               /* Don't request EX mode too frequently which is attacking */
-> >               msleep(5000);
-> >               goto retry_init;
-> > -     } else if (ret)
-> > +     } else if (ret) {
-> >               goto err_pci;
-> > +     }
-> >
-> > -     adev = drm_to_adev(dev);
-> >       ret = amdgpu_debugfs_init(adev);
-> >       if (ret)
-> >               DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
-> > @@ -1177,7 +1183,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
-> >  err_pci:
-> >       pci_disable_device(pdev);
-> >  err_free:
-> > -     drm_dev_put(dev);
-> > +     drm_dev_put(ddev);
-> >       return ret;
-> >  }
-> >
-> > @@ -1197,6 +1203,14 @@ amdgpu_pci_remove(struct pci_dev *pdev)
-> >       drm_dev_put(dev);
-> >  }
-> >
-> > +static void amdgpu_driver_release(struct drm_device *ddev)
-> > +{
-> > +     struct amdgpu_device *adev = drm_to_adev(ddev);
-> > +
-> > +     drm_dev_fini(ddev);
-> > +     kfree(adev);
-> > +}
-> > +
-> >  static void
-> >  amdgpu_pci_shutdown(struct pci_dev *pdev)
-> >  {
-> > @@ -1491,6 +1505,7 @@ static struct drm_driver kms_driver = {
-> >       .open = amdgpu_driver_open_kms,
-> >       .postclose = amdgpu_driver_postclose_kms,
-> >       .lastclose = amdgpu_driver_lastclose_kms,
-> > +     .release   = amdgpu_driver_release,
-> >       .irq_handler = amdgpu_irq_handler,
-> >       .ioctls = amdgpu_ioctls_kms,
-> >       .gem_free_object_unlocked = amdgpu_gem_object_free,
-> > @@ -1525,8 +1540,6 @@ static struct pci_driver amdgpu_kms_pci_driver = {
-> >       .driver.pm = &amdgpu_pm_ops,
-> >  };
-> >
-> > -
-> > -
-> >  static int __init amdgpu_init(void)
-> >  {
-> >       int r;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > index 47cd3558f9c7..f2a4fdcd542d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > @@ -86,7 +86,7 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
-> >       amdgpu_unregister_gpu_instance(adev);
-> >
-> >       if (adev->rmmio == NULL)
-> > -             goto done_free;
-> > +             return;
-> >
-> >       if (adev->runpm) {
-> >               pm_runtime_get_sync(dev->dev);
-> > @@ -96,10 +96,6 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
-> >       amdgpu_acpi_fini(adev);
-> >
-> >       amdgpu_device_fini(adev);
-> > -
-> > -done_free:
-> > -     kfree(adev);
-> > -     dev->dev_private = NULL;
-> >  }
-> >
-> >  void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
-> > @@ -130,22 +126,18 @@ void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
-> >  /**
-> >   * amdgpu_driver_load_kms - Main load function for KMS.
-> >   *
-> > - * @dev: drm dev pointer
-> > + * @adev: pointer to struct amdgpu_device
-> >   * @flags: device flags
-> >   *
-> >   * This is the main load function for KMS (all asics).
-> >   * Returns 0 on success, error on failure.
-> >   */
-> > -int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
-> > +int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
-> >  {
-> > -     struct amdgpu_device *adev;
-> > +     struct drm_device *dev;
-> >       int r, acpi_status;
-> >
-> > -     adev = kzalloc(sizeof(struct amdgpu_device), GFP_KERNEL);
-> > -     if (adev == NULL) {
-> > -             return -ENOMEM;
-> > -     }
-> > -     dev->dev_private = (void *)adev;
-> > +     dev = adev_to_drm(adev);
-> >
-> >       if (amdgpu_has_atpx() &&
-> >           (amdgpu_is_atpx_hybrid() ||
-> > @@ -160,7 +152,7 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
-> >        * properly initialize the GPU MC controller and permit
-> >        * VRAM allocation
-> >        */
-> > -     r = amdgpu_device_init(adev, dev, dev->pdev, flags);
-> > +     r = amdgpu_device_init(adev, flags);
-> >       if (r) {
-> >               dev_err(&dev->pdev->dev, "Fatal error during GPU init\n");
-> >               goto out;
-> > --
-> > 2.28.0.215.g878e727637
-> >
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QWdyZWVkLCB0aGF0IGNoYW5nZSBkb2Vzbid0IHNlZW0gdG8gbWFrZSBzZW5zZSBhbmQgeW91ciBi
+YWNrdHJhY2UgaXMgCm1hbmdsZWQgc28gYmFyZWx5IHJlYWRhYmxlLgoKQ2hyaXN0aWFuLgoKQW0g
+MDEuMDkuMjAgdW0gMTQ6NTkgc2NocmllYiBMaXUsIE1vbms6Cj4gW0FNRCBPZmZpY2lhbCBVc2Ug
+T25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQo+Cj4gU2VlIHRoYXQgd2UgYWxyZWFk
+eSBoYXZlIHN1Y2ggbG9naWM6Cj4KPiAyODIgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX3JlbG9j
+YXRlZChzdHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2UgKnZtX2JvKQo+ICAgMjgzIHsKPiAgIDI4NCAg
+ICAgaWYgKHZtX2JvLT5iby0+cGFyZW50KQo+ICAgMjg1ICAgICAgICAgbGlzdF9tb3ZlKCZ2bV9i
+by0+dm1fc3RhdHVzLCAmdm1fYm8tPnZtLT5yZWxvY2F0ZWQpOwo+ICAgMjg2ICAgICBlbHNlCj4g
+ICAyODcgICAgICAgICBhbWRncHVfdm1fYm9faWRsZSh2bV9ibyk7Cj4gICAyODggfQo+Cj4gV2h5
+IHlvdSBuZWVkIHRvIGRvIHRoZSBiby0+cGFyZW50IGNoZWNrIG91dCBzaWRlID8KPgo+IC0tLS0t
+08q8/tStvP4tLS0tLQo+ILeivP7IyzogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZz4gtPqx7SBQYW4sIFhpbmh1aQo+ILeiy83KsbzkOiAyMDIwxOoy1MIxMMjV
+IDk6MDQKPiDK1bz+yMs6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gs63LzTogRGV1
+Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJp
+c3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4KPiDW98ziOiBbUEFUQ0ggVjJdIGRybS9h
+bWRncHU6IERvIG5vdCBtb3ZlIHJvb3QgUFQgYm8gdG8gcmVsb2NhdGVkIGxpc3QKPgo+IGhpdCBw
+YW5pYyB3aGVuIHdlIHVwZGF0ZSB0aGUgcGFnZSB0YWJsZXMuCj4KPiA8MT5bICAxMjIuMTAzMjkw
+XSBCVUc6IGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UsIGFkZHJlc3M6IDAwMDAwMDAw
+MDAwMDAwMDggPDE+WyAgMTIyLjEwMzM0OF0gI1BGOiBzdXBlcnZpc29yIHJlYWQgYWNjZXNzIGlu
+IGtlcm5lbCBtb2RlIDwxPlsgIDEyMi4xMDMzNzZdICNQRjogZXJyb3JfY29kZSgweDAwMDApIC0g
+bm90LXByZXNlbnQgcGFnZSA8Nj5bICAxMjIuMTAzNDAzXSBQR0QgMCBQNEQgMCA8ND5bICAxMjIu
+MTAzNDIxXSBPb3BzOiAwMDAwIFsjMV0gU01QIFBUSQo+IDw0PlsgIDEyMi4xMDM0NDJdIENQVTog
+MTMgUElEOiAyMTMzIENvbW06IGtmZHRlc3QgVGFpbnRlZDogRyAgICAgICAgICAgT0UgICAgIDUu
+NC4wLXJjNysgIzcKPiA8ND5bICAxMjIuMTAzNDgwXSBIYXJkd2FyZSBuYW1lOiBTdXBlcm1pY3Jv
+IFNZUy03MDQ4R1ItVFIvWDEwRFJHLVEsIEJJT1MgMy4wYiAwMy8wOS8yMDE4IDw0PlsgIDEyMi4x
+MDM2NTddIFJJUDogMDAxMDphbWRncHVfdm1fdXBkYXRlX3BkZXMrMHgxNDAvMHgzMzAgW2FtZGdw
+dV0gPDQ+WyAgMTIyLjEwMzY4OV0gQ29kZTogMDMgNGMgODkgNzMgMDggNDkgODkgOWQgYzggMDAg
+MDAgMDAgNDggOGIgN2IgZjAgYzYgNDMgMTAgMDAgNDUgMzEgYzAgNDggOGIgODcgMjggMDQgMDAg
+MDAgNDggODUgYzAgNzQgMDcgNGMgOGIgODAgMjAgMDQgMDAgMDAgPDRkPiA4YiA3MCAwOCAzMSBm
+NiA0OSA4YiA4NiAyOCAwNCAwMCAwMCA0OCA4NSBjMCA3NCAwZiA0OCA4YiA4MCAyOCA8ND5bICAx
+MjIuMTAzNzY5XSBSU1A6IDAwMTg6ZmZmZmI0OWEwYTZhM2E5OCBFRkxBR1M6IDAwMDEwMjQ2IDw0
+PlsgIDEyMi4xMDM3OTddIFJBWDogMDAwMDAwMDAwMDAwMDAwMCBSQlg6IGZmZmY5MDIwZjgyM2Mx
+NDggUkNYOiBkZWFkMDAwMDAwMDAwMTIyIDw0PlsgIDEyMi4xMDM4MzFdIFJEWDogZmZmZjkwMjBl
+Y2U3MDAxOCBSU0k6IGZmZmY5MDIwZjgyM2MwYzggUkRJOiBmZmZmOTAxMGNhMzFjODAwIDw0Plsg
+IDEyMi4xMDM4NjVdIFJCUDogZmZmZmI0OWEwYTZhM2IzOCBSMDg6IDAwMDAwMDAwMDAwMDAwMDAg
+UjA5OiAwMDAwMDAwMDAwMDAwMDAxIDw0PlsgIDEyMi4xMDM4OTldIFIxMDogMDAwMDAwMDA2MDQ0
+Zjk5NCBSMTE6IDAwMDAwMDAwZGY1N2ZiNTggUjEyOiBmZmZmOTAyMGY4MjNjMDAwIDw0PlsgIDEy
+Mi4xMDM5MzNdIFIxMzogZmZmZjkwMjBmODIzYzAwMCBSMTQ6IGZmZmY5MDIwZjgyM2MwYzggUjE1
+OiBmZmZmOTAxMGQ1ZDIwMDAwIDw0PlsgIDEyMi4xMDM5NjhdIEZTOiAgMDAwMDdmMzJjODNkYzc4
+MCgwMDAwKSBHUzpmZmZmOTAyMGZmMzgwMDAwKDAwMDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAg
+PDQ+WyAgMTIyLjEwNDAwNl0gQ1M6ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAw
+MDA4MDA1MDAzMyA8ND5bICAxMjIuMTA0MDM1XSBDUjI6IDAwMDAwMDAwMDAwMDAwMDggQ1IzOiAw
+MDAwMDAyMDM2YmJhMDA1IENSNDogMDAwMDAwMDAwMDM2MDZlMCA8ND5bICAxMjIuMTA0MDY5XSBE
+UjA6IDAwMDAwMDAwMDAwMDAwMDAgRFIxOiAwMDAwMDAwMDAwMDAwMDAwIERSMjogMDAwMDAwMDAw
+MDAwMDAwMCA8ND5bICAxMjIuMTA0MTAzXSBEUjM6IDAwMDAwMDAwMDAwMDAwMDAgRFI2OiAwMDAw
+MDAwMGZmZmUwZmYwIERSNzogMDAwMDAwMDAwMDAwMDQwMCA8ND5bICAxMjIuMTA0MTM3XSBDYWxs
+IFRyYWNlOgo+IDw0PlsgIDEyMi4xMDQyNDFdICB2bV91cGRhdGVfcGRzKzB4MzEvMHg1MCBbYW1k
+Z3B1XSA8ND5bICAxMjIuMTA0MzQ3XSAgYW1kZ3B1X2FtZGtmZF9ncHV2bV9tYXBfbWVtb3J5X3Rv
+X2dwdSsweDJlZi8weDY5MCBbYW1kZ3B1XSA8ND5bICAxMjIuMTA0NDY2XSAga2ZkX3Byb2Nlc3Nf
+YWxsb2NfZ3B1dm0rMHg5OC8weDE5MCBbYW1kZ3B1XSA8ND5bICAxMjIuMTA0NTc2XSAga2ZkX3By
+b2Nlc3NfZGV2aWNlX2luaXRfdm0ucGFydC44KzB4ZjMvMHgxZjAgW2FtZGdwdV0gPDQ+WyAgMTIy
+LjEwNDY4OF0gIGtmZF9wcm9jZXNzX2RldmljZV9pbml0X3ZtKzB4MjQvMHgzMCBbYW1kZ3B1XSA8
+ND5bICAxMjIuMTA0Nzk0XSAga2ZkX2lvY3RsX2FjcXVpcmVfdm0rMHhhNC8weGMwIFthbWRncHVd
+IDw0PlsgIDEyMi4xMDQ5MDBdICBrZmRfaW9jdGwrMHgyNzcvMHg1MDAgW2FtZGdwdV0gPDQ+WyAg
+MTIyLjEwNTAwMV0gID8ga2ZkX2lvY3RsX2ZyZWVfbWVtb3J5X29mX2dwdSsweGMwLzB4YzAgW2Ft
+ZGdwdV0gPDQ+WyAgMTIyLjEwNTAzOV0gID8gcmN1X3JlYWRfbG9ja19zY2hlZF9oZWxkKzB4NGYv
+MHg4MAo+IDw0PlsgIDEyMi4xMDUwNjhdICA/IGttZW1fY2FjaGVfZnJlZSsweDJiYS8weDMwMCA8
+ND5bICAxMjIuMTA1MDkzXSAgPyB2bV9hcmVhX2ZyZWUrMHgxOC8weDIwIDw0PlsgIDEyMi4xMDUx
+MTddICA/IGZpbmRfaGVsZF9sb2NrKzB4MzUvMHhhMCA8ND5bICAxMjIuMTA1MTQzXSAgZG9fdmZz
+X2lvY3RsKzB4YTkvMHg2ZjAgPDQ+WyAgMTIyLjEwNjAwMV0gIGtzeXNfaW9jdGwrMHg3NS8weDgw
+IDw0PlsgIDEyMi4xMDY4MDJdICA/IGRvX3N5c2NhbGxfNjQrMHgxNy8weDIzMCA8ND5bICAxMjIu
+MTA3NjA1XSAgX194NjRfc3lzX2lvY3RsKzB4MWEvMHgyMCA8ND5bICAxMjIuMTA4Mzc4XSAgZG9f
+c3lzY2FsbF82NCsweDVmLzB4MjMwIDw0PlsgIDEyMi4xMDkxMThdICBlbnRyeV9TWVNDQUxMXzY0
+X2FmdGVyX2h3ZnJhbWUrMHg0OS8weGJlCj4gPDQ+WyAgMTIyLjEwOTg0Ml0gUklQOiAwMDMzOjB4
+N2YzMmM2YjQ5NWQ3Cj4KPiBTaWduZWQtb2ZmLWJ5OiB4aW5odWkgcGFuIDx4aW5odWkucGFuQGFt
+ZC5jb20+Cj4gLS0tCj4gY2hhbmdlIGZyb20gdjE6Cj4gICAgIG1vdmUgcm9vdCBwdCBibyB0byBp
+ZGxlIHN0YXRlIGluc3RlYWQuCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdm0uYyB8IDkgKysrKysrLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25z
+KCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmMKPiBpbmRleCAzMTk1YmM5Li5jM2QxYWY1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ZtLmMKPiBAQCAtMjYxOSw5ICsyNjE5LDEyIEBAIHZvaWQgYW1kZ3B1X3ZtX2Jv
+X2ludmFsaWRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICBjb250aW51ZTsKPiAg
+IGJvX2Jhc2UtPm1vdmVkID0gdHJ1ZTsKPgo+IC1pZiAoYm8tPnRiby50eXBlID09IHR0bV9ib190
+eXBlX2tlcm5lbCkKPiAtYW1kZ3B1X3ZtX2JvX3JlbG9jYXRlZChib19iYXNlKTsKPiAtZWxzZSBp
+ZiAoYm8tPnRiby5iYXNlLnJlc3YgPT0gdm0tPnJvb3QuYmFzZS5iby0+dGJvLmJhc2UucmVzdikK
+PiAraWYgKGJvLT50Ym8udHlwZSA9PSB0dG1fYm9fdHlwZV9rZXJuZWwpIHsKPiAraWYgKGJvLT5w
+YXJlbnQpCj4gK2FtZGdwdV92bV9ib19yZWxvY2F0ZWQoYm9fYmFzZSk7Cj4gK2Vsc2UKPiArYW1k
+Z3B1X3ZtX2JvX2lkbGUoYm9fYmFzZSk7Cj4gK30gZWxzZSBpZiAoYm8tPnRiby5iYXNlLnJlc3Yg
+PT0gdm0tPnJvb3QuYmFzZS5iby0+dGJvLmJhc2UucmVzdikKPiAgIGFtZGdwdV92bV9ib19tb3Zl
+ZChib19iYXNlKTsKPiAgIGVsc2UKPiAgIGFtZGdwdV92bV9ib19pbnZhbGlkYXRlZChib19iYXNl
+KTsKPiAtLQo+IDIuNy40Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/
+dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3Rp
+bmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDbW9uay5saXUlNDBhbWQuY29tJTdDOWZh
+NjdmZWY1MzlmNDZlOGQ5NGYwOGQ3YWRjNTJiNWElN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5
+OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTY4OTM0NjgzNjI1ODMyJmFtcDtzZGF0YT1uWW9lQlhYT2Rl
+UG40UTZoeHJsU1R6VDFQeFR4JTJGUndXcWVLWEdtUTVOUFklM0QmYW1wO3Jlc2VydmVkPTAKPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZngg
+bWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
