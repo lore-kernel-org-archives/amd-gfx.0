@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B190FC433E7
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC1ABC433E2
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 818CF20773
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9781520773
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qoS21yTW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 818CF20773
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fzUSWMAW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9781520773
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38CC56E2B4;
-	Wed,  2 Sep 2020 08:32:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 654976E2E1;
+	Wed,  2 Sep 2020 08:32:13 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042C66E2B4
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 08:32:13 +0000 (UTC)
+ (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F01746E2E1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 08:32:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e1euz9dHWPAL8xWmDO6OP9n3vs000MFOsF2JXtiJ0LZ92xlIsNNd/WjLXmI07zW6ctLPJ9U6WE5k9/QpyB4NH6negMidDfHnJdddg0ZBuS9cCQa/4XQItHGx5+cWd2nphjYRhMN0vzjJt1M1mG4bOIT3P3C7UEXSqL/Tb+awO789Rr+0akG5dFu1oFLbhuI5z5q9PmR380uy9SKpUSGCTkEhf2u1JKuzY0Tl2+KB5AauMsUoalM7whfW+zkONRSv//2KEMX/j7bxsLJ1Z0F2JXK1Iekjkp1exjxtXWStZTgs+fG9FbiXuT935NGW+LvlRgX2xuWqZy5w1W1RpFVzaw==
+ b=UhCN2mWV1z9TfZqtIjYlYivj40MN06jlH40m0y4F8GUBTw4bz0m/bC0tUspfYEHe3DFvopRnTdLaTNq75fhJgodaZ3hcDR08qf+GJfbnGLL5mDNUdFbcXLEhwVBdWj1GinKv+abXoRe3xWjVoHp7xSpIX6gwYoh0Ila8ieMJKBucvHksHvqHYgKOggEyq48iUPpGWl8k7BbyyfSpskhAetq/wsr+K2GKF/P++S1I+Q3tIZYrwTTKVyrYbOD1PPQxoeWe/FWrbtudJVms8fjOt9uL9MMSJYkiNooOsi8sG/OkIBcOCRqB7vLaJLz4gtp7cF24w4TWzgRWw7TBBD2khg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pTufoTlvu/ODlerwwotbyrBsys6pXfhBl8sohsRDWQI=;
- b=ONbjuuGPf9no1WW7IsFzJkeCFQP4hDb2Rmv8+T5rNoMDYbfASk0BQGK4ggPRfpu9SAPoLXFVAoHdb2x3+v7lkj8wqOznYAHmNELFqUzcuA4JvNKdMzJRP66rNQeUdbwVZu8ySVSRzLqxKY2heUF+JYZ60iqpIghaBplLkfgLgisNMXQ7OX7O9BwYmRflaAzury6vrl+GPXQ2XTg0xJNFqi+WLj37q7bLCFzSuLu9Lcwv5vtcd9hD7DAwDQSFhKKxGaanUEzanf8WZCRicxQiMOk6nWKC78SPPk5ZKRNZZSxUOzO4XzuxUOWzzsgOcLi3E/G4FfFO4Fr4nLP9OzB1Eg==
+ bh=Qrb6vYTQRt3o+eZgAakCxpyPyGoQjm7ZkZjrr7eidYs=;
+ b=NnkpEKXtjjYHQasvg93rdtnadZYfcLtwnPNIRJFReOoXp1Iel1v6iVkdgt51xWAs9oEtJDKs9cEBZSEH9aEP7R7kUE8TUAUX3M69AUe+aYvu85CqwenNPVldND96QUt8DDjfa9XbGOLotk/+3H/gEF5/MY4ErY7CvLNpJrq6jpiqv8myZGkla78Uq9hqVQC7tt11tkDHPYNkvZlpaHMUQKvNJC989JaKJg7n3h+KRI3XWhgb6SRvq97c2vjjcq6U3gw4gLzX51+GESW4ASuZv6Jn9sTO/ov614xIcZqNNfYv6EsjaIX0smFQezygGXB4Tq7ovz1fZWVqodw/TOCqpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pTufoTlvu/ODlerwwotbyrBsys6pXfhBl8sohsRDWQI=;
- b=qoS21yTWDa5ZIgJSwIhddF5jYllWFaLcA7BEEWeRmxqNiAeumEQ5aaVG2rJ1/F7ZxNmpEBPMM7dgysP17RhxhWeeVRj5SXvxF0fitvD2yuSzJn9CEh1TiC15rFW5UvPRRpBH5IUuh+6A6XKUCj405JG30GPTf7FO7vt4KmtuInQ=
+ bh=Qrb6vYTQRt3o+eZgAakCxpyPyGoQjm7ZkZjrr7eidYs=;
+ b=fzUSWMAWFLXGND29htKn3WoXrrpRj4rGeo3GZgYnKKk5mmjAoRMzHiiETfT0/2CxnPU34wuYvbGUwjnjqOZi3XDcH10lGucftVHqpHGjRkgl6700FxuZkQloecqC2SLsT9BQjQUiRCop8dbIYKtXlJyiCdPcB34seUxYwxcIVek=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3868.namprd12.prod.outlook.com (2603:10b6:5:1c8::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3326.23; Wed, 2 Sep 2020 08:32:12 +0000
+ 15.20.3326.23; Wed, 2 Sep 2020 08:32:10 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3348.015; Wed, 2 Sep 2020
- 08:32:12 +0000
+ 08:32:10 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/9] drm/amd/pm: implement a new umc cdr workaround
-Date: Wed,  2 Sep 2020 16:31:31 +0800
-Message-Id: <20200902083134.25569-6-evan.quan@amd.com>
+Subject: [PATCH 5/9] drm/amd/pm: allocate a new buffer for pstate dummy reading
+Date: Wed,  2 Sep 2020 16:31:30 +0800
+Message-Id: <20200902083134.25569-5-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200902083134.25569-1-evan.quan@amd.com>
 References: <20200902083134.25569-1-evan.quan@amd.com>
@@ -69,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from 255.255.255.255 (255.255.255.255) by
  HK2PR0302CA0004.apcprd03.prod.outlook.com (2603:1096:202::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3348.7 via Frontend Transport; Wed, 2 Sep 2020 08:32:11 +0000
+ 15.20.3348.7 via Frontend Transport; Wed, 2 Sep 2020 08:32:09 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a60fe44e-ff9c-4cc4-f634-08d84f1ab071
+X-MS-Office365-Filtering-Correlation-Id: 92c2255c-b7f9-45ed-0b97-08d84f1aaf7d
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3868:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3868D71ABA830F012189A034E42F0@DM6PR12MB3868.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB38686714E4D7EE4B427E1BD2E42F0@DM6PR12MB3868.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Sv2bSy1qDWGDPofAsIf80vYizMcqHP7k4s0JBuENaimRuhzUqHHCkg7CtpZO3NwELtmodO0HN81gxBDBruQlN2YSfiHIm4FlT+8v6DenvINkYxMbDHyO5xmX7BMkyFOZLF5SxjFGyRTEYSG1DEbayJV7v2iqmhgb2PN78H/aziMwRHCqVMtSQea1WYMOS2vatG76w6aGUD+iR4fhu2MtluosCzaZtCvdA7kBdxzb+URTMoopo75wSgzKeOoHQwdUwjdv19DVtRXq1cPznp29Wey3DXUSeKlxrXh5ue92h+PrRRZHL2+a0/0uZb5tO2HDXNjlLUHCc1jRpZ8LWWPVyA==
+X-Microsoft-Antispam-Message-Info: Spg8hwDYKZIyEWoq/yfrgaAmNAVopJ/UlrcMG2mv1Y+BZtggivJKLWLb+YYsDar6FYVvwDosF1NxixdS408lrffsOAYLohyU4UXH0BsNIJXrSjntxt7awBPI29T6MFKMErRPukAbYH93wU9ofTgScq0AtFqop4UoPtVx4Jv8CuLsxSFwv0oOP2BxNhqE864EhLklS/mOb2/2wX103/jbS2t4u4Jbsql8xKgsRA9tlzJZCkH3CeU6US5rL5kFIQ3LkXCJwAfD2k1qMugkDHOEn2ZxtHhqk/vcX4Jn98aiq1nxdfUgHf2Dt4ndVjuQEZHwwSy+TuGe/eKD5JxsYDieuA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(83380400001)(66946007)(2906002)(36756003)(16576012)(66556008)(4326008)(44832011)(316002)(186003)(66476007)(5660300002)(6486002)(8676002)(86362001)(6666004)(26005)(2616005)(956004)(6916009)(478600001)(52116002)(8936002)(1076003)(30864003);
+ SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(66946007)(2906002)(36756003)(16576012)(66556008)(4326008)(44832011)(316002)(186003)(66476007)(5660300002)(6486002)(8676002)(86362001)(6666004)(26005)(2616005)(956004)(6916009)(478600001)(52116002)(8936002)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: LT+kLKMYmCBFbM6x29nYFdXgFXnhfbKXjgNEpu2bsaO8QrvMeFEzo5TG8LYA+saFhG6eXREgk6jaBj0hAOVFxZU8/JpHBTFH9tZtj5S2j3M1xlCUkUqFsl81OpkO9Sk0eucPsqESmDsOHDlzQ6tR+Cu0OiKlrZvqQRR/iiSRIkfu6EreBq9i5bHSoEDa0Vh9C2RmkpYaXFOSkjk7BgB8CJuVspTQcO8D4kIFpyz+QZLD3f2Czd7DId18enE6o4LNQmYrRYr468UDhEy6FIfAHTbhrOjXXTwKN7UApYeyYqpf9A8Hed5s7qfctIxg44TtRFjp6lRmSpq/1L3lT9aNdm2ujQ7jKcZFkw4Dzuxs7ubdR5ieEmoDCFkdHYBNcgO5u4JT1oPD7zQY/y6FDM9xvbl1jM3qC7miydrwyDakBb6Ei6DcFwfQywiT0TGTiQOiOd4Lss3gip1n+Nhjow3vv2+hfoKmpFIav5mzNx/tt8xZAnpyJ7p+OoK4Fnlmex0GzWHGMWFmKGSEdt+cnk1iLra29KMbkSgFviIv/emCa47qUYAMLdOgDCp91EZosCQ28NSWHpZQXbfsKvITnxjJQeTCmoChLxB+Vix2fO8f+OfnIkRbtGW+3kS612rwXsrU1o/yMQ0zZ5JFsC02m0cTUg==
+X-MS-Exchange-AntiSpam-MessageData: m5NEuBC5eyc3XZntrDFF06OxpQzq46+dftNDe+G2uYmiHiJ97lJEiVeAv3sulHU2uxq+Kb94My6Bkab9d89D5ryRYAd+AfejBuQ+UtDe14v3hkIqzxNo/krce7YjkR6Fma0ImWfzE0sSmni2gyAjz/PhjwDDyG5FUGNU7lgS5G+TizqeiSF8lC4OepnFe4QTtr3CzIU2ostP1CJLDpF6uXvp9JtGDH8dDb0QKHTxaSQhGTCqhCek9+1KvMtvLYxaQ1ntxUAP8/SLZQHG5bpaU7EJUGhyQHieHYpLUCCwxSThOFqVaR/ajalR0n+G05oao+c9RafPMjVzCnHM+0oAfTZtsub2p6DSh8XUzSgIttk0Nlkx341UFoF9VsR9dHgw6KVKjUgeW1q+F2tq4sVJ9pH6uBQi/gjEZydEzjG7WCuKpPT5Vbpdl+2F9Q4hlmK0IcotlycV/+RM8oRFz0gnDNwjc3dKwHTbI5akgIiIo9Q8nyQZvgfGb90ne0kX9zf3E6UG7S9PjEj8EEVd0fv67c7HBRWtXE0TOBG2aUaAUfoj9fV/JowqkqVwQzGGFhe0BUrwRtYtyW6ALlxUwIu10anM/oji8Dcj4gQjo+Ed2/t1OWXcs1IuvwTRLW9v+dQUK8U5vSrWzJ7HFuSVv6MPXw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a60fe44e-ff9c-4cc4-f634-08d84f1ab071
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92c2255c-b7f9-45ed-0b97-08d84f1aaf7d
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2020 08:32:12.2896 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2020 08:32:10.6945 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XBxMqI0zUUOUOFeGgRHZ9FyhUU0ZF8DFZtWE2A+3X97qiVwSlS+lZvYeiFVJR+FX
+X-MS-Exchange-CrossTenant-UserPrincipalName: E0a++kYIfjpqidqgpsfxnrripCx52iod2CzQ/3Jc3hYcYMs2b6TTu5iuJXzESgcj
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,306 +114,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-By uploading dummy pstate tables.
+This dummy reading buffer will be used for the new Navi1x
+UMC CDR workaround.
 
-Change-Id: I9f52f965d23cae46b4a4eeab7790183e5d09bf27
+Change-Id: Ida41374c0ea156527a1bf1104c7b2b909e562f7a
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h   | 194 ++++++++++++++++++
- drivers/gpu/drm/amd/pm/inc/smu_types.h        |   2 +
- drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h  |   5 +-
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  34 +++
- 4 files changed, 234 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 45 +++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h b/drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
-new file mode 100644
-index 000000000000..beab6d7b28b7
---- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_11_0_cdr_table.h
-@@ -0,0 +1,194 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+
-+#ifndef SMU_11_0_CDR_TABLE
-+#define SMU_11_0_CDR_TABLE
-+
-+
-+#pragma pack(push, 1)
-+
-+/// CDR table : PRBS sequence for DQ toggles
-+
-+/*static unsigned int NoDbiPrbs7[] =
-+{
-+//256 bytes, 256 byte aligned
-+0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+};
-+
-+
-+static unsigned int DbiPrbs7[] =
-+{
-+// 256 bytes, 256 byte aligned
-+0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+};
-+*/
-+
-+
-+//4096 bytes, 256 byte aligned
-+static unsigned int NoDbiPrbs7[] =
-+{
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+    0x0f0f0f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0x0f0f0f0f, 0x0f0f0f0f, 0xf0f0f0f0, 0xf0f00f0f,
-+    0x0f0f0f0f, 0xf0f00f0f, 0x0f0ff0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0xf0f00f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0x0f0ff0f0, 0xf0f00f0f,
-+    0xf0f00f0f, 0x0f0ff0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0ff0f0, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f0f0f0, 0x0f0f0f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f00f0f, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0f0f0, 0xf0f0ffff,
-+};
-+
-+// 4096 bytes, 256 byte aligned
-+static unsigned int DbiPrbs7[] =
-+{
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0xffffffff, 0xffffffff, 0x0000ffff, 0xffffffff, 0xffffffff, 0x00000000, 0xffffffff, 0xffffffff, 0x0000ffff, 0x0000ffff, 0xffffffff, 0x00000000, 0x00000000, 0xffffffff, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0x00000000, 0xffffffff, 0x00000000, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0xffff0000, 0x00000000, 0x00000000, 0xffff0000, 0xffffffff, 0xffffffff, 0x00000000, 0x0000ffff,
-+    0xffffffff, 0x0000ffff, 0xffff0000, 0xffffffff, 0x00000000, 0xffff0000, 0x0000ffff, 0x0000ffff, 0x00000000, 0xffff0000, 0x00000000, 0x0000ffff, 0x00000000, 0xffffffff, 0xffff0000, 0x0000ffff,
-+    0x0000ffff, 0xffff0000, 0xffff0000, 0x00000000, 0xffff0000, 0x00000000, 0xffffffff, 0x00000000, 0xffffffff, 0x0000ffff, 0x0000ffff, 0x0000ffff, 0x00000000, 0x00000000, 0x00000000, 0x0000ffff,
-+};
-+
-+#pragma pack(pop)
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/inc/smu_types.h
-index 7b585e205a5a..4a8655a20ef6 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
-@@ -173,6 +173,8 @@
- 	__SMU_DUMMY_MAP(GmiPwrDnControl), \
- 	__SMU_DUMMY_MAP(DAL_DISABLE_DUMMY_PSTATE_CHANGE), \
- 	__SMU_DUMMY_MAP(DAL_ENABLE_DUMMY_PSTATE_CHANGE), \
-+	__SMU_DUMMY_MAP(SET_DRIVER_DUMMY_TABLE_DRAM_ADDR_HIGH), \
-+	__SMU_DUMMY_MAP(SET_DRIVER_DUMMY_TABLE_DRAM_ADDR_LOW), \
- 	__SMU_DUMMY_MAP(Mode1Reset), \
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index 701a94d4b9f6..29e041d86ae5 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -270,6 +270,7 @@ struct smu_table_context
+ 	 */
+ 	struct smu_table		driver_table;
+ 	struct smu_table		memory_pool;
++	struct smu_table		dummy_read_1_table;
+ 	uint8_t                         thermal_controller_type;
  
- #undef __SMU_DUMMY_MAP
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
-index fa0174dc7e0e..fc8594e9b2bd 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0_ppsmc.h
-@@ -125,7 +125,10 @@
- 
- #define PPSMC_MSG_SetMGpuFanBoostLimitRpm        0x4C
- 
--#define PPSMC_Message_Count                      0x4D
-+#define PPSMC_MSG_SetDriverDummyTableDramAddrHigh 0x4E
-+#define PPSMC_MSG_SetDriverDummyTableDramAddrLow  0x4F
-+
-+#define PPSMC_Message_Count                      0x50
- 
- typedef uint32_t PPSMC_Result;
- typedef uint32_t PPSMC_Msg;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 79cd17d6bfaa..061eee1a4c32 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -45,6 +45,7 @@
- 
- #include "asic_reg/mp/mp_11_0_sh_mask.h"
- #include "smu_cmn.h"
-+#include "smu_11_0_cdr_table.h"
- 
- /*
-  * DO NOT use these for err/warn/info/debug messages.
-@@ -139,6 +140,8 @@ static struct cmn2asic_msg_mapping navi10_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(GetVoltageByDpm,		PPSMC_MSG_GetVoltageByDpm,		0),
- 	MSG_MAP(GetVoltageByDpmOverdrive,	PPSMC_MSG_GetVoltageByDpmOverdrive,	0),
- 	MSG_MAP(SetMGpuFanBoostLimitRpm,	PPSMC_MSG_SetMGpuFanBoostLimitRpm,	0),
-+	MSG_MAP(SET_DRIVER_DUMMY_TABLE_DRAM_ADDR_HIGH, PPSMC_MSG_SetDriverDummyTableDramAddrHigh, 0),
-+	MSG_MAP(SET_DRIVER_DUMMY_TABLE_DRAM_ADDR_LOW, PPSMC_MSG_SetDriverDummyTableDramAddrLow, 0),
- };
- 
- static struct cmn2asic_mapping navi10_clk_map[SMU_CLK_COUNT] = {
-@@ -2242,6 +2245,37 @@ static int navi10_umc_hybrid_cdr_workaround(struct smu_context *smu)
- 	return smu_cmn_send_smc_msg(smu, SMU_MSG_DAL_ENABLE_DUMMY_PSTATE_CHANGE, NULL);
+ 	void				*overdrive_table;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index a9c0c20efddb..dab272721037 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -663,6 +663,45 @@ static int smu_free_memory_pool(struct smu_context *smu)
+ 	return 0;
  }
  
-+static int navi10_set_dummy_pstates_table_location(struct smu_context *smu)
++static int smu_alloc_dummy_read_table(struct smu_context *smu)
 +{
 +	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct smu_table *dummy_read_table =
-+				&smu_table->dummy_read_1_table;
-+	char *dummy_table = dummy_read_table->cpu_addr;
++	struct smu_table *dummy_read_1_table =
++			&smu_table->dummy_read_1_table;
++	struct amdgpu_device *adev = smu->adev;
 +	int ret = 0;
-+	uint32_t i;
 +
-+	for (i = 0; i < 0x40000; i += 0x1000 * 2) {
-+		memcpy(dummy_table, &NoDbiPrbs7[0], 0x1000);
-+		dummy_table += 0x1000;
-+		memcpy(dummy_table, &DbiPrbs7[0], 0x1000);
-+		dummy_table += 0x1000;
-+	}
++	dummy_read_1_table->size = 0x40000;
++	dummy_read_1_table->align = PAGE_SIZE;
++	dummy_read_1_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
 +
-+	amdgpu_asic_flush_hdp(smu->adev, NULL);
++	ret = amdgpu_bo_create_kernel(adev,
++				      dummy_read_1_table->size,
++				      dummy_read_1_table->align,
++				      dummy_read_1_table->domain,
++				      &dummy_read_1_table->bo,
++				      &dummy_read_1_table->mc_address,
++				      &dummy_read_1_table->cpu_addr);
++	if (ret)
++		dev_err(adev->dev, "VRAM allocation for dummy read table failed!\n");
 +
-+	ret = smu_cmn_send_smc_msg_with_param(smu,
-+					      SMU_MSG_SET_DRIVER_DUMMY_TABLE_DRAM_ADDR_HIGH,
-+					      upper_32_bits(dummy_read_table->mc_address),
-+					      NULL);
++	return ret;
++}
++
++static void smu_free_dummy_read_table(struct smu_context *smu)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct smu_table *dummy_read_1_table =
++			&smu_table->dummy_read_1_table;
++
++
++	amdgpu_bo_free_kernel(&dummy_read_1_table->bo,
++			      &dummy_read_1_table->mc_address,
++			      &dummy_read_1_table->cpu_addr);
++
++	memset(dummy_read_1_table, 0, sizeof(struct smu_table));
++}
++
+ static int smu_smc_table_sw_init(struct smu_context *smu)
+ {
+ 	int ret;
+@@ -698,6 +737,10 @@ static int smu_smc_table_sw_init(struct smu_context *smu)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = smu_alloc_dummy_read_table(smu);
 +	if (ret)
 +		return ret;
 +
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_SET_DRIVER_DUMMY_TABLE_DRAM_ADDR_LOW,
-+					       lower_32_bits(dummy_read_table->mc_address),
-+					       NULL);
-+}
+ 	ret = smu_i2c_init(smu, &smu->adev->pm.smu_i2c);
+ 	if (ret)
+ 		return ret;
+@@ -711,6 +754,8 @@ static int smu_smc_table_sw_fini(struct smu_context *smu)
+ 
+ 	smu_i2c_fini(smu, &smu->adev->pm.smu_i2c);
+ 
++	smu_free_dummy_read_table(smu);
 +
- static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
- {
- 	uint32_t smu_version;
+ 	ret = smu_free_memory_pool(smu);
+ 	if (ret)
+ 		return ret;
 -- 
 2.28.0
 
