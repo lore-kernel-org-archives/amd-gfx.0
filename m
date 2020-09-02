@@ -2,60 +2,48 @@ Return-Path: <SRS0=4FJE=CL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F5C6C433E7
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 20:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54CC1C43461
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 21:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 16ED620767
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 20:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16ED620767
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2872A20E65
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 21:36:29 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="fFbOZpfr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2872A20E65
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5B536E504;
-	Wed,  2 Sep 2020 20:44:58 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D9E6E0CF
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 20:27:37 +0000 (UTC)
-IronPort-SDR: jqYrYly8G5ci0NqJRw4cJYL/b1QXGNWYG87OVn2LTRN1NkfW6nZeB9jA1JXgvSyJx8Z1Kq941z
- UB2og/iZpV8w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="145165758"
-X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="145165758"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP; 02 Sep 2020 13:27:36 -0700
-IronPort-SDR: GtBaKznKuR1LXoE174x3vfConIS+Tpxs9ge1e1K5AjFcCBVFmOeBnEg7ukNML0z3SYSPeknflT
- Fp5p/u90DafA==
-X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="325925854"
-Received: from acduong-mobl2.amr.corp.intel.com (HELO [10.254.87.179])
- ([10.254.87.179])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 13:27:36 -0700
-Subject: Re: [PATCH v4 8/8] Revert "PCI/ERR: Update error status after
- reset_link()"
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
-References: <1599072130-10043-1-git-send-email-andrey.grodzovsky@amd.com>
- <1599072130-10043-9-git-send-email-andrey.grodzovsky@amd.com>
- <75db5bfb-5a53-31cf-8f89-2a884d6be595@linux.intel.com>
- <a3cadf36-d597-97fe-a096-83baa73c6f8f@amd.com>
-From: "Kuppuswamy, Sathyanarayanan"
- <sathyanarayanan.kuppuswamy@linux.intel.com>
-Message-ID: <d4da4c2c-4fdb-08ee-c514-acfbcb67e16b@linux.intel.com>
-Date: Wed, 2 Sep 2020 13:27:33 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D033E6E0D5;
+	Wed,  2 Sep 2020 21:36:28 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B77156E0D5
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 21:36:27 +0000 (UTC)
+Received: from localhost (47.sub-72-107-117.myvzw.com [72.107.117.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3A7B9207EA;
+ Wed,  2 Sep 2020 21:36:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599082587;
+ bh=WtN5ltS9PHHpdTZya+dK5ycxCgNnaYjKvrzI0N35L7E=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=fFbOZpfrBzvv2/XsBGaT9H1DlGZW08pDQNjf7OPiQ6TxJS2U3kpfeneJqK2aubOrT
+ 1VoK0IECBc/Hp/q++VFYMbmXNDEWBrFS/6LQ4MJ5FlEwyajOoUai2YFBZSpujMuEKd
+ YgH1UbCdcyxMJukiRgSEoseDkERa6mCUlAUzSQv8=
+Date: Wed, 2 Sep 2020 16:36:25 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v4 0/8] Implement PCI Error Recovery on Navi12
+Message-ID: <20200902213625.GA269978@bjorn-Precision-5520>
 MIME-Version: 1.0
-In-Reply-To: <a3cadf36-d597-97fe-a096-83baa73c6f8f@amd.com>
-Content-Language: en-US
-X-Mailman-Approved-At: Wed, 02 Sep 2020 20:44:57 +0000
+Content-Disposition: inline
+In-Reply-To: <1599072130-10043-1-git-send-email-andrey.grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +55,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nirmodas@amd.com, bhelgaas@google.com, luben.tuikov@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Dennis.Li@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: sathyanarayanan.kuppuswamy@linux.intel.com, linux-pci@vger.kernel.org,
+ nirmodas@amd.com, amd-gfx@lists.freedesktop.org, bhelgaas@google.com,
+ luben.tuikov@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Dennis.Li@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CgpPbiA5LzIvMjAgMTI6NTQgUE0sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+IFllcywgd29y
-a3MgYWxzby4KPiAKPiBDYW4geW91IHByb3ZpZGUgbWUgYSBmb3JtYWwgcGF0Y2ggdGhhdCBpIGNh
-biBjb21taXQgaW50byBvdXIgbG9jYWwgYW1kIHN0YWdpbmcgdHJlZSB3aXRoIG15IHBhdGNoIHNl
-dCA/Cmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0Y2gvMTE2ODQxNzUvbWJveC8KPiAK
-PiBBbGV4IC0gaXMgdGhhdCBob3cgd2Ugd2FudCB0byBkbyBpdCwgd2l0aG91dCB0aGlzIHBhdGNo
-IG9yIHJldmVydGluZyB0aGUgb3JpZ2luYWwgcGF0Y2ggdGhlIGZlYXR1cmUgCj4gaXMgYnJva2Vu
-Lgo+IAo+IEFuZHJleQo+IAo+IE9uIDkvMi8yMCAzOjAwIFBNLCBLdXBwdXN3YW15LCBTYXRoeWFu
-YXJheWFuYW4gd3JvdGU6Cj4+Cj4+Cj4+IE9uIDkvMi8yMCAxMTo0MiBBTSwgQW5kcmV5IEdyb2R6
-b3Zza3kgd3JvdGU6Cj4+PiBUaGlzIHJldmVydHMgY29tbWl0IDZkMmM4OTQ0MTU3MWVhNTM0ZDYy
-NDBmNzcyNGY1MTg5MzZjNDRmOGQuCj4+Pgo+Pj4gSW4gdGhlIGNvZGUgYmVsbG93Cj4+Pgo+Pj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGNpX3dhbGtfYnVzKGJ1cywgcmVwb3J0
-X2Zyb3plbl9kZXRlY3RlZCwgJnN0YXR1cyk7Cj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBpZiAocmVzZXRfbGluayhkZXYsIHNlcnZpY2UpICE9IFBDSV9FUlNfUkVTVUxUX1JFQ09W
-RVJFRCkKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0YXR1cyA9IHJlc2V0X2xp
-bmsoZGV2LCBzZXJ2aWNlKTsKPj4+Cj4+PiBzdGF0dXMgcmV0dXJuZWQgZnJvbSByZXBvcnRfZnJv
-emVuX2RldGVjdGVkIGlzIHVuY29uZGl0aW9uYWxseSBtYXNrZWQKPj4+IGJ5IHN0YXR1cyByZXR1
-cm5lZCBmcm9tIHJlc2V0X2xpbmsgd2hpY2ggaXMgd3JvbmcuCj4+Pgo+Pj4gVGhpcyBicmVha3Mg
-ZXJyb3IgcmVjb3ZlcnkgaW1wbGVtZW50YXRpb24gZm9yIEFNREdQVSBkcml2ZXIKPj4+IGJ5IG1h
-c2tpbmcgUENJX0VSU19SRVNVTFRfTkVFRF9SRVNFVCByZXR1cm5lZCBmcm9tIGFtZGdwdV9wY2lf
-ZXJyb3JfZGV0ZWN0ZWQKPj4+IGFuZCBoZW5jZSBza2lwaW5nIHNsb3QgcmVzZXQgY2FsbGJhY2sg
-d2hpY2ggaXMgbmVjZXNzYXJ5IGZvciBwcm9wZXIKPj4+IEFTSUMgcmVjb3ZlcnkuIEVmZmVjdGl2
-ZWx5IG5vIG90aGVyIGNhbGxiYWNrIGJlc2lkZXMgcmVzdW1lIGNhbGxiYWNrIHdpbGwKPj4+IGJl
-IGNhbGxlZCBhZnRlciBsaW5rIHJlc2V0IHRoZSB3YXkgaXQgaXMgaW1wbGVtZW50ZWQgbm93IHJl
-Z2FyZGxlc3Mgb2Ygd2hhdAo+Pj4gdmFsdWUgZXJyb3JfZGV0ZWN0ZWQgY2FsbGJhY2sgcmV0dXJu
-cy4KPj4+Cj4+IMKgwqDCoMKgfQo+Pgo+PiBJbnN0ZWFkIG9mIHJldmVydGluZyB0aGlzIGNoYW5n
-ZSwgY2FuIHlvdSB0cnkgZm9sbG93aW5nIHBhdGNoID8KPj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlu
-a3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbG9yZS5rZXJuZWwu
-b3JnJTJGbGludXgtcGNpJTJGNTZhZDQ5MDEtNzI1Zi03Yjg4LTIxMTctYjEyNGIyOGIwMjdmJTQw
-bGludXguaW50ZWwuY29tJTJGVCUyRiUyM21lODAyOWMwNGY2M2MyMWY5ZDFjYjNiMWJhMmFlZmZi
-Y2EzYTYwZGY1JmFtcDtkYXRhPTAyJTdDMDElN0NhbmRyZXkuZ3JvZHpvdnNreSU0MGFtZC5jb20l
-N0M3NzMyNWQ2YTJhYmM0MmQyNmFlNjA4ZDg0ZjcyNmM1MSU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTEx
-YTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzczNDY3MDAxNzA4MzE4NDYmYW1wO3NkYXRhPUpQbzhs
-T1hmanhwcSUyQm5tbFZyU2k5M2FaeEdqSWxidWgwcmtabU5La3pRTSUzRCZhbXA7cmVzZXJ2ZWQ9
-MCAKPj4KPj4KCi0tIApTYXRoeWFuYXJheWFuYW4gS3VwcHVzd2FteQpMaW51eCBLZXJuZWwgRGV2
-ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed, Sep 02, 2020 at 02:42:02PM -0400, Andrey Grodzovsky wrote:
+> Many PCI bus controllers are able to detect a variety of hardware PCI errors on the bus, 
+> such as parity errors on the data and address buses,  A typical action taken is to disconnect 
+> the affected device, halting all I/O to it. Typically, a reconnection mechanism is also offered, 
+> so that the affected PCI device(s) are reset and put back into working condition. 
+> In our case the reconnection mechanism is facilitated by kernel Downstream Port Containment (DPC) 
+> driver which will intercept the PCIe error, remove (isolate) the faulting device after which it 
+> will call into PCIe recovery code of the PCI core. 
+> This code will call hooks which are implemented in this patchset where the error is 
+> first reported at which point we block the GPU scheduler, next DPC resets the 
+> PCI link which generates HW interrupt which is intercepted by SMU/PSP who 
+> start executing mode1 reset of the ASIC, next step is slot reset hook is called 
+> at which point we wait for ASIC reset to complete, restore PCI config space and run 
+> HW suspend/resume sequence to resinit the ASIC. 
+> Last hook called is resume normal operation at which point we will restart the GPU scheduler.
+> 
+> More info on PCIe error handling and DPC are here:
+> https://www.kernel.org/doc/html/latest/PCI/pci-error-recovery.html
+> https://patchwork.kernel.org/patch/8945681/
+> 
+> v4:Rebase to 5.9 kernel and revert PCI error recovery core commit which breaks the feature.
+
+What does this apply to?  I tried 
+
+  - v5.9-rc1 (9123e3a74ec7 ("Linux 5.9-rc1")),
+  - v5.9-rc2 (d012a7190fc1 ("Linux 5.9-rc2")),
+  - v5.9-rc3 (f75aef392f86 ("Linux 5.9-rc3")),
+  - drm-next (3393649977f9 ("Merge tag 'drm-intel-next-2020-08-24-1' of git://anongit.freedesktop.org/drm/drm-intel into drm-next")),
+  - linux-next (4442749a2031 ("Add linux-next specific files for 20200902"))
+
+but it doesn't apply cleanly to any.
+
+> Andrey Grodzovsky (8):
+>   drm/amdgpu: Avoid accessing HW when suspending SW state
+>   drm/amdgpu: Block all job scheduling activity during DPC recovery
+>   drm/amdgpu: Fix SMU error failure
+>   drm/amdgpu: Fix consecutive DPC recovery failures.
+>   drm/amdgpu: Trim amdgpu_pci_slot_reset by reusing code.
+>   drm/amdgpu: Disable DPC for XGMI for now.
+>   drm/amdgpu: Minor checkpatch fix
+>   Revert "PCI/ERR: Update error status after reset_link()"
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   6 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 247 +++++++++++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   6 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |   6 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  18 ++-
+>  drivers/gpu/drm/amd/amdgpu/nv.c            |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/soc15.c         |   4 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c     |   3 +
+>  drivers/pci/pcie/err.c                     |   3 +-
+>  10 files changed, 222 insertions(+), 79 deletions(-)
+> 
+> -- 
+> 2.7.4
+> 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
