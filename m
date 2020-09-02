@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 722A1C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6C32C433E7
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4650220773
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8B5ED20773
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pTuzZPgn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4650220773
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bUZfVaR6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B5ED20773
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 630BA6E13C;
-	Wed,  2 Sep 2020 08:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0A4C6E301;
+	Wed,  2 Sep 2020 08:32:11 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B53746E13C
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 08:32:08 +0000 (UTC)
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374FB6E2DC
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 08:32:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ul4u7q5H+V8CVBgn7G51B2/IuznoLsuT69bR4rJOL4e+BRUgbdyOrT/fEOmROVw5z33jlOeefC2+jEG//Kq/fprqSS4MT9+NLpD1pw/GSdiO/l4zhZhJrsh3TNAi1EbPJ/XMEzm9i8h3YtWNQ6C5BW4ZUpoRQ8NPvHvjDs7QuZY8dM5++8PbA/hXcayo9sQf1lSzE+kmKiyy3s8JF3LAxkBlLC6NjKkErFVf4qcPyEWORH3U3/Un0c0QZD5GZABXiklKEUbESkKX+30HuwzltPcPkhB8L4UnQ4EQOHDy1LgbBOIJfekQP6TQI91FnwQyKEhcPvWkryizrWBRvvKrQg==
+ b=L3r4V7jAzaB435UGtDC5+jweNoV4BM67EQJhiR5pEehItHNhAVVBYUelE7tAlhKl3OgPLNDRLXBpaBhEGjljNu5BLLbJSLLxUHoCmzn4xSlcsYi5xk+l5I/if7GbfUkr0zTrtyMBYiGr8R2VyxhOGfvvJx72F/tTrMTIy7dRcsTsYK0m9Tx+GGqHuD0+wxlfSM74IZEj/c2J5511fOx5c1zxV/gl96f1n+ow9J9+KkADeICV0qW64aKPGlL/7nu7U234XfYM3vzbGyz5oIqEdxTjaW6KslaVEmzjrpbR66Kpb913NUHBzOAi3XElqtq7YmxyVkOjx4dhYLUn4htHxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hEZhzZYhOjAo9SnWNlPVXkBQmctoclj9vVGsuSn/s5o=;
- b=UTf6JVEekyRo3dp4HRzqaNcMx7g0jrRkuoJweHCp+VwLlnXySDvEid5kQY4ngUU1kcyg5JK6HrON1yozZ94lct+OjU1xZf+eXfx0l6ZyG3+92PhxVf/A5wJBhZX2NWmRIHA1DjkXlbBlWFc7XP3B2ClJtZZXbvOLNfFMiuZ/W/RJAEBclAHvXosl+2wDxOAAjWDAiexbKBRGkfbPEPCqe46Pib/esNevegzdrjJt4luE3kyaUSwQkh6A2BrF3XRE6t3hQYcmv7N8CH8/MR9cVClzaBRnk519fxPvUUnPHqwLACO/oQirHsjyZfNEF3fqg1zeJNPpFIV0Rv75bQ310Q==
+ bh=zTv/38xzbXMVW6FRwvd44ohJYRkKZYW1JJoNyIgTkpw=;
+ b=cuTDakvTcj5yy/YwvKJ1znGLrGju82CiQK64VIs9cRWDp64cW39ksyk+nGulPGuJ0mMmA6W6+Up1jTBE7sN5FVur7zZmnEDBDOzwQhdzH5o6t2mxLX7SkyTRSqmn3wy5/BP4XIgxXzw5fsmFPWdSWKvr/8VH6zl/9+pOmeVLg0IKfnzaTBwUYdhSArBqvdu0aCBbIn189CK/vsDrPwtA1JObSSEgfDfF9HcpClMu8lenRDRA7PftVR6JGJ6NgJk0MI8KGqgfHwCY0SzhejTd0IMq1qzXWLsw2DdTIXu3dIMBqIslY71mqbQO8KkPH9lKqJJKXlAyo6vZXHEoYgIF5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hEZhzZYhOjAo9SnWNlPVXkBQmctoclj9vVGsuSn/s5o=;
- b=pTuzZPgnemRoIQlkUU8uSMiDsVUiwu7AYgf94QXTbXIbDTqqh/+x+tW06q30ufow/f0Xfpw5Rurge/mNA2g1qV7MpRbAVlw5rbouQjoFAM/bQVkfsscDdnE9ipH+Exj1el7t1mECOb+72LqX2MrxbxgsxoJa1wc6BvohkYhYLxE=
+ bh=zTv/38xzbXMVW6FRwvd44ohJYRkKZYW1JJoNyIgTkpw=;
+ b=bUZfVaR6TBS008uifG/AjMSushXh2+/nUrd/R5HPecSaSnuEtMniYDC0XiW2mNhHEqmps1kvy2T8LVR91W7Qspnh3AJNnwSA1zC906ertL/8Jgq+AHpAoGNkdZJKxyB+lNEquXULYkWOoEabRwP2LA8kuwrYD/EoCnXD7mwSUd4=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3868.namprd12.prod.outlook.com (2603:10b6:5:1c8::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3326.23; Wed, 2 Sep 2020 08:32:07 +0000
+ 15.20.3326.23; Wed, 2 Sep 2020 08:32:09 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3348.015; Wed, 2 Sep 2020
- 08:32:07 +0000
+ 08:32:09 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/9] drm/amd/pm: put Navi1X umc cdr workaround in post_smu_init
-Date: Wed,  2 Sep 2020 16:31:28 +0800
-Message-Id: <20200902083134.25569-3-evan.quan@amd.com>
+Subject: [PATCH 4/9] drm/amd/pm: revise the umc hybrid cdr workaround
+Date: Wed,  2 Sep 2020 16:31:29 +0800
+Message-Id: <20200902083134.25569-4-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200902083134.25569-1-evan.quan@amd.com>
 References: <20200902083134.25569-1-evan.quan@amd.com>
@@ -69,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from 255.255.255.255 (255.255.255.255) by
  HK2PR0302CA0004.apcprd03.prod.outlook.com (2603:1096:202::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3348.7 via Frontend Transport; Wed, 2 Sep 2020 08:32:06 +0000
+ 15.20.3348.7 via Frontend Transport; Wed, 2 Sep 2020 08:32:07 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4f44d5e5-6d76-40e3-7ff5-08d84f1aad95
+X-MS-Office365-Filtering-Correlation-Id: 1de0acb3-6c89-4e18-afb2-08d84f1aae8e
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3868:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB38680C0E79FC4F2C6373793FE42F0@DM6PR12MB3868.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3868DD563E57B3A84BC194F0E42F0@DM6PR12MB3868.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uDpCKX+eACjYVjQZbzNqptWb5DT/tyQTzahK8HNu3c6dM7ZByI9LsGwWaR2asjAS7A31pJvLqF4XgSYCb7b1FX591I6lv5N4OxFCUbiKXa1n5tdsXp4e7qBoFhuZIKbxXyr+9HUain8RnBwwfkGbiR0S3zcIQ+p5C9IlaEJHiWsm1YJDf/2za0IraI+rzixBtzePZxeNSq6eelRjsdtp39L1X0CekqNbeBiqVx8KmmUp/lkyN9oQmtSTQ4FyMx4EXTQHl2gkFwVUHwQMEAse6ylzphsUCGBpevbpM3G77CFNWyE8TYdlW5d3jaMGF+s008opQr+0917dSdlC4dpg4CPsTGkML80FrWiTb85OKiaVj6TbIOnI+TiCPaZZt+2D
+X-Microsoft-Antispam-Message-Info: xHjXJUwuyEQzZcjuWP29oKSKNZpgpvqa75zdriZg7Q7K0uJlOEBC+5AsS9D2GSPVVOr99YsjRyyEtCwKZwU1hw9jsuJwv56DNJ+HPzNddytYTOY0lGlviYiFhyoL7r9Djvm0a2MqnLJLCBoFAvsqz0omUhg6mBixwVEbtfwsi5bk/i75u477EzD14Z7EeiazW0ANlDQsVUujdx6lZzdo/3wh/UGDnubJoGCXpUhC25CF43ETR+CipRV/2gWsuBKK4oxTkn2B4KWZ9pFTYPnwWlybi06HJxGTib33Vh9rFu8+6tMxRawESwUqz5ucS+fN9SeC4C4P1tGjxMcuNtQB8Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(83380400001)(66574015)(66946007)(2906002)(36756003)(16576012)(66556008)(4326008)(44832011)(316002)(186003)(66476007)(5660300002)(6486002)(8676002)(86362001)(6666004)(26005)(2616005)(956004)(6916009)(478600001)(52116002)(8936002)(1076003)(32563001);
+ SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(83380400001)(66574015)(66946007)(2906002)(36756003)(16576012)(66556008)(4326008)(44832011)(316002)(186003)(66476007)(5660300002)(6486002)(8676002)(86362001)(6666004)(26005)(2616005)(956004)(6916009)(478600001)(52116002)(8936002)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: ylXi7lPRKMa2smLtGLi3llykay2lV5Gq2hsZvY0UmQfQcjDzuBYBkZaFO8HwdQA3UDYbNZZSi6K/UxeJvAg30kpNB1pJdUK+4HfN82E0Lb1P+qV6TMxJIhrHV9LyXxEFvoFHV/zQb1QlgMF5qqpqx0R7s+SUIp/+Qe/STI8CLcpZUSF5ECE3CIEvJor8ea0r2TiD+DqSPkHJYWQAYKsQzRwvUwIA3cattN1+qklW5xpD+2xtLObGHKvNzIrK4ZPzWTUg5vncM3n9i81nNhOgHm2jaD4ZGNZAnfzwrknU47k22rDRLljWEbtf4vimSD9c1a1li64T4/THEK4WYOzzvCVekpq2fBTkDVcTKgjEZAMJmXzl2bLGc6H5dgy2X0f7VKaeUhMx5tYFz9cT6iSzcevoqmYm+bRic3iTBpSleAErol3JX7e88yFrDlCbvqWagh0H2VP7p2ec7+j6nqZYI5lrMOEMLPbSLF9HGmY08T/UaerllOlQYl6mS+7FhdKzrM3wUm36Ijb/rGkLy/Rge+hvhPxzQgn4sDj9Jk98ytZ0WcQsQNF9CMhHruRB+1mZlfAlV4j84sLy6+pUQd4COHr58Z5Edt/KXmweLsYJVJUomq9BG4WIfMLg0r4+uwKvcCBeBsnhNbUgsJmJQDHneA==
+X-MS-Exchange-AntiSpam-MessageData: FBq3EsOGzGrECct+OAYrFedZarb4k9xwS7ks6UYAqK9T6Jxqf97Adr7jx6W4hurXM8mJtcLDqYO9DULMLqFOTGPHIgJL3oaQEuHmZDhQ13ZdTJY4rJMCqIP0LUszDd1Swxow5ffXaY4qubbrf/WshrcHQ7OISBBh2BjbHuTiM+yMmJCrCX3x9W/xA1wcYoT1w/vK9TiimHksRW3tVmsLJKz7ukzqOe0LL+RSrX5ph2J6mNjq/oLWMee1+ida5HrTqrARb6JtIrufPnOEdQPcDsVmSJfYHqHYaJr4aokXbx6ahn9gKKnoQI7uY6s9Th3sR76FL63NDTE/8K1YWrX2wYLcuXugebEIKIx4Ws4TC6H2xUG8RLSnnH8pY85lNAeSU6w8XLkesdr0QdrIonw1Y21FnAFh+sCxIZpGqE6VxRd5/47XBpaZkUC5FXvrD0CYjzoIPJ+2g7g6iY+PMARyBW7Gx0SEsTnEPXGN+/3CtoJ7j422Cs7Bi7Oo2h5aJ6ilVddh4ywQwls9ooq9/Hi3upokdORQC9ctq0tJhmybtVAxbgFel0vqVmY61Kcvyx6riltY/cu4AQPYklxSE4W8497Pr00TmwGkzybIt4PW9asUGswqnV5jA3+lMnPsVyRbJAXgJjer8xJxQngJOOXsRg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f44d5e5-6d76-40e3-7ff5-08d84f1aad95
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1de0acb3-6c89-4e18-afb2-08d84f1aae8e
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2020 08:32:07.4354 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2020 08:32:09.0505 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: adIzmZbrQ0u0nKY2x96PK5QXQa0XjHEuB+kravxnjWUmme8pNatXG4WiTVCXAIBS
+X-MS-Exchange-CrossTenant-UserPrincipalName: EUU1f1RSWbSd4ocbl7feZtbqCUjo5YQ0grlgOEX7HuIgeGwkpMLX511r8fagKMqp
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,102 +114,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That's where the uclk dpm get enabled and then the
-uclk cdr workaround can be applied.
+Drop the unused message(SMU_MSG_DAL_DISABLE_DUMMY_PSTATE_CHANGE).
+And do not apply this workaround when the max uclk frequency
+is greater than 750Mhz.
 
-Change-Id: I520ae0fbc1c3be68324377c7d8c6dc4a346d3a57
+Change-Id: I862e80cc96424c82f34aff0fa85b3d37f4dbcb2b
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h        |  1 -
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      |  6 ------
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    | 18 ++++++++++++++----
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h    |  1 -
- 4 files changed, 14 insertions(+), 12 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 61 +++++++++++--------
+ 1 file changed, 34 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 4acc3c4c4737..701a94d4b9f6 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -590,7 +590,6 @@ struct pptable_funcs {
- 	int (*mode2_reset)(struct smu_context *smu);
- 	int (*get_dpm_ultimate_freq)(struct smu_context *smu, enum smu_clk_type clk_type, uint32_t *min, uint32_t *max);
- 	int (*set_soft_freq_limited_range)(struct smu_context *smu, enum smu_clk_type clk_type, uint32_t min, uint32_t max);
--	int (*disable_umc_cdr_12gbps_workaround)(struct smu_context *smu);
- 	int (*set_power_source)(struct smu_context *smu, enum smu_power_src_type power_src);
- 	void (*log_thermal_throttling_event)(struct smu_context *smu);
- 	size_t (*get_pp_feature_mask)(struct smu_context *smu, char *buf);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 8d7c75c51fe5..a9c0c20efddb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -975,12 +975,6 @@ static int smu_smc_hw_setup(struct smu_context *smu)
- 		return ret;
- 	}
- 
--	ret = smu_disable_umc_cdr_12gbps_workaround(smu);
--	if (ret) {
--		dev_err(adev->dev, "Workaround failed to disable UMC CDR feature on 12Gbps SKU!\n");
--		return ret;
--	}
--
- 	/*
- 	 * For Navi1X, manually switch it to AC mode as PMFW
- 	 * may boot it with DC mode.
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 8180b7f99991..6674f3abd457 100644
+index 6674f3abd457..79cd17d6bfaa 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2568,6 +2568,7 @@ static int navi10_post_smu_init(struct smu_context *smu)
- 	struct smu_feature *feature = &smu->smu_feature;
- 	struct amdgpu_device *adev = smu->adev;
- 	uint64_t feature_mask = 0;
-+	int ret = 0;
- 
- 	/* For Naiv1x, enable these features only after DAL initialization */
- 	if (adev->pm.pp_feature & PP_SOCCLK_DPM_MASK)
-@@ -2590,9 +2591,19 @@ static int navi10_post_smu_init(struct smu_context *smu)
- 		  (unsigned long *)(&feature_mask),
- 		  SMU_FEATURE_MAX);
- 
--	return smu_cmn_feature_update_enable_state(smu,
--						   feature_mask,
--						   true);
-+	ret = smu_cmn_feature_update_enable_state(smu,
-+						  feature_mask,
-+						  true);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to post uclk/socclk dpm enablement!\n");
-+		return ret;
-+	}
-+
-+	ret = navi10_disable_umc_cdr_12gbps_workaround(smu);
-+	if (ret)
-+		dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
-+
-+	return ret;
+@@ -2181,18 +2181,6 @@ static int navi10_run_btc(struct smu_context *smu)
+ 	return ret;
  }
  
- static const struct pptable_funcs navi10_ppt_funcs = {
-@@ -2669,7 +2680,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.set_default_od_settings = navi10_set_default_od_settings,
- 	.od_edit_dpm_table = navi10_od_edit_dpm_table,
- 	.run_btc = navi10_run_btc,
--	.disable_umc_cdr_12gbps_workaround = navi10_disable_umc_cdr_12gbps_workaround,
- 	.set_power_source = smu_v11_0_set_power_source,
- 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
- 	.set_pp_feature_mask = smu_cmn_set_pp_feature_mask,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-index db903889f6a7..521b805c920e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-@@ -83,7 +83,6 @@
- #define smu_asic_set_performance_level(smu, level)			smu_ppt_funcs(set_performance_level, -EINVAL, smu, level)
- #define smu_dump_pptable(smu)						smu_ppt_funcs(dump_pptable, 0, smu)
- #define smu_update_pcie_parameters(smu, pcie_gen_cap, pcie_width_cap)	smu_ppt_funcs(update_pcie_parameters, 0, smu, pcie_gen_cap, pcie_width_cap)
--#define smu_disable_umc_cdr_12gbps_workaround(smu)			smu_ppt_funcs(disable_umc_cdr_12gbps_workaround, 0, smu)
- #define smu_set_power_source(smu, power_src)				smu_ppt_funcs(set_power_source, 0, smu, power_src)
- #define smu_i2c_init(smu, control)					smu_ppt_funcs(i2c_init, 0, smu, control)
- #define smu_i2c_fini(smu, control)					smu_ppt_funcs(i2c_fini, 0, smu, control)
+-static int navi10_dummy_pstate_control(struct smu_context *smu, bool enable)
+-{
+-	int result = 0;
+-
+-	if (!enable)
+-		result = smu_cmn_send_smc_msg(smu, SMU_MSG_DAL_DISABLE_DUMMY_PSTATE_CHANGE, NULL);
+-	else
+-		result = smu_cmn_send_smc_msg(smu, SMU_MSG_DAL_ENABLE_DUMMY_PSTATE_CHANGE, NULL);
+-
+-	return result;
+-}
+-
+ static inline bool navi10_need_umc_cdr_12gbps_workaround(struct amdgpu_device *adev)
+ {
+ 	if (adev->asic_type != CHIP_NAVI10)
+@@ -2208,32 +2196,32 @@ static inline bool navi10_need_umc_cdr_12gbps_workaround(struct amdgpu_device *a
+ 		return false;
+ }
+ 
+-static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
++static int navi10_umc_hybrid_cdr_workaround(struct smu_context *smu)
+ {
+ 	uint32_t uclk_count, uclk_min, uclk_max;
+-	uint32_t smu_version;
+ 	int ret = 0;
+ 
+-	if (!navi10_need_umc_cdr_12gbps_workaround(smu->adev))
+-		return 0;
+-
+-	ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
+-	if (ret)
+-		return ret;
+-
+-	/* This workaround is available only for 42.50 or later SMC firmwares */
+-	if (smu_version < 0x2A3200)
++	/* This workaround can be applied only with uclk dpm enabled */
++	if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT))
+ 		return 0;
+ 
+ 	ret = smu_v11_0_get_dpm_level_count(smu, SMU_UCLK, &uclk_count);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)0, &uclk_min);
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)(uclk_count - 1), &uclk_max);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)(uclk_count - 1), &uclk_max);
++	/*
++	 * The NAVI10_UMC_HYBRID_CDR_WORKAROUND_UCLK_THRESHOLD is 750Mhz.
++	 * This workaround is needed only when the max uclk frequency
++	 * not greater than that.
++	 */
++	if (uclk_max > 0x2EE)
++		return 0;
++
++	ret = smu_v11_0_get_dpm_freq_by_index(smu, SMU_UCLK, (uint16_t)0, &uclk_min);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2250,8 +2238,27 @@ static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
+ 	/*
+ 	 * In this case, SMU already disabled dummy pstate during enablement
+ 	 * of UCLK DPM, we have to re-enabled it.
+-	 * */
+-	return navi10_dummy_pstate_control(smu, true);
++	 */
++	return smu_cmn_send_smc_msg(smu, SMU_MSG_DAL_ENABLE_DUMMY_PSTATE_CHANGE, NULL);
++}
++
++static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
++{
++	uint32_t smu_version;
++	int ret = 0;
++
++	if (!navi10_need_umc_cdr_12gbps_workaround(smu->adev))
++		return 0;
++
++	ret = smu_cmn_get_smc_version(smu, NULL, &smu_version);
++	if (ret)
++		return ret;
++
++	/* This workaround is available only for 42.50 or later SMC firmwares */
++	if (smu_version < 0x2A3200)
++		return 0;
++
++	return navi10_umc_hybrid_cdr_workaround(smu);
+ }
+ 
+ static void navi10_fill_i2c_req(SwI2cRequest_t  *req, bool write,
 -- 
 2.28.0
 
