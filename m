@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39388C433E6
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C84EEC433E7
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DBE9620773
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9547E20773
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2020 08:32:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="q78gik/4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DBE9620773
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Jt7Gfbsp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9547E20773
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 602256E13B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C50216E14E;
 	Wed,  2 Sep 2020 08:32:08 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BF36E13C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6BDD6E13B
  for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2020 08:32:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tykz4ZDofsNHV3QlUUN5fAliZ2I7ex6HRIpwMnOAaXhn40U5i49izsJwjlhtzAiFZSZKyLAuDmhI62htD0Qjf7/8sq/OhP7PBSpGPTgR9T6TBm5H9kHtHbCz1dVgg4qctuTrFioLFUgEjPeFSHgVLjKy21q9utpK3YnmJ31kC+2RHm5aXWrBXxuc35yZfmIOym1PMzSaW53Co8j5Q1vt/JPaLcTmGE0AY4XPNNsKPz1Y/LXAaXyZhSQaOgP3jMF9P2gU0TvVzx02lWlpLE328oz/39e6A6/XshKoYnQ3g05l2kkqnNGP8tuoI5X1FZiAxE07peReZTRR6Vnus+p4vQ==
+ b=AMw/9r5zzzLJtKpfGP6t5Gb9b4WMec5v9ZeeDNSyGPOQvV1GvGwE8M3eOg58REXhU5cMrBjC2A6mdY8X2myQkWZnIMMQ6sXDAX05vWZw7/YmSeuDYrZMf5OyNbS5PAssJ3kw6kyZLt22CNRF80S5dHZR2OlRFod5iLeHkWfaT7p8J7Vs6woW4njcoKwS0jE3ux5Hi3kxREn5gDbtpowiYP4WZ85pp2JvU+ophaA1FGYcj1QyxNnNT9LKW4z+LXQ3lCBrSqW0HqABXDVNs23243RBMZ70/fMSYNyeRfAk6CJO+B/dVsLL0iWpHLgXysr/BdopUMAbF1Xo388/dyuFgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l2CRko+HA3691TXwsrXVQ1al2iIW3EqTNGadXmppcAI=;
- b=gu7EZPD3bN/tnGLmPEi27ZwapeRVpQicYTyrpk3abZHxtnXz6Q0KdfLRMucxuaveni05l4hekVC/7/xnn0G1jKgT//G/lzclatbMv5i/qg1i+5U+qloPkfl0ZwpunfQr2/c3D+jwdVXy+NJghs3Ge3AT4VgrEAconMyONBAnWUUml6+mUvdrQNw3ovU9GcuBI3IzofC+kbZIhssj6973W/ZJQ6hdXYbUefsWF94U0u8OrOS8vKzxqxhIsi4imiCzr+tljv5A6gQWQe5tvj5EzSGWWg2dACISOIXBbxpnG669VRhlc/8PuLJ93djs1Ym22U62pcc+hM/JOcQy7b/JBQ==
+ bh=z+JcYe90B+RfcRTgtP7ZFYL8cRXcH1VCil3/pZ3t/CA=;
+ b=LfEDoQ/VC/yH5vrjWSuYo8kv6ZzIAEDQUF66rDdR1IL4LytZdV1hgPyenudxkSc5tBELScMlK7qJDQXPKreu2Abh2wPPYoftzuuRexQz0uQ0yIRQa17i+iP+ER7dzIAjdTzn2ftmWbTPB3qFW90tEdgIqauHl/oZFmSQxEw0uH0wx+rUoTzOJvQArUR6rwJdycGKCqT++J2cqxtQ9+0W5LB2RK0VlxkNq/c1d8b1f+s6FIMNRWCwCTwG8SK+C6nkh42rSk/dPhgS1E25Yg8IaZcJkjxUdXG1jKwCQCA2VIw4VAWthYsYfZ0GilNt7j2gilXuBmJ5rdrHeNiDl7dngA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l2CRko+HA3691TXwsrXVQ1al2iIW3EqTNGadXmppcAI=;
- b=q78gik/4Ca7tlxheaVtx9KPFuZtw0gZVVWDN8fb4EW9xm/V6OqjzQjsbhk2mC1XJOOv8lJIbA/BP0SSLvQqtWES5aDkiICf1lZOJJxCCe+Lg/llZteGU7rd97IPy5kzefRZiW+FB9DaV07zY3uYETsPIVBFUR0yNJ6IksE2/5iU=
+ bh=z+JcYe90B+RfcRTgtP7ZFYL8cRXcH1VCil3/pZ3t/CA=;
+ b=Jt7Gfbsp4zPqIGdWqzVeKni9IvjHi/nj2XH42fZ8hWH9F3DKfiFr3Hc+Yi6NHOCAAbJrr0kvbrUvn6Kf1j/6f3kPzMkIhF9yhD9XhyIWRAA/KoHsWDCRnHNIZF+uj7WUJ1mhVFrmpyd/uqWGuIG2rEAmR6eO+NNAMa/Y/BgFzKg=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,20 +48,18 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3868.namprd12.prod.outlook.com (2603:10b6:5:1c8::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3326.23; Wed, 2 Sep 2020 08:32:06 +0000
+ 15.20.3326.23; Wed, 2 Sep 2020 08:32:04 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3348.015; Wed, 2 Sep 2020
- 08:32:05 +0000
+ 08:32:04 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/9] drm/amd/pm: postpone SOCCLK/UCLK enablement after DAL
- initialization(V2)
-Date: Wed,  2 Sep 2020 16:31:27 +0800
-Message-Id: <20200902083134.25569-2-evan.quan@amd.com>
+Subject: [PATCH 1/9] drm/amd/pm: wrapper for postponing some setup job after
+ DAL initializatioa(V2)
+Date: Wed,  2 Sep 2020 16:31:26 +0800
+Message-Id: <20200902083134.25569-1-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200902083134.25569-1-evan.quan@amd.com>
-References: <20200902083134.25569-1-evan.quan@amd.com>
 X-ClientProxiedBy: HK2PR0302CA0004.apcprd03.prod.outlook.com
  (2603:1096:202::14) To DM6PR12MB2619.namprd12.prod.outlook.com
  (2603:10b6:5:45::18)
@@ -70,33 +68,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from 255.255.255.255 (255.255.255.255) by
  HK2PR0302CA0004.apcprd03.prod.outlook.com (2603:1096:202::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3348.7 via Frontend Transport; Wed, 2 Sep 2020 08:32:04 +0000
+ 15.20.3348.7 via Frontend Transport; Wed, 2 Sep 2020 08:32:02 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 58f8756d-7685-4039-8edf-08d84f1aac80
+X-MS-Office365-Filtering-Correlation-Id: 85a56af9-787e-4aed-a108-08d84f1aab7b
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3868:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB38681A1CF887D64C27E45960E42F0@DM6PR12MB3868.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3868FFB0683BDA20DDC74293E42F0@DM6PR12MB3868.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:792;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wN+lO+m7tufFS53CUYmUUkBYYoRc0w/L61YNi6nrtqcJLkRcwf+SeDbb9mNCqxb3w4+OdFKk4IoIIXoNWCcrTXeVvfPV3+uojiVvfTi7rW/7Q4+FjonC4IVE4J2G6CN+jajoAGwxjPcBYpDjH8249d7WOoki8f0X5LlWaQ3gmAbM/AjU+rEnUiuQqM4xkHRFdwvVhkxBgy/4EaYGSrGWCFYQnNkWi8APNK8XlAokVAuJ8lI65J+NP5w4xEa4amkLZAWNI62vjXhw/UNDjJzkuyG0pSJF9RxG2n5sdSYi1Osh/YsrdGR+zWa6aADetW6rrTWqczUSlJt7NrWFRohReQ==
+X-Microsoft-Antispam-Message-Info: mOgFIaUimJ7Tfcrdlzgo88xfC8/5PGeQR2xFcYaNiKWC1AuVBrvlBwyEhseIhb/vsNHDMTgAE/OeumkLFntuj6ShmxsvsOkHq7lNhXl16YK+QzjGYbKUYxyOn/S6lLWiBHprWAYUymndguk0sKHvA5R1LozSloBebpPum2N5uIZOzH9f7+9jedmfQ19BeuKunWDKVbZkRjgxLysmwAeSyNb1WgwwNX4apdGHGj68u0MXQ9iB4KPW14R/vhsf95Q+PKM2d3GdJoIZfJaLdJWd3L2qswSV58cHkrDHUBAF6GyButsrSQ8fRvm1PILrSFv9kf4NkxKVEDOT/HEpLp5G8w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(83380400001)(66946007)(2906002)(36756003)(16576012)(66556008)(4326008)(44832011)(316002)(186003)(66476007)(5660300002)(6486002)(8676002)(86362001)(6666004)(26005)(2616005)(956004)(6916009)(478600001)(52116002)(8936002)(1076003);
+ SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(66946007)(2906002)(36756003)(16576012)(66556008)(4326008)(44832011)(316002)(186003)(66476007)(5660300002)(6486002)(8676002)(86362001)(6666004)(26005)(2616005)(956004)(6916009)(478600001)(52116002)(8936002)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: oimqYNtbpgtFyiMssiOOozascWYc12aDfRlDp5Q31aYdUQQH2ueHUP9z2oEz09PCOPnFz2ehcYQvajdZVg7W6MaaTQcFe7VMzWlBnbtoMFNgTFVguNyyhlbdAmIEPy4lsK1Y08TXOXirvcDxDLW4r5rqRNvKQyYWzCkG7Af9EH3ulhOiUcXkMJtt9EPB5/+X9b72WLO4n4GouMf5Sc0inJ/J1NWvRYReotlj7gTjl0ExrTKZLTC9UZ5FJO2Sc7LkYolODIAmVSbO51kNSIek1ZWztTi9AormPTKSX6I6YDspIBqCYkC+CT/g5+VAcHaAbxGNdA8783G8kZ7mVxeEiSZO2QUHUoIRuu0JoKHkR7r5wCgkq/fRScv5SBd+I/EYswBMuVhtHf6t5oPCsvTBKN58iDHmPJnGXgPVGCvoQVgyfjqXp/waEyIvCIwICXd3E1CG0QC+B3//iExWgTsuSRJ04QM6FtfKlPGRQoYY8CsRSuL+/aKDPk7Br/v9gV4Ywx0UnZS7H1DUjOfBtP2Q+5JCGnWRl6nG9DjsnEngNpMLDIXIOx62/i3+vPjINyhHqzPiUT1IvWWFxmhLITxHS/NXpawTxJMf9x9i+7ORM81/ghFJp7EuGjgkiSxhA13+Dys0d1nJQI9xIg+65NNR7A==
+X-MS-Exchange-AntiSpam-MessageData: qnrw+hLpcQBowckya7I4lmRhQS8ft+Dkh+S8GLA8B35H8O20p4QmPLgaw8yf1EZHwN52VM/l+aUaMPh2bYw/tM697KcnUChIdP9J9S/vvpLEci05pwBXkD8vN7PPGYLIEyWyuRv9PGydxu0DfWE4QNGovJnugG2kb2Qx60aAm3LO1ShCrzRk1mY9dR4IZAEJtcfxyNfE22Nynv67Maou/4FXJS/iXbts+3OVwHJohqewn91mAbjUWCELMmeiHTlLb1odYPTZaKDmixAgC71HFQwJ0gOO2btvDOhBGbC1fsgzUz8xk59WOwtJLCJ7qD9Sw1Rxy0VsoFcxl2hZrGeI4/X1yc9elik9m+JkXOJjpiczm/LM2BzjK8KtdeusKZR8dpBWF0UEdiO9O/KbQLdFNTW6SPN/YuWL9W3JJuq2ijgaD9TnOSm66etCt5ZJ0DoF+wECrp4GnWY9LSboXADMDiH7PcoBeLtOqGbuUzKL96OUMyF260aC+0P8kfM/bZnsW+FqOgUZ5j/vgPikPAPeGJWetJ6Cj+Zv52cJJWXqHbz8cEivgNzISBXyodWoFGIn0Zbelp17tf8wHTek/RWaBEwhlurIeRXfjjAD8I+E4hHBCqgWvjkShgJUw1M/dwe07ByDKfrSAQnS20Nz3quspg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58f8756d-7685-4039-8edf-08d84f1aac80
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a56af9-787e-4aed-a108-08d84f1aab7b
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2020 08:32:05.8703 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2020 08:32:04.0293 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MUmGyGv23NXdge0WJnPkU8AI4w8JF2R0Ewaecnj1QF5Pb+fM2K6AEYLWfIYUakUA
+X-MS-Exchange-CrossTenant-UserPrincipalName: fz8amLmxeWQoQkC6HvbiYmsJJQMtucd4qmm5awKu84gdObQOdY0txRrL0sjgSsec
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,150 +113,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is needed for Navi1X only. And it may help for display missing
-or hang issue seen on some high resolution monitors.
+So that ASIC specific actions can be added.
 
-V2: no UCLK DPM enablement for Navi10 A0 secure SKU
+V2: better namings
 
-Change-Id: Id3965a638c2a238d52cf074f2111dc4bf2244a3e
+Change-Id: Iabc9241d3e10ece9cd54d8cdb3ae8c8b831c7bce
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 60 ++++++++++++-------
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  6 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  4 ++
- 3 files changed, 46 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h     | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   | 6 ++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h | 1 +
+ 3 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 42d53cca7360..8180b7f99991 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -279,9 +279,6 @@ navi10_get_allowed_feature_mask(struct smu_context *smu,
- 				| FEATURE_MASK(FEATURE_FW_CTF_BIT)
- 				| FEATURE_MASK(FEATURE_OUT_OF_BAND_MONITOR_BIT);
- 
--	if (adev->pm.pp_feature & PP_SOCCLK_DPM_MASK)
--		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
--
- 	if (adev->pm.pp_feature & PP_SCLK_DPM_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT);
- 
-@@ -291,11 +288,6 @@ navi10_get_allowed_feature_mask(struct smu_context *smu,
- 	if (adev->pm.pp_feature & PP_DCEFCLK_DPM_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT);
- 
--	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
--		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT)
--				| FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_BIT)
--				| FEATURE_MASK(FEATURE_MEM_MVDD_SCALING_BIT);
--
- 	if (adev->pm.pp_feature & PP_ULV_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_GFX_ULV_BIT);
- 
-@@ -320,19 +312,12 @@ navi10_get_allowed_feature_mask(struct smu_context *smu,
- 	if (smu->dc_controlled_by_gpio)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_ACDC_BIT);
- 
--	/* disable DPM UCLK and DS SOCCLK on navi10 A0 secure board */
--	if (is_asic_secure(smu)) {
--		/* only for navi10 A0 */
--		if ((adev->asic_type == CHIP_NAVI10) &&
--			(adev->rev_id == 0)) {
--			*(uint64_t *)feature_mask &=
--					~(FEATURE_MASK(FEATURE_DPM_UCLK_BIT)
--					  | FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_BIT)
--					  | FEATURE_MASK(FEATURE_MEM_MVDD_SCALING_BIT));
--			*(uint64_t *)feature_mask &=
--					~FEATURE_MASK(FEATURE_DS_SOCCLK_BIT);
--		}
--	}
-+	/* DS SOCCLK enablement should be skipped for navi10 A0 secure board */
-+	if (is_asic_secure(smu) &&
-+	    (adev->asic_type == CHIP_NAVI10) &&
-+	    (adev->rev_id == 0))
-+		*(uint64_t *)feature_mask &=
-+				~FEATURE_MASK(FEATURE_DS_SOCCLK_BIT);
- 
- 	return 0;
- }
-@@ -2578,6 +2563,38 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
- 					       NULL);
- }
- 
-+static int navi10_post_smu_init(struct smu_context *smu)
-+{
-+	struct smu_feature *feature = &smu->smu_feature;
-+	struct amdgpu_device *adev = smu->adev;
-+	uint64_t feature_mask = 0;
-+
-+	/* For Naiv1x, enable these features only after DAL initialization */
-+	if (adev->pm.pp_feature & PP_SOCCLK_DPM_MASK)
-+		feature_mask |= FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
-+
-+	/* DPM UCLK enablement should be skipped for navi10 A0 secure board */
-+	if (!(is_asic_secure(smu) &&
-+	     (adev->asic_type == CHIP_NAVI10) &&
-+	     (adev->rev_id == 0)) &&
-+	    (adev->pm.pp_feature & PP_MCLK_DPM_MASK))
-+		feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT)
-+				| FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_BIT)
-+				| FEATURE_MASK(FEATURE_MEM_MVDD_SCALING_BIT);
-+
-+	if (!feature_mask)
-+		return 0;
-+
-+	bitmap_or(feature->allowed,
-+		  feature->allowed,
-+		  (unsigned long *)(&feature_mask),
-+		  SMU_FEATURE_MAX);
-+
-+	return smu_cmn_feature_update_enable_state(smu,
-+						   feature_mask,
-+						   true);
-+}
-+
- static const struct pptable_funcs navi10_ppt_funcs = {
- 	.get_allowed_feature_mask = navi10_get_allowed_feature_mask,
- 	.set_default_dpm_table = navi10_set_default_dpm_table,
-@@ -2661,6 +2678,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.gfx_ulv_control = smu_v11_0_gfx_ulv_control,
- 	.deep_sleep_control = smu_v11_0_deep_sleep_control,
- 	.get_fan_parameters = navi10_get_fan_parameters,
-+	.post_init = navi10_post_smu_init,
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index d22a759b6b43..4acc3c4c4737 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -600,6 +600,7 @@ struct pptable_funcs {
+ 	int (*gfx_ulv_control)(struct smu_context *smu, bool enablement);
+ 	int (*deep_sleep_control)(struct smu_context *smu, bool enablement);
+ 	int (*get_fan_parameters)(struct smu_context *smu);
++	int (*post_init)(struct smu_context *smu);
  };
  
- void navi10_set_ppt_funcs(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index a58ea08cd115..5fd98c1c3d7c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -343,9 +343,9 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
- 	return ret;
- }
+ typedef enum {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 7a55ece1f124..8d7c75c51fe5 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -473,6 +473,12 @@ static int smu_late_init(void *handle)
+ 	if (!smu->pm_enabled)
+ 		return 0;
  
--static int smu_cmn_feature_update_enable_state(struct smu_context *smu,
--					       uint64_t feature_mask,
--					       bool enabled)
-+int smu_cmn_feature_update_enable_state(struct smu_context *smu,
-+					uint64_t feature_mask,
-+					bool enabled)
- {
- 	struct smu_feature *feature = &smu->smu_feature;
- 	int ret = 0;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-index 6d00ad740c27..ab577be23c15 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-@@ -52,6 +52,10 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
- 			     uint32_t *feature_mask,
- 			     uint32_t num);
- 
-+int smu_cmn_feature_update_enable_state(struct smu_context *smu,
-+					uint64_t feature_mask,
-+					bool enabled);
++	ret = smu_post_init(smu);
++	if (ret) {
++		dev_err(adev->dev, "Failed to post smu init!\n");
++		return ret;
++	}
 +
- int smu_cmn_feature_set_enabled(struct smu_context *smu,
- 				enum smu_feature_mask mask,
- 				bool enable);
+ 	ret = smu_set_default_od_settings(smu);
+ 	if (ret) {
+ 		dev_err(adev->dev, "Failed to setup default OD settings!\n");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+index 38c10177ed21..db903889f6a7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+@@ -95,6 +95,7 @@
+ #define smu_gfx_ulv_control(smu, enablement)				smu_ppt_funcs(gfx_ulv_control, 0, smu, enablement)
+ #define smu_deep_sleep_control(smu, enablement)				smu_ppt_funcs(deep_sleep_control, 0, smu, enablement)
+ #define smu_get_fan_parameters(smu)					smu_ppt_funcs(get_fan_parameters, 0, smu)
++#define smu_post_init(smu)						smu_ppt_funcs(post_init, 0, smu)
+ 
+ #endif
+ #endif
 -- 
 2.28.0
 
