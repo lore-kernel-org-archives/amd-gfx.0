@@ -2,67 +2,71 @@ Return-Path: <SRS0=hFGi=CM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25CBFC433E2
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 13:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6672FC2BB84
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 14:26:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E269B2072A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 13:41:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2B99C206EB
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 14:26:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o36NlXdM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E269B2072A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="U301XTzY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B99C206EB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76DB76E1D5;
-	Thu,  3 Sep 2020 13:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 355C66EA17;
+	Thu,  3 Sep 2020 14:26:48 +0000 (UTC)
 Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
  [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA0B6E1D7
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 13:41:15 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id z9so2959085wmk.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2020 06:41:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tnSMmHTQcHP6Z68EQxHm4TxxTEHGAya8wZs13ngbe08=;
- b=o36NlXdMu23QKucfApg0gjXgcKAw+XRg/kt1PCVrSrTevypscuweOzmdCspEJnfpUA
- nU+EwZ7tMomZfA82JA583ucD/ys/q/dneF1nA+VITLYGrCpc67E2C1cj7wA3w1+JSSiQ
- 4grqf02JBwCO4dm6p+E8oyf8BqqjcWaLi+pWvkkaSQZGMIglEQ1Y6zELIZMyZso7nTy0
- PRoAg7hiXlosUflYxqBgSKmgB1s4k7DDrcO9q+QO+5vvZZGne2ZykBGE3qLB8IbBcpoj
- cKLbR3+B3AqMIlj17FKgeIPWL1J6/XJjsG2gamG4CiSDaLjvlSFxnQNYjQ5F0fJpSXwx
- LNxQ==
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2B66EA13
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 14:26:46 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id a65so3088941wme.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2020 07:26:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=WPGkIiYKzcgeZQHQnOsCQNykJDQ0LcIwyOzw3jP31iw=;
+ b=U301XTzYB4iZKTuiJEmNQa6LjlPoAgog/xJoj2wXvl+EI/gGl4kWAUeLkLbROf10CM
+ 12rXgyOY/z6vjHv0JLB7K9Jbh5iTKLxDuFMfUQin7FIUR20sK3PUvcY3qbKpbGGT1p5c
+ wW2cc2EqnzOcUZz45pxPARRleTG2/83YxeQSk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tnSMmHTQcHP6Z68EQxHm4TxxTEHGAya8wZs13ngbe08=;
- b=Wd8s588VNFLpwxQ6H/VW4Q5ZfXFmWfXwpuqkcRMr82JYnQjzJgFMhGEgwm/Ngd9vgI
- m5hWeVjLPLUDGh5n+hUm/BblAkSaMlzzzc2Ot6/wCbvviBoqDGYMDBoWx/QLr9J84fij
- eYjaCwhvcAC9FEAnXEcYeWUR4fvy0ZCjw2Fz/TDwFw6Etu9/3mYbLyNgjp0dRZAsg6Hl
- r2WbS6KJOBBSbnJ96WdMzBt609GGX5dZId9GZHStSkD+LtUUGLRefA0FuL1aBKeOfQfP
- IK8oIKiQa8WnMy3ecvwt9AIniASzwehFrbMEA0cF3jDNTRGhx9NzZg47WIjmvUR3HJuP
- 7pcg==
-X-Gm-Message-State: AOAM5320eqPT5qFbwpjk9wX1uRGjQsGReK8TX7dyCYWvZSoE2gFGSOvv
- fzirCFcjOWvOSFU25Wf2QiLqHj4/zYC7csHMKZlEIJv6
-X-Google-Smtp-Source: ABdhPJxeFBmOaNOZ+0nGWGb0HnxdLhxK118UZKFj+AE38vDDHEus7N9BpY8gPmO5Q10iTrM0t83fJnhhOLJWw8ZL7pQ=
-X-Received: by 2002:a1c:7d4d:: with SMTP id y74mr2577297wmc.73.1599140473920; 
- Thu, 03 Sep 2020 06:41:13 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=WPGkIiYKzcgeZQHQnOsCQNykJDQ0LcIwyOzw3jP31iw=;
+ b=GQa+MhNtIxtwhkcCMlUpqUxajiiWCT0XpgK7FOFxIHDokvUuyvwrHBbAtjZn3dKQKp
+ 0Dqx29sWgVE+FDT9iXZxIDYJ3Al6j2Tj+H5tfqD/i7La2/jZjKYWfSKRJGrF68yGMp23
+ cpKiilwn6o+Yo+XHxlqja+0axsOr4kgtSPvsrSu5O+XtKdYZuOi2wI3bWxRtcINZ7/ft
+ HUz1yUkVA0YN5XztVUYKWjXusQ/0F7mb4E4cXky8XOoW5U7dqLwtf90lvXr7ebDMK4oF
+ gQj2QnS+AlcV7/cT41Vtr6JlJQPPM96vWuUyLGZxrbUZhubTzjgjVez39aGeDIZp+Zp4
+ JIVA==
+X-Gm-Message-State: AOAM530nK0ikoleGidDFhF5Cs7KrmwPiv0LBEBOGtBr8E1uffkoHycM4
+ tZj3N2KvAcLFodL5y3ytAVLP8g==
+X-Google-Smtp-Source: ABdhPJy+7miLidr8+Q7a35jxDlUiV0t4pfimyyJefQnknzDQJHXA9I2kP+JojMTk8ShJea3BVBMVhA==
+X-Received: by 2002:a1c:4b04:: with SMTP id y4mr2747038wma.111.1599143204660; 
+ Thu, 03 Sep 2020 07:26:44 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id q6sm4392609wmq.19.2020.09.03.07.26.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2020 07:26:43 -0700 (PDT)
+Date: Thu, 3 Sep 2020 16:26:41 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/managed: Cleanup of unused functions and polishing
+ docs
+Message-ID: <20200903142641.GL2352366@phenom.ffwll.local>
+References: <20200902072627.3617301-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-References: <20200902083134.25569-1-evan.quan@amd.com>
- <20200902083134.25569-9-evan.quan@amd.com>
-In-Reply-To: <20200902083134.25569-9-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Sep 2020 09:41:02 -0400
-Message-ID: <CADnq5_PvCJFGvKW27K=mnoZOtLtiSuQkJWKA4cQkG3SQMkJ00g@mail.gmail.com>
-Subject: Re: [PATCH 9/9] drm/amd/pm: make namings and comments more readable
-To: Evan Quan <evan.quan@amd.com>
+Content-Disposition: inline
+In-Reply-To: <20200902072627.3617301-1-daniel.vetter@ffwll.ch>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,74 +78,328 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Luben Tuikov <luben.tuikov@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org,
+ Noralf =?iso-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 2, 2020 at 4:32 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> And to fit more accurately what the cod does.
->
-> Change-Id: I2d917e66b55925c3a14aa96ac8e0c8c2110848c0
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+On Wed, Sep 02, 2020 at 09:26:27AM +0200, Daniel Vetter wrote:
+> Following functions are only used internally, not by drivers:
+> - devm_drm_dev_init
+> =
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Also, now that we have a very slick and polished way to allocate a
+> drm_device with devm_drm_dev_alloc, update all the docs to reflect the
+> new reality. Mostly this consists of deleting old and misleading
+> hints. Two main ones:
+> =
+
+> - it is no longer required that the drm_device base class is first in
+>   the structure. devm_drm_dev_alloc can cope with it being anywhere
+> =
+
+> - obviously embedded now strongly recommends using devm_drm_dev_alloc
+> =
+
+> v2: Fix typos (Noralf)
+> =
+
+> v3: Split out the removal of drm_dev_init, that's blocked on some
+> discussions on how to convert vgem/vkms/i915-selftests. Adjust commit
+> message to reflect that.
+> =
+
+> Cc: Noralf Tr=F8nnes <noralf@tronnes.org>
+> Acked-by: Noralf Tr=F8nnes <noralf@tronnes.org> (v2)
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+
+Ok pushed that now to drm-misc-next. I'm also working on getting the
+remaining bits of the basic drm managed conversion resubmitted. That was
+unfortunately massively sidelined for the dma-fence discussions.
+
+Quick heads-up:
+drmm_add_final_kfree and drm_dev_init will both disappear, please use
+devm_drm_dev_alloc.
+
+Cheers, Daniel
 
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 801c92eb439f..cd5394d4beb0 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2185,7 +2185,7 @@ static int navi10_run_btc(struct smu_context *smu)
->         return ret;
+>  .../driver-api/driver-model/devres.rst        |  2 +-
+>  drivers/gpu/drm/drm_drv.c                     | 78 +++++--------------
+>  drivers/gpu/drm/drm_managed.c                 |  2 +-
+>  include/drm/drm_device.h                      |  2 +-
+>  include/drm/drm_drv.h                         | 16 ++--
+>  5 files changed, 30 insertions(+), 70 deletions(-)
+> =
+
+> diff --git a/Documentation/driver-api/driver-model/devres.rst b/Documenta=
+tion/driver-api/driver-model/devres.rst
+> index eaaaafc21134..aa4d2420f79e 100644
+> --- a/Documentation/driver-api/driver-model/devres.rst
+> +++ b/Documentation/driver-api/driver-model/devres.rst
+> @@ -263,7 +263,7 @@ DMA
+>    dmam_pool_destroy()
+>  =
+
+>  DRM
+> -  devm_drm_dev_init()
+> +  devm_drm_dev_alloc()
+>  =
+
+>  GPIO
+>    devm_gpiod_get()
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index d4506f7a234e..7c1689842ec0 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -240,13 +240,13 @@ void drm_minor_release(struct drm_minor *minor)
+>   * DOC: driver instance overview
+>   *
+>   * A device instance for a drm driver is represented by &struct drm_devi=
+ce. This
+> - * is initialized with drm_dev_init(), usually from bus-specific ->probe=
+()
+> - * callbacks implemented by the driver. The driver then needs to initial=
+ize all
+> - * the various subsystems for the drm device like memory management, vbl=
+ank
+> - * handling, modesetting support and intial output configuration plus ob=
+viously
+> - * initialize all the corresponding hardware bits. Finally when everythi=
+ng is up
+> - * and running and ready for userspace the device instance can be publis=
+hed
+> - * using drm_dev_register().
+> + * is allocated and initialized with devm_drm_dev_alloc(), usually from
+> + * bus-specific ->probe() callbacks implemented by the driver. The drive=
+r then
+> + * needs to initialize all the various subsystems for the drm device lik=
+e memory
+> + * management, vblank handling, modesetting support and initial output
+> + * configuration plus obviously initialize all the corresponding hardwar=
+e bits.
+> + * Finally when everything is up and running and ready for userspace the=
+ device
+> + * instance can be published using drm_dev_register().
+>   *
+>   * There is also deprecated support for initalizing device instances usi=
+ng
+>   * bus-specific helpers and the &drm_driver.load callback. But due to
+> @@ -274,7 +274,7 @@ void drm_minor_release(struct drm_minor *minor)
+>   *
+>   * The following example shows a typical structure of a DRM display driv=
+er.
+>   * The example focus on the probe() function and the other functions tha=
+t is
+> - * almost always present and serves as a demonstration of devm_drm_dev_i=
+nit().
+> + * almost always present and serves as a demonstration of devm_drm_dev_a=
+lloc().
+>   *
+>   * .. code-block:: c
+>   *
+> @@ -294,22 +294,12 @@ void drm_minor_release(struct drm_minor *minor)
+>   *		struct drm_device *drm;
+>   *		int ret;
+>   *
+> - *		// devm_kzalloc() can't be used here because the drm_device '
+> - *		// lifetime can exceed the device lifetime if driver unbind
+> - *		// happens when userspace still has open file descriptors.
+> - *		priv =3D kzalloc(sizeof(*priv), GFP_KERNEL);
+> - *		if (!priv)
+> - *			return -ENOMEM;
+> - *
+> + *		priv =3D devm_drm_dev_alloc(&pdev->dev, &driver_drm_driver,
+> + *					  struct driver_device, drm);
+> + *		if (IS_ERR(priv))
+> + *			return PTR_ERR(priv);
+>   *		drm =3D &priv->drm;
+>   *
+> - *		ret =3D devm_drm_dev_init(&pdev->dev, drm, &driver_drm_driver);
+> - *		if (ret) {
+> - *			kfree(priv);
+> - *			return ret;
+> - *		}
+> - *		drmm_add_final_kfree(drm, priv);
+> - *
+>   *		ret =3D drmm_mode_config_init(drm);
+>   *		if (ret)
+>   *			return ret;
+> @@ -550,9 +540,9 @@ static void drm_fs_inode_free(struct inode *inode)
+>   * following guidelines apply:
+>   *
+>   *  - The entire device initialization procedure should be run from the
+> - *    &component_master_ops.master_bind callback, starting with drm_dev_=
+init(),
+> - *    then binding all components with component_bind_all() and finishin=
+g with
+> - *    drm_dev_register().
+> + *    &component_master_ops.master_bind callback, starting with
+> + *    devm_drm_dev_alloc(), then binding all components with
+> + *    component_bind_all() and finishing with drm_dev_register().
+>   *
+>   *  - The opaque pointer passed to all components through component_bind=
+_all()
+>   *    should point at &struct drm_device of the device instance, not som=
+e driver
+> @@ -706,24 +696,9 @@ static void devm_drm_dev_init_release(void *data)
+>  	drm_dev_put(data);
 >  }
->
-> -static bool navi10_need_umc_cdr_12gbps_workaround(struct smu_context *smu)
-> +static bool navi10_need_umc_cdr_workaround(struct smu_context *smu)
+>  =
+
+> -/**
+> - * devm_drm_dev_init - Resource managed drm_dev_init()
+> - * @parent: Parent device object
+> - * @dev: DRM device
+> - * @driver: DRM driver
+> - *
+> - * Managed drm_dev_init(). The DRM device initialized with this function=
+ is
+> - * automatically put on driver detach using drm_dev_put().
+> - *
+> - * Note that drivers must call drmm_add_final_kfree() after this functio=
+n has
+> - * completed successfully.
+> - *
+> - * RETURNS:
+> - * 0 on success, or error code on failure.
+> - */
+> -int devm_drm_dev_init(struct device *parent,
+> -		      struct drm_device *dev,
+> -		      struct drm_driver *driver)
+> +static int devm_drm_dev_init(struct device *parent,
+> +			     struct drm_device *dev,
+> +			     struct drm_driver *driver)
 >  {
->         struct amdgpu_device *adev = smu->adev;
->
-> @@ -2276,7 +2276,7 @@ static int navi10_set_dummy_pstates_table_location(struct smu_context *smu)
->                                                NULL);
+>  	int ret;
+>  =
+
+> @@ -737,7 +712,6 @@ int devm_drm_dev_init(struct device *parent,
+>  =
+
+>  	return ret;
 >  }
->
-> -static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
-> +static int navi10_run_umc_cdr_workaround(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev = smu->adev;
->         uint8_t umc_fw_greater_than_v136 = false;
-> @@ -2284,7 +2284,7 @@ static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
->         uint32_t param;
->         int ret = 0;
->
-> -       if (!navi10_need_umc_cdr_12gbps_workaround(smu))
-> +       if (!navi10_need_umc_cdr_workaround(smu))
->                 return 0;
->
->         ret = smu_cmn_send_smc_msg_with_param(smu,
-> @@ -2655,7 +2655,7 @@ static int navi10_post_smu_init(struct smu_context *smu)
->                 return ret;
->         }
->
-> -       ret = navi10_disable_umc_cdr_12gbps_workaround(smu);
-> +       ret = navi10_run_umc_cdr_workaround(smu);
->         if (ret)
->                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
->
-> --
+> -EXPORT_SYMBOL(devm_drm_dev_init);
+>  =
+
+>  void *__devm_drm_dev_alloc(struct device *parent, struct drm_driver *dri=
+ver,
+>  			   size_t size, size_t offset)
+> @@ -767,19 +741,9 @@ EXPORT_SYMBOL(__devm_drm_dev_alloc);
+>   * @driver: DRM driver to allocate device for
+>   * @parent: Parent device object
+>   *
+> - * Allocate and initialize a new DRM device. No device registration is d=
+one.
+> - * Call drm_dev_register() to advertice the device to user space and reg=
+ister it
+> - * with other core subsystems. This should be done last in the device
+> - * initialization sequence to make sure userspace can't access an incons=
+istent
+> - * state.
+> - *
+> - * The initial ref-count of the object is 1. Use drm_dev_get() and
+> - * drm_dev_put() to take and drop further ref-counts.
+> - *
+> - * Note that for purely virtual devices @parent can be NULL.
+> - *
+> - * Drivers that wish to subclass or embed &struct drm_device into their
+> - * own struct should look at using drm_dev_init() instead.
+> + * This is the deprecated version of devm_drm_dev_alloc(), which does no=
+t support
+> + * subclassing through embedding the struct &drm_device in a driver priv=
+ate
+> + * structure, and which does not support automatic cleanup through devre=
+s.
+>   *
+>   * RETURNS:
+>   * Pointer to new DRM device, or ERR_PTR on failure.
+> diff --git a/drivers/gpu/drm/drm_managed.c b/drivers/gpu/drm/drm_managed.c
+> index 1e1356560c2e..c36e3d98fd71 100644
+> --- a/drivers/gpu/drm/drm_managed.c
+> +++ b/drivers/gpu/drm/drm_managed.c
+> @@ -27,7 +27,7 @@
+>   * be done directly with drmm_kmalloc() and the related functions. Every=
+thing
+>   * will be released on the final drm_dev_put() in reverse order of how t=
+he
+>   * release actions have been added and memory has been allocated since d=
+river
+> - * loading started with drm_dev_init().
+> + * loading started with devm_drm_dev_alloc().
+>   *
+>   * Note that release actions and managed memory can also be added and re=
+moved
+>   * during the lifetime of the driver, all the functions are fully concur=
+rent
+> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+> index 0988351d743c..f4f68e7a9149 100644
+> --- a/include/drm/drm_device.h
+> +++ b/include/drm/drm_device.h
+> @@ -92,7 +92,7 @@ struct drm_device {
+>  	 * NULL.
+>  	 *
+>  	 * Instead of using this pointer it is recommended that drivers use
+> -	 * drm_dev_init() and embed struct &drm_device in their larger
+> +	 * devm_drm_dev_alloc() and embed struct &drm_device in their larger
+>  	 * per-device structure.
+>  	 */
+>  	void *dev_private;
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 6ba7dd11384d..533c6e1a5a95 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -163,13 +163,12 @@ struct drm_driver {
+>  	/**
+>  	 * @load:
+>  	 *
+> -	 * Backward-compatible driver callback to complete
+> -	 * initialization steps after the driver is registered.  For
+> -	 * this reason, may suffer from race conditions and its use is
+> -	 * deprecated for new drivers.  It is therefore only supported
+> -	 * for existing drivers not yet converted to the new scheme.
+> -	 * See drm_dev_init() and drm_dev_register() for proper and
+> -	 * race-free way to set up a &struct drm_device.
+> +	 * Backward-compatible driver callback to complete initialization steps
+> +	 * after the driver is registered.  For this reason, may suffer from
+> +	 * race conditions and its use is deprecated for new drivers.  It is
+> +	 * therefore only supported for existing drivers not yet converted to
+> +	 * the new scheme.  See devm_drm_dev_alloc() and drm_dev_register() for
+> +	 * proper and race-free way to set up a &struct drm_device.
+>  	 *
+>  	 * This is deprecated, do not use!
+>  	 *
+> @@ -595,9 +594,6 @@ struct drm_driver {
+>  int drm_dev_init(struct drm_device *dev,
+>  		 struct drm_driver *driver,
+>  		 struct device *parent);
+> -int devm_drm_dev_init(struct device *parent,
+> -		      struct drm_device *dev,
+> -		      struct drm_driver *driver);
+>  =
+
+>  void *__devm_drm_dev_alloc(struct device *parent, struct drm_driver *dri=
+ver,
+>  			   size_t size, size_t offset);
+> -- =
+
 > 2.28.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
