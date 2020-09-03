@@ -2,71 +2,102 @@ Return-Path: <SRS0=hFGi=CM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+X-Spam-Status: No, score=-11.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,RCVD_ILLEGAL_IP,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6672FC2BB84
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 14:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEB8FC43461
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 15:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B99C206EB
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 14:26:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 83ACD20737
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 15:01:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="U301XTzY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B99C206EB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BauQ7Or+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83ACD20737
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 355C66EA17;
-	Thu,  3 Sep 2020 14:26:48 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2B66EA13
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 14:26:46 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id a65so3088941wme.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2020 07:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=WPGkIiYKzcgeZQHQnOsCQNykJDQ0LcIwyOzw3jP31iw=;
- b=U301XTzYB4iZKTuiJEmNQa6LjlPoAgog/xJoj2wXvl+EI/gGl4kWAUeLkLbROf10CM
- 12rXgyOY/z6vjHv0JLB7K9Jbh5iTKLxDuFMfUQin7FIUR20sK3PUvcY3qbKpbGGT1p5c
- wW2cc2EqnzOcUZz45pxPARRleTG2/83YxeQSk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=WPGkIiYKzcgeZQHQnOsCQNykJDQ0LcIwyOzw3jP31iw=;
- b=GQa+MhNtIxtwhkcCMlUpqUxajiiWCT0XpgK7FOFxIHDokvUuyvwrHBbAtjZn3dKQKp
- 0Dqx29sWgVE+FDT9iXZxIDYJ3Al6j2Tj+H5tfqD/i7La2/jZjKYWfSKRJGrF68yGMp23
- cpKiilwn6o+Yo+XHxlqja+0axsOr4kgtSPvsrSu5O+XtKdYZuOi2wI3bWxRtcINZ7/ft
- HUz1yUkVA0YN5XztVUYKWjXusQ/0F7mb4E4cXky8XOoW5U7dqLwtf90lvXr7ebDMK4oF
- gQj2QnS+AlcV7/cT41Vtr6JlJQPPM96vWuUyLGZxrbUZhubTzjgjVez39aGeDIZp+Zp4
- JIVA==
-X-Gm-Message-State: AOAM530nK0ikoleGidDFhF5Cs7KrmwPiv0LBEBOGtBr8E1uffkoHycM4
- tZj3N2KvAcLFodL5y3ytAVLP8g==
-X-Google-Smtp-Source: ABdhPJy+7miLidr8+Q7a35jxDlUiV0t4pfimyyJefQnknzDQJHXA9I2kP+JojMTk8ShJea3BVBMVhA==
-X-Received: by 2002:a1c:4b04:: with SMTP id y4mr2747038wma.111.1599143204660; 
- Thu, 03 Sep 2020 07:26:44 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id q6sm4392609wmq.19.2020.09.03.07.26.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2020 07:26:43 -0700 (PDT)
-Date: Thu, 3 Sep 2020 16:26:41 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/managed: Cleanup of unused functions and polishing
- docs
-Message-ID: <20200903142641.GL2352366@phenom.ffwll.local>
-References: <20200902072627.3617301-1-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC0F6E090;
+	Thu,  3 Sep 2020 15:01:56 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 844A86E090
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 15:01:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d6c90p/C39jHrnbhE8tHIRJwndgHLwznvLnWk4O9B7dvLLj8sT5Z3m8utDBX2D5dbZ9oYzuflcoTIG82Rt4jfHzAJM3HsKevcqI6a4BUSCuOAU5WQu8S9GNzenrgxoRGhDELg4NnyVCT4sxkI1ERUN4Ps2vuYobMeJ4lwzGeAzuLRwGYraW1ejnaAXP9yCQAoLReLka5UFZOSVci0YKTEMQhLLKG6DTyHKsQdxZ/UGKiTVW2uCQOytsnMC9HynDHm/9YqgkrjI/k5b1bly0WePT4FWuHarnY/d/F5NKilF77u9SE8CX0vSID4VUK72fcPyFJWOb6C37kwK1s6DX4rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BgVVu+A4mc4JGH/iWGSH7SKqt/rSDypsbby8dmnYGGU=;
+ b=OZ8KjVyOnUn1Z1JR/ePQp2Bf++S44yVF2pkNU2JtPsIRKaUuBRcN+8HLxmE2i/TlEwqzUQeUsr8SWSUytQy/HcgWc8zbDOvCfClxcnDixeDdfp9enFQnWsqKL+7KcbCXrldxRQvvBKJ3k4Y8+lXgzCc5qnO5Hi8YHMNECPj5b64lp5ajHcsqsZXhClp4Lcm2lgI+JV/A03RqC3uT5oKW5SHryZmZJr093YKiPzXywughg3MHvxF2oWFdE80CLIbntENSNpGM9Wwuj4zx8EHrn/xdhvrpIDFmDrJZk6uZigkp7ahEDdmhxZMO2FSCYGBEoqrVB5xG3/9cujJ1tGN9RA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BgVVu+A4mc4JGH/iWGSH7SKqt/rSDypsbby8dmnYGGU=;
+ b=BauQ7Or+d8uLkgTxhpZJOeC5SlF9X9mrlOHvv83u4+hjNw1ERZEJakgMw8M0FUGv183mbadHYQPZgLYQ6HkLdYdNHsmILR5VZREOLIUWqUIYx+Rt1hUU7XcwgbDh5x2o8FCiju01awV3A6PlCHN1IAkKp7xUvi/m8OXlsl39QLc=
+Authentication-Results: google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ DM5PR12MB1338.namprd12.prod.outlook.com (2603:10b6:3:71::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3348.15; Thu, 3 Sep 2020 15:01:53 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::60b8:886b:2c51:2983]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::60b8:886b:2c51:2983%3]) with mapi id 15.20.3348.016; Thu, 3 Sep 2020
+ 15:01:53 +0000
+Subject: Re: [PATCH v4 0/8] Implement PCI Error Recovery on Navi12
+To: Bjorn Helgaas <helgaas@kernel.org>
+References: <20200903004153.GA277699@bjorn-Precision-5520>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <b44ce880-bbd9-1258-bc54-3b47d798882b@amd.com>
+Date: Thu, 3 Sep 2020 11:01:51 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <20200903004153.GA277699@bjorn-Precision-5520>
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0096.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::35) To DM6PR12MB4340.namprd12.prod.outlook.com
+ (2603:10b6:5:2a8::7)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200902072627.3617301-1-daniel.vetter@ffwll.ch>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from 255.255.255.255 (255.255.255.255) by
+ YT1PR01CA0096.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3348.16 via Frontend Transport; Thu, 3 Sep 2020 15:01:53 +0000
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 115f8690-d437-4ac7-c8dc-08d8501a4b47
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1338:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1338CE020C716C4BBBCC0345EA2C0@DM5PR12MB1338.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OY11hzIAkio1n7uuPZFbl50OmZQ0AbAmWsiip1GGJrwBdkn9AfR+tYjYcpUUsGX5SsaM70omOln7YcJGN8uZq4CXzpm3TCOGzbqnAZWPZ+AylfU9FaQwJCjSx9Hxk6BDnz3tMisfdbvkl3wWfCtRYEuNpdz8xip2GuGR/uTIZ6AOXmDMatnMbTN3mQa5zBJfauR6H539Gc2OSP1I/soDmd6B4F3ob0DqzD+Nkeyo8ZgeWsK9KIUonhuUdXWjvdjnYV6jqznzP82r1R8CyvrK4HgaTv7E+psb5DRrVzmmyKcoSb+5w3U8q2vHVaHMOQ6AI45dPZXJBXVl/EVO9y0bcSTYZSq375p7o84gg6kg0GIlko54BqnPyNe1z76GlIyWYkcRC+0nf0R2VKN7b+R3qlClzRmezRkUdvpTg85dSBM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(39860400002)(346002)(366004)(136003)(16576012)(53546011)(186003)(4326008)(966005)(66946007)(31686004)(66556008)(26005)(5660300002)(6486002)(86362001)(66476007)(6916009)(956004)(2906002)(4744005)(36756003)(83380400001)(2616005)(54906003)(478600001)(316002)(8936002)(8676002)(52116002)(31696002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: I/9AErA3wWK1LNIo0vVN1MDaJs4UCtKXTL0hnAGgdFA98XeO0FY4mn4soC//hSvKwrqoO75hZRRdFtrzkWl8mO6luK6sWXFO+/OsgH3YHLjHuTVySO8CDzI5w0VJsQco5MUURManphhj6rV3TC5gazFcRC2f7Cws8YgK+PIrMMufeBIggOuzy7moxMTSqwR6S18McqXsfYwf6bYlCDZ+f7NIIwwYeTOO2tRY5gD+rIlaJ1fIzOYYWIZCnODSgfbbLND+UckvcjPzJ5J2qiUFyfjfj1Kj/vN832O/f1gRctn6kZHtVOYXLOCe/QyGlgBEs5KWH5hsjqhHEYiB5QKAladG+4n91rZ6nCvPUVUoH9wVVnOS/rjAfLCiqfE4r2I6iF25FrLMFjnnIyqKWgEOAcu+uEh2o7uNdOOotSN/BLjJY/MPlppbbCg+U1JMzuaPk/B6PIDyaBkA6X7JWi4uvW29GcFAGBOmekz0T6taq155USXhhH1vVZQ/omKRuquH4mfiOKjG6qnlL+ja3Or4JXT7QOEiB540UGSg7c7pIQbWrZxwpTDehJNkZGruu/hJNdNNWZxm8l0r1rEDEnIKTDktXU3dQzk71quOrzhdjaSG5O1a7hEipVf2zbOu+e4s3St4Z/T86e24+eGds8eZYw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 115f8690-d437-4ac7-c8dc-08d8501a4b47
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2020 15:01:53.7413 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8XOBYqfWhXwfl6TGjb1+X+3ucSc8PyuZXKNJajljz92IkQehdk3EGOzL9FvBmGvsYqMhS0/vhAGesM/8S4BO7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,328 +109,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <luben.tuikov@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org,
- Noralf =?iso-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "sathyanarayanan.kuppuswamy@linux.intel.com"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "bhelgaas@google.com" <bhelgaas@google.com>, "Das,
+ Nirmoy" <Nirmoy.Das@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Li,
+ Dennis" <Dennis.Li@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 02, 2020 at 09:26:27AM +0200, Daniel Vetter wrote:
-> Following functions are only used internally, not by drivers:
-> - devm_drm_dev_init
-> =
+This one is very close - 
+https://cgit.freedesktop.org/~agd5f/linux/log/?h=amd-staging-drm-next
 
-> Also, now that we have a very slick and polished way to allocate a
-> drm_device with devm_drm_dev_alloc, update all the docs to reflect the
-> new reality. Mostly this consists of deleting old and misleading
-> hints. Two main ones:
-> =
+Andrey
 
-> - it is no longer required that the drm_device base class is first in
->   the structure. devm_drm_dev_alloc can cope with it being anywhere
-> =
-
-> - obviously embedded now strongly recommends using devm_drm_dev_alloc
-> =
-
-> v2: Fix typos (Noralf)
-> =
-
-> v3: Split out the removal of drm_dev_init, that's blocked on some
-> discussions on how to convert vgem/vkms/i915-selftests. Adjust commit
-> message to reflect that.
-> =
-
-> Cc: Noralf Tr=F8nnes <noralf@tronnes.org>
-> Acked-by: Noralf Tr=F8nnes <noralf@tronnes.org> (v2)
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Luben Tuikov <luben.tuikov@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-
-Ok pushed that now to drm-misc-next. I'm also working on getting the
-remaining bits of the basic drm managed conversion resubmitted. That was
-unfortunately massively sidelined for the dma-fence discussions.
-
-Quick heads-up:
-drmm_add_final_kfree and drm_dev_init will both disappear, please use
-devm_drm_dev_alloc.
-
-Cheers, Daniel
-
-> ---
->  .../driver-api/driver-model/devres.rst        |  2 +-
->  drivers/gpu/drm/drm_drv.c                     | 78 +++++--------------
->  drivers/gpu/drm/drm_managed.c                 |  2 +-
->  include/drm/drm_device.h                      |  2 +-
->  include/drm/drm_drv.h                         | 16 ++--
->  5 files changed, 30 insertions(+), 70 deletions(-)
-> =
-
-> diff --git a/Documentation/driver-api/driver-model/devres.rst b/Documenta=
-tion/driver-api/driver-model/devres.rst
-> index eaaaafc21134..aa4d2420f79e 100644
-> --- a/Documentation/driver-api/driver-model/devres.rst
-> +++ b/Documentation/driver-api/driver-model/devres.rst
-> @@ -263,7 +263,7 @@ DMA
->    dmam_pool_destroy()
->  =
-
->  DRM
-> -  devm_drm_dev_init()
-> +  devm_drm_dev_alloc()
->  =
-
->  GPIO
->    devm_gpiod_get()
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index d4506f7a234e..7c1689842ec0 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -240,13 +240,13 @@ void drm_minor_release(struct drm_minor *minor)
->   * DOC: driver instance overview
->   *
->   * A device instance for a drm driver is represented by &struct drm_devi=
-ce. This
-> - * is initialized with drm_dev_init(), usually from bus-specific ->probe=
-()
-> - * callbacks implemented by the driver. The driver then needs to initial=
-ize all
-> - * the various subsystems for the drm device like memory management, vbl=
-ank
-> - * handling, modesetting support and intial output configuration plus ob=
-viously
-> - * initialize all the corresponding hardware bits. Finally when everythi=
-ng is up
-> - * and running and ready for userspace the device instance can be publis=
-hed
-> - * using drm_dev_register().
-> + * is allocated and initialized with devm_drm_dev_alloc(), usually from
-> + * bus-specific ->probe() callbacks implemented by the driver. The drive=
-r then
-> + * needs to initialize all the various subsystems for the drm device lik=
-e memory
-> + * management, vblank handling, modesetting support and initial output
-> + * configuration plus obviously initialize all the corresponding hardwar=
-e bits.
-> + * Finally when everything is up and running and ready for userspace the=
- device
-> + * instance can be published using drm_dev_register().
->   *
->   * There is also deprecated support for initalizing device instances usi=
-ng
->   * bus-specific helpers and the &drm_driver.load callback. But due to
-> @@ -274,7 +274,7 @@ void drm_minor_release(struct drm_minor *minor)
->   *
->   * The following example shows a typical structure of a DRM display driv=
-er.
->   * The example focus on the probe() function and the other functions tha=
-t is
-> - * almost always present and serves as a demonstration of devm_drm_dev_i=
-nit().
-> + * almost always present and serves as a demonstration of devm_drm_dev_a=
-lloc().
->   *
->   * .. code-block:: c
->   *
-> @@ -294,22 +294,12 @@ void drm_minor_release(struct drm_minor *minor)
->   *		struct drm_device *drm;
->   *		int ret;
->   *
-> - *		// devm_kzalloc() can't be used here because the drm_device '
-> - *		// lifetime can exceed the device lifetime if driver unbind
-> - *		// happens when userspace still has open file descriptors.
-> - *		priv =3D kzalloc(sizeof(*priv), GFP_KERNEL);
-> - *		if (!priv)
-> - *			return -ENOMEM;
-> - *
-> + *		priv =3D devm_drm_dev_alloc(&pdev->dev, &driver_drm_driver,
-> + *					  struct driver_device, drm);
-> + *		if (IS_ERR(priv))
-> + *			return PTR_ERR(priv);
->   *		drm =3D &priv->drm;
->   *
-> - *		ret =3D devm_drm_dev_init(&pdev->dev, drm, &driver_drm_driver);
-> - *		if (ret) {
-> - *			kfree(priv);
-> - *			return ret;
-> - *		}
-> - *		drmm_add_final_kfree(drm, priv);
-> - *
->   *		ret =3D drmm_mode_config_init(drm);
->   *		if (ret)
->   *			return ret;
-> @@ -550,9 +540,9 @@ static void drm_fs_inode_free(struct inode *inode)
->   * following guidelines apply:
->   *
->   *  - The entire device initialization procedure should be run from the
-> - *    &component_master_ops.master_bind callback, starting with drm_dev_=
-init(),
-> - *    then binding all components with component_bind_all() and finishin=
-g with
-> - *    drm_dev_register().
-> + *    &component_master_ops.master_bind callback, starting with
-> + *    devm_drm_dev_alloc(), then binding all components with
-> + *    component_bind_all() and finishing with drm_dev_register().
->   *
->   *  - The opaque pointer passed to all components through component_bind=
-_all()
->   *    should point at &struct drm_device of the device instance, not som=
-e driver
-> @@ -706,24 +696,9 @@ static void devm_drm_dev_init_release(void *data)
->  	drm_dev_put(data);
->  }
->  =
-
-> -/**
-> - * devm_drm_dev_init - Resource managed drm_dev_init()
-> - * @parent: Parent device object
-> - * @dev: DRM device
-> - * @driver: DRM driver
-> - *
-> - * Managed drm_dev_init(). The DRM device initialized with this function=
- is
-> - * automatically put on driver detach using drm_dev_put().
-> - *
-> - * Note that drivers must call drmm_add_final_kfree() after this functio=
-n has
-> - * completed successfully.
-> - *
-> - * RETURNS:
-> - * 0 on success, or error code on failure.
-> - */
-> -int devm_drm_dev_init(struct device *parent,
-> -		      struct drm_device *dev,
-> -		      struct drm_driver *driver)
-> +static int devm_drm_dev_init(struct device *parent,
-> +			     struct drm_device *dev,
-> +			     struct drm_driver *driver)
->  {
->  	int ret;
->  =
-
-> @@ -737,7 +712,6 @@ int devm_drm_dev_init(struct device *parent,
->  =
-
->  	return ret;
->  }
-> -EXPORT_SYMBOL(devm_drm_dev_init);
->  =
-
->  void *__devm_drm_dev_alloc(struct device *parent, struct drm_driver *dri=
-ver,
->  			   size_t size, size_t offset)
-> @@ -767,19 +741,9 @@ EXPORT_SYMBOL(__devm_drm_dev_alloc);
->   * @driver: DRM driver to allocate device for
->   * @parent: Parent device object
->   *
-> - * Allocate and initialize a new DRM device. No device registration is d=
-one.
-> - * Call drm_dev_register() to advertice the device to user space and reg=
-ister it
-> - * with other core subsystems. This should be done last in the device
-> - * initialization sequence to make sure userspace can't access an incons=
-istent
-> - * state.
-> - *
-> - * The initial ref-count of the object is 1. Use drm_dev_get() and
-> - * drm_dev_put() to take and drop further ref-counts.
-> - *
-> - * Note that for purely virtual devices @parent can be NULL.
-> - *
-> - * Drivers that wish to subclass or embed &struct drm_device into their
-> - * own struct should look at using drm_dev_init() instead.
-> + * This is the deprecated version of devm_drm_dev_alloc(), which does no=
-t support
-> + * subclassing through embedding the struct &drm_device in a driver priv=
-ate
-> + * structure, and which does not support automatic cleanup through devre=
-s.
->   *
->   * RETURNS:
->   * Pointer to new DRM device, or ERR_PTR on failure.
-> diff --git a/drivers/gpu/drm/drm_managed.c b/drivers/gpu/drm/drm_managed.c
-> index 1e1356560c2e..c36e3d98fd71 100644
-> --- a/drivers/gpu/drm/drm_managed.c
-> +++ b/drivers/gpu/drm/drm_managed.c
-> @@ -27,7 +27,7 @@
->   * be done directly with drmm_kmalloc() and the related functions. Every=
-thing
->   * will be released on the final drm_dev_put() in reverse order of how t=
-he
->   * release actions have been added and memory has been allocated since d=
-river
-> - * loading started with drm_dev_init().
-> + * loading started with devm_drm_dev_alloc().
->   *
->   * Note that release actions and managed memory can also be added and re=
-moved
->   * during the lifetime of the driver, all the functions are fully concur=
-rent
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index 0988351d743c..f4f68e7a9149 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -92,7 +92,7 @@ struct drm_device {
->  	 * NULL.
->  	 *
->  	 * Instead of using this pointer it is recommended that drivers use
-> -	 * drm_dev_init() and embed struct &drm_device in their larger
-> +	 * devm_drm_dev_alloc() and embed struct &drm_device in their larger
->  	 * per-device structure.
->  	 */
->  	void *dev_private;
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index 6ba7dd11384d..533c6e1a5a95 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -163,13 +163,12 @@ struct drm_driver {
->  	/**
->  	 * @load:
->  	 *
-> -	 * Backward-compatible driver callback to complete
-> -	 * initialization steps after the driver is registered.  For
-> -	 * this reason, may suffer from race conditions and its use is
-> -	 * deprecated for new drivers.  It is therefore only supported
-> -	 * for existing drivers not yet converted to the new scheme.
-> -	 * See drm_dev_init() and drm_dev_register() for proper and
-> -	 * race-free way to set up a &struct drm_device.
-> +	 * Backward-compatible driver callback to complete initialization steps
-> +	 * after the driver is registered.  For this reason, may suffer from
-> +	 * race conditions and its use is deprecated for new drivers.  It is
-> +	 * therefore only supported for existing drivers not yet converted to
-> +	 * the new scheme.  See devm_drm_dev_alloc() and drm_dev_register() for
-> +	 * proper and race-free way to set up a &struct drm_device.
->  	 *
->  	 * This is deprecated, do not use!
->  	 *
-> @@ -595,9 +594,6 @@ struct drm_driver {
->  int drm_dev_init(struct drm_device *dev,
->  		 struct drm_driver *driver,
->  		 struct device *parent);
-> -int devm_drm_dev_init(struct device *parent,
-> -		      struct drm_device *dev,
-> -		      struct drm_driver *driver);
->  =
-
->  void *__devm_drm_dev_alloc(struct device *parent, struct drm_driver *dri=
-ver,
->  			   size_t size, size_t offset);
-> -- =
-
-> 2.28.0
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On 9/2/20 8:41 PM, Bjorn Helgaas wrote:
+> On Wed, Sep 02, 2020 at 11:43:41PM +0000, Grodzovsky, Andrey wrote:
+>> It's based on v5.9-rc2 but won't apply cleanly since there is a
+>> significant amount of amd-staging-drm-next patches which this was
+>> applied on top of.
+> Is there a git branch published somewhere?  It'd be nice to be able to
+> see the whole thing, including the bits that this depends on from
+> amd-staging-drm-next.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
