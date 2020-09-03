@@ -2,105 +2,99 @@ Return-Path: <SRS0=hFGi=CM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B68CFC433E2
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 15:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6591CC433E9
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 16:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DD402072A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 15:58:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 06FFB20775
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2020 16:22:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jRpG7KjW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DD402072A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GoSpmBd/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06FFB20775
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE2AE6E027;
-	Thu,  3 Sep 2020 15:58:08 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700086.outbound.protection.outlook.com [40.107.70.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C0776E027
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 15:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B01F76EA09;
+	Thu,  3 Sep 2020 16:22:13 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 087626E1F7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2020 16:22:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AooWIZ0Y//M9HMRuxDgPoAMJfyY4cf96qICPhHBMZMT776SszO1W7L15kqVh92kmrWJMlxWVExnJSc78dSH3GZ+LNtb/ZY3iWxUntpZTQGPMUvYoyGa/t4yyxXq5zgO4RdOAk1EXObhZSJzPRyUlDE+uV0C8DL1NsEHbRaVvwc6oZAeOpo6j94Ggwd1tpZQhDhZS+bLJpCEQOQFuHphepLE7KTTPzT9gBNGRQE+O2dPOgjirjts+PSFFNvtgz2ncsRjFUyXA73ZWEtT5+gdDkCWLU9PZfDIqYp9k6/yQv+gW5M2lx+Otv7jmsJY0tMi5KRUBDDUjrW7sjx/Ph1Hpow==
+ b=XtQJrgtRE3BuxDzP5u9XLlqX4G6uUnrczGg7j62UsP+1/Q14hpviSzw0NrMq7tU861gqNXbVHyWj1cEE6ydIi1GfU0lFT/Z6/6LVc967kIh9vgX6orZ8FuE7RNFRCgD7ooPWmQN03E0QTfKQIacp9n+1kOwHC6baLycG7eNwElr7ofVt+Kwo15jjOhb/lmp+itH0E4MITBX7JseGIdtVtlrf2tA/vBgIXzATp1OW644DTog4H5rwArtBb9p36qfMRLPZHg+eA1eQLB1ISLKuRb/Fp6w0OmEpu8co4HREK37GrSO1JnUoeea54z1Hgt5YEfnEkAvC3O94lv4MWiSM5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mzI4RsVyOC7bZs3SV0JTIESxM5SL6e/i6nFaHRYyLl4=;
- b=IZJDkbo7kdu2GQj7hJrmqtQTyxgjzZkT9gxcpjZJYehqE3LtM94WZDs0UuhbsGKNVMIsMsdV0FRaJi8siDm5s9CCOVi3tCOmDZyFhhqbaeik4ltLWWc25VD9V74i/mkOmu8CEZkworSdgkEll6bZaDd7SeVrQdX9t7kUD0Ydab5EYmrVe6/46YU0pzo2qSi6+lzjxLdD/FWD3Y+Y7IjXQvq7/V3ghKidiRPW9otOSiyJ0J3LdatWXgrb2o1AH4e9C85RC+kHLL6SW8Dyf5RqYcLb0CRc1nkCiZqqLZ44zdXJoJzl7DywOlFsGafcab9IkAF1PsQ3Ei50E88/ElnNQA==
+ bh=MMzSFHSXv+BWk0jRijO5ddStd0dgN+OP6xAXkt2Lguk=;
+ b=Wog7tpwusNtsQtyFs7P3Rlh25D9b6/h+LJ7jWBleJo//HRQjV9JDG64X7TicCCGpAoizFqs9Qud6aLEsEF9MgXwgEINIUR4ftpdqgaAAzkNVUgTlVOULHcls2lNXn+4SFODCQNesSvM+BKy7IIVJsUiBCvLqWG8fnQy55RePFwPLTQft5mLBrYWACUzN722r/qTDqC8V1dbG48ksbX4vZSHLXELJKR2OxvnfC++Bsy2j/AB/1ksPDtuxma+XsOJhjqMO47ch3C6I8tdk8V5xrKPeIOkzbhsFWtLsL+GujfkQSx5zM24AitMe90kwd0KVm6liMGDFEr5AxNRnN+82vA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mzI4RsVyOC7bZs3SV0JTIESxM5SL6e/i6nFaHRYyLl4=;
- b=jRpG7KjWlq3O/YhxBSMw3MlsZ31hYwtYb/zfiKowEmLHc7V/ayzz2zlI6rmpajAJhSqI381tExjV8pX82avxy3rQSQKn6oZDPk8ICNOQnJyb+sd3AK/fIMsja0oTaujhCSRsIf9LeSs4ybg4KRFyogjzdRSyMiEP3jCsGSPZIzQ=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4568.namprd12.prod.outlook.com (2603:10b6:208:260::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.16; Thu, 3 Sep
- 2020 15:58:05 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb%7]) with mapi id 15.20.3326.025; Thu, 3 Sep 2020
- 15:58:05 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, Bjorn Helgaas
- <helgaas@kernel.org>
-Subject: Re: [PATCH v4 0/8] Implement PCI Error Recovery on Navi12
-Thread-Topic: [PATCH v4 0/8] Implement PCI Error Recovery on Navi12
-Thread-Index: AQHWgVjYn1VhOBXPUk2IzGwT8SswF6lV34WAgAAjj4CAABBDgIAA8EWAgAAPpl0=
-Date: Thu, 3 Sep 2020 15:58:05 +0000
-Message-ID: <MN2PR12MB448809E47F5A330E761C70AEF72C0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200903004153.GA277699@bjorn-Precision-5520>,
- <b44ce880-bbd9-1258-bc54-3b47d798882b@amd.com>
-In-Reply-To: <b44ce880-bbd9-1258-bc54-3b47d798882b@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-03T15:58:04.613Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [172.58.230.210]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e9e25ac6-5721-4c1e-2158-08d85022251d
-x-ms-traffictypediagnostic: MN2PR12MB4568:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4568C7FB358556B4A9A1F3BDF72C0@MN2PR12MB4568.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: m4FZodZZh22Lv/Vpi7KOJCAQYsIUXYidvY0XFKyRQv32Zhd/SGriES4vUilA7r+ggOmkaMt9v5dMY42pd0hc06oQH3zP4lB1dGoGwihQ1sUbMyQ7Zhch27QBgmpTQEmdS/+rtJh0s4fgbhuqNqs/OC6qzHFDCevjIak73rhLA2gZjpK27EHaKJhBxFllZHo3LGUBZdK8P/JL37gwWjMO+swO+f0Mxkj9fG/vLTazcGGUi00UKqmE/C7qdkIFarvDuSC1YVW0splZ+bWqyvOpjUZRijR4hjn++OthJSXpGc012bLOgX2j5wyF6Q2KrDsugvVVeKlF3emij7il1BM22przNPFO4Qo1QmuHTlfp35o=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(136003)(376002)(39860400002)(366004)(186003)(19627405001)(8676002)(8936002)(76116006)(55016002)(66476007)(66556008)(478600001)(66946007)(2906002)(64756008)(86362001)(966005)(66446008)(9686003)(7696005)(166002)(33656002)(4326008)(52536014)(53546011)(71200400001)(5660300002)(110136005)(54906003)(6506007)(83380400001)(316002)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: kHoPM90m/ilmPBTec35dzxFyPPCgYCvvrGlwBiEnOA89460cY/QvIMewJ+paxll0ERjaqnlA1KeyJVaEtqYSx+Hd3f9pB56BVM82lPXd3njjyoJEs3Ekd9KaOpwpnAGaapbs2GHA0jmx7ZHrORAssTMFu/pKyX7CVwL3b7dumT9twWslOkEAAKdPAKHxrgolCngqDv+fvXG7NTV3Gm7wOWe7WIPF2s4gIsLDSFfyzS1M6uhV54vnTo9PvNSb6Lcmzuz1p2XJI1CGEkYvozwmVzLVJhhLlrL/oQPbnClRxXHZu9cxTf8PkpdCUS9j/B68Ud7y2UIw2Ft1tRKvfcCs1uHIzS8ELOcm43pKbs9YgsoMkWGJWm3QE0j8WCcf6NZxLgX2L82/VS74zv/x4wjvEmGHdVpHjEf8I+lYZHos4tlvZjy9+OkOrX7QKKTdqGbkHsludiM0+gl/yDPXmMnh2tq9R4jodR5Y51VqerzroorgHhGfTzjW7VI4Q2wM7WZOMy6+UITOa3mNKSQVuFMxHKLzhg90E4OTCq99BlYrnvEjyQMA8J522fhc4f97BuT5k0Te5px2kJPdoZ85ySZ0KRLNLC7RlLNalMZyob5UIzG3E0AmguoNGUl26HO+yZWRfnxe17LXCzO+oAexjIXUhg==
+ bh=MMzSFHSXv+BWk0jRijO5ddStd0dgN+OP6xAXkt2Lguk=;
+ b=GoSpmBd/ueB6+Li5VKuAc0ifRoJMelgHG+uia7iRh0Odvwh6WmVabWFAQanGFeSQhObB7SJfKVTCPczQ8NxV1bepwmpWvCWP9WN4k5t5+dF/5ifCO7N8SlNyIm0oExdDM24chFh0ZdHG85z3SE7qmS5knd4kDPNy1jRzowOPKRY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from BN6PR1201MB0146.namprd12.prod.outlook.com
+ (2603:10b6:405:59::18) by BN8PR12MB2978.namprd12.prod.outlook.com
+ (2603:10b6:408:42::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.23; Thu, 3 Sep
+ 2020 16:22:09 +0000
+Received: from BN6PR1201MB0146.namprd12.prod.outlook.com
+ ([fe80::615d:bea9:8838:92be]) by BN6PR1201MB0146.namprd12.prod.outlook.com
+ ([fe80::615d:bea9:8838:92be%4]) with mapi id 15.20.3348.016; Thu, 3 Sep 2020
+ 16:22:09 +0000
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/6] drm/amdgpu: stop resetting xgmi perfmons on disable
+Date: Thu,  3 Sep 2020 12:21:49 -0400
+Message-Id: <20200903162154.55694-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: YTXPR0101CA0027.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::40) To BN6PR1201MB0146.namprd12.prod.outlook.com
+ (2603:10b6:405:59::18)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from 255.255.255.255 (255.255.255.255) by
+ YTXPR0101CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3326.19 via Frontend Transport; Thu, 3 Sep 2020 16:22:08 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: ebf5bd9b-b106-48ab-38df-08d850258192
+X-MS-TrafficTypeDiagnostic: BN8PR12MB2978:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN8PR12MB2978FA36D3B704F39A42F54B852C0@BN8PR12MB2978.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: l4wJHM3MpBoF4nQdm4sRIy1p4UKaP3bDp/gMmswDB2Xq3g9fWWn50FK04ABdxdZ53uYypNEvXMXxtlhifmNjAuAxyN2ot7tpBCbxynViBU+QBdiuBIXd30IOgt0NAvLy45RnhAvYI3Yc1+l7jok86G3Hh5tRuiSalIZ3d8QMfL5wHeJo08chVqVq+AOq0gk8VAMqoMYmHnMkhf59A3dUWNnu/m0viwxSehWuW5gBNXW333P1QXW/RaydU/0SRnUpYHurX66w4+d+tiK784OdYSLspo4D5PIPmmXeITF0Q5QaOOicNNu+25OUW1wcy4JP
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR1201MB0146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(316002)(54906003)(2906002)(6486002)(4326008)(16576012)(478600001)(8936002)(6666004)(83380400001)(8676002)(66556008)(52116002)(6916009)(66476007)(5660300002)(86362001)(2616005)(186003)(44832011)(1076003)(66946007)(956004)(36756003)(26005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: yOBbOzYbJP9w7FXEOytkhPjKKSGo16K1WDEM8szl1OZPw/vzoyQkBsBm3Ixa+jG3C6dH9c6icFUD51yLTQlt5gjJtt1rKyx00GpvCtylj0kkwLC0nkmsoTHPG3q469kkkOvHH2UuAV+eB6OuW2d4Nw4N0xFN6pGx4zSgM5Pca2ymP+tdlsKvI1IMWC8tihFEKYm2zuZjMymwe1emsR7/dekFw3KHTt1I6x6sbBlhuOE9/fBeMNr/EoCAh+UOQrMJZAVbIsL6LcA6lBH+7cnrv2VsPr1O7aZmB5YesWpAU9m30D/M8/gbmpuyFYu9Zey0zZVhpLB6q4Ffahdpx6jrpEI+Jf9IqpoVGiUQxMk2gVq2p3Lijh00G2e948YZs7tJ4MR8+siMiaBSqjOxWdDFc0arHJOhkSMYptYloYD03Z0bXXmXO2sOWwRcQJzgE20eu2b0b5dTknGe8jA5pAAN5OmG5TAKNPjohaTdOYJYvGdi3nJ6s2jFsOSr6NWQU34kZnphnFggnIJ9t+qH5ndgAthUch/oYDibFFXRy1toG22WDYnCDFOfzEEGbCjvKvI1QMg7BlnRTcqoXzckdDgfhkGKbKNWvHBUocYLlmxNzrx5s+SkW5ngNVGvdSGiJB7M+CWMeb/5NDe+zjWi8CV8ZA==
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebf5bd9b-b106-48ab-38df-08d850258192
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR1201MB0146.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9e25ac6-5721-4c1e-2158-08d85022251d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2020 15:58:05.3317 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BK3F8sAlEkjvIkKEY+/v5rE6bPz2q6foao7TpeFx53P8MKH6uGvYx/smpwFExuhPuEGg0a/SuejVBxhiyPTcxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4568
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2020 16:22:09.2720 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YsWTthvYXA4gDMY3SViNexc8Wi+F/i/Cr1cVf5dW1VJMbKqaiqrHT2HaSauPo7Ez
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2978
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,144 +106,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>,
- "sathyanarayanan.kuppuswamy@linux.intel.com"
- <sathyanarayanan.kuppuswamy@linux.intel.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Das,
- Nirmoy" <Nirmoy.Das@amd.com>, "bhelgaas@google.com" <bhelgaas@google.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Li,
- Dennis" <Dennis.Li@amd.com>
-Content-Type: multipart/mixed; boundary="===============0191110933=="
+Cc: Felix.Kuehling@amd.com, Jonathan Kim <Jonathan.Kim@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0191110933==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB448809E47F5A330E761C70AEF72C0MN2PR12MB4488namp_"
+Disabling perf events does not specify reset in ABI so stop doing it in
+hardware.
 
---_000_MN2PR12MB448809E47F5A330E761C70AEF72C0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jonathan Kim <Jonathan.Kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_df.h |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c   | 23 ++++++++++++++---------
+ 2 files changed, 16 insertions(+), 11 deletions(-)
 
-[AMD Official Use Only - Internal Distribution Only]
-
-I'll push an updated branch shortly.
-
-Alex
-________________________________
-From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-Sent: Thursday, September 3, 2020 11:01 AM
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; sathyana=
-rayanan.kuppuswamy@linux.intel.com <sathyanarayanan.kuppuswamy@linux.intel.=
-com>; linux-pci@vger.kernel.org <linux-pci@vger.kernel.org>; Deucher, Alexa=
-nder <Alexander.Deucher@amd.com>; Das, Nirmoy <Nirmoy.Das@amd.com>; Li, Den=
-nis <Dennis.Li@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Tuik=
-ov, Luben <Luben.Tuikov@amd.com>; bhelgaas@google.com <bhelgaas@google.com>
-Subject: Re: [PATCH v4 0/8] Implement PCI Error Recovery on Navi12
-
-This one is very close -
-https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Damd-staging-drm-next
-
-Andrey
-
-On 9/2/20 8:41 PM, Bjorn Helgaas wrote:
-> On Wed, Sep 02, 2020 at 11:43:41PM +0000, Grodzovsky, Andrey wrote:
->> It's based on v5.9-rc2 but won't apply cleanly since there is a
->> significant amount of amd-staging-drm-next patches which this was
->> applied on top of.
-> Is there a git branch published somewhere?  It'd be nice to be able to
-> see the whole thing, including the bits that this depends on from
-> amd-staging-drm-next.
-
---_000_MN2PR12MB448809E47F5A330E761C70AEF72C0MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I'll push an updated branch shortly.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Grodzovsky, Andrey &l=
-t;Andrey.Grodzovsky@amd.com&gt;<br>
-<b>Sent:</b> Thursday, September 3, 2020 11:01 AM<br>
-<b>To:</b> Bjorn Helgaas &lt;helgaas@kernel.org&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; sathyanarayanan.kuppuswamy@linux.intel.com &lt;sathyanarayanan.kuppusw=
-amy@linux.intel.com&gt;; linux-pci@vger.kernel.org &lt;linux-pci@vger.kerne=
-l.org&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;;
- Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;; Li, Dennis &lt;Dennis.Li@amd.com&g=
-t;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Tuikov, Luben &lt;L=
-uben.Tuikov@amd.com&gt;; bhelgaas@google.com &lt;bhelgaas@google.com&gt;<br=
->
-<b>Subject:</b> Re: [PATCH v4 0/8] Implement PCI Error Recovery on Navi12</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This one is very close - <br>
-<a href=3D"https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Damd-staging-d=
-rm-next">https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Damd-staging-drm=
--next</a><br>
-<br>
-Andrey<br>
-<br>
-On 9/2/20 8:41 PM, Bjorn Helgaas wrote:<br>
-&gt; On Wed, Sep 02, 2020 at 11:43:41PM +0000, Grodzovsky, Andrey wrote:<br=
->
-&gt;&gt; It's based on v5.9-rc2 but won't apply cleanly since there is a<br=
->
-&gt;&gt; significant amount of amd-staging-drm-next patches which this was<=
-br>
-&gt;&gt; applied on top of.<br>
-&gt; Is there a git branch published somewhere?&nbsp; It'd be nice to be ab=
-le to<br>
-&gt; see the whole thing, including the bits that this depends on from<br>
-&gt; amd-staging-drm-next.<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB448809E47F5A330E761C70AEF72C0MN2PR12MB4488namp_--
-
---===============0191110933==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+index 61a26c15c8dd..373cdebe0e2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+@@ -44,9 +44,9 @@ struct amdgpu_df_funcs {
+ 	void (*enable_ecc_force_par_wr_rmw)(struct amdgpu_device *adev,
+ 					    bool enable);
+ 	int (*pmc_start)(struct amdgpu_device *adev, uint64_t config,
+-					 int is_enable);
++					 int is_add);
+ 	int (*pmc_stop)(struct amdgpu_device *adev, uint64_t config,
+-					 int is_disable);
++					 int is_remove);
+ 	void (*pmc_get_count)(struct amdgpu_device *adev, uint64_t config,
+ 					 uint64_t *count);
+ 	uint64_t (*get_fica)(struct amdgpu_device *adev, uint32_t ficaa_val);
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+index 2eab808fffeb..7b89fd2aa44a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+@@ -455,7 +455,8 @@ static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+ 					  uint32_t *lo_base_addr,
+ 					  uint32_t *hi_base_addr,
+ 					  uint32_t *lo_val,
+-					  uint32_t *hi_val)
++					  uint32_t *hi_val,
++					  bool is_enable)
+ {
+ 
+ 	uint32_t eventsel, instance, unitmask;
+@@ -477,7 +478,8 @@ static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+ 	instance_5432 = (instance >> 2) & 0xf;
+ 	instance_76 = (instance >> 6) & 0x3;
+ 
+-	*lo_val = (unitmask << 8) | (instance_10 << 6) | eventsel | (1 << 22);
++	*lo_val = (unitmask << 8) | (instance_10 << 6) | eventsel;
++	*lo_val = is_enable ? *lo_val | (1 << 22) : *lo_val & ~(1 << 22);
+ 	*hi_val = (instance_76 << 29) | instance_5432;
+ 
+ 	DRM_DEBUG_DRIVER("config=%llx addr=%08x:%08x val=%08x:%08x",
+@@ -572,14 +574,14 @@ static void df_v3_6_reset_perfmon_cntr(struct amdgpu_device *adev,
+ }
+ 
+ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
+-			     int is_enable)
++			     int is_add)
+ {
+ 	uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
+ 	int err = 0, ret = 0;
+ 
+ 	switch (adev->asic_type) {
+ 	case CHIP_VEGA20:
+-		if (is_enable)
++		if (is_add)
+ 			return df_v3_6_pmc_add_cntr(adev, config);
+ 
+ 		df_v3_6_reset_perfmon_cntr(adev, config);
+@@ -589,7 +591,8 @@ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
+ 					&lo_base_addr,
+ 					&hi_base_addr,
+ 					&lo_val,
+-					&hi_val);
++					&hi_val,
++					true);
+ 
+ 		if (ret)
+ 			return ret;
+@@ -612,7 +615,7 @@ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
+ }
+ 
+ static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
+-			    int is_disable)
++			    int is_remove)
+ {
+ 	uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
+ 	int ret = 0;
+@@ -624,15 +627,17 @@ static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
+ 			&lo_base_addr,
+ 			&hi_base_addr,
+ 			&lo_val,
+-			&hi_val);
++			&hi_val,
++			false);
+ 
+ 		if (ret)
+ 			return ret;
+ 
+-		df_v3_6_reset_perfmon_cntr(adev, config);
+ 
+-		if (is_disable)
++		if (is_remove) {
++			df_v3_6_reset_perfmon_cntr(adev, config);
+ 			df_v3_6_pmc_release_cntr(adev, config);
++		}
+ 
+ 		break;
+ 	default:
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0191110933==--
