@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C1B1C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 16:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 775C5C43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 16:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB6E121D7D
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 16:34:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 251F3221E7
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 16:34:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQYf5h4s"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB6E121D7D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOCaDx7Y"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 251F3221E7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60C3C6E4CD;
-	Mon,  7 Sep 2020 16:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA1826E4F9;
+	Mon,  7 Sep 2020 16:34:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF4C06E4C9;
- Mon,  7 Sep 2020 16:34:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D919D6E4F9;
+ Mon,  7 Sep 2020 16:34:57 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D180121D79;
- Mon,  7 Sep 2020 16:34:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E48D821D94;
+ Mon,  7 Sep 2020 16:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599496462;
- bh=uOc0azX8v4k0GSQ8D2c65Vbw9pkR+3DpUsRWNI9PVYg=;
+ s=default; t=1599496497;
+ bh=Hw1X4RE33CTzK4sAiopuEovNVhAN4Phqjl630csa/VU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JQYf5h4sF4825/mVNXiK5HwIvosOgPTBMi5PhhnsRJcSr8PiySMhAaL57i4tqC4L8
- oOsiwxhICxoWyQHzseZkWopqn8wkIhUqySehYaFsffEPM2imnWXS9bRmWPjpJ4TEMm
- Ym48jke7bfG9QDwvtr6C9v5i2UcCtvGrtXuW6Et4=
+ b=VOCaDx7YvtHVo/Qat1mSREoT75qw2zWQPCIdwiDBgbhKUipIFKtDTWUt1OrrxF1QR
+ 7RwswzW6a4WDVlqnTsDTU3e2bZIgP6OMu+nbq7+B9sxjDlUqMtnJbqN/IkE6NTr2Yn
+ yua1y8A958DAqCDt+rw+b9Tm/mCc7qeyQodSbLvw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 41/43] drm/amdgpu: Fix bug in reporting voltage
+Subject: [PATCH AUTOSEL 4.19 24/26] drm/amdgpu: Fix bug in reporting voltage
  for CIK
-Date: Mon,  7 Sep 2020 12:33:27 -0400
-Message-Id: <20200907163329.1280888-41-sashal@kernel.org>
+Date: Mon,  7 Sep 2020 12:34:24 -0400
+Message-Id: <20200907163426.1281284-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200907163329.1280888-1-sashal@kernel.org>
-References: <20200907163329.1280888-1-sashal@kernel.org>
+In-Reply-To: <20200907163426.1281284-1-sashal@kernel.org>
+References: <20200907163426.1281284-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -92,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index e6da53e9c3f46..3a2a1dc9a786a 100644
+index 219440bebd052..72c0a2ae2dd4f 100644
 --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
 +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3575,7 +3575,8 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+@@ -3566,7 +3566,8 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
  	case AMDGPU_PP_SENSOR_GPU_POWER:
  		return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
  	case AMDGPU_PP_SENSOR_VDDGFX:
