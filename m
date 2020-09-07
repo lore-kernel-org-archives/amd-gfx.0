@@ -2,67 +2,99 @@ Return-Path: <SRS0=05a7=CQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C08E6C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 08:51:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 320A2C43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 09:01:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E095208C7
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 08:51:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B306F208C7
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 09:01:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoH69jlM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E095208C7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="my69akkS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B306F208C7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F686E3F0;
-	Mon,  7 Sep 2020 08:51:45 +0000 (UTC)
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C440189FEA;
- Mon,  7 Sep 2020 08:51:43 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id l17so11925162edq.12;
- Mon, 07 Sep 2020 01:51:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vZFK4W6iAAZOZWydUY/UK+/VjgY7HPnaQzN5OZF/D1o=;
- b=WoH69jlMy4fN1/2ZxpTSfGf4z/G0ceJf1K/6x+4srfk76KZ0qwZ2wAqu7USu09Wvff
- tjFDIMlGJ/wqAECW+jhFSbgBdIvazS1NYLv0GDCqgdQd7NNrbqfq4WJwFaPhRngozWoA
- hVLI0CbTSqAEXQFPhXOcqo/WY2DGVbRY9N+l1v105vypfdqmNY+sy+5y83sYE0Du1Mlm
- KiDfA3LjSLLL986lBANOLtNhCmqcJhMwQpGMGGwuP4Rjwji4+lXyyOQJtAS2o5ZHc0R8
- aakuG56BpfcH1ZXJYtW1PWrQHSyqzJ6C5mBFoJzU+Emgath93QCuiCay5gZdnmPVApBm
- uz/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vZFK4W6iAAZOZWydUY/UK+/VjgY7HPnaQzN5OZF/D1o=;
- b=mCUU/ADkLRPs8iiYkdCrNwmYX3TkBnKpw5t6EA3t5adAhgqzP4ZscM13iQ4ChluUjN
- mnDUo6bvyWZldKpmRxTKvoIN13CaIPjPXWiSiZJN+A/2Ld1ab5KZnuopP2gBMlDRsjyy
- 1sB/4X9goY8b8zVDav3Dz7peFZ8M5Kym5UwoKtJ0o6kGF/lKZpXbtgJLTxI9VazbtNST
- DnvU3SD0KCoey+ebLld4IC3s3tBvY9n7to984+sGQitJ2hxNErVATw52bOdpoa97JW9+
- P8TFMYpiwtk68u+2xKBK5frTf98PLa8I+kbTPAZ/V61VckcHN29eIxwUjfqkKsgLKr7s
- H5LQ==
-X-Gm-Message-State: AOAM532pjgz67pOeDN5wR+Wa5Qkr8iexON0eMbyhHIV/69etJm3X3euO
- 1WRqp4zkQoxzhiKBtJ9o9xvXxBEiwIHiPi/Ca+Y=
-X-Google-Smtp-Source: ABdhPJzpNDvzbfGgOAetDptbl2bW4tp8edW/7S6FfNlaOH26Zmubs/VZdvV9vap3jKhvqzjLTWCUij+C2ka/ZhtSUF8=
-X-Received: by 2002:a05:6402:1d93:: with SMTP id
- dk19mr20610602edb.198.1599468702504; 
- Mon, 07 Sep 2020 01:51:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33DEF6E3FB;
+	Mon,  7 Sep 2020 09:01:57 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC736E3FB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2020 09:01:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mUO5idN8yEQGH2mwpUkJcUsU/xIWHa8QkveRU6xd9ZcPexKAoFd/ycamg7swcZh+efWUaEwANeb63NT907m9ZrcTSuXtXK+Kzv9TSZ0cvF84yc9V7E9ZacGivObMUI1aEn+jcFN5r6XXhgYYfs6EbVvGL0iyPWnR+2utXH/pTk82jPlap8IgXiWtHvT0/j1Rb2++4tHerMBfNOcIbj3o6yAg9O+YObDP83qDFSzUe4DVqYh4+j/xfCrj6DVb0WNBugE4x8k6amBznCAN6OuzS7BD9yhrorxIOlTMyExUyeuJZp9H/3h6+V9j6V5jjzUAfD4X0KTRBRExUla2MR65Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Nz1m2vGkaINZHM0HUien09C8VPs64kiNiDuCCFLmG+k=;
+ b=NmOgzTmpSmqmQdqWnNRAImbtZekco4xq422BlVGvGYpjg9XYTd9TFpdatA+yWEOZaXUVQ6oyGo8l1qyazh78+EbBtwf9emdAX1ON3O/bn7QN5oU68dL3ebWhQYyMnKUFGCOs3r28XPiBq+kga2VjVqWj4r16mYX3DG7xjgZ6XnaTPu5OzkaLp8d44C0OrjgDMG6KZTF7XiN5Y/y4ZKPxoFKI/QUR8GJhzGLVVm0yajM0hEF4r/cOZ9CD8fao164cAYlhx/kfvEHX4eIn13Fpt3zgAudrvYDDowVyTKOxAlAahXv6/ff4zIS8GPCAl+xhSugQ5Y6AcU9aepglPUvJLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Nz1m2vGkaINZHM0HUien09C8VPs64kiNiDuCCFLmG+k=;
+ b=my69akkSfN80Y7n0uA5TNu9UTZwHK6EoUoPvKBQXXKd+tj7dz1Qx+thzNfEnqlYjysBBcnJTIrDW/aGzit1sIGfDgJG5WbHj+PZWrgYgp1WQanJGygYV/Yete/wNAlLoI8gZmVoUSW4JBMSGNFK9S2IXz//TYUce00Hmz7n1ppI=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR1201MB0026.namprd12.prod.outlook.com (2603:10b6:4:52::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3348.15; Mon, 7 Sep 2020 09:01:51 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3348.019; Mon, 7 Sep 2020
+ 09:01:51 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/4] drm/amd/pm: drop dead code
+Date: Mon,  7 Sep 2020 17:01:23 +0800
+Message-Id: <20200907090126.2542-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.28.0
+X-ClientProxiedBy: HK2PR02CA0155.apcprd02.prod.outlook.com
+ (2603:1096:201:1f::15) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
 MIME-Version: 1.0
-References: <20200904160709.123970-1-bas@basnieuwenhuizen.nl>
-In-Reply-To: <20200904160709.123970-1-bas@basnieuwenhuizen.nl>
-From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp@gmail.com>
-Date: Mon, 7 Sep 2020 10:51:31 +0200
-Message-ID: <CAD=4a=UAfoBBUTAxNPu709Q1JbjjwCivmFirC7Ka7DNzM3cSTA@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] amd/display: Add GFX9+ modifier support.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from equan-buildpc.amd.com (58.247.170.242) by
+ HK2PR02CA0155.apcprd02.prod.outlook.com (2603:1096:201:1f::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3348.15 via Frontend Transport; Mon, 7 Sep 2020 09:01:49 +0000
+X-Mailer: git-send-email 2.28.0
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2ceeda15-25ea-4f6c-b787-08d8530ca900
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0026:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB00260B8AA28EF908E52FFAAEE4280@DM5PR1201MB0026.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6s+j77AnNFoWigHFkgzm+6gcOn0SJ3MhrRhzGE5uNAwjlea+72MeQTMwxNGXcbqis7BWoQFoo706ftNBr+747bDzLyOiEEcj4yCYaVIbX2pSSjexDf12y1vs9UyMu8k1Q0ebciUawfYo2jtzyvmJEP9kRk38GwcnctjFybTzqSJhzep2IqhczmYdn6oMiZVFYLSaWHfEdB78UBObUw3v19M4H6eBZkr0HzeVEpnB68SNq2ExHosoBM1Q6J9/TKivGZeKN+lgMOb94+xxUbqwCeRNF3Mn+5sGqSTuQofHGhgWB8qKPC+DdihYGhGZwV7rUo9FB8dir1ZRPwHMWktOZQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(6666004)(186003)(16526019)(6486002)(26005)(2906002)(6916009)(7696005)(4326008)(36756003)(66476007)(66556008)(8676002)(316002)(66946007)(8936002)(52116002)(54906003)(83380400001)(2616005)(1076003)(956004)(4744005)(5660300002)(86362001)(478600001)(44832011);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: V5t4ejyU5Ht8Et7HBic5pAfDPO7P698hAafDsEaHJzDDycAdxRePtjAxuvBMs+X1Mupdz0Q7rjY73uVdCxbFytA/1nU3M9BHQ3kzTlyzpsGz3Nuh5ohGNq9RrpDZdCQxa28X9lduTnkNVe+2mGvFFLwizMMpEIRCN1cmTs0e6TQKttTx1U8QO+e0PqdguoavCVCsjFRyzczd56qzZa+BRbrZILd0VK5MjCKFBquL3tU4GSAGw+cnTsYbdUTk8PTgWFrYyDwstPCLoM5kDpXSCtZpYX50vH33CAfz9xnJZaFD5ev/s9Pl+jX5l0ogeUw3L2OZsifRT90zboLEf8zTHb8g2xjmqzfN0nLiBpup3YiIxYzldlaaC4yKVl/PTSBuCK3SZfhQyShex0PtkpcI7vNdMjpyok+P9bJHt/hdEvqmqM/0gim+Nz1whbWPIu+tKQtsorYUX7s0qazbWSAQuPAFhh/5jRfZj5y5mhM9Jx0HYmDV2k/JNmAFBcm8UgrB7eZm1+g2fb0OU15n6gOX2sUimyaa3zAPsJDRG28MZE/uKPwmN5ZQSUuyhzDJp2lu41IWsJLNPJIbgxZuLyjSeK+3Wwtbw6FFjdwHBix6t4DRZ27ZPnr1I8UoZpGoM8Jo1+/ZAS40BrPMkr/1VyOuOA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ceeda15-25ea-4f6c-b787-08d8530ca900
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2020 09:01:51.6322 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 03Fck0Iiz9gp9UmCfmFBoD1KoXXGLrXZp8okFY24gzGZcXbeLTbhZXXwhiId7+dz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0026
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,237 +106,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- daniel@fooishbar.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexdeucher@gmail.com>, Harry Wentland <harry.wentland@amd.com>
-Content-Type: multipart/mixed; boundary="===============0067257024=="
+Cc: alexander.deucher@amd.com, ray.huang@amd.com, Evan Quan <evan.quan@amd.com>,
+ Changfeng Zhu <Changfeng.Zhu@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0067257024==
-Content-Type: multipart/alternative; boundary="000000000000d79d4505aeb55316"
+Raven never goes to swsmu path. So "adev->smu.ppt_funcs" will be
+always false.
 
---000000000000d79d4505aeb55316
-Content-Type: text/plain; charset="UTF-8"
+Change-Id: Ia55ad97bcf9ecf135a9bd795f36a5b521d718b20
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Tested-by: Changfeng Zhu <Changfeng.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Den fre 4 sep. 2020 kl 18:07 skrev Bas Nieuwenhuizen <
-bas@basnieuwenhuizen.nl>:
-
-> This adds modifier support to radeonsi.
->
-
-Wouldn't it be more correct to say that this adds modifier support to
-amdgpu (and enables it to work with radeonsi OpenGL)
-or something like that?
-
-//E
-
-
-> It has been tested on
->
-> - VEGA10, RAVEN, NAVI14
-> - weston, sway, X with xf86-video-amdgpu (i.e. legacy path still works)
->
-> and includes some basic testing of the layout code.
->
-> The main goal is to keep it somewhat simple and regression free, so
-> on the display side this series only exposes what the current GPU
-> can render to. While we could expose more I think that is more
-> suitable for follow-up work as the benefit would be minimal and
-> there are some more design discussion there to discuss that are
-> orthogonal from the initial implementation.
->
-> Similarly this series only exposes 32-bpp displayable DCC in the cases
-> that radeonsi would use it and any extra capabilities here should be
-> future work.
->
-> I believe these are by far the most complicated modifiers we've seen
-> up till now, mostly related to
->
-> - GPU identification for cases where it matters wrt tiling.
-> - Every generation having tiling layout changes
-> - Compression settings.
->
-> I believe the complexity is necessary as every layout should be different
-> and all layouts should be the best in some situation (though not all
-> combinations of GPU parameters will actually have an existing GPU).
->
-> That said, on the render side the number of modifiers actually listed for
-> a given GPU is ~10, and in the current implementation that is the same
-> for the display side. (we could expose more actually differing layouts
-> on the display side for cross-GPU compatibility, but I consider that
-> out of scope for this initial work).
->
-> This series can be found on
-> https://github.com/BNieuwenhuizen/linux/tree/modifiers
->
-> An userspace implementation in radeonsi can be found on
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6176
->
-> v2:
->
-> Per suggestion from Daniel Vetter I added logic to get the tiling_flags at
-> addfb2 time and convert them into modifiers for GFX9+.  Furthermore, the
-> DCC
-> constant econding modifers only get exposed on RAVEN2 and newer.
->
-> Bas Nieuwenhuizen (11):
->   drm/amd/display: Do not silently accept DCC for multiplane formats.
->   drm/amd: Init modifier field of helper fb.
->   drm/amd/display: Honor the offset for plane 0.
->   drm/fourcc:  Add AMD DRM modifiers.
->   drm/amd/display: Store tiling_flags in the framebuffer.
->   drm/amd/display: Convert tiling_flags to modifiers.
->   drm/amd/display: Refactor surface tiling setup.
->   drm/amd/display: Set DC options from modifiers.
->   drm/amd/display: Add formats for DCC with 2/3 planes.
->   drm/amd/display: Expose modifiers.
->   drm/amd/display: Clean up GFX9 tiling_flags path.
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 169 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   3 +
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 754 ++++++++++++++----
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   2 -
->  include/uapi/drm/drm_fourcc.h                 | 115 +++
->  6 files changed, 880 insertions(+), 165 deletions(-)
->
-> --
-> 2.28.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---000000000000d79d4505aeb55316
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-family:arial,helvetica,sans-serif"><br></div></div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr" class=3D"gmail_attr">Den fre 4 sep. 2020 kl 18:07=
- skrev Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl">bas=
-@basnieuwenhuizen.nl</a>&gt;:<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
-ing-left:1ex">This adds modifier support to radeonsi.<br></blockquote><div>=
-<br></div><div><div style=3D"font-family:arial,helvetica,sans-serif" class=
-=3D"gmail_default">Wouldn&#39;t it be more correct to say that this adds mo=
-difier support to amdgpu (and enables it to work with radeonsi OpenGL)</div=
-><div style=3D"font-family:arial,helvetica,sans-serif" class=3D"gmail_defau=
-lt">or something like that?</div></div><div><br></div><div><div style=3D"fo=
-nt-family:arial,helvetica,sans-serif" class=3D"gmail_default">//E</div></di=
-v><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-It has been tested on<br>
-<br>
-- VEGA10, RAVEN, NAVI14<br>
-- weston, sway, X with xf86-video-amdgpu (i.e. legacy path still works)<br>
-<br>
-and includes some basic testing of the layout code.<br>
-<br>
-The main goal is to keep it somewhat simple and regression free, so<br>
-on the display side this series only exposes what the current GPU<br>
-can render to. While we could expose more I think that is more<br>
-suitable for follow-up work as the benefit would be minimal and<br>
-there are some more design discussion there to discuss that are<br>
-orthogonal from the initial implementation.<br>
-<br>
-Similarly this series only exposes 32-bpp displayable DCC in the cases<br>
-that radeonsi would use it and any extra capabilities here should be<br>
-future work.<br>
-<br>
-I believe these are by far the most complicated modifiers we&#39;ve seen<br=
->
-up till now, mostly related to<br>
-<br>
-- GPU identification for cases where it matters wrt tiling.<br>
-- Every generation having tiling layout changes<br>
-- Compression settings.<br>
-<br>
-I believe the complexity is necessary as every layout should be different<b=
-r>
-and all layouts should be the best in some situation (though not all<br>
-combinations of GPU parameters will actually have an existing GPU).<br>
-<br>
-That said, on the render side the number of modifiers actually listed for<b=
-r>
-a given GPU is ~10, and in the current implementation that is the same<br>
-for the display side. (we could expose more actually differing layouts<br>
-on the display side for cross-GPU compatibility, but I consider that<br>
-out of scope for this initial work).<br>
-<br>
-This series can be found on<br>
-<a href=3D"https://github.com/BNieuwenhuizen/linux/tree/modifiers" rel=3D"n=
-oreferrer" target=3D"_blank">https://github.com/BNieuwenhuizen/linux/tree/m=
-odifiers</a><br>
-<br>
-An userspace implementation in radeonsi can be found on<br>
-<a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6176" =
-rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/mesa/me=
-sa/-/merge_requests/6176</a><br>
-<br>
-v2:<br>
-<br>
-Per suggestion from Daniel Vetter I added logic to get the tiling_flags at<=
-br>
-addfb2 time and convert them into modifiers for GFX9+.=C2=A0 Furthermore, t=
-he DCC<br>
-constant econding modifers only get exposed on RAVEN2 and newer.<br>
-<br>
-Bas Nieuwenhuizen (11):<br>
-=C2=A0 drm/amd/display: Do not silently accept DCC for multiplane formats.<=
-br>
-=C2=A0 drm/amd: Init modifier field of helper fb.<br>
-=C2=A0 drm/amd/display: Honor the offset for plane 0.<br>
-=C2=A0 drm/fourcc:=C2=A0 Add AMD DRM modifiers.<br>
-=C2=A0 drm/amd/display: Store tiling_flags in the framebuffer.<br>
-=C2=A0 drm/amd/display: Convert tiling_flags to modifiers.<br>
-=C2=A0 drm/amd/display: Refactor surface tiling setup.<br>
-=C2=A0 drm/amd/display: Set DC options from modifiers.<br>
-=C2=A0 drm/amd/display: Add formats for DCC with 2/3 planes.<br>
-=C2=A0 drm/amd/display: Expose modifiers.<br>
-=C2=A0 drm/amd/display: Clean up GFX9 tiling_flags path.<br>
-<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_display.c=C2=A0 =C2=A0| 169 +++-<br=
->
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=
-=C2=A0 =C2=A02 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =
-=C2=A03 +<br>
-=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 754 ++++++++++++++---=
--<br>
-=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |=C2=A0 =C2=A02 -<br>
-=C2=A0include/uapi/drm/drm_fourcc.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0| 115 +++<br>
-=C2=A06 files changed, 880 insertions(+), 165 deletions(-)<br>
-<br>
--- <br>
-2.28.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div></div>
-
---000000000000d79d4505aeb55316--
-
---===============0067257024==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index c5f2216e59c4..99ccabcc135e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -592,9 +592,6 @@ void pp_rv_set_wm_ranges(struct pp_smu *pp,
+ 	if (pp_funcs && pp_funcs->set_watermarks_for_clocks_ranges)
+ 		pp_funcs->set_watermarks_for_clocks_ranges(pp_handle,
+ 							   &wm_with_clock_ranges);
+-	else if (adev->smu.ppt_funcs)
+-		smu_set_watermarks_for_clock_ranges(&adev->smu,
+-				&wm_with_clock_ranges);
+ }
+ 
+ void pp_rv_set_pme_wa_enable(struct pp_smu *pp)
+-- 
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0067257024==--
