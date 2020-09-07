@@ -2,105 +2,80 @@ Return-Path: <SRS0=05a7=CQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C137C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 08:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA74FC43461
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 08:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E2EB208C7
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 08:24:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3BB3C21556
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2020 08:26:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Rj7O4Mo7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E2EB208C7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G3DClvfK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BB3C21556
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4C76E3C6;
-	Mon,  7 Sep 2020 08:24:38 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42AC16E3C6
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2020 08:24:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EJVcyyfwt5uWLheJQ8FMc7GuNNeOw6tj7fjSIH9+z1BrZGFBlAIHeH4fXeCi+GqIkNIqGfFIOiIg/hljNGBKHsHMcHJAv/K1+1mGnIhsLFUNElu2zvsBQHfLnZ80HWSaozMiw9XNbs7QYq5WXxHdykUeA1E+AhshZYIcBLnBvdu3Iethi/UC9fuuB1oz8YPa617r6hG8Ho3J8aSlR1WwmS4rmAs7vKW8sC9f/KX3O3AMjc4y5FDnYTYDXuO61znxU1hpptqMxiT4oRyDEjI9Xjds6nkX+mDRrVZCNR4q7/Q4esPl0Yvpmf7lh1902lctkFCEBbI5T+zZlVaTo+6pUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kqsT9fjWlmhqj6P9kFVY7Xb/OGIx1XA24acGand4rAA=;
- b=oOWiVWJmYw03hbGwF12Pmuqy42fK70252Oa4E/SHgjj85eYhqf7CuEAP5MU1A4t67i8f4ydxyPgqBxZjcdPVIeHZqewPEYzHH20d0ByHHKImRZN6jxbL1EVR6lakjpS6WGEbtl6Afv1Aw0W8OxstP8gE3zua1Z/mPCzd11udHNgAmjYH82OL5gyJYtTXVJUgbCeajUdQrjU+5Prg4HBhkc5bhyfRJhYWqFqdA/1wjx3cESaAvylg8OEzN10Cv88GWBKYV7GoCClFa2rMh8hGOWuVlKVNX1U+HRkfkHE4gWgQKuOxSrUO2zRJw/ivIec9aaUkeq0r4+BX7hak4qkADA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kqsT9fjWlmhqj6P9kFVY7Xb/OGIx1XA24acGand4rAA=;
- b=Rj7O4Mo71YWpAlGqdVDbJuVfCDCyfTh6fkOd/e/KsiAIBLr0pDu+28fN/oOWqdg+SAGOTdVbR1+IxdQE+kbIMytG3dsWxjO1wYgOHfzA9fxL9duy3qp7VwVvg02CzLLtwCFmHHelcoZV/UpQ8viz26L40xg3DAhWBKRxt1vfp18=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4224.namprd12.prod.outlook.com (2603:10b6:208:1dd::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.15; Mon, 7 Sep
- 2020 08:24:35 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3348.019; Mon, 7 Sep 2020
- 08:24:35 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D45C56E3C1;
+	Mon,  7 Sep 2020 08:26:02 +0000 (UTC)
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC1D56E3C1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2020 08:26:01 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id q21so11938489edv.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Sep 2020 01:26:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language;
+ bh=ZUSDzrfQJ+V/xzADLiijX6iwJW7WmzBRMFPpsbjvIvI=;
+ b=G3DClvfKVYG9vUxY7Mxh9P+Vem+r9wERgiLEL+1B2dMu/PAh4nqCz5e3M2nUo5dCSE
+ ONRSn8FtdTPx77iPUlQ6gJniNyhBWXdZfstY0kx6mGbyaZndvXatTUBNV+03wjZn2PqZ
+ DNEJ/aTjaB/VduyK1cQndotscjwT4VyYrDkyK8qWJ7aV4NwkzGDZnk+JGS+U2HdGysqK
+ AuwvfQecJ0ES/IMOvBSIyzsrFxTBggxqqB9ehZP46PKzSvlI027ozMoXD1ybdkggpDFK
+ OvmyZ8qQl08MYZ7/QnOLyKRv1xPs2h+9gc+7hSrkCsNO/m/vk0d+vL3knA7fdLy4TH2D
+ vp/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language;
+ bh=ZUSDzrfQJ+V/xzADLiijX6iwJW7WmzBRMFPpsbjvIvI=;
+ b=JNHU4H7It/CxV/JSWnctjVGxTvbciIfA3rQYO1iDhsKiElnWXRmb9FvsvE9Mx2zVNJ
+ /ZYkars29j1WaPN6TyG1eXzEmSSbbLAmyW/w9yESjemuzutt6Qqahp+lhVrTJ9cGbBrA
+ c3shHzzBfneLygcq6xJH7dSbzfm/TfWL4OxaV1kZl2zgFtEeOYk2LdHmaQX/D0uCYBsa
+ 9GNJzWCNLNd5PCZuLmah7lrlMjarH9I2Pdl9sYbqt84tXIQXBgMJJZTB6HOobbZNl/Np
+ Y/KD2J3ruOLjAPh2KmMLshtGnm4xBZta1oF1mJGFzVckUGc+Mzm3RvEx640OEEumxkFW
+ pRkA==
+X-Gm-Message-State: AOAM533KnhuzU25Eb7pOkHMD5BpGTr25h29sNXDneEJhuh5QvEMC+Cv1
+ Jl/0hDDY4I3y5ATLccJIDv98ge0H5yE=
+X-Google-Smtp-Source: ABdhPJy1ad0MrhcFx5IYF5WZqWHSxYrNiDvIAfEiaRyukZXlZIAAue/VbNhLgSsk4DCikDz4CK9q4g==
+X-Received: by 2002:a05:6402:8d3:: with SMTP id
+ d19mr20359660edz.68.1599467160174; 
+ Mon, 07 Sep 2020 01:26:00 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id t14sm14269327edc.7.2020.09.07.01.25.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2020 01:25:59 -0700 (PDT)
 Subject: Re: [PATCH] radeon: Use only a single work queue thread for crt
-To: Dave Airlie <airlied@gmail.com>
+To: Jan Vesely <jan.vesely@rutgers.edu>,
+ "Koenig, Christian" <christian.koenig@amd.com>
 References: <20190803000908.5310-1-andi@firstfloor.org>
  <47558836-612d-75e3-c4a8-7b8baf53036d@gmail.com>
- <CAPM=9tw4Md4j95+Zk6LbCZkyj6AFPZSuXacpY3MEabgu20S6Lw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <3cfac48c-700e-24ce-7677-ca93f7589509@amd.com>
-Date: Mon, 7 Sep 2020 10:24:29 +0200
+ <CABE_ZV3Uk69RXv9RYj5d7cNXi5pX16Ve8qkkGPB5=OAX5b_6Rg@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <4d01188b-bc90-2ae8-2ca3-c12159413bc9@gmail.com>
+Date: Mon, 7 Sep 2020 10:25:58 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <CAPM=9tw4Md4j95+Zk6LbCZkyj6AFPZSuXacpY3MEabgu20S6Lw@mail.gmail.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR05CA0019.eurprd05.prod.outlook.com (2603:10a6:205::32)
- To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR05CA0019.eurprd05.prod.outlook.com (2603:10a6:205::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3348.15 via Frontend Transport; Mon, 7 Sep 2020 08:24:34 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 10ca0234-8b34-46e2-fe50-08d85307741a
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4224:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4224647E998FEF3A4715294783280@MN2PR12MB4224.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r3BgOz6ez9sQIgNAbWr7jgDi/xdfKbd9k9JTUv7PmYMtltpv6uyEa1OoYsZT43efxSfpEctkcJJli/rnD8zKKGIcKIvgU/wSVYfGPFdd4sQ3za6zN0eKIQNTFuwgH3QpyR3Nk4caltQbzJFNMKtxAnSXRw9jEVrXbOpbzXldoAws9R6E7AEJG4S4jjuIpwBItWdWR9OLuQ7ZPqT7krk8a0iflvkDSazhGB9RzKav1iZZpT73gCx8O1uh4JFhg9yMPwK2GD/3IQ2zADROVGenevkMJpBRs7ajHWDm79OPmmEl/MTyjExmqTbnP3DKSRqW8S3QNABGHPvwHvDTJBHJBp9hyCA/xt5ySnQFFYz+fWJ0yfMubvF2roMVoGoPCb0H
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(396003)(366004)(376002)(346002)(31696002)(2616005)(6486002)(4744005)(66556008)(66476007)(66946007)(5660300002)(36756003)(83380400001)(16526019)(31686004)(186003)(6916009)(86362001)(2906002)(54906003)(6666004)(478600001)(4326008)(52116002)(316002)(8936002)(8676002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: o5YxOhR2SKA+av2fURIm7jBHAidaqKIGq0/YNxmqVIzp5y9Jf1P3qCFUjEJ1WHW1zWDMEU/CeE2Hjf+pgFb7msrzNaO25dSod+7UoK0wgalmyFSz/Rqre8cvtqnv6t0YG5pa2QAVQqaBMCSCgIB80xxp6D1OCGgcVVYmZ23/pEeU2BKoHC0IhnCBm+SDi2AGihV7653mpnUO5bz6JAeHeuR+1nxyOwm+/OBNfDfxxIg2xbG5BKVXykOUV5ZU+wAKuDxSJ36ydXYpukmUTq3Bdbr5VayI6PNtH3OuKBh4VfMZISzS/kti8XK2z5inARt5MnoubkZEqNlEURo3SjRhJcBd1UM2kTphCybQos3HEcPN9TtyvontsB5ym9mGwuVJAnRir2bOm2dwb+MhDNEMyUTWleRc16Z/Ylr6+REdKVNCmsPGR/j4DopJ4L1urrk2M2ABdox/IClsXgfxC90uBtF0UNgRbGWzU4+tpO1MIu8yHW+UF14cMcN9ycZeAMhpkr1Ery5P3UpdT8F5Kxd1j4Vo4UlPlOxnnfxuulIHkaLdZU/z9uwM1vOM7mwCmhI06ELYG45lppAJws3Qp471ScP9dTsNfjLCYurbgPGCcCPSQzB216/UfzTD6YxaQmZLLQKFGNxRLfVhSiNzDB4q4tUKCf5ARFmWKTsP0fTRjqDN0WNmarJC58ay+cpZv0lhWTLi4txDyLutoNKpMgiUvA==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10ca0234-8b34-46e2-fe50-08d85307741a
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2020 08:24:35.2766 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +nAH/usPp4fV5DdRHpeHGp5mXcuGpaH881s0HCJPBLRpkrlnntf486cSPlAkVdxp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4224
+In-Reply-To: <CABE_ZV3Uk69RXv9RYj5d7cNXi5pX16Ve8qkkGPB5=OAX5b_6Rg@mail.gmail.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,27 +87,230 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Andi Kleen <ak@linux.intel.com>, Andi Kleen <andi@firstfloor.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Andi Kleen <ak@linux.intel.com>,
+ Andi Kleen <andi@firstfloor.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0075331282=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDcuMDkuMjAgdW0gMDE6NDcgc2NocmllYiBEYXZlIEFpcmxpZToKPiBPbiBTdW4sIDYgU2Vw
-IDIwMjAgYXQgMTg6NTQsIENocmlzdGlhbiBLw7ZuaWcKPiA8Y2tvZW5pZy5sZWljaHR6dW1lcmtl
-bkBnbWFpbC5jb20+IHdyb3RlOgo+PiBBbSAwMy4wOC4xOSB1bSAwMjowOSBzY2hyaWViIEFuZGkg
-S2xlZW46Cj4+PiBGcm9tOiBBbmRpIEtsZWVuIDxha0BsaW51eC5pbnRlbC5jb20+Cj4+Pgo+Pj4g
-SSBnb3QgdGlyZWQgb2Ygc2VlaW5nIGEgbG90IG9mIHJhZGVvbi1jcnQga2VybmVsIHRocmVhZHMg
-aW4gcHMgb24gbXkKPj4+IHdvcmtzdGF0aW9uLCBvbmUgZm9yIGVhY2ggQ1BVIGFuZCBvbmUgZm9y
-IGVhY2ggZGlzcGxheSwgd2hpY2ggbmV2ZXIgdXNlIGFueSBDUFUgdGltZS4KPj4+IFN1cmVseSBh
-IHNpbmdsZSBrZXJuZWwgdGhyZWFkIGlzIGVub3VnaCB0byBoYW5kbGUgdGhlIGRpc3BsYXkuCj4+
-IE5BSywgcmFkZW9uIGJsb2NrcyBpbnNpZGUgdGhlIGtlcm5lbCB0aHJlYWQgYW5kIHRob3NlIG5l
-ZWQgdG8gcnVuIGluCj4+IHBhcmFsbGVsIG9yIG90aGVyd2lzZSB0aGUgaGFyZHdhcmUgY2FuIGhh
-bmcuCj4gRG8gd2UgbmVlZCBvbmUgcGVyIGNwdT8gb3IgaXMgb25lIHBlciBjcnRjIGVub3VnaD8K
-Ck9uZSBwZXIgQ1JUQyBpcyBlbm91Z2gsIGJ1dCB0aGUgcGF0Y2ggZGVzY3JpcHRpb24gc291bmRz
-IGxpa2UgaXQgY3JlYXRlcyAKb25seSBhIGdsb2JhbCBvbmUuCgpDaHJpc3RpYW4uCgo+Cj4gRGF2
-ZS4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0075331282==
+Content-Type: multipart/alternative;
+ boundary="------------1DEF7B2D6C25FBB1578337CC"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------1DEF7B2D6C25FBB1578337CC
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 06.09.20 um 18:02 schrieb Jan Vesely:
+>
+>
+> On Sun, Sep 6, 2020 at 4:54 AM Christian König 
+> <ckoenig.leichtzumerken@gmail.com 
+> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
+>
+>     Am 03.08.19 um 02:09 schrieb Andi Kleen:
+>     > From: Andi Kleen <ak@linux.intel.com <mailto:ak@linux.intel.com>>
+>     >
+>     > I got tired of seeing a lot of radeon-crt kernel threads in ps on my
+>     > workstation, one for each CPU and one for each display, which
+>     never use any CPU time.
+>     > Surely a single kernel thread is enough to handle the display.
+>
+>     NAK, radeon blocks inside the kernel thread and those need to run in
+>     parallel or otherwise the hardware can hang.
+>
+>
+> Shouldn't WQ_UNBOUND create a new worker thread whenever all current 
+> workers go to sleep/block (and the total number of worker threads is 
+> below 'max_active') ?
+
+If that is guaranteed then this is indeed sufficient, but the sentence 
+"Surely a single kernel thread is enough to handle the display." sounded 
+like it creates only a single one.
+
+Christian.
+
+>
+> Jan
+>
+>
+>     Christian.
+>
+>     >
+>     > Signed-off-by: Andi Kleen <ak@linux.intel.com
+>     <mailto:ak@linux.intel.com>>
+>     > ---
+>     >   drivers/gpu/drm/radeon/radeon_display.c | 2 +-
+>     >   1 file changed, 1 insertion(+), 1 deletion(-)
+>     >
+>     > diff --git a/drivers/gpu/drm/radeon/radeon_display.c
+>     b/drivers/gpu/drm/radeon/radeon_display.c
+>     > index bd52f15e6330..fb0ca688f6fe 100644
+>     > --- a/drivers/gpu/drm/radeon/radeon_display.c
+>     > +++ b/drivers/gpu/drm/radeon/radeon_display.c
+>     > @@ -682,7 +682,7 @@ static void radeon_crtc_init(struct
+>     drm_device *dev, int index)
+>     >
+>     >  drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
+>     >       radeon_crtc->crtc_id = index;
+>     > -     radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc",
+>     WQ_HIGHPRI, 0);
+>     > +     radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc",
+>     WQ_HIGHPRI|WQ_UNBOUND, 0);
+>     >       rdev->mode_info.crtcs[index] = radeon_crtc;
+>     >
+>     >       if (rdev->family >= CHIP_BONAIRE) {
+>
+>     _______________________________________________
+>     amd-gfx mailing list
+>     amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------1DEF7B2D6C25FBB1578337CC
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">Am 06.09.20 um 18:02 schrieb Jan
+      Vesely:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CABE_ZV3Uk69RXv9RYj5d7cNXi5pX16Ve8qkkGPB5=OAX5b_6Rg@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div dir="ltr"><br>
+        </div>
+        <br>
+        <div class="gmail_quote">
+          <div dir="ltr" class="gmail_attr">On Sun, Sep 6, 2020 at 4:54
+            AM Christian König &lt;<a
+              href="mailto:ckoenig.leichtzumerken@gmail.com"
+              moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;
+            wrote:<br>
+          </div>
+          <blockquote class="gmail_quote" style="margin:0px 0px 0px
+            0.8ex;border-left:1px solid
+            rgb(204,204,204);padding-left:1ex">Am 03.08.19 um 02:09
+            schrieb Andi Kleen:<br>
+            &gt; From: Andi Kleen &lt;<a
+              href="mailto:ak@linux.intel.com" target="_blank"
+              moz-do-not-send="true">ak@linux.intel.com</a>&gt;<br>
+            &gt;<br>
+            &gt; I got tired of seeing a lot of radeon-crt kernel
+            threads in ps on my<br>
+            &gt; workstation, one for each CPU and one for each display,
+            which never use any CPU time.<br>
+            &gt; Surely a single kernel thread is enough to handle the
+            display.<br>
+            <br>
+            NAK, radeon blocks inside the kernel thread and those need
+            to run in <br>
+            parallel or otherwise the hardware can hang.<br>
+          </blockquote>
+          <div><br>
+            Shouldn't WQ_UNBOUND create a new worker thread whenever all
+            current workers go to sleep/block (and the total number of
+            worker threads is below 'max_active') ?<br>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    If that is guaranteed then this is indeed sufficient, but the
+    sentence "Surely a single kernel thread is enough to handle the
+    display." sounded like it creates only a single one.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CABE_ZV3Uk69RXv9RYj5d7cNXi5pX16Ve8qkkGPB5=OAX5b_6Rg@mail.gmail.com">
+      <div dir="ltr">
+        <div class="gmail_quote">
+          <div><br>
+          </div>
+          <div>Jan</div>
+          <blockquote class="gmail_quote" style="margin:0px 0px 0px
+            0.8ex;border-left:1px solid
+            rgb(204,204,204);padding-left:1ex">
+            <br>
+            Christian.<br>
+            <br>
+            &gt;<br>
+            &gt; Signed-off-by: Andi Kleen &lt;<a
+              href="mailto:ak@linux.intel.com" target="_blank"
+              moz-do-not-send="true">ak@linux.intel.com</a>&gt;<br>
+            &gt; ---<br>
+            &gt;   drivers/gpu/drm/radeon/radeon_display.c | 2 +-<br>
+            &gt;   1 file changed, 1 insertion(+), 1 deletion(-)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/radeon/radeon_display.c
+            b/drivers/gpu/drm/radeon/radeon_display.c<br>
+            &gt; index bd52f15e6330..fb0ca688f6fe 100644<br>
+            &gt; --- a/drivers/gpu/drm/radeon/radeon_display.c<br>
+            &gt; +++ b/drivers/gpu/drm/radeon/radeon_display.c<br>
+            &gt; @@ -682,7 +682,7 @@ static void radeon_crtc_init(struct
+            drm_device *dev, int index)<br>
+            &gt;   <br>
+            &gt;     
+             drm_mode_crtc_set_gamma_size(&amp;radeon_crtc-&gt;base,
+            256);<br>
+            &gt;       radeon_crtc-&gt;crtc_id = index;<br>
+            &gt; -     radeon_crtc-&gt;flip_queue =
+            alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);<br>
+            &gt; +     radeon_crtc-&gt;flip_queue =
+            alloc_workqueue("radeon-crtc", WQ_HIGHPRI|WQ_UNBOUND, 0);<br>
+            &gt;       rdev-&gt;mode_info.crtcs[index] = radeon_crtc;<br>
+            &gt;   <br>
+            &gt;       if (rdev-&gt;family &gt;= CHIP_BONAIRE) {<br>
+            <br>
+            _______________________________________________<br>
+            amd-gfx mailing list<br>
+            <a href="mailto:amd-gfx@lists.freedesktop.org"
+              target="_blank" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a><br>
+            <a
+              href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+              rel="noreferrer" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+          </blockquote>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------1DEF7B2D6C25FBB1578337CC--
+
+--===============0075331282==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0075331282==--
