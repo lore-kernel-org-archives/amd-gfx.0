@@ -2,43 +2,63 @@ Return-Path: <SRS0=5+Vp=CS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2D7DC433E2
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EB80C43461
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 397242075A
+	by mail.kernel.org (Postfix) with ESMTPS id BBB5F21973
 	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 397242075A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEBwEHKE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBB5F21973
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7364E6E9EA;
-	Wed,  9 Sep 2020 07:05:19 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D633C6E828;
- Tue,  8 Sep 2020 13:35:09 +0000 (UTC)
-Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 771094165174DAF404A8;
- Tue,  8 Sep 2020 21:35:03 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
- 14.3.487.0; Tue, 8 Sep 2020 21:34:55 +0800
-From: Chen Zhou <chenzhou10@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCH -next] drm/amd/display: Remove duplicate include
-Date: Tue, 8 Sep 2020 21:35:52 +0800
-Message-ID: <20200908133552.105282-1-chenzhou10@huawei.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBFC76E9F6;
+	Wed,  9 Sep 2020 07:05:20 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09EDC6E859
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2020 16:27:17 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id g96so15326382otb.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2020 09:27:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=qe8786Kv2/Cdda8ENAC5J9OvVx6/GLW0ZvDTGCUEWHI=;
+ b=pEBwEHKEb1Dk4iDE+bs0N/QmZmfmRHAdNjZfAPX4VRrtoLeqOs0RvZiP3PyjyhGTyR
+ 7314mZnv/TVtui8z8++jmRdhor2lXGLxeiyDlFvN52zTnMO4zevmY2agOGtGDjhJRe9n
+ 2GVBGNe42bsAb3MLIRBr1nS7CgafY02zu/kzxWNZFIGhyzvePv5Lh1hkSSz6pkuNALvK
+ nmDT5DrQ+MFgy0hqKBAdlvg5eChxI61+3JKMJvrEHHRPAQus7XNObK8IsKB+rhuGI49C
+ rmXQSScHmMbvAQuES7ldtKynOvtJzb/pf2YPUWMIDgdE6eg9xRq5jSsrbraprvmo+4rl
+ QlVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=qe8786Kv2/Cdda8ENAC5J9OvVx6/GLW0ZvDTGCUEWHI=;
+ b=l4BZDb3UhfylsYmtKk+s36cf5B94oVdmKOBwrFkXTpOnN8BHe8mauiGsHTBiyI2XEG
+ k+xOtfFO7iqT25vo7Mrs5GgVLZo70CSx8x5AQvKyyj83kXGYPYAA42VY4gUQjWMjlFue
+ Wil82OuT0ENFK4j57fufWmOzJHvBixdwAzGaMmIiN/VLi04bmQ2xVZW7xzl5mkB9QJp6
+ KgF37QMTVYtCWyXoss1OBjLeI2dj2D7f5VEY4PuCT4PIsKX05+Gds8y5Zj6gnDkazmmb
+ l1K/yRKGDTSj8MUifdBTbZaZeM0noRo1dVh+9FeXYTm94RipLdChdhwBYfr8Sj74uRoo
+ /psw==
+X-Gm-Message-State: AOAM532bsCvNIULTvU9uZ/qJmCtb/3EdoVxMRhCVi+NOpzfMH44ksRj6
+ ba9qi/ptcko4JsgLvV841NepZ/7bpoo7N8S5dLQ=
+X-Google-Smtp-Source: ABdhPJwF/dno6+Gp7uQwcYtb25LqX/clnTegre5FuzZSMtCcMNYZYLn4O1EQY/jnjgJOWLOT5h/Ux9vDuj/4wGpzMl4=
+X-Received: by 2002:a9d:345:: with SMTP id 63mr18625809otv.370.1599582436249; 
+ Tue, 08 Sep 2020 09:27:16 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
+From: Mikael Pettersson <mikpelinux@gmail.com>
+Date: Tue, 8 Sep 2020 18:27:05 +0200
+Message-ID: <CAM43=SOCs699z9E1EK3EG8BCJFw_9veWa7xWOEokvwj01NVS6Q@mail.gmail.com>
+Subject: [REGRESSION][BISECTED] 5.9-rc4 disables console on radeon
+To: Linux Kernel list <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-Mailman-Approved-At: Wed, 09 Sep 2020 07:05:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,35 +71,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chenzhou10@huawei.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove duplicate header which is included twice.
+Starting with linux-5.9-rc4, the Dell monitor on my desktop PC goes
+black during boot
+when the kernel activates the framebuffer console, except for this
+error message shown
+in the center of the screen:
 
-Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
----
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 1 -
- 1 file changed, 1 deletion(-)
+"Dell U2412M
+ The current input timing is not supported by the monitor display. Please
+ change your input timing to 1920x1200@60Hz or any other monitor
+ listed timing as per the monitor specifications.
+ <DVI symbol>"
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index a5d750ed569e..65dc5dcd4eb8 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -35,7 +35,6 @@
- #include "dcn30_dpp.h"
- #include "dcn10/dcn10_cm_common.h"
- #include "dcn30_cm_common.h"
--#include "clk_mgr.h"
- #include "reg_helper.h"
- #include "abm.h"
- #include "clk_mgr.h"
--- 
-2.17.1
+The monitor remains black until I reboot.
 
+All kernels up to and including 5.9-rc3 were Ok.  A git bisect identified
+
+# first bad commit: [fc8c70526bd30733ea8667adb8b8ffebea30a8ed]
+drm/radeon: Prefer lower feedback dividers
+
+as the culprit, and reverting that from -rc4 makes the console work again.
+
+Adding a bit of debugging code to that function shows:
+
+avivo_get_fb_ref_div: fb_div_new 136 fb_div_old 137
+avivo_get_fb_ref_div: fb_div_new 142 fb_div_old 143
+avivo_get_fb_ref_div: fb_div_new 136 fb_div_old 137
+avivo_get_fb_ref_div: fb_div_new 119 fb_div_old 120
+avivo_get_fb_ref_div: fb_div_new 136 fb_div_old 137
+
+during boot, where "new" is what the commit above changed the code to compute,
+and "old" is the value computed by the working code from rc3.
+
+The graphics card is a Radeon HD6450 silent model:
+01:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+[AMD/ATI] Caicos [Radeon HD 6450/7450/8450 / R5 230 OEM] (prog-if 00
+[VGA controller])
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
