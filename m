@@ -2,55 +2,43 @@ Return-Path: <SRS0=5+Vp=CS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88541C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2D7DC433E2
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95E0E21919
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:26 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MA3klo6H"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95E0E21919
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	by mail.kernel.org (Postfix) with ESMTPS id 397242075A
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 07:05:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 397242075A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B71D6E9EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7364E6E9EA;
 	Wed,  9 Sep 2020 07:05:19 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 279FA6E157;
- Tue,  8 Sep 2020 23:56:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- MIME-Version:Date:Message-ID:Subject:From:To:Sender:Reply-To:Cc:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=EK9nCPA8Amh2jxRu+oV/LS9FWBTa7vHxNwTW3NXJse0=; b=MA3klo6Ht+sTgmyqNNpAuyGXK7
- FIPRvHG4I/77N2XWo41bS5s+vLglm9b18XFMj9rjdzdH0hejbyL4YYA+HK+Aqy7RQ+ZB+opBfvTga
- TsLwFbfbu/kuPp+EtK8m+b2yiQxI7AFvBtwl1eZ+22RUQtlmXTeJoA2p7RS6Vvy+neLVlTOhJKLEO
- gR1TD3GLgvuHLeEnmSLpGS0UsDW1xei8rWVhRaEt8JfvCqC9G3f7o0sZXOuuJ3Szj4MHENTArPGhU
- tqKaFy/ut2sGaMkpv0fNrEjnxPm4HVv2O92X9W2OC+gzxlTauwAzBZyB7zlukZ6VKdxGoQNi/kKl4
- OR9PPI4Q==;
-Received: from [2601:1c0:6280:3f0::19c2]
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kFnTA-0003fN-VS; Tue, 08 Sep 2020 23:56:13 +0000
-To: LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: [PATCH] drm: amd/display: fix spelling of "function"
-Message-ID: <a31672e7-9047-e4ef-93d8-d0c9afd47964@infradead.org>
-Date: Tue, 8 Sep 2020 16:56:09 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D633C6E828;
+ Tue,  8 Sep 2020 13:35:09 +0000 (UTC)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 771094165174DAF404A8;
+ Tue,  8 Sep 2020 21:35:03 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.487.0; Tue, 8 Sep 2020 21:34:55 +0800
+From: Chen Zhou <chenzhou10@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <alexander.deucher@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
+Subject: [PATCH -next] drm/amd/display: Remove duplicate include
+Date: Tue, 8 Sep 2020 21:35:52 +0800
+Message-ID: <20200908133552.105282-1-chenzhou10@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Language: en-US
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 09 Sep 2020 07:05:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,119 +51,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: chenzhou10@huawei.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
+Remove duplicate header which is included twice.
 
-Fix spellos of "function" in drivers/gpu/drm/amd/display/.
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h   |    2 +-
- drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h |    2 +-
- drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h   |    2 +-
- drivers/gpu/drm/amd/display/dc/gpio/dce120/hw_factory_dce120.c      |    2 +-
- drivers/gpu/drm/amd/display/dc/gpio/dcn10/hw_factory_dcn10.c        |    2 +-
- drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c        |    2 +-
- drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c        |    2 +-
- drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c        |    2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 1 -
+ 1 file changed, 1 deletion(-)
 
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.h
-@@ -33,7 +33,7 @@ struct display_mode_lib;
- 
- // Function: dml_rq_dlg_get_rq_reg
- //  Main entry point for test to get the register values out of this DML class.
--//  This function calls <get_rq_param> and <extract_rq_regs> fucntions to calculate
-+//  This function calls <get_rq_param> and <extract_rq_regs> functions to calculate
- //  and then populate the rq_regs struct
- // Input:
- //  pipe_src_param - pipe source configuration (e.g. vp, pitch, etc.)
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.h
-@@ -33,7 +33,7 @@ struct display_mode_lib;
- 
- // Function: dml_rq_dlg_get_rq_reg
- //  Main entry point for test to get the register values out of this DML class.
--//  This function calls <get_rq_param> and <extract_rq_regs> fucntions to calculate
-+//  This function calls <get_rq_param> and <extract_rq_regs> functions to calculate
- //  and then populate the rq_regs struct
- // Input:
- //  pipe_src_param - pipe source configuration (e.g. vp, pitch, etc.)
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
-@@ -32,7 +32,7 @@ struct display_mode_lib;
- 
- // Function: dml_rq_dlg_get_rq_reg
- //  Main entry point for test to get the register values out of this DML class.
--//  This function calls <get_rq_param> and <extract_rq_regs> fucntions to calculate
-+//  This function calls <get_rq_param> and <extract_rq_regs> functions to calculate
- //  and then populate the rq_regs struct
- // Input:
- //  pipe_param - pipe source configuration (e.g. vp, pitch, scaling, dest, etc.)
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/gpio/dce120/hw_factory_dce120.c
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/gpio/dce120/hw_factory_dce120.c
-@@ -162,7 +162,7 @@ static void define_hpd_registers(struct
- }
- 
- 
--/* fucntion table */
-+/* function table */
- static const struct hw_factory_funcs funcs = {
- 	.init_ddc_data = dal_hw_ddc_init,
- 	.init_generic = NULL,
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/gpio/dcn10/hw_factory_dcn10.c
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/gpio/dcn10/hw_factory_dcn10.c
-@@ -194,7 +194,7 @@ static void define_hpd_registers(struct
- }
- 
- 
--/* fucntion table */
-+/* function table */
- static const struct hw_factory_funcs funcs = {
- 	.init_ddc_data = dal_hw_ddc_init,
- 	.init_generic = dal_hw_generic_init,
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-@@ -221,7 +221,7 @@ static void define_generic_registers(str
- 	generic->base.regs = &generic_regs[en].gpio;
- }
- 
--/* fucntion table */
-+/* function table */
- static const struct hw_factory_funcs funcs = {
- 	.init_ddc_data = dal_hw_ddc_init,
- 	.init_generic = dal_hw_generic_init,
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-@@ -202,7 +202,7 @@ static void define_hpd_registers(struct
- }
- 
- 
--/* fucntion table */
-+/* function table */
- static const struct hw_factory_funcs funcs = {
- 	.init_ddc_data = dal_hw_ddc_init,
- 	.init_generic = dal_hw_generic_init,
---- linux-next-20200908.orig/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-+++ linux-next-20200908/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-@@ -218,7 +218,7 @@ static void define_hpd_registers(struct
- }
- 
- 
--/* fucntion table */
-+/* function table */
- static const struct hw_factory_funcs funcs = {
- 	.init_ddc_data = dal_hw_ddc_init,
- 	.init_generic = dal_hw_generic_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index a5d750ed569e..65dc5dcd4eb8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -35,7 +35,6 @@
+ #include "dcn30_dpp.h"
+ #include "dcn10/dcn10_cm_common.h"
+ #include "dcn30_cm_common.h"
+-#include "clk_mgr.h"
+ #include "reg_helper.h"
+ #include "abm.h"
+ #include "clk_mgr.h"
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
