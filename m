@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 933AEC433E2
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 22:54:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FB93C10DAA
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 22:54:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 337F021D90
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 22:54:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DEEB821D90
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 22:54:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tSbbd0LY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 337F021D90
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="d14jEUS7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEEB821D90
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB1D46F574;
-	Wed,  9 Sep 2020 22:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19BD56F576;
+	Wed,  9 Sep 2020 22:54:39 +0000 (UTC)
 Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750083.outbound.protection.outlook.com [40.107.75.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4D96F56A;
- Wed,  9 Sep 2020 22:54:37 +0000 (UTC)
+ (mail-eopbgr750054.outbound.protection.outlook.com [40.107.75.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5081D6F56A;
+ Wed,  9 Sep 2020 22:54:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ei/kEyBq1efU6aSN/jGPOs5edxSrky408DmqCVss3UY7u0A7kk/jdFlglCQO2e8Y0ADIzi80FZEVDGrDeYZ0ywBOy+69lXlN7MDneBbWzAJJunKuyA9eNU24MSd3xjiOEp8i5ihzznKApm3JKWqZK7ZWWgYzofnf1KCD0D52WVG6HbXQZ6XSJUTHtL76JNY0D617Fk6y7/G8CG9Zm9mz9BC8wcHlsWcSc7yD8ZfIxVkc4JnLI1aXAV3RviV/hLahvLSCxZ4J9YqJdXZjNx0g6f9YN1SXw6mJuopJk0sMibKbbsFITh3eB0lEL2N9En39bvHCwZt5jiefTbv4cvb85g==
+ b=Um93tfzKjex0nn05zKtdMMBldQKaN/Gt4JmvLuF2/7eoeTI5ITD7rC8vaRTezstXoBtW27jFontLOapnHfIl01BQ77hopZFPUnyFZeZb+twfWEGZWa6uON9DNKofyPQKoMPVsZyXTuQ0V+h5mtbepIW5V4EA9oFipIbnAG552qmr6q2m+yc60rxap4trRkqHRFUDS7vD2pDDm8wyCuTmANsyqBPTON3AFHTgpwnffgxPnIpUMmH+08UDLCPWfUVs6wYsrTLxzDyiO3c52/5VSky18OzNMgOH4C11lz3Tg4aSzuTvSCpD/0y1l44a1GusOn7PmB3+HdAkq8J018UF3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LsGkSND//QMcm6QNMK9AopcnDe5fv9Dj0RZojN/pOUQ=;
- b=bKBhiAfCABXXdSk8wPTzN+s78kssWS4R9nCeT/uU6EjvEZicIHUADxpTyxzXzZ/Pj+onVzK5FHvq+jObf6NH1OMNwD+njwrWqz7Rmgm9NbYxHAWH4MQ1jeFb9Tb77U+1+53D5PJDjdIl278M0Rfr7pPxl7W1PHChig1OxNoS71eeLFk2HwVE6DWM1abgbYbQ+yJy0hHzbITpMAtWIZRM9ABpKQDc1Kn5NW1/1irV0tHmliDOgi8uBMozCUemv5Sw6Qefzhe2C7wD5PR8huytKcTF7TAmHnkyOdWi3r9q0HYLoius2ntTIzzabcCKOu5+OU/DyppSkHIfJYC1AP31Jg==
+ bh=9dODFAEWpJwE7o6RftnyaGtifeCeyXmRhnXRtvEwanU=;
+ b=Ql4QSDGJvlIswgedB7fVE7fW3gGPv0oVtkUWYgPiH3L4MauMBGPKQd1NcANOYei03E5k8QAQwYEkffW0AxRgtH10/DYOlUmrzpaWp7CKZnSJLDbiJMZzkZgNFJm90SmNtHrmfirzxHwuWtxSUIMgnC9fcaZIpiD1cO3Ijr2pqeLlCoZzfAWOqdwq/dpxbFj5AZ8nnQbkfNR98zLyZcVyR3HGBohdWDdylRepm2ZkbBu07lttEV6/obwTHWmTuWAKiMKsOXtjWTKWU4vXZWJHcxrXrCPvO4Jb8+ufGgJMxaT5Fq30K5Tfr4WAtrPHQ4YOS+Mt5BeCZT/VD7HuD5fw8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LsGkSND//QMcm6QNMK9AopcnDe5fv9Dj0RZojN/pOUQ=;
- b=tSbbd0LYNHKpsDGps6SqbkO2B0Il00Os71DIixFLhLhiuhKDkDHiE6WYw7/eGHRV21VhwRF/FEGC4xqJVgGzqOKYokQJFtTOh7NElXy9ITibE/Akk1fiEcywP5E5a8nGyd/gJatRcNBe0Mlo6sWOkya6Yd7jO9wsSCzSzAxN6eY=
+ bh=9dODFAEWpJwE7o6RftnyaGtifeCeyXmRhnXRtvEwanU=;
+ b=d14jEUS7naU7bReArMR7Zg6W13MsTh4hfmVuqcuKtN3ujUTZjNCvdZO1e3gIvadsFnyUgyG4d0Raz/GV8GhmSQ1b/C9bwdbnG+VTgxrYIn/6etVFhMAY0kuq7bwPnFKaeSBoMDc0Jn+HgWJaCHa6KM5tLPybp7Up0XjAnfsdv6k=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20)
  by DM6PR12MB2986.namprd12.prod.outlook.com (2603:10b6:5:39::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.18; Wed, 9 Sep
- 2020 22:54:35 +0000
+ 2020 22:54:37 +0000
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::25a1:ace4:4ca8:167e]) by DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::25a1:ace4:4ca8:167e%8]) with mapi id 15.20.3370.016; Wed, 9 Sep 2020
- 22:54:35 +0000
+ 22:54:36 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] drm/amd/display: Rework registers tracepoint
-Date: Wed,  9 Sep 2020 18:53:50 -0400
-Message-Id: <20200909225352.4072030-2-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 3/3] drm/amd/display: Add pipe_state tracepoint
+Date: Wed,  9 Sep 2020 18:53:52 -0400
+Message-Id: <20200909225352.4072030-4-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200909225352.4072030-1-Rodrigo.Siqueira@amd.com>
 References: <20200909225352.4072030-1-Rodrigo.Siqueira@amd.com>
@@ -70,33 +70,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::10ec) by
  YT1PR01CA0143.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16 via Frontend Transport; Wed, 9 Sep 2020 22:54:34 +0000
+ 15.20.3370.16 via Frontend Transport; Wed, 9 Sep 2020 22:54:36 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [2607:fea8:56e0:6d60::10ec]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 74fca6f5-655d-4d6b-cf00-08d85513529f
+X-MS-Office365-Filtering-Correlation-Id: 149ec436-921e-414a-1502-08d85513538f
 X-MS-TrafficTypeDiagnostic: DM6PR12MB2986:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB29863232C11AC798A012BB1E98260@DM6PR12MB2986.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB29862D555487906DC09D8D2998260@DM6PR12MB2986.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:586;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sVvX2uDJN0MjymvzlVcDMoQLydpOu+/mTCp51QqKvXiq/XFzTJos30E2pqb63QOi3oKyM2hOMADraQYCoAuPGef/PWcc96dho4Z2ji4IvbbmOZ7DT1DDncd3MzKKECRQyyZyabG05S23QvGOWIxLLqJKnQh23g59uWxEvch1CkEoVmQVyxAhwPWQqNOorTZwTX7Z8tnCJ6VHPP82hSjuf8sdywH5q3AChqZT44ZBQolcijymHwjt7MJqigHTdMmGkGUCDnrFBze3veQReWgA5YFk5Fb++abRHkUxD3fhD4c6I4IrI1frMONbWkJWRlMhTQb13h2+bWSDaZ1cWjCwng==
+X-Microsoft-Antispam-Message-Info: NheUKLb5WuPWuhCeBeSmhVUB3x/y1Zb90Vm8es5GGRFqBPKQg2u+10QDLY64tKSoYB/omzQiFzp1JAh9Uxao8TjsAL1eJRvyGGvVT+ADKC0NcmeuUcIl7JmFoGbzZtzwUNXhkOcijcl0Eqk69vw+5h4NikhFRYVtnYvObrIsummaUi/ttQwvDCA+Dsd0IGr3Sj1OkialNM62HUwsrVEg9qpzN/fvAYSk9otWxsetGRWVMPFrsS66c0gYFKcoTmqLgYoI2qQhR7joQ6m3nFuE4VNte8sw/Akg8a0IoL3NR8HM/OhV8VVaQ8RVMXm02aYI9pMx2pJh1q5iKRjAluMjpA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(396003)(136003)(376002)(346002)(39860400002)(2906002)(8936002)(6486002)(6512007)(5660300002)(16526019)(186003)(478600001)(83380400001)(4326008)(8676002)(52116002)(316002)(1076003)(66476007)(6506007)(6666004)(86362001)(2616005)(66556008)(54906003)(36756003)(66946007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: uCMS0QiZrmtwwYiUzHZylOadFnNajiTnNgfdznwwOuptXq9FY2l1P9lgeBS3/6D3jO5t5ljV+Quxr7N6Qtt9s/0jYME18BZyeo/AWQyEF5FyuqVKqdsvJE3LzhXtpmsUrM6ff9AgEhxjfRPuIIJ/c2vXsrhe62VWt6/5Yp/TpNXzrgduO3J6VColidDwNnwoEDQ2QFhZ98XQ20yfbRWGKBTMwvACfpIryX36ddNMtiK4nCrEqiZJK6z3/dKvA4HH+OLeJHqY0hxB2Sc2yri6l43d8tiLSOsWRalEJUKNWOWuHjekwU9wUKztr+MtZx2onUUTS3VSRVXhm6gcMAqlwhwplwquRtCt3YQ+ifa26+Bpt8syVEkO+x72ceOdCmARsqpL/uV36GohFBRAkb2bWJlGKJXRicuY0JuzEyG4LqLXWRWPDFgGB07rHOsnjSXdG9kBfyq2JqP8OX8oN2xFonw1irDysgRe/4UBi4ON95sS4YMGf8tjbkB+lcIsrNWbkwRq7xu0/nCAsDYGivIqCpHH3aYTZuFv9XLVHOBvukWMdkJicTr9nhrQ2QPh2kngSd4HaRsZ74XPACpnenRlhsbXn2XDUwUhSvdq+DR6tU9rga+iDgiIhodG1hD6h4nv/Kf2pf9Lh2CoBYYT9Dm2mRdY/LMP0nOfI6ck4M0Nt00Ub+sJ1+kptTKAXSrZGIYy
+X-MS-Exchange-AntiSpam-MessageData: WZyn81Xpr9Dg4uTqmIw54IeeQJa1KoSaxifg/4sdIOiQllf69Mfv5N5qfaHYIvAq+smjwAUrTGpZsy3APPFBoyh7vcZJI8Pgwvtemugc8ne83D5WYHD1Ja4EAGL20nKiGaOIxpe55pJTm9nhLonKP2oaH41qHYsrDhtXSrS9oBnCJbkNbsxXnXfUsMBu0kfrLFpN7hKQ+4P7i0LF8ZUHPcQbyDQHlP0CLYgLwMg/DRnWyCo6NlejfUyyuXjN0hdRKRMaIaHwEC59Cck+kS1/ggs6o8CgSjrT14bF6ov3mJpSnfd0xCIIrwAD9EOJBwGFHQg7Po8ai4xAyT08qwTRfVGhjAR68raFKW348mmArWSjsHwe9Zj2ZVGVH7fAy3BvzUMI4FC2V5MGKcM1tm70oW2r0QnxpXhgI2zqRqKdEoVeoIjCjP8BRatRJrA4gf81Gx8ig1u0RBuVbycXVPHLkfhr2qBDScdSiujTy0587zomGQ6YM9HbbqEmQdD+DhQoZSIKqYlgRjoBozPHQA7CM12N12RJusJ/fovIaC8TpZ3X1vpE2p2CdZE1eam0e/uFOpkroowjOws0ot+LUHI/DmVatN9if6vDwMY0pENbQKXE5sQr01F+gKx4QjD6LJ4R1LRrLwVr2l5tl+PWTDdRxgYoIvUIlyNpE0L1A2yyvIs=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74fca6f5-655d-4d6b-cf00-08d85513529f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 149ec436-921e-414a-1502-08d85513538f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2020 22:54:35.3900 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2020 22:54:36.9243 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O4ycvR4NZDNEYtGMVVREsRpgL1i1y26Dotw3yqCyidvk7q+fDGlXI+u0ZRBa0PHybf/GSdP4DWZeDPkyqwWeJA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: kSKNBQgFs3EpKdbyLtI3o9h28guAqLgnKmSKJDDF0lDFWbr6mYDqy/agyEAjMV9D7sODsCrpnhkgAzSaMABNUw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2986
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,84 +120,258 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dc_rreg and amdgpu_dc_wreg are very similar, for this reason,
-this commits abstract these two events by using DECLARE_EVENT_CLASS and
-create an instance of it for each one of these events.
+This commit introduces a trace mechanism for struct pipe_ctx by adding a
+middle layer struct in the amdgpu_dm_trace.h for capturing the most
+important data from struct pipe_ctx and showing its data via tracepoint.
+This tracepoint was added to dc.c and dcn10_hw_sequencer, however, it
+can be added to other DCN architecture.
 
+Co-developed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 55 ++++++++-----------
- 1 file changed, 24 insertions(+), 31 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 172 ++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  11 ++
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  17 +-
+ 3 files changed, 195 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index d898981684d5..dd34e11b1079 100644
+index 5fb4c4a5c349..53f62506e17c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -31,40 +31,33 @@
- 
- #include <linux/tracepoint.h>
- 
--TRACE_EVENT(amdgpu_dc_rreg,
--	TP_PROTO(unsigned long *read_count, uint32_t reg, uint32_t value),
--	TP_ARGS(read_count, reg, value),
--	TP_STRUCT__entry(
--			__field(uint32_t, reg)
--			__field(uint32_t, value)
--		),
--	TP_fast_assign(
--			__entry->reg = reg;
--			__entry->value = value;
--			*read_count = *read_count + 1;
--		),
--	TP_printk("reg=0x%08lx, value=0x%08lx",
--			(unsigned long)__entry->reg,
--			(unsigned long)__entry->value)
--);
-+DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
-+		    TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-+		    TP_ARGS(count, reg, value),
- 
--TRACE_EVENT(amdgpu_dc_wreg,
--	TP_PROTO(unsigned long *write_count, uint32_t reg, uint32_t value),
--	TP_ARGS(write_count, reg, value),
--	TP_STRUCT__entry(
--			__field(uint32_t, reg)
--			__field(uint32_t, value)
--		),
--	TP_fast_assign(
--			__entry->reg = reg;
--			__entry->value = value;
--			*write_count = *write_count + 1;
--		),
--	TP_printk("reg=0x%08lx, value=0x%08lx",
--			(unsigned long)__entry->reg,
--			(unsigned long)__entry->value)
-+		    TP_STRUCT__entry(
-+				     __field(uint32_t, reg)
-+				     __field(uint32_t, value)
-+		    ),
-+
-+		    TP_fast_assign(
-+				   __entry->reg = reg;
-+				   __entry->value = value;
-+				   *count = *count + 1;
-+		    ),
-+
-+		    TP_printk("reg=0x%08lx, value=0x%08lx",
-+			      (unsigned long)__entry->reg,
-+			      (unsigned long)__entry->value)
+@@ -376,6 +376,178 @@ TRACE_EVENT(amdgpu_dm_atomic_check_finish,
+ 		      __entry->async_update, __entry->allow_modeset)
  );
  
-+DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_rreg,
-+	     TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-+	     TP_ARGS(count, reg, value));
++#ifndef _AMDGPU_DM_TRACE_STRUCTS_DEFINED_
++#define _AMDGPU_DM_TRACE_STRUCTS_DEFINED_
 +
-+DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_wreg,
-+	     TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-+	     TP_ARGS(count, reg, value));
++struct amdgpu_dm_trace_pipe_state {
++	int pipe_idx;
++	const void *stream;
++	int stream_w;
++	int stream_h;
++	int dst_x;
++	int dst_y;
++	int dst_w;
++	int dst_h;
++	int src_x;
++	int src_y;
++	int src_w;
++	int src_h;
++	int clip_x;
++	int clip_y;
++	int clip_w;
++	int clip_h;
++	int recout_x;
++	int recout_y;
++	int recout_w;
++	int recout_h;
++	int viewport_x;
++	int viewport_y;
++	int viewport_w;
++	int viewport_h;
++	int flip_immediate;
++	int surface_pitch;
++	int format;
++	int swizzle;
++	unsigned int update_flags;
++};
++
++#define fill_out_trace_pipe_state(trace_pipe_state, pipe_ctx) \
++	do { \
++		trace_pipe_state.pipe_idx	= (pipe_ctx)->pipe_idx; \
++		trace_pipe_state.stream		= (pipe_ctx)->stream; \
++		trace_pipe_state.stream_w	= (pipe_ctx)->stream->timing.h_addressable; \
++		trace_pipe_state.stream_h	= (pipe_ctx)->stream->timing.v_addressable; \
++		trace_pipe_state.dst_x		= (pipe_ctx)->plane_state->dst_rect.x; \
++		trace_pipe_state.dst_y		= (pipe_ctx)->plane_state->dst_rect.y; \
++		trace_pipe_state.dst_w		= (pipe_ctx)->plane_state->dst_rect.width; \
++		trace_pipe_state.dst_h		= (pipe_ctx)->plane_state->dst_rect.height; \
++		trace_pipe_state.src_x		= (pipe_ctx)->plane_state->src_rect.x; \
++		trace_pipe_state.src_y		= (pipe_ctx)->plane_state->src_rect.y; \
++		trace_pipe_state.src_w		= (pipe_ctx)->plane_state->src_rect.width; \
++		trace_pipe_state.src_h		= (pipe_ctx)->plane_state->src_rect.height; \
++		trace_pipe_state.clip_x		= (pipe_ctx)->plane_state->clip_rect.x; \
++		trace_pipe_state.clip_y		= (pipe_ctx)->plane_state->clip_rect.y; \
++		trace_pipe_state.clip_w		= (pipe_ctx)->plane_state->clip_rect.width; \
++		trace_pipe_state.clip_h		= (pipe_ctx)->plane_state->clip_rect.height; \
++		trace_pipe_state.recout_x	= (pipe_ctx)->plane_res.scl_data.recout.x; \
++		trace_pipe_state.recout_y	= (pipe_ctx)->plane_res.scl_data.recout.y; \
++		trace_pipe_state.recout_w	= (pipe_ctx)->plane_res.scl_data.recout.width; \
++		trace_pipe_state.recout_h	= (pipe_ctx)->plane_res.scl_data.recout.height; \
++		trace_pipe_state.viewport_x	= (pipe_ctx)->plane_res.scl_data.viewport.x; \
++		trace_pipe_state.viewport_y	= (pipe_ctx)->plane_res.scl_data.viewport.y; \
++		trace_pipe_state.viewport_w	= (pipe_ctx)->plane_res.scl_data.viewport.width; \
++		trace_pipe_state.viewport_h	= (pipe_ctx)->plane_res.scl_data.viewport.height; \
++		trace_pipe_state.flip_immediate = (pipe_ctx)->plane_state->flip_immediate; \
++		trace_pipe_state.surface_pitch	= (pipe_ctx)->plane_state->plane_size.surface_pitch; \
++		trace_pipe_state.format		= (pipe_ctx)->plane_state->format; \
++		trace_pipe_state.swizzle	= (pipe_ctx)->plane_state->tiling_info.gfx9.swizzle; \
++		trace_pipe_state.update_flags	= (pipe_ctx)->update_flags.raw; \
++	} while (0)
++
++#endif /* _AMDGPU_DM_TRACE_STRUCTS_DEFINED_ */
++
++TRACE_EVENT(amdgpu_dm_dc_pipe_state,
++	    TP_PROTO(const struct amdgpu_dm_trace_pipe_state *pipe_state),
++	    TP_ARGS(pipe_state),
++	    TP_STRUCT__entry(
++			     __field(int, pipe_idx)
++			     __field(const void *, stream)
++			     __field(int, stream_w)
++			     __field(int, stream_h)
++			     __field(int, dst_x)
++			     __field(int, dst_y)
++			     __field(int, dst_w)
++			     __field(int, dst_h)
++			     __field(int, src_x)
++			     __field(int, src_y)
++			     __field(int, src_w)
++			     __field(int, src_h)
++			     __field(int, clip_x)
++			     __field(int, clip_y)
++			     __field(int, clip_w)
++			     __field(int, clip_h)
++			     __field(int, recout_x)
++			     __field(int, recout_y)
++			     __field(int, recout_w)
++			     __field(int, recout_h)
++			     __field(int, viewport_x)
++			     __field(int, viewport_y)
++			     __field(int, viewport_w)
++			     __field(int, viewport_h)
++			     __field(int, flip_immediate)
++			     __field(int, surface_pitch)
++			     __field(int, format)
++			     __field(int, swizzle)
++			     __field(unsigned int, update_flags)
++	),
++
++	TP_fast_assign(
++		       __entry->pipe_idx = pipe_state->pipe_idx;
++		       __entry->stream = pipe_state->stream;
++		       __entry->stream_w = pipe_state->stream_w;
++		       __entry->stream_h = pipe_state->stream_h;
++		       __entry->dst_x = pipe_state->dst_x;
++		       __entry->dst_y = pipe_state->dst_y;
++		       __entry->dst_w = pipe_state->dst_w;
++		       __entry->dst_h = pipe_state->dst_h;
++		       __entry->src_x = pipe_state->src_x;
++		       __entry->src_y = pipe_state->src_y;
++		       __entry->src_w = pipe_state->src_w;
++		       __entry->src_h = pipe_state->src_h;
++		       __entry->clip_x = pipe_state->clip_x;
++		       __entry->clip_y = pipe_state->clip_y;
++		       __entry->clip_w = pipe_state->clip_w;
++		       __entry->clip_h = pipe_state->clip_h;
++		       __entry->recout_x = pipe_state->recout_x;
++		       __entry->recout_y = pipe_state->recout_y;
++		       __entry->recout_w = pipe_state->recout_w;
++		       __entry->recout_h = pipe_state->recout_h;
++		       __entry->viewport_x = pipe_state->viewport_x;
++		       __entry->viewport_y = pipe_state->viewport_y;
++		       __entry->viewport_w = pipe_state->viewport_w;
++		       __entry->viewport_h = pipe_state->viewport_h;
++		       __entry->flip_immediate = pipe_state->flip_immediate;
++		       __entry->surface_pitch = pipe_state->surface_pitch;
++		       __entry->format = pipe_state->format;
++		       __entry->swizzle = pipe_state->swizzle;
++		       __entry->update_flags = pipe_state->update_flags;
++	),
++	TP_printk("pipe_idx=%d stream=%p rct(%d,%d) dst=(%d,%d,%d,%d) "
++		  "src=(%d,%d,%d,%d) clip=(%d,%d,%d,%d) recout=(%d,%d,%d,%d) "
++		  "viewport=(%d,%d,%d,%d) flip_immediate=%d pitch=%d "
++		  "format=%d swizzle=%d update_flags=%x",
++		  __entry->pipe_idx,
++		  __entry->stream,
++		  __entry->stream_w,
++		  __entry->stream_h,
++		  __entry->dst_x,
++		  __entry->dst_y,
++		  __entry->dst_w,
++		  __entry->dst_h,
++		  __entry->src_x,
++		  __entry->src_y,
++		  __entry->src_w,
++		  __entry->src_h,
++		  __entry->clip_x,
++		  __entry->clip_y,
++		  __entry->clip_w,
++		  __entry->clip_h,
++		  __entry->recout_x,
++		  __entry->recout_y,
++		  __entry->recout_w,
++		  __entry->recout_h,
++		  __entry->viewport_x,
++		  __entry->viewport_y,
++		  __entry->viewport_w,
++		  __entry->viewport_h,
++		  __entry->flip_immediate,
++		  __entry->surface_pitch,
++		  __entry->format,
++		  __entry->swizzle,
++		  __entry->update_flags
++	)
++);
++
+ #endif /* _AMDGPU_DM_TRACE_H_ */
  
- TRACE_EVENT(amdgpu_dc_performance,
- 	TP_PROTO(unsigned long read_count, unsigned long write_count,
+ #undef TRACE_INCLUDE_PATH
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index dc463d99ef50..0c9f177e5827 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2644,6 +2644,17 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 		}
+ 	}
+ 
++	for (i = 0; i < MAX_PIPES; ++i) {
++		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
++
++		if (pipe_ctx->plane_state) {
++			struct amdgpu_dm_trace_pipe_state pipe_state_trace;
++
++			fill_out_trace_pipe_state(pipe_state_trace, pipe_ctx);
++			trace_amdgpu_dm_dc_pipe_state(&pipe_state_trace);
++		}
++	}
++
+ 	commit_planes_for_stream(
+ 				dc,
+ 				srf_updates,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 8ca94f506195..464d0ad093b9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -1020,15 +1020,22 @@ static bool dcn10_hw_wa_force_recovery(struct dc *dc)
+ 
+ }
+ 
+-
+ void dcn10_verify_allow_pstate_change_high(struct dc *dc)
+ {
+-	static bool should_log_hw_state; /* prevent hw state log by default */
+-
+ 	if (!hubbub1_verify_allow_pstate_change_high(dc->res_pool->hubbub)) {
+-		if (should_log_hw_state) {
+-			dcn10_log_hw_state(dc, NULL);
++		int i;
++
++		for (i = 0; i < MAX_PIPES; ++i) {
++			struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
++
++			if (pipe_ctx->plane_state) {
++				struct amdgpu_dm_trace_pipe_state pipe_state_trace;
++
++				fill_out_trace_pipe_state(pipe_state_trace, pipe_ctx);
++				trace_amdgpu_dm_dc_pipe_state(&pipe_state_trace);
++			}
+ 		}
++
+ 		BREAK_TO_DEBUGGER();
+ 		if (dcn10_hw_wa_force_recovery(dc)) {
+ 		/*check again*/
 -- 
 2.28.0
 
