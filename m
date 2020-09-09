@@ -2,107 +2,100 @@ Return-Path: <SRS0=5+Vp=CS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 473F3C43461
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 01:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 200CCC43461
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 05:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE6A6216C4
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 01:54:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 80C9521D40
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2020 05:05:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hugIR442"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE6A6216C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="D7Ln8UN4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80C9521D40
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0DB6E8F3;
-	Wed,  9 Sep 2020 01:54:22 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DBA26E8F3
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 01:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B57BD6E95E;
+	Wed,  9 Sep 2020 05:05:19 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C7D76E95E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2020 05:05:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NpbB0+Az8/RG0TqUCtwr6jYMuqj9q+dAoaKye0yK+uE1Q2dV4UWk4+5aVEeRhsBxxu0AEgkZSwLNrjZGe5kn6/yTa03TBaqX+UdLSnT9l7UgSKSubtCSfEtZNu4mboWKWfPhqoKCBKEcUtL5YnMEl6Ik7QrArd59t49xDAl7HFAwoEwXpfwatgldwLNIkZiqEbazwGhpNYYgJJv1xRZJJVwYuj0at+aD6x5caH3hYLXng7v9THyI/M//yZ5lKw/MAmp2Pk07vPB+UBXDgS/X45/pIdBqswpUrb8nXR8Az25Qpo1qxnFNU+Uvq64cAB6J+bx0i6OwKnN6rcjerUhEHg==
+ b=bz9j0bS8qI2BaZH41h8ZFy3r0jUt3nYjmDPpvDkreL7B8IUbB3yQz6+nvMcIdTGk7GK4WNiStzRp0O0Pc9iOG7vffKMskCbCPXP7wie8AKFlpr0aa3flkqjY0ZHd3iRd6mh4tAaKTHL1u1vJFh3gnW8/2bWuxHr5m0M9HayEdORhNTCplNndXDcH5RWaLVjtMO/SHXtqcJYY6uc9BEXRHXEVeCzz56KyxIjSM/woArNyaO8aEC/rac1VK3ZURFgsLsNpfL7WqkRWwwN3EQYaDAPiAbIZYbvI5WxPsiOJkqQAsHPbFvIBw69qSGl0mgeEA84GvX7HCW3OiUkxUDViYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H9xJHQ5fLQo6O4BdaPT3QKBfg/fubENhXZfWCLVMQ+U=;
- b=hX2yzhpDETdrAQC4ik1suMY10VrZMB6OK6hwOeK6zjK2isGCBKGQSqzmEIQ1qcQwSlKF7bD2uQ+GYNi94ms52E1GGe35AurIWDznnFPiV9rnGHAwG4Oyw3UXrP6H/Wa5OyMXz+uh1vZDNlLvP0VEmTKvKJlcP9Zn4p7oJjpxyQhc5Zhml7K7VuvnnXeqa2+nVliL+FRHl+icYtCqS0kp0bdP+534CVmcs/bzfos6L3848E+IEK26i36dr5rxva9ZF0tehYk8O6q3BzYzvQcUSg7yE4ExiwH6GOQRKjl32M8d1JXIajtdvORrnp4gRO8TNuQLJbzJshegCTXbo+IU+A==
+ bh=DVZh73Juh5I+o9PoZPN1mtevgp4jqn/TBB/GwiEebTI=;
+ b=T0CJoEJJgg3Z3QD2zV+xg8+NErMvN8CMwa5zprL6/RjAmA/omDQkMgwZjWYweNuRUVKkUuWnHXkr/cwg/4qqVqleo6W7ylEZtIY+PbII2rf9eMRHXwwF6DkVh2S1LBxFttTie+KkYF0jlsAxaBEWk+spY2WKD6QVIVVXajj5/u15C8k6feOS2ADgkigBAXemq6CyAhv2/KGr/I+oT1TCq0Ji4tzozDZU7zLpvGBmjZbHnY7sa9jK56P1iBwO0He1z0rBL53ro05MsYCz5ztlHyYo5ZM1zHty8X0FIrj2F5DBqGeLNQPxLhEDnm4FnKCsdcnBIkSZpGM61xFyds2Xcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H9xJHQ5fLQo6O4BdaPT3QKBfg/fubENhXZfWCLVMQ+U=;
- b=hugIR442RQxWBbPBmKU566UH96pd3yWP0WEME8LxP0tJ0w6sNsNyN8c5PigEUdpAFhzmk0dAkO33LsCRxWx3sBqbQBvgVQowqhSsU4rbRW5EnKvV3VY2bb1ehmp1yxOYBp65BWhZegv5fZfT8MWaHGezN1cNycUmY7fXPC30eKY=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB4219.namprd12.prod.outlook.com (2603:10b6:5:217::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16; Wed, 9 Sep 2020 01:54:19 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3370.016; Wed, 9 Sep 2020
- 01:54:18 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Matt Coffin <mcoffin13@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/pm: Account for extra separator characters in
- sysfs interface
-Thread-Topic: [PATCH] drm/amdgpu/pm: Account for extra separator characters in
- sysfs interface
-Thread-Index: AQHWgjYhFqcSyeQ0T0ekFkS643yPbalfk5Vg
-Date: Wed, 9 Sep 2020 01:54:18 +0000
-Message-ID: <DM6PR12MB26197CFA234BDBBB955B4A69E4260@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200903210614.22785-1-mcoffin13@gmail.com>
-In-Reply-To: <20200903210614.22785-1-mcoffin13@gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=e7db131a-abcc-4ff5-bf9a-29a645a43d07;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-09T01:53:25Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7bdc3a8b-4ec7-428b-1420-08d8546343cb
-x-ms-traffictypediagnostic: DM6PR12MB4219:
-x-microsoft-antispam-prvs: <DM6PR12MB4219D6FBE085C9069FE794F9E4260@DM6PR12MB4219.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BozQglxVS3d9hmPa0E7sqn5cuiSuIJAYBQkCh+Z/WQcctDnr3/ghjdpm1no+CT17GuZ7kjDOQPkcEvuZdd5ExzThdj2cN36h+kLfv/raj3sIH8MJEM727/RcmhAdftWSBJ9OWUylpfAmgr4bNVPY5dWrlIvHbuxNrsx3V1YZ0w/hFvWh+HfCvt0AQjB1JwFFmdNe1TGW02beJjWAKRVD+Y/l1Rp1MdhyCoQhnKh/A3iv+9yBbSSPpYVOJQ9lqK0sTKAzJPURlYuE5dkxxK25Rf26KPUl+ZUhmYOl7saX60eFpmJZuYfXkZVqkzFOpVTmf1J//bcmdh7PHmDgrSreQo+RPGlrYCJBJWsPRgUhrng=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(346002)(136003)(376002)(366004)(8676002)(15650500001)(33656002)(55016002)(5660300002)(8936002)(9686003)(26005)(966005)(316002)(66446008)(71200400001)(6506007)(86362001)(53546011)(66946007)(76116006)(64756008)(66556008)(45080400002)(66476007)(110136005)(478600001)(7696005)(52536014)(2906002)(186003)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: EmNnuO4dVvrfjwtTt66mvjFPB3iqocFkLMWT9zS6a+vfP3Mzw9N9WzAd28p5RwWUF+dOdVj5X7aiCQxpPHjT3eheilFPvvZVHtfAU+/qLxv9UAtroKb4d2w7mnOgkF6ysd9E3I+ik8Jqq3qoEB/R39IUWV6R5PuOTBFkhMK5ACJev2HVT26cR1DEHACpmomE/MyvRgKs6CvDL4qsMky6c2jakdyc4q9eURXyKcv9SF7+eWT3Jz+Ifj1GvSUBL5yAyafR7SS40nOCsXBsp0420v0PDsAolmlqOG8rySNqsUzh90rl39ltdjtSBHg6+f4w8YfoAezZN+DkBUC2oYKycJAyQhVQV9+4IP/iqx2mGgG/uAveiYbF9D7CjvHsX4hmsCmBtNmoE/s5YjIWtn+X38MaTAc9QBgfdFivy8L9g3TLhiDBcTxj+5ZABRI2Sfw4Aij3FXTXsZ3BYA7fFgbBglR2BC3EtPsKYEtzblx/yDhEEk9WXP7ICEQKIjRtsDOB52b7E60QKgeKM/6lITKP/xn1GZD4HTJqr4rl5l2Yh5fxXoVrf/pidLowhAkzU5Iqqz8lK7gQioZu0sAhR9+VjbYbtzZy196ZkY2rMElZ0LHgFXzTHnfu+onlGi35mdgRFDjjcjo+GpyRQCKhlQliIA==
-x-ms-exchange-transport-forked: True
+ bh=DVZh73Juh5I+o9PoZPN1mtevgp4jqn/TBB/GwiEebTI=;
+ b=D7Ln8UN4s9+DOIc2nJ/sY31dNWVvFOhbraeV4wqrnlf6tnN1Q7gqx+Y/TrL3zC+bLJiv799AH38TuQGFsh6gWcyp1qbig38FmUmq+kdB5i/k/vpUmP2kd5YeOY20/edyhHVg35FOqcQWFSsBAfs5+EalXkj5+uX7hMC4AcP0lWE=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MWHPR12MB1661.namprd12.prod.outlook.com (2603:10b6:301:3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Wed, 9 Sep
+ 2020 05:05:14 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::e881:6ca2:c1d7:48e6]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::e881:6ca2:c1d7:48e6%7]) with mapi id 15.20.3348.019; Wed, 9 Sep 2020
+ 05:05:14 +0000
+Date: Wed, 9 Sep 2020 13:05:07 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: add ta DTM/HDCP print in
+ amdgpu_firmware_info for apu
+Message-ID: <20200909050507.GC2509333@hr-amd>
+References: <20200908083111.13901-1-changfeng.zhu@amd.com>
+Content-Disposition: inline
+In-Reply-To: <20200908083111.13901-1-changfeng.zhu@amd.com>
+X-ClientProxiedBy: HK2PR02CA0156.apcprd02.prod.outlook.com
+ (2603:1096:201:1f::16) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd (58.247.170.245) by
+ HK2PR02CA0156.apcprd02.prod.outlook.com (2603:1096:201:1f::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3370.16 via Frontend Transport; Wed, 9 Sep 2020 05:05:12 +0000
+X-Originating-IP: [58.247.170.245]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1daaf41f-b667-46d8-1c08-08d8547def87
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1661:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1661A51B0472D5C3C71A25B2EC260@MWHPR12MB1661.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:238;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kgATj49bWScGgSMMFmhkoFv5Kt8eiLCxHBPgK10xSWJmh+8JQTzafSNy/DVpIppDOmJRT0CvKVA8MeKjaC73AVz/h2D9m3XXI4i4J0WBNP57ABpHOQtOs3ktnZGgJTydNGLF3JjI5+IeJmGhE7kfwy6fEweHfdJmlGMqAFN/INTwLB78LnMS9/3iVQhsKv7Ae3bfQa7QX7hp0rECf0wINzL7GOi4NWw7J6wAWWhVv/YOPcZSkxqCkEANtDMLYJvrS99joUzqxI6LZpQ4YVtnsPKG81egWcM98vxzXvZOKcDkHLRDlSRXauDoZvyQoKtC67DPOxQIgH4POjtGwTEpxQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(136003)(39850400004)(396003)(366004)(8936002)(52116002)(33716001)(6636002)(6496006)(83380400001)(33656002)(4326008)(9686003)(2906002)(54906003)(86362001)(478600001)(55016002)(6862004)(956004)(16526019)(316002)(66476007)(66946007)(186003)(66556008)(8676002)(5660300002)(26005)(1076003)(6666004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: p5gdWmfikVuRF7Cj+aEZ9ewkXnlOuQoRJCza1HSoBLWxAlSbLjSym2tjRnCSZmroR0cyxzCt0uOsRP1jFlYRMJGVDFwo7tw77TwdIf2mOAi9YQ3w9IrcdYGdFgqAof4+QdiT7Je2Vi2gVUWnPfxt9ys5k+X0YxDGl1VMkhogvsjUZ95ps+Wu/EI1p/cZJ7W+wl/2CG+3ucgn4LzL9+gV8fAffHt6+m+9UU1TJweVxLo5Xtpz/NpVIy4M8u+HAJ6qD4CfsxkV9Zhs6Xi1ytdVUO0h9KiOqzAi0XYhgRIz8HRmlonqYILuErPQ5QYZLecHiYv1PIGruD+lT5Pt+gle4tNfCDbjvWl+C8CyEYP/RYW9CMZu77dJFPS+Oc2VL2050gJaVDlmEQEmyh4eTHAM4n5HMyt/fmi2lqx+nS5GiqdAgNGm8lVxSdE3ImDGrAjni355N9Kx077MIjdhPGHRRGsmLiRSGoj52JUU9gVL0Kft2C+FqZ+Kqul4fTFTElQLX/YvcwluLKjGutmlekFxzmEX7vH6twjEfccPkOmOQRjP4Sgn4nFnb83FKI76K+sr+oW/9z6Ddib/UHfF5PzdbXf4KI8Hj/KoHH/pc2+mplPPHEAEGOpMxS5vIikSVmKVtGuB7aIGspZsqVScjPHozA==
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1daaf41f-b667-46d8-1c08-08d8547def87
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bdc3a8b-4ec7-428b-1420-08d8546343cb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2020 01:54:18.7533 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Nthr4PfdM1C552S0fSUCJcY/e2WQzvNVK9Ex7eWLkowcl529v5MMV/xTVFhKH32I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4219
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2020 05:05:14.3907 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: as+tnfA7uOd+km5O2oy/sZwL1Sf7LHNTn1PIavsPTPyPQGfjPm3DFrZ1OVddC6sCT2VwfV/7h816ShPBf4+XFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1661
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,63 +107,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Clements, John" <John.Clements@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+On Tue, Sep 08, 2020 at 04:31:11PM +0800, Zhu, Changfeng wrote:
+> From: changzhu <Changfeng.Zhu@amd.com>
+> 
+> From: Changfeng <Changfeng.Zhu@amd.com>
+> 
+> It needs to add ta DTM/HDCP print to get HDCP/DTM version info when cat
+> amdgpu_firmware_info
+> 
+> Change-Id: I05f20d6868ce2cac06a8496890b766dbb61de671
+> Signed-off-by: Changfeng <Changfeng.Zhu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 27 ++++++++++++++++++++-----
+>  1 file changed, 22 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 4f6b167fef26..3a6a881a4105 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -282,14 +282,20 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
+>  		fw_info->feature = 0;
+>  		break;
+>  	case AMDGPU_INFO_FW_TA:
+> -		if (query_fw->index > 1)
+> +		if (query_fw->index > 3)
+>  			return -EINVAL;
+>  		if (query_fw->index == 0) {
+>  			fw_info->ver = adev->psp.ta_fw_version;
+>  			fw_info->feature = adev->psp.ta_xgmi_ucode_version;
+> -		} else {
+> +		} else if (query_fw->index == 1) {
+>  			fw_info->ver = adev->psp.ta_fw_version;
+>  			fw_info->feature = adev->psp.ta_ras_ucode_version;
+> +		} else if (query_fw->index == 2) {
+> +			fw_info->ver = adev->psp.ta_fw_version;
+> +			fw_info->feature = adev->psp.ta_hdcp_ucode_version;
+> +		} else {
+> +			fw_info->ver = adev->psp.ta_fw_version;
+> +			fw_info->feature = adev->psp.ta_dtm_ucode_version;
 
-Thanks. Reviewed-by: Evan Quan <evan.quan@amd.com>
+Can we use switch-case here?
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Matt Coffin
-Sent: Friday, September 4, 2020 5:06 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Matt Coffin <mcoffin13@gmail.com>
-Subject: [PATCH] drm/amdgpu/pm: Account for extra separator characters in sysfs interface
+>  		}
+>  		break;
+>  	case AMDGPU_INFO_FW_SDMA:
+> @@ -1383,13 +1389,24 @@ static int amdgpu_debugfs_firmware_info(struct seq_file *m, void *data)
+>  		   fw_info.feature, fw_info.ver);
+>  
+>  	query_fw.fw_type = AMDGPU_INFO_FW_TA;
+> -	for (i = 0; i < 2; i++) {
+> +	for (i = 0; i < 4; i++) {
+>  		query_fw.index = i;
+>  		ret = amdgpu_firmware_info(&fw_info, &query_fw, adev);
+>  		if (ret)
+>  			continue;
+> -		seq_printf(m, "TA %s feature version: %u, firmware version: 0x%08x\n",
+> -				i ? "RAS" : "XGMI", fw_info.feature, fw_info.ver);
+> +		if (query_fw.index == 0) {
+> +			seq_printf(m, "TA %s feature version: 0x%08x, firmware version: 0x%08x\n",
+> +					"RAS", fw_info.feature, fw_info.ver);
+> +		} else if (query_fw.index == 1) {
+> +			seq_printf(m, "TA %s feature version: 0x%08x, firmware version: 0x%08x\n",
+> +					"XGMI", fw_info.feature, fw_info.ver);
+> +		} else if (query_fw.index == 2) {
+> +			seq_printf(m, "TA %s feature version: 0x%08x, firmware version: 0x%08x\n",
+> +					"HDCP", fw_info.feature, fw_info.ver);
+> +		} else {
+> +			seq_printf(m, "TA %s feature version: 0x%08x, firmware version: 0x%08x\n",
+> +					"DTM", fw_info.feature, fw_info.ver);
+> +		}
 
-Currently, the the input to the pp_od_clk_voltage sysfs interface has
-two adjacent separator characters, i.e. "\n\0", then we try to parse an
-argument out of the empty string, whereas we really should just ignore
-this case, and treat any number of adjacent separators as one separator
-for arguments.
+The same comment above. Switch-case is more straightforward.
 
-We do this here by simply skipping the argument parsing for all
-empy-string arguments.
+Thanks,
+Ray
 
-An example test case would be `echo 's  1 900' > pp_od_clk_voltage`
-(note the two spaces after the 's'.
-
-This also solves the issue where the written string ends with both a
-newline, and a nul-terminator, '\n\0', as is the case for `echo 's 1
-900' > pp_od_clk_voltage` since the recent rebase.
-
-Signed-off-by: Matt Coffin <mcoffin13@gmail.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 65f141c777c2..9ab29c21e458 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -801,6 +801,8 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
- while (isspace(*++tmp_str));
-
- while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
-+if (strlen(sub_str) == 0)
-+continue;
- ret = kstrtol(sub_str, 0, &parameter[parameter_size]);
- if (ret)
- return -EINVAL;
---
-2.28.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7Cee0ba53db6a34135168908d8504d3f67%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637347640051630594&amp;sdata=MPjsHvjwbERjeLSsQHWymlnqav1O9XlF8DJoGvJpx%2BM%3D&amp;reserved=0
+>  	}
+>  
+>  	/* SMC */
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
