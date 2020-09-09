@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B158C43461
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1907DC2BB84
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6630420795
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6630420795
+	by mail.kernel.org (Postfix) with ESMTPS id BACF12078B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BACF12078B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 450AB6E2B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF496E2BD;
 	Thu, 10 Sep 2020 07:29:38 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C42256EB57;
- Wed,  9 Sep 2020 13:00:39 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 24E8A3E76549727629C5;
- Wed,  9 Sep 2020 21:00:38 +0800 (CST)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787986EB57;
+ Wed,  9 Sep 2020 13:00:36 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 47A891E728AC6FC2521F;
+ Wed,  9 Sep 2020 21:00:33 +0800 (CST)
 Received: from huawei.com (10.90.53.225) by DGGEMS413-HUB.china.huawei.com
  (10.3.19.213) with Microsoft SMTP Server id 14.3.487.0; Wed, 9 Sep 2020
- 21:00:27 +0800
+ 21:00:25 +0800
 From: Zheng Bin <zhengbin13@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <airlied@linux.ie>, <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next 7/8] drm/amd/amdgpu: fix comparison pointer to bool
- warning in amdgpu_atpx_handler.c
-Date: Wed, 9 Sep 2020 21:07:19 +0800
-Message-ID: <20200909130720.105234-8-zhengbin13@huawei.com>
+Subject: [PATCH -next 1/8] drm/amd/amdgpu: fix comparison pointer to bool
+ warning in gfx_v9_0.c
+Date: Wed, 9 Sep 2020 21:07:13 +0800
+Message-ID: <20200909130720.105234-2-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.26.0.106.g9fadedd
 In-Reply-To: <20200909130720.105234-1-zhengbin13@huawei.com>
 References: <20200909130720.105234-1-zhengbin13@huawei.com>
@@ -63,36 +63,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c:619:15-49: WARNING: Comparison to bool
-drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c:629:15-49: WARNING: Comparison to bool
+drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:2805:5-11: WARNING: Comparison to bool
 
 Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-index 3e35a8f2c5e5..7abe9500c0c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-@@ -616,7 +616,7 @@ static bool amdgpu_atpx_detect(void)
- 	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
- 		vga_count++;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index fed2690d1380..20d8a03ca866 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2802,7 +2802,7 @@ static void pwr_10_0_gfxip_control_over_cgpg(struct amdgpu_device *adev,
+ 	uint32_t default_data = 0;
 
--		has_atpx |= (amdgpu_atpx_pci_probe_handle(pdev) == true);
-+		has_atpx |= amdgpu_atpx_pci_probe_handle(pdev);
-
- 		parent_pdev = pci_upstream_bridge(pdev);
- 		d3_supported |= parent_pdev && parent_pdev->bridge_d3;
-@@ -626,7 +626,7 @@ static bool amdgpu_atpx_detect(void)
- 	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_OTHER << 8, pdev)) != NULL) {
- 		vga_count++;
-
--		has_atpx |= (amdgpu_atpx_pci_probe_handle(pdev) == true);
-+		has_atpx |= amdgpu_atpx_pci_probe_handle(pdev);
-
- 		parent_pdev = pci_upstream_bridge(pdev);
- 		d3_supported |= parent_pdev && parent_pdev->bridge_d3;
+ 	default_data = data = RREG32(SOC15_REG_OFFSET(PWR, 0, mmPWR_MISC_CNTL_STATUS));
+-	if (enable == true) {
++	if (enable) {
+ 		/* enable GFXIP control over CGPG */
+ 		data |= PWR_MISC_CNTL_STATUS__PWR_GFX_RLC_CGPG_EN_MASK;
+ 		if(default_data != data)
 --
 2.26.0.106.g9fadedd
 
