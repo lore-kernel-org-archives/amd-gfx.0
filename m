@@ -7,42 +7,51 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02BD5C43461
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B54F9C2BB84
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B03AB2078B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B03AB2078B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id 639712078B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 639712078B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1A1B6E2CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 938FF6E2CC;
 	Thu, 10 Sep 2020 07:29:38 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 779A26EB61;
- Wed,  9 Sep 2020 13:00:41 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 60FA1B4F17F6B4DD9650;
- Wed,  9 Sep 2020 21:00:33 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS413-HUB.china.huawei.com
- (10.3.19.213) with Microsoft SMTP Server id 14.3.487.0; Wed, 9 Sep 2020
- 21:00:26 +0800
-From: Zheng Bin <zhengbin13@huawei.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <airlied@linux.ie>, <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next 3/8] drm/amd/amdgpu: fix comparison pointer to bool
- warning in sdma_v5_0.c
-Date: Wed, 9 Sep 2020 21:07:15 +0800
-Message-ID: <20200909130720.105234-4-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.26.0.106.g9fadedd
-In-Reply-To: <20200909130720.105234-1-zhengbin13@huawei.com>
-References: <20200909130720.105234-1-zhengbin13@huawei.com>
+X-Greylist: delayed 433 seconds by postgrey-1.36 at gabe;
+ Thu, 10 Sep 2020 02:12:47 UTC
+Received: from mail-m17613.qiye.163.com (mail-m17613.qiye.163.com
+ [59.111.176.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7323F89D67
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 02:12:47 +0000 (UTC)
+Received: from ubuntu.localdomain (unknown [157.0.31.124])
+ by mail-m17613.qiye.163.com (Hmail) with ESMTPA id 62E7F4826B1;
+ Thu, 10 Sep 2020 10:05:28 +0800 (CST)
+From: Bernard Zhao <bernard@vivo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ abdoulaye berthe <abdoulaye.berthe@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, jinlong zhang <jinlong.zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: optimize code runtime a bit
+Date: Wed,  9 Sep 2020 19:05:04 -0700
+Message-Id: <20200910020520.9973-1-bernard@vivo.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
+ oVCBIfWUFZGh1KHR8aS0xJSkJPVkpOQkJMS0hOSUNMQkxVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
+ FZT0tIVUpKS0hKQ1VKS0tZBg++
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MVE6Dgw5OT8dQx1ONQguAgIw
+ SisaFE9VSlVKTkJCTEtITklCSEtCVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSU9ZV1kIAVlBSEhCSTcG
+X-HM-Tid: 0a7475c2b50f93bakuws62e7f4826b1
 X-Mailman-Approved-At: Thu, 10 Sep 2020 07:29:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,36 +64,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhengbin13@huawei.com, yi.zhang@huawei.com
+Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes coccicheck warning:
+In fnction is_cr_done & is_ch_eq_done, when done = false
+happened once, no need to circle left ln_count.
+This change is to make the code run a bit fast.
 
-drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c:619:5-11: WARNING: Comparison to bool
-
-Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
+Signed-off-by: Bernard Zhao <bernard@vivo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index e2232dd12d8e..48c95a78a173 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -616,7 +616,7 @@ static void sdma_v5_0_enable(struct amdgpu_device *adev, bool enable)
- 	u32 f32_cntl;
- 	int i;
-
--	if (enable == false) {
-+	if (!enable) {
- 		sdma_v5_0_gfx_stop(adev);
- 		sdma_v5_0_rlc_stop(adev);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index b2be6ad5101d..53e30be8b66a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -373,34 +373,30 @@ static void dpcd_set_lt_pattern_and_lane_settings(
+ static bool is_cr_done(enum dc_lane_count ln_count,
+ 	union lane_status *dpcd_lane_status)
+ {
+-	bool done = true;
+ 	uint32_t lane;
+ 	/*LANEx_CR_DONE bits All 1's?*/
+ 	for (lane = 0; lane < (uint32_t)(ln_count); lane++) {
+ 		if (!dpcd_lane_status[lane].bits.CR_DONE_0)
+-			done = false;
++			return false;
  	}
---
-2.26.0.106.g9fadedd
+-	return done;
+-
++	return true;
+ }
+ 
+ static bool is_ch_eq_done(enum dc_lane_count ln_count,
+ 	union lane_status *dpcd_lane_status,
+ 	union lane_align_status_updated *lane_status_updated)
+ {
+-	bool done = true;
+ 	uint32_t lane;
+ 	if (!lane_status_updated->bits.INTERLANE_ALIGN_DONE)
+-		done = false;
++		return false;
+ 	else {
+ 		for (lane = 0; lane < (uint32_t)(ln_count); lane++) {
+ 			if (!dpcd_lane_status[lane].bits.SYMBOL_LOCKED_0 ||
+ 				!dpcd_lane_status[lane].bits.CHANNEL_EQ_DONE_0)
+-				done = false;
++				return false;
+ 		}
+ 	}
+-	return done;
+-
++	return true;
+ }
+ 
+ static void update_drive_settings(
+-- 
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
