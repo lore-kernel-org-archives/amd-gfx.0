@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC7E6C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A32C433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8362921D81
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5B46A21D7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NbbMJEU/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8362921D81
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Rqg62jcI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B46A21D7E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF7756E934;
-	Thu, 10 Sep 2020 13:47:44 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48DFD6E945
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:47:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A2C6E94D;
+	Thu, 10 Sep 2020 13:47:45 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700085.outbound.protection.outlook.com [40.107.70.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 156BD6E955
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:47:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q6OR04ZdNCCoF3u0N4M3zX4z/7Zf/2BeJGk+oN91GCKgvqDdLQMpJS5/mPvi4h3jBms/oldfg28kfwIFMM7d6lzV4xHzy88iNzF9i9f3pC8l2/yNz9F0FP+Uw1fClhIPWJVvnuCQ7+QhKmO2l443jestMX3CATRpMYdX67TRuoFwE0UAYLdLHQ5GfwkOC/aQg2AF2Y+I0ncUzSav5b5KqLKPz83pmDbwl1FxIYPTqPZNmTRHrazFUJUbnY6BmrHUcHNxZ4hsG2qqJVky879JUUffzD771fVgKQSraz3mL39pWk8UF+65F46gtHpknk+vmayrsBZ24Zpu63vrmTHnmg==
+ b=f1gn4Q5UMbBLHEoLbqrhAUXjC9y5uO2w+Z8XOaSHo4/1865Ke+uLnIkdJaPwLNwP5KZyj4h7X/NKoKu++iZsMiFYbbJ7gHwzHoGDfBJ/I7hSxdTtMvh9qvsQb1Ukqjot6t7PIMBLBhU5lZpskn7Y5cRrH/SO0n9L/Qk5H9kYvjcCGdcsbbeY6CJlnby0o4A5rHTj6C2oz4lZiWCXlAvkLyKugIWeMk45D+zzrV4/L22+22UVZLlGJnQk2ugwyTD8yCYwRGvf33aVsfinS4Idkg1M+ljPT5vFX0q4iR7F3PEujuY6j0s/sxx9xeogI03oz2iaPi81ka0nfWKTX5dkhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ccfS2J3ryZrhcYLsBKKmIB6RKp7SinejzbxHBWpOlF8=;
- b=RlehH7r+S5mhcd0AJOzaqDrFw+10VGJsSBYElXV/EUEeRZ7T5KONLKc+VlDuLCSVeY2sOjks8TPEWRnqj8VbKflDJZ2W5sbMBdoyLOOhv2dS4fHfn7DwlsiTygII2uUbj0ktD+Imr/zfFaP9lDJ6i2ZjG1AMGhAB64mMEdGH+olJ7ZEtKgeArv5AWstqdh3MzHQ0DANhDUZ9pCE1eTOn8U5ArmBHrY/aM7rEJOxGVxujjMb5WLogMrCwhII93ZbqQ8DaYPQBiBgwQy1bFTXnL18QIk7RVY9pBNaAfd4qsH8AhHHN9ZviioknW64xOqhPzcu27Hq+Txj5pWUCofb5Vw==
+ bh=ngGvPaAogeHVcZeWbwzDQbxEexyLLp88ktN+ONfc7ho=;
+ b=HQsOu5An+Q8dSPHXr8IHCb88GcA28UGDn8St8tNwc0y8ugAciptgQFgWrOyl7uzqHF9bGfMHCNPANIh8Qdzq3cZHPwD+/g/QmHtdgRb8/IOHPM+i81VHmZl86kqlRjHxD9LAkzvdkr/3eYm3LEmbrboxu0B/HPYAzSFpsocoxDCjDYA+cUxlAsOJqO3pR2Hp9/w7qIacRe7amdNKOpPKb+pX6gEYqIlh7uorScXrnoMiJRzanvvCHs7bcmtUvfZFs2Nviad9BYXZDc5PTGc0JfQxn9i6SngvtkmBLC8E2i6fy1iXXOZRNhE4GBND6VfrtKezHhukcf6Fl7RrNeukRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,40 +40,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ccfS2J3ryZrhcYLsBKKmIB6RKp7SinejzbxHBWpOlF8=;
- b=NbbMJEU/E7jv5dO2sa4oWUdtKSuPEtIEGlYsbGe5wQ1nLQOUJBebDGHCAnWRKO9sg1175DgjET+o1BXriDVHwkZwrqo0UJagSqa23g3ffGGnrxgA80ped7TMYIhr/Fr1cQJGgd3kWbKoDeS9aCENGMqj/Y9XOLjcYIwTZ43xd7U=
-Received: from BN6PR2001CA0028.namprd20.prod.outlook.com
- (2603:10b6:405:16::14) by CY4PR12MB1909.namprd12.prod.outlook.com
- (2603:10b6:903:124::14) with Microsoft SMTP Server (version=TLS1_2,
+ bh=ngGvPaAogeHVcZeWbwzDQbxEexyLLp88ktN+ONfc7ho=;
+ b=Rqg62jcI9dO+u3QzdrcTpdku/bZxu8pLUydIYoG2Cm0sxpxssK1ZJIQKaoqbVxvnUKD1JWYF15q4jqy3MOHdt4kpmwG3l4qOre8HxADxc78DdpQpoZxoe/EU8C7gA2JguUkW8ED89CSk+OMLKJoc5dGm6jitrPRn99pwYpvaz/c=
+Received: from DM5PR04CA0047.namprd04.prod.outlook.com (2603:10b6:3:12b::33)
+ by CH2PR12MB3782.namprd12.prod.outlook.com (2603:10b6:610:23::28) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 10 Sep
- 2020 13:47:38 +0000
-Received: from BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:16:cafe::f1) by BN6PR2001CA0028.outlook.office365.com
- (2603:10b6:405:16::14) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 13:47:41 +0000
+Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:12b:cafe::dd) by DM5PR04CA0047.outlook.office365.com
+ (2603:10b6:3:12b::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
- Transport; Thu, 10 Sep 2020 13:47:38 +0000
+ Transport; Thu, 10 Sep 2020 13:47:41 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT034.mail.protection.outlook.com (10.13.176.139) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3370.16 via Frontend Transport; Thu, 10 Sep 2020 13:47:38 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3370.16 via Frontend Transport; Thu, 10 Sep 2020 13:47:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 10 Sep
- 2020 08:47:37 -0500
+ 2020 08:47:40 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 10 Sep
+ 2020 08:47:40 -0500
 Received: from aj-EliteDesk.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Thu, 10 Sep 2020 08:47:37 -0500
+ Transport; Thu, 10 Sep 2020 08:47:39 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 20/42] drm/amd/display: Enabling PSR on DCN30 on driver side
-Date: Thu, 10 Sep 2020 09:47:01 -0400
-Message-ID: <20200910134723.27410-21-aurabindo.pillai@amd.com>
+Subject: [PATCH 24/42] drm/amd/display: Multi display cause system lag on mode
+ change
+Date: Thu, 10 Sep 2020 09:47:05 -0400
+Message-ID: <20200910134723.27410-25-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200910134723.27410-1-aurabindo.pillai@amd.com>
 References: <20200910134723.27410-1-aurabindo.pillai@amd.com>
@@ -81,27 +86,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a0f0b4f8-ccd8-473f-9f47-08d8559014ae
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1909:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB190917C4E24509B51E63EE2E8B270@CY4PR12MB1909.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-MS-Office365-Filtering-Correlation-Id: 420347fa-28cf-49d6-4bbf-08d85590165f
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3782:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB37827EA7BD48D8A0E985BB2E8B270@CH2PR12MB3782.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0kFgMBj4sbz6Iiv9TYw/sxXJ44ZwvyJTwwsWKuarM4/Z1G2MOhstdoZFagLTvi/pHIYyswCyLXDLK9rgZBfYAc3a5wAff/cixcOhKS2ZgM66QnoQ74lcZp01EyhNnpxTSL++1b7AJ0kjJ2eSKwvb/WR2okgPUGs73hJT1eyunA5rcsQoIgT0k1y4jQlEs023wzTxrnsc9XPpBY31Z23DY/18h5EC4pR8XFlW6mIDjEhBxKhgHqTZZoorltEMFM4e2BpZ9L5kOdYl7JIChKPWMzz7tjXWZpiOKqOyn/0JbzOxuC2L7wPDr9pmDnHLTHmer3nVH5SPH75Xo7NEllLnHIyOR5+lOGwXK9DssfuGLxZSFPqlSPw2a+Ok40LndcByFv0sfxJ7DYVMd1suXfUtsA==
+X-Microsoft-Antispam-Message-Info: Z1PLLE+Oh7UcJS6ozFdgXfBEG3O9g1/DeB8TuXbz1bxbLOIkGl+DqmU40fgQ9FxSOIwUO9vTHRjOMXXrmkxNnB8HaogPD62MdGLGZdRlfNnScNXiJAZz3IGtokhTTlWiskW8E2wyBR/HktZ+thCBXQtHVz++j0AhqoOtkVt3rHso/mHMJyRKxZ1E/N76ZoUwrAWX5RO0Wzm5BvATiPO3lJL4jyf08nsH9QCtjctYr913Xqsu1wKoToaU/7ldsdWRkkmB1s5D8rBR4qDEmOqs3HM3iVVhcnL2R+RC5E+yfUa2tIwHG83Fzz0fZ/ZqvpUPy5cpYCOJ7MRyJa3dEzOfLE2elFY0djs/QvTBuXER6s8aPrEfDH3xJHFsBDxchvpjk0QGd3b02e2ujU+Nfuuy4A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(136003)(376002)(346002)(46966005)(44832011)(6666004)(336012)(70206006)(86362001)(36756003)(6916009)(2616005)(70586007)(8676002)(1076003)(8936002)(7696005)(47076004)(186003)(26005)(356005)(81166007)(426003)(478600001)(2906002)(316002)(82310400003)(54906003)(5660300002)(4326008)(83380400001)(82740400003);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(39860400002)(136003)(396003)(46966005)(8936002)(5660300002)(44832011)(186003)(356005)(70206006)(70586007)(36756003)(6916009)(336012)(2616005)(426003)(83380400001)(86362001)(478600001)(82310400003)(7696005)(82740400003)(47076004)(6666004)(2906002)(8676002)(1076003)(54906003)(26005)(4326008)(316002)(81166007);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2020 13:47:38.3135 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0f0b4f8-ccd8-473f-9f47-08d8559014ae
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2020 13:47:41.0941 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 420347fa-28cf-49d6-4bbf-08d85590165f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT034.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1909
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,7 +118,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhan Liu <zhan.liu@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+Cc: Aric Cyr <aric.cyr@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
  Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
@@ -121,91 +126,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Zhan Liu <zhan.liu@amd.com>
+From: Aric Cyr <aric.cyr@amd.com>
 
 [Why]
-PSR needs to be enabled on DCN30. This is the driver part of PSR
-enablement.
-
-Also disabled retired DMCU on driver side, since DMCU is
-not supported on DCN30 anymore.
+DCValidator is created/destroyed repeatedly for cofunctional validation
+which causes a lot of memory thrashing, particularly when Driver Verifer
+is enabled.
 
 [How]
-Add necessary changes to enable PSR on DCN30.
+Implement a basic caching algorithm that will cache DCValidator with a
+matching topology.  When a match is found, the DCValidator can be
+reused.  If there is no match, a new one will be created and inserted
+into the cache if there is space or an unreference entry can be evicted.
 
-Signed-off-by: Zhan Liu <zhan.liu@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../drm/amd/display/dc/dcn30/dcn30_resource.c  | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index 6746d582d723..88f23f12aeb8 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -79,6 +79,7 @@
- 
- #include "reg_helper.h"
- #include "dce/dmub_abm.h"
-+#include "dce/dmub_psr.h"
- #include "dce/dce_aux.h"
- #include "dce/dce_i2c.h"
- 
-@@ -832,7 +833,7 @@ static const struct dc_plane_cap plane_cap = {
- };
- 
- static const struct dc_debug_options debug_defaults_drv = {
--	.disable_dmcu = true,
-+	.disable_dmcu = true, //No DMCU on DCN30
- 	.force_abm_enable = false,
- 	.timing_trace = false,
- 	.clock_trace = true,
-@@ -849,10 +850,11 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.underflow_assert_delay_us = 0xFFFFFFFF,
- 	.dwb_fi_phase = -1, // -1 = disable,
- 	.dmub_command_table = true,
-+	.disable_psr = false,
- };
- 
- static const struct dc_debug_options debug_defaults_diags = {
--	.disable_dmcu = true,
-+	.disable_dmcu = true, //No dmcu on DCN30
- 	.force_abm_enable = false,
- 	.timing_trace = true,
- 	.clock_trace = true,
-@@ -865,6 +867,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 	.scl_reset_length10 = true,
- 	.dwb_fi_phase = -1, // -1 = disable
- 	.dmub_command_table = true,
-+	.disable_psr = true,
- 	.enable_tri_buf = true,
- };
- 
-@@ -1313,6 +1316,9 @@ static void dcn30_resource_destruct(struct dcn30_resource_pool *pool)
- 			dce_abm_destroy(&pool->base.multiple_abms[i]);
- 	}
- 
-+	if (pool->base.psr != NULL)
-+		dmub_psr_destroy(&pool->base.psr);
-+
- 	if (pool->base.dccg != NULL)
- 		dcn_dccg_destroy(&pool->base.dccg);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 511ab25b3f1a..ce5303c76b11 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1481,13 +1481,8 @@ bool dc_post_update_surfaces_to_stream(struct dc *dc)
+ 	return true;
  }
-@@ -2624,6 +2630,14 @@ static bool dcn30_resource_construct(
- 		}
- 	}
- 	pool->base.timing_generator_count = i;
-+	/* PSR */
-+	pool->base.psr = dmub_psr_create(ctx);
-+
-+	if (pool->base.psr == NULL) {
-+		dm_error("DC: failed to create PSR obj!\n");
-+		BREAK_TO_DEBUGGER();
-+		goto create_fail;
-+	}
  
- 	/* ABM */
- 	for (i = 0; i < pool->base.res_cap->num_timing_generator; i++) {
+-struct dc_state *dc_create_state(struct dc *dc)
++static void init_state(struct dc *dc, struct dc_state *context)
+ {
+-	struct dc_state *context = kvzalloc(sizeof(struct dc_state),
+-					    GFP_KERNEL);
+-
+-	if (!context)
+-		return NULL;
+ 	/* Each context must have their own instance of VBA and in order to
+ 	 * initialize and obtain IP and SOC the base DML instance from DC is
+ 	 * initially copied into every context
+@@ -1495,6 +1490,17 @@ struct dc_state *dc_create_state(struct dc *dc)
+ #ifdef CONFIG_DRM_AMD_DC_DCN
+ 	memcpy(&context->bw_ctx.dml, &dc->dml, sizeof(struct display_mode_lib));
+ #endif
++}
++
++struct dc_state *dc_create_state(struct dc *dc)
++{
++	struct dc_state *context = kzalloc(sizeof(struct dc_state),
++					   GFP_KERNEL);
++
++	if (!context)
++		return NULL;
++
++	init_state(dc, context);
+ 
+ 	kref_init(&context->refcount);
+ 
 -- 
 2.25.1
 
