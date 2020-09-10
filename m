@@ -7,41 +7,37 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94866C2BB84
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 51FB8C2D0E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C5B82078B
+	by mail.kernel.org (Postfix) with ESMTPS id 124882078B
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C5B82078B
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 124882078B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1C326E2E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B841A6E2EA;
 	Thu, 10 Sep 2020 07:29:40 +0000 (UTC)
 Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 537C36EB56;
- Wed,  9 Sep 2020 13:00:36 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 571406D6653046DFA233;
- Wed,  9 Sep 2020 21:00:33 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS413-HUB.china.huawei.com
- (10.3.19.213) with Microsoft SMTP Server id 14.3.487.0; Wed, 9 Sep 2020
- 21:00:27 +0800
-From: Zheng Bin <zhengbin13@huawei.com>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0792389F4A;
+ Thu, 10 Sep 2020 02:34:03 +0000 (UTC)
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 6ED9E922509EC3D6151A;
+ Thu, 10 Sep 2020 10:33:59 +0800 (CST)
+Received: from localhost (10.174.179.108) by DGGEMS404-HUB.china.huawei.com
+ (10.3.19.204) with Microsoft SMTP Server id 14.3.487.0; Thu, 10 Sep 2020
+ 10:33:50 +0800
+From: YueHaibing <yuehaibing@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <airlied@linux.ie>, <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next 6/8] drm/amd/amdgpu: fix comparison pointer to bool
- warning in uvd_v6_0.c
-Date: Wed, 9 Sep 2020 21:07:18 +0800
-Message-ID: <20200909130720.105234-7-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.26.0.106.g9fadedd
-In-Reply-To: <20200909130720.105234-1-zhengbin13@huawei.com>
-References: <20200909130720.105234-1-zhengbin13@huawei.com>
+ <airlied@linux.ie>, <daniel@ffwll.ch>
+Subject: [PATCH -next] drm/ttm/agp: Fix Wunused-variable warning
+Date: Thu, 10 Sep 2020 10:33:45 +0800
+Message-ID: <20200910023345.20428-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
+X-Originating-IP: [10.174.179.108]
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 10 Sep 2020 07:29:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -55,40 +51,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhengbin13@huawei.com, yi.zhang@huawei.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes coccicheck warning:
-
-drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c:1243:14-25: WARNING: Comparison to bool
-
-Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index 0a880bc101b8..ed30fb48b9db 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -1240,8 +1240,8 @@ static int uvd_v6_0_process_interrupt(struct amdgpu_device *adev,
- 		break;
- 	}
-
--	if (false == int_handled)
--			DRM_ERROR("Unhandled interrupt: %d %d\n",
-+	if (!int_handled)
-+		DRM_ERROR("Unhandled interrupt: %d %d\n",
- 			  entry->src_id, entry->src_data[0]);
-
- 	return 0;
---
-2.26.0.106.g9fadedd
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SWYgQ09ORklHX0FHUCBpcyBub3Qgc2V0LCBnY2Mgd2FybnM6Cgpkcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL3JhZGVvbl90dG0uYzogSW4gZnVuY3Rpb24g4oCYcmFkZW9uX3R0bV90dF9iaW5k4oCZOgpk
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYzo2OTI6MjQ6IHdhcm5pbmc6IHVudXNl
+ZCB2YXJpYWJsZSDigJhyZGV24oCZIFstV3VudXNlZC12YXJpYWJsZV0KICBzdHJ1Y3QgcmFkZW9u
+X2RldmljZSAqcmRldiA9IHJhZGVvbl9nZXRfcmRldihiZGV2KTsKICAgICAgICAgICAgICAgICAg
+ICAgICAgXn5+fgoKTW92ZSBpdCB0byBpZmRlZiBibG9jayB0byBmaXggdGhpcy4KClNpZ25lZC1v
+ZmYtYnk6IFl1ZUhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRl
+b24vcmFkZW9uX3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKaW5k
+ZXggMzFjNjNkMzM5NjI5Li40NDllNzdlYjc1ZjkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9yYWRlb24vcmFkZW9uX3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
+X3R0bS5jCkBAIC02ODksOSArNjg5LDkgQEAgc3RhdGljIGludCByYWRlb25fdHRtX3R0X2JpbmQo
+c3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCiAJCQkgICAgICBzdHJ1Y3QgdHRtX3R0ICp0dG0s
+CiAJCQkgICAgICBzdHJ1Y3QgdHRtX3Jlc291cmNlICpib19tZW0pCiB7CisjaWYgSVNfRU5BQkxF
+RChDT05GSUdfQUdQKQogCXN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2ID0gcmFkZW9uX2dldF9y
+ZGV2KGJkZXYpOwogCi0jaWYgSVNfRU5BQkxFRChDT05GSUdfQUdQKQogCWlmIChyZGV2LT5mbGFn
+cyAmIFJBREVPTl9JU19BR1ApCiAJCXJldHVybiB0dG1fYWdwX2JpbmQodHRtLCBib19tZW0pOwog
+I2VuZGlmCi0tIAoyLjE3LjEKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
