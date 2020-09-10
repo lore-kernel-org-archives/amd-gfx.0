@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 498A8C43461
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B871C2D0E0
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1F5A21D81
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:48:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 271B821D90
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:48:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qNtEXyfU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1F5A21D81
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bvaIVAGe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 271B821D90
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 760B46E932;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A764F6E933;
 	Thu, 10 Sep 2020 13:48:19 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACC8C6E932
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:48:17 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C14F96E932
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:48:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kjhi8iy619FWhDIL0vm4Wdk1J45BZywvrZEraA2DFdKxBKgz7iih3i0nCW2RmCnGAhQ8hhL9StKGbrr9KVTdchJc6aeeQtkPKUr2cfVfRruDN82HhZAc3sTZIOu1f5/3C3dVWlkVxoJgqcpianeyuIf3WIu2Je/c39U1YOJvmZd7dhwDMxWaoR7zvKpCrQn4/kg/mxkb8IB314s+PRkYUVIVcElrWdxVhjw+NjhThMvxTSlCCfl/dqJVfIhyRzJK4mqkUZG3xXIQCx4OnX+6+2pSjENRjXorHnO/Z0TMI4zLKyXhnDGYRqD/LnI7l0xLN0HHdyHSxxS7Z9QHCYUlGg==
+ b=mscg/C8YDaoPlon46VnoVnQGkeAcDsN5i7DGiU1cPigPv6jXiDwPGJOnqApHw3GuRZBPyQnf/IGGwtNzQkze8hlGlH5cHjnAwIZLukTBPRqm+6FeMa69NZZInOBVVLi9rcbavDAvzfeybpNvnFySRQ6kf4ydXb0UbKJlBnKTYBuz3D9dwQ5K9itHFaskC039WR+qQWCTazkasoLPUZ98y9AhQT3H3T5Uj/P8E6Py1RZfnqOIHAcE8hTOVEigyzsX6w2R9mLiY+Lt7SrI5bhWj4epiW+90OMRSlr/OCN7IUvZ0pOKea9bheKrjbJClwGf85qawUYn3vkVRQB1nidlhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f5HAvtoMCyEIZ1P04T9v51kXd/9mfiVnkUAmBaal4Z0=;
- b=ZG0qpkK9wdagxNC2o/Z3v0SoWVhSOq+9PKhna253SYU4ao2qvErhVPQmRR6OIh9lz1KIXDAaqcFAHNCzar8QT6PS6+x3FouhzvuEVYzi94nQPARLYVx/0Pj/3xOQOOw0gR1dTLfjecRLxlspHS4+3LduBdKsbup6nL4CYUosxqouXuKodbbPaDr7OjyBPGu3zTeIxRMnkbwzialUgDG/7Y2KHDNP0vsvWdvG8YZPjOiU8HUFs9+v+wqCIS/sOF4lekdzp22MaxX0UZkb6xvBMEOgqt5hqKp6c0jVTiTiyuOUCgiKAO9B/hAWrdgW4gIHlsB3Fx3QllWPC9rFm7sMLQ==
+ bh=KkPm+1uX/+GnKVy3qAnoe8ZzMaUU1+ebdU6yF/Gl6io=;
+ b=cwJxNILz3ACTYiGDPkiRJzkeICta278DFVLxpEb1w3aUa2RAa4NwtPZYXTSLajDqGdPdmH9iVRDzyKhCHsyH8f2hJFuRkGbCcWU94vt/O1P1hxt/AKcdkleuze1C4BVHIcADBuJXcReKLMdYDwlhI827m2sWBIYOnYCElc7Y1BPgm4pH1idNaZuj+sLA1iOrhgym8p3SP8b0L8iQ6kzB1qS5wX2RjnoXp9ZcftRIDeb2u/1kqIOin33QVVcVi2h3R2ioSJibsKyAZRYvw1pPVa4nvUdFAdhZZEqjV5YZOg1f4Sjy9a62j4v8m0B3G7VcaYbxODXDFZ09OR6hQ0b5Jw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,45 +40,40 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f5HAvtoMCyEIZ1P04T9v51kXd/9mfiVnkUAmBaal4Z0=;
- b=qNtEXyfUeL7WFase19tegX4PonGnRnWqzjBmlEC5u6pfRZiPzbJgO+el29KjW6TGDPjttPOwDkdR/cspyVC4uhLZKYbXT6pt9r4nst4Fv8VrfyFybcCWs9YyOCW4l8VzH0INu5hK6n5IzsnF+eclKzrnBMDM0tZhj0twpALswXU=
-Received: from DM5PR06CA0094.namprd06.prod.outlook.com (2603:10b6:3:4::32) by
- DM6PR12MB3435.namprd12.prod.outlook.com (2603:10b6:5:39::26) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16; Thu, 10 Sep 2020 13:48:14 +0000
-Received: from DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:4:cafe::d0) by DM5PR06CA0094.outlook.office365.com
- (2603:10b6:3:4::32) with Microsoft SMTP Server (version=TLS1_2,
+ bh=KkPm+1uX/+GnKVy3qAnoe8ZzMaUU1+ebdU6yF/Gl6io=;
+ b=bvaIVAGeRPVzyTVkCkWAyIFvMfgATgrlwbG6Z16SpwFRTgQptWF+fTiP9Muk8DXIc1VUCiG7f2sqHl39u/Au/ngmtJIsuFnKdvmB2Y43YdmAzqL00cD6l1fBEkiyVYvpaQUGYnSGe/XHccdCW2kc/mFY3M5pn0W2dOvYF22vidM=
+Received: from BN4PR12CA0023.namprd12.prod.outlook.com (2603:10b6:403:2::33)
+ by BN8PR12MB3332.namprd12.prod.outlook.com (2603:10b6:408:66::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 10 Sep
+ 2020 13:48:16 +0000
+Received: from BN8NAM11FT019.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:403:2:cafe::85) by BN4PR12CA0023.outlook.office365.com
+ (2603:10b6:403:2::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
- Transport; Thu, 10 Sep 2020 13:48:14 +0000
+ Transport; Thu, 10 Sep 2020 13:48:16 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT008.mail.protection.outlook.com (10.13.172.85) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT019.mail.protection.outlook.com (10.13.176.158) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3370.16 via Frontend Transport; Thu, 10 Sep 2020 13:48:14 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3370.16 via Frontend Transport; Thu, 10 Sep 2020 13:48:16 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 10 Sep
- 2020 08:48:13 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 10 Sep
- 2020 08:48:13 -0500
+ 2020 08:48:15 -0500
 Received: from aj-EliteDesk.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Thu, 10 Sep 2020 08:48:07 -0500
+ Transport; Thu, 10 Sep 2020 08:48:15 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 35/42] drm/amd/display: Add connector to the state if DSC
- debugfs is set
-Date: Thu, 10 Sep 2020 09:47:16 -0400
-Message-ID: <20200910134723.27410-36-aurabindo.pillai@amd.com>
+Subject: [PATCH 38/42] drm/amd/display: update nv1x stutter latencies
+Date: Thu, 10 Sep 2020 09:47:19 -0400
+Message-ID: <20200910134723.27410-39-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200910134723.27410-1-aurabindo.pillai@amd.com>
 References: <20200910134723.27410-1-aurabindo.pillai@amd.com>
@@ -86,27 +81,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1ea9505d-dc74-4a6f-7826-08d855902a1e
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3435:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB34357C121FDF5C599C85FF4B8B270@DM6PR12MB3435.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-MS-Office365-Filtering-Correlation-Id: 8e625018-fc82-4cb3-e388-08d855902b38
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3332:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB33320799C1005A960BBFCBBF8B270@BN8PR12MB3332.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 62+yn8ahVYDlBTChycykO3KDrOVRikHN46o2HZ4ysUVmnlM9dTzSq0oX05RFFGlxa/oY/fILHTAZOkeQmdZdWsTkPOXWmdk8C6FywPZT3/g7HpYQ7qncqxmPRGBNtxw+CUnomEnuxcxhcYSUbaKNjg39Oy7pZOGwWxFtv8Gx2i5pmrvY7eMukWZ3KigSxuI7dRt1EUTYAfuLslZpjfKaBnwGqF6LPJWRXJ9r5Dhi47hiEtDRLyzsGQT2GrEPMZfWJlcoSuXxwkqsSmJ9zV1h2GSf3VdwpbEEe9GWOEQQho1hlGPh1RFCdGQjj8InzCZsVjavPYuRX4jO+FHsnRG4FZnF3dzfQDbRTVTULb0YtYcEIt2dC04OCLabGbJzZpT/x6Rlivfc/7+6q0VQyN8lzGNagM8l9Gqn5xb+JdHTs9WHjPdiFesmANoGspoMXuXA
+X-Microsoft-Antispam-Message-Info: wmFv9+mLmexbWMrUJ/JZYrWS5IixxmBwVc9rJhr6OlWDvUDR98E9WulDEL2flnjZ+OK/OfggqKN4M/QEp+GQaihBaSmkQCgWr0J4f739L9LQj3VDLxb8GCSlC0HhkF8tSnl0s9h4yW85rolYq8IKe3TQPzJxpmy7mPLjzYwQpcwa3Wr7oQIVF9GnDntKPuLbxmTznhHS5OWZzLWIret0zmfUDHU5Khp3eSE5/Xu4lJGW62cwPXSgXRiBQ1uWqeugOGEnoKzl1BMyYXpexmdWJ9/wyoF+ofb+P3EaPjqE0HtViG0cabXXsPZdt6uCgURHmGTDG4aEjTY23V94026D5STSMvneqHHusy0zoAPLIy/dMks9pX/nPeuQSMake087KK/PQ5cxWhRwLmq4ytYzuiTawcqg9LLBYNrHWYKiuDY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(136003)(39860400002)(376002)(346002)(46966005)(426003)(356005)(6666004)(81166007)(336012)(44832011)(70206006)(86362001)(36756003)(2616005)(70586007)(6916009)(8676002)(1076003)(8936002)(7696005)(478600001)(186003)(4326008)(47076004)(26005)(2906002)(83380400001)(5660300002)(82310400003)(54906003)(316002)(82740400003);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(46966005)(7696005)(316002)(8676002)(356005)(81166007)(1076003)(54906003)(5660300002)(36756003)(6916009)(86362001)(26005)(44832011)(2616005)(82740400003)(83380400001)(186003)(82310400003)(15650500001)(70206006)(2906002)(336012)(70586007)(426003)(8936002)(478600001)(47076004)(4326008)(32563001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2020 13:48:14.2377 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ea9505d-dc74-4a6f-7826-08d855902a1e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2020 13:48:16.1285 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e625018-fc82-4cb3-e388-08d855902b38
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT008.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT019.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3435
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3332
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,90 +113,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk Brol <eryk.brol@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
- Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet.Lakha@amd.com
+ Jun Lei <jun.lei@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eryk Brol <eryk.brol@amd.com>
+From: Jun Lei <jun.lei@amd.com>
 
 [why]
-We want to trigger atomic check on connector, which DSC debugfs
-properties have changed.
+Recent characterization shows increased stutter latencies on some SKUs,
+leading to underflow.
 
 [how]
-Add a helper function that iterates through all active connectors
-and add them to the state if DSC debugfs parameters have changed.
+Update SOC params to account for this worst case latency.
 
-Signed-off-by: Eryk Brol <eryk.brol@amd.com>
-Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+Signed-off-by: Jun Lei <jun.lei@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 11afdb28eeda..ba18c7b0cc7d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -842,6 +842,45 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	return 0;
- }
- 
-+static void amdgpu_check_debugfs_connector_property_change(struct amdgpu_device *adev,
-+							   struct drm_atomic_state *state)
-+{
-+	struct drm_connector *connector;
-+	struct drm_crtc *crtc;
-+	struct amdgpu_dm_connector *amdgpu_dm_connector;
-+	struct drm_connector_state *conn_state;
-+	struct dm_crtc_state *acrtc_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct dc_stream_state *stream;
-+	struct drm_device *dev = adev_to_drm(adev);
-+
-+	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
-+
-+		amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
-+		conn_state = connector->state;
-+
-+		if (!(conn_state && conn_state->crtc))
-+			continue;
-+
-+		crtc = conn_state->crtc;
-+		acrtc_state = to_dm_crtc_state(crtc->state);
-+
-+		if (!(acrtc_state && acrtc_state->stream))
-+			continue;
-+
-+		stream = acrtc_state->stream;
-+
-+		if (amdgpu_dm_connector->dsc_settings.dsc_force_enable ||
-+		    amdgpu_dm_connector->dsc_settings.dsc_num_slices_v ||
-+		    amdgpu_dm_connector->dsc_settings.dsc_num_slices_h ||
-+		    amdgpu_dm_connector->dsc_settings.dsc_bits_per_pixel) {
-+			conn_state = drm_atomic_get_connector_state(state, connector);
-+			crtc_state = drm_atomic_get_crtc_state(state, crtc);
-+			crtc_state->mode_changed = true;
-+		}
-+	}
-+}
-+
- static int amdgpu_dm_init(struct amdgpu_device *adev)
- {
- 	struct dc_init_data init_data;
-@@ -8609,6 +8648,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	int ret, i;
- 	bool lock_and_validation_needed = false;
- 
-+	amdgpu_check_debugfs_connector_property_change(adev, state);
-+
- 	ret = drm_atomic_helper_check_modeset(dev, state);
- 	if (ret)
- 		goto fail;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 55ce2c7df84e..18b9465057ff 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -409,8 +409,8 @@ static struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv14_soc = {
+ 			},
+ 		},
+ 	.num_states = 5,
+-	.sr_exit_time_us = 8.6,
+-	.sr_enter_plus_exit_time_us = 10.9,
++	.sr_exit_time_us = 11.6,
++	.sr_enter_plus_exit_time_us = 13.9,
+ 	.urgent_latency_us = 4.0,
+ 	.urgent_latency_pixel_data_only_us = 4.0,
+ 	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
 -- 
 2.25.1
 
