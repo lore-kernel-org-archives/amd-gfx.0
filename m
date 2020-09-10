@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D41FC07548
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D6E1C2D0E0
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9758321D7E
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3879521D7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 13:47:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="f3kTQz53"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9758321D7E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dSXe9/El"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3879521D7E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D053E6E93B;
-	Thu, 10 Sep 2020 13:47:32 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 790B16E939
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:47:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFBF26E93C;
+	Thu, 10 Sep 2020 13:47:33 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09C8E6E93C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 13:47:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=emsJRYejcqzcZivJtkJr41l+o4uRsqqG17/Y4eHWnhVxI58XV/35N7n4onShsJeejX1F/Gyv+P3kkHFQKw8dYH9veF4xZB9PjL2qJnKjXQRIThXdvcfZEHxZWtZg62Z5lVGntHytwVRwO2vmbcfHpdO6btj9xGYmponJ1Vh4XcsSQwBRrXwBhI2DDOdR9mYMKHZ2R+UESEePdVvyV+AWDXS57e11MTL412PdFDLQLmvQXshIMr+Mpg0cnQm1r4ahe55vb0lplnGFbCykdXJTnAxTn0La96EhAusJFOZ8LJoxmghNpvACspnfXV+2UtNZbvnuDCirBwP79rtUvwAGOA==
+ b=Qzq+/R4TF5x/68qQyZxI+7z2gRpWwYEEIgHWymDI5cRZMyRDhw18VxtzrbTtwswubp1KgRFh8kscBvcFgNrkM3vFWWuAcZs4ed3fOVMl9hWZePYg/Jy3sURvL1s1A3piVZirwok4Tz0gIDRHdyULU8ccbiXP5vMtk8MCX1DTnLpXLPD4yDzsHq/TjqD50+L91iMds+5lHefOpYpLOPKaR/WIval5seRaSu8kYrYmibdZWsrytjSQ8SNYs8/QjhYzITkH7dbpfiHoTH+8k0AmZQbUXe3hNt1hx22AlByaoTZeulU0ovu9ylg7j119Nu3cfKUzlFfOX3V2S9S+ikpIgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8epKTGsaFXrfOgtiQpWqmjPaUIIAnCzvliO8DNkAZ1I=;
- b=iWMIWOzk2nIOV0wHDvF21/eYZ++8lG/tKVtGiakv+FUT8p404XSMl6KguYDbY9hYnFoaTdLWzPU+zGAcK5uOrJccXtIbZ0yZDPSLOC5xu21bPjebvQsOcT48ijbQnn3rjDSmy8oGRaP0B1HKBRew/DCKhgR8cdl41MDWinjiyTvHvTKmcH4okGUp+j07ryXguns+l7K4EUCegs9iEv2NnK8f2DBFatqLc7trsvXEf40kLtFXs+RPyTNw/+cpUFBPp42+04DFqC/U3dF73puHHgRH7f/GgFTjoIxtfhYoz7VVE1M41GU86NsXB64/qS8xWB8Bbvf9VuU5LxkbBCnHvw==
+ bh=c/fp+fnVBIpSOK2m0+FNN89hafPAoU4ugHgjYz3Vup4=;
+ b=QOqbRE4h1cLwm530lWkBbXbon9jqBl0tDncU9FAHxEEY9xa5potzx2IC0/HCROrrA9eZ7ZGJ2yyle1pkKQYK6+N666ecP/W+JMulPhVwgmkk4MuaT02+zbhqZfqSCsfnG5Q8Pl2JypAeJL6mNd0eYe+USpRqhpWvIPmvEH9nMwJAsEEHjI7w9MMuDEwbUZ8qljLCNp75plQbK+j/+I4R5obzCJkIXEshJhIsk+Fq48jiKLsnWgW8fcPVhpTlPoqzlmn6St8q6s4vQt25JJr9OKw0ORliUlVJMfpQn9nK7YpAElLEcY//GDReQ2nI6a4MlwXJSmuvvIyhgaSWQIfaIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,41 +40,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8epKTGsaFXrfOgtiQpWqmjPaUIIAnCzvliO8DNkAZ1I=;
- b=f3kTQz535UyKV2PrBRXv2HWGMQ6e6f9fTp/uBGnvyhBvX+huxhNETsD38m6KbCf67zX3FAIs7xcFc7fc3Wibnxv7wTMUNOEqNLV4+erz13X4lHhHeT6DRUu2a8I89AQz+AFSpUya2uJcQeYLg7o4gC1GlOBRKuaFAUMn9Pv/8wA=
-Received: from BN8PR07CA0016.namprd07.prod.outlook.com (2603:10b6:408:ac::29)
- by MN2PR12MB3600.namprd12.prod.outlook.com (2603:10b6:208:c6::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 10 Sep
- 2020 13:47:30 +0000
-Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ac:cafe::f4) by BN8PR07CA0016.outlook.office365.com
- (2603:10b6:408:ac::29) with Microsoft SMTP Server (version=TLS1_2,
+ bh=c/fp+fnVBIpSOK2m0+FNN89hafPAoU4ugHgjYz3Vup4=;
+ b=dSXe9/ElxFPtnVIKGRnE0hjQKR+3ucnl5hMEQkC7I4jPT0zvqHlf9ltvecGNzszwTvCOpchAqn9FvMD7v7vP09mfeMjMUconfZY12eJUeG2FKx468vZS7J/5S7oDAL/ib1z2t0Qmg9f76lefRFGZOPtJPqZTP2a4V4RFnqDC/vk=
+Received: from DM5PR04CA0039.namprd04.prod.outlook.com (2603:10b6:3:12b::25)
+ by BN8PR12MB3172.namprd12.prod.outlook.com (2603:10b6:408:68::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.15; Thu, 10 Sep
+ 2020 13:47:29 +0000
+Received: from DM6NAM11FT039.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:12b:cafe::d8) by DM5PR04CA0039.outlook.office365.com
+ (2603:10b6:3:12b::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
- Transport; Thu, 10 Sep 2020 13:47:30 +0000
+ Transport; Thu, 10 Sep 2020 13:47:29 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT039.mail.protection.outlook.com (10.13.172.83) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.3370.16 via Frontend Transport; Thu, 10 Sep 2020 13:47:29 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 10 Sep
  2020 08:47:29 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 10 Sep
+ 2020 08:47:28 -0500
 Received: from aj-EliteDesk.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
  Transport; Thu, 10 Sep 2020 08:47:28 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/42] drm/amd/display: Triplebuffering should not be used by
- default
-Date: Thu, 10 Sep 2020 09:46:49 -0400
-Message-ID: <20200910134723.27410-9-aurabindo.pillai@amd.com>
+Subject: [PATCH 07/42] drm/amd/display: add option to override cr training
+ pattern
+Date: Thu, 10 Sep 2020 09:46:48 -0400
+Message-ID: <20200910134723.27410-8-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200910134723.27410-1-aurabindo.pillai@amd.com>
 References: <20200910134723.27410-1-aurabindo.pillai@amd.com>
@@ -82,27 +86,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ce334b09-feda-4066-36b8-08d855900fa0
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3600:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB36000E1F989C573AA4363F968B270@MN2PR12MB3600.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2;
+X-MS-Office365-Filtering-Correlation-Id: 4ede676b-33e8-4173-d40f-08d855900f7c
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3172:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3172F2F81D6536AB57C3F8B88B270@BN8PR12MB3172.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CtI2EKSvAljxof2cS62NNAsjeJ5pHpx/rJC1HM6erIiG5mFJA5ykQvz6vop1CLsc4Bxa6FEZtjUN6pLOlZeCAHeKCGPd84hhK7mb0VztGlvVcHje/EC+b2Voeizvj2N575+sB7zYPiDyn5xy+nMPpZIRAdBjWJWI0vi36872+TKLYX9IU7+QtmaH3wFtSm9h2AK2qfKYDKTFbu1dKY1Y5H6AJ4hYmWH9gwN6w6EzeQoqW+WXGsHfdrxXvPL7N6MLz0Mm3MYVVfL3dU/nqbZF83rdUrmQWcYFQ1neAU/n6fajuBsry82ZeHZJd+0Of6G03P7vUIPdqLlEn+zz7Y86nCNUTwPDqEE9S3lTVlwdjzR11tazh7IcCYUdyHqU73q4dwpoKg4rN4Vr1ibW4Ti1ew==
+X-Microsoft-Antispam-Message-Info: Odfu2BkF7zpqdV3RN65nFMB3c3f+U5a+K6cvAFVfOBKBkijy6cLaFJal1JLm02pRzU6wQzLj2QzgsArMXYukA34HwP5ZHjAWa9CtMkLKE/6mTlW3YisEeky/lGwtOeJlYBCXyR9FqbBq4061BLaCfYVO2SnnS0FNHWqGmHkEEFaAcs2k3wYJqhHRjSI5jcdaNVJRHiO94raBMqcFI1qeerdGVGpzLo8NLT8JlS/LFoUcp31RjRqV9/E+BLdbpRzAIaXIP7kKioZ85W89UG31xKi7TSpF+x7t5uimTRIXpVPS1BDCV3gHtEiPCj1Xsv9mi6LPh8oRliNno3Vz17AT6mS/nPkhodP1etU1rAqSp0XcJNoE02laxvoYjn/DrWnQaGngmJE0bML7XdGQo2IofA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(136003)(346002)(39860400002)(376002)(46966005)(44832011)(186003)(2616005)(8676002)(7696005)(4326008)(336012)(426003)(316002)(6916009)(26005)(47076004)(356005)(83380400001)(82740400003)(478600001)(54906003)(81166007)(82310400003)(2906002)(8936002)(70206006)(70586007)(1076003)(6666004)(86362001)(36756003)(5660300002);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(346002)(376002)(396003)(46966005)(54906003)(6666004)(44832011)(26005)(478600001)(8936002)(86362001)(36756003)(186003)(1076003)(47076004)(2616005)(316002)(336012)(7696005)(70206006)(82310400003)(70586007)(83380400001)(2906002)(426003)(356005)(8676002)(4326008)(6916009)(82740400003)(81166007)(5660300002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2020 13:47:29.8305 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce334b09-feda-4066-36b8-08d855900fa0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2020 13:47:29.5576 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ede676b-33e8-4173-d40f-08d855900f7c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT039.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3600
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3172
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,163 +118,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <aric.cyr@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-Disable triplebuffering by default.
-
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  3 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c            |  9 +++------
- drivers/gpu/drm/amd/display/dc/dc.h                 |  2 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c  | 13 ++++++-------
- .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   |  2 +-
- .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   |  2 ++
- .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   |  1 +
- 7 files changed, 14 insertions(+), 18 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 33 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  1 +
+ .../amd/display/include/link_service_types.h  |  1 +
+ 3 files changed, 23 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cb624ee70545..a7f08a8199e7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3336,9 +3336,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 		goto fail;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index d1d95d3e248a..2334ec428098 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -101,7 +101,16 @@ static void dpcd_set_training_pattern(
+ 		dpcd_pattern.v1_4.TRAINING_PATTERN_SET);
+ }
+ 
+-static enum dc_dp_training_pattern get_supported_tp(struct dc_link *link)
++static enum dc_dp_training_pattern decide_cr_training_pattern(
++		const struct dc_link_settings *link_settings)
++{
++	enum dc_dp_training_pattern pattern = DP_TRAINING_PATTERN_SEQUENCE_1;
++
++	return pattern;
++}
++
++static enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *link,
++		const struct dc_link_settings *link_settings)
+ {
+ 	enum dc_dp_training_pattern highest_tp = DP_TRAINING_PATTERN_SEQUENCE_2;
+ 	struct encoder_feature_support *features = &link->link_enc->features;
+@@ -132,7 +141,6 @@ static void dpcd_set_link_settings(
+ 
+ 	union down_spread_ctrl downspread = { {0} };
+ 	union lane_count_set lane_count_set = { {0} };
+-	enum dc_dp_training_pattern dp_tr_pattern;
+ 
+ 	downspread.raw = (uint8_t)
+ 	(lt_settings->link_settings.link_spread);
+@@ -143,9 +151,8 @@ static void dpcd_set_link_settings(
+ 	lane_count_set.bits.ENHANCED_FRAMING = lt_settings->enhanced_framing;
+ 	lane_count_set.bits.POST_LT_ADJ_REQ_GRANTED = 0;
+ 
+-	dp_tr_pattern = get_supported_tp(link);
+ 
+-	if (dp_tr_pattern != DP_TRAINING_PATTERN_SEQUENCE_4) {
++	if (lt_settings->pattern_for_eq < DP_TRAINING_PATTERN_SEQUENCE_4) {
+ 		lane_count_set.bits.POST_LT_ADJ_REQ_GRANTED =
+ 				link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED;
  	}
+@@ -979,7 +986,7 @@ static void start_clock_recovery_pattern_early(struct dc_link *link,
+ {
+ 	DC_LOG_HW_LINK_TRAINING("%s\n GPU sends TPS1. Wait 400us.\n",
+ 			__func__);
+-	dp_set_hw_training_pattern(link, DP_TRAINING_PATTERN_SEQUENCE_1, offset);
++	dp_set_hw_training_pattern(link, lt_settings->pattern_for_cr, offset);
+ 	dp_set_hw_lane_settings(link, lt_settings, offset);
+ 	udelay(400);
+ }
+@@ -994,7 +1001,6 @@ static enum link_training_result perform_clock_recovery_sequence(
+ 	uint32_t wait_time_microsec;
+ 	struct link_training_settings req_settings;
+ 	enum dc_lane_count lane_count = lt_settings->link_settings.lane_count;
+-	enum dc_dp_training_pattern tr_pattern = DP_TRAINING_PATTERN_SEQUENCE_1;
+ 	union lane_status dpcd_lane_status[LANE_COUNT_DP_MAX];
+ 	union lane_align_status_updated dpcd_lane_status_updated;
  
--	/* No userspace support. */
--	dm->dc->debug.disable_tri_buf = true;
--
- 	return 0;
- fail:
- 	kfree(aencoder);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index dc463d99ef50..511ab25b3f1a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2415,8 +2415,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 				plane_state->triplebuffer_flips = false;
- 				if (update_type == UPDATE_TYPE_FAST &&
- 					dc->hwss.program_triplebuffer != NULL &&
--					!plane_state->flip_immediate &&
--					!dc->debug.disable_tri_buf) {
-+					!plane_state->flip_immediate && dc->debug.enable_tri_buf) {
- 						/*triple buffer for VUpdate  only*/
- 						plane_state->triplebuffer_flips = true;
- 				}
-@@ -2443,8 +2442,7 @@ static void commit_planes_for_stream(struct dc *dc,
+@@ -1002,7 +1008,7 @@ static enum link_training_result perform_clock_recovery_sequence(
+ 	retry_count = 0;
  
- 			ASSERT(!pipe_ctx->plane_state->triplebuffer_flips);
+ 	if (!link->ctx->dc->work_arounds.lt_early_cr_pattern)
+-		dp_set_hw_training_pattern(link, tr_pattern, offset);
++		dp_set_hw_training_pattern(link, lt_settings->pattern_for_cr, offset);
  
--			if (dc->hwss.program_triplebuffer != NULL &&
--				!dc->debug.disable_tri_buf) {
-+			if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
- 				/*turn off triple buffer for full update*/
- 				dc->hwss.program_triplebuffer(
- 					dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
-@@ -2509,8 +2507,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 				if (pipe_ctx->plane_state != plane_state)
- 					continue;
- 				/*program triple buffer after lock based on flip type*/
--				if (dc->hwss.program_triplebuffer != NULL &&
--					!dc->debug.disable_tri_buf) {
-+				if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
- 					/*only enable triplebuffer for  fast_update*/
- 					dc->hwss.program_triplebuffer(
- 						dc, pipe_ctx, plane_state->triplebuffer_flips);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 7416fd37e7d8..0607122e04de 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -476,7 +476,7 @@ struct dc_debug_options {
- 	unsigned int force_odm_combine_4to1; //bit vector based on otg inst
- #endif
- 	unsigned int force_fclk_khz;
--	bool disable_tri_buf;
-+	bool enable_tri_buf;
- 	bool dmub_offload_enabled;
- 	bool dmcub_emulation;
- #if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index ee3348711abe..ee56060943f1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1642,16 +1642,15 @@ void dcn20_program_front_end_for_ctx(
- 	struct dce_hwseq *hws = dc->hwseq;
- 	DC_LOGGER_INIT(dc->ctx->logger);
+ 	/* najeeb - The synaptics MST hub can put the LT in
+ 	* infinite loop by switching the VS
+@@ -1029,7 +1035,7 @@ static enum link_training_result perform_clock_recovery_sequence(
+ 			dpcd_set_lt_pattern_and_lane_settings(
+ 					link,
+ 					lt_settings,
+-					tr_pattern,
++					lt_settings->pattern_for_cr,
+ 					offset);
+ 		else
+ 			dpcd_set_lane_settings(
+@@ -1113,7 +1119,7 @@ static inline enum link_training_result perform_link_training_int(
+ 	 * TPS4 must be used instead of POST_LT_ADJ_REQ.
+ 	 */
+ 	if (link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED != 1 ||
+-			get_supported_tp(link) == DP_TRAINING_PATTERN_SEQUENCE_4)
++			lt_settings->pattern_for_eq == DP_TRAINING_PATTERN_SEQUENCE_4)
+ 		return status;
  
--	for (i = 0; i < dc->res_pool->pipe_count; i++) {
--		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-+	if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
-+		for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+ 	if (status == LINK_TRAINING_SUCCESS &&
+@@ -1252,10 +1258,14 @@ static void initialize_training_settings(
+ 	else
+ 		lt_settings->eq_pattern_time = get_training_aux_rd_interval(link, 400);
  
--		if (!pipe_ctx->top_pipe && !pipe_ctx->prev_odm_pipe && pipe_ctx->plane_state) {
--			ASSERT(!pipe_ctx->plane_state->triplebuffer_flips);
--			if (dc->hwss.program_triplebuffer != NULL &&
--				!dc->debug.disable_tri_buf) {
-+			if (!pipe_ctx->top_pipe && !pipe_ctx->prev_odm_pipe && pipe_ctx->plane_state) {
-+				ASSERT(!pipe_ctx->plane_state->triplebuffer_flips);
- 				/*turn off triple buffer for full update*/
- 				dc->hwss.program_triplebuffer(
--					dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
-+						dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
- 			}
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 1b9874445134..55ce2c7df84e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -1075,7 +1075,6 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.disable_pplib_wm_range = false,
- 		.scl_reset_length10 = true,
- 		.sanity_checks = false,
--		.disable_tri_buf = true,
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
- };
++	if (overrides->pattern_for_cr != NULL)
++		lt_settings->pattern_for_cr = *overrides->pattern_for_cr;
++	else
++		lt_settings->pattern_for_cr = decide_cr_training_pattern(link_setting);
+ 	if (overrides->pattern_for_eq != NULL)
+ 		lt_settings->pattern_for_eq = *overrides->pattern_for_eq;
+ 	else
+-		lt_settings->pattern_for_eq = get_supported_tp(link);
++		lt_settings->pattern_for_eq = decide_eq_training_pattern(link, link_setting);
  
-@@ -1092,6 +1091,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 		.disable_stutter = true,
- 		.scl_reset_length10 = true,
- 		.underflow_assert_delay_us = 0xFFFFFFFF,
-+		.enable_tri_buf = true,
- };
+ 	if (overrides->enhanced_framing != NULL)
+ 		lt_settings->enhanced_framing = *overrides->enhanced_framing;
+@@ -1457,7 +1467,6 @@ bool dc_link_dp_perform_link_training_skip_aux(
+ 	const struct dc_link_settings *link_setting)
+ {
+ 	struct link_training_settings lt_settings;
+-	enum dc_dp_training_pattern pattern_for_cr = DP_TRAINING_PATTERN_SEQUENCE_1;
  
- void dcn20_dpp_destroy(struct dpp **dpp)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 78743ae37851..e73785e74cba 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -894,6 +894,8 @@ static const struct dc_debug_options debug_defaults_diags = {
- 		.disable_pplib_wm_range = true,
- 		.disable_stutter = true,
- 		.disable_48mhz_pwrdwn = true,
-+		.disable_psr = true,
-+		.enable_tri_buf = true
- };
+ 	initialize_training_settings(
+ 			link,
+@@ -1468,7 +1477,7 @@ bool dc_link_dp_perform_link_training_skip_aux(
+ 	/* 1. Perform_clock_recovery_sequence. */
  
- enum dcn20_clk_src_array_id {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index 8be4f21169d0..6746d582d723 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -865,6 +865,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- 	.scl_reset_length10 = true,
- 	.dwb_fi_phase = -1, // -1 = disable
- 	.dmub_command_table = true,
-+	.enable_tri_buf = true,
- };
+ 	/* transmit training pattern for clock recovery */
+-	dp_set_hw_training_pattern(link, pattern_for_cr, DPRX);
++	dp_set_hw_training_pattern(link, lt_settings.pattern_for_cr, DPRX);
  
- void dcn30_dpp_destroy(struct dpp **dpp)
+ 	/* call HWSS to set lane settings*/
+ 	dp_set_hw_lane_settings(link, &lt_settings, DPRX);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index a8a3b0643505..80a2191a3115 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -123,6 +123,7 @@ struct dc_link_training_overrides {
+ 
+ 	uint16_t *cr_pattern_time;
+ 	uint16_t *eq_pattern_time;
++	enum dc_dp_training_pattern *pattern_for_cr;
+ 	enum dc_dp_training_pattern *pattern_for_eq;
+ 
+ 	enum dc_link_spread *downspread;
+diff --git a/drivers/gpu/drm/amd/display/include/link_service_types.h b/drivers/gpu/drm/amd/display/include/link_service_types.h
+index 550f46e9b95f..7392a89e771f 100644
+--- a/drivers/gpu/drm/amd/display/include/link_service_types.h
++++ b/drivers/gpu/drm/amd/display/include/link_service_types.h
+@@ -80,6 +80,7 @@ struct link_training_settings {
+ 
+ 	uint16_t cr_pattern_time;
+ 	uint16_t eq_pattern_time;
++	enum dc_dp_training_pattern pattern_for_cr;
+ 	enum dc_dp_training_pattern pattern_for_eq;
+ 
+ 	bool enhanced_framing;
 -- 
 2.25.1
 
