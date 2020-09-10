@@ -7,51 +7,39 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B54F9C2BB84
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71339C2D0A7
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 639712078B
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 639712078B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1FB692078B
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2020 07:29:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FB692078B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 938FF6E2CC;
-	Thu, 10 Sep 2020 07:29:38 +0000 (UTC)
-X-Greylist: delayed 433 seconds by postgrey-1.36 at gabe;
- Thu, 10 Sep 2020 02:12:47 UTC
-Received: from mail-m17613.qiye.163.com (mail-m17613.qiye.163.com
- [59.111.176.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7323F89D67
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2020 02:12:47 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [157.0.31.124])
- by mail-m17613.qiye.163.com (Hmail) with ESMTPA id 62E7F4826B1;
- Thu, 10 Sep 2020 10:05:28 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Aric Cyr <aric.cyr@amd.com>,
- abdoulaye berthe <abdoulaye.berthe@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, jinlong zhang <jinlong.zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: optimize code runtime a bit
-Date: Wed,  9 Sep 2020 19:05:04 -0700
-Message-Id: <20200910020520.9973-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5645D6E2E0;
+	Thu, 10 Sep 2020 07:29:40 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 064A989FA9;
+ Thu, 10 Sep 2020 02:55:46 +0000 (UTC)
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 60DAF3647B9752C439E5;
+ Thu, 10 Sep 2020 10:55:41 +0800 (CST)
+Received: from localhost (10.174.179.108) by DGGEMS408-HUB.china.huawei.com
+ (10.3.19.208) with Microsoft SMTP Server id 14.3.487.0; Thu, 10 Sep 2020
+ 10:55:33 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <Yong.Zhao@amd.com>
+Subject: [PATCH -next] drm/amdkfd: Fix -Wunused-const-variable warning
+Date: Thu, 10 Sep 2020 10:55:32 +0800
+Message-ID: <20200910025532.19616-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZGh1KHR8aS0xJSkJPVkpOQkJMS0hOSUNMQkxVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKQ1VKS0tZBg++
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MVE6Dgw5OT8dQx1ONQguAgIw
- SisaFE9VSlVKTkJCTEtITklCSEtCVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSU9ZV1kIAVlBSEhCSTcG
-X-HM-Tid: 0a7475c2b50f93bakuws62e7f4826b1
+X-Originating-IP: [10.174.179.108]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 10 Sep 2020 07:29:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,69 +52,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In fnction is_cr_done & is_ch_eq_done, when done = false
-happened once, no need to circle left ln_count.
-This change is to make the code run a bit fast.
-
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index b2be6ad5101d..53e30be8b66a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -373,34 +373,30 @@ static void dpcd_set_lt_pattern_and_lane_settings(
- static bool is_cr_done(enum dc_lane_count ln_count,
- 	union lane_status *dpcd_lane_status)
- {
--	bool done = true;
- 	uint32_t lane;
- 	/*LANEx_CR_DONE bits All 1's?*/
- 	for (lane = 0; lane < (uint32_t)(ln_count); lane++) {
- 		if (!dpcd_lane_status[lane].bits.CR_DONE_0)
--			done = false;
-+			return false;
- 	}
--	return done;
--
-+	return true;
- }
- 
- static bool is_ch_eq_done(enum dc_lane_count ln_count,
- 	union lane_status *dpcd_lane_status,
- 	union lane_align_status_updated *lane_status_updated)
- {
--	bool done = true;
- 	uint32_t lane;
- 	if (!lane_status_updated->bits.INTERLANE_ALIGN_DONE)
--		done = false;
-+		return false;
- 	else {
- 		for (lane = 0; lane < (uint32_t)(ln_count); lane++) {
- 			if (!dpcd_lane_status[lane].bits.SYMBOL_LOCKED_0 ||
- 				!dpcd_lane_status[lane].bits.CHANNEL_EQ_DONE_0)
--				done = false;
-+				return false;
- 		}
- 	}
--	return done;
--
-+	return true;
- }
- 
- static void update_drive_settings(
--- 
-2.28.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SWYgS0ZEX1NVUFBPUlRfSU9NTVVfVjIgaXMgbm90IHNldCwgZ2NjIHdhcm5zOgoKZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvLi4vYW1ka2ZkL2tmZF9kZXZpY2UuYzoxMjE6Mzc6IHdhcm5pbmc6
+IOKAmHJhdmVuX2RldmljZV9pbmZv4oCZIGRlZmluZWQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1j
+b25zdC12YXJpYWJsZT1dCiBzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyByYXZl
+bl9kZXZpY2VfaW5mbyA9IHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+
+fn5+fn5+fn5+fn5+fn5+CgpNb3ZlIGl0IHRvIGlmZGVmIGJsb2NrLgoKU2lnbmVkLW9mZi1ieTog
+WXVlSGFpYmluZyA8eXVlaGFpYmluZ0BodWF3ZWkuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
+bigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Uu
+YwppbmRleCAwZTcxYTA1NDNmOTguLmNhZTRkZjI1OWUyNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9kZXZpY2UuYwpAQCAtMTE2LDcgKzExNiw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1
+Y3Qga2ZkX2RldmljZV9pbmZvIGNhcnJpem9fZGV2aWNlX2luZm8gPSB7CiAJLm51bV94Z21pX3Nk
+bWFfZW5naW5lcyA9IDAsCiAJLm51bV9zZG1hX3F1ZXVlc19wZXJfZW5naW5lID0gMiwKIH07Ci0j
+ZW5kaWYKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gcmF2ZW5fZGV2aWNl
+X2luZm8gPSB7CiAJLmFzaWNfZmFtaWx5ID0gQ0hJUF9SQVZFTiwKQEAgLTEzNSw2ICsxMzQsNyBA
+QCBzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyByYXZlbl9kZXZpY2VfaW5mbyA9
+IHsKIAkubnVtX3hnbWlfc2RtYV9lbmdpbmVzID0gMCwKIAkubnVtX3NkbWFfcXVldWVzX3Blcl9l
+bmdpbmUgPSAyLAogfTsKKyNlbmRpZgogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2Vf
+aW5mbyBoYXdhaWlfZGV2aWNlX2luZm8gPSB7CiAJLmFzaWNfZmFtaWx5ID0gQ0hJUF9IQVdBSUks
+Ci0tIAoyLjE3LjEKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
