@@ -5,60 +5,61 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA5C2C43461
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 15:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66F3EC433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 15:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EFE9223BD
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 15:00:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1269F223BD
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 15:00:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wVgFDdCb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EFE9223BD
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="sOxMrRYt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1269F223BD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 142A46EA87;
-	Fri, 11 Sep 2020 15:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CCE56EA85;
+	Fri, 11 Sep 2020 15:00:07 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2068.outbound.protection.outlook.com [40.107.223.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAEB6EA7D;
- Fri, 11 Sep 2020 15:00:01 +0000 (UTC)
+ (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A6B76EA8B;
+ Fri, 11 Sep 2020 15:00:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TVye1pkXboDDMZoUY/64wuVU8ixDGcsBrYO4QfACmRqRa3XrcxUWp1S1LWIGDS8Xo8Q5Ov1Bt89zSmJV2PENb7OXmiqESiHr3ZHa9qHqdFPcEa2cbTe2s/DoYYrPUodGL1OQ3TqJjEb7vuu/4MU3KZORlXKbXOaK7qnz0//knbU7Tuww9tbXX9a60cJtJv2t9X+YsR5dmXsRk01axv3HxwRJqil1f+wYFF3aZkyPKBot7jnVZg05hheoW2V4GveZ3qLQRangaGkDqj1sHXM5XoeWqp9r50j+hhYqePDLztUugE89OaCQmI/XA3jHyEY9QE8LzzfU0BMSEgNzbZXCvg==
+ b=gL1+7KXmNTtAtG6dn1jCiAwU8DId3ZFFXGs7L9mjXCe7KQmzk/5jTBI2Cz0Kx22K0mEfOTlF8LdmU677KMU+hjzAnRw6PWNMzuszXSn2oiKs/uKnLUwrZqzGpmRhjxJ/0cN8pIkbOJUaxshoExa8R0/NtnacBxMpiMN4Vqk+15R/a/rXSINIpJflTFoR7GO3laA+Tq9bq+VvshtMBmK6v2TxxGLF5D9Rf9UEKu8t3QaZedVYuVfHOKWuH5baWh5rHvJUfxyj8ns2MQzw6YW42nVFdgLFLbZMBxSOuq/qE0KZdrOt3nXyYVLIZr94ubwiOWapX3Ab/8di08/QM09lZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=weOxQUQB5RUpbq6rgfqy3vqokZqHIdeAziqdnzCsEsA=;
- b=eP8dwsJzPymzluXKLRTEbSItvi/V5BecPcHCyum3YObPadt+Aol743cQTXUQHeKzelJmrS7RwKptwZJnt2ZI8FTI3KHNoOHOOxvfgOrF09VzBwZEV+ZOvdawbzd1/mBIqYPn5lcv44/gMSxRWSAKEwpOV4IogKxcGyjuwch1LZ+8R5s+svppJigQz73FJyQL5b3tqHnqJJgkvg1Ej7+mV6Sd6yAsWjw15fH++mZShUhQSmszQTM0BsMrbLy+K/lJahwZCcnHfWFcJjOmK/pc2oHWC9cLaYeviLewOp3tj9IbsgU5btGnV8G4QKl5Q6XcGK3f4+NeAVmSZcHEYGtkMA==
+ bh=YiOfwzziv75bRm1CoskdoM9zTw5ENVwGtmP9eCj0wes=;
+ b=apRuR/q1VVt7Oi9lefA/LJdpnjG9K+bZ3Cu+ovXTg9KSVK18jaH0oiPw/jI7anZI5Gg/IYtzSC8On7uEQ7xpabtJ0I1p5mAsgRBFxKdDLNDSf0gEZhqncLiMWKoAV1MPRYOlumTnufO+kBeVxMvIST8E5uuASSgJ4s69Vfm3EZDFc8YhWDlkKoAZzBq1NDW4k22P3YvNqyJfgQ4n1F6ThJy5Iq8GFhcyfB/dC/Lyhtl5cWVSZxP5gLu5icN0ftzr0VDjV14d2GbDC7X+7oupwfMMG4z20A7O7N6Z6UzdP55q6x3PAFqck+arXkX+HY+zhe9Zo5lC7viO4xxwyqU0kA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=weOxQUQB5RUpbq6rgfqy3vqokZqHIdeAziqdnzCsEsA=;
- b=wVgFDdCbnMYQrJYH+NDb6MdfbhpDHAVjnFRKvd4qoy9FwP+b9WbbOLRxYz/nawKoXwXVMxzqvatGTDhmItK+KbzZ4jSHUHIGgG/pLL+19a61deCj0FBndITbceJGSUM+quBFVtvEF3/N71r4/zGN+MbfpduIwXybOUz0IBItNmc=
+ bh=YiOfwzziv75bRm1CoskdoM9zTw5ENVwGtmP9eCj0wes=;
+ b=sOxMrRYtbIJW/QLj3bAPldaq4v2PR3MFOPlWSs5x1L1iVCuKIgb9PFNeZ0U/1+rAoZVOZzIr3D2UKa2LMsEwyZge3Stcmebj7ApvruTRJhddGGxB2qH8BP9oDp1aPW7sOt08zWGQjhBROPyXEGfi08UOYGVtQ2fdCSYr4kWs3Dc=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20)
- by DM6PR12MB3082.namprd12.prod.outlook.com (2603:10b6:5:11b::12) with
+ by DM6PR12MB4372.namprd12.prod.outlook.com (2603:10b6:5:2af::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.16; Fri, 11 Sep
- 2020 14:59:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Fri, 11 Sep
+ 2020 15:00:02 +0000
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::25a1:ace4:4ca8:167e]) by DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::25a1:ace4:4ca8:167e%8]) with mapi id 15.20.3370.017; Fri, 11 Sep 2020
- 14:59:59 +0000
+ 15:00:02 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] drm/amd/display: Add tracepoint for amdgpu_dm
-Date: Fri, 11 Sep 2020 10:59:25 -0400
-Message-Id: <20200911145927.401322-3-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v2 4/4] drm/amd/display: Add tracepoint for capturing clocks
+ state
+Date: Fri, 11 Sep 2020 10:59:27 -0400
+Message-Id: <20200911145927.401322-5-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
 References: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
@@ -71,34 +72,34 @@ Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::e9a1) by
  YTOPR0101CA0060.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::37) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
- Transport; Fri, 11 Sep 2020 14:59:59 +0000
+ Transport; Fri, 11 Sep 2020 15:00:00 +0000
 X-Mailer: git-send-email 2.28.0
 X-Originating-IP: [2607:fea8:56e0:6d60::e9a1]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b5d17172-75b9-41c6-4f10-08d856635a96
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3082:
+X-MS-Office365-Filtering-Correlation-Id: 336b1871-896f-4083-9001-08d856635b68
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4372:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB308240610DDF9B28FD6EACDF98240@DM6PR12MB3082.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:83;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4372F8FDDB4CAD933458942098240@DM6PR12MB4372.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xtgRp/EXI4a9fbKjWwDFvBWyD1Q1+sonGWckUHJ6d2IaQ6FdmzxSdfWPQFXY219gwcsxzy49coQ3uvP6KndfEDq1Q67INJmXu3qTaPH1Mg7oK3F4GrOzuHNXSZ+OnzDgJXGn9xSkYNJEPcyCsbwq0k5Xuar1kEU6lkXYKWo5XbQGtj9+Pw+20gAZ0BSXb7o4Dw2UUCDgn3yzFuA8nKOwepBFbR8fc/O6RltMc97IxIApdxX+/QY87oE0Z4DwGSZB2ZGePUA866oMYKJgV4lBMTHpq3g0uxHRT1CBQdN9wdhgMFmEuVk6ii1lQQzGzm4NxjaH4h14VGBxkmtL1C0g/A==
+X-Microsoft-Antispam-Message-Info: HEJOkYMHXE8iJ9yQYXBgfTcLOdT1bQvBBWhRJfNX/dVPRyp0v1Al5hasXlPuex+5+JJcDtfmSE3NKTqDIY1uQ+4Ahtb3RBVbgDcESA+WqESuQRRxJq+dAxJd6A4krC5tsJ12vLS5qtH6lHyzdxBJkHVX65JWvz+xChEVGnUiemTqy8aYMp6s4KaK2eyt/agGofWCruXCTeXaTcMFrA76YyyzRTJfLgd4iNNtWlvetQ1VYCnFq0NN5QuT2CvsqoQr2zXIlDIkjeXEiIoC3MHndyvDfTWqyTaxLGsBbsqw0V3TK0Pz1skcoFiEx59S50/+twQVTTrOMLA22/QZRrdGvQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(366004)(376002)(396003)(66476007)(86362001)(1076003)(52116002)(83380400001)(2906002)(6506007)(8676002)(316002)(30864003)(66556008)(5660300002)(186003)(6666004)(478600001)(8936002)(4326008)(6486002)(36756003)(66946007)(6512007)(16526019)(54906003)(2616005);
+ SFS:(4636009)(39860400002)(366004)(136003)(396003)(376002)(346002)(4326008)(52116002)(30864003)(83380400001)(316002)(6512007)(36756003)(6486002)(6666004)(5660300002)(2906002)(2616005)(1076003)(54906003)(86362001)(16526019)(6506007)(66556008)(478600001)(66476007)(8676002)(66946007)(8936002)(186003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: sKsvxVYcPYvvD/wfadZE0qeqVR5zon2njUuQHqb9RuVKToPNYOd/uqB5XJGnt9BxAOBYR4WgUDczqZ01HBhMYVhJjSFCjDlopRV2hgwt5SoW0VFbUwkjzds5yzgCX12DFz7zb9DPDTXBEH2HEHFbQVONrw2NQu875t9ftKW0MSTXaqPx5xs/O/gOAgu8PhhzCDKCKvyT9QaX5Euz8z3MuqWsTjvlNPdCdf8ZDbDD/rQcEBWgVpiCLD/kgZf1IJffw7Nw0kUzpOckRcqqj0vpdEN7sDWUguaaL33L+yvLJOWIlhoycGadJy7oIQWuRFQOJc4EGU0DxixDj9MRJm1iBJWCahAfCGV0SSagTliYWwzCd4jLAYpnm3BttbVHWYnfNY5GvetleclmVIb1OU+ogDt6P6+kqK7AXdOvwG/CfLzMWr3TQBoqUOHClUVOHOh1SAzLt6l8x9h1/zkGYvB2CIkBIQG7AAnKiyWTj1xyTjtLnwaPbvckURBHwgQrvWDz4mZhLAlLSsPzdCX7/S1KcQ7cHOzQ0bqx2fd2K5+N7dIiMZi3FMvZZmH+b+bc7Wvyd6nwWBt+UtxTa1Pr/GtD9OcI3LmlE/mxqS1iwbcHuH5MjU0em2E4vvz5iAfj2iFpafdftEQJV89oo7IoCmoOKV/AWv3TIkvqZLZiUPeFH+U=
+X-MS-Exchange-AntiSpam-MessageData: A0kFG49YUzAv3rmbjxwn9IBdHkA0VLy4DSZLwPQGnjLtU8Xxb6o2E2ce7JOOlBPHGN7O3V61tn4E2wZ+IOoID7cseolkSDSUuhu8pkcAxOQQb43g9zsYPGw4tVXADzdFyxVV+Zf6wCmJyZQcjVv1slf4CWyf3fI7o2YXdJEmboxISt6GRrENIvdAe1E/kOPcsfkMJmwRumerJCntHNgJ7YPY6Jn20zOFZmm6Yqr97J5RhNd58EjyY8ZGB8d5fV7fjhDAMLV1xBaQGdXjpZ6BBAj+X2HsE4lWglG5g1GfzXheFnhmuLXhLcj/9ijc3/9qbeuUU47SCGLnkYoQ5IjNm7ETPfhjFPk6ABTrMCS59VLSbA+D6+tIk/34s9yAh6Gwh1eXfFWa7e7ohtgim7Z1iAJgbPIVdVwnOuFsjHG4f47Y+tjJaVgbHiBCIoRI4TJY9I3uY3LUKuhlauZkIdVpDo/x76km1+Iovt0/8VIhD243FFheO13h961C5U/KbK4W68Un8YFVTjkUYauU+o8BmEhnrhykyNEZTh4Gh55YYihetVHAABDPvRoPBYf3PvsFvjDDYQq5ScS5VuMytPu6kU0X2MA1Ejf+EV0l7OyOoXf9C6u57efQBsbrRRC/KKPPB2A71E4HS7mefD/S0mcnWMSbb9fb5ATOdO1oXi2HoBs=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5d17172-75b9-41c6-4f10-08d856635a96
+X-MS-Exchange-CrossTenant-Network-Message-Id: 336b1871-896f-4083-9001-08d856635b68
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2020 14:59:59.6089 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2020 15:00:00.9589 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QQi9DJXK2tgnz+wHpW50mBnCNlMo4tSXwq1cyKnuL9R73Nr0YmYAkNypI+InfR/O/3o+ruOb+W0zND5o7HuoYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3082
+X-MS-Exchange-CrossTenant-UserPrincipalName: RBAyxt2aXq77xAqIwXIy25oA+FL+NZHPsKjluBICGZr8sN6K0wGRosBaDrPAxBw1S45PqiFCVooFZzNSU6PRwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4372
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,400 +122,386 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Debug amdgpu_dm could be a complicated task, therefore, this commit adds
-tracepoints in some convenient functions such as plane and connector
-check inside amdgpu_dm.
+The clock state update is the source of many problems, and capturing
+this sort of information helps debug. This commit introduces tracepoints
+for capturing clock values and also add traces in DCE, DCN1, DCN2x, and
+DCN3.
 
 Co-developed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  17 ++
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 287 ++++++++++++++++++
- 2 files changed, 304 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 198 ++++++++++++++++++
+ .../dc/clk_mgr/dce112/dce112_clk_mgr.c        |   5 +
+ .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |   4 +
+ .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |   4 +
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |   4 +
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   4 +
+ .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  |   5 +
+ 7 files changed, 224 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cb624ee70545..552ca67c2a71 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5424,6 +5424,8 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
- 	struct drm_crtc_state *new_crtc_state;
- 	int ret;
- 
-+	trace_amdgpu_dm_connector_atomic_check(new_con_state);
-+
- 	if (!crtc)
- 		return 0;
- 
-@@ -5542,6 +5544,8 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
- 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(state);
- 	int ret = -EINVAL;
- 
-+	trace_amdgpu_dm_crtc_atomic_check(state);
-+
- 	dm_update_crtc_active_planes(crtc, state);
- 
- 	if (unlikely(!dm_crtc_state->stream &&
-@@ -5916,6 +5920,8 @@ static int dm_plane_atomic_check(struct drm_plane *plane,
- 	struct drm_crtc_state *new_crtc_state;
- 	int ret;
- 
-+	trace_amdgpu_dm_plane_atomic_check(state);
-+
- 	dm_plane_state = to_dm_plane_state(state);
- 
- 	if (!dm_plane_state->dc_state)
-@@ -5956,6 +5962,8 @@ static void dm_plane_atomic_async_update(struct drm_plane *plane,
- 	struct drm_plane_state *old_state =
- 		drm_atomic_get_old_plane_state(new_state->state, plane);
- 
-+	trace_amdgpu_dm_atomic_update_cursor(new_state);
-+
- 	swap(plane->state->fb, new_state->fb);
- 
- 	plane->state->src_x = new_state->src_x;
-@@ -7546,6 +7554,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 	int crtc_disable_count = 0;
- 	bool mode_set_reset_required = false;
- 
-+	trace_amdgpu_dm_atomic_commit_tail_begin(state);
-+
- 	drm_atomic_helper_update_legacy_modeset_state(dev, state);
- 
- 	dm_state = dm_atomic_get_new_state(state);
-@@ -8616,6 +8626,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	int ret, i;
- 	bool lock_and_validation_needed = false;
- 
-+	trace_amdgpu_dm_atomic_check_begin(state);
-+
- 	ret = drm_atomic_helper_check_modeset(dev, state);
- 	if (ret)
- 		goto fail;
-@@ -8912,6 +8924,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 
- 	/* Must be success */
- 	WARN_ON(ret);
-+
-+	trace_amdgpu_dm_atomic_check_finish(state, ret);
-+
- 	return ret;
- 
- fail:
-@@ -8922,6 +8937,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	else
- 		DRM_DEBUG_DRIVER("Atomic check failed with err: %d \n", ret);
- 
-+	trace_amdgpu_dm_atomic_check_finish(state, ret);
-+
- 	return ret;
- }
- 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index dd34e11b1079..5fb4c4a5c349 100644
+index 53f62506e17c..fb22b233224a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -30,6 +30,12 @@
- #define _AMDGPU_DM_TRACE_H_
+@@ -411,6 +411,42 @@ struct amdgpu_dm_trace_pipe_state {
+ 	unsigned int update_flags;
+ };
  
- #include <linux/tracepoint.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_atomic.h>
++struct amdgpu_dm_trace_dc_clocks_state {
++	int dispclk_khz;
++	int dppclk_khz;
++	int disp_dpp_voltage_level_khz;
++	int dcfclk_khz;
++	int socclk_khz;
++	int dcfclk_deep_sleep_khz;
++	int fclk_khz;
++	int phyclk_khz;
++	int dramclk_khz;
++	bool p_state_change_support;
++	int pwr_state;
++	bool prev_p_state_change_support;
++	int dtm_level;
++	int max_supported_dppclk_khz;
++	int max_supported_dispclk_khz;
++	int bw_dppclk_khz;
++	int bw_dispclk_khz;
++	int safe_to_lower;
++};
++
++struct amdgpu_dm_trace_dce_clocks_state {
++	bool cpuc_state_change_enable;
++	bool cpup_state_change_enable;
++	bool stutter_mode_enable;
++	bool nbp_state_change_enable;
++	bool all_displays_in_sync;
++	int sclk_khz;
++	int sclk_deep_sleep_khz;
++	int yclk_khz;
++	int dispclk_khz;
++	int blackout_recovery_time_us;
++	int patched_disp_clk;
++	int safe_to_lower;
++};
++
+ #define fill_out_trace_pipe_state(trace_pipe_state, pipe_ctx) \
+ 	do { \
+ 		trace_pipe_state.pipe_idx	= (pipe_ctx)->pipe_idx; \
+@@ -444,6 +480,44 @@ struct amdgpu_dm_trace_pipe_state {
+ 		trace_pipe_state.update_flags	= (pipe_ctx)->update_flags.raw; \
+ 	} while (0)
  
- DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
- 		    TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-@@ -89,6 +95,287 @@ TRACE_EVENT(amdgpu_dc_performance,
- 			(unsigned long)__entry->write_delta,
- 			(unsigned long)__entry->writes)
++#define fill_out_trace_clock_state(trace_clock_state, clocks, safe_to_lower) \
++	do { \
++		trace_clock_state.dispclk_khz = (clocks)->dispclk_khz; \
++		trace_clock_state.dppclk_khz = (clocks)->dppclk_khz; \
++		trace_clock_state.disp_dpp_voltage_level_khz = (clocks)->disp_dpp_voltage_level_khz; \
++		trace_clock_state.dcfclk_khz = (clocks)->dcfclk_khz; \
++		trace_clock_state.socclk_khz = (clocks)->socclk_khz; \
++		trace_clock_state.dcfclk_deep_sleep_khz = (clocks)->dcfclk_deep_sleep_khz; \
++		trace_clock_state.fclk_khz = (clocks)->fclk_khz; \
++		trace_clock_state.phyclk_khz = (clocks)->phyclk_khz; \
++		trace_clock_state.dramclk_khz = (clocks)->dramclk_khz; \
++		trace_clock_state.p_state_change_support = (clocks)->p_state_change_support; \
++		trace_clock_state.pwr_state = (clocks)->pwr_state; \
++		trace_clock_state.prev_p_state_change_support = (clocks)->prev_p_state_change_support; \
++		trace_clock_state.dtm_level = (clocks)->dtm_level; \
++		trace_clock_state.max_supported_dppclk_khz = (clocks)->max_supported_dppclk_khz; \
++		trace_clock_state.max_supported_dispclk_khz = (clocks)->max_supported_dispclk_khz; \
++		trace_clock_state.bw_dppclk_khz = (clocks)->bw_dppclk_khz; \
++		trace_clock_state.bw_dispclk_khz = (clocks)->bw_dispclk_khz; \
++		trace_clock_state.safe_to_lower = safe_to_lower; \
++	} while (0)
++
++#define fill_out_trace_dce_clock_state(trace_clock_state, clocks, patched_disp_clk, safe_to_lower) \
++	do { \
++		trace_clock_state.cpuc_state_change_enable = (clocks)->cpuc_state_change_enable; \
++		trace_clock_state.cpup_state_change_enable = (clocks)->cpup_state_change_enable; \
++		trace_clock_state.stutter_mode_enable = (clocks)->stutter_mode_enable; \
++		trace_clock_state.nbp_state_change_enable = (clocks)->nbp_state_change_enable; \
++		trace_clock_state.all_displays_in_sync = (clocks)->all_displays_in_sync; \
++		trace_clock_state.sclk_khz = (clocks)->sclk_khz; \
++		trace_clock_state.sclk_deep_sleep_khz = (clocks)->sclk_deep_sleep_khz; \
++		trace_clock_state.yclk_khz = (clocks)->yclk_khz; \
++		trace_clock_state.dispclk_khz = (clocks)->dispclk_khz; \
++		trace_clock_state.blackout_recovery_time_us = (clocks)->blackout_recovery_time_us; \
++		trace_clock_state.patched_disp_clk = patched_disp_clk; \
++		trace_clock_state.safe_to_lower = safe_to_lower; \
++	} while (0)
++
+ #endif /* _AMDGPU_DM_TRACE_STRUCTS_DEFINED_ */
+ 
+ TRACE_EVENT(amdgpu_dm_dc_pipe_state,
+@@ -548,6 +622,130 @@ TRACE_EVENT(amdgpu_dm_dc_pipe_state,
+ 	)
  );
-+
-+TRACE_EVENT(amdgpu_dm_connector_atomic_check,
-+	    TP_PROTO(const struct drm_connector_state *state),
-+	    TP_ARGS(state),
+ 
++TRACE_EVENT(amdgpu_dm_dc_clocks_state,
++	    TP_PROTO(const struct amdgpu_dm_trace_dc_clocks_state *clk),
++	    TP_ARGS(clk),
 +
 +	    TP_STRUCT__entry(
-+			     __field(uint32_t, conn_id)
-+			     __field(const struct drm_connector_state *, conn_state)
-+			     __field(const struct drm_atomic_state *, state)
-+			     __field(const struct drm_crtc_commit *, commit)
-+			     __field(uint32_t, crtc_id)
-+			     __field(uint32_t, best_encoder_id)
-+			     __field(enum drm_link_status, link_status)
-+			     __field(bool, self_refresh_aware)
-+			     __field(enum hdmi_picture_aspect, picture_aspect_ratio)
-+			     __field(unsigned int, content_type)
-+			     __field(unsigned int, hdcp_content_type)
-+			     __field(unsigned int, content_protection)
-+			     __field(unsigned int, scaling_mode)
-+			     __field(u32, colorspace)
-+			     __field(u8, max_requested_bpc)
-+			     __field(u8, max_bpc)
++			     __field(int, dispclk_khz)
++			     __field(int, dppclk_khz)
++			     __field(int, disp_dpp_voltage_level_khz)
++			     __field(int, dcfclk_khz)
++			     __field(int, socclk_khz)
++			     __field(int, dcfclk_deep_sleep_khz)
++			     __field(int, fclk_khz)
++			     __field(int, phyclk_khz)
++			     __field(int, dramclk_khz)
++			     __field(int, p_state_change_support)
++			     __field(int, prev_p_state_change_support)
++			     __field(int, pwr_state)
++			     __field(int, dtm_level)
++			     __field(int, max_supported_dppclk_khz)
++			     __field(int, max_supported_dispclk_khz)
++			     __field(int, bw_dppclk_khz)
++			     __field(int, bw_dispclk_khz)
++			     __field(bool, safe_to_lower)
 +	    ),
-+
 +	    TP_fast_assign(
-+			   __entry->conn_id = state->connector->base.id;
-+			   __entry->conn_state = state;
-+			   __entry->state = state->state;
-+			   __entry->commit = state->commit;
-+			   __entry->crtc_id = state->crtc ? state->crtc->base.id : 0;
-+			   __entry->best_encoder_id = state->best_encoder ?
-+						      state->best_encoder->base.id : 0;
-+			   __entry->link_status = state->link_status;
-+			   __entry->self_refresh_aware = state->self_refresh_aware;
-+			   __entry->picture_aspect_ratio = state->picture_aspect_ratio;
-+			   __entry->content_type = state->content_type;
-+			   __entry->hdcp_content_type = state->hdcp_content_type;
-+			   __entry->content_protection = state->content_protection;
-+			   __entry->scaling_mode = state->scaling_mode;
-+			   __entry->colorspace = state->colorspace;
-+			   __entry->max_requested_bpc = state->max_requested_bpc;
-+			   __entry->max_bpc = state->max_bpc;
++			   __entry->dispclk_khz = clk->dispclk_khz;
++			   __entry->dppclk_khz = clk->dppclk_khz;
++			   __entry->dcfclk_khz = clk->dcfclk_khz;
++			   __entry->socclk_khz = clk->socclk_khz;
++			   __entry->dcfclk_deep_sleep_khz = clk->dcfclk_deep_sleep_khz;
++			   __entry->fclk_khz = clk->fclk_khz;
++			   __entry->phyclk_khz = clk->phyclk_khz;
++			   __entry->dramclk_khz = clk->dramclk_khz;
++			   __entry->p_state_change_support = clk->p_state_change_support;
++			   __entry->prev_p_state_change_support = clk->prev_p_state_change_support;
++			   __entry->pwr_state = clk->pwr_state;
++			   __entry->prev_p_state_change_support = clk->prev_p_state_change_support;
++			   __entry->dtm_level = clk->dtm_level;
++			   __entry->max_supported_dppclk_khz = clk->max_supported_dppclk_khz;
++			   __entry->max_supported_dispclk_khz = clk->max_supported_dispclk_khz;
++			   __entry->bw_dppclk_khz = clk->bw_dppclk_khz;
++			   __entry->bw_dispclk_khz = clk->bw_dispclk_khz;
++			   __entry->safe_to_lower = clk->safe_to_lower;
 +	    ),
-+
-+	    TP_printk("conn_id=%u conn_state=%p state=%p commit=%p crtc_id=%u "
-+		      "best_encoder_id=%u link_status=%d self_refresh_aware=%d "
-+		      "picture_aspect_ratio=%d content_type=%u "
-+		      "hdcp_content_type=%u content_protection=%u scaling_mode=%u "
-+		      "colorspace=%u max_requested_bpc=%u max_bpc=%u",
-+		      __entry->conn_id, __entry->conn_state, __entry->state,
-+		      __entry->commit, __entry->crtc_id, __entry->best_encoder_id,
-+		      __entry->link_status, __entry->self_refresh_aware,
-+		      __entry->picture_aspect_ratio, __entry->content_type,
-+		      __entry->hdcp_content_type, __entry->content_protection,
-+		      __entry->scaling_mode, __entry->colorspace,
-+		      __entry->max_requested_bpc, __entry->max_bpc)
++	    TP_printk("dispclk_khz=%d dppclk_khz=%d disp_dpp_voltage_level_khz=%d dcfclk_khz=%d socclk_khz=%d "
++		      "dcfclk_deep_sleep_khz=%d fclk_khz=%d phyclk_khz=%d "
++		      "dramclk_khz=%d p_state_change_support=%d "
++		      "prev_p_state_change_support=%d pwr_state=%d prev_p_state_change_support=%d "
++		      "dtm_level=%d max_supported_dppclk_khz=%d max_supported_dispclk_khz=%d "
++		      "bw_dppclk_khz=%d bw_dispclk_khz=%d "
++		      "safe_to_lower=%d ",
++		      __entry->dispclk_khz,
++		      __entry->dppclk_khz,
++		      __entry->disp_dpp_voltage_level_khz,
++		      __entry->dcfclk_khz,
++		      __entry->socclk_khz,
++		      __entry->dcfclk_deep_sleep_khz,
++		      __entry->fclk_khz,
++		      __entry->phyclk_khz,
++		      __entry->dramclk_khz,
++		      __entry->p_state_change_support,
++		      __entry->prev_p_state_change_support,
++		      __entry->pwr_state,
++		      __entry->prev_p_state_change_support,
++		      __entry->dtm_level,
++		      __entry->max_supported_dppclk_khz,
++		      __entry->max_supported_dispclk_khz,
++		      __entry->bw_dppclk_khz,
++		      __entry->bw_dispclk_khz,
++		      __entry->safe_to_lower
++	    )
 +);
 +
-+TRACE_EVENT(amdgpu_dm_crtc_atomic_check,
-+	    TP_PROTO(const struct drm_crtc_state *state),
-+	    TP_ARGS(state),
++TRACE_EVENT(amdgpu_dm_dce_clocks_state,
++	    TP_PROTO(const struct amdgpu_dm_trace_dce_clocks_state *clk),
++	    TP_ARGS(clk),
 +
 +	    TP_STRUCT__entry(
-+			     __field(const struct drm_atomic_state *, state)
-+			     __field(const struct drm_crtc_state *, crtc_state)
-+			     __field(const struct drm_crtc_commit *, commit)
-+			     __field(uint32_t, crtc_id)
-+			     __field(bool, enable)
-+			     __field(bool, active)
-+			     __field(bool, planes_changed)
-+			     __field(bool, mode_changed)
-+			     __field(bool, active_changed)
-+			     __field(bool, connectors_changed)
-+			     __field(bool, zpos_changed)
-+			     __field(bool, color_mgmt_changed)
-+			     __field(bool, no_vblank)
-+			     __field(bool, async_flip)
-+			     __field(bool, vrr_enabled)
-+			     __field(bool, self_refresh_active)
-+			     __field(u32, plane_mask)
-+			     __field(u32, connector_mask)
-+			     __field(u32, encoder_mask)
++			     __field(bool, cpuc_state_change_enable)
++			     __field(bool, cpup_state_change_enable)
++			     __field(bool, stutter_mode_enable)
++			     __field(bool, nbp_state_change_enable)
++			     __field(bool, all_displays_in_sync)
++			     __field(int, sclk_khz)
++			     __field(int, sclk_deep_sleep_khz)
++			     __field(int, yclk_khz)
++			     __field(int, dispclk_khz)
++			     __field(int, blackout_recovery_time_us)
++			     __field(int, patched_disp_clk)
++			     __field(int, safe_to_lower)
 +	    ),
-+
 +	    TP_fast_assign(
-+			   __entry->state = state->state;
-+			   __entry->crtc_state = state;
-+			   __entry->crtc_id = state->crtc->base.id;
-+			   __entry->commit = state->commit;
-+			   __entry->enable = state->enable;
-+			   __entry->active = state->active;
-+			   __entry->planes_changed = state->planes_changed;
-+			   __entry->mode_changed = state->mode_changed;
-+			   __entry->active_changed = state->active_changed;
-+			   __entry->connectors_changed = state->connectors_changed;
-+			   __entry->zpos_changed = state->zpos_changed;
-+			   __entry->color_mgmt_changed = state->color_mgmt_changed;
-+			   __entry->no_vblank = state->no_vblank;
-+			   __entry->async_flip = state->async_flip;
-+			   __entry->vrr_enabled = state->vrr_enabled;
-+			   __entry->self_refresh_active = state->self_refresh_active;
-+			   __entry->plane_mask = state->plane_mask;
-+			   __entry->connector_mask = state->connector_mask;
-+			   __entry->encoder_mask = state->encoder_mask;
++			   __entry->cpuc_state_change_enable = clk->cpuc_state_change_enable;
++			   __entry->cpup_state_change_enable = clk->cpup_state_change_enable;
++			   __entry->stutter_mode_enable = clk->stutter_mode_enable;
++			   __entry->nbp_state_change_enable = clk->nbp_state_change_enable;
++			   __entry->all_displays_in_sync = clk->all_displays_in_sync;
++			   __entry->sclk_khz = clk->sclk_khz;
++			   __entry->sclk_deep_sleep_khz = clk->sclk_deep_sleep_khz;
++			   __entry->yclk_khz = clk->yclk_khz;
++			   __entry->dispclk_khz = clk->dispclk_khz;
++			   __entry->blackout_recovery_time_us = clk->blackout_recovery_time_us;
++			   __entry->patched_disp_clk = clk->patched_disp_clk;
++			   __entry->safe_to_lower = clk->safe_to_lower;
 +	    ),
-+
-+	    TP_printk("crtc_id=%u crtc_state=%p state=%p commit=%p changed("
-+		      "planes=%d mode=%d active=%d conn=%d zpos=%d color_mgmt=%d) "
-+		      "state(enable=%d active=%d async_flip=%d vrr_enabled=%d "
-+		      "self_refresh_active=%d no_vblank=%d) mask(plane=%x conn=%x "
-+		      "enc=%x)",
-+		      __entry->crtc_id, __entry->crtc_state, __entry->state,
-+		      __entry->commit, __entry->planes_changed,
-+		      __entry->mode_changed, __entry->active_changed,
-+		      __entry->connectors_changed, __entry->zpos_changed,
-+		      __entry->color_mgmt_changed, __entry->enable, __entry->active,
-+		      __entry->async_flip, __entry->vrr_enabled,
-+		      __entry->self_refresh_active, __entry->no_vblank,
-+		      __entry->plane_mask, __entry->connector_mask,
-+		      __entry->encoder_mask)
-+);
-+
-+DECLARE_EVENT_CLASS(amdgpu_dm_plane_state_template,
-+	    TP_PROTO(const struct drm_plane_state *state),
-+	    TP_ARGS(state),
-+	    TP_STRUCT__entry(
-+			     __field(uint32_t, plane_id)
-+			     __field(enum drm_plane_type, plane_type)
-+			     __field(const struct drm_plane_state *, plane_state)
-+			     __field(const struct drm_atomic_state *, state)
-+			     __field(uint32_t, crtc_id)
-+			     __field(uint32_t, fb_id)
-+			     __field(uint32_t, fb_format)
-+			     __field(uint8_t, fb_planes)
-+			     __field(uint64_t, fb_modifier)
-+			     __field(const struct dma_fence *, fence)
-+			     __field(int32_t, crtc_x)
-+			     __field(int32_t, crtc_y)
-+			     __field(uint32_t, crtc_w)
-+			     __field(uint32_t, crtc_h)
-+			     __field(uint32_t, src_x)
-+			     __field(uint32_t, src_y)
-+			     __field(uint32_t, src_w)
-+			     __field(uint32_t, src_h)
-+			     __field(u32, alpha)
-+			     __field(uint32_t, pixel_blend_mode)
-+			     __field(unsigned int, rotation)
-+			     __field(unsigned int, zpos)
-+			     __field(unsigned int, normalized_zpos)
-+			     __field(enum drm_color_encoding, color_encoding)
-+			     __field(enum drm_color_range, color_range)
-+			     __field(bool, visible)
-+	    ),
-+
-+	    TP_fast_assign(
-+			   __entry->plane_id = state->plane->base.id;
-+			   __entry->plane_type = state->plane->type;
-+			   __entry->plane_state = state;
-+			   __entry->state = state->state;
-+			   __entry->crtc_id = state->crtc ? state->crtc->base.id : 0;
-+			   __entry->fb_id = state->fb ? state->fb->base.id : 0;
-+			   __entry->fb_format = state->fb ? state->fb->format->format : 0;
-+			   __entry->fb_planes = state->fb ? state->fb->format->num_planes : 0;
-+			   __entry->fb_modifier = state->fb ? state->fb->modifier : 0;
-+			   __entry->fence = state->fence;
-+			   __entry->crtc_x = state->crtc_x;
-+			   __entry->crtc_y = state->crtc_y;
-+			   __entry->crtc_w = state->crtc_w;
-+			   __entry->crtc_h = state->crtc_h;
-+			   __entry->src_x = state->src_x >> 16;
-+			   __entry->src_y = state->src_y >> 16;
-+			   __entry->src_w = state->src_w >> 16;
-+			   __entry->src_h = state->src_h >> 16;
-+			   __entry->alpha = state->alpha;
-+			   __entry->pixel_blend_mode = state->pixel_blend_mode;
-+			   __entry->rotation = state->rotation;
-+			   __entry->zpos = state->zpos;
-+			   __entry->normalized_zpos = state->normalized_zpos;
-+			   __entry->color_encoding = state->color_encoding;
-+			   __entry->color_range = state->color_range;
-+			   __entry->visible = state->visible;
-+	    ),
-+
-+	    TP_printk("plane_id=%u plane_type=%d plane_state=%p state=%p "
-+		      "crtc_id=%u fb(id=%u fmt=%c%c%c%c planes=%u mod=%llu) "
-+		      "fence=%p crtc_x=%d crtc_y=%d crtc_w=%u crtc_h=%u "
-+		      "src_x=%u src_y=%u src_w=%u src_h=%u alpha=%u "
-+		      "pixel_blend_mode=%u rotation=%u zpos=%u "
-+		      "normalized_zpos=%u color_encoding=%d color_range=%d "
-+		      "visible=%d",
-+		      __entry->plane_id, __entry->plane_type, __entry->plane_state,
-+		      __entry->state, __entry->crtc_id, __entry->fb_id,
-+		      (__entry->fb_format & 0xff) ? (__entry->fb_format & 0xff) : 'N',
-+		      ((__entry->fb_format >> 8) & 0xff) ? ((__entry->fb_format >> 8) & 0xff) : 'O',
-+		      ((__entry->fb_format >> 16) & 0xff) ? ((__entry->fb_format >> 16) & 0xff) : 'N',
-+		      ((__entry->fb_format >> 24) & 0x7f) ? ((__entry->fb_format >> 24) & 0x7f) : 'E',
-+		      __entry->fb_planes,
-+		      __entry->fb_modifier, __entry->fence, __entry->crtc_x,
-+		      __entry->crtc_y, __entry->crtc_w, __entry->crtc_h,
-+		      __entry->src_x, __entry->src_y, __entry->src_w, __entry->src_h,
-+		      __entry->alpha, __entry->pixel_blend_mode, __entry->rotation,
-+		      __entry->zpos, __entry->normalized_zpos,
-+		      __entry->color_encoding, __entry->color_range,
-+		      __entry->visible)
-+);
-+
-+DEFINE_EVENT(amdgpu_dm_plane_state_template, amdgpu_dm_plane_atomic_check,
-+	     TP_PROTO(const struct drm_plane_state *state),
-+	     TP_ARGS(state));
-+
-+DEFINE_EVENT(amdgpu_dm_plane_state_template, amdgpu_dm_atomic_update_cursor,
-+	     TP_PROTO(const struct drm_plane_state *state),
-+	     TP_ARGS(state));
-+
-+TRACE_EVENT(amdgpu_dm_atomic_state_template,
-+	    TP_PROTO(const struct drm_atomic_state *state),
-+	    TP_ARGS(state),
-+
-+	    TP_STRUCT__entry(
-+			     __field(const struct drm_atomic_state *, state)
-+			     __field(bool, allow_modeset)
-+			     __field(bool, legacy_cursor_update)
-+			     __field(bool, async_update)
-+			     __field(bool, duplicated)
-+			     __field(int, num_connector)
-+			     __field(int, num_private_objs)
-+	    ),
-+
-+	    TP_fast_assign(
-+			   __entry->state = state;
-+			   __entry->allow_modeset = state->allow_modeset;
-+			   __entry->legacy_cursor_update = state->legacy_cursor_update;
-+			   __entry->async_update = state->async_update;
-+			   __entry->duplicated = state->duplicated;
-+			   __entry->num_connector = state->num_connector;
-+			   __entry->num_private_objs = state->num_private_objs;
-+	    ),
-+
-+	    TP_printk("state=%p allow_modeset=%d legacy_cursor_update=%d "
-+		      "async_update=%d duplicated=%d num_connector=%d "
-+		      "num_private_objs=%d",
-+		      __entry->state, __entry->allow_modeset, __entry->legacy_cursor_update,
-+		      __entry->async_update, __entry->duplicated, __entry->num_connector,
-+		      __entry->num_private_objs)
-+);
-+
-+DEFINE_EVENT(amdgpu_dm_atomic_state_template, amdgpu_dm_atomic_commit_tail_begin,
-+	     TP_PROTO(const struct drm_atomic_state *state),
-+	     TP_ARGS(state));
-+
-+DEFINE_EVENT(amdgpu_dm_atomic_state_template, amdgpu_dm_atomic_commit_tail_finish,
-+	     TP_PROTO(const struct drm_atomic_state *state),
-+	     TP_ARGS(state));
-+
-+DEFINE_EVENT(amdgpu_dm_atomic_state_template, amdgpu_dm_atomic_check_begin,
-+	     TP_PROTO(const struct drm_atomic_state *state),
-+	     TP_ARGS(state));
-+
-+TRACE_EVENT(amdgpu_dm_atomic_check_finish,
-+	    TP_PROTO(const struct drm_atomic_state *state, int res),
-+	    TP_ARGS(state, res),
-+
-+	    TP_STRUCT__entry(
-+			     __field(const struct drm_atomic_state *, state)
-+			     __field(int, res)
-+			     __field(bool, async_update)
-+			     __field(bool, allow_modeset)
-+	    ),
-+
-+	    TP_fast_assign(
-+			   __entry->state = state;
-+			   __entry->res = res;
-+			   __entry->async_update = state->async_update;
-+			   __entry->allow_modeset = state->allow_modeset;
-+	    ),
-+
-+	    TP_printk("state=%p res=%d async_update=%d allow_modeset=%d",
-+		      __entry->state, __entry->res,
-+		      __entry->async_update, __entry->allow_modeset)
++	    TP_printk("cpuc_state_change_enable=%d cpup_state_change_enable=%d stutter_mode_enable=%d "
++		      "nbp_state_change_enable=%d all_displays_in_sync=%d sclk_khz=%d sclk_deep_sleep_khz=%d "
++		      "yclk_khz=%d dispclk_khz=%d blackout_recovery_time_us=%d patched_disp_clk=%d "
++		      "safe_to_lower=%d",
++		      __entry->cpuc_state_change_enable,
++		      __entry->cpup_state_change_enable,
++		      __entry->stutter_mode_enable,
++		      __entry->nbp_state_change_enable,
++		      __entry->all_displays_in_sync,
++		      __entry->sclk_khz,
++		      __entry->sclk_deep_sleep_khz,
++		      __entry->yclk_khz,
++		      __entry->dispclk_khz,
++		      __entry->blackout_recovery_time_us,
++		      __entry->patched_disp_clk,
++		      __entry->safe_to_lower
++	    )
 +);
 +
  #endif /* _AMDGPU_DM_TRACE_H_ */
  
  #undef TRACE_INCLUDE_PATH
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+index d031bd3d3072..913070efbbf4 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c
+@@ -195,8 +195,10 @@ static void dce112_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			bool safe_to_lower)
+ {
+ 	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++	struct dce_bw_output *dce_clocks = &context->bw_ctx.bw.dce;
+ 	struct dm_pp_power_level_change_request level_change_req;
+ 	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
++	struct amdgpu_dm_trace_dce_clocks_state trace;
+ 
+ 	/*TODO: W/A for dal3 linux, investigate why this works */
+ 	if (!clk_mgr_dce->dfs_bypass_active)
+@@ -210,6 +212,9 @@ static void dce112_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+ 	}
+ 
++	fill_out_trace_dce_clock_state(trace, dce_clocks, patched_disp_clk, safe_to_lower);
++	trace_amdgpu_dm_dce_clocks_state(&trace);
++
+ 	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+ 		patched_disp_clk = dce112_set_clock(clk_mgr_base, patched_disp_clk);
+ 		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+index e133edc587d3..6348c52dbb03 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c
+@@ -196,6 +196,7 @@ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	struct dc_debug_options *debug = &dc->debug;
+ 	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
+ 	struct pp_smu_funcs_rv *pp_smu = NULL;
++	struct amdgpu_dm_trace_dc_clocks_state trace;
+ 	bool send_request_to_increase = false;
+ 	bool send_request_to_lower = false;
+ 	int display_count;
+@@ -211,6 +212,9 @@ static void rv1_update_clocks(struct clk_mgr *clk_mgr_base,
+ 
+ 	display_count = clk_mgr_helper_get_active_display_cnt(dc, context);
+ 
++	fill_out_trace_clock_state(trace, new_clocks, safe_to_lower);
++	trace_amdgpu_dm_dc_clocks_state(&trace);
++
+ 	if (display_count == 0)
+ 		enter_display_off = true;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+index f2114bc910bf..2d7a8250778a 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+@@ -148,6 +148,7 @@ void dcn2_update_clocks(struct clk_mgr *clk_mgr_base,
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
++	struct amdgpu_dm_trace_dc_clocks_state trace;
+ 	struct dc *dc = clk_mgr_base->ctx->dc;
+ 	struct pp_smu_funcs_nv *pp_smu = NULL;
+ 	int display_count;
+@@ -247,6 +248,9 @@ void dcn2_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			pp_smu->set_voltage_by_freq(&pp_smu->pp_smu, PP_SMU_NV_DISPCLK, clk_mgr_base->clks.disp_dpp_voltage_level_khz / 1000);
+ 	}
+ 
++	fill_out_trace_clock_state(trace, new_clocks, safe_to_lower);
++	trace_amdgpu_dm_dc_clocks_state(&trace);
++
+ 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
+ 		if (dpp_clock_lowered) {
+ 			// if clock is being lowered, increase DTO before lowering refclk
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+index 543afa34d87a..da8a4b06cc09 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+@@ -109,6 +109,7 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
++	struct amdgpu_dm_trace_dc_clocks_state trace;
+ 	struct dc *dc = clk_mgr_base->ctx->dc;
+ 	int display_count;
+ 	bool update_dppclk = false;
+@@ -120,6 +121,9 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	if (dc->work_arounds.skip_clock_update)
+ 		return;
+ 
++	fill_out_trace_clock_state(trace, new_clocks, safe_to_lower);
++	trace_amdgpu_dm_dc_clocks_state(&trace);
++
+ 	/*
+ 	 * if it is safe to lower, but we are already in the lower state, we don't have to do anything
+ 	 * also if safe to lower is false, we just go in the higher state
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+index b0e9b0509568..5d71ddeb3c2b 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+@@ -230,6 +230,7 @@ static void dcn3_update_clocks(struct clk_mgr *clk_mgr_base,
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
++	struct amdgpu_dm_trace_dc_clocks_state trace;
+ 	struct dc *dc = clk_mgr_base->ctx->dc;
+ 	int display_count;
+ 	bool update_dppclk = false;
+@@ -264,6 +265,9 @@ static void dcn3_update_clocks(struct clk_mgr *clk_mgr_base,
+ 		new_clocks->dcfclk_khz = (new_clocks->dcfclk_khz > (dc->debug.force_min_dcfclk_mhz * 1000)) ?
+ 				new_clocks->dcfclk_khz : (dc->debug.force_min_dcfclk_mhz * 1000);
+ 
++	fill_out_trace_clock_state(trace, new_clocks, safe_to_lower);
++	trace_amdgpu_dm_dc_clocks_state(&trace);
++
+ 	if (should_set_clock(safe_to_lower, new_clocks->dcfclk_khz, clk_mgr_base->clks.dcfclk_khz)) {
+ 		clk_mgr_base->clks.dcfclk_khz = new_clocks->dcfclk_khz;
+ 		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DCEFCLK, clk_mgr_base->clks.dcfclk_khz / 1000);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
+index 29d69dfc9848..b29afee54645 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
+@@ -669,9 +669,11 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr,
+ 			struct dc_state *context,
+ 			bool safe_to_lower)
+ {
++	struct dce_bw_output *dce_clocks = &context->bw_ctx.bw.dce;
+ 	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
+ 	struct dm_pp_power_level_change_request level_change_req;
+ 	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
++	struct amdgpu_dm_trace_dce_clocks_state trace;
+ 
+ 	/*TODO: W/A for dal3 linux, investigate why this works */
+ 	if (!clk_mgr_dce->dfs_bypass_active)
+@@ -685,6 +687,9 @@ static void dce_update_clocks(struct clk_mgr *clk_mgr,
+ 			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+ 	}
+ 
++	fill_out_trace_dce_clock_state(trace, dce_clocks, patched_disp_clk, safe_to_lower);
++	trace_amdgpu_dm_dce_clocks_state(&trace);
++
+ 	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr->clks.dispclk_khz)) {
+ 		patched_disp_clk = dce_set_clock(clk_mgr, patched_disp_clk);
+ 		clk_mgr->clks.dispclk_khz = patched_disp_clk;
 -- 
 2.28.0
 
