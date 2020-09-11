@@ -2,99 +2,106 @@ Return-Path: <SRS0=U106=CU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36807C433E2
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 20:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 601B9C433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 20:50:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 720822054F
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 20:10:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 11C1C221EB
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 20:50:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="zPe5fV+l"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 720822054F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xzTr6LBN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11C1C221EB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB6FD6E0AC;
-	Fri, 11 Sep 2020 20:10:32 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam08on2051.outbound.protection.outlook.com [40.107.102.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D88B6E0AC
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 20:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E6E6E0BF;
+	Fri, 11 Sep 2020 20:50:02 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2057.outbound.protection.outlook.com [40.107.237.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 269846E0BF;
+ Fri, 11 Sep 2020 20:50:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KfUGWnQUfNfmWnTl1jL3WlShoq/666XTuH8kqb648ehQD4103cuAqQ+hFcILCA+rrhD0yXrwukMbzc5aG/YoBqqA52ufxw8D6mlZ1QoNgbM5c3wUs+i1FaAJOXZjPyXIJYsjl9O0X/1uujA9d5h2SIg9R28BbLeb4YbZsO7c3LFRdL9bkC2coCI7MF2w3rPZPvY/awEKyj6oyFlRphLFa499N3oa4cShdIt+ivaOKU85iVTN5VwllKKEOUdOoSQUNugY1xWZ0Rv5iySdDt7yCC2Hp2ZvWGyByx3hbWMus2rluV2qtzzV8umkyUUamTWOh+axPbtjp7k/urFx/7zedg==
+ b=Hsf+SCGkrsswpwGhilN46ypKPntlYSFwHreBkBhLMmjtiI4+sd776d8uS7PuwA+9tD4+lU/ogH+U0NQ+i4t5p57oDqEhaZYgQPfNCFWt71FhR0C5UIr6wT80Y0EhC3LH1IoZd0xF+oshEkPbN9kdzOqLC9WEmW4mYWm8Hdm19nheOUPINInRWR0NvcJZEV0bdNDPMurE2J+n57h+QfhnuYjZ4L4oHJEwGrrTkjgpd2T4mGi/J0EOAmnbQrzIffYIE5Kya/VURuao4kJU5z3+uUwcGJHRL0sdeqVwnkR9WykPjcbopBFxlme9PJxKPXGsukKxmYHX5imMjrQWd2K0NA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oq3PCNB1SYxkglNiWhlP21JO62ZI326HnJfI27/W+2Q=;
- b=J+SnXNPGnVs14pZhkLHI208yshtDAciqj51mNkvg4268OC/3wmAidgBaWEyIxSJKBrlvvgcuJzcdktUhCyz0z1BP0Q4upe1oQ2yUTUEzuKRBU5tTD0AESrW8y2+c83HfLyTPMs7rhVRHseXdZO57k9RkRvj9XS/xUNJZIAupoMh0Ih9H3frcfLGMgRyn3gbfF9itoa56PWAukRqcG/XJ0tz9noJhFOnbxVewYKz/tlUlsykw5YIn2npU7Sx40M79A7GzwDpcR3ULrs/umeCA5FcFSX8slD4lLNRxg5GnqPTDVnSzLPl90ZyW0QjaA3+mx90iOwV6XAsmhkN2mMN5gQ==
+ bh=xepuNOJDUAiZUvu15u7YPooLQWFssVBVOPSAjM0yJ40=;
+ b=kJW9NaQMwU5qhHzLloKgk/2ZzxStpaSn/EVLWh66Zw5mJwohRF2SlGle/YCMWtHEOGzT5tTjGMieZEsS/qmh8URTsgML8622fRqJyVquc9xSEsLvqjII7SB8niOw9NUVUmBi8sSQ71T85C2SMhdCU3nTPHiPGor7HTsZ3DZ7ADByoxIEPzNJZN8ras5O19uUOqtYbFWvDM1tzn9Irfx5KVjvnxIFYZkRsL2smWt7M4x5ut2ubbo38HxyP+iEZ22+zZ2BFv+nIamWhEqYzkBpDJamKwPeEu2vPIZyZi6J7BmcjEWFK43i7ra0N+UTmCOymRqDL/z8/qgUuhD2w25/GQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oq3PCNB1SYxkglNiWhlP21JO62ZI326HnJfI27/W+2Q=;
- b=zPe5fV+lYkMuOkPntNJr/Orkrn4u0kbiX8xxEK6BbhPuoBZDjQMs9fy15/Bhu7C30iDSpTztpuKNnOy+pVxn3/T8mpmoXXupTp0Dm9hrGHBAgJ12cXkmIU9LaTZruvxQjoJ0v7RF9IYR+a5iBHi0b45zVVH5iAHloY/5G8u2Y+A=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3404.namprd12.prod.outlook.com (2603:10b6:5:3a::11) by
- DM6PR12MB3211.namprd12.prod.outlook.com (2603:10b6:5:15c::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16; Fri, 11 Sep 2020 20:10:29 +0000
-Received: from DM6PR12MB3404.namprd12.prod.outlook.com
- ([fe80::8021:13d3:3dc5:e39b]) by DM6PR12MB3404.namprd12.prod.outlook.com
- ([fe80::8021:13d3:3dc5:e39b%2]) with mapi id 15.20.3370.017; Fri, 11 Sep 2020
- 20:10:29 +0000
-From: Philip Cox <Philip.Cox@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 2/3] drm/amdkfd: Add process eviction counters to sysfs
-Date: Fri, 11 Sep 2020 16:10:00 -0400
-Message-Id: <20200911201001.31710-2-Philip.Cox@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YT1PR01CA0156.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::35) To DM6PR12MB3404.namprd12.prod.outlook.com
- (2603:10b6:5:3a::11)
+ bh=xepuNOJDUAiZUvu15u7YPooLQWFssVBVOPSAjM0yJ40=;
+ b=xzTr6LBNYzYsMFYeeNsiSyHEwcMQqQgniN9a3UY4sVTmJpwLB11qBMRTMtft/z6Xp1GEhzI0Bg4n4YwrOGeYdC/6gFkeaVlLO72QEdedKhxbcW7F+WGmTGhPrqyQtnp/NtGGhgFIOCJ+I6zXOuUIWHvHbT5vllpuAKKbTWVf/zk=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM5PR1201MB0122.namprd12.prod.outlook.com (2603:10b6:4:57::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Fri, 11 Sep
+ 2020 20:49:58 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::3452:6d8f:e0ef:b45e]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::3452:6d8f:e0ef:b45e%6]) with mapi id 15.20.3370.016; Fri, 11 Sep 2020
+ 20:49:58 +0000
+Subject: Re: [PATCH 1/1] drm/amdgpu: Convert to using devm_drm_dev_alloc()
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>
+References: <20200904012218.4971-1-luben.tuikov@amd.com>
+ <20200904012218.4971-2-luben.tuikov@amd.com>
+ <CADnq5_NRyOfP48C5w4Q87qx98-hTLQP7PsP8OhGMbXJBu_Gb4A@mail.gmail.com>
+ <20200907080608.GP2352366@phenom.ffwll.local>
+ <20200907080726.GQ2352366@phenom.ffwll.local>
+ <6b97cb7f-61f2-8e89-c7bf-f98166accf39@amd.com>
+Message-ID: <bae5883a-0edd-7510-321f-2ae6fffeacf4@amd.com>
+Date: Fri, 11 Sep 2020 16:49:56 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+In-Reply-To: <6b97cb7f-61f2-8e89-c7bf-f98166accf39@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YTBPR01CA0021.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::34) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from pscox.amd.com (165.204.55.251) by
- YT1PR01CA0156.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::35) with Microsoft
+Received: from [10.252.35.64] (165.204.54.211) by
+ YTBPR01CA0021.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::34) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16 via Frontend Transport; Fri, 11 Sep 2020 20:10:28 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
+ 15.20.3370.16 via Frontend Transport; Fri, 11 Sep 2020 20:49:57 +0000
+X-Originating-IP: [165.204.54.211]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e5a4e940-d019-4691-9e0f-08d8568ebab4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3211:
+X-MS-Office365-Filtering-Correlation-Id: 0f1471a3-c3c2-486d-2f6f-08d856943ec5
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0122:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3211F6B227999F87743A4CDE83240@DM6PR12MB3211.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB0122DFFA413B5AFE8E18550099240@DM5PR1201MB0122.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H3kdhH4xV7TtP2TVLh+8Es0Pd7nzAUIbShD4fyojIryXNxXqYuwaTBLTHghXxwoz+TWQp4ApZbV/qm9tvwMTVyWC/kclAkFtZHPnDR+lasvOw4lG4QjpMAQ+SOAPWTlP5F/T6cbtmDkNusDk4ow8H9IbhACQfJpWfmJ26GMBZX7tyS3vbx9WQsNbkSftTsOGGtZfyf/oMsiy+gG2j5f4VX1Fnt3X8IB18kvc39wmjEsptDDuIDiMEgumffZoyRhzMWZ/tJTqUyIxT6wHNQAN1ZtTOfHiBanoD8nrrnVYBIfTzCGoBd1tiGtPsrneIFi1GPv+SGy273i6VNeT0I1JdQ==
+X-Microsoft-Antispam-Message-Info: YGnTzR3CqJGRyJ73KxQpOMPCxQkA61+XHdLQdb/BLPbJaKWAgqHrcwbm8RBhdE+fI+sh2162/nUckogyxXcceeT5h5Ex/G3hk9Y94YEH/ORS4S2fL1gXHJpF4JtTRkPTAuQ/A5mNns+9tHT6/EQ2a9lGLF6lI4NuCvCVC8Kpfv3g/U14r5Dmo1AlidBx7Una9lhdONI5eYivXlRjLBPfGo1/yXqjwKkSfatzWKw4mupnWry/dRVL6Wy9GrjPo6Ny604A8aZd2taR5EGI6SmWIH61AzdTmxLhGAWVsFSfq/sAZtSr7Ai/PfzkrtCjrE18vEEkdylhz2dHmR0ynDOmPOZa5y4YZPFDzE72mVoaXzDJH8o5nVrUzlYvkQo5lQzXaxG52GY+jGtDtBB/AXoalP7FUgMdbn258IiDHZvaeAms89NSLg9CXS0fiEr7Dhqi0wLS1wFzOmAIukG+7hlwKQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3404.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(39860400002)(136003)(396003)(376002)(186003)(36756003)(66946007)(2616005)(52116002)(956004)(5660300002)(8676002)(16526019)(2906002)(7696005)(6666004)(478600001)(83380400001)(316002)(6916009)(66476007)(66556008)(1076003)(86362001)(8936002)(4326008)(26005)(6486002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(39860400002)(136003)(376002)(366004)(478600001)(45080400002)(956004)(54906003)(26005)(2616005)(53546011)(36756003)(16576012)(316002)(16526019)(66476007)(110136005)(44832011)(66556008)(5660300002)(83380400001)(186003)(6486002)(66946007)(8676002)(8936002)(83080400001)(4326008)(966005)(86362001)(2906002)(31686004)(52116002)(31696002)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: V0+ZBJde661v3VjcIoMGMATHfmX5EXrcCzQTlNlmOKk4hP3jDCVObAmDqxMWcZYehYdku53vMUZJZHK87xMJtLg9UJLbj1MOJEia8DQsw3uiohFyfZjKl4R1pZcCu0+ue52jfXyOWacQ2FL6izizYqHLDsyOLFTbE9l/iFLNCZ2W67Qb5aC3eQezYZXg9hOaCBZQJmo8G8N7D/uuegiGTIph0zqqBn5H8r+dyEllMD/5QttEX75KFyqCjbp8ZMpIdrWNyfM/C2sdSFcKpw6eOxONAbhb3zQsJHM+wUiftVMv1iBXhrdAMP+3M3CY+JNViLbJeKtqA7e38MLHuUOJOF38LDlthhwAlxPulOYQi5rBlbw4GA7SZkluRoQfY6gMoQnfxQzWv7hIIGAw19OX7vW2gdQQAcILeNDCTgjggJMF8Tx/Aj4rUtLy0d5RXJHW1upKuMX/L9jyJjMaYmfht2golvFQpaPA5O/huK4ciBHBlh2zCIxCXbXZxDZJKN/Gm5tySgBEQf055u6ZtyBBG8KmJRwFZdUtnYoIE6u2oLxM3sctFJrNIzODuVc/zdObtHB4LZVqlVmDYz/xITXS69F/eg6ORykkVd8pWgQA0uDNt+hW4Sp8QOsOsv/WE8x4aIT4UiiRMsHHxp6t4HNiZg==
+X-MS-Exchange-AntiSpam-MessageData: ZsOnTWAm+alG3QfqLYyKWQCMIJ6c2bubcDdpL11YqRQAKPxwDFMxNyF1JJRwUCxN4bpK4HEmK5UlCRcAflWT9UHXSAlXjahtdJrNhKjMs1dLuRpTZp7xZ5YMeNtwDIg46GcYmuMzukagrELEuDmg64QewITnKHP6BLDSONO6l3aaxZtyTxqRvh+DUrF5pTzrwz6M4mLJfgVJEKlrotkZgQEQbbbSUAh8a/SMNAgBsb2P+RC9OpnI9nmKcW/1S5vIq1p2C9Cn6HnJAqYgG4WVtjLVSyFHTENTKhfgsn2mTNRl54zuS2BBUcLqKrj/0P6BDEDNPk5C0atx3y1nx1qJGGISNhze9BCEe58qGthLdiSIJ0C64HUsITcyvYJ6sVjFTPMtEf4+3qtEqBK4XzczcZjljER4Q9UqLrbGd0LZg6SVsRazgqZzR1onuxb6lzsilWMSYo4LugLSXSgAX2drvxwFePzsuVLm6PjVUQ5Y9FSZBADtK47YTyDqkNS8kZkWdGh2hjjsZ2DpO6nhG0Iy2ABmmZgccWC675mUFK6Kpgy3Mhd7w/sm/kyIO4tSUUw75F0d+jHBDUAmDe4fdxRlH0HJ5pao8ycsuJ1Gc5FlQ4/HsXCdPUZxnAG44H66Yyd520XMIPJYnhghMjmAGNXHOQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5a4e940-d019-4691-9e0f-08d8568ebab4
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3404.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f1471a3-c3c2-486d-2f6f-08d856943ec5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2020 20:10:29.2668 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2020 20:49:58.3332 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h5Ooymb80IiXTLjASq1gAxPM0W3GfYifDjGWJh+1OyVVeVaRU/mdUDxWuRBJZTgL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3211
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2FBcoK2QRSD6byrcdI/cHbP/aM4+992QguB/Uap1gaJEpt4sadF6lRavB6L+Slpx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0122
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,294 +113,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Cox <Philip.Cox@amd.com>, Felix.Kuehling@amd.com, Tony.Tye@amd.com,
- Laurent.Morichetti@amd.com, Jonathan.Kim@amd.com
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add per-process eviction counters to sysfs to keep track of
-how many eviction events have happened for each process.
+On 2020-09-08 16:09, Luben Tuikov wrote:
+> On 2020-09-07 04:07, Daniel Vetter wrote:
+>> On Mon, Sep 07, 2020 at 10:06:08AM +0200, Daniel Vetter wrote:
+>>> On Sat, Sep 05, 2020 at 11:50:05AM -0400, Alex Deucher wrote:
+>>>> On Thu, Sep 3, 2020 at 9:22 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+>>>>>
+>>>>> Convert to using devm_drm_dev_alloc(),
+>>>>> as drm_dev_init() is going away.
+>>>>>
+>>>>> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+>>>>
+>>>> I think we can drop the final drm_put in the error case?  I think the
+>>>> unwinding in current devm code should take care of it.
+>>>
+>>> Same applies for the pci remove hook too.
+>>
+>> KASAN run with unload should have caught this. 
+> 
+> But it didn't? Why?
+> Could it be that drm_dev_put() actually got
+> the kref to 0 and then drm_dev_release()
+> was called which did a kfree()?
+> 
+> Could you try that same unload KASAN run but
+> with your suggestion of removing drm_dev_put() from
+> amdgpu_pci_remove()? What do you get then?
 
-v2: rename the stats dir, and track all evictions per process, per device.
+Hi Daniel,
 
-Signed-off-by: Philip Cox <Philip.Cox@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |   9 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  15 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 109 ++++++++++++++++++
- 3 files changed, 131 insertions(+), 2 deletions(-)
+Have you had a chance to run this unload KASAN run with
+your suggestion of removing drm_dev_put() from
+the PCI release hook?
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index cafbc3aa980a..5b9e0df2a90e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -653,6 +653,7 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
- 	pr_info_ratelimited("Evicting PASID 0x%x queues\n",
- 			    pdd->process->pasid);
- 
-+	pdd->last_evict_timestamp = get_jiffies_64();
- 	/* Mark all queues as evicted. Deactivate all active queues on
- 	 * the qpd.
- 	 */
-@@ -714,6 +715,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 		q->properties.is_active = false;
- 		decrement_queue_count(dqm, q->properties.type);
- 	}
-+	pdd->last_evict_timestamp = get_jiffies_64();
- 	retval = execute_queues_cpsch(dqm,
- 				qpd->is_debug ?
- 				KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES :
-@@ -732,6 +734,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 	struct mqd_manager *mqd_mgr;
- 	struct kfd_process_device *pdd;
- 	uint64_t pd_base;
-+	uint64_t eviction_duration;
- 	int retval, ret = 0;
- 
- 	pdd = qpd_to_pdd(qpd);
-@@ -799,6 +802,8 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 			ret = retval;
- 	}
- 	qpd->evicted = 0;
-+	eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
-+	atomic64_add(eviction_duration, &pdd->evict_duration_counter);
- out:
- 	if (mm)
- 		mmput(mm);
-@@ -812,6 +817,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 	struct queue *q;
- 	struct kfd_process_device *pdd;
- 	uint64_t pd_base;
-+	uint64_t eviction_duration;
- 	int retval = 0;
- 
- 	pdd = qpd_to_pdd(qpd);
-@@ -845,6 +851,9 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 	retval = execute_queues_cpsch(dqm,
- 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
- 	qpd->evicted = 0;
-+	eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
-+	atomic64_add(eviction_duration, &pdd->evict_duration_counter);
-+
- out:
- 	dqm_unlock(dqm);
- 	return retval;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 023629f28495..468c69d22117 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -631,7 +631,7 @@ enum kfd_pdd_bound {
- 	PDD_BOUND_SUSPENDED,
- };
- 
--#define MAX_SYSFS_FILENAME_LEN 11
-+#define MAX_SYSFS_FILENAME_LEN 15
- 
- /*
-  * SDMA counter runs at 100MHz frequency.
-@@ -692,10 +692,20 @@ struct kfd_process_device {
- 	uint64_t sdma_past_activity_counter;
- 	struct attribute attr_sdma;
- 	char sdma_filename[MAX_SYSFS_FILENAME_LEN];
-+
-+	/* Eviction activity tracking */
-+	unsigned long last_restore_timestamp;
-+	unsigned long last_evict_timestamp;
-+	atomic64_t evict_duration_counter;
-+	struct attribute attr_evict;
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
- 
-+struct kobj_stats_list {
-+	struct list_head stats_list;
-+	struct kobject *kobj;
-+};
- /* Process data */
- struct kfd_process {
- 	/*
-@@ -766,13 +776,14 @@ struct kfd_process {
- 	/* seqno of the last scheduled eviction */
- 	unsigned int last_eviction_seqno;
- 	/* Approx. the last timestamp (in jiffies) when the process was
--	 * restored after an eviction
-+	 * restored or evicted.
- 	 */
- 	unsigned long last_restore_timestamp;
- 
- 	/* Kobj for our procfs */
- 	struct kobject *kobj;
- 	struct kobject *kobj_queues;
-+	struct kobj_stats_list stats;
- 	struct attribute attr_pasid;
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 1e15aa7d8ae8..d786ba80d656 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -344,6 +344,26 @@ static ssize_t kfd_procfs_queue_show(struct kobject *kobj,
- 
- 	return 0;
- }
-+static ssize_t kfd_procfs_stats_show(struct kobject *kobj,
-+				     struct attribute *attr, char *buffer)
-+{
-+	if (strcmp(attr->name, "evicted_ms") == 0) {
-+		struct kfd_process_device *pdd = container_of(attr,
-+				struct kfd_process_device,
-+				attr_evict);
-+		uint64_t evict_jiffies;
-+
-+		evict_jiffies = atomic64_read(&pdd->evict_duration_counter);
-+
-+		return snprintf(buffer,
-+				PAGE_SIZE,
-+				"%llu\n",
-+				jiffies64_to_msecs(evict_jiffies));
-+	} else
-+		pr_err("Invalid attribute");
-+
-+	return 0;
-+}
- 
- static struct attribute attr_queue_size = {
- 	.name = "size",
-@@ -376,6 +396,19 @@ static struct kobj_type procfs_queue_type = {
- 	.default_attrs = procfs_queue_attrs,
- };
- 
-+static const struct sysfs_ops procfs_stats_ops = {
-+	.show = kfd_procfs_stats_show,
-+};
-+
-+static struct attribute *procfs_stats_attrs[] = {
-+	NULL
-+};
-+
-+static struct kobj_type procfs_stats_type = {
-+	.sysfs_ops = &procfs_stats_ops,
-+	.default_attrs = procfs_stats_attrs,
-+};
-+
- int kfd_procfs_add_queue(struct queue *q)
- {
- 	struct kfd_process *proc;
-@@ -417,6 +450,67 @@ static int kfd_sysfs_create_file(struct kfd_process *p, struct attribute *attr,
- 	return ret;
- }
- 
-+static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
-+{
-+	int ret = 0;
-+	struct kfd_process_device *pdd;
-+	char stats_dir_filename[MAX_SYSFS_FILENAME_LEN];
-+
-+	if (!p)
-+		return -EINVAL;
-+
-+	if (!p->kobj)
-+		return -EFAULT;
-+
-+	INIT_LIST_HEAD(&p->stats.stats_list);
-+	/*
-+	 * Create sysfs files for each GPU:
-+	 * - proc/<pid>/stats_<gpuid>/
-+	 * - proc/<pid>/stats_<gpuid>/evicted_ms
-+	 */
-+	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
-+		struct kobj_stats_list *kobj_stats;
-+
-+		kobj_stats = kzalloc(sizeof(*kobj_stats),
-+				GFP_KERNEL);
-+		if (!kobj_stats)
-+			return -ENOMEM;
-+
-+		snprintf(stats_dir_filename, MAX_SYSFS_FILENAME_LEN,
-+				"stats_%u", pdd->dev->id);
-+		kobj_stats->kobj = kfd_alloc_struct(kobj_stats->kobj);
-+		if (!kobj_stats->kobj) {
-+			kfree(kobj_stats);
-+			return -ENOMEM;
-+		}
-+
-+		ret = kobject_init_and_add(kobj_stats->kobj,
-+						&procfs_stats_type,
-+						p->kobj,
-+						stats_dir_filename);
-+
-+		if (ret) {
-+			pr_warn("Creating KFD proc/stats_%s folder failed",
-+					stats_dir_filename);
-+			kobject_put(kobj_stats->kobj);
-+			kfree(kobj_stats);
-+			goto err;
-+		}
-+
-+		list_add(&kobj_stats->stats_list,
-+				&p->stats.stats_list);
-+		pdd->attr_evict.name = "evicted_ms";
-+		pdd->attr_evict.mode = KFD_SYSFS_FILE_MODE;
-+		sysfs_attr_init(&pdd->attr_evict);
-+		ret = sysfs_create_file(kobj_stats->kobj, &pdd->attr_evict);
-+		if (ret)
-+			pr_warn("Creating eviction stats for gpuid %d failed",
-+				(int)pdd->dev->id);
-+	}
-+err:
-+	return ret;
-+}
-+
- static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
- {
- 	int ret = 0;
-@@ -660,6 +754,11 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 		if (!process->kobj_queues)
- 			pr_warn("Creating KFD proc/queues folder failed");
- 
-+		ret = kfd_procfs_add_sysfs_stats(process);
-+		if (ret)
-+			pr_warn("Creating sysfs stats dir for pid %d failed",
-+				(int)process->lead_thread->pid);
-+
- 		ret = kfd_procfs_add_sysfs_files(process);
- 		if (ret)
- 			pr_warn("Creating sysfs usage file for pid %d failed",
-@@ -806,6 +905,7 @@ static void kfd_process_wq_release(struct work_struct *work)
- 					     release_work);
- 	struct kfd_process_device *pdd;
- 
-+	struct kobj_stats_list *stats;
- 	/* Remove the procfs files */
- 	if (p->kobj) {
- 		sysfs_remove_file(p->kobj, &p->attr_pasid);
-@@ -818,6 +918,14 @@ static void kfd_process_wq_release(struct work_struct *work)
- 			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
- 		}
- 
-+		list_for_each_entry(stats,
-+				&p->stats.stats_list,
-+				stats_list) {
-+			sysfs_remove_file(p->kobj, &pdd->attr_evict);
-+			kobject_del(stats->kobj);
-+			kobject_put(stats->kobj);
-+		}
-+
- 		kobject_del(p->kobj);
- 		kobject_put(p->kobj);
- 		p->kobj = NULL;
-@@ -1125,6 +1233,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 	pdd->runtime_inuse = false;
- 	pdd->vram_usage = 0;
- 	pdd->sdma_past_activity_counter = 0;
-+	atomic64_set(&pdd->evict_duration_counter, 0);
- 	list_add(&pdd->per_device_list, &p->per_device_data);
- 
- 	/* Init idr used for memory handle translation */
--- 
-2.17.1
+If it "should have caught this", but it didn't,
+perhaps it did catch it when you removed the drm_dev_put()
+hook from the PCI release hook, when you did a KASAN unload run?
+Showing that drm_dev_put() is still necessary, since,
+1) we're still using kref,
+2) kref is kref-init-ed under devm_drm_dev_alloc() as I pointed
+   out in my reply to Alex in this thread.
+
+I believe KASAN (and logic) show this patch to be solid.
+
+> 
+>> I strongly recommend doing
+>> that for any changes to the unload code, it's way to easy to mix up
+>> something and release it in the wrong order or from the wrong callback or
+>> with the wrong managed (devm_ vs drmm_) functions.
+> 
+> Sorry, I don't understand what you mean by "doing that"? Do
+> you mean "not calling drm_dev_put()"? Sure, but what
+> are we supposed to call instead?
+> 
+> I also don't understand what you mean by "easy to mix up something
+> and release it in wrong order or from the wrong callback..." etc.
+> 
+> If you want things to happen in certain order,
+> you can either put the correct-order-sequence
+> behind the non-zero-->0 transition of kref, say in
+> drm_dev_release() as it is right now,
+> 
+> static void drm_dev_release(struct kref *ref)
+> {
+>         struct drm_device *dev = container_of(ref, struct drm_device, ref);
+> 
+>         if (dev->driver->release)
+>                 dev->driver->release(dev);
+> 
+>         drm_managed_release(dev);
+> 
+>         kfree(dev->managed.final_kfree);
+> }
+> 
+> Or you can remove kref from DRM dev (which I do not
+> recommend), and stipulate the release sequence
+> as I asked in Message-ID: <165961bb-3b5b-cedc-2fc0-838b7999d2e3@amd.com>,
+> "Re: [PATCH] drm/managed: Cleanup of unused functions and polishing docs".
+> 
+> Then we can follow that and submit patches to conform.
+
+Eagerly awaiting your response on this so that we can conform
+to the direction you're setting forth.
+
+Are you removing kref (release() cb) from DRM and if so,
+what function should we call in order to do the "final"
+(although without kref, the notion of "final" is obviated)
+free, OR kref stays in and this patch, which conforms
+to using devm_drm_dev_alloc(), as postulated by you,
+can go in.
+
+Regards,
+Luben
+
+> 
+> Regards,
+> Luben
+> 
+> 
+> 
+>> -Daniel
+>>
+>>> -Daniel
+>>>>
+>>>> Alex
+>>>>
+>>>>> ---
+>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++--------
+>>>>>  1 file changed, 3 insertions(+), 8 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>> index 146a85c8df1c..06d994187c24 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>> @@ -1142,18 +1142,13 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>>>>>         if (ret)
+>>>>>                 return ret;
+>>>>>
+>>>>> -       adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+>>>>> -       if (!adev)
+>>>>> -               return -ENOMEM;
+>>>>> +       adev = devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*adev), ddev);
+>>>>> +       if (IS_ERR(adev))
+>>>>> +               return PTR_ERR(adev);
+>>>>>
+>>>>>         adev->dev  = &pdev->dev;
+>>>>>         adev->pdev = pdev;
+>>>>>         ddev = adev_to_drm(adev);
+>>>>> -       ret = drm_dev_init(ddev, &kms_driver, &pdev->dev);
+>>>>> -       if (ret)
+>>>>> -               goto err_free;
+>>>>> -
+>>>>> -       drmm_add_final_kfree(ddev, adev);
+>>>>>
+>>>>>         if (!supports_atomic)
+>>>>>                 ddev->driver_features &= ~DRIVER_ATOMIC;
+>>>>> --
+>>>>> 2.28.0.394.ge197136389
+>>>>>
+>>>>> _______________________________________________
+>>>>> amd-gfx mailing list
+>>>>> amd-gfx@lists.freedesktop.org
+>>>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cluben.tuikov%40amd.com%7C0c811cf4c16d4f79bc0d08d853051125%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637350628521258815&amp;sdata=k9GiFNi%2Fu6Y1AlW7ea1cQINYigfYbrvPk2RkmUJkY8U%3D&amp;reserved=0
+>>>
+>>> -- 
+>>> Daniel Vetter
+>>> Software Engineer, Intel Corporation
+>>> https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Fblog.ffwll.ch%2F&amp;data=02%7C01%7Cluben.tuikov%40amd.com%7C0c811cf4c16d4f79bc0d08d853051125%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637350628521258815&amp;sdata=aIT9t6q0qCTy%2BZhHPH0XIJgZ%2FYNF8xwzAQ2HlbxxMDk%3D&amp;reserved=0
+>>
+> 
 
 _______________________________________________
 amd-gfx mailing list
