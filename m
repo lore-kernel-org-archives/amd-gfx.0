@@ -2,100 +2,99 @@ Return-Path: <SRS0=U106=CU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97BA3C43461
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 18:09:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43317C433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 18:25:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2ED66206F4
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 18:09:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C2C782075B
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2020 18:25:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gPaabDBp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2ED66206F4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tmUGPQ2c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2C782075B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CBCD6EAD5;
-	Fri, 11 Sep 2020 18:09:48 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA6386EAD3;
- Fri, 11 Sep 2020 18:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF5C6EAD5;
+	Fri, 11 Sep 2020 18:25:45 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08on2047.outbound.protection.outlook.com [40.107.102.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 870AE6EAD5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2020 18:25:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NVpehtXVdP9hUupjeAHB431UqcunMpHhBVjkT/aPp5ZzuJPFvDEQbki2YJUTWKtorFtYlfRMWs2woD7ctb69ZiV0mBLkN1WykPTnd2uxASK4FbZ2WbPwNkBipEVO72fwam3cNn5Jv+tXJr9OogTUHtZ3xLvZ1uyAxvoAcvRA+2Y22aLMQw21H8XvYvRsC+54B2iWlU1VtToxICnAqS5Na3nSnJZ7CHD2bm62VJvTzqOY+MsNmLpUEJVqskN0pFOHqGdKLceLyzHOWG91UPxmQvYLwBRSUuaYywg/Lled8Ysntn2PxsxcRrxmw6eARl5Qra1/vE4JrhwotLpPdV0ndA==
+ b=h/9ILRCRo059OKtaQIzLO7tL/HEb9faKOJ5fxieEoPeQaDWMC6iz/DQIakrFUpS/iFUlVZjCNEKtgkZn+7i58EUCpmRSbl9stcgiLVqvO0/MnKzWSeeK9vK7HmMPpEf6ngXUxvYy9wyBbLGMyDimMqLncPm+nVDtA4XmkOQqjUD3ktHqTnnhSz4oDsY5mF/yKxAdvA8WHlyuZYhuApO541z8UpaXVS82I8bUo8ERHzbia/xOwawq6l8/8Q/RxuyVcaBkEOQ8MZ922LCxluTxJHYDrH97bo52XY1rny6RNG1QXfOOicco5YGCobnfsrPrRdHRbS13v1uiWP18/KxADA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EQR0v0/hwRey7LwjCQK7z+cfamBPZLbzCBDKAaXgw5Q=;
- b=CGrvc8w9UIKhv56Wx2dgGO1adn/WeLUR0jEbTzg2H9bXxn2bqNosR8qj/KUyia4QFvvSyh+B3HxXY7EMvlhQRGe0vAaFI5mFTgR0nQZoscNMijH/rGDeukd4TAKFWqCJDOKzALbgFnbV3qfsd/K37xHZ9UdF0ulPY2TyGjlyzJT1SrQwQMSz24FL93biiXkG6hjqYXRQU4nZ2s3fG9UpyubqHFJKv/XXyolnEzrrfO07OEWPiHzmnuxDEcqsBmzfQpXL5dMG7rQm5kz/PTGjVXbhOQ7SqId+GU9zBV8jVP5ZN176fvX66gDF40ZzozhiEi2X8OzWIP+c10e5gPHrNg==
+ bh=DlEeEDZsDrIrhdeSG+SJxHXY7dfh2UGHjXFSt5n1Phg=;
+ b=dzQx17M7Jjq+zBhBhAcl2q2D+cTFLI7R2A4OFMRDHUfIkrsgTD0UWqS7ecgiSSroLjGY1w+3+rc2BVP7GufEKSSNRW2rTo4QA2Lb/PV6IipcVUj01MbWrXWS1m0yTKHdVuXZpx4/brBrUgNlE7K0ZHNd4z8YK/1+TD6AXHVanfeu74V0A3cVOBNdAhJuWNanYPr8nANOkio6W3XLGeaUVPI+JdiZfynwP5Dpb/sWhi5wcRbi/5MLNOGqPed+Z2W07kuKhlmlUmWybZoduoBql9R9M47Br+vvk9wIq2Ohk3FtECOTsIyyRjbWzkIrDqczWh2gt7XEe5SXFdrkUQAfUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EQR0v0/hwRey7LwjCQK7z+cfamBPZLbzCBDKAaXgw5Q=;
- b=gPaabDBprYKLWfcq8qfQNopbrwxfwkkmbXLxn1X2zqzzD4Ncl5szjOf+zY4/3A4jsIc4rss5Ns0nWyktnxshQzo9XvEHKvQjuPAPTOsEE15LRi3ia1FZsImb5KsQ7CcL8znSSMl0ctDgz937eBFhojy86z97AskgVB2apj5JU4g=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20)
- by DM6PR12MB4092.namprd12.prod.outlook.com (2603:10b6:5:214::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.17; Fri, 11 Sep
- 2020 18:09:45 +0000
-Received: from DM6PR12MB4124.namprd12.prod.outlook.com
- ([fe80::25a1:ace4:4ca8:167e]) by DM6PR12MB4124.namprd12.prod.outlook.com
- ([fe80::25a1:ace4:4ca8:167e%8]) with mapi id 15.20.3370.017; Fri, 11 Sep 2020
- 18:09:45 +0000
-Date: Fri, 11 Sep 2020 14:09:32 -0400
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Subject: Re: [PATCH v2 1/4] drm/amd/display: Rework registers tracepoint
-Message-ID: <20200911180932.ab24uwwsrwl4vpov@outlook.office365.com>
-References: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
- <20200911145927.401322-2-Rodrigo.Siqueira@amd.com>
- <c1eacedd-056d-d6a8-0407-2dea63f47bd9@amd.com>
-In-Reply-To: <c1eacedd-056d-d6a8-0407-2dea63f47bd9@amd.com>
-X-ClientProxiedBy: YT1PR01CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::18)
- To DM6PR12MB4124.namprd12.prod.outlook.com
- (2603:10b6:5:221::20)
+ bh=DlEeEDZsDrIrhdeSG+SJxHXY7dfh2UGHjXFSt5n1Phg=;
+ b=tmUGPQ2ctooPLu39KXAfy4WQ0+7EOkuiSp8V1K9F6cCCF1YMHcbU0PbcfknHdo3daPFlvNAu++pH+J9uxbyJ2El0H+yOkbgeQ7VYvqJb4RzGdqVmXSvEthTTLJI5zdNCfbytfCoOt6X4lzuBStUpkOVy08a7R0Q/tPNUAZCL49g=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB1643.namprd12.prod.outlook.com (2603:10b6:4:11::8) by
+ DM6PR12MB4058.namprd12.prod.outlook.com (2603:10b6:5:21d::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3370.16; Fri, 11 Sep 2020 18:25:43 +0000
+Received: from DM5PR12MB1643.namprd12.prod.outlook.com
+ ([fe80::8e5:a542:5281:d341]) by DM5PR12MB1643.namprd12.prod.outlook.com
+ ([fe80::8e5:a542:5281:d341%12]) with mapi id 15.20.3326.030; Fri, 11 Sep 2020
+ 18:25:43 +0000
+From: Oak Zeng <Oak.Zeng@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: Add comment to function amdgpu_ttm_alloc_gart
+Date: Fri, 11 Sep 2020 13:25:31 -0500
+Message-Id: <1599848732-15764-1-git-send-email-Oak.Zeng@amd.com>
+X-Mailer: git-send-email 2.7.4
+X-ClientProxiedBy: YT1PR01CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::30)
+ To DM5PR12MB1643.namprd12.prod.outlook.com
+ (2603:10b6:4:11::8)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from outlook.office365.com (2607:fea8:56e0:6d60::e9a1) by
- YT1PR01CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16 via Frontend Transport; Fri, 11 Sep 2020 18:09:45 +0000
-X-Originating-IP: [2607:fea8:56e0:6d60::e9a1]
+Received: from ozeng-develop.amd.com (165.204.55.250) by
+ YT1PR01CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::30) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3370.16 via Frontend Transport; Fri, 11 Sep 2020 18:25:42 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d0a034d9-21db-45f7-1687-08d8567ddd42
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4092:
+X-MS-Office365-Filtering-Correlation-Id: d6ea4dbd-ac83-4cd9-a03b-08d8568017bf
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4058:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4092799F137D0C35CF50C1C798240@DM6PR12MB4092.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB40588829D152FE5158F1E47180240@DM6PR12MB4058.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uFxRlem0EXGmBQtijNUeSBfBUEIlBpovfP7J73xamJrqPN3Oqfmhk5lhzOi4neRWabSHs9uHf3zsfr9TT8cIK/XbjuOtlarylMRBuf+6xiWJLgyg52iPiNKM164CsMDrMb/YyfUBtda3o9/M6lAFD+YmWf9m9j9ENqVwDXFGrhik/58d8F+rMULvX4PISayMmeLZUoIQkL/NQZwQefnMFXpuHBwzFIMW/SqQdjCct64/X46Ycld21esdDUDySkkz+WIBP0zLbq+Jb1y/9NYZfLxXLfehd0IEY9AjzohMLuYCKOYkG3m2CVKPLkKGYLmfY7PXQaYAYeEkUDWxi+6/ZQ5CITZ0wws4BjRwUjoTDG4LEoXI7h+9XJcGHSkgWgeJkQL0Br0X6GL+sf+r8+pIJMNG0TynVnS5D6af+uYV4zKep6V1/5kXR8hIvE4cuAE6afUn0SG8zTt125SbbkWm9wwiTNQTsxXxElffdcv83IDbQg7E15Y78/NNwVZW3lQ9
+X-Microsoft-Antispam-Message-Info: Hp4D4gmXSOWPbjQSkkXqiAmOLasX2unCTGT6mi1Bac5irZxOoXbze39hPnVpb2XvMDbUMKYNMhAH0iUEsw+5da/ajmwNkzUqenkfQRQ6Zn+otP6hArQKudJmYZ0/MBgQqVLtzqSn+iYNQ0kVyOiri/YnP2QZD/9KCQTztpvk1kAvbd/2Pf87lglHdteHQp256VxLgzRZtx93fzV1RENwpRyvHIw5gwexIUhYgV2YFc9mW/HLTMWqYjvr2YiQdGo+bdSSWHtf/qqrEFcf9yDATxjrA0VtxrKyP+fvrOllMDOhQOZCe7odowRrkmhe/0HOBwa1YEvhf5HjCJ5dRThJqw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(39860400002)(366004)(136003)(53546011)(1076003)(6506007)(450100002)(2906002)(8676002)(6636002)(6666004)(966005)(86362001)(66946007)(9686003)(55016002)(8936002)(4326008)(66556008)(66476007)(52116002)(7696005)(54906003)(6862004)(478600001)(44144004)(83380400001)(316002)(186003)(5660300002)(16526019)(21480400003)(2700100001);
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1643.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(346002)(39860400002)(366004)(396003)(5660300002)(16526019)(8676002)(8936002)(6666004)(2906002)(66556008)(4744005)(83380400001)(66476007)(66946007)(956004)(478600001)(186003)(36756003)(2616005)(316002)(52116002)(26005)(7696005)(6486002)(4326008)(86362001)(6916009);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: gAnYTm5+mdExg5Bce9tuT+5H1xgpr5AN6kWRgNfiwmE+g6NvrZY606+MMm6TTE5P4/vUHStk3V5hBvr/AyGoz9V+S37N3FsytalADqVGqY96LnU/OEnUhG5EYTI7IDmLzoPZHay4QL2vSYLuYpyXj8/01GLBcLoIcYsZkSKv7lU8w8G/jbECYRSLOylYPwiOPlRxENFHSzsqRReRP1ocn+9zIZxTcMAUIS6WCmkBIdAv38NoUtvz7Pf9eoEZhFOT/91un04sG352wzKnuWUh3diYCRS6TQXINv2GtwXQPN5ZlrfGhOyJH1X48duLpKB+xSioORA+RGLX3XUKqIWrvn9V7Fm0x/LhAn+ahWyddJTNkIE7sAOFNc13QWCnx02aVOdxgOn0zh3tNt5zMCaFS8pjt3UCaKtWg8MjXc4YnNuLX7CDUQ62bB5tP+ZWfJhdUWkT3mRV6f6Ivi7NX8kvcebNQYnwl43QlKVVJAnpegKQv1lxu4b5jTDgQHCABhFRS/Ll3PGqnPVaJL7KYSiRbbALPB4F7saXxwVDAo5mQg6yJOCnsiSv2cz9+WE6jfAwNvwvglvwf4vgwKc0RS0uSDlrvIGkoPUIG0+iAL5bRqpg9IdmV4DhKQmU3FQx2iG2iUm5xfYEknERvNJg3k+AYQjaHxSHBpYVJ9NAp0zunN65H5bYgvimNwRaCSnxndMO
+X-MS-Exchange-AntiSpam-MessageData: yiote1sB3Is/jSkxmDTw1SKvpWn67lbOa2tJBcVaJ94mCU8M14WzcwhyLVSruyLmBmUdUDXNhQRfZYUqBSS7n7a7h9ON1VpRfZi5Pw2gJdr19Xu16fdAGQDDDRtO1ye2NWXhoBDBDQYqQajRvah5mlErAr7ZLf9F+lSNz6Uh1WVIcvgbEvqOzmqGh5ShRZHXH2U7lr+o+fRwP5+y7hGSqvnN8A7x6wAa56RBgSoqxj5qkFIS13/X1HQwYa7Nochwc6ctvAktxhDJdb32TWJV6YneUrR+MMBpOkDD/oBExd1rPYLhfyDf2k0KJJq8HfXtAFF/cED9PU6zolqT+va75ygFYzSyvga9I1MTsWp4Lx9NSmwpsBgx7N7MooM5Ht/Apo4X9+ivyyRVFjzTr2n1BFkITd01gtdaI0TcSf1mCguK3UD6TmpnvRBRpigcb66wyMyRIuqng8Ca2yOgBv1fAM4x05RGgZMZhiMkdZKFqpEet+6UolQKrYwgqgej7o8TKuiYG0zUg/7pY6qBACKjgA85Sb9HUHK1Q4j3mc6f3Y87DOxhIUre9EApF7wpRXas+0FyOA3PPSytKxpLG+ewCfnGdL+Iu9tbiFS6w4iqNYdXmycnUFt9c8E7518dCQP5ddFUN6/0AABya3LmKUGjSw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0a034d9-21db-45f7-1687-08d8567ddd42
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6ea4dbd-ac83-4cd9-a03b-08d8568017bf
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1643.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2020 18:09:45.7046 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2020 18:25:42.9990 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vJ2lZxyGl5PGQzQTk89FNPyfKjHeVtRhTQZUSohc7RNFi2DuLyxjj3Wocrm2Aan6RACH6fpaWv/0kGqyLY7KUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4092
+X-MS-Exchange-CrossTenant-UserPrincipalName: qsO7GSg+BDW+H8Me6OBUZZkOLP6/wRpReVMS2LPri/PB6Nwip6QV13RYWlwIh61Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4058
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,154 +106,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- hersenxs.wu@amd.com, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============1913954827=="
+Cc: Oak Zeng <Oak.Zeng@amd.com>, Christian.Koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1913954827==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qh77olhcnzku5sws"
-Content-Disposition: inline
+Add comments to refect what function does
 
---qh77olhcnzku5sws
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-On 09/11, Kazlauskas, Nicholas wrote:
-> On 2020-09-11 10:59 a.m., Rodrigo Siqueira wrote:
-> > amdgpu_dc_rreg and amdgpu_dc_wreg are very similar, for this reason,
-> > this commits abstract these two events by using DECLARE_EVENT_CLASS and
-> > create an instance of it for each one of these events.
-> >=20
-> > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
->=20
-> This looks reasonable to me. Does this still show up as
-> amdpgu_dc_rrreg/amdgpu_dc_wreg in the captured trace log?
->=20
-> As long as we can still tell this apart you can consider this patch:
->=20
-> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-Yes, this change does not change anything from the user perspective.
-
-Thanks
-=20
-> Regards,
-> Nicholas Kazlauskas
->=20
-> > ---
-> >   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 55 ++++++++-----------
-> >   1 file changed, 24 insertions(+), 31 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> > index d898981684d5..dd34e11b1079 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> > @@ -31,40 +31,33 @@
-> >   #include <linux/tracepoint.h>
-> > -TRACE_EVENT(amdgpu_dc_rreg,
-> > -	TP_PROTO(unsigned long *read_count, uint32_t reg, uint32_t value),
-> > -	TP_ARGS(read_count, reg, value),
-> > -	TP_STRUCT__entry(
-> > -			__field(uint32_t, reg)
-> > -			__field(uint32_t, value)
-> > -		),
-> > -	TP_fast_assign(
-> > -			__entry->reg =3D reg;
-> > -			__entry->value =3D value;
-> > -			*read_count =3D *read_count + 1;
-> > -		),
-> > -	TP_printk("reg=3D0x%08lx, value=3D0x%08lx",
-> > -			(unsigned long)__entry->reg,
-> > -			(unsigned long)__entry->value)
-> > -);
-> > +DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
-> > +		    TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-> > +		    TP_ARGS(count, reg, value),
-> > -TRACE_EVENT(amdgpu_dc_wreg,
-> > -	TP_PROTO(unsigned long *write_count, uint32_t reg, uint32_t value),
-> > -	TP_ARGS(write_count, reg, value),
-> > -	TP_STRUCT__entry(
-> > -			__field(uint32_t, reg)
-> > -			__field(uint32_t, value)
-> > -		),
-> > -	TP_fast_assign(
-> > -			__entry->reg =3D reg;
-> > -			__entry->value =3D value;
-> > -			*write_count =3D *write_count + 1;
-> > -		),
-> > -	TP_printk("reg=3D0x%08lx, value=3D0x%08lx",
-> > -			(unsigned long)__entry->reg,
-> > -			(unsigned long)__entry->value)
-> > +		    TP_STRUCT__entry(
-> > +				     __field(uint32_t, reg)
-> > +				     __field(uint32_t, value)
-> > +		    ),
-> > +
-> > +		    TP_fast_assign(
-> > +				   __entry->reg =3D reg;
-> > +				   __entry->value =3D value;
-> > +				   *count =3D *count + 1;
-> > +		    ),
-> > +
-> > +		    TP_printk("reg=3D0x%08lx, value=3D0x%08lx",
-> > +			      (unsigned long)__entry->reg,
-> > +			      (unsigned long)__entry->value)
-> >   );
-> > +DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_rreg,
-> > +	     TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-> > +	     TP_ARGS(count, reg, value));
-> > +
-> > +DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_wreg,
-> > +	     TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-> > +	     TP_ARGS(count, reg, value));
-> >   TRACE_EVENT(amdgpu_dc_performance,
-> >   	TP_PROTO(unsigned long read_count, unsigned long write_count,
-> >=20
->=20
-
---=20
-Rodrigo Siqueira
-https://siqueira.tech
-
---qh77olhcnzku5sws
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl9bvVsACgkQWJzP/com
-vP9nnw/+P6x8xak96XDi0w9DsNM8j3BM6FGyDsysaTKng90dbo7n3SPw6zE/HnjK
-a23o8mQoahMpqhCphE2RBqCfkzeuz5NcgKl4yAln7WrhnpXYmcVpKHGBXQvcjnWD
-mtNV2R6+QScqF1tg/4C28pGse/nC53W9lQiYbrDhc4jCMhaqDJEhAGOz+M61+Fj0
-kxmoXGra5SGd4JCaEwB3RJlTn2nPKQVnfo8gdI8juzm1MDP3b/pOC/YQq3rt/7Ky
-Smfz3li0OJQSHhkfY3aPwfPnTv4ekmINkw861dPSVgePE7AgtPWbrbBH9IMvT1/S
-RGtVWAaRDi5VyKNBvMVwmXuk/dU0v9QTKQV0r1GC/Omi65UOFy2HfpKczrUdIQJe
-AtrCzGboXQipSu1j5v70m5lIbU1m1uqkW/PbdrLlm8HQxk3eT0ACVrIfwGNkeJxt
-VT33fq8f2cnYCf2mo8D/hZTDTNLT7DOWoWGc+8cc8b7XM0UhzMCreWEjTOhLNxYS
-xheUGjfnSzdcK3FR70+Eb9esZ+UbBhD4kSKussYUyLV5QipGKgv0bkDSTXOzxj3N
-qK84f2FeKlapMLqfICx8YfIjnLt7oWZ2MIs0NsGgOb/IEuEKxN2JxQMwQgxnliCd
-4f+uWBrYfaIhU3O8V2ZljWww166c7lV/I3d581rOEeW+jYO9YYY=
-=scJB
------END PGP SIGNATURE-----
-
---qh77olhcnzku5sws--
-
---===============1913954827==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 63e5414..8b70445 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1210,7 +1210,12 @@ static int amdgpu_ttm_backend_bind(struct ttm_tt *ttm,
+ }
+ 
+ /**
+- * amdgpu_ttm_alloc_gart - Allocate GART memory for buffer object
++ * amdgpu_ttm_alloc_gart - Make sure buffer object is accessible either
++ * through AGP or GART aperture.
++ *
++ * If bo is accessible through AGP aperture, then use AGP aperture
++ * to access bo; otherwise allocate logical space in GART aperture
++ * and map bo to GART aperture.
+  */
+ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
+ {
+-- 
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1913954827==--
