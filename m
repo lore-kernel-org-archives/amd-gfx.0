@@ -2,71 +2,60 @@ Return-Path: <SRS0=HfWL=CX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59CA5C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:43:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3DE3C43461
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 026922074B
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:43:14 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vedr0j82"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 026922074B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6395B21D41
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:44:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6395B21D41
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C2B6E2DA;
-	Mon, 14 Sep 2020 15:43:14 +0000 (UTC)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57E436E2DA
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 15:43:13 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id o20so12941995pfp.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 08:43:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AjXopPrhrS1Cjtif/iMQzIW8Yh5ZoFOBDSXyPGnd4LA=;
- b=Vedr0j82XBrbVaSGyzk00gPhhOa2sYebbsJxxRLhRvRAKEk1NfsxqGRco+cLeKaAtW
- Bd2AHhKcuEU57HDkzUPKkFUzjx5kzY1ZXOara8Nrmy6Mt9pQRgIR5m2BDHCfVwlZdpoA
- Bmv7fB/3TmQFfaYX/2GT/wYtGbgpCkWGnhM/yNTfOxfBwF5AI8Ec73X+PY7GA0FuC6aW
- M83deDzLMk6J/V4HNmaDptLVW4igqY6dj/QqZrSR4PE6zJN0h+8MKvyi5N0T6LM8z0vI
- sCDhU7BO0XvxJxOL8aTgOrR31lmUXCCPDiaz8qRgWCFEiCovzkdkpIdl6FurrFLM0cyi
- hchw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AjXopPrhrS1Cjtif/iMQzIW8Yh5ZoFOBDSXyPGnd4LA=;
- b=US8tEeDHyEs8Ys53Ajz3wxs+2xMtGdotdv4+P2zeqjWCvWBiw8WLWraDlhcbq+m0jD
- Rp+3tQsrI8k90oTcwP7FbHgLDd2wbEKVK8HUGrUcwlWA1fg9KJ67D/aCQlEPAqrbBdli
- CYsnlkwguLktV+N0AH8v139+ERtDVT7Q4NzXEeRtrmsZ0+uez9qNJRV9kT8Aby7pMnA3
- KFqUDoisLRqnhNgvOON8VRAaOazKPFL66oMzbTqldRhO/KHxeOooGvLb6l1udEH6izoD
- GjyEWI8qWmtFgqgoCD5RF/FFJoro4qhWTEeh2VxqKmsVPxbEHRWm8U3okCpaX068xiAb
- hVgA==
-X-Gm-Message-State: AOAM533fPSI1gibOcu0McUJjjaUPG8rUo9EIRcXQhenY283D97Jp07SM
- bZPLVPiEhgBpjoI9Wx3UziScKo+yWgo=
-X-Google-Smtp-Source: ABdhPJxWcyRRBWvHf4io5gZAZ041Z4jJ9apUgeh31rsDZ7gDWy5ReC5hGGq4cChIst673GTR28+9nQ==
-X-Received: by 2002:a65:6449:: with SMTP id s9mr3540896pgv.388.1600098192735; 
- Mon, 14 Sep 2020 08:43:12 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id t15sm10955562pfl.175.2020.09.14.08.43.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2020 08:43:12 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/gmc9: remove mmhub client duplicated case
-Date: Mon, 14 Sep 2020 11:42:50 -0400
-Message-Id: <20200914154250.17345-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1183F6E526;
+	Mon, 14 Sep 2020 15:44:34 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B63D36E51D;
+ Mon, 14 Sep 2020 15:44:32 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id 21DB22A6042;
+ Mon, 14 Sep 2020 17:44:32 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id 8sDrs4Sr8jNy; Mon, 14 Sep 2020 17:44:31 +0200 (CEST)
+Received: from thor (212.174.63.188.dynamic.wline.res.cust.swisscom.ch
+ [188.63.174.212])
+ by netline-mail3.netline.ch (Postfix) with ESMTPSA id A7E942A6016;
+ Mon, 14 Sep 2020 17:44:31 +0200 (CEST)
+Received: from localhost ([::1]) by thor with esmtp (Exim 4.94)
+ (envelope-from <michel@daenzer.net>)
+ id 1kHqed-000aE6-7u; Mon, 14 Sep 2020 17:44:31 +0200
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <hwentlan@amd.com>
+References: <20200821165758.1106210-1-michel@daenzer.net>
+ <20200904104304.41246-1-michel@daenzer.net>
+ <20200907075716.GO2352366@phenom.ffwll.local>
+ <d0c95272-9a1c-f9f0-f1b9-4e7ce1f319c7@daenzer.net>
+ <c64d591b-8f3c-5384-f103-3283bcf15c9d@amd.com>
+ <2c090b33-2709-1f83-41ec-56fc5cc9e2ce@daenzer.net>
+ <26ce07b5-d225-547d-cec6-b2f87bdd9f12@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH v2] drm/amdgpu/dc: Require primary plane to be enabled
+ whenever the CRTC is
+Message-ID: <6fe69e5e-853a-0ea4-8ef7-0754bc25e43d@daenzer.net>
+Date: Mon, 14 Sep 2020 17:44:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.2.1
 MIME-Version: 1.0
+In-Reply-To: <26ce07b5-d225-547d-cec6-b2f87bdd9f12@amd.com>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,36 +67,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Copy paste typo.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index d0645ad3446e..2bdfc861028a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -269,7 +269,6 @@ static const char *mmhub_client_ids_arcturus[][2] = {
- 	[14][1] = "HDP",
- 	[15][1] = "SDMA0",
- 	[32+15][1] = "SDMA1",
--	[32+15][1] = "SDMA1",
- 	[64+15][1] = "SDMA2",
- 	[96+15][1] = "SDMA3",
- 	[128+15][1] = "SDMA4",
--- 
-2.25.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAyMC0wOS0xNCA1OjMzIHAubS4sIEthemxhdXNrYXMsIE5pY2hvbGFzIHdyb3RlOgo+IE9u
+IDIwMjAtMDktMTQgMTE6MjIgYS5tLiwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+IE9uIDIwMjAt
+MDktMTQgNDozNyBwLm0uLCBLYXpsYXVza2FzLCBOaWNob2xhcyB3cm90ZToKPj4+IE9uIDIwMjAt
+MDktMTQgMzo1MiBhLm0uLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+Pgo+Pj4+IFAuUy4gU2lu
+Y2UgRENOIGRvZXNuJ3QgbWFrZSBhIGRpc3RpbmN0aW9uIGJldHdlZW4gcHJpbWFyeSBvciBvdmVy
+bGF5IAo+Pj4+IHBsYW5lcyBpbiBoYXJkd2FyZSwgY291bGQgQ2hyb21pdW1PUyBhY2hpZXZlIHRo
+ZSBzYW1lIGVmZmVjdCB3aXRoIAo+Pj4+IG9ubHkgdGhlIHByaW1hcnkgcGxhbmUgaW5zdGVhZCBv
+ZiBvbmx5IGFuIG92ZXJsYXkgcGxhbmU/IElmIHNvLCAKPj4+PiBtYXliZSB0aGVyZSdzIG5vIG5l
+ZWQgZm9yIHRoZSAiYmxhY2sgcGxhbmUgaGFjayIuCj4+Pj4KPj4+Pgo+Pj4KPj4+IEkgb25seSBr
+bm93IHRoYXQgYXRvbWljdGVzdCB0cmllcyB0byBlbmFibGUgdGhpcyBjb25maWd1cmF0aW9uLiBO
+b3QgCj4+PiBzdXJlIGlmIENocm9taXVtT1Mgb3Igb3RoZXIgInJlYWwiIHVzZXJzcGFjZSB0cmll
+cyB0aGlzIGNvbmZpZ3VyYXRpb24uCj4+Cj4+IFNvbWVvbmUgbWVudGlvbmVkIHRoYXQgQ2hyb21p
+dW1PUyB1c2VzIHRoaXMgZm9yIHZpZGVvIHBsYXliYWNrIHdpdGggCj4+IGJsYWNrIGJhcnMgKHdo
+ZW4gdGhlIHZpZGVvIGFzcGVjdCByYXRpbyBkb2Vzbid0IG1hdGNoIHRoZSBkaXNwbGF5J3MpLgo+
+IAo+IFdlIG9ubHkgZXhwb3NlIHN1cHBvcnQgZm9yIE5WMTIgb24gdGhlIHByaW1hcnkgcGxhbmUg
+c28gd2Ugd291bGRuJ3QgYmUgCj4gaGl0dGluZyB0aGlzIGNhc2UgYXQgbGVhc3QuCgpJbnRlcmVz
+dGluZywgc28gaWYgd2UncmUgbHVja3kgdGhpcyByZWFsbHkgd29uJ3QgYWZmZWN0IGFueSByZWFs
+LXdvcmxkIGFwcHMuCgoKPj4+IFdlIGNhbiBhbHdheXMgZ28gYmFjayB0byBseWluZyB0byB1c2Vy
+c3BhY2UgYWJvdXQgdGhlIGN1cnNvciBiZWluZwo+Pj4gdmlzaWJsZSBpZiB0aGUgY29tbWl0IGZh
+aWxzIGluIHRoYXQgY2FzZSBJIGd1ZXNzIFsuLi5dCj4+Cj4+IEknbSBub3Qgc3VyZSB3aGF0IHlv
+dSBtZWFuIGJ5IHRoYXQgLyBob3cgaXQgY291bGQgd29yay4KPiAKPiBEcm9wcGluZyB0aGUgY2hl
+Y2sgeW91IGFkZGVkIGluIHRoaXMgcGF0Y2g6Cj4gCj4gK8KgwqDCoCBpZiAoc3RhdGUtPmVuYWJs
+ZSAmJgo+ICvCoMKgwqDCoMKgwqDCoCAhKHN0YXRlLT5wbGFuZV9tYXNrICYgZHJtX3BsYW5lX21h
+c2soY3J0Yy0+cHJpbWFyeSkpKQo+ICDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+
+IAo+IFRoYXQgd2F5IHdlIGNhbiBzdGlsbCBhbGxvdyB0aGUgY3Vyc29yIHBsYW5lIHRvIGJlIGVu
+YWJsZWQgd2hpbGUgCj4gcHJpbWFyeS9vdmVybGF5IGFyZSBub3QsIGl0J3MganVzdCBub3QgZ29p
+bmcgdG8gYmUgYWN0dWFsbHkgdmlzaWJsZSBvbiAKPiB0aGUgc2NyZWVuLiBJdCdsbCBmYWlsIHNv
+bWUgSUdUIHRlc3RzIGJ1dCBub3RoaW5nIHJlYWxseSB1c2VzIHRoaXMgCj4gY29uZmlndXJhdGlv
+biBhcyBtb3JlIHRoYW4ganVzdCBhIHRlbXBvcmFyeSBzdGF0ZS4KCkFzIERhbmllbCBwb2ludGVk
+IG91dCBpbiA8MjAyMDA5MDEwNzU0MzIuR1cyMzUyMzY2QHBoZW5vbS5mZndsbC5sb2NhbD4gCmlu
+IHRoZSB2MSBwYXRjaCB0aHJlYWQsIHRoYXQgd29uJ3QgZmx5LCBzaW5jZSBhdG9taWMgdXNlcnNw
+YWNlIGNhbiAKbGVnaXRpbWF0ZWx5IGV4cGVjdCB0aGUgY3Vyc29yIHBsYW5lIHRvIGJlIHZpc2li
+bGUgaW4gdGhhdCBjYXNlLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAg
+ICAgICB8ICAgICAgICAgICAgICAgaHR0cHM6Ly9yZWRoYXQuY29tCkxpYnJlIHNvZnR3YXJlIGVu
+dGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Blcgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
