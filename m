@@ -2,101 +2,105 @@ Return-Path: <SRS0=HfWL=CX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D691C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 17:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48B81C43461
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 18:38:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0122E20EDD
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 17:51:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D2A8F208B3
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 18:38:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tqZKHKN1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0122E20EDD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="R7lKr7wR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2A8F208B3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 964016E4E8;
-	Mon, 14 Sep 2020 17:51:13 +0000 (UTC)
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B488F6E4E8;
- Mon, 14 Sep 2020 17:51:12 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id l17so399655edq.12;
- Mon, 14 Sep 2020 10:51:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=cinD4tchkxocHKviw5M6liz7E8UU7FD4XovFhsNsjyI=;
- b=tqZKHKN1V6C6oQElOwFS4+jyvbLS9BzylBSbwUbd02rQ76/lT49lrc+1lA+C8DN8Dd
- Nc0GbsJCPaCOHclSGk4/rG8fGqamsaUD5D+cmba9mrjnCmyMQa6mZgYbC5c/w9kZwhfb
- aJRkSAXMinRH/3gtwBaIiUmXBpTvWVTG5r/fSBBRDxoLah5xFDDjscX2kvgZr8AfeAC0
- gMFA6X+UeLkG9NLYtld2tfKKPMYvQC8wFwsgo6QeCj/1SP2gpRaBO+qK+7RqV2MPi/tn
- AYDtIiDOG7XJrasBS+cYJnkZhddVCOd5+jF87VvJuyV9OeppL+UABQ8WQSDYD79g3mPs
- ytfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=cinD4tchkxocHKviw5M6liz7E8UU7FD4XovFhsNsjyI=;
- b=XzUNwjExRpWcHkXwHWNfAsvRcXiuP4E7y4VV9owD+CyqdYI+pUkjNfgjiGv8u62Her
- HHXS8d4H8wB8rWXrApK8xB3yS2gw5f0dlU87YtCDK4Co5vevxYGPVOePdDuXwX/PDPd4
- gfYsGRcwBWDJS28ezMn4okCp3LEIb912iibK68v2Cmtz3JsbLAyMUcGZDNsMFqi7zjtw
- +UfZtIf3O5AdjnTftTCan4wn+1mgWjoV4wkZuej7KOxlt6HVgfFRZrw2v1nwO3O5K/YG
- B1NQT2Uj2T8Y/TRcSzOZidMNHboGfghlInya6/+RNmal7BRep2UVtidq95VVwIVf7Nio
- RG5Q==
-X-Gm-Message-State: AOAM530GN4ze5YiijLF6SwdudN+PT6Iz+0syxbB0ys7l7qhOGW5nCTHp
- KcALNXAVnIXXZG5Zrb1cE4M=
-X-Google-Smtp-Source: ABdhPJyHIadEQ0w95cMm+XKXdD2wy6DDt/xaqpuYqbeZucK6WVOqY6RobxWEhAYoVlCs20sURxiHJg==
-X-Received: by 2002:a50:b046:: with SMTP id i64mr19248036edd.9.1600105871323; 
- Mon, 14 Sep 2020 10:51:11 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id c22sm9791887edr.70.2020.09.14.10.51.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Sep 2020 10:51:10 -0700 (PDT)
-Subject: Re: [PATCH 01/20] drm/amdgpu: Introduce GEM object functions
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
- miaoqinglang@huawei.com, emil.velikov@collabora.com
-References: <20200813083644.31711-1-tzimmermann@suse.de>
- <20200813083644.31711-2-tzimmermann@suse.de>
- <5c1b3cab-1898-46df-2c5c-23ab6cbfbb7a@amd.com>
- <c445493b-9914-63f2-1cf2-c3c1de14e3e5@suse.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <ee7528ba-6775-53be-97fe-c8425178b491@gmail.com>
-Date: Mon, 14 Sep 2020 19:51:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <c445493b-9914-63f2-1cf2-c3c1de14e3e5@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78AF289E52;
+	Mon, 14 Sep 2020 18:38:56 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 916AD89E52
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 18:38:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bSG6MVTwmmE9Iimh8gKutDOTAE1YyJ/BUauo8Wa/sLnpke0xDjmoiK0kNIzy3TCQqVlbaREcWkz7cyBuPOg8UkYhvkTVVkw4q68qB3oGGYbpZ4/ikPiolmnxhiQCpKgnVHM1dcrtqTUBker5/DD/F7eKdDp4jCCRgTT9uvGQq5xct/UBXjhR+v93wZRWOEXWlT44dH/verZUibbmOBETQ0SsHvy8CztM+t6XOlBy3YjkPDonMxhMMWR938mgr7iMn7xPqRY+W4ej5c1LntWSCh9saBpzN3CdwJ/zrfKPiBH05mNipCQkyYjIgCBPGRXfVpa2I9G7JSfnEdmKhYE0Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=swvgjgohSaQcLCcUrXmryQI6+sLJTj3dlHHu1f/ftRc=;
+ b=nSlQv1d3M/DDCjVWevRLWDrIkHzpuoHAXc9w4vANW5MJperCpNjsv/lAh9FgT/iA8FEUs5DBQ4UowC5rSS8Rwh2R5ljwbXmRHcpXuxDL/i2m1y5Tz475pInOwYOjSjgdXUf2PkKNgeUWjxhM6pfprhUu+ZSw4jLwaRwYQbUqtF0h4HFCApD4QONRtzT/873KPwWZSFLVD6Pu9tadFPFGQgyLkH/V+7IUd8HCLtpV42DGsJYB9NT31V9vr3F0cMF5djHzovsjqV9872dpQ90dR/q3aoHBrDi8VsUao+Gx5masOdV/8j/bPYUwsRG2zfz7SVWp1PayqrU1OPAQzPZ9VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=swvgjgohSaQcLCcUrXmryQI6+sLJTj3dlHHu1f/ftRc=;
+ b=R7lKr7wRvix0JGHk1n+dgPKb3jDVibAQBunCtDBdbyjwu4EZ0DmiU/Idb4w/AdIxG8sGKJPIwxmONosdBUq2yB4I2qZ0IxBR93ul7ZJq7WM6DSXhajZ4fVakJzRf6lSVaF9waX/iqOloBH1U+jGd3qfKEsCLvagqSeCe1fEBjT8=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4422.namprd12.prod.outlook.com (2603:10b6:208:265::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Mon, 14 Sep
+ 2020 18:38:53 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::889d:3c2f:a794:67fb%6]) with mapi id 15.20.3370.019; Mon, 14 Sep 2020
+ 18:38:53 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Clements, John"
+ <John.Clements@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "Chen, 
+ Guchun" <Guchun.Chen@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Update RAS init handling
+Thread-Topic: [PATCH] drm/amdgpu: Update RAS init handling
+Thread-Index: AdaH8EEPyluBF0UHTRSypdzG9nCpXwADO3awALI+Zlg=
+Date: Mon, 14 Sep 2020 18:38:53 +0000
+Message-ID: <MN2PR12MB44881E2896EA9A8A7323E0FEF7230@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <MN2PR12MB40324FF5E5D607A6CE8D4D50FB240@MN2PR12MB4032.namprd12.prod.outlook.com>,
+ <DM6PR12MB40756C546E49C8DD8BDE7924FC240@DM6PR12MB4075.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB40756C546E49C8DD8BDE7924FC240@DM6PR12MB4075.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-09-14T18:38:23.650Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [71.219.66.138]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 32366dab-275b-42da-572c-08d858dd6e4e
+x-ms-traffictypediagnostic: MN2PR12MB4422:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB442294A042A6ED2B7A1CFB65F7230@MN2PR12MB4422.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZmALy6GuA2fu3W+G+ek3F/teBX7qgVPOG+ypgx3Oi53X7L1958p65OwhXgK9kjZ+fgea0S6YJjMDK4En8KZKOUfbUyGeSZ45Mor4ygrbkX7YLWiX6LEudNgvmTSgkdlSSbEevmV5fJgXKd2krGR5yRjiAH5uieVPo+rV7aLDYcP/STQ5amUrFG1h6dYMTT0Hhc1SYxtjIWv/7GE5b8A3YP7LHgyeKBbwbgd3skZ2Go4gbgWiA5J1YPE1M+xEPTPnvIene0gq1UTUG6jPa9Y+GJW08q6U5TP3/oCSqXcN9Z3+l/a2rT5QVu1yokXoB5Rm
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(376002)(396003)(346002)(366004)(2906002)(26005)(83380400001)(9686003)(33656002)(52536014)(53546011)(5660300002)(6636002)(71200400001)(186003)(86362001)(478600001)(66476007)(66556008)(64756008)(66446008)(8936002)(110136005)(6506007)(19627235002)(316002)(8676002)(19627405001)(76116006)(55016002)(15650500001)(66946007)(7696005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: TPlmbgCr/stqoR+MnmGK4DrSymBc2xmYHHUsmFRUOM50fqaaCJTeFj+SrR5Dw0JXwVJGuTbmAgtU+u+CS5w1nwSv7tGXP79arB9/511dCeNWzbMsafsBo0Fl07GgtKfxRG+Ynuh488a+08eHgTxTpBQIVIcXCGFfYpWkYukcydPY7pxQxDBzgA0o6oTvgksFu058DazHk5wgLW2/tWnyz7hOIrqkDf0GYqNQnuZM8txWaYwNUFsf6PtaOcuTMMvBb1PEy5M92y7oAO7gL+8Q9SlUBCbSGEl35w26PBTu/ayJ6/XUrLtprs12TrrToBi5zHoj4tKE1FFBCR4mzzdW30NAFNAmu0BlfDxmfWw+o2yYSRN3tojdPYCr+9fhF3ooN9znAz1FsBP7D3BgSO/md8nbIQ3B2MiGIM+8JNgfcRv74AhOrbirJddhlFCgotj8HNvVPohDdmlaI3cJSFr65eSxCg3cr0H6zYLFUIqlJSFEvffBLEnlm9PAhVZDbyhN18rZ1cLEdIXu3ZYD9iP984vxIYDllTX3GzeMQ/kHyMZv6iNJlmw7JND0GHU7vqArSxowiWHuZt4ftrpIzQro0npIt48+MqR+Xt9fD9XvT3ridJ7Ahyg0X06HGsv9Naz73BogeZx07TVwBgCAS/Johw==
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32366dab-275b-42da-572c-08d858dd6e4e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2020 18:38:53.3793 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NE2+Q1Sp767CBW9oMmI29i9BkTCbL4A6E+6LkhKzB7Ewu/a2Fx27mhEpWrrqf4Ia7bWO2xrxcXlWD7BFO4zXjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4422
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,291 +112,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Content-Type: multipart/mixed; boundary="===============1987600549=="
+Content-Type: multipart/mixed; boundary="===============1900331451=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============1987600549==
-Content-Type: multipart/alternative;
- boundary="------------29780EC5D45E17F55361B946"
+--===============1900331451==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44881E2896EA9A8A7323E0FEF7230MN2PR12MB4488namp_"
 
-This is a multi-part message in MIME format.
---------------29780EC5D45E17F55361B946
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_MN2PR12MB44881E2896EA9A8A7323E0FEF7230MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Am 14.09.20 um 17:05 schrieb Thomas Zimmermann:
-> Hi
->
-> Am 13.08.20 um 12:22 schrieb Christian König:
->> Am 13.08.20 um 10:36 schrieb Thomas Zimmermann:
->>> GEM object functions deprecate several similar callback interfaces in
->>> struct drm_driver. This patch replaces the per-driver callbacks with
->>> per-instance callbacks in amdgpu. The only exception is gem_prime_mmap,
->>> which is non-trivial to convert.
->>>
->>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  6 ------
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 ++++++++++++
->>>    2 files changed, 12 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index 81a79760ca61..51525b8774c9 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -1468,19 +1468,13 @@ static struct drm_driver kms_driver = {
->>>        .lastclose = amdgpu_driver_lastclose_kms,
->>>        .irq_handler = amdgpu_irq_handler,
->>>        .ioctls = amdgpu_ioctls_kms,
->>> -    .gem_free_object_unlocked = amdgpu_gem_object_free,
->>> -    .gem_open_object = amdgpu_gem_object_open,
->>> -    .gem_close_object = amdgpu_gem_object_close,
->>>        .dumb_create = amdgpu_mode_dumb_create,
->>>        .dumb_map_offset = amdgpu_mode_dumb_mmap,
->>>        .fops = &amdgpu_driver_kms_fops,
->>>          .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->>>        .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
->>> -    .gem_prime_export = amdgpu_gem_prime_export,
->>>        .gem_prime_import = amdgpu_gem_prime_import,
->>> -    .gem_prime_vmap = amdgpu_gem_prime_vmap,
->>> -    .gem_prime_vunmap = amdgpu_gem_prime_vunmap,
->>>        .gem_prime_mmap = amdgpu_gem_prime_mmap,
->>>          .name = DRIVER_NAME,
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> index 43f4966331dd..ca2b79f94e99 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>> @@ -36,6 +36,7 @@
->>>    #include <drm/amdgpu_drm.h>
->>>    #include <drm/drm_cache.h>
->>>    #include "amdgpu.h"
->>> +#include "amdgpu_dma_buf.h"
->>>    #include "amdgpu_trace.h"
->>>    #include "amdgpu_amdkfd.h"
->>>    @@ -510,6 +511,15 @@ bool amdgpu_bo_support_uswc(u64 bo_flags)
->>>    #endif
->>>    }
->>>    +static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
->>> +    .free = amdgpu_gem_object_free,
->>> +    .open = amdgpu_gem_object_open,
->>> +    .close = amdgpu_gem_object_close,
->>> +    .export = amdgpu_gem_prime_export,
->>> +    .vmap = amdgpu_gem_prime_vmap,
->>> +    .vunmap = amdgpu_gem_prime_vunmap,
->>> +};
->>> +
->> Wrong file, this belongs into amdgpu_gem.c
->>
->>>    static int amdgpu_bo_do_create(struct amdgpu_device *adev,
->>>                       struct amdgpu_bo_param *bp,
->>>                       struct amdgpu_bo **bo_ptr)
->>> @@ -552,6 +562,8 @@ static int amdgpu_bo_do_create(struct
->>> amdgpu_device *adev,
->>>        bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
->>>        if (bo == NULL)
->>>            return -ENOMEM;
->>> +
->>> +    bo->tbo.base.funcs = &amdgpu_gem_object_funcs;
->> And this should probably go into amdgpu_gem_object_create().
-> I'm trying to understand what amdgpu does.  What about all the places
-> where amdgpu calls amdgpu_bo_create() internally? Wouldn't these miss
-> the free callback for the GEM object?
+[AMD Public Use]
 
-Those shouldn't have a GEM object in the first place.
+Also, general nit, per kernel coding style, braces should be on the same li=
+ne as the if or else,  E.g.,
+} else {
 
-Or otherwise we would have a reference counting issue.
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Zhang, H=
+awking <Hawking.Zhang@amd.com>
+Sent: Friday, September 11, 2020 2:02 AM
+To: Clements, John <John.Clements@amd.com>; amd-gfx list <amd-gfx@lists.fre=
+edesktop.org>; Chen, Guchun <Guchun.Chen@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Update RAS init handling
+
+
+[AMD Public Use]
+
+
+
++                             {
+
++                                             dev_warn(psp->adev->dev, "RAS=
+ Init Status: 0x%X\n", ras_cmd->ras_status);
+
++                             }
+
+Please remove the redundant bracket.
+
+
+
+Other than that, the patch is
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+
+
+In addition, please create another patch to move the nbio ras controller ir=
+q source registry to sw_init, which is the consistent as what we did for ot=
+her ip blocks, register the irq source in IP sw_init funcs.
+
+
 
 Regards,
-Christian.
 
->
-> Best regards
-> Thomas
->
->> Apart from that looks like a good idea to me.
->>
->> Christian.
->>
->>>        drm_gem_private_object_init(adev->ddev, &bo->tbo.base, size);
->>>        INIT_LIST_HEAD(&bo->shadow_list);
->>>        bo->vm_bo = NULL;
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Hawking
+
+From: Clements, John <John.Clements@amd.com>
+Sent: Friday, September 11, 2020 12:03
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>; Chen, Guchun <Guchun.Chen=
+@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Update RAS init handling
 
 
---------------29780EC5D45E17F55361B946
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+Added RAS status check and tear down RAS context if RAS init fails
+
+--_000_MN2PR12MB44881E2896EA9A8A7323E0FEF7230MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">Am 14.09.20 um 17:05 schrieb Thomas
-      Zimmermann:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:c445493b-9914-63f2-1cf2-c3c1de14e3e5@suse.de">
-      <pre class="moz-quote-pre" wrap="">Hi
-
-Am 13.08.20 um 12:22 schrieb Christian König:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Am 13.08.20 um 10:36 schrieb Thomas Zimmermann:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">GEM object functions deprecate several similar callback interfaces in
-struct drm_driver. This patch replaces the per-driver callbacks with
-per-instance callbacks in amdgpu. The only exception is gem_prime_mmap,
-which is non-trivial to convert.
-
-Signed-off-by: Thomas Zimmermann <a class="moz-txt-link-rfc2396E" href="mailto:tzimmermann@suse.de">&lt;tzimmermann@suse.de&gt;</a>
----
-  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  6 ------
-  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 ++++++++++++
-  2 files changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 81a79760ca61..51525b8774c9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1468,19 +1468,13 @@ static struct drm_driver kms_driver = {
-      .lastclose = amdgpu_driver_lastclose_kms,
-      .irq_handler = amdgpu_irq_handler,
-      .ioctls = amdgpu_ioctls_kms,
--    .gem_free_object_unlocked = amdgpu_gem_object_free,
--    .gem_open_object = amdgpu_gem_object_open,
--    .gem_close_object = amdgpu_gem_object_close,
-      .dumb_create = amdgpu_mode_dumb_create,
-      .dumb_map_offset = amdgpu_mode_dumb_mmap,
-      .fops = &amp;amdgpu_driver_kms_fops,
-        .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
-      .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
--    .gem_prime_export = amdgpu_gem_prime_export,
-      .gem_prime_import = amdgpu_gem_prime_import,
--    .gem_prime_vmap = amdgpu_gem_prime_vmap,
--    .gem_prime_vunmap = amdgpu_gem_prime_vunmap,
-      .gem_prime_mmap = amdgpu_gem_prime_mmap,
-        .name = DRIVER_NAME,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 43f4966331dd..ca2b79f94e99 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -36,6 +36,7 @@
-  #include &lt;drm/amdgpu_drm.h&gt;
-  #include &lt;drm/drm_cache.h&gt;
-  #include "amdgpu.h"
-+#include "amdgpu_dma_buf.h"
-  #include "amdgpu_trace.h"
-  #include "amdgpu_amdkfd.h"
-  @@ -510,6 +511,15 @@ bool amdgpu_bo_support_uswc(u64 bo_flags)
-  #endif
-  }
-  +static const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
-+    .free = amdgpu_gem_object_free,
-+    .open = amdgpu_gem_object_open,
-+    .close = amdgpu_gem_object_close,
-+    .export = amdgpu_gem_prime_export,
-+    .vmap = amdgpu_gem_prime_vmap,
-+    .vunmap = amdgpu_gem_prime_vunmap,
-+};
-+
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Wrong file, this belongs into amdgpu_gem.c
-
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">  static int amdgpu_bo_do_create(struct amdgpu_device *adev,
-                     struct amdgpu_bo_param *bp,
-                     struct amdgpu_bo **bo_ptr)
-@@ -552,6 +562,8 @@ static int amdgpu_bo_do_create(struct
-amdgpu_device *adev,
-      bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
-      if (bo == NULL)
-          return -ENOMEM;
-+
-+    bo-&gt;tbo.base.funcs = &amp;amdgpu_gem_object_funcs;
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-And this should probably go into amdgpu_gem_object_create().
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I'm trying to understand what amdgpu does.  What about all the places
-where amdgpu calls amdgpu_bo_create() internally? Wouldn't these miss
-the free callback for the GEM object?</pre>
-    </blockquote>
-    <br>
-    Those shouldn't have a GEM object in the first place.<br>
-    <br>
-    Or otherwise we would have a reference counting issue.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:c445493b-9914-63f2-1cf2-c3c1de14e3e5@suse.de">
-      <pre class="moz-quote-pre" wrap="">
-
-Best regards
-Thomas
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Apart from that looks like a good idea to me.
-
-Christian.
-
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">      drm_gem_private_object_init(adev-&gt;ddev, &amp;bo-&gt;tbo.base, size);
-      INIT_LIST_HEAD(&amp;bo-&gt;shadow_list);
-      bo-&gt;vm_bo = NULL;
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Also, general nit, per kernel coding style, braces should be on the same li=
+ne as the if or else,&nbsp; E.g.,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+} else {</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Zhang, Hawking &lt;Hawking.Zh=
+ang@amd.com&gt;<br>
+<b>Sent:</b> Friday, September 11, 2020 2:02 AM<br>
+<b>To:</b> Clements, John &lt;John.Clements@amd.com&gt;; amd-gfx list &lt;a=
+md-gfx@lists.freedesktop.org&gt;; Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<=
+br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Update RAS init handling</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:DengXian}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+p.x_msipheadera92e061b, li.x_msipheadera92e061b, div.x_msipheadera92e061b
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+p.x_msipheader251902e5, li.x_msipheader251902e5, div.x_msipheader251902e5
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+span.x_EmailStyle20
+	{font-family:"Arial",sans-serif;
+	color:#317100}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"x_WordSection1">
+<p class=3D"x_msipheader251902e5" style=3D"margin:0in"><span style=3D"font-=
+size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:#317100">[AMD =
+Public Use]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p>
+<p class=3D"x_MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(=
+psp-&gt;adev-&gt;dev, &quot;RAS Init Status: 0x%X\n&quot;, ras_cmd-&gt;ras_=
+status);</p>
+<p class=3D"x_MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p class=3D"x_MsoNormal">Please remove the redundant bracket. </p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Other than that, the patch is</p>
+<p class=3D"x_MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.c=
+om&gt;</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">In addition, please create another patch to move t=
+he nbio ras controller irq source registry to sw_init, which is the consist=
+ent as what we did for other ip blocks, register the irq source in IP sw_in=
+it funcs.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Regards,</p>
+<p class=3D"x_MsoNormal">Hawking</p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.=
+com&gt; <br>
+<b>Sent:</b> Friday, September 11, 2020 12:03<br>
+<b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;; Chen, Guchun=
+ &lt;Guchun.Chen@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<=
+br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Update RAS init handling</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_msipheadera92e061b" style=3D"margin:0in"><span style=3D"font-=
+size:10.0pt; font-family:&quot;Arial&quot;,sans-serif; color:#0078D7">[AMD =
+Official Use Only - Internal Distribution Only]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Added RAS status check and tear down RAS context i=
+f RAS init fails</p>
+</div>
+</div>
+</div>
+</body>
 </html>
 
---------------29780EC5D45E17F55361B946--
+--_000_MN2PR12MB44881E2896EA9A8A7323E0FEF7230MN2PR12MB4488namp_--
 
---===============1987600549==
+--===============1900331451==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -403,4 +341,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1987600549==--
+--===============1900331451==--
