@@ -2,64 +2,68 @@ Return-Path: <SRS0=HfWL=CX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0375AC43461
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2226C43461
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9108020829
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9108020829
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id A36B420829
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2020 15:13:46 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SQbMAa4r"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A36B420829
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 236126E2B6;
-	Mon, 14 Sep 2020 15:05:58 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960FB89F2A;
- Mon, 14 Sep 2020 15:05:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8FFDAB1DD;
- Mon, 14 Sep 2020 15:06:10 +0000 (UTC)
-Subject: Re: [PATCH 01/20] drm/amdgpu: Introduce GEM object functions
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
- miaoqinglang@huawei.com, emil.velikov@collabora.com
-References: <20200813083644.31711-1-tzimmermann@suse.de>
- <20200813083644.31711-2-tzimmermann@suse.de>
- <5c1b3cab-1898-46df-2c5c-23ab6cbfbb7a@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <c445493b-9914-63f2-1cf2-c3c1de14e3e5@suse.de>
-Date: Mon, 14 Sep 2020 17:05:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 329E689F49;
+	Mon, 14 Sep 2020 15:13:46 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ACA889F49
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 15:13:45 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id x14so19132062wrl.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2020 08:13:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=lD0Gus7auK8hpaxG2KGkMjnWUOlFYmaHfbt5zLxh9ws=;
+ b=SQbMAa4rF1dysPQhyHRvigHYBgivKthNKHOgvY2lua1K6ixlKWzxHiaDHxmKh699dW
+ pTytwDmVLBEXS15ki7lFPlswrmb6mnbVr79VjcfK12E3vSPjggBM5IKeugNxdiSKz7dd
+ FN1sGXZSqjWehJ7NKY5BWyws1BWNWwbrzWUwdDbURBH3OP3iznt1OL3uwjjQBAdXigRx
+ VzyZUh5mDrbMvNyu8xeuNNe48AiW+3c+ykpsdDLtPZltWvdG8gpLnUMjb/2eqBEMTYk0
+ +MLcJiWpECBPFWWq3B/ek4rmUoVuNPLNOQbKSSejbEdEgj75ywARKcUhFEUu0Adpo4uU
+ TpSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=lD0Gus7auK8hpaxG2KGkMjnWUOlFYmaHfbt5zLxh9ws=;
+ b=QoQGz8sCCK46UzSoI1GKTTTkjcyEjxWtoJl23IlwB5azJxvY47mC8b236vJ73TRmFx
+ nMQScmJqhoJ4cw54pgUT7jLeBBRNVVdJCkRcYYOhStdud4+EIGCP1r9Owawd5vEiN5Nd
+ ljhZlds4AeNiNabbGT4h5cbNg2J8697uoD3SGNxMn0Yi1qI5VN3x5xdeYU/V43ovSMiH
+ c2kO+EJFbVUv0vMh4QNveLkuPWbdovGdcaYpBlgaX8xpjmr5v39TdMRiXIn5q89Q8lun
+ OcbFDre5LjooVEPlZaxoKE5spC5eWjs2x31MH2V+eoaNTJtagkrGlD8mqJzUicLTzG6f
+ rROA==
+X-Gm-Message-State: AOAM532L4F3TSuJfHkdr03NckCOi2KwpS3Ivj7Ie8hFBcd+ZMGTyWyYN
+ AAFnQxZGz73Y59S6KHxn5pExT4/nz79ZkQS5bfMW2Ba5
+X-Google-Smtp-Source: ABdhPJxymRNauIFE8JV31P9NezLlT3fvZRxc7a5dUAD4sXQw+168szv7NieTFZ3kjBB2ukaGaJPSf7jr3iIv08hG1wM=
+X-Received: by 2002:a5d:6886:: with SMTP id h6mr17033089wru.374.1600096424333; 
+ Mon, 14 Sep 2020 08:13:44 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5c1b3cab-1898-46df-2c5c-23ab6cbfbb7a@amd.com>
+References: <20200909111655.1102-1-christian.koenig@amd.com>
+ <f4505fa5-99a1-0010-7832-2d0e8e2c4410@gmail.com>
+In-Reply-To: <f4505fa5-99a1-0010-7832-2d0e8e2c4410@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 14 Sep 2020 11:13:33 -0400
+Message-ID: <CADnq5_OCZ8_U_grgPZiijeYAD9=do+ewAFqeXg9HCdy-KNEC0Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: revert "Prefer lower feedback dividers"
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,221 +75,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Content-Type: multipart/mixed; boundary="===============1106632526=="
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1106632526==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="MeVdSsKebthdc7DC8hvgqWlLwpjnz0H9f"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---MeVdSsKebthdc7DC8hvgqWlLwpjnz0H9f
-Content-Type: multipart/mixed; boundary="zniUnHMaoWytGRm2jwIkKjV0oPt2fa9bx";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, abdiel.janulgue@linux.intel.com,
- tvrtko.ursulin@linux.intel.com, andi.shyti@intel.com, sam@ravnborg.org,
- miaoqinglang@huawei.com, emil.velikov@collabora.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Message-ID: <c445493b-9914-63f2-1cf2-c3c1de14e3e5@suse.de>
-Subject: Re: [PATCH 01/20] drm/amdgpu: Introduce GEM object functions
-References: <20200813083644.31711-1-tzimmermann@suse.de>
- <20200813083644.31711-2-tzimmermann@suse.de>
- <5c1b3cab-1898-46df-2c5c-23ab6cbfbb7a@amd.com>
-In-Reply-To: <5c1b3cab-1898-46df-2c5c-23ab6cbfbb7a@amd.com>
-
---zniUnHMaoWytGRm2jwIkKjV0oPt2fa9bx
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 13.08.20 um 12:22 schrieb Christian K=C3=B6nig:
-> Am 13.08.20 um 10:36 schrieb Thomas Zimmermann:
->> GEM object functions deprecate several similar callback interfaces in
->> struct drm_driver. This patch replaces the per-driver callbacks with
->> per-instance callbacks in amdgpu. The only exception is gem_prime_mmap=
-,
->> which is non-trivial to convert.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 6 ------
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 ++++++++++++
->> =C2=A0 2 files changed, 12 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 81a79760ca61..51525b8774c9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -1468,19 +1468,13 @@ static struct drm_driver kms_driver =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .lastclose =3D amdgpu_driver_lastclose_=
-kms,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .irq_handler =3D amdgpu_irq_handler,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ioctls =3D amdgpu_ioctls_kms,
->> -=C2=A0=C2=A0=C2=A0 .gem_free_object_unlocked =3D amdgpu_gem_object_fr=
-ee,
->> -=C2=A0=C2=A0=C2=A0 .gem_open_object =3D amdgpu_gem_object_open,
->> -=C2=A0=C2=A0=C2=A0 .gem_close_object =3D amdgpu_gem_object_close,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dumb_create =3D amdgpu_mode_dumb_creat=
-e,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dumb_map_offset =3D amdgpu_mode_dumb_m=
-map,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .fops =3D &amdgpu_driver_kms_fops,
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_handle_to_fd =3D drm_gem_=
-prime_handle_to_fd,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_fd_to_handle =3D drm_gem_prime_f=
-d_to_handle,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_export =3D amdgpu_gem_prime_export,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_import =3D amdgpu_gem_prime_=
-import,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_vmap =3D amdgpu_gem_prime_vmap,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_vunmap =3D amdgpu_gem_prime_vunmap,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_mmap =3D amdgpu_gem_prime_mm=
-ap,
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .name =3D DRIVER_NAME,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 43f4966331dd..ca2b79f94e99 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -36,6 +36,7 @@
->> =C2=A0 #include <drm/amdgpu_drm.h>
->> =C2=A0 #include <drm/drm_cache.h>
->> =C2=A0 #include "amdgpu.h"
->> +#include "amdgpu_dma_buf.h"
->> =C2=A0 #include "amdgpu_trace.h"
->> =C2=A0 #include "amdgpu_amdkfd.h"
->> =C2=A0 @@ -510,6 +511,15 @@ bool amdgpu_bo_support_uswc(u64 bo_flags)
->> =C2=A0 #endif
->> =C2=A0 }
->> =C2=A0 +static const struct drm_gem_object_funcs amdgpu_gem_object_fun=
-cs =3D {
->> +=C2=A0=C2=A0=C2=A0 .free =3D amdgpu_gem_object_free,
->> +=C2=A0=C2=A0=C2=A0 .open =3D amdgpu_gem_object_open,
->> +=C2=A0=C2=A0=C2=A0 .close =3D amdgpu_gem_object_close,
->> +=C2=A0=C2=A0=C2=A0 .export =3D amdgpu_gem_prime_export,
->> +=C2=A0=C2=A0=C2=A0 .vmap =3D amdgpu_gem_prime_vmap,
->> +=C2=A0=C2=A0=C2=A0 .vunmap =3D amdgpu_gem_prime_vunmap,
->> +};
->> +
->=20
-> Wrong file, this belongs into amdgpu_gem.c
->=20
->> =C2=A0 static int amdgpu_bo_do_create(struct amdgpu_device *adev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo_param *=
-bp,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo **bo_pt=
-r)
->> @@ -552,6 +562,8 @@ static int amdgpu_bo_do_create(struct
->> amdgpu_device *adev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo =3D kzalloc(sizeof(struct amdgpu_bo)=
-, GFP_KERNEL);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (bo =3D=3D NULL)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;=
-
->> +
->> +=C2=A0=C2=A0=C2=A0 bo->tbo.base.funcs =3D &amdgpu_gem_object_funcs;
->=20
-> And this should probably go into amdgpu_gem_object_create().
-
-I'm trying to understand what amdgpu does.  What about all the places
-where amdgpu calls amdgpu_bo_create() internally? Wouldn't these miss
-the free callback for the GEM object?
-
-Best regards
-Thomas
-
->=20
-> Apart from that looks like a good idea to me.
->=20
-> Christian.
->=20
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_gem_private_object_init(adev->ddev,=
- &bo->tbo.base, size);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 INIT_LIST_HEAD(&bo->shadow_list);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo->vm_bo =3D NULL;
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---zniUnHMaoWytGRm2jwIkKjV0oPt2fa9bx--
-
---MeVdSsKebthdc7DC8hvgqWlLwpjnz0H9f
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9fhs0UHHR6aW1tZXJt
-YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPJNAgAlfJhPTx8SHwyCGcF7SoXCxqFUag5
-/hXG2aWBOQj0PGNIWjEqH/FwrQApUbBmpbBWXncgOJjyevY1bY3RXSi+ibAW263g
-1lb0Cf5fR55oudCzfJIiQhM5nXHpnbDTdEq1kVtVf4mD3cn1eyPWtOgpXIklFs+w
-YSnklFEtZsXQnHs9whrVXf1UPUoecKtVRfIflZBfGttuRdODIknW+9iFA/+QYggh
-4WsKIHEpME3IpnfYOqS6yZ3oqcKeROalr2HZ6EUy/NaixshxCZxnLQVMNWx7saKP
-aygn2TEK3CwcBwiYGlPcx3/VFCRdviSNuxDmkZ5CV3ceT5gUjE0suBVVaA==
-=QxSN
------END PGP SIGNATURE-----
-
---MeVdSsKebthdc7DC8hvgqWlLwpjnz0H9f--
-
---===============1106632526==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1106632526==--
+UmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCk9u
+IEZyaSwgU2VwIDExLCAyMDIwIGF0IDM6MzUgQU0gQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5pZy5s
+ZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gUGluZywgd2UgbmVlZCB0byByZXZl
+cnQgdGhpcyBBU0FQLgo+Cj4gQ2hyaXN0aWFuLgo+Cj4gQW0gMDkuMDkuMjAgdW0gMTM6MTYgc2No
+cmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+ID4gVHVybnMgb3V0IHRoaXMgYnJlYWtzIGEgbG90IG9m
+IGRpZmZlcmVudCBoYXJkd2FyZS4KPiA+Cj4gPiBUaGlzIHJldmVydHMgY29tbWl0IDUyMmZmM2E4
+YjZkNzNhMzEwODRiNGIwODdiNDU4ZjdmYTBhYzFlMTQuCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTog
+Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+ID4gLS0tCj4gPiAg
+IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3BsYXkuYyB8IDIgKy0KPiA+ICAgMSBm
+aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4gPgo+ID4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3BsYXkuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3BsYXkuYwo+ID4gaW5kZXggN2I2OWQ2ZGZlNDRhLi5l
+MGFlOTExZWY0MjcgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl9kaXNwbGF5LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3Bs
+YXkuYwo+ID4gQEAgLTkzMyw3ICs5MzMsNyBAQCBzdGF0aWMgdm9pZCBhdml2b19nZXRfZmJfcmVm
+X2Rpdih1bnNpZ25lZCBub20sIHVuc2lnbmVkIGRlbiwgdW5zaWduZWQgcG9zdF9kaXYsCj4gPgo+
+ID4gICAgICAgLyogZ2V0IG1hdGNoaW5nIHJlZmVyZW5jZSBhbmQgZmVlZGJhY2sgZGl2aWRlciAq
+Lwo+ID4gICAgICAgKnJlZl9kaXYgPSBtaW4obWF4KGRlbi9wb3N0X2RpdiwgMXUpLCByZWZfZGl2
+X21heCk7Cj4gPiAtICAgICAqZmJfZGl2ID0gbWF4KG5vbSAqICpyZWZfZGl2ICogcG9zdF9kaXYg
+LyBkZW4sIDF1KTsKPiA+ICsgICAgICpmYl9kaXYgPSBESVZfUk9VTkRfQ0xPU0VTVChub20gKiAq
+cmVmX2RpdiAqIHBvc3RfZGl2LCBkZW4pOwo+ID4KPiA+ICAgICAgIC8qIGxpbWl0IGZiIGRpdmlk
+ZXIgdG8gaXRzIG1heGltdW0gKi8KPiA+ICAgICAgIGlmICgqZmJfZGl2ID4gZmJfZGl2X21heCkg
+ewo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
