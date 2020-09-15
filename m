@@ -2,70 +2,99 @@ Return-Path: <SRS0=7kRa=CY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B554EC43461
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 21:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EA53C433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 21:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21F6E207DE
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 21:50:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B899E2078E
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 21:52:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L8SrHxtV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21F6E207DE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="E81xPPUI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B899E2078E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51126E1E0;
-	Tue, 15 Sep 2020 21:50:00 +0000 (UTC)
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B88B96E1E0;
- Tue, 15 Sep 2020 21:49:59 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id lo4so7160095ejb.8;
- Tue, 15 Sep 2020 14:49:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Lbqh4AT1ZomtE66U2qUa6kFUvkStHtV0IT0aN6KCAGQ=;
- b=L8SrHxtVh/9gIpxLoUj+yKmL5PAXPVItmeEs6QmM9Y4lJ2QJxfOqHmcXKBYR5q0o6m
- ARY0Q1i12e53VNwLnYIxGUAtpOJQfBnnVEoLXTjgO+ZjtYoo4VIWdQkcXLO1MC2Tkq7P
- DE2sdTEerQt4ot0qy9FYE60XbFKQp3td0NC9iYZcN/bcE1qmavq7LK5W3+YYCcwTSmy2
- X93rRjz+6BwpjmeNRJKULN9EJtVet36phCKLpf1axnsYtGfr8U5+BCrCQl59UOlI39uL
- WhxPMLGeYmFiTzMgcN5lH8d5c/Xw820yvw4gux/AS1lwAQP4e/49wsh1Wl+I57dAGeKH
- 4DHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Lbqh4AT1ZomtE66U2qUa6kFUvkStHtV0IT0aN6KCAGQ=;
- b=C/z6n5pS+1xC+M1IQTLJOSXZ4I9FQ4h3Uf+5wEP3bUCP1Obdfd8TelhsVa+PaLjRob
- LVY7T8Gjd1t8DjadPFA67DS725gbmM7YU7OKXuxajrFOrhDGVV2KZh1khXnrNEj3CxXo
- 8XqMNk9as3slUwpIt0MVMZZ2fM6SGR5NHusUWDaz3qjYAzRzZno2j4B5VzhNBJOYjeu8
- QRkIjjl47MUiRPbWFwspmzzMz7J0d5725ClyB01y5Ea0CRaPsd7hq0z+ZT425Is9rQ2E
- sJALPda6F0AooyVgjEHjlfVKSWYLMJmFd2kZyjsAzrGnBEueYNIeW6STAFur/mHZjRW/
- gt3Q==
-X-Gm-Message-State: AOAM531uhB8B6r3Xc2/TaH5ykEEGDxH6OFGTOZ0fbxSbjmCdFOyUJqmO
- ffMzgPMzYZ8QGkW5loUl62m3Gl9Eqd7LMXAAOM8=
-X-Google-Smtp-Source: ABdhPJwFw1PqOQ2yPh5QDordqiWxvoA74Z+O9tMA/lbN8SWeP9mHNhI8fUZurynRPPgu9ukHloOnsQ5thMxRYsGBpwE=
-X-Received: by 2002:a17:906:813:: with SMTP id
- e19mr21855444ejd.101.1600206598140; 
- Tue, 15 Sep 2020 14:49:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4808C89A61;
+	Tue, 15 Sep 2020 21:52:27 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6B389A61
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 21:52:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EbnidH5fhsRf6iG8UIMn7Y7kzdVj7fKc+heGH+TPGLKGFLRt+B1FFIr0NArc0ESc9ws3qAhkizhDoxWHAh8IBmKpo1nmU8qrePShoatzS1CYtz/tsmnDN0BPD/HdZA9+vibS2DWpI54q8U1uloPXaBhdOXrNZXESc0x58PaVmc+lTUon8puUgQCsjjRmrNJm90UN9ClvfE6oLLMkDYUcTwDQlXLBi9PMxQhfZYjJYHQ6Li7P6pRyurjppaUe30dmihUue6fh7nVfOGdc7W90LbOIRdgg4eZSMtQCaJf4hpvmJaVx7AHPVj7d3XO4TKJ63Ue3Dud9BSHyD9QnNO0dag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BG5iq+PvUxbV71Pn84VC2YlShd2I7/NAg8p/pZkhOy0=;
+ b=MyTc3z90HsKEwHpAfFdgnkQBz6NyDH+risW83TMm1GARgCJngPv0QrB4EUIsbje5ZzUUniH91f2TJ/Yk21mZvzYQlywDdvWYdI6MQoAsS3snTcgHiAUZhGzt29muF0QjYrfj8uR+qaorcjvWvOSamCxx8Sl+eoEFCnaYAKtQNRQSKbDXoQi/ZTmaeTDyVB/uyg/a7nPDpyp0cqCGmfh352V1mb9JPZP0Qz0izuUP0V4hOK7AGFMyuqiIDRAVnhXbhVfShAVexp/k8N9XIMrjLp8lAz28fDU83Io/C02e1Q6EXylAPDgDjpv6cM4OC2wy4xNaJttOjFpntesOeoRaMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BG5iq+PvUxbV71Pn84VC2YlShd2I7/NAg8p/pZkhOy0=;
+ b=E81xPPUIQBujuqL87+tDLsqJkFL1bcj+agxeWeBhSWRdzbPTyknQ8sDC3kmfy5vOvvouPD/Qg3kfQoXKvqHp6v6sJxJsiI7yWFLsMPvTCTyvSYJlxQzhUwx+FiQzcrAnTekEwZicFW5czto8Kso8o9vcIGlpx8lTpNWT334sk3c=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
+ DM6PR12MB3306.namprd12.prod.outlook.com (2603:10b6:5:186::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3370.16; Tue, 15 Sep 2020 21:52:25 +0000
+Received: from DM5PR12MB2583.namprd12.prod.outlook.com
+ ([fe80::d9be:3249:294f:1dd6]) by DM5PR12MB2583.namprd12.prod.outlook.com
+ ([fe80::d9be:3249:294f:1dd6%7]) with mapi id 15.20.3391.011; Tue, 15 Sep 2020
+ 21:52:25 +0000
+From: Philip Yang <Philip.Yang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: prevent double kfree ttm->sg
+Date: Tue, 15 Sep 2020 17:52:12 -0400
+Message-Id: <20200915215212.2669-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: CH2PR18CA0002.namprd18.prod.outlook.com
+ (2603:10b6:610:4f::12) To DM5PR12MB2583.namprd12.prod.outlook.com
+ (2603:10b6:4:b3::28)
 MIME-Version: 1.0
-References: <7766386a-3a62-d7d9-9ff5-4283b72113ca@molgen.mpg.de>
-In-Reply-To: <7766386a-3a62-d7d9-9ff5-4283b72113ca@molgen.mpg.de>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 16 Sep 2020 07:49:46 +1000
-Message-ID: <CAPM=9tyLczggV7Eb7frO77YwYfRzuRbM8E7n=FXCay0jGVTqvA@mail.gmail.com>
-Subject: Re: General protection fault: RIP: 0010:free_block+0xdc/0x1f0
-To: Paul Menzel <pmenzel@molgen.mpg.de>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from Philip-Dev.amd.com (165.204.55.251) by
+ CH2PR18CA0002.namprd18.prod.outlook.com (2603:10b6:610:4f::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3391.11 via Frontend Transport; Tue, 15 Sep 2020 21:52:24 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1cccf165-2340-4c65-6b27-08d859c1a1a6
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3306:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3306241D873AD6284F945825E6200@DM6PR12MB3306.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:800;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gL0MuuOUTpV2ZMFirnpDk/8Rwd1aSrzi9tAitfBYIvZEog/3TdWagrookuiXhka1By1FAQiJwOfrr3khPhOdg6v8NCjRzWNnDlxjyhNYWi7P7ybzUON1PuFJ6L5wEgO3EZrTn1PcWRGuVu+L5RFCJppy2mXlwAvCp/q8+oxryaGbZpa7dV+Fjsrk5r5eXXdkY9QeXIJcNJwg6uDn0aNe/LpZyth6Ca0LVztSPRkNL9IuOD/DhPTpxoH0zxrKDAFFS6Kh7OhohPwC9423Yw4luQNdsPoasNlB+icei9S5HKyyr+XSKpmCmL4s22VUivgRZr0ODxd6cGbwBVjsUO6aBg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(366004)(376002)(346002)(396003)(186003)(316002)(26005)(6486002)(7696005)(52116002)(2906002)(16526019)(956004)(8936002)(2616005)(4326008)(36756003)(8676002)(45080400002)(6916009)(478600001)(86362001)(1076003)(5660300002)(6666004)(66556008)(66476007)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 1lgyoLYBtudMIbbJ8+4DBWsVJng4IDNkSF61hNfWDo2R/8+zyB1jolBUpmWen0H0kHk05C+YhtU8U9R8uz8tRJ7rz+qWcMLdFoepOodc5SdH8QZxgys/j1JjVaoFs2on4FCtE2nPRXSEsB+z37PwmjN/3qZ20xraVmWrqJ1OhZQlnzhUyCEhh4gw+ZNkamyD9JHGqLZmuIlCkdRU8IKOaxtxp7rpde/6kHzUvGbssk6XH8uOcQSEu730ldeEtH+r9f3ezNZxTbsdD2HhkPjvWW4dI1bOKL9gE/MF1L/9XqwRNcw+1DO3gvVgDRj4NhwRC5soeYj7kbDXP/KgYRvsDQFCR8Bs+tqWm4QgsUMESRyFftpYVswp+CNzfewTiPeawFLCxChL1VpTfC7fmjrzHdkE68LzVk4uioOfvKn5mlnvCSqkjWmfHsSPO7HbTGkkmNCd0WscqiDG2nymeVt+/+P6VncrwSNqX9k576nf/IC+KcYGpMBw6Mb5gUcdPy0Sgi4fk5NpaShfv6fYj/6Ja3tEfreGosozbd4Svc9noYgpH/T4+emHJJhNyFmax6QmwDfSj5S4gUBcUyvwVHW/+aG7qGRM7BvWS86USXHGfy7Y76XC74lu4jRKR2Tdjqmdiu4gjJjtslw9uV0XzW6JPA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cccf165-2340-4c65-6b27-08d859c1a1a6
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2020 21:52:25.0682 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mjb7sr7ahBkDhdHdLFV6ROFntbb/9iQBhkSBgQg0rjmN4mRqas1JY4fJHyTqH3tZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3306
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,258 +106,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Philip Yang <Philip.Yang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-cc'ing some more people.
+Set ttm->sg to NULL after kfree, to avoid memory corruption backtrace:
 
-On Tue, 15 Sep 2020 at 23:07, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
->
-> Dear Andrew folks, dear Linux folks,
->
->
-> With Linux 5.9-rc4 on a Dell OptiPlex 5080 with Intel Core i7-10700 CPU
-> @ 2.90GHz, and external
->
->      01:00.0 VGA compatible controller [0300]: Advanced Micro Devices,
-> Inc. [AMD/ATI] Oland [Radeon HD 8570 / R7 240/340 OEM] [1002:6611] (rev 87)
->
-> running graphical demanding applications glmark2 [1] and the Phoronix
-> Test Suite [2] benchmark *pts/desktop-graphics* [3]
->
->      $ git describe --tags
->      v10.0.0m1-13-g0b5ddc3c0
->
-> I got three general protection faults, and it restarted or froze (no
-> input devices working, screen froze and even network card (no ping)).
->
-> Here the system restarted itself:
->
-> > kernel: general protection fault, probably for non-canonical address 0xdead000000000100: 0000 [#1] SMP NOPTI
-> > kernel: CPU: 2 PID: 9702 Comm: glmark2 Kdump: loaded Not tainted 5.9.0-rc4.mx64.343 #1
-> > kernel: Hardware name: Dell Inc. OptiPlex 5080/032W55, BIOS 1.1.7 08/17/2020
-> > kernel: RIP: 0010:free_block+0xdc/0x1f0
->
-> Here it froze:
->
-> > [14639.665745] general protection fault, probably for non-canonical address 0xdead000000000100: 0000 [#1] SMP NOPTI
-> > [14639.675917] CPU: 15 PID: 23094 Comm: pvpython Kdump: loaded Not tainted 5.9.0-rc4.mx64.343 #1
-> > [14639.684431] Hardware name: Dell Inc. OptiPlex 5080/032W55, BIOS 1.1.7 08/17/2020
-> > [14639.691823] RIP: 0010:free_block+0xdc/0x1f0
->
-> Here it froze:
->
-> > kernel: general protection fault, probably for non-canonical address 0xdead000000000100: 0000 [#1] SMP NOPTI
-> > kernel: CPU: 15 PID: 23094 Comm: pvpython Kdump: loaded Not tainted 5.9.0-rc4.mx64.343 #1
-> > kernel: Hardware name: Dell Inc. OptiPlex 5080/032W55, BIOS 1.1.7 08/17/2020
-> > kernel: RIP: 0010:free_block+0xdc/0x1f0
->
-> Running `scripts/decode_stacktrace.sh`:
->
-> > linux-5.9_rc4-343.x86_64/source$ scripts/decode_stacktrace.sh vmlinux < optiplex-5080-linux-5.9-rc4-gp-pvpython.txt
-> > [14528.718656] cgroup: fork rejected by pids controller in /user.slice/user-5272.slice/session-c6.scope
-> > [14639.665745] general protection fault, probably for non-canonical address 0xdead000000000100: 0000 [#1] SMP NOPTI
-> > [14639.675917] CPU: 15 PID: 23094 Comm: pvpython Kdump: loaded Not tainted 5.9.0-rc4.mx64.343 #1
-> > [14639.684431] Hardware name: Dell Inc. OptiPlex 5080/032W55, BIOS 1.1.7 08/17/2020
-> > [14639.691823] RIP: 0010:free_block (./include/linux/list.h:112 ./include/linux/list.h:135 ./include/linux/list.h:146 mm/slab.c:3336)
-> > [14639.696006] Code: 00 48 01 d0 48 c1 e8 0c 48 c1 e0 06 4c 01 e8 48 8b 50 08 48 8d 4a ff 83 e2 01 48 0f 45 c1 48 8b 48 08 48 8b 50 10 4c 8d 78 08 <48> 89 51 08 48 89 0a 4c 89 da 48 2b 50 28 4c 89 60 08 48 89 68 10
-> > All code
-> > ========
-> >    0: 00 48 01                add    %cl,0x1(%rax)
-> >    3: d0 48 c1                rorb   -0x3f(%rax)
-> >    6: e8 0c 48 c1 e0          callq  0xffffffffe0c14817
-> >    b: 06                      (bad)
-> >    c: 4c 01 e8                add    %r13,%rax
-> >    f: 48 8b 50 08             mov    0x8(%rax),%rdx
-> >   13: 48 8d 4a ff             lea    -0x1(%rdx),%rcx
-> >   17: 83 e2 01                and    $0x1,%edx
-> >   1a: 48 0f 45 c1             cmovne %rcx,%rax
-> >   1e: 48 8b 48 08             mov    0x8(%rax),%rcx
-> >   22: 48 8b 50 10             mov    0x10(%rax),%rdx
-> >   26: 4c 8d 78 08             lea    0x8(%rax),%r15
-> >   2a:*        48 89 51 08             mov    %rdx,0x8(%rcx)           <-- trapping instruction
-> >   2e: 48 89 0a                mov    %rcx,(%rdx)
-> >   31: 4c 89 da                mov    %r11,%rdx
-> >   34: 48 2b 50 28             sub    0x28(%rax),%rdx
-> >   38: 4c 89 60 08             mov    %r12,0x8(%rax)
-> >   3c: 48 89 68 10             mov    %rbp,0x10(%rax)
-> >
-> > Code starting with the faulting instruction
-> > ===========================================
-> >    0: 48 89 51 08             mov    %rdx,0x8(%rcx)
-> >    4: 48 89 0a                mov    %rcx,(%rdx)
-> >    7: 4c 89 da                mov    %r11,%rdx
-> >    a: 48 2b 50 28             sub    0x28(%rax),%rdx
-> >    e: 4c 89 60 08             mov    %r12,0x8(%rax)
-> >   12: 48 89 68 10             mov    %rbp,0x10(%rax)
-> > [14639.714747] RSP: 0018:ffffc9001c26fab8 EFLAGS: 00010046
-> > [14639.719970] RAX: ffffea000d193600 RBX: 0000000080000000 RCX: dead000000000100
-> > [14639.727099] RDX: dead000000000122 RSI: ffff88842d5f3ef0 RDI: ffff88842b440300
-> > [14639.734225] RBP: dead000000000122 R08: ffffc9001c26fb30 R09: ffff88842b441280
-> > [14639.741351] R10: 000000000000000f R11: ffff8883464d80c0 R12: dead000000000100
-> > [14639.748477] R13: ffffea0000000000 R14: ffff88842d5f3ff0 R15: ffffea000d193608
-> > [14639.755604] FS:  00007fd3b7e8f040(0000) GS:ffff88842d5c0000(0000) knlGS:0000000000000000
-> > [14639.763692] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [14639.769430] CR2: 00007fd344233548 CR3: 00000002f46aa003 CR4: 00000000007706e0
-> > [14639.776556] PKRU: 55555554
-> > [14639.779265] Call Trace:
-> > [14639.781717] ___cache_free (mm/slab.c:3389 mm/slab.c:3455)
-> > [14639.785463] kfree (./arch/x86/include/asm/irqflags.h:41 ./arch/x86/include/asm/irqflags.h:84 mm/slab.c:3757)
-> > [14639.788432] kmem_freepages (mm/slab.h:266 mm/slab.h:437 mm/slab.c:1406)
-> > [14639.792093] slab_destroy (mm/slab.c:1631)
-> > [14639.795579] slabs_destroy (mm/slab.c:1639 (discriminator 12))
-> > [14639.799152] ___cache_free (mm/slab.c:3406 mm/slab.c:3455)
-> > [14639.802902] ? _cond_resched (kernel/sched/core.c:6123)
-> > [14639.806650] kfree (./arch/x86/include/asm/irqflags.h:41 ./arch/x86/include/asm/irqflags.h:84 mm/slab.c:3757)
-> > [14639.809644] amdgpu_vram_mgr_del (drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:439) amdgpu
-> > [14639.814524] ttm_bo_cleanup_memtype_use (drivers/gpu/drm/ttm/ttm_bo.c:866 drivers/gpu/drm/ttm/ttm_bo.c:367) ttm
-> > [14639.819748] ttm_bo_put (./include/linux/dma-resv.h:226 drivers/gpu/drm/ttm/ttm_bo.c:612 ./include/linux/kref.h:65 drivers/gpu/drm/ttm/ttm_bo.c:624) ttm
-> > [14639.823768] amdgpu_bo_unref (drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:861) amdgpu
-> > [14639.828313] amdgpu_vm_free_table (drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:953) amdgpu
-> > [14639.833293] amdgpu_vm_free_pts (drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:975) amdgpu
-> > [14639.838097] amdgpu_vm_fini (drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3119) amdgpu
-> > [14639.842727] amdgpu_driver_postclose_kms (drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1116) amdgpu
-> > [14639.848387] drm_file_free.part.9 (drivers/gpu/drm/drm_file.c:292) drm
-> > [14639.853263] drm_release (./arch/x86/include/asm/atomic.h:123 ./include/asm-generic/atomic-instrumented.h:749 drivers/gpu/drm/drm_file.c:496) drm
-> > [14639.857183] __fput (fs/file_table.c:282)
-> > [14639.860238] task_work_run (kernel/task_work.c:143 (discriminator 1))
-> > [14639.863811] exit_to_user_mode_prepare (./include/linux/tracehook.h:188 kernel/entry/common.c:163 kernel/entry/common.c:190)
-> > [14639.868602] syscall_exit_to_user_mode (./arch/x86/include/asm/atomic.h:29 ./include/asm-generic/atomic-instrumented.h:28 ./include/linux/jump_label.h:254 ./arch/x86/include/asm/nospec-branch.h:288 ./arch/x86/include/asm/entry-common.h:80 kernel/entry/common.c:131 kernel/entry/common.c:267)
-> > [14639.873304] entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:125)
-> > [14639.878353] RIP: 0033:0x7fd3d715cb5f
-> > [14639.881925] Code: 20 00 f7 d8 64 89 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 53 89 fb 48 83 ec 10 e8 bc fb ff ff 89 df 89 c2 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 15 89 d7 89 44 24 0c e8 fe fb ff ff 8b 44 24
-> > All code
-> > ========
-> >    0: 20 00                   and    %al,(%rax)
-> >    2: f7 d8                   neg    %eax
-> >    4: 64 89 02                mov    %eax,%fs:(%rdx)
-> >    7: b8 ff ff ff ff          mov    $0xffffffff,%eax
-> >    c: c3                      retq
-> >    d: 66 0f 1f 44 00 00       nopw   0x0(%rax,%rax,1)
-> >   13: 53                      push   %rbx
-> >   14: 89 fb                   mov    %edi,%ebx
-> >   16: 48 83 ec 10             sub    $0x10,%rsp
-> >   1a: e8 bc fb ff ff          callq  0xfffffffffffffbdb
-> >   1f: 89 df                   mov    %ebx,%edi
-> >   21: 89 c2                   mov    %eax,%edx
-> >   23: b8 03 00 00 00          mov    $0x3,%eax
-> >   28: 0f 05                   syscall
-> >   2a:*        48 3d 00 f0 ff ff       cmp    $0xfffffffffffff000,%rax         <-- trapping instruction
-> >   30: 77 15                   ja     0x47
-> >   32: 89 d7                   mov    %edx,%edi
-> >   34: 89 44 24 0c             mov    %eax,0xc(%rsp)
-> >   38: e8 fe fb ff ff          callq  0xfffffffffffffc3b
-> >   3d: 8b                      .byte 0x8b
-> >   3e: 44                      rex.R
-> >   3f: 24                      .byte 0x24
-> >
-> > Code starting with the faulting instruction
-> > ===========================================
-> >    0: 48 3d 00 f0 ff ff       cmp    $0xfffffffffffff000,%rax
-> >    6: 77 15                   ja     0x1d
-> >    8: 89 d7                   mov    %edx,%edi
-> >    a: 89 44 24 0c             mov    %eax,0xc(%rsp)
-> >    e: e8 fe fb ff ff          callq  0xfffffffffffffc11
-> >   13: 8b                      .byte 0x8b
-> >   14: 44                      rex.R
-> >   15: 24                      .byte 0x24
-> > [14639.900667] RSP: 002b:00007fff07ed2f40 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-> > [14639.908229] RAX: 0000000000000000 RBX: 0000000000000008 RCX: 00007fd3d715cb5f
-> > [14639.915354] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000008
-> > [14639.922480] RBP: 0000000000000000 R08: 0000000000000000 R09: 000000000000000e
-> > [14639.929607] R10: 000000000000000c R11: 0000000000000293 R12: 0000000005168450
-> > [14639.936732] R13: 0000000000000008 R14: 00000000007c8290 R15: 00007fff07ed31c0
-> > [14639.943859] Modules linked in: rpcsec_gss_krb5 nfsv4 nfs 8021q garp stp mrp llc snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio i915 amdgpu gpu_sched ttm input_leds x86_pkg_temp_thermal iosf_mbi led_class drm_kms_helper kvm_intel snd_hda_codec_hdmi drm snd_hda_intel intel_gtt snd_intel_dspcfg kvm fb_sys_fops syscopyarea snd_hda_codec snd_hda_core sysfillrect wmi_bmof sysimgblt snd_pcm irqbypass wmi snd_timer snd deflate iTCO_wdt soundcore iTCO_vendor_support crc32c_intel efi_pstore video pstore nfsd auth_rpcgss nfs_acl lockd grace sunrpc efivarfs ip_tables x_tables unix ipv6 autofs4
-> > [14639.996237] ---[ end trace c4d9d5f7e4b117a6 ]---
-> > [14640.705681] RIP: 0010:free_block (./include/linux/list.h:112 ./include/linux/list.h:135 ./include/linux/list.h:146 mm/slab.c:3336)
-> > [14640.709874] Code: 00 48 01 d0 48 c1 e8 0c 48 c1 e0 06 4c 01 e8 48 8b 50 08 48 8d 4a ff 83 e2 01 48 0f 45 c1 48 8b 48 08 48 8b 50 10 4c 8d 78 08 <48> 89 51 08 48 89 0a 4c 89 da 48 2b 50 28 4c 89 60 08 48 89 68 10
-> > All code
-> > ========
-> >    0: 00 48 01                add    %cl,0x1(%rax)
-> >    3: d0 48 c1                rorb   -0x3f(%rax)
-> >    6: e8 0c 48 c1 e0          callq  0xffffffffe0c14817
-> >    b: 06                      (bad)
-> >    c: 4c 01 e8                add    %r13,%rax
-> >    f: 48 8b 50 08             mov    0x8(%rax),%rdx
-> >   13: 48 8d 4a ff             lea    -0x1(%rdx),%rcx
-> >   17: 83 e2 01                and    $0x1,%edx
-> >   1a: 48 0f 45 c1             cmovne %rcx,%rax
-> >   1e: 48 8b 48 08             mov    0x8(%rax),%rcx
-> >   22: 48 8b 50 10             mov    0x10(%rax),%rdx
-> >   26: 4c 8d 78 08             lea    0x8(%rax),%r15
-> >   2a:*        48 89 51 08             mov    %rdx,0x8(%rcx)           <-- trapping instruction
-> >   2e: 48 89 0a                mov    %rcx,(%rdx)
-> >   31: 4c 89 da                mov    %r11,%rdx
-> >   34: 48 2b 50 28             sub    0x28(%rax),%rdx
-> >   38: 4c 89 60 08             mov    %r12,0x8(%rax)
-> >   3c: 48 89 68 10             mov    %rbp,0x10(%rax)
-> >
-> > Code starting with the faulting instruction
-> > ===========================================
-> >    0: 48 89 51 08             mov    %rdx,0x8(%rcx)
-> >    4: 48 89 0a                mov    %rcx,(%rdx)
-> >    7: 4c 89 da                mov    %r11,%rdx
-> >    a: 48 2b 50 28             sub    0x28(%rax),%rdx
-> >    e: 4c 89 60 08             mov    %r12,0x8(%rax)
-> >   12: 48 89 68 10             mov    %rbp,0x10(%rax)
-> > [14640.728612] RSP: 0018:ffffc9001c26fab8 EFLAGS: 00010046
-> > [14640.733834] RAX: ffffea000d193600 RBX: 0000000080000000 RCX: dead000000000100
-> > [14640.740962] RDX: dead000000000122 RSI: ffff88842d5f3ef0 RDI: ffff88842b440300
-> > [14640.748092] RBP: dead000000000122 R08: ffffc9001c26fb30 R09: ffff88842b441280
-> > [14640.755218] R10: 000000000000000f R11: ffff8883464d80c0 R12: dead000000000100
-> > [14640.762348] R13: ffffea0000000000 R14: ffff88842d5f3ff0 R15: ffffea000d193608
-> > [14640.769478] FS:  00007fd3b7e8f040(0000) GS:ffff88842d5c0000(0000) knlGS:0000000000000000
-> > [14640.777558] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [14640.783327] CR2: 00007fd344233548 CR3: 00000002f46aa003 CR4: 00000000007706e0
-> > [14640.790476] PKRU: 55555554
-> > [14661.818409] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
-> > [14661.824340] rcu:     6-...0: (1 GPs behind) idle=83a/1/0x4000000000000000 softirq=545426/545427 fqs=1448
-> > [14661.833636]  (detected by 10, t=21025 jiffies, g=3736877, q=2158)
-> > [14661.839726] Task dump for CPU 6:
-> > [14661.842952] task:kworker/6:2     state:R  running task     stack:    0 pid: 7383 ppid:     2 flags:0x00004008
-> > [14661.852856] Workqueue: events cache_reap
-> > [14661.856779] Call Trace:
-> > [14661.859230] ? cache_reap (mm/slab.c:3978)
-> > [14661.862804] ? process_one_work (./arch/x86/include/asm/atomic.h:29 ./include/asm-generic/atomic-instrumented.h:28 ./include/linux/jump_label.h:254 ./include/linux/jump_label.h:264 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
-> > [14661.866987] ? cancel_delayed_work (kernel/workqueue.c:2358)
-> > [14661.871254] ? worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
-> > [14661.875087] ? cancel_delayed_work (kernel/workqueue.c:2358)
-> > [14661.879354] ? kthread (kernel/kthread.c:292)
-> > [14661.882756] ? kthread_use_mm (kernel/kthread.c:245)
-> > [14661.886589] ? ret_from_fork (arch/x86/entry/entry_64.S:294)
-> > [14726.905632] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
-> > [14726.911561] rcu:     6-...0: (1 GPs behind) idle=83a/1/0x4000000000000000 softirq=545426/545427 fqs=1735
-> > [14726.920856]  (detected by 10, t=86112 jiffies, g=3736877, q=3398)
-> > [14726.926946] Task dump for CPU 6:
-> > [14726.930172] task:kworker/6:2     state:R  running task     stack:    0 pid: 7383 ppid:     2 flags:0x00004008
-> > [14726.940076] Workqueue: events cache_reap
-> > [14726.943994] Call Trace:
-> > [14726.946445] ? cache_reap (mm/slab.c:3978)
-> > [14726.950019] ? process_one_work (./arch/x86/include/asm/atomic.h:29 ./include/asm-generic/atomic-instrumented.h:28 ./include/linux/jump_label.h:254 ./include/linux/jump_label.h:264 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
-> > [14726.954203] ? cancel_delayed_work (kernel/workqueue.c:2358)
-> > [14726.958470] ? worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
-> > [14726.962307] ? cancel_delayed_work (kernel/workqueue.c:2358)
-> > [14726.966575] ? kthread (kernel/kthread.c:292)
-> > [14726.969976] ? kthread_use_mm (kernel/kthread.c:245)
-> > [14726.973809] ? ret_from_fork (arch/x86/entry/entry_64.S:294)
->
-> Is that a known issue? Reproducing the problem often takes several
-> hours, so some guidance on what to try would be great.
->
->
-> Kind regards,
->
-> Paul
->
->
-> [1]: https://github.com/glmark2/glmark2
-> [2]: https://phoronix-test-suite.com/
-> [3]: https://openbenchmarking.org/suite/pts/desktop-graphics
+[  420.932812] kernel BUG at
+/build/linux-do9eLF/linux-4.15.0/mm/slub.c:295!
+[  420.934182] invalid opcode: 0000 [#1] SMP NOPTI
+[  420.935445] Modules linked in: xt_conntrack ipt_MASQUERADE
+[  420.951332] Hardware name: Dell Inc. PowerEdge R7525/0PYVT1, BIOS
+1.5.4 07/09/2020
+[  420.952887] RIP: 0010:__slab_free+0x180/0x2d0
+[  420.954419] RSP: 0018:ffffbe426291fa60 EFLAGS: 00010246
+[  420.955963] RAX: ffff9e29263e9c30 RBX: ffff9e29263e9c30 RCX:
+000000018100004b
+[  420.957512] RDX: ffff9e29263e9c30 RSI: fffff3d33e98fa40 RDI:
+ffff9e297e407a80
+[  420.959055] RBP: ffffbe426291fb00 R08: 0000000000000001 R09:
+ffffffffc0d39ade
+[  420.960587] R10: ffffbe426291fb20 R11: ffff9e49ffdd4000 R12:
+ffff9e297e407a80
+[  420.962105] R13: fffff3d33e98fa40 R14: ffff9e29263e9c30 R15:
+ffff9e2954464fd8
+[  420.963611] FS:  00007fa2ea097780(0000) GS:ffff9e297e840000(0000)
+knlGS:0000000000000000
+[  420.965144] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  420.966663] CR2: 00007f16bfffefb8 CR3: 0000001ff0c62000 CR4:
+0000000000340ee0
+[  420.968193] Call Trace:
+[  420.969703]  ? __page_cache_release+0x3c/0x220
+[  420.971294]  ? amdgpu_ttm_tt_unpopulate+0x5e/0x80 [amdgpu]
+[  420.972789]  kfree+0x168/0x180
+[  420.974353]  ? amdgpu_ttm_tt_set_user_pages+0x64/0xc0 [amdgpu]
+[  420.975850]  ? kfree+0x168/0x180
+[  420.977403]  amdgpu_ttm_tt_unpopulate+0x5e/0x80 [amdgpu]
+[  420.978888]  ttm_tt_unpopulate.part.10+0x53/0x60 [amdttm]
+[  420.980357]  ttm_tt_destroy.part.11+0x4f/0x60 [amdttm]
+[  420.981814]  ttm_tt_destroy+0x13/0x20 [amdttm]
+[  420.983273]  ttm_bo_cleanup_memtype_use+0x36/0x80 [amdttm]
+[  420.984725]  ttm_bo_release+0x1c9/0x360 [amdttm]
+[  420.986167]  amdttm_bo_put+0x24/0x30 [amdttm]
+[  420.987663]  amdgpu_bo_unref+0x1e/0x30 [amdgpu]
+[  420.989165]  amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu+0x9ca/0xb10
+[amdgpu]
+[  420.990666]  kfd_ioctl_alloc_memory_of_gpu+0xef/0x2c0 [amdgpu]
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 8b704451a18c..4b3ab9a25e91 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1076,6 +1076,7 @@ static int amdgpu_ttm_tt_pin_userptr(struct ttm_tt *ttm)
+ 
+ release_sg:
+ 	kfree(ttm->sg);
++	ttm->sg = NULL;
+ 	return r;
+ }
+ 
+-- 
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
