@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F4F7C3526B
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ADEBFC35275
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:01:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D8A8205CB
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D8A8205CB
+	by mail.kernel.org (Postfix) with ESMTPS id 6348020663
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6348020663
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EBF26E8BF;
-	Tue, 15 Sep 2020 15:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7E16E8C6;
+	Tue, 15 Sep 2020 15:00:16 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8CC66E892;
- Tue, 15 Sep 2020 15:00:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 971016E8AC;
+ Tue, 15 Sep 2020 15:00:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C6525AFB7;
- Tue, 15 Sep 2020 15:00:24 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 892D1B013;
+ Tue, 15 Sep 2020 15:00:26 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -49,9 +49,9 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
  andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
  emil.velikov@collabora.com
-Subject: [PATCH v2 09/21] drm/nouveau: Introduce GEM object functions
-Date: Tue, 15 Sep 2020 16:59:46 +0200
-Message-Id: <20200915145958.19993-10-tzimmermann@suse.de>
+Subject: [PATCH v2 11/21] drm/pl111: Introduce GEM object functions
+Date: Tue, 15 Sep 2020 16:59:48 +0200
+Message-Id: <20200915145958.19993-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200915145958.19993-1-tzimmermann@suse.de>
 References: <20200915145958.19993-1-tzimmermann@suse.de>
@@ -81,94 +81,39 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 GEM object functions deprecate several similar callback interfaces in
 struct drm_driver. This patch replaces the per-driver callbacks with
-per-instance callbacks in nouveau.
+per-instance callbacks in pl111. The only exception is gem_prime_mmap,
+which is non-trivial to convert.
+
+v2:
+	* use drm_gem_cma_create_object_default_funcs() (Eric)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Eric Anholt <eric@anholt.net>
 ---
- drivers/gpu/drm/nouveau/nouveau_drm.c   |  9 ---------
- drivers/gpu/drm/nouveau/nouveau_gem.c   | 13 +++++++++++++
- drivers/gpu/drm/nouveau/nouveau_gem.h   |  2 ++
- drivers/gpu/drm/nouveau/nouveau_prime.c |  2 ++
- 4 files changed, 17 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/pl111/pl111_drv.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 42fc5c813a9b..72640bca1617 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1207,16 +1207,7 @@ driver_stub = {
- 
+diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
+index 46b0d1c4a16c..ecef8a2383d2 100644
+--- a/drivers/gpu/drm/pl111/pl111_drv.c
++++ b/drivers/gpu/drm/pl111/pl111_drv.c
+@@ -224,15 +224,12 @@ static struct drm_driver pl111_drm_driver = {
+ 	.major = 1,
+ 	.minor = 0,
+ 	.patchlevel = 0,
++	.gem_create_object = drm_gem_cma_create_object_default_funcs,
+ 	.dumb_create = drm_gem_cma_dumb_create,
+-	.gem_free_object_unlocked = drm_gem_cma_free_object,
+-	.gem_vm_ops = &drm_gem_cma_vm_ops,
  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
--	.gem_prime_pin = nouveau_gem_prime_pin,
--	.gem_prime_unpin = nouveau_gem_prime_unpin,
--	.gem_prime_get_sg_table = nouveau_gem_prime_get_sg_table,
- 	.gem_prime_import_sg_table = nouveau_gem_prime_import_sg_table,
--	.gem_prime_vmap = nouveau_gem_prime_vmap,
--	.gem_prime_vunmap = nouveau_gem_prime_vunmap,
--
--	.gem_free_object_unlocked = nouveau_gem_object_del,
--	.gem_open_object = nouveau_gem_object_open,
--	.gem_close_object = nouveau_gem_object_close,
+ 	.gem_prime_import_sg_table = pl111_gem_import_sg_table,
+-	.gem_prime_get_sg_table	= drm_gem_cma_prime_get_sg_table,
+ 	.gem_prime_mmap = drm_gem_cma_prime_mmap,
+-	.gem_prime_vmap = drm_gem_cma_prime_vmap,
  
- 	.dumb_create = nouveau_display_dumb_create,
- 	.dumb_map_offset = nouveau_display_dumb_map_offset,
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 89adadf4706b..28e0cbb00876 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -169,6 +169,17 @@ nouveau_gem_object_close(struct drm_gem_object *gem, struct drm_file *file_priv)
- 	ttm_bo_unreserve(&nvbo->bo);
- }
- 
-+const struct drm_gem_object_funcs nouveau_gem_object_funcs = {
-+	.free = nouveau_gem_object_del,
-+	.open = nouveau_gem_object_open,
-+	.close = nouveau_gem_object_close,
-+	.pin = nouveau_gem_prime_pin,
-+	.unpin = nouveau_gem_prime_unpin,
-+	.get_sg_table = nouveau_gem_prime_get_sg_table,
-+	.vmap = nouveau_gem_prime_vmap,
-+	.vunmap = nouveau_gem_prime_vunmap,
-+};
-+
- int
- nouveau_gem_new(struct nouveau_cli *cli, u64 size, int align, uint32_t domain,
- 		uint32_t tile_mode, uint32_t tile_flags,
-@@ -186,6 +197,8 @@ nouveau_gem_new(struct nouveau_cli *cli, u64 size, int align, uint32_t domain,
- 	if (IS_ERR(nvbo))
- 		return PTR_ERR(nvbo);
- 
-+	nvbo->bo.base.funcs = &nouveau_gem_object_funcs;
-+
- 	/* Initialize the embedded gem-object. We return a single gem-reference
- 	 * to the caller, instead of a normal nouveau_bo ttm reference. */
- 	ret = drm_gem_object_init(drm->dev, &nvbo->bo.base, size);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.h b/drivers/gpu/drm/nouveau/nouveau_gem.h
-index 978e07591990..b35c180322e2 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.h
-@@ -5,6 +5,8 @@
- #include "nouveau_drv.h"
- #include "nouveau_bo.h"
- 
-+extern const struct drm_gem_object_funcs nouveau_gem_object_funcs;
-+
- static inline struct nouveau_bo *
- nouveau_gem_object(struct drm_gem_object *gem)
- {
-diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-index b2ecb91f8ddc..a8264aebf3d4 100644
---- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-@@ -77,6 +77,8 @@ struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
- 
- 	nvbo->valid_domains = NOUVEAU_GEM_DOMAIN_GART;
- 
-+	nvbo->bo.base.funcs = &nouveau_gem_object_funcs;
-+
- 	/* Initialize the embedded gem-object. We return a single gem-reference
- 	 * to the caller, instead of a normal nouveau_bo ttm reference. */
- 	ret = drm_gem_object_init(dev, &nvbo->bo.base, size);
+ #if defined(CONFIG_DEBUG_FS)
+ 	.debugfs_init = pl111_debugfs_init,
 -- 
 2.28.0
 
