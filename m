@@ -2,66 +2,57 @@ Return-Path: <SRS0=7kRa=CY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE5F4C43461
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CA71C2D0E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CA2520936
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 13:11:38 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mKP4zxvk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CA2520936
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C073820735
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C073820735
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17B286E2A0;
-	Tue, 15 Sep 2020 13:11:38 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B96F6E2A0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 13:11:37 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id y15so3429259wmi.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 06:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tNjsh3r89A2373Yk9Kyopyli7MR3AnjSeGq0RVJjn7s=;
- b=mKP4zxvk7cumJdjXr2XSEx5vAsDTzGPpenFAUDzDy7HzTtTtnXP4DAtjDsBgr9bUdY
- KV1mT2kXUQ4GDpSKXKHcpyPVwcsENyQ76g+BUcRzFew/oUxFDhHlZWTSoaxhjzzLq/ub
- phsWjHWjqflgUebarbjYTS8N47eH1mQA/P1L3hXsNkxwEDVN3YX1qZBEez848XsHTVii
- VSjKiwSARE1aOBa4KtNL7Zj7YEwotG5KV+PTBaaKxUS6wgXeXBf/pY8K7V8Nbd/4o3Y6
- ow5PGxkwvl1IZW4ALhfhu0ehZvMF3+i2kw5xHo2E4AoN9o69JlTcoctK6nqMYWsvR3IZ
- UaBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tNjsh3r89A2373Yk9Kyopyli7MR3AnjSeGq0RVJjn7s=;
- b=Z8xqep78nuyJNZEVlPcV+VfzRuG0eujS8z5jCpd5GTA9bVImGTJ8FjKoZecSctp2mU
- 7GPsLcltFOjufoFwtxGRAKCBZQlpSv31pCaynz5s1MH3r+BdzwTuP2mDJxSRDlZzNvEM
- TLHMK414zxa2NysLYLJcLwW2cLMqO5ngU+4KV5eQb0m1kGBnfS6Jppy2CO72r45SH62m
- tP5zbxKETZVYcsqfwXtAnHSM2x54Ebz8ewc+drc2wEnnGNR9fbXU44ZkOF0c7GFRh0hf
- YCHCOBUOkoFw33f71ap1lSycRWvzn+hnKz0ZPgAk1Vkxkd769XgWvv6NH1F4Cj9MeEdN
- +TRg==
-X-Gm-Message-State: AOAM533C84Ymdioh0N0LQbW716M/HOlIZmAKwNjaUM5KSfsQmz2fW1oU
- yTa4lnGGP+mKUWNKIqDgd4k09pBZv4BsY3uNb/M=
-X-Google-Smtp-Source: ABdhPJzAw2p/KYQCkfZbwNvnnsllOouj2hRN1X1IFwilZMQuF+a1HNlPBmWhkT5w9bXlC9HVjZuDllWBPWWOVtxQ8Gg=
-X-Received: by 2002:a1c:7d4d:: with SMTP id y74mr4662053wmc.73.1600175495920; 
- Tue, 15 Sep 2020 06:11:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3BED6E0E2;
+	Tue, 15 Sep 2020 15:00:07 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7F366E353;
+ Tue, 15 Sep 2020 15:00:05 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 53093AF4E;
+ Tue, 15 Sep 2020 15:00:18 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com,
+ heiko@sntech.de, thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+Subject: [PATCH v2 00/21] Convert all remaining drivers to GEM object functions
+Date: Tue, 15 Sep 2020 16:59:37 +0200
+Message-Id: <20200915145958.19993-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-References: <20200914045513.83649-1-shirish.s@amd.com>
-In-Reply-To: <20200914045513.83649-1-shirish.s@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2020 09:11:24 -0400
-Message-ID: <CADnq5_MsyO9rszMBfSUEhWUOdgFiQX2ojN7-0x1tdDjOfz2iMQ@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu/gmc_v9: Warn if SDPIF_MMIO_CNTRL_0 is not set
-To: Shirish S <shirish.s@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,55 +64,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 14, 2020 at 12:55 AM Shirish S <shirish.s@amd.com> wrote:
->
-> With IOMMU enabled, if SDPIF_MMIO_CNTRL_0 is not set
-> appropriately the system hangs without any trace
-> during S3.
->
-> To ease debug and to ensure that the failure, if any,
-> was caused by a race conditions that disabled write access to
-> SDPIF_MMIO_CNTRL_0 register, warn the user about it.
->
-> Signed-off-by: Shirish S <shirish.s@amd.com>
+The GEM and PRIME related callbacks in struct drm_driver are deprecated in
+favor of GEM object functions in struct drm_gem_object_funcs. This patchset
+converts the remaining drivers to object functions and removes most of the
+obsolete interfaces.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Patches #1 to #16 and #18 to #19 convert DRM drivers to GEM object functions,
+one by one. Each patch moves existing callbacks from struct drm_driver to an
+instance of struct drm_gem_object_funcs, and sets these funcs when the GEM
+object is initialized. The expection is .gem_prime_mmap. There are different
+ways of how drivers implement the callback, and moving it to GEM object
+functions requires a closer review for each.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index d0645ad3446e..fc2d88dbe828 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1546,8 +1546,11 @@ static void gmc_v9_0_init_golden_registers(struct amdgpu_device *adev)
->   */
->  void gmc_v9_0_restore_registers(struct amdgpu_device *adev)
->  {
-> -       if (adev->asic_type == CHIP_RAVEN)
-> +       if (adev->asic_type == CHIP_RAVEN) {
->                 WREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0, adev->gmc.sdpif_register);
-> +               WARN_ON(adev->gmc.sdpif_register !=
-> +                       RREG32_SOC15(DCE, 0, mmDCHUBBUB_SDPIF_MMIO_CNTRL_0);
-> +       }
->  }
->
->  /**
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Patch #17 fixes virtgpu to use GEM object functions where possible. The
+driver recently introduced a function for one of the deprecated callbacks.
+
+Patch #20 converts xlnx to CMA helper macros. There's no apparent reason
+why the driver does the GEM setup on it's own. Using CMA helper macros
+adds GEM object functions implicitly.
+
+With most of the GEM and PRIME moved to GEM object functions, related code
+in struct drm_driver and in the DRM core/helpers is being removed by patch
+#21.
+
+Further testing is welcome. I tested the drivers for which I have HW
+available. These are gma500, i915, nouveau, radeon and vc4. The console,
+Weston and Xorg apparently work with the patches applied.
+
+v2:
+	* moved code in amdgpu and radeon
+	* made several functions static in various drivers
+	* updated TODO-list item
+	* fix virtgpu
+
+Thomas Zimmermann (21):
+  drm/amdgpu: Introduce GEM object functions
+  drm/armada: Introduce GEM object functions
+  drm/etnaviv: Introduce GEM object functions
+  drm/exynos: Introduce GEM object functions
+  drm/gma500: Introduce GEM object functions
+  drm/i915: Introduce GEM object functions
+  drm/mediatek: Introduce GEM object functions
+  drm/msm: Introduce GEM object funcs
+  drm/nouveau: Introduce GEM object functions
+  drm/omapdrm: Introduce GEM object functions
+  drm/pl111: Introduce GEM object functions
+  drm/radeon: Introduce GEM object functions
+  drm/rockchip: Convert to drm_gem_object_funcs
+  drm/tegra: Introduce GEM object functions
+  drm/vc4: Introduce GEM object functions
+  drm/vgem: Introduce GEM object functions
+  drm/virtgpu: Set PRIME export function in struct drm_gem_object_funcs
+  drm/vkms: Introduce GEM object functions
+  drm/xen: Introduce GEM object functions
+  drm/xlnx: Initialize DRM driver instance with CMA helper macro
+  drm: Remove obsolete GEM and PRIME callbacks from struct drm_driver
+
+ Documentation/gpu/todo.rst                    |  7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 23 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |  5 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  1 +
+ drivers/gpu/drm/armada/armada_drv.c           |  3 -
+ drivers/gpu/drm/armada/armada_gem.c           | 12 ++-
+ drivers/gpu/drm/armada/armada_gem.h           |  2 -
+ drivers/gpu/drm/drm_gem.c                     | 35 ++------
+ drivers/gpu/drm/drm_gem_cma_helper.c          |  6 +-
+ drivers/gpu/drm/drm_prime.c                   | 17 ++--
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c         | 13 ---
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |  1 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c         | 19 ++++-
+ drivers/gpu/drm/exynos/exynos_drm_drv.c       | 10 ---
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       | 15 ++++
+ drivers/gpu/drm/gma500/framebuffer.c          |  2 +
+ drivers/gpu/drm/gma500/gem.c                  | 18 +++-
+ drivers/gpu/drm/gma500/gem.h                  |  3 +
+ drivers/gpu/drm/gma500/psb_drv.c              |  9 --
+ drivers/gpu/drm/gma500/psb_drv.h              |  2 -
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    | 21 ++++-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  3 -
+ drivers/gpu/drm/i915/i915_drv.c               |  4 -
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 -
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  5 --
+ drivers/gpu/drm/mediatek/mtk_drm_gem.c        | 11 +++
+ drivers/gpu/drm/msm/msm_drv.c                 | 13 ---
+ drivers/gpu/drm/msm/msm_drv.h                 |  1 -
+ drivers/gpu/drm/msm/msm_gem.c                 | 19 ++++-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 --
+ drivers/gpu/drm/nouveau/nouveau_gem.c         | 13 +++
+ drivers/gpu/drm/nouveau/nouveau_gem.h         |  2 +
+ drivers/gpu/drm/nouveau/nouveau_prime.c       |  2 +
+ drivers/gpu/drm/omapdrm/omap_drv.c            |  9 --
+ drivers/gpu/drm/omapdrm/omap_gem.c            | 18 +++-
+ drivers/gpu/drm/omapdrm/omap_gem.h            |  2 -
+ drivers/gpu/drm/pl111/pl111_drv.c             |  5 +-
+ drivers/gpu/drm/radeon/radeon_drv.c           | 23 +----
+ drivers/gpu/drm/radeon/radeon_gem.c           | 31 ++++++-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  5 --
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   | 10 +++
+ drivers/gpu/drm/tegra/drm.c                   |  4 -
+ drivers/gpu/drm/tegra/gem.c                   |  8 ++
+ drivers/gpu/drm/vc4/vc4_bo.c                  | 21 ++++-
+ drivers/gpu/drm/vc4/vc4_drv.c                 | 12 ---
+ drivers/gpu/drm/vc4/vc4_drv.h                 |  1 -
+ drivers/gpu/drm/vgem/vgem_drv.c               | 21 +++--
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |  1 -
+ drivers/gpu/drm/virtio/virtgpu_object.c       |  1 +
+ drivers/gpu/drm/vkms/vkms_drv.c               |  8 --
+ drivers/gpu/drm/vkms/vkms_gem.c               | 13 +++
+ drivers/gpu/drm/xen/xen_drm_front.c           | 44 ++++------
+ drivers/gpu/drm/xen/xen_drm_front.h           |  2 +
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       | 15 ++++
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c           | 14 +--
+ include/drm/drm_drv.h                         | 85 +------------------
+ 57 files changed, 319 insertions(+), 349 deletions(-)
+
+--
+2.28.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
