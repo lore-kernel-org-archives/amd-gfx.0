@@ -5,66 +5,67 @@ X-Spam-Level:
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4D2EC2D0E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1686DC43461
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90B3E205F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:24:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B19A1205F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:24:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJQ4K0VE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90B3E205F4
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hYlsDIrU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B19A1205F4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F556E8DB;
-	Tue, 15 Sep 2020 18:24:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 459D56E8DE;
+	Tue, 15 Sep 2020 18:24:23 +0000 (UTC)
 Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
  [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB9E6E8D7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1FA56E8DB
  for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:24:20 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id g72so5275581qke.8
+Received: by mail-qk1-x741.google.com with SMTP id d20so5287579qka.5
  for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:24:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=u5weu28YcQl+FmqawHOtjd2Vu4W79A3GBJsbDfl43vs=;
- b=nJQ4K0VE2Bno+yu0ixuH3rGyYs44V7gxgj2o2UgDzrlc6ukRjAv1lfZo8Hla6ECUoY
- BMu/T8CmnbtJEonctUGsWm6UvvFx3Ve7HkA9UPRPB4h5RZNcjVbAQrouz5pm4c3s/OiL
- vIl+C15BrHLTfj6cFPA5ZIFL88qqsZtiK12N1Vps4yi8y8YsnanAjcygl0Ixqz05sHZT
- OSoB++aoznJmcTrO9SYCfkrV+LaCZxy2QyNfOuIIeLfmRMXDdYsVJXsOaS4DkdkMKmKU
- u8PR0vyI877enev52cZN2CJWsW9D42BFVfZL9F584uhPlFd3kzu7JhPj1lCJF6Z8UMGv
- 1p/Q==
+ bh=8yk2K3vVXNxAOrLo8aW8E6lEDFZLxkyDP0gzSoFIByg=;
+ b=hYlsDIrUu7459Y/71zCjKxn0vovIOjgN8cvxwgnhwjGeGFXdv4BgdZxqwvgxFn0PNo
+ fXd/ebXvF7b4SFaLrlTTUc60V7zD9G289bagjAacXcdzEpyJ04YkNadEg5mNyALCDkie
+ U5nhrvqb+OlZZwAj3bgSPPschm/e7Pcq4Je2Eab0zgkw61Cb7CYDjie2mai0rHWx8Rmu
+ kyUnQu6P0RmQzA6cGBUucEKrkB/Hv2uT/fc6K9DY8FV6zkZbFCCVjO75WLMUAlAw4nfq
+ yLLYrRDcyulyvvuOctiJjbTkL0up4yNJ7o9rn8smsMUHw/4QQjt/PRR9CbNd67oPmFt+
+ QJ/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=u5weu28YcQl+FmqawHOtjd2Vu4W79A3GBJsbDfl43vs=;
- b=OIuGgRZ01KwpjpKPtdBLjGqMle1c9VrzVqWaFsJCxIovKxunlc8adhxne2IcrOpqVg
- 9q+OKSC+6bhvX2WO0BXRZ2fAR8t5N6re4zeoVXhflIQ8la1hg2gATPQ2o+LzMbKVphcO
- f7pPKvIch+JkD3tD3nPu9UTomHosZhT8rJQos8Nungvand6z9zuZcPEIURWNZEBSdz+q
- n4W+mxBBip/Q2b/NLLMFNPdRSTN9MWZak5oOVC48PiI0halqDwVKBsx9j6ZKbKNyn4UL
- Q9MSD+XjjAgj7q0Ehlwa6gip5lHpzv5vOwAGiOXbYyENyiRVhLs9uStXPHs5NbLjH7zp
- ufoA==
-X-Gm-Message-State: AOAM531yq70H5yRgs6GSbYNMomsADw00VnoUrxVTSKA1T+CrtPXUBafL
- ocZLSyp3T51iLfZK9MtqVIO859xxh5E=
-X-Google-Smtp-Source: ABdhPJx/6BRiHLwexnAsW0gMbGpn2fd/nP3iIP/XCP0DNaeqw/mR6I1WAjJgpUaLWkwXQueWrZTlVQ==
-X-Received: by 2002:a37:e504:: with SMTP id e4mr18705804qkg.290.1600194259109; 
- Tue, 15 Sep 2020 11:24:19 -0700 (PDT)
+ bh=8yk2K3vVXNxAOrLo8aW8E6lEDFZLxkyDP0gzSoFIByg=;
+ b=i94v0tgn6boPmyYzcHRih2Z3EhHNnSrLWtwnKipWNqlGh7IN/J158Mabxy7zU41NWF
+ D0LvvxeeAWygMiqadpbnFK8AxDAimo1HL/n2i+XeWa/9VgpwF3iDJtkjoz7C3JgnGYIr
+ ku2RR2xpUmjYpYhwACNvJygkbNxdfU49YvdKkLc5OV2BKH/dtvjBW1AaZaN6hg5zU7M9
+ O4R5FsmpfkRR0dMa+b0xuQ2csZq7GXPXLAMzW1wApmTBOJcnvziiwMLWUqj9J5IncZZi
+ ybRNRLQnWPlKStf5Z9VcWCSL5LESTiDneGFVCpJgUk1a6G0eXLucGxonaduX4Z6lpLbT
+ 9VoA==
+X-Gm-Message-State: AOAM530ZIiUnni2RIs4P/HJ+mTgMBCqrMY3Hfw2xMArhSN6xwBU9Wa8b
+ LvZz65IJ+O+sNBbVsr+7PvN1/DxOmZw=
+X-Google-Smtp-Source: ABdhPJwaZZD/NWDmKOfAAnFmLZBVjTnysUBeKtBg7SInb1fSJLSkkruZ3eeHTi/uxeKRXIPF6Fakkw==
+X-Received: by 2002:a05:620a:4c3:: with SMTP id
+ 3mr19726440qks.105.1600194260025; 
+ Tue, 15 Sep 2020 11:24:20 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id x126sm17318009qkb.101.2020.09.15.11.24.18
+ by smtp.gmail.com with ESMTPSA id x126sm17318009qkb.101.2020.09.15.11.24.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2020 11:24:18 -0700 (PDT)
+ Tue, 15 Sep 2020 11:24:19 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/4] drm/amdgpu: use the AV1 defines for VCN 3.0
-Date: Tue, 15 Sep 2020 14:24:08 -0400
-Message-Id: <20200915182409.68727-3-alexander.deucher@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: add device ID for sienna_cichlid (v2)
+Date: Tue, 15 Sep 2020 14:24:09 -0400
+Message-Id: <20200915182409.68727-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200915182409.68727-1-alexander.deucher@amd.com>
 References: <20200915182409.68727-1-alexander.deucher@amd.com>
@@ -80,68 +81,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch from magic numbers to defines for AV1 clockgating.
+From: Likun Gao <Likun.Gao@amd.com>
 
+Add device ID for sienna_cichlid.
+
+v2: squash in additional device ids.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 589d6cd8adec..e074f7ed388c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -746,18 +746,18 @@ static void vcn_v3_0_disable_clock_gating(struct amdgpu_device *adev, int inst)
- 		| UVD_SUVD_CGC_GATE__IME_HEVC_MASK
- 		| UVD_SUVD_CGC_GATE__EFC_MASK
- 		| UVD_SUVD_CGC_GATE__SAOE_MASK
--		| 0x08000000
-+		| UVD_SUVD_CGC_GATE__SRE_AV1_MASK
- 		| UVD_SUVD_CGC_GATE__FBC_PCLK_MASK
- 		| UVD_SUVD_CGC_GATE__FBC_CCLK_MASK
--		| 0x40000000
-+		| UVD_SUVD_CGC_GATE__SCM_AV1_MASK
- 		| UVD_SUVD_CGC_GATE__SMPA_MASK);
- 	WREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_GATE, data);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 6e4c860e8ae0..0bf22134f17a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1076,6 +1076,14 @@ static const struct pci_device_id pciidlist[] = {
+ 	{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
+ 	{0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
  
- 	data = RREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_GATE2);
- 	data |= (UVD_SUVD_CGC_GATE2__MPBE0_MASK
- 		| UVD_SUVD_CGC_GATE2__MPBE1_MASK
--		| 0x00000004
--		| 0x00000008
-+		| UVD_SUVD_CGC_GATE2__SIT_AV1_MASK
-+		| UVD_SUVD_CGC_GATE2__SDB_AV1_MASK
- 		| UVD_SUVD_CGC_GATE2__MPC1_MASK);
- 	WREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_GATE2, data);
++	/* Sienna_Cichlid */
++	{0x1002, 0x73A0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++	{0x1002, 0x73A2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++	{0x1002, 0x73A3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++	{0x1002, 0x73AB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++	{0x1002, 0x73AE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++	{0x1002, 0x73BF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++
+ 	{0, 0, 0}
+ };
  
-@@ -776,8 +776,8 @@ static void vcn_v3_0_disable_clock_gating(struct amdgpu_device *adev, int inst)
- 		| UVD_SUVD_CGC_CTRL__SMPA_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__MPBE0_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__MPBE1_MODE_MASK
--		| 0x00008000
--		| 0x00010000
-+		| UVD_SUVD_CGC_CTRL__SIT_AV1_MODE_MASK
-+		| UVD_SUVD_CGC_CTRL__SDB_AV1_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__MPC1_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__FBC_PCLK_MASK
- 		| UVD_SUVD_CGC_CTRL__FBC_CCLK_MASK);
-@@ -892,8 +892,8 @@ static void vcn_v3_0_enable_clock_gating(struct amdgpu_device *adev, int inst)
- 		| UVD_SUVD_CGC_CTRL__SMPA_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__MPBE0_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__MPBE1_MODE_MASK
--		| 0x00008000
--		| 0x00010000
-+		| UVD_SUVD_CGC_CTRL__SIT_AV1_MODE_MASK
-+		| UVD_SUVD_CGC_CTRL__SDB_AV1_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__MPC1_MODE_MASK
- 		| UVD_SUVD_CGC_CTRL__FBC_PCLK_MASK
- 		| UVD_SUVD_CGC_CTRL__FBC_CCLK_MASK);
 -- 
 2.25.4
 
