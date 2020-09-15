@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C0F1C43461
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B02EEC433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0436C20732
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:36:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 25ACC20732
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RqQsuivY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0436C20732
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XjQLtHja"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25ACC20732
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 492EE6E8D7;
-	Tue, 15 Sep 2020 18:36:57 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719206E8D7
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:36:56 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id s13so448538wmh.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:36:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B550D6E8DA;
+	Tue, 15 Sep 2020 18:37:32 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C82036E8DA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:37:31 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id k15so4357498wrn.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:37:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PGZwyhfQ5hF1oRwNrP+VuZ3IZC/ECZnLfXwkAyGp9xM=;
- b=RqQsuivY8eQojaEIqKqr64I42LRq4NVnUtUjGTxwqgFeWKa+X5zDlzy6PeeCe1C7AJ
- QwX9Uo0J0SaVG9qVlqDm3xN+1Kxx+gUI2y+VO3oS754MDFOjfLFiEViu/ui2ZXZ2M2fo
- vEWADTAm/+YpRQh8rxMaIpFdf8GW9lghLJluOXWNETYm3GEB3cr7d4ybhnzsJTQ4w6rN
- xs/0QrYLzbbSViyrpHXQer9blp+dDFs3yYxyEaHNzyZiztTzYELaDbON+e4Z3PJvsoL/
- 9SsUFqPHyNura178d74lP+LIX51HDM+WpPVBsLzccQqgir2q8WbrXAWf7JKFhhpRi4nX
- mw9Q==
+ :cc; bh=nEw8rN+kw/jykmFPmRSiqBa9a8lkUJ1mfOUL1R9rzAI=;
+ b=XjQLtHjaDx57TQjfPLNfAfOg2d44FMfnuOpWEx8tWpib0oAZ7riYOV2ULAuvPxHLt2
+ gIhIo3fBzUlANJhMlABmuc3iSjF2TbiSl94yXE+GdskgDwXjam8MjvZkiVWGb5kz1wW+
+ HU6BXn6JCXm5xWmDosS+eB0VLJjJdSISqDcGmCMJC4L1UTyXwa65CKcOjWp3CN8RUMkX
+ JkVFdYj7uXXUF4dKNlDeELeC4WuxQIqNbm3ZCrgzFbkkKekR80LNcen57T77msY+EQJ6
+ UccvSN35nwdlND7V7o4+HEisf2sk/paawENDgqQ0YFOYFV59sFvvZGMS/GOpa7lSzYBQ
+ eCDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=PGZwyhfQ5hF1oRwNrP+VuZ3IZC/ECZnLfXwkAyGp9xM=;
- b=jDBTtL0n3JgP0mPNb+BsmnIbRAI9wWvZjiz4v66Ft13hXk/ue0gk1SbJ+8nLWeHt29
- IPdU5wbg9an+qqkXnjxtHFegR8l+EIJehQTnlaKfICQ/l1w3+DXPRdOmws1rlAXpf6VC
- XxrJ7XmfXNSoATGTb7NKpd47k+jklO5TGkA1w0W6ffVYLufKwOs7JSvwagSXF+MEiEzO
- 1DBstzTEcvwJoMItwwFIRGDjB1dPGSu6QijaQOc051Sdpz525DRnupxHuq6iTzz17yU9
- bd4tk5+nkoO9IqwwOs21I7cxtUhMOJgiPBCuoLLfBW2qgyprWpwezgoPWJEGPaVXZhil
- N17Q==
-X-Gm-Message-State: AOAM533Lf3rY2PMAak6BPFYphnKma97UN3j6jNh5qNr3BrGsDVC+N/9s
- FBHxdrhCCwyaGeoouaP+8UsFJe3S8msh3TPlBRo=
-X-Google-Smtp-Source: ABdhPJzBBQy5Ndy25EkBEl3SfFYC1W48xpM0FTDMwjQDlaXefnMH6sGnbq9fUjTqLlEn8uRI/HHFh1QnwNx1sRAjaMI=
-X-Received: by 2002:a1c:a953:: with SMTP id s80mr713784wme.70.1600195015128;
- Tue, 15 Sep 2020 11:36:55 -0700 (PDT)
+ bh=nEw8rN+kw/jykmFPmRSiqBa9a8lkUJ1mfOUL1R9rzAI=;
+ b=JMtPEkNekZ/mogMhkxQUolgYYzjUCSXjDwIim2CeBhSMai4HvcDFF4QkXTSYqlEp5n
+ pKvVw+6xc+79bA/D/ac/4j+u7R15cSQu3/giRmV+XjPFzpNcPI9BFIZDpRcxvmHz2yy1
+ LPq8/NpT450gqHD/cGZuTM9aMt5JDvMl95NOMdMO5L3oUV/HBNjCTXuo4bbefN75cH/z
+ Fy7hMiZwND6aoP0p6MOgDrGMkGH98ztWhcBoTY96mXjBSynyiMSdqabJcEI4jlM+7bUY
+ 1cKekckzdvMl5JxX7Yc2kuHEgBMmf25j9Nm7gHI9//ddrWFZjWL9WjlWEmGbQeP719EL
+ KNqA==
+X-Gm-Message-State: AOAM531/iZda3krPznyR8/QGGOh18Cpo1dQHaBstGQN5YYRXAGPXxFdP
+ RtBPUZlzMR1nWS37imB7ImxV9Yu1ADP3BnfJrY8kgrUg4Wo=
+X-Google-Smtp-Source: ABdhPJyXdzTc1kRcuCs65+gZho/KraZrqoWsIofYIzl554jw0sPa0YbFVfbllyXY+EjKDHMxFQe+L3WAKioqdD2uwU4=
+X-Received: by 2002:adf:f290:: with SMTP id k16mr24312102wro.124.1600195050452; 
+ Tue, 15 Sep 2020 11:37:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200907090126.2542-1-evan.quan@amd.com>
- <20200907090126.2542-3-evan.quan@amd.com>
-In-Reply-To: <20200907090126.2542-3-evan.quan@amd.com>
+ <20200907090126.2542-4-evan.quan@amd.com>
+In-Reply-To: <20200907090126.2542-4-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2020 14:36:43 -0400
-Message-ID: <CADnq5_PJs7fvQoHdSZLTPYLNwebU1W=XqtCPKgtMe7PVxwgpuw@mail.gmail.com>
-Subject: Re: [PATCH 3/4] drm/amd/pm: add Renoir watermak WmType setting
+Date: Tue, 15 Sep 2020 14:37:19 -0400
+Message-ID: <CADnq5_MBNQarnHjt7UaEu=Ko8EJnvwcROVBqUCARdzE47cSrRA@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amd/pm: add Raven2 watermak WmType setting
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,47 +84,58 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Mon, Sep 7, 2020 at 5:02 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-
-Typo in the subject: watermak -> watermark
-
-
 > Which tells it's a nomral pstate change or memory retraining.
 
-Typo: nomral -> normal
-
-with those fixed:
+Same typos as patch 3.  With those fixed:
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 >
-> Change-Id: I8619115486021537b52c067c4d0b9bfc1417fc35
+> Change-Id: If55d6c3f1dfc28005c6d767154664feddcda6f5b
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 > Tested-by: Changfeng Zhu <Changfeng.Zhu@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h         |  3 ++-
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 11 +++++++++++
+>  2 files changed, 13 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> index 53d8beffc74e..63c72e33222e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> @@ -887,6 +887,8 @@ static int renoir_set_watermarks_table(
+> diff --git a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h b/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
+> index dea8fe93da63..c498158771cc 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
+> @@ -54,7 +54,8 @@ typedef struct {
+>         uint16_t MaxMclk;
 >
->                         table->WatermarkRow[WM_DCFCLK][i].WmSetting =
->                                 clock_ranges->reader_wm_sets[i].wm_inst;
-> +                       table->WatermarkRow[WM_DCFCLK][i].WmType =
-> +                               clock_ranges->reader_wm_sets[i].wm_type;
->                 }
+>         uint8_t  WmSetting;
+> -       uint8_t  Padding[3];
+> +       uint8_t  WmType;
+> +       uint8_t  Padding[2];
+>  } WatermarkRowGeneric_t;
 >
->                 for (i = 0; i < clock_ranges->num_writer_wm_sets; i++) {
-> @@ -901,6 +903,8 @@ static int renoir_set_watermarks_table(
+>  #define NUM_WM_RANGES 4
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> index 9ee8cf8267c8..88792dba1759 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> @@ -1181,8 +1181,19 @@ static int smu10_set_watermarks_for_clocks_ranges(struct pp_hwmgr *hwmgr,
+>         struct smu10_hwmgr *data = hwmgr->backend;
+>         struct dm_pp_wm_sets_with_clock_ranges_soc15 *wm_with_clock_ranges = clock_ranges;
+>         Watermarks_t *table = &(data->water_marks_table);
+> +       struct amdgpu_device *adev = hwmgr->adev;
+> +       int i;
 >
->                         table->WatermarkRow[WM_SOCCLK][i].WmSetting =
->                                 clock_ranges->writer_wm_sets[i].wm_inst;
-> +                       table->WatermarkRow[WM_SOCCLK][i].WmType =
-> +                               clock_ranges->writer_wm_sets[i].wm_type;
->                 }
->
->                 smu->watermarks_bitmap |= WATERMARKS_EXIST;
+>         smu_set_watermarks_for_clocks_ranges(table,wm_with_clock_ranges);
+> +
+> +       if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
+> +               for (i = 0; i < NUM_WM_RANGES; i++)
+> +                       table->WatermarkRow[WM_DCFCLK][i].WmType = (uint8_t)0;
+> +
+> +               for (i = 0; i < NUM_WM_RANGES; i++)
+> +                       table->WatermarkRow[WM_SOCCLK][i].WmType = (uint8_t)0;
+> +       }
+> +
+>         smum_smc_table_manager(hwmgr, (uint8_t *)table, (uint16_t)SMU10_WMTABLE, false);
+>         data->water_marks_exist = true;
+>         return 0;
 > --
 > 2.28.0
 >
