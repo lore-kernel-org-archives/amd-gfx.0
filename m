@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C854BC35269
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DE93C35266
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C54A20663
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C54A20663
+	by mail.kernel.org (Postfix) with ESMTPS id 2C5B020735
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:01:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C5B020735
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56BF26E8BE;
-	Tue, 15 Sep 2020 15:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25DCB6E869;
+	Tue, 15 Sep 2020 15:00:23 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9386E893;
- Tue, 15 Sep 2020 15:00:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74BCA6E881;
+ Tue, 15 Sep 2020 15:00:20 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0D59BB146;
- Tue, 15 Sep 2020 15:00:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 62980B2BC;
+ Tue, 15 Sep 2020 15:00:34 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -49,9 +49,10 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
  andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
  emil.velikov@collabora.com
-Subject: [PATCH v2 15/21] drm/vc4: Introduce GEM object functions
-Date: Tue, 15 Sep 2020 16:59:52 +0200
-Message-Id: <20200915145958.19993-16-tzimmermann@suse.de>
+Subject: [PATCH v2 20/21] drm/xlnx: Initialize DRM driver instance with CMA
+ helper macro
+Date: Tue, 15 Sep 2020 16:59:57 +0200
+Message-Id: <20200915145958.19993-21-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200915145958.19993-1-tzimmermann@suse.de>
 References: <20200915145958.19993-1-tzimmermann@suse.de>
@@ -79,118 +80,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GEM object functions deprecate several similar callback interfaces in
-struct drm_driver. This patch replaces the per-driver callbacks with
-per-instance callbacks in vc4. The only exception is gem_prime_mmap,
-which is non-trivial to convert.
+The xlnx driver uses CMA helpers with default callback functions.
+Initialize the driver structure with the rsp CMA helper macro. The
+driver is being converted to use GEM object functions as part of
+this change.
+
+Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
+to their default implementations, so they are just kept empty now.
+
+v2:
+	* initialize with DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE (Laurent)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Eric Anholt <eric@anholt.net>
 ---
- drivers/gpu/drm/vc4/vc4_bo.c  | 21 ++++++++++++++++++++-
- drivers/gpu/drm/vc4/vc4_drv.c | 12 ------------
- drivers/gpu/drm/vc4/vc4_drv.h |  1 -
- 3 files changed, 20 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index 74ceebd62fbc..f432278173cd 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -21,6 +21,8 @@
- #include "vc4_drv.h"
- #include "uapi/drm/vc4_drm.h"
+diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+index 8e69303aad3f..f3ffc3703a0e 100644
+--- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
++++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+@@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
+ 	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
+ 					  DRIVER_ATOMIC,
  
-+static vm_fault_t vc4_fault(struct vm_fault *vmf);
-+
- static const char * const bo_type_names[] = {
- 	"kernel",
- 	"V3D",
-@@ -374,6 +376,21 @@ static struct vc4_bo *vc4_bo_get_from_cache(struct drm_device *dev,
- 	return bo;
- }
+-	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
+-	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
+-	.gem_prime_export		= drm_gem_prime_export,
+-	.gem_prime_import		= drm_gem_prime_import,
+-	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
+-	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
+-	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
+-	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
+-	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
+-	.gem_free_object_unlocked	= drm_gem_cma_free_object,
+-	.gem_vm_ops			= &drm_gem_cma_vm_ops,
+-	.dumb_create			= zynqmp_dpsub_dumb_create,
+-	.dumb_destroy			= drm_gem_dumb_destroy,
++	DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
  
-+static const struct vm_operations_struct vc4_vm_ops = {
-+	.fault = vc4_fault,
-+	.open = drm_gem_vm_open,
-+	.close = drm_gem_vm_close,
-+};
-+
-+static const struct drm_gem_object_funcs vc4_gem_object_funcs = {
-+	.free = vc4_free_object,
-+	.export = vc4_prime_export,
-+	.get_sg_table = drm_gem_cma_prime_get_sg_table,
-+	.vmap = vc4_prime_vmap,
-+	.vunmap = drm_gem_cma_prime_vunmap,
-+	.vm_ops = &vc4_vm_ops,
-+};
-+
- /**
-  * vc4_gem_create_object - Implementation of driver->gem_create_object.
-  * @dev: DRM device
-@@ -400,6 +417,8 @@ struct drm_gem_object *vc4_create_object(struct drm_device *dev, size_t size)
- 	vc4->bo_labels[VC4_BO_TYPE_KERNEL].size_allocated += size;
- 	mutex_unlock(&vc4->bo_lock);
+ 	.fops				= &zynqmp_dpsub_drm_fops,
  
-+	bo->base.base.funcs = &vc4_gem_object_funcs;
-+
- 	return &bo->base.base;
- }
- 
-@@ -684,7 +703,7 @@ struct dma_buf * vc4_prime_export(struct drm_gem_object *obj, int flags)
- 	return dmabuf;
- }
- 
--vm_fault_t vc4_fault(struct vm_fault *vmf)
-+static vm_fault_t vc4_fault(struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct drm_gem_object *obj = vma->vm_private_data;
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index f1a5fd5dab6f..d27eaa2d0cfe 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -140,12 +140,6 @@ static void vc4_close(struct drm_device *dev, struct drm_file *file)
- 	kfree(vc4file);
- }
- 
--static const struct vm_operations_struct vc4_vm_ops = {
--	.fault = vc4_fault,
--	.open = drm_gem_vm_open,
--	.close = drm_gem_vm_close,
--};
--
- static const struct file_operations vc4_drm_fops = {
- 	.owner = THIS_MODULE,
- 	.open = drm_open,
-@@ -195,16 +189,10 @@ static struct drm_driver vc4_drm_driver = {
- #endif
- 
- 	.gem_create_object = vc4_create_object,
--	.gem_free_object_unlocked = vc4_free_object,
--	.gem_vm_ops = &vc4_vm_ops,
- 
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
--	.gem_prime_export = vc4_prime_export,
--	.gem_prime_get_sg_table	= drm_gem_cma_prime_get_sg_table,
- 	.gem_prime_import_sg_table = vc4_prime_import_sg_table,
--	.gem_prime_vmap = vc4_prime_vmap,
--	.gem_prime_vunmap = drm_gem_cma_prime_vunmap,
- 	.gem_prime_mmap = vc4_prime_mmap,
- 
- 	.dumb_create = vc4_dumb_create,
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index 8c8d96b6289f..a22478a35199 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.h
-+++ b/drivers/gpu/drm/vc4/vc4_drv.h
-@@ -799,7 +799,6 @@ int vc4_get_hang_state_ioctl(struct drm_device *dev, void *data,
- 			     struct drm_file *file_priv);
- int vc4_label_bo_ioctl(struct drm_device *dev, void *data,
- 		       struct drm_file *file_priv);
--vm_fault_t vc4_fault(struct vm_fault *vmf);
- int vc4_mmap(struct file *filp, struct vm_area_struct *vma);
- int vc4_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
- struct drm_gem_object *vc4_prime_import_sg_table(struct drm_device *dev,
 -- 
 2.28.0
 
