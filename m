@@ -5,63 +5,65 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C13A6C433E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 19:18:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21036C43461
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 19:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 58A9D206B2
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 19:18:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 95C5020770
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 19:29:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="uF0v2qSS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58A9D206B2
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohIxN49D"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95C5020770
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCAE86E14C;
-	Tue, 15 Sep 2020 19:18:39 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D8DE6E14C;
- Tue, 15 Sep 2020 19:18:39 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id l9so598674wme.3;
- Tue, 15 Sep 2020 12:18:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1806C6E14C;
+	Tue, 15 Sep 2020 19:29:12 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B706E134;
+ Tue, 15 Sep 2020 19:29:10 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id m6so4557336wrn.0;
+ Tue, 15 Sep 2020 12:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=G/X0kPNzrsM6p6b+lxt3nMCOYmOHQKIBg29Sofy0KXM=;
- b=uF0v2qSS9zDREj+6qqNypGZh8hcdiqOqlYhQer2PYoZWyE2Ld6v1CUhFqykffdALD6
- qUq83ch4WvQATgF3c2qjQRDoc/M51bgwXMERec/TwtHs60IAVtYUa5lEThYNppJxII1h
- LWjpI3YmwFdKja7JosS2mqmV5qYAfbpg2RPVVVclLdxaMwMiszeLgHypUV0zem80pbRM
- 9b7iFG6oWl9szHZ/AJzL1iKFj5DQ8G+JEhldt7D1i6jO96MlYv1um0Sbyr5Av0/u4vJT
- 0LWrsoydArYLmz3EMXfI3MTud7ibPZkBD03ZF+yOxCaLeGTHvk/0xoiaZZG+ImnRzztl
- nJzg==
+ :cc:content-transfer-encoding;
+ bh=WNOfew7cieK0fIPLf+MgiYy15Qujw2hwL5Iyu+qX2xE=;
+ b=ohIxN49DAtGodQKEvkH4w5EPA9qaRJCt40swRQWxkKBIH88SL2NiKg9Rkf+SzBnXum
+ lbwoLOchshoLLVuj/uAxwWx5oPPjMuLlA9109ML1HwWD2mX1Tp1ri6h1INF0fFX9VlOJ
+ d/GsTLZC97ULuqqanrTeAHEjN0FGguNndIdLqiP54DHqJPsWAuXyLuc5/cbPUF8Hm9Wy
+ 2rpCh6l9A4560fyFoRSa0Tvl0aMlPq3brU6PrQpl2cZqF99ydsKO+QHuABkBXxJ6xbdl
+ EsUNJv7OaFIrRFGSEjhlRbCMp5w6JnmVQ5RxcY0SWg/pjOLDSgksRQQ2/64+eWdnlb+p
+ nW4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=G/X0kPNzrsM6p6b+lxt3nMCOYmOHQKIBg29Sofy0KXM=;
- b=Baq6bhZhm9bLTyBZ/Zcwaig7FHPgJyuTlSODQ1lKLmMC0R7QRVXQYfFCTnY5Y2kfYS
- g67HHIVg1UWfQZa97sHd7pACFqJ7F7/WBCRziY2FK6rBTnvjfln/1M9TAY5VR5qpdzMz
- VxkY8flQzz0PLNhi7fKvLTL4N+8/2yKVfmYtXx6HyGFVKcyZUuAvWKqXU3zbUsW2FqOm
- SfJhKzthuhRwCRKiwFUsHRoIQhU78APJcvXkrpTlRUh24m9L6XEvWKL7YhE2AmNsLkkk
- C7RMAxqvhDEQW8yewqh5iUOrkNk5SnlKJsL+feKqWK2Y8dT9/xm62Lp28DPg7+aJcYu3
- LCoQ==
-X-Gm-Message-State: AOAM531pbzwFZFNw1yK/WJSzEVXvTWWnK9uAHK35JfnWh5NlKOMv2/ND
- vLYPNbkKDpP+RQB40o3P3eJdkNXxjL7SEUCMmC4=
-X-Google-Smtp-Source: ABdhPJxgHA6GYBXBtpwTuEnRRMJTLGbVacOxKpOGXOEt+I2uucTSssj2I4MLSQEl07O7b7daVG90ScPubjl2P3IuJmk=
-X-Received: by 2002:a7b:c141:: with SMTP id z1mr853417wmi.79.1600197517755;
- Tue, 15 Sep 2020 12:18:37 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=WNOfew7cieK0fIPLf+MgiYy15Qujw2hwL5Iyu+qX2xE=;
+ b=k23H+eJQ9WZRPI7S5kHBUA9jxvneWlEtDoDbkl1Q/Vp+JfnxsdZTnTQSqKOBfun6tA
+ JFV3BRzr2N/J0HgyhawgEUAcDVHOhVD/pq4BY81Tsw2AQR0R/oPOxh0xsk89c10t39pV
+ s/J/jgqH5n6+b/moQdh0xjLqF0Xh8VqUdFo+PNMryURuEhR9b/cHjSdR4HhPYJ0DlzBX
+ kCO5tl2WEs5Sd2sLUCmU+L6Mq+Q2rrHPJywBebiht4LN0+5OpuT/f71iNeN/47ew/qce
+ nefimXDqeYOOAuso2A37LVM0WLfxVqLBlocoJL9mwHxl44qDtmxT+u1noZYwxxOVKK0z
+ T90A==
+X-Gm-Message-State: AOAM5330jDfEHdQ8uREF59qj1BDR4H3MtvzgJuxuu04m3sfqzj0pD02e
+ cQvh7X+qAqbZPOwO+9HmkMuzMqCoTiCQj3zNXYI=
+X-Google-Smtp-Source: ABdhPJwuQ0az1NkHLajypW7vFoAnyGiloF+XVUfUJYGPW+n9xw4FDqRbB7+px/Or23gTyNjs6vYN7wMcMcZ6+jqqP9A=
+X-Received: by 2002:a5d:6886:: with SMTP id h6mr23815361wru.374.1600198149147; 
+ Tue, 15 Sep 2020 12:29:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200910020520.9973-1-bernard@vivo.com>
-In-Reply-To: <20200910020520.9973-1-bernard@vivo.com>
+References: <20200910023345.20428-1-yuehaibing@huawei.com>
+ <1226ea65-a957-baa2-e9c7-fe88b1aae620@amd.com>
+In-Reply-To: <1226ea65-a957-baa2-e9c7-fe88b1aae620@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2020 15:18:26 -0400
-Message-ID: <CADnq5_P4an7Jx0vPxBY9Mt8OHNOZsyx0MxCG4Mi8XVdMX-70yA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: optimize code runtime a bit
-To: Bernard Zhao <bernard@vivo.com>
+Date: Tue, 15 Sep 2020 15:28:58 -0400
+Message-ID: <CADnq5_NFKaOmx5s2DA1fkaTpYXPnFwkeUP=rtgF9yij64KJ6yA@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/ttm/agp: Fix Wunused-variable warning
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,89 +75,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Aric Cyr <aric.cyr@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+Cc: Dave Airlie <airlied@linux.ie>, YueHaibing <yuehaibing@huawei.com>,
  LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- Hersen Wu <hersenxs.wu@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, abdoulaye berthe <abdoulaye.berthe@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- jinlong zhang <jinlong.zhang@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-
-Alex
-
-On Thu, Sep 10, 2020 at 3:23 AM Bernard Zhao <bernard@vivo.com> wrote:
->
-> In fnction is_cr_done & is_ch_eq_done, when done = false
-> happened once, no need to circle left ln_count.
-> This change is to make the code run a bit fast.
->
-> Signed-off-by: Bernard Zhao <bernard@vivo.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 14 +++++---------
->  1 file changed, 5 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index b2be6ad5101d..53e30be8b66a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -373,34 +373,30 @@ static void dpcd_set_lt_pattern_and_lane_settings(
->  static bool is_cr_done(enum dc_lane_count ln_count,
->         union lane_status *dpcd_lane_status)
->  {
-> -       bool done = true;
->         uint32_t lane;
->         /*LANEx_CR_DONE bits All 1's?*/
->         for (lane = 0; lane < (uint32_t)(ln_count); lane++) {
->                 if (!dpcd_lane_status[lane].bits.CR_DONE_0)
-> -                       done = false;
-> +                       return false;
->         }
-> -       return done;
-> -
-> +       return true;
->  }
->
->  static bool is_ch_eq_done(enum dc_lane_count ln_count,
->         union lane_status *dpcd_lane_status,
->         union lane_align_status_updated *lane_status_updated)
->  {
-> -       bool done = true;
->         uint32_t lane;
->         if (!lane_status_updated->bits.INTERLANE_ALIGN_DONE)
-> -               done = false;
-> +               return false;
->         else {
->                 for (lane = 0; lane < (uint32_t)(ln_count); lane++) {
->                         if (!dpcd_lane_status[lane].bits.SYMBOL_LOCKED_0 ||
->                                 !dpcd_lane_status[lane].bits.CHANNEL_EQ_DONE_0)
-> -                               done = false;
-> +                               return false;
->                 }
->         }
-> -       return done;
-> -
-> +       return true;
->  }
->
->  static void update_drive_settings(
-> --
-> 2.28.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhpcyBmdW5jdGlvbiBubyBsb25nZXIgZXhpc3RzLgoKQWxleAoKT24gVGh1LCBTZXAgMTAsIDIw
+MjAgYXQgNDo1NiBBTSBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
+IHdyb3RlOgo+Cj4gQW0gMTAuMDkuMjAgdW0gMDQ6MzMgc2NocmllYiBZdWVIYWliaW5nOgo+ID4g
+SWYgQ09ORklHX0FHUCBpcyBub3Qgc2V0LCBnY2Mgd2FybnM6Cj4gPgo+ID4gZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9yYWRlb25fdHRtLmM6IEluIGZ1bmN0aW9uIOKAmHJhZGVvbl90dG1fdHRfYmlu
+ZOKAmToKPiA+IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jOjY5MjoyNDogd2Fy
+bmluZzogdW51c2VkIHZhcmlhYmxlIOKAmHJkZXbigJkgWy1XdW51c2VkLXZhcmlhYmxlXQo+ID4g
+ICAgc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYgPSByYWRlb25fZ2V0X3JkZXYoYmRldik7Cj4g
+PiAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+fgo+ID4KPiA+IE1vdmUgaXQgdG8gaWZkZWYg
+YmxvY2sgdG8gZml4IHRoaXMuCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogWXVlSGFpYmluZyA8eXVl
+aGFpYmluZ0BodWF3ZWkuY29tPgo+Cj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9y
+YWRlb24vcmFkZW9uX3R0bS5jIHwgMiArLQo+ID4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKyksIDEgZGVsZXRpb24oLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3JhZGVvbi9yYWRlb25fdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0u
+Ywo+ID4gaW5kZXggMzFjNjNkMzM5NjI5Li40NDllNzdlYjc1ZjkgMTAwNjQ0Cj4gPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYwo+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiA+IEBAIC02ODksOSArNjg5LDkgQEAgc3RhdGljIGlu
+dCByYWRlb25fdHRtX3R0X2JpbmQoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gPiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHR0bV90dCAqdHRtLAo+ID4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHN0cnVjdCB0dG1fcmVzb3VyY2UgKmJvX21lbSkKPiA+ICAgewo+
+ID4gKyNpZiBJU19FTkFCTEVEKENPTkZJR19BR1ApCj4gPiAgICAgICBzdHJ1Y3QgcmFkZW9uX2Rl
+dmljZSAqcmRldiA9IHJhZGVvbl9nZXRfcmRldihiZGV2KTsKPiA+Cj4gPiAtI2lmIElTX0VOQUJM
+RUQoQ09ORklHX0FHUCkKPiA+ICAgICAgIGlmIChyZGV2LT5mbGFncyAmIFJBREVPTl9JU19BR1Ap
+Cj4gPiAgICAgICAgICAgICAgIHJldHVybiB0dG1fYWdwX2JpbmQodHRtLCBib19tZW0pOwo+ID4g
+ICAjZW5kaWYKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
