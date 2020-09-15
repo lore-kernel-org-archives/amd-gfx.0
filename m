@@ -2,66 +2,73 @@ Return-Path: <SRS0=7kRa=CY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 727EFC433E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29517C433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF2CE20732
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C98AE20B1F
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:46:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aroVzs8A"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF2CE20732
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dYfKIdIb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C98AE20B1F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6BE6E8D7;
-	Tue, 15 Sep 2020 18:37:49 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A76586E8D7
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:37:48 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id y15so512324wmi.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:37:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 640486E8E1;
+	Tue, 15 Sep 2020 18:46:20 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62D156E05C;
+ Tue, 15 Sep 2020 18:46:18 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id t138so5411310qka.0;
+ Tue, 15 Sep 2020 11:46:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=51i9tPyL5HRmKB6eI88d4TPEZXxrm0wLlJzMM8ZpSgI=;
- b=aroVzs8A7yVOrX3Tteu2VsOigUBf2FvWI4YmJc5ADaB+7KdrwKqq8AKOa8h5rs9N2w
- K9/JNcuNMQPJu+4KwdpUxLssvKLBYwsgdvKcmikjsNv4yHGm9emLDa9HXtWRDiJOYHfU
- 1MSVnRJbuGl3Zg+q7GfrI4C99QswTpvYksrvC7VBSBbYe/vC2v2LUh3u/7Abmn2hgDtJ
- zZ75jg/PfLYOR2nPMGmqqbaLJYLdliHgaTNA04YbVRvbkViblaF6hL8Z8ebCNswBibiK
- 69Psk9e0H3/gqtP9riNNxwx/XLc3XZx+Dr1CU9BpAuX1oOE7CxuJfAQgbadhEhFEyluC
- VC8w==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AzFYJUIdRqoAFCAPdjlb9LWys+y6309yAx2DiZqfxAI=;
+ b=dYfKIdIb0GtsYdYZzbiuU9syJhyQNcoQ9iVtznPGh5Ip9iPeMTKpkBMSW41nSzOV5v
+ rBfr6HGofAHxF03cwjJMaKtaP1Qc2ZUjhcVKL4ynaVQGwKeGTzjRz9cTAwkIUKUXppgP
+ NGiuFQT/oDHSCD4U/bCSn/4KcnLXdCE9SgkbPsb99ejeZpXForLkjILfI4AzH/eX4d71
+ AEU2TzujHjx8E0Bl542bc0At/09R37gFqyNxEMxUjVzpijqRoC6kNtfOZ1CeDfZsjnNs
+ rSXRZCTjCWQwrRtgswu3iS6KIF3+S4mQ2kdp3JKg6ti0MXi8MGPpEndiLQ7Ud7vFa8al
+ Beyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=51i9tPyL5HRmKB6eI88d4TPEZXxrm0wLlJzMM8ZpSgI=;
- b=SeZDPGcw7Mksm5SGk1o3hDDCqcOHtNnZhffenj6KXIKcCIlIBoQWNh3O0OOdiTVhFN
- sBCJOgjLk8bt+0CfkG6MRuEypWwixRb1+weZ1bSEHKtPtQ/YjMal59ZMteb2v+qLYkJR
- 4uUxGEzqH4WvNrmePaper+stqxb9IlrHYUanqMOJm22QypUpoykBUvr8w4o9jAwq0H23
- PIMIKz5ZSIWFQPPcykaaNGa2idkAt3qndkCfCJalSxeK3VlgPSxyFGhfZl306mshnTD6
- zHayT6Pk9l5qsRXHpr3fSLQt2Dl7is3mfBw0vZPIV/hWzPhVk0dypbF2qXgR5/LaW7qs
- LDng==
-X-Gm-Message-State: AOAM530JG98xldtws9tmf8AzsIpwYAyH/GwCnNFU3ZUl5Wu3M3dNpkyy
- 838Rvf4RIybnjX1LJu1KOaQ7bu/z9jsFJrZuIW0=
-X-Google-Smtp-Source: ABdhPJyuDWh6C0mf8wvz+kEChPF37ckyg4EGWqyJjOzq1KHeeyv3TkoxPr19Ww+2Reg0qJkeNKbInd8OrulnMI8buk4=
-X-Received: by 2002:a7b:c090:: with SMTP id r16mr736303wmh.56.1600195067364;
- Tue, 15 Sep 2020 11:37:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200907090126.2542-1-evan.quan@amd.com>
-In-Reply-To: <20200907090126.2542-1-evan.quan@amd.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AzFYJUIdRqoAFCAPdjlb9LWys+y6309yAx2DiZqfxAI=;
+ b=mQT/+neutET8JYRkaOUv+2Wjs/rT4k5DQXHWZ3Ho4dTe7Ar4AJWO7BdroIAzKIiV23
+ sDAIXQOk+FXuipoJTq2C8QBAS4Q5rwDDRHCuPrEwt7htatXzFtjvVWqdF4xc/xBm0yfw
+ EU0IcFCtiYp9+bQSjNLU8ECK5rI7Js99mSTsVvXwvWRh5+2+wdkag3cjpM40czXneXVe
+ DwbKpGjgEH/JPzA6eMTWZP/mppWSz+OSGL4rMRb0VhgX/CG8jqj0thQM51Q4X2Md2aP6
+ V0RjuH00grm2eYqEQbi2LNjJdYP25tLhnrNGH5LUzBE6XZ7nX5jN0ZE0kXg8gl7+eJuM
+ IwKw==
+X-Gm-Message-State: AOAM533ln1yPoAVc+FKuwhIQG8p1CY23w0/gmtzj703pHMvG/qWicD7b
+ xSd0ORHZjFBs2oxggZ3m8Xh+H4JS15k=
+X-Google-Smtp-Source: ABdhPJwD4TSoAg1Ep1qKpxttrWpr+adHoyBFzbWqI54QjFiaTde6encq52iu8n4UVTxDl9tYxnOrWA==
+X-Received: by 2002:a37:e504:: with SMTP id e4mr18809091qkg.290.1600195577404; 
+ Tue, 15 Sep 2020 11:46:17 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id n136sm16340897qkn.14.2020.09.15.11.46.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2020 11:46:16 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2020 14:37:36 -0400
-Message-ID: <CADnq5_Nkjbicb-Kk++LnUHmzo+j+J_C3=TLP_-i663yjoNN9aA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/amd/pm: drop dead code
-To: Evan Quan <evan.quan@amd.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/radeon: handle PCIe root ports with addressing
+ limitations"
+Date: Tue, 15 Sep 2020 14:46:07 -0400
+Message-Id: <20200915184607.84435-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +80,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Huang Rui <ray.huang@amd.com>, Changfeng Zhu <Changfeng.Zhu@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christoph Hellwig <hch@lst.de>,
+ stable@vger.kernel.org, christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 7, 2020 at 5:01 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Raven never goes to swsmu path. So "adev->smu.ppt_funcs" will be
-> always false.
->
-> Change-Id: Ia55ad97bcf9ecf135a9bd795f36a5b521d718b20
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Tested-by: Changfeng Zhu <Changfeng.Zhu@amd.com>
+This change breaks tons of systems.
 
-Patches 1, 2:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This reverts commit 33b3ad3788aba846fc8b9a065fe2685a0b64f713.
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> index c5f2216e59c4..99ccabcc135e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> @@ -592,9 +592,6 @@ void pp_rv_set_wm_ranges(struct pp_smu *pp,
->         if (pp_funcs && pp_funcs->set_watermarks_for_clocks_ranges)
->                 pp_funcs->set_watermarks_for_clocks_ranges(pp_handle,
->                                                            &wm_with_clock_ranges);
-> -       else if (adev->smu.ppt_funcs)
-> -               smu_set_watermarks_for_clock_ranges(&adev->smu,
-> -                               &wm_with_clock_ranges);
->  }
->
->  void pp_rv_set_pme_wa_enable(struct pp_smu *pp)
-> --
-> 2.28.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206973
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206697
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=207763
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1140
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1287
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: christian.koenig@amd.com
+---
+ drivers/gpu/drm/radeon/radeon.h        |  1 +
+ drivers/gpu/drm/radeon/radeon_device.c | 13 ++++++++-----
+ drivers/gpu/drm/radeon/radeon_ttm.c    |  2 +-
+ 3 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index b7c3fb2bfb54..eed23dffccf4 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -2391,6 +2391,7 @@ struct radeon_device {
+ 	struct radeon_wb		wb;
+ 	struct radeon_dummy_page	dummy_page;
+ 	bool				shutdown;
++	bool				need_dma32;
+ 	bool				need_swiotlb;
+ 	bool				accel_working;
+ 	bool				fastfb_working; /* IGP feature*/
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 266e3cbbd09b..f74c74ad8b5d 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1363,25 +1363,28 @@ int radeon_device_init(struct radeon_device *rdev,
+ 	else
+ 		rdev->mc.mc_mask = 0xffffffffULL; /* 32 bit MC */
+ 
+-	/* set DMA mask.
++	/* set DMA mask + need_dma32 flags.
+ 	 * PCIE - can handle 40-bits.
+ 	 * IGP - can handle 40-bits
+ 	 * AGP - generally dma32 is safest
+ 	 * PCI - dma32 for legacy pci gart, 40 bits on newer asics
+ 	 */
+-	dma_bits = 40;
++	rdev->need_dma32 = false;
+ 	if (rdev->flags & RADEON_IS_AGP)
+-		dma_bits = 32;
++		rdev->need_dma32 = true;
+ 	if ((rdev->flags & RADEON_IS_PCI) &&
+ 	    (rdev->family <= CHIP_RS740))
+-		dma_bits = 32;
++		rdev->need_dma32 = true;
+ #ifdef CONFIG_PPC64
+ 	if (rdev->family == CHIP_CEDAR)
+-		dma_bits = 32;
++		rdev->need_dma32 = true;
+ #endif
+ 
++	dma_bits = rdev->need_dma32 ? 32 : 40;
+ 	r = dma_set_mask_and_coherent(&rdev->pdev->dev, DMA_BIT_MASK(dma_bits));
+ 	if (r) {
++		rdev->need_dma32 = true;
++		dma_bits = 32;
+ 		pr_warn("radeon: No suitable DMA available\n");
+ 		return r;
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 357e8e98cca9..d2550862313e 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -787,7 +787,7 @@ int radeon_ttm_init(struct radeon_device *rdev)
+ 			       &radeon_bo_driver,
+ 			       rdev->ddev->anon_inode->i_mapping,
+ 			       rdev->ddev->vma_offset_manager,
+-			       dma_addressing_limited(&rdev->pdev->dev));
++			       rdev->need_dma32);
+ 	if (r) {
+ 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
+ 		return r;
+-- 
+2.25.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
