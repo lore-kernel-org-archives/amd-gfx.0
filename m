@@ -2,76 +2,71 @@ Return-Path: <SRS0=7kRa=CY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C781C433E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 16:15:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 684D7C43461
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2C2021D41
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 16:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2C2021D41
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id F331B205F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:22:16 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hq7OcC8G"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F331B205F4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A61026E104;
-	Tue, 15 Sep 2020 16:15:01 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA636E0E8;
- Tue, 15 Sep 2020 16:15:00 +0000 (UTC)
-IronPort-SDR: 6ic9aYcZt9Nt136rVelO88SqUeOa9xkmbh0KagnNqg2vED77fde60vV4yOa3BMBsuVlwHNvSGK
- KbDuRV+PeIbg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9745"; a="156718783"
-X-IronPort-AV: E=Sophos;i="5.76,430,1592895600"; d="scan'208";a="156718783"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2020 09:14:55 -0700
-IronPort-SDR: 1NweJQ/LUpVMZGR2CNL7idgXNRkgQYlVvGnbjzV+v3epVrjgQ3OHB8LQ+g+ZsKRvdD4MQ7Rl1b
- B/J1ZOWPLOog==
-X-IronPort-AV: E=Sophos;i="5.76,430,1592895600"; d="scan'208";a="451484915"
-Received: from oshaham-mobl.ger.corp.intel.com (HELO [10.214.241.3])
- ([10.214.241.3])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2020 09:14:31 -0700
-Subject: Re: [PATCH v2 06/21] drm/i915: Introduce GEM object functions
-To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, andi.shyti@intel.com, sam@ravnborg.org,
- miaoqinglang@huawei.com, emil.velikov@collabora.com
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-7-tzimmermann@suse.de>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <76e5eb2f-e324-8f56-866a-15b022abba8d@linux.intel.com>
-Date: Tue, 15 Sep 2020 17:14:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 726FE6E8D7;
+	Tue, 15 Sep 2020 18:22:16 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 850E96E8D7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:22:15 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id r8so3908541qtp.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:22:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vzzyRyQ19AaiAcBEITEU4Dl9PPsoSBvh7UZG/qkiXUA=;
+ b=hq7OcC8GB/jvy7IGYuJW9d+T6NRhbjDHMjG/XQ++aoF3PONQ20UdAiHMkDomQlIZEd
+ 1iZMl2Lgm0eoa2zhGF/EqWLK/lS+FgwMRi1+mk/A1KmgNmMjCD7H3WjK645Fk9tF353y
+ JD9JjJfRsnptPRLTnKskcoMvou0j9mMd6/6yzokBnYOYqyp2gu8gUn4zwSTi7zJejO7K
+ uqaiScvk4MQG5Y8m1et1cjU2K6ouyHbsxeKwkwoHaniad0XUhXJInkQNc0L5Td7x7ng/
+ I8Tlhld3BlYTTpyC3chzaVawAQrLIgvqGd0V+8HJ1Cmaq4XG4YM3Kj2EMWttpw/T56T6
+ ZbGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vzzyRyQ19AaiAcBEITEU4Dl9PPsoSBvh7UZG/qkiXUA=;
+ b=A9HYppj2P16AdjD+i5jpkncJJOdkSn79CL/LYmdmj0w+BY3V0pcQ35zh/y7txwCcpy
+ twRL8JC9+lofcbt3RbSRf8hsODCTCysNWNNk5kIP4TnZP8aIdh6PwI8+k8mpOO6gK0M6
+ v2b6Dx/T73gOmQDV45ELa5RWNyHnAdATGUr3818D5Ff3btDitkaCqfbWEnR+EknneioC
+ oi8ywOEg/DfTHRmPo6anRFCyIIeE+Ctw/W3aGN45C7alRW0br+azGZ56Y8tHQo45ZOLD
+ BWboD02r9qErs2PiQCDymsdXCfmEjERRhAlrNlBr124gxjYRVLHLI+72Je9dbFqfaf2o
+ Aj9Q==
+X-Gm-Message-State: AOAM531NMiYzI47BaixWoH5LnQ5jqKtz72GoOGKhZAp/ww7L8ILbmr/n
+ UIsMj4rtWCydemddL5dOZYmj96T8Kzw=
+X-Google-Smtp-Source: ABdhPJyniaIoFcZdOi+diAU78maS+2cBkOhFElB884coPkn+pWwpvDqVYdrd52O2pFYtJYL/xUKM8w==
+X-Received: by 2002:aed:2be2:: with SMTP id e89mr19622491qtd.298.1600194134459; 
+ Tue, 15 Sep 2020 11:22:14 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.66.138])
+ by smtp.gmail.com with ESMTPSA id p29sm17331373qtu.68.2020.09.15.11.22.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2020 11:22:13 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: remove experimental flag from navi12
+Date: Tue, 15 Sep 2020 14:22:06 -0400
+Message-Id: <20200915182206.68607-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-In-Reply-To: <20200915145958.19993-7-tzimmermann@suse.de>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,144 +78,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Navi12 has worked fine for a while now.
 
-On 15/09/2020 15:59, Thomas Zimmermann wrote:
-> GEM object functions deprecate several similar callback interfaces in
-> struct drm_driver. This patch replaces the per-driver callbacks with
-> per-instance callbacks in i915.
-> 
-> v2:
-> 	* move object-function instance to i915_gem_object.c (Jani)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_object.c    | 21 ++++++++++++++++---
->   drivers/gpu/drm/i915/gem/i915_gem_object.h    |  3 ---
->   drivers/gpu/drm/i915/i915_drv.c               |  4 ----
->   .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 ---
->   4 files changed, 18 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> index c8421fd9d2dc..3389ac972d16 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> @@ -39,9 +39,18 @@ static struct i915_global_object {
->   	struct kmem_cache *slab_objects;
->   } global;
->   
-> +static const struct drm_gem_object_funcs i915_gem_object_funcs;
-> +
->   struct drm_i915_gem_object *i915_gem_object_alloc(void)
->   {
-> -	return kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
-> +	struct drm_i915_gem_object *obj;
-> +
-> +	obj = kmem_cache_zalloc(global.slab_objects, GFP_KERNEL);
-> +	if (!obj)
-> +		return NULL;
-> +	obj->base.funcs = &i915_gem_object_funcs;
-> +
-> +	return obj;
->   }
->   
->   void i915_gem_object_free(struct drm_i915_gem_object *obj)
-> @@ -101,7 +110,7 @@ void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
->   		!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_WRITE);
->   }
->   
-> -void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file)
-> +static void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file)
->   {
->   	struct drm_i915_gem_object *obj = to_intel_bo(gem);
->   	struct drm_i915_file_private *fpriv = file->driver_priv;
-> @@ -264,7 +273,7 @@ static void __i915_gem_free_work(struct work_struct *work)
->   	i915_gem_flush_free_objects(i915);
->   }
->   
-> -void i915_gem_free_object(struct drm_gem_object *gem_obj)
-> +static void i915_gem_free_object(struct drm_gem_object *gem_obj)
->   {
->   	struct drm_i915_gem_object *obj = to_intel_bo(gem_obj);
->   	struct drm_i915_private *i915 = to_i915(obj->base.dev);
-> @@ -403,6 +412,12 @@ int __init i915_global_objects_init(void)
->   	return 0;
->   }
->   
-> +static const struct drm_gem_object_funcs i915_gem_object_funcs = {
-> +	.free = i915_gem_free_object,
-> +	.close = i915_gem_close_object,
-> +	.export = i915_gem_prime_export,
-> +};
-> +
->   #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
->   #include "selftests/huge_gem_object.c"
->   #include "selftests/huge_pages.c"
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> index d46db8d8f38e..eaf3d4147be0 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-> @@ -38,9 +38,6 @@ void __i915_gem_object_release_shmem(struct drm_i915_gem_object *obj,
->   
->   int i915_gem_object_attach_phys(struct drm_i915_gem_object *obj, int align);
->   
-> -void i915_gem_close_object(struct drm_gem_object *gem, struct drm_file *file);
-> -void i915_gem_free_object(struct drm_gem_object *obj);
-> -
->   void i915_gem_flush_free_objects(struct drm_i915_private *i915);
->   
->   struct sg_table *
-> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-> index 94e00e450683..011a3fb41ece 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.c
-> +++ b/drivers/gpu/drm/i915/i915_drv.c
-> @@ -1750,12 +1750,8 @@ static struct drm_driver driver = {
->   	.lastclose = i915_driver_lastclose,
->   	.postclose = i915_driver_postclose,
->   
-> -	.gem_close_object = i915_gem_close_object,
-> -	.gem_free_object_unlocked = i915_gem_free_object,
-> -
->   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->   	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
-> -	.gem_prime_export = i915_gem_prime_export,
->   	.gem_prime_import = i915_gem_prime_import,
->   
->   	.dumb_create = i915_gem_dumb_create,
-> diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-> index f127e633f7ca..9244b5d6fb01 100644
-> --- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-> +++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-> @@ -87,9 +87,6 @@ static struct drm_driver mock_driver = {
->   	.name = "mock",
->   	.driver_features = DRIVER_GEM,
->   	.release = mock_device_release,
-> -
-> -	.gem_close_object = i915_gem_close_object,
-> -	.gem_free_object_unlocked = i915_gem_free_object,
->   };
->   
->   static void release_dev(struct device *dev)
-> 
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Looks obviously fine.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index d87d37c25329..6e4c860e8ae0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1073,8 +1073,8 @@ static const struct pci_device_id pciidlist[] = {
+ 	{0x1002, 0x1636, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
+ 
+ 	/* Navi12 */
+-	{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12|AMD_EXP_HW_SUPPORT},
+-	{0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12|AMD_EXP_HW_SUPPORT},
++	{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
++	{0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
+ 
+ 	{0, 0, 0}
+ };
+-- 
+2.25.4
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Regards,
-
-Tvrtko
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
