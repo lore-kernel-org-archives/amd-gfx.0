@@ -2,125 +2,71 @@ Return-Path: <SRS0=7kRa=CY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5472DC43461
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 19:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA6DFC433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 21:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF4662078D
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 19:51:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5A2ED206C9
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 21:00:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=xilinx.onmicrosoft.com header.i=@xilinx.onmicrosoft.com header.b="Ft9IxLhr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF4662078D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=xilinx.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="juTjkiI9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A2ED206C9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1567B6E907;
-	Tue, 15 Sep 2020 19:51:22 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1776E8D7;
- Tue, 15 Sep 2020 18:39:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RArpkZ/l/P0gBhyiVnFzlnK1+ltpu4x88FRuCdWtNwWkp98mExU2EARfU6VG5otrPM9YMztHQ/zNIMyLWyYeDSehv+5ddUu5QkXHHrPXqkcHNzmYi/ERU4FdoINvsO0vS4BwlbEdx7+wtX0wfgwsnyORrfNfHGuXiyS1GCBCOdPHP7YfyO9HbWENIeHr4NEhKRcC1qdLa1GgV9F9xiTcV35GTG9B98p17FI7Dcmdoy5O8kN2yk4QEPzW+msX7k0AmzfXVF4ub8AMUSXd/UHcD3pRDMGcul4U5uWl9czAi4Uclw9huD+9RW5oEjZtfYzlCedo3XonK4F5T9S6WNrTwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4nIO+lhNFgioRkRyGhdB1I3Uj8gi/oxj23FCH5WSe8E=;
- b=R8H8SkAXciLhrprBnQK3SHbWsJcLCXqoT+g20E1/ybgGhxqZtPiDOGOmY/LrTSxcpGB73tZW5v1PNPMcgwEzSZMJdunPyGyb+IohPUaPR8BO2oj2GZkHVfq647GrY3z9KniynTif8AVTOztHi1kEtPjQOLSScdWMVRNUP4xQLbCzGB+Kfj9GTwzzxOTbf1K+UAkqii38ibdb+kBBQr49WLJLJh8RjphzYqjDNYKUdZZhOGHIvovYgMzNgpj8qUJI3LwCXulrTIIc9F1n4FS+99hApKJrfmt6b9+AGfaSps5cJLpvUeMu5jyKWPcKjQLuB7YD69qLPjzISQqhD+zOhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.60.83) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=xilinx.com;
- dmarc=bestguesspass action=none header.from=xilinx.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4nIO+lhNFgioRkRyGhdB1I3Uj8gi/oxj23FCH5WSe8E=;
- b=Ft9IxLhrSyAZPH7YXskNwwHcjwsioZd1gYOVg7DJ49DbK3VXAIGTwQZq6Glqpt3+ujNcSgKehvmyZBDWmlOiekjX6vYBG7i/63A/aBX5gGzuEwyXfvt9wM1DbWvK0PScJ0JlBQD0msFJtI3bvUvSgDPCXYHOa2r5LaLrKnngICs=
-Received: from DM5PR06CA0035.namprd06.prod.outlook.com (2603:10b6:3:5d::21) by
- MN2PR02MB6862.namprd02.prod.outlook.com (2603:10b6:208:1d4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Tue, 15 Sep
- 2020 18:39:12 +0000
-Received: from CY1NAM02FT041.eop-nam02.prod.protection.outlook.com
- (2603:10b6:3:5d:cafe::2b) by DM5PR06CA0035.outlook.office365.com
- (2603:10b6:3:5d::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16 via Frontend
- Transport; Tue, 15 Sep 2020 18:39:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.60.83)
- smtp.mailfrom=xilinx.com; vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=bestguesspass action=none
- header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.60.83 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.60.83; helo=xsj-pvapsmtpgw01;
-Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
- CY1NAM02FT041.mail.protection.outlook.com (10.152.74.156) with Microsoft SMTP
- Server id 15.20.3370.16 via Frontend Transport; Tue, 15 Sep 2020 18:39:12
- +0000
-Received: from [149.199.38.66] (port=33482 helo=smtp.xilinx.com)
- by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
- (envelope-from <hyun.kwon@xilinx.com>)
- id 1kIFr8-00079j-0A; Tue, 15 Sep 2020 11:39:06 -0700
-Received: from [127.0.0.1] (helo=xsj-smtp-dlp2.xlnx.xilinx.com)
- by smtp.xilinx.com with esmtp (Exim 4.63)
- (envelope-from <hyun.kwon@xilinx.com>)
- id 1kIFrD-0001kg-Qb; Tue, 15 Sep 2020 11:39:11 -0700
-Received: from xsj-pvapsmtp01 (smtp3.xilinx.com [149.199.38.66])
- by xsj-smtp-dlp2.xlnx.xilinx.com (8.13.8/8.13.1) with ESMTP id 08FId9Zt008885; 
- Tue, 15 Sep 2020 11:39:09 -0700
-Received: from [172.19.75.82] (helo=xsjsycl40.xilinx.com)
- by xsj-pvapsmtp01 with esmtp (Exim 4.63)
- (envelope-from <hyun.kwon@xilinx.com>)
- id 1kIFrB-0001kJ-AL; Tue, 15 Sep 2020 11:39:09 -0700
-Received: by xsjsycl40.xilinx.com (Postfix, from userid 13638)
- id 491F2352CB5; Tue, 15 Sep 2020 11:39:09 -0700 (PDT)
-Date: Tue, 15 Sep 2020 11:39:09 -0700
-From: Hyun Kwon <hyun.kwon@xilinx.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH v2 20/21] drm/xlnx: Initialize DRM driver instance with
- CMA helper macro
-Message-ID: <20200915183909.GA2471550@xilinx.com>
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-21-tzimmermann@suse.de>
- <20200915155346.GA26029@pendragon.ideasonboard.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB086E131;
+	Tue, 15 Sep 2020 21:00:33 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E71DA6E131;
+ Tue, 15 Sep 2020 21:00:32 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id d4so770434wmd.5;
+ Tue, 15 Sep 2020 14:00:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=ijGU43Rg3f3PwSBnePSd9E3+WFzzYt7BXugXcmS9oI0=;
+ b=juTjkiI9rt4oxEXyQqxc+cKEpkMOSYsQ1NuVeqrw7HYGhvlTVezCEz8QH4AnMGCKrV
+ WVx2w8Qy/D9pmFbl9fbp/CS8OnXbFwGmuhAMz6kIDYgxDW+S2Uzk3i/p0Yipi4zrxORV
+ RmNWqNr2R2j7xx/9gyif315GoG6J+pRf/8OsUVwB4QvoDRxWmWMchBtzGYvltui3OewG
+ PN0oVobuyuRB8U9DYjnUKm43SGEtf53mGbSs1S/sRz95cq0L1v8IAuBzCHXVq0IWC3YO
+ ZOvP0sZbBXKnU5YeOlTxa8VZUSCrpDNZUa5PyuIgGM7PxdMFYJGHHxZZyEXm9CiQNUCx
+ SRJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ijGU43Rg3f3PwSBnePSd9E3+WFzzYt7BXugXcmS9oI0=;
+ b=NEAK8ssg+ca+Xq5mibVepeu34koGqgs1YAKrX2RbZ81lb0QTPsPml9KPtgGYpvmbvL
+ MSqPbpREmLGTsGz2Jb+lzPxvKueKabGbpYMzJc2XOZnt1ubZQggrLiHoI/eeY0f084p6
+ VhRuYs/i6QVUbuFwMLex+Krw6QYRfon4Imh1e4Ss8BixtT3gDA1WB8WsdgQ/bSA/hzP8
+ bl5Lxd56/rQ6eygb1THIfc5+0ixzhvD1jM2VhW4TlC2/jlLumjfmjgArqtzRE5U/JEzE
+ rfHUXnBVddn+D3LrybOSQc7x45K+0x+jQdHOu5jN/0xclaNWJBP8Zgep6b1Gr4K16sR8
+ p/ug==
+X-Gm-Message-State: AOAM532QCJBLgytwiqdIyZ5o/I6gNHw2u63BFzxbc/DES9Nuy4PH9PVX
+ GsJObD4tEBQm6rY2JQSem7DA46Lu6bqT4kZpo98cudzu
+X-Google-Smtp-Source: ABdhPJws8+SFIY9bXqIrGDE1VeovXol+Doyp4kGBPDDR9CLHbTZ9ckxNv3MionnwXm3Mc/lUbNIUSB/PMliZfwTSHeo=
+X-Received: by 2002:a1c:a953:: with SMTP id s80mr1183855wme.70.1600203631572; 
+ Tue, 15 Sep 2020 14:00:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200915155346.GA26029@pendragon.ideasonboard.com>
-X-RCIS-Action: ALLOW
-X-TM-AS-Product-Ver: IMSS-7.1.0.1224-8.2.0.1013-23620.005
-X-TM-AS-User-Approved-Sender: Yes;Yes
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4c65fab7-7d10-4b9a-748b-08d859a6a3fb
-X-MS-TrafficTypeDiagnostic: MN2PR02MB6862:
-X-Microsoft-Antispam-PRVS: <MN2PR02MB686297B0A5D949DD63A5E1D5D6200@MN2PR02MB6862.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:157;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: azHD76tuOPuB48RIPJTmGE1GeguOaYooVgA1zfaOFcdq8MvHicW8zvBOOLEI7v5gvGiv/ru7NR+rNkmZPFHOALmKpoRinkan47/aYxnYbvK6VEwY/OAaIqXB9x/lZV06yan8U1lpw5LLFrWxbrNF7RDDiUXWcoZhlDIIqmoXRIxH2kk1gVeGVQxpil9Yqv5px4Xylh/WWh8og85pL+UeJMu8leYXUObrWsn3WgnSoYFYSTSbQFHNMLLNJCFl9A6QJq0jelg6HSpNYrgTXAMJxhf4AeNxHfvpX7fbhsxqChK+Uqg44tLfuYfzGP5FHI2EgX8VmfPRVNe+b1OAxcxv7BJf9nYTCE4oeoVql+sStizjqxSu/OZCr/zt8ApQWS/2m80VUw8QelAhhDh5SWCSKRUKgL4LYo9OHWt/g9Z7hOwMuPzuwZG8AKr0ULbHWlZB
-X-Forefront-Antispam-Report: CIP:149.199.60.83; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:xsj-pvapsmtpgw01; PTR:unknown-60-83.xilinx.com; CAT:NONE;
- SFS:(346002)(136003)(39860400002)(376002)(396003)(46966005)(478600001)(36756003)(1076003)(6916009)(336012)(4326008)(186003)(26005)(6266002)(426003)(356005)(8936002)(83380400001)(2906002)(82740400003)(8676002)(82310400003)(7406005)(7366002)(7416002)(81166007)(70206006)(47076004)(966005)(70586007)(44832011)(42186006)(33656002)(316002)(2616005)(54906003)(5660300002);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2020 18:39:12.2114 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c65fab7-7d10-4b9a-748b-08d859a6a3fb
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c; Ip=[149.199.60.83];
- Helo=[xsj-pvapsmtpgw01]
-X-MS-Exchange-CrossTenant-AuthSource: CY1NAM02FT041.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6862
-X-Mailman-Approved-At: Tue, 15 Sep 2020 19:51:21 +0000
+References: <20200821165758.1106210-1-michel@daenzer.net>
+ <20200904104304.41246-1-michel@daenzer.net>
+ <20200907075716.GO2352366@phenom.ffwll.local>
+ <d0c95272-9a1c-f9f0-f1b9-4e7ce1f319c7@daenzer.net>
+ <c64d591b-8f3c-5384-f103-3283bcf15c9d@amd.com>
+In-Reply-To: <c64d591b-8f3c-5384-f103-3283bcf15c9d@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Sep 2020 17:00:20 -0400
+Message-ID: <CADnq5_MTinm97qJW7GxUzCMxSHPRJotgi-b6MHFgv21TEJhNzg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/dc: Require primary plane to be enabled
+ whenever the CRTC is
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,130 +78,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
- "airlied@linux.ie" <airlied@linux.ie>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "chris@chris-wilson.co.uk" <chris@chris-wilson.co.uk>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "sam@ravnborg.org" <sam@ravnborg.org>,
- "emil.velikov@collabora.com" <emil.velikov@collabora.com>,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- "jy0922.shim@samsung.com" <jy0922.shim@samsung.com>,
- "oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "krzk@kernel.org" <krzk@kernel.org>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- "tomi.valkeinen@ti.com" <tomi.valkeinen@ti.com>,
- Michal Simek <michals@xilinx.com>, "bskeggs@redhat.com" <bskeggs@redhat.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "marek.olsak@amd.com" <marek.olsak@amd.com>,
- "matthew.auld@intel.com" <matthew.auld@intel.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "andi.shyti@intel.com" <andi.shyti@intel.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "tianci.yin@amd.com" <tianci.yin@amd.com>,
- "nirmoy.das@amd.com" <nirmoy.das@amd.com>,
- "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "evan.quan@amd.com" <evan.quan@amd.com>, "sean@poorly.run" <sean@poorly.run>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
- "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
- "aaron.liu@amd.com" <aaron.liu@amd.com>,
- "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
- "xinhui.pan@amd.com" <xinhui.pan@amd.com>,
- "sw0312.kim@samsung.com" <sw0312.kim@samsung.com>,
- "hjc@rock-chips.com" <hjc@rock-chips.com>,
- "kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
- "miaoqinglang@huawei.com" <miaoqinglang@huawei.com>,
- "kgene@kernel.org" <kgene@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "Hawking.Zhang@amd.com" <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ Harry Wentland <hwentlan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tomas,
-
-Thanks for the patch.
-
-On Tue, Sep 15, 2020 at 08:53:46AM -0700, Laurent Pinchart wrote:
-> Hi Thomas,
-> 
-> Thank you for the patch.
-> 
-> On Tue, Sep 15, 2020 at 04:59:57PM +0200, Thomas Zimmermann wrote:
-> > The xlnx driver uses CMA helpers with default callback functions.
-> > Initialize the driver structure with the rsp CMA helper macro. The
-> > driver is being converted to use GEM object functions as part of
-> > this change.
-> > 
-> > Two callbacks, .dumb_destroy and .gem_prime_import, were initialized
-> > to their default implementations, so they are just kept empty now.
-> > 
-> > v2:
-> > 	* initialize with DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE (Laurent)
-> > 
-> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-
-Reviewed-by: Hyun Kwon <hyun.kwon@xilinx.com>
-
-Thanks,
--hyun
-
-> > ---
-> >  drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 14 +-------------
-> >  1 file changed, 1 insertion(+), 13 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> > index 8e69303aad3f..f3ffc3703a0e 100644
-> > --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> > +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> > @@ -80,19 +80,7 @@ static struct drm_driver zynqmp_dpsub_drm_driver = {
-> >  	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
-> >  					  DRIVER_ATOMIC,
-> >  
-> > -	.prime_handle_to_fd		= drm_gem_prime_handle_to_fd,
-> > -	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
-> > -	.gem_prime_export		= drm_gem_prime_export,
-> > -	.gem_prime_import		= drm_gem_prime_import,
-> > -	.gem_prime_get_sg_table		= drm_gem_cma_prime_get_sg_table,
-> > -	.gem_prime_import_sg_table	= drm_gem_cma_prime_import_sg_table,
-> > -	.gem_prime_vmap			= drm_gem_cma_prime_vmap,
-> > -	.gem_prime_vunmap		= drm_gem_cma_prime_vunmap,
-> > -	.gem_prime_mmap			= drm_gem_cma_prime_mmap,
-> > -	.gem_free_object_unlocked	= drm_gem_cma_free_object,
-> > -	.gem_vm_ops			= &drm_gem_cma_vm_ops,
-> > -	.dumb_create			= zynqmp_dpsub_dumb_create,
-> > -	.dumb_destroy			= drm_gem_dumb_destroy,
-> > +	DRM_GEM_CMA_DRIVER_OPS_WITH_DUMB_CREATE(zynqmp_dpsub_dumb_create),
-> >  
-> >  	.fops				= &zynqmp_dpsub_drm_fops,
-> >  
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIE1vbiwgU2VwIDE0LCAyMDIwIGF0IDEwOjM3IEFN
+IEthemxhdXNrYXMsIE5pY2hvbGFzCjxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+IHdyb3Rl
+Ogo+Cj4gT24gMjAyMC0wOS0xNCAzOjUyIGEubS4sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+ID4g
+T24gMjAyMC0wOS0wNyA5OjU3IGEubS4sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4gPj4gT24gRnJp
+LCBTZXAgMDQsIDIwMjAgYXQgMTI6NDM6MDRQTSArMDIwMCwgTWljaGVsIETDpG56ZXIgd3JvdGU6
+Cj4gPj4+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtZGFlbnplckByZWRoYXQuY29tPgo+ID4+Pgo+
+ID4+PiBEb24ndCBjaGVjayBkcm1fY3J0Y19zdGF0ZTo6YWN0aXZlIGZvciB0aGlzIGVpdGhlciwg
+cGVyIGl0cwo+ID4+PiBkb2N1bWVudGF0aW9uIGluIGluY2x1ZGUvZHJtL2RybV9jcnRjLmg6Cj4g
+Pj4+Cj4gPj4+ICAgKiBIZW5jZSBkcml2ZXJzIG11c3Qgbm90IGNvbnN1bHQgQGFjdGl2ZSBpbiB0
+aGVpciB2YXJpb3VzCj4gPj4+ICAgKiAmZHJtX21vZGVfY29uZmlnX2Z1bmNzLmF0b21pY19jaGVj
+ayBjYWxsYmFjayB0byByZWplY3QgYW4gYXRvbWljCj4gPj4+ICAgKiBjb21taXQuCj4gPj4+Cj4g
+Pj4+IGF0b21pY19yZW1vdmVfZmIgZGlzYWJsZXMgdGhlIENSVEMgYXMgbmVlZGVkIGZvciBkaXNh
+YmxpbmcgdGhlIHByaW1hcnkKPiA+Pj4gcGxhbmUuCj4gPj4+Cj4gPj4+IFRoaXMgcHJldmVudHMg
+YXQgbGVhc3QgdGhlIGZvbGxvd2luZyBwcm9ibGVtcyBpZiB0aGUgcHJpbWFyeSBwbGFuZSBnZXRz
+Cj4gPj4+IGRpc2FibGVkIChlLmcuIGR1ZSB0byBkZXN0cm95aW5nIHRoZSBGQiBhc3NpZ25lZCB0
+byB0aGUgcHJpbWFyeSBwbGFuZSwKPiA+Pj4gYXMgaGFwcGVucyBlLmcuIHdpdGggbXV0dGVyIGlu
+IFdheWxhbmQgbW9kZSk6Cj4gPj4+Cj4gPj4+ICogVGhlIGxlZ2FjeSBjdXJzb3IgaW9jdGwgcmV0
+dXJuZWQgRUlOVkFMIGZvciBhIG5vbi0wIGN1cnNvciBGQiBJRAo+ID4+PiAgICAod2hpY2ggZW5h
+YmxlcyB0aGUgY3Vyc29yIHBsYW5lKS4KPiA+Pj4gKiBJZiB0aGUgY3Vyc29yIHBsYW5lIHdhcyBl
+bmFibGVkLCBjaGFuZ2luZyB0aGUgbGVnYWN5IERQTVMgcHJvcGVydHkKPiA+Pj4gICAgdmFsdWUg
+ZnJvbSBvZmYgdG8gb24gcmV0dXJuZWQgRUlOVkFMLgo+ID4+Pgo+ID4+PiB2MjoKPiA+Pj4gKiBN
+aW5vciBjaGFuZ2VzIHRvIGNvZGUgY29tbWVudCBhbmQgY29tbWl0IGxvZywgcGVyIHJldmlldyBm
+ZWVkYmFjay4KPiA+Pj4KPiA+Pj4gR2l0TGFiOgo+ID4+PiBodHRwczovL2dpdGxhYi5nbm9tZS5v
+cmcvR05PTUUvbXV0dGVyLy0vaXNzdWVzLzExMDgKPiA+Pj4KPiA+Pj4gR2l0TGFiOgo+ID4+PiBo
+dHRwczovL2dpdGxhYi5nbm9tZS5vcmcvR05PTUUvbXV0dGVyLy0vaXNzdWVzLzExNjUKPiA+Pj4K
+PiA+Pj4gR2l0TGFiOgo+ID4+PiBodHRwczovL2dpdGxhYi5nbm9tZS5vcmcvR05PTUUvbXV0dGVy
+Ly0vaXNzdWVzLzEzNDQKPiA+Pj4KPiA+Pj4gU3VnZ2VzdGVkLWJ5OiBEYW5pZWwgVmV0dGVyIDxk
+YW5pZWwudmV0dGVyQGZmd2xsLmNoPgo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnpl
+ciA8bWRhZW56ZXJAcmVkaGF0LmNvbT4KPiA+Pgo+ID4+IENvbW1pdCBtZXNzYWdlIGFncmVlcyB3
+aXRoIG15IHVuZGVyc3RhbmQgb2YgdGhpcyBtYXplIG5vdywgc286Cj4gPj4KPiA+PiBBY2tlZC1i
+eTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KPiA+Cj4gPiBUaGFua3Mg
+RGFuaWVsIQo+ID4KPiA+Cj4gPiBOaWNrIC8gSGFycnksIGFueSBtb3JlIGZlZWRiYWNrPyBJZiBu
+b3QsIGNhbiB5b3UgYXBwbHkgdGhpcz8KPiA+Cj4gPgo+ID4gUC5TLiBTaW5jZSBEQ04gZG9lc24n
+dCBtYWtlIGEgZGlzdGluY3Rpb24gYmV0d2VlbiBwcmltYXJ5IG9yIG92ZXJsYXkKPiA+IHBsYW5l
+cyBpbiBoYXJkd2FyZSwgY291bGQgQ2hyb21pdW1PUyBhY2hpZXZlIHRoZSBzYW1lIGVmZmVjdCB3
+aXRoIG9ubHkKPiA+IHRoZSBwcmltYXJ5IHBsYW5lIGluc3RlYWQgb2Ygb25seSBhbiBvdmVybGF5
+IHBsYW5lPyBJZiBzbywgbWF5YmUgdGhlcmUncwo+ID4gbm8gbmVlZCBmb3IgdGhlICJibGFjayBw
+bGFuZSBoYWNrIi4KPiA+Cj4gPgo+Cj4gSSBvbmx5IGtub3cgdGhhdCBhdG9taWN0ZXN0IHRyaWVz
+IHRvIGVuYWJsZSB0aGlzIGNvbmZpZ3VyYXRpb24uIE5vdCBzdXJlCj4gaWYgQ2hyb21pdW1PUyBv
+ciBvdGhlciAicmVhbCIgdXNlcnNwYWNlIHRyaWVzIHRoaXMgY29uZmlndXJhdGlvbi4KPgo+IE1h
+eWJlIGZvciBub3cgdGhpcyBjYW4gZ28gaW4gYW5kIGlmIHNvbWV0aGluZyBicmVha3Mgd2UgY2Fu
+IGRlYWwgd2l0aAo+IHRoZSBmYWxsb3V0IHRoZW4uIFdlIGNhbiBhbHdheXMgZ28gYmFjayB0byBs
+eWluZyB0byB1c2Vyc3BhY2UgYWJvdXQgdGhlCj4gY3Vyc29yIGJlaW5nIHZpc2libGUgaWYgdGhl
+IGNvbW1pdCBmYWlscyBpbiB0aGF0IGNhc2UgSSBndWVzcyBzaW5jZSB0aGUKPiBibGFuayBwbGFu
+ZSBoYWNrIGlzIGdvaW5nIHRvIGFkZCBhIHNpZ25pZmljYW50IGFtb3VudCBvZiBjb21wbGV4aXR5
+IHRvIERNLgo+Cj4gUmV2aWV3ZWQtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmth
+emxhdXNrYXNAYW1kLmNvbT4KPgo+IFJlZ2FyZHMsCj4gTmljaG9sYXMgS2F6bGF1c2thcwo+IF9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
