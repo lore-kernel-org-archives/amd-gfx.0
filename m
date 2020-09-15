@@ -8,60 +8,59 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B02EEC433E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 727EFC433E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 25ACC20732
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EF2CE20732
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 18:37:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XjQLtHja"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25ACC20732
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aroVzs8A"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF2CE20732
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B550D6E8DA;
-	Tue, 15 Sep 2020 18:37:32 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C82036E8DA
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:37:31 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id k15so4357498wrn.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:37:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6BE6E8D7;
+	Tue, 15 Sep 2020 18:37:49 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A76586E8D7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 18:37:48 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id y15so512324wmi.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2020 11:37:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nEw8rN+kw/jykmFPmRSiqBa9a8lkUJ1mfOUL1R9rzAI=;
- b=XjQLtHjaDx57TQjfPLNfAfOg2d44FMfnuOpWEx8tWpib0oAZ7riYOV2ULAuvPxHLt2
- gIhIo3fBzUlANJhMlABmuc3iSjF2TbiSl94yXE+GdskgDwXjam8MjvZkiVWGb5kz1wW+
- HU6BXn6JCXm5xWmDosS+eB0VLJjJdSISqDcGmCMJC4L1UTyXwa65CKcOjWp3CN8RUMkX
- JkVFdYj7uXXUF4dKNlDeELeC4WuxQIqNbm3ZCrgzFbkkKekR80LNcen57T77msY+EQJ6
- UccvSN35nwdlND7V7o4+HEisf2sk/paawENDgqQ0YFOYFV59sFvvZGMS/GOpa7lSzYBQ
- eCDQ==
+ :cc; bh=51i9tPyL5HRmKB6eI88d4TPEZXxrm0wLlJzMM8ZpSgI=;
+ b=aroVzs8A7yVOrX3Tteu2VsOigUBf2FvWI4YmJc5ADaB+7KdrwKqq8AKOa8h5rs9N2w
+ K9/JNcuNMQPJu+4KwdpUxLssvKLBYwsgdvKcmikjsNv4yHGm9emLDa9HXtWRDiJOYHfU
+ 1MSVnRJbuGl3Zg+q7GfrI4C99QswTpvYksrvC7VBSBbYe/vC2v2LUh3u/7Abmn2hgDtJ
+ zZ75jg/PfLYOR2nPMGmqqbaLJYLdliHgaTNA04YbVRvbkViblaF6hL8Z8ebCNswBibiK
+ 69Psk9e0H3/gqtP9riNNxwx/XLc3XZx+Dr1CU9BpAuX1oOE7CxuJfAQgbadhEhFEyluC
+ VC8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=nEw8rN+kw/jykmFPmRSiqBa9a8lkUJ1mfOUL1R9rzAI=;
- b=JMtPEkNekZ/mogMhkxQUolgYYzjUCSXjDwIim2CeBhSMai4HvcDFF4QkXTSYqlEp5n
- pKvVw+6xc+79bA/D/ac/4j+u7R15cSQu3/giRmV+XjPFzpNcPI9BFIZDpRcxvmHz2yy1
- LPq8/NpT450gqHD/cGZuTM9aMt5JDvMl95NOMdMO5L3oUV/HBNjCTXuo4bbefN75cH/z
- Fy7hMiZwND6aoP0p6MOgDrGMkGH98ztWhcBoTY96mXjBSynyiMSdqabJcEI4jlM+7bUY
- 1cKekckzdvMl5JxX7Yc2kuHEgBMmf25j9Nm7gHI9//ddrWFZjWL9WjlWEmGbQeP719EL
- KNqA==
-X-Gm-Message-State: AOAM531/iZda3krPznyR8/QGGOh18Cpo1dQHaBstGQN5YYRXAGPXxFdP
- RtBPUZlzMR1nWS37imB7ImxV9Yu1ADP3BnfJrY8kgrUg4Wo=
-X-Google-Smtp-Source: ABdhPJyXdzTc1kRcuCs65+gZho/KraZrqoWsIofYIzl554jw0sPa0YbFVfbllyXY+EjKDHMxFQe+L3WAKioqdD2uwU4=
-X-Received: by 2002:adf:f290:: with SMTP id k16mr24312102wro.124.1600195050452; 
- Tue, 15 Sep 2020 11:37:30 -0700 (PDT)
+ bh=51i9tPyL5HRmKB6eI88d4TPEZXxrm0wLlJzMM8ZpSgI=;
+ b=SeZDPGcw7Mksm5SGk1o3hDDCqcOHtNnZhffenj6KXIKcCIlIBoQWNh3O0OOdiTVhFN
+ sBCJOgjLk8bt+0CfkG6MRuEypWwixRb1+weZ1bSEHKtPtQ/YjMal59ZMteb2v+qLYkJR
+ 4uUxGEzqH4WvNrmePaper+stqxb9IlrHYUanqMOJm22QypUpoykBUvr8w4o9jAwq0H23
+ PIMIKz5ZSIWFQPPcykaaNGa2idkAt3qndkCfCJalSxeK3VlgPSxyFGhfZl306mshnTD6
+ zHayT6Pk9l5qsRXHpr3fSLQt2Dl7is3mfBw0vZPIV/hWzPhVk0dypbF2qXgR5/LaW7qs
+ LDng==
+X-Gm-Message-State: AOAM530JG98xldtws9tmf8AzsIpwYAyH/GwCnNFU3ZUl5Wu3M3dNpkyy
+ 838Rvf4RIybnjX1LJu1KOaQ7bu/z9jsFJrZuIW0=
+X-Google-Smtp-Source: ABdhPJyuDWh6C0mf8wvz+kEChPF37ckyg4EGWqyJjOzq1KHeeyv3TkoxPr19Ww+2Reg0qJkeNKbInd8OrulnMI8buk4=
+X-Received: by 2002:a7b:c090:: with SMTP id r16mr736303wmh.56.1600195067364;
+ Tue, 15 Sep 2020 11:37:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200907090126.2542-1-evan.quan@amd.com>
- <20200907090126.2542-4-evan.quan@amd.com>
-In-Reply-To: <20200907090126.2542-4-evan.quan@amd.com>
+In-Reply-To: <20200907090126.2542-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2020 14:37:19 -0400
-Message-ID: <CADnq5_MBNQarnHjt7UaEu=Ko8EJnvwcROVBqUCARdzE47cSrRA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/pm: add Raven2 watermak WmType setting
+Date: Tue, 15 Sep 2020 14:37:36 -0400
+Message-ID: <CADnq5_Nkjbicb-Kk++LnUHmzo+j+J_C3=TLP_-i663yjoNN9aA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amd/pm: drop dead code
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,60 +81,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 7, 2020 at 5:02 AM Evan Quan <evan.quan@amd.com> wrote:
+On Mon, Sep 7, 2020 at 5:01 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Which tells it's a nomral pstate change or memory retraining.
-
-Same typos as patch 3.  With those fixed:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Raven never goes to swsmu path. So "adev->smu.ppt_funcs" will be
+> always false.
 >
-> Change-Id: If55d6c3f1dfc28005c6d767154664feddcda6f5b
+> Change-Id: Ia55ad97bcf9ecf135a9bd795f36a5b521d718b20
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 > Tested-by: Changfeng Zhu <Changfeng.Zhu@amd.com>
+
+Patches 1, 2:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h         |  3 ++-
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 11 +++++++++++
->  2 files changed, 13 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 3 ---
+>  1 file changed, 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h b/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
-> index dea8fe93da63..c498158771cc 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/smu10_driver_if.h
-> @@ -54,7 +54,8 @@ typedef struct {
->         uint16_t MaxMclk;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> index c5f2216e59c4..99ccabcc135e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> @@ -592,9 +592,6 @@ void pp_rv_set_wm_ranges(struct pp_smu *pp,
+>         if (pp_funcs && pp_funcs->set_watermarks_for_clocks_ranges)
+>                 pp_funcs->set_watermarks_for_clocks_ranges(pp_handle,
+>                                                            &wm_with_clock_ranges);
+> -       else if (adev->smu.ppt_funcs)
+> -               smu_set_watermarks_for_clock_ranges(&adev->smu,
+> -                               &wm_with_clock_ranges);
+>  }
 >
->         uint8_t  WmSetting;
-> -       uint8_t  Padding[3];
-> +       uint8_t  WmType;
-> +       uint8_t  Padding[2];
->  } WatermarkRowGeneric_t;
->
->  #define NUM_WM_RANGES 4
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-> index 9ee8cf8267c8..88792dba1759 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-> @@ -1181,8 +1181,19 @@ static int smu10_set_watermarks_for_clocks_ranges(struct pp_hwmgr *hwmgr,
->         struct smu10_hwmgr *data = hwmgr->backend;
->         struct dm_pp_wm_sets_with_clock_ranges_soc15 *wm_with_clock_ranges = clock_ranges;
->         Watermarks_t *table = &(data->water_marks_table);
-> +       struct amdgpu_device *adev = hwmgr->adev;
-> +       int i;
->
->         smu_set_watermarks_for_clocks_ranges(table,wm_with_clock_ranges);
-> +
-> +       if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
-> +               for (i = 0; i < NUM_WM_RANGES; i++)
-> +                       table->WatermarkRow[WM_DCFCLK][i].WmType = (uint8_t)0;
-> +
-> +               for (i = 0; i < NUM_WM_RANGES; i++)
-> +                       table->WatermarkRow[WM_SOCCLK][i].WmType = (uint8_t)0;
-> +       }
-> +
->         smum_smc_table_manager(hwmgr, (uint8_t *)table, (uint16_t)SMU10_WMTABLE, false);
->         data->water_marks_exist = true;
->         return 0;
+>  void pp_rv_set_pme_wa_enable(struct pp_smu *pp)
 > --
 > 2.28.0
 >
