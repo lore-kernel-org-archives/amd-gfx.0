@@ -2,29 +2,30 @@ Return-Path: <SRS0=7kRa=CY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CA71C2D0E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC370C2D0F6
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C073820735
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C073820735
+	by mail.kernel.org (Postfix) with ESMTPS id 92DCC20732
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2020 15:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92DCC20732
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3BED6E0E2;
-	Tue, 15 Sep 2020 15:00:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C22566E868;
+	Tue, 15 Sep 2020 15:00:06 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7F366E353;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A536E0E2;
  Tue, 15 Sep 2020 15:00:05 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 53093AF4E;
+ by mx2.suse.de (Postfix) with ESMTP id BAEA6AF69;
  Tue, 15 Sep 2020 15:00:18 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
@@ -48,10 +49,12 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
  andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
  emil.velikov@collabora.com
-Subject: [PATCH v2 00/21] Convert all remaining drivers to GEM object functions
-Date: Tue, 15 Sep 2020 16:59:37 +0200
-Message-Id: <20200915145958.19993-1-tzimmermann@suse.de>
+Subject: [PATCH v2 02/21] drm/armada: Introduce GEM object functions
+Date: Tue, 15 Sep 2020 16:59:39 +0200
+Message-Id: <20200915145958.19993-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200915145958.19993-1-tzimmermann@suse.de>
+References: <20200915145958.19993-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,122 +79,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The GEM and PRIME related callbacks in struct drm_driver are deprecated in
-favor of GEM object functions in struct drm_gem_object_funcs. This patchset
-converts the remaining drivers to object functions and removes most of the
-obsolete interfaces.
+GEM object functions deprecate several similar callback interfaces in
+struct drm_driver. This patch replaces the per-driver callbacks with
+per-instance callbacks in armada.
 
-Patches #1 to #16 and #18 to #19 convert DRM drivers to GEM object functions,
-one by one. Each patch moves existing callbacks from struct drm_driver to an
-instance of struct drm_gem_object_funcs, and sets these funcs when the GEM
-object is initialized. The expection is .gem_prime_mmap. There are different
-ways of how drivers implement the callback, and moving it to GEM object
-functions requires a closer review for each.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/armada/armada_drv.c |  3 ---
+ drivers/gpu/drm/armada/armada_gem.c | 12 +++++++++++-
+ drivers/gpu/drm/armada/armada_gem.h |  2 --
+ 3 files changed, 11 insertions(+), 6 deletions(-)
 
-Patch #17 fixes virtgpu to use GEM object functions where possible. The
-driver recently introduced a function for one of the deprecated callbacks.
-
-Patch #20 converts xlnx to CMA helper macros. There's no apparent reason
-why the driver does the GEM setup on it's own. Using CMA helper macros
-adds GEM object functions implicitly.
-
-With most of the GEM and PRIME moved to GEM object functions, related code
-in struct drm_driver and in the DRM core/helpers is being removed by patch
-#21.
-
-Further testing is welcome. I tested the drivers for which I have HW
-available. These are gma500, i915, nouveau, radeon and vc4. The console,
-Weston and Xorg apparently work with the patches applied.
-
-v2:
-	* moved code in amdgpu and radeon
-	* made several functions static in various drivers
-	* updated TODO-list item
-	* fix virtgpu
-
-Thomas Zimmermann (21):
-  drm/amdgpu: Introduce GEM object functions
-  drm/armada: Introduce GEM object functions
-  drm/etnaviv: Introduce GEM object functions
-  drm/exynos: Introduce GEM object functions
-  drm/gma500: Introduce GEM object functions
-  drm/i915: Introduce GEM object functions
-  drm/mediatek: Introduce GEM object functions
-  drm/msm: Introduce GEM object funcs
-  drm/nouveau: Introduce GEM object functions
-  drm/omapdrm: Introduce GEM object functions
-  drm/pl111: Introduce GEM object functions
-  drm/radeon: Introduce GEM object functions
-  drm/rockchip: Convert to drm_gem_object_funcs
-  drm/tegra: Introduce GEM object functions
-  drm/vc4: Introduce GEM object functions
-  drm/vgem: Introduce GEM object functions
-  drm/virtgpu: Set PRIME export function in struct drm_gem_object_funcs
-  drm/vkms: Introduce GEM object functions
-  drm/xen: Introduce GEM object functions
-  drm/xlnx: Initialize DRM driver instance with CMA helper macro
-  drm: Remove obsolete GEM and PRIME callbacks from struct drm_driver
-
- Documentation/gpu/todo.rst                    |  7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 23 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |  5 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  1 +
- drivers/gpu/drm/armada/armada_drv.c           |  3 -
- drivers/gpu/drm/armada/armada_gem.c           | 12 ++-
- drivers/gpu/drm/armada/armada_gem.h           |  2 -
- drivers/gpu/drm/drm_gem.c                     | 35 ++------
- drivers/gpu/drm/drm_gem_cma_helper.c          |  6 +-
- drivers/gpu/drm/drm_prime.c                   | 17 ++--
- drivers/gpu/drm/etnaviv/etnaviv_drv.c         | 13 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.h         |  1 -
- drivers/gpu/drm/etnaviv/etnaviv_gem.c         | 19 ++++-
- drivers/gpu/drm/exynos/exynos_drm_drv.c       | 10 ---
- drivers/gpu/drm/exynos/exynos_drm_gem.c       | 15 ++++
- drivers/gpu/drm/gma500/framebuffer.c          |  2 +
- drivers/gpu/drm/gma500/gem.c                  | 18 +++-
- drivers/gpu/drm/gma500/gem.h                  |  3 +
- drivers/gpu/drm/gma500/psb_drv.c              |  9 --
- drivers/gpu/drm/gma500/psb_drv.h              |  2 -
- drivers/gpu/drm/i915/gem/i915_gem_object.c    | 21 ++++-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  3 -
- drivers/gpu/drm/i915/i915_drv.c               |  4 -
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  3 -
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  5 --
- drivers/gpu/drm/mediatek/mtk_drm_gem.c        | 11 +++
- drivers/gpu/drm/msm/msm_drv.c                 | 13 ---
- drivers/gpu/drm/msm/msm_drv.h                 |  1 -
- drivers/gpu/drm/msm/msm_gem.c                 | 19 ++++-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 --
- drivers/gpu/drm/nouveau/nouveau_gem.c         | 13 +++
- drivers/gpu/drm/nouveau/nouveau_gem.h         |  2 +
- drivers/gpu/drm/nouveau/nouveau_prime.c       |  2 +
- drivers/gpu/drm/omapdrm/omap_drv.c            |  9 --
- drivers/gpu/drm/omapdrm/omap_gem.c            | 18 +++-
- drivers/gpu/drm/omapdrm/omap_gem.h            |  2 -
- drivers/gpu/drm/pl111/pl111_drv.c             |  5 +-
- drivers/gpu/drm/radeon/radeon_drv.c           | 23 +----
- drivers/gpu/drm/radeon/radeon_gem.c           | 31 ++++++-
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  5 --
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c   | 10 +++
- drivers/gpu/drm/tegra/drm.c                   |  4 -
- drivers/gpu/drm/tegra/gem.c                   |  8 ++
- drivers/gpu/drm/vc4/vc4_bo.c                  | 21 ++++-
- drivers/gpu/drm/vc4/vc4_drv.c                 | 12 ---
- drivers/gpu/drm/vc4/vc4_drv.h                 |  1 -
- drivers/gpu/drm/vgem/vgem_drv.c               | 21 +++--
- drivers/gpu/drm/virtio/virtgpu_drv.c          |  1 -
- drivers/gpu/drm/virtio/virtgpu_object.c       |  1 +
- drivers/gpu/drm/vkms/vkms_drv.c               |  8 --
- drivers/gpu/drm/vkms/vkms_gem.c               | 13 +++
- drivers/gpu/drm/xen/xen_drm_front.c           | 44 ++++------
- drivers/gpu/drm/xen/xen_drm_front.h           |  2 +
- drivers/gpu/drm/xen/xen_drm_front_gem.c       | 15 ++++
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c           | 14 +--
- include/drm/drm_drv.h                         | 85 +------------------
- 57 files changed, 319 insertions(+), 349 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+index 980d3f1f8f16..22247cfce80b 100644
+--- a/drivers/gpu/drm/armada/armada_drv.c
++++ b/drivers/gpu/drm/armada/armada_drv.c
+@@ -37,13 +37,10 @@ DEFINE_DRM_GEM_FOPS(armada_drm_fops);
+ 
+ static struct drm_driver armada_drm_driver = {
+ 	.lastclose		= drm_fb_helper_lastclose,
+-	.gem_free_object_unlocked = armada_gem_free_object,
+ 	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+-	.gem_prime_export	= armada_gem_prime_export,
+ 	.gem_prime_import	= armada_gem_prime_import,
+ 	.dumb_create		= armada_gem_dumb_create,
+-	.gem_vm_ops		= &armada_gem_vm_ops,
+ 	.major			= 1,
+ 	.minor			= 0,
+ 	.name			= "armada-drm",
+diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
+index ecf8a55e93d9..c343fbefe47c 100644
+--- a/drivers/gpu/drm/armada/armada_gem.c
++++ b/drivers/gpu/drm/armada/armada_gem.c
+@@ -25,7 +25,7 @@ static vm_fault_t armada_gem_vm_fault(struct vm_fault *vmf)
+ 	return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+ }
+ 
+-const struct vm_operations_struct armada_gem_vm_ops = {
++static const struct vm_operations_struct armada_gem_vm_ops = {
+ 	.fault	= armada_gem_vm_fault,
+ 	.open	= drm_gem_vm_open,
+ 	.close	= drm_gem_vm_close,
+@@ -184,6 +184,12 @@ armada_gem_map_object(struct drm_device *dev, struct armada_gem_object *dobj)
+ 	return dobj->addr;
+ }
+ 
++static const struct drm_gem_object_funcs armada_gem_object_funcs = {
++	.free = armada_gem_free_object,
++	.export = armada_gem_prime_export,
++	.vm_ops = &armada_gem_vm_ops,
++};
++
+ struct armada_gem_object *
+ armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
+ {
+@@ -195,6 +201,8 @@ armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
+ 	if (!obj)
+ 		return NULL;
+ 
++	obj->obj.funcs = &armada_gem_object_funcs;
++
+ 	drm_gem_private_object_init(dev, &obj->obj, size);
+ 
+ 	DRM_DEBUG_DRIVER("alloc private obj %p size %zu\n", obj, size);
+@@ -214,6 +222,8 @@ static struct armada_gem_object *armada_gem_alloc_object(struct drm_device *dev,
+ 	if (!obj)
+ 		return NULL;
+ 
++	obj->obj.funcs = &armada_gem_object_funcs;
++
+ 	if (drm_gem_object_init(dev, &obj->obj, size)) {
+ 		kfree(obj);
+ 		return NULL;
+diff --git a/drivers/gpu/drm/armada/armada_gem.h b/drivers/gpu/drm/armada/armada_gem.h
+index de04cc2c8f0e..ffcc7e8dd351 100644
+--- a/drivers/gpu/drm/armada/armada_gem.h
++++ b/drivers/gpu/drm/armada/armada_gem.h
+@@ -21,8 +21,6 @@ struct armada_gem_object {
+ 	void			*update_data;
+ };
+ 
+-extern const struct vm_operations_struct armada_gem_vm_ops;
+-
+ #define drm_to_armada_gem(o) container_of(o, struct armada_gem_object, obj)
+ 
+ void armada_gem_free_object(struct drm_gem_object *);
+-- 
 2.28.0
 
 _______________________________________________
