@@ -2,107 +2,87 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 91E8CC433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28097C43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8279223E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:27:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3E7CA22274
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:31:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="c6S3yWwG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8279223E0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="AM+EYquC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E7CA22274
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 620D16EA2E;
-	Wed, 16 Sep 2020 15:27:36 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4FF96EA2E;
- Wed, 16 Sep 2020 15:27:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HlR6fpnPFi8H6yUMfhNIUcrg702QsKk4Y+6uMf8HgJ+if7rBsMOqpyZOxWYDQK3aMYdfMXK+6+4kJQB7afvUloQko+O19I4ME4rLbpO/ZRw/PKA6Cv8XlK9ll4n5i0kWRacRhpmUrCRYdATuj40xpAZBvUfeA+HW50g1fjvBsbjcZAKTvOlRBT9PVOlynnJZMlS1sQDuBsOhLC/lqEEvGEQzzP/rfklebkp5slu5UlDhLz4aqn3ApD36PdvYKjelroaaPkSrgtPHKxsvUJ/lGy3CaXEEvIR0Z5hte8o3DxuMuj4zQ3ncRpYD9GbQLqgyV56MjUHxOtvJu5pP1EVi7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o8dPMQVXEUGM/K6CgXk7YTQBx+ON17zOfyNdYs2clqw=;
- b=RlBJ/2b2cL6zQCcNu7B5nNTlSV0OLi87PqdHlb0/IAHmamVRPeXTelsIka6hQuom1i1psbDb1BHov8NV2IaixBBnclUmNj+k8qmu05vO0IDg8Jr/KVqMJpFyVQxklxcQ63TbgUAIXTrITsa0E/HhGpJ9nS2sTBTLEExLJzPz4rYkXCK/sqax8zO3fw8GBfNyHUEL6bQrDIRd4yN4DFe+HNeS/KoNErNgZjz6IeNUfxXo9Gr2mv7Sn6hmpRFZcIR5YZfFUeyG0a1wNQX8JhIZyhLTvu1cYI+DLQWRklYOkfXRGlLEkJhN1+qq8V7yb5N2dsUUb/8In2SiihxZ1ZVWAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o8dPMQVXEUGM/K6CgXk7YTQBx+ON17zOfyNdYs2clqw=;
- b=c6S3yWwG+xELN3s5258EITyr6oAtbZwwNn+I/GxqsRB+BZWcIZ+06HfKdNx6BA+c+dU6t9qUbeSUapSCpGO10E/dSX3E9pJikseyiI5+Ji5mxniUeuLNXXHS9DVqFoGKT8jB8mOxAlHqkbaIPkEtfks3TBpKnArTRA9RAUTSPZ4=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB3189.namprd12.prod.outlook.com (2603:10b6:a03:134::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Wed, 16 Sep
- 2020 15:27:32 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::754e:8f27:157a:9101]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::754e:8f27:157a:9101%6]) with mapi id 15.20.3326.030; Wed, 16 Sep 2020
- 15:27:32 +0000
-Subject: Re: [PATCH v2 0/4] Enlarge tracepoints in the display component
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, hersenxs.wu@amd.com
-References: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
- <20200916091214.GY438822@phenom.ffwll.local>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <e05be8ec-e73b-7fd6-efca-4a360e9ebb57@amd.com>
-Date: Wed, 16 Sep 2020 11:27:27 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-In-Reply-To: <20200916091214.GY438822@phenom.ffwll.local>
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::16) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E400B6EA33;
+	Wed, 16 Sep 2020 15:31:43 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D5B86EA3A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 15:31:43 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id o5so7315950wrn.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 08:31:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=9cI/Q3uj4XukmIC4z8WNHvSj/a5e8kMejOwJHwyLhrU=;
+ b=AM+EYquCzfIKg9LA8lupSx3x3fv80mV8XsdCao572x7y+f/jTyZhXBwzrc0WjnQou8
+ LrCfZ50AraT6NxKKEryKLx4mXtBR5VtT4qys9tKcbvpyx2AL35v5k0GhLaNw/8gavSU8
+ IsuN1Obfj09QlPgHgTIBmdOQvsn9a1XVQaKgk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=9cI/Q3uj4XukmIC4z8WNHvSj/a5e8kMejOwJHwyLhrU=;
+ b=e1esl8XRNXXdJEoSCv1y0BPma6sdbgadK5wkxSb014ac6fECY77jacRado59ejP/nq
+ B+ep4sroxDdPusItE6PO9388vW+FEHvIwASNUnHWpgXXX7YM8jl5IIvqgxxtUH7wmpTp
+ rZNxdLSRTbry7oq3yGlvX88ILd1oFnmwo/42BddYYJhUm/DFIr/xkXlm7DhAbeCgZfWM
+ 8jxJRdw6w0EWAE0VT6JP0XgdNRsQdu12U+NDRedbAISB9ODOkyB1wB0IGkF3kRmPAsoh
+ i12Ws6GLUPtD2EXZ76VeU5OhRpsNMfRgw8xXIVw44S/TWyexarcsnKWwdh+POyWcNwKm
+ ZXew==
+X-Gm-Message-State: AOAM5331XkJphMgotm47uoFbr+WMQ/VHRKA02GtN1fsqTyQOfGA4P+Ts
+ mdJsxxGDH1hqv0cgsjM3hdr1qQ==
+X-Google-Smtp-Source: ABdhPJzS3ONUGxvj8D+IIvQbIM66/m0KNy7Rh9Y4UxkZuG8AIJ3dk9r1W8t5jYlSX5UuYWW6Uyecjw==
+X-Received: by 2002:adf:a4cc:: with SMTP id h12mr22069549wrb.123.1600270301723; 
+ Wed, 16 Sep 2020 08:31:41 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id z15sm32992374wrv.94.2020.09.16.08.31.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 08:31:40 -0700 (PDT)
+Date: Wed, 16 Sep 2020 17:31:38 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH -next 0/8] drm/amd/amdgpu: fix comparison pointer to bool
+ warning
+Message-ID: <20200916153138.GR438822@phenom.ffwll.local>
+Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, 
+ Alex Deucher <alexdeucher@gmail.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ yi.zhang@huawei.com, Dave Airlie <airlied@linux.ie>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Zheng Bin <zhengbin13@huawei.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>
+References: <20200909130720.105234-1-zhengbin13@huawei.com>
+ <1fce0f2a-3777-e6d8-5a09-30261f843cfd@amd.com>
+ <CADnq5_NoeFbBAMT6s_ictVXsUc2tx1U48MLxnMbAr2Sd58jyYA@mail.gmail.com>
+ <20200915193549.GP6112@intel.com>
+ <6658f89f-6957-e6ea-af41-7625f1fd3cb1@gmail.com>
+ <20200916075156.GU438822@phenom.ffwll.local>
+ <CADnq5_OS814FxmadZ9yBkrY6ije8h7FxswWstsxNr3rw=Bum=Q@mail.gmail.com>
+ <372d7001-22cc-79b6-83b8-2fd75a1804d5@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.148.234] (165.204.55.211) by
- YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3348.15 via Frontend Transport; Wed, 16 Sep 2020 15:27:30 +0000
-X-Originating-IP: [165.204.55.211]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e8be37af-e383-4242-6857-08d85a55078c
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3189:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB31892796D473DF42CE461F40EC210@BYAPR12MB3189.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YlX8/kCbzGsN2b/6wZVyp2Ttx6PH9GL0ay37kmXOkqvorwLBfirLlxTc/KrwJqqRZlTTFFDamS7fvgfWfKr2UpxYGNFoRIPQE9nRg/CmnJSn0WkDHem6cQyzMzcCjRN52W1+vSnBrdGds2K5GnCQ7UKkC6NhMgEL3ZX1iuhJxtj09O8W0U2XxHIfqIVnhkwjC+RezJtN/H05qfZbKpR4IgLyMK/UKE/m/uKnl/F9qtWNrc7rTFF5aM9Zjmpvt7T2lYCIF/pdh7OPZt6Nru1nZEwE4k4SNb4MfYBy8NRZebI5m0wLhsJaIopTFBQ8P6iwpvhVTj2hoXxvWJYBgazpan6B3j1iGsaTw+Sn+kUOCLEZS/bxuNlkWC422LeEpdCfC/h1rCe0bJi1GaOqiU0jttHdKi6HH6ZEKO/k69xtV1UoymMPA45cKrcHJMdPGXj0d4Dku0dUJVXHCKi/gQLRMA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(136003)(396003)(346002)(39860400002)(186003)(6636002)(956004)(66476007)(36756003)(8936002)(2616005)(31696002)(2906002)(66946007)(6486002)(478600001)(16526019)(110136005)(5660300002)(86362001)(52116002)(26005)(53546011)(6666004)(31686004)(16576012)(8676002)(66556008)(316002)(83380400001)(161623001)(921003)(147533002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 4P4gRr+1uOWc2mpZuhEpfw6tTV4A6h60xuOQxO1JTOG8IqIPXzo7RWi7Gf1wbBmnBiMO4b3CMPA3pVEMQI5GU23oUi5PorPkHwZTR6jsUlOid1QiDvlSg6VkdgM7csgLswMtMfrMfW7nrvCbgSoiIMxy4ekJtFp2gdyQOn4kghRmUgngq2jE0MtvAsT1enstxOlxvSNkewGL8ARdr2/0nH4stVu+3YsRPiQSXvq7kemvbfumVIBSnm3CU5dr5tJWz19+hVqoxmdu60fuP/aKAL78E9CQLi3ASwNho64kkb4w+omoO+KlnKC0SoodUFyErELYrvdMI6FlxBGVhc/LXleYuHFWKsL6aUKDBQk9ZPeyUdHGXqW+D27nX0Gk+MS8UfQkx2MOykRS2ex3A6uEAhgIcOHM030bG040etRjVlB7v/CZ7ZGezOACzi+g+0phpGw8XQHOQnTsuNH9ghxggcnX5aIwaufZXQcPQ0U7ssWT3Tf7cSzOTs8R1iqFGaZGVsnuuZ2BCsjyTJTs+367TiTFBveEUspTTLECkmBXGQzqehxDVYR0dmvXV3uHpwXX95L2SNTmia7sCXgIo8fFZjcnRzOsy/YaRIXPZlM7JWDen4lsUXkDua2zdsI/KpgUsikQ3XpKs0efkVyBiSasYw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8be37af-e383-4242-6857-08d85a55078c
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 15:27:32.2694 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9UvmdnHgcQKdqBOSwoqjeoidUWkJ7wsSvHLVLrCoMAkRg48hidWRts3M+tKPea+zvXU9+YSSSENn7+SPXFZXJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3189
+Content-Disposition: inline
+In-Reply-To: <372d7001-22cc-79b6-83b8-2fd75a1804d5@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,100 +94,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: yi.zhang@huawei.com, Dave Airlie <airlied@linux.ie>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Zheng Bin <zhengbin13@huawei.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-09-16 5:12 a.m., Daniel Vetter wrote:
-> On Fri, Sep 11, 2020 at 10:59:23AM -0400, Rodrigo Siqueira wrote:
->> Debug issues related to display can be a challenge due to the complexity
->> around this topic and different source of information might help in this
->> process. We already have support for tracepoints inside the display
->> component, i.e., we have the basic functionalities available and we just
->> need to expand it in order to make it more valuable for debugging. For
->> this reason, this patchset reworks part of the current tracepoint
->> options and add different sets of tracing inside amdgpu_dm, display
->> core, and DCN10. The first patch of this series just rework part of the
->> current tracepoints and the last set of patches introduces new
->> tracepoints.
->>
->> This first patchset version is functional. Please, let me know what I
->> can improve in the current version but also let me know what kind of
->> tracepoint I can add for the next version.
->>
->> Finally, I want to highlight that this work is based on a set of patches
->> originally made by Nicholas Kazlauskas.
->>
->> Change in V2:
->> - I added another patch for capturing the clock state for different display
->>    architecture.
-> 
-> Hm I'm not super sure tracepoints for state dumping are the right thing
-> here. We kinda have the atomic state dumping code with all the various
-> callbacks, and you can extend that pretty easily. Gives you full state
-> dump in debugfs, plus a few function to dump into dmesg.
-> 
-> Maybe what we need is a function to dump this also into printk tracepoint
-> (otoh with Sean Paul's tracepoint work we'd get that through the dmesg
-> stuff already), and then you could do it there?
-> 
-> Upside is that for customers they'd get a much more consistent way to
-> debug display issues across different drivers.
-> 
-> For low-level hw debug what we do is give the hw guys an mmio trace, and
-> they replay it on the fancy boxes :-) So for that I think this here is
-> again too high level, but maybe what you have is a bit different.
-> -Daniel
+On Wed, Sep 16, 2020 at 04:02:18PM +0200, Christian K=F6nig wrote:
+> Am 16.09.20 um 15:36 schrieb Alex Deucher:
+> > On Wed, Sep 16, 2020 at 3:51 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > On Wed, Sep 16, 2020 at 09:38:34AM +0200, Christian K=F6nig wrote:
+> > > > Am 15.09.20 um 21:35 schrieb Ville Syrj=E4l=E4:
+> > > > > On Tue, Sep 15, 2020 at 03:16:32PM -0400, Alex Deucher wrote:
+> > > > > > I question the value of these warnings.  Why even have a boolea=
+n type
+> > > > > > if you are going to get warnings when you use them...
+> > > > > > That said, applied to avoid getting these patches again and aga=
+in
+> > > > > > every time someone sees this.
+> > > > > if (this_is_sparta)
+> > > > > if (this_is_sparta =3D=3D true)
+> > > > > if (this_is_sparta !=3D false)
+> > > > > =
 
-We have raw register traces, but what I find most useful is to be able 
-to see are the incoming DRM IOCTLs, objects and properties per commit.
+> > > > > I think the first one reads the best, and avoids having to
+> > > > > decide between truth and falsehood :)
+> > > > +1
+> > > +1, especially because we also have the inversion when using negative
+> > > errno codes for failures and 0 as success, which results in
+> > > =
 
-Many of the bugs we see in display code is in the conversion from DRM -> 
-DM -> DC state. The current HW state is kind of useless in most cases, 
-but the sequence helps track down intermittent problems and understand 
-state transitions.
+> > >          if (errno =3D=3D 0) /* success case */
+> > > =
 
-Tracepoints provide everything I really need to be able to track down 
-these problems without falling back to a full debugger. The existing DRM 
-prints (even at high logging levels) aren't enough to understand what's 
-going on in most cases in our driver so funneling those into tracepoints 
-to improve perf doesn't really help that much.
+> > > but
+> > >          if (bool =3D=3D 0) /* failure case */
+> > > =
 
-I think this kind of idea was rejected for DRM core last year with 
-Sean's patch series but if we can't get them into core then I'd like to 
-get them into our driver at least. These are a cleaned up version of 
-Sean's work + my work that I end up applying locally whenever I debug 
-something.
+> > > now creative people do sometimes
+> > > =
 
-Regards,
-Nicholas Kazlauskas
+> > >          if (!errno) /* success case */
+> > > =
 
-> 
->>
->> Rodrigo Siqueira (4):
->>    drm/amd/display: Rework registers tracepoint
->>    drm/amd/display: Add tracepoint for amdgpu_dm
->>    drm/amd/display: Add pipe_state tracepoint
->>    drm/amd/display: Add tracepoint for capturing clocks state
->>
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  17 +
->>   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 712 +++++++++++++++++-
->>   .../dc/clk_mgr/dce112/dce112_clk_mgr.c        |   5 +
->>   .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |   4 +
->>   .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |   4 +
->>   .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |   4 +
->>   .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   4 +
->>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  11 +
->>   .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  |   5 +
->>   .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  17 +-
->>   10 files changed, 747 insertions(+), 36 deletions(-)
->>
->> -- 
->> 2.28.0
->>
-> 
+> > > which I think is horribly confusing. So imo for more easier telling a=
+part
+> > > of these too I think consistently using the short form for booleans, =
+and
+> > > consistently using the more explicit long form for errno checks is a =
+Very
+> > > Good Pattern :-)
+> > I don't disagree with your logic, but we regularly get patches to
+> > convert errno checks to drop the direct comparison because that is the
+> > "preferred kernel style".  Arguably, we should be explicit in all
+> > cases as that avoids all confusion.  With that in mind, my original
+> > point stands.  Why have a type when comparisons against valid settings
+> > for that type produce errors?
 
+Oh, I didn't know that this happens for errno too.
+
+I withdraw my +1 and concur this is a bikeshed. I guess still applying to
+shut up the patch stream is the most reasonable thing :-/
+-Daniel
+
+> Well it isn't an error, but raising a nice warning is most likely a good
+> idea.
+
+> =
+
+> Christian.
+> =
+
+> > =
+
+> > Alex
+> > =
+
+> > > Cheers, Daniel
+> > > =
+
+> > > > Christian.
+> > > > =
+
+> > > > > > Alex
+> > > > > > =
+
+> > > > > > On Wed, Sep 9, 2020 at 9:21 AM Christian K=F6nig <christian.koe=
+nig@amd.com> wrote:
+> > > > > > > Acked-by: Christian K=F6nig <christian.koenig@amd.com> for th=
+e series.
+> > > > > > > =
+
+> > > > > > > Am 09.09.20 um 15:07 schrieb Zheng Bin:
+> > > > > > > > Zheng Bin (8):
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in gfx_v9_0.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in gfx_v10_0.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in sdma_v5_0.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in sdma_v5_2.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in si.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in uvd_v6_0.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in
+> > > > > > > >        amdgpu_atpx_handler.c
+> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
+ in sdma_v4_0.c
+> > > > > > > > =
+
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 4 ++=
+--
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c           | 2 +-
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 2 +-
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c           | 4 ++=
+--
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c           | 2 +-
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c           | 2 +-
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/si.c                  | 2 +-
+> > > > > > > >     drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c            | 4 ++=
+--
+> > > > > > > >     8 files changed, 11 insertions(+), 11 deletions(-)
+> > > > > > > > =
+
+> > > > > > > > --
+> > > > > > > > 2.26.0.106.g9fadedd
+> > > > > > > > =
+
+> > > > > > > _______________________________________________
+> > > > > > > amd-gfx mailing list
+> > > > > > > amd-gfx@lists.freedesktop.org
+> > > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3=
+A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7=
+C01%7Cchristian.koenig%40amd.com%7Cdc7a8d7517d341e3a80c08d85a458ba8%7C3dd89=
+61fe4884e608e11a82d994e183d%7C0%7C0%7C637358602051676053&amp;sdata=3DMS0vcB=
+cU7unXjEFlbd8kLbJkJ4sKcvIdLjc8yhX4UUI%3D&amp;reserved=3D0
+> > > > > > _______________________________________________
+> > > > > > dri-devel mailing list
+> > > > > > dri-devel@lists.freedesktop.org
+> > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02%7=
+C01%7Cchristian.koenig%40amd.com%7Cdc7a8d7517d341e3a80c08d85a458ba8%7C3dd89=
+61fe4884e608e11a82d994e183d%7C0%7C0%7C637358602051686051&amp;sdata=3DMgfR%2=
+BwCVY9gWfhQ9i5kWcKiiYkV1C8O2dEKlZYSqscE%3D&amp;reserved=3D0
+> > > > _______________________________________________
+> > > > dri-devel mailing list
+> > > > dri-devel@lists.freedesktop.org
+> > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
+Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02%7C01%=
+7Cchristian.koenig%40amd.com%7Cdc7a8d7517d341e3a80c08d85a458ba8%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637358602051686051&amp;sdata=3DMgfR%2BwCV=
+Y9gWfhQ9i5kWcKiiYkV1C8O2dEKlZYSqscE%3D&amp;reserved=3D0
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fbl=
+og.ffwll.ch%2F&amp;data=3D02%7C01%7Cchristian.koenig%40amd.com%7Cdc7a8d7517=
+d341e3a80c08d85a458ba8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6373586=
+02051686051&amp;sdata=3DGvLs5OXw2Ny%2BieJxm8hjawNb0rGA966539iAwlWwPMY%3D&am=
+p;reserved=3D0
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
