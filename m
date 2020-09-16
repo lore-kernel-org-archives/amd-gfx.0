@@ -2,104 +2,63 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82239C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:21:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 212FCC43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E55D223E8
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:21:17 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="awJyp5zL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E55D223E8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B56372076D
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 17:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B56372076D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D17E96EAAA;
-	Wed, 16 Sep 2020 17:21:16 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 291576EA74
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 17:21:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B6uVt0cGEJFIS0sHpKhLU40a9mbzgZaVnZXTzl4VtXGHR32tfzFah+D7eLHAUg9/pti5XQuwFXPwBMR2l0TNcjzMbgHYlDAyRL2liNR//Vl3dSijpEVWiRZiAAee/+8naT8HidcaomDWEM1YK2NP6eEooWHG7NJ+sQ37+XmeQL5Gf4NRJbEStLxqdaGL5taJSIwbvo4+QRf2sjaXye/z6VCNJef4YhvtyTcUasEJme7ypV2k2q3xkYgAugooyKfYW/akNb56/GGTW7EO95HtKfvTnp2pvZoramTujl92HdMgUutPDATNV5O/V5hoON6rV4C+aTYu0dn2elJyHga77g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EYTKU2mwnqy9O61hxX7p8FZ5AdmmfgEyL/EOiEq/Sz0=;
- b=BJKGE2J1f2zNKz82wePYaKjTVWoJbMvRVDkJBa+23mHEqHYaP4t63wtCTB3kC9YcSuTU3EVCzjC80B1t6N+7E9QvYoZTO40s5x1V2p3JvZ72Sjz34EthF/aRWFimmmdQDYztQo5sUk/4grrDyVjuQYi44BCdb7PxqcaKvFGiPe0TJ9gcpXO8xyHASkUtwDD82zf4wL+dqF30ui5og5nz6AT6Q7L9R/Hmc3XV0wA9HblkoRdMqo1+Ua50VqRgIMy7+I/C8yNU59q+3q0XB55iQEisD/To2S4Xal1WHN/6Yrmn9kT3FtI1jQqEsCNYHBD9kDiojo6JWB+7OGUQHTJYkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EYTKU2mwnqy9O61hxX7p8FZ5AdmmfgEyL/EOiEq/Sz0=;
- b=awJyp5zLHk3/e+24RkjRHcoxR7L3RdngtLCdHLjojqpal0yHDqvs1NFuUME8dzauORySL8IsRWlRFc+UljJ0Yt5VIeRhm2///1yWlCWcuRtZs2Zq7ipGNnaEcUSphCmRw8c187wQ2wgEcqNC1RPzcJcpiBo5zEpRBna7OSXLGE0=
-Received: from MWHPR12MB1629.namprd12.prod.outlook.com (2603:10b6:301:3::23)
- by MWHPR12MB1903.namprd12.prod.outlook.com (2603:10b6:300:108::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11; Wed, 16 Sep
- 2020 17:21:13 +0000
-Received: from MWHPR12MB1629.namprd12.prod.outlook.com
- ([fe80::64f8:6158:d5c7:c1bb]) by MWHPR12MB1629.namprd12.prod.outlook.com
- ([fe80::64f8:6158:d5c7:c1bb%5]) with mapi id 15.20.3370.019; Wed, 16 Sep 2020
- 17:21:13 +0000
-From: "Abramov, Slava" <Slava.Abramov@amd.com>
-To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: No sysfs, not an error condition
-Thread-Topic: [PATCH] drm/amdgpu: No sysfs, not an error condition
-Thread-Index: AQHWjEwawar0K9/odEOk0wa2E0EYTqlrgoU8
-Date: Wed, 16 Sep 2020 17:21:12 +0000
-Message-ID: <MWHPR12MB1629A2CFCB511895EC9F4C5AFE210@MWHPR12MB1629.namprd12.prod.outlook.com>
-References: <20200916170839.452442-1-luben.tuikov@amd.com>
-In-Reply-To: <20200916170839.452442-1-luben.tuikov@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-16T17:21:10.752Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [2607:9880:2f27:ffe4::4]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 35e5e5a2-222d-4a32-d4d1-08d85a64e94e
-x-ms-traffictypediagnostic: MWHPR12MB1903:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR12MB19036F0AA7AD05486DCD2B8DFE210@MWHPR12MB1903.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1303;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: NeUPnKgYIqC2HVVDVEKG6oZf0A7ztlAbNRJmubZB6uTdch1572KcM9duFEY2gbCxQjap2fzYGV4ooYOXLCtThFgCfQ3ZBJ0+xEox2bZLF3rJoZFunXUZsj78hg0T+sZNLQ5myFahWvVnBePkuI9vX4tTu87y2FwriuMiuKfR8SyU3gIP+y5sO7spALfQ4k5KtvDHoHWFtty+h8+yy1NJlZgHaaUzLgPg8MAHPEfS3pLieLAFqlLwNsekw6+eXhHwrzuE50RVuICI1dSBcrLmtox9dACxkiKsg1mv0WhJXOx01KLZFNe0GuikVc1x1VhTOyxnD8gw+9IdF5TF/4k+DNSfJqNQHcVM/nVMJSWi2Vw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1629.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(346002)(366004)(396003)(66446008)(64756008)(966005)(6506007)(110136005)(66946007)(71200400001)(4326008)(478600001)(53546011)(66556008)(19627405001)(45080400002)(66476007)(8676002)(33656002)(8936002)(86362001)(186003)(7696005)(83380400001)(316002)(5660300002)(9686003)(76116006)(52536014)(2906002)(55016002)(166002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: oh8Ull+jUEy25Octel/lzzE4jqOv6iw+VqGIoXesOpP738KpgHYsGObTm4ea2X0IgmvAd17YURotK+lS34OaT/WMSIIgK6M44AeZWQykps/nD3XQNhj6VcXcVAvsbJDUnuNR9vlFkZ7OqYviCSPEXRq2QVXUegE1KQc3qqfOs4KIjWN0ogjySiOM2YrSx5raGaHPMhRtNuYkawTVIlkOF9Q0jC9Z/TVP0aH5okWIkeVTvJ60jgnH3eQBQmSSQByTHpjrH7DoEFWWDZBygIED+SMl8i9C7hYQccUOKC22Z5l3gdSBZrtXFoX0qOIrXmNA8uEXe30WPD0TW8w/B28rXFSUjlkizRroz+7xgQJTIzMGGurnLFRGQEfCzbhrCc8BAT5U379aCcreurDBNzrEC7Kdjl7jyYtVkioCsZ+Tth43010XPRXmdOXtza6H0zHLIqPx/DmpdC5e/jT2MWiL/zqplygYCcoFHlX2YR6azc4H+yq598VT/bnA5dyVe4xtAGi+g8WaWd1RvAu0D82oHy56kSaWDQeeid5lyc2TBK1QcK1VyfnmsQVA5kAOHZOD6Xi1wA5qwk1kGIi7E9kBSWU7KgC6qfIZTlc8vnKvISFV2a66b0aZK22vcfqTrGj0zzOdGD1aoZFxP3vSysOnOWgSKoaEIWUSCtlIKTFH6+8=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FFAC89003;
+	Wed, 16 Sep 2020 17:55:54 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 324246EA74;
+ Wed, 16 Sep 2020 17:55:52 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DFF0AAE19;
+ Wed, 16 Sep 2020 17:56:05 +0000 (UTC)
+Subject: Re: [PATCH v2 21/21] drm: Remove obsolete GEM and PRIME callbacks
+ from struct drm_driver
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-22-tzimmermann@suse.de>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <7018b84a-fab6-4277-955b-10871be17204@suse.de>
+Date: Wed, 16 Sep 2020 19:55:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1629.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35e5e5a2-222d-4a32-d4d1-08d85a64e94e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2020 17:21:12.8163 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: i/FK7f3czu8Yn6Pysy77BOfgeVRW4jCYbQWbJpewEztt9VVkX6Hfsn7AYnBfWr44jPNb0b+uEVwy3FRbHkZtyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1903
+In-Reply-To: <20200915145958.19993-22-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,154 +70,537 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: multipart/mixed; boundary="===============2097266511=="
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/mixed; boundary="===============0316022152=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2097266511==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0316022152==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="umftTVGoa0aaj4GhYFHJO71SoAj84TIWH"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--umftTVGoa0aaj4GhYFHJO71SoAj84TIWH
+Content-Type: multipart/mixed; boundary="m89X5vDo3Gs337cvkcHa9sq2YNWBTsfA3";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
+ daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <7018b84a-fab6-4277-955b-10871be17204@suse.de>
+Subject: Re: [PATCH v2 21/21] drm: Remove obsolete GEM and PRIME callbacks
+ from struct drm_driver
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-22-tzimmermann@suse.de>
+In-Reply-To: <20200915145958.19993-22-tzimmermann@suse.de>
+
+--m89X5vDo3Gs337cvkcHa9sq2YNWBTsfA3
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB1629A2CFCB511895EC9F4C5AFE210MWHPR12MB1629namp_"
+Content-Transfer-Encoding: quoted-printable
 
---_000_MWHPR12MB1629A2CFCB511895EC9F4C5AFE210MWHPR12MB1629namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQri
-gItBY2tlZC1ieTogU2xhdmEgQWJyYW1vdiA8c2xhdmEuYWJyYW1vdkBhbWQuY29tPg0KDQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
-Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIEx1YmVuIFR1aWtvdiA8bHVi
-ZW4udHVpa292QGFtZC5jb20+DQpTZW50OiBXZWRuZXNkYXksIFNlcHRlbWJlciAxNiwgMjAyMCAx
-OjA4IFBNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPg0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
-ZXJAYW1kLmNvbT47IFR1aWtvdiwgTHViZW4gPEx1YmVuLlR1aWtvdkBhbWQuY29tPg0KU3ViamVj
-dDogW1BBVENIXSBkcm0vYW1kZ3B1OiBObyBzeXNmcywgbm90IGFuIGVycm9yIGNvbmRpdGlvbg0K
-DQpOb3QgYmVpbmcgYWJsZSB0byBjcmVhdGUgYW1kZ3B1IHN5c2ZzIGF0dHJpYnV0ZXMNCmlzIG5v
-dCBhIGZhdGFsIGVycm9yIHdhcnJhbnRpbmcgbm90IHRvIGNvbnRpbnVlDQp0byB0cnkgdG8gYnJp
-bmcgdXAgdGhlIGRpc3BsYXkuIFRodXMsIGlmIHdlIGdldA0KYW4gZXJyb3IgdHJ5aW5nIHRvIGNy
-ZWF0ZSBhbWRncHUgc3lzZnMgYXR0cnMsDQpyZXBvcnQgaXQgYW5kIGNvbnRpbnVlIG9uIHRvIHRy
-eSB0byBicmluZyB1cA0KYSBkaXNwbGF5Lg0KDQpTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3Yg
-PGx1YmVuLnR1aWtvdkBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jIHwgNCArLS0tDQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
-LCAzIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jDQppbmRleCA1ZDcwMmY2ZTc3ZGUuLjYyMTc0ZjVlODMxMSAxMDA2NDQNCi0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQpAQCAtMzQwMCwxMCArMzQwMCw4IEBA
-IGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogICAg
-ICAgICAgICAgICAgIGZsdXNoX2RlbGF5ZWRfd29yaygmYWRldi0+ZGVsYXllZF9pbml0X3dvcmsp
-Ow0KDQogICAgICAgICByID0gc3lzZnNfY3JlYXRlX2ZpbGVzKCZhZGV2LT5kZXYtPmtvYmosIGFt
-ZGdwdV9kZXZfYXR0cmlidXRlcyk7DQotICAgICAgIGlmIChyKSB7DQorICAgICAgIGlmIChyKQ0K
-ICAgICAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwgIkNvdWxkIG5vdCBjcmVhdGUgYW1k
-Z3B1IGRldmljZSBhdHRyXG4iKTsNCi0gICAgICAgICAgICAgICByZXR1cm4gcjsNCi0gICAgICAg
-fQ0KDQogICAgICAgICBpZiAoSVNfRU5BQkxFRChDT05GSUdfUEVSRl9FVkVOVFMpKQ0KICAgICAg
-ICAgICAgICAgICByID0gYW1kZ3B1X3BtdV9pbml0KGFkZXYpOw0KLS0NCjIuMjguMC4zOTQuZ2Ux
-OTcxMzYzODkNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-aHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBz
-JTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1k
-LWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDc2xhdmEuYWJyYW1vdiU0MGFtZC5jb20lN0MwODQyMWUx
-ZTJlMDA0MWM1YjcxYzA4ZDg1YTYzM2FjNSU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUx
-ODNkJTdDMCU3QzAlN0M2MzczNTg3Mjk1NDY4MTQzNzUmYW1wO3NkYXRhPUtPRDlkajdpYnBYQzZz
-MFBpWEpGeXhXZmhkQzc0enhRa0dPSUtqY3czRVklM0QmYW1wO3Jlc2VydmVkPTANCg==
 
---_000_MWHPR12MB1629A2CFCB511895EC9F4C5AFE210MWHPR12MB1629namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Am 15.09.20 um 16:59 schrieb Thomas Zimmermann:
+> Several GEM and PRIME callbacks have been deprecated in favor of
+> per-instance GEM object functions. Remove the callbacks as they are
+> now unused. The only exception is .gem_prime_mmap, which is still
+> in use by several drivers.
+>=20
+> What is also gone is gem_vm_ops in struct drm_driver. All drivers now
+> use struct drm_gem_object_funcs.vm_ops instead.
+>=20
+> While at it, the patch also improves error handling around calls
+> to .free and .get_sg_table callbacks.
+>=20
+> v2:
+> 	* update related TODO item (Sam)
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  Documentation/gpu/todo.rst           |  7 +--
+>  drivers/gpu/drm/drm_gem.c            | 35 +++---------
+>  drivers/gpu/drm/drm_gem_cma_helper.c |  6 +-
+>  drivers/gpu/drm/drm_prime.c          | 17 +++---
+>  include/drm/drm_drv.h                | 85 ++--------------------------=
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
-ImRpc3BsYXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHls
-ZT4NCjwvaGVhZD4NCjxib2R5IGRpcj0ibHRyIj4NCjxwIHN0eWxlPSJmb250LWZhbWlseTpBcmlh
-bDtmb250LXNpemU6MTBwdDtjb2xvcjojMDA3OEQ3O21hcmdpbjoxNXB0OyIgYWxpZ249IkxlZnQi
-Pg0KW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XTxi
-cj4NCjwvcD4NCjxicj4NCjxkaXY+DQo8ZGl2IHN0eWxlPSIiPjxzcGFuIHN0eWxlPSJmb250LWZh
-bWlseTogQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNv
-bG9yOiByZ2IoMCwgMCwgMCk7Ij7igItBY2tlZC1ieTogU2xhdmEgQWJyYW1vdiAmbHQ7c2xhdmEu
-YWJyYW1vdkBhbWQuY29tJmd0Ozwvc3Bhbj48YnI+DQo8L2Rpdj4NCjxkaXYgaWQ9ImFwcGVuZG9u
-c2VuZCI+PC9kaXY+DQo8ZGl2IHN0eWxlPSIiPjxicj4NCjwvZGl2Pg0KPGhyIHRhYmluZGV4PSIt
-MSIgc3R5bGU9ImRpc3BsYXk6aW5saW5lLWJsb2NrOyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0iZGl2
-UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwg
-SGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwg
-MCk7Ij5Gcm9tOjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEhlbHZl
-dGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+
-IGFtZC1nZnggJmx0O2FtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmcmZ3Q7DQog
-b24gYmVoYWxmIG9mIEx1YmVuIFR1aWtvdiAmbHQ7bHViZW4udHVpa292QGFtZC5jb20mZ3Q7PC9z
-cGFuPjxicj4NCjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgSGVsdmV0aWNhLCBz
-YW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij5TZW50Ojwv
-c3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEhlbHZldGljYSwgc2Fucy1z
-ZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+IFdlZG5lc2RheSwg
-U2VwdGVtYmVyIDE2LCAyMDIwIDE6MDggUE08L3NwYW4+PGJyPg0KPHNwYW4gc3R5bGU9ImZvbnQt
-ZmFtaWx5OiBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsg
-Y29sb3I6IHJnYigwLCAwLCAwKTsiPlRvOjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
-IENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjog
-cmdiKDAsIDAsIDApOyI+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnICZsdDthbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyZndDs8L3NwYW4+PGJyPg0KPHNwYW4gc3R5bGU9ImZvbnQt
-ZmFtaWx5OiBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsg
-Y29sb3I6IHJnYigwLCAwLCAwKTsiPkNjOjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
-IENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjog
-cmdiKDAsIDAsIDApOyI+IERldWNoZXIsIEFsZXhhbmRlciAmbHQ7QWxleGFuZGVyLkRldWNoZXJA
-YW1kLmNvbSZndDs7IFR1aWtvdiwNCiBMdWJlbiAmbHQ7THViZW4uVHVpa292QGFtZC5jb20mZ3Q7
-PC9zcGFuPjxicj4NCjxzcGFuIHN0eWxlPSJmb250LXNpemU6IDEycHQ7IGZvbnQtZmFtaWx5OiBD
-YWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij5TdWJq
-ZWN0Ojwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOiAxMnB0OyBmb250LWZhbWlseTogQ2Fs
-aWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBjb2xvcjogcmdiKDAsIDAsIDApOyI+IFtQQVRD
-SF0gZHJtL2FtZGdwdTogTm8gc3lzZnMsIG5vdCBhbiBlcnJvciBjb25kaXRpb248L3NwYW4+DQo8
-ZGl2PiZuYnNwOzwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJCb2R5RnJhZ21lbnQiPjxmb250
-IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTFwdCI+DQo8ZGl2IGNsYXNzPSJQbGFp
-blRleHQiPk5vdCBiZWluZyBhYmxlIHRvIGNyZWF0ZSBhbWRncHUgc3lzZnMgYXR0cmlidXRlczxi
-cj4NCmlzIG5vdCBhIGZhdGFsIGVycm9yIHdhcnJhbnRpbmcgbm90IHRvIGNvbnRpbnVlPGJyPg0K
-dG8gdHJ5IHRvIGJyaW5nIHVwIHRoZSBkaXNwbGF5LiBUaHVzLCBpZiB3ZSBnZXQ8YnI+DQphbiBl
-cnJvciB0cnlpbmcgdG8gY3JlYXRlIGFtZGdwdSBzeXNmcyBhdHRycyw8YnI+DQpyZXBvcnQgaXQg
-YW5kIGNvbnRpbnVlIG9uIHRvIHRyeSB0byBicmluZyB1cDxicj4NCmEgZGlzcGxheS48YnI+DQo8
-YnI+DQpTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgJmx0O2x1YmVuLnR1aWtvdkBhbWQuY29t
-Jmd0Ozxicj4NCi0tLTxicj4NCiZuYnNwO2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYyB8IDQgKy0tLTxicj4NCiZuYnNwOzEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
-bigrKSwgMyBkZWxldGlvbnMoLSk8YnI+DQo8YnI+DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RldmljZS5jPGJyPg0KaW5kZXggNWQ3MDJmNmU3N2RlLi42MjE3NGY1ZTgzMTEg
-MTAwNjQ0PGJyPg0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
-ZS5jPGJyPg0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5j
-PGJyPg0KQEAgLTM0MDAsMTAgKzM0MDAsOCBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LDxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyBmbHVzaF9kZWxheWVkX3dvcmsoJmFtcDthZGV2LSZndDtkZWxheWVkX2luaXRf
-d29yayk7PGJyPg0KJm5ic3A7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7IHIgPSBzeXNmc19jcmVhdGVfZmlsZXMoJmFtcDthZGV2LSZndDtkZXYt
-Jmd0O2tvYmosIGFtZGdwdV9kZXZfYXR0cmlidXRlcyk7PGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAocikgezxicj4NCismbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsgaWYgKHIpPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IGRldl9lcnIoYWRldi0mZ3Q7ZGV2LCAmcXVvdDtDb3VsZCBub3QgY3JlYXRlIGFt
-ZGdwdSBkZXZpY2UgYXR0clxuJnF1b3Q7KTs8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IHJldHVybiByOzxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-fTxicj4NCiZuYnNwOzxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyBpZiAoSVNfRU5BQkxFRChDT05GSUdfUEVSRl9FVkVOVFMpKTxicj4NCiZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyByID0gYW1kZ3B1X3BtdV9pbml0KGFk
-ZXYpOzxicj4NCi0tIDxicj4NCjIuMjguMC4zOTQuZ2UxOTcxMzYzODk8YnI+DQo8YnI+DQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxicj4NCmFtZC1nZngg
-bWFpbGluZyBsaXN0PGJyPg0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8YnI+DQo8YSBo
-cmVmPSJodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9
-aHR0cHMlM0ElMkYlMkZsaXN0cy5mcmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGluZm8l
-MkZhbWQtZ2Z4JmFtcDthbXA7ZGF0YT0wMiU3QzAxJTdDc2xhdmEuYWJyYW1vdiU0MGFtZC5jb20l
-N0MwODQyMWUxZTJlMDA0MWM1YjcxYzA4ZDg1YTYzM2FjNSU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTEx
-YTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzczNTg3Mjk1NDY4MTQzNzUmYW1wO2FtcDtzZGF0YT1L
-T0Q5ZGo3aWJwWEM2czBQaVhKRnl4V2ZoZEM3NHp4UWtHT0lLamN3M0VZJTNEJmFtcDthbXA7cmVz
-ZXJ2ZWQ9MCI+aHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/
-dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3Rp
-bmZvJTJGYW1kLWdmeCZhbXA7YW1wO2RhdGE9MDIlN0MwMSU3Q3NsYXZhLmFicmFtb3YlNDBhbWQu
-Y29tJTdDMDg0MjFlMWUyZTAwNDFjNWI3MWMwOGQ4NWE2MzNhYzUlN0MzZGQ4OTYxZmU0ODg0ZTYw
-OGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MzU4NzI5NTQ2ODE0Mzc1JmFtcDthbXA7c2Rh
-dGE9S09EOWRqN2licFhDNnMwUGlYSkZ5eFdmaGRDNzR6eFFrR09JS2pjdzNFWSUzRCZhbXA7YW1w
-O3Jlc2VydmVkPTA8L2E+PGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250PjwvZGl2Pg0KPC9kaXY+
-DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+>  5 files changed, 25 insertions(+), 125 deletions(-)
+>=20
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index b0ea17da8ff6..0fc6bc222392 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -289,11 +289,8 @@ struct drm_gem_object_funcs
+>  ---------------------------
+> =20
+>  GEM objects can now have a function table instead of having the callba=
+cks on the
+> -DRM driver struct. This is now the preferred way and drivers can be mo=
+ved over.
+> -
+> -We also need a 2nd version of the CMA define that doesn't require the
+> -vmapping to be present (different hook for prime importing). Plus this=
+ needs to
+> -be rolled out to all drivers using their own implementations, too.
+> +DRM driver struct. This is now the preferred way. Callbacks in drivers=
+ have been
+> +converted, except for struct drm_driver.gem_prime_mmap.
+> =20
+>  Level: Intermediate
+> =20
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 19d73868490e..96945bed8291 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -247,12 +247,9 @@ drm_gem_object_release_handle(int id, void *ptr, v=
+oid *data)
+>  {
+>  	struct drm_file *file_priv =3D data;
+>  	struct drm_gem_object *obj =3D ptr;
+> -	struct drm_device *dev =3D obj->dev;
+> =20
+>  	if (obj->funcs && obj->funcs->close)
+>  		obj->funcs->close(obj, file_priv);
+> -	else if (dev->driver->gem_close_object)
+> -		dev->driver->gem_close_object(obj, file_priv);
+> =20
+>  	drm_gem_remove_prime_handles(obj, file_priv);
+>  	drm_vma_node_revoke(&obj->vma_node, file_priv);
+> @@ -407,10 +404,6 @@ drm_gem_handle_create_tail(struct drm_file *file_p=
+riv,
+>  		ret =3D obj->funcs->open(obj, file_priv);
+>  		if (ret)
+>  			goto err_revoke;
+> -	} else if (dev->driver->gem_open_object) {
+> -		ret =3D dev->driver->gem_open_object(obj, file_priv);
+> -		if (ret)
+> -			goto err_revoke;
+>  	}
+> =20
+>  	*handlep =3D handle;
+> @@ -982,12 +975,11 @@ drm_gem_object_free(struct kref *kref)
+>  {
+>  	struct drm_gem_object *obj =3D
+>  		container_of(kref, struct drm_gem_object, refcount);
+> -	struct drm_device *dev =3D obj->dev;
+> =20
+> -	if (obj->funcs)
+> -		obj->funcs->free(obj);
+> -	else if (dev->driver->gem_free_object_unlocked)
+> -		dev->driver->gem_free_object_unlocked(obj);
+> +	if (drm_WARN_ON_ONCE(obj->dev, !obj->funcs || !obj->funcs->free))
+> +		return;
+> +
+> +	obj->funcs->free(obj);
+>  }
+>  EXPORT_SYMBOL(drm_gem_object_free);
+> =20
+> @@ -1049,9 +1041,9 @@ EXPORT_SYMBOL(drm_gem_vm_close);
+>   * @obj_size: the object size to be mapped, in bytes
+>   * @vma: VMA for the area to be mapped
+>   *
+> - * Set up the VMA to prepare mapping of the GEM object using the gem_v=
+m_ops
+> - * provided by the driver. Depending on their requirements, drivers ca=
+n either
+> - * provide a fault handler in their gem_vm_ops (in which case any acce=
+sses to
+> + * Set up the VMA to prepare mapping of the GEM object using the GEM o=
+bject's
+> + * vm_ops. Depending on their requirements, GEM objects can either
+> + * provide a fault handler in their vm_ops (in which case any accesses=
+ to
+>   * the object will be trapped, to perform migration, GTT binding, surf=
+ace
+>   * register allocation, or performance monitoring), or mmap the buffer=
+ memory
+>   * synchronously after calling drm_gem_mmap_obj.
+> @@ -1065,12 +1057,11 @@ EXPORT_SYMBOL(drm_gem_vm_close);
+>   * callers must verify access restrictions before calling this helper.=
 
---_000_MWHPR12MB1629A2CFCB511895EC9F4C5AFE210MWHPR12MB1629namp_--
+>   *
+>   * Return 0 or success or -EINVAL if the object size is smaller than t=
+he VMA
+> - * size, or if no gem_vm_ops are provided.
+> + * size, or if no vm_ops are provided.
+>   */
+>  int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_siz=
+e,
+>  		     struct vm_area_struct *vma)
+>  {
+> -	struct drm_device *dev =3D obj->dev;
+>  	int ret;
+> =20
+>  	/* Check for valid size. */
+> @@ -1095,8 +1086,6 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj, =
+unsigned long obj_size,
+>  	} else {
+>  		if (obj->funcs && obj->funcs->vm_ops)
+>  			vma->vm_ops =3D obj->funcs->vm_ops;
+> -		else if (dev->driver->gem_vm_ops)
+> -			vma->vm_ops =3D dev->driver->gem_vm_ops;
+>  		else {
+>  			drm_gem_object_put(obj);
+>  			return -EINVAL;
+> @@ -1206,8 +1195,6 @@ int drm_gem_pin(struct drm_gem_object *obj)
+>  {
+>  	if (obj->funcs && obj->funcs->pin)
+>  		return obj->funcs->pin(obj);
+> -	else if (obj->dev->driver->gem_prime_pin)
+> -		return obj->dev->driver->gem_prime_pin(obj);
+>  	else
+>  		return 0;
+>  }
+> @@ -1216,8 +1203,6 @@ void drm_gem_unpin(struct drm_gem_object *obj)
+>  {
+>  	if (obj->funcs && obj->funcs->unpin)
+>  		obj->funcs->unpin(obj);
+> -	else if (obj->dev->driver->gem_prime_unpin)
+> -		obj->dev->driver->gem_prime_unpin(obj);
+>  }
+> =20
+>  void *drm_gem_vmap(struct drm_gem_object *obj)
+> @@ -1226,8 +1211,6 @@ void *drm_gem_vmap(struct drm_gem_object *obj)
+> =20
+>  	if (obj->funcs && obj->funcs->vmap)
+>  		vaddr =3D obj->funcs->vmap(obj);
+> -	else if (obj->dev->driver->gem_prime_vmap)
+> -		vaddr =3D obj->dev->driver->gem_prime_vmap(obj);
+>  	else
+>  		vaddr =3D ERR_PTR(-EOPNOTSUPP);
+> =20
+> @@ -1244,8 +1227,6 @@ void drm_gem_vunmap(struct drm_gem_object *obj, v=
+oid *vaddr)
+> =20
+>  	if (obj->funcs && obj->funcs->vunmap)
+>  		obj->funcs->vunmap(obj, vaddr);
+> -	else if (obj->dev->driver->gem_prime_vunmap)
+> -		obj->dev->driver->gem_prime_vunmap(obj, vaddr);
+>  }
+> =20
+>  /**
+> diff --git a/drivers/gpu/drm/drm_gem_cma_helper.c b/drivers/gpu/drm/drm=
+_gem_cma_helper.c
+> index 822edeadbab3..209202257cc2 100644
+> --- a/drivers/gpu/drm/drm_gem_cma_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_cma_helper.c
+> @@ -419,7 +419,7 @@ EXPORT_SYMBOL(drm_gem_cma_print_info);
+>   *
+>   * This function exports a scatter/gather table suitable for PRIME usa=
+ge by
+>   * calling the standard DMA mapping API. Drivers using the CMA helpers=
+ should
+> - * set this as their &drm_driver.gem_prime_get_sg_table callback.
+> + * set this as their &drm_gem_object_funcs.get_sg_table callback.
+>   *
+>   * Returns:
+>   * A pointer to the scatter/gather table of pinned pages or NULL on fa=
+ilure.
+> @@ -542,7 +542,7 @@ EXPORT_SYMBOL_GPL(drm_gem_cma_prime_mmap);
+>   * virtual address space. Since the CMA buffers are already mapped int=
+o the
+>   * kernel virtual address space this simply returns the cached virtual=
 
---===============2097266511==
+>   * address. Drivers using the CMA helpers should set this as their DRM=
+
+> - * driver's &drm_driver.gem_prime_vmap callback.
+> + * driver's &drm_gem_object_funcs.vmap callback.
+>   *
+>   * Returns:
+>   * The kernel virtual address of the CMA GEM object's backing store.
+> @@ -564,7 +564,7 @@ EXPORT_SYMBOL_GPL(drm_gem_cma_prime_vmap);
+>   * This function removes a buffer exported via DRM PRIME from the kern=
+el's
+>   * virtual address space. This is a no-op because CMA buffers cannot b=
+e
+>   * unmapped from kernel space. Drivers using the CMA helpers should se=
+t this
+> - * as their &drm_driver.gem_prime_vunmap callback.
+> + * as their &drm_gem_object_funcs.vunmap callback.
+>   */
+>  void drm_gem_cma_prime_vunmap(struct drm_gem_object *obj, void *vaddr)=
+
+>  {
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 8a6a3c99b7d8..1cffb004d3c8 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -386,10 +386,6 @@ static struct dma_buf *export_and_register_object(=
+struct drm_device *dev,
+> =20
+>  	if (obj->funcs && obj->funcs->export)
+>  		dmabuf =3D obj->funcs->export(obj, flags);
+> -	else if (dev->driver->gem_prime_export)
+> -		dmabuf =3D dev->driver->gem_prime_export(obj, flags);
+
+> -	else
+> -		dmabuf =3D drm_gem_prime_export(obj, flags);
+
+Oops, these two lines were not supposed to be removed. They'll return in
+v3 of the patchset. That will also fix the error report that was posted
+by the CI. [1]
+
+Best regards
+Thomas
+
+[1]
+https://lore.kernel.org/intel-gfx/160018797587.30601.1382075328491651866@=
+emeril.freedesktop.org/
+
+
+>  	if (IS_ERR(dmabuf)) {
+>  		/* normally the created dma-buf takes ownership of the ref,
+>  		 * but if that fails then drop the ref
+> @@ -419,7 +415,7 @@ static struct dma_buf *export_and_register_object(s=
+truct drm_device *dev,
+>   * This is the PRIME export function which must be used mandatorily by=
+ GEM
+>   * drivers to ensure correct lifetime management of the underlying GEM=
+ object.
+>   * The actual exporting from GEM object to a dma-buf is done through t=
+he
+> - * &drm_driver.gem_prime_export driver callback.
+> + * &drm_gem_object_funcs.export callback.
+>   */
+>  int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>  			       struct drm_file *file_priv, uint32_t handle,
+> @@ -616,15 +612,18 @@ struct sg_table *drm_gem_map_dma_buf(struct dma_b=
+uf_attachment *attach,
+>  				     enum dma_data_direction dir)
+>  {
+>  	struct drm_gem_object *obj =3D attach->dmabuf->priv;
+> -	struct sg_table *sgt;
+> +	struct sg_table *sgt =3D NULL;
+> =20
+>  	if (WARN_ON(dir =3D=3D DMA_NONE))
+>  		return ERR_PTR(-EINVAL);
+> =20
+> -	if (obj->funcs)
+> +	if (obj->funcs && obj->funcs->get_sg_table)
+>  		sgt =3D obj->funcs->get_sg_table(obj);
+> -	else
+> -		sgt =3D obj->dev->driver->gem_prime_get_sg_table(obj);
+> +
+> +	if (!sgt)
+> +		return ERR_PTR(-EINVAL);
+> +	else if (IS_ERR(sgt))
+> +		return sgt;
+> =20
+>  	if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
+>  			      DMA_ATTR_SKIP_CPU_SYNC)) {
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 9b11a2f0babc..240b0eab8018 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -36,10 +36,12 @@ struct drm_file;
+>  struct drm_gem_object;
+>  struct drm_master;
+>  struct drm_minor;
+> +struct dma_buf;
+>  struct dma_buf_attachment;
+>  struct drm_display_mode;
+>  struct drm_mode_create_dumb;
+>  struct drm_printer;
+> +struct sg_table;
+> =20
+>  /**
+>   * enum drm_driver_feature - feature flags
+> @@ -326,32 +328,6 @@ struct drm_driver {
+>  	 */
+>  	void (*debugfs_init)(struct drm_minor *minor);
+> =20
+> -	/**
+> -	 * @gem_free_object_unlocked: deconstructor for drm_gem_objects
+> -	 *
+> -	 * This is deprecated and should not be used by new drivers. Use
+> -	 * &drm_gem_object_funcs.free instead.
+> -	 */
+> -	void (*gem_free_object_unlocked) (struct drm_gem_object *obj);
+> -
+> -	/**
+> -	 * @gem_open_object:
+> -	 *
+> -	 * This callback is deprecated in favour of &drm_gem_object_funcs.ope=
+n.
+> -	 *
+> -	 * Driver hook called upon gem handle creation
+> -	 */
+> -	int (*gem_open_object) (struct drm_gem_object *, struct drm_file *);
+> -
+> -	/**
+> -	 * @gem_close_object:
+> -	 *
+> -	 * This callback is deprecated in favour of &drm_gem_object_funcs.clo=
+se.
+> -	 *
+> -	 * Driver hook called upon gem handle release
+> -	 */
+> -	void (*gem_close_object) (struct drm_gem_object *, struct drm_file *)=
+;
+> -
+>  	/**
+>  	 * @gem_create_object: constructor for gem objects
+>  	 *
+> @@ -360,6 +336,7 @@ struct drm_driver {
+>  	 */
+>  	struct drm_gem_object *(*gem_create_object)(struct drm_device *dev,
+>  						    size_t size);
+> +
+>  	/**
+>  	 * @prime_handle_to_fd:
+>  	 *
+> @@ -382,14 +359,7 @@ struct drm_driver {
+>  	 */
+>  	int (*prime_fd_to_handle)(struct drm_device *dev, struct drm_file *fi=
+le_priv,
+>  				int prime_fd, uint32_t *handle);
+> -	/**
+> -	 * @gem_prime_export:
+> -	 *
+> -	 * Export hook for GEM drivers. Deprecated in favour of
+> -	 * &drm_gem_object_funcs.export.
+> -	 */
+> -	struct dma_buf * (*gem_prime_export)(struct drm_gem_object *obj,
+> -					     int flags);
+> +
+>  	/**
+>  	 * @gem_prime_import:
+>  	 *
+> @@ -399,29 +369,6 @@ struct drm_driver {
+>  	 */
+>  	struct drm_gem_object * (*gem_prime_import)(struct drm_device *dev,
+>  				struct dma_buf *dma_buf);
+> -
+> -	/**
+> -	 * @gem_prime_pin:
+> -	 *
+> -	 * Deprecated hook in favour of &drm_gem_object_funcs.pin.
+> -	 */
+> -	int (*gem_prime_pin)(struct drm_gem_object *obj);
+> -
+> -	/**
+> -	 * @gem_prime_unpin:
+> -	 *
+> -	 * Deprecated hook in favour of &drm_gem_object_funcs.unpin.
+> -	 */
+> -	void (*gem_prime_unpin)(struct drm_gem_object *obj);
+> -
+> -
+> -	/**
+> -	 * @gem_prime_get_sg_table:
+> -	 *
+> -	 * Deprecated hook in favour of &drm_gem_object_funcs.get_sg_table.
+> -	 */
+> -	struct sg_table *(*gem_prime_get_sg_table)(struct drm_gem_object *obj=
+);
+> -
+>  	/**
+>  	 * @gem_prime_import_sg_table:
+>  	 *
+> @@ -432,22 +379,6 @@ struct drm_driver {
+>  				struct drm_device *dev,
+>  				struct dma_buf_attachment *attach,
+>  				struct sg_table *sgt);
+> -	/**
+> -	 * @gem_prime_vmap:
+> -	 *
+> -	 * Deprecated vmap hook for GEM drivers. Please use
+> -	 * &drm_gem_object_funcs.vmap instead.
+> -	 */
+> -	void *(*gem_prime_vmap)(struct drm_gem_object *obj);
+> -
+> -	/**
+> -	 * @gem_prime_vunmap:
+> -	 *
+> -	 * Deprecated vunmap hook for GEM drivers. Please use
+> -	 * &drm_gem_object_funcs.vunmap instead.
+> -	 */
+> -	void (*gem_prime_vunmap)(struct drm_gem_object *obj, void *vaddr);
+> -
+>  	/**
+>  	 * @gem_prime_mmap:
+>  	 *
+> @@ -522,14 +453,6 @@ struct drm_driver {
+>  			    struct drm_device *dev,
+>  			    uint32_t handle);
+> =20
+> -	/**
+> -	 * @gem_vm_ops: Driver private ops for this object
+> -	 *
+> -	 * For GEM drivers this is deprecated in favour of
+> -	 * &drm_gem_object_funcs.vm_ops.
+> -	 */
+> -	const struct vm_operations_struct *gem_vm_ops;
+> -
+>  	/** @major: driver major number */
+>  	int major;
+>  	/** @minor: driver minor number */
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--m89X5vDo3Gs337cvkcHa9sq2YNWBTsfA3--
+
+--umftTVGoa0aaj4GhYFHJO71SoAj84TIWH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9iUaAUHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPwlgf+J6YL9QPmb3kAFZqllTCzmUHeS1rj
+BAR/r5nmUMeALr/eiCtkqRPD6aDCjubM9SmhukWKXpfEk1xRZFs/s+UQoM5GNyPu
+aOLI+0n/LwxsHO+DVQFyWEFWDg4o4ZO1i49W0pokRVVTfs33G6IaBmnw14t4+DN8
+hPfaWR666o0WbNtDSluyyK8FdiskAhrGUbLATkbSsrAk6qKThz85Y4ohQjoSBzsu
+CSlzaF8SaKtfXUutksWzd0v43ftvs9hzjXupAivZX9w2AujI/jhOieX1ipBXonvR
+bjrujNgkck1q2TFf0m4wCx9nGKu62bsAemVHUaD7NqPpUsefJjUiTODQCA==
+=/8Kr
+-----END PGP SIGNATURE-----
+
+--umftTVGoa0aaj4GhYFHJO71SoAj84TIWH--
+
+--===============0316022152==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -269,4 +611,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2097266511==--
+--===============0316022152==--
