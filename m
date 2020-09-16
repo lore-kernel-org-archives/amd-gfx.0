@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21E9FC43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:58:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95219C433E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90FC920936
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:58:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 33530208E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:59:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eX9KxJmQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90FC920936
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsCF83WM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33530208E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4EEB6EB18;
-	Wed, 16 Sep 2020 19:58:36 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54CE66EB18
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 19:58:36 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id y15so4292289wmi.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 12:58:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 996856EB1A;
+	Wed, 16 Sep 2020 19:59:21 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DF746EB0B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 19:59:20 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id a17so8145744wrn.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 12:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DfA6+xRS6Nq0n8p9CQ9hN/w7hL9OWCmZOuirF19p7YU=;
- b=eX9KxJmQXk34gPW15ogEcW2MO7ICw8F85oKVDechB68LJEwXkikXAYYraJOZxw2DcF
- wMJtucBpj7nGAqLuAfFa9fRhZeJjhU4T9VPM7z076Bt5IhwxIHQ4qsMC5H8+GNsn/TM7
- 9MOJbhJ7cJDGy38xybTz+YWXZZRukvbRJ7RW1VxdMCWeFy2AMsQF95CheSxaSUwuQ1VX
- wKxlxQm0PBtG5iCYnXMe6CJR6CYxhQdGNjrbWkS6J9lm3u35MG+gr0CS1KHmSGPDgskY
- y0fc0FWl53gGZlNJHxmDAwWx3QwIPwunwAfoMBl9YFG8jaZcDMnTTOV8lC5GKArZaOoK
- +uyQ==
+ :cc; bh=lA3jAX9/FgsAYluawFk9jDH+zB0GqpsPWzCScL3YMs8=;
+ b=EsCF83WMZwsbWQuJKHLm8sklWc7xVKNUa9L/XAlI0IhvVENGKmbk6uqtpX9+51Zehd
+ Tx4lMxNaYyjQ1Vpcq/IhEDdztN11SvGQa9Or7Qm9YjY/C9hN5ZECe6VAzgWm927P3LqO
+ h7zanR8Wykn2LOFVQXrhJiLiW6lzGg6lkVdNCtilx2shBZ4CdZZ4AEALxpPhIAM1EKGL
+ sf+EAfF97wbneIO8kFeUqOVgfvJi84LbUDovr1z0Za5zWr5hNj7UElauKCBdXfcCiHV6
+ tVjDtSOKUO0vRbfeXID5FfrW1jsBxYZE9qg7SkkmwQ1jsboo/rPkgTZkOj4R4FBbpvgJ
+ qwxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=DfA6+xRS6Nq0n8p9CQ9hN/w7hL9OWCmZOuirF19p7YU=;
- b=i/9yv65RXc8qdz24zuaWJ7YB2Wv96agzWShtVyt+TiEgb55HnBkDyQe1iI3EOfThaV
- y1Hzv1JjOWc2TpuEHVs8F4Z3hRRLvYt3psio+vHbPos1idHR3lKzWFkguX6NSW7rC7x9
- 0vI6xkg8tL0LzknHJaThmBJFNu/YQwsDtSDQNNaeRzfNN/HYeQuScz6v1x3EeenGDFSg
- qzDacaVdyt91zblaonbXzl3a7lSA8cV8BqjC3lc6wVeFGGX+0mYCeBA/MM+oBUcu9Dsb
- ygIvmnokGXvk3G2mGG5l5rvyY4b3gW+xrQiT3j3icweRatmdlJKUAHE3rXiph2BrYdys
- 5rHg==
-X-Gm-Message-State: AOAM533hbdQsmB497/4EGE6vAkCq8VcfP2ceiFJLetfLb1s60n/OVIBg
- i19T3psh6VIOMy+Wa+dlQJeZs/bqlh7GHh1LXHnv5fw1
-X-Google-Smtp-Source: ABdhPJzfaisBnHsunDQBfZXSkRgkLwEjiD+g1akR3X6Q8dyPPDlF5qOkbvHXG0uciBf2Brv5HpTx8LXgHwaVc7b8Z4A=
-X-Received: by 2002:a1c:7d4d:: with SMTP id y74mr6361326wmc.73.1600286314982; 
- Wed, 16 Sep 2020 12:58:34 -0700 (PDT)
+ bh=lA3jAX9/FgsAYluawFk9jDH+zB0GqpsPWzCScL3YMs8=;
+ b=h2C9JE4/7NS7za46pCYbYWsojcyOaaFUU5bwMJTSwclFZ7WzPhRoBk/sRlAFzDYA73
+ mhtdoiAQvnmXXbZi6iInhUmwe3yEZ7OSRh1uGyq5Q5zR6ZIXi6vHR5emNuVJ/v+wtTSA
+ 2vBvJXJUmFUfgzK9pKuE+eHYLRd+pMU/1npzqbPkM73FXP0GMBF6PfmubnsqTsvQNktF
+ R74ZRAh6iPFOV5piXm30iXSgtIZnDrcZEPrAlsDMJZqvrQrrEIu7JATtO+bOuq6LA/0w
+ Gp485AZUNBjj61WAov9wyFO0oCpgX/nXtGuZdyohUUBHbeGgv646A+BTLbJ93EMRlZTg
+ BWPg==
+X-Gm-Message-State: AOAM532Q0WRQ+D18fBlXmV7oWE7TtcOdJBEG2cg4qX2iqpdmk2EO1oOx
+ +b/8bwUWYIILdfLcEQUTyFKSZxqb2dHSDkjIJdiQwFak
+X-Google-Smtp-Source: ABdhPJzuGUnZGP5UiCF9U4MQ/tmCXUWTGJPo8R//OqUYQA95tCq/xOUOO9SzZchvb9eQeaer3NZCf3AKxNXYX69MJ8U=
+X-Received: by 2002:adf:fc0a:: with SMTP id i10mr28018253wrr.111.1600286358895; 
+ Wed, 16 Sep 2020 12:59:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200916162130.1562572-1-tom.stdenis@amd.com>
-In-Reply-To: <20200916162130.1562572-1-tom.stdenis@amd.com>
+References: <20200916170839.452442-1-luben.tuikov@amd.com>
+In-Reply-To: <20200916170839.452442-1-luben.tuikov@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2020 15:58:24 -0400
-Message-ID: <CADnq5_OM1dJEB8tbMfxu8CzjhR_niww4DLq8pi4aDYj05Pbfjw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: add mmUVD_FW_STATUS register to uvd700
-To: Tom St Denis <tom.stdenis@amd.com>
+Date: Wed, 16 Sep 2020 15:59:08 -0400
+Message-ID: <CADnq5_MXhS9588h=hFuYokHqsnGnLvK7XAu5dbyaZhx2L7c+MQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: No sysfs, not an error condition
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,76 +73,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2020 at 12:21 PM Tom St Denis <tom.stdenis@amd.com> wrote:
+On Wed, Sep 16, 2020 at 1:09 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
-> This register was requested for umr debugging support.
+> Not being able to create amdgpu sysfs attributes
+> is not a fatal error warranting not to continue
+> to try to bring up the display. Thus, if we get
+> an error trying to create amdgpu sysfs attrs,
+> report it and continue on to try to bring up
+> a display.
 >
-> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  .../amd/include/asic_reg/uvd/uvd_7_0_offset.h |  3 +++
->  .../include/asic_reg/uvd/uvd_7_0_sh_mask.h    | 20 +++++++++++++++++++
->  2 files changed, 23 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h
-> index 07aceffb108a..524ba4421c17 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h
-> @@ -151,6 +151,8 @@
->  #define mmUVD_LMI_CTRL2_BASE_IDX                                                                       1
->  #define mmUVD_MASTINT_EN                                                                               0x0540
->  #define mmUVD_MASTINT_EN_BASE_IDX                                                                      1
-> +#define mmUVD_FW_STATUS                                                                                0x0557
-> +#define mmUVD_FW_STATUS_BASE_IDX                                                                       1
->  #define mmJPEG_CGC_CTRL                                                                                0x0565
->  #define mmJPEG_CGC_CTRL_BASE_IDX                                                                       1
->  #define mmUVD_LMI_CTRL                                                                                 0x0566
-> @@ -219,4 +221,5 @@
->  #define mmUVD_CONTEXT_ID2_BASE_IDX                                                                     1
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5d702f6e77de..62174f5e8311 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3400,10 +3400,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>                 flush_delayed_work(&adev->delayed_init_work);
 >
+>         r = sysfs_create_files(&adev->dev->kobj, amdgpu_dev_attributes);
+> -       if (r) {
+> +       if (r)
+>                 dev_err(adev->dev, "Could not create amdgpu device attr\n");
+> -               return r;
+> -       }
 >
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h
-> index b427f73bd536..919be1842bd5 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h
-> @@ -807,5 +807,25 @@
->  #define UVD_CONTEXT_ID2__CONTEXT_ID2__SHIFT                                                                   0x0
->  #define UVD_CONTEXT_ID2__CONTEXT_ID2_MASK                                                                     0xFFFFFFFFL
->
-> +//UVD_FW_STATUS
-> +#define UVD_FW_STATUS__BUSY__SHIFT                                                                            0x0
-> +#define UVD_FW_STATUS__ACTIVE__SHIFT                                                                          0x1
-> +#define UVD_FW_STATUS__SEND_EFUSE_REQ__SHIFT                                                                  0x2
-> +#define UVD_FW_STATUS__DONE__SHIFT                                                                            0x8
-> +#define UVD_FW_STATUS__PASS__SHIFT                                                                            0x10
-> +#define UVD_FW_STATUS__FAIL__SHIFT                                                                            0x11
-> +#define UVD_FW_STATUS__INVALID_LEN__SHIFT                                                                     0x12
-> +#define UVD_FW_STATUS__INVALID_0_PADDING__SHIFT                                                               0x13
-> +#define UVD_FW_STATUS__INVALID_NONCE__SHIFT                                                                   0x14
-> +#define UVD_FW_STATUS__BUSY_MASK                                                                              0x00000001L
-> +#define UVD_FW_STATUS__ACTIVE_MASK                                                                            0x00000002L
-> +#define UVD_FW_STATUS__SEND_EFUSE_REQ_MASK                                                                    0x00000004L
-> +#define UVD_FW_STATUS__DONE_MASK                                                                              0x00000100L
-> +#define UVD_FW_STATUS__PASS_MASK                                                                              0x00010000L
-> +#define UVD_FW_STATUS__FAIL_MASK                                                                              0x00020000L
-> +#define UVD_FW_STATUS__INVALID_LEN_MASK                                                                       0x00040000L
-> +#define UVD_FW_STATUS__INVALID_0_PADDING_MASK                                                                 0x00080000L
-> +#define UVD_FW_STATUS__INVALID_NONCE_MASK                                                                     0x00100000L
-> +
->
->  #endif
+>         if (IS_ENABLED(CONFIG_PERF_EVENTS))
+>                 r = amdgpu_pmu_init(adev);
 > --
-> 2.26.2
+> 2.28.0.394.ge197136389
 >
 > _______________________________________________
 > amd-gfx mailing list
