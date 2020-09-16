@@ -2,109 +2,71 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4428C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 11:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D665C433E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 11:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74134221E5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 11:34:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E3BEC221E5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 11:35:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CV1XgkCZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74134221E5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="VZm53vKz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3BEC221E5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C767C8984C;
-	Wed, 16 Sep 2020 11:34:27 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760071.outbound.protection.outlook.com [40.107.76.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7619C8984C
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 11:34:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YFCP5XqhuBFTn7VluX33xqhGa7nsENzDn13wWwUXuE1kRq56K7i1xcE7p27Liq8mdtkREfdcxlXuB6p0UcyEPV+DILBztYX22x/0LdTv+gGx7FuKiDSTwGRcqbCkDEPa4ZKQVjc9aqAFUGU1u4jBRhtiwF9LlRBGORcd672lNSDs1xnX5KMHb0SzGbSLli5L/5OIwBS5hJ8nlEki7iZq5NH5WY5mP4OMUeHiCPs9ts6rQXXB3OxqL+yM9EYcxF2zcarPFHFz+QQkUImS6fww2A021nZ/GTQu39lhpUx3gr4Rcbsj4A/Y73yODbxM4+W0BT5S58gGxGia/IPYtwKfjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N6nhKEd+4V7PXl5pxw/60ELBbITGuK84elP0cNWsXCE=;
- b=ZXqj53w1NcRksA17SzTZx+Uzeaz+g+iVDx+Ztc9RJDRXzPyP6x1adOos3KowgzWvW+/yyGjOHXFfVrYrB5pfo2/pVtU2P/IXJBZNpYtjzSvnqKcCgPAV18A98bf0HOp9lWavdTh0R31axykwzPDpiFWOHV7RG8UiBTRsSXMSTDo2HnIP8BWqWL7o+2BovLtHV/EiGV4WYFgZ/tg2Cxqa/971FSEOlffvDGTI2slQG+Z28RqlULXlLQhQz6WNlHZLY9koGqmw5Vlle2lWA8DOVyWC4GHFcfFHlKdSlOd23OBqhMW8TlU62Kd1cmeCTdwDPNd6n0LU/L47Hl6Fjr5p5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N6nhKEd+4V7PXl5pxw/60ELBbITGuK84elP0cNWsXCE=;
- b=CV1XgkCZujZgTWlszbHt/hVh1vj7E3nlrxg3ToVXleNT8JYBQv9G7RCRYq1j6lAjJX8BzUlK9g+5u2B3JOoUp2VAlinE3qF+oA25TOCBd0t1CNg8hus72a1jUZsPpt4jmDi5Uio4WDbO0vON+hctyVSnh9k2k+/nLQ/fnxv/Jxs=
-Received: from DM5PR19CA0037.namprd19.prod.outlook.com (2603:10b6:3:9a::23) by
- BN6PR12MB1554.namprd12.prod.outlook.com (2603:10b6:405:3::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.17; Wed, 16 Sep 2020 11:34:25 +0000
-Received: from DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:9a:cafe::85) by DM5PR19CA0037.outlook.office365.com
- (2603:10b6:3:9a::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11 via Frontend
- Transport; Wed, 16 Sep 2020 11:34:25 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT045.mail.protection.outlook.com (10.13.173.123) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3370.16 via Frontend Transport; Wed, 16 Sep 2020 11:34:24 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 16 Sep
- 2020 06:34:24 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 16 Sep
- 2020 06:34:24 -0500
-Received: from navi10-sut.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3 via Frontend
- Transport; Wed, 16 Sep 2020 06:34:22 -0500
-From: Jiansong Chen <Jiansong.Chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: declare ta firmware for navy_flounder
-Date: Wed, 16 Sep 2020 19:34:08 +0800
-Message-ID: <20200916113408.19088-1-Jiansong.Chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 011306E9AE;
+	Wed, 16 Sep 2020 11:35:22 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 506296E9AE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 11:35:20 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id b79so2622290wmb.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 04:35:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=DdTA+P9lRhC68qI4dpVtWpzlyCIniGzxdHE1O+Q7zUU=;
+ b=VZm53vKzP2cW6qF7XV0KSRt5PPELHpk07zG//Mxa2CBTIBDdZdST/S+s0rdEQKVsZW
+ gTZ1OWjoGqV/1N91UgOzFqec1vf3PElY/ngrFrKXGmjuOOcYrYiRpj5tf2Kdv9HG27Xk
+ tCQbqYKzbNGq1n8DixVR/dUuMsm1DSxiACKH4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=DdTA+P9lRhC68qI4dpVtWpzlyCIniGzxdHE1O+Q7zUU=;
+ b=CYvvkX1I0elf74M5LkmdiClxrpWya3jhmALpyoqEHXGjHc3aZB5I+Ajm3WLAGrTpNN
+ ww2U7RceX04ejBLWJZtQGcG4T6jbE/SxsIn25xNEQ5bcwy+BPlXR2OwcTxC/fiTUuRbn
+ /mhn3Zcks8WgX1jT9VvaaClFDavIYczwrA2mzbVV8b0vuaEYYpIWPUO2wtlF3lRV9OIW
+ cg32z6LLrmYiO9iIjaQk2Xz61LQIfKpP4IQ23qL6typzKi6Mw8Djh3TYG7NkKs+GbE38
+ HJxLnK7O0lNbjRaWjrR73guffRKqqouq6yM7X7mtqdewxWmrd6EmqpVSg2gS7lJ7i0HT
+ ovvg==
+X-Gm-Message-State: AOAM531aahLyh7opEZj9NSnA4H70PlERI9Kxh9+N0b0Jn7ME2gNK+VrN
+ KIOuj21dx3YR7GIrFvLUqCkz2A==
+X-Google-Smtp-Source: ABdhPJylkcOBbGgEGGZKZhaBAwyH9kqk9RFSGhRv17hk61GEhNulx96NJ9Vhx8cdjXcbwhCg7LMEDQ==
+X-Received: by 2002:a05:600c:2109:: with SMTP id
+ u9mr3990398wml.147.1600256118887; 
+ Wed, 16 Sep 2020 04:35:18 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id g14sm4163583wrv.25.2020.09.16.04.35.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 04:35:18 -0700 (PDT)
+Date: Wed, 16 Sep 2020 13:35:14 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 07/21] drm/mediatek: Introduce GEM object functions
+Message-ID: <20200916113514.GK438822@phenom.ffwll.local>
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <20200915145958.19993-8-tzimmermann@suse.de>
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4569df50-989e-47a3-7832-08d85a3476b9
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1554:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB15540F6B1BF28856D34C5A5BEA210@BN6PR12MB1554.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YoMyV2PQcYPuWKHYBOKVjMJAvCy5yFiebP98VRv2GZ6k/YUEHrpWVbVaDeFlKJsbjiglSh6rnhyEcVbYJIxLJenSEO/n1JuKcyolsB6xf5dBEIFHZYIUNfCY8qjJekxS3t23sNRGoZd3aQAnmxDFyb2eTqEPXxr5KA4NrB4c40+Z9SKCKWPX022ss5SfEaSD3MJ4yyWjlcLPpk6LY+BVR3mygzpLAqq18atagF3oyATCBNRSwjDDheBAsxxYVJuomRBfA1dcK6xCDUlxODww/fghxZ+1hj5rCw6+8QiXGiSZ/2+v4qFQiAw0nwYZPw32jWGIeMBNM8OuRP4s7cOuqeI6ZkRNcHe5fo9FM9oWrkeOH3O0BHfHhgPMOyx1AkAdHNbI6rDkbWpFeAaaQMnQfg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39840400004)(376002)(346002)(136003)(396003)(46966005)(426003)(6666004)(1076003)(336012)(54906003)(478600001)(186003)(7696005)(5660300002)(356005)(81166007)(86362001)(6916009)(2906002)(8676002)(70586007)(47076004)(70206006)(4326008)(36756003)(83380400001)(8936002)(316002)(82310400003)(2616005)(26005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 11:34:24.8741 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4569df50-989e-47a3-7832-08d85a3476b9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT045.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1554
+Content-Disposition: inline
+In-Reply-To: <20200915145958.19993-8-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,41 +78,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tao.zhou1@amd.com, tianci.yin@amd.com,
- Jiansong Chen <Jiansong.Chen@amd.com>
+Cc: hamohammed.sa@gmail.com, heiko@sntech.de, andrey.grodzovsky@amd.com,
+ airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ michal.simek@xilinx.com, eric@anholt.net, thierry.reding@gmail.com,
+ robdclark@gmail.com, krzk@kernel.org, sam@ravnborg.org,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com,
+ linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ oleksandr_andrushchenko@epam.com, tomi.valkeinen@ti.com,
+ linux-tegra@vger.kernel.org, linux@armlinux.org.uk,
+ patrik.r.jakobsson@gmail.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, kgene@kernel.org, bskeggs@redhat.com,
+ xen-devel@lists.xenproject.org, miaoqinglang@huawei.com,
+ intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
+ chunkuang.hu@kernel.org, andi.shyti@intel.com, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, marek.olsak@amd.com, tianci.yin@amd.com,
+ maarten.lankhorst@linux.intel.com, etnaviv@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, inki.dae@samsung.com, hdegoede@redhat.com,
+ christian.gmeiner@gmail.com, linux-mediatek@lists.infradead.org,
+ mripard@kernel.org, rodrigo.vivi@intel.com, matthias.bgg@gmail.com,
+ evan.quan@amd.com, sean@poorly.run, linux-arm-kernel@lists.infradead.org,
+ tvrtko.ursulin@linux.intel.com, amd-gfx@lists.freedesktop.org,
+ laurent.pinchart@ideasonboard.com, hyun.kwon@xilinx.com,
+ rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com, Felix.Kuehling@amd.com,
+ xinhui.pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ chris@chris-wilson.co.uk, kyungmin.park@samsung.com, nirmoy.das@amd.com,
+ p.zabel@pengutronix.de, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com,
+ l.stach@pengutronix.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The information provided via MODULE_FIRMWARE appears in
-the module information. External tools(eg. dracut) may use the
-list of fw files to include them as appropriate in an initramfs,
-thus missing declaration will lead to request firmware failure
-in boot time.
+On Tue, Sep 15, 2020 at 04:59:44PM +0200, Thomas Zimmermann wrote:
+> GEM object functions deprecate several similar callback interfaces in
+> struct drm_driver. This patch replaces the per-driver callbacks with
+> per-instance callbacks in mediatek. The only exception is gem_prime_mmap,
+> which is non-trivial to convert.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c |  5 -----
+>  drivers/gpu/drm/mediatek/mtk_drm_gem.c | 11 +++++++++++
+>  2 files changed, 11 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> index 040a8f393fe2..2f8d0043fca7 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -301,18 +301,13 @@ struct drm_gem_object *mtk_drm_gem_prime_import(struct drm_device *dev,
+>  static struct drm_driver mtk_drm_driver = {
+>  	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
+>  
+> -	.gem_free_object_unlocked = mtk_drm_gem_free_object,
+> -	.gem_vm_ops = &drm_gem_cma_vm_ops,
+>  	.dumb_create = mtk_drm_gem_dumb_create,
+>  
+>  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+>  	.gem_prime_import = mtk_drm_gem_prime_import,
+> -	.gem_prime_get_sg_table = mtk_gem_prime_get_sg_table,
+>  	.gem_prime_import_sg_table = mtk_gem_prime_import_sg_table,
+>  	.gem_prime_mmap = mtk_drm_gem_mmap_buf,
+> -	.gem_prime_vmap = mtk_drm_gem_prime_vmap,
+> -	.gem_prime_vunmap = mtk_drm_gem_prime_vunmap,
+>  	.fops = &mtk_drm_fops,
+>  
+>  	.name = DRIVER_NAME,
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_gem.c b/drivers/gpu/drm/mediatek/mtk_drm_gem.c
+> index 6190cc3b7b0d..591b90410e4a 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_gem.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_gem.c
+> @@ -8,11 +8,20 @@
+>  #include <drm/drm.h>
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_gem.h>
+> +#include <drm/drm_gem_cma_helper.h>
+>  #include <drm/drm_prime.h>
+>  
+>  #include "mtk_drm_drv.h"
+>  #include "mtk_drm_gem.h"
+>  
+> +static const struct drm_gem_object_funcs mtk_drm_gem_object_funcs = {
+> +	.free = mtk_drm_gem_free_object,
+> +	.get_sg_table = mtk_gem_prime_get_sg_table,
+> +	.vmap = mtk_drm_gem_prime_vmap,
+> +	.vunmap = mtk_drm_gem_prime_vunmap,
+> +	.vm_ops = &drm_gem_cma_vm_ops,
+> +};
+> +
+>  static struct mtk_drm_gem_obj *mtk_drm_gem_init(struct drm_device *dev,
+>  						unsigned long size)
+>  {
+> @@ -25,6 +34,8 @@ static struct mtk_drm_gem_obj *mtk_drm_gem_init(struct drm_device *dev,
+>  	if (!mtk_gem_obj)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> +	mtk_gem_obj->base.funcs = &mtk_drm_gem_object_funcs;
+> +
+>  	ret = drm_gem_object_init(dev, &mtk_gem_obj->base, size);
+>  	if (ret < 0) {
+>  		DRM_ERROR("failed to initialize gem object\n");
+> -- 
+> 2.28.0
 
-Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
-Change-Id: I0eb0231d0e4672ee00ebdbe0bd8e75245a8c1698
----
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index e16874f30d5d..6c5d9612abcb 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -58,7 +58,7 @@ MODULE_FIRMWARE("amdgpu/arcturus_ta.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_sos.bin");
- MODULE_FIRMWARE("amdgpu/sienna_cichlid_ta.bin");
- MODULE_FIRMWARE("amdgpu/navy_flounder_sos.bin");
--MODULE_FIRMWARE("amdgpu/navy_flounder_asd.bin");
-+MODULE_FIRMWARE("amdgpu/navy_flounder_ta.bin");
- 
- /* address block */
- #define smnMP1_FIRMWARE_FLAGS		0x3010024
+> 
+
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
