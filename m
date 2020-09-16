@@ -2,42 +2,82 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.9 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47534C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 07:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98F55C433E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 07:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC4512076C
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 07:32:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC4512076C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 4C4162078D
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 07:38:41 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qfJOIvaW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C4162078D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 430DA6E9C6;
-	Wed, 16 Sep 2020 07:32:54 +0000 (UTC)
-X-Greylist: delayed 597 seconds by postgrey-1.36 at gabe;
- Wed, 16 Sep 2020 07:14:36 UTC
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 552C16E2FF
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 07:14:36 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id CFFD668BEB; Wed, 16 Sep 2020 09:04:36 +0200 (CEST)
-Date: Wed, 16 Sep 2020 09:04:36 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] Revert "drm/radeon: handle PCIe root ports with
- addressing limitations"
-Message-ID: <20200916070436.GA9392@lst.de>
-References: <20200915184607.84435-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360686E9CB;
+	Wed, 16 Sep 2020 07:38:40 +0000 (UTC)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDF466E2F3;
+ Wed, 16 Sep 2020 07:38:38 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id c2so5040662ljj.12;
+ Wed, 16 Sep 2020 00:38:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=/Ve+uN77l2mNjSGSgchzbGo6elSRLw4c+esXt/wG3n8=;
+ b=qfJOIvaWp0ltvhKrrA/Qb3zKGpq6LMq5IucxqsOYjGKBEHE282iCaS3duAGkufnxIy
+ yroKYAoaD4QcvSsAFQScxnOdrPvAPdveBzEHfdqUTDNp2eryQpcj7PD3xBbV3PjrOvgl
+ /siK36295K0OBgg9JXKmPTSdTu1MNv0iJYOcb2fSJHYr5YeUTau8dnKA9HFOKXtvRKrK
+ f1hRtFa5tEwaektfwHpHJC2r/V1XCH0OErpsof22px2Y3cV6qxgUV8tudTONmEXnohjf
+ cY9/XWzXvJSJiQNe8PyHICqxxib8he4KCMsCU+djAsYLFno5O7Dkqc0fg2/BPf54r0ve
+ QJhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=/Ve+uN77l2mNjSGSgchzbGo6elSRLw4c+esXt/wG3n8=;
+ b=dARhLncE0YhDFWOBqdbvvjiJvQFnLScnrCp/pjSklM0DCb0gFZU1i7Fd8RI4IzjLN/
+ JDBTqReXeOF7gIfXpQRGvd5LfNkjbJlHDVbU6gbAltHthIxMc6XiU4Lfmd4J4webU4ZX
+ zE/vurHGTjX68zP7JpJTd/8df9c3JdFTbnhGpjsBZOmwu9CbeTdHw/TGPDsKrVlfwVF0
+ aeHMm/nBu3pnfzyI+FavRrDJrEYvr1VrzHPQm2Ouk8GHPyI+0bU+AHKcFdPtHkG4HH4g
+ mEzL+bJHhTGjI0aacHkwhrPByPkaTPL7NoArJaBP3f4mt7wD9HliHKJ1GoMWMt7NqUql
+ ikmQ==
+X-Gm-Message-State: AOAM5317F+u09jLLgVeJtBeK9bwmCY3ggy+IqZydQ9K4L0mURaGkPx2/
+ ntLAjR1rtMmJro+18pjXtVY=
+X-Google-Smtp-Source: ABdhPJwJbGNg9ljapuYPbuUtj0KvB1atxCILhskbIHoedwzAIw9tKZs2o0vx5QnfLSEpKIncKq74Lg==
+X-Received: by 2002:a05:651c:1307:: with SMTP id
+ u7mr8617236lja.267.1600241917282; 
+ Wed, 16 Sep 2020 00:38:37 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id m203sm4405724lfd.195.2020.09.16.00.38.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Sep 2020 00:38:36 -0700 (PDT)
+Subject: Re: [PATCH -next 0/8] drm/amd/amdgpu: fix comparison pointer to bool
+ warning
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20200909130720.105234-1-zhengbin13@huawei.com>
+ <1fce0f2a-3777-e6d8-5a09-30261f843cfd@amd.com>
+ <CADnq5_NoeFbBAMT6s_ictVXsUc2tx1U48MLxnMbAr2Sd58jyYA@mail.gmail.com>
+ <20200915193549.GP6112@intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <6658f89f-6957-e6ea-af41-7625f1fd3cb1@gmail.com>
+Date: Wed, 16 Sep 2020 09:38:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200915184607.84435-1-alexander.deucher@amd.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Wed, 16 Sep 2020 07:32:53 +0000
+In-Reply-To: <20200915193549.GP6112@intel.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,37 +89,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Cc: yi.zhang@huawei.com, Dave Airlie <airlied@linux.ie>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Zheng Bin <zhengbin13@huawei.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2020 at 02:46:07PM -0400, Alex Deucher wrote:
-> This change breaks tons of systems.
-
-Did you do at least some basic root causing on why?  Do GPUs get
-fed address they can't deal with?  Any examples?
-
-Bug 1 doesn't seem to contain any analysis and was reported against
-a very old kernel that had all kind of fixes since.
-
-Bug 2 seems to imply a drm kthread is accessing some structure it
-shouldn't, which would imply a mismatch between pools used by radeon
-now and those actually provided by the core.  Something that should
-be pretty to trivial to fix for someone understanding the whole ttm
-pool maze.
-
-Bug 3: same as 1, but an even older kernel.
-
-Bug 4: looks like 1 and 3, and actually verified to work properly
-in 5.9-rc.  Did you try to get the other reporters test this as well?
-
-All over not a very useful changelog.
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMTUuMDkuMjAgdW0gMjE6MzUgc2NocmllYiBWaWxsZSBTeXJqw6Rsw6Q6Cj4gT24gVHVlLCBT
+ZXAgMTUsIDIwMjAgYXQgMDM6MTY6MzJQTSAtMDQwMCwgQWxleCBEZXVjaGVyIHdyb3RlOgo+PiBJ
+IHF1ZXN0aW9uIHRoZSB2YWx1ZSBvZiB0aGVzZSB3YXJuaW5ncy4gIFdoeSBldmVuIGhhdmUgYSBi
+b29sZWFuIHR5cGUKPj4gaWYgeW91IGFyZSBnb2luZyB0byBnZXQgd2FybmluZ3Mgd2hlbiB5b3Ug
+dXNlIHRoZW0uLi4KPj4gVGhhdCBzYWlkLCBhcHBsaWVkIHRvIGF2b2lkIGdldHRpbmcgdGhlc2Ug
+cGF0Y2hlcyBhZ2FpbiBhbmQgYWdhaW4KPj4gZXZlcnkgdGltZSBzb21lb25lIHNlZXMgdGhpcy4K
+PiBpZiAodGhpc19pc19zcGFydGEpCj4gaWYgKHRoaXNfaXNfc3BhcnRhID09IHRydWUpCj4gaWYg
+KHRoaXNfaXNfc3BhcnRhICE9IGZhbHNlKQo+Cj4gSSB0aGluayB0aGUgZmlyc3Qgb25lIHJlYWRz
+IHRoZSBiZXN0LCBhbmQgYXZvaWRzIGhhdmluZyB0bwo+IGRlY2lkZSBiZXR3ZWVuIHRydXRoIGFu
+ZCBmYWxzZWhvb2QgOikKCisxCgpDaHJpc3RpYW4uCgo+Cj4+IEFsZXgKPj4KPj4gT24gV2VkLCBT
+ZXAgOSwgMjAyMCBhdCA5OjIxIEFNIENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4gd3JvdGU6Cj4+PiBBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPiBmb3IgdGhlIHNlcmllcy4KPj4+Cj4+PiBBbSAwOS4wOS4yMCB1bSAx
+NTowNyBzY2hyaWViIFpoZW5nIEJpbjoKPj4+PiBaaGVuZyBCaW4gKDgpOgo+Pj4+ICAgICBkcm0v
+YW1kL2FtZGdwdTogZml4IGNvbXBhcmlzb24gcG9pbnRlciB0byBib29sIHdhcm5pbmcgaW4gZ2Z4
+X3Y5XzAuYwo+Pj4+ICAgICBkcm0vYW1kL2FtZGdwdTogZml4IGNvbXBhcmlzb24gcG9pbnRlciB0
+byBib29sIHdhcm5pbmcgaW4gZ2Z4X3YxMF8wLmMKPj4+PiAgICAgZHJtL2FtZC9hbWRncHU6IGZp
+eCBjb21wYXJpc29uIHBvaW50ZXIgdG8gYm9vbCB3YXJuaW5nIGluIHNkbWFfdjVfMC5jCj4+Pj4g
+ICAgIGRybS9hbWQvYW1kZ3B1OiBmaXggY29tcGFyaXNvbiBwb2ludGVyIHRvIGJvb2wgd2Fybmlu
+ZyBpbiBzZG1hX3Y1XzIuYwo+Pj4+ICAgICBkcm0vYW1kL2FtZGdwdTogZml4IGNvbXBhcmlzb24g
+cG9pbnRlciB0byBib29sIHdhcm5pbmcgaW4gc2kuYwo+Pj4+ICAgICBkcm0vYW1kL2FtZGdwdTog
+Zml4IGNvbXBhcmlzb24gcG9pbnRlciB0byBib29sIHdhcm5pbmcgaW4gdXZkX3Y2XzAuYwo+Pj4+
+ICAgICBkcm0vYW1kL2FtZGdwdTogZml4IGNvbXBhcmlzb24gcG9pbnRlciB0byBib29sIHdhcm5p
+bmcgaW4KPj4+PiAgICAgICBhbWRncHVfYXRweF9oYW5kbGVyLmMKPj4+PiAgICAgZHJtL2FtZC9h
+bWRncHU6IGZpeCBjb21wYXJpc29uIHBvaW50ZXIgdG8gYm9vbCB3YXJuaW5nIGluIHNkbWFfdjRf
+MC5jCj4+Pj4KPj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRweF9o
+YW5kbGVyLmMgfCA0ICsrLS0KPj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djEwXzAuYyAgICAgICAgICAgfCAyICstCj4+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3Y5XzAuYyAgICAgICAgICAgIHwgMiArLQo+Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NkbWFfdjRfMC5jICAgICAgICAgICB8IDQgKystLQo+Pj4+ICAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jICAgICAgICAgICB8IDIgKy0KPj4+PiAgICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzIuYyAgICAgICAgICAgfCAyICstCj4+
+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYyAgICAgICAgICAgICAgICAgIHwg
+MiArLQo+Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMgICAgICAg
+ICAgICB8IDQgKystLQo+Pj4+ICAgIDggZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwg
+MTEgZGVsZXRpb25zKC0pCj4+Pj4KPj4+PiAtLQo+Pj4+IDIuMjYuMC4xMDYuZzlmYWRlZGQKPj4+
+Pgo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+
+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGRy
+aS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
+bAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
