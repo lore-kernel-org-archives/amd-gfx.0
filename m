@@ -2,67 +2,73 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5754C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7667AC43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C2D922210
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:08:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1280522283
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 13:20:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PmsES2SA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C2D922210
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XGKl1y8G"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1280522283
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18CBD6E0E5;
-	Wed, 16 Sep 2020 13:08:54 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73C466E0E5;
- Wed, 16 Sep 2020 13:08:52 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id k15so6841474wrn.10;
- Wed, 16 Sep 2020 06:08:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80FAD6EA07;
+	Wed, 16 Sep 2020 13:20:33 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044AA6EA07;
+ Wed, 16 Sep 2020 13:20:32 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id t138so8112146qka.0;
+ Wed, 16 Sep 2020 06:20:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=boqFmJSvqYexxLobLNyh9qTrVnM8InJDrYRAbGJcCho=;
- b=PmsES2SARiy3RNMai1PKHwmsW52gv1/E88+yqUQ9Tv0jC62ZlRhBcsmzE3b4ti/83J
- r967Z58Yh8Cq5xasJ5umEjNwsnfDwjz2P6JpvpSZxUi5Hpu8xv08QlwTCltKOHoDtSZR
- of5GhwBlvKJLkJX0yM3FjWHxODmE3o+/AWfrJFfAlwuoIa+cZjjbbAB2S77mUnpl/nzz
- IEARN45BnQqyfl3YrVY+FFSj3o2L5Kwft3L6/7+JH5t6W08YP+9B9PvrfNUDcxhXqwhK
- bGp+rdUw4xXROyTT7ev5ufpUQ5a1W57gboULd52Ki4ZQQ8vQ/nGMbr8yEOkW5K8bmwXY
- JvBg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wo0aeFa71noE1SaeNWFZSJ3BKucJn7M1PEH9DQMwxYg=;
+ b=XGKl1y8GQ32Jk6DGgPSkXBbuDlvlUW/Vu7BzdGNYp40ePySgp4/98iZlkWKnSh6v+i
+ HukRbY+9JfNwXTmumUkpievO6zIb4G9Y5AN5zyRahyqz8U3XZYv5UWKBZx6+wm9mB8FE
+ K3Yy2K9aoOeXsdpteMFuiAEbeNrd8iVVTO3DX5yurPvZlRfPm+YjWLIHiotiUDJou+vR
+ SQfKm3ffQy9ysZUJ6vWNQEaYmiG8Z2cvYC+LXAG26j3jSkTI6lhdEAldMuqB4nP5Lhw3
+ VbJMIS+8nLAcQgLSMIQCu/n7l6aVF8uVu52i8uK9i1yMegcqP0ciilD42MuI0shI6LMK
+ xDww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=boqFmJSvqYexxLobLNyh9qTrVnM8InJDrYRAbGJcCho=;
- b=ZaGLUstXAfvM29IFnrgjugl5Y6/KDqDR5Brxl1zkX/1XiifK15l8Rs/yaaGjn4GVsp
- 4EPKWkBnNwnKVvR+FAmXqpi98QRR9l9Z7Yq+N6sntf6rVStg2chEo09JCLBc3n/NLGaW
- zqVkHvU5aE3Liu2ignay56TXyXecV5Y8xrFrUk1oMZjoLF+CFE4BzqJ0djNf6Dmh1M1/
- wsAXr4G7J5xwByskbGTIe3jUu/n9Jy6e6rxNBDfFm6p3787Xrlue9Sgpd1xJH5g6IYgr
- /JYzQAGlvmRgpq+vV7AaAABHVPnJy1ZURzV9tphu9KbfKkXd0pmvNb8JsPt3mWhr//KC
- RZNg==
-X-Gm-Message-State: AOAM533wxrDYSB0mUpi4x1SbsRrX31xKXISDIU344mB7valkUF9Zx9iJ
- vT+Y4biFvHU4QkDHlk+zDxW2s2romT/Pm7vmPic=
-X-Google-Smtp-Source: ABdhPJyn/PJ7xHU8ZYPwNfmhW+wrz8y3cokw/6HfKfyVIclqmJYVI81DT7pBaNF79qcayK5F8vAfGKFPbwm8P2+ByXQ=
-X-Received: by 2002:adf:dd82:: with SMTP id x2mr28315368wrl.419.1600261731057; 
- Wed, 16 Sep 2020 06:08:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200915184607.84435-1-alexander.deucher@amd.com>
- <20200916063300.GJ142621@kroah.com>
-In-Reply-To: <20200916063300.GJ142621@kroah.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wo0aeFa71noE1SaeNWFZSJ3BKucJn7M1PEH9DQMwxYg=;
+ b=Krr+eKiNOoPcCLBhJbrlChUK7rD/HZNN6jpmDIjWIbEPx8O9Jwfph8uIXJPvTeqQXx
+ 2rubgkUMFCr/I+AKoyAVtDar3UPoTr4eqor/CVkoGyih6mJSFBU34urrfcWH1fmX8u0L
+ 3l97Rm+jOTmM6lbNv7mCcBLvDUrCCgW071HFxM3vvgFfT/h6jcQwl0ii1S4RxJ+GrsJv
+ 2bvsUZ6Clc11lK+547FSv+jtQLzrQOcxLGJAbaygTqYN5XlW3ITS2skhltLvlpHbXGzG
+ RhJldqnHR2Hox4TqWuiRzWnXKlwYrTmWbS2yIo08IzKsjh/2E9xyyXnD4MvKKJsvDX3h
+ zFqA==
+X-Gm-Message-State: AOAM531zOXsrUBiGjEj8iuxfUpRvoRNdL/hOpa1A4PuTZLZ1W4qnSqgD
+ MWpdrgnsHvo5JG0HTFJhp68Xcxe19WQ=
+X-Google-Smtp-Source: ABdhPJw7YUdj23N3NHT/8ojGA2UA7Xzi/Xqa5ywU7XfgxdH0XCNUdOp1cGQoGqloROPYDe9WKl35/w==
+X-Received: by 2002:a37:8c87:: with SMTP id o129mr5090351qkd.41.1600262430824; 
+ Wed, 16 Sep 2020 06:20:30 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id m36sm18552022qtd.10.2020.09.16.06.20.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 06:20:29 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2020 09:08:39 -0400
-Message-ID: <CADnq5_ObvQ9sT_p=mdEk1m_o_LPHx6zwiEP5qFvX9YxveOBOZA@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/radeon: handle PCIe root ports with
- addressing limitations"
-To: Greg KH <gregkh@linuxfoundation.org>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v2] Revert "drm/radeon: handle PCIe root ports with addressing
+ limitations"
+Date: Wed, 16 Sep 2020 09:20:17 -0400
+Message-Id: <20200916132017.1221927-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,78 +80,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "for 3.8" <stable@vger.kernel.org>, Christoph Hellwig <hch@lst.de>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christoph Hellwig <hch@lst.de>,
+ stable@vger.kernel.org, christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2020 at 2:32 AM Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Tue, Sep 15, 2020 at 02:46:07PM -0400, Alex Deucher wrote:
-> > This change breaks tons of systems.
->
-> Very vague :(
-
-Screen corruption making the system unusable.
-
->
-> This commit has also been merged for over a year, why the sudden
-> problem now?
->
+This causes screen corruption when using the GPU which makes the
+system unusable.
 
 It was noticed by several people closer to when the change went in as
-well.  If you notice, most of the bugs date back quite a while.  We
-looked into it a bit at the time but couldn't determine the problem.
-It only seems to affect really old chips (like 15-20 years old) which
-makes it hard to reproduce if you don't have an old system.  There
-were a couple of threads at the time, but nothing was resolved.  I was
-able to find one of them:
+well.  We looked into it a bit at the time but couldn't determine the
+problem.  It only seems to affect really old chips (like 15-20 years
+old) which makes it hard to reproduce if you don't have an old system.
+There were a couple of threads at the time, but nothing was resolved.
+I was able to find one of them:
 https://lkml.org/lkml/2019/12/14/263
 
-There were several new bugs filed which brought the issue back to my
-attention recently.
+This reverts commit 33b3ad3788ab ("drm/radeon: handle PCIe root ports with addressing limitations").
 
-> > This reverts commit 33b3ad3788aba846fc8b9a065fe2685a0b64f713.
->
-> You mean "33b3ad3788ab ("drm/radeon: handle PCIe root ports with
-> addressing limitations")"?
->
-> That's the proper way to reference commits in changelogs please.  It's
-> even documented that way...
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206973
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206697
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=207763
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1140
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1287
+Fixes: 33b3ad3788ab ("drm/radeon: handle PCIe root ports with addressing limitations")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: christian.koenig@amd.com
+---
 
-When you revert a patch with git, that is what it does.  Maybe we
-should fix git to change the formatting.
+v2: provide a better commit message.  The issue seems to be related to himem.
+Any ideas?
 
->
-> >
-> > Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206973
-> > Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206697
-> > Bug: https://bugzilla.kernel.org/show_bug.cgi?id=207763
-> > Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1140
-> > Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1287
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: stable@vger.kernel.org
-> > Cc: Christoph Hellwig <hch@lst.de>
-> > Cc: christian.koenig@amd.com
->
-> Fixes: 33b3ad3788ab ("drm/radeon: handle PCIe root ports with addressing limitations")
->
+ drivers/gpu/drm/radeon/radeon.h        |  1 +
+ drivers/gpu/drm/radeon/radeon_device.c | 13 ++++++++-----
+ drivers/gpu/drm/radeon/radeon_ttm.c    |  2 +-
+ 3 files changed, 10 insertions(+), 6 deletions(-)
 
-Sure, I can add that, but it doesn't really fix it, it reverts it.
-But point taken, it does fix the commit by removing it.
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index cc4f58d16589..019f756b3f80 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -2391,6 +2391,7 @@ struct radeon_device {
+ 	struct radeon_wb		wb;
+ 	struct radeon_dummy_page	dummy_page;
+ 	bool				shutdown;
++	bool				need_dma32;
+ 	bool				need_swiotlb;
+ 	bool				accel_working;
+ 	bool				fastfb_working; /* IGP feature*/
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 266e3cbbd09b..f74c74ad8b5d 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1363,25 +1363,28 @@ int radeon_device_init(struct radeon_device *rdev,
+ 	else
+ 		rdev->mc.mc_mask = 0xffffffffULL; /* 32 bit MC */
+ 
+-	/* set DMA mask.
++	/* set DMA mask + need_dma32 flags.
+ 	 * PCIE - can handle 40-bits.
+ 	 * IGP - can handle 40-bits
+ 	 * AGP - generally dma32 is safest
+ 	 * PCI - dma32 for legacy pci gart, 40 bits on newer asics
+ 	 */
+-	dma_bits = 40;
++	rdev->need_dma32 = false;
+ 	if (rdev->flags & RADEON_IS_AGP)
+-		dma_bits = 32;
++		rdev->need_dma32 = true;
+ 	if ((rdev->flags & RADEON_IS_PCI) &&
+ 	    (rdev->family <= CHIP_RS740))
+-		dma_bits = 32;
++		rdev->need_dma32 = true;
+ #ifdef CONFIG_PPC64
+ 	if (rdev->family == CHIP_CEDAR)
+-		dma_bits = 32;
++		rdev->need_dma32 = true;
+ #endif
+ 
++	dma_bits = rdev->need_dma32 ? 32 : 40;
+ 	r = dma_set_mask_and_coherent(&rdev->pdev->dev, DMA_BIT_MASK(dma_bits));
+ 	if (r) {
++		rdev->need_dma32 = true;
++		dma_bits = 32;
+ 		pr_warn("radeon: No suitable DMA available\n");
+ 		return r;
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 74ad50c7491c..7e5c2fb8eab0 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -738,7 +738,7 @@ int radeon_ttm_init(struct radeon_device *rdev)
+ 			       &radeon_bo_driver,
+ 			       rdev->ddev->anon_inode->i_mapping,
+ 			       rdev->ddev->vma_offset_manager,
+-			       dma_addressing_limited(&rdev->pdev->dev));
++			       rdev->need_dma32);
+ 	if (r) {
+ 		DRM_ERROR("failed initializing buffer object driver(%d).\n", r);
+ 		return r;
+-- 
+2.25.4
 
-Alex
-
-> as well?
->
-> thanks,
->
-> greg k-h
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
