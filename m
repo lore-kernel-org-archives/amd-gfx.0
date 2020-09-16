@@ -2,87 +2,100 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28097C43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:31:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2857AC43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 16:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E7CA22274
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:31:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 90C5922403
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 16:21:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="AM+EYquC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E7CA22274
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ESXtW7wT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90C5922403
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E400B6EA33;
-	Wed, 16 Sep 2020 15:31:43 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D5B86EA3A
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 15:31:43 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id o5so7315950wrn.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 08:31:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=9cI/Q3uj4XukmIC4z8WNHvSj/a5e8kMejOwJHwyLhrU=;
- b=AM+EYquCzfIKg9LA8lupSx3x3fv80mV8XsdCao572x7y+f/jTyZhXBwzrc0WjnQou8
- LrCfZ50AraT6NxKKEryKLx4mXtBR5VtT4qys9tKcbvpyx2AL35v5k0GhLaNw/8gavSU8
- IsuN1Obfj09QlPgHgTIBmdOQvsn9a1XVQaKgk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=9cI/Q3uj4XukmIC4z8WNHvSj/a5e8kMejOwJHwyLhrU=;
- b=e1esl8XRNXXdJEoSCv1y0BPma6sdbgadK5wkxSb014ac6fECY77jacRado59ejP/nq
- B+ep4sroxDdPusItE6PO9388vW+FEHvIwASNUnHWpgXXX7YM8jl5IIvqgxxtUH7wmpTp
- rZNxdLSRTbry7oq3yGlvX88ILd1oFnmwo/42BddYYJhUm/DFIr/xkXlm7DhAbeCgZfWM
- 8jxJRdw6w0EWAE0VT6JP0XgdNRsQdu12U+NDRedbAISB9ODOkyB1wB0IGkF3kRmPAsoh
- i12Ws6GLUPtD2EXZ76VeU5OhRpsNMfRgw8xXIVw44S/TWyexarcsnKWwdh+POyWcNwKm
- ZXew==
-X-Gm-Message-State: AOAM5331XkJphMgotm47uoFbr+WMQ/VHRKA02GtN1fsqTyQOfGA4P+Ts
- mdJsxxGDH1hqv0cgsjM3hdr1qQ==
-X-Google-Smtp-Source: ABdhPJzS3ONUGxvj8D+IIvQbIM66/m0KNy7Rh9Y4UxkZuG8AIJ3dk9r1W8t5jYlSX5UuYWW6Uyecjw==
-X-Received: by 2002:adf:a4cc:: with SMTP id h12mr22069549wrb.123.1600270301723; 
- Wed, 16 Sep 2020 08:31:41 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id z15sm32992374wrv.94.2020.09.16.08.31.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2020 08:31:40 -0700 (PDT)
-Date: Wed, 16 Sep 2020 17:31:38 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH -next 0/8] drm/amd/amdgpu: fix comparison pointer to bool
- warning
-Message-ID: <20200916153138.GR438822@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, 
- Alex Deucher <alexdeucher@gmail.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- yi.zhang@huawei.com, Dave Airlie <airlied@linux.ie>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Zheng Bin <zhengbin13@huawei.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- "Deucher, Alexander" <alexander.deucher@amd.com>
-References: <20200909130720.105234-1-zhengbin13@huawei.com>
- <1fce0f2a-3777-e6d8-5a09-30261f843cfd@amd.com>
- <CADnq5_NoeFbBAMT6s_ictVXsUc2tx1U48MLxnMbAr2Sd58jyYA@mail.gmail.com>
- <20200915193549.GP6112@intel.com>
- <6658f89f-6957-e6ea-af41-7625f1fd3cb1@gmail.com>
- <20200916075156.GU438822@phenom.ffwll.local>
- <CADnq5_OS814FxmadZ9yBkrY6ije8h7FxswWstsxNr3rw=Bum=Q@mail.gmail.com>
- <372d7001-22cc-79b6-83b8-2fd75a1804d5@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E17936EA61;
+	Wed, 16 Sep 2020 16:21:42 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750075.outbound.protection.outlook.com [40.107.75.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85D836EA61
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 16:21:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ucj9qlI/FEnixMK/muX8/zJknTPUZGNHKCFAn8aW8d6jW5QhePArRSLm/3UkUE7cvu5qc8IcKSmNgYAwC0V0rm5S9HqHXVB/QQrX5R+KCwahUpO3wMTwkl3jsr+iXGM8IRD6ONVAA3Tm6WeI7D+KCpeFfV0t9diaXFnZSsky3F7pQPAnU8EzS1ZCryF6ziDqwy0T6MIxGs6m8DkvBB9PITgi/urzIJ5LHL9CNk+UxdnQ35HZyciutNb4Hog5Oc8qIq6uMtfIR3u4G2A8i8xm20xTFX/y8+tMNdmoljFbGgnZ3y3ll1UdJRULYd3T/pSJAwlqa3MDxD6tK7Xi+GqLtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sftOWPShKm7w7RQTpX1G1fBWwg6I8rpGgEWfJKYv8NE=;
+ b=Laj+R+bKBZ53vZEJxP2JlOUil6aLhYra8lY0n9m70pZY1FWcZPqL7LxWDGkLhxHJkKrdXyVVtzVq2ZVzySEc6a4Bn9v/DmKHfAnQWtfCWOYlaDwTWZ7RLC6cfkH+6YhiLsmBoUdnLaVj9AEUvrBWGvO0sfxN+kRMur8N8fXmVsRQUtsRKG+fQA5dtKMEI7w9FFGSQ0LUrwlfujWXoUpwI+NHfX0/auC2Mj2lDCX/4EvIFSTV+Sg4ZztArKvl6S0zuB/bgJV7FdWcqqmU0DH4tvkEFExG/e8JbmUENULbOkKgcO0YyrQ7O9fHlzZ4+5tKuW8/oCVQ3Yhj92hz4WUUEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sftOWPShKm7w7RQTpX1G1fBWwg6I8rpGgEWfJKYv8NE=;
+ b=ESXtW7wTfEi1QZe8pjX9gjMzDSTq4ju2HPBy4vqRdm7Z3Fhy/tJr3t7O02kWmZ7lCp0JZN+SKVPq/iWov7bUPsKFRJWqxV5q7lph0/SdsBCfl8zzawlcHgbtIRPv65rMbHMxPiMM3wAcWfNg6vaJC0Mw05QvDQx9C/W3OmNPr4M=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com (2603:10b6:5:18a::20)
+ by DM6PR12MB4106.namprd12.prod.outlook.com (2603:10b6:5:221::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Wed, 16 Sep
+ 2020 16:21:40 +0000
+Received: from DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::c0a8:314d:61b9:24ce]) by DM6PR12MB3547.namprd12.prod.outlook.com
+ ([fe80::c0a8:314d:61b9:24ce%5]) with mapi id 15.20.3370.019; Wed, 16 Sep 2020
+ 16:21:40 +0000
+From: Tom St Denis <tom.stdenis@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/amdgpu: add mmUVD_FW_STATUS register to uvd700
+Date: Wed, 16 Sep 2020 12:21:30 -0400
+Message-Id: <20200916162130.1562572-1-tom.stdenis@amd.com>
+X-Mailer: git-send-email 2.26.2
+X-ClientProxiedBy: BN6PR13CA0027.namprd13.prod.outlook.com
+ (2603:10b6:404:13e::13) To DM6PR12MB3547.namprd12.prod.outlook.com
+ (2603:10b6:5:18a::20)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <372d7001-22cc-79b6-83b8-2fd75a1804d5@amd.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from ws.amd.com (165.204.84.11) by
+ BN6PR13CA0027.namprd13.prod.outlook.com (2603:10b6:404:13e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.5 via Frontend
+ Transport; Wed, 16 Sep 2020 16:21:38 +0000
+X-Mailer: git-send-email 2.26.2
+X-Originating-IP: [165.204.84.11]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 51bed57c-e05a-47ca-2925-08d85a5c9737
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4106:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4106661D2132498EDCB8A227F7210@DM6PR12MB4106.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1265;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YW7c2QU8HwgPR2GH/hfTnDPm/vwIMGXF2t9o/wAek9m2LqwkZDS9hM1hihz4bT4/vIg63F0nGjs8PddU6Qk3c0ELkAXfGIWpv+E//bKFxXDGrTaJO1RUdTHcdzuogcgC0ghYoPi3FxdPiVO6k3ia4LD5WU6SzwaBe6/In23X3RdWHQn29fI9sdK6CZ+j6U14WyhJBnc2qqk9MTKsxJWy7qbKrWhPlDwbOo9LeltavugkPg/QZE39nU8ydRF2Blly0Fn8xPJ5qUS2BLnC7IuGkoYIeisl98IZlK4MugKkaUJvgBzlHys632KW5HAW7rJcN6oq/WqZo9YDr8k6duKomA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3547.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(376002)(136003)(366004)(39860400002)(6666004)(956004)(6486002)(2616005)(86362001)(478600001)(6916009)(26005)(316002)(4326008)(36756003)(2906002)(186003)(8676002)(1076003)(83380400001)(66476007)(7696005)(52116002)(66556008)(16526019)(5660300002)(66946007)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: ByhPmSw9PED/YR2rEc5bp+rvl759mLLNGfsCOkptVolayLOjMM+J47tq4i/4l3FEO17Bq5IyVTbzn0AbXxcTlIfOFkMy4aTelD06DtVbLLhzrwe7jp6sUZrKyvhnU1iuWYNRn2vZ/ivbtqzcQ1UT8+3kFw+u0S5WuUyQ15XAaPFAklk5foWRbLzYqOegOiUUw8bIjcfaQRxOrxxuqTuk4oRuSysCha+CL+HUlh0/2fyFfMPb57Apsg4vtMNZz04W5ezXcl2xCOgd16qEIJVR7Wx9x80V0YOQIgmRwHEXVFvEqrEp5VmrLmZ2HKyUEKSlLDyTkB6OnoadTbxFefEyem/Xkf5JHAj9DfApjKNJ6PbhiV/9eEg7QSnFWC4Wk2Wc2OLPtaOVqjoJHr6RnRIlkv7pWj/be11fVSL0jY6HnB+5Es4tJnEQBpWvpYHWQ6RRoTCehFpqOz9C45/ZZ/1Jjc1HmD1LLwohRYN27/h0yKqSVwH94qAuSWURg5a5mUZRac50s0iFk8DBkJwJakllsL0vNDfv51L0RX/g28FhzDmOeT1cnbSNWdN9MtfKxKcFWmXrE6tfLHiotJXNxYpooqerNFm2waMSnMBxRVlSDIMbp5f92QbdfWRoWbP3WmyxRituzC292BO9rTtn/ZrzqA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51bed57c-e05a-47ca-2925-08d85a5c9737
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3547.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 16:21:39.8797 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3tkRBB/hyTyzZlDtDCT2CuQhINp1rX1CSMdIxDmhEFF6B2jLeI8P+EYOqOABDa7pwVlaLKH6sNRoh0kZlQEMqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4106
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,187 +107,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yi.zhang@huawei.com, Dave Airlie <airlied@linux.ie>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Zheng Bin <zhengbin13@huawei.com>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Tom St Denis <tom.stdenis@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2020 at 04:02:18PM +0200, Christian K=F6nig wrote:
-> Am 16.09.20 um 15:36 schrieb Alex Deucher:
-> > On Wed, Sep 16, 2020 at 3:51 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > On Wed, Sep 16, 2020 at 09:38:34AM +0200, Christian K=F6nig wrote:
-> > > > Am 15.09.20 um 21:35 schrieb Ville Syrj=E4l=E4:
-> > > > > On Tue, Sep 15, 2020 at 03:16:32PM -0400, Alex Deucher wrote:
-> > > > > > I question the value of these warnings.  Why even have a boolea=
-n type
-> > > > > > if you are going to get warnings when you use them...
-> > > > > > That said, applied to avoid getting these patches again and aga=
-in
-> > > > > > every time someone sees this.
-> > > > > if (this_is_sparta)
-> > > > > if (this_is_sparta =3D=3D true)
-> > > > > if (this_is_sparta !=3D false)
-> > > > > =
+This register was requested for umr debugging support.
 
-> > > > > I think the first one reads the best, and avoids having to
-> > > > > decide between truth and falsehood :)
-> > > > +1
-> > > +1, especially because we also have the inversion when using negative
-> > > errno codes for failures and 0 as success, which results in
-> > > =
+Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+---
+ .../amd/include/asic_reg/uvd/uvd_7_0_offset.h |  3 +++
+ .../include/asic_reg/uvd/uvd_7_0_sh_mask.h    | 20 +++++++++++++++++++
+ 2 files changed, 23 insertions(+)
 
-> > >          if (errno =3D=3D 0) /* success case */
-> > > =
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h
+index 07aceffb108a..524ba4421c17 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_offset.h
+@@ -151,6 +151,8 @@
+ #define mmUVD_LMI_CTRL2_BASE_IDX                                                                       1
+ #define mmUVD_MASTINT_EN                                                                               0x0540
+ #define mmUVD_MASTINT_EN_BASE_IDX                                                                      1
++#define mmUVD_FW_STATUS                                                                                0x0557
++#define mmUVD_FW_STATUS_BASE_IDX                                                                       1
+ #define mmJPEG_CGC_CTRL                                                                                0x0565
+ #define mmJPEG_CGC_CTRL_BASE_IDX                                                                       1
+ #define mmUVD_LMI_CTRL                                                                                 0x0566
+@@ -219,4 +221,5 @@
+ #define mmUVD_CONTEXT_ID2_BASE_IDX                                                                     1
+ 
+ 
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h
+index b427f73bd536..919be1842bd5 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_7_0_sh_mask.h
+@@ -807,5 +807,25 @@
+ #define UVD_CONTEXT_ID2__CONTEXT_ID2__SHIFT                                                                   0x0
+ #define UVD_CONTEXT_ID2__CONTEXT_ID2_MASK                                                                     0xFFFFFFFFL
+ 
++//UVD_FW_STATUS
++#define UVD_FW_STATUS__BUSY__SHIFT                                                                            0x0
++#define UVD_FW_STATUS__ACTIVE__SHIFT                                                                          0x1
++#define UVD_FW_STATUS__SEND_EFUSE_REQ__SHIFT                                                                  0x2
++#define UVD_FW_STATUS__DONE__SHIFT                                                                            0x8
++#define UVD_FW_STATUS__PASS__SHIFT                                                                            0x10
++#define UVD_FW_STATUS__FAIL__SHIFT                                                                            0x11
++#define UVD_FW_STATUS__INVALID_LEN__SHIFT                                                                     0x12
++#define UVD_FW_STATUS__INVALID_0_PADDING__SHIFT                                                               0x13
++#define UVD_FW_STATUS__INVALID_NONCE__SHIFT                                                                   0x14
++#define UVD_FW_STATUS__BUSY_MASK                                                                              0x00000001L
++#define UVD_FW_STATUS__ACTIVE_MASK                                                                            0x00000002L
++#define UVD_FW_STATUS__SEND_EFUSE_REQ_MASK                                                                    0x00000004L
++#define UVD_FW_STATUS__DONE_MASK                                                                              0x00000100L
++#define UVD_FW_STATUS__PASS_MASK                                                                              0x00010000L
++#define UVD_FW_STATUS__FAIL_MASK                                                                              0x00020000L
++#define UVD_FW_STATUS__INVALID_LEN_MASK                                                                       0x00040000L
++#define UVD_FW_STATUS__INVALID_0_PADDING_MASK                                                                 0x00080000L
++#define UVD_FW_STATUS__INVALID_NONCE_MASK                                                                     0x00100000L
++
+ 
+ #endif
+-- 
+2.26.2
 
-> > > but
-> > >          if (bool =3D=3D 0) /* failure case */
-> > > =
-
-> > > now creative people do sometimes
-> > > =
-
-> > >          if (!errno) /* success case */
-> > > =
-
-> > > which I think is horribly confusing. So imo for more easier telling a=
-part
-> > > of these too I think consistently using the short form for booleans, =
-and
-> > > consistently using the more explicit long form for errno checks is a =
-Very
-> > > Good Pattern :-)
-> > I don't disagree with your logic, but we regularly get patches to
-> > convert errno checks to drop the direct comparison because that is the
-> > "preferred kernel style".  Arguably, we should be explicit in all
-> > cases as that avoids all confusion.  With that in mind, my original
-> > point stands.  Why have a type when comparisons against valid settings
-> > for that type produce errors?
-
-Oh, I didn't know that this happens for errno too.
-
-I withdraw my +1 and concur this is a bikeshed. I guess still applying to
-shut up the patch stream is the most reasonable thing :-/
--Daniel
-
-> Well it isn't an error, but raising a nice warning is most likely a good
-> idea.
-
-> =
-
-> Christian.
-> =
-
-> > =
-
-> > Alex
-> > =
-
-> > > Cheers, Daniel
-> > > =
-
-> > > > Christian.
-> > > > =
-
-> > > > > > Alex
-> > > > > > =
-
-> > > > > > On Wed, Sep 9, 2020 at 9:21 AM Christian K=F6nig <christian.koe=
-nig@amd.com> wrote:
-> > > > > > > Acked-by: Christian K=F6nig <christian.koenig@amd.com> for th=
-e series.
-> > > > > > > =
-
-> > > > > > > Am 09.09.20 um 15:07 schrieb Zheng Bin:
-> > > > > > > > Zheng Bin (8):
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in gfx_v9_0.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in gfx_v10_0.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in sdma_v5_0.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in sdma_v5_2.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in si.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in uvd_v6_0.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in
-> > > > > > > >        amdgpu_atpx_handler.c
-> > > > > > > >      drm/amd/amdgpu: fix comparison pointer to bool warning=
- in sdma_v4_0.c
-> > > > > > > > =
-
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 4 ++=
---
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c           | 2 +-
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 2 +-
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c           | 4 ++=
---
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c           | 2 +-
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c           | 2 +-
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/si.c                  | 2 +-
-> > > > > > > >     drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c            | 4 ++=
---
-> > > > > > > >     8 files changed, 11 insertions(+), 11 deletions(-)
-> > > > > > > > =
-
-> > > > > > > > --
-> > > > > > > > 2.26.0.106.g9fadedd
-> > > > > > > > =
-
-> > > > > > > _______________________________________________
-> > > > > > > amd-gfx mailing list
-> > > > > > > amd-gfx@lists.freedesktop.org
-> > > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3=
-A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7=
-C01%7Cchristian.koenig%40amd.com%7Cdc7a8d7517d341e3a80c08d85a458ba8%7C3dd89=
-61fe4884e608e11a82d994e183d%7C0%7C0%7C637358602051676053&amp;sdata=3DMS0vcB=
-cU7unXjEFlbd8kLbJkJ4sKcvIdLjc8yhX4UUI%3D&amp;reserved=3D0
-> > > > > > _______________________________________________
-> > > > > > dri-devel mailing list
-> > > > > > dri-devel@lists.freedesktop.org
-> > > > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
-2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02%7=
-C01%7Cchristian.koenig%40amd.com%7Cdc7a8d7517d341e3a80c08d85a458ba8%7C3dd89=
-61fe4884e608e11a82d994e183d%7C0%7C0%7C637358602051686051&amp;sdata=3DMgfR%2=
-BwCVY9gWfhQ9i5kWcKiiYkV1C8O2dEKlZYSqscE%3D&amp;reserved=3D0
-> > > > _______________________________________________
-> > > > dri-devel mailing list
-> > > > dri-devel@lists.freedesktop.org
-> > > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2=
-Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02%7C01%=
-7Cchristian.koenig%40amd.com%7Cdc7a8d7517d341e3a80c08d85a458ba8%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637358602051686051&amp;sdata=3DMgfR%2BwCV=
-Y9gWfhQ9i5kWcKiiYkV1C8O2dEKlZYSqscE%3D&amp;reserved=3D0
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fbl=
-og.ffwll.ch%2F&amp;data=3D02%7C01%7Cchristian.koenig%40amd.com%7Cdc7a8d7517=
-d341e3a80c08d85a458ba8%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6373586=
-02051686051&amp;sdata=3DGvLs5OXw2Ny%2BieJxm8hjawNb0rGA966539iAwlWwPMY%3D&am=
-p;reserved=3D0
-> =
-
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
