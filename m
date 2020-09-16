@@ -2,100 +2,103 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59967C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5A4FC43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:48:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D726220732
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:43:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 452C720732
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 18:48:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UT7WnkIh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D726220732
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NiwKSJBa"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 452C720732
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720396EABD;
-	Wed, 16 Sep 2020 18:43:23 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34E476EABD
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 18:43:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD996EABE;
+	Wed, 16 Sep 2020 18:48:16 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760053.outbound.protection.outlook.com [40.107.76.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B656EABE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 18:48:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X+SoaEfrsxR5G7uLmWmTiD5Mn28KVD+KtW7m8vqlZSM3B0n7qGfKMhQkEHX82wofxI1oLnh2Kw5YndXb1/fLAelSaSB2RiwPKcZbxu8y9UTks7VJ7c2Clq6mrmXTZ4mgKZkFR5pcWiiyC2hPFff/beolnGQsbaCBhPKRNQADDERepfvZMj7Tj2rBSK8yoEk0DTGOTF199ooQvMjoSF2MYJoG0jj6heggInPyQNw3iKjIOZddKfJASNZS4Y53kC93AOgFUgHJkkRuVq+zaq8qCOi5Q9rLTf7VzVQ0GAYTpJzD5o0kXa+CsXcmtpx2SHJzSHwb1sOOMabdgGA7iT29lA==
+ b=S2kvrKF615iKEZHfes5VzYnGkIM8sWOotkf4787uYMI2Bc308OdN5MfRyace9ry7Z7IE0gIu0xuIy7KKoAnEQ7v+n85O31Zlv/6/0YqO11PPubZgkyKGw0YbIBq7+PTUP4Oh1VhnutoVvrW8cvg16ArBnFJY03/ShASMtwWLiD4JH3fmQ0QpMJ5vETaiwwQLZw/WZhyAymGoJb5tvlnHk2pNwP9ePvEPsuNqkK27Co1EdmJpg0MDvmzrs4WL31CiK2hEmmk/bcnqycwlGl3k5yBurF/znE4H3xdyltvfiU5E8PlMARq6xl4HTs9z6rH7hoSL1GQYgZ551JiwLW1tZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BNdcWuo/wns3WTStMFZfxbVi/OKZSrXhkYnBNDdezM4=;
- b=Mql7yIFc9ZMKH9CklD4MRdrqb1CGqQPJ1vUcUxp+PSjWKy5uDzNuQTOcOCsOHNv0NsVkikTWl30XYlNg7B1esgzPUCSPhaXzNIoRvi5iHo2vflZpqTc0O0jCEGgkNevRJg+b2sQZnu8Q8NTCJkN/ek5caIwBp56muqkavR4Xl4bkBY00ywJsgMOq/NwZ5ZxTSzkp9NopSZpfn102LENqPDu6KdYilX3SES4Gq/oV+TwVjxxkPnKzM067aJi3oyQUhcsLcWonngnTsH+uFy7XL3YTvAG124kKMzUohxTNe4pELW+cmnxtKsPLOwvPp3W/7Mu09eRyQ/ufNR5QjMsDAA==
+ bh=dvGAgb99lX39+W0VM6DwjYSj6dCz5Gr44abbmPDGjqY=;
+ b=FKEacdXoZvZAo3UAyhvBsFo9M2o5Go727DJMxQ1NX7bkCJqVX/yhFYcIKIUIDFWbFBfDEPzHcqY62ibW1AH+WdpZY99URQ68fBndzeea53Sb1UTqWGB3e5zqHMgunH0P9PKazKMPtgUNRTchOE5VgtccXLcfV7N1qvEAOZVAwvrfz2KV+GrVO9aJd9jfWIhGJcnyeST08Q6lKCrtKAU/oLoYzWXl0brWC7Dxo1lEVKxs0Zj54OU3sBo/lODZM3nJm460sINiLw1BoW9cXTZ5JuLRVZv12Ns/6HtG0hm45lqEc3J3SvNi32HSg1pF+hlSl2VBHyFG8/FQMg7a9pWv/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BNdcWuo/wns3WTStMFZfxbVi/OKZSrXhkYnBNDdezM4=;
- b=UT7WnkIhWeGRVuyvzmVtQB4jq4dEzhVUdBYANF2WIUP/TxgMJ22Mghkv09jxTao3CE3FvWitG7Zgiq5mf0FTKpF8iJOSnf7kEPnrQlwYL7GiM3rgGu5AP6D3e7PxI1A7s7fGA6Xg3VD/kv+KkiJuyDNKOe8Id7Vf+yLoXszbdZU=
+ bh=dvGAgb99lX39+W0VM6DwjYSj6dCz5Gr44abbmPDGjqY=;
+ b=NiwKSJBaoKM/aYC57B4BMJ0VMcATFCPfu5PjdJf7Z1sUMw8xgHwWV1MxBUHYXz+koFf/4K9gcgmrxDtqbDr/Xjnqbm5hOamOPpfntoJNw1JmSj0Axhx1yEfHKuxNp0eNDXl2Ss2uDzDpc1I0l7UDBSEbq0sn65+TM1AH1a5kQRk=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3404.namprd12.prod.outlook.com (2603:10b6:5:3a::11) by
- DM6PR12MB3738.namprd12.prod.outlook.com (2603:10b6:5:1c7::17) with
+Received: from DM6PR12MB3561.namprd12.prod.outlook.com (2603:10b6:5:3e::26) by
+ DM6PR12MB4713.namprd12.prod.outlook.com (2603:10b6:5:7d::18) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16; Wed, 16 Sep 2020 18:43:20 +0000
-Received: from DM6PR12MB3404.namprd12.prod.outlook.com
- ([fe80::8021:13d3:3dc5:e39b]) by DM6PR12MB3404.namprd12.prod.outlook.com
- ([fe80::8021:13d3:3dc5:e39b%2]) with mapi id 15.20.3391.014; Wed, 16 Sep 2020
- 18:43:20 +0000
-From: Philip Cox <Philip.Cox@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 2/3] drm/amdkfd: Add process eviction counters to sysfs
-Date: Wed, 16 Sep 2020 14:42:46 -0400
-Message-Id: <20200916184247.32475-2-Philip.Cox@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTXPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::25) To DM6PR12MB3404.namprd12.prod.outlook.com
- (2603:10b6:5:3a::11)
+ 15.20.3370.18; Wed, 16 Sep 2020 18:48:12 +0000
+Received: from DM6PR12MB3561.namprd12.prod.outlook.com
+ ([fe80::1557:8815:3eaf:267b]) by DM6PR12MB3561.namprd12.prod.outlook.com
+ ([fe80::1557:8815:3eaf:267b%2]) with mapi id 15.20.3370.019; Wed, 16 Sep 2020
+ 18:48:12 +0000
+Subject: Re: [PATCH] drm/amd/display: Add missing "Copy GSL groups when
+ committing a new context"
+To: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+References: <20200916170851.2509294-1-Bhawanpreet.Lakha@amd.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <8ef98a87-14f8-9d7f-a82e-4d65dea029dc@amd.com>
+Date: Wed, 16 Sep 2020 14:48:10 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+In-Reply-To: <20200916170851.2509294-1-Bhawanpreet.Lakha@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0111.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::20) To DM6PR12MB3561.namprd12.prod.outlook.com
+ (2603:10b6:5:3e::26)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from pscox.amd.com (165.204.55.251) by
- YTXPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14 via Frontend
- Transport; Wed, 16 Sep 2020 18:43:19 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
+Received: from [172.31.148.234] (165.204.55.211) by
+ YT1PR01CA0111.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3391.14 via Frontend Transport; Wed, 16 Sep 2020 18:48:11 +0000
+X-Originating-IP: [165.204.55.211]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e9b4bec7-7562-46cc-5fcc-08d85a7061eb
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3738:
+X-MS-Office365-Filtering-Correlation-Id: 0c810da0-09ba-4de5-9cc5-08d85a710ff6
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4713:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB37383F766CD96B15B0AEAAA783210@DM6PR12MB3738.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4713D5406CE3AD759CC04344EC210@DM6PR12MB4713.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vSCRXJC0oy519Q957p1pqu2A3mmqRmR3K0eSRQJ9vlMQMN73OegWiav+800WT1uLT0iHerCx8ihv9N4kOR1NkJB1XeLYmZtPzcxJnaeIplwLYQ1hJ4RKa9NBfDrqU3flMIsoJTqyUCnA09PKUvAT18YQqvSWs5s9b68vbjZNSFAhYJwWhHjvfdh4Hx2uvrlBoWN0X/O6w6knUIkt3p6b4EdmwCE3+cqkpBk2UtGX4PuA/FJAFMgQyaGIiep/5U57B/ZAT2s2zdF5f8+GxN8u+3qQQRgak0K2IFYNx97Nt487bUhJe/s2m0Y4oi1N5xv924pQSKD2eekUkoENjVB/EA==
+X-Microsoft-Antispam-Message-Info: rsqPZKSzAB95VygdlNgXYC2nErdJBOQLvaKJ2FQ8tjfPtM9WKBAXbaqwZ6JJcmDorIf+sZCZk6qraLxfbO6a1AtZ6PMNZck6eeDjN6mWRIX57mPx8iD9gRucd30yDjslT4POIgjf9Vn3rB0ko6UwzgOlvDRE4zre3YxIYhd8LWxys8UHoBG1auauq9sIKbOEJw8SU47EmAdyznyGv8o5nQ2SjuOvK7YGr+nM4SMWUpxmtagP9CWu0F5DX/BuP8xz1kud8llUQe8szStkNY3uX6N/nA5Ys6XU/WCnWCV1BM2qSkGkZiAZ4YLEhbyPYPRoQO3aWrP1ULS8xFwJYzZ0BeiyAfHKTzWZENiJYC1RDeLqd2Kfzshtz1k/+icwGzt2
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3404.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(366004)(396003)(39860400002)(376002)(86362001)(5660300002)(8676002)(316002)(4326008)(8936002)(6666004)(36756003)(186003)(2616005)(16526019)(956004)(26005)(7696005)(478600001)(83380400001)(52116002)(2906002)(6486002)(6916009)(66556008)(66946007)(1076003)(66476007);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3561.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(366004)(346002)(39850400004)(396003)(186003)(53546011)(8936002)(4326008)(6486002)(52116002)(478600001)(6636002)(31686004)(5660300002)(2906002)(36756003)(26005)(16576012)(6862004)(16526019)(8676002)(66946007)(66556008)(956004)(31696002)(83380400001)(37006003)(316002)(66476007)(86362001)(2616005)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: b6BhP5tI45EAcsD43tSnTr88KtYpYguqdln3+LKMfKrjslUyXyr+lSggmRJSGD9qvrqsGZYvPgXZWRxVQwFumWfFmXkcKo21JuPhpIybPyGdB98YLVe5rq9dAo5Rimn+oXce1D/M4PpDPNWftC8YJaqoiGvWDbnMtd7QR8Utq57ie6+TLI/eSRcUrP78GJ0pa+g83fIg1jEzF29hm36VEytPSLGzyNAItGQQbkeoLCc6UH0v7eBuntYXAwBqo62lkMKunj/AoiVvDN8KzG8pGcPnwa8s/PSnk7s2JHZBtHmXloQrcaqJyTqVuZCcXBMmtYftpSyoDZHApL3CgKoxKSP0gyPmkKSjUc19jGy3NHHpK6sR98JL4URQ8qhBCqvHAHdV3gMOENCxwFjD8WpITaeUJMVL6A5pcxW5P4Vpc7gh4Mo8qXzpxZiMtNnzP1CfdgSUNsQdL0EA78k112OMWuRNQVT/gcTITxr/Q9wzAlq5uG6XtacB2Acb96fGt1s2b6hH4zlKDk0vyq7qGCITgXtp9YIMNHkipJ7/pN9GIyvfp4/AxBwAwdJuq0i51A5A/BEzf/IQedBusc3jYzy/ZFEOhJYy+Xtwt3J4kDM0WUi7hY5gapJO2PNxUryV12/3o4kAOL1WRoKfQ3ua0wegzg==
+X-MS-Exchange-AntiSpam-MessageData: Di1uQzJq3vsawiJ4br2pS6EURKkciTYyJD9eMvW6N8toe7QnHsxr+raR76yu1JPnOrwvYSIXFhQoahpvzUbDu1ZVWE3tMlsOic7/9NRs6YfJQorsK8+xTqoahcs08W9iCS2MRrZ6W+6wec41TbVU49X7Vt+FYhIW4P1d4KCHU3rwMGCDKHZ2TNjgkvyzuz3eG1ik5A5FpWFDk8rA72DaoOZFtwo+LusKPnIQTZsOabqoaoxPaJigLareuOjINNhTguuNWgpStwToyrTzoQIaeak30cN8t4wUUWMYbJMcrCci9PjlcmbM+W4FPArwsfm+h6vwlDzzIswKgjEx/BiawNPDicb3kg1ZfCPZOgxTTpzibQqPeo31Cv5SciX0QMwIcg28tsuuhoWgqVj0dLX/DyJs5AXMSiTt4pPk2bffpSthrzqj0CsyXCcqcaaThaJEifa/ckVwASVXbDVopRy0ajDvsobIw7Q0h3n25yy+AvCHDHGQk7R0PJ8UubdDgprWFa1SXiAF9m47Gw9/KYPPx0zFvCfy7ySu1K84kSyLp2yPBU2799c+4RN8UATkdGScuohuF2cski6Pp7QJcEjsZcZUo8pwWpEJpfkL+UaBNGREFm5xjxeVzbI5tQR6tjElmtiYnJuO63AyinBQxDBS6g==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9b4bec7-7562-46cc-5fcc-08d85a7061eb
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3404.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c810da0-09ba-4de5-9cc5-08d85a710ff6
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3561.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 18:43:20.0476 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 18:48:12.5555 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +1oITwtW7kLyUMoMgW7wNXl09BClxfBYjaCiQnHMJqEedPTNiVqUuoPgVpqzJt/4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3738
+X-MS-Exchange-CrossTenant-UserPrincipalName: hEVdKvBftxTyE2TB//OrdeZ87E//4zTLXGd+6FJBIdMqehVIOfA57N5DlAt0WkoFxbhpwxdsgGsRPrPnC5iIAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4713
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,253 +110,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan.Kim@amd.com, Felix.Kuehling@amd.com, Ramesh.Errabolu@amd.com,
- Laurent.Morichetti@amd.com, Philip Cox <Philip.Cox@amd.com>, Tony.Tye@amd.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: alexander.deucher@amd.com, Aurabindo.Pillai@amd.com,
+ amd-gfx@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add per-process eviction counters to sysfs to keep track of
-how many eviction events have happened for each process.
+On 2020-09-16 1:08 p.m., Bhawanpreet Lakha wrote:
+> [Why]
+> "Copy GSL groups when committing a new context" patch was accidentally
+> removed during a refactor
+> 
+> Patch: 21ffcc94d5b ("drm/amd/display: Copy GSL groups when committing a new context")
+> 
+> [How]
+> Re add it
+> 
+> Fixes: b6e881c9474 ("drm/amd/display: update navi to use new surface programming behaviour")
+> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-v2: rename the stats dir, and track all evictions per process, per device.
-v3: Simplify the stats kobject handling and cleanup.
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Signed-off-by: Philip Cox <Philip.Cox@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  9 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  9 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 97 +++++++++++++++++++
- 3 files changed, 114 insertions(+), 1 deletion(-)
+Regards,
+Nicholas Kazlauskas
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index cafbc3aa980a..5b9e0df2a90e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -653,6 +653,7 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
- 	pr_info_ratelimited("Evicting PASID 0x%x queues\n",
- 			    pdd->process->pasid);
- 
-+	pdd->last_evict_timestamp = get_jiffies_64();
- 	/* Mark all queues as evicted. Deactivate all active queues on
- 	 * the qpd.
- 	 */
-@@ -714,6 +715,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 		q->properties.is_active = false;
- 		decrement_queue_count(dqm, q->properties.type);
- 	}
-+	pdd->last_evict_timestamp = get_jiffies_64();
- 	retval = execute_queues_cpsch(dqm,
- 				qpd->is_debug ?
- 				KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES :
-@@ -732,6 +734,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 	struct mqd_manager *mqd_mgr;
- 	struct kfd_process_device *pdd;
- 	uint64_t pd_base;
-+	uint64_t eviction_duration;
- 	int retval, ret = 0;
- 
- 	pdd = qpd_to_pdd(qpd);
-@@ -799,6 +802,8 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 			ret = retval;
- 	}
- 	qpd->evicted = 0;
-+	eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
-+	atomic64_add(eviction_duration, &pdd->evict_duration_counter);
- out:
- 	if (mm)
- 		mmput(mm);
-@@ -812,6 +817,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 	struct queue *q;
- 	struct kfd_process_device *pdd;
- 	uint64_t pd_base;
-+	uint64_t eviction_duration;
- 	int retval = 0;
- 
- 	pdd = qpd_to_pdd(qpd);
-@@ -845,6 +851,9 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 	retval = execute_queues_cpsch(dqm,
- 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
- 	qpd->evicted = 0;
-+	eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
-+	atomic64_add(eviction_duration, &pdd->evict_duration_counter);
-+
- out:
- 	dqm_unlock(dqm);
- 	return retval;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 023629f28495..a500fe611b43 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -631,7 +631,7 @@ enum kfd_pdd_bound {
- 	PDD_BOUND_SUSPENDED,
- };
- 
--#define MAX_SYSFS_FILENAME_LEN 11
-+#define MAX_SYSFS_FILENAME_LEN 15
- 
- /*
-  * SDMA counter runs at 100MHz frequency.
-@@ -692,6 +692,13 @@ struct kfd_process_device {
- 	uint64_t sdma_past_activity_counter;
- 	struct attribute attr_sdma;
- 	char sdma_filename[MAX_SYSFS_FILENAME_LEN];
-+
-+	/* Eviction activity tracking */
-+	unsigned long last_evict_timestamp;
-+	atomic64_t evict_duration_counter;
-+	struct attribute attr_evict;
-+
-+	struct kobject *kobj_stats;
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 1e15aa7d8ae8..b4ba394ad599 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -344,6 +344,26 @@ static ssize_t kfd_procfs_queue_show(struct kobject *kobj,
- 
- 	return 0;
- }
-+static ssize_t kfd_procfs_stats_show(struct kobject *kobj,
-+				     struct attribute *attr, char *buffer)
-+{
-+	if (strcmp(attr->name, "evicted_ms") == 0) {
-+		struct kfd_process_device *pdd = container_of(attr,
-+				struct kfd_process_device,
-+				attr_evict);
-+		uint64_t evict_jiffies;
-+
-+		evict_jiffies = atomic64_read(&pdd->evict_duration_counter);
-+
-+		return snprintf(buffer,
-+				PAGE_SIZE,
-+				"%llu\n",
-+				jiffies64_to_msecs(evict_jiffies));
-+	} else
-+		pr_err("Invalid attribute");
-+
-+	return 0;
-+}
- 
- static struct attribute attr_queue_size = {
- 	.name = "size",
-@@ -376,6 +396,19 @@ static struct kobj_type procfs_queue_type = {
- 	.default_attrs = procfs_queue_attrs,
- };
- 
-+static const struct sysfs_ops procfs_stats_ops = {
-+	.show = kfd_procfs_stats_show,
-+};
-+
-+static struct attribute *procfs_stats_attrs[] = {
-+	NULL
-+};
-+
-+static struct kobj_type procfs_stats_type = {
-+	.sysfs_ops = &procfs_stats_ops,
-+	.default_attrs = procfs_stats_attrs,
-+};
-+
- int kfd_procfs_add_queue(struct queue *q)
- {
- 	struct kfd_process *proc;
-@@ -417,6 +450,60 @@ static int kfd_sysfs_create_file(struct kfd_process *p, struct attribute *attr,
- 	return ret;
- }
- 
-+static int kfd_procfs_add_sysfs_stats(struct kfd_process *p)
-+{
-+	int ret = 0;
-+	struct kfd_process_device *pdd;
-+	char stats_dir_filename[MAX_SYSFS_FILENAME_LEN];
-+
-+	if (!p)
-+		return -EINVAL;
-+
-+	if (!p->kobj)
-+		return -EFAULT;
-+
-+	/*
-+	 * Create sysfs files for each GPU:
-+	 * - proc/<pid>/stats_<gpuid>/
-+	 * - proc/<pid>/stats_<gpuid>/evicted_ms
-+	 */
-+	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
-+		struct kobject *kobj_stats;
-+
-+
-+		snprintf(stats_dir_filename, MAX_SYSFS_FILENAME_LEN,
-+				"stats_%u", pdd->dev->id);
-+		kobj_stats = kfd_alloc_struct(kobj_stats);
-+		if (!kobj_stats) {
-+			kfree(kobj_stats);
-+			return -ENOMEM;
-+		}
-+
-+		ret = kobject_init_and_add(kobj_stats,
-+						&procfs_stats_type,
-+						p->kobj,
-+						stats_dir_filename);
-+
-+		if (ret) {
-+			pr_warn("Creating KFD proc/stats_%s folder failed",
-+					stats_dir_filename);
-+			kobject_put(kobj_stats);
-+			goto err;
-+		}
-+
-+		pdd->kobj_stats = kobj_stats;
-+		pdd->attr_evict.name = "evicted_ms";
-+		pdd->attr_evict.mode = KFD_SYSFS_FILE_MODE;
-+		sysfs_attr_init(&pdd->attr_evict);
-+		ret = sysfs_create_file(kobj_stats, &pdd->attr_evict);
-+		if (ret)
-+			pr_warn("Creating eviction stats for gpuid %d failed",
-+				(int)pdd->dev->id);
-+	}
-+err:
-+	return ret;
-+}
-+
- static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
- {
- 	int ret = 0;
-@@ -660,6 +747,11 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 		if (!process->kobj_queues)
- 			pr_warn("Creating KFD proc/queues folder failed");
- 
-+		ret = kfd_procfs_add_sysfs_stats(process);
-+		if (ret)
-+			pr_warn("Creating sysfs stats dir for pid %d failed",
-+				(int)process->lead_thread->pid);
-+
- 		ret = kfd_procfs_add_sysfs_files(process);
- 		if (ret)
- 			pr_warn("Creating sysfs usage file for pid %d failed",
-@@ -816,6 +908,10 @@ static void kfd_process_wq_release(struct work_struct *work)
- 		list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
- 			sysfs_remove_file(p->kobj, &pdd->attr_vram);
- 			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
-+			sysfs_remove_file(p->kobj, &pdd->attr_evict);
-+			kobject_del(pdd->kobj_stats);
-+			kobject_put(pdd->kobj_stats);
-+			pdd->kobj_stats = NULL;
- 		}
- 
- 		kobject_del(p->kobj);
-@@ -1125,6 +1221,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 	pdd->runtime_inuse = false;
- 	pdd->vram_usage = 0;
- 	pdd->sdma_past_activity_counter = 0;
-+	atomic64_set(&pdd->evict_duration_counter, 0);
- 	list_add(&pdd->per_device_list, &p->per_device_data);
- 
- 	/* Init idr used for memory handle translation */
--- 
-2.17.1
+> ---
+>   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> index 5720b6e5d321..01530e686f43 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> @@ -1642,6 +1642,17 @@ void dcn20_program_front_end_for_ctx(
+>   	struct dce_hwseq *hws = dc->hwseq;
+>   	DC_LOGGER_INIT(dc->ctx->logger);
+>   
+> +	/* Carry over GSL groups in case the context is changing. */
+> +       for (i = 0; i < dc->res_pool->pipe_count; i++) {
+> +               struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+> +               struct pipe_ctx *old_pipe_ctx =
+> +                       &dc->current_state->res_ctx.pipe_ctx[i];
+> +
+> +               if (pipe_ctx->stream == old_pipe_ctx->stream)
+> +                       pipe_ctx->stream_res.gsl_group =
+> +                               old_pipe_ctx->stream_res.gsl_group;
+> +       }
+> +
+>   	if (dc->hwss.program_triplebuffer != NULL && dc->debug.enable_tri_buf) {
+>   		for (i = 0; i < dc->res_pool->pipe_count; i++) {
+>   			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+> 
 
 _______________________________________________
 amd-gfx mailing list
