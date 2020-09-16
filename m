@@ -6,77 +6,74 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C30D3C43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 07:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E801C43461
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AF4B2076C
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 07:52:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F02512087D
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 09:12:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Q2xM5bAJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AF4B2076C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="PkhW6vEw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F02512087D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E696E9D5;
-	Wed, 16 Sep 2020 07:52:01 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB7A6E9D3
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 07:52:00 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id y15so1912567wmi.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 00:52:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3A46E049;
+	Wed, 16 Sep 2020 09:12:19 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796AD6E049
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 09:12:18 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id e16so6107545wrm.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 02:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=dVvKltWqBEU89BlHB4WRQdNVMd2wZl+8cOFR2ESkNKo=;
- b=Q2xM5bAJA/Q2WFGxfesK2VFF/My8eoWs6bHKJhos95mBiqc9lVTNUtWxEjtDNhw9P+
- o2nW4Oc7bpXzn5htepF+j+WG1QREUrbdjd8zyVZii+omDNhTHcBpXOgfr1/APV87AC2S
- +H6ZwmSx2gokn9FmGFszkLtNCBIMZ3a4lT/FM=
+ :mime-version:content-disposition:in-reply-to;
+ bh=f19XFVFhs+2jghuOyfimjgCuw4YzF9zPieCgRuEe8b8=;
+ b=PkhW6vEwle8dhNbpmv1kW2QjiP61XHg9Idh+eMJddLaNuAOf3RVE+ioKr7StU2fcCC
+ 45ssKzJ/9DZCdCCXh5zTPN+5fCxuSSuFTAfQK7moUy/DHGfZ+s6gslor6cPl3Ik4m7tT
+ 4Mjhr/ucczSrZv73PtIVK7Ny7uVlTlr8DdpVc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id
  :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=dVvKltWqBEU89BlHB4WRQdNVMd2wZl+8cOFR2ESkNKo=;
- b=UvKTNAxMMXO2a7J+GZO/h1CMV5WHNEANlyNqSJQk6pii7kmBk5SU+kzEWhyqF2xbdL
- G2DyiDb8Mu8zG83RfgyDWUpFv8flodAwAfxn+fiQWqbKgO1EYCW/41u5FhGUVKY8K+Gh
- hsEJBCW+wRmPCpzVE4LZ/7yB5b+OWudpzu1GfMt9HlANOSa3P8bnL91L5XzU+CPsJGBc
- LsgF4vgn1imhVF0PP4/l9fBpz/Zevmzgc4tD+PXjmi4ZZ7TydFdRBB5LSIUFHW4J4GCj
- WZDoWMtlhMUA/JzqQZAOohAGTr72ZktADgf2JvM1mqqYkwxoS9GQsYi1ZKbqJYA7Tf2b
- JzvA==
-X-Gm-Message-State: AOAM533+5Dn1KD6qfGJLC2vajeaPE4bXp7vjfZlsfUmZHtjc8RBrw4cu
- 2pY+6ixKmbaSZ/bsX7rT6b0UpQ==
-X-Google-Smtp-Source: ABdhPJywveMidt4/e57hl8eEyBcYSOyCCUhd5x9XtTRmTYAj/r/rHiq9Oz3XsLdH6qy6VOddsTRFfg==
-X-Received: by 2002:a1c:a551:: with SMTP id o78mr3315971wme.4.1600242719437;
- Wed, 16 Sep 2020 00:51:59 -0700 (PDT)
+ :in-reply-to;
+ bh=f19XFVFhs+2jghuOyfimjgCuw4YzF9zPieCgRuEe8b8=;
+ b=o2Aog74jpMilNYH67qrOkZKFGc/ccC+5WrhTmYIEmEHKiIBc23qmntfrtZnpH4R649
+ BcJhlkQPHAoTofD08/UTUa0kPC7U4pvxFoTrHKYOuQd3ROElV6wL/9hMtAzMkJ+3ekUA
+ DCbR9oPGoQUn1WdUQn6iG2VpjJkqjz98ThjU0XvmsFrc+mKtPTLEoo7K2xDpjalJxR9B
+ SnmJGwUrZsQd+hbQcooQ2YMgfe4VN9C8e7VLmKPD5P7W1xWk0MYwHJtBGAmIyoiFoF4S
+ cANThyfsa82y4ZVn8rPzuw6UGA85ljZyt9Wq1b7qQluk9VFnxlLmvF12vWVxwBtnZkSH
+ s1FQ==
+X-Gm-Message-State: AOAM533ADN80r9QZfzRH+VqLLGhzHIyRXBoNhqku2mCw8yCiECWpTETQ
+ cf2XOBM4M/Onn7lR9SbeIQx9FA==
+X-Google-Smtp-Source: ABdhPJwYoeHhQRyZtS+oxtMM4dznniKImx/L732tMFcxNrkUkBK0PwZcwnU2qPqi3QiQ/p2MSI8OzQ==
+X-Received: by 2002:adf:ef45:: with SMTP id c5mr24819646wrp.37.1600247537116; 
+ Wed, 16 Sep 2020 02:12:17 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id m10sm3771805wmi.9.2020.09.16.00.51.58
+ by smtp.gmail.com with ESMTPSA id n4sm31207972wrp.61.2020.09.16.02.12.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2020 00:51:58 -0700 (PDT)
-Date: Wed, 16 Sep 2020 09:51:56 +0200
+ Wed, 16 Sep 2020 02:12:16 -0700 (PDT)
+Date: Wed, 16 Sep 2020 11:12:14 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: christian.koenig@amd.com
-Subject: Re: [PATCH -next 0/8] drm/amd/amdgpu: fix comparison pointer to bool
- warning
-Message-ID: <20200916075156.GU438822@phenom.ffwll.local>
-Mail-Followup-To: christian.koenig@amd.com,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- Alex Deucher <alexdeucher@gmail.com>, yi.zhang@huawei.com,
- Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Zheng Bin <zhengbin13@huawei.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- "Deucher, Alexander" <alexander.deucher@amd.com>
-References: <20200909130720.105234-1-zhengbin13@huawei.com>
- <1fce0f2a-3777-e6d8-5a09-30261f843cfd@amd.com>
- <CADnq5_NoeFbBAMT6s_ictVXsUc2tx1U48MLxnMbAr2Sd58jyYA@mail.gmail.com>
- <20200915193549.GP6112@intel.com>
- <6658f89f-6957-e6ea-af41-7625f1fd3cb1@gmail.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH v2 0/4] Enlarge tracepoints in the display component
+Message-ID: <20200916091214.GY438822@phenom.ffwll.local>
+Mail-Followup-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ hersenxs.wu@amd.com
+References: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <6658f89f-6957-e6ea-af41-7625f1fd3cb1@gmail.com>
+In-Reply-To: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
 X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,123 +86,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yi.zhang@huawei.com, Dave Airlie <airlied@linux.ie>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Zheng Bin <zhengbin13@huawei.com>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Leo Li <sunpeng.li@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, hersenxs.wu@amd.com,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2020 at 09:38:34AM +0200, Christian K=F6nig wrote:
-> Am 15.09.20 um 21:35 schrieb Ville Syrj=E4l=E4:
-> > On Tue, Sep 15, 2020 at 03:16:32PM -0400, Alex Deucher wrote:
-> > > I question the value of these warnings.  Why even have a boolean type
-> > > if you are going to get warnings when you use them...
-> > > That said, applied to avoid getting these patches again and again
-> > > every time someone sees this.
-> > if (this_is_sparta)
-> > if (this_is_sparta =3D=3D true)
-> > if (this_is_sparta !=3D false)
-> > =
+On Fri, Sep 11, 2020 at 10:59:23AM -0400, Rodrigo Siqueira wrote:
+> Debug issues related to display can be a challenge due to the complexity
+> around this topic and different source of information might help in this
+> process. We already have support for tracepoints inside the display
+> component, i.e., we have the basic functionalities available and we just
+> need to expand it in order to make it more valuable for debugging. For
+> this reason, this patchset reworks part of the current tracepoint
+> options and add different sets of tracing inside amdgpu_dm, display
+> core, and DCN10. The first patch of this series just rework part of the
+> current tracepoints and the last set of patches introduces new
+> tracepoints.
+> 
+> This first patchset version is functional. Please, let me know what I
+> can improve in the current version but also let me know what kind of
+> tracepoint I can add for the next version. 
+> 
+> Finally, I want to highlight that this work is based on a set of patches
+> originally made by Nicholas Kazlauskas.
+> 
+> Change in V2:
+> - I added another patch for capturing the clock state for different display
+>   architecture.
 
-> > I think the first one reads the best, and avoids having to
-> > decide between truth and falsehood :)
-> =
+Hm I'm not super sure tracepoints for state dumping are the right thing
+here. We kinda have the atomic state dumping code with all the various
+callbacks, and you can extend that pretty easily. Gives you full state
+dump in debugfs, plus a few function to dump into dmesg.
 
-> +1
+Maybe what we need is a function to dump this also into printk tracepoint
+(otoh with Sean Paul's tracepoint work we'd get that through the dmesg
+stuff already), and then you could do it there?
 
-+1, especially because we also have the inversion when using negative
-errno codes for failures and 0 as success, which results in
+Upside is that for customers they'd get a much more consistent way to
+debug display issues across different drivers.
 
-	if (errno =3D=3D 0) /* success case */
+For low-level hw debug what we do is give the hw guys an mmio trace, and
+they replay it on the fancy boxes :-) So for that I think this here is
+again too high level, but maybe what you have is a bit different.
+-Daniel
 
-but
-	if (bool =3D=3D 0) /* failure case */
+> 
+> Rodrigo Siqueira (4):
+>   drm/amd/display: Rework registers tracepoint
+>   drm/amd/display: Add tracepoint for amdgpu_dm
+>   drm/amd/display: Add pipe_state tracepoint
+>   drm/amd/display: Add tracepoint for capturing clocks state
+> 
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  17 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 712 +++++++++++++++++-
+>  .../dc/clk_mgr/dce112/dce112_clk_mgr.c        |   5 +
+>  .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |   4 +
+>  .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |   4 +
+>  .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |   4 +
+>  .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   4 +
+>  drivers/gpu/drm/amd/display/dc/core/dc.c      |  11 +
+>  .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  |   5 +
+>  .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  17 +-
+>  10 files changed, 747 insertions(+), 36 deletions(-)
+> 
+> -- 
+> 2.28.0
+> 
 
-now creative people do sometimes
-
-	if (!errno) /* success case */
-
-which I think is horribly confusing. So imo for more easier telling apart
-of these too I think consistently using the short form for booleans, and
-consistently using the more explicit long form for errno checks is a Very
-Good Pattern :-)
-
-Cheers, Daniel
-
-> =
-
-> Christian.
-> =
-
-> > =
-
-> > > Alex
-> > > =
-
-> > > On Wed, Sep 9, 2020 at 9:21 AM Christian K=F6nig <christian.koenig@am=
-d.com> wrote:
-> > > > Acked-by: Christian K=F6nig <christian.koenig@amd.com> for the seri=
-es.
-> > > > =
-
-> > > > Am 09.09.20 um 15:07 schrieb Zheng Bin:
-> > > > > Zheng Bin (8):
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in gfx=
-_v9_0.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in gfx=
-_v10_0.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in sdm=
-a_v5_0.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in sdm=
-a_v5_2.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in si.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in uvd=
-_v6_0.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in
-> > > > >       amdgpu_atpx_handler.c
-> > > > >     drm/amd/amdgpu: fix comparison pointer to bool warning in sdm=
-a_v4_0.c
-> > > > > =
-
-> > > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 4 ++--
-> > > > >    drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c           | 2 +-
-> > > > >    drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 2 +-
-> > > > >    drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c           | 4 ++--
-> > > > >    drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c           | 2 +-
-> > > > >    drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c           | 2 +-
-> > > > >    drivers/gpu/drm/amd/amdgpu/si.c                  | 2 +-
-> > > > >    drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c            | 4 ++--
-> > > > >    8 files changed, 11 insertions(+), 11 deletions(-)
-> > > > > =
-
-> > > > > --
-> > > > > 2.26.0.106.g9fadedd
-> > > > > =
-
-> > > > _______________________________________________
-> > > > amd-gfx mailing list
-> > > > amd-gfx@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> =
-
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
--- =
-
+-- 
 Daniel Vetter
 Software Engineer, Intel Corporation
 http://blog.ffwll.ch
