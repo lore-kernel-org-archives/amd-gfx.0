@@ -2,37 +2,107 @@ Return-Path: <SRS0=J3+H=CZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2045C43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91E8CC433E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:27:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AFA912053B
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:05:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AFA912053B
+	by mail.kernel.org (Postfix) with ESMTPS id D8279223E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 15:27:36 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="c6S3yWwG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8279223E0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A326EA24;
-	Wed, 16 Sep 2020 15:05:32 +0000 (UTC)
-Received: from svt-ETHLX-2.amd.com (unknown [165.204.54.251])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8102A6EA24
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 15:05:30 +0000 (UTC)
-Received: by svt-ETHLX-2.amd.com (Postfix, from userid 0)
- id 5DD3C1840114; Wed, 16 Sep 2020 10:57:05 -0400 (EDT)
-From: Bokun Zhang <Bokun.Zhang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] SWDEV-220451 - Query guest's information by VF2PF message
- - Guest side - part 2
-Date: Wed, 16 Sep 2020 10:57:02 -0400
-Message-Id: <20200916145702.18866-1-Bokun.Zhang@amd.com>
-X-Mailer: git-send-email 2.20.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 620D16EA2E;
+	Wed, 16 Sep 2020 15:27:36 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4FF96EA2E;
+ Wed, 16 Sep 2020 15:27:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HlR6fpnPFi8H6yUMfhNIUcrg702QsKk4Y+6uMf8HgJ+if7rBsMOqpyZOxWYDQK3aMYdfMXK+6+4kJQB7afvUloQko+O19I4ME4rLbpO/ZRw/PKA6Cv8XlK9ll4n5i0kWRacRhpmUrCRYdATuj40xpAZBvUfeA+HW50g1fjvBsbjcZAKTvOlRBT9PVOlynnJZMlS1sQDuBsOhLC/lqEEvGEQzzP/rfklebkp5slu5UlDhLz4aqn3ApD36PdvYKjelroaaPkSrgtPHKxsvUJ/lGy3CaXEEvIR0Z5hte8o3DxuMuj4zQ3ncRpYD9GbQLqgyV56MjUHxOtvJu5pP1EVi7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o8dPMQVXEUGM/K6CgXk7YTQBx+ON17zOfyNdYs2clqw=;
+ b=RlBJ/2b2cL6zQCcNu7B5nNTlSV0OLi87PqdHlb0/IAHmamVRPeXTelsIka6hQuom1i1psbDb1BHov8NV2IaixBBnclUmNj+k8qmu05vO0IDg8Jr/KVqMJpFyVQxklxcQ63TbgUAIXTrITsa0E/HhGpJ9nS2sTBTLEExLJzPz4rYkXCK/sqax8zO3fw8GBfNyHUEL6bQrDIRd4yN4DFe+HNeS/KoNErNgZjz6IeNUfxXo9Gr2mv7Sn6hmpRFZcIR5YZfFUeyG0a1wNQX8JhIZyhLTvu1cYI+DLQWRklYOkfXRGlLEkJhN1+qq8V7yb5N2dsUUb/8In2SiihxZ1ZVWAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o8dPMQVXEUGM/K6CgXk7YTQBx+ON17zOfyNdYs2clqw=;
+ b=c6S3yWwG+xELN3s5258EITyr6oAtbZwwNn+I/GxqsRB+BZWcIZ+06HfKdNx6BA+c+dU6t9qUbeSUapSCpGO10E/dSX3E9pJikseyiI5+Ji5mxniUeuLNXXHS9DVqFoGKT8jB8mOxAlHqkbaIPkEtfks3TBpKnArTRA9RAUTSPZ4=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3189.namprd12.prod.outlook.com (2603:10b6:a03:134::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Wed, 16 Sep
+ 2020 15:27:32 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::754e:8f27:157a:9101]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::754e:8f27:157a:9101%6]) with mapi id 15.20.3326.030; Wed, 16 Sep 2020
+ 15:27:32 +0000
+Subject: Re: [PATCH v2 0/4] Enlarge tracepoints in the display component
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, hersenxs.wu@amd.com
+References: <20200911145927.401322-1-Rodrigo.Siqueira@amd.com>
+ <20200916091214.GY438822@phenom.ffwll.local>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <e05be8ec-e73b-7fd6-efca-4a360e9ebb57@amd.com>
+Date: Wed, 16 Sep 2020 11:27:27 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+In-Reply-To: <20200916091214.GY438822@phenom.ffwll.local>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::16) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YTXPR0101CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3348.15 via Frontend Transport; Wed, 16 Sep 2020 15:27:30 +0000
+X-Originating-IP: [165.204.55.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e8be37af-e383-4242-6857-08d85a55078c
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3189:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB31892796D473DF42CE461F40EC210@BYAPR12MB3189.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YlX8/kCbzGsN2b/6wZVyp2Ttx6PH9GL0ay37kmXOkqvorwLBfirLlxTc/KrwJqqRZlTTFFDamS7fvgfWfKr2UpxYGNFoRIPQE9nRg/CmnJSn0WkDHem6cQyzMzcCjRN52W1+vSnBrdGds2K5GnCQ7UKkC6NhMgEL3ZX1iuhJxtj09O8W0U2XxHIfqIVnhkwjC+RezJtN/H05qfZbKpR4IgLyMK/UKE/m/uKnl/F9qtWNrc7rTFF5aM9Zjmpvt7T2lYCIF/pdh7OPZt6Nru1nZEwE4k4SNb4MfYBy8NRZebI5m0wLhsJaIopTFBQ8P6iwpvhVTj2hoXxvWJYBgazpan6B3j1iGsaTw+Sn+kUOCLEZS/bxuNlkWC422LeEpdCfC/h1rCe0bJi1GaOqiU0jttHdKi6HH6ZEKO/k69xtV1UoymMPA45cKrcHJMdPGXj0d4Dku0dUJVXHCKi/gQLRMA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(136003)(396003)(346002)(39860400002)(186003)(6636002)(956004)(66476007)(36756003)(8936002)(2616005)(31696002)(2906002)(66946007)(6486002)(478600001)(16526019)(110136005)(5660300002)(86362001)(52116002)(26005)(53546011)(6666004)(31686004)(16576012)(8676002)(66556008)(316002)(83380400001)(161623001)(921003)(147533002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 4P4gRr+1uOWc2mpZuhEpfw6tTV4A6h60xuOQxO1JTOG8IqIPXzo7RWi7Gf1wbBmnBiMO4b3CMPA3pVEMQI5GU23oUi5PorPkHwZTR6jsUlOid1QiDvlSg6VkdgM7csgLswMtMfrMfW7nrvCbgSoiIMxy4ekJtFp2gdyQOn4kghRmUgngq2jE0MtvAsT1enstxOlxvSNkewGL8ARdr2/0nH4stVu+3YsRPiQSXvq7kemvbfumVIBSnm3CU5dr5tJWz19+hVqoxmdu60fuP/aKAL78E9CQLi3ASwNho64kkb4w+omoO+KlnKC0SoodUFyErELYrvdMI6FlxBGVhc/LXleYuHFWKsL6aUKDBQk9ZPeyUdHGXqW+D27nX0Gk+MS8UfQkx2MOykRS2ex3A6uEAhgIcOHM030bG040etRjVlB7v/CZ7ZGezOACzi+g+0phpGw8XQHOQnTsuNH9ghxggcnX5aIwaufZXQcPQ0U7ssWT3Tf7cSzOTs8R1iqFGaZGVsnuuZ2BCsjyTJTs+367TiTFBveEUspTTLECkmBXGQzqehxDVYR0dmvXV3uHpwXX95L2SNTmia7sCXgIo8fFZjcnRzOsy/YaRIXPZlM7JWDen4lsUXkDua2zdsI/KpgUsikQ3XpKs0efkVyBiSasYw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8be37af-e383-4242-6857-08d85a55078c
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 15:27:32.2694 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9UvmdnHgcQKdqBOSwoqjeoidUWkJ7wsSvHLVLrCoMAkRg48hidWRts3M+tKPea+zvXU9+YSSSENn7+SPXFZXJA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3189
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,451 +114,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- Add VF2PF message support
-- Remove incorrect Macro to avoid compile error
-- Remove duplicated struct and use amdgv_sriovmsg.h
+On 2020-09-16 5:12 a.m., Daniel Vetter wrote:
+> On Fri, Sep 11, 2020 at 10:59:23AM -0400, Rodrigo Siqueira wrote:
+>> Debug issues related to display can be a challenge due to the complexity
+>> around this topic and different source of information might help in this
+>> process. We already have support for tracepoints inside the display
+>> component, i.e., we have the basic functionalities available and we just
+>> need to expand it in order to make it more valuable for debugging. For
+>> this reason, this patchset reworks part of the current tracepoint
+>> options and add different sets of tracing inside amdgpu_dm, display
+>> core, and DCN10. The first patch of this series just rework part of the
+>> current tracepoints and the last set of patches introduces new
+>> tracepoints.
+>>
+>> This first patchset version is functional. Please, let me know what I
+>> can improve in the current version but also let me know what kind of
+>> tracepoint I can add for the next version.
+>>
+>> Finally, I want to highlight that this work is based on a set of patches
+>> originally made by Nicholas Kazlauskas.
+>>
+>> Change in V2:
+>> - I added another patch for capturing the clock state for different display
+>>    architecture.
+> 
+> Hm I'm not super sure tracepoints for state dumping are the right thing
+> here. We kinda have the atomic state dumping code with all the various
+> callbacks, and you can extend that pretty easily. Gives you full state
+> dump in debugfs, plus a few function to dump into dmesg.
+> 
+> Maybe what we need is a function to dump this also into printk tracepoint
+> (otoh with Sean Paul's tracepoint work we'd get that through the dmesg
+> stuff already), and then you could do it there?
+> 
+> Upside is that for customers they'd get a much more consistent way to
+> debug display issues across different drivers.
+> 
+> For low-level hw debug what we do is give the hw guys an mmio trace, and
+> they replay it on the fancy boxes :-) So for that I think this here is
+> again too high level, but maybe what you have is a bit different.
+> -Daniel
 
-Change-Id: I8175d304871f4b5aab75fd071a6bdf8008137dbe
-Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 244 ++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  75 +------
- 3 files changed, 198 insertions(+), 125 deletions(-)
+We have raw register traces, but what I find most useful is to be able 
+to see are the incoming DRM IOCTLs, objects and properties per commit.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5d702f6e77de..483ec0136332 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3443,8 +3443,10 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
- 	/* make sure IB test finished before entering exclusive mode
- 	 * to avoid preemption on IB test
- 	 * */
--	if (amdgpu_sriov_vf(adev))
-+	if (amdgpu_sriov_vf(adev)) {
- 		amdgpu_virt_request_full_gpu(adev, false);
-+		amdgpu_virt_fini_data_exchange(adev);
-+	}
- 
- 	/* disable all interrupts */
- 	amdgpu_irq_disable_all(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index f76961d17246..1f1171812e35 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -31,6 +31,12 @@
- #include "soc15.h"
- #include "nv.h"
- 
-+#define POPULATE_UCODE_INFO(vf2pf_info, ucode, ver) \
-+	do { \
-+		vf2pf_info->ucode_info[ucode].id = ucode; \
-+		vf2pf_info->ucode_info[ucode].version = ver; \
-+	} while (0)
-+
- bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev)
- {
- 	/* By now all MMIO pages except mailbox are blocked */
-@@ -239,10 +245,10 @@ void amdgpu_virt_free_mm_table(struct amdgpu_device *adev)
- }
- 
- 
--int amdgpu_virt_fw_reserve_get_checksum(void *obj,
--					unsigned long obj_size,
--					unsigned int key,
--					unsigned int chksum)
-+unsigned int amd_sriov_msg_checksum(void *obj,
-+				unsigned long obj_size,
-+				unsigned int key,
-+				unsigned int checksum)
- {
- 	unsigned int ret = key;
- 	unsigned long i = 0;
-@@ -252,9 +258,9 @@ int amdgpu_virt_fw_reserve_get_checksum(void *obj,
- 	/* calculate checksum */
- 	for (i = 0; i < obj_size; ++i)
- 		ret += *(pos + i);
--	/* minus the chksum itself */
--	pos = (char *)&chksum;
--	for (i = 0; i < sizeof(chksum); ++i)
-+	/* minus the checksum itself */
-+	pos = (char *)&checksum;
-+	for (i = 0; i < sizeof(checksum); ++i)
- 		ret -= *(pos + i);
- 	return ret;
- }
-@@ -415,33 +421,187 @@ static void amdgpu_virt_add_bad_page(struct amdgpu_device *adev,
- 	}
- }
- 
--void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
-+static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
- {
--	uint32_t pf2vf_size = 0;
--	uint32_t checksum = 0;
-+	struct amd_sriov_msg_pf2vf_info_header *pf2vf_info = adev->virt.fw_reserve.p_pf2vf;
-+	uint32_t checksum;
- 	uint32_t checkval;
--	char *str;
-+
-+	if (adev->virt.fw_reserve.p_pf2vf == NULL)
-+		return -EINVAL;
-+
-+	if (pf2vf_info->size > 1024) {
-+		DRM_ERROR("invalid pf2vf message size\n");
-+		return -EINVAL;
-+	}
-+
-+	switch (pf2vf_info->version) {
-+	case 1:
-+		checksum = ((struct amdgim_pf2vf_info_v1 *)pf2vf_info)->checksum;
-+		checkval = amd_sriov_msg_checksum(
-+			adev->virt.fw_reserve.p_pf2vf, pf2vf_info->size,
-+			adev->virt.fw_reserve.checksum_key, checksum);
-+		if (checksum != checkval) {
-+			DRM_ERROR("invalid pf2vf message\n");
-+			return -EINVAL;
-+		}
-+
-+		adev->virt.gim_feature =
-+			((struct amdgim_pf2vf_info_v1 *)pf2vf_info)->feature_flags;
-+		break;
-+	case 2:
-+		/* TODO: missing key, need to add it later */
-+		checksum = ((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->checksum;
-+		checkval = amd_sriov_msg_checksum(
-+			adev->virt.fw_reserve.p_pf2vf, pf2vf_info->size,
-+			0, checksum);
-+		if (checksum != checkval) {
-+			DRM_ERROR("invalid pf2vf message\n");
-+			return -EINVAL;
-+		}
-+
-+		adev->virt.vf2pf_update_interval_ms =
-+			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->vf2pf_update_interval_ms;
-+		adev->virt.gim_feature =
-+			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->feature_flags.all;
-+
-+		break;
-+	default:
-+		DRM_ERROR("invalid pf2vf version\n");
-+		return -EINVAL;
-+	}
-+
-+	/* correct too large or too little interval value */
-+	if (adev->virt.vf2pf_update_interval_ms < 200 || adev->virt.vf2pf_update_interval_ms > 10000)
-+		adev->virt.vf2pf_update_interval_ms = 2000;
-+
-+	return 0;
-+}
-+
-+static void amdgpu_virt_populate_vf2pf_ucode_info(struct amdgpu_device *adev)
-+{
-+	struct amd_sriov_msg_vf2pf_info *vf2pf_info;
-+	vf2pf_info = (struct amd_sriov_msg_vf2pf_info *) adev->virt.fw_reserve.p_vf2pf;
-+
-+	if (adev->virt.fw_reserve.p_vf2pf == NULL)
-+		return;
-+
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_VCE,      adev->vce.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_UVD,      adev->uvd.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MC,       adev->gmc.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_ME,       adev->gfx.me_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_PFP,      adev->gfx.pfp_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_CE,       adev->gfx.ce_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC,      adev->gfx.rlc_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLC, adev->gfx.rlc_srlc_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLG, adev->gfx.rlc_srlg_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLS, adev->gfx.rlc_srls_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MEC,      adev->gfx.mec_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MEC2,     adev->gfx.mec2_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SOS,      adev->psp.sos_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_ASD,      adev->psp.asd_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_TA_RAS,   adev->psp.ta_ras_ucode_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_TA_XGMI,  adev->psp.ta_xgmi_ucode_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SMC,      adev->pm.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SDMA,     adev->sdma.instance[0].fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SDMA2,    adev->sdma.instance[1].fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_VCN,      adev->vcn.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_DMCU,     adev->dm.dmcu_fw_version);
-+}
-+
-+static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
-+{
-+	struct amd_sriov_msg_vf2pf_info *vf2pf_info;
-+
-+	vf2pf_info = (struct amd_sriov_msg_vf2pf_info *) adev->virt.fw_reserve.p_vf2pf;
-+
-+	if (adev->virt.fw_reserve.p_vf2pf == NULL)
-+		return -EINVAL;
-+
-+	memset(vf2pf_info, 0, sizeof(struct amd_sriov_msg_vf2pf_info));
-+
-+	vf2pf_info->header.size = sizeof(struct amd_sriov_msg_vf2pf_info);
-+	vf2pf_info->header.version = AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER;
-+
-+#ifdef MODULE
-+	if (THIS_MODULE->version != NULL)
-+		strcpy(vf2pf_info->driver_version, THIS_MODULE->version);
-+	else
-+#endif
-+		strcpy(vf2pf_info->driver_version, "N/A");
-+
-+	vf2pf_info->pf2vf_version_required = 0; // no requirement, guest understands all
-+	vf2pf_info->driver_cert = 0;
-+	vf2pf_info->os_info.all = 0;
-+
-+	vf2pf_info->fb_usage = amdgpu_vram_mgr_usage(&adev->mman.bdev.man[TTM_PL_VRAM]) >> 20;
-+	vf2pf_info->fb_vis_usage = amdgpu_vram_mgr_vis_usage(&adev->mman.bdev.man[TTM_PL_VRAM]) >> 20;
-+	vf2pf_info->fb_size = adev->gmc.real_vram_size >> 20;
-+	vf2pf_info->fb_vis_size = adev->gmc.visible_vram_size >> 20;
-+
-+	amdgpu_virt_populate_vf2pf_ucode_info(adev);
-+
-+	/* TODO: read dynamic info */
-+	vf2pf_info->gfx_usage = 0;
-+	vf2pf_info->compute_usage = 0;
-+	vf2pf_info->encode_usage = 0;
-+	vf2pf_info->decode_usage = 0;
-+
-+	vf2pf_info->checksum =
-+		amd_sriov_msg_checksum(
-+		vf2pf_info, vf2pf_info->header.size, 0, 0);
-+
-+	return 0;
-+}
-+
-+void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
-+{
-+	struct amdgpu_device *adev = container_of(work, struct amdgpu_device, virt.vf2pf_work.work);
-+
-+	amdgpu_virt_read_pf2vf_data(adev);
-+	amdgpu_virt_write_vf2pf_data(adev);
-+
-+	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
-+}
-+
-+void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev)
-+{
-+	if (adev->virt.vf2pf_update_interval_ms != 0) {
-+		DRM_INFO("clean up the vf2pf work item\n");
-+		flush_delayed_work(&adev->virt.vf2pf_work);
-+		cancel_delayed_work_sync(&adev->virt.vf2pf_work);
-+	}
-+}
-+
-+void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
-+{
- 	uint64_t bp_block_offset = 0;
- 	uint32_t bp_block_size = 0;
--	struct amdgim_pf2vf_info_v2 *pf2vf_v2 = NULL;
-+	struct amd_sriov_msg_pf2vf_info *pf2vf_v2 = NULL;
- 
- 	adev->virt.fw_reserve.p_pf2vf = NULL;
- 	adev->virt.fw_reserve.p_vf2pf = NULL;
-+	adev->virt.vf2pf_update_interval_ms = 0;
-+
-+	if (adev->fw_vram_usage.va != NULL) {
-+		adev->virt.vf2pf_update_interval_ms = 2000;
- 
--	if (adev->mman.fw_vram_usage_va != NULL) {
- 		adev->virt.fw_reserve.p_pf2vf =
--			(struct amd_sriov_msg_pf2vf_info_header *)(
--			adev->mman.fw_vram_usage_va + AMDGIM_DATAEXCHANGE_OFFSET);
--		AMDGPU_FW_VRAM_PF2VF_READ(adev, header.size, &pf2vf_size);
--		AMDGPU_FW_VRAM_PF2VF_READ(adev, checksum, &checksum);
--		AMDGPU_FW_VRAM_PF2VF_READ(adev, feature_flags, &adev->virt.gim_feature);
--
--		/* pf2vf message must be in 4K */
--		if (pf2vf_size > 0 && pf2vf_size < 4096) {
--			if (adev->virt.fw_reserve.p_pf2vf->version == 2) {
--				pf2vf_v2 = (struct amdgim_pf2vf_info_v2 *)adev->virt.fw_reserve.p_pf2vf;
--				bp_block_offset = ((uint64_t)pf2vf_v2->bp_block_offset_L & 0xFFFFFFFF) |
--						((((uint64_t)pf2vf_v2->bp_block_offset_H) << 32) & 0xFFFFFFFF00000000);
-+			(struct amd_sriov_msg_pf2vf_info_header *)
-+			(adev->fw_vram_usage.va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
-+		adev->virt.fw_reserve.p_vf2pf =
-+			(struct amd_sriov_msg_vf2pf_info_header *)
-+			(adev->fw_vram_usage.va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
-+
-+		amdgpu_virt_read_pf2vf_data(adev);
-+		amdgpu_virt_write_vf2pf_data(adev);
-+
-+		/* bad page handling for version 2 */
-+		if (adev->virt.fw_reserve.p_pf2vf->version == 2) {
-+				pf2vf_v2 = (struct amd_sriov_msg_pf2vf_info *)adev->virt.fw_reserve.p_pf2vf;
-+
-+				bp_block_offset = ((uint64_t)pf2vf_v2->bp_block_offset_low & 0xFFFFFFFF) |
-+						((((uint64_t)pf2vf_v2->bp_block_offset_high) << 32) & 0xFFFFFFFF00000000);
- 				bp_block_size = pf2vf_v2->bp_block_size;
- 
- 				if (bp_block_size && !adev->virt.ras_init_done)
-@@ -450,37 +610,11 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
- 				if (adev->virt.ras_init_done)
- 					amdgpu_virt_add_bad_page(adev, bp_block_offset, bp_block_size);
- 			}
-+	}
- 
--			checkval = amdgpu_virt_fw_reserve_get_checksum(
--				adev->virt.fw_reserve.p_pf2vf, pf2vf_size,
--				adev->virt.fw_reserve.checksum_key, checksum);
--			if (checkval == checksum) {
--				adev->virt.fw_reserve.p_vf2pf =
--					((void *)adev->virt.fw_reserve.p_pf2vf +
--					pf2vf_size);
--				memset((void *)adev->virt.fw_reserve.p_vf2pf, 0,
--					sizeof(amdgim_vf2pf_info));
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, header.version,
--					AMDGPU_FW_VRAM_VF2PF_VER);
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, header.size,
--					sizeof(amdgim_vf2pf_info));
--				AMDGPU_FW_VRAM_VF2PF_READ(adev, driver_version,
--					&str);
--#ifdef MODULE
--				if (THIS_MODULE->version != NULL)
--					strcpy(str, THIS_MODULE->version);
--				else
--#endif
--					strcpy(str, "N/A");
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, driver_cert,
--					0);
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, checksum,
--					amdgpu_virt_fw_reserve_get_checksum(
--					adev->virt.fw_reserve.p_vf2pf,
--					pf2vf_size,
--					adev->virt.fw_reserve.checksum_key, 0));
--			}
--		}
-+	if (adev->virt.vf2pf_update_interval_ms != 0) {
-+		INIT_DELAYED_WORK(&adev->virt.vf2pf_work, amdgpu_virt_update_vf2pf_work_item);
-+		schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 082fb0736645..8dd624c20f89 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -125,45 +125,6 @@ struct amdgim_pf2vf_info_v1 {
- 	unsigned int checksum;
- } __aligned(4);
- 
--/* TODO: below struct is duplicated to amd_sriov_msg_pf2vf_info */
--struct  amdgim_pf2vf_info_v2 {
--	/* header contains size and version */
--	struct amd_sriov_msg_pf2vf_info_header header;
--	/* use private key from mailbox 2 to create chueksum */
--	uint32_t checksum;
--	/* The features flags of the GIM driver supports. */
--	uint32_t feature_flags;
--	/* max_width * max_height */
--	uint32_t uvd_enc_max_pixels_count;
--	/* 16x16 pixels/sec, codec independent */
--	uint32_t uvd_enc_max_bandwidth;
--	/* max_width * max_height */
--	uint32_t vce_enc_max_pixels_count;
--	/* 16x16 pixels/sec, codec independent */
--	uint32_t vce_enc_max_bandwidth;
--	/* Bad pages block position in BYTE */
--	uint32_t bp_block_offset_L;
--	uint32_t bp_block_offset_H;
--	/* Bad pages block size in BYTE */
--	uint32_t bp_block_size;
--	/* MEC FW position in kb from the start of VF visible frame buffer */
--	uint32_t mecfw_kboffset_L;
--	uint32_t mecfw_kboffset_H;
--	/* MEC FW size in KB */
--	uint32_t mecfw_ksize;
--	/* UVD FW position in kb from the start of VF visible frame buffer */
--	uint32_t uvdfw_kboffset_L;
--	uint32_t uvdfw_kboffset_H;
--	/* UVD FW size in KB */
--	uint32_t uvdfw_ksize;
--	/* VCE FW position in kb from the start of VF visible frame buffer */
--	uint32_t vcefw_kboffset_L;
--	uint32_t vcefw_kboffset_H;
--	/* VCE FW size in KB */
--	uint32_t vcefw_ksize;
--	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 0, 0, (18 + sizeof(struct amd_sriov_msg_pf2vf_info_header)/sizeof(uint32_t)), 0)];
--} __aligned(4);
--
- struct amdgim_vf2pf_info_v1 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_vf2pf_info_header header;
-@@ -225,32 +186,6 @@ struct amdgim_vf2pf_info_v2 {
- 	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 64, 0, (12 + sizeof(struct amd_sriov_msg_vf2pf_info_header)/sizeof(uint32_t)), 0)];
- } __aligned(4);
- 
--/* TODO: below macro and typedef will cause compile error, need to remove */
--#define AMDGPU_FW_VRAM_VF2PF_VER 2
--typedef struct amd_sriov_msg_vf2pf_info amdgim_vf2pf_info;
--
--#define AMDGPU_FW_VRAM_VF2PF_WRITE(adev, field, val) \
--	do { \
--		((amdgim_vf2pf_info *)adev->virt.fw_reserve.p_vf2pf)->field = (val); \
--	} while (0)
--
--#define AMDGPU_FW_VRAM_VF2PF_READ(adev, field, val) \
--	do { \
--		(*val) = ((amdgim_vf2pf_info *)adev->virt.fw_reserve.p_vf2pf)->field; \
--	} while (0)
--
--#define AMDGPU_FW_VRAM_PF2VF_READ(adev, field, val) \
--	do { \
--		if (!adev->virt.fw_reserve.p_pf2vf) \
--			*(val) = 0; \
--		else { \
--			if (adev->virt.fw_reserve.p_pf2vf->version == 1) \
--				*(val) = ((struct amdgim_pf2vf_info_v1 *)adev->virt.fw_reserve.p_pf2vf)->field; \
--			if (adev->virt.fw_reserve.p_pf2vf->version == 2) \
--				*(val) = ((struct amdgim_pf2vf_info_v2 *)adev->virt.fw_reserve.p_pf2vf)->field; \
--		} \
--	} while (0)
--
- struct amdgpu_virt_ras_err_handler_data {
- 	/* point to bad page records array */
- 	struct eeprom_table_record *bps;
-@@ -274,7 +209,7 @@ struct amdgpu_virt {
- 	struct work_struct		flr_work;
- 	struct amdgpu_mm_table		mm_table;
- 	const struct amdgpu_virt_ops	*ops;
--	struct amdgpu_vf_error_buffer   vf_errors;
-+	struct amdgpu_vf_error_buffer	vf_errors;
- 	struct amdgpu_virt_fw_reserve	fw_reserve;
- 	uint32_t gim_feature;
- 	uint32_t reg_access_mode;
-@@ -282,6 +217,10 @@ struct amdgpu_virt {
- 	bool tdr_debug;
- 	struct amdgpu_virt_ras_err_handler_data *virt_eh_data;
- 	bool ras_init_done;
-+
-+	/* vf2pf message */
-+	struct delayed_work vf2pf_work;
-+	uint32_t vf2pf_update_interval_ms;
- };
- 
- #define amdgpu_sriov_enabled(adev) \
-@@ -330,11 +269,9 @@ void amdgpu_virt_request_init_data(struct amdgpu_device *adev);
- int amdgpu_virt_wait_reset(struct amdgpu_device *adev);
- int amdgpu_virt_alloc_mm_table(struct amdgpu_device *adev);
- void amdgpu_virt_free_mm_table(struct amdgpu_device *adev);
--int amdgpu_virt_fw_reserve_get_checksum(void *obj, unsigned long obj_size,
--					unsigned int key,
--					unsigned int chksum);
- void amdgpu_virt_release_ras_err_handler_data(struct amdgpu_device *adev);
- void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
-+void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
- void amdgpu_detect_virtualization(struct amdgpu_device *adev);
- 
- bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
--- 
-2.20.1
+Many of the bugs we see in display code is in the conversion from DRM -> 
+DM -> DC state. The current HW state is kind of useless in most cases, 
+but the sequence helps track down intermittent problems and understand 
+state transitions.
+
+Tracepoints provide everything I really need to be able to track down 
+these problems without falling back to a full debugger. The existing DRM 
+prints (even at high logging levels) aren't enough to understand what's 
+going on in most cases in our driver so funneling those into tracepoints 
+to improve perf doesn't really help that much.
+
+I think this kind of idea was rejected for DRM core last year with 
+Sean's patch series but if we can't get them into core then I'd like to 
+get them into our driver at least. These are a cleaned up version of 
+Sean's work + my work that I end up applying locally whenever I debug 
+something.
+
+Regards,
+Nicholas Kazlauskas
+
+> 
+>>
+>> Rodrigo Siqueira (4):
+>>    drm/amd/display: Rework registers tracepoint
+>>    drm/amd/display: Add tracepoint for amdgpu_dm
+>>    drm/amd/display: Add pipe_state tracepoint
+>>    drm/amd/display: Add tracepoint for capturing clocks state
+>>
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  17 +
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 712 +++++++++++++++++-
+>>   .../dc/clk_mgr/dce112/dce112_clk_mgr.c        |   5 +
+>>   .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |   4 +
+>>   .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |   4 +
+>>   .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |   4 +
+>>   .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   4 +
+>>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  11 +
+>>   .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  |   5 +
+>>   .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  17 +-
+>>   10 files changed, 747 insertions(+), 36 deletions(-)
+>>
+>> -- 
+>> 2.28.0
+>>
+> 
 
 _______________________________________________
 amd-gfx mailing list
