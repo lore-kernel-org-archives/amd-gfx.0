@@ -8,61 +8,61 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78D44C433E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 20:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6168BC433E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 21:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 10153206B7
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 20:11:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EBB35206BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 21:05:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lq8Jwawb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10153206B7
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oqCGG3x8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBB35206BE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 761136E07D;
-	Wed, 16 Sep 2020 20:11:39 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD3C6E07D
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 20:11:39 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id y15so4323449wmi.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 13:11:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84F0C6EB34;
+	Wed, 16 Sep 2020 21:05:41 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC4146EB34
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 21:05:39 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id s12so8256324wrw.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 14:05:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=GQx/JKfcAktUHydb9jnwYbuataL36V+e9cZWbvY/1AY=;
- b=lq8JwawbJdEkJ7FfsFkfmT7+Uv2FdGPfjnAp18yRCjcfogg4iG42Nle1dRxOMMO8Xk
- 7Lp7qT2ivWop4KCA46rU9UCzjWmjs5eylhpLxg6izHP6x6ShMzlKWhphZUIVvnHQSdqW
- ktnCDmDWt/H7N/ZGl7ZSpIlogi6Xrvja6bOZE0jCZ7pHzgdxRYCPRJlLN4yzdRgYWeg4
- k1zOc+Y1gNgErPPKyomas98cO+s8vnghdhvgD8eL8b/gGG8wbODIga16wnRppWeKPCte
- Rbp7+DNrLyrq1RO954FJud+fvQ1F4AsgcEDs9ro96Awafsicv2spdVsb68U7HyVfkiXv
- q4gQ==
+ :cc; bh=f/rNvrkjcPTsZqQ73F8CI+LrQsW8w1a4wortEhBMQSQ=;
+ b=oqCGG3x8l55AyE5ed7THmfnjuwPpnPhxSc5cUfhMdfdx2RRPwRECu3KfHANtMm9Ai2
+ LI+MZMcVztruV5EtmBWMPc/nI+3m5siYYER9pJBlIYglVYI+PQC+F1a9hqhRQQ/7DJkg
+ 1KR5/3XI6vJCT4DfRekOoUgG4rskMjiU0YlHUIkEBL8jUplIFVE7fmy6BgSq2ljMChHn
+ BjgnaF7T+EegYvmzTCW1LUTe76jaqjW+pLwUYGdztSjBvWkiGMx7zFJjGjRIMeRahtSM
+ Ub9PaRAir7WSe622DeLN6gJvIhQM42UKM5Q4jDI4tCLIbGH+D+CMKm4pxOYqj5BJ5rwI
+ wQxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=GQx/JKfcAktUHydb9jnwYbuataL36V+e9cZWbvY/1AY=;
- b=IgubPOnvepMEPiTHoHzTmixRkCHF68Q8PBZfRus7hOGDlzJO9m9KWDrJvt+/InfP+y
- XFTI7VnqO9zHdofq7ButV1S6FT6Nhp5OInOR8PvWyHRhxqjgBO35T+bpjlGzn9yj19Hn
- 5U97bKLudrRhpSXjRFYDiiS+q67LcBl9JlQIGHsLGV8ihs+MS26KI0BIhVmaHR52uowb
- i3pPtqb1d1m23cKDshNTR3BQTKGx8HEA5dRdvub1AOcajeah/l+j8Mpe0dla28s+d2Rl
- e0CPNlyveNxRQPVY6jUv9s/HOPCmarFu5+DJ4z4waDjMnLqKA7Nr6RmefhdfagGg7V14
- kxZg==
-X-Gm-Message-State: AOAM533K7l4sUfO/bjrA/RvJS2XOxeG35dlO02picVb1uo/6LK4yukTi
- H6bhKC2C6z1gTlUtZ3W5pDwKubZZ4c/ipgkvoLs=
-X-Google-Smtp-Source: ABdhPJxJmYNbnJ0z2BTcKk/FCQ7oHruS2JZjDc9gih43r++FnLAZydpMSIgpweHKnFQR2QDMeesH6XxFKhIebfoTMug=
-X-Received: by 2002:a7b:c141:: with SMTP id z1mr6646289wmi.79.1600287097853;
- Wed, 16 Sep 2020 13:11:37 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=f/rNvrkjcPTsZqQ73F8CI+LrQsW8w1a4wortEhBMQSQ=;
+ b=Oc24xah0MBssbcKvhiIx8MtCYOd4BQrAzXh0NiANTcoXMNcHuhMHzKlav8dO6qB6hb
+ 7XXSldlDFFjXfItpmnHD/0E03PR2fEIOmyrFLlyb9G9xGCd9Y7E8lSoCi+JrCMb8GD6A
+ V6mFi9798YtBrISOz+o6i0b0LJIHk2UlppsHP6HQmur+Z8MUdsjTGj9aX4o4LXk48/6i
+ 0UynFzKtprtgnKjHWZZCpxdJChvO+pcnj+spOH1kXGVMJ+MzKLDy3d08GbOatMPQsH3w
+ YTUfzKebJhJ5KUJ/KXYTjE+XsawdbDYhc96sgwwErBgZ1weZWqilUeRAV93gDR65GeZy
+ 86YQ==
+X-Gm-Message-State: AOAM5306B9wTibrodLMPKrRaGAGUg4SDq3RKpg52EoK6RiomBCDlrH1+
+ UBd3flytjgz37efidMJQALrtuEYIBekSsOHRkmfU2a5nsS0=
+X-Google-Smtp-Source: ABdhPJyvutGRKtFR9I4r2fW9DP0Ky7l5v5Q/EPDBZKzduUZJB0U3K8bxxw/uFxEelUtzB2GcohnMIaSjwJOqDedD6tY=
+X-Received: by 2002:adf:dd82:: with SMTP id x2mr30372750wrl.419.1600290338222; 
+ Wed, 16 Sep 2020 14:05:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200916010858.83903-1-yebin10@huawei.com>
-In-Reply-To: <20200916010858.83903-1-yebin10@huawei.com>
+References: <20200916145643.18762-1-Bokun.Zhang@amd.com>
+In-Reply-To: <20200916145643.18762-1-Bokun.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2020 16:11:27 -0400
-Message-ID: <CADnq5_No_dB8BKOAcOwCuqfvi8kE2RPD775WmZhhGUYFA1m5KQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove set but used 'temp'
-To: Ye Bin <yebin10@huawei.com>
+Date: Wed, 16 Sep 2020 17:05:27 -0400
+Message-ID: <CADnq5_OsEZ+Da8ysw+A6-fFEcVzYugyGiExnZPt3mWVa0Xf3Nw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] SWDEV-220451 - Query guest's information by VF2PF
+ message - Guest side - part 1
+To: Bokun Zhang <Bokun.Zhang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,55 +74,399 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBTZXAgMTUsIDIwMjAgYXQgMTE6MzQgUE0gWWUgQmluIDx5ZWJpbjEwQGh1YXdlaS5j
-b20+IHdyb3RlOgo+Cj4gQWRkcmVzc2VzIHRoZSBmb2xsb3dpbmcgZ2NjIHdhcm5pbmcgd2l0aCAi
-bWFrZSBXPTEiOgo+Cj4gSW4gZmlsZSBpbmNsdWRlZCBmcm9tIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1Ly4uL2Rpc3BsYXkvZG11Yi9zcmMvLi4vZG11Yl9zcnYuaDo2NzowLAo+ICAgICAgICAg
-ZnJvbSBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RtdWIvc3JjL2RtdWJf
-ZGNuMjEuYzoyNjoKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RtdWIv
-c3JjLy4uL2luYy9kbXViX2NtZC5oOiBJbiBmdW5jdGlvbiDigJhkbXViX3JiX2ZsdXNoX3BlbmRp
-bmfigJk6Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kbXViL3NyYy8u
-Li9pbmMvZG11Yl9jbWQuaDo3OTU6MTI6IHdhcm5pbmc6IHZhcmlhYmxlIOKAmHRlbXDigJkgc2V0
-IGJ1dCBub3QgdXNlZAo+ICBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KPiAgICAgdWludDY0
-X3QgdGVtcDsKPiAgICAgICAgICAgICAgICAgXgo+IEluIGZpbGUgaW5jbHVkZWQgZnJvbSBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RtdWIvc3JjLy4uL2RtdWJfc3J2Lmg6
-Njc6MCwKPiAgICAgICAgICAgICAgICAgIGZyb20gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Li4vZGlzcGxheS9kbXViL3NyYy9kbXViX2RjbjMwLmM6MjY6Cj4gZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvLi4vZGlzcGxheS9kbXViL3NyYy8uLi9pbmMvZG11Yl9jbWQuaDogSW4gZnVuY3Rp
-b24g4oCYZG11Yl9yYl9mbHVzaF9wZW5kaW5n4oCZOgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1Ly4uL2Rpc3BsYXkvZG11Yi9zcmMvLi4vaW5jL2RtdWJfY21kLmg6Nzk1OjEyOiB3YXJuaW5n
-OiB2YXJpYWJsZSDigJh0ZW1w4oCZIHNldCBidXQgbm90IHVzZWQKPiBbLVd1bnVzZWQtYnV0LXNl
-dC12YXJpYWJsZV0KPiAgICB1aW50NjRfdCB0ZW1wOwo+Cj4gUmVwb3J0ZWQtYnk6IEh1bGsgUm9i
-b3QgPGh1bGtjaUBodWF3ZWkuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFllIEJpbiA8eWViaW4xMEBo
-dWF3ZWkuY29tPgoKQXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9kbXViL2luYy9kbXViX2NtZC5oIHwgNCArLS0tCj4gIDEgZmlsZSBj
-aGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZG11Yi9pbmMvZG11Yl9jbWQuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kbXViL2luYy9kbXViX2NtZC5oCj4gaW5kZXggZDdlN2YyZWRh
-OTJmLi5lMzI4MjhmZmMzZTAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RtdWIvaW5jL2RtdWJfY21kLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvZG11Yi9pbmMvZG11Yl9jbWQuaAo+IEBAIC03OTEsMTIgKzc5MSwxMCBAQCBzdGF0aWMgaW5s
-aW5lIHZvaWQgZG11Yl9yYl9mbHVzaF9wZW5kaW5nKGNvbnN0IHN0cnVjdCBkbXViX3JiICpyYikK
-Pgo+ICAgICAgICAgd2hpbGUgKHJwdHIgIT0gd3B0cikgewo+ICAgICAgICAgICAgICAgICB1aW50
-NjRfdCB2b2xhdGlsZSAqZGF0YSA9ICh1aW50NjRfdCB2b2xhdGlsZSAqKXJiLT5iYXNlX2FkZHJl
-c3MgKyBycHRyIC8gc2l6ZW9mKHVpbnQ2NF90KTsKPiAtICAgICAgICAgICAgICAgLy91aW50NjRf
-dCB2b2xhdGlsZSAqcCA9ICh1aW50NjRfdCB2b2xhdGlsZSAqKWRhdGE7Cj4gLSAgICAgICAgICAg
-ICAgIHVpbnQ2NF90IHRlbXA7Cj4gICAgICAgICAgICAgICAgIGludCBpOwo+Cj4gICAgICAgICAg
-ICAgICAgIGZvciAoaSA9IDA7IGkgPCBETVVCX1JCX0NNRF9TSVpFIC8gc2l6ZW9mKHVpbnQ2NF90
-KTsgaSsrKQo+IC0gICAgICAgICAgICAgICAgICAgICAgIHRlbXAgPSAqZGF0YSsrOwo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICpkYXRhKys7Cj4KPiAgICAgICAgICAgICAgICAgcnB0ciArPSBE
-TVVCX1JCX0NNRF9TSVpFOwo+ICAgICAgICAgICAgICAgICBpZiAocnB0ciA+PSByYi0+Y2FwYWNp
-dHkpCj4gLS0KPiAyLjE2LjIuZGlydHkKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Sep 16, 2020 at 11:05 AM Bokun Zhang <Bokun.Zhang@amd.com> wrote:
+>
+> - Add guest side change to support VF2PF message
+> - Fix coding style
+>
+> Change-Id: I82e5518cb10ec0b19fecaba7e05b02f4b7f2b409
+> Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+
+Please drop the SWDEV reference from the subject and prefix the patch
+with drm/amdgpu:  Also please provide a better patch subject and
+description.  It looks like you are just updating the vf2pf interface.
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  29 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 276 ++++++++++++++++++++
+>  2 files changed, 285 insertions(+), 20 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index b2046c3a404d..082fb0736645 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -24,6 +24,8 @@
+>  #ifndef AMDGPU_VIRT_H
+>  #define AMDGPU_VIRT_H
+>
+> +#include "amdgv_sriovmsg.h"
+> +
+>  #define AMDGPU_SRIOV_CAPS_SRIOV_VBIOS  (1 << 0) /* vBIOS is sr-iov ready */
+>  #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is enabled on this GPU */
+>  #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a virtual function */
+> @@ -79,7 +81,10 @@ struct amdgpu_virt_fw_reserve {
+>         struct amd_sriov_msg_vf2pf_info_header *p_vf2pf;
+>         unsigned int checksum_key;
+>  };
+> +
+>  /*
+> + * Legacy GIM header
+> + *
+>   * Defination between PF and VF
+>   * Structures forcibly aligned to 4 to keep the same style as PF.
+>   */
+> @@ -101,15 +106,7 @@ enum AMDGIM_FEATURE_FLAG {
+>         AMDGIM_FEATURE_PP_ONE_VF = (1 << 4),
+>  };
+>
+> -struct amd_sriov_msg_pf2vf_info_header {
+> -       /* the total structure size in byte. */
+> -       uint32_t size;
+> -       /* version of this structure, written by the GIM */
+> -       uint32_t version;
+> -       /* reserved */
+> -       uint32_t reserved[2];
+> -} __aligned(4);
+> -struct  amdgim_pf2vf_info_v1 {
+> +struct amdgim_pf2vf_info_v1 {
+>         /* header contains size and version */
+>         struct amd_sriov_msg_pf2vf_info_header header;
+>         /* max_width * max_height */
+> @@ -128,6 +125,7 @@ struct  amdgim_pf2vf_info_v1 {
+>         unsigned int checksum;
+>  } __aligned(4);
+>
+> +/* TODO: below struct is duplicated to amd_sriov_msg_pf2vf_info */
+>  struct  amdgim_pf2vf_info_v2 {
+>         /* header contains size and version */
+>         struct amd_sriov_msg_pf2vf_info_header header;
+> @@ -166,16 +164,6 @@ struct  amdgim_pf2vf_info_v2 {
+>         uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 0, 0, (18 + sizeof(struct amd_sriov_msg_pf2vf_info_header)/sizeof(uint32_t)), 0)];
+>  } __aligned(4);
+>
+> -
+> -struct amd_sriov_msg_vf2pf_info_header {
+> -       /* the total structure size in byte. */
+> -       uint32_t size;
+> -       /*version of this structure, written by the guest */
+> -       uint32_t version;
+> -       /* reserved */
+> -       uint32_t reserved[2];
+> -} __aligned(4);
+> -
+>  struct amdgim_vf2pf_info_v1 {
+>         /* header contains size and version */
+>         struct amd_sriov_msg_vf2pf_info_header header;
+> @@ -237,8 +225,9 @@ struct amdgim_vf2pf_info_v2 {
+>         uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 64, 0, (12 + sizeof(struct amd_sriov_msg_vf2pf_info_header)/sizeof(uint32_t)), 0)];
+>  } __aligned(4);
+>
+> +/* TODO: below macro and typedef will cause compile error, need to remove */
+>  #define AMDGPU_FW_VRAM_VF2PF_VER 2
+> -typedef struct amdgim_vf2pf_info_v2 amdgim_vf2pf_info ;
+> +typedef struct amd_sriov_msg_vf2pf_info amdgim_vf2pf_info;
+>
+>  #define AMDGPU_FW_VRAM_VF2PF_WRITE(adev, field, val) \
+>         do { \
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> new file mode 100644
+> index 000000000000..5355827ed0ae
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> @@ -0,0 +1,276 @@
+> +/*
+> + * Copyright 2018-2019 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef AMDGV_SRIOV_MSG__H_
+> +#define AMDGV_SRIOV_MSG__H_
+> +
+> +/* unit in kilobytes */
+> +#define AMD_SRIOV_MSG_VBIOS_OFFSET              0
+> +#define AMD_SRIOV_MSG_VBIOS_SIZE_KB             64
+> +#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB    AMD_SRIOV_MSG_VBIOS_SIZE_KB
+> +#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB      4
+> +
+> +/*
+> + * layout
+> + * 0           64KB        65KB        66KB
+> + * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | ...
+> + * |   64KB    |   1KB     |   1KB     |
+> + */
+> +#define AMD_SRIOV_MSG_SIZE_KB                   1
+> +#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB
+> +#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
+> +#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
+> +
+> +/*
+> + * PF2VF history log:
+> + * v1 defined in amdgim
+> + * v2 current
+> + *
+> + * VF2PF history log:
+> + * v1 defined in amdgim
+> + * v2 defined in amdgim
+> + * v3 current
+> + */
+> +#define AMD_SRIOV_MSG_FW_VRAM_PF2VF_VER                        2
+> +#define AMD_SRIOV_MSG_FW_VRAM_VF2PF_VER                        3
+> +
+> +#define AMD_SRIOV_MSG_RESERVE_UCODE            24
+> +
+> +enum amd_sriov_ucode_engine_id {
+> +       AMD_SRIOV_UCODE_ID_VCE = 0,
+> +       AMD_SRIOV_UCODE_ID_UVD,
+> +       AMD_SRIOV_UCODE_ID_MC,
+> +       AMD_SRIOV_UCODE_ID_ME,
+> +       AMD_SRIOV_UCODE_ID_PFP,
+> +       AMD_SRIOV_UCODE_ID_CE,
+> +       AMD_SRIOV_UCODE_ID_RLC,
+> +       AMD_SRIOV_UCODE_ID_RLC_SRLC,
+> +       AMD_SRIOV_UCODE_ID_RLC_SRLG,
+> +       AMD_SRIOV_UCODE_ID_RLC_SRLS,
+> +       AMD_SRIOV_UCODE_ID_MEC,
+> +       AMD_SRIOV_UCODE_ID_MEC2,
+> +       AMD_SRIOV_UCODE_ID_SOS,
+> +       AMD_SRIOV_UCODE_ID_ASD,
+> +       AMD_SRIOV_UCODE_ID_TA_RAS,
+> +       AMD_SRIOV_UCODE_ID_TA_XGMI,
+> +       AMD_SRIOV_UCODE_ID_SMC,
+> +       AMD_SRIOV_UCODE_ID_SDMA,
+> +       AMD_SRIOV_UCODE_ID_SDMA2,
+> +       AMD_SRIOV_UCODE_ID_VCN,
+> +       AMD_SRIOV_UCODE_ID_DMCU,
+> +       AMD_SRIOV_UCODE_ID__MAX
+> +};
+> +
+> +#pragma pack(push, 1)  // PF2VF / VF2PF data areas are byte packed
+> +
+> +union amd_sriov_msg_feature_flags {
+> +       struct {
+> +               uint32_t  error_log_collect  : 1;
+> +               uint32_t  host_load_ucodes   : 1;
+> +               uint32_t  host_flr_vramlost  : 1;
+> +               uint32_t  mm_bw_management   : 1;
+> +               uint32_t  pp_one_vf_mode     : 1;
+> +               uint32_t  reserved           : 27;
+> +       } flags;
+> +       uint32_t      all;
+> +};
+> +
+> +union amd_sriov_msg_os_info {
+> +       struct {
+> +               uint32_t  windows            : 1;
+> +               uint32_t  reserved           : 31;
+> +       } info;
+> +       uint32_t      all;
+> +};
+> +
+> +struct amd_sriov_msg_pf2vf_info_header {
+> +       /* the total structure size in byte */
+> +       uint32_t size;
+> +       /* version of this structure, written by the HOST */
+> +       uint32_t version;
+> +       /* reserved */
+> +       uint32_t reserved[2];
+> +};
+> +
+> +struct amd_sriov_msg_pf2vf_info {
+> +       /* header contains size and version */
+> +       struct amd_sriov_msg_pf2vf_info_header header;
+> +       /* use private key from mailbox 2 to create checksum */
+> +       uint32_t checksum;
+> +       /* The features flags of the HOST driver supports */
+> +       union amd_sriov_msg_feature_flags feature_flags;
+> +       /* (max_width * max_height * fps) / (16 * 16) */
+> +       uint32_t hevc_enc_max_mb_per_second;
+> +       /* (max_width * max_height) / (16 * 16) */
+> +       uint32_t hevc_enc_max_mb_per_frame;
+> +       /* (max_width * max_height * fps) / (16 * 16) */
+> +       uint32_t avc_enc_max_mb_per_second;
+> +       /* (max_width * max_height) / (16 * 16) */
+> +       uint32_t avc_enc_max_mb_per_frame;
+> +       /* MEC FW position in BYTE from the start of VF visible frame buffer */
+> +       uint64_t mecfw_offset;
+> +       /* MEC FW size in BYTE */
+> +       uint32_t mecfw_size;
+> +       /* UVD FW position in BYTE from the start of VF visible frame buffer */
+> +       uint64_t uvdfw_offset;
+> +       /* UVD FW size in BYTE */
+> +       uint32_t uvdfw_size;
+> +       /* VCE FW position in BYTE from the start of VF visible frame buffer */
+> +       uint64_t vcefw_offset;
+> +       /* VCE FW size in BYTE */
+> +       uint32_t vcefw_size;
+> +       /* Bad pages block position in BYTE */
+> +       uint32_t bp_block_offset_low;
+> +       uint32_t bp_block_offset_high;
+> +       /* Bad pages block size in BYTE */
+> +       uint32_t bp_block_size;
+> +       /* frequency for VF to update the VF2PF area in msec, 0 = manual */
+> +       uint32_t vf2pf_update_interval_ms;
+> +       /* identification in ROCm SMI */
+> +       uint64_t uuid;
+> +       uint32_t fcn_idx;
+> +       /* reserved */
+> +       uint32_t reserved[256-26];
+> +};
+> +
+> +struct amd_sriov_msg_vf2pf_info_header {
+> +       /* the total structure size in byte */
+> +       uint32_t size;
+> +       /* version of this structure, written by the guest */
+> +       uint32_t version;
+> +       /* reserved */
+> +       uint32_t reserved[2];
+> +};
+> +
+> +struct amd_sriov_msg_vf2pf_info {
+> +       /* header contains size and version */
+> +       struct amd_sriov_msg_vf2pf_info_header header;
+> +       uint32_t checksum;
+> +       /* driver version */
+> +       uint8_t  driver_version[64];
+> +       /* driver certification, 1=WHQL, 0=None */
+> +       uint32_t driver_cert;
+> +       /* guest OS type and version */
+> +       union amd_sriov_msg_os_info os_info;
+> +       /* guest fb information in the unit of MB */
+> +       uint32_t fb_usage;
+> +       /* guest gfx engine usage percentage */
+> +       uint32_t gfx_usage;
+> +       /* guest gfx engine health percentage */
+> +       uint32_t gfx_health;
+> +       /* guest compute engine usage percentage */
+> +       uint32_t compute_usage;
+> +       /* guest compute engine health percentage */
+> +       uint32_t compute_health;
+> +       /* guest avc engine usage percentage. 0xffff means N/A */
+> +       uint32_t avc_enc_usage;
+> +       /* guest avc engine health percentage. 0xffff means N/A */
+> +       uint32_t avc_enc_health;
+> +       /* guest hevc engine usage percentage. 0xffff means N/A */
+> +       uint32_t hevc_enc_usage;
+> +       /* guest hevc engine usage percentage. 0xffff means N/A */
+> +       uint32_t hevc_enc_health;
+> +       /* combined encode/decode usage */
+> +       uint32_t encode_usage;
+> +       uint32_t decode_usage;
+> +       /* Version of PF2VF that VF understands */
+> +       uint32_t pf2vf_version_required;
+> +       /* additional FB usage */
+> +       uint32_t fb_vis_usage;
+> +       uint32_t fb_vis_size;
+> +       uint32_t fb_size;
+> +       /* guest ucode data, each one is 1.25 Dword */
+> +       struct {
+> +               uint8_t  id;
+> +               uint32_t version;
+> +       } ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
+> +
+> +       /* reserved */
+> +       uint32_t reserved[256-68];
+> +};
+> +
+> +/* mailbox message send from guest to host  */
+> +enum amd_sriov_mailbox_request_message {
+> +       MB_REQ_MSG_REQ_GPU_INIT_ACCESS = 1,
+> +       MB_REQ_MSG_REL_GPU_INIT_ACCESS,
+> +       MB_REQ_MSG_REQ_GPU_FINI_ACCESS,
+> +       MB_REQ_MSG_REL_GPU_FINI_ACCESS,
+> +       MB_REQ_MSG_REQ_GPU_RESET_ACCESS,
+> +       MB_REQ_MSG_REQ_GPU_INIT_DATA,
+> +
+> +       MB_REQ_MSG_LOG_VF_ERROR       = 200,
+> +};
+> +
+> +/* mailbox message send from host to guest  */
+> +enum amd_sriov_mailbox_response_message {
+> +       MB_RES_MSG_CLR_MSG_BUF = 0,
+> +       MB_RES_MSG_READY_TO_ACCESS_GPU = 1,
+> +       MB_RES_MSG_FLR_NOTIFICATION,
+> +       MB_RES_MSG_FLR_NOTIFICATION_COMPLETION,
+> +       MB_RES_MSG_SUCCESS,
+> +       MB_RES_MSG_FAIL,
+> +       MB_RES_MSG_QUERY_ALIVE,
+> +       MB_RES_MSG_GPU_INIT_DATA_READY,
+> +
+> +       MB_RES_MSG_TEXT_MESSAGE = 255
+> +};
+> +
+> +/* version data stored in MAILBOX_MSGBUF_RCV_DW1 for future expansion */
+> +enum amd_sriov_gpu_init_data_version {
+> +       GPU_INIT_DATA_READY_V1 = 1,
+> +};
+> +
+> +#pragma pack(pop)      // Restore previous packing option
+> +
+> +/* checksum function between host and guest */
+> +unsigned int amd_sriov_msg_checksum(void *obj,
+> +                               unsigned long obj_size,
+> +                               unsigned int key,
+> +                               unsigned int checksum);
+> +
+> +/* assertion at compile time */
+> +#ifdef __linux__
+> +#define stringification(s) _stringification(s)
+> +#define _stringification(s) #s
+> +
+> +_Static_assert(
+> +       sizeof(struct amd_sriov_msg_vf2pf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
+> +       "amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
+> +
+> +_Static_assert(
+> +       sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
+> +       "amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
+> +
+> +_Static_assert(
+> +       AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
+> +       "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
+> +
+> +_Static_assert(
+> +       AMD_SRIOV_MSG_RESERVE_UCODE > AMD_SRIOV_UCODE_ID__MAX,
+> +       "AMD_SRIOV_MSG_RESERVE_UCODE must be bigger than AMD_SRIOV_UCODE_ID__MAX");
+> +
+> +#undef _stringification
+> +#undef stringification
+> +#endif
+> +
+> +#endif /* AMDGV_SRIOV_MSG__H_ */
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
