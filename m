@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3206C43461
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FD44C2BB84
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A1A7208E4
+	by mail.kernel.org (Postfix) with ESMTPS id EEFA9208E4
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2020 19:42:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EqYMlrrK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A1A7208E4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="e4ka4V+Q"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEFA9208E4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5DFA6EB10;
-	Wed, 16 Sep 2020 19:42:33 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1EE6EADE
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 19:42:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F596EB0B;
+	Wed, 16 Sep 2020 19:42:34 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0BB6EAD9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 19:42:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DXow+Z2CQIpsy5UJqoWxjnXYYm51QN3a2dYTlhjcmMYsLxZL3HWOTXY8iZgGyP+BjPYPLax2qxnkL+H/vJ7GLS8Xr+oKEiEoIDXWytNLWNxxQDN8vRZBvdR4mMZee2VizjkCTkxcw3lOvqBziVhVJLMo3824wj2h0onzqeAfl0gL/SOkCHhpriL7UeFqSmW1PqnN9m8eSqsWcsMQzg8CHr77A8zAYY+sAFAZ7LfqwNExH9vXU3Ahhs9vpYIZnoUPG+cK6OMcJuEZw41cZPG7qCq5Gk+lpOxMtMwAokoDST8MOdi688eQp/28+WNOwg1KEiNWhUFrZMRc8ztiyeNi6g==
+ b=bWkV19kl5VuZCNjQZP1K7Q01rjxabzohPLalLIV5CSkZz1CEF/u7YjV6Hog70sAD0E+q2Spyv2scOWs1DEzHG0Vma85ifBeXB6Ywsi7oQqUyVcKfSU5CT/5aQvUgsKB9nP4NHpl2xccGLIF7QGTevDpgV5NNVoymQPzB2wtWu0ovCRHkMqDpl9qm7wE+caoUGX3XYrgWsqQXnaCY83ll3OQEVucZZ6t/NxDxhssJ3/PdZRb7G4+Lf9L+WvA0qcW6fD39tDQMTi8GExAq14sYOIAJ8DySfGef0bThOfqSTTPxdaRRItNx29bn0ZZT2enRsP7xC6SJt0RGrlrrmVNLvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xxLMxfoIgv91bmsCmruVMHnuWRc2Hw/XqZdAakMzhto=;
- b=Veu0L1PRJqibbGtlmyuQieSj+6TtO2VBZfGZUheCFcxvV8O+Mg2yeGSJ2Vq3FrFQygzsxWRefkB/1Jm0nMSGX7yQwvbaPg/RaEl/D5D7wtSM3Q2EGz5EwmFbC69r2kp3ron6nkbPF9kl0PiiuhK0Lct6t30KONjJ8epfbFgSirckSyCJuyMCaEyg9gQK6ZbYrIzPrgJeJERH8p/z1Hlp+YsMYrR0EckdZd6/WAv4cgbLMXOTfMx9PltFguSy7XUc3kQPHWYQ1fhezaimdjuIjk/l9HcgvWjGeL26AJRvTPL/DDM5H3YNGOU1t2mgCgY8CgQiU60CYX7tpVxOcomfQQ==
+ bh=2sdOxQ3hMalXU46lZ1vCqsvbd+T1iTIkR/WMnW5Qq+k=;
+ b=MXEF6c/ZLcvEA15HIwxMSQVh8IKnIri5IhjFtGngWRE0pd8WbVWEsFschYxOQU8sIv5JqQllXlICarb2eAuJBRhlE8zSdrX1l/lvyDv5vMwoLzhwnuv8dSTeDdU4AvTqqgBx/x+2MVwd7K1EtdBwNcJys/MX33Vj2LV8K6yMMYdHuBc9wExJhk98k9xnh6oOs79pabkV5Y+YggaGXYBBBuk8e9dPU7s4LkJxrHCnHt8ONJKQWqV2gQE58bXl/LjEkmrFbBj5tyFZ3bXBRaZM2oTVfREW/VoHv4lMbSTZvl02a/OasUBNKuwy5HSA0yMG92uqq4R1X4W/IiPZE3InXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,16 +40,16 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xxLMxfoIgv91bmsCmruVMHnuWRc2Hw/XqZdAakMzhto=;
- b=EqYMlrrKMWJTkAbqnXZXzfap+yY5aLHpV/LJjDTF+Xm83JI4X7eolsDxpFqfHlJmG7ZjUHMb2Oz0XKyGOa7h/TvDRBCF8NL+oxuhZnpRindnmFZ9DvgPBl29BolCwFvTJe3d+bputtb5BzNl+Odc48+fca4agwXWCEMinFnaoA8=
-Received: from DM5PR22CA0003.namprd22.prod.outlook.com (2603:10b6:3:101::13)
- by DM6PR12MB2971.namprd12.prod.outlook.com (2603:10b6:5:118::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Wed, 16 Sep
+ bh=2sdOxQ3hMalXU46lZ1vCqsvbd+T1iTIkR/WMnW5Qq+k=;
+ b=e4ka4V+Q9EFcVw/nAqGyDscAOEM38Zo0x4ANupfrEKZkim4Ac5h2ByERIkrDa6o270Sho8dBmx+rTfiU1ttZkNGU80g9hklA4LXmRyU9XzW2lMG0wFvQmWBuhDNB9cuPvbQ9bgoMM9ricSxHDe3KWVbAnq6NCN6++xl8aRrvWcI=
+Received: from BN6PR03CA0115.namprd03.prod.outlook.com (2603:10b6:404:10::29)
+ by SN6PR12MB4719.namprd12.prod.outlook.com (2603:10b6:805:e9::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.18; Wed, 16 Sep
  2020 19:36:40 +0000
-Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:101:cafe::8) by DM5PR22CA0003.outlook.office365.com
- (2603:10b6:3:101::13) with Microsoft SMTP Server (version=TLS1_2,
+Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:10:cafe::13) by BN6PR03CA0115.outlook.office365.com
+ (2603:10b6:404:10::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11 via Frontend
  Transport; Wed, 16 Sep 2020 19:36:40 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
@@ -58,26 +58,27 @@ X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.3370.16 via Frontend Transport; Wed, 16 Sep 2020 19:36:40 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 16 Sep
- 2020 14:36:39 -0500
+ 2020 14:36:40 -0500
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 16 Sep
  2020 14:36:39 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Wed, 16 Sep 2020 14:36:38 -0500
+ Transport; Wed, 16 Sep 2020 14:36:39 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/15] drm/amd/display: Bug in dce_is_panel_backlight_on()
-Date: Wed, 16 Sep 2020 15:36:25 -0400
-Message-ID: <20200916193635.5169-6-qingqing.zhuo@amd.com>
+Subject: [PATCH 06/15] drm/amd/display: eDP intermittent black screen during
+ PnP
+Date: Wed, 16 Sep 2020 15:36:26 -0400
+Message-ID: <20200916193635.5169-7-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200916193635.5169-1-qingqing.zhuo@amd.com>
 References: <20200916193635.5169-1-qingqing.zhuo@amd.com>
@@ -85,27 +86,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ab0e28aa-78f7-4d42-b13f-08d85a77d577
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2971:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2971E760CE23DB72E468DF97FB210@DM6PR12MB2971.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:227;
+X-MS-Office365-Filtering-Correlation-Id: fa639acf-5a3c-42c4-4d92-08d85a77d5b1
+X-MS-TrafficTypeDiagnostic: SN6PR12MB4719:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB47194D3E9A98161FCF7F0680FB210@SN6PR12MB4719.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:163;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /X7S6N7qlWLlP4KEmz25iA6KiAlKG+rB4eUQGbMi1zcOTgA6fRShSkkcX1FHu3YYN3gT14zW4iTuvsVRS17LL4r2EjKd96igo7IUASj3XP/CHJ6/Ktl3Zfx78sEL3B9Ul5xBKNxMQWo52sbsillqM+NvuhCzUGII+zyDCGVuJ4j7GOPwvNI4DVrVqWqOZtz7EtkJy1+UuzrfMGwZG+GBxkErceQtHAbiJ54uCZoJ9RdFynfC0jBVHb8sAdheYrN5XNCKoBQgNTWRiGTlOkaUauNxrPfIlMDkxSWU4r629pkwwTS7NZlpaiy5kTx7Son70o2IzCRkyTyIv/HWLoDqvXg5w3NTJ6rQaxBaN4bUU7SNR1YmB8PYJaiARF3bpLdAxlXJTIUsFdGmTjXNN4civw==
+X-Microsoft-Antispam-Message-Info: x+t2teKAmRnUYQ0yvVM/QiblfZ/ZiGW4RNl34i6GJI9dOakYGfAPyFzzQ3qi/Huu/9T3326YAF0Lfy9n4L8Y3sp0FaApZZ8IdittRcI7hFJi6VlgVYLffAP65WzP0OI4HrsYY+tmARgWXqfBHnqywrslHY9FfmiTCh/4/mtSRop2dqMFH8qvFfHS7iRpOG02WWHE0bnyUqYwCFeLH1EDFhmqIem3R51F9amR+0BCmHzlsiiyA6S0uecN+ox0fUGdnvIfPRWz7fpDlVbyOozIS1PDzVzioEV5QpB0aU1Q0PTegH6NWzQh++coXlATMqGozMzeoagysaLRPlOPRw7zdTDBXM1ld4NmuWMfYRrNsJ5aeLf4Dd6swZtwZhf6fvfaCLfspv5KnnEhICGkd32aTw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(39850400004)(396003)(46966005)(478600001)(70586007)(2616005)(8676002)(26005)(5660300002)(426003)(81166007)(1076003)(82310400003)(356005)(6666004)(4326008)(186003)(82740400003)(8936002)(86362001)(36756003)(2906002)(83380400001)(70206006)(44832011)(6916009)(316002)(47076004)(54906003)(336012);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(396003)(39850400004)(136003)(46966005)(70206006)(8936002)(6916009)(70586007)(47076004)(86362001)(316002)(5660300002)(478600001)(6666004)(82740400003)(8676002)(82310400003)(186003)(54906003)(2616005)(44832011)(4326008)(336012)(426003)(2906002)(36756003)(81166007)(26005)(1076003)(356005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 19:36:40.1074 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab0e28aa-78f7-4d42-b13f-08d85a77d577
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 19:36:40.5260 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa639acf-5a3c-42c4-4d92-08d85a77d5b1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2971
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4719
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,70 +129,97 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Peikang Zhang <peikang.zhang@amd.com>
 
 [Why]
-dce_is_panel_backlight_on() will return wrong value if
-LVTMA_BLON_OVRD is 0
+We dont's turn off backlight before power off eDP (VDD),
+which is a violation of eDP specs.
 
 [How]
-When LVTMA_BLON_OVRD is 0, read
-LVTMA_PWRSEQ_TARGET_STATE instead
+Power off eDP backlight before power off eDP
 
 Signed-off-by: Peikang Zhang <peikang.zhang@amd.com>
 Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c | 10 +++++++---
- drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.h |  4 ++++
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c          | 2 ++
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c           | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c           | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c           | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c           | 1 +
+ 6 files changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-index df7f826eebd8..74f7619d4154 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.c
-@@ -159,11 +159,15 @@ static uint32_t dce_panel_cntl_hw_init(struct panel_cntl *panel_cntl)
- static bool dce_is_panel_backlight_on(struct panel_cntl *panel_cntl)
- {
- 	struct dce_panel_cntl *dce_panel_cntl = TO_DCE_PANEL_CNTL(panel_cntl);
--	uint32_t value;
-+	uint32_t blon, blon_ovrd, pwrseq_target_state;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+index 81c026319ccd..dba338c88256 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+@@ -229,6 +229,8 @@ void dp_disable_link_phy(struct dc_link *link, enum signal_type signal)
+ 		dp_receiver_power_ctrl(link, false);
  
--	REG_GET(PWRSEQ_CNTL, LVTMA_BLON, &value);
-+	REG_GET_2(PWRSEQ_CNTL, LVTMA_BLON, &blon, LVTMA_BLON_OVRD, &blon_ovrd);
-+	REG_GET(PWRSEQ_CNTL, LVTMA_PWRSEQ_TARGET_STATE, &pwrseq_target_state);
- 
--	return value;
-+	if (blon_ovrd)
-+		return blon;
-+	else
-+		return pwrseq_target_state;
- }
- 
- static bool dce_is_panel_powered_on(struct panel_cntl *panel_cntl)
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.h b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.h
-index 967d04d75b98..6bd1196083a3 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_panel_cntl.h
-@@ -61,8 +61,10 @@
- 
- #define DCE_PANEL_CNTL_MASK_SH_LIST(mask_sh) \
- 	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_CNTL, LVTMA_BLON, mask_sh),\
-+	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_CNTL, LVTMA_BLON_OVRD, mask_sh),\
- 	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_CNTL, LVTMA_DIGON, mask_sh),\
- 	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_CNTL, LVTMA_DIGON_OVRD, mask_sh),\
-+	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_CNTL, LVTMA_PWRSEQ_TARGET_STATE, mask_sh), \
- 	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_STATE, LVTMA_PWRSEQ_TARGET_STATE_R, mask_sh), \
- 	DCE_PANEL_CNTL_SF(LVTMA_PWRSEQ_REF_DIV, BL_PWM_REF_DIV, mask_sh), \
- 	DCE_PANEL_CNTL_SF(BL_PWM_PERIOD_CNTL, BL_PWM_PERIOD, mask_sh), \
-@@ -76,8 +78,10 @@
- 
- #define DCE_PANEL_CNTL_REG_FIELD_LIST(type) \
- 	type LVTMA_BLON;\
-+	type LVTMA_BLON_OVRD;\
- 	type LVTMA_DIGON;\
- 	type LVTMA_DIGON_OVRD;\
-+	type LVTMA_PWRSEQ_TARGET_STATE; \
- 	type LVTMA_PWRSEQ_TARGET_STATE_R; \
- 	type BL_PWM_REF_DIV; \
- 	type BL_PWM_EN; \
+ 	if (signal == SIGNAL_TYPE_EDP) {
++		if (link->dc->hwss.edp_backlight_control)
++			link->dc->hwss.edp_backlight_control(link, false);
+ 		link->link_enc->funcs->disable_output(link->link_enc, signal);
+ 		link->dc->hwss.edp_power_control(link, false);
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 1002ce9979dc..27a1262a20f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -2890,6 +2890,7 @@ static const struct hw_sequencer_funcs dce110_funcs = {
+ 	.setup_stereo = NULL,
+ 	.set_avmute = dce110_set_avmute,
+ 	.wait_for_mpcc_disconnect = dce110_wait_for_mpcc_disconnect,
++	.edp_backlight_control = dce110_edp_backlight_control,
+ 	.edp_power_control = dce110_edp_power_control,
+ 	.edp_wait_for_hpd_ready = dce110_edp_wait_for_hpd_ready,
+ 	.set_cursor_position = dce110_set_cursor_position,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
+index a1d1559bb5d7..b24c8ae8b1ec 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
+@@ -66,6 +66,7 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
++	.edp_backlight_control = dce110_edp_backlight_control,
+ 	.edp_power_control = dce110_edp_power_control,
+ 	.edp_wait_for_hpd_ready = dce110_edp_wait_for_hpd_ready,
+ 	.set_cursor_position = dcn10_set_cursor_position,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
+index 966e1790b9bf..072193c5ffe6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
+@@ -68,6 +68,7 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
++	.edp_backlight_control = dce110_edp_backlight_control,
+ 	.edp_power_control = dce110_edp_power_control,
+ 	.edp_wait_for_hpd_ready = dce110_edp_wait_for_hpd_ready,
+ 	.set_cursor_position = dcn10_set_cursor_position,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
+index 2ba880c3943c..2b7396c9fcb4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
+@@ -69,6 +69,7 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
++	.edp_backlight_control = dce110_edp_backlight_control,
+ 	.edp_power_control = dce110_edp_power_control,
+ 	.edp_wait_for_hpd_ready = dce110_edp_wait_for_hpd_ready,
+ 	.set_cursor_position = dcn10_set_cursor_position,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+index 19daa456e3bf..7c90c2222506 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+@@ -69,6 +69,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
++	.edp_backlight_control = dce110_edp_backlight_control,
+ 	.edp_power_control = dce110_edp_power_control,
+ 	.edp_wait_for_hpd_ready = dce110_edp_wait_for_hpd_ready,
+ 	.set_cursor_position = dcn10_set_cursor_position,
 -- 
 2.17.1
 
