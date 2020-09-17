@@ -2,109 +2,66 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A1E6C433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:26:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAFD1C35266
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:31:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 51DD12075E
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:26:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6D6472075E
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:31:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="oMfdNWPS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51DD12075E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tFUwyLcE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D6472075E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B437789113;
-	Thu, 17 Sep 2020 04:26:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC3A06E03A;
- Thu, 17 Sep 2020 04:26:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h9Wnr040sazU9hjR+unu78o7kf8wcaP8unD333zlyyyxEs+bsH8m+d8kOkvH2J7J/qaHYUHPX32NqzgYwAD/6tga8vC8OLTORI41TDe+VtdAulrWm1THxsxpqvjb2x3rYGZv8je+/pH4yuNNWeNQtpPxf32jNKj4NAA011B2E5FBmJvg8jqHnkRu7+VhYDWeXIuadedI+cz0SSF/ZOVza5ajONvZXr/xjy3QCJlu+LU/HFA6E1JCAnfdKxFfi3vuwbcUAqlqmuTZLUS5Si6BG1m0pSre9lAujecJjHvg+BtZg3Oa2Yro4G/QBsWSkUJqoMcvePSkR4DugkIp8lZqEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1tlpAIUUn4O/mIxwQ9tZIK7Vf9JzQY8M/OPQ4KFiWJI=;
- b=RhArvXgwjEglvo8bmMY7buRIovwBP5Yy1seV+Ihpfqa3nyQC2KMInEmHXhqcC0KJK7OAn/yHpDQ/ottnm6SOKyecPzF1AOAzTyvtD042q2xMfziGOh+Vm/1hHA0AatMTSz4puWi+u8Ey1+/p2Sy/u9WrzM5Y4Sz9paM9qNIfkTlwuLHDhU9oHoe4OvvsGNwu4nbROoaQm71FFiyk02M1wvVhYS67syGH8kabIRK1Lk7mWvZ5oitK/NNg4etoHNPHhSY2arL1qXpNh5vLZnrH7q7Uyv3kB3ciYdADm52kTjCw4t7t2DenwD8p6CnDowbHpxyaaGrSm+9fgLb5q/SF4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1tlpAIUUn4O/mIxwQ9tZIK7Vf9JzQY8M/OPQ4KFiWJI=;
- b=oMfdNWPSSXsSiHnk0MVswXJ2OMn8GX0PSUy+ce4aLEALuWr+L2nuS0brvIEimU+n1YOd1wU8kjnbg8NUJwhpYoReDfamZGXyNAujVFqmfzrwR5UoQNmkeQBuQJnLCJQxgTdktuCMu0qBU4YqFOOCAF3sWNvpop4xAEqCd79PPgc=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB4337.namprd12.prod.outlook.com (2603:10b6:5:2a9::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3370.16; Thu, 17 Sep 2020 04:26:20 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3391.011; Thu, 17 Sep 2020
- 04:26:20 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Xiaoliang Pang <dawning.pang@gmail.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Feng, Kenneth" <Kenneth.Feng@amd.com>, "zhengbin13@huawei.com"
- <zhengbin13@huawei.com>, "pelle@vangils.xyz" <pelle@vangils.xyz>,
- "yttao@amd.com" <yttao@amd.com>
-Subject: RE: [PATCH v1] powerplay:hwmgr - modify the return value
-Thread-Topic: [PATCH v1] powerplay:hwmgr - modify the return value
-Thread-Index: AQHWjKUirneuuuI6L0uBp9h/EISx6KlsO/vg
-Date: Thu, 17 Sep 2020 04:26:20 +0000
-Message-ID: <DM6PR12MB261972F93A745AD5BEF2B357E43E0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200917034610.21703-1-dawning.pang@gmail.com>
-In-Reply-To: <20200917034610.21703-1-dawning.pang@gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=efcc980d-c30c-4674-8d87-ac157225a809;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-17T04:25:56Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8e5e9d8c-f9fe-4774-c915-08d85ac1d435
-x-ms-traffictypediagnostic: DM6PR12MB4337:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB433756B78A9E3D0F4F032C7BE43E0@DM6PR12MB4337.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qmiNRHZQza2GqEe0pVJ7pYm2aedtZETdkQNez+dMyS+pm8oko+lmPkYgcdIpU98YwbxuGKlH/4asWwjMI4G/PSttWWau9hNfYPvmaE2ea8rggbmcKz160xYhRPKK8Rocc37oDJKxKN792RPT4QH8isIeqDZT4exv3tNphPzbXDg6CiSJ2+9cBzdpGwN4OE7Q9N0AZAq9+VNT8+bd+UHKN6GnzPhtBi5X/nolAk7yx64UtJ6oaIZFsXNkTk3bduTakXu8EBger1KsECkUQIrAFYj5CHnmbuaou/fTFKmdlMhsyo2WiGuzusLa/Xm+rL/YShs4Q7Ma9cFuLjiUilAX3M5jjDK7rFSegIJTSIUcH2A9ecDcWyrNtPplaHOs9Nrr
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(6506007)(76116006)(110136005)(8936002)(478600001)(54906003)(4326008)(5660300002)(33656002)(8676002)(55016002)(52536014)(9686003)(66556008)(66946007)(71200400001)(2906002)(316002)(86362001)(66446008)(6636002)(66476007)(64756008)(83380400001)(7696005)(53546011)(186003)(26005)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: a/K3e8KwW3zlTlHRsB7C1L8NM0l3zBEOuyvmt0YZ3M4N+O6nk/5nSTViiIugve0Nuibtl2chLJfJwpHn272k9pGC+urEVj/YEoFor4G/NrcpylR6s91Zh49lcWRM48Wzg7JJou2PFXQpNt9H3oEoMm1JQAYLhSjPtArV04OdPJ9pAhXB7YdJ79XfLHOUE0A5HNdY7DT114o1IroSA5d/BbcFPo3yYoCGJcLdB3cnypxa0yQpzopSweelHgBjrfDAkDxD0+7J73i5Ovwy0gUAQsm7Iabn7sbWlIDt9J6prfzGFKYjX1DTv0l7QFQS82g4BKY/57BTn4pX7qOGQknnRHdtZ9S1IPt1SYyllqz/S4fPmEWibJdMebgjD656hcQvlVZ1e8siXJEUmwLeaOxdsEqfJfvD8VbugVT6P0ILBdx86CsfVJjxhl1ubB1eknAIPqwKbsEf02r7ahJEKIeS4642BoIlRLbmEMgC5yq14G4gNHFV/kxy2Lit/1rJk4EJK06lSU7GWLJQjvk17fV32rvLIxzdkORdOKENxjmEozzNssQ3SX6RiyXMNTBTExXyqo+bI50WqhAGF1Tb8QvIzesN0JFbKEslhtlounb8hL/A+mVmv0v7EeSbo/i7TXXTuvy9VSYkICNkZAQUJYIO9A==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 097A76E03A;
+	Thu, 17 Sep 2020 04:31:02 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF77A89D58
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 04:31:00 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id e11so3547874wme.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2020 21:31:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=JxOlGL7Wb1kx0+n+c5XJNImfPcrf/uLTFv5l0BFm7Oc=;
+ b=tFUwyLcE2cLVblHVS0rNXzY2kSMOOx504tzL9VzXXVHZVfdBQ0BqcxnFYpN/npA5Qn
+ ZP4w7ydY0CK1lpO3gaiRyScunMMIDDfLKeibhiPbM1fl5AFYZcXw1F1xQY+9FPN/nbRf
+ cocH3oivmdlrp6lpdvOiDbceowwX4lyIRWH1YYBzvPFiDgxY1s8H3g/KicMPvzJIY9Py
+ cZUL8bhmoLLDdfLu2GvIhdGIpyPf0//GrWj2aqCgCvZQfoKqZhDugSiZ0J4aklGSBQbs
+ ug9cmQmtSvu07wBazIeVYnwfD/1w/bTt7hBDIH1tr081xyZXkVh8ABopV8kn35dPJ6Il
+ pUpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JxOlGL7Wb1kx0+n+c5XJNImfPcrf/uLTFv5l0BFm7Oc=;
+ b=DIXydNSVbRnonsO8CsEKd+7N6BCgz4U6beeowoGOcsSOCR3jUrR8MDdBAvgPM1bwLY
+ 031Ed8fxzZgsyJF9vJvquXQK+1F8IpuQ1h0+gZR0j7HH5IkdHrH9mimcjm2xuJWZxK13
+ nDsF5XNnYxICmY/4B6hjCOt0gf+5NbvokUhcqTSa7s348Kbw/TyOd740/LJEGst1RAxe
+ SDrXLCmdtz92KlnBbEG+VrkVPBSFrDkKKWA8iWwhqhN8TH8v66a1n2UGQnmUuKrYNAqT
+ TQMlrNroIoZCZANAwnktUT/k7vIiWwCFEGc4VGfg9ZeRZEHjAgjuhIfvxqGKA/lD7qvd
+ YMaA==
+X-Gm-Message-State: AOAM530uCCguDg1+Co7d1pBvM4EL7M/AiBGQlTZLwDstvrQbD5/0D+cq
+ lXtqX2qzQU4lDTRT9nrN4vZNrPAUfWJ3OJgARqPxzQAI
+X-Google-Smtp-Source: ABdhPJy1Ox+4f91q8TWChjZZZF/769ZkA1ugRjAiQSPBznLDswmiWoWfyKPXkmh3Q20p1CRubX2QB23kiyyDlu/yrvg=
+X-Received: by 2002:a1c:e90b:: with SMTP id q11mr7750955wmc.39.1600317059283; 
+ Wed, 16 Sep 2020 21:30:59 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e5e9d8c-f9fe-4774-c915-08d85ac1d435
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2020 04:26:20.6918 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LJ7uDJel4qaxATf9rLPAPS2o5xqwzbbIoVEAX/7AfH2s4Uylv32hjvsH73ZXtEXf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4337
+References: <20200915182206.68607-1-alexander.deucher@amd.com>
+In-Reply-To: <20200915182206.68607-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 17 Sep 2020 00:30:47 -0400
+Message-ID: <CADnq5_PqwxWhjjfn4FHRcW2TKfPn0jZ0T8sPNRa5g9FPiD2JAg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove experimental flag from navi12
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,69 +73,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "tianjia.zhang@linux.alibaba.com" <tianjia.zhang@linux.alibaba.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Das,
- Nirmoy" <Nirmoy.Das@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
- JinHuiEric" <JinHuiEric.Huang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Ping?
 
-Thanks. Reviewed-by: Evan Quan <evan.quan@amd.com>
-
------Original Message-----
-From: Xiaoliang Pang <dawning.pang@gmail.com>
-Sent: Thursday, September 17, 2020 11:46 AM
-To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; airlied@linux.ie; daniel@ffwll.ch; Feng, Kenneth <Kenneth.Feng@amd.com>; zhengbin13@huawei.com; pelle@vangils.xyz; yttao@amd.com
-Cc: Das, Nirmoy <Nirmoy.Das@amd.com>; Huang, JinHuiEric <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; tianjia.zhang@linux.alibaba.com; dawning.pang@gmail.com
-Subject: [PATCH v1] powerplay:hwmgr - modify the return value
-
-modify the return value is -EINVAL
-
-Fixes: f83a9991648bb("drm/amd/powerplay: add Vega10 powerplay support (v5)")
-Fixes: 2cac05dee6e30("drm/amd/powerplay: add the hw manager for vega12 (v4)")
-Cc: Eric Huang <JinHuiEric.Huang@amd.com>
-Cc: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Xiaoliang Pang <dawning.pang@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index c378a000c934..7eada3098ffc 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -4659,7 +4659,7 @@ static int vega10_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- if ((data->water_marks_bitmap & WaterMarksExist) &&
- !(data->water_marks_bitmap & WaterMarksLoaded)) {
- result = smum_smc_table_manager(hwmgr, (uint8_t *)wm_table, WMTABLE, false);
--PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return EINVAL);
-+PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return -EINVAL);
- data->water_marks_bitmap |= WaterMarksLoaded;
- }
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index a678a67f1c0d..04da52cea824 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -2390,7 +2390,7 @@ static int vega12_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- !(data->water_marks_bitmap & WaterMarksLoaded)) {
- result = smum_smc_table_manager(hwmgr,
- (uint8_t *)wm_table, TABLE_WATERMARKS, false);
--PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return EINVAL);
-+PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return -EINVAL);
- data->water_marks_bitmap |= WaterMarksLoaded;
- }
-
---
-2.17.1
-
+On Tue, Sep 15, 2020 at 2:22 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Navi12 has worked fine for a while now.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index d87d37c25329..6e4c860e8ae0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1073,8 +1073,8 @@ static const struct pci_device_id pciidlist[] = {
+>         {0x1002, 0x1636, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
+>
+>         /* Navi12 */
+> -       {0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12|AMD_EXP_HW_SUPPORT},
+> -       {0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12|AMD_EXP_HW_SUPPORT},
+> +       {0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
+> +       {0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
+>
+>         {0, 0, 0}
+>  };
+> --
+> 2.25.4
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
