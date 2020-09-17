@@ -2,64 +2,108 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 341FCC433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 07:40:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2852C433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 08:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD6782083B
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 07:40:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD6782083B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 61CAE2083B
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 08:16:32 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="inMWl7iz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61CAE2083B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185E66EAE2;
-	Thu, 17 Sep 2020 07:40:38 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19ED46E186;
- Thu, 17 Sep 2020 07:40:36 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C72DEAB5C;
- Thu, 17 Sep 2020 07:40:49 +0000 (UTC)
-Subject: Re: [PATCH v2 01/21] drm/amdgpu: Introduce GEM object functions
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
- andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
- emil.velikov@collabora.com
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-2-tzimmermann@suse.de>
- <835ba167-3576-1af6-5421-552075588796@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <41eebda8-bf90-7b5c-8af2-e96b8fd0cea2@suse.de>
-Date: Thu, 17 Sep 2020 09:40:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E95E96E22A;
+	Thu, 17 Sep 2020 08:16:31 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46FFC6E22A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 08:16:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NN0SkmzsEJb5WvHoZnc7PrtmUpxmiBnzeam44STRnVSaQ+W8nBNbQiNORMEn9dVuzUpSl+nis+OEekB2TcJfWLvklkXdyjpTZ4+sVnfLLH0Q2EmTTJPPH9KizPE+swy3GpXzlCVscVoMQ/t0O7XQcavqRrqflN25Bm9gwdNIKDzz/u/E2bOWKDxsQvRi5qbFF9somCilnflSnu6wHJrt52B4L3bAFOb7MhVTa1iU5rvv2eCVi2jN5UQzIXcsY/k9GB0J1rvk+CV+3wQBp0rSvp6EFh8t3bdI1VML4aThjg17Dy5Fsqu7Jjyvb0n1FO+DEbCu99c3cp130b5Pyk7n6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GZM5zcfn/xjqKGjsGxgEh8FU037few/YPuQVf1sri1Q=;
+ b=LJtbCpwR1xBKkl1CG+n9onY0W3jKLRIBzMWEiwzaiCCi56IVXhtAE0N0Eisblpijs6EGo5wb7vaQXiIPjlHgErAZKxde8sQekUfcJATUu9fjFrK1FPMR9RmkLPo7cQac/rQjMkqZf4+vqE0vShbI+F3MNbvcNEgzfYFhWuK/UUDNcgy8DuivXg83tCkeZYXR29qj4aA1vVMwfMyk1w60eNKzwKwNAbTzYV/X3UbyD7uGZqnP8XqfqP6LAJr39yAmHdoXS445A521xC8+CpBZwx9YDQMJX+Rmu7ivq1YmeGbrm8w6ojWGDDulriskrDPtBKqlwVU2SJ3Bfqj3eD4thA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GZM5zcfn/xjqKGjsGxgEh8FU037few/YPuQVf1sri1Q=;
+ b=inMWl7izdKZ2XwPzJ4jnUol9kTRzXYDfUuIzik9A/OUKZU2xKDna5ROJmwMeLvY2ImxQVPPk31ygxFkVj7YrR+1gVDKTyTruDJiA5OC9/UOqfpCF6xwsBordAqxdu3Eb0y0jw8GA1ap6hWm9XSp46KKMmhEiiRsee/nxSDX1N/I=
+Received: from BN4PR12CA0005.namprd12.prod.outlook.com (2603:10b6:403:2::15)
+ by BY5PR12MB3825.namprd12.prod.outlook.com (2603:10b6:a03:1a2::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 17 Sep
+ 2020 08:10:40 +0000
+Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:403:2:cafe::bb) by BN4PR12CA0005.outlook.office365.com
+ (2603:10b6:403:2::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.13 via Frontend
+ Transport; Thu, 17 Sep 2020 08:10:39 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3391.15 via Frontend Transport; Thu, 17 Sep 2020 08:10:39 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 17 Sep
+ 2020 03:10:39 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 17 Sep
+ 2020 03:10:38 -0500
+Received: from wayne-build.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Thu, 17 Sep 2020 03:10:38 -0500
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Skip smu_post_init in SRIOV
+Date: Thu, 17 Sep 2020 16:10:35 +0800
+Message-ID: <20200917081035.1024221-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <835ba167-3576-1af6-5421-552075588796@amd.com>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 41436139-28f0-41c7-8b62-08d85ae12a44
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3825:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB38251E57B5E69FE123E3D08BB73E0@BY5PR12MB3825.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2PvO3BNQDoBlj/x23UUbyZhTIUbkFnFw72Z3xNabk4oD4GT2w1CXVcE5DEFfXtG2SIGdRa5W2W+fylFgowgI34jXbkuFBODm/MttDdYy/D/oyzeD5EC/CzlDNaYNzd7aKx0g/dZ2gXBlXR7gA2c+JKjPievxiryic8NKmXKqTjznCcvehRbU68SvtztXZZjrnSvLyytsyGu5txwrGLYujJlJJcZtyIcxnqIGnGlNp/iPSRyXNjMM1KgGgfdqTQtXYpeD5kZeioQ0mp0oxkF1+1r9b0XEh7g1AYWdKD032Q9nBhpUrfNstTQ7c2l4LFtWDZc7156Mlv/qV/zV4cZcsHTghjYKh8iFsJ4iWxsveRr9eHxu/uWY0gWh+c8bepVm1LcX63hYF+JLRnZ6Gj5x1g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(346002)(396003)(136003)(46966005)(6916009)(316002)(8936002)(36756003)(2616005)(5660300002)(8676002)(336012)(70206006)(6666004)(478600001)(186003)(2906002)(4326008)(26005)(70586007)(86362001)(356005)(426003)(83380400001)(82310400003)(81166007)(7696005)(82740400003)(47076004)(1076003)(4744005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 08:10:39.5772 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41436139-28f0-41c7-8b62-08d85ae12a44
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3825
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,306 +115,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Content-Type: multipart/mixed; boundary="===============0446836391=="
+Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0446836391==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ZR47F2it7RqvbT2snhj2Q3AXTit7yD8k0"
+smu_post_init needs to enable SMU feature, while this require
+virtualization off. Skip it since this feature is not used in SRIOV.
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ZR47F2it7RqvbT2snhj2Q3AXTit7yD8k0
-Content-Type: multipart/mixed; boundary="mXx6VnsL56rJiBRNYFJpJY6lkuO91DGub";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
- tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
- laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
- sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
- tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
- andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
- aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
- matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
- andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
- emil.velikov@collabora.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <41eebda8-bf90-7b5c-8af2-e96b8fd0cea2@suse.de>
-Subject: Re: [PATCH v2 01/21] drm/amdgpu: Introduce GEM object functions
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-2-tzimmermann@suse.de>
- <835ba167-3576-1af6-5421-552075588796@amd.com>
-In-Reply-To: <835ba167-3576-1af6-5421-552075588796@amd.com>
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
---mXx6VnsL56rJiBRNYFJpJY6lkuO91DGub
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 15.09.20 um 17:05 schrieb Christian K=C3=B6nig:
-> Am 15.09.20 um 16:59 schrieb Thomas Zimmermann:
->> GEM object functions deprecate several similar callback interfaces in
->> struct drm_driver. This patch replaces the per-driver callbacks with
->> per-instance callbacks in amdgpu. The only exception is gem_prime_mmap=
-,
->> which is non-trivial to convert.
->>
->> v2:
->> =C2=A0=C2=A0=C2=A0=C2=A0* move object-function instance to amdgpu_gem.=
-c (Christian)
->> =C2=A0=C2=A0=C2=A0=C2=A0* set callbacks in amdgpu_gem_object_create() =
-(Christian)
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 6 ------
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=C2=A0=C2=A0=C2=A0 | 23 =
-+++++++++++++++++-----
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 5 -----
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |=C2=A0 1 +
->> =C2=A0 4 files changed, 19 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 6edde2b9e402..840ca8f9c1e1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -1505,19 +1505,13 @@ static struct drm_driver kms_driver =3D {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .lastclose =3D amdgpu_driver_lastclose_=
-kms,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .irq_handler =3D amdgpu_irq_handler,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ioctls =3D amdgpu_ioctls_kms,
->> -=C2=A0=C2=A0=C2=A0 .gem_free_object_unlocked =3D amdgpu_gem_object_fr=
-ee,
->> -=C2=A0=C2=A0=C2=A0 .gem_open_object =3D amdgpu_gem_object_open,
->> -=C2=A0=C2=A0=C2=A0 .gem_close_object =3D amdgpu_gem_object_close,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dumb_create =3D amdgpu_mode_dumb_creat=
-e,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .dumb_map_offset =3D amdgpu_mode_dumb_m=
-map,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .fops =3D &amdgpu_driver_kms_fops,
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_handle_to_fd =3D drm_gem_=
-prime_handle_to_fd,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .prime_fd_to_handle =3D drm_gem_prime_f=
-d_to_handle,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_export =3D amdgpu_gem_prime_export,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_import =3D amdgpu_gem_prime_=
-import,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_vmap =3D amdgpu_gem_prime_vmap,
->> -=C2=A0=C2=A0=C2=A0 .gem_prime_vunmap =3D amdgpu_gem_prime_vunmap,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .gem_prime_mmap =3D amdgpu_gem_prime_mm=
-ap,
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .name =3D DRIVER_NAME,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index aa7f230c71bf..aeecd5dc3ce4 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -36,9 +36,12 @@
->> =C2=A0 =C2=A0 #include "amdgpu.h"
->> =C2=A0 #include "amdgpu_display.h"
->> +#include "amdgpu_dma_buf.h"
->> =C2=A0 #include "amdgpu_xgmi.h"
->> =C2=A0 -void amdgpu_gem_object_free(struct drm_gem_object *gobj)
->> +static const struct drm_gem_object_funcs amdgpu_gem_object_funcs;
->> +
->> +static void amdgpu_gem_object_free(struct drm_gem_object *gobj)
->> =C2=A0 {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *robj =3D gem_to_amdgp=
-u_bo(gobj);
->> =C2=A0 @@ -87,6 +90,7 @@ int amdgpu_gem_object_create(struct amdgpu_de=
-vice
->> *adev, unsigned long size,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return r;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *obj =3D &bo->tbo.base;
->> +=C2=A0=C2=A0=C2=A0 (*obj)->funcs =3D &amdgpu_gem_object_funcs;
->> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> =C2=A0 }
->> @@ -119,8 +123,8 @@ void amdgpu_gem_force_release(struct amdgpu_device=
-
->> *adev)
->> =C2=A0=C2=A0 * Call from drm_gem_handle_create which appear in both ne=
-w and open
->> ioctl
->> =C2=A0=C2=A0 * case.
->> =C2=A0=C2=A0 */
->> -int amdgpu_gem_object_open(struct drm_gem_object *obj,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 struct drm_file *file_priv)
->> +static int amdgpu_gem_object_open(struct drm_gem_object *obj,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv)
->> =C2=A0 {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *abo =3D gem_to_amdgpu=
-_bo(obj);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D amdgpu_t=
-tm_adev(abo->tbo.bdev);
->> @@ -152,8 +156,8 @@ int amdgpu_gem_object_open(struct drm_gem_object
->> *obj,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->> =C2=A0 }
->> =C2=A0 -void amdgpu_gem_object_close(struct drm_gem_object *obj,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv)
->> +static void amdgpu_gem_object_close(struct drm_gem_object *obj,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv)=
-
->> =C2=A0 {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_bo *bo =3D gem_to_amdgpu_=
-bo(obj);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D amdgpu_t=
-tm_adev(bo->tbo.bdev);
->> @@ -211,6 +215,15 @@ void amdgpu_gem_object_close(struct
->> drm_gem_object *obj,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_eu_backoff_reservation(&ticket, &li=
-st);
->> =C2=A0 }
->> =C2=A0 +static const struct drm_gem_object_funcs amdgpu_gem_object_fun=
-cs =3D {
->> +=C2=A0=C2=A0=C2=A0 .free =3D amdgpu_gem_object_free,
->> +=C2=A0=C2=A0=C2=A0 .open =3D amdgpu_gem_object_open,
->> +=C2=A0=C2=A0=C2=A0 .close =3D amdgpu_gem_object_close,
->> +=C2=A0=C2=A0=C2=A0 .export =3D amdgpu_gem_prime_export,
->> +=C2=A0=C2=A0=C2=A0 .vmap =3D amdgpu_gem_prime_vmap,
->> +=C2=A0=C2=A0=C2=A0 .vunmap =3D amdgpu_gem_prime_vunmap,
->> +};
->> +
->> =C2=A0 /*
->> =C2=A0=C2=A0 * GEM ioctls.
->> =C2=A0=C2=A0 */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->> index e0f025dd1b14..637bf51dbf06 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
->> @@ -33,11 +33,6 @@
->> =C2=A0 #define AMDGPU_GEM_DOMAIN_MAX=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0x3
->> =C2=A0 #define gem_to_amdgpu_bo(gobj) container_of((gobj), struct
->> amdgpu_bo, tbo.base)
->> =C2=A0 -void amdgpu_gem_object_free(struct drm_gem_object *obj);
->> -int amdgpu_gem_object_open(struct drm_gem_object *obj,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv);
->> -void amdgpu_gem_object_close(struct drm_gem_object *obj,
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 struct drm_file *file_priv);
->> =C2=A0 unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
->> =C2=A0 =C2=A0 /*
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index ac043baac05d..c4e82a8fa53f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -561,6 +561,7 @@ static int amdgpu_bo_do_create(struct
->> amdgpu_device *adev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo =3D kzalloc(sizeof(struct amdgpu_bo)=
-, GFP_KERNEL);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (bo =3D=3D NULL)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOMEM;=
-
->> +
->=20
-> The newline is not unrelated.
->=20
-> Apart from that the patch is Reviewed-by: Christian K=C3=B6nig
-> <christian.koenig@amd.com>.
->=20
-> But I think we need some smoke testing of it.
-
-I gave it a try on the HW/drivers that I listed in the cover letter.
-Appears to be working there. There was a bug reported by CI that will be
-fixed in the next iteration.
-
-Best regards
-Thomas
-
->=20
-> Christian.
->=20
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_gem_private_object_init(adev_to_drm=
-(adev), &bo->tbo.base,
->> size);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 INIT_LIST_HEAD(&bo->shadow_list);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bo->vm_bo =3D NULL;
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---mXx6VnsL56rJiBRNYFJpJY6lkuO91DGub--
-
---ZR47F2it7RqvbT2snhj2Q3AXTit7yD8k0
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9jEuwUHHR6aW1tZXJt
-YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPyiggAh/BO7SFe5ZVkcBfrX0+omcib+uvq
-wUfAVwNVPgP4GrDtDXLr4zKuk59o62DKt31reEMSrNQm0ZVv4oYlt9YTXUIBc0fb
-Kfg1G/YdZEH4gl6Xnb1Y6bhK0lFKESQonYcCM20uUfgcfhIL71bxo6IQzNkLLXNl
-Gvbkj8qnJhHFWO8PunW5ufHbKHG+ywye5TnGplv1ubKtNKZuIbC+3zb7gf/+ysCT
-+8ttQ5BqdlF1Mc31bYqBTR0GwyfdofspCeDjdA6jDGN3Wq2Be+Y/E6/Pt7ANwWn8
-+pRLfFQYnt1aj5BKBvxQ4zLmOtqu3DJtik5oXtau5wp3407kMunsBYib0A==
-=Cl71
------END PGP SIGNATURE-----
-
---ZR47F2it7RqvbT2snhj2Q3AXTit7yD8k0--
-
---===============0446836391==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 5c4b74f964fc..79163d0ff762 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -469,10 +469,12 @@ static int smu_late_init(void *handle)
+ 	if (!smu->pm_enabled)
+ 		return 0;
+ 
+-	ret = smu_post_init(smu);
+-	if (ret) {
+-		dev_err(adev->dev, "Failed to post smu init!\n");
+-		return ret;
++	if (!amdgpu_sriov_vf(adev)) {
++		ret = smu_post_init(smu);
++		if (ret) {
++			dev_err(adev->dev, "Failed to post smu init!\n");
++			return ret;
++		}
+ 	}
+ 
+ 	ret = smu_set_default_od_settings(smu);
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0446836391==--
