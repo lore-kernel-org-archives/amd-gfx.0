@@ -2,99 +2,109 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10270C433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A1E6C433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:26:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7BE2C22205
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:16:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 51DD12075E
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:26:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="H9WqD9J3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BE2C22205
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="oMfdNWPS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 51DD12075E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAACC6E03A;
-	Thu, 17 Sep 2020 04:16:42 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10A9B6E03A
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 04:16:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B437789113;
+	Thu, 17 Sep 2020 04:26:24 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC3A06E03A;
+ Thu, 17 Sep 2020 04:26:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R7jJQMc4mmIp79ntRTePAtWnlH3qHlJoAb3VOmg0S10xvk6tItQwATULEecnEcwfHNL3KX0jlEWSfdKjzcYHHFlrAkK2BxpbezljaSIFEzHaBFKrsna7hI33P3nqX7sBKaQRIakra7feL7Q1Ds6v1u3i06InNdZuBiQtxxTQqJ6YBG9NQAz6/bVzwPBeN49/nt7C8u+ciFCtvgijmMMf80KLUkIkhwFDRslzFmZp5mI9XR8TuuSH79zpt9YT3W/n2bpkETmZNc1UWlTxNbuUREerT81FDCSPY9v4hCV5rLl5nEN8IngsMZ5HWlkca4UHw+EN0s5l8QcLIokOnezDfQ==
+ b=h9Wnr040sazU9hjR+unu78o7kf8wcaP8unD333zlyyyxEs+bsH8m+d8kOkvH2J7J/qaHYUHPX32NqzgYwAD/6tga8vC8OLTORI41TDe+VtdAulrWm1THxsxpqvjb2x3rYGZv8je+/pH4yuNNWeNQtpPxf32jNKj4NAA011B2E5FBmJvg8jqHnkRu7+VhYDWeXIuadedI+cz0SSF/ZOVza5ajONvZXr/xjy3QCJlu+LU/HFA6E1JCAnfdKxFfi3vuwbcUAqlqmuTZLUS5Si6BG1m0pSre9lAujecJjHvg+BtZg3Oa2Yro4G/QBsWSkUJqoMcvePSkR4DugkIp8lZqEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FIrfsZF8MeZ8Fsi2UvsVqOO+ObGMSlzz/+AgJRsXvMA=;
- b=ddmDJA+RE6ysGAu8MGHkqI2TH8oXgBQrqjvOLmvJUVlEBBIwswWSW5wPPKrdQtg71dKOcCFNG0Rn0fXFFmNrKyDQak9uqP8jysB7d1Nk+V0klc1W0G3BZKeoiQwJblstvtsIqhWEAqe6LwGNgP6Fa0rAD2zwPo9/+mNilqvMeTcx9gzJCoZ5cLfrtMJFkjQKxsAecAmgzxUvMrMAO1TFPWZ6zxpuLqKRxFitlwUNwmx8VOiyQzdAVDjElyxlnp3dtqS7ROGvGmYe3dN12V3icCa6a9t/MPIrYUn2C+7SfkTTepxNY2pT4MfQaFJla/nDsjgnAtYrx5V8phYpNIb0Pw==
+ bh=1tlpAIUUn4O/mIxwQ9tZIK7Vf9JzQY8M/OPQ4KFiWJI=;
+ b=RhArvXgwjEglvo8bmMY7buRIovwBP5Yy1seV+Ihpfqa3nyQC2KMInEmHXhqcC0KJK7OAn/yHpDQ/ottnm6SOKyecPzF1AOAzTyvtD042q2xMfziGOh+Vm/1hHA0AatMTSz4puWi+u8Ey1+/p2Sy/u9WrzM5Y4Sz9paM9qNIfkTlwuLHDhU9oHoe4OvvsGNwu4nbROoaQm71FFiyk02M1wvVhYS67syGH8kabIRK1Lk7mWvZ5oitK/NNg4etoHNPHhSY2arL1qXpNh5vLZnrH7q7Uyv3kB3ciYdADm52kTjCw4t7t2DenwD8p6CnDowbHpxyaaGrSm+9fgLb5q/SF4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FIrfsZF8MeZ8Fsi2UvsVqOO+ObGMSlzz/+AgJRsXvMA=;
- b=H9WqD9J3BYigK0R7oOaDTalwiAruOE7nJFBJx5P8yFiBO2V5eOXkQQHbKCycHTZqPG7B3y3zZdVagNhTjWqJgmpjVCBtHcuxv6uHOUJK0AeHLxYXp10WDYT+Y5+EogAXHIWlDC9K00DLO4G4QUIkuP6mPfZ6tLXwXg0dIAOxbWc=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN6PR12MB2638.namprd12.prod.outlook.com (2603:10b6:805:6f::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11; Thu, 17 Sep
- 2020 04:16:39 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::d548:1236:cb4f:1be9]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::d548:1236:cb4f:1be9%7]) with mapi id 15.20.3391.015; Thu, 17 Sep 2020
- 04:16:39 +0000
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdgpu: Fix handling of KFD initialization failures
-Date: Thu, 17 Sep 2020 00:16:20 -0400
-Message-Id: <20200917041620.16221-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTOPR0101CA0060.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::37) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (165.204.55.211) by
- YTOPR0101CA0060.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::37) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.13 via Frontend
- Transport; Thu, 17 Sep 2020 04:16:39 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.211]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 14c64135-c45a-44c1-9025-08d85ac079ac
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2638:
-X-Microsoft-Antispam-PRVS: <SN6PR12MB2638978281E4A9BD9090CCE0923E0@SN6PR12MB2638.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2150;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6SPpwsZQ/6RdIsy7ZPr6GkBwDaKAlZNP7ezB6Rv7YtQyH/0CKx2OJdvvk7wXnJJKVxWbb4QSm4+y4+oUSEroOHmvk18z0nwhNBMgr9jdratHlp7p4/W1xpj09tUAxawNeSeIIauCFxizi52ktKdqJs0OWa7TpjKFr59AbvDIVHuYrc4wUBGN1Yz+9vpT6o8wU6mVeKpPYARFq19BaATECyRWNN+OY2jT/Qr+LeXlYZJRDr/Flaap2ZilEz58aDDB2UniXpKC1IXBBbGaLKTwIHlxCn8VruYo3lJ3HirGU3MtAFVtyhsUpvO47wp3jSSH+alqp3Fb5jjnVBwlFVF+qtQ61doTwXeBDA/+qLG5pTNgfxzCFwJ8zg3C5Ba/x8Q1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(39860400002)(376002)(396003)(136003)(6506007)(26005)(186003)(6666004)(6486002)(316002)(2616005)(6512007)(86362001)(16526019)(478600001)(6916009)(8936002)(956004)(2906002)(36756003)(69590400008)(66476007)(5660300002)(1076003)(83380400001)(66556008)(52116002)(8676002)(66946007);
+ bh=1tlpAIUUn4O/mIxwQ9tZIK7Vf9JzQY8M/OPQ4KFiWJI=;
+ b=oMfdNWPSSXsSiHnk0MVswXJ2OMn8GX0PSUy+ce4aLEALuWr+L2nuS0brvIEimU+n1YOd1wU8kjnbg8NUJwhpYoReDfamZGXyNAujVFqmfzrwR5UoQNmkeQBuQJnLCJQxgTdktuCMu0qBU4YqFOOCAF3sWNvpop4xAEqCd79PPgc=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB4337.namprd12.prod.outlook.com (2603:10b6:5:2a9::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3370.16; Thu, 17 Sep 2020 04:26:20 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3391.011; Thu, 17 Sep 2020
+ 04:26:20 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Xiaoliang Pang <dawning.pang@gmail.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "Feng, Kenneth" <Kenneth.Feng@amd.com>, "zhengbin13@huawei.com"
+ <zhengbin13@huawei.com>, "pelle@vangils.xyz" <pelle@vangils.xyz>,
+ "yttao@amd.com" <yttao@amd.com>
+Subject: RE: [PATCH v1] powerplay:hwmgr - modify the return value
+Thread-Topic: [PATCH v1] powerplay:hwmgr - modify the return value
+Thread-Index: AQHWjKUirneuuuI6L0uBp9h/EISx6KlsO/vg
+Date: Thu, 17 Sep 2020 04:26:20 +0000
+Message-ID: <DM6PR12MB261972F93A745AD5BEF2B357E43E0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200917034610.21703-1-dawning.pang@gmail.com>
+In-Reply-To: <20200917034610.21703-1-dawning.pang@gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=efcc980d-c30c-4674-8d87-ac157225a809;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-17T04:25:56Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 8e5e9d8c-f9fe-4774-c915-08d85ac1d435
+x-ms-traffictypediagnostic: DM6PR12MB4337:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB433756B78A9E3D0F4F032C7BE43E0@DM6PR12MB4337.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3276;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qmiNRHZQza2GqEe0pVJ7pYm2aedtZETdkQNez+dMyS+pm8oko+lmPkYgcdIpU98YwbxuGKlH/4asWwjMI4G/PSttWWau9hNfYPvmaE2ea8rggbmcKz160xYhRPKK8Rocc37oDJKxKN792RPT4QH8isIeqDZT4exv3tNphPzbXDg6CiSJ2+9cBzdpGwN4OE7Q9N0AZAq9+VNT8+bd+UHKN6GnzPhtBi5X/nolAk7yx64UtJ6oaIZFsXNkTk3bduTakXu8EBger1KsECkUQIrAFYj5CHnmbuaou/fTFKmdlMhsyo2WiGuzusLa/Xm+rL/YShs4Q7Ma9cFuLjiUilAX3M5jjDK7rFSegIJTSIUcH2A9ecDcWyrNtPplaHOs9Nrr
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(6506007)(76116006)(110136005)(8936002)(478600001)(54906003)(4326008)(5660300002)(33656002)(8676002)(55016002)(52536014)(9686003)(66556008)(66946007)(71200400001)(2906002)(316002)(86362001)(66446008)(6636002)(66476007)(64756008)(83380400001)(7696005)(53546011)(186003)(26005)(921003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: hhYjmF8iRoio+VCNoeqVx5B0UjFuLlz8ViPNAbTF0NS5NwiXW/irwe+WwLM916rih5Z2i5GRMbPCQ3bcPzGoRt11alzGIgQDdlstKHo5qllSNqji/iHAZA5hH2HnxTVodxNTrNo3KGxx+1OmzDz+ltGtsDKRlNvrR3GJOt6FhknVPFt7EkfwOKveqjuq1qQIL6TT4jJ7/AiHjRbUkWcFEj/cRI93qdVYsAn3tEJnaI3kHT+WW9Q8aTBnIHBay6ljvglnc7f684mIfufKMz6HoGEYBDtA5vjBf+YOu6yraf9WPsbypnN74AsmKpcSacuK7E08Q6fg0KDf910jt90OggUpG4lbFVfrR10BDc0563Sg0ZvYtBUEqqQ+jciDF/6B54Sy+/p5fOkMnrkKwm/ZRheTJL59XGfKFQ7Ug7zVpNFJzHmrDgum+0ffgqupy2Q8dkgsLB3d0jPPCPMrFVIKGqo2FINXn5WOMwqmmQoXWN8bt0aslUYUXHnNfRC9bwijn11afKl9fTsFQhLTUbw+l23RAeP8iISR4WyjcdO3ff5kgCeXQtCE2ClE1b4OQTwI0zDSiE1uyaFs4YfyZk1r7c1OS8a5eppto+X0CAJgx6m3EhrmvXMU5dJuiWL3/7403LW2flehPeykjYH4GEj/7g==
+x-ms-exchange-antispam-messagedata: a/K3e8KwW3zlTlHRsB7C1L8NM0l3zBEOuyvmt0YZ3M4N+O6nk/5nSTViiIugve0Nuibtl2chLJfJwpHn272k9pGC+urEVj/YEoFor4G/NrcpylR6s91Zh49lcWRM48Wzg7JJou2PFXQpNt9H3oEoMm1JQAYLhSjPtArV04OdPJ9pAhXB7YdJ79XfLHOUE0A5HNdY7DT114o1IroSA5d/BbcFPo3yYoCGJcLdB3cnypxa0yQpzopSweelHgBjrfDAkDxD0+7J73i5Ovwy0gUAQsm7Iabn7sbWlIDt9J6prfzGFKYjX1DTv0l7QFQS82g4BKY/57BTn4pX7qOGQknnRHdtZ9S1IPt1SYyllqz/S4fPmEWibJdMebgjD656hcQvlVZ1e8siXJEUmwLeaOxdsEqfJfvD8VbugVT6P0ILBdx86CsfVJjxhl1ubB1eknAIPqwKbsEf02r7ahJEKIeS4642BoIlRLbmEMgC5yq14G4gNHFV/kxy2Lit/1rJk4EJK06lSU7GWLJQjvk17fV32rvLIxzdkORdOKENxjmEozzNssQ3SX6RiyXMNTBTExXyqo+bI50WqhAGF1Tb8QvIzesN0JFbKEslhtlounb8hL/A+mVmv0v7EeSbo/i7TXXTuvy9VSYkICNkZAQUJYIO9A==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14c64135-c45a-44c1-9025-08d85ac079ac
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2414.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 04:16:39.5907 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l2miInhA/vuZj7CaKywr91/0sT1+qexWDtJ8iMNYjWcpxwjp+xnIKgKSyN19mPaaV26QTRMwz77t/+V2RU+CRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2638
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e5e9d8c-f9fe-4774-c915-08d85ac1d435
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2020 04:26:20.6918 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LJ7uDJel4qaxATf9rLPAPS2o5xqwzbbIoVEAX/7AfH2s4Uylv32hjvsH73ZXtEXf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4337
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,91 +116,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "tianjia.zhang@linux.alibaba.com" <tianjia.zhang@linux.alibaba.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Das,
+ Nirmoy" <Nirmoy.Das@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
+ JinHuiEric" <JinHuiEric.Huang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remember KFD module initializaton status in a global variable. Skip KFD
-device probing when the module was not initialized. Other amdgpu_amdkfd
-calls are then protected by the adev->kfd.dev check.
+[AMD Official Use Only - Internal Distribution Only]
 
-Also print a clear error message when KFD disables itself. Amdgpu
-continues its intialization even when KFD failed.
+Thanks. Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+-----Original Message-----
+From: Xiaoliang Pang <dawning.pang@gmail.com>
+Sent: Thursday, September 17, 2020 11:46 AM
+To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; airlied@linux.ie; daniel@ffwll.ch; Feng, Kenneth <Kenneth.Feng@amd.com>; zhengbin13@huawei.com; pelle@vangils.xyz; yttao@amd.com
+Cc: Das, Nirmoy <Nirmoy.Das@amd.com>; Huang, JinHuiEric <JinHuiEric.Huang@amd.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; tianjia.zhang@linux.alibaba.com; dawning.pang@gmail.com
+Subject: [PATCH v1] powerplay:hwmgr - modify the return value
+
+modify the return value is -EINVAL
+
+Fixes: f83a9991648bb("drm/amd/powerplay: add Vega10 powerplay support (v5)")
+Fixes: 2cac05dee6e30("drm/amd/powerplay: add the hw manager for vega12 (v4)")
+Cc: Eric Huang <JinHuiEric.Huang@amd.com>
+Cc: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Xiaoliang Pang <dawning.pang@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 11 ++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_module.c    |  1 +
- 3 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index d58148f455dd..7f14461f7f40 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -36,6 +36,8 @@
-  */
- uint64_t amdgpu_amdkfd_total_mem_size;
- 
-+bool kfd_initialized;
-+
- int amdgpu_amdkfd_init(void)
- {
- 	struct sysinfo si;
-@@ -51,19 +53,26 @@ int amdgpu_amdkfd_init(void)
- #else
- 	ret = -ENOENT;
- #endif
-+	kfd_initialized = !ret;
- 
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index c378a000c934..7eada3098ffc 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -4659,7 +4659,7 @@ static int vega10_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
+ if ((data->water_marks_bitmap & WaterMarksExist) &&
+ !(data->water_marks_bitmap & WaterMarksLoaded)) {
+ result = smum_smc_table_manager(hwmgr, (uint8_t *)wm_table, WMTABLE, false);
+-PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return EINVAL);
++PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return -EINVAL);
+ data->water_marks_bitmap |= WaterMarksLoaded;
  }
- 
- void amdgpu_amdkfd_fini(void)
- {
--	kgd2kfd_exit();
-+	if (kfd_initialized) {
-+		kgd2kfd_exit();
-+		kfd_initialized = false;
-+	}
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+index a678a67f1c0d..04da52cea824 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+@@ -2390,7 +2390,7 @@ static int vega12_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
+ !(data->water_marks_bitmap & WaterMarksLoaded)) {
+ result = smum_smc_table_manager(hwmgr,
+ (uint8_t *)wm_table, TABLE_WATERMARKS, false);
+-PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return EINVAL);
++PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return -EINVAL);
+ data->water_marks_bitmap |= WaterMarksLoaded;
  }
- 
- void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev)
- {
- 	bool vf = amdgpu_sriov_vf(adev);
- 
-+	if (!kfd_initialized)
-+		return;
-+
- 	adev->kfd.dev = kgd2kfd_probe((struct kgd_dev *)adev,
- 				      adev->pdev, adev->asic_type, vf);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index b7b16adb0615..297484ca7d19 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -97,6 +97,7 @@ void kfd_chardev_exit(void)
- 	device_destroy(kfd_class, MKDEV(kfd_char_dev_major, 0));
- 	class_destroy(kfd_class);
- 	unregister_chrdev(kfd_char_dev_major, kfd_dev_name);
-+	kfd_device = NULL;
- }
- 
- struct device *kfd_chardev(void)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-index f4b7f7e6c40e..e5aa51f44dd5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-@@ -70,6 +70,7 @@ static int kfd_init(void)
- err_topology:
- 	kfd_chardev_exit();
- err_ioctl:
-+	pr_err("KFD is disabled due to module intialization failure\n");
- 	return err;
- }
- 
--- 
+
+--
 2.17.1
 
 _______________________________________________
