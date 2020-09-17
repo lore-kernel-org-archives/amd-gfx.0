@@ -2,68 +2,101 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8ABFBC433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 15:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04DB4C433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1139722208
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 15:35:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6DA622067C
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:10:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vdIO7GRa"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1139722208
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rD9hjbsq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DA622067C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D21D897F9;
-	Thu, 17 Sep 2020 15:35:57 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A1489306;
- Thu, 17 Sep 2020 15:35:55 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id m6so2592215wrn.0;
- Thu, 17 Sep 2020 08:35:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=++KjjTeArkQUc6wTWp+OUexd5LFyCKXsX9i3O0Psxsg=;
- b=vdIO7GRao1HIL7dDL5HmL7RgluYPLILqZijreSW8tI3heqpGROlE+g6JUvU8DgkyI9
- 6TRbJxmXdMuRcFA82d8pXd3KqM5j7x2k4VF0otEj9YS8sStZ7NYi+9Zhc46FRaWdD2gP
- llkuK1ntu1GYTTlMyHPBP+HH4EzCrXnUtvklzb/PDqkmGQK4RyS4zghJkgC3we2Ld0xW
- jUaxfCxYoyvRH/QdaHFxPor/58NzsYJaCw+Sm/AAhgw5/45wT+GtzNqM9qHorCwBDDTd
- X+9CHr8U+PSeNMkaTn818RIsLuEevjd+mUn/9eGfmspJogTLkgloJG3WI9TZB94qfhGC
- B+2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=++KjjTeArkQUc6wTWp+OUexd5LFyCKXsX9i3O0Psxsg=;
- b=AQ1MHdaaw41bKRcgb7r8OWCWwwW/YCxLGcUhxRfAU8JUQrRT+X6iHAHIgh2khQUMhR
- XMFZirzg12uBZifVlEad+/KaxxPf5trIF21fC+yhHnK05DSxnBNFAjJ/GivsIiVXvCNB
- q6ngDsQuZssx3fYChvL5QYrW4o1zQJcQ+SAnoRU6JEz3gdkByF2KqZsZKLo8D+tFz5Nh
- QHni610pUe20rhAm8f0zJYPLm9bC31jekmLL8kujOimNfCy8SAPN2PkwnCbNQmt4JoUM
- hFtV5BKGk1xTGsQGGRAjT86AT5vfDZi3XAtU/8vZnYg/W/sLOqiRvokhzAwiZ9UtqdZz
- pUTg==
-X-Gm-Message-State: AOAM533gNdxJ4kMLxU4ha7pWW7csk0Ui+YbpIvhwmllMa9JwxsmsFOyP
- SH8e7NUbA4IywBitpQZG4mTe60JBKWv3kiDdB/o=
-X-Google-Smtp-Source: ABdhPJx+y5u32oEgAaxgCr4+qkhtdjMNEjLzBX2Y42T5/J7OajS6cvRPu2WGqZQFekeAyY44eKuWJ6ETVkhNYfMPRQs=
-X-Received: by 2002:adf:dd82:: with SMTP id x2mr34902393wrl.419.1600356954497; 
- Thu, 17 Sep 2020 08:35:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 198DA6EC62;
+	Thu, 17 Sep 2020 17:10:46 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750080.outbound.protection.outlook.com [40.107.75.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D81C96EC62
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 17:10:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QR6dFEE6GB78IFjwN2zWbE+FzPIYwt1kbcZGJl9wKCHuFisCss4piZn3U8TSC4WRPC2ZvFkdrIgdnnP5wa9OzRsftikLOPyWxLutIn/4a38NGgoDHiKrX/2kYW5iyo7xuvUbYJyyrRCnI+stFpNjxtCGWIITuMnF9uVR6g1X0KsNl+x3+1rf36lyA8pXKUPrYlzVPUgkkTaq4OBDqei1d4s8D8phnk8p13841uIl4tOoiQKMSb0Oz5vcr21t1zs1gafA5u1Sl5tjK16M0FMF/ht2BGEwPH8VAA/uRMS0+r+XACXfEqgD1biP9QAe8Zsitl4LqtKVOfrr45ddw3+ICw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DRQ1FiU05Y2CrTbdUZq3KBETOLQZun/pR7VPGeweMAc=;
+ b=hmUIU+KVLTk6wQ8NySZha/Ts55YTE+DgHge1WsZIroFWFvkjXIAQNbMKLbOfW30HAp4hMgaaY5YjyF+RiGf78uZW9P313n1+kVM/zf4kH/6zmZUZAzhay74E5YSN/Tw2vwwd2GHq4GXGTpkKieXOd3JYj1cM3y6Bo9VyFxABrVlEMcglERzzCMrbT36cqgswF7hXr7yNTdzp1oJapBvu72XsY3grJ5PNDF4xDKG3Q4F1QH7EVoJPPhPJIXG6zrZeDN0m+91DOSd4ozk+ZVy868Fo+T/SiVZx6jm6HeeAYpd3sBnU73gfPzNy+sf3SOSvXIf7M5dNICRtp7qnzQBoNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DRQ1FiU05Y2CrTbdUZq3KBETOLQZun/pR7VPGeweMAc=;
+ b=rD9hjbsqqBG/Bb8uEQOHbMnWeV8bk5b0tY6ioPBUMIfRKaRWX4hmsTHedhK1VWty+Ek1AKe0pZezjMBxexs05Hk/wM4mIaTdLHzGsEjgxXWoruMz6mj9wpAzgzObbdh0T0RHo1yrUPOcuy96+QS3bSvE8bBb4E9TirZZpeTUF60=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SN6PR12MB2672.namprd12.prod.outlook.com (2603:10b6:805:6f::25)
+ by SN1PR12MB2592.namprd12.prod.outlook.com (2603:10b6:802:24::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14; Thu, 17 Sep
+ 2020 17:10:41 +0000
+Received: from SN6PR12MB2672.namprd12.prod.outlook.com
+ ([fe80::3d17:21ac:a0ed:9a82]) by SN6PR12MB2672.namprd12.prod.outlook.com
+ ([fe80::3d17:21ac:a0ed:9a82%5]) with mapi id 15.20.3370.019; Thu, 17 Sep 2020
+ 17:10:41 +0000
+From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/3] drm/amd/amdgpu: Prepare implementation to support
+ reporting of CU usage
+Date: Thu, 17 Sep 2020 12:10:25 -0500
+Message-Id: <20200917171025.2454-1-Ramesh.Errabolu@amd.com>
+X-Mailer: git-send-email 2.27.0
+X-ClientProxiedBy: DM6PR02CA0133.namprd02.prod.outlook.com
+ (2603:10b6:5:1b4::35) To SN6PR12MB2672.namprd12.prod.outlook.com
+ (2603:10b6:805:6f::25)
 MIME-Version: 1.0
-References: <20200917034610.21703-1-dawning.pang@gmail.com>
- <e4ac75c6-ce1f-7d4e-9402-82f499392521@amd.com>
-In-Reply-To: <e4ac75c6-ce1f-7d4e-9402-82f499392521@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 17 Sep 2020 11:35:43 -0400
-Message-ID: <CADnq5_N4S9gOGPcgUzdkyF2svD3_4bxMyB=k9Px_ddyT-q3RTA@mail.gmail.com>
-Subject: Re: [PATCH v1] powerplay:hwmgr - modify the return value
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hsacqe51.amd.com (165.204.77.1) by
+ DM6PR02CA0133.namprd02.prod.outlook.com (2603:10b6:5:1b4::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3391.11 via Frontend Transport; Thu, 17 Sep 2020 17:10:40 +0000
+X-Mailer: git-send-email 2.27.0
+X-Originating-IP: [165.204.77.1]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2f7094b0-9da6-4b9d-caad-08d85b2c9aed
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2592:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB259277E98D7CFC8F9B010176E33E0@SN1PR12MB2592.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1186;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UQDhWrbVdS8VJcY5c5eHtgagjzRk6lz6mXmNER30fV1ltzLMqMc6mcJOm5vWV+J5NlrTtXl62kCYGfIYeUyycvPtIez1N04dYc3uXJb0o1puARHBeKs1c08KHVfJ16SSdbmBSsAqXhqnUpEwERNtg19doyiah7uaKJYKvXOGCt+LHHZ5hsH5MHUWZmf1gTJ/YLOyWSC103aA3xdykZZUpBbzA+TP/IcR+cvYDbZZVfl+/iAEGa7+iBQyEf2WCnCiG5pJMbUZoHdnSLT90QuKSxeah9fA4rDsVRDKrPnSnb6PszLyxEzHwcn6L+e7ouN7JAZovVWzUX+c3e/754iCmw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR12MB2672.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(136003)(346002)(376002)(39860400002)(6916009)(83380400001)(956004)(186003)(52116002)(2616005)(2906002)(7696005)(316002)(16526019)(26005)(1076003)(6486002)(478600001)(6666004)(66946007)(86362001)(66476007)(66556008)(5660300002)(4326008)(36756003)(8676002)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 43drPr9Kknq1Ir/cK2smwLuHDXRPLIR3V68IkxHBc7xg1BN77UPb/D7CLvorfsrYNmKG+6CrHvZWcuX37DJV6pSoML2XR+sYnzXUEdWsJ7cI9SkerJAst9VShmer0DT7onX0g2l02v6QIup+f1hz6Eu5TA/WVRMa5mZCcA1xFTr1X+srD7kV/AUBp5CpJcS8X+N2v155dy1RPmAEzXYshWgDg0SjeE8NuDNnaSietMPSO13/PJCfE5Qj7It3r1keQ+zou9WWj+XDIcymBTg6qeZ7u77VkIdMOTJ6CcQq2emvdni9Wey6wlpxoj0Z12+zuIEd0cjz9g+CuRsUjuem8gvswhAK/Il9lOgseTmf5oLq/fv1sX0b395aD934yguMZ6/DPl3tOySwF8xX0M/3kn1kpivyax4OsNpnZmAa1XNIbu7qhSxt2SUjH9y8GTrQOv8/QwA9Ko2kHdCyJufFYu1Nl9uHYoop9c1w4Hs9hm7jP4FAw20MEY8dpOnbzjq/5paREwuThCMQFvZdTYi8DYJt7WHhCVlVrxfWSI8wu5gmMcBtV+Yr0clIDKoPWVZ++vE/QVAYpyS9I78C45gvGvlM5oUSQGNw6Z+dmEeOtvGqFjD5pYCzIY8+bCYHou61AkhqQH+Mtog5/7rn9bXv8Q==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f7094b0-9da6-4b9d-caad-08d85b2c9aed
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2672.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 17:10:41.1447 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Su5x7EgicV494UhjGvr0oX3FKDfov5h5682/QWdoVVtbrPXBBxVzL5NpxdC8akhsj2eL6JjjLac8i/oZIVqWqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2592
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,70 +108,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pelle@vangils.xyz, Tianjia Zhang <tianjia.zhang@linux.alibaba.com>,
- Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- zhengbin <zhengbin13@huawei.com>, Xiaoliang Pang <dawning.pang@gmail.com>,
- Eric Huang <JinHuiEric.Huang@amd.com>, Nirmoy Das <nirmoy.das@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>, "Quan,
- Evan" <evan.quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- Yintian Tao <yttao@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBTZXAgMTcsIDIwMjAgYXQgNDoyOCBBTSBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+Cj4gQW0gMTcuMDkuMjAgdW0gMDU6NDYgc2Nocmll
-YiBYaWFvbGlhbmcgUGFuZzoKPiA+IG1vZGlmeSB0aGUgcmV0dXJuIHZhbHVlIGlzIC1FSU5WQUwK
-Pgo+IE1heWJlIGJldHRlciB3cml0ZSBzb21ldGhpbmcgbGlrZSAiVGhlIGNvcnJlY3QgcmV0dXJu
-IHZhbHVlIHNob3VsZCBiZQo+IC1FSU5WQUwuIiBXaXRoIHRoYXQgZG9uZSBmZWVsIGZyZWUgdG8g
-YWRkIG15IGFja2VkLWJ5LgoKQXBwbGllZCB3aXRoIHVwZGF0ZWQgY29tbWl0IG1lc3NhZ2UuCgpU
-aGFua3MhCgpBbGV4CgoKPgo+IENocmlzdGlhbi4KPgo+ID4KPiA+IEZpeGVzOiBmODNhOTk5MTY0
-OGJiKCJkcm0vYW1kL3Bvd2VycGxheTogYWRkIFZlZ2ExMCBwb3dlcnBsYXkgc3VwcG9ydCAodjUp
-IikKPiA+IEZpeGVzOiAyY2FjMDVkZWU2ZTMwKCJkcm0vYW1kL3Bvd2VycGxheTogYWRkIHRoZSBo
-dyBtYW5hZ2VyIGZvciB2ZWdhMTIgKHY0KSIpCj4gPiBDYzogRXJpYyBIdWFuZyA8SmluSHVpRXJp
-Yy5IdWFuZ0BhbWQuY29tPgo+ID4gQ2M6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Cj4g
-PiBTaWduZWQtb2ZmLWJ5OiBYaWFvbGlhbmcgUGFuZyA8ZGF3bmluZy5wYW5nQGdtYWlsLmNvbT4K
-PiA+IC0tLQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBf
-aHdtZ3IuYyB8IDIgKy0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
-dmVnYTEyX2h3bWdyLmMgfCAyICstCj4gPiAgIDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gPiBpbmRleCBjMzc4YTAwMGM5MzQuLjdl
-YWRhMzA5OGZmYyAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+ID4gQEAgLTQ2NTksNyArNDY1OSw3IEBAIHN0YXRp
-YyBpbnQgdmVnYTEwX2Rpc3BsYXlfY29uZmlndXJhdGlvbl9jaGFuZ2VkX3Rhc2soc3RydWN0IHBw
-X2h3bWdyICpod21ncikKPiA+ICAgICAgIGlmICgoZGF0YS0+d2F0ZXJfbWFya3NfYml0bWFwICYg
-V2F0ZXJNYXJrc0V4aXN0KSAmJgo+ID4gICAgICAgICAgICAgICAgICAgICAgICEoZGF0YS0+d2F0
-ZXJfbWFya3NfYml0bWFwICYgV2F0ZXJNYXJrc0xvYWRlZCkpIHsKPiA+ICAgICAgICAgICAgICAg
-cmVzdWx0ID0gc211bV9zbWNfdGFibGVfbWFuYWdlcihod21nciwgKHVpbnQ4X3QgKil3bV90YWJs
-ZSwgV01UQUJMRSwgZmFsc2UpOwo+ID4gLSAgICAgICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RF
-KHJlc3VsdCwgIkZhaWxlZCB0byB1cGRhdGUgV01UQUJMRSEiLCByZXR1cm4gRUlOVkFMKTsKPiA+
-ICsgICAgICAgICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERShyZXN1bHQsICJGYWlsZWQgdG8gdXBk
-YXRlIFdNVEFCTEUhIiwgcmV0dXJuIC1FSU5WQUwpOwo+ID4gICAgICAgICAgICAgICBkYXRhLT53
-YXRlcl9tYXJrc19iaXRtYXAgfD0gV2F0ZXJNYXJrc0xvYWRlZDsKPiA+ICAgICAgIH0KPiA+Cj4g
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEy
-X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdt
-Z3IuYwo+ID4gaW5kZXggYTY3OGE2N2YxYzBkLi4wNGRhNTJjZWE4MjQgMTAwNjQ0Cj4gPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdtZ3IuYwo+ID4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEyX2h3bWdyLmMK
-PiA+IEBAIC0yMzkwLDcgKzIzOTAsNyBAQCBzdGF0aWMgaW50IHZlZ2ExMl9kaXNwbGF5X2NvbmZp
-Z3VyYXRpb25fY2hhbmdlZF90YXNrKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gPiAgICAgICAg
-ICAgICAgICAgICAgICAgIShkYXRhLT53YXRlcl9tYXJrc19iaXRtYXAgJiBXYXRlck1hcmtzTG9h
-ZGVkKSkgewo+ID4gICAgICAgICAgICAgICByZXN1bHQgPSBzbXVtX3NtY190YWJsZV9tYW5hZ2Vy
-KGh3bWdyLAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICh1aW50OF90ICopd21fdGFibGUsIFRBQkxFX1dBVEVSTUFSS1MsIGZhbHNlKTsKPiA+IC0gICAg
-ICAgICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERShyZXN1bHQsICJGYWlsZWQgdG8gdXBkYXRlIFdN
-VEFCTEUhIiwgcmV0dXJuIEVJTlZBTCk7Cj4gPiArICAgICAgICAgICAgIFBQX0FTU0VSVF9XSVRI
-X0NPREUocmVzdWx0LCAiRmFpbGVkIHRvIHVwZGF0ZSBXTVRBQkxFISIsIHJldHVybiAtRUlOVkFM
-KTsKPiA+ICAgICAgICAgICAgICAgZGF0YS0+d2F0ZXJfbWFya3NfYml0bWFwIHw9IFdhdGVyTWFy
-a3NMb2FkZWQ7Cj4gPiAgICAgICB9Cj4gPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+[Why]
+Allow user to know number of compute units (CU) that are in use at any
+given moment.
+
+[How]
+Read registers of SQ that give number of waves that are in flight
+of various queues. Use this information to determine number of CU's
+in use.
+
+Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 14 ++++++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h |  3 +--
+ 2 files changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index d898c9ff3526..b31879be2c05 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -49,6 +49,7 @@
+ #include "amdgpu_ras.h"
+ 
+ #include "gfx_v9_4.h"
++#include "gfx_v9_0.h"
+ 
+ #include "asic_reg/pwr/pwr_10_0_offset.h"
+ #include "asic_reg/pwr/pwr_10_0_sh_mask.h"
+@@ -785,10 +786,6 @@ static void gfx_v9_0_set_ring_funcs(struct amdgpu_device *adev);
+ static void gfx_v9_0_set_irq_funcs(struct amdgpu_device *adev);
+ static void gfx_v9_0_set_gds_init(struct amdgpu_device *adev);
+ static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev);
+-static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
+-                                 struct amdgpu_cu_info *cu_info);
+-static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev);
+-static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance);
+ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring);
+ static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring);
+ static int gfx_v9_0_query_ras_error_count(struct amdgpu_device *adev,
+@@ -2402,7 +2399,8 @@ static void gfx_v9_0_tiling_mode_table_init(struct amdgpu_device *adev)
+ 	/* TODO */
+ }
+ 
+-static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance)
++void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
++			   u32 instance)
+ {
+ 	u32 data;
+ 
+@@ -4117,7 +4115,7 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+ 	return ~0;
+ }
+ 
+-static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
++uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ {
+ 	uint64_t clock;
+ 
+@@ -6928,8 +6926,8 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+ 	return (~data) & mask;
+ }
+ 
+-static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
+-				 struct amdgpu_cu_info *cu_info)
++int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
++			 struct amdgpu_cu_info *cu_info)
+ {
+ 	int i, j, k, counter, active_cu_number = 0;
+ 	u32 mask, bitmap, ao_bitmap, ao_cu_mask = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
+index fa5a3fbaf6ab..a3d73667e60a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
+@@ -26,9 +26,8 @@
+ 
+ extern const struct amdgpu_ip_block_version gfx_v9_0_ip_block;
+ 
+-void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num);
+-
+ uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev);
+ int gfx_v9_0_get_cu_info(struct amdgpu_device *adev, struct amdgpu_cu_info *cu_info);
++void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance);
+ 
+ #endif
+-- 
+2.27.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
