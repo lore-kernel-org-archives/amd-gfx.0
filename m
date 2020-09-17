@@ -2,73 +2,108 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B66A6C433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 14:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08E0AC433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 14:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E6712065C
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 14:02:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6225121734
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 14:32:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DNZiBZAK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E6712065C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2yzMYDuv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6225121734
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C48656EBB5;
-	Thu, 17 Sep 2020 14:02:00 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDAC06E290;
- Thu, 17 Sep 2020 14:01:59 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id a9so2188261wmm.2;
- Thu, 17 Sep 2020 07:01:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=lBUrIOfg3+mq8ad85tbb7EImBFZIDC/tVRBXQ4hE1ik=;
- b=DNZiBZAKqypMSqQJoyD2IPrVpqiI3ikdcnRtqSUtglPbT/8APSdwaP78S9dCceWhaB
- CUFzh+i3SYFxQjgJQYQXA+eAyv74bC7KPueFL/Gfi5sPNtWoyu6oeH0LQkpIWYJSX21y
- rV7VkyxfFYten7MOhzm3Bz7i04GYai5m0PJD8/+pat7mIsmnFKD4UKKCCUMZ01zZFTbO
- PKJYwiwHEuO6KO353OHy/LaLG0eDM48NEvTlWgc4GQY7VXvipXO0S4rEEhbCyvprEr3R
- BIuNCJjy1NTGULEvR1fAoX12DfpViAnvzecyOpIl9S6AtbE1NSwC4GsSGoUx0L019NSL
- oeQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=lBUrIOfg3+mq8ad85tbb7EImBFZIDC/tVRBXQ4hE1ik=;
- b=NbZFwZV05Gcfe6hLL6STlm/2ehiyQ6RZ9PVThNJ/uIVUFT46NvEA1aEGWhIJ+TOwpH
- NmQVlzkJvRCSwcn4J4QDhWL5hXpH1N50c7H9q56wfKvDG99XYFvsRuX290zRteKRVyHd
- zKfqDpX69CYEJA20V1DyvQgpNDQkBSfayhsmQ/oilPM5E8qxTejwY/+dMmV4U9IVOg4I
- Ohdp1/KhZYB2SdiY+ejP84C7XP87N+6uBrMKlq6EVvyUu8C9ZdqLac1Sp++9wm2WBp+v
- /9oujqCU6za1QL/zAruyTvPDJi30BltY3wtwgo19BNh7MTKNt7WVaHjC+6+Ovb8MRqqb
- Gfeg==
-X-Gm-Message-State: AOAM533AXcNXQW7ApH+6IAjksQgjdtk09Gipq/dgQ8OQ7Ii8X6T29Bbj
- Sn52e46T7ouiCjlCKAsNMaQ=
-X-Google-Smtp-Source: ABdhPJwVFsi9VyC5N2zDyjQYYSf7iQdzkgcW/plJduCk7Y3eMkitDq4/6m+bqkSKVjF1esIZWne4iA==
-X-Received: by 2002:a1c:ba0b:: with SMTP id k11mr10119624wmf.20.1600351318328; 
- Thu, 17 Sep 2020 07:01:58 -0700 (PDT)
-Received: from smtp.gmail.com (a95-92-181-29.cpe.netcabo.pt. [95.92.181.29])
- by smtp.gmail.com with ESMTPSA id z14sm37316830wrh.14.2020.09.17.07.01.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2020 07:01:57 -0700 (PDT)
-Date: Thu, 17 Sep 2020 11:01:48 -0300
-From: Melissa Wen <melissa.srw@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v2 16/21] drm/vgem: Introduce GEM object functions
-Message-ID: <20200917140148.orpdihcctrr5upxg@smtp.gmail.com>
-References: <20200915145958.19993-1-tzimmermann@suse.de>
- <20200915145958.19993-17-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 031896E2B4;
+	Thu, 17 Sep 2020 14:32:19 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B2A56E2B4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 14:32:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gbLqOGiYzvkr4qQdUkGwVu5HzCOCTdzqbFTfnwS34VU5QWNteuJgEoRD+oLKOK+3aZ/4hkotZ4kvjHUIFCbuVqZ9d2hgV2FSVUSabIMbWvym6qV0naeH75vZhOwqNzqopC7btvSxMDgaFNdFYDyC6JovYVe58JHPrDlyq12exTkoMvY0yLoxu8GhvaXgT2aHA2dJMGrqarX4wtEwV0uww9bby2fZM7tCNdfWQOrAW7R0ZR2BtOLhItQejZoksqG3HjPULSxqrM8cQ3PHpO5n5/yCNvYKruz+N+HOvd7BSbNzd+QWPtA+QuOfpOm/lsXJmapeBlffd8G725dnUI0dRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+gRxKGNLButXVcjddsGcvgmkkq0MGTrrtcWbFx/u7a0=;
+ b=TpB7FDSK+alq8BuGroZ9Hk88JC0E1uXdMgnXerfS/aX1DHIBQuUoTihWoYcGUdo5AlH//D0ulFPlOoH8OtUdI9j/hPCI3Wgxtdqo/otwcbMgOKLMyeEbwz6oAzrf77TPF+qVkYOaaTY81YAL4IGpF1uDOYDWRLNY+56bcFnpXmROEguTkNDdTZdcCmSqOTPJgvbB+uttn2VHVF+wGInHWKzrJE4nHX41h/hwN8l3sMRpsPCk/mbrc6QTTsMeNLnpLxDFSt25sMh09YkjNza+xTPtm3i3mNfYiw/8eYYrJpHoxkyIZ+FCISVks5DPBuWUsz6zUVXsNF8KIEgZdYF5Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+gRxKGNLButXVcjddsGcvgmkkq0MGTrrtcWbFx/u7a0=;
+ b=2yzMYDuv1rI6kmALjy57kS0O2gaQu3qafDu3MNvXAW2atW/bR6DGuoPDUZyF8bdaX/BwCumEG8e0H72RpTGdHo61St/A9fb3n+B7kbwUMGgOxDzgXGREqpC7BXtZrbjs3hIc4dT3Qc6b5k/HFK26QtMLh0QLJAPZ0XYaNRxYjAU=
+Received: from BN6PR04CA0106.namprd04.prod.outlook.com (2603:10b6:404:c9::32)
+ by CH2PR12MB3669.namprd12.prod.outlook.com (2603:10b6:610:27::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 17 Sep
+ 2020 14:32:14 +0000
+Received: from BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:c9:cafe::7d) by BN6PR04CA0106.outlook.office365.com
+ (2603:10b6:404:c9::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11 via Frontend
+ Transport; Thu, 17 Sep 2020 14:32:14 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT028.mail.protection.outlook.com (10.13.176.225) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3391.15 via Frontend Transport; Thu, 17 Sep 2020 14:32:14 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 17 Sep
+ 2020 09:32:13 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 17 Sep
+ 2020 09:32:13 -0500
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Thu, 17 Sep 2020 09:32:13 -0500
+From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: [FIX] update clock under two conditions
+Date: Thu, 17 Sep 2020 10:32:12 -0400
+Message-ID: <20200917143212.26346-1-qingqing.zhuo@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200915145958.19993-17-tzimmermann@suse.de>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ea284977-e135-4fef-48d1-08d85b167897
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3669:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3669F67626C4F6B9893098D5FB3E0@CH2PR12MB3669.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:242;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hK2J57KaaRRvwj9qN3LOqoRXMJpR9bEWpXGIVKdVvNsUlhkECV6q3GpNtoneNNagwb9xV46AUeppcUabYod6qsHg5raqbeZIbYiKQyS8xcaQA286SgI9lcEtAkVk1NXa5JKbmG9h28ZMAPxD1VU0o/3n+wqN3hkxp/rar9QE8UAUpa6H6G1Kj3dxq7ybNe+SH8bs0nOKVa60rxgEbyO9kaIfIQnisKOIoJWs0gItOlJxShDLa0rccUH5CrdDC5MNKgqrfet8H/R4EKubSRUHK0Cv9e8PJBW2UtLhTyW9UbG7OCR5FA1thwmuaPxxbSzSnrmHQlgL/+jxb04x5vAlUDj+bqKsxAWba454VbIlPYg+fVshKSEbZDbXfYmj0AbXGMeQK9qGPKefeBQUv1Ip2g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(346002)(396003)(39860400002)(46966005)(316002)(26005)(44832011)(83380400001)(478600001)(5660300002)(82740400003)(1076003)(8676002)(2616005)(36756003)(82310400003)(54906003)(336012)(356005)(70586007)(70206006)(2906002)(8936002)(426003)(4326008)(81166007)(86362001)(186003)(6916009)(47076004)(15650500001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 14:32:14.3074 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea284977-e135-4fef-48d1-08d85b167897
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,128 +115,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, heiko@sntech.de, andrey.grodzovsky@amd.com,
- airlied@linux.ie, nouveau@lists.freedesktop.org,
- joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
- michal.simek@xilinx.com, eric@anholt.net, thierry.reding@gmail.com,
- robdclark@gmail.com, krzk@kernel.org, sam@ravnborg.org,
- sumit.semwal@linaro.org, emil.velikov@collabora.com,
- linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
- oleksandr_andrushchenko@epam.com, tomi.valkeinen@ti.com,
- linux-tegra@vger.kernel.org, linux@armlinux.org.uk,
- patrik.r.jakobsson@gmail.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, kgene@kernel.org, bskeggs@redhat.com,
- xen-devel@lists.xenproject.org, miaoqinglang@huawei.com,
- intel-gfx@lists.freedesktop.org, matthew.auld@intel.com,
- chunkuang.hu@kernel.org, andi.shyti@intel.com, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, marek.olsak@amd.com, tianci.yin@amd.com,
- maarten.lankhorst@linux.intel.com, etnaviv@lists.freedesktop.org,
- jani.nikula@linux.intel.com, inki.dae@samsung.com, hdegoede@redhat.com,
- christian.gmeiner@gmail.com, linux-mediatek@lists.infradead.org,
- mripard@kernel.org, rodrigo.vivi@intel.com, matthias.bgg@gmail.com,
- evan.quan@amd.com, sean@poorly.run, linux-arm-kernel@lists.infradead.org,
- tvrtko.ursulin@linux.intel.com, amd-gfx@lists.freedesktop.org,
- laurent.pinchart@ideasonboard.com, hyun.kwon@xilinx.com,
- rodrigosiqueiramelo@gmail.com, aaron.liu@amd.com, Felix.Kuehling@amd.com,
- xinhui.pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
- chris@chris-wilson.co.uk, kyungmin.park@samsung.com, nirmoy.das@amd.com,
- p.zabel@pengutronix.de, alexander.deucher@amd.com, Hawking.Zhang@amd.com,
- freedreno@lists.freedesktop.org, christian.koenig@amd.com,
- l.stach@pengutronix.de
+Cc: Lewis Huang <Lewis.Huang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ stable@vger.kernel.org, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+[Why]
+Update clock only when non-seamless boot stream exists
+creates regression on multiple scenerios.
 
-On 09/15, Thomas Zimmermann wrote:
-> GEM object functions deprecate several similar callback interfaces in
-> struct drm_driver. This patch replaces the per-driver callbacks with
-> per-instance callbacks in vgem. The only exception is gem_prime_mmap,
-> which is non-trivial to convert.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+[How]
+Update clock in two conditions
+1. Non-seamless boot stream exist.
+2. Stream_count = 0
 
-Thanks here again.
+Fixes:06f9b1475d98("drm/amd/display: update clock
+when non-seamless boot stream exist")
 
-This drv file is little tumultuous to me.
-I mean, I took a while to sort functions in my head.
+Signed-off-by: Lewis Huang <Lewis.Huang@amd.com>
+Acked-by: Qingqing Zhuo <Qingqing.zhuo@amd.com>
+Cc: <stable@vger.kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-However, finally, I got it, and the change looks good.
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1efc823c2a14..7e74ddc1c708 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1286,7 +1286,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 			dc->optimize_seamless_boot_streams++;
+ 	}
+ 
+-	if (context->stream_count > dc->optimize_seamless_boot_streams)
++	if (context->stream_count > dc->optimize_seamless_boot_streams ||
++		context->stream_count == 0)
+ 		dc->hwss.prepare_bandwidth(dc, context);
+ 
+ 	disable_dangling_plane(dc, context);
+@@ -1368,7 +1369,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 
+ 	dc_enable_stereo(dc, context, dc_streams, context->stream_count);
+ 
+-	if (context->stream_count > dc->optimize_seamless_boot_streams) {
++	if (context->stream_count > dc->optimize_seamless_boot_streams ||
++		context->stream_count == 0) {
+ 		/* Must wait for no flips to be pending before doing optimize bw */
+ 		wait_for_no_pipes_pending(dc, context);
+ 		/* pplib is notified if disp_num changed */
+-- 
+2.17.1
 
-Reviewed-by: Melissa Wen <melissa.srw@gmail.com>
-
-> ---
->  drivers/gpu/drm/vgem/vgem_drv.c | 21 ++++++++++++++-------
->  1 file changed, 14 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vgem/vgem_drv.c b/drivers/gpu/drm/vgem/vgem_drv.c
-> index cb884c890065..fa54a6d1403d 100644
-> --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> @@ -50,6 +50,8 @@
->  #define DRIVER_MAJOR	1
->  #define DRIVER_MINOR	0
->  
-> +static const struct drm_gem_object_funcs vgem_gem_object_funcs;
-> +
->  static struct vgem_device {
->  	struct drm_device drm;
->  	struct platform_device *platform;
-> @@ -167,6 +169,8 @@ static struct drm_vgem_gem_object *__vgem_gem_create(struct drm_device *dev,
->  	if (!obj)
->  		return ERR_PTR(-ENOMEM);
->  
-> +	obj->base.funcs = &vgem_gem_object_funcs;
-> +
->  	ret = drm_gem_object_init(dev, &obj->base, roundup(size, PAGE_SIZE));
->  	if (ret) {
->  		kfree(obj);
-> @@ -401,12 +405,20 @@ static int vgem_prime_mmap(struct drm_gem_object *obj,
->  	return 0;
->  }
->  
-> +static const struct drm_gem_object_funcs vgem_gem_object_funcs = {
-> +	.free = vgem_gem_free_object,
-> +	.pin = vgem_prime_pin,
-> +	.unpin = vgem_prime_unpin,
-> +	.get_sg_table = vgem_prime_get_sg_table,
-> +	.vmap = vgem_prime_vmap,
-> +	.vunmap = vgem_prime_vunmap,
-> +	.vm_ops = &vgem_gem_vm_ops,
-> +};
-> +
->  static struct drm_driver vgem_driver = {
->  	.driver_features		= DRIVER_GEM | DRIVER_RENDER,
->  	.open				= vgem_open,
->  	.postclose			= vgem_postclose,
-> -	.gem_free_object_unlocked	= vgem_gem_free_object,
-> -	.gem_vm_ops			= &vgem_gem_vm_ops,
->  	.ioctls				= vgem_ioctls,
->  	.num_ioctls 			= ARRAY_SIZE(vgem_ioctls),
->  	.fops				= &vgem_driver_fops,
-> @@ -415,13 +427,8 @@ static struct drm_driver vgem_driver = {
->  
->  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
-> -	.gem_prime_pin = vgem_prime_pin,
-> -	.gem_prime_unpin = vgem_prime_unpin,
->  	.gem_prime_import = vgem_prime_import,
->  	.gem_prime_import_sg_table = vgem_prime_import_sg_table,
-> -	.gem_prime_get_sg_table = vgem_prime_get_sg_table,
-> -	.gem_prime_vmap = vgem_prime_vmap,
-> -	.gem_prime_vunmap = vgem_prime_vunmap,
->  	.gem_prime_mmap = vgem_prime_mmap,
->  
->  	.name	= DRIVER_NAME,
-> -- 
-> 2.28.0
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
