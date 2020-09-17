@@ -4,99 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E7F5C2BBD1
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 08:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C71B3C43461
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 09:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB5E520872
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 08:54:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4C2652076D
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 09:17:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EruPD53i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB5E520872
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tSN8ZpaH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C2652076D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A996EB1C;
-	Thu, 17 Sep 2020 08:54:43 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00A816EB1C
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 08:54:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A686EB1C;
+	Thu, 17 Sep 2020 09:17:19 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 800366EB1C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 09:17:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h/k6hi+qp7FnCdTHUhLVWioMjCocZLvlqAQJiUTor25O0GmRu+06iYXZIDiRcoB48oJIG6ZGAhc1PEQKEEt7aF/OJcTdc5566C8We33BFo6KeFPH/LUWEwVyiG9/KLkKBWsO1RUy8Z6xP00EFCCgG58QpqDklyjB8vQtiIQj1nofIVewA3XOWsyjskEIthcl9ysf5owj/UhXHJ0KHZI9MDBL+v9DtGsavw+nma4Ssl7TOpwmd6AZBGl+QkyUrAIAw3w+cnoDgXyVAaHSFILAj9OLMgXm56fJdyUkAmPs3bdE8R/U0tD7D9/wnrxMNwdLbp/OhqoGxhEkJImv9ULukA==
+ b=Y0ipvxXe1/exw/Dx3fniGLtzUYL/4P7YPbnV8FW5SYQx13lgKfWVYNVadjLmTADNNUB7d86WT2CmpVWg9pqUXhQQDqhZgA/uhB3QuYufJc/3+Hw74wTsgu0ZacMU3IZmKk19tGatZkAEd1MDrc4CfdksLpSi2Z19KrlKwvn8uEClVVP1HNL7v3R1CLd8vTVpYQWcBN1Alnh4a58X69e/7M5O61tKbY/3y4JXSTUQzU3vxonfkPWEPKJaTIhE3IjiFPaR+vpTvEoEGY8JgUGBrIu4TOTTYLw4F0PKGKVfwK0mnaJOczz6bCy00V40hkYllbGb4NTfR9pewGMHayeduA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VEUnULePYc+MNsNg4coVmFzwXWN5umq83tJ4t/eNYWM=;
- b=bGivVIcgP3QAXy4DFYjBN2sFUcWB6r9ktqsI6rRSjXvVqzQoY+ewiehmcdYeeSKxapRHFK+D/UJp1g4JeXQ/VXGCW7z8DNQAU31hS4ukAhaWv/saIbyXJA2mRCg9RU6PD70iJrkCDcrUL+l9txvcjFKI1nbQuVuLDft8wbbGci+MDNsVQBk8zxKYPrlEup9L3Vb5NIARaCC+qCNlXnK0q++Hd1dJt6uOTgAA3frgJ09tOjSWcE7KPJBjnqErtJuh0Eda+oEzFENmHOzKOKln956NRsqYZ+2VfcYWzXCXtx9m++qKjbgBm2YFgqTJj4rsFWWDjPwiT8QHwdSsUsWePA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=iwtuuO3HBXNHMOHQmXWWrSKjuZDqkmHqJ5r9aTazos8=;
+ b=eM6MpnxVwGc5n+Siq9hgJet3WP2QYEQRSWFFAToWKC5Bxz0ssjdrLlciN1GQ6qcpgp56YV7hGkNPNtFIkV6rnDzniWQetFoyB3RVBweN2/MxxTEskI251NZm9CBs6D3kRuWnwbib3lgrTwcyhMtuXsEcMjM8nOI3bVrS7PLmpYRH4NIedoVYbuht6VVWdkpCglyELMT62hGl7jYEqJlV/Crj3DJv7u8MNXe39dCK5aUtGo2t4C+SLg+/ZuWhfolRNJ6JLdDlI8Fwo0kE1FMQzSgwuE4b1HQ6u24/O4kziHMmOxwe1V2aAJEz2h01gt2slYK1pP73PLF2127Ywn6cQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VEUnULePYc+MNsNg4coVmFzwXWN5umq83tJ4t/eNYWM=;
- b=EruPD53iJA0Er8SbdXkf1F9C9w+84iNRwfl89IaZNnJBwWdlJAgvFfxU7qv6b3M+p/YLsp5S3EUopGfHK6UA0GnZlkSi1vwkm3O26BSAK3JJbwSUllt0rY1NsJ64HHPZIukd9qATB51D4iKJp2UaN0MzlzyWOXZCAMZqNgXJ88M=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BY5PR12MB3778.namprd12.prod.outlook.com (2603:10b6:a03:1a6::11)
- by BYAPR12MB3063.namprd12.prod.outlook.com (2603:10b6:a03:d6::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11; Thu, 17 Sep
- 2020 08:54:39 +0000
-Received: from BY5PR12MB3778.namprd12.prod.outlook.com
- ([fe80::8882:7436:2fd0:8dd7]) by BY5PR12MB3778.namprd12.prod.outlook.com
- ([fe80::8882:7436:2fd0:8dd7%6]) with mapi id 15.20.3370.019; Thu, 17 Sep 2020
- 08:54:39 +0000
-From: Shirish S <shirish.s@amd.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/display: fix crash/reboot while accessing sysfs files
-Date: Thu, 17 Sep 2020 14:24:18 +0530
-Message-Id: <20200917085418.64517-1-shirish.s@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: MAXPR0101CA0018.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:c::28) To BY5PR12MB3778.namprd12.prod.outlook.com
- (2603:10b6:a03:1a6::11)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from amd-WhiteHaven.amd.com (165.204.156.251) by
- MAXPR0101CA0018.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:c::28) with
+ bh=iwtuuO3HBXNHMOHQmXWWrSKjuZDqkmHqJ5r9aTazos8=;
+ b=tSN8ZpaHMaQbFtEHz5swCiQtKSNL+MvjZZ3VJTfOAI54kMdVD6HCr+GCOLDk5Y7CFMFaPOtN6TWeuO5wzuxIBa/rnkvN2pyGr+pwVezbT3po1mOCEp8zigYo+7dQ8JxAOsFi80IbDXfxJha/neCAzWEf9vQ+SBiTYh2ZHOCao70=
+Received: from BN6PR11CA0029.namprd11.prod.outlook.com (2603:10b6:404:4b::15)
+ by DM6PR12MB3195.namprd12.prod.outlook.com (2603:10b6:5:183::30) with
  Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 17 Sep
+ 2020 09:17:16 +0000
+Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:4b:cafe::b5) by BN6PR11CA0029.outlook.office365.com
+ (2603:10b6:404:4b::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11 via Frontend
- Transport; Thu, 17 Sep 2020 08:54:37 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.156.251]
-X-MS-PublicTrafficType: Email
+ Transport; Thu, 17 Sep 2020 09:17:16 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3391.15 via Frontend Transport; Thu, 17 Sep 2020 09:17:16 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 17 Sep
+ 2020 04:17:15 -0500
+Received: from wayne-build.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Thu, 17 Sep 2020 04:17:15 -0500
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: Skip smu_post_init in SRIOV
+Date: Thu, 17 Sep 2020 17:16:55 +0800
+Message-ID: <20200917091654.1045366-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 49129da0-be0c-46f0-18fd-08d85ae74f5a
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3063:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3063FC8A5282FECE0AAE5D2AF23E0@BYAPR12MB3063.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1417;
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 156677f6-f9e6-4bbc-698e-08d85aea789c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3195:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB319556C3D097DD3E6F8C4D12B73E0@DM6PR12MB3195.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: a9BK4miaeX5aDcQ1XNhwOaz3MQLRgpXlyC/VGUCjg1M74OL16kbnOAUN0yAK1jfaB/a+BitLDlOPJ9dEgtZBW0JEa6KTLYgThB74kAayNUjeRuxwuHDOAK703E6J9b31zmj37RnAn+TrcXL6eoMjTvWoj+6xdf8kluFnmNS6swiQLHLfZ6xk32et24VdwvWfom2irbeghYA4CXSqsD8bTnc6zFf6d5mpm5SvPRT42Zg1Z5i3Xzieo13J5BNPOUG1XwFa1Aa9NrOaB23arD+2Rx1ZceKVTSreGP1B0q1Sitn9e+Wtlb/T85QKQyHBJ87PxNhiuhq6w3AYIyrMgb8msQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB3778.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(26005)(110136005)(66946007)(2616005)(956004)(66556008)(478600001)(4326008)(6486002)(66476007)(6636002)(8676002)(8936002)(52116002)(7696005)(86362001)(186003)(83380400001)(16526019)(316002)(6666004)(2906002)(1076003)(5660300002)(36756003);
+X-Microsoft-Antispam-Message-Info: I+9AU5C7UIxFzSP4Aj2GNHlVSLebPkTvjta42Wm0MkFhaApzsU1+bP46R2eGKJzBNdige+hwRNhm+UKVfizUYw10BlSMs3pr1rM6T+vNNDMnmM/4puHd4T3oZWHhgWigA9HZh+nPw1IBQgNxGkvwBy9CQ6rvwtk5JACveipz0HB/mMXm04w5XD8vuGQOjtWSluKtfa2CxoDq8Tv/Aiux8ZbQIkowxS5gMUZt4ROP/hSh7IkrbDrxPwh0xBKMI5izaLRkqFaXU87Jnbna6569WM94vPf7r+PhT40qeB0dfi8RAws10FKvop0N1tMczVLhy6YjM+qS+YQxH5VyZbp/pzaoUwJWTDh/fyCB1X4QRQCwyFIOobLcZvqoNj+mfmGBAp69nDeYSAo3r7JwvsYViw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(376002)(39860400002)(136003)(346002)(396003)(46966005)(478600001)(7696005)(70586007)(47076004)(70206006)(86362001)(5660300002)(316002)(2616005)(186003)(81166007)(4326008)(2906002)(336012)(36756003)(1076003)(426003)(4744005)(6916009)(6666004)(26005)(356005)(82740400003)(8676002)(8936002)(82310400003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: DTQtWieovlvoG3yppWZv/F0fFSNGonN32gDgBdvJ01PDJ5q1h7RSfZ3OnXuGzznU+pzGrdOhVirm1uL6HxAEjP1BoxPDdtZmwuM03+zsEoZpwRIkw9UtHq070FFQQHfbLDzLTAb0wXR7ESVSHgZg4JZ3WDSPD0JtdPgTdAiCcV2RzsinmH+UJ1gra5pqFJEwIZia50XwaXNUFCkdrK/x83mCci9+Jjj/DuwYaY8CYfCnZjUxx1OR62qYrenFa5seExbuuywm/BF1VrOU4iqG7k7JQ8IiZkLEVfT2xjht0qOsBr4x+M2hEn5h8SHi7tmzqjnisOqv7gGJdnX2XjkO/gUw49Agx4T89G4nnWFV5XWX0qWnOX+u7w2/ujN3LkwgQssa4jHfBxk8jdY7R7gXIM2lZ9BWCy4TjCWzCkVBzXfc38eIv5g52D+QgaKzoEo/uhNhFJYdrByg5apEe10pWCF1h/or2PlDpHheJxwlIw5LHZw+UE3frjT0n6wiYEiNOwNUvOLxWd6A/QLHYwfg8vyZ/gnSdjFXa31adFVi+yLbYZMtGImPUWLYWqVhDBLMnow8AG+oZFwCDyQt17yiA2UP3NMfs4YkuznnFkoE/4hreJQyWkydz0C9GY+QTFbSo5fbfDnqKDqcmvyhnfc9kA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49129da0-be0c-46f0-18fd-08d85ae74f5a
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3778.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 08:54:39.2022 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 09:17:16.4849 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 156677f6-f9e6-4bbc-698e-08d85aea789c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GngSJmY5Yvc0NZZXh8NLY3RSbdf+1wQHcqDOYu8+AuiYMC+Tjmzmj2v7uwBrhWl5ARFaZ5OaQTLCqFZfNkO29A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3063
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3195
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,66 +111,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Shirish S <shirish.s@amd.com>
+Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-read/writes to aux_dpcd_* sysfs entries leads to system
-reboot or hang.
-Hence fix the handling of input data and reporting of errors
-appropriately to the user space.
+smu_post_init needs to enable SMU feature, while this require
+virtualization off. Skip it since this feature is not used in SRIOV.
 
-Signed-off-by: Shirish S <shirish.s@amd.com>
+v2: move the check to the early stage of smu_post_init.
+
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 004cd8d38214..8cd646eef096 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -908,7 +908,7 @@ static ssize_t dp_dpcd_address_write(struct file *f, const char __user *buf,
- 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index a027c7fdad56..a950f009c794 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2631,6 +2631,9 @@ static int navi10_post_smu_init(struct smu_context *smu)
+ 	uint64_t feature_mask = 0;
+ 	int ret = 0;
  
- 	if (size < sizeof(connector->debugfs_dpcd_address))
--		return 0;
-+		return -EINVAL;
- 
- 	r = copy_from_user(&connector->debugfs_dpcd_address,
- 			buf, sizeof(connector->debugfs_dpcd_address));
-@@ -923,7 +923,7 @@ static ssize_t dp_dpcd_size_write(struct file *f, const char __user *buf,
- 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
- 
- 	if (size < sizeof(connector->debugfs_dpcd_size))
--		return 0;
-+		return -EINVAL;
- 
- 	r = copy_from_user(&connector->debugfs_dpcd_size,
- 			buf, sizeof(connector->debugfs_dpcd_size));
-@@ -943,8 +943,8 @@ static ssize_t dp_dpcd_data_write(struct file *f, const char __user *buf,
- 	struct dc_link *link = connector->dc_link;
- 	uint32_t write_size = connector->debugfs_dpcd_size;
- 
--	if (size < write_size)
--		return 0;
-+	if (!write_size || size < write_size)
-+		return -EINVAL;
- 
- 	data = kzalloc(write_size, GFP_KERNEL);
- 	if (!data)
-@@ -967,7 +967,7 @@ static ssize_t dp_dpcd_data_read(struct file *f, char __user *buf,
- 	struct dc_link *link = connector->dc_link;
- 	uint32_t read_size = connector->debugfs_dpcd_size;
- 
--	if (size < read_size)
-+	if (!read_size || size < read_size)
- 		return 0;
- 
- 	data = kzalloc(read_size, GFP_KERNEL);
++	if (!amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	/* For Naiv1x, enable these features only after DAL initialization */
+ 	if (adev->pm.pp_feature & PP_SOCCLK_DPM_MASK)
+ 		feature_mask |= FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
 -- 
-2.17.1
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
