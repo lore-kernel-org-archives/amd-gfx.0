@@ -2,72 +2,99 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AA50C433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 03:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10270C433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4495620731
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 03:48:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7BE2C22205
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 04:16:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1/U1Kke"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4495620731
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="H9WqD9J3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BE2C22205
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C6BF6E03F;
-	Thu, 17 Sep 2020 03:48:44 +0000 (UTC)
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A9EC6E03A;
- Thu, 17 Sep 2020 03:46:29 +0000 (UTC)
-Received: by mail-pj1-x1044.google.com with SMTP id u3so518350pjr.3;
- Wed, 16 Sep 2020 20:46:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=cgDpaFzCGSid4Alu9HrD69vjL13qDjm+CokA2ioLn6s=;
- b=b1/U1KkeTQqJdg8I7jPhzGyMKLlH7kg7OxLTWMlfV6Yxo2+tDHN5Ns4sv/vliYl47A
- A5fvLdH8ihswHFeu317/DGw21E5OGxmEzNLdjh4IbyFu+0AyCOAzHhBUHj13jie8RvBB
- JLMANZJzBup1kINjerd2pLxgsijMjMqFY6PVcdv6vXRkOruqG1QLoUFMLilb5W39ZqmO
- k0ETLvo11KtOd600Y59J1wGH/ISM6pfL4l6MxjdXM2DgYRlAnuRh3HuWNcmpBsJsve9/
- XUGShIhlxzBNuXowc2I7XuKB5DbO6+HhpyXZPV1nrKBgZB9Es9ZwvyudPbm9OiW1Mie7
- JuhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=cgDpaFzCGSid4Alu9HrD69vjL13qDjm+CokA2ioLn6s=;
- b=cPe/+5dYF4gb+44sTSaGbIUftgU0KfYhM5LO0YiRA9KgWtcE2GypNPxCGwUaLZejAZ
- Za2v49kKm9/hR82pu/66PofuQXFRuz5GqSOwpfh9kEiQjeuhp71HdM6/4zKfYBInGyr5
- kvwwgkJy2caVNBzNp0+Sh5Foa05w04ket/oTJZRhATcWYJnZv/RtzSwz8tJfvRA3BGhN
- kv0WaylmB+MUFtxO3OTr8ZI6icQnQswzaju4trovSdhi0eH/oKO8zPGSX08cZsRyWz9T
- Z/u9DSgq0LorXs4WBRrdfJQ7DIXaOhXa30Z1p0y2sE1sapW4/+Ov4W31C5mZT6Qao7bW
- Rc3A==
-X-Gm-Message-State: AOAM5301mw7AFhNmXSd2zVfBIQWzbSjZNc2OmedhfUUq5XBCkEpFVD37
- Nb3rC+TeJjkh3cwchmD9t5k=
-X-Google-Smtp-Source: ABdhPJz9oepAeRBrxyHiQuBs0Jq+AhrcVd8RmyTw68dx4tLZpFwlR/8bpoU3OeUyX6zD8jKXhoCDaA==
-X-Received: by 2002:a17:90a:eb06:: with SMTP id
- j6mr6662854pjz.46.1600314389278; 
- Wed, 16 Sep 2020 20:46:29 -0700 (PDT)
-Received: from localhost.localdomain
- (ec2-13-52-163-24.us-west-1.compute.amazonaws.com. [13.52.163.24])
- by smtp.gmail.com with ESMTPSA id a5sm504042pgk.13.2020.09.16.20.46.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2020 20:46:28 -0700 (PDT)
-From: Xiaoliang Pang <dawning.pang@gmail.com>
-To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, kenneth.feng@amd.com,
- zhengbin13@huawei.com, pelle@vangils.xyz, yttao@amd.com
-Subject: [PATCH v1] powerplay:hwmgr - modify the return value
-Date: Thu, 17 Sep 2020 11:46:10 +0800
-Message-Id: <20200917034610.21703-1-dawning.pang@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAACC6E03A;
+	Thu, 17 Sep 2020 04:16:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A9B6E03A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 04:16:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=R7jJQMc4mmIp79ntRTePAtWnlH3qHlJoAb3VOmg0S10xvk6tItQwATULEecnEcwfHNL3KX0jlEWSfdKjzcYHHFlrAkK2BxpbezljaSIFEzHaBFKrsna7hI33P3nqX7sBKaQRIakra7feL7Q1Ds6v1u3i06InNdZuBiQtxxTQqJ6YBG9NQAz6/bVzwPBeN49/nt7C8u+ciFCtvgijmMMf80KLUkIkhwFDRslzFmZp5mI9XR8TuuSH79zpt9YT3W/n2bpkETmZNc1UWlTxNbuUREerT81FDCSPY9v4hCV5rLl5nEN8IngsMZ5HWlkca4UHw+EN0s5l8QcLIokOnezDfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FIrfsZF8MeZ8Fsi2UvsVqOO+ObGMSlzz/+AgJRsXvMA=;
+ b=ddmDJA+RE6ysGAu8MGHkqI2TH8oXgBQrqjvOLmvJUVlEBBIwswWSW5wPPKrdQtg71dKOcCFNG0Rn0fXFFmNrKyDQak9uqP8jysB7d1Nk+V0klc1W0G3BZKeoiQwJblstvtsIqhWEAqe6LwGNgP6Fa0rAD2zwPo9/+mNilqvMeTcx9gzJCoZ5cLfrtMJFkjQKxsAecAmgzxUvMrMAO1TFPWZ6zxpuLqKRxFitlwUNwmx8VOiyQzdAVDjElyxlnp3dtqS7ROGvGmYe3dN12V3icCa6a9t/MPIrYUn2C+7SfkTTepxNY2pT4MfQaFJla/nDsjgnAtYrx5V8phYpNIb0Pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FIrfsZF8MeZ8Fsi2UvsVqOO+ObGMSlzz/+AgJRsXvMA=;
+ b=H9WqD9J3BYigK0R7oOaDTalwiAruOE7nJFBJx5P8yFiBO2V5eOXkQQHbKCycHTZqPG7B3y3zZdVagNhTjWqJgmpjVCBtHcuxv6uHOUJK0AeHLxYXp10WDYT+Y5+EogAXHIWlDC9K00DLO4G4QUIkuP6mPfZ6tLXwXg0dIAOxbWc=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
+ by SN6PR12MB2638.namprd12.prod.outlook.com (2603:10b6:805:6f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11; Thu, 17 Sep
+ 2020 04:16:39 +0000
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::d548:1236:cb4f:1be9]) by SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::d548:1236:cb4f:1be9%7]) with mapi id 15.20.3391.015; Thu, 17 Sep 2020
+ 04:16:39 +0000
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: Fix handling of KFD initialization failures
+Date: Thu, 17 Sep 2020 00:16:20 -0400
+Message-Id: <20200917041620.16221-1-Felix.Kuehling@amd.com>
 X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Thu, 17 Sep 2020 03:48:43 +0000
+X-ClientProxiedBy: YTOPR0101CA0060.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::37) To SN1PR12MB2414.namprd12.prod.outlook.com
+ (2603:10b6:802:2e::31)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (165.204.55.211) by
+ YTOPR0101CA0060.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::37) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.13 via Frontend
+ Transport; Thu, 17 Sep 2020 04:16:39 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 14c64135-c45a-44c1-9025-08d85ac079ac
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2638:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB2638978281E4A9BD9090CCE0923E0@SN6PR12MB2638.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2150;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6SPpwsZQ/6RdIsy7ZPr6GkBwDaKAlZNP7ezB6Rv7YtQyH/0CKx2OJdvvk7wXnJJKVxWbb4QSm4+y4+oUSEroOHmvk18z0nwhNBMgr9jdratHlp7p4/W1xpj09tUAxawNeSeIIauCFxizi52ktKdqJs0OWa7TpjKFr59AbvDIVHuYrc4wUBGN1Yz+9vpT6o8wU6mVeKpPYARFq19BaATECyRWNN+OY2jT/Qr+LeXlYZJRDr/Flaap2ZilEz58aDDB2UniXpKC1IXBBbGaLKTwIHlxCn8VruYo3lJ3HirGU3MtAFVtyhsUpvO47wp3jSSH+alqp3Fb5jjnVBwlFVF+qtQ61doTwXeBDA/+qLG5pTNgfxzCFwJ8zg3C5Ba/x8Q1
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(346002)(39860400002)(376002)(396003)(136003)(6506007)(26005)(186003)(6666004)(6486002)(316002)(2616005)(6512007)(86362001)(16526019)(478600001)(6916009)(8936002)(956004)(2906002)(36756003)(69590400008)(66476007)(5660300002)(1076003)(83380400001)(66556008)(52116002)(8676002)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: hhYjmF8iRoio+VCNoeqVx5B0UjFuLlz8ViPNAbTF0NS5NwiXW/irwe+WwLM916rih5Z2i5GRMbPCQ3bcPzGoRt11alzGIgQDdlstKHo5qllSNqji/iHAZA5hH2HnxTVodxNTrNo3KGxx+1OmzDz+ltGtsDKRlNvrR3GJOt6FhknVPFt7EkfwOKveqjuq1qQIL6TT4jJ7/AiHjRbUkWcFEj/cRI93qdVYsAn3tEJnaI3kHT+WW9Q8aTBnIHBay6ljvglnc7f684mIfufKMz6HoGEYBDtA5vjBf+YOu6yraf9WPsbypnN74AsmKpcSacuK7E08Q6fg0KDf910jt90OggUpG4lbFVfrR10BDc0563Sg0ZvYtBUEqqQ+jciDF/6B54Sy+/p5fOkMnrkKwm/ZRheTJL59XGfKFQ7Ug7zVpNFJzHmrDgum+0ffgqupy2Q8dkgsLB3d0jPPCPMrFVIKGqo2FINXn5WOMwqmmQoXWN8bt0aslUYUXHnNfRC9bwijn11afKl9fTsFQhLTUbw+l23RAeP8iISR4WyjcdO3ff5kgCeXQtCE2ClE1b4OQTwI0zDSiE1uyaFs4YfyZk1r7c1OS8a5eppto+X0CAJgx6m3EhrmvXMU5dJuiWL3/7403LW2flehPeykjYH4GEj/7g==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14c64135-c45a-44c1-9025-08d85ac079ac
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2414.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 04:16:39.5907 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l2miInhA/vuZj7CaKywr91/0sT1+qexWDtJ8iMNYjWcpxwjp+xnIKgKSyN19mPaaV26QTRMwz77t/+V2RU+CRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2638
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,52 +106,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tianjia.zhang@linux.alibaba.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dawning.pang@gmail.com, nirmoy.das@amd.com,
- amd-gfx@lists.freedesktop.org, JinHuiEric.Huang@amd.com
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-modify the return value is -EINVAL
+Remember KFD module initializaton status in a global variable. Skip KFD
+device probing when the module was not initialized. Other amdgpu_amdkfd
+calls are then protected by the adev->kfd.dev check.
 
-Fixes: f83a9991648bb("drm/amd/powerplay: add Vega10 powerplay support (v5)")
-Fixes: 2cac05dee6e30("drm/amd/powerplay: add the hw manager for vega12 (v4)")
-Cc: Eric Huang <JinHuiEric.Huang@amd.com>
-Cc: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Xiaoliang Pang <dawning.pang@gmail.com>
+Also print a clear error message when KFD disables itself. Amdgpu
+continues its intialization even when KFD failed.
+
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 11 ++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_module.c    |  1 +
+ 3 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index c378a000c934..7eada3098ffc 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -4659,7 +4659,7 @@ static int vega10_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- 	if ((data->water_marks_bitmap & WaterMarksExist) &&
- 			!(data->water_marks_bitmap & WaterMarksLoaded)) {
- 		result = smum_smc_table_manager(hwmgr, (uint8_t *)wm_table, WMTABLE, false);
--		PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return EINVAL);
-+		PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return -EINVAL);
- 		data->water_marks_bitmap |= WaterMarksLoaded;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index d58148f455dd..7f14461f7f40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -36,6 +36,8 @@
+  */
+ uint64_t amdgpu_amdkfd_total_mem_size;
  
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index a678a67f1c0d..04da52cea824 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -2390,7 +2390,7 @@ static int vega12_display_configuration_changed_task(struct pp_hwmgr *hwmgr)
- 			!(data->water_marks_bitmap & WaterMarksLoaded)) {
- 		result = smum_smc_table_manager(hwmgr,
- 						(uint8_t *)wm_table, TABLE_WATERMARKS, false);
--		PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return EINVAL);
-+		PP_ASSERT_WITH_CODE(result, "Failed to update WMTABLE!", return -EINVAL);
- 		data->water_marks_bitmap |= WaterMarksLoaded;
- 	}
++bool kfd_initialized;
++
+ int amdgpu_amdkfd_init(void)
+ {
+ 	struct sysinfo si;
+@@ -51,19 +53,26 @@ int amdgpu_amdkfd_init(void)
+ #else
+ 	ret = -ENOENT;
+ #endif
++	kfd_initialized = !ret;
+ 
+ 	return ret;
+ }
+ 
+ void amdgpu_amdkfd_fini(void)
+ {
+-	kgd2kfd_exit();
++	if (kfd_initialized) {
++		kgd2kfd_exit();
++		kfd_initialized = false;
++	}
+ }
+ 
+ void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev)
+ {
+ 	bool vf = amdgpu_sriov_vf(adev);
+ 
++	if (!kfd_initialized)
++		return;
++
+ 	adev->kfd.dev = kgd2kfd_probe((struct kgd_dev *)adev,
+ 				      adev->pdev, adev->asic_type, vf);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index b7b16adb0615..297484ca7d19 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -97,6 +97,7 @@ void kfd_chardev_exit(void)
+ 	device_destroy(kfd_class, MKDEV(kfd_char_dev_major, 0));
+ 	class_destroy(kfd_class);
+ 	unregister_chrdev(kfd_char_dev_major, kfd_dev_name);
++	kfd_device = NULL;
+ }
+ 
+ struct device *kfd_chardev(void)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+index f4b7f7e6c40e..e5aa51f44dd5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+@@ -70,6 +70,7 @@ static int kfd_init(void)
+ err_topology:
+ 	kfd_chardev_exit();
+ err_ioctl:
++	pr_err("KFD is disabled due to module intialization failure\n");
+ 	return err;
+ }
  
 -- 
 2.17.1
