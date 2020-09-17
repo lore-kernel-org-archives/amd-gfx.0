@@ -2,105 +2,64 @@ Return-Path: <SRS0=QzDn=C2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E4DDC43461
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 06:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39F6FC43461
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 07:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 071E42078D
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 06:00:12 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Mem/CpbX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 071E42078D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id B883B21974
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 07:05:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B883B21974
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB1B6E0F2;
-	Thu, 17 Sep 2020 06:00:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062.outbound.protection.outlook.com [40.107.236.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFAEC6E0F2
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 06:00:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m7B7/1haZIQvkAkT/VzZ2pNkJOTKCtjaGFTMuvWL+2/tszdYBxF6iUPhYWYVua9GdxYLPEEt0+i1U4VTzU4O61rMd1tg52/V2p2fh2tVuQig5v++cGvz6E8cKIZVHlroXoMOk/ox42iJMP0VaQEXf/hxJsDZDLgIkiPtDyH4+UbrW3VnNzKF007RcGqaWqmJTgRgR1Pi2Gs6oa/EBxMB0ANRLB37DoZi7hi9tgqtGo9/wenM8yXhR+1mLEUJ5Fdg5y7i416D/HFxIff4Ysmnn/9CmsyfKBHtkDbVcHRMWfXndVaRh6e8vX8VwVY3q8mEkoygJBzcnlW92IrV8j2y7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=766XXGq1GwmAMbXEpJvinpDOM+FtMsfpHg/7zuhqEm4=;
- b=iyvLjSLgO8E+FKTwb60vOwwCMATH+hAIeLhzPD8xLFxaFLNX0rs+5wCsyukt8omp0Jr9sgTVCo/k3A1YfO22sTvnm42iiTNSttuzdgKsVdAJQ5Hb8GISPqP28maLWJHUMRTTqeB07POAR6k+zJ0JzIzkOvji+CaglvnWFXMuTgUHh6myrTOL8p3z5rOfozsRA60AlZrXEPUacStipRC0xbPLy0kKUNxwniNuEONAGq/px/2nsYKu7C2xA5hEoDbFigfTY7eFDuQXFxnaSjf75BmVLy01K0zVN7qd1KVFvu+wMUTBTb9USe7tTtUzffqbn/WMHscLegP8GV3GNp3pKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=766XXGq1GwmAMbXEpJvinpDOM+FtMsfpHg/7zuhqEm4=;
- b=Mem/CpbXCCkl6qNdR8mDFm+rodecYUzqlL82guJERkTWZHPNuVgFo9ewBusQ066H5F9Ljc0+6ipefxiLtCbqKCyzSwHN+lo6hm9ek+DzsqdCUcm9V26uwLgoBxSvg0x4FGnbCcxcIawQs+rtowmp+Hs3VqfsSWhvI8WsoAMC9f4=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3084.namprd12.prod.outlook.com (2603:10b6:5:117::25) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3391.11; Thu, 17 Sep 2020 06:00:08 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3391.011; Thu, 17 Sep 2020
- 06:00:07 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: remove experimental flag from navi12
-Thread-Topic: [PATCH] drm/amdgpu: remove experimental flag from navi12
-Thread-Index: AQHWi40nMzNWn7CgUE6+DNAVHdInCKlsWG0w
-Date: Thu, 17 Sep 2020 06:00:07 +0000
-Message-ID: <DM6PR12MB26194B9176EF07025DA55343E43E0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200915182206.68607-1-alexander.deucher@amd.com>
-In-Reply-To: <20200915182206.68607-1-alexander.deucher@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=324e2142-8a56-412d-a469-68a30420e2c1;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-17T05:59:55Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: eaa80260-f44f-41ac-5a86-08d85aceee33
-x-ms-traffictypediagnostic: DM6PR12MB3084:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3084225D8B77065ADBCAD0D4E43E0@DM6PR12MB3084.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:469;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6h4w2HOdYOOV9eBjAoRZhvAU7p6Ruvp9keyf0NWRtJ0FQvGepqLSEYzlSAAjgMtdvVldNcGiFm90KPc7nNAyQFcv9DcaWC5cuZHPIodm1ZNYjj2E0awwdiAFAHhauA1tMZYFuxhSe8ktsznIk2RdUD1NVl3zp/nyNZXTrq/p04gAx3QzoMKx5uEobZSJ7b55M/XgyJXGxsG/17c4bgfxeOQEKbMHVXm+GnrTB9m8iNRXnaSZ/AqnEtCPurdAMy956SFr5X8RYhrzy8zIwICjQFMmRk5MU0DddSlst8dtwtqVlkTBt4ZyUYM5JgPKEIVJ2+bPI4AQT3SB3TEBCUr5Q3RKKMME2va/9YNcaGfNw3k=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(346002)(366004)(376002)(396003)(5660300002)(316002)(8676002)(186003)(52536014)(83380400001)(2906002)(966005)(7696005)(110136005)(45080400002)(478600001)(33656002)(86362001)(64756008)(71200400001)(66446008)(55016002)(66556008)(66946007)(66476007)(9686003)(76116006)(8936002)(53546011)(6506007)(4326008)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: wAOHi76xWQIae1rTA+5ad368P7S7rtXLBdkNxsuFzc+9G+UpRrvWW2KKKKS9t0vxea6NAfQ1OACYiMOiAnYGwUMvxZLbrhISU4O3jXWO+0ycDcHAetI+twgohXiGdgSRdEfyqyJHa2Wes27JoTuMID2gNB2o4RZAdmg2VX+I9uSWVdcJXeINnn+Yp7puDa9bF1v7Px+WjHZyIyiIZlYvvuUVg9lA0X8KouTkKe5dQgFHROF5CKhdP/hdNpQ2S7mY9SoOB06jWqjLe4seVv98jmHKRiNpmoPboW5YOSEieG6oGKE33otn9DaKd+qQLkSZ10Rp2zUtYXMWHOUsrXzPVu0PAPSi/dhqRUeBpqUYqDUiF2yK1fFulamcsvM9U6RTSOHETLXFK+xRS6EOhVlBlu9lk73i/zbJApPU5DESveCdOyg6VFzYgDWp2kdPu2Axw6EcgXBtoLF6GZuwFp3qvFmAWNz6NoXRLkBIOtBgwe/r+5Jsyia90mFnMo4Twbme1tGDCJq5p7oxa7gA78BNNjTNbr82bn1lIasDlSQ3yC7gGMdFHMkHrMo99N93wv6U8bIlh7hAuLSqTSjccnVBeYUsg636Co+DswIKkLVsGTEdbJAfD/87iK/ZWpXbELuXK3VaCX8jF4Re+vNhYXFvJA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E99BF6E12F;
+	Thu, 17 Sep 2020 07:05:27 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A61A46E12F;
+ Thu, 17 Sep 2020 07:05:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 552D0AEF5;
+ Thu, 17 Sep 2020 07:05:40 +0000 (UTC)
+Subject: Re: [PATCH v2 00/21] Convert all remaining drivers to GEM object
+ functions
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <b527fde4-b456-6683-4a9e-0f7dcf1525be@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <94b4d32e-92f2-cc29-1d59-b9b10b814220@suse.de>
+Date: Thu, 17 Sep 2020 09:05:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eaa80260-f44f-41ac-5a86-08d85aceee33
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2020 06:00:07.7211 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iFV3K48wPW9qe94mCIVvoYFxFuTYyPQzgtU2uJtm3Z2+Y9BUvifdTwNdVOhJfbqz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3084
+In-Reply-To: <b527fde4-b456-6683-4a9e-0f7dcf1525be@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,53 +71,335 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/mixed; boundary="===============0269446819=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0269446819==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="IlbjXZFzpa1bxN3Foosb3hob3NomxLQSR"
 
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--IlbjXZFzpa1bxN3Foosb3hob3NomxLQSR
+Content-Type: multipart/mixed; boundary="MOeMuup4o07wOcrSIw7xNuGzkQ7VfpmEx";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch,
+ linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ patrik.r.jakobsson@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, bskeggs@redhat.com,
+ tomi.valkeinen@ti.com, eric@anholt.net, hjc@rock-chips.com, heiko@sntech.de,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ oleksandr_andrushchenko@epam.com, hyun.kwon@xilinx.com,
+ laurent.pinchart@ideasonboard.com, michal.simek@xilinx.com,
+ sumit.semwal@linaro.org, evan.quan@amd.com, Hawking.Zhang@amd.com,
+ tianci.yin@amd.com, marek.olsak@amd.com, hdegoede@redhat.com,
+ andrey.grodzovsky@amd.com, Felix.Kuehling@amd.com, xinhui.pan@amd.com,
+ aaron.liu@amd.com, nirmoy.das@amd.com, chris@chris-wilson.co.uk,
+ matthew.auld@intel.com, tvrtko.ursulin@linux.intel.com,
+ andi.shyti@intel.com, sam@ravnborg.org, miaoqinglang@huawei.com,
+ emil.velikov@collabora.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Message-ID: <94b4d32e-92f2-cc29-1d59-b9b10b814220@suse.de>
+Subject: Re: [PATCH v2 00/21] Convert all remaining drivers to GEM object
+ functions
+References: <20200915145958.19993-1-tzimmermann@suse.de>
+ <b527fde4-b456-6683-4a9e-0f7dcf1525be@amd.com>
+In-Reply-To: <b527fde4-b456-6683-4a9e-0f7dcf1525be@amd.com>
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
-Sent: Wednesday, September 16, 2020 2:22 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: remove experimental flag from navi12
+--MOeMuup4o07wOcrSIw7xNuGzkQ7VfpmEx
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Navi12 has worked fine for a while now.
+Hi
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Am 15.09.20 um 17:25 schrieb Christian K=C3=B6nig:
+> Added my rb to the amdgpu and radeon patches.
+>=20
+> Should we pick those up through the amd branches or do you want to push=
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d87d37c25329..6e4c860e8ae0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1073,8 +1073,8 @@ static const struct pci_device_id pciidlist[] = {
- {0x1002, 0x1636, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
+> everything to drm-misc-next?
+>=20
+> I think the later since this should result in much merge clash.
 
- /* Navi12 */
--{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12|AMD_EXP_HW_SUPPORT},
--{0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12|AMD_EXP_HW_SUPPORT},
-+{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
-+{0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
+Yes, preferable, I'd merge it all through drm-misc.
 
- {0, 0, 0}
- };
---
-2.25.4
+Best regards
+Thomas
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7C5b2949ea7e4e4338e9d808d859a4473b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637357909421982334&amp;sdata=Yg3L5axov9ttkHuMh%2BgRUlU%2BF49y8iSeZxWA0vhJNs4%3D&amp;reserved=0
+>=20
+> Christian.
+>=20
+> Am 15.09.20 um 16:59 schrieb Thomas Zimmermann:
+>> The GEM and PRIME related callbacks in struct drm_driver are
+>> deprecated in
+>> favor of GEM object functions in struct drm_gem_object_funcs. This
+>> patchset
+>> converts the remaining drivers to object functions and removes most of=
+
+>> the
+>> obsolete interfaces.
+>>
+>> Patches #1 to #16 and #18 to #19 convert DRM drivers to GEM object
+>> functions,
+>> one by one. Each patch moves existing callbacks from struct drm_driver=
+
+>> to an
+>> instance of struct drm_gem_object_funcs, and sets these funcs when the=
+
+>> GEM
+>> object is initialized. The expection is .gem_prime_mmap. There are
+>> different
+>> ways of how drivers implement the callback, and moving it to GEM objec=
+t
+>> functions requires a closer review for each.
+>>
+>> Patch #17 fixes virtgpu to use GEM object functions where possible. Th=
+e
+>> driver recently introduced a function for one of the deprecated
+>> callbacks.
+>>
+>> Patch #20 converts xlnx to CMA helper macros. There's no apparent reas=
+on
+>> why the driver does the GEM setup on it's own. Using CMA helper macros=
+
+>> adds GEM object functions implicitly.
+>>
+>> With most of the GEM and PRIME moved to GEM object functions, related
+>> code
+>> in struct drm_driver and in the DRM core/helpers is being removed by
+>> patch
+>> #21.
+>>
+>> Further testing is welcome. I tested the drivers for which I have HW
+>> available. These are gma500, i915, nouveau, radeon and vc4. The consol=
+e,
+>> Weston and Xorg apparently work with the patches applied.
+>>
+>> v2:
+>> =C2=A0=C2=A0=C2=A0=C2=A0* moved code in amdgpu and radeon
+>> =C2=A0=C2=A0=C2=A0=C2=A0* made several functions static in various dri=
+vers
+>> =C2=A0=C2=A0=C2=A0=C2=A0* updated TODO-list item
+>> =C2=A0=C2=A0=C2=A0=C2=A0* fix virtgpu
+>>
+>> Thomas Zimmermann (21):
+>> =C2=A0=C2=A0 drm/amdgpu: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/armada: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/etnaviv: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/exynos: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/gma500: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/i915: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/mediatek: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/msm: Introduce GEM object funcs
+>> =C2=A0=C2=A0 drm/nouveau: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/omapdrm: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/pl111: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/radeon: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/rockchip: Convert to drm_gem_object_funcs
+>> =C2=A0=C2=A0 drm/tegra: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/vc4: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/vgem: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/virtgpu: Set PRIME export function in struct drm_gem_=
+object_funcs
+>> =C2=A0=C2=A0 drm/vkms: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/xen: Introduce GEM object functions
+>> =C2=A0=C2=A0 drm/xlnx: Initialize DRM driver instance with CMA helper =
+macro
+>> =C2=A0=C2=A0 drm: Remove obsolete GEM and PRIME callbacks from struct =
+drm_driver
+>>
+>> =C2=A0 Documentation/gpu/todo.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0 7 +-
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 6 --
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 23 +++--
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 5 --
+>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 1 +
+>> =C2=A0 drivers/gpu/drm/armada/armada_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 -
+>> =C2=A0 drivers/gpu/drm/armada/armada_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++-
+>> =C2=A0 drivers/gpu/drm/armada/armada_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 -
+>> =C2=A0 drivers/gpu/drm/drm_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 35 ++------
+>> =C2=A0 drivers/gpu/drm/drm_gem_cma_helper.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +-
+>> =C2=A0 drivers/gpu/drm/drm_prime.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+| 17 ++--
+>> =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 13 ---
+>> =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+>> =C2=A0 drivers/gpu/drm/etnaviv/etnaviv_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 19 ++++-
+>> =C2=A0 drivers/gpu/drm/exynos/exynos_drm_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 10 ---
+>> =C2=A0 drivers/gpu/drm/exynos/exynos_drm_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 15 ++++
+>> =C2=A0 drivers/gpu/drm/gma500/framebuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
+>> =C2=A0 drivers/gpu/drm/gma500/gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 18 +=
+++-
+>> =C2=A0 drivers/gpu/drm/gma500/gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 3 +
+>> =C2=A0 drivers/gpu/drm/gma500/psb_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 --
+>> =C2=A0 drivers/gpu/drm/gma500/psb_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 -
+>> =C2=A0 drivers/gpu/drm/i915/gem/i915_gem_object.c=C2=A0=C2=A0=C2=A0 | =
+21 ++++-
+>> =C2=A0 drivers/gpu/drm/i915/gem/i915_gem_object.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 3 -
+>> =C2=A0 drivers/gpu/drm/i915/i915_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 -
+>> =C2=A0 .../gpu/drm/i915/selftests/mock_gem_device.c=C2=A0 |=C2=A0 3 -
+>> =C2=A0 drivers/gpu/drm/mediatek/mtk_drm_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 5 --
+>> =C2=A0 drivers/gpu/drm/mediatek/mtk_drm_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 11 +++
+>> =C2=A0 drivers/gpu/drm/msm/msm_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 13 ---
+>> =C2=A0 drivers/gpu/drm/msm/msm_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+>> =C2=A0 drivers/gpu/drm/msm/msm_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 19 ++++-
+>> =C2=A0 drivers/gpu/drm/nouveau/nouveau_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 --
+>> =C2=A0 drivers/gpu/drm/nouveau/nouveau_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 13 +++
+>> =C2=A0 drivers/gpu/drm/nouveau/nouveau_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
+>> =C2=A0 drivers/gpu/drm/nouveau/nouveau_prime.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 2 +
+>> =C2=A0 drivers/gpu/drm/omapdrm/omap_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 --
+>> =C2=A0 drivers/gpu/drm/omapdrm/omap_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 18 +++-
+>> =C2=A0 drivers/gpu/drm/omapdrm/omap_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 -
+>> =C2=A0 drivers/gpu/drm/pl111/pl111_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +-
+>> =C2=A0 drivers/gpu/drm/radeon/radeon_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 23 +----
+>> =C2=A0 drivers/gpu/drm/radeon/radeon_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 31 ++++++-
+>> =C2=A0 drivers/gpu/drm/rockchip/rockchip_drm_drv.c=C2=A0=C2=A0 |=C2=A0=
+ 5 --
+>> =C2=A0 drivers/gpu/drm/rockchip/rockchip_drm_gem.c=C2=A0=C2=A0 | 10 ++=
++
+>> =C2=A0 drivers/gpu/drm/tegra/drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+|=C2=A0 4 -
+>> =C2=A0 drivers/gpu/drm/tegra/gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+|=C2=A0 8 ++
+>> =C2=A0 drivers/gpu/drm/vc4/vc4_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 21 +=
++++-
+>> =C2=A0 drivers/gpu/drm/vc4/vc4_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ---
+>> =C2=A0 drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+>> =C2=A0 drivers/gpu/drm/vgem/vgem_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 21 +++--
+>> =C2=A0 drivers/gpu/drm/virtio/virtgpu_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+>> =C2=A0 drivers/gpu/drm/virtio/virtgpu_object.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 1 +
+>> =C2=A0 drivers/gpu/drm/vkms/vkms_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 --
+>> =C2=A0 drivers/gpu/drm/vkms/vkms_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 13 +++
+>> =C2=A0 drivers/gpu/drm/xen/xen_drm_front.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 44 ++++------
+>> =C2=A0 drivers/gpu/drm/xen/xen_drm_front.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
+>> =C2=A0 drivers/gpu/drm/xen/xen_drm_front_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 15 ++++
+>> =C2=A0 drivers/gpu/drm/xlnx/zynqmp_dpsub.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 14 +--
+>> =C2=A0 include/drm/drm_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 85 +------------------
+>> =C2=A0 57 files changed, 319 insertions(+), 349 deletions(-)
+>>
+>> --=20
+>> 2.28.0
+>>
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--MOeMuup4o07wOcrSIw7xNuGzkQ7VfpmEx--
+
+--IlbjXZFzpa1bxN3Foosb3hob3NomxLQSR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9jCrIUHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiNzVwf+LuvZqcvZRWJqBwD/EReZk8QEdB4C
+gFkyqltsHWaQRxf+it2Dp14i6FxEXB7E3aVwF5jPAdikNLapTbkD9Y/2xPJQr+MR
+GJLLPZPYWT8OMyj5OitKkx0wGAHp+CZTn/GXhI7YyECfs2Jdwy7ZPJ4FpzCgB4Dy
+btJKCeubADE1QK+I9K2E2dYATQP5BDfqZsBLXrTF+Lu4ZzqYLGAyM04KIlou4XNS
+I4MWAApxCCZloSTMlpYYOH3hyupIlLwCnmSvIlrAa2gUGPGzy82UmH/7lPMlFRIR
+1bYU5b70s8vx4bS0brsRnZhYfmGewk+4sIcsneQfbRHKw459wJ4h46CbrA==
+=kk1b
+-----END PGP SIGNATURE-----
+
+--IlbjXZFzpa1bxN3Foosb3hob3NomxLQSR--
+
+--===============0269446819==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0269446819==--
