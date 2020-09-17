@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 434F0C43461
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BD59C43461
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 999CB206CA
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:11:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 960CA21D90
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2020 17:11:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="B9xpaIWv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 999CB206CA
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="I3/fOngf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 960CA21D90
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220A16EC0E;
-	Thu, 17 Sep 2020 17:11:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0286EC62;
+	Thu, 17 Sep 2020 17:11:36 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF486EC0E
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 17:11:09 +0000 (UTC)
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4306EC62
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 17:11:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DyX0GUoU0cZjiwS9jlJfgApfb7JN2fQ6HvP3eUEK28B3IQUWAy8tmtu97lqlvaQP9NrXJlOjm0Y1wVmwyaRsKTgOKp0KceAnCdmwmIjWvdXdiK0UoXQBlljs1mfeOXius1JM8bB6A+Yih2D3kyuFpKnoJta1IzOFrnzpnmaNsknTQTGAQ+Wo1yl+PT/cApdozrzhYPUcytBc4H4VXJZ8a74wuA6ODf2SNrU4nJd+9L7BzlGhWdSkV3JbHDQH7CkRqR8zJD2h+qiEg6RMq7IT9m1QBcqpbjrsN6mUEDpwhLzEA61W+H/9zgD+lcc0acckO6byjQiE1o5mI5OydvcnSg==
+ b=MfGOhLuhwlcYUP+Yj9XX3o/VMrAYwOni0gEVq6dWNFu2uE2wHwG+YjGtj3h31htr+4WTgNANwE+RhWWn9tS6CUkk3ApPm1aOBxdTKDdqOQtciTymlxFCnAUKwx/peHm9YIELdT22ry7rOD8dhsOHnpaVjYkrqjvAZt5yJviuZTvpLkWE/MsbjHigmgYboO2HHACfm9Y5cugKqUJRW7FUuacHoBHHEbHZExwP5uUKZsQMSIVsBSXr9NXkpWkfibnsf6xIPGk/62NTuEEHk84UEBZEoO27i9YD2hVaDDFo9+UgBmAn1pOXsCh9ORW9dY2RRpPeXPYf9aIGhhqpeobxwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m6/ebhn/fLC83ECyLiFvz5BAzQpDqTc2eRr2mfBbAao=;
- b=cmZ3bUr0pfo2rJM3yvRcEEEcHbL5kB6rWzapOjRTUE5Tqrp8D8g8cKrOwQdfylY2kDU58HUpXuQOugB99B026Tp2xlCI0d1jqdL4+y7wf8wFojio+UtGWjabZBy7u/AGXyCWygE9T7lKXANDLw8Ip5KfPZTDueBG8lAvGZRTnM40IitV8nrZEjAHIGyF705pAc7V+URlT3rbo7PBtC+1iZ0yYKByney56emXgBzebAM29QnIuns1s1vxBqGoq3fCRzSNPbCT1yH8Q5izQsPsIW9VFe5t5/gPvZOp4fCfStwiKn3StfF8R9KoK42ppxAReSPep4Y4RxhlK+IdND8/KQ==
+ bh=FEMDA95P3CIa/NIA5IGX+vTZC5gv7HIfVofxwD/HVLU=;
+ b=mqb9KL88FxZYQXOslXIzngDJqnG2wwp37Uqs6bG+2YHOsm7b241bgw+11WEqdLPQAu+ElsjBsVHBBSJvIGMx9RM+IkAH5ccfOjj1PHhKoC/DiD5ncY6FcHlziH1xr48xmirlbAHpCRx2HB9Zdv9yTyT0ob7UaYlen8hMMnTc72jDYcDvzr8pCAxTBLFqqWAcyf8wFRFIZEgIoiwth1rPXGdzYIRFJpApfWlfE3T4rkDUQo2Qru+JGDHg3W1Zqe35yknlrgzYmbE2xJUBVySW9eGY1f9HzW33XwmeBYeb4FU90csvhZJUhUrc9cIkcdoENIyAzi1ZxzhqMYNLeVnvuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m6/ebhn/fLC83ECyLiFvz5BAzQpDqTc2eRr2mfBbAao=;
- b=B9xpaIWvKgyGc99WxX5TBqpCXcApPXaodkqYnqPMcDA4M7iqXyVt8YZryWw7gC0isaBsDga+L4naWVcQ3EVEwZD2NdUf1KVyt812ybbxH7cqHYJFF+i1AegZUwNgYv+s/h/vr7XSfHFeJtKYO7MT3Ue8dmgJo9WA6+6IET5yKA8=
+ bh=FEMDA95P3CIa/NIA5IGX+vTZC5gv7HIfVofxwD/HVLU=;
+ b=I3/fOngf3dTXDXWV1awCPghWG7tRfhITQicfVA2NeChhsPROYordFeOONzW6HIGNL3fpvNUqExecnJ020wnSMDwQjCIvPKKQENc406ymoJO7oQIXWl3HlAxqwyxvAD+HvESC682fbHyYHVm/dpM/XdT8dFu6mDkAqcR+8KsSjl0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,53 +48,53 @@ Received: from SN6PR12MB2672.namprd12.prod.outlook.com (2603:10b6:805:6f::25)
  by SN6PR12MB2736.namprd12.prod.outlook.com (2603:10b6:805:75::30)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Thu, 17 Sep
- 2020 17:11:07 +0000
+ 2020 17:11:33 +0000
 Received: from SN6PR12MB2672.namprd12.prod.outlook.com
  ([fe80::3d17:21ac:a0ed:9a82]) by SN6PR12MB2672.namprd12.prod.outlook.com
  ([fe80::3d17:21ac:a0ed:9a82%5]) with mapi id 15.20.3370.019; Thu, 17 Sep 2020
- 17:11:07 +0000
+ 17:11:33 +0000
 From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amd/amdgpu: Define and implement a function that
- collects number of waves that are in flight.
-Date: Thu, 17 Sep 2020 12:10:53 -0500
-Message-Id: <20200917171053.2513-1-Ramesh.Errabolu@amd.com>
+Subject: [PATCH 3/3] drm/amd/amdkfd: Surface files in Sysfs to allow users to
+ get number of compute units that are in use.
+Date: Thu, 17 Sep 2020 12:11:18 -0500
+Message-Id: <20200917171118.2579-1-Ramesh.Errabolu@amd.com>
 X-Mailer: git-send-email 2.27.0
-X-ClientProxiedBy: SN1PR12CA0061.namprd12.prod.outlook.com
- (2603:10b6:802:20::32) To SN6PR12MB2672.namprd12.prod.outlook.com
+X-ClientProxiedBy: DM6PR02CA0091.namprd02.prod.outlook.com
+ (2603:10b6:5:1f4::32) To SN6PR12MB2672.namprd12.prod.outlook.com
  (2603:10b6:805:6f::25)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from hsacqe51.amd.com (165.204.77.1) by
- SN1PR12CA0061.namprd12.prod.outlook.com (2603:10b6:802:20::32) with Microsoft
+ DM6PR02CA0091.namprd02.prod.outlook.com (2603:10b6:5:1f4::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.3348.15 via Frontend Transport; Thu, 17 Sep 2020 17:11:07 +0000
+ 15.20.3391.13 via Frontend Transport; Thu, 17 Sep 2020 17:11:32 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [165.204.77.1]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c69c8619-2356-4fe1-fa9e-08d85b2caab0
+X-MS-Office365-Filtering-Correlation-Id: b1e71edc-e91a-409b-8157-08d85b2cb9f6
 X-MS-TrafficTypeDiagnostic: SN6PR12MB2736:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB27363EA6B862DD851DA70068E33E0@SN6PR12MB2736.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB27360E6094946C72C4C6BAACE33E0@SN6PR12MB2736.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qXht7jgyrxB1a4rBj0djGUxqk/hd8SrhqN/HBHo7PzYbs+heT5uVYVjwXdBxzaIdgG+yTUtylQITHklx6z9ZCH7PP0EXGtxwU7gWaoyazS7tGaVTzll3Ph8QzCuUQRvm+Lx6H7oW2NkTcI5+6Sag1UlRn33Ztq2hnBbxHO9kasQXHu+ZikVotci2uF2XVKb7qj9tm2nImdL1UUYmrY2etJl3DhuDg804fDeHRYBo92ronkik3t1S29fwMMB3PmUcTJki2Bdkga3w5XID02c+jOPnCAiKcJlvNosPlk+DwYcjsdhGCCRPfZ+uxNzZlzOHKnMdxuYnWuUFvV9ItKv/LmNKXMuU4PlhKUdWXxSkc+F7zDMCSbLVuHZaTk4xZmKc
+X-Microsoft-Antispam-Message-Info: C4YzdgsBCcXSc4aF2alBJ/ylsutetDNIz4sFT052TjQlVS7I12b117jaOD8eKxV0HO95rWM7aTU0d6WJszP25S6nUD/Jrd5KM3bin+RJcj+sY/w8lQoYiwCx5RRMTXr42mjdskDezk50oc7pRCbNue2R4SW+zh3GyvmJ4E3GDRD4B0Spw4dNsINb7xUkqgAOyRPUyKL630IJx+390OvRhsWGH0LgQYMdmsVBebKD46dSMzw9uXdIJk7YMKgju1z4TAeFoY9Kpqp7ZPOO5v4N9GKP+8atu5sBO0phqDyibb72xfwagMqhkqn4WN8yYtrsYfolA2GZAzb3kAzh/SaeI5iWkR7AKJeQsdy9Sk0+NfEZKk1OdBLGk6DhRF2jUagg
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN6PR12MB2672.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(396003)(376002)(346002)(136003)(39860400002)(366004)(316002)(478600001)(66476007)(6486002)(6666004)(86362001)(5660300002)(2906002)(1076003)(66946007)(66556008)(36756003)(26005)(2616005)(16526019)(8676002)(8936002)(186003)(83380400001)(4326008)(6916009)(956004)(7696005)(52116002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: +oFkVsVeqwvMGf6/yn8MvBvJsY6Kvh3/0w0t/twZU7rwFA4R2yAq4bM6as+uIsheGMa6Cn+nIA+WnStiEELPcCFnFFQI1GT6inp3tP9l6PG7b7E37oqtsmFTK3sdZmlMIP+67vJ3P/pZj7XjGAQJZ8NQvOUeUnEZ435w+Q1uOJydo4WlpZfJyL0KBTT0tQQFa9+tgXc3L+R9zJiAdT7UlFfvEBJLHuM1MS6W15Rb6ahclVgil0D+00ky46h7VKD24CKypcIriRKsBkfdUKhzS3b4JeN5qEiqsv24IAN4YsAgIWqpG4UP9MANxqFdfFtJi6575jBPztk2c4EJ/dDFk1SE/m/NCad3TBIOOgZPF1LifPbERS6ljMuMw+6u70HGTfABfUmJOchpVgUgLo4ForqlGGFi+5SRfEj9p9RxbLv3FuQ3facjoaQ6U/eirnvaODIududIGfsAVMe3qWWdWPGWbPJadslLOSIAnbc4g3MiamF5rFO+nVz0RBxIwVZflAeUcVpaGkNlkoDkVK0/u4OHDxLLMupFBjUZRzfQ+Cd7hArR4i6YDXxlMz/9LdvpLMzt+ToMYBcHHGqOQhO4b0pFRrOUr6jNMl0fBDEL7/SstdPPUe4EYMarV8I26shFMA29s5XrOMdTWEaklE1IeQ==
+X-MS-Exchange-AntiSpam-MessageData: EBRJXuU0VtqKicP6ofelbDpGSAqtyNh5vDpGwmAZl3eLaPwiwBrEYasmbuyi4cccAzXMdQuhhtTAulDQgl5Zqy8iMeAY22o5qkspB6QpdNEPjcm66wIXY8neB7unvggRYhesh6K8DdjrcMqPaNcb0/DBvqkEsUTTF9vMLr0i2IhHiZpkqvNnE8XuapoaYMP3quBOgxJC50S13PMLqbPQtz3rxEq5cmEzqpmZUteJ0oY+r3orYj9WKEbJKOCWxGaa+kNuTzEGAc5xCn2OaJACYNrcxvZ0FVk9KgKTVkrV2yGoLJunkQm6L1djXzJgjZ0uiajGlU//UbnF5Cr15qlpDVF4YbFQO4iWC2GevH0ZC27mWKvKhBRNb89kRJBtTDxh1YxsQShvO9N0u/35jxDGhXWeHDPsT8IZxQ+yEkl4sCtpWbZUoQN90Z9ToH+vVe4YvWc3N9OG+zXgmMXCp81TaDU1EIAydhUGbuVGOlI0wDa6c3r9QJdzWph+GCGBgvbmXcP2Lv4dvZwBNjcF7L/1AEiNj6LkMJe/tkllnRNiD3dRz4oBj2X1cU6vcnpibLf0rhmU8CDDHoZD9Tpjnk4gg5AuKraRqKcdM+cQdSrsnFZYpR1QesWhUNmHFvisz5OV4MIieWkXIEC7YrURIa3LuA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c69c8619-2356-4fe1-fa9e-08d85b2caab0
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1e71edc-e91a-409b-8157-08d85b2cb9f6
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2672.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 17:11:07.5168 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2020 17:11:33.7289 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2d0pMrsjuFJNBOD6CUqUYWuKfeBtju9RlHJk3VU1NdcWL7xIMSOYBb/f7XunNrWUcKU/iJk5e5URxjLZQC7pGw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wbv1uqUfAbN434xlSWAFmKOUp63d4lAIOC99l502Vi73ulgST0xeZr1AWr8tHJXzul6sCT7aONwK87hZo7QMKw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2736
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,275 +118,212 @@ Allow user to know how many compute units (CU) are in use at any given
 moment.
 
 [How]
-Read registers of SQ that give number of waves that are in flight
-of various queues. Use this information to determine number of CU's
-in use.
+Surface files in Sysfs that allow user to determine the number of compute
+units that are in use for a given process. One Sysfs file is used per
+device.
 
 Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 206 ++++++++++++++++++
- .../gpu/drm/amd/include/kgd_kfd_interface.h   |  11 +
- 2 files changed, 217 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  28 ++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 101 +++++++++++++++++++----
+ 2 files changed, 114 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index e6aede725197..2f8c8140734e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -38,7 +38,9 @@
- #include "soc15d.h"
- #include "mmhub_v1_0.h"
- #include "gfxhub_v1_0.h"
-+#include "gfx_v9_0.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 023629f28495..2ce03586d0dc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -631,7 +631,7 @@ enum kfd_pdd_bound {
+ 	PDD_BOUND_SUSPENDED,
+ };
  
-+struct kfd_dev;
+-#define MAX_SYSFS_FILENAME_LEN 11
++#define MAX_SYSFS_FILENAME_LEN 32
  
- enum hqd_dequeue_request_type {
- 	NO_ACTION = 0,
-@@ -706,6 +708,209 @@ void kgd_gfx_v9_set_vm_context_page_table_base(struct kgd_dev *kgd,
- 	gfxhub_v1_0_setup_vm_pt_regs(adev, vmid, page_table_base);
+ /*
+  * SDMA counter runs at 100MHz frequency.
+@@ -692,6 +692,32 @@ struct kfd_process_device {
+ 	uint64_t sdma_past_activity_counter;
+ 	struct attribute attr_sdma;
+ 	char sdma_filename[MAX_SYSFS_FILENAME_LEN];
++
++	/*
++	 * @cu_occupancy: Reports occupancy of Compute Units (CU) of a process
++	 * that is associated with device encoded by "this" struct instance. The
++	 * value reflects CU usage by all of the waves launched by this process
++	 * on this device. A very important property of occupancy parameter is
++	 * that its value is a a snapshot of current use.
++	 *
++	 * Following is to be noted regarding how this parameter is reported:
++	 *
++	 *  The number of waves that a CU can launch is limited by couple of
++	 *  parameters. These are encoded by struct amdgpu_cu_info instance
++	 *  that is part of every device definition. For GFX9 devices this
++	 *  translates to 40 waves (simd_per_cu * max_waves_per_simd) when waves
++	 *  do not use scratch memory and 32 waves (max_scratch_slots_per_cu)
++	 *  when they use. This could change for future devices and therefore
++	 *  this example should be considered as a guide.
++	 *
++	 *  All CU's of a device are available for the process. This may not be true
++	 *  under certain conditions - e.g. CU masking.
++	 *
++	 *  Finally number of CU's that are occupied by a process is affected by both
++	 *  number of CU's a device has along with number of other competing processes
++	 */
++	struct attribute attr_cu_occupancy;
++	char cu_occupancy_filename[MAX_SYSFS_FILENAME_LEN];
+ };
+ 
+ #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index a0e12a79ab7d..3baffbc828b2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -249,6 +249,63 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
+ 	}
  }
  
-+static void lock_spi_csq_mutexes(struct amdgpu_device *adev)
-+{
-+	mutex_lock(&adev->srbm_mutex);
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+}
-+
-+static void unlock_spi_csq_mutexes(struct amdgpu_device *adev)
-+{
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+	mutex_unlock(&adev->srbm_mutex);
-+}
-+
 +/**
-+ * @get_wave_count: Read device registers to get number of waves in flight for
-+ * a particulare queue. The method also returns the VMID associated with the
-+ * queue.
++ * @kfd_get_cu_occupancy() - Collect number of waves in-flight on this device
++ * by current process. Translates acquired wave count into number of compute units
++ * that are occupied.
 + *
-+ * @adev: Handle of device whose registers are to be read
++ * @atr: Handle of attribute that allows reporting of wave count. The attribute
++ * handle encapsulates GPU device it is associated with, thereby allowing collection
++ * of waves in flight, etc
 + *
-+ * @queue_idx: Index of queue in the queue-map bit-field
++ * @buffer: Handle of user provided buffer updated with wave count
 + *
-+ * @wave_cnt: Output parameter updated with number of waves in flight
-+ *
-+ * @vmid: Output parameter updated with VMID of queue whose wave count
-+ * is being collected
++ * Return: Number of bytes written to user buffer or an error value
 + */
-+static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
-+			   int *wave_cnt, int *vmid)
++static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
 +{
-+	int pipe_idx;
-+	int queue_slot;
-+	unsigned int reg_val;
-+
-+	/*
-+	 * By policy queues at slots 0 and 1 are reserved for non-compute
-+	 * queues i.e. those managed for graphic functions.
-+	 */
-+	if ((queue_idx % adev->gfx.mec.num_queue_per_pipe) < 2)
-+		return;
-+
-+	/*
-+	 * Queue belongs to a compute workload. Determine the PIPE index
-+	 * associated wit queue and program GRBM accordingly:
-+	 * MEID = 1, PIPEID = pipe_idx, QUEUEID = queue_idx, VMID = 0
-+	 */
-+	pipe_idx = queue_idx / adev->gfx.mec.num_queue_per_pipe;
-+	queue_slot = queue_idx % adev->gfx.mec.num_queue_per_pipe;
-+	soc15_grbm_select(adev, 1, pipe_idx, queue_slot, 0);
-+
-+	/*
-+	 * Read from register number of waves in flight. If non-zero get the
-+	 * VMID associated with queue
-+	 */
-+	reg_val = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_CSQ_WF_ACTIVE_COUNT_0) +
-+			 queue_slot);
-+	*wave_cnt = reg_val & SPI_CSQ_WF_ACTIVE_COUNT_0__COUNT_MASK;
-+	if (*wave_cnt != 0)
-+		*vmid = (RREG32_SOC15(GC, 0, mmCP_HQD_VMID) &
-+			 CP_HQD_VMID__VMID_MASK) >> CP_HQD_VMID__VMID__SHIFT;
-+}
-+
-+/**
-+ * @kgd_gfx_v9_get_cu_occupancy: Reads relevant registers associated with each
-+ * shader engine and aggregates the number of waves that are in fight for the
-+ * process whose pasid is provided as a parameter. The process could have ZERO
-+ * or more queues running and submitting waves to compute units.
-+ *
-+ * @note: It's possible that the device has too many queues (oversubscription)
-+ * in which case a VMID could be remapped to a different PASID. This could lead
-+ * to in accurate wave count. Following is a high-level sequence:
-+ *    Time T1: vmid = getVmid(); vmid is associated with Pasid P1
-+ *    Time T2: passId = getPasId(vmid); vmid is associated with Pasid P2
-+ * In the sequence above wave count obtained from time T1 will be incorrectly
-+ * lost or added to total wave count.
-+ *
-+ * @kgd: Handle of device from which to get number of waves in flight
-+ *
-+ * @pasid: Identifies the process for which this query call is invoked
-+ *
-+ * @wave_cnt: Output parameter updated with number of waves in flight that
-+ * belong to process with given pasid
-+ *
-+ * The registers that provide the waves in flight are:
-+ *
-+ *  SPI_CSQ_WF_ACTIVE_STATUS - bit-map of queues per pipe. At any moment there
-+ *  can be a max of 32 queues that could submit wave fronts to be run by compute
-+ *  units. The bit is ON if a queue is slotted, OFF if there is no queue. The
-+ *  process could have ZERO or more queues slotted and submitting waves to be
-+ *  run compute units. Even when there is a queue it is possible there could
-+ *  be zero wave fronts, this can happen when queue is waiting on top-of-pipe
-+ *  events - e.g. waitRegMem command
-+ *
-+ *  For each bit that is ON from above:
-+ *
-+ *    Read (SPI_CSQ_WF_ACTIVE_COUNT_0 + queue_idx) register. It provides the
-+ *    number of waves that are in flight for the queue at specified index. The
-+ *    index ranges from 0 to 7.
-+ *
-+ *    If non-zero waves are in fligth, read CP_HQD_VMID register to obtain VMID
-+ *    of the wave(s).
-+ *
-+ *    Determine if VMID from above step maps to pasid provided as parameter. If
-+ *    it matches agrregate the wave count. That the VMID will not match pasid is
-+ *    a normal condition i.e. a device is expected to support multiple queues
-+ *    from multiple proceses.
-+ *
-+ *  @note: Reading the registers mentioned above requires programming GRBM
-+ *  appropriately.
-+ */
-+static void kgd_gfx_v9_get_cu_occupancy(struct kgd_dev *kgd, int pasid,
-+					int *pasid_wave_cnt)
-+{
-+	int qidx;
-+	int vmid;
-+	int se_idx;
-+	int sh_idx;
-+	int se_cnt;
-+	int sh_cnt;
++	int cu_cnt;
 +	int wave_cnt;
-+	int queue_map;
-+	int pasid_tmp;
-+	int vmid_wave_cnt = 0;
-+	struct amdgpu_device *adev;
-+	DECLARE_BITMAP(cp_queue_bitmap, KGD_MAX_QUEUES);
++	int max_waves_per_cu;
++	struct kfd_dev *dev = NULL;
++	struct kfd_process *proc = NULL;
++	struct amdgpu_device *adev = NULL;
++	struct kfd_process_device *pdd = NULL;
++
++	/* Acquire handle of Process-Device-Data associated with attribute */
++	pdd = container_of(attr, struct kfd_process_device, attr_cu_occupancy);
 +
 +	/*
-+	 * Acquire  SRBM/GRBM locks before programming them to read registers.
-+	 * By policy compute workloads are submitted on MEC1 (Micro-Engine)
-+	 * Program GRBM to allow reading registers from MEC1. This constitutes
-+	 * base programming. Programming of bit-fields for PIPE, QUEUE, etc will
-+	 * be done later
++	 * Acquire handle of Gpu Device associated with attribute. Determine
++	 * if ability to collect CU occupancy is defined for this device. If
++	 * so acquire the handle of process which encapsulates the PASID of
++	 * process. It is possible that the process might have zero work on
++	 * device. This is determined by checking if process has any queues
++	 * @note: Ability to collect is defined only for Gfx9 devices
 +	 */
-+	adev = get_amdgpu_device(kgd);
-+	lock_spi_csq_mutexes(adev);
-+	soc15_grbm_select(adev, 1, 0, 0, 0);
-+
-+	/*
-+	 * Iterate through the shader engines and arrays of the device
-+	 * to read registers that provide number of waves in flight
-+	 */
-+	bitmap_complement(cp_queue_bitmap, adev->gfx.mec.queue_bitmap,
-+			  KGD_MAX_QUEUES);
-+	sh_cnt = adev->gfx.config.max_sh_per_se;
-+	se_cnt = adev->gfx.config.max_shader_engines;
-+	for (se_idx = 0; se_idx < se_cnt; se_idx++) {
-+		for (sh_idx = 0; sh_idx < sh_cnt; sh_idx++) {
-+
-+			/*
-+			 * Program GRBM to read queue map register that is
-+			 * associated with specified shader engine and array
-+			 */
-+			gfx_v9_0_select_se_sh(adev, se_idx, sh_idx, 0xffffffff);
-+			queue_map = RREG32(SOC15_REG_OFFSET(GC, 0,
-+					   mmSPI_CSQ_WF_ACTIVE_STATUS));
-+
-+			/*
-+			 * Assumption: queue map encodes following schema: four
-+			 * pipes per each micro-engine, with each pipe mapping
-+			 * eight queues. This schema is true for GFX9 devices
-+			 * and must be verified for newer device families
-+			 */
-+			for (qidx = 0; qidx < 32; qidx++) {
-+				if (!test_bit(qidx, cp_queue_bitmap))
-+					continue;
-+				if (!(queue_map & (1 << qidx)))
-+					continue;
-+
-+				/*
-+				 * For the specified queue index read number of
-+				 * waves in flight and the VMID of the waves
-+				 */
-+				vmid = 0xFF;
-+				wave_cnt = 0;
-+				get_wave_count(adev, qidx, &wave_cnt, &vmid);
-+
-+				/*
-+				 * Get PASID that is associated with VMID and
-+				 * update the waves-in-flight aggregate
-+				 */
-+				if (wave_cnt != 0) {
-+					pasid_tmp =
-+					  RREG32(SOC15_REG_OFFSET(OSSSYS, 0,
-+						 mmIH_VMID_0_LUT) + vmid);
-+					if (pasid_tmp == pasid)
-+						vmid_wave_cnt += wave_cnt;
-+				}
-+			}
-+		}
++	cu_cnt = 0;
++	dev = pdd->dev;
++	proc = pdd->process;
++	if (pdd->qpd.queue_count == 0) {
++		pr_info("%s: Gpu-Id: %d has no active queues for process %d\n",
++			__func__, dev->id, proc->pasid);
++		return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
 +	}
 +
-+	/*
-+	 * Reset GRBM to default state before releasing locks
-+	 * associated with GRBM/SRBM resources
-+	 */
-+	gfx_v9_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
-+	soc15_grbm_select(adev, 0, 0, 0, 0);
-+	unlock_spi_csq_mutexes(adev);
++	/* Collect wave count from device by reading relevant registers */
++	wave_cnt = 0;
++	if (dev->kfd2kgd->get_cu_occupancy != NULL)
++		dev->kfd2kgd->get_cu_occupancy(dev->kgd, proc->pasid,
++					       &wave_cnt);
 +
-+	/* Update the output parameter and return */
-+	*pasid_wave_cnt = vmid_wave_cnt;
++	/* Translate wave count to number of compute units */
++	adev = (struct amdgpu_device *)dev->kgd;
++	max_waves_per_cu = adev->gfx.cu_info.simd_per_cu *
++		adev->gfx.cu_info.max_waves_per_simd;
++	cu_cnt = wave_cnt / max_waves_per_cu;
++	return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
 +}
 +
- const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
-@@ -726,4 +931,5 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
- 	.get_atc_vmid_pasid_mapping_info =
- 			kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base = kgd_gfx_v9_set_vm_context_page_table_base,
-+	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
- };
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-index fc592f60e6a0..19e885cd0853 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -212,6 +212,15 @@ struct tile_config {
-  * IH ring entry. This function allows the KFD ISR to get the VMID
-  * from the fault status register as early as possible.
-  *
-+ * @get_cu_occupancy: Function pointer that returns to caller the number
-+ * of wave fronts that are in flight for all of the queues of a process
-+ * as identified by its pasid. It is important to note that the value
-+ * returned by this function is a snapshot of current moment and cannot
-+ * guarantee any minimum for the number of waves in-flight. This function
-+ * is defined for devices that belong to GFX9 and later GFX families. Care
-+ * must be taken in calling this function as it is not defined for devices
-+ * that belong to GFX8 and below GFX families.
-+ *
-  * This structure contains function pointers to services that the kgd driver
-  * provides to amdkfd driver.
-  *
-@@ -286,6 +295,8 @@ struct kfd2kgd_calls {
- 	void (*set_vm_context_page_table_base)(struct kgd_dev *kgd,
- 			uint32_t vmid, uint64_t page_table_base);
- 	uint32_t (*read_vmid_from_vmfault_reg)(struct kgd_dev *kgd);
+ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+ 			       char *buffer)
+ {
+@@ -279,6 +336,10 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+ 		return snprintf(buffer, PAGE_SIZE, "%llu\n",
+ 				(sdma_activity_work_handler.sdma_activity_counter)/
+ 				 SDMA_ACTIVITY_DIVISOR);
 +
-+	void (*get_cu_occupancy)(struct kgd_dev *kgd, int pasid, int *wave_cnt);
- };
++	/* Sysfs handle that gets CU occupancy is per device */
++	} else if (strncmp(attr->name, "cu_occupancy_", 13) == 0) {
++		return kfd_get_cu_occupancy(attr, buffer);
+ 	} else {
+ 		pr_err("Invalid attribute");
+ 		return -EINVAL;
+@@ -432,27 +493,37 @@ static int kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ 	 * Create sysfs files for each GPU:
+ 	 * - proc/<pid>/vram_<gpuid>
+ 	 * - proc/<pid>/sdma_<gpuid>
++	 * - proc/<pid>/cu_occupancy_<gpuid>
+ 	 */
+ 	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+ 		snprintf(pdd->vram_filename, MAX_SYSFS_FILENAME_LEN, "vram_%u",
+ 			 pdd->dev->id);
+-		ret = kfd_sysfs_create_file(p, &pdd->attr_vram, pdd->vram_filename);
++		ret = kfd_sysfs_create_file(p, &pdd->attr_vram,
++					    pdd->vram_filename);
+ 		if (ret)
+ 			pr_warn("Creating vram usage for gpu id %d failed",
+ 				(int)pdd->dev->id);
+-
+-		snprintf(pdd->sdma_filename, MAX_SYSFS_FILENAME_LEN, "sdma_%u",
+-			 pdd->dev->id);
+-		ret = kfd_sysfs_create_file(p, &pdd->attr_sdma, pdd->sdma_filename);
+-		if (ret)
+-			pr_warn("Creating sdma usage for gpu id %d failed",
+-				(int)pdd->dev->id);
+-	}
+-
++		if (pdd->dev->kfd2kgd->get_cu_occupancy != NULL) {
++			snprintf(pdd->sdma_filename, MAX_SYSFS_FILENAME_LEN,
++				 "sdma_%u", pdd->dev->id);
++			ret = kfd_sysfs_create_file(p, &pdd->attr_sdma,
++						    pdd->sdma_filename);
++			if (ret)
++				pr_warn("Creating sdma usage for gpu id %d failed",
++					(int)pdd->dev->id);
++			snprintf(pdd->cu_occupancy_filename,
++				 MAX_SYSFS_FILENAME_LEN, "cu_occupancy_%u",
++				 pdd->dev->id);
++			ret = kfd_sysfs_create_file(p, &pdd->attr_cu_occupancy,
++						    pdd->cu_occupancy_filename);
++			if (ret)
++				pr_warn("Creating CU occupancy file for gpu id %d failed",
++					(int)pdd->dev->id);
++			}
++		}
+ 	return ret;
+ }
  
- #endif	/* KGD_KFD_INTERFACE_H_INCLUDED */
+-
+ void kfd_procfs_del_queue(struct queue *q)
+ {
+ 	if (!q)
+@@ -767,8 +838,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 			amdgpu_amdkfd_gpuvm_release_process_vm(
+ 					pdd->dev->kgd, pdd->vm);
+ 			fput(pdd->drm_file);
+-		}
+-		else if (pdd->vm)
++		} else if (pdd->vm)
+ 			amdgpu_amdkfd_gpuvm_destroy_process_vm(
+ 				pdd->dev->kgd, pdd->vm);
+ 
+@@ -815,7 +885,10 @@ static void kfd_process_wq_release(struct work_struct *work)
+ 
+ 		list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+ 			sysfs_remove_file(p->kobj, &pdd->attr_vram);
+-			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
++			if (pdd->dev->kfd2kgd->get_cu_occupancy != NULL) {
++				sysfs_remove_file(p->kobj, &pdd->attr_sdma);
++				sysfs_remove_file(p->kobj, &pdd->attr_cu_occupancy);
++			}
+ 		}
+ 
+ 		kobject_del(p->kobj);
 -- 
 2.27.0
 
