@@ -2,106 +2,67 @@ Return-Path: <SRS0=nko/=C3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A67ADC43465
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 02:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AFCFFC43464
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 03:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5161B23772
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 02:39:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 50480206B6
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 03:00:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dAbPXAgY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5161B23772
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNlpxerO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50480206B6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C84E16EC8E;
-	Fri, 18 Sep 2020 02:39:10 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750040.outbound.protection.outlook.com [40.107.75.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B80156EC8D
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 02:39:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fYJ+kaQGDB1fPeKiq3Ft5SVQixi5HQJ+HkXIsdlCrpgy5wqsVv81h8feohoCJfqt4tcGtjjFUgd8ZMRWuRsJ76bGLpV27zTrxfGoxtMk5LkhYZ6Z5JzXA+vMYz+hELb8sUII4X9rbVbTlJBbOSxjQPktz02l7CliRfqalNX/uzC6Z1v9cs/qOadMsCZNyLsltmLxMp4dwnLVxDgnC5m0Pb40WlJ66c3aFWKNiQ6ALIyoiYQ52wXAL2pd36tjd6ZImOYqQXVlD3LQr3V0S1USEIys9nJZ5FgGQ4BsQHvF9XStcayWaJVirdJs9L37hkRO02hrsgWZXshNgFk7hr1pNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9P6XjRZLNONLEzY1bqnnHZKeMssJEoMSnszuPIFrT8g=;
- b=Rc4yIbPaykMsC05W/NxvbyaWWfUIYAO6xmyBxEpryX1K7TVm+zyDvzkaV5UMs1nvLaKrbwbEa6EkGLMDMPmvjObnvIqp6xH+ApKYHdZ4/jkN6LhoqD3R8CvrM+4MfrLZhMcrXAcn9Fl+tfYipd4FVOprPmjVEw9po5XGrSR6PEufuju4vH23lsyONgha3nYYksggldvSwep8CzSk3hFQ8vztk/sHOJ4YoJrOfTqecvJfdH2G3mFDNzuR+GCE3kK6nEDQqpsLuLmvzyFIrVbWQS1PtO8QtGS4zqOuW5UXx5m6D5jS9q0RM9q9+26mhql08tqYF2A5qgxRK6oSneDUmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9P6XjRZLNONLEzY1bqnnHZKeMssJEoMSnszuPIFrT8g=;
- b=dAbPXAgYpcUSmZ7Cypk2q21pFg69XbjUMVUe1cOloMJBEf3k7XWsL5VG/nCsfy8GW7OlsKHbpdorXUU7eQbV9iMD1qNedWdRw8BzQ3vhue0AhgTH4Tr3SvuUVgQyB7Uf+TN54tcuDlupTshY7Qt73+DlE/dUg7NV4FV4smCS+Xc=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB3920.namprd12.prod.outlook.com (2603:10b6:208:168::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.11; Fri, 18 Sep
- 2020 02:39:07 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::889d:3c2f:a794:67fb%6]) with mapi id 15.20.3370.019; Fri, 18 Sep 2020
- 02:39:06 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: apply dummy reads workaround for CDR enabled
- only
-Thread-Topic: [PATCH] drm/amd/pm: apply dummy reads workaround for CDR enabled
- only
-Thread-Index: AQHWjWSH4VeDXbNUo0y1lNgz6PqyHKltruZ2
-Date: Fri, 18 Sep 2020 02:39:06 +0000
-Message-ID: <MN2PR12MB4488A8B6A3D313256DA67C01F73F0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200918023613.456-1-evan.quan@amd.com>
-In-Reply-To: <20200918023613.456-1-evan.quan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-18T02:39:06.111Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [71.219.66.138]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: c44b32d1-a82a-4656-e686-08d85b7c03ba
-x-ms-traffictypediagnostic: MN2PR12MB3920:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3920DFBDD1EAEBD3800BD4D8F73F0@MN2PR12MB3920.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pYQhYudYCpAgezAoo6FW9pAsRno0AoPIT/oUwizitomJpaYPZGf2roTu60bHCyz6NRPAKUZDdhFl69rYMst84qUyPqvD4pps/7jzgxSyPeAv1Kk9hgF1bkzR3HmaEy+u/BiNMRX7bQccPATCJ/DB0km7FUpb7WCzsNFbtdXJIRr5MAM+1Y3RSG9P3KyQ/8tCrV4v//4AKBwR+tlZWe+JuhDIU1F6nFWK3i8ngtvZvPvKSczx3zGfuViiVHNSSEWdDRiuOc/sXxMHQ2uJI5l83BVnk47+gz/BNiD9iMwLs/HiOXFeTPWUfMV7JVdK8WRK7QhgKUX7ZUzqyr0asq/4Cg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(366004)(39860400002)(396003)(136003)(316002)(66946007)(86362001)(7696005)(5660300002)(55016002)(19627405001)(52536014)(110136005)(53546011)(76116006)(71200400001)(8676002)(66476007)(66556008)(66446008)(64756008)(8936002)(478600001)(83380400001)(26005)(186003)(2906002)(33656002)(6506007)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: kPwKQFxfeDnIFW/PliDGL8qh78fnQ94aRV+LFUwJqPEnIfu9dKjYN8iK535i6yIeK/fMxPXDU4zOvOl9rRlUctvidXDFp0Ri78F/fnO1Sz9BqY2eKY8e8XWr4oFjPeY5AOglTOVMclym9ldVxNOzDAKTuuTUJDJwx0RGE4Zq/miSWSvyRk+zfGUUi1Njvs7iUCWf+nDRQeokmWzPU/c8jCxgqHl1a1uJ6xaHM8bHf9YA9OZ6b6Dkextnejm45RklInrP3xVR5c1/ftGTgO0QzQUf0ZNSKSHV+2F8C62iX25dp8mkaWSazqurEnvps9Y6CTzh+iUaLky2qQ2zeV3uDcVSp7Ol2R5S8AFXctmFSU8px1F8sd+efhakVG7TwIQLNLLfkX7CgAVv42ykPUcAmSG5z5BePlVJXfJx4AqQQKEIAO1aLm/ojJPzwzPGSP4wh0VLN2IcyyuOtgOVuKkgu9Cuc9E+IbR/oIK/L3NIo1A6+d/gMTrl6WkcZzskkaSpJDQJ/4qoCafp83abDczMTADl1TpkpMt0T15XIY5JzYIwzSD03X7Uw7yer77jTxYNQkEDpj52XsVr5MCaLT/nVL0oLj1IJ9PjXzNulKSqboPCUuFI3ybjdGFQgcEZN8kG7geJY/mOVMbJoSgz5CvmhQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A91D6EC8D;
+	Fri, 18 Sep 2020 03:00:40 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8466EC8D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 03:00:39 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id w2so3835212wmi.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2020 20:00:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=IGZkd+X0/XNHZVlX4lKBZwOacgGygGaE1zncjXo+8eo=;
+ b=TNlpxerOTJGjRpHuEVpFiWWAU0MRPgK2Iyd1Gy21HLfAqiHKpZYtIiJizJANznqeWQ
+ NvuXcK59wZfkKqahLMuHlBI5AfTuDHmf5Bjg8mNPaqjOCoMazCC7u8UVgRddNbIqnURF
+ 2eyVlMWxjW/cw5NEG34ku2DfnuRzv7SdvP3SimUcJ4GDs4sYk3uoaX0OZMnMirPHAgP9
+ CCCy/HCtySLXyKQPbNd/ai358uDU3tTiGRg3gTprnc7lm/YIL7GNLyT8M2UGDCtiqwsn
+ v9kX2BF6oqzLSHYfwbukxVGLDkVQh2c4mFNSOQuP9bcfIEgiMhntprcE0m+5x5otT1ka
+ 7jtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IGZkd+X0/XNHZVlX4lKBZwOacgGygGaE1zncjXo+8eo=;
+ b=M8FLWEUNV8VLmPLkFIOSXzPCBVT7Z131chzWiQ/B8G40Qaux9hgEpDN87jSdBKIo1C
+ MyE00ptMYOnbN3EYYF1tGb0RqKdtNUu1LDwxa3N//yYQYvX9oQ6cC3O2DxqyfJY8eU2Q
+ uUOSmobYjNA2ue0+YeQ7MWVuAHr9F6SjDRqAegaIF2gcdknqpsOXd3vsfUGOUrTgEI8G
+ PzQhFogblmj00lXjObLZPiSe1hv76H9v3cx+QolDSxLjQT6pj8wS7W8xm2Tdudj2zZ+7
+ PG5BUFsaQuLnOUm9a6QOMyS2auSC94vsm77w2kggBnTxnd5iWPMl+ghPXG7xoTWcUcSJ
+ BUew==
+X-Gm-Message-State: AOAM533IDhv310/zc2Xr/qP3RHmlTOvfpPfQRO6c92VephU2xXyQ2KAz
+ xZUiJ4KrzRFt0epg365cPzveikOBejJHrfipdGc=
+X-Google-Smtp-Source: ABdhPJz6Vywdi0uo0+agcH1/chB8UtnLFdm24ZwhknrvTS2QbVU3t/S2pz/FSh57Da4FNHGLkR2Ph96IGrEQspubMgo=
+X-Received: by 2002:a7b:c141:: with SMTP id z1mr13473024wmi.79.1600398038056; 
+ Thu, 17 Sep 2020 20:00:38 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c44b32d1-a82a-4656-e686-08d85b7c03ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2020 02:39:06.8452 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AonuUXN7RAYgnWvAmT1e2JzfwlpOHYBy758clSdsodWjoA97HMJkHAU0bORdIloFQ5P3juZzlKSrpCyUoqIKfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3920
+References: <20200917221324.520327-1-luben.tuikov@amd.com>
+ <20200917221324.520327-2-luben.tuikov@amd.com>
+In-Reply-To: <20200917221324.520327-2-luben.tuikov@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 17 Sep 2020 23:00:26 -0400
+Message-ID: <CADnq5_MzYXViQOiCSyPHn8=BcB=Ju5+8PGqfHSAXGSYbVCpT2Q@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Convert to using devm_drm_dev_alloc() (v2)
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,178 +74,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1008414798=="
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1008414798==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488A8B6A3D313256DA67C01F73F0MN2PR12MB4488namp_"
-
---_000_MN2PR12MB4488A8B6A3D313256DA67C01F73F0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Quan, Evan <Evan.Quan@amd.com>
-Sent: Thursday, September 17, 2020 10:36 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
-md.com>
-Subject: [PATCH] drm/amd/pm: apply dummy reads workaround for CDR enabled o=
-nly
-
-For CDR disabled case, the dummy reads workaround is not needed.
-
-Change-Id: I474619b3d82792151870811c289ab311028de211
-Signed-off-by: Evan Quan <evan.quan@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 338a9fdeef6e..5b87690c1e61 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2303,10 +2303,12 @@ static int navi10_run_umc_cdr_workaround(struct smu=
-_context *smu)
-                 if (umc_fw_greater_than_v136)
-                         return 0;
-
--               if (umc_fw_disable_cdr && adev->asic_type =3D=3D CHIP_NAVI1=
-0)
--                       return navi10_umc_hybrid_cdr_workaround(smu);
--               else
-+               if (umc_fw_disable_cdr) {
-+                       if (adev->asic_type =3D=3D CHIP_NAVI10)
-+                               return navi10_umc_hybrid_cdr_workaround(smu=
-);
-+               } else {
-                         return navi10_set_dummy_pstates_table_location(smu=
-);
-+               }
-         } else {
-                 if (adev->asic_type =3D=3D CHIP_NAVI10)
-                         return navi10_umc_hybrid_cdr_workaround(smu);
---
-2.28.0
-
-
---_000_MN2PR12MB4488A8B6A3D313256DA67C01F73F0MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Thu, Sep 17, 2020 at 6:13 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan@amd.com&gt;<br>
-<b>Sent:</b> Thursday, September 17, 2020 10:36 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
- &lt;Evan.Quan@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: apply dummy reads workaround for CDR en=
-abled only</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">For CDR disabled case, the dummy reads workaround =
-is not needed.<br>
-<br>
-Change-Id: I474619b3d82792151870811c289ab311028de211<br>
-Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 8 +++++---<br>
-&nbsp;1 file changed, 5 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu11/navi10_ppt.c<br>
-index 338a9fdeef6e..5b87690c1e61 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c<br>
-@@ -2303,10 +2303,12 @@ static int navi10_run_umc_cdr_workaround(struct smu=
-_context *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (umc_fw_greater_than_v136)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (umc_fw_disable_cdr &amp;&amp; adev-&gt;asic_type =3D=3D CHIP=
-_NAVI10)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return navi10_um=
-c_hybrid_cdr_workaround(smu);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (umc_fw_disable_cdr) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asi=
-c_type =3D=3D CHIP_NAVI10)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return navi10_umc_hybrid_cdr_workaround(smu=
-);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n navi10_set_dummy_pstates_table_location(smu);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHIP_NAVI10)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n navi10_umc_hybrid_cdr_workaround(smu);<br>
--- <br>
-2.28.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> Convert to using devm_drm_dev_alloc(),
+> as drm_dev_init() is going away.
+>
+> v2: Remove drm_dev_put() since
+>     a) devres doesn't do refcounting, see
+>     Documentation/driver-api/driver-model/devres.rst,
+>     Section 4, paragraph 1; and since
+>     b) devres acts as garbage collector when
+>     the DRM device's parent's devres "action" callback
+>     is called to free the container device (amdgpu_device),
+>     which embeds the DRM dev.
+>
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
 
---_000_MN2PR12MB4488A8B6A3D313256DA67C01F73F0MN2PR12MB4488namp_--
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
---===============1008414798==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 16 ++++------------
+>  1 file changed, 4 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 3f07d1475bd2..8d658d2a16fe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1159,25 +1159,20 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>         if (ret)
+>                 return ret;
+>
+> -       adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+> -       if (!adev)
+> -               return -ENOMEM;
+> +       adev = devm_drm_dev_alloc(&pdev->dev, &kms_driver, typeof(*adev), ddev);
+> +       if (IS_ERR(adev))
+> +               return PTR_ERR(adev);
+>
+>         adev->dev  = &pdev->dev;
+>         adev->pdev = pdev;
+>         ddev = adev_to_drm(adev);
+> -       ret = drm_dev_init(ddev, &kms_driver, &pdev->dev);
+> -       if (ret)
+> -               goto err_free;
+> -
+> -       drmm_add_final_kfree(ddev, adev);
+>
+>         if (!supports_atomic)
+>                 ddev->driver_features &= ~DRIVER_ATOMIC;
+>
+>         ret = pci_enable_device(pdev);
+>         if (ret)
+> -               goto err_free;
+> +               return ret;
+>
+>         ddev->pdev = pdev;
+>         pci_set_drvdata(pdev, ddev);
+> @@ -1205,8 +1200,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>
+>  err_pci:
+>         pci_disable_device(pdev);
+> -err_free:
+> -       drm_dev_put(ddev);
+>         return ret;
+>  }
+>
+> @@ -1223,7 +1216,6 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>         amdgpu_driver_unload_kms(dev);
+>         pci_disable_device(pdev);
+>         pci_set_drvdata(pdev, NULL);
+> -       drm_dev_put(dev);
+>  }
+>
+>  static void
+> --
+> 2.28.0.394.ge197136389
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1008414798==--
