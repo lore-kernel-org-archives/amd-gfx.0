@@ -2,43 +2,80 @@ Return-Path: <SRS0=nko/=C3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.1 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47511C43463
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 14:26:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22DBAC43463
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 14:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5F5320848
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 14:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5F5320848
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id C9C1A208C3
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2020 14:30:53 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="DMraTgkn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9C1A208C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4226C6E182;
-	Fri, 18 Sep 2020 14:26:47 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013D26E182;
- Fri, 18 Sep 2020 14:26:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B0D3DAB91;
- Fri, 18 Sep 2020 14:27:18 +0000 (UTC)
-Subject: Re: [PATCH 4/4] drm/dev: Remove drm_dev_init
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20200918132505.2316382-1-daniel.vetter@ffwll.ch>
- <20200918132505.2316382-5-daniel.vetter@ffwll.ch>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <ba829479-f405-d83d-a278-128c063fe751@suse.de>
-Date: Fri, 18 Sep 2020 16:26:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5CD26ED0F;
+	Fri, 18 Sep 2020 14:30:52 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04BC76E182
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2020 14:30:50 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08IET1dB081756;
+ Fri, 18 Sep 2020 14:30:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=XE65HqHsTddKC28oj6Z2Gckj8COXzcW6Lt+F/itSNec=;
+ b=DMraTgknu9PCw/HhP7YeChKlUoaBZV3+8JPb8opRamHvy9ylX3/jjnFSDxcT7DpqzjEs
+ KZAprIAaoPI3+Jsuz6zy8F1KkIeZMvxyhJgv82meqyLGqEM7EqoH/kc/sbCCriU4Sv5H
+ CWdAMDHz07pDvLqo9bWFESp2cWVgw+Hy9ppq/1sawZgnUGqy1D0P/7d/lcuSqyqRwXdD
+ TXry66L3+kGlxpbYCUh945gGZmLwTQYzbsPZxNW7KF2bbT6qqCVMvFES2T1RzbcDQdL0
+ ETw2kA/TA4LUb4Iv2mOdpQowmjhIqZHnfCflZM7SI1wS1GMkkvLW4dB1jo+s8g2LlzEH sA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 33gp9mqfsa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 18 Sep 2020 14:30:48 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08IEPcuZ102426;
+ Fri, 18 Sep 2020 14:28:48 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 33h88enya9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Sep 2020 14:28:48 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08IESkj7029485;
+ Fri, 18 Sep 2020 14:28:47 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 18 Sep 2020 14:28:46 +0000
+Date: Fri, 18 Sep 2020 17:28:41 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: eryk.brol@amd.com
+Subject: [bug report] drm/amd/display: Add connector to the state if DSC
+ debugfs is set
+Message-ID: <20200918142841.GC909725@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <20200918132505.2316382-5-daniel.vetter@ffwll.ch>
+Content-Disposition: inline
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9747
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ spamscore=0 adultscore=0
+ suspectscore=3 phishscore=0 malwarescore=0 bulkscore=0 mlxlogscore=954
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009180117
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9747
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ mlxlogscore=964
+ adultscore=0 malwarescore=0 clxscore=1011 lowpriorityscore=0 phishscore=0
+ spamscore=0 priorityscore=1501 suspectscore=3 impostorscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009180118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,237 +87,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1386310261=="
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1386310261==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="yn2lRPC6DbpN4bQH9sfk9hAdPLL5nfWRA"
+Hello Eryk Brol,
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---yn2lRPC6DbpN4bQH9sfk9hAdPLL5nfWRA
-Content-Type: multipart/mixed; boundary="Bsw5zqA4FkROoHLvbOz7wdmqUUJqriWcT";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org
-Message-ID: <ba829479-f405-d83d-a278-128c063fe751@suse.de>
-Subject: Re: [PATCH 4/4] drm/dev: Remove drm_dev_init
-References: <20200918132505.2316382-1-daniel.vetter@ffwll.ch>
- <20200918132505.2316382-5-daniel.vetter@ffwll.ch>
-In-Reply-To: <20200918132505.2316382-5-daniel.vetter@ffwll.ch>
+The patch c44a22b3128d: "drm/amd/display: Add connector to the state
+if DSC debugfs is set" from Aug 27, 2020, leads to the following
+static checker warning:
 
---Bsw5zqA4FkROoHLvbOz7wdmqUUJqriWcT
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:917 amdgpu_check_debugfs_connector_property_change()
+	error: 'crtc_state' dereferencing possible ERR_PTR()
 
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+   883  static void amdgpu_check_debugfs_connector_property_change(struct amdgpu_device *adev,
+   884                                                             struct drm_atomic_state *state)
+   885  {
+   886          struct drm_connector *connector;
+   887          struct drm_crtc *crtc;
+   888          struct amdgpu_dm_connector *amdgpu_dm_connector;
+   889          struct drm_connector_state *conn_state;
+   890          struct dm_crtc_state *acrtc_state;
+   891          struct drm_crtc_state *crtc_state;
+   892          struct dc_stream_state *stream;
+   893          struct drm_device *dev = adev_to_drm(adev);
+   894  
+   895          list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
+   896  
+   897                  amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+   898                  conn_state = connector->state;
+   899  
+   900                  if (!(conn_state && conn_state->crtc))
+   901                          continue;
+   902  
+   903                  crtc = conn_state->crtc;
+   904                  acrtc_state = to_dm_crtc_state(crtc->state);
+   905  
+   906                  if (!(acrtc_state && acrtc_state->stream))
+   907                          continue;
+   908  
+   909                  stream = acrtc_state->stream;
+   910  
+   911                  if (amdgpu_dm_connector->dsc_settings.dsc_force_enable ||
+   912                      amdgpu_dm_connector->dsc_settings.dsc_num_slices_v ||
+   913                      amdgpu_dm_connector->dsc_settings.dsc_num_slices_h ||
+   914                      amdgpu_dm_connector->dsc_settings.dsc_bits_per_pixel) {
+   915                          conn_state = drm_atomic_get_connector_state(state, connector);
+   916                          crtc_state = drm_atomic_get_crtc_state(state, crtc);
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Check for errors?
 
+   917                          crtc_state->mode_changed = true;
+   918                  }
+   919          }
+   920  }
 
-Am 18.09.20 um 15:25 schrieb Daniel Vetter:
-> We can now also delete drm_dev_init, now that vkms, vgem and i915
-> selftests are resolved.
->=20
-> Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->  drivers/gpu/drm/drm_drv.c      | 41 +++-------------------------------=
-
->  drivers/gpu/drm/drm_internal.h |  1 +
->  drivers/gpu/drm/drm_managed.c  | 13 -----------
->  include/drm/drm_drv.h          |  4 ----
->  4 files changed, 4 insertions(+), 55 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 7c1689842ec0..457ac0f82be2 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -573,43 +573,9 @@ static void drm_dev_init_release(struct drm_device=
- *dev, void *res)
->  	drm_legacy_destroy_members(dev);
->  }
-> =20
-> -/**
-> - * drm_dev_init - Initialise new DRM device
-> - * @dev: DRM device
-> - * @driver: DRM driver
-> - * @parent: Parent device object
-> - *
-> - * Initialize a new DRM device. No device registration is done.
-> - * Call drm_dev_register() to advertice the device to user space and r=
-egister it
-> - * with other core subsystems. This should be done last in the device
-> - * initialization sequence to make sure userspace can't access an inco=
-nsistent
-> - * state.
-> - *
-> - * The initial ref-count of the object is 1. Use drm_dev_get() and
-> - * drm_dev_put() to take and drop further ref-counts.
-> - *
-> - * It is recommended that drivers embed &struct drm_device into their =
-own device
-> - * structure.
-> - *
-> - * Drivers that do not want to allocate their own device struct
-> - * embedding &struct drm_device can call drm_dev_alloc() instead. For =
-drivers
-> - * that do embed &struct drm_device it must be placed first in the ove=
-rall
-> - * structure, and the overall structure must be allocated using kmallo=
-c(): The
-> - * drm core's release function unconditionally calls kfree() on the @d=
-ev pointer
-> - * when the final reference is released. To override this behaviour, a=
-nd so
-> - * allow embedding of the drm_device inside the driver's device struct=
- at an
-> - * arbitrary offset, you must supply a &drm_driver.release callback an=
-d control
-> - * the finalization explicitly.
-> - *
-> - * Note that drivers must call drmm_add_final_kfree() after this funct=
-ion has
-> - * completed successfully.
-> - *
-> - * RETURNS:
-> - * 0 on success, or error code on failure.
-> - */
-> -int drm_dev_init(struct drm_device *dev,
-> -		 struct drm_driver *driver,
-> -		 struct device *parent)
-> +static int drm_dev_init(struct drm_device *dev,
-> +			struct drm_driver *driver,
-> +			struct device *parent)
->  {
->  	int ret;
-> =20
-> @@ -689,7 +655,6 @@ int drm_dev_init(struct drm_device *dev,
-> =20
->  	return ret;
->  }
-> -EXPORT_SYMBOL(drm_dev_init);
-> =20
->  static void devm_drm_dev_init_release(void *data)
->  {
-> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_inter=
-nal.h
-> index 8e01caaf95cc..b65865c630b0 100644
-> --- a/drivers/gpu/drm/drm_internal.h
-> +++ b/drivers/gpu/drm/drm_internal.h
-> @@ -95,6 +95,7 @@ void drm_minor_release(struct drm_minor *minor);
-> =20
->  /* drm_managed.c */
->  void drm_managed_release(struct drm_device *dev);
-> +void drmm_add_final_kfree(struct drm_device *dev, void *container);
-> =20
->  /* drm_vblank.c */
->  static inline bool drm_vblank_passed(u64 seq, u64 ref)
-> diff --git a/drivers/gpu/drm/drm_managed.c b/drivers/gpu/drm/drm_manage=
-d.c
-> index c36e3d98fd71..37d7db6223be 100644
-> --- a/drivers/gpu/drm/drm_managed.c
-> +++ b/drivers/gpu/drm/drm_managed.c
-> @@ -125,18 +125,6 @@ static void add_dr(struct drm_device *dev, struct =
-drmres *dr)
->  		       dr, dr->node.name, (unsigned long) dr->node.size);
->  }
-> =20
-> -/**
-> - * drmm_add_final_kfree - add release action for the final kfree()
-> - * @dev: DRM device
-> - * @container: pointer to the kmalloc allocation containing @dev
-> - *
-> - * Since the allocation containing the struct &drm_device must be allo=
-cated
-> - * before it can be initialized with drm_dev_init() there's no way to =
-allocate
-> - * that memory with drmm_kmalloc(). To side-step this chicken-egg prob=
-lem the
-> - * pointer for this final kfree() must be specified by calling this fu=
-nction. It
-> - * will be released in the final drm_dev_put() for @dev, after all oth=
-er release
-> - * actions installed through drmm_add_action() have been processed.
-> - */
->  void drmm_add_final_kfree(struct drm_device *dev, void *container)
->  {
->  	WARN_ON(dev->managed.final_kfree);
-> @@ -144,7 +132,6 @@ void drmm_add_final_kfree(struct drm_device *dev, v=
-oid *container)
->  	WARN_ON(dev + 1 > (struct drm_device *) (container + ksize(container)=
-));
->  	dev->managed.final_kfree =3D container;
->  }
-> -EXPORT_SYMBOL(drmm_add_final_kfree);
-> =20
->  int __drmm_add_action(struct drm_device *dev,
->  		      drmres_release_t action,
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index 533c6e1a5a95..b8ce9147c9a6 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -591,10 +591,6 @@ struct drm_driver {
->  	int dev_priv_size;
->  };
-> =20
-> -int drm_dev_init(struct drm_device *dev,
-> -		 struct drm_driver *driver,
-> -		 struct device *parent);
-> -
->  void *__devm_drm_dev_alloc(struct device *parent, struct drm_driver *d=
-river,
->  			   size_t size, size_t offset);
-> =20
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---Bsw5zqA4FkROoHLvbOz7wdmqUUJqriWcT--
-
---yn2lRPC6DbpN4bQH9sfk9hAdPLL5nfWRA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9kw6MUHHR6aW1tZXJt
-YW5uQHN1c2UuZGUACgkQaA3BHVMLeiMkMgf/eEF3CfhbbF0jRka8uLy9aVIG08/O
-PLahp5MHZZaHo9CoNBE5uPVUMmoifh340IBfJQQX04JoFjHNe0rrMYEti6PGagEp
-p/TvUAeok1YhPshJkH24ibSa8uki4uglL4ZRG0W3tz9Y55tUix19Z3i7hIHF5S3z
-UuweNcL10RCH+kD1O2FoiIYo9WxB6icWRUvpSrNJDI28vBEpPoRT3L6SITvJhxRd
-RF1ldDET5auD12yrLBtawm8yga8THWjeTh62Ma9eYbdjHuTqvf2HShkXnknfNENB
-15RtkrAwbxPezRKvj6K0pNXR0agQr+t9VVhJw2QqY/XON7VgoGcBU7aMVg==
-=nqh+
------END PGP SIGNATURE-----
-
---yn2lRPC6DbpN4bQH9sfk9hAdPLL5nfWRA--
-
---===============1386310261==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+regards,
+dan carpenter
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1386310261==--
