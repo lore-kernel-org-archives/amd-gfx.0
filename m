@@ -2,104 +2,69 @@ Return-Path: <SRS0=7fFe=C4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C4F4C43464
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 01:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EEFCC43464
+	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 13:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD3802085B
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 01:06:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D6F5820878
+	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 13:38:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IFv0sTFr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD3802085B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Eb1FzPId"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6F5820878
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 329DD6EDBA;
-	Sat, 19 Sep 2020 01:06:26 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E7156EDBA
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2020 01:06:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XiqJXHm9TMz0BmD2ifQgzq7xUJmyku2hlNUNvVo1QQ5h9YK/tuk2yfd/ulWVIpVcYK36g2i3dgyjnrBKJCJs+bHMbuAJs5+8ajZ5SfOUik+UqnEepwtncy3ujgY4xPtNpJvoEf2frzNzO3iKq/3I7q0BP779VXdfzoTW3TTMbyBdIi03m5KQHWjhvwNkvZLBq2FImJuiQsx7we0jIfMSlLosvyYxuceMLC6R7H5zIdRWEUmMV4t6b6nBLyhG+7b0MrV6HlEy5ilg7W5q6QfCnwqVLOq0um6JKxhh9iCzt5/dl4G4cUdk/lu9RyuVbPdRpcZ9YEW355Dz4/amwGxd6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5LyhegrCKTGvkMtbpxci8yGtIYBTJfwbg0nF66X9QdA=;
- b=f02fGfGVWejoGvC6VfemXfspWednhdxVkaCbGrqFLLoBzJfXH45zaDUmBJ8U45UsHBHFzZS8OPxG1kK6q6Uc9YLTCpfTMik0B3dPupiEHi+AIxU7PhAPE6R3A5r/QJTqF8p6eGAdpnjeC59SY1g98G4I7mlNYhcSGQsQuROJrZiw2Ygaljiuc9X9OyvQFNiXpOiwFbo49DUzTW4sO1FuqE7WLvGniQ6bI5MugPD1DnjCiUCdqlXrCJ096VoAJIdxbEPUmMbmbEYLb19WsJjW6D1la6H3ue62FoVIz2ixyxlm34s03vX1zyrxfxNP4wKJnzCFSP/UBiP8QQyK7U36hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5LyhegrCKTGvkMtbpxci8yGtIYBTJfwbg0nF66X9QdA=;
- b=IFv0sTFrJbN83CEY5qr4hg7ulZzEZKaXHCkO56GL8hQneSYOSinig0U63HJiMQALVD2UuzAd5XJ0mF5nq3ey0aSeDEja9d+lbeIc8CknzQaK7wDm5ITLOIHGAcY778Jf15ggDeZU02Rx6o6a3gYpd7CZ8LQVbbPMOxRpqNAWoKI=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2583.namprd12.prod.outlook.com (2603:10b6:4:b3::28) by
- DM6PR12MB4778.namprd12.prod.outlook.com (2603:10b6:5:167::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3391.14; Sat, 19 Sep 2020 01:06:22 +0000
-Received: from DM5PR12MB2583.namprd12.prod.outlook.com
- ([fe80::d9be:3249:294f:1dd6]) by DM5PR12MB2583.namprd12.prod.outlook.com
- ([fe80::d9be:3249:294f:1dd6%7]) with mapi id 15.20.3391.011; Sat, 19 Sep 2020
- 01:06:22 +0000
-Subject: Re: [PATCH 3/3] drm/amd/amdkfd: Surface files in Sysfs to allow users
- to get number of compute units that are in use.
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200917171118.2579-1-Ramesh.Errabolu@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <d2118f61-defa-2663-2cd5-e4555b82e357@amd.com>
-Date: Fri, 18 Sep 2020 21:06:20 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20200917171118.2579-1-Ramesh.Errabolu@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0067.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::44) To DM5PR12MB2583.namprd12.prod.outlook.com
- (2603:10b6:4:b3::28)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD8C6E21C;
+	Sat, 19 Sep 2020 13:38:12 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C056E6E21C
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2020 13:38:11 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id q9so7837191wmj.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2020 06:38:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=65G2mMcXBuTW/HfXyf9Gk3ibJxUd1Ob33HKjuN8VVfY=;
+ b=Eb1FzPIde+TlyZFleT4lMNkqn2CcOox+WEXYVnJ2Q/lhhx0ziMAcFweB/7Jx/kbsxi
+ XoA4GbJSdJqRJUswORCQcYBN69fcDN3Np80w/7Gn9Cki7u3Xy0vIml63B6DTgfOPtlHI
+ rrox3IkwhJS6zVxzU74Z0K49Oi5y3S470FC+w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=65G2mMcXBuTW/HfXyf9Gk3ibJxUd1Ob33HKjuN8VVfY=;
+ b=ndH+0OGycygd7B5RGPlYtfIVYsr5R/cGXoMPgKb33ZuWUWZitPpsh2lFJiQRaoMct0
+ WzUgkz5vqT965jaMy44iq9RIn0oJogElNxLm3DZNk2lCiJVQ6Dx7pLNr/TENBv2iHm18
+ DJHgWM4789yUvZBWeMaz9xMRh+QmpQl834X66JoRSVQwlXVHQzHyyMYT1dx8nL46rOnY
+ aH8ZRwKvoyxwDfetAVaZOYenxql2GhSv7EH7vCh9GVTUoHiJ6qXNjHT7OMHoMUg8k+SD
+ 6DxSXIzcnXsaXoRMcqMNONWOrOMQjeIXlb5YSwB6R3mTmfmutktWa3z+trx5dw6FVLP2
+ m7wA==
+X-Gm-Message-State: AOAM530u+AZYlcuFqw+l++DZTjroNAv2sTYp05IgcFlDhhIW4HL4a8sU
+ 0zFKWpaRDZMNkhrMC62Sn4xNaA==
+X-Google-Smtp-Source: ABdhPJwS0Tb9d3fIuOrqAj+f1yiOHTZLRe/+pqrXNJfNhtHR9opwMZms/5XqSSE3HKW9165bfuEJcQ==
+X-Received: by 2002:a05:600c:20b:: with SMTP id
+ 11mr21354070wmi.147.1600522690048; 
+ Sat, 19 Sep 2020 06:38:10 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id i6sm12526069wra.1.2020.09.19.06.38.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2020 06:38:08 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/i915/selftests: align more to real device lifetimes
+Date: Sat, 19 Sep 2020 15:38:03 +0200
+Message-Id: <20200919133803.2463492-1-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200918132505.2316382-3-daniel.vetter@ffwll.ch>
+References: <20200918132505.2316382-3-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.38] (165.204.55.251) by
- YTOPR0101CA0067.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::44) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.13 via Frontend
- Transport; Sat, 19 Sep 2020 01:06:21 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6dd3aa0f-a2da-4e3b-a470-08d85c3838f9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4778:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB47781D78030B4ABDC4D867DBE63C0@DM6PR12MB4778.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: as7Iw/vvIZikwP0kro/IOR8KQbg2QBuzbMgj5QNsjQ1CEAgBMv3Xl0zu0fy6MZUYetpJNxNsMyaQRQfBG2ElXNQokxlmn16yF9hh80hwTQvP3/7yq7OEFG8V751KF7/crAqOVi7x4eZAynrPeZV8g0CfxI+ScDmNHg5Z/oMBHoQItBBtzqH7W4QZ3U2XM3e7SY5OsNwZlkSmyhbNt1S4qpq1sErDlOz92n9dXAO1zbybRFPTB556X1zhrRmG7Hkj0jw19eh8bXchSGgkY2oHOllQmdPXIkNxFrNAIuF38jdi6mJdCJjQRUAQ0xZ4yzWzf3O6Xub3VPWZGH1uC5/intlep30Nr36C44F8R5OgVnQ6/IweJr8M42DUVb4ogf5/iuj7POxzlzZIMSlC7NZKcTnvLiwTUn1UulaPSdGEBCfCuNimFr+HoXc/6VdYgXhr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2583.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(366004)(8676002)(5660300002)(4744005)(16576012)(956004)(31696002)(53546011)(26005)(52116002)(2906002)(2616005)(66946007)(478600001)(66476007)(316002)(6486002)(186003)(16526019)(31686004)(36756003)(66556008)(8936002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: rlDAIjPFwfyezB7xaCtnKfXtpTP9FdunIBhuFUkGSqZN3I6AzGraNKPD9GNxTPISi9O4lcrv3IR4e/GL/R7LX38zK2+11KycMONmDslILWWs0QU/UOlDbLIWyheJFh3U9NG9lQC1kFApdcuyiknFl5fKWKObxUkOtJvZL26En6FYgwNoKSHe29a0DAV1a292RcYhvS9eSfYvkC7fPD29NhLS3dXUYmojafAW8olmtTAqM4y4bZ6kNc+BuE2ASLGHeaotMA72Gd1/Sq5DNGv+ceprywpQ6MZvUgQRCi/I0jBQGPHLR7xnURADeke5xUE2O3RnmGiGtsqpGxN87mFA5GMYnw2NyI8m9mHirG+wZboNbxq0Y8MMtydePF5GRdkxUErY5FQ3SeNkP8fvv1+kdT31gVs7geUaPcOr857S0eT7Tn/IcXRrCi9iVOIaUmtLucCNOPHFutf86UISC5WrT0IU2PeGTi4X5y7dDL4nu8sFo7rLq8E0m4x72mhizXHrndqxOD6p0M6SDqNFSxQyTfFz68CBZj7Hta5k3JG64WUoQsIZxt5K51PInTPPQmg7e5UuMH4yR4rPZjRVhlFyYfksNsrjK0KLnxpc8JppoR4RD3C6kyahPiJ89jfNfcPOo8L4Ihx2ZT2vDQxvUw3jNw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dd3aa0f-a2da-4e3b-a470-08d85c3838f9
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2583.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2020 01:06:21.9881 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oQlmnN2E35uSzuZNrhWTOpE9ebw0pcTuuozdeINjrVjVlTLbkYlZo/UsdRUIbAyn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4778
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,27 +76,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
+ Matthew Auld <matthew.william.auld@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+To avoid having to create all the device and driver scaffolding we
+just manually create and destroy a devres_group.
 
-On 2020-09-17 1:11 p.m., Ramesh Errabolu wrote:
-> +	if (pdd->qpd.queue_count == 0) {
-> +		pr_info("%s: Gpu-Id: %d has no active queues for process %d\n",
-> +			__func__, dev->id, proc->pasid);
+v2: Rebased
 
-pr_debug can be dynamically enabled in dmesg if needed, pr_info will 
-always show in dmesg.
+v3: use devres_open/release_group so we can use devm without real
+hacks in the driver core or having to create an entire fake bus for
+testing drivers. Might want to extract this into helpers eventually,
+maybe as a mock_drm_dev_alloc or test_drm_dev_alloc.
 
-pr_debug("Gpu-Id: %d has no active queues for process %d\n",
+v4:
+- Fix IS_ERR handling (Matt)
+- Delete surplus put_device() in mock_device_release (intel-gfx-ci)
 
-		dev->id, proc->pasid);
+v5:
+- do not switch to device_add - it breaks runtime pm in the tests and
+  with the devres_group_add/release no longer needed for automatic
+  cleanup (CI). Update commit message to match.
+- print correct error in pr_err (Matt)
 
-Philip
+v6: Remove now unused err variable (CI).
 
-> +		return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
+Cc: Matthew Auld <matthew.william.auld@gmail.com>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com> (v3)
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Reviewed-by: Matthew Auld <matthew.william.auld@gmail.com> (v4)
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+---
+ .../gpu/drm/i915/selftests/mock_gem_device.c  | 39 +++++++++----------
+ 1 file changed, 19 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+index ac600d395c8f..b7db3ec346ba 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+@@ -79,8 +79,6 @@ static void mock_device_release(struct drm_device *dev)
+ 
+ out:
+ 	i915_params_free(&i915->params);
+-	put_device(&i915->drm.pdev->dev);
+-	i915->drm.pdev = NULL;
+ }
+ 
+ static struct drm_driver mock_driver = {
+@@ -123,17 +121,10 @@ struct drm_i915_private *mock_gem_device(void)
+ #endif
+ 	struct drm_i915_private *i915;
+ 	struct pci_dev *pdev;
+-	int err;
+ 
+ 	pdev = kzalloc(sizeof(*pdev), GFP_KERNEL);
+ 	if (!pdev)
+ 		return NULL;
+-	i915 = kzalloc(sizeof(*i915), GFP_KERNEL);
+-	if (!i915) {
+-		kfree(pdev);
+-		return NULL;
+-	}
+-
+ 	device_initialize(&pdev->dev);
+ 	pdev->class = PCI_BASE_CLASS_DISPLAY << 16;
+ 	pdev->dev.release = release_dev;
+@@ -144,8 +135,23 @@ struct drm_i915_private *mock_gem_device(void)
+ 	/* HACK to disable iommu for the fake device; force identity mapping */
+ 	pdev->dev.iommu = &fake_iommu;
+ #endif
++	if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
++		put_device(&pdev->dev);
++		return NULL;
++	}
++
++	i915 = devm_drm_dev_alloc(&pdev->dev, &mock_driver,
++				  struct drm_i915_private, drm);
++	if (IS_ERR(i915)) {
++		pr_err("Failed to allocate mock GEM device: err=%d\n", PTR_ERR(i915));
++		devres_release_group(&pdev->dev, NULL);
++		put_device(&pdev->dev);
++
++		return NULL;
++	}
+ 
+ 	pci_set_drvdata(pdev, i915);
++	i915->drm.pdev = pdev;
+ 
+ 	dev_pm_domain_set(&pdev->dev, &pm_domain);
+ 	pm_runtime_enable(&pdev->dev);
+@@ -153,16 +159,6 @@ struct drm_i915_private *mock_gem_device(void)
+ 	if (pm_runtime_enabled(&pdev->dev))
+ 		WARN_ON(pm_runtime_get_sync(&pdev->dev));
+ 
+-	err = drm_dev_init(&i915->drm, &mock_driver, &pdev->dev);
+-	if (err) {
+-		pr_err("Failed to initialise mock GEM device: err=%d\n", err);
+-		put_device(&pdev->dev);
+-		kfree(i915);
+-
+-		return NULL;
+-	}
+-	i915->drm.pdev = pdev;
+-	drmm_add_final_kfree(&i915->drm, i915);
+ 
+ 	i915_params_copy(&i915->params, &i915_modparams);
+ 
+@@ -229,5 +225,8 @@ struct drm_i915_private *mock_gem_device(void)
+ 
+ void mock_destroy_device(struct drm_i915_private *i915)
+ {
+-	drm_dev_put(&i915->drm);
++	struct device *dev = i915->drm.dev;
++
++	devres_release_group(dev, NULL);
++	put_device(dev);
+ }
+-- 
+2.28.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
