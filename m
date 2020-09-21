@@ -1,69 +1,106 @@
-Return-Path: <SRS0=7fFe=C4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=OtMv=C6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3510C43465
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 13:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45A73C43463
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 00:53:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89A9320878
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2020 13:40:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9499C207EA
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 00:53:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="DQo/gZuG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89A9320878
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="n6rbErHU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9499C207EA
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B07206E480;
-	Sat, 19 Sep 2020 13:40:40 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF3F6E43F
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2020 13:40:39 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id w2so7835300wmi.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2020 06:40:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Jqv5YN8cuKpoP53km0dn9I4q1Jwk/X6asAw90xbvEY0=;
- b=DQo/gZuGIjuPa62ILYR0X41cZSMFXPViJqph/Wcb+Dgf2RbIGNpq9Xdhx+He/YEwN9
- pHzRnHKXQ0bS2J5nBP9tr9YrZXpJIHdIUyvhcsIkLAeqv8WPGx+yBz2KORCGgsqz3GyI
- pKYX/UQFXi+5dbNYsy5YozSVyIkqQfNslRhuE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Jqv5YN8cuKpoP53km0dn9I4q1Jwk/X6asAw90xbvEY0=;
- b=abEZnHNH7FBW9TMIsLQq2Zm/0KkZ0mfVmATLhmvQ0gOqNwtIxjIC/tXVjbWiNyg/Mm
- eYiQGiEuvixx0arQqEp/x74c8BMfIjo6oR9uFJt0IFmhrCT7KldZJXK7/dIYyQKdDLqt
- cOZdx4598copWuWo5AcckfPOY5FU5v5SEhy5++fO3WU9FMNCIgTARVBiil07WRomkNGs
- EOmCRaR2gYfM2pt5jgH1FcpygC9skcRgJdg5/jkMQ61uQ2+6L4XjXvGxT7A1rSXuYs3R
- c+gIsYJPbMHFsH+efLClO5Lngnzp+Clh0MJyCBO1Juru0AmpzAyq/UllMjY4AXFxlF69
- ilXA==
-X-Gm-Message-State: AOAM533Oq6NrxPPn8uDbkzXNY2saNP412h1/QtD9unuP9cEG/+jUU6Lv
- kG37yRE3lu6L31g7xdGbq+OGpw==
-X-Google-Smtp-Source: ABdhPJzb+FwjA8YiChED3XUSrDzmdcehl9EKww/0n/KvaOpReYci80Ur142gsUDZkzJXIG3LKUw/4A==
-X-Received: by 2002:a1c:8109:: with SMTP id c9mr20708928wmd.130.1600522837983; 
- Sat, 19 Sep 2020 06:40:37 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id f14sm12526970wrt.53.2020.09.19.06.40.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2020 06:40:37 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Subject: [PATCH] drm/i915/selftests: align more to real device lifetimes
-Date: Sat, 19 Sep 2020 15:40:32 +0200
-Message-Id: <20200919134032.2488403-1-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200918132505.2316382-3-daniel.vetter@ffwll.ch>
-References: <20200918132505.2316382-3-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E7B6E0F4;
+	Mon, 21 Sep 2020 00:53:02 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9431A6E0F4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 00:53:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=igsd1fOM01T0KYvH5loJSc7J2YBW6qfVlmaYVIqY2TycmrzU8kzNXiNKBzuV4PVo+QZnEP5eu644QxmmzJKJejL7ZOCC2ExXzPmd3j29ipPNnvgBiU/aWz2Cg/QNUEffJCtWSWcWfx5rZiz7t7ovU7l7v35MPmb/vRYyEUFt5FrXl9f7H4t10OcDXjGICiL9bIXEca0dpUUMXoS2IIZ/d7VSa/SCGU1klmIQzllzRe6MCehu1W2hcNdEOQ/VU7qbnlgN7Z8lgA3MF1rywf+YYERnTAOhn83dVpYdVeapEbM1Ta29S5qOB3zmsK/HdRm7xLz4hbTfHskprPYoTtPiAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7+sjTeeJKY/ONAAOLTpCbEjLcuwObcmyipGhVA8tKN4=;
+ b=GcEySsZYYPwBnjq3TCxqmmwBX2zL+Flu2fyWjpGpmpjBLKbWq6vaQM6C6lLDbpsb2wGrhygOvrJ9Wk51mNcbz3qqOPGfdJIGhsN6YbP/3VnFdhtwov29KF7SBA23jOc2bVRyqJjmV4g5nlafJdKqPO5g05+YTlaWncHVUeR0sZNeWMzkYVQDVimFR2qdLww0DLHB1esRDcDFcVVoo7/AzOQlsOXgxf/fj9vokeb/bZn4JkqVpi5RGtKwExn1p/SOLsyq24H/SzRpi6mtZlnJbQHqARPmxkiqluja3r8l8v5myg6Ts1myfdZSb2TUvMfeTOC2fFdwvziPfI46inEcfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7+sjTeeJKY/ONAAOLTpCbEjLcuwObcmyipGhVA8tKN4=;
+ b=n6rbErHUmusGg6C4sYHJhBhpG465lzSwfZ3tlPeI6wgJ6qiqmWC7VmKZCvVNXTyJMAWzGHw53E+AyPXlhC2HqytjBa5L3xpTKLjejZh5K5kYZ4zqnKjr/DkDrVUqWOGB4P5UXPjm+FjjsFMAPYRNdXctkeXVCD6DtY4GrWFEZss=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR12MB2503.namprd12.prod.outlook.com (2603:10b6:4:b2::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3391.14; Mon, 21 Sep 2020 00:52:59 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3391.024; Mon, 21 Sep 2020
+ 00:52:59 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/powerplay: optimize the mclk dpm policy settings
+Thread-Topic: [PATCH] drm/amd/powerplay: optimize the mclk dpm policy settings
+Thread-Index: AQHWZp2WHc0ZiYTBMEuGj7vhPP7xY6lylcfQ
+Date: Mon, 21 Sep 2020 00:52:59 +0000
+Message-ID: <DM6PR12MB2619176B52E08A5F3128AA6CE43A0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200730181637.677551-1-alexander.deucher@amd.com>
+In-Reply-To: <20200730181637.677551-1-alexander.deucher@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=9b00358e-0858-4339-b8da-9982ebe75b55;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-21T00:52:41Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 01f57a94-7603-4ce9-9753-08d85dc8af9f
+x-ms-traffictypediagnostic: DM5PR12MB2503:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB25033C70B674144B7347F6B1E43A0@DM5PR12MB2503.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:514;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jPaVMMOaaAkwdHrFRJml4zaB2kh0dxXNbVsXaW9m4BJmaQXKZ78xQRd4HEEZrr6IemznTPikf1hBVVO52Py6eZfPlKh+LgtK45cbH6qLsydF40wKjanIw4pqmxVEoF2sitO/CzNERadHTUbggsvc52n63JgmAwr+elfnHEZW196F6JTIizSw5ihSXo7ciVXJjxYtt5c+ueUR5w2alxye4Mozj6neKKu9/NcB7qTLFmBi+c3+gju1jIZpcO2y8kB5fu+gYAewhJhe8AeZuLpHzEq6FHpfAE6aReqObx2/zt1AMow5evFkNqGbGfFX/ITUW19Xm7Pl56xp6iFSbay61Irjs1/JILeWkludXNhY75F15JdyKaf/pjQahUiZZGSq
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(346002)(136003)(39860400002)(396003)(376002)(110136005)(66476007)(7696005)(26005)(8936002)(66556008)(66446008)(64756008)(83380400001)(53546011)(86362001)(6506007)(66946007)(2906002)(8676002)(186003)(71200400001)(4326008)(76116006)(9686003)(5660300002)(52536014)(478600001)(316002)(33656002)(55016002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: 86KXmaGcmMSV9FZVlFKwQHRLUxXI5a3FWoGtMV1K8McSCx+w0FVciaEb7xo1o6erzer3xvnU9Y8QhlFmWTt+MoPvdPKE//K0Ja8CiHznpFPFj8jsMGfNq4SBwogfsIuHaD8ghRuBNdHMZpzZ8l0NFJsP0P2jYpGukg4n+X+sIRHosi9jYpN9bqArdreuZPhCqcQNeyiHtDjU4xF9xs0ZzsN8v9Ll3RjGMFageTYFRs2CJC4u2Ev0qq//FWLwIozzArwgdcO8988k91t67IJGKo7L+yNzzNSFWagT63kKv9LdUpjwbGkgbSadccl3LK6fK7p8xmesWSg/G+ek3LNFUA8+IKrFfAoZio0GefuG9B9yK+oSMWBLMECypwLvzvqC66tAC65Z1Q3T7FhG6P01CTbq2DHFdAPJHwObyIIVTWF6OWlmNbe3vwxLHII1w6qrNhVpKwZH8NJ6F+9SaRcU0mi7O9g69pCl6p8CWmocTm6dUuh6p8TUYMLNgKDLItuup6QFIwyOuZtElyjF8cuPMmxz35GMy6KH1WlfrYH9tga6jqivkrXHqYp0EPkEDlcnNyz0Ocvn59yYwOGiOCJRig6883hB2XaxOgjxbgSIVkh5ANKlqXqcBovUEi4QW4cbCCt1UZaV4WeNPwkx9Ytpxg==
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01f57a94-7603-4ce9-9753-08d85dc8af9f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2020 00:52:59.2700 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZTzYVfn13fwH+O1E3GbrwdDBNoZ49YzKxcPbNEIQQd3rmZPQsxdC2aT7TxBSlbQ8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,133 +112,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
- Matthew Auld <matthew.william.auld@gmail.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To avoid having to create all the device and driver scaffolding we
-just manually create and destroy a devres_group.
+[AMD Official Use Only - Internal Distribution Only]
 
-v2: Rebased
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-v3: use devres_open/release_group so we can use devm without real
-hacks in the driver core or having to create an entire fake bus for
-testing drivers. Might want to extract this into helpers eventually,
-maybe as a mock_drm_dev_alloc or test_drm_dev_alloc.
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: Friday, July 31, 2020 2:17 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amd/powerplay: optimize the mclk dpm policy settings
 
-v4:
-- Fix IS_ERR handling (Matt)
-- Delete surplus put_device() in mock_device_release (intel-gfx-ci)
+From: Evan Quan <evan.quan@amd.com>
 
-v5:
-- do not switch to device_add - it breaks runtime pm in the tests and
-  with the devres_group_add/release no longer needed for automatic
-  cleanup (CI). Update commit message to match.
-- print correct error in pr_err (Matt)
+Different mclk dpm policy will be applied based on the VRAM width.
 
-v6: Remove now unused err variable (CI).
-
-v7: More warning fixes ...
-
-Cc: Matthew Auld <matthew.william.auld@gmail.com>
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com> (v3)
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.william.auld@gmail.com> (v4)
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/i915/selftests/mock_gem_device.c  | 39 +++++++++----------
- 1 file changed, 19 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index ac600d395c8f..b6c42fd872ad 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -79,8 +79,6 @@ static void mock_device_release(struct drm_device *dev)
- 
- out:
- 	i915_params_free(&i915->params);
--	put_device(&i915->drm.pdev->dev);
--	i915->drm.pdev = NULL;
- }
- 
- static struct drm_driver mock_driver = {
-@@ -123,17 +121,10 @@ struct drm_i915_private *mock_gem_device(void)
- #endif
- 	struct drm_i915_private *i915;
- 	struct pci_dev *pdev;
--	int err;
- 
- 	pdev = kzalloc(sizeof(*pdev), GFP_KERNEL);
- 	if (!pdev)
- 		return NULL;
--	i915 = kzalloc(sizeof(*i915), GFP_KERNEL);
--	if (!i915) {
--		kfree(pdev);
--		return NULL;
--	}
--
- 	device_initialize(&pdev->dev);
- 	pdev->class = PCI_BASE_CLASS_DISPLAY << 16;
- 	pdev->dev.release = release_dev;
-@@ -144,8 +135,23 @@ struct drm_i915_private *mock_gem_device(void)
- 	/* HACK to disable iommu for the fake device; force identity mapping */
- 	pdev->dev.iommu = &fake_iommu;
- #endif
-+	if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
-+		put_device(&pdev->dev);
-+		return NULL;
-+	}
-+
-+	i915 = devm_drm_dev_alloc(&pdev->dev, &mock_driver,
-+				  struct drm_i915_private, drm);
-+	if (IS_ERR(i915)) {
-+		pr_err("Failed to allocate mock GEM device: err=%ld\n", PTR_ERR(i915));
-+		devres_release_group(&pdev->dev, NULL);
-+		put_device(&pdev->dev);
-+
-+		return NULL;
-+	}
- 
- 	pci_set_drvdata(pdev, i915);
-+	i915->drm.pdev = pdev;
- 
- 	dev_pm_domain_set(&pdev->dev, &pm_domain);
- 	pm_runtime_enable(&pdev->dev);
-@@ -153,16 +159,6 @@ struct drm_i915_private *mock_gem_device(void)
- 	if (pm_runtime_enabled(&pdev->dev))
- 		WARN_ON(pm_runtime_get_sync(&pdev->dev));
- 
--	err = drm_dev_init(&i915->drm, &mock_driver, &pdev->dev);
--	if (err) {
--		pr_err("Failed to initialise mock GEM device: err=%d\n", err);
--		put_device(&pdev->dev);
--		kfree(i915);
--
--		return NULL;
--	}
--	i915->drm.pdev = pdev;
--	drmm_add_final_kfree(&i915->drm, i915);
- 
- 	i915_params_copy(&i915->params, &i915_modparams);
- 
-@@ -229,5 +225,8 @@ struct drm_i915_private *mock_gem_device(void)
- 
- void mock_destroy_device(struct drm_i915_private *i915)
- {
--	drm_dev_put(&i915->drm);
-+	struct device *dev = i915->drm.dev;
-+
-+	devres_release_group(dev, NULL);
-+	put_device(dev);
- }
--- 
-2.28.0
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index ffe05b7cc1f0..b81719433017 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -1585,9 +1585,19 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
+ data->current_profile_setting.sclk_down_hyst = 100;
+ data->current_profile_setting.sclk_activity = SMU7_SCLK_TARGETACTIVITY_DFLT;
+ data->current_profile_setting.bupdate_mclk = 1;
+-data->current_profile_setting.mclk_up_hyst = 0;
+-data->current_profile_setting.mclk_down_hyst = 100;
+-data->current_profile_setting.mclk_activity = SMU7_MCLK_TARGETACTIVITY_DFLT;
++if (adev->gmc.vram_width == 256) {
++data->current_profile_setting.mclk_up_hyst = 10;
++data->current_profile_setting.mclk_down_hyst = 60;
++data->current_profile_setting.mclk_activity = 25;
++} else if (adev->gmc.vram_width == 128) {
++data->current_profile_setting.mclk_up_hyst = 5;
++data->current_profile_setting.mclk_down_hyst = 16;
++data->current_profile_setting.mclk_activity = 20;
++} else if (adev->gmc.vram_width == 64) {
++data->current_profile_setting.mclk_up_hyst = 3;
++data->current_profile_setting.mclk_down_hyst = 16;
++data->current_profile_setting.mclk_activity = 20;
++}
+ hwmgr->workload_mask = 1 << hwmgr->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
+ hwmgr->power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+ hwmgr->default_power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+--
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
