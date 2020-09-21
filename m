@@ -2,71 +2,51 @@ Return-Path: <SRS0=OtMv=C6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F9A5C43463
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 09:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC29BC43464
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E29A420773
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 09:09:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 62DD721D43
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:54:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="birNdg/Q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E29A420773
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcD+Hl6L"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62DD721D43
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8D96E247;
-	Mon, 21 Sep 2020 09:09:54 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F8E6E249
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 09:09:51 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id t10so11894329wrv.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 02:09:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=fAVVSw+Lw5u8RkTPDPSBrKsahSYxK5N2+xaOm2dYak8=;
- b=birNdg/QmDDNh057o/PKfwu9uhW0Njxo9tc3KbomwzoIK4cbmh9wM25k3KXLCvajVY
- 1ENc6rqGTtAEoXhkhoZuW5Xvcv0tWtdjLnxhvKqd7MPPysc9ImeYA2IXu5FdiwdAoF/c
- /3GZ4gCV/uHRHJMyf5e6msf+YR9QlbZPDMrNI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=fAVVSw+Lw5u8RkTPDPSBrKsahSYxK5N2+xaOm2dYak8=;
- b=REdob6P7oo5bI4Hzi6KEDHSShOD5XRsBFBMK8UExkevlo2s5zvS4e9XHYtHeAGy6kZ
- UWP6kW4yD/3KKAeF6/LAR7wPUvTwbORXt6G4wJGulmUwiJrfTTQjn6KBkwSl+DPwotff
- Ch0TUAfyOcNhxy7RfBgwHy0S2eht8Z0VM2ePjPm5gDWr9uowd7w8ZEuA4Z45Eii1i6l+
- /ZdlSv0ixX7bnPkOoBNkwOX5ii6FkpnrtGhEOoV8Zo3ovqVMU7Z8TY0d6EbTMyRg/qiH
- er1AkyxmaBBEnstFWX+VnCegrQJX3kxLODipNVxcUtpKxdms9Xp4OdXulAaS+crUcpwY
- H8Mw==
-X-Gm-Message-State: AOAM531zM178+bKOHIn8cj/f7dLCCCINmwUayI7KGG2THNM+BkVGgB4S
- Xu+0gKelFStz3uIqxGRu2xsIBA==
-X-Google-Smtp-Source: ABdhPJwsHMgqO6KuxTYCVHoQvSAn867Ob8+iM6WX67irriuvqbR20flip6bplkOd6Zg8lDELWmek0w==
-X-Received: by 2002:adf:ef0a:: with SMTP id e10mr50795596wro.362.1600679390040; 
- Mon, 21 Sep 2020 02:09:50 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id k12sm19461209wrn.39.2020.09.21.02.09.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2020 02:09:49 -0700 (PDT)
-Date: Mon, 21 Sep 2020 11:09:47 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 0/4] managed drm_device, absolute final
- leftover bits
-Message-ID: <20200921090947.GI438822@phenom.ffwll.local>
-References: <20200918132505.2316382-1-daniel.vetter@ffwll.ch>
- <CADnq5_NW_k6szxmLxvf+tca4-D7oUfkLg1W-P0Q8AjVPBK_=iQ@mail.gmail.com>
- <20200918171221.GB716636@intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200918171221.GB716636@intel.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7824E6E27F;
+	Mon, 21 Sep 2020 12:54:48 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92AB36E27F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 12:54:46 +0000 (UTC)
+Received: from localhost (unknown [70.37.104.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2E7E921789;
+ Mon, 21 Sep 2020 12:54:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600692886;
+ bh=HY4FdjomRHFx4NlAmacrCNHK81B5khhTgCqc1BE7owE=;
+ h=Date:From:To:To:To:To:CC:Cc:Cc:Subject:In-Reply-To:References:
+ From;
+ b=kcD+Hl6L8eOWz4vvwqkeqxU9xgOxL1li9Fsh9mJOx96HIbQNrL/24J203g7bBPs1Y
+ 3f9HVTq5ZD8Cu4wYI7kPPTwtnVWLjsDuRuyx5i7oiqZef2DWyhdaQUUgWTmc2xHxRe
+ kLbjqBqtGdpQtHkmuvsE4Qdmxgi5+pagZrYWOjN4=
+Date: Mon, 21 Sep 2020 12:54:45 +0000
+From: Sasha Levin <sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+To: Qingqing Zhuo <qingqing.zhuo@amd.com>
+To: Wesley Chalmers <Wesley.Chalmers@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 08/15] drm/amd/display: Increase timeout for DP Disable
+In-Reply-To: <20200916193635.5169-9-qingqing.zhuo@amd.com>
+References: <20200916193635.5169-9-qingqing.zhuo@amd.com>
+Message-Id: <20200921125446.2E7E921789@mail.kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,90 +58,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, stable@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 18, 2020 at 01:12:21PM -0400, Rodrigo Vivi wrote:
-> On Fri, Sep 18, 2020 at 11:03:12AM -0400, Alex Deucher wrote:
-> > On Fri, Sep 18, 2020 at 9:25 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> > >
-> > > Hi all,
-> > >
-> > > These are the leftovers of the leftovers of my initial drmm series to
-> > > manage drm_device.
-> > >
-> > > Changes:
-> > > - bugfixed i915 selftests
-> > > - patch from Luben to finalize the admgpu conversion
-> > >
-> > > Alex & i915 maintainers, pls ack for merging this all through
-> > > drm-misc-next since otherwise the final patch (and the resulting confusion
-> > > with outdated docs) is held up another round.
-> > 
-> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> 
-> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Hi
 
-Entire series merged into drm-misc-next.
--Daniel
+[This is an automated email]
 
-> 
-> > 
-> > >
-> > > Cheers, Daniel
-> > >
-> > > Daniel Vetter (3):
-> > >   drm/i915/selftest: Create mock_destroy_device
-> > >   drm/i915/selftests: align more to real device lifetimes
-> > >   drm/dev: Remove drm_dev_init
-> > >
-> > > Luben Tuikov (1):
-> > >   drm/amdgpu: Convert to using devm_drm_dev_alloc() (v2)
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 16 ++----
-> > >  drivers/gpu/drm/drm_drv.c                     | 41 ++--------------
-> > >  drivers/gpu/drm/drm_internal.h                |  1 +
-> > >  drivers/gpu/drm/drm_managed.c                 | 13 -----
-> > >  .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
-> > >  .../drm/i915/gem/selftests/i915_gem_context.c |  2 +-
-> > >  .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  2 +-
-> > >  .../drm/i915/gem/selftests/i915_gem_object.c  |  2 +-
-> > >  .../drm/i915/gem/selftests/i915_gem_phys.c    |  2 +-
-> > >  drivers/gpu/drm/i915/gt/selftest_timeline.c   |  2 +-
-> > >  .../gpu/drm/i915/selftests/i915_gem_evict.c   |  2 +-
-> > >  drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  2 +-
-> > >  drivers/gpu/drm/i915/selftests/i915_request.c |  2 +-
-> > >  drivers/gpu/drm/i915/selftests/i915_vma.c     |  2 +-
-> > >  .../drm/i915/selftests/intel_memory_region.c  |  2 +-
-> > >  .../gpu/drm/i915/selftests/mock_gem_device.c  | 49 ++++++++++++-------
-> > >  .../gpu/drm/i915/selftests/mock_gem_device.h  |  2 +
-> > >  include/drm/drm_drv.h                         |  4 --
-> > >  18 files changed, 51 insertions(+), 97 deletions(-)
-> > >
-> > > --
-> > > 2.28.0
-> > >
-> > > _______________________________________________
-> > > amd-gfx mailing list
-> > > amd-gfx@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> > _______________________________________________
-> > Intel-gfx mailing list
-> > Intel-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
+
+The bot has tested the following trees: v5.8.10, v5.4.66, v4.19.146, v4.14.198, v4.9.236, v4.4.236.
+
+v5.8.10: Build OK!
+v5.4.66: Build OK!
+v4.19.146: Failed to apply! Possible dependencies:
+    3af91bb15093 ("drm/amd/display: Increase DP blank timeout from 30 ms to 50 ms")
+
+v4.14.198: Failed to apply! Possible dependencies:
+    0c41891c81c0 ("drm/amd/display: Refactor stream encoder for HW review")
+    1b0c0f9dc5ca ("drm/amdgpu: move userptr BOs to CPU domain during CS v2")
+    3fe89771cb0a ("drm/amdgpu: stop reserving the BO in the MMU callback v3")
+    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+    587cdfe9463e ("drm/amd/display: Rename trasnform to dpp for dcn's")
+    5aff86c1b325 ("drm/amd/display: Implement input gamma LUT")
+    60de1c1740f3 ("drm/amdgpu: use a rw_semaphore for MMU notifiers")
+    70ccab604049 ("drm/amdgpu/display: Add core dc support for DCN")
+    9a18999640fa ("drm/amdgpu: move MMU notifier related defines to amdgpu_mn.h")
+    9a70eba7f2c6 ("drm/amd/display: consolidate dce8-11.2 display clock code")
+    9cca0b8e5df0 ("drm/amdgpu: move amdgpu_cs_sysvm_access_required into find_mapping")
+    a216ab09955d ("drm/amdgpu: fix userptr put_page handling")
+    b1a4eb992c17 ("drm/amd/display: enable diags compilation")
+    b51adc77e220 ("drm/amd/display: Only blank DCN when we have set_blank implementation")
+    b72cf4fca2bb ("drm/amdgpu: move taking mmap_sem into get_user_pages v2")
+    ca666a3c298f ("drm/amdgpu: stop using BO status for user pages")
+
+v4.9.236: Failed to apply! Possible dependencies:
+    0c41891c81c0 ("drm/amd/display: Refactor stream encoder for HW review")
+    1cec20f0ea0e ("dma-buf: Restart reservation_object_wait_timeout_rcu() after writes")
+    248a1d6f1ac4 ("drm/amd: fix include notation and remove -Iinclude/drm flag")
+    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+    587cdfe9463e ("drm/amd/display: Rename trasnform to dpp for dcn's")
+    5aff86c1b325 ("drm/amd/display: Implement input gamma LUT")
+    70ccab604049 ("drm/amdgpu/display: Add core dc support for DCN")
+    78010cd9736e ("dma-buf/fence: add an lockdep_assert_held()")
+    9a70eba7f2c6 ("drm/amd/display: consolidate dce8-11.2 display clock code")
+    b1a4eb992c17 ("drm/amd/display: enable diags compilation")
+    b51adc77e220 ("drm/amd/display: Only blank DCN when we have set_blank implementation")
+    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
+    fedf54132d24 ("dma-buf: Restart reservation_object_get_fences_rcu() after writes")
+
+v4.4.236: Failed to apply! Possible dependencies:
+    0c41891c81c0 ("drm/amd/display: Refactor stream encoder for HW review")
+    0f477c6dea70 ("staging/android/sync: add sync_fence_create_dma")
+    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
+    248a1d6f1ac4 ("drm/amd: fix include notation and remove -Iinclude/drm flag")
+    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
+    375fb53ec1be ("staging: android: replace explicit NULL comparison")
+    395dec6f6bc5 ("Documentation: add doc for sync_file_get_fence()")
+    4325198180e5 ("drm/amdgpu: remove GART page addr array")
+    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+    587cdfe9463e ("drm/amd/display: Rename trasnform to dpp for dcn's")
+    5aff86c1b325 ("drm/amd/display: Implement input gamma LUT")
+    62304fb1fc08 ("dma-buf/sync_file: de-stage sync_file")
+    70ccab604049 ("drm/amdgpu/display: Add core dc support for DCN")
+    9a70eba7f2c6 ("drm/amd/display: consolidate dce8-11.2 display clock code")
+    a1d29476d666 ("drm/amdgpu: optionally enable GART debugfs file")
+    a8fe58cec351 ("drm/amd: add ACP driver support")
+    b1a4eb992c17 ("drm/amd/display: enable diags compilation")
+    b51adc77e220 ("drm/amd/display: Only blank DCN when we have set_blank implementation")
+    b70f014d58b9 ("drm/amdgpu: change default sched jobs to 32")
+    c784c82a3fd6 ("Documentation: add Sync File doc")
+    d4cab38e153d ("staging/android: prepare sync_file for de-staging")
+    d7fdb0ae9d11 ("staging/android: rename sync_fence to sync_file")
+    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
+    fac8434dab96 ("Documentation: Fix some grammar mistakes in sync_file.txt")
+    fdba11f4079e ("drm/amdgpu: move all Kconfig options to amdgpu/Kconfig")
+
+
+NOTE: The patch will not be queued to stable trees until it is upstream.
+
+How should we proceed with this patch?
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Thanks
+Sasha
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
