@@ -7,43 +7,44 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E197C43468
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 14:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A476C4346A
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 14:40:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2BFC0221EC
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 14:40:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D6DAE2311D
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 14:40:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yl1IR0e6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BFC0221EC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLHtJmK7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6DAE2311D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB716E37F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C673B6E388;
 	Mon, 21 Sep 2020 14:40:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 072606E37C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B62B26E37C;
  Mon, 21 Sep 2020 14:40:44 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 72A5A2220C;
- Mon, 21 Sep 2020 14:40:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BC34122574;
+ Mon, 21 Sep 2020 14:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600699243;
- bh=Uwvl3XHlFp5hd3kK7y73SL6v5jqXtR60oS68Drgk1ps=;
+ s=default; t=1600699244;
+ bh=D+jP0hxkPbhpy/8gi/F3wmT+MlFROMr33HDS7vMN3hQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Yl1IR0e6JE4S/abdnum9BCThziDI2Ijbgn4279lhaWmtnRi/JCjUQGDbOkTeZuef7
- 1Zrxy0sbamruE0tsmTdGLxvQzNXSc2I3g14xKKBn2o57Bh+AZ8IOfDPVbS09LfsaE3
- 6/QZzFMqAaBvBJH9+B45KERN5YkY/QqSwqvfNf2A=
+ b=FLHtJmK7jv4vAlUO6rwtVap/LgllxcWa775E3ValwFoYdwIaQo4Ye9mwzzvaT4RA1
+ FnwQoqdmQnw+EEBHN3jIXoU4BbzXUKisyImXnxTaI9GS+0MfbrtPJb2OkbRMbIpH+I
+ nCGPX0G/ipiZgWUqiaVnpHOJ09nRi1Ak0VhcUzIw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.8 12/20] drm/amdkfd: fix a memory leak issue
-Date: Mon, 21 Sep 2020 10:40:19 -0400
-Message-Id: <20200921144027.2135390-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.8 13/20] drm/amd/display: Don't use DRM_ERROR() for
+ DTM add topology
+Date: Mon, 21 Sep 2020 10:40:20 -0400
+Message-Id: <20200921144027.2135390-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200921144027.2135390-1-sashal@kernel.org>
 References: <20200921144027.2135390-1-sashal@kernel.org>
@@ -61,46 +62,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Dennis Li <Dennis.Li@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dennis Li <Dennis.Li@amd.com>
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-[ Upstream commit 087d764159996ae378b08c0fdd557537adfd6899 ]
+[ Upstream commit 4cdd7b332ed139b1e37faeb82409a14490adb644 ]
 
-In the resume stage of GPU recovery, start_cpsch will call pm_init
-which set pm->allocated as false, cause the next pm_release_ib has
-no chance to release ib memory.
+[Why]
+Previously we were only calling add_topology when hdcp was being enabled.
+Now we call add_topology by default so the ERROR messages are printed if
+the firmware is not loaded.
 
-Add pm_release_ib in stop_cpsch which will be called in the suspend
-stage of GPU recovery.
+This error message is not relevant for normal display functionality so
+no need to print a ERROR message.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Dennis Li <Dennis.Li@amd.com>
+[How]
+Change DRM_ERROR to DRM_INFO
+
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e9c4867abeffb..00b042a15373a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1177,6 +1177,8 @@ static int stop_cpsch(struct device_queue_manager *dqm)
- 	dqm->sched_running = false;
- 	dqm_unlock(dqm);
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index fb1161dd7ea80..3a367a5968ae1 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -88,7 +88,7 @@ enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
+ 	enum mod_hdcp_status status = MOD_HDCP_STATUS_SUCCESS;
  
-+	pm_release_ib(&dqm->packets);
-+
- 	kfd_gtt_sa_free(dqm->dev, dqm->fence_mem);
- 	pm_uninit(&dqm->packets, hanging);
- 
+ 	if (!psp->dtm_context.dtm_initialized) {
+-		DRM_ERROR("Failed to add display topology, DTM TA is not initialized.");
++		DRM_INFO("Failed to add display topology, DTM TA is not initialized.");
+ 		display->state = MOD_HDCP_DISPLAY_INACTIVE;
+ 		return MOD_HDCP_STATUS_FAILURE;
+ 	}
 -- 
 2.25.1
 
