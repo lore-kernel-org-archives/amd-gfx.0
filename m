@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29A4BC4346E
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80138C43466
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:55:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D7A6A21789
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:54:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 39B0720874
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 12:55:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="yN3f6QLe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7A6A21789
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="cyDkGeju"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39B0720874
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7202D6E34D;
-	Mon, 21 Sep 2020 12:54:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A6026E354;
+	Mon, 21 Sep 2020 12:55:04 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54CB16E343
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 12:54:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 265796E34E;
+ Mon, 21 Sep 2020 12:55:03 +0000 (UTC)
 Received: from localhost (unknown [70.37.104.77])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 03C71218AC;
- Mon, 21 Sep 2020 12:54:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BD225221EC;
+ Mon, 21 Sep 2020 12:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600692896;
- bh=WT8BUuGkQbBbADczGnO26fqsByS/9yUtHE6jBj8ZmdY=;
- h=Date:From:To:To:To:To:CC:Cc:Cc:Subject:In-Reply-To:References:
+ s=default; t=1600692902;
+ bh=5O0cAAXtuqI4SBzaqKAjJmi8X79NcwFPjsFqFs/2jy0=;
+ h=Date:From:To:To:To:Cc:Cc:Cc:Cc:Cc:Subject:In-Reply-To:References:
  From;
- b=yN3f6QLevzkHmZncB7sOIZ6LgKTTMeQ8nwMzn1zdIv7RWCWw2pQZl3EtX63vEVa6Z
- Wq8zTnCXzfLWen+EE5L+THc564Kth8IubWZC0gJKDY2xhNIzOGoa7yaK4qmSTX3Afa
- al0gZjABNt7e79YBSFzLoxbD9+A8WhmxyF3+pwSc=
-Date: Mon, 21 Sep 2020 12:54:55 +0000
+ b=cyDkGeju7lETEwZiG9s1kejkccsKOsyqokIzM6OfxnW5y90eBnc+v3FjNxH7JnHn9
+ MfNIda228f0j+lF47dUOwEfU1odtdpZ9Z3iJKh3oKiw0qEcVpkjzoTarFUdZGJK4IN
+ 37mGcIV+6QMueKqBqaorKvjUH3K4rM+x0zqz88QA=
+Date: Mon, 21 Sep 2020 12:55:02 +0000
 From: Sasha Levin <sashal@kernel.org>
 To: Sasha Levin <sashal@kernel.org>
-To: Qingqing Zhuo <qingqing.zhuo@amd.com>
-To: Wesley Chalmers <Wesley.Chalmers@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 07/15] drm/amd/display: Fix ODM policy implementation
-In-Reply-To: <20200916193635.5169-8-qingqing.zhuo@amd.com>
-References: <20200916193635.5169-8-qingqing.zhuo@amd.com>
-Message-Id: <20200921125456.03C71218AC@mail.kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2] Revert "drm/radeon: handle PCIe root ports with
+ addressing limitations"
+In-Reply-To: <20200916132017.1221927-1-alexander.deucher@amd.com>
+References: <20200916132017.1221927-1-alexander.deucher@amd.com>
+Message-Id: <20200921125502.BD225221EC@mail.kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,7 +58,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christoph Hellwig <hch@lst.de>,
+ stable@vger.kernel.org, christian.koenig@amd.com
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -69,96 +70,15 @@ Hi
 
 [This is an automated email]
 
-This commit has been processed because it contains a -stable tag.
-The stable tag indicates that it's relevant for the following trees: all
+This commit has been processed because it contains a "Fixes:" tag
+fixing commit: 33b3ad3788ab ("drm/radeon: handle PCIe root ports with addressing limitations").
 
-The bot has tested the following trees: v5.8.10, v5.4.66, v4.19.146, v4.14.198, v4.9.236, v4.4.236.
+The bot has tested the following trees: v5.8.10, v5.4.66.
 
+v5.8.10: Build OK!
 v5.4.66: Failed to apply! Possible dependencies:
-    2b77dcc5e5aa ("drm/amd/display: rename core_dc to dc")
-    48af9b91b129 ("drm/amd/display: Don't allocate payloads if link lost")
-    4c1a1335dfe0 ("drm/amd/display: Driverside changes to support PSR in DMCUB")
-    7f7652ee8c8c ("drm/amd/display: enable single dp seamless boot")
-    904fb6e0f4e8 ("drm/amd/display: move panel power seq to new panel struct")
-    9ae1b27f31d0 ("drm/amd/display: fix hotplug during display off")
-    9dac88d8792a ("drm/amd/display: Add driver support for enabling PSR on DMCUB")
-    ab4a4072f260 ("drm/amd/display: exit PSR during detection")
-    b739ab3a4fe6 ("drm/amd/display: Fix incorrect backlight register offset for DCN")
-    d4252eee1f7c ("drm/amd/display: Add debugfs entry to force YUV420 output")
-    d462fcf5012b ("drm/amd/display: Update hdcp display config")
-    e0d08a40a63b ("drm/amd/display: Add debugfs entry for reading psr state")
-    e78a312f81c8 ("drm/amd/display: use requested_dispclk_khz instead of clk")
-    ef5a7d266e82 ("drm/amd/display: skip enable stream on disconnected display")
-
-v4.19.146: Failed to apply! Possible dependencies:
-    1f6010a96273 ("drm/amd/display: Improve spelling, grammar, and formatting of amdgpu_dm.c comments")
-    813d20dccf93 ("drm/amd/display: Fix multi-thread writing to 1 state")
-    8c3db1284a01 ("drm/amdgpu: fill in amdgpu_dm_remove_sink_from_freesync_module")
-    904fb6e0f4e8 ("drm/amd/display: move panel power seq to new panel struct")
-    98e6436d3af5 ("drm/amd/display: Refactor FreeSync module")
-    a87fa9938749 ("drm/amd/display: Build stream update and plane updates in dm")
-    a94d5569b232 ("drm/amd: Add DM DMCU support")
-    b739ab3a4fe6 ("drm/amd/display: Fix incorrect backlight register offset for DCN")
-    b8592b48450b ("drm/amd/display: Initial documentation for AMDgpu DC")
-    dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
-    eb3dc8978596 ("drm/amd/display: Use private obj helpers for dm_atomic_state")
-
-v4.14.198: Failed to apply! Possible dependencies:
-    1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-    1b0c0f9dc5ca ("drm/amdgpu: move userptr BOs to CPU domain during CS v2")
-    3fe89771cb0a ("drm/amdgpu: stop reserving the BO in the MMU callback v3")
-    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-    60de1c1740f3 ("drm/amdgpu: use a rw_semaphore for MMU notifiers")
-    74c49c7ac14f ("drm/amdgpu/display: Add calcs code for DCN")
-    904fb6e0f4e8 ("drm/amd/display: move panel power seq to new panel struct")
-    9a18999640fa ("drm/amdgpu: move MMU notifier related defines to amdgpu_mn.h")
-    9cca0b8e5df0 ("drm/amdgpu: move amdgpu_cs_sysvm_access_required into find_mapping")
-    a216ab09955d ("drm/amdgpu: fix userptr put_page handling")
-    b72cf4fca2bb ("drm/amdgpu: move taking mmap_sem into get_user_pages v2")
-    b739ab3a4fe6 ("drm/amd/display: Fix incorrect backlight register offset for DCN")
-    ca666a3c298f ("drm/amdgpu: stop using BO status for user pages")
-    dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
-    f3efec54ed6a ("drm/amd/display: Allow option to use worst-case watermark")
-
-v4.9.236: Failed to apply! Possible dependencies:
-    1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-    1cec20f0ea0e ("dma-buf: Restart reservation_object_wait_timeout_rcu() after writes")
-    248a1d6f1ac4 ("drm/amd: fix include notation and remove -Iinclude/drm flag")
-    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-    74c49c7ac14f ("drm/amdgpu/display: Add calcs code for DCN")
-    78010cd9736e ("dma-buf/fence: add an lockdep_assert_held()")
-    904fb6e0f4e8 ("drm/amd/display: move panel power seq to new panel struct")
-    b739ab3a4fe6 ("drm/amd/display: Fix incorrect backlight register offset for DCN")
-    dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
-    f3efec54ed6a ("drm/amd/display: Allow option to use worst-case watermark")
-    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
-    fedf54132d24 ("dma-buf: Restart reservation_object_get_fences_rcu() after writes")
-
-v4.4.236: Failed to apply! Possible dependencies:
-    0f477c6dea70 ("staging/android/sync: add sync_fence_create_dma")
-    1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
-    248a1d6f1ac4 ("drm/amd: fix include notation and remove -Iinclude/drm flag")
-    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
-    375fb53ec1be ("staging: android: replace explicit NULL comparison")
-    395dec6f6bc5 ("Documentation: add doc for sync_file_get_fence()")
-    4325198180e5 ("drm/amdgpu: remove GART page addr array")
-    4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-    62304fb1fc08 ("dma-buf/sync_file: de-stage sync_file")
-    74c49c7ac14f ("drm/amdgpu/display: Add calcs code for DCN")
-    904fb6e0f4e8 ("drm/amd/display: move panel power seq to new panel struct")
-    a1d29476d666 ("drm/amdgpu: optionally enable GART debugfs file")
-    a8fe58cec351 ("drm/amd: add ACP driver support")
-    b70f014d58b9 ("drm/amdgpu: change default sched jobs to 32")
-    b739ab3a4fe6 ("drm/amd/display: Fix incorrect backlight register offset for DCN")
-    c784c82a3fd6 ("Documentation: add Sync File doc")
-    d4cab38e153d ("staging/android: prepare sync_file for de-staging")
-    d7fdb0ae9d11 ("staging/android: rename sync_fence to sync_file")
-    dc88b4a684d2 ("drm/amd/display: make clk mgr soc specific")
-    f3efec54ed6a ("drm/amd/display: Allow option to use worst-case watermark")
-    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
-    fac8434dab96 ("Documentation: Fix some grammar mistakes in sync_file.txt")
-    fdba11f4079e ("drm/amdgpu: move all Kconfig options to amdgpu/Kconfig")
+    8b53e1cb2728 ("drm/radeon: switch to gem vma offset manager")
+    9d6f4484e81c ("drm/ttm: turn ttm_bo_device.vma_manager into a pointer")
 
 
 NOTE: The patch will not be queued to stable trees until it is upstream.
