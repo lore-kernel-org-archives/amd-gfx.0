@@ -7,36 +7,36 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65F5DC43464
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 13:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89E29C43463
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 13:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0EDC621789
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 13:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0EDC621789
+	by mail.kernel.org (Postfix) with ESMTPS id 2752521789
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 13:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2752521789
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E3E6E15A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD8636E27F;
 	Mon, 21 Sep 2020 13:14:31 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512CE6E248;
- Mon, 21 Sep 2020 08:02:19 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 29D167B954BCB2482875;
- Mon, 21 Sep 2020 16:02:17 +0800 (CST)
-Received: from huawei.com (10.175.113.32) by DGGEMS413-HUB.china.huawei.com
- (10.3.19.213) with Microsoft SMTP Server id 14.3.487.0; Mon, 21 Sep 2020
- 16:02:06 +0800
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7E36E248;
+ Mon, 21 Sep 2020 08:02:14 +0000 (UTC)
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 72A3E3796A17AE9AF00C;
+ Mon, 21 Sep 2020 16:02:11 +0800 (CST)
+Received: from huawei.com (10.175.113.32) by DGGEMS405-HUB.china.huawei.com
+ (10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Mon, 21 Sep 2020
+ 16:02:05 +0800
 From: Liu Shixin <liushixin2@huawei.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
  <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH -next] drm/amd/pm: simplify the return expression of
- smu_hw_fini
-Date: Mon, 21 Sep 2020 16:24:30 +0800
-Message-ID: <20200921082430.2591201-1-liushixin2@huawei.com>
+Subject: [PATCH -next] drm/amdgpu/gmc9: simplify the return expression of
+ gmc_v9_0_suspend
+Date: Mon, 21 Sep 2020 16:24:29 +0800
+Message-ID: <20200921082429.2591146-1-liushixin2@huawei.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-Originating-IP: [10.175.113.32]
@@ -64,34 +64,29 @@ Simplify the return expression.
 
 Signed-off-by: Liu Shixin <liushixin2@huawei.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 7 +------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +------
  1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 5c4b74f964fc..3612841d40dc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1214,7 +1214,6 @@ static int smu_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 5400cac02087..cb9e9e5afa5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1683,14 +1683,9 @@ static int gmc_v9_0_hw_fini(void *handle)
+ 
+ static int gmc_v9_0_suspend(void *handle)
  {
+-	int r;
  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	struct smu_context *smu = &adev->smu;
--	int ret = 0;
  
- 	if (amdgpu_sriov_vf(adev)&& !amdgpu_sriov_is_pp_one_vf(adev))
- 		return 0;
-@@ -1230,11 +1229,7 @@ static int smu_hw_fini(void *handle)
- 
- 	adev->pm.dpm_enabled = false;
- 
--	ret = smu_smc_hw_cleanup(smu);
--	if (ret)
--		return ret;
+-	r = gmc_v9_0_hw_fini(adev);
+-	if (r)
+-		return r;
 -
 -	return 0;
-+	return smu_smc_hw_cleanup(smu);
++	return gmc_v9_0_hw_fini(adev);
  }
  
- int smu_reset(struct smu_context *smu)
+ static int gmc_v9_0_resume(void *handle)
 -- 
 2.25.1
 
