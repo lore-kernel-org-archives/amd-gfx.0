@@ -2,104 +2,106 @@ Return-Path: <SRS0=OtMv=C6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56DE9C4363C
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 21:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25A5AC4363C
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 21:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE83023A5C
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 21:14:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7FDB623A5B
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2020 21:15:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JXlaF7SF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE83023A5C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="K9Ei77a2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FDB623A5B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 648BC6E08C;
-	Mon, 21 Sep 2020 21:14:34 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760050.outbound.protection.outlook.com [40.107.76.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02D7D6E08C
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 21:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1FAE6E08C;
+	Mon, 21 Sep 2020 21:15:52 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFF66E08C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2020 21:15:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=brz9Z1Xg6DJXYTIZPjJVXhmBnDA39SKsZmWvpOQGV4XWTpbEjeOsfXt5BKJj5zBBIz/oN8rB6LfjVHdRrc9fnz+TXkyDCs+p/kckUa5WY++qEt1g4LBC8B6JyVw/yZjcNUdQLqdHHcXt5bkzgvurHhu2K1AHLliHxYrP+T/tP080b8UNtv41+bpJOF3CbANZ6YU0SEJhJFdh5dqc+WM6RIrzyuzWTpY6fC/mAI9uDxD1sjtw1uE4RNnLDTKSdmXOlqr1GTT/ETBtOIfGhJpLHywbQ/4E3tHyno0sUvWsXKNjs4WFA1fMnuSiJqlH+/4EZB7N1scQiRhRcfQMUz0vQQ==
+ b=LNJpOqjN84U4MqIobHOD5F7m2OWN7VJITG0gJPhR6FGZmItCZoRtfg6sCauV1Q3KGxRUjwlfAVBWyTi87sAj/afhcXHLxMIzIHFjQVYF39QnVCpFpxPsjhVf5qAWWm8r3lklV/0xx6Yzgxhr+pW+1Z8qxUVGhzPVsmBD+fpo0bZfhXxckrNcjqCWeWTxHtjTAVub/A4FFruvPoqvp+OpfLFbx44qhTmTQ04rvLiPZg2ZbycBGV7QNTwLtgJXsri/AzJ2gJSy/qryuuQLaLqbz8Pz8CJLA2FmM/tZ/EvF65uF5w2OnXDGuGhZDtRvUR1qLu9vwmUZ5SNjmPunTs1+/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mLNJCAM2Ajh3Tu2uhoO6ch2DaGeKdvrymZwHeq42QVM=;
- b=BzxsjVAER9ieKAsRuXm29mGUnBRGRJvKgsyw9rZzO0x5+/j07JnoKAgJn5OwUKs+D9AAVaveiF+HNSKg3CUIGdgX+BCqjy0ShZ2/4S3BxexrfpZjw+zAF+dLjqOqrWKdy8ZFgXpc0SgSpzHKgXY5nEcBMGLBPxJEJdlvXSR/Q3l1dTbYRnZhbnZFTFydYaBC5fxrVXP7CwG3YwbLZGfD3QT8SI2x/0JMVHXEQGSWjWhwyiPriSZPWgilkx7y9JUzPDnrIPekJxvgdS07Z86/e65WNTz54DyGW/uc2D59GI0QsF/UgEwGAMS4JuW6ryCwhvunrxvCX1Zd3S4xSUe+eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=oJ/9eP8WvGMFbzTO1COggFQdGoahzQkTk5XoH2t1RAc=;
+ b=Q2ke/hIcdNN6wnTjcmQM98HW9mXoss/mBh1UFAC+EbFlTMIx/ukJZMVwj9FLCkBErAcjDHu/DD8rWuRvMx78QvJfHeluzCB9+e7vzEIio2ofcBLI3655hYkn+W1dMVEUNLcbZ/GkM2cb8vEhtC+wZcxzKaktso/sVC1NDMVy4wIltJNAqzUo0sCgfddfKve05DrY71pJO6VEKRZ86hCHiYZzuXRihi2nOg7vRdkHjyn5O5Pv76rFt6ppmV7zGunWuvl5BhSmvIMJqPBkhfU1aU02eD8D7XJZCxhK7/THAYKIchlhrywETDPAW7jinDPGYwDufjNBCocg4cn4Y3IqJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mLNJCAM2Ajh3Tu2uhoO6ch2DaGeKdvrymZwHeq42QVM=;
- b=JXlaF7SFkdCDG2s9uOu0rRGd47Bd7UqHI+bru3Qj2FWy7hN95SnZyPhKXlwq1qpNj9Dm/8BDhoOypNLObXj6B3MzIeYfzfkV2maCRM9smphYxjOPBzNNOy3XfywJbMQPFGHlbDm3LZdh3KE/pRUpYYgEvxGQtOHDCBc/8lsTxJE=
-Received: from BN4PR10CA0019.namprd10.prod.outlook.com (2603:10b6:403::29) by
- SN6PR12MB4670.namprd12.prod.outlook.com (2603:10b6:805:11::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3391.11; Mon, 21 Sep 2020 21:14:30 +0000
-Received: from BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:403:0:cafe::62) by BN4PR10CA0019.outlook.office365.com
- (2603:10b6:403::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14 via Frontend
- Transport; Mon, 21 Sep 2020 21:14:30 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT025.mail.protection.outlook.com (10.13.177.136) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3391.15 via Frontend Transport; Mon, 21 Sep 2020 21:14:30 +0000
-Received: from rkhaire-dev2.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 21 Sep
- 2020 16:14:29 -0500
-From: Rohit Khaire <rohit.khaire@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix SDMA RAP violations on Sienna Cichlid SRIOV
-Date: Mon, 21 Sep 2020 17:14:14 -0400
-Message-ID: <20200921211414.13285-1-rohit.khaire@amd.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB02.amd.com (10.181.40.143) To SATLEXMB01.amd.com
- (10.181.40.142)
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 95fa8c7f-a085-4e25-f63a-08d85e735467
-X-MS-TrafficTypeDiagnostic: SN6PR12MB4670:
-X-Microsoft-Antispam-PRVS: <SN6PR12MB4670CFF52530A1116B187C89873A0@SN6PR12MB4670.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fbjpv8pLRohxR/JlbKQH4bjC73xoTAa7CtJwpcYO53h4SQQNtYGaPmIzfl+XERmQ/gAVVeCXCtYBCtKKK/omGKumTOJTBgmw5jR7nfTsMGC/sscoJ+d9+5xT4VPnTMmzqoFckvgILD7QX/CZFPEuze4S8P+GiQWdOfGP4gvynFgzK8NcSuI3aahLRbpz3B4qZClwrSPSElYn/hr/nVmnzSJU7HNT6fzobM77w1PcFmML5m4DI68iSUp53LgpP/63sKRARvb/uS2hnx6K72wUMVty8k2XMxyrDORUkVfMEfe8AAybGGk09K9b4GWmSjXRgqwZrwSZ/M9We2XeM9nUKtCuENAZpjYvg+d92kv3RBOXq49mDxz26pWRljAGdRHxbH43lP0NdlZChk//+tv7HfQQe+0Af9NBPcz2k53lW0nJjiktC4Xv2PDyHQRRqvTx
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(46966005)(1076003)(426003)(70586007)(26005)(86362001)(2906002)(70206006)(4326008)(6666004)(2616005)(7696005)(316002)(5660300002)(54906003)(186003)(478600001)(16526019)(44832011)(356005)(336012)(36756003)(81166007)(82740400003)(83380400001)(8936002)(47076004)(8676002)(6916009)(82310400003);
+ bh=oJ/9eP8WvGMFbzTO1COggFQdGoahzQkTk5XoH2t1RAc=;
+ b=K9Ei77a2pB8P1Vp+NC+7Gk6Pxv4uN21ksXd6JKKl09Ou1030MA8PZ8nl2adujkjIIJUZFdqIYQ6pBWMgR9XfmFCV3g4SEHFX/oZLPJ5WGSXyL286ON9ZsSk+MAtBMYgF8/xVxU1Uy8+FYLyib0SQjoyW8wT0kZx3iEHCJeiNecs=
+Received: from BN6PR12MB1620.namprd12.prod.outlook.com (2603:10b6:405:10::23)
+ by BN7PR12MB2834.namprd12.prod.outlook.com (2603:10b6:408:31::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.20; Mon, 21 Sep
+ 2020 21:15:48 +0000
+Received: from BN6PR12MB1620.namprd12.prod.outlook.com
+ ([fe80::8d47:77ab:f061:a0c9]) by BN6PR12MB1620.namprd12.prod.outlook.com
+ ([fe80::8d47:77ab:f061:a0c9%6]) with mapi id 15.20.3391.024; Mon, 21 Sep 2020
+ 21:15:47 +0000
+From: "Khaire, Rohit" <Rohit.Khaire@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix L1 policy violations (PSP) on sienna
+ cichlid SRIOV
+Thread-Topic: [PATCH] drm/amdgpu: Fix L1 policy violations (PSP) on sienna
+ cichlid SRIOV
+Thread-Index: AQHWgjxQMqzxor+z3UWLdpIcQWdE4alzs/wQ
+Date: Mon, 21 Sep 2020 21:15:47 +0000
+Message-ID: <BN6PR12MB162088225A53EA064E648697873A0@BN6PR12MB1620.namprd12.prod.outlook.com>
+References: <20200903215027.6823-1-rohit.khaire@amd.com>
+In-Reply-To: <20200903215027.6823-1-rohit.khaire@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-09-21T21:14:52Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=dd94a889-ec62-443b-b06a-db0ef43069c1;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.250]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 7b4eae06-6aa3-4b3e-4051-08d85e7382aa
+x-ms-traffictypediagnostic: BN7PR12MB2834:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN7PR12MB2834CF32637E10A738F53A5A873A0@BN7PR12MB2834.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1417;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: L8fWK83W0BgPSJeF29/FBuid5Czo75+prYIaZvXefSEU7MAWqGCmmKkpuFVCDjEfHYwNOGXrwS1wtFx/o49RsgTwLC6rIj7O+Lx565u/u+xHHVOmHcGcx4vHZdmUpsZpAkpFqKIsxDrwzh8mXzoxAM8uwq8zBLimdDMyYHOgLHBQr9lTPsrP8OOJv+t0NDeFZIa1ukDlVyCMpMik0AZAxmNsKPyEsQkiwgu9l5VKKg43QorHfdL+oU2bfgMPNPMQ83WJ+tt9x+tWFUOpji2xbh2qzRc/VYEuj87WThMAJZ/g10HaJZglP2ry4vf9u4cZpUF7vnEX2+/wX66VY8apfw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR12MB1620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(136003)(376002)(39860400002)(346002)(30864003)(26005)(186003)(71200400001)(4326008)(5660300002)(6916009)(6506007)(8676002)(53546011)(83380400001)(86362001)(66446008)(64756008)(66556008)(66476007)(33656002)(7696005)(76116006)(54906003)(55016002)(52536014)(9686003)(478600001)(316002)(66946007)(2906002)(8936002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: Hp4uC177JXN+BGPvLo3wcgqIXwYMzESOQcg9KUiVYmpYJAWsJLl59ywSPftNFQQqMvv4I+eG1ONbUZ7YOO5CcxYEi8mHvRFWvK9/FtOdmgfn+oXvbn+0MXOECduq0whuZPlRm1Dp+403HDdMwPx3tX8lTQ0dL57bJcInzO98t/cu1bU295gSTckFG6jUDNgWEOUztBewgrJn72NKbA1A/SsfqSb25P1ICDTUXESDscuJM4RddQ1GG5BWHFpVK1aRoq86qXfZRo7ciS1mE17Yu2xRl0hhVrtUARnw3ccdRpEkDC6jVVFylq5b+m00/2UB2vzM4YFi0BSQo8x0Wo8f6XiV6Fpk7ZEMlPeviWC3LZtxiJYxx2wzWFKb190pZ5dwgBAz+y1OkkkjGgvhSxA0gCulKLq2L0LHrVxCd9XqVXbceJc3pD0DAv1hknQfgoxJCWKEaPKd+KAQdOU8p+KZH73Atz597U+AlMAp3Y9BBVXYVYFC/x0TVvcZTXdu2grrCDmNQqWE0bHL2lKR/MakNND86HsI7q/r7JMdeZlv69L2BLYxnjlS+OOP7QqsyFGMZNyWv5devCua9n1JGDKCp/oYERoYiNYgf3PRRAf/G3fFl0yhLITxA73NSacWzy7nt8RNohLkr5AtbYnc0DNiWw==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2020 21:14:30.2834 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95fa8c7f-a085-4e25-f63a-08d85e735467
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB4670
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b4eae06-6aa3-4b3e-4051-08d85e7382aa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2020 21:15:47.7381 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AMHeifLhpqtONto51spX7NYIagFiVClkFp0bn+ixCfZ7Q2CpEluRBjcYeQfpLAef
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2834
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,220 +113,315 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei
- Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
- Tuikov Luben <Luben.Tuikov@amd.com>, Rohit Khaire <rohit.khaire@amd.com>,
- Rong Li <Rong.Li@amd.com>, Deucher Alexander <Alexander.Deucher@amd.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>, Frank Min <Frank.Min@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang, 
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Li, Rong \(Zero\)" <Rong.Li@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Min, Frank" <Frank.Min@amd.com>,
+ "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Public Use]
+
+Adding more reviewers to cc.
+
+Rohit
+
+-----Original Message-----
+From: Khaire, Rohit <Rohit.Khaire@amd.com> 
+Sent: September 3, 2020 5:50 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Khaire, Rohit <Rohit.Khaire@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix L1 policy violations (PSP) on sienna cichlid SRIOV
+
 Signed-off-by: Rohit Khaire <rohit.khaire@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 128 ++++++++++++++-----------
- 1 file changed, 70 insertions(+), 58 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 49 ++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 64 +++++++++++-------------  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 42 ++++++++--------
+ 3 files changed, 95 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 34ccf376ee45..6fb5588fc0b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -541,7 +541,9 @@ static void sdma_v5_2_ctx_switch_enable(struct amdgpu_device *adev, bool enable)
- 			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_PHASE2_QUANTUM),
- 			       phase_quantum);
- 		}
--		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), f32_cntl);
-+		if (!amdgpu_sriov_vf(adev))
-+			WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL),
-+					f32_cntl);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index d502e30f67d9..4bafbd453e53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4808,14 +4808,23 @@ static int gfx_v10_0_init_csb(struct amdgpu_device *adev)
  
- }
-@@ -559,6 +561,9 @@ static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
- 	u32 f32_cntl;
- 	int i;
+ void gfx_v10_0_rlc_stop(struct amdgpu_device *adev)  {
+-	u32 tmp = RREG32_SOC15(GC, 0, mmRLC_CNTL);
++	u32 tmp;
  
++	/* For SRIOV, don't touch RLC_G */
 +	if (amdgpu_sriov_vf(adev))
 +		return;
 +
- 	if (!enable) {
- 		sdma_v5_2_gfx_stop(adev);
- 		sdma_v5_2_rlc_stop(adev);
-@@ -596,7 +601,9 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
- 		ring = &adev->sdma.instance[i].ring;
- 		wb_offset = (ring->rptr_offs * 4);
++	tmp = RREG32_SOC15(GC, 0, mmRLC_CNTL);
+ 	tmp = REG_SET_FIELD(tmp, RLC_CNTL, RLC_ENABLE_F32, 0);
+ 	WREG32_SOC15(GC, 0, mmRLC_CNTL, tmp);
+ }
  
--		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL), 0);
-+		if (!amdgpu_sriov_vf(adev))
-+			WREG32(sdma_v5_2_get_reg_offset(adev, i,
-+				mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL), 0);
- 
- 		/* Set ring buffer size in dwords */
- 		rb_bufsz = order_base_2(ring->ring_size / 4);
-@@ -621,13 +628,16 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
- 		       lower_32_bits(wptr_gpu_addr));
- 		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI),
- 		       upper_32_bits(wptr_gpu_addr));
--		wptr_poll_cntl = RREG32(sdma_v5_2_get_reg_offset(adev, i,
--							 mmSDMA0_GFX_RB_WPTR_POLL_CNTL));
--		wptr_poll_cntl = REG_SET_FIELD(wptr_poll_cntl,
--					       SDMA0_GFX_RB_WPTR_POLL_CNTL,
--					       F32_POLL_ENABLE, 1);
--		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL),
--		       wptr_poll_cntl);
-+
-+		if (!amdgpu_sriov_vf(adev)) {
-+			wptr_poll_cntl = RREG32(sdma_v5_2_get_reg_offset(
-+				adev, i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL));
-+			wptr_poll_cntl = REG_SET_FIELD(wptr_poll_cntl,
-+				SDMA0_GFX_RB_WPTR_POLL_CNTL,
-+				F32_POLL_ENABLE, 1);
-+			WREG32(sdma_v5_2_get_reg_offset(adev, i,
-+				mmSDMA0_GFX_RB_WPTR_POLL_CNTL), wptr_poll_cntl);
-+		}
- 
- 		/* set the wb address whether it's enabled or not */
- 		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_RB_RPTR_ADDR_HI),
-@@ -673,30 +683,40 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
- 		/* set minor_ptr_update to 0 after wptr programed */
- 		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_GFX_MINOR_PTR_UPDATE), 0);
- 
--		/* set utc l1 enable flag always to 1 */
--		temp = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL));
--		temp = REG_SET_FIELD(temp, SDMA0_CNTL, UTC_L1_ENABLE, 1);
--
--		/* enable MCBP */
--		temp = REG_SET_FIELD(temp, SDMA0_CNTL, MIDCMD_PREEMPT_ENABLE, 1);
--		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_CNTL), temp);
--
--		/* Set up RESP_MODE to non-copy addresses */
--		temp = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_UTCL1_CNTL));
--		temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, RESP_MODE, 3);
--		temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL, REDO_DELAY, 9);
--		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_UTCL1_CNTL), temp);
--
--		/* program default cache read and write policy */
--		temp = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_UTCL1_PAGE));
--		/* clean read policy and write policy bits */
--		temp &= 0xFF0FFF;
--		temp |= ((CACHE_READ_POLICY_L2__DEFAULT << 12) |
--			 (CACHE_WRITE_POLICY_L2__DEFAULT << 14) |
--			 0x01000000);
--		WREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_UTCL1_PAGE), temp);
--
- 		if (!amdgpu_sriov_vf(adev)) {
-+			/* set utc l1 enable flag always to 1 */
-+			temp = RREG32(sdma_v5_2_get_reg_offset(adev, i,
-+						mmSDMA0_CNTL));
-+			temp = REG_SET_FIELD(temp, SDMA0_CNTL,
-+						UTC_L1_ENABLE, 1);
-+
-+			/* enable MCBP */
-+			temp = REG_SET_FIELD(temp, SDMA0_CNTL,
-+						MIDCMD_PREEMPT_ENABLE, 1);
-+			WREG32(sdma_v5_2_get_reg_offset(adev, i,
-+						mmSDMA0_CNTL), temp);
-+
-+			/* Set up RESP_MODE to non-copy addresses */
-+			temp = RREG32(sdma_v5_2_get_reg_offset(adev, i,
-+						mmSDMA0_UTCL1_CNTL));
-+			temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL,
-+						RESP_MODE, 3);
-+			temp = REG_SET_FIELD(temp, SDMA0_UTCL1_CNTL,
-+						REDO_DELAY, 9);
-+			WREG32(sdma_v5_2_get_reg_offset(adev, i,
-+						mmSDMA0_UTCL1_CNTL), temp);
-+
-+			/* program default cache read and write policy */
-+			temp = RREG32(sdma_v5_2_get_reg_offset(adev, i,
-+						mmSDMA0_UTCL1_PAGE));
-+			/* clean read policy and write policy bits */
-+			temp &= 0xFF0FFF;
-+			temp |= ((CACHE_READ_POLICY_L2__DEFAULT << 12) |
-+				(CACHE_WRITE_POLICY_L2__DEFAULT << 14) |
-+				0x01000000);
-+			WREG32(sdma_v5_2_get_reg_offset(adev, i,
-+						mmSDMA0_UTCL1_PAGE), temp);
-+
- 			/* unhalt engine */
- 			temp = RREG32(sdma_v5_2_get_reg_offset(adev, i, mmSDMA0_F32_CNTL));
- 			temp = REG_SET_FIELD(temp, SDMA0_F32_CNTL, HALT, 0);
-@@ -717,11 +737,6 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
- 
- 		ring->sched.ready = true;
- 
--		if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
--			sdma_v5_2_ctx_switch_enable(adev, true);
--			sdma_v5_2_enable(adev, true);
--		}
--
- 		r = amdgpu_ring_test_ring(ring);
- 		if (r) {
- 			ring->sched.ready = false;
-@@ -804,30 +819,23 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
- {
- 	int r = 0;
- 
--	if (amdgpu_sriov_vf(adev)) {
--		sdma_v5_2_ctx_switch_enable(adev, false);
--		sdma_v5_2_enable(adev, false);
--
--		/* set RB registers */
--		r = sdma_v5_2_gfx_resume(adev);
--		return r;
--	}
-+	if (!amdgpu_sriov_vf(adev)) {
-+		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-+			r = sdma_v5_2_load_microcode(adev);
-+			if (r)
-+				return r;
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
--		r = sdma_v5_2_load_microcode(adev);
--		if (r)
--			return r;
-+			/* The value of mmSDMA_F32_CNTL is invalid the moment after loading fw */
-+			if (amdgpu_emu_mode == 1)
-+				msleep(1000);
-+		}
- 
--		/* The value of mmSDMA_F32_CNTL is invalid the moment after loading fw */
--		if (amdgpu_emu_mode == 1)
--			msleep(1000);
-+		/* unhalt the MEs */
-+		sdma_v5_2_enable(adev, true);
-+		/* enable sdma ring preemption */
-+		sdma_v5_2_ctx_switch_enable(adev, true);
- 	}
- 
--	/* unhalt the MEs */
--	sdma_v5_2_enable(adev, true);
--	/* enable sdma ring preemption */
--	sdma_v5_2_ctx_switch_enable(adev, true);
--
- 	/* start the gfx rings and rlc compute queues */
- 	r = sdma_v5_2_gfx_resume(adev);
- 	if (r)
-@@ -1403,8 +1411,12 @@ static int sdma_v5_2_set_trap_irq_state(struct amdgpu_device *adev,
- 					enum amdgpu_interrupt_state state)
- {
- 	u32 sdma_cntl;
-+	u32 reg_offset;
-+
+ static void gfx_v10_0_rlc_reset(struct amdgpu_device *adev)  {
++	/* For SRIOV, don't touch RLC_G */
 +	if (amdgpu_sriov_vf(adev))
-+		return 0;
++		return;
++
+ 	WREG32_FIELD15(GC, 0, GRBM_SOFT_RESET, SOFT_RESET_RLC, 1);
+ 	udelay(50);
+ 	WREG32_FIELD15(GC, 0, GRBM_SOFT_RESET, SOFT_RESET_RLC, 0); @@ -4846,6 +4855,10 @@ static void gfx_v10_0_rlc_smu_handshake_cntl(struct amdgpu_device *adev,
  
--	u32 reg_offset = sdma_v5_2_get_reg_offset(adev, type, mmSDMA0_CNTL);
-+	reg_offset = sdma_v5_2_get_reg_offset(adev, type, mmSDMA0_CNTL);
+ static void gfx_v10_0_rlc_start(struct amdgpu_device *adev)  {
++	/* For SRIOV, don't touch RLC_G */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* TODO: enable rlc & smu handshake until smu
+ 	 * and gfxoff feature works as expected */
+ 	if (!(amdgpu_pp_feature_mask & PP_GFXOFF_MASK)) @@ -4859,6 +4872,10 @@ static void gfx_v10_0_rlc_enable_srm(struct amdgpu_device *adev)  {
+ 	uint32_t tmp;
  
- 	sdma_cntl = RREG32(reg_offset);
- 	sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, TRAP_ENABLE,
--- 
++	/* For SRIOV, don't touch RLC_G */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* enable Save Restore Machine */
+ 	tmp = RREG32(SOC15_REG_OFFSET(GC, 0, mmRLC_SRM_CNTL));
+ 	tmp |= RLC_SRM_CNTL__AUTO_INCR_ADDR_MASK;
+@@ -4872,6 +4889,10 @@ static int gfx_v10_0_rlc_load_microcode(struct amdgpu_device *adev)
+ 	const __le32 *fw_data;
+ 	unsigned i, fw_size;
+ 
++	/* For SRIOV, don't touch RLC_G */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	if (!adev->gfx.rlc_fw)
+ 		return -EINVAL;
+ 
+@@ -4906,8 +4927,7 @@ static int gfx_v10_0_rlc_resume(struct amdgpu_device *adev)
+ 
+ 		gfx_v10_0_init_csb(adev);
+ 
+-		if (!amdgpu_sriov_vf(adev)) /* enable RLC SRM */
+-			gfx_v10_0_rlc_enable_srm(adev);
++		gfx_v10_0_rlc_enable_srm(adev);
+ 	} else {
+ 		if (amdgpu_sriov_vf(adev)) {
+ 			gfx_v10_0_init_csb(adev);
+@@ -6990,7 +7010,6 @@ static int gfx_v10_0_hw_fini(void *handle)
+ 	if (amdgpu_gfx_disable_kcq(adev))
+ 		DRM_ERROR("KCQ disable failed\n");
+ 	if (amdgpu_sriov_vf(adev)) {
+-		gfx_v10_0_cp_gfx_enable(adev, false);
+ 		/* Program KIQ position of RLC_CP_SCHEDULERS during destroy */
+ 		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
+ 		tmp &= 0xffffff00;
+@@ -7272,6 +7291,10 @@ static void gfx_v10_0_update_medium_grain_clock_gating(struct amdgpu_device *ade  {
+ 	uint32_t data, def;
+ 
++	/* For SRIOV, guest VM should not touch CGCG and PG stuff */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* It is disabled by HW by default */
+ 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_MGCG)) {
+ 		/* 0 - Disable some blocks' MGCG */
+@@ -7339,6 +7362,10 @@ static void gfx_v10_0_update_3d_clock_gating(struct amdgpu_device *adev,  {
+ 	uint32_t data, def;
+ 
++	/* For SRIOV, guest VM should not touch CGCG and PG stuff */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* Enable 3D CGCG/CGLS */
+ 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
+ 		/* write cmd to clear cgcg/cgls ov */ @@ -7381,6 +7408,10 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade  {
+ 	uint32_t def, data;
+ 
++	/* For SRIOV, guest VM should not touch CGCG and PG stuff */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 		/* unset CGCG override */
+@@ -7422,6 +7453,10 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade  static int gfx_v10_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 					    bool enable)
+ {
++	/* For SRIOV, guest VM should not touch CGCG and PG stuff */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev);
+ 
+ 	if (enable) {
+@@ -7584,6 +7619,12 @@ static void gfx_v10_0_get_clockgating_state(void *handle, u32 *flags)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	int data;
+ 
++	/* bypass PG and CG on SRIOV VF */
++	if (amdgpu_sriov_vf(adev)) {
++		*flags = 0;
++		return;
++	}
++
+ 	/* AMD_CG_SUPPORT_GFX_MGCG */
+ 	data = RREG32_KIQ(SOC15_REG_OFFSET(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE));
+ 	if (!(data & RLC_CGTT_MGCG_OVERRIDE__GFXIP_MGCG_OVERRIDE_MASK))
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+index 237a9ff5afa0..44ebb2722c4e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+@@ -152,33 +152,35 @@ static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)  {
+ 	uint64_t value;
+ 
+-	/* Disable AGP. */
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
+-
+-	/* Program the system aperture low logical page number. */
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+-		     adev->gmc.vram_start >> 18);
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+-		     adev->gmc.vram_end >> 18);
+-
+-	/* Set default page address. */
+-	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
+-		+ adev->vm_manager.vram_base_offset;
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+-		     (u32)(value >> 12));
+-	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+-		     (u32)(value >> 44));
++	if (!amdgpu_sriov_vf(adev)) {
++		/* Disable AGP. */
++		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
++		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
++		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
++
++		/* Program the system aperture low logical page number. */
++		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
++				adev->gmc.vram_start >> 18);
++		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
++				adev->gmc.vram_end >> 18);
++
++		/* Set default page address. */
++		value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
++			+ adev->vm_manager.vram_base_offset;
++		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
++				(u32)(value >> 12));
++		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
++				(u32)(value >> 44));
++	}
+ 
+ 	/* Program "protection fault". */
+ 	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32,
+-		     (u32)(adev->dummy_page_addr >> 12));
++				 (u32)(adev->dummy_page_addr >> 12));
+ 	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
+-		     (u32)((u64)adev->dummy_page_addr >> 44));
++				 (u32)((u64)adev->dummy_page_addr >> 44));
+ 
+ 	WREG32_FIELD15(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
+-		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
++				   ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
+ }
+ 
+ 
+@@ -350,18 +352,6 @@ static void gfxhub_v2_1_program_invalidation(struct amdgpu_device *adev)
+ 
+ int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev)  {
+-	if (amdgpu_sriov_vf(adev)) {
+-		/*
+-		 * GCMC_VM_FB_LOCATION_BASE/TOP is NULL for VF, becuase they are
+-		 * VF copy registers so vbios post doesn't program them, for
+-		 * SRIOV driver need to program them
+-		 */
+-		WREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE,
+-			     adev->gmc.vram_start >> 24);
+-		WREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_TOP,
+-			     adev->gmc.vram_end >> 24);
+-	}
+-
+ 	/* GART Enable. */
+ 	gfxhub_v2_1_init_gart_aperture_regs(adev);
+ 	gfxhub_v2_1_init_system_aperture_regs(adev);
+@@ -394,9 +384,11 @@ void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
+ 			    ENABLE_ADVANCED_DRIVER_MODEL, 0);
+ 	WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, tmp);
+ 
+-	/* Setup L2 cache */
+-	WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
+-	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
++	if (!amdgpu_sriov_vf(adev)) {
++		/* Setup L2 cache */
++		WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
++		WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
++	}
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+index 2d88278c50bf..99f697e63e3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+@@ -211,26 +211,26 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 			     adev->gmc.vram_start >> 18);
+ 		WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+ 			     adev->gmc.vram_end >> 18);
+-	}
+ 
+-	/* Set default page address. */
+-	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
+-		adev->vm_manager.vram_base_offset;
+-	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+-		     (u32)(value >> 12));
+-	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+-		     (u32)(value >> 44));
+-
+-	/* Program "protection fault". */
+-	WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32,
+-		     (u32)(adev->dummy_page_addr >> 12));
+-	WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
+-		     (u32)((u64)adev->dummy_page_addr >> 44));
+-
+-	tmp = RREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_CNTL2);
+-	tmp = REG_SET_FIELD(tmp, MMVM_L2_PROTECTION_FAULT_CNTL2,
+-			    ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
+-	WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_CNTL2, tmp);
++		/* Set default page address. */
++		value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
++			adev->vm_manager.vram_base_offset;
++		WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
++				(u32)(value >> 12));
++		WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
++				(u32)(value >> 44));
++
++		/* Program "protection fault". */
++		WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32,
++				(u32)(adev->dummy_page_addr >> 12));
++		WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
++				(u32)((u64)adev->dummy_page_addr >> 44));
++
++		tmp = RREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_CNTL2);
++		tmp = REG_SET_FIELD(tmp, MMVM_L2_PROTECTION_FAULT_CNTL2,
++					ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
++		WREG32_SOC15(MMHUB, 0, mmMMVM_L2_PROTECTION_FAULT_CNTL2, tmp);
++	}
+ }
+ 
+ static void mmhub_v2_0_init_tlb_regs(struct amdgpu_device *adev) @@ -656,8 +656,10 @@ static void mmhub_v2_0_get_clockgating(struct amdgpu_device *adev, u32 *flags)  {
+ 	int data, data1;
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev)) {
+ 		*flags = 0;
++		return;
++	}
+ 
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
+--
 2.17.1
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
