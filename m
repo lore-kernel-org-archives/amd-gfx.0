@@ -2,66 +2,52 @@ Return-Path: <SRS0=8BU1=C7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C3B1C4363D
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:07:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BBCB5C4363D
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 241C320936
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:07:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 449782395C
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 14:31:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jtmQWade"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 241C320936
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="0GDOmErS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 449782395C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D38B892F3;
-	Tue, 22 Sep 2020 14:07:47 +0000 (UTC)
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D275893C0;
- Tue, 22 Sep 2020 14:07:05 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id n22so16314215edt.4;
- Tue, 22 Sep 2020 07:07:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yuRvT+8VMs24ohys+Hv94DiikG3p/AUnLWP5R4G2/5k=;
- b=jtmQWadefd34Xb7mtqWLQ/qkVA6fSC4GYgoUmvaNVV/JR7REzF6gQRCGDDD26kMOak
- lKKKPQe0p89JHkNJwpkJp8T8K4O2Pggx2oKby3UtByuIveJPajzV9H22+guVoyByvIR3
- 9mAqYsabPANi3xUYPUCM7VUXw95bSrca9oCZjYkk0Sb5KAUoxV/B19hhS5g2ma6ZaAcb
- wCYytfG/2dA9YPEfw2yDDayiHkd5zOvvVmd/C3SI2VQskVQ6unflhEbT1Cs8AjO65txS
- WPi+JHbjFRAmHNrsbaVr6sJxZ7xBUtwvYDFo1ugVmWSo6ZwBbc0l3bSsPjEtL+WFLOCf
- c5oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yuRvT+8VMs24ohys+Hv94DiikG3p/AUnLWP5R4G2/5k=;
- b=EvoXJQngTCXv/fbXPmp8L1KB2yIXn04J1d8W6MjPXoh7oLZp8eDVeAVElmdP9aqK/i
- MJBR2Ivzw4dIw39ImVPdh39gKlJFzz6e8csJdiBlroJhd+CcYIKWmL2xYogcHvf8dTBR
- qXvA6mIbhbjfs54zmLkjyqlOkx6N6xSmoQKR59FiD9DNTRj+JsQnQu7WP2i0DeZrFxzy
- Gfs0QJyb9TwnnrlDCVVmlyLiz6VO/C/tD4QnvQfiqq3QTZpFIPIis80+AliWcOEKnQVk
- vcQ8ujXofjGltMU/lxhWJnEibIG2eFw+u8M51BUU3FtXJ7cqJZYGUDJY7trmp8tClChl
- fWpg==
-X-Gm-Message-State: AOAM5303nVres4dnpu4XnrqeYRpbOaATE1qhhc9B2zVuof+3J0fDrgo8
- l6iQa3Kxau9ugzFiwv2C3pHMI4cNqZ9BvalNVEA=
-X-Google-Smtp-Source: ABdhPJymaKkQlxcyNPW6zOeC4TD5X2V7fhc83Rnpp845ZGIIwgeCaeoHiOV0CUEgagYSg+zmGmJdgbiXneZ27e5rGqQ=
-X-Received: by 2002:aa7:c7c2:: with SMTP id o2mr4223867eds.366.1600783624124; 
- Tue, 22 Sep 2020 07:07:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC43894C3;
+	Tue, 22 Sep 2020 14:31:55 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4792789260;
+ Tue, 22 Sep 2020 14:25:34 +0000 (UTC)
+Received: from localhost (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D3F7E2073A;
+ Tue, 22 Sep 2020 14:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600784734;
+ bh=wQx7HRd1PEMCjgO+IIjRBfqRQ/i8QsVPVrEKxApVDCY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=0GDOmErSh9Jgj+/3Vk7j0+x7Lp2zRADZFYttC95BZnGyB6R44l7r1m8K6t4ne0KDO
+ yjFVo7r7PwQN6hAXU6UmFCvrE4zaFqoPhnEA/Vry7VSuntc+4Ck8BYziSEF++uxYdU
+ ihnCKZgD8HyAyy8/c4aY1Fo2XZCXTbXhr7S4cf+o=
+Date: Tue, 22 Sep 2020 10:25:32 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH AUTOSEL 5.4 13/15] drm/amdgpu/dc: Require primary plane
+ to be enabled whenever the CRTC is
+Message-ID: <20200922142532.GO2431@sasha-vm>
+References: <20200921144054.2135602-1-sashal@kernel.org>
+ <20200921144054.2135602-13-sashal@kernel.org>
+ <1ee666b4-f1af-a19f-e03a-fdfc00698d2f@daenzer.net>
 MIME-Version: 1.0
-References: <1600773099-32693-1-git-send-email-wangqing@vivo.com>
-In-Reply-To: <1600773099-32693-1-git-send-email-wangqing@vivo.com>
-From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp@gmail.com>
-Date: Tue, 22 Sep 2020 16:06:52 +0200
-Message-ID: <CAD=4a=URYhNswOBfBj39b00HWR3vWeHF9ntP-n_SPa94YJZbTg@mail.gmail.com>
-Subject: Re: [PATCH] gpu/drm/radeon: fix spellint typo in comments
-To: Wang Qing <wangqing@vivo.com>
+Content-Disposition: inline
+In-Reply-To: <1ee666b4-f1af-a19f-e03a-fdfc00698d2f@daenzer.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,121 +59,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============1636233109=="
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1636233109==
-Content-Type: multipart/alternative; boundary="000000000000473cc505afe77b46"
-
---000000000000473cc505afe77b46
-Content-Type: text/plain; charset="UTF-8"
-
-There is a typo in your patch subject. ;-)
-
-Regards
-//Ernst
-
-Den tis 22 sep. 2020 kl 15:11 skrev Wang Qing <wangqing@vivo.com>:
-
-> Modify the comment typo: "definately" -> "definitely".
+On Mon, Sep 21, 2020 at 04:48:05PM +0200, Michel D=E4nzer wrote:
+>On 2020-09-21 4:40 p.m., Sasha Levin wrote:
+>>From: Michel D=E4nzer <mdaenzer@redhat.com>
+>>
+>>[ Upstream commit 2f228aab21bbc74e90e267a721215ec8be51daf7 ]
+>>
+>>Don't check drm_crtc_state::active for this either, per its
+>>documentation in include/drm/drm_crtc.h:
+>>
+>>  * Hence drivers must not consult @active in their various
+>>  * &drm_mode_config_funcs.atomic_check callback to reject an atomic
+>>  * commit.
+>>
+>>atomic_remove_fb disables the CRTC as needed for disabling the primary
+>>plane.
+>>
+>>This prevents at least the following problems if the primary plane gets
+>>disabled (e.g. due to destroying the FB assigned to the primary plane,
+>>as happens e.g. with mutter in Wayland mode):
+>>
+>>* The legacy cursor ioctl returned EINVAL for a non-0 cursor FB ID
+>>   (which enables the cursor plane).
+>>* If the cursor plane was enabled, changing the legacy DPMS property
+>>   value from off to on returned EINVAL.
+>>
+>>v2:
+>>* Minor changes to code comment and commit log, per review feedback.
+>>
+>>GitLab: https://gitlab.gnome.org/GNOME/mutter/-/issues/1108
+>>GitLab: https://gitlab.gnome.org/GNOME/mutter/-/issues/1165
+>>GitLab: https://gitlab.gnome.org/GNOME/mutter/-/issues/1344
+>>Suggested-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>>Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>>Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>>Signed-off-by: Michel D=E4nzer <mdaenzer@redhat.com>
+>>Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>Signed-off-by: Sasha Levin <sashal@kernel.org>
 >
-> Signed-off-by: Wang Qing <wangqing@vivo.com>
-> ---
->  drivers/gpu/drm/radeon/radeon_vm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_vm.c
-> b/drivers/gpu/drm/radeon/radeon_vm.c
-> index f60fae0..3d6e2cd
-> --- a/drivers/gpu/drm/radeon/radeon_vm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_vm.c
-> @@ -188,7 +188,7 @@ struct radeon_fence *radeon_vm_grab_id(struct
-> radeon_device *rdev,
->             vm_id->last_id_use == rdev->vm_manager.active[vm_id->id])
->                 return NULL;
->
-> -       /* we definately need to flush */
-> +       /* we definitely need to flush */
->         vm_id->pd_gpu_addr = ~0ll;
->
->         /* skip over VMID 0, since it is the system VM */
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
+>I'm a bit nervous about this getting backported so far back so =
 
---000000000000473cc505afe77b46
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+>quickly. I'd prefer waiting for 5.9 final first at least.
 
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,he=
-lvetica,sans-serif">There is a typo in your patch subject. ;-)</div><div cl=
-ass=3D"gmail_default" style=3D"font-family:arial,helvetica,sans-serif"><br>=
-</div><div class=3D"gmail_default" style=3D"font-family:arial,helvetica,san=
-s-serif">Regards</div><div class=3D"gmail_default" style=3D"font-family:ari=
-al,helvetica,sans-serif">//Ernst<br></div></div><br><div class=3D"gmail_quo=
-te"><div dir=3D"ltr" class=3D"gmail_attr">Den tis 22 sep. 2020 kl 15:11 skr=
-ev Wang Qing &lt;<a href=3D"mailto:wangqing@vivo.com">wangqing@vivo.com</a>=
-&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Modify the=
- comment typo: &quot;definately&quot; -&gt; &quot;definitely&quot;.<br>
-<br>
-Signed-off-by: Wang Qing &lt;<a href=3D"mailto:wangqing@vivo.com" target=3D=
-"_blank">wangqing@vivo.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/radeon/radeon_vm.c | 2 +-<br>
-=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/radeon/radeon_vm.c b/drivers/gpu/drm/radeon/ra=
-deon_vm.c<br>
-index f60fae0..3d6e2cd<br>
---- a/drivers/gpu/drm/radeon/radeon_vm.c<br>
-+++ b/drivers/gpu/drm/radeon/radeon_vm.c<br>
-@@ -188,7 +188,7 @@ struct radeon_fence *radeon_vm_grab_id(struct radeon_de=
-vice *rdev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 vm_id-&gt;last_id_use =3D=3D rdev=
--&gt;vm_manager.active[vm_id-&gt;id])<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return NULL;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0/* we definately need to flush */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* we definitely need to flush */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 vm_id-&gt;pd_gpu_addr =3D ~0ll;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* skip over VMID 0, since it is the system VM =
-*/<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
+Will drop it for now, thanks.
 
---000000000000473cc505afe77b46--
+-- =
 
---===============1636233109==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Sasha
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1636233109==--
