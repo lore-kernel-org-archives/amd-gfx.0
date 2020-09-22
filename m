@@ -7,64 +7,65 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35B64C2D0E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 10:22:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89180C2D0E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 10:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FEC72395C
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 10:22:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CBE6F208A9
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 10:27:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Z7NDBt/8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FEC72395C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IAsTGsks"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBE6F208A9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A63986E118;
-	Tue, 22 Sep 2020 10:22:30 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 466B36E118
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 10:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2741F6E118;
+	Tue, 22 Sep 2020 10:27:29 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2BA6E118
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 10:27:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WaYxR9Wmeiz1IdQKHcBHKcfy2UtjywtU0R4Qg4h/5dQd52yCBWC9EnitHuDhkkshHZrrWul9x5YLHTUPnxFcu8JuCA3zBG6ZzCJUBYtgTkrPHpTUCMf1PNu+gEW7FuaBVpVREfLO0zrOy7RPf8htMuHGeQp3Lu8T3DYgXMahwEztRe0F8AczrDkSYqUQ4d+HOTuntM387Qe+UyLYIHHuS1/ea7tm52Rl8EMZxEhZIfQl97IcauwpEQ8BsYGOkPQ4fKrUX64LHwICmEgLnZNbcBdqUFPldV7QM9KaHXeZI9NDznInYP0ywAkk6LLZxmBeYAog2Z2yHHXwLr1LanpelQ==
+ b=UZ7Xyef4NNQH/HJGNp/iWjinBIx4H0PIH6XBm/G+ONgQqbNwCE4EY7HBDKoCO+jXeVL9E5TuP9oL68F/M1NuDXxJLQ7jsRDJUTyIZG4QleWO2m1erc8PQxnHsCXQD36/gP/bTDy8Quc6RghlWs67RcoqA+boPlcS8amXpsYnxzzYo79FIrGk1LF8EmEkycgTq0o26JvJEgVU22wPURYLgYn6xm+bwOB30pIDQbAYD08INR0C1zw/LG8FUillkYh/BBb6BcOpqbsdKtD1FMHR/M0XSm4zNQXH1L0YKy2RcQTyFYrEXNlX38UDkMaPlaMgKcuMRMxRL88/HpiLDcyhUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=49oPoPHPEMjFvqNSJAaFFI+9FJqCNT1TNzGeW5g+9EQ=;
- b=lb8a4JOtFUaQ/FJATGQniPos4NzNhC5WWGNlGCTutLXfA0HuABTGdDj35DWuNFhRRgBf+eT4A2YC5fgujkkXTbHUE7IQIeBw1YIo+HNbqPUC7YADArhXzjDbknxLEaU37DVgDx7XCL8OvefjUkI/3kNXDl1Swou7qjNRREK79G22z2CrnoC/YjglD4pV773g8b/QihIjStlrFV8jOmP3JU7ucrvFiF9jxtC/c/RP3RIEWgy1/8q1/xJkSfP46+uLIhNbij0Lf1wYkej/jfbA2lP6kj3hkV6vgaJC6YmEHaK5lthxrbNgxYEk/Tx6cqQgItTOObH6/DUyoA2cY5BgBQ==
+ bh=vW2N71Je/Dsb8FlBP1e1qqnwjhgIQyAHeci3qup7xG8=;
+ b=BFpxnaNz4hq6G24hD9idyA65F0qFat41+FIMgjRIa+TR52C9SW4yHnwkcS3bUFHS0YBRL6cW5Cddez29uKTklmErOJw4URq4kjmNcet1v7C2F1CxBnj61uyqFqSB5hBxDPZIMlRJBur2AlJm8FT4aOBiRgah1xzpnck0CJiIWUMFsDNgH3Uykx1zPGMYnSO08Vz71LZlpCwhZ6efQMHx91q0Go82IfZFCT9bW3ZK800S50ZQUHOYG8OehVWqC3KqHd4pvTv6jWHGiqhp1XOwmtIwahmwERI7zOUbaFQvkR0s8+XYFIhg12M7eYq+fC0Ktbl9uMPBNmc9m/LwnaMaIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=49oPoPHPEMjFvqNSJAaFFI+9FJqCNT1TNzGeW5g+9EQ=;
- b=Z7NDBt/8ENnYjmyXq3rH0NkRQOt+kg5mzg8GHrZHlcHOpxZZglFZ7t1/NH2Zssolvh9+inrV5iqnKZvLez36E1fWsXYcatT1KVxKcqnQFGs1OvOK+HxPBUQxEa9wXllMtZI4Ba8AEBjdEEqlB8dwO6seWhtQ+NTHekPK9pOLA58=
-Received: from BY5PR12MB4115.namprd12.prod.outlook.com (2603:10b6:a03:20f::20)
- by BY5PR12MB4003.namprd12.prod.outlook.com (2603:10b6:a03:196::16)
+ bh=vW2N71Je/Dsb8FlBP1e1qqnwjhgIQyAHeci3qup7xG8=;
+ b=IAsTGsks3HippNZMDCGH5sg9kQave1nfqOetGgDBNNoKHomnJjqj1Kc+y3J/Gi5bQQp9meKsnPH4EQkwbTBMrWArFShGIdqM7AX5T8yzeP/kb7T4QSh1GQnWD6bZgsAE2o+49qQDAfHo8Y8IR6Q0qePyILUXsX3+Yql6l6gY1Lo=
+Received: from BY5PR12MB3841.namprd12.prod.outlook.com (2603:10b6:a03:194::27)
+ by BYAPR12MB3318.namprd12.prod.outlook.com (2603:10b6:a03:df::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.19; Tue, 22 Sep
- 2020 10:22:25 +0000
-Received: from BY5PR12MB4115.namprd12.prod.outlook.com
- ([fe80::1d86:f142:9f3d:eb07]) by BY5PR12MB4115.namprd12.prod.outlook.com
- ([fe80::1d86:f142:9f3d:eb07%7]) with mapi id 15.20.3391.026; Tue, 22 Sep 2020
- 10:22:25 +0000
-From: "Deng, Emily" <Emily.Deng@amd.com>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Chen, JingWen" <JingWen.Chen2@amd.com>,
+ 2020 10:27:21 +0000
+Received: from BY5PR12MB3841.namprd12.prod.outlook.com
+ ([fe80::b46d:4fb5:514c:11c4]) by BY5PR12MB3841.namprd12.prod.outlook.com
+ ([fe80::b46d:4fb5:514c:11c4%3]) with mapi id 15.20.3391.027; Tue, 22 Sep 2020
+ 10:27:21 +0000
+From: "Chen, JingWen" <JingWen.Chen2@amd.com>
+To: "Deng, Emily" <Emily.Deng@amd.com>, "Wang, Kevin(Yang)"
+ <Kevin1.Wang@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Subject: RE: [PATCH 2/2] drm/amd: Skip not used microcode loading in SRIOV
 Thread-Topic: [PATCH 2/2] drm/amd: Skip not used microcode loading in SRIOV
-Thread-Index: AQHWkK9Tlkn+Mcf4ikScODymTuWS8al0QZkAgAADh4CAAC1qIA==
-Date: Tue, 22 Sep 2020 10:22:25 +0000
-Message-ID: <BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0@BY5PR12MB4115.namprd12.prod.outlook.com>
+Thread-Index: AQHWkK9NpCMyAklYSUa9QVKtAeCweal0QZkAgAADh4CAAC4JgIAAADjg
+Date: Tue, 22 Sep 2020 10:27:21 +0000
+Message-ID: <BY5PR12MB384184A38E47945F8C5977CEB73B0@BY5PR12MB3841.namprd12.prod.outlook.com>
 References: <20200922070842.366545-1-Jingwen.Chen2@amd.com>
  <20200922070842.366545-2-Jingwen.Chen2@amd.com>,
  <DM6PR12MB40754DDA2888F313D7C18005FC3B0@DM6PR12MB4075.namprd12.prod.outlook.com>
  <MN2PR12MB3022F4100A13D2127B8BFC15A23B0@MN2PR12MB3022.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB3022F4100A13D2127B8BFC15A23B0@MN2PR12MB3022.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ <BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0@BY5PR12MB4115.namprd12.prod.outlook.com>
+In-Reply-To: <BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0@BY5PR12MB4115.namprd12.prod.outlook.com>
+Accept-Language: en-150, zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -74,35 +75,42 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD Public;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-09-22T10:27:17Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Standard
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 4e603055-ba43-4d47-bae8-0000e4f9ca49
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7e9f5176-8464-4e0a-80c5-08d85ee1668f
-x-ms-traffictypediagnostic: BY5PR12MB4003:
+x-ms-office365-filtering-correlation-id: 69542342-1b23-43ad-aac2-08d85ee216fb
+x-ms-traffictypediagnostic: BYAPR12MB3318:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB4003338F85605CDF7B20EBDA8F3B0@BY5PR12MB4003.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <BYAPR12MB3318B47E505E7D9FC11FF76DB73B0@BYAPR12MB3318.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: OsMkuTCQjhjEwrSxpXXx2knbS83ArZHpqgMFapido5AKw13Snt95miIVzirIP9wNX0lZaUknyS2q5xBeVTeOErdulsGW7FqNXHaCuKvydK6wG49wUeQ2HMlDli8aZ1oPvxovxzCy7FFL8IhzYuCgGeL8FUNAaKdfuU766o2trHk4SQDmEBaeTuWXJpg89ABr85OQ44ZRaN8i2tw59gJFr0hkMaH1vxEcZLuCrRaQvQQ6tf/RqcXRnQPEcdOXWyGYaje4LBw50LVtKostEfWZquLPg3451B73GKrY/tpNu99/sHsLBSi+sbqioLtYi0xawVeeg8It6nxpUR+VYvfrICyWu+KmH01KWwPSK5yevzA=
+x-microsoft-antispam-message-info: 40OlmG70Rv3aIx/R5G5GcQds0m4XlfIe1l+5oUj4ngVF5CKIgglgwEFHBP4ghhOxX+u1h5rkDHqdRM8AAQMinqdYhBb0UU4Q/zZ8eqLImOdZnJIDSXwYGkmdPN03kyCdgtWTIec5FP7ovxc7uBEDCR1dZthchnHbcdkN3tvboeooAACTPErWq7Ktdx90X4hKml8OCp55wbTjr1FnP8AIBcx1Lgy++mHCzUGgtej/WauhiZ/cw481ateIUhkq9Bk2FjnCiBIX2nDnC6BdUb41f2C+qkqG7MrxqyT4amKC4JxAxOSTd1ImREL95zy2dU+HkXLr9VWN3LLjg8cRsDt4lqX6KcHswDVdRlPvyps2ZOf8qz8W3HY83Nl8l9c5A1tOhLNDurCHweMA/vtudHlFC9aplHk6AfrP/7P0CK0l4Yg=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB4115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(396003)(376002)(346002)(366004)(71200400001)(86362001)(2906002)(8676002)(45080400002)(55016002)(316002)(110136005)(26005)(66946007)(66476007)(52536014)(186003)(33656002)(76116006)(966005)(8936002)(478600001)(9686003)(66556008)(7696005)(5660300002)(53546011)(6506007)(66446008)(64756008)(166002)(83380400001);
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB3841.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(366004)(376002)(39860400002)(136003)(316002)(5660300002)(52536014)(66476007)(66446008)(76116006)(66556008)(83380400001)(110136005)(966005)(166002)(64756008)(66946007)(2906002)(9686003)(55016002)(186003)(33656002)(7696005)(86362001)(53546011)(6506007)(8936002)(45080400002)(478600001)(26005)(8676002)(71200400001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: quRR+cKPwkvLu6o4Mxz6fyHITQrzDS/GpRmgWvnqXi7UwnfLW/IO/hJeMBOm1U754G/4qCAuBuJV4x7syVWT+89A6ZId6ySqExtE5LSxy+NzH8i0k8+LmgG04pMOLwX17q2Z4wv6RDsT8jT+SWgS6m7Kn3Ev3ueWsbNobL/S80lGobxDLKWvxGa7P12m+VKP0CovwIg1CotPv7Oq0Cy/0vyRg0zcI8Pn2Sszd6SccGOR67OfZxOZjX76axRAIV8W6VF/ABHxVN7E1zuvYWNUGM8sVjgE8V0JpZEfuiUPc2O/sEaeCrua11UlzR39aAoTQl2Kwqfo1sGcu3qLe5qmDp485nTjsXfEL6WOHetmgbl8p+KPvXrK/JvlWmeAEvc9gGTHLkXgG9cCk535pkn+KWCDST2ey+6LXF9vj1Xem1m8fsSaHJTmNb6V7cZ0WKsAPdKuvESp7IDgXrgKgDXxfH7CuSRsKPXSJtpIsF5Q3wyNko76060QA2lGOOM66gTQZW7BxGnAq971mb4KcEwIZtHIn2vP9EiqOobxkO09nWnoOwFKzw6/nSi53jHhl+6NvfvyL2DEWBVLo+burVmTlekMRXbgg5BhrkPRwLJj1e366zEPk1Wss6oa3AihrASy3Wbb1G9Mn1GkEp5ughlBzA==
+x-ms-exchange-antispam-messagedata: 3vyhQ2rr+JYHM+7KzdyuHAPP1izHpmTYAW4nb8bDOZ/YTgsYZCd3OoBu305I8F2wqKNICV5CEqST9qfWJviHxWflJVtfkwavpnUcL1tcL81WS3SG7AFy+O5ja6Pm5dHAxfXES9RtwaWj9qvROJuBmqCcawb9LN7jiSl7DMqQHUNaX4KCI3+apYXNp0kqjJA25eEkYmFg4sliJ+51XzF6q5BSdYSI4lw6k58b++kecAGiYr78wRx8+BCpQdSc4spPr/c88iZTmh+EZAhLzFeIwIG3IvbSN8mjwlryUXdpJjAvP6uXf2FvCPfK3jLz5MVkmlizzHDq/rStIi+wzNcel2J1IEYAMkgzF1N0YISx6OQtLUVzPPcwiq4gF4NjMIkvMgxta3qRzxlSbFNAk3UvMtgw96m6RroCHQ7FlnuM6ieipQKF33P8mxQkm1N86Zkzmy4dSg0AZS/CIi68MpN27mRnLxw7xTGaZjLOAseKbI3lRG0v6MgCSkJh57SJ4CwDi5cxVrt8QCZAGThSXWEp3PgbHAi1xe71Ar6ieLNqYYTXvR+Tf8DnCxjBiOyfKThqhJyLEBLHU9+Hkcv1Lt1LeUkd0EoVhU7Xhei2wcxbPZ6ktkpaExGIFusjmFlSyPmsp9T8sqmP1FkS19Aw3vi4hA==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e9f5176-8464-4e0a-80c5-08d85ee1668f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2020 10:22:25.2615 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3841.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69542342-1b23-43ad-aac2-08d85ee216fb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2020 10:27:21.2068 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lx3Yf2g1Nvpz5aeobAQbozNsGT3jfzoT5qOMJfAS7gzNrnrPBTJjRrM5Jg1riM7H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4003
+X-MS-Exchange-CrossTenant-userprincipalname: ZBjRaBDORGXWg9YUiV2DvYxXF4ROK5aZf/bmWcW/B0VuaQJi2EulpWznTm/XuhJDpT7ty3u2El8jHuqr6QF/VA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3318
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,18 +122,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1503473332=="
+Content-Type: multipart/mixed; boundary="===============1703854402=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1503473332==
+--===============1703854402==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0BY5PR12MB4115namp_"
+	boundary="_000_BY5PR12MB384184A38E47945F8C5977CEB73B0BY5PR12MB3841namp_"
 
---_000_BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0BY5PR12MB4115namp_
+--_000_BY5PR12MB384184A38E47945F8C5977CEB73B0BY5PR12MB3841namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+
+[AMD Public Use]
+
+Hi Hawking,
+
+We may need other features in PSP in the future, e.g. load cap fw. So we ca=
+n't skip the whole psp_init_microcode.
+
+Best Regards,
+JingWen Chen
+
+From: Deng, Emily <Emily.Deng@amd.com>
+Sent: Tuesday, September 22, 2020 6:22 PM
+To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Zhang, Hawking <Hawking.Zhang@=
+amd.com>; Chen, JingWen <JingWen.Chen2@amd.com>; amd-gfx@lists.freedesktop.=
+org
+Subject: RE: [PATCH 2/2] drm/amd: Skip not used microcode loading in SRIOV
+
 
 [AMD Public Use]
 
@@ -136,11 +165,12 @@ ch. Only refer to this patch, I think it is OK.
 
 Best wishes
 Emily Deng
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Wang, Ke=
-vin(Yang)
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Wang, Kevin(Yang)
 Sent: Tuesday, September 22, 2020 3:38 PM
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, JingWen <JingWen.Chen2@am=
-d.com>; amd-gfx@lists.freedesktop.org
+To: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; C=
+hen, JingWen <JingWen.Chen2@amd.com<mailto:JingWen.Chen2@amd.com>>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH 2/2] drm/amd: Skip not used microcode loading in SRIOV
 
 
@@ -367,7 +397,7 @@ o%2Famd-gfx&data=3D02%7C01%7CEmily.Deng%40amd.com%7C849a249868ba4128962408d=
 85eca6667%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637363570681227058&s=
 data=3DulesiZTX8RCcr4IQRg2E6aenA430mwjHi%2BhlfAuRGoc%3D&reserved=3D0>
 
---_000_BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0BY5PR12MB4115namp_
+--_000_BY5PR12MB384184A38E47945F8C5977CEB73B0BY5PR12MB3841namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -406,10 +436,18 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:blue;
 	text-decoration:underline;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	{mso-style-type:personal-compose;
+	font-family:"Arial",sans-serif;
+	color:#317100;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -433,6 +471,42 @@ ign=3D"Left">
 <br>
 <div>
 <div class=3D"WordSection1">
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi Hawking,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">We may need other features in PSP in the future, e.g=
+. load cap fw. So we can&#8217;t skip the whole psp_init_microcode.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Best Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">JingWen Chen<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt; =
+<br>
+<b>Sent:</b> Tuesday, September 22, 2020 6:22 PM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; Zhang, Hawking &l=
+t;Hawking.Zhang@amd.com&gt;; Chen, JingWen &lt;JingWen.Chen2@amd.com&gt;; a=
+md-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amd: Skip not used microcode loading in=
+ SRIOV<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#317100">[AMD Public Use]<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
 <p class=3D"MsoNormal">Hi Kevin and Hawking,<o:p></o:p></p>
 <p class=3D"MsoNormal" style=3D"text-indent:10.0pt">I think both you are ri=
 ght. But currently we haven&#8217;t good method to handle this. It seems ne=
@@ -446,12 +520,15 @@ ed to re-arch the whole driver, not only refer to this patch. Only refer to=
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
-esktop.org&gt;
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt;
 <b>On Behalf Of </b>Wang, Kevin(Yang)<br>
 <b>Sent:</b> Tuesday, September 22, 2020 3:38 PM<br>
-<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chen, JingWen &lt;=
-JingWen.Chen2@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>To:</b> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawk=
+ing.Zhang@amd.com</a>&gt;; Chen, JingWen &lt;<a href=3D"mailto:JingWen.Chen=
+2@amd.com">JingWen.Chen2@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 <b>Subject:</b> Re: [PATCH 2/2] drm/amd: Skip not used microcode loading in=
  SRIOV<o:p></o:p></p>
 </div>
@@ -797,12 +874,14 @@ gj6Lg%3D&amp;amp;reserved=3D0</a><o:p></o:p></p>
 </div>
 </div>
 </div>
+</div>
+</div>
 </body>
 </html>
 
---_000_BY5PR12MB4115EF7F980F6CEE08480F9E8F3B0BY5PR12MB4115namp_--
+--_000_BY5PR12MB384184A38E47945F8C5977CEB73B0BY5PR12MB3841namp_--
 
---===============1503473332==
+--===============1703854402==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -813,4 +892,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1503473332==--
+--===============1703854402==--
