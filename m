@@ -2,67 +2,67 @@ Return-Path: <SRS0=8BU1=C7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C888C2D0E2
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 15:19:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A30DCC4363D
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 15:20:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3CE323A1B
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 15:19:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3F4F820936
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 15:20:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ud7Z8q5I"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3CE323A1B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jwBaIWip"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F4F820936
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB1F89DCF;
-	Tue, 22 Sep 2020 15:19:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F9089DCF;
+	Tue, 22 Sep 2020 15:20:29 +0000 (UTC)
 Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B349E89DA4;
- Tue, 22 Sep 2020 15:19:24 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id e17so3765996wme.0;
- Tue, 22 Sep 2020 08:19:24 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B79D389DCF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 15:20:24 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id y15so3756216wmi.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 08:20:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=scqHhJ8H2F1OwqEQAUQOLL4YJrrUXBZObQzVzFZayBI=;
- b=ud7Z8q5Iaz3v0wMl9sijNgJWLoh+EObUkH3gLhvAfMqP9C5Z7tRIQ534KlkbFRgfv9
- z2DD3DE+h2jOvVD1DMpp7Y1TfCNZXb3e/BrPf6Sr0zloAVm3KaDh44i4BK5S/tHMPCRi
- Gw7bHVM0QAeBLqrCtD5cMYMkstDteJjuR0xOcOaTA7uku4h3iXT/0tP6e3rKoXGO+R2c
- V3A+DvvT8joCtcYJNKXIkwxk0jU3BDgnl0RHgDv4fPFby36cZsLUZC0jF+NADyZz2uqf
- ln8jFfTgv5P6BUOuXaEbGATW1CrKZT3e5d6Zw+PgRFlmgq/XViIJ6Sy3RNrGNnp8eOa9
- Rokg==
+ :cc; bh=Xfe8gsz4SU0oayDctf6CQ7abpUnQfPEBWtB3lUwlNLc=;
+ b=jwBaIWip7SbyiVA0lMIPvVREy/hjkmxLKIurwR2uFhBf3tR6HGQFwPZvWrqUZkJ+2X
+ LcJUNmi2DZ+OgtkxjafWHW9K35i7R0ReV/biMaxoq6LcFgvJ7ngiZOIlY1ZtmLGHCEm+
+ /tuc0cH8Cxv0r7pZYX3FJJOog4PTS4qihtX77XJ6LcDjd/jlCEjwlQwgEeB68rMruZBP
+ RE9DjAM7KnVdcpNRxZGqaWK5YRvMjS+BHDDXc/qNCJuKY5Xkitr+YdLcShoqMFOCIHoV
+ tSDQbDHhoGp2ggZEfCe5SijLSI4Qczlfbc1qI2ObyADlJVdmqjaCIXentwvzaptjfqWA
+ Vrjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=scqHhJ8H2F1OwqEQAUQOLL4YJrrUXBZObQzVzFZayBI=;
- b=Nqe7P9Lhhyfz6OpLgYxEzcQ4O2PQ8mR4CJ/yl11G7WdTedZiU1h27pO82QEOlo6087
- BCzXH5/6YkMVY3qoHss1WBAnY7/TwX71E25noflqAZwOIew72khcNVwxnes5eAlCTIYn
- ogRUjFqyfq/Ki3p/5DaWhhYdcSTB4nqICyCsHiN8RBxm8tuEIjK7bLHr62wHi51vKGce
- bJHX4aOJ9p9oSGvG7/wb3PcQgmmq9ksjuJtZa1qj2h+2P6Ec0aitoIeaio44S+lnpbHF
- 4Essx72RI3oQIYhtUwGRcJ2MD7CoB2OUYG0HKaKy87qDMkjrrW5bj8tGxptBVGCAfePE
- IHiQ==
-X-Gm-Message-State: AOAM533CTTwEgKKC3MG/hkVMflKDDQr9UvXHKJrThEUyytG3tX8DFG4O
- aAGDnXWA9ylW0xfLNQLRo/H05c5Xb/RKTKZaTMilASoh
-X-Google-Smtp-Source: ABdhPJwSuNJ2YKBapkwBsT/onLn/HzjF5NQVk8AzJyU5PzUKmm9KvtKj4eIV23ATNS6J6xa0M1JW8/GaRgVLmlXy73E=
-X-Received: by 2002:a1c:7d4d:: with SMTP id y74mr1562936wmc.73.1600787963365; 
- Tue, 22 Sep 2020 08:19:23 -0700 (PDT)
+ bh=Xfe8gsz4SU0oayDctf6CQ7abpUnQfPEBWtB3lUwlNLc=;
+ b=LbDZXM97pREiHu2V97bo3+/1MboVrhuzkYHq8S2w0TX65vpsLIa1bEIFgYaQwjRO+S
+ OGq6dLlzsPmUuS1lqVtUHwBtgjTPednMmaMcCJsSHfmMzIiyc5rlw3gc9AXslJVyvUR/
+ 7Hzyzp+2XqDH4jdkYDxNoUos1ZZeCL0/vLXeIIqU6G5o++yBnVKM/Mj+13BXK4PWnXL6
+ BIqIf3+eWfRahvstO+Xki/xg/d7osj44Cq8Jze2UUH+PyQlTlPHmWGp2+1hvL71SU+63
+ VghgxDFE56Ilv8wg0fc74ZI9hIN/dQ8cMSQcR/g7J+emcjA+z1ExkBRUJ4RxdzLLYO6r
+ wYdw==
+X-Gm-Message-State: AOAM533exERbTfOZbmQPl1EZMCINOGOduuaOoCxH/QHu1Vr0GJSLQLWU
+ HUYiPGZw89ZgwBhfLP25rRy/+7uY8r84oO+ZzlYwOEip
+X-Google-Smtp-Source: ABdhPJyl9snqLU75LOXAHD6Q/0uyB74WbsR/ZXqMPOaOOx593/UidFJK2plc8H0yeQNHGX8NatMJ7x/f1QSMOgG6Rho=
+X-Received: by 2002:a1c:a953:: with SMTP id s80mr1583533wme.70.1600788023302; 
+ Tue, 22 Sep 2020 08:20:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200922054743.2422929-1-natechancellor@gmail.com>
-In-Reply-To: <20200922054743.2422929-1-natechancellor@gmail.com>
+References: <20200921155442.7189-1-ryan.taylor@amd.com>
+In-Reply-To: <20200921155442.7189-1-ryan.taylor@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Sep 2020 11:19:12 -0400
-Message-ID: <CADnq5_MP85Qqv9N6VYnyRYAACU82G+e1oXyESUYoqp=QMYEbYg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Simplify condition in try_disable_dsc
-To: Nathan Chancellor <natechancellor@gmail.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>
+Date: Tue, 22 Sep 2020 11:20:12 -0400
+Message-ID: <CADnq5_M0uAJYjiLnP9RZtE-d8OvBS6F6pN8CQgLtrvkiaPiAoQ@mail.gmail.com>
+Subject: Re: [PATCH v3] amdgpu: Add initial kernel documentation for the
+ amd_ip_block_type structure
+To: Ryan Taylor <ryan.taylor@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,81 +74,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2020 at 3:47 AM Nathan Chancellor
-<natechancellor@gmail.com> wrote:
+On Mon, Sep 21, 2020 at 11:55 AM Ryan Taylor <ryan.taylor@amd.com> wrote:
 >
-> Clang warns:
+> From: Ryan Taylor <Ryan.Taylor@amd.com>
 >
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:637:8:
-> warning: logical not is only applied to the left hand side of this
-> comparison [-Wlogical-not-parentheses]
->                                 && !params[i].clock_force_enable == DSC_CLK_FORCE_DEFAULT) {
->                                    ^                             ~~
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:637:8:
-> note: add parentheses after the '!' to evaluate the comparison first
->                                 && !params[i].clock_force_enable == DSC_CLK_FORCE_DEFAULT) {
->                                    ^
->                                     (
-> )
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:637:8:
-> note: add parentheses around left hand side expression to silence this
-> warning
->                                 && !params[i].clock_force_enable == DSC_CLK_FORCE_DEFAULT) {
->                                    ^
->                                    (                            )
-> 1 warning generated.
+> Added IP block section to amdgpu.rst.
+> Added more documentation to amd_ip_funcs.
+> Created documentation for amd_ip_block_type.
 >
-> The expression "!a == 0" can be more simply written as "a", which makes
-> it easier to reason about the logic and prevents the warning.
+> v2: Provides a more detailed DOC section on IP blocks.
+> v3: Clarifies the IP block list. Adds info on IP block enumeration.
 >
-> Fixes: 0749ddeb7d6c ("drm/amd/display: Add DSC force disable to dsc_clock_en debugfs entry")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1158
-> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+> Signed-off-by: Ryan Taylor <ryan.taylor@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-@Wentland, Harry or @Leo (Sunpeng) Li  can you provide some guidance
-on what the logic is supposed to be here?
+Looks good.  Feel free to commit it.
 
-Thanks,
+Thanks!
 
 Alex
 
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  Documentation/gpu/amdgpu.rst             |  9 +++
+>  drivers/gpu/drm/amd/include/amd_shared.h | 87 +++++++++++++++++-------
+>  2 files changed, 71 insertions(+), 25 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 9d7333a36fac..0852a24ee392 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -634,7 +634,7 @@ static void try_disable_dsc(struct drm_atomic_state *state,
->         for (i = 0; i < count; i++) {
->                 if (vars[i].dsc_enabled
->                                 && vars[i].bpp_x16 == params[i].bw_range.max_target_bpp_x16
-> -                               && !params[i].clock_force_enable == DSC_CLK_FORCE_DEFAULT) {
-> +                               && params[i].clock_force_enable) {
->                         kbps_increase[i] = params[i].bw_range.stream_kbps - params[i].bw_range.max_kbps;
->                         tried[i] = false;
->                         remaining_to_try += 1;
+> diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
+> index 29ca5f5feb35..57047dcb8d19 100644
+> --- a/Documentation/gpu/amdgpu.rst
+> +++ b/Documentation/gpu/amdgpu.rst
+> @@ -70,6 +70,15 @@ Interrupt Handling
+>  .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>     :internal:
 >
-> base-commit: 6651cdf3bfeeaeb499db11668313666bf756579a
+> +IP Blocks
+> +------------------
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
+> +   :doc: IP Blocks
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/include/amd_shared.h
+> +   :identifiers: amd_ip_block_type amd_ip_funcs
+> +
+>  AMDGPU XGMI Support
+>  ===================
+>
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index e98c84ef206f..6b8a40051f41 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -47,6 +47,40 @@ enum amd_apu_flags {
+>         AMD_APU_IS_RENOIR = 0x00000008UL,
+>  };
+>
+> +/**
+> +* DOC: IP Blocks
+> +*
+> +* GPUs are composed of IP (intellectual property) blocks. These
+> +* IP blocks provide various functionalities: display, graphics,
+> +* video decode, etc. The IP blocks that comprise a particular GPU
+> +* are listed in the GPU's respective SoC file. amdgpu_device.c
+> +* acquires the list of IP blocks for the GPU in use on initialization.
+> +* It can then operate on this list to perform standard driver operations
+> +* such as: init, fini, suspend, resume, etc.
+> +*
+> +*
+> +* IP block implementations are named using the following convention:
+> +* <functionality>_v<version> (E.g.: gfx_v6_0).
+> +*/
+> +
+> +/**
+> +* enum amd_ip_block_type - Used to classify IP blocks by functionality.
+> +*
+> +* @AMD_IP_BLOCK_TYPE_COMMON: GPU Family
+> +* @AMD_IP_BLOCK_TYPE_GMC: Graphics Memory Controller
+> +* @AMD_IP_BLOCK_TYPE_IH: Interrupt Handler
+> +* @AMD_IP_BLOCK_TYPE_SMC: System Management Controller
+> +* @AMD_IP_BLOCK_TYPE_PSP: Platform Security Processor
+> +* @AMD_IP_BLOCK_TYPE_DCE: Display and Compositing Engine
+> +* @AMD_IP_BLOCK_TYPE_GFX: Graphics and Compute Engine
+> +* @AMD_IP_BLOCK_TYPE_SDMA: System DMA Engine
+> +* @AMD_IP_BLOCK_TYPE_UVD: Unified Video Decoder
+> +* @AMD_IP_BLOCK_TYPE_VCE: Video Compression Engine
+> +* @AMD_IP_BLOCK_TYPE_ACP: Audio Co-Processor
+> +* @AMD_IP_BLOCK_TYPE_VCN: Video Core/Codec Next
+> +* @AMD_IP_BLOCK_TYPE_MES: Micro-Engine Scheduler
+> +* @AMD_IP_BLOCK_TYPE_JPEG: JPEG Engine
+> +*/
+>  enum amd_ip_block_type {
+>         AMD_IP_BLOCK_TYPE_COMMON,
+>         AMD_IP_BLOCK_TYPE_GMC,
+> @@ -165,56 +199,59 @@ enum DC_DEBUG_MASK {
+>  };
+>
+>  enum amd_dpm_forced_level;
+> +
+>  /**
+>   * struct amd_ip_funcs - general hooks for managing amdgpu IP Blocks
+> + * @name: Name of IP block
+> + * @early_init: sets up early driver state (pre sw_init),
+> + *              does not configure hw - Optional
+> + * @late_init: sets up late driver/hw state (post hw_init) - Optional
+> + * @sw_init: sets up driver state, does not configure hw
+> + * @sw_fini: tears down driver state, does not configure hw
+> + * @hw_init: sets up the hw state
+> + * @hw_fini: tears down the hw state
+> + * @late_fini: final cleanup
+> + * @suspend: handles IP specific hw/sw changes for suspend
+> + * @resume: handles IP specific hw/sw changes for resume
+> + * @is_idle: returns current IP block idle status
+> + * @wait_for_idle: poll for idle
+> + * @check_soft_reset: check soft reset the IP block
+> + * @pre_soft_reset: pre soft reset the IP block
+> + * @soft_reset: soft reset the IP block
+> + * @post_soft_reset: post soft reset the IP block
+> + * @set_clockgating_state: enable/disable cg for the IP block
+> + * @set_powergating_state: enable/disable pg for the IP block
+> + * @get_clockgating_state: get current clockgating status
+> + * @enable_umd_pstate: enable UMD powerstate
+> + *
+> + * These hooks provide an interface for controlling the operational state
+> + * of IP blocks. After acquiring a list of IP blocks for the GPU in use,
+> + * the driver can make chip-wide state changes by walking this list and
+> + * making calls to hooks from each IP block. This list is ordered to ensure
+> + * that the driver initializes the IP blocks in a safe sequence.
+>   */
+>  struct amd_ip_funcs {
+> -       /** @name: Name of IP block */
+>         char *name;
+> -       /**
+> -        * @early_init:
+> -        *
+> -        * sets up early driver state (pre sw_init),
+> -        * does not configure hw - Optional
+> -        */
+>         int (*early_init)(void *handle);
+> -       /** @late_init: sets up late driver/hw state (post hw_init) - Optional */
+>         int (*late_init)(void *handle);
+> -       /** @sw_init: sets up driver state, does not configure hw */
+>         int (*sw_init)(void *handle);
+> -       /** @sw_fini: tears down driver state, does not configure hw */
+>         int (*sw_fini)(void *handle);
+> -       /** @hw_init: sets up the hw state */
+>         int (*hw_init)(void *handle);
+> -       /** @hw_fini: tears down the hw state */
+>         int (*hw_fini)(void *handle);
+> -       /** @late_fini: final cleanup */
+>         void (*late_fini)(void *handle);
+> -       /** @suspend: handles IP specific hw/sw changes for suspend */
+>         int (*suspend)(void *handle);
+> -       /** @resume: handles IP specific hw/sw changes for resume */
+>         int (*resume)(void *handle);
+> -       /** @is_idle: returns current IP block idle status */
+>         bool (*is_idle)(void *handle);
+> -       /** @wait_for_idle: poll for idle */
+>         int (*wait_for_idle)(void *handle);
+> -       /** @check_soft_reset: check soft reset the IP block */
+>         bool (*check_soft_reset)(void *handle);
+> -       /** @pre_soft_reset: pre soft reset the IP block */
+>         int (*pre_soft_reset)(void *handle);
+> -       /** @soft_reset: soft reset the IP block */
+>         int (*soft_reset)(void *handle);
+> -       /** @post_soft_reset: post soft reset the IP block */
+>         int (*post_soft_reset)(void *handle);
+> -       /** @set_clockgating_state: enable/disable cg for the IP block */
+>         int (*set_clockgating_state)(void *handle,
+>                                      enum amd_clockgating_state state);
+> -       /** @set_powergating_state: enable/disable pg for the IP block */
+>         int (*set_powergating_state)(void *handle,
+>                                      enum amd_powergating_state state);
+> -       /** @get_clockgating_state: get current clockgating status */
+>         void (*get_clockgating_state)(void *handle, u32 *flags);
+> -       /** @enable_umd_pstate: enable UMD powerstate */
+>         int (*enable_umd_pstate)(void *handle, enum amd_dpm_forced_level *level);
+>  };
+>
 > --
 > 2.28.0
 >
 > _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
