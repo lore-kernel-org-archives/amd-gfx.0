@@ -7,50 +7,44 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07906C4727D
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DCECC2D0E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B39752396D
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:11:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B39752396D
+	by mail.kernel.org (Postfix) with ESMTPS id 56BD72396D
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 13:11:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56BD72396D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC1089ACC;
-	Tue, 22 Sep 2020 13:11:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9E61897E0;
+	Tue, 22 Sep 2020 13:11:38 +0000 (UTC)
 Received: from mail-m17613.qiye.163.com (mail-m17613.qiye.163.com
  [59.111.176.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 325DF6E211
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 12:54:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D8B6E073
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 12:40:42 +0000 (UTC)
 Received: from ubuntu.localdomain (unknown [157.0.31.124])
- by mail-m17613.qiye.163.com (Hmail) with ESMTPA id 532B948296B;
- Tue, 22 Sep 2020 20:54:38 +0800 (CST)
+ by mail-m17613.qiye.163.com (Hmail) with ESMTPA id B2749482AE7;
+ Tue, 22 Sep 2020 20:40:39 +0800 (CST)
 From: Bernard Zhao <bernard@vivo.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Alex Sierra <alex.sierra@amd.com>,
- Nirmoy Das <nirmoy.das@amd.com>, xinhui pan <xinhui.pan@amd.com>,
- Bernard Zhao <bernard@vivo.com>, Jonathan Kim <jonathan.kim@amd.com>,
- James Zhu <James.Zhu@amd.com>, Huang Rui <ray.huang@amd.com>,
- Leo Liu <leo.liu@amd.com>, Boyuan Zhang <boyuan.zhang@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Jane Jian <Jane.Jian@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd:fix typoes in comments
-Date: Tue, 22 Sep 2020 05:54:18 -0700
-Message-Id: <20200922125431.27943-1-bernard@vivo.com>
+Subject: [PATCH] drm/radeon:fix typoes in comments
+Date: Tue, 22 Sep 2020 05:40:29 -0700
+Message-Id: <20200922124029.27500-1-bernard@vivo.com>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZSR4dS0gaHklIGkhKVkpNS0tMTEJJTENNTUxVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
+ oVCBIfWUFZHUNJTU4fTh8eGB9MVkpNS0tMTENPSEJCQ0pVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
  FZT0tIVUpKS0hKTFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6NDY6Aww*Oj8sTw5JCTMsTEk9
- PgkaCUlVSlVKTUtLTExCSUxCS0xDVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSU9ZV1kIAVlBQkJKSDcG
-X-HM-Tid: 0a74b5e1591393bakuws532b948296b
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MDY6PCo5CT8dEg5JTjMZSRkh
+ CTowCitVSlVKTUtLTExDT09LSExJVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSU9ZV1kIAVlBSE9KTDcG
+X-HM-Tid: 0a74b5d48cd993bakuwsb2749482ae7
 X-Mailman-Approved-At: Tue, 22 Sep 2020 13:11:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,7 +57,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com
+Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -73,174 +67,59 @@ Change the comment typo: "programm" -> "program".
 
 Signed-off-by: Bernard Zhao <bernard@vivo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 2 +-
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c  | 4 ++--
- 8 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/radeon/uvd_v1_0.c | 4 ++--
+ drivers/gpu/drm/radeon/uvd_v2_2.c | 2 +-
+ drivers/gpu/drm/radeon/uvd_v4_2.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 770025a5e500..7c46937c1c0e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -98,7 +98,7 @@ struct amdgpu_bo_list_entry;
- #define AMDGPU_PTE_MTYPE_NV10(a)       ((uint64_t)(a) << 48)
- #define AMDGPU_PTE_MTYPE_NV10_MASK     AMDGPU_PTE_MTYPE_NV10(7ULL)
+diff --git a/drivers/gpu/drm/radeon/uvd_v1_0.c b/drivers/gpu/drm/radeon/uvd_v1_0.c
+index 800721153d51..58557c2263a7 100644
+--- a/drivers/gpu/drm/radeon/uvd_v1_0.c
++++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
+@@ -117,7 +117,7 @@ int uvd_v1_0_resume(struct radeon_device *rdev)
+ 	if (r)
+ 		return r;
  
--/* How to programm VM fault handling */
-+/* How to program VM fault handling */
- #define AMDGPU_VM_FAULT_STOP_NEVER	0
- #define AMDGPU_VM_FAULT_STOP_FIRST	1
- #define AMDGPU_VM_FAULT_STOP_ALWAYS	2
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-index 3cafba726587..b0c0c438fc93 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-@@ -348,7 +348,7 @@ static int uvd_v4_2_start(struct amdgpu_device *adev)
+-	/* programm the VCPU memory controller bits 0-27 */
++	/* program the VCPU memory controller bits 0-27 */
+ 	addr = (rdev->uvd.gpu_addr >> 3) + 16;
+ 	size = RADEON_GPU_PAGE_ALIGN(rdev->uvd_fw->size) >> 3;
+ 	WREG32(UVD_VCPU_CACHE_OFFSET0, addr);
+@@ -360,7 +360,7 @@ int uvd_v1_0_start(struct radeon_device *rdev)
  	/* Set the write pointer delay */
- 	WREG32(mmUVD_RBC_RB_WPTR_CNTL, 0);
+ 	WREG32(UVD_RBC_RB_WPTR_CNTL, 0);
  
 -	/* programm the 4GB memory segment for rptr and ring buffer */
 +	/* program the 4GB memory segment for rptr and ring buffer */
- 	WREG32(mmUVD_LMI_EXT40_ADDR, upper_32_bits(ring->gpu_addr) |
+ 	WREG32(UVD_LMI_EXT40_ADDR, upper_32_bits(ring->gpu_addr) |
  				   (0x7 << 16) | (0x1 << 31));
  
-@@ -541,7 +541,7 @@ static void uvd_v4_2_mc_resume(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/radeon/uvd_v2_2.c b/drivers/gpu/drm/radeon/uvd_v2_2.c
+index 23b18edda20e..6266167886d9 100644
+--- a/drivers/gpu/drm/radeon/uvd_v2_2.c
++++ b/drivers/gpu/drm/radeon/uvd_v2_2.c
+@@ -109,7 +109,7 @@ int uvd_v2_2_resume(struct radeon_device *rdev)
+ 	if (r)
+ 		return r;
+ 
+-	/* programm the VCPU memory controller bits 0-27 */
++	/* program the VCPU memory controller bits 0-27 */
+ 	addr = rdev->uvd.gpu_addr >> 3;
+ 	size = RADEON_GPU_PAGE_ALIGN(rdev->uvd_fw->size + 4) >> 3;
+ 	WREG32(UVD_VCPU_CACHE_OFFSET0, addr);
+diff --git a/drivers/gpu/drm/radeon/uvd_v4_2.c b/drivers/gpu/drm/radeon/uvd_v4_2.c
+index dc54fa4aaea8..f9e97fa63674 100644
+--- a/drivers/gpu/drm/radeon/uvd_v4_2.c
++++ b/drivers/gpu/drm/radeon/uvd_v4_2.c
+@@ -40,7 +40,7 @@ int uvd_v4_2_resume(struct radeon_device *rdev)
  	uint64_t addr;
  	uint32_t size;
  
 -	/* programm the VCPU memory controller bits 0-27 */
 +	/* program the VCPU memory controller bits 0-27 */
- 	addr = (adev->uvd.inst->gpu_addr + AMDGPU_UVD_FIRMWARE_OFFSET) >> 3;
- 	size = AMDGPU_UVD_FIRMWARE_SIZE(adev) >> 3;
- 	WREG32(mmUVD_VCPU_CACHE_OFFSET0, addr);
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-index a566ff926e90..6e57001f6d0a 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-@@ -253,7 +253,7 @@ static void uvd_v5_0_mc_resume(struct amdgpu_device *adev)
- 	uint64_t offset;
- 	uint32_t size;
  
--	/* programm memory controller bits 0-27 */
-+	/* program memory controller bits 0-27 */
- 	WREG32(mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,
- 			lower_32_bits(adev->uvd.inst->gpu_addr));
- 	WREG32(mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
-@@ -404,7 +404,7 @@ static int uvd_v5_0_start(struct amdgpu_device *adev)
- 	/* set the wb address */
- 	WREG32(mmUVD_RBC_RB_RPTR_ADDR, (upper_32_bits(ring->gpu_addr) >> 2));
- 
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32(mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 			lower_32_bits(ring->gpu_addr));
- 	WREG32(mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index 0a880bc101b8..d2d90fe5c6f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -583,7 +583,7 @@ static void uvd_v6_0_mc_resume(struct amdgpu_device *adev)
- 	uint64_t offset;
- 	uint32_t size;
- 
--	/* programm memory controller bits 0-27 */
-+	/* program memory controller bits 0-27 */
- 	WREG32(mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,
- 			lower_32_bits(adev->uvd.inst->gpu_addr));
- 	WREG32(mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
-@@ -825,7 +825,7 @@ static int uvd_v6_0_start(struct amdgpu_device *adev)
- 	/* set the wb address */
- 	WREG32(mmUVD_RBC_RB_RPTR_ADDR, (upper_32_bits(ring->gpu_addr) >> 2));
- 
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32(mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 			lower_32_bits(ring->gpu_addr));
- 	WREG32(mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index e07e3fae99b5..b44c8677ce8d 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -1073,7 +1073,7 @@ static int uvd_v7_0_start(struct amdgpu_device *adev)
- 		WREG32_SOC15(UVD, k, mmUVD_RBC_RB_RPTR_ADDR,
- 				(upper_32_bits(ring->gpu_addr) >> 2));
- 
--		/* programm the RB_BASE for ring buffer */
-+		/* program the RB_BASE for ring buffer */
- 		WREG32_SOC15(UVD, k, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 				lower_32_bits(ring->gpu_addr));
- 		WREG32_SOC15(UVD, k, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 927c330fad21..73699eafb51e 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -910,7 +910,7 @@ static int vcn_v1_0_start_spg_mode(struct amdgpu_device *adev)
- 	WREG32_SOC15(UVD, 0, mmUVD_RBC_RB_RPTR_ADDR,
- 			(upper_32_bits(ring->gpu_addr) >> 2));
- 
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 			lower_32_bits(ring->gpu_addr));
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-@@ -1068,7 +1068,7 @@ static int vcn_v1_0_start_dpg_mode(struct amdgpu_device *adev)
- 	WREG32_SOC15(UVD, 0, mmUVD_RBC_RB_RPTR_ADDR,
- 								(upper_32_bits(ring->gpu_addr) >> 2));
- 
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 								lower_32_bits(ring->gpu_addr));
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 23a9eb5b2c8a..e5d29dee0c88 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -900,7 +900,7 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
- 	WREG32_SOC15(UVD, 0, mmUVD_RBC_RB_RPTR_ADDR,
- 		(upper_32_bits(ring->gpu_addr) >> 2));
- 
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 		lower_32_bits(ring->gpu_addr));
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-@@ -1060,7 +1060,7 @@ static int vcn_v2_0_start(struct amdgpu_device *adev)
- 	WREG32_SOC15(UVD, 0, mmUVD_RBC_RB_CNTL, tmp);
- 
- 	fw_shared->multi_queue.decode_queue_mode |= FW_QUEUE_RING_RESET;
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 		lower_32_bits(ring->gpu_addr));
- 	WREG32_SOC15(UVD, 0, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index e99bef6e2354..aa6f66c31709 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -887,7 +887,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 	WREG32_SOC15(VCN, inst_idx, mmUVD_RBC_RB_RPTR_ADDR,
- 		(upper_32_bits(ring->gpu_addr) >> 2));
- 
--	/* programm the RB_BASE for ring buffer */
-+	/* program the RB_BASE for ring buffer */
- 	WREG32_SOC15(VCN, inst_idx, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 		lower_32_bits(ring->gpu_addr));
- 	WREG32_SOC15(VCN, inst_idx, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-@@ -1067,7 +1067,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev)
- 		WREG32_SOC15(VCN, i, mmUVD_RBC_RB_CNTL, tmp);
- 
- 		fw_shared->multi_queue.decode_queue_mode |= FW_QUEUE_RING_RESET;
--		/* programm the RB_BASE for ring buffer */
-+		/* program the RB_BASE for ring buffer */
- 		WREG32_SOC15(VCN, i, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
- 			lower_32_bits(ring->gpu_addr));
- 		WREG32_SOC15(VCN, i, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
+ 	/* skip over the header of the new firmware format */
+ 	if (rdev->uvd.fw_header_present)
 -- 
 2.28.0
 
