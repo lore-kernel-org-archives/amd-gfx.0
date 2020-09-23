@@ -7,58 +7,60 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53DEEC2D0A8
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 18:35:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A25AC4727F
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 18:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A3A612068D
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 18:35:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A8AA8206A1
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 18:35:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="AMNmypYf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3A612068D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FMZQ6cK5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8AA8206A1
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 026956E9E7;
-	Wed, 23 Sep 2020 18:35:47 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A8BD6E9E7
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 18:35:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 315486E9E9;
+	Wed, 23 Sep 2020 18:35:50 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750052.outbound.protection.outlook.com [40.107.75.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7322E6E9E8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 18:35:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eK1OCjRnyJ8a6HalETOwJySGHQTEQ/IFnykSCI86QfTXevyB5+rSOFYa4dAQ62j4bLZLQlQKjDUYiyjusuvfSTNATUmGDw4YsTa6jZ/WGboVQjzvjf10CEl0AYuHUShLEGmhFQ1mmZ7pgyM3QMLXknCEw2SjRFObRU9S2jTdAJw6dPQ0+az8wtMz/IMZKbvWysu6itg8BigHBLMgZMU/CppkL58JcU+/KX9gKU3pYFgCU7fkvdp0T7VbsqJo7VEi/smPDcjBkzNJWDNng8l4oUpTgJ33TOlxavr7g1LqHY9TWcTXqseSlvQc6LezbPslQ1S1T0zyTjiywtXDyWH7yA==
+ b=LRjTmghbEWd7FNbFc0h73GnTQeK38GB2MK3hyvz2qLPRujs4Cuk3JCqTWphbHlNxdb/uEqXdIMmbeEejDvNNd3xMF3dSnzDokEmJMdJkJpKnG3J/qLSoOqpAGIy+E2Zx1GsK1ADZtW/J68A2Q4W/QVrV9EtceiKNA+VUYuIj3AoqvHknx52xzw5uGP7dklVsQRpT0GOfI9nC5cwkWyehyOtPxXPmSsjgvhAX9JX3D3EaPuBUwx3xz5kqKpzFXbV2kX5v/kIL49DqBPDuCskyCoEn44jvsnjYTCisbb8kBQxX0s8eV9Os8LKBESiIfrZ9tl8LcjgQ7VA5K18gccj0Rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ExUXNjOXneRa4LxJoLN83x5LQ+4PbzjiUYyH4gtZL3Y=;
- b=iNOlgrugBksLmgbwLFFpb1TUbOA07k3ycOc2Ua85EhNN8dFm1Sj7/QY3E55DANnBf5r2c7QAS/45GRaXn6fPCNqzUqglUuVDs55uByPN1mMdewr3Puu3ffdZMW9CDkHPQR0PV1hwT5eimpfpK/0NM47FI2S2I7VQEJua5D2IN3IxEZOIQZvi0KmSkGsCaczSUNPSo2C3fjN6R9ffYSxDLF1xdb8VSMY/cVlehCqYnC439syjdoPT6tlrB9NLKtR70nIK17KJB3ranegm2hIZYB3C3Kr71fkp0jyUFAAP1OCn7KqNPhx58fIm5A/5xnz1gWlAxUgbgsemEoCyqpbZrQ==
+ bh=f4CkNTQBIqHsR1Owb1ADRMPbx16G59NzDu9K4Tmpy7E=;
+ b=V0NyVXCjqHGDkz2L/6myqf8dwRuT3FYdodiFdiU0y0XbQtllVBITHGLGiccZilm7UFTVQXrO5aa9gfhAX5cYh7jVsiWFF8cGa1LOO31eUj73MwdJA5cXWvEQLu8DpgtQSnAk1Ivb8soO8rqKCJioMzmrC6QJZyJuGk1qh5DzNiKqzVCnL8O6DKX+3UkqFSIpaHC6x0r2XJAkPelaRkVJBt4xd/kSROH9PgI10fVA2uuGEpUppn/3G/JRKil+YFEmAyhyQ8qpQkcYfW/LWieXtQYHu0IBAW4AkaDyhDGlMKlysvTrJlAFr+0BX1Tzgr+SCSzhvzxOKBrD9vFYx2oYKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ExUXNjOXneRa4LxJoLN83x5LQ+4PbzjiUYyH4gtZL3Y=;
- b=AMNmypYfUh0obnU2eSNZ87ZUFbVckya+LdamvRosLea0A/2werWH0WMdamuM0RSx5DfbSMCFE3RwilkQNx1DsWLhET4Jhkyds1y5SAlnet8clhd9FgCYCtV+GmnEN5XWbaE3TFpEOU7XeAJgmOjo7SMtrGcXjAeE53ik9QWFp+s=
+ bh=f4CkNTQBIqHsR1Owb1ADRMPbx16G59NzDu9K4Tmpy7E=;
+ b=FMZQ6cK590a91/3ZyIa2bg9N3HMN/TWYvJNNAOD0JfXz4awQl7rLgTFac3vWSzCVvUymh5gD/DQ+NSiN4wVSMePCC0XCIBwlA/i5RR0lZSQvgj6M4x33TBegSOlm5qsORbRdunkpZemXW7bOwgGnFgHHTDV9lEkC4C6+w5tYtkc=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from BN6PR1201MB0146.namprd12.prod.outlook.com
- (2603:10b6:405:59::18) by BN6PR1201MB0082.namprd12.prod.outlook.com
- (2603:10b6:405:53::19) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:405:59::18) by BN6PR12MB1938.namprd12.prod.outlook.com
+ (2603:10b6:404:fe::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.15; Wed, 23 Sep
- 2020 18:35:44 +0000
+ 2020 18:35:46 +0000
 Received: from BN6PR1201MB0146.namprd12.prod.outlook.com
  ([fe80::615d:bea9:8838:92be]) by BN6PR1201MB0146.namprd12.prod.outlook.com
  ([fe80::615d:bea9:8838:92be%4]) with mapi id 15.20.3391.027; Wed, 23 Sep 2020
- 18:35:43 +0000
+ 18:35:46 +0000
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu: fix xgmi perfmon a-b-a problem
-Date: Wed, 23 Sep 2020 14:35:16 -0400
-Message-Id: <20200923183518.65789-1-jonathan.kim@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: add xgmi perfmons for arcturus
+Date: Wed, 23 Sep 2020 14:35:18 -0400
+Message-Id: <20200923183518.65789-3-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200923183518.65789-1-jonathan.kim@amd.com>
+References: <20200923183518.65789-1-jonathan.kim@amd.com>
 X-ClientProxiedBy: YTOPR0101CA0007.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b00:15::20) To BN6PR1201MB0146.namprd12.prod.outlook.com
  (2603:10b6:405:59::18)
@@ -68,34 +70,34 @@ Received: from jonathan-KFD.amd.com (165.204.55.251) by
  YTOPR0101CA0007.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.21 via Frontend
- Transport; Wed, 23 Sep 2020 18:35:43 +0000
+ Transport; Wed, 23 Sep 2020 18:35:45 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7ca8305d-73dd-4e94-cc9c-08d85fef7ac3
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0082:
+X-MS-Office365-Filtering-Correlation-Id: d4bd1296-da10-45d7-cea5-08d85fef7c62
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1938:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB0082DC4659C44A2C7E48E2B885380@BN6PR1201MB0082.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <BN6PR12MB19383B2D838434DB10A9A5EF85380@BN6PR12MB1938.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:962;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zqtGExXlKi2rfStKpi6//ZA58m0PXB5WrnprcvEvNLHS8l9g/pU4fwcJtdy51EvDJwnzmxtzTLE0pAVRYI0ZMHps62cZEhJz6AhIjFkzIzhnZnHKfEXwyrlajRhJnKvldlwiFUP9yAejNgSuDfpgaQuYSZIZ8kTNFaEWIH+Q9s+0cnv4KbPt32OSjCDeArE7DDM1eNL6XPE8YhDxcclQ3tXLGpN41xAIOQwidRiCFtwB2Wi0AFpEYIpGpx0kkX0ftiOuNYPG60Uk4ztcJOn09XKmsKaRnK3D+dKLfKby8c1NpuB6HUo1nGfp9lNXps6BseFgYbCTyaF0WsCBYy+a5w==
+X-Microsoft-Antispam-Message-Info: vUewyYSlRxBXSPic2p3XkpkH1ZhkyCEEhNjqVcWWfIpk5R181WUyTTPVNGlsuEV0+DQJ9OPlIupm/jn1L36kq2zyKdKokFR3ByVou4k2qgoBeIx1odYxIJpOwwBkle6zh07jaMDiJ7/IaQf5fbjJmJOlPBXcw8vofNv01sRvGjIyc3v1YiE14jnzMACPI0gAsnvo4r2XACOWxxUAZWSIMbChuhXNcbj42bvzQcZM7oiOshuqfwGTIwgSI3lJEn5ncvuBP6Cos+JoFvbBWwZnQERCmJMa2lRQNYAaXkoccgNdvkjBYw+ffStHJwM6+NbM+l/Bl0TmHyCffpjeC2NNx5NW8W8ncawvSyd7DGQEuCd94dkiD8qwhm0T9+q0k66C
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN6PR1201MB0146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(39860400002)(396003)(346002)(136003)(86362001)(6486002)(316002)(478600001)(1076003)(66946007)(66556008)(66476007)(956004)(2616005)(8676002)(186003)(16526019)(26005)(83380400001)(6916009)(6666004)(2906002)(7696005)(54906003)(30864003)(36756003)(52116002)(44832011)(8936002)(5660300002)(4326008);
+ SFS:(4636009)(136003)(346002)(396003)(376002)(39860400002)(366004)(6916009)(66556008)(66476007)(86362001)(54906003)(2906002)(1076003)(5660300002)(66946007)(4326008)(186003)(7696005)(52116002)(16526019)(8676002)(26005)(6666004)(44832011)(36756003)(6486002)(316002)(956004)(2616005)(8936002)(478600001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: UOwOH/qKLgjbpZsFSHw+StZ/yVSmH9j4gwznNpWCqYEIWhl2RJzta+/f4MBbQfBT/6E7hJQVsdHyJM1PMsZPwyXrg5jM5Oyj2VviUIrBnAwrrf6VOdMxAnMduUMjHY3aBXvkxs4R1pa+v56KfxTFrOif1rJxpjhPlwwhzJMf097O0k4w7B5Z+EWA5B2n6Jab6mihaR5gHp2/vyeOthQCeBfEXbih5vmN/ISTen/6GglwYLgzoSNAt5ClTvZRXlO9H+Avkijaesyek9LvhNROzLT2jkVExuGIv3dRIbwx7wRN/lAE/f7purg4WN4cO6//BsXfUXnOzgXPm8TGdzrab5xXCF1ZEPIVV9MF3DERuGcGfAL1L5oiDymVMXgTDUJukLDZTMxqZXjnBHHR4n45EcP4AmG7I02OKkoa3w9D2Mpj0C970tM6VZBwqiO3weHQfoVeaIYfE/Tliz6M1RE8HhpTKpYvrYJLo3xD3t55eiKHpsOVJMCf2LIH2Kgki/CaFVIu1HlvGU5lXAo23b0ci5ICtS5JszZnDoPufaD0mIuq0XwMNQKtxQ3BsaPsfb7UpGOL0pND32Hnscow3wMc3JIw7bRCk17+NLEiCcFGM6VOjg9eBUdfCyYuEAjI4lxYkheIZ0yHtBV70i9p1IborQ==
+X-MS-Exchange-AntiSpam-MessageData: kNBhUMyNs0o89me7stnv41wOYU0Bm74Tvu72IXfMUQFleJQyfeF6/prh7ehtiaDKhiX2WtJkeGpbTsOzHsn99155LKzV4C81Eotu9SXE/BTD5L9GIBsIbRFUH0SKfpxPxAgG03kPd01Gq23tOak7RgFwqUReydn/xWQxtGK9P8qbPEq150CfV12LQSRP6kYp/uDJx3cck9tNtiYQm4FCuWfqkzvSiftRLDl0ltlf38lr7d1/zL7MWMW4ZdXoGfgn3Kcu+KQCZtLszhJVBQC0HwkwCmzR/fwMBiTjJ8SliR3SfPUOqrAcq2U7ikEkRld5Ywvk3Fenz4OYJ7kqUYLaskgV5Dkt98Nucp/4iGhSZVauwGMX0qgjKEqLI8JberztccqAhPxfzBu3imSHZw10ma007Kh3YvYwXlpUWwKgjXYyPqlz+ikfQ+7dwhr9gmnC6Ww7rn5nfQGa5bqtkk+dnm0jJRbBICL/E7gy7TVQTrcs2hccuuPCG1/1qPTFNmIr/log1gQTwDegcrxk2P3Ck7SOK60VMeYRUoW8Bfpx3yiyJyufUMv8Yf4md44FViFgFwuvK81CzebPD8nTgxW7r2MgMItDBv7GNY1yxRzW2ARwH4IpFQRnLuzgWl8oAs1AIRZMlcgtKgw6pFvzIbuzuA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ca8305d-73dd-4e94-cc9c-08d85fef7ac3
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4bd1296-da10-45d7-cea5-08d85fef7c62
 X-MS-Exchange-CrossTenant-AuthSource: BN6PR1201MB0146.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2020 18:35:43.7098 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2020 18:35:46.4596 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T85fcX2PpU8dtcU1ocnLuGtOiQcKysUnrggNXs8rfrNwoPqnNaw1Td9icHdgvCM8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0082
+X-MS-Exchange-CrossTenant-UserPrincipalName: rVZL2xz8h5uCoVQOCKbMoUn4NJqeTfDrA3SK5XuaBi5BevGajzB16YWeWhNJLqFu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1938
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,420 +115,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mapping hw counters per event config will cause ABA problems so map per
-event instead.
-
-v2: Discontinue starting perf counters if add fails.  Make it clear what's
-happening with pmc_start.
+Add xgmi perfmons for Arcturus.
 
 Signed-off-by: Jonathan Kim <Jonathan.Kim@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_df.h  |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c |  42 ++++++----
- drivers/gpu/drm/amd/amdgpu/df_v3_6.c    | 105 +++++++++++-------------
- 3 files changed, 78 insertions(+), 75 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
-index 373cdebe0e2f..52488bb45112 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
-@@ -44,11 +44,11 @@ struct amdgpu_df_funcs {
- 	void (*enable_ecc_force_par_wr_rmw)(struct amdgpu_device *adev,
- 					    bool enable);
- 	int (*pmc_start)(struct amdgpu_device *adev, uint64_t config,
--					 int is_add);
-+					 int counter_idx, int is_add);
- 	int (*pmc_stop)(struct amdgpu_device *adev, uint64_t config,
--					 int is_remove);
-+					 int counter_idx, int is_remove);
- 	void (*pmc_get_count)(struct amdgpu_device *adev, uint64_t config,
--					 uint64_t *count);
-+					 int counter_idx, uint64_t *count);
- 	uint64_t (*get_fica)(struct amdgpu_device *adev, uint32_t ficaa_val);
- 	void (*set_fica)(struct amdgpu_device *adev, uint32_t ficaa_val,
- 			 uint32_t ficadl_val, uint32_t ficadh_val);
+v3: Align with patch 2 streamlining perf types versus event config types.
+v2: Resend for re-review with alignment for v3 in patch 2.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 43 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c    |  3 ++
+ 2 files changed, 46 insertions(+)
+
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-index 69af462db34d..1b0ec715c8ba 100644
+index 610f96bb0239..5f6de18cfee2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-@@ -64,6 +64,7 @@ static void amdgpu_perf_start(struct perf_event *event, int flags)
- 	struct amdgpu_pmu_entry *pe = container_of(event->pmu,
- 						  struct amdgpu_pmu_entry,
- 						  pmu);
-+	int target_cntr = 0;
+@@ -35,6 +35,9 @@
+ #define NUM_EVENT_TYPES_VEGA20		1
+ #define NUM_EVENTS_VEGA20_XGMI		2
+ #define NUM_EVENTS_VEGA20_MAX		NUM_EVENTS_VEGA20_XGMI
++#define NUM_EVENT_TYPES_ARCTURUS	1
++#define NUM_EVENTS_ARCTURUS_XGMI	6
++#define NUM_EVENTS_ARCTURUS_MAX		NUM_EVENTS_ARCTURUS_XGMI
  
- 	if (WARN_ON_ONCE(!(hwc->state & PERF_HES_STOPPED)))
- 		return;
-@@ -73,17 +74,24 @@ static void amdgpu_perf_start(struct perf_event *event, int flags)
+ struct amdgpu_pmu_event_attribute {
+ 	struct device_attribute attr;
+@@ -122,6 +125,21 @@ static const char *df_vega20_events[NUM_EVENTS_DF_VEGA20][2] = {
+ 	{ "cake1_ftiinstat_rspalloc", "event=0xb,instance=0x47,umask=0x8" },
+ };
  
- 	switch (pe->pmu_perf_type) {
- 	case PERF_TYPE_AMDGPU_DF:
--		if (!(flags & PERF_EF_RELOAD))
--			pe->adev->df.funcs->pmc_start(pe->adev, hwc->config, 1);
-+		if (!(flags & PERF_EF_RELOAD)) {
-+			target_cntr = pe->adev->df.funcs->pmc_start(pe->adev,
-+						hwc->config, 0 /* unused */,
-+						1 /* add counter */);
-+			if (target_cntr < 0)
-+				break;
++/* Arcturus events */
++static const char *arcturus_events[NUM_EVENTS_ARCTURUS_MAX][2] = {
++	{ "xgmi_link0_data_outbound", "event=0x7,instance=0x4b,umask=0x2" },
++	{ "xgmi_link1_data_outbound", "event=0x7,instance=0x4c,umask=0x2" },
++	{ "xgmi_link2_data_outbound", "event=0x7,instance=0x4d,umask=0x2" },
++	{ "xgmi_link3_data_outbound", "event=0x7,instance=0x4e,umask=0x2" },
++	{ "xgmi_link4_data_outbound", "event=0x7,instance=0x4f,umask=0x2" },
++	{ "xgmi_link5_data_outbound", "event=0x7,instance=0x50,umask=0x2" }
++};
 +
-+			hwc->idx = target_cntr;
-+		}
- 
--		pe->adev->df.funcs->pmc_start(pe->adev, hwc->config, 0);
-+		pe->adev->df.funcs->pmc_start(pe->adev, hwc->config,
-+								hwc->idx, 0);
- 		break;
- 	default:
- 		break;
- 	}
- 
- 	perf_event_update_userpage(event);
--
- }
- 
- /* read perf counter */
-@@ -101,8 +109,8 @@ static void amdgpu_perf_read(struct perf_event *event)
- 
- 		switch (pe->pmu_perf_type) {
- 		case PERF_TYPE_AMDGPU_DF:
--			pe->adev->df.funcs->pmc_get_count(pe->adev, hwc->config,
--							  &count);
-+			pe->adev->df.funcs->pmc_get_count(pe->adev,
-+						hwc->config, hwc->idx, &count);
- 			break;
- 		default:
- 			count = 0;
-@@ -126,7 +134,8 @@ static void amdgpu_perf_stop(struct perf_event *event, int flags)
- 
- 	switch (pe->pmu_perf_type) {
- 	case PERF_TYPE_AMDGPU_DF:
--		pe->adev->df.funcs->pmc_stop(pe->adev, hwc->config, 0);
-+		pe->adev->df.funcs->pmc_stop(pe->adev, hwc->config, hwc->idx,
-+									0);
- 		break;
- 	default:
- 		break;
-@@ -142,12 +151,11 @@ static void amdgpu_perf_stop(struct perf_event *event, int flags)
- 	hwc->state |= PERF_HES_UPTODATE;
- }
- 
--/* add perf counter  */
-+/* add perf counter */
- static int amdgpu_perf_add(struct perf_event *event, int flags)
++static const int arcturus_event_config_types[NUM_EVENT_TYPES_ARCTURUS][2] = {
++	{ AMDGPU_PMU_EVENT_CONFIG_TYPE_XGMI, NUM_EVENTS_ARCTURUS_XGMI }
++};
++
++
+ /* initialize perf counter */
+ static int amdgpu_perf_event_init(struct perf_event *event)
  {
- 	struct hw_perf_event *hwc = &event->hw;
--	int retval;
--
-+	int retval = 0, target_cntr;
- 	struct amdgpu_pmu_entry *pe = container_of(event->pmu,
- 						  struct amdgpu_pmu_entry,
- 						  pmu);
-@@ -156,8 +164,14 @@ static int amdgpu_perf_add(struct perf_event *event, int flags)
+@@ -553,6 +571,31 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+ 		}
  
- 	switch (pe->pmu_perf_type) {
- 	case PERF_TYPE_AMDGPU_DF:
--		retval = pe->adev->df.funcs->pmc_start(pe->adev,
--						       hwc->config, 1);
-+		target_cntr = pe->adev->df.funcs->pmc_start(pe->adev,
-+						hwc->config, 0 /* unused */,
-+						1 /* add counter */);
-+		if (target_cntr < 0)
-+			retval = target_cntr;
-+		else
-+			hwc->idx = target_cntr;
-+
  		break;
++	case CHIP_ARCTURUS:
++		pmu_entry = kzalloc(sizeof(struct amdgpu_pmu_entry),
++								GFP_KERNEL);
++
++		if (!pmu_entry)
++			return -ENOMEM;
++
++		pmu_entry->adev = adev;
++		pmu_entry->fmt_attr_group.name = "format";
++		pmu_entry->fmt_attr_group.attrs = NULL;
++		pmu_entry->evt_attr_group.name = "events";
++		pmu_entry->evt_attr_group.attrs = NULL;
++		ret = init_pmu_by_type(pmu_entry, "", "amdgpu",
++						AMDGPU_PMU_PERF_TYPE_ALL,
++						amdgpu_pmu_formats,
++						NUM_FORMATS_AMDGPU_PMU,
++						arcturus_events,
++						NUM_EVENTS_ARCTURUS_MAX,
++						arcturus_event_config_types,
++						NUM_EVENT_TYPES_ARCTURUS);
++
++		if (ret)
++			kfree(pmu_entry);
++		break;
++
  	default:
  		return 0;
-@@ -170,7 +184,6 @@ static int amdgpu_perf_add(struct perf_event *event, int flags)
- 		amdgpu_perf_start(event, PERF_EF_RELOAD);
- 
- 	return retval;
--
- }
- 
- /* delete perf counter  */
-@@ -185,7 +198,8 @@ static void amdgpu_perf_del(struct perf_event *event, int flags)
- 
- 	switch (pe->pmu_perf_type) {
- 	case PERF_TYPE_AMDGPU_DF:
--		pe->adev->df.funcs->pmc_stop(pe->adev, hwc->config, 1);
-+		pe->adev->df.funcs->pmc_stop(pe->adev, hwc->config, hwc->idx,
-+									1);
- 		break;
- 	default:
- 		break;
+ 	};
 diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-index 7b89fd2aa44a..0ca6e176acb0 100644
+index 6e57ae95f997..6b4b30a8dce5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
 +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-@@ -391,33 +391,28 @@ static void df_v3_6_get_clockgating_state(struct amdgpu_device *adev,
- }
- 
- /* get assigned df perfmon ctr as int */
--static int df_v3_6_pmc_config_2_cntr(struct amdgpu_device *adev,
--				      uint64_t config)
-+static bool df_v3_6_pmc_has_counter(struct amdgpu_device *adev,
-+				      uint64_t config,
-+				      int counter_idx)
- {
--	int i;
- 
--	for (i = 0; i < DF_V3_6_MAX_COUNTERS; i++) {
--		if ((config & 0x0FFFFFFUL) ==
--					adev->df_perfmon_config_assign_mask[i])
--			return i;
--	}
-+	return ((config & 0x0FFFFFFUL) ==
-+			adev->df_perfmon_config_assign_mask[counter_idx]);
- 
--	return -EINVAL;
- }
- 
- /* get address based on counter assignment */
- static void df_v3_6_pmc_get_addr(struct amdgpu_device *adev,
- 				 uint64_t config,
-+				 int counter_idx,
- 				 int is_ctrl,
- 				 uint32_t *lo_base_addr,
- 				 uint32_t *hi_base_addr)
- {
--	int target_cntr = df_v3_6_pmc_config_2_cntr(adev, config);
--
--	if (target_cntr < 0)
-+	if (!df_v3_6_pmc_has_counter(adev, config, counter_idx))
- 		return;
- 
--	switch (target_cntr) {
-+	switch (counter_idx) {
- 
- 	case 0:
- 		*lo_base_addr = is_ctrl ? smnPerfMonCtlLo4 : smnPerfMonCtrLo4;
-@@ -443,15 +438,18 @@ static void df_v3_6_pmc_get_addr(struct amdgpu_device *adev,
- /* get read counter address */
- static void df_v3_6_pmc_get_read_settings(struct amdgpu_device *adev,
- 					  uint64_t config,
-+					  int counter_idx,
- 					  uint32_t *lo_base_addr,
- 					  uint32_t *hi_base_addr)
- {
--	df_v3_6_pmc_get_addr(adev, config, 0, lo_base_addr, hi_base_addr);
-+	df_v3_6_pmc_get_addr(adev, config, counter_idx, 0, lo_base_addr,
-+								hi_base_addr);
- }
- 
- /* get control counter settings i.e. address and values to set */
- static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
- 					  uint64_t config,
-+					  int counter_idx,
- 					  uint32_t *lo_base_addr,
- 					  uint32_t *hi_base_addr,
- 					  uint32_t *lo_val,
-@@ -462,7 +460,8 @@ static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
- 	uint32_t eventsel, instance, unitmask;
- 	uint32_t instance_10, instance_5432, instance_76;
- 
--	df_v3_6_pmc_get_addr(adev, config, 1, lo_base_addr, hi_base_addr);
-+	df_v3_6_pmc_get_addr(adev, config, counter_idx, 1, lo_base_addr,
-+				hi_base_addr);
- 
- 	if ((*lo_base_addr == 0) || (*hi_base_addr == 0)) {
- 		DRM_ERROR("[DF PMC] addressing not retrieved! Lo: %x, Hi: %x",
-@@ -492,18 +491,13 @@ static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
- static int df_v3_6_pmc_add_cntr(struct amdgpu_device *adev,
- 				   uint64_t config)
- {
--	int i, target_cntr;
--
--	target_cntr = df_v3_6_pmc_config_2_cntr(adev, config);
--
--	if (target_cntr >= 0)
--		return 0;
-+	int i;
- 
- 	for (i = 0; i < DF_V3_6_MAX_COUNTERS; i++) {
- 		if (adev->df_perfmon_config_assign_mask[i] == 0U) {
- 			adev->df_perfmon_config_assign_mask[i] =
- 							config & 0x0FFFFFFUL;
--			return 0;
-+			return i;
- 		}
- 	}
- 
-@@ -512,59 +506,50 @@ static int df_v3_6_pmc_add_cntr(struct amdgpu_device *adev,
- 
- #define DEFERRED_ARM_MASK	(1 << 31)
- static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
--				    uint64_t config, bool is_deferred)
-+				    int counter_idx, uint64_t config,
-+				    bool is_deferred)
- {
--	int target_cntr;
--
--	target_cntr = df_v3_6_pmc_config_2_cntr(adev, config);
- 
--	if (target_cntr < 0)
-+	if (!df_v3_6_pmc_has_counter(adev, config, counter_idx))
- 		return -EINVAL;
- 
- 	if (is_deferred)
--		adev->df_perfmon_config_assign_mask[target_cntr] |=
-+		adev->df_perfmon_config_assign_mask[counter_idx] |=
- 							DEFERRED_ARM_MASK;
- 	else
--		adev->df_perfmon_config_assign_mask[target_cntr] &=
-+		adev->df_perfmon_config_assign_mask[counter_idx] &=
- 							~DEFERRED_ARM_MASK;
- 
- 	return 0;
- }
- 
- static bool df_v3_6_pmc_is_deferred(struct amdgpu_device *adev,
-+				    int counter_idx,
- 				    uint64_t config)
- {
--	int target_cntr;
--
--	target_cntr = df_v3_6_pmc_config_2_cntr(adev, config);
--
--	/*
--	 * we never get target_cntr < 0 since this funciton is only called in
--	 * pmc_count for now but we should check anyways.
--	 */
--	return (target_cntr >= 0 &&
--			(adev->df_perfmon_config_assign_mask[target_cntr]
--			& DEFERRED_ARM_MASK));
-+	return	(df_v3_6_pmc_has_counter(adev, config, counter_idx) &&
-+			(adev->df_perfmon_config_assign_mask[counter_idx]
-+				& DEFERRED_ARM_MASK));
- 
- }
- 
- /* release performance counter */
- static void df_v3_6_pmc_release_cntr(struct amdgpu_device *adev,
--				     uint64_t config)
-+				     uint64_t config,
-+				     int counter_idx)
- {
--	int target_cntr = df_v3_6_pmc_config_2_cntr(adev, config);
--
--	if (target_cntr >= 0)
--		adev->df_perfmon_config_assign_mask[target_cntr] = 0ULL;
-+	if (df_v3_6_pmc_has_counter(adev, config, counter_idx))
-+		adev->df_perfmon_config_assign_mask[counter_idx] = 0ULL;
- }
- 
- 
- static void df_v3_6_reset_perfmon_cntr(struct amdgpu_device *adev,
--					 uint64_t config)
-+					 uint64_t config,
-+					 int counter_idx)
- {
- 	uint32_t lo_base_addr = 0, hi_base_addr = 0;
- 
--	df_v3_6_pmc_get_read_settings(adev, config, &lo_base_addr,
-+	df_v3_6_pmc_get_read_settings(adev, config, counter_idx, &lo_base_addr,
- 				      &hi_base_addr);
- 
- 	if ((lo_base_addr == 0) || (hi_base_addr == 0))
-@@ -573,8 +558,9 @@ static void df_v3_6_reset_perfmon_cntr(struct amdgpu_device *adev,
- 	df_v3_6_perfmon_wreg(adev, lo_base_addr, 0, hi_base_addr, 0);
- }
- 
-+/* return available counter if is_add == 1 otherwise return error status. */
- static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
--			     int is_add)
-+			     int counter_idx, int is_add)
- {
- 	uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
- 	int err = 0, ret = 0;
-@@ -584,10 +570,9 @@ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
- 		if (is_add)
- 			return df_v3_6_pmc_add_cntr(adev, config);
- 
--		df_v3_6_reset_perfmon_cntr(adev, config);
--
- 		ret = df_v3_6_pmc_get_ctrl_settings(adev,
- 					config,
-+					counter_idx,
- 					&lo_base_addr,
- 					&hi_base_addr,
- 					&lo_val,
-@@ -604,7 +589,8 @@ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
- 						     hi_val);
- 
- 		if (err)
--			ret = df_v3_6_pmc_set_deferred(adev, config, true);
-+			ret = df_v3_6_pmc_set_deferred(adev, config,
-+							counter_idx, true);
- 
- 		break;
- 	default:
-@@ -615,7 +601,7 @@ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
- }
- 
- static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
--			    int is_remove)
-+			    int counter_idx, int is_remove)
- {
- 	uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
- 	int ret = 0;
-@@ -624,6 +610,7 @@ static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
- 	case CHIP_VEGA20:
- 		ret = df_v3_6_pmc_get_ctrl_settings(adev,
- 			config,
-+			counter_idx,
- 			&lo_base_addr,
- 			&hi_base_addr,
- 			&lo_val,
-@@ -635,8 +622,8 @@ static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
- 
- 
- 		if (is_remove) {
--			df_v3_6_reset_perfmon_cntr(adev, config);
--			df_v3_6_pmc_release_cntr(adev, config);
-+			df_v3_6_reset_perfmon_cntr(adev, config, counter_idx);
-+			df_v3_6_pmc_release_cntr(adev, config, counter_idx);
- 		}
- 
- 		break;
-@@ -649,6 +636,7 @@ static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
- 
- static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
- 				  uint64_t config,
-+				  int counter_idx,
- 				  uint64_t *count)
- {
- 	uint32_t lo_base_addr = 0, hi_base_addr = 0, lo_val = 0, hi_val = 0;
-@@ -656,14 +644,14 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
+@@ -513,6 +513,7 @@ static int df_v3_6_pmc_start(struct amdgpu_device *adev, uint64_t config,
  
  	switch (adev->asic_type) {
  	case CHIP_VEGA20:
--		df_v3_6_pmc_get_read_settings(adev, config, &lo_base_addr,
--				      &hi_base_addr);
-+		df_v3_6_pmc_get_read_settings(adev, config, counter_idx,
-+						&lo_base_addr, &hi_base_addr);
++	case CHIP_ARCTURUS:
+ 		if (is_add)
+ 			return df_v3_6_pmc_add_cntr(adev, config);
  
- 		if ((lo_base_addr == 0) || (hi_base_addr == 0))
- 			return;
+@@ -554,6 +555,7 @@ static int df_v3_6_pmc_stop(struct amdgpu_device *adev, uint64_t config,
  
- 		/* rearm the counter or throw away count value on failure */
--		if (df_v3_6_pmc_is_deferred(adev, config)) {
-+		if (df_v3_6_pmc_is_deferred(adev, config, counter_idx)) {
- 			int rearm_err = df_v3_6_perfmon_arm_with_status(adev,
- 							lo_base_addr, lo_val,
- 							hi_base_addr, hi_val);
-@@ -671,7 +659,8 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
- 			if (rearm_err)
- 				return;
+ 	switch (adev->asic_type) {
+ 	case CHIP_VEGA20:
++	case CHIP_ARCTURUS:
+ 		ret = df_v3_6_pmc_get_ctrl_settings(adev,
+ 			config,
+ 			counter_idx,
+@@ -590,6 +592,7 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
  
--			df_v3_6_pmc_set_deferred(adev, config, false);
-+			df_v3_6_pmc_set_deferred(adev, config, counter_idx,
-+									false);
- 		}
+ 	switch (adev->asic_type) {
+ 	case CHIP_VEGA20:
++	case CHIP_ARCTURUS:
+ 		df_v3_6_pmc_get_read_settings(adev, config, counter_idx,
+ 						&lo_base_addr, &hi_base_addr);
  
- 		df_v3_6_perfmon_rreg(adev, lo_base_addr, &lo_val,
 -- 
 2.17.1
 
