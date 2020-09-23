@@ -2,102 +2,66 @@ Return-Path: <SRS0=BIvg=DA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 413F6C2D0A8
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 16:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5A1DC4727E
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 16:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C33320791
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 16:31:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7DA3C208E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 16:44:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kins8tLD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C33320791
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qA0ZfjBG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DA3C208E4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20C796E97A;
-	Wed, 23 Sep 2020 16:31:54 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2067.outbound.protection.outlook.com [40.107.93.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DED1D6E97A
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 16:31:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LzQOLWD31OTgoLNBc3SBynhke8+DVDPNxSfdD14npD5S9leC5+zJ+JK4OwKevs4j9vHWHyrHeqbEHyzQ0Lw1QGEcS/zcAwc7qptIOVp+a2JEDdCMHza1BbyRmslY/bi5ek2Ia9sMXnxeWmziFi05q55Ecm9fdCCDLUI0O9zFlyw5fQr+9kjm3PDiEqDK+MnrbAHxHBLqgkHq1NRQG8VyQlHLT03SGdvWHJ1pzKVy746Huis2edv9rDanDwdZWyGw8HB5zRgmQUZ7eQhTRrScQHy4Wkm44gFfG/UqXTWvSM6Sh0OuHZ8LlPqd6yZx97xWgw7EtvWt/gWbuj/bhXPvQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zbOViz2LVa0ulmJJOUXFS6hixSC/qo4fQsmfZ2bi7fg=;
- b=PNXIL+W4+tO6qxBmdh03C+6PAfaXbONofl3/Y1OgdvOHQcDbJFYcgBUb3zLv3NKQhODN2cpDmsI5OhwJ73Mqio5dMKyYYIZMJfSeVPfqAPajXIndA/8xW21ivp4YoOtbF6IptuC1XdE2bC5f6dlGN5wgpYV0X4maj5BtZaHCL7e5HPol2tbz6AckZQ2dzWYn95E6V7HmekbEpv232y4KIfAPhtQwYw44YtdsRM/BhQG5di19Z7EQZ5QGf9iPPkro/PLnP6yxU+sOgB+685EqIIuBJ19Q2i2X9QjMv/5u0y14rlf4/kIv/rx/yG2fmZqm4kTpFfgnV/yCquT35/mfdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zbOViz2LVa0ulmJJOUXFS6hixSC/qo4fQsmfZ2bi7fg=;
- b=kins8tLDJjuNSxvo6HAvL3Q2+Cty13OA98z4LkLWFBcL5pyYEXDkr+D4J4Dwjnq0DjYuVWOgRR0UX9wfnClq8uTGZZUXIdWHsU/EvImNTh3Ut/ldUcQ54r6XpGKKnK4Aijk+RR2c4LPOrvlSy3o8WRu0Goj232vs5mOMPsNXGgE=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3221.namprd12.prod.outlook.com (2603:10b6:a03:135::29)
- by BYAPR12MB4744.namprd12.prod.outlook.com (2603:10b6:a03:9e::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.19; Wed, 23 Sep
- 2020 16:31:46 +0000
-Received: from BYAPR12MB3221.namprd12.prod.outlook.com
- ([fe80::d492:66f5:21c4:7046]) by BYAPR12MB3221.namprd12.prod.outlook.com
- ([fe80::d492:66f5:21c4:7046%7]) with mapi id 15.20.3412.020; Wed, 23 Sep 2020
- 16:31:46 +0000
-Subject: Re: [PATCH v2] Add PP_FEATURE_MASK comments
-To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200922155500.9239-1-ryan.taylor@amd.com>
- <be88bf11-c18a-f316-9255-1a9d69b76308@amd.com>
-From: Ryan Taylor <ryan.taylor@amd.com>
-Message-ID: <48257725-d7dc-dc05-eeab-4aef18445d50@amd.com>
-Date: Wed, 23 Sep 2020 09:31:37 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.2.2
-In-Reply-To: <be88bf11-c18a-f316-9255-1a9d69b76308@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2600:1700:9260:7260::f]
-X-ClientProxiedBy: BN6PR22CA0037.namprd22.prod.outlook.com
- (2603:10b6:404:37::23) To BYAPR12MB3221.namprd12.prod.outlook.com
- (2603:10b6:a03:135::29)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 168036E97A;
+	Wed, 23 Sep 2020 16:44:36 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6716E97A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 16:44:34 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id a9so755818wmm.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 09:44:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SwnXm4L8bYM7DzYTk+Z/YWuxUJMqkBjSlhVlxf44cag=;
+ b=qA0ZfjBG2aVe47DiJCPAmuDbRs8Jes2Ue0Jv25qEmoVUexdcTXiWwJH0cyBXuoKeXh
+ MTNTTPHnLHPLjcmdD72H2SsG4nlm2fG3uvgzBfKHhtQG9oCdITGlo7uZIu+RFdqd+3EO
+ 5TsbFqX8CUDnbl480HP3t8Vgzpoka30PaPxiVmnOjL95ardwNq54ZUhAlsIiIO5J3Cu0
+ JnJYVfQiD348G4H1mt5uJFWZTiEkzjCo0qy0qvC7ZnEZqxR/1lLZwRR3z7AFXB6GySk3
+ oDtLJyZZQr/5vWJfwkUYeANN670I8XQALhuKFPSwIzLqxc9Xjxy5j3zF4QY9i14fgqSZ
+ EMtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SwnXm4L8bYM7DzYTk+Z/YWuxUJMqkBjSlhVlxf44cag=;
+ b=LtYhHgWbtSSPa48lYNQgYD9rM+wLEQJyqUid58KIdl2qPMG0QVqU8vmyYDBvHRWb5P
+ LfuwqvvIw/OLXa3cLVd4nhWfchiIiLtJA00om0z1Ixk7Fvj0A7jPm/ouegVA7sxtzleJ
+ AXLI4+seKn2j09W9mdJq7y5kr6cceRASYwcq/rbkbVtLjv50RmjZAqWaNSWW9etiRSH9
+ y/2UX9iy++h7YsC1CBdbHf36mlDL5rqe4dXqUZJektFeSU1bAdIijKOiC4sk5c3F6jmA
+ 1IY15P+HhNRygUiU1FLCK+70fIVsNqWdZT7aN8kWIsBYyeFJyoIE9dvMZsdOwWMNmJUb
+ 43og==
+X-Gm-Message-State: AOAM533OrrV+AB/SdK2SfpsK0VISTcY9tkjqwjWIKXrG6E70ozR1rWeG
+ in/oVygQQEn0Y6IftNlpVum/qaZxGhi/9XO6W6M=
+X-Google-Smtp-Source: ABdhPJyZRZ44poctDDjkenmIjG9BpTAAfYsxD/SDA44aA2yxnVQ+js3LF6BXVqOiYQ1hMqVbuMSUu2OFI+pmoNInsss=
+X-Received: by 2002:a1c:bcd4:: with SMTP id m203mr479581wmf.70.1600879473026; 
+ Wed, 23 Sep 2020 09:44:33 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2600:1700:9260:7260::f] (2600:1700:9260:7260::f) by
- BN6PR22CA0037.namprd22.prod.outlook.com (2603:10b6:404:37::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3412.20 via Frontend Transport; Wed, 23 Sep 2020 16:31:45 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ecccfd6e-67be-4c15-d398-08d85fde29cc
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4744:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB47444F189C4A31E7895B48ACEA380@BYAPR12MB4744.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EDCkAf0dhYoCyKBrTFGoystHFQ0PW2fLy93zREuwETzpMBZJYw9X+HVekOu6p1wcNq168Q4yPFXkcNiD+dV4jXc1DSwElVe/an62MnIdShAL6oP0+z1qRyOY0H86f8aEVSQ7Xf+BPgISv6R4hJGzPoK/HrHwK13+Pjz+Fok4VudHmWrOgXthwAsyZ4he2EvAhMNpcUixJ3txGnLlk1xcGdw1D2dXzF7iUHTK5zY3qH3C575eYvVH44Bp5Gh7PwR1y4vTjTAazF1eVMoA68Y7zrY011UQZ+R/LCc1YKsv+gMZkXeQARfg4mypC8uqqeeT5AekasWfTTlSwus4UgZeyiSrUqdX7eu9DMuGsrCVjIL2z1TwxRl7D17kETTkA0a9
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3221.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(2616005)(16526019)(4326008)(36756003)(66946007)(8936002)(8676002)(52116002)(31696002)(53546011)(44832011)(66476007)(86362001)(66556008)(186003)(5660300002)(478600001)(316002)(83380400001)(6486002)(2906002)(6666004)(31686004)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: m0IWUec16f3EALdJXqX+uvKo8jXL/ySfC43kqgehYmVl0rrAljxnb43lPiFZ1do0z519+Oe+NANTMUsiLFjTCIcN7lS0H3VPoIbo8iyn7LK+D3whzOg8g+aNfLR5nHdMxrNjKlXYf2zHFxtQw9F6/BPMIWaRSnnTrFm1AYmKlZWMJsQ/WWWT04+FB4XQZmkW2/aXAMK7niJIyGqzUNRW0VCfRuSdOzmroUrHp3z6KpFknMB/HlZvJ4+yHV3NXx/fTCohfZgsgg5wmQ5Wi2T1VW3FFnu/rPDm+T3GvyhXKzDeZ+gzWqAak74FLieUsKABvED8MZb8k4ZDr2PqZOdvNb2YuZBsxOpHYBOHj6xcNu5jAEnGDX4x9ZWT8btMV1KkqD9roqP9d+AeBOyOYqKecDFRrhgM169WQaDSdGNAm/6G1FFglut6RwdO9I5C9TvWVnXH+NFHViWEbX5nQmUz7GITp8BSYQWCiXMXUMtEPj/HuASRnxkKYEfgs8ejhvxyfSRfZ+sbVvSWptaWCXQ/My3Bd7IXTaUewQAOQvz0flnsbmY6Je5PD2J3E9lxiKeqcbgvVwriavtqb/V8xKJtefxq0by7og5KDnDAIUaTQKZqT+OdxhISke6QCT+C81/vEBqFhxMWbObEhKjQiw2UVWzAVwB24CPI2Csa4F5KQ48=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecccfd6e-67be-4c15-d398-08d85fde29cc
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3221.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2020 16:31:46.3441 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GIsuLX9m2RLNwsDBFmHHecTFG3G+GBsO3TWiEqQCwGXSZvaqb9cyGioUeNmUTKKsHVYL340WIbO03C2s2p7yLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4744
+References: <ghh7rqvtc1.fsf@gouders.net> <gha6xg237c.fsf@gouders.net>
+In-Reply-To: <gha6xg237c.fsf@gouders.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Sep 2020 12:44:21 -0400
+Message-ID: <CADnq5_PD-8rULVhDb-nAfonpm1ptQuCGh4520Gs_nrBN6g+4hA@mail.gmail.com>
+Subject: Re: amdgpu: call trace introduced in 5.9-rc1 for Lenovo L14 Renoir
+To: Dirk Gouders <dirk@gouders.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,95 +73,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks Luben,
+On Wed, Sep 23, 2020 at 8:54 AM Dirk Gouders <dirk@gouders.net> wrote:
+>
+> Dirk Gouders <dirk@gouders.net> writes:
+>
+> > Hi,
+> >
+> > I noticed a call trace (attached) when starting my machine (ThinkPad
+> > L14).  This machine is new and I am still working on it's
+> > configuration but visually noticeable is that scrolling in xterms with
+> > SHIFT-PgUp/PgDn is broken.  Using the mouse wheel works.
+> >
+> > It seems the call trace has been introduced between 5.8 and 5.9-rc1 and
+> > I tried to bisect this but always end in situations where I dont't find
+> > a bootable commit around the current bisect position.  Mainly the
+> > machine then hangs when udevd is started.
+>
+> I fixed my netconsole setup (had to use a switch instead of the
+> ports of a FritzBox) and tried a bisect, again (log below).  With the
+> commits between the earliest bad and latest good commits I marked, my
+> machine does not boot and hangs very early with the message:
+>
+>         fb0: switching to amdgpudrmfb from EFI VGA
+>
+> That was introduced with
+>
+>         c1cf79ca5ced drm/amdgpu: use IP discovery table for renoir
+>
+> and ended with a commit that instead produces the call trace
+>
+>         b6df946ef4b5 drm/amdgpu: fix the nullptr issue as for PWR IP not
+>                      existing in discovery table
+>
+> I was hoping to get further with the bisect but have no idea how to
+> avoid the early hangs.
 
-I'll make these revisions and try out Git's patch version setting.
+You can disable use of the IP discovery table by setting
+amdgpu.discovery=0 on the kernel command line in grub.
 
-Best,
-Ryan
+Alex
 
-On 9/23/20 7:40 AM, Luben Tuikov wrote:
-> On 2020-09-22 11:55, Ryan Taylor wrote:
->> Documents PP_FEATURE_MASK enum.
->> Provides instructions on how to use ppfeaturemasks.
->>
->> v2: Improved enum definitions. Adds kernel command line
->>     parameters to ppfeaturemask instructions.
->>
->> Signed-off-by: Ryan Taylor <ryan.taylor@amd.com>
->> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>  drivers/gpu/drm/amd/include/amd_shared.h | 28 ++++++++++++++++++++++++
->>  1 file changed, 28 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
->> index e98c84ef206f..7c84d5beb600 100644
->> --- a/drivers/gpu/drm/amd/include/amd_shared.h
->> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
->> @@ -128,6 +128,34 @@ enum amd_powergating_state {
->>  #define AMD_PG_SUPPORT_ATHUB			(1 << 16)
->>  #define AMD_PG_SUPPORT_JPEG			(1 << 17)
->>  
->> +/**
->> +* enum PP_FEATURE_MASK - Used to mask power play features.
->> +*
->> +* @PP_SCLK_DPM_MASK: Dynamic adjustment of the system (graphics) clock.
->> +* @PP_MCLK_DPM_MASK: Dynamic adjustment of the memory clock.
->> +* @PP_PCIE_DPM_MASK: Dynamic adjustment of PCIE clocks and lanes.
->> +* @PP_SCLK_DEEP_SLEEP_MASK: System (graphics) clock deep sleep.
->> +* @PP_POWER_CONTAINMENT_MASK: Power containment.
->> +* @PP_UVD_HANDSHAKE_MASK: Unified video decoder handshake.
->> +* @PP_SMC_VOLTAGE_CONTROL_MASK: Dynamic voltage control.
->> +* @PP_VBI_TIME_SUPPORT_MASK: Vertical blank interval support.
->> +* @PP_ULV_MASK: Ultra low voltage.
->> +* @PP_ENABLE_GFX_CG_THRU_SMU: SMU control of GFX engine clockgating.
->> +* @PP_CLOCK_STRETCH_MASK: Clock stretching.
->> +* @PP_OD_FUZZY_FAN_CONTROL_MASK: Overdrive fuzzy fan control.
->> +* @PP_SOCCLK_DPM_MASK: Dynamic adjustment of the SoC clock.
->> +* @PP_DCEFCLK_DPM_MASK: Dynamic adjustment of the Display Controller Engine Fabric clock.
->> +* @PP_OVERDRIVE_MASK: Over- and under-clocking support.
->> +* @PP_GFXOFF_MASK: Dynamic graphics engine power control.
->> +* @PP_ACG_MASK: Adaptive clock generator.
->> +* @PP_STUTTER_MODE: Stutter mode.
->> +* @PP_AVFS_MASK: Adaptive voltage and frequency scaling.
->> +*
->> +* To override these settings on boot, append amdgpu.ppfeaturemask=<mask> to
->> +* the kernel's command line parameters. This is usually done through a system's
->> +* boot loader (E.g. GRUB). If manually loading the driver, pass
->> +* ppfeaturemask=<mask> as a modprobe parameter.
->> +*/
-> 
-> Alignment should be:
-> 
-> /**
->  *
->  *
->  ...
->  */
-> 
-> Also, you can use Git's own patch version setting,
-> but I've seen here we usually put it in the commit title.
-> (Remember, titles do not end with a period.) Something like
-> 
-> 	Commit title (v2)
-> 
-> I don't mind using either. Not sure what the direction is
-> on this one.
-> 
-> Regards,
-> Luben
-> 
->>  enum PP_FEATURE_MASK {
->>  	PP_SCLK_DPM_MASK = 0x1,
->>  	PP_MCLK_DPM_MASK = 0x2,
->>
-> 
+
+>
+> Dirk
+>
+> = bisect log ===========================================================
+> git bisect start
+> # bad: [9123e3a74ec7b934a4a099e98af6a61c2f80bbf5] Linux 5.9-rc1
+> git bisect bad 9123e3a74ec7b934a4a099e98af6a61c2f80bbf5
+> # good: [bcf876870b95592b52519ed4aafcf9d95999bc9c] Linux 5.8
+> git bisect good bcf876870b95592b52519ed4aafcf9d95999bc9c
+> # bad: [8186749621ed6b8fc42644c399e8c755a2b6f630] Merge tag 'drm-next-2020-08-06' of git://anongit.freedesktop.org/drm/drm
+> git bisect bad 8186749621ed6b8fc42644c399e8c755a2b6f630
+> # good: [2324d50d051ec0f14a548e78554fb02513d6dcef] Merge tag 'docs-5.9' of git://git.lwn.net/linux
+> git bisect good 2324d50d051ec0f14a548e78554fb02513d6dcef
+> # bad: [54d44bfc56308d105b0da37392d8398bdc9d4745] drm/nouveau/nvif: give every disp object a human-readable identifier
+> git bisect bad 54d44bfc56308d105b0da37392d8398bdc9d4745
+> # bad: [9555152beb1143c85c03f9b9de59863cbbe89f4b] Merge tag 'amd-drm-next-5.9-2020-07-01' of git://people.freedesktop.org/~agd5f/linux into drm-next
+> git bisect bad 9555152beb1143c85c03f9b9de59863cbbe89f4b
+> # bad: [dfd991794685b1228387214f28630b6e94e56944] drm/amd/display: Not doing bios data pack.
+> git bisect bad dfd991794685b1228387214f28630b6e94e56944
+> # good: [ba806f98f868ce107aa9c453fef751de9980e4af] drm/radeon: disable AGP by default
+> git bisect good ba806f98f868ce107aa9c453fef751de9980e4af
+> # good: [97d798b276e94a366dfb03d62bc90d4742ab3a31] drm/amdgpu: simplify ATIF backlight handling
+> git bisect good 97d798b276e94a366dfb03d62bc90d4742ab3a31
+> # good: [ac4e189a5623579c023c9cf8006422aef2a487b4] drm/amdgpu/gfx10: add navi12 to gfxoff case
+> git bisect good ac4e189a5623579c023c9cf8006422aef2a487b4
+> # good: [70534d1ee89ceadd03292d0c2da4dd4020189678] drm/amdgpu: simplify raven and renoir checks
+> git bisect good 70534d1ee89ceadd03292d0c2da4dd4020189678
+> # good: [4541ea81edde6ce9a1d9be082489aca7e8e7e1dc] drm/[radeon|amdgpu]: Replace one-element array and use struct_size() helper
+> git bisect good 4541ea81edde6ce9a1d9be082489aca7e8e7e1dc
+> # good: [84034ad4c0c0813c1350b43087eed036066edd5a] drm/amd/display: combine public interfaces into single header
+> git bisect good 84034ad4c0c0813c1350b43087eed036066edd5a
+> # good: [4f1fad0e9dbd762497df7c79309697ed8b2b6cfc] drm/amd/powerplay: stop thermal IRQs on suspend
+> git bisect good 4f1fad0e9dbd762497df7c79309697ed8b2b6cfc
+> # good: [4292b0b2026bc10bced32636ea02dd8eed00cea9] drm/amdgpu: clean up discovery testing
+> git bisect good 4292b0b2026bc10bced32636ea02dd8eed00cea9
+> # bad: [c0838cbee2d05c3eb8a2b5a3d1ce706a73008044] drm/amd/display: Revert "enable plane if plane_status changed"
+> git bisect bad c0838cbee2d05c3eb8a2b5a3d1ce706a73008044
+> # bad: [651a146526a04993c5bebf0e19cd9256f5e6511d] drm/amdgpu/jpeg: fix race condition issue for jpeg start
+> git bisect bad 651a146526a04993c5bebf0e19cd9256f5e6511d
+> # bad: [3bda8acd974e362069e291a78c59a10624debc6e] drm/amdgpu/sriov: Add clear vf fw support
+> git bisect bad 3bda8acd974e362069e291a78c59a10624debc6e
+> # bad: [b6df946ef4b5ae29183b2fdb2d12c381c757b3fb] drm/amdgpu: fix the nullptr issue as for PWR IP not existing in discovery table
+> git bisect bad b6df946ef4b5ae29183b2fdb2d12c381c757b3fb
+> ========================================================================
+>
+>
+> > Please let me know if I can help with further information.
+> >
+> > Dirk
+> >
+> > = lspci -vk ============================================================
+> >
+> > 06:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Renoir (rev c3) (prog-if 00 [VGA controller])
+> >         Subsystem: Lenovo Renoir
+> >         Flags: bus master, fast devsel, latency 0, IRQ 64
+> >         Memory at 460000000 (64-bit, prefetchable) [size=256M]
+> >         Memory at 470000000 (64-bit, prefetchable) [size=2M]
+> >         I/O ports at 1000 [size=256]
+> >         Memory at fd300000 (32-bit, non-prefetchable) [size=512K]
+> >         Capabilities: [48] Vendor Specific Information: Len=08 <?>
+> >         Capabilities: [50] Power Management version 3
+> >         Capabilities: [64] Express Legacy Endpoint, MSI 00
+> >         Capabilities: [a0] MSI: Enable- Count=1/4 Maskable- 64bit+
+> >         Capabilities: [c0] MSI-X: Enable+ Count=4 Masked-
+> >         Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
+> >         Capabilities: [270] Secondary PCI Express
+> >         Capabilities: [2b0] Address Translation Service (ATS)
+> >         Capabilities: [2c0] Page Request Interface (PRI)
+> >         Capabilities: [2d0] Process Address Space ID (PASID)
+> >         Capabilities: [400] Data Link Feature <?>
+> >         Capabilities: [410] Physical Layer 16.0 GT/s <?>
+> >         Capabilities: [440] Lane Margining at the Receiver <?>
+> >         Kernel driver in use: amdgpu
+> >         Kernel modules: amdgpu
+> >
+> > = call trace ===========================================================
+> >
+> > [    5.181468] amdgpu 0000:06:00.0: amdgpu: SMU is initialized successfully!
+> > [    5.182857] [drm] kiq ring mec 2 pipe 1 q 0
+> > [    5.183374] ------------[ cut here ]------------
+> > [    5.183448] WARNING: CPU: 1 PID: 684 at drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn21/rn_clk_mgr.c:716 rn_clk_mgr_construct+0x242/0x389 [amdgpu]
+> > [    5.183449] Modules linked in: btusb btrtl btbcm btintel bluetooth ecdh_generic ecc iwlmvm mac80211 libarc4 wmi_bmof crct10dif_pclmul snd_hda_codec_realtek
+> > crc32c_intel iwlwifi snd_hda_codec_generic amdgpu(+) tpm_crb snd_hda_codec_hdmi gpu_sched i2c_algo_bit ttm sdhci_pci aesni_intel drm_kms_helper cqhci sdhci ccp
+> >  syscopyarea snd_hda_intel sysfillrect tpm_tis snd_intel_dspcfg sysimgblt xhci_pci tpm_tis_core fb_sys_fops r8169 snd_hda_codec mmc_core snd_hda_core xhci_hcd
+> > thinkpad_acpi cfg80211 realtek drm snd_pcm rng_core mdio_devres sha1_generic snd_timer nvram libphy i2c_piix4 snd k10temp soundcore ledtrig_audio rfkill tpm hw
+> > mon wmi battery ac video backlight pinctrl_amd acpi_cpufreq button efivarfs
+> > [    5.183470] CPU: 1 PID: 684 Comm: udevd Not tainted 5.9.0-rc6-x86_64+ #170
+> > [    5.183471] Hardware name: LENOVO 20U50008GE/20U50008GE, BIOS R19ET26W (1.10 ) 06/22/2020
+> > [    5.183531] RIP: 0010:rn_clk_mgr_construct+0x242/0x389 [amdgpu]
+> > [    5.183533] Code: 30 4d 85 c9 74 26 ba 03 00 00 00 83 bc d4 a8 00 00 00 00 89 d6 74 0a 83 bc d4 ac 00 00 00 00 75 40 48 ff ca 48 83 fa ff 75 e1 <0f> 0b 83 7
+> > b 20 01 0f 84 13 01 00 00 81 bd e8 00 00 00 ff 14 37 00
+> > [    5.183533] RSP: 0018:ffffc9000111f798 EFLAGS: 00010246
+> > [    5.183534] RAX: ffff8883fc1d8e00 RBX: ffff8883f925c9c0 RCX: 0000000000000000
+> > [    5.183535] RDX: ffffffffffffffff RSI: 0000000000000000 RDI: ffff8883f8da70c8
+> > [    5.183535] RBP: ffff8883fe8da000 R08: 0000000000000000 R09: ffff8883f724fc00
+> > [    5.183535] R10: 7fc9117fffffffff R11: ffff8883f925c9c0 R12: ffff8883f925c900
+> > [    5.183536] R13: ffff8883f5980000 R14: 0000000000000000 R15: 0000000000000001
+> > [    5.183537] FS:  00007f9e31a83d80(0000) GS:ffff88840ec40000(0000) knlGS:0000000000000000
+> > [    5.183537] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > [    5.183538] CR2: 000055fdf9ec5568 CR3: 00000003fb2b6000 CR4: 0000000000350ee0
+> > [    5.183538] Call Trace:
+> > [    5.183595]  dc_clk_mgr_create+0x135/0x18b [amdgpu]
+> > [    5.183651]  dc_create+0x238/0x5e3 [amdgpu]
+> > [    5.183708]  amdgpu_dm_init+0x167/0x1101 [amdgpu]
+> > [    5.183762]  dm_hw_init+0xa/0x17 [amdgpu]
+> > [    5.183805]  amdgpu_device_init+0x1566/0x1853 [amdgpu]
+> > [    5.183811]  ? __kmalloc+0xad/0xbf
+> > [    5.183852]  ? amdgpu_driver_load_kms+0x1c/0x17f [amdgpu]
+> > [    5.183892]  amdgpu_driver_load_kms+0x41/0x17f [amdgpu]
+> > [    5.183959]  amdgpu_pci_probe+0x139/0x1c0 [amdgpu]
+> > [    5.183967]  pci_device_probe+0xc6/0x135
+> > [    5.183971]  really_probe+0x157/0x32a
+> > [    5.183974]  driver_probe_device+0x63/0x97
+> > [    5.183976]  device_driver_attach+0x37/0x50
+> > [    5.183978]  __driver_attach+0x92/0x9a
+> > [    5.183980]  ? device_driver_attach+0x50/0x50
+> > [    5.183983]  bus_for_each_dev+0x70/0xa6
+> > [    5.183986]  bus_add_driver+0x103/0x1b4
+> > [    5.183988]  driver_register+0x99/0xd2
+> > [    5.183990]  ? 0xffffffffa0b2f000
+> > [    5.183993]  do_one_initcall+0x8a/0x195
+> > [    5.183997]  ? kmem_cache_alloc_trace+0x80/0x8f
+> > [    5.184002]  do_init_module+0x56/0x1e8
+> > [    5.184005]  load_module+0x1c2c/0x2139
+> > [    5.184010]  ? __do_sys_finit_module+0x8f/0xb6
+> > [    5.184012]  __do_sys_finit_module+0x8f/0xb6
+> > [    5.184017]  do_syscall_64+0x5d/0x6a
+> > [    5.184021]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> > [    5.184023] RIP: 0033:0x7f9e31b93919
+> > [    5.184026] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 47 05 0c 00 f7 d8 64 89 01 48
+> > [    5.184028] RSP: 002b:00007fff315a0fa8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> > [    5.184030] RAX: ffffffffffffffda RBX: 000055fdf9eebde0 RCX: 00007f9e31b93919
+> > [    5.184031] RDX: 0000000000000000 RSI: 00007f9e31c6a91d RDI: 0000000000000013
+> > [    5.184032] RBP: 0000000000020000 R08: 0000000000000000 R09: 00007fff315a1110
+> > [    5.184033] R10: 0000000000000013 R11: 0000000000000246 R12: 00007f9e31c6a91d
+> > [    5.184034] R13: 0000000000000000 R14: 000055fdf9ed8060 R15: 000055fdf9eebde0
+> > [    5.184037] ---[ end trace a782862b8da91b8d ]---
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
