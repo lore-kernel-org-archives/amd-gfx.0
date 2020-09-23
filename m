@@ -7,26 +7,26 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02975C4CC6F
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7EDAC4CC6D
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE0D023787
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE0D023787
+	by mail.kernel.org (Postfix) with ESMTPS id 9E2AB21BE5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:23:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E2AB21BE5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11CB76E98F;
-	Wed, 23 Sep 2020 10:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF5C6E98B;
+	Wed, 23 Sep 2020 10:22:23 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5904D6E940;
- Wed, 23 Sep 2020 10:22:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 771A66E946;
+ Wed, 23 Sep 2020 10:22:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 26F23B288;
- Wed, 23 Sep 2020 10:22:56 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 3A254B290;
+ Wed, 23 Sep 2020 10:22:53 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -51,10 +51,9 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  emil.velikov@collabora.com, laurentiu.palcu@oss.nxp.com,
  shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
  festevam@gmail.com, linux-imx@nxp.com
-Subject: [PATCH v3 18/22] drm/virtgpu: Set PRIME export function in struct
- drm_gem_object_funcs
-Date: Wed, 23 Sep 2020 12:21:55 +0200
-Message-Id: <20200923102159.24084-19-tzimmermann@suse.de>
+Subject: [PATCH v3 15/22] drm/tegra: Introduce GEM object functions
+Date: Wed, 23 Sep 2020 12:21:52 +0200
+Message-Id: <20200923102159.24084-16-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200923102159.24084-1-tzimmermann@suse.de>
 References: <20200923102159.24084-1-tzimmermann@suse.de>
@@ -72,11 +71,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- xen-devel@lists.xenproject.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Thierry Reding <treding@nvidia.com>, freedreno@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -84,40 +83,59 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 GEM object functions deprecate several similar callback interfaces in
-struct drm_driver. This patch replaces virtgpu's per-driver PRIME export
-function with a per-object function.
+struct drm_driver. This patch replaces the per-driver callbacks with
+per-instance callbacks in tegra.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Acked-by: Thierry Reding <treding@nvidia.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_drv.c    | 1 -
- drivers/gpu/drm/virtio/virtgpu_object.c | 1 +
- 2 files changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/tegra/drm.c | 4 ----
+ drivers/gpu/drm/tegra/gem.c | 8 ++++++++
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index b039f493bda9..1f8d6ed11d21 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -203,7 +203,6 @@ static struct drm_driver driver = {
+diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+index ba9d1c3e7cac..f0f581cd345e 100644
+--- a/drivers/gpu/drm/tegra/drm.c
++++ b/drivers/gpu/drm/tegra/drm.c
+@@ -858,12 +858,8 @@ static struct drm_driver tegra_drm_driver = {
+ 	.debugfs_init = tegra_debugfs_init,
+ #endif
+ 
+-	.gem_free_object_unlocked = tegra_bo_free_object,
+-	.gem_vm_ops = &tegra_bo_vm_ops,
+-
  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
- 	.gem_prime_mmap = drm_gem_prime_mmap,
--	.gem_prime_export = virtgpu_gem_prime_export,
- 	.gem_prime_import = virtgpu_gem_prime_import,
- 	.gem_prime_import_sg_table = virtgpu_gem_prime_import_sg_table,
+-	.gem_prime_export = tegra_gem_prime_export,
+ 	.gem_prime_import = tegra_gem_prime_import,
  
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index 00d6b95e259d..42560afc3875 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -107,6 +107,7 @@ static const struct drm_gem_object_funcs virtio_gpu_shmem_funcs = {
- 	.close = virtio_gpu_gem_object_close,
+ 	.dumb_create = tegra_bo_dumb_create,
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index a2bac20ff19d..794ec2456934 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -230,6 +230,12 @@ static int tegra_bo_iommu_unmap(struct tegra_drm *tegra, struct tegra_bo *bo)
+ 	return 0;
+ }
  
- 	.print_info = drm_gem_shmem_print_info,
-+	.export = virtgpu_gem_prime_export,
- 	.pin = drm_gem_shmem_pin,
- 	.unpin = drm_gem_shmem_unpin,
- 	.get_sg_table = drm_gem_shmem_get_sg_table,
++static const struct drm_gem_object_funcs tegra_gem_object_funcs = {
++	.free = tegra_bo_free_object,
++	.export = tegra_gem_prime_export,
++	.vm_ops = &tegra_bo_vm_ops,
++};
++
+ static struct tegra_bo *tegra_bo_alloc_object(struct drm_device *drm,
+ 					      size_t size)
+ {
+@@ -240,6 +246,8 @@ static struct tegra_bo *tegra_bo_alloc_object(struct drm_device *drm,
+ 	if (!bo)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	bo->gem.funcs = &tegra_gem_object_funcs;
++
+ 	host1x_bo_init(&bo->base, &tegra_bo_ops);
+ 	size = round_up(size, PAGE_SIZE);
+ 
 -- 
 2.28.0
 
