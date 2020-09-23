@@ -1,137 +1,64 @@
-Return-Path: <SRS0=8BU1=C7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=BIvg=DA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57890C4727D
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 20:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58794C4363D
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 01:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD1742065D
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2020 20:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD1742065D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ettle.org.uk
+	by mail.kernel.org (Postfix) with ESMTPS id F08FF2371F
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 01:48:57 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="teqHAPRT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F08FF2371F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED796E33F;
-	Tue, 22 Sep 2020 20:56:35 +0000 (UTC)
-X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
- Tue, 22 Sep 2020 20:56:32 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 968EC6E33F
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 20:56:32 +0000 (UTC)
-Received: from bender.cb.ettle ([143.159.226.37]) by mrelayeu.kundenserver.de
- (mreue012 [212.227.15.163]) with ESMTPSA (Nemesis) id
- 1Mo6WJ-1knH3x4AqR-00pef0; Tue, 22 Sep 2020 22:51:23 +0200
-Subject: Re: [PATCH] drm/amdgpu/dc: Pixel encoding DRM property and module
- parameter
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <7cc7d590-f713-2060-6bac-37bed0df618a@ettle.org.uk>
- <CADnq5_OEzoEP93+MsGN1tspy0OrxVTkujKUhs+6LryVApvERkw@mail.gmail.com>
-From: James Ettle <james@ettle.org.uk>
-Autocrypt: addr=james@ettle.org.uk; prefer-encrypt=mutual; keydata=
- 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
- EXgPHlt7bQ==
-Message-ID: <286845a3-4903-c169-aa36-1eb986492ea3@ettle.org.uk>
-Date: Tue, 22 Sep 2020 21:51:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43EED6E0E0;
+	Wed, 23 Sep 2020 01:48:57 +0000 (UTC)
+Received: from mail-vk1-xa30.google.com (mail-vk1-xa30.google.com
+ [IPv6:2607:f8b0:4864:20::a30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92B9C6E0E0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 01:41:00 +0000 (UTC)
+Received: by mail-vk1-xa30.google.com with SMTP id h23so4772082vkn.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2020 18:41:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=sQ2hnyE9WHB2+vsIY8b33SnZtnsTWwbVthk8vwUVK30=;
+ b=teqHAPRTdMbRRhO2h6RHqtzwfgjmr6urbQJ3iBM6XfZhtEeVv5hXHGX+UXmHeshFou
+ DvYwQ5pxkfUDkzvnRgONiJFx6Zy2t+vYOyDVhjJEgf15t8rOoMuxYKG0hOUXnC8KtIrq
+ i6DWXiblCgygR2lhoYkgkCKvqucUZu2yKrCMXYzLgvY0nSWCIx32TPUSmDZ9UMPLdR/f
+ kLPq9LIxmoSNWZRPtnu4iaIIdArcDcAGTW7ASSc3jpQmDqIQZ4gVt/HHFcn+jBcYdc7R
+ AWt6XFqvGx3it7svbSgeNBM57+vRFz06ZJaaeF4qxF8nHAKmED6kc+Yy8YHEKuXt4jB9
+ v/8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=sQ2hnyE9WHB2+vsIY8b33SnZtnsTWwbVthk8vwUVK30=;
+ b=ggZHWsGn8Lv5u0CmuvZFu+tplJzE0wwgN7c3DSLFPRmgiFJ4CEMlpeKSp5H0f89PD1
+ w/pCa7+ejSHOOke18NS70DwAYaSlhVifkN/iFEMoGm/LIo0EeuxZdwVxrZx5PLjwsM+L
+ 08ysN9ymmyOlWIoCdTGAP7k+H8gNSLwYm6g5a9Z8Du0HXbFdP4aosruIMgCpYFmp6ymF
+ YTt3TyG/dVTcvEYMe4gsWfHToFgonSdOiEFwT5PV0BODmsjRaKvShoX3FiOiZ6YntpmC
+ dtTU1wixZQgmAIvcqSXNuc89rEvVt+AttwAQQ4i4vlcabZpU4Mb++9MOUlCsBsLKhxqd
+ jnxQ==
+X-Gm-Message-State: AOAM532Maalod9DxHjA5GMlBW3jpTOrmS2P2LsOLTqTpD/EvlbxJ7uQB
+ TQMpoeDkzgCbkrWNO/NqgV8uddFZO7kOqCHEBbdjd7uNsLOSSw==
+X-Google-Smtp-Source: ABdhPJzlr+WwGygsGxxl1VSJrSSIBqcTZOupPJlXFNJBdxznVsLjBkfzfz4LjFhL7SoFHNbL/kL05r7Ni7/qtW9/v28=
+X-Received: by 2002:a1f:fe46:: with SMTP id l67mr5330253vki.23.1600825259156; 
+ Tue, 22 Sep 2020 18:40:59 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_OEzoEP93+MsGN1tspy0OrxVTkujKUhs+6LryVApvERkw@mail.gmail.com>
-Content-Language: en-US
-X-Provags-ID: V03:K1:s9W8QqSj7sbs5dBVNuDVWjDgWsHaw/IX911avYajhU38iWz7XRj
- 1OJIuyOjAHeeQ01P0ZMxeeo16YlmIiY+AZJpMs1eBETbgvA60swQI01YGLqsyeliO1ReA8Q
- HuVlVTFlsCitVwWMF9udbWQyHuh4dqsinOWAwbyycf6BF5J8pbBoUnbCR9nzM06SwY7INwE
- WEqKKps0cvT3XwiWdgQ2w==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:rDnqIm3HF44=:/ZRgD+dUsZWs3UYB+oJuKB
- //ZCc4CU7XVKdZckYOqEkjCFRqpAqmci2ueFKddTRjy72oYRAIR4W5HYlg82ox5rloo7SJk69
- iPvNBGfxFig2Inb+Tdn1g0rVS90YAbZDDZyeEmfRzdLnqOtX+gTY8cgiCCz8o5QddLllECbMj
- xXkuRfdKUWvOrg6WjVMzBdH3QRFbmc7urMEqPFhExhqj0eLEICaIKqi4xIoRDHJKStGEE93PQ
- EWXtLAPf4/MwOSB8/mz6QeFlakDt314YZkWaIQMej7dznifLVCwSNGMhwpVQ3xUGaJYxzUyLa
- nfgJzFksS2BRxaLWg7HOuzjVq3a86Q9wxeM+xvZ7vnpJ9g2nX3bBxlzvsiJqmaktbDmOI8tnd
- iSPaERBHie226O0M2SsWxJ6akFLxdj9F0WcUnALsreZKO5R4uIxpNjwgtMegcP0pAo8ppuxm+
- 38rx0q+Js2Ymw2+V/NMpLPaxAmcBRCbdGJ8Ai4T7XulEbZlm3/BDz/Npi0MmQ5P+aBE0FtP3i
- +YPBFfB7MuErVREE8LwjhfBL1wgGcsi3Rk1mwHZjvZcsQQy7ht9jwjaMyQiS5sDMbUagDVa6P
- Z2f3EUyfwwlpP55RXihvj9SHg6TEK9ExOK5DZPzO2etWlcdvL+oDnfKQN43sC0o/hBZrg499Q
- 0GEISk67PrSpxQFwKaobtXceIKnypQdtp80UWr3o3eMHGsxNj5oz/mIiTiVp5MZ3JJXUDHujB
- MRG9zSMSrEW2BErjRQMJtVIDb/Z/YmVJ/dGFgxGgWwzzKz+1uDnyj3d+ncTwBEkWv6WyzcpG7
- XXfis3yI1eKr5cruv2Vv3d/QSvOutAD6vw4MMG1+jX3eFk/0eun6GhprBzeKxgvi6Go8ckH
+From: Bram Stolk <b.stolk@gmail.com>
+Date: Tue, 22 Sep 2020 18:40:48 -0700
+Message-ID: <CABYXEkvjfd5Cu6_UdEWf=UykLDyCBXNCme-2xKCvC5ab7Os04A@mail.gmail.com>
+Subject: dcn20_validate_bandwidth warnings.
+To: amd-gfx@lists.freedesktop.org
+X-Mailman-Approved-At: Wed, 23 Sep 2020 01:48:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,34 +70,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <hwentlan@amd.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1968650262=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 22/09/2020 21:33, Alex Deucher wrote:
->> +/**
->> + * DOC: pixel_encoding (string)
->> + * Specify the initial pixel encoding used by a connector.
->> + */
->> +static char amdgpu_pixel_encoding[MAX_INPUT];
->> +MODULE_PARM_DESC(pixel_encoding, "Override pixel encoding");
->> +module_param_string(pixel_encoding, amdgpu_pixel_encoding, sizeof(amdgpu_pixel_encoding), 0444);
-> 
-> You can drop this part.  We don't need a module parameter if we have a
-> kms property.
-> 
-> Alex
+--===============1968650262==
+Content-Type: multipart/alternative; boundary="000000000000eb6c4b05aff12c74"
 
-OK, but is there then an alternative means of setting the pixel encoding to be used immediately on boot or when amdgpu loads? Also are there user tools other than xrandr to change a KMS property, for Wayland and console users? 
+--000000000000eb6c4b05aff12c74
+Content-Type: text/plain; charset="UTF-8"
 
--James
+My system log is full of warnings about dcn20_validate_bandwidth (see
+below.)
+
+This is with RX 5500 XT device running amd gpupro driver. 20.30-1109583
+amdgpu-dkms 1:5.6.5.24-1109583
+
+This seems to coincide with a screen full of pixel noise, and seems
+triggered when going in, or out of a sleep/idle mode?
+
+[184701.291613] ------------[ cut here ]------------
+[184701.291740] WARNING: CPU: 12 PID: 1567 at
+/var/lib/dkms/amdgpu/5.6.5.24-1109583/build/amd/amdgpu/../display/dc/dcn20/dcn20_resource.c:3250
+dcn20_validate_bandwidth_fp+0x8a/0xd0 [amdgpu]
+[184701.291741] Modules linked in: AMDPowerProfiler(OE) btrfs xor
+zstd_compress raid6_pq ufs qnx4 hfsplus hfs minix ntfs msdos jfs xfs
+libcrc32c cpuid netlink_diag intel_rapl_msr intel_rapl_common
+isst_if_common skx_edac nfit x86_pkg_temp_thermal intel_powerclamp
+ipmi_ssif snd_hda_codec_hdmi binfmt_misc uas usb_storage coretemp
+snd_hda_intel snd_intel_dspcfg kvm_intel snd_hda_codec kvm snd_hda_core
+amdgpu(OE) nls_iso8859_1 snd_hwdep snd_pcm amd_iommu_v2 snd_seq_midi
+amd_sched(OE) snd_seq_midi_event amdttm(OE) snd_rawmidi crct10dif_pclmul
+snd_seq ghash_clmulni_intel aesni_intel snd_seq_device crypto_simd
+snd_timer amdkcl(OE) cryptd glue_helper drm_kms_helper snd fb_sys_fops rapl
+mei_me syscopyarea xpad ipmi_si sysfillrect intel_cstate input_leds joydev
+ff_memless sysimgblt soundcore mei ioatdma ipmi_devintf ipmi_msghandler
+mac_hid acpi_tad sch_fq_codel parport_pc ppdev lp parport drm ip_tables
+x_tables autofs4 hid_generic usbhid hid crc32_pclmul igb nvme nvme_core
+i2c_algo_bit i2c_i801 dca wmi
+[184701.291776]  [last unloaded: AMDPowerProfiler]
+[184701.291780] CPU: 12 PID: 1567 Comm: Xorg Tainted: G        W  OE
+5.4.0-47-generic #51-Ubuntu
+[184701.291781] Hardware name: Supermicro Super Server/X11SRM-F, BIOS 2.2
+09/03/2020
+[184701.291888] RIP: 0010:dcn20_validate_bandwidth_fp+0x8a/0xd0 [amdgpu]
+[184701.291890] Code: 24 08 1f 00 00 75 29 31 d2 4c 89 e6 4c 89 ef f2 41 0f
+11 84 24 50 26 00 00 e8 f2 f5 ff ff 89 c2 41 22 94 24 08 1f 00 00 75 33
+<0f> 0b eb 02 75 cd f2 0f 10 55 e8 f2 41 0f 11 94 24 50 26 00 00 48
+[184701.291891] RSP: 0018:ffffb46b4298fa20 EFLAGS: 00010246
+[184701.291893] RAX: 0000000000000001 RBX: 0000000000000000 RCX:
+00000000000ea272
+[184701.291893] RDX: 0000000000000000 RSI: af2e92a2240f908b RDI:
+000000000002f1a0
+[184701.291894] RBP: ffffb46b4298fa38 R08: 0000000000000005 R09:
+0000000000000000
+[184701.291895] R10: 0000000000000004 R11: 0000000100000001 R12:
+ffff986787960000
+[184701.291896] R13: ffff986992740000 R14: ffff986917709830 R15:
+ffff986787960000
+[184701.291897] FS:  00007f9fd16f5a80(0000) GS:ffff98699ff00000(0000)
+knlGS:0000000000000000
+[184701.291898] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[184701.291899] CR2: 00007fb240ca20c0 CR3: 0000000806c6c004 CR4:
+00000000003606e0
+[184701.291900] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
+0000000000000000
+[184701.291901] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
+0000000000000400
+[184701.291901] Call Trace:
+[184701.292005]  dcn20_validate_bandwidth+0x29/0x40 [amdgpu]
+[184701.292099]  dc_validate_global_state+0x260/0x2d0 [amdgpu]
+[184701.292196]  amdgpu_dm_atomic_check+0xcd3/0xd10 [amdgpu]
+[184701.292215]  drm_atomic_check_only+0x2b1/0x450 [drm]
+[184701.292227]  drm_atomic_commit+0x18/0x50 [drm]
+[184701.292239]  drm_atomic_connector_commit_dpms+0xdf/0x100 [drm]
+[184701.292252]  drm_mode_obj_set_property_ioctl+0x156/0x2a0 [drm]
+[184701.292265]  ? drm_connector_set_obj_prop+0x90/0x90 [drm]
+[184701.292277]  drm_connector_property_set_ioctl+0x3b/0x60 [drm]
+[184701.292286]  drm_ioctl_kernel+0xae/0xf0 [drm]
+[184701.292295]  drm_ioctl+0x234/0x3d0 [drm]
+[184701.292306]  ? drm_connector_set_obj_prop+0x90/0x90 [drm]
+[184701.292310]  ? ___sys_recvmsg+0x88/0xc0
+[184701.292354]  amdgpu_drm_ioctl+0x4e/0x80 [amdgpu]
+[184701.292356]  do_vfs_ioctl+0x407/0x670
+[184701.292359]  ? fput+0x13/0x15
+[184701.292361]  ? __sys_recvmsg+0x88/0xa0
+[184701.292363]  ksys_ioctl+0x67/0x90
+[184701.292364]  __x64_sys_ioctl+0x1a/0x20
+[184701.292367]  do_syscall_64+0x57/0x190
+[184701.292370]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[184701.292372] RIP: 0033:0x7f9fd1a5537b
+[184701.292373] Code: 0f 1e fa 48 8b 05 15 3b 0d 00 64 c7 00 26 00 00 00 48
+c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05
+<48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e5 3a 0d 00 f7 d8 64 89 01 48
+[184701.292374] RSP: 002b:00007ffc96832f98 EFLAGS: 00000246 ORIG_RAX:
+0000000000000010
+[184701.292376] RAX: ffffffffffffffda RBX: 00007ffc96832fd0 RCX:
+00007f9fd1a5537b
+[184701.292376] RDX: 00007ffc96832fd0 RSI: 00000000c01064ab RDI:
+000000000000000d
+[184701.292377] RBP: 00000000c01064ab R08: 00007ffc96895090 R09:
+00007ffc96832eb8
+[184701.292378] R10: 00007ffc96832eb0 R11: 0000000000000246 R12:
+0000557656b2fb40
+[184701.292379] R13: 000000000000000d R14: 0000000000000000 R15:
+0000557656a46980
+[184701.292381] ---[ end trace 91d0e0d7876bea26 ]---
+
+
+-- 
+Owner/Director of Game Studio Abraham Stolk Inc.
+Vancouver BC, Canada
+b.stolk@gmail.com
+
+--000000000000eb6c4b05aff12c74
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>My system log is full of warnings about dcn20_validat=
+e_bandwidth (see below.)</div><div><br></div><div>This is with RX 5500 XT d=
+evice running amd gpupro driver. 20.30-1109583</div><div>amdgpu-dkms 1:5.6.=
+5.24-1109583</div><div><br></div><div>This seems to coincide with a screen =
+full of pixel noise, and seems triggered when going in, or out of a sleep/i=
+dle mode?</div><div><br></div><div><font size=3D"1">[184701.291613] -------=
+-----[ cut here ]------------<br>[184701.291740] WARNING: CPU: 12 PID: 1567=
+ at /var/lib/dkms/amdgpu/5.6.5.24-1109583/build/amd/amdgpu/../display/dc/dc=
+n20/dcn20_resource.c:3250 dcn20_validate_bandwidth_fp+0x8a/0xd0 [amdgpu]<br=
+>[184701.291741] Modules linked in: AMDPowerProfiler(OE) btrfs xor zstd_com=
+press raid6_pq ufs qnx4 hfsplus hfs minix ntfs msdos jfs xfs libcrc32c cpui=
+d netlink_diag intel_rapl_msr intel_rapl_common isst_if_common skx_edac nfi=
+t x86_pkg_temp_thermal intel_powerclamp ipmi_ssif snd_hda_codec_hdmi binfmt=
+_misc uas usb_storage coretemp snd_hda_intel snd_intel_dspcfg kvm_intel snd=
+_hda_codec kvm snd_hda_core amdgpu(OE) nls_iso8859_1 snd_hwdep snd_pcm amd_=
+iommu_v2 snd_seq_midi amd_sched(OE) snd_seq_midi_event amdttm(OE) snd_rawmi=
+di crct10dif_pclmul snd_seq ghash_clmulni_intel aesni_intel snd_seq_device =
+crypto_simd snd_timer amdkcl(OE) cryptd glue_helper drm_kms_helper snd fb_s=
+ys_fops rapl mei_me syscopyarea xpad ipmi_si sysfillrect intel_cstate input=
+_leds joydev ff_memless sysimgblt soundcore mei ioatdma ipmi_devintf ipmi_m=
+sghandler mac_hid acpi_tad sch_fq_codel parport_pc ppdev lp parport drm ip_=
+tables x_tables autofs4 hid_generic usbhid hid crc32_pclmul igb nvme nvme_c=
+ore i2c_algo_bit i2c_i801 dca wmi<br>[184701.291776] =C2=A0[last unloaded: =
+AMDPowerProfiler]<br>[184701.291780] CPU: 12 PID: 1567 Comm: Xorg Tainted: =
+G =C2=A0 =C2=A0 =C2=A0 =C2=A0W =C2=A0OE =C2=A0 =C2=A0 5.4.0-47-generic #51-=
+Ubuntu<br>[184701.291781] Hardware name: Supermicro Super Server/X11SRM-F, =
+BIOS 2.2 09/03/2020<br>[184701.291888] RIP: 0010:dcn20_validate_bandwidth_f=
+p+0x8a/0xd0 [amdgpu]<br>[184701.291890] Code: 24 08 1f 00 00 75 29 31 d2 4c=
+ 89 e6 4c 89 ef f2 41 0f 11 84 24 50 26 00 00 e8 f2 f5 ff ff 89 c2 41 22 94=
+ 24 08 1f 00 00 75 33 &lt;0f&gt; 0b eb 02 75 cd f2 0f 10 55 e8 f2 41 0f 11 =
+94 24 50 26 00 00 48<br>[184701.291891] RSP: 0018:ffffb46b4298fa20 EFLAGS: =
+00010246<br>[184701.291893] RAX: 0000000000000001 RBX: 0000000000000000 RCX=
+: 00000000000ea272<br>[184701.291893] RDX: 0000000000000000 RSI: af2e92a224=
+0f908b RDI: 000000000002f1a0<br>[184701.291894] RBP: ffffb46b4298fa38 R08: =
+0000000000000005 R09: 0000000000000000<br>[184701.291895] R10: 000000000000=
+0004 R11: 0000000100000001 R12: ffff986787960000<br>[184701.291896] R13: ff=
+ff986992740000 R14: ffff986917709830 R15: ffff986787960000<br>[184701.29189=
+7] FS: =C2=A000007f9fd16f5a80(0000) GS:ffff98699ff00000(0000) knlGS:0000000=
+000000000<br>[184701.291898] CS: =C2=A00010 DS: 0000 ES: 0000 CR0: 00000000=
+80050033<br>[184701.291899] CR2: 00007fb240ca20c0 CR3: 0000000806c6c004 CR4=
+: 00000000003606e0<br>[184701.291900] DR0: 0000000000000000 DR1: 0000000000=
+000000 DR2: 0000000000000000<br>[184701.291901] DR3: 0000000000000000 DR6: =
+00000000fffe0ff0 DR7: 0000000000000400<br>[184701.291901] Call Trace:<br>[1=
+84701.292005] =C2=A0dcn20_validate_bandwidth+0x29/0x40 [amdgpu]<br>[184701.=
+292099] =C2=A0dc_validate_global_state+0x260/0x2d0 [amdgpu]<br>[184701.2921=
+96] =C2=A0amdgpu_dm_atomic_check+0xcd3/0xd10 [amdgpu]<br>[184701.292215] =
+=C2=A0drm_atomic_check_only+0x2b1/0x450 [drm]<br>[184701.292227] =C2=A0drm_=
+atomic_commit+0x18/0x50 [drm]<br>[184701.292239] =C2=A0drm_atomic_connector=
+_commit_dpms+0xdf/0x100 [drm]<br>[184701.292252] =C2=A0drm_mode_obj_set_pro=
+perty_ioctl+0x156/0x2a0 [drm]<br>[184701.292265] =C2=A0? drm_connector_set_=
+obj_prop+0x90/0x90 [drm]<br>[184701.292277] =C2=A0drm_connector_property_se=
+t_ioctl+0x3b/0x60 [drm]<br>[184701.292286] =C2=A0drm_ioctl_kernel+0xae/0xf0=
+ [drm]<br>[184701.292295] =C2=A0drm_ioctl+0x234/0x3d0 [drm]<br>[184701.2923=
+06] =C2=A0? drm_connector_set_obj_prop+0x90/0x90 [drm]<br>[184701.292310] =
+=C2=A0? ___sys_recvmsg+0x88/0xc0<br>[184701.292354] =C2=A0amdgpu_drm_ioctl+=
+0x4e/0x80 [amdgpu]<br>[184701.292356] =C2=A0do_vfs_ioctl+0x407/0x670<br>[18=
+4701.292359] =C2=A0? fput+0x13/0x15<br>[184701.292361] =C2=A0? __sys_recvms=
+g+0x88/0xa0<br>[184701.292363] =C2=A0ksys_ioctl+0x67/0x90<br>[184701.292364=
+] =C2=A0__x64_sys_ioctl+0x1a/0x20<br>[184701.292367] =C2=A0do_syscall_64+0x=
+57/0x190<br>[184701.292370] =C2=A0entry_SYSCALL_64_after_hwframe+0x44/0xa9<=
+br>[184701.292372] RIP: 0033:0x7f9fd1a5537b<br>[184701.292373] Code: 0f 1e =
+fa 48 8b 05 15 3b 0d 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 0f =
+1f 44 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 0=
+1 c3 48 8b 0d e5 3a 0d 00 f7 d8 64 89 01 48<br>[184701.292374] RSP: 002b:00=
+007ffc96832f98 EFLAGS: 00000246 ORIG_RAX: 0000000000000010<br>[184701.29237=
+6] RAX: ffffffffffffffda RBX: 00007ffc96832fd0 RCX: 00007f9fd1a5537b<br>[18=
+4701.292376] RDX: 00007ffc96832fd0 RSI: 00000000c01064ab RDI: 0000000000000=
+00d<br>[184701.292377] RBP: 00000000c01064ab R08: 00007ffc96895090 R09: 000=
+07ffc96832eb8<br>[184701.292378] R10: 00007ffc96832eb0 R11: 000000000000024=
+6 R12: 0000557656b2fb40<br>[184701.292379] R13: 000000000000000d R14: 00000=
+00000000000 R15: 0000557656a46980<br>[184701.292381] ---[ end trace 91d0e0d=
+7876bea26 ]---</font><br></div><div><br></div><div><br>-- <br><div dir=3D"l=
+tr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
+=3D"ltr"><div>Owner/Director of Game Studio Abraham Stolk Inc.</div><div>Va=
+ncouver BC, Canada</div><div><a href=3D"mailto:b.stolk@gmail.com" target=3D=
+"_blank">b.stolk@gmail.com</a></div><div><br></div></div></div></div></div>
+
+--000000000000eb6c4b05aff12c74--
+
+--===============1968650262==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1968650262==--
