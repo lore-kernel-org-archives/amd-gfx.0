@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F8B5C49ECB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B507C4CC63
 	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EAD0221BE5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EAD0221BE5
+	by mail.kernel.org (Postfix) with ESMTPS id 5AA8721BE5
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 10:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AA8721BE5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A96736E955;
-	Wed, 23 Sep 2020 10:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 782D56E949;
+	Wed, 23 Sep 2020 10:22:16 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBBB6E91C;
- Wed, 23 Sep 2020 10:22:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77A26E945;
+ Wed, 23 Sep 2020 10:22:11 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6E419B288;
- Wed, 23 Sep 2020 10:22:45 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 552D7B27E;
+ Wed, 23 Sep 2020 10:22:47 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, linux@armlinux.org.uk, maarten.lankhorst@linux.intel.com,
@@ -51,10 +51,9 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  emil.velikov@collabora.com, laurentiu.palcu@oss.nxp.com,
  shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
  festevam@gmail.com, linux-imx@nxp.com
-Subject: [PATCH v3 07/22] drm/imx/dcss: Initialize DRM driver instance with
- CMA helper macro
-Date: Wed, 23 Sep 2020 12:21:44 +0200
-Message-Id: <20200923102159.24084-8-tzimmermann@suse.de>
+Subject: [PATCH v3 09/22] drm/msm: Introduce GEM object funcs
+Date: Wed, 23 Sep 2020 12:21:46 +0200
+Message-Id: <20200923102159.24084-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200923102159.24084-1-tzimmermann@suse.de>
 References: <20200923102159.24084-1-tzimmermann@suse.de>
@@ -70,9 +69,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, kernel test robot <lkp@intel.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
@@ -83,45 +82,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The i.MX DCSS driver uses CMA helpers with default callback functions.
-Initialize the driver structure with the rsp CMA helper macro. The
-driver is being converted to use GEM object functions as part of
-this change.
-
-Two callbacks, .gem_prime_export and .gem_prime_import, were initialized
-to their default implementations, so they are just kept empty now.
+GEM object functions deprecate several similar callback interfaces in
+struct drm_driver. This patch replaces the per-driver callbacks with
+per-instance callbacks in msm. The only exception is gem_prime_mmap,
+which is non-trivial to convert.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reported-by: kernel test robot <lkp@intel.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/imx/dcss/dcss-kms.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c | 13 -------------
+ drivers/gpu/drm/msm/msm_drv.h |  1 -
+ drivers/gpu/drm/msm/msm_gem.c | 19 ++++++++++++++++++-
+ 3 files changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-index 135a62366ab8..b72e5cef7e40 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-@@ -28,19 +28,7 @@ static const struct drm_mode_config_funcs dcss_drm_mode_config_funcs = {
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 79333842f70a..5952767ea478 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -978,12 +978,6 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+ };
  
- static struct drm_driver dcss_kms_driver = {
- 	.driver_features	= DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
--	.gem_free_object_unlocked = drm_gem_cma_free_object,
--	.gem_vm_ops		= &drm_gem_cma_vm_ops,
--	.dumb_create		= drm_gem_cma_dumb_create,
+-static const struct vm_operations_struct vm_ops = {
+-	.fault = msm_gem_fault,
+-	.open = drm_gem_vm_open,
+-	.close = drm_gem_vm_close,
+-};
 -
--	.prime_handle_to_fd	= drm_gem_prime_handle_to_fd,
--	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
--	.gem_prime_import	= drm_gem_prime_import,
--	.gem_prime_export	= drm_gem_prime_export,
--	.gem_prime_get_sg_table	= drm_gem_cma_prime_get_sg_table,
--	.gem_prime_import_sg_table = drm_gem_cma_prime_import_sg_table,
--	.gem_prime_vmap		= drm_gem_cma_prime_vmap,
--	.gem_prime_vunmap	= drm_gem_cma_prime_vunmap,
--	.gem_prime_mmap		= drm_gem_cma_prime_mmap,
-+	DRM_GEM_CMA_DRIVER_OPS,
- 	.fops			= &dcss_cma_fops,
- 	.name			= "imx-dcss",
- 	.desc			= "i.MX8MQ Display Subsystem",
+ static const struct file_operations fops = {
+ 	.owner              = THIS_MODULE,
+ 	.open               = drm_open,
+@@ -1009,18 +1003,11 @@ static struct drm_driver msm_driver = {
+ 	.irq_preinstall     = msm_irq_preinstall,
+ 	.irq_postinstall    = msm_irq_postinstall,
+ 	.irq_uninstall      = msm_irq_uninstall,
+-	.gem_free_object_unlocked = msm_gem_free_object,
+-	.gem_vm_ops         = &vm_ops,
+ 	.dumb_create        = msm_gem_dumb_create,
+ 	.dumb_map_offset    = msm_gem_dumb_map_offset,
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+-	.gem_prime_pin      = msm_gem_prime_pin,
+-	.gem_prime_unpin    = msm_gem_prime_unpin,
+-	.gem_prime_get_sg_table = msm_gem_prime_get_sg_table,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+-	.gem_prime_vmap     = msm_gem_prime_vmap,
+-	.gem_prime_vunmap   = msm_gem_prime_vunmap,
+ 	.gem_prime_mmap     = msm_gem_prime_mmap,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index af259b0573ea..7bcea10be81f 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -269,7 +269,6 @@ void msm_gem_shrinker_cleanup(struct drm_device *dev);
+ int msm_gem_mmap_obj(struct drm_gem_object *obj,
+ 			struct vm_area_struct *vma);
+ int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+-vm_fault_t msm_gem_fault(struct vm_fault *vmf);
+ uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
+ int msm_gem_get_iova(struct drm_gem_object *obj,
+ 		struct msm_gem_address_space *aspace, uint64_t *iova);
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index e47958c3704a..3f4a3be53de6 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -244,7 +244,7 @@ int msm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	return msm_gem_mmap_obj(vma->vm_private_data, vma);
+ }
+ 
+-vm_fault_t msm_gem_fault(struct vm_fault *vmf)
++static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+ 	struct drm_gem_object *obj = vma->vm_private_data;
+@@ -991,6 +991,22 @@ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 	return ret;
+ }
+ 
++static const struct vm_operations_struct vm_ops = {
++	.fault = msm_gem_fault,
++	.open = drm_gem_vm_open,
++	.close = drm_gem_vm_close,
++};
++
++static const struct drm_gem_object_funcs msm_gem_object_funcs = {
++	.free = msm_gem_free_object,
++	.pin = msm_gem_prime_pin,
++	.unpin = msm_gem_prime_unpin,
++	.get_sg_table = msm_gem_prime_get_sg_table,
++	.vmap = msm_gem_prime_vmap,
++	.vunmap = msm_gem_prime_vunmap,
++	.vm_ops = &vm_ops,
++};
++
+ static int msm_gem_new_impl(struct drm_device *dev,
+ 		uint32_t size, uint32_t flags,
+ 		struct drm_gem_object **obj)
+@@ -1021,6 +1037,7 @@ static int msm_gem_new_impl(struct drm_device *dev,
+ 	INIT_LIST_HEAD(&msm_obj->vmas);
+ 
+ 	*obj = &msm_obj->base;
++	(*obj)->funcs = &msm_gem_object_funcs;
+ 
+ 	return 0;
+ }
 -- 
 2.28.0
 
