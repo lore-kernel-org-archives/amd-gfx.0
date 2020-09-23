@@ -2,104 +2,109 @@ Return-Path: <SRS0=BIvg=DA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1EAAC2D0A8
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 17:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E813C2D0A8
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 18:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 13CA321BE5
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 17:28:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 79AD12193E
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2020 18:34:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0JIKNQyq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13CA321BE5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JhR2uzOQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79AD12193E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E4B46E9E5;
-	Wed, 23 Sep 2020 17:28:04 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700045.outbound.protection.outlook.com [40.107.70.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43E656E9E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 17:28:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 009546E9E5;
+	Wed, 23 Sep 2020 18:34:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28AB46E9E5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2020 18:34:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XBEF9lfbaIWL5EUXChOxW3iMEJrJOlVQVHhUB6QkWnu2YXIH53XmDPAnwcZiNfX/e9WdSONrZoBZhAIRFoB7M1dgTmTu73lDh6BtZ4xMBHUO1gcATI43Bkjr9YEugZ4cxuHJF0VLJtn39nQA7AqpeFJPY+Pn9MmPZjetXB3SDwqApToT8S9J36jY9TkqPM13k+01fJ05NSNSnCIPYByfqi2/4Te/WKRSlr7oAf3vOdiMz9cc61g1O3OFoOFgBv0GTDWR1ehvBK3CXyttzXLs8VgvPf2Jsr0GEVsT0iOYQ/TacAIPSAfyRBQd6+s/VyA9g2Dy8Gx5qR2RXltQGvDTOQ==
+ b=nkSDxmX2ivHPGl0u4w5z3IM0xyT3Uskf9MGVtp2WUE6cxW5evb+1yqUo7NYPsjKq63qx5pM9djdpSdfZUUn6nY98c2tSewxVS/CLOfGH7cEp/l8cG419Q0F5pKx76CK++Fx+q/V4lMyCPRYUvy4TlCic26se0daEI3KzI4gteAGT6rM3WrlhYwvcVz3VAB1GHg/EoeVK+JH64DU46WWyzBN5kF+lGsYEit3Lv6fq840X7jY4UDUuER6RHKCesMV+pMRDWBvkaIK3PHCWz/JSbau4pr/r16r65ivSf/HWAn+XTprFyhlNnNMWTQSfdEvmsL051mfwC0DtdmTbjwBrgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WkwSU3jQzrATVlQKkX2CA44fWP7pOLNausSQFymSzkM=;
- b=og0e6/PfMieF7TpzmufjdBoxSFKX+DJGOnQ7zppP9Sw8E9tYnN2IkdJ156riSEYxhyhZ77NGAxc8lDLda21Hd793nEbya+PKL4VGJUnOCCBr0AF8gnYLsnyjXO1viQcBofSPlYC4H7GkvkLuMy2HwhrqTlLvxOthj8fmPOjl7gwv4/ii8l2akkIdf2lJ/PWaqX3BRNbQ194RpxyikQ30eLNtHIG3CuNMcRioTb0Os2UOLWlwjn3d7vEoqzlR+smJIr0bzQbFFNx4Rfypb0uKFrySrgkNhbYXzC/JOh77iDnHYb/6AD2Qm3Lhep1G2UAC957TfnypbMagAT7L4HpfFw==
+ bh=uVkKWaBKUtlIhXw/FHQ9780FTOUvdAc+8jWCQDChB+k=;
+ b=Mv+FD2ZLEkD5VU45Vf+ACYdi+cK2CMm/t25diN1K9s44v9Pp77rxnGyezfCWkVbX4QN88R0w8IASgaif5x+Y6yiWmeu1d2I6og4kQJS/nwhiZGWo3Vr3HGfbdvCKLf+PgowFZKNlzW95yRs5r+jwSZdumV5Jk/OSMbTc1DVmOQzjTbToF8IY8ZWRDQ7wquUr92CIpHcT/Shulg66kXDskR2+NvqAfNcUOwEXHXv5UhSx0A5BIDt7I6CIiCB515N7H3ZOwcv9PBVvpmJ7Ssx76ecPD8cmJWgke6lHbgKUC2grXGOGHSGA26cWIbuRCSTyV/RpSN62Q5mN86xycQj2nA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WkwSU3jQzrATVlQKkX2CA44fWP7pOLNausSQFymSzkM=;
- b=0JIKNQyq5U1XE/2/mq/s3g7cRPHdKGHFIii6lZ5DrJQZUFXUFXUUPGWPgIiKrqj++LF+Gul+3LyX9n0uGUcO9mh72a8UCTBGpXfnoxM9O8vP4GTSCp2ZvkVIcR1KysliYMwASCfWNVcTOMxaSbzihGJe+97M/erA7Z2xI6awclA=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3221.namprd12.prod.outlook.com (2603:10b6:a03:135::29)
- by BYAPR12MB4741.namprd12.prod.outlook.com (2603:10b6:a03:a2::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20; Wed, 23 Sep
- 2020 17:27:59 +0000
-Received: from BYAPR12MB3221.namprd12.prod.outlook.com
- ([fe80::d492:66f5:21c4:7046]) by BYAPR12MB3221.namprd12.prod.outlook.com
- ([fe80::d492:66f5:21c4:7046%7]) with mapi id 15.20.3412.020; Wed, 23 Sep 2020
- 17:27:59 +0000
-Subject: Re: [PATCH v2] Add PP_FEATURE_MASK comments
-To: Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200922155500.9239-1-ryan.taylor@amd.com>
- <be88bf11-c18a-f316-9255-1a9d69b76308@amd.com>
- <48257725-d7dc-dc05-eeab-4aef18445d50@amd.com>
- <6028dd73-f662-27f9-c75e-3522643a7771@amd.com>
-From: Ryan Taylor <ryan.taylor@amd.com>
-Message-ID: <c6be8358-e22f-be87-bf0d-3f29f51c4903@amd.com>
-Date: Wed, 23 Sep 2020 10:27:53 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.2.2
-In-Reply-To: <6028dd73-f662-27f9-c75e-3522643a7771@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2600:1700:9260:7260::f]
-X-ClientProxiedBy: BYAPR04CA0020.namprd04.prod.outlook.com
- (2603:10b6:a03:40::33) To BYAPR12MB3221.namprd12.prod.outlook.com
- (2603:10b6:a03:135::29)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2600:1700:9260:7260::f] (2600:1700:9260:7260::f) by
- BYAPR04CA0020.namprd04.prod.outlook.com (2603:10b6:a03:40::33) with Microsoft
+ bh=uVkKWaBKUtlIhXw/FHQ9780FTOUvdAc+8jWCQDChB+k=;
+ b=JhR2uzOQqRK+Gq1Aeug2GLR6UylQWNIx8qNtoAaTHrialFjVigd+IIH3dCeCgbNlp3dxpTaouSnXfeNZcFV+XZINV2/12mcJmIWmSvjaoVdrAEkG3u+rOeeeKqNb4pC5rRWosWed7bZnnYf7M2EaFnwfQZ7IwwFq6ecHJ1OQRg8=
+Received: from DM6PR12MB2761.namprd12.prod.outlook.com (2603:10b6:5:41::27) by
+ DM6PR12MB4298.namprd12.prod.outlook.com (2603:10b6:5:21e::9) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3412.22 via Frontend Transport; Wed, 23 Sep 2020 17:27:58 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: afe6465e-f90e-4f0a-1781-08d85fe6041b
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4741:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB4741B6FE7269DCCA1133E664EA380@BYAPR12MB4741.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mVQv3AnSI/B9ktXSsF5z+ufq48bv8pYOlbPwpqaGLzlvl4Fmu0NIBWLzbKIlj31VcpJiftZNZNIamTqLjE48+imkQ+/k7IXD+VuT6rG9nKrL52FfBTLtzuiMsi2SSD0yGuv6Re3ASRceXvAQRVDib4PryAvV8geuvTu5s4V+ulzhiIqV+QJB6wBSkpj5PHvL3MtZiK1Uyjaos02XTh08qqHj7D+pFeutMEq3jMH5Pn62GToiOV4MHIXRQAvMtMrHLsHuqJqoY4WImwW6Or1zC4Tso/zJNA9SUESslQ5bBjeXwzojOa0sU/ndnRMJE2vf74kUmvNoD++kExx22ntYifuOXuvUHJFIZO5L4PFGcTM4uT7br8KQ9J1qhHqt6Kbyxo9hEhZJCfSXj+gHZakM20HH2X2Hn+DBnlEPvv26DAqsryQH9K1hIj0SFz9lXmoS
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3221.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(366004)(346002)(396003)(31696002)(186003)(66556008)(66946007)(53546011)(8936002)(6666004)(52116002)(2616005)(478600001)(16526019)(66476007)(44832011)(6486002)(2906002)(31686004)(8676002)(86362001)(36756003)(83380400001)(316002)(4326008)(5660300002)(43740500002);
+ 15.20.3412.22; Wed, 23 Sep 2020 18:34:27 +0000
+Received: from DM6PR12MB2761.namprd12.prod.outlook.com
+ ([fe80::479:1e93:7ee2:839]) by DM6PR12MB2761.namprd12.prod.outlook.com
+ ([fe80::479:1e93:7ee2:839%3]) with mapi id 15.20.3391.025; Wed, 23 Sep 2020
+ 18:34:27 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/3] drm/amd/amdgpu: Prepare implementation to support
+ reporting of CU usage
+Thread-Topic: [PATCH 1/3] drm/amd/amdgpu: Prepare implementation to support
+ reporting of CU usage
+Thread-Index: AQHWjRWghX+Slgf5NEGaTE80lcitC6l2lgVQ
+Date: Wed, 23 Sep 2020 18:34:27 +0000
+Message-ID: <DM6PR12MB2761A34ACD6045E2E5FE7EB38C380@DM6PR12MB2761.namprd12.prod.outlook.com>
+References: <20200917171025.2454-1-Ramesh.Errabolu@amd.com>
+In-Reply-To: <20200917171025.2454-1-Ramesh.Errabolu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-09-23T18:34:22Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=a5eba0f1-bc63-4389-af50-1af8b7a47ef3;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [2607:fea8:3f40:293:4df5:cab0:d20d:80cc]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: dad5a699-d137-4259-5055-08d85fef4dac
+x-ms-traffictypediagnostic: DM6PR12MB4298:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4298824E0D82528CDDB769508C380@DM6PR12MB4298.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1186;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 7SfoTh+wUVZoXVIANMqZIOlWeRCb/l+q7JMpoQqYpd+TBXqxZgASVg3LFxx4mmCF878OQNidBJk8UqDcWV9mzranfLbgEd6ZUnCAFTP5lVh2HyRpN/+AD4Hegu2O4eP9N8BoFOEzHOnpBvgVSDlUTfvNaC2CO8puZ4+94LJMRsPNGAe6Zjy8P8b1wYKefNJKNiKTciKagfq4rX+DHFW+RIF5QT/7k6Nc9c54gPwvzum8T7FppXio9azBrA50ckflJxWBtFwsekXPdwi9952cxbVlEegIdb9/+tRAybUOdSZZgFRkVv8b1iTe3j+VClbP0dE3uAqR6yhY/i0D+P7NDa9WPk6W1k59w4pCw12ij40=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2761.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(136003)(396003)(346002)(39860400002)(376002)(8676002)(186003)(7696005)(966005)(2906002)(316002)(110136005)(4326008)(9686003)(76116006)(66446008)(64756008)(478600001)(66946007)(86362001)(55016002)(45080400002)(5660300002)(6506007)(66476007)(66556008)(8936002)(52536014)(71200400001)(33656002)(53546011)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: BESz4ubjJZnl/FAfkcRZm6mqwN2Cp9UmGkVjBCAitEgdZCSpN7BEdFHrpXl+xeipfkkrhP8B77qKTxjisoPb5HeYQtCqtrs390lk0LyXEOCfrODeCDJFrKaYSbn7bnQIZTqig9KZ5BVDh+ASaRVD4yabdjF5Qbge36xCXx4kUtR64TLzpvwTqo6yZlwAoqmXtPTwHTn/dTMjfX6dj+Ji0dcObPDHHt6yTXPP3k+4eVA9wSwjSyhVz5G3hvTgVc4cXBRht9zUgJservTh6r6jKbt5NoZrqtjvkwNoNL9ciAu02rhLNJ+NDpmF0q5L8PJS3BfPJ3uyqzATWmJhXIqr6UyHWKXvmFgSlJoK2wxntZ0kPWndcR2n6mVj2iwRNTX9NbuS/hC8/mGDB4+GQyfJ29bqfhb4DuTVcGTakybf3dXPK1yqITgPsfUCmFGTRxV/bJeZyiyCICyup4LmJYpOl+Oc3rSF/uR6T4F2QwZ2M5W/kv2aY6n0bZ8mUJuSW8s3E+xpoNOhHtjSW8iVdhHx1hH+/p1fuQdw399Ua2bMEkTdpoAPiKkdN+PkYB7ctY9JlDILXL0jfkKIdu88Or2lAzi8iv+izUy1ZKPRnCA5xRxbJ7YaG+JNbLGX9r5TUcdXrYds/sU4NLwZ03pzCPWxjvy1DD533uT7Ke7YycNcTNY=
+x-ms-exchange-antispam-messagedata: JOh6k5HLLNqBPoPVKiZf4EUo0zIFJoRCgXTRm+B2FyNTSRtu2pLQRSAfHpgn3759v1BSJDQeOSE+SkLs77Fr29YGFw8PlKfeC35UQAezf3LgH4Q0JdYoGWhRJVx15lKMDcD4KowqQLQBg8EC1ssx/BhksI6SurLFAYjusZwEzJIyh4DMrBaHiLyQVQ7kNNObpqLl+2HC033e/D2fwYugUJVRRcddidXPiTHOCYQN3U3ZyX4sVqyunWo2QPBcjrJvFZujbbJTZNwI8wBcr7y6kRE/6RbKZz6qkNebXNfUJYQJ9SIJEUxhIlxFLwlyvCI1/l903iVx7eqIX/DrER/s0gKTiEylw+5FwxF74QbjZ2H6G7yqzoQckm+O0PcO17nsqSKLobmYCupy3bhQqnpk3ToUXaRPVwN6KUEgGnWrb2cCNK+6jWas9TcVLoCFVGsFN69jyXB6CuFEVbPpktumVgRaPIPMzIXxNsJ/fV4ypRDr3cCBlm63vuxyP8vVOIRJ4RfW8yFsJYztfuaCyyDLCxUte4Ugv7M9WJljXfDIV0SP9d5kyDmntZeO7FX8yypFKV6lCwdHoyVILIUpMTTDnG7UABsXsZiKFOvfpzwx6D7ScH3X3sJafDfTEWyuzYhS8mSK/2GbVUIi7awvZ5bScCF72ST3mQQen5tFYbXP9aVo7koWj621W281/vqxeOSBKIX70g9YAY4FzXL2jzaPFw==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afe6465e-f90e-4f0a-1781-08d85fe6041b
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3221.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2020 17:27:59.0595 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hSN0do0AJFY9FpJJbD2IU1paufGUrWxkc6DMeUTO1jpiPjLFO6DvWjqY2Mzf37KsR/tsuez+8tObUE8m5LCe5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4741
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2761.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dad5a699-d137-4259-5055-08d85fef4dac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2020 18:34:27.6746 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xITGkh+rjcOG/cvxvApOHC7CF185fUaQt6k+udrOspmFjv3xBj5dvbEjU94g/efkhPFM7VC+1MCOofIIyBcdpw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4298
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,112 +116,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I see, I'll add it to the end next time then.
+[AMD Official Use Only - Internal Distribution Only]
 
-Ryan
+Reviewed-By: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-On 9/23/20 10:13 AM, Luben Tuikov wrote:
-> On 2020-09-23 12:31, Ryan Taylor wrote:
->> Thanks Luben,
->>
->> I'll make these revisions and try out Git's patch version setting.
-> 
-> Well, Git's own patch revision command line option (-v of git-format-patch)
-> would put it in the "[PATCH v<N>] Title text" as you had it here, and I'd
-> presumed that you'd used that command line option. Our practice
-> here is to manually do "[PATCH] Title text (v<N>)", where the patch version
-> is postfixed.
-> 
-> Regards,
-> Luben
-> 
->>
->> Best,
->> Ryan
->>
->> On 9/23/20 7:40 AM, Luben Tuikov wrote:
->>> On 2020-09-22 11:55, Ryan Taylor wrote:
->>>> Documents PP_FEATURE_MASK enum.
->>>> Provides instructions on how to use ppfeaturemasks.
->>>>
->>>> v2: Improved enum definitions. Adds kernel command line
->>>>     parameters to ppfeaturemask instructions.
->>>>
->>>> Signed-off-by: Ryan Taylor <ryan.taylor@amd.com>
->>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>>> ---
->>>>  drivers/gpu/drm/amd/include/amd_shared.h | 28 ++++++++++++++++++++++++
->>>>  1 file changed, 28 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
->>>> index e98c84ef206f..7c84d5beb600 100644
->>>> --- a/drivers/gpu/drm/amd/include/amd_shared.h
->>>> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
->>>> @@ -128,6 +128,34 @@ enum amd_powergating_state {
->>>>  #define AMD_PG_SUPPORT_ATHUB			(1 << 16)
->>>>  #define AMD_PG_SUPPORT_JPEG			(1 << 17)
->>>>  
->>>> +/**
->>>> +* enum PP_FEATURE_MASK - Used to mask power play features.
->>>> +*
->>>> +* @PP_SCLK_DPM_MASK: Dynamic adjustment of the system (graphics) clock.
->>>> +* @PP_MCLK_DPM_MASK: Dynamic adjustment of the memory clock.
->>>> +* @PP_PCIE_DPM_MASK: Dynamic adjustment of PCIE clocks and lanes.
->>>> +* @PP_SCLK_DEEP_SLEEP_MASK: System (graphics) clock deep sleep.
->>>> +* @PP_POWER_CONTAINMENT_MASK: Power containment.
->>>> +* @PP_UVD_HANDSHAKE_MASK: Unified video decoder handshake.
->>>> +* @PP_SMC_VOLTAGE_CONTROL_MASK: Dynamic voltage control.
->>>> +* @PP_VBI_TIME_SUPPORT_MASK: Vertical blank interval support.
->>>> +* @PP_ULV_MASK: Ultra low voltage.
->>>> +* @PP_ENABLE_GFX_CG_THRU_SMU: SMU control of GFX engine clockgating.
->>>> +* @PP_CLOCK_STRETCH_MASK: Clock stretching.
->>>> +* @PP_OD_FUZZY_FAN_CONTROL_MASK: Overdrive fuzzy fan control.
->>>> +* @PP_SOCCLK_DPM_MASK: Dynamic adjustment of the SoC clock.
->>>> +* @PP_DCEFCLK_DPM_MASK: Dynamic adjustment of the Display Controller Engine Fabric clock.
->>>> +* @PP_OVERDRIVE_MASK: Over- and under-clocking support.
->>>> +* @PP_GFXOFF_MASK: Dynamic graphics engine power control.
->>>> +* @PP_ACG_MASK: Adaptive clock generator.
->>>> +* @PP_STUTTER_MODE: Stutter mode.
->>>> +* @PP_AVFS_MASK: Adaptive voltage and frequency scaling.
->>>> +*
->>>> +* To override these settings on boot, append amdgpu.ppfeaturemask=<mask> to
->>>> +* the kernel's command line parameters. This is usually done through a system's
->>>> +* boot loader (E.g. GRUB). If manually loading the driver, pass
->>>> +* ppfeaturemask=<mask> as a modprobe parameter.
->>>> +*/
->>>
->>> Alignment should be:
->>>
->>> /**
->>>  *
->>>  *
->>>  ...
->>>  */
->>>
->>> Also, you can use Git's own patch version setting,
->>> but I've seen here we usually put it in the commit title.
->>> (Remember, titles do not end with a period.) Something like
->>>
->>> 	Commit title (v2)
->>>
->>> I don't mind using either. Not sure what the direction is
->>> on this one.
->>>
->>> Regards,
->>> Luben
->>>
->>>>  enum PP_FEATURE_MASK {
->>>>  	PP_SCLK_DPM_MASK = 0x1,
->>>>  	PP_MCLK_DPM_MASK = 0x2,
->>>>
->>>
-> 
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ramesh Errabolu
+Sent: Thursday, September 17, 2020 1:10 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Errabolu, Ramesh <Ramesh.Errabolu@amd.com>
+Subject: [PATCH 1/3] drm/amd/amdgpu: Prepare implementation to support reporting of CU usage
+
+[Why]
+Allow user to know number of compute units (CU) that are in use at any given moment.
+
+[How]
+Read registers of SQ that give number of waves that are in flight of various queues. Use this information to determine number of CU's in use.
+
+Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 14 ++++++--------  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h |  3 +--
+ 2 files changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index d898c9ff3526..b31879be2c05 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -49,6 +49,7 @@
+ #include "amdgpu_ras.h"
+ 
+ #include "gfx_v9_4.h"
++#include "gfx_v9_0.h"
+ 
+ #include "asic_reg/pwr/pwr_10_0_offset.h"
+ #include "asic_reg/pwr/pwr_10_0_sh_mask.h"
+@@ -785,10 +786,6 @@ static void gfx_v9_0_set_ring_funcs(struct amdgpu_device *adev);  static void gfx_v9_0_set_irq_funcs(struct amdgpu_device *adev);  static void gfx_v9_0_set_gds_init(struct amdgpu_device *adev);  static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev); -static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
+-                                 struct amdgpu_cu_info *cu_info);
+-static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev); -static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance);  static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring);  static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring);  static int gfx_v9_0_query_ras_error_count(struct amdgpu_device *adev, @@ -2402,7 +2399,8 @@ static void gfx_v9_0_tiling_mode_table_init(struct amdgpu_device *adev)
+ 	/* TODO */
+ }
+ 
+-static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance)
++void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
++			   u32 instance)
+ {
+ 	u32 data;
+ 
+@@ -4117,7 +4115,7 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+ 	return ~0;
+ }
+ 
+-static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
++uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ {
+ 	uint64_t clock;
+ 
+@@ -6928,8 +6926,8 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+ 	return (~data) & mask;
+ }
+ 
+-static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
+-				 struct amdgpu_cu_info *cu_info)
++int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
++			 struct amdgpu_cu_info *cu_info)
+ {
+ 	int i, j, k, counter, active_cu_number = 0;
+ 	u32 mask, bitmap, ao_bitmap, ao_cu_mask = 0; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
+index fa5a3fbaf6ab..a3d73667e60a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
+@@ -26,9 +26,8 @@
+ 
+ extern const struct amdgpu_ip_block_version gfx_v9_0_ip_block;
+ 
+-void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num);
+-
+ uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev);  int gfx_v9_0_get_cu_info(struct amdgpu_device *adev, struct amdgpu_cu_info *cu_info);
++void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 
++sh_num, u32 instance);
+ 
+ #endif
+--
+2.27.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Charish.kasiviswanathan%40amd.com%7C3bfdcc273e83409ace5e08d85b2c9f3a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637359595074288470&amp;sdata=%2BZxEsMUzsXR1ZSf%2FHOsIcB2tH%2Fk%2BqDog7dzdkyGM%2FQY%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
