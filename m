@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3144BC4727E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A6C3C4741F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8EE123A31
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E91AF23A31
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lbRD46It"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8EE123A31
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vf7LrNMo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E91AF23A31
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 734B56ED53;
-	Fri, 25 Sep 2020 20:11:55 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E83C76ED7D
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:51 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id g72so4096607qke.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA636ED80;
+	Fri, 25 Sep 2020 20:11:56 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00EEA6ED80
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:53 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id d1so3082490qtr.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=nv4TGwIQfWN7FY0Edm+YyPsB6XDO7SBYGm4hURGHzHg=;
- b=lbRD46Its12WTx8QMSeZu6h1MDkY9a/99CyONrJdmcbMBtWUIkGBcgdlxwxlcYmPs2
- 1DCzlcxymBxfTGWE2RhBpUAoR+MtlCc1C/br8bI+UWLui2kopaJhFcmt/rMEVBBbsJZr
- jbctzmUi3TiMODhfG6Vm4D0QIQJcEDSLPhsYepiovuAe332zEnWKszzg8LzgiNejLDbz
- I47GqqiHZJWlb4g2wv7SxNxfGJG2E7wzNlokaHbMdM2XoON3Xt5K13DDGTO/A/gPVe8s
- p3OHlIDuecrF/aMIOpLnJrMhDbDbPAXbsECTjKmiXBNU0RU+RBLCPxbW4Zzs0nTXJduy
- RPzg==
+ bh=WHOZ9gQWsiI7JvkfIQegXoauQluPixctieLSKxa7ZP0=;
+ b=Vf7LrNModTcgwRtwDYMdP8HW4PfftM9YlTNrm9cyzJAlUjcpdwxEOcN61F1VZLB7GU
+ GmwSi2KXu2A4WP3jj+eBsMaQkFH14htHIjvup1hWjcPNw2o8W4BswUOLO1v6Pj4Xmztm
+ LaUIBrwrQIu4OtOpU5q8wsBk4YPjZoqGHkw4JpDZobfXWLg4NochRjAhFZVDSzXe4wKH
+ NrQedqtU/n4ax5+7804obOzbE1J4YEjkR+6O1PZX6abO2cUYv22xauWkeKG6IcjTKLp5
+ 4Sok6yZR/ZJB2jAPFoXMJljuoKTFHsxw/cB8xfG1uSqcgZH0vQ3db5rv9ZCFpjh0Kv5k
+ VlHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=nv4TGwIQfWN7FY0Edm+YyPsB6XDO7SBYGm4hURGHzHg=;
- b=gZY4Yt8KCugEQQLd9ytTBW9WfvQDAzDE29a6Z8IjfcUCvREeQ0p1ctVvaxAb7IBPjV
- sQfQn0s080IPr3JtQNU8bbi4HpSBpkbu6xWTrO5KeQiZ3yaWuEu5fLOoa0Vx4yx3594A
- tGfrIbNqA/mg+DcMU/+p0nvxs8W9xvFoeNF3ZIRWlR9zzxYD+gt1ZSqdiiCPz364Gm+I
- fT4CcXdw91K/9AaRhBYpxBj6Q6v0KQmOliHFFq9Yk8czRgwIjsq3zRejn7tIkMctswDo
- B6QbHntf8sv6IglsJfh3t1I1tuTAsa5mvkBFvsDFYxeWjelhgebzglKj6jx/lnnjiP/l
- tcYQ==
-X-Gm-Message-State: AOAM533v5RpbSDEFh2d8+HZogK0J8DJF5uW/qsOXp8xRDyNlTbxrrGCL
- 8iGdx9GosBGPNPPiuqSbKs32GazEmHM=
-X-Google-Smtp-Source: ABdhPJzdfOGTZrV9k6/WSccCnHJKdQybPUWGzJiSG7pO6u+XGepxRyBLLdGtr0U9ppyGy8fzgkpcVA==
-X-Received: by 2002:a37:9f95:: with SMTP id i143mr1572419qke.121.1601064710828; 
- Fri, 25 Sep 2020 13:11:50 -0700 (PDT)
+ bh=WHOZ9gQWsiI7JvkfIQegXoauQluPixctieLSKxa7ZP0=;
+ b=hmmFJRempCrNPVZNFugie9BibrPNccuR+CvvF0c9kURxbQKwc4+DgTBl+MKbiN/Dko
+ NLeNIw1F0yD7Ga2Rb0W7sneFEWsMcGXeK4jV5obPmD0xiIjuQylwNmaDtq6oZ76GzvjZ
+ dc7QSZXhTKteYd47cokDNAkn/FnvH4sbyKvhlT8J76RGlZ38t0tbNLVtsoZ+u7w+gxOZ
+ Jq1Ja9Yo9Fe10WdDMDnp6QRHTteOCGBIlBOpaxyrhZdPXF3rcsqLhjrZxDA4p2ZFtPv+
+ dXphykWhwr6RS9X7Zte1FXNncrT3KHlvyf9ucEsp+B8CoNwYVX6uJDRm9GPVqqjj6OJY
+ i4rw==
+X-Gm-Message-State: AOAM531NgynksPedKtHU23xKoJvPoKDXu526glPlk3HOlhPLqaxdLHSs
+ eB210zTajbkRNBjiJ+My+hU3SEqmMHM=
+X-Google-Smtp-Source: ABdhPJxEaRjM3DugOthlYWVGm2D0p02vHv/vlB09ltPdznJl3k8m/xKeXBm3ctNZdatXAJS7/b8KJQ==
+X-Received: by 2002:ac8:4e0b:: with SMTP id c11mr1498092qtw.37.1601064713037; 
+ Fri, 25 Sep 2020 13:11:53 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.49
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:50 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:52 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 40/45] drm/amdgpu/mmhub2.3: print client id string for mmhub
-Date: Fri, 25 Sep 2020 16:10:24 -0400
-Message-Id: <20200925201029.1738724-40-alexander.deucher@amd.com>
+Subject: [PATCH 42/45] drm/amdgpu: enable gfx clock gating and power gating
+ for vangogh
+Date: Fri, 25 Sep 2020 16:10:26 -0400
+Message-Id: <20200925201029.1738724-42-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -80,97 +81,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Print the name of the client rather than the number.  This
-makes it easier to debug what block is causing the fault.
+From: Huang Rui <ray.huang@amd.com>
 
+This patch is to enable the gfx cg and pg for vangogh.
+
+Signed-off-by: Huang Rui <ray.huang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 49 ++++++++++++++++++++++---
- 1 file changed, 43 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-index b39dc2023b5f..3a248c8cd0b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -31,6 +31,30 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 4bd2e2f35fa4..67b6067f2bd3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -919,8 +919,11 @@ static int nv_common_early_init(void *handle)
+ 		break;
  
- #include "soc15_common.h"
- 
-+static const char *mmhub_client_ids_vangogh[][2] = {
-+	[0][0] = "MP0",
-+	[1][0] = "MP1",
-+	[2][0] = "DCEDMC",
-+	[3][0] = "DCEVGA",
-+	[13][0] = "UTCL2",
-+	[26][0] = "OSS",
-+	[27][0] = "HDP",
-+	[28][0] = "VCN",
-+	[29][0] = "VCNU",
-+	[30][0] = "JPEG",
-+	[0][1] = "MP0",
-+	[1][1] = "MP1",
-+	[2][1] = "DCEDMC",
-+	[3][1] = "DCEVGA",
-+	[4][1] = "DCEDWB",
-+	[5][1] = "XDP",
-+	[26][1] = "OSS",
-+	[27][1] = "HDP",
-+	[28][1] = "VCN",
-+	[29][1] = "VCNU",
-+	[30][1] = "JPEG",
-+};
-+
- static uint32_t mmhub_v2_3_get_invalidate_req(unsigned int vmid,
- 					      uint32_t flush_type)
- {
-@@ -55,12 +79,27 @@ static void
- mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 					     uint32_t status)
- {
-+	uint32_t cid, rw;
-+	const char *mmhub_cid = NULL;
-+
-+	cid = REG_GET_FIELD(status,
-+			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
-+	rw = REG_GET_FIELD(status,
-+			   MMVM_L2_PROTECTION_FAULT_STATUS, RW);
-+
- 	dev_err(adev->dev,
- 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
- 		status);
--	dev_err(adev->dev, "\t Faulty UTCL2 client ID: 0x%lx\n",
--		REG_GET_FIELD(status,
--		MMVM_L2_PROTECTION_FAULT_STATUS, CID));
-+	switch (adev->asic_type) {
-+	case CHIP_VANGOGH:
-+		mmhub_cid = mmhub_client_ids_vangogh[cid][rw];
-+		break;
-+	default:
-+		mmhub_cid = NULL;
-+		break;
-+	}
-+	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
-+		mmhub_cid ? mmhub_cid : "unknown", cid);
- 	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
- 		REG_GET_FIELD(status,
- 		MMVM_L2_PROTECTION_FAULT_STATUS, MORE_FAULTS));
-@@ -73,9 +112,7 @@ mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 	dev_err(adev->dev, "\t MAPPING_ERROR: 0x%lx\n",
- 		REG_GET_FIELD(status,
- 		MMVM_L2_PROTECTION_FAULT_STATUS, MAPPING_ERROR));
--	dev_err(adev->dev, "\t RW: 0x%lx\n",
--		REG_GET_FIELD(status,
--		MMVM_L2_PROTECTION_FAULT_STATUS, RW));
-+	dev_err(adev->dev, "\t RW: 0x%x\n", rw);
- }
- 
- static void mmhub_v2_3_setup_vm_pt_regs(struct amdgpu_device *adev,
+ 	case CHIP_VANGOGH:
+-		adev->cg_flags = 0;
+-		adev->pg_flags = 0;
++		adev->cg_flags = AMD_CG_SUPPORT_GFX_CGCG |
++			AMD_CG_SUPPORT_GFX_CGLS |
++			AMD_CG_SUPPORT_GFX_3D_CGCG |
++			AMD_CG_SUPPORT_GFX_3D_CGLS;
++		adev->pg_flags = AMD_PG_SUPPORT_GFX_PG;
+ 		adev->external_rev_id = adev->rev_id + 0x01;
+ 		break;
+ 	default:
 -- 
 2.25.4
 
