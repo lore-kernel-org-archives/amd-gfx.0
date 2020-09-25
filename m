@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC087C4741F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CDF6C4727E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7AC8C2399A
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 471042399A
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cl1ysvB3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7AC8C2399A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxn7vHg1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 471042399A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF096ED53;
-	Fri, 25 Sep 2020 20:11:07 +0000 (UTC)
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [IPv6:2607:f8b0:4864:20::82e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6516ED4A
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:06 +0000 (UTC)
-Received: by mail-qt1-x82e.google.com with SMTP id c18so3087197qtw.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C44E6ED13;
+	Fri, 25 Sep 2020 20:11:08 +0000 (UTC)
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17ADB6ED4A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:07 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id cv8so2019949qvb.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=kSE9kc/oWEd70zJ0lkkMMt+FUyiLFoZ+gFAJPre47WA=;
- b=cl1ysvB3ktQ6ZT5wWTWIxlpkgQAdhjbbT4h7/FKdza4p1bAW0XW6eksFSidZNry94U
- kt2UXQ0NU6SL62LLfrLtbIvLhqdTn6B2u3GF2yLBl9hxHJ5lsf09sGmxmbUrogt+fqI3
- T9fexhlpzFguDKH2qSa/rD4A+hTK3j2qZbC7ZEdI3bFu/XLupw11HnGpJt/1aI+2DP3U
- j+r1prLV8HvX1SH00vDQP2doxGrMz5LniywpbEFujpnrNAeMLi2MM5HVsUQBDb7cieKs
- ZO6+xZNh5g/vFWP9WzDbzg7ySKGM28k25tEIj7w6sQx8bIa0ouzYWoOvl4J6cciNp7Be
- iE7g==
+ bh=2Odi8lVc+ucXInzKoRR5Q+KkJrsXbIjk3O/I3DT4GcM=;
+ b=jxn7vHg1U1yyJkipYEfS5MS89f6GiuFcmLhX9kWXHHJn/CcTX8blSqkp+zjfbCGeva
+ 7Am1y6H1FaYZK6iwISWpyMxFh3rdygh85xdnEku8niBakqHrIRDXG7mytH28F36LmbEn
+ QV8S/srMzphmGu6lmnXFVeNxqGrO+AGB9YAnNqYKYcmpmm27cj4GXUqKj5iLamBQMSWx
+ piUnJyWXcpzFDQJlywv8GNvqhJqWu7Y2KPi3JPLC/7ZwlVT1eMnlKLOvaMQxSW+Q2nQT
+ gLn3Id7NfiEjBC8O8OepjJlK6fG91YnhWYQ8znubb9QlhxGCt5nok1pCsJf60Iubecv/
+ 4fMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=kSE9kc/oWEd70zJ0lkkMMt+FUyiLFoZ+gFAJPre47WA=;
- b=msKzzM5mxk7TFgJMFZH8GYB43MyLkBO4qFbv5I7HeIpqYu4m0btRXggYP5HywoAqKb
- IRl2WmDRn+IGLV2ba8/rzpXcYI21WsQozSbpWK75bv80sto4tBQE2nuoPQZBIj98faeS
- 86trrqpx7Mjc2Gesu1PF7lOnybljeJgKWiqNULMTdHrJVsdRd8FVahnrcMs0Eh9gbr+u
- 0GmgjWMWkakcvvDnD4W6q9EuR4PWYjvuFpxTG0hRQ0EXGLJetc+IcC5WYypWHL4s98xK
- UpNr8OFS5M2uu3G6meNZJIfGx0tHm3/47iX6xbC1+Qrjed77QOd4KxkTJ12dTfxeAtWy
- +qBA==
-X-Gm-Message-State: AOAM53344IS/UMnQRd/Xfrtig/op4QCGT+5Ev4Ss7sKrUIaal568Ndmf
- g3pDoI9c8wpodp3ZRwqgA4P6ch5TxXA=
-X-Google-Smtp-Source: ABdhPJzonJIaZFdC9PvpI0K/MyBaM99UCmK/MShpHd2vrCOZ4imnn4o/pVlMs9QG/tlEBdn349tW+g==
-X-Received: by 2002:ac8:6f21:: with SMTP id i1mr1372298qtv.89.1601064664965;
- Fri, 25 Sep 2020 13:11:04 -0700 (PDT)
+ bh=2Odi8lVc+ucXInzKoRR5Q+KkJrsXbIjk3O/I3DT4GcM=;
+ b=gXpOv/tU+nt/TAUpKu/zuZzHQKg7hWHCc9En7B9KnUd54WWxBx+kazgsVs0dKX+5q5
+ Nmshks5H2+QdIVW6CCnolKJ6XTiEDfonDz47+kEnFkxo51W7lAkQCKY1nieXhoIh4Zxc
+ sE4bYmHCknobdaBEyJCDEXH/AiVkuiRfcpipUUkaNwZO32ODWjO114CSYu8FrU+cgwz9
+ kcv3EtGJfMrFXZdS7OpkEMtSSTlo7x1FztUsineVZkAklY0qOqDkN9CW0lFldV1FyBzt
+ P9FbjBzz0Vne6JkDZx/5YJsthjxvb9j1NyOfoI3t1IezGXxnnjQvK2J5gV0aZwUduV11
+ tfoQ==
+X-Gm-Message-State: AOAM531idGylwwOrGX7LSe48KQQ2+NnPi6FVJx8oGqxybULJgwPngkhg
+ U7ySnf40r7LUVQp3PS4QAsFLlMwE2p4=
+X-Google-Smtp-Source: ABdhPJzDQT05SKiq9rH8N6cb91L7WCnClSJ3Nbzv1UW95fNkmuiRrfgfCIBZjO07kJgp2lqr18W3Fg==
+X-Received: by 2002:ad4:5387:: with SMTP id i7mr314867qvv.43.1601064666064;
+ Fri, 25 Sep 2020 13:11:06 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.04
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:04 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:05 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 06/45] drm/amdgpu: add nv common ip block support for van gogh
-Date: Fri, 25 Sep 2020 16:09:50 -0400
-Message-Id: <20200925201029.1738724-6-alexander.deucher@amd.com>
+Subject: [PATCH 07/45] drm/amdgpu: skip sdma1 in nv_allowed_read_registers
+ list for van gogh (v2)
+Date: Fri, 25 Sep 2020 16:09:51 -0400
+Message-Id: <20200925201029.1738724-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -88,41 +89,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-This patch adds common ip support for van gogh.
+Van gogh only has one sdma.
+
+v2: use num_instances rather than APU flag
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index bc894cfba60c..2077f897d6eb 100644
+index 2077f897d6eb..8616d397da00 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -478,6 +478,9 @@ static int nv_reg_base_init(struct amdgpu_device *adev)
- 	case CHIP_NAVY_FLOUNDER:
- 		sienna_cichlid_reg_base_init(adev);
- 		break;
-+	case CHIP_VANGOGH:
-+		vangogh_reg_base_init(adev);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -858,6 +861,11 @@ static int nv_common_early_init(void *handle)
- 		adev->external_rev_id = adev->rev_id + 0x32;
- 		break;
+@@ -289,7 +289,8 @@ static int nv_read_register(struct amdgpu_device *adev, u32 se_num,
+ 	*value = 0;
+ 	for (i = 0; i < ARRAY_SIZE(nv_allowed_read_registers); i++) {
+ 		en = &nv_allowed_read_registers[i];
+-		if (reg_offset !=
++		if ((i == 7 && (adev->sdma.num_instances == 1)) || /* some asics don't have SDMA1 */
++		    reg_offset !=
+ 		    (adev->reg_offset[en->hwip][en->inst][en->seg] + en->reg_offset))
+ 			continue;
  
-+	case CHIP_VANGOGH:
-+		adev->cg_flags = 0;
-+		adev->pg_flags = 0;
-+		adev->external_rev_id = adev->rev_id + 0x01;
-+		break;
- 	default:
- 		/* FIXME: not supported yet */
- 		return -EINVAL;
 -- 
 2.25.4
 
