@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B82CC4727F
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67403C4741F
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF2342399A
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1A05923A31
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BBkDI7x8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF2342399A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bMQLX/bO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A05923A31
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5D76ED5D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 306686ED5C;
 	Fri, 25 Sep 2020 20:11:13 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 211DE6ED13
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:08 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id 19so3100235qtp.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:08 -0700 (PDT)
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3667A6ED58
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:10 +0000 (UTC)
+Received: by mail-qt1-x835.google.com with SMTP id n10so3093623qtv.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VE+FJj85L5N7J2s/AP1JfWuSqMPiw/pQONGJQssRQFs=;
- b=BBkDI7x8gMEcvLw/+VdHOwMsVm2rd07/jviBiBM+w9hTxU2CAYZ6otySdZci0DJOQv
- Tmh6NHlR1QM+CK+6PxM/2T3FA7bgkImpN8H23K2uYyIgOXogFGHM82oo12C4b4viQScS
- 1wUBjvGS8P/0lWqNSfI922yd+qYeEA2vfvZJsP+OlSG/Ee70JaQhHVqbAFpl2FEKtENC
- FlQN6XXMajcxG2Ei57nb587fbYdjLQxC7kjDEF6oeJTO6+lUuzYHLYnz7WK/DDvK1McG
- d9lyV83yadX5O3s1muPwnsUbV3XaxsxDYt7EyZwh3uFNCo7KolRqAL8SMXwOdF4ihWA7
- Xk8w==
+ bh=EB7HmA9Syj4zn/qY8ZSbYdT7tKQDZsSgGwYkJ1ZdUeY=;
+ b=bMQLX/bORALt9ncrL2oD+RUPtMKIFofon5tMjuxvvVfgAyQfGMkIPLEWQTvxHxxdUr
+ T3wyFhII4QofkykOSZl1uqnMYLpgapx6gg+yTkndJV13n93YojZqi/E8I2Th6gIYxwbK
+ UNchTwC4mYxObFCi5Z3YiylnJUZM2iAu2EdxZJHhLAsc5aG1di5wtdkr1FJWuFNw5t7F
+ gRYbVysOSWvpoul5JKTOjT9SDjkFSj8O2r6S5LvwA4ugHfyZHq0+4gU7pqzXnm8M5khJ
+ ItUyolGsQdlpN8dmMD77MzqVG7CUh03P1Bj3htSzwQ2ettGX69IsGJuHA/v6Z1D92nFk
+ rl7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VE+FJj85L5N7J2s/AP1JfWuSqMPiw/pQONGJQssRQFs=;
- b=edVxxsNV73/efGhVvLZv0KmZBzIcsRj4NelgdR/V97TXKyMVGvJGy47azUjbtKcm26
- 5BTCXyCWQ3aunlKsPbBHQFREONS/FTw3RmfLbMYdn8uTPWAJ1bX9lTf+Mgswc4pFJiMn
- XPrtjbKde7tZHgPAhtSjox5esP8AhTj1o2eZa3k9quy5Tj3fr7njmO854HGQuyGN/jrH
- r/w9oSt4EpnMXDz1eIRsP+DAJI3uIRkKynirai4ZW3TzbBYQGDNJg5BvCdeuSiriTPJN
- mUM0pFU/h1xqfZJLfnBhTWMQgHHswsvVA8Y3IaY8d1oSCLGqpR8C0RmofQRUdz7DWcZv
- rlgg==
-X-Gm-Message-State: AOAM532VOTQSs/oFQkgTXEUmNOJfT9FahNJ1b+FpwXPKY+DprmLWkQjw
- HwAEqUMfUDRfxjaNmw9j/Y5hN/dU6Ws=
-X-Google-Smtp-Source: ABdhPJyk9rXYK65qgEE29jn2MnGiP79H7w/145g6K2f66jLasMHgy6tU4rMT2qA0RwLY87lgtPjWaA==
-X-Received: by 2002:ac8:39a7:: with SMTP id v36mr1542940qte.140.1601064667089; 
- Fri, 25 Sep 2020 13:11:07 -0700 (PDT)
+ bh=EB7HmA9Syj4zn/qY8ZSbYdT7tKQDZsSgGwYkJ1ZdUeY=;
+ b=SmhdDbc2pCpwseZzHQMVgXIqUxb1aqEnVXb4cLYFzWk0PoY7R5MYdBcdvjsfGyKGoO
+ Fah9P9wdz3pJnmcOTm8kr3MABxj1kidAUxc7ufnxnvYQsuK7vcy7QPMaF0Cc+9TcdR41
+ D36URQeOraHuzl0iZCARAojR7FDCzTo5TIDOCqdgjRrjX/vxrHfJQ0IHGYswyEZzhHRy
+ gzSnJAsrkc953nsMaeFzZm1VorAnBZTxWC/UJnPW/Ed3ITmuMxit5aSooVUnqCKM91yx
+ VP1rbtUYyNj8b+7TqJFLD7r7YKcd6ISfn5Xkav2vz9f88dRy69ECvQ2Wbxv92sDPOLLQ
+ U4DQ==
+X-Gm-Message-State: AOAM530u8KH6NMMZVBwuY0l93uoXCKJpj/8IkvECmT6BoIc5069TYtS9
+ q0KGowvRqyia/BLfjLenj8dqfyQfzFk=
+X-Google-Smtp-Source: ABdhPJwg/yHfV5mVdO4wcWClqriMQX2gSxu28kYI48+iwK9LQLAe0Xq/fN/B6KChtSaib16ZSPlR0A==
+X-Received: by 2002:aed:3b78:: with SMTP id q53mr1431539qte.195.1601064669208; 
+ Fri, 25 Sep 2020 13:11:09 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.06
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:06 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:08 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/45] drm/amdgpu: add van gogh support for ih block
-Date: Fri, 25 Sep 2020 16:09:52 -0400
-Message-Id: <20200925201029.1738724-8-alexander.deucher@amd.com>
+Subject: [PATCH 10/45] drm/amdgpu: add uapi to define van gogh memory type
+Date: Fri, 25 Sep 2020 16:09:54 -0400
+Message-Id: <20200925201029.1738724-10-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -88,27 +88,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-This patch adds the support for van gogh ih block.
+This patch adds van gogh memory type as DDR5.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 1 +
+ include/uapi/drm/amdgpu_drm.h | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 74b1e7dc49a9..ce4a974ab777 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -314,6 +314,7 @@ static int navi10_ih_irq_init(struct amdgpu_device *adev)
- 			switch (adev->asic_type) {
- 			case CHIP_SIENNA_CICHLID:
- 			case CHIP_NAVY_FLOUNDER:
-+			case CHIP_VANGOGH:
- 				ih_chicken = RREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN_Sienna_Cichlid);
- 				ih_chicken = REG_SET_FIELD(ih_chicken,
- 						IH_CHICKEN, MC_SPACE_GPA_ENABLE, 1);
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 8d416188ddb3..d98d4e6f311b 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -949,6 +949,7 @@ struct drm_amdgpu_info_firmware {
+ #define AMDGPU_VRAM_TYPE_DDR3  7
+ #define AMDGPU_VRAM_TYPE_DDR4  8
+ #define AMDGPU_VRAM_TYPE_GDDR6 9
++#define AMDGPU_VRAM_TYPE_DDR5  10
+ 
+ struct drm_amdgpu_info_device {
+ 	/** PCI Device ID */
 -- 
 2.25.4
 
