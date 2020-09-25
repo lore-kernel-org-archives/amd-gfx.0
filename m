@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67403C4741F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01404C47425
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A05923A31
+	by mail.kernel.org (Postfix) with ESMTPS id 91B732399A
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bMQLX/bO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A05923A31
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d6q1aHMK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B732399A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 306686ED5C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 823A36ED5E;
 	Fri, 25 Sep 2020 20:11:13 +0000 (UTC)
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [IPv6:2607:f8b0:4864:20::835])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3667A6ED58
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:10 +0000 (UTC)
-Received: by mail-qt1-x835.google.com with SMTP id n10so3093623qtv.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:10 -0700 (PDT)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D706ED58
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:11 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id c18so3087474qtw.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EB7HmA9Syj4zn/qY8ZSbYdT7tKQDZsSgGwYkJ1ZdUeY=;
- b=bMQLX/bORALt9ncrL2oD+RUPtMKIFofon5tMjuxvvVfgAyQfGMkIPLEWQTvxHxxdUr
- T3wyFhII4QofkykOSZl1uqnMYLpgapx6gg+yTkndJV13n93YojZqi/E8I2Th6gIYxwbK
- UNchTwC4mYxObFCi5Z3YiylnJUZM2iAu2EdxZJHhLAsc5aG1di5wtdkr1FJWuFNw5t7F
- gRYbVysOSWvpoul5JKTOjT9SDjkFSj8O2r6S5LvwA4ugHfyZHq0+4gU7pqzXnm8M5khJ
- ItUyolGsQdlpN8dmMD77MzqVG7CUh03P1Bj3htSzwQ2ettGX69IsGJuHA/v6Z1D92nFk
- rl7w==
+ bh=IJYQC5AJ5ldzBQjY2T6xvUqKYb6IBj47enz5jAUbYj4=;
+ b=d6q1aHMKXaDyrng71lRvgimHLjtde3FBDKdqqzGV8Ay6sckR5hyQ71ga+I/ePe9eIm
+ fJN3KBFG+ZrLyhvF3L4+ogKFMm2Xsp21UAlSw4s1n8Hjz6fTDy/9yFfJEA6XdioGBvUu
+ 3L24R5EdMr4jcEecT0qALKivoz0tKXlIwK3aC7H3mbOD/B1wmcVjiIcv2ThfKUzslbQ1
+ tGf8QTFvLAPwoFJ1/G/frnQ7R04Q7IGfyhB5NyzBlqPfi2G/IwQORx8T5tC8B0E5v5YS
+ kt1d/Qaz/ZGn1cYPi6B2Sll8mrR7GnJOt+hrKBtonLGpUfrg9MbFK45GjEI10QiIKema
+ pHgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EB7HmA9Syj4zn/qY8ZSbYdT7tKQDZsSgGwYkJ1ZdUeY=;
- b=SmhdDbc2pCpwseZzHQMVgXIqUxb1aqEnVXb4cLYFzWk0PoY7R5MYdBcdvjsfGyKGoO
- Fah9P9wdz3pJnmcOTm8kr3MABxj1kidAUxc7ufnxnvYQsuK7vcy7QPMaF0Cc+9TcdR41
- D36URQeOraHuzl0iZCARAojR7FDCzTo5TIDOCqdgjRrjX/vxrHfJQ0IHGYswyEZzhHRy
- gzSnJAsrkc953nsMaeFzZm1VorAnBZTxWC/UJnPW/Ed3ITmuMxit5aSooVUnqCKM91yx
- VP1rbtUYyNj8b+7TqJFLD7r7YKcd6ISfn5Xkav2vz9f88dRy69ECvQ2Wbxv92sDPOLLQ
- U4DQ==
-X-Gm-Message-State: AOAM530u8KH6NMMZVBwuY0l93uoXCKJpj/8IkvECmT6BoIc5069TYtS9
- q0KGowvRqyia/BLfjLenj8dqfyQfzFk=
-X-Google-Smtp-Source: ABdhPJwg/yHfV5mVdO4wcWClqriMQX2gSxu28kYI48+iwK9LQLAe0Xq/fN/B6KChtSaib16ZSPlR0A==
-X-Received: by 2002:aed:3b78:: with SMTP id q53mr1431539qte.195.1601064669208; 
- Fri, 25 Sep 2020 13:11:09 -0700 (PDT)
+ bh=IJYQC5AJ5ldzBQjY2T6xvUqKYb6IBj47enz5jAUbYj4=;
+ b=bS8bicoTZsbgVoZBVCdWVeB/kznX8ywdVLIbfzJMXHc18rAE2XgbPCVFGKtAiZvreG
+ gp9Fz3NE760NmVu87DwuFmMTTjogk+nIVA5yeyu7D0+WaVsSMp5zDAvEi8HVoZ64qCGJ
+ SD/6BfK5rQX1Lt+5JzqnmKJOhMg0Q19LHTFBbIN8xMmwXEKeymp0Odh5AC9EZqT0wzFB
+ 5DBakdZ1l4hYtlYCjCnXyPlhgaxUSEQPhyS2BtSC14XPgpCozt276yxkUdRjkLOOWmO5
+ B6HB5gLxSjJLCdssVAEohNmTRCeVasLOBsKW8VDfLAUcL+df0AuJyRn9o8WuzJH862E5
+ 7ufg==
+X-Gm-Message-State: AOAM530AvxC6PMmRRo1tiTKzz7goRH6peBX0UF73QI/0kNidxyHX2wY/
+ btq7il5FDAAzPiVhtPPzPIkLi7E6bKQ=
+X-Google-Smtp-Source: ABdhPJwmrLimoOiFjoVESH2L3mAFDTnsFFKUZ397DuwXwU+XsUlBGJ4UibgQqXJnoRGxFPFtjmLoRg==
+X-Received: by 2002:aed:2c61:: with SMTP id f88mr1460319qtd.388.1601064670448; 
+ Fri, 25 Sep 2020 13:11:10 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.08
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:08 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:09 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 10/45] drm/amdgpu: add uapi to define van gogh memory type
-Date: Fri, 25 Sep 2020 16:09:54 -0400
-Message-Id: <20200925201029.1738724-10-alexander.deucher@amd.com>
+Subject: [PATCH 11/45] drm/amdgpu: update new memory types in atomfirmware
+ header
+Date: Fri, 25 Sep 2020 16:09:55 -0400
+Message-Id: <20200925201029.1738724-11-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -88,26 +89,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-This patch adds van gogh memory type as DDR5.
+Add new nemory types in atomfirmware header.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- include/uapi/drm/amdgpu_drm.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/include/atomfirmware.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 8d416188ddb3..d98d4e6f311b 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -949,6 +949,7 @@ struct drm_amdgpu_info_firmware {
- #define AMDGPU_VRAM_TYPE_DDR3  7
- #define AMDGPU_VRAM_TYPE_DDR4  8
- #define AMDGPU_VRAM_TYPE_GDDR6 9
-+#define AMDGPU_VRAM_TYPE_DDR5  10
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index 3e526c394f6c..0799a9ca0440 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -1367,6 +1367,11 @@ enum atom_dmi_t17_mem_type_def{
+   LpDdr2MemType,                                        ///< Assign 28 to LPDDR2
+   LpDdr3MemType,                                        ///< Assign 29 to LPDDR3
+   LpDdr4MemType,                                        ///< Assign 30 to LPDDR4
++  GDdr6MemType,                                         ///< Assign 31 to GDDR6
++  HbmMemType,                                           ///< Assign 32 to HBM
++  Hbm2MemType,                                          ///< Assign 33 to HBM2
++  Ddr5MemType,                                          ///< Assign 34 to DDR5
++  LpDdr5MemType,                                        ///< Assign 35 to LPDDR5
+ };
  
- struct drm_amdgpu_info_device {
- 	/** PCI Device ID */
+ 
 -- 
 2.25.4
 
