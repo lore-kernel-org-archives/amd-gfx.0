@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB4A1C4727E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2257DC4741F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89BC52399A
+	by mail.kernel.org (Postfix) with ESMTPS id B962323A31
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qNW09w/z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89BC52399A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lzLWg32+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B962323A31
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D3BB6ED7B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 400346ED7C;
 	Fri, 25 Sep 2020 20:11:43 +0000 (UTC)
-Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com
- [IPv6:2607:f8b0:4864:20::f29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1516ED7B
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:42 +0000 (UTC)
-Received: by mail-qv1-xf29.google.com with SMTP id q10so2059422qvs.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:42 -0700 (PDT)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 946F66ED7B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:41 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id cv8so2020818qvb.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GVPzixfwzb/5MaQJnnAaZmNXIPcYRHJ2CyYOxkuCq4w=;
- b=qNW09w/zLXlBc4WLjTxqTqlMRhKxj1PaqNs7R8o+zH3Th1rqkttTupSwwXYlhD9r1s
- nZN3oBMf8Jx76KV7XBb5VA1LEuCuR37UkHI14xHIRLiGM5dhRzPE9TGnpPmFd8YocEkS
- Bg+m6LNKrP0kGUBzyxtnXRTuhJVOaR0aONqCyoJuWOjZhSYvBjlvz2/Sp9SaV/vvip8+
- jW3h+KWRytTlhdivrHfrLIIE6tyIjest8irDiB5P7kec3w7X0ugzQSc+l5S3jHr3QofU
- /JHG3PoMCtPljv6LFiKVBnKhCagoyGa5/iCFWqWz8CvV1LNyvDKUPFDb1OqkmwIZLaPW
- RK6A==
+ bh=pEMxI+SHzaiXEllIBUTUdPHIl/NuY6uK0nZoRQW7V8s=;
+ b=lzLWg32+uLRJK9gu9yecOL2RxQw5hQxoJ7pCP416/ZgqQNpUx3Fp73/gVVreNYp2+Q
+ x8mhaDhFqglNuHCQh048GCYN9YK5Ow+qkB9SrAYN4UfvwDABBV9uO72ZVeX6e5Jxpnd9
+ 2edk6yf9O0yTKlGaWufZ826FTN22vircHqkEd9AIrbFoC481bpzAp4I532gv+LeJ8lCl
+ oyu6VEBmhLP6eLgUhRUBjz75eEPuahXeyR221BRIdqUQO40o0YLA5BJ9wQIkGwVEjPI4
+ PgCL0wm9upSc9bHoUSrGT7N1sKsct4+wuvLJQvGjVq9EHL3qjUDspWq2Ri1GOMJPyF8w
+ lBUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GVPzixfwzb/5MaQJnnAaZmNXIPcYRHJ2CyYOxkuCq4w=;
- b=gcPdqVLXsALl8grkfZOmpvIKPVLOE2e4KFGvvDFraP9rUYWNGcUiAVBLpX9D/jA9XV
- GLWfUKqTlw8+WZQgaMsmHjIlNRJQb7v/ydtAipndcPitWb0uL2tbG69WpP9kcwkDv45L
- 3H9p6buwvkpbTMT1xXjAkxcu26YngU+LckpI05izNQs8bFHggzRY32NC9C6XExpWvUS6
- AVw5G6fKA5+x+oZJrGrylXtOL1/bJcZDl8WokNWg34QuUNxlTbBvSkt/evwS7SR3fb32
- F07NYuF0wGSBuC7PggM3Zx7p88OBwpaeL8r5RHNU+PAEwYA1uVX3A8J7i0GnEMmqkOeX
- MF2A==
-X-Gm-Message-State: AOAM531PK3y4bdJ5yiT1MdRBxODr/KCe3jaG9Czf80unYYPGqMgwQK7N
- +UKRXOEJlyfBwWbBkOVLeG2V0c7/Sew=
-X-Google-Smtp-Source: ABdhPJwZixcPKpnrrwAdSkwoZAS/Gj7eO6mY9Ggwwm+vfAKk9pj56Bzv00dMkj28CHF+aeB5k9IbAw==
-X-Received: by 2002:ad4:4e8f:: with SMTP id dy15mr307211qvb.45.1601064701880; 
- Fri, 25 Sep 2020 13:11:41 -0700 (PDT)
+ bh=pEMxI+SHzaiXEllIBUTUdPHIl/NuY6uK0nZoRQW7V8s=;
+ b=nkj7P2RQPhxu5fjyT4WEuTkK/2tI9RP9FArfwytSRpfLA0GhbQKwdtC6cQRPEFSht/
+ BTlyV3+PohwYSMTBJ2yoRyittzhKPxRPjdUc4WmP+kmcNhgEjrlsimhc50YqeIj77qXY
+ DNQWJqqZqW1Adrm/A03eWAGFdLpnYUhHIGdgeVLIEwGwrXQYIV4z2GeiSbejxqfrx+HC
+ seMcA6R1hcCTv8gNSb4v4EqhT8QEXQp5h9iCh/EdQrT+Qyo6P2AZ70sccESr74ToMVA4
+ iwOIghfNWogtWtaTIIAoNpKyp3dwN0gXcqAJIx6PpD48VSRX2/Z+Vk2l5J5vdywuweS7
+ vmGQ==
+X-Gm-Message-State: AOAM533mxHj37nSkUYk2EHdn4BoLp3IOMnqoQDSJOFO4tShzA2vMagY0
+ udsag/w15sZhPF7Vsh/3dCZUY9RGpoE=
+X-Google-Smtp-Source: ABdhPJxbINmw8qDZGiDQBzNKtQ42dkxohQxQcJrhmjw+R6xANa8UNE+E7qaF153Y7scQw+O0Ia6+Vg==
+X-Received: by 2002:a05:6214:84:: with SMTP id n4mr365691qvr.26.1601064700501; 
+ Fri, 25 Sep 2020 13:11:40 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.40
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:41 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:39 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 34/45] drm/amdgpu: add smu ip block for vangogh
-Date: Fri, 25 Sep 2020 16:10:18 -0400
-Message-Id: <20200925201029.1738724-34-alexander.deucher@amd.com>
+Subject: [PATCH 33/45] drm/amd/powerplay: add vangogh ppt into swSMU
+Date: Fri, 25 Sep 2020 16:10:17 -0400
+Message-Id: <20200925201029.1738724-33-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -80,8 +80,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- Aaron Liu <aaron.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -89,28 +88,50 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-This patch is to add ip block for vangogh.
+This patch is to add vangogh ppt funcions into swSMU block.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Aaron Liu <aaron.liu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   | 4 ++++
+ drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile | 1 +
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 3ac89109ea3e..4fbf3f6640e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -644,6 +644,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
- 		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
-+		amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
- 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
- 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 5534125f1df3..d4cc2825d364 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -33,6 +33,7 @@
+ #include "navi10_ppt.h"
+ #include "sienna_cichlid_ppt.h"
+ #include "renoir_ppt.h"
++#include "vangogh_ppt.h"
+ #include "amd_pcie.h"
+ 
+ /*
+@@ -401,6 +402,9 @@ static int smu_set_funcs(struct amdgpu_device *adev)
+ 	case CHIP_RENOIR:
+ 		renoir_set_ppt_funcs(smu);
+ 		break;
++	case CHIP_VANGOGH:
++		vangogh_set_ppt_funcs(smu);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile b/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile
+index f98d97192635..0138c982dfd3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile
+@@ -26,6 +26,7 @@
+ SMU11_MGR = arcturus_ppt.o \
+ 	    navi10_ppt.o \
+ 	    sienna_cichlid_ppt.o \
++	    vangogh_ppt.o \
+ 	    smu_v11_0.o
+ 
+ AMD_SWSMU_SMU11MGR = $(addprefix $(AMD_SWSMU_PATH)/smu11/,$(SMU11_MGR))
 -- 
 2.25.4
 
