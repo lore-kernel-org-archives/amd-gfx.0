@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A6C3C4741F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB88C4727E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E91AF23A31
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 07D5E2399A
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:12:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vf7LrNMo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E91AF23A31
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qo8Pg4jR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07D5E2399A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA636ED80;
-	Fri, 25 Sep 2020 20:11:56 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00EEA6ED80
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:53 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id d1so3082490qtr.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F786ED85;
+	Fri, 25 Sep 2020 20:12:07 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C19A16ED83
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:12:05 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id n133so4072087qkn.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:12:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WHOZ9gQWsiI7JvkfIQegXoauQluPixctieLSKxa7ZP0=;
- b=Vf7LrNModTcgwRtwDYMdP8HW4PfftM9YlTNrm9cyzJAlUjcpdwxEOcN61F1VZLB7GU
- GmwSi2KXu2A4WP3jj+eBsMaQkFH14htHIjvup1hWjcPNw2o8W4BswUOLO1v6Pj4Xmztm
- LaUIBrwrQIu4OtOpU5q8wsBk4YPjZoqGHkw4JpDZobfXWLg4NochRjAhFZVDSzXe4wKH
- NrQedqtU/n4ax5+7804obOzbE1J4YEjkR+6O1PZX6abO2cUYv22xauWkeKG6IcjTKLp5
- 4Sok6yZR/ZJB2jAPFoXMJljuoKTFHsxw/cB8xfG1uSqcgZH0vQ3db5rv9ZCFpjh0Kv5k
- VlHg==
+ bh=uuOvXj55mM3KGVMCgciV7XpjCaRrVA6q1g3nJpoysYM=;
+ b=Qo8Pg4jRHhTg1ssDPOl3Vz7sxcoEqc0kl6Xer/2BfXnW5y3G3veOwWyLkceA6j2xM9
+ V7uc/v0BmFEl4D6xXVpYplw3PaRQb+BwWpTBM1OoDAB15WuJJkUs9k7+CjhqEego6Tn7
+ Z2L4khr8OrBz+7wuqb0avGnyXZNUoFbqrF755Efc/iO5OLvr8m0cbB1EVYllE1mo4xGZ
+ Rvzr17CJ/HRHbBe4cgqRdBmIFd3VYQQ1TsY2BBXTTI1YVzIffRMUVOMIg3HxzQQV5pLv
+ LWt8qcjNm78DJN8ZBrVMPT8Qvwl1HB8NmmlDJlr9u2NldIcW/cHPYcZ0pz/dy2JPT/7q
+ J1aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WHOZ9gQWsiI7JvkfIQegXoauQluPixctieLSKxa7ZP0=;
- b=hmmFJRempCrNPVZNFugie9BibrPNccuR+CvvF0c9kURxbQKwc4+DgTBl+MKbiN/Dko
- NLeNIw1F0yD7Ga2Rb0W7sneFEWsMcGXeK4jV5obPmD0xiIjuQylwNmaDtq6oZ76GzvjZ
- dc7QSZXhTKteYd47cokDNAkn/FnvH4sbyKvhlT8J76RGlZ38t0tbNLVtsoZ+u7w+gxOZ
- Jq1Ja9Yo9Fe10WdDMDnp6QRHTteOCGBIlBOpaxyrhZdPXF3rcsqLhjrZxDA4p2ZFtPv+
- dXphykWhwr6RS9X7Zte1FXNncrT3KHlvyf9ucEsp+B8CoNwYVX6uJDRm9GPVqqjj6OJY
- i4rw==
-X-Gm-Message-State: AOAM531NgynksPedKtHU23xKoJvPoKDXu526glPlk3HOlhPLqaxdLHSs
- eB210zTajbkRNBjiJ+My+hU3SEqmMHM=
-X-Google-Smtp-Source: ABdhPJxEaRjM3DugOthlYWVGm2D0p02vHv/vlB09ltPdznJl3k8m/xKeXBm3ctNZdatXAJS7/b8KJQ==
-X-Received: by 2002:ac8:4e0b:: with SMTP id c11mr1498092qtw.37.1601064713037; 
- Fri, 25 Sep 2020 13:11:53 -0700 (PDT)
+ bh=uuOvXj55mM3KGVMCgciV7XpjCaRrVA6q1g3nJpoysYM=;
+ b=EyUaqHN0H/wHspOoujlX98DPA3EJ5jxRUw2/C+uLbIkxQ77B77pU7FYV7Y0chO/SGr
+ YBrzqp2rbmc0QDvjARBdnlXkK1ZYSiHs5yOwnMA2zKwHqDyooPlxlZlq0tE6pLJunXE4
+ EiVjn7LiLveJG11G3yKmHClNlMk6hrWNc+XvdB53ztn6tquPAG+4uW8gySaAVnwhWMNI
+ qUvBXrzu37XRWpf2eL4SABM4tq2uLCgstKHEtTER6bBtHJb5tI7KuHivpcU1xOSWmGXD
+ uOGhJxJNQi5s1ZAB40QVoZdj8UXZPjKf6nf/KfhRMLRn4TKCqCGgHBZe4ScmQVjIepgw
+ 3hPw==
+X-Gm-Message-State: AOAM531OzqCRCwup9rQxuT7LTJTksz3giltaHnkH2J2cqkyr2nR/giZh
+ kTbNTqrBTQPwfysKApEmBBn7dzE6Cj4=
+X-Google-Smtp-Source: ABdhPJy0ZhChhDjCyNZEoXGMXH/vUkbr3YOJAiSlc+5nqDeKruWJZeOLidWnjtN+VjPYySwp0/DTMg==
+X-Received: by 2002:a05:620a:9ce:: with SMTP id
+ y14mr1823743qky.437.1601064724769; 
+ Fri, 25 Sep 2020 13:12:04 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.52
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.12.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:52 -0700 (PDT)
+ Fri, 25 Sep 2020 13:12:04 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 42/45] drm/amdgpu: enable gfx clock gating and power gating
- for vangogh
-Date: Fri, 25 Sep 2020 16:10:26 -0400
-Message-Id: <20200925201029.1738724-42-alexander.deucher@amd.com>
+Subject: [PATCH 45/45] drm/amdgpu: add van gogh pci id
+Date: Fri, 25 Sep 2020 16:10:29 -0400
+Message-Id: <20200925201029.1738724-45-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -89,33 +89,29 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-This patch is to enable the gfx cg and pg for vangogh.
+Add Van Gogh PCI id support.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 4bd2e2f35fa4..67b6067f2bd3 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -919,8 +919,11 @@ static int nv_common_early_init(void *handle)
- 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 9ad1da52e6da..564336c2ee66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1088,6 +1088,9 @@ static const struct pci_device_id pciidlist[] = {
+ 	{0x1002, 0x73AE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+ 	{0x1002, 0x73BF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
  
- 	case CHIP_VANGOGH:
--		adev->cg_flags = 0;
--		adev->pg_flags = 0;
-+		adev->cg_flags = AMD_CG_SUPPORT_GFX_CGCG |
-+			AMD_CG_SUPPORT_GFX_CGLS |
-+			AMD_CG_SUPPORT_GFX_3D_CGCG |
-+			AMD_CG_SUPPORT_GFX_3D_CGLS;
-+		adev->pg_flags = AMD_PG_SUPPORT_GFX_PG;
- 		adev->external_rev_id = adev->rev_id + 0x01;
- 		break;
- 	default:
++	/* Van Gogh */
++	{0x1002, 0x163F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VANGOGH|AMD_IS_APU},
++
+ 	{0, 0, 0}
+ };
+ 
 -- 
 2.25.4
 
