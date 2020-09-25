@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C3CAC4727E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30222C4727F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 962702399A
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C5ED32399A
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kHGcBpr7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 962702399A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n2RC7ycZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5ED32399A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B8366ED23;
-	Fri, 25 Sep 2020 20:11:46 +0000 (UTC)
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DBA76ED7E
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:45 +0000 (UTC)
-Received: by mail-qk1-x734.google.com with SMTP id w16so4109870qkj.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600526ED1E;
+	Fri, 25 Sep 2020 20:11:50 +0000 (UTC)
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC9A06ED1E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:48 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id d20so4118524qka.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ZNFxNsw4Z+6giLwo0tk9x4SpCEvbn/W3CovtrGC+Q+Y=;
- b=kHGcBpr7LsH6HQcxkV7/c98blregUWSZzpjJzcR3Fhw51ovdI5JEn+mw9s8JvjAJmx
- Cva81H+fZVnBOq11fODrFcaAna8hE8e5EHttpZNWaUy84vINKKd+UcEdHVWfVwNKo1Ik
- pFycbd7lR9KWWm/CNjgPHBI8W0pB/ixUnYnj58ynJv7gF5YAo66fQJ3PU3gtRa4YfGQ6
- HGYkUGvpHjjgGnY/o8GbgdN3P5fAAxHOMaabqzLqDzwNOOgfT+D2cw7GTkN6onndo8Zu
- MxtIDk9rETClX6vUn/ww+3U8BUW+8qlGxwNf0AQlq6c6iYy+BC/gDqthdtXLOafTvVNy
- Ag1Q==
+ bh=C9Kpr8TtFjClwiKIf/cQix4szyxbJmV37ifSyDM5sTo=;
+ b=n2RC7ycZ/ron8HtPe39WJY31dnDrgdaD72Xtcd0B7vSW9WBeed9+zWrB44rq+YA2EG
+ 8bO9Lj2aBqiPs5k50JX4/kN4pe9eXteCI/zXcruF+2eo5rMT2xD+vYQtT6MLOI7I2okL
+ 7ZSmP8n7H5BhzinyIcnlebvTRMpXUhGEGiFw5kRU4BKKKdjqXSpBEcQjPaBVT+dbTQK5
+ D/3QhuqLWQqMmB9D2olRP2lKr+52ZcKJ+JZsFKKKTD36EzjxsCdVSwhclYJN4DGMgaK6
+ EaWtC3sL4Ylf+Z+IiJmGNOtc7cD3ueuJ8Tnc8dsIetYE6ypDn30LlRLF+jjqjSQpWV+A
+ uNiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ZNFxNsw4Z+6giLwo0tk9x4SpCEvbn/W3CovtrGC+Q+Y=;
- b=eKWNeR8Sake2vcxlm8FP2k80EO8HSPELkKueMho1AxnJq+XUt5Rqw5iRYYdqkQLW3h
- C5UaHM6jJDarDgQ3j/WMv5XlAEu9EcTk+5H24qrplB6951WUL+ZdB1u3oq6hhRR5aADF
- QiInnrth/pxLdMcELieuprmWWFQGS6zYyQt8snzN620MtF3QrXqUYiD52B5vIBqa45hC
- ro2l43S1ovGO8sMZP5ZBXzvQhnqCN6FxLPjO2Srxaq8AEeGe02LYfPL0vzb+TDpi/ED3
- EsF6Nun8xfdQDgg9mtFtZUlpKAVDqcgNbrI1zhK23pFRW42FvkKZ1UnVw7EmXaoiAx2K
- 8nhQ==
-X-Gm-Message-State: AOAM531x3GzdD2Ar2ge+tKWZOUQALw3ikU+V7mL9Vi0+FXpT1f6XeSkC
- //IcYoNkiUusnpOHpJ9uh3A3hto5wt4=
-X-Google-Smtp-Source: ABdhPJzoLytHB2W39pkdX3TCRww9utRM7LKHEnAZC0pAcPgowLTXj/5aZWFW7YupzsBR3iD0ftKXsQ==
-X-Received: by 2002:a05:620a:39a:: with SMTP id
- q26mr1781807qkm.305.1601064704016; 
- Fri, 25 Sep 2020 13:11:44 -0700 (PDT)
+ bh=C9Kpr8TtFjClwiKIf/cQix4szyxbJmV37ifSyDM5sTo=;
+ b=T8YzXc70+s3VrJ3NyxeWIiUMkA9N0rm65HEkr6DoaWbLI8tBwj3fNxRvCO33K5Io9X
+ x+4Ocwnus9yzHm3dMZRHyl3ldywHdiusktHvnsZX/FfXbvydbtplbhzLw0MhdncmOEkc
+ Y6bJ4db21XxQzet01ayBKsswWQwsg74aFOWrYFDQlc0coaMs8XK6dq+reengK3asWmCw
+ fMKm7aeo3A5pb14FORYDLOCLwehi4jBVlQeqVQPmAmIOjtnBswYvlMAyv+C0CUsFgcWZ
+ LtGopUARVVtWj77DmL9f5BL4Y5Ghr2LxpJigUtTk9EMGnIrGLxuyhmC2jZztIxlq0+8S
+ wDEw==
+X-Gm-Message-State: AOAM531CY6tN76/IFSe0Kb63JVguT57MnF9tS9zwXd39V/fM6j/Hmk79
+ 4wjM2z9pHWbEbXXaeakSbXzlN/04DA4=
+X-Google-Smtp-Source: ABdhPJyrwK2fTcsAL1IZP/q7fLeK0qfBZbboxNwlgBo4ZgdyG2ijRXhk9W7nZHTE4bVTUhO6N7zlEQ==
+X-Received: by 2002:a37:44c7:: with SMTP id r190mr1612145qka.253.1601064705465; 
+ Fri, 25 Sep 2020 13:11:45 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.43
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:43 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:44 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 36/45] drm/amdgpu: add TOC firmware support for apu (v2)
-Date: Fri, 25 Sep 2020 16:10:20 -0400
-Message-Id: <20200925201029.1738724-36-alexander.deucher@amd.com>
+Subject: [PATCH 37/45] drm/amdgpu: enable psp support for vangogh
+Date: Fri, 25 Sep 2020 16:10:21 -0400
+Message-Id: <20200925201029.1738724-37-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -89,183 +88,80 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-APU needs load toc firmware for gfx10 series on psp front door loading.
-
-v2: rebase against latest code
+This patch is to enable psp support for vangogh
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 11 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 36 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  7 +++++
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 33 ++++++++++++++++-------
- 4 files changed, 77 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 +--
+ drivers/gpu/drm/amd/amdgpu/nv.c           | 2 ++
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c    | 5 +++++
+ 4 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index bd0d14419841..26caa8d43483 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -325,6 +325,10 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
- 		fw_info->ver = adev->dm.dmcub_fw_version;
- 		fw_info->feature = 0;
- 		break;
-+	case AMDGPU_INFO_FW_TOC:
-+		fw_info->ver = adev->psp.toc_fw_version;
-+		fw_info->feature = adev->psp.toc_feature_version;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1464,6 +1468,13 @@ static int amdgpu_debugfs_firmware_info(struct seq_file *m, void *data)
- 	seq_printf(m, "DMCUB feature version: %u, firmware version: 0x%08x\n",
- 		   fw_info.feature, fw_info.ver);
- 
-+	/* TOC */
-+	query_fw.fw_type = AMDGPU_INFO_FW_TOC;
-+	ret = amdgpu_firmware_info(&fw_info, &query_fw, adev);
-+	if (ret)
-+		return ret;
-+	seq_printf(m, "TOC feature version: %u, firmware version: 0x%08x\n",
-+		   fw_info.feature, fw_info.ver);
- 
- 	seq_printf(m, "VBIOS version: %s\n", ctx->vbios_version);
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 18be544d8c1e..c8cec7ab499d 100644
+index c8cec7ab499d..574392fcd503 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2415,6 +2415,42 @@ int psp_init_asd_microcode(struct psp_context *psp,
- 	return err;
- }
- 
-+int psp_init_toc_microcode(struct psp_context *psp,
-+			   const char *chip_name)
-+{
-+	struct amdgpu_device *adev = psp->adev;
-+	char fw_name[30];
-+	const struct psp_firmware_header_v1_0 *toc_hdr;
-+	int err = 0;
-+
-+	if (!chip_name) {
-+		dev_err(adev->dev, "invalid chip name for toc microcode\n");
-+		return -EINVAL;
-+	}
-+
-+	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_toc.bin", chip_name);
-+	err = request_firmware(&adev->psp.toc_fw, fw_name, adev->dev);
-+	if (err)
-+		goto out;
-+
-+	err = amdgpu_ucode_validate(adev->psp.toc_fw);
-+	if (err)
-+		goto out;
-+
-+	toc_hdr = (const struct psp_firmware_header_v1_0 *)adev->psp.toc_fw->data;
-+	adev->psp.toc_fw_version = le32_to_cpu(toc_hdr->header.ucode_version);
-+	adev->psp.toc_feature_version = le32_to_cpu(toc_hdr->ucode_feature_version);
-+	adev->psp.toc_bin_size = le32_to_cpu(toc_hdr->header.ucode_size_bytes);
-+	adev->psp.toc_start_addr = (uint8_t *)toc_hdr +
-+				le32_to_cpu(toc_hdr->header.ucode_array_offset_bytes);
-+	return 0;
-+out:
-+	dev_err(adev->dev, "fail to initialize toc microcode\n");
-+	release_firmware(adev->psp.toc_fw);
-+	adev->psp.toc_fw = NULL;
-+	return err;
-+}
-+
- int psp_init_sos_microcode(struct psp_context *psp,
- 			   const char *chip_name)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 919d2fb7427b..13f56618660a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -253,6 +253,11 @@ struct psp_context
- 	uint32_t			asd_ucode_size;
- 	uint8_t				*asd_start_addr;
- 
-+	/* toc firmware */
-+	const struct firmware		*toc_fw;
-+	uint32_t			toc_fw_version;
-+	uint32_t			toc_feature_version;
-+
- 	/* fence buffer */
- 	struct amdgpu_bo		*fence_buf_bo;
- 	uint64_t			fence_buf_mc_addr;
-@@ -386,6 +391,8 @@ int psp_ring_cmd_submit(struct psp_context *psp,
- 			int index);
- int psp_init_asd_microcode(struct psp_context *psp,
- 			   const char *chip_name);
-+int psp_init_toc_microcode(struct psp_context *psp,
-+			   const char *chip_name);
- int psp_init_sos_microcode(struct psp_context *psp,
- 			   const char *chip_name);
- int psp_init_ta_microcode(struct psp_context *psp,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 6c5d9612abcb..f2d6b2518eee 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -109,20 +109,16 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 		BUG();
- 	}
- 
--	err = psp_init_sos_microcode(psp, chip_name);
--	if (err)
--		return err;
--
--	if (adev->asic_type != CHIP_SIENNA_CICHLID &&
--	    adev->asic_type != CHIP_NAVY_FLOUNDER) {
--		err = psp_init_asd_microcode(psp, chip_name);
--		if (err)
--			return err;
--	}
- 
- 	switch (adev->asic_type) {
- 	case CHIP_VEGA20:
- 	case CHIP_ARCTURUS:
-+		err = psp_init_sos_microcode(psp, chip_name);
-+		if (err)
-+			return err;
-+		err = psp_init_asd_microcode(psp, chip_name);
-+		if (err)
-+			return err;
- 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
- 		err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
- 		if (err) {
-@@ -150,6 +146,12 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI14:
+@@ -100,6 +100,7 @@ static int psp_early_init(void *handle)
  	case CHIP_NAVI12:
-+		err = psp_init_sos_microcode(psp, chip_name);
-+		if (err)
-+			return err;
-+		err = psp_init_asd_microcode(psp, chip_name);
-+		if (err)
-+			return err;
- 		if (amdgpu_sriov_vf(adev))
- 			break;
- 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
-@@ -180,10 +182,21 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 		break;
  	case CHIP_SIENNA_CICHLID:
  	case CHIP_NAVY_FLOUNDER:
-+		err = psp_init_sos_microcode(psp, chip_name);
-+		if (err)
-+			return err;
- 		err = psp_init_ta_microcode(&adev->psp, chip_name);
- 		if (err)
- 			return err;
++	case CHIP_VANGOGH:
+ 		psp_v11_0_set_psp_funcs(psp);
+ 		psp->autoload_supported = true;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 3f791ca73ff7..676405171a4c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -391,12 +391,11 @@ amdgpu_ucode_get_load_type(struct amdgpu_device *adev, int load_type)
+ 	case CHIP_NAVI12:
+ 	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_NAVY_FLOUNDER:
++	case CHIP_VANGOGH:
+ 		if (!load_type)
+ 			return AMDGPU_FW_LOAD_DIRECT;
+ 		else
+ 			return AMDGPU_FW_LOAD_PSP;
+-	case CHIP_VANGOGH:
+-		return AMDGPU_FW_LOAD_DIRECT;
+ 	default:
+ 		DRM_ERROR("Unknown firmware load type\n");
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 4fbf3f6640e6..568e33b7fda8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -644,6 +644,8 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
+ 		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
++		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
++			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+ 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
+ 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index f2d6b2518eee..d6ba6ea9a8fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -59,6 +59,8 @@ MODULE_FIRMWARE("amdgpu/sienna_cichlid_sos.bin");
+ MODULE_FIRMWARE("amdgpu/sienna_cichlid_ta.bin");
+ MODULE_FIRMWARE("amdgpu/navy_flounder_sos.bin");
+ MODULE_FIRMWARE("amdgpu/navy_flounder_ta.bin");
++MODULE_FIRMWARE("amdgpu/vangogh_asd.bin");
++MODULE_FIRMWARE("amdgpu/vangogh_toc.bin");
+ 
+ /* address block */
+ #define smnMP1_FIRMWARE_FLAGS		0x3010024
+@@ -105,6 +107,9 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
+ 	case CHIP_NAVY_FLOUNDER:
+ 		chip_name = "navy_flounder";
  		break;
 +	case CHIP_VANGOGH:
-+		err = psp_init_asd_microcode(psp, chip_name);
-+		if (err)
-+			return err;
-+		err = psp_init_toc_microcode(psp, chip_name);
-+		if (err)
-+			return err;
++		chip_name = "vangogh";
 +		break;
  	default:
  		BUG();
