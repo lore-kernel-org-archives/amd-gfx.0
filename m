@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2257DC4741F
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A831C4741F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B962323A31
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0050D23A31
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 20:11:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lzLWg32+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B962323A31
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lw7nLSRH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0050D23A31
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 400346ED7C;
-	Fri, 25 Sep 2020 20:11:43 +0000 (UTC)
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946F66ED7B
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:41 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id cv8so2020818qvb.12
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB126ED7E;
+	Fri, 25 Sep 2020 20:11:46 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE9A46ED80
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 20:11:43 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id f142so4064853qke.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 13:11:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=pEMxI+SHzaiXEllIBUTUdPHIl/NuY6uK0nZoRQW7V8s=;
- b=lzLWg32+uLRJK9gu9yecOL2RxQw5hQxoJ7pCP416/ZgqQNpUx3Fp73/gVVreNYp2+Q
- x8mhaDhFqglNuHCQh048GCYN9YK5Ow+qkB9SrAYN4UfvwDABBV9uO72ZVeX6e5Jxpnd9
- 2edk6yf9O0yTKlGaWufZ826FTN22vircHqkEd9AIrbFoC481bpzAp4I532gv+LeJ8lCl
- oyu6VEBmhLP6eLgUhRUBjz75eEPuahXeyR221BRIdqUQO40o0YLA5BJ9wQIkGwVEjPI4
- PgCL0wm9upSc9bHoUSrGT7N1sKsct4+wuvLJQvGjVq9EHL3qjUDspWq2Ri1GOMJPyF8w
- lBUw==
+ bh=ln0JwnmaR+eh82Q9wFtDZTTk9SI+XfQ4RWfrVN5GM9c=;
+ b=lw7nLSRHD9wd9WgUTsKAvGP3hTx2YsrP+k6uC41VHz7gGe+NqqX3sTSyJTExHyG9qi
+ gmktF2jr1u9BP8faDxcN4SkTcQyEdpMW+wGMlcL2qqBGGDzQEHdbOcYNz4kOl8NSGpVZ
+ 7onUyGugJbuvukg+ZOBPc1lT9cX2WPNP4a9BL3aqvdOkQsuA5Q7y2p2tVS08TmrgfyhT
+ h8vVKC5UoMxcFfZq7pPDx+Yz52jto0UnZCKdtT8s+QrWMaoteQQDQ/wSFpN7SvZyoKin
+ lBM88vbHewEBC9bjkKy1lI5m9V6C4sJ0VWps2Zby8swpufJI//G+Q9A9I8G1t7ezMtTh
+ Aagw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=pEMxI+SHzaiXEllIBUTUdPHIl/NuY6uK0nZoRQW7V8s=;
- b=nkj7P2RQPhxu5fjyT4WEuTkK/2tI9RP9FArfwytSRpfLA0GhbQKwdtC6cQRPEFSht/
- BTlyV3+PohwYSMTBJ2yoRyittzhKPxRPjdUc4WmP+kmcNhgEjrlsimhc50YqeIj77qXY
- DNQWJqqZqW1Adrm/A03eWAGFdLpnYUhHIGdgeVLIEwGwrXQYIV4z2GeiSbejxqfrx+HC
- seMcA6R1hcCTv8gNSb4v4EqhT8QEXQp5h9iCh/EdQrT+Qyo6P2AZ70sccESr74ToMVA4
- iwOIghfNWogtWtaTIIAoNpKyp3dwN0gXcqAJIx6PpD48VSRX2/Z+Vk2l5J5vdywuweS7
- vmGQ==
-X-Gm-Message-State: AOAM533mxHj37nSkUYk2EHdn4BoLp3IOMnqoQDSJOFO4tShzA2vMagY0
- udsag/w15sZhPF7Vsh/3dCZUY9RGpoE=
-X-Google-Smtp-Source: ABdhPJxbINmw8qDZGiDQBzNKtQ42dkxohQxQcJrhmjw+R6xANa8UNE+E7qaF153Y7scQw+O0Ia6+Vg==
-X-Received: by 2002:a05:6214:84:: with SMTP id n4mr365691qvr.26.1601064700501; 
- Fri, 25 Sep 2020 13:11:40 -0700 (PDT)
+ bh=ln0JwnmaR+eh82Q9wFtDZTTk9SI+XfQ4RWfrVN5GM9c=;
+ b=MBJP4eE9yYsb1CGgMiIZL12kKq+oKYO7M8B3imS/uZw/imwcW089THb0IxIesiMW0+
+ 1WEpkhSNZKbndalFcDpKFgM8oAOuusHFZ8604imB+7d8OsqFHRhuR7k1twTJn1PovwyH
+ IGQA7pwHcxvsl/Q+jeGf0Zs4AN/Yj28hzRBkxkSJlQrn3KQ2yjU+UufaE7GLEEPIEbbu
+ RwomV3HppY3jKqQ0iSszo88ZQVJwyWkafkXuaK3kPyvCodgI784kpKvxfC8iNKm9tzkz
+ nDqVi98klxmn/Y0Utbzi/oGz9x4y7N1hUof7NYWdhudNglB31GjoVsYMXQbS1e5c30BX
+ duiA==
+X-Gm-Message-State: AOAM530/XtAOyBxuwXngQoFqkxjBWvdJRmbJaOIzSpY37IudnH5qyH5C
+ VKlLwypeF32W0hN1wQoYuoX6qErI9JM=
+X-Google-Smtp-Source: ABdhPJzNp3NIIxKqFV0P3gK3oiZ1Jt5lqIJaXW+2OXpjtkFDYZR0POy/y85tT/4qHwAvF1reBmReDw==
+X-Received: by 2002:a37:77c4:: with SMTP id s187mr1784135qkc.327.1601064702942; 
+ Fri, 25 Sep 2020 13:11:42 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.39
+ by smtp.gmail.com with ESMTPSA id m67sm2301237qkf.98.2020.09.25.13.11.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 13:11:39 -0700 (PDT)
+ Fri, 25 Sep 2020 13:11:42 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 33/45] drm/amd/powerplay: add vangogh ppt into swSMU
-Date: Fri, 25 Sep 2020 16:10:17 -0400
-Message-Id: <20200925201029.1738724-33-alexander.deucher@amd.com>
+Subject: [PATCH 35/45] drm/amdgpu: add TOC firmware definition
+Date: Fri, 25 Sep 2020 16:10:19 -0400
+Message-Id: <20200925201029.1738724-35-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200925201029.1738724-1-alexander.deucher@amd.com>
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
@@ -88,50 +88,28 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Huang Rui <ray.huang@amd.com>
 
-This patch is to add vangogh ppt funcions into swSMU block.
+This patch is to add TOC firmware definition on uapi.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   | 4 ++++
- drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile | 1 +
- 2 files changed, 5 insertions(+)
+ include/uapi/drm/amdgpu_drm.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 5534125f1df3..d4cc2825d364 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -33,6 +33,7 @@
- #include "navi10_ppt.h"
- #include "sienna_cichlid_ppt.h"
- #include "renoir_ppt.h"
-+#include "vangogh_ppt.h"
- #include "amd_pcie.h"
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index d98d4e6f311b..64ae821b01ef 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -727,6 +727,8 @@ struct drm_amdgpu_cs_chunk_data {
+ 	#define AMDGPU_INFO_FW_TA		0x13
+ 	/* Subquery id: Query DMCUB firmware version */
+ 	#define AMDGPU_INFO_FW_DMCUB		0x14
++	/* Subquery id: Query TOC firmware version */
++	#define AMDGPU_INFO_FW_TOC		0x15
  
- /*
-@@ -401,6 +402,9 @@ static int smu_set_funcs(struct amdgpu_device *adev)
- 	case CHIP_RENOIR:
- 		renoir_set_ppt_funcs(smu);
- 		break;
-+	case CHIP_VANGOGH:
-+		vangogh_set_ppt_funcs(smu);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile b/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile
-index f98d97192635..0138c982dfd3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/Makefile
-@@ -26,6 +26,7 @@
- SMU11_MGR = arcturus_ppt.o \
- 	    navi10_ppt.o \
- 	    sienna_cichlid_ppt.o \
-+	    vangogh_ppt.o \
- 	    smu_v11_0.o
- 
- AMD_SWSMU_SMU11MGR = $(addprefix $(AMD_SWSMU_PATH)/smu11/,$(SMU11_MGR))
+ /* number of bytes moved for TTM migration */
+ #define AMDGPU_INFO_NUM_BYTES_MOVED		0x0f
 -- 
 2.25.4
 
