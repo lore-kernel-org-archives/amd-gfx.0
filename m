@@ -7,41 +7,41 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33C7FC4363D
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1286C4727C
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 14:55:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A11E22068E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 14:55:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 48A942068E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2020 14:55:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NaQF4+Wm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A11E22068E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qkmomT0K"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48A942068E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC176ED0E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D18886ED0B;
 	Fri, 25 Sep 2020 14:55:36 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on2062b.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:7eaa::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6693B6ED0D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1B16ED0D
  for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2020 14:55:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m9gEbAdpeHcIfgG7ZnqqemsX6drPIA93Ee+MCn0S95t1VsRbY2CgRGQDOHMtdTG7r0JhSsgJ7+xeM+NliJRMwT75IeKfEKy3gy6zyUceR/gCPZDtoL3Kd4AxoiDNyVxJy4Ufmz0KjNCd0o478LSbNnLvLzOZhDp/y5kfbP/V8TrMZiy4EBumICFzOp4IM4wpvtneqMJ2ZPk2qrsKce4qYFTnEIjM2qdogRqDOFD6nZ3kdiNH9KhrrI6UfFXz8vrRa7yWXb5QMbVH48bDZYB0I/9k+9IKhX6hVdrx2GkkHHXClIHKrVsaOkgHOZ1nNHxpwkRg+DxeHbkelENnvlrZng==
+ b=gQ8/1CaAPuBrwzAkd1N0j11wsDgMvNe3Lu8Ako3wc9ciHMQD1A7gFmeZHJKwE7j7nEzkw4s8PzbbFXIhf39+oevXgY8CyWoatco12Hw5EWc3kraDzvk5sYha/lmUSVj+sXzKXtnsfoiQJHLYt54vwaCd4tEz0LNXQHBBrAVpbrpLggQ/zaiuFNo+xLEpGNumxf5i/Ni/r+igl7Sw1SquVYfDnFyThO5eYaw6Es3sXVDHSAoMQvp9OJxbpnQgmXGsiPfaCDnM+xAKzvd+5NdDRFPYs3feQju3gu/23zQjYl2x/PVqpFK3C0gCJ1efB4lH/Ov8ZC49BkfVArop9Q6ong==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qA3RaM695GVH7n+GfXpzWSFnQPzXH/m1ux/E3Apuvys=;
- b=POrxocb/AjSswxJ4ktsUCGYmm7WguOu01irzY9aXdHOYvhRHXXhA9bDgT6FUk8fuQ8wX9rNFdW0wHguGxiA0x7haCpBDhSeEPRqE2LuHBk4Z0UJTR7MsLBZLJEjC2X7BFrRHqIf+KXuA4KgeyymhkcJQyj64QYjajP1oa+cTDLQWQmrEjqs47bk7LyqyMPIwBOJAFZLa2mZoZR4Yk20kGPeceRI42Fwe5HjkAP8hYQ9DyMP+TvbjtLGWjSPiLcxPBC+W6BLQNwSS9T+ikU7cgXyTnq4WFStLA83JgGyzJdfD4UINT4CkAePN0Va2NsrcLIjTwrnvn9N9ZW9CHnC7UQ==
+ bh=U5m4yDaN1SO62qKyIY+M5amPrig6z+k+oK3JEeWmWNw=;
+ b=UUZo2A2LADZ+bcISrRvOiM2CwMZT07YAphlJ61rAOqz4bw1XIks7gtwnBgmJJoakAU7FmS843HOJ3DiGrLpoNOIDKmn95fXXmCBRgKJSAywkTWhZGNPkcDfguyAa/IujknF3Tlm6JQ7+iv5B/4rJg1CYisucaLIsvrnwKDTywgELJ2EeEnMqXzAQz8E42qkMZqfn+FpUeBE2KU9a1aTtCadaXGDFyCkJYLmCZjy0CIV77YdZeKvUHJomMiDbLiDf5puETsdwovITVkTpnikUUc6CkjSpUGAfvMJRp1EDfw2FDqZWpJrzMzGNVa/jIyPG8V9uNJR/jrDwOYgZ+MRbVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qA3RaM695GVH7n+GfXpzWSFnQPzXH/m1ux/E3Apuvys=;
- b=NaQF4+WmyHk0p+tT21xK8qiug43oMn+rLg9cpP4galBU5hGOI8EGC8hD7dkUXStTc41oaYJCg8IsLWiYCSjyBkwCAI8tPunfKL/hE4wHxTqVif62OS6Chp5WABmHja1hjLwtqF606aQnUKq1Ofrvew2rsZARkIbE8gQ1mQgBkpY=
+ bh=U5m4yDaN1SO62qKyIY+M5amPrig6z+k+oK3JEeWmWNw=;
+ b=qkmomT0K0GHpqWpt2/rmuFC1d2H5WXwtpw4zOuo++lflgEQ7VTCdRuEpmGombqF104pw+ZbX477htDxI4BKgunjpMoY4S3UJJ+5+tUs0UsWeAZB3GaNFlGbBSZOF0qUYVOcVVyEJqERzOT22//6E1kYNd1S74JahcKyziEjtmMU=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -49,17 +49,16 @@ Received: from DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20)
  by DM6PR12MB4219.namprd12.prod.outlook.com (2603:10b6:5:217::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.23; Fri, 25 Sep
- 2020 14:55:12 +0000
+ 2020 14:55:13 +0000
 Received: from DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::25a1:ace4:4ca8:167e]) by DM6PR12MB4124.namprd12.prod.outlook.com
  ([fe80::25a1:ace4:4ca8:167e%7]) with mapi id 15.20.3412.020; Fri, 25 Sep 2020
- 14:55:12 +0000
+ 14:55:13 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/9] drm/amd/display: disable stream if pixel clock changed
- with link active
-Date: Fri, 25 Sep 2020 10:54:50 -0400
-Message-Id: <20200925145455.2398170-5-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 6/9] drm/amd/display: Add debug param to force dio disable
+Date: Fri, 25 Sep 2020 10:54:52 -0400
+Message-Id: <20200925145455.2398170-7-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200925145455.2398170-1-Rodrigo.Siqueira@amd.com>
 References: <20200925145455.2398170-1-Rodrigo.Siqueira@amd.com>
@@ -72,31 +71,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::980e) by
  YTBPR01CA0025.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3412.20 via Frontend Transport; Fri, 25 Sep 2020 14:55:11 +0000
+ 15.20.3412.20 via Frontend Transport; Fri, 25 Sep 2020 14:55:13 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 13a3cd26-d91f-426f-03d3-08d861630115
+X-MS-Office365-Filtering-Correlation-Id: f442d13c-7e9c-46e9-474d-08d8616301f3
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4219:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4219A7E08311D02E1A97E97998360@DM6PR12MB4219.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:119;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB42195B445B75939D04D7E69198360@DM6PR12MB4219.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:849;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rxEedMH8QZTidcGhmZdESUEPW13RFBxZSjHpo0XFf2UOTglC0NDprb+RElteFqFl0KoMnL+I0m+5n2mteHfpWSNx6XYLVFJyg4XIREJc/8mMZAOSnIs+WSK9h67gyExifS05bgIOrm+3jYyfy5uHeUNUQjria9FFxaDYK2fbgUUR8B0h2KQd0T1Zkg8DgmSd6HiWSGdQNV9DGkwfLfG8cBKox33A+bj5fYiCrk8YAwM7A9BKlaP1RUo8UFce3Mzm26V6L6MhCVZKL5fBHMKwsiQR6Sdl9o5XQbPEKdZL18r55s8Z0tX1DsctfiCJhhusR+uvSQCFvbmi5UGoJUA95g==
+X-Microsoft-Antispam-Message-Info: v3v28/GB0EFgEg+uRZCsyvELAtK+7dnwIyvrUvo15gTrZZU/UTnQwafS0ZfM4WtBqEfpB5sryjlw/6RdGqCU5G6Uc5+T+ExKoJ5/XidVA1G4xUJrTfvZwXes3bDiWHGIs2NQaKCT1L7PoeOQ7cLdIqxnQBdnuve9BIBOqD+gMmnE11YB8/ka631nibpeyaFez2WGkj9cYagYp9wvXnwARNjr2510lfu+mFkcsoUObFwmqltzPNxege9QD+ow+f4o24ZbAoDwXswclBxtYpX0n/FbafSkMQzaYkMPjnO5F92jekhlA0YG6kbcy+GZmq84R/DyTHvyFiJX5drOTXsH9g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4124.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(39860400002)(396003)(136003)(376002)(366004)(346002)(66946007)(6666004)(36756003)(16526019)(4326008)(6506007)(52116002)(2906002)(86362001)(2616005)(478600001)(6512007)(66556008)(186003)(66476007)(6916009)(1076003)(5660300002)(54906003)(316002)(8936002)(83380400001)(6486002)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: U5Czg5jeo3AbEund0rQT5vcx2sgCaiPeTgmw6GH78fUCkMSkkFtiHbWH6b0Z1OFVMMZUgrXYJXXwvQ/cvsiuzXZmEQ9fuKVfPpjWMsinQRm1hZXt7sfBACe1AipKCgDrjhW0O2eq+VcutMIctz6eTnHPLcoINGjbD3DI459oXbcBuKJrUvlgWdRi7CcHCBnkhNRA14N8fDv3XKeaTT1U3firKAdtoW5jwK1cqeV1CFcVRLQd8yTSlQL0EyxU8aNCRqNU+0HyGz96HMMNW8J0Syd9WQ500zzmCDQLG+wZH7Qko07VFFEiqtRYu+j7Kwapj/TtI/5VYttliONXlqa31hY2LyaupXoys90vBVyx7eGsMTT0MB54dGZQeUTZaxICMSPCFYipRzTpy9X3002fA1v4HFWnTO4gX8PVxADCCNT+FKKh/VS+1zJ46jH9/kzT+jXGjSc6hwY/jIPyLu6nHUwsm1J0fTCkcD21tHOqQQ68sNI4zGN2bcZ/Ent4NWHOHrY+ibsgM1GzjBLU73SR6DYEKK70yA+lOylJYcOD8RavMQ87iv/E6V0QjO20p74T9fi9HLHW9vwBSUEAy1vIMj4qyCq0J8gKsGkFdceG2D4lX0OST6nOMt1tFwd0V0k/0ElSsxc4LUMDRH7KfpuL/uDypF2ywQKS6Aa2601gFeyg4Jv7zEcTagCrRJGzAxn+
+X-MS-Exchange-AntiSpam-MessageData: Yj32gX5w7k7fVUaW95CD8Ez6MUuqCK4bUf5BydjbLFLZuTLj8FBqJJXGvhTBgTuyv0tkHrIkvFGTvBDwvQj+4ToN8HGzB3NzYCxMiZy4CGpcHhKupJCsLaGD8jtUfCPwYsvIg+xI7dbMtNMTvMDMl5tb759AGoyfrjIb8GbAR8zMwnUB3PeoyODpo3P8cxuiQRdIFq07fiH5L9eWFV9NBBTeVTEXLCjOICbAkmoIAy22IvY4MEj36+78tN+7a/OhBVhcoRoI+C53mKSTt5VQG1xaSuEQQ0qF0ejXnzP8gBGPr4isyj+Df+MCWxnwIVKslt/cZDrlSx8FQJ766TgmeHvW0Zyjh48kGJGs/+9gN6VbgI5Qm3A4wDcigOC6CptxgHSM9IJujUirv1LMtAFmzPdl8i8cGwEsJr8FYrRPylrU1ZlTfWlC+GD078qVfrCWk4K80ibQ2sHVReTCXIrE3jfNa2Ee6ysBWWdCzlOi4KHlX0uL5Yl6/qVbzWPLnTv0P0spoVTyfFxZyYktbgMu+pHX9ZZYxHL8UVV5PVF37B3mJLHzrfHK5R5PiZZ+u3P5ABU8vqye+NWO4P/RijExb0qcHO4sjPDKtAvKbtVFtFpqev96QsiXbJ0sjp+a7wXs6vlAfkqn2hHZ3ZQvKqLVfDbPmf/GmvTXFq2QLhdOoDt38mrIitt/oVBzr/8Hwzl7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13a3cd26-d91f-426f-03d3-08d861630115
+X-MS-Exchange-CrossTenant-Network-Message-Id: f442d13c-7e9c-46e9-474d-08d8616301f3
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4124.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2020 14:55:12.2757 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2020 14:55:13.7194 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0pQ1KgLe+5xWvWOtAbwi06RaiEYMbUqkdET5DjTsBxgq/ro4CqozgDjWXwWCmJ2KlgF1JNUgPnHX51hzdK3VwA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: pIJV+TknpEBddzThKmZ1UH/3Q0tefHsV423qDXW5T41wrBbXo5DsfhdpWASk6xD4ijbf2mbSIcZB30VG8fegKQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,130 +108,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Chiawen Huang <chiawen.huang@amd.com>, Aurabindo.Pillai@amd.com,
- Tony Cheng <Tony.Cheng@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Martin Leung <Martin.Leung@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chiawen Huang <chiawen.huang@amd.com>
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-[Why]
-Vbios uses preferred timing to turn on edp but OS could use other
-timing. If change pixel clock when link active, there is unexpected
-garbage on monitor.
+[WHY]
+At the moment, some tests are failing because cur_link_settings is
+invalid. As a workaround, add an option to force dio disable.
 
-[How]
-Once pixel clock changed, the driver needs to disable stream.
-
-Signed-off-by: Chiawen Huang <chiawen.huang@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 62 ++++++++++++++++++-
- .../display/dc/dce110/dce110_hw_sequencer.c   |  2 +-
- 2 files changed, 60 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 2 ++
+ drivers/gpu/drm/amd/display/dc/dc.h      | 2 ++
+ 2 files changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 7e74ddc1c708..9fabe264cdea 100644
+index 9fabe264cdea..dc90d26e2663 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -842,6 +842,61 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
- 	dc_release_state(current_ctx);
- }
+@@ -735,6 +735,8 @@ static bool dc_construct(struct dc *dc,
+ 	dc->clk_mgr->force_smu_not_present = init_params->force_smu_not_present;
+ #endif
  
-+static void disable_vbios_mode_if_required(
-+		struct dc *dc,
-+		struct dc_state *context)
-+{
-+	unsigned int i;
++	dc->debug.force_ignore_link_settings = init_params->force_ignore_link_settings;
 +
-+	/* check if timing_changed, disable stream*/
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct dc_stream_state *stream = NULL;
-+		struct dc_link *link = NULL;
-+		struct pipe_ctx *pipe = NULL;
-+
-+		pipe = &context->res_ctx.pipe_ctx[i];
-+		stream = pipe->stream;
-+		if (stream == NULL)
-+			continue;
-+
-+		if (stream->link->local_sink &&
-+			stream->link->local_sink->sink_signal == SIGNAL_TYPE_EDP) {
-+			link = stream->link;
-+			break;
-+		}
-+
-+		if (link != NULL) {
-+			unsigned int enc_inst, tg_inst = 0;
-+			unsigned int pix_clk_100hz;
-+
-+			enc_inst = link->link_enc->funcs->get_dig_frontend(link->link_enc);
-+			if (enc_inst != ENGINE_ID_UNKNOWN) {
-+				for (i = 0; i < dc->res_pool->stream_enc_count; i++) {
-+					if (dc->res_pool->stream_enc[i]->id == enc_inst) {
-+						tg_inst = dc->res_pool->stream_enc[i]->funcs->dig_source_otg(
-+							dc->res_pool->stream_enc[i]);
-+						break;
-+					}
-+				}
-+
-+				dc->res_pool->dp_clock_source->funcs->get_pixel_clk_frequency_100hz(
-+					dc->res_pool->dp_clock_source,
-+					tg_inst, &pix_clk_100hz);
-+
-+				if (link->link_status.link_active) {
-+					uint32_t requested_pix_clk_100hz =
-+						pipe->stream_res.pix_clk_params.requested_pix_clk_100hz;
-+
-+					if (pix_clk_100hz != requested_pix_clk_100hz) {
-+						core_link_disable_stream(pipe);
-+						pipe->stream->dpms_off = false;
-+					}
-+				}
-+			}
-+		}
-+	}
-+}
-+
- static void wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
- {
- 	int i;
-@@ -1278,13 +1333,14 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 	for (i = 0; i < context->stream_count; i++)
- 		dc_streams[i] =  context->streams[i];
+ 	if (dc->res_pool->funcs->update_bw_bounding_box)
+ 		dc->res_pool->funcs->update_bw_bounding_box(dc, dc->clk_mgr->bw_params);
  
--	if (!dcb->funcs->is_accelerated_mode(dcb))
-+	if (!dcb->funcs->is_accelerated_mode(dcb)) {
-+		disable_vbios_mode_if_required(dc, context);
- 		dc->hwss.enable_accelerated_mode(dc, context);
-+	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 061ca15660ac..82fe0ab56e3a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -503,6 +503,7 @@ struct dc_debug_options {
+ 	bool usbc_combo_phy_reset_wa;
+ 	bool disable_dsc;
+ 	bool enable_dram_clock_change_one_display_vactive;
++	bool force_ignore_link_settings;
+ };
  
--	for (i = 0; i < context->stream_count; i++) {
-+	for (i = 0; i < context->stream_count; i++)
- 		if (context->streams[i]->apply_seamless_boot_optimization)
- 			dc->optimize_seamless_boot_streams++;
--	}
+ struct dc_debug_data {
+@@ -660,6 +661,7 @@ struct dc_init_data {
+ #if defined(CONFIG_DRM_AMD_DC_DCN3_0)
+ 	bool force_smu_not_present;
+ #endif
++	bool force_ignore_link_settings;
+ };
  
- 	if (context->stream_count > dc->optimize_seamless_boot_streams ||
- 		context->stream_count == 0)
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 27a1262a20f6..c73768ed250e 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1654,7 +1654,7 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
- 		// enable fastboot if backend is enabled on eDP
- 		if (edp_link->link_enc->funcs->is_dig_enabled(edp_link->link_enc)) {
- 			/* Set optimization flag on eDP stream*/
--			if (edp_stream) {
-+			if (edp_stream && edp_link->link_status.link_active) {
- 				edp_stream->apply_edp_fast_boot_optimization = true;
- 				can_apply_edp_fast_boot = true;
- 			}
+ struct dc_callback_init {
 -- 
 2.28.0
 
