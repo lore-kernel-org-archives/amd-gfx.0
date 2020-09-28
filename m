@@ -2,71 +2,84 @@ Return-Path: <SRS0=mGSI=DF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FD89C2D0A8
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 18:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4049C2D0A8
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 19:31:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 282BC2074F
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 18:19:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4577B2074A
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 19:31:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FySxjV5P"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 282BC2074F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LMXYdLXZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4577B2074A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE2789F45;
-	Mon, 28 Sep 2020 18:19:04 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 073C389F45
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 18:19:02 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id x201so1494182qkb.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 11:19:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B45F589F3C;
+	Mon, 28 Sep 2020 19:31:45 +0000 (UTC)
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA61889F3C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 19:31:44 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id p15so10501659ejm.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 12:31:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=CgIydQexoSMF3mjCpaKHV/foHInzvc8nsq+h2cZ4bps=;
- b=FySxjV5PdGqLAyBPnPnXx5nKjUvAVStIwRnwDVQ8j3PQKXgFiDpYnq/PbGDFa16C43
- 6/KSZ44ivM5LJH8DNnxjaqA1VvGt4f5JoHp4qnxodPfYjmGF9crsdMnCUH1rRCm8+AHo
- 92T0wb6gi50NZ6+IDkNgkVhmdFC3kPCE7qMALBc90HOl0zPYM7bQNMVA0AtiuBe07s0M
- ffge8Z+lqlR2A2R+t6CqCO9NMhMyJMY/FqfSRGD+u/FMb1/A6YEoSn8+V2C2GsfVIVMY
- HlCAF9OajC5fHrM5PjBzKcq1+2C7RpEFRxVac5QxrgZzZR9rzk0b1c6zJY+g0SkguOz1
- 0DhQ==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=qnscpdgLAj4kkHeVRuIgfy6ygA8ftW0KT2DOymw+8xo=;
+ b=LMXYdLXZalo4AVuQs+j0LKwfSEmyKIWMUKZYkja6hwWGmKa2u8nU5Rvga1YUNsPx8K
+ 8XpJbo37GI9FQVSkGWkzSWJBoezzE1oA8aj21oKaAudiOtsrEj2raNcQJLwvlgQTDXbD
+ SkfZe9cp17iJbI7wb+uuP0Bj8fHVUndhzh9qwUC/mbZV09DapoywLrnB+KM5J8Fj0uv2
+ ykHmRZUHccvGeAlhQwg15sq2pV1UMdc4c/yD9ZHqBxoj+tunp+enKLiOwxjF1lAnnUI8
+ WrfkDXCM7vUeUU/x1X3z+On0wa0tjKqNLojz6N/Z1WfpzW/Yrxq6p5GlX7YiVF9zBP5u
+ lv1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=CgIydQexoSMF3mjCpaKHV/foHInzvc8nsq+h2cZ4bps=;
- b=GmCD1gf9haTxhHYB5ZKthCV2ocbvPq4Oi5HliSeBWDxEkrrTnWXJK+GlUd1RvMIPFq
- O1oVo3wNZdlLghzaQS0Ha+VqCk6ZGc/e/ddICE7vxpdmDPDeb/8sUFMvmgec2awIAQUx
- /UtrJ5JUyDdWYrHx81Z4/CGYg40c1eM+VQi+v5+OvKuLEvFdP9z+zTidphu/H05IWTrQ
- TBdbBL39VL2sZxSFJarpktvdLpXxCDfpazi66EXE+IJvkGsRZTYcKqk3q3/zGm3f/367
- bW8t6TC8UEslwxq6rJ5mloX2ip4sTWQbETxlFtNKNSIWpCA3QQwN5m0D7IslZlstLOzG
- D0ow==
-X-Gm-Message-State: AOAM530h/UgFiPYfsK0XnbGExMJtUnd7rz/YybX1Ovww1vn6TfvjJUot
- woW4hMdNZ9SOR/BGTfYN336c2Cj98fA=
-X-Google-Smtp-Source: ABdhPJw5b1JDxi+ovLRC4X+qwHUXsjezY5+5JNlZVrczQnnAhyDY6fIjSGJBP4+unhGQ04BNVZlZBg==
-X-Received: by 2002:ae9:e30f:: with SMTP id v15mr733163qkf.132.1601317141882; 
- Mon, 28 Sep 2020 11:19:01 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id r5sm2130702qtd.87.2020.09.28.11.19.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2020 11:19:01 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/swsmu/smu12: fix force clock handling for mclk
-Date: Mon, 28 Sep 2020 14:18:54 -0400
-Message-Id: <20200928181854.2053782-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=qnscpdgLAj4kkHeVRuIgfy6ygA8ftW0KT2DOymw+8xo=;
+ b=qMZpyShi/R8rhjW/+QkO1XuopZbmwbDtAPfs8LWBhdUfJvLj5dSBF1BCn1whIHgqP5
+ pFSu4awAt4YOHJnTIuHcIvqkWSVudnPoyBOKH7BaLrUgtsvTw1wmfCKWcCp3JKvhK1Gx
+ 5EIg+EdH3QagndWOLatoCeTP7K5Cg8/VbNlZsnedd2/qZgi1gd/loHcNdSYENrCkCUMC
+ ebd46fEQWHOsburVUwoeeo9OMIQtdNSwBVdyPvVKudm4jLZ5ip6RvgJOnOXrIqgrBKpf
+ x27mdx96s3lZ1Z7Sx8C9/WnN7U0ZXBOYaZOtVRglxRQ4JFYNq8wowdXzPYGqDFYHnTtE
+ KmKA==
+X-Gm-Message-State: AOAM533dlTTWub4oM19+bZ8AXvHZW5BFVjCnwkUPMUmL5tM/KG6vKTjX
+ wobzjcc7MhxxMVvP7m1mHI2JqIWjC9g=
+X-Google-Smtp-Source: ABdhPJw0nkrZn9nUHm3JjlLEMbvL/wSduM1p7d6xiEQT1/oHPF8vPsKQXS7gJ7GKTuGdsoHorE1cvA==
+X-Received: by 2002:a17:906:715b:: with SMTP id
+ z27mr371698ejj.166.1601321502941; 
+ Mon, 28 Sep 2020 12:31:42 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id p12sm2406808ejb.42.2020.09.28.12.31.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Sep 2020 12:31:38 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu/dc: Pixel encoding DRM property and module
+ parameter
+To: James Ettle <james@ettle.org.uk>, Harry Wentland
+ <harry.wentland@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <7cc7d590-f713-2060-6bac-37bed0df618a@ettle.org.uk>
+ <CADnq5_OEzoEP93+MsGN1tspy0OrxVTkujKUhs+6LryVApvERkw@mail.gmail.com>
+ <286845a3-4903-c169-aa36-1eb986492ea3@ettle.org.uk>
+ <CADnq5_O8Wzddr3LryTuQ5Jqc5yt51wqkxv6zbSbr0_RBSQCA4g@mail.gmail.com>
+ <967f82b1-cf5b-473b-c9b3-d9f9df588cc7@amd.com>
+ <ad59a8c59d52c40a89b7b4fd032df043e0747f27.camel@ettle.org.uk>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <6583647a-7147-4f5b-0412-d3be77ca7fe2@gmail.com>
+Date: Mon, 28 Sep 2020 21:31:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <ad59a8c59d52c40a89b7b4fd032df043e0747f27.camel@ettle.org.uk>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,55 +91,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: Harry Wentland <hwentlan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The state array is in the reverse order compared to other asics
-(high to low rather than low to high).
+Am 28.09.20 um 19:35 schrieb James Ettle:
+> On Mon, 2020-09-28 at 10:26 -0400, Harry Wentland wrote:
+>> On 2020-09-25 5:18 p.m., Alex Deucher wrote:
+>>> On Tue, Sep 22, 2020 at 4:51 PM James Ettle <james@ettle.org.uk>
+>>> wrote:
+>>>> On 22/09/2020 21:33, Alex Deucher wrote:
+>>>>>> +/**
+>>>>>> + * DOC: pixel_encoding (string)
+>>>>>> + * Specify the initial pixel encoding used by a connector.
+>>>>>> + */
+>>>>>> +static char amdgpu_pixel_encoding[MAX_INPUT];
+>>>>>> +MODULE_PARM_DESC(pixel_encoding, "Override pixel encoding");
+>>>>>> +module_param_string(pixel_encoding, amdgpu_pixel_encoding,
+>>>>>> sizeof(amdgpu_pixel_encoding), 0444);
+>>>>> You can drop this part.  We don't need a module parameter if we
+>>>>> have a
+>>>>> kms property.
+>>>>>
+>>>>> Alex
+>>>> OK, but is there then an alternative means of setting the pixel
+>>>> encoding to be used immediately on boot or when amdgpu loads?
+>>>> Also are there user tools other than xrandr to change a KMS
+>>>> property, for Wayland and console users?
+>>> You can force some things on the kernel command line, but I don't
+>>> recall whether that includes kms properties or not.  As for ways to
+>>> change properties, the KMS API provides a way.  those are exposed
+>>> via
+>>> randr when using X.  When using wayland compositors, it depends on
+>>> the
+>>> compositor.
+>>>
+>> I'm not aware of a way to specify KMS properties through the kernel
+>> command line. I don't think it's possible.
+>>
+>> For atomic userspace the userspace wants to be the authority on the
+>> KMS
+>> config. I'm not sure there's a way to set these properties with
+>> Wayland
+>> unless a Wayland compositor plumbs them through.
+>>
+>> Can you summarize on a higher level what problem you're trying to
+>> solve?
+>> I wonder if it'd be better solved with properties on a DRM level that
+>> all drivers can follow if desired.
+>>
+>> Harry
+>>
+>>> Alex
+>>>
+> The problem this is trying to solve is that the pixel format defaults
+> to YCbCr444 on HDMI if the monitor claims to support it, in preference
+> to RGB. This behaviour is hard-coded (see the
+> comment fill_stream_properties_from_drm_display_mode) and there is no
+> way for the user to change the pixel format to RGB, other than hacking
+> the EDID to disable the YCbCr flags.
+>
+> Using YCbCr (rather than RGB) has been reported to cause suboptimal
+> results for some users: colour quality issues or perceptible conversion
+> latency at the monitor end -- see:
+>
+> https://gitlab.freedesktop.org/drm/amd/-/issues/476
+>
+> for the full details.
+>
+> This patch tries to solve this issue by adding a DRM property so Xorg
+> users can change the pixel encoding on-the-fly, and a module parameter
+> to set the default encoding at amdgpu's init for all users.
+>
+> [I suppose an alternative here is to look into the rationale of
+> defaulting to YCbCr444 on HDMI when the monitor also supports RGB. For
+> reference although on my kit I see no detrimental effects from YCbCr,
+> I'm using onboard graphics with a motherboard that has just D-sub and
+> HDMI -- so DisplayPort's not an option.]
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1313
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Ah, that problem again. Yes, that's an issue since the early fglrx days 
+on linux.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 55a254be5ac2..66c1026489be 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -222,14 +222,16 @@ static int renoir_get_profiling_clk_mask(struct smu_context *smu,
- 			*sclk_mask = 0;
- 	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK) {
- 		if (mclk_mask)
--			*mclk_mask = 0;
-+			/* mclk levels are in reverse order */
-+			*mclk_mask = NUM_MEMCLK_DPM_LEVELS - 1;
- 	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
- 		if(sclk_mask)
- 			/* The sclk as gfxclk and has three level about max/min/current */
- 			*sclk_mask = 3 - 1;
- 
- 		if(mclk_mask)
--			*mclk_mask = NUM_MEMCLK_DPM_LEVELS - 1;
-+			/* mclk levels are in reverse order */
-+			*mclk_mask = 0;
- 
- 		if(soc_mask)
- 			*soc_mask = NUM_SOCCLK_DPM_LEVELS - 1;
-@@ -323,7 +325,7 @@ static int renoir_get_dpm_ultimate_freq(struct smu_context *smu,
- 		case SMU_UCLK:
- 		case SMU_FCLK:
- 		case SMU_MCLK:
--			ret = renoir_get_dpm_clk_limited(smu, clk_type, 0, min);
-+			ret = renoir_get_dpm_clk_limited(smu, clk_type, NUM_MEMCLK_DPM_LEVELS - 1, min);
- 			if (ret)
- 				goto failed;
- 			break;
--- 
-2.25.4
+Shouldn't the pixel encoding be part of the mode to run ?
+
+Regards,
+Christian.
+
+>
+> -James
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 _______________________________________________
 amd-gfx mailing list
