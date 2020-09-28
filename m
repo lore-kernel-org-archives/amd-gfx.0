@@ -7,97 +7,98 @@ X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00963C2D0A8
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 22:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D902AC2D0A8
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 22:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DFA823A01
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 22:26:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2143723A51
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2020 22:48:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2gYwhl/7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DFA823A01
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cFjJtvqG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2143723A51
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D7D6E15C;
-	Mon, 28 Sep 2020 22:26:28 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D96EF6E15C
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 22:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A743389EFF;
+	Mon, 28 Sep 2020 22:48:21 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700072.outbound.protection.outlook.com [40.107.70.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E0E989EFF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2020 22:48:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bSDpI40LU3dFsjyZcH8j580VO4Kp2ENhm4oNM6qahVzEm1ZWUIIWWMAXo7TKkbR0gSHbmw6KjYd5z6AcGRFozxZZ7xWnN/su07fmdDjIMwGMmKvCuAJlTsh/qYM0JLqnfF+zgw0/+iAWWL//2e+AN/hXA7rK23+3c6gf6apt1M3K/64BNBkz0ScqrXJPcOPNG0ojcE1dgirDknfU04D/p1Au3XFZLSjS40zcbBx+LOazE67yHCF07IUGLmwkXHJUgak3JT+qmRTJ1j4Vqx2f3dda20xyisWcfSz1NRHjPj86l5HYnRutcZhroh1v/zfCdqYxYlieZ/NuTkDuDElzGA==
+ b=FFvQx3wj+znKMr0L2M466LmhtzAkOUWpYL/r9eopGhOMz5esYdLXUvsOzPOSw2rpch7UQ4LUs4I0bpYZW6d+mxGMADmwWJaTqOy+6o2G7gi/1YroesAd8Khdwc21XoeZRQLNCAu2Ocu41tuuttHyMMUmv6wgjaYyaYKswya3Eq/VpUjS846gnnj9WWR+qk6SXiUEx2MJa5ARbqXVXmt1GHhB1j4N+Fo3rHTKYbsoUST85oMFtQIRQvwpw9WXLyFzojMEwXioN6cKDmDyCxWch7Gzp6s5MovnWSbzcmxIfnp5yVbFqhXzJeK93LMFQ2ITadVT9Xa1vcis7TAqdDy2AQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JBpH4EUI1pAtAiPVjUKM91aTIADBql8KdqTDW0VGF1c=;
- b=Qr1ZwDTZthCIIMgC5nXCjo168XEOgMyznh9yAOlD4X1SSGEUhwenyTOjx/FjfBYCDudHxIZzCaMpk+BEdzmYOP0ObpMpyCjGw4NN0HwjTboqv8xalQVSz34jdAujxhbVIuJxuFcJRVVqeDDs6qMnOMfX5+ew2yFobgkQl8FCxVVdQ6RaE6kbDeic7wJeuKTkTQ08ejh4sUfga2/y2Vm28DPLej8qNb/GT7JfgNN3B2NAlqA4iqBMQ4bim1AZ2PFpZVQ33BYtHp3DVVD7muOoeAOLxiTQD86EgDzJTbJiMRb4Qi3tMd2RZYG0ND1qbwsaNTgE1fD0vVHUj/18aKsqRw==
+ bh=8xc2VgzAsTxpB1f5lHWpPEJFZra3a1K7/Cpci3ypnq8=;
+ b=MJcYVajLDfvLrV4CLJFbaWmOHjLM8gyFUqy/uFV3nZpjlXuZXgpNasSBcGk3kOPNQuAB5M4rFJvYhtfDxxHSDF0f5XxVQmxsnfZn1/qqOXiTrHH8sQV84lb8c9oABetzHfgxgdqjAQ47tUL+Hh2i9WyGfii4WafPsvXytdj7lwBoSw8/iFdzMkKc10vgtzV5sJijUltMoCbeEdzhlWIe0PWTPJLRhxo4fgBFGQSRNGunTw0zzM2UceC3urW7O8W5559dzn4NNqB2hlYOQlzwl4Tj31Dpt4QTRGfxRIG3BLpR/oNi6EZRvMhWBnq+JNAwOLyQ7nQvAEc+ymrfK+VQ7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JBpH4EUI1pAtAiPVjUKM91aTIADBql8KdqTDW0VGF1c=;
- b=2gYwhl/7En9Wbu2XBlmHZSGfJZMHgeFVManGF7MwFnWPofCS/F4BcdvQghfXowGX+8yTWVnYRgFB4cMFkNN7LgnZQaHLf96Lzm79bJUHhf5DqG7AGn9cQy868iD3bn9GhkmgqOJFbsYIjFn9GJeBs6CI6Imen+wSXK0jLFcaoFY=
+ bh=8xc2VgzAsTxpB1f5lHWpPEJFZra3a1K7/Cpci3ypnq8=;
+ b=cFjJtvqGgTKnBQ5Xxsov0ecACMZTk5Jkt7p7+H7VxtDcKjWrrkxMJdoN749g8MCSrUqhGRl8i8rv0v4c5rlf03QINVtT7mMeXQe5DxMDLUsnABvOe+Rl/jb1UICbqNe4Rb7i8Rk9KrjM/EFd4plMSRFqErmbaGVE0E0dcDYtJgE=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
- by DM6PR12MB4153.namprd12.prod.outlook.com (2603:10b6:5:212::22) with
+ by DM6PR12MB3180.namprd12.prod.outlook.com (2603:10b6:5:182::28) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.26; Mon, 28 Sep
- 2020 22:26:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.25; Mon, 28 Sep
+ 2020 22:48:18 +0000
 Received: from DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::c8c1:1bc7:cad0:3933]) by DM6PR12MB3962.namprd12.prod.outlook.com
  ([fe80::c8c1:1bc7:cad0:3933%3]) with mapi id 15.20.3412.029; Mon, 28 Sep 2020
- 22:26:24 +0000
-Subject: Re: [PATCH 36/45] drm/amdgpu: add TOC firmware support for apu (v2)
+ 22:48:18 +0000
+Subject: Re: [PATCH 41/45] drm/amdgpu: add gfx power gating for gfx10
 To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
 References: <20200925201029.1738724-1-alexander.deucher@amd.com>
- <20200925201029.1738724-36-alexander.deucher@amd.com>
+ <20200925201029.1738724-41-alexander.deucher@amd.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <535ea0cc-67e5-a81f-47d5-87b51ee47a82@amd.com>
-Date: Mon, 28 Sep 2020 18:26:23 -0400
+Message-ID: <9ecb966a-4b3e-2ffa-b72c-c88bd31b87a0@amd.com>
+Date: Mon, 28 Sep 2020 18:48:16 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.2.2
-In-Reply-To: <20200925201029.1738724-36-alexander.deucher@amd.com>
+In-Reply-To: <20200925201029.1738724-41-alexander.deucher@amd.com>
 Content-Language: en-US
 X-Originating-IP: [165.204.55.250]
-X-ClientProxiedBy: YT1PR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::42)
- To DM6PR12MB3962.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTOPR0101CA0029.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::42) To DM6PR12MB3962.namprd12.prod.outlook.com
  (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.55.250) by
- YT1PR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3412.22 via Frontend Transport; Mon, 28 Sep 2020 22:26:24 +0000
+ YTOPR0101CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::42) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20 via Frontend
+ Transport; Mon, 28 Sep 2020 22:48:18 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6dc31d37-1449-42ac-86a0-08d863fd88bf
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4153:
+X-MS-Office365-Filtering-Correlation-Id: 6763fae8-19cf-451e-97c2-08d8640097bb
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3180:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB41533486DA36802DA76ABC6B99350@DM6PR12MB4153.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB318091F90BC17FC60316EECA99350@DM6PR12MB3180.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:854;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KzlBv7nyHaliOSmeyAynRdga2UtEbZHIzfT08ifj7IIrpqTJazAb9WC3aeCKO8/VNTGzduZGv6oLSqX//lVS5rkFVrwgurL0UdmT0dkV2UptAE1nraEH/aGJIp1zfJUYk2mADx/Kl+y62WUHp9ImytbC/eaW9aVP4nRmcrUCeTkhdGo06Zk7gVtEO0j/38G7rzDSClTNms6UOh5l31YTtP/fr9wTD9qLimLumiewu+uGwTh/cD/bphRVGU5nUEeNgQm2Rm5zlQ+Z4n/fdZbuLEEWBfjF0YSkV0tOX1wo1WGOyvLJk/OlQQ5mkn5fIYPfn0Tkx9Hrr2Zoug74AyK7PSrhJV0hJRLqNdEwZ8t7xmLROOoKwEAFO+D1d1jE5ZdjdMTXjV9bn+V7nVv9KWfmnIKQbsSQ4LLJ8+IvMlwIaBw=
+X-Microsoft-Antispam-Message-Info: uLkMoYtSJJo1Tw11Eu1y2V2AHHbMhh0BA7P68U41QYm1LuuaSVebFLXYvD383FhygmBns+aPIQ+DWtcGiBjevjlVBU6Ca7kJV0wVO3ognMviqFHucy7iD+mEFHLO1Uof/HJm+3Y31/kEr/laFMwvd0Na3yTVcve9G1F4y5SGYJD1MOnPVIkdIyBmjF5NQ0D67Wx8pGv6GDFJEKKyza7yYiKUwq58jsFJfwJsGD2/WzvQiVQs+zlNrMBgCLZ4fg14CMus8b4S+Hg5orE6Mtf1ZlT8+n8iZDjzxR4Sqd5LvsmJWIyRXiwkAoRBNNE9YFf1Y9cv8VumnuZWwQXIWIvolqI+zp0l5jFM4pM6TV8JQeh4aZwnCMlYzTnMu0xz/cF+KWCCTx/47NP8LG9T8TBNGLET9DPiLGan10ulBY74eat/SMmCUcoX2bPN/2+fLqu9
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(376002)(39860400002)(396003)(366004)(186003)(26005)(86362001)(16526019)(31686004)(31696002)(956004)(2616005)(66946007)(36756003)(2906002)(6512007)(8936002)(44832011)(478600001)(8676002)(6486002)(53546011)(52116002)(6506007)(316002)(54906003)(4326008)(66476007)(66556008)(83380400001)(5660300002)(43740500002);
+ SFS:(4636009)(346002)(39860400002)(136003)(396003)(376002)(366004)(2616005)(4326008)(31686004)(6506007)(83380400001)(8676002)(52116002)(6486002)(26005)(36756003)(6512007)(16526019)(186003)(53546011)(478600001)(316002)(54906003)(44832011)(956004)(66946007)(66476007)(66556008)(86362001)(5660300002)(2906002)(31696002)(8936002)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 8ST0CSb2e0TwO7TBDVul+bnfugBSPvjH26Vz9aT1JtTVmz4uOj083hh0/PXuFFNIFsIrHxoKXwzot1S5BSEll+uUNyxjjEv8kfF5PUE9jVLSwfAodq2An64SJJRtdnSGCjLjBY6Db7SArvTXyk28TkMwwlfG8tvVyYEmcvoMn+WTnLbTgvYjq074D7JJtVqSkYlwixpSSF98UOc3jqgvvcOlTqjFMVUT+giVz4JgG+pAx/Lwzj6NrGqqCHnLcWabcfFrOGyMTFXlQisiBA0tXEVUpeONWiRzvjnIO/HHNXDD4OsVoRnhmxvswNim+rx10zW00BAm6/TtzP1gVxRooEUT5/ZSKTswOJ1gK1X3H7FAAbCpEzZOA+00O8YzJOEmtK/t+q+0D17txV0CSWWKDYCMhrdU78xj4CjJcGuIX5GlsaR/RUJtVfeOkbWKiepyE7rpcOHmd6gaa12dPj0danDBhwBtJ0MGcjg3YU0Bkk/O6rKTmiU2Zf4QURnjPngyStBLlTyNmoq3JV26b9M4WvZhoeRrybs7g5f+ccUF16METSyWEM9MGYGQK6FnbcCCsXW1xDzbF4wCBDQAAE7/K6pyWoYPjHwiGoEQNMTEKeM+nLICqH0BJs9d6lw31hSMtYSi8tJm9ocoJlF1dzwYYQ==
+X-MS-Exchange-AntiSpam-MessageData: Wd/HqcXvXiHt7KTnRywc57q/Xc2nRnMcLWGmc4Y46udQFz8pL373Na5gt6+meTMQdWRg7M/namkvo6A6hSC9eN6VMqovKnFm8uz4M1FpEjEXCE7fflcG+I9kAvv8lqMUKRGCo0NfDpRqjVcVFZbgzSD1+t9/F9hG+b0boy2UgcQpdSgjEZzeymjSHtMlJe+mum+MvBFslLb8P3p9LgmygTo8xVlFOzODNk8ZYRDmzKt7V75dsBABiADW+O2KV6j2mWkvBSjpnTKLw+9YDOuaJHqjTnjiPY7bHIFXxPxnPqMyT70qAr+iPCKHJlf+7pO9vY4t9UdwyeujMOyejSgSuzO5I5NCLnWUu28sTRUt2tWIbaUl3GzRPLBedXisu1AVpfaNWxh1L54nU/y95xrafKLzMh13Q4M2q67Rh2uipuI6WNdfL8+CnhvdSLGFuWftNoCHxa83xPcr+9zJ81LA7tSkS7/s8XA/x1kNkY8LYRMr48M/zYp69CFiWYOQ6zGGe6uukN041fTybT1kx1GN3yeaJlOnutmLcgmsvHrmwNxZizEwZP0qMJUEGSISMUg6CeIBRLfyEt7e4ur1ROi1PprG1IN1RCcaAPV01CidpYzwOps0Y9Tnet+QTNLp/dvoJLU/lZoNDjxJTXoaxGsgRg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc31d37-1449-42ac-86a0-08d863fd88bf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6763fae8-19cf-451e-97c2-08d8640097bb
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2020 22:26:24.7332 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2020 22:48:18.4204 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QgXUW9fCL/6kQFh7cYE98ApMxn97L2cSnx/Izo8lSylRHXJN57tLpLGXbU9JqnzX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4153
+X-MS-Exchange-CrossTenant-UserPrincipalName: s6fmw+Jj5bE0Kq77c3eVrGy/8UgN9NUUb2F7kYC+2eN802WWarWnb2FdoBM1IFcV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,207 +119,83 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 2020-09-25 4:10 p.m., Alex Deucher wrote:
 > From: Huang Rui <ray.huang@amd.com>
 > 
-> APU needs load toc firmware for gfx10 series on psp front door loading.
-> 
-> v2: rebase against latest code
+> This patch is to add power gating handle for gfx10.
+
+Ray, you can just say:
+
+"This patch adds power gating handler for gfx10."
+
+You can drop "is to" and just use "adds".
+And similarly for all other patches where you use that.
+
 > 
 > Signed-off-by: Huang Rui <ray.huang@amd.com>
 > Acked-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 11 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 36 +++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  7 +++++
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 33 ++++++++++++++++-------
->  4 files changed, 77 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 ++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index bd0d14419841..26caa8d43483 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -325,6 +325,10 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
->  		fw_info->ver = adev->dm.dmcub_fw_version;
->  		fw_info->feature = 0;
->  		break;
-> +	case AMDGPU_INFO_FW_TOC:
-> +		fw_info->ver = adev->psp.toc_fw_version;
-> +		fw_info->feature = adev->psp.toc_feature_version;
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -1464,6 +1468,13 @@ static int amdgpu_debugfs_firmware_info(struct seq_file *m, void *data)
->  	seq_printf(m, "DMCUB feature version: %u, firmware version: 0x%08x\n",
->  		   fw_info.feature, fw_info.ver);
->  
-> +	/* TOC */
-> +	query_fw.fw_type = AMDGPU_INFO_FW_TOC;
-> +	ret = amdgpu_firmware_info(&fw_info, &query_fw, adev);
-> +	if (ret)
-> +		return ret;
-> +	seq_printf(m, "TOC feature version: %u, firmware version: 0x%08x\n",
-> +		   fw_info.feature, fw_info.ver);
->  
->  	seq_printf(m, "VBIOS version: %s\n", ctx->vbios_version);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 18be544d8c1e..c8cec7ab499d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -2415,6 +2415,42 @@ int psp_init_asd_microcode(struct psp_context *psp,
->  	return err;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index fd29a6d7285b..f2849f180c91 100755
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -7583,6 +7583,30 @@ static bool gfx_v10_0_is_rlcg_access_range(struct amdgpu_device *adev, u32 offse
+>  	return gfx_v10_0_check_rlcg_range(adev, offset, NULL, 0);
 >  }
 >  
-> +int psp_init_toc_microcode(struct psp_context *psp,
-> +			   const char *chip_name)
+> +static void gfx_v10_cntl_power_gating(struct amdgpu_device *adev, bool enable)
 > +{
-> +	struct amdgpu_device *adev = psp->adev;
-> +	char fw_name[30];
-> +	const struct psp_firmware_header_v1_0 *toc_hdr;
-> +	int err = 0;
+> +	int data;
 > +
-> +	if (!chip_name) {
-> +		dev_err(adev->dev, "invalid chip name for toc microcode\n");
-> +		return -EINVAL;
+> +	if (enable && (adev->cg_flags & AMD_PG_SUPPORT_GFX_PG)) {
+> +		data = RREG32_SOC15(GC, 0, mmRLC_PG_CNTL);
+> +		data |= RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
+> +		WREG32_SOC15(GC, 0, mmRLC_PG_CNTL, data);
+> +	} else {
+> +		data = RREG32_SOC15(GC, 0, mmRLC_PG_CNTL);
+> +		data &= ~RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
+> +		WREG32_SOC15(GC, 0, mmRLC_PG_CNTL, data);
 > +	}
-> +
-> +	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_toc.bin", chip_name);
-> +	err = request_firmware(&adev->psp.toc_fw, fw_name, adev->dev);
-> +	if (err)
-> +		goto out;
-> +
-> +	err = amdgpu_ucode_validate(adev->psp.toc_fw);
-> +	if (err)
-> +		goto out;
-> +
-> +	toc_hdr = (const struct psp_firmware_header_v1_0 *)adev->psp.toc_fw->data;
-> +	adev->psp.toc_fw_version = le32_to_cpu(toc_hdr->header.ucode_version);
-> +	adev->psp.toc_feature_version = le32_to_cpu(toc_hdr->ucode_feature_version);
-> +	adev->psp.toc_bin_size = le32_to_cpu(toc_hdr->header.ucode_size_bytes);
-> +	adev->psp.toc_start_addr = (uint8_t *)toc_hdr +
-> +				le32_to_cpu(toc_hdr->header.ucode_array_offset_bytes);
-> +	return 0;
-> +out:
+> +}
 
-I'd rather this label be "Err:".
+So here, you can just do:
 
-Regardless of whether there already is a variable "err",
-(there is!), capitalizing goto labels is good practice, since
-it distinguishes them from variables (which are all lowercase),
-and macros (which are all caps). Plus, you also avoid conflict
-with the eponymous variable.
+static void gfx_v10_cntl_power_gating(struct amdgpu_device *adev, bool enable)
+{
+	data = RREG32_SOC15(GC, 0, mmRLC_PG_CNTL);
+	if (enable && (adev->cg_flags & AMD_PG_SUPPORT_GFX_PG))
+		data |= RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
+	else
+		data &= ~RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
+	WREG32_SOC15(GC, 0, mmRLC_PG_CNTL, data);
+}
 
-> +	dev_err(adev->dev, "fail to initialize toc microcode\n");
-
-That's a very misleading message. Please print this instead:
-
-	dev_err(adev->dev,
-		"Failed to load/validate firmware for %s\n",
-		fw_name);
-
-To make it clear what was being loaded and validated and failed.
-		
 Regards,
 Luben
 
-> +	release_firmware(adev->psp.toc_fw);
-> +	adev->psp.toc_fw = NULL;
-> +	return err;
+> +
+> +static void gfx_v10_cntl_pg(struct amdgpu_device *adev, bool enable)
+> +{
+> +	amdgpu_gfx_rlc_enter_safe_mode(adev);
+> +
+> +	gfx_v10_cntl_power_gating(adev, enable);
+> +
+> +	amdgpu_gfx_rlc_exit_safe_mode(adev);
 > +}
 > +
->  int psp_init_sos_microcode(struct psp_context *psp,
->  			   const char *chip_name)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> index 919d2fb7427b..13f56618660a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -253,6 +253,11 @@ struct psp_context
->  	uint32_t			asd_ucode_size;
->  	uint8_t				*asd_start_addr;
->  
-> +	/* toc firmware */
-> +	const struct firmware		*toc_fw;
-> +	uint32_t			toc_fw_version;
-> +	uint32_t			toc_feature_version;
-> +
->  	/* fence buffer */
->  	struct amdgpu_bo		*fence_buf_bo;
->  	uint64_t			fence_buf_mc_addr;
-> @@ -386,6 +391,8 @@ int psp_ring_cmd_submit(struct psp_context *psp,
->  			int index);
->  int psp_init_asd_microcode(struct psp_context *psp,
->  			   const char *chip_name);
-> +int psp_init_toc_microcode(struct psp_context *psp,
-> +			   const char *chip_name);
->  int psp_init_sos_microcode(struct psp_context *psp,
->  			   const char *chip_name);
->  int psp_init_ta_microcode(struct psp_context *psp,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index 6c5d9612abcb..f2d6b2518eee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -109,20 +109,16 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
->  		BUG();
->  	}
->  
-> -	err = psp_init_sos_microcode(psp, chip_name);
-> -	if (err)
-> -		return err;
-> -
-> -	if (adev->asic_type != CHIP_SIENNA_CICHLID &&
-> -	    adev->asic_type != CHIP_NAVY_FLOUNDER) {
-> -		err = psp_init_asd_microcode(psp, chip_name);
-> -		if (err)
-> -			return err;
-> -	}
->  
->  	switch (adev->asic_type) {
->  	case CHIP_VEGA20:
->  	case CHIP_ARCTURUS:
-> +		err = psp_init_sos_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
-> +		err = psp_init_asd_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
->  		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
->  		err = request_firmware(&adev->psp.ta_fw, fw_name, adev->dev);
->  		if (err) {
-> @@ -150,6 +146,12 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
->  	case CHIP_NAVI10:
->  	case CHIP_NAVI14:
->  	case CHIP_NAVI12:
-> +		err = psp_init_sos_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
-> +		err = psp_init_asd_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
->  		if (amdgpu_sriov_vf(adev))
->  			break;
->  		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip_name);
-> @@ -180,10 +182,21 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
->  		break;
->  	case CHIP_SIENNA_CICHLID:
+>  static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs = {
+>  	.is_rlc_enabled = gfx_v10_0_is_rlc_enabled,
+>  	.set_safe_mode = gfx_v10_0_set_safe_mode,
+> @@ -7630,6 +7654,9 @@ static int gfx_v10_0_set_powergating_state(void *handle,
 >  	case CHIP_NAVY_FLOUNDER:
-> +		err = psp_init_sos_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
->  		err = psp_init_ta_microcode(&adev->psp, chip_name);
->  		if (err)
->  			return err;
+>  		amdgpu_gfx_off_ctrl(adev, enable);
 >  		break;
 > +	case CHIP_VANGOGH:
-> +		err = psp_init_asd_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
-> +		err = psp_init_toc_microcode(psp, chip_name);
-> +		if (err)
-> +			return err;
+> +		gfx_v10_cntl_pg(adev, enable);
 > +		break;
 >  	default:
->  		BUG();
+>  		break;
 >  	}
 > 
 
