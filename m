@@ -2,42 +2,121 @@ Return-Path: <SRS0=r+dW=DG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C494FC4741F
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 07:33:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 786D5C4346E
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AA73207F7
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 07:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AA73207F7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id E4E8720759
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:31:13 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ketOLDuT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4E8720759
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19215899B3;
-	Tue, 29 Sep 2020 07:33:54 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEAA89C89
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 06:14:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 97E74AC4D;
- Tue, 29 Sep 2020 06:14:05 +0000 (UTC)
-Date: Tue, 29 Sep 2020 08:14:04 +0200
-From: Jean Delvare <jdelvare@suse.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: Regression in amdgpu driver / kernel v5.8.6
-Message-ID: <20200929081404.4d8df525@endymion>
-In-Reply-To: <CADnq5_OBSxK=Ds7X-e8xfHUDb0js7vtWbz-y7mabpFg0BhB5kw@mail.gmail.com>
-References: <20200928111037.51ed4aeb@endymion>
- <CADnq5_OBSxK=Ds7X-e8xfHUDb0js7vtWbz-y7mabpFg0BhB5kw@mail.gmail.com>
-Organization: SUSE Linux
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4DB189DA9;
+	Tue, 29 Sep 2020 08:31:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4307989DA9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 08:31:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PFMVsm5cyj0qSk/s5WUrqc3U2zytVwTHjrTOO0VJRkFC9OYPBrQi2ysd7JkwngxjEc0xuP+F02JFKRCh1zztv3UDWUpPu9qnrsy+HlZw8/5v3a2+3x2g2C9MBj69tvrl1oU90KbbZSj4wJNVAxC0i4/8472ud+LuGZXlXvqcEgPXydhVQyERdPWaXovlO6WQ6+HRfuHrbLf6kt0YsLqfbA0ARl66+K19dQGBkFDSiDk8anH9Gj6Kgg8xD5TTCe+gnHyu3aIg5i1NjzJz//UbaoSlXCc57wmbPGOfHUgSWcc+zcLy7s+eFl4Jq0NvHtyhqlUQ2/q1S3UdnHl1piTMBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sUjFVqhO4M6jS5TbV7T4X7GjDw660snIwSRycIkwZlc=;
+ b=Igfygksn9lRIHjo9av87A6PwOIWpXxNyL2CEuPvaiMvmtJ8NCe01coRalHIa+r4VVSkZrPbfFd1KKEolKADUU8RuXAsLW3lPf4s42Ld8tFzKCx2cNCEs4Fp3XSlimzDfPJoxyPc5MeH889Dpk9yUpTlLB4wvw3iSmz4Yo9mPTlkDZy10M5Wn8VeAfHraiGcRvO4XxJIFkvg0vThE0ObA+OC8NJ9DDHkqQQTxqDabGhubwyj+QQsvtAHmuhT0qOq2sm0/BYy3WE2SZ6gspkP1kFnKmc/aiOkV7VDuMXhH4lWTGMGbuAmq+fhcEqlHwlzdwWepPvatgu6oKYuT8ewi+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sUjFVqhO4M6jS5TbV7T4X7GjDw660snIwSRycIkwZlc=;
+ b=ketOLDuT1j2ZYjerKhnehaif3t26Yt229BIOW8m60wsR9+I18mjun9slPlLUDR9QqU4fYieIBf33lN/5cORNzH7SnrmShVoYkyTTxgPsbYI1enHeEVok1v2rBSbEF8EpGySCmK3KQPi1ffz/rH5wz0HTST/GuVSLPQsO8psrRLg=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM5PR1201MB0028.namprd12.prod.outlook.com (2603:10b6:4:5a::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3412.23; Tue, 29 Sep 2020 08:31:10 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::b51c:2b0e:7e1:b233]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::b51c:2b0e:7e1:b233%9]) with mapi id 15.20.3412.029; Tue, 29 Sep 2020
+ 08:31:10 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>, "Zhou1, Tao"
+ <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
+Thread-Topic: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
+Thread-Index: AQHWli00CuP/AJk6bEeihNA2mfGgc6l/RrEg
+Date: Tue, 29 Sep 2020 08:31:10 +0000
+Message-ID: <DM6PR12MB407561BB1D3293D1EF0497F8FC320@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <20200929065255.11856-1-guchun.chen@amd.com>
+In-Reply-To: <20200929065255.11856-1-guchun.chen@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-09-29T08:31:00Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=9a6c1653-4234-4c9a-a6c1-00005369f35c;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-09-29T08:30:56Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: a0bf5c3b-7ed9-4ead-a767-0000338e8140
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-09-29T08:31:08Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 825f02d3-fba2-48a3-a85a-0000cb4eb584
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 7d834dc2-675d-4001-7916-08d8645204f6
+x-ms-traffictypediagnostic: DM5PR1201MB0028:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR1201MB0028301EEE00CB4CD26F08AAFC320@DM5PR1201MB0028.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FBcgJsPjyvG0NBLLSQRGJxHhGJKkygKsXEIjGUoMTEyyUGTRJShNPnyvc30HzwAh2ETmZak2CxTKpwJmMuXmZalzSQ4beGe7oz6xIh91g2fdrcvkJEfvvn8xqXdpKlgij+XwqneanHLGqMqT/XhwyDhKoxYaZdXKJftUvLsttcRnegnXQpFfMEIXl4I5/oEUnEJcfjnpN57cfCEvrfbhxaM5hcEtrSktsBfI0nR1fIUMjQSy0+xzmaZGx6vjz7H5i6hUKhLNetiGvBHuhPrOB6WJlfCKPS1v9tSdTaSuLLJyNyZ9aCn6uH6HgBkfUElLNrkp1CA6iWESid5d0AnCvoBjVFOua2zf9MugQzp4hcP7G6RR7/CdAj7MMyuZM+Y+xZrak8B/QgOihyF5+Geg6ABmURc25pzPxSYOQg/0qAU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(376002)(39860400002)(136003)(396003)(346002)(8676002)(478600001)(33656002)(186003)(76116006)(2906002)(26005)(66946007)(86362001)(66446008)(64756008)(66476007)(66556008)(6636002)(83380400001)(110136005)(6506007)(53546011)(316002)(55016002)(52536014)(71200400001)(5660300002)(7696005)(8936002)(9686003)(921003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: h0Q/wqGLDwH8OczHVu7GsoGh3Wbc0ND4bCZ0aXylaIY3Nj4Y0XeodjXRvgvH4fgnNnP/Jp/VWJRpZOu5AhCSumXkINy/a9VHx33U5ocwFFk3TEjJ+fAMNCdlIsvojCZ+tEeVXPeL9MbHquhoLjXI6tUw8yNTvihogJZfdie9NusT7XwivBFSgSVZZIot0Bc7poOdrknL8vjSnL7AQiff6W7AzrWm5Mb+crJadWjTu+pmQm6YKY0lM6TJJo4EjzXUSB2gR1C5gkJFID7i2Ua7cnqrjGrwfthmx58t1KMDbX9fNgEWX7LhVBr0OgKQcY+gD6NPJ2rWoiwYGi1Z6zy3tshOSmGG5d8/ueVWDIWtvc11sZOgyWzF2u5a/qFP+1B7BzKrswE8RvEzaTQ6LF6ehs7ZEisQbLZBXEEfEjHYdS3AJRvek9zcycVFrV2KTurXKM3qHiyD9F4tnyAk57T2Qqy3bPlYjvgvuG0mljkrR6Z44Lh4BOPOWP79wxWax/+N7oJ1bD+28+HEN+w98SmGJUhDdIXfXrAMMBPPLp/azzRZh3XxcDNKFjMY3dm5SfRFDLAbejuBrzwwuafrMHgpFjgsVT/7UFleRnstOPA5qFWotlPVK7kzx9TdFMIF5AzoKp5SCl2XK3ZvJsP3UCzAPQ==
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 29 Sep 2020 07:33:52 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d834dc2-675d-4001-7916-08d8645204f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2020 08:31:10.4012 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0cJod/mcs+lOq89ZHPk4lwxSSXz/+rYOJN6D1Wo9pxf1Iv8fyqMrcCPwtG03Ej+Oc7MLDncbil3pARoiohjhmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0028
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,76 +128,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Navid Emamdoost <navid.emamdoost@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+[AMD Public Use]
 
-On Mon, 28 Sep 2020 17:44:28 -0400, Alex Deucher wrote:
-> On Mon, Sep 28, 2020 at 9:23 AM Jean Delvare <jdelvare@suse.de> wrote:
-> > I have recently experienced a regression in stable kernel series 5.8.
-> > The problem is that my display will randomly turn to black after just a
-> > few seconds of inactivity. I have to switch to text console then back
-> > to X to recover.
-> >
-> > I bisected it down to:
-> >
-> > commit b86657e328b601a5b98f8c4c21d108d356dbceee
-> > Author: Navid Emamdoost <navid.emamdoost@gmail.com>
-> > Date:   Sun Jun 14 02:09:44 2020 -0500
-> >
-> >     drm/amdgpu: fix ref count leak in amdgpu_display_crtc_set_config
-> >
-> >     [ Upstream commit e008fa6fb41544b63973a529b704ef342f47cc65 ]
-> >
-> > Reverting this commit on top of 5.8.10 makes the problem go away. My
-> > hardware setup:
-> >
-> > 01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin [Radeon RX 550 640SP / RX 560/560X] [1002:67ff] (rev ff)
-> > 01:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin HDMI/DP Audio [Radeon RX 550 640SP / RX 560/560X] [1002:aae0]
-> >
-> > This is a Sapphire Pulse Radeon RX550 card, with two Lenovo P27h-10
-> > displays connected (one over DP, one over HDMI). I'm using option dc=0
-> > otherwise the multi-screen setup doesn't work.
-> >
-> > Looking at the patch, and at the logic of function
-> > amdgpu_display_crtc_set_config() in general, I suspect that the middle
-> > chunk of the patch is incorrect. Calling pm_runtime_put_autosuspend()
-> > if pm_runtime_get_sync() failed is, albeit surprising, correct due to
-> > how that function is implemented. Calling it right after
-> > "adev->have_disp_power_ref = true" however looks wrong. The comment
-> > right before that line pretty much implies that we *want* to keep the
-> > reference.
-> >
-> > So I think we want to apply a partial revert like the following:  
-> 
-> Nice analysis.  I've applied the patch.
++		if (adev->ras_features & (1 << AMDGPU_RAS_BLOCK__UMC)) {
+ 			if (adev->df.funcs->enable_ecc_force_par_wr_rmw)
+ 				adev->df.funcs->enable_ecc_force_par_wr_rmw(adev, false);
 
-Unfortunately, further testing shows that this partial revert is
-insufficient to fully fix the problem. Only a complete revert works.
-This worries me a little though, because my analysis seemed correct. If
-the first chunk needs to be reverted too, it means that this code path
-is taken on a regular basis in my case. I would expect
-pm_runtime_get_sync() failures to be an error path that should normally
-not be taken?
+Hmm... this is still not correct. If the UMC ECC is enabled, we don't need to apply the workaround.
 
-At this point I am wondering if maybe we had 2 opposite reference
-counting bugs covering for each other, and fixing one revealed the
-other. Or maybe the prime issue is that pm_runtime_get_sync() shouldn't
-fail in the first place, and that's what we need to fix.
+Regards,
+Hawking
+-----Original Message-----
+From: Chen, Guchun <Guchun.Chen@amd.com> 
+Sent: Tuesday, September 29, 2020 14:53
+To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
 
-I'm not familiar enough with the amdgpu driver to efficiently continue
-debugging this issue on my own, so I'll do what I can, but some
-guidance would be welcome.
+The same ECC check has been executed in amdgpu_ras_init for vega10, prior to gmc_v9_0_late_init.
 
--- 
-Jean Delvare
-SUSE L3 Support
+v2: drop all atombios helper callings
+v3: use bit operation
+
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 3dddbc60fe3d..9599946e4bee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1193,21 +1193,13 @@ static int gmc_v9_0_late_init(void *handle)
+ 	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
+ 	if (r)
+ 		return r;
+-	/* Check if ecc is available */
++
++	/* apply DF parity workaround */
+ 	if (!amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_VEGA10)) {
+-		r = amdgpu_atomfirmware_mem_ecc_supported(adev);
+-		if (!r) {
+-			DRM_INFO("ECC is not present.\n");
++		if (adev->ras_features & (1 << AMDGPU_RAS_BLOCK__UMC)) {
+ 			if (adev->df.funcs->enable_ecc_force_par_wr_rmw)
+ 				adev->df.funcs->enable_ecc_force_par_wr_rmw(adev, false);
+-		} else
+-			DRM_INFO("ECC is active.\n");
+-
+-		r = amdgpu_atomfirmware_sram_ecc_supported(adev);
+-		if (!r)
+-			DRM_INFO("SRAM ECC is not present.\n");
+-		else
+-			DRM_INFO("SRAM ECC is active.\n");
++		}
+ 	}
+ 
+ 	if (adev->mmhub.funcs && adev->mmhub.funcs->reset_ras_error_count)
+--
+2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
