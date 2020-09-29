@@ -2,70 +2,66 @@ Return-Path: <SRS0=r+dW=DG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C022C4741F
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 14:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57ED4C4727C
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 14:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 05B53208B8
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 14:03:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9928620739
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 14:25:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hnqpSwQH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05B53208B8
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpQWzG41"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9928620739
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42B4C89E59;
-	Tue, 29 Sep 2020 14:03:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B7B89D5F;
+	Tue, 29 Sep 2020 14:25:41 +0000 (UTC)
 Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468DE89E33
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 14:03:26 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a9so4961698wmm.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 07:03:26 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC69F89D5F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 14:25:39 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id e11so6760687wme.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 07:25:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=frL2IL93jZZnwN4PG/I2rGDc67Elp2rZ0R7Q9XwHiYM=;
- b=hnqpSwQHVbWNXXtjy2FV0ejJVmNrkeRPVD2pRrTG9AGdJIoe+fcHfjpLIq01FcLVaG
- 4fArt+uwmhP5S/qRd+Y++4kpPeQMVumsoNAYWW3Maexk7wwwgb29/kc5//0QmfS4IrGk
- aJ0rJe0jRpQ+BHOf5gs8K5ijVbK7QYJiCSDf1curHej4G173R3U1CzVZMQtJ6JoB4VKv
- Vy1vSBGd2ymRmPhgFNvjycDyZrz6oOwwT7SV+0/XpfyDsLdjTS0e70YAvUGIAc3fts31
- dv2zpho7Wv0o4E4tD36OXarqHLjlTFdIIpbW9X134B7b63tXohwf99MRS5pO5kSIFez6
- XA/w==
+ :cc; bh=89m5o+dFo7BXYmmDEtymABnfihs881TuPds2Duprt5k=;
+ b=FpQWzG41KYvK71UKeQEGVNThcoqiwPN/N8TM9SQ7Vi6KjPB8nMQP35SeR7aVqRqp0j
+ yeLU8IyJttX0vdziPiluBeoP3zD/PMZuh84l9Dtzqb7VjGrhgBgQGzxj+DNjEsTDcKKR
+ nD1+Zj8jPgERwioS/fSONRVVPP2i6GyEWgOrYpJGsrGHbF96InsvMm+o4zqm1LczKYAK
+ Rm/yAbUMDoGrauvYyGPmuce5J6DoBuZJegG2dhh/ij7Gz1wbixGi0draK/SUjAG3f8Kq
+ gVMZIYF/ypj0t19M/lKsbiSk5hBex5uKPXT1d4GOk9LvQKF+cZhV32GSGND/LzAW/BUm
+ 3tug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=frL2IL93jZZnwN4PG/I2rGDc67Elp2rZ0R7Q9XwHiYM=;
- b=WnWWz4HnXeeoo4Dy6YBPbZJtz3ogR70xS+8wITBMgw25CJ6UYlnPu+qUgVYufzHwb8
- 4MGhBABpgEWBpbxpNKvFKTe34ylHqXAdMcm6GV4IRiEdUuESO8fyJ0wJNUiLPr9vjvYQ
- vg/1BifErv3lvUYiPZ3wQ74hDfLAuo0xBao78kk629gkqG/zs8CcQGUGVCS24GMSjTRq
- kJ8CGUjMUhWVEh1EZC/CNoH01G5cv4wMJ0BFm4Pqan5PbzSDceFiYIH5bSfXSvbcRXZ1
- ySsN/SXqHQkjms0zcfpuum63aFaAsl4JljWDYld4N+DThb5hdzhETxVCHBLsZiwHVOfJ
- 1nAQ==
-X-Gm-Message-State: AOAM531Sl5gLflgOyVaWveMikoJ3y86u9p3b6FjlsCEMO0ltMcdVq723
- M5fb1BD3Z8fKTJvpmZqZhmCBheJXWLgdXiDrY8VOuUEp
-X-Google-Smtp-Source: ABdhPJy1uwoO5AbxIHjkKp1NGEOg3j/pltXIFqsODJYfuEXzHzNRTSK0bvdh1/Eb6UQ9WP2chyHAulOFV9ouUC3N8v0=
-X-Received: by 2002:a7b:c090:: with SMTP id r16mr4880072wmh.56.1601388204668; 
- Tue, 29 Sep 2020 07:03:24 -0700 (PDT)
+ bh=89m5o+dFo7BXYmmDEtymABnfihs881TuPds2Duprt5k=;
+ b=ECQUVM/lzivrTndDzkw50JcE8EEbyE+bn9/0n7Fo5Nb04l8zvgjyjaEzFqnEhm/J0Z
+ tx0o0Fu+uvYkdeJXSMTkelQj5vfJKGojSAjGgyzsFn4Eg8YRAB1H3JGJ8NJDaob1cA6y
+ eCp+7vmddJjf+F7+P+5yXoNkPCHWoXrC5cvyeU7hlhIIptwwlzShp3RX+wFfKSHpUMS9
+ dpcSPJX7Lxq08jlOgZVQ8JjXf9weP4C8F9ZF+r2XxnZCE0owBRuZq/y0V+IO+4nqgcfe
+ FXq97BmnJQC71kteuvK9llhNj2BWINzMBF/xKHqDT6W29SXK/500xudvKBL2BnNe+ylg
+ aB+Q==
+X-Gm-Message-State: AOAM533RTlQkht9jHeq3LaUADkmFfSoum65zuhk87JEUzFW9vtJu9fmp
+ TkPu8dwZ1A8PX+zsI0gE+AIEWi4ssFL0yKrJ5EKyeB4q
+X-Google-Smtp-Source: ABdhPJzScqq2fWTRlzjOPnOTpUPHHi/wPLJxbgQd11v9DrndTZ0q06Vw9BPiHBFP3Sxh8kZItBvduhfHK47IUfytEh4=
+X-Received: by 2002:a1c:7d4d:: with SMTP id y74mr4878601wmc.73.1601389537977; 
+ Tue, 29 Sep 2020 07:25:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <ghh7rqvtc1.fsf@gouders.net> <gha6xg237c.fsf@gouders.net>
- <CADnq5_PD-8rULVhDb-nAfonpm1ptQuCGh4520Gs_nrBN6g+4hA@mail.gmail.com>
- <ghd02cjpgk.fsf@gouders.net> <ghlfh0s2id.fsf@gouders.net>
- <CADnq5_OuRMgTNtycOr+vOd2pDzENcc1=4WvsQX31dUez0hoNtQ@mail.gmail.com>
- <ghtuvjfulx.fsf@gouders.net>
-In-Reply-To: <ghtuvjfulx.fsf@gouders.net>
+References: <1600384563-10872-1-git-send-email-Oak.Zeng@amd.com>
+In-Reply-To: <1600384563-10872-1-git-send-email-Oak.Zeng@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Sep 2020 10:03:13 -0400
-Message-ID: <CADnq5_Nz_BG=QL0xN-j4k=Zf4R_F65zDKzD=OJ+kC_7XQYaMGw@mail.gmail.com>
-Subject: Re: amdgpu: call trace introduced in 5.9-rc1 for Lenovo L14 Renoir
-To: Dirk Gouders <dirk@gouders.net>, "Quan, Evan" <Evan.Quan@amd.com>
+Date: Tue, 29 Sep 2020 10:25:26 -0400
+Message-ID: <CADnq5_OCk_aSg4C2jVDQdJ44u7wpLgeny3EA_j7miGaD+WHOFw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: use function pointer for gfxhub functions
+To: Oak Zeng <Oak.Zeng@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,469 +73,681 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Sep 27, 2020 at 5:18 AM Dirk Gouders <dirk@gouders.net> wrote:
+On Thu, Sep 17, 2020 at 7:16 PM Oak Zeng <Oak.Zeng@amd.com> wrote:
 >
-> Alex Deucher <alexdeucher@gmail.com> writes:
+> gfxhub functions are now called from function pointers,
+> instead of from asic-specific functions.
 >
-> > On Wed, Sep 23, 2020 at 3:45 PM Dirk Gouders <dirk@gouders.net> wrote:
-> >>
-> >> Dirk Gouders <dirk@gouders.net> writes:
-> >>
-> >> > Alex Deucher <alexdeucher@gmail.com> writes:
-> >> >
-> >> >> On Wed, Sep 23, 2020 at 8:54 AM Dirk Gouders <dirk@gouders.net> wrote:
-> >> >>>
-> >> >>> Dirk Gouders <dirk@gouders.net> writes:
-> >> >>>
-> >> >>> > Hi,
-> >> >>> >
-> >> >>> > I noticed a call trace (attached) when starting my machine (ThinkPad
-> >> >>> > L14).  This machine is new and I am still working on it's
-> >> >>> > configuration but visually noticeable is that scrolling in xterms with
-> >> >>> > SHIFT-PgUp/PgDn is broken.  Using the mouse wheel works.
-> >> >>> >
-> >> >>> > It seems the call trace has been introduced between 5.8 and 5.9-rc1 and
-> >> >>> > I tried to bisect this but always end in situations where I dont't find
-> >> >>> > a bootable commit around the current bisect position.  Mainly the
-> >> >>> > machine then hangs when udevd is started.
-> >> >>>
-> >> >>> I fixed my netconsole setup (had to use a switch instead of the
-> >> >>> ports of a FritzBox) and tried a bisect, again (log below).  With the
-> >> >>> commits between the earliest bad and latest good commits I marked, my
-> >> >>> machine does not boot and hangs very early with the message:
-> >> >>>
-> >> >>>         fb0: switching to amdgpudrmfb from EFI VGA
-> >> >>>
-> >> >>> That was introduced with
-> >> >>>
-> >> >>>         c1cf79ca5ced drm/amdgpu: use IP discovery table for renoir
-> >> >>>
-> >> >>> and ended with a commit that instead produces the call trace
-> >> >>>
-> >> >>>         b6df946ef4b5 drm/amdgpu: fix the nullptr issue as for PWR IP not
-> >> >>>                      existing in discovery table
-> >> >>>
-> >> >>> I was hoping to get further with the bisect but have no idea how to
-> >> >>> avoid the early hangs.
-> >> >>
-> >> >> You can disable use of the IP discovery table by setting
-> >> >> amdgpu.discovery=0 on the kernel command line in grub.
-> >> >
-> >> > I tried that with b770f04ba2ee (next step in bisect), but no success
-> >> > with this option, unfortunately.
-> >> >
-> >> > I'm not using grub but directly booting from UEFI using CONFIG_CMDLINE.
-> >> > Any other option I am using (root, loglevel and netconsole) works as
-> >> > expected and I veryfied that "amdgpu.discovery=0" is included in
-> >> > vmlinux.
-> >>
-> >> Apologies if I'm causing too much noise.
-> >>
-> >> While thinking about this I recalled that I changed amdgpu from modular to
-> >> static when I had problems with netconsole.  I changed it back to
-> >> modular to see if that helps and I get the earlier mentioned hangs later
-> >> in the boot process when udevd starts and netconsole is up working.
-> >> This enables me to inspect boot messages and I tested with
-> >> amdgpu.discovery=0:
-> >>
-> >> 5,175,49060,-;Kernel command line: root=PARTLABEL=system1 amdgpu.discovery=0 loglevel=15 netconsole=...
-> >>
-> >> I'm afraid I now get traces that commit b6df946ef4b5 (drm/amdgpu: fix
-> >> the nullptr issue as for PWR IP not existing in discovery table) is
-> >> fixing (output attached below) and I cannot decide how to continue with
-> >> bisecting...
-> >
-> > You get the issue with discovery=0?  You can try skipping that commit
-> > (mark as skip) to finish the bisection.
->
-> I get issues with both, amdgpu.discovery={0,1}.  With "0" I hit the NULL
-> pointer dereference in soc15_set_ip_blocks() and with "1" I hit the
-> assert in rn_clk_mgr_helper_populate_bw_params().
->
-> I only noticed the issue with "0" after you told me about
-> amdgpu.discovery, so I continued to find the commit that introduced the
-> issue with "1".
->
-> Using bisect skip alone did not help but keeping b6df946ef4b5
-> (drm/amdgpu: fix the nullptr issue as for PWR IP not existing in
-> discovery table) in the working tree made the bisect session much more
-> straight forward.
->
-> It resulted in 02cf91c113ea (drm/amd/powerplay: postpone operations not
-> required for hw setup to late_init) as the first bad commit.
->
-> Not that I understand anything about the driver but I wanted to know if
-> that commit really is causing the issue.  So, I tried to move back some
-> initialization code from smu_late_init() to smu_smc_hw_setup() (diff
-> below) and with that the issue is gone.  I'm not sure if you prefer a
-> full dmesg output, for now I'll append the [drm] part.
+> Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
 
-@Quan, Evan Any ideas?
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks!
-
-Alex
-
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  4 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c |  3 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c   |  3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  |  5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h         | 43 ++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c           | 10 ++++
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.h           |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c           | 13 +++++-
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.h           |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c           | 24 +++++++---
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.h           | 10 +---
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c           | 27 +++++++----
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h           | 12 +----
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             | 53 +++++++++-------------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              | 28 +++++++++---
+>  15 files changed, 155 insertions(+), 83 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
 >
-> Dirk
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 13f92de..0d8ace9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -104,6 +104,7 @@
+>  #include "amdgpu_mes.h"
+>  #include "amdgpu_umc.h"
+>  #include "amdgpu_mmhub.h"
+> +#include "amdgpu_gfxhub.h"
+>  #include "amdgpu_df.h"
 >
-> = diff =============================================================
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 63f945f9f331..9f5395b0f3d4 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -479,23 +479,6 @@ static int smu_late_init(void *handle)
->                 return ret;
+>  #define MAX_GPU_INSTANCE               16
+> @@ -884,6 +885,9 @@ struct amdgpu_device {
+>         /* mmhub */
+>         struct amdgpu_mmhub             mmhub;
+>
+> +       /* gfxhub */
+> +       struct amdgpu_gfxhub            gfxhub;
+> +
+>         /* gfx */
+>         struct amdgpu_gfx               gfx;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index df0aab0..1529815 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -32,7 +32,6 @@
+>  #include "v10_structs.h"
+>  #include "nv.h"
+>  #include "nvd.h"
+> -#include "gfxhub_v2_0.h"
+>
+>  enum hqd_dequeue_request_type {
+>         NO_ACTION = 0,
+> @@ -753,7 +752,7 @@ static void set_vm_context_page_table_base(struct kgd_dev *kgd, uint32_t vmid,
 >         }
 >
-> -       /*
-> -        * Set initialized values (get from vbios) to dpm tables context such as
-> -        * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
-> -        * type of clks.
-> -        */
-> -       ret = smu_set_default_dpm_table(smu);
-> -       if (ret) {
-> -               dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
-> -               return ret;
-> -       }
+>         /* SDMA is on gfxhub as well for Navi1* series */
+> -       gfxhub_v2_0_setup_vm_pt_regs(adev, vmid, page_table_base);
+> +       adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, page_table_base);
+>  }
+>
+>  const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> index e12623a..b7ea20e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> @@ -31,7 +31,6 @@
+>  #include "v10_structs.h"
+>  #include "nv.h"
+>  #include "nvd.h"
+> -#include "gfxhub_v2_1.h"
+>
+>  enum hqd_dequeue_request_type {
+>         NO_ACTION = 0,
+> @@ -657,7 +656,7 @@ static void set_vm_context_page_table_base_v10_3(struct kgd_dev *kgd, uint32_t v
+>         struct amdgpu_device *adev = get_amdgpu_device(kgd);
+>
+>         /* SDMA is on gfxhub as well for Navi1* series */
+> -       gfxhub_v2_1_setup_vm_pt_regs(adev, vmid, page_table_base);
+> +       adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, page_table_base);
+>  }
+>
+>  #if 0
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index e6aede7..b824582 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -36,9 +36,6 @@
+>  #include "v9_structs.h"
+>  #include "soc15.h"
+>  #include "soc15d.h"
+> -#include "mmhub_v1_0.h"
+> -#include "gfxhub_v1_0.h"
 > -
-> -       ret = smu_populate_umd_state_clk(smu);
-> -       if (ret) {
-> -               dev_err(adev->dev, "Failed to populate UMD state clocks!\n");
-> -               return ret;
-> -       }
+>
+>  enum hqd_dequeue_request_type {
+>         NO_ACTION = 0,
+> @@ -703,7 +700,7 @@ void kgd_gfx_v9_set_vm_context_page_table_base(struct kgd_dev *kgd,
+>
+>         adev->mmhub.funcs->setup_vm_pt_regs(adev, vmid, page_table_base);
+>
+> -       gfxhub_v1_0_setup_vm_pt_regs(adev, vmid, page_table_base);
+> +       adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, page_table_base);
+>  }
+>
+>  const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
+> new file mode 100644
+> index 0000000..66ebc2e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h
+> @@ -0,0 +1,43 @@
+> +/*
+> + * Copyright 2020 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +#ifndef __AMDGPU_GFXHUB_H__
+> +#define __AMDGPU_GFXHUB_H__
+> +
+> +struct amdgpu_gfxhub_funcs {
+> +       u64 (*get_fb_location)(struct amdgpu_device *adev);
+> +       u64 (*get_mc_fb_offset)(struct amdgpu_device *adev);
+> +       void (*setup_vm_pt_regs)(struct amdgpu_device *adev, uint32_t vmid,
+> +                       uint64_t page_table_base);
+> +       int (*gart_enable)(struct amdgpu_device *adev);
+> +
+> +       void (*gart_disable)(struct amdgpu_device *adev);
+> +       void (*set_fault_enable_default)(struct amdgpu_device *adev, bool value);
+> +       void (*init)(struct amdgpu_device *adev);
+> +       int (*get_xgmi_info)(struct amdgpu_device *adev);
+> +};
+> +
+> +struct amdgpu_gfxhub {
+> +       const struct amdgpu_gfxhub_funcs *funcs;
+> +};
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> index 529e463..f4187c3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> @@ -403,3 +403,13 @@ void gfxhub_v1_0_init(struct amdgpu_device *adev)
+>         hub->eng_addr_distance = mmVM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+>                 mmVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
+>  }
+> +
+> +
+> +const struct amdgpu_gfxhub_funcs gfxhub_v1_0_funcs = {
+> +       .get_mc_fb_offset = gfxhub_v1_0_get_mc_fb_offset,
+> +       .setup_vm_pt_regs = gfxhub_v1_0_setup_vm_pt_regs,
+> +       .gart_enable = gfxhub_v1_0_gart_enable,
+> +       .gart_disable = gfxhub_v1_0_gart_disable,
+> +       .set_fault_enable_default = gfxhub_v1_0_set_fault_enable_default,
+> +       .init = gfxhub_v1_0_init,
+> +};
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.h b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.h
+> index 92d3a70..0c46672 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.h
+> @@ -33,4 +33,5 @@ u64 gfxhub_v1_0_get_mc_fb_offset(struct amdgpu_device *adev);
+>  void gfxhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+>                                 uint64_t page_table_base);
+>
+> +extern const struct amdgpu_gfxhub_funcs gfxhub_v1_0_funcs;
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c
+> index c0ab71d..1e24b6d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.c
+> @@ -21,6 +21,7 @@
+>   *
+>   */
+>  #include "amdgpu.h"
+> +#include "gfxhub_v1_0.h"
+>  #include "gfxhub_v1_1.h"
+>
+>  #include "gc/gc_9_2_1_offset.h"
+> @@ -28,7 +29,7 @@
+>
+>  #include "soc15_common.h"
+>
+> -int gfxhub_v1_1_get_xgmi_info(struct amdgpu_device *adev)
+> +static int gfxhub_v1_1_get_xgmi_info(struct amdgpu_device *adev)
+>  {
+>         u32 xgmi_lfb_cntl = RREG32_SOC15(GC, 0, mmMC_VM_XGMI_LFB_CNTL);
+>         u32 max_region =
+> @@ -66,3 +67,13 @@ int gfxhub_v1_1_get_xgmi_info(struct amdgpu_device *adev)
+>
+>         return 0;
+>  }
+> +
+> +const struct amdgpu_gfxhub_funcs gfxhub_v1_1_funcs = {
+> +       .get_mc_fb_offset = gfxhub_v1_0_get_mc_fb_offset,
+> +       .setup_vm_pt_regs = gfxhub_v1_0_setup_vm_pt_regs,
+> +       .gart_enable = gfxhub_v1_0_gart_enable,
+> +       .gart_disable = gfxhub_v1_0_gart_disable,
+> +       .set_fault_enable_default = gfxhub_v1_0_set_fault_enable_default,
+> +       .init = gfxhub_v1_0_init,
+> +       .get_xgmi_info = gfxhub_v1_1_get_xgmi_info,
+> +};
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.h b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.h
+> index d753cf2..ae5759f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_1.h
+> @@ -24,6 +24,6 @@
+>  #ifndef __GFXHUB_V1_1_H__
+>  #define __GFXHUB_V1_1_H__
+>
+> -int gfxhub_v1_1_get_xgmi_info(struct amdgpu_device *adev);
+> +extern const struct amdgpu_gfxhub_funcs gfxhub_v1_1_funcs;
+>
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+> index b882ac5..3386cfa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+> @@ -102,7 +102,7 @@ gfxhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+>                 GCVM_L2_PROTECTION_FAULT_STATUS, RW));
+>  }
+>
+> -u64 gfxhub_v2_0_get_fb_location(struct amdgpu_device *adev)
+> +static u64 gfxhub_v2_0_get_fb_location(struct amdgpu_device *adev)
+>  {
+>         u64 base = RREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE);
+>
+> @@ -112,12 +112,12 @@ u64 gfxhub_v2_0_get_fb_location(struct amdgpu_device *adev)
+>         return base;
+>  }
+>
+> -u64 gfxhub_v2_0_get_mc_fb_offset(struct amdgpu_device *adev)
+> +static u64 gfxhub_v2_0_get_mc_fb_offset(struct amdgpu_device *adev)
+>  {
+>         return (u64)RREG32_SOC15(GC, 0, mmGCMC_VM_FB_OFFSET) << 24;
+>  }
+>
+> -void gfxhub_v2_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+> +static void gfxhub_v2_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+>                                 uint64_t page_table_base)
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+> @@ -347,7 +347,7 @@ static void gfxhub_v2_0_program_invalidation(struct amdgpu_device *adev)
+>         }
+>  }
+>
+> -int gfxhub_v2_0_gart_enable(struct amdgpu_device *adev)
+> +static int gfxhub_v2_0_gart_enable(struct amdgpu_device *adev)
+>  {
+>         /* GART Enable. */
+>         gfxhub_v2_0_init_gart_aperture_regs(adev);
+> @@ -363,7 +363,7 @@ int gfxhub_v2_0_gart_enable(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> -void gfxhub_v2_0_gart_disable(struct amdgpu_device *adev)
+> +static void gfxhub_v2_0_gart_disable(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+>         u32 tmp;
+> @@ -394,7 +394,7 @@ void gfxhub_v2_0_gart_disable(struct amdgpu_device *adev)
+>   * @adev: amdgpu_device pointer
+>   * @value: true redirects VM faults to the default page
+>   */
+> -void gfxhub_v2_0_set_fault_enable_default(struct amdgpu_device *adev,
+> +static void gfxhub_v2_0_set_fault_enable_default(struct amdgpu_device *adev,
+>                                           bool value)
+>  {
+>         u32 tmp;
+> @@ -436,7 +436,7 @@ static const struct amdgpu_vmhub_funcs gfxhub_v2_0_vmhub_funcs = {
+>         .get_invalidate_req = gfxhub_v2_0_get_invalidate_req,
+>  };
+>
+> -void gfxhub_v2_0_init(struct amdgpu_device *adev)
+> +static void gfxhub_v2_0_init(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+>
+> @@ -477,3 +477,13 @@ void gfxhub_v2_0_init(struct amdgpu_device *adev)
+>
+>         hub->vmhub_funcs = &gfxhub_v2_0_vmhub_funcs;
+>  }
+> +
+> +const struct amdgpu_gfxhub_funcs gfxhub_v2_0_funcs = {
+> +       .get_fb_location = gfxhub_v2_0_get_fb_location,
+> +       .get_mc_fb_offset = gfxhub_v2_0_get_mc_fb_offset,
+> +       .setup_vm_pt_regs = gfxhub_v2_0_setup_vm_pt_regs,
+> +       .gart_enable = gfxhub_v2_0_gart_enable,
+> +       .gart_disable = gfxhub_v2_0_gart_disable,
+> +       .set_fault_enable_default = gfxhub_v2_0_set_fault_enable_default,
+> +       .init = gfxhub_v2_0_init,
+> +};
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.h b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.h
+> index 392b8cd..9ddc35cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.h
+> @@ -24,14 +24,6 @@
+>  #ifndef __GFXHUB_V2_0_H__
+>  #define __GFXHUB_V2_0_H__
+>
+> -u64 gfxhub_v2_0_get_fb_location(struct amdgpu_device *adev);
+> -int gfxhub_v2_0_gart_enable(struct amdgpu_device *adev);
+> -void gfxhub_v2_0_gart_disable(struct amdgpu_device *adev);
+> -void gfxhub_v2_0_set_fault_enable_default(struct amdgpu_device *adev,
+> -                                         bool value);
+> -void gfxhub_v2_0_init(struct amdgpu_device *adev);
+> -u64 gfxhub_v2_0_get_mc_fb_offset(struct amdgpu_device *adev);
+> -void gfxhub_v2_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+> -                               uint64_t page_table_base);
+> +extern const struct amdgpu_gfxhub_funcs gfxhub_v2_0_funcs;
+>
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> index 237a9ff..98f2c53 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> @@ -102,7 +102,7 @@ gfxhub_v2_1_print_l2_protection_fault_status(struct amdgpu_device *adev,
+>                 GCVM_L2_PROTECTION_FAULT_STATUS, RW));
+>  }
+>
+> -u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev)
+> +static u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev)
+>  {
+>         u64 base = RREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE);
+>
+> @@ -112,12 +112,12 @@ u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev)
+>         return base;
+>  }
+>
+> -u64 gfxhub_v2_1_get_mc_fb_offset(struct amdgpu_device *adev)
+> +static u64 gfxhub_v2_1_get_mc_fb_offset(struct amdgpu_device *adev)
+>  {
+>         return (u64)RREG32_SOC15(GC, 0, mmGCMC_VM_FB_OFFSET) << 24;
+>  }
+>
+> -void gfxhub_v2_1_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+> +static void gfxhub_v2_1_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+>                                 uint64_t page_table_base)
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+> @@ -348,7 +348,7 @@ static void gfxhub_v2_1_program_invalidation(struct amdgpu_device *adev)
+>         }
+>  }
+>
+> -int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev)
+> +static int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev)
+>  {
+>         if (amdgpu_sriov_vf(adev)) {
+>                 /*
+> @@ -376,7 +376,7 @@ int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> -void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
+> +static void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+>         u32 tmp;
+> @@ -405,7 +405,7 @@ void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
+>   * @adev: amdgpu_device pointer
+>   * @value: true redirects VM faults to the default page
+>   */
+> -void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
+> +static void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
+>                                           bool value)
+>  {
+>         u32 tmp;
+> @@ -454,7 +454,7 @@ static const struct amdgpu_vmhub_funcs gfxhub_v2_1_vmhub_funcs = {
+>         .get_invalidate_req = gfxhub_v2_1_get_invalidate_req,
+>  };
+>
+> -void gfxhub_v2_1_init(struct amdgpu_device *adev)
+> +static void gfxhub_v2_1_init(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
+>
+> @@ -496,7 +496,7 @@ void gfxhub_v2_1_init(struct amdgpu_device *adev)
+>         hub->vmhub_funcs = &gfxhub_v2_1_vmhub_funcs;
+>  }
+>
+> -int gfxhub_v2_1_get_xgmi_info(struct amdgpu_device *adev)
+> +static int gfxhub_v2_1_get_xgmi_info(struct amdgpu_device *adev)
+>  {
+>         u32 xgmi_lfb_cntl = RREG32_SOC15(GC, 0, mmGCMC_VM_XGMI_LFB_CNTL);
+>         u32 max_region =
+> @@ -531,3 +531,14 @@ int gfxhub_v2_1_get_xgmi_info(struct amdgpu_device *adev)
+>
+>         return 0;
+>  }
+> +
+> +const struct amdgpu_gfxhub_funcs gfxhub_v2_1_funcs = {
+> +       .get_fb_location = gfxhub_v2_1_get_fb_location,
+> +       .get_mc_fb_offset = gfxhub_v2_1_get_mc_fb_offset,
+> +       .setup_vm_pt_regs = gfxhub_v2_1_setup_vm_pt_regs,
+> +       .gart_enable = gfxhub_v2_1_gart_enable,
+> +       .gart_disable = gfxhub_v2_1_gart_disable,
+> +       .set_fault_enable_default = gfxhub_v2_1_set_fault_enable_default,
+> +       .init = gfxhub_v2_1_init,
+> +       .get_xgmi_info = gfxhub_v2_1_get_xgmi_info,
+> +};
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
+> index 3452a4e..f75c2ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
+> @@ -24,16 +24,6 @@
+>  #ifndef __GFXHUB_V2_1_H__
+>  #define __GFXHUB_V2_1_H__
+>
+> -u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev);
+> -int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev);
+> -void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev);
+> -void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
+> -                                         bool value);
+> -void gfxhub_v2_1_init(struct amdgpu_device *adev);
+> -u64 gfxhub_v2_1_get_mc_fb_offset(struct amdgpu_device *adev);
+> -void gfxhub_v2_1_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
+> -                               uint64_t page_table_base);
 > -
->         ret = smu_get_asic_power_limits(smu);
->         if (ret) {
->                 dev_err(adev->dev, "Failed to get asic power limits!\n");
-> @@ -892,6 +875,23 @@ static int smu_smc_hw_setup(struct smu_context *smu)
->                 return ret;
+> -int gfxhub_v2_1_get_xgmi_info(struct amdgpu_device *adev);
+> +extern const struct amdgpu_gfxhub_funcs gfxhub_v2_1_funcs;
+>
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 31359e5..dbc8b76 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -634,11 +634,26 @@ static void gmc_v10_0_set_mmhub_funcs(struct amdgpu_device *adev)
+>         adev->mmhub.funcs = &mmhub_v2_0_funcs;
+>  }
+>
+> +static void gmc_v10_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+> +{
+> +       switch (adev->asic_type) {
+> +       case CHIP_SIENNA_CICHLID:
+> +       case CHIP_NAVY_FLOUNDER:
+> +               adev->gfxhub.funcs = &gfxhub_v2_1_funcs;
+> +               break;
+> +       default:
+> +               adev->gfxhub.funcs = &gfxhub_v2_0_funcs;
+> +               break;
+> +       }
+> +}
+> +
+> +
+>  static int gmc_v10_0_early_init(void *handle)
+>  {
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>
+>         gmc_v10_0_set_mmhub_funcs(adev);
+> +       gmc_v10_0_set_gfxhub_funcs(adev);
+>         gmc_v10_0_set_gmc_funcs(adev);
+>         gmc_v10_0_set_irq_funcs(adev);
+>         gmc_v10_0_set_umc_funcs(adev);
+> @@ -676,11 +691,7 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
+>  {
+>         u64 base = 0;
+>
+> -       if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -           adev->asic_type == CHIP_NAVY_FLOUNDER)
+> -               base = gfxhub_v2_1_get_fb_location(adev);
+> -       else
+> -               base = gfxhub_v2_0_get_fb_location(adev);
+> +       base = adev->gfxhub.funcs->get_fb_location(adev);
+>
+>         /* add the xgmi offset of the physical node */
+>         base += adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+> @@ -689,11 +700,7 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
+>         amdgpu_gmc_gart_location(adev, mc);
+>
+>         /* base offset of vram pages */
+> -       if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -           adev->asic_type == CHIP_NAVY_FLOUNDER)
+> -               adev->vm_manager.vram_base_offset = gfxhub_v2_1_get_mc_fb_offset(adev);
+> -       else
+> -               adev->vm_manager.vram_base_offset = gfxhub_v2_0_get_mc_fb_offset(adev);
+> +       adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+>
+>         /* add the xgmi offset of the physical node */
+>         adev->vm_manager.vram_base_offset +=
+> @@ -777,11 +784,7 @@ static int gmc_v10_0_sw_init(void *handle)
+>         int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>
+> -       if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -           adev->asic_type == CHIP_NAVY_FLOUNDER)
+> -               gfxhub_v2_1_init(adev);
+> -       else
+> -               gfxhub_v2_0_init(adev);
+> +       adev->gfxhub.funcs->init(adev);
+>
+>         adev->mmhub.funcs->init(adev);
+>
+> @@ -852,7 +855,7 @@ static int gmc_v10_0_sw_init(void *handle)
 >         }
 >
-> +       /*
-> +        * Set initialized values (get from vbios) to dpm tables context such as
-> +        * gfxclk, memclk, dcefclk, and etc. And enable the DPM feature for each
-> +        * type of clks.
-> +        */
-> +       ret = smu_set_default_dpm_table(smu);
-> +       if (ret) {
-> +               dev_err(adev->dev, "Failed to setup default dpm clock tables!\n");
-> +               return ret;
-> +       }
-> +
-> +       ret = smu_populate_umd_state_clk(smu);
-> +       if (ret) {
-> +               dev_err(adev->dev, "Failed to populate UMD state clocks!\n");
-> +               return ret;
-> +       }
-> +
->         /* smu_dump_pptable(smu); */
->         /*
->          * Copy pptable bo in the vram to smc with SMU MSGs such as
+>         if (adev->gmc.xgmi.supported) {
+> -               r = gfxhub_v2_1_get_xgmi_info(adev);
+> +               r = adev->gfxhub.funcs->get_xgmi_info(adev);
+>                 if (r)
+>                         return r;
+>         }
+> @@ -944,11 +947,7 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
+>         if (r)
+>                 return r;
 >
-> = dmesg ================================================================
-> [    5.696659] [drm] amdgpu kernel modesetting enabled.
-> [    5.697123] [drm] initializing kernel modesetting (RENOIR 0x1002:0x1636 0x17AA:0x507E 0xC3).
-> [    5.697530] [drm] register mmio base: 0xFD300000
-> [    5.697531] [drm] register mmio size: 524288
-> [    5.697534] [drm] PCIE atomic ops is not supported
-> [    5.698690] [drm] add ip block number 0 <soc15_common>
-> [    5.698691] [drm] add ip block number 1 <gmc_v9_0>
-> [    5.698691] [drm] add ip block number 2 <vega10_ih>
-> [    5.698692] [drm] add ip block number 3 <psp>
-> [    5.698692] [drm] add ip block number 4 <smu>
-> [    5.698693] [drm] add ip block number 5 <gfx_v9_0>
-> [    5.698694] [drm] add ip block number 6 <sdma_v4_0>
-> [    5.698694] [drm] add ip block number 7 <dm>
-> [    5.698695] [drm] add ip block number 8 <vcn_v2_0>
-> [    5.698695] [drm] add ip block number 9 <jpeg_v2_0>
-> [    5.698739] [drm] VCN decode is enabled in VM mode
-> [    5.698739] [drm] VCN encode is enabled in VM mode
-> [    5.698739] [drm] JPEG decode is enabled in VM mode
-> [    5.698771] [drm] vm size is 262144 GB, 4 levels, block size is 9-bit, fragment size is 9-bit
-> [    5.698783] [drm] Detected VRAM RAM=512M, BAR=512M
-> [    5.698784] [drm] RAM width 64bits DDR4
-> [    5.701819] [drm] amdgpu: 512M of VRAM memory ready
-> [    5.701822] [drm] amdgpu: 3072M of GTT memory ready.
-> [    5.701824] [drm] GART: num cpu pages 262144, num gpu pages 262144
-> [    5.701952] [drm] PCIE GART of 1024M enabled (table at 0x000000F400900000).
-> [    5.722108] [drm] Loading DMUB firmware via PSP: version=0x00000000
-> [    5.722118] [drm] Found VCN firmware Version ENC: 1.7 DEC: 4 VEP: 0 Revision: 17
-> [    5.722123] [drm] PSP loading VCN firmware
-> [    6.348416] [drm] reserve 0x400000 from 0xf41f800000 for PSP TMR
-> [    6.883433] [drm] kiq ring mec 2 pipe 1 q 0
-> [    6.884348] [drm] Display Core initialized with v3.2.95!
-> [    6.897512] [drm] DMUB hardware initialized: version=0x01000000
-> [    7.039831] [drm] DP Alt mode state on HPD: 0
-> [    7.241053] [drm] Alt mode has timed out after 201 ms
-> [    7.241121] [drm] DP Alt mode state on HPD: 0
-> [    7.442382] [drm] Alt mode has timed out after 201 ms
-> [    7.483120] [drm] VCN decode and encode initialized successfully(under DPG Mode).
-> [    7.483139] [drm] JPEG decode initialized successfully.
-> [    7.485188] [drm] fb mappable at 0x410CA0000
-> [    7.485189] [drm] vram apper at 0x410000000
-> [    7.485189] [drm] size 8294400
-> [    7.485190] [drm] fb depth is 24
-> [    7.485190] [drm]    pitch is 7680
-> [    7.667324] amdgpu 0000:06:00.0: [drm] fb0: amdgpudrmfb frame buffer device
-> [    7.705209] [drm] Initialized amdgpu 3.39.0 20150101 for 0000:06:00.0 on minor 0
-> ========================================================================
+> -       if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -           adev->asic_type == CHIP_NAVY_FLOUNDER)
+> -               r = gfxhub_v2_1_gart_enable(adev);
+> -       else
+> -               r = gfxhub_v2_0_gart_enable(adev);
+> +       r = adev->gfxhub.funcs->gart_enable(adev);
+>         if (r)
+>                 return r;
 >
-> >
-> > Alex
-> >
-> >>
-> >> Dirk
-> >>
-> >> 1,840,5418458,-;BUG: kernel NULL pointer dereference, address: 0000000000000008
-> >> 1,841,5418472,-;#PF: supervisor read access in kernel mode
-> >> 1,842,5418474,-;#PF: error_code(0x0000) - not-present page
-> >> 6,843,5418476,-;PGD 0 P4D 0
-> >> 4,844,5418480,-;Oops: 0000 [#1] SMP NOPTI
-> >> 4,845,5418483,-;CPU: 3 PID: 744 Comm: udevd Not tainted 5.7.0-rc2-x86_64-01641-gb770f04ba2ee #216
-> >> 4,846,5418486,-;Hardware name: LENOVO 20U50008GE/20U50008GE, BIOS R19ET26W (1.10 ) 06/22/2020
-> >> 4,847,5418559,-;RIP: 0010:nbio_v7_0_get_rev_id+0x9/0x1b [amdgpu]
-> >> 4,848,5418562,-;Code: 5d 41 5d 41 5e e9 9a f0 f9 ff 48 8b 87 e8 5f
-> >> 01 00 31 d2 8b 70 08 81 c6 c3 00 00 00 e9 9d ef f9 ff 48 8b 87 e8 5f
-> >> 01 00 31 d2 <8b> 70 08 83 c6 0f e8 89 ef f9 ff c1 e8 18 83 e0 0f c3
-> >> 49 89 f8 48
-> >> 4,849,5418566,-;RSP: 0018:ffffc900011dba90 EFLAGS: 00010246
-> >> 4,850,5418568,-;RAX: 0000000000000000 RBX: 0000000fffffffe0 RCX: 0000000000000018
-> >> 4,851,5418571,-;RDX: 0000000000000000 RSI: ffffffffa0970e20 RDI: ffff8883f5540000
-> >> 4,852,5418573,-;RBP: ffff8883f5540000 R08: 0000000000000001 R09: 0000000000000000
-> >> 4,853,5418575,-;R10: 0000000000000000 R11: 0000000000000048 R12: 00000000ffffffea
-> >> 4,854,5418577,-;R13: 7fffffffffffffff R14: ffff8883f9486800 R15: ffffc900011dbe98
-> >> 4,855,5418580,-;FS:  00007f750db3dd80(0000) GS:ffff88840ecc0000(0000) knlGS:0000000000000000
-> >> 4,856,5418583,-;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >> 4,857,5418586,-;CR2: 0000000000000008 CR3: 00000003f9728000 CR4: 0000000000340ee0
-> >> 4,858,5418588,-;Call Trace:
-> >> 4,859,5418660,-; soc15_set_ip_blocks+0x105/0x4fd [amdgpu]
-> >> 4,860,5418714,-; amdgpu_device_init+0xcab/0x1862 [amdgpu]
-> >> 4,861,5418720,-; ? __kmalloc+0xb2/0xc4
-> >> 4,862,5418766,-; amdgpu_driver_load_kms+0x41/0x178 [amdgpu]
-> >> 4,863,5418813,-; amdgpu_pci_probe+0x147/0x1c7 [amdgpu]
-> >> 4,864,5418818,-; pci_device_probe+0xc6/0x135
-> >> 4,865,5418822,-; really_probe+0x157/0x2d1
-> >> 4,866,5418825,-; driver_probe_device+0x97/0xcc
-> >> 4,867,5418828,-; device_driver_attach+0x37/0x50
-> >> 4,868,5418830,-; __driver_attach+0x92/0x9a
-> >> 4,869,5418833,-; ? device_driver_attach+0x50/0x50
-> >> 4,870,5418835,-; bus_for_each_dev+0x70/0xa6
-> >> 4,871,5418838,-; bus_add_driver+0x103/0x1b4
-> >> 4,872,5418840,-; driver_register+0x99/0xd2
-> >> 4,873,5418842,-; ? 0xffffffffa09dc000
-> >> 4,874,5418846,-; do_one_initcall+0x8a/0x195
-> >> 4,875,5418849,-; ? kmem_cache_alloc_trace+0x84/0x93
-> >> 4,876,5418852,-; do_init_module+0x56/0x1df
-> >> 4,877,5418855,-; load_module+0x1bf2/0x2107
-> >> 4,878,5418858,-; ? __do_sys_finit_module+0x8f/0xb6
-> >> 4,879,5418860,-; __do_sys_finit_module+0x8f/0xb6
-> >> 4,880,5418863,-; do_syscall_64+0x72/0x7f
-> >> 4,881,5418867,-; entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> >> 4,882,5418870,-;RIP: 0033:0x7f750dc4d919
-> >> 4,883,5418873,-;Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44
-> >> 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c
-> >> 24 08 0f 05 <48> 3d 01
-> >> f0 ff ff 73 01 c3 48 8b 0d 47 05 0c 00 f7 d8 64 89 01 48
-> >> 4,884,5418878,-;RSP: 002b:00007fff47b3ce28 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-> >> 4,885,5418881,-;RAX: ffffffffffffffda RBX: 0000564d79f6cab0 RCX: 00007f750dc4d919
-> >> 4,886,5418883,-;RDX: 0000000000000000 RSI: 0000564d79f4bf30 RDI: 000000000000000d
-> >> 4,887,5418886,-;RBP: 0000000000020000 R08: 0000000000000000 R09: 00007fff47b3cf90
-> >> 4,888,5418888,-;R10: 000000000000000d R11: 0000000000000246 R12: 0000564d79f4bf30
-> >> 4,889,5418890,-;R13: 0000000000000000 R14: 0000564d79f4bc40 R15: 0000564d79f6cab0
-> >> 4,890,5418893,-;Modules linked in: snd_hda_codec_realtek(+) wmi_bmof
-> >> iwlwifi(+) snd_hda_codec_generic snd_hda_codec_hdmi amdgpu(+)
-> >> snd_hda_intel cfg80211 snd_i
-> >> ntel_dspcfg snd_hda_codec gpu_sched aesni_intel(+) ttm ccp
-> >> snd_hda_core sdhci_pci tpm_crb rng_core snd_pcm cqhci sdhci xhci_pci
-> >> mmc_core drm_kms_helper sha1_ge
-> >> neric snd_timer xhci_hcd thinkpad_acpi(+) i2c_piix4 nvram snd
-> >> soundcore battery ledtrig_audio rfkill ac video tpm_tis tpm_tis_core
-> >> tpm wmi acpi_cpufreq pinctrl
-> >> _amd button efivarfs
-> >> 4,891,5418914,-;CR2: 0000000000000008
-> >> 4,892,5418917,-;---[ end trace 3112fb5c01e68aa6 ]---
-> >> 4,893,5418967,-;RIP: 0010:nbio_v7_0_get_rev_id+0x9/0x1b [amdgpu]
-> >> 4,894,5418970,-;Code: 5d 41 5d 41 5e e9 9a f0 f9 ff 48 8b 87 e8 5f
-> >> 01 00 31 d2 8b 70 08 81 c6 c3 00 00 00 e9 9d ef f9 ff 48 8b 87 e8 5f
-> >> 01 00 31 d2 <8b> 70 08 83 c6 0f e8 89 ef f9 ff c1 e8 18 83 e0 0f c3
-> >> 49 89 f8 48
-> >> 4,895,5418974,-;RSP: 0018:ffffc900011dba90 EFLAGS: 00010246
-> >> 4,896,5418976,-;RAX: 0000000000000000 RBX: 0000000fffffffe0 RCX: 0000000000000018
-> >> 4,897,5418979,-;RDX: 0000000000000000 RSI: ffffffffa0970e20 RDI: ffff8883f5540000
-> >> 4,898,5418981,-;RBP: ffff8883f5540000 R08: 0000000000000001 R09: 0000000000000000
-> >> 4,899,5418983,-;R10: 0000000000000000 R11: 0000000000000048 R12: 00000000ffffffea
-> >> 4,900,5418985,-;R13: 7fffffffffffffff R14: ffff8883f9486800 R15: ffffc900011dbe98
-> >> 4,901,5418988,-;FS:  00007f750db3dd80(0000) GS:ffff88840ecc0000(0000) knlGS:0000000000000000
-> >> 4,902,5418990,-;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >> 4,903,5418992,-;CR2: 0000000000000008 CR3: 00000003f9728000 CR4: 0000000000340ee0
-> >> 28,904,5419847,-;udevd[689]: worker [744] terminated by signal 9 (Killed)
-> >> 27,905,5419862,-;udevd[689]: worker [744] failed while handling '/devices/pci0000:00/0000:00:08.1/0000:06:00.0'
-> >>
-> >>
-> >> > Dirk
-> >> >
-> >> >>
-> >> >> Alex
-> >> >>
-> >> >>
-> >> >>>
-> >> >>> Dirk
-> >> >>>
-> >> >>> = bisect log ===========================================================
-> >> >>> git bisect start
-> >> >>> # bad: [9123e3a74ec7b934a4a099e98af6a61c2f80bbf5] Linux 5.9-rc1
-> >> >>> git bisect bad 9123e3a74ec7b934a4a099e98af6a61c2f80bbf5
-> >> >>> # good: [bcf876870b95592b52519ed4aafcf9d95999bc9c] Linux 5.8
-> >> >>> git bisect good bcf876870b95592b52519ed4aafcf9d95999bc9c
-> >> >>> # bad: [8186749621ed6b8fc42644c399e8c755a2b6f630] Merge tag
-> >> >>> 'drm-next-2020-08-06' of git://anongit.freedesktop.org/drm/drm
-> >> >>> git bisect bad 8186749621ed6b8fc42644c399e8c755a2b6f630
-> >> >>> # good: [2324d50d051ec0f14a548e78554fb02513d6dcef] Merge tag 'docs-5.9' of git://git.lwn.net/linux
-> >> >>> git bisect good 2324d50d051ec0f14a548e78554fb02513d6dcef
-> >> >>> # bad: [54d44bfc56308d105b0da37392d8398bdc9d4745] drm/nouveau/nvif:
-> >> >>> give every disp object a human-readable identifier
-> >> >>> git bisect bad 54d44bfc56308d105b0da37392d8398bdc9d4745
-> >> >>> # bad: [9555152beb1143c85c03f9b9de59863cbbe89f4b] Merge tag
-> >> >>> 'amd-drm-next-5.9-2020-07-01' of
-> >> >>> git://people.freedesktop.org/~agd5f/linux into drm-next
-> >> >>> git bisect bad 9555152beb1143c85c03f9b9de59863cbbe89f4b
-> >> >>> # bad: [dfd991794685b1228387214f28630b6e94e56944] drm/amd/display: Not doing bios data pack.
-> >> >>> git bisect bad dfd991794685b1228387214f28630b6e94e56944
-> >> >>> # good: [ba806f98f868ce107aa9c453fef751de9980e4af] drm/radeon: disable AGP by default
-> >> >>> git bisect good ba806f98f868ce107aa9c453fef751de9980e4af
-> >> >>> # good: [97d798b276e94a366dfb03d62bc90d4742ab3a31] drm/amdgpu: simplify ATIF backlight handling
-> >> >>> git bisect good 97d798b276e94a366dfb03d62bc90d4742ab3a31
-> >> >>> # good: [ac4e189a5623579c023c9cf8006422aef2a487b4] drm/amdgpu/gfx10: add navi12 to gfxoff case
-> >> >>> git bisect good ac4e189a5623579c023c9cf8006422aef2a487b4
-> >> >>> # good: [70534d1ee89ceadd03292d0c2da4dd4020189678] drm/amdgpu: simplify raven and renoir checks
-> >> >>> git bisect good 70534d1ee89ceadd03292d0c2da4dd4020189678
-> >> >>> # good: [4541ea81edde6ce9a1d9be082489aca7e8e7e1dc]
-> >> >>> drm/[radeon|amdgpu]: Replace one-element array and use struct_size()
-> >> >>> helper
-> >> >>> git bisect good 4541ea81edde6ce9a1d9be082489aca7e8e7e1dc
-> >> >>> # good: [84034ad4c0c0813c1350b43087eed036066edd5a] drm/amd/display: combine public interfaces into single header
-> >> >>> git bisect good 84034ad4c0c0813c1350b43087eed036066edd5a
-> >> >>> # good: [4f1fad0e9dbd762497df7c79309697ed8b2b6cfc] drm/amd/powerplay: stop thermal IRQs on suspend
-> >> >>> git bisect good 4f1fad0e9dbd762497df7c79309697ed8b2b6cfc
-> >> >>> # good: [4292b0b2026bc10bced32636ea02dd8eed00cea9] drm/amdgpu: clean up discovery testing
-> >> >>> git bisect good 4292b0b2026bc10bced32636ea02dd8eed00cea9
-> >> >>> # bad: [c0838cbee2d05c3eb8a2b5a3d1ce706a73008044] drm/amd/display: Revert "enable plane if plane_status changed"
-> >> >>> git bisect bad c0838cbee2d05c3eb8a2b5a3d1ce706a73008044
-> >> >>> # bad: [651a146526a04993c5bebf0e19cd9256f5e6511d] drm/amdgpu/jpeg: fix race condition issue for jpeg start
-> >> >>> git bisect bad 651a146526a04993c5bebf0e19cd9256f5e6511d
-> >> >>> # bad: [3bda8acd974e362069e291a78c59a10624debc6e] drm/amdgpu/sriov: Add clear vf fw support
-> >> >>> git bisect bad 3bda8acd974e362069e291a78c59a10624debc6e
-> >> >>> # bad: [b6df946ef4b5ae29183b2fdb2d12c381c757b3fb] drm/amdgpu: fix
-> >> >>> the nullptr issue as for PWR IP not existing in discovery table
-> >> >>> git bisect bad b6df946ef4b5ae29183b2fdb2d12c381c757b3fb
-> >> >>> ========================================================================
-> >> >>>
-> >> >>>
-> >> >>> > Please let me know if I can help with further information.
-> >> >>> >
-> >> >>> > Dirk
-> >> >>> >
-> >> >>> > = lspci -vk ============================================================
-> >> >>> >
-> >> >>> > 06:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Renoir (rev c3) (prog-if 00 [VGA controller])
-> >> >>> >         Subsystem: Lenovo Renoir
-> >> >>> >         Flags: bus master, fast devsel, latency 0, IRQ 64
-> >> >>> >         Memory at 460000000 (64-bit, prefetchable) [size=256M]
-> >> >>> >         Memory at 470000000 (64-bit, prefetchable) [size=2M]
-> >> >>> >         I/O ports at 1000 [size=256]
-> >> >>> >         Memory at fd300000 (32-bit, non-prefetchable) [size=512K]
-> >> >>> >         Capabilities: [48] Vendor Specific Information: Len=08 <?>
-> >> >>> >         Capabilities: [50] Power Management version 3
-> >> >>> >         Capabilities: [64] Express Legacy Endpoint, MSI 00
-> >> >>> >         Capabilities: [a0] MSI: Enable- Count=1/4 Maskable- 64bit+
-> >> >>> >         Capabilities: [c0] MSI-X: Enable+ Count=4 Masked-
-> >> >>> >         Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
-> >> >>> >         Capabilities: [270] Secondary PCI Express
-> >> >>> >         Capabilities: [2b0] Address Translation Service (ATS)
-> >> >>> >         Capabilities: [2c0] Page Request Interface (PRI)
-> >> >>> >         Capabilities: [2d0] Process Address Space ID (PASID)
-> >> >>> >         Capabilities: [400] Data Link Feature <?>
-> >> >>> >         Capabilities: [410] Physical Layer 16.0 GT/s <?>
-> >> >>> >         Capabilities: [440] Lane Margining at the Receiver <?>
-> >> >>> >         Kernel driver in use: amdgpu
-> >> >>> >         Kernel modules: amdgpu
-> >> >>> >
-> >> >>> > = call trace ===========================================================
-> >> >>> >
-> >> >>> > [    5.181468] amdgpu 0000:06:00.0: amdgpu: SMU is initialized successfully!
-> >> >>> > [    5.182857] [drm] kiq ring mec 2 pipe 1 q 0
-> >> >>> > [    5.183374] ------------[ cut here ]------------
-> >> >>> > [    5.183448] WARNING: CPU: 1 PID: 684 at drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn21/rn_clk_mgr.c:716 rn_clk_mgr_construct+0x242/0x389 [amdgpu]
-> >> >>> > [    5.183449] Modules linked in: btusb btrtl btbcm btintel bluetooth ecdh_generic ecc iwlmvm mac80211 libarc4 wmi_bmof crct10dif_pclmul snd_hda_codec_realtek
-> >> >>> > crc32c_intel iwlwifi snd_hda_codec_generic amdgpu(+) tpm_crb snd_hda_codec_hdmi gpu_sched i2c_algo_bit ttm sdhci_pci aesni_intel drm_kms_helper cqhci sdhci ccp
-> >> >>> >  syscopyarea snd_hda_intel sysfillrect tpm_tis snd_intel_dspcfg sysimgblt xhci_pci tpm_tis_core fb_sys_fops r8169 snd_hda_codec mmc_core snd_hda_core xhci_hcd
-> >> >>> > thinkpad_acpi cfg80211 realtek drm snd_pcm rng_core mdio_devres sha1_generic snd_timer nvram libphy i2c_piix4 snd k10temp soundcore ledtrig_audio rfkill tpm hw
-> >> >>> > mon wmi battery ac video backlight pinctrl_amd acpi_cpufreq button efivarfs
-> >> >>> > [    5.183470] CPU: 1 PID: 684 Comm: udevd Not tainted 5.9.0-rc6-x86_64+ #170
-> >> >>> > [    5.183471] Hardware name: LENOVO 20U50008GE/20U50008GE, BIOS R19ET26W (1.10 ) 06/22/2020
-> >> >>> > [    5.183531] RIP: 0010:rn_clk_mgr_construct+0x242/0x389 [amdgpu]
-> >> >>> > [    5.183533] Code: 30 4d 85 c9 74 26 ba 03 00 00 00 83 bc d4 a8 00 00 00 00 89 d6 74 0a 83 bc d4 ac 00 00 00 00 75 40 48 ff ca 48 83 fa ff 75 e1 <0f> 0b 83 7
-> >> >>> > b 20 01 0f 84 13 01 00 00 81 bd e8 00 00 00 ff 14 37 00
-> >> >>> > [    5.183533] RSP: 0018:ffffc9000111f798 EFLAGS: 00010246
-> >> >>> > [    5.183534] RAX: ffff8883fc1d8e00 RBX: ffff8883f925c9c0 RCX: 0000000000000000
-> >> >>> > [    5.183535] RDX: ffffffffffffffff RSI: 0000000000000000 RDI: ffff8883f8da70c8
-> >> >>> > [    5.183535] RBP: ffff8883fe8da000 R08: 0000000000000000 R09: ffff8883f724fc00
-> >> >>> > [    5.183535] R10: 7fc9117fffffffff R11: ffff8883f925c9c0 R12: ffff8883f925c900
-> >> >>> > [    5.183536] R13: ffff8883f5980000 R14: 0000000000000000 R15: 0000000000000001
-> >> >>> > [    5.183537] FS:  00007f9e31a83d80(0000) GS:ffff88840ec40000(0000) knlGS:0000000000000000
-> >> >>> > [    5.183537] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >> >>> > [    5.183538] CR2: 000055fdf9ec5568 CR3: 00000003fb2b6000 CR4: 0000000000350ee0
-> >> >>> > [    5.183538] Call Trace:
-> >> >>> > [    5.183595]  dc_clk_mgr_create+0x135/0x18b [amdgpu]
-> >> >>> > [    5.183651]  dc_create+0x238/0x5e3 [amdgpu]
-> >> >>> > [    5.183708]  amdgpu_dm_init+0x167/0x1101 [amdgpu]
-> >> >>> > [    5.183762]  dm_hw_init+0xa/0x17 [amdgpu]
-> >> >>> > [    5.183805]  amdgpu_device_init+0x1566/0x1853 [amdgpu]
-> >> >>> > [    5.183811]  ? __kmalloc+0xad/0xbf
-> >> >>> > [    5.183852]  ? amdgpu_driver_load_kms+0x1c/0x17f [amdgpu]
-> >> >>> > [    5.183892]  amdgpu_driver_load_kms+0x41/0x17f [amdgpu]
-> >> >>> > [    5.183959]  amdgpu_pci_probe+0x139/0x1c0 [amdgpu]
-> >> >>> > [    5.183967]  pci_device_probe+0xc6/0x135
-> >> >>> > [    5.183971]  really_probe+0x157/0x32a
-> >> >>> > [    5.183974]  driver_probe_device+0x63/0x97
-> >> >>> > [    5.183976]  device_driver_attach+0x37/0x50
-> >> >>> > [    5.183978]  __driver_attach+0x92/0x9a
-> >> >>> > [    5.183980]  ? device_driver_attach+0x50/0x50
-> >> >>> > [    5.183983]  bus_for_each_dev+0x70/0xa6
-> >> >>> > [    5.183986]  bus_add_driver+0x103/0x1b4
-> >> >>> > [    5.183988]  driver_register+0x99/0xd2
-> >> >>> > [    5.183990]  ? 0xffffffffa0b2f000
-> >> >>> > [    5.183993]  do_one_initcall+0x8a/0x195
-> >> >>> > [    5.183997]  ? kmem_cache_alloc_trace+0x80/0x8f
-> >> >>> > [    5.184002]  do_init_module+0x56/0x1e8
-> >> >>> > [    5.184005]  load_module+0x1c2c/0x2139
-> >> >>> > [    5.184010]  ? __do_sys_finit_module+0x8f/0xb6
-> >> >>> > [    5.184012]  __do_sys_finit_module+0x8f/0xb6
-> >> >>> > [    5.184017]  do_syscall_64+0x5d/0x6a
-> >> >>> > [    5.184021]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> >> >>> > [    5.184023] RIP: 0033:0x7f9e31b93919
-> >> >>> > [    5.184026] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 47 05 0c 00 f7 d8 64 89 01 48
-> >> >>> > [    5.184028] RSP: 002b:00007fff315a0fa8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-> >> >>> > [    5.184030] RAX: ffffffffffffffda RBX: 000055fdf9eebde0 RCX: 00007f9e31b93919
-> >> >>> > [    5.184031] RDX: 0000000000000000 RSI: 00007f9e31c6a91d RDI: 0000000000000013
-> >> >>> > [    5.184032] RBP: 0000000000020000 R08: 0000000000000000 R09: 00007fff315a1110
-> >> >>> > [    5.184033] R10: 0000000000000013 R11: 0000000000000246 R12: 00007f9e31c6a91d
-> >> >>> > [    5.184034] R13: 0000000000000000 R14: 000055fdf9ed8060 R15: 000055fdf9eebde0
-> >> >>> > [    5.184037] ---[ end trace a782862b8da91b8d ]---
-> >> >>> _______________________________________________
-> >> >>> amd-gfx mailing list
-> >> >>> amd-gfx@lists.freedesktop.org
-> >> >>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> @@ -969,11 +968,7 @@ static int gmc_v10_0_gart_enable(struct amdgpu_device *adev)
+>         value = (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_ALWAYS) ?
+>                 false : true;
+>
+> -       if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -           adev->asic_type == CHIP_NAVY_FLOUNDER)
+> -               gfxhub_v2_1_set_fault_enable_default(adev, value);
+> -       else
+> -               gfxhub_v2_0_set_fault_enable_default(adev, value);
+> +       adev->gfxhub.funcs->set_fault_enable_default(adev, value);
+>         adev->mmhub.funcs->set_fault_enable_default(adev, value);
+>         gmc_v10_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB_0, 0);
+>         gmc_v10_0_flush_gpu_tlb(adev, 0, AMDGPU_GFXHUB_0, 0);
+> @@ -1014,11 +1009,7 @@ static int gmc_v10_0_hw_init(void *handle)
+>   */
+>  static void gmc_v10_0_gart_disable(struct amdgpu_device *adev)
+>  {
+> -       if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -           adev->asic_type == CHIP_NAVY_FLOUNDER)
+> -               gfxhub_v2_1_gart_disable(adev);
+> -       else
+> -               gfxhub_v2_0_gart_disable(adev);
+> +       adev->gfxhub.funcs->gart_disable(adev);
+>         adev->mmhub.funcs->gart_disable(adev);
+>         amdgpu_gart_table_vram_unpin(adev);
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index d5679d1..7e481af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1164,6 +1164,19 @@ static void gmc_v9_0_set_mmhub_funcs(struct amdgpu_device *adev)
+>         }
+>  }
+>
+> +static void gmc_v9_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+> +{
+> +       switch (adev->asic_type) {
+> +       case CHIP_ARCTURUS:
+> +       case CHIP_VEGA20:
+> +               adev->gfxhub.funcs = &gfxhub_v1_1_funcs;
+> +               break;
+> +       default:
+> +               adev->gfxhub.funcs = &gfxhub_v1_0_funcs;
+> +               break;
+> +       }
+> +}
+> +
+>  static int gmc_v9_0_early_init(void *handle)
+>  {
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -1172,6 +1185,7 @@ static int gmc_v9_0_early_init(void *handle)
+>         gmc_v9_0_set_irq_funcs(adev);
+>         gmc_v9_0_set_umc_funcs(adev);
+>         gmc_v9_0_set_mmhub_funcs(adev);
+> +       gmc_v9_0_set_gfxhub_funcs(adev);
+>
+>         adev->gmc.shared_aperture_start = 0x2000000000000000ULL;
+>         adev->gmc.shared_aperture_end =
+> @@ -1234,7 +1248,7 @@ static void gmc_v9_0_vram_gtt_location(struct amdgpu_device *adev,
+>         amdgpu_gmc_gart_location(adev, mc);
+>         amdgpu_gmc_agp_location(adev, mc);
+>         /* base offset of vram pages */
+> -       adev->vm_manager.vram_base_offset = gfxhub_v1_0_get_mc_fb_offset(adev);
+> +       adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+>
+>         /* XXX: add the xgmi offset of the physical node? */
+>         adev->vm_manager.vram_base_offset +=
+> @@ -1269,7 +1283,7 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
+>
+>  #ifdef CONFIG_X86_64
+>         if (adev->flags & AMD_IS_APU) {
+> -               adev->gmc.aper_base = gfxhub_v1_0_get_mc_fb_offset(adev);
+> +               adev->gmc.aper_base = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+>                 adev->gmc.aper_size = adev->gmc.real_vram_size;
+>         }
+>  #endif
+> @@ -1339,7 +1353,7 @@ static int gmc_v9_0_sw_init(void *handle)
+>         int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>
+> -       gfxhub_v1_0_init(adev);
+> +       adev->gfxhub.funcs->init(adev);
+>
+>         adev->mmhub.funcs->init(adev);
+>
+> @@ -1453,7 +1467,7 @@ static int gmc_v9_0_sw_init(void *handle)
+>         adev->need_swiotlb = drm_need_swiotlb(44);
+>
+>         if (adev->gmc.xgmi.supported) {
+> -               r = gfxhub_v1_1_get_xgmi_info(adev);
+> +               r = adev->gfxhub.funcs->get_xgmi_info(adev);
+>                 if (r)
+>                         return r;
+>         }
+> @@ -1569,7 +1583,7 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
+>         if (r)
+>                 return r;
+>
+> -       r = gfxhub_v1_0_gart_enable(adev);
+> +       r = adev->gfxhub.funcs->gart_enable(adev);
+>         if (r)
+>                 return r;
+>
+> @@ -1636,7 +1650,7 @@ static int gmc_v9_0_hw_init(void *handle)
+>                 value = true;
+>
+>         if (!amdgpu_sriov_vf(adev)) {
+> -               gfxhub_v1_0_set_fault_enable_default(adev, value);
+> +               adev->gfxhub.funcs->set_fault_enable_default(adev, value);
+>                 adev->mmhub.funcs->set_fault_enable_default(adev, value);
+>         }
+>         for (i = 0; i < adev->num_vmhubs; ++i)
+> @@ -1659,7 +1673,7 @@ static int gmc_v9_0_hw_init(void *handle)
+>   */
+>  static void gmc_v9_0_gart_disable(struct amdgpu_device *adev)
+>  {
+> -       gfxhub_v1_0_gart_disable(adev);
+> +       adev->gfxhub.funcs->gart_disable(adev);
+>         adev->mmhub.funcs->gart_disable(adev);
+>         amdgpu_gart_table_vram_unpin(adev);
+>  }
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
