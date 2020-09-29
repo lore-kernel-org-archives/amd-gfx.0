@@ -2,68 +2,54 @@ Return-Path: <SRS0=r+dW=DG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DECDCC4727C
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 15:13:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34EC5C47426
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 15:14:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64CDD20773
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 15:13:26 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ssKlzkHm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64CDD20773
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CD6B12158C
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 15:14:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD6B12158C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905ED6E1F7;
-	Tue, 29 Sep 2020 15:13:25 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5896E1F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 15:13:24 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id z4so5851701wrr.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 08:13:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ysan0j2ITN6KiqzUtltSL0fKREP9FUGNXqYdgzUWkkQ=;
- b=ssKlzkHmwviYCmfp2KakVLqH+hMFXmeyJu1tAg36fhqo5j2Z2EoQ117ZCguuMU/MKq
- LAIkCR8wYeSSD7qhnkICRrqFoc8Ib7m5X6i9OymsT9ESXAaIL3zIsJVSMIN4QllTgKdt
- npeAMlkqwTkevZaCRPDNlGv19CMlwxbLvABfBlZea3nAToykjEKdeGBofR9jNkljMq8G
- tYtDYl6PfKyBpQBSsCGk2itsvYYYMif44CabA7NrdgJ+tJogzseD8wfwtY2naNXxCz4q
- HDAy2+KUQWjXjogfAZW7FRG2azByfq+FAxJFB5IEP40OxGFtJqWu5vb+UAIqUlEhfWOJ
- rOig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ysan0j2ITN6KiqzUtltSL0fKREP9FUGNXqYdgzUWkkQ=;
- b=Mz0k5JbmUCx5XPnl7VlasYC8UsCNQI+VlQuTAdYi+0qeDsLIJkIwe87ObCTCYPJrGj
- gxKm7f1nrzCagueB2F7HPeHMT5jT6pUkE8HALM7k8f3M+/kfQl+hPELzba5nNbaHGeZm
- tO0lzWglwomG6xCbJcd4gnRmonl7ZJVztjdlUDg8d9h1m8uisNURUhL6cXiayVs2rnS4
- yQ0c7Zy0GiBgG9W4aYRpZr6bm2yaXBj34+pfl8YlndHjCflo0a+PGa4UWKrlWBB+OUti
- OlKl7jzd8Mz3THgY7JTxJVPdy5eT0icIqkY5IUWQ/ictEnbL8Gxipjs/RUT9hEic7idj
- pTzQ==
-X-Gm-Message-State: AOAM530WKT4BywGwwcUIeLz96fg+KVYBk3rdhD4TqVXT6oqRNNnKQnS4
- ToEwZxEazz34KQ5U4PXKy0VgxmmG0pI179gzxOAgPama
-X-Google-Smtp-Source: ABdhPJwDFbRCIskR/dPVIbeTDLyvZdSEwy9VVnD5CFZIndztSjhrFgvv3OREda/5TiLfSeDu0nPiYpZQD3eaPLoVkF8=
-X-Received: by 2002:adf:fc0a:: with SMTP id i10mr4854579wrr.111.1601392403078; 
- Tue, 29 Sep 2020 08:13:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FAB6E201;
+	Tue, 29 Sep 2020 15:14:46 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F43F6E1FB;
+ Tue, 29 Sep 2020 15:14:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9C5E9B083;
+ Tue, 29 Sep 2020 15:14:43 +0000 (UTC)
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
+ linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
+ yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com, steven.price@arm.com,
+ alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
+ hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
+ oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
+ apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
+ chris@chris-wilson.co.uk, miaoqinglang@huawei.com
+Subject: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for type
+ conversion
+Date: Tue, 29 Sep 2020 17:14:32 +0200
+Message-Id: <20200929151437.19717-3-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200929151437.19717-1-tzimmermann@suse.de>
+References: <20200929151437.19717-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20200925201029.1738724-1-alexander.deucher@amd.com>
- <20200925201029.1738724-41-alexander.deucher@amd.com>
- <9ecb966a-4b3e-2ffa-b72c-c88bd31b87a0@amd.com>
-In-Reply-To: <9ecb966a-4b3e-2ffa-b72c-c88bd31b87a0@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Sep 2020 11:13:11 -0400
-Message-ID: <CADnq5_MYZZsZTZDxU-SgK-bQ7Y-24wteSTE+e63jhtzYTZJn-A@mail.gmail.com>
-Subject: Re: [PATCH 41/45] drm/amdgpu: add gfx power gating for gfx10
-To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,103 +61,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ xen-devel@lists.xenproject.org, spice-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2020 at 6:48 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->
-> On 2020-09-25 4:10 p.m., Alex Deucher wrote:
-> > From: Huang Rui <ray.huang@amd.com>
-> >
-> > This patch is to add power gating handle for gfx10.
->
-> Ray, you can just say:
->
-> "This patch adds power gating handler for gfx10."
->
-> You can drop "is to" and just use "adds".
-> And similarly for all other patches where you use that.
->
-> >
-> > Signed-off-by: Huang Rui <ray.huang@amd.com>
-> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 ++++++++++++++++++++++++++
-> >  1 file changed, 27 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > index fd29a6d7285b..f2849f180c91 100755
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -7583,6 +7583,30 @@ static bool gfx_v10_0_is_rlcg_access_range(struct amdgpu_device *adev, u32 offse
-> >       return gfx_v10_0_check_rlcg_range(adev, offset, NULL, 0);
-> >  }
-> >
-> > +static void gfx_v10_cntl_power_gating(struct amdgpu_device *adev, bool enable)
-> > +{
-> > +     int data;
-> > +
-> > +     if (enable && (adev->cg_flags & AMD_PG_SUPPORT_GFX_PG)) {
-> > +             data = RREG32_SOC15(GC, 0, mmRLC_PG_CNTL);
-> > +             data |= RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
-> > +             WREG32_SOC15(GC, 0, mmRLC_PG_CNTL, data);
-> > +     } else {
-> > +             data = RREG32_SOC15(GC, 0, mmRLC_PG_CNTL);
-> > +             data &= ~RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
-> > +             WREG32_SOC15(GC, 0, mmRLC_PG_CNTL, data);
-> > +     }
-> > +}
->
-> So here, you can just do:
->
-> static void gfx_v10_cntl_power_gating(struct amdgpu_device *adev, bool enable)
-> {
->         data = RREG32_SOC15(GC, 0, mmRLC_PG_CNTL);
->         if (enable && (adev->cg_flags & AMD_PG_SUPPORT_GFX_PG))
->                 data |= RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
->         else
->                 data &= ~RLC_PG_CNTL__GFX_POWER_GATING_ENABLE_MASK;
->         WREG32_SOC15(GC, 0, mmRLC_PG_CNTL, data);
-> }
->
+The new helper ttm_kmap_obj_to_dma_buf() extracts address and location
+from and instance of TTM's kmap_obj and initializes struct dma_buf_map
+with these values. Helpful for TTM-based drivers.
 
-Updated.  Thanks!
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ include/drm/ttm/ttm_bo_api.h | 24 ++++++++++++++++++++++++
+ include/linux/dma-buf-map.h  | 20 ++++++++++++++++++++
+ 2 files changed, 44 insertions(+)
 
-Alex
+diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
+index c96a25d571c8..62d89f05a801 100644
+--- a/include/drm/ttm/ttm_bo_api.h
++++ b/include/drm/ttm/ttm_bo_api.h
+@@ -34,6 +34,7 @@
+ #include <drm/drm_gem.h>
+ #include <drm/drm_hashtab.h>
+ #include <drm/drm_vma_manager.h>
++#include <linux/dma-buf-map.h>
+ #include <linux/kref.h>
+ #include <linux/list.h>
+ #include <linux/wait.h>
+@@ -486,6 +487,29 @@ static inline void *ttm_kmap_obj_virtual(struct ttm_bo_kmap_obj *map,
+ 	return map->virtual;
+ }
+ 
++/**
++ * ttm_kmap_obj_to_dma_buf_map
++ *
++ * @kmap: A struct ttm_bo_kmap_obj returned from ttm_bo_kmap.
++ * @map: Returns the mapping as struct dma_buf_map
++ *
++ * Converts struct ttm_bo_kmap_obj to struct dma_buf_map. If the memory
++ * is not mapped, the returned mapping is initialized to NULL.
++ */
++static inline void ttm_kmap_obj_to_dma_buf_map(struct ttm_bo_kmap_obj *kmap,
++					       struct dma_buf_map *map)
++{
++	bool is_iomem;
++	void *vaddr = ttm_kmap_obj_virtual(kmap, &is_iomem);
++
++	if (!vaddr)
++		dma_buf_map_clear(map);
++	else if (is_iomem)
++		dma_buf_map_set_vaddr_iomem(map, (void __force __iomem *)vaddr);
++	else
++		dma_buf_map_set_vaddr(map, vaddr);
++}
++
+ /**
+  * ttm_bo_kmap
+  *
+diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
+index fd1aba545fdf..2e8bbecb5091 100644
+--- a/include/linux/dma-buf-map.h
++++ b/include/linux/dma-buf-map.h
+@@ -45,6 +45,12 @@
+  *
+  *	dma_buf_map_set_vaddr(&map. 0xdeadbeaf);
+  *
++ * To set an address in I/O memory, use dma_buf_map_set_vaddr_iomem().
++ *
++ * .. code-block:: c
++ *
++ *	dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
++ *
+  * Test if a mapping is valid with either dma_buf_map_is_set() or
+  * dma_buf_map_is_null().
+  *
+@@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct dma_buf_map *map, void *vaddr)
+ 	map->is_iomem = false;
+ }
+ 
++/**
++ * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure to an address in I/O memory
++ * @map:		The dma-buf mapping structure
++ * @vaddr_iomem:	An I/O-memory address
++ *
++ * Sets the address and the I/O-memory flag.
++ */
++static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map *map,
++					       void __iomem *vaddr_iomem)
++{
++	map->vaddr_iomem = vaddr_iomem;
++	map->is_iomem = true;
++}
++
+ /**
+  * dma_buf_map_is_equal - Compares two dma-buf mapping structures for equality
+  * @lhs:	The dma-buf mapping structure
+-- 
+2.28.0
 
-> Regards,
-> Luben
->
-> > +
-> > +static void gfx_v10_cntl_pg(struct amdgpu_device *adev, bool enable)
-> > +{
-> > +     amdgpu_gfx_rlc_enter_safe_mode(adev);
-> > +
-> > +     gfx_v10_cntl_power_gating(adev, enable);
-> > +
-> > +     amdgpu_gfx_rlc_exit_safe_mode(adev);
-> > +}
-> > +
-> >  static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs = {
-> >       .is_rlc_enabled = gfx_v10_0_is_rlc_enabled,
-> >       .set_safe_mode = gfx_v10_0_set_safe_mode,
-> > @@ -7630,6 +7654,9 @@ static int gfx_v10_0_set_powergating_state(void *handle,
-> >       case CHIP_NAVY_FLOUNDER:
-> >               amdgpu_gfx_off_ctrl(adev, enable);
-> >               break;
-> > +     case CHIP_VANGOGH:
-> > +             gfx_v10_cntl_pg(adev, enable);
-> > +             break;
-> >       default:
-> >               break;
-> >       }
-> >
->
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
