@@ -2,67 +2,57 @@ Return-Path: <SRS0=r+dW=DG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87F03C4727C
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 17:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 594A5C47425
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 17:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 027412076B
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 17:45:28 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ELQIFif7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 027412076B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 035A420936
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 17:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 035A420936
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8F289BF0;
-	Tue, 29 Sep 2020 17:45:28 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0942F89BF0
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 17:45:27 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id t17so3075097wmi.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 10:45:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TL6ovIFNf/DVBxQX4f9GOFMFrpbcYTQ1b+bXhZrJ8YE=;
- b=ELQIFif7od1+VZwEbjT5ltFOEhHvDURWvHkXVy8uSStPS1sy9CybINi98ux6VZuk69
- BAiJrz3F1RITEcl5oaKls3Fas4QCxJIalUla8gsYXXLXUy/qq0vFBoIYALuPoVWDVc6C
- XOge63PpTzVbE2nIsuuV6cKI3s+qiZFI1eG0yCcvb4gMvE+rFj2WJ3mV87dVT3YNl00c
- l73Ne2mpv5RIUEQ0VhLNSBOdwavTQJFzzpubS0EU4zq6B+XUGys53t4FnqCWvbi/Vukn
- PyWdWtnAqRNBLtPQuHK4ZsiVgGvmfedq2z/snkvV3hc+VlVfVFSPP5DW7m/tLJ2pRZvN
- Tc4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TL6ovIFNf/DVBxQX4f9GOFMFrpbcYTQ1b+bXhZrJ8YE=;
- b=ip1vKZOGKF17Vr3IA8dR4xob3wD7ZONaALT6UfpWmRcLltXMEGL48BpFJU08DXHL7z
- lisUN5qmPSSW0QKbFZYfkBPwubdXkfBij/cR0KS6yRI2G10dU1nm24qKCG+yGZIG4Wnu
- NT/LGPAbD8zFfCC1y9ozFHB2Q26W5T6F2/3RCPhpz1bPGWVE2+Wpbzrh4OvNKEd3/M86
- zdHWLRWYl0tf/aNyIT4LFbtxYWyQHBBaTU3t/r3NGdSjl9NWISQrL/fKOFLK+2gCDdhk
- jZtCiF2sFA09TL5f2/llCzJ3nBQHKH6hFnjhJjGc5WsllLhyHr168A0e6C+vxlB0IQLK
- iNeg==
-X-Gm-Message-State: AOAM5308/og6cQyMZIaAOzNytmAN9rQwrpmFG1Z4a4hkDqjRw/H2euI8
- Qv9/nZSVhIfsvuIRDeNlXDfrOZMkmnk1VGuk9nH8epu6Izc=
-X-Google-Smtp-Source: ABdhPJyjLQx0WVix9rRO6Av8n7xjC4GDnm3Z6OWI5UxBYz0DuGpJ/UJrA0wmRCz2BTMji3mVglVmJxAx5rE3wELjIno=
-X-Received: by 2002:a1c:a184:: with SMTP id k126mr5745118wme.39.1601401525691; 
- Tue, 29 Sep 2020 10:45:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10DEF89CBA;
+	Tue, 29 Sep 2020 17:49:41 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2E8D899C7;
+ Tue, 29 Sep 2020 17:49:38 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 156ECAFFD;
+ Tue, 29 Sep 2020 17:49:37 +0000 (UTC)
+Subject: Re: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for
+ type conversion
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
+ kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
+ christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com, steven.price@arm.com,
+ alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
+ hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
+ oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
+ apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
+ chris@chris-wilson.co.uk, miaoqinglang@huawei.com
+References: <20200929151437.19717-1-tzimmermann@suse.de>
+ <20200929151437.19717-3-tzimmermann@suse.de>
+ <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <2614314a-81f7-4722-c400-68d90e48e09a@suse.de>
+Date: Tue, 29 Sep 2020 19:49:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20200929172549.24920-1-Ramesh.Errabolu@amd.com>
-In-Reply-To: <20200929172549.24920-1-Ramesh.Errabolu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Sep 2020 13:45:14 -0400
-Message-ID: <CADnq5_OaTb8UoXS=BRBm8QpY=ADLe06MHgm1-AneDsWXgitmYw@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm/amd/amdgpu: Prepare implementation to support
- reporting of CU usage
-To: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+In-Reply-To: <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,99 +64,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Content-Type: multipart/mixed; boundary="===============1725065043=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2020 at 1:26 PM Ramesh Errabolu <Ramesh.Errabolu@amd.com> wrote:
->
-> [Why]
-> Allow user to know number of compute units (CU) that are in use at any
-> given moment.
->
-> [How]
-> Read registers of SQ that give number of waves that are in flight
-> of various queues. Use this information to determine number of CU's
-> in use.
->
-> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 9 +++++----
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h | 3 +++
->  2 files changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 346d8288f6ab..b1ab9fd02db7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -49,6 +49,7 @@
->  #include "amdgpu_ras.h"
->
->  #include "gfx_v9_4.h"
-> +#include "gfx_v9_0.h"
->
->  #include "asic_reg/pwr/pwr_10_0_offset.h"
->  #include "asic_reg/pwr/pwr_10_0_sh_mask.h"
-> @@ -786,9 +787,8 @@ static void gfx_v9_0_set_irq_funcs(struct amdgpu_device *adev);
->  static void gfx_v9_0_set_gds_init(struct amdgpu_device *adev);
->  static void gfx_v9_0_set_rlc_funcs(struct amdgpu_device *adev);
->  static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
-> -                                 struct amdgpu_cu_info *cu_info);
-> +                               struct amdgpu_cu_info *cu_info);
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1725065043==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n"
 
-unrelated whitespace change.  Please drop.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n
+Content-Type: multipart/mixed; boundary="KHQT7KYakINZF3D85LRV0AG8BWDH6IVnP";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
+ kraxel@redhat.com, l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
+ christian.gmeiner@gmail.com, inki.dae@samsung.com, jy0922.shim@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, kgene@kernel.org,
+ krzk@kernel.org, yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
+ tomeu.vizoso@collabora.com, steven.price@arm.com,
+ alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
+ hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
+ oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
+ apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
+ chris@chris-wilson.co.uk, miaoqinglang@huawei.com
+Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Message-ID: <2614314a-81f7-4722-c400-68d90e48e09a@suse.de>
+Subject: Re: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for
+ type conversion
+References: <20200929151437.19717-1-tzimmermann@suse.de>
+ <20200929151437.19717-3-tzimmermann@suse.de>
+ <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
+In-Reply-To: <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
 
->  static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev);
-> -static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance);
->  static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring);
->  static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring);
->  static int gfx_v9_0_query_ras_error_count(struct amdgpu_device *adev,
-> @@ -2397,7 +2397,8 @@ static void gfx_v9_0_tiling_mode_table_init(struct amdgpu_device *adev)
->         /* TODO */
->  }
->
-> -static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num, u32 instance)
-> +void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-> +                          u32 instance)
->  {
->         u32 data;
->
-> @@ -6924,7 +6925,7 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
->  }
->
->  static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
-> -                                struct amdgpu_cu_info *cu_info)
-> +               struct amdgpu_cu_info *cu_info)
+--KHQT7KYakINZF3D85LRV0AG8BWDH6IVnP
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Unrelated whitespace change. Please drop.
+Hi Christian
 
-Alex
+Am 29.09.20 um 17:35 schrieb Christian K=C3=B6nig:
+> Am 29.09.20 um 17:14 schrieb Thomas Zimmermann:
+>> The new helper ttm_kmap_obj_to_dma_buf() extracts address and location=
 
->  {
->         int i, j, k, counter, active_cu_number = 0;
->         u32 mask, bitmap, ao_bitmap, ao_cu_mask = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
-> index 407472031daa..dfe8d4841f58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.h
-> @@ -26,4 +26,7 @@
->
->  extern const struct amdgpu_ip_block_version gfx_v9_0_ip_block;
->
-> +void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh_num,
-> +                          u32 instance);
-> +
->  #endif
-> --
-> 2.27.0
->
+>> from and instance of TTM's kmap_obj and initializes struct dma_buf_map=
+
+>> with these values. Helpful for TTM-based drivers.
+>=20
+> We could completely drop that if we use the same structure inside TTM a=
+s
+> well.
+>=20
+> Additional to that which driver is going to use this?
+
+As Daniel mentioned, it's in patch 3. The TTM-based drivers will
+retrieve the pointer via this function.
+
+I do want to see all that being more tightly integrated into TTM, but
+not in this series. This one is about fixing the bochs-on-sparc64
+problem for good. Patch 7 adds an update to TTM to the DRM TODO list.
+
+Best regards
+Thomas
+
+>=20
+> Regards,
+> Christian.
+>=20
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>> =C2=A0 include/drm/ttm/ttm_bo_api.h | 24 ++++++++++++++++++++++++
+>> =C2=A0 include/linux/dma-buf-map.h=C2=A0 | 20 ++++++++++++++++++++
+>> =C2=A0 2 files changed, 44 insertions(+)
+>>
+>> diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api=
+=2Eh
+>> index c96a25d571c8..62d89f05a801 100644
+>> --- a/include/drm/ttm/ttm_bo_api.h
+>> +++ b/include/drm/ttm/ttm_bo_api.h
+>> @@ -34,6 +34,7 @@
+>> =C2=A0 #include <drm/drm_gem.h>
+>> =C2=A0 #include <drm/drm_hashtab.h>
+>> =C2=A0 #include <drm/drm_vma_manager.h>
+>> +#include <linux/dma-buf-map.h>
+>> =C2=A0 #include <linux/kref.h>
+>> =C2=A0 #include <linux/list.h>
+>> =C2=A0 #include <linux/wait.h>
+>> @@ -486,6 +487,29 @@ static inline void *ttm_kmap_obj_virtual(struct
+>> ttm_bo_kmap_obj *map,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return map->virtual;
+>> =C2=A0 }
+>> =C2=A0 +/**
+>> + * ttm_kmap_obj_to_dma_buf_map
+>> + *
+>> + * @kmap: A struct ttm_bo_kmap_obj returned from ttm_bo_kmap.
+>> + * @map: Returns the mapping as struct dma_buf_map
+>> + *
+>> + * Converts struct ttm_bo_kmap_obj to struct dma_buf_map. If the memo=
+ry
+>> + * is not mapped, the returned mapping is initialized to NULL.
+>> + */
+>> +static inline void ttm_kmap_obj_to_dma_buf_map(struct ttm_bo_kmap_obj=
+
+>> *kmap,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 struct dma_buf_map *map)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 bool is_iomem;
+>> +=C2=A0=C2=A0=C2=A0 void *vaddr =3D ttm_kmap_obj_virtual(kmap, &is_iom=
+em);
+>> +
+>> +=C2=A0=C2=A0=C2=A0 if (!vaddr)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_buf_map_clear(map);
+>> +=C2=A0=C2=A0=C2=A0 else if (is_iomem)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr_iome=
+m(map, (void __force __iomem *)vaddr);
+>> +=C2=A0=C2=A0=C2=A0 else
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr(map,=
+ vaddr);
+>> +}
+>> +
+>> =C2=A0 /**
+>> =C2=A0=C2=A0 * ttm_bo_kmap
+>> =C2=A0=C2=A0 *
+>> diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h=
+
+>> index fd1aba545fdf..2e8bbecb5091 100644
+>> --- a/include/linux/dma-buf-map.h
+>> +++ b/include/linux/dma-buf-map.h
+>> @@ -45,6 +45,12 @@
+>> =C2=A0=C2=A0 *
+>> =C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr(&map. 0xdeadbea=
+f);
+>> =C2=A0=C2=A0 *
+>> + * To set an address in I/O memory, use dma_buf_map_set_vaddr_iomem()=
+=2E
+>> + *
+>> + * .. code-block:: c
+>> + *
+>> + *=C2=A0=C2=A0=C2=A0 dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
+>> + *
+>> =C2=A0=C2=A0 * Test if a mapping is valid with either dma_buf_map_is_s=
+et() or
+>> =C2=A0=C2=A0 * dma_buf_map_is_null().
+>> =C2=A0=C2=A0 *
+>> @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct
+>> dma_buf_map *map, void *vaddr)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 map->is_iomem =3D false;
+>> =C2=A0 }
+>> =C2=A0 +/**
+>> + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure to
+>> an address in I/O memory
+>> + * @map:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The dma-buf mappin=
+g structure
+>> + * @vaddr_iomem:=C2=A0=C2=A0=C2=A0 An I/O-memory address
+>> + *
+>> + * Sets the address and the I/O-memory flag.
+>> + */
+>> +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map *ma=
+p,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 void __iomem *vaddr_iomem)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 map->vaddr_iomem =3D vaddr_iomem;
+>> +=C2=A0=C2=A0=C2=A0 map->is_iomem =3D true;
+>> +}
+>> +
+>> =C2=A0 /**
+>> =C2=A0=C2=A0 * dma_buf_map_is_equal - Compares two dma-buf mapping str=
+uctures
+>> for equality
+>> =C2=A0=C2=A0 * @lhs:=C2=A0=C2=A0=C2=A0 The dma-buf mapping structure
+>=20
 > _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--KHQT7KYakINZF3D85LRV0AG8BWDH6IVnP--
+
+--TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl9zc60UHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiNPnwf/aCTKdBejEjGzelqMuF4UePySm/kg
+uxWq4a3bhUNU/jUfaYErgmfPo7k2kd8GBKNwzUIWBmuanOtyVjPUASvzWxWn7GBo
+c0Y2iWSttNk7zk3Qr330IDKDPtQjtzVbklLBu1YsbOQi0WqdzK0uFpRKl9MAvmth
+5mi7+IzMbP/w3eu8z71VaPc7xy5tYCmeeyqeEPIEV3CoY4QnFaJDhRxenlDIZ/bR
+M9RHikgzelrT1Nra42ooEtT6b3mBp4p63jHBHzTQnSjlAYT1khyKFLvQSHjNPyCN
+GMHZqwUnG3U9EMjYvcGsvk7hZ4ROSOwVpq0j00R3hAK5rfbg6C1+v4XNSQ==
+=/tV0
+-----END PGP SIGNATURE-----
+
+--TxZtp2xZDgS8tF4LCH0pvplac5jBMMD1n--
+
+--===============1725065043==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1725065043==--
