@@ -2,115 +2,100 @@ Return-Path: <SRS0=r+dW=DG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17F55C4727F
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE2D8C4346E
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 09:09:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63ED5206F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 08:58:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5EF0B2076B
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2020 09:09:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aM2qGoAF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63ED5206F4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XBYevcXT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5EF0B2076B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057CE6E174;
-	Tue, 29 Sep 2020 08:58:29 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643756E174
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 08:58:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1ECC89BAF;
+	Tue, 29 Sep 2020 09:09:19 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 762CF89BAF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2020 09:09:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BOpuLjuVQtLtpEDRwpkNJp4Ulq+woo6oDHhhABE5OzSD/bVDIgMkEnTkMb7aOF+29R/kdU9MyhHuX93l8QqOMhgIG8t2Kkz/wcmzzdqh/kP/3z2r4/bbic7TXreDoc4fSWfGWa2nwSorT4lndWHUUcL4Sdu9SmQPGZcuenk9HnR7IUccrA/vZnOMJJ5h9efSg9sCIS648iD2KUP8iHEIkXi60XUcj76Fm2xqVktQO+GnLDKC1ANUJa69kDE4SzKWDIWTzBndOCqu176Z83A13wwUMtVq0uoF7od+4vA/honJlfOs1rqkfAbG7MXFDcgamt2p55PfWBuusXAdG6r2LQ==
+ b=OHaIRTj6pn3C/YhFZlIJvq5xCFJVv7Gp2P8vWKOSqoMzlOm72bVCLnFikqjqrScwz+pkSVaO1VbzBCDBpr0hCKSUEfMeoGy9F5fG3+DNku9k1VzWsL3CGDoo+8ewaN20QAxB1axidZ5LMurYrzb5ncXFCFH97zMUu1YSfUy+cu4tvfUc6PkLLL5e6dgJ1xYxVZRb4UmOAq2plGUNc5VvTBfbiE2Vvei+mpai5GRWruskHsQDCjAl6OQ75ZfmS9tbRmtNcgTXb1XTitKG0FtSeHzECfhxeds6ALZwW5QEG0pCssNlbeQryLBSqu4zGP+kJ6e184uyv2lFyYr+XZFGOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=99vDK2GJdgHKvh4ObWsvbR1nWEQ70G3pWTpuUb1Y1nE=;
- b=JjczRqokt7UCa3vniuEKCEF1b+np3W6oBYRQe66Nxbfk2AUKDTnXCPV7MYm4pmVxwoAYjcgIb4RPD9kmX/l1CrimfewjGu2fVAbUcs3rzEr7+lDTFgsueWLxC3kFVUclBtKAA3NT/9Z5bxqucdGMpp5vR0y+isMIIHzc+PsoJWNtgMeEzqDDW0OuO7U3q1qGoYzC4+H8oFVqFW2AHoJkDBjXdwkQ2adnFUd1RhQ4+QS4ZRBoy4E2loAW+kvWFAezjpyZU6nosSNDt+HMgHSsfvFAGT4SPcmD7hKERiQGaDG4K2W+rfZg5QxnBdXFut9lfeTohbGrx9DHKbINNqhsDA==
+ bh=nJMO6CtteXtXBf2RV9EM+2TrTVpZAhkI7SnE6ZHwnvc=;
+ b=OHSpKX28VR3+FfI71UZ414Q2+30CH8eN4ATWdIoBcgmQzLw43JGmftUsnuIxRfdlYMANH4VveEeC/59ch1tSHr2j87jTp8ikV7EdmgVenzmiC5x3DDkM7NPlRcZBJXEP7+ElOnQbMHMw1tPG1ZbwUGshPH5NNt6OESXNu6n04BYtfXF6oyU9NxChWChI4eRD1aqffBeFXGmij7ZjAHGyKXb3MDX/2Xdh4TjwflzSbCKNXQ1hcu506lVoAXyrONd6E+QlE1lydPF4tym130uBiFO6f6izDRAZvH2lJeUHy5czG++6w+e9lDmLKwToz39mUc2FaaERK+iOV0fXA5flbw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=99vDK2GJdgHKvh4ObWsvbR1nWEQ70G3pWTpuUb1Y1nE=;
- b=aM2qGoAFr8+48lCStSkAegmMVSOe0zib8Zr44zVKnMGsntG/MKAEMziw5m+r2odgS80NRj0i9YeZM4q4X1em+d9LayPtvT9FLwgiLY8m348LnfdNYvsF4PO9b2WZmgM5JJV2zX4EOsPpHoXJQKsmWaDRfh9i8Fl3fqx0TuPeEQk=
+ bh=nJMO6CtteXtXBf2RV9EM+2TrTVpZAhkI7SnE6ZHwnvc=;
+ b=XBYevcXTyrdtT+Eiaqv5xk9SCDXgdnKf6W+C8G6TSySzQ/6dr5V03iqksDqMo9NYGx7/ReShTz8qpyL2uYrDUXZuTe+2p91u82BMrVSuCtYiwDRD4rHFBYlqV8iJqppH9ima7+dZDqBH9DjbuOU5fGqBxLjgTHpD7J4WfWI9kBs=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1752.namprd12.prod.outlook.com (2603:10b6:903:120::8) with
+ by CY4PR12MB1159.namprd12.prod.outlook.com (2603:10b6:903:36::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22; Tue, 29 Sep
- 2020 08:58:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20; Tue, 29 Sep
+ 2020 09:09:16 +0000
 Received: from CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::ad96:acee:5c1c:d92c]) by CY4PR12MB1287.namprd12.prod.outlook.com
  ([fe80::ad96:acee:5c1c:d92c%4]) with mapi id 15.20.3433.032; Tue, 29 Sep 2020
- 08:58:26 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
-Thread-Topic: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
-Thread-Index: AQHWli0zKC5qnyEbZk6Y2H+hAjxzU6l/SWkAgAACToCAAAUMsA==
-Date: Tue, 29 Sep 2020 08:58:25 +0000
-Message-ID: <CY4PR12MB1287AEFB2A689F8395EEE2C8F1320@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <20200929065255.11856-1-guchun.chen@amd.com>
- <DM6PR12MB407561BB1D3293D1EF0497F8FC320@DM6PR12MB4075.namprd12.prod.outlook.com>
- <DM6PR12MB407551EDC506D9227279A283FC320@DM6PR12MB4075.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB407551EDC506D9227279A283FC320@DM6PR12MB4075.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-09-29T08:31:00Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=9a6c1653-4234-4c9a-a6c1-00005369f35c;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-09-29T08:58:23Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 8ec26513-1ade-46e3-a324-00000d80ca8e
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2bff37c2-38c2-42c9-b8ec-08d86455d3c4
-x-ms-traffictypediagnostic: CY4PR12MB1752:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB175285180F823A5938C43D41F1320@CY4PR12MB1752.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xOmcq/NcKokIX1mAvmdHtr+A10eyNW2Rq5bQD7mqlsLE3SQhEnmE7NNL/gemVWd0WTV+aCrW4uY3wQy9BdDH1CwHbItiIPrHA40YJ71XZ8DjVdwtEBke7s5e3U4ZuS2cNG5z9snjrKzcByIBs8xUEFPzjVpgK1lf3bkrDXEwrTnKFI29voRnQGqB0mrwfBEbeAKtuJqv3etFlsILn94UugBAfcwT8e96dXlPXnQcmocoMlS2Zarpvxu4OyS05ozR09gFXbr80XWO7+zuXL5j9vJP6obxFsugJvnQ5P68qQayBBQUaOR2+kJi790Bve21cb7v2eeXO8f1tGrFV3nBQ9dvjQaOxPQSf1LI07RP383nrfAFyBdHVGQc62bSeqOM5aPdZ3QFfON9ojnjrrIm5W5778p0vvqSawuU9pEHpgg5HXfjblmbBQSl15T/smsw/LNLtqr0GGGmTwaWyQ4R0g==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(136003)(376002)(346002)(39860400002)(8676002)(9686003)(966005)(110136005)(33656002)(52536014)(76116006)(2906002)(86362001)(8936002)(66446008)(83380400001)(64756008)(26005)(55016002)(316002)(53546011)(45080400002)(6636002)(71200400001)(186003)(5660300002)(478600001)(66476007)(66946007)(66556008)(7696005)(6506007)(921003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: bzC6H/KRmbXg18Mv5iWwS3nGpg14gwMH9nvc0LWXWyvdK9lq/W8tsjoTE0FmQw1NkpKD7Db7FMmobjp0v1bqoXLoP5SJqeuWBEFJFdf22vmO7nlIBYQQo/F5wMKw6A6aTO6mlvMwxyb3VFy835BTB9ZYVVnA++IOc5hRO8iotoOWFC4BJXkufueV7i8kGO8br/YeT28L+kaojgjI3y0XjqA8wJ+ZRngkoXdNInRUZbLEPL81eRcPeCgtRir3YeWSlYl116keJNTaqx1sSgIztBbje+dibYWhiKwr5FunxboNKilRn9MTCwyZJ0KYbI+xctVrnSCQdgxJt4GjeRmRAh4cPmQEjVQqngZO9K7htLsANz1pgasZFgzFbmw5O1uHeogy+gV4IWAKEyzRVP9mErDOsH/5uCRqCrP2vLYYpJK+6Z8QhwAoskY0T+onyuf6RiCgC4dz6K2hNi1oe9+RU5jXSABE8FaVrQMX8+vmcgtv98sAUMqE4zUKoJgowQbqMI/R/H2jjDJYnuBnI9B8DkWo8A++hP0AghrprXy+2EhDSHd+6rZLRzbjFLHWAbBTcaiE7OU7/3dIqqXOAIhBh2vHLmsJdIHGS3FODRvy1M8Nx0unfO59OYr0nj2zaZEspAjmGDVhqFN07CPdCQIdpg==
+ 09:09:16 +0000
+From: Guchun Chen <guchun.chen@amd.com>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Hawking.Zhang@amd.com, Dennis.Li@amd.com, Tao.Zhou1@amd.com,
+ John.Clements@amd.com
+Subject: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v4)
+Date: Tue, 29 Sep 2020 17:08:57 +0800
+Message-Id: <20200929090857.29951-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [58.247.170.242]
+X-ClientProxiedBy: HK2PR06CA0004.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::16) To CY4PR12MB1287.namprd12.prod.outlook.com
+ (2603:10b6:903:40::8)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
+ HK2PR06CA0004.apcprd06.prod.outlook.com (2603:1096:202:2e::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3433.32 via Frontend Transport; Tue, 29 Sep 2020 09:09:13 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 4b7e89e4-4e79-4fdc-ccfd-08d8645756fe
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1159:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1159ECA4B122D2337CB5EB27F1320@CY4PR12MB1159.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sz6IGWJ+/SzU8XlaJ+Gpq0dUH38inyGQrEYO+As3opPhR5iY6XcAZfbnWRHHZzIWgMZlWPYDzN6cWMqrPndSoeBNWV8daPh05NzLjjxMF/NeBbOVdoh14nNCc+DKbjLV6j0EHPzNDLfkFCCAphYFt9DVvgdyTAq5/V/I3qD5WFvbPf8oa/p2ABGMs8LNsLgMDWKBqbpjWpuftkkd2YsTrud/f8qPl0OJ0egXUF1DfXMPvJkztQpRkv3Vy96nm/oVXfOSJ7LmEtwp7reZuDaMH7CSuoM4qJ5YUuaMtezw8q6Fmze5nD9k53H9fBQkTY9aaDZ+Ctn6sa+mA1I8kQywR97d3j76S6cqWPF+dhMuwPAXJWrfVNQifNv8/PsMrP94
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(396003)(376002)(366004)(136003)(5660300002)(6486002)(7696005)(52116002)(2616005)(2906002)(36756003)(44832011)(316002)(4326008)(83380400001)(8676002)(8936002)(6636002)(6666004)(186003)(66476007)(16526019)(1076003)(66556008)(66946007)(26005)(956004)(86362001)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: pyt2dJKTsFI02MNHITQ6j5WfHA4nvObVdt4V66zU/HzemjS/3VAMoMYMTEsplEBss6O5+TFvt7AhXLunBfHy0kqakxxmI28J/nB1J4p5IV4Bt/E38w9fdyFWLEJq05RfaBj5Acah4MqediMiFSI0Us0RH4GDeg5/+dGEi5qHQmXtmaQmv6dSWrM3p4R2RaeLIPHlMjTGm1tTkQVpWcFCwIQfthNBSDF4ob4yyU4qN4wSV5Y+LXmvBU9/CvSumh1gh3LM2xXfcyB86CYEzlC5fm2RDDMEwtEOfIbzAdgufPi+T6m0Nfe6ldcKwSr/UV1OLkoewCCYcqvdKP0zzVIxFavQgPiAmO1rtPzS47fcpDWxjGBLt+DznIDaxKf4xfS2y0snX1tbx1YIXGobOJESEuha6g0YvLD1MCLSlHBElO+il4B+spQCL+zbdKxn17M4CL68ZBRHt04q1Zt/0UV8hH5Staz45xSZF9maJeGkiBX7ioPFFK3QFy0F7J8+Wn3CJXwkwCFezO9O4p0Bv2x1UzLhOw5/et7nX5kHO30/GVF/GexZFDDMHdMqDMxWYlGxwcD9GG5389ImIaeSXPtT95M/rs9AyQsU3rJLg7fde07A5RynYtv9jdYo58+38jToJmb0yzmX4dYjFc7/FDcc+A==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b7e89e4-4e79-4fdc-ccfd-08d8645756fe
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bff37c2-38c2-42c9-b8ec-08d86455d3c4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2020 08:58:25.8389 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: p1+yryse/7+4rSJSrltPun0LIVHFMlxnw6GCEuLxPHVvxmGi6Nw5/lEvTvCwesvR47Qck1FzYuqYYgqJLHZX9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1752
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2020 09:09:15.9605 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NbMVo7jkG+DzYJ49sUo5zDBs3vvVx/zaBYat0+t0BmrrjrkYfEZtrio6PdOHgaWwHMrkdJXlHsQ1/+PCCwpPYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,80 +107,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
-
-Will squash all into patch v4. Sorry for confusion.
-
-Regards,
-Guchun
-
------Original Message-----
-From: Zhang, Hawking <Hawking.Zhang@amd.com> 
-Sent: Tuesday, September 29, 2020 4:39 PM
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
-
-[AMD Public Use]
-
-BTW, this workaround is actually used to fix vbios issue that the partial writes was enabled on board without ECC capability and result to performance drop. I don't think this is related to parity check or something. So the comment inline is also not correct.
-
-Regards,
-Hawking
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhang, Hawking
-Sent: Tuesday, September 29, 2020 16:31
-To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
-
-[AMD Public Use]
-
-+		if (adev->ras_features & (1 << AMDGPU_RAS_BLOCK__UMC)) {
- 			if (adev->df.funcs->enable_ecc_force_par_wr_rmw)
- 				adev->df.funcs->enable_ecc_force_par_wr_rmw(adev, false);
-
-Hmm... this is still not correct. If the UMC ECC is enabled, we don't need to apply the workaround.
-
-Regards,
-Hawking
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com> 
-Sent: Tuesday, September 29, 2020 14:53
-To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: drop duplicated ecc check for vega10 (v3)
-
-The same ECC check has been executed in amdgpu_ras_init for vega10, prior to gmc_v9_0_late_init.
+The same ECC check has been executed in amdgpu_ras_init for vega10,
+prior to gmc_v9_0_late_init.
 
 v2: drop all atombios helper callings
 v3: use bit operation
+v4: correct inline comment, remove parity check statement
 
 Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 3dddbc60fe3d..9599946e4bee 100644
+index 3dddbc60fe3d..4aeeef3bc628 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1193,21 +1193,13 @@ static int gmc_v9_0_late_init(void *handle)
+@@ -1193,21 +1193,17 @@ static int gmc_v9_0_late_init(void *handle)
  	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
  	if (r)
  		return r;
 -	/* Check if ecc is available */
 +
-+	/* apply DF parity workaround */
++	/*
++	 * Workaround performance drop issue with VBIOS enables partial
++	 * writes, while disables HBM ECC for vega10.
++	 */
  	if (!amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_VEGA10)) {
 -		r = amdgpu_atomfirmware_mem_ecc_supported(adev);
 -		if (!r) {
 -			DRM_INFO("ECC is not present.\n");
-+		if (adev->ras_features & (1 << AMDGPU_RAS_BLOCK__UMC)) {
++		if (adev->ras_features & ~(1 << AMDGPU_RAS_BLOCK__UMC |
++					1 << AMDGPU_RAS_BLOCK__DF)) {
  			if (adev->df.funcs->enable_ecc_force_par_wr_rmw)
  				adev->df.funcs->enable_ecc_force_par_wr_rmw(adev, false);
 -		} else
@@ -210,12 +159,9 @@ index 3dddbc60fe3d..9599946e4bee 100644
  	}
  
  	if (adev->mmhub.funcs && adev->mmhub.funcs->reset_ras_error_count)
---
+-- 
 2.17.1
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Chawking.zhang%40amd.com%7C06c662b3015149395d5c08d86452077e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637369650776046907&amp;sdata=zEH5g3uQtHPGeZNc2qIteRg%2B%2FlhehcKHf7G3I5He1WU%3D&amp;reserved=0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
