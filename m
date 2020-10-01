@@ -2,105 +2,72 @@ Return-Path: <SRS0=OkES=DI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67169C4727C
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 13:12:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B180CC4741F
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 13:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C45B220754
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 13:12:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 621AC20754
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2020 13:17:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="p2kqezqJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C45B220754
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GwDxCgn9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 621AC20754
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2516E237;
-	Thu,  1 Oct 2020 13:12:07 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9CEC6E89A
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2020 13:12:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=drP2tr0GvNv126r2gjvjApazYf6Ufh1bKtkVLvaDpBqruDaxKT0R5fu+xeQeCcNgbrA3fdVhkNem9sOvCk2wM9E6wNm+w/NcSZ+L2gkrdVSFLVIcscViM6tMTttH/L00I6CJ5ggPwJ1bHX0O7lHVkFhlJO7Z1axW/3AKqU0mOHqbMgMZXUQeMzkHDpo6JlamhA2Sp5r6Oif883xY4EJLkTKHXu0owmS3YKYeA/cWUCKX9DZQKdE161BOCqgUzsgoG2IqK/xWzvhyLfkISL8jEz6aawOJvVw6mz0ORPsKb17Te5qftyclPlVqBbDideROVcvxToCQKBh37aCQCVmrvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dGKugSgfVlUUUN5F/mTsTVD/FbHR7s6TQwO0x+MtFFw=;
- b=iJH44MItXSFxZxBypGRlp91o41FKhKM3uhznCys6cBUB0dIUu1Bx4wP9nz8FzNsMyeNfHv07mPKgPpKPA/keQOZzqn3Ti790KokOTmP417Zu0GDc8txB8TgWZ/iHDOPKf5di4DHrfzoazZc5QBRRapBog7UYgVgrxlqPiY83L39HvX65KKAd5NYGjg4Z3f/HpmdR5hKajDCgqwFzVAqpYSkpXKbwkmbjj3goR1RF6XHziOimK1JhnHfKu3f+6zgJ5T9QO5x4U+3L7fTvCasmmxQMUL4PoxyneCOMDb1marwTfRccxi48M2yNF0TdVoOflO7Hd1NLtCwDMunwrUTLeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dGKugSgfVlUUUN5F/mTsTVD/FbHR7s6TQwO0x+MtFFw=;
- b=p2kqezqJ73SwhVriHRQaVH5W/TXorQGKhdqLEx/MBOhfmlgjsgeNllV4pGmRNw4YY/XDerZNgmV3jfQgxH49JTa250iLO0IA7ImtdOBIPaSI+H/TChP4sRx1iuPwHJBBH0s+bHR8tgq2J1jmrtT9f2Z7cGrCE4qRG2/rB3Y/dZs=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB2982.namprd12.prod.outlook.com (2603:10b6:a03:a8::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.35; Thu, 1 Oct
- 2020 13:06:14 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::754e:8f27:157a:9101]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::754e:8f27:157a:9101%6]) with mapi id 15.20.3326.030; Thu, 1 Oct 2020
- 13:06:14 +0000
-Subject: Re: [PATCH] drm/amd/display: Fix external display detection with
- overlay
-To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20201001090607.12481-1-Pratik.Vishwakarma@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <648eacff-f8aa-ed2b-f24d-6ea25a8e3d62@amd.com>
-Date: Thu, 1 Oct 2020 09:06:10 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-In-Reply-To: <20201001090607.12481-1-Pratik.Vishwakarma@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YQXPR0101CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:15::35) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D81AF6E89A;
+	Thu,  1 Oct 2020 13:17:21 +0000 (UTC)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94C476E89A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2020 13:17:20 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id s131so5190611qke.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 01 Oct 2020 06:17:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xUIJ+eI7zOeAvzAR6AYykn/VHMg3p89CUvngImlpU+4=;
+ b=GwDxCgn9vkLeX5juA8d9vsNIzsVXltrTMui3NoSMeWVlgEwIFWYd7Ivz3Ym+DdjNND
+ 8Dii3RVEaZikRwfZlzBPhgY+Z4uqEBiqMuSSV3DQ8eHC9uOEl/TRzENZkMtOKFwboLeP
+ QBrTJGC+gVLq8c++ZSnJ3haRMtyoeidB6XM032OKhza4EMmqGh0uU9hpP9iWs+typ+uM
+ NrmE2QwHX9z8B38UPGvbW1i6M7OYe/J+P3DkzoUrL3Qil8diyo1V9alNkF+efv3a9pPs
+ cKBpvnim827krUW2J3NYzpJcEwVcpcaZ2eLmnCaNDYeIimt5rBJLXLApJgVnvDQthPz5
+ RtwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xUIJ+eI7zOeAvzAR6AYykn/VHMg3p89CUvngImlpU+4=;
+ b=CitEGJSq5BEjsQK3cHbeHVCw+6us8L6U/TYIelupoOrPy20D3dAPgxynq3hbm6eeDc
+ 09NxQtIaCbXJDj8o/RA9e6ajuJNuhho0yw9BaVX7wh0ZBoNPNlGHpF+A1upwSU+s+GrI
+ ICQQEAM7Ev197CJIM4CaQfVlLT7httR1Y7sjby2Rk/zhEON5CJnYskSf+qp1QhOE+SEp
+ 8lp6kTB4cgigMj5HjrhMgt5IIoz8IuVeuEOvaLKqpIE4NRpUm+tdjcVmcJbV+LQYXB2H
+ Cj1XKPdFs6M2SY3JQPesHUCsOGbKTvm5s+ril1S+G9bjCn7Vjk66X9/Z08CX9d4ex0aF
+ Up6w==
+X-Gm-Message-State: AOAM532UXBtPWtaKX6qGMiJDUCMRRoon9XzZW0NaZSB1chMMsqKZWVer
+ wMIRXw0jGdG989CVlQh9omblFchD/UI=
+X-Google-Smtp-Source: ABdhPJzkIj++xAk44H6X25vwcA2HDzaF21037k/+smLaIDrabA0TYncz/ftl9kHpKrR7urdOys2Y7w==
+X-Received: by 2002:a05:620a:847:: with SMTP id
+ u7mr7445708qku.487.1601558239290; 
+ Thu, 01 Oct 2020 06:17:19 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.66.138])
+ by smtp.gmail.com with ESMTPSA id x126sm6164972qka.91.2020.10.01.06.17.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Oct 2020 06:17:18 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu/swsmu: add interrupt work function
+Date: Thu,  1 Oct 2020 09:17:10 -0400
+Message-Id: <20201001131711.279333-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.61] (24.212.165.133) by
- YQXPR0101CA0022.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:15::35) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.35 via Frontend
- Transport; Thu, 1 Oct 2020 13:06:13 +0000
-X-Originating-IP: [24.212.165.133]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c304ac09-872b-458a-8de5-08d8660ac684
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2982:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB298241DC1D9236AAE78FFCC2EC300@BYAPR12MB2982.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bLnn26G9iZfKuQnvh+ZmUStpD5aai5nBv/GaQFDxQXQZBbKHQf2MBVsqtaAsccof0E35aYNAi84DhQrJfSQ/jqL15S13lxLTNy3FBlIeJZ6pw+cjKAHoyR6kcmRwmxeJfzOS+u9VskBM2IgmKMjY9oU6KxgODoKRgFhif4847Emg/7wQVhTJ6EADy2gNhS7VfnTfaU5lZ4pF/CZZIkCEuM4yLxpfOnbSjLuP6weIALN1mevkI+WTSR66iUgHXgmNtdOJruiftag8kzPwigJcQmtzfsvcLIcn3qtIbj4mvJZi5p+JkDb3T0gl7Y3kaRGo9n7lL0roelQukoP0YGDK6WZllLIgF0dkKMEBDzb79MLOnNInke9j2MXy5BshYfob
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(136003)(346002)(366004)(376002)(6486002)(86362001)(53546011)(478600001)(31696002)(16526019)(956004)(5660300002)(52116002)(186003)(26005)(83380400001)(31686004)(2616005)(66476007)(2906002)(66946007)(66556008)(8676002)(316002)(16576012)(8936002)(36756003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: bnC9nAKCa+c0bw0YAAMe1ZbZfzx+F8qXSRsFSh80mi3LeVHokAWdVBzXF9Cbsbin5UqEkkv0IdG7WCzX/s+0CUy/5NhFrinYmI8hsiIsI0q28DK9GxZzaXjNXvFOgACTvcl4CHgcCOBi4XSIOoQAcoVO0omfW0b727l8u6PdFooKRMjUQMtsPYk733BnyZMK9faKdiNEH9MTsBO7Mwq4NqyGFIyZ5tY5Pt3uBmwIdLkd+9tMMp7e30ot4h1SPZlwFlL2mMUOzymQcsOhmso47r91GUZqufRGxoqtTHBjxgMSCwy/pQ2GBA9qUD7XDCxiIZ50Rmje1wp6bihwCuUw3i5+mIpcYgwQF78EEaan9Oy+0QV1WV/ecEVTl6uIOCgmS6b6MYUQPtp/ijd4wBHawDYBp0j8t5TBt1Z1O+W30d/glcfu/VYEl6NPPQ27ebHTIKeLBxcemlD5aLtDk9J6AF2WnlLafOh7xqdfQIdEBDY4YEDw6Tjisvm3H+sNrKQOowLlrpTe64b+/sS/xej3HGP0zQK5YhWePqbq/zhRaBizTeQjrSHJuplg7UhXdbwktVhNnV0lT+dYmlRhXekvYPMoB201gzogOyZqRy59q0XP97GqyzAepJLkjUm4yxf1uaj9V7tF7vG2I8EJknAH7A==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c304ac09-872b-458a-8de5-08d8660ac684
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2020 13:06:14.3964 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sPJekVYtTU4Xlr1CRoaTH57I877+a2RGudA+Dq1YqpT2EQbHdU2HpqqYOApflMGdsc0yiyYc+znKlLqDITyjcg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2982
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,52 +79,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-10-01 5:06 a.m., Pratik Vishwakarma wrote:
-> [Why]
-> When overlay plane is in use and external display
-> is connected, atomic check will fail.
-> 
-> [How]
-> Disable overlay plane on multi-monitor scenario
-> by tying it to single crtc.
-> 
-> Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
+So we can schedule work from interrupts.  This might include
+long tasks or things that could sleep.
 
-This will break overlay usage on any other CRTC other than index 1. That 
-index is arbitrary and can vary based on board configuration. As-is this 
-patch breaks a number of our existing IGT tests that were previously 
-passing.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h   |  2 ++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 15 +++++++++++++++
+ 2 files changed, 17 insertions(+)
 
-Userspace should really be made aware if possible to understand that 
-overlays can't be left enabled after major hardware configurations - eg. 
-enabling extra planes and CRTCs.
-
-Regards,
-Nicholas Kazlauskas
-
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e8177656e083..e45c1176048a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3149,7 +3149,7 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
->   	 */
->   	possible_crtcs = 1 << plane_id;
->   	if (plane_id >= dm->dc->caps.max_streams)
-> -		possible_crtcs = 0xff;
-> +		possible_crtcs = 0x01;
->   
->   	ret = amdgpu_dm_plane_init(dm, plane, possible_crtcs, plane_cap);
->   
-> 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index c0287c3049cc..b039cc25c855 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -453,6 +453,7 @@ struct smu_context
+ 
+ 	struct work_struct throttling_logging_work;
+ 	atomic64_t throttle_int_counter;
++	struct work_struct interrupt_work;
+ 
+ 	unsigned fan_max_rpm;
+ 	unsigned manual_fan_speed_rpm;
+@@ -571,6 +572,7 @@ struct pptable_funcs {
+ 	int (*deep_sleep_control)(struct smu_context *smu, bool enablement);
+ 	int (*get_fan_parameters)(struct smu_context *smu);
+ 	int (*post_init)(struct smu_context *smu);
++	void (*interrupt_work)(struct smu_context *smu);
+ };
+ 
+ typedef enum {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 6af262e4b047..e4699b71dc49 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -787,6 +787,19 @@ static void smu_throttling_logging_work_fn(struct work_struct *work)
+ 	smu_log_thermal_throttling(smu);
+ }
+ 
++static void smu_interrupt_work_fn(struct work_struct *work)
++{
++	struct smu_context *smu = container_of(work, struct smu_context,
++					       interrupt_work);
++
++	mutex_lock(&smu->mutex);
++
++	if (smu->ppt_funcs && smu->ppt_funcs->interrupt_work)
++		smu->ppt_funcs->interrupt_work(smu);
++
++	mutex_unlock(&smu->mutex);
++}
++
+ static int smu_sw_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -809,6 +822,7 @@ static int smu_sw_init(void *handle)
+ 	mutex_init(&smu->message_lock);
+ 
+ 	INIT_WORK(&smu->throttling_logging_work, smu_throttling_logging_work_fn);
++	INIT_WORK(&smu->interrupt_work, smu_interrupt_work_fn);
+ 	atomic64_set(&smu->throttle_int_counter, 0);
+ 	smu->watermarks_bitmap = 0;
+ 	smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+@@ -1207,6 +1221,7 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
+ 	int ret = 0;
+ 
+ 	cancel_work_sync(&smu->throttling_logging_work);
++	cancel_work_sync(&smu->interrupt_work);
+ 
+ 	ret = smu_disable_thermal_alert(smu);
+ 	if (ret) {
+-- 
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
