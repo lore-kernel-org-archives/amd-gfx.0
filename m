@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 28E64C47423
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 15:09:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42E48C4363D
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 15:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C45DF206CA
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 15:09:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D3BC020708
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2020 15:09:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="htIqEgDR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C45DF206CA
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NEy0h1zq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3BC020708
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83E136E9B1;
-	Fri,  2 Oct 2020 15:09:57 +0000 (UTC)
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC9EE6E9B1
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 15:09:55 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id h1so933864qvo.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Oct 2020 08:09:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE676E9B2;
+	Fri,  2 Oct 2020 15:09:58 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A086E9B2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2020 15:09:57 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id y11so1452860qtn.9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Oct 2020 08:09:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=OAyxiUw+XOinaH5OMgsa3JCQhSO5U5dtP8mfiBkaCa8=;
- b=htIqEgDRsK3c/a1UiVaXMl6kkNkHNil+9Z3DOE/ow1eJql+0VLUnjvS2Pzmbfy90WO
- OzckTgAlUJ6QjwrNq91LSryPktoAVhzeflN/qfPutQ/L4r4/8BfvceCLnghoWyUuoPyw
- yr9eAOE7Z2iycoDi4RgSAoHSDKmk+OhxLjFugWQLv2bpw//xjXBaG2RiyaVDX8qFktWF
- Fe3ZV1YE1AsXryf+bromirRKU77e+PU9JKWzcLFCj6n5m4HStpoCeXXptU9pAWJJ2u1U
- XFh5u7FLzHuVyBfthz1Q5s2c/HWbyLSWIx3BaozRLWGMtCmH4P6NJpcLt0NnHkL59GKn
- jP1g==
+ bh=8BddKfMNi7bIYsbR/+Zwhf05YHc1QMtfUos2A3Z1h9I=;
+ b=NEy0h1zqsJlc1eLqhwR2pQ32dzxaaEa0OOlr7v8NebO+64LYSkpZL3c2V5rw0M9Vte
+ TotDaC+1MEkObd4tPcXzwqyq86Fv7WmRu92HNXQzvw4RiDQlmrxpUXyP32/sFydx9hCN
+ Sq24zHNiyU6bgr7ypzpFXDY1OE0WrqmqethUn6ipbeR3gGp5VjIl34UQOTASUyyMlnnn
+ 0hHm1pOKJOIbwnb5CgGVIbQPvvILyYfFdA+jNsxfbP45PCwUdrWUkUnNriclwFVD2GYn
+ 5ZfNWqDx/zxgrHW6NDwLWBBBcpdMjgE2MogcofuvowNsL9vccPJN/jvkpj34mLUyrvyQ
+ UiOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=OAyxiUw+XOinaH5OMgsa3JCQhSO5U5dtP8mfiBkaCa8=;
- b=JOURIE8FFxQHs6Jl+yiwl6PnaTfBuhc693owOyR+n0T2iiQT6U5KBzFpS9eOD/Yzef
- GuLYEMI2iv/eU8om5X0MYUhHdDIqk9GLclT1cORdofzQ4dgCdiEZsls6sGTzloQq3ZXB
- c7XyAVWAi79ZTLb/YCseTZKK2BYJWCVoylr+dxb8Yi4BXKPe2oKJOkFs/r4JQH5YzFak
- 6/EBIB7kr8n1mN4qRveDX8wUV0j9fNnvaFcLDHrPZaDa+spQLty1wQkMma6cFPlD9ESi
- fl+AC0muUYgqhy5fkKjOKZgfMLyzResX0vhWyWiE9EEljKgPK61/aSZOSfGDKFuK6VPH
- R9iw==
-X-Gm-Message-State: AOAM532ukjw0yoao0eWTBKEqREO7P06O7vizNbH0TRgQNc6iUIh8ZPgX
- bXx/JgN9z1zHWZp6+yp70YjhR3Ne8Ak=
-X-Google-Smtp-Source: ABdhPJxRmck+ABy/R3ckJrWZq+n1LTzjnLo5oq6E/t7H6+ktTSCNBX9pX2M9kCaNxqM7lulbTwDWpg==
-X-Received: by 2002:a0c:abc5:: with SMTP id k5mr2684351qvb.40.1601651394503;
- Fri, 02 Oct 2020 08:09:54 -0700 (PDT)
+ bh=8BddKfMNi7bIYsbR/+Zwhf05YHc1QMtfUos2A3Z1h9I=;
+ b=ddFQeTyuzwJebVUMOQDF93VIHnRzbnvRc0w7FmyPgFLwiRP4QdfBfPOJuH3I5tRmMA
+ n7MkEoXwUzDBUtDUC7NofALnjqBIQCY1N9bIfLmx5DOfP4uIa0KEZB00dumD2Swmypdo
+ qAbnbbb69zISFom1Bfy32Y8EVkIJfUF7OHWjSf9bVp+P7kkgxRLTA6/NluBpSUzQKe9i
+ ocdv6yyLNvGyJRKuDpN27rCYuNMYby3PXyX2PM6JMqHlUqhVCk109I666QG7O26S5FmE
+ SZuqzKUuEBCPSyHLWfOZokfhqmNCcwo9126dXuCt1JxRBKjMsdh2oxQB2gDGjEejyULg
+ CgzQ==
+X-Gm-Message-State: AOAM532slwa8eAsPL12AbK8ZB/gOSwfwTFj7fxgegftIAEvbJh/nZXMP
+ dNqs08F1xWQS3shpkeGLuNggcZVC07Q=
+X-Google-Smtp-Source: ABdhPJzsOWXNSQTh2JcV9dQV0E9wS3BPv6cfXIqQ0JcU0xrcFVvu4e0ls+5kvBTsTx1fBRoUibYwwQ==
+X-Received: by 2002:ac8:f04:: with SMTP id e4mr2704122qtk.342.1601651396383;
+ Fri, 02 Oct 2020 08:09:56 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id m67sm1248435qkf.98.2020.10.02.08.09.53
+ by smtp.gmail.com with ESMTPSA id m67sm1248435qkf.98.2020.10.02.08.09.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2020 08:09:53 -0700 (PDT)
+ Fri, 02 Oct 2020 08:09:55 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/7] drm/amdgpu: add soc15 common ip block support for
- green_sardine (v3)
-Date: Fri,  2 Oct 2020 11:09:36 -0400
-Message-Id: <20201002150940.1103949-3-alexander.deucher@amd.com>
+Subject: [PATCH 4/7] drm/amdgpu: add gfx support for green_sardine (v2)
+Date: Fri,  2 Oct 2020 11:09:37 -0400
+Message-Id: <20201002150940.1103949-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201002150940.1103949-1-alexander.deucher@amd.com>
 References: <20201002150940.1103949-1-alexander.deucher@amd.com>
@@ -90,48 +89,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Prike Liang <Prike.Liang@amd.com>
 
-This patch adds common ip support for green_sardine.
+Enable the gfx base HW function of green_sardine.
 
-v2: use apu flags, squash in CG/PG enablement
-v3: rebase
+v2: use apu flags
 
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Reviewed-by: Huang Rui <ray.huang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index afcccc6c0fc6..ed7342bbf801 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1243,7 +1243,15 @@ static int soc15_common_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 6959aebae6d4..0d8e203b10ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -117,6 +117,13 @@ MODULE_FIRMWARE("amdgpu/renoir_mec.bin");
+ MODULE_FIRMWARE("amdgpu/renoir_mec2.bin");
+ MODULE_FIRMWARE("amdgpu/renoir_rlc.bin");
+ 
++MODULE_FIRMWARE("amdgpu/green_sardine_ce.bin");
++MODULE_FIRMWARE("amdgpu/green_sardine_pfp.bin");
++MODULE_FIRMWARE("amdgpu/green_sardine_me.bin");
++MODULE_FIRMWARE("amdgpu/green_sardine_mec.bin");
++MODULE_FIRMWARE("amdgpu/green_sardine_mec2.bin");
++MODULE_FIRMWARE("amdgpu/green_sardine_rlc.bin");
++
+ #define mmTCP_CHAN_STEER_0_ARCT								0x0b03
+ #define mmTCP_CHAN_STEER_0_ARCT_BASE_IDX							0
+ #define mmTCP_CHAN_STEER_1_ARCT								0x0b04
+@@ -1630,7 +1637,10 @@ static int gfx_v9_0_init_microcode(struct amdgpu_device *adev)
+ 		chip_name = "arcturus";
  		break;
  	case CHIP_RENOIR:
- 		adev->asic_funcs = &soc15_asic_funcs;
--		adev->apu_flags |= AMD_APU_IS_RENOIR;
-+		if (adev->pdev->device == 0x1636)
-+			adev->apu_flags |= AMD_APU_IS_RENOIR;
-+		else
-+			adev->apu_flags |= AMD_APU_IS_GREEN_SARDINE;
-+
+-		chip_name = "renoir";
 +		if (adev->apu_flags & AMD_APU_IS_RENOIR)
-+			adev->external_rev_id = adev->rev_id + 0x91;
++			chip_name = "renoir";
 +		else
-+			adev->external_rev_id = adev->rev_id + 0xa1;
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 				 AMD_CG_SUPPORT_GFX_MGLS |
- 				 AMD_CG_SUPPORT_GFX_3D_CGCG |
-@@ -1268,7 +1276,6 @@ static int soc15_common_early_init(void *handle)
- 				 AMD_PG_SUPPORT_VCN |
- 				 AMD_PG_SUPPORT_JPEG |
- 				 AMD_PG_SUPPORT_VCN_DPG;
--		adev->external_rev_id = adev->rev_id + 0x91;
++			chip_name = "green_sardine";
  		break;
  	default:
- 		/* FIXME: not supported yet */
+ 		BUG();
 -- 
 2.25.4
 
