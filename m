@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C03A9C4363C
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Oct 2020 17:19:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1520FC4363C
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Oct 2020 17:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A442206B6
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Oct 2020 17:19:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C4165206B6
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Oct 2020 17:19:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lJIMwfkF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A442206B6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Z1MiaoaK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4165206B6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10ADB89E26;
-	Sun,  4 Oct 2020 17:19:55 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770054.outbound.protection.outlook.com [40.107.77.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7F089E26
- for <amd-gfx@lists.freedesktop.org>; Sun,  4 Oct 2020 17:19:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6085089EB7;
+	Sun,  4 Oct 2020 17:19:59 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5AE689EB7
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 Oct 2020 17:19:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mldic/k7ht8GmGqRrKnkO7yBweGYBfFwVMxspjL7YmPacplaEMbeAngAyfsxbHP1zb8hmnwUOYo6QYdEGAyS+UTHhE0QlmFhQL10cZ+rM0KNFIf97CERUEvazpXlJxie2f/kawEcJG2gutLxSvdpuevrr6KnGPgmH4pHPqck1gje1aQEtnHJx7xZshIHZKLrB8IGsaD5OQCZx4I5xWHwfKFafzVk7NxwVqDjsEJ1vORfxxJ88F4rz5qbzjXRhjXXKRsXK4EE40nLN1HS9aLL9THsPKrKwD12/LJNqceD3qsACFly+GUYWWYBV/STV1y4GZR+B4StXB9ZtjjO4E8j/Q==
+ b=B8YTaXtnv5ES5bfBvFejtfJea15VGWm25949EV6aV1/UqvNBVZJ9k+7OnG3lY/u1sp1solftwtpJLtT7iUKv4hTmyuBxh6dt89nxrQiDVT+hEJilErLl3aYE/igPV/7AO3OWvG36kb5U6LYDvsZFE68Pb7OGqUGm0xmpKkKltcb0zSU+Jr3YK4AZ4LWV2sa4crDeJUcPbAbBn05hHVieOoQ9cnCk3zCrHINWv/w+PR2flVdp/hTrxGszYCyoIYInEIlgJMXVVjkbiDLTx/Ep8G7ucbGnQ/CZWXgYLIHgv5Ko5kQvm1b2x1a8V5GHIdXLP52IHnlkn5g7z8962qdn0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WiwDOaHaF4BHcBdzckbcwUNy/F8b9jjm/jAvITUQq1U=;
- b=dChKqiTpZ+m9uN7nDTFMfWgwtY2wpfMK3EwICWI5i2wfLjptyu6bny5UIdy28JoWIkxwK9M5MxaLp5srMxZPR7oceh+6HRykPfyNWNOFi+FxrgMG9LtczvUl/5810c242fa8G/9KDosdNB1O+aRphY6BZ1mRI230KOcsWxUx0EeSr04iE9Jw9O0dG2BtPzkPSyrJdiwGqp37L6NCNWsAjDOfJI6dnWlogUZnttojXq9UHp2Hp+Ru8wM2Wh18gsh9fCILmOgOAd/dFO8oEFUqntPFc8eUpNx2iChwDGdYmMDlP0eqPleOZBDHCUBwTzT8vYqLAgNTsUQbwhPJxALC4Q==
+ bh=Roa5/bRIYBsKlFA073sytl+ufI/rr/kU4cflJuJ1Sng=;
+ b=ZdTFHLsF+VT/0BlVSiTW1blPZOALxhbHXdzV0bo1JO1kCEoY46r6/T1vDxBnSNi8aWBwb5X3guMCWy/4zMvdym4RgpeWQyg6+c6Vh/VCqO9JBPfwUpNfDBfmrMQG5Us5Qit7xRI36m25ADPqTVuukckMc6RUu7Fdj8liyDWt0tbQs6vTDjY6UEq1rNzmAokOBqqizhAbu8PDuv+9vNGqJJDDrj68GQpv9ZBTxAP5PPJN6dGZ4njg0F01WXQgnmBdKUcSM6n6zKGC8NZ8hH/TqYi/cqgbh30blR652QOioCxMwTlIn3T26WPCaoE4wZR91sf1TGgb8QuRCNNXDs/htA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WiwDOaHaF4BHcBdzckbcwUNy/F8b9jjm/jAvITUQq1U=;
- b=lJIMwfkFT234ZCVazuczPV9Ba5qMRQELbMPaxEnegti6UqqBgT2bR9HiXUJqAAObMR6fVPzSIXg0m1YdQQFAmTXyzr85zInVLjKjRCvniky6XPhDGpdTc43pNB4eDnXkzoC4mEUdGKxQ7ZKFKYe+6bMarafH9Abs0jjNmBp0Tz0=
-Received: from MW3PR06CA0013.namprd06.prod.outlook.com (2603:10b6:303:2a::18)
- by MN2PR12MB3551.namprd12.prod.outlook.com (2603:10b6:208:104::30)
+ bh=Roa5/bRIYBsKlFA073sytl+ufI/rr/kU4cflJuJ1Sng=;
+ b=Z1MiaoaKF1Au1vPgTRXL3BINKNd7wat+gR8xsz+QrFxBOUCqg2Qa+2wdX4H6A3VbAw1zFLLVrIN18wjhu0EForTtCmdejnmWg7gOGcs8HPIjkWo+CDhLxchOfepdDluFmWTdjT6xGd42aqpG0EnGspZl4/LyyXf9sjiR5f41v44=
+Received: from MWHPR17CA0063.namprd17.prod.outlook.com (2603:10b6:300:93::25)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32; Sun, 4 Oct
- 2020 17:19:48 +0000
-Received: from CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2a:cafe::10) by MW3PR06CA0013.outlook.office365.com
- (2603:10b6:303:2a::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34 via Frontend
- Transport; Sun, 4 Oct 2020 17:19:48 +0000
+ 2020 17:19:54 +0000
+Received: from CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:93:cafe::bf) by MWHPR17CA0063.outlook.office365.com
+ (2603:10b6:300:93::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.42 via Frontend
+ Transport; Sun, 4 Oct 2020 17:19:54 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,22 +59,25 @@ X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT063.mail.protection.outlook.com (10.13.175.37) with Microsoft SMTP
+ CO1NAM11FT004.mail.protection.outlook.com (10.13.175.89) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3433.35 via Frontend Transport; Sun, 4 Oct 2020 17:19:48 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ 15.20.3433.35 via Frontend Transport; Sun, 4 Oct 2020 17:19:54 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Sun, 4 Oct 2020
- 12:19:47 -0500
+ 12:19:53 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Sun, 4 Oct 2020
+ 12:19:52 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Sun, 4 Oct 2020 12:19:41 -0500
+ Transport; Sun, 4 Oct 2020 12:19:47 -0500
 From: Eryk Brol <eryk.brol@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/18] drm/amd/display: HDMI remote sink need mode validation
- for Linux
-Date: Sun, 4 Oct 2020 13:18:05 -0400
-Message-ID: <20201004171813.7819-11-eryk.brol@amd.com>
+Subject: [PATCH 11/18] drm/amd/display: Fix OPTC_DATA_FORMAT programming
+Date: Sun, 4 Oct 2020 13:18:06 -0400
+Message-ID: <20201004171813.7819-12-eryk.brol@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201004171813.7819-1-eryk.brol@amd.com>
 References: <20201004171813.7819-1-eryk.brol@amd.com>
@@ -82,27 +85,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9ff8813e-aead-4fad-9d2b-08d86889b22f
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3551:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3551987A9AB65B515E768E12E50F0@MN2PR12MB3551.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Office365-Filtering-Correlation-Id: 58914a03-46ec-4d73-c4f6-08d86889b5d6
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4206:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB420691BD82924AF5C8EC1B0DE50F0@MN2PR12MB4206.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0JZF1hJZUojP0mSMDq+l1o1unks8xPJRtzuvXtLdetPP4uSJFn+zyD/8NFUGX+KSV9D7nG9ymvmjsMk1HPGcQ6sZEZxAZzZlZ0MK9w7SmCNfVCWPDayUdJ84n/0jJhGRmD6WkZpIYAWzqUNHNuHrtOnhi2C/cgBNjl60sKKMyA1WZw8MdSBNedmpT3p5KUPEgkUFNWW4czLs1D5XP9GIhZ8LYXTzJ+LM7ncK3t7JbzRqq+lj1cVdGii/AR6h0QWT8ndebnMIn6kXSNGX9KrOXzDcN4Cxj8W58XWCGa6L2hqdZqQAxu55vLh6LymnbN0wJ3GFuymm+r+5GrEF0kN2W4uyo6eVv1RJvBC5V6OaXGHWw0ePoOfZIyYdRG1tQia+P5GPkhVyldlhu6EnFSu/hQ==
+X-Microsoft-Antispam-Message-Info: p7lwNdmW2QffiHPhsgl4t3RzU1nvaRsLmhHqbr1i6cPWFE8vaPoH2gIrRMn1cnE5IELonCKxIYAQ4OR6ukqyMO/XsY+aGzjdmGBa7NNIZmyLS04PVMftgEBE5zxZ+VD++AbaXFDD0CktKu8XLysHEL2cGBKhFwNDanNPvuzqqwk930HuQvDQs3zUbqStlWnt/BrMkFa9iSwERZ3UMEs1Ok7TzHQztqTRHhGXSuh3l7WzA+Ahh7RGU+CEWqNJz87CDgCWierNhZMXVl5q6Dqe1ludLHz9V6O0Rh5flBuu5Ett4z+cF22VpAMLjPLFykauQiHNFMuy9W65lIO+9eqqRN9T2uTW0XJPpUtzL1u5KABfXPGgyQzAzWmVur5dVYaFUkcnKFqSQPSUKh7kjdFZiQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39850400004)(396003)(376002)(136003)(346002)(46966005)(82740400003)(8936002)(82310400003)(186003)(6916009)(6666004)(2906002)(426003)(86362001)(36756003)(336012)(8676002)(44832011)(47076004)(54906003)(26005)(1076003)(4326008)(83380400001)(316002)(70586007)(70206006)(5660300002)(81166007)(356005)(2616005)(478600001);
+ SFS:(4636009)(39850400004)(136003)(396003)(346002)(376002)(46966005)(2906002)(478600001)(426003)(8676002)(4326008)(82740400003)(70206006)(2616005)(54906003)(26005)(6666004)(70586007)(83380400001)(86362001)(82310400003)(5660300002)(8936002)(44832011)(6916009)(47076004)(316002)(356005)(36756003)(336012)(186003)(81166007)(1076003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2020 17:19:48.0419 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ff8813e-aead-4fad-9d2b-08d86889b22f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2020 17:19:54.1695 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58914a03-46ec-4d73-c4f6-08d86889b5d6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3551
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,52 +117,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk Brol <eryk.brol@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Aurabindo.Pillai@amd.com,
- Hersen Wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Eryk Brol <eryk.brol@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 
-[Why]
-Currently mode validation is bypassed if remote sink exists. That
-leads to mode set issue when a BW bottle neck exists in the link path,
-e.g., a DP-to-HDMI converter that only supports HDMI 1.4.
+This should be programmed with timing rather than with odm.
 
-Any invalid mode passed to Linux user space will cause the modeset
-failure due to limitation of Linux user space implementation.
-
-[How]
-Mode validation is skipped only if in edid override. For real remote
-sink, clock limit check should be done for HDMI remote sink.
-
-Have HDMI related remote sink going through mode validation to
-elimiate modes which pixel clock exceeds BW limitation.
-
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Eryk Brol <eryk.brol@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 11 +++++++++++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c |  8 --------
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c |  8 --------
+ 3 files changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index f13396254b5d..fec87a2e210c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2441,7 +2441,7 @@ enum dc_status dc_link_validate_mode_timing(
- 	/* A hack to avoid failing any modes for EDID override feature on
- 	 * topology change such as lower quality cable for DP or different dongle
- 	 */
--	if (link->remote_sinks[0])
-+	if (link->remote_sinks[0] && link->remote_sinks[0]->sink_signal == SIGNAL_TYPE_VIRTUAL)
- 		return DC_OK;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+index 2972392f9788..800be2693fac 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+@@ -288,6 +288,17 @@ void optc1_program_timing(
+ 	if (optc1_is_two_pixels_per_containter(&patched_crtc_timing) || optc1->opp_count == 2)
+ 		h_div = H_TIMING_DIV_BY2;
  
- 	/* Passive Dongle */
++	if (REG(OPTC_DATA_FORMAT_CONTROL)) {
++		uint32_t data_fmt = 0;
++
++		if (patched_crtc_timing.pixel_encoding == PIXEL_ENCODING_YCBCR422)
++			data_fmt = 1;
++		else if (patched_crtc_timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)
++			data_fmt = 2;
++
++		REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
++	}
++
+ #if defined(CONFIG_DRM_AMD_DC_DCN3_0)
+ 	if (optc1->tg_mask->OTG_H_TIMING_DIV_MODE != 0) {
+ 		if (optc1->opp_count == 4)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+index 8c16967fe018..d8b18c515d06 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+@@ -239,7 +239,6 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
+ 	int mpcc_hactive = (timing->h_addressable + timing->h_border_left + timing->h_border_right)
+ 			/ opp_cnt;
+ 	uint32_t memory_mask;
+-	uint32_t data_fmt = 0;
+ 
+ 	ASSERT(opp_cnt == 2);
+ 
+@@ -262,13 +261,6 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
+ 		REG_SET(OPTC_MEMORY_CONFIG, 0,
+ 			OPTC_MEM_SEL, memory_mask);
+ 
+-	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
+-		data_fmt = 1;
+-	else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420)
+-		data_fmt = 2;
+-
+-	REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
+-
+ 	REG_SET_3(OPTC_DATA_SOURCE_SELECT, 0,
+ 			OPTC_NUM_OF_INPUT_SEGMENT, 1,
+ 			OPTC_SEG0_SRC_SEL, opp_id[0],
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+index 6d13431ff693..b1f228fc119a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+@@ -209,7 +209,6 @@ static void optc3_set_odm_combine(struct timing_generator *optc, int *opp_id, in
+ 	int mpcc_hactive = (timing->h_addressable + timing->h_border_left + timing->h_border_right)
+ 			/ opp_cnt;
+ 	uint32_t memory_mask = 0;
+-	uint32_t data_fmt = 0;
+ 
+ 	/* TODO: In pseudocode but does not affect maximus, delete comment if we dont need on asic
+ 	 * REG_SET(OTG_GLOBAL_CONTROL2, 0, GLOBAL_UPDATE_LOCK_EN, 1);
+@@ -240,13 +239,6 @@ static void optc3_set_odm_combine(struct timing_generator *optc, int *opp_id, in
+ 		REG_SET(OPTC_MEMORY_CONFIG, 0,
+ 			OPTC_MEM_SEL, memory_mask);
+ 
+-	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
+-		data_fmt = 1;
+-	else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420)
+-		data_fmt = 2;
+-
+-	REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
+-
+ 	if (opp_cnt == 2) {
+ 		REG_SET_3(OPTC_DATA_SOURCE_SELECT, 0,
+ 				OPTC_NUM_OF_INPUT_SEGMENT, 1,
 -- 
 2.25.1
 
