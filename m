@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02252C4727D
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 14:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD8D3C46466
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 14:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD97E207F7
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 14:45:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9206E20874
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2020 14:45:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="14wD1rn/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD97E207F7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQMm7788"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9206E20874
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB6289F19;
-	Mon,  5 Oct 2020 14:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D810489F6D;
+	Mon,  5 Oct 2020 14:45:35 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD4AB89F19;
- Mon,  5 Oct 2020 14:45:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B5AD89F5B;
+ Mon,  5 Oct 2020 14:45:34 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 994EC20FC3;
- Mon,  5 Oct 2020 14:45:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7C5ED20E65;
+ Mon,  5 Oct 2020 14:45:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601909130;
- bh=r8DWUr5vtaIWRZFDmh+jkP2C0tU7Kp5rr1T8j+PXNYU=;
+ s=default; t=1601909134;
+ bh=Vk4b54f9hxuGsBFXCqKKcYpVnZIjfAqZJjc5T6YXC70=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=14wD1rn/ouHXqBO/jGldpwcSINDKDwtPgKoXeRAB1Pdk/ChKDbZjqZPn1dxxOrE11
- 2xSM4xiyvteO5mUmYPzVlmllo8gVv1sFGATT6eZq3YMVXjRK4HUkyeAiaZVkyw2DEy
- JMmwDLWc7g1tDwEm//4dyZiT8YRnXcJMxrX0VEYU=
+ b=mQMm7788L5qHxGUfQKRGOkvm1Yij03/UbYgZKHUDAobQ2WviIy4J6gti7uDcUWVFc
+ 9j/9U5PSDorQ2ZurtNyGrW/DBjyESBFvFOSwgcdR7TIil7kiGJ5S1IJXDvNtHTctdj
+ xX4gexqDl/dtEtOxM6IcoBRZdm1TLqrbYCMp/VcA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 2/2] drm/amdgpu: prevent double kfree ttm->sg
-Date: Mon,  5 Oct 2020 10:45:27 -0400
-Message-Id: <20201005144527.2527777-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 2/2] drm/amdgpu: prevent double kfree ttm->sg
+Date: Mon,  5 Oct 2020 10:45:31 -0400
+Message-Id: <20201005144531.2527844-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201005144527.2527777-1-sashal@kernel.org>
-References: <20201005144527.2527777-1-sashal@kernel.org>
+In-Reply-To: <20201005144531.2527844-1-sashal@kernel.org>
+References: <20201005144531.2527844-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -114,9 +114,9 @@ aWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVy
 cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwg
 MSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
 bWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKaW5k
-ZXggYmM3NDYxMzE5ODdmZi4uYWU3MDBlNDQ1ZmJjOCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZXggMDVmZjk4YjQzYzUwZi4uODBjNjBhNjJkMzllZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
 ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uYwpAQCAtNzI3LDYgKzcyNyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3R0
+Z3B1L2FtZGdwdV90dG0uYwpAQCAtNjM3LDYgKzYzNyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3R0
 bV90dF9waW5fdXNlcnB0cihzdHJ1Y3QgdHRtX3R0ICp0dG0pCiAKIHJlbGVhc2Vfc2c6CiAJa2Zy
 ZWUodHRtLT5zZyk7CisJdHRtLT5zZyA9IE5VTEw7CiAJcmV0dXJuIHI7CiB9CiAKLS0gCjIuMjUu
 MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
