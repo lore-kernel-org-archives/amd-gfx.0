@@ -2,55 +2,58 @@ Return-Path: <SRS0=TD2D=DN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B0B0C47095
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 07:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFE95C4363D
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 12:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA96820789
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 07:35:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 102F1206F7
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 12:29:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m1TmLnvP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA96820789
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="geZKcgda"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 102F1206F7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6859A6E3EF;
-	Tue,  6 Oct 2020 07:35:22 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A9406E0E4;
- Tue,  6 Oct 2020 04:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- MIME-Version:Date:Message-ID:Subject:Cc:From:To:Sender:Reply-To:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=Dt6GxUiiNucMJVb8insT90iPuGdOD6EG4FZ0RccNAMI=; b=m1TmLnvP1zb+gBR5X8PaSFHKAQ
- LgPis6cwWOZTnfJm2d22Cz6eTicstsnc9GrWWPi8Nap0uFabAaCeqneFSMqS7LDWNzUC4nUqAkJbl
- wnKF4vP5M+cJpKYAqlSrMxeCZBkeYXeaJAG1UpNXfsr+Mn7eSY8GM2lV93MrsoiDmfZpC+Kk5aDs/
- v3TdzyPj7KsTU0d7yyaUeF+sS8IaG3OkTBTagEe3wpAH1A+ZIHNBOZYZDZE9uDHSyoKQWClXh24FG
- FcJciAgxOSqEuHahBeSS2JyqHAFegQpGCwPUOq7OloHiP8IOxkWj5zN/8LfZjHAlGiWkthTmhYKls
- iEYLfUNA==;
-Received: from [2601:1c0:6280:3f0::2c9a]
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kPevb-0008JQ-K8; Tue, 06 Oct 2020 04:50:19 +0000
-To: LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: [RFC PATCH] DRM: amd: powerplay: don't undef pr_warn() {causes ARC
- build errors}
-Message-ID: <9c86375d-34a9-6584-0069-452b193076d6@infradead.org>
-Date: Mon, 5 Oct 2020 21:50:15 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7A06E196;
+	Tue,  6 Oct 2020 12:29:48 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFB88913B;
+ Tue,  6 Oct 2020 08:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=B6IlmCjekqif+t616Ax228HYiFyy1jBul9azecGXGdU=; 
+ b=geZKcgdaXju0bL8gRGOeUyvkSMBYsw+tzWrb2nldtRplQlj96kTyLTzKGWzVLBDvg3Vv3DuvC7t3x7LRJisRpV05u2vagDLVV/Qfluc2YoeteExiYTJlj+4hJZrGk/M0km8hQ911sN1+MKqfth/5BTpVRr6yEBZgWk03/rPn9TvD895jFTHmqthkwD2t1hob4rMGgbe/sRpG0XkGXBWoLZ2WpxjFlEr2zROlcPj+IEyAvdcjTZGtn6ayTL36IlgoHwKYWcoM2sbvTgEyIs9KqAeNKU63fQOuXKJjKCVxxIFMGOdURWZ7lorJwn1O3SmT/PgAYJBnv2P4pqs4VNa8iw==;
+Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
+ helo=fourier) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1kPidq-0005Cc-Uk; Tue, 06 Oct 2020 10:48:15 +0200
+Message-ID: <ee5153f7dc037ab96aff6795c5514da3fea3af94.camel@igalia.com>
+Subject: Re: [Freedreno] [RESEND] Requests For Proposals for hosting XDC2021
+ are now open
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "members@x.org" <members@x.org>, "events@lists.x.org"
+ <events@lists.x.org>,  "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
+ <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
+ <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
+ <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Date: Tue, 06 Oct 2020 10:48:04 +0200
+In-Reply-To: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
+References: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
+User-Agent: Evolution 3.36.5 (3.36.5-1.fc32) 
 MIME-Version: 1.0
-Content-Language: en-US
-X-Mailman-Approved-At: Tue, 06 Oct 2020 07:35:21 +0000
+X-Mailman-Approved-At: Tue, 06 Oct 2020 12:29:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,75 +65,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan Quan <evan.quan@amd.com>, kernel test robot <lkp@intel.com>,
- Vineet Gupta <vgupta@synopsys.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- "linux-snps-arc@lists.infradead.org" <linux-snps-arc@lists.infradead.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "X.Org Foundation Board" <board@foundation.x.org>
+Content-Type: multipart/mixed; boundary="===============0346984706=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
 
-arch/arc/ implements BUG_ON() with BUG(). ARC has its own BUG()
-function and that function uses pr_warn() as part of its implementation.
+--===============0346984706==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-i8Rt81kDKlWriGrdIRjk"
 
-Several (8) files in amd/powerplay/ #undef various pr_xyz() functions so
-that they won't be used by these drivers, since dev_() functions are
-preferred here and the #undefs make the pr_() functions unavailable.
 
-Hence the following build errors are reported in ARC builds:
+--=-i8Rt81kDKlWriGrdIRjk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-../drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c: In function 'navi10_fill_i2c_req':
-../arch/arc/include/asm/bug.h:24:2: error: implicit declaration of function 'pr_warn'; did you mean 'drm_warn'? [-Werror=implicit-function-declaration]
+Deadline is November 1st, just in a few weeks!
 
-../drivers/gpu/drm/amd/amdgpu/../powerplay/sienna_cichlid_ppt.c: In function 'sienna_cichlid_fill_i2c_req':
-../arch/arc/include/asm/bug.h:24:2: error: implicit declaration of function 'pr_warn'; did you mean 'drm_warn'? [-Werror=implicit-function-declaration]
+Don't forget to submit your XDC 2021 proposal to board@foundation.x.org
+.
 
-Fixes: 55084d7f4022 ("drm/amd/powerplay: forbid to use pr_err/warn/info/debug")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Evan Quan <evan.quan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Vineet Gupta <vgupta@synopsys.com>
-Cc: linux-snps-arc@lists.infradead.org
----
-Another alternative is for amd/powerplay/ drivers not to use BUG()
-or BUG_ON().
-A third alternative is to ask the ARC developers to implement BUG()
-without using any pr_() functions.
+Sam
 
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c         |    2 +-
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+On Thu, 2020-09-03 at 12:16 -0400, Lyude Paul wrote:
+> (Including a bunch more emails in the To: that got missed the first
+> time)
+>=20
+> Hello everyone!
+>=20
+> The X.org board is soliciting proposals to host XDC in 2021. Since
+> XDC2020 is being held virtually this year, we've decided to host in
+> either North America or Europe. However, the board is open to other
+> locations, especially if there's an interesting co-location with
+> another
+> conference.
+>=20
+> Of course though, due to the ongoing COVID-19 pandemic it's not yet
+> clear whether or not it will be possible to host XDC2021 in person.
+> Because of this, we would like to make it clear that sponsors should
+> prepare for both the possibility of an in person conference, and the
+> possibility of a virtual conference. We will work with organizers on
+> coming up with a deadline for deciding whether or not we'll be going
+> virtual, likely sometime around July.
+>=20
+> If you're considering hosting XDC, we've assembled a wiki page with
+> what's generally expected and needed:
+>=20
+> https://www.x.org/wiki/Events/RFP/
+>=20
+> When submitting your proposal, please make sure to include at least
+> the
+> key information about the potential location in question, possible
+> dates
+> along with estimated costs. Proposals can be submitted to board at
+> foundation.x.org until the deadline of November 1st. Additionally, an
+> quirk early heads-up to the board if you're considering hosting would
+> be
+> appreciated, in case we need to adjust the schedule a bit. Also,
+> earlier
+> is better since there generally will be a bit of Q&A with organizers.
+>=20
+> And if you just have some questions about what organizing XDC
+> entails,
+> please feel free to chat with previous organizers, or someone from
+> the
+> board.
 
---- lnx-59-rc7.orig/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ lnx-59-rc7/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -52,7 +52,7 @@
-  * They are more MGPU friendly.
-  */
- #undef pr_err
--#undef pr_warn
-+//#undef pr_warn
- #undef pr_info
- #undef pr_debug
- 
---- lnx-59-rc7.orig/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ lnx-59-rc7/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -54,7 +54,7 @@
-  * They are more MGPU friendly.
-  */
- #undef pr_err
--#undef pr_warn
-+//#undef pr_warn
- #undef pr_info
- #undef pr_debug
- 
+--=-i8Rt81kDKlWriGrdIRjk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl98L0QACgkQf/S6MvF9
+w0MB5Q//ZfxA9TMZbNgz2V21T4oNCgQg7w3bkzftP1l10UHVSfnpbz3mKGctMm6K
+csjdcmQgVJ6n4gs2VlDGhluukN5hMnBQPe+py1Oyu7SmBYyB6TjhjExHGnd/TX1j
+G/KqpyAnXCZOE1JzuK4u4fmLenGbzqywXgciRuWria6QxG0z06K+8yjZMMk3C1Dv
+O0dRGMt7SLzXwojjWSZQqsY50wBeafdfsP5l1encOn8/KEqSIhf2fnnrKhdt24UT
+8Sravrz1bN0MaCEVFqA51Vq5/RxgA/VY8+VVP+fXRdJdvoJzozlTr7Oj1OtIz9KC
+2aJp+BzV9zlVyPyEOe9aFJUeCUpa8PulNSi6Yuoy6l8Bbqu1KqdGC8rOT2A2eFHo
+yIxHkXDBr+PTb59k6tXzCL6usuUgNFcExnJxIjEJ1XZLscm5hq2aGb9EzeiSYPVE
+Y+W0/x5EyoIGzd1owJQM1GqrXnDqcyNiSAqi/6J7Gae8FS4k4qTg8nRu6wxzYNnt
+aJ4ZuOplyLrFAnP+Wz1b80S/i5kl6sVpopytFMp3biLTXg6z1FfnCKiF1u9SrHYM
+P7c4WS8L3aWrOLh0eZI2Q1Lfiu8EPeAWk4Dkt6gBkjdHbDmKuOZnLgm7rStu4gWm
+th2pTohkIOJtv2QRJ1ysnK5QaR1294jB+fUfLN+PultZiPunLEA=
+=4OiG
+-----END PGP SIGNATURE-----
+
+--=-i8Rt81kDKlWriGrdIRjk--
+
+
+--===============0346984706==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0346984706==--
+
