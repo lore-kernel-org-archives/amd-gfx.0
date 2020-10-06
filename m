@@ -2,58 +2,72 @@ Return-Path: <SRS0=TD2D=DN=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFE95C4363D
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 12:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40C43C4363D
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 13:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 102F1206F7
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 12:29:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DA5C6207EA
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2020 13:27:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="geZKcgda"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 102F1206F7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=igalia.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XllLJ3Ki"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA5C6207EA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7A06E196;
-	Tue,  6 Oct 2020 12:29:48 +0000 (UTC)
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFB88913B;
- Tue,  6 Oct 2020 08:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=B6IlmCjekqif+t616Ax228HYiFyy1jBul9azecGXGdU=; 
- b=geZKcgdaXju0bL8gRGOeUyvkSMBYsw+tzWrb2nldtRplQlj96kTyLTzKGWzVLBDvg3Vv3DuvC7t3x7LRJisRpV05u2vagDLVV/Qfluc2YoeteExiYTJlj+4hJZrGk/M0km8hQ911sN1+MKqfth/5BTpVRr6yEBZgWk03/rPn9TvD895jFTHmqthkwD2t1hob4rMGgbe/sRpG0XkGXBWoLZ2WpxjFlEr2zROlcPj+IEyAvdcjTZGtn6ayTL36IlgoHwKYWcoM2sbvTgEyIs9KqAeNKU63fQOuXKJjKCVxxIFMGOdURWZ7lorJwn1O3SmT/PgAYJBnv2P4pqs4VNa8iw==;
-Received: from 11.red-79-157-245.dynamicip.rima-tde.net ([79.157.245.11]
- helo=fourier) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1kPidq-0005Cc-Uk; Tue, 06 Oct 2020 10:48:15 +0200
-Message-ID: <ee5153f7dc037ab96aff6795c5514da3fea3af94.camel@igalia.com>
-Subject: Re: [Freedreno] [RESEND] Requests For Proposals for hosting XDC2021
- are now open
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "members@x.org" <members@x.org>, "events@lists.x.org"
- <events@lists.x.org>,  "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, "wayland-devel@lists.freedesktop.org"
- <wayland-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "mesa-dev@lists.freedesktop.org"
- <mesa-dev@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "etnaviv@lists.freedesktop.org"
- <etnaviv@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Date: Tue, 06 Oct 2020 10:48:04 +0200
-In-Reply-To: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
-References: <a171fea35e5dab03873876e221ab15b74ab24d62.camel@redhat.com>
-User-Agent: Evolution 3.36.5 (3.36.5-1.fc32) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB696E048;
+	Tue,  6 Oct 2020 13:27:17 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 163846E048
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2020 13:27:16 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id s4so2294601qkf.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Oct 2020 06:27:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Yz5QbLbYBaExcPYDWZQ5583wo/DSnCFpyUcDfXtJI8E=;
+ b=XllLJ3KiCc1Q/AMn//Wf5tFNl5OY3RTZYRGFSDD73yaRdVia3qy5Yeq4E7zlVKfVtH
+ JFbEFrquK3zn/I0GY/xF3R8Y5Oiwz4NHHCkiM1LHuNvDK1YK7W4gyP94yaN+L0fHB44w
+ bwugl3YtWICnYGY1II3j60AkHyJzxhNwizZqJvokEmmPYo+dpvK+rpryBxuWrKNOUEFd
+ BbHfG7BDmO4OMzdonD7bfuJ8Bmc4PWaB/jZbkWu7yeXyjRAD3Uh+nAa0LcjKaAOhXzsx
+ LnUwFgAKU2km3faXBF8N8+tgcnBET8bddxauOaNWQkot9H03YcvCFU5rpTf/3DoH5HaA
+ 7Lqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Yz5QbLbYBaExcPYDWZQ5583wo/DSnCFpyUcDfXtJI8E=;
+ b=A64GyzJjP7FfaNMO3nf2DHEe+amrbthauaKW2/ELOOkXjIoG4AF6CERChvo407w7GZ
+ k7+WaFf49S+gAEEW18j24zqTkhXjypABDGWDWtLRQJepwDzAwc5cR+qlY6ERdff29VLd
+ k0teRM2HzjrYtRVurhORXMrFqFw7sUiUUVJd9/dmo7ZzPPQbVdjmGvdVlnvVzdkilkm5
+ k248n8sBuLGmtJb5nwG6edWXRAP23metvByJSrcPiBJbHZP5KK+vSrMtrRJ6PZ1kAb5Q
+ QknItpYa9JlZIo+DlF8uIkYFfbIgiWhEhW0rLz1M9Tc00R0+3cNr/gs2GIFyN4m7HNXY
+ KJKw==
+X-Gm-Message-State: AOAM532TSNKdtzimPoOAxoYKCRZfCardS089wX74oVHwaeRrjdbP9I9F
+ LKqfYxzDdWLv5lHWnjhHFM/jNoIGpKg=
+X-Google-Smtp-Source: ABdhPJwDSMBLmKQGBWUDt8vcwAEQVmu/+jblLjzrWaEWEQ7wyQ2hO7/Ur1ln5BxJe3BoOd68weS67g==
+X-Received: by 2002:a05:620a:13d6:: with SMTP id
+ g22mr2721337qkl.425.1601990834981; 
+ Tue, 06 Oct 2020 06:27:14 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id b9sm1621812qka.86.2020.10.06.06.27.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Oct 2020 06:27:14 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: prevent spurious warning
+Date: Tue,  6 Oct 2020 09:26:58 -0400
+Message-Id: <20201006132659.1486610-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 06 Oct 2020 12:29:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,107 +79,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "X.Org Foundation Board" <board@foundation.x.org>
-Content-Type: multipart/mixed; boundary="===============0346984706=="
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The default auto setting for kcq should not generate
+a warning.
 
---===============0346984706==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-i8Rt81kDKlWriGrdIRjk"
+Fixes: a300de40f66b ("drm/amdgpu: introduce a new parameter to configure how many KCQ we want(v5)")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-
---=-i8Rt81kDKlWriGrdIRjk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Deadline is November 1st, just in a few weeks!
-
-Don't forget to submit your XDC 2021 proposal to board@foundation.x.org
-.
-
-Sam
-
-On Thu, 2020-09-03 at 12:16 -0400, Lyude Paul wrote:
-> (Including a bunch more emails in the To: that got missed the first
-> time)
->=20
-> Hello everyone!
->=20
-> The X.org board is soliciting proposals to host XDC in 2021. Since
-> XDC2020 is being held virtually this year, we've decided to host in
-> either North America or Europe. However, the board is open to other
-> locations, especially if there's an interesting co-location with
-> another
-> conference.
->=20
-> Of course though, due to the ongoing COVID-19 pandemic it's not yet
-> clear whether or not it will be possible to host XDC2021 in person.
-> Because of this, we would like to make it clear that sponsors should
-> prepare for both the possibility of an in person conference, and the
-> possibility of a virtual conference. We will work with organizers on
-> coming up with a deadline for deciding whether or not we'll be going
-> virtual, likely sometime around July.
->=20
-> If you're considering hosting XDC, we've assembled a wiki page with
-> what's generally expected and needed:
->=20
-> https://www.x.org/wiki/Events/RFP/
->=20
-> When submitting your proposal, please make sure to include at least
-> the
-> key information about the potential location in question, possible
-> dates
-> along with estimated costs. Proposals can be submitted to board at
-> foundation.x.org until the deadline of November 1st. Additionally, an
-> quirk early heads-up to the board if you're considering hosting would
-> be
-> appreciated, in case we need to adjust the schedule a bit. Also,
-> earlier
-> is better since there generally will be a bit of Q&A with organizers.
->=20
-> And if you just have some questions about what organizing XDC
-> entails,
-> please feel free to chat with previous organizers, or someone from
-> the
-> board.
-
---=-i8Rt81kDKlWriGrdIRjk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAl98L0QACgkQf/S6MvF9
-w0MB5Q//ZfxA9TMZbNgz2V21T4oNCgQg7w3bkzftP1l10UHVSfnpbz3mKGctMm6K
-csjdcmQgVJ6n4gs2VlDGhluukN5hMnBQPe+py1Oyu7SmBYyB6TjhjExHGnd/TX1j
-G/KqpyAnXCZOE1JzuK4u4fmLenGbzqywXgciRuWria6QxG0z06K+8yjZMMk3C1Dv
-O0dRGMt7SLzXwojjWSZQqsY50wBeafdfsP5l1encOn8/KEqSIhf2fnnrKhdt24UT
-8Sravrz1bN0MaCEVFqA51Vq5/RxgA/VY8+VVP+fXRdJdvoJzozlTr7Oj1OtIz9KC
-2aJp+BzV9zlVyPyEOe9aFJUeCUpa8PulNSi6Yuoy6l8Bbqu1KqdGC8rOT2A2eFHo
-yIxHkXDBr+PTb59k6tXzCL6usuUgNFcExnJxIjEJ1XZLscm5hq2aGb9EzeiSYPVE
-Y+W0/x5EyoIGzd1owJQM1GqrXnDqcyNiSAqi/6J7Gae8FS4k4qTg8nRu6wxzYNnt
-aJ4ZuOplyLrFAnP+Wz1b80S/i5kl6sVpopytFMp3biLTXg6z1FfnCKiF1u9SrHYM
-P7c4WS8L3aWrOLh0eZI2Q1Lfiu8EPeAWk4Dkt6gBkjdHbDmKuOZnLgm7rStu4gWm
-th2pTohkIOJtv2QRJ1ysnK5QaR1294jB+fUfLN+PultZiPunLEA=
-=4OiG
------END PGP SIGNATURE-----
-
---=-i8Rt81kDKlWriGrdIRjk--
-
-
---===============0346984706==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 5a26894dc635..7f26408c0d76 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1372,7 +1372,9 @@ static int amdgpu_device_check_arguments(struct amdgpu_device *adev)
+ 
+ 	amdgpu_gmc_tmz_set(adev);
+ 
+-	if (amdgpu_num_kcq > 8 || amdgpu_num_kcq < 0) {
++	if (amdgpu_num_kcq == -1) {
++		amdgpu_num_kcq = 8;
++	} else if (amdgpu_num_kcq > 8 || amdgpu_num_kcq < 0) {
+ 		amdgpu_num_kcq = 8;
+ 		dev_warn(adev->dev, "set kernel compute queue number to 8 due to invalid parameter provided by user\n");
+ 	}
+-- 
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0346984706==--
-
