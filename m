@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1077EC41604
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12D28C41604
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 959422064E
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E4B92064E
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qMwj21QP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 959422064E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nh5XfWrF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E4B92064E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2586E96D;
-	Wed,  7 Oct 2020 16:32:19 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD8006E967
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:17 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id h12so854906qtu.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C37F6E970;
+	Wed,  7 Oct 2020 16:32:21 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9326E965
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:19 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id d20so3472885qka.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=kaGRnl7rpBWgnCg/9fiZ6BDb7yFlhICoAClQ5IzMzlk=;
- b=qMwj21QPGsavF7Yletwun+9nvmNBeVSythbiTYkUvkdGecIG7v5kp+a/19v+hg6/4i
- Gu3ETFCosWafiky+THxKv05GMo53MRBA9GD9FOaZH5citeme3/20CUmnY6dcGLEciEVz
- UQr5DbUMoUV7u4UIlEawtKN9SCU+LZ++RBtXPKJLKX8rnIHCBT+QFyztfF60z6MlP3J0
- 7nOu0uQIWwxdjzHGEcYfQk5QOjCP52zvw7JN9Q8ReSl/cKZVLkritw0SODMK/YeeMavA
- QTHMdvXF5lpz5kFWETUJnzCjEeU7/5nthS9BNmj6zeFXdqiCAt6qKgNrnxF2bOq21dts
- 69Sg==
+ bh=4E8JhSqvuNQ+AiT66KsJriAt0LjwhCPPP6Mccx6POpY=;
+ b=nh5XfWrFBrVvuJKyl8dPvG2jJIVbYTry5FusEcCkqvMraSBLPzljWE7sjO27oHvjkW
+ btGLUgov/qWZ3/tYRnESzHGabfHDUq1K1UhoR4nbWnwlTslAvZhKw+oZJpejc3xb4jcM
+ vXluwrLrcAPWTe3xXsRwuzSCDi7ng9/i9sb9OjZ9wCilNqHoIulx+qMg+0O5mjVlXZxK
+ O1A+RxYFDQ3qXlG+stUnTRHDOhCjgE9xWe9WgOX0DiI2KeDUAZL1qR6hig9O8KwClVz8
+ t1K4Wp3Jnr2/4iieO5QOEZYfZhsIFAAI+QvaN+CRGmsFDSL/HhxwPELajq8/QAA7+PlB
+ XYyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=kaGRnl7rpBWgnCg/9fiZ6BDb7yFlhICoAClQ5IzMzlk=;
- b=iyIsW0Pt+JhnSDnTDFSkpLbuY7vv16HYW6PERaKtb61zWpS2B/fJyglc+hbNcb/W+S
- bd3kzDy1WeD/XVOcpxw9TU77+yD/60JhJ4bc77t2xJh9V4bOgpGiFPDApNco7sB3gK/T
- JDP6gxPFRCuBAQtZBPNFkcfLxP4Qm/+m9DOuuC0B/pHmLmfUY4WfmjMgZQ8/3lx2GpxJ
- uWJkPvYx96jGTSUoTMRifoS81YDSg08JcmOVObxuKOwhi3Y5YpcJfDaKOhbr08EFghsW
- TyxZ55IuFp6kJiQXvSwkw3M2Mq4qoJR0CmFCpwjTg/I1kQ49jlSDe46QE2Y+kD8Dy7mE
- RrMg==
-X-Gm-Message-State: AOAM533qPD/JRFff59QM/jq91WkBbpblL3Zq+cChl0NyoCgxeB35X1h/
- 3bSyQjFVSpOVmoNkJwsED/1PK11r8AE=
-X-Google-Smtp-Source: ABdhPJxJFkq2w73r/oKceYJ7+W1zm6762mZB+5BzssgLVwyULdoOQy3j8FV0TsoWBMxKwpyJ9QoLhQ==
-X-Received: by 2002:ac8:6945:: with SMTP id n5mr4001288qtr.202.1602088336687; 
- Wed, 07 Oct 2020 09:32:16 -0700 (PDT)
+ bh=4E8JhSqvuNQ+AiT66KsJriAt0LjwhCPPP6Mccx6POpY=;
+ b=BZSckl3fTxKfBlxZnjq6pxcoRJg9T9l3EZPqlGRoKxPLbGrA7yp+HDYQ1iwiIt5nhi
+ lmLOHMtiXp3M9cOxEMriYP4dprk8gqFe3cgTqiQWbCEk8ubFBUz0o5Tvw+77/IzD6z7k
+ heLWtJGo5gsYYEzrlTITSFSibsj2VaVFRbS4tZyCk0QVifMQuWniyZfXUk9X0bb9vqHg
+ sf+qFlNZvelPAJy0hSqOqsC6lBCvEQ4H5TKNxdOLlErcSC+LGta3sBCAZ7hKRs0GUP2G
+ DeJ6VOua2Ylv9YpjaugHmAsqHCWAV5aowdjbT+/fuvZ4RIwhgEXFM91A75xwd7it2sRd
+ 4Ubw==
+X-Gm-Message-State: AOAM530h0nrlcifc2jntj7e1UKIhssuzOw7Yr6+tl7+qZch6XrYbdzmC
+ ibL0KztrwQOVIdMWwPwPzvpVJbLhmfY=
+X-Google-Smtp-Source: ABdhPJylkZCt3rtt2dPLo5cOO3jEtsXFNp8/UaxJ8B5rYZQ47yaOhy0ZLFEVixIiIdjATrYP5VC/4g==
+X-Received: by 2002:ae9:ed13:: with SMTP id c19mr3656916qkg.196.1602088338381; 
+ Wed, 07 Oct 2020 09:32:18 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.15
+ by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2020 09:32:15 -0700 (PDT)
+ Wed, 07 Oct 2020 09:32:17 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 19/50] drm/amdgpu/vcn: add firmware support for
- dimgrey_cavefish
-Date: Wed,  7 Oct 2020 12:31:04 -0400
-Message-Id: <20201007163135.1944186-20-alexander.deucher@amd.com>
+Subject: [PATCH 20/50] drm/amdgpu/vcn: enable VCN DPG mode for dimgrey_cavefish
+Date: Wed,  7 Oct 2020 12:31:05 -0400
+Message-Id: <20201007163135.1944186-21-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201007163135.1944186-1-alexander.deucher@amd.com>
 References: <20201007163135.1944186-1-alexander.deucher@amd.com>
@@ -90,45 +89,28 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: James Zhu <James.Zhu@amd.com>
 
-Add firmware support for dimgrey_cavefish.
+Enable VCN DPG mode for dimgrey_cavefish.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 Reviewed-by: Leo Liu <leo.liu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 81102598cde7..dc4053a034c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -45,6 +45,7 @@
- #define FIRMWARE_SIENNA_CICHLID 	"amdgpu/sienna_cichlid_vcn.bin"
- #define FIRMWARE_NAVY_FLOUNDER 	"amdgpu/navy_flounder_vcn.bin"
- #define FIRMWARE_VANGOGH	"amdgpu/vangogh_vcn.bin"
-+#define FIRMWARE_DIMGREY_CAVEFISH 	"amdgpu/dimgrey_cavefish_vcn.bin"
- 
- MODULE_FIRMWARE(FIRMWARE_RAVEN);
- MODULE_FIRMWARE(FIRMWARE_PICASSO);
-@@ -57,6 +58,7 @@ MODULE_FIRMWARE(FIRMWARE_NAVI12);
- MODULE_FIRMWARE(FIRMWARE_SIENNA_CICHLID);
- MODULE_FIRMWARE(FIRMWARE_NAVY_FLOUNDER);
- MODULE_FIRMWARE(FIRMWARE_VANGOGH);
-+MODULE_FIRMWARE(FIRMWARE_DIMGREY_CAVEFISH);
- 
- static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
- 
-@@ -127,6 +129,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 90ff9cdcb924..94ccacd786ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -905,7 +905,7 @@ static int nv_common_early_init(void *handle)
  		break;
- 	case CHIP_VANGOGH:
- 		fw_name = FIRMWARE_VANGOGH;
-+		break;
-+	case CHIP_DIMGREY_CAVEFISH:
-+		fw_name = FIRMWARE_DIMGREY_CAVEFISH;
- 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
- 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
- 			adev->vcn.indirect_sram = true;
+ 	case CHIP_DIMGREY_CAVEFISH:
+ 		adev->cg_flags = 0;
+-		adev->pg_flags = 0;
++		adev->pg_flags = AMD_PG_SUPPORT_VCN_DPG;
+ 		adev->external_rev_id = adev->rev_id + 0x3c;
+ 		break;
+ 	default:
 -- 
 2.25.4
 
