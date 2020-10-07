@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1AC7C41604
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE505C47095
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 598DD2064E
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 67E332064E
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cMqa5MiB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 598DD2064E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="t9bF0L2O"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67E332064E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB9586E97C;
-	Wed,  7 Oct 2020 16:32:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B57A6E97B;
+	Wed,  7 Oct 2020 16:32:56 +0000 (UTC)
 Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
  [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E74476E956
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:51 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id o21so2421046qtp.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:51 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DA56E979
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:54 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id q26so2404704qtb.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=URpWmPSDM7brhAXWw6g9TJz52lkF75UrCCwM2/anyVM=;
- b=cMqa5MiBqvF6LY8CygROLoDbexPGqnfUni52T/4n9E1t10yP0aZw3qY1iti/HmC4cj
- rl0gkkdp5z53ik2dRrvRz/7oBhGe6xZxzWtBg4GAwCvMyYyxLHPkUB4u/4exMn0tavcI
- zw9YRi9c9bX4ySNiZN8cpYNWBspgdHduaVLnLt+s/KhYfFwrnakRFfJQZRwwHgTt7yaY
- Zbg+qAmeyMfPCkWF/frUNX6WHRbxAh4fX9hGmc4BBOXefurtL23zX+r5Kr3DZpfRj5Vs
- h1bUY/gYRsEr0UleyXMyAzMfrSUXtvd/KngAoXuqB/RMH4jJLNQeEq459EX2RPVk1zgf
- cDEQ==
+ bh=gBhcjXJbCCNxFoXu1vSSKtve6DrqmB2rIPOUF1DWRGg=;
+ b=t9bF0L2OfbMjIvLDgzDADQJPetN8RWCu5dpajiAJT/0P9cdqhumf5Qhph35ZlallKB
+ Pg3N8paWBUJMUPCD2e0rgxyGVMNVf1sIHonQiHL3tokyM98bGclRcWWQXwQRlZQG9XZ2
+ KPct/RRZbTg60vdp+C8Qxdf8r02xaDOFgz1/jREBB5xcjSRhNNkyj2vNmU4SAC+3qD8l
+ S8xfcMGahsL7/feeWmXEVXNLMv77sU9PpKYu5SyBlrQYH9vOZy2J3tVCRAWFaFlg3H2A
+ U+ZKbWz7kEy/BP5l9Zn96PuPHls1fbRdN4JJjzh3aSErCM7MwTQyeQ3kLj8NATG0oXFo
+ iZpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=URpWmPSDM7brhAXWw6g9TJz52lkF75UrCCwM2/anyVM=;
- b=pWw7CgOQXBJ4NCBCn3ESp4xOPFELm8sqZlxprETZKTlCOgjJUYFWP1qcPK6rNqb7Js
- 1J+b7xfOhyvqDuX7aAqiQTXXFcww2uDjVpueP15okbUVOpqDBPG/V/2ap9aU0OLCvcq4
- mdf4iJW35a1w593X6kLi91mwdoo3X3SL5GDW5q82boKm79UCevUs/lHd/Sv79ckpLIW2
- MGY84L2VL0FLcB4RoFrfIq6bw8fqh0lX3BHJvUgHv1DUJQrNWkPBd2YzJ7EKeJWk4vl1
- UNVo9iDpx31LevbrsaGsHjUDeQQMj9wvxMwElb7coV3hM5XFlrCMwaC9uhEXI+k/u87k
- sjsw==
-X-Gm-Message-State: AOAM530PVy/wsE2yDzMXFy5IXpMMHJyg/isJV4LCxikVltySMqIZYGpS
- hm0J3+vDaNGDYCE/JLOcTX+ZvMG7xHo=
-X-Google-Smtp-Source: ABdhPJzFjAlE516C5LFDuRqHGEKIzEBze6npP+/D2NvHE7QREMs42Zha64Uyg0W939RsW0HK37NUiA==
-X-Received: by 2002:ac8:1246:: with SMTP id g6mr4109924qtj.353.1602088370967; 
- Wed, 07 Oct 2020 09:32:50 -0700 (PDT)
+ bh=gBhcjXJbCCNxFoXu1vSSKtve6DrqmB2rIPOUF1DWRGg=;
+ b=LRdpjYYXEE9ZqMKyV8wf0PozuZshRBbY+4hAloXBujiF0pfN6RsmmFtrApgFL9hz3U
+ vL8VONHjnfkyHw6671lWeciFcw0M2+aRN+FqAwAIzGD6x8GjW5GujKdtoL6Xyl5hBVmq
+ eID/yn5B93wTdzz/vlFP5zPjVh2GGdMA1zbWWrG8x9fxwwXkRAFV7GlKRYFFk+LIKB/0
+ UjJzsmknhFuSDGSjTWWuE/h32D7i4wrN2uDtMGS5PZyHElEtN1P+sY5Xn13Xypc1Tab0
+ UtVyAke942072G6c1mfjxXKZhsvEGtXs7bL57ZB+1//+430fCMmBL1QipmsH4Q/JuEdU
+ 7OOg==
+X-Gm-Message-State: AOAM532ZKzCjLzVvYlU6k2RTLteJ4or1xonXsBzDzagBy77jls0YTi4P
+ W3dFPYtJ7yF2DmhwBuFicB1V5bJ83bk=
+X-Google-Smtp-Source: ABdhPJxW3RvtcBf8WQ0Ym5pFHDrh/QSMFsMTCF2Q3AlicaCYxbWfp2FH0qxFCDP0V2MUzfVGdrUU/Q==
+X-Received: by 2002:ac8:b8b:: with SMTP id h11mr3966709qti.28.1602088373407;
+ Wed, 07 Oct 2020 09:32:53 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.50
+ by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2020 09:32:50 -0700 (PDT)
+ Wed, 07 Oct 2020 09:32:52 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 46/50] drm/amdgpu: enable ih CG for dimgrey_cavefish
-Date: Wed,  7 Oct 2020 12:31:31 -0400
-Message-Id: <20201007163135.1944186-47-alexander.deucher@amd.com>
+Subject: [PATCH 48/50] drm/amdgpu/swsmu: update driver if version for
+ dimgrey_cavefish
+Date: Wed,  7 Oct 2020 12:31:33 -0400
+Message-Id: <20201007163135.1944186-49-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201007163135.1944186-1-alexander.deucher@amd.com>
 References: <20201007163135.1944186-1-alexander.deucher@amd.com>
@@ -81,7 +82,7 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Jiansong Chen <Jiansong.Chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -89,29 +90,28 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tao Zhou <tao.zhou1@amd.com>
 
-Set ih CG flag for dimgrey_cavefish.
+Per PMFW 59.7.0.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Jiansong Chen <Jiansong.Chen@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/inc/smu_v11_0.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index c73ad0482022..e6bc7f09ec43 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -919,7 +919,8 @@ static int nv_common_early_init(void *handle)
- 			AMD_CG_SUPPORT_MC_MGCG |
- 			AMD_CG_SUPPORT_MC_LS |
- 			AMD_CG_SUPPORT_HDP_MGCG |
--			AMD_CG_SUPPORT_HDP_LS;
-+			AMD_CG_SUPPORT_HDP_LS |
-+			AMD_CG_SUPPORT_IH_CG;
- 		adev->pg_flags = AMD_PG_SUPPORT_VCN |
- 			AMD_PG_SUPPORT_VCN_DPG |
- 			AMD_PG_SUPPORT_JPEG |
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+index ee13dad65e7b..2fba050b3180 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+@@ -33,7 +33,7 @@
+ #define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x39
+ #define SMU11_DRIVER_IF_VERSION_Navy_Flounder 0x5
+ #define SMU11_DRIVER_IF_VERSION_VANGOGH 0x01
+-#define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0x7
++#define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0x9
+ 
+ /* MP Apertures */
+ #define MP0_Public			0x03800000
 -- 
 2.25.4
 
