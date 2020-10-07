@@ -2,107 +2,53 @@ Return-Path: <SRS0=8cN+=DO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B070C41604
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 12:42:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B60CC4727E
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 12:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA98620789
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 12:42:47 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="oGD7oI3h"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA98620789
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0328920789
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 12:57:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0328920789
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B4296E8E5;
-	Wed,  7 Oct 2020 12:42:47 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680066.outbound.protection.outlook.com [40.107.68.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 217696E8D8
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 12:42:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ThByUuG/xEhnQz6lvoCSY4rvA7xmp6EyikhaIK6vBLosDucs8lGoRdPHzLD01iuzOfSeXAq3SzQPdoaKcHh6LtrC1OYgTsQsMam/igBkf3tazn/qic6IoBNwYcCtF5mqjvJw3crzwatH3Dwb041geNmKO+Ytw84UQwuPfOjm32t/xeqKqpnVhrJDMNmwQUy9O26NsWTNttYZncqjwvxG+EvHpIKtIgJf8GSt+qoG8Rokf+twT1dffVeWzLYgwETVLSTTkLz0K3RcC4K0Us+pTTXeUOTKE6jefA89iWvl09XlAaG8f+G3TH1Y9rIl/V2b2GU7nkvxvrQd07vq0gTLJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qKShkT+DWGPTT69kbX77bR7lh/Ib3BHIzMwiy3ZBmQw=;
- b=iqzwh/MajY+gJs8CB/8ngdRUMmV4qf59xrjTPnMVi+xGs6LSKW0lcyKsJRG4/duPEkB5vW2kUZwFzrUOvnY/U+rpZLqoS7LgmUUokVEAOmRKWjC09d3YJpml8PJDItqIUqB3bEYKg+O9YBlCS7DfZrckq5dR4joZjMLQ8BVkI1FENUJLP49tFsUoE53urWvfYDHIoODPqhMUHzaz75GxHFzizZQcntylXe/MPj0DwoWlON8OI5aImqka3nXUCl7QsY3W95EumQg4FtQWZeZoo0SUHzYYgNmHsB6ZwzjlPZuIIQ1wk151ggKqJdq+1Bt4O8Mg8J1i5g6KqHm/LPSuuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=none action=none header.from=amd.com; dkim=none (message not signed);
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qKShkT+DWGPTT69kbX77bR7lh/Ib3BHIzMwiy3ZBmQw=;
- b=oGD7oI3hj4GWo0ExkTYc+zVGrEEq5vj4vHzPsqhiagPOnK+CJll9FKsKr+0yKGpjTAtGJv1+9P0C5ogmrj8BrZc5n/24SK0VYq3ZYOIMOKDXlee7sksgBGh3G/BFZ5fcMmjEf00h5HcpXiU7qQNl4Ay0txv6tvtoG3WzDAAPTrY=
-Received: from MW2PR16CA0048.namprd16.prod.outlook.com (2603:10b6:907:1::25)
- by DM6PR12MB2681.namprd12.prod.outlook.com (2603:10b6:5:41::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.43; Wed, 7 Oct
- 2020 12:42:41 +0000
-Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::64) by MW2PR16CA0048.outlook.office365.com
- (2603:10b6:907:1::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.21 via Frontend
- Transport; Wed, 7 Oct 2020 12:42:41 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=none action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3455.23 via Frontend Transport; Wed, 7 Oct 2020 12:42:40 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 7 Oct 2020
- 07:42:38 -0500
-Received: from aj-EliteDesk.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Wed, 7 Oct 2020 07:42:38 -0500
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 11/12] drm/amd/display: Add an option to limit max DSC target
- bpp per sink
-Date: Wed, 7 Oct 2020 08:42:23 -0400
-Message-ID: <20201007124224.18789-12-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201007124224.18789-1-aurabindo.pillai@amd.com>
-References: <20201007124224.18789-1-aurabindo.pillai@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4EEE6E8DE;
+	Wed,  7 Oct 2020 12:57:31 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 285896E8D5;
+ Wed,  7 Oct 2020 12:57:30 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7E8B3B1FA;
+ Wed,  7 Oct 2020 12:57:28 +0000 (UTC)
+Subject: Re: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for
+ type conversion
+To: Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <20200929151437.19717-1-tzimmermann@suse.de>
+ <20200929151437.19717-3-tzimmermann@suse.de>
+ <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
+ <2614314a-81f7-4722-c400-68d90e48e09a@suse.de>
+ <8a84f62b-33f3-f44c-52af-c859a0e0d1fb@gmail.com>
+ <07972ada-9135-3743-a86b-487f610c509f@suse.de>
+ <b569b7e3-68f0-edcc-c8f4-170e9042d348@gmail.com>
+ <20200930094712.GW438822@phenom.ffwll.local>
+ <8479d0aa-3826-4f37-0109-55daca515793@amd.com>
+ <CAKMK7uH0U36NG8w98i0x6HVGeogiwnYDRiKquLW-8znLa7-0yg@mail.gmail.com>
+ <20201002095830.GH438822@phenom.ffwll.local>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <5bf40546-8da9-1649-22da-a982f1e8d9c3@suse.de>
+Date: Wed, 7 Oct 2020 14:57:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2c65d9a2-a5ae-4ca4-2c59-08d86abe7adf
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2681:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2681DBF5B6730D7A7F206D938B0A0@DM6PR12MB2681.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: guiwo7o5QJiVhgbkl7DuJgFWJS0VoKf7/05qX+H9gX1aO/1x33gbbgZVKPFIZuF5A25sdrCMr/XQ5YWddKvKtEfMG0rYMxORFjSvjxwOpLcKXuPZ3Vn1fIeaEVBmkkwCiBdFgK69aGqU7jAo9LN1xJiQxWqAXIOFVBi7DMVLr4DRAE2qI1q3i+KwLXTE2Er9AfSqq4LWT3M9fOHC9iQD31L8FFpsA8RG4WXkXJFC/C+tlmSYBk6j8oJY/SdlvguakWaOzIJSAJe9nLXAVpEMyK4ve2dXhnlbnKsrCvFwGuTShlv63UHcpN3rDiXoOvbMsZDmeA3v/47akn/j4KYfmfpuDesoegp5cFklPEHApo4pCrhYBtMjhCDOLXcJ4mN+ac8wcFOBk2XtO7ZrK1mrfQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(46966005)(54906003)(1076003)(70206006)(4326008)(336012)(316002)(26005)(186003)(478600001)(426003)(2616005)(44832011)(6666004)(8936002)(47076004)(70586007)(82310400003)(86362001)(8676002)(5660300002)(81166007)(7696005)(356005)(6916009)(2906002)(83380400001)(36756003)(82740400003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2020 12:42:40.9142 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c65d9a2-a5ae-4ca4-2c59-08d86abe7adf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2681
+In-Reply-To: <20201002095830.GH438822@phenom.ffwll.local>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,204 +60,483 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Nikola Cornij <nikola.cornij@amd.com>, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Luben Tuikov <luben.tuikov@amd.com>,
+ =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ Dave Airlie <airlied@linux.ie>, Nouveau Dev <nouveau@lists.freedesktop.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Wilson,
+ Chris" <chris@chris-wilson.co.uk>, Melissa Wen <melissa.srw@gmail.com>,
+ "Anholt, Eric" <eric@anholt.net>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Emil Velikov <emil.velikov@collabora.com>, Rob Herring <robh@kernel.org>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, lima@lists.freedesktop.org,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Steven Price <steven.price@arm.com>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Kukjin Kim <kgene@kernel.org>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ "open list:DRM DRIVER FOR QXL VIRTUAL GPU" <spice-devel@lists.freedesktop.org>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ The etnaviv authors <etnaviv@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
+ "open list:VIRTIO CORE, NET..." <virtualization@lists.linux-foundation.org>,
+ Sean Paul <sean@poorly.run>, apaneers@amd.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Sandy Huang <hjc@rock-chips.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Qinglang Miao <miaoqinglang@huawei.com>, Qiang Yu <yuq825@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: multipart/mixed; boundary="===============1476879920=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nikola Cornij <nikola.cornij@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1476879920==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="A04G9t256jlYlZevsaZFScYx8JwBsN4Kq"
 
-[Why] Can be used for debug purposes
-[How] Add max target bpp override field and related handling
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--A04G9t256jlYlZevsaZFScYx8JwBsN4Kq
+Content-Type: multipart/mixed; boundary="eO0KkNElTwku9CAInc7DmPRt4uql8oe3b";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dave Airlie <airlied@linux.ie>,
+ Sam Ravnborg <sam@ravnborg.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Inki Dae <inki.dae@samsung.com>, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Kukjin Kim <kgene@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Qiang Yu <yuq825@gmail.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Rob Herring <robh@kernel.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=c3=bcbner?=
+ <heiko@sntech.de>, Hans de Goede <hdegoede@redhat.com>,
+ Sean Paul <sean@poorly.run>, "Anholt, Eric" <eric@anholt.net>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Huang Rui <ray.huang@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Emil Velikov <emil.velikov@collabora.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, apaneers@amd.com,
+ Linus Walleij <linus.walleij@linaro.org>, Melissa Wen
+ <melissa.srw@gmail.com>, "Wilson, Chris" <chris@chris-wilson.co.uk>,
+ Qinglang Miao <miaoqinglang@huawei.com>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ lima@lists.freedesktop.org, Nouveau Dev <nouveau@lists.freedesktop.org>,
+ The etnaviv authors <etnaviv@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "open list:VIRTIO CORE, NET..." <virtualization@lists.linux-foundation.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK"
+ <linaro-mm-sig@lists.linaro.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "open list:DRM DRIVER FOR QXL VIRTUAL GPU"
+ <spice-devel@lists.freedesktop.org>,
+ "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Message-ID: <5bf40546-8da9-1649-22da-a982f1e8d9c3@suse.de>
+Subject: Re: [PATCH v3 2/7] drm/ttm: Add ttm_kmap_obj_to_dma_buf_map() for
+ type conversion
+References: <20200929151437.19717-1-tzimmermann@suse.de>
+ <20200929151437.19717-3-tzimmermann@suse.de>
+ <8fad0114-064a-4ed5-c21d-d1b4294de0a1@amd.com>
+ <2614314a-81f7-4722-c400-68d90e48e09a@suse.de>
+ <8a84f62b-33f3-f44c-52af-c859a0e0d1fb@gmail.com>
+ <07972ada-9135-3743-a86b-487f610c509f@suse.de>
+ <b569b7e3-68f0-edcc-c8f4-170e9042d348@gmail.com>
+ <20200930094712.GW438822@phenom.ffwll.local>
+ <8479d0aa-3826-4f37-0109-55daca515793@amd.com>
+ <CAKMK7uH0U36NG8w98i0x6HVGeogiwnYDRiKquLW-8znLa7-0yg@mail.gmail.com>
+ <20201002095830.GH438822@phenom.ffwll.local>
+In-Reply-To: <20201002095830.GH438822@phenom.ffwll.local>
 
-Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  4 +++-
- drivers/gpu/drm/amd/display/dc/dc_dsc.h       | 10 ++++----
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 24 ++++++++++++-------
- 5 files changed, 27 insertions(+), 13 deletions(-)
+--eO0KkNElTwku9CAInc7DmPRt4uql8oe3b
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 03a45c3331c1..429b6e2f3190 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4736,6 +4736,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
- 						  &dsc_caps,
- 						  aconnector->dc_link->ctx->dc->debug.dsc_min_slice_height_override,
-+						  0,
- 						  link_bandwidth_kbps,
- 						  &stream->timing,
- 						  &stream->timing.dsc_cfg))
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 98b4d5e2e336..3714b16bada5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -497,6 +497,7 @@ static void set_dsc_configs_from_fairness_vars(struct dsc_mst_fairness_params *p
- 					&params[i].sink->dsc_caps.dsc_dec_caps,
- 					params[i].sink->ctx->dc->debug.dsc_min_slice_height_override,
- 					0,
-+					0,
- 					params[i].timing,
- 					&params[i].timing->dsc_cfg)) {
- 			params[i].timing->flags.DSC = 1;
-@@ -527,6 +528,7 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
- 			param.sink->ctx->dc->res_pool->dscs[0],
- 			&param.sink->dsc_caps.dsc_dec_caps,
- 			param.sink->ctx->dc->debug.dsc_min_slice_height_override,
-+			0,
- 			(int) kbps, param.timing, &dsc_config);
- 
- 	return dsc_config.bits_per_pixel;
-@@ -731,7 +733,7 @@ static bool compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 		params[count].num_slices_v = aconnector->dsc_settings.dsc_num_slices_v;
- 		params[count].bpp_overwrite = aconnector->dsc_settings.dsc_bits_per_pixel;
- 		params[count].compression_possible = stream->sink->dsc_caps.dsc_dec_caps.is_dsc_supported;
--		dc_dsc_get_policy_for_timing(params[count].timing, &dsc_policy);
-+		dc_dsc_get_policy_for_timing(params[count].timing, 0, &dsc_policy);
- 		if (!dc_dsc_compute_bandwidth_range(
- 				stream->sink->ctx->dc->res_pool->dscs[0],
- 				stream->sink->ctx->dc->debug.dsc_min_slice_height_override,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-index 768ab38d41cf..ec55b77727d5 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-@@ -61,9 +61,9 @@ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
- 
- bool dc_dsc_compute_bandwidth_range(
- 		const struct display_stream_compressor *dsc,
--		const uint32_t dsc_min_slice_height_override,
--		const uint32_t min_bpp,
--		const uint32_t max_bpp,
-+		uint32_t dsc_min_slice_height_override,
-+		uint32_t min_bpp,
-+		uint32_t max_bpp,
- 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
- 		const struct dc_crtc_timing *timing,
- 		struct dc_dsc_bw_range *range);
-@@ -71,12 +71,14 @@ bool dc_dsc_compute_bandwidth_range(
- bool dc_dsc_compute_config(
- 		const struct display_stream_compressor *dsc,
- 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
--		const uint32_t dsc_min_slice_height_override,
-+		uint32_t dsc_min_slice_height_override,
-+		uint32_t max_target_bpp_limit_override,
- 		uint32_t target_bandwidth_kbps,
- 		const struct dc_crtc_timing *timing,
- 		struct dc_dsc_config *dsc_cfg);
- 
- void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing,
-+		uint32_t max_target_bpp_limit_override,
- 		struct dc_dsc_policy *policy);
- 
- void dc_dsc_policy_set_max_target_bpp_limit(uint32_t limit);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index c47a19719de2..c36f0daefd83 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -234,6 +234,7 @@ struct dc_panel_patch {
- 	unsigned int delay_ignore_msa;
- 	unsigned int disable_fec;
- 	unsigned int extra_t3_ms;
-+	unsigned int max_dsc_target_bpp_limit;
- };
- 
- struct dc_edid_caps {
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index 4c844cfaa956..c62d0eddc9c6 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -545,6 +545,7 @@ static bool setup_dsc_config(
- 		int target_bandwidth_kbps,
- 		const struct dc_crtc_timing *timing,
- 		int min_slice_height_override,
-+		int max_dsc_target_bpp_limit_override,
- 		struct dc_dsc_config *dsc_cfg)
- {
- 	struct dsc_enc_caps dsc_common_caps;
-@@ -563,7 +564,7 @@ static bool setup_dsc_config(
- 
- 	memset(dsc_cfg, 0, sizeof(struct dc_dsc_config));
- 
--	dc_dsc_get_policy_for_timing(timing, &policy);
-+	dc_dsc_get_policy_for_timing(timing, max_dsc_target_bpp_limit_override, &policy);
- 	pic_width = timing->h_addressable + timing->h_border_left + timing->h_border_right;
- 	pic_height = timing->v_addressable + timing->v_border_top + timing->v_border_bottom;
- 
-@@ -863,9 +864,9 @@ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_da
-  */
- bool dc_dsc_compute_bandwidth_range(
- 		const struct display_stream_compressor *dsc,
--		const uint32_t dsc_min_slice_height_override,
--		const uint32_t min_bpp,
--		const uint32_t max_bpp,
-+		uint32_t dsc_min_slice_height_override,
-+		uint32_t min_bpp,
-+		uint32_t max_bpp,
- 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
- 		const struct dc_crtc_timing *timing,
- 		struct dc_dsc_bw_range *range)
-@@ -882,7 +883,7 @@ bool dc_dsc_compute_bandwidth_range(
- 
- 	if (is_dsc_possible)
- 		is_dsc_possible = setup_dsc_config(dsc_sink_caps, &dsc_enc_caps, 0, timing,
--				dsc_min_slice_height_override, &config);
-+				dsc_min_slice_height_override, max_bpp, &config);
- 
- 	if (is_dsc_possible)
- 		get_dsc_bandwidth_range(min_bpp, max_bpp, &dsc_common_caps, timing, range);
-@@ -893,7 +894,8 @@ bool dc_dsc_compute_bandwidth_range(
- bool dc_dsc_compute_config(
- 		const struct display_stream_compressor *dsc,
- 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
--		const uint32_t dsc_min_slice_height_override,
-+		uint32_t dsc_min_slice_height_override,
-+		uint32_t max_target_bpp_limit_override,
- 		uint32_t target_bandwidth_kbps,
- 		const struct dc_crtc_timing *timing,
- 		struct dc_dsc_config *dsc_cfg)
-@@ -905,11 +907,12 @@ bool dc_dsc_compute_config(
- 	is_dsc_possible = setup_dsc_config(dsc_sink_caps,
- 			&dsc_enc_caps,
- 			target_bandwidth_kbps,
--			timing, dsc_min_slice_height_override, dsc_cfg);
-+			timing, dsc_min_slice_height_override,
-+			max_target_bpp_limit_override, dsc_cfg);
- 	return is_dsc_possible;
- }
- 
--void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing, struct dc_dsc_policy *policy)
-+void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing, uint32_t max_target_bpp_limit_override, struct dc_dsc_policy *policy)
- {
- 	uint32_t bpc = 0;
- 
-@@ -963,10 +966,15 @@ void dc_dsc_get_policy_for_timing(const struct dc_crtc_timing *timing, struct dc
- 	default:
- 		return;
- 	}
-+
- 	/* internal upper limit, default 16 bpp */
- 	if (policy->max_target_bpp > dsc_policy_max_target_bpp_limit)
- 		policy->max_target_bpp = dsc_policy_max_target_bpp_limit;
- 
-+	/* apply override */
-+	if (max_target_bpp_limit_override && policy->max_target_bpp > max_target_bpp_limit_override)
-+		policy->max_target_bpp = max_target_bpp_limit_override;
-+
- 	/* enable DSC when not needed, default false */
- 	if (dsc_policy_enable_dsc_when_not_needed)
- 		policy->enable_dsc_when_not_needed = dsc_policy_enable_dsc_when_not_needed;
--- 
-2.25.1
+Hi
+
+Am 02.10.20 um 11:58 schrieb Daniel Vetter:
+> On Wed, Sep 30, 2020 at 02:51:46PM +0200, Daniel Vetter wrote:
+>> On Wed, Sep 30, 2020 at 2:34 PM Christian K=C3=B6nig
+>> <christian.koenig@amd.com> wrote:
+>>>
+>>> Am 30.09.20 um 11:47 schrieb Daniel Vetter:
+>>>> On Wed, Sep 30, 2020 at 10:34:31AM +0200, Christian K=C3=B6nig wrote=
+:
+>>>>> Am 30.09.20 um 10:19 schrieb Thomas Zimmermann:
+>>>>>> Hi
+>>>>>>
+>>>>>> Am 30.09.20 um 10:05 schrieb Christian K=C3=B6nig:
+>>>>>>> Am 29.09.20 um 19:49 schrieb Thomas Zimmermann:
+>>>>>>>> Hi Christian
+>>>>>>>>
+>>>>>>>> Am 29.09.20 um 17:35 schrieb Christian K=C3=B6nig:
+>>>>>>>>> Am 29.09.20 um 17:14 schrieb Thomas Zimmermann:
+>>>>>>>>>> The new helper ttm_kmap_obj_to_dma_buf() extracts address and =
+location
+>>>>>>>>>> from and instance of TTM's kmap_obj and initializes struct dma=
+_buf_map
+>>>>>>>>>> with these values. Helpful for TTM-based drivers.
+>>>>>>>>> We could completely drop that if we use the same structure insi=
+de TTM as
+>>>>>>>>> well.
+>>>>>>>>>
+>>>>>>>>> Additional to that which driver is going to use this?
+>>>>>>>> As Daniel mentioned, it's in patch 3. The TTM-based drivers will=
+
+>>>>>>>> retrieve the pointer via this function.
+>>>>>>>>
+>>>>>>>> I do want to see all that being more tightly integrated into TTM=
+, but
+>>>>>>>> not in this series. This one is about fixing the bochs-on-sparc6=
+4
+>>>>>>>> problem for good. Patch 7 adds an update to TTM to the DRM TODO =
+list.
+>>>>>>> I should have asked which driver you try to fix here :)
+>>>>>>>
+>>>>>>> In this case just keep the function inside bochs and only fix it =
+there.
+>>>>>>>
+>>>>>>> All other drivers can be fixed when we generally pump this throug=
+h TTM.
+>>>>>> Did you take a look at patch 3? This function will be used by VRAM=
+
+>>>>>> helpers, nouveau, radeon, amdgpu and qxl. If we don't put it here,=
+ we
+>>>>>> have to duplicate the functionality in each if these drivers. Boch=
+s
+>>>>>> itself uses VRAM helpers and doesn't touch the function directly.
+>>>>> Ah, ok can we have that then only in the VRAM helpers?
+>>>>>
+>>>>> Alternative you could go ahead and use dma_buf_map in ttm_bo_kmap_o=
+bj
+>>>>> directly and drop the hack with the TTM_BO_MAP_IOMEM_MASK.
+>>>>>
+>>>>> What I want to avoid is to have another conversion function in TTM =
+because
+>>>>> what happens here is that we already convert from ttm_bus_placement=
+ to
+>>>>> ttm_bo_kmap_obj and then to dma_buf_map.
+>>>> Hm I'm not really seeing how that helps with a gradual conversion of=
+
+>>>> everything over to dma_buf_map and assorted helpers for access? Ther=
+e's
+>>>> too many places in ttm drivers where is_iomem and related stuff is u=
+sed to
+>>>> be able to convert it all in one go. An intermediate state with a bu=
+nch of
+>>>> conversions seems fairly unavoidable to me.
+>>>
+>>> Fair enough. I would just have started bottom up and not top down.
+>>>
+>>> Anyway feel free to go ahead with this approach as long as we can rem=
+ove
+>>> the new function again when we clean that stuff up for good.
+>>
+>> Yeah I guess bottom up would make more sense as a refactoring. But the=
+
+>> main motivation to land this here is to fix the __mmio vs normal
+>> memory confusion in the fbdev emulation helpers for sparc (and
+>> anything else that needs this). Hence the top down approach for
+>> rolling this out.
+>=20
+> Ok I started reviewing this a bit more in-depth, and I think this is a =
+bit
+> too much of a de-tour.
+>=20
+> Looking through all the callers of ttm_bo_kmap almost everyone maps the=
+
+> entire object. Only vmwgfx uses to map less than that. Also, everyone j=
+ust
+> immediately follows up with converting that full object map into a
+> pointer.
+>=20
+> So I think what we really want here is:
+> - new function
+>=20
+> int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map);=
+
+>=20
+>   _vmap name since that's consistent with both dma_buf functions and
+>   what's usually used to implement this. Outside of the ttm world kmap
+>   usually just means single-page mappings using kmap() or it's iomem
+>   sibling io_mapping_map* so rather confusing name for a function which=
+
+>   usually is just used to set up a vmap of the entire buffer.
+>=20
+> - a helper which can be used for the drm_gem_object_funcs vmap/vunmap
+>   functions for all ttm drivers. We should be able to make this fully
+>   generic because a) we now have dma_buf_map and b) drm_gem_object is
+>   embedded in the ttm_bo, so we can upcast for everyone who's both a tt=
+m
+>   and gem driver.
+>=20
+>   This is maybe a good follow-up, since it should allow us to ditch qui=
+te
+>   a bit of the vram helper code for this more generic stuff. I also mig=
+ht
+>   have missed some special-cases here, but from a quick look everything=
+
+>   just pins the buffer to the current location and that's it.
+>=20
+>   Also this obviously requires Christian's generic ttm_bo_pin rework
+>   first.
+>=20
+> - roll the above out to drivers.
+>=20
+> Christian/Thomas, thoughts on this?
+
+I agree on the goals, but what is the immediate objective here?
+
+Adding ttm_bo_vmap() does not work out easily, as struct ttm_bo_kmap_obj
+is a central part of the internals of TTM. struct ttm_bo_kmap_obj has
+more internal state that struct dma_buf_map, so they are not easily
+convertible either. What you propose seems to require a reimplementation
+of the existing ttm_bo_kmap() code. That is it's own patch series.
+
+I'd rather go with some variant of the existing patch and add
+ttm_bo_vmap() in a follow-up.
+
+Best regards
+Thomas
+
+>=20
+> I think for the immediate need of rolling this out for vram helpers and=
+
+> fbdev code we should be able to do this, but just postpone the driver w=
+ide
+> roll-out for now.
+>=20
+> Cheers, Daniel
+>=20
+>> -Daniel
+>>
+>>>
+>>> Christian.
+>>>
+>>>> -Daniel
+>>>>
+>>>>> Thanks,
+>>>>> Christian.
+>>>>>
+>>>>>> Best regards
+>>>>>> Thomas
+>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>> Best regards
+>>>>>>>> Thomas
+>>>>>>>>
+>>>>>>>>> Regards,
+>>>>>>>>> Christian.
+>>>>>>>>>
+>>>>>>>>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>>>>>>>> ---
+>>>>>>>>>>     include/drm/ttm/ttm_bo_api.h | 24 ++++++++++++++++++++++++=
+
+>>>>>>>>>>     include/linux/dma-buf-map.h  | 20 ++++++++++++++++++++
+>>>>>>>>>>     2 files changed, 44 insertions(+)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/tt=
+m_bo_api.h
+>>>>>>>>>> index c96a25d571c8..62d89f05a801 100644
+>>>>>>>>>> --- a/include/drm/ttm/ttm_bo_api.h
+>>>>>>>>>> +++ b/include/drm/ttm/ttm_bo_api.h
+>>>>>>>>>> @@ -34,6 +34,7 @@
+>>>>>>>>>>     #include <drm/drm_gem.h>
+>>>>>>>>>>     #include <drm/drm_hashtab.h>
+>>>>>>>>>>     #include <drm/drm_vma_manager.h>
+>>>>>>>>>> +#include <linux/dma-buf-map.h>
+>>>>>>>>>>     #include <linux/kref.h>
+>>>>>>>>>>     #include <linux/list.h>
+>>>>>>>>>>     #include <linux/wait.h>
+>>>>>>>>>> @@ -486,6 +487,29 @@ static inline void *ttm_kmap_obj_virtual(=
+struct
+>>>>>>>>>> ttm_bo_kmap_obj *map,
+>>>>>>>>>>         return map->virtual;
+>>>>>>>>>>     }
+>>>>>>>>>>     +/**
+>>>>>>>>>> + * ttm_kmap_obj_to_dma_buf_map
+>>>>>>>>>> + *
+>>>>>>>>>> + * @kmap: A struct ttm_bo_kmap_obj returned from ttm_bo_kmap.=
+
+>>>>>>>>>> + * @map: Returns the mapping as struct dma_buf_map
+>>>>>>>>>> + *
+>>>>>>>>>> + * Converts struct ttm_bo_kmap_obj to struct dma_buf_map. If =
+the memory
+>>>>>>>>>> + * is not mapped, the returned mapping is initialized to NULL=
+=2E
+>>>>>>>>>> + */
+>>>>>>>>>> +static inline void ttm_kmap_obj_to_dma_buf_map(struct ttm_bo_=
+kmap_obj
+>>>>>>>>>> *kmap,
+>>>>>>>>>> +                           struct dma_buf_map *map)
+>>>>>>>>>> +{
+>>>>>>>>>> +    bool is_iomem;
+>>>>>>>>>> +    void *vaddr =3D ttm_kmap_obj_virtual(kmap, &is_iomem);
+>>>>>>>>>> +
+>>>>>>>>>> +    if (!vaddr)
+>>>>>>>>>> +        dma_buf_map_clear(map);
+>>>>>>>>>> +    else if (is_iomem)
+>>>>>>>>>> +        dma_buf_map_set_vaddr_iomem(map, (void __force __iome=
+m *)vaddr);
+>>>>>>>>>> +    else
+>>>>>>>>>> +        dma_buf_map_set_vaddr(map, vaddr);
+>>>>>>>>>> +}
+>>>>>>>>>> +
+>>>>>>>>>>     /**
+>>>>>>>>>>      * ttm_bo_kmap
+>>>>>>>>>>      *
+>>>>>>>>>> diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-b=
+uf-map.h
+>>>>>>>>>> index fd1aba545fdf..2e8bbecb5091 100644
+>>>>>>>>>> --- a/include/linux/dma-buf-map.h
+>>>>>>>>>> +++ b/include/linux/dma-buf-map.h
+>>>>>>>>>> @@ -45,6 +45,12 @@
+>>>>>>>>>>      *
+>>>>>>>>>>      *    dma_buf_map_set_vaddr(&map. 0xdeadbeaf);
+>>>>>>>>>>      *
+>>>>>>>>>> + * To set an address in I/O memory, use dma_buf_map_set_vaddr=
+_iomem().
+>>>>>>>>>> + *
+>>>>>>>>>> + * .. code-block:: c
+>>>>>>>>>> + *
+>>>>>>>>>> + *    dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
+>>>>>>>>>> + *
+>>>>>>>>>>      * Test if a mapping is valid with either dma_buf_map_is_s=
+et() or
+>>>>>>>>>>      * dma_buf_map_is_null().
+>>>>>>>>>>      *
+>>>>>>>>>> @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(=
+struct
+>>>>>>>>>> dma_buf_map *map, void *vaddr)
+>>>>>>>>>>         map->is_iomem =3D false;
+>>>>>>>>>>     }
+>>>>>>>>>>     +/**
+>>>>>>>>>> + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping struc=
+ture to
+>>>>>>>>>> an address in I/O memory
+>>>>>>>>>> + * @map:        The dma-buf mapping structure
+>>>>>>>>>> + * @vaddr_iomem:    An I/O-memory address
+>>>>>>>>>> + *
+>>>>>>>>>> + * Sets the address and the I/O-memory flag.
+>>>>>>>>>> + */
+>>>>>>>>>> +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf=
+_map *map,
+>>>>>>>>>> +                           void __iomem *vaddr_iomem)
+>>>>>>>>>> +{
+>>>>>>>>>> +    map->vaddr_iomem =3D vaddr_iomem;
+>>>>>>>>>> +    map->is_iomem =3D true;
+>>>>>>>>>> +}
+>>>>>>>>>> +
+>>>>>>>>>>     /**
+>>>>>>>>>>      * dma_buf_map_is_equal - Compares two dma-buf mapping str=
+uctures
+>>>>>>>>>> for equality
+>>>>>>>>>>      * @lhs:    The dma-buf mapping structure
+>>>>>>>>> _______________________________________________
+>>>>>>>>> dri-devel mailing list
+>>>>>>>>> dri-devel@lists.freedesktop.org
+>>>>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02=
+%7C01%7Cchristian.koenig%40amd.com%7C472c3d655a61411deb6708d86525d1b8%7C3=
+dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637370560438965013&amp;sdata=3D=
+HdHOA%2F1VcIX%2F7YtfYTiAqYEvw7Ag%2FS%2BxS5VwJKOv5y0%3D&amp;reserved=3D0
+>>>>>>>> _______________________________________________
+>>>>>>>> amd-gfx mailing list
+>>>>>>>> amd-gfx@lists.freedesktop.org
+>>>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C=
+01%7Cchristian.koenig%40amd.com%7C472c3d655a61411deb6708d86525d1b8%7C3dd8=
+961fe4884e608e11a82d994e183d%7C0%7C0%7C637370560438965013&amp;sdata=3DH%2=
+B5HKCsTrksRV2EyEiFGSTyS79jsWCmJimSMoJYusx8%3D&amp;reserved=3D0
+>>>>>>> _______________________________________________
+>>>>>>> dri-devel mailing list
+>>>>>>> dri-devel@lists.freedesktop.org
+>>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F=
+%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02%7=
+C01%7Cchristian.koenig%40amd.com%7C472c3d655a61411deb6708d86525d1b8%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637370560438965013&amp;sdata=3DHd=
+HOA%2F1VcIX%2F7YtfYTiAqYEvw7Ag%2FS%2BxS5VwJKOv5y0%3D&amp;reserved=3D0
+>>>>>>>
+>>>>>> _______________________________________________
+>>>>>> amd-gfx mailing list
+>>>>>> amd-gfx@lists.freedesktop.org
+>>>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%=
+2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
+%7Cchristian.koenig%40amd.com%7C472c3d655a61411deb6708d86525d1b8%7C3dd896=
+1fe4884e608e11a82d994e183d%7C0%7C0%7C637370560438965013&amp;sdata=3DH%2B5=
+HKCsTrksRV2EyEiFGSTyS79jsWCmJimSMoJYusx8%3D&amp;reserved=3D0
+>>>
+>>
+>>
+>> --=20
+>> Daniel Vetter
+>> Software Engineer, Intel Corporation
+>> http://blog.ffwll.ch
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--eO0KkNElTwku9CAInc7DmPRt4uql8oe3b--
+
+--A04G9t256jlYlZevsaZFScYx8JwBsN4Kq
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFIBAEBCAAyFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl99uzYUHHR6aW1tZXJt
+YW5uQHN1c2UuZGUACgkQaA3BHVMLeiPFlAf/dShA6MXCEFDqVh7Q2aekDDfCOwKP
+86fkrX8xWfiHNET9AoewUP7K9m5+iArIbwelpHBUNV2q7EUKG8xVuK5S55bz6xxq
+3vSlROkD+JZvgovXr5BuGyfn2Wfh9XI9+rs3+OtERgtJfNhjEpNok5rukvNAoFzG
+ePSAUBcIN7Ezb5O93zT45pI5YwQYe9ZyFiLVztXAZ67edwZbZN8NBp5OrnAhP8Po
+57jSeNoEnzwhVF7+V+tgRYYA8y7Bz7VNTbqaJoEBvqDhQQsrt0KLshFG9NQY/srf
+/fO1NoHVLPTajZPPYmd9F/2xDImwGoZF2MDLL30AFoRRynTMiWtqixUpJQ==
+=sTNF
+-----END PGP SIGNATURE-----
+
+--A04G9t256jlYlZevsaZFScYx8JwBsN4Kq--
+
+--===============1476879920==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1476879920==--
