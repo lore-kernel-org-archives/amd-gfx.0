@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B399C4727F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F33FFC41604
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A5FF2087D
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 895872064E
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PVrDHZ79"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A5FF2087D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T9VyLJfr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 895872064E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8EF6E8AD;
-	Wed,  7 Oct 2020 16:32:32 +0000 (UTC)
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [IPv6:2607:f8b0:4864:20::833])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28FDC6E964
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:31 +0000 (UTC)
-Received: by mail-qt1-x833.google.com with SMTP id c5so2407312qtw.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4EC6E966;
+	Wed,  7 Oct 2020 16:32:35 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C3CC6E966
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:34 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id j22so2396729qtj.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7l/o6JIiGVaxjenDjZymJA7Qx/afMLDTYYQ9buYasqk=;
- b=PVrDHZ790R229TT+hBKYWunnpoAXY5OysjyPTSqIHrpJqSvXAO1oIoV1HXrLA1dfu5
- 3tBWfcHGW7qWiWWLnxZZE2TbAP7ofby3TQw4DCvu1qKzH6cPV4xLS49Rt+7AJiQdaNb1
- rv1V+inK49BiZimMhl3uU9ljL2/0RX01rDwMsJoKQ6XwdC9hOGVX0N0ZMGx+QA7ZG3wS
- Q2UBwQsdjxLxKu/0jd08GWFbV+JT7YTQ4fJtOH9PvLCVR8aK6sbVpnPcNI4dM2HrWkB/
- jUJb8FDTLiHsO4qkCWX7N4OGxY1X2LE9I/F6l/At6NbR0qiICuozEouABEhZhFpngGA+
- kFaw==
+ bh=uh3kH2xExFEMBcGGZc33kB6JWULUk3g6pwFOjiequo8=;
+ b=T9VyLJfrpuKjXynN9aQ0hYw49aaZKO+YhydjGsS3VaXXjMddIW3DbOAcxtY58qUlKw
+ olOQswENr8l6Jm3Wjo9d0aA3e6sN/bG4KT8xe0IPXKjocb8NCtdAIuJvjohNx/dEyRSi
+ +1s6K7IRHb0dT7OiaQOothfa88FomIiBpc08EasNjfsfs89k7i0eytZDIYdBakQ3Xqxa
+ EoKS+tgsufhPluXS+yLn/KbMRqB1OT9RSi3LszFmg2tdu06BJsDdizDvqRxN+B6xCsDw
+ sKEqI8XYRIull3iFHSDW2vR0h03coTT+41h/Pf2hOXE6t678lDa7m6gQOY6tlTcegAr/
+ OiwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7l/o6JIiGVaxjenDjZymJA7Qx/afMLDTYYQ9buYasqk=;
- b=ZLNcKI7qj5zYMwoNf9nrpBN2DsArKgrzaqlnEwFcP0dVjyJjqY5WKDpLwimzUIip/3
- 0WJAJpQqXtyx6cMMsVyDxN83RLHx0ftoIEPNl+R5cr3pD3AVoGppdm8xWanfJ0sgwcAN
- Vd7f2wQBUL/W7HlYyZdbOuWQUcYOSQ0VNH90Rd104qD5A5qla23BcCAe660aO6g/Ld6h
- 8aVloVkqBay69E3LkPjxxDrEMaUBtcdURAwhomCBV4NCUidxWwhdGJMbEZbaXxnEUm9u
- xZgzua78lR2czmpeDv8O2ZyCvNGaAtIhBihP2AftAi2Y2in46vG6+RA/wLRIqJBGDtEU
- AYhQ==
-X-Gm-Message-State: AOAM533HHlEw2q9LNeCXyGT5gmhp73MSC5xeWmEaix8auSglIJLl+Luu
- lzixH9Uwi6ONhOLvEoRgbCk9xqZuqKo=
-X-Google-Smtp-Source: ABdhPJxqWSOgx8IiGCq4MNUb2jXwmEDSqkOz2RVQmOm3AHaSxx981rewHqG1ZIj17w6Y+D6VTPcJRQ==
-X-Received: by 2002:ac8:b8b:: with SMTP id h11mr3964953qti.28.1602088350024;
- Wed, 07 Oct 2020 09:32:30 -0700 (PDT)
+ bh=uh3kH2xExFEMBcGGZc33kB6JWULUk3g6pwFOjiequo8=;
+ b=eFhC3p/7BgeII5TBE+zmopv4V/93JP8Gdighm1VJdYvmkfo/WSHxHch3Jhdcz1t4kg
+ 2KX6PyRKIYfG53u7WNrBHH+33D7arxqjnWlbTGxsTO1l7NI46dR/GtvP06LcJC1mCgjA
+ pLny5eo6dcMxs5M2jg67WhssvapuA2++aYUJY1MV/PxpNjZEW1JdjR6I+HipqMwgXBBM
+ 2xLAiMiJipN0tyX1FuchA6Y+cDGQueift8642CzB64PshWjO11U7UuGltMS36ywcYsAa
+ NH6wkDnkWWMwJZtEEY55rgDGAJgdXBv0tqW59oEMJmSAtT85bLTKh5hODMheloBuiSfV
+ fthw==
+X-Gm-Message-State: AOAM531FmOV3z+q291yCr10Lw0X7tC+Kkc8exAgrqtWmAowtAgsKEZcn
+ azBpUibGURYDzAuju/4440Ca4EgNur8=
+X-Google-Smtp-Source: ABdhPJy/Ml1qqnz9RHNMikoSp7fpAdmuYeuvx1QbMmUKl4Q5Wg+bxxalc9mJu/7TvWdHZkvTehuS4A==
+X-Received: by 2002:ac8:7088:: with SMTP id y8mr4146573qto.155.1602088352167; 
+ Wed, 07 Oct 2020 09:32:32 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.28
+ by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2020 09:32:29 -0700 (PDT)
+ Wed, 07 Oct 2020 09:32:31 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 29/50] drm/amdkfd: Support dimgrey_cavefish KFD (v2)
-Date: Wed,  7 Oct 2020 12:31:14 -0400
-Message-Id: <20201007163135.1944186-30-alexander.deucher@amd.com>
+Subject: [PATCH 30/50] drm/amdkfd: Add kfd2kgd_funcs for dimgrey_cavefish kfd
+ support
+Date: Wed,  7 Oct 2020 12:31:15 -0400
+Message-Id: <20201007163135.1944186-31-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201007163135.1944186-1-alexander.deucher@amd.com>
 References: <20201007163135.1944186-1-alexander.deucher@amd.com>
@@ -89,120 +90,25 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Chengming Gui <Jack.Gui@amd.com>
 
-Add KFD support for dimgrey cavefish.
-
-v2: rebase (Alex)
-
 Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 20 +++++++++++++++++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |  1 +
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  1 +
- 6 files changed, 25 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 0eeda7904c14..7a071b4f76a7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -681,6 +681,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
- 	case CHIP_NAVI14:
- 	case CHIP_SIENNA_CICHLID:
- 	case CHIP_NAVY_FLOUNDER:
-+	case CHIP_DIMGREY_CAVEFISH:
- 		pcache_info = navi10_cache_info;
- 		num_of_cache_types = ARRAY_SIZE(navi10_cache_info);
- 		break;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 81751da79feb..7a1ff80cfb01 100644
+index 7a1ff80cfb01..14c3f148735b 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -517,6 +517,25 @@ static const struct kfd_device_info vangogh_device_info = {
- 	.num_sdma_queues_per_engine = 2,
+@@ -77,6 +77,7 @@ static const struct kfd2kgd_calls *kfd2kgd_funcs[] = {
+ 	[CHIP_SIENNA_CICHLID] = &gfx_v10_3_kfd2kgd,
+ 	[CHIP_NAVY_FLOUNDER] = &gfx_v10_3_kfd2kgd,
+ 	[CHIP_VANGOGH] = &gfx_v10_3_kfd2kgd,
++	[CHIP_DIMGREY_CAVEFISH] = &gfx_v10_3_kfd2kgd,
  };
  
-+static const struct kfd_device_info dimgrey_cavefish_device_info = {
-+	.asic_family = CHIP_DIMGREY_CAVEFISH,
-+	.asic_name = "dimgrey_cavefish",
-+	.max_pasid_bits = 16,
-+	.max_no_of_hqd  = 24,
-+	.doorbell_size  = 8,
-+	.ih_ring_entry_size = 8 * sizeof(uint32_t),
-+	.event_interrupt_class = &event_interrupt_class_v9,
-+	.num_of_watch_points = 4,
-+	.mqd_size_aligned = MQD_SIZE_ALIGNED,
-+	.needs_iommu_device = false,
-+	.supports_cwsr = true,
-+	.needs_pci_atomics = false,
-+	.num_sdma_engines = 2,
-+	.num_xgmi_sdma_engines = 0,
-+	.num_sdma_queues_per_engine = 8,
-+};
-+
-+
- /* For each entry, [0] is regular and [1] is virtualisation device. */
- static const struct kfd_device_info *kfd_supported_devices[][2] = {
  #ifdef KFD_SUPPORT_IOMMU_V2
-@@ -542,6 +561,7 @@ static const struct kfd_device_info *kfd_supported_devices[][2] = {
- 	[CHIP_SIENNA_CICHLID] = {&sienna_cichlid_device_info, &sienna_cichlid_device_info},
- 	[CHIP_NAVY_FLOUNDER] = {&navy_flounder_device_info, &navy_flounder_device_info},
- 	[CHIP_VANGOGH] = {&vangogh_device_info, NULL},
-+	[CHIP_DIMGREY_CAVEFISH] = {&dimgrey_cavefish_device_info, &dimgrey_cavefish_device_info},
- };
- 
- static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 7971bbe696d0..c579615451ba 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1926,6 +1926,7 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
- 	case CHIP_SIENNA_CICHLID:
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
-+	case CHIP_DIMGREY_CAVEFISH:
- 		device_queue_manager_init_v10_navi10(&dqm->asic_ops);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 379457d1b250..98a5e1d719c8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -418,6 +418,7 @@ int kfd_init_apertures(struct kfd_process *process)
- 			case CHIP_SIENNA_CICHLID:
- 			case CHIP_NAVY_FLOUNDER:
- 			case CHIP_VANGOGH:
-+			case CHIP_DIMGREY_CAVEFISH:
- 				kfd_init_apertures_v9(pdd, id);
- 				break;
- 			default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index 9beb2eabd56e..5d541e0cc8ca 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -248,6 +248,7 @@ int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm)
- 	case CHIP_SIENNA_CICHLID:
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
-+	case CHIP_DIMGREY_CAVEFISH:
- 		pm->pmf = &kfd_v9_pm_funcs;
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index da6b493c520f..3f2aa055c32c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1376,6 +1376,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
- 	case CHIP_SIENNA_CICHLID:
- 	case CHIP_NAVY_FLOUNDER:
- 	case CHIP_VANGOGH:
-+	case CHIP_DIMGREY_CAVEFISH:
- 		dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
- 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
- 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
 -- 
 2.25.4
 
