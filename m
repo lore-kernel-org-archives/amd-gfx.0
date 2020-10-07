@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C858C4727E
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B3AAC4727F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACB332064E
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B0DEC2064E
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2020 16:32:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YSVcAtHX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACB332064E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UkChN3xQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0DEC2064E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46D0D6E95F;
-	Wed,  7 Oct 2020 16:32:26 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E06B96E95D
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:24 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id c23so2429051qtp.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3415E6E96B;
+	Wed,  7 Oct 2020 16:32:27 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB726E95F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2020 16:32:26 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id b19so1478138qvm.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2020 09:32:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7zJVQheShy5dw6iCWywSITm9BmSTnVhO5Rzhppn5TVc=;
- b=YSVcAtHX3AIbswojml6XdCRJuNUnemBS3eGKkLahkolxsb5ZAciFHEEODr3ArmiwZB
- c2FOAd0WT1O9R5jD0BZSvhqNHRBNZoL26qa8FK+iBc5RpNEW7TRnb9H0v/VqwFdGQGOh
- nrMn/5HaSUGiKYj116+kDAGGnqGKjuQ0QB57EFclDdb/JBa5GdNv+1rlb5ZxW4X+eYKI
- IS202sm3mjirO3Qwo5Vkh7YpUok1EKJaSHGsoYYK8iheYzS0fg7SmXHv62LVVtjH5hrb
- tJB53rGZePvK6qSrYIlwe3FE/DMKzHEyFdF4SktshuQsNmaZtSFX38gvYRT2juqN2CFE
- 7T9Q==
+ bh=YrogeNJukCiR4ZDs88dbmbQphgwb7SDW5MRv3Oo/l58=;
+ b=UkChN3xQalDA+8+RgxWVd8zMXjKl5vTcEt8k3pWJllm4K0kPMTjWYIkFlLEhUHx0m2
+ F59ME1rgLDDCe2sE/sOLtqQ9sR3bphK24UyPLFreL9mcr7+cxyRFPtqtonPv+X3hpQkg
+ y+BZXGvFaBl+oyYxkDVC5w2YFnS1aiXHAn0v0MmyXvPWJlydf/pgz+hJdVh0znWYNQIb
+ TX8Ft4PwJcsGUASy13gn85BF8TcDHTef44nfV695ZPLbo35m7rDQsbKsrXYHPk6rfIWd
+ 1XhX+XE7vMH3e1kPBC5IOWEcKlqgyFWVV0n0YZ/bcqDn5nGPOHKt4wtG1wNFcvVTco58
+ K3DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7zJVQheShy5dw6iCWywSITm9BmSTnVhO5Rzhppn5TVc=;
- b=Yd0pNUCPWkSehxp47cxM09N7CG/L/rbyEZ1KKlA7EfKkPhYuf11feGo9Sw8WvT9lOZ
- UjA39uTWAfLJbBsbIO4n1LJ9D9btJgozUJgH9Xx6hxx9izQMdRxSvyQL2tXV+/co7M0o
- A2hMvFwAMWGSer2duGQX8wvitCpFro09xEDUALD0Hnft8MAMB67VhNVw+axMZE/tvqof
- qW7v+SfuFglU7j8mhMepIt+hfsDjEnkRuKaqyt/ZANy3nGsI8Dj4PC9+CgzihdlcrZDP
- 7Z3yaNBY8v5kKGYg7YuTrsVuEhDqHQucg4UdvRhyKvErCxUsmWIuek//nlZ2ARwYElpK
- ybrg==
-X-Gm-Message-State: AOAM532eHHrndXrJ2YtSlsml9EXVUbpmQHXkXZIxsQ0FvYlUn44N6LSE
- 7xkjHcQ6X/YsZ+9sitgDRiBkL7aUVqs=
-X-Google-Smtp-Source: ABdhPJxU8RHFC18Ize0XF7Orw+qUb3yJQDPMBNhnJsct3vZGO+g6uoWNLfwo6eH7yzbhMEgmqhvcQg==
-X-Received: by 2002:ac8:5c55:: with SMTP id j21mr3912093qtj.210.1602088343907; 
- Wed, 07 Oct 2020 09:32:23 -0700 (PDT)
+ bh=YrogeNJukCiR4ZDs88dbmbQphgwb7SDW5MRv3Oo/l58=;
+ b=lUj0gQPzfjUGH651nVnSMBNq3xFXziLsnX9DLQR5ShVya2UkT3+LmYIVGBD3UuJtTV
+ T4WQqcHJer+dCdWziHC8tCRAS59zGdsujm/XS29M1OeiPEmjhSlxqmqyUKfkRRo8K5Je
+ pqXf1F6XYElWWxFND1z59e4azCEa58CTpms52DyXqaCKV2JUJsRuqvl5Azoti49CUtjB
+ m3CKIg9fMbztxqy/+m3VIk11z1zRX2os0ORsJYJCnZcbvzTwGpEN/wGgiFQcpQoIyuJB
+ ftg4Hjsj3APO/muBM3i2GVryO4bZriL805yEOdeeRhBNywvsYH2OGp35Yya5p00aKlSl
+ E8ow==
+X-Gm-Message-State: AOAM5337qGUJFCYnXH+a1ZFIMnNiNUMJ4YdC3nZbZZo12XzrSSnNx0TC
+ hbA0kIEpEBTi68HygQmMbbAEu6BgvgI=
+X-Google-Smtp-Source: ABdhPJwUqgBV1plLW5T5uxspzjVsl7/iOqdaQZZY5fQ6e3irjBahqouhTdTqZF++cqx1DJZqsTy86g==
+X-Received: by 2002:a05:6214:184c:: with SMTP id
+ d12mr4168205qvy.11.1602088345055; 
+ Wed, 07 Oct 2020 09:32:25 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.22
+ by smtp.gmail.com with ESMTPSA id l19sm1725576qkk.99.2020.10.07.09.32.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2020 09:32:23 -0700 (PDT)
+ Wed, 07 Oct 2020 09:32:24 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 24/50] drm/amdgpu: increase size of psp fw_name string(v2)
-Date: Wed,  7 Oct 2020 12:31:09 -0400
-Message-Id: <20201007163135.1944186-25-alexander.deucher@amd.com>
+Subject: [PATCH 25/50] drm/amdgpu: add psp support for dimgrey_cavefish(v2)
+Date: Wed,  7 Oct 2020 12:31:10 -0400
+Message-Id: <20201007163135.1944186-26-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201007163135.1944186-1-alexander.deucher@amd.com>
 References: <20201007163135.1944186-1-alexander.deucher@amd.com>
@@ -89,66 +90,79 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tao Zhou <tao.zhou1@amd.com>
 
-Increase fw_name string size so longer chip name can be stored.
+General psp support for dimgrey_cavefish.
 
-v2: define macro for the length of psp fw name.
+v2: remove the checks for asd load and reroute ih.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 1 +
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 13 +++++++++++++
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 1cc3cf85b20e..d91d951d018e 100644
+index d91d951d018e..cad4767ca2bb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2384,7 +2384,7 @@ int psp_init_asd_microcode(struct psp_context *psp,
- 			   const char *chip_name)
- {
- 	struct amdgpu_device *adev = psp->adev;
--	char fw_name[30];
-+	char fw_name[PSP_FW_NAME_LEN];
- 	const struct psp_firmware_header_v1_0 *asd_hdr;
- 	int err = 0;
+@@ -101,6 +101,7 @@ static int psp_early_init(void *handle)
+ 	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_NAVY_FLOUNDER:
+ 	case CHIP_VANGOGH:
++	case CHIP_DIMGREY_CAVEFISH:
+ 		psp_v11_0_set_psp_funcs(psp);
+ 		psp->autoload_supported = true;
+ 		break;
+@@ -1968,8 +1969,8 @@ static int psp_np_fw_load(struct psp_context *psp)
+ 			continue;
  
-@@ -2456,7 +2456,7 @@ int psp_init_sos_microcode(struct psp_context *psp,
- 			   const char *chip_name)
- {
- 	struct amdgpu_device *adev = psp->adev;
--	char fw_name[30];
-+	char fw_name[PSP_FW_NAME_LEN];
- 	const struct psp_firmware_header_v1_0 *sos_hdr;
- 	const struct psp_firmware_header_v1_1 *sos_hdr_v1_1;
- 	const struct psp_firmware_header_v1_2 *sos_hdr_v1_2;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 13f56618660a..06e03851d9c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -41,6 +41,7 @@
- #define PSP_DTM_SHARED_MEM_SIZE	0x4000
- #define PSP_RAP_SHARED_MEM_SIZE	0x4000
- #define PSP_SHARED_MEM_SIZE		0x4000
-+#define PSP_FW_NAME_LEN		0x24
- 
- struct psp_context;
- struct psp_xgmi_node_info;
+ 		if (psp->autoload_supported &&
+-		    (adev->asic_type == CHIP_SIENNA_CICHLID ||
+-		     adev->asic_type == CHIP_NAVY_FLOUNDER) &&
++		    (adev->asic_type >= CHIP_SIENNA_CICHLID &&
++		     adev->asic_type <= CHIP_DIMGREY_CAVEFISH) &&
+ 		    (ucode->ucode_id == AMDGPU_UCODE_ID_SDMA1 ||
+ 		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA2 ||
+ 		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA3))
 diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index d6ba6ea9a8fc..1d417367ffac 100644
+index 1d417367ffac..1a69c212ce68 100644
 --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -79,7 +79,7 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
- 	const char *chip_name;
--	char fw_name[30];
-+	char fw_name[PSP_FW_NAME_LEN];
- 	int err = 0;
- 	const struct ta_firmware_header_v1_0 *ta_hdr;
+@@ -61,6 +61,8 @@ MODULE_FIRMWARE("amdgpu/navy_flounder_sos.bin");
+ MODULE_FIRMWARE("amdgpu/navy_flounder_ta.bin");
+ MODULE_FIRMWARE("amdgpu/vangogh_asd.bin");
+ MODULE_FIRMWARE("amdgpu/vangogh_toc.bin");
++MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_sos.bin");
++MODULE_FIRMWARE("amdgpu/dimgrey_cavefish_asd.bin");
  
+ /* address block */
+ #define smnMP1_FIRMWARE_FLAGS		0x3010024
+@@ -110,6 +112,9 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
+ 	case CHIP_VANGOGH:
+ 		chip_name = "vangogh";
+ 		break;
++	case CHIP_DIMGREY_CAVEFISH:
++		chip_name = "dimgrey_cavefish";
++		break;
+ 	default:
+ 		BUG();
+ 	}
+@@ -194,6 +199,14 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
+ 		if (err)
+ 			return err;
+ 		break;
++	case CHIP_DIMGREY_CAVEFISH:
++		err = psp_init_sos_microcode(psp, chip_name);
++		if (err)
++			return err;
++		err = psp_init_asd_microcode(psp, chip_name);
++		if (err)
++			return err;
++		break;
+ 	case CHIP_VANGOGH:
+ 		err = psp_init_asd_microcode(psp, chip_name);
+ 		if (err)
 -- 
 2.25.4
 
