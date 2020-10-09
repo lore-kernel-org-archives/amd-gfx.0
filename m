@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D39AC433E7
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 15:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 830C8C433E7
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 15:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF80922261
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 15:44:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 18EC722261
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 15:46:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ugjoCo61"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF80922261
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qo2N+pvr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18EC722261
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EB646ECFB;
-	Fri,  9 Oct 2020 15:44:48 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B39B6ECFB
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 15:44:47 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id m6so10802269wrn.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Oct 2020 08:44:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2B376ECFB;
+	Fri,  9 Oct 2020 15:46:30 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFF9E6ECFB
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 15:46:29 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id e2so10304959wme.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Oct 2020 08:46:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TAtM7NIi0630dJFRt43EQwnMz9TZ1gAlyf8yCmx2S5o=;
- b=ugjoCo61F60x81fy0WWrKV9WcuHuh3SObuN3vcScEFwyGoWGru4pJT0cfpQkMzo3hx
- CJEYZD+N9QsU8+NAPvNpeKY7q+frZUKuJiaZemkiA/w0TnmLXDXyf4uLm+9/s/td9hpj
- iD18wfIbkBZN/e1wj3q/uKgrabqOMvSDjqT0HRrvKDvSIJ5dOH72teO0jbYGoU7se0xu
- mB9ZFp7E/6mw4OArOZW/ZbJDQn0zirZv+OUJQkciPceFluXRIZrH3WJWKWQvCkySVDdO
- t3XzeCov+n1hYMEHdX6Mm10LKeieNi5IdU1Yns08OXLDW83fbLu3Uy/el/dTyMWFpYrq
- A6gA==
+ :cc; bh=++4W0UQ1Ro/3isAPuU5SCGB6rNuPtRoosOIgwmP9hb0=;
+ b=qo2N+pvrr4aT5DTyJzXPcxoauX2fYaVC1JVVcofFORErt4Uea9bn6/w7PqZuYndnH7
+ DcsXjpVr6UU2dwOaiEG66o1Add9QRHxfFt+jQMoftQsSblSRwFNy0dXrKKDUCNyTKr1H
+ Ye6BXJuyialcExUgSsmBYnw/Nt3E+pzPyqTvbhFKTSbcqb8+6K73edAE3lOCbpeTF2Ow
+ gsFTjFyMzC60/a0TZDqNE6vz3j+bxgm06Hww35bHrI+4SuuJk0lLfZXzwzW4hLIBo4+Z
+ 4nnZbvYj1Ia9hN720q+/pAjZ+R2o4d1UcuEt9+Vv2anQfgVA6i7RZeQmnfWPgFw7NVyJ
+ NzAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=TAtM7NIi0630dJFRt43EQwnMz9TZ1gAlyf8yCmx2S5o=;
- b=tE5QLOJGY0I8hg0qK2q5CcoBihmm0XnFpB50siIPa69E8wU6dXhWsUvJVNVLhPwhah
- CfZeAa4q8ZJ3r0TW/GfrAgtnQTT7maBNzFldB1mwdbIRjvXgM9Q3nBHHWtFAD89nNX3L
- WhQu/1zPxgvmMYfNv7lQrPzi/18kXUindliynedXBTg4WvFU4LhsqGPCJPOQHHXIyEb4
- wJKGfl4Qi5T4Ock+51MpRFwMaoIwx6QsqK/Qd7IVGn5yw+x5hGO3iXYSI4U1mCa1lWq5
- LiDj8qWX4zdAfGUx2AaqulfI7ntibXmww+6pEZzDEYktjylA2Mxsd6xvgv9icNDSw8Ll
- WwLQ==
-X-Gm-Message-State: AOAM530Wx0+doddk6zejQ7eTFAyt9HInslpQX+Yttw7201d9pWlJe9In
- fE2yTF7zV7svfSKjkSuMxUZRswqY/AfZbme4sV4=
-X-Google-Smtp-Source: ABdhPJx35VNTtmqz5fIE/9K3XqrhOmKwRGh7i+tZT8HB2Kz74FBsvz2avQRzKtbeWwmuc7p6uYnXfEJuxt3U4ynaSaE=
-X-Received: by 2002:adf:dd50:: with SMTP id u16mr16160545wrm.419.1602258285926; 
- Fri, 09 Oct 2020 08:44:45 -0700 (PDT)
+ bh=++4W0UQ1Ro/3isAPuU5SCGB6rNuPtRoosOIgwmP9hb0=;
+ b=q9ejR8AYTUbg5/j1GiAAeL8gnZff5fWhsxIDlkrQHUtzL9k5Fh4jCZDVbW7LE/zmt1
+ 8ISkiodapwG/DYHLMEvK1FBEgNgGaO+w0rG/AXLuDbMU5G56IvvariZ8CU0389besB10
+ 9c7DyZ0+ETih9Iz9U2kRQKjvj3t7vQuHroHHo1vSWkJlnJvGX9c2ioS33lGY8FwJ5Xmr
+ h9rhiP9x9U+xAG14RYzP7+nVDDdDPEo4XW2tAIVEyAzPRvoNzAPt3st1xB+WzA4IuyGG
+ 3hKA7DZ5fAirZHhvD35H6DDjFPtqEsCyQZ82EU4g6/LZZXEEvjWML8d6do9u45I9jYRI
+ wIRg==
+X-Gm-Message-State: AOAM531A9LJv50RK5Q5tyiKM2P4u7Cn5h5yI/NLVItgbO2a/UcefDswU
+ JjLyZuEqGhckcFZ1tnV8SzCe8VlTgnTwp6aBCPo=
+X-Google-Smtp-Source: ABdhPJzxOc2TP11VK6UMPt7QvZDSZP+DjklXL5xEgNcma3xdWnXaUJP1haLYMMDicEo6IOAfAhoGzVUJ6WKsF8te52A=
+X-Received: by 2002:a7b:c7d5:: with SMTP id z21mr10591649wmk.73.1602258388544; 
+ Fri, 09 Oct 2020 08:46:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201009074218.144038-1-yebin10@huawei.com>
-In-Reply-To: <20201009074218.144038-1-yebin10@huawei.com>
+References: <20201009074758.74370-1-yebin10@huawei.com>
+In-Reply-To: <20201009074758.74370-1-yebin10@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Oct 2020 11:44:34 -0400
-Message-ID: <CADnq5_M8m99NXqvLuxZUKGDK-mUgOCTGBPY3QxxJ+mkhjdun=A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix invalid number of character '{' in
- amdgpu_acpi_init
+Date: Fri, 9 Oct 2020 11:46:17 -0400
+Message-ID: <CADnq5_P37pV3np43WSn2cYhYLhFCpnsAoqsBOjqD0+9QNF=FBQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix inconsistent of format with argument type
+ in amdgpu_xgmi.c
 To: Ye Bin <yebin10@huawei.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,52 +82,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 9, 2020 at 8:51 AM Ye Bin <yebin10@huawei.com> wrote:
->
-> Fix follow warning:
-> Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c...
-> [drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-> of character '{' when these macros are defined: ''.
-> Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: CONFIG_ACPI...
-> [drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-> of character '{' when these macros are defined: 'CONFIG_ACPI'.
-> ......
-> Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: CONFIG_X86...
-> [drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-> of character '{' when these macros are defined: 'CONFIG_X86'.
-> Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: _X86_...
-> [drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-> of character '{' when these macros are defined: '_X86_'.
-> Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: __linux__...
-> [drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-> of character '{' when these macros are defined: '__linux__'.
->
-> Fixes: 97d798b276e9 ("drm/amdgpu: simplify ATIF backlight handling")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Ye Bin <yebin10@huawei.com>
-
 Applied.  Thanks!
 
 Alex
 
+On Fri, Oct 9, 2020 at 8:51 AM Ye Bin <yebin10@huawei.com> wrote:
+>
+> Fix follow warning:
+> [drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:249]: (warning) %d in format
+> string (no. 1) requires 'int' but the argument type is 'unsigned int'.
+>
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Ye Bin <yebin10@huawei.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index 4a93b880c6bf..165b02e267b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -806,8 +806,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
->         }
->         adev->atif = atif;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> index 1162913c8bf4..54c358e71f9a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -246,7 +246,7 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
 >
-> -       if (atif->notifications.brightness_change) {
->  #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-> +       if (atif->notifications.brightness_change) {
->                 if (amdgpu_device_has_dc_support(adev)) {
->  #if defined(CONFIG_DRM_AMD_DC)
->                         struct amdgpu_display_manager *dm = &adev->dm;
+>         adev->df.funcs->set_fica(adev, ficaa_pie_status_in, 0, 0);
+>
+> -       return snprintf(buf, PAGE_SIZE, "%d\n", error_count);
+> +       return snprintf(buf, PAGE_SIZE, "%u\n", error_count);
+>  }
+>
+>
 > --
 > 2.16.2.dirty
 >
