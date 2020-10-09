@@ -7,45 +7,46 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 601B8C433E7
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B7E1C04EBE
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E5C6222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E5C6222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 367DE222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 367DE222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4D126EE2F;
-	Fri,  9 Oct 2020 21:10:52 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDBC76EDAB;
- Fri,  9 Oct 2020 19:51:24 +0000 (UTC)
-IronPort-SDR: hz2bQVPpsd9UoufrIYMGEzxtEHU0yCbCqPlqPREADsqVL5IZIKH99YLdBxtUeqBOUD8g6fK7l6
- 2TQ3y79T1ntQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162067831"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162067831"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 124306EE38;
+	Fri,  9 Oct 2020 21:10:53 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFBE96ED9F;
+ Fri,  9 Oct 2020 19:51:00 +0000 (UTC)
+IronPort-SDR: HHWCotbk9FSQHTNsOa0jKIv52bRnGMAi4bG2gb4cVVHA4c2JAXVnDHqY2SRWYUgsjdgJb4sLey
+ WIFo2e5b7RKw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="152450758"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="152450758"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:24 -0700
-IronPort-SDR: XjNk9w0mzDhi5BMigEI5d3C8W/iIq4vdRrLZr3Ki7urqpxKKtyqLLY7j1Bq5ukpJe/vk25ySpH
- cq+qGeUOhHow==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="355862741"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:00 -0700
+IronPort-SDR: /j9oTf64Lc/fwCVe0LT3Z3/pz5zJXnOJNQAbfqyJqoBSoEhIO3zt/eOhOuH8Xl1K1eBwx2q0zq
+ 2edyiKrU43UQ==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="519846797"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:22 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:50:59 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 10/58] drivers/rdma: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:49:45 -0700
-Message-Id: <20201009195033.3208459-11-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 04/58] kmap: Add stray access protection for
+ device pages
+Date: Fri,  9 Oct 2020 12:49:39 -0700
+Message-Id: <20201009195033.3208459-5-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -73,20 +74,16 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
  linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
  amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, Jason Gunthorpe <jgg@ziepe.ca>,
- Doug Ledford <dledford@redhat.com>, linux-cachefs@redhat.com,
- intel-wired-lan@lists.osuosl.org, Bernard Metzler <bmt@zurich.ibm.com>,
+ cluster-devel@redhat.com, linux-cachefs@redhat.com,
+ intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
  linux-ext4@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
- Faisal Latif <faisal.latif@intel.com>, linux-um@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-nfs@vger.kernel.org,
+ linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
  reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-bcache@vger.kernel.org, xen-devel@lists.xenproject.org,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, io-uring@vger.kernel.org,
- Mike Marciniszyn <mike.marciniszyn@intel.com>,
+ linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
  linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
- Dennis Dalessandro <dennis.dalessandro@intel.com>, kexec@lists.infradead.org,
+ Randy Dunlap <rdunlap@infradead.org>, kexec@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
  linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
@@ -97,143 +94,140 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-The kmap() calls in these drivers are localized to a single thread.  To
-avoid the over head of global PKRS updates use the new kmap_thread()
-call.
+Device managed pages may have additional protections.  These protections
+need to be removed prior to valid use by kernel users.
 
-Cc: Mike Marciniszyn <mike.marciniszyn@intel.com>
-Cc: Dennis Dalessandro <dennis.dalessandro@intel.com>
-Cc: Doug Ledford <dledford@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Faisal Latif <faisal.latif@intel.com>
-Cc: Shiraz Saleem <shiraz.saleem@intel.com>
-Cc: Bernard Metzler <bmt@zurich.ibm.com>
+Check for special treatment of device managed pages in kmap and take
+action if needed.  We use kmap as an interface for generic kernel code
+because under normal circumstances it would be a bug for general kernel
+code to not use kmap prior to accessing kernel memory.  Therefore, this
+should allow any valid kernel users to seamlessly use these pages
+without issues.
+
+Because of the critical nature of kmap it must be pointed out that the
+over head on regular DRAM is carefully implemented to be as fast as
+possible.  Furthermore the underlying MSR write required on device pages
+when protected is better than a normal MSR write.
+
+Specifically, WRMSR(MSR_IA32_PKRS) is not serializing but still
+maintains ordering properties similar to WRPKRU.  The current SDM
+section on PKRS needs updating but should be the same as that of WRPKRU.
+So to quote from the WRPKRU text:
+
+	WRPKRU will never execute speculatively. Memory accesses
+	affected by PKRU register will not execute (even speculatively)
+	until all prior executions of WRPKRU have completed execution
+	and updated the PKRU register.
+
+Still this will make accessing pmem more expensive from the kernel but
+the overhead is minimized and many pmem users access this memory through
+user page mappings which are not affected at all.
+
+Cc: Randy Dunlap <rdunlap@infradead.org>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- drivers/infiniband/hw/hfi1/sdma.c      |  4 ++--
- drivers/infiniband/hw/i40iw/i40iw_cm.c | 10 +++++-----
- drivers/infiniband/sw/siw/siw_qp_tx.c  | 14 +++++++-------
- 3 files changed, 14 insertions(+), 14 deletions(-)
+ include/linux/highmem.h | 32 +++++++++++++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/sdma.c b/drivers/infiniband/hw/hfi1/sdma.c
-index 04575c9afd61..09d206e3229a 100644
---- a/drivers/infiniband/hw/hfi1/sdma.c
-+++ b/drivers/infiniband/hw/hfi1/sdma.c
-@@ -3130,7 +3130,7 @@ int ext_coal_sdma_tx_descs(struct hfi1_devdata *dd, struct sdma_txreq *tx,
- 		}
+diff --git a/include/linux/highmem.h b/include/linux/highmem.h
+index 14e6202ce47f..2a9806e3b8d2 100644
+--- a/include/linux/highmem.h
++++ b/include/linux/highmem.h
+@@ -8,6 +8,7 @@
+ #include <linux/mm.h>
+ #include <linux/uaccess.h>
+ #include <linux/hardirq.h>
++#include <linux/memremap.h>
  
- 		if (type == SDMA_MAP_PAGE) {
--			kvaddr = kmap(page);
-+			kvaddr = kmap_thread(page);
- 			kvaddr += offset;
- 		} else if (WARN_ON(!kvaddr)) {
- 			__sdma_txclean(dd, tx);
-@@ -3140,7 +3140,7 @@ int ext_coal_sdma_tx_descs(struct hfi1_devdata *dd, struct sdma_txreq *tx,
- 		memcpy(tx->coalesce_buf + tx->coalesce_idx, kvaddr, len);
- 		tx->coalesce_idx += len;
- 		if (type == SDMA_MAP_PAGE)
--			kunmap(page);
-+			kunmap_thread(page);
+ #include <asm/cacheflush.h>
  
- 		/* If there is more data, return */
- 		if (tx->tlen - tx->coalesce_idx)
-diff --git a/drivers/infiniband/hw/i40iw/i40iw_cm.c b/drivers/infiniband/hw/i40iw/i40iw_cm.c
-index a3b95805c154..122d7a5642a1 100644
---- a/drivers/infiniband/hw/i40iw/i40iw_cm.c
-+++ b/drivers/infiniband/hw/i40iw/i40iw_cm.c
-@@ -3721,7 +3721,7 @@ int i40iw_accept(struct iw_cm_id *cm_id, struct iw_cm_conn_param *conn_param)
- 		ibmr->device = iwpd->ibpd.device;
- 		iwqp->lsmm_mr = ibmr;
- 		if (iwqp->page)
--			iwqp->sc_qp.qp_uk.sq_base = kmap(iwqp->page);
-+			iwqp->sc_qp.qp_uk.sq_base = kmap_thread(iwqp->page);
- 		dev->iw_priv_qp_ops->qp_send_lsmm(&iwqp->sc_qp,
- 							iwqp->ietf_mem.va,
- 							(accept.size + conn_param->private_data_len),
-@@ -3729,12 +3729,12 @@ int i40iw_accept(struct iw_cm_id *cm_id, struct iw_cm_conn_param *conn_param)
+@@ -31,6 +32,20 @@ static inline void invalidate_kernel_vmap_range(void *vaddr, int size)
  
- 	} else {
- 		if (iwqp->page)
--			iwqp->sc_qp.qp_uk.sq_base = kmap(iwqp->page);
-+			iwqp->sc_qp.qp_uk.sq_base = kmap_thread(iwqp->page);
- 		dev->iw_priv_qp_ops->qp_send_lsmm(&iwqp->sc_qp, NULL, 0, 0);
- 	}
+ #include <asm/kmap_types.h>
  
- 	if (iwqp->page)
--		kunmap(iwqp->page);
-+		kunmap_thread(iwqp->page);
++static inline void dev_page_enable_access(struct page *page, bool global)
++{
++	if (!page_is_access_protected(page))
++		return;
++	dev_access_enable(global);
++}
++
++static inline void dev_page_disable_access(struct page *page, bool global)
++{
++	if (!page_is_access_protected(page))
++		return;
++	dev_access_disable(global);
++}
++
+ #ifdef CONFIG_HIGHMEM
+ extern void *kmap_atomic_high_prot(struct page *page, pgprot_t prot);
+ extern void kunmap_atomic_high(void *kvaddr);
+@@ -55,6 +70,11 @@ static inline void *kmap(struct page *page)
+ 	else
+ 		addr = kmap_high(page);
+ 	kmap_flush_tlb((unsigned long)addr);
++	/*
++	 * Even non-highmem pages may have additional access protections which
++	 * need to be checked and potentially enabled.
++	 */
++	dev_page_enable_access(page, true);
+ 	return addr;
+ }
  
- 	iwqp->cm_id = cm_id;
- 	cm_node->cm_id = cm_id;
-@@ -4102,10 +4102,10 @@ static void i40iw_cm_event_connected(struct i40iw_cm_event *event)
- 	i40iw_cm_init_tsa_conn(iwqp, cm_node);
- 	read0 = (cm_node->send_rdma0_op == SEND_RDMA_READ_ZERO);
- 	if (iwqp->page)
--		iwqp->sc_qp.qp_uk.sq_base = kmap(iwqp->page);
-+		iwqp->sc_qp.qp_uk.sq_base = kmap_thread(iwqp->page);
- 	dev->iw_priv_qp_ops->qp_send_rtt(&iwqp->sc_qp, read0);
- 	if (iwqp->page)
--		kunmap(iwqp->page);
-+		kunmap_thread(iwqp->page);
+@@ -63,6 +83,11 @@ void kunmap_high(struct page *page);
+ static inline void kunmap(struct page *page)
+ {
+ 	might_sleep();
++	/*
++	 * Even non-highmem pages may have additional access protections which
++	 * need to be checked and potentially disabled.
++	 */
++	dev_page_disable_access(page, true);
+ 	if (!PageHighMem(page))
+ 		return;
+ 	kunmap_high(page);
+@@ -85,6 +110,7 @@ static inline void *kmap_atomic_prot(struct page *page, pgprot_t prot)
+ {
+ 	preempt_disable();
+ 	pagefault_disable();
++	dev_page_enable_access(page, false);
+ 	if (!PageHighMem(page))
+ 		return page_address(page);
+ 	return kmap_atomic_high_prot(page, prot);
+@@ -137,6 +163,7 @@ static inline unsigned long totalhigh_pages(void) { return 0UL; }
+ static inline void *kmap(struct page *page)
+ {
+ 	might_sleep();
++	dev_page_enable_access(page, true);
+ 	return page_address(page);
+ }
  
- 	memset(&attr, 0, sizeof(attr));
- 	attr.qp_state = IB_QPS_RTS;
-diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
-index d19d8325588b..4ed37c328d02 100644
---- a/drivers/infiniband/sw/siw/siw_qp_tx.c
-+++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
-@@ -76,7 +76,7 @@ static int siw_try_1seg(struct siw_iwarp_tx *c_tx, void *paddr)
- 			if (unlikely(!p))
- 				return -EFAULT;
+@@ -146,6 +173,7 @@ static inline void kunmap_high(struct page *page)
  
--			buffer = kmap(p);
-+			buffer = kmap_thread(p);
- 
- 			if (likely(PAGE_SIZE - off >= bytes)) {
- 				memcpy(paddr, buffer + off, bytes);
-@@ -84,7 +84,7 @@ static int siw_try_1seg(struct siw_iwarp_tx *c_tx, void *paddr)
- 				unsigned long part = bytes - (PAGE_SIZE - off);
- 
- 				memcpy(paddr, buffer + off, part);
--				kunmap(p);
-+				kunmap_thread(p);
- 
- 				if (!mem->is_pbl)
- 					p = siw_get_upage(mem->umem,
-@@ -96,10 +96,10 @@ static int siw_try_1seg(struct siw_iwarp_tx *c_tx, void *paddr)
- 				if (unlikely(!p))
- 					return -EFAULT;
- 
--				buffer = kmap(p);
-+				buffer = kmap_thread(p);
- 				memcpy(paddr + part, buffer, bytes - part);
- 			}
--			kunmap(p);
-+			kunmap_thread(p);
- 		}
- 	}
- 	return (int)bytes;
-@@ -505,7 +505,7 @@ static int siw_tx_hdt(struct siw_iwarp_tx *c_tx, struct socket *s)
- 				page_array[seg] = p;
- 
- 				if (!c_tx->use_sendpage) {
--					iov[seg].iov_base = kmap(p) + fp_off;
-+					iov[seg].iov_base = kmap_thread(p) + fp_off;
- 					iov[seg].iov_len = plen;
- 
- 					/* Remember for later kunmap() */
-@@ -518,9 +518,9 @@ static int siw_tx_hdt(struct siw_iwarp_tx *c_tx, struct socket *s)
- 							plen);
- 				} else if (do_crc) {
- 					crypto_shash_update(c_tx->mpa_crc_hd,
--							    kmap(p) + fp_off,
-+							    kmap_thread(p) + fp_off,
- 							    plen);
--					kunmap(p);
-+					kunmap_thread(p);
- 				}
- 			} else {
- 				u64 va = sge->laddr + sge_off;
+ static inline void kunmap(struct page *page)
+ {
++	dev_page_disable_access(page, true);
+ #ifdef ARCH_HAS_FLUSH_ON_KUNMAP
+ 	kunmap_flush_on_unmap(page_address(page));
+ #endif
+@@ -155,6 +183,7 @@ static inline void *kmap_atomic(struct page *page)
+ {
+ 	preempt_disable();
+ 	pagefault_disable();
++	dev_page_enable_access(page, false);
+ 	return page_address(page);
+ }
+ #define kmap_atomic_prot(page, prot)	kmap_atomic(page)
+@@ -216,7 +245,8 @@ static inline void kmap_atomic_idx_pop(void)
+ #define kunmap_atomic(addr)                                     \
+ do {                                                            \
+ 	BUILD_BUG_ON(__same_type((addr), struct page *));       \
+-	kunmap_atomic_high(addr);                                  \
++	dev_page_disable_access(kmap_to_page(addr), false);     \
++	kunmap_atomic_high(addr);                               \
+ 	pagefault_enable();                                     \
+ 	preempt_enable();                                       \
+ } while (0)
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
