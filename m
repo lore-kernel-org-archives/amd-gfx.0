@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B0F8C4363A
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C274CC433DF
 	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0D112222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 80C17222C3
 	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D112222C3
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80C17222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE596EE21;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9A496EE2C;
 	Fri,  9 Oct 2020 21:10:42 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF9746EDE8;
- Fri,  9 Oct 2020 19:53:09 +0000 (UTC)
-IronPort-SDR: ZGgoHEyS599GyRW1ibDL0pcQaAZxRnBgsKfJxaaMZlNFk3BG53qRg4+cEsyeItxcsZpv4Dra9c
- WkTOiE9U14rg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="165643246"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="165643246"
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D7F6EE01;
+ Fri,  9 Oct 2020 19:53:44 +0000 (UTC)
+IronPort-SDR: urDQyzW7LRER7bb3o7r58rHyaIelVg7yEOwDJ9+SsKXq85Mm9mDY+ftGJZHltdoitEniDkevtr
+ K8rT+oTB4QfA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="144851065"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="144851065"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:09 -0700
-IronPort-SDR: FciD93oXa6TN5PQF74JzeuCyRYkWBlT2lC/7ncntBELjkiuqMo1u2JSAhMViBtfJLu9YdFEYCB
- Wo/5PMHidIaw==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="317147397"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:44 -0700
+IronPort-SDR: Uit4axCqwtogby85Iv/hBLI1Moj4COtsBpPB5jXSVWpuENwpihzSQwSQg3nZnBMabzVvybSK2I
+ 1kQ4taZ9oZgQ==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="298531484"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:08 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:43 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 39/58] fs/jffs2: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:14 -0700
-Message-Id: <20201009195033.3208459-40-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 50/58] drivers/android: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:25 -0700
+Message-Id: <20201009195033.3208459-51-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -81,11 +81,11 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
  linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
  io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
+ linux-ntfs-dev@lists.sourceforge.net,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -93,34 +93,31 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-These kmap() calls are localized to a single thread.  To avoid the over head of
-global PKRS updates use the new kmap_thread() call.
+These kmap() calls are localized to a single thread.  To avoid the over
+head of global PKRS updates use the new kmap_thread() call.
 
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/jffs2/file.c | 4 ++--
+ drivers/android/binder_alloc.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/jffs2/file.c b/fs/jffs2/file.c
-index 3e6d54f9b011..14dd2b18cc16 100644
---- a/fs/jffs2/file.c
-+++ b/fs/jffs2/file.c
-@@ -287,13 +287,13 @@ static int jffs2_write_end(struct file *filp, struct address_space *mapping,
- 
- 	/* In 2.4, it was already kmapped by generic_file_write(). Doesn't
- 	   hurt to do it again. The alternative is ifdefs, which are ugly. */
--	kmap(pg);
-+	kmap_thread(pg);
- 
- 	ret = jffs2_write_inode_range(c, f, ri, page_address(pg) + aligned_start,
- 				      (pg->index << PAGE_SHIFT) + aligned_start,
- 				      end - aligned_start, &writtenlen);
- 
--	kunmap(pg);
-+	kunmap_thread(pg);
- 
- 	if (ret) {
- 		/* There was an error writing. */
+diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
+index 69609696a843..5f50856caad7 100644
+--- a/drivers/android/binder_alloc.c
++++ b/drivers/android/binder_alloc.c
+@@ -1118,9 +1118,9 @@ binder_alloc_copy_user_to_buffer(struct binder_alloc *alloc,
+ 		page = binder_alloc_get_page(alloc, buffer,
+ 					     buffer_offset, &pgoff);
+ 		size = min_t(size_t, bytes, PAGE_SIZE - pgoff);
+-		kptr = kmap(page) + pgoff;
++		kptr = kmap_thread(page) + pgoff;
+ 		ret = copy_from_user(kptr, from, size);
+-		kunmap(page);
++		kunmap_thread(page);
+ 		if (ret)
+ 			return bytes - size + ret;
+ 		bytes -= size;
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
