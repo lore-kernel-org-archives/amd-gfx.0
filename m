@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D4CEC2BD0C
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC936C43457
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E891C222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E891C222C3
+	by mail.kernel.org (Postfix) with ESMTPS id B9A69222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9A69222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CAFA6EE3C;
-	Fri,  9 Oct 2020 21:10:58 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02A106EDED;
- Fri,  9 Oct 2020 19:53:12 +0000 (UTC)
-IronPort-SDR: R6AL/G7wo02f+2P9A/AjOYeroCYIoyyNpzDaPbA17KLRHgDXHlLUcIBagimlD/m44ZlB7VuFhY
- CnLN3PYrLZgg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="153363729"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="153363729"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE2A06EE4A;
+	Fri,  9 Oct 2020 21:10:53 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 221526EE09;
+ Fri,  9 Oct 2020 19:53:52 +0000 (UTC)
+IronPort-SDR: RbneJm7cl+DbAKwaZBV2D2Ci+8lVRCJfvNxARwiJ8OQ2H+2QDIGuOvvmFN49ZErPqjzyxsp8Fc
+ dVBq6APjktWA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="182976510"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="182976510"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:59 -0700
-IronPort-SDR: Wf0Bi1Gs1P3ZgILN9Dk8+ODZhbqXc7J3tJZabe+2AUx5fg/nQYQB2E9E/9NHNQgBhyfVAmIu+q
- D7ag8zQ3enrg==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="462300964"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:51 -0700
+IronPort-SDR: V1KD7wTraPak1zxWaGCn8NDyAgfcS4zsKsBv4Z0vY7HUn25qjJm9u99gQjtiJGVT+R+oXmWyM0
+ H2mADCd5/x5Q==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="462301148"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:58 -0700
+ 09 Oct 2020 12:53:50 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 36/58] fs/ext2: Use ext2_put_page
-Date: Fri,  9 Oct 2020 12:50:11 -0700
-Message-Id: <20201009195033.3208459-37-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 52/58] mm: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:27 -0700
+Message-Id: <20201009195033.3208459-53-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -83,9 +83,9 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
  linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
  kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, Jan Kara <jack@suse.com>,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+ linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-btrfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -93,97 +93,95 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-There are 3 places in namei.c where the equivalent of ext2_put_page() is
-open coded.  We want to use k[un]map_thread() instead of k[un]map() in
-ext2_[get|put]_page().
+These kmap() calls are localized to a single thread.  To avoid the over
+head of global PKRS updates use the new kmap_thread() call.
 
-Move ext2_put_page() to ext2.h and use it in namei.c in prep for
-converting the k[un]map() code.
-
-Cc: Jan Kara <jack@suse.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/ext2/dir.c   |  6 ------
- fs/ext2/ext2.h  |  8 ++++++++
- fs/ext2/namei.c | 15 +++++----------
- 3 files changed, 13 insertions(+), 16 deletions(-)
+ mm/memory.c      | 8 ++++----
+ mm/swapfile.c    | 4 ++--
+ mm/userfaultfd.c | 4 ++--
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
-index 70355ab6740e..f3194bf20733 100644
---- a/fs/ext2/dir.c
-+++ b/fs/ext2/dir.c
-@@ -66,12 +66,6 @@ static inline unsigned ext2_chunk_size(struct inode *inode)
- 	return inode->i_sb->s_blocksize;
- }
+diff --git a/mm/memory.c b/mm/memory.c
+index fcfc4ca36eba..75a054882d7a 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4945,7 +4945,7 @@ int __access_remote_vm(struct task_struct *tsk, struct mm_struct *mm,
+ 			if (bytes > PAGE_SIZE-offset)
+ 				bytes = PAGE_SIZE-offset;
  
--static inline void ext2_put_page(struct page *page)
--{
--	kunmap(page);
--	put_page(page);
--}
--
- /*
-  * Return the offset into page `page_nr' of the last valid
-  * byte in that page, plus one.
-diff --git a/fs/ext2/ext2.h b/fs/ext2/ext2.h
-index 5136b7289e8d..021ec8b42ac3 100644
---- a/fs/ext2/ext2.h
-+++ b/fs/ext2/ext2.h
-@@ -16,6 +16,8 @@
- #include <linux/blockgroup_lock.h>
- #include <linux/percpu_counter.h>
- #include <linux/rbtree.h>
-+#include <linux/mm.h>
-+#include <linux/highmem.h>
+-			maddr = kmap(page);
++			maddr = kmap_thread(page);
+ 			if (write) {
+ 				copy_to_user_page(vma, page, addr,
+ 						  maddr + offset, buf, bytes);
+@@ -4954,7 +4954,7 @@ int __access_remote_vm(struct task_struct *tsk, struct mm_struct *mm,
+ 				copy_from_user_page(vma, page, addr,
+ 						    buf, maddr + offset, bytes);
+ 			}
+-			kunmap(page);
++			kunmap_thread(page);
+ 			put_page(page);
+ 		}
+ 		len -= bytes;
+@@ -5216,14 +5216,14 @@ long copy_huge_page_from_user(struct page *dst_page,
  
- /* XXX Here for now... not interested in restructing headers JUST now */
+ 	for (i = 0; i < pages_per_huge_page; i++) {
+ 		if (allow_pagefault)
+-			page_kaddr = kmap(dst_page + i);
++			page_kaddr = kmap_thread(dst_page + i);
+ 		else
+ 			page_kaddr = kmap_atomic(dst_page + i);
+ 		rc = copy_from_user(page_kaddr,
+ 				(const void __user *)(src + i * PAGE_SIZE),
+ 				PAGE_SIZE);
+ 		if (allow_pagefault)
+-			kunmap(dst_page + i);
++			kunmap_thread(dst_page + i);
+ 		else
+ 			kunmap_atomic(page_kaddr);
  
-@@ -745,6 +747,12 @@ extern int ext2_delete_entry (struct ext2_dir_entry_2 *, struct page *);
- extern int ext2_empty_dir (struct inode *);
- extern struct ext2_dir_entry_2 * ext2_dotdot (struct inode *, struct page **);
- extern void ext2_set_link(struct inode *, struct ext2_dir_entry_2 *, struct page *, struct inode *, int);
-+static inline void ext2_put_page(struct page *page)
-+{
-+	kunmap(page);
-+	put_page(page);
-+}
-+
- 
- /* ialloc.c */
- extern struct inode * ext2_new_inode (struct inode *, umode_t, const struct qstr *);
-diff --git a/fs/ext2/namei.c b/fs/ext2/namei.c
-index 5bf2c145643b..ea980f1e2e99 100644
---- a/fs/ext2/namei.c
-+++ b/fs/ext2/namei.c
-@@ -389,23 +389,18 @@ static int ext2_rename (struct inode * old_dir, struct dentry * old_dentry,
- 	if (dir_de) {
- 		if (old_dir != new_dir)
- 			ext2_set_link(old_inode, dir_de, dir_page, new_dir, 0);
--		else {
--			kunmap(dir_page);
--			put_page(dir_page);
--		}
-+		else
-+			ext2_put_page(dir_page);
- 		inode_dec_link_count(old_dir);
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index debc94155f74..e3296ff95648 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -3219,7 +3219,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 		error = PTR_ERR(page);
+ 		goto bad_swap_unlock_inode;
  	}
- 	return 0;
+-	swap_header = kmap(page);
++	swap_header = kmap_thread(page);
  
- 
- out_dir:
--	if (dir_de) {
--		kunmap(dir_page);
--		put_page(dir_page);
--	}
-+	if (dir_de)
-+		ext2_put_page(dir_page);
- out_old:
--	kunmap(old_page);
--	put_page(old_page);
-+	ext2_put_page(old_page);
+ 	maxpages = read_swap_header(p, swap_header, inode);
+ 	if (unlikely(!maxpages)) {
+@@ -3395,7 +3395,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 		filp_close(swap_file, NULL);
  out:
- 	return err;
- }
+ 	if (page && !IS_ERR(page)) {
+-		kunmap(page);
++		kunmap_thread(page);
+ 		put_page(page);
+ 	}
+ 	if (name)
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 9a3d451402d7..4d38c881bb2d 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -586,11 +586,11 @@ static __always_inline ssize_t __mcopy_atomic(struct mm_struct *dst_mm,
+ 			mmap_read_unlock(dst_mm);
+ 			BUG_ON(!page);
+ 
+-			page_kaddr = kmap(page);
++			page_kaddr = kmap_thread(page);
+ 			err = copy_from_user(page_kaddr,
+ 					     (const void __user *) src_addr,
+ 					     PAGE_SIZE);
+-			kunmap(page);
++			kunmap_thread(page);
+ 			if (unlikely(err)) {
+ 				err = -EFAULT;
+ 				goto out;
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
