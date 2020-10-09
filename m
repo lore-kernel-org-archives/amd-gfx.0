@@ -2,50 +2,51 @@ Return-Path: <SRS0=3Gw3=DQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4E34C43457
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48851C43467
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63933222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63933222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 10CD9222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10CD9222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62D226EE46;
-	Fri,  9 Oct 2020 21:10:44 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D376D6EDD4;
- Fri,  9 Oct 2020 19:52:26 +0000 (UTC)
-IronPort-SDR: 8FAXhc2SaFEogrVqPLzHfICpEUubqwLOKqLLa4T4gMSNSoodwslP+fVWACf4lMBPVBhLnFJfG0
- vgshO9E1/UCQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="227179026"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="227179026"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1556EE34;
+	Fri,  9 Oct 2020 21:10:43 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 918A26EE14;
+ Fri,  9 Oct 2020 19:54:07 +0000 (UTC)
+IronPort-SDR: iGlOMfiMPKdZ4UN6JYHSKlPalOuH/vN7TNVQboRAhdkL9/HDrtA0O6OmOyAySuhc3tH0UYLWMB
+ IITG1y6R9jDw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="152451229"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="152451229"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:26 -0700
-IronPort-SDR: enOwdrUvox960YRmC5C0rYPH71vGkXRrRSf++MkJJnBOIwe1z1BLjEriaudfjb7SF8F3v1X02a
- epHq/DZLuLjw==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="355863002"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:54:07 -0700
+IronPort-SDR: src9VKOvZKZdzmhAmOplZF/CbXKWViy2IZEce2k3Dk75HVdMa01qWYEbu8ywq24hGpakhLlrfI
+ iYxmJaXcxtuw==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="519847335"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:25 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:54:06 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 27/58] fs/ubifs: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:02 -0700
-Message-Id: <20201009195033.3208459-28-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 57/58] nvdimm/pmem: Stray access protection for
+ pmem->virt_addr
+Date: Fri,  9 Oct 2020 12:50:32 -0700
+Message-Id: <20201009195033.3208459-58-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -71,8 +72,7 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
  devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
  linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org,
- Richard Weinberger <richard@nod.at>, x86@kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
  amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
  cluster-devel@redhat.com, linux-cachefs@redhat.com,
  intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
@@ -94,91 +94,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-The kmap() calls in this FS are localized to a single thread.  To avoid
-the over head of global PKRS updates use the new kmap_thread() call.
+The pmem driver uses a cached virtual address to access its memory
+directly.  Because the nvdimm driver is well aware of the special
+protections it has mapped memory with, we call dev_access_[en|dis]able()
+around the direct pmem->virt_addr (pmem_addr) usage instead of the
+unnecessary overhead of trying to get a page to kmap.
 
-Cc: Richard Weinberger <richard@nod.at>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/ubifs/file.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/nvdimm/pmem.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-index b77d1637bbbc..a3537447a885 100644
---- a/fs/ubifs/file.c
-+++ b/fs/ubifs/file.c
-@@ -111,7 +111,7 @@ static int do_readpage(struct page *page)
- 	ubifs_assert(c, !PageChecked(page));
- 	ubifs_assert(c, !PagePrivate(page));
+diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+index fab29b514372..e4dc1ae990fc 100644
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -148,7 +148,9 @@ static blk_status_t pmem_do_read(struct pmem_device *pmem,
+ 	if (unlikely(is_bad_pmem(&pmem->bb, sector, len)))
+ 		return BLK_STS_IOERR;
  
--	addr = kmap(page);
-+	addr = kmap_thread(page);
- 
- 	block = page->index << UBIFS_BLOCKS_PER_PAGE_SHIFT;
- 	beyond = (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT;
-@@ -174,7 +174,7 @@ static int do_readpage(struct page *page)
- 	SetPageUptodate(page);
- 	ClearPageError(page);
++	dev_access_enable(false);
+ 	rc = read_pmem(page, page_off, pmem_addr, len);
++	dev_access_disable(false);
  	flush_dcache_page(page);
--	kunmap(page);
-+	kunmap_thread(page);
- 	return 0;
- 
- error:
-@@ -182,7 +182,7 @@ static int do_readpage(struct page *page)
- 	ClearPageUptodate(page);
- 	SetPageError(page);
- 	flush_dcache_page(page);
--	kunmap(page);
-+	kunmap_thread(page);
- 	return err;
+ 	return rc;
  }
- 
-@@ -616,7 +616,7 @@ static int populate_page(struct ubifs_info *c, struct page *page,
- 	dbg_gen("ino %lu, pg %lu, i_size %lld, flags %#lx",
- 		inode->i_ino, page->index, i_size, page->flags);
- 
--	addr = zaddr = kmap(page);
-+	addr = zaddr = kmap_thread(page);
- 
- 	end_index = (i_size - 1) >> PAGE_SHIFT;
- 	if (!i_size || page->index > end_index) {
-@@ -692,7 +692,7 @@ static int populate_page(struct ubifs_info *c, struct page *page,
- 	SetPageUptodate(page);
- 	ClearPageError(page);
+@@ -180,11 +182,13 @@ static blk_status_t pmem_do_write(struct pmem_device *pmem,
+ 	 * after clear poison.
+ 	 */
  	flush_dcache_page(page);
--	kunmap(page);
-+	kunmap_thread(page);
- 	*n = nn;
- 	return 0;
++	dev_access_enable(false);
+ 	write_pmem(pmem_addr, page, page_off, len);
+ 	if (unlikely(bad_pmem)) {
+ 		rc = pmem_clear_poison(pmem, pmem_off, len);
+ 		write_pmem(pmem_addr, page, page_off, len);
+ 	}
++	dev_access_disable(false);
  
-@@ -700,7 +700,7 @@ static int populate_page(struct ubifs_info *c, struct page *page,
- 	ClearPageUptodate(page);
- 	SetPageError(page);
- 	flush_dcache_page(page);
--	kunmap(page);
-+	kunmap_thread(page);
- 	ubifs_err(c, "bad data node (block %u, inode %lu)",
- 		  page_block, inode->i_ino);
- 	return -EINVAL;
-@@ -918,7 +918,7 @@ static int do_writepage(struct page *page, int len)
- 	/* Update radix tree tags */
- 	set_page_writeback(page);
- 
--	addr = kmap(page);
-+	addr = kmap_thread(page);
- 	block = page->index << UBIFS_BLOCKS_PER_PAGE_SHIFT;
- 	i = 0;
- 	while (len) {
-@@ -950,7 +950,7 @@ static int do_writepage(struct page *page, int len)
- 	ClearPagePrivate(page);
- 	ClearPageChecked(page);
- 
--	kunmap(page);
-+	kunmap_thread(page);
- 	unlock_page(page);
- 	end_page_writeback(page);
- 	return err;
+ 	return rc;
+ }
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
