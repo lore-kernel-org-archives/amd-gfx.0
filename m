@@ -7,35 +7,35 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40395C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 12:51:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCB7FC433E7
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 12:51:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C0C222284
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 12:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C0C222284
+	by mail.kernel.org (Postfix) with ESMTPS id 2111C22284
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 12:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2111C22284
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2E76ECD2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1846ECD7;
 	Fri,  9 Oct 2020 12:51:10 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95C996EC4F
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 07:31:44 +0000 (UTC)
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id AD11B2E4A2AE8A446E2F;
- Fri,  9 Oct 2020 15:31:39 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS404-HUB.china.huawei.com
- (10.3.19.204) with Microsoft SMTP Server id 14.3.487.0; Fri, 9 Oct 2020
- 15:31:32 +0800
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC7B26EC4D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 07:37:26 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 260182D388FB38104965;
+ Fri,  9 Oct 2020 15:37:21 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.487.0; Fri, 9 Oct 2020
+ 15:37:11 +0800
 From: Ye Bin <yebin10@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Fix invalid number of character '{' in
- amdgpu_acpi_init
-Date: Fri, 9 Oct 2020 15:42:18 +0800
-Message-ID: <20201009074218.144038-1-yebin10@huawei.com>
+Subject: [PATCH] drm/amdgpu: Fix inconsistent of format with argument type in
+ amdgpu_xgmi.c
+Date: Fri, 9 Oct 2020 15:47:58 +0800
+Message-ID: <20201009074758.74370-1-yebin10@huawei.com>
 X-Mailer: git-send-email 2.16.2.dirty
 MIME-Version: 1.0
 X-Originating-IP: [10.90.53.225]
@@ -59,44 +59,28 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix follow warning:
-Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c...
-[drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-of character '{' when these macros are defined: ''.
-Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: CONFIG_ACPI...
-[drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-of character '{' when these macros are defined: 'CONFIG_ACPI'.
-......
-Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: CONFIG_X86...
-[drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-of character '{' when these macros are defined: 'CONFIG_X86'.
-Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: _X86_...
-[drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-of character '{' when these macros are defined: '_X86_'.
-Checking drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: __linux__...
-[drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:770]: (error) Invalid number
-of character '{' when these macros are defined: '__linux__'.
+[drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:249]: (warning) %d in format
+string (no. 1) requires 'int' but the argument type is 'unsigned int'.
 
-Fixes: 97d798b276e9 ("drm/amdgpu: simplify ATIF backlight handling")
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Ye Bin <yebin10@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 4a93b880c6bf..165b02e267b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -806,8 +806,8 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	}
- 	adev->atif = atif;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 1162913c8bf4..54c358e71f9a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -246,7 +246,7 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
  
--	if (atif->notifications.brightness_change) {
- #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-+	if (atif->notifications.brightness_change) {
- 		if (amdgpu_device_has_dc_support(adev)) {
- #if defined(CONFIG_DRM_AMD_DC)
- 			struct amdgpu_display_manager *dm = &adev->dm;
+ 	adev->df.funcs->set_fica(adev, ficaa_pie_status_in, 0, 0);
+ 
+-	return snprintf(buf, PAGE_SIZE, "%d\n", error_count);
++	return snprintf(buf, PAGE_SIZE, "%u\n", error_count);
+ }
+ 
+ 
 -- 
 2.16.2.dirty
 
