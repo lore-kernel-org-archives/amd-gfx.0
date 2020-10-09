@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 714E9C41604
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E4B2C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 39C34222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39C34222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 651D8222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 651D8222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37D406EE53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A53B06EE5A;
 	Fri,  9 Oct 2020 21:11:03 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4582A6ED99;
- Fri,  9 Oct 2020 19:50:57 +0000 (UTC)
-IronPort-SDR: AeuGVtwLm2XosW+9G/k/OKFjRF2ulYyO9wB2O8hv9WNtCJE8HQ489ccVl3VPErImzorKlobKT0
- hDrn7J3wKj1Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="182976012"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="182976012"
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F0B66EDAE;
+ Fri,  9 Oct 2020 19:51:33 +0000 (UTC)
+IronPort-SDR: 6agjaRjHgB9G66BwyMwgSJp4wR00yS4/sIV3yZhxK2LcrYuQfdY+FFfjeIQZoQux4favbl/pnz
+ zpkeGoGxr7Uw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162067868"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162067868"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:50:56 -0700
-IronPort-SDR: WlCZORaTV0ocl1yC7IDa4J4IbRZJZvP+KytzS1LtxRNRUTgHeg4W5ZWyzNndx3DpBXRsqL9R3c
- CQItA3N5s8ig==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="462300571"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:33 -0700
+IronPort-SDR: HIW7PNpXrID3gOC4BJBiMK8gMhcX7pYwx4FKSDabG5rp79Jg8ur1teAkpcUK61qJFFQS9ID+ws
+ 9ehpgS1/cOeQ==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="349957192"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:50:55 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:33 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 03/58] memremap: Add zone device access protection
-Date: Fri,  9 Oct 2020 12:49:38 -0700
-Message-Id: <20201009195033.3208459-4-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 13/58] fs/btrfs: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:49:48 -0700
+Message-Id: <20201009195033.3208459-14-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -62,28 +62,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, linux-aio@kvack.org,
- linux-efi@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Ben Segall <bsegall@google.com>,
+Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
  linux-mm@kvack.org, target-devel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
  samba-technical@lists.samba.org, Ira Weiny <ira.weiny@intel.com>,
  ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
  devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- linux-nilfs@vger.kernel.org, Vincent Guittot <vincent.guittot@linaro.org>,
- linux-scsi@vger.kernel.org, linux-nvdimm@lists.01.org,
- linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org,
- io-uring@vger.kernel.org, cluster-devel@redhat.com, linux-cachefs@redhat.com,
- intel-wired-lan@lists.osuosl.org, Mel Gorman <mgorman@suse.de>,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- Fenghua Yu <fenghua.yu@intel.com>, linux-afs@lists.infradead.org,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
+ cluster-devel@redhat.com, linux-cachefs@redhat.com,
+ intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
  linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
  ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- reiserfs-devel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+ Josef Bacik <josef@toxicpanda.com>, reiserfs-devel@vger.kernel.org,
  linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Dan Williams <dan.j.williams@intel.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, linux-nfs@vger.kernel.org,
+ David Sterba <dsterba@suse.com>, Dan Williams <dan.j.williams@intel.com>,
+ io-uring@vger.kernel.org, linux-nfs@vger.kernel.org, Chris Mason <clm@fb.com>,
  linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
  kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
@@ -96,412 +94,625 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-Device managed memory exposes itself to the kernel direct map which
-allows stray pointers to access these device memories.
+The kmap() calls in this FS are localized to a single thread.  To avoid
+the over head of global PKRS updates use the new kmap_thread() call.
 
-Stray pointers to normal memory may result in a crash or other
-undesirable behavior which, while unfortunate, are usually recoverable
-with a reboot.  Stray access, specifically stray writes, to areas such
-as non-volatile memory are permanent in nature and thus are more likely
-to result in permanent user data loss vs stray access to other memory
-areas.
-
-Furthermore, we protect against reads which can help with speculative
-reads to poison areas as well.  But this is a secondary reason.
-
-Set up an infrastructure for extra device access protection. Then
-implement the new protection using the new Protection Keys Supervisor
-(PKS) on architectures which support it.
-
-To enable this extra protection devices specify a flag in the pgmap to
-indicate that these areas wish to use additional protection.
-
-Kernel code which intends to access this memory can do so automatically
-through the use of the kmap infrastructure calling into
-dev_access_[enable|disable]() described here.  The kmap infrastructure
-is implemented in a follow on patch.
-
-In addition, users can directly enable/disable the access through
-dev_access_[enable|disable]() if they have a priori knowledge of the
-type of pages they are accessing.
-
-All calls to enable/disable protection flow through
-dev_access_[enable|disable]() and are nestable by the use of a per task
-reference count.  This reference count does 2 things.
-
-1) Allows a thread to nest calls to disable protection such that the
-   first call to re-enable protection does not 'break' the last access of
-   the pmem device memory.
-
-2) Provides faster performance by avoiding lots of MSR writes.  For
-   example, looping over a sequence of pmem pages.
-
-In addition, we must ensure the reference count is preserved through an
-exception so we add the count to irqentry_state_t and save/restore the
-reference count while giving exceptions their own count should they use
-a kmap call.
-
-The following shows how this works through an exception:
-
-    ...
-            // ref == 0
-            dev_access_enable()  // ref += 1 ==> disable protection
-                    irq()
-                            // enable protection
-                            // ref = 0
-                            _handler()
-                                    dev_access_enable()   // ref += 1 ==> disable protection
-                                    dev_access_disable()  // ref -= 1 ==> enable protection
-                            // WARN_ON(ref != 0)
-                            // disable protection
-            do_pmem_thing()  // all good here
-            dev_access_disable() // ref -= 1 ==> 0 ==> enable protection
-    ...
-
-Nested exceptions operate the same way with each exception storing the
-interrupted exception state all the way down.
-
-The pkey value is never free'ed as this optimizes the implementation to
-be either on or off using a static branch conditional in the fast paths.
-
-Cc: Juri Lelli <juri.lelli@redhat.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Ben Segall <bsegall@google.com>
-Cc: Mel Gorman <mgorman@suse.de>
+Cc: Chris Mason <clm@fb.com>
+Cc: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- arch/x86/entry/common.c      | 21 +++++++++
- include/linux/entry-common.h |  3 ++
- include/linux/memremap.h     |  1 +
- include/linux/mm.h           | 43 +++++++++++++++++
- include/linux/sched.h        |  3 ++
- init/init_task.c             |  3 ++
- kernel/fork.c                |  3 ++
- mm/Kconfig                   | 13 ++++++
- mm/memremap.c                | 90 ++++++++++++++++++++++++++++++++++++
- 9 files changed, 180 insertions(+)
+ fs/btrfs/check-integrity.c |  4 ++--
+ fs/btrfs/compression.c     |  4 ++--
+ fs/btrfs/inode.c           | 16 ++++++++--------
+ fs/btrfs/lzo.c             | 24 ++++++++++++------------
+ fs/btrfs/raid56.c          | 34 +++++++++++++++++-----------------
+ fs/btrfs/reflink.c         |  8 ++++----
+ fs/btrfs/send.c            |  4 ++--
+ fs/btrfs/zlib.c            | 32 ++++++++++++++++----------------
+ fs/btrfs/zstd.c            | 20 ++++++++++----------
+ 9 files changed, 73 insertions(+), 73 deletions(-)
 
-diff --git a/arch/x86/entry/common.c b/arch/x86/entry/common.c
-index 86ad32e0095e..3680724c1a4d 100644
---- a/arch/x86/entry/common.c
-+++ b/arch/x86/entry/common.c
-@@ -264,12 +264,27 @@ noinstr void idtentry_exit_nmi(struct pt_regs *regs, irqentry_state_t *irq_state
-  *
-  * NOTE That the thread saved PKRS must be preserved separately to ensure
-  * global overrides do not 'stick' on a thread.
-+ *
-+ * Furthermore, Zone Device Access Protection maintains access in a re-entrant
-+ * manner through a reference count which also needs to be maintained should
-+ * exception handlers use those interfaces for memory access.  Here we start
-+ * off the exception handler ref count to 0 and ensure it is 0 when the
-+ * exception is done.  Then restore it for the interrupted task.
-  */
- noinstr void irq_save_pkrs(irqentry_state_t *state)
- {
- 	if (!cpu_feature_enabled(X86_FEATURE_PKS))
- 		return;
+diff --git a/fs/btrfs/check-integrity.c b/fs/btrfs/check-integrity.c
+index 81a8c87a5afb..9e5a02512ab5 100644
+--- a/fs/btrfs/check-integrity.c
++++ b/fs/btrfs/check-integrity.c
+@@ -2706,7 +2706,7 @@ static void __btrfsic_submit_bio(struct bio *bio)
  
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+	/*
-+	 * Save the ref count of the current running process and set it to 0
-+	 * for any irq users to properly track re-entrance
-+	 */
-+	state->pkrs_ref = current->dev_page_access_ref;
-+	current->dev_page_access_ref = 0;
-+#endif
-+
+ 		bio_for_each_segment(bvec, bio, iter) {
+ 			BUG_ON(bvec.bv_len != PAGE_SIZE);
+-			mapped_datav[i] = kmap(bvec.bv_page);
++			mapped_datav[i] = kmap_thread(bvec.bv_page);
+ 			i++;
+ 
+ 			if (dev_state->state->print_mask &
+@@ -2720,7 +2720,7 @@ static void __btrfsic_submit_bio(struct bio *bio)
+ 					      bio, &bio_is_patched,
+ 					      bio->bi_opf);
+ 		bio_for_each_segment(bvec, bio, iter)
+-			kunmap(bvec.bv_page);
++			kunmap_thread(bvec.bv_page);
+ 		kfree(mapped_datav);
+ 	} else if (NULL != dev_state && (bio->bi_opf & REQ_PREFLUSH)) {
+ 		if (dev_state->state->print_mask &
+diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
+index 1ab56a734e70..5944fb36d68a 100644
+--- a/fs/btrfs/compression.c
++++ b/fs/btrfs/compression.c
+@@ -1626,7 +1626,7 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
+ 	curr_sample_pos = 0;
+ 	while (index < index_end) {
+ 		page = find_get_page(inode->i_mapping, index);
+-		in_data = kmap(page);
++		in_data = kmap_thread(page);
+ 		/* Handle case where the start is not aligned to PAGE_SIZE */
+ 		i = start % PAGE_SIZE;
+ 		while (i < PAGE_SIZE - SAMPLING_READ_SIZE) {
+@@ -1639,7 +1639,7 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
+ 			start += SAMPLING_INTERVAL;
+ 			curr_sample_pos += SAMPLING_READ_SIZE;
+ 		}
+-		kunmap(page);
++		kunmap_thread(page);
+ 		put_page(page);
+ 
+ 		index++;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 9570458aa847..9710a52c6c42 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -4603,7 +4603,7 @@ int btrfs_truncate_block(struct inode *inode, loff_t from, loff_t len,
+ 	if (offset != blocksize) {
+ 		if (!len)
+ 			len = blocksize - offset;
+-		kaddr = kmap(page);
++		kaddr = kmap_thread(page);
+ 		if (front)
+ 			memset(kaddr + (block_start - page_offset(page)),
+ 				0, offset);
+@@ -4611,7 +4611,7 @@ int btrfs_truncate_block(struct inode *inode, loff_t from, loff_t len,
+ 			memset(kaddr + (block_start - page_offset(page)) +  offset,
+ 				0, len);
+ 		flush_dcache_page(page);
+-		kunmap(page);
++		kunmap_thread(page);
+ 	}
+ 	ClearPageChecked(page);
+ 	set_page_dirty(page);
+@@ -6509,9 +6509,9 @@ static noinline int uncompress_inline(struct btrfs_path *path,
+ 	 */
+ 
+ 	if (max_size + pg_offset < PAGE_SIZE) {
+-		char *map = kmap(page);
++		char *map = kmap_thread(page);
+ 		memset(map + pg_offset + max_size, 0, PAGE_SIZE - max_size - pg_offset);
+-		kunmap(page);
++		kunmap_thread(page);
+ 	}
+ 	kfree(tmp);
+ 	return ret;
+@@ -6704,7 +6704,7 @@ struct extent_map *btrfs_get_extent(struct btrfs_inode *inode,
+ 					goto out;
+ 				}
+ 			} else {
+-				map = kmap(page);
++				map = kmap_thread(page);
+ 				read_extent_buffer(leaf, map + pg_offset, ptr,
+ 						   copy_size);
+ 				if (pg_offset + copy_size < PAGE_SIZE) {
+@@ -6712,7 +6712,7 @@ struct extent_map *btrfs_get_extent(struct btrfs_inode *inode,
+ 					       PAGE_SIZE - pg_offset -
+ 					       copy_size);
+ 				}
+-				kunmap(page);
++				kunmap_thread(page);
+ 			}
+ 			flush_dcache_page(page);
+ 		}
+@@ -8326,10 +8326,10 @@ vm_fault_t btrfs_page_mkwrite(struct vm_fault *vmf)
+ 		zero_start = PAGE_SIZE;
+ 
+ 	if (zero_start != PAGE_SIZE) {
+-		kaddr = kmap(page);
++		kaddr = kmap_thread(page);
+ 		memset(kaddr + zero_start, 0, PAGE_SIZE - zero_start);
+ 		flush_dcache_page(page);
+-		kunmap(page);
++		kunmap_thread(page);
+ 	}
+ 	ClearPageChecked(page);
+ 	set_page_dirty(page);
+diff --git a/fs/btrfs/lzo.c b/fs/btrfs/lzo.c
+index aa9cd11f4b78..f29dcc9ec573 100644
+--- a/fs/btrfs/lzo.c
++++ b/fs/btrfs/lzo.c
+@@ -140,7 +140,7 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 	*total_in = 0;
+ 
+ 	in_page = find_get_page(mapping, start >> PAGE_SHIFT);
+-	data_in = kmap(in_page);
++	data_in = kmap_thread(in_page);
+ 
  	/*
- 	 * The thread_pkrs must be maintained separately to prevent global
- 	 * overrides from 'sticking' on a thread.
-@@ -286,6 +301,12 @@ noinstr void irq_restore_pkrs(irqentry_state_t *state)
+ 	 * store the size of all chunks of compressed data in
+@@ -151,7 +151,7 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 		ret = -ENOMEM;
+ 		goto out;
+ 	}
+-	cpage_out = kmap(out_page);
++	cpage_out = kmap_thread(out_page);
+ 	out_offset = LZO_LEN;
+ 	tot_out = LZO_LEN;
+ 	pages[0] = out_page;
+@@ -209,7 +209,7 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 				if (out_len == 0 && tot_in >= len)
+ 					break;
  
- 	write_pkrs(state->pkrs);
- 	current->thread.saved_pkrs = state->thread_pkrs;
-+
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+	WARN_ON_ONCE(current->dev_page_access_ref != 0);
-+	/* Restore the interrupted process reference */
-+	current->dev_page_access_ref = state->pkrs_ref;
-+#endif
- }
- #endif /* CONFIG_ARCH_HAS_SUPERVISOR_PKEYS */
+-				kunmap(out_page);
++				kunmap_thread(out_page);
+ 				if (nr_pages == nr_dest_pages) {
+ 					out_page = NULL;
+ 					ret = -E2BIG;
+@@ -221,7 +221,7 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 					ret = -ENOMEM;
+ 					goto out;
+ 				}
+-				cpage_out = kmap(out_page);
++				cpage_out = kmap_thread(out_page);
+ 				pages[nr_pages++] = out_page;
  
-diff --git a/include/linux/entry-common.h b/include/linux/entry-common.h
-index c3b361ffa059..06743cce2dbf 100644
---- a/include/linux/entry-common.h
-+++ b/include/linux/entry-common.h
-@@ -343,6 +343,9 @@ void irqentry_exit_to_user_mode(struct pt_regs *regs);
- #ifndef irqentry_state
- typedef struct irqentry_state {
- #ifdef CONFIG_ARCH_HAS_SUPERVISOR_PKEYS
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+	unsigned int pkrs_ref;
-+#endif
- 	u32 pkrs;
- 	u32 thread_pkrs;
- #endif
-diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-index e5862746751b..b6713ee7b218 100644
---- a/include/linux/memremap.h
-+++ b/include/linux/memremap.h
-@@ -89,6 +89,7 @@ struct dev_pagemap_ops {
- };
+ 				pg_bytes_left = PAGE_SIZE;
+@@ -243,12 +243,12 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 			break;
  
- #define PGMAP_ALTMAP_VALID	(1 << 0)
-+#define PGMAP_PROT_ENABLED	(1 << 1)
+ 		bytes_left = len - tot_in;
+-		kunmap(in_page);
++		kunmap_thread(in_page);
+ 		put_page(in_page);
  
- /**
-  * struct dev_pagemap - metadata for ZONE_DEVICE mappings
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 16b799a0522c..9e845515ff15 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1141,6 +1141,49 @@ static inline bool is_pci_p2pdma_page(const struct page *page)
- 		page->pgmap->type == MEMORY_DEVICE_PCI_P2PDMA;
- }
+ 		start += PAGE_SIZE;
+ 		in_page = find_get_page(mapping, start >> PAGE_SHIFT);
+-		data_in = kmap(in_page);
++		data_in = kmap_thread(in_page);
+ 		in_len = min(bytes_left, PAGE_SIZE);
+ 	}
  
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+DECLARE_STATIC_KEY_FALSE(dev_protection_static_key);
-+
-+/*
-+ * We make page_is_access_protected() as quick as possible.
-+ *    1) If no mappings have been enabled with extra protection we skip this
-+ *       entirely
-+ *    2) Skip pages which are not ZONE_DEVICE
-+ *    3) Only then check if this particular page was mapped with extra
-+ *       protections.
-+ */
-+static inline bool page_is_access_protected(struct page *page)
-+{
-+	if (!static_branch_unlikely(&dev_protection_static_key))
-+		return false;
-+	if (!is_zone_device_page(page))
-+		return false;
-+	if (page->pgmap->flags & PGMAP_PROT_ENABLED)
-+		return true;
-+	return false;
-+}
-+
-+void __dev_access_enable(bool global);
-+void __dev_access_disable(bool global);
-+static __always_inline void dev_access_enable(bool global)
-+{
-+	if (static_branch_unlikely(&dev_protection_static_key))
-+		__dev_access_enable(global);
-+}
-+static __always_inline void dev_access_disable(bool global)
-+{
-+	if (static_branch_unlikely(&dev_protection_static_key))
-+		__dev_access_disable(global);
-+}
-+#else
-+static inline bool page_is_access_protected(struct page *page)
-+{
-+	return false;
-+}
-+static inline void dev_access_enable(bool global) { }
-+static inline void dev_access_disable(bool global) { }
-+#endif /* CONFIG_ZONE_DEVICE_ACCESS_PROTECTION */
-+
- /* 127: arbitrary random number, small enough to assemble well */
- #define page_ref_zero_or_close_to_overflow(page) \
- 	((unsigned int) page_ref_count(page) + 127u <= 127u)
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index afe01e232935..25d97ab6c757 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1315,6 +1315,9 @@ struct task_struct {
- 	struct callback_head		mce_kill_me;
- #endif
+@@ -258,10 +258,10 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 	}
  
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+	unsigned int			dev_page_access_ref;
-+#endif
+ 	/* store the size of all chunks of compressed data */
+-	cpage_out = kmap(pages[0]);
++	cpage_out = kmap_thread(pages[0]);
+ 	write_compress_length(cpage_out, tot_out);
+ 
+-	kunmap(pages[0]);
++	kunmap_thread(pages[0]);
+ 
+ 	ret = 0;
+ 	*total_out = tot_out;
+@@ -269,10 +269,10 @@ int lzo_compress_pages(struct list_head *ws, struct address_space *mapping,
+ out:
+ 	*out_pages = nr_pages;
+ 	if (out_page)
+-		kunmap(out_page);
++		kunmap_thread(out_page);
+ 
+ 	if (in_page) {
+-		kunmap(in_page);
++		kunmap_thread(in_page);
+ 		put_page(in_page);
+ 	}
+ 
+@@ -305,7 +305,7 @@ int lzo_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 	u64 disk_start = cb->start;
+ 	struct bio *orig_bio = cb->orig_bio;
+ 
+-	data_in = kmap(pages_in[0]);
++	data_in = kmap_thread(pages_in[0]);
+ 	tot_len = read_compress_length(data_in);
  	/*
- 	 * New fields for task_struct should be added above here, so that
- 	 * they are included in the randomized portion of task_struct.
-diff --git a/init/init_task.c b/init/init_task.c
-index f6889fce64af..9b39f25de59b 100644
---- a/init/init_task.c
-+++ b/init/init_task.c
-@@ -209,6 +209,9 @@ struct task_struct init_task
- #ifdef CONFIG_SECCOMP
- 	.seccomp	= { .filter_count = ATOMIC_INIT(0) },
- #endif
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+	.dev_page_access_ref = 0,
-+#endif
- };
- EXPORT_SYMBOL(init_task);
+ 	 * Compressed data header check.
+@@ -387,7 +387,7 @@ int lzo_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 				else
+ 					kunmap(pages_in[page_in_index]);
  
-diff --git a/kernel/fork.c b/kernel/fork.c
-index da8d360fb032..b6a3ee328a89 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -940,6 +940,9 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+-				data_in = kmap(pages_in[++page_in_index]);
++				data_in = kmap_thread(pages_in[++page_in_index]);
  
- #ifdef CONFIG_MEMCG
- 	tsk->active_memcg = NULL;
-+#endif
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+	tsk->dev_page_access_ref = 0;
- #endif
- 	return tsk;
+ 				in_page_bytes_left = PAGE_SIZE;
+ 				in_offset = 0;
+diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
+index 255490f42b5d..34e646e4548c 100644
+--- a/fs/btrfs/raid56.c
++++ b/fs/btrfs/raid56.c
+@@ -262,13 +262,13 @@ static void cache_rbio_pages(struct btrfs_raid_bio *rbio)
+ 		if (!rbio->bio_pages[i])
+ 			continue;
  
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 1b9bc004d9bc..01dd75720ae6 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -794,6 +794,19 @@ config ZONE_DEVICE
+-		s = kmap(rbio->bio_pages[i]);
+-		d = kmap(rbio->stripe_pages[i]);
++		s = kmap_thread(rbio->bio_pages[i]);
++		d = kmap_thread(rbio->stripe_pages[i]);
  
- 	  If FS_DAX is enabled, then say Y.
+ 		copy_page(d, s);
  
-+config ZONE_DEVICE_ACCESS_PROTECTION
-+	bool "Device memory access protection"
-+	depends on ZONE_DEVICE
-+	depends on ARCH_HAS_SUPERVISOR_PKEYS
-+
-+	help
-+	  Enable the option of having access protections on device memory
-+	  areas.  This protects against access to device memory which is not
-+	  intended such as stray writes.  This feature is particularly useful
-+	  to protect against corruption of persistent memory.
-+
-+	  If in doubt, say 'Y'.
-+
- config DEV_PAGEMAP_OPS
- 	bool
+-		kunmap(rbio->bio_pages[i]);
+-		kunmap(rbio->stripe_pages[i]);
++		kunmap_thread(rbio->bio_pages[i]);
++		kunmap_thread(rbio->stripe_pages[i]);
+ 		SetPageUptodate(rbio->stripe_pages[i]);
+ 	}
+ 	set_bit(RBIO_CACHE_READY_BIT, &rbio->flags);
+@@ -1241,13 +1241,13 @@ static noinline void finish_rmw(struct btrfs_raid_bio *rbio)
+ 		/* first collect one page from each data stripe */
+ 		for (stripe = 0; stripe < nr_data; stripe++) {
+ 			p = page_in_rbio(rbio, stripe, pagenr, 0);
+-			pointers[stripe] = kmap(p);
++			pointers[stripe] = kmap_thread(p);
+ 		}
  
-diff --git a/mm/memremap.c b/mm/memremap.c
-index fbfc79fd9c24..edad2aa0bd24 100644
---- a/mm/memremap.c
-+++ b/mm/memremap.c
-@@ -6,12 +6,16 @@
- #include <linux/memory_hotplug.h>
- #include <linux/mm.h>
- #include <linux/pfn_t.h>
-+#include <linux/pkeys.h>
- #include <linux/swap.h>
- #include <linux/mmzone.h>
- #include <linux/swapops.h>
- #include <linux/types.h>
- #include <linux/wait_bit.h>
- #include <linux/xarray.h>
-+#include <uapi/asm-generic/mman-common.h>
-+
-+#define PKEY_INVALID (INT_MIN)
+ 		/* then add the parity stripe */
+ 		p = rbio_pstripe_page(rbio, pagenr);
+ 		SetPageUptodate(p);
+-		pointers[stripe++] = kmap(p);
++		pointers[stripe++] = kmap_thread(p);
  
- static DEFINE_XARRAY(pgmap_array);
+ 		if (has_qstripe) {
  
-@@ -67,6 +71,89 @@ static void devmap_managed_enable_put(void)
+@@ -1257,7 +1257,7 @@ static noinline void finish_rmw(struct btrfs_raid_bio *rbio)
+ 			 */
+ 			p = rbio_qstripe_page(rbio, pagenr);
+ 			SetPageUptodate(p);
+-			pointers[stripe++] = kmap(p);
++			pointers[stripe++] = kmap_thread(p);
+ 
+ 			raid6_call.gen_syndrome(rbio->real_stripes, PAGE_SIZE,
+ 						pointers);
+@@ -1269,7 +1269,7 @@ static noinline void finish_rmw(struct btrfs_raid_bio *rbio)
+ 
+ 
+ 		for (stripe = 0; stripe < rbio->real_stripes; stripe++)
+-			kunmap(page_in_rbio(rbio, stripe, pagenr, 0));
++			kunmap_thread(page_in_rbio(rbio, stripe, pagenr, 0));
+ 	}
+ 
+ 	/*
+@@ -1835,7 +1835,7 @@ static void __raid_recover_end_io(struct btrfs_raid_bio *rbio)
+ 			} else {
+ 				page = rbio_stripe_page(rbio, stripe, pagenr);
+ 			}
+-			pointers[stripe] = kmap(page);
++			pointers[stripe] = kmap_thread(page);
+ 		}
+ 
+ 		/* all raid6 handling here */
+@@ -1940,7 +1940,7 @@ static void __raid_recover_end_io(struct btrfs_raid_bio *rbio)
+ 			} else {
+ 				page = rbio_stripe_page(rbio, stripe, pagenr);
+ 			}
+-			kunmap(page);
++			kunmap_thread(page);
+ 		}
+ 	}
+ 
+@@ -2379,18 +2379,18 @@ static noinline void finish_parity_scrub(struct btrfs_raid_bio *rbio,
+ 		/* first collect one page from each data stripe */
+ 		for (stripe = 0; stripe < nr_data; stripe++) {
+ 			p = page_in_rbio(rbio, stripe, pagenr, 0);
+-			pointers[stripe] = kmap(p);
++			pointers[stripe] = kmap_thread(p);
+ 		}
+ 
+ 		/* then add the parity stripe */
+-		pointers[stripe++] = kmap(p_page);
++		pointers[stripe++] = kmap_thread(p_page);
+ 
+ 		if (has_qstripe) {
+ 			/*
+ 			 * raid6, add the qstripe and call the
+ 			 * library function to fill in our p/q
+ 			 */
+-			pointers[stripe++] = kmap(q_page);
++			pointers[stripe++] = kmap_thread(q_page);
+ 
+ 			raid6_call.gen_syndrome(rbio->real_stripes, PAGE_SIZE,
+ 						pointers);
+@@ -2402,17 +2402,17 @@ static noinline void finish_parity_scrub(struct btrfs_raid_bio *rbio,
+ 
+ 		/* Check scrubbing parity and repair it */
+ 		p = rbio_stripe_page(rbio, rbio->scrubp, pagenr);
+-		parity = kmap(p);
++		parity = kmap_thread(p);
+ 		if (memcmp(parity, pointers[rbio->scrubp], PAGE_SIZE))
+ 			copy_page(parity, pointers[rbio->scrubp]);
+ 		else
+ 			/* Parity is right, needn't writeback */
+ 			bitmap_clear(rbio->dbitmap, pagenr, 1);
+-		kunmap(p);
++		kunmap_thread(p);
+ 
+ 		for (stripe = 0; stripe < nr_data; stripe++)
+-			kunmap(page_in_rbio(rbio, stripe, pagenr, 0));
+-		kunmap(p_page);
++			kunmap_thread(page_in_rbio(rbio, stripe, pagenr, 0));
++		kunmap_thread(p_page);
+ 	}
+ 
+ 	__free_page(p_page);
+diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
+index 5cd02514cf4d..10e53d7eba8c 100644
+--- a/fs/btrfs/reflink.c
++++ b/fs/btrfs/reflink.c
+@@ -92,10 +92,10 @@ static int copy_inline_to_page(struct inode *inode,
+ 	if (comp_type == BTRFS_COMPRESS_NONE) {
+ 		char *map;
+ 
+-		map = kmap(page);
++		map = kmap_thread(page);
+ 		memcpy(map, data_start, datal);
+ 		flush_dcache_page(page);
+-		kunmap(page);
++		kunmap_thread(page);
+ 	} else {
+ 		ret = btrfs_decompress(comp_type, data_start, page, 0,
+ 				       inline_size, datal);
+@@ -119,10 +119,10 @@ static int copy_inline_to_page(struct inode *inode,
+ 	if (datal < block_size) {
+ 		char *map;
+ 
+-		map = kmap(page);
++		map = kmap_thread(page);
+ 		memset(map + datal, 0, block_size - datal);
+ 		flush_dcache_page(page);
+-		kunmap(page);
++		kunmap_thread(page);
+ 	}
+ 
+ 	SetPageUptodate(page);
+diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+index d9813a5b075a..06c383d3dc43 100644
+--- a/fs/btrfs/send.c
++++ b/fs/btrfs/send.c
+@@ -4863,9 +4863,9 @@ static ssize_t fill_read_buf(struct send_ctx *sctx, u64 offset, u32 len)
+ 			}
+ 		}
+ 
+-		addr = kmap(page);
++		addr = kmap_thread(page);
+ 		memcpy(sctx->read_buf + ret, addr + pg_offset, cur_len);
+-		kunmap(page);
++		kunmap_thread(page);
+ 		unlock_page(page);
+ 		put_page(page);
+ 		index++;
+diff --git a/fs/btrfs/zlib.c b/fs/btrfs/zlib.c
+index 05615a1099db..45b7a907bab3 100644
+--- a/fs/btrfs/zlib.c
++++ b/fs/btrfs/zlib.c
+@@ -126,7 +126,7 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 		ret = -ENOMEM;
+ 		goto out;
+ 	}
+-	cpage_out = kmap(out_page);
++	cpage_out = kmap_thread(out_page);
+ 	pages[0] = out_page;
+ 	nr_pages = 1;
+ 
+@@ -149,12 +149,12 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 
+ 				for (i = 0; i < in_buf_pages; i++) {
+ 					if (in_page) {
+-						kunmap(in_page);
++						kunmap_thread(in_page);
+ 						put_page(in_page);
+ 					}
+ 					in_page = find_get_page(mapping,
+ 								start >> PAGE_SHIFT);
+-					data_in = kmap(in_page);
++					data_in = kmap_thread(in_page);
+ 					memcpy(workspace->buf + i * PAGE_SIZE,
+ 					       data_in, PAGE_SIZE);
+ 					start += PAGE_SIZE;
+@@ -162,12 +162,12 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 				workspace->strm.next_in = workspace->buf;
+ 			} else {
+ 				if (in_page) {
+-					kunmap(in_page);
++					kunmap_thread(in_page);
+ 					put_page(in_page);
+ 				}
+ 				in_page = find_get_page(mapping,
+ 							start >> PAGE_SHIFT);
+-				data_in = kmap(in_page);
++				data_in = kmap_thread(in_page);
+ 				start += PAGE_SIZE;
+ 				workspace->strm.next_in = data_in;
+ 			}
+@@ -196,7 +196,7 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 		 * the stream end if required
+ 		 */
+ 		if (workspace->strm.avail_out == 0) {
+-			kunmap(out_page);
++			kunmap_thread(out_page);
+ 			if (nr_pages == nr_dest_pages) {
+ 				out_page = NULL;
+ 				ret = -E2BIG;
+@@ -207,7 +207,7 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 				ret = -ENOMEM;
+ 				goto out;
+ 			}
+-			cpage_out = kmap(out_page);
++			cpage_out = kmap_thread(out_page);
+ 			pages[nr_pages] = out_page;
+ 			nr_pages++;
+ 			workspace->strm.avail_out = PAGE_SIZE;
+@@ -234,7 +234,7 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 			goto out;
+ 		} else if (workspace->strm.avail_out == 0) {
+ 			/* get another page for the stream end */
+-			kunmap(out_page);
++			kunmap_thread(out_page);
+ 			if (nr_pages == nr_dest_pages) {
+ 				out_page = NULL;
+ 				ret = -E2BIG;
+@@ -245,7 +245,7 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 				ret = -ENOMEM;
+ 				goto out;
+ 			}
+-			cpage_out = kmap(out_page);
++			cpage_out = kmap_thread(out_page);
+ 			pages[nr_pages] = out_page;
+ 			nr_pages++;
+ 			workspace->strm.avail_out = PAGE_SIZE;
+@@ -265,10 +265,10 @@ int zlib_compress_pages(struct list_head *ws, struct address_space *mapping,
+ out:
+ 	*out_pages = nr_pages;
+ 	if (out_page)
+-		kunmap(out_page);
++		kunmap_thread(out_page);
+ 
+ 	if (in_page) {
+-		kunmap(in_page);
++		kunmap_thread(in_page);
+ 		put_page(in_page);
+ 	}
+ 	return ret;
+@@ -289,7 +289,7 @@ int zlib_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 	u64 disk_start = cb->start;
+ 	struct bio *orig_bio = cb->orig_bio;
+ 
+-	data_in = kmap(pages_in[page_in_index]);
++	data_in = kmap_thread(pages_in[page_in_index]);
+ 	workspace->strm.next_in = data_in;
+ 	workspace->strm.avail_in = min_t(size_t, srclen, PAGE_SIZE);
+ 	workspace->strm.total_in = 0;
+@@ -311,7 +311,7 @@ int zlib_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 
+ 	if (Z_OK != zlib_inflateInit2(&workspace->strm, wbits)) {
+ 		pr_warn("BTRFS: inflateInit failed\n");
+-		kunmap(pages_in[page_in_index]);
++		kunmap_thread(pages_in[page_in_index]);
+ 		return -EIO;
+ 	}
+ 	while (workspace->strm.total_in < srclen) {
+@@ -339,13 +339,13 @@ int zlib_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 
+ 		if (workspace->strm.avail_in == 0) {
+ 			unsigned long tmp;
+-			kunmap(pages_in[page_in_index]);
++			kunmap_thread(pages_in[page_in_index]);
+ 			page_in_index++;
+ 			if (page_in_index >= total_pages_in) {
+ 				data_in = NULL;
+ 				break;
+ 			}
+-			data_in = kmap(pages_in[page_in_index]);
++			data_in = kmap_thread(pages_in[page_in_index]);
+ 			workspace->strm.next_in = data_in;
+ 			tmp = srclen - workspace->strm.total_in;
+ 			workspace->strm.avail_in = min(tmp,
+@@ -359,7 +359,7 @@ int zlib_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ done:
+ 	zlib_inflateEnd(&workspace->strm);
+ 	if (data_in)
+-		kunmap(pages_in[page_in_index]);
++		kunmap_thread(pages_in[page_in_index]);
+ 	if (!ret)
+ 		zero_fill_bio(orig_bio);
+ 	return ret;
+diff --git a/fs/btrfs/zstd.c b/fs/btrfs/zstd.c
+index 9a4871636c6c..48e03f6dcef7 100644
+--- a/fs/btrfs/zstd.c
++++ b/fs/btrfs/zstd.c
+@@ -399,7 +399,7 @@ int zstd_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 
+ 	/* map in the first page of input data */
+ 	in_page = find_get_page(mapping, start >> PAGE_SHIFT);
+-	workspace->in_buf.src = kmap(in_page);
++	workspace->in_buf.src = kmap_thread(in_page);
+ 	workspace->in_buf.pos = 0;
+ 	workspace->in_buf.size = min_t(size_t, len, PAGE_SIZE);
+ 
+@@ -411,7 +411,7 @@ int zstd_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 		goto out;
+ 	}
+ 	pages[nr_pages++] = out_page;
+-	workspace->out_buf.dst = kmap(out_page);
++	workspace->out_buf.dst = kmap_thread(out_page);
+ 	workspace->out_buf.pos = 0;
+ 	workspace->out_buf.size = min_t(size_t, max_out, PAGE_SIZE);
+ 
+@@ -446,7 +446,7 @@ int zstd_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 		if (workspace->out_buf.pos == workspace->out_buf.size) {
+ 			tot_out += PAGE_SIZE;
+ 			max_out -= PAGE_SIZE;
+-			kunmap(out_page);
++			kunmap_thread(out_page);
+ 			if (nr_pages == nr_dest_pages) {
+ 				out_page = NULL;
+ 				ret = -E2BIG;
+@@ -458,7 +458,7 @@ int zstd_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 				goto out;
+ 			}
+ 			pages[nr_pages++] = out_page;
+-			workspace->out_buf.dst = kmap(out_page);
++			workspace->out_buf.dst = kmap_thread(out_page);
+ 			workspace->out_buf.pos = 0;
+ 			workspace->out_buf.size = min_t(size_t, max_out,
+ 							PAGE_SIZE);
+@@ -479,7 +479,7 @@ int zstd_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 			start += PAGE_SIZE;
+ 			len -= PAGE_SIZE;
+ 			in_page = find_get_page(mapping, start >> PAGE_SHIFT);
+-			workspace->in_buf.src = kmap(in_page);
++			workspace->in_buf.src = kmap_thread(in_page);
+ 			workspace->in_buf.pos = 0;
+ 			workspace->in_buf.size = min_t(size_t, len, PAGE_SIZE);
+ 		}
+@@ -518,7 +518,7 @@ int zstd_compress_pages(struct list_head *ws, struct address_space *mapping,
+ 			goto out;
+ 		}
+ 		pages[nr_pages++] = out_page;
+-		workspace->out_buf.dst = kmap(out_page);
++		workspace->out_buf.dst = kmap_thread(out_page);
+ 		workspace->out_buf.pos = 0;
+ 		workspace->out_buf.size = min_t(size_t, max_out, PAGE_SIZE);
+ 	}
+@@ -565,7 +565,7 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 		goto done;
+ 	}
+ 
+-	workspace->in_buf.src = kmap(pages_in[page_in_index]);
++	workspace->in_buf.src = kmap_thread(pages_in[page_in_index]);
+ 	workspace->in_buf.pos = 0;
+ 	workspace->in_buf.size = min_t(size_t, srclen, PAGE_SIZE);
+ 
+@@ -601,14 +601,14 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 			break;
+ 
+ 		if (workspace->in_buf.pos == workspace->in_buf.size) {
+-			kunmap(pages_in[page_in_index++]);
++			kunmap_thread(pages_in[page_in_index++]);
+ 			if (page_in_index >= total_pages_in) {
+ 				workspace->in_buf.src = NULL;
+ 				ret = -EIO;
+ 				goto done;
+ 			}
+ 			srclen -= PAGE_SIZE;
+-			workspace->in_buf.src = kmap(pages_in[page_in_index]);
++			workspace->in_buf.src = kmap_thread(pages_in[page_in_index]);
+ 			workspace->in_buf.pos = 0;
+ 			workspace->in_buf.size = min_t(size_t, srclen, PAGE_SIZE);
+ 		}
+@@ -617,7 +617,7 @@ int zstd_decompress_bio(struct list_head *ws, struct compressed_bio *cb)
+ 	zero_fill_bio(orig_bio);
+ done:
+ 	if (workspace->in_buf.src)
+-		kunmap(pages_in[page_in_index]);
++		kunmap_thread(pages_in[page_in_index]);
+ 	return ret;
  }
- #endif /* CONFIG_DEV_PAGEMAP_OPS */
  
-+#ifdef CONFIG_ZONE_DEVICE_ACCESS_PROTECTION
-+/*
-+ * Note; all devices which have asked for protections share the same key.  The
-+ * key may, or may not, have been provided by the core.  If not, protection
-+ * will remain disabled.  The key acquisition is attempted at init time and
-+ * never again.  So we don't have to worry about dev_page_pkey changing.
-+ */
-+static int dev_page_pkey = PKEY_INVALID;
-+DEFINE_STATIC_KEY_FALSE(dev_protection_static_key);
-+EXPORT_SYMBOL(dev_protection_static_key);
-+
-+static pgprot_t dev_pgprot_get(struct dev_pagemap *pgmap, pgprot_t prot)
-+{
-+	if (pgmap->flags & PGMAP_PROT_ENABLED && dev_page_pkey != PKEY_INVALID) {
-+		pgprotval_t val = pgprot_val(prot);
-+
-+		static_branch_inc(&dev_protection_static_key);
-+		prot = __pgprot(val | _PAGE_PKEY(dev_page_pkey));
-+	}
-+	return prot;
-+}
-+
-+static void dev_pgprot_put(struct dev_pagemap *pgmap)
-+{
-+	if (pgmap->flags & PGMAP_PROT_ENABLED && dev_page_pkey != PKEY_INVALID)
-+		static_branch_dec(&dev_protection_static_key);
-+}
-+
-+void __dev_access_disable(bool global)
-+{
-+	unsigned long flags;
-+
-+	local_irq_save(flags);
-+	if (!--current->dev_page_access_ref)
-+		pks_mknoaccess(dev_page_pkey, global);
-+	local_irq_restore(flags);
-+}
-+EXPORT_SYMBOL_GPL(__dev_access_disable);
-+
-+void __dev_access_enable(bool global)
-+{
-+	unsigned long flags;
-+
-+	local_irq_save(flags);
-+	/* 0 clears the PKEY_DISABLE_ACCESS bit, allowing access */
-+	if (!current->dev_page_access_ref++)
-+		pks_mkrdwr(dev_page_pkey, global);
-+	local_irq_restore(flags);
-+}
-+EXPORT_SYMBOL_GPL(__dev_access_enable);
-+
-+/**
-+ * dev_access_protection_init: Configure a PKS key domain for device pages
-+ *
-+ * The domain defaults to the protected state.  Device page mappings should set
-+ * the PGMAP_PROT_ENABLED flag when mapping pages.
-+ *
-+ * Note the pkey is never free'ed.  This is run at init time and we either get
-+ * the key or we do not.  We need to do this to maintian a constant key (or
-+ * not) as device memory is added or removed.
-+ */
-+static int __init __dev_access_protection_init(void)
-+{
-+	int pkey = pks_key_alloc("Device Memory");
-+
-+	if (pkey < 0)
-+		return 0;
-+
-+	dev_page_pkey = pkey;
-+
-+	return 0;
-+}
-+subsys_initcall(__dev_access_protection_init);
-+#else
-+static pgprot_t dev_pgprot_get(struct dev_pagemap *pgmap, pgprot_t prot)
-+{
-+	return prot;
-+}
-+static void dev_pgprot_put(struct dev_pagemap *pgmap)
-+{
-+}
-+#endif /* CONFIG_ZONE_DEVICE_ACCESS_PROTECTION */
-+
- static void pgmap_array_delete(struct resource *res)
- {
- 	xa_store_range(&pgmap_array, PHYS_PFN(res->start), PHYS_PFN(res->end),
-@@ -156,6 +243,7 @@ void memunmap_pages(struct dev_pagemap *pgmap)
- 	pgmap_array_delete(res);
- 	WARN_ONCE(pgmap->altmap.alloc, "failed to free all reserved pages\n");
- 	devmap_managed_enable_put();
-+	dev_pgprot_put(pgmap);
- }
- EXPORT_SYMBOL_GPL(memunmap_pages);
- 
-@@ -191,6 +279,8 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
- 	int error, is_ram;
- 	bool need_devmap_managed = true;
- 
-+	params.pgprot = dev_pgprot_get(pgmap, params.pgprot);
-+
- 	switch (pgmap->type) {
- 	case MEMORY_DEVICE_PRIVATE:
- 		if (!IS_ENABLED(CONFIG_DEVICE_PRIVATE)) {
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
