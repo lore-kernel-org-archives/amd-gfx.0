@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 418D2C2BD0C
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60306C2D0A3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A047222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A047222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 2119D222E9
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2119D222E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 832BB6EE54;
-	Fri,  9 Oct 2020 21:11:03 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC9666EDC8;
- Fri,  9 Oct 2020 19:52:14 +0000 (UTC)
-IronPort-SDR: hPg7Lb6XWh8fDn7XVPfPumMHE2ZYHDVe9UNIfJf9EyRvLsbLuTSaObZTnVpdEtzM/mkoE2WqRG
- HeG1VFRcp4aA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="145397427"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="145397427"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD106EE4F;
+	Fri,  9 Oct 2020 21:11:04 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1054A6EDA9;
+ Fri,  9 Oct 2020 19:52:10 +0000 (UTC)
+IronPort-SDR: gkGge8c+dSnOCdgItTlpBEobarFsRk6lw/NM9xWhZ0FoC+XSw9KAC1Lceql+fXr98LQkEB3y9y
+ NK5Fj2e0NmUg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162893408"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162893408"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:14 -0700
-IronPort-SDR: 3JX06O44Su5jMQA8yIL2WSzzn7vN3G6TESZobv60VERxc/1W/c4pPVNWJf815mQW07ftkYqATa
- 1m7LiUgK4+Rg==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="312652755"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:52:09 -0700
+IronPort-SDR: zRSzmM1HZFGhzQcGhWxIWUdt7PON477D2ysFpCnQTUxdw9Z8VdaNQXVN+6ixBePqleDwfFxfgw
+ K58aOn7YePQQ==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="317147210"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:13 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:52:08 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 24/58] fs/freevxfs: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:49:59 -0700
-Message-Id: <20201009195033.3208459-25-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 23/58] fs/fuse: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:49:58 -0700
+Message-Id: <20201009195033.3208459-24-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -69,20 +69,20 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
  samba-technical@lists.samba.org, Ira Weiny <ira.weiny@intel.com>,
  ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, cluster-devel@redhat.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
  linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
+ Miklos Szeredi <miklos@szeredi.hu>, linux-rdma@vger.kernel.org, x86@kernel.org,
  amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
- Christoph Hellwig <hch@infradead.org>, linux-cachefs@redhat.com,
+ cluster-devel@redhat.com, linux-cachefs@redhat.com,
  intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
  linux-ext4@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
- linux-cifs@vger.kernel.org, linux-um@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- netdev@vger.kernel.org, kexec@lists.infradead.org,
+ linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
+ linux-nvdimm@lists.01.org, kexec@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
  linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
@@ -96,28 +96,28 @@ From: Ira Weiny <ira.weiny@intel.com>
 The kmap() calls in this FS are localized to a single thread.  To avoid
 the over head of global PKRS updates use the new kmap_thread() call.
 
-Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/freevxfs/vxfs_immed.c | 4 ++--
+ fs/fuse/readdir.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/freevxfs/vxfs_immed.c b/fs/freevxfs/vxfs_immed.c
-index bfc780c682fb..9c42fec4cd85 100644
---- a/fs/freevxfs/vxfs_immed.c
-+++ b/fs/freevxfs/vxfs_immed.c
-@@ -69,9 +69,9 @@ vxfs_immed_readpage(struct file *fp, struct page *pp)
- 	u_int64_t	offset = (u_int64_t)pp->index << PAGE_SHIFT;
- 	caddr_t		kaddr;
+diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
+index 90e3f01bd796..953ffe6f56e3 100644
+--- a/fs/fuse/readdir.c
++++ b/fs/fuse/readdir.c
+@@ -536,9 +536,9 @@ static int fuse_readdir_cached(struct file *file, struct dir_context *ctx)
+ 	 * Contents of the page are now protected against changing by holding
+ 	 * the page lock.
+ 	 */
+-	addr = kmap(page);
++	addr = kmap_thread(page);
+ 	res = fuse_parse_cache(ff, addr, size, ctx);
+-	kunmap(page);
++	kunmap_thread(page);
+ 	unlock_page(page);
+ 	put_page(page);
  
--	kaddr = kmap(pp);
-+	kaddr = kmap_thread(pp);
- 	memcpy(kaddr, vip->vii_immed.vi_immed + offset, PAGE_SIZE);
--	kunmap(pp);
-+	kunmap_thread(pp);
- 	
- 	flush_dcache_page(pp);
- 	SetPageUptodate(pp);
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
