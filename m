@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9B07C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A451FC43467
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 660C6222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 660C6222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 671C6222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 671C6222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F9C6EE25;
-	Fri,  9 Oct 2020 21:10:42 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0C936EDC5;
- Fri,  9 Oct 2020 19:51:59 +0000 (UTC)
-IronPort-SDR: WbFJjuoM3Se5VhBxLIFGL+27IwSKUV2zW6v59pieqlqx7rD7CsWH40jR1JV0GLSKsX2dk+ZKvd
- tWJZkEkQnVxA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162067935"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162067935"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25FF76EE31;
+	Fri,  9 Oct 2020 21:10:43 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7BF36EDE0;
+ Fri,  9 Oct 2020 19:52:48 +0000 (UTC)
+IronPort-SDR: 7gU58w6IycpobbkB3swVMW13shYz4NgatlMbkfWCP4VL4tkm9VrYLwKsNBM1uE9r8oIYMYsgD4
+ qIgyMgNWS3LA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="227179069"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="227179069"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:59 -0700
-IronPort-SDR: eWSKFRksQmWHvS1j4lFouXjU/VQ78asIZFlodYo3aryNHFOArT/TLAMBqja15iBonRYEaVT+Tm
- vvSyZvytK3gg==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="462300719"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:52:48 -0700
+IronPort-SDR: 0rzHuL4N+KM4WVW+vmL+eEj1y192PC4ThPKt2jdycOAoxaq6uEUOpoOJAuFDFbsfnCMTEcEeiF
+ lMErav9d18Iw==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="419537108"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:51:57 -0700
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:52:47 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 20/58] fs/jffs2: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:49:55 -0700
-Message-Id: <20201009195033.3208459-21-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 33/58] fs/cramfs: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:08 -0700
+Message-Id: <20201009195033.3208459-34-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -71,18 +71,17 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
  devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
  linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org,
- Richard Weinberger <richard@nod.at>, x86@kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
  amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
  cluster-devel@redhat.com, linux-cachefs@redhat.com,
  intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
- linux-ext4@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>,
- Fenghua Yu <fenghua.yu@intel.com>, linux-um@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
+ linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
+ Nicolas Pitre <nico@fluxnic.net>, linux-ntfs-dev@lists.sourceforge.net,
  netdev@vger.kernel.org, kexec@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
  linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
@@ -97,58 +96,52 @@ From: Ira Weiny <ira.weiny@intel.com>
 The kmap() calls in this FS are localized to a single thread.  To avoid
 the over head of global PKRS updates use the new kmap_thread() call.
 
-Cc: David Woodhouse <dwmw2@infradead.org>
-Cc: Richard Weinberger <richard@nod.at>
+Cc: Nicolas Pitre <nico@fluxnic.net>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/jffs2/file.c | 4 ++--
- fs/jffs2/gc.c   | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/cramfs/inode.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/fs/jffs2/file.c b/fs/jffs2/file.c
-index f8fb89b10227..3e6d54f9b011 100644
---- a/fs/jffs2/file.c
-+++ b/fs/jffs2/file.c
-@@ -88,7 +88,7 @@ static int jffs2_do_readpage_nolock (struct inode *inode, struct page *pg)
+diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+index 912308600d39..003c014a42ed 100644
+--- a/fs/cramfs/inode.c
++++ b/fs/cramfs/inode.c
+@@ -247,8 +247,8 @@ static void *cramfs_blkdev_read(struct super_block *sb, unsigned int offset,
+ 		struct page *page = pages[i];
  
- 	BUG_ON(!PageLocked(pg));
+ 		if (page) {
+-			memcpy(data, kmap(page), PAGE_SIZE);
+-			kunmap(page);
++			memcpy(data, kmap_thread(page), PAGE_SIZE);
++			kunmap_thread(page);
+ 			put_page(page);
+ 		} else
+ 			memset(data, 0, PAGE_SIZE);
+@@ -826,7 +826,7 @@ static int cramfs_readpage(struct file *file, struct page *page)
  
--	pg_buf = kmap(pg);
-+	pg_buf = kmap_thread(pg);
- 	/* FIXME: Can kmap fail? */
+ 	maxblock = (inode->i_size + PAGE_SIZE - 1) >> PAGE_SHIFT;
+ 	bytes_filled = 0;
+-	pgdata = kmap(page);
++	pgdata = kmap_thread(page);
  
- 	ret = jffs2_read_inode_range(c, f, pg_buf, pg->index << PAGE_SHIFT,
-@@ -103,7 +103,7 @@ static int jffs2_do_readpage_nolock (struct inode *inode, struct page *pg)
- 	}
+ 	if (page->index < maxblock) {
+ 		struct super_block *sb = inode->i_sb;
+@@ -914,13 +914,13 @@ static int cramfs_readpage(struct file *file, struct page *page)
  
- 	flush_dcache_page(pg);
--	kunmap(pg);
-+	kunmap_thread(pg);
- 
- 	jffs2_dbg(2, "readpage finished\n");
- 	return ret;
-diff --git a/fs/jffs2/gc.c b/fs/jffs2/gc.c
-index 373b3b7c9f44..a7259783ab84 100644
---- a/fs/jffs2/gc.c
-+++ b/fs/jffs2/gc.c
-@@ -1335,7 +1335,7 @@ static int jffs2_garbage_collect_dnode(struct jffs2_sb_info *c, struct jffs2_era
- 		return PTR_ERR(page);
- 	}
- 
--	pg_ptr = kmap(page);
-+	pg_ptr = kmap_thread(page);
- 	mutex_lock(&f->sem);
- 
- 	offset = start;
-@@ -1400,7 +1400,7 @@ static int jffs2_garbage_collect_dnode(struct jffs2_sb_info *c, struct jffs2_era
- 		}
- 	}
- 
+ 	memset(pgdata + bytes_filled, 0, PAGE_SIZE - bytes_filled);
+ 	flush_dcache_page(page);
 -	kunmap(page);
 +	kunmap_thread(page);
- 	put_page(page);
- 	return ret;
- }
+ 	SetPageUptodate(page);
+ 	unlock_page(page);
+ 	return 0;
+ 
+ err:
+-	kunmap(page);
++	kunmap_thread(page);
+ 	ClearPageUptodate(page);
+ 	SetPageError(page);
+ 	unlock_page(page);
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
