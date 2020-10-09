@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 270A3C4363A
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61806C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD926222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD926222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 2CA21222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CA21222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 177FC6EE40;
-	Fri,  9 Oct 2020 21:10:44 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D886EDFD;
- Fri,  9 Oct 2020 19:53:29 +0000 (UTC)
-IronPort-SDR: HHQyfJ7BFKEzVyen42b/CkBPVSZKlKhb7JrcatMCOXYc9zDz6eHtCnvotyg/i55EILPcnGI4nB
- mlVkuPoDPNfQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="145397606"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="145397606"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC5206EE3D;
+	Fri,  9 Oct 2020 21:10:43 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A1FA6EDE0;
+ Fri,  9 Oct 2020 19:52:47 +0000 (UTC)
+IronPort-SDR: dSYybiCHhAM9uvbTdvCe45vYW71naA0Th5Q0qVAbzBv0eO7QxqPIisIuD810hA6SWBM/CWKQSX
+ MHi7RkzxSIAg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="165643132"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="165643132"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:28 -0700
-IronPort-SDR: BOVOU8SHaQbMr+qBBSrCzuqbJHuQd4ndzwss05aaSC7o5I30ANXdekITPCnqmJ5xtHPcWbAp0e
- 1H/r6jgeLwtA==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="298419945"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:52:33 -0700
+IronPort-SDR: XHP7HCDttdXyLYHE1MyL2Bm/StJaryejpRmS+iQtfLlXLzP04sJOdLalPQz60Qvt6cf6bIW1lg
+ L4ex5grUzrzg==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="298419726"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:53:28 -0700
+ 09 Oct 2020 12:52:32 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 45/58] drivers/firmware: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:20 -0700
-Message-Id: <20201009195033.3208459-46-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 29/58] fs/ntfs: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:04 -0700
+Message-Id: <20201009195033.3208459-30-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -68,19 +68,19 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  linux-mm@kvack.org, target-devel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
  samba-technical@lists.samba.org, Ira Weiny <ira.weiny@intel.com>,
- Ard Biesheuvel <ardb@kernel.org>, drbd-dev@lists.linbit.com,
+ ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
  devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
  linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
  linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
- ceph-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-afs@lists.infradead.org, cluster-devel@redhat.com,
- linux-cachefs@redhat.com, intel-wired-lan@lists.osuosl.org,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- Fenghua Yu <fenghua.yu@intel.com>, linux-um@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
+ cluster-devel@redhat.com, linux-cachefs@redhat.com,
+ intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
+ linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ io-uring@vger.kernel.org, Anton Altaparmakov <anton@tuxera.com>,
  linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
  netdev@vger.kernel.org, kexec@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
@@ -93,69 +93,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-These kmap() calls are localized to a single thread.  To avoid the over
-head of global PKRS updates use the new kmap_thread() call.
+The kmap() calls in this FS are localized to a single thread.  To avoid
+the over head of global PKRS updates use the new kmap_thread() call.
 
-Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Anton Altaparmakov <anton@tuxera.com>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- drivers/firmware/efi/capsule-loader.c | 6 +++---
- drivers/firmware/efi/capsule.c        | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ fs/ntfs/aops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/firmware/efi/capsule-loader.c b/drivers/firmware/efi/capsule-loader.c
-index 4dde8edd53b6..aa2e0b5940fd 100644
---- a/drivers/firmware/efi/capsule-loader.c
-+++ b/drivers/firmware/efi/capsule-loader.c
-@@ -197,7 +197,7 @@ static ssize_t efi_capsule_write(struct file *file, const char __user *buff,
- 		page = cap_info->pages[cap_info->index - 1];
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index bb0a43860ad2..11633d732809 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -1099,7 +1099,7 @@ static int ntfs_write_mst_block(struct page *page,
+ 	if (!nr_bhs)
+ 		goto done;
+ 	/* Map the page so we can access its contents. */
+-	kaddr = kmap(page);
++	kaddr = kmap_thread(page);
+ 	/* Clear the page uptodate flag whilst the mst fixups are applied. */
+ 	BUG_ON(!PageUptodate(page));
+ 	ClearPageUptodate(page);
+@@ -1276,7 +1276,7 @@ static int ntfs_write_mst_block(struct page *page,
+ 		iput(VFS_I(base_tni));
  	}
- 
--	kbuff = kmap(page);
-+	kbuff = kmap_thread(page);
- 	kbuff += PAGE_SIZE - cap_info->page_bytes_remain;
- 
- 	/* Copy capsule binary data from user space to kernel space buffer */
-@@ -217,7 +217,7 @@ static ssize_t efi_capsule_write(struct file *file, const char __user *buff,
- 	}
- 
- 	cap_info->count += write_byte;
+ 	SetPageUptodate(page);
 -	kunmap(page);
 +	kunmap_thread(page);
- 
- 	/* Submit the full binary to efi_capsule_update() API */
- 	if (cap_info->header.headersize > 0 &&
-@@ -236,7 +236,7 @@ static ssize_t efi_capsule_write(struct file *file, const char __user *buff,
- 	return write_byte;
- 
- fail_unmap:
--	kunmap(page);
-+	kunmap_thread(page);
- failed:
- 	efi_free_all_buff_pages(cap_info);
- 	return ret;
-diff --git a/drivers/firmware/efi/capsule.c b/drivers/firmware/efi/capsule.c
-index 598b7800d14e..edb7797b0e4f 100644
---- a/drivers/firmware/efi/capsule.c
-+++ b/drivers/firmware/efi/capsule.c
-@@ -244,7 +244,7 @@ int efi_capsule_update(efi_capsule_header_t *capsule, phys_addr_t *pages)
- 	for (i = 0; i < sg_count; i++) {
- 		efi_capsule_block_desc_t *sglist;
- 
--		sglist = kmap(sg_pages[i]);
-+		sglist = kmap_thread(sg_pages[i]);
- 
- 		for (j = 0; j < SGLIST_PER_PAGE && count > 0; j++) {
- 			u64 sz = min_t(u64, imagesize,
-@@ -265,7 +265,7 @@ int efi_capsule_update(efi_capsule_header_t *capsule, phys_addr_t *pages)
- 		else
- 			sglist[j].data = page_to_phys(sg_pages[i + 1]);
- 
--		kunmap(sg_pages[i]);
-+		kunmap_thread(sg_pages[i]);
- 	}
- 
- 	mutex_lock(&capsule_mutex);
+ done:
+ 	if (unlikely(err && err != -ENOMEM)) {
+ 		/*
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
