@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE130C4363D
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B0F8C4363A
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E94A222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E94A222C3
+	by mail.kernel.org (Postfix) with ESMTPS id 0D112222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0D112222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6BD66EE2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE596EE21;
 	Fri,  9 Oct 2020 21:10:42 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F006EDD8;
- Fri,  9 Oct 2020 19:52:38 +0000 (UTC)
-IronPort-SDR: D6YyndzVZnVWl991yAMVF4Fu2rqJpBal055+j7JWwf4zWQvqdqyPfYcvEPEYXA0d2hdAX7wdzQ
- mdJyGddYyyZA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162068016"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162068016"
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF9746EDE8;
+ Fri,  9 Oct 2020 19:53:09 +0000 (UTC)
+IronPort-SDR: ZGgoHEyS599GyRW1ibDL0pcQaAZxRnBgsKfJxaaMZlNFk3BG53qRg4+cEsyeItxcsZpv4Dra9c
+ WkTOiE9U14rg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="165643246"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="165643246"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:38 -0700
-IronPort-SDR: y48WLHg756NhaQ3a3jufh8VKJ1E37wUwe8fJ/HzDHZ6hDk/W8p1+XzOieTDyZGUDdKxAAVZp75
- YdcYJzI+gesw==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="349957490"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:09 -0700
+IronPort-SDR: FciD93oXa6TN5PQF74JzeuCyRYkWBlT2lC/7ncntBELjkiuqMo1u2JSAhMViBtfJLu9YdFEYCB
+ Wo/5PMHidIaw==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="317147397"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:36 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:53:08 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 30/58] fs/romfs: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:50:05 -0700
-Message-Id: <20201009195033.3208459-31-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 39/58] fs/jffs2: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:50:14 -0700
+Message-Id: <20201009195033.3208459-40-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -93,36 +93,34 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ira Weiny <ira.weiny@intel.com>
 
-The kmap() calls in this FS are localized to a single thread.  To avoid
-the over head of global PKRS updates use the new kmap_thread() call.
+These kmap() calls are localized to a single thread.  To avoid the over head of
+global PKRS updates use the new kmap_thread() call.
 
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/romfs/super.c | 4 ++--
+ fs/jffs2/file.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/romfs/super.c b/fs/romfs/super.c
-index e582d001f792..9050074c6755 100644
---- a/fs/romfs/super.c
-+++ b/fs/romfs/super.c
-@@ -107,7 +107,7 @@ static int romfs_readpage(struct file *file, struct page *page)
- 	void *buf;
- 	int ret;
+diff --git a/fs/jffs2/file.c b/fs/jffs2/file.c
+index 3e6d54f9b011..14dd2b18cc16 100644
+--- a/fs/jffs2/file.c
++++ b/fs/jffs2/file.c
+@@ -287,13 +287,13 @@ static int jffs2_write_end(struct file *filp, struct address_space *mapping,
  
--	buf = kmap(page);
-+	buf = kmap_thread(page);
- 	if (!buf)
- 		return -ENOMEM;
+ 	/* In 2.4, it was already kmapped by generic_file_write(). Doesn't
+ 	   hurt to do it again. The alternative is ifdefs, which are ugly. */
+-	kmap(pg);
++	kmap_thread(pg);
  
-@@ -136,7 +136,7 @@ static int romfs_readpage(struct file *file, struct page *page)
- 		SetPageUptodate(page);
+ 	ret = jffs2_write_inode_range(c, f, ri, page_address(pg) + aligned_start,
+ 				      (pg->index << PAGE_SHIFT) + aligned_start,
+ 				      end - aligned_start, &writtenlen);
  
- 	flush_dcache_page(page);
--	kunmap(page);
-+	kunmap_thread(page);
- 	unlock_page(page);
- 	return ret;
- }
+-	kunmap(pg);
++	kunmap_thread(pg);
+ 
+ 	if (ret) {
+ 		/* There was an error writing. */
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
 
