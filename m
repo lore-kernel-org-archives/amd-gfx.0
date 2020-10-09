@@ -2,67 +2,55 @@ Return-Path: <SRS0=3Gw3=DQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 830C8C433E7
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 15:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FADEC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18EC722261
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 15:46:30 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qo2N+pvr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18EC722261
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 00ED8222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00ED8222C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B376ECFB;
-	Fri,  9 Oct 2020 15:46:30 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFF9E6ECFB
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 15:46:29 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id e2so10304959wme.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Oct 2020 08:46:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=++4W0UQ1Ro/3isAPuU5SCGB6rNuPtRoosOIgwmP9hb0=;
- b=qo2N+pvrr4aT5DTyJzXPcxoauX2fYaVC1JVVcofFORErt4Uea9bn6/w7PqZuYndnH7
- DcsXjpVr6UU2dwOaiEG66o1Add9QRHxfFt+jQMoftQsSblSRwFNy0dXrKKDUCNyTKr1H
- Ye6BXJuyialcExUgSsmBYnw/Nt3E+pzPyqTvbhFKTSbcqb8+6K73edAE3lOCbpeTF2Ow
- gsFTjFyMzC60/a0TZDqNE6vz3j+bxgm06Hww35bHrI+4SuuJk0lLfZXzwzW4hLIBo4+Z
- 4nnZbvYj1Ia9hN720q+/pAjZ+R2o4d1UcuEt9+Vv2anQfgVA6i7RZeQmnfWPgFw7NVyJ
- NzAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=++4W0UQ1Ro/3isAPuU5SCGB6rNuPtRoosOIgwmP9hb0=;
- b=q9ejR8AYTUbg5/j1GiAAeL8gnZff5fWhsxIDlkrQHUtzL9k5Fh4jCZDVbW7LE/zmt1
- 8ISkiodapwG/DYHLMEvK1FBEgNgGaO+w0rG/AXLuDbMU5G56IvvariZ8CU0389besB10
- 9c7DyZ0+ETih9Iz9U2kRQKjvj3t7vQuHroHHo1vSWkJlnJvGX9c2ioS33lGY8FwJ5Xmr
- h9rhiP9x9U+xAG14RYzP7+nVDDdDPEo4XW2tAIVEyAzPRvoNzAPt3st1xB+WzA4IuyGG
- 3hKA7DZ5fAirZHhvD35H6DDjFPtqEsCyQZ82EU4g6/LZZXEEvjWML8d6do9u45I9jYRI
- wIRg==
-X-Gm-Message-State: AOAM531A9LJv50RK5Q5tyiKM2P4u7Cn5h5yI/NLVItgbO2a/UcefDswU
- JjLyZuEqGhckcFZ1tnV8SzCe8VlTgnTwp6aBCPo=
-X-Google-Smtp-Source: ABdhPJzxOc2TP11VK6UMPt7QvZDSZP+DjklXL5xEgNcma3xdWnXaUJP1haLYMMDicEo6IOAfAhoGzVUJ6WKsF8te52A=
-X-Received: by 2002:a7b:c7d5:: with SMTP id z21mr10591649wmk.73.1602258388544; 
- Fri, 09 Oct 2020 08:46:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 573286EE0D;
+	Fri,  9 Oct 2020 21:10:41 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A171D6EDA2;
+ Fri,  9 Oct 2020 19:51:05 +0000 (UTC)
+IronPort-SDR: lw6WG6RD8j/gPG5OEKiNjAcUmIw39/7MpAEtt8zn6W7ujJPBvRyIM/2+24GwYYXwvVuLZ0Ptty
+ T6MrA7ybQEgg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="153363379"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="153363379"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:03 -0700
+IronPort-SDR: Zj7B8Ym6Opm+j7NgzILIxHvFMHLpJ+KeG5qMdRlGsqJzYlMhgHY+wciO+/VIwDrpca7gdal3tS
+ LaUxL8Xa1x8w==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="343971995"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:02 -0700
+From: ira.weiny@intel.com
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>
+Subject: [PATCH RFC PKS/PMEM 05/58] kmap: Introduce k[un]map_thread
+Date: Fri,  9 Oct 2020 12:49:40 -0700
+Message-Id: <20201009195033.3208459-6-ira.weiny@intel.com>
+X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
+In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
 MIME-Version: 1.0
-References: <20201009074758.74370-1-yebin10@huawei.com>
-In-Reply-To: <20201009074758.74370-1-yebin10@huawei.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Oct 2020 11:46:17 -0400
-Message-ID: <CADnq5_P37pV3np43WSn2cYhYLhFCpnsAoqsBOjqD0+9QNF=FBQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix inconsistent of format with argument type
- in amdgpu_xgmi.c
-To: Ye Bin <yebin10@huawei.com>
+X-Mailman-Approved-At: Fri, 09 Oct 2020 21:10:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,50 +62,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
+ samba-technical@lists.samba.org, Ira Weiny <ira.weiny@intel.com>,
+ ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
+ cluster-devel@redhat.com, linux-cachefs@redhat.com,
+ intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
+ linux-um@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
+ Randy Dunlap <rdunlap@infradead.org>, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+From: Ira Weiny <ira.weiny@intel.com>
 
-Alex
+To correctly support the semantics of kmap() with Kernel protection keys
+(PKS), kmap() may be required to set the protections on multiple
+processors (globally).  Enabling PKS globally can be very expensive
+depending on the requested operation.  Furthermore, enabling a domain
+globally reduces the protection afforded by PKS.
 
-On Fri, Oct 9, 2020 at 8:51 AM Ye Bin <yebin10@huawei.com> wrote:
->
-> Fix follow warning:
-> [drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c:249]: (warning) %d in format
-> string (no. 1) requires 'int' but the argument type is 'unsigned int'.
->
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Ye Bin <yebin10@huawei.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 1162913c8bf4..54c358e71f9a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -246,7 +246,7 @@ static ssize_t amdgpu_xgmi_show_error(struct device *dev,
->
->         adev->df.funcs->set_fica(adev, ficaa_pie_status_in, 0, 0);
->
-> -       return snprintf(buf, PAGE_SIZE, "%d\n", error_count);
-> +       return snprintf(buf, PAGE_SIZE, "%u\n", error_count);
->  }
->
->
-> --
-> 2.16.2.dirty
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Most kmap() (Aprox 209 of 229) callers use the map within a single thread and
+have no need for the protection domain to be enabled globally.  However, the
+remaining callers do not follow this pattern and, as best I can tell, expect
+the mapping to be 'global' and available to any thread who may access the
+mapping.[1]
+
+We don't anticipate global mappings to pmem, however in general there is a
+danger in changing the semantics of kmap().  Effectively, this would cause an
+unresolved page fault with little to no information about why the failure
+occurred.
+
+To resolve this a number of options were considered.
+
+1) Attempt to change all the thread local kmap() calls to kmap_atomic()[2]
+2) Introduce a flags parameter to kmap() to indicate if the mapping should be
+   global or not
+3) Change ~20 call sites to 'kmap_global()' to indicate that they require a
+   global enablement of the pages.
+4) Change ~209 call sites to 'kmap_thread()' to indicate that the mapping is to
+   be used within that thread of execution only
+
+Option 1 is simply not feasible.  Option 2 would require all of the call sites
+of kmap() to change.  Option 3 seems like a good minimal change but there is a
+danger that new code may miss the semantic change of kmap() and not get the
+behavior the developer intended.  Therefore, #4 was chosen.
+
+Subsequent patches will convert most ~90% of the kmap callers to this new call
+leaving about 10% of the existing kmap callers to enable PKS globally.
+
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+---
+ include/linux/highmem.h | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
+
+diff --git a/include/linux/highmem.h b/include/linux/highmem.h
+index 2a9806e3b8d2..ef7813544719 100644
+--- a/include/linux/highmem.h
++++ b/include/linux/highmem.h
+@@ -60,7 +60,7 @@ static inline void kmap_flush_tlb(unsigned long addr) { }
+ #endif
+ 
+ void *kmap_high(struct page *page);
+-static inline void *kmap(struct page *page)
++static inline void *__kmap(struct page *page, bool global)
+ {
+ 	void *addr;
+ 
+@@ -74,20 +74,20 @@ static inline void *kmap(struct page *page)
+ 	 * Even non-highmem pages may have additional access protections which
+ 	 * need to be checked and potentially enabled.
+ 	 */
+-	dev_page_enable_access(page, true);
++	dev_page_enable_access(page, global);
+ 	return addr;
+ }
+ 
+ void kunmap_high(struct page *page);
+ 
+-static inline void kunmap(struct page *page)
++static inline void __kunmap(struct page *page, bool global)
+ {
+ 	might_sleep();
+ 	/*
+ 	 * Even non-highmem pages may have additional access protections which
+ 	 * need to be checked and potentially disabled.
+ 	 */
+-	dev_page_disable_access(page, true);
++	dev_page_disable_access(page, global);
+ 	if (!PageHighMem(page))
+ 		return;
+ 	kunmap_high(page);
+@@ -160,10 +160,10 @@ static inline struct page *kmap_to_page(void *addr)
+ 
+ static inline unsigned long totalhigh_pages(void) { return 0UL; }
+ 
+-static inline void *kmap(struct page *page)
++static inline void *__kmap(struct page *page, bool global)
+ {
+ 	might_sleep();
+-	dev_page_enable_access(page, true);
++	dev_page_enable_access(page, global);
+ 	return page_address(page);
+ }
+ 
+@@ -171,9 +171,9 @@ static inline void kunmap_high(struct page *page)
+ {
+ }
+ 
+-static inline void kunmap(struct page *page)
++static inline void __kunmap(struct page *page, bool global)
+ {
+-	dev_page_disable_access(page, true);
++	dev_page_disable_access(page, global);
+ #ifdef ARCH_HAS_FLUSH_ON_KUNMAP
+ 	kunmap_flush_on_unmap(page_address(page));
+ #endif
+@@ -238,6 +238,24 @@ static inline void kmap_atomic_idx_pop(void)
+ 
+ #endif
+ 
++static inline void *kmap(struct page *page)
++{
++	return __kmap(page, true);
++}
++static inline void kunmap(struct page *page)
++{
++	__kunmap(page, true);
++}
++
++static inline void *kmap_thread(struct page *page)
++{
++	return __kmap(page, false);
++}
++static inline void kunmap_thread(struct page *page)
++{
++	__kunmap(page, false);
++}
++
+ /*
+  * Prevent people trying to call kunmap_atomic() as if it were kunmap()
+  * kunmap_atomic() should get the return value of kmap_atomic, not the page.
+-- 
+2.28.0.rc0.12.gb6a658bd00c9
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
