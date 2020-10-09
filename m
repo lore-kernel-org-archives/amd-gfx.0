@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60306C2D0A3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0290C4363A
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2119D222E9
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2119D222E9
+	by mail.kernel.org (Postfix) with ESMTPS id 790A5222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 21:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 790A5222C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD106EE4F;
-	Fri,  9 Oct 2020 21:11:04 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1054A6EDA9;
- Fri,  9 Oct 2020 19:52:10 +0000 (UTC)
-IronPort-SDR: gkGge8c+dSnOCdgItTlpBEobarFsRk6lw/NM9xWhZ0FoC+XSw9KAC1Lceql+fXr98LQkEB3y9y
- NK5Fj2e0NmUg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="162893408"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="162893408"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F0A06EE3B;
+	Fri,  9 Oct 2020 21:10:53 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94EE66EDB4;
+ Fri,  9 Oct 2020 19:51:39 +0000 (UTC)
+IronPort-SDR: v6kLKVoir763PM7WF8tmb0HcCYtAN2ImTenHRQEi0pQwW/SydvH90EOIyTmuHZp2YJnk3QE9Sa
+ qqqU/U3e0mFw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="229715065"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="229715065"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:09 -0700
-IronPort-SDR: zRSzmM1HZFGhzQcGhWxIWUdt7PON477D2ysFpCnQTUxdw9Z8VdaNQXVN+6ixBePqleDwfFxfgw
- K58aOn7YePQQ==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="317147210"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:39 -0700
+IronPort-SDR: 6nDyG/rNIU8VCp7PRxt8N7VM6Ts7FaR6Cq3BMAOPdzxAbIieQhQY1hWISzmf8TSYIGXE2cP/wS
+ 1DDas2UbMNkw==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="345147432"
 Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:52:08 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 12:51:37 -0700
 From: ira.weiny@intel.com
 To: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH RFC PKS/PMEM 23/58] fs/fuse: Utilize new kmap_thread()
-Date: Fri,  9 Oct 2020 12:49:58 -0700
-Message-Id: <20201009195033.3208459-24-ira.weiny@intel.com>
+Subject: [PATCH RFC PKS/PMEM 14/58] fs/cifs: Utilize new kmap_thread()
+Date: Fri,  9 Oct 2020 12:49:49 -0700
+Message-Id: <20201009195033.3208459-15-ira.weiny@intel.com>
 X-Mailer: git-send-email 2.28.0.rc0.12.gb6a658bd00c9
 In-Reply-To: <20201009195033.3208459-1-ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
@@ -71,7 +71,7 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  ceph-devel@vger.kernel.org, drbd-dev@lists.linbit.com,
  devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
  linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- Miklos Szeredi <miklos@szeredi.hu>, linux-rdma@vger.kernel.org, x86@kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
  amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
  cluster-devel@redhat.com, linux-cachefs@redhat.com,
  intel-wired-lan@lists.osuosl.org, xen-devel@lists.xenproject.org,
@@ -82,8 +82,8 @@ Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
  linux-bcache@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
  io-uring@vger.kernel.org, linux-nfs@vger.kernel.org,
  linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
- linux-nvdimm@lists.01.org, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, Steve French <sfrench@samba.org>,
  linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
@@ -96,27 +96,124 @@ From: Ira Weiny <ira.weiny@intel.com>
 The kmap() calls in this FS are localized to a single thread.  To avoid
 the over head of global PKRS updates use the new kmap_thread() call.
 
-Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Steve French <sfrench@samba.org>
 Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- fs/fuse/readdir.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/cifs/cifsencrypt.c |  6 +++---
+ fs/cifs/file.c        | 16 ++++++++--------
+ fs/cifs/smb2ops.c     |  8 ++++----
+ 3 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
-index 90e3f01bd796..953ffe6f56e3 100644
---- a/fs/fuse/readdir.c
-+++ b/fs/fuse/readdir.c
-@@ -536,9 +536,9 @@ static int fuse_readdir_cached(struct file *file, struct dir_context *ctx)
- 	 * Contents of the page are now protected against changing by holding
- 	 * the page lock.
- 	 */
--	addr = kmap(page);
-+	addr = kmap_thread(page);
- 	res = fuse_parse_cache(ff, addr, size, ctx);
+diff --git a/fs/cifs/cifsencrypt.c b/fs/cifs/cifsencrypt.c
+index 9daa256f69d4..2f8232d01a56 100644
+--- a/fs/cifs/cifsencrypt.c
++++ b/fs/cifs/cifsencrypt.c
+@@ -82,17 +82,17 @@ int __cifs_calc_signature(struct smb_rqst *rqst,
+ 
+ 		rqst_page_get_length(rqst, i, &len, &offset);
+ 
+-		kaddr = (char *) kmap(rqst->rq_pages[i]) + offset;
++		kaddr = (char *) kmap_thread(rqst->rq_pages[i]) + offset;
+ 
+ 		rc = crypto_shash_update(shash, kaddr, len);
+ 		if (rc) {
+ 			cifs_dbg(VFS, "%s: Could not update with payload\n",
+ 				 __func__);
+-			kunmap(rqst->rq_pages[i]);
++			kunmap_thread(rqst->rq_pages[i]);
+ 			return rc;
+ 		}
+ 
+-		kunmap(rqst->rq_pages[i]);
++		kunmap_thread(rqst->rq_pages[i]);
+ 	}
+ 
+ 	rc = crypto_shash_final(shash, signature);
+diff --git a/fs/cifs/file.c b/fs/cifs/file.c
+index be46fab4c96d..6db2caab8852 100644
+--- a/fs/cifs/file.c
++++ b/fs/cifs/file.c
+@@ -2145,17 +2145,17 @@ static int cifs_partialpagewrite(struct page *page, unsigned from, unsigned to)
+ 	inode = page->mapping->host;
+ 
+ 	offset += (loff_t)from;
+-	write_data = kmap(page);
++	write_data = kmap_thread(page);
+ 	write_data += from;
+ 
+ 	if ((to > PAGE_SIZE) || (from > to)) {
+-		kunmap(page);
++		kunmap_thread(page);
+ 		return -EIO;
+ 	}
+ 
+ 	/* racing with truncate? */
+ 	if (offset > mapping->host->i_size) {
+-		kunmap(page);
++		kunmap_thread(page);
+ 		return 0; /* don't care */
+ 	}
+ 
+@@ -2183,7 +2183,7 @@ static int cifs_partialpagewrite(struct page *page, unsigned from, unsigned to)
+ 			rc = -EIO;
+ 	}
+ 
+-	kunmap(page);
++	kunmap_thread(page);
+ 	return rc;
+ }
+ 
+@@ -2559,10 +2559,10 @@ static int cifs_write_end(struct file *file, struct address_space *mapping,
+ 		   known which we might as well	leverage */
+ 		/* BB check if anything else missing out of ppw
+ 		   such as updating last write time */
+-		page_data = kmap(page);
++		page_data = kmap_thread(page);
+ 		rc = cifs_write(cfile, pid, page_data + offset, copied, &pos);
+ 		/* if (rc < 0) should we set writebehind rc? */
+-		kunmap(page);
++		kunmap_thread(page);
+ 
+ 		free_xid(xid);
+ 	} else {
+@@ -4511,7 +4511,7 @@ static int cifs_readpage_worker(struct file *file, struct page *page,
+ 	if (rc == 0)
+ 		goto read_complete;
+ 
+-	read_data = kmap(page);
++	read_data = kmap_thread(page);
+ 	/* for reads over a certain size could initiate async read ahead */
+ 
+ 	rc = cifs_read(file, read_data, PAGE_SIZE, poffset);
+@@ -4540,7 +4540,7 @@ static int cifs_readpage_worker(struct file *file, struct page *page,
+ 	rc = 0;
+ 
+ io_error:
 -	kunmap(page);
 +	kunmap_thread(page);
  	unlock_page(page);
- 	put_page(page);
+ 
+ read_complete:
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 32f90dc82c84..a3e7ebab38b6 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -4068,12 +4068,12 @@ smb3_init_transform_rq(struct TCP_Server_Info *server, int num_rqst,
+ 
+ 			rqst_page_get_length(&new_rq[i], j, &len, &offset);
+ 
+-			dst = (char *) kmap(new_rq[i].rq_pages[j]) + offset;
+-			src = (char *) kmap(old_rq[i - 1].rq_pages[j]) + offset;
++			dst = (char *) kmap_thread(new_rq[i].rq_pages[j]) + offset;
++			src = (char *) kmap_thread(old_rq[i - 1].rq_pages[j]) + offset;
+ 
+ 			memcpy(dst, src, len);
+-			kunmap(new_rq[i].rq_pages[j]);
+-			kunmap(old_rq[i - 1].rq_pages[j]);
++			kunmap_thread(new_rq[i].rq_pages[j]);
++			kunmap_thread(old_rq[i - 1].rq_pages[j]);
+ 		}
+ 	}
  
 -- 
 2.28.0.rc0.12.gb6a658bd00c9
