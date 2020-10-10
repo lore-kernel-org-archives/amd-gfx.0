@@ -2,52 +2,66 @@ Return-Path: <SRS0=Eo7T=DR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0D90C433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1857C43457
 	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2020 10:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3AF4021655
+	by mail.kernel.org (Postfix) with ESMTPS id 861E02184D
 	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2020 10:04:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="F41ki3gR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AF4021655
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="edx7xet+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 861E02184D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9D5C6EEA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6CAD6EEA8;
 	Sat, 10 Oct 2020 10:04:49 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E760E6EE68;
- Sat, 10 Oct 2020 00:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=wylOEgAZGPAkxCdlobMzyIfu/ZrVv1Os6TQldUFLziM=; b=F41ki3gR7FBgwnVausn+Ym7HP1
- XlPOrKIoC49hpvUE9/aWBoH68sW9nzN+roolJxog6JtW0hinw+GJGJQweM2tJ1u8x4huOElOun4HX
- OLG5RHoBoAf3CSIzFNHpVgsRU+TgTIZh4srysDUduyMdIIxPlPK5JA/amN/knuZnCqa9Zv6UObB0o
- hZnMFz1K/YCtH1pW7cz6Th6CIA0I8ero69lmDRA42tDkhymN2BfqXsEeqYlbw/xTqpsZhH92AuKGR
- +ciamleDZuZCDFfE/FcJg9XsXU418hEml49KDOM/rl5J3rO0lFNTAWXDAV5Z24k3Ay+VgEnmqYlhx
- rI3nBVLQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kR2vS-0004My-FJ; Sat, 10 Oct 2020 00:39:54 +0000
-Date: Sat, 10 Oct 2020 01:39:54 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Subject: Re: [PATCH RFC PKS/PMEM 22/58] fs/f2fs: Utilize new kmap_thread()
-Message-ID: <20201010003954.GW20115@casper.infradead.org>
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F876EE69;
+ Sat, 10 Oct 2020 02:53:12 +0000 (UTC)
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f8121a50000>; Fri, 09 Oct 2020 19:51:17 -0700
+Received: from [10.2.51.144] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 10 Oct
+ 2020 02:53:07 +0000
+Subject: Re: [PATCH RFC PKS/PMEM 57/58] nvdimm/pmem: Stray access protection
+ for pmem->virt_addr
+To: <ira.weiny@intel.com>, Andrew Morton <akpm@linux-foundation.org>, "Thomas
+ Gleixner" <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, "Borislav
+ Petkov" <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
- <20201009195033.3208459-23-ira.weiny@intel.com>
- <20201009213434.GA839@sol.localdomain>
+ <20201009195033.3208459-58-ira.weiny@intel.com>
+From: John Hubbard <jhubbard@nvidia.com>
+Message-ID: <bd3f5ece-0e7b-4c15-abbc-1b3b943334dc@nvidia.com>
+Date: Fri, 9 Oct 2020 19:53:07 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201009213434.GA839@sol.localdomain>
+In-Reply-To: <20201009195033.3208459-58-ira.weiny@intel.com>
+Content-Language: en-US
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1602298277; bh=hKwlK3WolBLUufkeWDHCi6j+X4NXa8gQFiKyGjbOY3s=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Language:
+ Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+ b=edx7xet+HWktPTMH7LfazMaeZj84i5/Le7BE3m/9xNKYA9bmh246jZEvn48F/uMcW
+ RRn8BggXdwK6EgYw84fvX6LW3WH/wQjijcVtcfekd8K6KkJdzgyiWWhhWRHsAgsUWu
+ ErO3rgTi0L/NWozRhmjxim3aejVQ7k0j+Xmczu6ahvjgHQEdG1f6IxukspiHHh4eDZ
+ vXW13vRjbU9kKvq3xSMRRweChxuwg1Gt9UWgcBiwICYzh7lbhEKe0zR7+e8y/8iSgu
+ 9o2Hr0ioZGbS1OLU7+SDtKlkAPg/fZiUxFefl5DnOwU2H5+VRhK6GCiKvAXlVbpTMd
+ H8SS1utYxNiTQ==
 X-Mailman-Approved-At: Sat, 10 Oct 2020 10:04:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,65 +75,76 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
- linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-kselftest@vger.kernel.org, ira.weiny@intel.com,
- Thomas Gleixner <tglx@linutronix.de>, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
- amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, Ingo Molnar <mingo@redhat.com>,
- intel-wired-lan@lists.osuosl.org, kexec@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-mmc@vger.kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-kselftest@vger.kernel.org,
+ samba-technical@lists.samba.org, ceph-devel@vger.kernel.org,
+ drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
+ linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-nvdimm@lists.01.org,
+ linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-afs@lists.infradead.org, cluster-devel@redhat.com,
+ linux-cachefs@redhat.com, intel-wired-lan@lists.osuosl.org,
  xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- bpf@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
- Fenghua Yu <fenghua.yu@intel.com>, intel-gfx@lists.freedesktop.org,
- ecryptfs@vger.kernel.org, linux-um@lists.infradead.org,
- reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-bcache@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
- Andy Lutomirski <luto@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
- ceph-devel@vger.kernel.org, io-uring@vger.kernel.org, linux-cachefs@redhat.com,
+ Fenghua Yu <fenghua.yu@intel.com>, linux-um@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, reiserfs-devel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Dan Williams <dan.j.williams@intel.com>, io-uring@vger.kernel.org,
  linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+ netdev@vger.kernel.org, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 09, 2020 at 02:34:34PM -0700, Eric Biggers wrote:
-> On Fri, Oct 09, 2020 at 12:49:57PM -0700, ira.weiny@intel.com wrote:
-> > The kmap() calls in this FS are localized to a single thread.  To avoid
-> > the over head of global PKRS updates use the new kmap_thread() call.
-> >
-> > @@ -2410,12 +2410,12 @@ static inline struct page *f2fs_pagecache_get_page(
-> >  
-> >  static inline void f2fs_copy_page(struct page *src, struct page *dst)
-> >  {
-> > -	char *src_kaddr = kmap(src);
-> > -	char *dst_kaddr = kmap(dst);
-> > +	char *src_kaddr = kmap_thread(src);
-> > +	char *dst_kaddr = kmap_thread(dst);
-> >  
-> >  	memcpy(dst_kaddr, src_kaddr, PAGE_SIZE);
-> > -	kunmap(dst);
-> > -	kunmap(src);
-> > +	kunmap_thread(dst);
-> > +	kunmap_thread(src);
-> >  }
+On 10/9/20 12:50 PM, ira.weiny@intel.com wrote:
+> From: Ira Weiny <ira.weiny@intel.com>
 > 
-> Wouldn't it make more sense to switch cases like this to kmap_atomic()?
-> The pages are only mapped to do a memcpy(), then they're immediately unmapped.
+> The pmem driver uses a cached virtual address to access its memory
+> directly.  Because the nvdimm driver is well aware of the special
+> protections it has mapped memory with, we call dev_access_[en|dis]able()
+> around the direct pmem->virt_addr (pmem_addr) usage instead of the
+> unnecessary overhead of trying to get a page to kmap.
+> 
+> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> ---
+>   drivers/nvdimm/pmem.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+> index fab29b514372..e4dc1ae990fc 100644
+> --- a/drivers/nvdimm/pmem.c
+> +++ b/drivers/nvdimm/pmem.c
+> @@ -148,7 +148,9 @@ static blk_status_t pmem_do_read(struct pmem_device *pmem,
+>   	if (unlikely(is_bad_pmem(&pmem->bb, sector, len)))
+>   		return BLK_STS_IOERR;
+>   
+> +	dev_access_enable(false);
+>   	rc = read_pmem(page, page_off, pmem_addr, len);
+> +	dev_access_disable(false);
 
-Maybe you missed the earlier thread from Thomas trying to do something
-similar for rather different reasons ...
+Hi Ira!
 
-https://lore.kernel.org/lkml/20200919091751.011116649@linutronix.de/
+The APIs should be tweaked to use a symbol (GLOBAL, PER_THREAD), instead of
+true/false. Try reading the above and you'll see that it sounds like it's
+doing the opposite of what it is ("enable_this(false)" sounds like a clumsy
+API design to *disable*, right?). And there is no hint about the scope.
+
+And it *could* be so much more readable like this:
+
+     dev_access_enable(DEV_ACCESS_THIS_THREAD);
+
+
+
+thanks,
+-- 
+John Hubbard
+NVIDIA
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
