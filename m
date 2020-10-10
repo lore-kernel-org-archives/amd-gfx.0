@@ -1,72 +1,54 @@
-Return-Path: <SRS0=3Gw3=DQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Eo7T=DR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EEA11C433E7
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 22:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60E3EC433E7
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2020 01:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A9365222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2020 22:49:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DD38121D6C
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2020 01:30:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W7XXOgvo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9365222C3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwaFsg+F"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD38121D6C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A761E6EE44;
-	Fri,  9 Oct 2020 22:49:00 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 498756EE44
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2020 22:48:59 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id c23so9304442qtp.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Oct 2020 15:48:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=o4hOKG7rui7F9XbIbJp0tc6eoSUVARe39VfXwYe4P0E=;
- b=W7XXOgvo9Nk5MBlDEvbWrIQx18DFAr3SMsewnhvXFbbPWVNEIb1lzM0Vkca51Yff6B
- +r21VZ3RVRRp/k0EUyl20IoQJHxRfHX7KYJkUOPHJuseRcJ8h1J753xnvehaK4uNUDTb
- U3gogvZA2CD29ivYm7fthqA5u7QUmk2Mi+6Wj0AMKibH5GG5iwsm2UsGMVZMT10Y6qir
- Mx3jvYT+G5cOSGHkodhdQKYVRjnKNZclO219Y0QYw+smJB1OoT0prdXISjDaXuyPs5mV
- hcZ9ChW6mZ6rSvkxp9agPcHjGPBofREfnxd45pUiomXAs3s6olsfxrN8EsbmMOtr3MoP
- 1zKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=o4hOKG7rui7F9XbIbJp0tc6eoSUVARe39VfXwYe4P0E=;
- b=GTKpnv5zJ1u+2TdMKijyMXJh7wW2Z1s2KP79J7Pa5Yia1J3U1knpWaMh0/ffdGFTZF
- URjQDaWPF1OsqnUmWg/UI0p8o4PGuoWIB/+3X6tsmZ7/bOsw2CZpSuYqpfcxdbUYY03Y
- avzH5wYILRUULnYRRLq3csyf0iXTe7hAwId7r4PaVcsotY6W5RauIH3BUbK3dsFNJPJc
- D+Ior1V3vNLudLPc/gCmP2TnutG5jU+apgsmDeBWikKzwd/btKcotdE5Z+bJUyQzXdEe
- p8pFZ9xasRE/KTW7sUYSAwmj8sbrVZl6PsKGtRQtsfSqvPnMLsJo6ISWRnbZtUU2ZLyk
- 8qCw==
-X-Gm-Message-State: AOAM530ON5hYdt/I5Amw5T8K1rm0vmpfuERCy0vjqIy/0BoVuuY+5FC8
- vEqzDvUhrp1IC6lsgrKDYaUmqqathKc=
-X-Google-Smtp-Source: ABdhPJzZz7Yyzyr9TIT5M3abFxlLfmoh3WBpkPzj6mUK5it6YJNLJt8WkA8OfZtW63qsAzOKZsvvZA==
-X-Received: by 2002:aed:2983:: with SMTP id o3mr245204qtd.285.1602283737151;
- Fri, 09 Oct 2020 15:48:57 -0700 (PDT)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id t3sm7185482qtq.24.2020.10.09.15.48.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Oct 2020 15:48:56 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/display: Add green_sardine support to DC
-Date: Fri,  9 Oct 2020 18:48:46 -0400
-Message-Id: <20201009224847.238484-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E106EE6B;
+	Sat, 10 Oct 2020 01:30:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C57CA6EE6A;
+ Sat, 10 Oct 2020 01:30:39 +0000 (UTC)
+Received: from sol.localdomain (172-10-235-113.lightspeed.sntcca.sbcglobal.net
+ [172.10.235.113])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4E006206D9;
+ Sat, 10 Oct 2020 01:30:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1602293439;
+ bh=sHFyDh52gnsvc+uI8yhUC5uDYbYkQCvra+rDiRMmAvs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kwaFsg+FwkcbT1hA6vX2rbzC7SEHg0ckV7q6+TfKUuTYp7lijGzsxhx1D9MfT9qZg
+ puzd9VwNUhNC7pSZTswv9TmxeVvsyOKe33XMZMPqVG5rfdvIuh+YhVfWI5Z4mrkh0S
+ V8+sp7izCEY2Jms4cmTCzh86mPIYz7uaZ6k3dzLQ=
+Date: Fri, 9 Oct 2020 18:30:36 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Subject: Re: [PATCH RFC PKS/PMEM 22/58] fs/f2fs: Utilize new kmap_thread()
+Message-ID: <20201010013036.GD1122@sol.localdomain>
+References: <20201009195033.3208459-1-ira.weiny@intel.com>
+ <20201009195033.3208459-23-ira.weiny@intel.com>
+ <20201009213434.GA839@sol.localdomain>
+ <20201010003954.GW20115@casper.infradead.org>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201010003954.GW20115@casper.infradead.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,100 +60,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- Roman Li <Roman.Li@amd.com>
+Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-kselftest@vger.kernel.org, ira.weiny@intel.com,
+ Thomas Gleixner <tglx@linutronix.de>, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, linux-rdma@vger.kernel.org, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
+ cluster-devel@redhat.com, Ingo Molnar <mingo@redhat.com>,
+ intel-wired-lan@lists.osuosl.org, kexec@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+ bpf@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ Fenghua Yu <fenghua.yu@intel.com>, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-um@lists.infradead.org,
+ reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+ Andy Lutomirski <luto@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ ceph-devel@vger.kernel.org, io-uring@vger.kernel.org, linux-cachefs@redhat.com,
+ linux-nfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
+ netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
+ linux-btrfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
+On Sat, Oct 10, 2020 at 01:39:54AM +0100, Matthew Wilcox wrote:
+> On Fri, Oct 09, 2020 at 02:34:34PM -0700, Eric Biggers wrote:
+> > On Fri, Oct 09, 2020 at 12:49:57PM -0700, ira.weiny@intel.com wrote:
+> > > The kmap() calls in this FS are localized to a single thread.  To avoid
+> > > the over head of global PKRS updates use the new kmap_thread() call.
+> > >
+> > > @@ -2410,12 +2410,12 @@ static inline struct page *f2fs_pagecache_get_page(
+> > >  
+> > >  static inline void f2fs_copy_page(struct page *src, struct page *dst)
+> > >  {
+> > > -	char *src_kaddr = kmap(src);
+> > > -	char *dst_kaddr = kmap(dst);
+> > > +	char *src_kaddr = kmap_thread(src);
+> > > +	char *dst_kaddr = kmap_thread(dst);
+> > >  
+> > >  	memcpy(dst_kaddr, src_kaddr, PAGE_SIZE);
+> > > -	kunmap(dst);
+> > > -	kunmap(src);
+> > > +	kunmap_thread(dst);
+> > > +	kunmap_thread(src);
+> > >  }
+> > 
+> > Wouldn't it make more sense to switch cases like this to kmap_atomic()?
+> > The pages are only mapped to do a memcpy(), then they're immediately unmapped.
+> 
+> Maybe you missed the earlier thread from Thomas trying to do something
+> similar for rather different reasons ...
+> 
+> https://lore.kernel.org/lkml/20200919091751.011116649@linutronix.de/
 
-Display Core support for green_sardine
+I did miss it.  I'm not subscribed to any of the mailing lists it was sent to.
 
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Acked-by: Hersen Wu <hersenxs.wu@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/Kconfig               | 8 ++++++++
- drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  | 7 +++++++
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++++
- drivers/gpu/drm/amd/display/include/dal_asic_id.h | 6 ++++++
- 4 files changed, 25 insertions(+)
+Anyway, it shouldn't matter.  Patchsets should be standalone, and not require
+reading random prior threads on linux-kernel to understand.
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 6ff878c8e454..5906778627f0 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -17,6 +17,14 @@ config DRM_AMD_DC_DCN
- 	help
- 	  Raven, Navi and Renoir family support for display engine
- 
-+config DRM_AMD_DC_GREEN_SARDINE
-+	bool "Green Sardine support"
-+	default y
-+	depends on DRM_AMD_DC_DCN
-+        help
-+            Choose this option if you want to have
-+            Green Sardine support for display engine
-+
- config DRM_AMD_DC_DCN3_0
-         bool "DCN 3.0 family"
-         depends on DRM_AMD_DC && X86
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-index 0b0b840a006c..b361dc6c3489 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-@@ -169,6 +169,13 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context *ctx, struct pp_smu_funcs *p
- 			rn_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg);
- 			break;
- 		}
-+
-+#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
-+		if (ASICREV_IS_GREEN_SARDINE(asic_id.hw_internal_rev)) {
-+			rn_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg);
-+			break;
-+		}
-+#endif
- 		if (ASICREV_IS_RAVEN2(asic_id.hw_internal_rev)) {
- 			rv2_clk_mgr_construct(ctx, clk_mgr, pp_smu);
- 			break;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 78e0a5e20aba..ab105f26b511 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -126,6 +126,10 @@ enum dce_version resource_parse_asic_id(struct hw_asic_id asic_id)
- 			dc_version = DCN_VERSION_1_01;
- 		if (ASICREV_IS_RENOIR(asic_id.hw_internal_rev))
- 			dc_version = DCN_VERSION_2_1;
-+#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
-+		if (ASICREV_IS_GREEN_SARDINE(asic_id.hw_internal_rev))
-+			dc_version = DCN_VERSION_2_1;
-+#endif
- 		break;
- #endif
- 
-diff --git a/drivers/gpu/drm/amd/display/include/dal_asic_id.h b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-index e4f24dbb2572..b4c3838322af 100644
---- a/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-+++ b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-@@ -209,6 +209,12 @@ enum {
- #if defined(CONFIG_DRM_AMD_DC_DCN3_02)
- #define ASICREV_IS_DIMGREY_CAVEFISH_P(eChipRev)        ((eChipRev >= NV_DIMGREY_CAVEFISH_P_A0) && (eChipRev < NV_UNKNOWN))
- #endif
-+#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
-+#define GREEN_SARDINE_A0 0xA1
-+#ifndef ASICREV_IS_GREEN_SARDINE
-+#define ASICREV_IS_GREEN_SARDINE(eChipRev) ((eChipRev >= GREEN_SARDINE_A0) && (eChipRev < 0xFF))
-+#endif
-+#endif
- #if defined(CONFIG_DRM_AMD_DC_DCN3_01)
- #define FAMILY_VGH 144
- #define DEVICE_ID_VGH_163F 0x163F
--- 
-2.25.4
+And I still don't really understand.  After this patchset, there is still code
+nearly identical to the above (doing a temporary mapping just for a memcpy) that
+would still be using kmap_atomic().  Is the idea that later, such code will be
+converted to use kmap_thread() instead?  If not, why use one over the other?
 
+- Eric
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
