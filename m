@@ -2,108 +2,99 @@ Return-Path: <SRS0=L/30=DT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C77A1C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 10:54:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CD08C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 11:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4ACF4206B6
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 10:54:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9FEDD2145D
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 11:48:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="G9Fceu5w"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4ACF4206B6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="i1YjemOm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FEDD2145D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A110B89F92;
-	Mon, 12 Oct 2020 10:54:20 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2088.outbound.protection.outlook.com [40.107.93.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E147A6E2C0
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 10:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4706E2C0;
+	Mon, 12 Oct 2020 11:48:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB05E6E2C0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2020 11:48:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TkDeu+mueK79Qb7Ork7OHfOst1mAmoIIy2x+M7j2JQgPgkdJ5ptv+2+R6yTB8wluWUhtxac/gOiXdDzHUQJFupULDW0LcyCb1K8FvYCZR7FHrUj7RGeVRhz7yq28dFcjl+OdJdnKa6O1HWsL7HBcT1EVMWgc83+yuRNZIVo9hepfR4M172Ernu2iq06tIMJBk8yQkl+uAuO+tbuPQQjOTB1QA3j0A1ZrQ70WZBKQG7mprHHYqbStEdrzPP3Q4s+bWWu6FYYNoqxN5pUeBEGgcv1dhAVmWCt1e8LiN8NlgHtMftCN+VqwcmDPZxLAJjdMax0mJnnOtBRlrufiI7zj5Q==
+ b=Plws4MLTc+MMEQGtQliA9kwrcxOvJSjNBG0mVWDx/WwqjRi9AuXt5TUVtoJrt+RGVSOPp1oUjQ+uJ9jwKbLT1j1iO7Wbwf1WW2cC2SObQVJdcwwCfjqkW023/7xmUhIEn5j3oe+3Jm6z0K1VHCr8bLY3tbtV8iFL1onS/yn4ySY/ZCvjBQAyx94PBM/49QlVCYweokz1TnSrP1x9i6DUE7sXvChBeNZminB5vo3sD6Nxz75Jm75mmnvhfPq/GbNPsWQdIvU9lYOkozwKQdP7BK1FwJf1gGlO0TWW62sDLXJWH0AoyYQcrAnXUnturRbhvsAiqCWdsqtoTWxuLuCvIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=542pD8A3303/50ueDTr3lKg4YcpjZWJSCT0A+L0H8j4=;
- b=KK5J7IPQzeIfMtPcaEzJm+nemnC+b6H3vM0bp5e7v78/x0jQ3MxVD3kfl6K6+aNzONk6RwDg1lz1Oa2hP6qeggWJXwIB1dOxfBUkSPfImQPTPeCRKRabnaF2ODDqe1ePlXkie3i1TSBfPMFLnIlFbxZywGjJrTv8hk13hvAcIsfws98CZeESex5d4T8sOVhQZ1N+JdT+LsyXV3vAupevzpXZXwTpvXbEI/7kKL97wSOOr7oVB8o6NGyE7XThiTD/1EaB0cMQU6gss49vI730MijDI9QxN5zxkQt8cqUb0+/yIH1dhIniz5aEpW0uT+uEYNNOGYkydDEA1HEUArZjzQ==
+ bh=dYhcNcW2n099mhP3l+iUz4AzD94ZJvBYhHzblcP23kc=;
+ b=TvGAlOqCqnRbky10i86f07YT6EZkZhjJFK+1BCCznZRUD1bTQ1pDeJ4ncvBU1U0Ml3eVP4on2NdhL6QsdDBqGmkyAAISaZN6vv+FABffuAuqMcOWLZSRyNc9XzX9ZML9OhH4D0vcW5Fw6PiLEPffzirOt/vjRRLH/6hZn+XIRg763t1QFHpM5clA4VDd2yf1ipVyqmVS4KqB4dRBnWQ7PH6tp5Le1zSiucrgz2zmPoAvZQNjq7RL8RosGBFwx5DFcE2YlQ1Ce9RRnH1t07FIXqYtqOHJauhUaU/BujZJGYerFGVsgkGFQxtsgUIVJq8xEWyPsHk9jeOM5K7nEbOpFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=542pD8A3303/50ueDTr3lKg4YcpjZWJSCT0A+L0H8j4=;
- b=G9Fceu5waguCtuBXLghri11HHzmSv8cl2mMuk61wnUhQcIGzRfVEGWnK5uPF+WLeCl5H8N0oyPXpnZxE63CsNCHoal7/l4iMi5UVnWhhhMOL8uD2mulBVF68nZbx3u2TV2nWVpEsp+BA6X0UGqm4zyyqQcDA+4eiQNDBsWjOALw=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB3696.namprd12.prod.outlook.com (2603:10b6:208:169::27)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=dYhcNcW2n099mhP3l+iUz4AzD94ZJvBYhHzblcP23kc=;
+ b=i1YjemOmfKUCz8l8jHJ3rwhnMtazdDGJU/rwt1Ip7TkWWx/gv/6a94EJZBv/Z+sZNLrNlxninEbyrJg8tfe14fcc7IAIVH+qMxlLyPr3OL85AfiE83+KDO/udYUBvvVrteX9Dyzz7UVct9k8cJmaKCJMzuXPYhD9DMoRAVnMIWo=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4452.namprd12.prod.outlook.com (2603:10b6:5:2a4::17)
+ by DM5PR12MB1897.namprd12.prod.outlook.com (2603:10b6:3:112::8) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.22; Mon, 12 Oct
- 2020 10:54:17 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3455.029; Mon, 12 Oct 2020
- 10:54:17 +0000
-Subject: Re: [PATCH v3] drm/amdgpu: Add debugfs entry for printing VM info
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-To: "Patel, Mihir" <Mihir.Patel@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20201012090159.28825-1-mihir.patel@amd.com>
- <d2d63bd0-61a0-33ce-67da-78143412d6b1@amd.com>
- <DM6PR12MB44527C86830BA20463BCFE6BE8070@DM6PR12MB4452.namprd12.prod.outlook.com>
- <64b13a59-f5c1-ff4c-f76a-0e1a00b249a0@amd.com>
- <DM6PR12MB4452CDAE4721D598694241B8E8070@DM6PR12MB4452.namprd12.prod.outlook.com>
- <24df1d90-04ad-e444-306d-7c2e16979b80@amd.com>
-Message-ID: <3d9496e3-74ec-288d-4736-eb583d0f1c92@amd.com>
-Date: Mon, 12 Oct 2020 12:54:11 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <24df1d90-04ad-e444-306d-7c2e16979b80@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM0PR04CA0116.eurprd04.prod.outlook.com
- (2603:10a6:208:55::21) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+ 2020 11:48:43 +0000
+Received: from DM6PR12MB4452.namprd12.prod.outlook.com
+ ([fe80::3061:cd92:9bf4:8380]) by DM6PR12MB4452.namprd12.prod.outlook.com
+ ([fe80::3061:cd92:9bf4:8380%6]) with mapi id 15.20.3455.030; Mon, 12 Oct 2020
+ 11:48:43 +0000
+From: Mihir Patel <mihir.patel@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v4] drm/amdgpu: Add debugfs entry for printing VM info
+Date: Mon, 12 Oct 2020 17:18:11 +0530
+Message-Id: <20201012114811.52125-1-mihir.patel@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [183.83.139.166]
+X-ClientProxiedBy: MA1PR0101CA0058.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:20::20) To DM6PR12MB4452.namprd12.prod.outlook.com
+ (2603:10b6:5:2a4::17)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR04CA0116.eurprd04.prod.outlook.com (2603:10a6:208:55::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3455.22 via Frontend Transport; Mon, 12 Oct 2020 10:54:16 +0000
+Received: from mihirp-navi14.amd.com (183.83.139.166) by
+ MA1PR0101CA0058.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:20::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21 via Frontend
+ Transport; Mon, 12 Oct 2020 11:48:40 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4372cb0d-0430-4bba-3170-08d86e9d2a39
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3696:
+X-MS-Office365-Filtering-Correlation-Id: c10f2703-01ae-4560-c63f-08d86ea4c4b7
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1897:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3696192E7289B3A2A93D7C4983070@MN2PR12MB3696.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1897FC4B0E6DC3F397093E59E8070@DM5PR12MB1897.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BcG/dpcRZ7bfY+YvNv5fXymg+NG+nlXK1AtM/KYUJCF10gZLB99HaDiVf5I6Wb74ryAvURhdzyi253fVLqGzwzfwic0RidSq3yu7lVUwYNjJV8n+ok40ZUdzD6w3aXT5WMCpv7oFz59e/8M6K4F+rzBiryCw+f/JznsjC0YxNOJVjMTnv5VyaMcSCVXVyGteqH/Z//2Fg+7MzWQj/A5JEBkgwztVngLXR8wE7LpPWunBILlFrurXpgxgukfGd9vobmkrrCmnKYnM6GO8dPWjtsqZhwof7Mh22Yhj7OQT/S1K7If26Cm//Or39MwXR/V5+W1wcSZ06vn5K1gxGZBRXsjZ9a/oJ/wHjCFT1SWEPiFKOemoj7RFZfTWlPUOqr+Zh6SXocZ0bRTSNYNfA3p1P/g9QC3/Iniy3sH81iT6WsI=
+X-Microsoft-Antispam-Message-Info: IcZIBvBJK+q8qN/KLUp8vcxWZJectlOtx5pGG/b9x6Jyj9lJNY18bRbThUTjXeDg8QSFdbljsGaOsD/0B8kk7eICRlNe4dk24eC7DYyB8qgd5EMtijDU1UJXL/HpS6pBuk3ikjFfYxcrY1m/yKnhDWUSF74VRKCF8NvzLL9xY48tlYCnIzHkfFQ+/rScQthm89VtZ8nR7JW5p1srv8JiFDa582ifZWaBImAFQG5fZld8EORC3d5dEkVnkj9piB/VXQudQ+DIeevUj3FRezNO5iMoYekPzpg+REh7DxFYXlZvOSxpGJuUUqIcNF3B79p2eMMPAjE83trn80itpY9BOQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(396003)(376002)(136003)(346002)(4326008)(83380400001)(2616005)(5660300002)(52116002)(31696002)(316002)(16526019)(86362001)(186003)(8676002)(31686004)(8936002)(54906003)(36756003)(66946007)(53546011)(66476007)(66556008)(6486002)(478600001)(110136005)(2906002)(966005)(6666004)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4452.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(39860400002)(346002)(136003)(366004)(376002)(7696005)(52116002)(6916009)(478600001)(4326008)(6486002)(26005)(8936002)(36756003)(5660300002)(6666004)(16526019)(86362001)(8676002)(186003)(66946007)(44832011)(316002)(30864003)(2906002)(956004)(2616005)(83380400001)(1076003)(66556008)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: wHDOcpaMLjnX2v2lQYFMowwN5DaHsCCaxLPdJP2gEzTkg4cMiI0MyFlwSvCa0N74WLoA6sUKQ8V3nkL8GV0hJ9XTTE9vv525NcN+YQH0m4mHrsfwRXM1YXeB+2RFXNlybwMjvVVA1EEScUPOebnKXo2sTb8dqT3J6IWxtiTfFM7KKfXkUKyFfQyNQT1kyqrrMJV40J6L1OofU3RIgTe8VpVqtsxNy03WnnZjBgSo5Noq0GfTym16gcsSJT16VrdlwCAybsUKqZ3zYk+QL/XH7+2ju+mOKJ1b9kkIkA/XsDXqhmBil6UpHvlxmDL32/ua4uCM+XEYlQyX4UMVQkU2wjlUbw/PXc+6kZYMR/NBdxxJeOFmDGeKbP/qBGModzNUsjxqv17C9z7TP26UgCBsDuzJTTg+EQPd6koICnFLKgH/Ulm5zta/Zup3bz1E7YwcanRFTSDYvNKokGmRA6pkkngPORv3hK8Uz7hhxm4TbHArVThRLv6OfBvpj5m57OoXatF3MBvYCEiYngAOtdoLEPvdG6AIShGmrba7zXUOXGorjmSct8vithjWTAZI8+9htd3gM+sW6MqchF9BOm7q8/VniNsfLQd3Kz3BJwrSjumDPo0Cv+amNQZaiFy9V063BFIeepQB07T6utP9S6DQE/OxZ56Nc4w9zcvgibkcvBxS+VtOM5GkqmDiuydsWRPTmL9PpWw2DviTgk7Yn+n/NA==
+X-MS-Exchange-AntiSpam-MessageData: SeO7FvgkZ0qxl3aPwzVOHho6UgQE8/t7BPebEmCq32QmZ2UosXycjyCcBDBTuv7MB6JqmvXqdqaGF+iVBhE2ln2FTyCAlfa+Wc7j8sboRtF22bHJRr10gV6fLIlMT4Yr/rnJkg6cD2gc2vC6WMtlipq/WTdUox6bleHeE4d8Dmp9lztDwIHrrtCiruKreFXiy49NEY1Idu1wT1DM4i58gxL41nnceEu4xRYBY/9g6YsfKvJtcCfXUG67gcquflZiEmJNlCUDV8myVxp0gMyYFSTnG0UsJefWqtAxxxPUOlG/AOrTpDTv/jre/WcyfB9LHUSpUMRnD6Xq0hf2H295+Cx52ZUi60rXxSmuxst8PSIJonGT4XUtyNHmDLMUBTDBP4xemh2IxmCKPgohrfUDIYwXrrcdx0n8fJ/DfZoCnqxKHF1NVd/57mvyTAyUrFU4XaH6EKuZHXeKPOIt/J0iKy6jaX+KpwyuCbsbQCPVYYG3MgtsHetnluDGKKjVzjVkGxFLPDqhiRY5/XBvRUizCpmL06JWvmZnt6yTNqUoGO1dBjCzLvZRroBlHXc6JCxRylv0Tj40K/7B+gu4qITsN4Gd9GCZe9RfHE9D3vX/iyp5hASZFYGR1NuInZof0JlnUuAQuILJinKvRqBW1F68nQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4372cb0d-0430-4bba-3170-08d86e9d2a39
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c10f2703-01ae-4560-c63f-08d86ea4c4b7
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4452.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2020 10:54:17.2356 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2020 11:48:43.0898 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0mWk2OGoZL+HodvKcJ/Jk/mgozriSLEOYEp/r9XG5BVg0DRZyQMuhSqa9iKcP8H0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3696
+X-MS-Exchange-CrossTenant-UserPrincipalName: zTa2eAXeuynzm8ABBLzksaHKXQuLn068Ti54UVXmVshEBnOZf6972OT3pTO8iKthAncjAQ/6lLavxP930I3gEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1897
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,54 +106,377 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chauhan, Madhav" <Madhav.Chauhan@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Kamliya,
- Prakash" <Prakash.Kamliya@amd.com>, "Surampalli,
- Kishore" <Kishore.Surampalli@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Mihir Bhogilal Patel <Mihir.Patel@amd.com>, alexander.deucher@amd.com,
+ ksurampa@amd.com, Madhav.Chauhan@amd.com, pkamliya@amd.com,
+ Christian.Koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTIuMTAuMjAgdW0gMTI6NTAgc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+IEFtIDEyLjEw
-LjIwIHVtIDEyOjAwIHNjaHJpZWIgUGF0ZWwsIE1paGlyOgo+PiBbQU1EIE9mZmljaWFsIFVzZSBP
-bmx5IC0gSW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldCj4+Cj4+Cj4+Cj4+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29l
-bmlnQGFtZC5jb20+Cj4+IFNlbnQ6IE1vbmRheSwgT2N0b2JlciAxMiwgMjAyMCAzOjE0IFBNCj4+
-IFRvOiBQYXRlbCwgTWloaXIgPE1paGlyLlBhdGVsQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+PiBDYzogQ2hhdWhhbiwgTWFkaGF2IDxNYWRoYXYuQ2hhdWhhbkBhbWQu
-Y29tPjsgRGV1Y2hlciwgQWxleGFuZGVyIAo+PiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47
-IFN1cmFtcGFsbGksIEtpc2hvcmUgCj4+IDxLaXNob3JlLlN1cmFtcGFsbGlAYW1kLmNvbT47IEth
-bWxpeWEsIFByYWthc2ggPFByYWthc2guS2FtbGl5YUBhbWQuY29tPgo+PiBTdWJqZWN0OiBSZTog
-W1BBVENIIHYzXSBkcm0vYW1kZ3B1OiBBZGQgZGVidWdmcyBlbnRyeSBmb3IgcHJpbnRpbmcgVk0g
-Cj4+IGluZm8KPj4KPj4gW1NOSVBdCj4+PiBIaSBDaHJpc3RpYW4sCj4+PiBPbmUgcXVlc3Rpb24g
-cmVnYXJkaW5nIGdldHRpbmcgdG90YWwgYWxsb2NhdGlvbnMgYnkgYXBwIGFuZCBhbHNvIAo+Pj4g
-c3dhcHBlZCBzaXplIGZvciB0aGUgYXBwLgo+Pj4gU2hvdWxkbuKAmXQgd2UgcHJpbnQgbWFwcGVk
-IGVudHJpZXMgYXMgd2VsbCB0byBnZXQgdG90YWwgYWxsb2NhdGlvbiBieSAKPj4+IHRoZSBwcm9j
-ZXNzID8KPj4+IEFsc28gd2hpY2ggbGlzdCB3b3VsZCByZXByZXNlbnQgc3dhcHBlZCBtZW1vcnk/
-Cj4+IE5vbmUsIHdlIGRvbid0IHJlYWxseSBoYXZlIHRoYXQgaW5mb3JtYXRpb24gYW55d2hlcmUg
-c2luY2Ugd2UgZG9uJ3QgCj4+IHJlYWxseSBoYXZlIGEgc3dhcHBlZCBzdGF0ZS4KPj4KPj4gU2Vl
-IHdoZW4gdGhlIGFwcGxpY2F0aW9uIGFsbG9jYXRlcyBhIEJPIGluIFZSQU0gdGhlIGtlcm5lbCBk
-cml2ZXIgaXMgCj4+IGZyZWUgdG8gc3dhcCBpdCBvdXQgdG8gR1RUIGFuZCBzdGlsbCBkbyBjb21t
-YW5kIHN1Ym1pc3Npb24uIE9ubHkgd2hlbiAKPj4gaXQgaXMgZnVydGhlciBzd2FwcGVkIG91dCB0
-byB0aGUgQ1BVIGRvbWFpbiBpdCBpcyBub3QgYWNjZXNzaWJsZSBhbnkgCj4+IG1vcmUuCj4+Cj4+
-IFNvIHdoYXQgeW91IGNhbiBkbyBpcyB0byBsb29rIGF0IHRoZSBCT3MgaW4gdGhlIENQVSBkb21h
-aW4sIGJ1dCB0aGlzIAo+PiBvbmx5IGdpdmVzIHlvdSBhIGNlcnRhaW4gaGludCBvbiB3aGF0J3Mg
-Z29pbmcgb24uCj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4gVGhhbmtzIENocmlz
-dGlhbiBmb3IgY2xhcmlmeWluZyBhYm91dCBzd2FwcGVkIG1lbW9yeS4gSG93IGFib3V0IHRvdGFs
-IAo+PiBhbGxvY2F0ZWQgc2l6ZT8gQ2FuJ3Qgd2UgcHJpbnQgbWFwcGVkIEJPcyBzaW5jZSBhbWRn
-cHVfZ2VtX2luZm8gaXMgCj4+IEZJTEUvZ2VtIGhhbmRsZSBiYXNlZD8KPgo+IFRoYXQncyB3aGF0
-IHlvdSBhcmUgYWxyZWFkeSBwcmludGluZy4gRS5nLiBpZiB5b3Ugc3VtIHVwIGFsbCB0aGUgQk9z
-IAo+IGluIGFsbCB0aGUgZGlmZmVyZW50IHN0YXRlcyB0aGVuIHlvdSBoYXZlIHRoZSB0b3RhbCBh
-bW91bnQgb2YgCj4gYWxsb2NhdGVkIG1lbW9yeSBmb3IgdGhpcyBwcm9jZXNzLgo+Cj4gRXZlbiBp
-ZiBzb21lIG9mIHRoYXQgbWVtb3J5IGlzbid0IG1hcHBlZCBpbnRvIHRoZSBWTS4KClRoaW5raW5n
-IGEgYml0IG1vcmUgYWJvdXQgaXQsIHdoZW4geW91IGFsc28gbG9vayBhdCAKYm8tPnByZWZlcnJl
-ZF9kb21haW5zIGFuZCBjb21wYXJlIHRoYXQgd2l0aCB0aGUgY3VycmVudCBkb21haW4geW91IGNh
-biAKYWxzbyBmaWd1cmUgb3V0IGlmIGEgQk8gaXMgc3dhcHBlZCBvdXQgb3Igbm90LgoKQ2hyaXN0
-aWFuLgoKPgo+IENocmlzdGlhbi4KPgo+PiBSZWdhcmRzLAo+PiBNaWhpcgo+Pj4gVGhhbmtzLAo+
-Pj4gTWloaXIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Mihir Bhogilal Patel <Mihir.Patel@amd.com>
+
+Create new debugfs entry to print memory info using VM buffer
+objects.
+
+V2: Added Common function for printing BO info.
+    Dump more VM lists for evicted, moved, relocated, invalidated.
+    Removed dumping VM mapped BOs.
+V3: Fixed coding style comments, renamed print API and variables.
+V4: Fixed coding style comments.
+
+Signed-off-by: Mihir Bhogilal Patel <Mihir.Patel@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 30 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 69 ++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 74 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 83 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 +
+ 6 files changed, 199 insertions(+), 62 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 2d125b8b15ee..8ec4806c2ff4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1335,11 +1335,41 @@ static int amdgpu_debugfs_evict_gtt(struct seq_file *m, void *data)
+ 	return 0;
+ }
+ 
++static int amdgpu_debugfs_vm_info(struct seq_file *m, void *data)
++{
++	struct drm_info_node *node = (struct drm_info_node *)m->private;
++	struct drm_device *dev = node->minor->dev;
++	struct drm_file *file;
++	int r;
++
++	r = mutex_lock_interruptible(&dev->filelist_mutex);
++	if (r)
++		return r;
++
++	list_for_each_entry(file, &dev->filelist, lhead) {
++		struct amdgpu_fpriv *fpriv = file->driver_priv;
++		struct amdgpu_vm *vm = &fpriv->vm;
++
++		seq_printf(m, "pid:%d\tProcess:%s ----------\n",
++				vm->task_info.pid, vm->task_info.process_name);
++		r = amdgpu_bo_reserve(vm->root.base.bo, true);
++		if (r)
++			break;
++		amdgpu_debugfs_vm_bo_info(vm, m);
++		amdgpu_bo_unreserve(vm->root.base.bo);
++	}
++
++	mutex_unlock(&dev->filelist_mutex);
++
++	return r;
++}
++
+ static const struct drm_info_list amdgpu_debugfs_list[] = {
+ 	{"amdgpu_vbios", amdgpu_debugfs_get_vbios_dump},
+ 	{"amdgpu_test_ib", &amdgpu_debugfs_test_ib},
+ 	{"amdgpu_evict_vram", &amdgpu_debugfs_evict_vram},
+ 	{"amdgpu_evict_gtt", &amdgpu_debugfs_evict_gtt},
++	{"amdgpu_vm_info", &amdgpu_debugfs_vm_info},
+ };
+ 
+ static void amdgpu_ib_preempt_fences_swap(struct amdgpu_ring *ring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index f4c2e2e75b8f..6197c5ce744c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -826,67 +826,6 @@ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+ }
+ 
+ #if defined(CONFIG_DEBUG_FS)
+-
+-#define amdgpu_debugfs_gem_bo_print_flag(m, bo, flag)	\
+-	if (bo->flags & (AMDGPU_GEM_CREATE_ ## flag)) {	\
+-		seq_printf((m), " " #flag);		\
+-	}
+-
+-static int amdgpu_debugfs_gem_bo_info(int id, void *ptr, void *data)
+-{
+-	struct drm_gem_object *gobj = ptr;
+-	struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+-	struct seq_file *m = data;
+-
+-	struct dma_buf_attachment *attachment;
+-	struct dma_buf *dma_buf;
+-	unsigned domain;
+-	const char *placement;
+-	unsigned pin_count;
+-
+-	domain = amdgpu_mem_type_to_domain(bo->tbo.mem.mem_type);
+-	switch (domain) {
+-	case AMDGPU_GEM_DOMAIN_VRAM:
+-		placement = "VRAM";
+-		break;
+-	case AMDGPU_GEM_DOMAIN_GTT:
+-		placement = " GTT";
+-		break;
+-	case AMDGPU_GEM_DOMAIN_CPU:
+-	default:
+-		placement = " CPU";
+-		break;
+-	}
+-	seq_printf(m, "\t0x%08x: %12ld byte %s",
+-		   id, amdgpu_bo_size(bo), placement);
+-
+-	pin_count = READ_ONCE(bo->pin_count);
+-	if (pin_count)
+-		seq_printf(m, " pin count %d", pin_count);
+-
+-	dma_buf = READ_ONCE(bo->tbo.base.dma_buf);
+-	attachment = READ_ONCE(bo->tbo.base.import_attach);
+-
+-	if (attachment)
+-		seq_printf(m, " imported from %p%s", dma_buf,
+-			   attachment->peer2peer ? " P2P" : "");
+-	else if (dma_buf)
+-		seq_printf(m, " exported as %p", dma_buf);
+-
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, NO_CPU_ACCESS);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, CPU_GTT_USWC);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, VRAM_CLEARED);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, SHADOW);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, VRAM_CONTIGUOUS);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, VM_ALWAYS_VALID);
+-	amdgpu_debugfs_gem_bo_print_flag(m, bo, EXPLICIT_SYNC);
+-
+-	seq_printf(m, "\n");
+-
+-	return 0;
+-}
+-
+ static int amdgpu_debugfs_gem_info(struct seq_file *m, void *data)
+ {
+ 	struct drm_info_node *node = (struct drm_info_node *)m->private;
+@@ -900,6 +839,8 @@ static int amdgpu_debugfs_gem_info(struct seq_file *m, void *data)
+ 
+ 	list_for_each_entry(file, &dev->filelist, lhead) {
+ 		struct task_struct *task;
++		struct drm_gem_object *gobj;
++		int id;
+ 
+ 		/*
+ 		 * Although we have a valid reference on file->pid, that does
+@@ -914,7 +855,11 @@ static int amdgpu_debugfs_gem_info(struct seq_file *m, void *data)
+ 		rcu_read_unlock();
+ 
+ 		spin_lock(&file->table_lock);
+-		idr_for_each(&file->object_idr, amdgpu_debugfs_gem_bo_info, m);
++		idr_for_each_entry(&file->object_idr, gobj, id) {
++			struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
++
++			amdgpu_bo_print_info(id, bo, m);
++		}
+ 		spin_unlock(&file->table_lock);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 2ce79bccfc30..0fa5de0f1dc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1528,3 +1528,77 @@ uint32_t amdgpu_bo_get_preferred_pin_domain(struct amdgpu_device *adev,
+ 	}
+ 	return domain;
+ }
++
++#if defined(CONFIG_DEBUG_FS)
++#define amdgpu_bo_print_flag(m, bo, flag)		        \
++	do {							\
++		if (bo->flags & (AMDGPU_GEM_CREATE_ ## flag)) {	\
++			seq_printf((m), " " #flag);		\
++		}						\
++	} while (0)
++
++/**
++ * amdgpu_debugfs_print_bo_info - print BO info in debugfs file
++ *
++ * @id: Index or Id of the BO
++ * @bo: Requested BO for printing info
++ * @m: debugfs file
++ *
++ * Print BO information in debugfs file
++ *
++ * Returns:
++ * Size of the BO in bytes.
++ */
++u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
++{
++	struct dma_buf_attachment *attachment;
++	struct dma_buf *dma_buf;
++	unsigned int domain;
++	const char *placement;
++	unsigned int pin_count;
++	u64 size;
++
++	domain = amdgpu_mem_type_to_domain(bo->tbo.mem.mem_type);
++	switch (domain) {
++	case AMDGPU_GEM_DOMAIN_VRAM:
++		placement = "VRAM";
++		break;
++	case AMDGPU_GEM_DOMAIN_GTT:
++		placement = " GTT";
++		break;
++	case AMDGPU_GEM_DOMAIN_CPU:
++	default:
++		placement = " CPU";
++		break;
++	}
++
++	size = amdgpu_bo_size(bo);
++	seq_printf(m, "\t\t0x%08x: %12lld byte %s",
++			id, size, placement);
++
++	pin_count = READ_ONCE(bo->pin_count);
++	if (pin_count)
++		seq_printf(m, " pin count %d", pin_count);
++
++	dma_buf = READ_ONCE(bo->tbo.base.dma_buf);
++	attachment = READ_ONCE(bo->tbo.base.import_attach);
++
++	if (attachment)
++		seq_printf(m, " imported from %p", dma_buf);
++	else if (dma_buf)
++		seq_printf(m, " exported as %p", dma_buf);
++
++	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
++	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
++	amdgpu_bo_print_flag(m, bo, CPU_GTT_USWC);
++	amdgpu_bo_print_flag(m, bo, VRAM_CLEARED);
++	amdgpu_bo_print_flag(m, bo, SHADOW);
++	amdgpu_bo_print_flag(m, bo, VRAM_CONTIGUOUS);
++	amdgpu_bo_print_flag(m, bo, VM_ALWAYS_VALID);
++	amdgpu_bo_print_flag(m, bo, EXPLICIT_SYNC);
++
++	seq_puts(m, "\n");
++
++	return size;
++}
++#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index afa5189dba7d..5e0311e4c198 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -330,6 +330,7 @@ void amdgpu_sa_bo_free(struct amdgpu_device *adev,
+ #if defined(CONFIG_DEBUG_FS)
+ void amdgpu_sa_bo_dump_debug_info(struct amdgpu_sa_manager *sa_manager,
+ 					 struct seq_file *m);
++u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m);
+ #endif
+ int amdgpu_debugfs_sa_init(struct amdgpu_device *adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3cd949aad500..122814c3ff5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3392,3 +3392,86 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, unsigned int pasid,
+ 
+ 	return false;
+ }
++
++#if defined(CONFIG_DEBUG_FS)
++/**
++ * amdgpu_debugfs_vm_bo_info  - print BO info for the VM
++ *
++ * @vm: Requested VM for printing BO info
++ * @m: debugfs file
++ *
++ * Print BO information in debugfs file for the VM
++ */
++void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
++{
++	struct amdgpu_bo_va *bo_va, *tmp;
++	u64 total_idle = 0;
++	u64 total_evicted = 0;
++	u64 total_relocated = 0;
++	u64 total_moved = 0;
++	u64 total_invalidated = 0;
++	unsigned int total_idle_objs = 0;
++	unsigned int total_evicted_objs = 0;
++	unsigned int total_relocated_objs = 0;
++	unsigned int total_moved_objs = 0;
++	unsigned int total_invalidated_objs = 0;
++	unsigned int id = 0;
++
++	seq_puts(m, "\tIdle BOs:\n");
++	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status) {
++		if (!bo_va->base.bo)
++			continue;
++		total_idle += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
++	}
++	total_idle_objs = id;
++	id = 0;
++
++	seq_puts(m, "\tEvicted BOs:\n");
++	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status) {
++		if (!bo_va->base.bo)
++			continue;
++		total_evicted += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
++	}
++	total_evicted_objs = id;
++	id = 0;
++
++	seq_puts(m, "\tRelocated BOs:\n");
++	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status) {
++		if (!bo_va->base.bo)
++			continue;
++		total_relocated += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
++	}
++	total_relocated_objs = id;
++	id = 0;
++
++	seq_puts(m, "\tMoved BOs:\n");
++	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status) {
++		if (!bo_va->base.bo)
++			continue;
++		total_moved += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
++	}
++	total_moved_objs = id;
++	id = 0;
++
++	seq_puts(m, "\tInvalidated BOs:\n");
++	spin_lock(&vm->invalidated_lock);
++	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
++		if (!bo_va->base.bo)
++			continue;
++		total_invalidated += amdgpu_bo_print_info(id++,	bo_va->base.bo, m);
++	}
++	spin_unlock(&vm->invalidated_lock);
++	total_invalidated_objs = id;
++
++	seq_printf(m, "\tTotal idle size:        %12lld\tobjs:\t%d\n", total_idle,
++		   total_idle_objs);
++	seq_printf(m, "\tTotal evicted size:     %12lld\tobjs:\t%d\n", total_evicted,
++		   total_evicted_objs);
++	seq_printf(m, "\tTotal relocated size:   %12lld\tobjs:\t%d\n", total_relocated,
++		   total_relocated_objs);
++	seq_printf(m, "\tTotal moved size:       %12lld\tobjs:\t%d\n", total_moved,
++		   total_moved_objs);
++	seq_printf(m, "\tTotal invalidated size: %12lld\tobjs:\t%d\n", total_invalidated,
++		   total_invalidated_objs);
++}
++#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 7c46937c1c0e..74cc14179c41 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -441,4 +441,8 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ 				struct amdgpu_vm *vm);
+ void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo);
+ 
++#if defined(CONFIG_DEBUG_FS)
++void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
++#endif
++
+ #endif
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
