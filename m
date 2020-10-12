@@ -3,52 +3,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72844C433E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 335AAC4363A
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1BBF020773
+	by mail.kernel.org (Postfix) with ESMTPS id C9F7620790
 	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BBF020773
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9F7620790
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C9E6E437;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8106E439;
 	Mon, 12 Oct 2020 09:00:09 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3C8C6E07D;
- Mon, 12 Oct 2020 05:28:25 +0000 (UTC)
-IronPort-SDR: 2KdJLvv+gy2scbZTa7CUYvQR3W0nRz6A4hSoVNe3Livymen/RjI0UKME1ZSKlOZ1kVLSNTdfeQ
- PcBjShwC6n7w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9771"; a="163052538"
-X-IronPort-AV: E=Sophos;i="5.77,365,1596524400"; d="scan'208";a="163052538"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2020 22:28:23 -0700
-IronPort-SDR: Awdi9Evv+UAQx0jH4ny/s7+Nxcmli85F+a73BOsSCHQvCG+q13xwJ2JLwUM5pKItlqpgm8qi5b
- o2XGvRLHUUbw==
-X-IronPort-AV: E=Sophos;i="5.77,365,1596524400"; d="scan'208";a="529816997"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2020 22:28:22 -0700
-Date: Sun, 11 Oct 2020 22:28:18 -0700
-From: Ira Weiny <ira.weiny@intel.com>
-To: Coly Li <colyli@suse.de>
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB66789E0C;
+ Mon, 12 Oct 2020 07:40:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3DEE1AC1D;
+ Mon, 12 Oct 2020 07:40:52 +0000 (UTC)
 Subject: Re: [PATCH RFC PKS/PMEM 48/58] drivers/md: Utilize new kmap_thread()
-Message-ID: <20201012052817.GZ2046448@iweiny-DESK2.sc.intel.com>
+To: Ira Weiny <ira.weiny@intel.com>
 References: <20201009195033.3208459-1-ira.weiny@intel.com>
  <20201009195033.3208459-49-ira.weiny@intel.com>
  <c802fbf4-f67a-b205-536d-9c71b440f9c8@suse.de>
+ <20201012052817.GZ2046448@iweiny-DESK2.sc.intel.com>
+From: Coly Li <colyli@suse.de>
+Autocrypt: addr=colyli@suse.de; keydata=
+ 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
+Message-ID: <026a7658-6c43-6510-a8b5-32f29de7b281@suse.de>
+Date: Mon, 12 Oct 2020 15:40:27 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c802fbf4-f67a-b205-536d-9c71b440f9c8@suse.de>
-User-Agent: Mutt/1.11.1 (2018-12-01)
+In-Reply-To: <20201012052817.GZ2046448@iweiny-DESK2.sc.intel.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 12 Oct 2020 09:00:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,49 +128,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Oct 10, 2020 at 10:20:34AM +0800, Coly Li wrote:
-> On 2020/10/10 03:50, ira.weiny@intel.com wrote:
-> > From: Ira Weiny <ira.weiny@intel.com>
-> > 
-> > These kmap() calls are localized to a single thread.  To avoid the over
-> > head of global PKRS updates use the new kmap_thread() call.
-> > 
+On 2020/10/12 13:28, Ira Weiny wrote:
+> On Sat, Oct 10, 2020 at 10:20:34AM +0800, Coly Li wrote:
+>> On 2020/10/10 03:50, ira.weiny@intel.com wrote:
+>>> From: Ira Weiny <ira.weiny@intel.com>
+>>>
+>>> These kmap() calls are localized to a single thread.  To avoid the over
+>>> head of global PKRS updates use the new kmap_thread() call.
+>>>
+>>
+>> Hi Ira,
+>>
+>> There were a number of options considered.
+>>
+>> 1) Attempt to change all the thread local kmap() calls to kmap_atomic()
+>> 2) Introduce a flags parameter to kmap() to indicate if the mapping
+>> should be global or not
+>> 3) Change ~20-30 call sites to 'kmap_global()' to indicate that they
+>> require a global mapping of the pages
+>> 4) Change ~209 call sites to 'kmap_thread()' to indicate that the
+>> mapping is to be used within that thread of execution only
+>>
+>>
+>> I copied the above information from patch 00/58 to this message. The
+>> idea behind kmap_thread() is fine to me, but as you said the new api is
+>> very easy to be missed in new code (even for me). I would like to be
+>> supportive to option 2) introduce a flag to kmap(), then we won't forget
+>> the new thread-localized kmap method, and people won't ask why a
+>> _thread() function is called but no kthread created.
 > 
-> Hi Ira,
+> Thanks for the feedback.
 > 
-> There were a number of options considered.
-> 
-> 1) Attempt to change all the thread local kmap() calls to kmap_atomic()
-> 2) Introduce a flags parameter to kmap() to indicate if the mapping
-> should be global or not
-> 3) Change ~20-30 call sites to 'kmap_global()' to indicate that they
-> require a global mapping of the pages
-> 4) Change ~209 call sites to 'kmap_thread()' to indicate that the
-> mapping is to be used within that thread of execution only
-> 
-> 
-> I copied the above information from patch 00/58 to this message. The
-> idea behind kmap_thread() is fine to me, but as you said the new api is
-> very easy to be missed in new code (even for me). I would like to be
-> supportive to option 2) introduce a flag to kmap(), then we won't forget
-> the new thread-localized kmap method, and people won't ask why a
-> _thread() function is called but no kthread created.
+> I'm going to hold off making any changes until others weigh in.  FWIW, I kind
+> of like option 2 as well.  But there is already kmap_atomic() so it seemed like
+> kmap_XXXX() was more in line with the current API.
 
-Thanks for the feedback.
+I understand it now, the idea is fine to me.
 
-I'm going to hold off making any changes until others weigh in.  FWIW, I kind
-of like option 2 as well.  But there is already kmap_atomic() so it seemed like
-kmap_XXXX() was more in line with the current API.
+Acked-by: Coly Li <colyli@suse.de>
 
-Thanks,
-Ira
+Thanks.
 
-> 
-> Thanks.
-> 
-> 
-> Coly Li
-> 
+Coly Li
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
