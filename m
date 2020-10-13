@@ -1,92 +1,99 @@
-Return-Path: <SRS0=L/30=DT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=VV5o=DU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDD45C4363D
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 711D0C433E7
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 06:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6223220790
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2020 09:00:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D31DA20714
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 06:46:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fFl+sWZ6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6223220790
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=zurich.ibm.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EBR82tuu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D31DA20714
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDC816E44C;
-	Mon, 12 Oct 2020 09:00:09 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18A506EEBA
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 11:36:57 +0000 (UTC)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09ABWqCa113289
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 07:36:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=in-reply-to : subject :
- from : to : cc : date : mime-version : references :
- content-transfer-encoding : content-type : message-id; s=pp1;
- bh=NiDLo4pOxkTOHNh379y2lMt59tGJeK9BGhibE+AHe30=;
- b=fFl+sWZ60CJNW5vj7Uw0QdIFBZaJLDIK+TmFY7+uXdPQEExbAUVKU05YhKg5dS5u6J9M
- gRTcbWK1ehAiHgiW0QiEErv4vh+5MOV1iJMmz3AgZqVrCWi+Nh1nNGlGLl5qNxYu9TT3
- rsErWvzJTnT/TvD/yGmIkQ5cIJnW2dxyfP5KEerqQF50430xLTdRCdzrzGOBj/IVBjpb
- ZIGntFQpbgC01amsKXwfy1cB65UwCiqnbdgLT6Z6Qd+CSe7yV4n3BXy+qSd8xdiYdQTK
- an7SA2yY6csjDSnstIEkYdPhg6mYvKJGwGGY1NoLkcuzdqKyvDxx/5UGYpv3tzPn6Oq9 ZA== 
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.91])
- by mx0a-001b2d01.pphosted.com with ESMTP id 343b0wh7j4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Oct 2020 07:36:56 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <amd-gfx@lists.freedesktop.org> from <BMT@zurich.ibm.com>;
- Sat, 10 Oct 2020 11:36:55 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Sat, 10 Oct 2020 11:36:50 -0000
-Received: from us1a3-mail162.a3.dal06.isc4sb.com ([10.146.71.4])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2020101011364991-175970 ;
- Sat, 10 Oct 2020 11:36:49 +0000 
-In-Reply-To: <20201009195033.3208459-11-ira.weiny@intel.com>
-Subject: Re: [PATCH RFC PKS/PMEM 10/58] drivers/rdma: Utilize new kmap_thread()
-From: "Bernard Metzler" <BMT@zurich.ibm.com>
-To: ira.weiny@intel.com
-Date: Sat, 10 Oct 2020 11:36:49 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF196E466;
+	Tue, 13 Oct 2020 06:46:08 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 770C76E466
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 06:46:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hB5Tm8kCb3pMmYYtZMOmJuhQFdr+TVTQcBoH6BJqrJv7K84PGxtjCoOkCDBd7P2jszuZowuSXaHmdpq2Z6q51U0x0ZiTNoTHBYK+Z6jhZappDtee1nfQa5Zs68CozWo9IHloEecZ5IDiNqJB7boxrNpxX68QzHjm+IMMO043xlI0HNqgJYUmKxboWHIIQL/E9Qna5085mEZQQTNN4NV2/5xcRisAlNy28gnr5d9wFENsq/M137COVWhoeJ8YI96jBYjtUlmFqiYuLG5FmRHeF5kjIEhvfcte5glSc3r2gMHF97jALLsT3nBnF/7Tzj0r2LrvkUaf7ctGZMdfvUMOOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fvLxJJK0zj+B/anYFtFB/ACHfHehGwcQl3u4xI/j/XE=;
+ b=lvIkoRRTPfvi07kJkZJxWb9g9FytoDLqSHZp5TIbZq+Ysy5NHvIltvA86CID0sEG3Ev95TPqppvriu/JGsQ/fyAEnyTPTprh5tMTKAZDCxxgl5WxPPXlvNTDCHPbwhW5WMRTApJxD2DiVINgaDaMr4DmVAb4sNcd+b6Rm6eLRpsbk0olvOHFaHGuY988Y5mywyFn/cIuC+76y8JAxix5DpkODbgyUFSKnFpeel/NMXUGUo9wvw4y2s9am74QRDe5G4S5KTotYaXyPWICLGuVjl3a02A3C+25B+CoObHS3qkhKiyjsac7biUbuyeNzum0dU6z61Iww9K4Gh2AV+4CCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fvLxJJK0zj+B/anYFtFB/ACHfHehGwcQl3u4xI/j/XE=;
+ b=EBR82tuuHiBoouIxK6HdfkyJGMp2ehV+rEeA78f4K6XdAvQdArOeLtpPaUApMkFV8goS49Spw/Ucis5ddGq+FlklE5MAAUIX9qfJZ/EeqM7KZnsaxFOv0ejubHfTjU3qj1QxVH9zOkITsAkzUUPoFNYwBHOSx2mEtAtr4ptsKr8=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM5PR12MB4678.namprd12.prod.outlook.com (2603:10b6:4:a9::39) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3455.21; Tue, 13 Oct 2020 06:46:04 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3455.029; Tue, 13 Oct 2020
+ 06:46:04 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/pm: increase mclk switch threshold to 200 us
+Date: Tue, 13 Oct 2020 14:45:43 +0800
+Message-Id: <20201013064543.22320-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.28.0
+X-Originating-IP: [58.247.170.242]
+X-ClientProxiedBy: HK2PR02CA0158.apcprd02.prod.outlook.com
+ (2603:1096:201:1f::18) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <20201009195033.3208459-11-ira.weiny@intel.com>,
- <20201009195033.3208459-1-ira.weiny@intel.com>
-X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
- SCN1812108_20180501T0841_FP65 April 15, 2020 at 09:48
-X-LLNOutbound: False
-X-Disclaimed: 59823
-X-TNEFEvaluated: 1
-x-cbid: 20101011-2475-0000-0000-0000044A0339
-X-IBM-SpamModules-Scores: BY=0.233045; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.421684; ST=0; TS=0; UL=0; ISC=; MB=0.000000
-X-IBM-SpamModules-Versions: BY=3.00013982; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000295; SDB=6.01447073; UDB=6.00777937; IPR=6.01229775; 
- MB=3.00034472; MTD=3.00000008; XFM=3.00000015; UTC=2020-10-10 11:36:54
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2020-10-10 06:57:40 - 6.00011937
-x-cbparentid: 20101011-2476-0000-0000-0000DAA5035B
-Message-Id: <OF849D92D8.F4735ECA-ON002585FD.003F5F27-002585FD.003FCBD6@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-10_07:2020-10-09,
- 2020-10-10 signatures=0
-X-Proofpoint-Spam-Reason: orgsafe
-X-Mailman-Approved-At: Mon, 12 Oct 2020 09:00:07 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from equan-buildpc.amd.com (58.247.170.242) by
+ HK2PR02CA0158.apcprd02.prod.outlook.com (2603:1096:201:1f::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3455.21 via Frontend Transport; Tue, 13 Oct 2020 06:46:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: b1bb2ded-769b-44d2-d467-08d86f43a7a4
+X-MS-TrafficTypeDiagnostic: DM5PR12MB4678:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB46789CFA94E1019593757B17E4040@DM5PR12MB4678.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: teMBu+hIk3Z+C2vWZd13KZ1Vvfme253I0IqjiW+fbtGUsazZ4BlPUwZNIdzOm9ouOcjuRrnyzdug6KVYr4YX48YESKfMkxzIcZ8OX/hfeKIF2bpcZbiAFgkrE7Pi2rgfcm4wROgEaiQLXyMxE8BYH/3V/LNI03DdoKuvjWEexgYk2KTyrzAIJ/aYA1AJrFbrHrCfh0xWf9LjNU5QtmwOflh/9ToTsoXSQ34lRx4u872u8bbh9pBIfCDuNRV1gN58B23SIz8AR0sGueXvscDj8Birdm+YIAFil/QkLGA2273wzzJ1rxIbK01YC5i0y/xutzWdvNbH9/emsjFg9cfuEw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(5660300002)(1076003)(4744005)(83380400001)(2616005)(316002)(6916009)(956004)(26005)(6486002)(186003)(66476007)(44832011)(8936002)(36756003)(478600001)(4326008)(8676002)(6666004)(66946007)(2906002)(66556008)(16526019)(52116002)(7696005)(86362001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 4HTWoiPt4iYdO3ukZqIfrV/WNHSMaTwh6GvxrOm33hAMf2UKLdDbWyXTxdky5FhYXtxJpZ+6Jj0E3N0g13qCxsDJoFjGWKO8DLoSXzo8grXSmob7foNfl4k2UIh44xTKl2XDCrcxV63cWg+hx5rvoB5EOwxFWF8mU8d+7SEaCaYma7qa/73CxRPA/I+eEZRWAHCvzMpgX6AiaN9WKJ2kLPliksqCxnnjotQHuDNjc5hGcPCfhfPT4GsklQewYq89qtDrJGQieZ+9WaMC7Rqj7TaZ2n1+nrqwqZHopioWwvoPyH0FmBTxJKqoMpUsJgdOcNYtPmNLnb9NCI/Gl+GQFbdRqK1BzN+lopY3A13Vi651Ni0blZqs7JWKk/KSvqe2i5JTRza6ld8ZQhVSnUwkW32qNIxLub7oGsmAuagiw0nmlVGfr3hFxUya27APn3Yf/KikaNe8ojnHXp0wB793csyeoXWP+CZIavgcIfjPLvJzxKAz3FtJuGZI5Olh9dailmwaiFeDRPaR/Zmf2Ljc0cfhSrHIBonwKr1ZlwuHYyhlQK5gLioh7kFI7HE0V5mpQ7t+jQMcoXgQbVNbcQ8ij4E6l9c4IW0T9K/gaWRpOm99zP5x6umlTs3Gmv80zI76qW+6oGeMXG0fDdfkF9zjHA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1bb2ded-769b-44d2-d467-08d86f43a7a4
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2020 06:46:04.3651 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X0imC/NHN6lueElAz0phodx/LN/hxVe0dqs1xNX/NbO/Zo+O1Wr4R/ro4lXNvvPC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB4678
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,247 +105,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-efi@vger.kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
- linux-mmc@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-kselftest@vger.kernel.org, samba-technical@lists.samba.org,
- Thomas Gleixner <tglx@linutronix.de>, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-nvdimm@lists.01.org,
- linux-rdma@vger.kernel.org, x86@kernel.org, ceph-devel@vger.kernel.org,
- io-uring@vger.kernel.org, cluster-devel@redhat.com, Jason
- Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
- Ingo Molnar <mingo@redhat.com>, intel-wired-lan@lists.osuosl.org,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- Fenghua Yu <fenghua.yu@intel.com>, linux-afs@lists.infradead.org,
- Faisal Latif <faisal.latif@intel.com>, linux-um@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-nfs@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-bcache@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
- Andy Lutomirski <luto@kernel.org>, drbd-dev@tron.linbit.com,
- amd-gfx@lists.freed.esktop.org, Dan Williams <dan.j.williams@intel.com>,
- Shiraz
- Saleem <shiraz.saleem@intel.com>, bpf@vger.kernel.org, linux-cachefs@redhat.com,
- Mike Marciniszyn <mike.marciniszyn@intel.com>,
- linux-ntfs-dev@lists.sourceforge.net, netdev@vger.kernel.org,
- Dennis Dalessandro <dennis.dalessandro@intel.com>, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.kernel.org
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
------ira.weiny@intel.com wrote: -----
+To avoid underflow seen on Polaris10 with some 3440x1440
+144Hz displays. As the threshold of 190 us cuts too close
+to minVBlankTime of 192 us.
 
->To: "Andrew Morton" <akpm@linux-foundation.org>, "Thomas Gleixner"
-><tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>, "Borislav
->Petkov" <bp@alien8.de>, "Andy Lutomirski" <luto@kernel.org>, "Peter
->Zijlstra" <peterz@infradead.org>
->From: ira.weiny@intel.com
->Date: 10/09/2020 09:52PM
->Cc: "Ira Weiny" <ira.weiny@intel.com>, "Mike Marciniszyn"
-><mike.marciniszyn@intel.com>, "Dennis Dalessandro"
-><dennis.dalessandro@intel.com>, "Doug Ledford" <dledford@redhat.com>,
->"Jason Gunthorpe" <jgg@ziepe.ca>, "Faisal Latif"
-><faisal.latif@intel.com>, "Shiraz Saleem" <shiraz.saleem@intel.com>,
->"Bernard Metzler" <bmt@zurich.ibm.com>, x86@kernel.org, "Dave Hansen"
-><dave.hansen@linux.intel.com>, "Dan Williams"
-><dan.j.williams@intel.com>, "Fenghua Yu" <fenghua.yu@intel.com>,
->linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
->linux-nvdimm@lists.01.org, linux-fsdevel@vger.kernel.org,
->linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
->linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
->netdev@vger.kernel.org, bpf@vger.kernel.org,
->kexec@lists.infradead.org, linux-bcache@vger.kernel.org,
->linux-mtd@lists.infradead.org, devel@driverdev.osuosl.org,
->linux-efi@vger.kernel.org, linux-mmc@vger.kernel.org,
->linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
->linux-nfs@vger.kernel.org, ceph-devel@vger.kernel.org,
->linux-ext4@vger.kernel.org, linux-aio@kvack.org,
->io-uring@vger.kernel.org, linux-erofs@lists.ozlabs.org,
->linux-um@lists.infradead.org, linux-ntfs-dev@lists.sourceforge.net,
->reiserfs-devel@vger.kernel.org,
->linux-f2fs-devel@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
->cluster-devel@redhat.com, ecryptfs@vger.kernel.org,
->linux-cifs@vger.kernel.org, linux-btrfs@vger.kernel.org,
->linux-afs@lists.infradead.org, linux-rdma@vger.kernel.org,
->amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
->intel-gfx@lists.freedesktop.org, drbd-dev@tron.linbit.com,
->linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
->linux-cachefs@redhat.com, samba-technical@lists.samba.org,
->intel-wired-lan@lists.osuosl.org
->Subject: [EXTERNAL] [PATCH RFC PKS/PMEM 10/58] drivers/rdma: Utilize
->new kmap_thread()
->
->From: Ira Weiny <ira.weiny@intel.com>
->
->The kmap() calls in these drivers are localized to a single thread.
->To
->avoid the over head of global PKRS updates use the new kmap_thread()
->call.
->
->Cc: Mike Marciniszyn <mike.marciniszyn@intel.com>
->Cc: Dennis Dalessandro <dennis.dalessandro@intel.com>
->Cc: Doug Ledford <dledford@redhat.com>
->Cc: Jason Gunthorpe <jgg@ziepe.ca>
->Cc: Faisal Latif <faisal.latif@intel.com>
->Cc: Shiraz Saleem <shiraz.saleem@intel.com>
->Cc: Bernard Metzler <bmt@zurich.ibm.com>
->Signed-off-by: Ira Weiny <ira.weiny@intel.com>
->---
-> drivers/infiniband/hw/hfi1/sdma.c      |  4 ++--
-> drivers/infiniband/hw/i40iw/i40iw_cm.c | 10 +++++-----
-> drivers/infiniband/sw/siw/siw_qp_tx.c  | 14 +++++++-------
-> 3 files changed, 14 insertions(+), 14 deletions(-)
->
->diff --git a/drivers/infiniband/hw/hfi1/sdma.c
->b/drivers/infiniband/hw/hfi1/sdma.c
->index 04575c9afd61..09d206e3229a 100644
->--- a/drivers/infiniband/hw/hfi1/sdma.c
->+++ b/drivers/infiniband/hw/hfi1/sdma.c
->@@ -3130,7 +3130,7 @@ int ext_coal_sdma_tx_descs(struct hfi1_devdata
->*dd, struct sdma_txreq *tx,
-> 		}
-> 
-> 		if (type == SDMA_MAP_PAGE) {
->-			kvaddr = kmap(page);
->+			kvaddr = kmap_thread(page);
-> 			kvaddr += offset;
-> 		} else if (WARN_ON(!kvaddr)) {
-> 			__sdma_txclean(dd, tx);
->@@ -3140,7 +3140,7 @@ int ext_coal_sdma_tx_descs(struct hfi1_devdata
->*dd, struct sdma_txreq *tx,
-> 		memcpy(tx->coalesce_buf + tx->coalesce_idx, kvaddr, len);
-> 		tx->coalesce_idx += len;
-> 		if (type == SDMA_MAP_PAGE)
->-			kunmap(page);
->+			kunmap_thread(page);
-> 
-> 		/* If there is more data, return */
-> 		if (tx->tlen - tx->coalesce_idx)
->diff --git a/drivers/infiniband/hw/i40iw/i40iw_cm.c
->b/drivers/infiniband/hw/i40iw/i40iw_cm.c
->index a3b95805c154..122d7a5642a1 100644
->--- a/drivers/infiniband/hw/i40iw/i40iw_cm.c
->+++ b/drivers/infiniband/hw/i40iw/i40iw_cm.c
->@@ -3721,7 +3721,7 @@ int i40iw_accept(struct iw_cm_id *cm_id, struct
->iw_cm_conn_param *conn_param)
-> 		ibmr->device = iwpd->ibpd.device;
-> 		iwqp->lsmm_mr = ibmr;
-> 		if (iwqp->page)
->-			iwqp->sc_qp.qp_uk.sq_base = kmap(iwqp->page);
->+			iwqp->sc_qp.qp_uk.sq_base = kmap_thread(iwqp->page);
-> 		dev->iw_priv_qp_ops->qp_send_lsmm(&iwqp->sc_qp,
-> 							iwqp->ietf_mem.va,
-> 							(accept.size + conn_param->private_data_len),
->@@ -3729,12 +3729,12 @@ int i40iw_accept(struct iw_cm_id *cm_id,
->struct iw_cm_conn_param *conn_param)
-> 
-> 	} else {
-> 		if (iwqp->page)
->-			iwqp->sc_qp.qp_uk.sq_base = kmap(iwqp->page);
->+			iwqp->sc_qp.qp_uk.sq_base = kmap_thread(iwqp->page);
-> 		dev->iw_priv_qp_ops->qp_send_lsmm(&iwqp->sc_qp, NULL, 0, 0);
-> 	}
-> 
-> 	if (iwqp->page)
->-		kunmap(iwqp->page);
->+		kunmap_thread(iwqp->page);
-> 
-> 	iwqp->cm_id = cm_id;
-> 	cm_node->cm_id = cm_id;
->@@ -4102,10 +4102,10 @@ static void i40iw_cm_event_connected(struct
->i40iw_cm_event *event)
-> 	i40iw_cm_init_tsa_conn(iwqp, cm_node);
-> 	read0 = (cm_node->send_rdma0_op == SEND_RDMA_READ_ZERO);
-> 	if (iwqp->page)
->-		iwqp->sc_qp.qp_uk.sq_base = kmap(iwqp->page);
->+		iwqp->sc_qp.qp_uk.sq_base = kmap_thread(iwqp->page);
-> 	dev->iw_priv_qp_ops->qp_send_rtt(&iwqp->sc_qp, read0);
-> 	if (iwqp->page)
->-		kunmap(iwqp->page);
->+		kunmap_thread(iwqp->page);
-> 
-> 	memset(&attr, 0, sizeof(attr));
-> 	attr.qp_state = IB_QPS_RTS;
->diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c
->b/drivers/infiniband/sw/siw/siw_qp_tx.c
->index d19d8325588b..4ed37c328d02 100644
->--- a/drivers/infiniband/sw/siw/siw_qp_tx.c
->+++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
->@@ -76,7 +76,7 @@ static int siw_try_1seg(struct siw_iwarp_tx *c_tx,
->void *paddr)
-> 			if (unlikely(!p))
-> 				return -EFAULT;
-> 
->-			buffer = kmap(p);
->+			buffer = kmap_thread(p);
-> 
-> 			if (likely(PAGE_SIZE - off >= bytes)) {
-> 				memcpy(paddr, buffer + off, bytes);
->@@ -84,7 +84,7 @@ static int siw_try_1seg(struct siw_iwarp_tx *c_tx,
->void *paddr)
-> 				unsigned long part = bytes - (PAGE_SIZE - off);
-> 
-> 				memcpy(paddr, buffer + off, part);
->-				kunmap(p);
->+				kunmap_thread(p);
-> 
-> 				if (!mem->is_pbl)
-> 					p = siw_get_upage(mem->umem,
->@@ -96,10 +96,10 @@ static int siw_try_1seg(struct siw_iwarp_tx
->*c_tx, void *paddr)
-> 				if (unlikely(!p))
-> 					return -EFAULT;
-> 
->-				buffer = kmap(p);
->+				buffer = kmap_thread(p);
-> 				memcpy(paddr + part, buffer, bytes - part);
-> 			}
->-			kunmap(p);
->+			kunmap_thread(p);
-> 		}
-> 	}
-> 	return (int)bytes;
->@@ -505,7 +505,7 @@ static int siw_tx_hdt(struct siw_iwarp_tx *c_tx,
->struct socket *s)
-> 				page_array[seg] = p;
-> 
-> 				if (!c_tx->use_sendpage) {
->-					iov[seg].iov_base = kmap(p) + fp_off;
->+					iov[seg].iov_base = kmap_thread(p) + fp_off;
+Change-Id: Ieca0dc900f0b5764dc661e397e41e8c277ff13de
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This misses a corresponding kunmap_thread() in siw_unmap_pages()
-(pls change line 403 in siw_qp_tx.c as well)
-
-Thanks,
-Bernard.
-
-> 					iov[seg].iov_len = plen;
-> 
-> 					/* Remember for later kunmap() */
->@@ -518,9 +518,9 @@ static int siw_tx_hdt(struct siw_iwarp_tx *c_tx,
->struct socket *s)
-> 							plen);
-> 				} else if (do_crc) {
-> 					crypto_shash_update(c_tx->mpa_crc_hd,
->-							    kmap(p) + fp_off,
->+							    kmap_thread(p) + fp_off,
-> 							    plen);
->-					kunmap(p);
->+					kunmap_thread(p);
-> 				}
-> 			} else {
-> 				u64 va = sge->laddr + sge_off;
->-- 
->2.28.0.rc0.12.gb6a658bd00c9
->
->
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 3bf8be4d107b..1e8919b0acdb 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2883,7 +2883,7 @@ static int smu7_vblank_too_short(struct pp_hwmgr *hwmgr,
+ 		if (hwmgr->is_kicker)
+ 			switch_limit_us = data->is_memory_gddr5 ? 450 : 150;
+ 		else
+-			switch_limit_us = data->is_memory_gddr5 ? 190 : 150;
++			switch_limit_us = data->is_memory_gddr5 ? 200 : 150;
+ 		break;
+ 	case CHIP_VEGAM:
+ 		switch_limit_us = 30;
+-- 
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
