@@ -2,105 +2,66 @@ Return-Path: <SRS0=VV5o=DU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4F4BC433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91F59C433E7
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F6F822461
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:41:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2A4DB22E03
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 13:11:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FUD+FvhD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F6F822461
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d7rK4C8m"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A4DB22E03
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDC96E30D;
-	Tue, 13 Oct 2020 12:41:43 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF6966E30D;
- Tue, 13 Oct 2020 12:41:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iRBB838i14AS9DvYcr0jikoBgcGS09aQG+oLz/zKZ1rwsLVq4uieEwt4eCKAl5UtcBNRQ5VxUyvjAOsIU5Wq05tD1NCoglOzg3UhtRoXPfOg+FYDffhvsKkUEsAZvdctwynJalmUkL1tgivhVwmABLUMcaKBriFGHNgM9aZ/mxfXiG9SQsI7M468uDMRYsSOc//Xzf0zV/1g/7xwInpl71KfBoizDuE2XvfnNWVjPB76Z9HPHNDH+5nRtmRzNd9sfjYs7NoHULTn94Z4rKaIL1a5ORmn1ufOjVYGJ+j7FkkJEeUFDmbcz6AYBQhBkXqo1cuU4MDUWUx3nrZ1sllI9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFzoAspnzrGSlxB4um6wmOt6wviJg+HS0xcX+sd2tqE=;
- b=BJik+hVxuHtKym58J0oarAS4ZuS9DU6osC9OT2Xk5LSCcZn2JIlkrW2Gwortar1q8TwCJqisXFN1gxF8LeR2aqyXAbymfNWdyFZyVTnTF5WYeQmq7QBKZK0YElVm6mWQ+XFtU2DBI5hmzknSg+tznGF8LRfM3myGfcN5JnBvdMrnX63Rdleh6upR9A1rSByr9VCzElgJos7z6gASmVtjs2+W++46TUf4UXXRBfhNEupatYKYKy8DTrMXjJ5qiBmAiIK248TQsIAdpjec3aKXOE7nNVKdq3fouUHaVpaBwuJY3UwB6PFU6jflFpiQwvrXZ+VD+Ja3d6HyURBAWm+OjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFzoAspnzrGSlxB4um6wmOt6wviJg+HS0xcX+sd2tqE=;
- b=FUD+FvhD1GB3SSPJ0H8LKWmmCcqgd78xkvIzOr/Ew/YX8YdYfPWv1GVXGWqKpcrKwEZsq+YPZaXgu1lHKfrEgFncD/sMNMg0PGkPN3/QH7JYWMl4qoRfk1e39a6FG3HP4N3zICVU6SjPTsuaHAjTgIvBRgjVDzBMsklU5G7uNOw=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB2419.namprd12.prod.outlook.com (2603:10b6:207:44::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.24; Tue, 13 Oct
- 2020 12:41:40 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3455.030; Tue, 13 Oct 2020
- 12:41:40 +0000
-Subject: Re: [PATCH v2 07/24] drm: amdgpu: kernel-doc: update some adev
- parameters
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>
-References: <cover.1602590106.git.mchehab+huawei@kernel.org>
- <e8d8081e713010edcae2414427fec4a497182fae.1602590106.git.mchehab+huawei@kernel.org>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <50178896-8166-0912-c3b3-5671b72740a5@amd.com>
-Date: Tue, 13 Oct 2020 14:41:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <e8d8081e713010edcae2414427fec4a497182fae.1602590106.git.mchehab+huawei@kernel.org>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: FRYP281CA0005.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::15)
- To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 673ED6E8E3;
+	Tue, 13 Oct 2020 13:11:50 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 573F36E8F8;
+ Tue, 13 Oct 2020 13:11:49 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id n18so23995058wrs.5;
+ Tue, 13 Oct 2020 06:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=hP4I1TSE0iiKe4uFVvPyKh5ZjOZU39ztMJs9eGzKphE=;
+ b=d7rK4C8mM7F7Mme2iU2+7ZjVgizAOHZSsRSZe5ZPmBkFa7mDw5CR4Z/BftFM5EMzSn
+ 5A6rRSaYV9xFqjcsRSWKas27xMHogPcTggZkiLuwP96It/VGrrLF1KBgyKV6OtGNlsFK
+ VjmRlV5FgTBf2LYV1MEXXTqpR3rIaiD4xgM7gPLQ/TfEOrpUnXicpnFfbXQKoJ0Gu4WM
+ aNy/qZKePQWr+spaE7cwccOBkp/F/ZqsRO2UVEvDk6iM5m2hF1DQC98fPByh9Xacd5Vd
+ FJJgWhfTHkZgWBM9ZjStW/z3oGUQIRDoSpoBHi8avv2MHVIomMrvaxvknNf15MYnqnXD
+ GtSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hP4I1TSE0iiKe4uFVvPyKh5ZjOZU39ztMJs9eGzKphE=;
+ b=CP0ya0+gz8VYN5mUl3xOsXSClCv9ZinS82R5uE0kjM4pvW1fc0ThsnSZBxqE6pNbmL
+ tN8QGtviCZJz//pc2L4ZS70WBXZjrFhqGBYcG/a287rf/KeQD9C5s7pJEPeEK+BawGIn
+ vR9YTxaq1KWGm3vfMp5KuJfxUHWWmmT3e9yGpMg4CVvBfRDqRU4NAqpLHeE4waHaU9GT
+ 3SJnI9XmcyoKo6fXHlGP8N2KTglapSg1++fYytbCqLjA0kPiuGCX16dkH5Jt1Xzg0Jik
+ 5HzxF4bsRC2zcsFD0LrkFw7dn0Q08g3JnwTxzHJQ9SLQbF+mXUieoGWx1pHRRVp4GMxB
+ Uudg==
+X-Gm-Message-State: AOAM533jn56LUYNRSU1+jmMm6ws08iYrVXHCTsiDrQuts6ZF524+k2Jj
+ ikVS0QUugmWgkaPTWDgP0xAA7eY31C76/ZKqy/w=
+X-Google-Smtp-Source: ABdhPJwCH8a1D0+3oh4RSFSUGPQPJdoPQvQkpSD/avgAkn1KFZidf8NIXW/31BQm3MiFaQm16TPeo37b3nLk2KIkeY4=
+X-Received: by 2002:adf:f246:: with SMTP id b6mr29643949wrp.111.1602594707982; 
+ Tue, 13 Oct 2020 06:11:47 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- FRYP281CA0005.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.12 via Frontend Transport; Tue, 13 Oct 2020 12:41:36 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c44a1aec-a579-450a-210d-08d86f7554f6
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2419:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB24195C3749D765664F86C65F83040@BL0PR12MB2419.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:304;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yJL2/hyRavGiweobgi2ETv/bwf9Rk2lJKu03qvVDjs/omarMkdb7IPMZkPjCRd75mMB2WAdwllYx6snKxUoAGaAbpmV1byD9OgcdPUcMYU5ksempIJxtwjXVAo4szn0HhGOk8uRhqOOS9BpQAly1yEX/p1PT+ULvnmq85gHE2BmwNxt46X0rH2rTYw/XUMu8dE8PVwKRA0DyDMx6oyLkfijYxTzY6hP6ViudmHqqskw1mC2heHKd/eHiT1ohRQsuRnJZNESPws59lU4NVqo9opzM0joZRR/wMCrPbMtL+/A+DLwoy4U3rquVXPG9hueboOi4QCSPXbof9FjB7IqOYPVGgtF3qYk9j/QG1q2fPgRS8ZUj0duKAdMvriuW6AQP
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(136003)(346002)(376002)(396003)(6666004)(316002)(66556008)(66946007)(5660300002)(52116002)(54906003)(110136005)(15650500001)(66476007)(83380400001)(86362001)(186003)(2616005)(478600001)(7416002)(31686004)(31696002)(6486002)(8936002)(8676002)(2906002)(36756003)(4326008)(16526019)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: iGbubkCwWsuMXud1JJe2cgAuYD18+ubzQ7JGJLUZNmQz6Ksf49UK/3TI007ZMnuev28oQLFQ/1i8Rq1WKu1LYfujGwAd5ylYis0F4NXklbLQSk6ma/neJ/3t+TAZ7ZhLcqM46CH42xIVa7uY+zhbuAZLlatNzokPUZFM+8CpI2s+gXMj4/I/ahr/M69Rcu8PYh98ghz2u2ftEPFE2Ds8nQ3De7LvL99OBzlQCJfj0biOMZjLNFYrq42AfqZ1DsHxT5qiNZzMkXhAiz9m8gsD6yXzBPWynk/zl/+PvTtWpl3LZpoaKo04/i2Az+0S18I5JCeH12OK/qUKdcYIHcylYk19RXAKP8LArAogEmEFTnAyRYTgt9GAXjjw3bLECClM9v3nlI2fg2ASK+ibnKt/A6fVjDtEdzj+ORjjQu7W9lhy6meuxzJy8YzocFkP38GVl99dAnNRDqXAbOGgBEK6piRaPJPtnDMx6rKPf1Kn+h/Nc/1DAaXf1lCo8Kqd07waGQ+sjvk4U2l7H37hq8AMMoDdazJi8A3cEHP1/hasokQ1DwpyobThfxZMxFA0WzMIjtrXs6c34WEyFTM6jLgyGfcXUod2et3yR19geTYTuLJEXM/pZKxYbbneBYdigSRvZmkNvCgbwRXb8ncw2Qp45WraFGFlZduidG5SM03yQYpg1Oz+fJS3pdXeskr8y/zlo/vPByrifJCBHU8z5Ko0rw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c44a1aec-a579-450a-210d-08d86f7554f6
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2020 12:41:40.4366 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oZvPW/yrn9rMXB5OCd3Vixejn6DfcFrcON5fwzVK+EXZcu6vc6TEmEA/1tNJXWu2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2419
+References: <20201012114623.8583-1-bernard@vivo.com>
+In-Reply-To: <20201012114623.8583-1-bernard@vivo.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 13 Oct 2020 09:11:36 -0400
+Message-ID: <CADnq5_MH2EYWuumqtZ+UPF-5TAW_+91F6mHFEu3MScTGQOQ0Dg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove no need return value
+To: Bernard Zhao <bernard@vivo.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,125 +73,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, Bernard Zhao <bernard@vivo.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Colton Lewis <colton.w.lewis@protonmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- Evan Quan <evan.quan@amd.com>, Dennis Li <Dennis.Li@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Aric Cyr <aric.cyr@amd.com>, David Airlie <airlied@linux.ie>,
+ Samson Tam <Samson.Tam@amd.com>, Reza Amini <Reza.Amini@amd.com>,
+ Wyatt Wood <wyatt.wood@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Anthony Koo <Anthony.Koo@amd.com>, Charlene Liu <Charlene.Liu@amd.com>,
+ Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ opensource.kernel@vivo.com, Leo Li <sunpeng.li@amd.com>,
+ Brandon Syu <Brandon.Syu@amd.com>, linux-mediatek@lists.infradead.org,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Yongqiang Sun <yongqiang.sun@amd.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.10.20 um 14:14 schrieb Mauro Carvalho Chehab:
-> Running "make htmldocs: produce lots of warnings on those files:
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-> 	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
+Applied.  Thanks!
+
+Alex
+
+On Mon, Oct 12, 2020 at 9:44 AM Bernard Zhao <bernard@vivo.com> wrote:
 >
-> They're related to the repacement of some parameters by adev,
-> and due to a few renamed parameters.
+> Functions (disable_all_writeback_pipes_for_stream &
+> dc_enable_stereo & dc_post_update_surfaces_to_stream)
+> always return true, there is no need to keep the return value.
+> This change is to make the code a bit more readable.
 >
-> Update the kernel-doc documentation accordingly.
->
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> Signed-off-by: Bernard Zhao <bernard@vivo.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c  | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 5 ++---
->   3 files changed, 6 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/core/dc.c   | 17 +++++------------
+>  drivers/gpu/drm/amd/display/dc/dc.h        |  2 +-
+>  drivers/gpu/drm/amd/display/dc/dc_stream.h |  2 +-
+>  3 files changed, 7 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index f8f298b34805..fb375752feb1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -817,7 +817,7 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_device *adev,
->   /**
->    * amdgpu_device_asic_init - Wrapper for atom asic_init
->    *
-> - * @dev: drm_device pointer
-> + * @adev: drm_device pointer
-
-This should probably read amdgpu device pointer, but apart from that 
-looks good to me.
-
-Christian.
-
->    *
->    * Does any asic specific work and then calls atom asic init.
->    */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index f203e4a6a3f2..5f3a04cd0fba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -81,8 +81,8 @@ static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func;
->   /**
->    * amdgpu_gtt_mgr_init - init GTT manager and DRM MM
->    *
-> - * @man: TTM memory type manager
-> - * @p_size: maximum size of GTT
-> + * @adev: amdgpu device structure
-> + * @gtt_size: maximum size of GTT
->    *
->    * Allocate and initialize the GTT manager.
->    */
-> @@ -123,7 +123,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
->   /**
->    * amdgpu_gtt_mgr_fini - free and destroy GTT manager
->    *
-> - * @man: TTM memory type manager
-> + * @adev: amdgpu device structure
->    *
->    * Destroy and free the GTT manager, returns -EBUSY if ranges are still
->    * allocated inside it.
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 01c1171afbe0..a0e787ddbbd7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -168,8 +168,7 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func;
->   /**
->    * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
->    *
-> - * @man: TTM memory type manager
-> - * @p_size: maximum size of VRAM
-> + * @adev: amdgpu device structure
->    *
->    * Allocate and initialize the VRAM manager.
->    */
-> @@ -199,7 +198,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->   /**
->    * amdgpu_vram_mgr_fini - free and destroy VRAM manager
->    *
-> - * @man: TTM memory type manager
-> + * @adev: amdgpu device structure
->    *
->    * Destroy and free the VRAM manager, returns -EBUSY if ranges are still
->    * allocated inside it.
-
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 92eb1ca1634f..8dc598a632b5 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -761,7 +761,7 @@ static bool dc_construct(struct dc *dc,
+>         return false;
+>  }
+>
+> -static bool disable_all_writeback_pipes_for_stream(
+> +static void disable_all_writeback_pipes_for_stream(
+>                 const struct dc *dc,
+>                 struct dc_stream_state *stream,
+>                 struct dc_state *context)
+> @@ -770,8 +770,6 @@ static bool disable_all_writeback_pipes_for_stream(
+>
+>         for (i = 0; i < stream->num_wb_info; i++)
+>                 stream->writeback_info[i].wb_enabled = false;
+> -
+> -       return true;
+>  }
+>
+>  void apply_ctx_interdependent_lock(struct dc *dc, struct dc_state *context, struct dc_stream_state *stream, bool lock)
+> @@ -1213,13 +1211,12 @@ bool dc_validate_seamless_boot_timing(const struct dc *dc,
+>         return true;
+>  }
+>
+> -bool dc_enable_stereo(
+> +void dc_enable_stereo(
+>         struct dc *dc,
+>         struct dc_state *context,
+>         struct dc_stream_state *streams[],
+>         uint8_t stream_count)
+>  {
+> -       bool ret = true;
+>         int i, j;
+>         struct pipe_ctx *pipe;
+>
+> @@ -1234,8 +1231,6 @@ bool dc_enable_stereo(
+>                                 dc->hwss.setup_stereo(pipe, dc);
+>                 }
+>         }
+> -
+> -       return ret;
+>  }
+>
+>  /*
+> @@ -1448,18 +1443,18 @@ static bool is_flip_pending_in_pipes(struct dc *dc, struct dc_state *context)
+>         return false;
+>  }
+>
+> -bool dc_post_update_surfaces_to_stream(struct dc *dc)
+> +void dc_post_update_surfaces_to_stream(struct dc *dc)
+>  {
+>         int i;
+>         struct dc_state *context = dc->current_state;
+>
+>         if ((!dc->optimized_required) || dc->optimize_seamless_boot_streams > 0)
+> -               return true;
+> +               return;
+>
+>         post_surface_trace(dc);
+>
+>         if (is_flip_pending_in_pipes(dc, context))
+> -               return true;
+> +               return;
+>
+>         for (i = 0; i < dc->res_pool->pipe_count; i++)
+>                 if (context->res_ctx.pipe_ctx[i].stream == NULL ||
+> @@ -1472,8 +1467,6 @@ bool dc_post_update_surfaces_to_stream(struct dc *dc)
+>
+>         dc->optimized_required = false;
+>         dc->wm_optimized_required = false;
+> -
+> -       return true;
+>  }
+>
+>  struct dc_state *dc_create_state(struct dc *dc)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index f50ef4255020..f79a3c318757 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -962,7 +962,7 @@ struct dc_flip_addrs {
+>         bool triplebuffer_flips;
+>  };
+>
+> -bool dc_post_update_surfaces_to_stream(
+> +void dc_post_update_surfaces_to_stream(
+>                 struct dc *dc);
+>
+>  #include "dc_stream.h"
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+> index d9888f316da6..0047ab33f88e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+> @@ -391,7 +391,7 @@ enum dc_status dc_validate_stream(struct dc *dc, struct dc_stream_state *stream)
+>   * Enable stereo when commit_streams is not required,
+>   * for example, frame alternate.
+>   */
+> -bool dc_enable_stereo(
+> +void dc_enable_stereo(
+>         struct dc *dc,
+>         struct dc_state *context,
+>         struct dc_stream_state *streams[],
+> --
+> 2.28.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
