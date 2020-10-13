@@ -2,53 +2,70 @@ Return-Path: <SRS0=VV5o=DU=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61FF2C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CFCEC433E7
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:15:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 085DB22284
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:15:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9F21022261
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2020 12:15:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="t+zMKk4A"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 085DB22284
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q6xTLflD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F21022261
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81BDE6E8CE;
-	Tue, 13 Oct 2020 12:15:02 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 700EA6E321;
- Tue, 13 Oct 2020 12:14:56 +0000 (UTC)
-Received: from mail.kernel.org (ip5f5ad5b2.dynamic.kabel-deutschland.de
- [95.90.213.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 23AD522268;
- Tue, 13 Oct 2020 12:14:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602591295;
- bh=GEoQoCGbFf5b/wNA+woo6pF55S9XNZRyPZRWqLMsiiE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=t+zMKk4A+xLqFI+/h4S1sI/vdK8QQ5yAODbSP8I5gP/0qgw+ExA9A3SOD66Ake9FJ
- jPFwr/M2iX36Bo50gK3lSsB4fStHiNI91M/dYfHQImZzZ2guRiOd0sS6j4Ctc9wIL/
- kAgUQK4WmpM/Yo2ovvNOZYZUxjbn6+HqUEWbCP2w=
-Received: from mchehab by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1kSJCe-006Co3-SK; Tue, 13 Oct 2020 14:14:52 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Subject: [PATCH v2 07/24] drm: amdgpu: kernel-doc: update some adev parameters
-Date: Tue, 13 Oct 2020 14:14:34 +0200
-Message-Id: <e8d8081e713010edcae2414427fec4a497182fae.1602590106.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1602590106.git.mchehab+huawei@kernel.org>
-References: <cover.1602590106.git.mchehab+huawei@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6E626E8DB;
+	Tue, 13 Oct 2020 12:15:07 +0000 (UTC)
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E0E6E8DB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 12:15:07 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id de3so9875663qvb.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2020 05:15:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DSPPZGYygCMQ72T9RhRk9jhuvWIODoIMpiqVXCPEckE=;
+ b=Q6xTLflDVvIokypYvH2PS9Nu4Fpaxr1f3DGVB2ECNVB0jwTqIx+EZ19hRhvi9lOY5i
+ XfIpMJBn6/KPyw9CU7wPYirdIxFgtn7iWatcu3RFDK+yRFs0o4UXsVebSJ0iw5GT8Das
+ 5EzuFvcw1lidosl3DHnA2nhrxMxw0eiXBap5YpyGLpgJa5a5ijz7GOQ5PFe9HIHiWSrL
+ l6W3yX29Kj/2F0m56X7hUQeSot9FOwVX863Y04kjDjH8q+EL/tBKv0Yg3psfaOTLCbZQ
+ Cu/NKytTj2SVXVH00ih/0pwJxcCMeH2gJnYSTBXQJZ+ZsAd+bzJxaRzznZg3KSb3W+x8
+ pdfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DSPPZGYygCMQ72T9RhRk9jhuvWIODoIMpiqVXCPEckE=;
+ b=Rn4nhSNgAI8/tGZCf2tZj2c43HbtI7ic8QSAFdzgqp5lDMPHFJKgJWNbEpRC67/xTi
+ nSIh938sEiQIByhyKUn2CBfwokecu/MdeSu0ooXh/wt3Rcns4c9jewqgASqrZuO1bbWY
+ wIFnWuBaER1iQHpAzYhDcD6JyFDl/XDCCzhcZuhyszGjjF5p7370ipEtR2HauCG5yM/B
+ d0PZMl9OomTaHgz4JQ2AGxKhXKwaUIn1Xvkormz7LfuqFAeK1Vetd0pQNrqhyQvkF1EL
+ 8+WOpPagAINmcowWmxwEt+7ariDMl6TzpHLGVEtSK0cjwKUrwzxE/gFDxMGHyCSsA6pP
+ ShKw==
+X-Gm-Message-State: AOAM532dQhWoI8bekz8uLLjRh5lwfN+Qhpuzm2yatN+DvwtTb1mWViMu
+ dq///O0RZeUH93qUfIalT5xBDCVeetY=
+X-Google-Smtp-Source: ABdhPJxP7/yuU/5CgILdTBWQMr7wUu0tzp5y4NjiMXLSH0mwCvYi9hlAb64iBJ666Som/zcGJFQe1w==
+X-Received: by 2002:a0c:9a01:: with SMTP id p1mr28788268qvd.61.1602591306086; 
+ Tue, 13 Oct 2020 05:15:06 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id w45sm1222036qtw.96.2020.10.13.05.15.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2020 05:15:05 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/swsmu: init the baco mutex in early_init
+Date: Tue, 13 Oct 2020 08:14:56 -0400
+Message-Id: <20201013121456.574846-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,121 +78,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Bernard Zhao <bernard@vivo.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Colton Lewis <colton.w.lewis@protonmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Running "make htmldocs: produce lots of warnings on those files:
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
+GPU reset might get called during init time, before
+sw_init has been called.
 
-They're related to the repacement of some parameters by adev,
-and due to a few renamed parameters.
-
-Update the kernel-doc documentation accordingly.
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c  | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 5 ++---
- 3 files changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index f8f298b34805..fb375752feb1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -817,7 +817,7 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_device *adev,
- /**
-  * amdgpu_device_asic_init - Wrapper for atom asic_init
-  *
-- * @dev: drm_device pointer
-+ * @adev: drm_device pointer
-  *
-  * Does any asic specific work and then calls atom asic init.
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index f203e4a6a3f2..5f3a04cd0fba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -81,8 +81,8 @@ static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func;
- /**
-  * amdgpu_gtt_mgr_init - init GTT manager and DRM MM
-  *
-- * @man: TTM memory type manager
-- * @p_size: maximum size of GTT
-+ * @adev: amdgpu device structure
-+ * @gtt_size: maximum size of GTT
-  *
-  * Allocate and initialize the GTT manager.
-  */
-@@ -123,7 +123,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
- /**
-  * amdgpu_gtt_mgr_fini - free and destroy GTT manager
-  *
-- * @man: TTM memory type manager
-+ * @adev: amdgpu device structure
-  *
-  * Destroy and free the GTT manager, returns -EBUSY if ranges are still
-  * allocated inside it.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 01c1171afbe0..a0e787ddbbd7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -168,8 +168,7 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func;
- /**
-  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
-  *
-- * @man: TTM memory type manager
-- * @p_size: maximum size of VRAM
-+ * @adev: amdgpu device structure
-  *
-  * Allocate and initialize the VRAM manager.
-  */
-@@ -199,7 +198,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- /**
-  * amdgpu_vram_mgr_fini - free and destroy VRAM manager
-  *
-- * @man: TTM memory type manager
-+ * @adev: amdgpu device structure
-  *
-  * Destroy and free the VRAM manager, returns -EBUSY if ranges are still
-  * allocated inside it.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index f78749bc8760..7e1b303b5a3f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -422,6 +422,9 @@ static int smu_early_init(void *handle)
+ 	smu->pm_enabled = !!amdgpu_dpm;
+ 	smu->is_apu = false;
+ 	mutex_init(&smu->mutex);
++	mutex_init(&smu->smu_baco.mutex);
++	smu->smu_baco.state = SMU_BACO_STATE_EXIT;
++	smu->smu_baco.platform_support = false;
+ 
+ 	return smu_set_funcs(adev);
+ }
+@@ -803,10 +806,6 @@ static int smu_sw_init(void *handle)
+ 	bitmap_zero(smu->smu_feature.enabled, SMU_FEATURE_MAX);
+ 	bitmap_zero(smu->smu_feature.allowed, SMU_FEATURE_MAX);
+ 
+-	mutex_init(&smu->smu_baco.mutex);
+-	smu->smu_baco.state = SMU_BACO_STATE_EXIT;
+-	smu->smu_baco.platform_support = false;
+-
+ 	mutex_init(&smu->sensor_lock);
+ 	mutex_init(&smu->metrics_lock);
+ 	mutex_init(&smu->message_lock);
 -- 
-2.26.2
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
