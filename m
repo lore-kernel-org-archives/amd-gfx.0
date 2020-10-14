@@ -2,72 +2,68 @@ Return-Path: <SRS0=q64Q=DV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7362C433E7
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4137CC433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 57F95206D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:54:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9327E206DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 19:59:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="uRhwDG+m"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57F95206D4
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nc6fMElY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9327E206DC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F35A6EB33;
-	Wed, 14 Oct 2020 19:54:13 +0000 (UTC)
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 827F76EB33;
- Wed, 14 Oct 2020 19:54:12 +0000 (UTC)
-Received: by mail-io1-xd2d.google.com with SMTP id n6so601877ioc.12;
- Wed, 14 Oct 2020 12:54:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F16466EB47;
+	Wed, 14 Oct 2020 19:59:31 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F7F6EB47
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 19:59:30 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id n18so481368wrs.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 12:59:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pPj21y+YLaP86o0TSKftguqUy/J8gE3mb8bg9LyRXxA=;
- b=uRhwDG+mXFjNrwWG88p8b7dIR+9GNf+pWkyx/nrj9gd86zPheieD5GbNszWrbwR7Sn
- Rhztd0awD7xqGHF1he027hCZvFwihD2japWCLsVfcfFMp3iJYbWIKSGylc5BvOSUmeUD
- y5AttyMO0R1C/85sFHlV6NAOJwyU9nGzNFb/nWa2KdKcNgIR+FCh163wPTFC1R8OeqQQ
- HFn+6nBctBcKKQzf5zor4EBTJItuIXJLZvflO6hYe5DhminzBsSxhkFE89TF1yMRtnFT
- 5qjsiXws8dva6StUTRnHzYKrDpG5C3BWfEt8Y3P1/NL2B/sAjo9D8ozxuHZhs3dUarEL
- zLbw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9iJNDrlHOazvZzCIV3ounVnjxRltoSWx6yhY2lXo42U=;
+ b=Nc6fMElYoL5BEEwWa4F3fTknB3jtkpegi4/JrBRx79mROOpkdejwuG+LD8arHL6R7x
+ jSsbEjTl7QzIeXHUG6cefmJORhUE5Oo2lhsSTyvfi0XcOnYiA8SbPVfFDA4acXxMZkf/
+ T409vHtTLYv4fvKoXmxr1Teq/65OS1WKGj5+kIhIp6GwT1pR5oZ7LsRY8fjxdclaFiTf
+ 2IMVKxaf3MUefKoHkm7hPU9opfrepGoMJTTp0EVY1g8ouaJJuvU8taG0jpNzKVEARVWt
+ GtlDkREwz092TsIZh54+fMThdbGwcz60/bPlbW5b5XaS2RKq/kR0nyu5sNHHL/ytTCMz
+ 9A0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pPj21y+YLaP86o0TSKftguqUy/J8gE3mb8bg9LyRXxA=;
- b=XIUwkO7lQo2cROyG4VmUnckE+HrqFfxX57YBIW7qLZcs4TWd7eiVHDJF7zwsf3JyN0
- /eJQWbobbT7IXl118a3d8cN+2pptlKZO7XF5J1ArXlcvn9SPYDziol5uqpQOh+rSJbkO
- r0Atl+DWVJ/URSlnpa1nAZkFg+RYRZauB/tngE0rn+QlbtSfY7ZN7Phmscr0NmnsDuhX
- BcJG/VeqbqUr0q/xu7rCAwinMrZduPmCKvfRImr2jLdJZ5DOInaeHleELKZlZg7YgbP7
- ohLfzj79CnMyBHVtMlu+keRs7UasEtIdEopLDhjOcy33r0t3aDP7IyiTHWBbwx1ujCxD
- 06dg==
-X-Gm-Message-State: AOAM533sebKTf2Jmv4j+9aU+ngUFjsjX/03awaptW9DdB9a7oTE/EhRr
- dyxRmk93zbN5awzT3HZ+GDgK61RgcfU=
-X-Google-Smtp-Source: ABdhPJyNoTTMLzxlK4FzYY1FRVwNBnP/QH478TCDjXa5z/x3CAicKukaQZQChdbqof/6Q+egWkfZaQ==
-X-Received: by 2002:a6b:4014:: with SMTP id k20mr791681ioa.177.1602705251493; 
- Wed, 14 Oct 2020 12:54:11 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id t5sm325300ilf.17.2020.10.14.12.54.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2020 12:54:10 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu, amdkfd drm-fixes-5.10
-Date: Wed, 14 Oct 2020 15:54:03 -0400
-Message-Id: <20201014195403.4558-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9iJNDrlHOazvZzCIV3ounVnjxRltoSWx6yhY2lXo42U=;
+ b=SfTp6hRNZLQ9ei9Rs/+sF/AQTt7/nnzJdKahUYKhxLxoh4HKcwrL7iarhUJsVCCgyW
+ BfQB4ZI8Wbam0JsC7BWSzm1+6Bq56/LNaVAjckCSBu0daFve2VmHo6OcNsOq4srIOoSA
+ mtzbKvOV3503+09FxjfjSy9+gYsh3OC07wQtGaHG935DCK52EoL3rMZXDkD+p9BuiaGc
+ vO6Wlhf0zfYAWdQAwu9MdPGVZCKtRV7+QBUvDAAECEECsJKnESqppjwqoDEONubR4t0m
+ tOT5H57ULEBcrBskBnMf7nvrIUWSWrWPR2Y29C4Wop/AoO2g6Wc3jSpE5cuIPUjpCbFA
+ d7iQ==
+X-Gm-Message-State: AOAM531b0BqMQYWyS0WtZRFNGqdj4L1+iosNf2mVqeOpTV+iraQ45Kyg
+ Z0uh8WxBX+yB7wc1C8dB2c5OiPxwGZKAlzdA4Zk=
+X-Google-Smtp-Source: ABdhPJx5ae4zBhiK4H+fTAde97q5kmkdlTLMETpySUJ2Ag9V8Bi8xkfyDiqL3QZHNuytfODO5Qv2+Lq7+MaYIl26dZY=
+X-Received: by 2002:a5d:6642:: with SMTP id f2mr445616wrw.374.1602705568993;
+ Wed, 14 Oct 2020 12:59:28 -0700 (PDT)
 MIME-Version: 1.0
+References: <20201014071812.8396-1-evan.quan@amd.com>
+ <20201014071812.8396-5-evan.quan@amd.com>
+In-Reply-To: <20201014071812.8396-5-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 Oct 2020 15:59:17 -0400
+Message-ID: <CADnq5_P-JVy7HzuUJL9X=ceBd51Z=qywGBPHsOdYFhRUOiUfUw@mail.gmail.com>
+Subject: Re: [PATCH 5/5] drm/amd/pm: properly setting GPO feature on UMD
+ pstate entering/exiting
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,73 +75,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Wed, Oct 14, 2020 at 3:18 AM Evan Quan <evan.quan@amd.com> wrote:
+>
+> Disable/enable the GPO feature on UMD pstate entering/exiting.
+>
+> Change-Id: I4bd4b560b945227044df918c9066ffbbc17728ca
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-Fixes for 5.10.
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-The following changes since commit 9c27bc97aff8bbe62b5b29ebf528291dd85d9c86:
-
-  drm/amdgpu: Fix invalid number of character '{' in amdgpu_acpi_init (2020-10-09 15:16:10 -0400)
-
-are available in the Git repository at:
-
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.10-2020-10-14
-
-for you to fetch changes up to 8f4729e880647c419de0bbe3ff21d7efb4e65676:
-
-  drm/amdkfd: Use kvfree in destroy_crat_image (2020-10-14 15:29:28 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-5.10-2020-10-14:
-
-amdgpu:
-- eDP fix
-- BACO fix
-- Kernel documentation fixes
-- SMU7 mclk fix
-- VCN1 hw bug workaround
-
-amdkfd:
-- kvfree vs kfree fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu/swsmu: init the baco mutex in early_init
-
-Evan Quan (1):
-      drm/amd/pm: increase mclk switch threshold to 200 us
-
-Kent Russell (1):
-      drm/amdkfd: Use kvfree in destroy_crat_image
-
-Mauro Carvalho Chehab (2):
-      drm/amd/display: kernel-doc: document force_timing_sync
-      docs: amdgpu: fix a warning when building the documentation
-
-Rodrigo Siqueira (1):
-      drm/amd/display: Fix module load hangs when connected to an eDP
-
-Veerabadhran G (1):
-      drm/amdgpu: vcn and jpeg ring synchronization
-
- Documentation/gpu/amdgpu.rst                       |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h            |  1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c             | 24 +++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              | 28 ++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.h              |  3 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |  2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  2 ++
- drivers/gpu/drm/amd/display/dc/core/dc.c           | 10 ++++----
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  2 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  7 +++---
- 11 files changed, 65 insertions(+), 20 deletions(-)
+> ---
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  1 +
+>  drivers/gpu/drm/amd/pm/inc/smu_types.h        |  1 +
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 ++
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 22 +++++++++++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |  1 +
+>  5 files changed, 27 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index f21d8dcac9ae..32f3738a6a6f 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -574,6 +574,7 @@ struct pptable_funcs {
+>         int (*get_fan_parameters)(struct smu_context *smu);
+>         int (*post_init)(struct smu_context *smu);
+>         void (*interrupt_work)(struct smu_context *smu);
+> +       int (*gpo_control)(struct smu_context *smu, bool enablement);
+>  };
+>
+>  typedef enum {
+> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+> index b1a18fbb7682..f6403881f265 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+> @@ -184,6 +184,7 @@
+>         __SMU_DUMMY_MAP(SetSoftMinSocclkByFreq),         \
+>         __SMU_DUMMY_MAP(PowerUpCvip),                    \
+>         __SMU_DUMMY_MAP(PowerDownCvip),                  \
+> +       __SMU_DUMMY_MAP(SetGpoFeaturePMask),             \
+>
+>  #undef __SMU_DUMMY_MAP
+>  #define __SMU_DUMMY_MAP(type)  SMU_MSG_##type
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 92869eb297d8..18e0db34a3ee 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1407,6 +1407,7 @@ static int smu_enable_umd_pstate(void *handle,
+>                 if (*level & profile_mode_mask) {
+>                         smu_dpm_ctx->saved_dpm_level = smu_dpm_ctx->dpm_level;
+>                         smu_dpm_ctx->enable_umd_pstate = true;
+> +                       smu_gpo_control(smu, false);
+>                         amdgpu_device_ip_set_powergating_state(smu->adev,
+>                                                                AMD_IP_BLOCK_TYPE_GFX,
+>                                                                AMD_PG_STATE_UNGATE);
+> @@ -1432,6 +1433,7 @@ static int smu_enable_umd_pstate(void *handle,
+>                         amdgpu_device_ip_set_powergating_state(smu->adev,
+>                                                                AMD_IP_BLOCK_TYPE_GFX,
+>                                                                AMD_PG_STATE_GATE);
+> +                       smu_gpo_control(smu, true);
+>                 }
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index c27806fd07e0..71cb000306a4 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -127,6 +127,7 @@ static struct cmn2asic_msg_mapping sienna_cichlid_message_map[SMU_MSG_MAX_COUNT]
+>         MSG_MAP(ArmD3,                          PPSMC_MSG_ArmD3,                       0),
+>         MSG_MAP(Mode1Reset,                     PPSMC_MSG_Mode1Reset,                  0),
+>         MSG_MAP(SetMGpuFanBoostLimitRpm,        PPSMC_MSG_SetMGpuFanBoostLimitRpm,     0),
+> +       MSG_MAP(SetGpoFeaturePMask,             PPSMC_MSG_SetGpoFeaturePMask,          0),
+>  };
+>
+>  static struct cmn2asic_mapping sienna_cichlid_clk_map[SMU_CLK_COUNT] = {
+> @@ -2714,6 +2715,26 @@ static int sienna_cichlid_enable_mgpu_fan_boost(struct smu_context *smu)
+>                                                NULL);
+>  }
+>
+> +static int sienna_cichlid_gpo_control(struct smu_context *smu,
+> +                                     bool enablement)
+> +{
+> +       int ret = 0;
+> +
+> +       if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_GFX_GPO_BIT)) {
+> +               if (enablement)
+> +                       ret = smu_cmn_send_smc_msg_with_param(smu,
+> +                                                       SMU_MSG_SetGpoFeaturePMask,
+> +                                                       GFX_GPO_PACE_MASK | GFX_GPO_DEM_MASK,
+> +                                                       NULL);
+> +               else
+> +                       ret = smu_cmn_send_smc_msg_with_param(smu,
+> +                                                       SMU_MSG_SetGpoFeaturePMask,
+> +                                                       0,
+> +                                                       NULL);
+> +       }
+> +
+> +       return ret;
+> +}
+>  static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+>         .get_allowed_feature_mask = sienna_cichlid_get_allowed_feature_mask,
+>         .set_default_dpm_table = sienna_cichlid_set_default_dpm_table,
+> @@ -2795,6 +2816,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+>         .deep_sleep_control = smu_v11_0_deep_sleep_control,
+>         .get_fan_parameters = sienna_cichlid_get_fan_parameters,
+>         .interrupt_work = smu_v11_0_interrupt_work,
+> +       .gpo_control = sienna_cichlid_gpo_control,
+>  };
+>
+>  void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> index c7e1fe5f442d..f7be2d1a0ff2 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> @@ -89,6 +89,7 @@
+>  #define smu_deep_sleep_control(smu, enablement)                                smu_ppt_funcs(deep_sleep_control, 0, smu, enablement)
+>  #define smu_get_fan_parameters(smu)                                    smu_ppt_funcs(get_fan_parameters, 0, smu)
+>  #define smu_post_init(smu)                                             smu_ppt_funcs(post_init, 0, smu)
+> +#define smu_gpo_control(smu, enablement)                               smu_ppt_funcs(gpo_control, 0, smu, enablement)
+>
+>  #endif
+>  #endif
+> --
+> 2.28.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
