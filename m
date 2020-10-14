@@ -2,98 +2,67 @@ Return-Path: <SRS0=q64Q=DV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CF12C433E7
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 11:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38BF1C433E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 13:18:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA0072173E
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 11:51:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B27AE208B3
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 13:18:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ixQQGJih"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA0072173E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhKRNb0l"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B27AE208B3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1195D6E0A6;
-	Wed, 14 Oct 2020 11:51:47 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4310F6E0A6
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 11:51:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EN7MLGQu0D6xHZ7TuSnJaH8rLasEmCasHCUtn6JBfUGd5XMFmrfb/3UPqyKhl8sBeuvd6Lp4dj4ZcfOAGs59+rCAadiW2nusUZKZl3OO4HGlJery9NkziD6nKKS7ScGv3M7nIOIlobTWhdu2M718gYmuhJohAzvCBERPRLnkRbILsp458iHUP4PZeEQPPgD5B8L38m+pjBkM7gIbom3O7l1J5PFGxtmyBsK+z0WoJGk9oaUtkKrPPOUBvDPY+GW+3Fe5dCmN/Yb9EwhtPS+PBbRuYuhk7DRoozZIAzx2J39hzg3TPRl26cwndoIzBhEL24Z69ux4E1O6qOw9oWjeVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J3XCaxVityWsTffM3Xv3Sg7JAN3f7aLjVpIMUaFJRso=;
- b=jM8+pvbljWQUnuONPRfyqGZUI3GmfoJbU6NURd445gXbLasGr2REU46dU4k0eST5Uw8dXHhnfPRsx+P/rsVXzVdSIHuiDVSc+9355Pgit8yZ46R0/S2Ik4HaVeDiZ+ihNcBnUBQcZF91Mb7ZEAe0y8tHLe9ECYP2I3o8UncCzIR535QrKPtbVV6/vbzXfcJja5vKaU9AAp3mSaitmAX7HZa5qKPXK5vEh+pT6X3r/tlipu1C5IMWXGyBr1BLsDUZtiPDfPij2hg89XaACPik68Oc6KRX3PDNx+6NwCQ5vMa/nPezRsagpowtnGhioQql1eAvO9h2kuJH4KmoJFi5BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J3XCaxVityWsTffM3Xv3Sg7JAN3f7aLjVpIMUaFJRso=;
- b=ixQQGJih7lualtjyHSIK2qA3iC8WhiIHM2Bfqkg9j+GGKkoZNhv88g2YXtgSd4R585P0Y/eUVasBr0iDJcXay+ZzCBs2xlOXlFpaZKhdyMtngsGaFutOG4OKBlljkLsWHva6lM/LoyzGEsljw44CIEmcAHkHZtuNYU19j0JRa2Q=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
- by DM6PR12MB3052.namprd12.prod.outlook.com (2603:10b6:5:11e::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21; Wed, 14 Oct
- 2020 11:51:43 +0000
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::a15f:ea36:aa06:2ae1]) by DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::a15f:ea36:aa06:2ae1%4]) with mapi id 15.20.3477.021; Wed, 14 Oct 2020
- 11:51:43 +0000
-From: Kent Russell <kent.russell@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdkfd: Use kvfree in destroy_crat_image
-Date: Wed, 14 Oct 2020 07:51:31 -0400
-Message-Id: <20201014115131.6367-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YT1PR01CA0077.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::16) To DM6PR12MB3721.namprd12.prod.outlook.com
- (2603:10b6:5:1c2::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F14CB6EA98;
+	Wed, 14 Oct 2020 13:18:39 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 566F56EA9B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 13:18:38 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id e23so2273405wme.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 06:18:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yvVNsKWBRJ+f2GSHiBo+rHzJFbzh+nm0bUNSdSuWhvg=;
+ b=EhKRNb0l3HYisdiAiYWwHuoO4grzUyguDny78bDDeaBX0OyYZJ/d/zgRJWIZdoz5TU
+ 58+LnGGeJO5HsnUewMEWq4fe5W4bJp67dFw97Tm/3ZozN0DpYQsOLH/pRhliqopmtbyK
+ KD5ARTWeZ4ahSnuRMk6vFOFVC71JF524Zt3nnRSoPFl/1aZcjEM8wo15mqwF0CRLfou4
+ IRWyQl93FtN5U8Wv8ALsv0HZlmvZUZL3aXSAGi28D3kyfQVMizSkOCvGN3V+cfWTEo8I
+ TwOIGJG4ie11Vl0xNKxGLKiw+g3Lydy93srVCPnPR17kCPNnZcVAfJTK/zJdnJXJ84c5
+ y2Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yvVNsKWBRJ+f2GSHiBo+rHzJFbzh+nm0bUNSdSuWhvg=;
+ b=YgKXw2sRVAZEXgvMxxlSsUZKLE8+CvTbWHfFzhw5mlB+I0JY5GNd16NOIlppx5cshD
+ LdMYooSFPm/jOIzwsGuP6WwQLyTtBgu1/PvaomZpfTnywTQsxnhvg4Ng3vpNk21sS4vL
+ 8oCPu8Ia0jso/VK7LBtJ7itd6JPmAYyyDEF60aldGN0z7qTvzI7eHssya9WzZlVLb+Fl
+ N94kA7JT2rKpY5EBPUOMtsEioVVabx9s2OLwXHx0gKmMlufRXcwnAtpLF00edn7JEmZq
+ nMwg5PHQ2XOtUhAZOaCHEShm0ez8mEuJvQDEM9sf5zTaqT/S1Es5YdZIopiCkr0amyJg
+ sKdQ==
+X-Gm-Message-State: AOAM5324cYiHQDjkGYDSorKb3yG7kcjuZwBpguE6FCkjzzGjUnXsbQXI
+ NpiriHt0/xmX45/chgbOwiwHNQGIaBiuH+UYzM+rcIp8
+X-Google-Smtp-Source: ABdhPJyHXOCyHKWMyc9tjJ7fb2dGLb8X4ylW+zMm+9Lu072xWkWDavbvQn8mNhPJ2KDYYcnpK3a+V9qp8YwInuN1jXA=
+X-Received: by 2002:a1c:49c2:: with SMTP id w185mr3410507wma.70.1602681516983; 
+ Wed, 14 Oct 2020 06:18:36 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from krussell.amd.com (165.204.55.251) by
- YT1PR01CA0077.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.21 via Frontend Transport; Wed, 14 Oct 2020 11:51:43 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 378c099d-c337-4a5d-982c-08d870378563
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3052:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB30528341697510200ED8DB5085050@DM6PR12MB3052.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rMZPbwL4ktIxjahpE0hXEdZViRwp1+qat3nvC8IB4edNWq6n0XYbfVmVsNvW8l5l5RuNiEWW6aupPbrHTqI2qWBUso63UxXslRb2YIOouIGQ11WfRaT5tzSIRkLBU4tLT7cs84yd3xs8bKx8SwlBBsvFhM+YSlvMf1YDpm0N3UUdEJuekwBLajiHzOVVBe7L90OVB78bA6ra26YzD3C4RBgtdRpYlb6eJPWRYhsyZSB7rUfzMskxGGM3G8Ex70HWB36iXp7Qq4MYCsemv/Pbv1Z0oD3UUlIKHWqg0SMnELPaEQ48QzqbSBTm8ChukB6wyw0RYjb6OKkxRSAMkYyWTQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3721.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(4744005)(8676002)(5660300002)(1076003)(36756003)(6486002)(956004)(2616005)(6666004)(66946007)(86362001)(52116002)(66556008)(66476007)(7696005)(44832011)(478600001)(6916009)(4326008)(2906002)(16526019)(186003)(8936002)(83380400001)(316002)(26005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: e50KzZ6sIzs28D0MGu1FYSPtewd/S2fCIaSp4PuLIn4RjUfgY9CwcibYdBATOvuUCpRHYxaOm/EFhmJEjZhdkBGkVFPp/TaufN1Y1CtrsYG+WnAacsCmAMOCWlMabzn9wWpE2jtsim1i/i03O038cM+rCOxf9FBWmtrB9F98SdU2mkw5/q7cAHD9VhGp1LnUhy0ZxptZHRLmMWIvQl5T8V5/GDWhGuyDMtB2I0N9Atdyg7Bro3o4ho7gcJ/5a49h9G5YlA8KA7V6UJuaMAYTTXmN9cLT4vXEymupQ3lxxiQa9/5MLG5RJltyLTjwdzqDsSE1g4CQOOEq6peYCQvTG8qQsXPmFmv+yIBBz8iHf3MEbbykDicZyRDMtK6Hoe3IzcEVczqOHpjBsi06Pbv9/gMDCfM5e/IO3e3BJOm5fPfjclr7+830qTibJir79xb7A/jEPbYNeKWvwTUx5Abqx4NQKcqrdDR7g0cWuiR59zsaDT6NTUw1dxK7nLKIpsu9nHs/okungxpsbaaJjYdTnJYCB4+qNGUQipT2FqKlpRlD6AeZ32wqfXaBlADoUV2kcJkBj+P2EsQBDlyMlSJkClhPPCWHH6YjV2YMI8+ladEZ9OeM0ztwvdTtqKRfD/RyHpeIWh0Ot+mMk2AYT6nQ4Q==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 378c099d-c337-4a5d-982c-08d870378563
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3721.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2020 11:51:43.8782 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F74dOD6NHdJk2sZe4RLdSA/BlLq15bzQD0iIpjr+ZGlbRCX+RFAq+p1ETRD+bbrCpQKxE8vSZeLWK0XI6F57kA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3052
+References: <20201014052023.7085-1-evan.quan@amd.com>
+ <20201014052023.7085-2-evan.quan@amd.com>
+In-Reply-To: <20201014052023.7085-2-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 14 Oct 2020 09:18:25 -0400
+Message-ID: <CADnq5_MxB_N5kAW6AGUYvWRTkZGu9GGrHM4rocMz4gJeyO6i-Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: populate Arcturus PCIE link state
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,37 +74,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that we use kvmalloc for the crat_image, we need to use kvfree when
-we destroy this.
+On Wed, Oct 14, 2020 at 1:21 AM Evan Quan <evan.quan@amd.com> wrote:
+>
+> Populate current link speed, width and clock domain frequency.
+>
+> Change-Id: Ic342fbd8f5e2495d212eaa4b85b4e146838e0525
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c             |  3 ---
+>  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 18 ++++++++++++++++++
+>  2 files changed, 18 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index 46eea3f8f958..f87411cfa4da 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2124,9 +2124,6 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+>         } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+>                 if (asic_type < CHIP_VEGA20)
+>                         *states = ATTR_STATE_UNSUPPORTED;
+> -       } else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
+> -               if (asic_type == CHIP_ARCTURUS)
+> -                       *states = ATTR_STATE_UNSUPPORTED;
+>         } else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
+>                 *states = ATTR_STATE_UNSUPPORTED;
+>                 if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> index f982b9090d7b..46d950757230 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+> @@ -720,6 +720,7 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
+>         struct smu_11_0_dpm_table *single_dpm_table;
+>         struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
+>         struct smu_11_0_dpm_context *dpm_context = NULL;
+> +       uint32_t gen_speed, lane_width;
+>
+>         if (amdgpu_ras_intr_triggered())
+>                 return snprintf(buf, PAGE_SIZE, "unavailable\n");
+> @@ -823,6 +824,23 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
+>                                 now) ? "*" : ""));
+>                 break;
+>
+> +       case SMU_PCIE:
+> +               gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
+> +               lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
+> +               size += sprintf(buf + size, "0: %s %s %dMhz *\n",
+> +                               (gen_speed == 0) ? "2.5GT/s," :
+> +                               (gen_speed == 1) ? "5.0GT/s," :
+> +                               (gen_speed == 2) ? "8.0GT/s," :
+> +                               (gen_speed == 3) ? "16.0GT/s," : "",
+> +                               (lane_width == 1) ? "x1" :
+> +                               (lane_width == 2) ? "x2" :
+> +                               (lane_width == 3) ? "x4" :
+> +                               (lane_width == 4) ? "x8" :
+> +                               (lane_width == 5) ? "x12" :
+> +                               (lane_width == 6) ? "x16" : "",
+> +                               smu->smu_table.boot_values.lclk / 100);
 
-Fixes: a522a06f8044 ("drm/amdkfd: Use kvmalloc instead of kmalloc for VCRAT")
+We should put a * by the link speed for consistency with other asics.
 
-Reported-by: Morris Zhang <shiwu.zhang@amd.clm>
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 7a071b4f76a7..cdd5032d5c0e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1432,5 +1432,5 @@ int kfd_create_crat_image_virtual(void **crat_image, size_t *size,
-  */
- void kfd_destroy_crat_image(void *crat_image)
- {
--	kfree(crat_image);
-+	kvfree(crat_image);
- }
--- 
-2.17.1
 
+> +               break;
+> +
+>         default:
+>                 break;
+>         }
+> --
+> 2.28.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
