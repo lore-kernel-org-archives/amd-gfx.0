@@ -8,60 +8,59 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38BF1C433E7
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 13:18:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20324C433E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 13:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B27AE208B3
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 13:18:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 98C6F2173E
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 13:19:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhKRNb0l"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B27AE208B3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HP7gQ094"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98C6F2173E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F14CB6EA98;
-	Wed, 14 Oct 2020 13:18:39 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 566F56EA9B
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 13:18:38 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id e23so2273405wme.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 06:18:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D86646EA98;
+	Wed, 14 Oct 2020 13:19:38 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2916EA98
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 13:19:38 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id d81so2278736wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 06:19:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yvVNsKWBRJ+f2GSHiBo+rHzJFbzh+nm0bUNSdSuWhvg=;
- b=EhKRNb0l3HYisdiAiYWwHuoO4grzUyguDny78bDDeaBX0OyYZJ/d/zgRJWIZdoz5TU
- 58+LnGGeJO5HsnUewMEWq4fe5W4bJp67dFw97Tm/3ZozN0DpYQsOLH/pRhliqopmtbyK
- KD5ARTWeZ4ahSnuRMk6vFOFVC71JF524Zt3nnRSoPFl/1aZcjEM8wo15mqwF0CRLfou4
- IRWyQl93FtN5U8Wv8ALsv0HZlmvZUZL3aXSAGi28D3kyfQVMizSkOCvGN3V+cfWTEo8I
- TwOIGJG4ie11Vl0xNKxGLKiw+g3Lydy93srVCPnPR17kCPNnZcVAfJTK/zJdnJXJ84c5
- y2Hw==
+ :cc; bh=KM/WNSPSMxd/FuQ6XjIQxtY+elJtk1fXGagXUN7Xwns=;
+ b=HP7gQ0942N5AN+EDjEd/9Uke+yHCNe98GkSFK0qZle/O/dsONx0rXSt2IiR8qXLyE7
+ apOXCkHZN/cJrkQNC0kXa/dNPn6n3gRT9pIp2ymE4XVt/0RfZwEIFvgk7iu/m2SfOjaM
+ H/xcTo75efICSwBOnGdcmvx1XelMIQ8uBqI+YSeiIMDWJiRfszUg0RnYtU7YlWVkOww/
+ P/1q6L2I6sS2hAWRwwSl4Me0MoRhszVwg1+xygSwu6dPP62Os9Rcxtp6hnn6tG1c7P3E
+ 9pL3AWfYX+xunyVo2gFsY6KposcITN3hQ4yA0Z6dTLVDuPC/MPymZQ3jj3JNqr4erbmN
+ JTFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=yvVNsKWBRJ+f2GSHiBo+rHzJFbzh+nm0bUNSdSuWhvg=;
- b=YgKXw2sRVAZEXgvMxxlSsUZKLE8+CvTbWHfFzhw5mlB+I0JY5GNd16NOIlppx5cshD
- LdMYooSFPm/jOIzwsGuP6WwQLyTtBgu1/PvaomZpfTnywTQsxnhvg4Ng3vpNk21sS4vL
- 8oCPu8Ia0jso/VK7LBtJ7itd6JPmAYyyDEF60aldGN0z7qTvzI7eHssya9WzZlVLb+Fl
- N94kA7JT2rKpY5EBPUOMtsEioVVabx9s2OLwXHx0gKmMlufRXcwnAtpLF00edn7JEmZq
- nMwg5PHQ2XOtUhAZOaCHEShm0ez8mEuJvQDEM9sf5zTaqT/S1Es5YdZIopiCkr0amyJg
- sKdQ==
-X-Gm-Message-State: AOAM5324cYiHQDjkGYDSorKb3yG7kcjuZwBpguE6FCkjzzGjUnXsbQXI
- NpiriHt0/xmX45/chgbOwiwHNQGIaBiuH+UYzM+rcIp8
-X-Google-Smtp-Source: ABdhPJyHXOCyHKWMyc9tjJ7fb2dGLb8X4ylW+zMm+9Lu072xWkWDavbvQn8mNhPJ2KDYYcnpK3a+V9qp8YwInuN1jXA=
-X-Received: by 2002:a1c:49c2:: with SMTP id w185mr3410507wma.70.1602681516983; 
- Wed, 14 Oct 2020 06:18:36 -0700 (PDT)
+ bh=KM/WNSPSMxd/FuQ6XjIQxtY+elJtk1fXGagXUN7Xwns=;
+ b=tHTk5F+pckkGtZqSptYg1nJ1Grtep+GAAm4Jw94gkhHkZJLB+BFQGfnvymZMhtW05A
+ dKDgWgVJzwt2XvqNuEgKjpx2xuyPQZCQ8B51wW+4y1kjbE1enwYizuxgnBxwNvDPe0/F
+ aIuDX8qsqmULQjThCnjHiWHm+n0jvcaAHLdKbACC8Io2pYg8hitM+JvjJ4FlI1tp5iJJ
+ zmk8H6L7PJUTIaicBgim+lZXAnLRlYPCq/MeoyO0b3v/vf82eXMxJA06K2eJQtdLArPl
+ 3B1B3v1GqRt9zyEz1lJR4XkBZHfHaqwoHm0zhZ7Bu88Qbu4oht8S9HG8XGJgbrFZYYuV
+ caOg==
+X-Gm-Message-State: AOAM532h7/2rJa8dqvL2dFVBlkLEuyugNPqFVw1Dn8Dj5kVI1GlzVthH
+ LMsjp17ncHt97rKhH8RBRs2Kim7R7N4xOKGgK3D+PEVt
+X-Google-Smtp-Source: ABdhPJyzTZ9on6SOPlTeoSb+ZKp7H/45r8mD6ci6d+DCy5L6xMTMdvsVbki43otkGHvvr2Ba6STLCr/fXrm1rKOJ668=
+X-Received: by 2002:a7b:c7d5:: with SMTP id z21mr3424466wmk.73.1602681577058; 
+ Wed, 14 Oct 2020 06:19:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20201014052023.7085-1-evan.quan@amd.com>
- <20201014052023.7085-2-evan.quan@amd.com>
-In-Reply-To: <20201014052023.7085-2-evan.quan@amd.com>
+In-Reply-To: <20201014052023.7085-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Oct 2020 09:18:25 -0400
-Message-ID: <CADnq5_MxB_N5kAW6AGUYvWRTkZGu9GGrHM4rocMz4gJeyO6i-Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: populate Arcturus PCIE link state
+Date: Wed, 14 Oct 2020 09:19:24 -0400
+Message-ID: <CADnq5_NzUHFAUxyi+P7XGMhRzBeuo1W432WrvM1SCUnqrx8nHw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/pm: populate the bootup LCLK frequency
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,73 +80,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2020 at 1:21 AM Evan Quan <evan.quan@amd.com> wrote:
+On Wed, Oct 14, 2020 at 1:20 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Populate current link speed, width and clock domain frequency.
+> As for other clock domains.
 >
-> Change-Id: Ic342fbd8f5e2495d212eaa4b85b4e146838e0525
+> Change-Id: I0a78c133f00cd11133bc755bf0443505088f024c
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c             |  3 ---
->  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 18 ++++++++++++++++++
->  2 files changed, 18 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h        | 1 +
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 5 +++++
+>  2 files changed, 6 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 46eea3f8f958..f87411cfa4da 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -2124,9 +2124,6 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
->         } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
->                 if (asic_type < CHIP_VEGA20)
->                         *states = ATTR_STATE_UNSUPPORTED;
-> -       } else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
-> -               if (asic_type == CHIP_ARCTURUS)
-> -                       *states = ATTR_STATE_UNSUPPORTED;
->         } else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
->                 *states = ATTR_STATE_UNSUPPORTED;
->                 if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index f982b9090d7b..46d950757230 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -720,6 +720,7 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
->         struct smu_11_0_dpm_table *single_dpm_table;
->         struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
->         struct smu_11_0_dpm_context *dpm_context = NULL;
-> +       uint32_t gen_speed, lane_width;
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index fafa9c57e32f..9fa9473d418f 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -226,6 +226,7 @@ struct smu_bios_boot_up_values
+>         uint32_t                        format_revision;
+>         uint32_t                        content_revision;
+>         uint32_t                        fclk;
+> +       uint32_t                        lclk;
+>  };
 >
->         if (amdgpu_ras_intr_triggered())
->                 return snprintf(buf, PAGE_SIZE, "unavailable\n");
-> @@ -823,6 +824,23 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
->                                 now) ? "*" : ""));
->                 break;
+>  enum smu_table_id
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index a057d1d15087..fbf6d3e35173 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -603,6 +603,11 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
+>                                                  (uint8_t)SMU11_SYSPLL1_2_ID,
+>                                                  &smu->smu_table.boot_values.fclk);
 >
-> +       case SMU_PCIE:
-> +               gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
-> +               lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
-> +               size += sprintf(buf + size, "0: %s %s %dMhz *\n",
-> +                               (gen_speed == 0) ? "2.5GT/s," :
-> +                               (gen_speed == 1) ? "5.0GT/s," :
-> +                               (gen_speed == 2) ? "8.0GT/s," :
-> +                               (gen_speed == 3) ? "16.0GT/s," : "",
-> +                               (lane_width == 1) ? "x1" :
-> +                               (lane_width == 2) ? "x2" :
-> +                               (lane_width == 3) ? "x4" :
-> +                               (lane_width == 4) ? "x8" :
-> +                               (lane_width == 5) ? "x12" :
-> +                               (lane_width == 6) ? "x16" : "",
-> +                               smu->smu_table.boot_values.lclk / 100);
-
-We should put a * by the link speed for consistency with other asics.
-
-Alex
-
-
-> +               break;
+> +       smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                        (uint8_t)SMU11_SYSPLL3_1_LCLK_ID,
+> +                                        (uint8_t)SMU11_SYSPLL3_1_ID,
+> +                                        &smu->smu_table.boot_values.lclk);
 > +
->         default:
->                 break;
->         }
+>         return 0;
+>  }
+>
 > --
 > 2.28.0
 >
