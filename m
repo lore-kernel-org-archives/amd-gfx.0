@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7905DC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7765BC433E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3FA920B1F
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:20:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0821420B1F
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 05:21:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WLP0P+HW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3FA920B1F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="oiIJzLb1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0821420B1F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9EC6E9D4;
-	Wed, 14 Oct 2020 05:20:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4AE56E9D7;
+	Wed, 14 Oct 2020 05:21:06 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D31416E9D4
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 05:20:56 +0000 (UTC)
+ (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8287E6E9D5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 05:21:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P00bSUynfwE42Va4JUqBoGLsz3aOs8s7tH6UkTpRw6yreVGImlUQOFNGCnxwg8SdkEbumqf3ZE0ps435gRLZRZzJk/wRtkQII5eqJCiXh6IXAtNByQcGnIx+8RaU7bIT9YvmM+JldhTW5vqzbGl49JBi9qx7XG87z/HRorar748NZw9jN1yCS28LDCqdEd72ZeO7VAJQyjd+SrKOYvp1VT83gKyPkLmDvQ9BQZpyWwJXnKLOuJ853m8HK0SFgUzfI7whbWAUGw/TYNL9mJuppl4iAoYO8vWyvU+50ph17v4wR4BdMg56KrILYFS47bILRmCHj3yLXgFiDuPXGytHLQ==
+ b=GDs3ydhRJe9vK/DzeUP0UAbwLSZZMAjZck9wbqfPtGdYonackAQgeZjxGp7vUXiUBxNTu1oP30FLh+fkQ4b0VtKqC0vSSfACinHHm5AtIm4a1VAI8J+uzizChTMYbrNrILKNsYA2RPleRyYAyq9BCVfjyPs4XoYCGINeG4SFwZq/pz3v92tqR5zDhXtZ1TvlApd4eLf8nSElOAcTrTnXEgQ9uniYM0xK0beS64hLl6dW9yJevJrEWCo6ZFHeYCIcb/beqx7rGmotR4lv2xo2NOflq72Yv69Kuh6Y+sWkcg5Znf1KRgcANeojfDpZnmvRqcKxAuET6H+pSpSea3zWww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8JpLZSNDZ3MF00KqKhg4dk7j4s2S+vQ9AWThlBzVXQM=;
- b=RzXWcCxjUa8G/yZm/x9mkelWtDir7cKXEqUKWeaXGEeWnoxjccP21taKpFSYgG1HOvPFE06Niw7p67b0m9WaXcEfDPju8F32DsArmNe3mPI6ePBwvH1J91YJcg8jkeusXz1WFcMo1N3JPb3ll068j4EPbsgf4+LixtU8WP2ovLhy1ScSCnsu95MTWGrOL/3LAeyzC+NDxZfupAZ9UVZbPKQdM1aXq1B9ihtq+kO+1cCriTp3w5usNDhp2rdA25h3eJpvvwtA1RND4sQpFi3Nx5fjStJrnbNShZidF09IDnsEqIffmqJD1tkGn6cKoK22EMXshazkY6pcewEVAQL+pA==
+ bh=JpENlDT9vsYAItOVonZY5B9DDK2fD/p+dh9OYvXkAjU=;
+ b=WiSMeYfew+z8LdDJp54C4GzlkqmhYEbRKlAJlXmZbTvUlGGywTgC7QGP0iCKp9kaAtJ2Pr/hzyYcyd699U2XvygakuB7V8YVHpfYayRKOgi/Luh9xo539lhR9jjMfiqaR5OcT8S7B8OlhxmY6JAgefePvJR4ZjvO6ba721UsHpc/Odh1TG0wFe9cBkk+BHH3WJ3K6D4/dwkr2dsg8GhH4AhFjR8YciWnxcgAx99qJKiRleK22TtsezX7Gpm9588nl0o9IrY9dFYTlooLvk2s0WcQ5Xgzh8DsryaabyB9I6xcUeTldlXXq4P5ECnhYH7xdpsuibqa3a2quNAYwcm+Eg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8JpLZSNDZ3MF00KqKhg4dk7j4s2S+vQ9AWThlBzVXQM=;
- b=WLP0P+HWlLH5+oiCGUZSzK+SuBL4pPiUhPK8hkhElHXSH30OjnjOdjZIxz7FzgZg7WWFeB+o+ZTIy7fZevqCM1RVKCas7ahN88mZ4QKg2X60+FkcrW2kLO1RoPXodwLIuDroYQfljcU/9+5xB/vWUqVNKjopt8kvdVKymc+PSxk=
+ bh=JpENlDT9vsYAItOVonZY5B9DDK2fD/p+dh9OYvXkAjU=;
+ b=oiIJzLb1G6HxlrPkhbkWjNzz1m/beUg2dmrHJY7OzpjBoob8aeMht9j4JWZMocIO8UTQdq3wcp3iS4DeoCI6CbqSHslIZfCVAnZiwtbUk7IXDXDbDpgqCB67eYqZXlMrxp1MbpQPFqs5LCTs/gb+t0szje1vhiJSJUQeDo8LDao=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,19 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3468.namprd12.prod.outlook.com (2603:10b6:5:38::33) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3455.21; Wed, 14 Oct 2020 05:20:53 +0000
+ 15.20.3455.21; Wed, 14 Oct 2020 05:20:59 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3455.031; Wed, 14 Oct 2020
- 05:20:53 +0000
+ 05:20:59 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/pm: populate the bootup LCLK frequency
-Date: Wed, 14 Oct 2020 13:20:22 +0800
-Message-Id: <20201014052023.7085-1-evan.quan@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: populate Arcturus PCIE link state
+Date: Wed, 14 Oct 2020 13:20:23 +0800
+Message-Id: <20201014052023.7085-2-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201014052023.7085-1-evan.quan@amd.com>
+References: <20201014052023.7085-1-evan.quan@amd.com>
 X-Originating-IP: [58.247.170.242]
 X-ClientProxiedBy: HK2P15301CA0001.APCP153.PROD.OUTLOOK.COM
  (2603:1096:202:1::11) To DM6PR12MB2619.namprd12.prod.outlook.com
@@ -68,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2P15301CA0001.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.3 via Frontend Transport; Wed, 14 Oct 2020 05:20:51 +0000
+ 15.20.3499.3 via Frontend Transport; Wed, 14 Oct 2020 05:20:58 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 11c18039-f234-48ea-91c2-08d87000ebc7
+X-MS-Office365-Filtering-Correlation-Id: af3b8048-880a-42bd-09ea-08d87000ef8f
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3468:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3468B9E551137280E1A9BC2BE4050@DM6PR12MB3468.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB34683BD6ACDEC7A47FC6BD69E4050@DM6PR12MB3468.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:29;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FuGbGNwsdUDWmdXPlmy6UHFpuaVCTzFdhmR1RmvHipf5S6xYDGojxmEbb3yWNEw/Y3POQQPZyjfWuKUyeavR15sTWvO/Iq6i1B6pviLb52WP81yTK5XZyIsAIKJatQ5Xa1D1mxkox67z8IIx20tqryc5Wb/Pxn35Mb1Mg2JM6X2wK5nwc68r7rjHfXa2Sf+Y/w4vcx/wKzROztSvMavDX6hZAxniQGrLlPJX53dNAjEDW2X30X1MwzWFGOzuvhyHS/cbDo00W/EuaDMuutk67UAO7n92iv/aRBiZl1A+OORcWGBelH1aQm2L4SvXzYRglf+G8pcuk3untTUzExn0zQ==
+X-Microsoft-Antispam-Message-Info: iNuJX9ZHB4xUz6IyxJqqei7msIhzijDU7pJ0MJUlUe1sCRuGxkZ/C2dbJ3mLWS0mGK+PHuovY0E9g2pTZ7yHpHVm/mWyP4UQ1TKEmkzn5xJQeT2c0RbFGSZ1/BKJVxkTLUuae/fenGznBvOKTUJoGpcK50Qc0P3GTpgNALBqu64CH9gj2eCQh0e9CoXoL8dPmuqtlwyDCFgUseZNgs8Nq8ySeRrnoqbLesV+kzPCyT0Z23DGmFXhLU/N6UFIUEs0MdVT3gkXRO7vn9UR9+N3EJnRTPOK3NFkHYRtmFOF7xKCPEiW0nbdS+rCtFCeYFgh
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(136003)(346002)(39860400002)(376002)(396003)(366004)(6666004)(4326008)(7696005)(52116002)(26005)(36756003)(8936002)(6916009)(8676002)(186003)(16526019)(66556008)(66476007)(66946007)(86362001)(478600001)(2906002)(316002)(44832011)(2616005)(1076003)(956004)(6486002)(5660300002)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: QkzyL+ZQm0N6SJBMp41U/CbgAzknnf2LPdqecAOzCfOqTZFSJG8zK6q4KxQFT3PatX065z69yOfVC52sh6zEaxzxUOvYA3CZ6V2h76IjHHkZn7mW5rGJkgulpp7yGgp8fwyEx+K+CwxPgeLi0vFnF8sA4xPo8qx4RzUcXwWTU86z9pau+Zqpyy75CtBh4zH7YAbbhMYITX/ob8ETjrpc1Z9X9V7E+wAFVJXRpTJCxR7xdpiFxhJKu+bVAZZx3rhagKUkdJdEjI7eyJ+hJltjAkng70JH2d4fCZ45/ezF4ZTTcKHMTtN509aWqipUj8OrVq9NWFISwi8iSqDERHouhwbPHCBq+0abkkvmDoCZ5LfU9v85nlZwkcDxkjnfGnkQ6IczlAFrhnVJrktbc/s8dhhL+G/d/sSBv16BJ8aSnWiB4J4dZw/q4kfcvNoNZJAY+qaSfWBi5fjQxkIJcrh0i5seQw5L0bRJo4gXFGgbvCEZ5IGwxxTHl6ks/0XtNrWTKq4Ea9BcsRWOi6b145CSF85LdTEtLR+SJJopdMWDjaT4tDz7ZMFTSJA9RbVefPNEnSYaqnbyQpV7w/+P6xe3JPqxr4JmV+J2JcowCCOyQBnCQXTAraF9zGGwoI/3P8jPOtbjGqTaKz/yLMKl3z3DmQ==
+X-MS-Exchange-AntiSpam-MessageData: HRoaWmgHbduJ1NosUBFlAyjAS0+AiNHKyQVjsD2RwePKSAnIjEI+uOzPUZu8N0bbAYLYZfzYyviSolmllP89FSShYwkzoMPHb+TtSZIdtKLUSAdZjp5lZW502p1K31Xoqn46PpDUrAPxm6Ocd41+j4tN+uH1T7TRagGqOG4BFfB1WelGIrrtzP7+7mpzN8Szrj4wI4QiKzKRKE1v6nHFNxM4YBY/JD/+gVivu/GLV5GBAvb6bHhloQNxuZR9nnPTH9Rf2b4P/YJDq7HzI7cbcsBYP0zFktNWLQeF4V6K1yfb9LrexJRK4NiyGm97HHIEXugyVcjGaWCUJbyHS7M/S3WLeHPdGXNU7mLPWtrA4IDU5/iHz+XIYJJ6QLn8vhMNy8EDNVgctduSDLMLOQFKVKPf4Jxhuju3cL/1OSxBKTTWVhQWo3dloVan5CAgX+ajw92NybJmD2MmZjNXbv3zCmmmmiZtSzEITEooNjNnIU/Q0UW9PzxOYdm7FXhX6OxkNnbjf4FwfCdAChm7a+SsJAzaQOUSGGcjvahRWDC9FbJ3TAfiH/YsyVzE+7WN0q+P6Sw01w9xtXJP49Jut0zKR7KVSPLMQjI4IleXLdWvi5uy8M3Y6qpFIoVP83nMUOKWjZW+9gS3/gtLzrz2I/itDg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11c18039-f234-48ea-91c2-08d87000ebc7
+X-MS-Exchange-CrossTenant-Network-Message-Id: af3b8048-880a-42bd-09ea-08d87000ef8f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2020 05:20:53.4918 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2020 05:20:59.7093 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XiYStFOsOkhG98Z7LKAh612rsxBO86b33lOIruxUrevHNfQhGt4LHikXsX58tEXV
+X-MS-Exchange-CrossTenant-UserPrincipalName: FTNpD6XousfE5BxbDw7PV2BRnvENdVnGTuGKem2Up029O52XNZuEuXSeX9MAjoFL
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,43 +113,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As for other clock domains.
+Populate current link speed, width and clock domain frequency.
 
-Change-Id: I0a78c133f00cd11133bc755bf0443505088f024c
+Change-Id: Ic342fbd8f5e2495d212eaa4b85b4e146838e0525
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h        | 1 +
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 5 +++++
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c             |  3 ---
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 18 ++++++++++++++++++
+ 2 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index fafa9c57e32f..9fa9473d418f 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -226,6 +226,7 @@ struct smu_bios_boot_up_values
- 	uint32_t			format_revision;
- 	uint32_t			content_revision;
- 	uint32_t			fclk;
-+	uint32_t			lclk;
- };
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 46eea3f8f958..f87411cfa4da 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2124,9 +2124,6 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 	} else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+ 		if (asic_type < CHIP_VEGA20)
+ 			*states = ATTR_STATE_UNSUPPORTED;
+-	} else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
+-		if (asic_type == CHIP_ARCTURUS)
+-			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
+ 		*states = ATTR_STATE_UNSUPPORTED;
+ 		if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index f982b9090d7b..46d950757230 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -720,6 +720,7 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
+ 	struct smu_11_0_dpm_table *single_dpm_table;
+ 	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
+ 	struct smu_11_0_dpm_context *dpm_context = NULL;
++	uint32_t gen_speed, lane_width;
  
- enum smu_table_id
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index a057d1d15087..fbf6d3e35173 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -603,6 +603,11 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
- 						 (uint8_t)SMU11_SYSPLL1_2_ID,
- 						 &smu->smu_table.boot_values.fclk);
+ 	if (amdgpu_ras_intr_triggered())
+ 		return snprintf(buf, PAGE_SIZE, "unavailable\n");
+@@ -823,6 +824,23 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
+ 				now) ? "*" : ""));
+ 		break;
  
-+	smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+					 (uint8_t)SMU11_SYSPLL3_1_LCLK_ID,
-+					 (uint8_t)SMU11_SYSPLL3_1_ID,
-+					 &smu->smu_table.boot_values.lclk);
++	case SMU_PCIE:
++		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
++		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
++		size += sprintf(buf + size, "0: %s %s %dMhz *\n",
++				(gen_speed == 0) ? "2.5GT/s," :
++				(gen_speed == 1) ? "5.0GT/s," :
++				(gen_speed == 2) ? "8.0GT/s," :
++				(gen_speed == 3) ? "16.0GT/s," : "",
++				(lane_width == 1) ? "x1" :
++				(lane_width == 2) ? "x2" :
++				(lane_width == 3) ? "x4" :
++				(lane_width == 4) ? "x8" :
++				(lane_width == 5) ? "x12" :
++				(lane_width == 6) ? "x16" : "",
++				smu->smu_table.boot_values.lclk / 100);
++		break;
 +
- 	return 0;
- }
- 
+ 	default:
+ 		break;
+ 	}
 -- 
 2.28.0
 
