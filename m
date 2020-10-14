@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25900C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 07:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5717C433E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 07:18:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF3BD212CC
+	by mail.kernel.org (Postfix) with ESMTPS id 719022078A
 	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2020 07:18:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YlZh6Mam"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF3BD212CC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aPY0MSV9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 719022078A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4676EA1A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 135016EA17;
 	Wed, 14 Oct 2020 07:18:51 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
  (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B31EE6EA17
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD6566EA1A
  for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 07:18:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HMHqWY2KZDsuVLnR5XZn//9i+YqBJLUfJhbGy7wz2iqhIJRIvXVmLxqv5weQxeA9WDN7Xkigz5VGkhO4YoU1t4/OgPeXhArxY61Ep/4nf5uS+XUWO+0QP42zHTDK2Olayhabhd+XgqY038EH4NviRL6xCrjNRnC2j5vm7BHv9ga135vfN8h1r6Ro8oz65M5/DmPsnu4LFHZkMLkmhx/ZKkajYJehHJ5N4Itf+vPMRQORJFLP4cxv8kIFDORvs5BUPH45rUuSBwFhEr6Un1ft1ULCEar9ampohafs06JFKVaueO54W/zm4SKir/l9BUiv/5ybp6uHUP3A7unjxOBBFw==
+ b=nqKsX1YTMRPDPQ5xPCmqjy8oXvyrZsUOgzGBXhbvowp/DqatL5nAe2dX5nWLlop7gvrmsRovhjmwQw88T4+bAHNf6LZgAHgi23pZd1q8k7wcvaUCMXqPQMKvV2kpSC/Eh25MAOahxCwVZNIFKrWghOoJwT6ZbpBgtwSaDPFAxSKYOXBbBp/8ZT+MsG5r8GQKd1IWDI24sDCV+UA8xXf3UT72MNXlYn3+qhJ8R3ZzLAOHIPUu5ocVdJeitPyUFoxbfskctxTK+lsHv9g32Xo4G1k2h9oDxHqgR+ogDrWmaqcpJ7FWKt/UsYDqQRRIgibLvYwwPOWPeLrPPeZsj/uoqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lgWzl3t2EPwpBWeIa/rRyRmt/iUUhf8W3pkHNigGy/A=;
- b=kSITHvBmNVVnlQLXHhVrrrVl6EXe5RIp/EGp2CmB8Qrvv5Z72xW3CsIPxViE86qd/ZqDC/JD6L2F5IhZ3vHcCUJs4HQBS6V54QDCgg0qHQbZ0MqCbqXxbrlXFBaNQXUBQ4lGDt+xJaW11ztyUDUMVEhFWIWNbOY8inJ2ZZ53I23fOh9OxW67T8k5WGJQjNflTZ5+9Ela+ED0tVh6Z4ivFDGRdrvw7Qm2SH4VEqmU2iXsssPUVkbNOWnkc7Ga2zB7f43ngasQCSZxSKegtWsbo7ESY5rDNpFBmmkpQGFIRM75Jr+7WSAJr7/Ki0u2tjcs80iEG6Wi0eIpapjZUfQsKg==
+ bh=EwLLbIzKpkj5Nzuz5hX5nMgs4lwsF2ueL6CBNL/IzTE=;
+ b=E0Xls73raxmyCqHOswU5hCPORFnHAWtupp4+LChtlbkDk2mBNgmC0ghuxXOH+1YkN9ZuQ3Okfakxpvw6cKsBQeGkkzXKehH6T1Xl9Qzs9+Rg6l3okgQXIdZpvTwnjBgYzhXYv5wtg2bVOSmgFPi3jtE3+L6XVKlDhnvGmzIbn0UTvMjtn+l4P/XglbkUluJLfxFTHcaLEDj+2NYQgTw5jdfLU6zY8GwTSUCfA+68zUjoS71Vgo5QtWHZiixqrW4uVLlchQ77Y8HsYqOpiTaR3XU8AMNLVpq2EGr92JRt5tkK4dOmXJnqyG/hUizaqTmgpQpHJ7pJ5NF6zwb3YJUYWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lgWzl3t2EPwpBWeIa/rRyRmt/iUUhf8W3pkHNigGy/A=;
- b=YlZh6MamT+VSMAns14JLdIR2yk4ks4aNvLPOsLp8P6puwBqJTaeZDF/y9uSD0u27IuGaV/2ZQcYrnwWHeSsdlNlQCQcTipFfURgOBEXN4LSQnkqObPjBewoJM+p66lEI0X76ENd+SJrRT/AgJl6D/6E5z7HFpu2i5UQXSidC8LM=
+ bh=EwLLbIzKpkj5Nzuz5hX5nMgs4lwsF2ueL6CBNL/IzTE=;
+ b=aPY0MSV9PyHbr7LxsfK88YyANplpoH14SVNmuOGAFL4jMUikgOk4Vg4yeCQ+SUc4xyEzIU0LeFadv666wyta1MCeDynmQJkYGYCnV8PXIAR7u6cAs6gfcpGoIqMtHJLQzjRUnKPgD0U7OMBOAB4Bob1UEdyhVPXn/SSlfnlY7jI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB2891.namprd12.prod.outlook.com (2603:10b6:5:188::13) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3455.27; Wed, 14 Oct 2020 07:18:43 +0000
+ 15.20.3455.27; Wed, 14 Oct 2020 07:18:47 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3455.031; Wed, 14 Oct 2020
- 07:18:43 +0000
+ 07:18:47 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/5] drm/amdgpu: fulfill Navi gfx and pcie settings on umd
- pstate switching(V2)
-Date: Wed, 14 Oct 2020 15:18:11 +0800
-Message-Id: <20201014071812.8396-4-evan.quan@amd.com>
+Subject: [PATCH 5/5] drm/amd/pm: properly setting GPO feature on UMD pstate
+ entering/exiting
+Date: Wed, 14 Oct 2020 15:18:12 +0800
+Message-Id: <20201014071812.8396-5-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201014071812.8396-1-evan.quan@amd.com>
 References: <20201014071812.8396-1-evan.quan@amd.com>
@@ -71,31 +71,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR0302CA0012.apcprd03.prod.outlook.com (2603:1096:202::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.11 via Frontend Transport; Wed, 14 Oct 2020 07:18:42 +0000
+ 15.20.3477.11 via Frontend Transport; Wed, 14 Oct 2020 07:18:45 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 387b4533-9dd6-4046-fa20-08d8701161f5
+X-MS-Office365-Filtering-Correlation-Id: 827feb84-acc9-4040-30bc-08d870116403
 X-MS-TrafficTypeDiagnostic: DM6PR12MB2891:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB289125017AAE691602BE5885E4050@DM6PR12MB2891.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2891113E0588550C173448CBE4050@DM6PR12MB2891.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:923;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y3rSZKyDqzveRFWS/Di26mRyEMandx2RcGrsnEOYmZYyLj8YG30p+2mYysGtkmvpSlaRmEhU6aw50hRS4bSR4EcbNdm4l5p+abpHrRLNwgoXHAWG6i5/LAOQgXJWAjp45X5QDAuGoZkRHKBCzFR4cAUAH6R1UzUs1jUnaoCJIIRCtIMST+s9iAtz170JH6h6yqk+7npw8ccCge5yL3wTzS1WGxkGt6FocSG4iCEAvBAamUeuhBdReI71ZAiNT/NEj2bkDxUgPeGQwTOBYxoQZ+IeoMiLXI8aBrsV/PKf6FRAQqqdzsFQ5uToVK82QMBM8QqsVqVNJzz9+M5Ka4G+Eg==
+X-Microsoft-Antispam-Message-Info: fYa6NkLeZ5TjJRQEEIWFV+4AR2nYjQbmc4F0d0Fwpkm3eRdrOwFCDUvViyK9FaGsfIh6pXLZSEKx/pZqVE40A3tgDcV13O6V3I47tMhpEP+Lf3aybEFQvI1kYa2SiinEICKcpQklITRn3zmheNAPBFRFW82G/5og3XaQVhce3jmUrGA7whTxjpji8DBf7RVOR/vphV6KSGTyNO/K9GM2tPQFaeP+7PpRP8Q5LkyHRNsSrLtiIh0ZFoNttC2S/udvImYBRwx8ZCaEfCLEVO+qufAOWXeER3KWSf0oYJ9Z7YVdLJOzEiY9zr/IPUjptRN1A64Giu4YPln/l0NAkA4ZBg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(346002)(39850400004)(366004)(396003)(376002)(136003)(44832011)(4326008)(7696005)(52116002)(83380400001)(86362001)(66476007)(66556008)(66946007)(6666004)(26005)(16526019)(316002)(5660300002)(8676002)(186003)(8936002)(478600001)(956004)(6916009)(2616005)(2906002)(6486002)(36756003)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: mPKh2j4ushMo2UJ0GHf9F4FlcTsoRtaEGty32bQPp3uRi6+2unmwRrbQrepaObMPS5YDe79L5pvEMW1lTdglBKdiQ5povSHAfTiAufuNSBTU1oMKRE44rOICl31qH1YRPH5EHZuJ30YiY++5p+tBrxzzphnJ9gETNuMW8ZAS3VLL/29KhAXbsoudIjlTPoqS4f0d8OUIiSoDSm3eb2ReREhp4RXZBZsl14kWX1dp/nVSyTEvNgkongdwXcUtxYHq/LFiUvX7iG5nYVZGmficxeme3VlU5Quexksk0Ulqxk6Iinr2dgUOPyrJJyCglyzxHMdWy/tW9VSwjZLV1lXSVryOx7xpwNdNOAo/+UnlgMzco4JpfZ1fTN4r1J2ZowJ3hg4MarKytvFzMkk6MyOA22mZAMu97EKPNuXDWTyY5TwR7EpFlRgB+kmIZCNaV0tD0IvCmPrt1gRKlJnw+8MUlVJ3sQ5aGrrMm7+wXbzxJA7K+/IXDv/uAGgFH/DWgNwLdf3HsqOFmsTX7dIOk++lm/j9se1zFXbj8p19fMQu3lsxyN7Meuozv7m2SSTcWMawTifImnlO69oVBBlkO5ty4+D6XSpm0LTa7hwquSlCGOuq57Xt0+Z28M3R/Q8m9EwjDvjbf/YhlkDA4dBa2LBAXA==
+X-MS-Exchange-AntiSpam-MessageData: ckzIMsYpXa4V0kVhZ4/nONJjS9BobMl9FUBesMjXVXeK4CNooOwjqFls9W8KjeSSyBUqWN965DVzxDp7Y0GXqv0AYKT8fAacnSRqrYfngBGDLrhrKMLN+0zjNtsU3SMCNTuklcVoebJBn2ufkPLBiw7hzwEd9cdmD9PRLAHX9/DH1JHc8piL5dx7HdsXn/WBwjw7/Nr2XogpLIfgGW+WU1jKl4aY7kOQADBQ1BrEvG9b9L9bl3d9J74KkqlZlRqtf3DA28Ys8BpidPCF7VJsIbUWoxMyZ8Dj6NpDvC3rWL68SokMekKl+ngcQF8BLz32QV7lT1BKQ0k1qTP65GHUgYRP2w1Ee24jTrMuG+WhicdKudUX3aRYLoZBOvWCep+OgqOYKZIv6AXM/UGgy0B5+PQmcfor9Wh28kbZaP1R4lPRc+i/MSWwhyIJ3yx8i+XVG9fk2XNiK+SuQIq/pQ1a3bEq4F2xyaSMFshJm0iSh3Bw/lL2EBZ4eAoLmzGFNqbFHLpQ+zBTjZumRX2iprjRkuWEsPyK2O+vTi7AimGL0rISQTviSsPUUPxaIKxiom1eJStcMwTnSPWMSpQYTQkxcKXPMpcO+xF6oz9cH80TBRfri98qrFSH5xtgrxnBRmrqtd4/eq7VCgm6HZJacSQBMA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 387b4533-9dd6-4046-fa20-08d8701161f5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 827feb84-acc9-4040-30bc-08d870116403
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2020 07:18:43.5409 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2020 07:18:47.0359 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gKshZWbpzZx1RcNPDwzj7n6v92c7OVWQGlbSLczUe6WG6n+topZa0hcAwOzKZzdi
+X-MS-Exchange-CrossTenant-UserPrincipalName: uJ8aN6lncYPB/4JKFwuVLHvcp/xQi8kYPA4KFa7q6ffNZXaEeRzHbz4BSYHV1hmg
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,59 +114,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fulfill Navi gfx and pcie settings on umd pstate switching.
+Disable/enable the GPO feature on UMD pstate entering/exiting.
 
-V2: temporarily skip the pcie ASPM setting considering the ASPM function
-    is not fully enabled yet
-
-Change-Id: I8d746d4c25f890665feeffddf64164ed2b1f5ccc
+Change-Id: I4bd4b560b945227044df918c9066ffbbc17728ca
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h       |  1 +
+ drivers/gpu/drm/amd/pm/inc/smu_types.h        |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 ++
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 22 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |  1 +
+ 5 files changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 47bd79c9e6ea..de0bf92ffa29 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -742,6 +742,29 @@ static void nv_pre_asic_init(struct amdgpu_device *adev)
- {
- }
- 
-+static int nv_update_umd_stable_pstate(struct amdgpu_device *adev,
-+				       bool enter)
-+{
-+	if (enter)
-+		amdgpu_gfx_rlc_enter_safe_mode(adev);
-+	else
-+		amdgpu_gfx_rlc_exit_safe_mode(adev);
-+
-+	if (adev->gfx.funcs->update_perfmon_mgcg)
-+		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
-+
-+	/*
-+	 * The ASPM function is not fully enabled and verified on
-+	 * Navi yet. Temporarily skip this until ASPM enabled.
-+	 */
-+#if 0
-+	if (adev->nbio.funcs->enable_aspm)
-+		adev->nbio.funcs->enable_aspm(adev, !enter);
-+#endif
-+
-+	return 0;
-+}
-+
- static const struct amdgpu_asic_funcs nv_asic_funcs =
- {
- 	.read_disabled_bios = &nv_read_disabled_bios,
-@@ -762,6 +785,7 @@ static const struct amdgpu_asic_funcs nv_asic_funcs =
- 	.get_pcie_replay_count = &nv_get_pcie_replay_count,
- 	.supports_baco = &nv_asic_supports_baco,
- 	.pre_asic_init = &nv_pre_asic_init,
-+	.update_umd_stable_pstate = &nv_update_umd_stable_pstate,
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+index f21d8dcac9ae..32f3738a6a6f 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+@@ -574,6 +574,7 @@ struct pptable_funcs {
+ 	int (*get_fan_parameters)(struct smu_context *smu);
+ 	int (*post_init)(struct smu_context *smu);
+ 	void (*interrupt_work)(struct smu_context *smu);
++	int (*gpo_control)(struct smu_context *smu, bool enablement);
  };
  
- static int nv_common_early_init(void *handle)
+ typedef enum {
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_types.h b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+index b1a18fbb7682..f6403881f265 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_types.h
+@@ -184,6 +184,7 @@
+ 	__SMU_DUMMY_MAP(SetSoftMinSocclkByFreq),         \
+ 	__SMU_DUMMY_MAP(PowerUpCvip),                    \
+ 	__SMU_DUMMY_MAP(PowerDownCvip),                  \
++	__SMU_DUMMY_MAP(SetGpoFeaturePMask),             \
+ 
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 92869eb297d8..18e0db34a3ee 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1407,6 +1407,7 @@ static int smu_enable_umd_pstate(void *handle,
+ 		if (*level & profile_mode_mask) {
+ 			smu_dpm_ctx->saved_dpm_level = smu_dpm_ctx->dpm_level;
+ 			smu_dpm_ctx->enable_umd_pstate = true;
++			smu_gpo_control(smu, false);
+ 			amdgpu_device_ip_set_powergating_state(smu->adev,
+ 							       AMD_IP_BLOCK_TYPE_GFX,
+ 							       AMD_PG_STATE_UNGATE);
+@@ -1432,6 +1433,7 @@ static int smu_enable_umd_pstate(void *handle,
+ 			amdgpu_device_ip_set_powergating_state(smu->adev,
+ 							       AMD_IP_BLOCK_TYPE_GFX,
+ 							       AMD_PG_STATE_GATE);
++			smu_gpo_control(smu, true);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index c27806fd07e0..71cb000306a4 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -127,6 +127,7 @@ static struct cmn2asic_msg_mapping sienna_cichlid_message_map[SMU_MSG_MAX_COUNT]
+ 	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       0),
+ 	MSG_MAP(Mode1Reset,                     PPSMC_MSG_Mode1Reset,		       0),
+ 	MSG_MAP(SetMGpuFanBoostLimitRpm,	PPSMC_MSG_SetMGpuFanBoostLimitRpm,     0),
++	MSG_MAP(SetGpoFeaturePMask,		PPSMC_MSG_SetGpoFeaturePMask,          0),
+ };
+ 
+ static struct cmn2asic_mapping sienna_cichlid_clk_map[SMU_CLK_COUNT] = {
+@@ -2714,6 +2715,26 @@ static int sienna_cichlid_enable_mgpu_fan_boost(struct smu_context *smu)
+ 					       NULL);
+ }
+ 
++static int sienna_cichlid_gpo_control(struct smu_context *smu,
++				      bool enablement)
++{
++	int ret = 0;
++
++	if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_DPM_GFX_GPO_BIT)) {
++		if (enablement)
++			ret = smu_cmn_send_smc_msg_with_param(smu,
++							SMU_MSG_SetGpoFeaturePMask,
++							GFX_GPO_PACE_MASK | GFX_GPO_DEM_MASK,
++							NULL);
++		else
++			ret = smu_cmn_send_smc_msg_with_param(smu,
++							SMU_MSG_SetGpoFeaturePMask,
++							0,
++							NULL);
++	}
++
++	return ret;
++}
+ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.get_allowed_feature_mask = sienna_cichlid_get_allowed_feature_mask,
+ 	.set_default_dpm_table = sienna_cichlid_set_default_dpm_table,
+@@ -2795,6 +2816,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.deep_sleep_control = smu_v11_0_deep_sleep_control,
+ 	.get_fan_parameters = sienna_cichlid_get_fan_parameters,
+ 	.interrupt_work = smu_v11_0_interrupt_work,
++	.gpo_control = sienna_cichlid_gpo_control,
+ };
+ 
+ void sienna_cichlid_set_ppt_funcs(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+index c7e1fe5f442d..f7be2d1a0ff2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+@@ -89,6 +89,7 @@
+ #define smu_deep_sleep_control(smu, enablement)				smu_ppt_funcs(deep_sleep_control, 0, smu, enablement)
+ #define smu_get_fan_parameters(smu)					smu_ppt_funcs(get_fan_parameters, 0, smu)
+ #define smu_post_init(smu)						smu_ppt_funcs(post_init, 0, smu)
++#define smu_gpo_control(smu, enablement)				smu_ppt_funcs(gpo_control, 0, smu, enablement)
+ 
+ #endif
+ #endif
 -- 
 2.28.0
 
