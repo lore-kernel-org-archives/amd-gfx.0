@@ -7,26 +7,26 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0867DC4363A
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 12:38:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1ABDC35266
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 12:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A2EE2225C
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 12:38:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A2EE2225C
+	by mail.kernel.org (Postfix) with ESMTPS id 56C912225A
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 12:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56C912225A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22AD86ECEB;
-	Thu, 15 Oct 2020 12:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E40096ECF8;
+	Thu, 15 Oct 2020 12:38:17 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 271AE6ECE4;
- Thu, 15 Oct 2020 12:38:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1CB46ECDE;
+ Thu, 15 Oct 2020 12:38:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7E978B19C;
- Thu, 15 Oct 2020 12:38:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A929AB186;
+ Thu, 15 Oct 2020 12:38:12 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
  daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
@@ -42,10 +42,9 @@ To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
  sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
  apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
  chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Subject: [PATCH v4 07/10] drm/gem: Update internal GEM vmap/vunmap interfaces
- to use struct dma_buf_map
-Date: Thu, 15 Oct 2020 14:38:03 +0200
-Message-Id: <20201015123806.32416-8-tzimmermann@suse.de>
+Subject: [PATCH v4 03/10] drm/etnaviv: Remove empty etnaviv_gem_prime_vunmap()
+Date: Thu, 15 Oct 2020 14:37:59 +0200
+Message-Id: <20201015123806.32416-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201015123806.32416-1-tzimmermann@suse.de>
 References: <20201015123806.32416-1-tzimmermann@suse.de>
@@ -62,110 +61,71 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- etnaviv@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, xen-devel@lists.xenproject.org,
- spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ xen-devel@lists.xenproject.org, spice-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-R0VNJ3Mgdm1hcCBhbmQgdnVubWFwIGludGVyZmFjZXMgbm93IHdyYXAgbWVtb3J5IHBvaW50ZXJz
-IGluIHN0cnVjdApkbWFfYnVmX21hcC4KClNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5u
-IDx0emltbWVybWFubkBzdXNlLmRlPgpSZXZpZXdlZC1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVs
-LnZldHRlckBmZndsbC5jaD4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2NsaWVudC5jICAgfCAx
-OCArKysrKysrKysrKy0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtLmMgICAgICB8IDI2
-ICsrKysrKysrKysrKystLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFs
-LmggfCAgNSArKystLQogZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jICAgIHwgMTQgKysrKy0t
-LS0tLS0tLS0KIDQgZmlsZXMgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMzIgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnQuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9kcm1fY2xpZW50LmMKaW5kZXggNDk1ZjQ3ZDIzZDg3Li5hYzAwODJiZWQ5NjYgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fY2xpZW50LmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2RybV9jbGllbnQuYwpAQCAtMyw2ICszLDcgQEAKICAqIENvcHlyaWdodCAyMDE4IE5vcmFs
-ZiBUcsO4bm5lcwogICovCiAKKyNpbmNsdWRlIDxsaW51eC9kbWEtYnVmLW1hcC5oPgogI2luY2x1
-ZGUgPGxpbnV4L2xpc3QuaD4KICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KICNpbmNsdWRlIDxs
-aW51eC9tdXRleC5oPgpAQCAtMzA0LDcgKzMwNSw4IEBAIGRybV9jbGllbnRfYnVmZmVyX2NyZWF0
-ZShzdHJ1Y3QgZHJtX2NsaWVudF9kZXYgKmNsaWVudCwgdTMyIHdpZHRoLCB1MzIgaGVpZ2h0LCB1
-CiAgKi8KIHZvaWQgKmRybV9jbGllbnRfYnVmZmVyX3ZtYXAoc3RydWN0IGRybV9jbGllbnRfYnVm
-ZmVyICpidWZmZXIpCiB7Ci0Jdm9pZCAqdmFkZHI7CisJc3RydWN0IGRtYV9idWZfbWFwIG1hcDsK
-KwlpbnQgcmV0OwogCiAJaWYgKGJ1ZmZlci0+dmFkZHIpCiAJCXJldHVybiBidWZmZXItPnZhZGRy
-OwpAQCAtMzE3LDEzICszMTksMTMgQEAgdm9pZCAqZHJtX2NsaWVudF9idWZmZXJfdm1hcChzdHJ1
-Y3QgZHJtX2NsaWVudF9idWZmZXIgKmJ1ZmZlcikKIAkgKiBmZF9pbnN0YWxsIHN0ZXAgb3V0IG9m
-IHRoZSBkcml2ZXIgYmFja2VuZCBob29rcywgdG8gbWFrZSB0aGF0CiAJICogZmluYWwgc3RlcCBv
-cHRpb25hbCBmb3IgaW50ZXJuYWwgdXNlcnMuCiAJICovCi0JdmFkZHIgPSBkcm1fZ2VtX3ZtYXAo
-YnVmZmVyLT5nZW0pOwotCWlmIChJU19FUlIodmFkZHIpKQotCQlyZXR1cm4gdmFkZHI7CisJcmV0
-ID0gZHJtX2dlbV92bWFwKGJ1ZmZlci0+Z2VtLCAmbWFwKTsKKwlpZiAocmV0KQorCQlyZXR1cm4g
-RVJSX1BUUihyZXQpOwogCi0JYnVmZmVyLT52YWRkciA9IHZhZGRyOworCWJ1ZmZlci0+dmFkZHIg
-PSBtYXAudmFkZHI7CiAKLQlyZXR1cm4gdmFkZHI7CisJcmV0dXJuIG1hcC52YWRkcjsKIH0KIEVY
-UE9SVF9TWU1CT0woZHJtX2NsaWVudF9idWZmZXJfdm1hcCk7CiAKQEAgLTMzNyw3ICszMzksOSBA
-QCBFWFBPUlRfU1lNQk9MKGRybV9jbGllbnRfYnVmZmVyX3ZtYXApOwogICovCiB2b2lkIGRybV9j
-bGllbnRfYnVmZmVyX3Z1bm1hcChzdHJ1Y3QgZHJtX2NsaWVudF9idWZmZXIgKmJ1ZmZlcikKIHsK
-LQlkcm1fZ2VtX3Z1bm1hcChidWZmZXItPmdlbSwgYnVmZmVyLT52YWRkcik7CisJc3RydWN0IGRt
-YV9idWZfbWFwIG1hcCA9IERNQV9CVUZfTUFQX0lOSVRfVkFERFIoYnVmZmVyLT52YWRkcik7CisK
-Kwlkcm1fZ2VtX3Z1bm1hcChidWZmZXItPmdlbSwgJm1hcCk7CiAJYnVmZmVyLT52YWRkciA9IE5V
-TEw7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9jbGllbnRfYnVmZmVyX3Z1bm1hcCk7CmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9nZW0u
-YwppbmRleCBhODlhZDQ1NzBlM2MuLjRkNWZmZjRiZDgyMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2RybV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2dlbS5jCkBAIC0xMjA2
-LDMyICsxMjA2LDMyIEBAIHZvaWQgZHJtX2dlbV91bnBpbihzdHJ1Y3QgZHJtX2dlbV9vYmplY3Qg
-Km9iaikKIAkJb2JqLT5mdW5jcy0+dW5waW4ob2JqKTsKIH0KIAotdm9pZCAqZHJtX2dlbV92bWFw
-KHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQoraW50IGRybV9nZW1fdm1hcChzdHJ1Y3QgZHJt
-X2dlbV9vYmplY3QgKm9iaiwgc3RydWN0IGRtYV9idWZfbWFwICptYXApCiB7Ci0Jc3RydWN0IGRt
-YV9idWZfbWFwIG1hcDsKIAlpbnQgcmV0OwogCiAJaWYgKCFvYmotPmZ1bmNzLT52bWFwKQotCQly
-ZXR1cm4gRVJSX1BUUigtRU9QTk9UU1VQUCk7CisJCXJldHVybiAtRU9QTk9UU1VQUDsKIAotCXJl
-dCA9IG9iai0+ZnVuY3MtPnZtYXAob2JqLCAmbWFwKTsKKwlyZXQgPSBvYmotPmZ1bmNzLT52bWFw
-KG9iaiwgbWFwKTsKIAlpZiAocmV0KQotCQlyZXR1cm4gRVJSX1BUUihyZXQpOwotCWVsc2UgaWYg
-KGRtYV9idWZfbWFwX2lzX251bGwoJm1hcCkpCi0JCXJldHVybiBFUlJfUFRSKC1FTk9NRU0pOwor
-CQlyZXR1cm4gcmV0OworCWVsc2UgaWYgKGRtYV9idWZfbWFwX2lzX251bGwobWFwKSkKKwkJcmV0
-dXJuIC1FTk9NRU07CiAKLQlyZXR1cm4gbWFwLnZhZGRyOworCXJldHVybiAwOwogfQogCi12b2lk
-IGRybV9nZW1fdnVubWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqLCB2b2lkICp2YWRkcikK
-K3ZvaWQgZHJtX2dlbV92dW5tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHN0cnVjdCBk
-bWFfYnVmX21hcCAqbWFwKQogewotCXN0cnVjdCBkbWFfYnVmX21hcCBtYXAgPSBETUFfQlVGX01B
-UF9JTklUX1ZBRERSKHZhZGRyKTsKLQotCWlmICghdmFkZHIpCisJaWYgKGRtYV9idWZfbWFwX2lz
-X251bGwobWFwKSkKIAkJcmV0dXJuOwogCiAJaWYgKG9iai0+ZnVuY3MtPnZ1bm1hcCkKLQkJb2Jq
-LT5mdW5jcy0+dnVubWFwKG9iaiwgJm1hcCk7CisJCW9iai0+ZnVuY3MtPnZ1bm1hcChvYmosIG1h
-cCk7CisKKwkvKiBBbHdheXMgc2V0IHRoZSBtYXBwaW5nIHRvIE5VTEwuIENhbGxlcnMgbWF5IHJl
-bHkgb24gdGhpcy4gKi8KKwlkbWFfYnVmX21hcF9jbGVhcihtYXApOwogfQogCiAvKioKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJuYWwuaCBiL2RyaXZlcnMvZ3B1L2RybS9k
-cm1faW50ZXJuYWwuaAppbmRleCBiNjU4NjVjNjMwYjAuLjU4ODMyZDc1YTliZCAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9k
-cm1faW50ZXJuYWwuaApAQCAtMzMsNiArMzMsNyBAQAogCiBzdHJ1Y3QgZGVudHJ5Owogc3RydWN0
-IGRtYV9idWY7CitzdHJ1Y3QgZG1hX2J1Zl9tYXA7CiBzdHJ1Y3QgZHJtX2Nvbm5lY3RvcjsKIHN0
-cnVjdCBkcm1fY3J0YzsKIHN0cnVjdCBkcm1fZnJhbWVidWZmZXI7CkBAIC0xODcsOCArMTg4LDgg
-QEAgdm9pZCBkcm1fZ2VtX3ByaW50X2luZm8oc3RydWN0IGRybV9wcmludGVyICpwLCB1bnNpZ25l
-ZCBpbnQgaW5kZW50LAogCiBpbnQgZHJtX2dlbV9waW4oc3RydWN0IGRybV9nZW1fb2JqZWN0ICpv
-YmopOwogdm9pZCBkcm1fZ2VtX3VucGluKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKTsKLXZv
-aWQgKmRybV9nZW1fdm1hcChzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaik7Ci12b2lkIGRybV9n
-ZW1fdnVubWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqLCB2b2lkICp2YWRkcik7CitpbnQg
-ZHJtX2dlbV92bWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqLCBzdHJ1Y3QgZG1hX2J1Zl9t
-YXAgKm1hcCk7Cit2b2lkIGRybV9nZW1fdnVubWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2Jq
-LCBzdHJ1Y3QgZG1hX2J1Zl9tYXAgKm1hcCk7CiAKIC8qIGRybV9kZWJ1Z2ZzLmMgZHJtX2RlYnVn
-ZnNfY3JjLmMgKi8KICNpZiBkZWZpbmVkKENPTkZJR19ERUJVR19GUykKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYwpp
-bmRleCA4OWUyYTI0OTY3MzQuLmNiOGZiZWViNzMxYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2RybV9wcmltZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYwpAQCAtNjY3
-LDIxICs2NjcsMTUgQEAgRVhQT1JUX1NZTUJPTChkcm1fZ2VtX3VubWFwX2RtYV9idWYpOwogICoK
-ICAqIFNldHMgdXAgYSBrZXJuZWwgdmlydHVhbCBtYXBwaW5nLiBUaGlzIGNhbiBiZSB1c2VkIGFz
-IHRoZSAmZG1hX2J1Zl9vcHMudm1hcAogICogY2FsbGJhY2suIENhbGxzIGludG8gJmRybV9nZW1f
-b2JqZWN0X2Z1bmNzLnZtYXAgZm9yIGRldmljZSBzcGVjaWZpYyBoYW5kbGluZy4KKyAqIFRoZSBr
-ZXJuZWwgdmlydHVhbCBhZGRyZXNzIGlzIHJldHVybmVkIGluIG1hcC4KICAqCi0gKiBSZXR1cm5z
-IHRoZSBrZXJuZWwgdmlydHVhbCBhZGRyZXNzIG9yIE5VTEwgb24gZmFpbHVyZS4KKyAqIFJldHVy
-bnMgMCBvbiBzdWNjZXNzIG9yIGEgbmVnYXRpdmUgZXJybm8gY29kZSBvdGhlcndpc2UuCiAgKi8K
-IGludCBkcm1fZ2VtX2RtYWJ1Zl92bWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCBzdHJ1Y3Qg
-ZG1hX2J1Zl9tYXAgKm1hcCkKIHsKIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGRtYV9i
-dWYtPnByaXY7Ci0Jdm9pZCAqdmFkZHI7CiAKLQl2YWRkciA9IGRybV9nZW1fdm1hcChvYmopOwot
-CWlmIChJU19FUlIodmFkZHIpKQotCQlyZXR1cm4gUFRSX0VSUih2YWRkcik7Ci0KLQlkbWFfYnVm
-X21hcF9zZXRfdmFkZHIobWFwLCB2YWRkcik7Ci0KLQlyZXR1cm4gMDsKKwlyZXR1cm4gZHJtX2dl
-bV92bWFwKG9iaiwgbWFwKTsKIH0KIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfdm1hcCk7
-CiAKQEAgLTY5Nyw3ICs2OTEsNyBAQCB2b2lkIGRybV9nZW1fZG1hYnVmX3Z1bm1hcChzdHJ1Y3Qg
-ZG1hX2J1ZiAqZG1hX2J1Ziwgc3RydWN0IGRtYV9idWZfbWFwICptYXApCiB7CiAJc3RydWN0IGRy
-bV9nZW1fb2JqZWN0ICpvYmogPSBkbWFfYnVmLT5wcml2OwogCi0JZHJtX2dlbV92dW5tYXAob2Jq
-LCBtYXAtPnZhZGRyKTsKKwlkcm1fZ2VtX3Z1bm1hcChvYmosIG1hcCk7CiB9CiBFWFBPUlRfU1lN
-Qk9MKGRybV9nZW1fZG1hYnVmX3Z1bm1hcCk7CiAKLS0gCjIuMjguMAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+The function etnaviv_gem_prime_vunmap() is empty. Remove it before
+changing the interface to use struct drm_buf_map.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h       | 1 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c       | 1 -
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c | 5 -----
+ 3 files changed, 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+index 914f0867ff71..9682c26d89bb 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
+@@ -52,7 +52,6 @@ int etnaviv_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+ int etnaviv_gem_mmap_offset(struct drm_gem_object *obj, u64 *offset);
+ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj);
+ void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj);
+-void etnaviv_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr);
+ int etnaviv_gem_prime_mmap(struct drm_gem_object *obj,
+ 			   struct vm_area_struct *vma);
+ struct drm_gem_object *etnaviv_gem_prime_import_sg_table(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+index 67d9a2b9ea6a..bbd235473645 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+@@ -571,7 +571,6 @@ static const struct drm_gem_object_funcs etnaviv_gem_object_funcs = {
+ 	.unpin = etnaviv_gem_prime_unpin,
+ 	.get_sg_table = etnaviv_gem_prime_get_sg_table,
+ 	.vmap = etnaviv_gem_prime_vmap,
+-	.vunmap = etnaviv_gem_prime_vunmap,
+ 	.vm_ops = &vm_ops,
+ };
+ 
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+index 135fbff6fecf..a6d9932a32ae 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+@@ -27,11 +27,6 @@ void *etnaviv_gem_prime_vmap(struct drm_gem_object *obj)
+ 	return etnaviv_gem_vmap(obj);
+ }
+ 
+-void etnaviv_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
+-{
+-	/* TODO msm_gem_vunmap() */
+-}
+-
+ int etnaviv_gem_prime_mmap(struct drm_gem_object *obj,
+ 			   struct vm_area_struct *vma)
+ {
+-- 
+2.28.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
