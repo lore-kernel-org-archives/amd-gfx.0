@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A716EC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80A87C433E7
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24E6720760
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:21:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EC85620760
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 18:21:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Gl66AJpt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24E6720760
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="I42Xb/rY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC85620760
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEBF6E077;
-	Thu, 15 Oct 2020 18:21:14 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2059.outbound.protection.outlook.com [40.107.100.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F75E6E077
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 18:21:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE406E1A2;
+	Thu, 15 Oct 2020 18:21:17 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1225E6E1A2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 18:21:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CnaDefgS90S0N7/NoocntbGjz6BARkB4Ph//ArYO7zQLhRTe18/Mkr0Ckq/Fcek3w5UywiBmAICHyDEIuwv4VCvMc5evxXPFpjWP699JBRA1/61UPA0qR1oPWRA/pE/z1ksVFrxo7Ag35icqvbighxl7XrS0IWJUQpkMhzYhAU2QHPqgDwizgLrfxntsLZbVF1d0gz4c0/avlZlLJvN1rsPv/FMvkw69EBvk7qv72tTZb2TnN2rThnPvmbj3gC27KayKmCvAyZXo8iGTy/rZiL/PyCo9ioY9xUuZXktetWk8YzyRk1CulQmXNFkPof2XNVB2s5Y5sVciGKr7OQY7fQ==
+ b=BDCemtJg/URP6Cny1opUYvCbppaUJM8+7/62HVk7igbh/l3DZxefXpQBYl5y+ttQLhRj01H0m14lbKadRMl0noQpYoXhWslph5JA8CFwmXiqGSKt1qWEn/GpKdRDM0Rj0YUszsHWc4Np6+KvJem3RrPO14YtluVH7xzGHocKQwJ9pIHypcV7nIb4TH+S6BzndQ0sUoMCzE+Sq0WFw8bSm5o9jbCpJ+Rmd8phiCGkA2BREiDsweavpkDfNQjTnaE8FNjSV0uSXXvErpDcCrfvd0B1sdaQ9ATWcezt2K75SrnsjgSUbnHg11VsVwj1E5Jp0Bd/Rrb39sIT+kOj92YrAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8/DqYuAcixefQihW5PcZyttz9XlCyORUFMsKPM+IuXQ=;
- b=GBslPuWAngcu/3IN5EDahznjVjhwFuxxrpz4u/jTTZD7Fzr/AQgOasU4uI1MVkCOAodZoHZuHUx+7luxYTkO87W5EObtAh7BJc/ZCPSacCcfNrCcPROjJu6ORfCIItvAUSmmzNxZ/TPUYRyBmhfatDvuz+aKLd4lF7sbN/Y8fddTo8f3CFETQ+wka+d/6Zb3rm8lVwQJrvhz+PFOM5SUaKGeLYR0rjFsPsoaJ1Jx3E3g2mTEkXMUZrI3K71IsOXgnfIUb0cmPPrsnHLpyPPnoT0cAPzYHnfD6uSP3puz+Z90eIfplhz2JX0FfaKNhB5XqzjdnRMlTX1JyKRH7YtdxQ==
+ bh=IHRH18TWjVW/S1sULvhikWqVSzf3dnlRhxmD3mkB79Y=;
+ b=U1POwqUmiweeYjDaDmZhCbSvFCe4mJdH8+cRwidyV013WrIvk6U+mqIGDteSfUFKLtc99imdjbt4SDLbKASUZHDnoGupJgaxsXmXsrZRGgWRcRhO8u+I5myVOkSE3MVzmiG9dwbERTmp3Edd0eh/m2s9/37wjAmzBz3YOgHDolfK8lhsIzi2JsOX32QoWS0QYZJHio4j6UhpVlePiurO8lDLwmHeqPJJUqMzyE8euYNY5IJVIJR2Gvvy5gkXsSWQ5cED1MCdHLC7iIiHJ5c5v5NU1PLK6i8pvcwWmAjgkLUHGiy2/VeY2Strj+Dns0220lP+e/0VVY3IjaNNk9pDpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=none action=none header.from=amd.com; dkim=none (message not signed);
@@ -40,71 +40,72 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8/DqYuAcixefQihW5PcZyttz9XlCyORUFMsKPM+IuXQ=;
- b=Gl66AJpt1mQcbdkSTnBYOnkicu1umWNZlMLzRkLuqskes3egadevpkUjGWs7+5Txkr9dnoHG5vbEQOt3HLGAocQXEjvLOcxuO9opsEbJy7pgCjI6stbGntPzPF6ZnSoV3+5fmtkeQYKHRcSch9TOGVKSgSq8xLv6vS5Pp00IRb8=
-Received: from MWHPR13CA0044.namprd13.prod.outlook.com (2603:10b6:300:95::30)
- by BN6PR1201MB0034.namprd12.prod.outlook.com (2603:10b6:405:53::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.23; Thu, 15 Oct
- 2020 18:21:11 +0000
-Received: from CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:95:cafe::cd) by MWHPR13CA0044.outlook.office365.com
- (2603:10b6:300:95::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.8 via Frontend
- Transport; Thu, 15 Oct 2020 18:21:11 +0000
+ bh=IHRH18TWjVW/S1sULvhikWqVSzf3dnlRhxmD3mkB79Y=;
+ b=I42Xb/rYnj9bNks5om44qVStQdTD7sguVsWLoVbW/Ybp+VHRLcxYgGRTq87uFeCJKwpe2TFfjDs/rJHn6ohrZIhae9FmBt8nJ/YtRoSZLiaLl+0aHrxv98OzMuL9X/tVqDSrn40yBsV6L1D0CbXr4ASXGh+g2WG37WmySmrZRIA=
+Received: from DM3PR12CA0106.namprd12.prod.outlook.com (2603:10b6:0:55::26) by
+ DM6PR12MB4434.namprd12.prod.outlook.com (2603:10b6:5:2ad::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3477.20; Thu, 15 Oct 2020 18:21:14 +0000
+Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:55:cafe::8) by DM3PR12CA0106.outlook.office365.com
+ (2603:10b6:0:55::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20 via Frontend
+ Transport; Thu, 15 Oct 2020 18:21:14 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=none action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT008.mail.protection.outlook.com (10.13.175.191) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3477.21 via Frontend Transport; Thu, 15 Oct 2020 18:21:11 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3477.23 via Frontend Transport; Thu, 15 Oct 2020 18:21:14 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 15 Oct
- 2020 13:21:10 -0500
+ 2020 13:21:14 -0500
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Thu, 15 Oct
- 2020 13:21:10 -0500
+ 2020 13:21:13 -0500
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Thu, 15 Oct 2020 13:21:09 -0500
+ Transport; Thu, 15 Oct 2020 13:21:13 -0500
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <nicholas.kazlauskas@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 1/2] drm/amd/display: Use amdgpu_socbb.h instead of redefining
- structs
-Date: Thu, 15 Oct 2020 14:20:03 -0400
-Message-ID: <20201015182004.4079457-1-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 2/2] drm/amd/display: Fix DCN302 makefile
+Date: Thu, 15 Oct 2020 14:20:04 -0400
+Message-ID: <20201015182004.4079457-2-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201015182004.4079457-1-Bhawanpreet.Lakha@amd.com>
+References: <20201015182004.4079457-1-Bhawanpreet.Lakha@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dabd3982-c00b-4aee-29e7-08d87137180c
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0034:
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB003473B86799A727FB30B4A9F9020@BN6PR1201MB0034.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:393;
+X-MS-Office365-Filtering-Correlation-Id: 81819e3b-229e-4fc9-04d9-08d871371a0d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4434:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4434FD7CB9EA7AD38AD04D66F9020@DM6PR12MB4434.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:198;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lDdvZgp+pc8G2xYJBYD+JQJZ/PNvgukOHSLB68/LoA6++8XV52+1ezBvF8/kUm9Szg5fitRpVObgV8JpLSzB6PqvWZlUD5D2kDRwvbIw6lAVU+Lq83NNVKRiybiH/CfYuP+qkDhJDRak2jirHXHRy0esp5lESVes/P/PtJiIt+eoyf+Fmt+dpj+BHjA2PberZknecUv9xKjMYsipYBoj6GuRk7xeXSko8P0Si5EhvACw+rVQRVIEpZ7xljl8HyYC3YCcir5zJo6uUpz4AV/c97d1M1V2Gmz4W/TF5S0mB5cFAtIynxsTEEg+zsNnM53R1mlenvr0Xe9ZzTIbbBhUzpUhXyuJm3FwlQD9y1QlP7bpq9QPTAVZcshFIWWSs0Fc4Qf5yf+xPYpSR1weqvDXMQ==
+X-Microsoft-Antispam-Message-Info: x7af2AG3yHoTX3GN6dLm4HPJ8TuFUSK6X94Eqm76BDJdhQ3aemNC7+Mrm2nd9uddEzNIY8aWy8sBtMJztp+l9drMprlNs6gCQ6Yy5dUNaFWxpetQ+rcbxUqLD+LEzOWu4lbycX2BkLSNjBYyI8i9kVmDVd/Y1Y3yWZBAiSHH2m8bosFzm3j2bBHaDd68RAlgB9dkoMjGkkVnfEjPjdywlRnvcqR4YnT1UINNw8Yiu1KwT1pO5FpvKEyg4h0cjmupVyF1Q2C3pGWqwTa0ITvc+Mzzppa/DU5Ac5CZIgRd5SHzJqgFAXFK6+llpEpbyZexrfIckzNDSLAPEcizvdah3NUb2CA/4tloOt482Prz3X9SxtYro7SAovu1yx0A7ps0hTqxBQyZS+AY+m3x6G9Eig==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(39860400002)(396003)(136003)(346002)(46966005)(186003)(6666004)(8936002)(83380400001)(54906003)(82310400003)(47076004)(110136005)(82740400003)(1076003)(26005)(6636002)(70586007)(2906002)(478600001)(36756003)(336012)(316002)(2616005)(5660300002)(356005)(70206006)(8676002)(7696005)(4326008)(426003)(81166007)(86362001);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(46966005)(6636002)(6666004)(70206006)(356005)(7696005)(110136005)(26005)(336012)(4326008)(2616005)(426003)(54906003)(186003)(1076003)(478600001)(316002)(82310400003)(5660300002)(70586007)(86362001)(2906002)(36756003)(47076004)(81166007)(8936002)(82740400003)(8676002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2020 18:21:11.1826 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dabd3982-c00b-4aee-29e7-08d87137180c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2020 18:21:14.6166 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81819e3b-229e-4fc9-04d9-08d871371a0d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT008.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0034
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,83 +124,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Some setups will fail to build. So copy dcn301 makefile setup
+which is known to work
+
 Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- .../amd/display/dc/dcn302/dcn302_resource.c   | 58 +------------------
- 1 file changed, 1 insertion(+), 57 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn302/Makefile    | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-index b8b3152ec613..38e807f22060 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-@@ -65,66 +65,10 @@
- #include "dcn/dpcs_3_0_0_offset.h"
- #include "dcn/dpcs_3_0_0_sh_mask.h"
- #include "nbio/nbio_7_4_offset.h"
-+#include "amdgpu_socbb.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
+index 3ea9bff27912..36e44e1b07fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn302/Makefile
+@@ -12,6 +12,35 @@
  
- #define DC_LOGGER_INIT(logger)
+ DCN3_02 = dcn302_init.o dcn302_hwseq.o dcn302_resource.o
  
--struct gpu_info_voltage_scaling_v1_0 {
--	int state;
--	uint32_t dscclk_mhz;
--	uint32_t dcfclk_mhz;
--	uint32_t socclk_mhz;
--	uint32_t dram_speed_mts;
--	uint32_t fabricclk_mhz;
--	uint32_t dispclk_mhz;
--	uint32_t phyclk_mhz;
--	uint32_t dppclk_mhz;
--};
--
--struct gpu_info_soc_bounding_box_v1_0 {
--	uint32_t sr_exit_time_us;
--	uint32_t sr_enter_plus_exit_time_us;
--	uint32_t urgent_latency_us;
--	uint32_t urgent_latency_pixel_data_only_us;
--	uint32_t urgent_latency_pixel_mixed_with_vm_data_us;
--	uint32_t urgent_latency_vm_data_only_us;
--	uint32_t writeback_latency_us;
--	uint32_t ideal_dram_bw_after_urgent_percent;
--	// PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelDataOnly
--	uint32_t pct_ideal_dram_sdp_bw_after_urgent_pixel_only;
--	uint32_t pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm;
--	uint32_t pct_ideal_dram_sdp_bw_after_urgent_vm_only;
--	uint32_t max_avg_sdp_bw_use_normal_percent;
--	uint32_t max_avg_dram_bw_use_normal_percent;
--	unsigned int max_request_size_bytes;
--	uint32_t downspread_percent;
--	uint32_t dram_page_open_time_ns;
--	uint32_t dram_rw_turnaround_time_ns;
--	uint32_t dram_return_buffer_per_channel_bytes;
--	uint32_t dram_channel_width_bytes;
--	uint32_t fabric_datapath_to_dcn_data_return_bytes;
--	uint32_t dcn_downspread_percent;
--	uint32_t dispclk_dppclk_vco_speed_mhz;
--	uint32_t dfs_vco_period_ps;
--	unsigned int urgent_out_of_order_return_per_channel_pixel_only_bytes;
--	unsigned int urgent_out_of_order_return_per_channel_pixel_and_vm_bytes;
--	unsigned int urgent_out_of_order_return_per_channel_vm_only_bytes;
--	unsigned int round_trip_ping_latency_dcfclk_cycles;
--	unsigned int urgent_out_of_order_return_per_channel_bytes;
--	unsigned int channel_interleave_bytes;
--	unsigned int num_banks;
--	unsigned int num_chans;
--	unsigned int vmm_page_size_bytes;
--	uint32_t dram_clock_change_latency_us;
--	uint32_t writeback_dram_clock_change_latency_us;
--	unsigned int return_bus_width_bytes;
--	unsigned int voltage_override;
--	uint32_t xfc_bus_transport_time_us;
--	uint32_t xfc_xbuf_latency_tolerance_us;
--	int use_urgent_burst_bw;
--	unsigned int num_states;
--	struct gpu_info_voltage_scaling_v1_0 clock_limits[8];
--};
--
- struct _vcs_dpi_ip_params_st dcn3_02_ip = {
- 		.use_min_dcfclk = 0,
- 		.clamp_min_dcfclk = 0,
++ifdef CONFIG_X86
++CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -msse
++endif
++
++ifdef CONFIG_PPC64
++CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mhard-float -maltivec
++endif
++
++ifdef CONFIG_ARM64
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o := -mgeneral-regs-only
++endif
++
++ifdef CONFIG_CC_IS_GCC
++ifeq ($(call cc-ifversion, -lt, 0701, y), y)
++IS_OLD_GCC = 1
++endif
++endif
++
++ifdef CONFIG_X86
++ifdef IS_OLD_GCC
++# Stack alignment mismatch, proceed with caution.
++# GCC < 7.1 cannot compile code using `double` and -mpreferred-stack-boundary=3
++# (8B stack alignment).
++CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o += -mpreferred-stack-boundary=4
++else
++CFLAGS_$(AMDDALPATH)/dc/dcn302/dcn302_resource.o += -msse2
++endif
++endif
++
+ AMD_DAL_DCN3_02 = $(addprefix $(AMDDALPATH)/dc/dcn302/,$(DCN3_02))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_DCN3_02)
 -- 
 2.25.1
 
