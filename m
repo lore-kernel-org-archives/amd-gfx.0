@@ -8,63 +8,60 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1F16C433E7
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 01:08:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4410C433E7
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 01:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4CA2D22254
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 01:08:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2B47522254
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 01:09:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmYm+9QE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CA2D22254
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJ1BQAG0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B47522254
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA5A6EC03;
-	Thu, 15 Oct 2020 01:08:55 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B84A6EC03
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 01:08:54 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id y12so1183053wrp.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 18:08:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D00D89FD3;
+	Thu, 15 Oct 2020 01:09:42 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCC089FD3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 01:09:41 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id z22so816186wmi.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2020 18:09:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YaPjsPbj3YGDG3H0Yg4JkU987G2KMJPABu51nsYzrEQ=;
- b=dmYm+9QEzcHrlAyxJcT057AUc2bn2Alr83BkcRaJNmcJsDOsxxZiq64ywK6yjgMjJ/
- Y8cGVP1W4Bi6RPRmSYRCZ7CSf0UMqUIZXoYjF/ewj/IegGV9045/KEF2RIJJdIIDHxZ3
- CrmqhCc6otuWSrRagFR9mo/83xd1amn8A5G42MIHE9zzH7QrxrdkE4GyqCRd5smJ6bp1
- XKu9Pen69vAxVaGVA3TUrCVjm5PZZ+FvONpMc+olK+rR0avOkg7s6KF28tp8Quh3Gk6D
- tAWQgUq16i8Rky7ABu/ISez2qnoY7rmzlc0tnYU8eeacdI3hQ3JTbHK94FtVYDKKxLlL
- dVHg==
+ :cc; bh=2h2Qsx9ZUJUxYmDlnwbCftC4uD9zli7XBWyzrPAGsS8=;
+ b=NJ1BQAG0REZjIjtWRGUCroxF2d5ZK9Q7j5Pw/p/SXPQJR2r56iOKbASaNDIhovzHS9
+ 8j8NoeH+BvayE461uy3y8fkN29UXe1lfUzmyQIbw7xQdKlEticu8K9D1iuuqWW65YrHd
+ Jg/Hy4Dyw7rs+ckThur06dfGbA8BtHojrh7G6U9d0gEt5cTFCEMxgjl+v0uiW7em2X3M
+ D6yI0Amy+XtxMR3hUrRkhsMwkD6hix/L30vRW1wL5S5kjIlVJb9hiwlXu560GLH00WYe
+ mC6HDCK75MGlkLpeS9Cht3p48nAYCE5AXAoROGOUoqr41q6AZNuZqeM9sgLqIYD8ukmq
+ figw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=YaPjsPbj3YGDG3H0Yg4JkU987G2KMJPABu51nsYzrEQ=;
- b=CZqZR27bRcnbhIC4I0EED8EY8p6UiyHpGJsIAm9GBChCsXNa8Zl/yc8ACoTutTjbug
- mqTGC+qTQ/O8o8J9IBVRY0a1FrBEA6Zuffj8J+xnJkA1CsJPUtj8S6VX6PJoAG+uRCNo
- 8uSUy4sCLwrl343b+8RPgbn2WDzeB5V9gQUPcqdVZL3YbiOdilto+zyE++ED+tZO/b8G
- iGXqjsdcWOrd88KBsoBjmC21GfxUKisp9TNIDmCCKfpq7oEd5TV/7FE26LdJnVZWHnuC
- brWqm1XpT2BJvEiu6J3ZpOHVt29gB7vHiSNpucWsnwwWGZd32F5TDNGN4dQQV5D5ZOAK
- Smuw==
-X-Gm-Message-State: AOAM532ws/0f9fBrDhRRc1zyreSHq7qh2w86PsWAb28MUrNluDapQZak
- hzLyFP6J5jW8IaqKr1UqnIYR2R1VubdOpNKWmRs=
-X-Google-Smtp-Source: ABdhPJxAO3DFbmeO1bmlah2xC/jg4uuZ6V6TRJ8vPFJyIgKcXrpDW+jQekOe5Iu6gkhPy1x5VM+2lSrM0huomyBfRsY=
-X-Received: by 2002:adf:f246:: with SMTP id b6mr1334118wrp.111.1602724133195; 
- Wed, 14 Oct 2020 18:08:53 -0700 (PDT)
+ bh=2h2Qsx9ZUJUxYmDlnwbCftC4uD9zli7XBWyzrPAGsS8=;
+ b=rDGLrNt+s4luqsdb3tjPCZEfcJvDWjMwUoqUl1AZi4xKYbjnoEuvXkQP55wwvmb80V
+ AqK+41pxRUiUQF8X+SjffGcJWBCtkYxawEI6u7bml6HvmpqOagFriTEM2359poaZq+N5
+ RRHtAdLD/ussyLwtt+ijGlvhMRZrTUQQ5vPdR8ActGXaM/FpyZS2jLuqOBa2oXbtBAkg
+ iQt1lu6gfNOkk/XOLu+tOQqAyYosxJPLEN9Z7aGzF5Miot0+dyojLKHXTQjUhFM/UzAC
+ oEyIkXKxP/ZkfuXo65rrevKbMk0laVsSEaeZ4PNJz4b5mhrC7dhsBruups5HHNmwfhk/
+ ff/w==
+X-Gm-Message-State: AOAM531r+RipGjHlvXGbqmRHBSywVJA4tm0lyxZuEfwQtT2v9ii8vnFz
+ EWptf6GFnSGLoYQK1FldDGE57zoLDPCNLRL5qb0=
+X-Google-Smtp-Source: ABdhPJyXYHAuWa6H/xow4RN3XCvSuOEAqDjEV0U/OHtv+lWeUS6Z/8RPpRGmMgwzVNicuSFH0voTTmpIT4ZENtfeBDQ=
+X-Received: by 2002:a7b:c7d5:: with SMTP id z21mr1292835wmk.73.1602724179924; 
+ Wed, 14 Oct 2020 18:09:39 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201014052023.7085-1-evan.quan@amd.com>
- <20201014052023.7085-2-evan.quan@amd.com>
- <CADnq5_MxB_N5kAW6AGUYvWRTkZGu9GGrHM4rocMz4gJeyO6i-Q@mail.gmail.com>
- <DM6PR12MB2619C69B7B08A698238F7DACE4020@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2619C69B7B08A698238F7DACE4020@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20201014235823.58784-1-ray.huang@amd.com>
+In-Reply-To: <20201014235823.58784-1-ray.huang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Oct 2020 21:08:42 -0400
-Message-ID: <CADnq5_No9bwLv-P8TjERH1L7+qB3D9UEb8MheH4dV+c510THig@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: populate Arcturus PCIE link state
-To: "Quan, Evan" <Evan.Quan@amd.com>
+Date: Wed, 14 Oct 2020 21:09:28 -0400
+Message-ID: <CADnq5_M7Ghw_o68sbWeeLXg_JCL+4wYzQrHNDi=6uiiWgSSZdw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: disable gpa mode for direct loading
+To: Huang Rui <ray.huang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,120 +73,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2020 at 9:05 PM Quan, Evan <Evan.Quan@amd.com> wrote:
+On Wed, Oct 14, 2020 at 7:59 PM Huang Rui <ray.huang@amd.com> wrote:
 >
-> [AMD Official Use Only - Internal Distribution Only]
+> This patch fixes the gfx hang while use firmware direct loading mode.
 >
-> Hi Alex,
->
-> It was intended to align with other ASICs. The output for this on Arcturus is:
-> 0: 8.0GT/s, x16 618Mhz *
-> Is not that OK?
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
 
-Nevermind, I missed the *.  I got mixed up comparing with the code for
-other asics.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 >
-> BR
-> Evan
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Wednesday, October 14, 2020 9:18 PM
-> To: Quan, Evan <Evan.Quan@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH 2/2] drm/amd/pm: populate Arcturus PCIE link state
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 042ad5e4292b..8fc69c208adb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -129,6 +129,13 @@
+>  #define mmCP_HYP_ME_UCODE_DATA                 0x5817
+>  #define mmCP_HYP_ME_UCODE_DATA_BASE_IDX                1
 >
-> On Wed, Oct 14, 2020 at 1:21 AM Evan Quan <evan.quan@amd.com> wrote:
-> >
-> > Populate current link speed, width and clock domain frequency.
-> >
-> > Change-Id: Ic342fbd8f5e2495d212eaa4b85b4e146838e0525
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/pm/amdgpu_pm.c             |  3 ---
-> >  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 18
-> > ++++++++++++++++++
-> >  2 files changed, 18 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > index 46eea3f8f958..f87411cfa4da 100644
-> > --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > @@ -2124,9 +2124,6 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
-> >         } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
-> >                 if (asic_type < CHIP_VEGA20)
-> >                         *states = ATTR_STATE_UNSUPPORTED;
-> > -       } else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
-> > -               if (asic_type == CHIP_ARCTURUS)
-> > -                       *states = ATTR_STATE_UNSUPPORTED;
-> >         } else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
-> >                 *states = ATTR_STATE_UNSUPPORTED;
-> >                 if ((is_support_sw_smu(adev) && adev->smu.od_enabled)
-> > || diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > index f982b9090d7b..46d950757230 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> > @@ -720,6 +720,7 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
-> >         struct smu_11_0_dpm_table *single_dpm_table;
-> >         struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
-> >         struct smu_11_0_dpm_context *dpm_context = NULL;
-> > +       uint32_t gen_speed, lane_width;
-> >
-> >         if (amdgpu_ras_intr_triggered())
-> >                 return snprintf(buf, PAGE_SIZE, "unavailable\n"); @@
-> > -823,6 +824,23 @@ static int arcturus_print_clk_levels(struct smu_context *smu,
-> >                                 now) ? "*" : ""));
-> >                 break;
-> >
-> > +       case SMU_PCIE:
-> > +               gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
-> > +               lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
-> > +               size += sprintf(buf + size, "0: %s %s %dMhz *\n",
-> > +                               (gen_speed == 0) ? "2.5GT/s," :
-> > +                               (gen_speed == 1) ? "5.0GT/s," :
-> > +                               (gen_speed == 2) ? "8.0GT/s," :
-> > +                               (gen_speed == 3) ? "16.0GT/s," : "",
-> > +                               (lane_width == 1) ? "x1" :
-> > +                               (lane_width == 2) ? "x2" :
-> > +                               (lane_width == 3) ? "x4" :
-> > +                               (lane_width == 4) ? "x8" :
-> > +                               (lane_width == 5) ? "x12" :
-> > +                               (lane_width == 6) ? "x16" : "",
-> > +                               smu->smu_table.boot_values.lclk /
-> > + 100);
+> +#define mmCPG_PSP_DEBUG                                0x5c10
+> +#define mmCPG_PSP_DEBUG_BASE_IDX               1
+> +#define mmCPC_PSP_DEBUG                                0x5c11
+> +#define mmCPC_PSP_DEBUG_BASE_IDX               1
+> +#define CPC_PSP_DEBUG__GPA_OVERRIDE_MASK       0x00000008L
+> +#define CPG_PSP_DEBUG__GPA_OVERRIDE_MASK       0x00000008L
+> +
+>  MODULE_FIRMWARE("amdgpu/navi10_ce.bin");
+>  MODULE_FIRMWARE("amdgpu/navi10_pfp.bin");
+>  MODULE_FIRMWARE("amdgpu/navi10_me.bin");
+> @@ -7035,6 +7042,18 @@ static void gfx_v10_0_setup_grbm_cam_remapping(struct amdgpu_device *adev)
+>         WREG32_SOC15(GC, 0, mmGRBM_CAM_DATA, data);
+>  }
 >
-> We should put a * by the link speed for consistency with other asics.
+> +static void gfx_v10_0_disable_gpa_mode(struct amdgpu_device *adev)
+> +{
+> +       uint32_t data;
+> +       data = RREG32_SOC15(GC, 0, mmCPC_PSP_DEBUG);
+> +       data |= CPC_PSP_DEBUG__GPA_OVERRIDE_MASK;
+> +       WREG32_SOC15(GC, 0, mmCPC_PSP_DEBUG, data);
+> +
+> +       data = RREG32_SOC15(GC, 0, mmCPG_PSP_DEBUG);
+> +       data |= CPG_PSP_DEBUG__GPA_OVERRIDE_MASK;
+> +       WREG32_SOC15(GC, 0, mmCPG_PSP_DEBUG, data);
+> +}
+> +
+>  static int gfx_v10_0_hw_init(void *handle)
+>  {
+>         int r;
+> @@ -7060,6 +7079,7 @@ static int gfx_v10_0_hw_init(void *handle)
+>                                 return r;
+>                         }
+>                 }
+> +               gfx_v10_0_disable_gpa_mode(adev);
+>         }
 >
-> Alex
+>         /* if GRBM CAM not remapped, set up the remapping */
+> --
+> 2.25.1
 >
->
-> > +               break;
-> > +
-> >         default:
-> >                 break;
-> >         }
-> > --
-> > 2.28.0
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
-> > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cev
-> > an.quan%40amd.com%7C880ed84a1bc14d8df30108d87043a997%7C3dd8961fe4884e6
-> > 08e11a82d994e183d%7C0%7C0%7C637382783197264100&amp;sdata=kz2KbU6Sn00k9
-> > jjihiqBnQEkfgI3dFbApLnqLf1Dw98%3D&amp;reserved=0
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
