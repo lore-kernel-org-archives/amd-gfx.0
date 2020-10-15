@@ -2,69 +2,73 @@ Return-Path: <SRS0=r20P=DW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2345BC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 15:05:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52103C433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 16:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9106C22256
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 15:05:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CF1DA22240
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 16:49:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W/wx2GUU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9106C22256
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="YX+pr8t3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF1DA22240
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5956ED38;
-	Thu, 15 Oct 2020 15:05:46 +0000 (UTC)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B83E96ED33
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 15:05:44 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id j18so2214822pfa.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 08:05:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0GF4Wn/8ew39HBI+XaMnuO9j8yg2aCSICyeKdqSEoy0=;
- b=W/wx2GUUoZqbOD1fzYPZpByM/iCKWc/HPc61ffGqy45n/5i+ZtWkYIZR4r8LO24v58
- bhh9U1whbAcDpsL2Jp7TYLbVA7skF1yWKVmYOtlfLxqww549eGKUgTZcwMneKugCMi9F
- OBor6L+tMoX/Wj56383LtSPxbLW7kqMraLlfHs33FDQTySNMlOK5FP7Xn3MvTxYr1O9M
- aPLZB4NMwxInvXc10Nw6zE//OX8vz3wDdY3ik1KOwr11hiRTyhBCP7yQ9zCANF8um5vj
- 28Vhobd7qtiZ5IMQgdPx9MAfIzC9iJbku7s3YuyQU+Igcc5sgwTbt1jydu/hUAXZShVf
- wi5Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 116756E039;
+	Thu, 15 Oct 2020 16:49:16 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14BB06ED91
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 16:49:15 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id t9so4316125wrq.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 09:49:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=qcu7vbDkPHQ/dX3NgTIESQdy57qDX1kkbPJO+QtJy7U=;
+ b=YX+pr8t3FbpyHf00VK8ZlbMj1z0EZQLLdj8cqVbimoBHqglJJQY6vri+ZumBLz/Pg0
+ X4oNhhYpTjQWsCIyEZEhZplvY4V9uawMTFvhkOXqaad7727cHwmGjbJI/EP13XP/fzzn
+ 5PC8utpu1BcKtOPqAGQ33UWPCcQmJrkS7kwLc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0GF4Wn/8ew39HBI+XaMnuO9j8yg2aCSICyeKdqSEoy0=;
- b=mlvZQu4sFPmBcSl9AM/LvOEvfwblO9rORbrgmaMCVNErzdQOZNS222aYebtOnYImnR
- VxjVqqiNxN4IBOE95kbiBpfdAhLJ8o0SyOL75R+h9zE2HJ4MShOim0SJ5nqzF/SAmS0/
- Aj0kceZAYnIk7uCQr/7BIY3F1hbk/tI2LNCUZEBCCCeLlhJQrOiSH6tXlOpqNxTPICQF
- M+GIqfCJHyDOppHwi0vV330e54veIUBH74ApryGpmaq/jTZNhbKUV+FIT53l0GZRVhcR
- 77jKurhB7gAWxyXOIVEbiIL3FjkEh7gYr704oJmv5aGa9sjymHO+FUBtMDlsCG/ZXctA
- tJGw==
-X-Gm-Message-State: AOAM533R+GWHVL2GLU4CzWAVUh782WapeqOKsXjAHR6dWZjpGM19R54W
- 4drGAPhP2IrM4GirkUB9+11h//LolYk7QYJAetc=
-X-Google-Smtp-Source: ABdhPJz0b9kWMxMq9EAbFDK0D2fMczqTo5eZyxSC5iJqThH5UuouKTimlUpcq9PznyWy3QDaTcWUcVB8ooTWAKerdgQ=
-X-Received: by 2002:a63:d19:: with SMTP id c25mr3784937pgl.208.1602774344123; 
- Thu, 15 Oct 2020 08:05:44 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=qcu7vbDkPHQ/dX3NgTIESQdy57qDX1kkbPJO+QtJy7U=;
+ b=D6pe6/BewBD392Ltf8Xp5tNdK8zZQXAzfJXpq9oMeX/U16m+uRI6HsEy/S1lxG683e
+ JtVh7P99exU34nDXzhzoWGcp3A55JTDHn63r36rz3L/igU6M6dFUb3IeBQkO1pyGuDAz
+ XiW0oRFOXpHXauSEEBRFOuO3B53B00KMdCzWTgJO4zs8vhNHKC7b+mdXBQ2kQ8zuBKg3
+ PaHRY34tUazI3PIH8/P4i7ha0GN81cqL9WOSjmE7OHyr/tKN4V2KJEiMoX+cC8Go02sQ
+ t3UhUSwT6xJqs1IvLSxUQfbaN6H6HDh7Z6MK9GYTzqqWiexRwAl5PcqqQRj3IjoCdFfg
+ k19g==
+X-Gm-Message-State: AOAM530CEpvAPGabRknvVIz56HuLnwKYKPB4kJI6IukougpHo7f/lZFM
+ 03iCtKCrjbT/X5OYsqu6BDuX5w==
+X-Google-Smtp-Source: ABdhPJyv9K9powSi+g3c0tJ2hulpH+XMJ0c3fzWMHzpnDe/dmPLbxFxjyntSdoFtKycWWSiBvrXq0Q==
+X-Received: by 2002:adf:9ec2:: with SMTP id b2mr5396302wrf.107.1602780553658; 
+ Thu, 15 Oct 2020 09:49:13 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id j7sm4950464wmc.7.2020.10.15.09.49.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2020 09:49:12 -0700 (PDT)
+Date: Thu, 15 Oct 2020 18:49:09 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v4 05/10] drm/ttm: Add vmap/vunmap to TTM and TTM GEM
+ helpers
+Message-ID: <20201015164909.GC401619@phenom.ffwll.local>
+References: <20201015123806.32416-1-tzimmermann@suse.de>
+ <20201015123806.32416-6-tzimmermann@suse.de>
+ <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
 MIME-Version: 1.0
-References: <1596181868-28879-1-git-send-email-Monk.Liu@amd.com>
- <1596181868-28879-2-git-send-email-Monk.Liu@amd.com>
- <904d9605-f061-d6a0-b72b-42b0d73bf11d@amd.com>
-In-Reply-To: <904d9605-f061-d6a0-b72b-42b0d73bf11d@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 15 Oct 2020 11:05:07 -0400
-Message-ID: <CAAxE2A5JMHCxKKV+hSO7YL1Bt-M-9fuwcJKkSUSWyXxff9mezw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: introduce a new parameter to configure
- how many KCQ we want(v5)
-To: Felix Kuehling <felix.kuehling@amd.com>
+Content-Disposition: inline
+In-Reply-To: <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,911 +80,372 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Monk Liu <Monk.Liu@amd.com>
-Content-Type: multipart/mixed; boundary="===============1205023114=="
+Cc: luben.tuikov@amd.com, heiko@sntech.de, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, linus.walleij@linaro.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ melissa.srw@gmail.com, eric@anholt.net, ray.huang@amd.com, kraxel@redhat.com,
+ sam@ravnborg.org, sumit.semwal@linaro.org, emil.velikov@collabora.com,
+ robh@kernel.org, linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ lima@lists.freedesktop.org, oleksandr_andrushchenko@epam.com, krzk@kernel.org,
+ steven.price@arm.com, linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ bskeggs@redhat.com, linux+etnaviv@armlinux.org.uk,
+ spice-devel@lists.freedesktop.org, alyssa.rosenzweig@collabora.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ etnaviv@lists.freedesktop.org, mripard@kernel.org, inki.dae@samsung.com,
+ hdegoede@redhat.com, christian.gmeiner@gmail.com,
+ xen-devel@lists.xenproject.org, virtualization@lists.linux-foundation.org,
+ sean@poorly.run, apaneers@amd.com, linux-arm-kernel@lists.infradead.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ tomeu.vizoso@collabora.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ kyungmin.park@samsung.com, miaoqinglang@huawei.com, yuq825@gmail.com,
+ Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ linux-media@vger.kernel.org, l.stach@pengutronix.de
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1205023114==
-Content-Type: multipart/alternative; boundary="0000000000006fc86a05b1b6fb54"
+On Thu, Oct 15, 2020 at 04:08:13PM +0200, Christian K=F6nig wrote:
+> Am 15.10.20 um 14:38 schrieb Thomas Zimmermann:
+> > The new functions ttm_bo_{vmap,vunmap}() map and unmap a TTM BO in kern=
+el
+> > address space. The mapping's address is returned as struct dma_buf_map.
+> > Each function is a simplified version of TTM's existing kmap code. Both
+> > functions respect the memory's location ani/or writecombine flags.
+> > =
 
---0000000000006fc86a05b1b6fb54
-Content-Type: text/plain; charset="UTF-8"
+> > On top TTM's functions, GEM TTM helpers got drm_gem_ttm_{vmap,vunmap}(),
+> > two helpers that convert a GEM object into the TTM BO and forward the c=
+all
+> > to TTM's vmap/vunmap. These helpers can be dropped into the rsp GEM obj=
+ect
+> > callbacks.
+> > =
 
-Monk or perhaps Felix,
-
-Do you by any chance know why the CS ioctl returns -EINVAL for all compute
-submissions if num_kcq <= 4 and what could cause that?
-
-If not, is there any way to disable mid-IB preemption for compute?
-
-Thanks,
-Marek
-
-On Fri, Jul 31, 2020 at 9:53 AM Felix Kuehling <felix.kuehling@amd.com>
-wrote:
-
-> Am 2020-07-31 um 3:51 a.m. schrieb Monk Liu:
-> > what:
-> > the MQD's save and restore of KCQ (kernel compute queue)
-> > cost lots of clocks during world switch which impacts a lot
-> > to multi-VF performance
-> >
-> > how:
-> > introduce a paramter to control the number of KCQ to avoid
-> > performance drop if there is no kernel compute queue needed
-> >
-> > notes:
-> > this paramter only affects gfx 8/9/10
-> >
-> > v2:
-> > refine namings
-> >
-> > v3:
-> > choose queues for each ring to that try best to cross pipes evenly.
-> >
 > > v4:
-> > fix indentation
-> > some cleanupsin the gfx_compute_queue_acquire()
-> >
-> > v5:
-> > further fix on indentations
-> > more cleanupsin gfx_compute_queue_acquire()
-> >
-> > TODO:
-> > in the future we will let hypervisor driver to set this paramter
-> > automatically thus no need for user to configure it through
-> > modprobe in virtual machine
-> >
-> > Signed-off-by: Monk Liu <Monk.Liu@amd.com>
->
-> This patch is Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->
->
+> > 	* drop ttm_kmap_obj_to_dma_buf() in favor of vmap helpers (Daniel,
+> > 	  Christian)
+> =
+
+> Bunch of minor comments below, but over all look very solid to me.
+
+Yeah I think just duplicating the ttm bo map stuff for vmap is indeed the
+cleanest. And then we can maybe push the combinatorial monster into
+vmwgfx, which I think is the only user after this series. Or perhaps a
+dedicated set of helpers to map an invidual page (again using the
+dma_buf_map stuff).
+
+I'll let Christian with the details, but at a high level this is
+definitely
+
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+Thanks a lot for doing all this.
+-Daniel
+
+> =
+
+> > =
+
+> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  5 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 49
-> ++++++++++++------------------
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 30 +++++++++---------
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      | 29 +++++++++---------
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 31 ++++++++++---------
-> >  7 files changed, 76 insertions(+), 73 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index e97c088..de11136 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -201,6 +201,7 @@ extern int amdgpu_si_support;
-> >  #ifdef CONFIG_DRM_AMDGPU_CIK
-> >  extern int amdgpu_cik_support;
-> >  #endif
-> > +extern int amdgpu_num_kcq;
-> >
-> >  #define AMDGPU_VM_MAX_NUM_CTX                        4096
-> >  #define AMDGPU_SG_THRESHOLD                  (256*1024*1024)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 62ecac9..cf445bab 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -1199,6 +1199,11 @@ static int amdgpu_device_check_arguments(struct
-> amdgpu_device *adev)
-> >
-> >       amdgpu_gmc_tmz_set(adev);
-> >
-> > +     if (amdgpu_num_kcq > 8 || amdgpu_num_kcq < 0) {
-> > +             amdgpu_num_kcq = 8;
-> > +             dev_warn(adev->dev, "set kernel compute queue number to 8
-> due to invalid paramter provided by user\n");
-> > +     }
-> > +
-> >       return 0;
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index 6291f5f..b545c40 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -150,6 +150,7 @@ int amdgpu_noretry;
-> >  int amdgpu_force_asic_type = -1;
-> >  int amdgpu_tmz = 0;
-> >  int amdgpu_reset_method = -1; /* auto */
-> > +int amdgpu_num_kcq = -1;
-> >
-> >  struct amdgpu_mgpu_info mgpu_info = {
-> >       .mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
-> > @@ -765,6 +766,9 @@ module_param_named(tmz, amdgpu_tmz, int, 0444);
-> >  MODULE_PARM_DESC(reset_method, "GPU reset method (-1 = auto (default),
-> 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)");
-> >  module_param_named(reset_method, amdgpu_reset_method, int, 0444);
-> >
-> > +MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to
-> setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
-> > +module_param_named(num_kcq, amdgpu_num_kcq, int, 0444);
-> > +
-> >  static const struct pci_device_id pciidlist[] = {
-> >  #ifdef  CONFIG_DRM_AMDGPU_SI
-> >       {0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > index 8eff017..0cd9de6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -202,40 +202,29 @@ bool
-> amdgpu_gfx_is_high_priority_compute_queue(struct amdgpu_device *adev,
-> >
-> >  void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev)
-> >  {
-> > -     int i, queue, pipe, mec;
-> > +     int i, queue, pipe;
-> >       bool multipipe_policy = amdgpu_gfx_is_multipipe_capable(adev);
-> > -
-> > -     /* policy for amdgpu compute queue ownership */
-> > -     for (i = 0; i < AMDGPU_MAX_COMPUTE_QUEUES; ++i) {
-> > -             queue = i % adev->gfx.mec.num_queue_per_pipe;
-> > -             pipe = (i / adev->gfx.mec.num_queue_per_pipe)
-> > -                     % adev->gfx.mec.num_pipe_per_mec;
-> > -             mec = (i / adev->gfx.mec.num_queue_per_pipe)
-> > -                     / adev->gfx.mec.num_pipe_per_mec;
-> > -
-> > -             /* we've run out of HW */
-> > -             if (mec >= adev->gfx.mec.num_mec)
-> > -                     break;
-> > -
-> > -             if (multipipe_policy) {
-> > -                     /* policy: amdgpu owns the first two queues of the
-> first MEC */
-> > -                     if (mec == 0 && queue < 2)
-> > -                             set_bit(i, adev->gfx.mec.queue_bitmap);
-> > -             } else {
-> > -                     /* policy: amdgpu owns all queues in the first
-> pipe */
-> > -                     if (mec == 0 && pipe == 0)
-> > -                             set_bit(i, adev->gfx.mec.queue_bitmap);
-> > +     int max_queues_per_mec = min(adev->gfx.mec.num_pipe_per_mec *
-> > +                                  adev->gfx.mec.num_queue_per_pipe,
-> > +                                  adev->gfx.num_compute_rings);
-> > +
-> > +     if (multipipe_policy) {
-> > +             /* policy: make queues evenly cross all pipes on MEC1 only
-> */
-> > +             for (i = 0; i < max_queues_per_mec; i++) {
-> > +                     pipe = i % adev->gfx.mec.num_pipe_per_mec;
-> > +                     queue = (i / adev->gfx.mec.num_pipe_per_mec) %
-> > +                             adev->gfx.mec.num_queue_per_pipe;
-> > +
-> > +                     set_bit(pipe * adev->gfx.mec.num_queue_per_pipe +
-> queue,
-> > +                                     adev->gfx.mec.queue_bitmap);
-> >               }
-> > +     } else {
-> > +             /* policy: amdgpu owns all queues in the given pipe */
-> > +             for (i = 0; i < max_queues_per_mec; ++i)
-> > +                     set_bit(i, adev->gfx.mec.queue_bitmap);
-> >       }
-> >
-> > -     /* update the number of active compute rings */
-> > -     adev->gfx.num_compute_rings =
-> > -             bitmap_weight(adev->gfx.mec.queue_bitmap,
-> AMDGPU_MAX_COMPUTE_QUEUES);
-> > -
-> > -     /* If you hit this case and edited the policy, you probably just
-> > -      * need to increase AMDGPU_MAX_COMPUTE_RINGS */
-> > -     if (WARN_ON(adev->gfx.num_compute_rings >
-> AMDGPU_MAX_COMPUTE_RINGS))
-> > -             adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
-> > +     dev_dbg(adev->dev, "mec queue bitmap weight=%d\n",
-> bitmap_weight(adev->gfx.mec.queue_bitmap, AMDGPU_MAX_COMPUTE_QUEUES));
-> >  }
-> >
-> >  void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev)
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > index f571e25..4172bc8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -4022,21 +4022,23 @@ static int gfx_v10_0_mec_init(struct
-> amdgpu_device *adev)
-> >       amdgpu_gfx_compute_queue_acquire(adev);
-> >       mec_hpd_size = adev->gfx.num_compute_rings * GFX10_MEC_HPD_SIZE;
-> >
-> > -     r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
-> > -                                   AMDGPU_GEM_DOMAIN_GTT,
-> > -                                   &adev->gfx.mec.hpd_eop_obj,
-> > -                                   &adev->gfx.mec.hpd_eop_gpu_addr,
-> > -                                   (void **)&hpd);
-> > -     if (r) {
-> > -             dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
-> > -             gfx_v10_0_mec_fini(adev);
-> > -             return r;
-> > -     }
-> > +     if (mec_hpd_size) {
-> > +             r = amdgpu_bo_create_reserved(adev, mec_hpd_size,
-> PAGE_SIZE,
-> > +                                           AMDGPU_GEM_DOMAIN_GTT,
-> > +                                           &adev->gfx.mec.hpd_eop_obj,
-> > +
->  &adev->gfx.mec.hpd_eop_gpu_addr,
-> > +                                           (void **)&hpd);
-> > +             if (r) {
-> > +                     dev_warn(adev->dev, "(%d) create HDP EOP bo
-> failed\n", r);
-> > +                     gfx_v10_0_mec_fini(adev);
-> > +                     return r;
-> > +             }
-> >
-> > -     memset(hpd, 0, mec_hpd_size);
-> > +             memset(hpd, 0, mec_hpd_size);
-> >
-> > -     amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-> > -     amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-> > +             amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-> > +             amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-> > +     }
-> >
-> >       if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-> >               mec_hdr = (const struct gfx_firmware_header_v1_0
-> *)adev->gfx.mec_fw->data;
-> > @@ -7162,7 +7164,7 @@ static int gfx_v10_0_early_init(void *handle)
-> >               break;
-> >       }
-> >
-> > -     adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
-> > +     adev->gfx.num_compute_rings = amdgpu_num_kcq;
-> >
-> >       gfx_v10_0_set_kiq_pm4_funcs(adev);
-> >       gfx_v10_0_set_ring_funcs(adev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > index 8d72089..7df567a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> > @@ -1343,21 +1343,22 @@ static int gfx_v8_0_mec_init(struct
-> amdgpu_device *adev)
-> >       amdgpu_gfx_compute_queue_acquire(adev);
-> >
-> >       mec_hpd_size = adev->gfx.num_compute_rings * GFX8_MEC_HPD_SIZE;
-> > +     if (mec_hpd_size) {
-> > +             r = amdgpu_bo_create_reserved(adev, mec_hpd_size,
-> PAGE_SIZE,
-> > +                                           AMDGPU_GEM_DOMAIN_VRAM,
-> > +                                           &adev->gfx.mec.hpd_eop_obj,
-> > +
->  &adev->gfx.mec.hpd_eop_gpu_addr,
-> > +                                           (void **)&hpd);
-> > +             if (r) {
-> > +                     dev_warn(adev->dev, "(%d) create HDP EOP bo
-> failed\n", r);
-> > +                     return r;
-> > +             }
-> >
-> > -     r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
-> > -                                   AMDGPU_GEM_DOMAIN_VRAM,
-> > -                                   &adev->gfx.mec.hpd_eop_obj,
-> > -                                   &adev->gfx.mec.hpd_eop_gpu_addr,
-> > -                                   (void **)&hpd);
-> > -     if (r) {
-> > -             dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
-> > -             return r;
-> > -     }
-> > -
-> > -     memset(hpd, 0, mec_hpd_size);
-> > +             memset(hpd, 0, mec_hpd_size);
-> >
-> > -     amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-> > -     amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-> > +             amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-> > +             amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-> > +     }
-> >
-> >       return 0;
-> >  }
-> > @@ -5294,7 +5295,7 @@ static int gfx_v8_0_early_init(void *handle)
-> >       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> >
-> >       adev->gfx.num_gfx_rings = GFX8_NUM_GFX_RINGS;
-> > -     adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
-> > +     adev->gfx.num_compute_rings = amdgpu_num_kcq;
-> >       adev->gfx.funcs = &gfx_v8_0_gfx_funcs;
-> >       gfx_v8_0_set_ring_funcs(adev);
-> >       gfx_v8_0_set_irq_funcs(adev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > index e4e751f..ef07e59 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -1938,22 +1938,23 @@ static int gfx_v9_0_mec_init(struct
-> amdgpu_device *adev)
-> >       /* take ownership of the relevant compute queues */
-> >       amdgpu_gfx_compute_queue_acquire(adev);
-> >       mec_hpd_size = adev->gfx.num_compute_rings * GFX9_MEC_HPD_SIZE;
-> > +     if (mec_hpd_size) {
-> > +             r = amdgpu_bo_create_reserved(adev, mec_hpd_size,
-> PAGE_SIZE,
-> > +                                           AMDGPU_GEM_DOMAIN_VRAM,
-> > +                                           &adev->gfx.mec.hpd_eop_obj,
-> > +
->  &adev->gfx.mec.hpd_eop_gpu_addr,
-> > +                                           (void **)&hpd);
-> > +             if (r) {
-> > +                     dev_warn(adev->dev, "(%d) create HDP EOP bo
-> failed\n", r);
-> > +                     gfx_v9_0_mec_fini(adev);
-> > +                     return r;
-> > +             }
-> >
-> > -     r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
-> > -                                   AMDGPU_GEM_DOMAIN_VRAM,
-> > -                                   &adev->gfx.mec.hpd_eop_obj,
-> > -                                   &adev->gfx.mec.hpd_eop_gpu_addr,
-> > -                                   (void **)&hpd);
-> > -     if (r) {
-> > -             dev_warn(adev->dev, "(%d) create HDP EOP bo failed\n", r);
-> > -             gfx_v9_0_mec_fini(adev);
-> > -             return r;
-> > -     }
-> > -
-> > -     memset(hpd, 0, mec_hpd_size);
-> > +             memset(hpd, 0, mec_hpd_size);
-> >
-> > -     amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-> > -     amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-> > +             amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-> > +             amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-> > +     }
-> >
-> >       mec_hdr = (const struct gfx_firmware_header_v1_0
-> *)adev->gfx.mec_fw->data;
-> >
-> > @@ -4625,7 +4626,7 @@ static int gfx_v9_0_early_init(void *handle)
-> >               adev->gfx.num_gfx_rings = 0;
-> >       else
-> >               adev->gfx.num_gfx_rings = GFX9_NUM_GFX_RINGS;
-> > -     adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
-> > +     adev->gfx.num_compute_rings = amdgpu_num_kcq;
-> >       gfx_v9_0_set_kiq_pm4_funcs(adev);
-> >       gfx_v9_0_set_ring_funcs(adev);
-> >       gfx_v9_0_set_irq_funcs(adev);
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
+> >   drivers/gpu/drm/drm_gem_ttm_helper.c | 38 +++++++++++++++
+> >   drivers/gpu/drm/ttm/ttm_bo_util.c    | 72 ++++++++++++++++++++++++++++
+> >   include/drm/drm_gem_ttm_helper.h     |  6 +++
+> >   include/drm/ttm/ttm_bo_api.h         | 28 +++++++++++
+> >   include/linux/dma-buf-map.h          | 20 ++++++++
+> >   5 files changed, 164 insertions(+)
+> > =
 
---0000000000006fc86a05b1b6fb54
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> > diff --git a/drivers/gpu/drm/drm_gem_ttm_helper.c b/drivers/gpu/drm/drm=
+_gem_ttm_helper.c
+> > index 0e4fb9ba43ad..db4c14d78a30 100644
+> > --- a/drivers/gpu/drm/drm_gem_ttm_helper.c
+> > +++ b/drivers/gpu/drm/drm_gem_ttm_helper.c
+> > @@ -49,6 +49,44 @@ void drm_gem_ttm_print_info(struct drm_printer *p, u=
+nsigned int indent,
+> >   }
+> >   EXPORT_SYMBOL(drm_gem_ttm_print_info);
+> > +/**
+> > + * drm_gem_ttm_vmap() - vmap &ttm_buffer_object
+> > + * @gem: GEM object.
+> > + * @map: [out] returns the dma-buf mapping.
+> > + *
+> > + * Maps a GEM object with ttm_bo_vmap(). This function can be used as
+> > + * &drm_gem_object_funcs.vmap callback.
+> > + *
+> > + * Returns:
+> > + * 0 on success, or a negative errno code otherwise.
+> > + */
+> > +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
+> > +		     struct dma_buf_map *map)
+> > +{
+> > +	struct ttm_buffer_object *bo =3D drm_gem_ttm_of_gem(gem);
+> > +
+> > +	return ttm_bo_vmap(bo, map);
+> > +
+> > +}
+> > +EXPORT_SYMBOL(drm_gem_ttm_vmap);
+> > +
+> > +/**
+> > + * drm_gem_ttm_vunmap() - vunmap &ttm_buffer_object
+> > + * @gem: GEM object.
+> > + * @map: dma-buf mapping.
+> > + *
+> > + * Unmaps a GEM object with ttm_bo_vunmap(). This function can be used=
+ as
+> > + * &drm_gem_object_funcs.vmap callback.
+> > + */
+> > +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
+> > +			struct dma_buf_map *map)
+> > +{
+> > +	struct ttm_buffer_object *bo =3D drm_gem_ttm_of_gem(gem);
+> > +
+> > +	ttm_bo_vunmap(bo, map);
+> > +}
+> > +EXPORT_SYMBOL(drm_gem_ttm_vunmap);
+> > +
+> >   /**
+> >    * drm_gem_ttm_mmap() - mmap &ttm_buffer_object
+> >    * @gem: GEM object.
+> > diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/tt=
+m_bo_util.c
+> > index bdee4df1f3f2..80c42c774c7d 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > @@ -32,6 +32,7 @@
+> >   #include <drm/ttm/ttm_bo_driver.h>
+> >   #include <drm/ttm/ttm_placement.h>
+> >   #include <drm/drm_vma_manager.h>
+> > +#include <linux/dma-buf-map.h>
+> >   #include <linux/io.h>
+> >   #include <linux/highmem.h>
+> >   #include <linux/wait.h>
+> > @@ -526,6 +527,77 @@ void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map)
+> >   }
+> >   EXPORT_SYMBOL(ttm_bo_kunmap);
+> > +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map)
+> > +{
+> > +	struct ttm_resource *mem =3D &bo->mem;
+> > +	int ret;
+> > +
+> > +	ret =3D ttm_mem_io_reserve(bo->bdev, mem);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	if (mem->bus.is_iomem) {
+> > +		void __iomem *vaddr_iomem;
+> > +		unsigned long size =3D bo->num_pages << PAGE_SHIFT;
+> =
 
-<div dir=3D"ltr"><div>Monk or perhaps Felix,</div><div><br></div><div>Do yo=
-u by any chance know why the CS ioctl returns -EINVAL for all compute submi=
-ssions if num_kcq &lt;=3D 4 and what could cause that?</div><div><br></div>=
-<div>If not, is there any way to disable mid-IB preemption for compute?<br>=
-</div><div><br></div><div>Thanks,</div><div>Marek<br></div></div><br><div c=
-lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jul 31, =
-2020 at 9:53 AM Felix Kuehling &lt;<a href=3D"mailto:felix.kuehling@amd.com=
-">felix.kuehling@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">Am 2020-07-31 um 3:51 a.m. schrieb Monk Liu:<br>
-&gt; what:<br>
-&gt; the MQD&#39;s save and restore of KCQ (kernel compute queue)<br>
-&gt; cost lots of clocks during world switch which impacts a lot<br>
-&gt; to multi-VF performance<br>
-&gt;<br>
-&gt; how:<br>
-&gt; introduce a paramter to control the number of KCQ to avoid<br>
-&gt; performance drop if there is no kernel compute queue needed<br>
-&gt;<br>
-&gt; notes:<br>
-&gt; this paramter only affects gfx 8/9/10<br>
-&gt;<br>
-&gt; v2:<br>
-&gt; refine namings<br>
-&gt;<br>
-&gt; v3:<br>
-&gt; choose queues for each ring to that try best to cross pipes evenly.<br=
->
-&gt;<br>
-&gt; v4:<br>
-&gt; fix indentation<br>
-&gt; some cleanupsin the gfx_compute_queue_acquire()<br>
-&gt;<br>
-&gt; v5:<br>
-&gt; further fix on indentations<br>
-&gt; more cleanupsin gfx_compute_queue_acquire()<br>
-&gt;<br>
-&gt; TODO:<br>
-&gt; in the future we will let hypervisor driver to set this paramter<br>
-&gt; automatically thus no need for user to configure it through<br>
-&gt; modprobe in virtual machine<br>
-&gt;<br>
-&gt; Signed-off-by: Monk Liu &lt;<a href=3D"mailto:Monk.Liu@amd.com" target=
-=3D"_blank">Monk.Liu@amd.com</a>&gt;<br>
-<br>
-This patch is Reviewed-by: Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehl=
-ing@amd.com" target=3D"_blank">Felix.Kuehling@amd.com</a>&gt;<br>
-<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=
-=C2=A0 1 +<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 5 +++<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0 =C2=A0 |=C2=A0 4 +=
-++<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c=C2=A0 =C2=A0 | 49 ++++++=
-++++++------------------<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c=C2=A0 =C2=A0 =C2=A0| 30 +=
-++++++++---------<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c=C2=A0 =C2=A0 =C2=A0 | 29 +=
-++++++++---------<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c=C2=A0 =C2=A0 =C2=A0 | 31 +=
-+++++++++---------<br>
-&gt;=C2=A0 7 files changed, 76 insertions(+), 73 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu.h<br>
-&gt; index e97c088..de11136 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; @@ -201,6 +201,7 @@ extern int amdgpu_si_support;<br>
-&gt;=C2=A0 #ifdef CONFIG_DRM_AMDGPU_CIK<br>
-&gt;=C2=A0 extern int amdgpu_cik_support;<br>
-&gt;=C2=A0 #endif<br>
-&gt; +extern int amdgpu_num_kcq;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 #define AMDGPU_VM_MAX_NUM_CTX=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 4096<br>
-&gt;=C2=A0 #define AMDGPU_SG_THRESHOLD=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 (256*1024*1024)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; index 62ecac9..cf445bab 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; @@ -1199,6 +1199,11 @@ static int amdgpu_device_check_arguments(struct=
- amdgpu_device *adev)<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gmc_tmz_set(adev);<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (amdgpu_num_kcq &gt; 8 || amdgpu_num_kcq &lt; =
-0) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_num_kcq =3D 8;=
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(adev-&gt;dev=
-, &quot;set kernel compute queue number to 8 due to invalid paramter provid=
-ed by user\n&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_drv.c<br>
-&gt; index 6291f5f..b545c40 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; @@ -150,6 +150,7 @@ int amdgpu_noretry;<br>
-&gt;=C2=A0 int amdgpu_force_asic_type =3D -1;<br>
-&gt;=C2=A0 int amdgpu_tmz =3D 0;<br>
-&gt;=C2=A0 int amdgpu_reset_method =3D -1; /* auto */<br>
-&gt; +int amdgpu_num_kcq =3D -1;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 struct amdgpu_mgpu_info mgpu_info =3D {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.mutex =3D __MUTEX_INITIALIZER(mgpu_info.mut=
-ex),<br>
-&gt; @@ -765,6 +766,9 @@ module_param_named(tmz, amdgpu_tmz, int, 0444);<br=
->
-&gt;=C2=A0 MODULE_PARM_DESC(reset_method, &quot;GPU reset method (-1 =3D au=
-to (default), 0 =3D legacy, 1 =3D mode0, 2 =3D mode1, 3 =3D mode2, 4 =3D ba=
-co)&quot;);<br>
-&gt;=C2=A0 module_param_named(reset_method, amdgpu_reset_method, int, 0444)=
-;<br>
-&gt;=C2=A0 <br>
-&gt; +MODULE_PARM_DESC(num_kcq, &quot;number of kernel compute queue user w=
-ant to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+=
-)&quot;);<br>
-&gt; +module_param_named(num_kcq, amdgpu_num_kcq, int, 0444);<br>
-&gt; +<br>
-&gt;=C2=A0 static const struct pci_device_id pciidlist[] =3D {<br>
-&gt;=C2=A0 #ifdef=C2=A0 CONFIG_DRM_AMDGPU_SI<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, =
-0, CHIP_TAHITI},<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gfx.c<br>
-&gt; index 8eff017..0cd9de6 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-&gt; @@ -202,40 +202,29 @@ bool amdgpu_gfx_is_high_priority_compute_queue(s=
-truct amdgpu_device *adev,<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev=
-)<br>
-&gt;=C2=A0 {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0int i, queue, pipe, mec;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int i, queue, pipe;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0bool multipipe_policy =3D amdgpu_gfx_is_mult=
-ipipe_capable(adev);<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0/* policy for amdgpu compute queue ownership */<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; AMDGPU_MAX_COMPUTE_QUEUES; +=
-+i) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0queue =3D i % adev-&g=
-t;gfx.mec.num_queue_per_pipe;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pipe =3D (i / adev-&g=
-t;gfx.mec.num_queue_per_pipe)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0% adev-&gt;gfx.mec.num_pipe_per_mec;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mec =3D (i / adev-&gt=
-;gfx.mec.num_queue_per_pipe)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0/ adev-&gt;gfx.mec.num_pipe_per_mec;<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* we&#39;ve run out =
-of HW */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (mec &gt;=3D adev-=
-&gt;gfx.mec.num_mec)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0break;<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (multipipe_policy)=
- {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0/* policy: amdgpu owns the first two queues of the first MEC */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (mec =3D=3D 0 &amp;&amp; queue &lt; 2)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set_bit(i, adev-&gt;gfx.mec.queue_bitmap=
-);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0/* policy: amdgpu owns all queues in the first pipe */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (mec =3D=3D 0 &amp;&amp; pipe =3D=3D 0)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set_bit(i, adev-&gt;gfx.mec.queue_bitmap=
-);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int max_queues_per_mec =3D min(adev-&gt;gfx.mec.n=
-um_pipe_per_mec *<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.mec.num_queu=
-e_per_pipe,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.num_compute_=
-rings);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (multipipe_policy) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* policy: make queue=
-s evenly cross all pipes on MEC1 only */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; =
-max_queues_per_mec; i++) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0pipe =3D i % adev-&gt;gfx.mec.num_pipe_per_mec;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0queue =3D (i / adev-&gt;gfx.mec.num_pipe_per_mec) %<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.mec.num_queue_per_pipe;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0set_bit(pipe * adev-&gt;gfx.mec.num_queue_per_pipe + queue,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx=
-.mec.queue_bitmap);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* policy: amdgpu own=
-s all queues in the given pipe */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; =
-max_queues_per_mec; ++i)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0set_bit(i, adev-&gt;gfx.mec.queue_bitmap);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0/* update the number of active compute rings */<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bitmap_weight(adev-&g=
-t;gfx.mec.queue_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0/* If you hit this case and edited the policy, yo=
-u probably just<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 * need to increase AMDGPU_MAX_COMPUTE_RINGS */<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (WARN_ON(adev-&gt;gfx.num_compute_rings &gt; A=
-MDGPU_MAX_COMPUTE_RINGS))<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_comp=
-ute_rings =3D AMDGPU_MAX_COMPUTE_RINGS;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0dev_dbg(adev-&gt;dev, &quot;mec queue bitmap weig=
-ht=3D%d\n&quot;, bitmap_weight(adev-&gt;gfx.mec.queue_bitmap, AMDGPU_MAX_CO=
-MPUTE_QUEUES));<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *ade=
-v)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/=
-amd/amdgpu/gfx_v10_0.c<br>
-&gt; index f571e25..4172bc8 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&gt; @@ -4022,21 +4022,23 @@ static int gfx_v10_0_mec_init(struct amdgpu_de=
-vice *adev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gfx_compute_queue_acquire(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0mec_hpd_size =3D adev-&gt;gfx.num_compute_ri=
-ngs * GFX10_MEC_HPD_SIZE;<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_create_reserved(adev, mec_hpd_siz=
-e, PAGE_SIZE,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMDGPU_GEM_DOMAIN_G=
-TT,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;adev-&gt;gfx.m=
-ec.hpd_eop_obj,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;adev-&gt;gfx.m=
-ec.hpd_eop_gpu_addr,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(void **)&amp;hpd);=
-<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(adev-&gt;dev=
-, &quot;(%d) create HDP EOP bo failed\n&quot;, r);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_mec_fini(ad=
-ev);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (mec_hpd_size) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_creat=
-e_reserved(adev, mec_hpd_size, PAGE_SIZE,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0AMDGPU_GEM_DOMAIN_GTT,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&amp;adev-&gt;gfx.mec.hpd_eop_obj,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&amp;adev-&gt;gfx.mec.hpd_eop_gpu_addr,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(void **)&amp;hpd);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0dev_warn(adev-&gt;dev, &quot;(%d) create HDP EOP bo failed\n&quot;, =
-r);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0gfx_v10_0_mec_fini(adev);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return r;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0memset(hpd, 0, mec_hpd_size);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memset(hpd, 0, mec_hp=
-d_size);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_bo_kunmap(adev-&gt;gfx.mec.hpd_eop_obj);<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_bo_unreserve(adev-&gt;gfx.mec.hpd_eop_obj)=
-;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_kunmap(adev=
--&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_unreserve(a=
-dev-&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;firmware.load_type =3D=3D AMDGP=
-U_FW_LOAD_DIRECT) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mec_hdr =3D (con=
-st struct gfx_firmware_header_v1_0 *)adev-&gt;gfx.mec_fw-&gt;data;<br>
-&gt; @@ -7162,7 +7164,7 @@ static int gfx_v10_0_early_init(void *handle)<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D AMDGPU_MAX_COM=
-PUTE_RINGS;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D amdgpu_num_kcq=
-;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_set_kiq_pm4_funcs(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_set_ring_funcs(adev);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v8_0.c<br>
-&gt; index 8d72089..7df567a 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&gt; @@ -1343,21 +1343,22 @@ static int gfx_v8_0_mec_init(struct amdgpu_dev=
-ice *adev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gfx_compute_queue_acquire(adev);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0mec_hpd_size =3D adev-&gt;gfx.num_compute_ri=
-ngs * GFX8_MEC_HPD_SIZE;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (mec_hpd_size) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_creat=
-e_reserved(adev, mec_hpd_size, PAGE_SIZE,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&amp;adev-&gt;gfx.mec.hpd_eop_obj,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&amp;adev-&gt;gfx.mec.hpd_eop_gpu_addr,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(void **)&amp;hpd);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0dev_warn(adev-&gt;dev, &quot;(%d) create HDP EOP bo failed\n&quot;, =
-r);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return r;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_create_reserved(adev, mec_hpd_siz=
-e, PAGE_SIZE,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMDGPU_GEM_DOMAIN_V=
-RAM,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;adev-&gt;gfx.m=
-ec.hpd_eop_obj,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;adev-&gt;gfx.m=
-ec.hpd_eop_gpu_addr,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(void **)&amp;hpd);=
-<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(adev-&gt;dev=
-, &quot;(%d) create HDP EOP bo failed\n&quot;, r);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0memset(hpd, 0, mec_hpd_size);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memset(hpd, 0, mec_hp=
-d_size);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_bo_kunmap(adev-&gt;gfx.mec.hpd_eop_obj);<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_bo_unreserve(adev-&gt;gfx.mec.hpd_eop_obj)=
-;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_kunmap(adev=
--&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_unreserve(a=
-dev-&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt;=C2=A0 }<br>
-&gt; @@ -5294,7 +5295,7 @@ static int gfx_v8_0_early_init(void *handle)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D (struct amdgp=
-u_device *)handle;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_gfx_rings =3D GFX8_NUM_GFX_=
-RINGS;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D AMDGPU_MAX_COM=
-PUTE_RINGS;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D amdgpu_num_kcq=
-;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.funcs =3D &amp;gfx_v8_0_gfx_fun=
-cs;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v8_0_set_ring_funcs(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v8_0_set_irq_funcs(adev);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v9_0.c<br>
-&gt; index e4e751f..ef07e59 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; @@ -1938,22 +1938,23 @@ static int gfx_v9_0_mec_init(struct amdgpu_dev=
-ice *adev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* take ownership of the relevant compute qu=
-eues */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gfx_compute_queue_acquire(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0mec_hpd_size =3D adev-&gt;gfx.num_compute_ri=
-ngs * GFX9_MEC_HPD_SIZE;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (mec_hpd_size) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_creat=
-e_reserved(adev, mec_hpd_size, PAGE_SIZE,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&amp;adev-&gt;gfx.mec.hpd_eop_obj,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&amp;adev-&gt;gfx.mec.hpd_eop_gpu_addr,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(void **)&amp;hpd);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0dev_warn(adev-&gt;dev, &quot;(%d) create HDP EOP bo failed\n&quot;, =
-r);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0gfx_v9_0_mec_fini(adev);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return r;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_create_reserved(adev, mec_hpd_siz=
-e, PAGE_SIZE,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMDGPU_GEM_DOMAIN_V=
-RAM,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;adev-&gt;gfx.m=
-ec.hpd_eop_obj,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;adev-&gt;gfx.m=
-ec.hpd_eop_gpu_addr,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(void **)&amp;hpd);=
-<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(adev-&gt;dev=
-, &quot;(%d) create HDP EOP bo failed\n&quot;, r);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v9_0_mec_fini(ade=
-v);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0memset(hpd, 0, mec_hpd_size);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memset(hpd, 0, mec_hp=
-d_size);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_bo_kunmap(adev-&gt;gfx.mec.hpd_eop_obj);<b=
-r>
-&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_bo_unreserve(adev-&gt;gfx.mec.hpd_eop_obj)=
-;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_kunmap(adev=
--&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_unreserve(a=
-dev-&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0mec_hdr =3D (const struct gfx_firmware_heade=
-r_v1_0 *)adev-&gt;gfx.mec_fw-&gt;data;<br>
-&gt;=C2=A0 <br>
-&gt; @@ -4625,7 +4626,7 @@ static int gfx_v9_0_early_init(void *handle)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num=
-_gfx_rings =3D 0;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num=
-_gfx_rings =3D GFX9_NUM_GFX_RINGS;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D AMDGPU_MAX_COM=
-PUTE_RINGS;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.num_compute_rings =3D amdgpu_num_kcq=
-;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v9_0_set_kiq_pm4_funcs(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v9_0_set_ring_funcs(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v9_0_set_irq_funcs(adev);<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
+> Please use uint64_t here and make sure to cast bo->num_pages before
+> shifting.
+> =
 
---0000000000006fc86a05b1b6fb54--
+> We have an unit tests of allocating a 8GB BO and that should work on a 32=
+bit
+> machine as well :)
+> =
 
---===============1205023114==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> > +
+> > +		if (mem->bus.addr)
+> > +			vaddr_iomem =3D (void *)(((u8 *)mem->bus.addr));
+> > +		else if (mem->placement & TTM_PL_FLAG_WC)
+> =
 
+> I've just nuked the TTM_PL_FLAG_WC flag in drm-misc-next. There is a new
+> mem->bus.caching enum as replacement.
+> =
+
+> > +			vaddr_iomem =3D ioremap_wc(mem->bus.offset, size);
+> > +		else
+> > +			vaddr_iomem =3D ioremap(mem->bus.offset, size);
+> > +
+> > +		if (!vaddr_iomem)
+> > +			return -ENOMEM;
+> > +
+> > +		dma_buf_map_set_vaddr_iomem(map, vaddr_iomem);
+> > +
+> > +	} else {
+> > +		struct ttm_operation_ctx ctx =3D {
+> > +			.interruptible =3D false,
+> > +			.no_wait_gpu =3D false
+> > +		};
+> > +		struct ttm_tt *ttm =3D bo->ttm;
+> > +		pgprot_t prot;
+> > +		void *vaddr;
+> > +
+> > +		BUG_ON(!ttm);
+> =
+
+> I think we can drop this, populate will just crash badly anyway.
+> =
+
+> > +
+> > +		ret =3D ttm_tt_populate(bo->bdev, ttm, &ctx);
+> > +		if (ret)
+> > +			return ret;
+> > +
+> > +		/*
+> > +		 * We need to use vmap to get the desired page protection
+> > +		 * or to make the buffer object look contiguous.
+> > +		 */
+> > +		prot =3D ttm_io_prot(mem->placement, PAGE_KERNEL);
+> =
+
+> The calling convention has changed on drm-misc-next as well, but should be
+> trivial to adapt.
+> =
+
+> Regards,
+> Christian.
+> =
+
+> > +		vaddr =3D vmap(ttm->pages, bo->num_pages, 0, prot);
+> > +		if (!vaddr)
+> > +			return -ENOMEM;
+> > +
+> > +		dma_buf_map_set_vaddr(map, vaddr);
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +EXPORT_SYMBOL(ttm_bo_vmap);
+> > +
+> > +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map *m=
+ap)
+> > +{
+> > +	if (dma_buf_map_is_null(map))
+> > +		return;
+> > +
+> > +	if (map->is_iomem)
+> > +		iounmap(map->vaddr_iomem);
+> > +	else
+> > +		vunmap(map->vaddr);
+> > +	dma_buf_map_clear(map);
+> > +
+> > +	ttm_mem_io_free(bo->bdev, &bo->mem);
+> > +}
+> > +EXPORT_SYMBOL(ttm_bo_vunmap);
+> > +
+> >   static int ttm_bo_wait_free_node(struct ttm_buffer_object *bo,
+> >   				 bool dst_use_tt)
+> >   {
+> > diff --git a/include/drm/drm_gem_ttm_helper.h b/include/drm/drm_gem_ttm=
+_helper.h
+> > index 118cef76f84f..7c6d874910b8 100644
+> > --- a/include/drm/drm_gem_ttm_helper.h
+> > +++ b/include/drm/drm_gem_ttm_helper.h
+> > @@ -10,11 +10,17 @@
+> >   #include <drm/ttm/ttm_bo_api.h>
+> >   #include <drm/ttm/ttm_bo_driver.h>
+> > +struct dma_buf_map;
+> > +
+> >   #define drm_gem_ttm_of_gem(gem_obj) \
+> >   	container_of(gem_obj, struct ttm_buffer_object, base)
+> >   void drm_gem_ttm_print_info(struct drm_printer *p, unsigned int inden=
+t,
+> >   			    const struct drm_gem_object *gem);
+> > +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
+> > +		     struct dma_buf_map *map);
+> > +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
+> > +			struct dma_buf_map *map);
+> >   int drm_gem_ttm_mmap(struct drm_gem_object *gem,
+> >   		     struct vm_area_struct *vma);
+> > diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
+> > index 37102e45e496..2c59a785374c 100644
+> > --- a/include/drm/ttm/ttm_bo_api.h
+> > +++ b/include/drm/ttm/ttm_bo_api.h
+> > @@ -48,6 +48,8 @@ struct ttm_bo_global;
+> >   struct ttm_bo_device;
+> > +struct dma_buf_map;
+> > +
+> >   struct drm_mm_node;
+> >   struct ttm_placement;
+> > @@ -494,6 +496,32 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo, unsi=
+gned long start_page,
+> >    */
+> >   void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
+> > +/**
+> > + * ttm_bo_vmap
+> > + *
+> > + * @bo: The buffer object.
+> > + * @map: pointer to a struct dma_buf_map representing the map.
+> > + *
+> > + * Sets up a kernel virtual mapping, using ioremap or vmap to the
+> > + * data in the buffer object. The parameter @map returns the virtual
+> > + * address as struct dma_buf_map. Unmap the buffer with ttm_bo_vunmap(=
+).
+> > + *
+> > + * Returns
+> > + * -ENOMEM: Out of memory.
+> > + * -EINVAL: Invalid range.
+> > + */
+> > +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *map);
+> > +
+> > +/**
+> > + * ttm_bo_vunmap
+> > + *
+> > + * @bo: The buffer object.
+> > + * @map: Object describing the map to unmap.
+> > + *
+> > + * Unmaps a kernel map set up by ttm_bo_vmap().
+> > + */
+> > +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map *m=
+ap);
+> > +
+> >   /**
+> >    * ttm_bo_mmap_obj - mmap memory backed by a ttm buffer object.
+> >    *
+> > diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
+> > index fd1aba545fdf..2e8bbecb5091 100644
+> > --- a/include/linux/dma-buf-map.h
+> > +++ b/include/linux/dma-buf-map.h
+> > @@ -45,6 +45,12 @@
+> >    *
+> >    *	dma_buf_map_set_vaddr(&map. 0xdeadbeaf);
+> >    *
+> > + * To set an address in I/O memory, use dma_buf_map_set_vaddr_iomem().
+> > + *
+> > + * .. code-block:: c
+> > + *
+> > + *	dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
+> > + *
+> >    * Test if a mapping is valid with either dma_buf_map_is_set() or
+> >    * dma_buf_map_is_null().
+> >    *
+> > @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct dm=
+a_buf_map *map, void *vaddr)
+> >   	map->is_iomem =3D false;
+> >   }
+> > +/**
+> > + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure to a=
+n address in I/O memory
+> > + * @map:		The dma-buf mapping structure
+> > + * @vaddr_iomem:	An I/O-memory address
+> > + *
+> > + * Sets the address and the I/O-memory flag.
+> > + */
+> > +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map *map,
+> > +					       void __iomem *vaddr_iomem)
+> > +{
+> > +	map->vaddr_iomem =3D vaddr_iomem;
+> > +	map->is_iomem =3D true;
+> > +}
+> > +
+> >   /**
+> >    * dma_buf_map_is_equal - Compares two dma-buf mapping structures for=
+ equality
+> >    * @lhs:	The dma-buf mapping structure
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1205023114==--
