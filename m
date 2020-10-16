@@ -1,99 +1,112 @@
-Return-Path: <SRS0=r20P=DW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=ko+j=DX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 700D4C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 21:45:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8581BC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 02:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB0D02076A
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2020 21:45:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CD9E820878
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 02:01:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="St0DmwLQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB0D02076A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="mHsiI8Ct"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD9E820878
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 295CC6E02D;
-	Thu, 15 Oct 2020 21:45:25 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD33B6E02D
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2020 21:45:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F646E874;
+	Fri, 16 Oct 2020 02:01:18 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4FB6E874
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 02:01:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=np/Xt0Gxi6gHTQeXXlahO0bZ67/J/b8O/W10Cd8PeEQdQwYNvm62hJfL1KnDkfuoPJR23ry6Xgj3Ri9pwKcZRdOEZD9X8OoSRz9epx5HIxrRhdCCcFHALl/x84ySjjO7dGIX1LVy6q3AbgXn6U8V4S2IWrFAVoyP1CVbybT3gUh/JtYyo0wHD1VfAUkJAwhgNqfuUdb8Yp3O9k+rsHSV9P0s/QMv2mdGiNFrUfiYHDOQlEYPrHvGqG14HroSQUPXMxzG8GxkzQvKcZ4MMYXvwGAgPUaQ5jR0j1+VZEyFenhAxJF2d2j0J4IVNnmMb4kgPo0sI3/y8Q1ImYxgGEwrig==
+ b=ivGMCckLA32HdD27Gd4a+nE4bn/NM9t18Fdx0emHLyFNyoK7O0kW+Bg5kxCwDLPi4znHb6ssZlC7Ap1hSFB8rzCZZ7SpvDlebKWWCq0pjGjsrUsWfv6OJi4njJ9V7xTRBSHG60RzHAzRBFZycyFJrNcH4nbJyVN+ivr9D9GkjoWRw8phpQ+su4TS3JdDHUoEDSl32oyiRQEeizAJerM8fadD6K+62ZjaojahmdduGL5eT3vrYw8Mh8HE2H/S/caDTp2FZEqGV7GQMY/aptIDYvjSu/SKTnu36YJpfFjEGVq0b16lUkh19hJZH/TOVnJcQUODDEo1itvI+K3o+Pzc5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zj86g7qwe98BoZcN/3v0IyXgLnULMD+TPbFGu/EXIxs=;
- b=gsI331puWpQOFhe/rUChwDLCOUU0RqUChikbIKb9wu8iz46R21euhpQijmOYFx96QdPOr9kZqBxpUKippMkMytdhNBfVDN8xZQ2JTl/qU4/cJg8vwor6jGMYD6k3RDKg6Snpl0DK28TjT24kv7MRDCFXXmDPN+MQSDSnWbvD6UmQ4ucMmQEQKndDMeXpVVqHEHmw6kQRBumF44kSrrqpN6DZEIZbjohvImEpLa8Sd8epbxlOBjdVvKp0+hW7MH4nzAzIABSZNVJqYG40Hk0GraeDBVZTmbDdTDey5cHFNjqrKg6/s9EPCTWkZeDoaMx1X8olPG6+Ch2zx0TH363GNg==
+ bh=kIRsjRTvYkcjXK3rRya0uYiCCpNArhI/NI0/RazvER0=;
+ b=I7Iknt0QfN4LXcgH5irMGMPze7M/wkAz8QMZ6tMTLNpZ09rmLCUdJV9F+YDEXTXwe+hj0yK6iz9b8NIdH42ByBw5Q7jmKGWWoTkG170aH74dIVmMoNFiK4VS3z4O0VkCmsnt17zC1Z5C9pppyNbBtzqzjTIOAQzPMmFbO4hqROYZI0hq8b/P9QdmvdlwaH6TGzbTUfpqERIigsxU1f2c87ygBdRbNorBEjpHvTfRgywn1wIzLhoLLVPxZ87eSnG0NJPYAEZyZfWkY6zud5x2MQdkoTlYpexZo2nQ57PysgsxqOJSu56h9oEo3pG+Z7t4/Iy0vZe95k12qRHQwpijHw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zj86g7qwe98BoZcN/3v0IyXgLnULMD+TPbFGu/EXIxs=;
- b=St0DmwLQzWhFpxD2gUvx+g0x9rn6z+fUcTd8o5CoYlRS3oNLqyOGDbgJi0HwTCGqNPjji8SeXYdRmlULaH+VFxpyg4AclHZ5LWbSw7iEX1mVx1r/dkGtscN6rxYDvfJzXGl2wdCkurdSNr1EmvA3VpE6vzrugug7SRprQzBQ52E=
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- DM5PR1201MB0107.namprd12.prod.outlook.com (2603:10b6:4:55::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3455.27; Thu, 15 Oct 2020 21:45:22 +0000
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::60b8:886b:2c51:2983]) by DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::60b8:886b:2c51:2983%4]) with mapi id 15.20.3477.021; Thu, 15 Oct 2020
- 21:45:22 +0000
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amd/display: Avoid MST manager resource leak.
-Thread-Topic: [PATCH 2/2] drm/amd/display: Avoid MST manager resource leak.
-Thread-Index: AQHWok7yp+ZO3G9PSkOsX1bBagRZ5qmZND6U
-Date: Thu, 15 Oct 2020 21:45:22 +0000
-Message-ID: <DM6PR12MB4340272E881337D296BA1D6FEA020@DM6PR12MB4340.namprd12.prod.outlook.com>
-References: <1602696294-5611-1-git-send-email-andrey.grodzovsky@amd.com>,
- <1602696294-5611-2-git-send-email-andrey.grodzovsky@amd.com>
-In-Reply-To: <1602696294-5611-2-git-send-email-andrey.grodzovsky@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
+ bh=kIRsjRTvYkcjXK3rRya0uYiCCpNArhI/NI0/RazvER0=;
+ b=mHsiI8CtJAviXcGl2cegfa7W2XP3zRjjZbGCUf2UE+EpcKVtIaSvVfoHfW1PSq6N/mjpDtKCxpS22gjoJ0by6g8+heWqPJicrR9dUvfH7HAd4GLIhwU5tn5PY639PvJls4UQc9scgp7yxWQJ7/Nd2Lg1o0+23molBZdR74aJCTQ=
+Received: from BN6PR12MB1425.namprd12.prod.outlook.com (2603:10b6:404:1f::19)
+ by BN8PR12MB2932.namprd12.prod.outlook.com (2603:10b6:408:96::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.23; Fri, 16 Oct
+ 2020 02:01:13 +0000
+Received: from BN6PR12MB1425.namprd12.prod.outlook.com
+ ([fe80::38d1:aeb8:764d:c2af]) by BN6PR12MB1425.namprd12.prod.outlook.com
+ ([fe80::38d1:aeb8:764d:c2af%12]) with mapi id 15.20.3477.022; Fri, 16 Oct
+ 2020 02:01:13 +0000
+From: "Liu, Aaron" <Aaron.Liu@amd.com>
+To: "Das, Nirmoy" <Nirmoy.Das@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm:amdgpu: check before setting hw priority
+Thread-Topic: [PATCH 1/2] drm:amdgpu: check before setting hw priority
+Thread-Index: AQHWojFYIvon9THTK0+2ZliLNrxVL6mZe1VQ
+Date: Fri, 16 Oct 2020 02:01:13 +0000
+Message-ID: <BN6PR12MB14251D2075382624337B56E8F0030@BN6PR12MB1425.namprd12.prod.outlook.com>
+References: <20201014135242.24619-1-nirmoy.das@amd.com>
+In-Reply-To: <20201014135242.24619-1-nirmoy.das@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-x-originating-ip: [99.228.232.87]
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-10-16T02:01:01Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=8825355d-1a4c-481b-b85a-000048d3d606;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-10-16T02:01:06Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 7ef65494-0162-4ca2-b165-0000da63b467
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 87c993ae-842d-4707-3d6f-08d871539e1c
-x-ms-traffictypediagnostic: DM5PR1201MB0107:
+x-ms-office365-filtering-correlation-id: 26a897f9-ef4f-41a8-514c-08d871775c35
+x-ms-traffictypediagnostic: BN8PR12MB2932:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB010792EB5996DE5649D7C0D8EA020@DM5PR1201MB0107.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1079;
+x-microsoft-antispam-prvs: <BN8PR12MB2932A5F0A74531BCC6834A58F0030@BN8PR12MB2932.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:376;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YNd/G9IWcmkxVrqcIT6c68cZSKXaC5rTh8Jex37U4sVy+uDgRB7V+KXi3KLWrX3dDkC1/+m86wM4XBa2lzUAaYt71N0HrIVYBsmCUae4NOxOe99FksxLwsC3cOAD3KqJRer/Z8iSP5RTGhZU0Vxt6/Olz1+9Yzk+zq57L8v0Ruvs1fapj9h4hM1tle5K8/nzzDrkjc4X5m4QGq9rQuetl8HEXgN/TBjKzTnCFulZCDr32blICOBuuQXl4bAFOuq1S0hq3DaW2DlbNIgdGtGuzkqY6mI7+MzMIRO3qenQ2/7LOCF00FtlDRwMK52d3V2m
+x-microsoft-antispam-message-info: w8ZKUOV/60LogGI1qC0RY2aZEwZ/Q8OyZifO41+5UZutRfydjPZj4fcHW5+3hF+urbbTYKIRmZCR3/tfiDLGRTgyteKQMQnZbY/i0jOKhFCG+bAz8w2w+JRPdNQ+trSQUHqhRh3z/SUIwTkKraG4NYRsaJMauN2XLC7SH+LclFdAgwQP1PWgGRe5h7Qk9Ers8PLlLZODxfIHyHuBvL2WyKY0qYoZIlosD0646JJsdKyCjo9yOBt8UN9JIkIqvjeCDETdupnDPxEPuUU3M8vL1orG0aXHYtyh1D/VRP8jT9VobGGdwBijuvwGsWIrQyH76wM+UnPzV1vpeBhStEGmBQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(136003)(39860400002)(366004)(346002)(71200400001)(66476007)(64756008)(2906002)(66556008)(66946007)(66446008)(8936002)(55016002)(478600001)(52536014)(5660300002)(33656002)(86362001)(54906003)(8676002)(4326008)(7696005)(53546011)(6506007)(6916009)(76116006)(9686003)(186003)(91956017)(26005)(316002);
+ IPV:NLI; SFV:NSPM; H:BN6PR12MB1425.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(55016002)(316002)(71200400001)(66946007)(66556008)(110136005)(66476007)(86362001)(9686003)(76116006)(186003)(83380400001)(54906003)(7696005)(4326008)(8936002)(478600001)(2906002)(8676002)(6506007)(53546011)(26005)(33656002)(64756008)(52536014)(66446008)(5660300002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: aGjOfZge03UquyBHV0dau9S665+ZRF/sw6H5Q9iN5ruJVUtUVQg+ICIyxpum0ZImqLPNYzYDE4FKVRKSo30JXjyEIa+JPSWZtRdAiVyA5Fw9QunYvcgzUnFwaODZ2h4qnIH8brOLBo3nGNseqHUcsGluDfQdWHxqQmk3No0Mi8/6gno+vmiC8ALPmc79HjOvaQSyBAr25ffEVBlyLgvKTdla+gpnCC75Q44xvanCx1bw8OKonKm0R0SMpczhBUhTJPrGHJS+fU6RwRxjJweLpEzGtXGl046o3mrkWZHXQ4uj+/CuKxJTtI3GKBEGwljfsIsmYihNIOnDdlLISXMKmwdyT9JS29gqfxdP48CePnl4DxxzDazJK7uO99NVADhrT+aByqSpp9oDSPsCmfutqOiZ232e/lg0KL8cKpxDNG+d12NDOlXlqO2ARt4vIfxiG4SSK/YQtUhKnwdMoXPogR3bKmaZPeVNGxmukoC+wdQ7DbGJOMWHI7bRCkeapzqb+h8LNY5VivCguXbSnNuJS4S3Q4Fk2Vj+QT6Pm3yK7JgA6DJbGmLNE7rgaueahKdRdmVpF2xfOjU5HKcFRImayxYW8Ofp4KxpZGNuFIcWfW/7fYebJhB8RjPUYy++yssq6rGmBo8PYdaBtbT6W1rlOw==
+x-ms-exchange-antispam-messagedata: zB3A7DltKXHz3vTFRYIrotF1Zqyx6vVPJ73hBJq186ArVrAhNpVrHj5ii7Ep/XCtazzmHfJfg6JkUsf8eFX5Pfy/T0gIQdImjFPzjn1UGWRJAYNjBq5S1/SpPSclwZ7jphGbW7Jw9rBtMLV8A0g850ckoC8EVvyilpwjo6CKiNwMej5ngaRNbI2F8g9m69aJv82x7BW7lAhvRLNbqRrmsszz2Nwl0RC7MgqYf9Tt3pwYGxsB7Sk00hkBekutthbeGNQ+T1PhX2WXWVIR2cUh/4XILWjYWIPIhLm8b7Ixu1sJpmbng65aDh1nRFC7MmpbrsSIS40jqiPf+DIUe5LnkdG/1WQMIlWot8R6NXdFwoEB8Auh3X3wy6TnUD/d05XOF0OvwmHCitTcCbb/BLE3SPTPse6KfxbsbzYBlvsK6QyrqCYHZVXS2w9xTtba5pv9w/pjlCZz51xifplRjn6VnJoT+gtQyoFhWoSjIc4MisBDYzVZcJALh0Jjz7sBByMeNij2/4cbOsdPTApsa0jpD/gkkZmskguD+xHTynBETKe4P1uP4j7IC+/h8Ql4+Dd1PP2qhc9SZaKDO9tMeeiW9SmZkDTYneDr4qLPaXktDdW38jI18tUBMAoRPDlU3xAdUdHPFZ5qXHdyu6s3eN5Mqw==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87c993ae-842d-4707-3d6f-08d871539e1c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2020 21:45:22.0147 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1425.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26a897f9-ef4f-41a8-514c-08d871775c35
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2020 02:01:13.3330 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KGiE4f4OLmFZH0SoC4daAobRgQSb/ZlXHegPmYC4kublkj3gqbuBQ70c/th1LJBbWXnoaYHjJ17DrkgSZVb+sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0107
+X-MS-Exchange-CrossTenant-userprincipalname: Ex47iEb383xjJtxtUUmCr/hjABx9pHFtoQ5m85XLv6rqLreUTW/62jUozKRQjwAS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2932
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,154 +118,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>
-Content-Type: multipart/mixed; boundary="===============0013761014=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0013761014==
-Content-Language: en-GB
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB4340272E881337D296BA1D6FEA020DM6PR12MB4340namp_"
+[AMD Public Use]
 
---_000_DM6PR12MB4340272E881337D296BA1D6FEA020DM6PR12MB4340namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Ping for both patches.
-
-Andrey
-________________________________
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Sent: 14 October 2020 13:24
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Wentland, Harry <Ha=
-rry.Wentland@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Grodzovsky, Andrey=
- <Andrey.Grodzovsky@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: Avoid MST manager resource leak.
-
-On connector destruction call drm_dp_mst_topology_mgr_destroy
-to release resources allocated in drm_dp_mst_topology_mgr_init.
-Do it only if MST manager was initialized before otherwsie a crash
-is seen on driver unload/device unplug.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a72447d..64799c4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5170,6 +5170,13 @@ static void amdgpu_dm_connector_destroy(struct drm_c=
-onnector *connector)
-         struct amdgpu_device *adev =3D drm_to_adev(connector->dev);
-         struct amdgpu_display_manager *dm =3D &adev->dm;
-
-+       /*
-+        * Call only if mst_mgr was initialized before since it's not done
-+        * for all connector types.
-+        */
-+       if (aconnector->mst_mgr.dev)
-+               drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
-+
- #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) ||\
-         defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+Series is:
+Tested-by: Aaron Liu <aaron.liu@amd.com>
 
 --
-2.7.4
+Best Regards
+Aaron Liu
 
+-----Original Message-----
+From: Das, Nirmoy <Nirmoy.Das@amd.com> 
+Sent: Wednesday, October 14, 2020 9:53 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Das, Nirmoy <Nirmoy.Das@amd.com>
+Subject: [PATCH 1/2] drm:amdgpu: check before setting hw priority
 
---_000_DM6PR12MB4340272E881337D296BA1D6FEA020DM6PR12MB4340namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Check validity of drm_gpu_scheduler before setting hw priority.
+Also fix a minor indentation issue.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<div>Ping for both patches.</div>
-<div><br>
-</div>
-<div>Andrey</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Andrey Grodzovsky &lt=
-;andrey.grodzovsky@amd.com&gt;<br>
-<b>Sent:</b> 14 October 2020 13:24<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;; Wentla=
-nd, Harry &lt;Harry.Wentland@amd.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.co=
-m&gt;; Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/display: Avoid MST manager resource lea=
-k.</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On connector destruction call drm_dp_mst_topology_=
-mgr_destroy<br>
-to release resources allocated in drm_dp_mst_topology_mgr_init.<br>
-Do it only if MST manager was initialized before otherwsie a crash<br>
-is seen on driver unload/device unplug.<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++<br>
-&nbsp;1 file changed, 7 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index a72447d..64799c4 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -5170,6 +5170,13 @@ static void amdgpu_dm_connector_destroy(struct drm_c=
-onnector *connector)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D drm_to_adev(connector-&gt;dev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_display_mana=
-ger *dm =3D &amp;adev-&gt;dm;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Call only if mst_mgr was init=
-ialized before since it's not done<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for all connector types.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aconnector-&gt;mst_mgr.dev)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; drm_dp_mst_topology_mgr_destroy(&amp;aconnector-&gt;mst_mgr);<br=
->
-+<br>
-&nbsp;#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) ||\<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; defined(CONFIG_BACKLIGHT_C=
-LASS_DEVICE_MODULE)<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
---_000_DM6PR12MB4340272E881337D296BA1D6FEA020DM6PR12MB4340namp_--
-
---===============0013761014==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index a03398c87344..c8da0978d4f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -504,9 +504,9 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,  }
+ 
+ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+-					    struct amdgpu_ctx_entity *aentity,
+-					    int hw_ip,
+-					    enum drm_sched_priority priority)
++					   struct amdgpu_ctx_entity *aentity,
++					   int hw_ip,
++					   enum drm_sched_priority priority)
+ {
+ 	struct amdgpu_device *adev = ctx->adev;
+ 	unsigned int hw_prio;
+@@ -523,6 +523,9 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+ 		hw_prio = array_index_nospec(hw_prio, AMDGPU_RING_PRIO_MAX);
+ 		scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
+ 		num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
++		if (!scheds || !num_scheds)
++			return;
++
+ 		drm_sched_entity_modify_sched(&aentity->entity, scheds,
+ 					      num_scheds);
+ 	}
+--
+2.28.0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0013761014==--
