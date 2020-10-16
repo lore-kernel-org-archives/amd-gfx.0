@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77BFAC43457
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29765C433E7
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB554206ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A551B2078A
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EBsjG55E"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB554206ED
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="quwHDb0O"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A551B2078A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9025F6EA83;
-	Fri, 16 Oct 2020 03:28:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39D166E97E;
+	Fri, 16 Oct 2020 03:28:23 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2084.outbound.protection.outlook.com [40.107.92.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD42B6EA83
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 03:28:19 +0000 (UTC)
+ (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 059046E97E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 03:28:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DYcyM1IlNH3PXQTsikTahnCsOB+ri2I+TTPP3KUZdNTWc71CADVRLMUoLaNTaUtfdC9hiuJf9Kiz4J0cZFOckuqNHsaF7PBUfxnT/NVTakDexMv4bJPmpuLEQbEcAwdHg/srkZMLSXIRmf3qTB23qndq1silFCuNLuvFVyh/2q9POslCW30eU4ml5AbvrnQhufTC4DLoWcK5prWiUUi7ST8KLOOnSCYY8KUiNOTUyQQwBWtDHfLZzg56slbOvy7bh69pmQoV4KYyc9wSdc6gjH0mfwdTegV5EoXc57vYcW63MEGY+ELIBxsyhNTzt4Oh/ntUwdhm93RWP4H5UteQ4w==
+ b=CGdwzQ9TesIHluMZLSgT7vnmEnWN1MlED+SfcKKX8U3RqwnPabr0n1exJRJgveDIu65mugb76KGA/imBdxbGJxyH4xqN71Td3iaCFJ2qq/samGiko5Q+joPJRokwAGGerM/f+bPeyKEDA6Qwtov89BG4w2D+0tU4VsJBnBm3r+M/zPyU9VkpLe2s1BiazIKdlk5n5KY+P00FzDeDu9jGmpwFTbwmgEyGMLZlVDwsA3DoUbLlTU1MxvYPQCZl5FzLuO7A+72ZGnVHrVR8KoAlEnbvxxKdCiOcQEggJD00gf2k6q5kc3unE2ahsbYrPiANxyKSA+QoVizC1ppBXG4rcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xyf66shcAw2tRBCTvOXnYm3mh/sLkEbIr4jkmLg6HiY=;
- b=l9TPluf3OLsaC996+sJD4ytWgL4ifAwx9bE+/DTCKi6YcCft+Ygdtj5OHGX/Qbcq7yEZqQCavqMD3+dHYpQe3FvKhIrY1JLXIy4Bhx5dnXk+xZbUWzOIrs+fYHdERsRkSrR6qNg1sj/3exIrUs+R1S2NHUOp0PUxDbsZnD9DLRkD6mTVfydElZ6przNQ97tnC2XEBGa7QQqaMDp9bAuJdHs8uaugbY6YMuCGLfpjZepKFqhBPYXUVCR+hKIadTjDKByS/+TaGozFi8gDtdxMIn27U3I/TOAXOyRqXQ1yeLkbdmzz6nHkUY891x9a1iPuB24X8WQZD0MRS2MRgXqGaA==
+ bh=/M9Fe0Enx5O4UQOGk/1HLFaIwThkjRnrLjT/5TlkBVc=;
+ b=SkxyLVB8M0RhECo5QOlpB8uqkdZhTrIEg+4RwipvkO1XR6sn/NCVTqYiCigg1VKy79wHufEtE1FWtar/hP7/Ebpsi42AM2ZJHrXGZMrdMUP2Vz9wBVPhjYcBlp/Vgxlt5k0iy4jtR9+s0ms/bFXfuXfK8o5+6kZgWcnN35mVoP5hm4XQy6A8f8PPYF5hOuIzIg8AKDdvjxtU0gEylkhaM45s53XCUGHsUiLRTWw/fJZ9BmtdcS1vGcqT/IWcZfGwi3GKiWCTCDMMz1h1wsz0voCLgPxk++UIUHuoQeudI+la3b4IW1re6tpHFt3W4TzC28NZuCiLfYeJXa1FWCZA4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xyf66shcAw2tRBCTvOXnYm3mh/sLkEbIr4jkmLg6HiY=;
- b=EBsjG55EOpGL8q1o83vV8wtFZfZiIpCj+JqetJ0T35tq56WjUQPOuOyRsPBVaBOY0uqpHGSU0wos4txJ3tBmwpEutCRu6mVnEfvPqv//1nVpj9zPAVIHKhDesgYDEjcVinCPyBua+XPhCsx//G9TogOY9OdLQ6ySFqdvt0l1JiI=
+ bh=/M9Fe0Enx5O4UQOGk/1HLFaIwThkjRnrLjT/5TlkBVc=;
+ b=quwHDb0O/ogBNpTBsK/zusJLf3q48mnwHkBlESvUCgXbf7GAsgOHcO/cPW6cLimC4rm68X/gvrL6dakqRRtZ8J1DailQcNfJyn5866f+l4tSVmI7BxBV4J8fipJ6qkrobUpAL/TWyTPrrDHv74P8Yz01cgNss/zXLxubwFo4z/o=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM5PR12MB1354.namprd12.prod.outlook.com (2603:10b6:3:7a::17) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.21; Fri, 16 Oct 2020 03:28:18 +0000
+ 15.20.3477.21; Fri, 16 Oct 2020 03:28:20 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3477.023; Fri, 16 Oct 2020
- 03:28:18 +0000
+ 03:28:20 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 26/40] drm/amd/pm: correct vddc phase control setting
-Date: Fri, 16 Oct 2020 11:26:38 +0800
-Message-Id: <20201016032652.507-27-evan.quan@amd.com>
+Subject: [PATCH 27/40] drm/amd/pm: correct VRconfig setting
+Date: Fri, 16 Oct 2020 11:26:39 +0800
+Message-Id: <20201016032652.507-28-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016032652.507-1-evan.quan@amd.com>
 References: <20201016032652.507-1-evan.quan@amd.com>
@@ -70,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR0302CA0007.apcprd03.prod.outlook.com (2603:1096:202::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.8 via Frontend Transport; Fri, 16 Oct 2020 03:28:16 +0000
+ 15.20.3499.8 via Frontend Transport; Fri, 16 Oct 2020 03:28:18 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 72b1a35a-268c-4e32-6940-08d871838661
+X-MS-Office365-Filtering-Correlation-Id: 3c9dbc55-579c-45ed-52e1-08d871838771
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1354:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1354BE7E7BDA9AE0C61DCA87E4030@DM5PR12MB1354.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:142;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB13541F8EDFF7E1DFDB4798F1E4030@DM5PR12MB1354.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gYzLiIKYI6sFz0mdhM3ug4dOfLQPUNARsFR9eQjKtxKVBgvCIa0x2RrWcHg1y+BdhcUS6bZV45jQdaO5pgYTer8syM8uA8SHldMKmP40waotQsa5Bm4JDLJ9s7KipJWUAEYs9bdVzdR77Jd6ve287+A0wbZIzMyBILdEp7fwK8ID4gsbpwVL9oQuu7SGtozvJlO0MYEqkzP8Uh3xNzC8egZ5aeBT9X0GcSoopdnKkOChZO1B4XHZ9U5e9q4q+Kf/NCK3lynh9+myp52VDdXbU//WyCmgNaBkYkXbAeERwAlVX0nXwPLpCmCyWIyucwdId/lt+Qd5cMtNPltbswhtL/eBEPi1zJ3L8E7n8w1aJrvtobAfmo/xJBrHi+60bwU8
+X-Microsoft-Antispam-Message-Info: vFMxF1XSiuIRS5BLlYki9c+YFbM40k3W4RvHpXCwXeMcdXzKJXSBEi5Jw01fn/6Zzk4tcTM26egJEzpfVbIGwKe8SpZe2IdCHWAkYCc1c1HYabND+R50X7XfRX+DxzcG+H1hY2UZD/sFOpXqTuCQPSwn7w59GRPuZHbE3fohP64XkaoRg+ggtjsBgp8YEaSSR5HWgkysqx51xoSyUKYyByPDfNezYuSG69uy0U2VArJBxbHjBIl6MeMHbVOnUz18o5emfBNTuKihKArrBadrWqPQxR1QhPWmGw3OxZmrtCKcJ+tAxbT4nej+yEjp3sb1gSPVz6xgpv22S4Wvn14mMCSk9yk87g8ujCNPKOG2T+jTMaowL8OS0+KIFAMEsbk6
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(66476007)(66946007)(83380400001)(1076003)(8676002)(6486002)(5660300002)(8936002)(66556008)(6916009)(86362001)(52116002)(36756003)(7696005)(4326008)(2616005)(34490700002)(478600001)(316002)(6666004)(44832011)(16526019)(186003)(54906003)(2906002)(26005)(956004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: WFSaQJ3rk614pOZUFURqXyWDbQu+oQVMMGxaCLzxLbena/ylEAMaXPzXmpcI/VkLuN07cC+jFHRu2wG6gBpI8fAYdHvVsHEzJPyZdeQDaRUv9LCqGnB/TDlajWJm6BdC1rrSBlpkgBRR2XulAmyX76IEOGOhH0ZFWj3+X1YE0kOyn05CMzkQwrUr8PXMnpPnahILy3QnsVxN26kLApIsETaPT+ZMDqI5HzkKC07gpshB7Ugr4/9AYSXR/buIb3xrndxva9n7m4V2wLE8zfvXCH8pHX5X8V3Atd+oRBdUnb/pzQ85/GWe0uWEltTKZ+RDft2cmizRAmajH5N1NyEH0P0QcDrSEexnWpRDXyDEnlxZC2nd//9Y0zaJNqKL1MhExjGKC1WNRaoGdR8Xi5suDatXQZ17JJ159rcMxKMM6GUzY1z3EERxhCoBy8xcjOiO6Ui3ztYRQxfqGwqecN2E8W+zO+tgCgMw9dgelqhcOmqpg6skOBJlbPj2cwoiX0MBTgyKOb1EaKiFsaD+bO14hRx7EYCXT+i5JmPwK00dIKs7PW6phu1SKMoRu9v6pZEcg9fudJS0RgmzRj8jxg3TrXFDUKTWDAsbDfPfOXPyhTRkeHPBRgaw/Bbt+mGm9g86Ba3dNDMJ2yZZGytWZEy7qg==
+X-MS-Exchange-AntiSpam-MessageData: eOvJiIXWMAz/ERzJpEqRG7s2hhvVDLRW9o1wqRBmjjxB7E0Vvp9HIDU58gH5IZWWuwM+FskHjcRCsKJTfZf0TM3aCZLGnoyPP3RXdTZ5V6r+KHfeeBhG6LHb+4D+c5bZ0ulkQpofpXSgIgFMMqu7Gz4kjYj2XLL7LmlVmC+Me64hBAiwYYGf0NcyZ688gO3P+uuxv4hbTV+HC/mzi069zLVVrCNWmhvscdWo4VeeN4d3wD2tgVtTKZsuvMYpu2yDqkfVuSBE8G186qO3MhaoghLK3NVTMAxDARFlVGLejee4fIuyqhTGpo7dsuCLAAtlbAmSHy9QpAjHfJDleb1pY2jX8x+qspLxiavrDvo9m/O85qIDaWeWHAKx4AG5uihCZNedKUP14e4t+HsJ0TPJbqYPvBOeoT1fwd7eH11+Ir/KHer3BLiDyMMwtslasJwlqCzTqAzRc/gwPNfpdRuzQW5ggcyJAbAQbCqwJ85tI7FDlzzi/j8J/gOYCRXogGvjwcf5oBpJwoYURi4pWshT1zXyyNdG8FU6FIZDQSnQeC9MUYWEqMIg1ZPQSXGE1GJZWUVExUfYQoARW8mgXFUS9NPcRa8vToHXRAC3Wf6oT0wwhKSE9TuPjxuYeyJhOeXggppsnj9hxbJhOaQj2LrgOQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72b1a35a-268c-4e32-6940-08d871838661
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c9dbc55-579c-45ed-52e1-08d871838771
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 03:28:18.3759 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 03:28:20.1429 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v5ex1+y5UFz9TSddz74rc1fIn4/VUB0PoCWK31mehzwhfJrdR4kiwP9de+LXx5O6
+X-MS-Exchange-CrossTenant-UserPrincipalName: We1XD+fsWHusQbmC0M4ye3fuZ3QNNdTkFioKiPAX3qexaHqHTYrLTsdrVtKS8SZv
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,97 +113,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct Polaris10 vddc phase control.
+Correct Polaris VRconfig setting.
 
-Change-Id: I182bc46adb7900cad243eb3906450d86ae41975e
+Change-Id: I8cf3151c04f130ff25fb12b6e4bf994cba2bd91e
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 31 +++++++++++--------
- .../pm/powerplay/smumgr/polaris10_smumgr.c    |  7 ++++-
- 2 files changed, 24 insertions(+), 14 deletions(-)
+ .../amd/pm/powerplay/smumgr/polaris10_smumgr.c    | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 03a139f2c426..79dea9329b2a 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -1664,6 +1664,8 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	struct amdgpu_device *adev = hwmgr->adev;
-+	uint8_t tmp1, tmp2;
-+	uint16_t tmp3 = 0;
- 
- 	data->dll_default_on = false;
- 	data->mclk_dpm0_activity_target = 0xa;
-@@ -1712,19 +1714,6 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- 	hwmgr->power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
- 	hwmgr->default_power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
- 
--	if (hwmgr->chip_id == CHIP_POLARIS12 || hwmgr->is_kicker) {
--		uint8_t tmp1, tmp2;
--		uint16_t tmp3 = 0;
--		atomctrl_get_svi2_info(hwmgr, VOLTAGE_TYPE_VDDC, &tmp1, &tmp2,
--						&tmp3);
--		tmp3 = (tmp3 >> 5) & 0x3;
--		data->vddc_phase_shed_control = ((tmp3 << 1) | (tmp3 >> 1)) & 0x3;
--	} else if (hwmgr->chip_family == AMDGPU_FAMILY_CI) {
--		data->vddc_phase_shed_control = 1;
--	} else {
--		data->vddc_phase_shed_control = 0;
--	}
--
- 	if (hwmgr->chip_id  == CHIP_HAWAII) {
- 		data->thermal_temp_setting.temperature_low = 94500;
- 		data->thermal_temp_setting.temperature_high = 95000;
-@@ -1783,6 +1772,22 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- 		phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
- 				PHM_PlatformCaps_ControlVDDCI);
- 
-+	data->vddc_phase_shed_control = 1;
-+	if ((hwmgr->chip_id == CHIP_POLARIS12) ||
-+	    ASICID_IS_P20(adev->pdev->device, adev->pdev->revision) ||
-+	    ASICID_IS_P21(adev->pdev->device, adev->pdev->revision) ||
-+	    ASICID_IS_P30(adev->pdev->device, adev->pdev->revision) ||
-+	    ASICID_IS_P31(adev->pdev->device, adev->pdev->revision)) {
-+		if (data->voltage_control == SMU7_VOLTAGE_CONTROL_BY_SVID2) {
-+			atomctrl_get_svi2_info(hwmgr, VOLTAGE_TYPE_VDDC, &tmp1, &tmp2,
-+							&tmp3);
-+			tmp3 = (tmp3 >> 5) & 0x3;
-+			data->vddc_phase_shed_control = ((tmp3 << 1) | (tmp3 >> 1)) & 0x3;
-+		}
-+	} else if (hwmgr->chip_family == AMDGPU_FAMILY_CI) {
-+		data->vddc_phase_shed_control = 1;
-+	}
-+
- 	if ((hwmgr->pp_table_version != PP_TABLE_V0) && (hwmgr->feature_mask & PP_CLOCK_STRETCH_MASK)
- 		&& (table_info->cac_dtp_table->usClockStretchAmount != 0))
- 		phm_cap_set(hwmgr->platform_descriptor.platformCaps,
 diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-index 46c82bfa793c..72ca4bd2c2f3 100644
+index 72ca4bd2c2f3..997b996b25bf 100644
 --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
 +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-@@ -779,6 +779,7 @@ static int polaris10_populate_ulv_level(struct pp_hwmgr *hwmgr,
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
-+	struct amdgpu_device *adev = hwmgr->adev;
- 
- 	state->CcPwrDynRm = 0;
- 	state->CcPwrDynRm1 = 0;
-@@ -787,7 +788,11 @@ static int polaris10_populate_ulv_level(struct pp_hwmgr *hwmgr,
- 	state->VddcOffsetVid = (uint8_t)(table_info->us_ulv_voltage_offset *
- 			VOLTAGE_VID_OFFSET_SCALE2 / VOLTAGE_VID_OFFSET_SCALE1);
- 
--	if (hwmgr->chip_id == CHIP_POLARIS12 || hwmgr->is_kicker)
-+	if ((hwmgr->chip_id == CHIP_POLARIS12) ||
-+	    ASICID_IS_P20(adev->pdev->device, adev->pdev->revision) ||
-+	    ASICID_IS_P21(adev->pdev->device, adev->pdev->revision) ||
-+	    ASICID_IS_P30(adev->pdev->device, adev->pdev->revision) ||
-+	    ASICID_IS_P31(adev->pdev->device, adev->pdev->revision))
- 		state->VddcPhase = data->vddc_phase_shed_control ^ 0x3;
- 	else
- 		state->VddcPhase = (data->vddc_phase_shed_control) ? 0 : 1;
+@@ -1712,6 +1712,9 @@ static int polaris10_populate_vr_config(struct pp_hwmgr *hwmgr,
+ 	if (SMU7_VOLTAGE_CONTROL_BY_SVID2 == data->voltage_control) {
+ 		config = VR_SVI2_PLANE_1;
+ 		table->VRConfig |= config;
++	} else if (SMU7_VOLTAGE_CONTROL_BY_GPIO == data->voltage_control) {
++		config = VR_SMIO_PATTERN_1;
++		table->VRConfig |= config;
+ 	} else {
+ 		PP_ASSERT_WITH_CODE(false,
+ 				"VDDC should be on SVI2 control in merged mode!",
+@@ -1730,7 +1733,17 @@ static int polaris10_populate_vr_config(struct pp_hwmgr *hwmgr,
+ 	}
+ 	/* Set Mvdd Voltage Controller */
+ 	if (SMU7_VOLTAGE_CONTROL_BY_SVID2 == data->mvdd_control) {
+-		config = VR_SVI2_PLANE_2;
++		if (config != VR_SVI2_PLANE_2) {
++			config = VR_SVI2_PLANE_2;
++			table->VRConfig |= (config << VRCONF_MVDD_SHIFT);
++			cgs_write_ind_register(hwmgr->device, CGS_IND_REG__SMC, smu_data->smu7_data.soft_regs_start +
++				offsetof(SMU74_SoftRegisters, AllowMvddSwitch), 0x1);
++		} else {
++			config = VR_STATIC_VOLTAGE;
++			table->VRConfig |= (config << VRCONF_MVDD_SHIFT);
++		}
++	} else if (SMU7_VOLTAGE_CONTROL_BY_GPIO == data->mvdd_control) {
++		config = VR_SMIO_PATTERN_2;
+ 		table->VRConfig |= (config << VRCONF_MVDD_SHIFT);
+ 		cgs_write_ind_register(hwmgr->device, CGS_IND_REG__SMC, smu_data->smu7_data.soft_regs_start +
+ 			offsetof(SMU74_SoftRegisters, AllowMvddSwitch), 0x1);
 -- 
 2.28.0
 
