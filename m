@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2D9CC433E7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C50FC43457
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66C692078A
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E32AC206ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ji7v+emt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66C692078A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qduotEB0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E32AC206ED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0645C6EA80;
-	Fri, 16 Oct 2020 03:28:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7946E9AB;
+	Fri, 16 Oct 2020 03:28:13 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2075.outbound.protection.outlook.com [40.107.92.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9C86EA80
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 03:28:09 +0000 (UTC)
+ (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA0796E9AB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 03:28:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QeX9UxiCFh+yjjm21LD4E1wWckGRRluHGEoqPLPL//obXxbFwQMtWpCW4b15maMllbJCi2N/uQfbHAcCQvKIDz1GdT5kmXmXfi+1xGMqabFk+WRuI6/kgjleH/GlLKjs1k8eIP4Mh8OjgwCmkOO9xYQam6ZhGvr79uQIRFQAh4ha++qEjmCYg8DUQx74qXod7ykYexfAHLtcDDX3fBDhCFG2rBjrZGsUCkusLYo/umR8u8CV22S2do7drj3gMUijOcBpIPcNHQtLH3BfbQWWYrtiVM/s6aScGbG6ssLjzsfp3gOcQxklEJ/x7loDbTjn/6Nq4jdghjYLNeH5KlWfWA==
+ b=fjbmo4SmQPA1Kxzqe8bIXHDYj0P8BRTE78z0xHzIF/X2KKbntF58AOjQeofr/TbcVc09uiviv99KW7UOcszBjEnQEZDIreEugqTgGl+svkrV/4043dWMY9QV7rRbkE/ZS0bhaZcBTQqARpgNE5Qt36V7C4dfT36AyY1kJStfFaYiXgVq2yIeZ7Ru1yAiWA/CbXVHXc5mJ1Gfrk+G/qBKa5KkIn/WC8PF45O4vrH7cJzf6OlzAGczJ/8+HDmflQBab5y62Vd+NF/egtrET3qHLkcWP7OFGOrvx8/iypK6N9Fe7pGusYTyADzcsv//ghyZV/hvv7kT6CUfSfzJ+1I2Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CH5jsuJaN0xdfJt6O5Lsr1uYdtdAszK7G/k2c8t/w0s=;
- b=ZVGw9D7CherVCFMOSe2bCxDJpb3JV1PPxNB397Bg5XQNI6FblUboSF1yKzZv2F84XjmZgZcg2QUX4vQA85k+0OoxRwePlcAU5gqipEog2+xS8tcGHAOZrb1MQhvMnASi8EjhoNZYeZMnynoP5UNqPcqcuQc7N9cNE7YNGVqW+T8I68TSQJ8et/fmPIx2WbcIt/xaymfkyQGLA6fODtKBgz3ngtle2f2C+d9Xupp6pnrG1x7gd0CV0kQk32zBuwWOGQDHkdyB8MbswDFhtf1eXUSdscHje0ZYwKyz5fIKlCimbjamODDHUILFwy1Q/bY3LDsatpKQqUriPygDWpHnPA==
+ bh=KjsWTZZMgqJ8TimwB9KO/BPazcbXF7rqCOmfqnGjSFs=;
+ b=L/DD2Owo8mQqW1h9dRlSuJksvFvD+Y/IISi5ZkneYfigc5/kmWkWRsX6ujlGqr56mEJp9V+X9Ow1SrjWLUr2tLiRlC7aqTe8M/YUB1EKq6VaIl9SY7CBOCy2n5tDIzCe6NfMKxLZ/YZaLX4JCsKYnonhVer96ZvQptnPkMU1ltOlNkRJyAB0kYNx+Mw7A3Kq40mX5EedBrqhDg96q6E+58qIP+j96Tt+ZkQfqTcm5sVzCaArkn5Bg/kt4iEipR0uHUaNsl8IvhOL+XuaTfjfExtovMf50XwHEJvnOu95oQb5vLcM3xxoYUogT41g2yhMwuyc2yiGAUYhc5Y5wjDwtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CH5jsuJaN0xdfJt6O5Lsr1uYdtdAszK7G/k2c8t/w0s=;
- b=Ji7v+emtygTaVW29eOdlvu0Bi99phgwveXcO61YwBgca1MB14z/uDWt/w9AW9Zh79NHMkd7Yct2/FD+6fZP3PkKdomXTIfs+S5IWb8MIRMdQXUWNwu7CuPj4AxNpkpptC3aYY+mBbqKKwA5zGm9eVkk9oK+Hkv80o/h0d4kilPc=
+ bh=KjsWTZZMgqJ8TimwB9KO/BPazcbXF7rqCOmfqnGjSFs=;
+ b=qduotEB0hNJkgNj3ORpNbfNnww+NI0yZaV1T7q1eksYangLRa3puBKrC07RsWwS2FqS62XqMPsH/IfRilX1i9sl/JcegpTBrI5QincXWpJ87jZDbU/nApfMrY0ghfjBCtTCKauSNywmggQg1WMP05ykz4AcEscxDLTzCGR33yyw=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM5PR12MB1354.namprd12.prod.outlook.com (2603:10b6:3:7a::17) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.21; Fri, 16 Oct 2020 03:28:08 +0000
+ 15.20.3477.21; Fri, 16 Oct 2020 03:28:11 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3477.023; Fri, 16 Oct 2020
- 03:28:08 +0000
+ 03:28:11 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 20/40] drm/amd/pm: add mc register table initialization
-Date: Fri, 16 Oct 2020 11:26:32 +0800
-Message-Id: <20201016032652.507-21-evan.quan@amd.com>
+Subject: [PATCH 22/40] drm/amd/pm: correct the checks for sclk/mclk SS support
+Date: Fri, 16 Oct 2020 11:26:34 +0800
+Message-Id: <20201016032652.507-23-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016032652.507-1-evan.quan@amd.com>
 References: <20201016032652.507-1-evan.quan@amd.com>
@@ -70,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR0302CA0007.apcprd03.prod.outlook.com (2603:1096:202::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.8 via Frontend Transport; Fri, 16 Oct 2020 03:28:06 +0000
+ 15.20.3499.8 via Frontend Transport; Fri, 16 Oct 2020 03:28:10 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ffb8e322-0d7f-4211-6a85-08d87183802b
+X-MS-Office365-Filtering-Correlation-Id: 2832b920-1581-4e8a-f4cc-08d87183823f
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1354:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB13544009CA37DF1F7F268D7DE4030@DM5PR12MB1354.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB135456E03C9BB1FC2882D8C1E4030@DM5PR12MB1354.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1247;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: r1D9UXDvlP2WwQw+siIdXxl2izsgm7XjHcwGfctXg2C2sLOQ4YIFfyVRyTe9rZ1fyLI2dNzhIFY7pHSk2N6WcDJLSTROi1gBWPKqrN8DxyGUSrHlruWB2Fz0hu0VbQnybVhB+1GFtaRU5n3ZrY6T0SHrELfeVYtWyVqj6sSMDaGvUi+Y5MU7XvmAoXs70k5UCywGpKLW/f5h3aDE6kbFLvoSFtXIvOhdCd1dSwY9U8MUMDt3bI+WXaaO0XifpJLNVGRHokoXSefgdDAbsTwWbBy5YY/R2heCc1MD4JK0tQaTEXIbCKdisdCLnUQBygNdp45Zbi11pxUffm5vmecFKllxZrh5/2NPNMIPqX/SPD+DSfuQKKCkey97U/B67bDX
+X-Microsoft-Antispam-Message-Info: j4+guj2KvaKoWoPWflq+QlakvVP5dCeakDnsYy9UcrEBMici7cdWhyxdohMzpa+3pRDCUEVDniU5V15sYjrIz4QA3ZAN+XDjqu1eaQww56ewpilbgL2VlFdWyNKC6DFHSu2IlVJUxAOQlsBNaHSNUGxkFOdl6ajSAwS+KZQ/vNcBqGWeeYfn7TIWVGO+ZtPMdMvGq9bj2OPxNfQfWHEEiAmUgcRzvi+5jZj2SgKMrzbC2xQhJGC+i19+brQjQQP1oS2bjR/hq1O/95hYR5mvStxmFY0iKeKKAt9jdrZoSCq5tH3bxYfUMGa2mi94hbJmqZQFjj3xTsRzz82zF8PpHl4nTPLsg5xhZalfJnUrbmMPMEhmfptwLRVjnFFOBl27
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(66476007)(66946007)(83380400001)(1076003)(8676002)(6486002)(5660300002)(8936002)(66556008)(6916009)(86362001)(52116002)(36756003)(7696005)(4326008)(2616005)(34490700002)(478600001)(316002)(6666004)(44832011)(16526019)(186003)(54906003)(2906002)(26005)(956004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: RDEx0hbI0MjIO3TUhnKCHNuENQ+oIeLcS6XAPz37WWpEQBhAsYct3izQAdRg0OX9HHc3brIJxoHH8hqnA7EcjMeu1Cb6Rf+Ntb5DhYTOwPw2qCEogyHGcqMrC7aS2yvL4aVRMot7wSH1pHdY0LEJiMrtl6i03lzntJj6+dQrIZeX9fxpA7wObjV5HVdviP7E6R6BsKaQTl1/EQ/y8mJ2TbIMAxvzMc+oq5Q5nBALzSC7BKFoABVVRSiWsi+8fp/PrVubGSVfxNgmUy5ywqzKz95c0oOqAuo5yb0cZ/H6MCgq4cXWO9HdFQbHtPuLvQb0TM7z0bxM7xi1FZuz0Zls3xvN69fF9fJZdws8FABUDOe5+mXFjh0q4YwaaM+EfU3LSa6PKqaeQ5glS1KxVDRcAK13JyCb3tPE7p8H3HGxZU3OcBlKFEiqu/QoGe708Mw6YgckF5R/r+OmysQb5y9BImqREjCJ7JxDbQ7PmQhVA6b6EeLtnPIGVImZlMA0e9b4vqKo5+A7naGiWai6z0J2+wfO21SMfR6cdJHa+nrEzJHtQLjCDUQzcQr8rNIAI5jiqBOexgNU52GYbm12ymaqKOTCCKtW/1SRb62hFUcxr3jqcmfm08cHxshILs206f3xWgo+NyWju9/79IwbjqWTaA==
+X-MS-Exchange-AntiSpam-MessageData: rcakbS1aInXfvqPpCvJ9P7YvFG7AqASdD30FUGuZSBw+J33bE6fouZ/VewsZWzppicgFHAU6bePsaEyI0/HupaKxmRsHmfMH6NIMfMww6wfkdLY1Hl+WoYw28cAyexIxnKiMWaGIxB2s5yuIVcddlYIO8hGQt1I/zQzhv+KSvuhz6Kf7rglHSffSNUuBFvu60ooDp9umL7smBOtS8E5m/Dr5stpg+0YsSe0CSEIFjnjMMqefcdz8yGNo945TpSbTI7HQWyCXSWHnsYN+Ht6FaiTDtsOcKGSLZawK8pJAvmi1Qduhp/EzbBBhL9MI3rNl8n3iTzYx6upOe5Dz4USQ4mPZhnWBjurlvLMkWXSOPdLIAmwJN6ZFPIQqNqYTg9olCpQFNtqcwrkCRHwmoJcug+tWCesXTU0br/k3NQRXXIw3j3APdYkSjfnaOin2TG5gWJ9ON6EfmsNIBEnQYfShou3oQxY0Z7XIRv6ZHYENgaT3dXlyAyJj8ktty8PBMI3LWSeEkla2M1F5ysV79lkWppI9jifoF6P6RGI2kO0jo9Ah/jQ6BxvXF4Wt+EvGamHX3fxg2jq9xaoJmQDtkRVLdmQ8DW2BE4iaO7/V38uMAnbxdyXa2pzR3j8wB3jC+fVXl29Iqv1trIVFi3yEsJdJUQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffb8e322-0d7f-4211-6a85-08d87183802b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2832b920-1581-4e8a-f4cc-08d87183823f
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 03:28:07.9137 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 03:28:11.3928 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XStsISbndmNOhZmP8xUdz+cPPb7iT3dJHdHr75qXHrzivGw7xK8+o1FsPlyXDf+6
+X-MS-Exchange-CrossTenant-UserPrincipalName: wA/zbmEXpb0uDxpaZhorJ9PQcdO8t44BZpV6LlueaQz9yqc3YelE14i4P1UTIw0x
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,127 +113,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add mc register table initialization.
+Correct sclk/mclk SS support checks.
 
-Change-Id: I38a17c2f2747e5ef736c5dc55a84ee4e34d114b8
+Change-Id: Ic3842b06aa632d5bfcee09a2119dbbb74d0f008a
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/ppatomctrl.c   | 37 +++++++++++++++++++
- .../drm/amd/pm/powerplay/hwmgr/ppatomctrl.h   |  1 +
- .../pm/powerplay/smumgr/polaris10_smumgr.c    | 19 ++++++++++
- .../pm/powerplay/smumgr/polaris10_smumgr.h    |  1 +
- 4 files changed, 58 insertions(+)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c      |  5 +++++
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 13 ++++++++++++-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h |  2 ++
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c |  7 +++++++
+ 4 files changed, 26 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+index f48fdc7f0382..68a7aed16196 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+@@ -478,6 +478,11 @@ int polaris_set_asic_special_caps(struct pp_hwmgr *hwmgr)
+ 	phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+ 						PHM_PlatformCaps_RegulatorHot);
+ 
++	phm_cap_set(hwmgr->platform_descriptor.platformCaps,
++			PHM_PlatformCaps_MemorySpreadSpectrumSupport);
++	phm_cap_set(hwmgr->platform_descriptor.platformCaps,
++			PHM_PlatformCaps_EngineSpreadSpectrumSupport);
++
+ 	phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+ 					PHM_PlatformCaps_AutomaticDCTransition);
+ 
 diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 3aaf2d64cd98..0d8a693b77e0 100644
+index a553ae312e65..401b3b516db0 100644
 --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
 +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -166,6 +166,43 @@ int atomctrl_initialize_mc_reg_table(
- 	return result;
+@@ -1231,7 +1231,7 @@ uint32_t atomctrl_get_mpll_reference_clock(struct pp_hwmgr *hwmgr)
+ /**
+  * Get the asic internal spread spectrum table
+  */
+-static ATOM_ASIC_INTERNAL_SS_INFO *asic_internal_ss_get_ss_table(void *device)
++ATOM_ASIC_INTERNAL_SS_INFO *asic_internal_ss_get_ss_table(void *device)
+ {
+ 	ATOM_ASIC_INTERNAL_SS_INFO *table = NULL;
+ 	u8 frev, crev;
+@@ -1245,6 +1245,17 @@ static ATOM_ASIC_INTERNAL_SS_INFO *asic_internal_ss_get_ss_table(void *device)
+ 	return table;
  }
  
-+int atomctrl_initialize_mc_reg_table_v2_2(
-+		struct pp_hwmgr *hwmgr,
-+		uint8_t module_index,
-+		pp_atomctrl_mc_reg_table *table)
++bool atomctrl_is_asic_internal_ss_supported(struct pp_hwmgr *hwmgr)
 +{
-+	ATOM_VRAM_INFO_HEADER_V2_2 *vram_info;
-+	ATOM_INIT_REG_BLOCK *reg_block;
-+	int result = 0;
-+	u8 frev, crev;
-+	u16 size;
++	ATOM_ASIC_INTERNAL_SS_INFO *table =
++		asic_internal_ss_get_ss_table(hwmgr->adev);
 +
-+	vram_info = (ATOM_VRAM_INFO_HEADER_V2_2 *)
-+		smu_atom_get_data_table(hwmgr->adev,
-+				GetIndexIntoMasterTable(DATA, VRAM_Info), &size, &frev, &crev);
-+
-+	if (module_index >= vram_info->ucNumOfVRAMModule) {
-+		pr_err("Invalid VramInfo table.");
-+		result = -1;
-+	} else if (vram_info->sHeader.ucTableFormatRevision < 2) {
-+		pr_err("Invalid VramInfo table.");
-+		result = -1;
-+	}
-+
-+	if (0 == result) {
-+		reg_block = (ATOM_INIT_REG_BLOCK *)
-+			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
-+		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-+	}
-+
-+	if (0 == result) {
-+		result = atomctrl_retrieve_ac_timing(module_index,
-+					reg_block, table);
-+	}
-+
-+	return result;
++	if (table)
++		return true;
++	else
++		return false;
 +}
 +
  /**
-  * Set DRAM timings based on engine clock and memory clock.
+  * Get the asic internal spread spectrum assignment
   */
 diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h
-index c6276ab073b7..3ef3ccfa6aa7 100644
+index b3951b19fbfc..b3103bd4be42 100644
 --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h
 +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h
-@@ -299,6 +299,7 @@ extern uint32_t atomctrl_get_mpll_reference_clock(struct pp_hwmgr *hwmgr);
+@@ -296,6 +296,8 @@ extern bool atomctrl_get_pp_assign_pin(struct pp_hwmgr *hwmgr, const uint32_t pi
+ extern int atomctrl_get_voltage_evv_on_sclk(struct pp_hwmgr *hwmgr, uint8_t voltage_type, uint32_t sclk, uint16_t virtual_voltage_Id, uint16_t *voltage);
+ extern int atomctrl_get_voltage_evv(struct pp_hwmgr *hwmgr, uint16_t virtual_voltage_id, uint16_t *voltage);
+ extern uint32_t atomctrl_get_mpll_reference_clock(struct pp_hwmgr *hwmgr);
++
++bool atomctrl_is_asic_internal_ss_supported(struct pp_hwmgr *hwmgr);
  extern int atomctrl_get_memory_clock_spread_spectrum(struct pp_hwmgr *hwmgr, const uint32_t memory_clock, pp_atomctrl_internal_ss_info *ssInfo);
  extern int atomctrl_get_engine_clock_spread_spectrum(struct pp_hwmgr *hwmgr, const uint32_t engine_clock, pp_atomctrl_internal_ss_info *ssInfo);
  extern int atomctrl_initialize_mc_reg_table(struct pp_hwmgr *hwmgr, uint8_t module_index, pp_atomctrl_mc_reg_table *table);
-+extern int atomctrl_initialize_mc_reg_table_v2_2(struct pp_hwmgr *hwmgr, uint8_t module_index, pp_atomctrl_mc_reg_table *table);
- extern int atomctrl_set_engine_dram_timings_rv770(struct pp_hwmgr *hwmgr, uint32_t engine_clock, uint32_t memory_clock);
- extern uint32_t atomctrl_get_reference_clock(struct pp_hwmgr *hwmgr);
- extern int atomctrl_get_memory_pll_dividers_si(struct pp_hwmgr *hwmgr, uint32_t clock_value, pp_atomctrl_memory_clock_param *mpll_param, bool strobe_mode);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-index fad6ffb470ba..c4590a43a4f7 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-@@ -2522,6 +2522,24 @@ static int polaris10_process_firmware_header(struct pp_hwmgr *hwmgr)
- 	return error ? -1 : 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 27ca0e6b724f..03a139f2c426 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -1811,6 +1811,13 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
+ 	    (adev->asic_type == CHIP_POLARIS12) ||
+ 	    (adev->asic_type == CHIP_VEGAM))
+ 		data->disable_edc_leakage_controller = false;
++
++	if (!atomctrl_is_asic_internal_ss_supported(hwmgr)) {
++		phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
++			PHM_PlatformCaps_MemorySpreadSpectrumSupport);
++		phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
++			PHM_PlatformCaps_EngineSpreadSpectrumSupport);
++	}
  }
  
-+static uint8_t polaris10_get_memory_modile_index(struct pp_hwmgr *hwmgr)
-+{
-+	return (uint8_t) (0xFF & (cgs_read_register(hwmgr->device, mmBIOS_SCRATCH_4) >> 16));
-+}
-+
-+static int polaris10_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
-+{
-+	int result;
-+	struct polaris10_smumgr *smu_data = (struct polaris10_smumgr *)(hwmgr->smu_backend);
-+	pp_atomctrl_mc_reg_table *mc_reg_table = &smu_data->mc_reg_table;
-+	uint8_t module_index = polaris10_get_memory_modile_index(hwmgr);
-+
-+	memset(mc_reg_table, 0, sizeof(pp_atomctrl_mc_reg_table));
-+	result = atomctrl_initialize_mc_reg_table_v2_2(hwmgr, module_index, mc_reg_table);
-+
-+	return result;
-+}
-+
- static bool polaris10_is_dpm_running(struct pp_hwmgr *hwmgr)
- {
- 	return (1 == PHM_READ_INDIRECT_FIELD(hwmgr->device,
-@@ -2648,6 +2666,7 @@ const struct pp_smumgr_func polaris10_smu_funcs = {
- 	.populate_all_graphic_levels = polaris10_populate_all_graphic_levels,
- 	.populate_all_memory_levels = polaris10_populate_all_memory_levels,
- 	.get_mac_definition = polaris10_get_mac_definition,
-+	.initialize_mc_reg_table = polaris10_initialize_mc_reg_table,
- 	.is_dpm_running = polaris10_is_dpm_running,
- 	.is_hw_avfs_present = polaris10_is_hw_avfs_present,
- 	.update_dpm_settings = polaris10_update_dpm_settings,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.h b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.h
-index 1ec425df9eda..6f4c48ac34b8 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.h
-@@ -60,6 +60,7 @@ struct polaris10_smumgr {
- 	struct polaris10_range_table                range_table[NUM_SCLK_RANGE];
- 	const struct polaris10_pt_defaults       *power_tune_defaults;
- 	uint32_t               bif_sclk_table[SMU74_MAX_LEVELS_LINK];
-+	pp_atomctrl_mc_reg_table             mc_reg_table;
- };
- 
- 
+ static int smu7_calculate_ro_range(struct pp_hwmgr *hwmgr)
 -- 
 2.28.0
 
