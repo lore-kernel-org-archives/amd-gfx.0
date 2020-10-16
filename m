@@ -2,102 +2,50 @@ Return-Path: <SRS0=ko+j=DX=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21D61C433E7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 12:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59776C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 12:49:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83DFA2084C
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 12:35:26 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xeMHANPZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83DFA2084C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id BFE1E207DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 12:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFE1E207DE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D254E6E140;
-	Fri, 16 Oct 2020 12:35:25 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770088.outbound.protection.outlook.com [40.107.77.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD4C6E140
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 12:35:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ib39a5vGGLvzcgwZdekUj/ZMLrX8BEiKU3EObJDbFWeV8oveQ1HXXL2wp+xUctkOZHICiOVT2Q6D0gQEbsD7HyFywstk+EX+o1QqpfnQ/cIvD+z6qvRVpuG0MKIZdgEZ24awqZojmOLgXD0Q26vohZMz1/BHe9kWOARjUNdmQLHgYfUel5ihEXPkSNF7wVRxMYtqecsAt9fK3JWlUSs7BSPY7eXp008wvSJUutIxIc4Owgb7j277ezadx5j9ivvQI4N08EDZJo3v4lF5+cjYOs8mPG+FwQWDuIJPC3aoARJgnMXKeXXbp3pXs0cX+3s+APs/8TNL5S4TZWYdeW0QDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u/Pf0xB3nvCsgbhNSV+z/dM1eHAvIaJwgYvkOfub0hI=;
- b=NznY5TPGmLyaNP1olDvdrKh9KhAXWhJ+efv5vXIuI77T8B7CZ59k9EaeSgPHCraRM+lHd3+GF8MgME58LUHdHL+/6nV4hDuUgRTHaj8QhoPERZEU8zj5VWpdkMBJWY64/nfHtzf19EFAeC5WcNkPeT+7thpcnM1lljzEbeni2AuuwFG4sfYtMQIZ+ggRgpwWONNdonUDnL2AIU5L/ZV4eRvePk0VdAVIGkKoR6gpyD+stgYfRC7EzMKensFxfcIXLardoz4nhRpUHXPnFFeQg+F1+V62gjAWrNrXBeDWg6hQ4yRm+DjAR4+2ES+rXgnlwkDjyC2zv9fV2O0wJUUzuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u/Pf0xB3nvCsgbhNSV+z/dM1eHAvIaJwgYvkOfub0hI=;
- b=xeMHANPZzh0ZMEw56zvYuT6KVB3o1WWwA0Ixoqvjh7qBlYCHYLR8MkoFqaWREWmQU84GFm91YsguTZacTNpmU+QELbtY4YTQFlTzHIfChvFUzQEHP1QqJ7r7+OP+YiEKnnuxniWBzOsQyYRTn+fdKDinAsMorftDbCrQhmmAXac=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB4689.namprd12.prod.outlook.com (2603:10b6:208:8f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.21; Fri, 16 Oct
- 2020 12:35:22 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::f8f7:7403:1c92:3a60%6]) with mapi id 15.20.3477.021; Fri, 16 Oct 2020
- 12:35:22 +0000
-Subject: Re: [PATCH] drm/amdgpu: don't map BO in reserved region
-To: Madhav Chauhan <madhav.chauhan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20201016123307.23262-1-madhav.chauhan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <caa427c0-5c89-ada2-8b4f-d8f6f6c5cd80@amd.com>
-Date: Fri, 16 Oct 2020 14:35:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20201016123307.23262-1-madhav.chauhan@amd.com>
-Content-Language: en-US
-X-Originating-IP: [93.132.127.18]
-X-ClientProxiedBy: AM3PR07CA0062.eurprd07.prod.outlook.com
- (2603:10a6:207:4::20) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 278846EDD7;
+	Fri, 16 Oct 2020 12:49:01 +0000 (UTC)
+Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87C5D6E141;
+ Fri, 16 Oct 2020 12:48:59 +0000 (UTC)
+Received: from ravnborg.org (unknown [188.228.123.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk4.altibox.net (Postfix) with ESMTPS id 383A2806F9;
+ Fri, 16 Oct 2020 14:48:52 +0200 (CEST)
+Date: Fri, 16 Oct 2020 14:48:50 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 10/10] drm/fb_helper: Support framebuffers in I/O memory
+Message-ID: <20201016124850.GA1174599@ravnborg.org>
+References: <20201015123806.32416-1-tzimmermann@suse.de>
+ <20201015123806.32416-11-tzimmermann@suse.de>
+ <20201016120347.GB1125266@ravnborg.org>
+ <20201016141942.111e17f3@linux-uq9g>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.137.56] (93.132.127.18) by
- AM3PR07CA0062.eurprd07.prod.outlook.com (2603:10a6:207:4::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.11 via Frontend Transport; Fri, 16 Oct 2020 12:35:21 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e8bdc551-9088-4cc2-27cb-08d871cff2dc
-X-MS-TrafficTypeDiagnostic: BL0PR12MB4689:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB4689138930EC8F247D04400883030@BL0PR12MB4689.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:849;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i7eXMkwa9PmgYmcAxIH8z1dLggNS7Lj0Ho++0om8VD6hS8AHtWdVm0yZIcbv8dHc3zCOvgOThdx6R9W1rXyybcGhOZuMlwThOHHHkbDITj9823yON6Icn/OeOo+iY8PMleQ9YxUbYP2IkGiEBiwPdoHrgadiiqX3lgx+lpWc5VJCtniOkRp45hBCo5yh1UyUy1a+I3g8j32GFKixbNR3MSLMzXmWFz29WYnfroid0nNZHZ/RxMz1NfIFxUpNrbfAM8NfIcyaX/8KwEVtYw0bgycIiMdIAm46Cz68T1nIC/g0XVBKOpOYUr4M3qjwT1YItc9ago4BhomEh22KHrX58J9fDD05AtvUqRA0nCv3eNz9o+ddxWD7tat3R4wCBXe2lgnViFfcJDIZWT4fFIZlCfK2ZIEYFA7LHO5j41xyQGo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(366004)(16576012)(956004)(2616005)(316002)(31696002)(2906002)(26005)(6666004)(186003)(16526019)(5660300002)(8676002)(31686004)(478600001)(8936002)(6486002)(66946007)(66476007)(34490700002)(66556008)(52116002)(86362001)(36756003)(66574015)(83380400001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 4vJv2PuFJSNysEJOcIoTuccrq5fC0YsWokj43Z6EVUYf7+HBNeoQXt6G1yvt0KbVXRHPPMIky17IrU9YjLShdvfWIeXPyjH8WvMg0Kt+zuq4lYm9FEs+m0x9UUAIGj2O0gDlUYdMQ9i9ZbQETthtsX6hn07nQXabDVVWHJuFzPtHYK+ZsQr/ad2kHvGRw+X5DogBZRQ10siBP+ZtJzbFpepvKaln5bHBZiiV4w+7DO37fLlrstgmEu6Fb6SSOFfOE79mkz3/6L5wN7d5UwVvPZ+ahcCqFBfFxUdrrcAeRNUhmRZ0unKvyKqB4zoNsj8Sxxy8wtqwUq2Z3WrwMaufjEar5CEUkxw/s2YbroWAGVyY3fnm6aC7T45N6o7Py5mVxr9X6pDvReD775E6a66ZwPpFFPtTmelyHPnJbVz6ELaAG3SMx/trnvjChJls3WIcKcc87XOxnR8wXJDeMSGwHzE/Zaj5dyjnDBsogn06ecbCq7ZfXwiUsCDIBxWzURJsqz1oMa+HRYlaqG/VKkQpgIotNYt3TtDfcWbBl6y8OHZyKJO6DcVrRv/7soEiq3e08aD8G6BgKcjl++u4s5pMcMlbaCiDD+b8YV7hkIBJS9zZcFNLg/8tZqDrYaLBggkJrkFY1ctwOAyDWR1TeG/NNw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8bdc551-9088-4cc2-27cb-08d871cff2dc
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 12:35:22.4265 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ytcEMlyShr3kvRPtRAZRqY06A3PAD6dJJSimK4OaJAyXyfeRtztCKgjFjqoVTjtT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4689
+Content-Disposition: inline
+In-Reply-To: <20201016141942.111e17f3@linux-uq9g>
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=fu7ymmwf c=1 sm=1 tr=0
+ a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
+ a=8nJEP1OIZ-IA:10 a=7gkXJVJtAAAA:8 a=6Hpfs63HWkxrz3fWGNMA:9
+ a=w4pgIJ6L-nyCBc2a:21 a=gikFlJ38tUkSyios:21 a=wPNLvfGTeEIA:10
+ a=qfUslh1TxfEA:10 a=E9Po1WZjFZOl8hwRPBS3:22
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,38 +57,536 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: luben.tuikov@amd.com, heiko@sntech.de, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, linus.walleij@linaro.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ melissa.srw@gmail.com, eric@anholt.net, ray.huang@amd.com, kraxel@redhat.com,
+ sumit.semwal@linaro.org, emil.velikov@collabora.com, robh@kernel.org,
+ linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ lima@lists.freedesktop.org, oleksandr_andrushchenko@epam.com, krzk@kernel.org,
+ steven.price@arm.com, linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ alyssa.rosenzweig@collabora.com, linux+etnaviv@armlinux.org.uk,
+ spice-devel@lists.freedesktop.org, bskeggs@redhat.com,
+ maarten.lankhorst@linux.intel.com, etnaviv@lists.freedesktop.org,
+ mripard@kernel.org, inki.dae@samsung.com, hdegoede@redhat.com,
+ christian.gmeiner@gmail.com, xen-devel@lists.xenproject.org,
+ virtualization@lists.linux-foundation.org, sean@poorly.run, apaneers@amd.com,
+ linux-arm-kernel@lists.infradead.org, linaro-mm-sig@lists.linaro.org,
+ amd-gfx@lists.freedesktop.org, tomeu.vizoso@collabora.com,
+ sw0312.kim@samsung.com, hjc@rock-chips.com, kyungmin.park@samsung.com,
+ miaoqinglang@huawei.com, yuq825@gmail.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, linux-media@vger.kernel.org,
+ christian.koenig@amd.com, l.stach@pengutronix.de
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTYuMTAuMjAgdW0gMTQ6MzMgc2NocmllYiBNYWRoYXYgQ2hhdWhhbjoKPiAyTUIgYXJlYSBp
-cyByZXNlcnZlZCBhdCB0b3AgaW5zaWRlIFZNLgo+Cj4gU3VnZ2VzdGVkLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogTWFkaGF2
-IENoYXVoYW4gPG1hZGhhdi5jaGF1aGFuQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyB8IDEwICsrKysrKysrKysKPiAgIDEgZmlsZSBj
-aGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2dlbS5jCj4gaW5kZXggNTA0Nzk4OWZlOTQxLi41YjUwODYwZWVjZTQgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCj4gQEAgLTU5Niw2ICs1OTYsNyBAQCBp
-bnQgYW1kZ3B1X2dlbV92YV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRh
-LAo+ICAgCXN0cnVjdCB3d19hY3F1aXJlX2N0eCB0aWNrZXQ7Cj4gICAJc3RydWN0IGxpc3RfaGVh
-ZCBsaXN0LCBkdXBsaWNhdGVzOwo+ICAgCXVpbnQ2NF90IHZhX2ZsYWdzOwo+ICsJdWludDY0X3Qg
-dm1fc2l6ZTsKPiAgIAlpbnQgciA9IDA7Cj4gICAKPiAgIAlpZiAoYXJncy0+dmFfYWRkcmVzcyA8
-IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFKSB7Cj4gQEAgLTYxNiw2ICs2MTcsMTUgQEAgaW50IGFt
-ZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAg
-IAo+ICAgCWFyZ3MtPnZhX2FkZHJlc3MgJj0gQU1ER1BVX0dNQ19IT0xFX01BU0s7Cj4gICAKPiAr
-CXZtX3NpemUgPSBhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gKiBBTURHUFVfR1BVX1BBR0VfU0la
-RTsKPiArCXZtX3NpemUgLT0gQU1ER1BVX1ZBX1JFU0VSVkVEX1NJWkU7Cj4gKwlpZiAoYXJncy0+
-dmFfYWRkcmVzcyArIGFyZ3MtPm1hcF9zaXplID4gdm1fc2l6ZSkgewo+ICsJCWRldl9kYmcoJmRl
-di0+cGRldi0+ZGV2LAo+ICsJCQkidmFfYWRkcmVzcyAweCVsbHggaXMgaW4gdG9wIHJlc2VydmVk
-IGFyZWEgMHglbGx4XG4iLAo+ICsJCQlhcmdzLT52YV9hZGRyZXNzICsgYXJncy0+bWFwX3NpemUs
-IHZtX3NpemUpOwo+ICsJCXJldHVybiAtRUlOVkFMOwo+ICsJfQo+ICsKPiAgIAlpZiAoKGFyZ3Mt
-PmZsYWdzICYgfnZhbGlkX2ZsYWdzKSAmJiAoYXJncy0+ZmxhZ3MgJiB+cHJ0X2ZsYWdzKSkgewo+
-ICAgCQlkZXZfZGJnKCZkZXYtPnBkZXYtPmRldiwgImludmFsaWQgZmxhZ3MgY29tYmluYXRpb24g
-MHglMDhYXG4iLAo+ICAgCQkJYXJncy0+ZmxhZ3MpOwoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+On Fri, Oct 16, 2020 at 02:19:42PM +0200, Thomas Zimmermann wrote:
+> Hi
+> =
+
+> On Fri, 16 Oct 2020 14:03:47 +0200 Sam Ravnborg <sam@ravnborg.org> wrote:
+> =
+
+> > Hi Thomas.
+> > =
+
+> > On Thu, Oct 15, 2020 at 02:38:06PM +0200, Thomas Zimmermann wrote:
+> > > At least sparc64 requires I/O-specific access to framebuffers. This
+> > > patch updates the fbdev console accordingly.
+> > > =
+
+> > > For drivers with direct access to the framebuffer memory, the callback
+> > > functions in struct fb_ops test for the type of memory and call the r=
+sp
+> > > fb_sys_ of fb_cfb_ functions.
+> > > =
+
+> > > For drivers that employ a shadow buffer, fbdev's blit function retrie=
+ves
+> > > the framebuffer address as struct dma_buf_map, and uses dma_buf_map
+> > > interfaces to access the buffer.
+> > > =
+
+> > > The bochs driver on sparc64 uses a workaround to flag the framebuffer=
+ as
+> > > I/O memory and avoid a HW exception. With the introduction of struct
+> > > dma_buf_map, this is not required any longer. The patch removes the r=
+sp
+> > > code from both, bochs and fbdev.
+> > > =
+
+> > > v4:
+> > > 	* move dma_buf_map changes into separate patch (Daniel)
+> > > 	* TODO list: comment on fbdev updates (Daniel)
+> > > =
+
+> > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > =
+
+> > The original workaround fixed it so we could run qemu with the
+> > -nographic option.
+> > =
+
+> > So I went ahead and tried to run quemu version:
+> > v5.0.0-1970-g0b100c8e72-dirty.
+> > And with the BOCHS driver built-in.
+> > =
+
+> > With the following command line:
+> > qemu-system-sparc64 -m 512 -kernel vmlinux -append console=3DttyS0 -nog=
+raphic
+> > =
+
+> > Behaviour was the same before and after applying this patch.
+> > (panic due to VFS: Unable to mount root fs on unknown-block(0,0))
+> > So I consider it fixed for real now and not just a workaround.
+> > =
+
+> > I also tested with:
+> > qemu-system-sparc64 -m 512 -kernel vmlinux -append console=3DttyS0 -ser=
+ial
+> > stdio
+> > =
+
+> > and it worked in both cases too.
+> =
+
+> FTR, you booted a kernel and got graphics output. The error is simply that
+> there was no disk to mount?
+
+The short version "Yes".
+
+The longer version:
+
+With "qemu-system-sparc64 -m 512 -kernel vmlinux -append console=3DttyS0
+-serial stdio" I got graphical output - one penguin.
+
+With "qemu-system-sparc64 -m 512 -kernel vmlinux -append console=3DttyS0
+-nographic" I got no graphical output, as implied by the -nographic
+option. But the boot continued - where it would panic before when we
+accessed IO memory as system memory.
+
+In both cases I got an error because I had not specified any rootfs, so
+qemu failed to mount any rootfs. So expected.
+
+	Sam
+
+> =
+
+> Best regards
+> Thomas
+> =
+
+> > =
+
+> > All the comments above so future-me have an easier time finding how to
+> > reproduce.
+> > =
+
+> > Tested-by: Sam Ravnborg <sam@ravnborg.org>
+> > =
+
+> > 	Sam
+> > =
+
+> > > ---
+> > >  Documentation/gpu/todo.rst        |  19 ++-
+> > >  drivers/gpu/drm/bochs/bochs_kms.c |   1 -
+> > >  drivers/gpu/drm/drm_fb_helper.c   | 217 ++++++++++++++++++++++++++++=
+--
+> > >  include/drm/drm_mode_config.h     |  12 --
+> > >  4 files changed, 220 insertions(+), 29 deletions(-)
+> > > =
+
+> > > diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> > > index 7e6fc3c04add..638b7f704339 100644
+> > > --- a/Documentation/gpu/todo.rst
+> > > +++ b/Documentation/gpu/todo.rst
+> > > @@ -197,13 +197,28 @@ Convert drivers to use drm_fbdev_generic_setup()
+> > >  ------------------------------------------------
+> > >  =
+
+> > >  Most drivers can use drm_fbdev_generic_setup(). Driver have to imple=
+ment
+> > > -atomic modesetting and GEM vmap support. Current generic fbdev emula=
+tion
+> > > -expects the framebuffer in system memory (or system-like memory).
+> > > +atomic modesetting and GEM vmap support. Historically, generic fbdev
+> > > emulation +expected the framebuffer in system memory or system-like
+> > > memory. By employing +struct dma_buf_map, drivers with frambuffers in=
+ I/O
+> > > memory can be supported +as well.
+> > >  =
+
+> > >  Contact: Maintainer of the driver you plan to convert
+> > >  =
+
+> > >  Level: Intermediate
+> > >  =
+
+> > > +Reimplement functions in drm_fbdev_fb_ops without fbdev
+> > > +-------------------------------------------------------
+> > > +
+> > > +A number of callback functions in drm_fbdev_fb_ops could benefit from
+> > > +being rewritten without dependencies on the fbdev module. Some of the
+> > > +helpers could further benefit from using struct dma_buf_map instead =
+of
+> > > +raw pointers.
+> > > +
+> > > +Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+> > > +
+> > > +Level: Advanced
+> > > +
+> > > +
+> > >  drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
+> > >  -----------------------------------------------------------------
+> > >  =
+
+> > > diff --git a/drivers/gpu/drm/bochs/bochs_kms.c
+> > > b/drivers/gpu/drm/bochs/bochs_kms.c index 13d0d04c4457..853081d186d5
+> > > 100644 --- a/drivers/gpu/drm/bochs/bochs_kms.c
+> > > +++ b/drivers/gpu/drm/bochs/bochs_kms.c
+> > > @@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
+> > >  	bochs->dev->mode_config.preferred_depth =3D 24;
+> > >  	bochs->dev->mode_config.prefer_shadow =3D 0;
+> > >  	bochs->dev->mode_config.prefer_shadow_fbdev =3D 1;
+> > > -	bochs->dev->mode_config.fbdev_use_iomem =3D true;
+> > >  	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order =3D
+> > > true; =
+
+> > >  	bochs->dev->mode_config.funcs =3D &bochs_mode_funcs;
+> > > diff --git a/drivers/gpu/drm/drm_fb_helper.c
+> > > b/drivers/gpu/drm/drm_fb_helper.c index 6212cd7cde1d..462b0c130ebb 10=
+0644
+> > > --- a/drivers/gpu/drm/drm_fb_helper.c
+> > > +++ b/drivers/gpu/drm/drm_fb_helper.c
+> > > @@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct
+> > > work_struct *work) }
+> > >  =
+
+> > >  static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper
+> > > *fb_helper,
+> > > -					  struct drm_clip_rect *clip)
+> > > +					  struct drm_clip_rect *clip,
+> > > +					  struct dma_buf_map *dst)
+> > >  {
+> > >  	struct drm_framebuffer *fb =3D fb_helper->fb;
+> > >  	unsigned int cpp =3D fb->format->cpp[0];
+> > >  	size_t offset =3D clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+> > >  	void *src =3D fb_helper->fbdev->screen_buffer + offset;
+> > > -	void *dst =3D fb_helper->buffer->map.vaddr + offset;
+> > >  	size_t len =3D (clip->x2 - clip->x1) * cpp;
+> > >  	unsigned int y;
+> > >  =
+
+> > > -	for (y =3D clip->y1; y < clip->y2; y++) {
+> > > -		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
+> > > -			memcpy(dst, src, len);
+> > > -		else
+> > > -			memcpy_toio((void __iomem *)dst, src, len);
+> > > +	dma_buf_map_incr(dst, offset); /* go to first pixel within clip
+> > > rect */ =
+
+> > > +	for (y =3D clip->y1; y < clip->y2; y++) {
+> > > +		dma_buf_map_memcpy_to(dst, src, len);
+> > > +		dma_buf_map_incr(dst, fb->pitches[0]);
+> > >  		src +=3D fb->pitches[0];
+> > > -		dst +=3D fb->pitches[0];
+> > >  	}
+> > >  }
+> > >  =
+
+> > > @@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct
+> > > work_struct *work) ret =3D drm_client_buffer_vmap(helper->buffer, &ma=
+p);
+> > >  			if (ret)
+> > >  				return;
+> > > -			drm_fb_helper_dirty_blit_real(helper,
+> > > &clip_copy);
+> > > +			drm_fb_helper_dirty_blit_real(helper,
+> > > &clip_copy, &map); }
+> > > +
+> > >  		if (helper->fb->funcs->dirty)
+> > >  			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
+> > >  						 &clip_copy, 1);
+> > > @@ -755,6 +754,136 @@ void drm_fb_helper_sys_imageblit(struct fb_info
+> > > *info, }
+> > >  EXPORT_SYMBOL(drm_fb_helper_sys_imageblit);
+> > >  =
+
+> > > +static ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __u=
+ser
+> > > *buf,
+> > > +				      size_t count, loff_t *ppos)
+> > > +{
+> > > +	unsigned long p =3D *ppos;
+> > > +	u8 *dst;
+> > > +	u8 __iomem *src;
+> > > +	int c, err =3D 0;
+> > > +	unsigned long total_size;
+> > > +	unsigned long alloc_size;
+> > > +	ssize_t ret =3D 0;
+> > > +
+> > > +	if (info->state !=3D FBINFO_STATE_RUNNING)
+> > > +		return -EPERM;
+> > > +
+> > > +	total_size =3D info->screen_size;
+> > > +
+> > > +	if (total_size =3D=3D 0)
+> > > +		total_size =3D info->fix.smem_len;
+> > > +
+> > > +	if (p >=3D total_size)
+> > > +		return 0;
+> > > +
+> > > +	if (count >=3D total_size)
+> > > +		count =3D total_size;
+> > > +
+> > > +	if (count + p > total_size)
+> > > +		count =3D total_size - p;
+> > > +
+> > > +	src =3D (u8 __iomem *)(info->screen_base + p);
+> > > +
+> > > +	alloc_size =3D min(count, PAGE_SIZE);
+> > > +
+> > > +	dst =3D kmalloc(alloc_size, GFP_KERNEL);
+> > > +	if (!dst)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	while (count) {
+> > > +		c =3D min(count, alloc_size);
+> > > +
+> > > +		memcpy_fromio(dst, src, c);
+> > > +		if (copy_to_user(buf, dst, c)) {
+> > > +			err =3D -EFAULT;
+> > > +			break;
+> > > +		}
+> > > +
+> > > +		src +=3D c;
+> > > +		*ppos +=3D c;
+> > > +		buf +=3D c;
+> > > +		ret +=3D c;
+> > > +		count -=3D c;
+> > > +	}
+> > > +
+> > > +	kfree(dst);
+> > > +
+> > > +	if (err)
+> > > +		return err;
+> > > +
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +static ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const c=
+har
+> > > __user *buf,
+> > > +				       size_t count, loff_t *ppos)
+> > > +{
+> > > +	unsigned long p =3D *ppos;
+> > > +	u8 *src;
+> > > +	u8 __iomem *dst;
+> > > +	int c, err =3D 0;
+> > > +	unsigned long total_size;
+> > > +	unsigned long alloc_size;
+> > > +	ssize_t ret =3D 0;
+> > > +
+> > > +	if (info->state !=3D FBINFO_STATE_RUNNING)
+> > > +		return -EPERM;
+> > > +
+> > > +	total_size =3D info->screen_size;
+> > > +
+> > > +	if (total_size =3D=3D 0)
+> > > +		total_size =3D info->fix.smem_len;
+> > > +
+> > > +	if (p > total_size)
+> > > +		return -EFBIG;
+> > > +
+> > > +	if (count > total_size) {
+> > > +		err =3D -EFBIG;
+> > > +		count =3D total_size;
+> > > +	}
+> > > +
+> > > +	if (count + p > total_size) {
+> > > +		/*
+> > > +		 * The framebuffer is too small. We do the
+> > > +		 * copy operation, but return an error code
+> > > +		 * afterwards. Taken from fbdev.
+> > > +		 */
+> > > +		if (!err)
+> > > +			err =3D -ENOSPC;
+> > > +		count =3D total_size - p;
+> > > +	}
+> > > +
+> > > +	alloc_size =3D min(count, PAGE_SIZE);
+> > > +
+> > > +	src =3D kmalloc(alloc_size, GFP_KERNEL);
+> > > +	if (!src)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	dst =3D (u8 __iomem *)(info->screen_base + p);
+> > > +
+> > > +	while (count) {
+> > > +		c =3D min(count, alloc_size);
+> > > +
+> > > +		if (copy_from_user(src, buf, c)) {
+> > > +			err =3D -EFAULT;
+> > > +			break;
+> > > +		}
+> > > +		memcpy_toio(dst, src, c);
+> > > +
+> > > +		dst +=3D c;
+> > > +		*ppos +=3D c;
+> > > +		buf +=3D c;
+> > > +		ret +=3D c;
+> > > +		count -=3D c;
+> > > +	}
+> > > +
+> > > +	kfree(src);
+> > > +
+> > > +	if (err)
+> > > +		return err;
+> > > +
+> > > +	return ret;
+> > > +}
+> > > +
+> > >  /**
+> > >   * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
+> > >   * @info: fbdev registered by the helper
+> > > @@ -2027,6 +2156,66 @@ static int drm_fbdev_fb_mmap(struct fb_info *i=
+nfo,
+> > > struct vm_area_struct *vma) return -ENODEV;
+> > >  }
+> > >  =
+
+> > > +static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *=
+buf,
+> > > +				 size_t count, loff_t *ppos)
+> > > +{
+> > > +	struct drm_fb_helper *fb_helper =3D info->par;
+> > > +	struct drm_client_buffer *buffer =3D fb_helper->buffer;
+> > > +
+> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> > > +		return drm_fb_helper_sys_read(info, buf, count, ppos);
+> > > +	else
+> > > +		return drm_fb_helper_cfb_read(info, buf, count, ppos);
+> > > +}
+> > > +
+> > > +static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char
+> > > __user *buf,
+> > > +				  size_t count, loff_t *ppos)
+> > > +{
+> > > +	struct drm_fb_helper *fb_helper =3D info->par;
+> > > +	struct drm_client_buffer *buffer =3D fb_helper->buffer;
+> > > +
+> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> > > +		return drm_fb_helper_sys_write(info, buf, count, ppos);
+> > > +	else
+> > > +		return drm_fb_helper_cfb_write(info, buf, count, ppos);
+> > > +}
+> > > +
+> > > +static void drm_fbdev_fb_fillrect(struct fb_info *info,
+> > > +				  const struct fb_fillrect *rect)
+> > > +{
+> > > +	struct drm_fb_helper *fb_helper =3D info->par;
+> > > +	struct drm_client_buffer *buffer =3D fb_helper->buffer;
+> > > +
+> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> > > +		drm_fb_helper_sys_fillrect(info, rect);
+> > > +	else
+> > > +		drm_fb_helper_cfb_fillrect(info, rect);
+> > > +}
+> > > +
+> > > +static void drm_fbdev_fb_copyarea(struct fb_info *info,
+> > > +				  const struct fb_copyarea *area)
+> > > +{
+> > > +	struct drm_fb_helper *fb_helper =3D info->par;
+> > > +	struct drm_client_buffer *buffer =3D fb_helper->buffer;
+> > > +
+> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> > > +		drm_fb_helper_sys_copyarea(info, area);
+> > > +	else
+> > > +		drm_fb_helper_cfb_copyarea(info, area);
+> > > +}
+> > > +
+> > > +static void drm_fbdev_fb_imageblit(struct fb_info *info,
+> > > +				   const struct fb_image *image)
+> > > +{
+> > > +	struct drm_fb_helper *fb_helper =3D info->par;
+> > > +	struct drm_client_buffer *buffer =3D fb_helper->buffer;
+> > > +
+> > > +	if (drm_fbdev_use_shadow_fb(fb_helper) || !buffer->map.is_iomem)
+> > > +		drm_fb_helper_sys_imageblit(info, image);
+> > > +	else
+> > > +		drm_fb_helper_cfb_imageblit(info, image);
+> > > +}
+> > > +
+> > >  static const struct fb_ops drm_fbdev_fb_ops =3D {
+> > >  	.owner		=3D THIS_MODULE,
+> > >  	DRM_FB_HELPER_DEFAULT_OPS,
+> > > @@ -2034,11 +2223,11 @@ static const struct fb_ops drm_fbdev_fb_ops =
+=3D {
+> > >  	.fb_release	=3D drm_fbdev_fb_release,
+> > >  	.fb_destroy	=3D drm_fbdev_fb_destroy,
+> > >  	.fb_mmap	=3D drm_fbdev_fb_mmap,
+> > > -	.fb_read	=3D drm_fb_helper_sys_read,
+> > > -	.fb_write	=3D drm_fb_helper_sys_write,
+> > > -	.fb_fillrect	=3D drm_fb_helper_sys_fillrect,
+> > > -	.fb_copyarea	=3D drm_fb_helper_sys_copyarea,
+> > > -	.fb_imageblit	=3D drm_fb_helper_sys_imageblit,
+> > > +	.fb_read	=3D drm_fbdev_fb_read,
+> > > +	.fb_write	=3D drm_fbdev_fb_write,
+> > > +	.fb_fillrect	=3D drm_fbdev_fb_fillrect,
+> > > +	.fb_copyarea	=3D drm_fbdev_fb_copyarea,
+> > > +	.fb_imageblit	=3D drm_fbdev_fb_imageblit,
+> > >  };
+> > >  =
+
+> > >  static struct fb_deferred_io drm_fbdev_defio =3D {
+> > > diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_con=
+fig.h
+> > > index 5ffbb4ed5b35..ab424ddd7665 100644
+> > > --- a/include/drm/drm_mode_config.h
+> > > +++ b/include/drm/drm_mode_config.h
+> > > @@ -877,18 +877,6 @@ struct drm_mode_config {
+> > >  	 */
+> > >  	bool prefer_shadow_fbdev;
+> > >  =
+
+> > > -	/**
+> > > -	 * @fbdev_use_iomem:
+> > > -	 *
+> > > -	 * Set to true if framebuffer reside in iomem.
+> > > -	 * When set to true memcpy_toio() is used when copying the
+> > > framebuffer in
+> > > -	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
+> > > -	 *
+> > > -	 * FIXME: This should be replaced with a per-mapping is_iomem
+> > > -	 * flag (like ttm does), and then used everywhere in fbdev code.
+> > > -	 */
+> > > -	bool fbdev_use_iomem;
+> > > -
+> > >  	/**
+> > >  	 * @quirk_addfb_prefer_xbgr_30bpp:
+> > >  	 *
+> > > -- =
+
+> > > 2.28.0
+> =
+
+> =
+
+> =
+
+> -- =
+
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=FCrnberg, Germany
+> (HRB 36809, AG N=FCrnberg)
+> Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
