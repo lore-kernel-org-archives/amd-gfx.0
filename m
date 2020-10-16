@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D3C1C43457
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EAF1EC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1A84206ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 931C5206ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 03:28:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Rb/4DhH4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1A84206ED
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lE0ibcdL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 931C5206ED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1FA6EA84;
-	Fri, 16 Oct 2020 03:28:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8B06E97C;
+	Fri, 16 Oct 2020 03:28:20 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7015D6EA83
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 03:28:16 +0000 (UTC)
+ (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 235486EA83
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 03:28:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RuVwJpPPGOiSVxgA30VHawidxAs3vuWUBKeG6hZznYAh4m6095JEYq2R9W1HLxArRrDiGC7Funs6xPi9UWInrD7eBv64Savzwf68ldHyoaq5A1wKHp8fFR7/8xIaE/mh4+uHmqGw/+bkpYjJttIwuOgDTyc/+aI7qQpGFDatXhK32h8RYmSW3cEd4EYxLJr7846z8atswbcOBRKUmfMB57PFyjR6pkZGHT5yb9TcXmBSN7onhvjefd9Bj/PBzXwlu/GRl8qQR+xccxn0ckrS+EtvfUivuzkiiL0AlgiMzUe2E1k5KSJeIjvRVXpC/INdzW5XbfsBIGJ4qJoyyya+Zw==
+ b=Aw4mXOED/43M73447lpowpwnXaJA/qqBG+4DkLlkWQSJh1T8S7uIChMtBgcG2GhJG9Hd3XMfb9kz73e/ms7mjA8EkOwrl0EBWDq/Pme0/Vy/VscQDbEJyCcZ8oM0w5t/o9ktHEtJN0VkufUxYiOcfziPqhjme5gg4PLN34Brk84bSHU+WJigEHW5Hl3xMfXf47Tj3q4Cryr2kn4oWDyY26rasKxCHXsByGuOvyhwOxjjN+cwLbNxZlsulnFOQ1vX2CSglewIE466z2T+Zyz/2l8dEweImgY4po9BcYh6KUHB27vM6gHzDcziCTYTzZhxvTrggub3f7TgAmj0LTbwXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQCab2l3HXSuRWZPKrbxW5j7WvCMfaSgj+73vgFPcyc=;
- b=VFmW0p8aEFfviov+D/vdWnyF9HD2eAYEiPNqdaEL2Z9naVolqyxgCSg/ufqrSpF3X2K1iknwWmYsMbGyOq90AOqtcgqVKOsPNltwAr0mhJCztnGix6/s9vJV+i9K+XGFHK9W2wh9GQD6y3yGywzsFSsmDvP3WYG5mDorUNqvwcwNT+FABs2ke7IIyu5Gd5UJ7bZ83/KvQtElR35MG38tloGS+BEtKc5UV2JDDSFZr+hiv9wWx3u5FGwauIpsdGPY+m7kkFEBeQHUqhpitbuWn28jplah9aWjpQZZoVLGukeSgrHCRQz/ilM/mchL1nWWWS35cVZjnF2hJmStNgY9Wg==
+ bh=nJ/KtXH4Kd7pK2kmIoqFbAXLbx4zhdRziEsSO2eGMsE=;
+ b=j7MhyC6YMYKNrR22QdTdU1fuCXlLmo/1kGntk+5z7fv1FSoWJ6CMX8IEda7QjAimqk63GN/6goyLl5HsNjf6/TO0srKHCfk5ntcEBL//HjwENImfdNh/dZOy0jA/PJmnvweZJPKZv7GnaXdRHu4bKj7E5xKy/0jW9JIDfIC/R7jk96w1H8S39IztMzpAMCL1Vt2vtTurYKriqBgsGZgiLbkvbnFdTqe/YtkRhVZFgcpBw4jiSXwROz+YwPZY4u5F9+Exo41OC8lJYrVXmZar/xlOBkHQ45ewCSn4BAV6Ve/w85M3Z+/YX2ks3WPrqGy3lVh0eyTbRHz2JwImPMhCqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQCab2l3HXSuRWZPKrbxW5j7WvCMfaSgj+73vgFPcyc=;
- b=Rb/4DhH4bdk258AcT95lY+0fT5pFi9yMZyqcQmZ6vURvjN5qWrRFCT/XhD7ZyEk5gpGH7kdxVkTwKetTTkTb6B3Ao6SxWW3wJLlfm5IIPQ4F6Xtf/gwKA6gjb5K/6I7/vwpQgIiNrM3HVdL+VgQVteZvNa/dyLI/7ZdRBukKtiQ=
+ bh=nJ/KtXH4Kd7pK2kmIoqFbAXLbx4zhdRziEsSO2eGMsE=;
+ b=lE0ibcdLTDX/hNWcZAr8hss3wBXrUZDdHne6RuD2bR2jRRlU8L8XXzvmcLg1zTJccRfUZukJ75cgxoCKTxf1E1kyrT9ykYRg9PNGiQkGXkl9k2G9xWl2J5b4O3rnmEU5oudeZG0hS6si5XHX1lt3QZPdQlF+r1/6k9Bb1XQM4kQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM5PR12MB1354.namprd12.prod.outlook.com (2603:10b6:3:7a::17) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.21; Fri, 16 Oct 2020 03:28:15 +0000
+ 15.20.3477.21; Fri, 16 Oct 2020 03:28:16 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::bcb1:de80:f60c:8118%5]) with mapi id 15.20.3477.023; Fri, 16 Oct 2020
- 03:28:14 +0000
+ 03:28:16 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 24/40] drm/amd/pm: correct Polaris DIDT configurations
-Date: Fri, 16 Oct 2020 11:26:36 +0800
-Message-Id: <20201016032652.507-25-evan.quan@amd.com>
+Subject: [PATCH 25/40] drm/amd/pm: correct avfs fuse settings
+Date: Fri, 16 Oct 2020 11:26:37 +0800
+Message-Id: <20201016032652.507-26-evan.quan@amd.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201016032652.507-1-evan.quan@amd.com>
 References: <20201016032652.507-1-evan.quan@amd.com>
@@ -70,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR0302CA0007.apcprd03.prod.outlook.com (2603:1096:202::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.8 via Frontend Transport; Fri, 16 Oct 2020 03:28:13 +0000
+ 15.20.3499.8 via Frontend Transport; Fri, 16 Oct 2020 03:28:15 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 23ef3cc6-f10b-4226-4fb3-08d87183844f
+X-MS-Office365-Filtering-Correlation-Id: 4c603748-487c-4c29-b37d-08d871838554
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1354:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1354D3158420BC431959D121E4030@DM5PR12MB1354.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:843;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB135418A37BCCAF6F5CE80120E4030@DM5PR12MB1354.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:55;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bCPHAP385TbqhwH4lCMO6xka9ZKiQZnCiQ5aJxyG0XaQ33vbjEm7w2G4GSA4G8xIFkibASkQLczfaGrF9zrSRtmdOy18hzv5fPunMnX5zyAio6oBEccVtBufwwaKk/54hsM7aLtWNA1uTlXleh0L5kXAe0PpEJPnjyDdSjigq/gn2EVYsGxQPZSBG5ld0XNLswyWzGdDbS8jb6Osw15NGNhbN4mn5rLyoCyxWVViynM4t/bCSdYNWwLMMUIB4S7n5ADvs3PRm8oJPwVU4TvElr8hqOwSXQ51xATvUx4SG0YI18bhlFwigYrUuxxf1CNQphb+SEnHdxNkBKSfilpPUkJgYhTorA+Chch9QauaOzyY1voSsGIo8S2HrPEY0SP3
+X-Microsoft-Antispam-Message-Info: EzM5JxqOra1JiAbVF+mB8UYmannf0pWiJxXFXi+FUEn8fV+V7vzVbIr29nQmjdXVs+rRqfrUecoFbp8vyKS3iWci5GT5BavXy06PZ+m0vWSquvs201yTKR96fCjXRi8rFz9ovOnWaW2Tk5susVqT7Vp8HNQJkyXUTdeRQ+lRufX292fvXyEV/6e/1gngi1j1uuvtBla7onkU9uWr0UZrJjmfFsTB8b6cQja0YXN9Pdy6o3PkUf70NKP4TgUDH/iYZ17zu+FPQu+Jt57LLkhRDBclLuw/hdfiW7ZD3TlV6YQ6OocmHud6cQST6oqDpTICFgLsQPO+02JHmHFxnhc2a3Eo6+9olRw3wU7qZc2byCIqHA1twU6EzTZWlbjclKvL
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(66476007)(66946007)(83380400001)(1076003)(8676002)(6486002)(5660300002)(8936002)(66556008)(6916009)(86362001)(52116002)(36756003)(7696005)(4326008)(2616005)(34490700002)(478600001)(316002)(6666004)(44832011)(16526019)(186003)(54906003)(2906002)(26005)(956004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: JjuTYcprh7ndm0NSiTjVO+0R6StdKYBHfPfAqwcb/X4SbIMsKwdfEghGzOgM22wL2E/n0BvBmfcgIwJFKtCtbTnzy+rPHnIJWc9/of7XPNS/HxyADoyI5rmyAsKAdRfzfZm8UwwN2P6vD4lw+exQbgm8LPD9ERrZTbizKq4/OqWOZAZCLgVIn+CXQrMFpSMVhtYMbzV/mSU3R4IrH3zBq1/t91JF3Foigub+d+y3WDnAvmbIMMpQbedlsRWgPj7ewGpRjPX44Rd5q+RbXJorSlsFgZ0BcXBYZqv4MtSamh27xejwkJMtYmaLAIxwD3AViMv1bfTX/TZXXmZzqAcJnkcLCk/aS67diDF1QrmlQ1mk3JkKb+lv+rXOfAu4gbrHEXmcx9CTrcXX4W27eWWn/UhluDnLe8lrzxTsmdDTC9EnDNoTwtibwaGRQ3XdYPPCHnbHqFW1OPH7DDMp49v8hrQQGr1ltviBSqgAozWSe7evMX99dlIXNYkpksvxJyX7fYWgYLhzmtGnQi1ak6CsS/rzAuZsr4LhI4084P3bUJOIBgSP/Hj/buC3t0OAqBWAV6sUOBH3YaMa/81aYJ7ifhR470NveWFxg7gBAcrgc/9plEKzg9kpFzfb3zaoqDeLkF/LzvVdxMhRNw461WKXfQ==
+X-MS-Exchange-AntiSpam-MessageData: mJp8y5QtJQS9E89RsbIPBj0UbZGuN0UQAsJR1y3zxFSA2k7w6njcew9LlMYKEdM5Yw/KCsz3gELpNRJ7RkwXShW41af2uUDg89I0RghykoulHrMep6o1/bW6NJAXN88FeU8vBRxoR2J9mxhI/LpcVRPY/p8hBpBlseytn40L/LCaahQ5bDI5jXvbnExsDP3JY15kprHSxViR2hkimdxTJdEv/2AFp86+7Irj9iBZWkugJ2VDLzfUoSKCroD12g1JtdKFIo0srpyjSCZPfqOkzGjH+Tr89SagM8RQQ9G0hx87xwgIfR4cU7DeVrIYh0l0uU9tlKXbTNYF2jXcQAPMZjjAp70bjlKgdNBH8YIWOraVDrZrmk5kR8rA0z8raIiorF24tNeYL9unDhKspH7CmFV5njBck2PJOrx2m7HTCfJ/J0ajFr5HHr21VdNQy6zF0rryY7WAlrkugnOcnshEYMdR7QOYs/u8o+IrUqRleOUBUVbexliPkbBZzyPRt417FJA4P/BjxaAEfCqG1DLbHOxYvUdBkglHQ/wC2P8YZITCrMxC1JI4fmfdtGc4uOK+AnZx6ZHNfTmq6tl3d1mErPR14xlaM3xgc1p6nax+YFsC5fvgvPFvmqbBfRC7LfOlc8wLEY8wd6mRnQL/R3Hwmg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23ef3cc6-f10b-4226-4fb3-08d87183844f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c603748-487c-4c29-b37d-08d871838554
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 03:28:14.8489 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2020 03:28:16.6229 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SvUYtfhkXgIvouBwtp8/NVRuam8OAJsryA0xAlFOw2kwwtIz0dUlj6t5sLlzywva
+X-MS-Exchange-CrossTenant-UserPrincipalName: ITqc8jesO73K8uaBqzuaIFpBYX5ia05pLAUdBxRR/rZOFMTfPfG6EuGCPvH9gbPu
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,101 +113,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct Polaris DIDT enablement.
+Correct Polaris10 avfs fuse setting.
 
-Change-Id: I8e0033aef8cb0ab005b59517241338ecdf6f3817
+Change-Id: Ia6db6bb1d67cbf5355fcbd07ccd5e3fb6bbd2226
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h       |  2 ++
- .../amd/pm/powerplay/hwmgr/smu7_powertune.c   | 34 +++++++++++++++++--
- 2 files changed, 34 insertions(+), 2 deletions(-)
+ .../pm/powerplay/smumgr/polaris10_smumgr.c    | 55 ++++++++-----------
+ 1 file changed, 23 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h b/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
-index 97302aae4b27..a0a38b8a4b1b 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu7_ppsmc.h
-@@ -403,6 +403,8 @@ typedef uint16_t PPSMC_Result;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+index 6afbd138f4ea..46c82bfa793c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
+@@ -1760,16 +1760,18 @@ static int polaris10_populate_avfs_parameters(struct pp_hwmgr *hwmgr)
+ 	if (!hwmgr->avfs_supported)
+ 		return 0;
  
- #define PPSMC_MSG_EnableDpmDidt               ((uint16_t) 0x309)
- #define PPSMC_MSG_DisableDpmDidt              ((uint16_t) 0x30A)
-+#define PPSMC_MSG_EnableDpmMcBlackout         ((uint16_t) 0x30B)
-+#define PPSMC_MSG_DisableDpmMcBlackout        ((uint16_t) 0x30C)
- 
- #define PPSMC_MSG_EnableEDCController         ((uint16_t) 0x316)
- #define PPSMC_MSG_DisableEDCController        ((uint16_t) 0x317)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-index 5d4971576111..32a5a00fd8ae 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-@@ -852,12 +852,14 @@ static const struct gpu_pt_config_reg DIDTConfig_VegaM[] =
- };
- static int smu7_enable_didt(struct pp_hwmgr *hwmgr, const bool enable)
- {
-+	struct amdgpu_device *adev = hwmgr->adev;
- 	uint32_t en = enable ? 1 : 0;
- 	uint32_t block_en = 0;
- 	int32_t result = 0;
- 	uint32_t didt_block;
- 
--	if (hwmgr->chip_id == CHIP_POLARIS11)
-+	if ((hwmgr->chip_id == CHIP_POLARIS11) &&
-+	    (adev->pdev->subsystem_vendor != 0x106B))
- 		didt_block = Polaris11_DIDTBlock_Info;
- 	else
- 		didt_block = DIDTBlock_Info;
-@@ -962,6 +964,7 @@ int smu7_enable_didt_config(struct pp_hwmgr *hwmgr)
- 	uint32_t num_se = 0;
- 	uint32_t count, value, value2;
- 	struct amdgpu_device *adev = hwmgr->adev;
-+	uint32_t efuse;
- 
- 	num_se = adev->gfx.config.max_shader_engines;
- 
-@@ -988,7 +991,9 @@ int smu7_enable_didt_config(struct pp_hwmgr *hwmgr)
- 			} else if (hwmgr->chip_id == CHIP_POLARIS11) {
- 				result = smu7_program_pt_config_registers(hwmgr, GCCACConfig_Polaris11);
- 				PP_ASSERT_WITH_CODE((result == 0), "DIDT Config failed.", goto error);
--				if (hwmgr->is_kicker)
 +
-+				if (ASICID_IS_P21(adev->pdev->device, adev->pdev->revision) ||
-+				    ASICID_IS_P31(adev->pdev->device, adev->pdev->revision))
- 					result = smu7_program_pt_config_registers(hwmgr, DIDTConfig_Polaris11_Kicker);
- 				else
- 					result = smu7_program_pt_config_registers(hwmgr, DIDTConfig_Polaris11);
-@@ -1016,7 +1021,32 @@ int smu7_enable_didt_config(struct pp_hwmgr *hwmgr)
- 						NULL);
- 			PP_ASSERT_WITH_CODE((0 == result),
- 					"Failed to enable DPM DIDT.", goto error);
++	if (SMU7_VOLTAGE_CONTROL_BY_GPIO == data->voltage_control) {
++		hwmgr->avfs_supported = 0;
++		return 0;
++	}
 +
-+			if (ASICID_IS_P21(adev->pdev->device, adev->pdev->revision) ||
-+			    ASICID_IS_P31(adev->pdev->device, adev->pdev->revision)) {
-+				result = smum_send_msg_to_smc(hwmgr,
-+							(uint16_t)(PPSMC_MSG_EnableDpmMcBlackout),
-+							NULL);
-+				PP_ASSERT_WITH_CODE((0 == result),
-+						"Failed to enable workaround for CRC issue.", goto error);
-+			} else {
-+				atomctrl_read_efuse(hwmgr, 547, 547, &efuse);
-+				if (efuse == 1) {
-+					result = smum_send_msg_to_smc(hwmgr,
-+								(uint16_t)(PPSMC_MSG_EnableDpmMcBlackout),
-+								NULL);
-+					PP_ASSERT_WITH_CODE((0 == result),
-+							"Failed to enable workaround for CRC issue.", goto error);
-+				} else {
-+					result = smum_send_msg_to_smc(hwmgr,
-+								(uint16_t)(PPSMC_MSG_DisableDpmMcBlackout),
-+								NULL);
-+					PP_ASSERT_WITH_CODE((0 == result),
-+							"Failed to enable workaround for CRC issue.", goto error);
-+				}
-+			}
+ 	result = atomctrl_get_avfs_information(hwmgr, &avfs_params);
+ 
+ 	if (0 == result) {
+-		if (((adev->pdev->device == 0x67ef) &&
+-		     ((adev->pdev->revision == 0xe0) ||
+-		      (adev->pdev->revision == 0xe5))) ||
+-		    ((adev->pdev->device == 0x67ff) &&
+-		     ((adev->pdev->revision == 0xcf) ||
+-		      (adev->pdev->revision == 0xef) ||
+-		      (adev->pdev->revision == 0xff)))) {
++		if (ASICID_IS_P20(adev->pdev->device, adev->pdev->revision) ||
++		    ((hwmgr->chip_id == CHIP_POLARIS12) && !ASICID_IS_P23(adev->pdev->device, adev->pdev->revision)) ||
++		    ASICID_IS_P21(adev->pdev->device, adev->pdev->revision)) {
+ 			avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage = 1;
+ 			if ((adev->pdev->device == 0x67ef && adev->pdev->revision == 0xe5) ||
+ 			    (adev->pdev->device == 0x67ff && adev->pdev->revision == 0xef)) {
+@@ -1786,32 +1788,21 @@ static int polaris10_populate_avfs_parameters(struct pp_hwmgr *hwmgr)
+ 					avfs_params.usAVFSGB_FUSE_TABLE_CKSOFF_m2 = 0;
+ 					avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_b  = 0x23;
+ 				}
++			} else if (hwmgr->chip_id == CHIP_POLARIS12 && !ASICID_IS_P23(adev->pdev->device, adev->pdev->revision)) {
++				avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a0   = 0xF6B024DD;
++				avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a1   = 0x3005E;
++				avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a2   = 0x18A5F;
++				avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_m1 = 0x315;
++				avfs_params.usAVFSGB_FUSE_TABLE_CKSOFF_m2 = 0xFED1;
++				avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_b  = 0x3B;
++			} else if (ASICID_IS_P20(adev->pdev->device, adev->pdev->revision)) {
++				avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a0   = 0xF843B66B;
++				avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a1   = 0x59CB5;
++				avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a2   = 0xFFFF287F;
++				avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_m1 = 0;
++				avfs_params.usAVFSGB_FUSE_TABLE_CKSOFF_m2 = 0xFF23;
++				avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_b  = 0x58;
+ 			}
+-		} else if (hwmgr->chip_id == CHIP_POLARIS12 && !hwmgr->is_kicker) {
+-			avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage = 1;
+-			avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a0   = 0xF6B024DD;
+-			avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a1   = 0x3005E;
+-			avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a2   = 0x18A5F;
+-			avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_m1 = 0x315;
+-			avfs_params.usAVFSGB_FUSE_TABLE_CKSOFF_m2 = 0xFED1;
+-			avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_b  = 0x3B;
+-		} else if (((adev->pdev->device == 0x67df) &&
+-			    ((adev->pdev->revision == 0xe0) ||
+-			     (adev->pdev->revision == 0xe3) ||
+-			     (adev->pdev->revision == 0xe4) ||
+-			     (adev->pdev->revision == 0xe5) ||
+-			     (adev->pdev->revision == 0xe7) ||
+-			     (adev->pdev->revision == 0xef))) ||
+-			   ((adev->pdev->device == 0x6fdf) &&
+-			    ((adev->pdev->revision == 0xef) ||
+-			     (adev->pdev->revision == 0xff)))) {
+-			avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage = 1;
+-			avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a0   = 0xF843B66B;
+-			avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a1   = 0x59CB5;
+-			avfs_params.ulGB_VDROOP_TABLE_CKSOFF_a2   = 0xFFFF287F;
+-			avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_m1 = 0;
+-			avfs_params.usAVFSGB_FUSE_TABLE_CKSOFF_m2 = 0xFF23;
+-			avfs_params.ulAVFSGB_FUSE_TABLE_CKSOFF_b  = 0x58;
  		}
-+
- 		mutex_unlock(&adev->grbm_idx_mutex);
- 		amdgpu_gfx_rlc_exit_safe_mode(adev);
  	}
+ 
 -- 
 2.28.0
 
