@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58161C433E7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 16:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 221AEC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 16:50:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D571C20848
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 16:50:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9ACC420848
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2020 16:50:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G5IZa4yi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D571C20848
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gyIhhuDk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9ACC420848
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BAC6E15A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEDB06EE21;
 	Fri, 16 Oct 2020 16:50:16 +0000 (UTC)
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 379366E153
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 16:50:14 +0000 (UTC)
-Received: by mail-qt1-x82f.google.com with SMTP id c15so2008234qtc.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 09:50:14 -0700 (PDT)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0336E15A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 16:50:15 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id s14so2402019qkg.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2020 09:50:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=zj9az6410AVaCk7GfH40Ya39UE7DKzBY+bMHITjNyHs=;
- b=G5IZa4yiiLXYirZ84yYS5ZcQ54mpVh8InHRF0XjZ8hevSeQqb8PTIJFg0KcfIuoMAK
- 0Xd7D2xrsUeoVBYoMbtOH4YoR+KUfPtq7e/0r4WNNDIbvPngfOuj7X71J8BTS5GSsJW8
- FwK2KVc/hk08t+roq6iPLti3nHZxEkIrQO2NNFJOZG3ENyoM7VXlP54QJGereV+VuUN/
- mwJaEjub2H+HzLNZwGzUcC7kbHIdGKUUDx/7dlsp1nVUpNs4Ma66YBRGB519OPNfeiY9
- FHyO6JbkuGwd+8WGuNXqkygV5SsjcN1S15xwiCZ2QSM1C4AXzZ3c6txyakF2rnHMm/vk
- JyEQ==
+ bh=u+rM5TZRcRSSI5huzk4XO7hQg/8qWuHsv0UVLeSxmJ0=;
+ b=gyIhhuDkgStxou2qOHwLueGFPcKyeXTF2kK9Nr8DyaPmDDtm4xJzU84/WuevSbQpyA
+ vhD6Lf0xk68YlhJG3/G1WeMsA8Qypw2hYYDIkhB26Sh0juQt4f8jptxIYWejEw4+XhE6
+ 8Bdh0hd0edt1P8oQdpLGUzg2KTiiVdcnfoklp95lYu9lOq/29NKs6aUmJoub+8tG9/oL
+ 733hitXAf39ecwBI69Tfu/iSugjZmHEwLsYLr3tQPTTEthknK5e5rkN9H6SZYG51awvn
+ 4ntRT47wq7nZdSUmMok6vdB26PfoP6u0EIQPwlHh6jUXgbgVlhk7iaDdLFy5VF+m6SGt
+ r+Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=zj9az6410AVaCk7GfH40Ya39UE7DKzBY+bMHITjNyHs=;
- b=PPmGr2sonWM/N6ueR4ReSxJDoAjlLrGGChvdifSCEUzFld9aQ+fIeKl41XmOrMaKEr
- OoHn9+NANo9B1VdLkrTcrWO8IERypfq7l10ZKotkN5BjK5whNo2Y0vec1+Ae1tzq9E9q
- gMsvcHAToJ5BQ6mW8CYB73jYIbWD96ddWTXqIfByhkUMWG3nn73XAGc9i/bEn5q+iLAp
- 5nudWo982SsEAJqF+ahU8wVSZUusJ3FWpMg36dGLgVIS14iibWdoZhIWdMpeCQaPZNiq
- C+Owftv8Ngnf3TTa7XG+sa+3MDaFQqTMuTjZ4ERxXJLbxbf8PMX3IfxGsg+xkjLv8elX
- gcpw==
-X-Gm-Message-State: AOAM533aNlK8jD5A9l7AM+bDqc+QPCUn+lOvJgPOWlfWn63n1/KP0f6W
- XdTANYlGu12gQD3Jtf4LH4Wlb85uPfY=
-X-Google-Smtp-Source: ABdhPJxtK3eE5q8Wp4CVWAcEo7x+EXzpk/hz7uQ8YUnnZSrLmqR+rEoDJuKRwH4uDzSLaO+tLwqzKw==
-X-Received: by 2002:ac8:44c3:: with SMTP id b3mr4292039qto.221.1602867013159; 
- Fri, 16 Oct 2020 09:50:13 -0700 (PDT)
+ bh=u+rM5TZRcRSSI5huzk4XO7hQg/8qWuHsv0UVLeSxmJ0=;
+ b=sKuONEwCcdAhbX+0TT+RRhKY6XUzGAi3UpVhrKK7wWEMxV6M3gepHTPnvhQocIbsrK
+ +49csPbbq8PZL0b30zQiHK21mxOWX+m8sZk0RcAx2mbN2JCojh8Glq/FvX4Ya8wUde1R
+ 96k9ttuG2HSD0dHpXyDLe0Gj5iNWkaWmJZXbWNLy/54z1NhJtMIjweKkqEOlx8qT4gP3
+ r8YT3MsIKMlf3Ru+I5fB3Hd5fU+VNhs9sQbfMp+Iue73SBpgp5XAvLsK0aHHSjoYgh+q
+ 49RLfv+U8zQNdbmtaO43wZayr1kxIHbGbceEhX4X3ZC9QEL+Ty2KWvK5niDRAXXrxwws
+ AykQ==
+X-Gm-Message-State: AOAM5330wYSBTjRAfyrPW9kpv+F5TMB5gKcdDznXnk7gIdXDj1hF7LHD
+ T30D3dWTgBCw5WjH9pTXjRsW3lViO+Y=
+X-Google-Smtp-Source: ABdhPJxFsGOBHpNlUGl5HWs2iW8AUVI36l3nDH6SDrT1ocRdlgB2N3fnrpBWqO736JrUECJP+Llr/Q==
+X-Received: by 2002:ae9:e20b:: with SMTP id c11mr4473715qkc.137.1602867014343; 
+ Fri, 16 Oct 2020 09:50:14 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id q9sm1193726qta.70.2020.10.16.09.50.12
+ by smtp.gmail.com with ESMTPSA id q9sm1193726qta.70.2020.10.16.09.50.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Oct 2020 09:50:12 -0700 (PDT)
+ Fri, 16 Oct 2020 09:50:13 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/amdgpu/display: remove
- dal_cmd_tbl_helper_dcn2_get_table2
-Date: Fri, 16 Oct 2020 12:50:02 -0400
-Message-Id: <20201016165004.1218352-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: drop CONFIG_DRM_AMD_DC_DCN3_01 from
+ atomfirmware.h
+Date: Fri, 16 Oct 2020 12:50:03 -0400
+Message-Id: <20201016165004.1218352-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201016165004.1218352-1-alexander.deucher@amd.com>
 References: <20201016165004.1218352-1-alexander.deucher@amd.com>
@@ -87,75 +87,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's unused and identical to dal_cmd_tbl_helper_dce112_get_table2.
+Not needed.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../dce112/command_table_helper2_dce112.c     | 40 -------------------
- .../dce112/command_table_helper2_dce112.h     |  3 --
- 2 files changed, 43 deletions(-)
+ drivers/gpu/drm/amd/include/atomfirmware.h | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c
-index bf0affef893f..755b6e33140a 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.c
-@@ -388,43 +388,3 @@ const struct command_table_helper *dal_cmd_tbl_helper_dce112_get_table2(void)
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index 4eb578b1baef..6139d10f4289 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -1309,9 +1309,6 @@ struct atom_integrated_system_info_v1_12
+   uint32_t  reserved[63];
+ };
+ 
+-
+-#if defined(CONFIG_DRM_AMD_DC_DCN3_01)
+-
+ struct edp_info_table
  {
- 	return &command_table_helper_funcs;
- }
--
--#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
--/* function table */
--static const struct command_table_helper command_table_helper_funcs_dcn2x = {
--	.controller_id_to_atom = dal_cmd_table_helper_controller_id_to_atom2,
--	.encoder_action_to_atom = encoder_action_to_atom,
--	.engine_bp_to_atom = engine_bp_to_atom,
--	.clock_source_id_to_atom = clock_source_id_to_atom,
--	.clock_source_id_to_atom_phy_clk_src_id =
--			clock_source_id_to_atom_phy_clk_src_id,
--	.signal_type_to_atom_dig_mode = signal_type_to_atom_dig_mode,
--	.hpd_sel_to_atom = hpd_sel_to_atom,
--	.dig_encoder_sel_to_atom = dig_encoder_sel_to_atom,
--	.phy_id_to_atom = phy_id_to_atom,
--	.disp_power_gating_action_to_atom = disp_power_gating_action_to_atom,
--	.clock_source_id_to_ref_clk_src = NULL,
--	.transmitter_bp_to_atom = NULL,
--	.encoder_id_to_atom = dal_cmd_table_helper_encoder_id_to_atom2,
--	.encoder_mode_bp_to_atom =
--			dal_cmd_table_helper_encoder_mode_bp_to_atom2,
--	.dc_clock_type_to_atom = dc_clock_type_to_atom,
--	.transmitter_color_depth_to_atom = transmitter_color_depth_to_atom,
--
--};
--
--/*
-- * dal_cmd_tbl_helper_dce110_get_table
-- *
-- * @brief
-- * Initialize command table helper functions
-- *
-- * @param
-- * const struct command_table_helper **h - [out] struct of functions
-- *
-- */
--const struct command_table_helper *dal_cmd_tbl_helper_dcn2_get_table2(void)
--{
--	return &command_table_helper_funcs_dcn2x;
--}
--#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.h b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.h
-index 2d9e9f3c579d..abf28a06f5bc 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.h
-+++ b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dce112.h
-@@ -30,8 +30,5 @@ struct command_table_helper;
+         uint16_t edp_backlight_pwm_hz;
+@@ -1367,7 +1364,6 @@ struct atom_integrated_system_info_v2_1
+         uint32_t reserved7[32];
  
- /* Initialize command table helper functions */
- const struct command_table_helper *dal_cmd_tbl_helper_dce112_get_table2(void);
--#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
--const struct command_table_helper *dal_cmd_tbl_helper_dcn2_get_table2(void);
+ };
 -#endif
  
- #endif /* __DAL_COMMAND_TABLE_HELPER_DCE110_H__ */
+ // system_config
+ enum atom_system_vbiosmisc_def{
 -- 
 2.25.4
 
