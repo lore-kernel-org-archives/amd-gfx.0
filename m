@@ -2,71 +2,47 @@ Return-Path: <SRS0=J5eG=D2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75060C433E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB5FBC43467
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 139EF21D81
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:39:02 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9VbkuMD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 139EF21D81
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2445E22276
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2445E22276
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 970B16E952;
-	Mon, 19 Oct 2020 12:38:50 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCD0189AF3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 10:11:30 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id a72so9691691wme.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 03:11:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:user-agent:mime-version
- :content-transfer-encoding;
- bh=V9eR4apVYbLPN0R9TWO7uweAWP/uCSyBxaW3p8qThjc=;
- b=C9VbkuMDywE9rIozAp3UMx3BWhRIdN3I4hrJraDPZjNmpApbairwwW8JT+kjXndMBS
- fpMMtkZkrhH7LPQQ+0mzBx+tWXrqzgdhxpZKF4ff+k7oROxS/cwhD3f1zfhDQgIWG05y
- TULh32zXcieQsAvYUKq4sId4qsTZ9oPHpsHK2OalhW1VxBVZOlU7P74EuE8kjvGWXhSZ
- YJOvBJaRWxRqWilmRXb+h4omkFGHEra/vgPOH9maRegTWzoT/nHueQ1AfYt1XKCZQQBi
- HWWXPE/2Fy/kuAHXubQHcIkWgJNSb4WVHpkU9V+6/whUlN95RtVHgBKHxfu7Fp3BFw/q
- 6prg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:user-agent
- :mime-version:content-transfer-encoding;
- bh=V9eR4apVYbLPN0R9TWO7uweAWP/uCSyBxaW3p8qThjc=;
- b=X3CuYzTX8RRxVOce1iemLJb2gv7QH9tSz8z9AsY9kePYiFMk99+GmGxawunNGBYROp
- 3+wTTWZMoFqos/65XtalxaaBExtuBdzSV6qBcG2IOEFK0XjL+JKVxI68HaAoYqIr00Mn
- X2DJwjHjogJr6cjKdNF6FeuxKgN4794mdF3Rip/F4xf0LiN461BPz3vPS79g3ohVIEUp
- ro2GqI+J8mGFomXcUviJwFrlytL4Hy+ZbJXGDcL7kSj49XkBKKXu1xCPyODo6UmHyp/E
- bj6O2EgbDMP/ZAOJp4KgKfDP9RE+nIgLs6Kyg+Nd+iLCUshWXCNOT9EB4h9/5n+Mh7uL
- GiYA==
-X-Gm-Message-State: AOAM530ssrB1TKiOSDnlmr06cJASMz5MGXuw1czRV4RqgHmZMi3cJfpz
- GXks/qxQ886kEmRRM8TxvSE=
-X-Google-Smtp-Source: ABdhPJwXPiHC4wlUJV5laPHDqJuIf9oR6SqHGCrNLU1Cwb+V8mj/MOvIAAWhzzEr0FLbPgbDy4lMng==
-X-Received: by 2002:a7b:c189:: with SMTP id y9mr16081028wmi.141.1603102289366; 
- Mon, 19 Oct 2020 03:11:29 -0700 (PDT)
-Received: from [192.168.1.6] (ppp046176100247.access.hol.gr. [46.176.100.247])
- by smtp.gmail.com with ESMTPSA id
- c18sm17301620wrt.10.2020.10.19.03.11.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2020 03:11:28 -0700 (PDT)
-Message-ID: <a0bdd567f983e403722e257afffbed7dbbc3c226.camel@gmail.com>
-Subject: BUG: Restoring brightness with systemd-backlight doesn't work on
- Linux 5.9(.1)
-From: Leonidas-Panagiotis Papadakos <papadakospan@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Date: Mon, 19 Oct 2020 13:11:26 +0300
-User-Agent: Evolution 3.38.1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD886E953;
+	Mon, 19 Oct 2020 12:38:49 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0121.hostedemail.com
+ [216.40.44.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 007C96E1F7;
+ Sat, 17 Oct 2020 16:24:59 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+ [216.40.38.60])
+ by smtprelay05.hostedemail.com (Postfix) with ESMTP id E0A6918029120;
+ Sat, 17 Oct 2020 16:24:55 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-HE-Tag: soap40_350edcc27227
+X-Filterd-Recvd-Size: 36889
+Received: from XPS-9350.home (unknown [47.151.133.149])
+ (Authenticated sender: joe@perches.com)
+ by omf13.hostedemail.com (Postfix) with ESMTPA;
+ Sat, 17 Oct 2020 16:24:48 +0000 (UTC)
+Message-ID: <f530b7aeecbbf9654b4540cfa20023a4c2a11889.camel@perches.com>
+Subject: Re: [RFC] treewide: cleanup unreachable breaks
+From: Joe Perches <joe@perches.com>
+To: trix@redhat.com, linux-kernel@vger.kernel.org, cocci
+ <cocci@systeme.lip6.fr>
+Date: Sat, 17 Oct 2020 09:24:47 -0700
+In-Reply-To: <20201017160928.12698-1-trix@redhat.com>
+References: <20201017160928.12698-1-trix@redhat.com>
+User-Agent: Evolution 3.36.4-0ubuntu1 
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 19 Oct 2020 12:38:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,104 +56,363 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: alsa-devel@alsa-project.org, clang-built-linux@googlegroups.com,
+ linux-iio@vger.kernel.org, nouveau@lists.freedesktop.org,
+ storagedev@microchip.com, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
+ linux-mtd@lists.infradead.org, ath10k@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
+ linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm@lists.01.org, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ industrypack-devel@lists.sourceforge.net, linux-pci@vger.kernel.org,
+ spice-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ linux-media@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-nfc@lists.01.org, linux-pm@vger.kernel.org, linux-can@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-amlogic@lists.infradead.org,
+ openipmi-developer@lists.sourceforge.net, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
+ bpf@vger.kernel.org, ocfs2-devel@oss.oracle.com, linux-power@fi.rohmeurope.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGksCgpJIGhhdmUgYSBMZW5vdm8gbGFwdG9wIChMMzQwLTE3QVBJKSB3aGljaCB1c2VzIGFuIEFN
-RCBjaGlwIGZvciBncmFwaGljczoKMDQ6MDAuMCBWR0EgY29tcGF0aWJsZSBjb250cm9sbGVyIFsw
-MzAwXTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EL0FUSV0KUGljYXNzbyBbMTAw
-MjoxNWQ4XSAocmV2IGMyKQoKSXQgc2VlbWVkIHRoYXQgZXZlcnl0aGluZyB3YXMgZmluZSB3aXRo
-IHN5c3RlbWQtYmFja2xpZ2h0IGJlZm9yZSBBTUQgZGVjaWRlZCB0bwptaXggdXNpbmcgMTYtYml0
-IGFuZCA4LWJpdCB2YWx1ZXMuLi4KCk5vdyBpdCBzZWVtcyB0aGF0IHRoaXMgd2FzIHRhY2tsZWQg
-aGVyZQooaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMDM5MDUp
-IGFuZCBpbmRlZWQgSSBkb24ndCBnZXQgdGhpcwppc3N1ZSBhbnltb3JlLCB1c2luZyA1LjkgYW5k
-IG5vdyA1LjkuMSBvbiBBcmNoIExpbnV4OgrOn866z4QgMDcgMTU6MDg6NTYgTDM0MCBzeXN0ZW1k
-LWJhY2tsaWdodFszMzNdOiBhbWRncHVfYmwwOiBTYXZlZCBicmlnaHRuZXNzIDIyMzU5CnRvbyBo
-aWdoOyBkZWNyZWFzaW5nIHRvIDI1NS4KCkkgZG9uJ3Qga25vdyBpZiB0aGlzIGlzIHJlbGF0ZWQg
-dG8gdGhlIDE2LWJpdCBidWcgYW55bW9yZSwgYnV0IEkgZG8gZ2V0IHRoaXMKd2hlbiBJIGJvb3Qg
-dGhlIGxhcHRvcDoKCs6fzrrPhCAxOSAxMjowNDowNiBMMzQwIHN5c3RlbWRbMV06IFN0YXJ0aW5n
-IExvYWQvU2F2ZSBTY3JlZW4gQmFja2xpZ2h0IEJyaWdodG5lc3MKb2YgYmFja2xpZ2h0OmFtZGdw
-dV9ibDAuLi4Kzp/Ous+EIDE5IDEyOjA0OjA2IEwzNDAgc3lzdGVtZFsxXTogc3lzdGVtZC1iYWNr
-bGlnaHRAYmFja2xpZ2h0OmFtZGdwdV9ibDAuc2VydmljZToKTWFpbiBwcm9jZXNzIGV4aXRlZCwg
-Y29kZT1leGl0ZWQsIHN0YXR1cz0xL0ZBSUxVUkUKzp/Ous+EIDE5IDEyOjA0OjA2IEwzNDAgc3lz
-dGVtZFsxXTogc3lzdGVtZC1iYWNrbGlnaHRAYmFja2xpZ2h0OmFtZGdwdV9ibDAuc2VydmljZToK
-RmFpbGVkIHdpdGggcmVzdWx0ICdleGl0LWNvZGUnLgrOn866z4QgMTkgMTI6MDQ6MDYgTDM0MCBz
-eXN0ZW1kWzFdOiBGYWlsZWQgdG8gc3RhcnQgTG9hZC9TYXZlIFNjcmVlbiBCYWNrbGlnaHQKQnJp
-Z2h0bmVzcyBvZiBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC4KCmRtZXNnIGdpdmVzIG1lIHRoaXMgdHJh
-Y2U6ClsgICswLDAwMDAyNV0gLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tClsg
-ICswLDAwMDEzM10gV0FSTklORzogQ1BVOiAwIFBJRDogMTUgYXQKZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYzoyNTQ4CmRjX2xpbmtfc2V0X2Jh
-Y2tsaWdodF9sZXZlbCsweDhhLzB4ZjAgW2FtZGdwdV0KWyAgKzAsMDAwMDAzXSBNb2R1bGVzIGxp
-bmtlZCBpbjogYWMoKykgYWNwaV9jcHVmcmVxKCspIHRjcF9iYnIgdGNwX2xwCnBrY3M4X2tleV9w
-YXJzZXIgc2cgY3J5cHRvX3VzZXIgaXBfdGFibGVzIHhfdGFibGVzIGV4dDQgY3JjMzJjX2dlbmVy
-aWMgY3JjMTYKbWJjYWNoZSBqYmQyIHNlcmlvX3JhdyBhdGtiZCBsaWJwczIgYW1kZ3B1IGNyYzMy
-Y19pbnRlbCB4aGNpX3BjaQp4aGNpX3BjaV9yZW5lc2FzIHhoY2lfaGNkIGk4MDQyIHNlcmlvIGdw
-dV9zY2hlZCBpMmNfYWxnb19iaXQgdHRtIGRybV9rbXNfaGVscGVyCnN5c2NvcHlhcmVhIHN5c2Zp
-bGxyZWN0IHN5c2ltZ2JsdCBmYl9zeXNfZm9wcyBjZWMgcmNfY29yZSBkcm0gYWdwZ2FydApbICAr
-MCwwMDAwMjBdIENQVTogMCBQSUQ6IDE1IENvbW06IGt3b3JrZXIvMDoxIE5vdCB0YWludGVkIDUu
-OS4xLWFyY2gxLTEgIzEKWyAgKzAsMDAwMDAyXSBIYXJkd2FyZSBuYW1lOiBMRU5PVk8gODFMWS9M
-TlZOQjE2MTIxNiwgQklPUyBBUkNOMzRXVyAwNS8yMC8yMDIwClsgICswLDAwMDAwNV0gV29ya3F1
-ZXVlOiBrYWNwaV9ub3RpZnkgYWNwaV9vc19leGVjdXRlX2RlZmVycmVkClsgICswLDAwMDExMl0g
-UklQOiAwMDEwOmRjX2xpbmtfc2V0X2JhY2tsaWdodF9sZXZlbCsweDhhLzB4ZjAgW2FtZGdwdV0K
-WyAgKzAsMDAwMDAyXSBDb2RlOiA3MCAwMyAwMCAwMCAzMSBjMCA0OCA4ZCA5NiBjMCAwMSAwMCAw
-MCA0OCA4YiAwYSA0OCA4NSBjOSA3NAowNiA0OCAzYiA1OSAwOCA3NCAyMCA4MyBjMCAwMSA0OCA4
-MSBjMiBkOCAwNCAwMCAwMCA4MyBmOCAwNiA3NSBlMyA8MGY+IDBiIDQ1IDMxCmU0IDViIDQ0IDg5
-IGUwIDVkIDQxIDVjIDQxIDVkIDQxIDVlIGMzIDQ4IDk4IDQ4IDY5IGMwClsgICswLDAwMDAwMV0g
-UlNQOiAwMDE4OmZmZmZiOGI3MDAxNGZjYzAgRUZMQUdTOiAwMDAxMDI0NgpbICArMCwwMDAwMDJd
-IFJBWDogMDAwMDAwMDAwMDAwMDAwNiBSQlg6IGZmZmZhMjBmZjAyM2ZjMDAgUkNYOiAwMDAwMDAw
-MDAwMDAwMDAwClsgICswLDAwMDAwMV0gUkRYOiBmZmZmYTIwZmVlMDQxZWQwIFJTSTogZmZmZmEy
-MGZlZTA0MDAwMCBSREk6IDAwMDAwMDAwMDAwMDAwMDAKWyAgKzAsMDAwMDAxXSBSQlA6IGZmZmZh
-MjBmZWNkOTAwMDAgUjA4OiAwMDAwMDAwMDAwMDAwMDA0IFIwOTogMDAwMDAwMDAwMDAwMDAwMQpb
-ICArMCwwMDAwMDFdIFIxMDogZmZmZmEyMGZmNjhmNTNhOCBSMTE6IDAwMDAwMDAwMDAwMDAwMDAg
-UjEyOiAwMDAwMDAwMDAwMDAwNDAxClsgICswLDAwMDAwMV0gUjEzOiAwMDAwMDAwMDAwMDAwMDAw
-IFIxNDogMDAwMDAwMDAwMDAwMDQwNCBSMTU6IDAwMDAwMDAwZmZmZmZmZmYKWyAgKzAsMDAwMDAy
-XSBGUzogIDAwMDAwMDAwMDAwMDAwMDAoMDAwMCkgR1M6ZmZmZmEyMGZmOGEwMDAwMCgwMDAwKQpr
-bmxHUzowMDAwMDAwMDAwMDAwMDAwClsgICswLDAwMDAwMV0gQ1M6ICAwMDEwIERTOiAwMDAwIEVT
-OiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpbICArMCwwMDAwMDFdIENSMjogMDAwMDdmZmQ1
-OTU0YmU1MCBDUjM6IDAwMDAwMDAxYjU0NDIwMDAgQ1I0OiAwMDAwMDAwMDAwMzUwNmYwClsgICsw
-LDAwMDAwMl0gQ2FsbCBUcmFjZToKWyAgKzAsMDAwMTE5XSAgYW1kZ3B1X2RtX2JhY2tsaWdodF91
-cGRhdGVfc3RhdHVzKzB4YjQvMHhjMCBbYW1kZ3B1XQpbICArMCwwMDAwMDVdICBiYWNrbGlnaHRf
-ZGV2aWNlX3NldF9icmlnaHRuZXNzKzB4N2UvMHgxMzAKWyAgKzAsMDAwMTA3XSAgYW1kZ3B1X2Fj
-cGlfZXZlbnQrMHgxZmIvMHgyNzAgW2FtZGdwdV0KWyAgKzAsMDAwMDA2XSAgYmxvY2tpbmdfbm90
-aWZpZXJfY2FsbF9jaGFpbisweDVkLzB4ODAKWyAgKzAsMDAwMDAzXSAgYWNwaV9ub3RpZmllcl9j
-YWxsX2NoYWluKzB4YTAvMHhlMApbICArMCwwMDAwMDVdICBhY3BpX3ZpZGVvX2J1c19ub3RpZnkr
-MHgxMzkvMHgxZDAKWyAgKzAsMDAwMDAzXSAgYWNwaV9ldl9ub3RpZnlfZGlzcGF0Y2grMHg0YS8w
-eDVmClsgICswLDAwMDAwMl0gIGFjcGlfb3NfZXhlY3V0ZV9kZWZlcnJlZCsweDE2LzB4MjAKWyAg
-KzAsMDAwMDAzXSAgcHJvY2Vzc19vbmVfd29yaysweDFkYS8weDNkMApbICArMCwwMDAwMDJdICB3
-b3JrZXJfdGhyZWFkKzB4NGQvMHgzZDAKWyAgKzAsMDAwMDAyXSAgPyByZXNjdWVyX3RocmVhZCsw
-eDQxMC8weDQxMApbICArMCwwMDAwMDJdICBrdGhyZWFkKzB4MTQyLzB4MTYwClsgICswLDAwMDAw
-Ml0gID8gX19rdGhyZWFkX2JpbmRfbWFzaysweDYwLzB4NjAKWyAgKzAsMDAwMDAzXSAgcmV0X2Zy
-b21fZm9yaysweDIyLzB4MzAKWyAgKzAsMDAwMDAzXSAtLS1bIGVuZCB0cmFjZSBkMDNmMzZlYmE0
-NjRkOTI4IF0tLS0KCklmIEkgcmVzdGFydMKgc3lzdGVtZC1iYWNrbGlnaHRAYmFja2xpZ2h0OmFt
-ZGdwdV9ibDAuc2VydmljZSBpdCB3b3JrcyBmaW5lLCBhbmQKcmVzdG9yZXMgdGhlIHByZXZpb3Vz
-IGJhY2tsaWdodCBsZXZlbCwgc28gbG9va2luZyBhdCB0aGlzIGZvcnVtIHBvc3QKKGh0dHBzOi8v
-YXJjaGxpbnV4Lm9yZy5ydS9mb3J1bS90b3BpYy8yMDI2Mi8/cGFnZT0xI3Bvc3QtMjM1ODE4KSBJ
-IGVkaXRlZCB0aGUKc2VydmljZSBsaWtlIHNvOgoKIwovZXRjL3N5c3RlbWQvc3lzdGVtL3N5c3Rl
-bWQtYmFja2xpZ2h0QGJhY2tsaWdodDphbWRncHVfYmwwLnNlcnZpY2UuZC9vdmVycmlkZS5jbwpu
-ZgpbU2VydmljZV0KUmVzdGFydD1vbi1mYWlsdXJlClJlc3RhcnRTZWM9NXMKCk5vdyBJIGdldCB0
-aGlzIGF0IGJvb3QgKGZhaWxzLCB0aGVuIHdvcmtzKToKzp/Ous+EIDE5IDEyOjMyOjExIEwzNDAg
-c3lzdGVtZFsxXTogU3RhcnRpbmcgTG9hZC9TYXZlIFNjcmVlbiBCYWNrbGlnaHQgQnJpZ2h0bmVz
-cwpvZiBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC4uLgrOn866z4QgMTkgMTI6MzI6MTEgTDM0MCBzeXN0
-ZW1kWzFdOiBzeXN0ZW1kLWJhY2tsaWdodEBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC5zZXJ2aWNlOgpN
-YWluIHByb2Nlc3MgZXhpdGVkLCBjb2RlPWV4aXRlZCwgc3RhdHVzPTEvRkFJTFVSRQrOn866z4Qg
-MTkgMTI6MzI6MTEgTDM0MCBzeXN0ZW1kWzFdOiBzeXN0ZW1kLWJhY2tsaWdodEBiYWNrbGlnaHQ6
-YW1kZ3B1X2JsMC5zZXJ2aWNlOgpGYWlsZWQgd2l0aCByZXN1bHQgJ2V4aXQtY29kZScuCs6fzrrP
-hCAxOSAxMjozMjoxMSBMMzQwIHN5c3RlbWRbMV06IEZhaWxlZCB0byBzdGFydCBMb2FkL1NhdmUg
-U2NyZWVuIEJhY2tsaWdodApCcmlnaHRuZXNzIG9mIGJhY2tsaWdodDphbWRncHVfYmwwLgrOn866
-z4QgMTkgMTI6MzI6MTYgTDM0MCBzeXN0ZW1kWzFdOiBzeXN0ZW1kLWJhY2tsaWdodEBiYWNrbGln
-aHQ6YW1kZ3B1X2JsMC5zZXJ2aWNlOgpTY2hlZHVsZWQgcmVzdGFydCBqb2IsIHJlc3RhcnQgY291
-bnRlciBpcyBhdCAxLgrOn866z4QgMTkgMTI6MzI6MTYgTDM0MCBzeXN0ZW1kWzFdOiBTdG9wcGVk
-IExvYWQvU2F2ZSBTY3JlZW4gQmFja2xpZ2h0IEJyaWdodG5lc3MKb2YgYmFja2xpZ2h0OmFtZGdw
-dV9ibDAuCs6fzrrPhCAxOSAxMjozMjoxNiBMMzQwIHN5c3RlbWRbMV06IFN0YXJ0aW5nIExvYWQv
-U2F2ZSBTY3JlZW4gQmFja2xpZ2h0IEJyaWdodG5lc3MKb2YgYmFja2xpZ2h0OmFtZGdwdV9ibDAu
-Li4Kzp/Ous+EIDE5IDEyOjMyOjE2IEwzNDAgc3lzdGVtZFsxXTogRmluaXNoZWQgTG9hZC9TYXZl
-IFNjcmVlbiBCYWNrbGlnaHQgQnJpZ2h0bmVzcwpvZiBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC4KCkkg
-aGF2ZSB0cmllZCBhY3BpX2JhY2tsaWdodD12aWRlbyBhbmQgbmF0aXZlIGJ1dCB0aGVuIHRoZSBz
-eXN0ZW1kLWJhY2tsaWdodApzZXJ2aWNlIGZpbmlzaGVzIHN1Y2Nlc3NmdWxseSwgInJlc3Rvcmlu
-ZyIgbWF4IGJyaWdodG5lc3MuCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+On Sat, 2020-10-17 at 09:09 -0700, trix@redhat.com wrote:
+> From: Tom Rix <trix@redhat.com>
+> 
+> This is a upcoming change to clean up a new warning treewide.
+> I am wondering if the change could be one mega patch (see below) or
+> normal patch per file about 100 patches or somewhere half way by collecting
+> early acks.
+> 
+> clang has a number of useful, new warnings see
+> https://clang.llvm.org/docs/DiagnosticsReference.html
+> 
+> This change cleans up -Wunreachable-code-break
+> https://clang.llvm.org/docs/DiagnosticsReference.html#wunreachable-code-break
+> for 266 of 485 warnings in this week's linux-next, allyesconfig on x86_64.
+
+Early acks/individual patches by subsystem would be good.
+Better still would be an automated cocci script.
+
+The existing checkpatch test for UNNECESSARY_BREAK
+has a few too many false positives.
+
+From a script run on next on July 28th:
+
+arch/arm/mach-s3c24xx/mach-rx1950.c:266: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/arm/nwfpe/fpa11_cprt.c:38: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/arm/nwfpe/fpa11_cprt.c:41: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/include/asm/mach-au1x00/au1000.h:684: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/include/asm/mach-au1x00/au1000.h:687: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/include/asm/mach-au1x00/au1000.h:690: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/include/asm/mach-au1x00/au1000.h:693: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/include/asm/mach-au1x00/au1000.h:697: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/include/asm/mach-au1x00/au1000.h:700: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/loongson2ef/common/cs5536/cs5536_isa.c:276: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/loongson2ef/common/cs5536/cs5536_isa.c:279: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/loongson2ef/common/cs5536/cs5536_isa.c:282: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/loongson2ef/common/cs5536/cs5536_isa.c:287: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/loongson2ef/common/cs5536/cs5536_isa.c:290: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/rb532/setup.c:76: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/mips/rb532/setup.c:79: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/include/asm/kvm_book3s_64.h:231: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/include/asm/kvm_book3s_64.h:234: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/include/asm/kvm_book3s_64.h:237: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/include/asm/kvm_book3s_64.h:240: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/net/bpf_jit_comp.c:455: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/platforms/cell/spufs/switch.c:2047: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/powerpc/platforms/cell/spufs/switch.c:2077: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/sh/boards/mach-landisk/gio.c:111: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/x86/kernel/cpu/mce/core.c:1734: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/x86/kernel/cpu/mce/core.c:1738: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+arch/x86/kernel/cpu/microcode/amd.c:218: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/acpi/utils.c:107: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/acpi/utils.c:132: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/acpi/utils.c:147: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/acpi/utils.c:158: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/ata/libata-scsi.c:3973: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/base/power/main.c:366: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/block/xen-blkback/blkback.c:1272: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/char/ipmi/ipmi_devintf.c:493: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/char/lp.c:625: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/char/mwave/mwavedd.c:406: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/cpufreq/e_powersaver.c:226: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/cpufreq/longhaul.c:596: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/crypto/atmel-sha.c:462: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2464: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2468: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2471: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2481: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2485: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2488: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/edac/amd64_edac.c:2491: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/amd/amdgpu/atombios_encoders.c:505: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/amd/amdgpu/atombios_encoders.c:528: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/amd/amdgpu/dce_v10_0.c:2220: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/amd/amdgpu/dce_v11_0.c:2253: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/amd/amdgpu/dce_v8_0.c:2110: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/gma500/cdv_intel_hdmi.c:346: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/mgag200/mgag200_mode.c:723: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/mgag200/mgag200_mode.c:727: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/mgag200/mgag200_mode.c:730: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/mgag200/mgag200_mode.c:734: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/mgag200/mgag200_mode.c:737: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/nouveau/nvkm/subdev/bios/pll.c:126: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/nouveau/nvkm/subdev/clk/mcp77.c:143: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/nouveau/nvkm/subdev/clk/mcp77.c:150: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/nouveau/nvkm/subdev/clk/mcp77.c:153: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv50.c:174: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/qxl/qxl_ioctl.c:163: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/radeon/atombios_encoders.c:749: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/radeon/atombios_encoders.c:780: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/radeon/r300.c:1160: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/gpu/drm/radeon/radeon_i2c.c:462: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/infiniband/hw/cxgb4/qp.c:1972: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/infiniband/hw/cxgb4/qp.c:2021: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/infiniband/hw/cxgb4/qp.c:2026: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/input/mouse/synaptics_usb.c:207: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/ipack/devices/ipoctal.c:547: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/irqchip/irq-crossbar.c:291: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/irqchip/irq-mips-gic.c:643: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/isdn/mISDN/dsp_dtmf.c:174: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/macintosh/via-pmu-led.c:65: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/cx24117.c:1175: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/dib0090.c:407: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/dib0090.c:497: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drxd_hard.c:1625: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:2328: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:2655: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:3597: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:3621: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:3645: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:10947: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:11068: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/drx39xyj/drxj.c:11890: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:171: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:193: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:219: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:242: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:245: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:377: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:558: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:583: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:597: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:613: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:629: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:641: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:667: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:723: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:745: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/nxt200x.c:1117: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/si21xx.c:467: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/si21xx.c:470: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/dvb-frontends/stv0900_core.c:1948: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/tuners/mt2063.c:1852: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/b2c2/flexcop-usb.c:198: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/b2c2/flexcop-usb.c:521: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/gspca/pac_common.h:105: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:860: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:872: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:931: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:957: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:976: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:988: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:1001: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/pwc/pwc-if.c:1019: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/tm6000/tm6000-core.c:674: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/tm6000/tm6000-core.c:696: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/tm6000/tm6000-core.c:761: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/ttusb-dec/ttusb_dec.c:1105: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/ttusb-dec/ttusb_dec.c:1109: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/ttusb-dec/ttusb_dec.c:1160: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/media/usb/ttusb-dec/ttusb_dec.c:1164: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/message/fusion/mptbase.c:476: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/misc/mei/hbm.c:1307: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/mmc/host/atmel-mci.c:1919: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/mtd/devices/ms02-nv.c:289: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/mtd/mtdchar.c:884: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/mtd/mtdchar.c:894: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/ethernet/8390/mac8390.c:193: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/ethernet/8390/mac8390.c:206: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/ethernet/cisco/enic/enic_ethtool.c:437: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/ethernet/intel/ixgbe/ixgbe_x540.c:353: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/wireless/ath/ath9k/hw.c:2311: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c:1230: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c:1135: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/nfc/trf7970a.c:1385: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/nvdimm/claim.c:205: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/parport/parport_ip32.c:1862: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pci/controller/pci-v3-semi.c:664: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pci/hotplug/ibmphp_pci.c:297: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pci/hotplug/ibmphp_pci.c:1512: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/pinctrl-rockchip.c:2718: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/pinctrl-rockchip.c:2788: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/samsung/pinctrl-s3c24xx.c:111: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/samsung/pinctrl-s3c24xx.c:114: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/samsung/pinctrl-s3c24xx.c:117: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/samsung/pinctrl-s3c24xx.c:120: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pinctrl/samsung/pinctrl-s3c24xx.c:123: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/platform/x86/acer-wmi.c:795: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/platform/x86/sony-laptop.c:2470: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/platform/x86/sony-laptop.c:2476: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/platform/x86/wmi.c:1263: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/platform/x86/wmi.c:1266: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/platform/x86/wmi.c:1269: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pnp/pnpbios/rsparser.c:192: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pnp/pnpbios/rsparser.c:476: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/pnp/pnpbios/rsparser.c:745: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/power/supply/ipaq_micro_battery.c:98: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/power/supply/ipaq_micro_battery.c:101: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/power/supply/ipaq_micro_battery.c:104: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/power/supply/wm831x_power.c:671: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/s390/char/tape_34xx.c:654: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/s390/char/tape_3590.c:946: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/s390/scsi/zfcp_fc.c:980: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/s390/scsi/zfcp_fc.c:983: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/aic94xx/aic94xx_task.c:272: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/arcmsr/arcmsr_hba.c:2702: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/arcmsr/arcmsr_hba.c:2705: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/be2iscsi/be_mgmt.c:1251: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/be2iscsi/be_mgmt.c:1254: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bfa/bfa_ioc.h:1001: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bfa/bfa_ioc.h:1004: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bfa/bfa_ioc.h:1007: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bfa/bfa_ioc.h:1019: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bfa/bfa_ioc.h:1022: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bfa/bfa_ioc.h:1025: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/bnx2fc/bnx2fc_hwi.c:773: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/fcoe/fcoe.c:1897: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/hptiop.c:761: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/hpsa.c:7443: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/isci/phy.c:756: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/isci/phy.c:961: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/ipr.c:9490: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:3347: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:4387: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:4439: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:4453: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:4495: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:4520: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_debugfs.c:4523: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_scsi.c:4287: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_init.c:7189: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_sli.c:9192: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_sli.c:10075: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/lpfc/lpfc_sli.c:10237: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/mvumi.c:2299: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/nsp32.c:2114: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/nsp32.c:2125: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/qla2xxx/qla_mbx.c:4026: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/st.c:2849: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/scsi/sym53c8xx_2/sym_hipd.c:4599: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:907: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:910: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:913: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:916: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:998: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:1035: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:1322: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:1699: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:1702: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:1705: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_system.c:1708: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/nozomi.c:417: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/nozomi.c:421: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/nozomi.c:463: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/nozomi.c:471: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/serial/imx.c:323: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/serial/imx.c:334: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/serial/imx.c:337: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/serial/imx.c:340: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/tty/serial/imx.c:343: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:516: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:524: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:530: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:547: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:565: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:573: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:579: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/gadget/function/f_hid.c:587: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/host/xhci-mem.c:1147: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/image/microtek.c:294: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/misc/iowarrior.c:387: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/misc/iowarrior.c:457: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/misc/iowarrior.c:464: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/misc/usblcd.c:190: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/serial/iuu_phoenix.c:853: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/serial/iuu_phoenix.c:867: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/usb/storage/freecom.c:434: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/video/fbdev/amifb.c:1212: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/video/fbdev/core/fbcon.c:1915: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/video/fbdev/core/fbcon.c:2006: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_ca91cx42.c:372: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_ca91cx42.c:681: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_ca91cx42.c:713: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_ca91cx42.c:1126: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_ca91cx42.c:1338: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:509: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:998: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:1506: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:1606: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:1704: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:1741: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/bridges/vme_tsi148.c:1967: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/vme.c:71: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/vme.c:182: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/vme.c:190: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/vme.c:193: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+drivers/vme/vme.c:197: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+fs/efs/inode.c:166: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+fs/ocfs2/cluster/tcp.c:1201: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+kernel/bpf/syscall.c:2786: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+samples/hidraw/hid-example.c:168: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+samples/hidraw/hid-example.c:171: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+samples/hidraw/hid-example.c:174: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+samples/hidraw/hid-example.c:177: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+samples/hidraw/hid-example.c:180: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+security/integrity/ima/ima_appraise.c:173: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+security/keys/trusted-keys/trusted_tpm1.c:904: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/oss/dmasound/dmasound_core.c:1002: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/oss/dmasound/dmasound_core.c:1006: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/oss/dmasound/dmasound_core.c:1023: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/oss/dmasound/dmasound_core.c:1047: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/oss/dmasound/dmasound_core.c:1126: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/oss/dmasound/dmasound_core.c:1261: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/echoaudio/midi.c:100: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/echoaudio/midi.c:104: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme32.c:471: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:735: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:739: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:743: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:747: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:751: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:755: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/rme9652.c:762: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/hdspm.c:2289: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/hdspm.c:2315: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/hdspm.c:2341: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/hdspm.c:2361: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/hdspm.c:3848: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/pci/rme9652/hdspm.c:3859: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/soc/codecs/wl1273.c:314: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/soc/intel/skylake/skl-pcm.c:505: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/soc/sh/hac.c:254: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+sound/soc/ti/davinci-mcasp.c:2388: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+tools/perf/ui/stdio/hist.c:401: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+tools/perf/ui/stdio/hist.c:404: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+tools/perf/util/probe-event.c:1516: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+tools/power/acpi/tools/acpidbg/acpidbg.c:412: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+tools/power/acpi/tools/acpidbg/acpidbg.c:418: WARNING:UNNECESSARY_BREAK: break is not useful after a goto or return
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
