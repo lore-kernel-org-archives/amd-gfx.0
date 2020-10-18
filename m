@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 969B0C43457
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Oct 2020 19:20:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 491CCC388CE
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Oct 2020 19:20:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55656222E7
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Oct 2020 19:20:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 09425222EB
+	for <amd-gfx@archiver.kernel.org>; Sun, 18 Oct 2020 19:20:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="TM5pLo0g"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55656222E7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAeJESx+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09425222EB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B25E6E854;
-	Sun, 18 Oct 2020 19:20:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCAB36E862;
+	Sun, 18 Oct 2020 19:20:23 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 339FC6E854;
- Sun, 18 Oct 2020 19:20:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8231F6E84F;
+ Sun, 18 Oct 2020 19:20:21 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 25973222E8;
- Sun, 18 Oct 2020 19:20:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 72872222EA;
+ Sun, 18 Oct 2020 19:20:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603048816;
- bh=PIerFogCN3KjWeRdp/pZF5bPqZtgIpKAi25ssPmwOXo=;
+ s=default; t=1603048821;
+ bh=upg59azAPWroDcY4JtWyc8IG+Ta079sqAoCtyX2Q9Eo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TM5pLo0grl+K4ZL27lirHBv69jWnePb/8dO7/SbnVX8YWRy7QdIkkhWtl4XdixSA1
- zYRWH+LAnM2MQay7TShB52axC/XdARssfkRmr+k70rMw+W+qjP5NIPFL2VGDzCugR1
- uzVpsMnl6+8jPlTggdcY7gdTuMmUeNys8FGOQH/8=
+ b=kAeJESx+1gYIJat729JX3LHfXvs0FRqyDWgDCHil3QRJ4qEjFyElJ5QkWShCJZpng
+ io+31qz7bwALEHTgHLeyjUxJCHYDFkDqex2rNIj2lg0+eh63pQUKEe+4BG4bbnIQSg
+ MlkXQsBVG7AHa07+5h9V+GKYtN3fFbgT7snFRgbA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.9 105/111] drm/amd/display: Screen corruption on
- dual displays (DP+USB-C)
-Date: Sun, 18 Oct 2020 15:18:01 -0400
-Message-Id: <20201018191807.4052726-105-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.9 109/111] drm/amd/display: Disconnect pipe
+ separetely when disable pipe split
+Date: Sun, 18 Oct 2020 15:18:05 -0400
+Message-Id: <20201018191807.4052726-109-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201018191807.4052726-1-sashal@kernel.org>
 References: <20201018191807.4052726-1-sashal@kernel.org>
@@ -62,83 +62,320 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
+ dri-devel@lists.freedesktop.org, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alvin Lee <alvin.lee2@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[ Upstream commit ce271b40a91f781af3dee985c39e841ac5148766 ]
+[ Upstream commit 81b437f57e35a6caa3a4304e6fff0eba0a9f3266 ]
 
-[why]
-Current pipe merge and split logic only supports cases where new
-dc_state is allocated and relies on dc->current_state to gather
-information from previous dc_state.
+[Why]
+When changing pixel formats for HDR (e.g. ARGB -> FP16)
+there are configurations that change from 2 pipes to 1 pipe.
+In these cases, it seems that disconnecting MPCC and doing
+a surface update at the same time(after unlocking) causes
+some registers to be updated slightly faster than others
+after unlocking (e.g. if the pixel format is updated to FP16
+before the new surface address is programmed, we get
+corruption on the screen because the pixel formats aren't
+matching). We separate disconnecting MPCC from the rest
+of  the  pipe programming sequence to prevent this.
 
-Calls to validate_bandwidth on UPDATE_TYPE_MED would cause an issue
-because there is no new dc_state allocated, and data in
-dc->current_state would be overwritten during pipe merge.
+[How]
+Move MPCC disconnect into separate operation than the
+rest of the pipe programming.
 
-[how]
-Only allow validate_bandwidth when new dc_state space is created.
-
-Signed-off-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c              | 2 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 3 +++
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 3 +++
- 3 files changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  10 ++
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 146 ++++++++++++++++++
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |   6 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |   2 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |   2 +
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |   2 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |   2 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   4 +
+ 8 files changed, 174 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 92eb1ca1634fc..22cbfda6ab338 100644
+index 22cbfda6ab338..95ec8ae5a7739 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2621,7 +2621,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+@@ -2295,6 +2295,7 @@ static void commit_planes_for_stream(struct dc *dc,
+ 		enum surface_update_type update_type,
+ 		struct dc_state *context)
+ {
++	bool mpcc_disconnected = false;
+ 	int i, j;
+ 	struct pipe_ctx *top_pipe_to_program = NULL;
  
- 	copy_stream_update_to_stream(dc, context, stream, stream_update);
- 
--	if (update_type > UPDATE_TYPE_FAST) {
-+	if (update_type >= UPDATE_TYPE_FULL) {
- 		if (!dc->res_pool->funcs->validate_bandwidth(dc, context, false)) {
- 			DC_ERROR("Mode validation failed for stream update!\n");
- 			dc_release_state(context);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index f31f48dd0da29..aaf9a99f9f045 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3209,6 +3209,9 @@ static noinline bool dcn20_validate_bandwidth_fp(struct dc *dc,
- 	context->bw_ctx.dml.soc.allow_dram_clock_one_display_vactive =
- 		dc->debug.enable_dram_clock_change_one_display_vactive;
- 
-+	/*Unsafe due to current pipe merge and split logic*/
-+	ASSERT(context != dc->current_state);
-+
- 	if (fast_validate) {
- 		return dcn20_validate_bandwidth_internal(dc, context, true);
+@@ -2325,6 +2326,15 @@ static void commit_planes_for_stream(struct dc *dc,
+ 		context_clock_trace(dc, context);
  	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 88d41a385add8..a4f37d83d5cc9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -1184,6 +1184,9 @@ bool dcn21_validate_bandwidth(struct dc *dc, struct dc_state *context,
  
- 	BW_VAL_TRACE_COUNT();
- 
-+	/*Unsafe due to current pipe merge and split logic*/
-+	ASSERT(context != dc->current_state);
++	if (update_type != UPDATE_TYPE_FAST && dc->hwss.interdependent_update_lock &&
++		dc->hwss.disconnect_pipes && dc->hwss.wait_for_pending_cleared){
++		dc->hwss.interdependent_update_lock(dc, context, true);
++		mpcc_disconnected = dc->hwss.disconnect_pipes(dc, context);
++		dc->hwss.interdependent_update_lock(dc, context, false);
++		if (mpcc_disconnected)
++			dc->hwss.wait_for_pending_cleared(dc, context);
++	}
 +
- 	out = dcn20_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from, &vlevel);
+ 	for (j = 0; j < dc->res_pool->pipe_count; j++) {
+ 		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
  
- 	if (pipe_cnt == 0)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index fa643ec5a8760..4bbfd8a26a606 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -2769,6 +2769,152 @@ static struct pipe_ctx *dcn10_find_top_pipe_for_stream(
+ 	return NULL;
+ }
+ 
++bool dcn10_disconnect_pipes(
++		struct dc *dc,
++		struct dc_state *context)
++{
++		bool found_stream = false;
++		int i, j;
++		struct dce_hwseq *hws = dc->hwseq;
++		struct dc_state *old_ctx = dc->current_state;
++		bool mpcc_disconnected = false;
++		struct pipe_ctx *old_pipe;
++		struct pipe_ctx *new_pipe;
++		DC_LOGGER_INIT(dc->ctx->logger);
++
++		/* Set pipe update flags and lock pipes */
++		for (i = 0; i < dc->res_pool->pipe_count; i++) {
++			old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++			new_pipe = &context->res_ctx.pipe_ctx[i];
++			new_pipe->update_flags.raw = 0;
++
++			if (!old_pipe->plane_state && !new_pipe->plane_state)
++				continue;
++
++			if (old_pipe->plane_state && !new_pipe->plane_state)
++				new_pipe->update_flags.bits.disable = 1;
++
++			/* Check for scl update */
++			if (memcmp(&old_pipe->plane_res.scl_data, &new_pipe->plane_res.scl_data, sizeof(struct scaler_data)))
++					new_pipe->update_flags.bits.scaler = 1;
++
++			/* Check for vp update */
++			if (memcmp(&old_pipe->plane_res.scl_data.viewport, &new_pipe->plane_res.scl_data.viewport, sizeof(struct rect))
++					|| memcmp(&old_pipe->plane_res.scl_data.viewport_c,
++						&new_pipe->plane_res.scl_data.viewport_c, sizeof(struct rect)))
++				new_pipe->update_flags.bits.viewport = 1;
++
++		}
++
++		if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
++			/* Disconnect mpcc here only if losing pipe split*/
++			for (i = 0; i < dc->res_pool->pipe_count; i++) {
++				if (context->res_ctx.pipe_ctx[i].update_flags.bits.disable &&
++					old_ctx->res_ctx.pipe_ctx[i].top_pipe) {
++
++					/* Find the top pipe in the new ctx for the bottom pipe that we
++					 * want to remove by comparing the streams. If both pipes are being
++					 * disabled then do it in the regular pipe programming sequence
++					 */
++					for (j = 0; j < dc->res_pool->pipe_count; j++) {
++						if (old_ctx->res_ctx.pipe_ctx[i].top_pipe->stream == context->res_ctx.pipe_ctx[j].stream &&
++							!context->res_ctx.pipe_ctx[j].top_pipe &&
++							!context->res_ctx.pipe_ctx[j].update_flags.bits.disable) {
++							found_stream = true;
++							break;
++						}
++					}
++
++					// Disconnect if the top pipe lost it's pipe split
++					if (found_stream && !context->res_ctx.pipe_ctx[j].bottom_pipe) {
++						hws->funcs.plane_atomic_disconnect(dc, &dc->current_state->res_ctx.pipe_ctx[i]);
++						DC_LOG_DC("Reset mpcc for pipe %d\n", dc->current_state->res_ctx.pipe_ctx[i].pipe_idx);
++						mpcc_disconnected = true;
++					}
++				}
++				found_stream = false;
++			}
++		}
++
++		if (mpcc_disconnected) {
++			for (i = 0; i < dc->res_pool->pipe_count; i++) {
++				struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
++				struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++				struct dc_plane_state *plane_state = pipe_ctx->plane_state;
++				struct hubp *hubp = pipe_ctx->plane_res.hubp;
++
++				if (!pipe_ctx || !plane_state || !pipe_ctx->stream)
++					continue;
++
++				// Only update scaler and viewport here if we lose a pipe split.
++				// This is to prevent half the screen from being black when we
++				// unlock after disconnecting MPCC.
++				if (!(old_pipe && !pipe_ctx->top_pipe &&
++					!pipe_ctx->bottom_pipe && old_pipe->bottom_pipe))
++					continue;
++
++				if (pipe_ctx->update_flags.raw || pipe_ctx->plane_state->update_flags.raw || pipe_ctx->stream->update_flags.raw) {
++					if (pipe_ctx->update_flags.bits.scaler ||
++						plane_state->update_flags.bits.scaling_change ||
++						plane_state->update_flags.bits.position_change ||
++						plane_state->update_flags.bits.per_pixel_alpha_change ||
++						pipe_ctx->stream->update_flags.bits.scaling) {
++
++						pipe_ctx->plane_res.scl_data.lb_params.alpha_en = pipe_ctx->plane_state->per_pixel_alpha;
++						ASSERT(pipe_ctx->plane_res.scl_data.lb_params.depth == LB_PIXEL_DEPTH_30BPP);
++						/* scaler configuration */
++						pipe_ctx->plane_res.dpp->funcs->dpp_set_scaler(
++						pipe_ctx->plane_res.dpp, &pipe_ctx->plane_res.scl_data);
++					}
++
++					if (pipe_ctx->update_flags.bits.viewport ||
++						(context == dc->current_state && plane_state->update_flags.bits.position_change) ||
++						(context == dc->current_state && plane_state->update_flags.bits.scaling_change) ||
++						(context == dc->current_state && pipe_ctx->stream->update_flags.bits.scaling)) {
++
++						hubp->funcs->mem_program_viewport(
++							hubp,
++							&pipe_ctx->plane_res.scl_data.viewport,
++							&pipe_ctx->plane_res.scl_data.viewport_c);
++					}
++				}
++			}
++		}
++	return mpcc_disconnected;
++}
++
++void dcn10_wait_for_pending_cleared(struct dc *dc,
++		struct dc_state *context)
++{
++		struct pipe_ctx *pipe_ctx;
++		struct timing_generator *tg;
++		int i;
++
++		for (i = 0; i < dc->res_pool->pipe_count; i++) {
++			pipe_ctx = &context->res_ctx.pipe_ctx[i];
++			tg = pipe_ctx->stream_res.tg;
++
++			/*
++			 * Only wait for top pipe's tg penindg bit
++			 * Also skip if pipe is disabled.
++			 */
++			if (pipe_ctx->top_pipe ||
++			    !pipe_ctx->stream || !pipe_ctx->plane_state ||
++			    !tg->funcs->is_tg_enabled(tg))
++				continue;
++
++			/*
++			 * Wait for VBLANK then VACTIVE to ensure we get VUPDATE.
++			 * For some reason waiting for OTG_UPDATE_PENDING cleared
++			 * seems to not trigger the update right away, and if we
++			 * lock again before VUPDATE then we don't get a separated
++			 * operation.
++			 */
++			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VBLANK);
++			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VACTIVE);
++		}
++}
++
+ void dcn10_apply_ctx_for_surface(
+ 		struct dc *dc,
+ 		const struct dc_stream_state *stream,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
+index 6d891166da8a4..e5691e4990231 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
+@@ -194,6 +194,12 @@ void dcn10_get_surface_visual_confirm_color(
+ void dcn10_get_hdr_visual_confirm_color(
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct tg_color *color);
++bool dcn10_disconnect_pipes(
++		struct dc *dc,
++		struct dc_state *context);
++
++void dcn10_wait_for_pending_cleared(struct dc *dc,
++		struct dc_state *context);
+ void dcn10_set_hdr_multiplier(struct pipe_ctx *pipe_ctx);
+ void dcn10_verify_allow_pstate_change_high(struct dc *dc);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
+index 5c98b71c1d47a..a1d1559bb5d73 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
+@@ -34,6 +34,8 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+ 	.apply_ctx_for_surface = dcn10_apply_ctx_for_surface,
+ 	.post_unlock_program_front_end = dcn10_post_unlock_program_front_end,
++	.disconnect_pipes = dcn10_disconnect_pipes,
++	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
+ 	.update_plane_addr = dcn10_update_plane_addr,
+ 	.update_dchub = dcn10_update_dchub,
+ 	.update_pending_status = dcn10_update_pending_status,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
+index 3dde6f26de474..966e1790b9bfd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
+@@ -34,6 +34,8 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+ 	.apply_ctx_for_surface = NULL,
+ 	.program_front_end_for_ctx = dcn20_program_front_end_for_ctx,
++	.disconnect_pipes = dcn10_disconnect_pipes,
++	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
+ 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
+ 	.update_plane_addr = dcn20_update_plane_addr,
+ 	.update_dchub = dcn10_update_dchub,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
+index b187f71afa652..2ba880c3943c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
+@@ -35,6 +35,8 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+ 	.apply_ctx_for_surface = NULL,
+ 	.program_front_end_for_ctx = dcn20_program_front_end_for_ctx,
++	.disconnect_pipes = dcn10_disconnect_pipes,
++	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
+ 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
+ 	.update_plane_addr = dcn20_update_plane_addr,
+ 	.update_dchub = dcn10_update_dchub,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+index 9afee71604902..19daa456e3bfe 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+@@ -35,6 +35,8 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+ 	.apply_ctx_for_surface = NULL,
+ 	.program_front_end_for_ctx = dcn20_program_front_end_for_ctx,
++	.disconnect_pipes = dcn10_disconnect_pipes,
++	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
+ 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
+ 	.update_plane_addr = dcn20_update_plane_addr,
+ 	.update_dchub = dcn10_update_dchub,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+index 3c986717dcd56..64c1be818b0e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+@@ -67,6 +67,10 @@ struct hw_sequencer_funcs {
+ 			int num_planes, struct dc_state *context);
+ 	void (*program_front_end_for_ctx)(struct dc *dc,
+ 			struct dc_state *context);
++	bool (*disconnect_pipes)(struct dc *dc,
++			struct dc_state *context);
++	void (*wait_for_pending_cleared)(struct dc *dc,
++			struct dc_state *context);
+ 	void (*post_unlock_program_front_end)(struct dc *dc,
+ 			struct dc_state *context);
+ 	void (*update_plane_addr)(const struct dc *dc,
 -- 
 2.25.1
 
