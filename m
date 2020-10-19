@@ -2,108 +2,75 @@ Return-Path: <SRS0=J5eG=D2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 193A8C433E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 15:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B78F9C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 15:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F5E32231B
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 15:08:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 425CB22282
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 15:46:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Hpfo5KGO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F5E32231B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="UC61EvUA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 425CB22282
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE98E6E9FD;
-	Mon, 19 Oct 2020 15:08:52 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2EC56E9FD;
- Mon, 19 Oct 2020 15:08:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ftPIVW8tVsXssOFiy8RRGNXYTDyJZL4BGgFJN1xS7ATNVEGXe2OA2znKp3Fj1AbT0QEFWk1K6ybiRtL2cdd0KNgBhAs+yUEZ1t5+dLNRtLaobCI36wOPQe2wRDjEIQFxx4FuQ7j9yxK0E71jcGOurEGs4KZSmgJhnfaK8kr2Ot8ZKbpBc3t72+TaiMEvAty7RZ8t3VzFaU1KKxKhYApPggDXIZ2OGRQrEqwYj1f7PZjdTsIFNjP3AN4LFhcTKNwskoEj7XdAj9vAljYzhK7gqv2awNSr/hWF7K8cc3cyZBOIcZT0imY/jOfNK0qS7/rBzmuMlAbZPoZ3w9wDbX9qIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sKwNL9cWgoJcdpDobhKuOmoaJMMmOYEyy9fb0G6CXPY=;
- b=aMIIKkeJhduLxyIUDOy/s7B4VyuqdgREatEaPARXQA5ea9fV3hKPkO7KznxGPMv6/dO9DPVn1VYpoRg5kkYxaM6Z9dEOMYmpCQH4BLQ2sGHbwA3jB5ezlGthWURQwvQk8Y1NsWXP7EzZd505bz7TtJdt1ihPeMr1x1V1fKNE8lsaBghghpCmrLguv19+RvaZeWj+ZzBalnZlP8qQX7g7CHU7k6jMUM0cAi5ZmSDWueTdcUIJYQ0My8dxTjT+jCSIAw4qkHljG6kx/RhnWcUgOtXKW+vXJUIHNT5W4tpF91JnXWK/mzrfZ7lFcq2he7y0KkzU7s5kXBkFn2CXP7HW6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sKwNL9cWgoJcdpDobhKuOmoaJMMmOYEyy9fb0G6CXPY=;
- b=Hpfo5KGOt++HjZ/XnHlEmSXtMvqa3EpDkmm04+XafdJ8z/9qOLyrF3UKMMPjr25bQjxu/wcqg3f5bcxRwK5fXUXcqtoe1ejdb4ap8HsTFDFy+4R/wWWIz07THSfBbV8ktFwcdaqP9WzwzVQC6Mp+d/uAZA6GwJ0ks8XbTseYZTw=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MWHPR1201MB0063.namprd12.prod.outlook.com (2603:10b6:301:4d::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.21; Mon, 19 Oct
- 2020 15:08:49 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::5dc0:bafc:6040:a8fe]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::5dc0:bafc:6040:a8fe%2]) with mapi id 15.20.3477.028; Mon, 19 Oct 2020
- 15:08:49 +0000
-Subject: Re: [PATCH] drm/amdgpu: remove unneeded break
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- trix@redhat.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, issor.oruam@gmail.com,
- Anthony.Koo@amd.com, Rodrigo.Siqueira@amd.com, Tony.Cheng@amd.com,
- Charlene.Liu@amd.com, yogesh.mohanmarimuthu@amd.com, Aric.Cyr@amd.com,
- Igor.Kravchenko@amd.com, colin.king@canonical.com, tao.zhou1@amd.com,
- Dennis.Li@amd.com, mario.kleiner.de@gmail.com
-References: <20201019144311.18260-1-trix@redhat.com>
- <2f951197-b93e-d0c9-153f-2ddd1b195b3f@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <7179e50d-f29b-811d-030b-f2cfe3a1a502@amd.com>
-Date: Mon, 19 Oct 2020 11:08:44 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-In-Reply-To: <2f951197-b93e-d0c9-153f-2ddd1b195b3f@amd.com>
-Content-Language: en-US
-X-Originating-IP: [198.200.67.155]
-X-ClientProxiedBy: YTXPR0101CA0028.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::41) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63DE16EA08;
+	Mon, 19 Oct 2020 15:46:49 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30AE56EA08
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 15:46:48 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id j7so240904wrt.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 08:46:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=HO1NWy71VB/XmKCrtzy6L4ESvVEPBzXrL3scn+Up8bc=;
+ b=UC61EvUAH1ghGWvhgPIvwb0tJKvmN85XcCXlrZCX7WhPqQ5Kal9er+D9EGMj6Qy1Mw
+ fLsBXywmZ7A82r1QjiPvCD/FrGiVsWYE0GJST415xH593KKFVZRAlHpTMAzkBzgOwrUv
+ csDczr2hma4nlAuIXgtB1TgmwV8Q0Ey3gd2fI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=HO1NWy71VB/XmKCrtzy6L4ESvVEPBzXrL3scn+Up8bc=;
+ b=CiZ73wZ5J6sSulplq4mNZyNr6WU9loMXSYXNJANDL/aiCMUfHyHR2uEmN9LNQ6V0ks
+ dK8oNiZIYwbhK1NJ/yyuoTpKGsy9dhNur86WrPqjnlA8bVAJxjgSwQt6sAwfT+BR1lL9
+ Q3Vrdr6U0eaZG2BkwB2eRj+WU9wHFrI73TxdiCBPVXKPwMDG81TZdnNa9dUsjRktVN37
+ Ru6S5xPOwIRYNIUE0ORK0KucxRGscqSaVSJBvJiMcRWwxTTeNbsgoBEl/C74AZH1r9CH
+ M7L4wnUkvBpq06Ws8xlE/CJbIZROyIXSh/6QlrFJJsyFjA4sX9Imi2m3i9H0MZEgkZJ1
+ 9jiQ==
+X-Gm-Message-State: AOAM531AIVeFEPvz7wj0VctZgaHhmpqiqpZqTWgMCbSzTwAmzGUOD8H0
+ Uhpm9hbK/JbNnG8dpBIqP9Srxg==
+X-Google-Smtp-Source: ABdhPJw3AhcfVn5Ol/2itQNrpLAPMvDH8DFfv/LdwaotJFWGF+wLGszDKhZ9OSoAyWYoQMAHgXYlBQ==
+X-Received: by 2002:adf:ea4d:: with SMTP id j13mr121871wrn.345.1603122406591; 
+ Mon, 19 Oct 2020 08:46:46 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id s11sm138139wrm.56.2020.10.19.08.46.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 08:46:45 -0700 (PDT)
+Date: Mon, 19 Oct 2020 17:46:42 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v4 05/10] drm/ttm: Add vmap/vunmap to TTM and TTM GEM
+ helpers
+Message-ID: <20201019154642.GF401619@phenom.ffwll.local>
+References: <20201015123806.32416-1-tzimmermann@suse.de>
+ <20201015123806.32416-6-tzimmermann@suse.de>
+ <935d5771-5645-62a6-849c-31e286db1e30@amd.com>
+ <87c7c342-88dc-9a36-31f7-dae6edd34626@suse.de>
+ <9236f51c-c1fa-dadc-c7cc-d9d0c09251d1@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.193] (198.200.67.155) by
- YTXPR0101CA0028.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.20 via Frontend Transport; Mon, 19 Oct 2020 15:08:46 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e6505db3-851f-413c-2216-08d87440e17f
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0063:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0063617B3A833A65EE5A06E08C1E0@MWHPR1201MB0063.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:81;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tZ2a1l8l+Fckdj/2zPYERAvNlmyLHsoMkdJxw0ik8AajSPfgo3sw2OULXd3AobZErGSOzqNpdSmN5OxA03W7sYDTWeOfMYj8+9nlB9p/PdZqHquF7b6dqCDIui9hFMvYj8cxe1zI8ECGm7d7U4lzTlluKJNYvXDTU8QAW3kjUv3Knpfnyn9AbfxFBnuQFjDyxUWte2hjz73JNzupFrrogyuLfrsn7nsODxKUi5VQ/4ZYLSqJ2dN+6oEEljYiDqjPS86WUZogO5yoXeDzI5nbmvUUdBwCtNM9jhRkiqEUHPnqOcKDLKq/QyU+7pYzuwm7K8sQYvpy7jGY1M9cvzupFa/kEK7nQ7vgmaPwMOwHN+mB91IBTtty+orZcC/xecM8sZfuzOVBicqIzvUgtC+ChQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(39860400002)(366004)(136003)(16526019)(83380400001)(186003)(8676002)(8936002)(2616005)(956004)(4326008)(44832011)(53546011)(66556008)(66946007)(26005)(6486002)(66476007)(52116002)(31686004)(31696002)(86362001)(4001150100001)(478600001)(316002)(5660300002)(36756003)(16576012)(2906002)(921003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: kYDwBKlzDqrEv3I1jg4HaSb0LHi/VYvLAqz+X3WiN/OOd2dHy1bLoGrYLWqzJp7gvqfAG5Uv8hwfH6+tjGiK8sHXF46xTYh2sMFRBU5Tc7u0D8XYWo90LrXsPGkSJnJxLFdq61ITl5iRJqimSa6Uca3hlurJZUqxivkwP1eTygNscJyV/e/Cl07IMpPz7rEmIJzS2wjJS/WZ1q7bTRdBN/fKCoGzxvhOUacnhf7wbKp9GG/Ulqey5IEEN9p++TuPm2mClQI/CAINKEPFzJG+UsztF5jQmrdpmW6OpGI2GLTtRdn6METzsZgsVdDOtZmlFKmvLxb9ulHbLS1BUfi+J2GlIjGzUUmg/3es85O0F9GGGhWqkrh1TN/3bWh7SXy0uk0wA6MKOWlDL2KDj+ANExQAaBGW+tbbQeRODH3V1jPa7SKs6qagQZOn2LgWMpAwJr/LxnRbyZWYDuWIiHNd4BuJdSxeDzhfMnQbbHFfUix7XhgfM4m8jTwbWg0o/RV0SLd0y4mI3WwR+OOcSuRuwgPt8Kbny3I+Cnm0R2d0nTex6qq/mj1BX6+WhBGYbzVOLveFEgwMp84gfJYsWj1PfmuQKN51iJD2O/qVmVLsk3pL78JizNxmthrwL+YpGalphY4yU3qL3ARPFueQK6Enlg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6505db3-851f-413c-2216-08d87440e17f
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2020 15:08:48.7439 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YLm4NUtqyn5SfIHNOUxNRjBORzKQbEy+DRvaWFZzX2wzHTqZy9ehUNBbq1YE4AkVxyz3HC0kIstXoDumI4Dfww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0063
+Content-Disposition: inline
+In-Reply-To: <9236f51c-c1fa-dadc-c7cc-d9d0c09251d1@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,162 +82,321 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: luben.tuikov@amd.com, heiko@sntech.de, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, linus.walleij@linaro.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ melissa.srw@gmail.com, eric@anholt.net, ray.huang@amd.com, kraxel@redhat.com,
+ sam@ravnborg.org, sumit.semwal@linaro.org, emil.velikov@collabora.com,
+ robh@kernel.org, linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ lima@lists.freedesktop.org, oleksandr_andrushchenko@epam.com, krzk@kernel.org,
+ steven.price@arm.com, linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ bskeggs@redhat.com, linux+etnaviv@armlinux.org.uk,
+ xen-devel@lists.xenproject.org, alyssa.rosenzweig@collabora.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ etnaviv@lists.freedesktop.org, mripard@kernel.org, inki.dae@samsung.com,
+ hdegoede@redhat.com, christian.gmeiner@gmail.com,
+ spice-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ sean@poorly.run, apaneers@amd.com, linux-arm-kernel@lists.infradead.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ tomeu.vizoso@collabora.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
+ kyungmin.park@samsung.com, miaoqinglang@huawei.com, yuq825@gmail.com,
+ Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ linux-media@vger.kernel.org, l.stach@pengutronix.de
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0xMC0xOSAxMDo1NSBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDE5
-LjEwLjIwIHVtIDE2OjQzIHNjaHJpZWIgdHJpeEByZWRoYXQuY29tOgo+PiBGcm9tOiBUb20gUml4
-IDx0cml4QHJlZGhhdC5jb20+Cj4+Cj4+IEEgYnJlYWsgaXMgbm90IG5lZWRlZCBpZiBpdCBpcyBw
-cmVjZWRlZCBieSBhIHJldHVybiBvciBicmVhawo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBUb20gUml4
-IDx0cml4QHJlZGhhdC5jb20+Cj4gCj4gQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnku
-d2VudGxhbmRAYW1kLmNvbT4KCkhhcnJ5Cgo+IAo+PiAtLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfdHJhbnNmb3JtLmPCoMKgwqDCoMKgIHwgMSAtCj4+IMKg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMDAvZGNlMTAwX3Jlc291cmNlLmMg
-fCA3IC0tLS0tLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9k
-Y2UxMTBfcmVzb3VyY2UuYyB8IDcgLS0tLS0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvZGNlMTEyL2RjZTExMl9yZXNvdXJjZS5jIHwgNyAtLS0tLS0tCj4+IMKgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMgfCA3IC0t
-LS0tLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTYwL2RjZTYwX3Jl
-c291cmNlLmPCoMKgIHwgNyAtLS0tLS0tCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jwqDCoCB8IDcgLS0tLS0tLQo+PiDCoCA3IGZpbGVz
-IGNoYW5nZWQsIDQzIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfdHJhbnNmb3JtLmMgCj4+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfdHJhbnNmb3JtLmMKPj4gaW5kZXggMmEzMmI2Njk1
-OWJhLi4xMzBhMGEwYzgzMzIgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9kY2UvZGNlX3RyYW5zZm9ybS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9kY2UvZGNlX3RyYW5zZm9ybS5jCj4+IEBAIC0xMzMwLDcgKzEzMzAsNiBAQCBz
-dGF0aWMgYm9vbCBjb25maWd1cmVfZ3JhcGhpY3NfbW9kZSgKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgUkVHX1NFVChPVVRQVVRfQ1NDX0NPTlRST0wsIDAsCj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgT1VUUFVUX0NTQ19HUlBIX01PREUsIDApOwo+PiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJl
-YWs7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBjYXNlIENPTE9SX1NQQUNFX1NSR0JfTElNSVRFRDoK
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogVFYgUkdCICovCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIFJFR19TRVQoT1VUUFVUX0NTQ19DT05UUk9MLCAwLAo+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEwMC9kY2UxMDBfcmVzb3Vy
-Y2UuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTAwL2RjZTEwMF9y
-ZXNvdXJjZS5jCj4+IGluZGV4IGQ3NDE3ODdmNzVkYy4uNDJjN2QxNTdkYTMyIDEwMDY0NAo+PiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTAwL2RjZTEwMF9yZXNvdXJj
-ZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMDAvZGNlMTAw
-X3Jlc291cmNlLmMKPj4gQEAgLTQxOCwyNSArNDE4LDE4IEBAIHN0YXRpYyBpbnQgbWFwX3RyYW5z
-bWl0dGVyX2lkX3RvX3BoeV9pbnN0YW5jZSgKPj4gwqDCoMKgwqDCoCBzd2l0Y2ggKHRyYW5zbWl0
-dGVyKSB7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQToKPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNh
-c2UgVFJBTlNNSVRURVJfVU5JUEhZX0I6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMTsK
-Pj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9D
-Ogo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDI7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKg
-wqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRDoKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IHJldHVybiAzOwo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRU
-RVJfVU5JUEhZX0U6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gNDsKPj4gLcKgwqDCoCBi
-cmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9GOgo+PiDCoMKgwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIDU7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2Fz
-ZSBUUkFOU01JVFRFUl9VTklQSFlfRzoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiA2Owo+
-PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGRlZmF1bHQ6Cj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCBBU1NFUlQoMCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX3Jlc291
-cmNlLmMgCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBf
-cmVzb3VyY2UuYwo+PiBpbmRleCAyYmJmYTJlMTc2YTkuLjM4MjU4MWM0YTY3NCAxMDA2NDQKPj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfcmVzb3Vy
-Y2UuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTEx
-MF9yZXNvdXJjZS5jCj4+IEBAIC00NzEsMjUgKzQ3MSwxOCBAQCBzdGF0aWMgaW50IG1hcF90cmFu
-c21pdHRlcl9pZF90b19waHlfaW5zdGFuY2UoCj4+IMKgwqDCoMKgwqAgc3dpdGNoICh0cmFuc21p
-dHRlcikgewo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0E6Cj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBj
-YXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9COgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDE7
-Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlf
-QzoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAyOwo+PiAtwqDCoMKgIGJyZWFrOwo+PiDC
-oMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Q6Cj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gMzsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlU
-VEVSX1VOSVBIWV9FOgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDQ7Cj4+IC3CoMKgwqAg
-YnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRjoKPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiA1Owo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNh
-c2UgVFJBTlNNSVRURVJfVU5JUEhZX0c6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gNjsK
-Pj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBkZWZhdWx0Ogo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqAgQVNTRVJUKDApOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEyL2RjZTExMl9yZXNv
-dXJjZS5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTIvZGNlMTEy
-X3Jlc291cmNlLmMKPj4gaW5kZXggYjYyMmI0YjFkYWMzLi43YjRiMjMwNGJiZmYgMTAwNjQ0Cj4+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTIvZGNlMTEyX3Jlc291
-cmNlLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMi9kY2Ux
-MTJfcmVzb3VyY2UuYwo+PiBAQCAtNDQ2LDI1ICs0NDYsMTggQEAgc3RhdGljIGludCBtYXBfdHJh
-bnNtaXR0ZXJfaWRfdG9fcGh5X2luc3RhbmNlKAo+PiDCoMKgwqDCoMKgIHN3aXRjaCAodHJhbnNt
-aXR0ZXIpIHsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9BOgo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAg
-Y2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQjoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAx
-Owo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZ
-X0M6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMjsKPj4gLcKgwqDCoCBicmVhazsKPj4g
-wqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9EOgo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIDM7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01J
-VFRFUl9VTklQSFlfRToKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiA0Owo+PiAtwqDCoMKg
-IGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Y6Cj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gNTsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBj
-YXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9HOgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDY7
-Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgZGVmYXVsdDoKPj4gwqDCoMKgwqDCoMKg
-wqDCoMKgIEFTU0VSVCgwKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfcmVz
-b3VyY2UuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTIwL2RjZTEy
-MF9yZXNvdXJjZS5jCj4+IGluZGV4IDE2ZmU3MzQ0NzAyZi4uM2Q3ODJiN2M4NmNiIDEwMDY0NAo+
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTIwL2RjZTEyMF9yZXNv
-dXJjZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMjAvZGNl
-MTIwX3Jlc291cmNlLmMKPj4gQEAgLTM4MywyNSArMzgzLDE4IEBAIHN0YXRpYyBpbnQgbWFwX3Ry
-YW5zbWl0dGVyX2lkX3RvX3BoeV9pbnN0YW5jZSgKPj4gwqDCoMKgwqDCoCBzd2l0Y2ggKHRyYW5z
-bWl0dGVyKSB7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQToKPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKg
-IGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0I6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4g
-MTsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBI
-WV9DOgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDI7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+
-IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRDoKPj4gwqDCoMKgwqDCoMKgwqDC
-oMKgIHJldHVybiAzOwo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNN
-SVRURVJfVU5JUEhZX0U6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gNDsKPj4gLcKgwqDC
-oCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9GOgo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIDU7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAg
-Y2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRzoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiA2
-Owo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGRlZmF1bHQ6Cj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoCBBU1NFUlQoMCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2U2MC9kY2U2MF9yZXNv
-dXJjZS5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2U2MC9kY2U2MF9y
-ZXNvdXJjZS5jCj4+IGluZGV4IDVhNWE5Y2I3N2FjYi4uZTlkZDc4YzQ4NGQ2IDEwMDY0NAo+PiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlNjAvZGNlNjBfcmVzb3VyY2Uu
-Ywo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlNjAvZGNlNjBfcmVz
-b3VyY2UuYwo+PiBAQCAtNDUzLDI1ICs0NTMsMTggQEAgc3RhdGljIGludCBtYXBfdHJhbnNtaXR0
-ZXJfaWRfdG9fcGh5X2luc3RhbmNlKAo+PiDCoMKgwqDCoMKgIHN3aXRjaCAodHJhbnNtaXR0ZXIp
-IHsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9BOgo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgcmV0dXJuIDA7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBU
-UkFOU01JVFRFUl9VTklQSFlfQjoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAxOwo+PiAt
-wqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0M6Cj4+
-IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMjsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKg
-wqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9EOgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0
-dXJuIDM7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9V
-TklQSFlfRToKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiA0Owo+PiAtwqDCoMKgIGJyZWFr
-Owo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Y6Cj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gNTsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRS
-QU5TTUlUVEVSX1VOSVBIWV9HOgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDY7Cj4+IC3C
-oMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgZGVmYXVsdDoKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IEFTU0VSVCgwKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMg
-Cj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNl
-LmMKPj4gaW5kZXggMGVhZThjZDM1ZjlhLi45ZGJmNjU4MTYyY2QgMTAwNjQ0Cj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jCj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5j
-Cj4+IEBAIC00NTgsMjUgKzQ1OCwxOCBAQCBzdGF0aWMgaW50IG1hcF90cmFuc21pdHRlcl9pZF90
-b19waHlfaW5zdGFuY2UoCj4+IMKgwqDCoMKgwqAgc3dpdGNoICh0cmFuc21pdHRlcikgewo+PiDC
-oMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0E6Cj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gMDsKPj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlU
-VEVSX1VOSVBIWV9COgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDE7Cj4+IC3CoMKgwqAg
-YnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQzoKPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAyOwo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNh
-c2UgVFJBTlNNSVRURVJfVU5JUEhZX0Q6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMzsK
-Pj4gLcKgwqDCoCBicmVhazsKPj4gwqDCoMKgwqDCoCBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9F
-Ogo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDQ7Cj4+IC3CoMKgwqAgYnJlYWs7Cj4+IMKg
-wqDCoMKgwqAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRjoKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IHJldHVybiA1Owo+PiAtwqDCoMKgIGJyZWFrOwo+PiDCoMKgwqDCoMKgIGNhc2UgVFJBTlNNSVRU
-RVJfVU5JUEhZX0c6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gNjsKPj4gLcKgwqDCoCBi
-cmVhazsKPj4gwqDCoMKgwqDCoCBkZWZhdWx0Ogo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgQVNTRVJU
-KDApOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4gCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Mon, Oct 19, 2020 at 11:45:05AM +0200, Christian K=F6nig wrote:
+> Hi Thomas,
+> =
+
+> [SNIP]
+> > > >  =A0 +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_=
+map *map)
+> > > > +{
+> > > > +=A0=A0=A0 struct ttm_resource *mem =3D &bo->mem;
+> > > > +=A0=A0=A0 int ret;
+> > > > +
+> > > > +=A0=A0=A0 ret =3D ttm_mem_io_reserve(bo->bdev, mem);
+> > > > +=A0=A0=A0 if (ret)
+> > > > +=A0=A0=A0=A0=A0=A0=A0 return ret;
+> > > > +
+> > > > +=A0=A0=A0 if (mem->bus.is_iomem) {
+> > > > +=A0=A0=A0=A0=A0=A0=A0 void __iomem *vaddr_iomem;
+> > > > +=A0=A0=A0=A0=A0=A0=A0 unsigned long size =3D bo->num_pages << PAGE=
+_SHIFT;
+> > > Please use uint64_t here and make sure to cast bo->num_pages before
+> > > shifting.
+> > I thought the rule of thumb is to use u64 in source code. Yet TTM only
+> > uses uint*_t types. Is there anything special about TTM?
+> =
+
+> My last status is that you can use both and my personal preference is to =
+use
+> the uint*_t types because they are part of a higher level standard.
+
+Yeah the only hard rule is that in uapi headers you need to use the __u64
+and similar typedefs, to avoid cluttering the namespace for unrelated
+stuff in userspace.
+
+In the kernel c99 types are perfectly fine, and I think slowly on the
+rise.
+-Daniel
+
+> =
+
+> > > We have an unit tests of allocating a 8GB BO and that should work on a
+> > > 32bit machine as well :)
+> > > =
+
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 if (mem->bus.addr)
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 vaddr_iomem =3D (void *)(((u8 *)=
+mem->bus.addr));
+> > I after reading the patch again, I realized that this is the
+> > 'ttm_bo_map_premapped' case and it's missing from _vunmap(). I see two
+> > options here: ignore this case in _vunmap(), or do an ioremap()
+> > unconditionally. Which one is preferable?
+> =
+
+> ioremap would be very very bad, so we should just do nothing.
+> =
+
+> Thanks,
+> Christian.
+> =
+
+> > =
+
+> > Best regards
+> > Thomas
+> > =
+
+> > > > +=A0=A0=A0=A0=A0=A0=A0 else if (mem->placement & TTM_PL_FLAG_WC)
+> > > I've just nuked the TTM_PL_FLAG_WC flag in drm-misc-next. There is a =
+new
+> > > mem->bus.caching enum as replacement.
+> > > =
+
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 vaddr_iomem =3D ioremap_wc(mem->=
+bus.offset, size);
+> > > > +=A0=A0=A0=A0=A0=A0=A0 else
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 vaddr_iomem =3D ioremap(mem->bus=
+.offset, size);
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 if (!vaddr_iomem)
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return -ENOMEM;
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 dma_buf_map_set_vaddr_iomem(map, vaddr_iomem=
+);
+> > > > +
+> > > > +=A0=A0=A0 } else {
+> > > > +=A0=A0=A0=A0=A0=A0=A0 struct ttm_operation_ctx ctx =3D {
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 .interruptible =3D false,
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 .no_wait_gpu =3D false
+> > > > +=A0=A0=A0=A0=A0=A0=A0 };
+> > > > +=A0=A0=A0=A0=A0=A0=A0 struct ttm_tt *ttm =3D bo->ttm;
+> > > > +=A0=A0=A0=A0=A0=A0=A0 pgprot_t prot;
+> > > > +=A0=A0=A0=A0=A0=A0=A0 void *vaddr;
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 BUG_ON(!ttm);
+> > > I think we can drop this, populate will just crash badly anyway.
+> > > =
+
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 ret =3D ttm_tt_populate(bo->bdev, ttm, &ctx);
+> > > > +=A0=A0=A0=A0=A0=A0=A0 if (ret)
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return ret;
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 /*
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0 * We need to use vmap to get the desired =
+page protection
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0 * or to make the buffer object look conti=
+guous.
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0 */
+> > > > +=A0=A0=A0=A0=A0=A0=A0 prot =3D ttm_io_prot(mem->placement, PAGE_KE=
+RNEL);
+> > > The calling convention has changed on drm-misc-next as well, but shou=
+ld
+> > > be trivial to adapt.
+> > > =
+
+> > > Regards,
+> > > Christian.
+> > > =
+
+> > > > +=A0=A0=A0=A0=A0=A0=A0 vaddr =3D vmap(ttm->pages, bo->num_pages, 0,=
+ prot);
+> > > > +=A0=A0=A0=A0=A0=A0=A0 if (!vaddr)
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return -ENOMEM;
+> > > > +
+> > > > +=A0=A0=A0=A0=A0=A0=A0 dma_buf_map_set_vaddr(map, vaddr);
+> > > > +=A0=A0=A0 }
+> > > > +
+> > > > +=A0=A0=A0 return 0;
+> > > > +}
+> > > > +EXPORT_SYMBOL(ttm_bo_vmap);
+> > > > +
+> > > > +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map
+> > > > *map)
+> > > > +{
+> > > > +=A0=A0=A0 if (dma_buf_map_is_null(map))
+> > > > +=A0=A0=A0=A0=A0=A0=A0 return;
+> > > > +
+> > > > +=A0=A0=A0 if (map->is_iomem)
+> > > > +=A0=A0=A0=A0=A0=A0=A0 iounmap(map->vaddr_iomem);
+> > > > +=A0=A0=A0 else
+> > > > +=A0=A0=A0=A0=A0=A0=A0 vunmap(map->vaddr);
+> > > > +=A0=A0=A0 dma_buf_map_clear(map);
+> > > > +
+> > > > +=A0=A0=A0 ttm_mem_io_free(bo->bdev, &bo->mem);
+> > > > +}
+> > > > +EXPORT_SYMBOL(ttm_bo_vunmap);
+> > > > +
+> > > >  =A0 static int ttm_bo_wait_free_node(struct ttm_buffer_object *bo,
+> > > >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bool dst_us=
+e_tt)
+> > > >  =A0 {
+> > > > diff --git a/include/drm/drm_gem_ttm_helper.h
+> > > > b/include/drm/drm_gem_ttm_helper.h
+> > > > index 118cef76f84f..7c6d874910b8 100644
+> > > > --- a/include/drm/drm_gem_ttm_helper.h
+> > > > +++ b/include/drm/drm_gem_ttm_helper.h
+> > > > @@ -10,11 +10,17 @@
+> > > >  =A0 #include <drm/ttm/ttm_bo_api.h>
+> > > >  =A0 #include <drm/ttm/ttm_bo_driver.h>
+> > > >  =A0 +struct dma_buf_map;
+> > > > +
+> > > >  =A0 #define drm_gem_ttm_of_gem(gem_obj) \
+> > > >  =A0=A0=A0=A0=A0 container_of(gem_obj, struct ttm_buffer_object, ba=
+se)
+> > > >  =A0 =A0 void drm_gem_ttm_print_info(struct drm_printer *p, unsigne=
+d int
+> > > > indent,
+> > > >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 const struct d=
+rm_gem_object *gem);
+> > > > +int drm_gem_ttm_vmap(struct drm_gem_object *gem,
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct dma_buf_map *map);
+> > > > +void drm_gem_ttm_vunmap(struct drm_gem_object *gem,
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct dma_buf_map *map);
+> > > >  =A0 int drm_gem_ttm_mmap(struct drm_gem_object *gem,
+> > > >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct vm_area_struct *=
+vma);
+> > > >  =A0 diff --git a/include/drm/ttm/ttm_bo_api.h
+> > > > b/include/drm/ttm/ttm_bo_api.h
+> > > > index 37102e45e496..2c59a785374c 100644
+> > > > --- a/include/drm/ttm/ttm_bo_api.h
+> > > > +++ b/include/drm/ttm/ttm_bo_api.h
+> > > > @@ -48,6 +48,8 @@ struct ttm_bo_global;
+> > > >  =A0 =A0 struct ttm_bo_device;
+> > > >  =A0 +struct dma_buf_map;
+> > > > +
+> > > >  =A0 struct drm_mm_node;
+> > > >  =A0 =A0 struct ttm_placement;
+> > > > @@ -494,6 +496,32 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo,
+> > > > unsigned long start_page,
+> > > >  =A0=A0 */
+> > > >  =A0 void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
+> > > >  =A0 +/**
+> > > > + * ttm_bo_vmap
+> > > > + *
+> > > > + * @bo: The buffer object.
+> > > > + * @map: pointer to a struct dma_buf_map representing the map.
+> > > > + *
+> > > > + * Sets up a kernel virtual mapping, using ioremap or vmap to the
+> > > > + * data in the buffer object. The parameter @map returns the virtu=
+al
+> > > > + * address as struct dma_buf_map. Unmap the buffer with ttm_bo_vun=
+map().
+> > > > + *
+> > > > + * Returns
+> > > > + * -ENOMEM: Out of memory.
+> > > > + * -EINVAL: Invalid range.
+> > > > + */
+> > > > +int ttm_bo_vmap(struct ttm_buffer_object *bo, struct dma_buf_map *=
+map);
+> > > > +
+> > > > +/**
+> > > > + * ttm_bo_vunmap
+> > > > + *
+> > > > + * @bo: The buffer object.
+> > > > + * @map: Object describing the map to unmap.
+> > > > + *
+> > > > + * Unmaps a kernel map set up by ttm_bo_vmap().
+> > > > + */
+> > > > +void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct dma_buf_map
+> > > > *map);
+> > > > +
+> > > >  =A0 /**
+> > > >  =A0=A0 * ttm_bo_mmap_obj - mmap memory backed by a ttm buffer obje=
+ct.
+> > > >  =A0=A0 *
+> > > > diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-ma=
+p.h
+> > > > index fd1aba545fdf..2e8bbecb5091 100644
+> > > > --- a/include/linux/dma-buf-map.h
+> > > > +++ b/include/linux/dma-buf-map.h
+> > > > @@ -45,6 +45,12 @@
+> > > >  =A0=A0 *
+> > > >  =A0=A0 *=A0=A0=A0 dma_buf_map_set_vaddr(&map. 0xdeadbeaf);
+> > > >  =A0=A0 *
+> > > > + * To set an address in I/O memory, use dma_buf_map_set_vaddr_iome=
+m().
+> > > > + *
+> > > > + * .. code-block:: c
+> > > > + *
+> > > > + *=A0=A0=A0 dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
+> > > > + *
+> > > >  =A0=A0 * Test if a mapping is valid with either dma_buf_map_is_set=
+() or
+> > > >  =A0=A0 * dma_buf_map_is_null().
+> > > >  =A0=A0 *
+> > > > @@ -118,6 +124,20 @@ static inline void dma_buf_map_set_vaddr(struct
+> > > > dma_buf_map *map, void *vaddr)
+> > > >  =A0=A0=A0=A0=A0 map->is_iomem =3D false;
+> > > >  =A0 }
+> > > >  =A0 +/**
+> > > > + * dma_buf_map_set_vaddr_iomem - Sets a dma-buf mapping structure =
+to
+> > > > an address in I/O memory
+> > > > + * @map:=A0=A0=A0=A0=A0=A0=A0 The dma-buf mapping structure
+> > > > + * @vaddr_iomem:=A0=A0=A0 An I/O-memory address
+> > > > + *
+> > > > + * Sets the address and the I/O-memory flag.
+> > > > + */
+> > > > +static inline void dma_buf_map_set_vaddr_iomem(struct dma_buf_map =
+*map,
+> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 void __iomem *vaddr_iomem)
+> > > > +{
+> > > > +=A0=A0=A0 map->vaddr_iomem =3D vaddr_iomem;
+> > > > +=A0=A0=A0 map->is_iomem =3D true;
+> > > > +}
+> > > > +
+> > > >  =A0 /**
+> > > >  =A0=A0 * dma_buf_map_is_equal - Compares two dma-buf mapping struc=
+tures
+> > > > for equality
+> > > >  =A0=A0 * @lhs:=A0=A0=A0 The dma-buf mapping structure
+> > > _______________________________________________
+> > > dri-devel mailing list
+> > > dri-devel@lists.freedesktop.org
+> > > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fl=
+ists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D04%7C01%7C=
+christian.koenig%40amd.com%7C07bc68af3c6440b5be8d08d8740e9b32%7C3dd8961fe48=
+84e608e11a82d994e183d%7C0%7C0%7C637386953433558595%7CUnknown%7CTWFpbGZsb3d8=
+eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&a=
+mp;sdata=3DRlGCmjzyZERvqfnl4kA1bEHez5bkLf3F9OlKi2ybDAM%3D&amp;reserved=3D0
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
