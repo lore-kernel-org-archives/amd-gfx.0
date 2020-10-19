@@ -2,48 +2,62 @@ Return-Path: <SRS0=J5eG=D2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41AA2C388E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3A56C4363A
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1A8A21D81
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1A8A21D81
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id D5F7822276
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:57 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=qq.com header.i=@qq.com header.b="wYGeJt8x"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5F7822276
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qq.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2185C6E950;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E576E951;
 	Mon, 19 Oct 2020 12:38:49 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0084.hostedemail.com
- [216.40.44.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E924F6E3EE;
- Sun, 18 Oct 2020 19:06:51 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay01.hostedemail.com (Postfix) with ESMTP id 70CB3100E7B40;
- Sun, 18 Oct 2020 19:06:49 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: year67_630d5f827230
-X-Filterd-Recvd-Size: 3209
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf09.hostedemail.com (Postfix) with ESMTPA;
- Sun, 18 Oct 2020 19:06:42 +0000 (UTC)
-Message-ID: <18981cad4ac27b4a22b2e38d40bd112432d4a4e7.camel@perches.com>
-Subject: Re: [Ocfs2-devel] [RFC] treewide: cleanup unreachable breaks
-From: Joe Perches <joe@perches.com>
-To: Matthew Wilcox <willy@infradead.org>, trix@redhat.com
-Date: Sun, 18 Oct 2020 12:06:40 -0700
-In-Reply-To: <20201018185943.GM20115@casper.infradead.org>
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018185943.GM20115@casper.infradead.org>
-User-Agent: Evolution 3.36.4-0ubuntu1 
-MIME-Version: 1.0
+X-Greylist: delayed 438 seconds by postgrey-1.36 at gabe;
+ Mon, 19 Oct 2020 06:28:38 UTC
+Received: from qq.com (out203-205-251-73.mail.qq.com [203.205.251.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 544E46E8D4;
+ Mon, 19 Oct 2020 06:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1603088915; bh=jB0wedGqDMjnWzKTLqVfs8k0nBO/DhZPoNNePfjSkNE=;
+ h=From:To:Cc:Subject:Date;
+ b=wYGeJt8xJ+t0pPV7EMpMFz7QaY7A0mfncOul/hYzHbq0NmXodyZvf8rtVDJBjmN3X
+ Zlsfpn7xQxb3xERLwvTtLqLuXvdjcJoZg/wpP4z3/1YVODuXkpLp9zm72sFO3/tGTf
+ lCNMlkLwd0pLOk5fd3pwtG4Yg/G5vUN8dUoxguKM=
+Received: from localhost.localdomain ([36.112.86.14])
+ by newxmesmtplogicsvrsza6.qq.com (NewEsmtp) with SMTP
+ id 541A4EC1; Mon, 19 Oct 2020 14:21:01 +0800
+X-QQ-mid: xmsmtpt1603088461tu3sorx09
+Message-ID: <tencent_6CDB3D2D9BB1A93DCB856F2AD38C59F93F05@qq.com>
+X-QQ-XMAILINFO: MVL33v9tKviNV3DhlxslmIKw3J8kUW/1Izdwa/SBANxfFnfSsVw5ppWnoqGAsN
+ QVrrlMQR4pFcZ70dtRV6TB6kuKvU93kxe69R1GuLNxgBsbQw1+fU1RrEI9OU/K5lE4KR0rmq7WIu
+ o07QsWGydoKZsG77Zsjil/no+htvZ7M/ms/Uc0QvdX3uU0K/2koBe69ulBazRvho82Co2vjF9YW8
+ 3yWdkvkrsocDNCJJnJ/oRx78cwIOoNt/6At3PBspFTPFvxbN0HtGLeMGlxgu9glnCUx5EObz+iEN
+ Ezmbfx2pTN5PxHQRaob7jMhIxEaX7IRCkOF9RAsCoqSXpiPl9WAZhnbwJfjIPvF1jRUfuF+it749
+ NF98jNzPJpoAgwQxPjcDMLDa8KExT6ibISolHVw7NbD3Hs7mAVcaEYT4FkH1nCZV1H1RZnK/B1aN
+ huSWTcdc57pmWANPMMYPvqrUR21l6wc5MCIZwVre4aNefKvP7FW/V8n9/ESGKyXxmRfRGZRk9AZ5
+ yeFUeThby6ODy1v7eSw7Wpxk0e+RbUP2kx0CVmIMdrTwmH4kGOuIXo1Y2wbICRFkhSN75pN2ndmH
+ NmMObuAvtZUGZchMLzOQMg9MexCuUvd7IoYVUAYFl5sRjf8JpVufpWZWx83rwX6simEDg8vFOMJF
+ hI70WO9LQtHYA0HxkqrIrdlR5NtFyXYNNISs9/t1WGmFSRGjtY1c7hB8nzjL+CQoHn1ie5Q1q+PL
+ Z96oaV45mAeTVwx0lNepf2cOkitvlhGzYTAnp5f6CliYvR2p8UdH3A6CrwDqYWYlQGTBDRGk1WCk
+ oABdrkGiMpzNSdIzBsoBAw8uLR1VrG0CM=
+From: estherbdf <603571786@qq.com>
+To: daniel@ffwll.ch
+Subject: [PATCH] drm/amd/display: fix a possible NULL pointer dereference in
+ bios_parser_get_src_obj()
+Date: Mon, 19 Oct 2020 14:20:48 +0800
+X-OQ-MSGID: <1603088448-3529-1-git-send-email-603571786@qq.com>
+X-Mailer: git-send-email 1.9.1
 X-Mailman-Approved-At: Mon, 19 Oct 2020 12:38:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,56 +70,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-pm@vger.kernel.org,
- ath10k@lists.infradead.org, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
- linux-pci@vger.kernel.org, spice-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-nfc@lists.01.org,
- linux-serial@vger.kernel.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- storagedev@microchip.com, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, platform-driver-x86@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, clang-built-linux@googlegroups.com,
- patches@opensource.cirrus.com, linux-crypto@vger.kernel.org,
- linux-integrity@vger.kernel.org, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
+Cc: estherbdf <603571786@qq.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2020-10-18 at 19:59 +0100, Matthew Wilcox wrote:
-> On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
-> > clang has a number of useful, new warnings see
-> > https://urldefense.com/v3/__https://clang.llvm.org/docs/DiagnosticsReference.html__;!!GqivPVa7Brio!Krxz78O3RKcB9JBMVo_F98FupVhj_jxX60ddN6tKGEbv_cnooXc1nnBmchm-e_O9ieGnyQ$ 
-> 
-> Please get your IT department to remove that stupidity.  If you can't,
-> please send email from a non-Red Hat email address.
+[Why] the func  bios_parser_get_src_obj () is similar to  bios_parser_get_dst_obj () which is fixed by the commit<a8f976473196>("drm/amd/display: Banch of smatch error and warning fixes in DC").
+the symbol 'id' is uninitialized and it is not checked before dereference it,may lead to null pointer dereference.
+[How] Initialized variable explicitly with NULL and add sanitizer.
 
-I didn't get it this way, neither did lore.
-It's on your end.
+Signed-off-by: estherbdf <603571786@qq.com>
+---
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-https://lore.kernel.org/lkml/20201017160928.12698-1-trix@redhat.com/
-
-> I don't understand why this is a useful warning to fix.
-
-Precision in coding style intent and code minimization
-would be the biggest factors IMO.
-
-> What actual problem is caused by the code below?
-
-Obviously none.
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+index 008d4d1..94c6cca 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+@@ -190,7 +190,7 @@ static enum bp_result bios_parser_get_src_obj(struct dc_bios *dcb,
+ 	struct graphics_object_id *src_object_id)
+ {
+ 	uint32_t number;
+-	uint16_t *id;
++	uint16_t *id = NULL;
+ 	ATOM_OBJECT *object;
+ 	struct bios_parser *bp = BP_FROM_DCB(dcb);
+ 
+@@ -206,7 +206,7 @@ static enum bp_result bios_parser_get_src_obj(struct dc_bios *dcb,
+ 
+ 	number = get_src_obj_list(bp, object, &id);
+ 
+-	if (number <= index)
++	if (number <= index || !id)
+ 		return BP_RESULT_BADINPUT;
+ 
+ 	*src_object_id = object_id_from_bios_object_id(id[index]);
+-- 
+1.9.1
 
 
 _______________________________________________
