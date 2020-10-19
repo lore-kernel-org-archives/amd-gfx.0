@@ -2,62 +2,72 @@ Return-Path: <SRS0=J5eG=D2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3A56C4363A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75060C433E7
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:39:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5F7822276
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:38:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 139EF21D81
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2020 12:39:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=qq.com header.i=@qq.com header.b="wYGeJt8x"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5F7822276
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=qq.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9VbkuMD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 139EF21D81
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27E576E951;
-	Mon, 19 Oct 2020 12:38:49 +0000 (UTC)
-X-Greylist: delayed 438 seconds by postgrey-1.36 at gabe;
- Mon, 19 Oct 2020 06:28:38 UTC
-Received: from qq.com (out203-205-251-73.mail.qq.com [203.205.251.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 544E46E8D4;
- Mon, 19 Oct 2020 06:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1603088915; bh=jB0wedGqDMjnWzKTLqVfs8k0nBO/DhZPoNNePfjSkNE=;
- h=From:To:Cc:Subject:Date;
- b=wYGeJt8xJ+t0pPV7EMpMFz7QaY7A0mfncOul/hYzHbq0NmXodyZvf8rtVDJBjmN3X
- Zlsfpn7xQxb3xERLwvTtLqLuXvdjcJoZg/wpP4z3/1YVODuXkpLp9zm72sFO3/tGTf
- lCNMlkLwd0pLOk5fd3pwtG4Yg/G5vUN8dUoxguKM=
-Received: from localhost.localdomain ([36.112.86.14])
- by newxmesmtplogicsvrsza6.qq.com (NewEsmtp) with SMTP
- id 541A4EC1; Mon, 19 Oct 2020 14:21:01 +0800
-X-QQ-mid: xmsmtpt1603088461tu3sorx09
-Message-ID: <tencent_6CDB3D2D9BB1A93DCB856F2AD38C59F93F05@qq.com>
-X-QQ-XMAILINFO: MVL33v9tKviNV3DhlxslmIKw3J8kUW/1Izdwa/SBANxfFnfSsVw5ppWnoqGAsN
- QVrrlMQR4pFcZ70dtRV6TB6kuKvU93kxe69R1GuLNxgBsbQw1+fU1RrEI9OU/K5lE4KR0rmq7WIu
- o07QsWGydoKZsG77Zsjil/no+htvZ7M/ms/Uc0QvdX3uU0K/2koBe69ulBazRvho82Co2vjF9YW8
- 3yWdkvkrsocDNCJJnJ/oRx78cwIOoNt/6At3PBspFTPFvxbN0HtGLeMGlxgu9glnCUx5EObz+iEN
- Ezmbfx2pTN5PxHQRaob7jMhIxEaX7IRCkOF9RAsCoqSXpiPl9WAZhnbwJfjIPvF1jRUfuF+it749
- NF98jNzPJpoAgwQxPjcDMLDa8KExT6ibISolHVw7NbD3Hs7mAVcaEYT4FkH1nCZV1H1RZnK/B1aN
- huSWTcdc57pmWANPMMYPvqrUR21l6wc5MCIZwVre4aNefKvP7FW/V8n9/ESGKyXxmRfRGZRk9AZ5
- yeFUeThby6ODy1v7eSw7Wpxk0e+RbUP2kx0CVmIMdrTwmH4kGOuIXo1Y2wbICRFkhSN75pN2ndmH
- NmMObuAvtZUGZchMLzOQMg9MexCuUvd7IoYVUAYFl5sRjf8JpVufpWZWx83rwX6simEDg8vFOMJF
- hI70WO9LQtHYA0HxkqrIrdlR5NtFyXYNNISs9/t1WGmFSRGjtY1c7hB8nzjL+CQoHn1ie5Q1q+PL
- Z96oaV45mAeTVwx0lNepf2cOkitvlhGzYTAnp5f6CliYvR2p8UdH3A6CrwDqYWYlQGTBDRGk1WCk
- oABdrkGiMpzNSdIzBsoBAw8uLR1VrG0CM=
-From: estherbdf <603571786@qq.com>
-To: daniel@ffwll.ch
-Subject: [PATCH] drm/amd/display: fix a possible NULL pointer dereference in
- bios_parser_get_src_obj()
-Date: Mon, 19 Oct 2020 14:20:48 +0800
-X-OQ-MSGID: <1603088448-3529-1-git-send-email-603571786@qq.com>
-X-Mailer: git-send-email 1.9.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 970B16E952;
+	Mon, 19 Oct 2020 12:38:50 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCD0189AF3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 10:11:30 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id a72so9691691wme.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2020 03:11:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=V9eR4apVYbLPN0R9TWO7uweAWP/uCSyBxaW3p8qThjc=;
+ b=C9VbkuMDywE9rIozAp3UMx3BWhRIdN3I4hrJraDPZjNmpApbairwwW8JT+kjXndMBS
+ fpMMtkZkrhH7LPQQ+0mzBx+tWXrqzgdhxpZKF4ff+k7oROxS/cwhD3f1zfhDQgIWG05y
+ TULh32zXcieQsAvYUKq4sId4qsTZ9oPHpsHK2OalhW1VxBVZOlU7P74EuE8kjvGWXhSZ
+ YJOvBJaRWxRqWilmRXb+h4omkFGHEra/vgPOH9maRegTWzoT/nHueQ1AfYt1XKCZQQBi
+ HWWXPE/2Fy/kuAHXubQHcIkWgJNSb4WVHpkU9V+6/whUlN95RtVHgBKHxfu7Fp3BFw/q
+ 6prg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:user-agent
+ :mime-version:content-transfer-encoding;
+ bh=V9eR4apVYbLPN0R9TWO7uweAWP/uCSyBxaW3p8qThjc=;
+ b=X3CuYzTX8RRxVOce1iemLJb2gv7QH9tSz8z9AsY9kePYiFMk99+GmGxawunNGBYROp
+ 3+wTTWZMoFqos/65XtalxaaBExtuBdzSV6qBcG2IOEFK0XjL+JKVxI68HaAoYqIr00Mn
+ X2DJwjHjogJr6cjKdNF6FeuxKgN4794mdF3Rip/F4xf0LiN461BPz3vPS79g3ohVIEUp
+ ro2GqI+J8mGFomXcUviJwFrlytL4Hy+ZbJXGDcL7kSj49XkBKKXu1xCPyODo6UmHyp/E
+ bj6O2EgbDMP/ZAOJp4KgKfDP9RE+nIgLs6Kyg+Nd+iLCUshWXCNOT9EB4h9/5n+Mh7uL
+ GiYA==
+X-Gm-Message-State: AOAM530ssrB1TKiOSDnlmr06cJASMz5MGXuw1czRV4RqgHmZMi3cJfpz
+ GXks/qxQ886kEmRRM8TxvSE=
+X-Google-Smtp-Source: ABdhPJwXPiHC4wlUJV5laPHDqJuIf9oR6SqHGCrNLU1Cwb+V8mj/MOvIAAWhzzEr0FLbPgbDy4lMng==
+X-Received: by 2002:a7b:c189:: with SMTP id y9mr16081028wmi.141.1603102289366; 
+ Mon, 19 Oct 2020 03:11:29 -0700 (PDT)
+Received: from [192.168.1.6] (ppp046176100247.access.hol.gr. [46.176.100.247])
+ by smtp.gmail.com with ESMTPSA id
+ c18sm17301620wrt.10.2020.10.19.03.11.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 03:11:28 -0700 (PDT)
+Message-ID: <a0bdd567f983e403722e257afffbed7dbbc3c226.camel@gmail.com>
+Subject: BUG: Restoring brightness with systemd-backlight doesn't work on
+ Linux 5.9(.1)
+From: Leonidas-Panagiotis Papadakos <papadakospan@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Date: Mon, 19 Oct 2020 13:11:26 +0300
+User-Agent: Evolution 3.38.1 
+MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 19 Oct 2020 12:38:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,50 +80,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: estherbdf <603571786@qq.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why] the func  bios_parser_get_src_obj () is similar to  bios_parser_get_dst_obj () which is fixed by the commit<a8f976473196>("drm/amd/display: Banch of smatch error and warning fixes in DC").
-the symbol 'id' is uninitialized and it is not checked before dereference it,may lead to null pointer dereference.
-[How] Initialized variable explicitly with NULL and add sanitizer.
-
-Signed-off-by: estherbdf <603571786@qq.com>
----
- drivers/gpu/drm/amd/display/dc/bios/bios_parser.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-index 008d4d1..94c6cca 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-@@ -190,7 +190,7 @@ static enum bp_result bios_parser_get_src_obj(struct dc_bios *dcb,
- 	struct graphics_object_id *src_object_id)
- {
- 	uint32_t number;
--	uint16_t *id;
-+	uint16_t *id = NULL;
- 	ATOM_OBJECT *object;
- 	struct bios_parser *bp = BP_FROM_DCB(dcb);
- 
-@@ -206,7 +206,7 @@ static enum bp_result bios_parser_get_src_obj(struct dc_bios *dcb,
- 
- 	number = get_src_obj_list(bp, object, &id);
- 
--	if (number <= index)
-+	if (number <= index || !id)
- 		return BP_RESULT_BADINPUT;
- 
- 	*src_object_id = object_id_from_bios_object_id(id[index]);
--- 
-1.9.1
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGksCgpJIGhhdmUgYSBMZW5vdm8gbGFwdG9wIChMMzQwLTE3QVBJKSB3aGljaCB1c2VzIGFuIEFN
+RCBjaGlwIGZvciBncmFwaGljczoKMDQ6MDAuMCBWR0EgY29tcGF0aWJsZSBjb250cm9sbGVyIFsw
+MzAwXTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EL0FUSV0KUGljYXNzbyBbMTAw
+MjoxNWQ4XSAocmV2IGMyKQoKSXQgc2VlbWVkIHRoYXQgZXZlcnl0aGluZyB3YXMgZmluZSB3aXRo
+IHN5c3RlbWQtYmFja2xpZ2h0IGJlZm9yZSBBTUQgZGVjaWRlZCB0bwptaXggdXNpbmcgMTYtYml0
+IGFuZCA4LWJpdCB2YWx1ZXMuLi4KCk5vdyBpdCBzZWVtcyB0aGF0IHRoaXMgd2FzIHRhY2tsZWQg
+aGVyZQooaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMDM5MDUp
+IGFuZCBpbmRlZWQgSSBkb24ndCBnZXQgdGhpcwppc3N1ZSBhbnltb3JlLCB1c2luZyA1LjkgYW5k
+IG5vdyA1LjkuMSBvbiBBcmNoIExpbnV4OgrOn866z4QgMDcgMTU6MDg6NTYgTDM0MCBzeXN0ZW1k
+LWJhY2tsaWdodFszMzNdOiBhbWRncHVfYmwwOiBTYXZlZCBicmlnaHRuZXNzIDIyMzU5CnRvbyBo
+aWdoOyBkZWNyZWFzaW5nIHRvIDI1NS4KCkkgZG9uJ3Qga25vdyBpZiB0aGlzIGlzIHJlbGF0ZWQg
+dG8gdGhlIDE2LWJpdCBidWcgYW55bW9yZSwgYnV0IEkgZG8gZ2V0IHRoaXMKd2hlbiBJIGJvb3Qg
+dGhlIGxhcHRvcDoKCs6fzrrPhCAxOSAxMjowNDowNiBMMzQwIHN5c3RlbWRbMV06IFN0YXJ0aW5n
+IExvYWQvU2F2ZSBTY3JlZW4gQmFja2xpZ2h0IEJyaWdodG5lc3MKb2YgYmFja2xpZ2h0OmFtZGdw
+dV9ibDAuLi4Kzp/Ous+EIDE5IDEyOjA0OjA2IEwzNDAgc3lzdGVtZFsxXTogc3lzdGVtZC1iYWNr
+bGlnaHRAYmFja2xpZ2h0OmFtZGdwdV9ibDAuc2VydmljZToKTWFpbiBwcm9jZXNzIGV4aXRlZCwg
+Y29kZT1leGl0ZWQsIHN0YXR1cz0xL0ZBSUxVUkUKzp/Ous+EIDE5IDEyOjA0OjA2IEwzNDAgc3lz
+dGVtZFsxXTogc3lzdGVtZC1iYWNrbGlnaHRAYmFja2xpZ2h0OmFtZGdwdV9ibDAuc2VydmljZToK
+RmFpbGVkIHdpdGggcmVzdWx0ICdleGl0LWNvZGUnLgrOn866z4QgMTkgMTI6MDQ6MDYgTDM0MCBz
+eXN0ZW1kWzFdOiBGYWlsZWQgdG8gc3RhcnQgTG9hZC9TYXZlIFNjcmVlbiBCYWNrbGlnaHQKQnJp
+Z2h0bmVzcyBvZiBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC4KCmRtZXNnIGdpdmVzIG1lIHRoaXMgdHJh
+Y2U6ClsgICswLDAwMDAyNV0gLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tClsg
+ICswLDAwMDEzM10gV0FSTklORzogQ1BVOiAwIFBJRDogMTUgYXQKZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYzoyNTQ4CmRjX2xpbmtfc2V0X2Jh
+Y2tsaWdodF9sZXZlbCsweDhhLzB4ZjAgW2FtZGdwdV0KWyAgKzAsMDAwMDAzXSBNb2R1bGVzIGxp
+bmtlZCBpbjogYWMoKykgYWNwaV9jcHVmcmVxKCspIHRjcF9iYnIgdGNwX2xwCnBrY3M4X2tleV9w
+YXJzZXIgc2cgY3J5cHRvX3VzZXIgaXBfdGFibGVzIHhfdGFibGVzIGV4dDQgY3JjMzJjX2dlbmVy
+aWMgY3JjMTYKbWJjYWNoZSBqYmQyIHNlcmlvX3JhdyBhdGtiZCBsaWJwczIgYW1kZ3B1IGNyYzMy
+Y19pbnRlbCB4aGNpX3BjaQp4aGNpX3BjaV9yZW5lc2FzIHhoY2lfaGNkIGk4MDQyIHNlcmlvIGdw
+dV9zY2hlZCBpMmNfYWxnb19iaXQgdHRtIGRybV9rbXNfaGVscGVyCnN5c2NvcHlhcmVhIHN5c2Zp
+bGxyZWN0IHN5c2ltZ2JsdCBmYl9zeXNfZm9wcyBjZWMgcmNfY29yZSBkcm0gYWdwZ2FydApbICAr
+MCwwMDAwMjBdIENQVTogMCBQSUQ6IDE1IENvbW06IGt3b3JrZXIvMDoxIE5vdCB0YWludGVkIDUu
+OS4xLWFyY2gxLTEgIzEKWyAgKzAsMDAwMDAyXSBIYXJkd2FyZSBuYW1lOiBMRU5PVk8gODFMWS9M
+TlZOQjE2MTIxNiwgQklPUyBBUkNOMzRXVyAwNS8yMC8yMDIwClsgICswLDAwMDAwNV0gV29ya3F1
+ZXVlOiBrYWNwaV9ub3RpZnkgYWNwaV9vc19leGVjdXRlX2RlZmVycmVkClsgICswLDAwMDExMl0g
+UklQOiAwMDEwOmRjX2xpbmtfc2V0X2JhY2tsaWdodF9sZXZlbCsweDhhLzB4ZjAgW2FtZGdwdV0K
+WyAgKzAsMDAwMDAyXSBDb2RlOiA3MCAwMyAwMCAwMCAzMSBjMCA0OCA4ZCA5NiBjMCAwMSAwMCAw
+MCA0OCA4YiAwYSA0OCA4NSBjOSA3NAowNiA0OCAzYiA1OSAwOCA3NCAyMCA4MyBjMCAwMSA0OCA4
+MSBjMiBkOCAwNCAwMCAwMCA4MyBmOCAwNiA3NSBlMyA8MGY+IDBiIDQ1IDMxCmU0IDViIDQ0IDg5
+IGUwIDVkIDQxIDVjIDQxIDVkIDQxIDVlIGMzIDQ4IDk4IDQ4IDY5IGMwClsgICswLDAwMDAwMV0g
+UlNQOiAwMDE4OmZmZmZiOGI3MDAxNGZjYzAgRUZMQUdTOiAwMDAxMDI0NgpbICArMCwwMDAwMDJd
+IFJBWDogMDAwMDAwMDAwMDAwMDAwNiBSQlg6IGZmZmZhMjBmZjAyM2ZjMDAgUkNYOiAwMDAwMDAw
+MDAwMDAwMDAwClsgICswLDAwMDAwMV0gUkRYOiBmZmZmYTIwZmVlMDQxZWQwIFJTSTogZmZmZmEy
+MGZlZTA0MDAwMCBSREk6IDAwMDAwMDAwMDAwMDAwMDAKWyAgKzAsMDAwMDAxXSBSQlA6IGZmZmZh
+MjBmZWNkOTAwMDAgUjA4OiAwMDAwMDAwMDAwMDAwMDA0IFIwOTogMDAwMDAwMDAwMDAwMDAwMQpb
+ICArMCwwMDAwMDFdIFIxMDogZmZmZmEyMGZmNjhmNTNhOCBSMTE6IDAwMDAwMDAwMDAwMDAwMDAg
+UjEyOiAwMDAwMDAwMDAwMDAwNDAxClsgICswLDAwMDAwMV0gUjEzOiAwMDAwMDAwMDAwMDAwMDAw
+IFIxNDogMDAwMDAwMDAwMDAwMDQwNCBSMTU6IDAwMDAwMDAwZmZmZmZmZmYKWyAgKzAsMDAwMDAy
+XSBGUzogIDAwMDAwMDAwMDAwMDAwMDAoMDAwMCkgR1M6ZmZmZmEyMGZmOGEwMDAwMCgwMDAwKQpr
+bmxHUzowMDAwMDAwMDAwMDAwMDAwClsgICswLDAwMDAwMV0gQ1M6ICAwMDEwIERTOiAwMDAwIEVT
+OiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpbICArMCwwMDAwMDFdIENSMjogMDAwMDdmZmQ1
+OTU0YmU1MCBDUjM6IDAwMDAwMDAxYjU0NDIwMDAgQ1I0OiAwMDAwMDAwMDAwMzUwNmYwClsgICsw
+LDAwMDAwMl0gQ2FsbCBUcmFjZToKWyAgKzAsMDAwMTE5XSAgYW1kZ3B1X2RtX2JhY2tsaWdodF91
+cGRhdGVfc3RhdHVzKzB4YjQvMHhjMCBbYW1kZ3B1XQpbICArMCwwMDAwMDVdICBiYWNrbGlnaHRf
+ZGV2aWNlX3NldF9icmlnaHRuZXNzKzB4N2UvMHgxMzAKWyAgKzAsMDAwMTA3XSAgYW1kZ3B1X2Fj
+cGlfZXZlbnQrMHgxZmIvMHgyNzAgW2FtZGdwdV0KWyAgKzAsMDAwMDA2XSAgYmxvY2tpbmdfbm90
+aWZpZXJfY2FsbF9jaGFpbisweDVkLzB4ODAKWyAgKzAsMDAwMDAzXSAgYWNwaV9ub3RpZmllcl9j
+YWxsX2NoYWluKzB4YTAvMHhlMApbICArMCwwMDAwMDVdICBhY3BpX3ZpZGVvX2J1c19ub3RpZnkr
+MHgxMzkvMHgxZDAKWyAgKzAsMDAwMDAzXSAgYWNwaV9ldl9ub3RpZnlfZGlzcGF0Y2grMHg0YS8w
+eDVmClsgICswLDAwMDAwMl0gIGFjcGlfb3NfZXhlY3V0ZV9kZWZlcnJlZCsweDE2LzB4MjAKWyAg
+KzAsMDAwMDAzXSAgcHJvY2Vzc19vbmVfd29yaysweDFkYS8weDNkMApbICArMCwwMDAwMDJdICB3
+b3JrZXJfdGhyZWFkKzB4NGQvMHgzZDAKWyAgKzAsMDAwMDAyXSAgPyByZXNjdWVyX3RocmVhZCsw
+eDQxMC8weDQxMApbICArMCwwMDAwMDJdICBrdGhyZWFkKzB4MTQyLzB4MTYwClsgICswLDAwMDAw
+Ml0gID8gX19rdGhyZWFkX2JpbmRfbWFzaysweDYwLzB4NjAKWyAgKzAsMDAwMDAzXSAgcmV0X2Zy
+b21fZm9yaysweDIyLzB4MzAKWyAgKzAsMDAwMDAzXSAtLS1bIGVuZCB0cmFjZSBkMDNmMzZlYmE0
+NjRkOTI4IF0tLS0KCklmIEkgcmVzdGFydMKgc3lzdGVtZC1iYWNrbGlnaHRAYmFja2xpZ2h0OmFt
+ZGdwdV9ibDAuc2VydmljZSBpdCB3b3JrcyBmaW5lLCBhbmQKcmVzdG9yZXMgdGhlIHByZXZpb3Vz
+IGJhY2tsaWdodCBsZXZlbCwgc28gbG9va2luZyBhdCB0aGlzIGZvcnVtIHBvc3QKKGh0dHBzOi8v
+YXJjaGxpbnV4Lm9yZy5ydS9mb3J1bS90b3BpYy8yMDI2Mi8/cGFnZT0xI3Bvc3QtMjM1ODE4KSBJ
+IGVkaXRlZCB0aGUKc2VydmljZSBsaWtlIHNvOgoKIwovZXRjL3N5c3RlbWQvc3lzdGVtL3N5c3Rl
+bWQtYmFja2xpZ2h0QGJhY2tsaWdodDphbWRncHVfYmwwLnNlcnZpY2UuZC9vdmVycmlkZS5jbwpu
+ZgpbU2VydmljZV0KUmVzdGFydD1vbi1mYWlsdXJlClJlc3RhcnRTZWM9NXMKCk5vdyBJIGdldCB0
+aGlzIGF0IGJvb3QgKGZhaWxzLCB0aGVuIHdvcmtzKToKzp/Ous+EIDE5IDEyOjMyOjExIEwzNDAg
+c3lzdGVtZFsxXTogU3RhcnRpbmcgTG9hZC9TYXZlIFNjcmVlbiBCYWNrbGlnaHQgQnJpZ2h0bmVz
+cwpvZiBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC4uLgrOn866z4QgMTkgMTI6MzI6MTEgTDM0MCBzeXN0
+ZW1kWzFdOiBzeXN0ZW1kLWJhY2tsaWdodEBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC5zZXJ2aWNlOgpN
+YWluIHByb2Nlc3MgZXhpdGVkLCBjb2RlPWV4aXRlZCwgc3RhdHVzPTEvRkFJTFVSRQrOn866z4Qg
+MTkgMTI6MzI6MTEgTDM0MCBzeXN0ZW1kWzFdOiBzeXN0ZW1kLWJhY2tsaWdodEBiYWNrbGlnaHQ6
+YW1kZ3B1X2JsMC5zZXJ2aWNlOgpGYWlsZWQgd2l0aCByZXN1bHQgJ2V4aXQtY29kZScuCs6fzrrP
+hCAxOSAxMjozMjoxMSBMMzQwIHN5c3RlbWRbMV06IEZhaWxlZCB0byBzdGFydCBMb2FkL1NhdmUg
+U2NyZWVuIEJhY2tsaWdodApCcmlnaHRuZXNzIG9mIGJhY2tsaWdodDphbWRncHVfYmwwLgrOn866
+z4QgMTkgMTI6MzI6MTYgTDM0MCBzeXN0ZW1kWzFdOiBzeXN0ZW1kLWJhY2tsaWdodEBiYWNrbGln
+aHQ6YW1kZ3B1X2JsMC5zZXJ2aWNlOgpTY2hlZHVsZWQgcmVzdGFydCBqb2IsIHJlc3RhcnQgY291
+bnRlciBpcyBhdCAxLgrOn866z4QgMTkgMTI6MzI6MTYgTDM0MCBzeXN0ZW1kWzFdOiBTdG9wcGVk
+IExvYWQvU2F2ZSBTY3JlZW4gQmFja2xpZ2h0IEJyaWdodG5lc3MKb2YgYmFja2xpZ2h0OmFtZGdw
+dV9ibDAuCs6fzrrPhCAxOSAxMjozMjoxNiBMMzQwIHN5c3RlbWRbMV06IFN0YXJ0aW5nIExvYWQv
+U2F2ZSBTY3JlZW4gQmFja2xpZ2h0IEJyaWdodG5lc3MKb2YgYmFja2xpZ2h0OmFtZGdwdV9ibDAu
+Li4Kzp/Ous+EIDE5IDEyOjMyOjE2IEwzNDAgc3lzdGVtZFsxXTogRmluaXNoZWQgTG9hZC9TYXZl
+IFNjcmVlbiBCYWNrbGlnaHQgQnJpZ2h0bmVzcwpvZiBiYWNrbGlnaHQ6YW1kZ3B1X2JsMC4KCkkg
+aGF2ZSB0cmllZCBhY3BpX2JhY2tsaWdodD12aWRlbyBhbmQgbmF0aXZlIGJ1dCB0aGVuIHRoZSBz
+eXN0ZW1kLWJhY2tsaWdodApzZXJ2aWNlIGZpbmlzaGVzIHN1Y2Nlc3NmdWxseSwgInJlc3Rvcmlu
+ZyIgbWF4IGJyaWdodG5lc3MuCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
