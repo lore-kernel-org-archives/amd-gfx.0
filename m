@@ -2,86 +2,67 @@ Return-Path: <SRS0=LN+i=D3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D766EC433E7
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BBC0C433E7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:27:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73BE322265
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:25:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ECD8722265
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:27:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="q8gn83IP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73BE322265
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="t1NAZQQK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECD8722265
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C88B96EC6F;
-	Tue, 20 Oct 2020 12:25:24 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9DF6EC3D;
- Tue, 20 Oct 2020 08:48:31 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8i7rI188082;
- Tue, 20 Oct 2020 08:48:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : message-id :
- content-type : mime-version : subject : date : in-reply-to : cc : to :
- references; s=corp-2020-01-29;
- bh=UBSvDuZX45rcdCwz1yIzvCzCqfd2joSCizhea4x+Xao=;
- b=q8gn83IPPWdFm1HT3taLhd9DUF/VTUU+yXtsd8f9nD6wriupB19ul4FsqzWGdtIZMcde
- GW+G9oeRVHaGmJfZ8muagtVwvuWLE6AywXuhak+OXkSgdFP6EIR2H2OqKDUhR7yIW2Vz
- zpamQMFlTWRfwdWHBA7I0p8HYGgPlEg7NOi5pNpKeOCI5/Zqu82RI3DyvlSb3YeNhNvu
- 1nAbi2LxPOnr/RtC4QoVHdNGHfdCdQB+x9xvmqx+BqjtbEr8lrxt1aMjIali/bjhTn7W
- dzqjxrXdOv4FjsFo2kwRKNjQX5RScYby9/qqSUitUFXIKeMy4YBvXYVTZYkhax1TMfnU 0w== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 347s8msmp0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 20 Oct 2020 08:48:12 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8is45150623;
- Tue, 20 Oct 2020 08:48:12 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3030.oracle.com with ESMTP id 348ahw07cp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 20 Oct 2020 08:48:12 +0000
-Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 09K8mAEe159753;
- Tue, 20 Oct 2020 08:48:10 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 348ahw07bh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 20 Oct 2020 08:48:10 +0000
-Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09K8lvTX021447;
- Tue, 20 Oct 2020 08:47:58 GMT
-Received: from [10.175.164.120] (/10.175.164.120)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 20 Oct 2020 01:47:57 -0700
-From: John Haxby <john.haxby@oracle.com>
-Message-Id: <27A23102-A7F5-48C5-8972-48CE4C283C6E@oracle.com>
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Re: [Ocfs2-devel] [RFC] treewide: cleanup unreachable breaks
-Date: Tue, 20 Oct 2020 09:47:45 +0100
-In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018054332.GB593954@kroah.com>
- <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-X-Mailer: Apple Mail (2.3608.120.23.2.4)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- suspectscore=0
- lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 spamscore=0
- phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010200059
-X-Mailman-Approved-At: Tue, 20 Oct 2020 12:25:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33F496EC87;
+	Tue, 20 Oct 2020 12:27:16 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0ED6EC87
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 12:27:15 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id a72so1582284wme.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 05:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=q3v97x5tvYaj3Rj4VmKumvFQESxkFr0wARUu/8grPHE=;
+ b=t1NAZQQKrX2I5dzMkwmu9pDhWyTlvZl9+u0f1XCvAcv5frLVkkuPWXR50jwJ1tNXQ2
+ VD6BhZ7AChHe4YUnRhD7AuS0Dszour55HLAH+wbH8iUKQQT0MILHTpawCRi4sCVEuGnp
+ p27KMGWKm37sHJqN3ESfLyLykHhGHEoRXiwabhWlKd97wII3X6+3DrHQxd7I+paZ9ZoE
+ 5ZkEmw+BJzYCy/Acckd/oQCeEEtKoyP7oyxT/1K4Pgk9LPgwlUZgGWf+63z0UplUinga
+ MPzUDcj3jjN40NMxfqA2yFTjmWEDfWHQoC9XvG7W5rruB3bVEQGu4xRpVgyOeVqT9K+X
+ AEUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=q3v97x5tvYaj3Rj4VmKumvFQESxkFr0wARUu/8grPHE=;
+ b=uVcfw1BnvC8aSWXbu/wfE7idfw04YIQX5GgfjPno4QRjNzOdJrvXKCG3SfxmflAe+i
+ 3K1afnZ0XmCrayl9Bt377N4hNHt1uSpVTdasSoN+5kjjZCv4pTpj15IujCWyKZKj4HUZ
+ wrwQSamNugvgWRCD4QWgw7Z+3zQRQHqrP86mEb8FtmYeScJkXazJmyQLRKf6XcLAwAYz
+ 3m/AWjApQF/L1TIR32Xv7ZuHfwXgx2A85BDLIJKPPfsJGIzFq+WU7OyS9069CAeD6wnp
+ Qq1Fh1PzpM3tmk7sjP8qkiGr2QZBEZtE25Ci8jE8uNgEsEkA58lTVG8nSXtLKsf4aY9i
+ MIjQ==
+X-Gm-Message-State: AOAM530BdgRPvHr8m3Crw2EZxgehbTGeWT9ljWlb2SRZHyNoYAFJUInp
+ uZkSR2KJL3YpEpIP08Qnd1NcVRNlmEbYcPSLZJ0=
+X-Google-Smtp-Source: ABdhPJxc6W7WQ0H0v1tCnbA/0OJOdopQvC8MbR81MowdFmOKQgowxkgqVhLTkesVj7D7GP7nsB7qsn6QZC9AneNyGp8=
+X-Received: by 2002:a7b:c7d5:: with SMTP id z21mr2676920wmk.73.1603196834053; 
+ Tue, 20 Oct 2020 05:27:14 -0700 (PDT)
+MIME-Version: 1.0
+References: <20201020064846.3155-1-yifan1.zhang@amd.com>
+In-Reply-To: <20201020064846.3155-1-yifan1.zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 20 Oct 2020 08:27:02 -0400
+Message-ID: <CADnq5_NFy2G_=UGrTXUtdq43EWQ+=LHD0CU7vUvn2v51Mk-ocQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix the display corruption issue on
+ Navi10
+To: Yifan Zhang <yifan1.zhang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,93 +74,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- linux-iio@vger.kernel.org, Tom Rix <trix@redhat.com>,
- linux-pci@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- linux-pm@vger.kernel.org, ath10k@lists.infradead.org,
- linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- industrypack-devel@lists.sourceforge.net, nouveau@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-nfc@lists.01.org, linux-serial@vger.kernel.org,
- linux-can@vger.kernel.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, storagedev@microchip.com,
- linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- platform-driver-x86@vger.kernel.org, bpf <bpf@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
- Greg KH <gregkh@linuxfoundation.org>, linux-nvdimm <linux-nvdimm@lists.01.org>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
- George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, linux-integrity@vger.kernel.org,
- patches@opensource.cirrus.com, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
-Content-Type: multipart/mixed; boundary="===============2062512366=="
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Oct 20, 2020 at 2:49 AM Yifan Zhang <yifan1.zhang@amd.com> wrote:
+>
+> [Why]
+> Screen corruption on Navi10 card
+>
+> [How]
+> Set system context in DCN only on Renoir and Cezanne
+>
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 
---===============2062512366==
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-
---Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-
-
-> On 19 Oct 2020, at 20:42, Nick Desaulniers <ndesaulniers@google.com> =
-wrote:
->=20
-> We probably should add all 3 to W=3D2 builds (wrapped in cc-option).
-> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
-> follow up on.
-
-It looks as though the URL mangling has been fixed.   If anyone sees =
-that specific URL mangled, please let me know.
-
-jch
-
---Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
-
------BEGIN PGP SIGNATURE-----
-Comment: GPGTools - http://gpgtools.org
-
-iHUEAREIAB0WIQT+pxvb11CFWUkNSOVFC7t+lC+jyAUCX46kMQAKCRBFC7t+lC+j
-yBKiAP90JVXdPzuAwtRGkROpw1eVCo7wCaZ5nOa8Oo0sN6gC9gD/S0eGTqQhmg+n
-sXPJxPYqQsg09qmS6k/HX+AP5Oz2AMo=
-=xx66
------END PGP SIGNATURE-----
-
---Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3--
-
---===============2062512366==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 3d534a4da20b..6855aad7f312 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1061,10 +1061,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>
+>         dc_hardware_init(adev->dm.dc);
+>
+> -       mmhub_read_system_context(adev, &pa_config);
+> +       if (adev->asic_type == CHIP_RENOIR) {
+> +               mmhub_read_system_context(adev, &pa_config);
+>
+> -       // Call the DC init_memory func
+> -       dc_setup_system_context(adev->dm.dc, &pa_config);
+> +               // Call the DC init_memory func
+> +               dc_setup_system_context(adev->dm.dc, &pa_config);
+> +       }
+>
+>         adev->dm.freesync_module = mod_freesync_create(adev->dm.dc);
+>         if (!adev->dm.freesync_module) {
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2062512366==--
