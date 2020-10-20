@@ -2,51 +2,71 @@ Return-Path: <SRS0=LN+i=D3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B8F1C4363A
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 20:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C9E7C4363A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 22:31:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AEF72225F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 20:45:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AEF72225F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id E48F82225C
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 22:31:18 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="S0/o9WsR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E48F82225C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C9EB6E05C;
-	Tue, 20 Oct 2020 20:45:02 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0087.hostedemail.com
- [216.40.44.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3C66ED22;
- Tue, 20 Oct 2020 18:42:55 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay02.hostedemail.com (Postfix) with ESMTP id 43FA51260;
- Tue, 20 Oct 2020 18:42:51 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: humor84_3a06a8527241
-X-Filterd-Recvd-Size: 4943
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf17.hostedemail.com (Postfix) with ESMTPA;
- Tue, 20 Oct 2020 18:42:43 +0000 (UTC)
-Message-ID: <3bc5c2e3b3edc22a4d167ec807ecdaaf8dcda76d.camel@perches.com>
-Subject: Re: [RFC] treewide: cleanup unreachable breaks
-From: Joe Perches <joe@perches.com>
-To: Nick Desaulniers <ndesaulniers@google.com>, Tom Rix <trix@redhat.com>
-Date: Tue, 20 Oct 2020 11:42:42 -0700
-In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018054332.GB593954@kroah.com>
- <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-User-Agent: Evolution 3.36.4-0ubuntu1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF616E0AB;
+	Tue, 20 Oct 2020 22:31:18 +0000 (UTC)
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 646726E0AB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 22:31:17 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id x1so392312eds.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 15:31:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tGN8J791ASBz1j8o3HjXKbXShdB4woQMBp9g9JyHw2o=;
+ b=S0/o9WsRZmtA5VRpW33loclxPL0lNMUDfE1aaFoPwpRHlbUITAynRBOjCpLQ1e9gwK
+ 5kgDAyngnQQUfAKHAhtaLaVmeFONgsB1MrSztQIxeckDUZQVUThcpP2YJCysnzuAgLKC
+ FHUqhhq7MaSslfsFK1nklza6RH40NVLjbrPAiFcCwqLq7LcDOeosvjbUvjRlDdGS/x6z
+ bOVwwBo9u4uHkqAOb1gXqLDvLAbnV45RWKdQ1QucDFov7dVJmDtJlNzQ0GktC7ZbqZtQ
+ FTW06wLkHn2rU5c87FjX+kLWJDlU/CSpMaKXhF3AFTeAWH4ZvSjmsRvTkyBYikUoXrIS
+ dJJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tGN8J791ASBz1j8o3HjXKbXShdB4woQMBp9g9JyHw2o=;
+ b=RK3QipAsa8A3DeHbcymRjDsTJuYkbH7LuHyezmk5k4F2vmFvHa6Phb0688i2iLfegZ
+ 1QaZYHStAAS6PML+AzNy+lIHsmaAG1Ko27zCYyeQQla+cUPm9H6wVZNFFlrMaTPEnqlo
+ UdH4bEIrCbVGe3MvZn09Z5rhxlI+Q0ixPToThu9/emQLwXKWJWjbsP2KTLb31zl7LGNR
+ gdW+pBnDu6VqzDeewPpGmktXbLn+pQvcruvy1qe3YuNH8HNgHtFhYVjsTEGE7yVhU2ql
+ FmFi6HrXOCNf8uyeCQaOiAHE524Shzj79YC1tTmqdkEFe/c+OpbLNj9C5/tnpMk+5uxG
+ HEyg==
+X-Gm-Message-State: AOAM530L5R+9SSN396eq5/gGFdXgyISWcvwZhBF+WOhKpJcst9jzOWPt
+ s/RshGIpg57XYTbJPak7Ylo0Vogr3Gsnpg==
+X-Google-Smtp-Source: ABdhPJzveGIQXzkftDsBLdRx4kuzcE2BKV6nPKX7ymtf9vAzW8EoOKcxxW8bQDOLOadBxE1uPw7Omg==
+X-Received: by 2002:a05:6402:395:: with SMTP id o21mr202457edv.2.1603233075600; 
+ Tue, 20 Oct 2020 15:31:15 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a02:aa12:a77f:2000:4cea:81e7:5fd4:93f7])
+ by smtp.gmail.com with ESMTPSA id p3sm331995edy.38.2020.10.20.15.31.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Oct 2020 15:31:14 -0700 (PDT)
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Initialize num_pkrs on VANGOGH.
+Date: Wed, 21 Oct 2020 00:31:13 +0200
+Message-Id: <20201020223113.310402-1-bas@basnieuwenhuizen.nl>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 20 Oct 2020 20:45:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,90 +78,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, storagedev@microchip.com,
- dri-devel <dri-devel@lists.freedesktop.org>,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, ath10k@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nvdimm <linux-nvdimm@lists.01.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
- linux-pci@vger.kernel.org, spice-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-nfc@lists.01.org, linux-pm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
- George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
- linux-usb@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
- "open list:HARDWARE RANDOM NUMBER
- GENERATOR CORE" <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- bpf <bpf@vger.kernel.org>, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
+Cc: alexander.deucher@amd.com, Roman.Li@amd.com,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2020-10-19 at 12:42 -0700, Nick Desaulniers wrote:
-> On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
-> > > From: Tom Rix <trix@redhat.com>
-> > > 
-> > > This is a upcoming change to clean up a new warning treewide.
-> > > I am wondering if the change could be one mega patch (see below) or
-> > > normal patch per file about 100 patches or somewhere half way by collecting
-> > > early acks.
-> > 
-> > Please break it up into one-patch-per-subsystem, like normal, and get it
-> > merged that way.
-> > 
-> > Sending us a patch, without even a diffstat to review, isn't going to
-> > get you very far...
-> 
-> Tom,
-> If you're able to automate this cleanup, I suggest checking in a
-> script that can be run on a directory.  Then for each subsystem you
-> can say in your commit "I ran scripts/fix_whatever.py on this subdir."
->  Then others can help you drive the tree wide cleanup.  Then we can
-> enable -Wunreachable-code-break either by default, or W=2 right now
-> might be a good idea.
-> 
-> Ah, George (gbiv@, cc'ed), did an analysis recently of
-> `-Wunreachable-code-loop-increment`, `-Wunreachable-code-break`, and
-> `-Wunreachable-code-return` for Android userspace.  From the review:
-> ```
-> Spoilers: of these, it seems useful to turn on
-> -Wunreachable-code-loop-increment and -Wunreachable-code-return by
-> default for Android
-> ...
-> While these conventions about always having break arguably became
-> obsolete when we enabled -Wfallthrough, my sample turned up zero
-> potential bugs caught by this warning, and we'd need to put a lot of
-> effort into getting a clean tree. So this warning doesn't seem to be
-> worth it.
-> ```
-> Looks like there's an order of magnitude of `-Wunreachable-code-break`
-> than the other two.
-> 
-> We probably should add all 3 to W=2 builds (wrapped in cc-option).
-> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
-> follow up on.
+As far a I can tell uses a variant of DCN3xx which uses num_pkrs.
 
-I suggest using W=1 as people that are doing cleanups
-generally use that and not W=123 or any other style.
+If we do not initialize the variable we will set the register field
+to ilog2(0) = -1, though the mask will reduce that to 7. Pretty sure
+7 is not the value we want here.
 
-Every other use of W= is still quite noisy and these
-code warnings are relatively trivially to fix up.
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+---
 
+Found while rebasing my modifiers series. Not tested on HW.
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6855aad7f312..2713caac4f2a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4074,7 +4074,8 @@ fill_plane_buffer_attributes(struct amdgpu_device *adev,
+ #ifdef CONFIG_DRM_AMD_DC_DCN3_0
+ 		if (adev->asic_type == CHIP_SIENNA_CICHLID ||
+ 		    adev->asic_type == CHIP_NAVY_FLOUNDER ||
+-		    adev->asic_type == CHIP_DIMGREY_CAVEFISH)
++		    adev->asic_type == CHIP_DIMGREY_CAVEFISH ||
++		    adev->asic_type == CHIP_VANGOGH)
+ 			tiling_info->gfx9.num_pkrs = adev->gfx.config.gb_addr_config_fields.num_pkrs;
+ #endif
+ 		ret = fill_plane_dcc_attributes(adev, afb, format, rotation,
+-- 
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
