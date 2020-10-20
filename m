@@ -2,85 +2,86 @@ Return-Path: <SRS0=LN+i=D3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C769C4363A
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C467C388F7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5D13206CA
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:00:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9FE70206CA
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 18:00:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dqj1hqYp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5D13206CA
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ewDv3aOr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FE70206CA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F3D6ECF4;
-	Tue, 20 Oct 2020 18:00:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6E96ECF7;
+	Tue, 20 Oct 2020 18:00:40 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1336F6ECBE
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 13:56:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044EF6ECA7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 14:09:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1603202165;
+ s=mimecast20190719; t=1603202972;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HyQ28xr5/lapv6azTtFCvHFT5XQ1+OzeHk+84iEm66Y=;
- b=dqj1hqYpU6/y2h8V+kIQptv0xhdOCg30nYjG0UuQPR4HzPGpwcXs8bTMbLhH/MZ4iyaOGe
- bIsQLktd/HxsejJ6iD6T7AP53V0El8WD9AX/eQ5RKofX+tIH76o2/BtELPXTXNDVWD5wEg
- LuY4RW3ZSsnbV2leAXQmqfUp5Xe8+Ec=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-2-QgHklqG5Pwiz5cpjQZEylw-1; Tue, 20 Oct 2020 09:56:01 -0400
-X-MC-Unique: QgHklqG5Pwiz5cpjQZEylw-1
-Received: by mail-qk1-f198.google.com with SMTP id b7so1789256qkh.20
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 06:56:01 -0700 (PDT)
+ bh=rOdQp2iOSkahNa0CfH1+VDlgH/zqWEjNOjN0qUXEes0=;
+ b=ewDv3aOrdJ+x5A6s7YiY6e3DZ/xG19fiCFYxEBc219ynzJxgu/51wlX4XbcPcMAU2oHyfD
+ PtMot7BJZaqOvPJXq6YGOAgeRSVWl5/eHGglGFP0XXl1T9R1hHW25Ri1M+zqhWdXytm0kf
+ dEEfBPozJhD9ETuNOOZz/yhFPpgdSTo=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-86-kmSNWzcNMIStr44knoGfZA-1; Tue, 20 Oct 2020 10:09:30 -0400
+X-MC-Unique: kmSNWzcNMIStr44knoGfZA-1
+Received: by mail-qt1-f199.google.com with SMTP id n7so1698349qta.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2020 07:09:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=HyQ28xr5/lapv6azTtFCvHFT5XQ1+OzeHk+84iEm66Y=;
- b=qEy5j3fvPRpnmHsxPQqf17ZqCtUNvuarHdfBvwjJbp4BNkLMgN5dUWXiEGt6GUfAQX
- rBYnPEgBvq7TbACVYPjKwRWjh+s5n2ywm5FvJ+fxivlo/hFQqA9PECVlMr6XAV+YHm6p
- QYJ+UmbsUzmj5BoHax5FT/V7NgJeL+UPgRMGPbtXZMNQeC5BGtyQ9WnZas1PNls93R41
- qbZvLEgw3qzxJBAMUCzOfbJzkHIghYpZAb4W8PM8F1diHak78YFTffUrY5NPpZHV0YJO
- 9M3U+YvsP+nWR5uNC4omjgXqz4TVfod5wJttUQa9CFieonJjGJ7r3/04WuDldifxP8ij
- YciA==
-X-Gm-Message-State: AOAM532GJ8BqH4X6s3DTrOKjdvSz3I07tZGOC4uTN+DirHo486St0wal
- WImT/v/13BuacCqd90skFTmGCI5/wMV3O1ZTtXgCJcVLgZZV8/hINboGz6hj3nfpgNIpvHnMRao
- 00pY0VUwGlkaxs8UvboGxx+b0Rw==
-X-Received: by 2002:a05:6214:174f:: with SMTP id
- dc15mr3370440qvb.25.1603202160688; 
- Tue, 20 Oct 2020 06:56:00 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyLUAfqrAOJzxwKF3+voCBF5yQYNbMOvfOkDZhumkJj3bEnT15V4x8vUJ5iQ5pWt9KusIZtsQ==
-X-Received: by 2002:a05:6214:174f:: with SMTP id
- dc15mr3370377qvb.25.1603202160139; 
- Tue, 20 Oct 2020 06:56:00 -0700 (PDT)
+ bh=rOdQp2iOSkahNa0CfH1+VDlgH/zqWEjNOjN0qUXEes0=;
+ b=Y/QIPDKSy04E0v5K0im8k6BMw5KDSGaU8ZF2vBu9bqzrgTs4CP/k4/zcgPzyi/y8w1
+ T3D3j2/8UXIsZoAzyPFGXgnz1IaTjtmafCg+hqE9H5FW/ciLZ1uqVyouPnxwaBIromZT
+ Ve8O3mY6Dwg05gatI75AOAcSu/7/lgY4L8BUVZOFDRewi35AUcXymAlcrVwSQ0bTRdGO
+ kXmHZq7w2pKno3Jg0Pkkr/YOQu0/Al7P2ADdVY9iYVT2qUY7CckZStomSE28bFzYG5Rm
+ 1PlI70DaKUNimDhJkGCXkdYaGgwMTJ1MX7r6sen90zBQbHCq0IvjLZyVdUc+XsD0/aBN
+ ORmg==
+X-Gm-Message-State: AOAM532TRRA8sUdo0Hz3HvWDgB+pUtY/EqJPlkGBz+VUDVgO9Kl8Soo+
+ HNnHxwOtNrBphXW9NzWeaNHZ1JWkroPwmBxCXjM6pDCZEKvFr5fVHJfrR8ECXOrPphNMWNSWtz8
+ cCTJk27ajgE6R4EViLq7aTRrAgA==
+X-Received: by 2002:a05:620a:2195:: with SMTP id
+ g21mr2990109qka.358.1603202969840; 
+ Tue, 20 Oct 2020 07:09:29 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwKUy8N8weGLwzCzHDZ8oTBMtQsWbHEBLlPfZD5zpEfJ13ExA6QvxSe7FmqqHnm4D1jNxINeQ==
+X-Received: by 2002:a05:620a:2195:: with SMTP id
+ g21mr2990039qka.358.1603202969497; 
+ Tue, 20 Oct 2020 07:09:29 -0700 (PDT)
 Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
  [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id b8sm775938qkn.133.2020.10.20.06.55.53
+ by smtp.gmail.com with ESMTPSA id o14sm785284qto.16.2020.10.20.07.09.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Oct 2020 06:55:59 -0700 (PDT)
+ Tue, 20 Oct 2020 07:09:28 -0700 (PDT)
 Subject: Re: [RFC] treewide: cleanup unreachable breaks
-To: Nick Desaulniers <ndesaulniers@google.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Nick Desaulniers <ndesaulniers@google.com>
 References: <20201017160928.12698-1-trix@redhat.com>
  <20201018054332.GB593954@kroah.com>
  <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+ <20201019230546.GH36674@ziepe.ca>
 From: Tom Rix <trix@redhat.com>
-Message-ID: <ca1f50d6-1005-8e3d-8d5c-98c82a704338@redhat.com>
-Date: Tue, 20 Oct 2020 06:55:52 -0700
+Message-ID: <859ff6ff-3e10-195c-6961-7b2902b151d4@redhat.com>
+Date: Tue, 20 Oct 2020 07:09:23 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+In-Reply-To: <20201019230546.GH36674@ziepe.ca>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -124,74 +125,59 @@ Cc: alsa-devel@alsa-project.org,
  LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
  "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
  <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, bpf <bpf@vger.kernel.org>,
- ocfs2-devel@oss.oracle.com, linux-power@fi.rohmeurope.com
+ bpf <bpf@vger.kernel.org>, ocfs2-devel@oss.oracle.com,
+ linux-power@fi.rohmeurope.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 10/19/20 12:42 PM, Nick Desaulniers wrote:
-> On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
->> On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
->>> From: Tom Rix <trix@redhat.com>
+On 10/19/20 4:05 PM, Jason Gunthorpe wrote:
+> On Mon, Oct 19, 2020 at 12:42:15PM -0700, Nick Desaulniers wrote:
+>> On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+>>> On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
+>>>> From: Tom Rix <trix@redhat.com>
+>>>>
+>>>> This is a upcoming change to clean up a new warning treewide.
+>>>> I am wondering if the change could be one mega patch (see below) or
+>>>> normal patch per file about 100 patches or somewhere half way by collecting
+>>>> early acks.
+>>> Please break it up into one-patch-per-subsystem, like normal, and get it
+>>> merged that way.
 >>>
->>> This is a upcoming change to clean up a new warning treewide.
->>> I am wondering if the change could be one mega patch (see below) or
->>> normal patch per file about 100 patches or somewhere half way by collecting
->>> early acks.
->> Please break it up into one-patch-per-subsystem, like normal, and get it
->> merged that way.
->>
->> Sending us a patch, without even a diffstat to review, isn't going to
->> get you very far...
-> Tom,
-> If you're able to automate this cleanup, I suggest checking in a
-> script that can be run on a directory.  Then for each subsystem you
-> can say in your commit "I ran scripts/fix_whatever.py on this subdir."
->  Then others can help you drive the tree wide cleanup.  Then we can
-> enable -Wunreachable-code-break either by default, or W=2 right now
-> might be a good idea.
+>>> Sending us a patch, without even a diffstat to review, isn't going to
+>>> get you very far...
+>> Tom,
+>> If you're able to automate this cleanup, I suggest checking in a
+>> script that can be run on a directory.  Then for each subsystem you
+>> can say in your commit "I ran scripts/fix_whatever.py on this subdir."
+>>  Then others can help you drive the tree wide cleanup.  Then we can
+>> enable -Wunreachable-code-break either by default, or W=2 right now
+>> might be a good idea.
+> I remember using clang-modernize in the past to fix issues very
+> similar to this, if clang machinery can generate the warning, can't
+> something like clang-tidy directly generate the patch?
 
-I should have waited for Joe Perches's fixer addition to checkpatch :)
+Yes clang-tidy and similar are good tools.
 
-The easy fixes I did only cover about 1/2 of the problems.
+Sometimes they change too much and your time shifts
 
-Remaining are mostly nested switches, which from a complexity standpoint is bad.
+from editing to analyzing and dropping changes.
 
->
-> Ah, George (gbiv@, cc'ed), did an analysis recently of
-> `-Wunreachable-code-loop-increment`, `-Wunreachable-code-break`, and
-> `-Wunreachable-code-return` for Android userspace.  From the review:
-> ```
-> Spoilers: of these, it seems useful to turn on
-> -Wunreachable-code-loop-increment and -Wunreachable-code-return by
-> default for Android
 
-In my simple add-a-cflag bot, i see there are about 250
+I am looking at them for auto changing api.
 
-issues for -Wunreachable-code-return.
-
-I'll see about doing this one next.
-
-> ...
-> While these conventions about always having break arguably became
-> obsolete when we enabled -Wfallthrough, my sample turned up zero
-> potential bugs caught by this warning, and we'd need to put a lot of
-> effort into getting a clean tree. So this warning doesn't seem to be
-> worth it.
-> ```
-> Looks like there's an order of magnitude of `-Wunreachable-code-break`
-> than the other two.
->
-> We probably should add all 3 to W=2 builds (wrapped in cc-option).
-> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
-> follow up on.
-
-Yes, i think think these should be added.
+When i have something greater than half baked i will post.
 
 Tom
+
+>
+> You can send me a patch for drivers/infiniband/* as well
+>
+> Thanks,
+> Jason
+>
 
 _______________________________________________
 amd-gfx mailing list
