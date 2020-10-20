@@ -2,54 +2,86 @@ Return-Path: <SRS0=LN+i=D3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 262FCC43467
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D766EC433E7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF98A2222F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF98A2222F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 73BE322265
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2020 12:25:25 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="q8gn83IP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73BE322265
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC106EC7D;
-	Tue, 20 Oct 2020 12:21:03 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51A446EC83;
- Tue, 20 Oct 2020 12:20:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D4090B1EA;
- Tue, 20 Oct 2020 12:20:55 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, kraxel@redhat.com, l.stach@pengutronix.de,
- linux+etnaviv@armlinux.org.uk, christian.gmeiner@gmail.com,
- inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, kgene@kernel.org, krzk@kernel.org,
- yuq825@gmail.com, bskeggs@redhat.com, robh@kernel.org,
- tomeu.vizoso@collabora.com, steven.price@arm.com,
- alyssa.rosenzweig@collabora.com, hjc@rock-chips.com, heiko@sntech.de,
- hdegoede@redhat.com, sean@poorly.run, eric@anholt.net,
- oleksandr_andrushchenko@epam.com, ray.huang@amd.com,
- sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
- apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
- chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Subject: [PATCH v5 09/10] dma-buf-map: Add memcpy and pointer-increment
- interfaces
-Date: Tue, 20 Oct 2020 14:20:45 +0200
-Message-Id: <20201020122046.31167-10-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201020122046.31167-1-tzimmermann@suse.de>
-References: <20201020122046.31167-1-tzimmermann@suse.de>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88B96EC6F;
+	Tue, 20 Oct 2020 12:25:24 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9DF6EC3D;
+ Tue, 20 Oct 2020 08:48:31 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8i7rI188082;
+ Tue, 20 Oct 2020 08:48:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : message-id :
+ content-type : mime-version : subject : date : in-reply-to : cc : to :
+ references; s=corp-2020-01-29;
+ bh=UBSvDuZX45rcdCwz1yIzvCzCqfd2joSCizhea4x+Xao=;
+ b=q8gn83IPPWdFm1HT3taLhd9DUF/VTUU+yXtsd8f9nD6wriupB19ul4FsqzWGdtIZMcde
+ GW+G9oeRVHaGmJfZ8muagtVwvuWLE6AywXuhak+OXkSgdFP6EIR2H2OqKDUhR7yIW2Vz
+ zpamQMFlTWRfwdWHBA7I0p8HYGgPlEg7NOi5pNpKeOCI5/Zqu82RI3DyvlSb3YeNhNvu
+ 1nAbi2LxPOnr/RtC4QoVHdNGHfdCdQB+x9xvmqx+BqjtbEr8lrxt1aMjIali/bjhTn7W
+ dzqjxrXdOv4FjsFo2kwRKNjQX5RScYby9/qqSUitUFXIKeMy4YBvXYVTZYkhax1TMfnU 0w== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 347s8msmp0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 20 Oct 2020 08:48:12 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8is45150623;
+ Tue, 20 Oct 2020 08:48:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by userp3030.oracle.com with ESMTP id 348ahw07cp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 20 Oct 2020 08:48:12 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 09K8mAEe159753;
+ Tue, 20 Oct 2020 08:48:10 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 348ahw07bh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 20 Oct 2020 08:48:10 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09K8lvTX021447;
+ Tue, 20 Oct 2020 08:47:58 GMT
+Received: from [10.175.164.120] (/10.175.164.120)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 20 Oct 2020 01:47:57 -0700
+From: John Haxby <john.haxby@oracle.com>
+Message-Id: <27A23102-A7F5-48C5-8972-48CE4C283C6E@oracle.com>
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
+Subject: Re: [Ocfs2-devel] [RFC] treewide: cleanup unreachable breaks
+Date: Tue, 20 Oct 2020 09:47:45 +0100
+In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+To: Nick Desaulniers <ndesaulniers@google.com>
+References: <20201017160928.12698-1-trix@redhat.com>
+ <20201018054332.GB593954@kroah.com>
+ <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+X-Mailer: Apple Mail (2.3608.120.23.2.4)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ suspectscore=0
+ lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 spamscore=0
+ phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010200059
+X-Mailman-Approved-At: Tue, 20 Oct 2020 12:25:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,146 +93,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- xen-devel@lists.xenproject.org, spice-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ linux-iio@vger.kernel.org, Tom Rix <trix@redhat.com>,
+ linux-pci@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
+ linux-mtd@lists.infradead.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
+ devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ linux-pm@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ industrypack-devel@lists.sourceforge.net, nouveau@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-nfc@lists.01.org, linux-serial@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-gpio@vger.kernel.org, storagedev@microchip.com,
+ linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
+ platform-driver-x86@vger.kernel.org, bpf <bpf@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ Greg KH <gregkh@linuxfoundation.org>, linux-nvdimm <linux-nvdimm@lists.01.org>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
+ George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>, linux-integrity@vger.kernel.org,
+ patches@opensource.cirrus.com, ocfs2-devel@oss.oracle.com,
+ linux-power@fi.rohmeurope.com
+Content-Type: multipart/mixed; boundary="===============2062512366=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To do framebuffer updates, one needs memcpy from system memory and a
-pointer-increment function. Add both interfaces with documentation.
 
-v5:
-	* include <linux/string.h> to build on sparc64 (Sam)
+--===============2062512366==
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-Tested-by: Sam Ravnborg <sam@ravnborg.org>
----
- include/linux/dma-buf-map.h | 73 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 63 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/dma-buf-map.h b/include/linux/dma-buf-map.h
-index 2e8bbecb5091..583a3a1f9447 100644
---- a/include/linux/dma-buf-map.h
-+++ b/include/linux/dma-buf-map.h
-@@ -7,6 +7,7 @@
- #define __DMA_BUF_MAP_H__
- 
- #include <linux/io.h>
-+#include <linux/string.h>
- 
- /**
-  * DOC: overview
-@@ -32,6 +33,14 @@
-  * accessing the buffer. Use the returned instance and the helper functions
-  * to access the buffer's memory in the correct way.
-  *
-+ * The type :c:type:`struct dma_buf_map <dma_buf_map>` and its helpers are
-+ * actually independent from the dma-buf infrastructure. When sharing buffers
-+ * among devices, drivers have to know the location of the memory to access
-+ * the buffers in a safe way. :c:type:`struct dma_buf_map <dma_buf_map>`
-+ * solves this problem for dma-buf and its users. If other drivers or
-+ * sub-systems require similar functionality, the type could be generalized
-+ * and moved to a more prominent header file.
-+ *
-  * Open-coding access to :c:type:`struct dma_buf_map <dma_buf_map>` is
-  * considered bad style. Rather then accessing its fields directly, use one
-  * of the provided helper functions, or implement your own. For example,
-@@ -51,6 +60,14 @@
-  *
-  *	dma_buf_map_set_vaddr_iomem(&map. 0xdeadbeaf);
-  *
-+ * Instances of struct dma_buf_map do not have to be cleaned up, but
-+ * can be cleared to NULL with dma_buf_map_clear(). Cleared mappings
-+ * always refer to system memory.
-+ *
-+ * .. code-block:: c
-+ *
-+ *	dma_buf_map_clear(&map);
-+ *
-  * Test if a mapping is valid with either dma_buf_map_is_set() or
-  * dma_buf_map_is_null().
-  *
-@@ -73,17 +90,19 @@
-  *	if (dma_buf_map_is_equal(&sys_map, &io_map))
-  *		// always false
-  *
-- * Instances of struct dma_buf_map do not have to be cleaned up, but
-- * can be cleared to NULL with dma_buf_map_clear(). Cleared mappings
-- * always refer to system memory.
-+ * A set up instance of struct dma_buf_map can be used to access or manipulate
-+ * the buffer memory. Depending on the location of the memory, the provided
-+ * helpers will pick the correct operations. Data can be copied into the memory
-+ * with dma_buf_map_memcpy_to(). The address can be manipulated with
-+ * dma_buf_map_incr().
-  *
-- * The type :c:type:`struct dma_buf_map <dma_buf_map>` and its helpers are
-- * actually independent from the dma-buf infrastructure. When sharing buffers
-- * among devices, drivers have to know the location of the memory to access
-- * the buffers in a safe way. :c:type:`struct dma_buf_map <dma_buf_map>`
-- * solves this problem for dma-buf and its users. If other drivers or
-- * sub-systems require similar functionality, the type could be generalized
-- * and moved to a more prominent header file.
-+ * .. code-block:: c
-+ *
-+ *	const void *src = ...; // source buffer
-+ *	size_t len = ...; // length of src
-+ *
-+ *	dma_buf_map_memcpy_to(&map, src, len);
-+ *	dma_buf_map_incr(&map, len); // go to first byte after the memcpy
-  */
- 
- /**
-@@ -210,4 +229,38 @@ static inline void dma_buf_map_clear(struct dma_buf_map *map)
- 	}
- }
- 
-+/**
-+ * dma_buf_map_memcpy_to - Memcpy into dma-buf mapping
-+ * @dst:	The dma-buf mapping structure
-+ * @src:	The source buffer
-+ * @len:	The number of byte in src
-+ *
-+ * Copies data into a dma-buf mapping. The source buffer is in system
-+ * memory. Depending on the buffer's location, the helper picks the correct
-+ * method of accessing the memory.
-+ */
-+static inline void dma_buf_map_memcpy_to(struct dma_buf_map *dst, const void *src, size_t len)
-+{
-+	if (dst->is_iomem)
-+		memcpy_toio(dst->vaddr_iomem, src, len);
-+	else
-+		memcpy(dst->vaddr, src, len);
-+}
-+
-+/**
-+ * dma_buf_map_incr - Increments the address stored in a dma-buf mapping
-+ * @map:	The dma-buf mapping structure
-+ * @incr:	The number of bytes to increment
-+ *
-+ * Increments the address stored in a dma-buf mapping. Depending on the
-+ * buffer's location, the correct value will be updated.
-+ */
-+static inline void dma_buf_map_incr(struct dma_buf_map *map, size_t incr)
-+{
-+	if (map->is_iomem)
-+		map->vaddr_iomem += incr;
-+	else
-+		map->vaddr += incr;
-+}
-+
- #endif /* __DMA_BUF_MAP_H__ */
--- 
-2.28.0
+--Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 19 Oct 2020, at 20:42, Nick Desaulniers <ndesaulniers@google.com> =
+wrote:
+>=20
+> We probably should add all 3 to W=3D2 builds (wrapped in cc-option).
+> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
+> follow up on.
+
+It looks as though the URL mangling has been fixed.   If anyone sees =
+that specific URL mangled, please let me know.
+
+jch
+
+--Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - http://gpgtools.org
+
+iHUEAREIAB0WIQT+pxvb11CFWUkNSOVFC7t+lC+jyAUCX46kMQAKCRBFC7t+lC+j
+yBKiAP90JVXdPzuAwtRGkROpw1eVCo7wCaZ5nOa8Oo0sN6gC9gD/S0eGTqQhmg+n
+sXPJxPYqQsg09qmS6k/HX+AP5Oz2AMo=
+=xx66
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3--
+
+--===============2062512366==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============2062512366==--
