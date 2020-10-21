@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3172C56202
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 14:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A354C55179
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 14:23:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 667D42224E
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 14:23:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0FE0922283
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 14:23:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SZldMsLa"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 667D42224E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MB0GA8R1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FE0922283
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B0A6EDD1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D654F6EDD3;
 	Wed, 21 Oct 2020 14:23:30 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63B36EDD1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 14:23:24 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85AA56EDD1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 14:23:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ld68PAJMvFbcJPPeAhDxQdz2vVCPP8lsE6qvpeHh1GBc6hmCLhAhNUYspQEqJrCLBvp04a9gIPFEeIdqpSo5TySMAHLEjvhAK01x3nJyOjGmHLqiHreK2k4pPJ1z8X2STpgA9+wrb1JiGXk9U4hBm38Pv0hZQG37tz8tbjGavQldklkYZA+iJi3oS/+4fmKyY+34QC7ndF+qkDvhZLWlXXM1+5/+WU3pZ+E4zln5i1NNBnB85vyXE22uqJwLiYKcmLjRdW6THwuY12eoKDH9TviZ5FTvEB653jlfCXETopxJ+fMn9r0rj7X3WLKvKr+aBqMODZaJDO+suHDWb9mWbQ==
+ b=PxyXQZmZTqifTxtQbts1PEzzNtFeIZMfUrg9FCZEiFWZ+vpjpmxIxw41tWPJLp6VxzI1pOYHjOoJrAf68pwzKGsJcy0tHfHFWYndEKLoYygk5CyKURoOSQRIxmRNMhnw4pQsv5ZBd/JYT5BD7Jd1bclhwpvYasVDYAndmUuQ4w35cEwqrDHlkM+qD7K+/wwIj54+80LnpgWc6G8cebo5z/GJSTXK7S/MnzSXNhjCHQV4bdIzageVpplDgjOVk6EV4knz1m9mP+1Z4xN5F3eqxtrFoxxE7AnJ9hcnG4rqlOPS2NStGxIghflDVoES33AVNKzjKfYL31uO+Q6oSiswMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EvZduaNNx/3P7PkRdSsfJSnY/v4v3u23Y39J61f11iE=;
- b=VyA2rrpxU/FJadTIstaYZDWmx7qa5xlwPG07NdF9QvkQBYacfYfhVijoFsiTvAH/NTPzPv3FmORwKLLr2ds7k16Z2NMUiKceM1qpnXYzwP92lLK+GUA2iu+2Ahtl8gKOjp65wLrclEcTColT2c9FU6/GvD5AJP/C19HWkoT7zIxguu7t6YgUe+NkRWlMTZznIY9qdUAwNi50dcqTz8LWWU2j0YHT/glW7qAVg6RWma8O8WeJWZxDlgJyZhjbzcVTZH2IpKE2uXfulMZPUIXKqblu6wPBL9oBRT1hlOLkztdWQcDO8ELchvNJwl7haXOn4eu/Apx+BZMuvPIN9V2dTw==
+ bh=tD8imedllPaovrloIJKnvPp3P/VRwe/UoFLHxVAaC3g=;
+ b=exlHrx8NSVr0phtDPvuDvF5QCUFwT+KL8lnP2uSH0eVX1cpc3H+uCSU0yXCJKxoWP/1Wfyp0ttjoiwY+v6Jn1GsT1IBdE8BHsteQ8MtJR1WhAgVCKkEx9gp6pyDOUREBwrikcXIUba0KqHvn5Gnspnjo064Y2wzcfW0zZEu8hUL5Ew6ijM7Slp7hOF+kxbN5v7EEQjIn6j/8/DIPltGJtP1jCq+4X7tWbBGcYkOUmix0GQ07DWzJGmoFyS5cwk/Zvkv3ZZdDZpAvnVqduesFr0jm+NmFbYEj+5+qhIv8JACjC3myV9y3sDzWlmRiy/drOPkvj5JQ5PQGLsmyr53QKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=none action=none header.from=amd.com; dkim=none (message not signed);
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EvZduaNNx/3P7PkRdSsfJSnY/v4v3u23Y39J61f11iE=;
- b=SZldMsLadji2AEj5lyzw/xQENDsFY68Ysi7Z0JNRpgvmovZvlC+wXWyqCTVukH97gnbhp47ganzhxjpMhUgIGDCjnZHjFuPhNDuSuxtsH1pr+psS9HtQOGU9jyjGR0Nzm4uPV7RJMgGBgpM2nzjOFNvo1PmIpoR9eUAzJKpQCys=
-Received: from DM5PR16CA0030.namprd16.prod.outlook.com (2603:10b6:4:15::16) by
- MWHPR1201MB0272.namprd12.prod.outlook.com (2603:10b6:301:52::13) with
+ bh=tD8imedllPaovrloIJKnvPp3P/VRwe/UoFLHxVAaC3g=;
+ b=MB0GA8R1X5g4mJy+DAZnWeXjnKmltPYNIik1jRjpstYenK19SW5MHQ3ePnd6CMCO1KZAKZDY8stiOHE8xuV4vyDgYsRDKVREYfId6JVIm9EkouTSqc4GMVA4CWss0znevOG+dltmy40UeTiU6eUGPcrrwBwesIrnUwCtoA0ATAg=
+Received: from DM5PR16CA0042.namprd16.prod.outlook.com (2603:10b6:4:15::28) by
+ BYAPR12MB3223.namprd12.prod.outlook.com (2603:10b6:a03:138::31) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Wed, 21 Oct
- 2020 14:23:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Wed, 21 Oct
+ 2020 14:23:27 +0000
 Received: from DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:15:cafe::6d) by DM5PR16CA0030.outlook.office365.com
- (2603:10b6:4:15::16) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:4:15:cafe::32) by DM5PR16CA0042.outlook.office365.com
+ (2603:10b6:4:15::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18 via Frontend
- Transport; Wed, 21 Oct 2020 14:23:22 +0000
+ Transport; Wed, 21 Oct 2020 14:23:27 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=none action=none
@@ -61,19 +61,23 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  DM6NAM11FT047.mail.protection.outlook.com (10.13.172.139) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3499.18 via Frontend Transport; Wed, 21 Oct 2020 14:23:22 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ 15.20.3499.18 via Frontend Transport; Wed, 21 Oct 2020 14:23:27 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 21 Oct
- 2020 09:23:21 -0500
+ 2020 09:23:26 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 21 Oct
+ 2020 09:23:26 -0500
 Received: from aj-EliteDesk.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Wed, 21 Oct 2020 09:23:20 -0500
+ Transport; Wed, 21 Oct 2020 09:23:25 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 21/33] drm/amd/display: Fix max brightness pixel accuracy
-Date: Wed, 21 Oct 2020 10:22:45 -0400
-Message-ID: <20201021142257.190969-22-aurabindo.pillai@amd.com>
+Subject: [PATCH 27/33] drm/amd/display: Add tracepoint for amdgpu_dm
+Date: Wed, 21 Oct 2020 10:22:51 -0400
+Message-ID: <20201021142257.190969-28-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201021142257.190969-1-aurabindo.pillai@amd.com>
 References: <20201021142257.190969-1-aurabindo.pillai@amd.com>
@@ -81,27 +85,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fc2c8886-8267-41f4-c723-08d875ccdd75
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0272:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0272CFCF58782FAAE295C2CD8B1C0@MWHPR1201MB0272.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 0ede7cc3-1870-48eb-2f9e-08d875cce06a
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3223:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB32234C335DB941C9E49E76CB8B1C0@BYAPR12MB3223.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:83;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RTyMKJWJURyHDq9QEx6LfCMLm42vV5AHSYK4f7gKcPah50vfwAiQKUfwwWMZr3y7wK5yqjejOOUMzQEb9enFmSvIKT8wv14DJrIYdcdl2NT63ZVakHsbBe0kGj0YfM+1dyvVviJ9qCT9USqqKSUo9yUvJQBmRcgC5vp1CN1Qcck5zvkMR6NdymQtAqp44tgn2DeXK338q1fk7tuB+0GbmIRI56RJTnf8WlTGKFNc4N76R3qNkYj6ZlBZ5EORc3sOTBZMnpWM9qcxFrNK+3OIts5ra4TATXn0Y7qbVk74FoZxEreKQScHzWh2wuoFd/H4P/U8usdFET0rMYkuEzY2wnvDwSANp55IrU/GEbJ8MFz8IflJXrTUngYZj8XHeqtxnC6ggW1MGKArjFGQHFJiUQ==
+X-Microsoft-Antispam-Message-Info: DNdGHtZ5hypQNq6GQjKncd4ErbgwnVuL9N4ADFGBFUyyg0LogZdpdEciWJ1yFh0sePN4ZB9028RtNhm3u4XV95eF1nux99/vP9ijm+mW+tMBNji8Ap35eEs1382nGNcKEk9cVS88cieSsMY8UDuYeonPKTCRz2ILAF3wINdFw91ZA5ho3+LtXrelFf4WSscTvPOyaDiJWPc8+DKPoAHn9tOUXrAAO/5PRY2PYO5+mE1LcDRA6xCS0mKGK0OsCUVF+xDitGqPssYNKU3eZPZAhdRpz99netx/9s9u8vXxTCjzgxqEVYoaKW3t73fC9eiaJQcYslNdTXsqbxxwH0cemfUdJawNhfLfJUIYydvF5hc17y27/uAt1KrJXg3Aondbc414U3E5SuEvjY3rMy1Xkw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(396003)(136003)(39860400002)(376002)(46966005)(316002)(8676002)(6666004)(44832011)(336012)(426003)(8936002)(26005)(81166007)(5660300002)(47076004)(6916009)(2616005)(82740400003)(82310400003)(86362001)(4326008)(54906003)(478600001)(83380400001)(7696005)(70206006)(2906002)(186003)(356005)(36756003)(1076003)(70586007);
+ SFS:(4636009)(39860400002)(376002)(396003)(136003)(346002)(46966005)(54906003)(44832011)(186003)(316002)(2616005)(336012)(83380400001)(81166007)(1076003)(70586007)(36756003)(30864003)(5660300002)(70206006)(6666004)(8936002)(82740400003)(6916009)(82310400003)(8676002)(47076004)(2906002)(478600001)(426003)(86362001)(4326008)(7696005)(356005)(26005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2020 14:23:22.1197 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc2c8886-8267-41f4-c723-08d875ccdd75
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2020 14:23:27.0759 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ede7cc3-1870-48eb-2f9e-08d875cce06a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0272
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,297 +117,409 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felipe Clark <Felipe.Clark@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Clark <felclark@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Clark <felclark@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[WHY]
-It was detected in some Freesync HDR tests that displays were not
-reaching their maximum nominal brightness.
+Debug amdgpu_dm could be a complicated task, therefore, this commit adds
+tracepoints in some convenient functions such as plane and connector
+check inside amdgpu_dm.
 
-[HOW]
-The Multi-plane combiner (MPC) Output Gamma (OGAM) block builds a
-discrete Lookup Table (LUT). When the display's maximum brightness
-falls in between two values, having to be linearly interpolated by
-the hardware, rounding issues might occur that will cause the
-display to never reach its maximum brightness.
-The fix involves doing the calculations backwards, ensuring that
-the interpolation in the maximum brightness values translates to an
-output of 1.0.
-
-Signed-off-by: Felipe Clark <Felipe.Clark@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../amd/display/modules/color/color_gamma.c   | 110 ++++++++++++++----
- 1 file changed, 89 insertions(+), 21 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  17 ++
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   | 287 ++++++++++++++++++
+ 2 files changed, 304 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index b8695660b480..e866da639637 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -151,7 +151,7 @@ static void compute_de_pq(struct fixed31_32 in_x, struct fixed31_32 *out_y)
- 	div = dc_fixpt_sub(c2, dc_fixpt_mul(c3, l_pow_m1));
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1a9aa4d3d7ae..9728d03a8cb7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5548,6 +5548,8 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
+ 	struct drm_crtc_state *new_crtc_state;
+ 	int ret;
  
- 	base2 = dc_fixpt_div(base, div);
--	//avoid complex numbers
-+	// avoid complex numbers
- 	if (dc_fixpt_lt(base2, dc_fixpt_zero))
- 		base2 = dc_fixpt_sub(dc_fixpt_zero, base2);
++	trace_amdgpu_dm_connector_atomic_check(new_con_state);
++
+ 	if (!crtc)
+ 		return 0;
  
-@@ -161,7 +161,7 @@ static void compute_de_pq(struct fixed31_32 in_x, struct fixed31_32 *out_y)
+@@ -5653,6 +5655,8 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
+ 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(state);
+ 	int ret = -EINVAL;
+ 
++	trace_amdgpu_dm_crtc_atomic_check(state);
++
+ 	dm_update_crtc_active_planes(crtc, state);
+ 
+ 	if (unlikely(!dm_crtc_state->stream &&
+@@ -6028,6 +6032,8 @@ static int dm_plane_atomic_check(struct drm_plane *plane,
+ 	struct drm_crtc_state *new_crtc_state;
+ 	int ret;
+ 
++	trace_amdgpu_dm_plane_atomic_check(state);
++
+ 	dm_plane_state = to_dm_plane_state(state);
+ 
+ 	if (!dm_plane_state->dc_state)
+@@ -6068,6 +6074,8 @@ static void dm_plane_atomic_async_update(struct drm_plane *plane,
+ 	struct drm_plane_state *old_state =
+ 		drm_atomic_get_old_plane_state(new_state->state, plane);
+ 
++	trace_amdgpu_dm_atomic_update_cursor(new_state);
++
+ 	swap(plane->state->fb, new_state->fb);
+ 
+ 	plane->state->src_x = new_state->src_x;
+@@ -7635,6 +7643,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 	int crtc_disable_count = 0;
+ 	bool mode_set_reset_required = false;
+ 
++	trace_amdgpu_dm_atomic_commit_tail_begin(state);
++
+ 	drm_atomic_helper_update_legacy_modeset_state(dev, state);
+ 
+ 	dm_state = dm_atomic_get_new_state(state);
+@@ -8721,6 +8731,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	int ret, i;
+ 	bool lock_and_validation_needed = false;
+ 
++	trace_amdgpu_dm_atomic_check_begin(state);
++
+ 	ret = drm_atomic_helper_check_modeset(dev, state);
+ 	if (ret)
+ 		goto fail;
+@@ -9017,6 +9029,9 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ 	/* Must be success */
+ 	WARN_ON(ret);
++
++	trace_amdgpu_dm_atomic_check_finish(state, ret);
++
+ 	return ret;
+ 
+ fail:
+@@ -9027,6 +9042,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	else
+ 		DRM_DEBUG_DRIVER("Atomic check failed with err: %d \n", ret);
+ 
++	trace_amdgpu_dm_atomic_check_finish(state, ret);
++
+ 	return ret;
  }
  
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+index 11941c69c420..6f07c43ef794 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+@@ -30,6 +30,12 @@
+ #define _AMDGPU_DM_TRACE_H_
  
--/*de gamma, none linear to linear*/
-+/* de gamma, non-linear to linear */
- static void compute_hlg_eotf(struct fixed31_32 in_x,
- 		struct fixed31_32 *out_y,
- 		uint32_t sdr_white_level, uint32_t max_luminance_nits)
-@@ -193,7 +193,7 @@ static void compute_hlg_eotf(struct fixed31_32 in_x,
+ #include <linux/tracepoint.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_atomic.h>
  
- }
- 
--/*re gamma, linear to none linear*/
-+/* re gamma, linear to non-linear */
- static void compute_hlg_oetf(struct fixed31_32 in_x, struct fixed31_32 *out_y,
- 		uint32_t sdr_white_level, uint32_t max_luminance_nits)
- {
-@@ -830,7 +830,7 @@ static bool build_regamma(struct pwl_float_data_ex *rgb_regamma,
- 
- 	i = 0;
- 	while (i <= hw_points_num) {
--		/*TODO use y vs r,g,b*/
-+		/* TODO use y vs r,g,b */
- 		rgb->r = translate_from_linear_space_ex(
- 			coord_x->x, coeff, 0, cal_buffer);
- 		rgb->g = rgb->r;
-@@ -937,6 +937,7 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
- 	uint32_t i;
- 	struct pwl_float_data_ex *rgb = rgb_regamma;
- 	const struct hw_x_point *coord_x = coordinate_x;
-+	const struct hw_x_point *prv_coord_x = coord_x;
- 	struct fixed31_32 scaledX = dc_fixpt_zero;
- 	struct fixed31_32 scaledX1 = dc_fixpt_zero;
- 	struct fixed31_32 max_display;
-@@ -947,6 +948,9 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
- 	bool use_eetf = false;
- 	bool is_clipped = false;
- 	struct fixed31_32 sdr_white_level;
-+	struct fixed31_32 coordX_diff;
-+	struct fixed31_32 out_dist_max;
-+	struct fixed31_32 bright_norm;
- 
- 	if (fs_params->max_content == 0 ||
- 			fs_params->max_display == 0)
-@@ -975,7 +979,7 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
- 	for (i = 32; i <= hw_points_num; i++) {
- 		if (!is_clipped) {
- 			if (use_eetf) {
--				/*max content is equal 1 */
-+				/* max content is equal 1 */
- 				scaledX1 = dc_fixpt_div(coord_x->x,
- 						dc_fixpt_div(max_content, sdr_white_level));
- 				hermite_spline_eetf(scaledX1, max_display, min_display,
-@@ -990,21 +994,65 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
- 				else
- 					output = calculate_gamma22(scaledX, use_eetf, cal_buffer);
- 
-+				// Ensure output respects reasonable boundaries
-+				output = dc_fixpt_clamp(output, dc_fixpt_zero, dc_fixpt_one);
+ DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
+ 		    TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
+@@ -89,6 +95,287 @@ TRACE_EVENT(amdgpu_dc_performance,
+ 			(unsigned long)__entry->write_delta,
+ 			(unsigned long)__entry->writes)
+ );
 +
- 				rgb->r = output;
- 				rgb->g = output;
- 				rgb->b = output;
- 			} else {
-+				/* Here clipping happens for the first time */
- 				is_clipped = true;
--				rgb->r = clip;
--				rgb->g = clip;
--				rgb->b = clip;
++TRACE_EVENT(amdgpu_dm_connector_atomic_check,
++	    TP_PROTO(const struct drm_connector_state *state),
++	    TP_ARGS(state),
 +
-+				/* The next few lines implement the equation
-+				 * output = prev_out +
-+				 * (coord_x->x - prev_coord_x->x) *
-+				 * (1.0 - prev_out) /
-+				 * (maxDisp/sdr_white_level - prevCoordX)
-+				 *
-+				 * This equation interpolates the first point
-+				 * after max_display/80 so that the slope from
-+				 * hw_x_before_max and hw_x_after_max is such
-+				 * that we hit Y=1.0 at max_display/80.
-+				 */
++	    TP_STRUCT__entry(
++			     __field(uint32_t, conn_id)
++			     __field(const struct drm_connector_state *, conn_state)
++			     __field(const struct drm_atomic_state *, state)
++			     __field(const struct drm_crtc_commit *, commit)
++			     __field(uint32_t, crtc_id)
++			     __field(uint32_t, best_encoder_id)
++			     __field(enum drm_link_status, link_status)
++			     __field(bool, self_refresh_aware)
++			     __field(enum hdmi_picture_aspect, picture_aspect_ratio)
++			     __field(unsigned int, content_type)
++			     __field(unsigned int, hdcp_content_type)
++			     __field(unsigned int, content_protection)
++			     __field(unsigned int, scaling_mode)
++			     __field(u32, colorspace)
++			     __field(u8, max_requested_bpc)
++			     __field(u8, max_bpc)
++	    ),
 +
-+				coordX_diff = dc_fixpt_sub(coord_x->x, prv_coord_x->x);
-+				out_dist_max = dc_fixpt_sub(dc_fixpt_one, output);
-+				bright_norm = dc_fixpt_div(max_display, sdr_white_level);
++	    TP_fast_assign(
++			   __entry->conn_id = state->connector->base.id;
++			   __entry->conn_state = state;
++			   __entry->state = state->state;
++			   __entry->commit = state->commit;
++			   __entry->crtc_id = state->crtc ? state->crtc->base.id : 0;
++			   __entry->best_encoder_id = state->best_encoder ?
++						      state->best_encoder->base.id : 0;
++			   __entry->link_status = state->link_status;
++			   __entry->self_refresh_aware = state->self_refresh_aware;
++			   __entry->picture_aspect_ratio = state->picture_aspect_ratio;
++			   __entry->content_type = state->content_type;
++			   __entry->hdcp_content_type = state->hdcp_content_type;
++			   __entry->content_protection = state->content_protection;
++			   __entry->scaling_mode = state->scaling_mode;
++			   __entry->colorspace = state->colorspace;
++			   __entry->max_requested_bpc = state->max_requested_bpc;
++			   __entry->max_bpc = state->max_bpc;
++	    ),
 +
-+				output = dc_fixpt_add(
-+					output, dc_fixpt_mul(
-+						coordX_diff, dc_fixpt_div(
-+							out_dist_max,
-+							dc_fixpt_sub(bright_norm, prv_coord_x->x)
-+						)
-+					)
-+				);
++	    TP_printk("conn_id=%u conn_state=%p state=%p commit=%p crtc_id=%u "
++		      "best_encoder_id=%u link_status=%d self_refresh_aware=%d "
++		      "picture_aspect_ratio=%d content_type=%u "
++		      "hdcp_content_type=%u content_protection=%u scaling_mode=%u "
++		      "colorspace=%u max_requested_bpc=%u max_bpc=%u",
++		      __entry->conn_id, __entry->conn_state, __entry->state,
++		      __entry->commit, __entry->crtc_id, __entry->best_encoder_id,
++		      __entry->link_status, __entry->self_refresh_aware,
++		      __entry->picture_aspect_ratio, __entry->content_type,
++		      __entry->hdcp_content_type, __entry->content_protection,
++		      __entry->scaling_mode, __entry->colorspace,
++		      __entry->max_requested_bpc, __entry->max_bpc)
++);
 +
-+				/* Relaxing the maximum boundary to 1.07 (instead of 1.0)
-+				 * because the last point in the curve must be such that
-+				 * the maximum display pixel brightness interpolates to
-+				 * exactly 1.0. The worst case scenario was calculated
-+				 * around 1.057, so the limit of 1.07 leaves some safety
-+				 * margin.
-+				 */
-+				output = dc_fixpt_clamp(output, dc_fixpt_zero,
-+					dc_fixpt_from_fraction(107, 100));
++TRACE_EVENT(amdgpu_dm_crtc_atomic_check,
++	    TP_PROTO(const struct drm_crtc_state *state),
++	    TP_ARGS(state),
 +
-+				rgb->r = output;
-+				rgb->g = output;
-+				rgb->b = output;
- 			}
- 		} else {
-+			/* Every other clipping after the first
-+			 * one is dealt with here
-+			 */
- 			rgb->r = clip;
- 			rgb->g = clip;
- 			rgb->b = clip;
- 		}
- 
-+		prv_coord_x = coord_x;
- 		++coord_x;
- 		++rgb;
- 	}
-@@ -1073,7 +1121,7 @@ static void build_hlg_degamma(struct pwl_float_data_ex *degamma,
- 	const struct hw_x_point *coord_x = coordinate_x;
- 
- 	i = 0;
--	//check when i == 434
-+	// check when i == 434
- 	while (i != hw_points_num + 1) {
- 		compute_hlg_eotf(coord_x->x, &rgb->r, sdr_white_level, max_luminance_nits);
- 		rgb->g = rgb->r;
-@@ -1097,7 +1145,7 @@ static void build_hlg_regamma(struct pwl_float_data_ex *regamma,
- 
- 	i = 0;
- 
--	//when i == 471
-+	// when i == 471
- 	while (i != hw_points_num + 1) {
- 		compute_hlg_oetf(coord_x->x, &rgb->r, sdr_white_level, max_luminance_nits);
- 		rgb->g = rgb->r;
-@@ -1331,6 +1379,8 @@ static void apply_lut_1d(
- 	struct fixed31_32 lut1;
- 	struct fixed31_32 lut2;
- 	const int max_lut_index = 4095;
-+	const struct fixed31_32 penult_lut_index_f =
-+			dc_fixpt_from_int(max_lut_index-1);
- 	const struct fixed31_32 max_lut_index_f =
- 			dc_fixpt_from_int(max_lut_index);
- 	int32_t index = 0, index_next = 0;
-@@ -1355,10 +1405,21 @@ static void apply_lut_1d(
- 			index = dc_fixpt_floor(norm_y);
- 			index_f = dc_fixpt_from_int(index);
- 
--			if (index < 0 || index > max_lut_index)
-+			if (index < 0)
- 				continue;
- 
--			index_next = (index == max_lut_index) ? index : index+1;
-+			if (index <= max_lut_index)
-+				index_next = (index == max_lut_index) ? index : index+1;
-+			else {
-+				/* Here we are dealing with the last point in the curve,
-+				 * which in some cases might exceed the range given by
-+				 * max_lut_index. So we interpolate the value using
-+				 * max_lut_index and max_lut_index - 1.
-+				 */
-+				index = max_lut_index - 1;
-+				index_next = max_lut_index;
-+				index_f = penult_lut_index_f;
-+			}
- 
- 			if (color == 0) {
- 				lut1 = ramp->entries.red[index];
-@@ -1586,9 +1647,7 @@ static void build_new_custom_resulted_curve(
- 	uint32_t hw_points_num,
- 	struct dc_transfer_func_distributed_points *tf_pts)
- {
--	uint32_t i;
--
--	i = 0;
-+	uint32_t i = 0;
- 
- 	while (i != hw_points_num + 1) {
- 		tf_pts->red[i] = dc_fixpt_clamp(
-@@ -1637,7 +1696,8 @@ static bool map_regamma_hw_to_x_user(
- 	const struct pwl_float_data_ex *rgb_regamma,
- 	uint32_t hw_points_num,
- 	struct dc_transfer_func_distributed_points *tf_pts,
--	bool mapUserRamp)
-+	bool mapUserRamp,
-+	bool doClamping)
- {
- 	/* setup to spare calculated ideal regamma values */
- 
-@@ -1665,8 +1725,10 @@ static bool map_regamma_hw_to_x_user(
- 		}
- 	}
- 
--	/* this should be named differently, all it does is clamp to 0-1 */
--	build_new_custom_resulted_curve(hw_points_num, tf_pts);
-+	if (doClamping) {
-+		/* this should be named differently, all it does is clamp to 0-1 */
-+		build_new_custom_resulted_curve(hw_points_num, tf_pts);
-+	}
- 
- 	return true;
- }
-@@ -1914,11 +1976,12 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 			++i;
- 		}
- 	} else {
--		//clamps to 0-1
-+		// clamps to 0-1
- 		map_regamma_hw_to_x_user(ramp, coeff, rgb_user,
- 				coordinates_x, axis_x, curve,
- 				MAX_HW_POINTS, tf_pts,
--				mapUserRamp && ramp && ramp->type == GAMMA_RGB_256);
-+				mapUserRamp && ramp && ramp->type == GAMMA_RGB_256,
-+				true);
- 	}
- 
- 
-@@ -2034,6 +2097,7 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
- 	struct gamma_pixel *axis_x = NULL;
- 	struct pixel_gamma_point *coeff = NULL;
- 	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
-+	bool doClamping = true;
- 	bool ret = false;
- 
- 	if (output_tf->type == TF_TYPE_BYPASS)
-@@ -2100,11 +2164,15 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
- 			cal_buffer);
- 
- 	if (ret) {
-+		doClamping = !(output_tf->tf == TRANSFER_FUNCTION_GAMMA22 &&
-+			fs_params != NULL && fs_params->skip_tm == 0);
++	    TP_STRUCT__entry(
++			     __field(const struct drm_atomic_state *, state)
++			     __field(const struct drm_crtc_state *, crtc_state)
++			     __field(const struct drm_crtc_commit *, commit)
++			     __field(uint32_t, crtc_id)
++			     __field(bool, enable)
++			     __field(bool, active)
++			     __field(bool, planes_changed)
++			     __field(bool, mode_changed)
++			     __field(bool, active_changed)
++			     __field(bool, connectors_changed)
++			     __field(bool, zpos_changed)
++			     __field(bool, color_mgmt_changed)
++			     __field(bool, no_vblank)
++			     __field(bool, async_flip)
++			     __field(bool, vrr_enabled)
++			     __field(bool, self_refresh_active)
++			     __field(u32, plane_mask)
++			     __field(u32, connector_mask)
++			     __field(u32, encoder_mask)
++	    ),
 +
- 		map_regamma_hw_to_x_user(ramp, coeff, rgb_user,
- 				coordinates_x, axis_x, rgb_regamma,
- 				MAX_HW_POINTS, tf_pts,
- 				(mapUserRamp || (ramp && ramp->type != GAMMA_RGB_256)) &&
--				(ramp && ramp->type != GAMMA_CS_TFM_1D));
-+				(ramp && ramp->type != GAMMA_CS_TFM_1D),
-+				doClamping);
++	    TP_fast_assign(
++			   __entry->state = state->state;
++			   __entry->crtc_state = state;
++			   __entry->crtc_id = state->crtc->base.id;
++			   __entry->commit = state->commit;
++			   __entry->enable = state->enable;
++			   __entry->active = state->active;
++			   __entry->planes_changed = state->planes_changed;
++			   __entry->mode_changed = state->mode_changed;
++			   __entry->active_changed = state->active_changed;
++			   __entry->connectors_changed = state->connectors_changed;
++			   __entry->zpos_changed = state->zpos_changed;
++			   __entry->color_mgmt_changed = state->color_mgmt_changed;
++			   __entry->no_vblank = state->no_vblank;
++			   __entry->async_flip = state->async_flip;
++			   __entry->vrr_enabled = state->vrr_enabled;
++			   __entry->self_refresh_active = state->self_refresh_active;
++			   __entry->plane_mask = state->plane_mask;
++			   __entry->connector_mask = state->connector_mask;
++			   __entry->encoder_mask = state->encoder_mask;
++	    ),
++
++	    TP_printk("crtc_id=%u crtc_state=%p state=%p commit=%p changed("
++		      "planes=%d mode=%d active=%d conn=%d zpos=%d color_mgmt=%d) "
++		      "state(enable=%d active=%d async_flip=%d vrr_enabled=%d "
++		      "self_refresh_active=%d no_vblank=%d) mask(plane=%x conn=%x "
++		      "enc=%x)",
++		      __entry->crtc_id, __entry->crtc_state, __entry->state,
++		      __entry->commit, __entry->planes_changed,
++		      __entry->mode_changed, __entry->active_changed,
++		      __entry->connectors_changed, __entry->zpos_changed,
++		      __entry->color_mgmt_changed, __entry->enable, __entry->active,
++		      __entry->async_flip, __entry->vrr_enabled,
++		      __entry->self_refresh_active, __entry->no_vblank,
++		      __entry->plane_mask, __entry->connector_mask,
++		      __entry->encoder_mask)
++);
++
++DECLARE_EVENT_CLASS(amdgpu_dm_plane_state_template,
++	    TP_PROTO(const struct drm_plane_state *state),
++	    TP_ARGS(state),
++	    TP_STRUCT__entry(
++			     __field(uint32_t, plane_id)
++			     __field(enum drm_plane_type, plane_type)
++			     __field(const struct drm_plane_state *, plane_state)
++			     __field(const struct drm_atomic_state *, state)
++			     __field(uint32_t, crtc_id)
++			     __field(uint32_t, fb_id)
++			     __field(uint32_t, fb_format)
++			     __field(uint8_t, fb_planes)
++			     __field(uint64_t, fb_modifier)
++			     __field(const struct dma_fence *, fence)
++			     __field(int32_t, crtc_x)
++			     __field(int32_t, crtc_y)
++			     __field(uint32_t, crtc_w)
++			     __field(uint32_t, crtc_h)
++			     __field(uint32_t, src_x)
++			     __field(uint32_t, src_y)
++			     __field(uint32_t, src_w)
++			     __field(uint32_t, src_h)
++			     __field(u32, alpha)
++			     __field(uint32_t, pixel_blend_mode)
++			     __field(unsigned int, rotation)
++			     __field(unsigned int, zpos)
++			     __field(unsigned int, normalized_zpos)
++			     __field(enum drm_color_encoding, color_encoding)
++			     __field(enum drm_color_range, color_range)
++			     __field(bool, visible)
++	    ),
++
++	    TP_fast_assign(
++			   __entry->plane_id = state->plane->base.id;
++			   __entry->plane_type = state->plane->type;
++			   __entry->plane_state = state;
++			   __entry->state = state->state;
++			   __entry->crtc_id = state->crtc ? state->crtc->base.id : 0;
++			   __entry->fb_id = state->fb ? state->fb->base.id : 0;
++			   __entry->fb_format = state->fb ? state->fb->format->format : 0;
++			   __entry->fb_planes = state->fb ? state->fb->format->num_planes : 0;
++			   __entry->fb_modifier = state->fb ? state->fb->modifier : 0;
++			   __entry->fence = state->fence;
++			   __entry->crtc_x = state->crtc_x;
++			   __entry->crtc_y = state->crtc_y;
++			   __entry->crtc_w = state->crtc_w;
++			   __entry->crtc_h = state->crtc_h;
++			   __entry->src_x = state->src_x >> 16;
++			   __entry->src_y = state->src_y >> 16;
++			   __entry->src_w = state->src_w >> 16;
++			   __entry->src_h = state->src_h >> 16;
++			   __entry->alpha = state->alpha;
++			   __entry->pixel_blend_mode = state->pixel_blend_mode;
++			   __entry->rotation = state->rotation;
++			   __entry->zpos = state->zpos;
++			   __entry->normalized_zpos = state->normalized_zpos;
++			   __entry->color_encoding = state->color_encoding;
++			   __entry->color_range = state->color_range;
++			   __entry->visible = state->visible;
++	    ),
++
++	    TP_printk("plane_id=%u plane_type=%d plane_state=%p state=%p "
++		      "crtc_id=%u fb(id=%u fmt=%c%c%c%c planes=%u mod=%llu) "
++		      "fence=%p crtc_x=%d crtc_y=%d crtc_w=%u crtc_h=%u "
++		      "src_x=%u src_y=%u src_w=%u src_h=%u alpha=%u "
++		      "pixel_blend_mode=%u rotation=%u zpos=%u "
++		      "normalized_zpos=%u color_encoding=%d color_range=%d "
++		      "visible=%d",
++		      __entry->plane_id, __entry->plane_type, __entry->plane_state,
++		      __entry->state, __entry->crtc_id, __entry->fb_id,
++		      (__entry->fb_format & 0xff) ? (__entry->fb_format & 0xff) : 'N',
++		      ((__entry->fb_format >> 8) & 0xff) ? ((__entry->fb_format >> 8) & 0xff) : 'O',
++		      ((__entry->fb_format >> 16) & 0xff) ? ((__entry->fb_format >> 16) & 0xff) : 'N',
++		      ((__entry->fb_format >> 24) & 0x7f) ? ((__entry->fb_format >> 24) & 0x7f) : 'E',
++		      __entry->fb_planes,
++		      __entry->fb_modifier, __entry->fence, __entry->crtc_x,
++		      __entry->crtc_y, __entry->crtc_w, __entry->crtc_h,
++		      __entry->src_x, __entry->src_y, __entry->src_w, __entry->src_h,
++		      __entry->alpha, __entry->pixel_blend_mode, __entry->rotation,
++		      __entry->zpos, __entry->normalized_zpos,
++		      __entry->color_encoding, __entry->color_range,
++		      __entry->visible)
++);
++
++DEFINE_EVENT(amdgpu_dm_plane_state_template, amdgpu_dm_plane_atomic_check,
++	     TP_PROTO(const struct drm_plane_state *state),
++	     TP_ARGS(state));
++
++DEFINE_EVENT(amdgpu_dm_plane_state_template, amdgpu_dm_atomic_update_cursor,
++	     TP_PROTO(const struct drm_plane_state *state),
++	     TP_ARGS(state));
++
++TRACE_EVENT(amdgpu_dm_atomic_state_template,
++	    TP_PROTO(const struct drm_atomic_state *state),
++	    TP_ARGS(state),
++
++	    TP_STRUCT__entry(
++			     __field(const struct drm_atomic_state *, state)
++			     __field(bool, allow_modeset)
++			     __field(bool, legacy_cursor_update)
++			     __field(bool, async_update)
++			     __field(bool, duplicated)
++			     __field(int, num_connector)
++			     __field(int, num_private_objs)
++	    ),
++
++	    TP_fast_assign(
++			   __entry->state = state;
++			   __entry->allow_modeset = state->allow_modeset;
++			   __entry->legacy_cursor_update = state->legacy_cursor_update;
++			   __entry->async_update = state->async_update;
++			   __entry->duplicated = state->duplicated;
++			   __entry->num_connector = state->num_connector;
++			   __entry->num_private_objs = state->num_private_objs;
++	    ),
++
++	    TP_printk("state=%p allow_modeset=%d legacy_cursor_update=%d "
++		      "async_update=%d duplicated=%d num_connector=%d "
++		      "num_private_objs=%d",
++		      __entry->state, __entry->allow_modeset, __entry->legacy_cursor_update,
++		      __entry->async_update, __entry->duplicated, __entry->num_connector,
++		      __entry->num_private_objs)
++);
++
++DEFINE_EVENT(amdgpu_dm_atomic_state_template, amdgpu_dm_atomic_commit_tail_begin,
++	     TP_PROTO(const struct drm_atomic_state *state),
++	     TP_ARGS(state));
++
++DEFINE_EVENT(amdgpu_dm_atomic_state_template, amdgpu_dm_atomic_commit_tail_finish,
++	     TP_PROTO(const struct drm_atomic_state *state),
++	     TP_ARGS(state));
++
++DEFINE_EVENT(amdgpu_dm_atomic_state_template, amdgpu_dm_atomic_check_begin,
++	     TP_PROTO(const struct drm_atomic_state *state),
++	     TP_ARGS(state));
++
++TRACE_EVENT(amdgpu_dm_atomic_check_finish,
++	    TP_PROTO(const struct drm_atomic_state *state, int res),
++	    TP_ARGS(state, res),
++
++	    TP_STRUCT__entry(
++			     __field(const struct drm_atomic_state *, state)
++			     __field(int, res)
++			     __field(bool, async_update)
++			     __field(bool, allow_modeset)
++	    ),
++
++	    TP_fast_assign(
++			   __entry->state = state;
++			   __entry->res = res;
++			   __entry->async_update = state->async_update;
++			   __entry->allow_modeset = state->allow_modeset;
++	    ),
++
++	    TP_printk("state=%p res=%d async_update=%d allow_modeset=%d",
++		      __entry->state, __entry->res,
++		      __entry->async_update, __entry->allow_modeset)
++);
++
+ #endif /* _AMDGPU_DM_TRACE_H_ */
  
- 		if (ramp && ramp->type == GAMMA_CS_TFM_1D)
- 			apply_lut_1d(ramp, MAX_HW_POINTS, tf_pts);
+ #undef TRACE_INCLUDE_PATH
 -- 
 2.25.1
 
