@@ -8,60 +8,65 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3DD7C4363A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 18:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 783F6C4363A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 18:29:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 786CB22249
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 18:07:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E097C2245B
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 18:29:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pSX5u/8S"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 786CB22249
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gs0RQUdB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E097C2245B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B424B6EE34;
-	Wed, 21 Oct 2020 18:07:43 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB3766EE34
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 18:07:41 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id c16so3564298wmd.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 11:07:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50CB26E0E5;
+	Wed, 21 Oct 2020 18:29:55 +0000 (UTC)
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063E36EE48;
+ Wed, 21 Oct 2020 18:26:15 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id n16so1954753pgv.13;
+ Wed, 21 Oct 2020 11:26:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IVcYwi8Oocxr/mih5m/KwBAX7yMSrVsDkaoogCZ8I7Y=;
- b=pSX5u/8SC2AHcGhmEFUM47QZe7q+2Tvwu/XXLpE3PM1lQLnq3uomUOQ79LvUVz1IrX
- ocu8h5l909xzOL6c0fhDq+CJIEqdv7pFIaBvym5+5vZL+c5oLfN4DcSspdpIjY37ojvZ
- LYCyPf8+apwtu0nR+81m3lP2VqHVCwPODkM5PoS3POBRUFPL1WoDkYQr7kttnxf1wTqQ
- 7Zh3OiPhNkGJpeIhK5Ke+uNUyrjd2xyTch5iR2bre3tStGXyuG6XPw+/yW2zrW/Xzz4w
- 79txo+Mem7CCbUjoYuiqTcigf+D0Fx/1631Vn0YXIH4yTj4W9HbbEGHZyHcZPxF6cuBD
- 2hYg==
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=1FO9M9j075wuOALfoXxDUJe5XnERWTNac+Lhpl+//0M=;
+ b=Gs0RQUdBzH+ye2gZxvGyB0vM44Vo1uzip3av9KXrzGiFzj6YVV0VumoXinNm+HrTGF
+ a41sMv9p0md1kZicJUhprFfUc2BB4N5GTHHfL2/53CllymaxHzYWG3QlNvGhsWXHM1pO
+ HVTwVuGQpK6iQIswHqk4r/fLpwesA1BVIPVKhHlesT4AYpwXtVOTZ5PYgNdMz0m4Cb0i
+ wordHDyvWIPqUWCOjd7BYH0vG6llIyahcJ+PaLnLGlGlKtkBrCEO2OwG1EcFGudjEb4S
+ DyyBwT22QxYCsC1524F991wBE4KrUgar6bkJqGLUz53wW0YbQAuEZvUKOIj57R/49kYh
+ Cepw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IVcYwi8Oocxr/mih5m/KwBAX7yMSrVsDkaoogCZ8I7Y=;
- b=K5PwSOLWNPfh0Cvt8zBQIvoxCCd4kVs1jVVkBc1rDt1E8ZeABVHSvRw6sHiMo+M/jr
- 7fluIkNPZQW0LJsP1N9aqenE+3R761prsoo4FHQrPbTU2RRMHQcMFI17uacdZPOZJJDO
- X6kXQoXBH4frsAfe/zmpEGxJxS5qffbE8mUvvQz/UTXDWq6N5ndENUjqR2geXU0YKgN6
- 2ywkLX7sFABDhBCf1itakl5r74ZugGJZH5glaia4H2qwFWEuu9xRXWGQU84LQc/Avd7y
- 2gQtCKVp8vm+yxobDq0I08VQJxHFqZ7rjp//rQaTC/45MoScINEzEMfmdGrmNldrcGSI
- PQ7g==
-X-Gm-Message-State: AOAM5306CrYFiNP1AA4j31rsdh6UUmPIHMeSx+v4JKq6jHJ/mTV8wg2Y
- W5yq4exwzpqGcfdFBpnTHVnPOhBczh3+cB/McIM=
-X-Google-Smtp-Source: ABdhPJygWJSDi/9cLbWlawRW5yH7pXlypfRn/9BV0bLH09ORNjEOJDsKYSPa6QCxi2SHTxqdTx3ay4JstRdCHJOQg0s=
-X-Received: by 2002:a1c:49c2:: with SMTP id w185mr4791370wma.70.1603303660554; 
- Wed, 21 Oct 2020 11:07:40 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=1FO9M9j075wuOALfoXxDUJe5XnERWTNac+Lhpl+//0M=;
+ b=mzmcU/TtMkF0mKkjg1WYtw99akCrHSAUvbmepCQwDVLdneyk9CztklYZ0TdlQmjVzF
+ 5LJKyWsFQnw5e4+YG/7JvTQDaSJtx6iF+GF6/1Gr2H7jPxWaV32T0kd/QDUoeZd7KqR4
+ 7CPYeXew1Rq3RCNebJRAmU4xmEmhjvN5bT8SFcRvPLoa+NFTG8nTG+MWKEvFy3CfsvS4
+ LYH/E30x9vLHKKCe5K92F2VukGUZY0WIrcF5oMDwXEt3tcsM8L1FVNjGt6avsuJUfBY7
+ Yg194eDVITA+0PjOd8lGcBZvqNMHBPIhJ4+4AOcj6P98X0mYx1jP7JJt1CCtnfFSPTE9
+ fk/Q==
+X-Gm-Message-State: AOAM532NVNe/fxm3cwHxZoqyGuvF8c7DFGMB4y+U5lpoDBOkhc/A4r22
+ JdJiReimkzb1WQ1Hsb6+6D1Pa1K/CJsroiht
+X-Google-Smtp-Source: ABdhPJwP7EAt/uDM8x/2lBeocMVF3gYnnutiOkf68MN0f4x419/TMu9i75QIWYZrPndftnu7GsLn+g==
+X-Received: by 2002:a63:5d03:: with SMTP id r3mr4341644pgb.2.1603304775269;
+ Wed, 21 Oct 2020 11:26:15 -0700 (PDT)
+Received: from adolin ([49.207.215.109])
+ by smtp.gmail.com with ESMTPSA id a22sm3074560pfk.29.2020.10.21.11.26.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Oct 2020 11:26:14 -0700 (PDT)
+Date: Wed, 21 Oct 2020 23:56:10 +0530
+From: Sumera Priyadarsini <sylphrenadin@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [Outreachy kernel][PATCH] gpu: amd: Return boolean types instead of
+ integer values
+Message-ID: <20201021182610.4l65yg3y3nhzcac4@adolin>
 MIME-Version: 1.0
-References: <20201021165524.888802-1-likun.gao@amd.com>
-In-Reply-To: <20201021165524.888802-1-likun.gao@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 21 Oct 2020 14:07:28 -0400
-Message-ID: <CADnq5_N4gMQmWm8opP1uunSQMMmOHBBap4xMh0HeDDb8XRZepw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: correct the cu and rb info for sienna cichlid
-To: Likun Gao <likun.gao@amd.com>
+Content-Disposition: inline
+X-Mailman-Approved-At: Wed, 21 Oct 2020 18:29:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +78,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Hawking Zhang <hawking.zhang@amd.com>
+Cc: airlied@linux.ie, Felix.Kuehling@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, melissa.srw@gmail.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 21, 2020 at 12:55 PM Likun Gao <likun.gao@amd.com> wrote:
->
-> From: Likun Gao <Likun.Gao@amd.com>
->
-> Skip disabled sa to correct the cu_info and active_rbs for sienna cichlid.
->
-> Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-> Change-Id: I271682e11f3472cb5ba882e04329976059e06a13
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 402fe623c5d8..49ce4aaa2bac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -4579,12 +4579,17 @@ static void gfx_v10_0_setup_rb(struct amdgpu_device *adev)
->         int i, j;
->         u32 data;
->         u32 active_rbs = 0;
-> +       u32 bitmap;
->         u32 rb_bitmap_width_per_sh = adev->gfx.config.max_backends_per_se /
->                                         adev->gfx.config.max_sh_per_se;
->
->         mutex_lock(&adev->grbm_idx_mutex);
->         for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
->                 for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
-> +                       bitmap = i * adev->gfx.config.max_sh_per_se + j;
-> +                       if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
+Return statements for functions returning bool should use truth
+and false instead of 1 and 0 respectively.
 
-I think this should be >= CHIP_SIENNA_CICHLID?
+Modify cik_event_interrupt.c to return false instead of 0.
 
-> +                           ((gfx_v10_3_get_disabled_sa(adev) >> bitmap) & 1))
-> +                               continue;
->                         gfx_v10_0_select_se_sh(adev, i, j, 0xffffffff);
->                         data = gfx_v10_0_get_rb_active_bitmap(adev);
->                         active_rbs |= data << ((i * adev->gfx.config.max_sh_per_se + j) *
-> @@ -8829,6 +8834,10 @@ static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,
->         mutex_lock(&adev->grbm_idx_mutex);
->         for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
->                 for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
-> +                       bitmap = i * adev->gfx.config.max_sh_per_se + j;
-> +                       if ((adev->asic_type == CHIP_SIENNA_CICHLID) &&
+Issue found with Coccinelle.
 
-Same here?
+Signed-off-by: Sumera Priyadarsini <sylphrenadin@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+index 24b471734117..8e64c01565ac 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
++++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+@@ -66,12 +66,12 @@ static bool cik_event_interrupt_isr(struct kfd_dev *dev,
+ 	vmid  = (ihre->ring_id & 0x0000ff00) >> 8;
+ 	if (vmid < dev->vm_info.first_vmid_kfd ||
+ 	    vmid > dev->vm_info.last_vmid_kfd)
+-		return 0;
++		return false;
+ 
+ 	/* If there is no valid PASID, it's likely a firmware bug */
+ 	pasid = (ihre->ring_id & 0xffff0000) >> 16;
+ 	if (WARN_ONCE(pasid == 0, "FW bug: No PASID in KFD interrupt"))
+-		return 0;
++		return false;
+ 
+ 	/* Interrupt types we care about: various signals and faults.
+ 	 * They will be forwarded to a work queue (see below).
+-- 
+2.25.1
 
-> +                           ((gfx_v10_3_get_disabled_sa(adev) >> bitmap) & 1))
-> +                               continue;
->                         mask = 1;
->                         ao_bitmap = 0;
->                         counter = 0;
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
