@@ -7,66 +7,65 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25E00C2D0A3
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 23:31:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D9B6C55178
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 23:31:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1FF9A2225F
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 23:31:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8EB682225F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 23:31:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="gs4rqj6b"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FF9A2225F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="HOT6qB15"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EB682225F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E589A6EEB1;
-	Wed, 21 Oct 2020 23:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B8CF6EEB2;
+	Wed, 21 Oct 2020 23:31:40 +0000 (UTC)
 Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
  [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC666EEB1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 23:31:37 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id x1so4285817eds.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 16:31:37 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4262B6EEB2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 23:31:39 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id o18so4281392edq.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 16:31:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=basnieuwenhuizen.nl; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=yqKif7fNSaIjOBAq0E9p3LgCvbNOBj0aJZDMDBqIxgM=;
- b=gs4rqj6bOqd9Tdp6NASMXM+I2P9fKABXmJLxWw9zgrY/DMG4a+3SGnpPFRUiCvca1H
- iaw9lP5B0w7sVU1DSfY6Glv91yAlOFyScMQrbSjkBRDI1VqlJC8LNZG/zGcnpFo25I2C
- 6Kgp1G0kJ5otZ1+hL/Bc2eEshi61xktTXJMslQms26kFqZPIly3s7UHTQFck1BAkZ5pn
- o51zFgpq2rNg7u5R2XITZeFCZ2FQAWjLg3LSPbfwHpM3Itv9X+GO1+9O458wj7+C2IL1
- h7tmCoPXXhJNL57glJSATJeNJ3MaLiCpxJSAA5zNZ3+8LBj23AkvV/XVbHdDLTLT1MPb
- Ocgw==
+ bh=7tktjmcwk5yXhgNFT9XQCSpahtSlQF+mPeJj6PdoM48=;
+ b=HOT6qB15DRbZ27JhtZzYMESygv3hG2umSVUv3PAtql/f+0Kh2M3wxhDuEGz6abThBX
+ ay/AlpT34+ZQEW5P2MZIBX0I/9WpBX6DGMI43c3SRzUvAxAmy+D836s02tCvEoKg3eUH
+ SWR/H9ijFqVBTggOObzkNF2AFGGRyqKQrfhK00wgMAfLwtT7wMJjopcfEX9oAr/2s1sO
+ YFMFgz29QN+Xw1rlsZq8WbZVg6MiSNL9S1zbdugV77EzyEpIEJLswuWZREMrEPq2iihS
+ KkNWc73QFe08uAOwI1wsnFRIn91zW5jgRY7jVdF4r73hagBR5/RROyDqxOcyhwCVTzbm
+ hagQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=yqKif7fNSaIjOBAq0E9p3LgCvbNOBj0aJZDMDBqIxgM=;
- b=EZhsMCjc2CMlU+2/sbzdGDzKnGsvMROTSK4F2NDgo54sZPbGcmeGqsiL5cM3REhjZC
- NzGFFI+oQOMDtDQOeKYrXfT2tMLO9FUz26k+Y5eM5XtaQvfrj2SCphgb7qf/Llc/sGo0
- H5KiChcg8eGL0uLwJeYQuYJkl//QWbHp/l0zqjrE+U0hfhGdMinrsl2s62ZX/ayIgzr7
- vh3monDRAA2OJSDTGJqWlYo1WahuPdbdqYkMOot+SthytHF4IwZnovz0sk8CfuulWuPk
- zBdpOw+mdzTELW0aujg0hnuQ/ghCCm2YpfPXihMl+KmiCS2IsinIYIAkZq5/yduugC5B
- XO/w==
-X-Gm-Message-State: AOAM530XnYAGwvEscxc6riIekXaZUh1QlUfgGdRkxvlUi19m+3Cl6q1E
- /aeuJjMI+P5qvi4KwsaCT58Wctys26d5S3iG
-X-Google-Smtp-Source: ABdhPJx4yECMEHWDSqjPf/74hPwu0rygeakwLvfk3he1b74vAS7GgI6Tl7QSjj7u0JemPiM+fCKpXQ==
-X-Received: by 2002:a05:6402:7c8:: with SMTP id
- u8mr5454175edy.153.1603323095414; 
- Wed, 21 Oct 2020 16:31:35 -0700 (PDT)
+ bh=7tktjmcwk5yXhgNFT9XQCSpahtSlQF+mPeJj6PdoM48=;
+ b=HOlaqOPTYZeaETN9cjnQBIuevvip8EfzEvoZAoBmCCToAk5LQskLmFDNuO7Lz9/Bbp
+ TZ1hdwZfL4nmjYbbGdRJ58dKriNXEdaXi3EjJwhpCW6HsbIMAzy8MH9OKwHQQjqNQO4W
+ 0ky8d9ASXPh30gjzVc8Z8Ni33kcb2jPvuxIYYoZhd4Lv3ukbR/Zk4k/1XlLRd+j7yFk/
+ PKgjLbEpwwPo11m2SUyFrbOdcGOumOjkjeqGC4t//Dj2BGSXVbM4PLUVkBVyrrOsIu4L
+ 6Wz8qqxA9UnlJk03R4SZsf5MrqbR77x06joBnPxMsSvNycokM0GimfD+CcL2vEzPIvUw
+ Z7AQ==
+X-Gm-Message-State: AOAM533NvSLPRHfV8tLIyfCf9r1klSkOY9KrhWPAAr//CXenlRXR3I2v
+ 4SB7LeYPizcUi4tsBhbynsYhz5Fj96Ps6Ryj
+X-Google-Smtp-Source: ABdhPJwuKdWeP7GaedFgJa7TLi5WpSdqmXyeV4Rf5VwR7bsDGmxUitYEPLBVVMrlxJUpHmeklFW4eQ==
+X-Received: by 2002:a05:6402:551:: with SMTP id
+ i17mr5231149edx.384.1603323097686; 
+ Wed, 21 Oct 2020 16:31:37 -0700 (PDT)
 Received: from localhost.localdomain
  ([2a02:aa12:a77f:2000:4cea:81e7:5fd4:93f7])
- by smtp.gmail.com with ESMTPSA id k23sm2845236ejs.100.2020.10.21.16.31.34
+ by smtp.gmail.com with ESMTPSA id k23sm2845236ejs.100.2020.10.21.16.31.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2020 16:31:34 -0700 (PDT)
+ Wed, 21 Oct 2020 16:31:37 -0700 (PDT)
 From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 01/11] drm/amd/display: Do not silently accept DCC for
- multiplane formats.
-Date: Thu, 22 Oct 2020 01:31:20 +0200
-Message-Id: <20201021233130.874615-2-bas@basnieuwenhuizen.nl>
+Subject: [PATCH v3 03/11] drm/amd/display: Honor the offset for plane 0.
+Date: Thu, 22 Oct 2020 01:31:22 +0200
+Message-Id: <20201021233130.874615-4-bas@basnieuwenhuizen.nl>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201021233130.874615-1-bas@basnieuwenhuizen.nl>
 References: <20201021233130.874615-1-bas@basnieuwenhuizen.nl>
@@ -82,34 +81,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: maraeo@gmail.com, sunpeng.li@amd.com, daniel@ffwll.ch,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexdeucher@gmail.com,
- harry.wentland@amd.com, nicholas.kazlauskas@amd.com
+Cc: maraeo@gmail.com, sunpeng.li@amd.com, stable@vger.kernel.org,
+ daniel@ffwll.ch, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexdeucher@gmail.com, harry.wentland@amd.com, nicholas.kazlauskas@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Silently accepting it could result in corruption.
+With modifiers I'd like to support non-dedicated buffers for
+images.
 
 Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: stable@vger.kernel.org # 5.1.0
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2713caac4f2a..73987fdb6a09 100644
+index 73987fdb6a09..833887b9b0ad 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3908,7 +3908,7 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
- 		return 0;
+@@ -3894,6 +3894,7 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
+ 	struct dc *dc = adev->dm.dc;
+ 	struct dc_dcc_surface_param input;
+ 	struct dc_surface_dcc_cap output;
++	uint64_t plane_address = afb->address + afb->base.offsets[0];
+ 	uint32_t offset = AMDGPU_TILING_GET(info, DCC_OFFSET_256B);
+ 	uint32_t i64b = AMDGPU_TILING_GET(info, DCC_INDEPENDENT_64B) != 0;
+ 	uint64_t dcc_address;
+@@ -3937,7 +3938,7 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
+ 		AMDGPU_TILING_GET(info, DCC_PITCH_MAX) + 1;
+ 	dcc->independent_64b_blks = i64b;
  
- 	if (format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
--		return 0;
-+		return -EINVAL;
+-	dcc_address = get_dcc_address(afb->address, info);
++	dcc_address = get_dcc_address(plane_address, info);
+ 	address->grph.meta_addr.low_part = lower_32_bits(dcc_address);
+ 	address->grph.meta_addr.high_part = upper_32_bits(dcc_address);
  
- 	if (!dc->cap_funcs.get_dcc_compression_cap)
- 		return -EINVAL;
+@@ -3968,6 +3969,8 @@ fill_plane_buffer_attributes(struct amdgpu_device *adev,
+ 	address->tmz_surface = tmz_surface;
+ 
+ 	if (format < SURFACE_PIXEL_FORMAT_VIDEO_BEGIN) {
++		uint64_t addr = afb->address + fb->offsets[0];
++
+ 		plane_size->surface_size.x = 0;
+ 		plane_size->surface_size.y = 0;
+ 		plane_size->surface_size.width = fb->width;
+@@ -3976,9 +3979,10 @@ fill_plane_buffer_attributes(struct amdgpu_device *adev,
+ 			fb->pitches[0] / fb->format->cpp[0];
+ 
+ 		address->type = PLN_ADDR_TYPE_GRAPHICS;
+-		address->grph.addr.low_part = lower_32_bits(afb->address);
+-		address->grph.addr.high_part = upper_32_bits(afb->address);
++		address->grph.addr.low_part = lower_32_bits(addr);
++		address->grph.addr.high_part = upper_32_bits(addr);
+ 	} else if (format < SURFACE_PIXEL_FORMAT_INVALID) {
++		uint64_t luma_addr = afb->address + fb->offsets[0];
+ 		uint64_t chroma_addr = afb->address + fb->offsets[1];
+ 
+ 		plane_size->surface_size.x = 0;
+@@ -3999,9 +4003,9 @@ fill_plane_buffer_attributes(struct amdgpu_device *adev,
+ 
+ 		address->type = PLN_ADDR_TYPE_VIDEO_PROGRESSIVE;
+ 		address->video_progressive.luma_addr.low_part =
+-			lower_32_bits(afb->address);
++			lower_32_bits(luma_addr);
+ 		address->video_progressive.luma_addr.high_part =
+-			upper_32_bits(afb->address);
++			upper_32_bits(luma_addr);
+ 		address->video_progressive.chroma_addr.low_part =
+ 			lower_32_bits(chroma_addr);
+ 		address->video_progressive.chroma_addr.high_part =
 -- 
 2.28.0
 
