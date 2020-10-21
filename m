@@ -2,68 +2,69 @@ Return-Path: <SRS0=buuZ=D4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E176C4363A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 18:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA2AFC4363A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 20:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8573222456
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 18:46:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7572324180
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 20:11:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mSUFRvsR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8573222456
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lhyyYsOd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7572324180
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0EE56F49F;
-	Wed, 21 Oct 2020 18:46:57 +0000 (UTC)
-Received: from mail-yb1-xb44.google.com (mail-yb1-xb44.google.com
- [IPv6:2607:f8b0:4864:20::b44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 625D46F49F
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 18:46:57 +0000 (UTC)
-Received: by mail-yb1-xb44.google.com with SMTP id o70so2673666ybc.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 11:46:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EABEB6F4D1;
+	Wed, 21 Oct 2020 20:11:06 +0000 (UTC)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 064286F4D1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 20:11:06 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id w11so1788323pll.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 13:11:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=q5yXkYMCEngCv9aH73zDP/f8vAlktYMSygvVDoymIZk=;
- b=mSUFRvsRuCPebJ459Z1JK3aJPCep5j79YVTNRUl8pPsAB///XdcsjyAWFkwfqELZOz
- +SBrcEi4bt8E650YrJYgCRHiamA3chHr9NtA2En/XvxZU+lQLwQ7dWttpx/VeOv8Eg+c
- +K8Hvf/0mIWhLsZULNlF2yI1KY2OvtVV8btnPw7arbvqFDOHJDaQ7Hb5efWaLIpkmptV
- RKQ4+ay3vwaoQzQs+9TkZchZqYiXPBSTj2SHbkNrS7ehmAyu7x+KsJ1IORCkgh58NzJr
- O7A2ui3zKHDNtNXnNqwR2UD+InaWYO8ev8RcBfYrBgjWFED3wxMvVGHrUrZAnjtldY4f
- uWTw==
+ :cc; bh=1Ut+9my+pGC+jQOYwhLzNC+K3MaYWx/namoyXGu2sHM=;
+ b=lhyyYsOdw611sFxYRvGTbjCJjyWn+/rl63Zy8ubrAP7raR3YkMHn8VdkKoDvsiM7pe
+ mOs4vu3t8cCC8466KyqHRPXmN9hNj7luhmi/VQyIGP4wesTp577WluSS/437la4bFqjm
+ qQlKL/EfruW5NIRT2b5+lmjI/uE1VVzDOGzjAUlzZuzHYh2/9H2ZO9Y2ArD0Rm4/K/Fw
+ JixGO1E/YZqsfQyMhDPoo7KhPLhmwaaOEIawn4EEyTxkSKJ+Uz+QNhRM6tG2kN6uiEK5
+ ol4t1/BfPKGi9ZDT9iAAGEzZh5wByUHeoMPsi/kQm01y/3wHDEj301c/JKeQWk3cZlin
+ ifdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=q5yXkYMCEngCv9aH73zDP/f8vAlktYMSygvVDoymIZk=;
- b=WjYaomv9K0t9TsPuP8RWijWDIWBqL2Np22w7URK6xzoSKDc2Cqx7CJLkmx1LPsL8B6
- 4SDbdq5IKftFDzhBVZtwEdZ61I8uDIiXV4lq3Um4J3/dBAyDdz3iRNVsbo71JXrn+J5K
- hRN5mc+CqldXbTE7WknYhW/5p4/Q3H2nklgtHDQllHpHlZbOGjPswyPUf/JvBl+sdS46
- YbZ3hQfESFiuj5zIG34mNy/c3AKcmK6zK49zs4uL+OUBrzk553FoX87YY1s962MBImgK
- AaSgyF1zo/EOYAL6nvcQlAtY26C0h1phB2QmWgthr9qHEm73JjoT/o+E5vndLrutzf9e
- Kw/g==
-X-Gm-Message-State: AOAM533zsBSRw+R/wzdwR43QUvMm0bT5ZW7BQtjuJ1smeZ1WpIsY57oH
- QxIOKqU6P1rJh2mM3CDeaz2XSQOO4l4LpCidUSE=
-X-Google-Smtp-Source: ABdhPJzgE+1YoCIDhjTE6WC0XNIpcv0Wne2t1TToTvrQaKxKypOwUQfUcVXnUD2/G3ZXx1e5gR9m4EiTP7VdbkMdeD0=
-X-Received: by 2002:a25:511:: with SMTP id 17mr7618801ybf.296.1603306016610;
- Wed, 21 Oct 2020 11:46:56 -0700 (PDT)
+ bh=1Ut+9my+pGC+jQOYwhLzNC+K3MaYWx/namoyXGu2sHM=;
+ b=FecyA0XjPLaPR07cRRRv/t+S7g5R/rhaZwppwNbZpXJwmklNap464o6wHs4uZlMwfF
+ AUm9s7YuiTAVHnAl/HAqwEYPKi0T7Be5Q1WKdn4dyxsa4VZvfm8MwUXRKWqh7FKdfVtC
+ MlMueMXgJ3u55fEaWm/Zs/asPNZrnz5E8K5mvSbBbF8UR6p1y2l6momGNGAnc8ajEYmg
+ F9Zq76BU89Ufitn8cz5QdIr3ilboSSf5gRA0VHBGMw2nhBKWLhi+ObklND/qtgo5d577
+ LiZJV3UBYjodWWh5Du9w0+HoNNfRdeFO1ZmwIV4KPTFMTfBISih9RPtW8h2u0sIb87In
+ YZzA==
+X-Gm-Message-State: AOAM532ypAbfHrfHl+7p5kEPAv4y53HupwNi9RWAQU4mu7t/al2+im5N
+ Rffhl24CyCDx01/3lGxM/RcF9/TpDYMYXIvFdWGxD9Z1QGY=
+X-Google-Smtp-Source: ABdhPJyXyFwjx+leRvPrQhd4ypwOUPRb/cxTsr5KB/9aJxPgCupuIfOlWKoO3bZQkAth6GJP3GkcFUCmCyTYBR4094o=
+X-Received: by 2002:a17:90a:348e:: with SMTP id
+ p14mr4896428pjb.75.1603311065642; 
+ Wed, 21 Oct 2020 13:11:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201021064455.14935-1-kenneth.feng@amd.com>
- <CADnq5_PdS8M3i9uQ3JTUE-idGJxVCk_k5N=Sgvsj4VJGFKn_vA@mail.gmail.com>
- <CADnq5_NLyQ2jOW0ZkYMXcAX-snqHvUzNRYtrDRZbhN7qe0_5Zg@mail.gmail.com>
-In-Reply-To: <CADnq5_NLyQ2jOW0ZkYMXcAX-snqHvUzNRYtrDRZbhN7qe0_5Zg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 21 Oct 2020 14:46:45 -0400
-Message-ID: <CADnq5_M_ry9EHp2b1ycBzD4oTsfVJxFtSGoRvq2EfJiN6Qczmg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
-To: Kenneth Feng <kenneth.feng@amd.com>
+References: <20201020223113.310402-1-bas@basnieuwenhuizen.nl>
+ <20201021160922.210403-1-harry.wentland@amd.com>
+ <CAP+8YyEqPkA6TPTuZG5+jWYppcuYX9yXyk_RAAw_FCeZEZ6U0A@mail.gmail.com>
+In-Reply-To: <CAP+8YyEqPkA6TPTuZG5+jWYppcuYX9yXyk_RAAw_FCeZEZ6U0A@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 21 Oct 2020 16:10:29 -0400
+Message-ID: <CAAxE2A4fj69=2rg9f-PvuJdAdeJHTQ8DPztQ-aUT1v9dj+UtSg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Interpret log_2(0) as 0
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,80 +76,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Likun Gao <likun.gao@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Roman.Li@amd.com,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0655257433=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 21, 2020 at 9:40 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Oct 21, 2020 at 9:01 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Wed, Oct 21, 2020 at 2:45 AM Kenneth Feng <kenneth.feng@amd.com> wrote:
-> > >
-> > > fix the wrong fan speed in fan1_input when the fan control mode is manual.
-> > > the fan speed value is not correct when we set manual mode to fan1_enalbe - 1.
-> > > since the fan speed in the metrics table always reflects the real fan speed,we
-> > > can fetch the fan speed for both auto and manual mode.
-> > >
-> > > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> >
-> > NACK.  At least on the navi boards I have, the metrics table fan speed
-> > reads back 0 when the fan is in manual mode.  That's why I changed
-> > this in the first place.
->
-> Nevermind, I was thinking about navi1x.  If this is working correctly
-> on sienna cichlid, please ignore me.
+--===============0655257433==
+Content-Type: multipart/alternative; boundary="00000000000088399e05b233f217"
 
-That said, I don't see why the current code should not work.  Maybe a
-bug elsewhere?  Is smu_v11_0_get_fan_speed_rpm() incorrect for sienna
-cichlid?
+--00000000000088399e05b233f217
+Content-Type: text/plain; charset="UTF-8"
 
-Alex
+num_pkrs is a hardware config parameter like the number of shader engines.
+It's constant for each chip.
 
+Marek
+
+On Wed, Oct 21, 2020 at 12:39 PM Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+wrote:
+
+> On Wed, Oct 21, 2020 at 6:09 PM Harry Wentland <harry.wentland@amd.com>
+> wrote:
+> >
+> > Even though log(0) is technically undefined our code assumes that
+> > log_2(0) is 0. This mirrors the current behavior of our log_2
+> > implementation on non-Linux platforms.
+> >
+> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> > ---
+> >
+> > What's num_pkrs value is upstream Mesa providing for CHIP_VANGOGH?
 >
-> Alex
+> So mesa isn't quite providing a num_pkrs value to the HW as the render
+> HW doesn't require you to set one, it assumes something.
 >
+> In practice mesa still uses num_pkrs, which is provided by a readback
+> of the GB_ADDR_CFG(CONFIG?) register info provided by the kernel. This
+> can be used for e.g. determining texture coordinates (like we do for
+> the displayable DCC transform) but otherwise isn't really needed,
+> since the tile size for texture allocation is not dependent on
+> num_pkrs.
+>
+> so outside of displayable DCC I think you'd be able to get far in mesa
+> with a wrong num_pkrs.
 >
 > >
-> > Alex
+> > I saw that problem at bringup with an internal Mesa and had this fix
+> > for it.
 > >
+> > Harry
 > >
-> > > ---
-> > >  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 11 +++--------
-> > >  1 file changed, 3 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > > index 496abc31b07e..27b6cade9ade 100644
-> > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > > @@ -1171,14 +1171,9 @@ static int sienna_cichlid_get_fan_speed_rpm(struct smu_context *smu,
-> > >         if (!speed)
-> > >                 return -EINVAL;
-> > >
-> > > -       switch (smu_v11_0_get_fan_control_mode(smu)) {
-> > > -       case AMD_FAN_CTRL_AUTO:
-> > > -               return sienna_cichlid_get_smu_metrics_data(smu,
-> > > -                                                          METRICS_CURR_FANSPEED,
-> > > -                                                          speed);
-> > > -       default:
-> > > -               return smu_v11_0_get_fan_speed_rpm(smu, speed);
-> > > -       }
-> > > +       return sienna_cichlid_get_smu_metrics_data(smu,
-> > > +                                               METRICS_CURR_FANSPEED,
-> > > +                                               speed);
-> > >  }
-> > >
-> > >  static int sienna_cichlid_get_fan_parameters(struct smu_context *smu)
-> > > --
-> > > 2.17.1
-> > >
-> > > _______________________________________________
-> > > amd-gfx mailing list
-> > > amd-gfx@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >  drivers/gpu/drm/amd/display/dc/basics/conversion.h | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/basics/conversion.h
+> b/drivers/gpu/drm/amd/display/dc/basics/conversion.h
+> > index ade785c4fdc7..da9883ec7b1c 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/basics/conversion.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/basics/conversion.h
+> > @@ -40,7 +40,11 @@ void convert_float_matrix(
+> >
+> >  static inline unsigned int log_2(unsigned int num)
+> >  {
+> > -       return ilog2(num);
+> > +       /*
+> > +        * Technically log(0) is undefined, but our code is structured
+> > +        * in a way that assumes log(0) = 0
+> > +        */
+> > +       return num ? ilog2(num) : num;
+> >  }
+> >
+> >  #endif
+> > --
+> > 2.28.0
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--00000000000088399e05b233f217
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>num_pkrs is a hardware config parameter like the numb=
+er of shader engines. It&#39;s constant for each chip.<br></div><div><br></=
+div><div>Marek<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Oct 21, 2020 at 12:39 PM Bas Nieuwenhuizen =
+&lt;<a href=3D"mailto:bas@basnieuwenhuizen.nl">bas@basnieuwenhuizen.nl</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On We=
+d, Oct 21, 2020 at 6:09 PM Harry Wentland &lt;<a href=3D"mailto:harry.wentl=
+and@amd.com" target=3D"_blank">harry.wentland@amd.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Even though log(0) is technically undefined our code assumes that<br>
+&gt; log_2(0) is 0. This mirrors the current behavior of our log_2<br>
+&gt; implementation on non-Linux platforms.<br>
+&gt;<br>
+&gt; Signed-off-by: Harry Wentland &lt;<a href=3D"mailto:harry.wentland@amd=
+.com" target=3D"_blank">harry.wentland@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;<br>
+&gt; What&#39;s num_pkrs value is upstream Mesa providing for CHIP_VANGOGH?=
+<br>
+<br>
+So mesa isn&#39;t quite providing a num_pkrs value to the HW as the render<=
+br>
+HW doesn&#39;t require you to set one, it assumes something.<br>
+<br>
+In practice mesa still uses num_pkrs, which is provided by a readback<br>
+of the GB_ADDR_CFG(CONFIG?) register info provided by the kernel. This<br>
+can be used for e.g. determining texture coordinates (like we do for<br>
+the displayable DCC transform) but otherwise isn&#39;t really needed,<br>
+since the tile size for texture allocation is not dependent on<br>
+num_pkrs.<br>
+<br>
+so outside of displayable DCC I think you&#39;d be able to get far in mesa<=
+br>
+with a wrong num_pkrs.<br>
+<br>
+&gt;<br>
+&gt; I saw that problem at bringup with an internal Mesa and had this fix<b=
+r>
+&gt; for it.<br>
+&gt;<br>
+&gt; Harry<br>
+&gt;<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/display/dc/basics/conversion.h | 6 +++++-<br=
+>
+&gt;=C2=A0 1 file changed, 5 insertions(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/dc/basics/conversion.h b/driv=
+ers/gpu/drm/amd/display/dc/basics/conversion.h<br>
+&gt; index ade785c4fdc7..da9883ec7b1c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/dc/basics/conversion.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/dc/basics/conversion.h<br>
+&gt; @@ -40,7 +40,11 @@ void convert_float_matrix(<br>
+&gt;<br>
+&gt;=C2=A0 static inline unsigned int log_2(unsigned int num)<br>
+&gt;=C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0return ilog2(num);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Technically log(0) is undefined, but ou=
+r code is structured<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 * in a way that assumes log(0) =3D 0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0return num ? ilog2(num) : num;<br>
+&gt;=C2=A0 }<br>
+&gt;<br>
+&gt;=C2=A0 #endif<br>
+&gt; --<br>
+&gt; 2.28.0<br>
+&gt;<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+
+--00000000000088399e05b233f217--
+
+--===============0655257433==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0655257433==--
