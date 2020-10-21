@@ -2,54 +2,67 @@ Return-Path: <SRS0=buuZ=D4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D81F5C56202
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 12:17:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FB13C2BBD4
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 12:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6DD1B22251
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 12:17:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0DFA822249
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2020 12:59:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="cs9qL6PO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DD1B22251
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tj5Me/5L"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DFA822249
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C356EAC2;
-	Wed, 21 Oct 2020 12:17:32 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FBDF6EABE;
- Wed, 21 Oct 2020 12:17:31 +0000 (UTC)
-Received: from mail.kernel.org (ip5f5ad5a8.dynamic.kabel-deutschland.de
- [95.90.213.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA0E122249;
- Wed, 21 Oct 2020 12:17:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603282650;
- bh=FP8ZUMYMOzdH37ufj3BXgTpg3gpGoQi9b6ZHc9JyKsE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cs9qL6POj9tQbHN8t8+tVOqAAcXrr7CobM3XQ4j7ccaaIjrfjdn6rKHC1ZR5WOmcc
- ybtoQyJkrE9OcdW3Di5GGcXjXDhkpiIoC99pdwlXP8VH2G2gn7b9LkHeXoKPfesAO7
- T5s+S0oRlDzJNpIygpmTyTENV9AhebbAMUkgAKpM=
-Received: from mchehab by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1kVD3Y-001U2Z-9W; Wed, 21 Oct 2020 14:17:28 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Subject: [PATCH v3 1/6] drm: amdgpu: kernel-doc: update some adev parameters
-Date: Wed, 21 Oct 2020 14:17:22 +0200
-Message-Id: <8245658e2c6fb724e2ffbe6ead43b75bbdf8818d.1603282193.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <cover.1603282193.git.mchehab+huawei@kernel.org>
-References: <cover.1603282193.git.mchehab+huawei@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09EC58800A;
+	Wed, 21 Oct 2020 12:59:23 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F536EACC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 12:59:21 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id n18so3001417wrs.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 05:59:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=I3ZJXMvtpHWSS4gMJVPgQcquqrOTfNWwkrqTpBqZ0FI=;
+ b=Tj5Me/5LgS8ZVPnrpa/1IxAJ84DgqiPXjw3NchKc+MTxim/57IxyKqp2V5dA6PLPRE
+ yBwyN1C/XH/0+9tMMo23s2yi9DRl+xsrFav+DPyRl3vv9ogxMlz3717WthgxDS8A/jmO
+ bt7MK5xQezuui8yLBT6wnlnCiQaO+Huy8RzBfmCVkCeDIhuQ/z72Qvg9Z+2Ddc+ZdWot
+ jQh5K+As5Dy1B1/ZrXU+Wwc5Uhi2GaXvdl7Tsv8QqGGFplvl3KSndTMaxo+/Ud/PaTVg
+ sD+dEufSRFnR+8Adl6QElEACHWfRmEK2HF0MvffIWN5QKDFu2FQloexL4oAav9Jrmt/H
+ vwHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=I3ZJXMvtpHWSS4gMJVPgQcquqrOTfNWwkrqTpBqZ0FI=;
+ b=JP5VYE9QefM6Bn002VyfaFqwgrcO905mxnEQb1wxwIRmwyQsg7u5NuvvKUG14Fg2V5
+ hHMH3nuMxa7y9vKwVn8LeIPKDHxJdaCBSb/v/mbJ/irnwe16PAPto4sON+5iSeRyyb8q
+ BO1zbrJGk+VHN9x24tb8mAWDi6vu2Rpg4dAvcsxhAmwbG7wjExlVc53GLUQWpnp9tmZH
+ oSi6LT6HV75u8WGQy01b7/yfhv4p8EOSCU1lE9rrcZ732ADLcn84AMpZgMYX8hJLRQVo
+ yuV9eEoxwlFAg0hvc/IVRLVEe48GDYGe1bPsvpRy8DNBL6CcxoyKC2bxcv66bzixYQKp
+ bUWQ==
+X-Gm-Message-State: AOAM531jA93g43YyI9x1DPD8W5H9Au5zJfd3L4AmdJOepM8v70vOAimr
+ kuTZeUKXPc23UCLoaeBdzf2Jv7PLQ+ZTnnaVimk=
+X-Google-Smtp-Source: ABdhPJyTvS+Hugbi2Ogu1bYReXYyaYozq4vMlU7zqdlygv8ehfqeobLuHjeUVJPHcUEaj1l6FN68LI0/i/dChlRa9XY=
+X-Received: by 2002:adf:dd50:: with SMTP id u16mr4794503wrm.419.1603285159355; 
+ Wed, 21 Oct 2020 05:59:19 -0700 (PDT)
 MIME-Version: 1.0
+References: <20201021075608.16785-1-tianci.yin@amd.com>
+ <20201021075608.16785-2-tianci.yin@amd.com>
+In-Reply-To: <20201021075608.16785-2-tianci.yin@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 21 Oct 2020 08:59:07 -0400
+Message-ID: <CADnq5_Ox5eJrPb3g-EW7dambjJ7fyXm8zd0kQAWjEjk451cq=Q@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amdgpu: disable DCN for navi10 blockchain SKU
+To: Tianci Yin <tianci.yin@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,251 +74,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Bernard Zhao <bernard@vivo.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Colton Lewis <colton.w.lewis@protonmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Long Gang <Gang.Long@amd.com>, Guchun Chen <guchun.chen@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Flora Cui <flora.cui@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Running "make htmldocs: produce lots of warnings on those files:
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
-	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
+On Wed, Oct 21, 2020 at 3:56 AM Tianci Yin <tianci.yin@amd.com> wrote:
+>
+> From: "Tianci.Yin" <tianci.yin@amd.com>
+>
+> The blockchain SKU has no display support, so the DCN ip
+> block should be disabled. Add DID/RID as display
+> supporting dependence, it potentially disable DCN block.
 
-They're related to the repacement of some parameters by adev,
-and due to a few renamed parameters.
+Wouldn't it be cleaner to just not add the DCN block like you did in patch 3?
 
-While here, uniform the name of the parameter for it to be
-the same on all functions using a pointer to struct amdgpu_device.
+Alex
 
-Update the kernel-doc documentation accordingly.
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 28 ++++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c  |  6 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  7 +++--
- 3 files changed, 20 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e8b41756c9f9..f8785bdec79c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -705,7 +705,7 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
- /**
-  * amdgpu_invalid_rreg - dummy reg read function
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @reg: offset of register
-  *
-  * Dummy register read function.  Used for register blocks
-@@ -722,7 +722,7 @@ static uint32_t amdgpu_invalid_rreg(struct amdgpu_device *adev, uint32_t reg)
- /**
-  * amdgpu_invalid_wreg - dummy reg write function
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @reg: offset of register
-  * @v: value to write to the register
-  *
-@@ -739,7 +739,7 @@ static void amdgpu_invalid_wreg(struct amdgpu_device *adev, uint32_t reg, uint32
- /**
-  * amdgpu_invalid_rreg64 - dummy 64 bit reg read function
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @reg: offset of register
-  *
-  * Dummy register read function.  Used for register blocks
-@@ -756,7 +756,7 @@ static uint64_t amdgpu_invalid_rreg64(struct amdgpu_device *adev, uint32_t reg)
- /**
-  * amdgpu_invalid_wreg64 - dummy reg write function
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @reg: offset of register
-  * @v: value to write to the register
-  *
-@@ -773,7 +773,7 @@ static void amdgpu_invalid_wreg64(struct amdgpu_device *adev, uint32_t reg, uint
- /**
-  * amdgpu_block_invalid_rreg - dummy reg read function
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @block: offset of instance
-  * @reg: offset of register
-  *
-@@ -793,7 +793,7 @@ static uint32_t amdgpu_block_invalid_rreg(struct amdgpu_device *adev,
- /**
-  * amdgpu_block_invalid_wreg - dummy reg write function
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @block: offset of instance
-  * @reg: offset of register
-  * @v: value to write to the register
-@@ -813,7 +813,7 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_device *adev,
- /**
-  * amdgpu_device_asic_init - Wrapper for atom asic_init
-  *
-- * @dev: drm_device pointer
-+ * @adev: amdgpu_device pointer
-  *
-  * Does any asic specific work and then calls atom asic init.
-  */
-@@ -827,7 +827,7 @@ static int amdgpu_device_asic_init(struct amdgpu_device *adev)
- /**
-  * amdgpu_device_vram_scratch_init - allocate the VRAM scratch page
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  *
-  * Allocates a scratch page of VRAM for use by various things in the
-  * driver.
-@@ -844,7 +844,7 @@ static int amdgpu_device_vram_scratch_init(struct amdgpu_device *adev)
- /**
-  * amdgpu_device_vram_scratch_fini - Free the VRAM scratch page
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  *
-  * Frees the VRAM scratch page.
-  */
-@@ -3011,7 +3011,7 @@ bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type)
- /**
-  * amdgpu_device_has_dc_support - check if dc is supported
-  *
-- * @adev: amdgpu_device_pointer
-+ * @adev: amdgpu_device pointer
-  *
-  * Returns true for supported, false for not supported
-  */
-@@ -4045,7 +4045,7 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
- /**
-  * amdgpu_device_reset_sriov - reset ASIC for SR-IOV vf
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @from_hypervisor: request from hypervisor
-  *
-  * do VF FLR and reinitialize Asic
-@@ -4100,7 +4100,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- /**
-  * amdgpu_device_has_job_running - check if there is any job in mirror list
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  *
-  * check if there is any job in mirror list
-  */
-@@ -4128,7 +4128,7 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev)
- /**
-  * amdgpu_device_should_recover_gpu - check if we should try GPU recovery
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  *
-  * Check amdgpu_gpu_recovery and SRIOV status to see if we should try to recover
-  * a hung GPU.
-@@ -4477,7 +4477,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
- /**
-  * amdgpu_device_gpu_recover - reset the asic and recover scheduler
-  *
-- * @adev: amdgpu device pointer
-+ * @adev: amdgpu_device pointer
-  * @job: which job trigger hang
-  *
-  * Attempt to reset the GPU if it has hung (all asics).
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index f203e4a6a3f2..731f3aa2e6ba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -81,8 +81,8 @@ static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func;
- /**
-  * amdgpu_gtt_mgr_init - init GTT manager and DRM MM
-  *
-- * @man: TTM memory type manager
-- * @p_size: maximum size of GTT
-+ * @adev: amdgpu_device pointer
-+ * @gtt_size: maximum size of GTT
-  *
-  * Allocate and initialize the GTT manager.
-  */
-@@ -123,7 +123,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
- /**
-  * amdgpu_gtt_mgr_fini - free and destroy GTT manager
-  *
-- * @man: TTM memory type manager
-+ * @adev: amdgpu_device pointer
-  *
-  * Destroy and free the GTT manager, returns -EBUSY if ranges are still
-  * allocated inside it.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 01c1171afbe0..0c6b7c5ecfec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -168,8 +168,7 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func;
- /**
-  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
-  *
-- * @man: TTM memory type manager
-- * @p_size: maximum size of VRAM
-+ * @adev: amdgpu_device pointer
-  *
-  * Allocate and initialize the VRAM manager.
-  */
-@@ -199,7 +198,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- /**
-  * amdgpu_vram_mgr_fini - free and destroy VRAM manager
-  *
-- * @man: TTM memory type manager
-+ * @adev: amdgpu_device pointer
-  *
-  * Destroy and free the VRAM manager, returns -EBUSY if ranges are still
-  * allocated inside it.
-@@ -229,7 +228,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
- /**
-  * amdgpu_vram_mgr_vis_size - Calculate visible node size
-  *
-- * @adev: amdgpu device structure
-+ * @adev: amdgpu_device pointer
-  * @node: MM node structure
-  *
-  * Calculate how many bytes of the MM node are inside visible VRAM
--- 
-2.26.2
-
+>
+> Change-Id: Ia83bef1499708dfd0113fe2dbb3eb4143452c1cd
+> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 20 +++++++++++++++++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  2 +-
+>  4 files changed, 20 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index f8f3e375c93e..04e906386b5b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1051,7 +1051,7 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
+>                                    u32 pcie_index, u32 pcie_data,
+>                                    u32 reg_addr, u64 reg_data);
+>
+> -bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type);
+> +bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type, struct pci_dev *pdev);
+>  bool amdgpu_device_has_dc_support(struct amdgpu_device *adev);
+>
+>  int emu_soc_asic_init(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index c567f20b9d1f..fa522cffdd64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2958,11 +2958,12 @@ static void amdgpu_device_detect_sriov_bios(struct amdgpu_device *adev)
+>   * amdgpu_device_asic_has_dc_support - determine if DC supports the asic
+>   *
+>   * @asic_type: AMD asic type
+> + * @pdev: pointer of pci_dev instance
+>   *
+>   * Check if there is DC (new modesetting infrastructre) support for an asic.
+>   * returns true if DC has support, false if not.
+>   */
+> -bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type)
+> +bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type, struct pci_dev *pdev)
+>  {
+>         switch (asic_type) {
+>  #if defined(CONFIG_DRM_AMD_DC)
+> @@ -2998,7 +2999,6 @@ bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type)
+>         case CHIP_VEGA20:
+>  #if defined(CONFIG_DRM_AMD_DC_DCN)
+>         case CHIP_RAVEN:
+> -       case CHIP_NAVI10:
+>         case CHIP_NAVI14:
+>         case CHIP_NAVI12:
+>         case CHIP_RENOIR:
+> @@ -3011,6 +3011,20 @@ bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type)
+>  #endif
+>                 return amdgpu_dc != 0;
+>  #endif
+> +#if defined(CONFIG_DRM_AMD_DC_DCN)
+> +       case CHIP_NAVI10:
+> +               if (pdev->device == 0x731E &&
+> +                   (pdev->revision == 0xC6 ||
+> +                    pdev->revision == 0xC7)) {
+> +                       DRM_INFO("(%s 0x%04X:0x%04X 0x%04X:0x%04X 0x%02X) has no dc support.\n",
+> +                                amdgpu_asic_name[asic_type], pdev->vendor, pdev->device,
+> +                                pdev->subsystem_vendor, pdev->subsystem_device, pdev->revision);
+> +                       return false;
+> +               } else {
+> +                       return amdgpu_dc != 0;
+> +               }
+> +#endif
+> +
+>         default:
+>                 if (amdgpu_dc > 0)
+>                         DRM_INFO("Display Core has been requested via kernel parameter "
+> @@ -3031,7 +3045,7 @@ bool amdgpu_device_has_dc_support(struct amdgpu_device *adev)
+>         if (amdgpu_sriov_vf(adev) || adev->enable_virtual_display)
+>                 return false;
+>
+> -       return amdgpu_device_asic_has_dc_support(adev->asic_type);
+> +       return amdgpu_device_asic_has_dc_support(adev->asic_type, adev->pdev);
+>  }
+>
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index 9e92d2a070ac..97014458d7de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -516,7 +516,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
+>          */
+>         if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
+>             amdgpu_bo_support_uswc(bo_flags) &&
+> -           amdgpu_device_asic_has_dc_support(adev->asic_type)) {
+> +           amdgpu_device_asic_has_dc_support(adev->asic_type, adev->pdev)) {
+>                 switch (adev->asic_type) {
+>                 case CHIP_CARRIZO:
+>                 case CHIP_STONEY:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 13723914fa9f..97fda825e0d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1109,7 +1109,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>         bool supports_atomic = false;
+>
+>         if (!amdgpu_virtual_display &&
+> -           amdgpu_device_asic_has_dc_support(flags & AMD_ASIC_MASK))
+> +           amdgpu_device_asic_has_dc_support(flags & AMD_ASIC_MASK, pdev))
+>                 supports_atomic = true;
+>
+>         if ((flags & AMD_EXP_HW_SUPPORT) && !amdgpu_exp_hw_support) {
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
