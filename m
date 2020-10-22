@@ -2,69 +2,122 @@ Return-Path: <SRS0=NxiI=D5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03656C388F7
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 04:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BF00C388F2
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 871A1223C7
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 04:56:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7489C223C7
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:01:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QG4642Xx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 871A1223C7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="X0PgbRPH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7489C223C7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90C556E075;
-	Thu, 22 Oct 2020 04:56:45 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9D726E075;
- Thu, 22 Oct 2020 04:56:44 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id c16so449113wmd.2;
- Wed, 21 Oct 2020 21:56:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=y5P/hyU4ScvAx/EuzAVzabXFsXcQii1dHFcND32fY44=;
- b=QG4642Xxh4SfN4OSOAOu9x60OncbquO6Ht7WBZcZXSdYNGDKlyL7jqNBEeS3vVbyZW
- 4/m6kprv7jgurEUAMc1UILxnn2x1UgJyViNlYqzPDiBrQIOhI0qi/WBWNmkF+1fEmKHK
- 1RqeQeDRrwlIvSfuFai9e6dA+j2PitHcSCZmXi4lr88o/84wjARxXQeSRYZ4Qzn4yImP
- g9g9gRfMm6afAzJLHsWFWtKoWjQBeJVHeMnSr/JKsZlHGr4FYqxJWMkLzyFxF5cIzKN7
- 0AoRHReAyGvdoqTkNajnXL5vxMPO1nrMHDZv+6mjRrQfVKettuATAsh+gOLxailVpV1Q
- oH7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=y5P/hyU4ScvAx/EuzAVzabXFsXcQii1dHFcND32fY44=;
- b=LwHQ9tMbVc+WG49KoRVdHj/mJ7kq3XcksiDGKgRQOYbNtnOpf68gho9CSkhWl3G8so
- ntQlFfzJyRWx9UiaoO/bfEqxf6uZonEfN+NOV+GY7Z4FLWhxjQADnKVUmy67RRMFqGqa
- /kdmHhX8VRA5Bql4s44uDb/QPa6kErQRgv/ydYROLFfAKK7uH95EtNbKvEz1D+KPTBVe
- +a4chX6zy20cXPBN2bafc8Q+EvRhOxIgyhBoTPK7AlhbAwyN/2cu370iAPXPOlUXnUTj
- LkjGz96jXhxxcxwiLEm8NCdwPkZ1EwSESsjfHOp478jEbI+nOYKUd244QIUdaGaJG0vT
- eixQ==
-X-Gm-Message-State: AOAM531NjQvpEtyuTfhLie/WUDUd9TnZn8aCikqsyhFd7qP6ysplEp1q
- vTZniAt2KQk592h+PiDunUi2pAvXQEqI7ugb0o5oMrAN
-X-Google-Smtp-Source: ABdhPJzDSZHkXyivAg1JC/UinLS//1E7fm00gygHDmWVOvMP2nVYANSGY3iwZPGaPnBVnJuW/hUgPjMU2IOJhamzao8=
-X-Received: by 2002:a1c:49c2:: with SMTP id w185mr658734wma.70.1603342603598; 
- Wed, 21 Oct 2020 21:56:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D47976E195;
+	Thu, 22 Oct 2020 05:01:46 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5FF6E195
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 05:01:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=D91ToWcKqDRpcO1W+6gN6xtUe4HzC5c02ZVJ/IdfHqOQ9AeL2T48o4LK3FRNrEdO0OWH0Q7fye44cNUB+/lf8W560Hv+CwRciJuLA3eTGIYoz7oV/P3LJch+gq9iUZyvZnAw3/h/6MyNi5d4Q7zZ9WxRGK5mXX1KWZT+eJZpvdX4aPUJ3bAHrvOANG3lxzwBi3dGHybdAAwspAxzlFbarHcSdSX0lj0AnB5M+f0lxDnAx6Jlzkx2JqMfeE1beP6I6XS2MF+I7h/fukPL+pggp4Zlmfjk8UwtPuAz/gIvFnin+SjpM7z6pBmZNRIHRdItPJC+dM8uTO4mxVL7H6yJkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JHnTueZwpOzSN2zLTqWaoZp6LdZTdfxWVxEBldjhGEU=;
+ b=Ih9M7WSBgyhPOvqoi8GwpjVdi9bbjv2Ugdt2aoeo4+OMj0n+XImeyUaXuLHMDLulIFoVJ0hBA5IOvNmsjAUu8T/iZLe+n/ZSCZFosBwfk8Zz3SxgZ8RCv1yYh6BI2sWt65xowatY3dg7TJaOi2/6X69bpCG56jWPsxHlqvFENpsrBramguwHMsLo/fMyfERod4+cbcmR8at9yA9ASZFxQF/DzwL2woHhx3ZVnZ1E1mDesek+wB9T3hrjjmt/gTiIls5lSnUYvyozpw44XRmnopDYgUcEYMsuYZzPTmGlWLh9k44tyoO3nwviCz4g2zDtOe0JmS09zhQnal18hLiQeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JHnTueZwpOzSN2zLTqWaoZp6LdZTdfxWVxEBldjhGEU=;
+ b=X0PgbRPHYrGSTP409IG4CEJNUv8MKWwT3rd5r8MTHhL6cjWXBFwHvEHHVrGZ7jPYcftC5q3t+8K66q8MBRirM40jJftCvPA+y/0/5Un+3cXP4kwT1Kj59xGyrkNmLQIUPYV8paHmKQlxoa/ML90yG1sRkNW+optvU9PBv42kHB8=
+Received: from DM5PR12MB1657.namprd12.prod.outlook.com (2603:10b6:4:d::21) by
+ DM6PR12MB3739.namprd12.prod.outlook.com (2603:10b6:5:1c4::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3477.21; Thu, 22 Oct 2020 05:01:44 +0000
+Received: from DM5PR12MB1657.namprd12.prod.outlook.com
+ ([fe80::c166:6167:91e7:bdaf]) by DM5PR12MB1657.namprd12.prod.outlook.com
+ ([fe80::c166:6167:91e7:bdaf%6]) with mapi id 15.20.3477.028; Thu, 22 Oct 2020
+ 05:01:44 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+Thread-Topic: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+Thread-Index: AQHWp3W2tpMmU4s9tUCXALqpnAXt8qmiBbyAgAAKuICAAFWsgIAAZKRggAALJOCAAA5hgIAAD3dwgAAEE4CAABf10A==
+Date: Thu, 22 Oct 2020 05:01:44 +0000
+Message-ID: <DM5PR12MB1657848807541F7E6214AC3D8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+References: <20201021064455.14935-1-kenneth.feng@amd.com>
+ <CADnq5_PdS8M3i9uQ3JTUE-idGJxVCk_k5N=Sgvsj4VJGFKn_vA@mail.gmail.com>
+ <CADnq5_NLyQ2jOW0ZkYMXcAX-snqHvUzNRYtrDRZbhN7qe0_5Zg@mail.gmail.com>
+ <CADnq5_M_ry9EHp2b1ycBzD4oTsfVJxFtSGoRvq2EfJiN6Qczmg@mail.gmail.com>
+ <DM5PR12MB16579B5849FB6719ADFE7C2D8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <DM5PR12MB1657C41033410DB1F57995F28E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <CADnq5_MR3O_T-jSziUMdJWU=eipX+55Km3WSLzP9+Eudygayvg@mail.gmail.com>
+ <DM5PR12MB165756ABF941252F123C03BD8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <CADnq5_M6V=-YDX5QJp-HEA2k=5HPh57zyj8tr+oVXgOo_sQUcg@mail.gmail.com>
+In-Reply-To: <CADnq5_M6V=-YDX5QJp-HEA2k=5HPh57zyj8tr+oVXgOo_sQUcg@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-10-22T05:01:38Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=68595d10-835f-471e-89a9-00005dc8e732;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-10-22T05:01:38Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: b9139865-92cf-4585-beca-000095ebfe8f
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 54be36e7-0467-4110-dba7-08d876479241
+x-ms-traffictypediagnostic: DM6PR12MB3739:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3739F02477C57DD2C7D837108E1D0@DM6PR12MB3739.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2449;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: mmc0+TO7P9073Ts6jNDjxbGcjZmE3KgWz/maY0nGeeGUERbvf4v+ALth2EVlxaJLFk8MZhbv/zLx6ZFK/vvKa1xS+GVSvIIhHxZ0zCKD1Si67ZAA2GXvAcYjz/HiGMsljm5CmElTc9pvqcrKHmLTCMI5l8BHz3gaeBXk26R+9PbPyaXWoqa5qnjtq6eamIYWTLvty2rUX2lp1Rhvrs5WAp5m3+NihHw/6rJPZIWYZDM0HYDJ1GiBqoA997sy4QUQFMwS4XKCwJkMARwaFrg4TElqTmiYsZVQdAd1g720OZxD21ucmKde4vvo1YMYXVLfHx3NOUDhyGl2tkTcIv36uS6EEXBFKgXTzHRrBJYlK/1Moq6RFvluH74SNyim8yDMs7XQm7ZmqFAijEeT/tfe+9CLp2Q7j61tYCT+HVucqkmFucf8ErDdOa6mUl+XFedA4eNZz1Ycp38RwIIiRuZKfg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1657.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(346002)(39860400002)(136003)(376002)(478600001)(8676002)(2906002)(45080400002)(8936002)(7696005)(71200400001)(86362001)(6506007)(53546011)(6916009)(4326008)(83380400001)(52536014)(5660300002)(33656002)(186003)(316002)(76116006)(26005)(64756008)(966005)(66946007)(66476007)(66556008)(54906003)(55016002)(9686003)(66446008)(357404004);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: s6BYRHRylPjqYSKx7nAqGykbZnUxxBSpbCHpYQDqJyraFZM/0LAoNGKPm1Y4ASFtLWvHo8l6cNgThQoOV3+lDGdigZr9o+bl5TrmVjEbaTjH3ku3PTas7mlsIABp5Yvd9NQvnDbG+aCUBb2+tTSuiEN+QFDjFOgg8iysCg/vo3RDP2ehkMyJlqv9nYs/F6ods2dUu5MsGRhHKK9kZQmF8bf4cH+AaxEaQQU08RxPTuv/AEYi79FTwsT/dpeZc11oTRAgn49ClBg+Q6pigfKceXLV2T/UQIhIwhXl/oHRyvoalSED4EcXnap6MHCFOMbRdC+2eJ35bJGteGBkgL4a+bWFw6qsHASWuLQECF+5KQUtNwYuKqX4Kcw/XqBy/JNC5ASHYL7onXXmX5AvRB5mjR1S5Zw50nYq6aadSHg1PmWaKglUQNni3Uo9Ih0xGPmaTF9styN5rRxX5YaXZwEfEAeW3iciuNcx72gsrTSD36gXjMtY1g3lIMFx26GbyoRoprF+d9uN2J8fbxt01CBzkYAJ2yfoq2O5xgVHraOyWphkiJtPNeavOye3yrvQFGjOywC2rmb9VC6D02l6mw9Cy6rPJHXz8cVdv4j8NhMqNgk5r3XSdL/AN+QTa6Slgzh5h5DSAauxdU7xyKsYNC27Tg==
 MIME-Version: 1.0
-References: <20201019144311.18260-1-trix@redhat.com>
- <2f951197-b93e-d0c9-153f-2ddd1b195b3f@amd.com>
- <7179e50d-f29b-811d-030b-f2cfe3a1a502@amd.com>
-In-Reply-To: <7179e50d-f29b-811d-030b-f2cfe3a1a502@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Oct 2020 00:56:31 -0400
-Message-ID: <CADnq5_NdJ36NZbWwL4QT5ZNKX4wEbyJNB2NOaoxpMyrs8RBjHQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove unneeded break
-To: Harry Wentland <harry.wentland@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1657.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54be36e7-0467-4110-dba7-08d876479241
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2020 05:01:44.0980 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KAI7IXc1RAgLgdXeMIcxTHCcAsn+v15pNIHX/KJWnHUPvbnPyNRBRozHBvW0nJSU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3739
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,168 +129,244 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Charlene Liu <Charlene.Liu@amd.com>, "Cyr, Aric" <Aric.Cyr@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- trix@redhat.com, Mauro Rossi <issor.oruam@gmail.com>,
- Tao Zhou <tao.zhou1@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Igor.Kravchenko@amd.com, yogesh.mohanmarimuthu@amd.com,
- Dave Airlie <airlied@linux.ie>, "Cheng, Tony" <Tony.Cheng@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@canonical.com>, Anthony Koo <Anthony.Koo@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Dennis Li <Dennis.Li@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Gao, Likun" <Likun.Gao@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIE1vbiwgT2N0IDE5LCAyMDIwIGF0IDExOjA4IEFN
-IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPiB3cm90ZToKPgo+IE9uIDIw
-MjAtMTAtMTkgMTA6NTUgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiA+IEFtIDE5LjEw
-LjIwIHVtIDE2OjQzIHNjaHJpZWIgdHJpeEByZWRoYXQuY29tOgo+ID4+IEZyb206IFRvbSBSaXgg
-PHRyaXhAcmVkaGF0LmNvbT4KPiA+Pgo+ID4+IEEgYnJlYWsgaXMgbm90IG5lZWRlZCBpZiBpdCBp
-cyBwcmVjZWRlZCBieSBhIHJldHVybiBvciBicmVhawo+ID4+Cj4gPj4gU2lnbmVkLW9mZi1ieTog
-VG9tIFJpeCA8dHJpeEByZWRoYXQuY29tPgo+ID4KPiA+IEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBSZXZpZXdlZC1ieTogSGFycnkgV2Vu
-dGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4KPiBIYXJyeQo+Cj4gPgo+ID4+IC0tLQo+
-ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfdHJhbnNmb3JtLmMg
-ICAgICB8IDEgLQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEwMC9k
-Y2UxMDBfcmVzb3VyY2UuYyB8IDcgLS0tLS0tLQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfcmVzb3VyY2UuYyB8IDcgLS0tLS0tLQo+ID4+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMi9kY2UxMTJfcmVzb3VyY2UuYyB8IDcg
-LS0tLS0tLQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2Ux
-MjBfcmVzb3VyY2UuYyB8IDcgLS0tLS0tLQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RjZTYwL2RjZTYwX3Jlc291cmNlLmMgICB8IDcgLS0tLS0tLQo+ID4+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMgICB8IDcgLS0t
-LS0tLQo+ID4+ICAgNyBmaWxlcyBjaGFuZ2VkLCA0MyBkZWxldGlvbnMoLSkKPiA+Pgo+ID4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV90cmFuc2Zv
-cm0uYwo+ID4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfdHJhbnNm
-b3JtLmMKPiA+PiBpbmRleCAyYTMyYjY2OTU5YmEuLjEzMGEwYTBjODMzMiAxMDA2NDQKPiA+PiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV90cmFuc2Zvcm0uYwo+
-ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX3RyYW5zZm9y
-bS5jCj4gPj4gQEAgLTEzMzAsNyArMTMzMCw2IEBAIHN0YXRpYyBib29sIGNvbmZpZ3VyZV9ncmFw
-aGljc19tb2RlKAo+ID4+ICAgICAgICAgICAgICAgUkVHX1NFVChPVVRQVVRfQ1NDX0NPTlRST0ws
-IDAsCj4gPj4gICAgICAgICAgICAgICAgICAgT1VUUFVUX0NTQ19HUlBIX01PREUsIDApOwo+ID4+
-ICAgICAgICAgICAgICAgYnJlYWs7Cj4gPj4gLSAgICAgICAgICAgIGJyZWFrOwo+ID4+ICAgICAg
-ICAgICBjYXNlIENPTE9SX1NQQUNFX1NSR0JfTElNSVRFRDoKPiA+PiAgICAgICAgICAgICAgIC8q
-IFRWIFJHQiAqLwo+ID4+ICAgICAgICAgICAgICAgUkVHX1NFVChPVVRQVVRfQ1NDX0NPTlRST0ws
-IDAsCj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2Ux
-MDAvZGNlMTAwX3Jlc291cmNlLmMKPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY2UxMDAvZGNlMTAwX3Jlc291cmNlLmMKPiA+PiBpbmRleCBkNzQxNzg3Zjc1ZGMuLjQyYzdk
-MTU3ZGEzMiAxMDA2NDQKPiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZGNlMTAwL2RjZTEwMF9yZXNvdXJjZS5jCj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjZTEwMC9kY2UxMDBfcmVzb3VyY2UuYwo+ID4+IEBAIC00MTgsMjUgKzQxOCwx
-OCBAQCBzdGF0aWMgaW50IG1hcF90cmFuc21pdHRlcl9pZF90b19waHlfaW5zdGFuY2UoCj4gPj4g
-ICAgICAgc3dpdGNoICh0cmFuc21pdHRlcikgewo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJf
-VU5JUEhZX0E6Cj4gPj4gICAgICAgICAgIHJldHVybiAwOwo+ID4+IC0gICAgYnJlYWs7Cj4gPj4g
-ICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQjoKPiA+PiAgICAgICAgICAgcmV0dXJuIDE7
-Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9DOgo+
-ID4+ICAgICAgICAgICByZXR1cm4gMjsKPiA+PiAtICAgIGJyZWFrOwo+ID4+ICAgICAgIGNhc2Ug
-VFJBTlNNSVRURVJfVU5JUEhZX0Q6Cj4gPj4gICAgICAgICAgIHJldHVybiAzOwo+ID4+IC0gICAg
-YnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRToKPiA+PiAgICAgICAg
-ICAgcmV0dXJuIDQ7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVS
-X1VOSVBIWV9GOgo+ID4+ICAgICAgICAgICByZXR1cm4gNTsKPiA+PiAtICAgIGJyZWFrOwo+ID4+
-ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0c6Cj4gPj4gICAgICAgICAgIHJldHVybiA2
-Owo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgZGVmYXVsdDoKPiA+PiAgICAgICAgICAgQVNT
-RVJUKDApOwo+ID4+ICAgICAgICAgICByZXR1cm4gMDsKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfcmVzb3VyY2UuYwo+ID4+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfcmVzb3VyY2UuYwo+
-ID4+IGluZGV4IDJiYmZhMmUxNzZhOS4uMzgyNTgxYzRhNjc0IDEwMDY0NAo+ID4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX3Jlc291cmNlLmMKPiA+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9yZXNv
-dXJjZS5jCj4gPj4gQEAgLTQ3MSwyNSArNDcxLDE4IEBAIHN0YXRpYyBpbnQgbWFwX3RyYW5zbWl0
-dGVyX2lkX3RvX3BoeV9pbnN0YW5jZSgKPiA+PiAgICAgICBzd2l0Y2ggKHRyYW5zbWl0dGVyKSB7
-Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQToKPiA+PiAgICAgICAgICAgcmV0
-dXJuIDA7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBI
-WV9COgo+ID4+ICAgICAgICAgICByZXR1cm4gMTsKPiA+PiAtICAgIGJyZWFrOwo+ID4+ICAgICAg
-IGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0M6Cj4gPj4gICAgICAgICAgIHJldHVybiAyOwo+ID4+
-IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRDoKPiA+PiAg
-ICAgICAgICAgcmV0dXJuIDM7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5T
-TUlUVEVSX1VOSVBIWV9FOgo+ID4+ICAgICAgICAgICByZXR1cm4gNDsKPiA+PiAtICAgIGJyZWFr
-Owo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Y6Cj4gPj4gICAgICAgICAgIHJl
-dHVybiA1Owo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQ
-SFlfRzoKPiA+PiAgICAgICAgICAgcmV0dXJuIDY7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAg
-ICBkZWZhdWx0Ogo+ID4+ICAgICAgICAgICBBU1NFUlQoMCk7Cj4gPj4gICAgICAgICAgIHJldHVy
-biAwOwo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNl
-MTEyL2RjZTExMl9yZXNvdXJjZS5jCj4gPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvZGNlMTEyL2RjZTExMl9yZXNvdXJjZS5jCj4gPj4gaW5kZXggYjYyMmI0YjFkYWMzLi43YjRi
-MjMwNGJiZmYgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjZTExMi9kY2UxMTJfcmVzb3VyY2UuYwo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9kY2UxMTIvZGNlMTEyX3Jlc291cmNlLmMKPiA+PiBAQCAtNDQ2LDI1ICs0NDYs
-MTggQEAgc3RhdGljIGludCBtYXBfdHJhbnNtaXR0ZXJfaWRfdG9fcGh5X2luc3RhbmNlKAo+ID4+
-ICAgICAgIHN3aXRjaCAodHJhbnNtaXR0ZXIpIHsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVS
-X1VOSVBIWV9BOgo+ID4+ICAgICAgICAgICByZXR1cm4gMDsKPiA+PiAtICAgIGJyZWFrOwo+ID4+
-ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0I6Cj4gPj4gICAgICAgICAgIHJldHVybiAx
-Owo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQzoK
-PiA+PiAgICAgICAgICAgcmV0dXJuIDI7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNl
-IFRSQU5TTUlUVEVSX1VOSVBIWV9EOgo+ID4+ICAgICAgICAgICByZXR1cm4gMzsKPiA+PiAtICAg
-IGJyZWFrOwo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0U6Cj4gPj4gICAgICAg
-ICAgIHJldHVybiA0Owo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRF
-Ul9VTklQSFlfRjoKPiA+PiAgICAgICAgICAgcmV0dXJuIDU7Cj4gPj4gLSAgICBicmVhazsKPiA+
-PiAgICAgICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9HOgo+ID4+ICAgICAgICAgICByZXR1cm4g
-NjsKPiA+PiAtICAgIGJyZWFrOwo+ID4+ICAgICAgIGRlZmF1bHQ6Cj4gPj4gICAgICAgICAgIEFT
-U0VSVCgwKTsKPiA+PiAgICAgICAgICAgcmV0dXJuIDA7Cj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMKPiA+PiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMK
-PiA+PiBpbmRleCAxNmZlNzM0NDcwMmYuLjNkNzgyYjdjODZjYiAxMDA2NDQKPiA+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jCj4g
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfcmVz
-b3VyY2UuYwo+ID4+IEBAIC0zODMsMjUgKzM4MywxOCBAQCBzdGF0aWMgaW50IG1hcF90cmFuc21p
-dHRlcl9pZF90b19waHlfaW5zdGFuY2UoCj4gPj4gICAgICAgc3dpdGNoICh0cmFuc21pdHRlcikg
-ewo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0E6Cj4gPj4gICAgICAgICAgIHJl
-dHVybiAwOwo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQ
-SFlfQjoKPiA+PiAgICAgICAgICAgcmV0dXJuIDE7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAg
-ICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9DOgo+ID4+ICAgICAgICAgICByZXR1cm4gMjsKPiA+
-PiAtICAgIGJyZWFrOwo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Q6Cj4gPj4g
-ICAgICAgICAgIHJldHVybiAzOwo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFO
-U01JVFRFUl9VTklQSFlfRToKPiA+PiAgICAgICAgICAgcmV0dXJuIDQ7Cj4gPj4gLSAgICBicmVh
-azsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9GOgo+ID4+ICAgICAgICAgICBy
-ZXR1cm4gNTsKPiA+PiAtICAgIGJyZWFrOwo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5J
-UEhZX0c6Cj4gPj4gICAgICAgICAgIHJldHVybiA2Owo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAg
-ICAgZGVmYXVsdDoKPiA+PiAgICAgICAgICAgQVNTRVJUKDApOwo+ID4+ICAgICAgICAgICByZXR1
-cm4gMDsKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
-ZTYwL2RjZTYwX3Jlc291cmNlLmMKPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY2U2MC9kY2U2MF9yZXNvdXJjZS5jCj4gPj4gaW5kZXggNWE1YTljYjc3YWNiLi5lOWRkNzhj
-NDg0ZDYgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
-ZTYwL2RjZTYwX3Jlc291cmNlLmMKPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvZGMvZGNlNjAvZGNlNjBfcmVzb3VyY2UuYwo+ID4+IEBAIC00NTMsMjUgKzQ1MywxOCBAQCBz
-dGF0aWMgaW50IG1hcF90cmFuc21pdHRlcl9pZF90b19waHlfaW5zdGFuY2UoCj4gPj4gICAgICAg
-c3dpdGNoICh0cmFuc21pdHRlcikgewo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZ
-X0E6Cj4gPj4gICAgICAgICAgIHJldHVybiAwOwo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAg
-Y2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQjoKPiA+PiAgICAgICAgICAgcmV0dXJuIDE7Cj4gPj4g
-LSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9DOgo+ID4+ICAg
-ICAgICAgICByZXR1cm4gMjsKPiA+PiAtICAgIGJyZWFrOwo+ID4+ICAgICAgIGNhc2UgVFJBTlNN
-SVRURVJfVU5JUEhZX0Q6Cj4gPj4gICAgICAgICAgIHJldHVybiAzOwo+ID4+IC0gICAgYnJlYWs7
-Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfRToKPiA+PiAgICAgICAgICAgcmV0
-dXJuIDQ7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlUVEVSX1VOSVBI
-WV9GOgo+ID4+ICAgICAgICAgICByZXR1cm4gNTsKPiA+PiAtICAgIGJyZWFrOwo+ID4+ICAgICAg
-IGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0c6Cj4gPj4gICAgICAgICAgIHJldHVybiA2Owo+ID4+
-IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgZGVmYXVsdDoKPiA+PiAgICAgICAgICAgQVNTRVJUKDAp
-Owo+ID4+ICAgICAgICAgICByZXR1cm4gMDsKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMKPiA+PiBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2U4MC9kY2U4MF9yZXNvdXJjZS5jCj4gPj4gaW5kZXgg
-MGVhZThjZDM1ZjlhLi45ZGJmNjU4MTYyY2QgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMKPiA+PiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlODAvZGNlODBfcmVzb3VyY2UuYwo+ID4+IEBA
-IC00NTgsMjUgKzQ1OCwxOCBAQCBzdGF0aWMgaW50IG1hcF90cmFuc21pdHRlcl9pZF90b19waHlf
-aW5zdGFuY2UoCj4gPj4gICAgICAgc3dpdGNoICh0cmFuc21pdHRlcikgewo+ID4+ICAgICAgIGNh
-c2UgVFJBTlNNSVRURVJfVU5JUEhZX0E6Cj4gPj4gICAgICAgICAgIHJldHVybiAwOwo+ID4+IC0g
-ICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlfQjoKPiA+PiAgICAg
-ICAgICAgcmV0dXJuIDE7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBjYXNlIFRSQU5TTUlU
-VEVSX1VOSVBIWV9DOgo+ID4+ICAgICAgICAgICByZXR1cm4gMjsKPiA+PiAtICAgIGJyZWFrOwo+
-ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Q6Cj4gPj4gICAgICAgICAgIHJldHVy
-biAzOwo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgY2FzZSBUUkFOU01JVFRFUl9VTklQSFlf
-RToKPiA+PiAgICAgICAgICAgcmV0dXJuIDQ7Cj4gPj4gLSAgICBicmVhazsKPiA+PiAgICAgICBj
-YXNlIFRSQU5TTUlUVEVSX1VOSVBIWV9GOgo+ID4+ICAgICAgICAgICByZXR1cm4gNTsKPiA+PiAt
-ICAgIGJyZWFrOwo+ID4+ICAgICAgIGNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0c6Cj4gPj4gICAg
-ICAgICAgIHJldHVybiA2Owo+ID4+IC0gICAgYnJlYWs7Cj4gPj4gICAgICAgZGVmYXVsdDoKPiA+
-PiAgICAgICAgICAgQVNTRVJUKDApOwo+ID4+ICAgICAgICAgICByZXR1cm4gMDsKPiA+Cj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+[AMD Official Use Only - Internal Distribution Only]
+
+Hi Alex,
+The speed is not 0 in the below scenario if the rpm is got from the metrics table on navi10.
+The possibility is that you were using an old firmware. The firmware on my system is 0x002a3e00
+Can you remember the version when you saw the problem?
+Thanks.
+# echo 1 > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/pwm1_enable
+# echo 125 > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/pwm1
+# cat devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/pwm1
+109
+
+
+
+
+
+
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com> 
+Sent: Thursday, October 22, 2020 11:28 AM
+To: Feng, Kenneth <Kenneth.Feng@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun <Likun.Gao@amd.com>
+Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+
+[CAUTION: External Email]
+
+On Wed, Oct 21, 2020 at 11:16 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Hi Alex,
+> After reboot, It is also not read back correctly as below.
+> # echo 1 > 
+> devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0
+> /hwmon/hwmon3/fan1_enable s# cat 
+> devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0
+> /hwmon/hwmon3/fan1_input
+> 183105
+> # cat 
+> devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0
+> /hwmon/hwmon3/fan1_enable
+> 1
+>
+
+What about if you manually set the speed.  E.g., # echo 1 > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/fan1_enable
+# echo 800 > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/fan1_target
+# cat devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/fan1_input
+
+The problem I ran into on navi1x was setting the fan speed manually resulted in 0 for the fan speed in the metrics table.  E.g.,
+
+# echo 1 > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/pwm1_enable
+# echo 125 > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/pwm1
+# cat devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00.0/hwmon/hwmon3/pwm
+
+See:
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1164&amp;data=04%7C01%7CKenneth.Feng%40amd.com%7Cfdef2561887a41322e2a08d8763a897b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637389341097409110%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=M6EIZVH9vxUJw0d5eh%2B6VzYKQ0LEOwMRdAaEYzrU1d8%3D&amp;reserved=0
+
+Alex
+
+
+>
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Thursday, October 22, 2020 10:18 AM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
+> <Likun.Gao@amd.com>
+> Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+>
+> [CAUTION: External Email]
+>
+> On Wed, Oct 21, 2020 at 9:30 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
+> >
+> > [AMD Official Use Only - Internal Distribution Only]
+> >
+> > Hi Alex,
+> > Navi10 also has this problem as below.
+> > # cat
+> > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00
+> > .0
+> > /hwmon/hwmon3/fan1_input
+> > 1217
+> > # cat
+> > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00
+> > .0
+> > /hwmon/hwmon3/fan1_enable
+> > 0
+> > # echo 1 >
+> > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00
+> > .0
+> > /hwmon/hwmon3/fan1_enable # cat
+> > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00
+> > .0
+> > /hwmon/hwmon3/fan1_enable
+> > 1
+> > s# cat
+> > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:00
+> > .0
+> > /hwmon/hwmon3/fan1_input
+> > 183105
+> >
+> > In AGM, the rpm is 1800.
+>
+> Does it read back correctly if you manually set the fan rpm first before reading it back?
+>
+> Alex
+>
+>
+> >
+> >
+> >
+> > -----Original Message-----
+> > From: Feng, Kenneth
+> > Sent: Thursday, October 22, 2020 9:11 AM
+> > To: Alex Deucher <alexdeucher@gmail.com>
+> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
+> > <Likun.Gao@amd.com>
+> > Subject: RE: [PATCH] drm/amd/pm: fix the wrong fan speed in 
+> > fan1_input
+> >
+> > [AMD Official Use Only - Internal Distribution Only]
+> >
+> > Hi Alex,
+> > Right, smu_v11_0_get_fan_speed_rpm() is not correct for sienna cichlid when it's in manual mode.
+> > An example is that in my system, the rpm is about 1800 in manual mode, confirmed with AGM and the internal smu fw scoreboard.
+> > But the fan1_input shows about 180000, which is way more than the real value.
+> > If you see the value from the metrics table is 0 on navi10, maybe it's the real rpm since we still have 0 rpm feature.
+> > I can double check the navi10.
+> > Thanks.
+> >
+> >
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Thursday, October 22, 2020 2:47 AM
+> > To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
+> > <Likun.Gao@amd.com>
+> > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in 
+> > fan1_input
+> >
+> > [CAUTION: External Email]
+> >
+> > On Wed, Oct 21, 2020 at 9:40 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > >
+> > > On Wed, Oct 21, 2020 at 9:01 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > >
+> > > > On Wed, Oct 21, 2020 at 2:45 AM Kenneth Feng <kenneth.feng@amd.com> wrote:
+> > > > >
+> > > > > fix the wrong fan speed in fan1_input when the fan control mode is manual.
+> > > > > the fan speed value is not correct when we set manual mode to fan1_enalbe - 1.
+> > > > > since the fan speed in the metrics table always reflects the 
+> > > > > real fan speed,we can fetch the fan speed for both auto and manual mode.
+> > > > >
+> > > > > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> > > >
+> > > > NACK.  At least on the navi boards I have, the metrics table fan 
+> > > > speed reads back 0 when the fan is in manual mode.  That's why I 
+> > > > changed this in the first place.
+> > >
+> > > Nevermind, I was thinking about navi1x.  If this is working 
+> > > correctly on sienna cichlid, please ignore me.
+> >
+> > That said, I don't see why the current code should not work.  Maybe a bug elsewhere?  Is smu_v11_0_get_fan_speed_rpm() incorrect for sienna cichlid?
+> >
+> > Alex
+> >
+> > >
+> > > Alex
+> > >
+> > >
+> > > >
+> > > > Alex
+> > > >
+> > > >
+> > > > > ---
+> > > > >  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 11 +++--------
+> > > > >  1 file changed, 3 insertions(+), 8 deletions(-)
+> > > > >
+> > > > > diff --git
+> > > > > a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > > index 496abc31b07e..27b6cade9ade 100644
+> > > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > > @@ -1171,14 +1171,9 @@ static int sienna_cichlid_get_fan_speed_rpm(struct smu_context *smu,
+> > > > >         if (!speed)
+> > > > >                 return -EINVAL;
+> > > > >
+> > > > > -       switch (smu_v11_0_get_fan_control_mode(smu)) {
+> > > > > -       case AMD_FAN_CTRL_AUTO:
+> > > > > -               return sienna_cichlid_get_smu_metrics_data(smu,
+> > > > > -                                                          METRICS_CURR_FANSPEED,
+> > > > > -                                                          speed);
+> > > > > -       default:
+> > > > > -               return smu_v11_0_get_fan_speed_rpm(smu, speed);
+> > > > > -       }
+> > > > > +       return sienna_cichlid_get_smu_metrics_data(smu,
+> > > > > +                                               METRICS_CURR_FANSPEED,
+> > > > > +                                               speed);
+> > > > >  }
+> > > > >
+> > > > >  static int sienna_cichlid_get_fan_parameters(struct 
+> > > > > smu_context
+> > > > > *smu)
+> > > > > --
+> > > > > 2.17.1
+> > > > >
+> > > > > _______________________________________________
+> > > > > amd-gfx mailing list
+> > > > > amd-gfx@lists.freedesktop.org
+> > > > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2
+> > > > > F%25
+> > > > > 2F
+> > > > > lists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=
+> > > > > 04
+> > > > > %7
+> > > > > C01%7Ckenneth.feng%40amd.com%7Cd8e969f4b63e4897a3df08d875f1b05
+> > > > > 0%
+> > > > > 7C
+> > > > > 3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637389028190609906%
+> > > > > 7C
+> > > > > Un
+> > > > > known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTi
+> > > > > I6
+> > > > > Ik
+> > > > > 1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=KomP2H%2FadKJChDbNvNPQlT
+> > > > > ot
+> > > > > mE
+> > > > > WrhutsQCHfiRIjNUY%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
