@@ -2,69 +2,69 @@ Return-Path: <SRS0=NxiI=D5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36719C388F9
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 13:59:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 399C5C388F2
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 13:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBBE922249
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 13:59:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A214222249
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 13:59:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qBR9uUxU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBBE922249
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYwjb2xk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A214222249
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E231B6F568;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA6816F56A;
 	Thu, 22 Oct 2020 13:59:33 +0000 (UTC)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8821E6E210;
- Thu, 22 Oct 2020 13:43:18 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id hk7so1000584pjb.2;
- Thu, 22 Oct 2020 06:43:18 -0700 (PDT)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F92B6F52F;
+ Thu, 22 Oct 2020 13:48:02 +0000 (UTC)
+Received: by mail-pj1-x1041.google.com with SMTP id az3so1056299pjb.4;
+ Thu, 22 Oct 2020 06:48:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=TGoYs6NX+Ndx+a6z9ojq9tBbYhFNYgIJY1nftO258C4=;
- b=qBR9uUxUlHyzRD3U5yeOPNh2DDGVG9brz1blZmpia4NszHbmZ+F9wNVuaJbexA1L3Q
- /eGsZj1/Hj54rAPm6L5LilmL59AZk5K6sjXGE8XLjUje8GMErvT7f0RzBBIzt4bwDR7y
- CP+A1Is9IT0EVEitSCNGlmmmWZ1WHvAnd9ZTIrd0lM1wHSdXPkBVZXAwsdEj9CGOq1+W
- NYw767H1SD7DlQEa3Anp0F9TqIkNbjTargZkMcF5AbXQTTIJzXX/4ocvGZ8e6tajgd05
- OjcAKZCIrST80Fh562Wu+2NAvSfyTI7JHowQpGGjfI3hDZXxM6o91V6d4cuWtjIsgJxz
- Im2Q==
+ bh=U432S97cU+kXrslvGgog8CihEs2p/DakYW0kgHJLU04=;
+ b=rYwjb2xkkh0hxJWaPtOnGa4hSe5DuH6RLUZsZBwxA6M+Z3ZP+laaYWty/n+xFUh7CT
+ x62XiY4/BFnQkTugiegwK2EiFTnJxllQ/XJKCth8g5mxJ93KuTm6ClHqTZ8sBEI+L1hq
+ C/X1pxD7EjWrJ4/3qk4xaMAAEFtZKDHCo7Sjpb7ezoHZNY5/k26tuFpTDDtl4JTmW4v0
+ 3+QVKvhFHvha8uUUEE7iCJl2d90+KRDbgRLvBeKbJ2RylZwbMd1l+gVJSnmaRTiDjFb1
+ N/sk7fU/JL99mAX5kVZbQ+JYnhO6HLzCtiGv1N1tQoIOymoGU077WXHGYycWfasE6u12
+ yQnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=TGoYs6NX+Ndx+a6z9ojq9tBbYhFNYgIJY1nftO258C4=;
- b=sydmmlCM1kH9FVfZdB0pZRsoX2ETE7jkZxHfOglGetwXnow+RLFe0emULPrJMEwdYy
- SoKfH8vBd6dV03h+/WC4IWT3AFYS+1o2o3edNUCbD4evNKvbrFMoNsLv/7QLJrKYTE94
- qcsxwHZKA5uiBSHIFje5pI/5R/6dChHoFo9DM6uV1hhS1Unh2gv0b2MwNS5EOVD+C2yZ
- KXocSRZy8ndxks4NdqPiHYXgezKAOgwbuI6e0YaJZtQHW89xsTb0R0fu24V9u7wE880g
- uyccVs8Iw1wWhcE377KzIgNuim/IisNOEpEowwDGHJhJF36CzcWRd+Gcasc3JsoE/kUe
- dbCQ==
-X-Gm-Message-State: AOAM530RqLPcr17lcoIsbsDuDBF9z+ymGgdixAdxCTfTWv5tafRiZLyk
- Q6jXOwLDSuBGGwOOgpViK13nGG1/2xQ1pw==
-X-Google-Smtp-Source: ABdhPJysdrkf3tgIA1nwdFfO7BIZMe8vhpQ/9lzdcbY6lgA87r33Xb+5yzfTvWg4NA6sI3LSJUyyRw==
-X-Received: by 2002:a17:902:a3c9:b029:d5:df0c:f217 with SMTP id
- q9-20020a170902a3c9b02900d5df0cf217mr2465001plb.59.1603374197886; 
- Thu, 22 Oct 2020 06:43:17 -0700 (PDT)
+ bh=U432S97cU+kXrslvGgog8CihEs2p/DakYW0kgHJLU04=;
+ b=BlIfHzo6uOWeOY1X4jjZ128mxhRv3i7k0gAbvKCWDc6ASU0FkkhmXmA0iO1jp2eJbQ
+ wDhG6Z3GnL+6iFjPW4IXB93jeSrle0y6jYYXFKEy9hFtl6zL/78+xkrxZyKEf1wQRauZ
+ cSCfTdM9TM9D895utwzyfElYkzCAuHodTnD0m/NwR0/PRnOJSiSP0g8DcsP35lNdfy0b
+ jJj+e3TrSWyw2ZHpN0fCFqtxORj6+ag4c7TzDcNlxLDhM4fRu6lKKVtOASjrl/fNTZA9
+ mfuZW/99k8pewvPm0jc/b2ed1SpqArX4J0tGA2oqxh9WzUldGD2ptr6tsqdld7t9ISs4
+ /u8w==
+X-Gm-Message-State: AOAM532c06zHMBzVfWZPf+gbRgWOdQa68N/JzIPFFl24cwxUFCYSbwj7
+ 0bdvf0gDxL4gr0zrCS0duhSjkUNqSmJzCg==
+X-Google-Smtp-Source: ABdhPJwM3YcRS24T5SIMczPQMewNzH1W31xII0vjX1FFvHeMteycQ8Cm7A31YkVKAcu0jmw+NBB7Tg==
+X-Received: by 2002:a17:902:e983:b029:d5:f469:60c0 with SMTP id
+ f3-20020a170902e983b02900d5f46960c0mr2536227plb.61.1603374481995; 
+ Thu, 22 Oct 2020 06:48:01 -0700 (PDT)
 Received: from adolin ([49.207.204.75])
- by smtp.gmail.com with ESMTPSA id l18sm2404726pfd.210.2020.10.22.06.43.13
+ by smtp.gmail.com with ESMTPSA id g17sm2357979pfu.130.2020.10.22.06.47.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2020 06:43:17 -0700 (PDT)
-Date: Thu, 22 Oct 2020 19:13:11 +0530
+ Thu, 22 Oct 2020 06:48:01 -0700 (PDT)
+Date: Thu, 22 Oct 2020 19:17:56 +0530
 From: Sumera Priyadarsini <sylphrenadin@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/5] gpu: drm: amdgpu: Replace snprintf() with sysfs_emit()
-Message-ID: <78546ad9343ddf1b0f8bc300a3c8ae9a0dcb0ef9.1603371258.git.sylphrenadin@gmail.com>
+Subject: [PATCH 4/5] gpu: drm: amdgpu: Replace snprintf() with sysfs_emit()
+Message-ID: <f6107f3e467f1906abdcc33d35f13cf54f7e5a96.1603371258.git.sylphrenadin@gmail.com>
 References: <cover.1603371258.git.sylphrenadin@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -94,56 +94,29 @@ Using snprintf() for show() methods holds the risk of buffer overrun
 as snprintf() does not know the PAGE_SIZE maximum of the temporary
 buffer used to output sysfs content.
 
-Modify amdgpu_device.c to use sysfs_emit() instead which knows the
+Modify amdgpu_psp.c to use sysfs_emit() instead which knows the
 size of the temporary buffer.
 
 Issue found with Coccinelle.
 
 Signed-off-by: Sumera Priyadarsini <sylphrenadin@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index f7307af76452..7eef6b20578f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -135,7 +135,7 @@ static ssize_t amdgpu_device_get_pcie_replay_count(struct device *dev,
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	uint64_t cnt = amdgpu_asic_get_pcie_replay_count(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index d6c38e24f130..4d1d1e1b005d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2621,7 +2621,7 @@ static ssize_t psp_usbc_pd_fw_sysfs_read(struct device *dev,
+ 		return ret;
+ 	}
  
--	return snprintf(buf, PAGE_SIZE, "%llu\n", cnt);
-+	return sysfs_emit(buf, PAGE_SIZE, "%llu\n", cnt);
+-	return snprintf(buf, PAGE_SIZE, "%x\n", fw_ver);
++	return sysfs_emit(buf, PAGE_SIZE, "%x\n", fw_ver);
  }
  
- static DEVICE_ATTR(pcie_replay_count, S_IRUGO,
-@@ -159,7 +159,7 @@ static ssize_t amdgpu_device_get_product_name(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 
--	return snprintf(buf, PAGE_SIZE, "%s\n", adev->product_name);
-+	return sysfs_emit(buf, PAGE_SIZE, "%s\n", adev->product_name);
- }
- 
- static DEVICE_ATTR(product_name, S_IRUGO,
-@@ -181,7 +181,7 @@ static ssize_t amdgpu_device_get_product_number(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 
--	return snprintf(buf, PAGE_SIZE, "%s\n", adev->product_number);
-+	return sysfs_emit(buf, PAGE_SIZE, "%s\n", adev->product_number);
- }
- 
- static DEVICE_ATTR(product_number, S_IRUGO,
-@@ -203,7 +203,7 @@ static ssize_t amdgpu_device_get_serial_number(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 
--	return snprintf(buf, PAGE_SIZE, "%s\n", adev->serial);
-+	return sysfs_emit(buf, PAGE_SIZE, "%s\n", adev->serial);
- }
- 
- static DEVICE_ATTR(serial_number, S_IRUGO,
+ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
 -- 
 2.25.1
 
