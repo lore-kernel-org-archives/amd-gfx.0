@@ -2,125 +2,70 @@ Return-Path: <SRS0=NxiI=D5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6553C388F7
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 06:10:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E2F7C4363A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 08:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 571312245D
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 06:10:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3085F2417D
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 08:05:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JlWAvWNU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 571312245D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="LpVtkQQE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3085F2417D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B82516F3AD;
-	Thu, 22 Oct 2020 06:10:25 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35E1F6F3AD
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 06:10:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hq2wdlbNccHD3ztnkTpeT6OvECKIjq+KLcDKMc5skP86SZX72JBTm7YXJD7ByMe7C6trl19Yg9IobaNHXnKI6hvxN+d5VNmjwXjV/857DvEdgmckqbgB997hBovdLb6MeTdhfIuoN7sk9AJNM6mS72DWsnWtnOv+itfOLuCXOtRuKFh0Sr7vi7QUXphNp8zKXJPobiBAZy+g7VLSkOLADcQx1RIUiJBes7egv7brjNCalewql1A4fwEep+px5sUa9yfo1y7hDskKn5qYPphm2eAhNhxU1RoIssGGb8+SuQoLA+Obe0l7DD8lFuu39gZwZUxZNxF8QkGMh1Ei4ZjBzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZnEz9MFHey88a2tUamBmE/M/7BZegOORh0croe8sBtc=;
- b=AyxIpfLGu2oqpEUEIr49+flNQ679f90T8whK0yJdaEZtUCYTKYeLjlWzJuoWyPQxib2RmjvX1KkLYQzGr2PJ6bcgDygp754BD/OFCwOVjTb9Hz9Pf2F4H5pf/yvnrUeoSdq+TgHl8m4YKmv3WB9ls/cQAbGrnvOXKNwUCn0C6tK9QGC2LqP+Ud5N0UtjUjKWmjd0+4/TtRN02k2lhZlckyMuPKz7s/YhjEDT7AmmJcvjNAKIUqvcPPtEZCFp/BKSeMbcTMQ5PRvV66X9B9ywtl/XJjw91HwKbH/EPhvjkR+bfAaIIRL2N5uo1OChCWq8MUbhDYvKIE8fQIVSVkZPmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZnEz9MFHey88a2tUamBmE/M/7BZegOORh0croe8sBtc=;
- b=JlWAvWNUGMj0nfz4Z2V7R/rZ+Ywt2h+j2ueF97MXwifQCo4dvATxtjlfBpTLOf+XBj9oeqyFDF8PAq5CAEvFOSaGIBRP/TazZI5QqbW49MXs7oWeiKHv4nb8zpPySQgkcZlFMgYKcuRMLCAFz9GRaEFcWeAwHDDOFL0heSjwNyY=
-Received: from DM5PR12MB1657.namprd12.prod.outlook.com (10.172.38.149) by
- DM6PR12MB2603.namprd12.prod.outlook.com (20.176.116.84) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.21; Thu, 22 Oct 2020 06:10:21 +0000
-Received: from DM5PR12MB1657.namprd12.prod.outlook.com
- ([fe80::c166:6167:91e7:bdaf]) by DM5PR12MB1657.namprd12.prod.outlook.com
- ([fe80::c166:6167:91e7:bdaf%6]) with mapi id 15.20.3477.028; Thu, 22 Oct 2020
- 06:10:21 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
-Thread-Topic: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
-Thread-Index: AQHWp3W2tpMmU4s9tUCXALqpnAXt8qmiBbyAgAAKuICAAFWsgIAAZKRggAALJOCAAA5hgIAAD3dwgAAEE4CAABf10IAAAziAgAAAUYCAAAOJAIAADOJw
-Date: Thu, 22 Oct 2020 06:10:21 +0000
-Message-ID: <DM5PR12MB165725B0FC52EA5F5BBD1BFB8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
-References: <20201021064455.14935-1-kenneth.feng@amd.com>
- <CADnq5_PdS8M3i9uQ3JTUE-idGJxVCk_k5N=Sgvsj4VJGFKn_vA@mail.gmail.com>
- <CADnq5_NLyQ2jOW0ZkYMXcAX-snqHvUzNRYtrDRZbhN7qe0_5Zg@mail.gmail.com>
- <CADnq5_M_ry9EHp2b1ycBzD4oTsfVJxFtSGoRvq2EfJiN6Qczmg@mail.gmail.com>
- <DM5PR12MB16579B5849FB6719ADFE7C2D8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
- <DM5PR12MB1657C41033410DB1F57995F28E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
- <CADnq5_MR3O_T-jSziUMdJWU=eipX+55Km3WSLzP9+Eudygayvg@mail.gmail.com>
- <DM5PR12MB165756ABF941252F123C03BD8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
- <CADnq5_M6V=-YDX5QJp-HEA2k=5HPh57zyj8tr+oVXgOo_sQUcg@mail.gmail.com>
- <DM5PR12MB1657848807541F7E6214AC3D8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
- <CADnq5_PhA1bJp-3Pctjn_L9=TFU=y_Kuw7Sz42Tcdv1VoiUz8Q@mail.gmail.com>
- <CADnq5_OjACqye7L_EdbYusTTmT5oTHmMctOr0ubyHm6PtuhT5g@mail.gmail.com>
- <CADnq5_Ms5GDsOiqMRWcimgTGJzZaBWjnVf2zcFLeX0xPRZbCww@mail.gmail.com>
-In-Reply-To: <CADnq5_Ms5GDsOiqMRWcimgTGJzZaBWjnVf2zcFLeX0xPRZbCww@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-10-22T06:10:13Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=dfd7a86c-7fba-4489-88c7-0000f003d26f;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-10-22T06:10:13Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: d80ce017-caa0-463b-bd21-0000c3830b9d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 9d12dffd-f539-4735-c05d-08d876512889
-x-ms-traffictypediagnostic: DM6PR12MB2603:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2603E27AF9942A98A12061048E1D0@DM6PR12MB2603.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2803;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rPiDULXASrlsPSNxzVCKl/kwnGq8iXC4yVGqSzXmGNHm1MomT40cwtbmF7CfEeJP6cQf89F750xgyZ3CkvneYC4EEL7S2J+ynHJQYocdXvdL9IVLZbcNRN5cUIjk+91izaMK3CQNrX8vTdPGna6YSWAXtpPupd1zVI7gKJEhLT+2KAyFlW08d+tU0lG0KLFJiZa76XPrhcnDCRqhJmCO9uhg9Hz5mOz2CYlcXfc3NRwJI2aguNWdt4jReL33pRNG33sthYOhDDPGWC3H8Xj6GmGbZFqoNvnIax7k6poOfIaYZpU0+dpuOu48Vb13NSLeQPnkq41HDXh1z9PvJF60bzWSkfEgrB3++mJs3M/Bo/CVt6ql6tP99W40vj/+D4yx1g5QWo51BBgDLAdmktD3Q5zb5RZsOrpXiM2kq/ZDWOJtINsTWL/R0obFHbiq8g5cP3Cyvroy+m5CCwAufOvw5w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1657.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(136003)(39860400002)(366004)(376002)(396003)(54906003)(966005)(66476007)(66446008)(6916009)(66556008)(52536014)(66946007)(8936002)(76116006)(316002)(8676002)(55016002)(53546011)(6506007)(5660300002)(64756008)(86362001)(2906002)(4326008)(186003)(83380400001)(7696005)(9686003)(45080400002)(30864003)(71200400001)(33656002)(26005)(478600001)(357404004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: U1wHIyrEMN/SOxE3mkHqXdpdGGA/dWoyMhuurz4Rq1Vh2DPne9OAoKjYcoC6yjfOAGDb3XexYzDMaLpnXpFMADGFoxamfXs3dJQsiVgnwaj1PlDC3S95uGsI4kZN9kj0pMwa77gXYYxg2nExku/tF7medGBqQGm/A6+q56Jn5gXbLytBlVOL/9vQSvi6cGag/z6lg4ecIV+exHEh4g7WsZ1kTRln1Tm3wycw2VxkYsf9h8hAZsRheobE8uhUrs+lt5aisdY9/Pg1XI1MdJ3fI4J1mz9nEpu5eAI0XJdNumJzT7AvpJp9LFmXoiA4vFZoqUdLAKG0WmM6tc9LT3g3Sr9qmto2sIEpfcKi1Ms/uJWyKAx88Jcnw+TW0PQ02AZUdQr/1poAUgZ39mzzh8gcTQBbaoPh1OkXTEHvNdbXW/hF43H4RosC73GkuY1Llc5DisLCOxd8/e94EnwyZpdu8U78wFRt6CCKB0zfIVH2douBfG/xZUN4fwdYPxjO9StWrl7iAW34AgvB82Wcg0PZWO2RD/w+5iUiI5XXTV935zQCizTx5qy56u0VsM3tgsjvqmR7TZKYexBfjUfFn+mE8D/IlhQUncvDoaTTwAv/dYff2oI4cMVAC6Sf3pYZfB0cSM/hgK0CREbOk3v95FOaCg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC956F53B;
+	Thu, 22 Oct 2020 08:05:41 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD6386F53D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 08:05:39 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id d3so883522wma.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 01:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=jo9DObZgd9Jq6ZPonfHxKOsM2RbE9S9o0V4+k1CciSY=;
+ b=LpVtkQQEzDhGLYock7xQGko/zoS3bHGVeS2MwITVSQjnbfP4AMhqamrvOtAFmXYrPu
+ M4rdxuuXfajVAiGf91dIAQUVAfjFyk3TE3h9FLC57hbSTRNI8HSEiW7wSnn833mLl3bT
+ qYQcRr7XPtDbhyfcVfQaWMtP5UWNo6sIUEMEs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=jo9DObZgd9Jq6ZPonfHxKOsM2RbE9S9o0V4+k1CciSY=;
+ b=frfjzKyNBDM+7qPedfC6BvONMplkz2KXD6HH9SoHvYBTerWH6aYGiH3sScvkSG+45A
+ RAQGXbHhcrYkVW+YdBksF0r+tHa79yNn/Ui5daTq71x5w7auglNEBWH6nbVaMli5fCX/
+ Cks8kA8n5YH2nSqE6mM3ms/45YTl17XMi/HLOVezaxBrmb9JoHb1cWp1MX9oikQJYut1
+ EuiyN2u1n7Ys5WTBQRBmc83Qg6f6JWeBrE6BCjMPE3fRB+jZGUabCTZaR5DRwJZ8dulx
+ t9Q+D9ISWJihqtEWCTziU5P3XqCXoFW43L7g1LVrUaUwgC8upPjtQBzUxwYPxlt2O0Wk
+ 0LMw==
+X-Gm-Message-State: AOAM532KVEBF1zeRM0bmZ23gOcHWYu6gSLTrHFJnFC8UnharxPwtdh8d
+ LoZavRG6j7Ix4VDgSSTgwW4ESQ==
+X-Google-Smtp-Source: ABdhPJz1mIaxROQHFnkDMtAkyfocV37SNrA+OnkarpcW450fCaDG5+KffMOrvXq4qfjJmhfMWT0ZNg==
+X-Received: by 2002:a1c:2cc2:: with SMTP id s185mr1359132wms.77.1603353938320; 
+ Thu, 22 Oct 2020 01:05:38 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id 32sm2105875wro.31.2020.10.22.01.05.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2020 01:05:37 -0700 (PDT)
+Date: Thu, 22 Oct 2020 10:05:34 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v5 10/10] drm/fb_helper: Support framebuffers in I/O memory
+Message-ID: <20201022080534.GT401619@phenom.ffwll.local>
+References: <20201020122046.31167-1-tzimmermann@suse.de>
+ <20201020122046.31167-11-tzimmermann@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1657.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d12dffd-f539-4735-c05d-08d876512889
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2020 06:10:21.6680 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XPhtkvmziR6cOQabt9nCR/MK4WpdN6srZYeX1Qym5HfHhs+ik8vVkYm5haCZfaWS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2603
+Content-Disposition: inline
+In-Reply-To: <20201020122046.31167-11-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,338 +77,430 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gao, Likun" <Likun.Gao@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: luben.tuikov@amd.com, heiko@sntech.de, airlied@linux.ie,
+ nouveau@lists.freedesktop.org, linus.walleij@linaro.org,
+ dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
+ melissa.srw@gmail.com, eric@anholt.net, ray.huang@amd.com, kraxel@redhat.com,
+ sam@ravnborg.org, sumit.semwal@linaro.org, emil.velikov@collabora.com,
+ robh@kernel.org, linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ lima@lists.freedesktop.org, oleksandr_andrushchenko@epam.com, krzk@kernel.org,
+ steven.price@arm.com, linux-rockchip@lists.infradead.org, kgene@kernel.org,
+ bskeggs@redhat.com, linux+etnaviv@armlinux.org.uk,
+ spice-devel@lists.freedesktop.org, alyssa.rosenzweig@collabora.com,
+ maarten.lankhorst@linux.intel.com, etnaviv@lists.freedesktop.org,
+ mripard@kernel.org, inki.dae@samsung.com, hdegoede@redhat.com,
+ christian.gmeiner@gmail.com, xen-devel@lists.xenproject.org,
+ virtualization@lists.linux-foundation.org, sean@poorly.run, apaneers@amd.com,
+ linux-arm-kernel@lists.infradead.org, linaro-mm-sig@lists.linaro.org,
+ amd-gfx@lists.freedesktop.org, tomeu.vizoso@collabora.com,
+ sw0312.kim@samsung.com, hjc@rock-chips.com, kyungmin.park@samsung.com,
+ miaoqinglang@huawei.com, yuq825@gmail.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, linux-media@vger.kernel.org,
+ christian.koenig@amd.com, l.stach@pengutronix.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+On Tue, Oct 20, 2020 at 02:20:46PM +0200, Thomas Zimmermann wrote:
+> At least sparc64 requires I/O-specific access to framebuffers. This
+> patch updates the fbdev console accordingly.
+> 
+> For drivers with direct access to the framebuffer memory, the callback
+> functions in struct fb_ops test for the type of memory and call the rsp
+> fb_sys_ of fb_cfb_ functions. Read and write operations are implemented
+> internally by DRM's fbdev helper.
+> 
+> For drivers that employ a shadow buffer, fbdev's blit function retrieves
+> the framebuffer address as struct dma_buf_map, and uses dma_buf_map
+> interfaces to access the buffer.
+> 
+> The bochs driver on sparc64 uses a workaround to flag the framebuffer as
+> I/O memory and avoid a HW exception. With the introduction of struct
+> dma_buf_map, this is not required any longer. The patch removes the rsp
+> code from both, bochs and fbdev.
+> 
+> v5:
+> 	* implement fb_read/fb_write internally (Daniel, Sam)
+> v4:
+> 	* move dma_buf_map changes into separate patch (Daniel)
+> 	* TODO list: comment on fbdev updates (Daniel)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Tested-by: Sam Ravnborg <sam@ravnborg.org>
+> ---
+>  Documentation/gpu/todo.rst        |  19 ++-
+>  drivers/gpu/drm/bochs/bochs_kms.c |   1 -
+>  drivers/gpu/drm/drm_fb_helper.c   | 227 ++++++++++++++++++++++++++++--
+>  include/drm/drm_mode_config.h     |  12 --
+>  4 files changed, 230 insertions(+), 29 deletions(-)
+> 
+> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+> index 7e6fc3c04add..638b7f704339 100644
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -197,13 +197,28 @@ Convert drivers to use drm_fbdev_generic_setup()
+>  ------------------------------------------------
+>  
+>  Most drivers can use drm_fbdev_generic_setup(). Driver have to implement
+> -atomic modesetting and GEM vmap support. Current generic fbdev emulation
+> -expects the framebuffer in system memory (or system-like memory).
+> +atomic modesetting and GEM vmap support. Historically, generic fbdev emulation
+> +expected the framebuffer in system memory or system-like memory. By employing
+> +struct dma_buf_map, drivers with frambuffers in I/O memory can be supported
+> +as well.
+>  
+>  Contact: Maintainer of the driver you plan to convert
+>  
+>  Level: Intermediate
+>  
+> +Reimplement functions in drm_fbdev_fb_ops without fbdev
+> +-------------------------------------------------------
+> +
+> +A number of callback functions in drm_fbdev_fb_ops could benefit from
+> +being rewritten without dependencies on the fbdev module. Some of the
+> +helpers could further benefit from using struct dma_buf_map instead of
+> +raw pointers.
+> +
+> +Contact: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+> +
+> +Level: Advanced
+> +
+> +
+>  drm_framebuffer_funcs and drm_mode_config_funcs.fb_create cleanup
+>  -----------------------------------------------------------------
+>  
+> diff --git a/drivers/gpu/drm/bochs/bochs_kms.c b/drivers/gpu/drm/bochs/bochs_kms.c
+> index 13d0d04c4457..853081d186d5 100644
+> --- a/drivers/gpu/drm/bochs/bochs_kms.c
+> +++ b/drivers/gpu/drm/bochs/bochs_kms.c
+> @@ -151,7 +151,6 @@ int bochs_kms_init(struct bochs_device *bochs)
+>  	bochs->dev->mode_config.preferred_depth = 24;
+>  	bochs->dev->mode_config.prefer_shadow = 0;
+>  	bochs->dev->mode_config.prefer_shadow_fbdev = 1;
+> -	bochs->dev->mode_config.fbdev_use_iomem = true;
+>  	bochs->dev->mode_config.quirk_addfb_prefer_host_byte_order = true;
+>  
+>  	bochs->dev->mode_config.funcs = &bochs_mode_funcs;
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index 6212cd7cde1d..1d3180841778 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -372,24 +372,22 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+>  }
+>  
+>  static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
+> -					  struct drm_clip_rect *clip)
+> +					  struct drm_clip_rect *clip,
+> +					  struct dma_buf_map *dst)
+>  {
+>  	struct drm_framebuffer *fb = fb_helper->fb;
+>  	unsigned int cpp = fb->format->cpp[0];
+>  	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+>  	void *src = fb_helper->fbdev->screen_buffer + offset;
+> -	void *dst = fb_helper->buffer->map.vaddr + offset;
+>  	size_t len = (clip->x2 - clip->x1) * cpp;
+>  	unsigned int y;
+>  
+> -	for (y = clip->y1; y < clip->y2; y++) {
+> -		if (!fb_helper->dev->mode_config.fbdev_use_iomem)
+> -			memcpy(dst, src, len);
+> -		else
+> -			memcpy_toio((void __iomem *)dst, src, len);
+> +	dma_buf_map_incr(dst, offset); /* go to first pixel within clip rect */
+>  
+> +	for (y = clip->y1; y < clip->y2; y++) {
+> +		dma_buf_map_memcpy_to(dst, src, len);
+> +		dma_buf_map_incr(dst, fb->pitches[0]);
+>  		src += fb->pitches[0];
+> -		dst += fb->pitches[0];
+>  	}
+>  }
+>  
+> @@ -417,8 +415,9 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
+>  			ret = drm_client_buffer_vmap(helper->buffer, &map);
+>  			if (ret)
+>  				return;
+> -			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
+> +			drm_fb_helper_dirty_blit_real(helper, &clip_copy, &map);
+>  		}
+> +
+>  		if (helper->fb->funcs->dirty)
+>  			helper->fb->funcs->dirty(helper->fb, NULL, 0, 0,
+>  						 &clip_copy, 1);
+> @@ -2027,6 +2026,206 @@ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+>  		return -ENODEV;
+>  }
+>  
+> +static bool drm_fbdev_use_iomem(struct fb_info *info)
+> +{
+> +	struct drm_fb_helper *fb_helper = info->par;
+> +	struct drm_client_buffer *buffer = fb_helper->buffer;
+> +
+> +	return !drm_fbdev_use_shadow_fb(fb_helper) && buffer->map.is_iomem;
+> +}
+> +
+> +static ssize_t fb_read_screen_base(struct fb_info *info, char __user *buf, size_t count, 
+> +				   loff_t pos)
+> +{
+> +	const char __iomem *src = info->screen_base + pos;
 
-Hi Alex,
-As I confirmed, this is Arcturus specific.
-On Arcturus we don't have fan control feature and the fan speed is always 0 from the metrics table.
-For navi series, I'm sure we don't need it. Looks like we can't just revert it.
-Thanks.
+Maybe a bit much a bikeshed, but I'd write this in terms of drm objects,
+like the dirty_blit function, using the dma_buf_map (instead of the
+fb_info parameter). And then instead of
+screen_base and screen_buffer suffixes give them _mem and _iomem suffixes.
 
+Same for write below. Or I'm not quite understanding why we do it like
+this here - I don't think this code will be used outside of the generic
+fbdev code, so we can always assume that drm_fb_helper->buffer is set up.
 
+The other thing I think we need is some minimal testcases to make sure.
+The fbtest tool used way back seems to have disappeared, I couldn't find
+a copy of the source anywhere anymore.
 
------Original Message-----
-From: Alex Deucher <alexdeucher@gmail.com> 
-Sent: Thursday, October 22, 2020 1:19 PM
-To: Feng, Kenneth <Kenneth.Feng@amd.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun <Likun.Gao@amd.com>
-Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+With all that: Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-[CAUTION: External Email]
+Cheers, Daniel
 
-On Thu, Oct 22, 2020 at 1:06 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Thu, Oct 22, 2020 at 1:05 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Thu, Oct 22, 2020 at 1:01 AM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
-> > >
-> > > [AMD Official Use Only - Internal Distribution Only]
-> > >
-> > > Hi Alex,
-> > > The speed is not 0 in the below scenario if the rpm is got from the metrics table on navi10.
-> > > The possibility is that you were using an old firmware. The 
-> > > firmware on my system is 0x002a3e00 Can you remember the version when you saw the problem?
-> >
-> > SMC feature version: 0, firmware version: 0x002a3600
->
-> Actually, I'm not sure.  It might have been updated since the last 
-> time I tested this.
+> +	size_t alloc_size = min(count, PAGE_SIZE);
+> +	ssize_t ret = 0;
+> +	char *tmp;
+> +
+> +	tmp = kmalloc(alloc_size, GFP_KERNEL);
+> +	if (!tmp)
+> +		return -ENOMEM;
+> +
+> +	while (count) {
+> +		size_t c = min(count, alloc_size);
+> +
+> +		memcpy_fromio(tmp, src, c);
+> +		if (copy_to_user(buf, tmp, c)) {
+> +			ret = -EFAULT;
+> +			break;
+> +		}
+> +
+> +		src += c;
+> +		buf += c;
+> +		ret += c;
+> +		count -= c;
+> +	}
+> +
+> +	kfree(tmp);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t fb_read_screen_buffer(struct fb_info *info, char __user *buf, size_t count,
+> +				     loff_t pos)
+> +{
+> +	const char *src = info->screen_buffer + pos;
+> +
+> +	if (copy_to_user(buf, src, count))
+> +		return -EFAULT;
+> +
+> +	return count;
+> +}
+> +
+> +static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
+> +				 size_t count, loff_t *ppos)
+> +{
+> +	loff_t pos = *ppos;
+> +	size_t total_size;
+> +	ssize_t ret;
+> +
+> +	if (info->state != FBINFO_STATE_RUNNING)
+> +		return -EPERM;
+> +
+> +	if (info->screen_size)
+> +		total_size = info->screen_size;
+> +	else
+> +		total_size = info->fix.smem_len;
+> +
+> +	if (pos >= total_size)
+> +		return 0;
+> +	if (count >= total_size)
+> +		count = total_size;
+> +	if (total_size - count < pos)
+> +		count = total_size - pos;
+> +
+> +	if (drm_fbdev_use_iomem(info))
+> +		ret = fb_read_screen_base(info, buf, count, pos);
+> +	else
+> +		ret = fb_read_screen_buffer(info, buf, count, pos);
+> +
+> +	if (ret > 0)
+> +		*ppos = ret;
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t fb_write_screen_base(struct fb_info *info, const char __user *buf, size_t count,
+> +				    loff_t pos)
+> +{
+> +	char __iomem *dst = info->screen_base + pos;
+> +	size_t alloc_size = min(count, PAGE_SIZE);
+> +	ssize_t ret = 0;
+> +	u8 *tmp;
+> +
+> +	tmp = kmalloc(alloc_size, GFP_KERNEL);
+> +	if (!tmp)
+> +		return -ENOMEM;
+> +
+> +	while (count) {
+> +		size_t c = min(count, alloc_size);
+> +
+> +		if (copy_from_user(tmp, buf, c)) {
+> +			ret = -EFAULT;
+> +			break;
+> +		}
+> +		memcpy_toio(dst, tmp, c);
+> +
+> +		dst += c;
+> +		buf += c;
+> +		ret += c;
+> +		count -= c;
+> +	}
+> +
+> +	kfree(tmp);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t fb_write_screen_buffer(struct fb_info *info, const char __user *buf, size_t count,
+> +				      loff_t pos)
+> +{
+> +	char *dst = info->screen_buffer + pos;
+> +
+> +	if (copy_from_user(dst, buf, count))
+> +		return -EFAULT;
+> +
+> +	return count;
+> +}
+> +
+> +static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
+> +				  size_t count, loff_t *ppos)
+> +{
+> +	loff_t pos = *ppos;
+> +	size_t total_size;
+> +	ssize_t ret;
+> +	int err;
+> +
+> +	if (info->state != FBINFO_STATE_RUNNING)
+> +		return -EPERM;
+> +
+> +	if (info->screen_size)
+> +		total_size = info->screen_size;
+> +	else
+> +		total_size = info->fix.smem_len;
+> +
+> +	if (pos > total_size)
+> +		return -EFBIG;
+> +	if (count > total_size) {
+> +		err = -EFBIG;
+> +		count = total_size;
+> +	}
+> +	if (total_size - count < pos) {
+> +		if (!err)
+> +			err = -ENOSPC;
+> +		count = total_size - pos;
+> +	}
+> +
+> +	/*
+> +	 * Copy to framebuffer even if we already logged an error. Emulates
+> +	 * the behavior of the original fbdev implementation.
+> +	 */
+> +	if (drm_fbdev_use_iomem(info))
+> +		ret = fb_write_screen_base(info, buf, count, pos);
+> +	else
+> +		ret = fb_write_screen_buffer(info, buf, count, pos);
+> +
+> +	if (ret > 0)
+> +		*ppos = ret;
+> +
+> +	if (err)
+> +		return err;
+> +
+> +	return ret;
+> +}
+> +
+> +static void drm_fbdev_fb_fillrect(struct fb_info *info,
+> +				  const struct fb_fillrect *rect)
+> +{
+> +	if (drm_fbdev_use_iomem(info))
+> +		drm_fb_helper_cfb_fillrect(info, rect);
+> +	else
+> +		drm_fb_helper_sys_fillrect(info, rect);
+> +}
+> +
+> +static void drm_fbdev_fb_copyarea(struct fb_info *info,
+> +				  const struct fb_copyarea *area)
+> +{
+> +	if (drm_fbdev_use_iomem(info))
+> +		drm_fb_helper_cfb_copyarea(info, area);
+> +	else
+> +		drm_fb_helper_sys_copyarea(info, area);
+> +}
+> +
+> +static void drm_fbdev_fb_imageblit(struct fb_info *info,
+> +				   const struct fb_image *image)
+> +{
+> +	if (drm_fbdev_use_iomem(info))
+> +		drm_fb_helper_cfb_imageblit(info, image);
+> +	else
+> +		drm_fb_helper_sys_imageblit(info, image);
+> +}
+> +
+>  static const struct fb_ops drm_fbdev_fb_ops = {
+>  	.owner		= THIS_MODULE,
+>  	DRM_FB_HELPER_DEFAULT_OPS,
+> @@ -2034,11 +2233,11 @@ static const struct fb_ops drm_fbdev_fb_ops = {
+>  	.fb_release	= drm_fbdev_fb_release,
+>  	.fb_destroy	= drm_fbdev_fb_destroy,
+>  	.fb_mmap	= drm_fbdev_fb_mmap,
+> -	.fb_read	= drm_fb_helper_sys_read,
+> -	.fb_write	= drm_fb_helper_sys_write,
+> -	.fb_fillrect	= drm_fb_helper_sys_fillrect,
+> -	.fb_copyarea	= drm_fb_helper_sys_copyarea,
+> -	.fb_imageblit	= drm_fb_helper_sys_imageblit,
+> +	.fb_read	= drm_fbdev_fb_read,
+> +	.fb_write	= drm_fbdev_fb_write,
+> +	.fb_fillrect	= drm_fbdev_fb_fillrect,
+> +	.fb_copyarea	= drm_fbdev_fb_copyarea,
+> +	.fb_imageblit	= drm_fbdev_fb_imageblit,
+>  };
+>  
+>  static struct fb_deferred_io drm_fbdev_defio = {
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index 5ffbb4ed5b35..ab424ddd7665 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -877,18 +877,6 @@ struct drm_mode_config {
+>  	 */
+>  	bool prefer_shadow_fbdev;
+>  
+> -	/**
+> -	 * @fbdev_use_iomem:
+> -	 *
+> -	 * Set to true if framebuffer reside in iomem.
+> -	 * When set to true memcpy_toio() is used when copying the framebuffer in
+> -	 * drm_fb_helper.drm_fb_helper_dirty_blit_real().
+> -	 *
+> -	 * FIXME: This should be replaced with a per-mapping is_iomem
+> -	 * flag (like ttm does), and then used everywhere in fbdev code.
+> -	 */
+> -	bool fbdev_use_iomem;
+> -
+>  	/**
+>  	 * @quirk_addfb_prefer_xbgr_30bpp:
+>  	 *
+> -- 
+> 2.28.0
+> 
 
-If you can confirm it's working on all the asics with the latest firmware, maybe it makes more sense to just revert this commit:
-
-commit 3033e9f1c2de0eca89e9a98c7e307820f3fc953e
-Author: Alex Deucher <alexander.deucher@amd.com>
-Date:   Thu Aug 27 00:12:38 2020 -0400
-
-    drm/amdgpu/swsmu: handle manual fan readback on SMU11
-
-    Need to read back from registers for manual mode rather than
-    using the metrics table.
-
-    Bug: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1164&amp;data=04%7C01%7CKenneth.Feng%40amd.com%7C7b20871a843e41a5038408d8764a0d51%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637389407704795887%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=2jEFoU62zbGIwEACv3C6xAmyNgIQ4q1kbBfNQ3Ztm7E%3D&amp;reserved=0
-    Reviewed-by: Evan Quan <evan.quan@amd.com>
-    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
->
-> Alex
->
->
-> >
-> > Alex
-> >
-> > > Thanks.
-> > > # echo 1 > 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/pwm1_enable # echo 125 > 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/pwm1 # cat 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/pwm1
-> > > 109
-> > >
-> > >
-> > >
-> > >
-> > >
-> > >
-> > > -----Original Message-----
-> > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > Sent: Thursday, October 22, 2020 11:28 AM
-> > > To: Feng, Kenneth <Kenneth.Feng@amd.com>
-> > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
-> > > <Likun.Gao@amd.com>
-> > > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in 
-> > > fan1_input
-> > >
-> > > [CAUTION: External Email]
-> > >
-> > > On Wed, Oct 21, 2020 at 11:16 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
-> > > >
-> > > > [AMD Official Use Only - Internal Distribution Only]
-> > > >
-> > > > Hi Alex,
-> > > > After reboot, It is also not read back correctly as below.
-> > > > # echo 1 >
-> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:0
-> > > > 4:00.0 /hwmon/hwmon3/fan1_enable s# cat
-> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:0
-> > > > 4:00.0
-> > > > /hwmon/hwmon3/fan1_input
-> > > > 183105
-> > > > # cat
-> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:0
-> > > > 4:00.0
-> > > > /hwmon/hwmon3/fan1_enable
-> > > > 1
-> > > >
-> > >
-> > > What about if you manually set the speed.  E.g., # echo 1 > 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/fan1_enable # echo 800 > 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/fan1_target # cat 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/fan1_input
-> > >
-> > > The problem I ran into on navi1x was setting the fan speed 
-> > > manually resulted in 0 for the fan speed in the metrics table.  
-> > > E.g.,
-> > >
-> > > # echo 1 > 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/pwm1_enable # echo 125 > 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/pwm1 # cat 
-> > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
-> > > 00.0/hwmon/hwmon3/pwm
-> > >
-> > > See:
-> > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2F
-> > > gitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1164&amp;data=04
-> > > %7C01%7CKenneth.Feng%40amd.com%7C7b20871a843e41a5038408d8764a0d51%
-> > > 7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637389407704795887%7C
-> > > Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6
-> > > Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=2jEFoU62zbGIwEACv3C6xAmyNg
-> > > IQ4q1kbBfNQ3Ztm7E%3D&amp;reserved=0
-> > >
-> > > Alex
-> > >
-> > >
-> > > >
-> > > >
-> > > > -----Original Message-----
-> > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > Sent: Thursday, October 22, 2020 10:18 AM
-> > > > To: Feng, Kenneth <Kenneth.Feng@amd.com>
-> > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
-> > > > <Likun.Gao@amd.com>
-> > > > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in 
-> > > > fan1_input
-> > > >
-> > > > [CAUTION: External Email]
-> > > >
-> > > > On Wed, Oct 21, 2020 at 9:30 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
-> > > > >
-> > > > > [AMD Official Use Only - Internal Distribution Only]
-> > > > >
-> > > > > Hi Alex,
-> > > > > Navi10 also has this problem as below.
-> > > > > # cat
-> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
-> > > > > :04:00
-> > > > > .0
-> > > > > /hwmon/hwmon3/fan1_input
-> > > > > 1217
-> > > > > # cat
-> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
-> > > > > :04:00
-> > > > > .0
-> > > > > /hwmon/hwmon3/fan1_enable
-> > > > > 0
-> > > > > # echo 1 >
-> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
-> > > > > :04:00
-> > > > > .0
-> > > > > /hwmon/hwmon3/fan1_enable # cat
-> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
-> > > > > :04:00
-> > > > > .0
-> > > > > /hwmon/hwmon3/fan1_enable
-> > > > > 1
-> > > > > s# cat
-> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
-> > > > > :04:00
-> > > > > .0
-> > > > > /hwmon/hwmon3/fan1_input
-> > > > > 183105
-> > > > >
-> > > > > In AGM, the rpm is 1800.
-> > > >
-> > > > Does it read back correctly if you manually set the fan rpm first before reading it back?
-> > > >
-> > > > Alex
-> > > >
-> > > >
-> > > > >
-> > > > >
-> > > > >
-> > > > > -----Original Message-----
-> > > > > From: Feng, Kenneth
-> > > > > Sent: Thursday, October 22, 2020 9:11 AM
-> > > > > To: Alex Deucher <alexdeucher@gmail.com>
-> > > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
-> > > > > <Likun.Gao@amd.com>
-> > > > > Subject: RE: [PATCH] drm/amd/pm: fix the wrong fan speed in 
-> > > > > fan1_input
-> > > > >
-> > > > > [AMD Official Use Only - Internal Distribution Only]
-> > > > >
-> > > > > Hi Alex,
-> > > > > Right, smu_v11_0_get_fan_speed_rpm() is not correct for sienna cichlid when it's in manual mode.
-> > > > > An example is that in my system, the rpm is about 1800 in manual mode, confirmed with AGM and the internal smu fw scoreboard.
-> > > > > But the fan1_input shows about 180000, which is way more than the real value.
-> > > > > If you see the value from the metrics table is 0 on navi10, maybe it's the real rpm since we still have 0 rpm feature.
-> > > > > I can double check the navi10.
-> > > > > Thanks.
-> > > > >
-> > > > >
-> > > > > -----Original Message-----
-> > > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > > Sent: Thursday, October 22, 2020 2:47 AM
-> > > > > To: Feng, Kenneth <Kenneth.Feng@amd.com>
-> > > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun 
-> > > > > <Likun.Gao@amd.com>
-> > > > > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in 
-> > > > > fan1_input
-> > > > >
-> > > > > [CAUTION: External Email]
-> > > > >
-> > > > > On Wed, Oct 21, 2020 at 9:40 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> > > > > >
-> > > > > > On Wed, Oct 21, 2020 at 9:01 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> > > > > > >
-> > > > > > > On Wed, Oct 21, 2020 at 2:45 AM Kenneth Feng <kenneth.feng@amd.com> wrote:
-> > > > > > > >
-> > > > > > > > fix the wrong fan speed in fan1_input when the fan control mode is manual.
-> > > > > > > > the fan speed value is not correct when we set manual mode to fan1_enalbe - 1.
-> > > > > > > > since the fan speed in the metrics table always reflects 
-> > > > > > > > the real fan speed,we can fetch the fan speed for both auto and manual mode.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> > > > > > >
-> > > > > > > NACK.  At least on the navi boards I have, the metrics 
-> > > > > > > table fan speed reads back 0 when the fan is in manual 
-> > > > > > > mode.  That's why I changed this in the first place.
-> > > > > >
-> > > > > > Nevermind, I was thinking about navi1x.  If this is working 
-> > > > > > correctly on sienna cichlid, please ignore me.
-> > > > >
-> > > > > That said, I don't see why the current code should not work.  Maybe a bug elsewhere?  Is smu_v11_0_get_fan_speed_rpm() incorrect for sienna cichlid?
-> > > > >
-> > > > > Alex
-> > > > >
-> > > > > >
-> > > > > > Alex
-> > > > > >
-> > > > > >
-> > > > > > >
-> > > > > > > Alex
-> > > > > > >
-> > > > > > >
-> > > > > > > > ---
-> > > > > > > >  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 11 +++--------
-> > > > > > > >  1 file changed, 3 insertions(+), 8 deletions(-)
-> > > > > > > >
-> > > > > > > > diff --git
-> > > > > > > > a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.
-> > > > > > > > c 
-> > > > > > > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.
-> > > > > > > > c index 496abc31b07e..27b6cade9ade 100644
-> > > > > > > > --- 
-> > > > > > > > a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.
-> > > > > > > > c
-> > > > > > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_
-> > > > > > > > +++ ppt.c
-> > > > > > > > @@ -1171,14 +1171,9 @@ static int sienna_cichlid_get_fan_speed_rpm(struct smu_context *smu,
-> > > > > > > >         if (!speed)
-> > > > > > > >                 return -EINVAL;
-> > > > > > > >
-> > > > > > > > -       switch (smu_v11_0_get_fan_control_mode(smu)) {
-> > > > > > > > -       case AMD_FAN_CTRL_AUTO:
-> > > > > > > > -               return sienna_cichlid_get_smu_metrics_data(smu,
-> > > > > > > > -                                                          METRICS_CURR_FANSPEED,
-> > > > > > > > -                                                          speed);
-> > > > > > > > -       default:
-> > > > > > > > -               return smu_v11_0_get_fan_speed_rpm(smu, speed);
-> > > > > > > > -       }
-> > > > > > > > +       return sienna_cichlid_get_smu_metrics_data(smu,
-> > > > > > > > +                                               METRICS_CURR_FANSPEED,
-> > > > > > > > +                                               speed);
-> > > > > > > >  }
-> > > > > > > >
-> > > > > > > >  static int sienna_cichlid_get_fan_parameters(struct
-> > > > > > > > smu_context
-> > > > > > > > *smu)
-> > > > > > > > --
-> > > > > > > > 2.17.1
-> > > > > > > >
-> > > > > > > > _______________________________________________
-> > > > > > > > amd-gfx mailing list
-> > > > > > > > amd-gfx@lists.freedesktop.org
-> > > > > > > > https://nam11.safelinks.protection.outlook.com/?url=http
-> > > > > > > > s%3A%252
-> > > > > > > > F%25
-> > > > > > > > 2F
-> > > > > > > > lists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp
-> > > > > > > > ;data=
-> > > > > > > > 04
-> > > > > > > > %7
-> > > > > > > > C01%7Ckenneth.feng%40amd.com%7Cd8e969f4b63e4897a3df08d87
-> > > > > > > > 5f1b05
-> > > > > > > > 0%
-> > > > > > > > 7C
-> > > > > > > > 3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6373890281906
-> > > > > > > > 09906%
-> > > > > > > > 7C
-> > > > > > > > Un
-> > > > > > > > known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIi
-> > > > > > > > LCJBTi
-> > > > > > > > I6
-> > > > > > > > Ik
-> > > > > > > > 1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=KomP2H%2FadKJChDbN
-> > > > > > > > vNPQlT
-> > > > > > > > ot
-> > > > > > > > mE
-> > > > > > > > WrhutsQCHfiRIjNUY%3D&amp;reserved=0
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
