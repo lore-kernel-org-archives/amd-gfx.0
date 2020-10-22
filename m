@@ -7,63 +7,63 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE90FC5517A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 10:21:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BF20C55179
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 11:44:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9A7024630
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 10:21:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 42AA6222E9
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 11:44:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="kX5gvpbI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9A7024630
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="NFkX3H3F"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42AA6222E9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8C66F5C3;
-	Thu, 22 Oct 2020 10:21:23 +0000 (UTC)
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DFAF6F5BE
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 10:21:21 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id k68so990135otk.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 03:21:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84FA86E0D4;
+	Thu, 22 Oct 2020 11:44:33 +0000 (UTC)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43F776E0D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 11:44:32 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id z17so539104iog.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 04:44:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=5NIyadkpsx3TzJkX5ZsP+SweN4sKS84ZLyEuupL4jV0=;
- b=kX5gvpbI6Hf2MYOKYuXkmRgr2kaaY9M5LbYCnRyLjOp/Lz02Os2A6z4Aq+rsZLosJ2
- M40DsB8reXplQuB/qrDWVA5FqGJtYFM6i8vJW9MvS++v1iXLrhj8qzSZ7rNR1n5yxmI7
- vyrNJoQc1BgrM//GO5oEndyGtaxbYgwsx17/8=
+ :cc; bh=kvWWAwvc+FVQaYEUzWaROq836i4DNXwaTNLfHCH4xxo=;
+ b=NFkX3H3FGwB3/Fa9827C4yglLAK29AF3dOrbHWjBIFZK5mTASqTCNhf65bGlB10yj6
+ MnP1LWLmjKXIafVUpm2q3m4WFCn01wn36kk+YPUZJOr5urnW7knxixJsBD7PPGHOVwUu
+ P37RUcCnGzqj/N9pjCTFr0m7h/zubl7L9o0MO1J3vN7VlLbJD9eGkxX/gIYJchSvJNzJ
+ LDPK4Yi89oGbyWDqva//MjG4A796/0Unkja0KfdGVUd0NJaaFn389/X+S7RnGo/1e5Yw
+ 56e7uzNB6e38L76theDUowAZt2jD9898MK3mGraBBNVUUHZvBq4RQRRihwqNQYtuaS4n
+ ctZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5NIyadkpsx3TzJkX5ZsP+SweN4sKS84ZLyEuupL4jV0=;
- b=eBGP8BiWhdZ/tHhVxEcFyg8hcSMp2tZc/s8eZ1ZbDCA4lo6rWX/t2GHlNKm2qljiGw
- /81cn6ke2JVAJNWNA6BYvydcBQv1iDlfx/BN3DWVTM/HArRY0vinE0+nTEYe7Z7kOykP
- 4tyI5wzwCoASuUZfqDZSLlLCkRZuc5Ysuqz2Kxgm5p+er/HR2pN9aOsOeMTjIWrrWL78
- nkTPecKLe1DaUTkGrJWTt9zc5ixAUzdgmKfzHBdtV6+EIU3h+eIjUseb0kljxWGTvSG0
- h1mgOIy1QC2cwQGsmL52ohQYUBCIj9pYz0d6mvj5flFFBZQyILPdfrUs3urL4IEWu99k
- XoZA==
-X-Gm-Message-State: AOAM531wcdl/huOIxdHtPZCcw10srrmouWiAfW/+Ih7AyksI2Resjrt3
- 7I6B6KsJ6rHvM1qpxSSshvTAxWDtDReQfsO7a+BLVg==
-X-Google-Smtp-Source: ABdhPJygQ9KUnAKAlt6h9nc1uLqv50lVI2ThhRnR4aecj/Qy/MtijtMr1CHsIeYGKKQcbMMd5YG/A53hu9KqBTBsBQ8=
-X-Received: by 2002:a05:6830:8b:: with SMTP id
- a11mr1304398oto.303.1603362080697; 
- Thu, 22 Oct 2020 03:21:20 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=kvWWAwvc+FVQaYEUzWaROq836i4DNXwaTNLfHCH4xxo=;
+ b=Q/SYAIOJDktHrxYcxT8yOLQvUGuiaLLnTR597HYtnU3GvUadnmkl9PFohCe5jQQPXF
+ 1xoeVdeUquapJzp3BL6HfyAJzLDfPgKvWXdkNyXSvWG8mscwWTdL0OhphEh9lslRebL8
+ 5cw2XNASW+pKxf3zs1Z5lztqIGjsWgofmbrERZ4FEiBYAFXpCZrOaxy+scYcmdbJO6LU
+ V89gxrMfkqw+3H57o+v3XGBnlJAEX1K9Rk3VKXBsezRtd89vu1tYn3Qa5jyppC8NoC7q
+ rPW4dW9FnfW0qEJO8gbQjT0jfGgko4UXwvb+djjk0mapJC+ijIyyy+huyZ7zvj/nLRx/
+ ZPFw==
+X-Gm-Message-State: AOAM5301FRxrIdyaotAZ0Loe3DIUEXqyxDbRI4Sef8/rmiFcZjBPFPRY
+ dkSn0rLdcSgc6wFSy2m4NaC5ItGmUxcyYY0Qd8NHvQ==
+X-Google-Smtp-Source: ABdhPJyoOzqFAzi5lk1ljbluXM6mfhUDqPiw+GDd471SD2/TYtKOpIfvHASW0fpu0H8W7YV7RFun88DQ4JBj6jyu5bk=
+X-Received: by 2002:a02:c80a:: with SMTP id p10mr1313407jao.114.1603367071424; 
+ Thu, 22 Oct 2020 04:44:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201020122046.31167-1-tzimmermann@suse.de>
- <20201020122046.31167-9-tzimmermann@suse.de>
- <20201022084919.GU401619@phenom.ffwll.local>
- <f2d83a8b-91b3-ac64-b77f-2b1c78729014@suse.de>
-In-Reply-To: <f2d83a8b-91b3-ac64-b77f-2b1c78729014@suse.de>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 22 Oct 2020 12:21:07 +0200
-Message-ID: <CAKMK7uFek_A-rFjBc7UUny8TUYx_9dk+-QzsTZFc93X0O=b1aA@mail.gmail.com>
-Subject: Re: [PATCH v5 08/10] drm/gem: Store client buffer mappings as struct
- dma_buf_map
-To: Thomas Zimmermann <tzimmermann@suse.de>
+References: <20201021233130.874615-1-bas@basnieuwenhuizen.nl>
+ <20201021233130.874615-11-bas@basnieuwenhuizen.nl>
+ <CADnq5_NtCqp+PG4qj+z2Ffa1SKKD08Lz_QQFUZ9qPdioyAAFig@mail.gmail.com>
+In-Reply-To: <CADnq5_NtCqp+PG4qj+z2Ffa1SKKD08Lz_QQFUZ9qPdioyAAFig@mail.gmail.com>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Thu, 22 Oct 2020 13:44:20 +0200
+Message-ID: <CAP+8YyG_JGaZ9d8+jsjD85oBYyH4jP2zTB-KHvfPvcuKUEV4Ng@mail.gmail.com>
+Subject: Re: [PATCH v3 10/11] drm/amd/display: Expose modifiers.
+To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,215 +75,430 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, Nouveau Dev <nouveau@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Wilson,
- Chris" <chris@chris-wilson.co.uk>, Melissa Wen <melissa.srw@gmail.com>,
- Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Qiang Yu <yuq825@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Emil Velikov <emil.velikov@collabora.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>, lima@lists.freedesktop.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Steven Price <steven.price@arm.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- "open list:DRM DRIVER FOR QXL VIRTUAL GPU" <spice-devel@lists.freedesktop.org>,
- Ben Skeggs <bskeggs@redhat.com>,
- The etnaviv authors <etnaviv@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Hans de Goede <hdegoede@redhat.com>,
- "moderated list:DRM DRIVERS FOR XEN" <xen-devel@lists.xenproject.org>,
- "open list:VIRTIO CORE, NET..." <virtualization@lists.linux-foundation.org>,
- Sean Paul <sean@poorly.run>, apaneers@amd.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Sandy Huang <hjc@rock-chips.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Qinglang Miao <miaoqinglang@huawei.com>, Kukjin Kim <kgene@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Marek Olsak <maraeo@gmail.com>, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Wentland, Harry" <harry.wentland@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBPY3QgMjIsIDIwMjAgYXQgMTE6MTggQU0gVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1t
-ZXJtYW5uQHN1c2UuZGU+IHdyb3RlOgo+Cj4gSGkKPgo+IE9uIDIyLjEwLjIwIDEwOjQ5LCBEYW5p
-ZWwgVmV0dGVyIHdyb3RlOgo+ID4gT24gVHVlLCBPY3QgMjAsIDIwMjAgYXQgMDI6MjA6NDRQTSAr
-MDIwMCwgVGhvbWFzIFppbW1lcm1hbm4gd3JvdGU6Cj4gPj4gS2VybmVsIERSTSBjbGllbnRzIG5v
-dyBzdG9yZSB0aGVpciBmcmFtZWJ1ZmZlciBhZGRyZXNzIGluIGFuIGluc3RhbmNlCj4gPj4gb2Yg
-c3RydWN0IGRtYV9idWZfbWFwLiBEZXBlbmRpbmcgb24gdGhlIGJ1ZmZlcidzIGxvY2F0aW9uLCB0
-aGUgYWRkcmVzcwo+ID4+IHJlZmVycyB0byBzeXN0ZW0gb3IgSS9PIG1lbW9yeS4KPiA+Pgo+ID4+
-IENhbGxlcnMgb2YgZHJtX2NsaWVudF9idWZmZXJfdm1hcCgpIHJlY2VpdmUgYSBjb3B5IG9mIHRo
-ZSB2YWx1ZSBpbgo+ID4+IHRoZSBjYWxsJ3Mgc3VwcGxpZWQgYXJndW1lbnRzLiBJdCBjYW4gYmUg
-YWNjZXNzZWQgYW5kIG1vZGlmaWVkIHdpdGgKPiA+PiBkbWFfYnVmX21hcCBpbnRlcmZhY2VzLgo+
-ID4+Cj4gPj4gU2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1
-c2UuZGU+Cj4gPj4gUmV2aWV3ZWQtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3
-bGwuY2g+Cj4gPj4gVGVzdGVkLWJ5OiBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+Cj4g
-Pj4gLS0tCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fY2xpZW50LmMgICAgfCAzNCArKysrKysr
-KysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0KPiA+PiAgZHJpdmVycy9ncHUvZHJtL2RybV9mYl9o
-ZWxwZXIuYyB8IDIzICsrKysrKysrKysrKystLS0tLS0tLS0KPiA+PiAgaW5jbHVkZS9kcm0vZHJt
-X2NsaWVudC5oICAgICAgICB8ICA3ICsrKystLS0KPiA+PiAgMyBmaWxlcyBjaGFuZ2VkLCAzOCBp
-bnNlcnRpb25zKCspLCAyNiBkZWxldGlvbnMoLSkKPiA+Pgo+ID4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vZHJtX2NsaWVudC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnQuYwo+
-ID4+IGluZGV4IGFjMDA4MmJlZDk2Ni4uZmU1NzNhY2YxMDY3IDEwMDY0NAo+ID4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9kcm1fY2xpZW50LmMKPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJt
-X2NsaWVudC5jCj4gPj4gQEAgLTIzNSw3ICsyMzUsNyBAQCBzdGF0aWMgdm9pZCBkcm1fY2xpZW50
-X2J1ZmZlcl9kZWxldGUoc3RydWN0IGRybV9jbGllbnRfYnVmZmVyICpidWZmZXIpCj4gPj4gIHsK
-PiA+PiAgICAgIHN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBidWZmZXItPmNsaWVudC0+ZGV2Owo+
-ID4+Cj4gPj4gLSAgICBkcm1fZ2VtX3Z1bm1hcChidWZmZXItPmdlbSwgYnVmZmVyLT52YWRkcik7
-Cj4gPj4gKyAgICBkcm1fZ2VtX3Z1bm1hcChidWZmZXItPmdlbSwgJmJ1ZmZlci0+bWFwKTsKPiA+
-Pgo+ID4+ICAgICAgaWYgKGJ1ZmZlci0+Z2VtKQo+ID4+ICAgICAgICAgICAgICBkcm1fZ2VtX29i
-amVjdF9wdXQoYnVmZmVyLT5nZW0pOwo+ID4+IEBAIC0yOTEsMjUgKzI5MSwzMSBAQCBkcm1fY2xp
-ZW50X2J1ZmZlcl9jcmVhdGUoc3RydWN0IGRybV9jbGllbnRfZGV2ICpjbGllbnQsIHUzMiB3aWR0
-aCwgdTMyIGhlaWdodCwgdQo+ID4+ICAvKioKPiA+PiAgICogZHJtX2NsaWVudF9idWZmZXJfdm1h
-cCAtIE1hcCBEUk0gY2xpZW50IGJ1ZmZlciBpbnRvIGFkZHJlc3Mgc3BhY2UKPiA+PiAgICogQGJ1
-ZmZlcjogRFJNIGNsaWVudCBidWZmZXIKPiA+PiArICogQG1hcF9jb3B5OiBSZXR1cm5zIHRoZSBt
-YXBwZWQgbWVtb3J5J3MgYWRkcmVzcwo+ID4+ICAgKgo+ID4+ICAgKiBUaGlzIGZ1bmN0aW9uIG1h
-cHMgYSBjbGllbnQgYnVmZmVyIGludG8ga2VybmVsIGFkZHJlc3Mgc3BhY2UuIElmIHRoZQo+ID4+
-IC0gKiBidWZmZXIgaXMgYWxyZWFkeSBtYXBwZWQsIGl0IHJldHVybnMgdGhlIG1hcHBpbmcncyBh
-ZGRyZXNzLgo+ID4+ICsgKiBidWZmZXIgaXMgYWxyZWFkeSBtYXBwZWQsIGl0IHJldHVybnMgdGhl
-IGV4aXN0aW5nIG1hcHBpbmcncyBhZGRyZXNzLgo+ID4+ICAgKgo+ID4+ICAgKiBDbGllbnQgYnVm
-ZmVyIG1hcHBpbmdzIGFyZSBub3QgcmVmJ2NvdW50ZWQuIEVhY2ggY2FsbCB0bwo+ID4+ICAgKiBk
-cm1fY2xpZW50X2J1ZmZlcl92bWFwKCkgc2hvdWxkIGJlIGZvbGxvd2VkIGJ5IGEgY2FsbCB0bwo+
-ID4+ICAgKiBkcm1fY2xpZW50X2J1ZmZlcl92dW5tYXAoKTsgb3IgdGhlIGNsaWVudCBidWZmZXIg
-c2hvdWxkIGJlIG1hcHBlZAo+ID4+ICAgKiB0aHJvdWdob3V0IGl0cyBsaWZldGltZS4KPiA+PiAg
-ICoKPiA+PiArICogVGhlIHJldHVybmVkIGFkZHJlc3MgaXMgYSBjb3B5IG9mIHRoZSBpbnRlcm5h
-bCB2YWx1ZS4gSW4gY29udHJhc3QgdG8KPiA+PiArICogb3RoZXIgdm1hcCBpbnRlcmZhY2VzLCB5
-b3UgZG9uJ3QgbmVlZCBpdCBmb3IgdGhlIGNsaWVudCdzIHZ1bm1hcAo+ID4+ICsgKiBmdW5jdGlv
-bi4gU28geW91IGNhbiBtb2RpZnkgaXQgYXQgd2lsbCBkdXJpbmcgYmxpdCBhbmQgZHJhdyBvcGVy
-YXRpb25zLgo+ID4+ICsgKgo+ID4+ICAgKiBSZXR1cm5zOgo+ID4+IC0gKiAgVGhlIG1hcHBlZCBt
-ZW1vcnkncyBhZGRyZXNzCj4gPj4gKyAqICAwIG9uIHN1Y2Nlc3MsIG9yIGEgbmVnYXRpdmUgZXJy
-bm8gY29kZSBvdGhlcndpc2UuCj4gPj4gICAqLwo+ID4+IC12b2lkICpkcm1fY2xpZW50X2J1ZmZl
-cl92bWFwKHN0cnVjdCBkcm1fY2xpZW50X2J1ZmZlciAqYnVmZmVyKQo+ID4+ICtpbnQKPiA+PiAr
-ZHJtX2NsaWVudF9idWZmZXJfdm1hcChzdHJ1Y3QgZHJtX2NsaWVudF9idWZmZXIgKmJ1ZmZlciwg
-c3RydWN0IGRtYV9idWZfbWFwICptYXBfY29weSkKPiA+PiAgewo+ID4+IC0gICAgc3RydWN0IGRt
-YV9idWZfbWFwIG1hcDsKPiA+PiArICAgIHN0cnVjdCBkbWFfYnVmX21hcCAqbWFwID0gJmJ1ZmZl
-ci0+bWFwOwo+ID4+ICAgICAgaW50IHJldDsKPiA+Pgo+ID4+IC0gICAgaWYgKGJ1ZmZlci0+dmFk
-ZHIpCj4gPj4gLSAgICAgICAgICAgIHJldHVybiBidWZmZXItPnZhZGRyOwo+ID4+ICsgICAgaWYg
-KGRtYV9idWZfbWFwX2lzX3NldChtYXApKQo+ID4+ICsgICAgICAgICAgICBnb3RvIG91dDsKPiA+
-Pgo+ID4+ICAgICAgLyoKPiA+PiAgICAgICAqIEZJWE1FOiBUaGUgZGVwZW5kZW5jeSBvbiBHRU0g
-aGVyZSBpc24ndCByZXF1aXJlZCwgd2UgY291bGQKPiA+PiBAQCAtMzE5LDEzICszMjUsMTQgQEAg
-dm9pZCAqZHJtX2NsaWVudF9idWZmZXJfdm1hcChzdHJ1Y3QgZHJtX2NsaWVudF9idWZmZXIgKmJ1
-ZmZlcikKPiA+PiAgICAgICAqIGZkX2luc3RhbGwgc3RlcCBvdXQgb2YgdGhlIGRyaXZlciBiYWNr
-ZW5kIGhvb2tzLCB0byBtYWtlIHRoYXQKPiA+PiAgICAgICAqIGZpbmFsIHN0ZXAgb3B0aW9uYWwg
-Zm9yIGludGVybmFsIHVzZXJzLgo+ID4+ICAgICAgICovCj4gPj4gLSAgICByZXQgPSBkcm1fZ2Vt
-X3ZtYXAoYnVmZmVyLT5nZW0sICZtYXApOwo+ID4+ICsgICAgcmV0ID0gZHJtX2dlbV92bWFwKGJ1
-ZmZlci0+Z2VtLCBtYXApOwo+ID4+ICAgICAgaWYgKHJldCkKPiA+PiAtICAgICAgICAgICAgcmV0
-dXJuIEVSUl9QVFIocmV0KTsKPiA+PiArICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+Pgo+ID4+
-IC0gICAgYnVmZmVyLT52YWRkciA9IG1hcC52YWRkcjsKPiA+PiArb3V0Ogo+ID4+ICsgICAgKm1h
-cF9jb3B5ID0gKm1hcDsKPiA+Pgo+ID4+IC0gICAgcmV0dXJuIG1hcC52YWRkcjsKPiA+PiArICAg
-IHJldHVybiAwOwo+ID4+ICB9Cj4gPj4gIEVYUE9SVF9TWU1CT0woZHJtX2NsaWVudF9idWZmZXJf
-dm1hcCk7Cj4gPj4KPiA+PiBAQCAtMzM5LDEwICszNDYsOSBAQCBFWFBPUlRfU1lNQk9MKGRybV9j
-bGllbnRfYnVmZmVyX3ZtYXApOwo+ID4+ICAgKi8KPiA+PiAgdm9pZCBkcm1fY2xpZW50X2J1ZmZl
-cl92dW5tYXAoc3RydWN0IGRybV9jbGllbnRfYnVmZmVyICpidWZmZXIpCj4gPj4gIHsKPiA+PiAt
-ICAgIHN0cnVjdCBkbWFfYnVmX21hcCBtYXAgPSBETUFfQlVGX01BUF9JTklUX1ZBRERSKGJ1ZmZl
-ci0+dmFkZHIpOwo+ID4+ICsgICAgc3RydWN0IGRtYV9idWZfbWFwICptYXAgPSAmYnVmZmVyLT5t
-YXA7Cj4gPj4KPiA+PiAtICAgIGRybV9nZW1fdnVubWFwKGJ1ZmZlci0+Z2VtLCAmbWFwKTsKPiA+
-PiAtICAgIGJ1ZmZlci0+dmFkZHIgPSBOVUxMOwo+ID4+ICsgICAgZHJtX2dlbV92dW5tYXAoYnVm
-ZmVyLT5nZW0sIG1hcCk7Cj4gPj4gIH0KPiA+PiAgRVhQT1JUX1NZTUJPTChkcm1fY2xpZW50X2J1
-ZmZlcl92dW5tYXApOwo+ID4+Cj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1f
-ZmJfaGVscGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2ZiX2hlbHBlci5jCj4gPj4gaW5kZXgg
-YzJmNzJiYjZhZmIxLi42MjEyY2Q3Y2RlMWQgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2RybV9mYl9oZWxwZXIuYwo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZmJfaGVs
-cGVyLmMKPiA+PiBAQCAtMzc4LDcgKzM3OCw3IEBAIHN0YXRpYyB2b2lkIGRybV9mYl9oZWxwZXJf
-ZGlydHlfYmxpdF9yZWFsKHN0cnVjdCBkcm1fZmJfaGVscGVyICpmYl9oZWxwZXIsCj4gPj4gICAg
-ICB1bnNpZ25lZCBpbnQgY3BwID0gZmItPmZvcm1hdC0+Y3BwWzBdOwo+ID4+ICAgICAgc2l6ZV90
-IG9mZnNldCA9IGNsaXAtPnkxICogZmItPnBpdGNoZXNbMF0gKyBjbGlwLT54MSAqIGNwcDsKPiA+
-PiAgICAgIHZvaWQgKnNyYyA9IGZiX2hlbHBlci0+ZmJkZXYtPnNjcmVlbl9idWZmZXIgKyBvZmZz
-ZXQ7Cj4gPj4gLSAgICB2b2lkICpkc3QgPSBmYl9oZWxwZXItPmJ1ZmZlci0+dmFkZHIgKyBvZmZz
-ZXQ7Cj4gPj4gKyAgICB2b2lkICpkc3QgPSBmYl9oZWxwZXItPmJ1ZmZlci0+bWFwLnZhZGRyICsg
-b2Zmc2V0Owo+ID4+ICAgICAgc2l6ZV90IGxlbiA9IChjbGlwLT54MiAtIGNsaXAtPngxKSAqIGNw
-cDsKPiA+PiAgICAgIHVuc2lnbmVkIGludCB5Owo+ID4+Cj4gPj4gQEAgLTQwMCw3ICs0MDAsOCBA
-QCBzdGF0aWMgdm9pZCBkcm1fZmJfaGVscGVyX2RpcnR5X3dvcmsoc3RydWN0IHdvcmtfc3RydWN0
-ICp3b3JrKQo+ID4+ICAgICAgc3RydWN0IGRybV9jbGlwX3JlY3QgKmNsaXAgPSAmaGVscGVyLT5k
-aXJ0eV9jbGlwOwo+ID4+ICAgICAgc3RydWN0IGRybV9jbGlwX3JlY3QgY2xpcF9jb3B5Owo+ID4+
-ICAgICAgdW5zaWduZWQgbG9uZyBmbGFnczsKPiA+PiAtICAgIHZvaWQgKnZhZGRyOwo+ID4+ICsg
-ICAgc3RydWN0IGRtYV9idWZfbWFwIG1hcDsKPiA+PiArICAgIGludCByZXQ7Cj4gPj4KPiA+PiAg
-ICAgIHNwaW5fbG9ja19pcnFzYXZlKCZoZWxwZXItPmRpcnR5X2xvY2ssIGZsYWdzKTsKPiA+PiAg
-ICAgIGNsaXBfY29weSA9ICpjbGlwOwo+ID4+IEBAIC00MTMsOCArNDE0LDggQEAgc3RhdGljIHZv
-aWQgZHJtX2ZiX2hlbHBlcl9kaXJ0eV93b3JrKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKPiA+
-Pgo+ID4+ICAgICAgICAgICAgICAvKiBHZW5lcmljIGZiZGV2IHVzZXMgYSBzaGFkb3cgYnVmZmVy
-ICovCj4gPj4gICAgICAgICAgICAgIGlmIChoZWxwZXItPmJ1ZmZlcikgewo+ID4+IC0gICAgICAg
-ICAgICAgICAgICAgIHZhZGRyID0gZHJtX2NsaWVudF9idWZmZXJfdm1hcChoZWxwZXItPmJ1ZmZl
-cik7Cj4gPj4gLSAgICAgICAgICAgICAgICAgICAgaWYgKElTX0VSUih2YWRkcikpCj4gPj4gKyAg
-ICAgICAgICAgICAgICAgICAgcmV0ID0gZHJtX2NsaWVudF9idWZmZXJfdm1hcChoZWxwZXItPmJ1
-ZmZlciwgJm1hcCk7Cj4gPj4gKyAgICAgICAgICAgICAgICAgICAgaWYgKHJldCkKPiA+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybjsKPiA+PiAgICAgICAgICAgICAgICAgICAg
-ICBkcm1fZmJfaGVscGVyX2RpcnR5X2JsaXRfcmVhbChoZWxwZXIsICZjbGlwX2NvcHkpOwo+ID4+
-ICAgICAgICAgICAgICB9Cj4gPj4gQEAgLTIwNjAsNyArMjA2MSw4IEBAIHN0YXRpYyBpbnQgZHJt
-X2ZiX2hlbHBlcl9nZW5lcmljX3Byb2JlKHN0cnVjdCBkcm1fZmJfaGVscGVyICpmYl9oZWxwZXIs
-Cj4gPj4gICAgICBzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyICpmYjsKPiA+PiAgICAgIHN0cnVjdCBm
-Yl9pbmZvICpmYmk7Cj4gPj4gICAgICB1MzIgZm9ybWF0Owo+ID4+IC0gICAgdm9pZCAqdmFkZHI7
-Cj4gPj4gKyAgICBzdHJ1Y3QgZG1hX2J1Zl9tYXAgbWFwOwo+ID4+ICsgICAgaW50IHJldDsKPiA+
-Pgo+ID4+ICAgICAgZHJtX2RiZ19rbXMoZGV2LCAic3VyZmFjZSB3aWR0aCglZCksIGhlaWdodCgl
-ZCkgYW5kIGJwcCglZClcbiIsCj4gPj4gICAgICAgICAgICAgICAgICBzaXplcy0+c3VyZmFjZV93
-aWR0aCwgc2l6ZXMtPnN1cmZhY2VfaGVpZ2h0LAo+ID4+IEBAIC0yMDk2LDExICsyMDk4LDE0IEBA
-IHN0YXRpYyBpbnQgZHJtX2ZiX2hlbHBlcl9nZW5lcmljX3Byb2JlKHN0cnVjdCBkcm1fZmJfaGVs
-cGVyICpmYl9oZWxwZXIsCj4gPj4gICAgICAgICAgICAgIGZiX2RlZmVycmVkX2lvX2luaXQoZmJp
-KTsKPiA+PiAgICAgIH0gZWxzZSB7Cj4gPj4gICAgICAgICAgICAgIC8qIGJ1ZmZlciBpcyBtYXBw
-ZWQgZm9yIEhXIGZyYW1lYnVmZmVyICovCj4gPj4gLSAgICAgICAgICAgIHZhZGRyID0gZHJtX2Ns
-aWVudF9idWZmZXJfdm1hcChmYl9oZWxwZXItPmJ1ZmZlcik7Cj4gPj4gLSAgICAgICAgICAgIGlm
-IChJU19FUlIodmFkZHIpKQo+ID4+IC0gICAgICAgICAgICAgICAgICAgIHJldHVybiBQVFJfRVJS
-KHZhZGRyKTsKPiA+PiArICAgICAgICAgICAgcmV0ID0gZHJtX2NsaWVudF9idWZmZXJfdm1hcChm
-Yl9oZWxwZXItPmJ1ZmZlciwgJm1hcCk7Cj4gPj4gKyAgICAgICAgICAgIGlmIChyZXQpCj4gPj4g
-KyAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+PiArICAgICAgICAgICAgaWYgKG1h
-cC5pc19pb21lbSkKPiA+PiArICAgICAgICAgICAgICAgICAgICBmYmktPnNjcmVlbl9iYXNlID0g
-bWFwLnZhZGRyX2lvbWVtOwo+ID4+ICsgICAgICAgICAgICBlbHNlCj4gPj4gKyAgICAgICAgICAg
-ICAgICAgICAgZmJpLT5zY3JlZW5fYnVmZmVyID0gbWFwLnZhZGRyOwo+ID4+Cj4gPj4gLSAgICAg
-ICAgICAgIGZiaS0+c2NyZWVuX2J1ZmZlciA9IHZhZGRyOwo+ID4+ICAgICAgICAgICAgICAvKiBT
-aGFtZWxlc3NseSBsZWFrIHRoZSBwaHlzaWNhbCBhZGRyZXNzIHRvIHVzZXItc3BhY2UgKi8KPiA+
-PiAgI2lmIElTX0VOQUJMRUQoQ09ORklHX0RSTV9GQkRFVl9MRUFLX1BIWVNfU01FTSkKPiA+PiAg
-ICAgICAgICAgICAgaWYgKGRybV9sZWFrX2ZiZGV2X3NtZW0gJiYgZmJpLT5maXguc21lbV9zdGFy
-dCA9PSAwKQo+ID4KPiA+IEp1c3Qgbm90aWNlZCBhIHRpbnkgdGhpbmcgaGVyZTogSSB0aGluayB0
-aGlzIG5lZWRzIHRvIGJlIHBhdGNoZWQgdG8gb25seQo+ID4gc2V0IHNtZW1fc3RhcnQgd2hlbiB0
-aGUgbWFwIGlzIF9ub3RfIGlvbWVtLiBTaW5jZSB2aXJ0X3RvX3BhZ2UgaXNuJ3QKPiA+IGRlZmlu
-ZWQgb24gaW9tZW0gYXQgYWxsLgo+ID4KPiA+IEkgZ3Vlc3MgaXQnZCBiZSBuZWF0IGlmIHdlIGNh
-biBzZXQgdGhpcyBmb3IgaW9tZW0gdG9vLCBidXQgSSBoYXZlIG5vIGlkZWEKPiA+IGhvdyB0byBj
-b252ZXJ0IGFuIGlvbWVtIHBvaW50ZXIgYmFjayB0byBhIGJ1c19hZGRyX3QgLi4uCj4KPiBOb3Qg
-dGhhdCBJIGRpc2FncmVlLCBidXQgdGhhdCBzaG91bGQgYmUgcmV2aWV3ZWQgYnkgdGhlIHJpZ2h0
-IHBlb3BsZS4KPiBUaGUgY29tbWl0IGF0IDRiZTliZDEwZTIyZCAoImRybS9mYl9oZWxwZXI6IEFs
-bG93IGxlYWtpbmcgZmJkZXYKPiBzbWVtX3N0YXJ0IikgYXBwZWFycyB0byB3b3JrIGFyb3VuZCBz
-cGVjaWZpYyB1c2Vyc3BhY2UgZHJpdmVycy4KCkl0J3MgZm9yIHNvYyBkcml2ZXJzLCB3aGljaCBh
-bGwgdXNlIGVpdGhlciBzaG1lbSBvciBjbWEgaGVscGVycywgc28KYWxsIHN5c3RlbSBtZW1vcnku
-IFdoaWNoIG1lYW5zIHlvdXIgcGF0Y2ggaGVyZSBkb2Vzbid0IGJyZWFrIGFueXRoaW5nLgpCdXQg
-d2UgbmVlZCB0byBtYWtlIHN1cmUgdGhhdCBpZiBzb21lb25lIGVuYWJsZXMgdGhpcyBpdCBkb2Vz
-bid0IGJsb3cKdXAgYXQgbGVhc3Qgd2hlbiB1c2VkIG9uIGEgZGV2aWNlIHdoZXJlIHdlIG1hcCBp
-b21lbS4KLURhbmllbAoKPiBCZXN0IHJlZ2FyZHMKPiBUaG9tYXMKPgo+ID4KPiA+IENoZWVycywg
-RGFuaWVsCj4gPgo+ID4+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fY2xpZW50LmggYi9p
-bmNsdWRlL2RybS9kcm1fY2xpZW50LmgKPiA+PiBpbmRleCA3YWFlYTY2NWJmYzIuLmYwN2YyZmIw
-MmU3NSAxMDA2NDQKPiA+PiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fY2xpZW50LmgKPiA+PiArKysg
-Yi9pbmNsdWRlL2RybS9kcm1fY2xpZW50LmgKPiA+PiBAQCAtMyw2ICszLDcgQEAKPiA+PiAgI2lm
-bmRlZiBfRFJNX0NMSUVOVF9IXwo+ID4+ICAjZGVmaW5lIF9EUk1fQ0xJRU5UX0hfCj4gPj4KPiA+
-PiArI2luY2x1ZGUgPGxpbnV4L2RtYS1idWYtbWFwLmg+Cj4gPj4gICNpbmNsdWRlIDxsaW51eC9s
-b2NrZGVwLmg+Cj4gPj4gICNpbmNsdWRlIDxsaW51eC9tdXRleC5oPgo+ID4+ICAjaW5jbHVkZSA8
-bGludXgvdHlwZXMuaD4KPiA+PiBAQCAtMTQxLDkgKzE0Miw5IEBAIHN0cnVjdCBkcm1fY2xpZW50
-X2J1ZmZlciB7Cj4gPj4gICAgICBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdlbTsKPiA+Pgo+ID4+
-ICAgICAgLyoqCj4gPj4gLSAgICAgKiBAdmFkZHI6IFZpcnR1YWwgYWRkcmVzcyBmb3IgdGhlIGJ1
-ZmZlcgo+ID4+ICsgICAgICogQG1hcDogVmlydHVhbCBhZGRyZXNzIGZvciB0aGUgYnVmZmVyCj4g
-Pj4gICAgICAgKi8KPiA+PiAtICAgIHZvaWQgKnZhZGRyOwo+ID4+ICsgICAgc3RydWN0IGRtYV9i
-dWZfbWFwIG1hcDsKPiA+Pgo+ID4+ICAgICAgLyoqCj4gPj4gICAgICAgKiBAZmI6IERSTSBmcmFt
-ZWJ1ZmZlcgo+ID4+IEBAIC0xNTUsNyArMTU2LDcgQEAgc3RydWN0IGRybV9jbGllbnRfYnVmZmVy
-ICoKPiA+PiAgZHJtX2NsaWVudF9mcmFtZWJ1ZmZlcl9jcmVhdGUoc3RydWN0IGRybV9jbGllbnRf
-ZGV2ICpjbGllbnQsIHUzMiB3aWR0aCwgdTMyIGhlaWdodCwgdTMyIGZvcm1hdCk7Cj4gPj4gIHZv
-aWQgZHJtX2NsaWVudF9mcmFtZWJ1ZmZlcl9kZWxldGUoc3RydWN0IGRybV9jbGllbnRfYnVmZmVy
-ICpidWZmZXIpOwo+ID4+ICBpbnQgZHJtX2NsaWVudF9mcmFtZWJ1ZmZlcl9mbHVzaChzdHJ1Y3Qg
-ZHJtX2NsaWVudF9idWZmZXIgKmJ1ZmZlciwgc3RydWN0IGRybV9yZWN0ICpyZWN0KTsKPiA+PiAt
-dm9pZCAqZHJtX2NsaWVudF9idWZmZXJfdm1hcChzdHJ1Y3QgZHJtX2NsaWVudF9idWZmZXIgKmJ1
-ZmZlcik7Cj4gPj4gK2ludCBkcm1fY2xpZW50X2J1ZmZlcl92bWFwKHN0cnVjdCBkcm1fY2xpZW50
-X2J1ZmZlciAqYnVmZmVyLCBzdHJ1Y3QgZG1hX2J1Zl9tYXAgKm1hcCk7Cj4gPj4gIHZvaWQgZHJt
-X2NsaWVudF9idWZmZXJfdnVubWFwKHN0cnVjdCBkcm1fY2xpZW50X2J1ZmZlciAqYnVmZmVyKTsK
-PiA+Pgo+ID4+ICBpbnQgZHJtX2NsaWVudF9tb2Rlc2V0X2NyZWF0ZShzdHJ1Y3QgZHJtX2NsaWVu
-dF9kZXYgKmNsaWVudCk7Cj4gPj4gLS0KPiA+PiAyLjI4LjAKPiA+Pgo+ID4KPgo+IC0tCj4gVGhv
-bWFzIFppbW1lcm1hbm4KPiBHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyCj4gU1VTRSBTb2Z0d2Fy
-ZSBTb2x1dGlvbnMgR2VybWFueSBHbWJICj4gTWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJn
-LCBHZXJtYW55Cj4gKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQo+IEdlc2Now6RmdHNmw7xocmVy
-OiBGZWxpeCBJbWVuZMO2cmZmZXIKCgoKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5l
-ZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+You are totally right! Added that locally.
+
+Thanks!
+
+On Thu, Oct 22, 2020 at 7:51 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Wed, Oct 21, 2020 at 7:31 PM Bas Nieuwenhuizen
+> <bas@basnieuwenhuizen.nl> wrote:
+> >
+> > This expose modifier support on GFX9+.
+> >
+> > Only modifiers that can be rendered on the current GPU are
+> > added. This is to reduce the number of modifiers exposed.
+> >
+> > The HW could expose more, but the best mechanism to decide
+> > what to expose without an explosion in modifiers is still
+> > to be decided, and in the meantime this should not regress
+> > things from pre-modifiers and does not risk regressions as
+> > we make up our mind in the future.
+> >
+> > v2:
+> >   - Added comment that D on Raven is only valid for 64bpp
+> >     and will be filtered based on format later.
+> >   - Removed D tiling modes that weren't useful for 64bpp
+> >     on GFX10+.
+> >
+> > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> > ---
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 338 +++++++++++++++++-
+> >  1 file changed, 337 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 6b33e030fe20..a1ce325f2fd1 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -4133,6 +4133,335 @@ fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
+> >         }
+> >  }
+> >
+> > +enum dm_micro_swizzle {
+> > +       MICRO_SWIZZLE_Z = 0,
+> > +       MICRO_SWIZZLE_S = 1,
+> > +       MICRO_SWIZZLE_D = 2,
+> > +       MICRO_SWIZZLE_R = 3
+> > +};
+> > +
+> > +static bool dm_plane_format_mod_supported(struct drm_plane *plane,
+> > +                                         uint32_t format,
+> > +                                         uint64_t modifier)
+> > +{
+> > +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> > +       const struct drm_format_info *info = drm_format_info(format);
+> > +
+> > +       enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
+> > +
+> > +       if (!info)
+> > +               return false;
+> > +
+> > +       /*
+> > +        * We always have to allow this modifier, because core DRM still
+> > +        * checks LINEAR support if userspace does not provide modifers.
+> > +        */
+> > +       if (modifier == DRM_FORMAT_MOD_LINEAR)
+> > +               return true;
+> > +
+> > +       /*
+> > +        * The arbitrary tiling support for multiplane formats has not been hooked
+> > +        * up.
+> > +        */
+> > +       if (info->num_planes > 1)
+> > +               return false;
+> > +
+> > +       /*
+> > +        * For D swizzle the canonical modifier depends on the bpp, so check
+> > +        * it here.
+> > +        */
+> > +       if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
+> > +           adev->family >= AMDGPU_FAMILY_NV) {
+> > +               if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
+> > +                       return false;
+> > +       }
+> > +
+> > +       if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
+> > +           info->cpp[0] < 8)
+> > +               return false;
+> > +
+> > +       if (modifier_has_dcc(modifier)) {
+> > +               /* Per radeonsi comments 16/64 bpp are more complicated. */
+> > +               if (info->cpp[0] != 4)
+> > +                       return false;
+> > +       }
+> > +
+> > +       return true;
+> > +}
+> > +
+> > +static void
+> > +add_modifier(uint64_t **mods, uint64_t *size, uint64_t *cap, uint64_t mod)
+> > +{
+> > +       if (!*mods)
+> > +               return;
+> > +
+> > +       if (*cap - *size < 1) {
+> > +               uint64_t new_cap = *cap * 2;
+> > +               uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
+> > +
+> > +               if (!new_mods) {
+> > +                       kfree(*mods);
+> > +                       *mods = NULL;
+> > +                       return;
+> > +               }
+> > +
+> > +               memcpy(new_mods, *mods, sizeof(uint64_t) * *size);
+> > +               kfree(*mods);
+> > +               *mods = new_mods;
+> > +               *cap = new_cap;
+> > +       }
+> > +
+> > +       (*mods)[*size] = mod;
+> > +       *size += 1;
+> > +}
+> > +
+> > +static void
+> > +add_gfx9_modifiers(const struct amdgpu_device *adev,
+> > +                  uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> > +{
+> > +       int pipes = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> > +       int pipe_xor_bits = min(8, pipes +
+> > +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_se));
+> > +       int bank_xor_bits = min(8 - pipe_xor_bits,
+> > +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_banks));
+> > +       int rb = ilog2(adev->gfx.config.gb_addr_config_fields.num_se) +
+> > +                ilog2(adev->gfx.config.gb_addr_config_fields.num_rb_per_se);
+> > +
+> > +
+> > +       if (adev->family == AMDGPU_FAMILY_RV) {
+> > +               /* Raven2 and later */
+> > +               bool has_constant_encode = adev->asic_type > CHIP_RAVEN || adev->external_rev_id >= 0x81;
+> > +
+> > +               /*
+> > +                * No _D DCC swizzles yet because we only allow 32bpp, which
+> > +                * doesn't support _D on DCN
+> > +                */
+> > +
+> > +               if (has_constant_encode) {
+> > +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> > +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> > +                                   AMD_FMT_MOD_SET(DCC, 1) |
+> > +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> > +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1));
+> > +               }
+> > +
+> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> > +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> > +                           AMD_FMT_MOD_SET(DCC, 1) |
+> > +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> > +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0));
+> > +
+> > +               if (has_constant_encode) {
+> > +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> > +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> > +                                   AMD_FMT_MOD_SET(DCC, 1) |
+> > +                                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> > +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> > +
+> > +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> > +                                   AMD_FMT_MOD_SET(RB, rb) |
+> > +                                   AMD_FMT_MOD_SET(PIPE, pipes));
+> > +               }
+> > +
+> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> > +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> > +                           AMD_FMT_MOD_SET(DCC, 1) |
+> > +                           AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> > +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> > +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0) |
+> > +                           AMD_FMT_MOD_SET(RB, rb) |
+> > +                           AMD_FMT_MOD_SET(PIPE, pipes));
+> > +       }
+> > +
+> > +       /*
+> > +        * Only supported for 64bpp on Raven, will be filtered on format in
+> > +        * dm_plane_format_mod_supported.
+> > +        */
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> > +
+> > +       if (adev->family == AMDGPU_FAMILY_RV) {
+> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> > +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> > +       }
+> > +
+> > +       /*
+> > +        * Only supported for 64bpp on Raven, will be filtered on format in
+> > +        * dm_plane_format_mod_supported.
+> > +        */
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> > +
+> > +       if (adev->family == AMDGPU_FAMILY_RV) {
+> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> > +       }
+> > +}
+> > +
+> > +static void
+> > +add_gfx10_1_modifiers(const struct amdgpu_device *adev,
+> > +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> > +{
+> > +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(DCC, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(DCC, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> > +
+> > +
+> > +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> > +}
+> > +
+> > +static void
+> > +add_gfx10_3_modifiers(const struct amdgpu_device *adev,
+> > +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> > +{
+> > +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> > +       int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> > +                   AMD_FMT_MOD_SET(DCC, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> > +                   AMD_FMT_MOD_SET(DCC, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> > +
+> > +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> > +
+> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> > +}
+> > +
+> > +static int
+> > +get_plane_modifiers(const struct amdgpu_device *adev, unsigned int plane_type, uint64_t **mods)
+> > +{
+> > +       uint64_t size = 0, capacity = 128;
+> > +       *mods = NULL;
+> > +
+> > +       /* We have not hooked up any pre-GFX9 modifiers. */
+> > +       if (adev->family < AMDGPU_FAMILY_AI)
+> > +               return 0;
+> > +
+> > +       *mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
+> > +
+> > +       if (plane_type == DRM_PLANE_TYPE_CURSOR) {
+> > +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> > +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> > +               return *mods ? 0 : -ENOMEM;
+> > +       }
+> > +
+> > +       switch (adev->family) {
+> > +       case AMDGPU_FAMILY_AI:
+> > +       case AMDGPU_FAMILY_RV:
+> > +               add_gfx9_modifiers(adev, mods, &size, &capacity);
+> > +               break;
+> > +       case AMDGPU_FAMILY_NV:
+>
+> Should probably add:
+> case AMDGPU_FAMILY_VGH:
+> here as well.
+>
+> Alex
+>
+> > +               if (adev->asic_type >= CHIP_SIENNA_CICHLID)
+> > +                       add_gfx10_3_modifiers(adev, mods, &size, &capacity);
+> > +               else
+> > +                       add_gfx10_1_modifiers(adev, mods, &size, &capacity);
+> > +               break;
+> > +       }
+> > +
+> > +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> > +
+> > +       /* INVALID marks the end of the list. */
+> > +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> > +
+> > +       if (!*mods)
+> > +               return -ENOMEM;
+> > +
+> > +       return 0;
+> > +}
+> > +
+> >  static int
+> >  fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
+> >                                           const struct amdgpu_framebuffer *afb,
+> > @@ -6100,6 +6429,7 @@ static const struct drm_plane_funcs dm_plane_funcs = {
+> >         .reset = dm_drm_plane_reset,
+> >         .atomic_duplicate_state = dm_drm_plane_duplicate_state,
+> >         .atomic_destroy_state = dm_drm_plane_destroy_state,
+> > +       .format_mod_supported = dm_plane_format_mod_supported,
+> >  };
+> >
+> >  static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+> > @@ -6392,13 +6722,19 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+> >         int num_formats;
+> >         int res = -EPERM;
+> >         unsigned int supported_rotations;
+> > +       uint64_t *modifiers = NULL;
+> >
+> >         num_formats = get_plane_formats(plane, plane_cap, formats,
+> >                                         ARRAY_SIZE(formats));
+> >
+> > +       res = get_plane_modifiers(dm->adev, plane->type, &modifiers);
+> > +       if (res)
+> > +               return res;
+> > +
+> >         res = drm_universal_plane_init(adev_to_drm(dm->adev), plane, possible_crtcs,
+> >                                        &dm_plane_funcs, formats, num_formats,
+> > -                                      NULL, plane->type, NULL);
+> > +                                      modifiers, plane->type, NULL);
+> > +       kfree(modifiers);
+> >         if (res)
+> >                 return res;
+> >
+> > --
+> > 2.28.0
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
