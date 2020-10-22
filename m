@@ -2,68 +2,79 @@ Return-Path: <SRS0=NxiI=D5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BF20C55179
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 11:44:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FCF1C388F2
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 13:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 42AA6222E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 11:44:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 94B9D24178
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 13:10:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="NFkX3H3F"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42AA6222E9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lmUUo5xC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94B9D24178
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84FA86E0D4;
-	Thu, 22 Oct 2020 11:44:33 +0000 (UTC)
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F776E0D4
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 11:44:32 +0000 (UTC)
-Received: by mail-io1-xd44.google.com with SMTP id z17so539104iog.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 04:44:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B276E1BB;
+	Thu, 22 Oct 2020 13:10:02 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7145B6E1F8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 13:10:01 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id y12so2321299wrp.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 06:10:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kvWWAwvc+FVQaYEUzWaROq836i4DNXwaTNLfHCH4xxo=;
- b=NFkX3H3FGwB3/Fa9827C4yglLAK29AF3dOrbHWjBIFZK5mTASqTCNhf65bGlB10yj6
- MnP1LWLmjKXIafVUpm2q3m4WFCn01wn36kk+YPUZJOr5urnW7knxixJsBD7PPGHOVwUu
- P37RUcCnGzqj/N9pjCTFr0m7h/zubl7L9o0MO1J3vN7VlLbJD9eGkxX/gIYJchSvJNzJ
- LDPK4Yi89oGbyWDqva//MjG4A796/0Unkja0KfdGVUd0NJaaFn389/X+S7RnGo/1e5Yw
- 56e7uzNB6e38L76theDUowAZt2jD9898MK3mGraBBNVUUHZvBq4RQRRihwqNQYtuaS4n
- ctZA==
+ :cc:content-transfer-encoding;
+ bh=40DYRYMfgzrsy1TMtGmacDBn/vNblsFfZiDMjTT5Fmg=;
+ b=lmUUo5xC2AemmOL/3VYrgNTQZQiRpwL6im4EAf+M9qq8S8Crjofs7zfnEZ9mSi+Cgc
+ NgDQYdC+joNmv5serev8uEjR/j1/UtSBaR7h3Ri3lAff/MpsIEmUJkRBLF+0A+gKIVQJ
+ /07mElyshTdNMDHJZe1RRdz8bUtvS1L4fzMV8lE+XDLsuthyOn+7rYJUq3mVRp4vUB5t
+ jC259tEDKhPmYQ3oxF74y89bizCG3gi8WUzG9gyUqEavvuW67ESUkYxfREdDdxAkdkym
+ 5fVJI6GezftX2QowVwuVU8NbdjLitvBxc+Ox//H9u13DNczr1rn8X4tAbC0/ogI0DueQ
+ 4P+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kvWWAwvc+FVQaYEUzWaROq836i4DNXwaTNLfHCH4xxo=;
- b=Q/SYAIOJDktHrxYcxT8yOLQvUGuiaLLnTR597HYtnU3GvUadnmkl9PFohCe5jQQPXF
- 1xoeVdeUquapJzp3BL6HfyAJzLDfPgKvWXdkNyXSvWG8mscwWTdL0OhphEh9lslRebL8
- 5cw2XNASW+pKxf3zs1Z5lztqIGjsWgofmbrERZ4FEiBYAFXpCZrOaxy+scYcmdbJO6LU
- V89gxrMfkqw+3H57o+v3XGBnlJAEX1K9Rk3VKXBsezRtd89vu1tYn3Qa5jyppC8NoC7q
- rPW4dW9FnfW0qEJO8gbQjT0jfGgko4UXwvb+djjk0mapJC+ijIyyy+huyZ7zvj/nLRx/
- ZPFw==
-X-Gm-Message-State: AOAM5301FRxrIdyaotAZ0Loe3DIUEXqyxDbRI4Sef8/rmiFcZjBPFPRY
- dkSn0rLdcSgc6wFSy2m4NaC5ItGmUxcyYY0Qd8NHvQ==
-X-Google-Smtp-Source: ABdhPJyoOzqFAzi5lk1ljbluXM6mfhUDqPiw+GDd471SD2/TYtKOpIfvHASW0fpu0H8W7YV7RFun88DQ4JBj6jyu5bk=
-X-Received: by 2002:a02:c80a:: with SMTP id p10mr1313407jao.114.1603367071424; 
- Thu, 22 Oct 2020 04:44:31 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=40DYRYMfgzrsy1TMtGmacDBn/vNblsFfZiDMjTT5Fmg=;
+ b=eA5QskGMwDpq/49GCgUlGpDyrsJpJSuNBW2sOnN9ujWh//QeqCkGbUIT35O4XI2PXE
+ qGbWZ1Ou0yUlcNyzKp37JOwpx9yeExg+JXJRUjWFIsJNcPwvZXLaX8jEcWpV7mFrxWVq
+ UBtWnavxAiPjgOar2JqnfCWzseQHNWiy47jaUkZBlztd+8j8zwQmIKWDhAps5xe3l1Zn
+ PIFylq0RbALS3/+vIwmCMKXq9i1Sgk1sUidCU6C2ph1otbYS+okHwZPzm+q4aNBKDN5S
+ vSUqAq34kSoim+0tXd7+0E2MyoYX1xFgihfeb0i1VAPiZrqUTKOw36DVTGVB2V4s9hdx
+ zGCA==
+X-Gm-Message-State: AOAM5309Ov4gp0lS6cQLjNRkoFlr9l/DQdNloJuZ7gdArqRABLbVSIfp
+ LcT1+IswBjJizoRpy+G8z9yfTWbJAQ7EOWHOSSE=
+X-Google-Smtp-Source: ABdhPJzUj8H/HnOJj7H9Kdx7QzospmE4ctW0poLw2wJZc8fVTrfqtg/EXLEUM59Rvm+ppFT4jE1gZKq5q5Hm01/npuo=
+X-Received: by 2002:adf:dd8f:: with SMTP id x15mr2865308wrl.124.1603372199935; 
+ Thu, 22 Oct 2020 06:09:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201021233130.874615-1-bas@basnieuwenhuizen.nl>
- <20201021233130.874615-11-bas@basnieuwenhuizen.nl>
- <CADnq5_NtCqp+PG4qj+z2Ffa1SKKD08Lz_QQFUZ9qPdioyAAFig@mail.gmail.com>
-In-Reply-To: <CADnq5_NtCqp+PG4qj+z2Ffa1SKKD08Lz_QQFUZ9qPdioyAAFig@mail.gmail.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Thu, 22 Oct 2020 13:44:20 +0200
-Message-ID: <CAP+8YyG_JGaZ9d8+jsjD85oBYyH4jP2zTB-KHvfPvcuKUEV4Ng@mail.gmail.com>
-Subject: Re: [PATCH v3 10/11] drm/amd/display: Expose modifiers.
-To: Alex Deucher <alexdeucher@gmail.com>
+References: <20201021064455.14935-1-kenneth.feng@amd.com>
+ <CADnq5_PdS8M3i9uQ3JTUE-idGJxVCk_k5N=Sgvsj4VJGFKn_vA@mail.gmail.com>
+ <CADnq5_NLyQ2jOW0ZkYMXcAX-snqHvUzNRYtrDRZbhN7qe0_5Zg@mail.gmail.com>
+ <CADnq5_M_ry9EHp2b1ycBzD4oTsfVJxFtSGoRvq2EfJiN6Qczmg@mail.gmail.com>
+ <DM5PR12MB16579B5849FB6719ADFE7C2D8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <DM5PR12MB1657C41033410DB1F57995F28E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <CADnq5_MR3O_T-jSziUMdJWU=eipX+55Km3WSLzP9+Eudygayvg@mail.gmail.com>
+ <DM5PR12MB165756ABF941252F123C03BD8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <CADnq5_M6V=-YDX5QJp-HEA2k=5HPh57zyj8tr+oVXgOo_sQUcg@mail.gmail.com>
+ <DM5PR12MB1657848807541F7E6214AC3D8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+ <CADnq5_PhA1bJp-3Pctjn_L9=TFU=y_Kuw7Sz42Tcdv1VoiUz8Q@mail.gmail.com>
+ <CADnq5_OjACqye7L_EdbYusTTmT5oTHmMctOr0ubyHm6PtuhT5g@mail.gmail.com>
+ <CADnq5_Ms5GDsOiqMRWcimgTGJzZaBWjnVf2zcFLeX0xPRZbCww@mail.gmail.com>
+ <DM5PR12MB165725B0FC52EA5F5BBD1BFB8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB165725B0FC52EA5F5BBD1BFB8E1D0@DM5PR12MB1657.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 22 Oct 2020 09:09:48 -0400
+Message-ID: <CADnq5_PJAhNM27Qqn12E2RNCc=d7kdi6ynwxqm1m+rQHj=Za_Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,429 +86,346 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Marek Olsak <maraeo@gmail.com>, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- "Wentland, Harry" <harry.wentland@amd.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: "Gao, Likun" <Likun.Gao@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-You are totally right! Added that locally.
-
-Thanks!
-
-On Thu, Oct 22, 2020 at 7:51 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Thu, Oct 22, 2020 at 2:10 AM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
 >
-> On Wed, Oct 21, 2020 at 7:31 PM Bas Nieuwenhuizen
-> <bas@basnieuwenhuizen.nl> wrote:
-> >
-> > This expose modifier support on GFX9+.
-> >
-> > Only modifiers that can be rendered on the current GPU are
-> > added. This is to reduce the number of modifiers exposed.
-> >
-> > The HW could expose more, but the best mechanism to decide
-> > what to expose without an explosion in modifiers is still
-> > to be decided, and in the meantime this should not regress
-> > things from pre-modifiers and does not risk regressions as
-> > we make up our mind in the future.
-> >
-> > v2:
-> >   - Added comment that D on Raven is only valid for 64bpp
-> >     and will be filtered based on format later.
-> >   - Removed D tiling modes that weren't useful for 64bpp
-> >     on GFX10+.
-> >
-> > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 338 +++++++++++++++++-
-> >  1 file changed, 337 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 6b33e030fe20..a1ce325f2fd1 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -4133,6 +4133,335 @@ fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
-> >         }
-> >  }
-> >
-> > +enum dm_micro_swizzle {
-> > +       MICRO_SWIZZLE_Z = 0,
-> > +       MICRO_SWIZZLE_S = 1,
-> > +       MICRO_SWIZZLE_D = 2,
-> > +       MICRO_SWIZZLE_R = 3
-> > +};
-> > +
-> > +static bool dm_plane_format_mod_supported(struct drm_plane *plane,
-> > +                                         uint32_t format,
-> > +                                         uint64_t modifier)
-> > +{
-> > +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
-> > +       const struct drm_format_info *info = drm_format_info(format);
-> > +
-> > +       enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
-> > +
-> > +       if (!info)
-> > +               return false;
-> > +
-> > +       /*
-> > +        * We always have to allow this modifier, because core DRM still
-> > +        * checks LINEAR support if userspace does not provide modifers.
-> > +        */
-> > +       if (modifier == DRM_FORMAT_MOD_LINEAR)
-> > +               return true;
-> > +
-> > +       /*
-> > +        * The arbitrary tiling support for multiplane formats has not been hooked
-> > +        * up.
-> > +        */
-> > +       if (info->num_planes > 1)
-> > +               return false;
-> > +
-> > +       /*
-> > +        * For D swizzle the canonical modifier depends on the bpp, so check
-> > +        * it here.
-> > +        */
-> > +       if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
-> > +           adev->family >= AMDGPU_FAMILY_NV) {
-> > +               if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
-> > +                       return false;
-> > +       }
-> > +
-> > +       if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
-> > +           info->cpp[0] < 8)
-> > +               return false;
-> > +
-> > +       if (modifier_has_dcc(modifier)) {
-> > +               /* Per radeonsi comments 16/64 bpp are more complicated. */
-> > +               if (info->cpp[0] != 4)
-> > +                       return false;
-> > +       }
-> > +
-> > +       return true;
-> > +}
-> > +
-> > +static void
-> > +add_modifier(uint64_t **mods, uint64_t *size, uint64_t *cap, uint64_t mod)
-> > +{
-> > +       if (!*mods)
-> > +               return;
-> > +
-> > +       if (*cap - *size < 1) {
-> > +               uint64_t new_cap = *cap * 2;
-> > +               uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
-> > +
-> > +               if (!new_mods) {
-> > +                       kfree(*mods);
-> > +                       *mods = NULL;
-> > +                       return;
-> > +               }
-> > +
-> > +               memcpy(new_mods, *mods, sizeof(uint64_t) * *size);
-> > +               kfree(*mods);
-> > +               *mods = new_mods;
-> > +               *cap = new_cap;
-> > +       }
-> > +
-> > +       (*mods)[*size] = mod;
-> > +       *size += 1;
-> > +}
-> > +
-> > +static void
-> > +add_gfx9_modifiers(const struct amdgpu_device *adev,
-> > +                  uint64_t **mods, uint64_t *size, uint64_t *capacity)
-> > +{
-> > +       int pipes = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
-> > +       int pipe_xor_bits = min(8, pipes +
-> > +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_se));
-> > +       int bank_xor_bits = min(8 - pipe_xor_bits,
-> > +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_banks));
-> > +       int rb = ilog2(adev->gfx.config.gb_addr_config_fields.num_se) +
-> > +                ilog2(adev->gfx.config.gb_addr_config_fields.num_rb_per_se);
-> > +
-> > +
-> > +       if (adev->family == AMDGPU_FAMILY_RV) {
-> > +               /* Raven2 and later */
-> > +               bool has_constant_encode = adev->asic_type > CHIP_RAVEN || adev->external_rev_id >= 0x81;
-> > +
-> > +               /*
-> > +                * No _D DCC swizzles yet because we only allow 32bpp, which
-> > +                * doesn't support _D on DCN
-> > +                */
-> > +
-> > +               if (has_constant_encode) {
-> > +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
-> > +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
-> > +                                   AMD_FMT_MOD_SET(DCC, 1) |
-> > +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
-> > +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1));
-> > +               }
-> > +
-> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
-> > +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
-> > +                           AMD_FMT_MOD_SET(DCC, 1) |
-> > +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
-> > +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0));
-> > +
-> > +               if (has_constant_encode) {
-> > +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
-> > +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
-> > +                                   AMD_FMT_MOD_SET(DCC, 1) |
-> > +                                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-> > +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
-> > +
-> > +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                                   AMD_FMT_MOD_SET(RB, rb) |
-> > +                                   AMD_FMT_MOD_SET(PIPE, pipes));
-> > +               }
-> > +
-> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
-> > +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
-> > +                           AMD_FMT_MOD_SET(DCC, 1) |
-> > +                           AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-> > +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
-> > +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0) |
-> > +                           AMD_FMT_MOD_SET(RB, rb) |
-> > +                           AMD_FMT_MOD_SET(PIPE, pipes));
-> > +       }
-> > +
-> > +       /*
-> > +        * Only supported for 64bpp on Raven, will be filtered on format in
-> > +        * dm_plane_format_mod_supported.
-> > +        */
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
-> > +
-> > +       if (adev->family == AMDGPU_FAMILY_RV) {
-> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
-> > +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
-> > +       }
-> > +
-> > +       /*
-> > +        * Only supported for 64bpp on Raven, will be filtered on format in
-> > +        * dm_plane_format_mod_supported.
-> > +        */
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
-> > +
-> > +       if (adev->family == AMDGPU_FAMILY_RV) {
-> > +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
-> > +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
-> > +       }
-> > +}
-> > +
-> > +static void
-> > +add_gfx10_1_modifiers(const struct amdgpu_device *adev,
-> > +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
-> > +{
-> > +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(DCC, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(DCC, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
-> > +
-> > +
-> > +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
-> > +}
-> > +
-> > +static void
-> > +add_gfx10_3_modifiers(const struct amdgpu_device *adev,
-> > +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
-> > +{
-> > +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
-> > +       int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
-> > +                   AMD_FMT_MOD_SET(DCC, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
-> > +                   AMD_FMT_MOD_SET(DCC, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
-> > +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
-> > +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
-> > +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
-> > +
-> > +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
-> > +
-> > +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
-> > +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
-> > +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
-> > +}
-> > +
-> > +static int
-> > +get_plane_modifiers(const struct amdgpu_device *adev, unsigned int plane_type, uint64_t **mods)
-> > +{
-> > +       uint64_t size = 0, capacity = 128;
-> > +       *mods = NULL;
-> > +
-> > +       /* We have not hooked up any pre-GFX9 modifiers. */
-> > +       if (adev->family < AMDGPU_FAMILY_AI)
-> > +               return 0;
-> > +
-> > +       *mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
-> > +
-> > +       if (plane_type == DRM_PLANE_TYPE_CURSOR) {
-> > +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
-> > +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
-> > +               return *mods ? 0 : -ENOMEM;
-> > +       }
-> > +
-> > +       switch (adev->family) {
-> > +       case AMDGPU_FAMILY_AI:
-> > +       case AMDGPU_FAMILY_RV:
-> > +               add_gfx9_modifiers(adev, mods, &size, &capacity);
-> > +               break;
-> > +       case AMDGPU_FAMILY_NV:
+> [AMD Official Use Only - Internal Distribution Only]
 >
-> Should probably add:
-> case AMDGPU_FAMILY_VGH:
-> here as well.
+> Hi Alex,
+> As I confirmed, this is Arcturus specific.
+> On Arcturus we don't have fan control feature and the fan speed is always 0 from the metrics table.
+> For navi series, I'm sure we don't need it. Looks like we can't just revert it.
+
+Ok, I guess we can just do a partial revert then.
+
+Alex
+
+
+> Thanks.
+>
+>
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Thursday, October 22, 2020 1:19 PM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun <Likun.Gao@amd.com>
+> Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in fan1_input
+>
+> [CAUTION: External Email]
+>
+> On Thu, Oct 22, 2020 at 1:06 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Thu, Oct 22, 2020 at 1:05 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > >
+> > > On Thu, Oct 22, 2020 at 1:01 AM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
+> > > >
+> > > > [AMD Official Use Only - Internal Distribution Only]
+> > > >
+> > > > Hi Alex,
+> > > > The speed is not 0 in the below scenario if the rpm is got from the metrics table on navi10.
+> > > > The possibility is that you were using an old firmware. The
+> > > > firmware on my system is 0x002a3e00 Can you remember the version when you saw the problem?
+> > >
+> > > SMC feature version: 0, firmware version: 0x002a3600
+> >
+> > Actually, I'm not sure.  It might have been updated since the last
+> > time I tested this.
+>
+> If you can confirm it's working on all the asics with the latest firmware, maybe it makes more sense to just revert this commit:
+>
+> commit 3033e9f1c2de0eca89e9a98c7e307820f3fc953e
+> Author: Alex Deucher <alexander.deucher@amd.com>
+> Date:   Thu Aug 27 00:12:38 2020 -0400
+>
+>     drm/amdgpu/swsmu: handle manual fan readback on SMU11
+>
+>     Need to read back from registers for manual mode rather than
+>     using the metrics table.
+>
+>     Bug: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1164&amp;data=04%7C01%7CKenneth.Feng%40amd.com%7C7b20871a843e41a5038408d8764a0d51%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637389407704795887%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=2jEFoU62zbGIwEACv3C6xAmyNgIQ4q1kbBfNQ3Ztm7E%3D&amp;reserved=0
+>     Reviewed-by: Evan Quan <evan.quan@amd.com>
+>     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 >
 > Alex
 >
-> > +               if (adev->asic_type >= CHIP_SIENNA_CICHLID)
-> > +                       add_gfx10_3_modifiers(adev, mods, &size, &capacity);
-> > +               else
-> > +                       add_gfx10_1_modifiers(adev, mods, &size, &capacity);
-> > +               break;
-> > +       }
-> > +
-> > +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
-> > +
-> > +       /* INVALID marks the end of the list. */
-> > +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
-> > +
-> > +       if (!*mods)
-> > +               return -ENOMEM;
-> > +
-> > +       return 0;
-> > +}
-> > +
-> >  static int
-> >  fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
-> >                                           const struct amdgpu_framebuffer *afb,
-> > @@ -6100,6 +6429,7 @@ static const struct drm_plane_funcs dm_plane_funcs = {
-> >         .reset = dm_drm_plane_reset,
-> >         .atomic_duplicate_state = dm_drm_plane_duplicate_state,
-> >         .atomic_destroy_state = dm_drm_plane_destroy_state,
-> > +       .format_mod_supported = dm_plane_format_mod_supported,
-> >  };
 > >
-> >  static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
-> > @@ -6392,13 +6722,19 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
-> >         int num_formats;
-> >         int res = -EPERM;
-> >         unsigned int supported_rotations;
-> > +       uint64_t *modifiers = NULL;
+> > Alex
 > >
-> >         num_formats = get_plane_formats(plane, plane_cap, formats,
-> >                                         ARRAY_SIZE(formats));
 > >
-> > +       res = get_plane_modifiers(dm->adev, plane->type, &modifiers);
-> > +       if (res)
-> > +               return res;
-> > +
-> >         res = drm_universal_plane_init(adev_to_drm(dm->adev), plane, possible_crtcs,
-> >                                        &dm_plane_funcs, formats, num_formats,
-> > -                                      NULL, plane->type, NULL);
-> > +                                      modifiers, plane->type, NULL);
-> > +       kfree(modifiers);
-> >         if (res)
-> >                 return res;
-> >
-> > --
-> > 2.28.0
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > >
+> > > Alex
+> > >
+> > > > Thanks.
+> > > > # echo 1 >
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/pwm1_enable # echo 125 >
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/pwm1 # cat
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/pwm1
+> > > > 109
+> > > >
+> > > >
+> > > >
+> > > >
+> > > >
+> > > >
+> > > > -----Original Message-----
+> > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > Sent: Thursday, October 22, 2020 11:28 AM
+> > > > To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun
+> > > > <Likun.Gao@amd.com>
+> > > > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in
+> > > > fan1_input
+> > > >
+> > > > [CAUTION: External Email]
+> > > >
+> > > > On Wed, Oct 21, 2020 at 11:16 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
+> > > > >
+> > > > > [AMD Official Use Only - Internal Distribution Only]
+> > > > >
+> > > > > Hi Alex,
+> > > > > After reboot, It is also not read back correctly as below.
+> > > > > # echo 1 >
+> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:0
+> > > > > 4:00.0 /hwmon/hwmon3/fan1_enable s# cat
+> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:0
+> > > > > 4:00.0
+> > > > > /hwmon/hwmon3/fan1_input
+> > > > > 183105
+> > > > > # cat
+> > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:0
+> > > > > 4:00.0
+> > > > > /hwmon/hwmon3/fan1_enable
+> > > > > 1
+> > > > >
+> > > >
+> > > > What about if you manually set the speed.  E.g., # echo 1 >
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/fan1_enable # echo 800 >
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/fan1_target # cat
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/fan1_input
+> > > >
+> > > > The problem I ran into on navi1x was setting the fan speed
+> > > > manually resulted in 0 for the fan speed in the metrics table.
+> > > > E.g.,
+> > > >
+> > > > # echo 1 >
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/pwm1_enable # echo 125 >
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/pwm1 # cat
+> > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000:04:
+> > > > 00.0/hwmon/hwmon3/pwm
+> > > >
+> > > > See:
+> > > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2F
+> > > > gitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F1164&amp;data=04
+> > > > %7C01%7CKenneth.Feng%40amd.com%7C7b20871a843e41a5038408d8764a0d51%
+> > > > 7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637389407704795887%7C
+> > > > Unknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6
+> > > > Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=2jEFoU62zbGIwEACv3C6xAmyNg
+> > > > IQ4q1kbBfNQ3Ztm7E%3D&amp;reserved=0
+> > > >
+> > > > Alex
+> > > >
+> > > >
+> > > > >
+> > > > >
+> > > > > -----Original Message-----
+> > > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > > Sent: Thursday, October 22, 2020 10:18 AM
+> > > > > To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> > > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun
+> > > > > <Likun.Gao@amd.com>
+> > > > > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in
+> > > > > fan1_input
+> > > > >
+> > > > > [CAUTION: External Email]
+> > > > >
+> > > > > On Wed, Oct 21, 2020 at 9:30 PM Feng, Kenneth <Kenneth.Feng@amd.com> wrote:
+> > > > > >
+> > > > > > [AMD Official Use Only - Internal Distribution Only]
+> > > > > >
+> > > > > > Hi Alex,
+> > > > > > Navi10 also has this problem as below.
+> > > > > > # cat
+> > > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
+> > > > > > :04:00
+> > > > > > .0
+> > > > > > /hwmon/hwmon3/fan1_input
+> > > > > > 1217
+> > > > > > # cat
+> > > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
+> > > > > > :04:00
+> > > > > > .0
+> > > > > > /hwmon/hwmon3/fan1_enable
+> > > > > > 0
+> > > > > > # echo 1 >
+> > > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
+> > > > > > :04:00
+> > > > > > .0
+> > > > > > /hwmon/hwmon3/fan1_enable # cat
+> > > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
+> > > > > > :04:00
+> > > > > > .0
+> > > > > > /hwmon/hwmon3/fan1_enable
+> > > > > > 1
+> > > > > > s# cat
+> > > > > > devices/pci0000:00/0000:00:01.1/0000:02:00.0/0000:03:00.0/0000
+> > > > > > :04:00
+> > > > > > .0
+> > > > > > /hwmon/hwmon3/fan1_input
+> > > > > > 183105
+> > > > > >
+> > > > > > In AGM, the rpm is 1800.
+> > > > >
+> > > > > Does it read back correctly if you manually set the fan rpm first before reading it back?
+> > > > >
+> > > > > Alex
+> > > > >
+> > > > >
+> > > > > >
+> > > > > >
+> > > > > >
+> > > > > > -----Original Message-----
+> > > > > > From: Feng, Kenneth
+> > > > > > Sent: Thursday, October 22, 2020 9:11 AM
+> > > > > > To: Alex Deucher <alexdeucher@gmail.com>
+> > > > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun
+> > > > > > <Likun.Gao@amd.com>
+> > > > > > Subject: RE: [PATCH] drm/amd/pm: fix the wrong fan speed in
+> > > > > > fan1_input
+> > > > > >
+> > > > > > [AMD Official Use Only - Internal Distribution Only]
+> > > > > >
+> > > > > > Hi Alex,
+> > > > > > Right, smu_v11_0_get_fan_speed_rpm() is not correct for sienna cichlid when it's in manual mode.
+> > > > > > An example is that in my system, the rpm is about 1800 in manual mode, confirmed with AGM and the internal smu fw scoreboard.
+> > > > > > But the fan1_input shows about 180000, which is way more than the real value.
+> > > > > > If you see the value from the metrics table is 0 on navi10, maybe it's the real rpm since we still have 0 rpm feature.
+> > > > > > I can double check the navi10.
+> > > > > > Thanks.
+> > > > > >
+> > > > > >
+> > > > > > -----Original Message-----
+> > > > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > > > Sent: Thursday, October 22, 2020 2:47 AM
+> > > > > > To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> > > > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Gao, Likun
+> > > > > > <Likun.Gao@amd.com>
+> > > > > > Subject: Re: [PATCH] drm/amd/pm: fix the wrong fan speed in
+> > > > > > fan1_input
+> > > > > >
+> > > > > > [CAUTION: External Email]
+> > > > > >
+> > > > > > On Wed, Oct 21, 2020 at 9:40 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > > > > >
+> > > > > > > On Wed, Oct 21, 2020 at 9:01 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > > > > > > >
+> > > > > > > > On Wed, Oct 21, 2020 at 2:45 AM Kenneth Feng <kenneth.feng@amd.com> wrote:
+> > > > > > > > >
+> > > > > > > > > fix the wrong fan speed in fan1_input when the fan control mode is manual.
+> > > > > > > > > the fan speed value is not correct when we set manual mode to fan1_enalbe - 1.
+> > > > > > > > > since the fan speed in the metrics table always reflects
+> > > > > > > > > the real fan speed,we can fetch the fan speed for both auto and manual mode.
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> > > > > > > >
+> > > > > > > > NACK.  At least on the navi boards I have, the metrics
+> > > > > > > > table fan speed reads back 0 when the fan is in manual
+> > > > > > > > mode.  That's why I changed this in the first place.
+> > > > > > >
+> > > > > > > Nevermind, I was thinking about navi1x.  If this is working
+> > > > > > > correctly on sienna cichlid, please ignore me.
+> > > > > >
+> > > > > > That said, I don't see why the current code should not work.  Maybe a bug elsewhere?  Is smu_v11_0_get_fan_speed_rpm() incorrect for sienna cichlid?
+> > > > > >
+> > > > > > Alex
+> > > > > >
+> > > > > > >
+> > > > > > > Alex
+> > > > > > >
+> > > > > > >
+> > > > > > > >
+> > > > > > > > Alex
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > > ---
+> > > > > > > > >  .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 11 +++--------
+> > > > > > > > >  1 file changed, 3 insertions(+), 8 deletions(-)
+> > > > > > > > >
+> > > > > > > > > diff --git
+> > > > > > > > > a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.
+> > > > > > > > > c
+> > > > > > > > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.
+> > > > > > > > > c index 496abc31b07e..27b6cade9ade 100644
+> > > > > > > > > ---
+> > > > > > > > > a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.
+> > > > > > > > > c
+> > > > > > > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_
+> > > > > > > > > +++ ppt.c
+> > > > > > > > > @@ -1171,14 +1171,9 @@ static int sienna_cichlid_get_fan_speed_rpm(struct smu_context *smu,
+> > > > > > > > >         if (!speed)
+> > > > > > > > >                 return -EINVAL;
+> > > > > > > > >
+> > > > > > > > > -       switch (smu_v11_0_get_fan_control_mode(smu)) {
+> > > > > > > > > -       case AMD_FAN_CTRL_AUTO:
+> > > > > > > > > -               return sienna_cichlid_get_smu_metrics_data(smu,
+> > > > > > > > > -                                                          METRICS_CURR_FANSPEED,
+> > > > > > > > > -                                                          speed);
+> > > > > > > > > -       default:
+> > > > > > > > > -               return smu_v11_0_get_fan_speed_rpm(smu, speed);
+> > > > > > > > > -       }
+> > > > > > > > > +       return sienna_cichlid_get_smu_metrics_data(smu,
+> > > > > > > > > +                                               METRICS_CURR_FANSPEED,
+> > > > > > > > > +                                               speed);
+> > > > > > > > >  }
+> > > > > > > > >
+> > > > > > > > >  static int sienna_cichlid_get_fan_parameters(struct
+> > > > > > > > > smu_context
+> > > > > > > > > *smu)
+> > > > > > > > > --
+> > > > > > > > > 2.17.1
+> > > > > > > > >
+> > > > > > > > > _______________________________________________
+> > > > > > > > > amd-gfx mailing list
+> > > > > > > > > amd-gfx@lists.freedesktop.org
+> > > > > > > > > https://nam11.safelinks.protection.outlook.com/?url=http
+> > > > > > > > > s%3A%252
+> > > > > > > > > F%25
+> > > > > > > > > 2F
+> > > > > > > > > lists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp
+> > > > > > > > > ;data=
+> > > > > > > > > 04
+> > > > > > > > > %7
+> > > > > > > > > C01%7Ckenneth.feng%40amd.com%7Cd8e969f4b63e4897a3df08d87
+> > > > > > > > > 5f1b05
+> > > > > > > > > 0%
+> > > > > > > > > 7C
+> > > > > > > > > 3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6373890281906
+> > > > > > > > > 09906%
+> > > > > > > > > 7C
+> > > > > > > > > Un
+> > > > > > > > > known%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIi
+> > > > > > > > > LCJBTi
+> > > > > > > > > I6
+> > > > > > > > > Ik
+> > > > > > > > > 1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=KomP2H%2FadKJChDbN
+> > > > > > > > > vNPQlT
+> > > > > > > > > ot
+> > > > > > > > > mE
+> > > > > > > > > WrhutsQCHfiRIjNUY%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
