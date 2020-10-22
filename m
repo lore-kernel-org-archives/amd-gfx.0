@@ -8,60 +8,61 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32C7AC388F2
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:31:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74BCFC388F7
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:51:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2A582225F
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:31:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E7B9C21481
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2020 05:51:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lSaEt2AG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2A582225F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gezuvkGC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7B9C21481
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BAF86F3AE;
-	Thu, 22 Oct 2020 05:31:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E38C6E14C;
+	Thu, 22 Oct 2020 05:51:02 +0000 (UTC)
 Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40A1E6F3CF
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 05:31:29 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id 13so526062wmf.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 22:31:29 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98CD36E14C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2020 05:51:01 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id d78so552726wmd.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2020 22:51:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Xo67VrnVGgIm9+lQKcl/7oEGUSbP4BvMZPidqVA2cJY=;
- b=lSaEt2AG+2B/e+ofpnjU0I84FVq67lzrCxa5/TnJ6F81XXKCpzcXdVbdrv/67o+pBM
- mUiLLEsWd9Ju545gbZQK9oZhucZV6kUhXPPBJQJ6N4M9Bf8gfDgAjYkxZe3At8r4CoZy
- icGNlCWbfp4LaBWtzZ7vwfEQPfQDYW1dapdr9k6KJNYbEdFsE28f0ii51smkL+/D+2fr
- gpMqs4zM1AjBLS4J2P+nLHwvTRZ122qX1ryPLczUSBQfUi060G7B/QgeIGvqrcjsOInY
- Qv/7oYjTb69kdqReac2TwYUOjgdCSWfpG7EWm6ej1ugsrN7nydnKAjNe8MbKiXRe5SOc
- Ei1Q==
+ :cc; bh=7FtzrUaxL4l25vL5z0jLlfPrS+GNMOQZeNy8QGdDNas=;
+ b=gezuvkGCye5noaf/v/1qzDjOAOTzRzuHlmdtu5EsSAcD9iGCOyyYgcCrggxzR2/JDj
+ 8hKnBCTOI+/xpYS/rwoFlh3yEU4OshfK3GY8id8loD5VQJ3yw9j8kexW0Yn285Rdc2dB
+ 9/tqp5s8eeOOzUBtSQ0qAF+nfvHbxEXEE6alGUt97xqdyG+SyGwFqsDC29v6/ODn/Lh7
+ AFNN3pNrrwZzeDqdIYpLbIbbbnACCTvUOBcchzX3wjiapxPGHvlPIRkAQmNH8Cm4dTyK
+ 7Z6AZS3wGUhVpvCrfZs76BbiwEbu0TJcl+JI/V4jZx9guYtcq2U9Rs1EfNBnMISRX4u/
+ gXDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Xo67VrnVGgIm9+lQKcl/7oEGUSbP4BvMZPidqVA2cJY=;
- b=uRRtVIdMLHSUshyQvXiXT3zIxUu3lUkQzHd84WCsLBdh/Gdn2bxn12o8zl53+q4bRD
- XIx9qJS/kMe+GEk2ThEygYowWlEpYjAjZwDhRQc7ahR5+82Y5kvB6MBBh3R+R5bFu/ZF
- 1R7uOS5mpOqbVSrd6vviI9/irqCaanJ5wi9PI5+QDOD2odT+W7JPxRx7llClxvvwL6mQ
- pJ6sj86NiGj3snisNqn16LWyuZtB7Ku6BSlmmoR/7tMu/XOtY1oFnUdO2Gn4A2P+6C82
- FnYgHfyN7LeMYiIKnJzQO8CSlEp6jqpTnk/i4OqDnxRGjf/eZZXb+22Cf5cuBuSupzG9
- lTrg==
-X-Gm-Message-State: AOAM5300l5i/gEpcw8ujhYTsRT2xN4iPkLNFUAzuicegXxaAJldUB4Th
- kDJPqylLdeZ5dpQ0pR2pa91Fux8KeI7JjRrn/3LmbQt0
-X-Google-Smtp-Source: ABdhPJxmd73HeH5b+gMrexAYYN/RHehpubacYVKkOfgA6NOUOM2+P2FWzKWOotKIrFjhyO+L7ziYCo1UcrtMXLYLsA4=
-X-Received: by 2002:a1c:49c2:: with SMTP id w185mr762517wma.70.1603344687730; 
- Wed, 21 Oct 2020 22:31:27 -0700 (PDT)
+ bh=7FtzrUaxL4l25vL5z0jLlfPrS+GNMOQZeNy8QGdDNas=;
+ b=R47yWqIczlaIpfdJY1hHIzVjEec7sYhJj8yDIVso/7+XFa4KK0ztGJTeTw+OkBvVwN
+ s+v9bruhBeowxQ7TY2NTm4vWxEnKuAMoz6EwvENli/+DIVX+QkVsDeogHceww+wg/TAl
+ t/y0F3Bum44zqTs46AJJXHxhgkSLxUv2HrhSrtYEN2p6pmNxPGJOr5wKaab5vSceR8Ne
+ hvL8QjUzxkNsa6Yq9wOzP6X7OSoFlJZTIgq0n9Viwt1EinAdd8UCsssyXmG4TtiOBwVC
+ 8S7HASPzfcCOF8P/cX2rJtEu5rSx9yuiXkkSdNAHYSo02j0H6xcuEbfDrZd91PoyTvkL
+ 0gQQ==
+X-Gm-Message-State: AOAM531xkRuutXHcXlo+p462XLiOZ9D0+4jtRRvWmuGamNvk617lGGCR
+ 54uKUfnBI4fuoG8ynsbNNSdCxJ6FA1LX2cX7mfI=
+X-Google-Smtp-Source: ABdhPJw7kE3h9r7Cyw3Z97YbIkMymneZJ/9YZVVOABroNiaqDEL8Q2zVYqtUH+KRU0RXUDZE3mVfeVtZYgiDTwConJk=
+X-Received: by 2002:a1c:a1c2:: with SMTP id k185mr815207wme.39.1603345860151; 
+ Wed, 21 Oct 2020 22:51:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201016165004.1218352-1-alexander.deucher@amd.com>
-In-Reply-To: <20201016165004.1218352-1-alexander.deucher@amd.com>
+References: <20201021233130.874615-1-bas@basnieuwenhuizen.nl>
+ <20201021233130.874615-11-bas@basnieuwenhuizen.nl>
+In-Reply-To: <20201021233130.874615-11-bas@basnieuwenhuizen.nl>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Oct 2020 01:31:16 -0400
-Message-ID: <CADnq5_M99PBm-GS55m3Q4aFY5U8xgb86zUTf4dX-1nhRoK7-fA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/amdgpu/display: remove DRM_AMD_DC_GREEN_SARDINE
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Date: Thu, 22 Oct 2020 01:50:48 -0400
+Message-ID: <CADnq5_NtCqp+PG4qj+z2Ffa1SKKD08Lz_QQFUZ9qPdioyAAFig@mail.gmail.com>
+Subject: Re: [PATCH v3 10/11] drm/amd/display: Expose modifiers.
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,137 +74,423 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Marek Olsak <maraeo@gmail.com>, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Wentland, Harry" <harry.wentland@amd.com>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series?
+On Wed, Oct 21, 2020 at 7:31 PM Bas Nieuwenhuizen
+<bas@basnieuwenhuizen.nl> wrote:
+>
+> This expose modifier support on GFX9+.
+>
+> Only modifiers that can be rendered on the current GPU are
+> added. This is to reduce the number of modifiers exposed.
+>
+> The HW could expose more, but the best mechanism to decide
+> what to expose without an explosion in modifiers is still
+> to be decided, and in the meantime this should not regress
+> things from pre-modifiers and does not risk regressions as
+> we make up our mind in the future.
+>
+> v2:
+>   - Added comment that D on Raven is only valid for 64bpp
+>     and will be filtered based on format later.
+>   - Removed D tiling modes that weren't useful for 64bpp
+>     on GFX10+.
+>
+> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 338 +++++++++++++++++-
+>  1 file changed, 337 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 6b33e030fe20..a1ce325f2fd1 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4133,6 +4133,335 @@ fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
+>         }
+>  }
+>
+> +enum dm_micro_swizzle {
+> +       MICRO_SWIZZLE_Z = 0,
+> +       MICRO_SWIZZLE_S = 1,
+> +       MICRO_SWIZZLE_D = 2,
+> +       MICRO_SWIZZLE_R = 3
+> +};
+> +
+> +static bool dm_plane_format_mod_supported(struct drm_plane *plane,
+> +                                         uint32_t format,
+> +                                         uint64_t modifier)
+> +{
+> +       struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> +       const struct drm_format_info *info = drm_format_info(format);
+> +
+> +       enum dm_micro_swizzle microtile = modifier_gfx9_swizzle_mode(modifier) & 3;
+> +
+> +       if (!info)
+> +               return false;
+> +
+> +       /*
+> +        * We always have to allow this modifier, because core DRM still
+> +        * checks LINEAR support if userspace does not provide modifers.
+> +        */
+> +       if (modifier == DRM_FORMAT_MOD_LINEAR)
+> +               return true;
+> +
+> +       /*
+> +        * The arbitrary tiling support for multiplane formats has not been hooked
+> +        * up.
+> +        */
+> +       if (info->num_planes > 1)
+> +               return false;
+> +
+> +       /*
+> +        * For D swizzle the canonical modifier depends on the bpp, so check
+> +        * it here.
+> +        */
+> +       if (AMD_FMT_MOD_GET(TILE_VERSION, modifier) == AMD_FMT_MOD_TILE_VER_GFX9 &&
+> +           adev->family >= AMDGPU_FAMILY_NV) {
+> +               if (microtile == MICRO_SWIZZLE_D && info->cpp[0] == 4)
+> +                       return false;
+> +       }
+> +
+> +       if (adev->family >= AMDGPU_FAMILY_RV && microtile == MICRO_SWIZZLE_D &&
+> +           info->cpp[0] < 8)
+> +               return false;
+> +
+> +       if (modifier_has_dcc(modifier)) {
+> +               /* Per radeonsi comments 16/64 bpp are more complicated. */
+> +               if (info->cpp[0] != 4)
+> +                       return false;
+> +       }
+> +
+> +       return true;
+> +}
+> +
+> +static void
+> +add_modifier(uint64_t **mods, uint64_t *size, uint64_t *cap, uint64_t mod)
+> +{
+> +       if (!*mods)
+> +               return;
+> +
+> +       if (*cap - *size < 1) {
+> +               uint64_t new_cap = *cap * 2;
+> +               uint64_t *new_mods = kmalloc(new_cap * sizeof(uint64_t), GFP_KERNEL);
+> +
+> +               if (!new_mods) {
+> +                       kfree(*mods);
+> +                       *mods = NULL;
+> +                       return;
+> +               }
+> +
+> +               memcpy(new_mods, *mods, sizeof(uint64_t) * *size);
+> +               kfree(*mods);
+> +               *mods = new_mods;
+> +               *cap = new_cap;
+> +       }
+> +
+> +       (*mods)[*size] = mod;
+> +       *size += 1;
+> +}
+> +
+> +static void
+> +add_gfx9_modifiers(const struct amdgpu_device *adev,
+> +                  uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int pipes = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +       int pipe_xor_bits = min(8, pipes +
+> +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_se));
+> +       int bank_xor_bits = min(8 - pipe_xor_bits,
+> +                               ilog2(adev->gfx.config.gb_addr_config_fields.num_banks));
+> +       int rb = ilog2(adev->gfx.config.gb_addr_config_fields.num_se) +
+> +                ilog2(adev->gfx.config.gb_addr_config_fields.num_rb_per_se);
+> +
+> +
+> +       if (adev->family == AMDGPU_FAMILY_RV) {
+> +               /* Raven2 and later */
+> +               bool has_constant_encode = adev->asic_type > CHIP_RAVEN || adev->external_rev_id >= 0x81;
+> +
+> +               /*
+> +                * No _D DCC swizzles yet because we only allow 32bpp, which
+> +                * doesn't support _D on DCN
+> +                */
+> +
+> +               if (has_constant_encode) {
+> +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1));
+> +               }
+> +
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                           AMD_FMT_MOD_SET(DCC, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0));
+> +
+> +               if (has_constant_encode) {
+> +                       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +
+> +                                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                                   AMD_FMT_MOD_SET(RB, rb) |
+> +                                   AMD_FMT_MOD_SET(PIPE, pipes));
+> +               }
+> +
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits) |
+> +                           AMD_FMT_MOD_SET(DCC, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                           AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B) |
+> +                           AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 0) |
+> +                           AMD_FMT_MOD_SET(RB, rb) |
+> +                           AMD_FMT_MOD_SET(PIPE, pipes));
+> +       }
+> +
+> +       /*
+> +        * Only supported for 64bpp on Raven, will be filtered on format in
+> +        * dm_plane_format_mod_supported.
+> +        */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> +
+> +       if (adev->family == AMDGPU_FAMILY_RV) {
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
+> +                           AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                           AMD_FMT_MOD_SET(BANK_XOR_BITS, bank_xor_bits));
+> +       }
+> +
+> +       /*
+> +        * Only supported for 64bpp on Raven, will be filtered on format in
+> +        * dm_plane_format_mod_supported.
+> +        */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +
+> +       if (adev->family == AMDGPU_FAMILY_RV) {
+> +               add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                           AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> +                           AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +       }
+> +}
+> +
+> +static void
+> +add_gfx10_1_modifiers(const struct amdgpu_device *adev,
+> +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_64B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits));
+> +
+> +
+> +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +}
+> +
+> +static void
+> +add_gfx10_3_modifiers(const struct amdgpu_device *adev,
+> +                     uint64_t **mods, uint64_t *size, uint64_t *capacity)
+> +{
+> +       int pipe_xor_bits = ilog2(adev->gfx.config.gb_addr_config_fields.num_pipes);
+> +       int pkrs = ilog2(adev->gfx.config.gb_addr_config_fields.num_pkrs);
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs) |
+> +                   AMD_FMT_MOD_SET(DCC, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_RETILE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_CONSTANT_ENCODE, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_64B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_INDEPENDENT_128B, 1) |
+> +                   AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, AMD_FMT_MOD_DCC_BLOCK_128B));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_R_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S_X) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX10_RBPLUS) |
+> +                   AMD_FMT_MOD_SET(PIPE_XOR_BITS, pipe_xor_bits) |
+> +                   AMD_FMT_MOD_SET(PACKERS, pkrs));
+> +
+> +       /* Only supported for 64bpp, will be filtered in dm_plane_format_mod_supported */
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +
+> +       add_modifier(mods, size, capacity, AMD_FMT_MOD |
+> +                   AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_S) |
+> +                   AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9));
+> +}
+> +
+> +static int
+> +get_plane_modifiers(const struct amdgpu_device *adev, unsigned int plane_type, uint64_t **mods)
+> +{
+> +       uint64_t size = 0, capacity = 128;
+> +       *mods = NULL;
+> +
+> +       /* We have not hooked up any pre-GFX9 modifiers. */
+> +       if (adev->family < AMDGPU_FAMILY_AI)
+> +               return 0;
+> +
+> +       *mods = kmalloc(capacity * sizeof(uint64_t), GFP_KERNEL);
+> +
+> +       if (plane_type == DRM_PLANE_TYPE_CURSOR) {
+> +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> +               add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> +               return *mods ? 0 : -ENOMEM;
+> +       }
+> +
+> +       switch (adev->family) {
+> +       case AMDGPU_FAMILY_AI:
+> +       case AMDGPU_FAMILY_RV:
+> +               add_gfx9_modifiers(adev, mods, &size, &capacity);
+> +               break;
+> +       case AMDGPU_FAMILY_NV:
+
+Should probably add:
+case AMDGPU_FAMILY_VGH:
+here as well.
 
 Alex
 
-On Fri, Oct 16, 2020 at 12:50 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> +               if (adev->asic_type >= CHIP_SIENNA_CICHLID)
+> +                       add_gfx10_3_modifiers(adev, mods, &size, &capacity);
+> +               else
+> +                       add_gfx10_1_modifiers(adev, mods, &size, &capacity);
+> +               break;
+> +       }
+> +
+> +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_LINEAR);
+> +
+> +       /* INVALID marks the end of the list. */
+> +       add_modifier(mods, &size, &capacity, DRM_FORMAT_MOD_INVALID);
+> +
+> +       if (!*mods)
+> +               return -ENOMEM;
+> +
+> +       return 0;
+> +}
+> +
+>  static int
+>  fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
+>                                           const struct amdgpu_framebuffer *afb,
+> @@ -6100,6 +6429,7 @@ static const struct drm_plane_funcs dm_plane_funcs = {
+>         .reset = dm_drm_plane_reset,
+>         .atomic_duplicate_state = dm_drm_plane_duplicate_state,
+>         .atomic_destroy_state = dm_drm_plane_destroy_state,
+> +       .format_mod_supported = dm_plane_format_mod_supported,
+>  };
 >
-> No need for a separate config option at this point.
+>  static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+> @@ -6392,13 +6722,19 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>         int num_formats;
+>         int res = -EPERM;
+>         unsigned int supported_rotations;
+> +       uint64_t *modifiers = NULL;
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/Kconfig               | 8 --------
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ------
->  drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  | 2 --
->  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 --
->  drivers/gpu/drm/amd/display/include/dal_asic_id.h | 2 --
->  5 files changed, 20 deletions(-)
+>         num_formats = get_plane_formats(plane, plane_cap, formats,
+>                                         ARRAY_SIZE(formats));
 >
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 93cdcd1ee9ff..cf87133f88e6 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -17,14 +17,6 @@ config DRM_AMD_DC_DCN
->         help
->           Raven, Navi and Renoir family support for display engine
+> +       res = get_plane_modifiers(dm->adev, plane->type, &modifiers);
+> +       if (res)
+> +               return res;
+> +
+>         res = drm_universal_plane_init(adev_to_drm(dm->adev), plane, possible_crtcs,
+>                                        &dm_plane_funcs, formats, num_formats,
+> -                                      NULL, plane->type, NULL);
+> +                                      modifiers, plane->type, NULL);
+> +       kfree(modifiers);
+>         if (res)
+>                 return res;
 >
-> -config DRM_AMD_DC_GREEN_SARDINE
-> -       bool "Green Sardine support"
-> -       default y
-> -       depends on DRM_AMD_DC_DCN
-> -        help
-> -            Choose this option if you want to have
-> -            Green Sardine support for display engine
-> -
->  config DRM_AMD_DC_DCN3_0
->          bool "DCN 3.0 family"
->          depends on DRM_AMD_DC && X86
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 8a90063ac08a..2aa810d3554b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -100,10 +100,8 @@ MODULE_FIRMWARE(FIRMWARE_SIENNA_CICHLID_DMUB);
->  #define FIRMWARE_NAVY_FLOUNDER_DMUB "amdgpu/navy_flounder_dmcub.bin"
->  MODULE_FIRMWARE(FIRMWARE_NAVY_FLOUNDER_DMUB);
->  #endif
-> -#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
->  #define FIRMWARE_GREEN_SARDINE_DMUB "amdgpu/green_sardine_dmcub.bin"
->  MODULE_FIRMWARE(FIRMWARE_GREEN_SARDINE_DMUB);
-> -#endif
->  #if defined(CONFIG_DRM_AMD_DC_DCN3_01)
->  #define FIRMWARE_VANGOGH_DMUB "amdgpu/vangogh_dmcub.bin"
->  MODULE_FIRMWARE(FIRMWARE_VANGOGH_DMUB);
-> @@ -985,10 +983,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->         case CHIP_RAVEN:
->         case CHIP_RENOIR:
->                 init_data.flags.gpu_vm_support = true;
-> -#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
->                 if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
->                         init_data.flags.disable_dmcu = true;
-> -#endif
->                 break;
->         default:
->                 break;
-> @@ -1289,10 +1285,8 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
->         case CHIP_RENOIR:
->                 dmub_asic = DMUB_ASIC_DCN21;
->                 fw_name_dmub = FIRMWARE_RENOIR_DMUB;
-> -#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
->                 if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
->                         fw_name_dmub = FIRMWARE_GREEN_SARDINE_DMUB;
-> -#endif
->                 break;
->  #if defined(CONFIG_DRM_AMD_DC_DCN3_0)
->         case CHIP_SIENNA_CICHLID:
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> index b361dc6c3489..19d97ed6beb8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> @@ -170,12 +170,10 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context *ctx, struct pp_smu_funcs *p
->                         break;
->                 }
->
-> -#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
->                 if (ASICREV_IS_GREEN_SARDINE(asic_id.hw_internal_rev)) {
->                         rn_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg);
->                         break;
->                 }
-> -#endif
->                 if (ASICREV_IS_RAVEN2(asic_id.hw_internal_rev)) {
->                         rv2_clk_mgr_construct(ctx, clk_mgr, pp_smu);
->                         break;
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index ab105f26b511..419c0df08602 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -126,10 +126,8 @@ enum dce_version resource_parse_asic_id(struct hw_asic_id asic_id)
->                         dc_version = DCN_VERSION_1_01;
->                 if (ASICREV_IS_RENOIR(asic_id.hw_internal_rev))
->                         dc_version = DCN_VERSION_2_1;
-> -#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
->                 if (ASICREV_IS_GREEN_SARDINE(asic_id.hw_internal_rev))
->                         dc_version = DCN_VERSION_2_1;
-> -#endif
->                 break;
->  #endif
->
-> diff --git a/drivers/gpu/drm/amd/display/include/dal_asic_id.h b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-> index b4c3838322af..2bf60ac2974f 100644
-> --- a/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-> +++ b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-> @@ -209,12 +209,10 @@ enum {
->  #if defined(CONFIG_DRM_AMD_DC_DCN3_02)
->  #define ASICREV_IS_DIMGREY_CAVEFISH_P(eChipRev)        ((eChipRev >= NV_DIMGREY_CAVEFISH_P_A0) && (eChipRev < NV_UNKNOWN))
->  #endif
-> -#if defined(CONFIG_DRM_AMD_DC_GREEN_SARDINE)
->  #define GREEN_SARDINE_A0 0xA1
->  #ifndef ASICREV_IS_GREEN_SARDINE
->  #define ASICREV_IS_GREEN_SARDINE(eChipRev) ((eChipRev >= GREEN_SARDINE_A0) && (eChipRev < 0xFF))
->  #endif
-> -#endif
->  #if defined(CONFIG_DRM_AMD_DC_DCN3_01)
->  #define FAMILY_VGH 144
->  #define DEVICE_ID_VGH_163F 0x163F
 > --
-> 2.25.4
+> 2.28.0
 >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
