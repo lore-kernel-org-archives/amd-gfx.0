@@ -2,72 +2,53 @@ Return-Path: <SRS0=vRkk=D6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A93CC388F9
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 15:20:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CF16C55179
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 16:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1047520770
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 15:20:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6AE6024672
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 16:33:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YC6RdHw1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1047520770
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmlwZ8gQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AE6024672
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9915B6F8A3;
-	Fri, 23 Oct 2020 15:20:51 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E58B46F8A4
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 15:20:49 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id e6so1181693qtw.10
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 08:20:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=lhwnAfyibP/kp/UZT95g3YM5vHptC9XQKrCHgo7Mc8E=;
- b=YC6RdHw1vZCncvHeul/hjEiICNQM4IZjRrBTznaucCSiHyTALotAaD2dZ34A/GWH/v
- QQuI2t2PZhW+0xXeIMokqMJWAE34gnGFZBW0SWc6eCfQTtIOwSGYSjsTYLq8HvyogDwL
- mYmeszpRhENXRY3xEPZJXqaoruoekMA9+JU2m+sBnesI+8LvDhcnEA1ngTjOnqGczQWB
- o8Cg0p71TGB4gPKHZunNIZd8KKc2Dhptw1ZWxN9E8neUr+J2ePpKpVkIQufTeqjKrOOT
- pZg2jxgFehlONkEBI3SlHzHt3/k2JDPkGhgFtDNNWfObXAOv9BTU4/PMSMdEEYlhTGZL
- rTAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=lhwnAfyibP/kp/UZT95g3YM5vHptC9XQKrCHgo7Mc8E=;
- b=a863tQ+94gsBsJxIlzUQVLXWu0eow/Rkv5ogT/telAP4lIagEA3cdIl5X0o2FuXd/8
- ttrwFj46QygoyXlA18HAEXo9qcGQwTxpApjVpD36Id0vbe+9S/9vLogGwcWTIeT+3jZe
- 4xTpkmMqiLfMX1x0UPtV5Bfnt3AFwrOt76ZUcvuea0GUiwLVSGoBrvErflDtUD2nKBTm
- wOhdLm5u7Q6V4J82HLm9csvFGKBsAHZ+VO8I5MC3L5dKCN1zdSyH8CnEc8RTnyEvZRfK
- i7jhifE3jKWxV2qQM1gzw7tSjy32GDtjP7EURLGl3GugMy9MUSDrPE4CpLSvInYO8igc
- ol2w==
-X-Gm-Message-State: AOAM533txUKqKu3O6k1dqgQyxRzVXkwuj5V384G/yIXEtwkBNVEnd35L
- Q6BUcwIfAQht/FioTO2FkDV6dAhBG/s=
-X-Google-Smtp-Source: ABdhPJy4Kz62dfqkibL3QGR7bRWoqZsXPhYwafOGG5Jrm3kB86L8V1+LZo5LB40XXLo/PJ88qOq90A==
-X-Received: by 2002:aed:3ec9:: with SMTP id o9mr2596127qtf.185.1603466448938; 
- Fri, 23 Oct 2020 08:20:48 -0700 (PDT)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id i20sm905824qkl.65.2020.10.23.08.20.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 08:20:48 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: Enable GPU reset for vangogh
-Date: Fri, 23 Oct 2020 11:20:33 -0400
-Message-Id: <20201023152033.373128-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20201023152033.373128-1-alexander.deucher@amd.com>
-References: <20201023152033.373128-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE5C6E12B;
+	Fri, 23 Oct 2020 16:33:48 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC7776E12B;
+ Fri, 23 Oct 2020 16:33:47 +0000 (UTC)
+Received: from mail.kernel.org (ip5f5ad5a3.dynamic.kabel-deutschland.de
+ [95.90.213.163])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0D7662465A;
+ Fri, 23 Oct 2020 16:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603470827;
+ bh=jPkos43ebBchJ0cJAuho9ta3O5oQ0vR/j86QNsaEpvM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=LmlwZ8gQUQhG9g0twS3MdeT1RjxduPdyQxQF8NtpS9JB1drggSsfT7/b4ddbSbyB6
+ hU2BZOza5z4bl1EhsYoDbwgzcWPnwMuH5/rUdMTa3XLocx6lykW6uh3hLDP2VkPkZs
+ SK1vvV4LbGfTMH6QACI9gyNk6y+q/vxQIQ+agLG0=
+Received: from mchehab by mail.kernel.org with local (Exim 4.94)
+ (envelope-from <mchehab@kernel.org>)
+ id 1kW00e-002AvQ-My; Fri, 23 Oct 2020 18:33:44 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Subject: [PATCH v3 02/56] drm: amdgpu_dm: fix a typo
+Date: Fri, 23 Oct 2020 18:32:49 +0200
+Message-Id: <31341a0175f0aa4ec160d10b27a91703bdd9a036.1603469755.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <cover.1603469755.git.mchehab+huawei@kernel.org>
+References: <cover.1603469755.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,34 +61,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
+Cc: Stylon Wang <stylon.wang@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Alexander Monakov <amonakov@ispras.ru>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@linux.ie>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ hersen wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable GPU reset when we encounter a hang.
+	dm_comressor_info -> dm_compressor_info
 
-Acked-by: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+The kernel-doc markup is right, but the struct itself
+and their references contain a typo.
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a7c95b3205ef..0601509f4262 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4178,6 +4178,7 @@ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev)
- 		case CHIP_NAVI14:
- 		case CHIP_NAVI12:
- 		case CHIP_SIENNA_CICHLID:
-+		case CHIP_VANGOGH:
- 			break;
- 		default:
- 			goto disabled;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bb1bc7f5d149..48ec0535d92f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -583,7 +583,7 @@ static void amdgpu_dm_fbc_init(struct drm_connector *connector)
+ {
+ 	struct drm_device *dev = connector->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	struct dm_comressor_info *compressor = &adev->dm.compressor;
++	struct dm_compressor_info *compressor = &adev->dm.compressor;
+ 	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(connector);
+ 	struct drm_display_mode *mode;
+ 	unsigned long max_size = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 34f6369bf51f..a8a0e8cb1a11 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -86,7 +86,7 @@ struct irq_list_head {
+  * @bo_ptr: Pointer to the buffer object
+  * @gpu_addr: MMIO gpu addr
+  */
+-struct dm_comressor_info {
++struct dm_compressor_info {
+ 	void *cpu_addr;
+ 	struct amdgpu_bo *bo_ptr;
+ 	uint64_t gpu_addr;
+@@ -148,7 +148,7 @@ struct amdgpu_dm_backlight_caps {
+  * @soc_bounding_box: SOC bounding box values provided by gpu_info FW
+  * @cached_state: Caches device atomic state for suspend/resume
+  * @cached_dc_state: Cached state of content streams
+- * @compressor: Frame buffer compression buffer. See &struct dm_comressor_info
++ * @compressor: Frame buffer compression buffer. See &struct dm_compressor_info
+  * @force_timing_sync: set via debugfs. When set, indicates that all connected
+  *		       displays will be forced to synchronize.
+  */
+@@ -324,7 +324,7 @@ struct amdgpu_display_manager {
+ 	struct drm_atomic_state *cached_state;
+ 	struct dc_state *cached_dc_state;
+ 
+-	struct dm_comressor_info compressor;
++	struct dm_compressor_info compressor;
+ 
+ 	const struct firmware *fw_dmcu;
+ 	uint32_t dmcu_fw_version;
 -- 
-2.25.4
+2.26.2
 
 _______________________________________________
 amd-gfx mailing list
