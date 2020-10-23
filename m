@@ -7,45 +7,45 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5798C4363A
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 16:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1D28C61DD8
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 16:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74665241A3
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 16:33:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5D2B8241A3
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 16:33:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4u0q4IZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74665241A3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="g2cgbOXq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D2B8241A3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC0F36E2D7;
-	Fri, 23 Oct 2020 16:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D051F6E145;
+	Fri, 23 Oct 2020 16:33:50 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D39D6E12B;
- Fri, 23 Oct 2020 16:33:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E016E145;
+ Fri, 23 Oct 2020 16:33:49 +0000 (UTC)
 Received: from mail.kernel.org (ip5f5ad5a3.dynamic.kabel-deutschland.de
  [95.90.213.163])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4F227221F9;
- Fri, 23 Oct 2020 16:33:47 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 20AFF246A7;
+ Fri, 23 Oct 2020 16:33:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603470827;
- bh=HaCfxqyru0DdcvC8IaqpPspuh924AuGj1WtdVq8zJZY=;
+ s=default; t=1603470828;
+ bh=Sm6vVeuESnikWfRWcK3zY2aHGRQZbkVkNsFoA/Hs8Fs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R4u0q4IZh/fVnK0DQVa8udilBLYSvmcPcVj9YoqkpECy4Q26duLXO1rS9QT8e13j2
- nSc+IYl2c3Gn0gwt3LzZb1Vf+2Z0Ww4LZjptK0MtlpeaLbMxEqhX1ZKmRohBYy9w+K
- onztKpMQAA+Qh61vlEWPpi+2XtgCepQoxxuRVo+Y=
+ b=g2cgbOXqwo60/mWThB6DAqmhh9n1xCAhip126x4jhx1UfJX145E+eAbB15kIe8GKf
+ ne5PJoTUI1m6tVd3+sLsEw7Mk8W2S0eso9OEZPnWHUFnCwC4ltxAA0ciGbIPz4rAaA
+ 3/jDiJxGEdi8pqp/h9ouAxUb4ff53Fuxamdgf9s0=
 Received: from mchehab by mail.kernel.org with local (Exim 4.94)
  (envelope-from <mchehab@kernel.org>)
- id 1kW00f-002Avj-1O; Fri, 23 Oct 2020 18:33:45 +0200
+ id 1kW00e-002AvS-O4; Fri, 23 Oct 2020 18:33:44 +0200
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Subject: [PATCH v3 11/56] drm/amdgpu: fix some kernel-doc markups
-Date: Fri, 23 Oct 2020 18:32:58 +0200
-Message-Id: <ffc1f2d59fd5005f365eb5d178a2d890112bb6bb.1603469755.git.mchehab+huawei@kernel.org>
+Subject: [PATCH v3 03/56] amdgpu: fix a few kernel-doc markup issues
+Date: Fri, 23 Oct 2020 18:32:50 +0200
+Message-Id: <632b3b11118969ff6fccb8a2f606c87fde41c138.1603469755.git.mchehab+huawei@kernel.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1603469755.git.mchehab+huawei@kernel.org>
 References: <cover.1603469755.git.mchehab+huawei@kernel.org>
@@ -61,71 +61,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
- dri-devel@lists.freedesktop.org, Jonathan Corbet <corbet@lwn.net>,
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Jonathan Corbet <corbet@lwn.net>,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Bernard Zhao <bernard@vivo.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- xinhui pan <xinhui.pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jacob He <jacob.he@amd.com>,
- David Airlie <airlied@linux.ie>, Nirmoy Das <nirmoy.das@amd.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some functions have different names between their prototypes
-and the kernel-doc markup.
+A kernel-doc markup can't be mixed with a random comment,
+as it causes parsing problems.
+
+While here, change an invalid kernel-doc markup into
+a common comment.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c       | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
- include/uapi/drm/amdgpu_drm.h                | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index df110afa97bf..a5f73a267fe5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2166,7 +2166,7 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
- 
- 
- /**
-- * amdgpu_vm_bo_insert_mapping - insert a new mapping
-+ * amdgpu_vm_bo_insert_map - insert a new mapping
-  *
-  * @adev: amdgpu_device pointer
-  * @bo_va: bo_va to store the address
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 0c6b7c5ecfec..795bad307497 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -528,7 +528,7 @@ int amdgpu_vram_mgr_alloc_sgt(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index f8785bdec79c..1d4b54950528 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -239,9 +239,11 @@ bool amdgpu_device_supports_baco(struct drm_device *dev)
+ 	return amdgpu_asic_supports_baco(adev);
  }
  
- /**
-- * amdgpu_vram_mgr_alloc_sgt - allocate and fill a sg table
-+ * amdgpu_vram_mgr_free_sgt - allocate and fill a sg table
-  *
-  * @adev: amdgpu device pointer
-  * @sgt: sg table to free
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index c5ff2b275fcd..791a1d597d2a 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -667,7 +667,7 @@ struct drm_amdgpu_cs_chunk_data {
- 	};
- };
- 
--/**
 +/*
-  *  Query h/w info: Flag that this is integrated (a.h.a. fusion) GPU
++ * VRAM access helper functions
++ */
++
+ /**
+- * VRAM access helper functions.
+- *
+  * amdgpu_device_vram_access - read/write a buffer in vram
   *
-  */
+  * @adev: amdgpu_device pointer
+@@ -4497,7 +4499,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	bool need_emergency_restart = false;
+ 	bool audio_suspended = false;
+ 
+-	/**
++	/*
+ 	 * Special case: RAS triggered and full reset isn't supported
+ 	 */
+ 	need_emergency_restart = amdgpu_ras_need_emergency_restart(adev);
 -- 
 2.26.2
 
