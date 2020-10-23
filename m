@@ -2,67 +2,104 @@ Return-Path: <SRS0=vRkk=D6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE5FCC5517A
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2D0BC388F9
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5104720E65
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:03:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2D01820BED
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2020 19:04:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNySan2I"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5104720E65
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cSrYBLzu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D01820BED
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C091D6E593;
-	Fri, 23 Oct 2020 19:03:00 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ABB26E593;
- Fri, 23 Oct 2020 19:03:00 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id k18so3043331wmj.5;
- Fri, 23 Oct 2020 12:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lOB0JzHjbA9wQ5NG9BGjyGSWpxAlxpb+jyv90TmNGmA=;
- b=mNySan2I0jTCmPSKxF10PPz3YaNEMZPIjR6UuFiFlr4d83tPvQyAzrHwDDGwpnznFl
- X3PWCkQScWhaxcr8U/hvO+k5yNeTD/fRrbyCDG/5xoZlrRScwoQfjRGVCHcPr3zkpHYX
- EVIJSiN9s5mLhwQE//jCLwxO6/R34O7azXq2csdt+WnT/ItPoKsGbaq8a9gWfbdhGbF3
- WayMvL3jXbQeXUz3J0BPhTFlunoMXJVkPSWgYMXnCcNRJmaTbc0VlF5KMMm3M95mU+g9
- 6c3VUI4DpQIpDTfTlJrnS9BNJdP05g31Kb5WO8HwKUK2lHILEEpzUjUqjqJuD1YKk+0g
- nc2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lOB0JzHjbA9wQ5NG9BGjyGSWpxAlxpb+jyv90TmNGmA=;
- b=EZUQA3uYfrrWwrJf833TNRlbnKQ6emuP1IrkJd+3bkIVKlfm+x3MCVlEvk4DJdYIG6
- Eu0uTfeR+FFqwcfiOKjUTAXJMUojf/k8bpoZAPRw97V/j8t7NJjKMk1PE1pF1/vDpWOt
- oujZ2T6hYy8+DsYHkqTVhWJtJGAJ6AS5T11GncU60thUZ5IYV/XsEVcDAHncfh9dW1rl
- F6SNw39iDyTOle+4kCSD5nhpsYtf2v8MhpWWC2k6LgZokyoJ0BND1s3BdyIf3RaVIEf0
- zPdyGCVjbecBRFhPFNJwGChkzuB8xYg6Pezt84uiqQ+njGRuCMYDeLRG5G+jKA4nbVHo
- ylxA==
-X-Gm-Message-State: AOAM533TMhLeV9XnK+txUgJLVZybUJyVUY9NLESrRQSZ62glh9hptdpT
- dkdIM/BAax7bR2OBcferIPe8mFnGmAcr5YZAIrM=
-X-Google-Smtp-Source: ABdhPJyBs9rLm8WQ/JdNSYi4YpeykUC3qTYLy1NXVB+RxZLjYHvbVJpKhrpymA1DrvebkV7cRe6NsL6PANeL342Hh38=
-X-Received: by 2002:a1c:e4c1:: with SMTP id b184mr3037167wmh.73.1603479778669; 
- Fri, 23 Oct 2020 12:02:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAAD06E593;
+	Fri, 23 Oct 2020 19:04:32 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EAD06E593
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2020 19:04:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gcVxeDr6ZhsbVCmfOiD6Jua1WGkL74Wn675TBxDPwSO929PNkHmV/tfiCI6sBvmcCicY6H3EUD6tz4nhFPbZZjLK9ycqQWHmN2Bf1GuZgtZlFAdJfpPUKrBInykn2yk6GnIHgWg2QpNfoWxC45K+nc/ulRLj3iS50Ol3V/2AmF7T70Wb5VSnWkUdvlTSR8bNmMgEdiysGhqSJqYSKbDQjqctw4sYDpEsvg0rjkEdJnB+/58F0fQnqpjdd4uXEi+opgQn6rrYBSJKymJW6/ZohT1Z/imYGxQTpfI8lJNu1KnjnL2RYGv89RCZhvjbf9vlDmW1PusKB5CultnuP9Z9Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z9/KNdziQ/UtQu3at/rKTmX04FyjdYhrg03WSOS3PdQ=;
+ b=PH5LSpJzfjRHDqJz3LGvfc1YcjtHftOZivNVUozGJfvx8vKNODRcpDk+I5gXmhwSHPIRQoJRpr5LgTCdy4bvwqA8G+1P10ZcpdgrqLzAaqGUT1KD2/3VhL8mHjvXj+yuyE1lg3PwX/5NBuSTG3he4SXLVensRnCJI3oA1uHJzfM0o5LTZJ+lNGyfBklPvNmBL9uKibIyuoDs/dj8iDPGeEl2+iGgup/bRlSFy8qNLR/gcyldDs/NuMGkfYSOCzHhe+e+t68t84BjiLPxehBxy0ojzxURb3TqWdveGCfUVuu0EIE7MYE4G4JsFeZdeC2TPyP650w+3xlZvvJBysxL6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z9/KNdziQ/UtQu3at/rKTmX04FyjdYhrg03WSOS3PdQ=;
+ b=cSrYBLzuLSMe8M8om/9ruPjB3LGFvBQrGdD/unXbHjo+5aAsJblGEkaEesmAsWdyW6R2fqbSOk2uJ54wkZZ3zX9RRHLOJZ4JjmGKGQlpf6K28aJ7Gp6biQvYNy4jHyEEOyzIlQVvZi7qLgtWefnpCZcYED5li3EUDC6sVuO8zkU=
+Received: from MW3PR12MB4554.namprd12.prod.outlook.com (2603:10b6:303:55::21)
+ by MW3PR12MB4556.namprd12.prod.outlook.com (2603:10b6:303:52::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Fri, 23 Oct
+ 2020 19:04:30 +0000
+Received: from MW3PR12MB4554.namprd12.prod.outlook.com
+ ([fe80::e4c8:2ab4:50ae:be6b]) by MW3PR12MB4554.namprd12.prod.outlook.com
+ ([fe80::e4c8:2ab4:50ae:be6b%8]) with mapi id 15.20.3477.028; Fri, 23 Oct 2020
+ 19:04:30 +0000
+From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/display: Fixed panic during seamless boot.
+Thread-Topic: [PATCH] drm/amd/display: Fixed panic during seamless boot.
+Thread-Index: AQHWqV87rFRclVb/ukisw4XFjBiNZKmli+h4
+Date: Fri, 23 Oct 2020 19:04:30 +0000
+Message-ID: <MW3PR12MB4554E2E73641155FDFBC3B24F91A0@MW3PR12MB4554.namprd12.prod.outlook.com>
+References: <20201023170906.32112-1-aurabindo.pillai@amd.com>
+In-Reply-To: <20201023170906.32112-1-aurabindo.pillai@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-CA
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-10-23T19:04:29.658Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.211]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 6ca43405-4cc7-47a5-ca5f-08d877867880
+x-ms-traffictypediagnostic: MW3PR12MB4556:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MW3PR12MB45568D303DB6ECCFBEB5A6E6F91A0@MW3PR12MB4556.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:854;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: EaA5XLjsQPzWfPSgr7cdQybfAefwB1hYp1Xxo1eZjx6DJbDH3VjTYg+epSAQdLQVT75g+kd7ERxvZ3ZKjVya136luees6nA+lr9cTl7chIR5B3nZRlaTcWeD79B+t5UWiT9KgaJT1yMeZDx02lwgOk4qaEEV0w7IczozVkpK8jvA/oqYgtQvO673WP8yxOf0YbwU/GIRou/blmhV4Ox6pfM5evABuLZkbnPF3fFGoMx8RrkJKA5Bf6FFR0TpRhUw+YIByOpLtpWhfziVfdTFwSuErUISFyyTa/2LXHsccaFPWbvqMccfkWYzorNcNEcVa4ydDvuEFcUUBdYQ/CNZkw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR12MB4554.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(396003)(136003)(346002)(376002)(7696005)(316002)(110136005)(2906002)(71200400001)(83380400001)(86362001)(33656002)(4326008)(8676002)(26005)(53546011)(186003)(9686003)(55016002)(478600001)(8936002)(6506007)(76116006)(64756008)(52536014)(5660300002)(66476007)(66556008)(66946007)(19627405001)(66446008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: jUd2HF526t1rVCM01Clbg7CPbINhUfp5pKNdIkCzMC4jCwyc2h71/Vei83El7gf+bZjxuIJ/rtQhiKRamZhmsco8nw6ma8fJgQRjxrr5/I7xqekK6CaX3NysxhuUEqkwCX1gnDaauTtXQ28u/toOGiCkhCj371qXWgTw6Cdx8j85AdTEMH2bZyN2HpJUaDlZ57UCGJE+sUz1DzTWI8wb8O0gShPJLCx8TUtRU59pk3MvP3GOi0Io4zzRIrCfWKKj/AO/bNLNggGsa05KzOTBizMjh28YDzrJsDEDWVPL05/zQHqkPk+Ui1N8uoWwrp66FQ/RUc+ikmE70jDdlxsKaWt2J73qg74zq15vu2ISzhDwS9WGVfWZeGu+ZV4j6mdx4e0TxOYyTed4ThLrUSo5attKF+tXf6y0Lnny23Nbne3bN6Ryrds8Pg0aGoWjv7QhAc65GgmRmgkzmpGOJxC3PusYqzFUv/AvWOOnQk9eiLn7Ydqjykz3sZlTGOcgEAQY2/dz7Nr15QrHBTAwxQT9faIK4tO49vO5oeA+ij392cqAlmUyrD3lBwXZ7nFeJK8zSmt7NOAmHtXFL8yhdkXBZg5JtdI9+fBa4sSLJRaWb4gwomNSy/Bn9QWsP9dOCFhKpKrSXXsX2xYan5HtJ62Jtg==
 MIME-Version: 1.0
-References: <cover.1603469755.git.mchehab+huawei@kernel.org>
- <31341a0175f0aa4ec160d10b27a91703bdd9a036.1603469755.git.mchehab+huawei@kernel.org>
-In-Reply-To: <31341a0175f0aa4ec160d10b27a91703bdd9a036.1603469755.git.mchehab+huawei@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 23 Oct 2020 15:02:47 -0400
-Message-ID: <CADnq5_MjP1_YPFYYuaO+z9KTpMd+Gk6mtB74P1LjbFrOUt70pg@mail.gmail.com>
-Subject: Re: [PATCH v3 02/56] drm: amdgpu_dm: fix a typo
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4554.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ca43405-4cc7-47a5-ca5f-08d877867880
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2020 19:04:30.2719 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ez9uD/L58cErG7Z5p331SKGf9wTTOj5CUFCmlux/7f8TcKui0W20alJHKtgHxNEe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4556
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,95 +111,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Eryk Brol <eryk.brol@amd.com>,
- Jonathan Corbet <corbet@lwn.net>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alexander Monakov <amonakov@ispras.ru>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Roman Li <roman.li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, hersen wu <hersenxs.wu@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Galiffi, David" <David.Galiffi@amd.com>
+Content-Type: multipart/mixed; boundary="===============1899260407=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+--===============1899260407==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_MW3PR12MB4554E2E73641155FDFBC3B24F91A0MW3PR12MB4554namp_"
 
-Alex
+--_000_MW3PR12MB4554E2E73641155FDFBC3B24F91A0MW3PR12MB4554namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 23, 2020 at 12:33 PM Mauro Carvalho Chehab
-<mchehab+huawei@kernel.org> wrote:
+[AMD Official Use Only - Internal Distribution Only]
+
+Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+________________________________
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Sent: October 23, 2020 1:09 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Galiffi, David <David.G=
+aliffi@amd.com>
+Subject: [PATCH] drm/amd/display: Fixed panic during seamless boot.
+
+From: David Galiffi <David.Galiffi@amd.com>
+
+[why]
+get_pixel_clk_frequency_100hz is undefined in clock_source_funcs.
+
+[how]
+set function pointer: ".get_pixel_clk_frequency_100hz =3D get_pixel_clk_fre=
+quency_100hz"
+
+Signed-off-by: David Galiffi <David.Galiffi@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driver=
+s/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index 512b26b3e3fd..589c7fb71480 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -1149,7 +1149,8 @@ static uint32_t dcn3_get_pix_clk_dividers(
+ static const struct clock_source_funcs dcn3_clk_src_funcs =3D {
+         .cs_power_down =3D dce110_clock_source_power_down,
+         .program_pix_clk =3D dcn3_program_pix_clk,
+-       .get_pix_clk_dividers =3D dcn3_get_pix_clk_dividers
++       .get_pix_clk_dividers =3D dcn3_get_pix_clk_dividers,
++       .get_pixel_clk_frequency_100hz =3D get_pixel_clk_frequency_100hz
+ };
+ #endif
+ /*****************************************/
+--
+2.25.1
+
+
+--_000_MW3PR12MB4554E2E73641155FDFBC3B24F91A0MW3PR12MB4554namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->         dm_comressor_info -> dm_compressor_info
->
-> The kernel-doc markup is right, but the struct itself
-> and their references contain a typo.
->
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 6 +++---
->  2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bb1bc7f5d149..48ec0535d92f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -583,7 +583,7 @@ static void amdgpu_dm_fbc_init(struct drm_connector *connector)
->  {
->         struct drm_device *dev = connector->dev;
->         struct amdgpu_device *adev = drm_to_adev(dev);
-> -       struct dm_comressor_info *compressor = &adev->dm.compressor;
-> +       struct dm_compressor_info *compressor = &adev->dm.compressor;
->         struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(connector);
->         struct drm_display_mode *mode;
->         unsigned long max_size = 0;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 34f6369bf51f..a8a0e8cb1a11 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -86,7 +86,7 @@ struct irq_list_head {
->   * @bo_ptr: Pointer to the buffer object
->   * @gpu_addr: MMIO gpu addr
->   */
-> -struct dm_comressor_info {
-> +struct dm_compressor_info {
->         void *cpu_addr;
->         struct amdgpu_bo *bo_ptr;
->         uint64_t gpu_addr;
-> @@ -148,7 +148,7 @@ struct amdgpu_dm_backlight_caps {
->   * @soc_bounding_box: SOC bounding box values provided by gpu_info FW
->   * @cached_state: Caches device atomic state for suspend/resume
->   * @cached_dc_state: Cached state of content streams
-> - * @compressor: Frame buffer compression buffer. See &struct dm_comressor_info
-> + * @compressor: Frame buffer compression buffer. See &struct dm_compressor_info
->   * @force_timing_sync: set via debugfs. When set, indicates that all connected
->   *                    displays will be forced to synchronize.
->   */
-> @@ -324,7 +324,7 @@ struct amdgpu_display_manager {
->         struct drm_atomic_state *cached_state;
->         struct dc_state *cached_dc_state;
->
-> -       struct dm_comressor_info compressor;
-> +       struct dm_compressor_info compressor;
->
->         const struct firmware *fw_dmcu;
->         uint32_t dmcu_fw_version;
-> --
-> 2.26.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Aurabindo Pillai &lt;=
+aurabindo.pillai@amd.com&gt;<br>
+<b>Sent:</b> October 23, 2020 1:09 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; Galiffi, D=
+avid &lt;David.Galiffi@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Fixed panic during seamless boot.<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: David Galiffi &lt;David.Galiffi@amd.com&gt;<=
+br>
+<br>
+[why]<br>
+get_pixel_clk_frequency_100hz is undefined in clock_source_funcs.<br>
+<br>
+[how]<br>
+set function pointer: &quot;.get_pixel_clk_frequency_100hz =3D get_pixel_cl=
+k_frequency_100hz&quot;<br>
+<br>
+Signed-off-by: David Galiffi &lt;David.Galiffi@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 3 ++-<br>
+&nbsp;1 file changed, 2 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driver=
+s/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
+index 512b26b3e3fd..589c7fb71480 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c<br>
+@@ -1149,7 +1149,8 @@ static uint32_t dcn3_get_pix_clk_dividers(<br>
+&nbsp;static const struct clock_source_funcs dcn3_clk_src_funcs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .cs_power_down =3D dce110_=
+clock_source_power_down,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .program_pix_clk =3D dcn3_=
+program_pix_clk,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pix_clk_dividers =3D dcn3_get_pi=
+x_clk_dividers<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pix_clk_dividers =3D dcn3_get_pi=
+x_clk_dividers,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pixel_clk_frequency_100hz =3D ge=
+t_pixel_clk_frequency_100hz<br>
+&nbsp;};<br>
+&nbsp;#endif<br>
+&nbsp;/*****************************************/<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MW3PR12MB4554E2E73641155FDFBC3B24F91A0MW3PR12MB4554namp_--
+
+--===============1899260407==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1899260407==--
