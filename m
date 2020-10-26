@@ -2,64 +2,67 @@ Return-Path: <SRS0=jB5Z=EB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D6C9C4363A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:24:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C14CC4363A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E06C207E8
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:24:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 129D121D7B
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:26:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZ1oyANx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E06C207E8
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BKECFo7t"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 129D121D7B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D780889DDF;
-	Mon, 26 Oct 2020 20:24:24 +0000 (UTC)
-Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
- [IPv6:2607:f8b0:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0A889DDF
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2020 20:23:56 +0000 (UTC)
-Received: by mail-il1-x133.google.com with SMTP id p10so9859844ile.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2020 13:23:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1CA6E116;
+	Mon, 26 Oct 2020 20:26:24 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31C366E116;
+ Mon, 26 Oct 2020 20:26:23 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id 13so12954608wmf.0;
+ Mon, 26 Oct 2020 13:26:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=AWb/++qPeE7dpPuQ27PKb7BlY5R+TtNWyi4lSJ59xIE=;
- b=bZ1oyANxiJT9KIRSZPiQuN9D6OKuNJQ5+SRSGfe3Vi7EyD3QKyOrREUYusuh1SDzb2
- avp5jn2oaZjkyIfbds8L3DxL17oTPie4omGID0BBkl9E8YUb11bAuVvMTeNoPsccKa1x
- QZKZ7H9kn4oCoMk7fJnEKdS8Evv4lr5KmlXMj4xfN+koM8VesQ5Phqo563YtzI06QC1P
- 8voWrgPhUvc0f09EnTcanq0lAnMYfGm4dEVKhvExH8gV31AYzsZ23f6gxZMkHxzEHqyQ
- UclJV71pAUqR18sH2wqlZMhEiM2calhaa/jMz7ztHlJfi+/HjeR2q4vfNS6+Gfzl/mjg
- 0MWw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=wG7L6k5elcsFTdFccbEBRu2CRJAFTSnK/nWIQ/2axqk=;
+ b=BKECFo7tWE7Uuvp/xZqDhJgyFDbg2DxsWPatrwsbVJunmqPCOfdlzPpJr7PFvAU59T
+ 1l8TW/dvZDoT/EMS5HEVm0w/hmlxD0X25Y7Fb2GcdVKHabbnUyzgpdfW9U0NrY+IUDVo
+ f4C2Mx0Bo1kRbDPSqShjfpQgRPyw/hPtUbujYoelq6NkSpfi2jodFHjlWK+2pCQrRLPz
+ DIURbjgERLBPaSTEGh5Dv/YLP7Cv7wvoIUnBrLClrehtMBBQWY8BXx3a/uaDhYntUzwd
+ VS5Fe43ZVtd4YfsGE6o+wuUpXrw2duyXRB5va0KqPn4cM/uw2SA4Ptx5P/jtKAe9Fs4j
+ EFTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=AWb/++qPeE7dpPuQ27PKb7BlY5R+TtNWyi4lSJ59xIE=;
- b=H3gRE2UbY5kXKT7CCjalzFbCfnZaaclXzWv7DXRoZ4ydMMpvv7QU/lTnUr6T2ImQwQ
- s/bs7A7eJqB4o1z9cr67EgrKOYtJAtDTiwfRzNya1Sq9jtFUXorxowKYIxxKT7rPfoBO
- jozvov3pMFfRKc18xQ8ggR7e+7Ai497sGyVeX6WWDReAGPc6srE07fxAgwEeFQZc+L0H
- Tjk1SHXRHAGQkjMe5DeAqIve/BbneocN7DUo8PlEET9RdjNBPgMG1Z22Kj4uqErroeIj
- u796yMbBTh0jJN1hj4oBnWRBYh1jgjtEUSIMa9hCDeQoswBr0AZ6n2rjbSYqqv3gc6EO
- PPKw==
-X-Gm-Message-State: AOAM530ozGNNZNR4iIUyC6SUsjPllJbMYBlnqqsz+B+/rdLo5kUJUO2/
- fWuKJDATGWiB2Gp5wacy0S6xRAZqjFMmLeY9/6FhGdHgUx0=
-X-Google-Smtp-Source: ABdhPJwVHg7B4yC8fW5J3UoN6QqwWGtiZTIrZmS9+3mwzDwCMVmhbmKhgtYAEPuqlS48W5pc8JnNI+yJBWilT+2Nio8=
-X-Received: by 2002:a05:6e02:111:: with SMTP id
- t17mr13026823ilm.79.1603743835900; 
- Mon, 26 Oct 2020 13:23:55 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wG7L6k5elcsFTdFccbEBRu2CRJAFTSnK/nWIQ/2axqk=;
+ b=O7lXt4Q1tvv3Yfhg6ziX1IKagFGqBdC9swFP6tULHCdEJwi/QgN3EmrEr/eQbgZt3P
+ +w0olxD1Gk+823bsDI1QV9gafvbJ1bGNpoV4SGNSqzIzcUzvP5wWktOcwDxPB23MFFrN
+ uMbn8J6b6A01bxhmfXfAODGt8IMmezjnWC5kNt1en214VEmIkvOLRdE7z0tUZu07W8sT
+ aX4O58rHkKXWxaSVIKsB+Vyno3KmpzjDuiFAtHGtWwhmYRGrxgtilIsnZoaWIZfipdP8
+ grK0WxChVMIGtwnZrtmgATwOkMR62AkHUHCIB913FHhSXAKIiHRM6OGw4Rs1kuYTst6+
+ cU0A==
+X-Gm-Message-State: AOAM533T1VOGz9fEFpPN2KpogHhUdhNd1L62N3BhGUtLFZFzTWkItEW0
+ WauK7E4eSJxmjnGQLKzQ5qlacIfphFq97TnbNGM=
+X-Google-Smtp-Source: ABdhPJxH0XD7Qr8WWOT4U+A2t3Ki9NVyS6yGQrbNVPDFqX00bz0auWEM9RMfcgNQn4lKil2Ta4Z7rKh8hoZnQULvjyw=
+X-Received: by 2002:a1c:6302:: with SMTP id x2mr18103079wmb.56.1603743981925; 
+ Mon, 26 Oct 2020 13:26:21 -0700 (PDT)
 MIME-Version: 1.0
-From: Tom Seewald <tseewald@gmail.com>
-Date: Mon, 26 Oct 2020 15:23:45 -0500
-Message-ID: <CAARYdbjUZEwmbujA5o9HXBvYfF2_L3nBHbMdZX4cnqB22DuiVg@mail.gmail.com>
-Subject: [BISECTED] New kernel warning on v5.10-rc1
-To: amd-gfx@lists.freedesktop.org
-X-Mailman-Approved-At: Mon, 26 Oct 2020 20:24:23 +0000
+References: <20201026181242.76bf3b6gx2yx7hr7@adolin>
+In-Reply-To: <20201026181242.76bf3b6gx2yx7hr7@adolin>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 26 Oct 2020 16:26:10 -0400
+Message-ID: <CADnq5_NxQwwaxO1KJ5Fnmv_OGiFYyD0xZVCzkbOLGPjFCkECwQ@mail.gmail.com>
+Subject: Re: [Outreachy][PATCH] drm/amdgpu: use true and false for bool
+ initialisations
+To: Sumera Priyadarsini <sylphrenadin@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,27 +74,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tseewald <tseewald@gmail.com>
+Cc: Dave Airlie <airlied@linux.ie>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Melissa Wen <melissa.srw@gmail.com>, outreachy-kernel@googlegroups.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Upstream commit 6d90a208cfff ("drm/amd/display: Move disable interrupt
-into commit tail") has introduced the following kernel warning on my
-system with a RX 560 (Polaris 11) GPU. The warning is printed
-immediately after I login.
+Applied.  Thanks!
 
-amdgpu 0000:01:00.0: drm_WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev))
-WARNING: CPU: 1 PID: 972 at drivers/gpu/drm/drm_vblank.c:722
-drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x31b/0x330 [drm]
+Alex
 
-I have confirmed that reverting this commit causes the warning to no
-longer appear. See the gitlab bug report [1] for the bisect log and
-full backtrace. Please cc me in your replies as I am not subscribed to
-the amd-gfx mailing list.
-
-[1] https://gitlab.freedesktop.org/drm/amd/-/issues/1349
+On Mon, Oct 26, 2020 at 2:14 PM Sumera Priyadarsini
+<sylphrenadin@gmail.com> wrote:
+>
+> Bool initialisation should use 'true' and 'false' values instead of 0
+> and 1.
+>
+> Modify amdgpu_amdkfd_gpuvm.c to initialise variable is_imported
+> to false instead of 0.
+>
+> Issue found with Coccinelle.
+>
+> Signed-off-by: Sumera Priyadarsini <sylphrenadin@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 64d4b5ff95d6..ba4bd06bfcc5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1288,7 +1288,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+>         struct ttm_validate_buffer *bo_list_entry;
+>         unsigned int mapped_to_gpu_memory;
+>         int ret;
+> -       bool is_imported = 0;
+> +       bool is_imported = false;
+>
+>         mutex_lock(&mem->lock);
+>         mapped_to_gpu_memory = mem->mapped_to_gpu_memory;
+> --
+> 2.25.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
