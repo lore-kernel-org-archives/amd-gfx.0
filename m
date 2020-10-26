@@ -2,67 +2,69 @@ Return-Path: <SRS0=jB5Z=EB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C14CC4363A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 791D9C4363A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 129D121D7B
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:26:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 18BF8207E8
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 20:33:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BKECFo7t"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 129D121D7B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgGtA4dZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18BF8207E8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1CA6E116;
-	Mon, 26 Oct 2020 20:26:24 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31C366E116;
- Mon, 26 Oct 2020 20:26:23 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id 13so12954608wmf.0;
- Mon, 26 Oct 2020 13:26:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9DD6EA65;
+	Mon, 26 Oct 2020 20:33:19 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 941706E116;
+ Mon, 26 Oct 2020 20:33:18 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id l15so13834718wmi.3;
+ Mon, 26 Oct 2020 13:33:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wG7L6k5elcsFTdFccbEBRu2CRJAFTSnK/nWIQ/2axqk=;
- b=BKECFo7tWE7Uuvp/xZqDhJgyFDbg2DxsWPatrwsbVJunmqPCOfdlzPpJr7PFvAU59T
- 1l8TW/dvZDoT/EMS5HEVm0w/hmlxD0X25Y7Fb2GcdVKHabbnUyzgpdfW9U0NrY+IUDVo
- f4C2Mx0Bo1kRbDPSqShjfpQgRPyw/hPtUbujYoelq6NkSpfi2jodFHjlWK+2pCQrRLPz
- DIURbjgERLBPaSTEGh5Dv/YLP7Cv7wvoIUnBrLClrehtMBBQWY8BXx3a/uaDhYntUzwd
- VS5Fe43ZVtd4YfsGE6o+wuUpXrw2duyXRB5va0KqPn4cM/uw2SA4Ptx5P/jtKAe9Fs4j
- EFTw==
+ :cc; bh=/O8B5tDsbMKoWPbr5etGrG3WN9TQf/YvulQxtm1JNqc=;
+ b=fgGtA4dZkC7fJbJEp77T2zNmJPL+rQzgZ1HlLKVt9cz6ql8n6Ew8NtQxmH48a25heT
+ lkDvFDx9tZgelHI68g+i3kcvouujmjmCv6AQVtHFRvt07YjyP2EZmGVBm8Wt56o2cORX
+ wRO+5ZqpFhdG6Ac53AX7WPmPeLDNH2bucLyVDtdurw0THcKB7xgZ0qdUjmnAhov8y8E4
+ xSEIBjkL944sHXH0benknMyN3QHAffKFDnglOwcPQUYcAr32JBvTBWqT/5UXf0dnsww+
+ 1f8kFHIKp3KuUV2ogMZyU++YgUpCB4zQs0wa7WvtqQBO+mf3QgBdjrAb2KkzSy3M9uJf
+ 0QwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=wG7L6k5elcsFTdFccbEBRu2CRJAFTSnK/nWIQ/2axqk=;
- b=O7lXt4Q1tvv3Yfhg6ziX1IKagFGqBdC9swFP6tULHCdEJwi/QgN3EmrEr/eQbgZt3P
- +w0olxD1Gk+823bsDI1QV9gafvbJ1bGNpoV4SGNSqzIzcUzvP5wWktOcwDxPB23MFFrN
- uMbn8J6b6A01bxhmfXfAODGt8IMmezjnWC5kNt1en214VEmIkvOLRdE7z0tUZu07W8sT
- aX4O58rHkKXWxaSVIKsB+Vyno3KmpzjDuiFAtHGtWwhmYRGrxgtilIsnZoaWIZfipdP8
- grK0WxChVMIGtwnZrtmgATwOkMR62AkHUHCIB913FHhSXAKIiHRM6OGw4Rs1kuYTst6+
- cU0A==
-X-Gm-Message-State: AOAM533T1VOGz9fEFpPN2KpogHhUdhNd1L62N3BhGUtLFZFzTWkItEW0
- WauK7E4eSJxmjnGQLKzQ5qlacIfphFq97TnbNGM=
-X-Google-Smtp-Source: ABdhPJxH0XD7Qr8WWOT4U+A2t3Ki9NVyS6yGQrbNVPDFqX00bz0auWEM9RMfcgNQn4lKil2Ta4Z7rKh8hoZnQULvjyw=
-X-Received: by 2002:a1c:6302:: with SMTP id x2mr18103079wmb.56.1603743981925; 
- Mon, 26 Oct 2020 13:26:21 -0700 (PDT)
+ bh=/O8B5tDsbMKoWPbr5etGrG3WN9TQf/YvulQxtm1JNqc=;
+ b=Hju+dArgvQ5w2FbTNo+239I/+aBcHr8Wxf9HgLdg4tA5xnD1ph7LzbdTPJOxVsRpK3
+ MDJGktgf2uryODo9f1CmdcxGAqh/COJiNa2pXlaS4jUpHJozxkrNAqZH7MXQv9ud1hxK
+ 5GebKMDJMREfogpehFVAVlEmL9dPsA3OA2COlZ0mplmph/24Wo5xHoA//k6P0ncKHvCA
+ KVuaIlw0tDl+0oolRFLtg5S3ZcbbWU3yxEsqZYXFkuWeLDyOByqfIs4jbiDxpElOUscc
+ 0pnxadZde/IRK7QexgMNTXJsSI1FnJPZtvJWoLLVGuCVdkG151vTD5Pdcn+fX3WpkZGA
+ EzsQ==
+X-Gm-Message-State: AOAM532hJtt97Y54KEsHs1qky3+9rDYiK7wqxEAAyQPUuarWoxzECfUq
+ +Ql0ppPe+4OfgOrES887ZxPxgqPgXkwReoCe/7iASJut
+X-Google-Smtp-Source: ABdhPJwMDiAiLRKHlrvYhOBxCY24XJ9FgKn7gwnrmpvOmcovyvuheNcYl6kswwxOccE6N3E2mp6N1hUoQVyoAadJXtE=
+X-Received: by 2002:a05:600c:25a:: with SMTP id
+ 26mr17442752wmj.39.1603744397278; 
+ Mon, 26 Oct 2020 13:33:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201026181242.76bf3b6gx2yx7hr7@adolin>
-In-Reply-To: <20201026181242.76bf3b6gx2yx7hr7@adolin>
+References: <20201023074656.11855-1-tiwai@suse.de>
+ <1d3e22ef-a301-f557-79ca-33d6520bb64e@amd.com>
+ <CADnq5_OY8tRqs-bao9mkKxgcXC=305-_71U=04C5z9HM0+5MuQ@mail.gmail.com>
+ <22ab9117-0281-2ff3-8328-d7780e353643@amd.com>
+In-Reply-To: <22ab9117-0281-2ff3-8328-d7780e353643@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 26 Oct 2020 16:26:10 -0400
-Message-ID: <CADnq5_NxQwwaxO1KJ5Fnmv_OGiFYyD0xZVCzkbOLGPjFCkECwQ@mail.gmail.com>
-Subject: Re: [Outreachy][PATCH] drm/amdgpu: use true and false for bool
- initialisations
-To: Sumera Priyadarsini <sylphrenadin@gmail.com>
+Date: Mon, 26 Oct 2020 16:33:06 -0400
+Message-ID: <CADnq5_NVPRpiOj+Cpzh1TM=2J-ym8xbKbxGc_hUL=4_j_MAo6A@mail.gmail.com>
+Subject: Re: [PATCH 0/3] drm/amd/display: Fix kernel panic by breakpoint
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,15 +76,10 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Christian Koenig <christian.koenig@amd.com>,
- Melissa Wen <melissa.srw@gmail.com>, outreachy-kernel@googlegroups.com,
+Cc: Takashi Iwai <tiwai@suse.de>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media <linux-media@vger.kernel.org>
+ Luben Tuikov <luben.tuikov@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -92,42 +89,69 @@ Applied.  Thanks!
 
 Alex
 
-On Mon, Oct 26, 2020 at 2:14 PM Sumera Priyadarsini
-<sylphrenadin@gmail.com> wrote:
+On Mon, Oct 26, 2020 at 4:22 PM Kazlauskas, Nicholas
+<nicholas.kazlauskas@amd.com> wrote:
 >
-> Bool initialisation should use 'true' and 'false' values instead of 0
-> and 1.
+> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 >
-> Modify amdgpu_amdkfd_gpuvm.c to initialise variable is_imported
-> to false instead of 0.
+> Looks fine to me. Feel free to apply.
 >
-> Issue found with Coccinelle.
+> Regards,
+> Nicholas Kazlauskas
 >
-> Signed-off-by: Sumera Priyadarsini <sylphrenadin@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On 2020-10-26 3:34 p.m., Alex Deucher wrote:
+> > Yes, looks good to me as well.  Series is:
+> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> > I'll give the display guys a few more days to look this over, but if
+> > there are no objections, I'll apply them.
+> >
+> > Thanks!
+> >
+> > Alex
+> >
+> > On Fri, Oct 23, 2020 at 7:16 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
+> >>
+> >> On 2020-10-23 03:46, Takashi Iwai wrote:
+> >>> Hi,
+> >>>
+> >>> the amdgpu driver's ASSERT_CRITICAL() macro calls the
+> >>> kgdb_breakpoing() even if no debug option is set, and this leads to a
+> >>> kernel panic on distro kernels.  The first two patches are the
+> >>> oneliner fixes for those, while the last one is the cleanup of those
+> >>> debug macros.
+> >>
+> >> This looks like good work and solid. Hopefully it gets picked up.
+> >>
+> >> Regards,
+> >> Luben
+> >>
+> >>>
+> >>>
+> >>> Takashi
+> >>>
+> >>> ===
+> >>>
+> >>> Takashi Iwai (3):
+> >>>    drm/amd/display: Fix kernel panic by dal_gpio_open() error
+> >>>    drm/amd/display: Don't invoke kgdb_breakpoint() unconditionally
+> >>>    drm/amd/display: Clean up debug macros
+> >>>
+> >>>   drivers/gpu/drm/amd/display/Kconfig             |  1 +
+> >>>   drivers/gpu/drm/amd/display/dc/gpio/gpio_base.c |  4 +--
+> >>>   drivers/gpu/drm/amd/display/dc/os_types.h       | 33 +++++++++----------------
+> >>>   3 files changed, 15 insertions(+), 23 deletions(-)
+> >>>
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org
+> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 64d4b5ff95d6..ba4bd06bfcc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1288,7 +1288,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->         struct ttm_validate_buffer *bo_list_entry;
->         unsigned int mapped_to_gpu_memory;
->         int ret;
-> -       bool is_imported = 0;
-> +       bool is_imported = false;
->
->         mutex_lock(&mem->lock);
->         mapped_to_gpu_memory = mem->mapped_to_gpu_memory;
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
