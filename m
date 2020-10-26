@@ -2,101 +2,101 @@ Return-Path: <SRS0=jB5Z=EB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-1.8 required=3.0 tests=BAYES_05,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83C0EC4363A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 15:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D81BC4363A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 15:31:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1C8922222C
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 15:29:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F07262222C
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 15:31:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cV/ITz79"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C8922222C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=yahoo.ca header.i=@yahoo.ca header.b="ZEHyzS9s"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F07262222C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=yahoo.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 953B46E95B;
-	Mon, 26 Oct 2020 15:29:48 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6290B6E95B
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2020 15:29:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LIz2MpveiSADjP3Mju9lVyxMpCgDVKpBBdnILQj9Sx54Yr3+qXTLzMnNgIny8UHGCx3zJm06jVD4KSkS4YglBVHQ0EtThu15LlH2mjDhxgQgwMnSNP4/k5ToeqIhRBaI9WoINb2tqCvJFi+jLLC1gD14oHgGh4rDTqpI3Sdcg7i2s+SRenZ4IkLAixZdc71+18z+uiyuIg0C8JQHX5Ieo6EreI0UUxPUTrOWuzTm1wyJnkcAg4YIp9DkszHA1LQE55TR5J9PllbLbqACvd2SmDgUX0WlO8Qw6WZZmbbZOkdI7VwkTGvW0OFfDaF23QYDnm2XZ3KZX7U/r5olRM4Ulw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GaCZQdDRoIbqMBaulPa6reFATnZ66vcYuuRAlumken4=;
- b=GlryVILwyE0+iqf334YF8n3sAlpmNO0xB+2pZ6stIEQY5SZ55hqOvDvuBLZbnhOR0uK1kFI3ptb22CVTWRUl0RzcCHfs28u21NNvqyZSWlOv+67yrCpw5CGutLMyCR3NGBNCaYnYydY7d1yKlr7RT3Bl+v320hIvMJct2Y81J19Law8O+CZ0IWqkTvhWKDClrHsU+l+2UI/AoLLiZuAPmSD/yWdEYDgHwblNlxL92c4G9H1zXTBW4Qrz1AYaw/hOka+ojMqkmFOZ0QjGnmoK9jMhYYVQdDcUO5G3QqIgD+oVrsdpzddYOObynhsG2h1KhVktTWOOrsVIiYu/6srvlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GaCZQdDRoIbqMBaulPa6reFATnZ66vcYuuRAlumken4=;
- b=cV/ITz79KWY3XW/E5kmh6AFjp+jH1cyjkYtR70q8wu9BegbeQBgViA/9510rTxRG1gIklk32blS/bwjowUAak4yuue0p4Nc7WffUWmOgANUcstT/J9aqem9o1e/A7f7f0e4cmY3yN0is5vItObU8jUo21VQrz0Akr8s+Pjlj6Vs=
-Authentication-Results: yahoo.ca; dkim=none (message not signed)
- header.d=none;yahoo.ca; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BY5PR12MB4935.namprd12.prod.outlook.com (2603:10b6:a03:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.24; Mon, 26 Oct
- 2020 15:29:44 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::b46f:9253:b0d8:7999]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::b46f:9253:b0d8:7999%7]) with mapi id 15.20.3477.028; Mon, 26 Oct 2020
- 15:29:43 +0000
-Subject: Re: [PATCH] drm/amdgpu/display: use kvzalloc again in dc_create_state
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20201026143040.887736-1-alexander.deucher@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <5fa7627d-619e-93c2-ded5-c5305b1498c9@amd.com>
-Date: Mon, 26 Oct 2020 11:29:38 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
-In-Reply-To: <20201026143040.887736-1-alexander.deucher@amd.com>
-Content-Language: en-US
-X-Originating-IP: [165.204.55.211]
-X-ClientProxiedBy: YTXPR0101CA0030.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::43) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEF9A6E95B;
+	Mon, 26 Oct 2020 15:31:27 +0000 (UTC)
+Received: from sonic313-19.consmr.mail.gq1.yahoo.com
+ (sonic313-19.consmr.mail.gq1.yahoo.com [98.137.65.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 051AC6E95B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2020 14:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.ca; s=s2048;
+ t=1603723865; bh=4OYHjTCszK8GvZu8W0BpB7EzFLIyHiiZ9TURM4OtAuA=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject;
+ b=ZEHyzS9sQyFKFK+RHeOY9B8TSHnN4OZY3dfyOTYQwzqvKqj1uhjvvR6ODNWMhBgcRfpUTeRxqp9PFuyi7VFAtd/OO4pwesqywBI7fe1lnoSihkSdacntJ1C15i8VAcWCbF0xNCUWgk88FTUC3ZTKzJsF8sS6N9L/8Ts52OVbmb4oYEg0XAx40H+g3lb5qbb0ZGlEOh0/tylKdaCxRtMgcdnBj7HyTijtg2s7/11vJP4F8QIPTLnhsYZunEfze546kOgq2PV2onb/O6hMS2DkNngScCA9RkEqewJkdujR/DAmKbR/4eZDGoLSG09B+Jb9g4yXxWUFtjZrBPnwofBeFw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1603723865; bh=EDfTfPvioQe8PpCrMRwtiSBS+QGvFsHcTcv+lujoYCg=;
+ h=Date:From:Subject:To;
+ b=HLrzTMbv5fXTW/2cP3WZjmNYB3tq6TgnqdoQ8Gf2NArn29ecltb0emYKTYnGzXOQdqGcDWYAxhMn0hOWZEdoVm7d9k1U06coF+1lo1jAUM4OTeoBpWopC8R5BDVNL5WRBam0i/OtwgNWq3g+21fXsR/xz+9399K54eaSpCHqX3Ckam/uf9D4KXD9Vbo//exUE9CDiI3vnRZvIvPzMOGZCrfero7uOfbJli9QDroph4yojw/VvoOHyQqCvlMGLslR3ViPpon95G63XlGGIFufB62HDBh2ME4tBRzq6lPLeo6fqwMvP3DP7kKNgdtYh43Gi2lS5C1KjxNCzuTa0X87Ww==
+X-YMail-OSG: s3zOwNQVM1kQrhKa._rq9FhTLdJTucN.TiYwzxsGqotBCZh8ic1_WgSXgh3Vd7E
+ yDRf286BSUrHndTXDa29RmOHdTNCvQpbs0PIm4x0oN8euUbyfdWS9dQQ.qf1q0fV4VWs005KwPlt
+ 83i0SInZS4unl2n449n7XQT7iyiZCm0zfQbeeEf.ww7PLi.n7wjWwvyQsTviKrLeXv8M3lIVeFNM
+ SM0_tME.6moLBnHCW4XRlrFjOuSBbqN_zyUKiLWvYwNuBUI_cOFp_YA5LYWRNiW8E_557UxUTvqL
+ _uefpxhwQml4BNQBku2vYbFAHp0frDUwlTxobTyA5D0mG3ykEisshICSzetSEDUsyqrAXrSOf_FF
+ an9vSm54KWpxYwVnHN0KLG1qW5G8zt68Wc_miFOw6fxyZvAkqS3mm59DihEN1O.SBVmjs3S_.M35
+ gqXSYdF5.xfZJjGGcSr_UlhCNupqr8SL0OYAbgXgon_HFbsGZE.q21rG7ilkco0Ycr6A4vGiU9cd
+ BwP2Q5eOAdlM9vBbiByLo7bD3hmDS_BPWF1jLESF7JatuzrS9Jq1S4lRdBwShWekawP_QQUql0CL
+ vLOvbtIRa9C7UtXAgxz2o0fBJ59VqFMvV6Xku1vYtH9TZL9RL4FROnxdaWT39hYzkOYIhtxOeock
+ TZtzhkY.C8EF5HiZxmlySyXhj4MAn41QLQTgAANGi3GMqYnuAlx2qKnnX.Rsuj25ts3QPHR1iVGp
+ 4LLAV6cDg7D7lV9zuvOF3LoF83bOmNyhulAoMph2iSgGgmV3AemT06GlBFBKmTp90KFvMd7nj12n
+ nr9zwqgaBk6BzMWZxGuC0kHNMv2VgvFzUCJskxTGyeUqsqGTrkDrdzfT0r2erBHqff51CqvAoZGs
+ bEdlhQG7mMtI6GTkJfnv7QZ5psaTn99bBJc2fYr06.cKSHrLwg0gkWPHEQTkHZpYwIJaR_xCZ0n2
+ 5iYC35gqMZYcbTZNTtG3aashlLzZy51MDOKdZlyzeqcw4N0WI0iD_jbCc9fcA2kFfZ6FGhbUxzA2
+ tlvp7wWJhEoPwYUZBhFXttsfsodcz.KK1CbwzJ2vLx7bcarSBzxhiCYIpAj_GgZ32nnv2pMcl54f
+ 9RCJ.fMpXvwYZZn9g3QrCwrpZblH6tH5bnluf56tripIQRF5l4oMnRQKlcyP7gwGDJgQ0S8O4ATH
+ ChRpsLhCAAs.pM6VaN89sG7OG3I6owdupHjgqII3SBydr5Ry9lDXZ3kTm0mPD26g1onYlDLyQ.TJ
+ WEwjIRNiS6DQy.c5a__ciqRq.Qeozj4BDHBVwT9Pzgchgrpz7KooxvDcb9FumFVH9otn1cs_8Egm
+ zg6rBVB50VZAu12ipoEK.8_nuq1fRef0RREUihomvOI13dEfgtsfg9Vy7IQerFI7x7XNbP6PJ9Ys
+ 8aK8YIwwVeRrlcHZsV4paV0I.rfDmOSXIXl1XWm19Nkm.oCsETACJqrAOMPhlsfF8wRA51xjRNwZ
+ zKLDRpi4CS2org5HmGFRWO6oO9JnF0zaxEUJMhprIQJO76cD5tq79YhuhUeRe3ED2wxcQgbnJaSH
+ Gq39PMbugae61Ewi7LsQaMeFchAvC5hmYqCfmPgxwZD910E_UpLTuUtCWdhm5U9JO6JhDFs9WPeJ
+ VsdIvcu8CcdMGgloHW3ivCCXT_dFpDcY2.p4pg5nd33u.PGUNbJbCcyIy8mnYTa8JSXXSNyjTBZQ
+ mJMg3NF6hiA9dRoxKty.6VCzeMLUz0NhHt4AbxZQxzGFvSs.C73g4aebtDcuGebaH016ZGvZR79n
+ ymqizFksXOnxxv4CKGWEx3RLiVHTGDV1RFHcBI6Rx3oqtYfO5p4o1VrQJBKewWqvH54_A.OJRQrp
+ Mz.vAr.SDdCTZe0Q3Y5PvOri7TF8EBmJ5_SJPu06vDJG1WwbERrekTHELzVkcBvf27stGGUrFGdH
+ jXXHvmO9jzUEKOPgExpf1MSa7qdjgxXj9w0dcr1rdGKJl6XoGy0VeSYgQztP31sM9nF.z6tcLwAn
+ Aaj1U9Hpn7lrbjZaeFjhrVAHbgyAhWUHWJJPhHfUw58LEp23xGWnsZ5wptOvcYpbInYeSpZTWNct
+ rNSUIRsJHSB228RHYU3G1BqvA9HWprKMWt8g_6d_gTIftB7SuLv3pgwo0TZpQoJRQZzvG1cv5foG
+ TOfHd41quJ5UoC5tntu09x6h3G4g5XZ4GbYrk4ThWpgr4Su928tiiMjWM2HQdeN99llElqrZc7nZ
+ 4h52MxaizvFVug5UQoFBXaR5R7Rize43QMsMBp6RKXWGNhmkSvDj4kSqHcsR_LYqJReCnd04Jggx
+ N0WEOW2sQd.YsPoEt1NwjbADwggRsSwr4EIVUKSpppSDtcR_FkPDL8Cv9bC7tDHhjjAb0bmmqUC1
+ BX56z52UEJ3sEO3AQ46zZTCX_ItGX1yAd9_7WRC1DHoUNSIhIoLSL00JwZlMCaKKt01eEi62sOr4
+ oPLsL52moeiWYuI6MpMmIcLtnR5kUuYLHI1l5CSVq.FadQ2mEz2Ejq1bHu9TkONofx2jRHYM3YV0
+ U51TvYOnENx8o6iQTC3CKtOkidZpyHXcfJXiKZDznZsZiGPQdi.7tcs7nGYyiY17nQmsk5Jo27tD
+ QEGmYJBBiddZB8gvI1fSF3CeViSQdSnW_IDv7GGtBArVZfyUlBioytNYSgIkQVDwc.wW.s0d6.rv
+ FSN.4x7H1oPO1QmDfI9FfoWkIPef8GR92mnsrPvofewewtevZZZBfknL2EolHA_kmZ94nfJMzo9z
+ _QZNGv3gJQpB5wibgGcq.LXtAED9y3QJVNSeELcnT4lb6Pf2FEGV4wHnJ9Ke.WQ4.g06vRcMVvmM
+ KZ4s5cH2155Z4_G2ycilj3bBT4PrFhNecMtJZtQ--
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic313.consmr.mail.gq1.yahoo.com with HTTP; Mon, 26 Oct 2020 14:51:05 +0000
+Received: by smtp409.mail.gq1.yahoo.com (VZM Hermes SMTP Server) with ESMTPA
+ ID c2e5d046a1da2e09e18cb22615934b6d; 
+ Mon, 26 Oct 2020 14:51:00 +0000 (UTC)
+Date: Mon, 26 Oct 2020 10:50:55 -0400
+From: "Alex Xu (Hello71)" <alex_y_xu@yahoo.ca>
+Subject: RE: amdgpu crashes on OOM
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, Michel =?iso-8859-1?q?D=E4nzer?=
+ <michel@daenzer.net>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>
+References: <1603684905.h43s1t0y05.none.ref@localhost>
+ <1603684905.h43s1t0y05.none@localhost>
+ <81568253-518f-43b7-6b20-432f7dbd6c2b@daenzer.net>
+ <MN2PR12MB448824F6E08D1498206EFFE6F7190@MN2PR12MB4488.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB448824F6E08D1498206EFFE6F7190@MN2PR12MB4488.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.148.234] (165.204.55.211) by
- YTXPR0101CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18 via Frontend Transport; Mon, 26 Oct 2020 15:29:42 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f3e7fe13-ba53-47cf-cc2a-08d879c3f68a
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4935:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BY5PR12MB49354157A9DAE48324A82C75EC190@BY5PR12MB4935.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: N+QUjvjaku393JtPoMF5aXLb3q46mnuOQ+72sK6g9WB3/clud1fnLTEd0nzfbjkUZ682hBQ0O4dWTerlUXSPGOSKdiEobxGq8RPkgUpUseXrey5K9AEUAEA5Z4yPlsAreEHIlAtYXD8GTui4LB3Zf50jHWEFXyGqLfuu9yhuJNmNaSwNOE9MvIBlrGUeSWehPhz8PSt1WI2lKDK1dyHeIbJVO5OZyiVR2O8Ms2eQIEmq/c1gR/DyG4OtOPIq4PlKxLXF1boEvkrLcMSuWzrks9XNjCymafwUTUUmEz2qwgIY7U6CpWST1eXMuxAdQff+aAjSgUKxhMc5+1FTQfQOdDfBO8Vj8E5excnyo7V3jcXSIOQi94gDTtFTPyQrsyWl
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(346002)(136003)(39860400002)(366004)(8676002)(956004)(54906003)(2616005)(478600001)(4001150100001)(83380400001)(36756003)(5660300002)(6666004)(31696002)(4326008)(53546011)(86362001)(66556008)(6486002)(186003)(52116002)(66476007)(16576012)(31686004)(316002)(8936002)(2906002)(16526019)(66946007)(26005)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: BrHPkGSXL+XQ+OJ6a65yG8Fbzcmynl9w/pMgjRXaSddOkMjOsYh9xl7WJtw+o4ARCFIEisfFmrkhVD50jF1IZ1gRomHmjYtV+0Wc74rBn8Vu6kBnE5ry5TWldG2iAgemovJ9wqQdTjjE5AihrOOEUK88ywPNmMOWw+RaDhmeLmK48KuohNKXnkl5K2i+AlkrA9cFizxrQfWvXoE1LthwINSrOvwWWsw4V7hMr94vCyjJ6SBROFvsVExaHCWNTAuSVzC0mxYmF9MKnTS6LtSHxWl7VmUT0m5cAXESc8euUYUsZHPHFLV9+7mdmPmXpaqR4sS3eL43z4uTQtkaZ5St46MtvSKGG9ueKvhMYntm0FrCZSgCj3b376AKSg0tGNIBCMeG/UDWEwpu8XC9rASoCriinH+R5KAfH1TLzmQan+WEQQaI3rLrGwtLxeVROb1xB1vkhr53F4l6Cz0qnhwxiINDWrqGavvBNTPGg/W10XRJnujvHzQMCl7zXwnQHSLoklpskOSwmqB8dHLiuhxmNXewD1CnCTPWPg94I+k7USoLk6OwsVxA1S3WO01yxnsmJlY6cTXErn6I/m7Kl68TyBlLUf3oK1DQpPQwKNn8jg/NQumFFatL26JIKF6wUoxvFO0biNZlPcZUTFEGBLi4rg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3e7fe13-ba53-47cf-cc2a-08d879c3f68a
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2020 15:29:43.8877 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GQ1y8X70AVhtH5E77bJ+7FFNo4kdtACp+JhJqLHP/bf9026d6nTVhlxj+eoVFJLcoVTS7rXO+EXq78JsIPHPig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4935
+Message-Id: <1603723649.ang5tduo62.none@localhost>
+X-Mailer: WebService/1.1.16868
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+ Apache-HttpAsyncClient/4.1.4 (Java/11.0.7)
+X-Mailman-Approved-At: Mon, 26 Oct 2020 15:31:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,48 +108,20 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Aric Cyr <aric.cyr@amd.com>,
- Alex Xu <alex_y_xu@yahoo.ca>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-10-26 10:30 a.m., Alex Deucher wrote:
-> It looks this was accidently lost in a follow up patch.
-> dc context is large and we don't need contiguous pages.
-> 
-> Fixes: e4863f118a7d ("drm/amd/display: Multi display cause system lag on mode change")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Aric Cyr <aric.cyr@amd.com>
-> Cc: Alex Xu <alex_y_xu@yahoo.ca>
+Excerpts from Deucher, Alexander's message of October 26, 2020 10:34 am:
+> It was using kvzalloc, but was accidently dropped when that code was refactored.  I just sent a patch to fix it.
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Ah, that explains why I wasn't seeing it before. I was only looking at 
+changes in amdgpu_dm_atomic_commit_tail, not dc_create_state.
 
-Regards,
-Nicholas Kazlauskas
-
-> ---
->   drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 7ff029143722..64da60450fb0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -1564,8 +1564,8 @@ static void init_state(struct dc *dc, struct dc_state *context)
->   
->   struct dc_state *dc_create_state(struct dc *dc)
->   {
-> -	struct dc_state *context = kzalloc(sizeof(struct dc_state),
-> -					   GFP_KERNEL);
-> +	struct dc_state *context = kvzalloc(sizeof(struct dc_state),
-> +					    GFP_KERNEL);
->   
->   	if (!context)
->   		return NULL;
-> 
-
+Thanks,
+Alex.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
