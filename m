@@ -7,46 +7,46 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B92CC5DF9D
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:51:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDD0CC56202
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:51:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D97F720759
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:51:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 70BE922403
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:51:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jo1MXYuy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D97F720759
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6cdTWFY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70BE922403
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A56A26EB55;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD3C6EB54;
 	Tue, 27 Oct 2020 09:51:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB726EB4C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36A376EB4E;
  Tue, 27 Oct 2020 09:51:43 +0000 (UTC)
 Received: from mail.kernel.org (ip5f5ad5af.dynamic.kabel-deutschland.de
  [95.90.213.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 34D9622456;
+ by mail.kernel.org (Postfix) with ESMTPSA id 162CC2467C;
  Tue, 27 Oct 2020 09:51:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=default; t=1603792302;
- bh=usL7gfHFc4G7AnespRehxUU27ojrrvGixrlv+aC7DDs=;
+ bh=tr/TyQ4+k+iO/sgQYc54fa4PN3T78vRz+760/CGauoo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jo1MXYuyDI9/cIaonUOADyY1fh508oFpKFCMeh4RjuMpdp8gxiL9kAgecwzUdunsZ
- rtkhtAibZ4Z6ysJGWA4u9v0AdJS0msUcgP8umvRjBa1bEeqJJrVFo8xt6I/GsDpC22
- nPEjTUPwcPFRUO+JWtR7b9SWrMl15xSUSeaosWkE=
+ b=e6cdTWFYBgdlbPULirQ9m0K3ed/HgHO7J1o6x+xqjIpUvNJXWmgxA0QUAUPoF6AeH
+ lQkxSGMA+YGS0ApugAv11+A6HMNTH6202OE16Kzs8HxvJKwB19YNXApxUZg0pmQhYT
+ zM40Zfg4g827eawT7+Jc+xieiYv6bKFynbvT2V48=
 Received: from mchehab by mail.kernel.org with local (Exim 4.94)
  (envelope-from <mchehab@kernel.org>)
- id 1kXLdj-003FFi-Td; Tue, 27 Oct 2020 10:51:39 +0100
+ id 1kXLdj-003FFR-Md; Tue, 27 Oct 2020 10:51:39 +0100
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
  Jonathan Corbet <corbet@lwn.net>
-Subject: [PATCH v3 28/32] drm: amdgpu_dm: fix a typo
-Date: Tue, 27 Oct 2020 10:51:32 +0100
-Message-Id: <9de495fa791596609eb2e73ba71cea99e09b2689.1603791716.git.mchehab+huawei@kernel.org>
+Subject: [PATCH v3 22/32] drm: amdgpu: kernel-doc: update some adev parameters
+Date: Tue, 27 Oct 2020 10:51:26 +0100
+Message-Id: <5755c2b361890b8ae5cea0f61dfd70b1c135eefe.1603791716.git.mchehab+huawei@kernel.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <cover.1603791716.git.mchehab+huawei@kernel.org>
 References: <cover.1603791716.git.mchehab+huawei@kernel.org>
@@ -62,79 +62,249 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ dri-devel@lists.freedesktop.org, Luben Tuikov <luben.tuikov@amd.com>,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Alexander Monakov <amonakov@ispras.ru>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@linux.ie>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- hersen wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ Bernard Zhao <bernard@vivo.com>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ "Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+ Colton Lewis <colton.w.lewis@protonmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-	dm_comressor_info -> dm_compressor_info
+Running "make htmldocs: produce lots of warnings on those files:
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:177: warning: Excess function parameter 'p_size' description in 'amdgpu_vram_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:211: warning: Excess function parameter 'man' description in 'amdgpu_vram_mgr_fini'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:90: warning: Excess function parameter 'p_size' description in 'amdgpu_gtt_mgr_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c:134: warning: Excess function parameter 'man' description in 'amdgpu_gtt_mgr_fini'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
+	./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:675: warning: Excess function parameter 'dev' description in 'amdgpu_device_asic_init'
 
-The kernel-doc markup is right, but the struct itself
-and their references contain a typo.
+They're related to the repacement of some parameters by adev,
+and due to a few renamed parameters.
+
+While here, uniform the name of the parameter for it to be
+the same on all functions using a pointer to struct amdgpu_device.
+
+Update the kernel-doc documentation accordingly.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 28 ++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c  |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  7 +++--
+ 3 files changed, 20 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e2b23486ba4c..373b8481f76c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -583,7 +583,7 @@ static void amdgpu_dm_fbc_init(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
--	struct dm_comressor_info *compressor = &adev->dm.compressor;
-+	struct dm_compressor_info *compressor = &adev->dm.compressor;
- 	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(connector);
- 	struct drm_display_mode *mode;
- 	unsigned long max_size = 0;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 34f6369bf51f..a8a0e8cb1a11 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -86,7 +86,7 @@ struct irq_list_head {
-  * @bo_ptr: Pointer to the buffer object
-  * @gpu_addr: MMIO gpu addr
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 37da3537ba2e..641c039150eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -705,7 +705,7 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
+ /**
+  * amdgpu_invalid_rreg - dummy reg read function
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @reg: offset of register
+  *
+  * Dummy register read function.  Used for register blocks
+@@ -722,7 +722,7 @@ static uint32_t amdgpu_invalid_rreg(struct amdgpu_device *adev, uint32_t reg)
+ /**
+  * amdgpu_invalid_wreg - dummy reg write function
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @reg: offset of register
+  * @v: value to write to the register
+  *
+@@ -739,7 +739,7 @@ static void amdgpu_invalid_wreg(struct amdgpu_device *adev, uint32_t reg, uint32
+ /**
+  * amdgpu_invalid_rreg64 - dummy 64 bit reg read function
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @reg: offset of register
+  *
+  * Dummy register read function.  Used for register blocks
+@@ -756,7 +756,7 @@ static uint64_t amdgpu_invalid_rreg64(struct amdgpu_device *adev, uint32_t reg)
+ /**
+  * amdgpu_invalid_wreg64 - dummy reg write function
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @reg: offset of register
+  * @v: value to write to the register
+  *
+@@ -773,7 +773,7 @@ static void amdgpu_invalid_wreg64(struct amdgpu_device *adev, uint32_t reg, uint
+ /**
+  * amdgpu_block_invalid_rreg - dummy reg read function
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @block: offset of instance
+  * @reg: offset of register
+  *
+@@ -793,7 +793,7 @@ static uint32_t amdgpu_block_invalid_rreg(struct amdgpu_device *adev,
+ /**
+  * amdgpu_block_invalid_wreg - dummy reg write function
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @block: offset of instance
+  * @reg: offset of register
+  * @v: value to write to the register
+@@ -813,7 +813,7 @@ static void amdgpu_block_invalid_wreg(struct amdgpu_device *adev,
+ /**
+  * amdgpu_device_asic_init - Wrapper for atom asic_init
+  *
+- * @dev: drm_device pointer
++ * @adev: amdgpu_device pointer
+  *
+  * Does any asic specific work and then calls atom asic init.
   */
--struct dm_comressor_info {
-+struct dm_compressor_info {
- 	void *cpu_addr;
- 	struct amdgpu_bo *bo_ptr;
- 	uint64_t gpu_addr;
-@@ -148,7 +148,7 @@ struct amdgpu_dm_backlight_caps {
-  * @soc_bounding_box: SOC bounding box values provided by gpu_info FW
-  * @cached_state: Caches device atomic state for suspend/resume
-  * @cached_dc_state: Cached state of content streams
-- * @compressor: Frame buffer compression buffer. See &struct dm_comressor_info
-+ * @compressor: Frame buffer compression buffer. See &struct dm_compressor_info
-  * @force_timing_sync: set via debugfs. When set, indicates that all connected
-  *		       displays will be forced to synchronize.
+@@ -827,7 +827,7 @@ static int amdgpu_device_asic_init(struct amdgpu_device *adev)
+ /**
+  * amdgpu_device_vram_scratch_init - allocate the VRAM scratch page
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  *
+  * Allocates a scratch page of VRAM for use by various things in the
+  * driver.
+@@ -844,7 +844,7 @@ static int amdgpu_device_vram_scratch_init(struct amdgpu_device *adev)
+ /**
+  * amdgpu_device_vram_scratch_fini - Free the VRAM scratch page
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  *
+  * Frees the VRAM scratch page.
   */
-@@ -324,7 +324,7 @@ struct amdgpu_display_manager {
- 	struct drm_atomic_state *cached_state;
- 	struct dc_state *cached_dc_state;
- 
--	struct dm_comressor_info compressor;
-+	struct dm_compressor_info compressor;
- 
- 	const struct firmware *fw_dmcu;
- 	uint32_t dmcu_fw_version;
+@@ -3011,7 +3011,7 @@ bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type)
+ /**
+  * amdgpu_device_has_dc_support - check if dc is supported
+  *
+- * @adev: amdgpu_device_pointer
++ * @adev: amdgpu_device pointer
+  *
+  * Returns true for supported, false for not supported
+  */
+@@ -4045,7 +4045,7 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
+ /**
+  * amdgpu_device_reset_sriov - reset ASIC for SR-IOV vf
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @from_hypervisor: request from hypervisor
+  *
+  * do VF FLR and reinitialize Asic
+@@ -4100,7 +4100,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ /**
+  * amdgpu_device_has_job_running - check if there is any job in mirror list
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  *
+  * check if there is any job in mirror list
+  */
+@@ -4128,7 +4128,7 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev)
+ /**
+  * amdgpu_device_should_recover_gpu - check if we should try GPU recovery
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  *
+  * Check amdgpu_gpu_recovery and SRIOV status to see if we should try to recover
+  * a hung GPU.
+@@ -4477,7 +4477,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+ /**
+  * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+  *
+- * @adev: amdgpu device pointer
++ * @adev: amdgpu_device pointer
+  * @job: which job trigger hang
+  *
+  * Attempt to reset the GPU if it has hung (all asics).
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+index f203e4a6a3f2..731f3aa2e6ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+@@ -81,8 +81,8 @@ static const struct ttm_resource_manager_func amdgpu_gtt_mgr_func;
+ /**
+  * amdgpu_gtt_mgr_init - init GTT manager and DRM MM
+  *
+- * @man: TTM memory type manager
+- * @p_size: maximum size of GTT
++ * @adev: amdgpu_device pointer
++ * @gtt_size: maximum size of GTT
+  *
+  * Allocate and initialize the GTT manager.
+  */
+@@ -123,7 +123,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
+ /**
+  * amdgpu_gtt_mgr_fini - free and destroy GTT manager
+  *
+- * @man: TTM memory type manager
++ * @adev: amdgpu_device pointer
+  *
+  * Destroy and free the GTT manager, returns -EBUSY if ranges are still
+  * allocated inside it.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 01c1171afbe0..0c6b7c5ecfec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -168,8 +168,7 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func;
+ /**
+  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
+  *
+- * @man: TTM memory type manager
+- * @p_size: maximum size of VRAM
++ * @adev: amdgpu_device pointer
+  *
+  * Allocate and initialize the VRAM manager.
+  */
+@@ -199,7 +198,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ /**
+  * amdgpu_vram_mgr_fini - free and destroy VRAM manager
+  *
+- * @man: TTM memory type manager
++ * @adev: amdgpu_device pointer
+  *
+  * Destroy and free the VRAM manager, returns -EBUSY if ranges are still
+  * allocated inside it.
+@@ -229,7 +228,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+ /**
+  * amdgpu_vram_mgr_vis_size - Calculate visible node size
+  *
+- * @adev: amdgpu device structure
++ * @adev: amdgpu_device pointer
+  * @node: MM node structure
+  *
+  * Calculate how many bytes of the MM node are inside visible VRAM
 -- 
 2.26.2
 
