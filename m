@@ -1,4 +1,4 @@
-Return-Path: <SRS0=jB5Z=EB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=SqeI=EC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
@@ -7,47 +7,47 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2ADBC5DF9D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 23:56:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D575C4363A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 00:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7302C221FC
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2020 23:56:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3ACA420754
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 00:05:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="YJZhR0Ub"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7302C221FC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIqTwFaB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3ACA420754
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33DFB6EA9C;
-	Mon, 26 Oct 2020 23:56:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F366EA9C;
+	Tue, 27 Oct 2020 00:05:05 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A17876EA9C;
- Mon, 26 Oct 2020 23:56:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 574946EA9C;
+ Tue, 27 Oct 2020 00:05:04 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9967C20770;
- Mon, 26 Oct 2020 23:56:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 532162087C;
+ Tue, 27 Oct 2020 00:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603756581;
- bh=Tksrrd5nZCDgdYeDXvFTj2hLaruXIlWO1dXPfNuYV1A=;
+ s=default; t=1603757104;
+ bh=zW4vx8Z/ihWOBWx+tUKY5/hL3tuVa2QCgqmlbsp/0bI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YJZhR0UbOZqamjnuAx3/9oRGKmbN5uAd0JLogtrxFLLbAXFA7GDBBlNSg2REn5FDb
- 8sim67dTsdpDaOCeH4KjFIEViRlxTl8Ts+V76lVXY6pCHal1wrxQ/sDiJ9fXJKMpdJ
- FL9lg+RyJ/BO7WhIcNzhIsMtNi9vmjm7BL+lWQP4=
+ b=BIqTwFaBT9k6KIgq1gA/HUKrr9Z1yb8GkqpI0LaAHB0Q4IGwPIKsyQ1o7ZWR4VGed
+ 4pNN/aXnso91067K9YZnrnO/7yReFuC45CmeUiVNkg0JyYvqUGm6SmCy2SZeDgq6Dd
+ INNG7hq+a2aNkbW2cDZVQ8fE27jk9NGl+0fHwzFY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 54/80] drm/amd/display: HDMI remote sink need mode
- validation for Linux
-Date: Mon, 26 Oct 2020 19:54:50 -0400
-Message-Id: <20201026235516.1025100-54-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 41/60] drm/amd/display: HDMI remote sink need
+ mode validation for Linux
+Date: Mon, 26 Oct 2020 20:03:56 -0400
+Message-Id: <20201027000415.1026364-41-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201026235516.1025100-1-sashal@kernel.org>
-References: <20201026235516.1025100-1-sashal@kernel.org>
+In-Reply-To: <20201027000415.1026364-1-sashal@kernel.org>
+References: <20201027000415.1026364-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -100,10 +100,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 3efee7b3378a3..47cefc05fd3f5 100644
+index 2fb2c683ad54b..fa0e6c8e2447c 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2268,7 +2268,7 @@ enum dc_status dc_link_validate_mode_timing(
+@@ -2009,7 +2009,7 @@ enum dc_status dc_link_validate_mode_timing(
  	/* A hack to avoid failing any modes for EDID override feature on
  	 * topology change such as lower quality cable for DP or different dongle
  	 */
