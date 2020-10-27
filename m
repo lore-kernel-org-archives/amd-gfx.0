@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EBBFC4363A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:42:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B854C4363A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C67422265
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:42:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9DA4522265
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 09:42:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WBYHRl3y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C67422265
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QZv3pex1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DA4522265
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDF2A6EB42;
-	Tue, 27 Oct 2020 09:42:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 064CC6EB44;
+	Tue, 27 Oct 2020 09:42:18 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9B196EB42
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 09:42:12 +0000 (UTC)
+ (mail-mw2nam12on2082.outbound.protection.outlook.com [40.107.244.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84AA26EB43
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 09:42:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nmvm5aXojghZQAIgxdOVAzE3aLgSc2/Zq9+gonQSjYJGowe+JzEqiS6ytxHURBRppBoWsTiPQWYsEpqmG3srSN4ypsXw3H2udlFWx0MSZSvICAI0k+8vPF/dIdIDCcvysS9DcFT286fyMUyyunLikH2ycA6gNJAwicoqLXqoFUuvuvDMGrK8pQ417w9qgYSURzLeE/NbzlVB4Bj1SWuKbURpe00xk1HrlbcR+vvxOXgzOGo4N4NJuakETE32LPuH2guvahi+3zKBvavMVk+56a8RjOmDzwb8V4xDeRhZ8Cz5Jl1lUUuqYMOqedixge9EYzBzrhxLUyxzYJvVuQSmtw==
+ b=nJ3z4SWi8A446xK39tatYnDAVCwAT9XKa02y7WW2LJ/Ab05Sknu1nNlP8SuAuCeF2sjkAtyWa5bBo+KXCGTz694Msss2wHfhDkSCQAw/Q3t03pK5pOvcfOavCn5K9NZbqhE4vWbxT/VioY8EHUrdQVY8RM1pT3n5TFRj/zKmjyPHc9/DAoDU4FJ2MC2zdcXXWLPTwIgNQhF5N7JJB7RTDAzWKAFCFXlXsPomflNloh+h4uPYRhjIGZert05Ne3ZpRIpsd8qfEDTObK+aoaaenMh+MAW20FH2ECvM4on5oBGA9eiT3OxS7hf9xDvg7qkDZsjO9e8NAmniwHXlIp0CKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z2rUmDAFLslSXb10bjGXqethwxwQSDUeVnWIpe1Bx1o=;
- b=Ij6bY8iK6n/hOCLW0m7pUPkwUHdWokKHiQW5/P/JVNH1euOxcHIK+Ktjq8S4d9vGRQNNuRu6mSiemMTIzQ6Vo/I4PlNW9eMo8EzCD/7fCGV0Am9Pd2coxQDX2pD0U/E7LH1dkKZ8bMtaPRIf47Bc6ndV2tN7r3T8TLdDVtzFV3zeh2J6qppu2F3o670HmBugdDUCK1xOKTQxxyo6WyOeV4G9KJ0xq05mu4UePITkzNfuvalNPawKgO2JnWREKcQ15+I/gS9CgwxnNDaW7O3aWqMc5a7ceRtPZiMw7mux0WeIsP83qwkP5KZ2LCPyggeISQTshCrc+BhXWfNlxwHNGw==
+ bh=T6wdH14I8Oo8+k9vmHgHR7kqR0M9J9H7crhnhj7X3UY=;
+ b=AGJJ3KKg2Tz1umwTDfJXuO+cUehHjpN8jEK01qOy9SHB5NDgo3wvBVH3MMFtiaHpeqCtjg5zmjvDt6K+oTpCCswdRP/z0D42g2abG2iUQb+ReRvTjhE6Hb5j/5WfKsZWQHlVWDgdMhyxiwo5eTo6iAnK/dTmwX2LF9pLIuTcOa4xlV4MaotBHYQA52J6bq5MElO7jQ1ynrz1+do/SDVOQnf16wZGJ4SNA7KhSXvc8wDrN+sq/vbs2nD+BETj/lzcgYNTsVz8qP75XsN9q4wmKDhnY5E5xqOYNsST2rTHhvrq4W6lcljlGa8MavzUuppvzHxOdrVyT9KOuwG8OSLnAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z2rUmDAFLslSXb10bjGXqethwxwQSDUeVnWIpe1Bx1o=;
- b=WBYHRl3yjiomtTwC8TkwG0w+JRm1nQ98kgAV91XppYreCRgGWFXS2kA03qi8W3y5ZQ2L5TaTWJBsMnlBb8j8f/LPx7EUfjUTu5yozPXJ/r51Y/eWqoHgr0hUIzVrOUZ1sM6M8ZKB7cGKVbQE53oavg5UqOSmnbZBUlnNHKuuhTU=
+ bh=T6wdH14I8Oo8+k9vmHgHR7kqR0M9J9H7crhnhj7X3UY=;
+ b=QZv3pex129e3RjLSt4A9JmWPfWBECAxZh4KEV76s70Qct3+HbMc8jnjjupepXdsUoSEv4AAdR3cTROBXtRGbv1uyMRCMX4rshpJVaAfbfilNq1KR3qQ6KzxsB5OzeCUa+EkKwQcghT9gAk4O6QJmRRpe7NNM7313qcBjbK6mBOQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,17 @@ Received: from CY4PR12MB1639.namprd12.prod.outlook.com (2603:10b6:910:f::21)
  by CY4PR12MB1845.namprd12.prod.outlook.com (2603:10b6:903:126::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Tue, 27 Oct
- 2020 09:42:11 +0000
+ 2020 09:42:15 +0000
 Received: from CY4PR12MB1639.namprd12.prod.outlook.com
  ([fe80::fddd:995b:6708:e624]) by CY4PR12MB1639.namprd12.prod.outlook.com
  ([fe80::fddd:995b:6708:e624%7]) with mapi id 15.20.3477.028; Tue, 27 Oct 2020
- 09:42:11 +0000
+ 09:42:15 +0000
 From: Xiaojian Du <Xiaojian.Du@amd.com>
 To: amd-gfx@lists.freedesktop.org, ray.huang@amd.com, evan.quan@amd.com,
  Alexander.Deucher@amd.com, kevin1.wang@amd.com
-Subject: [PATCH 05/10] drm/amd/pm: update the smu v11.5 driver interface
- header for vangogh
-Date: Tue, 27 Oct 2020 17:41:28 +0800
-Message-Id: <20201027094133.21881-5-Xiaojian.Du@amd.com>
+Subject: [PATCH 06/10] drm/amd/pm: set the initial value of pm info to zero
+Date: Tue, 27 Oct 2020 17:41:29 +0800
+Message-Id: <20201027094133.21881-6-Xiaojian.Du@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201027094133.21881-1-Xiaojian.Du@amd.com>
 References: <20201027094133.21881-1-Xiaojian.Du@amd.com>
@@ -73,31 +72,31 @@ Received: from jenkins-System-Product-Name.amd.com (58.247.170.242) by
  HK2PR0401CA0010.apcprd04.prod.outlook.com (2603:1096:202:2::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18 via Frontend
- Transport; Tue, 27 Oct 2020 09:42:08 +0000
+ Transport; Tue, 27 Oct 2020 09:42:12 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a60b04a1-d779-4e27-0bfc-08d87a5c9424
+X-MS-Office365-Filtering-Correlation-Id: f53b4786-2c0f-46c6-138c-08d87a5c9671
 X-MS-TrafficTypeDiagnostic: CY4PR12MB1845:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB184561D79CFBA0CC7C585B6EF1160@CY4PR12MB1845.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1845368584AD9BF02CE97950F1160@CY4PR12MB1845.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: et0jLZdxaX7MA6p5q5FQRD6uqgiqangOK3vmTACdn52/gzksutt+JBZxA/R1E1AwKkNSUsUyFbUIRMvZVGcAWERySgTdQAlvk0zcP1LpzD2ftWUdwCMjIP+o2mTLXpHSX91dmk9EHRSDHhq2jK73JHrmGpK7G1AiFbNsA21NeocRyRm2aZY/Ol+c/JFxs7njBsicW+Z+u0PQLzPcOCjRpg0kFG0+LvTQpPq/P0EwqsbeDzAKgVq07MVNzDd/7UNLC8FC0qMf233Nz9zU6DyjMSJYOaKhoR7QGFXhdPeWBAae6UpFuLyaj7wWemZJ9pvCsgAJ2ua2UBW8NdraUut+vQ==
+X-Microsoft-Antispam-Message-Info: wT3ihLzFMpoDuMb6ec0i7AI3uVKprb95ndmzjtoJ5kyGJgB73WIDnIUvndvrTDkjyByvlnB6hiuNbNTKrGZFPmKFlVj7mAxYzZSzIDiCDLpCYuDo6PpTnj3zcAtSTXK6KYmXC4xQQBb3LolGG3qq48nU3w+7/oxxeb4WiY3q7Be0m4IlqmkGdISSlMI+pe+J19C6FkbWNndCzmUrXrahcIWer61AVG/qDW2sUh+qZfqxng0MCBawhgdYyie8wY3O2L3ZUSS6Gg3KiK8Eqb/s1Ghhc/k2cClOSYsvWUFjRNfJJAJ7jB1o1ZTPEx3A8QMWVQPOkBIUUkKNE/V1qzxNCQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1639.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(346002)(376002)(396003)(366004)(136003)(7696005)(16526019)(1076003)(52116002)(6486002)(15650500001)(8936002)(66476007)(4326008)(186003)(86362001)(8676002)(478600001)(316002)(6636002)(66946007)(2906002)(83380400001)(66556008)(2616005)(36756003)(26005)(6666004)(956004)(5660300002);
+ SFS:(4636009)(39860400002)(346002)(376002)(396003)(366004)(136003)(7696005)(16526019)(1076003)(52116002)(6486002)(8936002)(66476007)(4326008)(186003)(86362001)(8676002)(478600001)(316002)(6636002)(66946007)(2906002)(83380400001)(66556008)(2616005)(36756003)(26005)(6666004)(956004)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: uUPHQUgYPAETyPQUUIRsD4Rk0trmsCSgnQPHlwEZnIo7cPNbuPX6yZvvWZ/LxN55eTGuJjQ7Q5ojSzLfOSQlVBsHcTWL0MtlUKaqUqChY1g5RrAKgBoFnAMgoxqAjpWzfgWENKZ0lcx49MVA2RkfRPUnRkeWYZ70vmbSlC23MUZO+5Ml/DmfTHV/zMfwPqPUqN+l8JYqjtYqcYI3YZdjJHhULQiUxd7fuSEwoGQ27swq43Uc5RAasNPAcSUKfNuSrBm7CYl/igFUBfEunc82BKhLNMNVFRpW9w2bwMzlmYTe55+O2XIwM2x+ZgV0DxuOfykI4MH7YDgIyMHP/W7ORZpypTo8eBQftxDCSmRfRK+QliVaypo1a3Kq/j4yKlAQ0GkRtbs9TedMf5tS+iEjvbFetTBx6VXyzsREC09+WFbjRoPLNInlv0+VJuU8gjWUpqvZGsJvKrec5+HkT2BfSsbpE8p8rPI61+KwKhU5llM1vZiuJ03z14ZtXGMy3sDjQ0ss7Edc2NB+/yVoTRcggJ+Nrd7eleEqs8OYGFdHAFTARzFaWIpFVHCgpZZH47Nkr+OgVTjhUDGnpWVkk0CaBJC8i1f43vNdNqtkoE2fd4r1n0qgctqW7F8VRfnIJiHA1qa46KqBvQ/gZe77s90spA==
+X-MS-Exchange-AntiSpam-MessageData: mTZUOp+0HuHR84ofNsvtd0BkTWcox1WkKbJThlicm8dmbDNecawxIwlzAmDk7VmpSpRYzUwPx2wBekoU3TMExVtIPIE3oDnVvaUsTzf2t8RVWrgtbx1zFXa0g1KpfFSUGGt1F8A4F2cGRgJ6gu/yAjVTsdNHG15XQC1HO0uThFAlR40O25pv3hRcDMo5UjOEiAIkayLWzVZUKESbLLdbFaHPLCTxBUcrsLnF2AKt6+Z37jfCIkrYxpPabEUiP2uld/LM9OVL7nnuIIUYjNC/DKXOB1ayDIliOIv4JNoUHnuCK0YQWwlLynxpRQk0J0g3SULVzjtZMHdeIEgZEtaqTkjKU35CrI6WhHpvM3KvU765nZbn3d3H2iWkr1CIkxQMzeUMKoiYZMp/ijNbT/PP8VJjzr7xgeeVWYd7LexraRg/+5bAI/CiWwb5VsnvGBuSyd4Xl1Eqovi4NvRO7EsWPXmLkFrxIrQvfo01tXBHZqhlenoO8XLsHFSmaoGX2MGnv3xYoJuipDzKYZGeLVOYm8oD83Pc7QVAPYlgAYLUokjYGVCFqZerqpY94gyavQ5WWnFPH5ln0LT/eX8dMwUSa2x5BSelDKbdJYyABzgUQwkmw55IFZMCMiuo5Fna8A04UWz9vb/ZsomBbPhLjepgNA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a60b04a1-d779-4e27-0bfc-08d87a5c9424
+X-MS-Exchange-CrossTenant-Network-Message-Id: f53b4786-2c0f-46c6-138c-08d87a5c9671
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1639.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2020 09:42:11.7663 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2020 09:42:15.4667 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JFr98piJthqeGbNYPPDiGLRYdoEDZPHzWlsdAgnvGeWhbGqTNStF9OHs2SCEkLGPjOGQ1iqK1UyVRPVMC9NCfA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wrcclJIsm1umoJT0ntb1nPfRq1tshlMh5nQIdPV5BflUvctmYYeGI/gQlkShbhEC4/IOqfcjoJD0GAIBKRCUVg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1845
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,129 +116,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to update the smu v11.5 driver interface header for vangogh.
+This patch is to set the initial value of pm info to zero.
+The "value64" is ported to the hwmon and debugfs node, it is a uint64 type.
+When it is used for NV10/VEGA10/VEGA20, its word size is appropriate,
+because NV10/VEGA10/VEGA20 has a 64bit smu feature mask, which is separated to high 32bit and low 32bit.
+But some asic has only 32bit smu feature mask,and this 32bit mask will fill the low 32bit of "value64".
+So if this "value64" is not initialized to zero, the high 32bit will be
+filled by a meaningless value, when the whole "value64" is ported to the
+"SMC Feature Mask" in the "amdgpu_pm_info" on some specific asic, it
+will be a wrong value.
 
 Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
 Reviewed-by: Huang Rui <ray.huang@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/pm/inc/smu11_driver_if_vangogh.h  | 70 +++++++++----------
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  2 +-
- 2 files changed, 36 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
-index 20f8c6f460b8..8f438c80132e 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
-@@ -100,13 +100,13 @@ typedef struct {
-   DpmActivityMonitorCoeffExt_t DpmActivityMonitorCoeff[CUSTOM_DPM_SETTING_COUNT];
- } CustomDpmSettings_t;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 89632ee88ae2..080af05724ed 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3464,7 +3464,7 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
+ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *adev)
+ {
+ 	uint32_t value;
+-	uint64_t value64;
++	uint64_t value64 = 0;
+ 	uint32_t query = 0;
+ 	int size;
  
--#define NUM_DCFCLK_DPM_LEVELS 6
--#define NUM_DISPCLK_DPM_LEVELS 6
--#define NUM_DPPCLK_DPM_LEVELS 6
--#define NUM_SOCCLK_DPM_LEVELS 8
--#define NUM_ISPICLK_DPM_LEVELS 6
--#define NUM_ISPXCLK_DPM_LEVELS 6
--#define NUM_VCN_DPM_LEVELS 8
-+#define NUM_DCFCLK_DPM_LEVELS 7
-+#define NUM_DISPCLK_DPM_LEVELS 7
-+#define NUM_DPPCLK_DPM_LEVELS 7
-+#define NUM_SOCCLK_DPM_LEVELS 7
-+#define NUM_ISPICLK_DPM_LEVELS 7
-+#define NUM_ISPXCLK_DPM_LEVELS 7
-+#define NUM_VCN_DPM_LEVELS 5
- #define NUM_FCLK_DPM_LEVELS 4
- #define NUM_SOC_VOLTAGE_LEVELS 8
- 
-@@ -160,30 +160,30 @@ typedef struct {
- #define THROTTLER_STATUS_BIT_TDC_CVIP 10
- 
- typedef struct {
--  uint16_t AverageGfxclkFrequency; //[MHz]
--  uint16_t AverageSocclkFrequency; //[MHz]
--  uint16_t AverageVclkFrequency;   //[MHz]
--  uint16_t AverageDclkFrequency;   //[MHz]
--  uint16_t AverageMemclkFrequency; //[MHz]
-+  uint16_t GfxclkFrequency;      //[MHz]
-+  uint16_t SocclkFrequency;      //[MHz]
-+  uint16_t VclkFrequency;        //[MHz]
-+  uint16_t DclkFrequency;        //[MHz]
-+  uint16_t MemclkFrequency;      //[MHz]
-   uint16_t spare;
- 
--  uint16_t AverageGfxActivity; //[centi]
--  uint16_t AverageUvdActivity; //[centi]
-+  uint16_t GfxActivity;          //[centi]
-+  uint16_t UvdActivity;          //[centi]
- 
--  uint16_t Voltage[3];         //[mV] indices: VDDCR_VDD, VDDCR_SOC, VDDCR_GFX
--  uint16_t Current[3];         //[mA] indices: VDDCR_VDD, VDDCR_SOC, VDDCR_GFX
--  uint16_t Power[3];           //[mW] indices: VDDCR_VDD, VDDCR_SOC, VDDCR_GFX
--  uint16_t CurrentSocketPower; //[mW]
-+  uint16_t Voltage[3];           //[mV] indices: VDDCR_VDD, VDDCR_SOC, VDDCR_GFX
-+  uint16_t Current[3];           //[mA] indices: VDDCR_VDD, VDDCR_SOC, VDDCR_GFX
-+  uint16_t Power[3];             //[mW] indices: VDDCR_VDD, VDDCR_SOC, VDDCR_GFX
-+  uint16_t CurrentSocketPower;   //[mW]
- 
--  //3rd party tools in Windows need this info in the case of APUs
--  uint16_t CoreFrequency[8];   //[MHz]
--  uint16_t CorePower[8];       //[mW]
--  uint16_t CoreTemperature[8]; //[centi-Celsius]
--  uint16_t L3Frequency[2];     //[MHz]
--  uint16_t L3Temperature[2];   //[centi-Celsius]
-+  //3rd party tools in Windows need info in the case of APUs
-+  uint16_t CoreFrequency[8];     //[MHz]
-+  uint16_t CorePower[8];         //[mW]
-+  uint16_t CoreTemperature[8];   //[centi-Celsius]
-+  uint16_t L3Frequency[2];       //[MHz]
-+  uint16_t L3Temperature[2];     //[centi-Celsius]
- 
--  uint16_t GfxTemperature; //[centi-Celsius]
--  uint16_t SocTemperature; //[centi-Celsius]
-+  uint16_t GfxTemperature;       //[centi-Celsius]
-+  uint16_t SocTemperature;       //[centi-Celsius]
-   uint16_t EdgeTemperature;
-   uint16_t ThrottlerStatus;
- } SmuMetrics_t;
-@@ -197,15 +197,15 @@ typedef struct {
- #define WORKLOAD_PPLIB_CUSTOM_BIT 5
- #define WORKLOAD_PPLIB_COUNT 6
- 
--#define TABLE_BIOS_IF 0    // Called by BIOS
--#define TABLE_WATERMARKS 1 // Called by DAL through VBIOS
--#define TABLE_CUSTOM_DPM 2 // Called by Driver
--#define TABLE_SPARE1 3
--#define TABLE_DPMCLOCKS 4    // Called by Driver
--#define TABLE_MOMENTARY_PM 5 // Called by Tools
--#define TABLE_MODERN_STDBY 6 // Called by Tools for Modern Standby Log
--#define TABLE_SMU_METRICS 7  // Called by Driver
--#define TABLE_COUNT 8
-+#define TABLE_BIOS_IF            0 // Called by BIOS
-+#define TABLE_WATERMARKS         1 // Called by DAL through VBIOS
-+#define TABLE_CUSTOM_DPM         2 // Called by Driver
-+#define TABLE_SPARE1             3
-+#define TABLE_DPMCLOCKS          4 // Called by Driver
-+#define TABLE_SPARE2             5 // Called by Tools
-+#define TABLE_MODERN_STDBY       6 // Called by Tools for Modern Standby Log
-+#define TABLE_SMU_METRICS        7 // Called by Driver
-+#define TABLE_COUNT              8
- 
- //ISP tile definitions
- typedef enum {
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index b5f0cc7829f0..2efa0dd3719f 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -32,7 +32,7 @@
- #define SMU11_DRIVER_IF_VERSION_NV14 0x36
- #define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x3A
- #define SMU11_DRIVER_IF_VERSION_Navy_Flounder 0x5
--#define SMU11_DRIVER_IF_VERSION_VANGOGH 0x01
-+#define SMU11_DRIVER_IF_VERSION_VANGOGH 0x02
- #define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0x9
- 
- /* MP Apertures */
 -- 
 2.17.1
 
