@@ -2,107 +2,79 @@ Return-Path: <SRS0=SqeI=EC=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A1DEC64E8A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 15:27:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6CEAC4363A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 17:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B8497206F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 15:27:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 764D320657
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 17:29:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CpTHJXxh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8497206F4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RANYlVqx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 764D320657
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 038346EB94;
-	Tue, 27 Oct 2020 15:27:53 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468A86EB94
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 15:27:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oaw9H1EGAp6zBR6Cc0uZ34pPbXL5rWtwI7ZyrTZQ6YQXI71DwgP0NvnEJoHqKZEGKpo8te6tMx4BJxnzqZ+BgG5wh/apdbtY6R9eZNFS2xGXo2Ed7nLPo1E77V4bDFehJ2EJk4DRjIL77Wo+WbHVmOPA2iBD1OtqH7NsQ92iOxJP7GR76sjhlF6sNJpETbG0i3u4expbakjb48VxeRW869SPskDQydMOUy48k1XXqf9aPIw7pWxBRzw+niN79ru1fnI062izB9f66MXj4Wvkwgj2QZtfDyebFoJDcK9RgW/mfqAZT/RglcW0tGxZwo1B3fiY1ojtnLfy/Q2jkS9jmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nEiskY1pEPo8JAJxtupFMH/fkPkwhoSqXq25/udynI=;
- b=ELoDIOH4dRW2eK2aLmqBauE+LzLN0Zgouybaae1pA5a1muVwgwVifY+cMO2fme+X6ztD3LxblyUmtQpgcMuJWjEgFVfvk3/oJLlptvYE1HwCK2SHim5EM8s06narYrDtqunEGOYoAD11/HBnrr+7x+MhrBGEeQqmLysoJs+gHWIYmDBODrzf4J7idhW4JT/yfi0mYfK+DXOI5fPeASrzxSxIpOueglXYSnUQVtET+JjDVK2Dfk/Jh6EzICqIN+Ez+TbpL46jaXRhBPzoAm3ZpQkcH5LuUD6ENsCmq/e5S9cxofHhC/+5MaOO95w8EC4Wv5hOGEwyx4zre5ERrBr6Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nEiskY1pEPo8JAJxtupFMH/fkPkwhoSqXq25/udynI=;
- b=CpTHJXxhz0cTzpO73EKZhegULYLBVuGQieZMyczJNeGMo0SukNfEaxpluxjCZqDkGT5KUW3CGWGo23V9my6nN4Y+nb9NgG1ZtPdjR+bIXkE+kFc4sMHC7QcfkIrVn5tfoNNA/GrV4UsXgXDrPPlHPmGtAWaKcj/WOJ9tW86TlqI=
-Received: from MWHPR12MB1629.namprd12.prod.outlook.com (2603:10b6:301:3::23)
- by MW2PR12MB2475.namprd12.prod.outlook.com (2603:10b6:907:3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.22; Tue, 27 Oct
- 2020 15:27:49 +0000
-Received: from MWHPR12MB1629.namprd12.prod.outlook.com
- ([fe80::6160:11b1:2c80:b56e]) by MWHPR12MB1629.namprd12.prod.outlook.com
- ([fe80::6160:11b1:2c80:b56e%11]) with mapi id 15.20.3499.018; Tue, 27 Oct
- 2020 15:27:49 +0000
-From: "Abramov, Slava" <Slava.Abramov@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/display: re-add surface size calculation in
- dcn30_hwseq.c
-Thread-Topic: [PATCH] drm/amdgpu/display: re-add surface size calculation in
- dcn30_hwseq.c
-Thread-Index: AQHWq7MmSLG8n5A4PU6AOVnPkNVbuamrkeWAgAACBMM=
-Date: Tue, 27 Oct 2020 15:27:49 +0000
-Message-ID: <MWHPR12MB1629F72ECDD71E0C9B443CB2FE160@MWHPR12MB1629.namprd12.prod.outlook.com>
-References: <20201026161436.978310-1-alexander.deucher@amd.com>,
- <CADnq5_Me2LV2Rp-gLhzqqc76y8ddXnmfuVu66BYZbo48L0ZREQ@mail.gmail.com>
-In-Reply-To: <CADnq5_Me2LV2Rp-gLhzqqc76y8ddXnmfuVu66BYZbo48L0ZREQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-10-27T15:27:48.672Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [2607:9880:2f27:ffe4:adcc:36fc:ad8c:747f]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a70de9af-dad0-4b1e-2c3d-08d87a8cdce0
-x-ms-traffictypediagnostic: MW2PR12MB2475:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MW2PR12MB24758A002CB5856B805680EDFE160@MW2PR12MB2475.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1201;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lLdE1CqgpTGnCq20STCRfTDFOZlozVZApLakfHFc3DStpJzKOmkiOKBFsfTBCCZ3a0jB2brqa4Df64Qm6yp6GCG+KyxHbOrPsXHikhK7v6WUrW4jniX+Gd82hDl7UzD6zwZfxbJklaumdoEheeUNGrXEYDDzUkPM865WT2B897jLbrLhEZ3PlkpJHCvevI2PnT3oC4jC4/uA5Rvthmw4+wp5PpGZRKxecWpy1NcItWHdWAiuNaPmTy75SLDF28lfbkVRC+6kAYsG1LR5jxg42eaTzQKJOxjPHaRqoWgXv6S4/kS6Vzt1cRweB1dg2XPedKJClSANeDNeexw4nJduOoAFDujl6UwaIwom1GFWIR8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1629.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(52536014)(5660300002)(66476007)(71200400001)(186003)(19627405001)(110136005)(8936002)(66946007)(76116006)(86362001)(33656002)(4326008)(316002)(9686003)(91956017)(83380400001)(7696005)(53546011)(66556008)(478600001)(6506007)(8676002)(2906002)(66446008)(64756008)(166002)(45080400002)(55016002)(966005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: RjWygMywTj/qbSqD3pIsi6NGrAapZ5OtMI8pgbrDNCTS+nUiyHD6nZEYk3dRwmdz7mgd/GYZuy6gkRkeGm4V8dat9G46riP/VUs7ttXqey4zAzlS0X+K9EEyYShOV7RyQS/Hf+7F+NTCQP8Xr+RUwJUf7gnw/yvQgU4zn5WQBqFPn8ziSd0i9dNavq2ehfuWg4w83LSzLsSO3P0LQ9HazUkYvB72/aPpJmBkMLNlp2xC/HFzK116mWdqCQtOh5tHGGP0Vx8wnEYt0Y6qrjE+sViPUv2wb86LnXxpYvq0k15gKZe/pYq04cYB9EuGQXT6b2WDcnyfyDlH/HXnDSB2QPQmi2jI6lXCihaXLwEFIcH9PKHfwT+ccM+Go6hJnqL6Kitgi7gAOi/GNNMhO169Upm8i9+UyXXv1Z4qS507RmGhPrrZXlzIC/8ZCcq3sZkzxs/W3wNcb9xjbMO4+nMupZxGPc4UyjBfaq8FJu/B0rC/Xyk0GWb+lajIr4pEagPZ1Bfm69k+nnEfF67gRIBp49m1TTq/HBSgbJXiOeb3R6g+b8aloJB80dnoVvMbiJ55wrfXBJbyhxdmpBwSOWya4Kv+dHj16s+Jt0PjYdn/oSAGmF6VTxEX2fY2F6OqRXtbAPIJMICe370AZ6FDIRW5bt50rBcWMPn5oTWuYfrhCib0m3j5IraYIOOwyIcBLmulPgwbHB7sSuIsq+wcmle3XA==
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1629.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a70de9af-dad0-4b1e-2c3d-08d87a8cdce0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2020 15:27:49.2049 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bak7BymyH6qIaE7zWfxbP9cniYGxUy4FXMqRRAKYDrpM+mMnQvqCpWwA8+2SqpCr3N6gMZFkc4B/HmLj3ABERQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2475
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7FB16E0D9;
+	Tue, 27 Oct 2020 17:29:33 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9F816E1D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 16:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1603817002;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type;
+ bh=mj6uaiHROCag3uZJ/gHJroorYDnXKuN4EyYRFIYPu8Y=;
+ b=RANYlVqx9u8/qLxZJ/Ck6e2L6u++xD3Mm4AcnpwFnVJNQlHuRCYYD6+ElGHjGPSOAi1PU9
+ uDuwWFM0SzZ+0RhiNpFKgvpQmpUwc7845JMTiSXwwOR1l7LjUK1FPHWNuKpV1PrrThRsTo
+ uwebzizDBSmcPDDR41r8W8XhNJzl9zU=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-158-MKwocxfWOQqtWtmglF426w-1; Tue, 27 Oct 2020 12:43:14 -0400
+X-MC-Unique: MKwocxfWOQqtWtmglF426w-1
+Received: by mail-oi1-f199.google.com with SMTP id 65so942426oii.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 09:43:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=mj6uaiHROCag3uZJ/gHJroorYDnXKuN4EyYRFIYPu8Y=;
+ b=AbvvEfXnH/ahFEBlEdhgA6gLdl8Y9GJBNPoJZFzOR+m8RTT3Rky4I1Xu3PpBCaFuE+
+ PQUJwycpFZ64NxqvJ86BndrMzPkIHM5M9bghGeEpFH4N0g9UUIhgDxkv+IN2/R+PPoRV
+ Rm5PL/YoxiK629udjzsU587qvT9lQ5yghD7mqrk/ruOg2SCJHDc29n2Pf+ot5qgII1G1
+ ASAclMJ8/ZSOigxy+PO/ljndkBH0XenQY1wywcXQ1lmjBRLYZF4unrmajZq9gg5HIDdL
+ RJpsBm9tJC6oNE55/OXmhfH4QAWI9QqInrWAhwuadDGtaLrhUr/kaF2+mEih8npBECMz
+ 1SrQ==
+X-Gm-Message-State: AOAM5312TXa9XdrR6GYPZHUBJeVBMW22ZpyC1wlyI1pl3ij7FfOGRCfX
+ 4IWby/R46LHgtIPJMxM95x685/yTLznCxAcoE8Uv8nxzwoYwYRTwMZYizZtjAobGlXvAhki9sTz
+ CCB21X+Ei85PoBhkClFQLQwdVrQ==
+X-Received: by 2002:aca:ef03:: with SMTP id n3mr2048450oih.67.1603816993826;
+ Tue, 27 Oct 2020 09:43:13 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw7y1eCX7WfRNi9tkZnfLpiDio1qtG9FKTpwYlLMD9SlPYp6FIE57BquNUx5oTk2cs+UUc+WA==
+X-Received: by 2002:aca:ef03:: with SMTP id n3mr2048435oih.67.1603816993577;
+ Tue, 27 Oct 2020 09:43:13 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id l89sm90968otc.6.2020.10.27.09.43.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2020 09:43:12 -0700 (PDT)
+From: trix@redhat.com
+To: linux-kernel@vger.kernel.org,
+	clang-built-linux@googlegroups.com
+Subject: Subject: [RFC] clang tooling cleanups
+Date: Tue, 27 Oct 2020 09:42:55 -0700
+Message-Id: <20201027164255.1573301-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.1
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Mailman-Approved-At: Tue, 27 Oct 2020 17:29:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,275 +86,172 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: multipart/mixed; boundary="===============1886840252=="
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ linux-iio@vger.kernel.org,
+ =?UTF-8?q?=EF=BB=BFFrom=20=3A=20Tom=20Rix?= <trix@redhat.com>,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-rtc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, qat-linux@intel.com,
+ amd-gfx@lists.freedesktop.org, linux-pm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-nfs@vger.kernel.org, netdev@vger.kernel.org, linux-mmc@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1886840252==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB1629F72ECDD71E0C9B443CB2FE160MWHPR12MB1629namp_"
+This rfc will describe
+An upcoming treewide cleanup.
+How clang tooling was used to programatically do the clean up.
+Solicit opinions on how to generally use clang tooling.
 
---_000_MWHPR12MB1629F72ECDD71E0C9B443CB2FE160MWHPR12MB1629namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+The clang warning -Wextra-semi-stmt produces about 10k warnings.
+Reviewing these, a subset of semicolon after a switch looks safe to
+fix all the time.  An example problem
 
-[AMD Official Use Only - Internal Distribution Only]
+void foo(int a) {
+     switch(a) {
+     	       case 1:
+	       ...
+     }; <--- extra semicolon
+}
 
-Looks sane to me.
+Treewide, there are about 100 problems in 50 files for x86_64 allyesconfig.
+These fixes will be the upcoming cleanup.
 
-Acked-by: Slava Abramov <slava.abramov@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
-cher <alexdeucher@gmail.com>
-Sent: Tuesday, October 27, 2020 11:20 AM
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/display: re-add surface size calculation in=
- dcn30_hwseq.c
+clang already supports fixing this problem. Add to your command line
 
-Ping?
+  clang -c -Wextra-semi-stmt -Xclang -fixit foo.c
 
-On Mon, Oct 26, 2020 at 12:14 PM Alex Deucher <alexdeucher@gmail.com> wrote=
-:
->
-> This is required for MALL.  Was accidently removed in PRS update.
->
-> Fixes: 48e48e598478 ("drm/amd/display: Disable idle optimization when PSR=
- is enabled")
-> Fixes: 52f2e83e2fe5 ("drm/amdgpu/display: add MALL support (v2)")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  .../gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers=
-/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> index f3ae208850b0..cc2eca8c9a62 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> @@ -715,6 +715,21 @@ bool dcn30_apply_idle_power_optimizations(struct dc =
-*dc, bool enable)
->                                         break;
->                         }
->
-> +                       if (dc->current_state->stream_count =3D=3D 1 // s=
-ingle display only
-> +                           && dc->current_state->stream_status[0].plane_=
-count =3D=3D 1 // single surface only
-> +                           && dc->current_state->stream_status[0].plane_=
-states[0]->address.page_table_base.quad_part =3D=3D 0 // no VM
-> +                           // Only 8 and 16 bit formats
-> +                           && dc->current_state->stream_status[0].plane_=
-states[0]->format <=3D SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F
-> +                           && dc->current_state->stream_status[0].plane_=
-states[0]->format >=3D SURFACE_PIXEL_FORMAT_GRPH_ARGB8888) {
-> +                               surface_size =3D dc->current_state->strea=
-m_status[0].plane_states[0]->plane_size.surface_pitch *
-> +                                       dc->current_state->stream_status[=
-0].plane_states[0]->plane_size.surface_size.height *
-> +                                       (dc->current_state->stream_status=
-[0].plane_states[0]->format >=3D SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616 ?
-> +                                        8 : 4);
-> +                       } else {
-> +                               // TODO: remove hard code size
-> +                               surface_size =3D 128 * 1024 * 1024;
-> +                       }
-> +
->                         // TODO: remove hard code size
->                         if (surface_size < 128 * 1024 * 1024) {
->                                 refresh_hz =3D div_u64((unsigned long lon=
-g) dc->current_state->streams[0]->timing.pix_clk_100hz *
-> --
-> 2.25.4
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Cslava.ab=
-ramov%40amd.com%7Ce1c9b8c00a2e4a54ca2608d87a8bd178%7C3dd8961fe4884e608e11a8=
-2d994e183d%7C0%7C0%7C637394088245930973%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4=
-wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=3D=
-kRMXUEm5Y%2BkYhwBNWUrH6mm8dRYARwXjgXy%2BET4%2BaPk%3D&amp;reserved=3D0
+  foo.c:8:3: warning: empty expression statement has no effect;
+    remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
+        };
+         ^
+  foo.c:8:3: note: FIX-IT applied suggested code changes
+  1 warning generated.
 
---_000_MWHPR12MB1629F72ECDD71E0C9B443CB2FE160MWHPR12MB1629namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+The big problem is using this treewide is it will fix all 10k problems.
+10k changes to analyze and upstream is not practical.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-Looks sane to me.</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-Acked-by: Slava Abramov &lt;slava.abramov@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
-gmail.com&gt;<br>
-<b>Sent:</b> Tuesday, October 27, 2020 11:20 AM<br>
-<b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/display: re-add surface size calcula=
-tion in dcn30_hwseq.c</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ping?<br>
-<br>
-On Mon, Oct 26, 2020 at 12:14 PM Alex Deucher &lt;alexdeucher@gmail.com&gt;=
- wrote:<br>
-&gt;<br>
-&gt; This is required for MALL.&nbsp; Was accidently removed in PRS update.=
-<br>
-&gt;<br>
-&gt; Fixes: 48e48e598478 (&quot;drm/amd/display: Disable idle optimization =
-when PSR is enabled&quot;)<br>
-&gt; Fixes: 52f2e83e2fe5 (&quot;drm/amdgpu/display: add MALL support (v2)&q=
-uot;)<br>
-&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; .../gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c&nbsp;&nbsp;&nbsp;=
- | 15 +++++++++++++++<br>
-&gt;&nbsp; 1 file changed, 15 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/driv=
-ers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c<br>
-&gt; index f3ae208850b0..cc2eca8c9a62 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c<br>
-&gt; @@ -715,6 +715,21 @@ bool dcn30_apply_idle_power_optimizations(struct =
-dc *dc, bool enable)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }=
-<br>
-&gt;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc-&gt;=
-current_state-&gt;stream_count =3D=3D 1 // single display only<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; &amp;&amp; dc-&gt;current_state-&gt;stream_status[0].plane_cou=
-nt =3D=3D 1 // single surface only<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; &amp;&amp; dc-&gt;current_state-&gt;stream_status[0].plane_sta=
-tes[0]-&gt;address.page_table_base.quad_part =3D=3D 0 // no VM<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; // Only 8 and 16 bit formats<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; &amp;&amp; dc-&gt;current_state-&gt;stream_status[0].plane_sta=
-tes[0]-&gt;format &lt;=3D SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; &amp;&amp; dc-&gt;current_state-&gt;stream_status[0].plane_sta=
-tes[0]-&gt;format &gt;=3D SURFACE_PIXEL_FORMAT_GRPH_ARGB8888) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; surface_size =3D dc-&gt;current_state-=
-&gt;stream_status[0].plane_states[0]-&gt;plane_size.surface_pitch *<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; dc-&gt;current_state-&gt;stream_status[0].plane_states[0]-&gt;pla=
-ne_size.surface_size.height *<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; (dc-&gt;current_state-&gt;stream_status[0].plane_states[0]-&gt;fo=
-rmat &gt;=3D SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616 ?<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; 8 : 4);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br=
->
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // TODO: remove hard code size<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; surface_size =3D 128 * 1024 * 1024;<br=
->
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; +<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /=
-/ TODO: remove hard code size<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i=
-f (surface_size &lt; 128 * 1024 * 1024) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; refresh_hz =3D div_u64((unsi=
-gned long long) dc-&gt;current_state-&gt;streams[0]-&gt;timing.pix_clk_100h=
-z *<br>
-&gt; --<br>
-&gt; 2.25.4<br>
-&gt;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Cslava.abramov%40amd.com%7Ce1c9b8c00a2e4a54ca2608d87a8bd178%7C3dd8961=
-fe4884e608e11a82d994e183d%7C0%7C0%7C637394088245930973%7CUnknown%7CTWFpbGZs=
-b3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C10=
-00&amp;amp;sdata=3DkRMXUEm5Y%2BkYhwBNWUrH6mm8dRYARwXjgXy%2BET4%2BaPk%3D&amp=
-;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dht=
-tps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;da=
-ta=3D04%7C01%7Cslava.abramov%40amd.com%7Ce1c9b8c00a2e4a54ca2608d87a8bd178%7=
-C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637394088245930973%7CUnknown%7C=
-TWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0=
-%3D%7C1000&amp;amp;sdata=3DkRMXUEm5Y%2BkYhwBNWUrH6mm8dRYARwXjgXy%2BET4%2BaP=
-k%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+Another problem is the generic fixer only removes the semicolon.
+So empty lines with some tabs need to be manually cleaned.
 
---_000_MWHPR12MB1629F72ECDD71E0C9B443CB2FE160MWHPR12MB1629namp_--
+What is needed is a more precise fixer.
 
---===============1886840252==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Enter clang-tidy.
+https://clang.llvm.org/extra/clang-tidy/
+
+Already part of the static checker infrastructure, invoke on the clang
+build with
+  make clang-tidy
+
+It is only a matter of coding up a specific checker for the cleanup.
+Upstream this is review is happening here
+https://reviews.llvm.org/D90180
+
+The development of a checker/fixer is
+Start with a reproducer
+
+void foo (int a) {
+  switch (a) {};
+}
+
+Generate the abstract syntax tree (AST)
+
+  clang -Xclang -ast-dump foo.c
+
+`-FunctionDecl 
+  |-ParmVarDecl 
+  `-CompoundStmt 
+    |-SwitchStmt 
+    | |-ImplicitCastExpr
+    | | `-DeclRefExpr
+    | `-CompoundStmt
+    `-NullStmt
+
+Write a matcher to get you most of the way
+
+void SwitchSemiCheck::registerMatchers(MatchFinder *Finder) {
+  Finder->addMatcher(
+      compoundStmt(has(switchStmt().bind("switch"))).bind("comp"), this);
+}
+
+The 'bind' method is important, it allows a string to be associated
+with a node in the AST.  In this case these are
+
+`-FunctionDecl 
+  |-ParmVarDecl 
+  `-CompoundStmt <-------- comp
+    |-SwitchStmt <-------- switch
+    | |-ImplicitCastExpr
+    | | `-DeclRefExpr
+    | `-CompoundStmt
+    `-NullStmt
+
+When a match is made the 'check' method will be called.
+
+  void SwitchSemiCheck::check(const MatchFinder::MatchResult &Result) {
+    auto *C = Result.Nodes.getNodeAs<CompoundStmt>("comp");
+    auto *S = Result.Nodes.getNodeAs<SwitchStmt>("switch");
+
+This is where the string in the bind calls are changed to nodes
+
+`-FunctionDecl 
+  |-ParmVarDecl 
+  `-CompoundStmt <-------- comp, C
+    |-SwitchStmt <-------- switch, S
+    | |-ImplicitCastExpr
+    | | `-DeclRefExpr
+    | `-CompoundStmt
+    `-NullStmt <---------- looking for N
+
+And then more logic to find the NullStmt
+
+  auto Current = C->body_begin();
+  auto Next = Current;
+  Next++;
+  while (Next != C->body_end()) {
+    if (*Current == S) {
+      if (const auto *N = dyn_cast<NullStmt>(*Next)) {
+
+When it is found, a warning is printed and a FixItHint is proposed.
+
+  auto H = FixItHint::CreateReplacement(
+    SourceRange(S->getBody()->getEndLoc(), N->getSemiLoc()), "}");
+  diag(N->getSemiLoc(), "unneeded semicolon") << H;
+
+This fixit replaces from the end of switch to the semicolon with a
+'}'.  Because the end of the switch is '}' this has the effect of
+removing all the whitespace as well as the semicolon.
+
+Because of the checker's placement in clang-tidy existing linuxkernel
+checkers, all that was needed to fix the tree was to add a '-fix'to the
+build's clang-tidy call.
+
+I am looking for opinions on what we want to do specifically with
+cleanups and generally about other source-to-source programmatic
+changes to the code base.
+
+For cleanups, I think we need a new toplevel target
+
+clang-tidy-fix
+
+And an explicit list of fixers that have a very high (100%?) fix rate.
+
+Ideally a bot should make the changes, but a bot could also nag folks.
+Is there interest in a bot making the changes? Does one already exist?
+
+The general source-to-source is a bit blue sky.  Ex/ could automagicly
+refactor api, outline similar cut-n-pasted functions etc. Anything on
+someone's wishlist you want to try out ?
+
+Signed-off-by: Tom Rix <trix@redhat.com>
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1886840252==--
