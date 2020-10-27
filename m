@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DE5EC56201
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 20:53:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE8DCC55178
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 20:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9383218AC
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 20:53:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3ABEE218AC
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2020 20:53:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yHHtSRRl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9383218AC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="d7rJUr03"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3ABEE218AC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 812226EC59;
-	Tue, 27 Oct 2020 20:53:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54F06EC5B;
+	Tue, 27 Oct 2020 20:53:02 +0000 (UTC)
 Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700077.outbound.protection.outlook.com [40.107.70.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85A2F6EC57
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 20:52:58 +0000 (UTC)
+ (mail-eopbgr700069.outbound.protection.outlook.com [40.107.70.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 676B66EC55
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2020 20:52:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z6jvvIzsVXYhJuk6S6qpskm1mpDWeFoOIQ0USrkNo34VwYIu/JTqQg4EDGQFDehIjr4Ov/PJdUKYdv+QUs+M/4I4OSGtlRsR0/3VYWvpMHMw8VdHOXlovc9PmwwkOwzAwesAZ0r/0cM64AvKAvgIfptzn0L69l6UuPWWE4lb5OxGJdna6wAS3pkUAyL5WxjnV7gyckOMTlbKRMVyXx1A3reGRU32bBHciHV2PgZPOUT/G2kxBwsLf0thbGZxT6MtIt3mRbgReFsArXtRrIB/z4fR6xBhHQA8np6rQxd0s9gsKEQsIZpHAvLH81xf5hw5hPaQfum+6bEfC+AT4R+z3Q==
+ b=Suv8C5CroFtZxkTJ9NCaWk2d7vtcHDzlxsH8Itm+LlOTOiv4N4MQFGyj6tArNX5MBcCQvdCK0nvCSZnwZkag9qZOY0pLyeBDdAFPF8U5NHW76dicSrrMHQ9LGE5ZpfejZSnRmiKB1CcC0OLSuaucQaNsNudkY2eZJyzCuq88E1B/RGb64+Sit1wtZeD3u34KwhN5O/82a0qDAdNd5PYzIWhpGmeqxZod3yRPHhw0G9BGrhzK6URcUwPKuFlGPW7j1tz2QXHaopGqOqeww3mgHHe6xjAv8MQrYgqdtBdYoQU8sMBNmg0qvT/bD2ahCk/x87AeuWCn03OhJzRPZEFMTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SJ7Ysz1RjnWrYxRZMcAFTY6dxJE69suYMpJs2HrFxrc=;
- b=h1iVBdcgYVwcw8L+IxW0YYNOW7dJgY7LZjGnkXEaCQIsa6tS9IkRvdfbycC19zEJlD2bbFW3Ato2bRlg5exYyhOEzdPYO3UNsq6En3UeJQVWnbDsKUJCVEvaH/Vps507DyCLwEEbwCHCHy4A77Ccun7w1AX7sKE5sPAdW+o4qMiaXedmgAs8txdNbcPqX2IldOqaDw30eoTam8DBH/JkYQRxjegMujPQUIfUhTo7sltCUMzShKBLSqL14ycaMn5ZGQLNxsipRke+8Ek8bbcg08ndPIjyGVgoW8bf6jbAVS0ihRUn8a4YOtErDfD9i67tSzkmhNJ4+iYJ/IOhKJCkjA==
+ bh=kZn4FW9gJV/xGuRWVZGS+2pQsI+HHKpQGkdEkP0YMrM=;
+ b=Z7Ed6D+AI8uWFJZqZWN/e+kpjyXzFtXo9zFHsr5fULIzIeTn0I6tAFfWwko5sQttdLO/WTOuOzNhw9efid9/aGv7sgn4wyHDpxriTTip9Ktu/OaRjxvxe2mkcrkCAtmjsLGJaxx1e+ytZraCAC2LHfAd8zdKLWVjJ1dVlNld853FB403enDi1kXmFhqzf4gwzwPUjpRQJbag+RR+H5SA4EmZDCnzzzvprpAE3+pJBqCJS6yMKkX6+IUDMSnwfPZ09qHV5XpvRc4bexDTQiv0yuWU6bphxXIXbiGtuF+MsopM+BXfQZO5aUQVqUFtB/TBYJT4vmB/es5YZ+oc3ou1TA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SJ7Ysz1RjnWrYxRZMcAFTY6dxJE69suYMpJs2HrFxrc=;
- b=yHHtSRRlN7qbwvRXC8OdJg5OnHf23UgIIefQIiwlh9hbcpWM5rhVdCP2rEOH5agMcwhGHPS5edCddEnNZngKsFM/lTqXZo8qSfyB1ToHnIfnOZLkaHHe0htrlt1yi99hGDptT+O7DrrKg+pp30kKG2xr/iVxVT2xx2CgJUewNYI=
+ bh=kZn4FW9gJV/xGuRWVZGS+2pQsI+HHKpQGkdEkP0YMrM=;
+ b=d7rJUr03mrPMN4/zPZ3luKzC48zr0/DSvdILY6D8fnROPD77Euncx3aChTgM6w9c4PJFpB3qBHGtSta7aTvH8VZZqVEsxWeEUezSZWODc/HdudL8N2eHvnbN88vq/auio+r6h7+0dp7QZvFVZO2DYZw9yjW2T6jjdBLbWmUXI0A=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,16 @@ Received: from DM5PR12MB1884.namprd12.prod.outlook.com (2603:10b6:3:10d::12)
  by DM6PR12MB3595.namprd12.prod.outlook.com (2603:10b6:5:118::29) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Tue, 27 Oct
- 2020 20:52:56 +0000
+ 2020 20:52:55 +0000
 Received: from DM5PR12MB1884.namprd12.prod.outlook.com
  ([fe80::a82c:a1d:81ad:42f7]) by DM5PR12MB1884.namprd12.prod.outlook.com
  ([fe80::a82c:a1d:81ad:42f7%3]) with mapi id 15.20.3477.028; Tue, 27 Oct 2020
- 20:52:56 +0000
+ 20:52:55 +0000
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/25] drm/amd/display: stop top_mgr when type change to
- non-MST during s3
-Date: Tue, 27 Oct 2020 16:52:16 -0400
-Message-Id: <20201027205234.8239-8-qingqing.zhuo@amd.com>
+Subject: [PATCH 06/25] drm/amd/display: [FW Promotion] Release 0.0.39
+Date: Tue, 27 Oct 2020 16:52:15 -0400
+Message-Id: <20201027205234.8239-7-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201027205234.8239-1-qingqing.zhuo@amd.com>
 References: <20201027205234.8239-1-qingqing.zhuo@amd.com>
@@ -71,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.55.250) by
  YT1PR01CA0099.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18 via Frontend Transport; Tue, 27 Oct 2020 20:52:49 +0000
+ 15.20.3499.18 via Frontend Transport; Tue, 27 Oct 2020 20:52:48 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 96342b22-e5d7-4c8f-a2bc-08d87aba4400
+X-MS-Office365-Filtering-Correlation-Id: a0312edb-684d-462d-05c1-08d87aba439f
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3595:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB35954D3680A764172C08EEA7FB160@DM6PR12MB3595.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3595F92671195D993EAE752CFB160@DM6PR12MB3595.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:296;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 86yoHYeTinj4FWbHEM1nKsK6tkIyXh6HXi2sx5k5ClMzIJZXn3SsDwsOb9n6RyWzBuhAbrXAAs1m3d9k8qymY8Pp0nHUz8owAlKselRRlqdZ9bykBZDbDdm8YANQ97WLSMzvN+LcTL2vsVDV2y2RytitR4rsxNylx+hvaMWVB0xF366gVUOVyMka+c4ZSI3ikf1tkoXPwsFcu3wmynBl3I5W1ugN+VbaUnASRRiqhE7Ks9jBIpPLTLEy72NBuAVgPRAeDDhPjYXMFrIGsI3eYwvuCTmgxICx727KwAKgqBZ8vvCanein80xUzlCcPVCwdBb/UwdHS2GbS+a9sV5RUGlT1p8ID2JJONQjc15U/YLjmyExKXWetitiIIbiKMoU
+X-Microsoft-Antispam-Message-Info: zOeu2J2HAG6diAInsIca8C8be0c/jm+YW+pEjHBTEdkP5V0KyEcHtzn+4HIjiTPi/Qk/HyRrlD03TPzZSXvmihQ/+kuh9sys+RDPJrvE55wwh5X0m7opSlKgYT694azYHMHdUxeLnS4QoDLBlgT7cd+xD6eRszKz1dYt22IlIw/YvEsbNsyMAD6tMpTQCN5LxXIgRZGju6qsrNN9EkVcJrq0JSoJfC9PHoUygyen0h4DJ/cltTC+Q/phVhUXea1wEXjvh3+cDzIyv4CYGmfPcHCE3De+3oys6TXWULJ++xVLaaLGSQWM9jxS9z+3v9E9EMAjA2A8esSd2iLQAt+HgeNwKivjf6Ky6jKZgFnqv23mTs99hBR729FOFTOnBAyV
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR12MB1884.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(6486002)(6506007)(2906002)(26005)(66556008)(16526019)(186003)(6666004)(2616005)(6916009)(52116002)(956004)(66946007)(316002)(1076003)(69590400008)(44832011)(8676002)(478600001)(66476007)(5660300002)(4326008)(86362001)(36756003)(6512007)(8936002)(83380400001);
+ SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(6486002)(6506007)(2906002)(26005)(66556008)(16526019)(186003)(6666004)(2616005)(6916009)(52116002)(956004)(4744005)(66946007)(316002)(1076003)(69590400008)(44832011)(8676002)(478600001)(66476007)(5660300002)(4326008)(86362001)(36756003)(6512007)(8936002)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 56OODmKn03U6OMtb28wzIcxgyLhCQMA+P8UTjGSi6eXOeDUlolCO2beBl2iB+L9R8ZC52+2IkZki0f9MxhusmJLJ6r/SeD9c6QfYS56AF9IyvvmpkYjO5EcLyjDmDoe+Ot3tdaT5uIS27QREPT2Rc98IaEChdJdBkVgbaAAFSAJGUmL42vQFeYg/5sxFfbp5DQN4NHkh34E+h/+8HBrJz5EcjfTkw32EP0sSefGXXdwVnORYhQK5TRFv23HSe3PqCW4NM7ubIXwP1d0Db0Vej+zQ9zVBlnonHXMO2UYHa3CMdJCCgE9FRWwIQ0L1ui7hJA3RCbEi0uq7G+Joe8zUKslWIwsIDNJQebwvm7cjWCDCsPL37lJru5hsBTjTqobmjyxeJvbzA+CpaelSTE66gFI3NCditMZgZIuId+TlSTT2EBGQL9RnZBrRUdO1Ch83zjyAfIFfWV74ZB7HtSMeVhddjJMXabY58dEJ4XxKLfSg8/1QzRYyU+scgPJkgZMK5i3fW/maXCy2UzimXk0f3amJKYQC9XbQk0jDHgPJt63APdYWVFRMOrvvh9bs3hMJOhjwxq9XV5fcW0/nltaN/za4yGojKAfXbvSZ8vAYj638fN6jECQXfElaC0zE+qzIx5oiEq3QmHssYBGxX+f4qA==
+X-MS-Exchange-AntiSpam-MessageData: jJq7ofyHBLtD9vZDzqlglPjvIeypuD09o4XmS8TUerRTSSRqYf6zfUTwqvwZbreLFGUgf9jtqD/0BrAq4ppjsGgtqoNPJFucyTcZFNzYu+oobiYlKp2megvr30h/x1CdLsFO3T08570/1hDPvlQ3Es0tVn2ptcFFe5MrPVaHS0EmnL5cLle8JmpPizddjMpwAZOMipbz69uNuFah+grLWcFD7o7RJKJC/OmwCSJxCnWtgs6uV4uX/RW8d5yU1sEtJRcpjzptwttbkSb7ljNnmUsAMobV7vJdq9GP5d3yNnKA4RZ/CBDhOG8JcAJ6hs2a1neMLRuxEVH8I01fVz8B0kzPBXZv4hTDjBOXsqJDn0gJp0TYBaJM7pJEDdIZ8F/5TkQHqG9ZhR4dsBlULJ0U6R4R7mC4zjATw1VMr81olODFD+nNc4KZ+n5g+36bgLOM9V823tisC/hUPWwKAujTEtxfyaCTg4dO+0qaTqSBY992kPO8kseP8s00gQkmvkixh1z6azSDSpCg8r48GCPoSGYrR6y1ndrSse2hnWFy9Kwja/WYWl9sLwhXIR4RGmktW8k6sczLu09Ckh4ow26yG5LSZFPSHJ+s7BU9JLkf8kgP2n3qgOfcHBtNPMmuUZUui9tqgk81DXvM3tsoWKnOaw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96342b22-e5d7-4c8f-a2bc-08d87aba4400
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0312edb-684d-462d-05c1-08d87aba439f
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1884.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2020 20:52:49.7782 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2020 20:52:49.2255 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O2Zhp7n6fWqnIOCP6RNaBrw27ZBNBk1QgWChxq3nl1Hj83iFFfyYA9rbgmMKRFD0
+X-MS-Exchange-CrossTenant-UserPrincipalName: AKrqmcsjzxKRuGo2HKNHYPdJaljZ418F9W8nqfQje19Jdvp6mEEq4NZkiEZFAERw
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3595
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,64 +107,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lewis Huang <Lewis.Huang@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Bhawanpreet.Lakha@amd.com
+Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com,
+ Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lewis Huang <Lewis.Huang@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
-[Why]
-Driver keeps the invalid information cause report the
-incorrect monitor which save in remote sink to OS
-
-[How]
-When connector type change from MST to non-MST,
-stop the topology manager.
-
-Signed-off-by: Lewis Huang <Lewis.Huang@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 5652a072d9be..4dfa70c0301b 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -854,6 +854,7 @@ static bool dc_link_detect_helper(struct dc_link *link,
- 	struct dpcd_caps prev_dpcd_caps;
- 	bool same_dpcd = true;
- 	enum dc_connection_type new_connection_type = dc_connection_none;
-+	enum dc_connection_type pre_connection_type = dc_connection_none;
- 	bool perform_dp_seamless_boot = false;
- 	const uint32_t post_oui_delay = 30; // 30ms
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index a4c3f078887d..221bb2d65c1c 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -36,10 +36,10 @@
  
-@@ -889,6 +890,7 @@ static bool dc_link_detect_helper(struct dc_link *link,
- 
- 	link_disconnect_sink(link);
- 	if (new_connection_type != dc_connection_none) {
-+		pre_connection_type = link->type;
- 		link->type = new_connection_type;
- 		link->link_state_valid = false;
- 
-@@ -962,6 +964,12 @@ static bool dc_link_detect_helper(struct dc_link *link,
- 				return true;
- 			}
- 
-+			// link switch from MST to non-MST stop topology manager
-+			if (pre_connection_type == dc_connection_mst_branch &&
-+				link->type != dc_connection_mst_branch) {
-+				dm_helpers_dp_mst_stop_top_mgr(link->ctx, link);
-+			}
-+
- 			if (link->type == dc_connection_mst_branch) {
- 				LINK_INFO("link=%d, mst branch is now Connected\n",
- 					  link->link_index);
+ /* Firmware versioning. */
+ #ifdef DMUB_EXPOSE_VERSION
+-#define DMUB_FW_VERSION_GIT_HASH 0x8aafc9acc
++#define DMUB_FW_VERSION_GIT_HASH 0x26ad601d9
+ #define DMUB_FW_VERSION_MAJOR 0
+ #define DMUB_FW_VERSION_MINOR 0
+-#define DMUB_FW_VERSION_REVISION 38
++#define DMUB_FW_VERSION_REVISION 39
+ #define DMUB_FW_VERSION_TEST 0
+ #define DMUB_FW_VERSION_VBIOS 0
+ #define DMUB_FW_VERSION_HOTFIX 0
 -- 
 2.17.1
 
