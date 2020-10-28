@@ -2,72 +2,102 @@ Return-Path: <SRS0=QeQy=ED=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95F7CC388F7
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 15:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F2B1C55178
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 15:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19932247B1
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 15:08:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 104E424694
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 15:12:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fwPIjUgg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19932247B1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PcN2pW8p"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 104E424694
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2746E56A;
-	Wed, 28 Oct 2020 15:08:17 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1793E6E56A
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 15:08:16 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id w9so2547611qvj.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 08:08:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gzGtr6Mpm5zUnkt2TT5U/poJOgWa4LbMkJoF8vTjKqQ=;
- b=fwPIjUggtrZ7SGsIL6t6h6+rZ7BprGDsHAZO0Qho/mueOfb+28o0miK7xTWnKrSsxw
- oz0mDTiai8+RQlgTwvhmkydKm4mgjGGw3Ugyd4rUHs/RYl7QShOKHy6g3E75A1cbBOYr
- +Z2uO6pr7PcuFCs34kQXN1s7loui2//VcMIdohBzEpJGqvKG27WoEtMNekHjG5s0cBpg
- 33BOW/EbxZAOMS+m4T7+ZMKoktwo11uqyMDs6EflUASlJKkPZV1Cerl1fXQCqJdjmEpp
- 4bXC/DhqMuo4ziSM2EaaQXYo3KM96yuZX1yThRH+aesUmu6guG+XyHQV4C5raJj0H1oh
- OO/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gzGtr6Mpm5zUnkt2TT5U/poJOgWa4LbMkJoF8vTjKqQ=;
- b=R3L3HGZnSgningwU3f+JxgXqSfwxAPgDokU7K22A9Xubx4x98fAL8szS5pRaFw1CBO
- XCBqqXQsgmcKkCtIMlVI4AlcMYYfzWJ214mGR9em/oK/F2U2GUft5j3POPZhkx0o9ie9
- MsAi0KmeJdR5zlU9K6V4HLVY1l6ncuhIeyG28xGjBn2KJtJfVC2oG1tmt4v6eG5HlNo+
- KChfu3q1qUQL7DB+9BpQRnwZZysBnfd38JWNSXA9xBwtKL4M/dKD36uX7QjJGmIqkSWy
- QnM6Nin2ovAtV54F+UBUcGlTE3Rk0FN/Mst5Q42+6TnEM3AnClJZbi+xxRa9y8a76luX
- 4ezA==
-X-Gm-Message-State: AOAM532C2q/GHju55UGOpybH13eXufpLAYs6tLX/L2g53M5A69rS7HZJ
- lZtijmumRSZN+POFUMY0PSpFetrQtsw=
-X-Google-Smtp-Source: ABdhPJw9jFZwSvw+hdFOqFxQ6mDEjDotTydyjBRxs2LXI9an+95+xFMAOHjAFGNaEHANmT008m6QOw==
-X-Received: by 2002:a0c:eec4:: with SMTP id h4mr8460986qvs.52.1603897694933;
- Wed, 28 Oct 2020 08:08:14 -0700 (PDT)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id s73sm3129480qke.71.2020.10.28.08.08.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2020 08:08:14 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/powerplay: Only apply optimized mclk dpm policy on
- polaris
-Date: Wed, 28 Oct 2020 11:08:05 -0400
-Message-Id: <20201028150805.2400403-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38906E563;
+	Wed, 28 Oct 2020 15:12:26 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760075.outbound.protection.outlook.com [40.107.76.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF8956E563
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 15:12:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LV51wuBG5+BljsahNzNmXp26Y4UwEKdHi1hG19zjn3r4cht7FP+i1gT3YRBaePv05NWw6zBvxi4TpY+uZF1ZHkTdEELHoxjLjA9koDc++xgLV1CIYto38R3A0AmQaxVkHIiord7wBXWWkWPNT6u/pKF4BppkrGqWDuIkgb8vQByxm4PNaITt7wnVOX/0MBV+kVZ7y2U2HcDn8tfWIpCSQIe1LQZmn3Q0+yxUZZ8/cHVBJPboVodsYyKjpsCZrE2SatEvPfWe+nWqzPW6k1s6PQmHzO4dQ6OWAq6LP+24AMIkmOc0knnZeRwhOhbz+VLV2xzI40QgAgJXb1HAqrjjeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=15UAnO3Sul7q/augx0c2Kv7madwbQqf7XpkSJs2nJZY=;
+ b=fWDFhHprhNscfbNMikr0eWDmJAlKkXYpQlzCn/1Iux+zolpTlJUxYXH5XXo6bVYN1Yyu2o5Sk0+Ye9s0g7fultvKj4ZnbdHAq3FUEHcy9uLJNsUC+/ktK3xrF6MRo93CQ7dAfH918vzNQaLw6yjZbZCNha8r5SbJOYoPXHxX8blMTPgpZvOeNUxPKI5JgJVpkbZ0kAysaCy7d4/VqCnXo+sY8tgyECl2v02MvPw1Pd2kvDtCSovRbmBjNEQK0bOFEqo1k6Jh9pgyb9mmuUgG1MNKXh+fVErXFBnNdF1xv6hT7+tipzrUoy8qJRNicGhRDyvngoUEuWEjRbtynevdmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=15UAnO3Sul7q/augx0c2Kv7madwbQqf7XpkSJs2nJZY=;
+ b=PcN2pW8pxWy/RfBpl1mvNjRmykdJT4dBHkAUCjUknPh8siXOkYK1pAZbbTwH4E/W4XLoxa+Ico12ydREbVs9aakbRyxXjRm1JDmFpLUT+ghhO72DA9cYP3QgamXl7P2cLkho5+lGMoudQKyh5wFYXdKfrWcAGF4rjoNxyqEKhX4=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM6PR12MB4530.namprd12.prod.outlook.com (2603:10b6:5:2aa::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Wed, 28 Oct
+ 2020 15:12:24 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::935:a67:59f8:7067]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::935:a67:59f8:7067%7]) with mapi id 15.20.3477.029; Wed, 28 Oct 2020
+ 15:12:24 +0000
+Subject: Re: [PATCH] drm/amdgpu: Add kernel parameter to force no xgmi
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20201028145502.2703-1-alex.sierra@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Message-ID: <514739e3-1fcf-6dbb-0dd1-3ea91a54c838@amd.com>
+Date: Wed, 28 Oct 2020 11:12:18 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
+In-Reply-To: <20201028145502.2703-1-alex.sierra@amd.com>
+Content-Language: en-CA
+X-Originating-IP: [165.204.54.211]
+X-ClientProxiedBy: YTXPR0101CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::31) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.252.35.64] (165.204.54.211) by
+ YTXPR0101CA0018.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3499.18 via Frontend Transport; Wed, 28 Oct 2020 15:12:21 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 7695f95a-4540-458b-b97f-08d87b53dfce
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4530:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB45300820CEA24659DDF649B299170@DM6PR12MB4530.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: b/y5l+W/iV+4YvW7h5xJEZ2gQfgLZaAy9C/tyC6vktiSXCCPgrnjWIjVZOj/kBi0hC+nNjRanrauKELjfoDDh8LEfUZyxOkIUPA5EVso3GdDCx72kARu2wboIApexYmTqZ64Kt4HnuZgnJP99sizZlk0Lj8rzOrdE4BBpgN3AH/jrbasveFn6q/on6wuBfQ5ZwXi0yaCo3RQZG/+7w+EvFeydZ1FX6TIQ0Vpvo+hUwwPvY5WVKZiBs/M9mo0gKzgCau9te/dndR/5cKa6RviWrfoZdhQuecw4toIYC8gg9K7AgVkVmG1pRvJ61B8+BkXYX48gXX7IrW1+8YmPnkdmzkx7an/4VkAcFo3vfS6hzBJy8SArkNue60xPeWzixwk
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(316002)(16576012)(31686004)(36756003)(4001150100001)(16526019)(83380400001)(186003)(31696002)(86362001)(6666004)(2616005)(956004)(2906002)(26005)(478600001)(6486002)(44832011)(66556008)(66946007)(52116002)(66476007)(8676002)(53546011)(8936002)(5660300002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: kZqrfx/3/r9BgCzpmbDFtEyHuI/EPh4IZ/2c8iG3zXiuOFpqBU/IrIFsgx2EqU/gcTpXMvEVPCq47TVe5lR0fY8vUJaJ697g+xxbbd/NF3ozyFLRY4u4DbTIXcmEt+pxOIOFedKVEVkcgohHYJhs9mIo4ThHdbqVRhNfq0R8t+9tmSb/pnQzO0WkgjizxSWIW6dXzjzJ6tygf6s2OTqht5I7FJjl5dH6rxpZUdAH3biaZ7H3bIbShaxvGRmNnO73fASU3poOhE4CUL9LV8RQHCY/5aACb3byzXfleLlOBpulvT3Pm+uoptmyqGV4ZImlj2v7IavX/aaCmFQMLXb7GAHl84WhOAeswm01IIcjJ1KgnWa3cdbwtRg7Wcdlt+mBYc0jxutEF5ImNk72s+osPPNVWrtRXtJq5rVZp0vegCCbPmXNCtavBgRMzasnKiahm4yyw/kE20SbkoU2BGrGMTW49jTSIBQCFqs+KuKx7fqEZ668X0e/l4OHXOFePp0MfsiN/i+/8vcpahYNWHhSYTINVwLQTfkd+yI/Gsz2wV1CQFdxXcVI4555J1DJOkFP1ZdcSsVWF5+cZ1IueUa18X9VM+vcsPzM9VCaqH9NhGoeFXHHVD2HkPJGgB34TVXl0zuygfPgMzKs+HkC79060A==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7695f95a-4540-458b-b97f-08d87b53dfce
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2020 15:12:24.1483 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JGKiknXeEK8QPlzByZ1zj1J7ne5d2aSiL9pJG5Pc7ZIzv+ycM7OW7l89/sxCLpfs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4530
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,64 +109,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Leads to improper dpm on older parts.
+On 2020-10-28 10:55, Alex Sierra wrote:
+> By enabling this parameter, the system will be forced to use pcie
+> interface only for p2p transactions.
+> 
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 9 +++++++++
+>  3 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index ba65d4f2ab67..3645f00e9f61 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -188,6 +188,7 @@ extern int amdgpu_discovery;
+>  extern int amdgpu_mes;
+>  extern int amdgpu_noretry;
+>  extern int amdgpu_force_asic_type;
+> +extern int amdgpu_force_no_xgmi;
+>  #ifdef CONFIG_HSA_AMD
+>  extern int sched_policy;
+>  extern bool debug_evictions;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 1fe850e0a94d..0a5d97a84017 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2257,7 +2257,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>  	if (r)
+>  		goto init_failed;
+>  
+> -	if (adev->gmc.xgmi.num_physical_nodes > 1)
+> +	if (!amdgpu_force_no_xgmi && adev->gmc.xgmi.num_physical_nodes > 1)
+>  		amdgpu_xgmi_add_device(adev);
+>  	amdgpu_amdkfd_device_init(adev);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 4b78ecfd35f7..22485067cf31 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -160,6 +160,7 @@ int amdgpu_force_asic_type = -1;
+>  int amdgpu_tmz = 0;
+>  int amdgpu_reset_method = -1; /* auto */
+>  int amdgpu_num_kcq = -1;
+> +int amdgpu_force_no_xgmi = 0;
+>  
+>  struct amdgpu_mgpu_info mgpu_info = {
+>  	.mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+> @@ -522,6 +523,14 @@ module_param_named(ras_enable, amdgpu_ras_enable, int, 0444);
+>  MODULE_PARM_DESC(ras_mask, "Mask of RAS features to enable (default 0xffffffff), only valid when ras_enable == 1");
+>  module_param_named(ras_mask, amdgpu_ras_mask, uint, 0444);
+>  
+> +/**
+> + * DOC: force_no_xgmi (uint)
+> + * Forces not to use xgmi interface (0 = disable, 1 = enable).
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1353
-Fixes: 8d89b96fe797 ("drm/amd/powerplay: optimize the mclk dpm policy settings")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 30 +++++++++++--------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+How about using human English here? Perhaps something like,
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 49db61a89505..d642dc95e9ea 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -1713,18 +1713,24 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- 	data->current_profile_setting.sclk_down_hyst = 100;
- 	data->current_profile_setting.sclk_activity = SMU7_SCLK_TARGETACTIVITY_DFLT;
- 	data->current_profile_setting.bupdate_mclk = 1;
--	if (adev->gmc.vram_width == 256) {
--		data->current_profile_setting.mclk_up_hyst = 10;
--		data->current_profile_setting.mclk_down_hyst = 60;
--		data->current_profile_setting.mclk_activity = 25;
--	} else if (adev->gmc.vram_width == 128) {
--		data->current_profile_setting.mclk_up_hyst = 5;
--		data->current_profile_setting.mclk_down_hyst = 16;
--		data->current_profile_setting.mclk_activity = 20;
--	} else if (adev->gmc.vram_width == 64) {
--		data->current_profile_setting.mclk_up_hyst = 3;
--		data->current_profile_setting.mclk_down_hyst = 16;
--		data->current_profile_setting.mclk_activity = 20;
-+	if (hwmgr->chip_id >= CHIP_POLARIS10) {
-+		if (adev->gmc.vram_width == 256) {
-+			data->current_profile_setting.mclk_up_hyst = 10;
-+			data->current_profile_setting.mclk_down_hyst = 60;
-+			data->current_profile_setting.mclk_activity = 25;
-+		} else if (adev->gmc.vram_width == 128) {
-+			data->current_profile_setting.mclk_up_hyst = 5;
-+			data->current_profile_setting.mclk_down_hyst = 16;
-+			data->current_profile_setting.mclk_activity = 20;
-+		} else if (adev->gmc.vram_width == 64) {
-+			data->current_profile_setting.mclk_up_hyst = 3;
-+			data->current_profile_setting.mclk_down_hyst = 16;
-+			data->current_profile_setting.mclk_activity = 20;
-+		}
-+	} else {
-+		data->current_profile_setting.mclk_up_hyst = 0;
-+		data->current_profile_setting.mclk_down_hyst = 100;
-+		data->current_profile_setting.mclk_activity = SMU7_MCLK_TARGETACTIVITY_DFLT;
- 	}
- 	hwmgr->workload_mask = 1 << hwmgr->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
- 	hwmgr->power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
--- 
-2.25.4
+"Forces not to use" ==> "Disables the use of the XGMI interface ..."
+
+Or, if you use the suggestion Christian posted, you could say something like,
+
+"Enable XGMI for P2P transactions."
+
+Regards,
+Luben
+
+> + * Default is 0 (disabled).
+> + */
+> +MODULE_PARM_DESC(force_no_xgmi, "Force not to use xgmi interface");
+> +module_param_named(force_no_xgmi, amdgpu_force_no_xgmi, int, 0600);
+> +
+>  /**
+>   * DOC: si_support (int)
+>   * Set SI support driver. This parameter works after set config CONFIG_DRM_AMDGPU_SI. For SI asic, when radeon driver is enabled,
+> 
 
 _______________________________________________
 amd-gfx mailing list
