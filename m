@@ -4,110 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 094ECC4363A
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 06:17:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F456C4363A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 07:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 577A32064C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 06:17:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A5F5E223C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 07:21:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="G+A6E1cj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 577A32064C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="k2Q2VVfj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5F5E223C7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2506E483;
-	Wed, 28 Oct 2020 06:17:46 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A6D6E483
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 06:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED2F6E488;
+	Wed, 28 Oct 2020 07:21:43 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690041.outbound.protection.outlook.com [40.107.69.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05B956E488
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 07:21:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ixOMvkU1tlORHh7xChanbHqHp1OwH3tsyYbFyFoXzktrrS4XL5S4zQmDGfcNrjBm2E8P21+zkwNkZ+T4p9RXMvMMlpFKD+lewCdVDDISfnJi3lLQ65VEGvDsaFF57YdwJpyLjgDqgbqSObw2wMT4VXRkV5nRmUt+AbYq9payjjMQTGj377tskUm2tYTGXrx24TN+KdMEd9N0ob+N3QE/meI+moVWqqAutzB3V/xhQ4iUrN2Zi4KPcO2UhqSshEghH7+XGnOOoclQNaUB17JMdXCdx9X3ReV5GBfdzAUcXR+ftzrfbaiyyoBD/X+eZsu68Nm2CXB/vdO9lKJrTWtLOg==
+ b=gLAXF6OhV7o+ojZ6iiq4pQsMS4/kuA6pyRvDCz4MK9IZKIRPgElot4c9fy2azzE6RtVk/9zS8AiCvPXm9gkEEI2nkTFzNjDcltEwgYIRH4eKJkF1tL0nEU2D0ej2C5P1NyfImvXi/PzWZyqy46NsfHlqX+nldsttyPflCEGgmh9JZTqkDjEi1XKenIZrQhLpgNsDccX9PRnrsGOi70OBwUIPbXh6ZaYziQlXwWc7pFiJZ+mPTXk1PfvnX81RZNXV9CMcIE3yiQDU/zn8qYeNjAjevkwWZLVRSvAsTyv1aOdntH7IUpZZl7iPO57sI3Ze4QTfDlsP5xNnrREjzfsWbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qBtXImqFjfDWOuDREXheHf2ZqWwQcI7wU2K9Vvs6la0=;
- b=gsKLRpXC7lMi8duxfueZkSy064Lk5DHnG0kuaup5IQ8BuIDSxPk1X2q5RjNBXBNJM2wreqewZGlJKrq/i8InxaMrU0xp6Hf9CfyWwF5WM2kTK0+12pCXl6GMWnmmwGIpFSOx8ykIEPX50Yb6HGTPXkm4L0Jnaa7/rITHmNGYu/Zmq1FMY8VpA9qvCgc1HJuc7mFw3CATuM2C51FG4MT3FIkOfsjOWEhpgP+ruGfSysZmxM5j3GASAFxEazaOsurCnRSZcqt2RCBo8f+fEek6dgyx1cJ5WNV+aq5NZY8T7G/bk/rmWBFSm4iX5j5BvUZ4WnUsGccuOm4H1i9E89IoEA==
+ bh=KPBIf51QB/WrOut+/2hSIruZxcz1zbsLj+O1Yd9CCh4=;
+ b=h8pu/jbND+YtykHo+yDMfyaSiInzMXzpQch/8a0WQGFhoYyXW3+yyWIULoRs2Tk2ggWg06722C3wSRdnq/Kp19fUPTUG0KKIayKKaCmY+CUGv9YZhZIygLlmSbb0LCWXqCK9JwNSrv5MXxivoJPLuzvvoW/CgCcGsVLN3d1hhXQH+it4GKxmpRXBp8QbVsu3prAc73AQM37HPxvd/YdGRkLPKOkkSeC/pJbpLBOm2tg7GUqPm5296I/GuE52cJuf+OyBub0OdspmA5lERiYf309f9GiUGEKWwkkx7M4WaGiWnnA3gCFCPDwptGcvsMmg1BsznBZUkbVIMNHu1NRUpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qBtXImqFjfDWOuDREXheHf2ZqWwQcI7wU2K9Vvs6la0=;
- b=G+A6E1cjGci/oaXlHM8g2GZTrTcPsHPSdYW+r1o9ywgG8t5zcoWJrwyUjf/vkvuDn0Uwh0EAoQd0WQnOFOJ3l8Nfq3AcDIlI8Z3MtREq51dyGMlJKj1GAiUXIqaKIpxGx2TpjGaslS33KdONt3dB/bo2bzCuc1yn7g6+O03R868=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR1201MB0118.namprd12.prod.outlook.com (2603:10b6:910:20::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.25; Wed, 28 Oct
- 2020 06:17:41 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::ad96:acee:5c1c:d92c]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::ad96:acee:5c1c:d92c%4]) with mapi id 15.20.3477.028; Wed, 28 Oct 2020
- 06:17:41 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Cui, Flora" <Flora.Cui@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: rename nv_is_headless_sku()
-Thread-Topic: [PATCH 2/2] drm/amdgpu: rename nv_is_headless_sku()
-Thread-Index: AQHWrPCLV44cDLhybUKOqjArmexG4amsic7Q
-Date: Wed, 28 Oct 2020 06:17:41 +0000
-Message-ID: <CY4PR12MB1287318ABF046A41C04956FEF1170@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <20201028060638.2339229-1-flora.cui@amd.com>
- <20201028060638.2339229-2-flora.cui@amd.com>
-In-Reply-To: <20201028060638.2339229-2-flora.cui@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-10-28T06:16:37Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=332e0b9a-5854-4885-96f3-00005c6396f6;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-10-28T06:17:38Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 22fd1678-fd13-4b0a-bb15-0000b6b2931b
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=KPBIf51QB/WrOut+/2hSIruZxcz1zbsLj+O1Yd9CCh4=;
+ b=k2Q2VVfjctG1SUgGDPt14+kMb2TxxSEErzVMFWnieznhmlT/gulWLvKpSbP4hQOakJg+8LbPeNJaFawNQ3jo1aXssOEWpJnmmtsDjYVkqMNDebFJmq8ULxLhW8rM2BCm+wATeZlPJeeaTnXQ81/Q5uth6TBWzWfV9sLPoVEFtcc=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: eda714a8-dcce-4c9a-11e6-08d87b092d4a
-x-ms-traffictypediagnostic: CY4PR1201MB0118:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR1201MB0118025CFEC27E543FD5DD76F1170@CY4PR1201MB0118.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:949;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /jW9fs8eUcIBjnj2U6E9QaghQIzjk+OkkOsplPNvdz/3rT1EQUhjb9MmPgvRVox4KPGsrEfYXp07VeEr2LHWCvDOLYPXjxHzrTndMtm8E4b+K28R/J+OlLldVhj9wk5D6DG2LH5xfyoShhtMuvQJvfNPr3IVC3KWaw3qFwX7HTbTxoyGY3t5euRyd4TOmZnI4TaiCwuBlm9xor2n/PngcFJO2O5lskte6PJCN4nDkK3W8MU+CzTqfyI9CZuDywXjHjNC6cu448hN0QZ5+90qW87ehezGpFA7alTzJDC8kcxch11G4h/StNtB4IXAMKdmJGaHQiEgCNZXLw4mS0ibtg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(53546011)(5660300002)(110136005)(8676002)(2906002)(8936002)(7696005)(478600001)(83380400001)(316002)(86362001)(9686003)(4326008)(33656002)(71200400001)(66946007)(52536014)(54906003)(6506007)(66476007)(66556008)(76116006)(55016002)(66446008)(64756008)(26005)(186003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: S05ArnHi0LwU4CmqTy2loLjgWtlCBN6yeUY42W51l7RnvJAkyTQOc20at2D9wrDMDRvGlD/qiiKELuLqDdqfja/kA8lNcDVkZIRdLKicOCpCZBT/3xtRHjJdpIE2Ji2Mu6TvnY5vsUKbesnLA1TTl/9tOZtRX4FA7idsGd8la/i3x0hPzVAfh9TrSI5lP4aC1ZDIr67SWmnHVF2yfuVtEEWMiLaowVlrFS4PxYp2IgbJeX91fpgC9tzBbagfDAjArEX4bgSGU6ojnpSqRgAJ7ZRp2fbtQT41ITMqtDEgKfzMj9RyGK3THl7Cr/nKOp7Y/peZeC4ggZ2F6TpkMP8tPDxv02hc9hVTe5BWW/wK6wvkJ4gLHo1kp746UKThil3UTdBN7GMxb5BWF8HdtasDOPumo8Ln9dW3o1DGJAO0mQgrPtcUnDRkL9BcnLdgKpjgc7dlaJM+9W3S1b9W6rBZn2ZUFgiNc3EkT2mC1fHTzMFOq0jujFmpAfneJOsfsQ2oOO+EjYG84ByznIZAyBn60FHJE3eNRY3qxbu/srv1RJWT+IUCarc+n5qXZTmNqa63GMRwX1aRofPLsvdxdk/DOBfJMk0pv5IMZlKr/mrlFcyQMklSRGIP+Pz9cIwhhRj8w4ATpov8MJoBIsSEk9qu8w==
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com (2603:10b6:300:12::21)
+ by MWHPR1201MB2541.namprd12.prod.outlook.com (2603:10b6:300:e5::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Wed, 28 Oct
+ 2020 07:21:39 +0000
+Received: from MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::b885:8b56:a460:4624]) by MWHPR12MB1248.namprd12.prod.outlook.com
+ ([fe80::b885:8b56:a460:4624%11]) with mapi id 15.20.3499.018; Wed, 28 Oct
+ 2020 07:21:39 +0000
+Date: Wed, 28 Oct 2020 15:21:46 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Du, Xiaojian" <Xiaojian.Du@amd.com>
+Subject: Re: [PATCH 01/10] drm/amd/pm: update the smu v11.5 smc header for
+ vangogh
+Message-ID: <20201028072146.GA1767271@hr-amd>
+References: <20201027094133.21881-1-Xiaojian.Du@amd.com>
+Content-Disposition: inline
+In-Reply-To: <20201027094133.21881-1-Xiaojian.Du@amd.com>
+X-Originating-IP: [58.247.170.245]
+X-ClientProxiedBy: HKAPR04CA0009.apcprd04.prod.outlook.com
+ (2603:1096:203:d0::19) To MWHPR12MB1248.namprd12.prod.outlook.com
+ (2603:10b6:300:12::21)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from hr-amd (58.247.170.245) by
+ HKAPR04CA0009.apcprd04.prod.outlook.com (2603:1096:203:d0::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3499.18 via Frontend Transport; Wed, 28 Oct 2020 07:21:36 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 567ef72d-a85c-40c9-5241-08d87b121c8e
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2541:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB254118FC0129E4B8C2AF81BEEC170@MWHPR1201MB2541.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6RV106qcJaa+3UwqpxwUWJwaRn8g6HG1uGfMyFdvEQsHQk4oba6xStUf0Mdh8bMVARyumIAnFwmdIILmirzl6O+N4eHsTTtabrKZua9v6Fw8LyP1Y3i/mzP3AclgPrpKqDmFf7y38MZcUImR/G7jceM0I3YcMo5QLW1EHj5sYAV1/wGQUrNwZBHb36rHz0Ak/nOV7eAKEHxnXJe6EvmbxgsXXgW0Ywn7asajkzofcN9wA/3SLpAZBfe42Nj5kniqlU+w863cbxEHIES8iosAv5Aiju0yk5Ij4x+OCZB0s7XqpawxTdHqM4xFmHwgwwXR/wbnXVI1HzwJwmEWOJlAMg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(346002)(376002)(39860400002)(136003)(15650500001)(5660300002)(66946007)(83380400001)(26005)(6636002)(6496006)(55016002)(1076003)(66556008)(956004)(66476007)(86362001)(478600001)(8936002)(6666004)(4326008)(16526019)(6862004)(52116002)(33716001)(33656002)(2906002)(186003)(9686003)(8676002)(54906003)(316002)(19627235002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: fd2S1CCucSLBOu6JuUIMaFnWehWWU1xtdSdC73MZ1ull4OJaP4YSA2p8bS0cpNqN1ksTTOrb+4Pcc2jeW1KUWv/rdqOTo0RZp1TUTOe4NW6PiBEh3KpBmN4teN4zQt/tnRmXo29MBxPOatD1KSNa06oz74XFVrrLAn07BS3CL6feCzOcQxnwnEPzmD5eofX4piVvCGR1BfpM0DioSrxXk5zMy4lMpWwJH9+9VsHfmfBDELsvg+S20ypQyP2tcdmR3PbbNCzLBiIFynZ/VrICyzPT+LnLFS8vpBz15bIKZu7hqUi+KVK5ufDZEfn9QjZ4qS2xGJoJLrPQTRlQ2iqfFkvWjZog6uU/8KDnwqkEWaTenEZtGTziNw7ix61GYmgGpChRGjZP7db7qbjRIdHkIjIiV6bonT+1v2HyGYKwEm+FKXOi2MbPLWGynrPYb0AEHv0OAvAtD2KRl6jHT32sZlTi/AuJGdtGnrMlHwyy+FmYapkuP+IGQJiJmPrIuiby7sh/yi7hXrFRJ3c6jtbGMVa2ONqwTnFGm64q1PKvsv9By1ahRJPeqvhfQj8jQRLVqnqTN6LIdWhi7jpHr+pe8UpJuBok6b8Aiq9B/Jzj6Kb3hpWRF8Sr8y0OjFcUYIF9pMGI0Ay7SPQt/clw+55voQ==
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 567ef72d-a85c-40c9-5241-08d87b121c8e
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1248.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eda714a8-dcce-4c9a-11e6-08d87b092d4a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2020 06:17:41.6276 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cuGcIi2hzhQe4+PI/sS+OfFzX4npTUaUR8L2Fm7yQ6J3lLdBeMkUaHfIHTAKI/xIJV6cYTr/Q7apifG0zQLFPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0118
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2020 07:21:39.6779 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 89hiqp9NjAcQMX8Ovo5/DHUDj1R3HGhLaik3RL6jT6T3Z/5cBFuTXLc0Nchb0Cew17Iu2VS94/GkYWeL+6nYLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2541
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,63 +107,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Long, Gang" <Gang.Long@amd.com>, "Teng,
- Rui" <Rui.Teng@amd.com>, "Yin, Tianci \(Rico\)" <Tianci.Yin@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: "Wang, Kevin\(Yang\)" <Kevin1.Wang@amd.com>, "Liang,
+ Prike" <Prike.Liang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
+ Shimmer" <Xinmei.Huang@amd.com>, "Zhu, Changfeng" <Changfeng.Zhu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+On Tue, Oct 27, 2020 at 05:41:24PM +0800, Du, Xiaojian wrote:
+> This patch is to update the smu v11.5 smc header for vangogh.
+> 
+> Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
+> Reviewed-by: Huang Rui <ray.huang@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h | 114 +++++++++++--------
+>  1 file changed, 68 insertions(+), 46 deletions(-)
 
-Series is: Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+Series are Reviewed-by: Huang Rui <ray.huang@amd.com>
 
-Regards,
-Guchun
-
------Original Message-----
-From: Cui, Flora <Flora.Cui@amd.com> 
-Sent: Wednesday, October 28, 2020 2:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Cui, Flora <Flora.Cui@amd.com>; Teng, Rui <Rui.Teng@amd.com>; Long, Gang <Gang.Long@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Cui, Flora <Flora.Cui@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: rename nv_is_headless_sku()
-
-for headless NAVI ASICs
-
-Signed-off-by: Flora Cui <flora.cui@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c index 23446aceea1d..c65b4462bf5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -493,7 +493,7 @@ void nv_set_virt_ops(struct amdgpu_device *adev)
- 	adev->virt.ops = &xgpu_nv_virt_ops;
- }
- 
--static bool nv_is_blockchain_sku(struct pci_dev *pdev)
-+static bool nv_is_headless_sku(struct pci_dev *pdev)
- {
- 	if ((pdev->device == 0x731E &&
- 	    (pdev->revision == 0xC6 || pdev->revision == 0xC7)) || @@ -536,7 +536,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);  #if defined(CONFIG_DRM_AMD_DC)
- 		else if (amdgpu_device_has_dc_support(adev) &&
--			 !nv_is_blockchain_sku(adev->pdev))
-+			 !nv_is_headless_sku(adev->pdev))
- 			amdgpu_device_ip_block_add(adev, &dm_ip_block);  #endif
- 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block); @@ -544,7 +544,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
- 		    !amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
--		if (!nv_is_blockchain_sku(adev->pdev))
-+		if (!nv_is_headless_sku(adev->pdev))
- 			amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
- 		if (adev->enable_mes)
---
-2.25.1
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+> index 55c1b151a68d..1ada0eb64663 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+> @@ -32,55 +32,77 @@
+>  #define PPSMC_Result_CmdRejectedBusy 0xFC
+>  
+>  // Message Definitions:
+> -#define PPSMC_MSG_TestMessage 0x1
+> -#define PPSMC_MSG_GetSmuVersion 0x2
+> -#define PPSMC_MSG_GetDriverIfVersion 0x3
+> -#define PPSMC_MSG_EnableGfxOff 0x4
+> -#define PPSMC_MSG_DisableGfxOff 0x5
+> -#define PPSMC_MSG_PowerDownIspByTile 0x6 // ISP is power gated by default
+> -#define PPSMC_MSG_PowerUpIspByTile 0x7
+> -#define PPSMC_MSG_PowerDownVcn 0x8 // VCN is power gated by default
+> -#define PPSMC_MSG_PowerUpVcn 0x9
+> -#define PPSMC_MSG_spare 0xA
+> -#define PPSMC_MSG_SetHardMinVcn 0xB // For wireless display
+> -#define PPSMC_MSG_SetMinVideoGfxclkFreq	0xC //Sets SoftMin for GFXCLK. Arg is in MHz
+> -#define PPSMC_MSG_ActiveProcessNotify 0xD
+> -#define PPSMC_MSG_SetHardMinIspiclkByFreq 0xE
+> -#define PPSMC_MSG_SetHardMinIspxclkByFreq 0xF
+> -#define PPSMC_MSG_SetDriverDramAddrHigh 0x10
+> -#define PPSMC_MSG_SetDriverDramAddrLow 0x11
+> -#define PPSMC_MSG_TransferTableSmu2Dram 0x12
+> -#define PPSMC_MSG_TransferTableDram2Smu 0x13
+> -#define PPSMC_MSG_GfxDeviceDriverReset 0x14 //mode 2 reset during TDR
+> -#define PPSMC_MSG_GetEnabledSmuFeatures 0x15
+> -#define PPSMC_MSG_spare1 0x16
+> -#define PPSMC_MSG_SetHardMinSocclkByFreq 0x17
+> -#define PPSMC_MSG_SetMinVideoFclkFreq 0x18
+> -#define PPSMC_MSG_SetSoftMinVcn 0x19
+> -#define PPSMC_MSG_EnablePostCode 0x1A
+> -#define PPSMC_MSG_GetGfxclkFrequency 0x1B
+> -#define PPSMC_MSG_GetFclkFrequency 0x1C
+> -#define PPSMC_MSG_AllowGfxOff 0x1D
+> -#define PPSMC_MSG_DisallowGfxOff 0x1E
+> -#define PPSMC_MSG_SetSoftMaxGfxClk 0x1F
+> -#define PPSMC_MSG_SetHardMinGfxClk 0x20
+> -#define PPSMC_MSG_SetSoftMaxSocclkByFreq 0x21
+> -#define PPSMC_MSG_SetSoftMaxFclkByFreq 0x22
+> -#define PPSMC_MSG_SetSoftMaxVcn 0x23
+> -#define PPSMC_MSG_GpuChangeState 0x24 //FIXME AHOLLA - check how to do for VGM
+> -#define PPSMC_MSG_SetPowerLimitPercentage 0x25
+> -#define PPSMC_MSG_PowerDownJpeg 0x26
+> -#define PPSMC_MSG_PowerUpJpeg 0x27
+> -#define PPSMC_MSG_SetHardMinFclkByFreq 0x28
+> -#define PPSMC_MSG_SetSoftMinSocclkByFreq 0x29
+> -#define PPSMC_MSG_PowerUpCvip 0x2A
+> -#define PPSMC_MSG_PowerDownCvip 0x2B
+> -#define PPSMC_Message_Count 0x2C
+> +#define PPSMC_MSG_TestMessage                          0x1
+> +#define PPSMC_MSG_GetSmuVersion                        0x2
+> +#define PPSMC_MSG_GetDriverIfVersion                   0x3
+> +#define PPSMC_MSG_EnableGfxOff                         0x4
+> +#define PPSMC_MSG_DisableGfxOff                        0x5
+> +#define PPSMC_MSG_PowerDownIspByTile                   0x6 // ISP is power gated by default
+> +#define PPSMC_MSG_PowerUpIspByTile                     0x7
+> +#define PPSMC_MSG_PowerDownVcn                         0x8 // VCN is power gated by default
+> +#define PPSMC_MSG_PowerUpVcn                           0x9
+> +#define PPSMC_MSG_spare                                0xA
+> +#define PPSMC_MSG_SetHardMinVcn                        0xB // For wireless display
+> +#define PPSMC_MSG_SetSoftMinGfxclk                     0xC //Sets SoftMin for GFXCLK. Arg is in MHz
+> +#define PPSMC_MSG_ActiveProcessNotify                  0xD
+> +#define PPSMC_MSG_SetHardMinIspiclkByFreq              0xE
+> +#define PPSMC_MSG_SetHardMinIspxclkByFreq              0xF
+> +#define PPSMC_MSG_SetDriverDramAddrHigh                0x10
+> +#define PPSMC_MSG_SetDriverDramAddrLow                 0x11
+> +#define PPSMC_MSG_TransferTableSmu2Dram                0x12
+> +#define PPSMC_MSG_TransferTableDram2Smu                0x13
+> +#define PPSMC_MSG_GfxDeviceDriverReset                 0x14 //mode 2 reset during TDR
+> +#define PPSMC_MSG_GetEnabledSmuFeatures                0x15
+> +#define PPSMC_MSG_spare1                               0x16
+> +#define PPSMC_MSG_SetHardMinSocclkByFreq               0x17
+> +#define PPSMC_MSG_SetSoftMinFclk                       0x18 //Used to be PPSMC_MSG_SetMinVideoFclkFreq
+> +#define PPSMC_MSG_SetSoftMinVcn                        0x19
+> +#define PPSMC_MSG_EnablePostCode                       0x1A
+> +#define PPSMC_MSG_GetGfxclkFrequency                   0x1B
+> +#define PPSMC_MSG_GetFclkFrequency                     0x1C
+> +#define PPSMC_MSG_AllowGfxOff                          0x1D
+> +#define PPSMC_MSG_DisallowGfxOff                       0x1E
+> +#define PPSMC_MSG_SetSoftMaxGfxClk                     0x1F
+> +#define PPSMC_MSG_SetHardMinGfxClk                     0x20
+> +#define PPSMC_MSG_SetSoftMaxSocclkByFreq               0x21
+> +#define PPSMC_MSG_SetSoftMaxFclkByFreq                 0x22
+> +#define PPSMC_MSG_SetSoftMaxVcn                        0x23
+> +#define PPSMC_MSG_spare2                               0x24
+> +#define PPSMC_MSG_SetPowerLimitPercentage              0x25
+> +#define PPSMC_MSG_PowerDownJpeg                        0x26
+> +#define PPSMC_MSG_PowerUpJpeg                          0x27
+> +#define PPSMC_MSG_SetHardMinFclkByFreq                 0x28
+> +#define PPSMC_MSG_SetSoftMinSocclkByFreq               0x29
+> +#define PPSMC_MSG_PowerUpCvip                          0x2A
+> +#define PPSMC_MSG_PowerDownCvip                        0x2B
+> +#define PPSMC_MSG_GetPptLimit                          0x2C
+> +#define PPSMC_MSG_GetThermalLimit                      0x2D
+> +#define PPSMC_MSG_GetCurrentTemperature                0x2E
+> +#define PPSMC_MSG_GetCurrentPower                      0x2F
+> +#define PPSMC_MSG_GetCurrentVoltage                    0x30
+> +#define PPSMC_MSG_GetCurrentCurrent                    0x31
+> +#define PPSMC_MSG_GetAverageCpuActivity                0x32
+> +#define PPSMC_MSG_GetAverageGfxActivity                0x33
+> +#define PPSMC_MSG_GetAveragePower                      0x34
+> +#define PPSMC_MSG_GetAverageTemperature                0x35
+> +#define PPSMC_MSG_SetAveragePowerTimeConstant          0x36
+> +#define PPSMC_MSG_SetAverageActivityTimeConstant       0x37
+> +#define PPSMC_MSG_SetAverageTemperatureTimeConstant    0x38
+> +#define PPSMC_MSG_SetMitigationEndHysteresis           0x39
+> +#define PPSMC_MSG_GetCurrentFreq                       0x3A
+> +#define PPSMC_MSG_SetReducedPptLimit                   0x3B
+> +#define PPSMC_MSG_SetReducedThermalLimit               0x3C
+> +#define PPSMC_MSG_DramLogSetDramAddr                   0x3D
+> +#define PPSMC_MSG_StartDramLogging                     0x3E
+> +#define PPSMC_MSG_StopDramLogging                      0x3F
+> +#define PPSMC_MSG_SetSoftMinCclk                       0x40
+> +#define PPSMC_MSG_SetSoftMaxCclk                       0x41
+> +#define PPSMC_Message_Count                            0x42
+>  
+>  //Argument for  PPSMC_MSG_GpuChangeState
+>  enum {
+> -  GpuChangeState_D0Entry = 1,
+> -  GpuChangeState_D3Entry,
+> +  MODE1_RESET = 1,
+> +  MODE2_RESET = 2
+>  };
+>  
+>  #endif
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
