@@ -2,119 +2,71 @@ Return-Path: <SRS0=QeQy=ED=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DEA5C388F7
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 22:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 002DAC4363A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 23:52:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B246424171
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 22:14:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CA1C32071A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2020 23:52:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="RzGHSryD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B246424171
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.b="cATGe3p6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA1C32071A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=basnieuwenhuizen.nl
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D643F6E5A4;
-	Wed, 28 Oct 2020 22:14:52 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2066.outbound.protection.outlook.com [40.107.236.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B243B6E5A4
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 22:14:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I3nyems/5TYI0oGSb9wOs1dTbU+IJpf17JwT0N7+RuXCDM7gKXVYxwI3MVGx8dAl8+Xbe/qlv0BRvzH/zXs+gv//3qD6Xs6Sc7K5KZTNv949ffhLKZl6KzXD95EVy+G3DJEn11dxwCcQtznp5EU/puaqM9oJVP2lMYK/YWgGEw19vww+hou+nLjIFvH+ccIzddS2VdSfBp9W4sAU6N1pdXh+QiXz+dSuZI9yK1Qt50EDDgn3+cAPGY5rAe02ePaQ9u1NsWsOKfMnfzqS0Nv/kXjbuSLENGdfFjGmtPAPFKXFvSorspqoW9QBUJSagh6bu0znjrj3Jgp/b5FvB6wQ6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HIyg3/yvhRKIlhF/fBkn78j5mHV+PVSVVMpkEkmsS80=;
- b=J6pQemGCKTGkmWoepp7cwkBj6gcdzpv6AEq1KZnearE3tgKnya8fUFTHqYFSSreCEyTo49fDRQ9CzPpXlhrYnk/rhyHePN57tiR6skynImOaluLeoxUIKPB3ccyj6OGyLcmVgrvStHHZVdsssA6SrzxegX63NQzfL73tPyK+/ZC29CafrxSOfauFyXGHu+pUss087nT3PBcXMaFvkGGjUMbbBzhqT55GHUjoTlg7aZllL2HVHxCEPPGxdEoxp/5mNTasDp+8EXTlkqaUlvoTj2kl/Npsjfl0YgpEHYLeLbIpw+kCrOumuMM1fM+Hkpj8qGVDc8zNqD0AlpG7h+J88w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23E836E81A;
+	Wed, 28 Oct 2020 23:52:42 +0000 (UTC)
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 141606E81A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 23:52:40 +0000 (UTC)
+Received: by mail-ed1-x543.google.com with SMTP id v19so1273680edx.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2020 16:52:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HIyg3/yvhRKIlhF/fBkn78j5mHV+PVSVVMpkEkmsS80=;
- b=RzGHSryDnuakr7kTbP7T57YQxfD77Y17ofvPqToUl9XiZoL72t8tS39uKscTJ3O1Y+UwrrcJhNLegDJAy8eZ+AR53KIktmGgzQK57coq7qUHXGdOiq7z0pm9ZNrIfldGonbRsDmuX0/1FOKazB8k7wJAtRC0UPycJF55CAS2rTo=
-Received: from DM5PR12MB4679.namprd12.prod.outlook.com (2603:10b6:4:a2::37) by
- DM5PR1201MB0217.namprd12.prod.outlook.com (2603:10b6:4:54::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3477.26; Wed, 28 Oct 2020 22:14:49 +0000
-Received: from DM5PR12MB4679.namprd12.prod.outlook.com
- ([fe80::19f0:288:6263:1019]) by DM5PR12MB4679.namprd12.prod.outlook.com
- ([fe80::19f0:288:6263:1019%2]) with mapi id 15.20.3477.028; Wed, 28 Oct 2020
- 22:14:49 +0000
-From: "Cornij, Nikola" <Nikola.Cornij@amd.com>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/display: allow 18 bit dp output on DCN3
-Thread-Topic: [PATCH] drm/amd/display: allow 18 bit dp output on DCN3
-Thread-Index: AQHWrXbMMsebmBR0nUSm5OYAcQWtCqmtkyFw
-Date: Wed, 28 Oct 2020 22:14:49 +0000
-Message-ID: <DM5PR12MB467903567B3EE902CB6691C3EE170@DM5PR12MB4679.namprd12.prod.outlook.com>
-References: <20201028220735.153525-1-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20201028220735.153525-1-Rodrigo.Siqueira@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Enabled=true;
- MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_SetDate=2020-10-28T22:14:43Z; 
- MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Method=Privileged;
- MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_Name=Non-Business;
- MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_ActionId=b89bf06c-986c-4ee9-a296-0000ba2bf261;
- MSIP_Label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_ContentBits=0
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-10-28T22:11:11Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 364d14e3-45f5-4fb1-b696-0000b17880c6
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_enabled: true
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_setdate: 2020-10-28T22:14:48Z
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_method: Privileged
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_name: Non-Business
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_actionid: f193a596-0b7e-4f72-bd7f-00002083a469
-msip_label_f2ed062d-8486-4f50-a4f1-3cce0dd00d64_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.55.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 07752193-48cc-446e-2f63-08d87b8ee307
-x-ms-traffictypediagnostic: DM5PR1201MB0217:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB02179B04C9453D7460FE00D2EE170@DM5PR1201MB0217.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:813;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GmW2FcJZXTGV1wnXHAiiCRJ3Of0Oxw7Eo3KzB70gK0EJbuiGBesvMnhZJ3lpXbga5Os6IpKcL69LMRahSt1y4vVHWdZAolrod8XQrpdT3t8dEDLeEF9lcgwV1jr5hC71GAjLgnT+CICGE+hzQC61NfHlhy10SKgF3J6kumJq0JX1yTRHD51iOKQDOUEj7KETBN/WwQsZMLnECOCDkdq8uSWD73pDm5ypU5NJSmVTm2okmUl8y9e4666GerRT3HYvjomQgWsiarNDqGFZ+M6KqMl9e5KkWs7A305DyuIvy6B5qN2q+pQolPuXySh6oIavrAjhr5BUzsQDgmQTd76rBg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB4679.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(346002)(396003)(366004)(6506007)(186003)(53546011)(66556008)(64756008)(4326008)(8676002)(86362001)(66476007)(66446008)(66946007)(26005)(55016002)(52536014)(110136005)(9686003)(54906003)(7696005)(8936002)(76116006)(5660300002)(316002)(33656002)(71200400001)(478600001)(2906002)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: yeEH26YGPq4HaiQfVBVy8y9NzEwhahKVwQc8+Mj4DJ6IgRbllq1KQpr/fopV+o95E+4b/ma+rMOBGyVJyQJMeqIudhE0lrrVTnkmazMGOLav7TvgxIr1HMJEDfJZs8+nAzHmyBkskTAl2ttXzDX2XTXd3Icn+uZHUW3VFnvlWpTC3nwnPK6QrEdTVuUUZe20FDbaCawtX7eHpp/aKy8fXl82dH30dNO1OILVCQNju6IhFbxR6el8+Bv7dHsZya97XwtCwTrol2YbDo8xvjQ+IJJIkq7MAd97Ay2OSbGjm10KvU4gBeCxg0FFRYJLeoQ3qn2YmldXChznkEoFaJQA2vkosmRWov90o7YKwxKQ+bWJvGD0yt5j8hgMPX03NnIh79YJHee8VD1s/a7iGSIWdTwXutsk5EczXvgOZHr39LdDL38LCXJKxc18fWisuVcOqGgkb0WRFTiFg1PeZOa7BMVMeDQhxylJAvqGjt+AAbbOCHWntrV28PqE5eADsUn+kq3EJa54bMbLVKze/kqZ6+6JSx7m4TXVlzdoqtVmYrjINllhq/3ujHwsvp4Uy29LXcGXAhKpcpKjORcqUrzyt2jkaAxGLp4KWJn7jvh1fvEhaM1DSisEKGmP93cXwbU2QyJSheqI6vPGnnPODKvBww==
+ d=basnieuwenhuizen.nl; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=sBKS5W6Qfd3E+vFbxnk6rQl20c3PMgFSFAhdfMtzT4M=;
+ b=cATGe3p6bhezRdsUcp5KzVfZo5bobZAARmbEY2/eu3biuYSUIWzrTyPUSf8xmf2ac/
+ yWai1rHgIlI5hztTX4r5hy745XBXsWqSLP8JtiXzbS4PXvwMiKKLZbypKMT3BdY9uV7a
+ +3s/I4KZ+ejsHkLzqG39MPkm/dglZ64YXzfXrqfYsvEQs3bEYnLkAoVv/RngvNaS+XU5
+ h54XGs0zhk0bpYSufnrAEpkgWFD60DN6Q+foIgX2mRSv6dEARV4e2nIHsqWD1V/rBKKb
+ mRAt/e+vt4FrgpBa0Q6M3iIQbfovVcorcimYAvyMBMfvcR/kfBSALdwz5D3NmzEjV6O8
+ y7tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=sBKS5W6Qfd3E+vFbxnk6rQl20c3PMgFSFAhdfMtzT4M=;
+ b=ZHci+G2fyiVyJ86B1yyLqyr7MSVN+o/FjywsOmBEy2R0JGbukf6IVGSGMHHA8ihm4h
+ 3W9JAZx76UONAq7tOgLTGLyNTzzWx5iLeflKNRNRM/UAKiw15QQI/xMJX4pjOTLfJwa3
+ cd8sgKwBzYc919RfZJmLSeTHsxyjkIHo0RePz04GA1J/gYkCeOgKN/NQQmTNXl1c7qum
+ BF3Oazqz4iimzFBdX4pVnbxRESOXCSTba45GJuMfWSFna2nBb233cUR6jM8u+HFDWSxt
+ MYsACR7OfqeHJsk7wHKiyLxUac25Rz9sG+v/q8LDqE6CxeGCN2FdcrMSW4WQ+9x3/Mte
+ kogQ==
+X-Gm-Message-State: AOAM530MkzCS/fLM3ebKxK91V9GebM1ESpH1vyK8zB/X6nUHZkvkP337
+ IzLO/brt6e0QdLJOIqzHo8YxuaZPahFh+A==
+X-Google-Smtp-Source: ABdhPJwn7TbkObWp8B56tzoNmJpa8FhOkyKrKBzCITlVXyJ1CxHglYyOZGO+uySqa//TR6SSwjJVgw==
+X-Received: by 2002:a50:9e0b:: with SMTP id z11mr1419818ede.341.1603929159177; 
+ Wed, 28 Oct 2020 16:52:39 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a02:aa12:a77f:2000:4cea:81e7:5fd4:93f7])
+ by smtp.gmail.com with ESMTPSA id o13sm479174ejr.120.2020.10.28.16.52.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2020 16:52:38 -0700 (PDT)
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v4 00/11] amd/display: Add GFX9+ modifier support.
+Date: Thu, 29 Oct 2020 00:52:30 +0100
+Message-Id: <20201028235241.3299-1-bas@basnieuwenhuizen.nl>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB4679.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07752193-48cc-446e-2f63-08d87b8ee307
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2020 22:14:49.5707 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kNDM7hcsgJT6KgCP6On18Q1MAQGmMdB39S/PDpsXh6fFd603S+JyOiKxTFhQupeO8WMXCjaO/gpVR/m0KW1Sew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,76 +78,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Park,
- Chris" <Chris.Park@amd.com>, "Laktyushkin,
- Dmytro" <Dmytro.Laktyushkin@amd.com>, "Liu, Zhan" <Zhan.Liu@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>
+Cc: alexdeucher@gmail.com, harry.wentland@amd.com, nicholas.kazlauskas@amd.com,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Nikola Cornij <nikola.cornij@amd.com>
+This adds modifier support to the amdgpu kernel drivers for GFX9 and
+later GPUs. It has been tested on
 
------Original Message-----
-From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com> 
-Sent: Wednesday, October 28, 2020 6:08 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Cornij, Nikola <Nikola.Cornij@amd.com>; Liu, Zhan <Zhan.Liu@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Laktyushkin, Dmytro <Dmytro.Laktyushkin@amd.com>; Park, Chris <Chris.Park@amd.com>
-Subject: [PATCH] drm/amd/display: allow 18 bit dp output on DCN3
+- VEGA10, RAVEN, NAVI14
+- weston, sway, X with xf86-video-amdgpu (i.e. legacy path still works)
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+and includes some basic testing of the layout code.
 
-We need this to pass dp compliance.
+The main goal is to keep it somewhat simple and regression free, so
+on the display side this series only exposes what the current GPU
+can render to. While we could expose more I think that is more
+suitable for follow-up work as the benefit would be minimal and
+there are some more design discussion there to discuss that are
+orthogonal from the initial implementation.
 
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Chris Park <Chris.Park@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  | 14 --------------  .../amd/display/dc/dml/dcn30/display_mode_vba_30.c |  2 +-
- 2 files changed, 1 insertion(+), 15 deletions(-)
+Similarly this series only exposes 32-bpp displayable DCC in the cases
+that radeonsi would use it and any extra capabilities here should be
+future work.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-index d1ed2a99bf65..d65496917e93 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-@@ -2020,20 +2020,6 @@ static bool dcn30_internal_validate_bw(
- 
- 	dml_log_mode_support_params(&context->bw_ctx.dml);
- 
--	/* TODO: Need to check calculated vlevel why that fails validation of below resolutions */
--	if (context->res_ctx.pipe_ctx[0].stream != NULL) {
--		if (context->res_ctx.pipe_ctx[0].stream->timing.h_addressable == 640  && context->res_ctx.pipe_ctx[0].stream->timing.v_addressable == 480)
--			vlevel = 0;
--		if (context->res_ctx.pipe_ctx[0].stream->timing.h_addressable == 1280 && context->res_ctx.pipe_ctx[0].stream->timing.v_addressable == 800)
--			vlevel = 0;
--		if (context->res_ctx.pipe_ctx[0].stream->timing.h_addressable == 1280 && context->res_ctx.pipe_ctx[0].stream->timing.v_addressable == 768)
--			vlevel = 0;
--		if (context->res_ctx.pipe_ctx[0].stream->timing.h_addressable == 1280 && context->res_ctx.pipe_ctx[0].stream->timing.v_addressable == 1024)
--			vlevel = 0;
--		if (context->res_ctx.pipe_ctx[0].stream->timing.h_addressable == 2048 && context->res_ctx.pipe_ctx[0].stream->timing.v_addressable == 1536)
--			vlevel = 0;
--	}
--
- 	if (vlevel == context->bw_ctx.dml.soc.num_states)
- 		goto validate_fail;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 9e0ae18e71fa..0f668699809d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -3628,7 +3628,7 @@ static double TruncToValidBPP(
- 			}
- 		}
- 	} else {
--		if (!((DSCEnable == false && (DesiredBPP == NonDSCBPP2 || DesiredBPP == NonDSCBPP1 || DesiredBPP == NonDSCBPP0)) ||
-+		if (!((DSCEnable == false && (DesiredBPP == NonDSCBPP2 || DesiredBPP 
-+== NonDSCBPP1 || DesiredBPP == NonDSCBPP0 || DesiredBPP == 18)) ||
- 				(DSCEnable && DesiredBPP >= MinDSCBPP && DesiredBPP <= MaxDSCBPP))) {
- 			return BPP_INVALID;
- 		} else {
---
-2.29.1
+I believe these are by far the most complicated modifiers we've seen
+up till now, mostly related to
+
+- GPU identification for cases where it matters wrt tiling.
+- Every generation having tiling layout changes
+- Compression settings.
+
+I believe the complexity is necessary as every layout should be different
+and all layouts should be the best in some situation (though not all
+combinations of GPU parameters will actually have an existing GPU).
+
+That said, on the render side the number of modifiers actually listed for
+a given GPU is ~10, and in the current implementation that is the same
+for the display side. (we could expose more actually differing layouts
+on the display side for cross-GPU compatibility, but I consider that
+out of scope for this initial work).
+
+This series can be found on
+https://github.com/BNieuwenhuizen/linux/tree/modifiers
+
+An userspace implementation in radeonsi can be found on
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/6176
+
+which has been reviewed and is ready for submission once these kernel
+patches land.
+
+v2:
+
+Per suggestion from Daniel Vetter I added logic to get the tiling_flags at
+addfb2 time and convert them into modifiers for GFX9+.  Furthermore, the DCC
+constant econding modifers only get exposed on RAVEN2 and newer.
+
+v3:
+
+Fixed some typos, rebased and CCing more people to actually get a review.
+
+v4:
+
+Changed an initialization from {0} to memset, fixed a missing switch case
+in the modifier enumeration and added review tags.
+
+Bas Nieuwenhuizen (11):
+  drm/amd/display: Do not silently accept DCC for multiplane formats.
+  drm/amd: Init modifier field of helper fb.
+  drm/amd/display: Honor the offset for plane 0.
+  drm/fourcc:  Add AMD DRM modifiers.
+  drm/amd/display: Store tiling_flags in the framebuffer.
+  drm/amd/display: Convert tiling_flags to modifiers.
+  drm/amd/display: Refactor surface tiling setup.
+  drm/amd/display: Set DC options from modifiers.
+  drm/amd/display: Add formats for DCC with 2/3 planes.
+  drm/amd/display: Expose modifiers.
+  drm/amd/display: Clean up GFX9 tiling_flags path.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 169 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   3 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 754 ++++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   2 -
+ include/uapi/drm/drm_fourcc.h                 | 115 +++
+ 6 files changed, 880 insertions(+), 165 deletions(-)
+
+-- 
+2.28.0
 
 _______________________________________________
 amd-gfx mailing list
