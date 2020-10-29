@@ -2,72 +2,78 @@ Return-Path: <SRS0=FRS3=EE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BB48C4363A
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 06:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A91D7C55178
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 09:46:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A6992075E
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 06:16:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3F7A32076E
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2020 09:46:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fYU0xpfo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A6992075E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LhD/Mwtk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F7A32076E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CFFE6E822;
-	Thu, 29 Oct 2020 06:16:00 +0000 (UTC)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B43876E822;
- Thu, 29 Oct 2020 06:15:59 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id p15so2220327ioh.0;
- Wed, 28 Oct 2020 23:15:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B616E0D5;
+	Thu, 29 Oct 2020 09:46:27 +0000 (UTC)
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8256E0D5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2020 09:46:26 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id j24so2875550ejc.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2020 02:46:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3qoSxR6kLQaOI4U9m98Tp9zH6OthGewVdcEYzDzAXno=;
- b=fYU0xpfoYwkmldTFjfzc4AaWKS3FYsZYISfJdJ/QHWLFy5EIoNmGfnQk7at1z46INJ
- zO4HMmsiP2W0WAitkRzz7I4pGLh/E/Rcf2DcXSGggHMT97lcu/3solygd/vygUxO+vBB
- f2hk5LXi779CL2jJ2Igc9UiUHszgYi1Jyxbt1/T/HxAKeoYvci4nL4vCJSLd1crtg3vB
- eRT0UsNOPv4AVdKtTxqvlTTEPG+bHa/whG7i3uIBFL8DW+m0HtlzIhFDFYDvD0iPIezh
- hPCj1SEOKkTtb6046hfUwaJIAIjiaHr5K8h6+1rSOWj+wC44cRN0x1VoQTKXPkZJZjgq
- 7/Ag==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=xR+pimkRBkVxQKmz8+Y1c1P6bvdZE/j3e5Or8kp9I7I=;
+ b=LhD/Mwtkpcwdn1eAGiZ4/3Lhlfh/ocxL2KlhGyFgJ4mKxSuYs2k37+jQ/BGtz4e65R
+ kz5ZNa3gEFUncQPI65G+iP/DeR1HKfDFBjP/XjgRtSB/ZorXkD11/PBjDavvCn7nmEpo
+ SyoZIhgfobkqqFB5KHqaLBI/Jem5jKgvqXKrF8WQPn/NvPmwQaVVF6DEjE+PWo1nPvwL
+ ncBONpQajb8cfa+Chl4JCKWMprkCE+Gw5R0h/4qehRBR1IbzGpg7lkwH1BRGmDTO82QA
+ zvc/nl665iuILjJzrtYfhNIXWr7DGE2oy2lvaaolQq5Or8MEokdVpdzj14DBojFzrBAp
+ YupQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3qoSxR6kLQaOI4U9m98Tp9zH6OthGewVdcEYzDzAXno=;
- b=WS5dNFHOW+CHmcVut+ytT2/jIKgXCfuKCN/aNz+hpG2L3b67rxatReeQLwKnuqfppi
- xx05XFjpME6DNtyWSx4k3lCByN3dZSvZ7+DvOtH/QVmJ1ek1QnRH9fe2o/9WFv0A0PZi
- ebGq4KwpetgyqzYR6qzYdvHVBW3Ln1FvMrsNmwblNZ4qwMRvyJC0BzXk4ZTm8ajdBc2l
- 7+3mj/4kgypQz7cX8L9yx6KY26Z5jWxf0J+ZscR+Zh+zcxfgLfBZVZ9kXTbEwp8P7wo4
- 2YLOqm73287/HNAOzVp3Djq0hpyDm6ajD6elGB8H20c5U8RKhfpkzcO2BK92mdz3ojMU
- C/Dg==
-X-Gm-Message-State: AOAM533o5bbnMmz9EVgLaM7r085yhpY0rAaZHhEKMOaFh4uEiEGMcn2O
- 3Z/gayBON9eGRkGxPBpE71b6YHAgr3c=
-X-Google-Smtp-Source: ABdhPJwIxKHzRPH9dK5MFSSou4oh8I3hBAhTpFKjJEtXiMzSPGr/XroyHv4LkN5rNvgFVwJRJgi+PQ==
-X-Received: by 2002:a02:94cd:: with SMTP id x71mr2239171jah.124.1603952158644; 
- Wed, 28 Oct 2020 23:15:58 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.66.138])
- by smtp.gmail.com with ESMTPSA id z87sm1814585ilf.9.2020.10.28.23.15.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2020 23:15:58 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-5.10
-Date: Thu, 29 Oct 2020 02:15:49 -0400
-Message-Id: <20201029061549.4133-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=xR+pimkRBkVxQKmz8+Y1c1P6bvdZE/j3e5Or8kp9I7I=;
+ b=qhkvCOO5rnvX/7KuFqFw5bd9hwzGf0Me+JswF60kNqq9DiC3+NixjZDJ7bMxi8U0Mi
+ lguqIS5SBYl64ZWt1se/Z668vowsq7v2f41EangbSNo+wrRVBR9Hc69duDfO0ejU4TfR
+ xNYTxYQcA99tLRVXrCULNqZ08Xuz9m32lF/THVyS8IlDMP27o1zvrIaT/KX1o6/XIS95
+ bBEKEqQJIJGZUG+cmOHuGZkdjL94X1Unr9YAFuwPXXGspU+WXiWSy2sMdwWyA/O5xIAN
+ zhO2KXXCyPkg3qdaIpxYpk9y6sB3IxGBD6CavYG+P7LIomn01lZFqFYBFB3tTW/XIPwc
+ wPCQ==
+X-Gm-Message-State: AOAM531me0OnTE3965yEquQ0OQCNx2JKDjvrHkPsWePvQn6uUB6+krwj
+ zR/kOFiRjr4512eGBM4WkOQ=
+X-Google-Smtp-Source: ABdhPJwqNGeVqyWeTi9UgLXG6JDvUSxQR9npz1/3FoGNZoqcQAZ2B0rbPSEXmfO7XPR4HIFWvcAwvA==
+X-Received: by 2002:a17:906:4155:: with SMTP id
+ l21mr3339784ejk.204.1603964785449; 
+ Thu, 29 Oct 2020 02:46:25 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id b1sm803539ejg.60.2020.10.29.02.46.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Oct 2020 02:46:24 -0700 (PDT)
+Subject: Re: [PATCH 37/40] drm/amd/pm: enable Polaris watermark table setting
+To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20201016032652.507-1-evan.quan@amd.com>
+ <20201016032652.507-38-evan.quan@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <9dc45588-d70e-0e3d-5131-22994ab2c757@gmail.com>
+Date: Thu, 29 Oct 2020 10:46:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20201016032652.507-38-evan.quan@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,60 +85,133 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: christian.koenig@amd.com
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgRGF2ZSwgRGFuaWVsLAoKRml4ZXMgZm9yIDUuMTAuCgpUaGUgZm9sbG93aW5nIGNoYW5nZXMg
-c2luY2UgY29tbWl0IDM2NTBiMjI4ZjgzYWRkYTdlNWVlNTMyZTJiOTA0MjljMDNmN2I5ZWM6Cgog
-IExpbnV4IDUuMTAtcmMxICgyMDIwLTEwLTI1IDE1OjE0OjExIC0wNzAwKQoKYXJlIGF2YWlsYWJs
-ZSBpbiB0aGUgR2l0IHJlcG9zaXRvcnkgYXQ6CgogIGdpdDovL3Blb3BsZS5mcmVlZGVza3RvcC5v
-cmcvfmFnZDVmL2xpbnV4IHRhZ3MvYW1kLWRybS1maXhlcy01LjEwLTIwMjAtMTAtMjkKCmZvciB5
-b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0byA2NWQ0MzdiODNiMmI4ZWI5YWU0N2I2MTQ1Mzk5ZmM3
-NjgzYjAyOGY3OgoKICBkcm0vYW1kZ3B1L3BtOiBmaXggdGhlIGZhbiBzcGVlZCBpbiBmYW4xX2lu
-cHV0IGluIG1hbnVhbCBtb2RlIGZvciBuYXZpMXggKDIwMjAtMTAtMjcgMTQ6MDg6MDMgLTA0MDAp
-CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tCmFtZC1kcm0tZml4ZXMtNS4xMC0yMDIwLTEwLTI5OgoKYW1kZ3B1OgotIEFkZCBu
-ZXcgbmF2aTF4IFBDSSBJRAotIEdQVVZNIHJlc2VydmVkIGFyZWEgZml4ZXMKLSBNaXNjIGRpc3Bs
-YXkgZml4ZXMKLSBGaXggYmFkIGludGVyYWN0aW9ucyBiZXR3ZWVuIGRpc3BsYXkgY29kZSBhbmQg
-Q09ORklHX0tHREIKLSBGaXhlcyBmb3IgU01VIG1hbnVhbCBmYW4gY29udHJvbCBhbmQgaTJjCgot
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tCkFsZXggRGV1Y2hlciAoMyk6CiAgICAgIGRybS9hbWRncHUvZGlzcGxheTogdXNlIGt2
-emFsbG9jIGFnYWluIGluIGRjX2NyZWF0ZV9zdGF0ZQogICAgICBkcm0vYW1kZ3B1L3N3c211OiBk
-cm9wIHNtdSBpMmMgYnVzIG9uIG5hdmkxeAogICAgICBkcm0vYW1kZ3B1L3BtOiBmaXggdGhlIGZh
-biBzcGVlZCBpbiBmYW4xX2lucHV0IGluIG1hbnVhbCBtb2RlIGZvciBuYXZpMXgKCkNocmlzdGlh
-biBLw7ZuaWcgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBpbmNyZWFzZSB0aGUgcmVzZXJ2ZWQgVk0g
-c2l6ZSB0byAyTUIKCkRhdmlkIEdhbGlmZmkgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZp
-eGVkIHBhbmljIGR1cmluZyBzZWFtbGVzcyBib290LgoKRG15dHJvIExha3R5dXNoa2luICgxKToK
-ICAgICAgZHJtL2FtZC9kaXNwbGF5OiBwcmV2ZW50IG51bGwgcG9pbnRlciBhY2Nlc3MKCktlbm5l
-dGggRmVuZyAoMSk6CiAgICAgIGRybS9hbWQvcG06IGZpeCB0aGUgd3JvbmcgZmFuIHNwZWVkIGlu
-IGZhbjFfaW5wdXQKCk1hZGhhdiBDaGF1aGFuICgxKToKICAgICAgZHJtL2FtZGdwdTogZG9uJ3Qg
-bWFwIEJPIGluIHJlc2VydmVkIHJlZ2lvbgoKTWFydGluIExldW5nICgxKToKICAgICAgZHJtL2Ft
-ZC9kaXNwbGF5OiBhZGRpbmcgZGRjX2dwaW9fdmdhX3JlZ19saXN0IHRvIGRkYyByZWcgZGVmJ25z
-CgpUYWthc2hpIEl3YWkgKDMpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBrZXJuZWwgcGFu
-aWMgYnkgZGFsX2dwaW9fb3BlbigpIGVycm9yCiAgICAgIGRybS9hbWQvZGlzcGxheTogRG9uJ3Qg
-aW52b2tlIGtnZGJfYnJlYWtwb2ludCgpIHVuY29uZGl0aW9uYWxseQogICAgICBkcm0vYW1kL2Rp
-c3BsYXk6IENsZWFuIHVwIGRlYnVnIG1hY3JvcwoKVGlhbmNpLllpbiAoMik6CiAgICAgIGRybS9h
-bWRncHU6IGRpc2FibGUgRENOIGFuZCBWQ04gZm9yIG5hdmkxMCBibG9ja2NoYWluIFNLVSh2MykK
-ICAgICAgZHJtL2FtZGdwdTogYWRkIERJRCBmb3IgbmF2aTEwIGJsb2NrY2hhaW4gU0tVCgogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgICAgICAgICAgfCAgMSArCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgICAgICAgICAgICB8IDEwICsr
-KysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggICAgICAgICAgICAg
-fCAgNCArLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMgICAgICAgICAgICAgICAg
-ICAgIHwgMTQgKysrKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvS2NvbmZpZyAg
-ICAgICAgICAgICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
-L2RjLmMgICAgICAgICAgIHwgIDQgKy0tCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2Uv
-ZGNlX2Nsb2NrX3NvdXJjZS5jICB8ICAzICstCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-Y24zMC9kY24zMF9yZXNvdXJjZS5jICB8IDEyICsrKysrLS0tCiAuLi4vYW1kL2Rpc3BsYXkvZGMv
-Z3Bpby9kY24zMC9od19mYWN0b3J5X2RjbjMwLmMgICB8IDEyICsrKysrKysrCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9ncGlvX2Jhc2UuYyAgICB8ICA0ICstLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL29zX3R5cGVzLmggICAgICAgICAgfCAzMyArKysrKysr
-Ky0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9uYXZpMTBf
-cHB0LmMgICAgfCAzNiArKy0tLS0tLS0tLS0tLS0tLS0tLS0tCiAuLi4vZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxMS9zaWVubmFfY2ljaGxpZF9wcHQuYyAgICB8IDExICsrLS0tLS0KIDEzIGZpbGVzIGNo
-YW5nZWQsIDY5IGluc2VydGlvbnMoKyksIDc2IGRlbGV0aW9ucygtKQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Hi guys,
+
+this commit here completely breaks Vega20.
+
+Any idea why a change for Polaris should have that effect? Can we please 
+fix this ASAP?
+
+Thanks,
+Christian.
+
+Am 16.10.20 um 05:26 schrieb Evan Quan:
+> Enable watermark table setting for Polaris.
+>
+> Change-Id: I395b74f2ce5b74e6d1c7659816ee386ba556e14c
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  | 11 +++-
+>   .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 50 +++++++++++++++++++
+>   2 files changed, 60 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> index deb9164eb5fe..fd39dd67bfa4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+> @@ -458,7 +458,16 @@ bool dm_pp_notify_wm_clock_changes(
+>   	const struct dc_context *ctx,
+>   	struct dm_pp_wm_sets_with_clock_ranges *wm_with_clock_ranges)
+>   {
+> -	/* TODO: to be implemented */
+> +	struct amdgpu_device *adev = ctx->driver_context;
+> +	void *pp_handle = adev->powerplay.pp_handle;
+> +	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+> +
+> +	if (pp_funcs && pp_funcs->set_watermarks_for_clocks_ranges) {
+> +		if (!pp_funcs->set_watermarks_for_clocks_ranges(pp_handle,
+> +						(void *)wm_with_clock_ranges))
+> +			return true;
+> +	}
+> +
+>   	return false;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> index 3700352286c5..ce8f368c0a8c 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -49,6 +49,8 @@
+>   #include "processpptables.h"
+>   #include "pp_thermal.h"
+>   #include "smu7_baco.h"
+> +#include "smu7_smumgr.h"
+> +#include "polaris10_smumgr.h"
+>   
+>   #include "ivsrcid/ivsrcid_vislands30.h"
+>   
+> @@ -5107,6 +5109,53 @@ static int smu7_get_clock_by_type_with_latency(struct pp_hwmgr *hwmgr,
+>   	return 0;
+>   }
+>   
+> +static int smu7_set_watermarks_for_clocks_ranges(struct pp_hwmgr *hwmgr,
+> +						 void *clock_range)
+> +{
+> +	struct phm_ppt_v1_information *table_info =
+> +			(struct phm_ppt_v1_information *)hwmgr->pptable;
+> +	struct phm_ppt_v1_clock_voltage_dependency_table *dep_mclk_table =
+> +			table_info->vdd_dep_on_mclk;
+> +	struct phm_ppt_v1_clock_voltage_dependency_table *dep_sclk_table =
+> +			table_info->vdd_dep_on_sclk;
+> +	struct polaris10_smumgr *smu_data =
+> +			(struct polaris10_smumgr *)(hwmgr->smu_backend);
+> +	SMU74_Discrete_DpmTable  *table = &(smu_data->smc_state_table);
+> +	struct dm_pp_wm_sets_with_clock_ranges *watermarks =
+> +			(struct dm_pp_wm_sets_with_clock_ranges *)clock_range;
+> +	uint32_t i, j, k;
+> +	bool valid_entry;
+> +
+> +	if (!(hwmgr->chip_id >= CHIP_POLARIS10 &&
+> +	      hwmgr->chip_id <= CHIP_VEGAM))
+> +		return -EINVAL;
+> +
+> +	for (i = 0; i < dep_mclk_table->count; i++) {
+> +		for (j = 0; j < dep_sclk_table->count; j++) {
+> +			valid_entry = false;
+> +			for (k = 0; k < watermarks->num_wm_sets; k++) {
+> +				if (dep_sclk_table->entries[i].clk / 10 >= watermarks->wm_clk_ranges[k].wm_min_eng_clk_in_khz &&
+> +				    dep_sclk_table->entries[i].clk / 10 < watermarks->wm_clk_ranges[k].wm_max_eng_clk_in_khz &&
+> +				    dep_mclk_table->entries[i].clk / 10 >= watermarks->wm_clk_ranges[k].wm_min_mem_clk_in_khz &&
+> +				    dep_mclk_table->entries[i].clk / 10 < watermarks->wm_clk_ranges[k].wm_max_mem_clk_in_khz) {
+> +					valid_entry = true;
+> +					table->DisplayWatermark[i][j] = watermarks->wm_clk_ranges[k].wm_set_id;
+> +					break;
+> +				}
+> +			}
+> +			PP_ASSERT_WITH_CODE(valid_entry,
+> +					"Clock is not in range of specified clock range for watermark from DAL!  Using highest water mark set.",
+> +					table->DisplayWatermark[i][j] = watermarks->wm_clk_ranges[k - 1].wm_set_id);
+> +		}
+> +	}
+> +
+> +	return smu7_copy_bytes_to_smc(hwmgr,
+> +				      smu_data->smu7_data.dpm_table_start + offsetof(SMU74_Discrete_DpmTable, DisplayWatermark),
+> +				      (uint8_t *)table->DisplayWatermark,
+> +				      sizeof(uint8_t) * SMU74_MAX_LEVELS_MEMORY * SMU74_MAX_LEVELS_GRAPHICS,
+> +				      SMC_RAM_END);
+> +}
+> +
+>   static int smu7_notify_cac_buffer_info(struct pp_hwmgr *hwmgr,
+>   					uint32_t virtual_addr_low,
+>   					uint32_t virtual_addr_hi,
+> @@ -5525,6 +5574,7 @@ static const struct pp_hwmgr_func smu7_hwmgr_funcs = {
+>   	.set_mclk_od = smu7_set_mclk_od,
+>   	.get_clock_by_type = smu7_get_clock_by_type,
+>   	.get_clock_by_type_with_latency = smu7_get_clock_by_type_with_latency,
+> +	.set_watermarks_for_clocks_ranges = smu7_set_watermarks_for_clocks_ranges,
+>   	.read_sensor = smu7_read_sensor,
+>   	.dynamic_state_management_disable = smu7_disable_dpm_tasks,
+>   	.avfs_control = smu7_avfs_control,
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
