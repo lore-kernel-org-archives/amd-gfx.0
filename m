@@ -2,91 +2,106 @@ Return-Path: <SRS0=gTHH=EF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35CCEC55179
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 09:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84FEDC55179
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 09:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B94F020728
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 09:25:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E20E32076D
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 09:53:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="J7c4uO3o"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B94F020728
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jxg4Plmy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E20E32076D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 374BD6ED1A;
-	Fri, 30 Oct 2020 09:25:03 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A67FC6ED1A
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 09:25:01 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id l8so2266192wmg.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 02:25:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=lr95YjmxfBMQgyUuKRsKu2us1sAP1mxiJZKWtC6RQLE=;
- b=J7c4uO3oFnVEICxe8V4NrJjJtpvezAbH4Hnr1BGHvgDeOFSERTJJk/DwplkhhnEqy9
- gsk0k8raBxS9hZRbzo+tr8t9Dk5T6j0noOY+90TyNK1xWKM0eZMyQJIHckNemEjavWGJ
- dH6rskih7R8r2jYNF4tDicyiGmBFKIxSwmTag=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:mail-followup-to
- :references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=lr95YjmxfBMQgyUuKRsKu2us1sAP1mxiJZKWtC6RQLE=;
- b=Xr28MZjkO7pK4D/DqgtzOBQgz3OX0ubtcTO+oebTjzGiqpGL83Sw3rYuZWK5A8xU9W
- 8IUFxuzYxPVdXOCIgP28MthBktZ7GnK7wHTSSrSkDtjATVwrunfvxrDEKm4uoSheyRsf
- 9eltcLRJ+cNV90L0v7oncyaX3eMz2Ml/pZhrmPxZbKuatItenonVmgTCtDxgiO1NXmaI
- 53HZBalUnoRfe+nST1VkMf40n9CjO05qkEwUgUwjXIl/GHZRL7f4DtcT+L8i+WPIX/Ux
- pje4fadM7PT/l8qcZYDQoVOnBaFjTZIi81bfoVrRe/pLTDqN9yT9UCC7TlsJZm55ss/8
- Fl4A==
-X-Gm-Message-State: AOAM533x3uVSp3mZZ1Dnkx56yje2KbNhJylOOYFI7TaoMEl7rHb7iYKY
- u0VbQl+9RV38bQG6NgU65pIMIA==
-X-Google-Smtp-Source: ABdhPJzCjMEsph+rgXwaN/TbnJTQc9xZPv4MlevNFQZPghkhmWJxtTUdg+b4UkW0Zd6TJSzHqwwt0w==
-X-Received: by 2002:a05:600c:218a:: with SMTP id
- e10mr1482019wme.7.1604049900279; 
- Fri, 30 Oct 2020 02:25:00 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id t1sm9436244wrs.48.2020.10.30.02.24.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2020 02:24:59 -0700 (PDT)
-Date: Fri, 30 Oct 2020 10:24:57 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Greg KH <gregkh@linuxfoundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Deepak R Varma <mh12gx2825@gmail.com>, outreachy-kernel@googlegroups.com,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- melissa.srw@gmail.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 439136ED34;
+	Fri, 30 Oct 2020 09:53:57 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EFEC6ED34;
+ Fri, 30 Oct 2020 09:53:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NF2exw4vWtXj9ifhi0h+vFCUlAUrWGNda0eM0FhiQGrdCNQ6HTov+kUqdEZ36dSwcWzlSSiH0LErktr7mba4uR25PsOFoJ8uZ1ApGyexjKYNWytN/zy5pQbCs2CRQ/D3NzPTiWtfTuvQcHXWSraBehb2vP8VJKXptz04sHuzg3SMGKb8wrRoZzkG/S0D8Q+VqCT3iADsZZd09hNLIOh8v77diFFAmeCdnoYopuwrsc0PyXRLicM1KQ10NkXpK+iRBNBzVOBIhCZabGWQPyXW2Y9tl8uv3loXicBjdCHIK5tcr1bai6A9Prau9k7xfvEawiubIrFKqkFjEurkf50YrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SUIoRt7PlKyDexwIRpfH7PtKv763AzOMMpQEerziKMg=;
+ b=QmWkPGovTvfi9ecaSCFir97m0iQwJtusLWPcJeRUk6v+pYQMgphZuenPli0/3cm+0sS6zoOzsFKvV6oXKxVZpYgczsOxuMv2WQaSVfn8OPw5Q2R1pzxvknWndR8v8Kt/pJASeM8XXJSd3IruHi/nMoZFajF7jLMAEoM4zz/zwOo7p0wCuCnTmpVjF9lKmqFt6Dt6GAUZmpary6qJPvhFEqOL6xQ8eyFSOSYhprpXkc6jM5KrPPlOwjxenAbhQvxXm+xw2z3OfoYBaDG5oZ+EntdPN++R0r0NAMViKjtE/Gmtcz/0pfJ1n6DdASpF47AnbHEQwSuo6u7I8TGWXcqSNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SUIoRt7PlKyDexwIRpfH7PtKv763AzOMMpQEerziKMg=;
+ b=jxg4PlmyRA4Du17ny1cTSS9e1d0zB09HGgUUBOJ/YdODZoVu+E4pnn8nUi6ysaPCXM7ZImF4JXdzGaGPF1a+TEUZqe8ONDZvkGlTBv2q0b3pZ8p/p777GsztqjJBKf4MnD9QQvMlXxKfer+oN/GX0D3PFpVPhOwBEeARw0rKfzc=
+Authentication-Results: ffwll.ch; dkim=none (message not signed)
+ header.d=none;ffwll.ch; dmarc=none action=none header.from=amd.com;
+Received: from BY5PR12MB3764.namprd12.prod.outlook.com (2603:10b6:a03:1ac::17)
+ by BYAPR12MB3319.namprd12.prod.outlook.com (2603:10b6:a03:dc::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Fri, 30 Oct
+ 2020 09:53:54 +0000
+Received: from BY5PR12MB3764.namprd12.prod.outlook.com
+ ([fe80::21a4:4ed1:c6bb:5437]) by BY5PR12MB3764.namprd12.prod.outlook.com
+ ([fe80::21a4:4ed1:c6bb:5437%5]) with mapi id 15.20.3499.027; Fri, 30 Oct 2020
+ 09:53:54 +0000
 Subject: Re: [Outreachy kernel] [PATCH] drm/amdgpu: use
  DEFINE_DEBUGFS_ATTRIBUTE with debugfs_create_file_unsafe()
-Message-ID: <20201030092457.GI401619@phenom.ffwll.local>
-Mail-Followup-To: Greg KH <gregkh@linuxfoundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Deepak R Varma <mh12gx2825@gmail.com>,
- outreachy-kernel@googlegroups.com,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- melissa.srw@gmail.com
+To: Greg KH <gregkh@linuxfoundation.org>
 References: <20201030032245.GA274478@my--box>
- <20201030071120.GA1493629@kroah.com>
- <20201030075716.GA6976@my--box>
+ <20201030071120.GA1493629@kroah.com> <20201030075716.GA6976@my--box>
  <5a7d8e8d-8db5-ff56-6448-3f1cefc11ef8@amd.com>
  <20201030082518.GB1619669@kroah.com>
- <20201030091521.GH401619@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <02ec2329-29ac-28aa-eb2d-8f6151782295@amd.com>
+Date: Fri, 30 Oct 2020 10:53:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20201030082518.GB1619669@kroah.com>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM0PR08CA0035.eurprd08.prod.outlook.com
+ (2603:10a6:208:d2::48) To BY5PR12MB3764.namprd12.prod.outlook.com
+ (2603:10b6:a03:1ac::17)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201030091521.GH401619@phenom.ffwll.local>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM0PR08CA0035.eurprd08.prod.outlook.com (2603:10a6:208:d2::48) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3499.18 via Frontend Transport; Fri, 30 Oct 2020 09:53:51 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1f8f9567-c262-4f01-8e2e-08d87cb9b5ec
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3319:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3319EC3E02DA88DFF319521583150@BYAPR12MB3319.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 79tugfGpBsN7pLaWhYbGs4QxXeKaocdmgO6GhHd+mJW8/Bvn+HXCcTHEwGhWsqZ/Zg8n2EE0pawcIvNXWV4beeOcKDYQBHh3fOTctgBhYW4j3QnW02hcwxMuOxA20ccDMqOAPooySBzXPV9j4LwOVpqLPuZYsGhZ0DyHyB2rjpWD7QyosxV7JiLTb81YLKl1CHQxgg+0+Gua/ANWgVT5dJIGtK0ell8yZw6K02hYC+4a59gEU4MH4Mwml8CglNzpzlPb69ea3YnqUSnIewhVT8eC2KZ59coBDLgqQB9l83fht2TleQ4VhQBmf7a8S1azwbMEX145fBeva9OO/j5WZxtkZsmr8PX+33GUtw/0HWbQGE+OvdPwluq2VnaQtWhSIYjYZStpjNqZXf9+ympJn+64f7K/p9PwSNcssG04CmQE8nDGxjFkyCFO0TyKmz08E9aCdRkP+CVWOwSrih4M5g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB3764.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(396003)(136003)(39860400002)(376002)(2906002)(66556008)(86362001)(966005)(8936002)(66476007)(66946007)(83380400001)(316002)(5660300002)(36756003)(2616005)(8676002)(7416002)(31696002)(6666004)(6916009)(478600001)(66574015)(186003)(54906003)(6486002)(45080400002)(31686004)(16526019)(52116002)(4326008)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: cBO6MpOOssRvOuJnYCCaPabRYK8hSInEU/5svO6P3QdYajjRNaG8FHIFnSN6/iLJeDq+Buf0HmsATMc28wKBpwSTGuyclr7e9DD5sh7mKKUn7Nqj9+5BKHcmj0PDdx9lXc0jNoMta/yb/xbEwhIHyWhKdM/H/qkoLmdz2pHVC4x+t95a4psSbgOBQIiNfJs1LTCckPaNZWZLf7CLMDb387A+hgLemEh3YCJGcyTj1t05PWIa3rtEEZeySd/BLEuznIJAG1fkRqEayOMqGOP3LUDpFza41TlGc345ALTHNwevBgtawc7ucL6U7DuRn2D12WHmiF3bxQSr/9Dd0RFCq4GeFkmpRE3e7HELLoXm7AQ2OFxWYFAvjheT+vuRvW4fsSf1p4BdNcFGJvdvkqR+BThA/p7pJu0o2cB4BRRTxz7MmFZblbokcH8cpmicYRsfgC8CGN28zEZjS7GyEOGZcsZ/9HjqJ4sOBXR5gNtpp35TDFRmX7vNGhP8PkfbszQIlF3t8bwi0Zd4pJ1Of50drL5lzBuG0iFNJbNyMl4RCs3weMwLzig4ShKCGFLvvxzFwWzXPONrQNaDmfd0dx234sZwr/nfhHs08IrINPgAnYjvedlryeOXrjGUa+nrnha6DQExzlYD+0P+1gmh/Bq+zs0JdBvlvU/OcCYwu8bFvrQZfX/ICYLAObl2ynrD9HjfjP2F6r4Z13pvGsZCqFHExg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f8f9567-c262-4f01-8e2e-08d87cb9b5ec
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3764.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2020 09:53:53.8376 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 86om12hunHsQLDuw1tDx6yWwCCxskpP6IlM9AmWv08AYsRRxORyfJxo910Vd8Yij
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,151 +113,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Deepak R Varma <mh12gx2825@gmail.com>, David Airlie <airlied@linux.ie>,
+ daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, melissa.srw@gmail.com,
+ outreachy-kernel@googlegroups.com, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 30, 2020 at 10:15:21AM +0100, Daniel Vetter wrote:
-> On Fri, Oct 30, 2020 at 09:25:18AM +0100, Greg KH wrote:
-> > On Fri, Oct 30, 2020 at 09:00:04AM +0100, Christian K=F6nig wrote:
-> > > Am 30.10.20 um 08:57 schrieb Deepak R Varma:
-> > > > On Fri, Oct 30, 2020 at 08:11:20AM +0100, Greg KH wrote:
-> > > > > On Fri, Oct 30, 2020 at 08:52:45AM +0530, Deepak R Varma wrote:
-> > > > > > Using DEFINE_DEBUGFS_ATTRIBUTE macro with debugfs_create_file_u=
-nsafe()
-> > > > > > function in place of the debugfs_create_file() function will ma=
-ke the
-> > > > > > file operation struct "reset" aware of the file's lifetime. Add=
-itional
-> > > > > > details here: https://nam11.safelinks.protection.outlook.com/?u=
-rl=3Dhttps%3A%2F%2Flists.archive.carbon60.com%2Flinux%2Fkernel%2F2369498&am=
-p;data=3D04%7C01%7Cchristian.koenig%40amd.com%7Cddd7a6ac8164415a639708d87ca=
-97004%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637396414464384011%7CUnk=
-nown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJX=
-VCI6Mn0%3D%7C1000&amp;sdata=3Do6GOHvMxNMuOPlC4nhDyURCHBLqfQZhYQq%2BiIMt3D3s=
-%3D&amp;reserved=3D0
-> > > > > > =
-
-> > > > > > Issue reported by Coccinelle script:
-> > > > > > scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
-> > > > > > =
-
-> > > > > > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
-> > > > > > ---
-> > > > > > Please Note: This is a Outreachy project task patch.
-> > > > > > =
-
-> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20 ++++++++++--=
---------
-> > > > > >   1 file changed, 10 insertions(+), 10 deletions(-)
-> > > > > > =
-
-> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > > > index 2d125b8b15ee..f076b1ba7319 100644
-> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > > > @@ -1551,29 +1551,29 @@ static int amdgpu_debugfs_sclk_set(void=
- *data, u64 val)
-> > > > > >   	return 0;
-> > > > > >   }
-> > > > > > -DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
-> > > > > > -			amdgpu_debugfs_ib_preempt, "%llu\n");
-> > > > > > +DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
-> > > > > > +			 amdgpu_debugfs_ib_preempt, "%llu\n");
-> > > > > Are you sure this is ok?  Do these devices need this additional
-> > > > > "protection"?  Do they have the problem that these macros were wr=
-itten
-> > > > > for?
-> > > > > =
-
-> > > > > Same for the other patches you just submitted here, I think you n=
-eed to
-> > > > > somehow "prove" that these changes are necessary, checkpatch isn'=
-t able
-> > > > > to determine this all the time.
-> > > > Hi Greg,
-> > > > Based on my understanding, the current function debugfs_create_file=
-()
-> > > > adds an overhead of lifetime managing proxy for such fop structs. T=
-his
-> > > > should be applicable to these set of drivers as well. Hence I think=
- this
-> > > > change will be useful.
-> > > =
-
-> > > Well since this is only created once per device instance I don't real=
-ly care
-> > > about this little overhead.
-> > > =
-
-> > > But what exactly is debugfs doing or not doing here?
-> > =
-
-> > It is trying to save drivers from having debugfs files open that point
-> > to memory that can go away at any time.  For graphics devices, I doubt
-> > that is the case.
-> =
-
-> So for anything we add/remove we have two-stage cleanup
-> =
-
-> 1. drm_dev_unregister (or drm_connector_unregisters, those are the only
-> two hotunpluggable things we have) unregister all the uapi interfaces.
-> This deletes all the sysfs and debugfs files.
-> =
-
-> 2. Once all the references to the underlying object disappear from the
-> kernel, we free up the data structure.
-> =
-
-> Now for chardev and similar uapi, we hold full references for open files.
-> But for sysfs and debugfs we assume that those uapi layers will make sure
-> that after we deleted the files in step 1 all access through these
-> functions are guaranteed to have finished. If that's not the case, then we
-> need to rework our refcounting and also refcount the underlying drm
-> structure (drm_device or drm_connector) from sysfs/debugfs files.
-> =
-
-> Now I tried to look at the patch Deepak references, and I'm not really
-> clear what changes. Or whether we made a wrong assumption previously about
-> what debugfs/sysfs guarantee when we delete the files.
-
-I read some more code and kerneldoc, and I still have no idea what this
-new _unsafe variant is used for. Only ones I've found seem to use
-debugfs_file_get/put like the normal variant, to protect against
-concurrently removed files due to hotunplug. Which is kinda what we've
-been expecting debugfs to do for us.
-
-What's a use-case for _unsafe _without_ debugfs_file_get/put?
-
-Decently confused me over here doesn't get this.
--Daniel
-
-> -Daniel
-> =
-
-> > =
-
-> > thanks,
-> > =
-
-> > greg k-h
-> =
-
-> -- =
-
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMzAuMTAuMjAgdW0gMDk6MjUgc2NocmllYiBHcmVnIEtIOgo+IE9uIEZyaSwgT2N0IDMwLCAy
+MDIwIGF0IDA5OjAwOjA0QU0gKzAxMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDMw
+LjEwLjIwIHVtIDA4OjU3IHNjaHJpZWIgRGVlcGFrIFIgVmFybWE6Cj4+PiBPbiBGcmksIE9jdCAz
+MCwgMjAyMCBhdCAwODoxMToyMEFNICswMTAwLCBHcmVnIEtIIHdyb3RlOgo+Pj4+IE9uIEZyaSwg
+T2N0IDMwLCAyMDIwIGF0IDA4OjUyOjQ1QU0gKzA1MzAsIERlZXBhayBSIFZhcm1hIHdyb3RlOgo+
+Pj4+PiBVc2luZyBERUZJTkVfREVCVUdGU19BVFRSSUJVVEUgbWFjcm8gd2l0aCBkZWJ1Z2ZzX2Ny
+ZWF0ZV9maWxlX3Vuc2FmZSgpCj4+Pj4+IGZ1bmN0aW9uIGluIHBsYWNlIG9mIHRoZSBkZWJ1Z2Zz
+X2NyZWF0ZV9maWxlKCkgZnVuY3Rpb24gd2lsbCBtYWtlIHRoZQo+Pj4+PiBmaWxlIG9wZXJhdGlv
+biBzdHJ1Y3QgInJlc2V0IiBhd2FyZSBvZiB0aGUgZmlsZSdzIGxpZmV0aW1lLiBBZGRpdGlvbmFs
+Cj4+Pj4+IGRldGFpbHMgaGVyZTogaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5v
+dXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuYXJjaGl2ZS5jYXJib242MC5jb20l
+MkZsaW51eCUyRmtlcm5lbCUyRjIzNjk0OTgmYW1wO2RhdGE9MDQlN0MwMSU3Q2NocmlzdGlhbi5r
+b2VuaWclNDBhbWQuY29tJTdDZTNmYjJmMjIzNmY0NGY4Nzc5YmMwOGQ4N2NhZDNhMmQlN0MzZGQ4
+OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3Mzk2NDMwNzM0NTQyNjcy
+JTdDVW5rbm93biU3Q1RXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXdNREFpTENKUUlqb2lWMmx1
+TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJNk1uMCUzRCU3QzEwMDAmYW1wO3NkYXRhPUN1RG5X
+U0lhY0tmZGN2NiUyQjAwUTltWiUyQkFjWHNlNW1sRnB1U3NCeWJaJTJGd3clM0QmYW1wO3Jlc2Vy
+dmVkPTAKPj4+Pj4KPj4+Pj4gSXNzdWUgcmVwb3J0ZWQgYnkgQ29jY2luZWxsZSBzY3JpcHQ6Cj4+
+Pj4+IHNjcmlwdHMvY29jY2luZWxsZS9hcGkvZGVidWdmcy9kZWJ1Z2ZzX3NpbXBsZV9hdHRyLmNv
+Y2NpCj4+Pj4+Cj4+Pj4+IFNpZ25lZC1vZmYtYnk6IERlZXBhayBSIFZhcm1hIDxtaDEyZ3gyODI1
+QGdtYWlsLmNvbT4KPj4+Pj4gLS0tCj4+Pj4+IFBsZWFzZSBOb3RlOiBUaGlzIGlzIGEgT3V0cmVh
+Y2h5IHByb2plY3QgdGFzayBwYXRjaC4KPj4+Pj4KPj4+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYyB8IDIwICsrKysrKysrKystLS0tLS0tLS0tCj4+Pj4+
+ICAgIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKPj4+
+Pj4KPj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZWJ1Z2ZzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jCj4+
+Pj4+IGluZGV4IDJkMTI1YjhiMTVlZS4uZjA3NmIxYmE3MzE5IDEwMDY0NAo+Pj4+PiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jCj4+Pj4+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKPj4+Pj4gQEAgLTE1NTEs
+MjkgKzE1NTEsMjkgQEAgc3RhdGljIGludCBhbWRncHVfZGVidWdmc19zY2xrX3NldCh2b2lkICpk
+YXRhLCB1NjQgdmFsKQo+Pj4+PiAgICAJcmV0dXJuIDA7Cj4+Pj4+ICAgIH0KPj4+Pj4gLURFRklO
+RV9TSU1QTEVfQVRUUklCVVRFKGZvcHNfaWJfcHJlZW1wdCwgTlVMTCwKPj4+Pj4gLQkJCWFtZGdw
+dV9kZWJ1Z2ZzX2liX3ByZWVtcHQsICIlbGx1XG4iKTsKPj4+Pj4gK0RFRklORV9ERUJVR0ZTX0FU
+VFJJQlVURShmb3BzX2liX3ByZWVtcHQsIE5VTEwsCj4+Pj4+ICsJCQkgYW1kZ3B1X2RlYnVnZnNf
+aWJfcHJlZW1wdCwgIiVsbHVcbiIpOwo+Pj4+IEFyZSB5b3Ugc3VyZSB0aGlzIGlzIG9rPyAgRG8g
+dGhlc2UgZGV2aWNlcyBuZWVkIHRoaXMgYWRkaXRpb25hbAo+Pj4+ICJwcm90ZWN0aW9uIj8gIERv
+IHRoZXkgaGF2ZSB0aGUgcHJvYmxlbSB0aGF0IHRoZXNlIG1hY3JvcyB3ZXJlIHdyaXR0ZW4KPj4+
+PiBmb3I/Cj4+Pj4KPj4+PiBTYW1lIGZvciB0aGUgb3RoZXIgcGF0Y2hlcyB5b3UganVzdCBzdWJt
+aXR0ZWQgaGVyZSwgSSB0aGluayB5b3UgbmVlZCB0bwo+Pj4+IHNvbWVob3cgInByb3ZlIiB0aGF0
+IHRoZXNlIGNoYW5nZXMgYXJlIG5lY2Vzc2FyeSwgY2hlY2twYXRjaCBpc24ndCBhYmxlCj4+Pj4g
+dG8gZGV0ZXJtaW5lIHRoaXMgYWxsIHRoZSB0aW1lLgo+Pj4gSGkgR3JlZywKPj4+IEJhc2VkIG9u
+IG15IHVuZGVyc3RhbmRpbmcsIHRoZSBjdXJyZW50IGZ1bmN0aW9uIGRlYnVnZnNfY3JlYXRlX2Zp
+bGUoKQo+Pj4gYWRkcyBhbiBvdmVyaGVhZCBvZiBsaWZldGltZSBtYW5hZ2luZyBwcm94eSBmb3Ig
+c3VjaCBmb3Agc3RydWN0cy4gVGhpcwo+Pj4gc2hvdWxkIGJlIGFwcGxpY2FibGUgdG8gdGhlc2Ug
+c2V0IG9mIGRyaXZlcnMgYXMgd2VsbC4gSGVuY2UgSSB0aGluayB0aGlzCj4+PiBjaGFuZ2Ugd2ls
+bCBiZSB1c2VmdWwuCj4+IFdlbGwgc2luY2UgdGhpcyBpcyBvbmx5IGNyZWF0ZWQgb25jZSBwZXIg
+ZGV2aWNlIGluc3RhbmNlIEkgZG9uJ3QgcmVhbGx5IGNhcmUKPj4gYWJvdXQgdGhpcyBsaXR0bGUg
+b3ZlcmhlYWQuCj4+Cj4+IEJ1dCB3aGF0IGV4YWN0bHkgaXMgZGVidWdmcyBkb2luZyBvciBub3Qg
+ZG9pbmcgaGVyZT8KPiBJdCBpcyB0cnlpbmcgdG8gc2F2ZSBkcml2ZXJzIGZyb20gaGF2aW5nIGRl
+YnVnZnMgZmlsZXMgb3BlbiB0aGF0IHBvaW50Cj4gdG8gbWVtb3J5IHRoYXQgY2FuIGdvIGF3YXkg
+YXQgYW55IHRpbWUuICBGb3IgZ3JhcGhpY3MgZGV2aWNlcywgSSBkb3VidAo+IHRoYXQgaXMgdGhl
+IGNhc2UuCgpXZWxsIHdlIGhhdmUgc29tZWJvZHkgd29ya2luZyBvbiBob3QgcGx1ZyByZW1vdmFs
+IGZvciBkR1BVcywgYnV0IHRoYXQgaXMgCnJlYWxseSBub3QgYW4gaXNzdWUgaGVyZS4KCkV2ZW4g
+aWYgb3VyIGRldmljZSBhcmUgcmVtb3ZlZCBtb3N0IG9mIHRoZSBkZWJ1Z2ZzIGZpbGVzIHNob3Vs
+ZG4ndCBiZSAKYWZmZWN0ZWQgYnkgdGhhdC4KClRoYW5rcywKQ2hyaXN0aWFuLgoKPgo+IHRoYW5r
+cywKPgo+IGdyZWcgay1oCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
