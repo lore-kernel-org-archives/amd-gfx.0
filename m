@@ -2,70 +2,75 @@ Return-Path: <SRS0=gTHH=EF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2DBEC4742C
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC791C00A89
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F7502075E
+	by mail.kernel.org (Postfix) with ESMTPS id 3D4D020739
 	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 08:35:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/hb/uHP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F7502075E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jgIk3kQq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D4D020739
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACEE6ED12;
-	Fri, 30 Oct 2020 08:35:51 +0000 (UTC)
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7E0C6E967;
- Fri, 30 Oct 2020 08:17:17 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id j24so7331791ejc.11;
- Fri, 30 Oct 2020 01:17:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 611B76ED0F;
+	Fri, 30 Oct 2020 08:35:50 +0000 (UTC)
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BB36E95D;
+ Fri, 30 Oct 2020 07:57:23 +0000 (UTC)
+Received: by mail-pg1-x544.google.com with SMTP id z24so4540523pgk.3;
+ Fri, 30 Oct 2020 00:57:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=isq0Cow78/AjEmsqnAVKldd57j9TXBBIw7xg5eblrKY=;
- b=c/hb/uHPpL/euinPLxiwhuDRVEc6fOxUTHIPK5BOvMO2df7tzuq5E2aP2XpAnYUu5p
- XefG4t+UJcniO/D9PTpXc/RE1jiaBRoBf4dTME7MFcujBrIIpnqSjJfa2yU4VW7bw9Sh
- rHY7IlUcQKN8vlTXbiWI/ZKGj/Cq7FgsDmIA0OtFZ87yiA68jqNJ7NO/f4eWZoV6VZAa
- KtZcO8GUXDRI7fWkDOBT/7f7lmiEW18gsJmx0t/kyW8A6KiKgAL2hMmeEjL86Nq4qXMH
- Ns9yR5bhFtU+vk2jhPKDP+IYDCWe7RlDKqBr/LbghQPqtccX8XSSeIcoTgIZS2gcOlaZ
- GvBA==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=muDviu7LdHJg+SSfbczNSfqTYUnVpBS3s+/TDHUMTTw=;
+ b=jgIk3kQqh6b5u8IMVHEg6AdHPuuke3JzirHkuNrOCCNKpeMK257DsLUoeFprqFh8Sz
+ U+jweagDc8j2KnmzKdNbiv9B/CABxAw8RwQf2qsGFlB8ClYhnXz/4xTlrrK82ReaaXCY
+ FyF8uYsKUx+Jsg+bWsN1VQ2OguKv7klzVR3JjwRuXzccW0KIzLmXlexdRAiUVePEvg44
+ K27mHToHsf5LnJ4r4314ZbAbDvHCgXXPKKlXuyksDHrUVcrenfOVSAOwGtxPk6Z7MgKb
+ 3S6OHQKikdKPcJdpZz8QZYr2keQGpGGu2LplB/t9syqbHEhtrSYrpkZLRBg5RjmtI/cC
+ djBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=isq0Cow78/AjEmsqnAVKldd57j9TXBBIw7xg5eblrKY=;
- b=KpbCw5QRZNLqIzBR/IFfg/K7M3e3W3n2G5Nt/TYcQfyKjRtFeHl6P1IZaE5rbP2eWX
- 1KmuLH1U3NRnwMNWMhfygzY7FmH5rerJCXN84/pIhLY0yRDASre4MegsTy7n3xCZfg1Y
- eTaXZ4ksnfthLk9Owt9QPa1ndK+A+Va6MBVovVl4xSVK/KOLJMqJv/hffqUA7NQhhm7I
- mXiF5FA7uuor31awx0zugMQuyXDtOqInQDaxHpMrkwzQBjPw4+AFJUksx6KTZGOUi9Cc
- VTlEy05EvZA2j0xy+OWJmG3cgT2nfkEWHyR48dzWC5xf8VH3xRG1eQLvAIrYAwVhneJX
- Ch/Q==
-X-Gm-Message-State: AOAM531a3sukAyZZlK2rLHga4TDBs+3qJYEBD5UE6NODpqXHg0BhdsjK
- M1B5OQB9Wf+xM1aDZYAP61NSkhMlJv/6APRIY0c=
-X-Google-Smtp-Source: ABdhPJwmbed8hagWH1qZrFuvckRjZsBupsCek6V3EcPAh4vgqV9BO762TXZiWoGsq5/pzCnO/3oPzlD/7dgw6lMz+5I=
-X-Received: by 2002:a17:906:4dd4:: with SMTP id
- f20mr896882ejw.94.1604045836537; 
- Fri, 30 Oct 2020 01:17:16 -0700 (PDT)
-MIME-Version: 1.0
-References: <20201030032245.GA274478@my--box>
- <20201030071120.GA1493629@kroah.com>
- <20201030075716.GA6976@my--box> <20201030080316.GA1612206@kroah.com>
-In-Reply-To: <20201030080316.GA1612206@kroah.com>
-From: Sumera Priyadarsini <sylphrenadin@gmail.com>
-Date: Fri, 30 Oct 2020 13:47:05 +0530
-Message-ID: <CACAkLupMiH9z4g7WLJ7t-N089_M6QGX6HkPQUATu4VCxDeFAKw@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=muDviu7LdHJg+SSfbczNSfqTYUnVpBS3s+/TDHUMTTw=;
+ b=c0LQi/+FqoGzuQNoAEP1/pMSn+OF2utgCblf/iuGueoGXiauMPZt+pw9NhtOEZCx+D
+ VTyY69Hj16QTLGPpL1PfIgy8A+r9A6EK5gBAsypkjG6Hpp1j8gUVKtPHpkVCUb8tEJ7N
+ jAQvBEKJpj4szMjoHM4krPCOx6dzj3ulleyvwHMu8CJcTlhAqChVXeihYnDmLiPp89uJ
+ srR46Ub9BfDH/sn9xEHZ4+2vdl0e63phKthlxuxPPBqzcBeT1VHAry1l3HFvX/RtSyFx
+ y6tMTKIO6gyKt4SIE+PCj43kzCz0OErQSpyCbvJbkwvlgRguC/CXgqP61LUJ9z8mgWSZ
+ Jggg==
+X-Gm-Message-State: AOAM5329ykLvFaYgYRgeUbJOFnhmWtMuG0Yw2eoko5WS/CWBvjQ+PiEF
+ Ge/lS0FZiigxV5T06GmjcKo=
+X-Google-Smtp-Source: ABdhPJwwwhxE17Pk9mRvLaqPyLH8sC+zCszqpz892ul4ZfDWukCR0/BGEj8gA3lcqvZDIxcwXH53LQ==
+X-Received: by 2002:a62:6044:0:b029:151:1a04:895 with SMTP id
+ u65-20020a6260440000b02901511a040895mr8132347pfb.34.1604044643581; 
+ Fri, 30 Oct 2020 00:57:23 -0700 (PDT)
+Received: from my--box ([103.98.79.70])
+ by smtp.gmail.com with ESMTPSA id j5sm2253085pjb.56.2020.10.30.00.57.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 00:57:23 -0700 (PDT)
+Date: Fri, 30 Oct 2020 13:27:16 +0530
+From: Deepak R Varma <mh12gx2825@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Outreachy kernel] [PATCH] drm/amdgpu: use
  DEFINE_DEBUGFS_ATTRIBUTE with debugfs_create_file_unsafe()
-To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20201030075716.GA6976@my--box>
+References: <20201030032245.GA274478@my--box>
+ <20201030071120.GA1493629@kroah.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201030071120.GA1493629@kroah.com>
 X-Mailman-Approved-At: Fri, 30 Oct 2020 08:35:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,236 +83,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak R Varma <mh12gx2825@gmail.com>, David Airlie <airlied@linux.ie>,
+Cc: mh12gx2825@gmail.com, David Airlie <airlied@linux.ie>,
  daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, melissa.srw@gmail.com,
- Outreachy <outreachy-kernel@googlegroups.com>, dri-devel@lists.freedesktop.org,
+ outreachy-kernel@googlegroups.com, dri-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============1520729905=="
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1520729905==
-Content-Type: multipart/alternative; boundary="0000000000004a55c505b2df061e"
+On Fri, Oct 30, 2020 at 08:11:20AM +0100, Greg KH wrote:
+> On Fri, Oct 30, 2020 at 08:52:45AM +0530, Deepak R Varma wrote:
+> > Using DEFINE_DEBUGFS_ATTRIBUTE macro with debugfs_create_file_unsafe()
+> > function in place of the debugfs_create_file() function will make the
+> > file operation struct "reset" aware of the file's lifetime. Additional
+> > details here: https://lists.archive.carbon60.com/linux/kernel/2369498
+> > 
+> > Issue reported by Coccinelle script:
+> > scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
+> > 
+> > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
+> > ---
+> > Please Note: This is a Outreachy project task patch.
+> > 
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20 ++++++++++----------
+> >  1 file changed, 10 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > index 2d125b8b15ee..f076b1ba7319 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > @@ -1551,29 +1551,29 @@ static int amdgpu_debugfs_sclk_set(void *data, u64 val)
+> >  	return 0;
+> >  }
+> >  
+> > -DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
+> > -			amdgpu_debugfs_ib_preempt, "%llu\n");
+> > +DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+> > +			 amdgpu_debugfs_ib_preempt, "%llu\n");
+> 
+> Are you sure this is ok?  Do these devices need this additional
+> "protection"?  Do they have the problem that these macros were written
+> for?
+> 
+> Same for the other patches you just submitted here, I think you need to
+> somehow "prove" that these changes are necessary, checkpatch isn't able
+> to determine this all the time.
 
---0000000000004a55c505b2df061e
-Content-Type: text/plain; charset="UTF-8"
+Hi Greg,
+Based on my understanding, the current function debugfs_create_file()
+adds an overhead of lifetime managing proxy for such fop structs. This
+should be applicable to these set of drivers as well. Hence I think this
+change will be useful.
 
-On Fri, 30 Oct, 2020, 1:32 PM Greg KH, <gregkh@linuxfoundation.org> wrote:
+I will wait for comments from other experts for driver specific
+consideration / behavior.
 
-> On Fri, Oct 30, 2020 at 01:27:16PM +0530, Deepak R Varma wrote:
-> > On Fri, Oct 30, 2020 at 08:11:20AM +0100, Greg KH wrote:
-> > > On Fri, Oct 30, 2020 at 08:52:45AM +0530, Deepak R Varma wrote:
-> > > > Using DEFINE_DEBUGFS_ATTRIBUTE macro with
-> debugfs_create_file_unsafe()
-> > > > function in place of the debugfs_create_file() function will make the
-> > > > file operation struct "reset" aware of the file's lifetime.
-> Additional
-> > > > details here:
-> https://lists.archive.carbon60.com/linux/kernel/2369498
-> > > >
-> > > > Issue reported by Coccinelle script:
-> > > > scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
-> > > >
-> > > > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
-> > > > ---
-> > > > Please Note: This is a Outreachy project task patch.
-> > > >
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20
-> ++++++++++----------
-> > > >  1 file changed, 10 insertions(+), 10 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > index 2d125b8b15ee..f076b1ba7319 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > @@ -1551,29 +1551,29 @@ static int amdgpu_debugfs_sclk_set(void
-> *data, u64 val)
-> > > >   return 0;
-> > > >  }
-> > > >
-> > > > -DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
-> > > > -                 amdgpu_debugfs_ib_preempt, "%llu\n");
-> > > > +DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
-> > > > +                  amdgpu_debugfs_ib_preempt, "%llu\n");
-> > >
-> > > Are you sure this is ok?  Do these devices need this additional
-> > > "protection"?  Do they have the problem that these macros were written
-> > > for?
-> > >
-> > > Same for the other patches you just submitted here, I think you need to
-> > > somehow "prove" that these changes are necessary, checkpatch isn't able
-> > > to determine this all the time.
-> >
-> > Hi Greg,
-> > Based on my understanding, the current function debugfs_create_file()
-> > adds an overhead of lifetime managing proxy for such fop structs. This
-> > should be applicable to these set of drivers as well. Hence I think this
-> > change will be useful.
->
-> Why do these drivers need these changes?  Are these files dynamically
-> removed from the system at random times?
->
-> There is a reason we didn't just do a global search/replace for this in
-> the kernel when the new functions were added, so I don't know why
-> checkpatch is now saying it must be done.
->
-
-Hi,
-
-Sorry to jump in on the thread this way, but what exactly does a 'lifetime
-managing proxy' for file operations mean? I am trying to understand how
-DEFINE_DEBUGFS_ATTRIBUTE changes things wrt debug_ fs file operations but
-can't find many resources. :(
-
-Please let me know if I should be asking this in a different mailing
-list/irc instead.
-
-The change seems to be suggested by a coccinelle script.
-
-Regards,
-Sumera
+Thanks,
+drv
 
 
-thanks,
->
+> 
+> thanks,
+> 
 > greg k-h
->
-> --
-> You received this message because you are subscribed to the Google Groups
-> "outreachy-kernel" group.
-> To unsubscribe from this group and stop receiving emails from it, send an
-> email to outreachy-kernel+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/outreachy-kernel/20201030080316.GA1612206%40kroah.com
-> .
->
-
---0000000000004a55c505b2df061e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Fri, 30 Oct, 2020, 1:32 PM Greg KH, &lt;<a href=3D"=
-mailto:gregkh@linuxfoundation.org">gregkh@linuxfoundation.org</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
-der-left:1px #ccc solid;padding-left:1ex">On Fri, Oct 30, 2020 at 01:27:16P=
-M +0530, Deepak R Varma wrote:<br>
-&gt; On Fri, Oct 30, 2020 at 08:11:20AM +0100, Greg KH wrote:<br>
-&gt; &gt; On Fri, Oct 30, 2020 at 08:52:45AM +0530, Deepak R Varma wrote:<b=
-r>
-&gt; &gt; &gt; Using DEFINE_DEBUGFS_ATTRIBUTE macro with debugfs_create_fil=
-e_unsafe()<br>
-&gt; &gt; &gt; function in place of the debugfs_create_file() function will=
- make the<br>
-&gt; &gt; &gt; file operation struct &quot;reset&quot; aware of the file&#3=
-9;s lifetime. Additional<br>
-&gt; &gt; &gt; details here: <a href=3D"https://lists.archive.carbon60.com/=
-linux/kernel/2369498" rel=3D"noreferrer noreferrer" target=3D"_blank">https=
-://lists.archive.carbon60.com/linux/kernel/2369498</a><br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; Issue reported by Coccinelle script:<br>
-&gt; &gt; &gt; scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; Signed-off-by: Deepak R Varma &lt;<a href=3D"mailto:mh12gx28=
-25@gmail.com" target=3D"_blank" rel=3D"noreferrer">mh12gx2825@gmail.com</a>=
-&gt;<br>
-&gt; &gt; &gt; ---<br>
-&gt; &gt; &gt; Please Note: This is a Outreachy project task patch.<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20 +++++=
-+++++----------<br>
-&gt; &gt; &gt;=C2=A0 1 file changed, 10 insertions(+), 10 deletions(-)<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/d=
-rivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-&gt; &gt; &gt; index 2d125b8b15ee..f076b1ba7319 100644<br>
-&gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-&gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-&gt; &gt; &gt; @@ -1551,29 +1551,29 @@ static int amdgpu_debugfs_sclk_set(v=
-oid *data, u64 val)<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0return 0;<br>
-&gt; &gt; &gt;=C2=A0 }<br>
-&gt; &gt; &gt;=C2=A0 <br>
-&gt; &gt; &gt; -DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,<br>
-&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0amdgpu_debugfs_ib_preempt, &quot;%llu\n&quot;);<br>
-&gt; &gt; &gt; +DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 amdgpu_debugfs_ib_preempt, &quot;%llu\n&quot;);<br>
-&gt; &gt; <br>
-&gt; &gt; Are you sure this is ok?=C2=A0 Do these devices need this additio=
-nal<br>
-&gt; &gt; &quot;protection&quot;?=C2=A0 Do they have the problem that these=
- macros were written<br>
-&gt; &gt; for?<br>
-&gt; &gt; <br>
-&gt; &gt; Same for the other patches you just submitted here, I think you n=
-eed to<br>
-&gt; &gt; somehow &quot;prove&quot; that these changes are necessary, check=
-patch isn&#39;t able<br>
-&gt; &gt; to determine this all the time.<br>
-&gt; <br>
-&gt; Hi Greg,<br>
-&gt; Based on my understanding, the current function debugfs_create_file()<=
-br>
-&gt; adds an overhead of lifetime managing proxy for such fop structs. This=
-<br>
-&gt; should be applicable to these set of drivers as well. Hence I think th=
-is<br>
-&gt; change will be useful.<br>
-<br>
-Why do these drivers need these changes?=C2=A0 Are these files dynamically<=
-br>
-removed from the system at random times?<br>
-<br>
-There is a reason we didn&#39;t just do a global search/replace for this in=
-<br>
-the kernel when the new functions were added, so I don&#39;t know why<br>
-checkpatch is now saying it must be done.<br></blockquote></div></div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Hi,=C2=A0</div><div dir=3D"auto"><=
-br></div><div dir=3D"auto">Sorry to jump in on the thread this way, but wha=
-t exactly does a &#39;lifetime managing proxy&#39; for file operations mean=
-? I am trying to understand how DEFINE_DEBUGFS_ATTRIBUTE changes things wrt=
- debug_ fs file operations but can&#39;t find many resources. :(</div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Please let me know if I should be =
-asking this in a different mailing list/irc instead.=C2=A0</div><div dir=3D=
-"auto"><br></div><div dir=3D"auto">The change seems to be suggested by a co=
-ccinelle script.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">R=
-egards,=C2=A0</div><div dir=3D"auto">Sumera</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote">=
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-thanks,<br>
-<br>
-greg k-h<br>
-<br>
--- <br>
-You received this message because you are subscribed to the Google Groups &=
-quot;outreachy-kernel&quot; group.<br>
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:outreachy-kernel%2Bunsubscribe@googlegroups.com" =
-target=3D"_blank" rel=3D"noreferrer">outreachy-kernel+unsubscribe@googlegro=
-ups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/outreachy-kernel/20201030080316.GA1612206%40kroah.com" rel=3D"no=
-referrer noreferrer" target=3D"_blank">https://groups.google.com/d/msgid/ou=
-treachy-kernel/20201030080316.GA1612206%40kroah.com</a>.<br>
-</blockquote></div></div></div>
-
---0000000000004a55c505b2df061e--
-
---===============1520729905==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1520729905==--
