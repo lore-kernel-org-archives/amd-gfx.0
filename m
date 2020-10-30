@@ -2,87 +2,47 @@ Return-Path: <SRS0=gTHH=EF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10724C00A89
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 14:34:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C0D1C4741F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 14:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9492720679
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 14:34:00 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WgQp7Qji"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9492720679
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id CC12E20679
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 14:34:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC12E20679
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=inria.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC9A6EDE8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C98E6EDE9;
 	Fri, 30 Oct 2020 14:33:58 +0000 (UTC)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6616E9A3;
- Fri, 30 Oct 2020 12:55:53 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id f38so5139567pgm.2;
- Fri, 30 Oct 2020 05:55:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=EY5jmWEppGIZD3OkVY+PrUIlVBuLQJBSLFzS0cv2zkM=;
- b=WgQp7Qjiipq8bte2F1/XmxDPy678VMaI9Ka5i4CJlLM1plIBKrrKgJM3nLT34PINBr
- WQqbuvEeg3MK45EaLtALAiEFpwYzprg/RILN3PrXmHXJw+muwSjEQb96/fU5VB4f2aIx
- F5Dc0u6qNHTOwdeyVq4EuGaO311NqjR1yN4CzUH9vwhcJ1i8BWtCyMTDFAAku5fV0+AR
- ohvpHctMTeVrBOpe6ZOnao1AWQCz9Wxl64XuYx1ivWMi6e/weY8eQ38/voa3ATTB7w5v
- i4RqN64uuTgCOCNOQYLDNr6/g4Tz8x6axhvES1vtSHJfiabDIELHfktcq8S/dEad9nlV
- rY5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=EY5jmWEppGIZD3OkVY+PrUIlVBuLQJBSLFzS0cv2zkM=;
- b=Sgqwn8n/FlyRMMbKApdlOQN+oZV9ZDmvzcaL0GQrs5MtakMuIzmXOUP7/cf35/D2xV
- 054G6xy4LhX8w88JOU6Btfi2as9QwVCedYPiTcUGhYOo3+DVIFsjWpbyNzIVxvfPE7xL
- +dsuuB74aTOITfl0URAYPK76Ux294ABDo8mf8QiCm38dhMDKheRemTnc46G7AvwRhrDQ
- LX3PzE1McG4TlTfwS1bqbJw7rq6lVujnnqVfE/Q60jLudzyxsTozvGlIZmV8aoEtyj/w
- MFIhfiWBNokCum7GC+C7PAG+8abu4RJJBlAcoS5fBFxN2DCFxXH41ezGB+Zu/hlaLQtR
- wzFg==
-X-Gm-Message-State: AOAM532V3oNZNqlBawBKtZIyYoDsoOz/M++el2OMTi6GOhAMdvLtubOy
- p4JZfdkCgIz6thjM0+bkGMU=
-X-Google-Smtp-Source: ABdhPJzoSJ653ZkGK6/QfvAF19ZEAnwk6sJbWIaUpunnUSpAkaJGC9hruc/dZwTt/I6cHpg1CdQcOA==
-X-Received: by 2002:a17:90a:fa09:: with SMTP id
- cm9mr2840218pjb.162.1604062552599; 
- Fri, 30 Oct 2020 05:55:52 -0700 (PDT)
-Received: from my--box ([103.98.79.70])
- by smtp.gmail.com with ESMTPSA id w19sm6220886pff.6.2020.10.30.05.55.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2020 05:55:52 -0700 (PDT)
-Date: Fri, 30 Oct 2020 18:25:45 +0530
-From: Deepak R Varma <mh12gx2825@gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- outreachy-kernel@googlegroups.com,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- melissa.srw@gmail.com
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DEE66E0CC;
+ Fri, 30 Oct 2020 10:20:05 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.77,432,1596492000"; d="scan'208";a="475004550"
+Received: from 173.121.68.85.rev.sfr.net (HELO hadrien) ([85.68.121.173])
+ by mail2-relais-roc.national.inria.fr with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2020 11:20:03 +0100
+Date: Fri, 30 Oct 2020 11:20:03 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Outreachy kernel] [PATCH] drm/amdgpu: use
  DEFINE_DEBUGFS_ATTRIBUTE with debugfs_create_file_unsafe()
-Message-ID: <20201030125545.GA12671@my--box>
+In-Reply-To: <20201030082425.GA1619669@kroah.com>
+Message-ID: <alpine.DEB.2.22.394.2010301118560.2733@hadrien>
 References: <20201030032245.GA274478@my--box>
- <20201030071120.GA1493629@kroah.com>
- <20201030075716.GA6976@my--box>
- <5a7d8e8d-8db5-ff56-6448-3f1cefc11ef8@amd.com>
- <20201030082518.GB1619669@kroah.com>
- <20201030091521.GH401619@phenom.ffwll.local>
- <20201030092457.GI401619@phenom.ffwll.local>
+ <20201030071120.GA1493629@kroah.com> <20201030075716.GA6976@my--box>
+ <20201030080316.GA1612206@kroah.com>
+ <CACAkLupMiH9z4g7WLJ7t-N089_M6QGX6HkPQUATu4VCxDeFAKw@mail.gmail.com>
+ <20201030082425.GA1619669@kroah.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201030092457.GI401619@phenom.ffwll.local>
 X-Mailman-Approved-At: Fri, 30 Oct 2020 14:33:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,173 +55,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mh12gx2825@gmail.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Sumera Priyadarsini <sylphrenadin@gmail.com>,
+ Deepak R Varma <mh12gx2825@gmail.com>, David Airlie <airlied@linux.ie>,
+ daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, melissa.srw@gmail.com,
+ Outreachy <outreachy-kernel@googlegroups.com>, nicstange@gmail.com,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 30, 2020 at 10:24:57AM +0100, Daniel Vetter wrote:
-> On Fri, Oct 30, 2020 at 10:15:21AM +0100, Daniel Vetter wrote:
-> > On Fri, Oct 30, 2020 at 09:25:18AM +0100, Greg KH wrote:
-> > > On Fri, Oct 30, 2020 at 09:00:04AM +0100, Christian K=F6nig wrote:
-> > > > Am 30.10.20 um 08:57 schrieb Deepak R Varma:
-> > > > > On Fri, Oct 30, 2020 at 08:11:20AM +0100, Greg KH wrote:
-> > > > > > On Fri, Oct 30, 2020 at 08:52:45AM +0530, Deepak R Varma wrote:
-> > > > > > > Using DEFINE_DEBUGFS_ATTRIBUTE macro with debugfs_create_file=
-_unsafe()
-> > > > > > > function in place of the debugfs_create_file() function will =
-make the
-> > > > > > > file operation struct "reset" aware of the file's lifetime. A=
-dditional
-> > > > > > > details here: https://nam11.safelinks.protection.outlook.com/=
-?url=3Dhttps%3A%2F%2Flists.archive.carbon60.com%2Flinux%2Fkernel%2F2369498&=
-amp;data=3D04%7C01%7Cchristian.koenig%40amd.com%7Cddd7a6ac8164415a639708d87=
-ca97004%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637396414464384011%7CU=
-nknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLC=
-JXVCI6Mn0%3D%7C1000&amp;sdata=3Do6GOHvMxNMuOPlC4nhDyURCHBLqfQZhYQq%2BiIMt3D=
-3s%3D&amp;reserved=3D0
-> > > > > > > =
-
-> > > > > > > Issue reported by Coccinelle script:
-> > > > > > > scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
-> > > > > > > =
-
-> > > > > > > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
-> > > > > > > ---
-> > > > > > > Please Note: This is a Outreachy project task patch.
-> > > > > > > =
-
-> > > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20 ++++++++++=
-----------
-> > > > > > >   1 file changed, 10 insertions(+), 10 deletions(-)
-> > > > > > > =
-
-> > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > > > > index 2d125b8b15ee..f076b1ba7319 100644
-> > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > > > > > > @@ -1551,29 +1551,29 @@ static int amdgpu_debugfs_sclk_set(vo=
-id *data, u64 val)
-> > > > > > >   	return 0;
-> > > > > > >   }
-> > > > > > > -DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
-> > > > > > > -			amdgpu_debugfs_ib_preempt, "%llu\n");
-> > > > > > > +DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
-> > > > > > > +			 amdgpu_debugfs_ib_preempt, "%llu\n");
-> > > > > > Are you sure this is ok?  Do these devices need this additional
-> > > > > > "protection"?  Do they have the problem that these macros were =
-written
-> > > > > > for?
-> > > > > > =
-
-> > > > > > Same for the other patches you just submitted here, I think you=
- need to
-> > > > > > somehow "prove" that these changes are necessary, checkpatch is=
-n't able
-> > > > > > to determine this all the time.
-> > > > > Hi Greg,
-> > > > > Based on my understanding, the current function debugfs_create_fi=
-le()
-> > > > > adds an overhead of lifetime managing proxy for such fop structs.=
- This
-> > > > > should be applicable to these set of drivers as well. Hence I thi=
-nk this
-> > > > > change will be useful.
-> > > > =
-
-> > > > Well since this is only created once per device instance I don't re=
-ally care
-> > > > about this little overhead.
-> > > > =
-
-> > > > But what exactly is debugfs doing or not doing here?
-> > > =
-
-> > > It is trying to save drivers from having debugfs files open that point
-> > > to memory that can go away at any time.  For graphics devices, I doubt
-> > > that is the case.
-> > =
-
-> > So for anything we add/remove we have two-stage cleanup
-> > =
-
-> > 1. drm_dev_unregister (or drm_connector_unregisters, those are the only
-> > two hotunpluggable things we have) unregister all the uapi interfaces.
-> > This deletes all the sysfs and debugfs files.
-> > =
-
-> > 2. Once all the references to the underlying object disappear from the
-> > kernel, we free up the data structure.
-> > =
-
-> > Now for chardev and similar uapi, we hold full references for open file=
-s.
-> > But for sysfs and debugfs we assume that those uapi layers will make su=
-re
-> > that after we deleted the files in step 1 all access through these
-> > functions are guaranteed to have finished. If that's not the case, then=
- we
-> > need to rework our refcounting and also refcount the underlying drm
-> > structure (drm_device or drm_connector) from sysfs/debugfs files.
-> > =
-
-> > Now I tried to look at the patch Deepak references, and I'm not really
-> > clear what changes. Or whether we made a wrong assumption previously ab=
-out
-> > what debugfs/sysfs guarantee when we delete the files.
-> =
-
-> I read some more code and kerneldoc, and I still have no idea what this
-> new _unsafe variant is used for. Only ones I've found seem to use
-> debugfs_file_get/put like the normal variant, to protect against
-> concurrently removed files due to hotunplug. Which is kinda what we've
-> been expecting debugfs to do for us.
-> =
-
-> What's a use-case for _unsafe _without_ debugfs_file_get/put?
-> =
-
-> Decently confused me over here doesn't get this.
-> -Daniel
-
-Hi All,
-Thank you for your comments. I was not anticipating this to be such a
-offbeat patch. Pardon my growing understanding.
-
-Please suggest if I can evaluate the change proposed  to confirm if this is
-a meaningful change.
-
-Thank you again!
-./drv
 
 
-> =
+On Fri, 30 Oct 2020, Greg KH wrote:
 
-> > -Daniel
-> > =
+> On Fri, Oct 30, 2020 at 01:47:05PM +0530, Sumera Priyadarsini wrote:
+> > On Fri, 30 Oct, 2020, 1:32 PM Greg KH, <gregkh@linuxfoundation.org> wrote:
+> >
+> > > On Fri, Oct 30, 2020 at 01:27:16PM +0530, Deepak R Varma wrote:
+> > > > On Fri, Oct 30, 2020 at 08:11:20AM +0100, Greg KH wrote:
+> > > > > On Fri, Oct 30, 2020 at 08:52:45AM +0530, Deepak R Varma wrote:
+> > > > > > Using DEFINE_DEBUGFS_ATTRIBUTE macro with
+> > > debugfs_create_file_unsafe()
+> > > > > > function in place of the debugfs_create_file() function will make the
+> > > > > > file operation struct "reset" aware of the file's lifetime.
+> > > Additional
+> > > > > > details here:
+> > > https://lists.archive.carbon60.com/linux/kernel/2369498
+> > > > > >
+> > > > > > Issue reported by Coccinelle script:
+> > > > > > scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
+> > > > > >
+> > > > > > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
+> > > > > > ---
+> > > > > > Please Note: This is a Outreachy project task patch.
+> > > > > >
+> > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 20
+> > > ++++++++++----------
+> > > > > >  1 file changed, 10 insertions(+), 10 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > index 2d125b8b15ee..f076b1ba7319 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> > > > > > @@ -1551,29 +1551,29 @@ static int amdgpu_debugfs_sclk_set(void
+> > > *data, u64 val)
+> > > > > >   return 0;
+> > > > > >  }
+> > > > > >
+> > > > > > -DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
+> > > > > > -                 amdgpu_debugfs_ib_preempt, "%llu\n");
+> > > > > > +DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+> > > > > > +                  amdgpu_debugfs_ib_preempt, "%llu\n");
+> > > > >
+> > > > > Are you sure this is ok?  Do these devices need this additional
+> > > > > "protection"?  Do they have the problem that these macros were written
+> > > > > for?
+> > > > >
+> > > > > Same for the other patches you just submitted here, I think you need to
+> > > > > somehow "prove" that these changes are necessary, checkpatch isn't able
+> > > > > to determine this all the time.
+> > > >
+> > > > Hi Greg,
+> > > > Based on my understanding, the current function debugfs_create_file()
+> > > > adds an overhead of lifetime managing proxy for such fop structs. This
+> > > > should be applicable to these set of drivers as well. Hence I think this
+> > > > change will be useful.
+> > >
+> > > Why do these drivers need these changes?  Are these files dynamically
+> > > removed from the system at random times?
+> > >
+> > > There is a reason we didn't just do a global search/replace for this in
+> > > the kernel when the new functions were added, so I don't know why
+> > > checkpatch is now saying it must be done.
+> > >
+> >
+> > Hi,
+> >
+> > Sorry to jump in on the thread this way, but what exactly does a 'lifetime
+> > managing proxy' for file operations mean? I am trying to understand how
+> > DEFINE_DEBUGFS_ATTRIBUTE changes things wrt debug_ fs file operations but
+> > can't find many resources. :(
+>
+> It means that the debugfs core can handle debugfs files being removed
+> from the system while they are still open when they were created by a
+> driver/module that is now unloaded from memory.
+>
+> This is only an issue for drivers that manage devices that have unknown
+> lifespans (i.e. they can be yanked out of the system at any time, and
+> the memory for those debugfs files can be freed).
+>
+> For the entire DRM/GPU subsystem, I strongly doubt this is the case.
+>
+> > Please let me know if I should be asking this in a different mailing
+> > list/irc instead.
+> >
+> > The change seems to be suggested by a coccinelle script.
+>
+> I know, and I don't think that script knows the nuances behind this, as,
+> again, we would have just done a global search/replace for this when the
+> debugfs fixes went into the kernel.
 
-> > > =
+The script comes from Nicolai Stange <nicstange@gmail.com>.
 
-> > > thanks,
-> > > =
+If there are some precise considerations that make the change likely to be
+useful, then the script can be changed.
 
-> > > greg k-h
-> > =
+If the script is not helpful, then it can be removed.
 
-> > -- =
+julia
 
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> =
 
-> -- =
-
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+>
+> thanks,
+>
+> greg k-h
+>
+> --
+> You received this message because you are subscribed to the Google Groups "outreachy-kernel" group.
+> To unsubscribe from this group and stop receiving emails from it, send an email to outreachy-kernel+unsubscribe@googlegroups.com.
+> To view this discussion on the web visit https://groups.google.com/d/msgid/outreachy-kernel/20201030082425.GA1619669%40kroah.com.
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
