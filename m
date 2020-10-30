@@ -2,66 +2,67 @@ Return-Path: <SRS0=gTHH=EF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-6.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3CC2C4363A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 12:05:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DFFFC4363A
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 12:48:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DCC72087E
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 12:05:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A8C8D20725
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 12:48:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="y/t9wphN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DCC72087E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JHtrHbrV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8C8D20725
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B336E171;
-	Fri, 30 Oct 2020 12:05:13 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81896EDC2
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 12:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC61B6EDCF;
+	Fri, 30 Oct 2020 12:48:42 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75D96EDCF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 12:48:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T5jGyvXBDlX3jc4LAH6kCtG55zAXiWYrmlnLMAH+Qn9dlOLNaMx309+K4jbTkgpcqJsvYsPNv/KA/k8L0aT0W4WSpM6Mf9eTwlEZnI+WtlR8CHNCf2P9saA0Lc5o59SoFXfWt4EKc9FtOJkD/4w5v31W5dNh4Tn+B9vmN7nsTGexLcj10AalHmzaDZFdMSeHngxwj0EmZmb5gwxMCHRBgY1kN27fuQQcQ6u3waweJrOoIzS9KAwAMv4k9181qqSPZau3gYVzTXUSMh65JV8fTf5urbLGoQOEfCjUM6HnYgXtJsP53B5psxkre9dWUzcQbYbifBLxySq0+3+jMhG1oQ==
+ b=cJL+TYlj7QPkuWUFW0IgzpwIXpaSYLKGO81DLdfWpRkPtZX/XB6mfb7nzbYjPDNDLxh5fBhHTIraWj2pDsrHSHDN9neiprVChKmW2Ev0Baa+27FDDC3DECFUhIpvSu8gpJ3i4U3RZW+ttMLnLW4BdYk8qODGjvVLIAM72PMrtkBroc7ZaQpe7bkgx5j03o5+lKUUVifqa0sHIMu5mdtVeXv2uHlINVHT3ukkE++IVLeaM6VYCZ2V7mDeOd0YUCYjDsykabjZlStXDfQbNXbmPD7IpVumAnGpOrM9x23X8OScaCmncgtO7XfqiVZ+tHcAk++gi7woApOptpw/Kt3h6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CfuT0jamg1nQPTbDvtoHObjwZuY/RwmCQ5A2iSwGFRY=;
- b=GFFaTa7esN/zofTHFR2DB9YUcYBgAQzyJdtgQU65VtRK9/jreQEGdo/Jj3iqlHHEa/uryij0s6HzAvTH+hBtvMIHV3BikXPbEETqIXR5Rer4+tUh5wKzS2OlcpL3loqgGBrdzoFHjR+vk6MSnZnMkN7UmuNisa06FnuSzUZglaI5e9IddzZQ00dTiAYMEOsM6DN9VyUi3Z96HVxKTPFX8H4sbPEj/hTSjCokVpzyrleC4K4GgLFz9PmUWzDVfPGKsCeAcAizL5sv2HV1JiCJk8nr3HCdgfzIcblYrifd5s1MkyZcZSmvSGTEt3l5tnyFMyA0mMRPU3PlsMM+3h6CtA==
+ bh=t8C86CkWMpfDPrpVWfnGkys/qRFDbVlHfSVuFMrj2pw=;
+ b=E9rFwcWSV5ycb1WK0bdOzwvMOMmty6HwmdwH2tIyH3N4Wuom6+wKT3oVIwxyfiQfHiiNXJeVsSH647f7z0C+KZJ/2FUv8MwRN+zzw1EZSuIE5ZKgqNY6hOuvyGQ2aKKA8TnVFtDPmcC5Z6xhaj5FlTEGkQgl7z6vXF7EpAH5w3aA2pMU5HYiA2JsPbBZ6TZiffj1f536mqOxehpdhCH3J4sM50xgD+sZf1KbrOKO5IdFVlLMGtllk37NyiVmoX1NW/P+LjptiUwc1oXEZaEwBOvMHedyMHfwe8VALPIZcFBtCkIvEie+IIKva2YY2pTvoX+D9z6jszi3WI1I5YFqsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CfuT0jamg1nQPTbDvtoHObjwZuY/RwmCQ5A2iSwGFRY=;
- b=y/t9wphNGqFxg4yD9zn4Xld8mD4Q05wwF+5nRdMfCCGt/LRHbHqKdf7pUCXY5ZB3XDhSamsDhiWrGpP49aDz/d6RGBihxYCRcb3gRm2W0IIgqI10obwVS2CPMfBr4dQy4aSzuwk8zheVrkOLjgQejHV03GOAoFY9Q9+BCmLOWbM=
-Received: from DM5PR12MB1546.namprd12.prod.outlook.com (2603:10b6:4:8::23) by
- DM5PR12MB2437.namprd12.prod.outlook.com (2603:10b6:4:ba::13) with
+ bh=t8C86CkWMpfDPrpVWfnGkys/qRFDbVlHfSVuFMrj2pw=;
+ b=JHtrHbrV8rKPJwdOGKjr4Nzcl5Yo9PTCD0QM9c2UTZSHjaT1gD4sIvJGKuD8oeeOChnM8JkSEbvvxxEERG0Q+ks5Oen7kBcQbQcSXOBHCvqFAppbNC7UcPPZw8QE4QX1QnzbOrKTHYes92O3KtVTKVcZir2vaBA9M9YDoSKqNRM=
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
+ DM5PR12MB2470.namprd12.prod.outlook.com (2603:10b6:4:b4::39) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18; Fri, 30 Oct 2020 12:05:09 +0000
-Received: from DM5PR12MB1546.namprd12.prod.outlook.com
- ([fe80::9413:d975:ac8e:39d]) by DM5PR12MB1546.namprd12.prod.outlook.com
- ([fe80::9413:d975:ac8e:39d%7]) with mapi id 15.20.3499.027; Fri, 30 Oct 2020
- 12:05:08 +0000
-From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 15.20.3499.19; Fri, 30 Oct 2020 12:48:39 +0000
+Received: from DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::b51c:2b0e:7e1:b233]) by DM6PR12MB4075.namprd12.prod.outlook.com
+ ([fe80::b51c:2b0e:7e1:b233%9]) with mapi id 15.20.3499.028; Fri, 30 Oct 2020
+ 12:48:39 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless SKU
+Subject: RE: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless SKU
 Thread-Topic: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless SKU
-Thread-Index: AQHWrrBd/UrirzIdt0W5QD6bCrOAaqmwB8WAgAAAVFQ=
-Date: Fri, 30 Oct 2020 12:05:08 +0000
-Message-ID: <DM5PR12MB15464C58F1DEBA74E9F8BF2895150@DM5PR12MB1546.namprd12.prod.outlook.com>
+Thread-Index: AQHWrrBd3Q2HThetLk6rZZhYE/MTkqmwBwfggAAFagCAAArJIA==
+Date: Fri, 30 Oct 2020 12:48:39 +0000
+Message-ID: <DM6PR12MB4075B4682253CE1C5F2512EEFC150@DM6PR12MB4075.namprd12.prod.outlook.com>
 References: <20201030113225.12675-1-tianci.yin@amd.com>,
  <DM6PR12MB407500CE6EB454B4DA0AE713FC150@DM6PR12MB4075.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB407500CE6EB454B4DA0AE713FC150@DM6PR12MB4075.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ <DM5PR12MB15464C58F1DEBA74E9F8BF2895150@DM5PR12MB1546.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB15464C58F1DEBA74E9F8BF2895150@DM5PR12MB1546.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -71,35 +72,42 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
  Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-10-30T12:48:36Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Standard
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: d1ed5e48-8f5e-4793-8fb7-0000b7ff52a2
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 692c2503-76f5-4d31-6c6f-08d87ccc0c01
-x-ms-traffictypediagnostic: DM5PR12MB2437:
+x-ms-office365-filtering-correlation-id: 097aa6df-b375-4bb0-12be-08d87cd22032
+x-ms-traffictypediagnostic: DM5PR12MB2470:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB24376FB1477564EF46E7C31095150@DM5PR12MB2437.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <DM5PR12MB24706ECCE42AD4D650AD4525FC150@DM5PR12MB2470.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: C4nZzfNSwM64hJ5e+TU5gQkLnkse9tCKNo5vpNWUPUNgQA5tAi5hvVK+L4WaSX5qNKkmU5Ml4z3dWPCwlLQ8loFOkVunFjmVjxiPdCFlsKUWSmQXvBszLPQPRqwbkzVaCTBuUZ2vSK9Y7KZ+gomoONU/xROIV4ucOe/IxgEK6TmMPb0rKvsR9LC+1Sc1Q49g7QjJgJjWhCLUXO6rMUsoryoOZ7EB9zauLmrK/amyl95AruyonDOSzDkU3UxF6BxV/1JzCw+sImoi7tnuGeYmDU2hslEw1/rha5TPryybuYfTiIpc8xz74h16TcSWq0RISX15NoqkyHaPr0coK78RUg==
+x-microsoft-antispam-message-info: /K1VwxZeSIKIJlt091mE/KLJtUnT7DApf1hAQ8BKucuwjA85jtVf+dbXCaoibGsWQOddEbFZXL3zQwOxDUiDFMWMVmnu+/I+TRc0KoKCImgcrM9iDmBJWM22C2zHzIGCS6Z6cyZ6EnUEWUrn09CpMQKwh7BtoHw26XkYwFen3aSNJRgRikuCOs6JJHx+0K1aCasEXka2dI9gRJbbzCEX5ITxklII61uRGzc5XDQk0nagQtEYpgU2cnDeqp2FcYcYJM2/uRfmKvV/WHx020skW14LYJfIb5zjtmThrToND3do37EX/BiGOaYGDvgPSR8vTQl4vA5PD9xaFvMLc1dDZQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1546.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(396003)(366004)(136003)(53546011)(7696005)(6506007)(86362001)(2906002)(33656002)(26005)(9686003)(186003)(4326008)(19627405001)(83380400001)(8936002)(64756008)(66446008)(66476007)(66556008)(55016002)(478600001)(8676002)(54906003)(110136005)(5660300002)(52536014)(316002)(71200400001)(76116006)(91956017)(66946007);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(39860400002)(366004)(376002)(396003)(478600001)(316002)(8936002)(66556008)(26005)(8676002)(76116006)(5660300002)(86362001)(66446008)(2906002)(7696005)(66476007)(71200400001)(66946007)(64756008)(110136005)(33656002)(54906003)(52536014)(9686003)(53546011)(186003)(4326008)(55016002)(6506007)(83380400001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: Us0Kkk+JIcwN6THXmN/9Z2OXpoCWa4rnd9dD2UeBrjlLNdyXwCrVMhonBtIy7Az+drgZDwCjzZHjLi6J/xpxldQ/+hQwQP8C1Fdyx6JB8mFzx4AbNd77IIISmR9RtJjmt5EkqnWxeqCb7YHxugMh4Uj+7z2k5QUQk9nly9V9DlAVBvCl9itGHAiIjKYRp8CJ7qkbx90frmWAhH2DhjVbmbg/RUlyU/0MGs3vX+gybDoq0FM3vJuFHRhGys4dS/7vf6GuUcmLN658QXG2Y76Y98B0TioliTUCER06RvPX3iITbeWUoydssZ+AkQKCXPBTxqIIUt+OajaZlNeV2lxlL+e0XI0Q7OSwmTaVyHU7VK9j59kx3w/0lzxKwf+STkXFkMFpt5riksnug6aqSFI0u6x7vw7BQROdgB4Hk90vNXy207KYWDrnr0EbsbcxrTdPB4cqn6K9b6RylfQ2U31dg0qxG+057/VeISxfE/y+D68ipw4E6SQNAauTHcDWxws/mm7JI9cF3cGKdBUGhnbbi0FK3lihJAscKgyV4Jg/Snb5Kb2EqnZUaFQK33IHhcNYYXgoQLQ13cf0bYVNizv+4f3lH1EyFfn+V8oke9ge+rp2A5QvSua/F6Jg2Z6jq9EQg4U9jp7A+BQ/dc/PXyJoXg==
+x-ms-exchange-antispam-messagedata: uyFJMuHBNHKaLZDxEtfN1/m//0P26yWIuE+t6Nktg26yDgQ8l7hhdlem/VzLsUmus30DRw9hcFJwj1bTK2dPI+KEVN9otMwYVAWlfFE/DTdkJYb3RWiOZjDFSBaxwrnNu1oGxt4pH1diB8mXIazEhmfNlpjSCZxFBVhXpeglqWBaBhcxCEydRaGXcpnP3TJKst51TnXlpNlxBmu7UYSedHzbLky1gtq1FJJ6A4TQWSUfkjBe++vagS8zWcR6T+N91ReGt0rDuHP+mQhN6KefStm+9SxvpTWyA9wZ/QF5Ee08fObQeujPvJ9vV0PCy7kpz55UdivtC3UscFFDZmOErTjYLiVPxg97jl0wv+q6SHPB2uYWK23SO3kLWriiR0ASosydKCAA2GPvoZcq7PcMUUBqxDm/xvQOsvRbBoCvBDJK5bmfotXmmzRf+dL7dD+7zh/9i8kd+Go2d6lhYUxRqLFU2u/KPlCETOVmXopwW95KTSkianzGKgeeD1jNLqeQuTycTnIBA3TXpop2Lcq3KS0DNXLVsBH26EBke0BopZq6tboDefS0x90rxrG4LP/1Y5BWy/G2b31rjSjK6YkPrOcIrH1uFcQBTuc6VBHFDmZpGBsv1JW4ZBa2sbJuX4aMOzW/Fp4SjWIDCg3aY4cBEQ==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1546.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 692c2503-76f5-4d31-6c6f-08d87ccc0c01
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2020 12:05:08.8458 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 097aa6df-b375-4bb0-12be-08d87cd22032
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2020 12:48:39.6142 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EqHlfTRad0rJ5BqNELXxUjJj3T2n5KX3nUFMXelPgHtMWlFkHMArpG1iwy3lkvA8Z6yh7EljPG9/PtWPdSIRGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2437
+X-MS-Exchange-CrossTenant-userprincipalname: g0ZUKCRt2eZEYCc5gWkgd3/GSHK3zwP0v7h//UTBC1lT6H33BTCtyI/dQzUBnvPXEgaWKqLHBXNKiwcfcRdjSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,18 +122,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: "Long, Gang" <Gang.Long@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>, "Xu,
  Feifei" <Feifei.Xu@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Deucher,
  Alexander" <Alexander.Deucher@amd.com>, "Cui, Flora" <Flora.Cui@amd.com>
-Content-Type: multipart/mixed; boundary="===============0078129944=="
+Content-Type: multipart/mixed; boundary="===============1829170505=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0078129944==
+--===============1829170505==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB15464C58F1DEBA74E9F8BF2895150DM5PR12MB1546namp_"
+	boundary="_000_DM6PR12MB4075B4682253CE1C5F2512EEFC150DM6PR12MB4075namp_"
 
---_000_DM5PR12MB15464C58F1DEBA74E9F8BF2895150DM5PR12MB1546namp_
+--_000_DM6PR12MB4075B4682253CE1C5F2512EEFC150DM6PR12MB4075namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+
+[AMD Public Use]
+
+I see. Thanks for the clarifying, Tianci.
+
+In such case, how about we add a new flag AMD_IS_HEADLESS to amd_chip_flags=
+, so we can identify headless asic at the beginning when we add a new item =
+to pciidlist.
+
+Regards,
+Hawking
+From: Yin, Tianci (Rico) <Tianci.Yin@amd.com>
+Sent: Friday, October 30, 2020 20:05
+To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Cui, Flora <Flora.Cui@am=
+d.com>; Xu, Feifei <Feifei.Xu@amd.com>; Long, Gang <Gang.Long@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless =
+SKU
+
 
 [AMD Public Use]
 
@@ -149,14 +180,18 @@ Thanks!
 Rico
 
 ________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
+From: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>
 Sent: Friday, October 30, 2020 19:48
-To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
-<amd-gfx@lists.freedesktop.org>
-Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Cui, Flora <Flora.Cui@am=
-d.com>; Xu, Feifei <Feifei.Xu@amd.com>; Long, Gang <Gang.Long@amd.com>; Yin=
-, Tianci (Rico) <Tianci.Yin@amd.com>
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com<mailto:Tianci.Yin@amd.com>>; amd=
+-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@l=
+ists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>; Deuc=
+her, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>=
+>; Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; Cui, Flo=
+ra <Flora.Cui@amd.com<mailto:Flora.Cui@amd.com>>; Xu, Feifei <Feifei.Xu@amd=
+.com<mailto:Feifei.Xu@amd.com>>; Long, Gang <Gang.Long@amd.com<mailto:Gang.=
+Long@amd.com>>; Yin, Tianci (Rico) <Tianci.Yin@amd.com<mailto:Tianci.Yin@am=
+d.com>>
 Subject: RE: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless =
 SKU
 
@@ -169,17 +204,20 @@ from pdev to adev for nv_is_headless_sku is more straightforward.
 Regards,
 Hawking
 -----Original Message-----
-From: Tianci Yin <tianci.yin@amd.com>
+From: Tianci Yin <tianci.yin@amd.com<mailto:tianci.yin@amd.com>>
 Sent: Friday, October 30, 2020 19:32
-To: amd-gfx@lists.freedesktop.org
-Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deu=
-cher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun <Guchun=
-.Chen@amd.com>; Cui, Flora <Flora.Cui@amd.com>; Xu, Feifei <Feifei.Xu@amd.c=
-om>; Long, Gang <Gang.Long@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd.com=
->
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>; Deuc=
+her, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>=
+>; Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Ch=
+en, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; Cui, Flora <F=
+lora.Cui@amd.com<mailto:Flora.Cui@amd.com>>; Xu, Feifei <Feifei.Xu@amd.com<=
+mailto:Feifei.Xu@amd.com>>; Long, Gang <Gang.Long@amd.com<mailto:Gang.Long@=
+amd.com>>; Yin, Tianci (Rico) <Tianci.Yin@amd.com<mailto:Tianci.Yin@amd.com=
+>>
 Subject: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless SKU
 
-From: "Tianci.Yin" <tianci.yin@amd.com>
+From: "Tianci.Yin" <tianci.yin@amd.com<mailto:tianci.yin@amd.com>>
 
 The crash caused by the NULL pointer of
 adev->ddev.mode_config.funcs in drm_kms_helper_hotplug_event(),
@@ -190,7 +228,7 @@ amdgpu_device_has_dc_support() and the real DCN supporting state to avoid c=
 alling to drm_kms_helper_hotplug_event() in amdgpu_device_resume().
 
 Change-Id: I3a3d387e6ab5b774abb3911ea1bf6de60797759d
-Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com<mailto:tianci.yin@amd.com>>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 +-
  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 10 ++++++++--  drivers/gpu/d=
@@ -323,106 +361,224 @@ ce *adev);
 --
 2.17.1
 
---_000_DM5PR12MB15464C58F1DEBA74E9F8BF2895150DM5PR12MB1546namp_
+--_000_DM6PR12MB4075B4682253CE1C5F2512EEFC150DM6PR12MB4075namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader251902e5, li.msipheader251902e5, div.msipheader251902e5
+	{mso-style-name:msipheader251902e5;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
 <p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
 ign=3D"Left">
 [AMD Public Use]<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Hawking,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-amdgpu_device_asic_has_dc_support() is referrenced by amdgpu_pci_probe(),</=
-div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-at that point, adev has not been allocated yet.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-My change can make it to right code path.<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-int amdgpu_device_resume(struct drm_device *dev, bool fbcon)<br>
-{</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-...</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-if (!amdgpu_device_has_dc_support(adev))
-<div>drm_helper_hpd_irq_event(dev);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //right path for headless SKU<=
-br>
-</div>
-<div>else</div>
-drm_kms_helper_hotplug_event(dev);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //wrong pa=
-th for headless SKU<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-...<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-}</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Rico<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
-wking.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Friday, October 30, 2020 19:48<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
-edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<div class=3D"WordSection1">
+<p class=3D"msipheader251902e5" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#317100">[AMD Publ=
+ic Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I see. Thanks for the clarifying, Tianci. <o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">In such case, how about we add a new flag AMD_IS_HEA=
+DLESS to amd_chip_flags, so we can identify headless asic at the beginning =
+when we add a new item to pciidlist.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.c=
+om&gt; <br>
+<b>Sent:</b> Friday, October 30, 2020 20:05<br>
+<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; amd-gfx@lists.free=
+desktop.org<br>
 <b>Cc:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &=
 lt;Alexander.Deucher@amd.com&gt;; Chen, Guchun &lt;Guchun.Chen@amd.com&gt;;=
  Cui, Flora &lt;Flora.Cui@amd.com&gt;; Xu, Feifei &lt;Feifei.Xu@amd.com&gt;=
-; Long, Gang &lt;Gang.Long@amd.com&gt;; Yin, Tianci (Rico) &lt;Tianci.Yin@a=
-md.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 he=
-adless SKU</font>
-<div>&nbsp;</div>
+; Long, Gang &lt;Gang.Long@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 he=
+adless SKU<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[AMD Public Use]<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#317100">[AMD Public Use]<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Hi Hawk=
+ing,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">amdgpu_=
+device_asic_has_dc_support() is referrenced by amdgpu_pci_probe(),<o:p></o:=
+p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">at that=
+ point, adev has not been allocated yet.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">My chan=
+ge can make it to right code path.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">int amd=
+gpu_device_resume(struct drm_device *dev, bool fbcon)<br>
+{<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">...<o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">if (!am=
+dgpu_device_has_dc_support(adev))
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">drm_hel=
+per_hpd_irq_event(dev);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //right path for headless SKU<o:p></o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">else<o:=
+p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">drm_kms=
+_helper_hotplug_event(dev);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //wrong path for =
+headless SKU<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">...<o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">}<o:p><=
+/o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Thanks!=
+<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Rico<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@=
+amd.com">Hawking.Zhang@amd.com</a>&gt;<br>
+<b>Sent:</b> Friday, October 30, 2020 19:48<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;<a href=3D"mailto:Tianci.Yin@amd.com">Tia=
+nci.Yin@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Tuikov, Luben &lt;<a href=3D"mailto:Luben.Tuikov@amd.com">Luben.=
+Tuikov@amd.com</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.=
+Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;; Chen, Guchun &lt;<a hre=
+f=3D"mailto:Guchun.Chen@amd.com">Guchun.Chen@amd.com</a>&gt;;
+ Cui, Flora &lt;<a href=3D"mailto:Flora.Cui@amd.com">Flora.Cui@amd.com</a>&=
+gt;; Xu, Feifei &lt;<a href=3D"mailto:Feifei.Xu@amd.com">Feifei.Xu@amd.com<=
+/a>&gt;; Long, Gang &lt;<a href=3D"mailto:Gang.Long@amd.com">Gang.Long@amd.=
+com</a>&gt;; Yin, Tianci (Rico) &lt;<a href=3D"mailto:Tianci.Yin@amd.com">T=
+ianci.Yin@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 he=
+adless SKU</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">[AMD Public Use]<br>
 <br>
 I'm not sure I get your point on changing amdgpu_device_has_dc_support() in=
 terface by adding new parameter. but it seems to me change input parameter =
@@ -432,19 +588,27 @@ from pdev to adev for nv_is_headless_sku is more straightforward.
 Regards,<br>
 Hawking<br>
 -----Original Message-----<br>
-From: Tianci Yin &lt;tianci.yin@amd.com&gt; <br>
+From: Tianci Yin &lt;<a href=3D"mailto:tianci.yin@amd.com">tianci.yin@amd.c=
+om</a>&gt; <br>
 Sent: Friday, October 30, 2020 19:32<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &lt;Alex=
-ander.Deucher@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Ch=
-en, Guchun &lt;Guchun.Chen@amd.com&gt;; Cui, Flora &lt;Flora.Cui@amd.com&gt=
-;; Xu, Feifei &lt;Feifei.Xu@amd.com&gt;; Long, Gang &lt;Gang.Long@amd.com&g=
-t;;
- Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;<br>
+To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesk=
+top.org</a><br>
+Cc: Tuikov, Luben &lt;<a href=3D"mailto:Luben.Tuikov@amd.com">Luben.Tuikov@=
+amd.com</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher=
+@amd.com">Alexander.Deucher@amd.com</a>&gt;; Zhang, Hawking &lt;<a href=3D"=
+mailto:Hawking.Zhang@amd.com">Hawking.Zhang@amd.com</a>&gt;;
+ Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.Chen@amd.co=
+m</a>&gt;; Cui, Flora &lt;<a href=3D"mailto:Flora.Cui@amd.com">Flora.Cui@am=
+d.com</a>&gt;; Xu, Feifei &lt;<a href=3D"mailto:Feifei.Xu@amd.com">Feifei.X=
+u@amd.com</a>&gt;; Long, Gang &lt;<a href=3D"mailto:Gang.Long@amd.com">Gang=
+.Long@amd.com</a>&gt;;
+ Yin, Tianci (Rico) &lt;<a href=3D"mailto:Tianci.Yin@amd.com">Tianci.Yin@am=
+d.com</a>&gt;<br>
 Subject: [PATCH] drm/amdgpu: fix NULL pointer crash on navi10 headless SKU<=
 br>
 <br>
-From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<br>
+From: &quot;Tianci.Yin&quot; &lt;<a href=3D"mailto:tianci.yin@amd.com">tian=
+ci.yin@amd.com</a>&gt;<br>
 <br>
 The crash caused by the NULL pointer of<br>
 adev-&gt;ddev.mode_config.funcs in drm_kms_helper_hotplug_event(),<br>
@@ -455,7 +619,8 @@ amdgpu_device_has_dc_support() and the real DCN supporting state to avoid c=
 alling to drm_kms_helper_hotplug_event() in amdgpu_device_resume().<br>
 <br>
 Change-Id: I3a3d387e6ab5b774abb3911ea1bf6de60797759d<br>
-Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
+Signed-off-by: Tianci.Yin &lt;<a href=3D"mailto:tianci.yin@amd.com">tianci.=
+yin@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; |&nbsp; 2 +-<br>
@@ -623,16 +788,18 @@ u32 vmid);&nbsp; void nv_set_virt_ops(struct amdgpu_device *adev);<br>
 g_base_init(struct amdgpu_device *adev);&nbsp; int navi14_reg_base_init(str=
 uct amdgpu_device *adev);<br>
 --<br>
-2.17.1<br>
+2.17.1<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_DM5PR12MB15464C58F1DEBA74E9F8BF2895150DM5PR12MB1546namp_--
+--_000_DM6PR12MB4075B4682253CE1C5F2512EEFC150DM6PR12MB4075namp_--
 
---===============0078129944==
+--===============1829170505==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -643,4 +810,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0078129944==--
+--===============1829170505==--
