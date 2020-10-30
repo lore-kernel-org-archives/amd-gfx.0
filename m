@@ -7,100 +7,99 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CBC9C4363A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 14:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 403E8C4363A
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 15:01:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A28AF20727
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 14:58:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A99C220791
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 15:01:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IcdNApXQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A28AF20727
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ymo+ID2+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A99C220791
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C21E6EDC6;
-	Fri, 30 Oct 2020 14:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED1796EDF8;
+	Fri, 30 Oct 2020 15:01:37 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760042.outbound.protection.outlook.com [40.107.76.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 418AB6EDC6
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 14:58:29 +0000 (UTC)
+ (mail-eopbgr760087.outbound.protection.outlook.com [40.107.76.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ADCA6EDF3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 15:01:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iDweFVUzsUpmuWXHUM28t/57AWFsOuHXVQjRpaKxjxFrI3pZSN/kpTG8jrhrFZD/566MRNJ74tIu44PHXAf3248eHOF5Oimp+a6BrQxKyzmFUHr7+OLgxm/FICfOw4FnQQRS99v2bNW5ov5Pz7ZT1UJmHWH0z62qYD5ybb9Fqd2pMxtjiidOeM0M6T5ta0eNME33OULDmgw4/kty/YAECU2Pb9RwHn9JopdwX8mDsT650q0S/aO7l83/PCg0l3sdq0nWKVxBAcZwhXyEgqhWlZssA4if5DhaXG7QArIPsXKdHT57JKRCvFwPXDp3Ineef+l+TQUt/5Sl1X984MZg8A==
+ b=d7vOTsO/kM0Ml53J188nb9qUs4AtiFOYTcsP5GTcHNCOuWut0FF5F+xDSaSw7gu3eH6eCjzrIVGKfiH3loSBT99pmd67bA7rlq79qnZaxmWaOWGQg7NKKZOEdtI+jVcGKKb96P5cRyROg+L6TFMisWsVyL+pe46i7djwtp9Voun+0/7bTNbSRfOOIBE/40SCEaRthe0EmwJXLWftCTZ3o78N21iXWWakBhqJezsMZU5EaMVuKQle1OZDeF75Yc3oaYyMinsSa7iZ3z0l54b7IVdpQfLTgEfrqqpV58YfdjAB9VymBIe+tNUFueekARsvT5jVCPoRlIvfE/amiBupPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TfTm4G17PTulmiySaAQaigTYpfg+MH4W20JvjuTkHkw=;
- b=BR4JqHGBf73pxyjUZzPP4AaEFxlm9x0LuS8uNUAJGoBJZdkVbUKkynkcnBEhEtOP6eH916a6ZnMWI2fnzXYRVtK5VS+A5FFZcB7TAQlIrHFIA4T4/NxaYcpnDGpCgtjoW0hLJqYNTkuwRwH3VWFiLBcXLGW7CxD0GvVXfKZ7hXhOdNaalG066YthhuvUOFhcWEbd6enRYfs0bYDH90WNA1X5GKoIt2E/oxVMlD8CeBSUuz9Fp5uRrx8M3jAXAjfVyGh2Y5XmKfECFUQvmZCLYA/Ggv4eel9x3t1q+tBkTMPHfjeu29zlExa8VRNRNi8trHc3vt9RmxHfm66XWD0+EQ==
+ bh=bUY3Z+L9ISA/q/Glii68HzXIHCUsUeVZSo0cNnXrRYk=;
+ b=dP7kQLTj4ei6yhrdXT2h+LlCfDhmmaBS9x1YqVN9uCEBqHJmIK9R5l/a1Zw8qN3Z7RpMiLxxlxqVK20POyrNfXJMvUjmTO0htp1TxZSkNgkuQvHs4ImrUVzoUH3hvQz50fqJT4PThbgwALPHV1lBy5p4BESF3FIPKYvG1HMhXeOzBFknGoP/3L4OcTj7/n/qVvV0MfQpRXW3iOFdL5iL76PJRW/6CtyAw8o2EZ5GV4dc1Day0UeQ4+XtUGnqX5PSwnunNLOrEYg14zWH79i6cR+Q+TwtahgkgHabEFExcLbdDfQ/QwQR0j5hxqpsdebqz4rYRXgnGl0ICO4FzhZDSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TfTm4G17PTulmiySaAQaigTYpfg+MH4W20JvjuTkHkw=;
- b=IcdNApXQFpzVr1IDkFoYdlkfglkvgyiz3TfcboLrEcq0AlP/O0xIfmf++HgNl57fhYWYgcitDEUGHt0XaU+BDWWEtFf8WS3VD1LkaQAnveUc875eotXVIgdfnvAeG7puPN2ao0ktleCqzvHtxjIt7fEvdAyGCqCLnPMCc+7nQCA=
+ bh=bUY3Z+L9ISA/q/Glii68HzXIHCUsUeVZSo0cNnXrRYk=;
+ b=ymo+ID2+dFK/oCyVsNBJ1hiHwz/QPcJbyQBuHHPaQfyJ3BNot43Yl4cSP4C/UWXeS4D3bxcbds06jDYWBeq0xJqlJsL/neAofCVa6epXDr7k0sreOxmfvR10Q3lJTxXYiD0Rf7KjhDFW/Wj2afvnRWOH+4e8ilAPtsM5qsQSWkc=
 Received: from CH2PR12MB4326.namprd12.prod.outlook.com (2603:10b6:610:af::11)
  by CH2PR12MB3992.namprd12.prod.outlook.com (2603:10b6:610:29::29)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Fri, 30 Oct
- 2020 14:58:25 +0000
+ 2020 15:01:35 +0000
 Received: from CH2PR12MB4326.namprd12.prod.outlook.com
  ([fe80::85be:93a4:6d6b:e7b0]) by CH2PR12MB4326.namprd12.prod.outlook.com
  ([fe80::85be:93a4:6d6b:e7b0%9]) with mapi id 15.20.3499.029; Fri, 30 Oct 2020
- 14:58:25 +0000
+ 15:01:35 +0000
 From: "Chen, Jiansong (Simon)" <Jiansong.Chen@amd.com>
-To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: disable gfxoff if VCN is busy
-Thread-Topic: [PATCH] drm/amdgpu: disable gfxoff if VCN is busy
-Thread-Index: AQHWrrEMx+60az50EEST8k6m6Yua4amwHX0AgAAfJ/A=
-Date: Fri, 30 Oct 2020 14:58:25 +0000
-Message-ID: <CH2PR12MB4326C0C598330DBD6ACF4C99EA150@CH2PR12MB4326.namprd12.prod.outlook.com>
-References: <20201030113710.14291-1-Jiansong.Chen@amd.com>
- <2a04ca91-5999-bbc8-e9cd-7820b7868696@amd.com>
-In-Reply-To: <2a04ca91-5999-bbc8-e9cd-7820b7868696@amd.com>
+To: "Chen, Jiansong (Simon)" <Jiansong.Chen@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdgpu: disable gfxoff if VCN is busy
+Thread-Topic: [PATCH v2] drm/amdgpu: disable gfxoff if VCN is busy
+Thread-Index: AQHWrs0E8j+f0jAduEG9n87LJtnJmKmwPW5g
+Date: Fri, 30 Oct 2020 15:01:35 +0000
+Message-ID: <CH2PR12MB4326F99F53975B24E59D27CAEA150@CH2PR12MB4326.namprd12.prod.outlook.com>
+References: <20201030145722.132135-1-Jiansong.Chen@amd.com>
+In-Reply-To: <20201030145722.132135-1-Jiansong.Chen@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=040ae907-40e7-4bc7-8787-3d6b74279c75;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=7a8b5d4c-a953-4737-900f-8de3edfc3fef;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
  Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-10-30T14:57:40Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-10-30T15:01:16Z;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [183.195.2.227]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b380d64c-067c-4ea2-7f3c-08d87ce440ec
+x-ms-office365-filtering-correlation-id: d0204f23-dc79-433e-18bf-08d87ce4b22b
 x-ms-traffictypediagnostic: CH2PR12MB3992:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB3992A2D7843EE5A5765601BBEA150@CH2PR12MB3992.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-microsoft-antispam-prvs: <CH2PR12MB399237E3BA0F34E0818963AEEA150@CH2PR12MB3992.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2958;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: d7GymtOozJmFfl+nXkukxGOINz3LIS/BpxMYGxzqj6LSK8PrVMQU5Y/sqOyLX/UkG+11fT9xkYr5SxH6sbJgi1FfUDolPm5Uprq//tnoklVcotVvhD/PaYUcHkXLXuXTZJuuXohnmJ6p1ms2D1nX03fQSZFqOuEkUK5kIjMoqkRyyVucaWKXUyzpkS/e2SwGtIBcf37jaCs2SosBAGPUppFWwn2go2Bfn7YMoRCiMTEi+v+L9npjIuwhe9CD62VU9iKZTDSG8bYXrHAMKQTlQkHKXcV7BN4wqoHQfEmhD84wstN5YNSx5hud3C51tLaT
+x-microsoft-antispam-message-info: Qh/kqvDSp7x+jTby12qBR0UT+WOJjrPZm9nsaNergsv+u9f1P9d1Ukw9b0RlUswtQoznC+eCXDrzzfdij35e+mLvZe3BjTg0MBgtRCEJbgZgWOyjtXJ+75l2XFCvFD7M0IRiijl8wealT1ikhuSUSOjzoJlWbeEDxKj6uhUx2cHEzEBonlJNGL/stvihp3o11qqY9lyqIIkvXs7piLTSpUBeOsufenZdqiSWGZhS+gED3qRtfX4r0fYtN1I3D1QIo+CrnXleCjOWNtZ51Ehn+EJurFp6VGICfEQ4kxl33HsZC5HYkfLMstHk0TSCWfnd7T+ap+RRcWbIpI2sTm0eFw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4326.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(136003)(39860400002)(346002)(376002)(83380400001)(4001150100001)(71200400001)(9686003)(55016002)(478600001)(76116006)(5660300002)(4326008)(2906002)(8676002)(66946007)(7696005)(6506007)(53546011)(52536014)(186003)(66556008)(316002)(64756008)(66446008)(66476007)(110136005)(54906003)(26005)(86362001)(33656002)(8936002);
+ SFS:(4636009)(366004)(396003)(136003)(39860400002)(346002)(376002)(83380400001)(71200400001)(9686003)(55016002)(478600001)(76116006)(5660300002)(4326008)(2906002)(8676002)(66946007)(7696005)(6506007)(53546011)(52536014)(186003)(66556008)(316002)(64756008)(66446008)(66476007)(110136005)(54906003)(26005)(86362001)(33656002)(8936002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: e9JoFe4UHfnzN1foU4y6Bvlz9rOKC0Fj+Y2x7ErUYb2bqFuK+WF8NiNqthvtfFNdPGEkdL2cTJswWDSF5CBUxnz/cHk25ChFDpQ/IyGYceH7GscPAcgZAaOVEjQLR+9EjaGyfQlNuc4DoZ5ywAnnQ04Aj9AHyTDsD4IDga6Z9a7yNFq807z5i5XU59EEU22bYqVlVbrkWgOVl0z7V5RhuzLXt/ZBeEIlc9nmqdsm3ZM1IJjTFTFCGFRpwSz88tePkigjVEhrAgNBdttJiwOfCjMNl3XUz3Ze5j+kBZ+zMndSrR+uWD2HbpjUrEoQKIBjcSJ56bLR4aLQgNlBj/Znr2AYrldz6rTJZp74CnG1pyBYGmQeWY/5CA+0ckgUd3TTAf/g2INNAVX4tPseiiwcywcDavhuvTo0dIVg6v7Rj9dfu7Hjz6dRlNTOCRs4R3H5cxU9Oc296+k5+gw9yk0+HRfAVU7sdJRGui13UyfRZb9ux3FpIis6kvwP8wFfYyvWCkj70JXQPIG+uhvbTzzAioZpvoNVYTZVT8hLYMVL1s7EuLtZ1wdR+UHy3WDsMfVKDty83OwfekaU3aVoTDWwxhOHbJSmp1XAB/NXF4dGVQC5fp7KPp41Xr3pVjCc6fK6yGZizAQUdppfhoYoxUnZUw==
+x-ms-exchange-antispam-messagedata: 97neixoDBitXVgXbo6UJMLJyKUTP1eLVRyWirFlylWpQgl9beCz91JGKxfE7a8Ib2MCaJDq9LAmdBK7D/MBH5/gtz6k96PGdBz26UOq/y/SmZp3Rh69Xqxf/HZSkV/f2ChAnkc3NcYzjfgYStZQEJNSBXklbVPGQzlUkpn7Ue8dCKcw2K5XPANih0zhdQlZYgaMBtVUlA263hFus3+EmADZcPhFEJvkjcb8rpH+LzMjqtXeJUQVjGoj+fJmHgMO7GadZCphRHBsWHmga0kug35s0kWT4ujdCbcW3Mh6UU8HriiZ9ljyTZuEEosgH1oLlwhPUyBhyiG0OX6s/aqN7jzgJZxCEmJuL3O39FXH1WOPwfDWsazM7Gm2Jq5a8ZqvOSBq5r8wygA9xtNy/7cdamWfmdEyDm8CbmZCjMNE9kVl5ee2zHRrvCIhzTRZuwUkbdHfBN/uGZw4Ql3UjtG2F4wDTZU6Qnhakgn+14ZqFBZ8A7pp7vilo+hPDCI0NkeeoVnCGjV3GoXPCpth4SRbi8VSl0opGaGWvh/f2d4F/9MLYUJiSuoKLQ1gZMXsno4JK7I8Es01g3DFgZ5C+HRWD+DQlj6csmnsiTz3Hi/ehLscZxWORl2vdUkkBrBDV+/Bc+p2tTWQ8geCP+f71mPEttg==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b380d64c-067c-4ea2-7f3c-08d87ce440ec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2020 14:58:25.5105 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0204f23-dc79-433e-18bf-08d87ce4b22b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2020 15:01:35.5018 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6bLCXtOKePgApN7wErBauSERrtp5CZjpk4PuW31tWFtrM5tDflaK7M0b44SyufMedRcLkiP5WaUGTUA/IOt9mQ==
+X-MS-Exchange-CrossTenant-userprincipalname: 0tzcAdC4nXMSzq63gcC5wRLszOXDhVdUMJt2e6dv8M/1jSZvddl1t5pz5zCJH5oF1MF+L1I5o7sDKiKMfd2upw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3992
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,8 +112,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -122,73 +121,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Hi James,
-Thanks for your input, v2 patch is sent out.
+Please ignore the change.
 
-Regards,
-Jiansong
 -----Original Message-----
-From: Zhu, James <James.Zhu@amd.com>
-Sent: Friday, October 30, 2020 9:06 PM
-To: Chen, Jiansong (Simon) <Jiansong.Chen@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhu, James <James.Zhu@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: disable gfxoff if VCN is busy
+From: Jiansong Chen <Jiansong.Chen@amd.com>
+Sent: Friday, October 30, 2020 10:57 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhu, James <James.Zhu@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Chen, Jiansong (Simon) <Jiansong.Chen@amd.com>
+Subject: [PATCH v2] drm/amdgpu: disable gfxoff if VCN is busy
 
-Hi Jiansong
+Toggle on/off gfxoff during video playback to fix gpu hang.
 
-Pls check inline.
+v2: change sequence to be more compatible with original code.
 
-thanks!
+Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
+Change-Id: I5b938c446884268c2cda0801121a53da980e603a
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-James
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 277a8435dd06..ef0878e848de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -358,6 +358,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
+ }
 
-On 2020-10-30 7:37 a.m., Jiansong Chen wrote:
-> Toggle on/off gfxoff during video playback to fix gpu hang.
-[JZ] It is a workaround, not a fix. Also Arcturus needn't this WA.
-> Signed-off-by: Jiansong Chen <Jiansong.Chen@amd.com>
-> Change-Id: I5b938c446884268c2cda0801121a53da980e603a
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 277a8435dd06..444b89413232 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -358,6 +358,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->   }
->
->   if (!fences && !atomic_read(&adev->vcn.total_submission_cnt)) {
-> +amdgpu_gfx_off_ctrl(adev, true);
->   amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
->          AMD_PG_STATE_GATE);
->   } else {
-> @@ -368,13 +369,16 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->   void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
->   {
->   struct amdgpu_device *adev = ring->adev;
-> +bool set_clocks = !cancel_delayed_work_sync(&adev->vcn.idle_work);
->
->   atomic_inc(&adev->vcn.total_submission_cnt);
-> -cancel_delayed_work_sync(&adev->vcn.idle_work);
->
->   mutex_lock(&adev->vcn.vcn_pg_lock);
-> -amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
-> -       AMD_PG_STATE_UNGATE);
-> +if (set_clocks) {
-> +amdgpu_gfx_off_ctrl(adev, false);
+ if (!fences && !atomic_read(&adev->vcn.total_submission_cnt)) {
++amdgpu_gfx_off_ctrl(adev, true);
+ amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
+        AMD_PG_STATE_GATE);
+ } else {
+@@ -370,7 +371,9 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
+ struct amdgpu_device *adev = ring->adev;
 
-[JZ] Move the above two lines before mutex_lock(&adev->vcn.vcn_pg_lock);
+ atomic_inc(&adev->vcn.total_submission_cnt);
+-cancel_delayed_work_sync(&adev->vcn.idle_work);
++
++if (!cancel_delayed_work_sync(&adev->vcn.idle_work);)
++amdgpu_gfx_off_ctrl(adev, false);
 
-Since it may cause S3 test failure.
+ mutex_lock(&adev->vcn.vcn_pg_lock);
+ amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
+--
+2.25.1
 
-> +amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
-> +AMD_PG_STATE_UNGATE);
-> +}
->
->   if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG){
->   struct dpg_pause_state new_state;
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
