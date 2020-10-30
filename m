@@ -2,102 +2,70 @@ Return-Path: <SRS0=gTHH=EF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE936C00A89
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 17:14:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EF15C4741F
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 17:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C9052075E
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 17:14:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D21B920A8B
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2020 17:45:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WcZxlFy4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C9052075E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T8d3YMIC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D21B920A8B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E6C96E9E0;
-	Fri, 30 Oct 2020 17:14:06 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CDBD6E9E0
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2020 17:14:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yzds9BaN2y1WN1EGlMSkS0v7mlUaADV+5yUJhOt0iHQkOXYi2XshWjVxn1fRaeiVIozX6mfxBkY0C7qOfG3rBCKsN1k5UfOAwTH4ul27pCVf+mvuaa+PCccgADeyiR0JRjIGkXq8TBQfGycF2rzjFITh0NCLoT8N7s1gUmOz/NTI0ZLCeKhvujYSi0viEf9rMJYpki8H3Djb1ReG3Z5odWJ5aXeRTuI10vZGQkvlD966S0pt6r4svUUvxjy49QqgQVvr+1UDq2CgM41akenYrOIH9wRdAoaeUIyzZAIn+Pm3lRzFkKdzt2/LehKtxFgU3vS0zviMu9puTloKBgPBoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MQwNgf9Vw7NJd/wR05tRULXidFqzXiep8U/EwebszK4=;
- b=FV5G/Uuv5zCCE76OuAQ5niehgW4utZY/MdQ5iow0UqQ54rXWu/HWnDyXVXSl2mqyda6E2PYL05sO7IlOAtZLBWm84vl8oZWvkl4/Z7HJ+sC3LS4ll7kdMFKbDP2dVKGiklFdm/46IV6KFQNtSjQ3Iydv5DK+E+JyF+75GksUaNM1hDaEiQmySH4TfHbhQ03npmZd7bAL4i4kx9Ah9wOHbpy9EtJbDVRm9i2vh9HmpcDuc8yeV+vHmYoDprX7qiug+v4KfEqfdzLXVNlNkBpzVqOsKZLVrZAXJMBTWwDXwSSvLIosNEOUtQ2OseSV7Ud77GkkNCQsiWT8p/TU8TQx5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MQwNgf9Vw7NJd/wR05tRULXidFqzXiep8U/EwebszK4=;
- b=WcZxlFy4q1DV+ZpwgkNfCgtwdqBr6qBaAU//KjzJuHZS3qWhb1JZ/gD29w+VTHnyXgKplHKs08cLDVn748Cg7ZySDzcV3b3iPeThhMynUQkeLf0wgs2zLHoIzvBa4S+g/KG/jsgyMSWZ+r8+i7/xFxQf+W6tFx7DoaGRx+Jg5bE=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1787.namprd12.prod.outlook.com (2603:10b6:3:113::12)
- by DM6PR12MB2841.namprd12.prod.outlook.com (2603:10b6:5:49::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.20; Fri, 30 Oct
- 2020 17:14:02 +0000
-Received: from DM5PR12MB1787.namprd12.prod.outlook.com
- ([fe80::80dc:cc94:5241:e454]) by DM5PR12MB1787.namprd12.prod.outlook.com
- ([fe80::80dc:cc94:5241:e454%6]) with mapi id 15.20.3455.040; Fri, 30 Oct 2020
- 17:14:02 +0000
-Subject: Re: [PATCH] amd/amdgpu: Disable VCN DPG mode for Picasso
-To: veerabadhran.gopalakrishnan@amd.com, amd-gfx@lists.freedesktop.org
-References: <20201030171003.458965-1-veerabadhran.gopalakrishnan@amd.com>
-From: Leo Liu <leo.liu@amd.com>
-Message-ID: <b897332b-53b6-c03b-1ab4-82f0a9d9e5d5@amd.com>
-Date: Fri, 30 Oct 2020 13:14:00 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20201030171003.458965-1-veerabadhran.gopalakrishnan@amd.com>
-Content-Language: en-US
-X-Originating-IP: [2607:fea8:a3c0:342c:712b:83c3:d1b6:9fe9]
-X-ClientProxiedBy: BN4PR12CA0021.namprd12.prod.outlook.com
- (2603:10b6:403:2::31) To DM5PR12MB1787.namprd12.prod.outlook.com
- (2603:10b6:3:113::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E996E9E0;
+	Fri, 30 Oct 2020 17:45:37 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B534D6E9E0;
+ Fri, 30 Oct 2020 17:45:35 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id l8so3695173wmg.3;
+ Fri, 30 Oct 2020 10:45:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=7wEr5Dqk9C4lrCpsWhhhfQP1Jc/kVZd8qfNomT6z69M=;
+ b=T8d3YMICnoOKnXtEbbghVhWKZ3yII6mafp3clEg+DIdgIUQRAwj4kzKL0tre+6nw/f
+ P4jUgaU8fsaBbltL+Q1ci2XXkWPGsakMLHbbjwrKwN4Zh7ViAtGUNvSzKywMXWLIzjuq
+ mVxIB8NwhsFaBbBYf/LxfcTQ1ivXoeuRdeegUICZiUkmqGgqqTg5RK0ZZ6MKdI5PnVPc
+ YrhEGoTLkCdH9GIdbVHzGXfOpZ4Qm7qwgstPrVdNzr5BazWxSEBdlUmH7WzzoQymseiP
+ 5MgRBnCWszu7096iYogx0VoVjRsGXZKE/HctieslL/ekoB3W8FZ2dXqAmUQkkhLcJsgU
+ YZqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=7wEr5Dqk9C4lrCpsWhhhfQP1Jc/kVZd8qfNomT6z69M=;
+ b=mZgW5XQUfIGMWrDow/SmIAvF0+tuDO9q8qDwQWekd1FXyROgUfcHwZXRHssELap7sm
+ Fq6viROScW7CL3skDTlxd8L1M/TWsGet4Gl2iVQVSIiBDA3bQN7yURvoTSkEIQ9kIKqs
+ 6L6NmYsnsls8t4Z68B7o8MXafmeyjIG2tKPujLhgOlflK0s6lsgGz1y3agARdYDH4MJ1
+ bKfP2DmaKLs1Mx0GfIInUCRR+f/qFUD4ccE0U7ZJIc0n3hkHMlTwdkMxqnlvCb7pZmlc
+ aY5oR9oyb+1RApPPvPtFkNMV2OCsYRmYEDRIRgKRDaDcrTuo/XKDXodqcbgECdgM74Ex
+ ZSAA==
+X-Gm-Message-State: AOAM530Xot15g/rF+zr10zb0QM9oE4d452yqLSuMbR1QQ4AEs9WwjJYB
+ I2ABLPinc1ia6CGnusIWl3zdjhdyxibhv62ZFd8=
+X-Google-Smtp-Source: ABdhPJx1luv8bnwT4cFNgdaMqCEsZE0R3sacZyY6hfrZF4GCZ5YjXyQrEGKpGUN7aUFYxC9FNLlIrJooPNw35YhoBMs=
+X-Received: by 2002:a1c:6302:: with SMTP id x2mr4030775wmb.56.1604079934351;
+ Fri, 30 Oct 2020 10:45:34 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:a3c0:342c:712b:83c3:d1b6:9fe9]
- (2607:fea8:a3c0:342c:712b:83c3:d1b6:9fe9) by
- BN4PR12CA0021.namprd12.prod.outlook.com (2603:10b6:403:2::31) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.19 via Frontend Transport; Fri, 30 Oct 2020 17:14:01 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1800e883-c75f-4d35-30aa-08d87cf73292
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2841:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2841B4CDC8736B4858EA5A81E5150@DM6PR12MB2841.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +7hC2zW08Wwgv8m07L+s0ZnNS48jy50gnTlbuce9YNVlubWvM7mBfs3RR9HUPZC6YvjR6ZSF0A9LDwTRtdYrH9vXmnUiFomHIqJVG+p9CRnkColPjK0grg7KRVHl6RSf2+Sgen6T9A2FP4qDSInyA4O32wlAfhFCehUMy1wBC06Ab/iN459FIqjLjEUYdN2nJ+hK0mBWurPZ8lnXy74sb6HUFPtJd5qe/Nk7+pYsX7f99a31SQdpEmkc6zjxxxL6Bsd7NXg4jFLkUNDkXNOSoSIvZy+cf33bsm82Aanj050mnmR0wDTP1dK3EJN2ldgvzknchT89uxYzpXk0C7nMX226aN+l2YnE4P1ZuUPPuFcR7dPXe8KQhC4k2eyvuXQp
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1787.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(39860400002)(376002)(346002)(396003)(366004)(31696002)(5660300002)(316002)(2616005)(8676002)(186003)(16526019)(36756003)(6486002)(44832011)(66946007)(66476007)(66556008)(478600001)(53546011)(52116002)(31686004)(4744005)(4326008)(4001150100001)(2906002)(83380400001)(86362001)(8936002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: uyERhoBpsQsusKXdZLpYsHWNAYt4dODaN6OwpAoj4lCqsNJ2842qD6MijqPzYwp7JJan5yF6G9iEuXRhwkxBIkAQc0YftJPLnyCpNnJYd2J0ml/R5gRyXXAW5vp10gaPD8sF7grj1P89/H+RhdfDqB3+7DGmeviPIyMzKotkMh5syK8gxQ9LpqpTTEnXq6XQCMbi+KPVllKqKQ0mkgjopk8Md88mg+ma0lUPWkRm1VKfbEuK5i0JNTniWFPZtzwSEtX+qfO7mLbO0frK1Ux22l08L8LLzH+PSjgyBRYvA/Kmv2jG0GTDRh2p+oYamXS4XWAzt4BCL3TmSGy+LOKevfTIKVnI3ZdlMmeMZE4gpQyXawUGlqZEWKKLIaXkzaIR9SGgZEw0byW0XferSzZnyPztbFW9fOaYYlZnQHZg8HlFNFzbqwK7jaOCucgo/cMG7FhnQIWzsEwDrh3uDYBeeY+WmEFBXBiXMQnHJ3wA/GJJlv9bdwp7RXpXoCoC8dGXxO7xCHht12c2VOirNTRgWchtggl2oGfm3oK1HwXmcqbRRMQnYeFnPCMcSZaX/PAVHTNmzmYrsbybGedL6bJRqq75/MLte6dVLMIownIWbYJyPtd+iN9UG66Rmyas70C7F9mSYRvnIZqHRyuXXcMWT5GBEPG2CISzFENY8QDP8oSOYHab//iii4acYSjwer2ij4t9UbzW9WZtm9HvmWyPzw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1800e883-c75f-4d35-30aa-08d87cf73292
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1787.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2020 17:14:02.1682 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t/Zu6R9UOJ4m0FT3voknXKYIAsg0LtouhC38xC4YpAWdhcRYOBWKPoS+YOqM8feL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2841
+References: <20201026210039.3884312-1-arnd@kernel.org>
+ <20201026210039.3884312-4-arnd@kernel.org>
+ <CADnq5_MdJt02hpdTsvPDVwN4_1D7-1ybDexDreL6GjDipc_Yvw@mail.gmail.com>
+ <c5335426-c19a-c174-40a9-a012711cdf0b@amd.com>
+In-Reply-To: <c5335426-c19a-c174-40a9-a012711cdf0b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 30 Oct 2020 13:45:22 -0400
+Message-ID: <CADnq5_MNuPuUPvSfHTqL2icZgAV11q7zgcgDhLB3Q1hyd+r7nw@mail.gmail.com>
+Subject: Re: [PATCH 4/5] drm/amdgpu: fix build_coefficients() argument
+To: Harry Wentland <harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,39 +77,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com
+Cc: Arnd Bergmann <arnd@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
+ Krunoslav Kovac <Krunoslav.Kovac@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ Lewis Huang <Lewis.Huang@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Josip Pavic <Josip.Pavic@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, Reza Amini <Reza.Amini@amd.com>,
+ Denis Efremov <efremov@linux.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Anthony Koo <Anthony.Koo@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+Applied.  Thanks!
 
-On 2020-10-30 1:10 p.m., veerabadhran.gopalakrishnan@amd.com wrote:
-> From: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
+Alex
+
+On Fri, Oct 30, 2020 at 1:04 PM Harry Wentland <harry.wentland@amd.com> wrote:
 >
-> Concurrent operation of VCN and JPEG decoder in DPG mode is
-> causing ring timeout due to power state.
 >
-> Signed-off-by: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/soc15.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index ed7342bbf801..f57c5f57efa8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -1195,8 +1195,7 @@ static int soc15_common_early_init(void *handle)
->   
->   			adev->pg_flags = AMD_PG_SUPPORT_SDMA |
->   				AMD_PG_SUPPORT_MMHUB |
-> -				AMD_PG_SUPPORT_VCN |
-> -				AMD_PG_SUPPORT_VCN_DPG;
-> +				AMD_PG_SUPPORT_VCN;
->   		} else {
->   			adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
->   				AMD_CG_SUPPORT_GFX_MGLS |
+> On 2020-10-29 11:53 p.m., Alex Deucher wrote:
+> > On Mon, Oct 26, 2020 at 5:01 PM Arnd Bergmann <arnd@kernel.org> wrote:
+> >>
+> >> From: Arnd Bergmann <arnd@arndb.de>
+> >>
+> >> gcc -Wextra warns about a function taking an enum argument
+> >> being called with a bool:
+> >>
+> >> drivers/gpu/drm/amd/amdgpu/../display/modules/color/color_gamma.c: In function 'apply_degamma_for_user_regamma':
+> >> drivers/gpu/drm/amd/amdgpu/../display/modules/color/color_gamma.c:1617:29: warning: implicit conversion from 'enum <anonymous>' to 'enum dc_transfer_func_predefined' [-Wenum-conversion]
+> >>   1617 |  build_coefficients(&coeff, true);
+> >>
+> >> It appears that a patch was added using the old calling conventions
+> >> after the type was changed, and the value should actually be 0
+> >> (TRANSFER_FUNCTION_SRGB) here instead of 1 (true).
+> >
+> > This looks correct to me.  Harry, Leo?
+> >
+>
+> Confirmed with Kruno, this is correct.
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+> > Alex
+> >
+> >
+> >>
+> >> Fixes: 55a01d4023ce ("drm/amd/display: Add user_regamma to color module")
+> >> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> >> ---
+> >>   drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> >> index b8695660b480..09bc2c249e1a 100644
+> >> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> >> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+> >> @@ -1614,7 +1614,7 @@ static void apply_degamma_for_user_regamma(struct pwl_float_data_ex *rgb_regamma
+> >>          struct pwl_float_data_ex *rgb = rgb_regamma;
+> >>          const struct hw_x_point *coord_x = coordinates_x;
+> >>
+> >> -       build_coefficients(&coeff, true);
+> >> +       build_coefficients(&coeff, TRANSFER_FUNCTION_SRGB);
+> >>
+> >>          i = 0;
+> >>          while (i != hw_points_num + 1) {
+> >> --
+> >> 2.27.0
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org
+> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Charry.wentland%40amd.com%7C3b50cfb318a04e2708e308d87c875c07%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637396268091128887%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=QGijLrlFTXI3xx2sGx1iNczHBezfWdu%2FP2xkfoq%2FMB0%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
