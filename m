@@ -5,68 +5,70 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BA61C00A89
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A659C4742C
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2D8C21D91
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:44:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9013F21D91
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:44:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ex9JrzyI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2D8C21D91
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JjkLFkvm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9013F21D91
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2B646E117;
-	Mon,  2 Nov 2020 17:44:47 +0000 (UTC)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE7146E0DC;
- Mon,  2 Nov 2020 17:20:56 +0000 (UTC)
-Received: by mail-pg1-x543.google.com with SMTP id g12so11353941pgm.8;
- Mon, 02 Nov 2020 09:20:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 142776E11C;
+	Mon,  2 Nov 2020 17:44:48 +0000 (UTC)
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A84F36E0DC;
+ Mon,  2 Nov 2020 17:18:27 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id z24so11363398pgk.3;
+ Mon, 02 Nov 2020 09:18:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=3u/ID6i0HKFSwkiMXtA0kEMBqE7TZchp7Cb2zZ9L4Js=;
- b=Ex9JrzyI9/1pBRfYqQ0GV/ak1IV7glXSEC1w4K2yeOK7QLavI2p+/+iu/Nj0zjIkNa
- zsqjbcVxpC8fvRq7Hev1/xFhl3A6X8KZB4j/L1B8Cq0DKGt0z0j2gSUrMCGdUCs/WlJz
- 3qGPHdt+z5Kwo4URH0FCMXup5B4PrTZHwr7Eh/mrky+tZWjHj6mWtDCLaGoT0MLxsgbF
- tjmzjNgmHaiIOOeHHmJOR6hbG4xUyWdQAUWbFHa4Mq62yWQ0uC5UPDFQEF4mHOw1+FH2
- lpv8uwYJP9vhX3EcPJfPnDUTDv5IqchKsx77AZl13Hx8LuJL1R5zUSoVPw/5TCcqxUih
- SgOQ==
+ bh=ongijzBbU5JhggY7XsRs9RUVgnhkALPDdAHYW5noMnU=;
+ b=JjkLFkvmOwH3zDu+TtrRvT9/DODaBkhXxFr9Ngla+xzBEAzxw0ASE3vDj5LEA/KrQo
+ bNU0Sw0e/+652u5nIAervazqr5MO+wygx2UY9Fbb1QBbxnPRafQvUPPfRm6pZMG71VqO
+ IvNHbk89ZlNe9LoCr9lsNi8lacxTTLPZyd91Dr0euY0QwYJfUw0eyBkRZ2XPjdo6pgma
+ cRV4c3jlUNi4gWm5o6DXG0WM5VuC55BBz8zjZBTVRAVehfU2x+FgsgyXcVE4PFwW2+fO
+ SHH/8wjBVW6F2gh1HCWgISSUgdgKjLlyYly6nHXWo4tjgtWxkOeg4kjjck5JFH4RYHRl
+ nDHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=3u/ID6i0HKFSwkiMXtA0kEMBqE7TZchp7Cb2zZ9L4Js=;
- b=R54TZ52PMtBFxdBwKXHSVLLRK95NzzDw8xtg/IQbZ32kZ8Tds+TY2OZgySOCGxgsAv
- CfKBF+ma+pG6kfkbqgtXZ4nElP2Q0Ge/oEPL0EeKL1zZPNYBnR5NaW17s/zTFEoKAsmz
- 1dYw/EoyiVwbL87Oq+Ki2QSAVLO0AcP+kMmyCkfoUKrpQwtnmiOBjesqW1xfO7GKV85q
- UPDnziCfh0M1et0fadOKdHEfYlyg3e/a/41rqhIKL0LavoiA+a/NOcTi3/u7qS82bjcK
- xdeiF2yDgW4H3HiZWNCmmCYG3j769s8xSoMoBwtgvrNYUjitUaRqsJ4Fk6s9mlX2bPet
- P7Kw==
-X-Gm-Message-State: AOAM531alJkZhxOCiqB7q17XH/jGxXPDKJiBVXskrrK+u10Pg6ig/Gja
- 4NkTCWbmMFUqmL5EARn71IM=
-X-Google-Smtp-Source: ABdhPJyKYp6U+OqdrkLuP7E/svFLVvTpoq98ZaSaWH85TZrIwXEYuTqAelPMvKTceQarZxlHaUlsHA==
-X-Received: by 2002:a63:443:: with SMTP id 64mr2458197pge.127.1604337656368;
- Mon, 02 Nov 2020 09:20:56 -0800 (PST)
+ bh=ongijzBbU5JhggY7XsRs9RUVgnhkALPDdAHYW5noMnU=;
+ b=dxqKXBSOV3l1OiZoGoKSDOsIbJj7frQgDu/OaJRdwWFOOgZLZ++tULExC0YD0GetTS
+ anDTI0mH3pXyv7BoDmOkZqbBEVadZBcClbExqJwmTU4M8Qiot93Uafnuogf5vEHZtDFC
+ XRl6Jmk3g2RRZKSpIsikuqPPYq3Yu7yGP4o3mKeQYesHpj5XdBYAs1NQ3dIZ79bcLHO/
+ KKMIxMh786rJY1RpFh4CXs2K4TIoogEaqKVsaPKfkhPI+yHLuQ72irNo4EGwMN+NdZct
+ u6Hcas03mLrAntuZYv7XJ4ZWi7r8rD8TnkpGkIH5EavNcU58i422pUzaULNkM8Vymz0c
+ vG9A==
+X-Gm-Message-State: AOAM533CL7pEkMSqKtQNEMJmVjsYFlCDEaooV2J7X8NBTwhrzhj0dCJ9
+ FpYxE6rlx0gE0Lh6zFzo2Jw=
+X-Google-Smtp-Source: ABdhPJyzPukp9r0F2P829WuznckwaVdiOgSt22gGhCcWY9DhcmgwB3d1g7RXRJesRJ8qX/PIQI9A4w==
+X-Received: by 2002:aa7:8281:0:b029:164:cc0f:2b3a with SMTP id
+ s1-20020aa782810000b0290164cc0f2b3amr20031757pfm.30.1604337507299; 
+ Mon, 02 Nov 2020 09:18:27 -0800 (PST)
 Received: from localhost ([160.202.157.3])
- by smtp.gmail.com with ESMTPSA id r6sm14650705pfg.85.2020.11.02.09.20.52
+ by smtp.gmail.com with ESMTPSA id w6sm13164699pgr.71.2020.11.02.09.18.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2020 09:20:56 -0800 (PST)
-Date: Mon, 2 Nov 2020 22:50:50 +0530
+ Mon, 02 Nov 2020 09:18:26 -0800 (PST)
+Date: Mon, 2 Nov 2020 22:48:21 +0530
 From: Deepak R Varma <mh12gx2825@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, gregkh@linuxfoundation.org,
  Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 6/6] drm/amdgpu: improve code indentation and alignment
-Message-ID: <1b15f176289a7829c644dc9b7770f654eaee0efb.1604336791.git.mh12gx2825@gmail.com>
+Subject: [PATCH 3/6] drm/amdgpu/vcn: improve code indentation and alignment
+Message-ID: <0307c0682da36a5c0c091faf5f352f109df86955.1604336791.git.mh12gx2825@gmail.com>
 References: <d644879c4cac32a7cbdbbeebc97c98efd421e17f.1604336791.git.mh12gx2825@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -91,165 +93,78 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 General code indentation and alignment changes such as replace spaces
 by tabs or align function arguments as per the coding style
-guidelines. The patch covers various .c files for this driver.
-Issue reported by checkpatch script.
+guidelines. Issue reported by checkpatch script.
 
 Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.c       | 4 ++--
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/df_v1_7.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c  | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/si.c         | 2 +-
- drivers/gpu/drm/amd/amdgpu/si_ih.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c      | 2 +-
- 9 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 10 +++++-----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index 4cfc786699c7..696e97ab77eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -71,8 +71,8 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t * params);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index e5d29dee0c88..136270e4af7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -45,7 +45,7 @@
+ #define mmUVD_SCRATCH9_INTERNAL_OFFSET				0xc01d
  
- static uint32_t atom_arg_mask[8] =
--    { 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
--0xFF000000 };
-+	{ 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
-+	  0xFF000000 };
- static int atom_arg_shift[8] = { 0, 0, 8, 16, 0, 8, 16, 24 };
+ #define mmUVD_LMI_RBC_IB_VMID_INTERNAL_OFFSET			0x1e1
+-#define mmUVD_LMI_RBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x5a6
++#define mmUVD_LMI_RBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x5a6
+ #define mmUVD_LMI_RBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET		0x5a7
+ #define mmUVD_RBC_IB_SIZE_INTERNAL_OFFSET			0x1e2
  
- static int atom_dst_to_src[8][4] = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index 20f108818b2b..52f05d2f5ed9 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -195,7 +195,7 @@ static void cik_sdma_ring_set_wptr(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 0f1d3ef8baa7..4094718ae27a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -45,7 +45,7 @@
  
- 	WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
--		       	(lower_32_bits(ring->wptr) << 2) & 0x3fffc);
-+	       (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
- }
+ #define mmUVD_LMI_RBC_IB_VMID_INTERNAL_OFFSET			0x431
+ #define mmUVD_LMI_RBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET		0x3b4
+-#define mmUVD_LMI_RBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x3b5
++#define mmUVD_LMI_RBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x3b5
+ #define mmUVD_RBC_IB_SIZE_INTERNAL_OFFSET			0x25c
  
- static void cik_sdma_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
-diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
-index d6aca1c08068..2d01ac0d4c11 100644
---- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
-@@ -41,7 +41,7 @@ static void df_v1_7_sw_fini(struct amdgpu_device *adev)
- }
+ #define VCN25_MAX_HW_INSTANCES_ARCTURUS			2
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index e074f7ed388c..13e511d77bb1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -44,10 +44,10 @@
  
- static void df_v1_7_enable_broadcast_mode(struct amdgpu_device *adev,
--                                          bool enable)
-+					  bool enable)
- {
- 	u32 tmp;
+ #define mmUVD_LMI_RBC_IB_VMID_INTERNAL_OFFSET			0x431
+ #define mmUVD_LMI_RBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET		0x3b4
+-#define mmUVD_LMI_RBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x3b5
++#define mmUVD_LMI_RBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x3b5
+ #define mmUVD_RBC_IB_SIZE_INTERNAL_OFFSET			0x25c
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index dbc8b76b9b78..6b04729d8fec 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -145,7 +145,7 @@ static const struct amdgpu_irq_src_funcs gmc_v10_0_ecc_funcs = {
- 	.process = amdgpu_umc_process_ecc_irq,
+-#define VCN_INSTANCES_SIENNA_CICHLID	 				2
++#define VCN_INSTANCES_SIENNA_CICHLID				2
+ 
+ static int amdgpu_ih_clientid_vcns[] = {
+ 	SOC15_IH_CLIENTID_VCN,
+@@ -55,8 +55,8 @@ static int amdgpu_ih_clientid_vcns[] = {
  };
  
-- static void gmc_v10_0_set_irq_funcs(struct amdgpu_device *adev)
-+static void gmc_v10_0_set_irq_funcs(struct amdgpu_device *adev)
- {
- 	adev->gmc.vm_fault.num_types = 1;
- 	adev->gmc.vm_fault.funcs = &gmc_v10_0_irq_funcs;
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index 94caf5204c8b..7b1a18cbafc4 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -32,19 +32,19 @@
- #include "vcn/vcn_2_0_0_sh_mask.h"
- #include "ivsrcid/vcn/irqsrcs_vcn_2_0.h"
+ static int amdgpu_ucode_id_vcns[] = {
+-       AMDGPU_UCODE_ID_VCN,
+-       AMDGPU_UCODE_ID_VCN1
++		AMDGPU_UCODE_ID_VCN,
++		AMDGPU_UCODE_ID_VCN1
+ };
  
--#define mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET 			0x1bfff
-+#define mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET				0x1bfff
- #define mmUVD_JPEG_GPCOM_CMD_INTERNAL_OFFSET				0x4029
- #define mmUVD_JPEG_GPCOM_DATA0_INTERNAL_OFFSET				0x402a
- #define mmUVD_JPEG_GPCOM_DATA1_INTERNAL_OFFSET				0x402b
- #define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_LOW_INTERNAL_OFFSET		0x40ea
--#define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x40eb
-+#define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x40eb
- #define mmUVD_LMI_JRBC_IB_VMID_INTERNAL_OFFSET				0x40cf
- #define mmUVD_LMI_JPEG_VMID_INTERNAL_OFFSET				0x40d1
--#define mmUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET 		0x40e8
-+#define mmUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET			0x40e8
- #define mmUVD_LMI_JRBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x40e9
- #define mmUVD_JRBC_IB_SIZE_INTERNAL_OFFSET				0x4082
- #define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_LOW_INTERNAL_OFFSET		0x40ec
--#define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x40ed
-+#define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x40ed
- #define mmUVD_JRBC_RB_COND_RD_TIMER_INTERNAL_OFFSET			0x4085
- #define mmUVD_JRBC_RB_REF_DATA_INTERNAL_OFFSET				0x4084
- #define mmUVD_JRBC_STATUS_INTERNAL_OFFSET				0x4089
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index f84701c562bf..0309d84c887d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -409,7 +409,7 @@ static void mmhub_v1_0_set_fault_enable_default(struct amdgpu_device *adev, bool
- 				CRASH_ON_NO_RETRY_FAULT, 1);
- 		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
- 				CRASH_ON_RETRY_FAULT, 1);
--    }
-+	}
+ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev);
+@@ -1371,7 +1371,7 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+ 	}
  
- 	WREG32_SOC15(MMHUB, 0, mmVM_L2_PROTECTION_FAULT_CNTL, tmp);
- }
-@@ -712,7 +712,7 @@ static int mmhub_v1_0_get_ras_error_count(struct amdgpu_device *adev,
- 	uint32_t sec_cnt, ded_cnt;
+ 	/* Update init table header in memory */
+-        size = sizeof(struct mmsch_v3_0_init_header);
++	size = sizeof(struct mmsch_v3_0_init_header);
+ 	table_loc = (uint32_t *)table->cpu_addr;
+ 	memcpy((void *)table_loc, &header, size);
  
- 	for (i = 0; i < ARRAY_SIZE(mmhub_v1_0_ras_fields); i++) {
--		if(mmhub_v1_0_ras_fields[i].reg_offset != reg->reg_offset)
-+		if (mmhub_v1_0_ras_fields[i].reg_offset != reg->reg_offset)
- 			continue;
- 
- 		sec_cnt = (value &
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index e5e336fd9e94..3cf0589bfea5 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1350,7 +1350,7 @@ static void si_vga_set_state(struct amdgpu_device *adev, bool state)
- 
- static u32 si_get_xclk(struct amdgpu_device *adev)
- {
--        u32 reference_clock = adev->clock.spll.reference_freq;
-+	u32 reference_clock = adev->clock.spll.reference_freq;
- 	u32 tmp;
- 
- 	tmp = RREG32(CG_CLKPIN_CNTL_2);
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-index 621727d7fd18..51880f6ef634 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-@@ -43,7 +43,7 @@ static void si_ih_enable_interrupts(struct amdgpu_device *adev)
- 	WREG32(IH_RB_CNTL, ih_rb_cntl);
- 	adev->irq.ih.enabled = true;
- }
--  
-+
- static void si_ih_disable_interrupts(struct amdgpu_device *adev)
- {
- 	u32 ih_rb_cntl = RREG32(IH_RB_CNTL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index afcccc6c0fc6..b4e6ff78ddd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -822,7 +822,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
- #if defined(CONFIG_DRM_AMD_DC)
-                 else if (amdgpu_device_has_dc_support(adev))
--                        amdgpu_device_ip_block_add(adev, &dm_ip_block);
-+			amdgpu_device_ip_block_add(adev, &dm_ip_block);
- #endif
- 		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
 -- 
 2.25.1
 
