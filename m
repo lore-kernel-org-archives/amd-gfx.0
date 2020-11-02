@@ -2,104 +2,72 @@ Return-Path: <SRS0=PoT7=EI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C3F0C00A89
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50960C388F9
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C2CC2225E
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:13:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D4EF122275
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:23:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wJx7U+/X"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C2CC2225E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JkGQpaWd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D4EF122275
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F10BB89F4F;
-	Mon,  2 Nov 2020 19:13:52 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2054.outbound.protection.outlook.com [40.107.236.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A2689F4F
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 19:13:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QXecIDVW4WG911Tfnv7wU5+Hr8bbJ46ih9uTAtM0A9McXSqJ260tTmc3OVIsmE+4ASWkYlyxKDYe5BTkbUQWZWmRkAGYvzSnmHyyehvE0gDkPa+Sd2dtygq8kuVebgVEJfXtrrU9AuFG/icAQJMd13LM8UduJ/NeIpXwxl7C354V2eGPENwFZwg0jNSDRzkdR2Jk7r/SKDfAvefiEkRLqde+TiD5pVhp7bi/wZdZX/ydih8zf7utuxUxb44xOfFerf82TZo/iAoC4eKLaebS+XIJupMUs90kGtBue4N2FJC1iNxUGvO9IcKTRdfeQEiVfj5Y+eah/uJ0+vhns1VYPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1kJe6HRguQxOujiV9XecgLgp8pEAXcjXOHbrct34k+E=;
- b=DBtDpqUu7Lk+tsbMBRp/REapNYUh2S75Bm9C97dVOu50yRR7L/Uw9Oufztdp8mQ/423cVLDVCynJjF9h5gITvN/4VP6cz4ltEvgGOu70acsFaUmlCqlFmgRb/SZGGkBEUCXFpTvVfYZ3uWihMFXaiC/iCJswmeXNL4DJqZ/p/AnFLByKPGAx4nlyzOgQvbgZ6FAuy9qG6yANaDH/hsSAGul6mxEfeD7KrREqWIBHhxb4V2fwWQQymRVDBtgpElA0XZtJCo6RbWAhpN1x+NnVabphIqlTLfsvZR1CnhLEaWsAfDrC4jamHvyUS6j4uPJGpH0qMl4kpIKm1wQFNyoAoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1kJe6HRguQxOujiV9XecgLgp8pEAXcjXOHbrct34k+E=;
- b=wJx7U+/XkcTDuHNDOyiGON0hZmV/FoDuPOTgdP8LIBfwuIbmEFA4hEgyyDf9z1z6fFEUzYGLEPyfSp7MDmVs8taBcJcYOdkdLFEjabUryogCMsYvo5HGdLBLgX8VH+G7BQgTZ7Tdo5oHsfR0k/ydWzDkzpqxnPw15qLWgfGAcAw=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB3064.namprd12.prod.outlook.com (2603:10b6:a03:da::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.19; Mon, 2 Nov
- 2020 19:13:47 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::b46f:9253:b0d8:7999]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::b46f:9253:b0d8:7999%7]) with mapi id 15.20.3477.037; Mon, 2 Nov 2020
- 19:13:47 +0000
-Subject: Re: [PATCH] drm/amdgpu/display: fix warnings when
- CONFIG_DRM_AMD_DC_DCN is not set
-To: Alex Deucher <alexdeucher@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <20201027150356.1786991-1-alexander.deucher@amd.com>
- <CADnq5_MktP-NEq0s7c_gqV8wFYqxR21eQ1mVvGzEFF3b_K7vJw@mail.gmail.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <ea1a77f2-66b9-3201-f460-1c5487dcf62d@amd.com>
-Date: Mon, 2 Nov 2020 14:13:43 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
-In-Reply-To: <CADnq5_MktP-NEq0s7c_gqV8wFYqxR21eQ1mVvGzEFF3b_K7vJw@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [165.204.55.211]
-X-ClientProxiedBy: YTXPR0101CA0006.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::19) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9C2B6E12C;
+	Mon,  2 Nov 2020 19:23:16 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589E76E54C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 19:23:15 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id s9so15909125wro.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2020 11:23:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=O2roJi9bc81755qLfSnTnaxoncu2lW7arGJfQBREeHQ=;
+ b=JkGQpaWd1s/vPA4IEkUtKBWlxS3b7yQ+yKb7GeJMlngkRkYiBFWwEZWbqSysn/ZaUR
+ B6/RA+g2sLJKTMLGzhBpeyRrBsKKfGRUucEzWiL3pZj2sgtlmJrPWDFq37QFVgZMsqoX
+ TVtqMSFkpb1g5+qIk3z6ICzJlIzA8/SlQRiBcDQNS7/43Q9uIH5Ufz3urzVBdxKhgIMd
+ jcZqf7rsQEnRTmCmZUaS855Zt67hBOj1U7ni7bZOAxGitjeIbLPWCZd1pFdVKBFtcWUr
+ kRlxvtdGaFpBp9yigbLofCcg6gdhbBZkwa2v7EFRLtBTO0ixyqcO4pXSuJpi8c0TcdJT
+ KA1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=O2roJi9bc81755qLfSnTnaxoncu2lW7arGJfQBREeHQ=;
+ b=Exm6S4+gLMlhubgStCgDQa1E19LI2RG1rA5BiqqtrAWhfTbNTxTTXqgaYlAFnsbtMN
+ wxo1GbZGD0binSYsJ77xzIVxJT8VJw4amQAyMEBaM9mqj7uVS53BGIJq7Ud3SeVtUwW0
+ WBRhx4HEmG3fpFYgmIOMgqC2QR6hipZ/zawZbt0GPRgk2cfwr7nzoPExffk/payK+Rzy
+ iTB/XAcggCkdpovmMoXs+rjQkWXhdbVghFIMjyFeoZGKKx/ujEIar6m9sjAbFCEwCAH/
+ QIerS6tZgpcs/HU3UE/qOc0ESC/U7b4dfNf9IVtkUjoPgcomFb0lqRexXmbqBX3f13vy
+ vkZQ==
+X-Gm-Message-State: AOAM531CdZIt0ASzqsPEjAL270/s4c9yyZiHUhu4H57V52uPPXIKteP5
+ ssnn5pA9mt75ekWhqmRgQZIBAdGCgh7S1EaBQow=
+X-Google-Smtp-Source: ABdhPJz++IBTFslmEojVhqAWwJxffOgFKh73FhYI7QWLuUeYM1/b0ofRHUj7lH3vOr8s9/T/neantyex9MCaU+BnjcE=
+X-Received: by 2002:a5d:4010:: with SMTP id n16mr21074251wrp.97.1604344993900; 
+ Mon, 02 Nov 2020 11:23:13 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.148.234] (165.204.55.211) by
- YTXPR0101CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18 via Frontend Transport; Mon, 2 Nov 2020 19:13:46 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 624689fe-a2f8-41f4-0b55-08d87f636c70
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3064:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB30640869E9E9E9CF79C5FFB9EC100@BYAPR12MB3064.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:901;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: d/vZow0gom7WlLOITNmX+RCVwABk4rORD4G3fn7wZUkL4lt6s6Yeqc3YKu3Kt16GxMK1D2lSBaiRB6KfgucI8JWmhOLvF+dN6gLAkKmXIn8TmqCxOYINrctr8pOAYr3by5k6f42F2O4VBcSyB+yF4r4mqwCtm8SwazwSYnutJObfbSR3zFBtOLDljp/rs5vPtOkaqG4Wwyh5gLQ4kfZ9ismVFJG13NS27SzZfxYOXr1cRJB8ah9PEb2qB5F7Lc/2iL+kCXrp2+/O+g6NXurcXJlVNVVWMfR44HP1osyZ+Z8dBGsWj63exsCsTq/XMlYT2gK0GJKmCiXkP5C3rs/40et7k7pvVH9zPf0ERsudN/L5dBfD0MbDaEIB7NTJ2jOePHRqM8Xf8I7b6uEbG+5UQA++VWamI8/yKkw/ea7I6Ww=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(346002)(136003)(39860400002)(376002)(6486002)(110136005)(66946007)(5660300002)(36756003)(66476007)(83380400001)(316002)(16526019)(4326008)(186003)(86362001)(52116002)(16576012)(26005)(31686004)(2906002)(66556008)(2616005)(31696002)(956004)(966005)(478600001)(8676002)(6666004)(53546011)(8936002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: AGpYg/CRj3dy6aMh9+UxZkM3rU3WaNcwO1G8/ayAGOwfs171EDk6cAzj4yUstFwi9J4DK0buGgL4aGtXw0tQUOEw51UHjNGde8lKXhBrcKCD15PEwB+UsFU5nnO1N+rSkL4v5V3WPkB0BOrLP6U77TJt2RM6728dq7CcrZO/b/H+LbMNPnocxIRWdCHXlBJl3t6LhDXZfVQaYD2ePhLXZ+L7OC28fMVDiQlLPkaHiSNN4Pl4xHm81Y+w2N20+VnbwriY6BmssK9urezkoYJp6cR8TwJoCJayFfeXDCOJtmcfai4j2+gEBtpWpZbSBNOT1QS+o6cj38tAemXud4ZO0XP8DivBmsglDO+TnzlHlAiDkbXNAONpseTTC7QLQcpe9YA2HSOeuuJZUwal+XYgLXSvORucXX9ftmxW0Ph2nM1W7UbUOv4l9OMoEQv8kXncyaKhHHk8JSV36TqmTffa48o6KckvwazFEDvA8ixuhwED+BL2Nc4Q6ETrVAotqU/gRYJt1ie0ISRoV/i165XVVVbRguZcNFIbCBqFqGi0WQeLgeHQqmUEtsvJBhvmEXgGDnTULmXQvJ0ySmNwg46xaqtMyZ7jeIKi5OvYmy3B0NPy+jN2Y8d0/HDT7ZQOxJjlNtD0v+jWvOo6Yk5Pklc/FQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 624689fe-a2f8-41f4-0b55-08d87f636c70
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2020 19:13:47.5194 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nBqXHof5/JeCpjcbNrr4Jd57SGvQGGhd3r59VGtCVlw2VpWc5uioEqxwQhsh9QHFJe53KXbLZRyyoN28PQXQBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3064
+References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
+In-Reply-To: <20201007152355.2446741-1-Kenny.Ho@amd.com>
+From: Kenny Ho <y2kenny@gmail.com>
+Date: Mon, 2 Nov 2020 14:23:02 -0500
+Message-ID: <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
+Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
+To: Kenny Ho <Kenny.Ho@amd.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Martin KaFai Lau <kafai@fb.com>, 
+ Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+ Andrii Nakryiko <andriin@fb.com>, 
+ John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@chromium.org>,
+ bpf@vger.kernel.org, netdev@vger.kernel.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,79 +79,316 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-fsdevel@vger.kernel.org, cgroups@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-11-02 1:49 p.m., Alex Deucher wrote:
-> Ping?
-> 
-> Alex
-> 
-> On Tue, Oct 27, 2020 at 11:04 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->>
->> Properly protect the relevant code with CONFIG_DRM_AMD_DC_DCN.
->>
->> Fixes: 0b08c54bb7a3 ("drm/amd/display: Fix the display corruption issue on Navi10")
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Adding a few more emails from get_maintainer.pl and bumping this
+thread since there hasn't been any comments so far.  Is this too
+crazy?  Am I missing something fundamental?
 
 Regards,
-Nicholas Kazlauskas
+Kenny
 
->> ---
->>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index fdb1fa72061a..843080e4c39e 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -893,6 +893,7 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
->>          return 0;
->>   }
->>
->> +#if defined(CONFIG_DRM_AMD_DC_DCN)
->>   static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_addr_space_config *pa_config)
->>   {
->>          uint64_t pt_base;
->> @@ -945,6 +946,7 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
->>          pa_config->is_hvm_enabled = 0;
->>
->>   }
->> +#endif
->>
->>   static int amdgpu_dm_init(struct amdgpu_device *adev)
->>   {
->> @@ -952,7 +954,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->>   #ifdef CONFIG_DRM_AMD_DC_HDCP
->>          struct dc_callback_init init_params;
->>   #endif
->> -       struct dc_phy_addr_space_config pa_config;
->>          int r;
->>
->>          adev->dm.ddev = adev_to_drm(adev);
->> @@ -1060,6 +1061,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->>
->>   #if defined(CONFIG_DRM_AMD_DC_DCN)
->>          if (adev->asic_type == CHIP_RENOIR) {
->> +               struct dc_phy_addr_space_config pa_config;
->> +
->>                  mmhub_read_system_context(adev, &pa_config);
->>
->>                  // Call the DC init_memory func
->> --
->> 2.25.4
->>
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> 
 
+On Wed, Oct 7, 2020 at 11:24 AM Kenny Ho <Kenny.Ho@amd.com> wrote:
+>
+> This is a skeleton implementation to invite comments and generate
+> discussion around the idea of introducing a bpf-cgroup program type to
+> control ioctl access.  This is modelled after
+> BPF_PROG_TYPE_CGROUP_DEVICE.  The premise is to allow system admins to
+> write bpf programs to block some ioctl access, potentially in conjunction
+> with data collected by other bpf programs stored in some bpf maps and
+> with bpf_spin_lock.
+>
+> For example, a bpf program has been accumulating resource usaging
+> statistic and a second bpf program of BPF_PROG_TYPE_CGROUP_IOCTL would
+> block access to previously mentioned resource via ioctl when the stats
+> stored in a bpf map reaches certain threshold.
+>
+> Like BPF_PROG_TYPE_CGROUP_DEVICE, the default is permissive (i.e.,
+> ioctls are not blocked if no bpf program is present for the cgroup.) to
+> maintain current interface behaviour when this functionality is unused.
+>
+> Performance impact to ioctl calls is minimal as bpf's in-kernel verifier
+> ensure attached bpf programs cannot crash and always terminate quickly.
+>
+> TODOs:
+> - correct usage of the verifier
+> - toolings
+> - samples
+> - device driver may provide helper functions that take
+> bpf_cgroup_ioctl_ctx and return something more useful for specific
+> device
+>
+> Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
+> ---
+>  fs/ioctl.c                 |  5 +++
+>  include/linux/bpf-cgroup.h | 14 ++++++++
+>  include/linux/bpf_types.h  |  2 ++
+>  include/uapi/linux/bpf.h   |  8 +++++
+>  kernel/bpf/cgroup.c        | 66 ++++++++++++++++++++++++++++++++++++++
+>  kernel/bpf/syscall.c       |  7 ++++
+>  kernel/bpf/verifier.c      |  1 +
+>  7 files changed, 103 insertions(+)
+>
+> diff --git a/fs/ioctl.c b/fs/ioctl.c
+> index 4e6cc0a7d69c..a3925486d417 100644
+> --- a/fs/ioctl.c
+> +++ b/fs/ioctl.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/falloc.h>
+>  #include <linux/sched/signal.h>
+>  #include <linux/fiemap.h>
+> +#include <linux/cgroup.h>
+>
+>  #include "internal.h"
+>
+> @@ -45,6 +46,10 @@ long vfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+>         if (!filp->f_op->unlocked_ioctl)
+>                 goto out;
+>
+> +       error = BPF_CGROUP_RUN_PROG_IOCTL(filp, cmd, arg);
+> +       if (error)
+> +               goto out;
+> +
+>         error = filp->f_op->unlocked_ioctl(filp, cmd, arg);
+>         if (error == -ENOIOCTLCMD)
+>                 error = -ENOTTY;
+> diff --git a/include/linux/bpf-cgroup.h b/include/linux/bpf-cgroup.h
+> index 64f367044e25..a5f0b0a8f82b 100644
+> --- a/include/linux/bpf-cgroup.h
+> +++ b/include/linux/bpf-cgroup.h
+> @@ -134,6 +134,9 @@ int __cgroup_bpf_run_filter_sock_ops(struct sock *sk,
+>  int __cgroup_bpf_check_dev_permission(short dev_type, u32 major, u32 minor,
+>                                       short access, enum bpf_attach_type type);
+>
+> +int __cgroup_bpf_check_ioctl_permission(struct file *filp, unsigned int cmd, unsigned long arg,
+> +                                       enum bpf_attach_type type);
+> +
+>  int __cgroup_bpf_run_filter_sysctl(struct ctl_table_header *head,
+>                                    struct ctl_table *table, int write,
+>                                    void **buf, size_t *pcount, loff_t *ppos,
+> @@ -346,6 +349,16 @@ int bpf_percpu_cgroup_storage_update(struct bpf_map *map, void *key,
+>         __ret;                                                                 \
+>  })
+>
+> +#define BPF_CGROUP_RUN_PROG_IOCTL(filp, cmd, arg)                            \
+> +({                                                                           \
+> +       int __ret = 0;                                                        \
+> +       if (cgroup_bpf_enabled)                                               \
+> +               __ret = __cgroup_bpf_check_ioctl_permission(filp, cmd, arg,   \
+> +                                                           BPF_CGROUP_IOCTL);\
+> +                                                                             \
+> +       __ret;                                                                \
+> +})
+> +
+>  int cgroup_bpf_prog_attach(const union bpf_attr *attr,
+>                            enum bpf_prog_type ptype, struct bpf_prog *prog);
+>  int cgroup_bpf_prog_detach(const union bpf_attr *attr,
+> @@ -429,6 +442,7 @@ static inline int bpf_percpu_cgroup_storage_update(struct bpf_map *map,
+>                                        optlen, max_optlen, retval) ({ retval; })
+>  #define BPF_CGROUP_RUN_PROG_SETSOCKOPT(sock, level, optname, optval, optlen, \
+>                                        kernel_optval) ({ 0; })
+> +#define BPF_CGROUP_RUN_PROG_IOCTL(type,major,minor,access) ({ 0; })
+>
+>  #define for_each_cgroup_storage_type(stype) for (; false; )
+>
+> diff --git a/include/linux/bpf_types.h b/include/linux/bpf_types.h
+> index a52a5688418e..3055e7e4918c 100644
+> --- a/include/linux/bpf_types.h
+> +++ b/include/linux/bpf_types.h
+> @@ -56,6 +56,8 @@ BPF_PROG_TYPE(BPF_PROG_TYPE_CGROUP_SYSCTL, cg_sysctl,
+>               struct bpf_sysctl, struct bpf_sysctl_kern)
+>  BPF_PROG_TYPE(BPF_PROG_TYPE_CGROUP_SOCKOPT, cg_sockopt,
+>               struct bpf_sockopt, struct bpf_sockopt_kern)
+> +BPF_PROG_TYPE(BPF_PROG_TYPE_CGROUP_IOCTL, cg_ioctl,
+> +             struct bpf_cgroup_ioctl_ctx, struct bpf_cgroup_ioctl_ctx)
+>  #endif
+>  #ifdef CONFIG_BPF_LIRC_MODE2
+>  BPF_PROG_TYPE(BPF_PROG_TYPE_LIRC_MODE2, lirc_mode2,
+> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> index b6238b2209b7..6a908e13d3a3 100644
+> --- a/include/uapi/linux/bpf.h
+> +++ b/include/uapi/linux/bpf.h
+> @@ -197,6 +197,7 @@ enum bpf_prog_type {
+>         BPF_PROG_TYPE_EXT,
+>         BPF_PROG_TYPE_LSM,
+>         BPF_PROG_TYPE_SK_LOOKUP,
+> +       BPF_PROG_TYPE_CGROUP_IOCTL,
+>  };
+>
+>  enum bpf_attach_type {
+> @@ -238,6 +239,7 @@ enum bpf_attach_type {
+>         BPF_XDP_CPUMAP,
+>         BPF_SK_LOOKUP,
+>         BPF_XDP,
+> +       BPF_CGROUP_IOCTL,
+>         __MAX_BPF_ATTACH_TYPE
+>  };
+>
+> @@ -4276,6 +4278,12 @@ struct bpf_cgroup_dev_ctx {
+>         __u32 minor;
+>  };
+>
+> +struct bpf_cgroup_ioctl_ctx {
+> +       __u64 filp;
+> +       __u32 cmd;
+> +       __u32 arg;
+> +};
+> +
+>  struct bpf_raw_tracepoint_args {
+>         __u64 args[0];
+>  };
+> diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
+> index 83ff127ef7ae..0958bae3b0b7 100644
+> --- a/kernel/bpf/cgroup.c
+> +++ b/kernel/bpf/cgroup.c
+> @@ -1203,6 +1203,72 @@ const struct bpf_verifier_ops cg_dev_verifier_ops = {
+>         .is_valid_access        = cgroup_dev_is_valid_access,
+>  };
+>
+> +int __cgroup_bpf_check_ioctl_permission(struct file *filp, unsigned int cmd, unsigned long arg,
+> +                                     enum bpf_attach_type type)
+> +{
+> +       struct cgroup *cgrp;
+> +       struct bpf_cgroup_ioctl_ctx ctx = {
+> +               .filp = filp,
+> +               .cmd = cmd,
+> +               .arg = arg,
+> +       };
+> +       int allow = 1;
+> +
+> +       rcu_read_lock();
+> +       cgrp = task_dfl_cgroup(current);
+> +       allow = BPF_PROG_RUN_ARRAY(cgrp->bpf.effective[type], &ctx,
+> +                                  BPF_PROG_RUN);
+> +       rcu_read_unlock();
+> +
+> +       return !allow;
+> +}
+> +
+> +static const struct bpf_func_proto *
+> +cgroup_ioctl_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
+> +{
+> +       return cgroup_base_func_proto(func_id, prog);
+> +}
+> +
+> +static bool cgroup_ioctl_is_valid_access(int off, int size,
+> +                                      enum bpf_access_type type,
+> +                                      const struct bpf_prog *prog,
+> +                                      struct bpf_insn_access_aux *info)
+> +{
+> +       const int size_default = sizeof(__u32);
+> +
+> +       if (type == BPF_WRITE)
+> +               return false;
+> +
+> +       if (off < 0 || off + size > sizeof(struct bpf_cgroup_ioctl_ctx))
+> +               return false;
+> +       /* The verifier guarantees that size > 0. */
+> +       if (off % size != 0)
+> +               return false;
+> +
+> +       switch (off) {
+> +       case bpf_ctx_range(struct bpf_cgroup_ioctl_ctx, filp):
+> +               bpf_ctx_record_field_size(info, size_default);
+> +               if (!bpf_ctx_narrow_access_ok(off, size, size_default))
+> +                       return false;
+> +               break;
+> +       case bpf_ctx_range(struct bpf_cgroup_ioctl_ctx, cmd):
+> +       case bpf_ctx_range(struct bpf_cgroup_ioctl_ctx, arg):
+> +       default:
+> +               if (size != size_default)
+> +                       return false;
+> +       }
+> +
+> +       return true;
+> +}
+> +
+> +const struct bpf_prog_ops cg_ioctl_prog_ops = {
+> +};
+> +
+> +const struct bpf_verifier_ops cg_ioctl_verifier_ops = {
+> +       .get_func_proto         = cgroup_ioctl_func_proto,
+> +       .is_valid_access        = cgroup_ioctl_is_valid_access,
+> +};
+> +
+>  /**
+>   * __cgroup_bpf_run_filter_sysctl - Run a program on sysctl
+>   *
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> index 86299a292214..6984a62c96f4 100644
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+> @@ -2054,6 +2054,7 @@ static bool is_net_admin_prog_type(enum bpf_prog_type prog_type)
+>         case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+>         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+>         case BPF_PROG_TYPE_CGROUP_SYSCTL:
+> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
+>         case BPF_PROG_TYPE_SOCK_OPS:
+>         case BPF_PROG_TYPE_EXT: /* extends any prog */
+>                 return true;
+> @@ -2806,6 +2807,8 @@ attach_type_to_prog_type(enum bpf_attach_type attach_type)
+>                 return BPF_PROG_TYPE_SOCK_OPS;
+>         case BPF_CGROUP_DEVICE:
+>                 return BPF_PROG_TYPE_CGROUP_DEVICE;
+> +       case BPF_CGROUP_IOCTL:
+> +               return BPF_PROG_TYPE_CGROUP_IOCTL;
+>         case BPF_SK_MSG_VERDICT:
+>                 return BPF_PROG_TYPE_SK_MSG;
+>         case BPF_SK_SKB_STREAM_PARSER:
+> @@ -2878,6 +2881,7 @@ static int bpf_prog_attach(const union bpf_attr *attr)
+>         case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+>         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+>         case BPF_PROG_TYPE_CGROUP_SYSCTL:
+> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
+>         case BPF_PROG_TYPE_SOCK_OPS:
+>                 ret = cgroup_bpf_prog_attach(attr, ptype, prog);
+>                 break;
+> @@ -2915,6 +2919,7 @@ static int bpf_prog_detach(const union bpf_attr *attr)
+>         case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+>         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+>         case BPF_PROG_TYPE_CGROUP_SYSCTL:
+> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
+>         case BPF_PROG_TYPE_SOCK_OPS:
+>                 return cgroup_bpf_prog_detach(attr, ptype);
+>         default:
+> @@ -2958,6 +2963,7 @@ static int bpf_prog_query(const union bpf_attr *attr,
+>         case BPF_CGROUP_SYSCTL:
+>         case BPF_CGROUP_GETSOCKOPT:
+>         case BPF_CGROUP_SETSOCKOPT:
+> +       case BPF_CGROUP_IOCTL:
+>                 return cgroup_bpf_prog_query(attr, uattr);
+>         case BPF_LIRC_MODE2:
+>                 return lirc_prog_query(attr, uattr);
+> @@ -3914,6 +3920,7 @@ static int link_create(union bpf_attr *attr)
+>         case BPF_PROG_TYPE_CGROUP_DEVICE:
+>         case BPF_PROG_TYPE_CGROUP_SYSCTL:
+>         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
+>                 ret = cgroup_bpf_link_attach(attr, prog);
+>                 break;
+>         case BPF_PROG_TYPE_TRACING:
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index ef938f17b944..af68f463e828 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -7419,6 +7419,7 @@ static int check_return_code(struct bpf_verifier_env *env)
+>         case BPF_PROG_TYPE_CGROUP_DEVICE:
+>         case BPF_PROG_TYPE_CGROUP_SYSCTL:
+>         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
+>                 break;
+>         case BPF_PROG_TYPE_RAW_TRACEPOINT:
+>                 if (!env->prog->aux->attach_btf_id)
+> --
+> 2.25.1
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
