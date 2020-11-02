@@ -2,102 +2,76 @@ Return-Path: <SRS0=PoT7=EI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DAC84C00A89
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:25:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BA61C00A89
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D61F21D91
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:25:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A2D8C21D91
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 17:44:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KPczcTsN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D61F21D91
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ex9JrzyI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2D8C21D91
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 189D06E203;
-	Mon,  2 Nov 2020 17:25:25 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C04C36E203
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 17:25:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C72nG1KGn4K5WhnONHH1hr7DeqzJFcshySEwJ+fbmUXSkiscEZXznnRsM9EeKyVdH2YtcNqe7RT++T8Y34Y51Sx8dbZwbgq9aR7oqoMTVs51v8GAkVJDJUG+MKJNQHGAYgg3JwJuVu4na1Du2tmoILHie7eINtpluI/L1SzwqaStLMtIIo0i9q3K16b+VRURYe94LDOXlN9sShVQHkEBI6MQ89x1Gu3/P9vzE358guPa1SISthzikV3cljA3JWmmH66dSsb/4nR/4iEVNOh8VMV1vWMFnUbc8EG9SFfPYx0hFwPjZWpbtuGhB8zEIcHOzvKoN7FNd7cP7IqdiS9FAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hkRJ6KuAEqr8KORaXVFhR+4mk8lHuxqSiGOGzYJKKYI=;
- b=hV+ixQe8pfU+5QITfnyLRhxmbFnZDtA+a4zxUNGL+L7sbKR1eRDxolOCkGMCh4tOpwcWFM7rbmra/G6vCo0hQSjf/0pjWzMBP4w+ZWHj/bGhaHxaKN09Yv8aitCuJxdMd2l7siGS6/mMeahSa9Sxc0bN8pv15m37EPLp/Ef6hGpcT3sXIyly68j+x0pUSSjOLEaOermaAVY1ZRi6uElixt2hTaHPvfzQJY9Wo00yzVozqNtOLQHEtbfUXJV1FooxQwoPDlxdabVpW9AIm0UoksFNGMGQZT3LXmUKCBmVhJRzseeVU3HpBm13wSupJps+qGKxJyPc/6FuE+Mtld2Hmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hkRJ6KuAEqr8KORaXVFhR+4mk8lHuxqSiGOGzYJKKYI=;
- b=KPczcTsN3bABiiwJbx1eFTTbb7unLE7DXLlPrfxJBKBjDK7OYoOEdauO7ZmxvSAfCd0Sa8qtSDp3sVWecbq4Jvert561BkS64c82zpTMN4KBVX4SV6kJQf+KvWtp7TsCPNa7rP9+X9wN+JccIYILI+DddJhku2ZXf0dHOQJU1A0=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com (2603:10b6:208:1cc::20)
- by BL0PR12MB2355.namprd12.prod.outlook.com (2603:10b6:207:3f::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Mon, 2 Nov
- 2020 17:25:19 +0000
-Received: from BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::b07d:ede5:2f45:5de8]) by BL0PR12MB4948.namprd12.prod.outlook.com
- ([fe80::b07d:ede5:2f45:5de8%9]) with mapi id 15.20.3499.030; Mon, 2 Nov 2020
- 17:25:19 +0000
-Subject: Re: [PATCH] amdkfd: Check kvmalloc return before memcpy
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20201102162724.14396-1-kent.russell@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <fc22b10b-74e1-03ee-1519-a9c05f001c54@amd.com>
-Date: Mon, 2 Nov 2020 12:25:17 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20201102162724.14396-1-kent.russell@amd.com>
-Content-Language: en-US
-X-Originating-IP: [142.116.13.173]
-X-ClientProxiedBy: QB1PR01CA0029.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:2d::42) To BL0PR12MB4948.namprd12.prod.outlook.com
- (2603:10b6:208:1cc::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2B646E117;
+	Mon,  2 Nov 2020 17:44:47 +0000 (UTC)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE7146E0DC;
+ Mon,  2 Nov 2020 17:20:56 +0000 (UTC)
+Received: by mail-pg1-x543.google.com with SMTP id g12so11353941pgm.8;
+ Mon, 02 Nov 2020 09:20:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=3u/ID6i0HKFSwkiMXtA0kEMBqE7TZchp7Cb2zZ9L4Js=;
+ b=Ex9JrzyI9/1pBRfYqQ0GV/ak1IV7glXSEC1w4K2yeOK7QLavI2p+/+iu/Nj0zjIkNa
+ zsqjbcVxpC8fvRq7Hev1/xFhl3A6X8KZB4j/L1B8Cq0DKGt0z0j2gSUrMCGdUCs/WlJz
+ 3qGPHdt+z5Kwo4URH0FCMXup5B4PrTZHwr7Eh/mrky+tZWjHj6mWtDCLaGoT0MLxsgbF
+ tjmzjNgmHaiIOOeHHmJOR6hbG4xUyWdQAUWbFHa4Mq62yWQ0uC5UPDFQEF4mHOw1+FH2
+ lpv8uwYJP9vhX3EcPJfPnDUTDv5IqchKsx77AZl13Hx8LuJL1R5zUSoVPw/5TCcqxUih
+ SgOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=3u/ID6i0HKFSwkiMXtA0kEMBqE7TZchp7Cb2zZ9L4Js=;
+ b=R54TZ52PMtBFxdBwKXHSVLLRK95NzzDw8xtg/IQbZ32kZ8Tds+TY2OZgySOCGxgsAv
+ CfKBF+ma+pG6kfkbqgtXZ4nElP2Q0Ge/oEPL0EeKL1zZPNYBnR5NaW17s/zTFEoKAsmz
+ 1dYw/EoyiVwbL87Oq+Ki2QSAVLO0AcP+kMmyCkfoUKrpQwtnmiOBjesqW1xfO7GKV85q
+ UPDnziCfh0M1et0fadOKdHEfYlyg3e/a/41rqhIKL0LavoiA+a/NOcTi3/u7qS82bjcK
+ xdeiF2yDgW4H3HiZWNCmmCYG3j769s8xSoMoBwtgvrNYUjitUaRqsJ4Fk6s9mlX2bPet
+ P7Kw==
+X-Gm-Message-State: AOAM531alJkZhxOCiqB7q17XH/jGxXPDKJiBVXskrrK+u10Pg6ig/Gja
+ 4NkTCWbmMFUqmL5EARn71IM=
+X-Google-Smtp-Source: ABdhPJyKYp6U+OqdrkLuP7E/svFLVvTpoq98ZaSaWH85TZrIwXEYuTqAelPMvKTceQarZxlHaUlsHA==
+X-Received: by 2002:a63:443:: with SMTP id 64mr2458197pge.127.1604337656368;
+ Mon, 02 Nov 2020 09:20:56 -0800 (PST)
+Received: from localhost ([160.202.157.3])
+ by smtp.gmail.com with ESMTPSA id r6sm14650705pfg.85.2020.11.02.09.20.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2020 09:20:56 -0800 (PST)
+Date: Mon, 2 Nov 2020 22:50:50 +0530
+From: Deepak R Varma <mh12gx2825@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, gregkh@linuxfoundation.org,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 6/6] drm/amdgpu: improve code indentation and alignment
+Message-ID: <1b15f176289a7829c644dc9b7770f654eaee0efb.1604336791.git.mh12gx2825@gmail.com>
+References: <d644879c4cac32a7cbdbbeebc97c98efd421e17f.1604336791.git.mh12gx2825@gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.116.13.173) by
- QB1PR01CA0029.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:2d::42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18 via Frontend Transport; Mon, 2 Nov 2020 17:25:18 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2353d2fa-dd9d-4c18-5a48-08d87f54455f
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2355:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BL0PR12MB2355CADF8FEE24402E92AF4392100@BL0PR12MB2355.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:989;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: U78KSUB6tOs53xYlhtRBCcAwpiujGHhaNV0ZTVwlSMSekgu3uZEEQKmaQxSydIUFnIWmFfVQTIhoSvxqymVCjMkhPtZcZS/2tCVVmj6uh0Tn5egLCRu0UT0oyw10qxP8melW0xh2KzW+F28F3WCzQl1I4HEfc2t3XW/9neqVnxyNm0JoYPC+mDdh6iSrYnne1KJD70aR2/p2fi+OSarRnmxbT4VbfzkqfwVQruROGdcTg9H9gA2PqgPFquVZI/W5HLly9aPpDbu04pWQhjfvgJFWexya6T8hCkSz2ZkdPKpcJ8Hkih3ycs1LpcOH8f0KJxXz1fA6APtgihBUrKZ5brhtJ127pNQZUzF2wqgxsnn00VgVGI3wGcyhJkhWO3bI
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB4948.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(39860400002)(346002)(366004)(396003)(16576012)(36756003)(316002)(8936002)(8676002)(66556008)(66476007)(66946007)(83380400001)(31686004)(2906002)(16526019)(26005)(186003)(956004)(478600001)(86362001)(6486002)(44832011)(4744005)(52116002)(31696002)(5660300002)(2616005)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: IWF70LJrixl6mxBIZFfkFZzVoeiX6IA14nYy33WczSE+N/sp5A44H6ko13gf1YpN3gi59l/zcbet5/Uv8BBS057MpvaW2aYj9jxFyNywlBpjRUU3T6MHpTWQVBl5/T6hqhR7B038yXgGRGHkiy9GssXCJT4zvjOLmgPFni7k+NBPRAxtGxT9UeblSkX9T0yL3HYg5PaC0B7zzeZEQvidCiOoofgQW1LuU1exa9say4a51Leo0aXlwi2uJr7x5QQZ/P8o018zBK+IeA6VTIQcDmG7zeSxI3o7VeHfqc3/iJpFyjs0ROXLpiIhaXnLDOkBIyxYAZ+Hh5m4DL9u7eh+3S90ALYnQMq1g0iQVR/w1T9njJhxZg4n+BCX/Gt26mcUcVNrzfAWClzhSSiWuozA//LKDmrzBE2e4Qjyz0eOWDS67atmzfZMreeN/KjKbiageTE4BxQHZwH8PKTWyFdH/hHVwddpND41ztHTxNp50ijZGF7UZzEGjCGMnNN45hbMlNhHwsYXf9y8yPqrDcpk8eQkbMLv+Jtwbhdz4Mwa4BqDL/BB0/hpT02hC7ZuswKnUbFgbVf2XXgF0kZe58lGyVLgj78X6OAd5FW2T19Gq2pEUyIQjo8pnJZkDSNIEdPnx1rkLF6qVRVC1qKpOEGf0Q==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2353d2fa-dd9d-4c18-5a48-08d87f54455f
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4948.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2020 17:25:19.1867 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cimkqfYXfLA54MJ2g/tkVg1o/xRyKhRQiP8cjPQp0vSwir4gUqZUF+y4X+MEjD6THZ+9Zr0iy/pNgueknqVw6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2355
+Content-Disposition: inline
+In-Reply-To: <d644879c4cac32a7cbdbbeebc97c98efd421e17f.1604336791.git.mh12gx2825@gmail.com>
+X-Mailman-Approved-At: Mon, 02 Nov 2020 17:44:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,40 +83,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: melissa.srw@gmail.com, daniel.vetter@ffwll.ch, mh12gx2825@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2020-11-02 um 11:27 a.m. schrieb Kent Russell:
-> If we can't kvmalloc the pcrat_image, then we shouldn't memcpy
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
-> Reported-by: kernel test robot <lkp@intel.com>
+General code indentation and alignment changes such as replace spaces
+by tabs or align function arguments as per the coding style
+guidelines. The patch covers various .c files for this driver.
+Issue reported by checkpatch script.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/atom.c       | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/df_v1_7.c    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c  | 8 ++++----
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/si.c         | 2 +-
+ drivers/gpu/drm/amd/amdgpu/si_ih.c      | 2 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c      | 2 +-
+ 9 files changed, 14 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index 4cfc786699c7..696e97ab77eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -71,8 +71,8 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+ int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t * params);
+ 
+ static uint32_t atom_arg_mask[8] =
+-    { 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
+-0xFF000000 };
++	{ 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
++	  0xFF000000 };
+ static int atom_arg_shift[8] = { 0, 0, 8, 16, 0, 8, 16, 24 };
+ 
+ static int atom_dst_to_src[8][4] = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+index 20f108818b2b..52f05d2f5ed9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -195,7 +195,7 @@ static void cik_sdma_ring_set_wptr(struct amdgpu_ring *ring)
+ 	struct amdgpu_device *adev = ring->adev;
+ 
+ 	WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
+-		       	(lower_32_bits(ring->wptr) << 2) & 0x3fffc);
++	       (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
+ }
+ 
+ static void cik_sdma_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+index d6aca1c08068..2d01ac0d4c11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+@@ -41,7 +41,7 @@ static void df_v1_7_sw_fini(struct amdgpu_device *adev)
+ }
+ 
+ static void df_v1_7_enable_broadcast_mode(struct amdgpu_device *adev,
+-                                          bool enable)
++					  bool enable)
+ {
+ 	u32 tmp;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index dbc8b76b9b78..6b04729d8fec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -145,7 +145,7 @@ static const struct amdgpu_irq_src_funcs gmc_v10_0_ecc_funcs = {
+ 	.process = amdgpu_umc_process_ecc_irq,
+ };
+ 
+- static void gmc_v10_0_set_irq_funcs(struct amdgpu_device *adev)
++static void gmc_v10_0_set_irq_funcs(struct amdgpu_device *adev)
+ {
+ 	adev->gmc.vm_fault.num_types = 1;
+ 	adev->gmc.vm_fault.funcs = &gmc_v10_0_irq_funcs;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 94caf5204c8b..7b1a18cbafc4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -32,19 +32,19 @@
+ #include "vcn/vcn_2_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_2_0.h"
+ 
+-#define mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET 			0x1bfff
++#define mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET				0x1bfff
+ #define mmUVD_JPEG_GPCOM_CMD_INTERNAL_OFFSET				0x4029
+ #define mmUVD_JPEG_GPCOM_DATA0_INTERNAL_OFFSET				0x402a
+ #define mmUVD_JPEG_GPCOM_DATA1_INTERNAL_OFFSET				0x402b
+ #define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_LOW_INTERNAL_OFFSET		0x40ea
+-#define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x40eb
++#define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x40eb
+ #define mmUVD_LMI_JRBC_IB_VMID_INTERNAL_OFFSET				0x40cf
+ #define mmUVD_LMI_JPEG_VMID_INTERNAL_OFFSET				0x40d1
+-#define mmUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET 		0x40e8
++#define mmUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET			0x40e8
+ #define mmUVD_LMI_JRBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x40e9
+ #define mmUVD_JRBC_IB_SIZE_INTERNAL_OFFSET				0x4082
+ #define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_LOW_INTERNAL_OFFSET		0x40ec
+-#define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_HIGH_INTERNAL_OFFSET 	0x40ed
++#define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_HIGH_INTERNAL_OFFSET		0x40ed
+ #define mmUVD_JRBC_RB_COND_RD_TIMER_INTERNAL_OFFSET			0x4085
+ #define mmUVD_JRBC_RB_REF_DATA_INTERNAL_OFFSET				0x4084
+ #define mmUVD_JRBC_STATUS_INTERNAL_OFFSET				0x4089
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index f84701c562bf..0309d84c887d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -409,7 +409,7 @@ static void mmhub_v1_0_set_fault_enable_default(struct amdgpu_device *adev, bool
+ 				CRASH_ON_NO_RETRY_FAULT, 1);
+ 		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
+ 				CRASH_ON_RETRY_FAULT, 1);
+-    }
++	}
+ 
+ 	WREG32_SOC15(MMHUB, 0, mmVM_L2_PROTECTION_FAULT_CNTL, tmp);
+ }
+@@ -712,7 +712,7 @@ static int mmhub_v1_0_get_ras_error_count(struct amdgpu_device *adev,
+ 	uint32_t sec_cnt, ded_cnt;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(mmhub_v1_0_ras_fields); i++) {
+-		if(mmhub_v1_0_ras_fields[i].reg_offset != reg->reg_offset)
++		if (mmhub_v1_0_ras_fields[i].reg_offset != reg->reg_offset)
+ 			continue;
+ 
+ 		sec_cnt = (value &
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index e5e336fd9e94..3cf0589bfea5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1350,7 +1350,7 @@ static void si_vga_set_state(struct amdgpu_device *adev, bool state)
+ 
+ static u32 si_get_xclk(struct amdgpu_device *adev)
+ {
+-        u32 reference_clock = adev->clock.spll.reference_freq;
++	u32 reference_clock = adev->clock.spll.reference_freq;
+ 	u32 tmp;
+ 
+ 	tmp = RREG32(CG_CLKPIN_CNTL_2);
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+index 621727d7fd18..51880f6ef634 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+@@ -43,7 +43,7 @@ static void si_ih_enable_interrupts(struct amdgpu_device *adev)
+ 	WREG32(IH_RB_CNTL, ih_rb_cntl);
+ 	adev->irq.ih.enabled = true;
+ }
+-  
++
+ static void si_ih_disable_interrupts(struct amdgpu_device *adev)
+ {
+ 	u32 ih_rb_cntl = RREG32(IH_RB_CNTL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index afcccc6c0fc6..b4e6ff78ddd0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -822,7 +822,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
+ 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
+ #if defined(CONFIG_DRM_AMD_DC)
+                 else if (amdgpu_device_has_dc_support(adev))
+-                        amdgpu_device_ip_block_add(adev, &dm_ip_block);
++			amdgpu_device_ip_block_add(adev, &dm_ip_block);
+ #endif
+ 		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
+-- 
+2.25.1
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> index cdd5032d5c0e..a0acf2310357 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -804,10 +804,10 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
->  	}
->  
->  	pcrat_image = kvmalloc(crat_table->length, GFP_KERNEL);
-> -	memcpy(pcrat_image, crat_table, crat_table->length);
->  	if (!pcrat_image)
->  		return -ENOMEM;
->  
-> +	memcpy(pcrat_image, crat_table, crat_table->length);
->  	*crat_image = pcrat_image;
->  	*size = crat_table->length;
->  
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
