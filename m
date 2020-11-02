@@ -2,67 +2,80 @@ Return-Path: <SRS0=PoT7=EI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF1B0C00A89
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA262C388F9
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:58:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C21D2225E
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:55:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 77FE422275
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:58:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNkqfJMC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C21D2225E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRZ/RNA/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77FE422275
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 931FA6E3F5;
-	Mon,  2 Nov 2020 19:55:34 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1EE6E321;
- Mon,  2 Nov 2020 19:55:33 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id a9so15982323wrg.12;
- Mon, 02 Nov 2020 11:55:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2ABB6E321;
+	Mon,  2 Nov 2020 19:58:11 +0000 (UTC)
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8536E321
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 19:58:11 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id w1so14469348edv.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2020 11:58:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ml2WfVPXEDc7LiW8n/5KXckYK+7cKZbui1ygMjaQxiw=;
- b=mNkqfJMClWvWwnWz1R+IHAv8knV6k905gkhLebEIOkVq0DSG8EQuTyI2pcGRW2nn+O
- wbRY+KV/cetTpOgBqDrJShh7VpSdyd15rPYch6E+0w1RQzo3zB4MRLKZ9f4++onfis8o
- G7iD1FrfVX1fPvtH2/wDCRINwyzBDhMMvR7y9qj7qQL9SnG90OKnzAisCJTPamk4tODx
- X8QxGDc1VTdzwNZV9P/gx+Be0ozAd7WH6Bz/Ze0Fc+TpVNmYtVaAh1YPf1Y904XObApj
- l5+vR4saTutAzJWAacwY6wGUtdfS4TS8EEHd0FVkGWvpBXwuRy1aulFaGejjx2qyLTpE
- F2Yw==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=p9PEo+ny35qWNB3Kt52BIfcr1L55HCtTwlmief9704Y=;
+ b=pRZ/RNA/r+cwvkBpFOhUYPC3MLi7isek4btoFpafSYC6iFZ3sRgMYbynwFwauSr1F9
+ xVSbUpE94MEUkOZGPUkQloF6TETCf12/qlPe53cSZesqG54dXIrXRDRkCTQsDl91THMj
+ heWg3kRD//pCIt/d62Kq/3T1ThiFVU3X2foR1KCZY+afTZj0Vi2Msaub+2iQtp2CUVnJ
+ kH7ex1JmqiEhZX3/YgHIeSsIFAybrW7+rWzw9M4c6o0z0WIyFRFC7NNO1eC5tjcik91B
+ CUzxis/7IVEIWEFYpaFtKmC9WVZIdsdtT76zY9hXZwhIYYcL4dOJiXTRbQysgILPrUsn
+ 2VtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ml2WfVPXEDc7LiW8n/5KXckYK+7cKZbui1ygMjaQxiw=;
- b=AN537fkJcvZwXScI7VucaFB/1mQZ/xTiU95V2/qmIhdK1MnTZJHDGhv6sS70k58wYe
- HAjUD7KbeNgS/8VCbcNzMm1/NLpZb4V+mYZ9NKVHviVcZln0GRnvhplPUUUavB2120GT
- YUZiUi44+IuPT6tff4RHXYFx63e8eBvalvzLW1v92m3ptTmfo/9RoPmJHo7+WI+5b8/p
- xhrGfGwGySLsnxBlYx4uKPcf8piOofTRULInNoRKkEtQRScpy0xvDOO9xZ8OyG1N2ARQ
- 3jJu0lgV9pUk7brJ6my4dFFcM5llGb+qtUcFIGkcN1oxN44RxuNOPRiNiEhKIusHMFIn
- XyCA==
-X-Gm-Message-State: AOAM533ewCf3wr8GSm5ckUj9SVeMEAXEyw+D7K2CgNVjSou3mhh8znKj
- 63yTTxU7ZFdMqVS5icBUCKFSfcgJm7KJ3JXpGF8=
-X-Google-Smtp-Source: ABdhPJxY1o0bdf7RLcX429R2eGrohnnhSqvUvtPBIhs+Zvk9otZBhxGzBplqA5a8Zr0J6YxGAjUo5kdEWa0DaR5K0aM=
-X-Received: by 2002:adf:e8d0:: with SMTP id k16mr22015785wrn.362.1604346932596; 
- Mon, 02 Nov 2020 11:55:32 -0800 (PST)
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=p9PEo+ny35qWNB3Kt52BIfcr1L55HCtTwlmief9704Y=;
+ b=oIeIXYNJGRRpBhnvdL5AgubrpyDv/xid0ItvvaOx8orl/iMg0d7kn4mO8D1WNQxXKo
+ xzQ9pnbgtyUM8CvXnkPnj1BmrUz1xLIwdlfdT0vB8750n9q3Tn6SQMvjLVGIk63C8EGi
+ 9OvPceJHV5imSUC4CqT7ZZ0jbhWdPX7rWbG+L0YZ+br+Ns+VJGoPAb3SLpsrJ07aJbOQ
+ 60kqwuxyb7Ne9Et0MMmovdE0M9JErvEQKd4ONa9l6kXIELe8n36KjJdkuSt8Z9Fuxkas
+ dTNbuF4tTnofDEucEQ6i2VxN0jCRTvLxl7aO/7hGqCcABbrPU0wwjs6FmFbV3deVDSvj
+ yK/A==
+X-Gm-Message-State: AOAM5308sFA0Fsz1EtLVIc2m0b3gWAu6Z9VjOdMIL9rMB9MJ3Pf1Q7t+
+ RMRdjjlsLqKJaOxngTLXUojZVt1Nwf8=
+X-Google-Smtp-Source: ABdhPJwoOKN/ou7btnCOJpHXY4clOZMKvFrfoU2pflynqqjBuMrlZ4V9TjvAqjKGVk1H0D3NRQls7Q==
+X-Received: by 2002:aa7:c44d:: with SMTP id n13mr2282807edr.138.1604347089920; 
+ Mon, 02 Nov 2020 11:58:09 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id dp1sm10007239ejc.74.2020.11.02.11.58.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Nov 2020 11:58:09 -0800 (PST)
+Subject: Re: [PATCH 2/3] drm/amdgpu: enabled software IH ring for Vega
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20201102113353.1422-1-christian.koenig@amd.com>
+ <20201102113353.1422-2-christian.koenig@amd.com>
+ <CADnq5_PfY=f9gC6pEu-xzO_Z-Z1ggnW5UrR56oh9e4z96MYNBA@mail.gmail.com>
+ <29159f4d-e769-193c-b304-d21693519be1@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <87eea327-ede5-054b-e8da-c8b5c7ba11e9@gmail.com>
+Date: Mon, 2 Nov 2020 20:58:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <6ad41a97d7805124d2e31c70d96c846cf0d21524.1604345594.git.mh12gx2825@gmail.com>
- <59ffb58ca0d30ababc611ebc414e816902cc1b77.1604345594.git.mh12gx2825@gmail.com>
-In-Reply-To: <59ffb58ca0d30ababc611ebc414e816902cc1b77.1604345594.git.mh12gx2825@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Nov 2020 14:55:21 -0500
-Message-ID: <CADnq5_Nc_wPfB6Jwzdmc00g_QKLLqf71vu6YO-3oqY8piFMoPw@mail.gmail.com>
-Subject: Re: [PATCH 6/6] drm/amdgpu: use "*" adjacent to data name
-To: Deepak R Varma <mh12gx2825@gmail.com>
+In-Reply-To: <29159f4d-e769-193c-b304-d21693519be1@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,166 +87,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Melissa Wen <melissa.srw@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
-
-Alex
-
-On Mon, Nov 2, 2020 at 2:41 PM Deepak R Varma <mh12gx2825@gmail.com> wrote:
->
-> When declaring pointer data, the "*" symbol should be used adjacent to
-> the data name as per the coding standards. This resolves following
-> issues reported by checkpatch script:
->         ERROR: "foo *   bar" should be "foo *bar"
->         ERROR: "foo * bar" should be "foo *bar"
->         ERROR: "foo*            bar" should be "foo *bar"
->         ERROR: "(foo*)" should be "(foo *)"
->
-> Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/atom.c         | 16 ++++++++--------
->  drivers/gpu/drm/amd/amdgpu/atombios_i2c.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c     |  4 ++--
->  drivers/gpu/drm/amd/amdgpu/mes_v10_1.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c    |  2 +-
->  5 files changed, 13 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-> index 46c00ee580b1..515890f4f5a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -67,8 +67,8 @@ typedef struct {
->  } atom_exec_context;
->
->  int amdgpu_atom_debug;
-> -static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index, uint32_t * params);
-> -int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t * params);
-> +static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index, uint32_t *params);
-> +int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t *params);
->
->  static uint32_t atom_arg_mask[8] =
->         { 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
-> @@ -1201,7 +1201,7 @@ static struct {
->         atom_op_div32, ATOM_ARG_WS},
->  };
->
-> -static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index, uint32_t * params)
-> +static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index, uint32_t *params)
->  {
->         int base = CU16(ctx->cmd_table + 4 + 2 * index);
->         int len, ws, ps, ptr;
-> @@ -1262,7 +1262,7 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
->         return ret;
->  }
->
-> -int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t * params)
-> +int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t *params)
->  {
->         int r;
->
-> @@ -1388,8 +1388,8 @@ void amdgpu_atom_destroy(struct atom_context *ctx)
->  }
->
->  bool amdgpu_atom_parse_data_header(struct atom_context *ctx, int index,
-> -                           uint16_t * size, uint8_t * frev, uint8_t * crev,
-> -                           uint16_t * data_start)
-> +                           uint16_t *size, uint8_t *frev, uint8_t *crev,
-> +                           uint16_t *data_start)
->  {
->         int offset = index * 2 + 4;
->         int idx = CU16(ctx->data_table + offset);
-> @@ -1408,8 +1408,8 @@ bool amdgpu_atom_parse_data_header(struct atom_context *ctx, int index,
->         return true;
->  }
->
-> -bool amdgpu_atom_parse_cmd_header(struct atom_context *ctx, int index, uint8_t * frev,
-> -                          uint8_t * crev)
-> +bool amdgpu_atom_parse_cmd_header(struct atom_context *ctx, int index, uint8_t *frev,
-> +                          uint8_t *crev)
->  {
->         int offset = index * 2 + 4;
->         int idx = CU16(ctx->cmd_table + offset);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c b/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c
-> index 09a538465ffd..af0335535f82 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c
-> @@ -159,7 +159,7 @@ u32 amdgpu_atombios_i2c_func(struct i2c_adapter *adap)
->         return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
->  }
->
-> -void amdgpu_atombios_i2c_channel_trans(struct amdgpu_device* adev, u8 slave_addr, u8 line_number, u8 offset, u8 data)
-> +void amdgpu_atombios_i2c_channel_trans(struct amdgpu_device *adev, u8 slave_addr, u8 line_number, u8 offset, u8 data)
->  {
->         PROCESS_I2C_CHANNEL_TRANSACTION_PS_ALLOCATION args;
->         int index = GetIndexIntoMasterTable(COMMAND, ProcessI2cChannelTransaction);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 48f98c750956..e96ab5325af5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -5167,7 +5167,7 @@ static void gfx_v9_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
->
->         if (ring->use_doorbell) {
->                 /* XXX check if swapping is necessary on BE */
-> -               atomic64_set((atomic64_t*)&adev->wb.wb[ring->wptr_offs], ring->wptr);
-> +               atomic64_set((atomic64_t *)&adev->wb.wb[ring->wptr_offs], ring->wptr);
->                 WDOORBELL64(ring->doorbell_index, ring->wptr);
->         } else {
->                 WREG32_SOC15(GC, 0, mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
-> @@ -5353,7 +5353,7 @@ static void gfx_v9_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
->
->         /* XXX check if swapping is necessary on BE */
->         if (ring->use_doorbell) {
-> -               atomic64_set((atomic64_t*)&adev->wb.wb[ring->wptr_offs], ring->wptr);
-> +               atomic64_set((atomic64_t *)&adev->wb.wb[ring->wptr_offs], ring->wptr);
->                 WDOORBELL64(ring->doorbell_index, ring->wptr);
->         } else{
->                 BUG(); /* only DOORBELL method supported on gfx9 now */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> index 1c22d8393b21..985e454463e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> @@ -46,7 +46,7 @@ static void mes_v10_1_ring_set_wptr(struct amdgpu_ring *ring)
->         struct amdgpu_device *adev = ring->adev;
->
->         if (ring->use_doorbell) {
-> -               atomic64_set((atomic64_t*)&adev->wb.wb[ring->wptr_offs],
-> +               atomic64_set((atomic64_t *)&adev->wb.wb[ring->wptr_offs],
->                              ring->wptr);
->                 WDOORBELL64(ring->doorbell_index, ring->wptr);
->         } else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index 6c5d9612abcb..d521ca0f3afa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -615,7 +615,7 @@ static int psp_v11_0_memory_training_send_msg(struct psp_context *psp, int msg)
->  static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
->  {
->         struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
-> -       uint32_t *pcache = (uint32_t*)ctx->sys_cache;
-> +       uint32_t *pcache = (uint32_t *)ctx->sys_cache;
->         struct amdgpu_device *adev = psp->adev;
->         uint32_t p2c_header[4];
->         uint32_t sz;
-> --
-> 2.25.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMDIuMTEuMjAgdW0gMTk6NTkgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBBbSAyMDIwLTEx
+LTAyIHVtIDE6NTMgcC5tLiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPj4gT24gTW9uLCBOb3YgMiwg
+MjAyMCBhdCA2OjM0IEFNIENocmlzdGlhbiBLw7ZuaWcKPj4gPGNrb2VuaWcubGVpY2h0enVtZXJr
+ZW5AZ21haWwuY29tPiB3cm90ZToKPj4+IFNlZW1zIGxpa2Ugd2Ugd29uJ3QgZ2V0IHRoZSBoYXJk
+d2FyZSBJSDEvMiByaW5ncyBvbiBWZWdhMjAgd29ya2luZy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5
+OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+PiAtLS0KPj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmMgfCA3ICsrKysrKysKPj4+
+ICAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3ZlZ2ExMF9paC5jCj4+PiBpbmRleCA0MDdjNjA5M2MyZWMuLmNlZjYxZGQ0NmEz
+NyAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5j
+Cj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYwo+Pj4gQEAg
+LTkxLDYgKzkxLDkgQEAgc3RhdGljIHZvaWQgdmVnYTEwX2loX2VuYWJsZV9pbnRlcnJ1cHRzKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4gICAgICAgICAgICAgICAgICB9Cj4+PiAgICAg
+ICAgICAgICAgICAgIGFkZXYtPmlycS5paDIuZW5hYmxlZCA9IHRydWU7Cj4+PiAgICAgICAgICB9
+Cj4+PiArCj4+PiArICAgICAgIGlmIChhZGV2LT5pcnEuaWhfc29mdC5yaW5nX3NpemUpCj4+PiAr
+ICAgICAgICAgICAgICAgYWRldi0+aXJxLmloX3NvZnQuZW5hYmxlZCA9IHRydWU7Cj4+PiAgIH0K
+Pj4+Cj4+PiAgIC8qKgo+Pj4gQEAgLTYwNiw2ICs2MDksMTAgQEAgc3RhdGljIGludCB2ZWdhMTBf
+aWhfc3dfaW5pdCh2b2lkICpoYW5kbGUpCj4+PiAgICAgICAgICBhZGV2LT5pcnEuaWgyLnVzZV9k
+b29yYmVsbCA9IHRydWU7Cj4+PiAgICAgICAgICBhZGV2LT5pcnEuaWgyLmRvb3JiZWxsX2luZGV4
+ID0gKGFkZXYtPmRvb3JiZWxsX2luZGV4LmloICsgMikgPDwgMTsKPj4+Cj4+PiArICAgICAgIHIg
+PSBhbWRncHVfaWhfcmluZ19pbml0KGFkZXYsICZhZGV2LT5pcnEuaWhfc29mdCwgUEFHRV9TSVpF
+LCB0cnVlKTsKPj4+ICsgICAgICAgaWYgKHIpCj4+PiArICAgICAgICAgICAgICAgcmV0dXJuIHI7
+Cj4+PiArCj4+IFNob3VsZCB3ZSBvbmx5IGVuYWJsZSB0aGlzIG9uIHZlZ2EyMD8KPiBJdCBhZmZl
+Y3RzIG90aGVyIEdQVXMgYXMgd2VsbC4gSW5jbHVkaW5nIHByb2JhYmx5IHNvbWUgTmF2aSBHUFVz
+LiBXZSdsbAo+IHByb2JhYmx5IG5lZWQgYSBzaW1pbGFyIGNoYW5nZSBpbiBuYXZpMTBfaWguYy4K
+Pgo+IElzIHRoZXJlIGEgd2F5IHRvIHJlbGlhYmx5IGRldGVjdCB3aGV0aGVyIElIIHJlZGlyZWN0
+aW9uIHdvcmtzLiBPciBkbyB3ZQo+IG5lZWQgdG8gYWxsb2NhdGUgdGhlIHNvZnQgSUggcmluZyB1
+bmNvbmRpdGlvbmFsbHk/CgpXZSBjYW4gYWxsb2NhdGUgaXQgdW5jb25kaXRpb25hbGx5IG9uIFZl
+Z2EgYW5kIE5hdmksIGl0J3MganVzdCBhIHNpbmdsZSAKcGFnZSByaW5nIGJ1ZmZlciB3aGljaCBp
+cyBvbmx5IHVzZWQgd2hlbiBuZWVkZWQuCgpXaGF0IHdvcnJpZXMgbWUgbW9yZSBpcyB0aGF0IHRl
+c3Rpbmcgc2hvd3MgdGhhdCBJIGNhbid0IGV2ZW4gZW5hYmxlIElWIAp0cmFjaW5nIG9yIHJpc2sg
+dGhhdCBhIHNpbmdsZSBDUFUgYmVjb21lcyBzbyBidXN5IHdpdGggcHJvY2Vzc2luZyBJVnMgCnRo
+YXQgSSBnZXQgInN0dWNrIGZvciAyMyBzZWNvbmRzIiB3YXJuaW5ncy4KCldlICpyZWFsbHkqIG5l
+ZWQgdGhlIGhhcmR3YXJlIHRvIHdvcmsgY29ycmVjdGx5IGVpdGhlciBieSB1c2luZyB0aGUgQ0FN
+IApmb3IgZmlsdGVyaW5nIHBhZ2UgZmF1bHRzIG9yIGJ5IHJlZGlyZWN0aW5nIHRoZW0gdG8gdGhl
+IGRpZmZlcmVudCBJSCByaW5nLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFJlZ2FyZHMsCj4g
+IMKgIEZlbGl4Cj4KPgo+PiBBbGV4Cj4+Cj4+Cj4+PiAgICAgICAgICByID0gYW1kZ3B1X2lycV9p
+bml0KGFkZXYpOwo+Pj4KPj4+ICAgICAgICAgIHJldHVybiByOwo+Pj4gLS0KPj4+IDIuMjUuMQo+
+Pj4KPj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+
+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
