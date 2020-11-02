@@ -5,69 +5,64 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50960C388F9
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56DA1C388F9
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:41:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D4EF122275
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:23:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D23312225E
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:41:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JkGQpaWd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D4EF122275
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHHV7/Bs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D23312225E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C2B6E12C;
-	Mon,  2 Nov 2020 19:23:16 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 589E76E54C
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 19:23:15 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id s9so15909125wro.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2020 11:23:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 339046E12C;
+	Mon,  2 Nov 2020 19:41:16 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 019F46E12C;
+ Mon,  2 Nov 2020 19:41:14 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id c9so9014207wml.5;
+ Mon, 02 Nov 2020 11:41:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=O2roJi9bc81755qLfSnTnaxoncu2lW7arGJfQBREeHQ=;
- b=JkGQpaWd1s/vPA4IEkUtKBWlxS3b7yQ+yKb7GeJMlngkRkYiBFWwEZWbqSysn/ZaUR
- B6/RA+g2sLJKTMLGzhBpeyRrBsKKfGRUucEzWiL3pZj2sgtlmJrPWDFq37QFVgZMsqoX
- TVtqMSFkpb1g5+qIk3z6ICzJlIzA8/SlQRiBcDQNS7/43Q9uIH5Ufz3urzVBdxKhgIMd
- jcZqf7rsQEnRTmCmZUaS855Zt67hBOj1U7ni7bZOAxGitjeIbLPWCZd1pFdVKBFtcWUr
- kRlxvtdGaFpBp9yigbLofCcg6gdhbBZkwa2v7EFRLtBTO0ixyqcO4pXSuJpi8c0TcdJT
- KA1g==
+ :cc; bh=LqcHdLzSA2qQc1X68Vq82MBenpv7Ybc4DNUy5zNwiWw=;
+ b=JHHV7/BsfOVqboob+IF/ztIUe6EPp4aKvN3PSgKuQH0mmfKvqGLjPLZ7wT+M2qfJGt
+ Xhva+tJfn32hK1CMU1A3DtF2tmRhuT+vrNVkLIsQVnv1tmilaJ4J9596N97C8QBM14+P
+ kicjmFdbg/Z1JA+d0q+buW8tJk5/a1T+Wj5OZdQqkVvlSSpPigIKjCafSQ6V53VeQU1W
+ OC50CR22lT/WyZ0tWaERaJheZVqhD5ubOYEDgA1Up8XiOpYi+j8PkTr74Nr53+i669AH
+ SRBLUbWZsMgAcL9BBewar+L//33a1Pu3oKv2Om5V+9jz/y6J6zr3+JT6uqALMgAEt2Ng
+ jIRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=O2roJi9bc81755qLfSnTnaxoncu2lW7arGJfQBREeHQ=;
- b=Exm6S4+gLMlhubgStCgDQa1E19LI2RG1rA5BiqqtrAWhfTbNTxTTXqgaYlAFnsbtMN
- wxo1GbZGD0binSYsJ77xzIVxJT8VJw4amQAyMEBaM9mqj7uVS53BGIJq7Ud3SeVtUwW0
- WBRhx4HEmG3fpFYgmIOMgqC2QR6hipZ/zawZbt0GPRgk2cfwr7nzoPExffk/payK+Rzy
- iTB/XAcggCkdpovmMoXs+rjQkWXhdbVghFIMjyFeoZGKKx/ujEIar6m9sjAbFCEwCAH/
- QIerS6tZgpcs/HU3UE/qOc0ESC/U7b4dfNf9IVtkUjoPgcomFb0lqRexXmbqBX3f13vy
- vkZQ==
-X-Gm-Message-State: AOAM531CdZIt0ASzqsPEjAL270/s4c9yyZiHUhu4H57V52uPPXIKteP5
- ssnn5pA9mt75ekWhqmRgQZIBAdGCgh7S1EaBQow=
-X-Google-Smtp-Source: ABdhPJz++IBTFslmEojVhqAWwJxffOgFKh73FhYI7QWLuUeYM1/b0ofRHUj7lH3vOr8s9/T/neantyex9MCaU+BnjcE=
-X-Received: by 2002:a5d:4010:: with SMTP id n16mr21074251wrp.97.1604344993900; 
- Mon, 02 Nov 2020 11:23:13 -0800 (PST)
+ bh=LqcHdLzSA2qQc1X68Vq82MBenpv7Ybc4DNUy5zNwiWw=;
+ b=LHgQBPbcPdLIz+NS+5izpPG2rga5AoKGCyJo5uqjVW8Yb1yYhwdnApUlft0spEx5ZQ
+ RjNUvmPG1gbLeSwlNbHr////DzPtIsnAu7vNawpVP/4gFcLr22tdMvw0W+p+eO6uRfWv
+ GtAJjvRKelArQDc+G0shjZvwyQmjht6XMSzePC45til7TrBfRz3CB/ZJF7ekdcqpLLUg
+ 55p7mizcn6s53MR+LwzJSBYp5JXCX86GHNASkASv8kxRGukYpR9cvfxFLimTssfi2VyB
+ JID3slrAWpOOQN47pkexlwno+mWX43onvBooig/aU2Eq2ykpMVlOtHwkR11YFI5lgeg1
+ gBgQ==
+X-Gm-Message-State: AOAM532lrDgK6BE43I5kBKNC5hOZI+CqZFcwmnGj1EomRt8MUtEGjbXn
+ 9HOnPG3f5GFDSAwY33l/pquqpVltMIVT0Pwfr20=
+X-Google-Smtp-Source: ABdhPJwEMsA9LUizLq1KnAxynGdGw8Wz3csy+RlZ4tFBiRy0/zUCkfy3t0G4+5NIJwpVYuky3hphvTmJO+SvILqygT4=
+X-Received: by 2002:a7b:c157:: with SMTP id z23mr19059635wmi.70.1604346073573; 
+ Mon, 02 Nov 2020 11:41:13 -0800 (PST)
 MIME-Version: 1.0
-References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
-In-Reply-To: <20201007152355.2446741-1-Kenny.Ho@amd.com>
-From: Kenny Ho <y2kenny@gmail.com>
-Date: Mon, 2 Nov 2020 14:23:02 -0500
-Message-ID: <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
-Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
-To: Kenny Ho <Kenny.Ho@amd.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Martin KaFai Lau <kafai@fb.com>, 
- Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
- Andrii Nakryiko <andriin@fb.com>, 
- John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@chromium.org>,
- bpf@vger.kernel.org, netdev@vger.kernel.org
+References: <d644879c4cac32a7cbdbbeebc97c98efd421e17f.1604336791.git.mh12gx2825@gmail.com>
+ <1b15f176289a7829c644dc9b7770f654eaee0efb.1604336791.git.mh12gx2825@gmail.com>
+In-Reply-To: <1b15f176289a7829c644dc9b7770f654eaee0efb.1604336791.git.mh12gx2825@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Nov 2020 14:41:01 -0500
+Message-ID: <CADnq5_NdngaOKN4xSj1a-R7+ZnGxkqvpQsLOj-KnAqnB9WJ2oQ@mail.gmail.com>
+Subject: Re: [PATCH 6/6] drm/amdgpu: improve code indentation and alignment
+To: Deepak R Varma <mh12gx2825@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,316 +74,193 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, cgroups@vger.kernel.org,
+Cc: David Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Daniel Vetter <daniel.vetter@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adding a few more emails from get_maintainer.pl and bumping this
-thread since there hasn't been any comments so far.  Is this too
-crazy?  Am I missing something fundamental?
+Applied the series.  Thanks!
 
-Regards,
-Kenny
+Alex
 
-
-On Wed, Oct 7, 2020 at 11:24 AM Kenny Ho <Kenny.Ho@amd.com> wrote:
+On Mon, Nov 2, 2020 at 12:44 PM Deepak R Varma <mh12gx2825@gmail.com> wrote:
 >
-> This is a skeleton implementation to invite comments and generate
-> discussion around the idea of introducing a bpf-cgroup program type to
-> control ioctl access.  This is modelled after
-> BPF_PROG_TYPE_CGROUP_DEVICE.  The premise is to allow system admins to
-> write bpf programs to block some ioctl access, potentially in conjunction
-> with data collected by other bpf programs stored in some bpf maps and
-> with bpf_spin_lock.
+> General code indentation and alignment changes such as replace spaces
+> by tabs or align function arguments as per the coding style
+> guidelines. The patch covers various .c files for this driver.
+> Issue reported by checkpatch script.
 >
-> For example, a bpf program has been accumulating resource usaging
-> statistic and a second bpf program of BPF_PROG_TYPE_CGROUP_IOCTL would
-> block access to previously mentioned resource via ioctl when the stats
-> stored in a bpf map reaches certain threshold.
->
-> Like BPF_PROG_TYPE_CGROUP_DEVICE, the default is permissive (i.e.,
-> ioctls are not blocked if no bpf program is present for the cgroup.) to
-> maintain current interface behaviour when this functionality is unused.
->
-> Performance impact to ioctl calls is minimal as bpf's in-kernel verifier
-> ensure attached bpf programs cannot crash and always terminate quickly.
->
-> TODOs:
-> - correct usage of the verifier
-> - toolings
-> - samples
-> - device driver may provide helper functions that take
-> bpf_cgroup_ioctl_ctx and return something more useful for specific
-> device
->
-> Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
+> Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
 > ---
->  fs/ioctl.c                 |  5 +++
->  include/linux/bpf-cgroup.h | 14 ++++++++
->  include/linux/bpf_types.h  |  2 ++
->  include/uapi/linux/bpf.h   |  8 +++++
->  kernel/bpf/cgroup.c        | 66 ++++++++++++++++++++++++++++++++++++++
->  kernel/bpf/syscall.c       |  7 ++++
->  kernel/bpf/verifier.c      |  1 +
->  7 files changed, 103 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/atom.c       | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/cik_sdma.c   | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/df_v1_7.c    | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c  | 8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/si.c         | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/si_ih.c      | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/soc15.c      | 2 +-
+>  9 files changed, 14 insertions(+), 14 deletions(-)
 >
-> diff --git a/fs/ioctl.c b/fs/ioctl.c
-> index 4e6cc0a7d69c..a3925486d417 100644
-> --- a/fs/ioctl.c
-> +++ b/fs/ioctl.c
-> @@ -19,6 +19,7 @@
->  #include <linux/falloc.h>
->  #include <linux/sched/signal.h>
->  #include <linux/fiemap.h>
-> +#include <linux/cgroup.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+> index 4cfc786699c7..696e97ab77eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -71,8 +71,8 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+>  int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t * params);
 >
->  #include "internal.h"
+>  static uint32_t atom_arg_mask[8] =
+> -    { 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
+> -0xFF000000 };
+> +       { 0xFFFFFFFF, 0xFFFF, 0xFFFF00, 0xFFFF0000, 0xFF, 0xFF00, 0xFF0000,
+> +         0xFF000000 };
+>  static int atom_arg_shift[8] = { 0, 0, 8, 16, 0, 8, 16, 24 };
 >
-> @@ -45,6 +46,10 @@ long vfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
->         if (!filp->f_op->unlocked_ioctl)
->                 goto out;
+>  static int atom_dst_to_src[8][4] = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> index 20f108818b2b..52f05d2f5ed9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> @@ -195,7 +195,7 @@ static void cik_sdma_ring_set_wptr(struct amdgpu_ring *ring)
+>         struct amdgpu_device *adev = ring->adev;
 >
-> +       error = BPF_CGROUP_RUN_PROG_IOCTL(filp, cmd, arg);
-> +       if (error)
-> +               goto out;
-> +
->         error = filp->f_op->unlocked_ioctl(filp, cmd, arg);
->         if (error == -ENOIOCTLCMD)
->                 error = -ENOTTY;
-> diff --git a/include/linux/bpf-cgroup.h b/include/linux/bpf-cgroup.h
-> index 64f367044e25..a5f0b0a8f82b 100644
-> --- a/include/linux/bpf-cgroup.h
-> +++ b/include/linux/bpf-cgroup.h
-> @@ -134,6 +134,9 @@ int __cgroup_bpf_run_filter_sock_ops(struct sock *sk,
->  int __cgroup_bpf_check_dev_permission(short dev_type, u32 major, u32 minor,
->                                       short access, enum bpf_attach_type type);
+>         WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[ring->me],
+> -                       (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
+> +              (lower_32_bits(ring->wptr) << 2) & 0x3fffc);
+>  }
 >
-> +int __cgroup_bpf_check_ioctl_permission(struct file *filp, unsigned int cmd, unsigned long arg,
-> +                                       enum bpf_attach_type type);
-> +
->  int __cgroup_bpf_run_filter_sysctl(struct ctl_table_header *head,
->                                    struct ctl_table *table, int write,
->                                    void **buf, size_t *pcount, loff_t *ppos,
-> @@ -346,6 +349,16 @@ int bpf_percpu_cgroup_storage_update(struct bpf_map *map, void *key,
->         __ret;                                                                 \
->  })
+>  static void cik_sdma_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+> index d6aca1c08068..2d01ac0d4c11 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+> @@ -41,7 +41,7 @@ static void df_v1_7_sw_fini(struct amdgpu_device *adev)
+>  }
 >
-> +#define BPF_CGROUP_RUN_PROG_IOCTL(filp, cmd, arg)                            \
-> +({                                                                           \
-> +       int __ret = 0;                                                        \
-> +       if (cgroup_bpf_enabled)                                               \
-> +               __ret = __cgroup_bpf_check_ioctl_permission(filp, cmd, arg,   \
-> +                                                           BPF_CGROUP_IOCTL);\
-> +                                                                             \
-> +       __ret;                                                                \
-> +})
-> +
->  int cgroup_bpf_prog_attach(const union bpf_attr *attr,
->                            enum bpf_prog_type ptype, struct bpf_prog *prog);
->  int cgroup_bpf_prog_detach(const union bpf_attr *attr,
-> @@ -429,6 +442,7 @@ static inline int bpf_percpu_cgroup_storage_update(struct bpf_map *map,
->                                        optlen, max_optlen, retval) ({ retval; })
->  #define BPF_CGROUP_RUN_PROG_SETSOCKOPT(sock, level, optname, optval, optlen, \
->                                        kernel_optval) ({ 0; })
-> +#define BPF_CGROUP_RUN_PROG_IOCTL(type,major,minor,access) ({ 0; })
+>  static void df_v1_7_enable_broadcast_mode(struct amdgpu_device *adev,
+> -                                          bool enable)
+> +                                         bool enable)
+>  {
+>         u32 tmp;
 >
->  #define for_each_cgroup_storage_type(stype) for (; false; )
->
-> diff --git a/include/linux/bpf_types.h b/include/linux/bpf_types.h
-> index a52a5688418e..3055e7e4918c 100644
-> --- a/include/linux/bpf_types.h
-> +++ b/include/linux/bpf_types.h
-> @@ -56,6 +56,8 @@ BPF_PROG_TYPE(BPF_PROG_TYPE_CGROUP_SYSCTL, cg_sysctl,
->               struct bpf_sysctl, struct bpf_sysctl_kern)
->  BPF_PROG_TYPE(BPF_PROG_TYPE_CGROUP_SOCKOPT, cg_sockopt,
->               struct bpf_sockopt, struct bpf_sockopt_kern)
-> +BPF_PROG_TYPE(BPF_PROG_TYPE_CGROUP_IOCTL, cg_ioctl,
-> +             struct bpf_cgroup_ioctl_ctx, struct bpf_cgroup_ioctl_ctx)
->  #endif
->  #ifdef CONFIG_BPF_LIRC_MODE2
->  BPF_PROG_TYPE(BPF_PROG_TYPE_LIRC_MODE2, lirc_mode2,
-> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-> index b6238b2209b7..6a908e13d3a3 100644
-> --- a/include/uapi/linux/bpf.h
-> +++ b/include/uapi/linux/bpf.h
-> @@ -197,6 +197,7 @@ enum bpf_prog_type {
->         BPF_PROG_TYPE_EXT,
->         BPF_PROG_TYPE_LSM,
->         BPF_PROG_TYPE_SK_LOOKUP,
-> +       BPF_PROG_TYPE_CGROUP_IOCTL,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index dbc8b76b9b78..6b04729d8fec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -145,7 +145,7 @@ static const struct amdgpu_irq_src_funcs gmc_v10_0_ecc_funcs = {
+>         .process = amdgpu_umc_process_ecc_irq,
 >  };
 >
->  enum bpf_attach_type {
-> @@ -238,6 +239,7 @@ enum bpf_attach_type {
->         BPF_XDP_CPUMAP,
->         BPF_SK_LOOKUP,
->         BPF_XDP,
-> +       BPF_CGROUP_IOCTL,
->         __MAX_BPF_ATTACH_TYPE
->  };
+> - static void gmc_v10_0_set_irq_funcs(struct amdgpu_device *adev)
+> +static void gmc_v10_0_set_irq_funcs(struct amdgpu_device *adev)
+>  {
+>         adev->gmc.vm_fault.num_types = 1;
+>         adev->gmc.vm_fault.funcs = &gmc_v10_0_irq_funcs;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> index 94caf5204c8b..7b1a18cbafc4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> @@ -32,19 +32,19 @@
+>  #include "vcn/vcn_2_0_0_sh_mask.h"
+>  #include "ivsrcid/vcn/irqsrcs_vcn_2_0.h"
 >
-> @@ -4276,6 +4278,12 @@ struct bpf_cgroup_dev_ctx {
->         __u32 minor;
->  };
->
-> +struct bpf_cgroup_ioctl_ctx {
-> +       __u64 filp;
-> +       __u32 cmd;
-> +       __u32 arg;
-> +};
-> +
->  struct bpf_raw_tracepoint_args {
->         __u64 args[0];
->  };
-> diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-> index 83ff127ef7ae..0958bae3b0b7 100644
-> --- a/kernel/bpf/cgroup.c
-> +++ b/kernel/bpf/cgroup.c
-> @@ -1203,6 +1203,72 @@ const struct bpf_verifier_ops cg_dev_verifier_ops = {
->         .is_valid_access        = cgroup_dev_is_valid_access,
->  };
->
-> +int __cgroup_bpf_check_ioctl_permission(struct file *filp, unsigned int cmd, unsigned long arg,
-> +                                     enum bpf_attach_type type)
-> +{
-> +       struct cgroup *cgrp;
-> +       struct bpf_cgroup_ioctl_ctx ctx = {
-> +               .filp = filp,
-> +               .cmd = cmd,
-> +               .arg = arg,
-> +       };
-> +       int allow = 1;
-> +
-> +       rcu_read_lock();
-> +       cgrp = task_dfl_cgroup(current);
-> +       allow = BPF_PROG_RUN_ARRAY(cgrp->bpf.effective[type], &ctx,
-> +                                  BPF_PROG_RUN);
-> +       rcu_read_unlock();
-> +
-> +       return !allow;
-> +}
-> +
-> +static const struct bpf_func_proto *
-> +cgroup_ioctl_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
-> +{
-> +       return cgroup_base_func_proto(func_id, prog);
-> +}
-> +
-> +static bool cgroup_ioctl_is_valid_access(int off, int size,
-> +                                      enum bpf_access_type type,
-> +                                      const struct bpf_prog *prog,
-> +                                      struct bpf_insn_access_aux *info)
-> +{
-> +       const int size_default = sizeof(__u32);
-> +
-> +       if (type == BPF_WRITE)
-> +               return false;
-> +
-> +       if (off < 0 || off + size > sizeof(struct bpf_cgroup_ioctl_ctx))
-> +               return false;
-> +       /* The verifier guarantees that size > 0. */
-> +       if (off % size != 0)
-> +               return false;
-> +
-> +       switch (off) {
-> +       case bpf_ctx_range(struct bpf_cgroup_ioctl_ctx, filp):
-> +               bpf_ctx_record_field_size(info, size_default);
-> +               if (!bpf_ctx_narrow_access_ok(off, size, size_default))
-> +                       return false;
-> +               break;
-> +       case bpf_ctx_range(struct bpf_cgroup_ioctl_ctx, cmd):
-> +       case bpf_ctx_range(struct bpf_cgroup_ioctl_ctx, arg):
-> +       default:
-> +               if (size != size_default)
-> +                       return false;
+> -#define mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET                        0x1bfff
+> +#define mmUVD_JRBC_EXTERNAL_REG_INTERNAL_OFFSET                                0x1bfff
+>  #define mmUVD_JPEG_GPCOM_CMD_INTERNAL_OFFSET                           0x4029
+>  #define mmUVD_JPEG_GPCOM_DATA0_INTERNAL_OFFSET                         0x402a
+>  #define mmUVD_JPEG_GPCOM_DATA1_INTERNAL_OFFSET                         0x402b
+>  #define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_LOW_INTERNAL_OFFSET         0x40ea
+> -#define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_HIGH_INTERNAL_OFFSET        0x40eb
+> +#define mmUVD_LMI_JRBC_RB_MEM_WR_64BIT_BAR_HIGH_INTERNAL_OFFSET                0x40eb
+>  #define mmUVD_LMI_JRBC_IB_VMID_INTERNAL_OFFSET                         0x40cf
+>  #define mmUVD_LMI_JPEG_VMID_INTERNAL_OFFSET                            0x40d1
+> -#define mmUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET                0x40e8
+> +#define mmUVD_LMI_JRBC_IB_64BIT_BAR_LOW_INTERNAL_OFFSET                        0x40e8
+>  #define mmUVD_LMI_JRBC_IB_64BIT_BAR_HIGH_INTERNAL_OFFSET               0x40e9
+>  #define mmUVD_JRBC_IB_SIZE_INTERNAL_OFFSET                             0x4082
+>  #define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_LOW_INTERNAL_OFFSET         0x40ec
+> -#define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_HIGH_INTERNAL_OFFSET        0x40ed
+> +#define mmUVD_LMI_JRBC_RB_MEM_RD_64BIT_BAR_HIGH_INTERNAL_OFFSET                0x40ed
+>  #define mmUVD_JRBC_RB_COND_RD_TIMER_INTERNAL_OFFSET                    0x4085
+>  #define mmUVD_JRBC_RB_REF_DATA_INTERNAL_OFFSET                         0x4084
+>  #define mmUVD_JRBC_STATUS_INTERNAL_OFFSET                              0x4089
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> index f84701c562bf..0309d84c887d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> @@ -409,7 +409,7 @@ static void mmhub_v1_0_set_fault_enable_default(struct amdgpu_device *adev, bool
+>                                 CRASH_ON_NO_RETRY_FAULT, 1);
+>                 tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
+>                                 CRASH_ON_RETRY_FAULT, 1);
+> -    }
 > +       }
+>
+>         WREG32_SOC15(MMHUB, 0, mmVM_L2_PROTECTION_FAULT_CNTL, tmp);
+>  }
+> @@ -712,7 +712,7 @@ static int mmhub_v1_0_get_ras_error_count(struct amdgpu_device *adev,
+>         uint32_t sec_cnt, ded_cnt;
+>
+>         for (i = 0; i < ARRAY_SIZE(mmhub_v1_0_ras_fields); i++) {
+> -               if(mmhub_v1_0_ras_fields[i].reg_offset != reg->reg_offset)
+> +               if (mmhub_v1_0_ras_fields[i].reg_offset != reg->reg_offset)
+>                         continue;
+>
+>                 sec_cnt = (value &
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index e5e336fd9e94..3cf0589bfea5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1350,7 +1350,7 @@ static void si_vga_set_state(struct amdgpu_device *adev, bool state)
+>
+>  static u32 si_get_xclk(struct amdgpu_device *adev)
+>  {
+> -        u32 reference_clock = adev->clock.spll.reference_freq;
+> +       u32 reference_clock = adev->clock.spll.reference_freq;
+>         u32 tmp;
+>
+>         tmp = RREG32(CG_CLKPIN_CNTL_2);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> index 621727d7fd18..51880f6ef634 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
+> @@ -43,7 +43,7 @@ static void si_ih_enable_interrupts(struct amdgpu_device *adev)
+>         WREG32(IH_RB_CNTL, ih_rb_cntl);
+>         adev->irq.ih.enabled = true;
+>  }
+> -
 > +
-> +       return true;
-> +}
-> +
-> +const struct bpf_prog_ops cg_ioctl_prog_ops = {
-> +};
-> +
-> +const struct bpf_verifier_ops cg_ioctl_verifier_ops = {
-> +       .get_func_proto         = cgroup_ioctl_func_proto,
-> +       .is_valid_access        = cgroup_ioctl_is_valid_access,
-> +};
-> +
->  /**
->   * __cgroup_bpf_run_filter_sysctl - Run a program on sysctl
->   *
-> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-> index 86299a292214..6984a62c96f4 100644
-> --- a/kernel/bpf/syscall.c
-> +++ b/kernel/bpf/syscall.c
-> @@ -2054,6 +2054,7 @@ static bool is_net_admin_prog_type(enum bpf_prog_type prog_type)
->         case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
->         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
->         case BPF_PROG_TYPE_CGROUP_SYSCTL:
-> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
->         case BPF_PROG_TYPE_SOCK_OPS:
->         case BPF_PROG_TYPE_EXT: /* extends any prog */
->                 return true;
-> @@ -2806,6 +2807,8 @@ attach_type_to_prog_type(enum bpf_attach_type attach_type)
->                 return BPF_PROG_TYPE_SOCK_OPS;
->         case BPF_CGROUP_DEVICE:
->                 return BPF_PROG_TYPE_CGROUP_DEVICE;
-> +       case BPF_CGROUP_IOCTL:
-> +               return BPF_PROG_TYPE_CGROUP_IOCTL;
->         case BPF_SK_MSG_VERDICT:
->                 return BPF_PROG_TYPE_SK_MSG;
->         case BPF_SK_SKB_STREAM_PARSER:
-> @@ -2878,6 +2881,7 @@ static int bpf_prog_attach(const union bpf_attr *attr)
->         case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
->         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
->         case BPF_PROG_TYPE_CGROUP_SYSCTL:
-> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
->         case BPF_PROG_TYPE_SOCK_OPS:
->                 ret = cgroup_bpf_prog_attach(attr, ptype, prog);
->                 break;
-> @@ -2915,6 +2919,7 @@ static int bpf_prog_detach(const union bpf_attr *attr)
->         case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
->         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
->         case BPF_PROG_TYPE_CGROUP_SYSCTL:
-> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
->         case BPF_PROG_TYPE_SOCK_OPS:
->                 return cgroup_bpf_prog_detach(attr, ptype);
->         default:
-> @@ -2958,6 +2963,7 @@ static int bpf_prog_query(const union bpf_attr *attr,
->         case BPF_CGROUP_SYSCTL:
->         case BPF_CGROUP_GETSOCKOPT:
->         case BPF_CGROUP_SETSOCKOPT:
-> +       case BPF_CGROUP_IOCTL:
->                 return cgroup_bpf_prog_query(attr, uattr);
->         case BPF_LIRC_MODE2:
->                 return lirc_prog_query(attr, uattr);
-> @@ -3914,6 +3920,7 @@ static int link_create(union bpf_attr *attr)
->         case BPF_PROG_TYPE_CGROUP_DEVICE:
->         case BPF_PROG_TYPE_CGROUP_SYSCTL:
->         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
-> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
->                 ret = cgroup_bpf_link_attach(attr, prog);
->                 break;
->         case BPF_PROG_TYPE_TRACING:
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index ef938f17b944..af68f463e828 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -7419,6 +7419,7 @@ static int check_return_code(struct bpf_verifier_env *env)
->         case BPF_PROG_TYPE_CGROUP_DEVICE:
->         case BPF_PROG_TYPE_CGROUP_SYSCTL:
->         case BPF_PROG_TYPE_CGROUP_SOCKOPT:
-> +       case BPF_PROG_TYPE_CGROUP_IOCTL:
->                 break;
->         case BPF_PROG_TYPE_RAW_TRACEPOINT:
->                 if (!env->prog->aux->attach_btf_id)
+>  static void si_ih_disable_interrupts(struct amdgpu_device *adev)
+>  {
+>         u32 ih_rb_cntl = RREG32(IH_RB_CNTL);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index afcccc6c0fc6..b4e6ff78ddd0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -822,7 +822,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
+>                         amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
+>  #if defined(CONFIG_DRM_AMD_DC)
+>                  else if (amdgpu_device_has_dc_support(adev))
+> -                        amdgpu_device_ip_block_add(adev, &dm_ip_block);
+> +                       amdgpu_device_ip_block_add(adev, &dm_ip_block);
+>  #endif
+>                 amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
+>                 amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
 > --
 > 2.25.1
 >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
