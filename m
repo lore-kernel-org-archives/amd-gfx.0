@@ -5,70 +5,68 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59FF1C4742C
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 022B2C388F9
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D60402225E
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:41:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 87FB72225E
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 19:41:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i96sEWF+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D60402225E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VhV2/b0k"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87FB72225E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C90A6EB9B;
-	Mon,  2 Nov 2020 19:41:40 +0000 (UTC)
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C9B66E575;
- Mon,  2 Nov 2020 19:35:33 +0000 (UTC)
-Received: by mail-pl1-x641.google.com with SMTP id f21so7336744plr.5;
- Mon, 02 Nov 2020 11:35:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47A666EB9E;
+	Mon,  2 Nov 2020 19:41:41 +0000 (UTC)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26E3A6EB87;
+ Mon,  2 Nov 2020 19:37:19 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id c20so12021986pfr.8;
+ Mon, 02 Nov 2020 11:37:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=2lbMlvM7aWGVHz4uVqI/5p5HZNqB6mCF18RFUVjf3IE=;
- b=i96sEWF+S8v5jjYJ2xNOpF2zGVRZAJkShGc54QxYUawVtICygWu5WTCoiCbQEzV+ur
- QvC3b2fo/4rZLGPGVaun1J/ktqTfl03ws0QjCMa1DTDdhm9hzamk4Pm6kfJE5h/wxv20
- csYlAvfdf+hh8WhkA1+6o6gi1uKShtzN1EdgEMn7FGsNoiz/ojY7TCcSY+VpGtezZFx9
- n7IL3oeFrmx18T4jcC00s+UUndq3+xsZFTXohM/4Wg5C3hCV4hneZ6RN/h2hSwFxjCpX
- 2knpV3917P4KHvRl8IhS5uZxhohOtk2TKI2v2r2Ec4J8pgtLkuGkYl3nf9RmQEmi0paT
- CxOQ==
+ bh=ZRihqyzxKN6U53cyWaF4ykM/A4JEQRA8PuaspMJ28/U=;
+ b=VhV2/b0kSjyvBF4e0P4CQ5ONfSRjjh03eqMR7TWjGb2DMvlf2BS2zxkz2Q5FmsyY10
+ uoFdIjVEjkWIUK304LYPJpu8qEepNb+QZOdQ4guwaUzEDm3BK2MImLmHEZM/z+PXeGf3
+ UugCgwCO+fc7EMuJ8g/rB7AkPjCH6QjD/tmQDZ9U37Cz445UH2u1QqpbzC5fHxsLXT1a
+ PJIt4Gu4RQY0KqD7Jf/bOTiFsR+endW0Bs8RjFtEGSE8ec1v9ZhWQxV8g9s190jQF73R
+ a//sRCiH7j/76oi1f4R/XPDQxPjN7hh4iz+a49Dhc+qnZ5Ze/fH1qoPRdk8Rr9Lqx6MM
+ Dr9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=2lbMlvM7aWGVHz4uVqI/5p5HZNqB6mCF18RFUVjf3IE=;
- b=HwKVjYnaYN5zpOaA5KSnohtOa//rGneOHhLyIFsp1+H7QZcD1OKTa0ciIul4oMLCCQ
- 6cbEHSq80FKEvUR/+GEenUBN32HobmOinb//vrzxNPFCY/JaEonbCf9bo3TSkPKrkr8N
- J78BuKea/Lx1xzMwQ7IzEkp2wH+8Qre5+/ndSrHuVrTjY1fI7aiV9UOE6+ihYImZwuEV
- KjRNP9NlcJPcxOJHnvnkbEcIjZeT/jlh1cOChjHbkoaP/35oNM3GOU4i+SEybbJqgVwQ
- 6AcWcezxMACw2VY0U4aZRWSnaCD1JLb5MRWiKqDALfMnBq4uYd1Xj13GA3lyjtNM4TEh
- eyNQ==
-X-Gm-Message-State: AOAM5336mFb2fJiZqwyowzwpVNkOmSsClhNoRTA8rO+obXradLvVB6yC
- W8czXjO8voY66FVTRsACMq0=
-X-Google-Smtp-Source: ABdhPJxTjvCKuO1rp6ybPQ0KppAeZO2klLbBN64AHYKjstw2UMMyvJMBmN7RiFHs1EgkUYWlcrAWkA==
-X-Received: by 2002:a17:902:324:b029:d6:ba15:90bc with SMTP id
- 33-20020a1709020324b02900d6ba1590bcmr10902741pld.29.1604345731743; 
- Mon, 02 Nov 2020 11:35:31 -0800 (PST)
+ bh=ZRihqyzxKN6U53cyWaF4ykM/A4JEQRA8PuaspMJ28/U=;
+ b=WWgNuFyWiQoA5K9lllHpRLrWTN5HJp59++LaiKg1I+syQPfZNewCVOWaJ19CTrk3nU
+ FGIlypAi8CpJkocXA8BEpwvNPnxHWn0g2CRthdgHKoRwAU5fYlkUYEVZR6A0vaOZgH0A
+ pOq0prpxzfgG441kooWAyXPOqUA5dPTLiRB/xioxtxPAORfIhZxeNRtiBQZPIvmDXIid
+ F8rYLt1RgwjAYvHvAfBV7AnyLV7CcYXn8jCaTuSYCeFoLul85OfYySa4Xgz9guWTYj+7
+ MoRprrlqgF1iNZwJU11ZzK7dpC22xiy/xMtSer6gD6Bz84hjGyrqCk+PeXRiiykwocFC
+ 6L+A==
+X-Gm-Message-State: AOAM531/td//Ngh61qfEK0vJyj1MZyBftTKnQdhFlzfqTyfdmNxxAq4/
+ K8VYonp0lZWY6wL9PiaA9wE=
+X-Google-Smtp-Source: ABdhPJyLgjD7bJnvvyrbjxV+BHQ7+L86eu03s5YSvuL5SC0cqxuyHRSD0O7ld1sCZlob1kHkDpqXIQ==
+X-Received: by 2002:a63:443:: with SMTP id 64mr2826982pge.127.1604345838819;
+ Mon, 02 Nov 2020 11:37:18 -0800 (PST)
 Received: from localhost ([160.202.157.3])
- by smtp.gmail.com with ESMTPSA id g85sm14651760pfb.4.2020.11.02.11.35.28
+ by smtp.gmail.com with ESMTPSA id a23sm3166795pgv.35.2020.11.02.11.37.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2020 11:35:31 -0800 (PST)
-Date: Tue, 3 Nov 2020 01:05:25 +0530
+ Mon, 02 Nov 2020 11:37:18 -0800 (PST)
+Date: Tue, 3 Nov 2020 01:07:12 +0530
 From: Deepak R Varma <mh12gx2825@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 2/6] drm/amdgpu/umc: use "*" adjacent to data name
-Message-ID: <32f014be6bb816aa37b4c0670d2ee990ce596b60.1604345594.git.mh12gx2825@gmail.com>
+Subject: [PATCH 5/6] drm/amdgpu/amdgpu: use "*" adjacent to data name
+Message-ID: <a42902031c797779324031367818a06df6b660ab.1604345594.git.mh12gx2825@gmail.com>
 References: <6ad41a97d7805124d2e31c70d96c846cf0d21524.1604345594.git.mh12gx2825@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -102,54 +100,225 @@ issues reported by checkpatch script:
 
 Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/umc_v8_7.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c          | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_test.c         |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c          |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c        |  4 ++--
+ 9 files changed, 21 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-index 5288617ca552..96d7769609f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-@@ -253,7 +253,7 @@ static void umc_v6_1_querry_uncorrectable_error_count(struct amdgpu_device *adev
- static void umc_v6_1_query_ras_error_count(struct amdgpu_device *adev,
- 					   void *ras_error_status)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 469352e2d6ec..86add0f4ea4d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -1401,7 +1401,7 @@ static ATOM_VOLTAGE_OBJECT_V3 *amdgpu_atombios_lookup_voltage_object_v3(ATOM_VOL
  {
--	struct ras_err_data* err_data = (struct ras_err_data*)ras_error_status;
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
+ 	u32 size = le16_to_cpu(v3->sHeader.usStructureSize);
+ 	u32 offset = offsetof(ATOM_VOLTAGE_OBJECT_INFO_V3_1, asVoltageObj[0]);
+-	u8 *start = (u8*)v3;
++	u8 *start = (u8 *)v3;
  
- 	uint32_t umc_inst        = 0;
- 	uint32_t ch_inst         = 0;
-@@ -368,7 +368,7 @@ static void umc_v6_1_query_error_address(struct amdgpu_device *adev,
- static void umc_v6_1_query_ras_error_address(struct amdgpu_device *adev,
- 					     void *ras_error_status)
+ 	while (offset < size) {
+ 		ATOM_VOLTAGE_OBJECT_V3 *vo = (ATOM_VOLTAGE_OBJECT_V3 *)(start + offset);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index b4df6460e45a..70da779a4ba7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -70,7 +70,7 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev)
+ 	struct atom_context *ctx = adev->mode_info.atom_context;
+ 	int index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
+ 						vram_usagebyfirmware);
+-	struct vram_usagebyfirmware_v2_1 *	firmware_usage;
++	struct vram_usagebyfirmware_v2_1 *firmware_usage;
+ 	uint32_t start_addr, size;
+ 	uint16_t data_offset;
+ 	int usage_bytes = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 309464a8c06b..79342976fa76 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1461,7 +1461,7 @@ int amdgpu_cs_fence_to_handle_ioctl(struct drm_device *dev, void *data,
+ 		dma_fence_put(fence);
+ 		if (r)
+ 			return r;
+-		r = drm_syncobj_get_fd(syncobj, (int*)&info->out.handle);
++		r = drm_syncobj_get_fd(syncobj, (int *)&info->out.handle);
+ 		drm_syncobj_put(syncobj);
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index c80d8339f58c..6efdd5f6427e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -450,7 +450,7 @@ int amdgpu_ctx_put(struct amdgpu_ctx *ctx)
+ 
+ void amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+ 			  struct drm_sched_entity *entity,
+-			  struct dma_fence *fence, uint64_t* handle)
++			  struct dma_fence *fence, uint64_t *handle)
  {
--	struct ras_err_data* err_data = (struct ras_err_data*)ras_error_status;
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
+ 	struct amdgpu_ctx_entity *centity = to_amdgpu_ctx_entity(entity);
+ 	uint64_t seq = centity->sequence;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index c3b1b27df153..73f563b65a15 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -806,7 +806,7 @@ int psp_xgmi_get_hive_id(struct psp_context *psp, uint64_t *hive_id)
+ 	struct ta_xgmi_shared_memory *xgmi_cmd;
+ 	int ret;
  
- 	uint32_t umc_inst        = 0;
- 	uint32_t ch_inst         = 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-index 5665c77a9d58..a064c097690c 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_7.c
-@@ -170,7 +170,7 @@ static void umc_v8_7_querry_uncorrectable_error_count(struct amdgpu_device *adev
- static void umc_v8_7_query_ras_error_count(struct amdgpu_device *adev,
- 					   void *ras_error_status)
+-	xgmi_cmd = (struct ta_xgmi_shared_memory*)psp->xgmi_context.xgmi_shared_buf;
++	xgmi_cmd = (struct ta_xgmi_shared_memory *)psp->xgmi_context.xgmi_shared_buf;
+ 	memset(xgmi_cmd, 0, sizeof(struct ta_xgmi_shared_memory));
+ 
+ 	xgmi_cmd->cmd_id = TA_COMMAND_XGMI__GET_HIVE_ID;
+@@ -826,7 +826,7 @@ int psp_xgmi_get_node_id(struct psp_context *psp, uint64_t *node_id)
+ 	struct ta_xgmi_shared_memory *xgmi_cmd;
+ 	int ret;
+ 
+-	xgmi_cmd = (struct ta_xgmi_shared_memory*)psp->xgmi_context.xgmi_shared_buf;
++	xgmi_cmd = (struct ta_xgmi_shared_memory *)psp->xgmi_context.xgmi_shared_buf;
+ 	memset(xgmi_cmd, 0, sizeof(struct ta_xgmi_shared_memory));
+ 
+ 	xgmi_cmd->cmd_id = TA_COMMAND_XGMI__GET_NODE_ID;
+@@ -854,7 +854,7 @@ int psp_xgmi_get_topology_info(struct psp_context *psp,
+ 	if (!topology || topology->num_nodes > TA_XGMI__MAX_CONNECTED_NODES)
+ 		return -EINVAL;
+ 
+-	xgmi_cmd = (struct ta_xgmi_shared_memory*)psp->xgmi_context.xgmi_shared_buf;
++	xgmi_cmd = (struct ta_xgmi_shared_memory *)psp->xgmi_context.xgmi_shared_buf;
+ 	memset(xgmi_cmd, 0, sizeof(struct ta_xgmi_shared_memory));
+ 
+ 	/* Fill in the shared memory with topology information as input */
+@@ -898,7 +898,7 @@ int psp_xgmi_set_topology_info(struct psp_context *psp,
+ 	if (!topology || topology->num_nodes > TA_XGMI__MAX_CONNECTED_NODES)
+ 		return -EINVAL;
+ 
+-	xgmi_cmd = (struct ta_xgmi_shared_memory*)psp->xgmi_context.xgmi_shared_buf;
++	xgmi_cmd = (struct ta_xgmi_shared_memory *)psp->xgmi_context.xgmi_shared_buf;
+ 	memset(xgmi_cmd, 0, sizeof(struct ta_xgmi_shared_memory));
+ 
+ 	topology_info_input = &xgmi_cmd->xgmi_in_message.get_topology_info;
+@@ -962,7 +962,7 @@ static int psp_ras_load(struct psp_context *psp)
+ 	ret = psp_cmd_submit_buf(psp, NULL, cmd,
+ 			psp->fence_buf_mc_addr);
+ 
+-	ras_cmd = (struct ta_ras_shared_memory*)psp->ras.ras_shared_buf;
++	ras_cmd = (struct ta_ras_shared_memory *)psp->ras.ras_shared_buf;
+ 
+ 	if (!ret) {
+ 		psp->ras.session_id = cmd->resp.session_id;
+@@ -1884,7 +1884,7 @@ static int psp_execute_np_fw_load(struct psp_context *psp,
+ static int psp_load_smu_fw(struct psp_context *psp)
  {
--	struct ras_err_data* err_data = (struct ras_err_data*)ras_error_status;
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
- 
- 	uint32_t umc_inst        = 0;
- 	uint32_t ch_inst         = 0;
-@@ -260,7 +260,7 @@ static void umc_v8_7_query_error_address(struct amdgpu_device *adev,
- static void umc_v8_7_query_ras_error_address(struct amdgpu_device *adev,
- 					     void *ras_error_status)
+ 	int ret;
+-	struct amdgpu_device* adev = psp->adev;
++	struct amdgpu_device *adev = psp->adev;
+ 	struct amdgpu_firmware_info *ucode =
+ 			&adev->firmware.ucode[AMDGPU_UCODE_ID_SMC];
+ 	struct amdgpu_ras *ras = psp->ras.ras;
+@@ -1950,7 +1950,7 @@ static int psp_np_fw_load(struct psp_context *psp)
  {
--	struct ras_err_data* err_data = (struct ras_err_data*)ras_error_status;
-+	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
+ 	int i, ret;
+ 	struct amdgpu_firmware_info *ucode;
+-	struct amdgpu_device* adev = psp->adev;
++	struct amdgpu_device *adev = psp->adev;
  
- 	uint32_t umc_inst        = 0;
- 	uint32_t ch_inst         = 0;
+ 	if (psp->autoload_supported &&
+ 	    !psp->pmfw_centralized_cstate_management) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 15ee13c3bd9e..2697b250dc32 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -396,7 +396,7 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
+ 			return result;
+ 
+ 		value = ring->ring[(*pos - 12)/4];
+-		r = put_user(value, (uint32_t*)buf);
++		r = put_user(value, (uint32_t *)buf);
+ 		if (r)
+ 			return r;
+ 		buf += 4;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
+index 2f4d5ca9894f..6042b3b81a4c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
+@@ -157,10 +157,10 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 					  i, *vram_start, gart_start,
+ 					  (unsigned long long)
+ 					  (gart_addr - adev->gmc.gart_start +
+-					   (void*)gart_start - gtt_map),
++					   (void *)gart_start - gtt_map),
+ 					  (unsigned long long)
+ 					  (vram_addr - adev->gmc.vram_start +
+-					   (void*)gart_start - gtt_map));
++					   (void *)gart_start - gtt_map));
+ 				amdgpu_bo_kunmap(vram_obj);
+ 				goto out_lclean_unpin;
+ 			}
+@@ -203,10 +203,10 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 					  i, *gart_start, vram_start,
+ 					  (unsigned long long)
+ 					  (vram_addr - adev->gmc.vram_start +
+-					   (void*)vram_start - vram_map),
++					   (void *)vram_start - vram_map),
+ 					  (unsigned long long)
+ 					  (gart_addr - adev->gmc.gart_start +
+-					   (void*)vram_start - vram_map));
++					   (void *)vram_start - vram_map));
+ 				amdgpu_bo_kunmap(gtt_obj[i]);
+ 				goto out_lclean_unpin;
+ 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index a5b466d3248c..4c705a89cf9b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1112,7 +1112,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_bo_device *bdev,
+ 				   struct ttm_resource *bo_mem)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bdev);
+-	struct amdgpu_ttm_tt *gtt = (void*)ttm;
++	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+ 	uint64_t flags;
+ 	int r = 0;
+ 
+@@ -1171,7 +1171,7 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+ 	struct ttm_operation_ctx ctx = { false, false };
+-	struct amdgpu_ttm_tt *gtt = (void*)bo->ttm;
++	struct amdgpu_ttm_tt *gtt = (void *)bo->ttm;
+ 	struct ttm_resource tmp;
+ 	struct ttm_placement placement;
+ 	struct ttm_place placements;
+@@ -1433,7 +1433,7 @@ int amdgpu_ttm_tt_set_userptr(struct ttm_buffer_object *bo,
+ 			return -ENOMEM;
+ 	}
+ 
+-	gtt = (void*)bo->ttm;
++	gtt = (void *)bo->ttm;
+ 	gtt->userptr = addr;
+ 	gtt->userflags = flags;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index b313ce4c3e97..54182c4b3e33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -586,8 +586,8 @@ static int amdgpu_ucode_patch_jt(struct amdgpu_firmware_info *ucode,
+ {
+ 	const struct gfx_firmware_header_v1_0 *header = NULL;
+ 	const struct common_firmware_header *comm_hdr = NULL;
+-	uint8_t* src_addr = NULL;
+-	uint8_t* dst_addr = NULL;
++	uint8_t *src_addr = NULL;
++	uint8_t *dst_addr = NULL;
+ 
+ 	if (NULL == ucode->fw)
+ 		return 0;
 -- 
 2.25.1
 
