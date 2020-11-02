@@ -5,72 +5,63 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A87E7C00A89
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 18:42:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54B7CC2D0A3
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 18:49:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 376662084C
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 18:42:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CCE032225E
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2020 18:49:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rMqgtwuy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 376662084C
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XvdmJWFm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCE032225E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 984B76E2C8;
-	Mon,  2 Nov 2020 18:42:39 +0000 (UTC)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2D0E6E2C8;
- Mon,  2 Nov 2020 18:41:54 +0000 (UTC)
-Received: by mail-pg1-x544.google.com with SMTP id z24so11559308pgk.3;
- Mon, 02 Nov 2020 10:41:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1046E2D1;
+	Mon,  2 Nov 2020 18:49:54 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75E016E2D1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2020 18:49:52 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id b3so9910614wrx.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2020 10:49:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
- bh=uX2j6BTsDsDmpfeekKFS6duLUjm424lsGMqXT4y60ag=;
- b=rMqgtwuy5gD+utEZVzx4U+OKxKZfzgAso2fI0Yr74Ryq8G65Frfn8pbfHJGvou9bpj
- Tyr9mGQeXJvFwGgx0kkoNsNbrWfqOYrxKlCEdnDPfXxb/o2IAkkMudeNW40oeLl0zqVQ
- PS/DMw1hMbXNNYNxolpYZMGp68QDxM6LCuRWgf7XMoKr/RYUByZLoVPyc3OplZV43zTo
- 0YwgOq5ZGArljQ9pobSQz1RJCVPceQ4Jng/w4ycgeNRCYEaO34wS7pBA+du948kHUxnS
- 7od99l/cs9GhooDEaI58YHPUfMQBsxs/KfkstQg2B+p22G4jFDbFedq9r/uy4Fipo4Qf
- Xaxg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vMgpYXsSTTh8uluAtKFGoczaRjMLSKVK0fd6wXBIoVI=;
+ b=XvdmJWFmAG4OPf9AUKyQw5sa7GdmtgnDl2u1WVa/AaiK09koi4OCbzNXQaL9SqRiW8
+ 0KVGTL80r6UK6Q/5RimAfui9cgciupzCh4DnJjKS7MhZW6M/aUNyVO5RhF+KdJ3kj1hg
+ KA8ktVZY77EYOdBdcE7sSjBlsW+rzVv5PzlODv5qdNof4hvjegJPuKr1al0BWCga95FC
+ wOgATHtc60diCt8+82fMR8qz38vJnka94KlpwrEgzY/k1EPcy9gTmkMcE4uei4xxtMUL
+ /Pk4U5oOZDrYsC9At2vQkrqQtMtz/yzwwxNmuDfumscX46LOrznc+Os2fb6WsbtXtVZJ
+ qR8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition;
- bh=uX2j6BTsDsDmpfeekKFS6duLUjm424lsGMqXT4y60ag=;
- b=HqHXSEK11F+jMXiC9MTZDQdXVnF3Jeqf9oY8+7IvIINqr2PRGX+mbCz6GRSWUohKij
- bECMc5SFuT8r/37EStRrnDtL3YFjNtFrhDEFzTcE6KkMq220iwVbghcFh55Vm3D37VQa
- jQFOAiaw0tpxJqAyRM7TU57ykhprY0iZ7QUhfScqrdjjO0sgSZv6iBMQ8OcrUF7x1e59
- XigxDmPT1dmrbXna9Ap3rYdzrNFEO1g4zPB8wHVQfOy5NUz0F2D9eAsJYqGzQIuJfm8j
- 4QQDOvnVoQBkUtOTosTGLXUKha+ClUlCUgC4QOeTocSCQLXhjY3uSaFvBIdYLuolu6gf
- 7XaA==
-X-Gm-Message-State: AOAM5317IhJcEt2ZJqMFuAaWtbPxCNx9abKI/ME3yBZjUR4mOJhWqsBL
- ipuTd1s9mzmfgkqLAxG8lSI=
-X-Google-Smtp-Source: ABdhPJxVTiek04noTjU9GhU1+83S9V6Fm2v8nawdUGGy18yNrKkctDFNKL3bNrq+vflGQ1SHFhJt7g==
-X-Received: by 2002:a17:90b:ec9:: with SMTP id
- gz9mr2068967pjb.105.1604342514622; 
- Mon, 02 Nov 2020 10:41:54 -0800 (PST)
-Received: from localhost ([160.202.157.3])
- by smtp.gmail.com with ESMTPSA id v24sm13205004pgi.91.2020.11.02.10.41.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2020 10:41:54 -0800 (PST)
-Date: Tue, 3 Nov 2020 00:11:47 +0530
-From: Deepak R Varma <mh12gx2825@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: do not initialise global variables to 0 or NULL
-Message-ID: <20201102184147.GA42288@localhost>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vMgpYXsSTTh8uluAtKFGoczaRjMLSKVK0fd6wXBIoVI=;
+ b=tyIlFWE7oCKDlRe5fRTV5IujE3SxI4EF0up55eDH7b76BqOToeQsUfBOHlZzwV2HwC
+ tphNMqo+HRK+JoPn304uCoI8I8tPL7cvc9kLCsWHudpyRuFVGmraSJXLx3C6Gizw4o21
+ dCtG3TsAf/A+WKLlClN4hLVyyWH74KdBuGoGToZKTmyvz+lAhbQMHpzBy7Hb5xZpaGjX
+ cM5prN1yPGaXis9aJm8BjFqpgpNygQ5jQdMVoSQXzN+ojO0c9T0kqDG2FfUXbENRIcPI
+ 09/IxZJTDEiGJBaWaPuUf+SEWQF/xr/nsARGZKthCoIulBSZ7Ez0OU4H1UGoDdxq5g0i
+ 6yKA==
+X-Gm-Message-State: AOAM533xXT1uuYXoq3IYL7UHIafTduWPT3R1RXHsnPzI+0ygay9bFhk+
+ jWCNhDZAYFSNwOYpvxKpc800T7KZ3qbCLw2wrPBlHVqY
+X-Google-Smtp-Source: ABdhPJwN4s6pjM6q2PtfoLp9HsUdhKn7WPgbQhm6oD3cIc0nUgw08KAHEfRR1qsqb5+KxR4L+Gcr6N4wbN4WHthcACA=
+X-Received: by 2002:adf:f246:: with SMTP id b6mr21616947wrp.111.1604342990917; 
+ Mon, 02 Nov 2020 10:49:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailman-Approved-At: Mon, 02 Nov 2020 18:42:38 +0000
+References: <20201027150356.1786991-1-alexander.deucher@amd.com>
+In-Reply-To: <20201027150356.1786991-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Nov 2020 13:49:39 -0500
+Message-ID: <CADnq5_MktP-NEq0s7c_gqV8wFYqxR21eQ1mVvGzEFF3b_K7vJw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/display: fix warnings when
+ CONFIG_DRM_AMD_DC_DCN is not set
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,136 +73,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: melissa.srw@gmail.com, gregkh@linuxfoundation.org, mh12gx2825@gmail.com,
- daniel.vetter@ffwll.ch
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initializing global variable to 0 or NULL is not necessary and should
-be avoided. Issue reported by checkpatch script as:
-ERROR: do not initialise globals to 0 (or NULL).
+Ping?
 
-Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 46 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/atom.c       |  4 +--
- 2 files changed, 25 insertions(+), 25 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 8ab6126ff70c..6de94c46bc91 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -94,16 +94,16 @@
- #define KMS_DRIVER_MINOR	40
- #define KMS_DRIVER_PATCHLEVEL	0
- 
--int amdgpu_vram_limit = 0;
--int amdgpu_vis_vram_limit = 0;
-+int amdgpu_vram_limit;
-+int amdgpu_vis_vram_limit;
- int amdgpu_gart_size = -1; /* auto */
- int amdgpu_gtt_size = -1; /* auto */
- int amdgpu_moverate = -1; /* auto */
--int amdgpu_benchmarking = 0;
--int amdgpu_testing = 0;
-+int amdgpu_benchmarking;
-+int amdgpu_testing;
- int amdgpu_audio = -1;
--int amdgpu_disp_priority = 0;
--int amdgpu_hw_i2c = 0;
-+int amdgpu_disp_priority;
-+int amdgpu_hw_i2c;
- int amdgpu_pcie_gen2 = -1;
- int amdgpu_msi = -1;
- char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENGTH];
-@@ -113,43 +113,43 @@ int amdgpu_aspm = -1;
- int amdgpu_runtime_pm = -1;
- uint amdgpu_ip_block_mask = 0xffffffff;
- int amdgpu_bapm = -1;
--int amdgpu_deep_color = 0;
-+int amdgpu_deep_color;
- int amdgpu_vm_size = -1;
- int amdgpu_vm_fragment_size = -1;
- int amdgpu_vm_block_size = -1;
--int amdgpu_vm_fault_stop = 0;
--int amdgpu_vm_debug = 0;
-+int amdgpu_vm_fault_stop;
-+int amdgpu_vm_debug;
- int amdgpu_vm_update_mode = -1;
--int amdgpu_exp_hw_support = 0;
-+int amdgpu_exp_hw_support;
- int amdgpu_dc = -1;
- int amdgpu_sched_jobs = 32;
- int amdgpu_sched_hw_submission = 2;
--uint amdgpu_pcie_gen_cap = 0;
--uint amdgpu_pcie_lane_cap = 0;
-+uint amdgpu_pcie_gen_cap;
-+uint amdgpu_pcie_lane_cap;
- uint amdgpu_cg_mask = 0xffffffff;
- uint amdgpu_pg_mask = 0xffffffff;
- uint amdgpu_sdma_phase_quantum = 32;
--char *amdgpu_disable_cu = NULL;
--char *amdgpu_virtual_display = NULL;
-+char *amdgpu_disable_cu;
-+char *amdgpu_virtual_display;
- /* OverDrive(bit 14) disabled by default*/
- uint amdgpu_pp_feature_mask = 0xffffbfff;
--uint amdgpu_force_long_training = 0;
--int amdgpu_job_hang_limit = 0;
-+uint amdgpu_force_long_training;
-+int amdgpu_job_hang_limit;
- int amdgpu_lbpw = -1;
- int amdgpu_compute_multipipe = -1;
- int amdgpu_gpu_recovery = -1; /* auto */
--int amdgpu_emu_mode = 0;
--uint amdgpu_smu_memory_pool_size = 0;
-+int amdgpu_emu_mode;
-+uint amdgpu_smu_memory_pool_size;
- /* FBC (bit 0) disabled by default*/
--uint amdgpu_dc_feature_mask = 0;
--uint amdgpu_dc_debug_mask = 0;
-+uint amdgpu_dc_feature_mask;
-+uint amdgpu_dc_debug_mask;
- int amdgpu_async_gfx_ring = 1;
--int amdgpu_mcbp = 0;
-+int amdgpu_mcbp;
- int amdgpu_discovery = -1;
--int amdgpu_mes = 0;
-+int amdgpu_mes;
- int amdgpu_noretry = -1;
- int amdgpu_force_asic_type = -1;
--int amdgpu_tmz = 0;
-+int amdgpu_tmz;
- int amdgpu_reset_method = -1; /* auto */
- int amdgpu_num_kcq = -1;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index 696e97ab77eb..46c00ee580b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -66,7 +66,7 @@ typedef struct {
- 	bool abort;
- } atom_exec_context;
- 
--int amdgpu_atom_debug = 0;
-+int amdgpu_atom_debug;
- static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index, uint32_t * params);
- int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t * params);
- 
-@@ -88,7 +88,7 @@ static int atom_dst_to_src[8][4] = {
- };
- static int atom_def_dst[8] = { 0, 0, 1, 2, 0, 1, 2, 3 };
- 
--static int debug_depth = 0;
-+static int debug_depth;
- #ifdef ATOM_DEBUG
- static void debug_print_spaces(int n)
- {
--- 
-2.25.1
-
+On Tue, Oct 27, 2020 at 11:04 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Properly protect the relevant code with CONFIG_DRM_AMD_DC_DCN.
+>
+> Fixes: 0b08c54bb7a3 ("drm/amd/display: Fix the display corruption issue on Navi10")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index fdb1fa72061a..843080e4c39e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -893,6 +893,7 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> +#if defined(CONFIG_DRM_AMD_DC_DCN)
+>  static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_addr_space_config *pa_config)
+>  {
+>         uint64_t pt_base;
+> @@ -945,6 +946,7 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
+>         pa_config->is_hvm_enabled = 0;
+>
+>  }
+> +#endif
+>
+>  static int amdgpu_dm_init(struct amdgpu_device *adev)
+>  {
+> @@ -952,7 +954,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>  #ifdef CONFIG_DRM_AMD_DC_HDCP
+>         struct dc_callback_init init_params;
+>  #endif
+> -       struct dc_phy_addr_space_config pa_config;
+>         int r;
+>
+>         adev->dm.ddev = adev_to_drm(adev);
+> @@ -1060,6 +1061,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>
+>  #if defined(CONFIG_DRM_AMD_DC_DCN)
+>         if (adev->asic_type == CHIP_RENOIR) {
+> +               struct dc_phy_addr_space_config pa_config;
+> +
+>                 mmhub_read_system_context(adev, &pa_config);
+>
+>                 // Call the DC init_memory func
+> --
+> 2.25.4
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
