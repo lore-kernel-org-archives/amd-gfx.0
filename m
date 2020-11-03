@@ -2,77 +2,77 @@ Return-Path: <SRS0=xcSd=EJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E22D3C388F9
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B6D9C4742C
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8910720757
+	by mail.kernel.org (Postfix) with ESMTPS id 2E15720757
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:15:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WW6gYDp2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8910720757
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tqKpwE9c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E15720757
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 162716E8F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CCFD6E8F4;
 	Tue,  3 Nov 2020 21:15:38 +0000 (UTC)
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9DA6E8E4
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 18:27:08 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id w5so8261675qvn.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2020 10:27:08 -0800 (PST)
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 122756E8F2
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 21:04:35 +0000 (UTC)
+Received: by mail-pf1-x433.google.com with SMTP id z3so9003736pfz.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2020 13:04:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=SsznNNNL9XRUk3heDJtTz6IafgIVD9jOGJsXmLbOtns=;
- b=WW6gYDp2qiF5CjeBpvraxn5UFlddDWc99m9lX/wH0Lge26UoWncogPvUEL33yjd4Gi
- 8OjcM+ctHDS8bHPCwS9xztfTeH+iK6Pb4VDnRonoE5ypg6P4GUni7FtssLka23m91NtD
- YrVjP8/Wbi64Xfx1+bd07ELcJntlHGxoyX//gYZ9gWPqLAfBdZ+b8bObcCgon3lYkW+U
- AQDDEme/UEt1Dvxot/BwWJJLPJYWMfRlxABRKN7eVBOgQ3GpjU427EwIJUrrPkjluufU
- nl4Bn58ULb00V4vbfUHsX8hI92mobbXEDgBXLTm61or/AnfGh9+YVfD3QrGvEUyCWGTs
- FGNw==
+ bh=wrUBzqixMNGges3Fm8LEqTkGr+7Sx/OVd1FP+l0kdS0=;
+ b=tqKpwE9c1XvzM26lsALNljg7czgItn9B2SFh1tA3jWE/ITdxfbUKdt+lGHvc4AqZJG
+ DZ38w2G0ZCOMhepTm9Eowqe4LBfWPO8ILx0Ol+dgIFIwxdAiNzD1wA/i8yt6fsVNOptw
+ SaiYvqBnxP3BX8+Vb8wu9Rwugz6FWLSJfUcENjTtu4V78jIYi59xfrDLTeLYUuG5oxAl
+ NTgLN9RaB/G1pfPbVdSsuGof6GiB/WaIyBDaEjrF7Ha1Z98pSiyS5oXgB6h/IXv9HV1w
+ sOAJhdJr5OPTpCg0tsq/C68T5BgQKFWAUoPDQTzUaXS7gzIxvEKvR4YiROniyFWZyWC3
+ 0Sag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=SsznNNNL9XRUk3heDJtTz6IafgIVD9jOGJsXmLbOtns=;
- b=lXRncly4AS2dKHl4zE7J9XC4lHhLBRfpcqvdaeHv9eWbVk7a3QpdJpUL6y7INuFCxw
- 7NoJiH2/22RgoFA1FzTJSnKMWxmglNlWuJQh8E0wUpTi1Lx5tWc6uqMqXiWpiqrURo1T
- +5H3PGM4EdJe7B+rUTDVUQICMiLB44pvpccyZHhXN5WRtZLKVvamYTJBOl2XstrzHdXI
- eCY8LYYEGwBx7ZB7CTzKH02975ZRhN0rkLTA4YNBHxIYeKVOOgxoRrvmjiF6RdZr+msd
- o/MBYiUpmIbHPmrixMFBfxXlZduR1QoVCz4aja3uXDZbeQNB0Ys7kz99cwmvguqP7YZ9
- 6w6A==
-X-Gm-Message-State: AOAM531Kftr4hkB3iZKAmFfru2WaUyrYT3Eyn36BESMxQCv5BU3V/9j7
- /7+hJRG5a8NHu3RHFqg2gWM=
-X-Google-Smtp-Source: ABdhPJzzhXfBJeNbYtivZg4fs1HpWNTxP7vh4+8ovEFjWaj4LP8t7pDYKhiWvEKG7yFBGFs9SjzHvg==
-X-Received: by 2002:a0c:99e1:: with SMTP id y33mr8033687qve.62.1604428027353; 
- Tue, 03 Nov 2020 10:27:07 -0800 (PST)
-Received: from ubuntu-m3-large-x86 ([2604:1380:45f1:1d00::1])
- by smtp.gmail.com with ESMTPSA id z22sm10880062qkg.65.2020.11.03.10.27.06
+ bh=wrUBzqixMNGges3Fm8LEqTkGr+7Sx/OVd1FP+l0kdS0=;
+ b=BInqTv1yTpNHfEA9GZIjJPFI4+r51lVIb20fuV4rzsvP9aNlZaxnSeF7WHM17GqL8C
+ 4g2K6uexcHjh40/804Fgn6tUdw4lq5uokaZBaCyC1XLRU9qMNiiIlKUWkXHddbqQRqX1
+ /nVmlSWPMBCNrMNsdCuKjd4irAD2JqI8Hyhi2bcPVLOeVJAd+/u6uhPYLJG6WgTM7iL3
+ TaCLaIPhBNVifyseUcLEyt7qADHUDlKPbKrAEWiYmbdLB0jwVtjIppAnCWKLgaKm8YoB
+ aY13Uwysbr1hK9nU1ZYOD3HdgTe681+apv4yd0dRIwx/rhBzW8psEm3pjmEftDntiOga
+ xwZA==
+X-Gm-Message-State: AOAM533jBX6IPx/0RI1bum/jTldR6M+TFNxW0/3vVrlfPSgh3zP+mO5F
+ nJPedQ6RTtrbyWV5+g+To+k=
+X-Google-Smtp-Source: ABdhPJwKd9ujaje9lKYp2d86AtKj6fAx/PpwqjE7Ypjdq7qZld+7Ol6iwwjneB60m1H6WrfRfHbdnA==
+X-Received: by 2002:a17:90b:f85:: with SMTP id
+ ft5mr1161462pjb.86.1604437474559; 
+ Tue, 03 Nov 2020 13:04:34 -0800 (PST)
+Received: from ast-mbp.dhcp.thefacebook.com ([2620:10d:c090:400::5:4055])
+ by smtp.gmail.com with ESMTPSA id y22sm29035pfr.62.2020.11.03.13.04.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2020 10:27:06 -0800 (PST)
-Date: Tue, 3 Nov 2020 11:27:05 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: fold CONFIG_DRM_AMD_DC_DCN3* into
- CONFIG_DRM_AMD_DC_DCN
-Message-ID: <20201103182705.GA1750585@ubuntu-m3-large-x86>
-References: <20201016165004.1218352-1-alexander.deucher@amd.com>
- <20201016165004.1218352-4-alexander.deucher@amd.com>
- <20201029221410.GA1982624@ubuntu-m3-large-x86>
- <CADnq5_OKYmpobjJGQ0sGTbkz3RNuuOBadySLE5URvh0CjxdD8w@mail.gmail.com>
- <20201103010059.GA3268770@ubuntu-m3-large-x86>
- <CADnq5_NrPOc26rzHWxS9TpBqCjpv3rhnaTS_O6B++YX7wEwOjA@mail.gmail.com>
+ Tue, 03 Nov 2020 13:04:33 -0800 (PST)
+Date: Tue, 3 Nov 2020 13:04:18 -0800
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To: Kenny Ho <y2kenny@gmail.com>
+Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
+Message-ID: <20201103210418.q7hddyl7rvdplike@ast-mbp.dhcp.thefacebook.com>
+References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
+ <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
+ <20201103053244.khibmr66p7lhv7ge@ast-mbp.dhcp.thefacebook.com>
+ <CAOWid-eQSPru0nm8+Xo3r6C0pJGq+5r8mzM8BL2dgNn2c9mt2Q@mail.gmail.com>
+ <CAADnVQKuoZDB-Xga5STHdGSxvSP=B6jQ40kLdpL1u+J98bv65A@mail.gmail.com>
+ <CAOWid-czZphRz6Y-H3OcObKCH=bLLC3=bOZaSB-6YBE56+Qzrg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CADnq5_NrPOc26rzHWxS9TpBqCjpv3rhnaTS_O6B++YX7wEwOjA@mail.gmail.com>
+In-Reply-To: <CAOWid-czZphRz6Y-H3OcObKCH=bLLC3=bOZaSB-6YBE56+Qzrg@mail.gmail.com>
 X-Mailman-Approved-At: Tue, 03 Nov 2020 21:15:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,125 +85,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Song Liu <songliubraving@fb.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Kenny Ho <Kenny.Ho@amd.com>,
+ "open list:CONTROL GROUP \(CGROUP\)" <cgroups@vger.kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Network Development <netdev@vger.kernel.org>, KP Singh <kpsingh@chromium.org>,
+ Yonghong Song <yhs@fb.com>, bpf <bpf@vger.kernel.org>,
+ Andrii Nakryiko <andriin@fb.com>, Martin KaFai Lau <kafai@fb.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 03, 2020 at 12:41:27PM -0500, Alex Deucher wrote:
-> On Mon, Nov 2, 2020 at 8:01 PM Nathan Chancellor
-> <natechancellor@gmail.com> wrote:
-> >
-> > On Mon, Nov 02, 2020 at 05:33:14PM -0500, Alex Deucher wrote:
-> > > On Thu, Oct 29, 2020 at 6:14 PM Nathan Chancellor
-> > > <natechancellor@gmail.com> wrote:
-> > > >
-> > > > On Fri, Oct 16, 2020 at 12:50:04PM -0400, Alex Deucher wrote:
-> > > > > Avoids confusion in configurations.
-> > > > >
-> > > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > >
-> > > > This patch causes a build failure with Fedora's aarch64 config (at
-> > > > commit 2e3a5bc5feeab1ed21f0105f1440a2ff0aef62f9):
-> > > >
-> > >
-> > > Does the attached patch fix it?
-> > >
-> > > Alex
-> >
-> > Closer:
-> >
+On Tue, Nov 03, 2020 at 02:19:22PM -0500, Kenny Ho wrote:
+> On Tue, Nov 3, 2020 at 12:43 AM Alexei Starovoitov
+> <alexei.starovoitov@gmail.com> wrote:
+> > On Mon, Nov 2, 2020 at 9:39 PM Kenny Ho <y2kenny@gmail.com> wrote:
+> > pls don't top post.
+> My apology.
 > 
-> How about this one?
+> > > Cgroup awareness is desired because the intent
+> > > is to use this for resource management as well (potentially along with
+> > > other cgroup controlled resources.)  I will dig into bpf_lsm and learn
+> > > more about it.
+> >
+> > Also consider that bpf_lsm hooks have a way to get cgroup-id without
+> > being explicitly scoped. So the bpf program can be made cgroup aware.
+> > It's just not as convenient as attaching a prog to cgroup+hook at once.
+> > For prototyping the existing bpf_lsm facility should be enough.
+> > So please try to follow this route and please share more details about
+> > the use case.
 > 
-> Alex
+> Ok.  I will take a look and see if that is sufficient.  My
+> understanding of bpf-cgroup is that it not only makes attaching prog
+> to cgroup easier but it also facilitates hierarchical calling of
+> attached progs which might be useful if users wants to manage gpu
+> resources with bpf cgroup along with other cgroup resources (like
+> cpu/mem/io, etc.)
 
-I still see three errors it looks like.
+Right. Hierarchical cgroup-bpf logic cannot be replicated inside
+the program. If you're relying on cgv2 hierarchy to containerize
+applications then what I suggested earlier won't work indeed.
 
-$ git revert -n 18128bd7c2929495df79adff83037bf6f588c10c
+> About the use case.  The high level motivation here is to provide the
+> ability to subdivide/share a GPU via cgroups/containers in a way that
+> is similar to other resources like CPU and memory.  Users have been
+> requesting this type of functionality because GPU compute can get
+> expensive and they want to maximize the utilization to get the most
+> bang for their bucks.  A traditional way to do this is via
+> SRIOV/virtualization but that often means time sharing the GPU as a
+> whole unit.  That is useful for some applications but not others due
+> to the flushing and added latency.  We also have a study that
+> identified various GPU compute application types.  These types can
+> benefit from more asymmetrical/granular sharing of the GPU (for
+> example some applications are compute bound while others can be memory
+> bound that can benefit from having more VRAM.)
+> 
+> I have been trying to add a cgroup subsystem for the drm subsystem for
+> this purpose but I ran into two challenges.  First, the composition of
+> a GPU and how some of the subcomponents (like VRAM or shader
+> engines/compute units) can be shared are very much vendor specific so
+> we are unable to arrive at a common interface across all vendors.
+> Because of this and the variety of places a GPU can go into
+> (smartphone, PC, server, HPC), there is also no agreement on how
+> exactly a GPU should be shared.  The best way forward appears to
+> simply provide hooks for users to define how and what they want to
+> share via a bpf program.
 
-$ b4 am -o - 20201103173944.717710-1-alexander.deucher@amd.com | git apply -v -3
-Looking up https://lore.kernel.org/r/20201103173944.717710-1-alexander.deucher%40amd.com
-Grabbing thread from lore.kernel.org/amd-gfx
-Analyzing 1 messages in the thread
----
-Writing /tmp/tmpdyrsmuwtb4-am-stdout
-  [PATCH] drm/amdgpu/display: FP fixes for DCN3.x (v2)
----
-Total patches: 1
----
- Link: https://lore.kernel.org/r/20201103173944.717710-1-alexander.deucher@amd.com
- Base: not found (applies clean to current tree)
----
-Checking patch drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile...
-Checking patch drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c...
-Checking patch drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c...
-Checking patch drivers/gpu/drm/amd/display/dc/dml/Makefile...
-Applied patch drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile cleanly.
-Applied patch drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c cleanly.
-Applied patch drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c cleanly.
-Applied patch drivers/gpu/drm/amd/display/dc/dml/Makefile cleanly.
+Thank you for sharing the details. It certainly helps.
 
-$ make -skj"$(nproc)" ARCH=arm64 CROSS_COMPILE=aarch64-linux- clean olddefconfig drivers/gpu/drm/amd/amdgpu/amdgpu.ko
-  LINK     resolve_btfids
-drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c: In function 'dcn_bw_calc_rq_dlg_ttu':
-drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c:516:1: warning: the frame size of 1600 bytes is larger than 1024 bytes [-Wframe-larger-than=]
-  516 | }
-      | ^
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c: In function 'dcn3_build_wm_range_table':
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:110:9: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  110 |  double pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dram_clock_change_latency_us;
-      |         ^~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:111:9: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  111 |  double sr_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_exit_time_us;
-      |         ^~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:112:9: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  112 |  double sr_enter_plus_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_enter_plus_exit_time_us;
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:117:81: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  117 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us = pstate_latency_us;
-      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:118:79: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  118 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_exit_time_us = sr_exit_time_us;
-      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:119:90: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  119 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
-      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:139:113: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  139 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dummy_pstate_latency_us;
-      |                                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:139:81: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  139 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dummy_pstate_latency_us;
-      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:140:79: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  140 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_exit_time_us = sr_exit_time_us;
-      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c:141:90: error: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-  141 |  clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
-      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-make[5]: *** [scripts/Makefile.build:283: drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.o] Error 1
-aarch64-linux-gcc: error: unrecognized command-line option '-msse2'
-make[5]: *** [scripts/Makefile.build:283: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.o] Error 1
-aarch64-linux-gcc: error: unrecognized command-line option '-msse2'
-make[5]: *** [scripts/Makefile.build:283: drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_resource.o] Error 1
-make[5]: Target '__build' not remade because of errors.
-make[4]: *** [scripts/Makefile.build:500: drivers/gpu/drm/amd/amdgpu] Error 2
-make[4]: Target '__build' not remade because of errors.
-make[3]: *** [scripts/Makefile.build:500: drivers/gpu/drm] Error 2
-make[3]: Target '__build' not remade because of errors.
-make[2]: *** [scripts/Makefile.build:500: drivers/gpu] Error 2
-make[2]: Target '__build' not remade because of errors.
-make[1]: *** [Makefile:1797: drivers] Error 2
-make[1]: Target 'drivers/gpu/drm/amd/amdgpu/amdgpu.ko' not remade because of errors.
-make: *** [Makefile:335: __build_one_by_one] Error 2
-make: Target 'clean' not remade because of errors.
-make: Target 'olddefconfig' not remade because of errors.
-make: Target 'drivers/gpu/drm/amd/amdgpu/amdgpu.ko' not remade because of errors.
+> From what I can tell so far (I am still learning), there are multiple
+> pieces that need to fall in place for bpf-cgroup to work for this use
+> case.  First there is resource limit enforcement, which is the
+> motivation for this RFC (I will look into bpf_lsm as the path
+> forward.)  I have also been thinking about instrumenting the drm
+> subsystem with a new BPF program type and have various attach types
+> across the drm subsystem but I am not sure if this is allowed (this
+> one is more for resource usage monitoring.)  Another thing I have been
+> considering is to have the gpu driver provide bpf helper functions for
+> bpf programs to modify drm driver internals.  That was the reason I
+> asked about the potential of BTF support for kernel modules a couple
+> of months ago (and Andrii Nakryiko mentioned that it is being worked
+> on.)
 
-Cheers,
-Nathan
+Sounds like either bpf_lsm needs to be made aware of cgv2 (which would
+be a great thing to have regardless) or cgroup-bpf needs a drm/gpu specific hook.
+I think generic ioctl hook is too broad for this use case.
+I suspect drm/gpu internal state would be easier to access inside
+bpf program if the hook is next to gpu/drm. At ioctl level there is 'file'.
+It's probably too abstract for the things you want to do.
+Like how VRAM/shader/etc can be accessed through file?
+Probably possible through a bunch of lookups and dereferences, but
+if the hook is custom to GPU that info is likely readily available.
+Then such cgroup-bpf check would be suitable in execution paths where
+ioctl-based hook would be too slow.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
