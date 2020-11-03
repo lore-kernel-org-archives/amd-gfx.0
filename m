@@ -2,68 +2,71 @@ Return-Path: <SRS0=xcSd=EJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CFA15C388F9
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 17:18:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6005AC2D0A3
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 17:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66B8520E65
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 17:18:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0594620773
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 17:39:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fUZMfvuH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66B8520E65
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YAkbk5Os"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0594620773
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDFD26E8C8;
-	Tue,  3 Nov 2020 17:18:47 +0000 (UTC)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97BA6E8C8
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 17:18:45 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id e7so14769034pfn.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2020 09:18:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8102F6E8E3;
+	Tue,  3 Nov 2020 17:39:55 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CE0E6E8DD
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 17:39:54 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id o205so8725033qke.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2020 09:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=cPZGuwRnEtMWISbzspjZkYy6nZNgw4jWnVP65wKE+CA=;
- b=fUZMfvuHYb3AXIAkabbf7ydWkI8HyTMEaZNa+E4/yE9FYgHD3zFFh9fg7IdJ0AJywQ
- K6D8rpzhiM3Ar2x4ucn9nciNhCFYi/8Owds2/OvTmzAlWxvvEIFrr47x7cA+2A/8837o
- Fdt9X0Bcaz7Q/FJEdO9cZx3dm+Pm335C0fSWLV7HS6RIStYLVPhhmM1IwUv3qfU33CbE
- NmrMOn9nclxZPsX2qeSwEoAbrxYO8xL0RVyHNYSZeohcToei0yrJR2KHvmAJ5zAe/OKM
- mDl+mTl9lR8pgEVpeAgYyO2mjYz4p31CCxAvXui67XBjtuYTNwdMx7fkAXWNhdiq+lxw
- qi2Q==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QjKbioGrLYPWczqpY52S+b4WfarkCzGy8iZTGIyQgVw=;
+ b=YAkbk5Os7WCOjfyFfiSY/7BBc2me2j2j9GCkoa4V9MiIYI795O4ht7g6DU+GP86JPY
+ TUKcgxjvTUhwlITGWljWX33UNCDNeV2y9Yt0Z9AoTLOehuJL5T+a3tCnI7Qfm7odLExB
+ zgiZsoI4tc6jv7pvAXlxjpcNaYFmbcW6C9BslR3uqa0G4nQIa9oHycGfy3uJO/Df5aoD
+ 905L5r8taR/kdsLLBK4SdfbsEUgRZeUKaIBr/y7hzXzOnq+9+zPpQ+H+FbODfA7s49jb
+ Q58Wct2U8yB+s4EhcacvWLEiJUPy7n/hb5v6RY5YFta5/0pZN4idsDlc+Vv5K0N6y0/s
+ phcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=cPZGuwRnEtMWISbzspjZkYy6nZNgw4jWnVP65wKE+CA=;
- b=ZRNrh6UMWfKZfc7aMIBCweMQzbkKNR0AR6CO8i9wVagWreZjQC26P6zIwbJAIdolO1
- wqm0CtUa9FDS77b2tWnugbrTo9VcFQrqqXj0uVo3tU9pRp+lEwSkihez+4i9zI8XM1oU
- q+dCxuiBswygOcOBQDM//Gv1ULKKGvRe/Etd6rDLoJHk7RsrLpObo8DS9RnuYIdFDGhm
- Ncg9CuwE+Xj7aUcdGoviF/vKg3Xi8NijkkLv7SzZ5/7mcCnvzJ1XD34cd1t4Afi5WOaA
- u7zO8iNMMiQRW8pBzUAwYJwwDkolWt388F1Gn4Gp3yHx4NBkSNcbd+iGD4I6fdzlBmtj
- nA0Q==
-X-Gm-Message-State: AOAM533ni7uxXa1laVh6lnj9GAv21zzYeqgyC6ggVjWVr4uzIGBBhrlq
- qy7lwFk6wzxkw4BbiO0nztr7M/0ysBQ8EsRtw+eAgt7Sbm8=
-X-Google-Smtp-Source: ABdhPJwfjI1aiWuwnAsMic/rQY69hY9YFxTOPplf+Lx2aujeqE15Qn5EW3P0A2xPo9meS1/Bk2Rkhp8x0r4+HjGJ1os=
-X-Received: by 2002:a63:e74a:: with SMTP id j10mr9063854pgk.208.1604423925225; 
- Tue, 03 Nov 2020 09:18:45 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QjKbioGrLYPWczqpY52S+b4WfarkCzGy8iZTGIyQgVw=;
+ b=MQVGEgH7VN6dNaz+yd7jrpiAKDj/aMEK7WCHFp0fUtP8D10kAEG9A0OF2SvJtLImtz
+ cqbeA7kJIbc0YpzKYV/3R2Dk1B4w3ml3qiV1a442dpPvC88Qmpi8BoVkCQhMkdqK61Um
+ d8eb1+DgaWoIrVTXWKOtOOVN0YKke0jbi+Rj5S2M1zutnOVo2Jl3STt1/eq1RA0wXe50
+ jNPHs9x/2LhTMWQC9Ut087q1dxhMvGmWTRIBijApvQb6Maf5uoOglF4Q3n3RoEG9Dsrr
+ V0Nx6SGeezKk1ebqRQtWpmVIIxpTsf0yar8uH/tw2Q8JUs5/TVeFZg4tcIQ6Q7GA9aih
+ HwBw==
+X-Gm-Message-State: AOAM533NVvhkmb4X8uy/G803om4y6L0lklkqJLuDdLzA7gfA+m825XPa
+ 301tXrjLVJjw2WwxMuwsBR8dCs8Tru8=
+X-Google-Smtp-Source: ABdhPJxIp6fuyfJbMcpzh1WXI7hOF+LE06h3EkDWhXoYC+W2/1Jlo9yXv4hiGqmY9Gm+IWNxg5/pmw==
+X-Received: by 2002:a37:e20a:: with SMTP id g10mr20110203qki.274.1604425192899; 
+ Tue, 03 Nov 2020 09:39:52 -0800 (PST)
+Received: from localhost.localdomain ([71.219.66.138])
+ by smtp.gmail.com with ESMTPSA id 22sm11060663qkg.15.2020.11.03.09.39.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2020 09:39:52 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/display: FP fixes for DCN3.x (v2)
+Date: Tue,  3 Nov 2020 12:39:44 -0500
+Message-Id: <20201103173944.717710-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-References: <CAAxE2A7dVst6RpB-cD_SOkkC89jVH1vp6WMv=_KkOEWJKqY_aA@mail.gmail.com>
-In-Reply-To: <CAAxE2A7dVst6RpB-cD_SOkkC89jVH1vp6WMv=_KkOEWJKqY_aA@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 3 Nov 2020 12:18:09 -0500
-Message-ID: <CAAxE2A7FX+8m=9wSyHW8Vwn8ubPdWpSy8TVe3-f2M2uWADU3HQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: set LDS_CONFIG=0x20 on Navy Flounder to fix a
- GPU hang
-To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="0000000000002237f205b3370e85"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,87 +78,243 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000002237f205b3370e85
-Content-Type: multipart/alternative; boundary="0000000000002237ed05b3370e83"
+Add proper FP_START/END handling and adjust Makefiles per
+previous asics.
 
---0000000000002237ed05b3370e83
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+v2: fix up harder.
 
-Updated patch.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com> (v1)
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com> (v1)
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   | 13 ++++
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |  4 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c | 71 +++++++++++++++++--
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |  8 ++-
+ 4 files changed, 89 insertions(+), 7 deletions(-)
 
-Thanks,
-Marek
-
-On Tue, Nov 3, 2020 at 11:10 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wr=
-ote:
-
-> Please review.
->
-> Thanks,
-> Marek
->
-
---0000000000002237ed05b3370e83
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Updated patch.</div><div><br></div><div>Thanks,</div>=
-<div>Marek<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr">On Tue, Nov 3, 2020 at 11:10 AM Marek Ol=C5=A1=C3=A1k &=
-lt;<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><di=
-v>Please review.</div><div><br></div><div>Thanks,</div><div>Marek<br></div>=
-</div>
-</blockquote></div>
-
---0000000000002237ed05b3370e83--
-
---0000000000002237f205b3370e85
-Content-Type: text/x-patch; charset="UTF-8"; 
-	name="0001-drm-amdgpu-set-LDS_CONFIG-0x20-on-Navy-Flounder-to-f.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-set-LDS_CONFIG-0x20-on-Navy-Flounder-to-f.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_kh28jt450>
-X-Attachment-Id: f_kh28jt450
-
-RnJvbSBjOTBhNGI2YTE3MGRiZWIxZDI5MTI2MTJkODQyZDJhOGE3NDc2ZWVkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWFyZWs9MjBPbD1DNT1BMT1DMz1BMWs/PSA8
-bWFyZWsub2xzYWtAYW1kLmNvbT4KRGF0ZTogVHVlLCAzIE5vdiAyMDIwIDExOjA1OjI1IC0wNTAw
-ClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogc2V0IExEU19DT05GSUc9MHgyMCBvbiBOYXZ5
-IEZsb3VuZGVyIHRvIGZpeCBhIEdQVQogaGFuZwpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5
-cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzog
-OGJpdAoKU2lnbmVkLW9mZi1ieTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyB8IDMgKysrCiAxIGZp
-bGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
-djEwXzAuYwppbmRleCBmN2QyMTdkZTU4NTkuLmE3MWM5OGYwOGYzZiAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKQEAgLTMyMTYsNiArMzIxNiw5IEBAIHN0YXRpYyBjb25z
-dCBzdHJ1Y3Qgc29jMTVfcmVnX2dvbGRlbiBnb2xkZW5fc2V0dGluZ3NfZ2NfMTBfM18yW10gPQog
-CVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tVEFfQ05UTF9BVVgsIDB4ZmZmN2ZmZmYs
-IDB4MDEwMzAwMDApLAogCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tVVRDTDFfQ1RS
-TCwgMHhmZmJmZmZmZiwgMHgwMGEwMDAwMCksCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywg
-MCwgbW1WR1RfR1NfTUFYX1dBVkVfSUQsIDB4MDAwMDBmZmYsIDB4MDAwMDAzZmYpCisKKwkvKiBU
-aGlzIGlzIG5vdCBpbiBHREIgeWV0LiBEb24ndCByZW1vdmUgaXQuIEl0IGZpeGVzIGEgR1BVIGhh
-bmcgb24gTmF2eSBGbG91bmRlci4gKi8KKwlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBt
-bUxEU19DT05GSUcsICAweDAwMDAwMDIwLCAweDAwMDAwMDIwKSwKIH07CiAKIHN0YXRpYyBjb25z
-dCBzdHJ1Y3Qgc29jMTVfcmVnX2dvbGRlbiBnb2xkZW5fc2V0dGluZ3NfZ2NfMTBfM192YW5nb2do
-W10gPQotLSAKMi4xNy4xCgo=
---0000000000002237f205b3370e85
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+index facc8b970300..9f9137562cab 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+@@ -127,6 +127,19 @@ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
+ ###############################################################################
+ CLK_MGR_DCN301 = vg_clk_mgr.o dcn301_smu.o
+ 
++# prevent build errors regarding soft-float vs hard-float FP ABI tags
++# this code is currently unused on ppc64, as it applies to VanGogh APUs only
++ifdef CONFIG_PPC64
++CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
++endif
++
++# prevent build errors:
++# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
++# this file is unused on arm64, just like on ppc64
++ifdef CONFIG_ARM64
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := -mgeneral-regs-only
++endif
++
+ AMD_DAL_CLK_MGR_DCN301 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn301/,$(CLK_MGR_DCN301))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN301)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+index 7bad73b2d146..82cb688ba5e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+@@ -104,7 +104,7 @@ static void dcn3_init_single_clock(struct clk_mgr_internal *clk_mgr, PPCLK_e clk
+ 	}
+ }
+ 
+-static void dcn3_build_wm_range_table(struct clk_mgr_internal *clk_mgr)
++static noinline void dcn3_build_wm_range_table(struct clk_mgr_internal *clk_mgr)
+ {
+ 	/* defaults */
+ 	double pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dram_clock_change_latency_us;
+@@ -211,7 +211,9 @@ void dcn3_init_clocks(struct clk_mgr *clk_mgr_base)
+ 	clk_mgr_base->funcs->get_memclk_states_from_smu(clk_mgr_base);
+ 
+ 	/* WM range table */
++	DC_FP_START();
+ 	dcn3_build_wm_range_table(clk_mgr);
++	DC_FP_END();
+ }
+ 
+ static int dcn30_get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index d65496917e93..01ac8b2921c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -1469,7 +1469,19 @@ int dcn30_populate_dml_pipes_from_context(
+ 	return pipe_cnt;
+ }
+ 
+-void dcn30_populate_dml_writeback_from_context(
++/*
++ * This must be noinline to ensure anything that deals with FP registers
++ * is contained within this call; previously our compiling with hard-float
++ * would result in fp instructions being emitted outside of the boundaries
++ * of the DC_FP_START/END macros, which makes sense as the compiler has no
++ * idea about what is wrapped and what is not
++ *
++ * This is largely just a workaround to avoid breakage introduced with 5.6,
++ * ideally all fp-using code should be moved into its own file, only that
++ * should be compiled with hard-float, and all code exported from there
++ * should be strictly wrapped with DC_FP_START/END
++ */
++static noinline void dcn30_populate_dml_writeback_from_context_fp(
+ 		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
+ {
+ 	int pipe_cnt, i, j;
+@@ -1558,6 +1570,14 @@ void dcn30_populate_dml_writeback_from_context(
+ 
+ }
+ 
++void dcn30_populate_dml_writeback_from_context(
++		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
++{
++	DC_FP_START();
++	dcn30_populate_dml_writeback_from_context_fp(dc, res_ctx, pipes);
++	DC_FP_END();
++}
++
+ unsigned int dcn30_calc_max_scaled_time(
+ 		unsigned int time_per_pixel,
+ 		enum mmhubbub_wbif_mode mode,
+@@ -2204,7 +2224,19 @@ static bool dcn30_internal_validate_bw(
+ 	return out;
+ }
+ 
+-void dcn30_calculate_wm_and_dlg(
++/*
++ * This must be noinline to ensure anything that deals with FP registers
++ * is contained within this call; previously our compiling with hard-float
++ * would result in fp instructions being emitted outside of the boundaries
++ * of the DC_FP_START/END macros, which makes sense as the compiler has no
++ * idea about what is wrapped and what is not
++ *
++ * This is largely just a workaround to avoid breakage introduced with 5.6,
++ * ideally all fp-using code should be moved into its own file, only that
++ * should be compiled with hard-float, and all code exported from there
++ * should be strictly wrapped with DC_FP_START/END
++ */
++static noinline void dcn30_calculate_wm_and_dlg_fp(
+ 		struct dc *dc, struct dc_state *context,
+ 		display_e2e_pipe_params_st *pipes,
+ 		int pipe_cnt,
+@@ -2360,7 +2392,18 @@ void dcn30_calculate_wm_and_dlg(
+ 				dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
+ }
+ 
+-bool dcn30_validate_bandwidth(struct dc *dc,
++void dcn30_calculate_wm_and_dlg(
++		struct dc *dc, struct dc_state *context,
++		display_e2e_pipe_params_st *pipes,
++		int pipe_cnt,
++		int vlevel)
++{
++	DC_FP_START();
++	dcn30_calculate_wm_and_dlg_fp(dc, context, pipes, pipe_cnt, vlevel);
++	DC_FP_END();
++}
++
++static noinline bool dcn30_validate_bandwidth_fp(struct dc *dc,
+ 		struct dc_state *context,
+ 		bool fast_validate)
+ {
+@@ -2411,7 +2454,20 @@ bool dcn30_validate_bandwidth(struct dc *dc,
+ 	return out;
+ }
+ 
+-static void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
++bool dcn30_validate_bandwidth(struct dc *dc,
++		struct dc_state *context,
++		bool fast_validate)
++{
++	bool out;
++
++	DC_FP_START();
++	out = dcn30_validate_bandwidth_fp(dc, context, fast_validate);
++	DC_FP_END();
++
++	return out;
++}
++
++static noinline void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
+                                                        unsigned int *optimal_dcfclk,
+                                                        unsigned int *optimal_fclk)
+ {
+@@ -2478,8 +2534,10 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 
+ 		// Calculate optimal dcfclk for each uclk
+ 		for (i = 0; i < num_uclk_states; i++) {
++			DC_FP_START();
+ 			get_optimal_dcfclk_fclk_for_uclk(bw_params->clk_table.entries[i].memclk_mhz * 16,
+ 					&optimal_dcfclk_for_uclk[i], NULL);
++			DC_FP_END();
+ 			if (optimal_dcfclk_for_uclk[i] < bw_params->clk_table.entries[0].dcfclk_mhz) {
+ 				optimal_dcfclk_for_uclk[i] = bw_params->clk_table.entries[0].dcfclk_mhz;
+ 			}
+@@ -2583,6 +2641,8 @@ static bool dcn30_resource_construct(
+ 	struct irq_service_init_data init_data;
+ 	struct ddc_service_init_data ddc_init_data;
+ 
++	DC_FP_START();
++
+ 	ctx->dc_bios->regs = &bios_regs;
+ 
+ 	pool->base.res_cap = &res_cap_dcn3;
+@@ -2860,10 +2920,13 @@ static bool dcn30_resource_construct(
+ 		pool->base.oem_device = NULL;
+ 	}
+ 
++	DC_FP_END();
++
+ 	return true;
+ 
+ create_fail:
+ 
++	DC_FP_END();
+ 	dcn30_resource_destruct(pool);
+ 
+ 	return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 879a930358a5..a02a33dcd70b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -64,6 +64,9 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
+@@ -71,8 +74,9 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflag
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags)
+ endif
+ CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
+-- 
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---0000000000002237f205b3370e85--
