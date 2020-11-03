@@ -7,26 +7,26 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA4E6C6379F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 09:30:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 150E9C55178
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 09:30:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A66A223BD
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 09:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A66A223BD
+	by mail.kernel.org (Postfix) with ESMTPS id B3C9322409
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 09:30:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3C9322409
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E340B6EC3C;
-	Tue,  3 Nov 2020 09:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EDE66EC63;
+	Tue,  3 Nov 2020 09:30:27 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8854A6E8A2;
- Tue,  3 Nov 2020 09:30:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BED2F6EC45;
+ Tue,  3 Nov 2020 09:30:24 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B16F0B11A;
- Tue,  3 Nov 2020 09:30:20 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id EBCEEB1A0;
+ Tue,  3 Nov 2020 09:30:23 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
  daniel@ffwll.ch, sam@ravnborg.org, alexander.deucher@amd.com,
@@ -42,10 +42,10 @@ To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
  sumit.semwal@linaro.org, emil.velikov@collabora.com, luben.tuikov@amd.com,
  apaneers@amd.com, linus.walleij@linaro.org, melissa.srw@gmail.com,
  chris@chris-wilson.co.uk, miaoqinglang@huawei.com
-Subject: [PATCH v7 04/10] drm/exynos: Remove empty exynos_drm_gem_prime_{vmap,
- vunmap}()
-Date: Tue,  3 Nov 2020 10:30:09 +0100
-Message-Id: <20201103093015.1063-5-tzimmermann@suse.de>
+Subject: [PATCH v7 08/10] drm/gem: Store client buffer mappings as struct
+ dma_buf_map
+Date: Tue,  3 Nov 2020 10:30:13 +0100
+Message-Id: <20201103093015.1063-9-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20201103093015.1063-1-tzimmermann@suse.de>
 References: <20201103093015.1063-1-tzimmermann@suse.de>
@@ -62,56 +62,232 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, lima@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- xen-devel@lists.xenproject.org, spice-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ nouveau@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ etnaviv@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, xen-devel@lists.xenproject.org,
+ spice-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhlIGZ1bmN0aW9ucyBleHlub3NfZHJtX2dlbV9wcmltZV97dm1hcCx2dW5tYXB9KCkgYXJlIGVt
-cHR5LiBSZW1vdmUKdGhlbSBiZWZvcmUgY2hhbmdpbmcgdGhlIGludGVyZmFjZSB0byB1c2Ugc3Ry
-dWN0IGRybV9idWZfbWFwLiBBcyBhIHNpZGUKZWZmZWN0IG9mIHJlbW92aW5nIGRybV9nZW1fcHJp
-bWVfdm1hcCgpLCB0aGUgZXJyb3IgY29kZSBjaGFuZ2VzIGZyb20KRU5PTUVNIHRvIEVPUE5PVFNV
-UFAuCgpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5k
-ZT4KQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-VGVzdGVkLWJ5OiBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2dlbS5jIHwgMTIgLS0tLS0tLS0tLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vZXh5bm9zL2V4eW5vc19kcm1fZ2VtLmggfCAgMiAtLQogMiBmaWxlcyBjaGFuZ2Vk
-LCAxNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4
-eW5vc19kcm1fZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19kcm1fZ2VtLmMK
-aW5kZXggNGFmYmY1MTA5Y2JmLi40Mzk2MjI0MjI3ZDEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9leHlub3MvZXh5bm9zX2RybV9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9z
-L2V4eW5vc19kcm1fZ2VtLmMKQEAgLTEzNSw4ICsxMzUsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
-IHZtX29wZXJhdGlvbnNfc3RydWN0IGV4eW5vc19kcm1fZ2VtX3ZtX29wcyA9IHsKIHN0YXRpYyBj
-b25zdCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3RfZnVuY3MgZXh5bm9zX2RybV9nZW1fb2JqZWN0X2Z1
-bmNzID0gewogCS5mcmVlID0gZXh5bm9zX2RybV9nZW1fZnJlZV9vYmplY3QsCiAJLmdldF9zZ190
-YWJsZSA9IGV4eW5vc19kcm1fZ2VtX3ByaW1lX2dldF9zZ190YWJsZSwKLQkudm1hcCA9IGV4eW5v
-c19kcm1fZ2VtX3ByaW1lX3ZtYXAsCi0JLnZ1bm1hcAk9IGV4eW5vc19kcm1fZ2VtX3ByaW1lX3Z1
-bm1hcCwKIAkudm1fb3BzID0gJmV4eW5vc19kcm1fZ2VtX3ZtX29wcywKIH07CiAKQEAgLTQ2OSwx
-NiArNDY3LDYgQEAgZXh5bm9zX2RybV9nZW1fcHJpbWVfaW1wb3J0X3NnX3RhYmxlKHN0cnVjdCBk
-cm1fZGV2aWNlICpkZXYsCiAJcmV0dXJuICZleHlub3NfZ2VtLT5iYXNlOwogfQogCi12b2lkICpl
-eHlub3NfZHJtX2dlbV9wcmltZV92bWFwKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQotewot
-CXJldHVybiBOVUxMOwotfQotCi12b2lkIGV4eW5vc19kcm1fZ2VtX3ByaW1lX3Z1bm1hcChzdHJ1
-Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwgdm9pZCAqdmFkZHIpCi17Ci0JLyogTm90aGluZyB0byBk
-byAqLwotfQotCiBpbnQgZXh5bm9zX2RybV9nZW1fcHJpbWVfbW1hcChzdHJ1Y3QgZHJtX2dlbV9v
-YmplY3QgKm9iaiwKIAkJCSAgICAgIHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hKQogewpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2dlbS5oIGIvZHJpdmVy
-cy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2dlbS5oCmluZGV4IDc0ZTkyNmFiZWZmMC4uYTIz
-MjcyZmI5NmZiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19kcm1f
-Z2VtLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2dlbS5oCkBAIC0x
-MDcsOCArMTA3LDYgQEAgc3RydWN0IGRybV9nZW1fb2JqZWN0ICoKIGV4eW5vc19kcm1fZ2VtX3By
-aW1lX2ltcG9ydF9zZ190YWJsZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCQkJCSAgICAgc3Ry
-dWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoLAogCQkJCSAgICAgc3RydWN0IHNnX3RhYmxl
-ICpzZ3QpOwotdm9pZCAqZXh5bm9zX2RybV9nZW1fcHJpbWVfdm1hcChzdHJ1Y3QgZHJtX2dlbV9v
-YmplY3QgKm9iaik7Ci12b2lkIGV4eW5vc19kcm1fZ2VtX3ByaW1lX3Z1bm1hcChzdHJ1Y3QgZHJt
-X2dlbV9vYmplY3QgKm9iaiwgdm9pZCAqdmFkZHIpOwogaW50IGV4eW5vc19kcm1fZ2VtX3ByaW1l
-X21tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosCiAJCQkgICAgICBzdHJ1Y3Qgdm1fYXJl
-YV9zdHJ1Y3QgKnZtYSk7CiAKLS0gCjIuMjkuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+Kernel DRM clients now store their framebuffer address in an instance
+of struct dma_buf_map. Depending on the buffer's location, the address
+refers to system or I/O memory.
+
+Callers of drm_client_buffer_vmap() receive a copy of the value in
+the call's supplied arguments. It can be accessed and modified with
+dma_buf_map interfaces.
+
+v6:
+	* don't call page_to_phys() on framebuffers in I/O memory;
+	  warn instead (Daniel)
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Tested-by: Sam Ravnborg <sam@ravnborg.org>
+---
+ drivers/gpu/drm/drm_client.c    | 34 +++++++++++++++++++--------------
+ drivers/gpu/drm/drm_fb_helper.c | 32 ++++++++++++++++++++-----------
+ include/drm/drm_client.h        |  7 ++++---
+ 3 files changed, 45 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index ac0082bed966..fe573acf1067 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -235,7 +235,7 @@ static void drm_client_buffer_delete(struct drm_client_buffer *buffer)
+ {
+ 	struct drm_device *dev = buffer->client->dev;
+ 
+-	drm_gem_vunmap(buffer->gem, buffer->vaddr);
++	drm_gem_vunmap(buffer->gem, &buffer->map);
+ 
+ 	if (buffer->gem)
+ 		drm_gem_object_put(buffer->gem);
+@@ -291,25 +291,31 @@ drm_client_buffer_create(struct drm_client_dev *client, u32 width, u32 height, u
+ /**
+  * drm_client_buffer_vmap - Map DRM client buffer into address space
+  * @buffer: DRM client buffer
++ * @map_copy: Returns the mapped memory's address
+  *
+  * This function maps a client buffer into kernel address space. If the
+- * buffer is already mapped, it returns the mapping's address.
++ * buffer is already mapped, it returns the existing mapping's address.
+  *
+  * Client buffer mappings are not ref'counted. Each call to
+  * drm_client_buffer_vmap() should be followed by a call to
+  * drm_client_buffer_vunmap(); or the client buffer should be mapped
+  * throughout its lifetime.
+  *
++ * The returned address is a copy of the internal value. In contrast to
++ * other vmap interfaces, you don't need it for the client's vunmap
++ * function. So you can modify it at will during blit and draw operations.
++ *
+  * Returns:
+- *	The mapped memory's address
++ *	0 on success, or a negative errno code otherwise.
+  */
+-void *drm_client_buffer_vmap(struct drm_client_buffer *buffer)
++int
++drm_client_buffer_vmap(struct drm_client_buffer *buffer, struct dma_buf_map *map_copy)
+ {
+-	struct dma_buf_map map;
++	struct dma_buf_map *map = &buffer->map;
+ 	int ret;
+ 
+-	if (buffer->vaddr)
+-		return buffer->vaddr;
++	if (dma_buf_map_is_set(map))
++		goto out;
+ 
+ 	/*
+ 	 * FIXME: The dependency on GEM here isn't required, we could
+@@ -319,13 +325,14 @@ void *drm_client_buffer_vmap(struct drm_client_buffer *buffer)
+ 	 * fd_install step out of the driver backend hooks, to make that
+ 	 * final step optional for internal users.
+ 	 */
+-	ret = drm_gem_vmap(buffer->gem, &map);
++	ret = drm_gem_vmap(buffer->gem, map);
+ 	if (ret)
+-		return ERR_PTR(ret);
++		return ret;
+ 
+-	buffer->vaddr = map.vaddr;
++out:
++	*map_copy = *map;
+ 
+-	return map.vaddr;
++	return 0;
+ }
+ EXPORT_SYMBOL(drm_client_buffer_vmap);
+ 
+@@ -339,10 +346,9 @@ EXPORT_SYMBOL(drm_client_buffer_vmap);
+  */
+ void drm_client_buffer_vunmap(struct drm_client_buffer *buffer)
+ {
+-	struct dma_buf_map map = DMA_BUF_MAP_INIT_VADDR(buffer->vaddr);
++	struct dma_buf_map *map = &buffer->map;
+ 
+-	drm_gem_vunmap(buffer->gem, &map);
+-	buffer->vaddr = NULL;
++	drm_gem_vunmap(buffer->gem, map);
+ }
+ EXPORT_SYMBOL(drm_client_buffer_vunmap);
+ 
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 92e0db30fdf7..a0d88130fedb 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -378,7 +378,7 @@ static void drm_fb_helper_dirty_blit_real(struct drm_fb_helper *fb_helper,
+ 	unsigned int cpp = fb->format->cpp[0];
+ 	size_t offset = clip->y1 * fb->pitches[0] + clip->x1 * cpp;
+ 	void *src = fb_helper->fbdev->screen_buffer + offset;
+-	void *dst = fb_helper->buffer->vaddr + offset;
++	void *dst = fb_helper->buffer->map.vaddr + offset;
+ 	size_t len = (clip->x2 - clip->x1) * cpp;
+ 	unsigned int y;
+ 
+@@ -400,7 +400,8 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
+ 	struct drm_clip_rect *clip = &helper->dirty_clip;
+ 	struct drm_clip_rect clip_copy;
+ 	unsigned long flags;
+-	void *vaddr;
++	struct dma_buf_map map;
++	int ret;
+ 
+ 	spin_lock_irqsave(&helper->dirty_lock, flags);
+ 	clip_copy = *clip;
+@@ -413,8 +414,8 @@ static void drm_fb_helper_dirty_work(struct work_struct *work)
+ 
+ 		/* Generic fbdev uses a shadow buffer */
+ 		if (helper->buffer) {
+-			vaddr = drm_client_buffer_vmap(helper->buffer);
+-			if (IS_ERR(vaddr))
++			ret = drm_client_buffer_vmap(helper->buffer, &map);
++			if (ret)
+ 				return;
+ 			drm_fb_helper_dirty_blit_real(helper, &clip_copy);
+ 		}
+@@ -2060,7 +2061,8 @@ static int drm_fb_helper_generic_probe(struct drm_fb_helper *fb_helper,
+ 	struct drm_framebuffer *fb;
+ 	struct fb_info *fbi;
+ 	u32 format;
+-	void *vaddr;
++	struct dma_buf_map map;
++	int ret;
+ 
+ 	drm_dbg_kms(dev, "surface width(%d), height(%d) and bpp(%d)\n",
+ 		    sizes->surface_width, sizes->surface_height,
+@@ -2096,14 +2098,22 @@ static int drm_fb_helper_generic_probe(struct drm_fb_helper *fb_helper,
+ 		fb_deferred_io_init(fbi);
+ 	} else {
+ 		/* buffer is mapped for HW framebuffer */
+-		vaddr = drm_client_buffer_vmap(fb_helper->buffer);
+-		if (IS_ERR(vaddr))
+-			return PTR_ERR(vaddr);
++		ret = drm_client_buffer_vmap(fb_helper->buffer, &map);
++		if (ret)
++			return ret;
++		if (map.is_iomem)
++			fbi->screen_base = map.vaddr_iomem;
++		else
++			fbi->screen_buffer = map.vaddr;
+ 
+-		fbi->screen_buffer = vaddr;
+-		/* Shamelessly leak the physical address to user-space */
++		/*
++		 * Shamelessly leak the physical address to user-space. As
++		 * page_to_phys() is undefined for I/O memory, warn in this
++		 * case.
++		 */
+ #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
+-		if (drm_leak_fbdev_smem && fbi->fix.smem_start == 0)
++		if (drm_leak_fbdev_smem && fbi->fix.smem_start == 0 &&
++		    !drm_WARN_ON_ONCE(dev, map.is_iomem))
+ 			fbi->fix.smem_start =
+ 				page_to_phys(virt_to_page(fbi->screen_buffer));
+ #endif
+diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
+index 7aaea665bfc2..f07f2fb02e75 100644
+--- a/include/drm/drm_client.h
++++ b/include/drm/drm_client.h
+@@ -3,6 +3,7 @@
+ #ifndef _DRM_CLIENT_H_
+ #define _DRM_CLIENT_H_
+ 
++#include <linux/dma-buf-map.h>
+ #include <linux/lockdep.h>
+ #include <linux/mutex.h>
+ #include <linux/types.h>
+@@ -141,9 +142,9 @@ struct drm_client_buffer {
+ 	struct drm_gem_object *gem;
+ 
+ 	/**
+-	 * @vaddr: Virtual address for the buffer
++	 * @map: Virtual address for the buffer
+ 	 */
+-	void *vaddr;
++	struct dma_buf_map map;
+ 
+ 	/**
+ 	 * @fb: DRM framebuffer
+@@ -155,7 +156,7 @@ struct drm_client_buffer *
+ drm_client_framebuffer_create(struct drm_client_dev *client, u32 width, u32 height, u32 format);
+ void drm_client_framebuffer_delete(struct drm_client_buffer *buffer);
+ int drm_client_framebuffer_flush(struct drm_client_buffer *buffer, struct drm_rect *rect);
+-void *drm_client_buffer_vmap(struct drm_client_buffer *buffer);
++int drm_client_buffer_vmap(struct drm_client_buffer *buffer, struct dma_buf_map *map);
+ void drm_client_buffer_vunmap(struct drm_client_buffer *buffer);
+ 
+ int drm_client_modeset_create(struct drm_client_dev *client);
+-- 
+2.29.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
