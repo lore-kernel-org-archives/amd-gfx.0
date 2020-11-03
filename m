@@ -2,99 +2,67 @@ Return-Path: <SRS0=xcSd=EJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 123CCC00A89
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 03:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22352C388F2
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 05:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91025207BB
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 03:11:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ABCBC2227F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 05:39:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="eZa3o+7y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91025207BB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n2AklAvw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABCBC2227F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 258F36E59B;
-	Tue,  3 Nov 2020 03:11:20 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C79B6E59B
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 03:11:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lWLk9u1xxbWEJX+hLQclrLYEsHaingtWXhgd9AC0r8qOR+06t4Xmu0dQHJ3HF7vVYrtgCPvzfHITWvb7uY+5MWJAov70Ywu4rrsIZ0N3+oSNW9iuYG+FITKuAe0HK8MD8D4BJVB3apx0QyJ6NgttCDqQKVBzcYqz5hfugo7uh4oG3mDNhOQz80zDKCZQd/P+an1eVU19ZXBH/vvd5ImGhGqmFGyg6N22ZFbm6NQO3cnDgbqopFo4cJ3mR5JJfc7u0Tj1xrCM0pUkdFSB3pch+Y6hNXwr9EuDEFSaM2Mc5M5BXzCcueOioD/eAZBAPnVXrc8zJrw/fatYkcbNIbZIug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1oL5U1QcHmQFLTY4bdfoKRKn/fSpwDS0tzxlQxV5UKE=;
- b=Daik/I+8tuYqhsJpw8wZchjcilUBrPRJB93gPimB/Z9lalWzlc+PooWqfcShMgRda1klVMMjlqnE5CidtlRrrZmMfdYbnQSTJJNNevb5heXQ1UuDosRinNCGWqJ0gvFgGV5COfxn87zwf127+qCXjAO9SKrr1lwNQA3h8hL8eO5BcfL6jpSC4IhDcEzz4Zmf/FS4fuwMdT4wGXSk52lrn+6G6okE13jnzj7/oiJVzYPgxfi5ao4B4UKJDCNsp1wjmprmPrE0dErq/68tmiaNSSXkroUsGXU3UVxtTFhcKF6j4GA8LRV8teM/sGrqDeOvxFIIsHKiwHKlLleYFlpWFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1oL5U1QcHmQFLTY4bdfoKRKn/fSpwDS0tzxlQxV5UKE=;
- b=eZa3o+7ymtRkRsF5BJ0TAvyk4SC386MvRiUJRGYu5G4H4dHJxj50O3NuWZj8vkpiQthh5xA0Ti63QE0pNaU4ZrK4NSM8FHsobIr++gnOHxITKKVSLdmluAUPxfmJlxkiEWePIBQJQaaZD7hPovgtCxDZEY0fjLTPg+9bPXZuXnY=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN6PR12MB2672.namprd12.prod.outlook.com (2603:10b6:805:6f::25)
- by SN1PR12MB2525.namprd12.prod.outlook.com (2603:10b6:802:29::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Tue, 3 Nov
- 2020 03:11:17 +0000
-Received: from SN6PR12MB2672.namprd12.prod.outlook.com
- ([fe80::95:a9c7:37dc:d070]) by SN6PR12MB2672.namprd12.prod.outlook.com
- ([fe80::95:a9c7:37dc:d070%5]) with mapi id 15.20.3499.030; Tue, 3 Nov 2020
- 03:11:16 +0000
-From: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/amdgpu: Enable arcturus devices to access the method
- kgd_gfx_v9_get_cu_occupancy that is already defined
-Date: Mon,  2 Nov 2020 21:10:50 -0600
-Message-Id: <20201103031050.22474-1-Ramesh.Errabolu@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.77.1]
-X-ClientProxiedBy: DM5PR12CA0009.namprd12.prod.outlook.com (2603:10b6:4:1::19)
- To SN6PR12MB2672.namprd12.prod.outlook.com
- (2603:10b6:805:6f::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA9889F07;
+	Tue,  3 Nov 2020 05:39:42 +0000 (UTC)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9D589F07
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 05:39:41 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id a9so17047143wrg.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2020 21:39:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6C1TddxGZ0d1C85NySMzJA5NrgJ86kaMDvlk9LRzkyE=;
+ b=n2AklAvwP4/fcdo+i/2fc9mZ6k8H5UKcX7DnjoynfxwW2cGSAiXmmmv6QRVRqMm3GT
+ Qs4H+7sA+/utS7+pg3ScIu8hjO7RJdSpK6pOHrk32QdTt13Iy00a82UWD2iSmlvdVF5d
+ mVP7mPciRHJmHaWX8zErMZexWJF6aAcK/5vvmjGCj2kE1TzLTDOozUos0fJHuvurT7i1
+ /HA+XLm91nJ5I7CADFUOaiGcQJ7wSSb2upTmZQKcs4bU3wfvA8NdSS0GBO/GbMxGWptQ
+ tN10B55HLmapm2QvRBMaDxWAa2uHDRV4kXgPTXk6lPTAM958Je4nwgSuUsNJ85rtjTUC
+ t3sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6C1TddxGZ0d1C85NySMzJA5NrgJ86kaMDvlk9LRzkyE=;
+ b=UiW5XRtFim1OF28XG6q/ZQwT0p0iJ1sfs8Ey+qoXRtPAYATAvQ9AeNHk8BBW9c1fg0
+ E820eohzfJoxrjsp+CmjtuSH7Io7oo7ubPIgiIISuNRr+Znkcsk8mDrwJbafKDZDkrM9
+ 2lgJAuZGDcoSo9sOBJpfEA8moKZOuDbz6EyR7gfFiUdfHm2QTKTTOl05JGBQPGWMJAGS
+ zAffBd90L3FdGty3ki/Da/jIhFLFJjxa2hN6WPQL/kxEqGMO4M121zjKHaiIqkP6iyfJ
+ GNybHzhze0ejdvM7FJTE5Du169xxNzgrN+S7JN3pMib8LV0q7AogeDhqSMRxbG5318ZI
+ avTg==
+X-Gm-Message-State: AOAM531RSG8kr7YvyaLTFQYJMD90LXuVWtCtwZ/Ek40XMMyYxyopGZTR
+ mVbisYLa+xcM4ZrHVNwihj4Wekg5DB0FNWQBGgw=
+X-Google-Smtp-Source: ABdhPJxl2fyP6H4Ckfcblm4W3ysXznnjOu273I6HMBCs7HZg2+3bhOixkyuBsxDq0UlHPwnyP0E32xGegpqQeZr/ekM=
+X-Received: by 2002:a5d:6287:: with SMTP id k7mr23777512wru.402.1604381980020; 
+ Mon, 02 Nov 2020 21:39:40 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from RErrabolDevMach.amd.com (165.204.77.1) by
- DM5PR12CA0009.namprd12.prod.outlook.com (2603:10b6:4:1::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18 via Frontend Transport; Tue, 3 Nov 2020 03:11:16 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: eec25236-c4a8-4af7-023a-08d87fa620f0
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2525:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2525EAD0267D4356145A4E1FE3110@SN1PR12MB2525.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0DS90cV0xf+OQcVIqIhUDKWakZuruJGYWg6bR72y1Q3FZ0FeMszLqp2lfoayj2a8nUi4sXgAgCc34GAscmGqL6JOkBnIZNLhB+aPcHwBsCBPJeYTo6RiGnPZNzEjmStMJpzVtUC7FvaixNyN1EbSyf9yt06/91eW3hexeCsUuyIqFLFOHiXFoei4P5I1aU67TQZFWI4mki2Pe9IqD3qJLO4hy7Dtt0F9eGP657ZY2Js9V9lOMCL4+P+cIo1BFW9aiUkeWvS+ZxfSXTEsHDELKyq9muHimL7w4lYi0g9mxOTdisp9Un/Zyye5yQuT7cHeO/wzoj99YU2JBS9iZgf4CA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN6PR12MB2672.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(366004)(396003)(346002)(136003)(39860400002)(26005)(6666004)(6486002)(2906002)(478600001)(36756003)(16526019)(5660300002)(186003)(52116002)(6916009)(7696005)(86362001)(66476007)(66946007)(8676002)(8936002)(66556008)(83380400001)(4326008)(956004)(1076003)(316002)(2616005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 19U84mQR3fMzmempCx4fsJKWQsQGaEkmTLeWOmDLocxrW++5dU4N69mZYpqXduJsfcOWs9oCjrTvKyGK0tXk/h9y+NSh67ByHsxivKU7f9r9X93aG5HSvmcO7Rliwl5kODmAAzY9iYLIWez58348oH4IXmXAMiyxudr3sOQndvJ0x5Cj9iNKwzO4mqCyehiMqDxrIbctvEOJBnynUue3D9Qp5o1VuJ3oE1gWRBhYPObIHv9SEdx80p+E6s8/ZvKYX3IxzEIpQsGvpUcQtt9hSuHxHto3q/bn6RWpVdp+kX0Id5dsJX9QWUS6p0NsJbiq65Hmr9eziawOkZvQjLD7ErtQkEP+hREFUd/h9+bT+1AG1zWRM64PIRKXMKj0g81Sc6L3xazybUPOG0wNkKVbB7MD+AbS4XN8APsmnMxb89qHlguaQrLqEUI63gyMHplp7/sNpZDTU/Q4KIuJ9CqBVs0YwqUqKbKbVRi6KuQCCzc0T0ox9rfpas8czavCrGkWVPvlC0vNkUs3SAdq2/EV3SUIXqtZITEMGpMbaG2uEAOmT6AYzaxEY3Qc+garxptwrYZROpdKVGvZDHF+Iy6W6uBOatVGQz/L60SvPkmWMeWds4ZCgVCTCCNQBH33JR/5u/hTeUv9kYu4zFPMK0MQbQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eec25236-c4a8-4af7-023a-08d87fa620f0
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2672.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2020 03:11:16.8353 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uOQFHXhI5AD7mNnCVP8jqVVmwN1DDFRgkBawAjYYiTZbNkukJPsFTyvMLAg9Ojk2ZQlKm42VhkNgGbwOBW7USg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2525
+References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
+ <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
+ <20201103053244.khibmr66p7lhv7ge@ast-mbp.dhcp.thefacebook.com>
+In-Reply-To: <20201103053244.khibmr66p7lhv7ge@ast-mbp.dhcp.thefacebook.com>
+From: Kenny Ho <y2kenny@gmail.com>
+Date: Tue, 3 Nov 2020 00:39:28 -0500
+Message-ID: <CAOWid-eQSPru0nm8+Xo3r6C0pJGq+5r8mzM8BL2dgNn2c9mt2Q@mail.gmail.com>
+Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,62 +74,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
+Cc: Song Liu <songliubraving@fb.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Kenny Ho <Kenny.Ho@amd.com>, cgroups@vger.kernel.org,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-fsdevel@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, netdev@vger.kernel.org,
+ KP Singh <kpsingh@chromium.org>, Yonghong Song <yhs@fb.com>,
+ bpf@vger.kernel.org, Andrii Nakryiko <andriin@fb.com>,
+ Martin KaFai Lau <kafai@fb.com>, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Allow user to know number of compute units (CU) that are in use at any
-given moment.
+Thanks for the reply.  Cgroup awareness is desired because the intent
+is to use this for resource management as well (potentially along with
+other cgroup controlled resources.)  I will dig into bpf_lsm and learn
+more about it.
 
-[How]
-Remove the keyword static for the method kgd_gfx_v9_get_cu_occupancy
+Regards,
+Kenny
 
-Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h   | 2 ++
- 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 1afa8f122e7d..604757a1e440 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -304,4 +304,5 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
- 				kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base =
- 				kgd_gfx_v9_set_vm_context_page_table_base,
-+	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index e0d5110701bd..b75bf0bb05ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -799,7 +799,7 @@ static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
-  *
-  *  Reading registers referenced above involves programming GRBM appropriately
-  */
--static void kgd_gfx_v9_get_cu_occupancy(struct kgd_dev *kgd, int pasid,
-+void kgd_gfx_v9_get_cu_occupancy(struct kgd_dev *kgd, int pasid,
- 		int *pasid_wave_cnt, int *max_waves_per_cu)
- {
- 	int qidx;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-index f098e88d3a0d..de9eca55b0ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-@@ -63,3 +63,5 @@ bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct kgd_dev *kgd,
- 
- void kgd_gfx_v9_set_vm_context_page_table_base(struct kgd_dev *kgd,
- 			uint32_t vmid, uint64_t page_table_base);
-+void kgd_gfx_v9_get_cu_occupancy(struct kgd_dev *kgd, int pasid,
-+		int *pasid_wave_cnt, int *max_waves_per_cu);
--- 
-2.17.1
-
+On Tue, Nov 3, 2020 at 12:32 AM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
+>
+> On Mon, Nov 02, 2020 at 02:23:02PM -0500, Kenny Ho wrote:
+> > Adding a few more emails from get_maintainer.pl and bumping this
+> > thread since there hasn't been any comments so far.  Is this too
+> > crazy?  Am I missing something fundamental?
+>
+> sorry for delay. Missed it earlier. Feel free to ping the mailing list
+> sooner next time.
+>
+> > On Wed, Oct 7, 2020 at 11:24 AM Kenny Ho <Kenny.Ho@amd.com> wrote:
+> > >
+> > > This is a skeleton implementation to invite comments and generate
+> > > discussion around the idea of introducing a bpf-cgroup program type to
+> > > control ioctl access.  This is modelled after
+> > > BPF_PROG_TYPE_CGROUP_DEVICE.  The premise is to allow system admins to
+> > > write bpf programs to block some ioctl access, potentially in conjunction
+> > > with data collected by other bpf programs stored in some bpf maps and
+> > > with bpf_spin_lock.
+> > >
+> > > For example, a bpf program has been accumulating resource usaging
+> > > statistic and a second bpf program of BPF_PROG_TYPE_CGROUP_IOCTL would
+> > > block access to previously mentioned resource via ioctl when the stats
+> > > stored in a bpf map reaches certain threshold.
+> > >
+> > > Like BPF_PROG_TYPE_CGROUP_DEVICE, the default is permissive (i.e.,
+> > > ioctls are not blocked if no bpf program is present for the cgroup.) to
+> > > maintain current interface behaviour when this functionality is unused.
+> > >
+> > > Performance impact to ioctl calls is minimal as bpf's in-kernel verifier
+> > > ensure attached bpf programs cannot crash and always terminate quickly.
+> > >
+> > > TODOs:
+> > > - correct usage of the verifier
+> > > - toolings
+> > > - samples
+> > > - device driver may provide helper functions that take
+> > > bpf_cgroup_ioctl_ctx and return something more useful for specific
+> > > device
+> > >
+> > > Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
+> ...
+> > > @@ -45,6 +46,10 @@ long vfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+> > >         if (!filp->f_op->unlocked_ioctl)
+> > >                 goto out;
+> > >
+> > > +       error = BPF_CGROUP_RUN_PROG_IOCTL(filp, cmd, arg);
+> > > +       if (error)
+> > > +               goto out;
+> > > +
+>
+> That's a bit problematic, since we have bpf_lsm now.
+> Could you use security_file_ioctl hook and do the same filtering there?
+> It's not cgroup based though. Is it a concern?
+> If cgroup scoping is really necessary then it's probably better
+> to add it to bpf_lsm. Then all hooks will become cgroup aware.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
