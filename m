@@ -2,101 +2,97 @@ Return-Path: <SRS0=xcSd=EJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9658C2D0A3
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:20:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A680C2D0A3
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 233A622264
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:20:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 007D72236F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 14:30:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uz5zFCf2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 233A622264
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="sNssLxjJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 007D72236F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5AE76ECB3;
-	Tue,  3 Nov 2020 14:20:17 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9D66ECB3
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 14:20:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 759966ECB3;
+	Tue,  3 Nov 2020 14:30:25 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760081.outbound.protection.outlook.com [40.107.76.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 532976ECB3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 14:30:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QjqPhIlIPeUT4s9cuF3W8LnPA3skkLfSyw82yBvZAjoQEuHhyKxUVjijK4veUKVnqEHzDkTrTuFnNbLAVyAmsdVjiiXzlip/odV3e8/Wgenfctxt5NSFw0P2syMs2U/KhuSikcgsddeBkgqB4pBWMycGuc+M2abGIjTRfE9Mi48cUdmP3Y+KzK3ACqNvaGdn3pqt6aubKwLh/+NrXr1AaUB9dkqhLIVjM/It6xFKYuTBgDRziG7i9o0tUOD7Yjs7Ux6Ls/0vFaLPhniUhJA77/r9tRrh3LCGL34bcPo4dqKqcuK4qZ1xuyQSSAxoibUhd/izZw7Tih9Ik6PCQoK4Lg==
+ b=iPQrMQ2OA1DMQ9jdv5Ij7T+Cxoi1PGGifHGj+H6yW5Ce59zCSjpYtYjtC2cmRxKHhc7234HcmOCbqmcwyOgO2pc8wB1dJrh/G5Md1Q5iC08pA6g/w5fxp1tFmIrAa6cpte1EwXDd4gVcLO7SBdugltLWk06UCa5E+teK1kTe07TanEmvRfzsu88W60XyFaLWMUDMZXcEexveP3wzGYLWh+Br8BpbPcrPHTe40NNImcgn/H+BAFeBNoVsjpku/DjakX7Iha8nMbO+B/PQGQu7/hiVSaeD2Eo7urfeCsZon+QXXRJMDQ2Qcm62oPaSYUHU8hO4mDXbVsjJwZIrGWPIew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FHFKqO++XF9v0qMV7+5The0rJav5jpXxThvwc7xDpZY=;
- b=db/ExROsnZOQBlsfwPdxSZhAyJRxoVzMEMXvv1SAiGUiuaLHzWSd5Nq6EAW4HbPZOkIuvvs7bvjWnIXbHKL4ssCiJUozzuUYXvTEk9JK9FUZrnev5dbpy3xO785gA5WR/7uEnkNpiVSBxHQWCpozIaD0AVjFJTVj492bstKx2SeV99KTm4tm4w5QhSg6+2whpYAS4IT58HbBZPU+TykY2Haf3eSZ2kHXOUZh5MaL92rpO4Ox6hbt8Sa38oI+WDg21B4BJIDpRTV8oqA9vZAJ+aee2livwe52ntpX12/hEZPE7ulrfDQ6y5OEqDB43v7g8LjcB9kUafKoBzvLC2fJrg==
+ bh=nBJhGniosGuuX0zIAiiHuMIkC99oW9YjWpy/Noi2iaQ=;
+ b=ogVyeeAg6vh355LM8jIIIa1iuOnfvgUXKmKNs+MNaz1UWjGiS47JiYBnR4F1wKcfzh6kxZlnKPTf4gOmjAtyvGLMokHhHlnxluTC5gRljExMQb/lDEWwVg28I4nTjaO8uH6aiQocWjZVuSQwhn4+95voUVxfmx1MenA26wSMUWVTr3aRdCKtw2d72qpmfDFWOb/0oQk6NeOTCBkGUmsUDECMkJhw3NpNcgdmzvkF+2DfKVjrlVxUiGaRO4GtD5dTZydCnZdeWPjXDGa8pVqEubXIid6/FxcspEHCVge2fn48NxC9XxjrAucEWfnjWB8KphBiJucdsQtRMizCkrkdZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FHFKqO++XF9v0qMV7+5The0rJav5jpXxThvwc7xDpZY=;
- b=uz5zFCf2qPOWgaywVpJJ7zPXOjCjcmTQKzUPdAYQtMVg5tmyv9z8A4NNEeYNnlDJmWelKMyvwILP0FHbiAqv5daWuodPIIORGbJ3YbxuGgEwUL+Z3NDDtBiE3rNuYczIipmJ+//y8KEpdpWuvwtD7CNP8V1fcl0Z0Jrx/mkGR0U=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MW2PR12MB2537.namprd12.prod.outlook.com (2603:10b6:907:6::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.25; Tue, 3 Nov
- 2020 14:20:14 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::e8c1:7ef6:c905:247d]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::e8c1:7ef6:c905:247d%8]) with mapi id 15.20.3499.032; Tue, 3 Nov 2020
- 14:20:14 +0000
-Subject: Re: [PATCH] drm/amdgpu/display: FP fixes for DCN3.x
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20201102222800.334556-1-alexander.deucher@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-Message-ID: <7ffba769-52ca-0eeb-df1c-c6800b3b7d45@amd.com>
-Date: Tue, 3 Nov 2020 09:20:11 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-In-Reply-To: <20201102222800.334556-1-alexander.deucher@amd.com>
+ bh=nBJhGniosGuuX0zIAiiHuMIkC99oW9YjWpy/Noi2iaQ=;
+ b=sNssLxjJOWg8onTa2wYbGdwqBomVr7o3yfvEyRr+g13BIL3XXMmdBZvA3W4Dm8pziu1L4jezdeQmySvaBhyk4tOzuZLf/1eK0iMGJTQBomTVz5PTZUOQ/uK+cXZVm9nCTxhlXWzZcyVyN5SJaQBKo17dYoD2j99IUTIwTIthgek=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4272.namprd12.prod.outlook.com (2603:10b6:208:1de::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.19; Tue, 3 Nov
+ 2020 14:30:21 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::99dd:ff77:1ffd:d96a]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::99dd:ff77:1ffd:d96a%3]) with mapi id 15.20.3499.030; Tue, 3 Nov 2020
+ 14:30:21 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: update module paramter doc of amdgpu_dpm
+Thread-Topic: [PATCH] drm/amdgpu: update module paramter doc of amdgpu_dpm
+Thread-Index: AQHWsaXY9YdpYfzkL0CLdy8bgfdFxqm2eFRW
+Date: Tue, 3 Nov 2020 14:30:21 +0000
+Message-ID: <MN2PR12MB4488A5F5CB401C946AFECBF0F7110@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20201103055412.19169-1-kevin1.wang@amd.com>
+In-Reply-To: <20201103055412.19169-1-kevin1.wang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [198.200.67.155]
-X-ClientProxiedBy: YTBPR01CA0034.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::47) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.193] (198.200.67.155) by
- YTBPR01CA0034.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::47) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.19 via Frontend Transport; Tue, 3 Nov 2020 14:20:13 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 30fdd0e8-113b-4990-2442-08d88003949c
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2537:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2537C7F52118CBF169AFD9BB8C110@MW2PR12MB2537.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: niW4P6ki5bjAe7TPBbG9uFIZyOCcuZg9Bwa70Lp/GbGX951uqdbCWFZNUZKUHx5feY3QiBPtH9y6mPsqcfFN0QNA0Z6MCc43DIBPS2En1sYCF0xDeoL3rwhAtLnP0yizHLiigebRLtWolv7bNNJ1pqMxiay2zZIEo8ikCj8cneLyARKoSLnD0K/1NrUzWCki+wx1WM5FGTlclBtxupkIN3cNS1sTFZeH1QuGBnZksL0eFre7zQBJqgBgFu5etjoyQY29rSnAOX9EoNxk0dOCNhSa89qCxprUH2q7hVse0Y3Fi6N//y9yM+RBMc5rmXK+2avxoF3+ieElz3fnwtdFfK/s/837b+DuE2Fq8IUhSjgUCxdXALgeK8FYRgRdQ1h1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(396003)(366004)(39860400002)(136003)(346002)(44832011)(86362001)(5660300002)(53546011)(8936002)(4326008)(31686004)(52116002)(6486002)(8676002)(26005)(186003)(16576012)(2906002)(316002)(478600001)(2616005)(31696002)(66476007)(16526019)(66946007)(66556008)(956004)(83380400001)(36756003)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [71.219.66.138]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 68c4036e-33c9-463e-37cf-08d88004fea8
+x-ms-traffictypediagnostic: MN2PR12MB4272:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB427234D2C6943D45CDA2D192F7110@MN2PR12MB4272.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1201;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FXqzkE+oZwcO7nBzCWO1kdayjOFF/vsvlcZ0OO90ay3pvtBqqYZtT6IyTtGhnP8PGSHRj9ATs1/Z6dtSUEsTFMx/BZCahh1+KfFKZryksTAEVXvNrMT04oyxUFT0xy3oGB+vxS8v7ri2pdgMupH8Dn/gclKvGlkZVIs3ldvd9HrH/bD2VT5R/FqD1FtsfdpswUI3PDpG3gsh3Kxb3zHqin5fdiaZE9NXzW+A+PA209vC0N61kUujDQVT5CKUMGZaJReWJtdLDDLUn4QZfa1+bFet+H1W79uV22Q3vD7bvTrlVxmge4xcj0cXQVwOeNA/N9D4REQH6Rna6eLMmxxiX9hh3kV50i/HpdXtRCxmcwI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(366004)(396003)(376002)(346002)(55016002)(15650500001)(166002)(83380400001)(33656002)(45080400002)(4326008)(8936002)(86362001)(26005)(71200400001)(19627405001)(186003)(5660300002)(6506007)(8676002)(53546011)(2906002)(64756008)(966005)(66556008)(110136005)(7696005)(66946007)(76116006)(316002)(52536014)(478600001)(9686003)(66446008)(66476007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: jM6AUijSPHyZiQA6EUMUEleHOubHj3/89AFDqBzn7NPdaQYLcPmUNT6E/Tel5zb5MWEIhAZsUb2sOvjEd2Q3GMq0A3CyMc5mwmwEDNJhHIOm8WuiDNRRw6sHELKO4baS51XJFpiqw5rssSMgnuWFCk3jnLtMINasB7X6s8jkzi4JNL5jlQhfe3FUPy2KVjjsL0qJBD8Rw3V8ENli2KByyqTA/0h3nQqJsGuJgfUC6Vxe4TiFQKZKuHKkAlAmGsWXhJ72so0j/DyYEt5dXuJ9QXpiuW+mAptW4oy6TWyNFm5KQgK97g4dcLPngVxW101uxtgkoVnmy3QeHro5n6QC83HJbvBCUCI6wBywwSisy0YEnsGsI+sK9yERjTOIImPWh9/m26/Pqge/nLofICu+5+eP7H3rRR1llsOKu4RAdBzeJk+kD2grvJqEg91hyCdM44d7HREZTXm55E1ACzaD4SZRG02wCsN56QN33xj4X7eLAtR6T3fd1nia7YK24S10vQEP7D2YRsLyCyGIo6YKbQfABW0Q+dXOd64h9h6T/E8ErHgMJ9QhDbblfOUc01IujQMfSojgfNUd+F9lJD8VxACLfzSuLryaabjzPMyG/tDXebQY+TSuplnok+BwkB6sIKhqlBsVPuS8rV6BgyaZLA==
+x-ms-exchange-antispam-messagedata: LIcStvTHXxFZTKKjRSYRQP6g1E4wQ84toGpNdOnvEqwy4jwLg84WUD0pyMP5wWxWWwRtTok5KQgraGEJcM75GKwxgSea4ZKKRZqttJq8KriWK3xUFHYKbvPXYe24PfSBk3BflyxP0InyQvz17t0af1QjGFTjio44PBEe7L7IZWOi0aVgZfGQLrxaEHThJhPDYF0SVPZHnY+BaXV4X61imVjVUXlu2mb3shYmVD4yKS+MpyO0EEefH4RBz4wC5BQeMUtYN1qseDGQNtTdyKFPgd7OwRMVJRKlNMhZQg4f5+tvZWYSVRLBQbA2ko+rel15wbzg5CJr1qfN25Gm1LKIh0VyOQNyyfE7WKKhh4UkdgMQWe950SdOq10eFoFe+L05+O2W+nOUUcBI9BDaEhPgAamY3HUQdLfQj4UpVE8ClW0OXMUqYycIxwa2q+O77dQftuDnMqsKH6ZsMQZAaaos0HGV8dNAJ8gKXXAKTIFjBoS8qknyLo6hYdwGwP5NlOFatJC07hDsQ++nQTgwAJhI07aocLFV0JXsbMD0QLwpCfyLHodfl2UEuZYSXfY+W7jB3oONEbjgOvLTdCgylguIBOx8ka/7zMGIOf+dZZIcAunEsyTmGTELjDYGED5djT/Cm6PBnMv04TM+qg/5U9LCoA==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30fdd0e8-113b-4990-2442-08d88003949c
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4379.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2020 14:20:14.1773 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /QX1tgFTVlKj2Ag11RN3RSIRWOjn106rmLLg4Qqx8DmaHvKoEYB5MJG1CUftpP9BproiSkME6L7uTzS5ddeFwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2537
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68c4036e-33c9-463e-37cf-08d88004fea8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2020 14:30:21.2929 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: r5L+C0uCuvya/qzQ1+llmGKAFWI03H5W8Paeb5baGUW+qNh0e7PybqrnUaOs2LlyXzRnIUuiQhACiHC5dlGorg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4272
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,215 +104,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Content-Type: multipart/mixed; boundary="===============0954303679=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-11-02 5:28 p.m., Alex Deucher wrote:
-> Add proper FP_START/END handling and adjust Makefiles per
-> previous asics.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+--===============0954303679==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB4488A5F5CB401C946AFECBF0F7110MN2PR12MB4488namp_"
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+--_000_MN2PR12MB4488A5F5CB401C946AFECBF0F7110MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Harry
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kevin Wa=
+ng <kevin1.wang@amd.com>
+Sent: Tuesday, November 3, 2020 12:54 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Feng, Kenneth <Kenneth.Feng@am=
+d.com>
+Subject: [PATCH] drm/amdgpu: update module paramter doc of amdgpu_dpm
 
-> ---
->   .../gpu/drm/amd/display/dc/clk_mgr/Makefile   | 13 ++++
->   .../drm/amd/display/dc/dcn30/dcn30_resource.c | 71 +++++++++++++++++--
->   drivers/gpu/drm/amd/display/dc/dml/Makefile   |  6 +-
->   3 files changed, 84 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index facc8b970300..9f9137562cab 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -127,6 +127,19 @@ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
->   ###############################################################################
->   CLK_MGR_DCN301 = vg_clk_mgr.o dcn301_smu.o
->   
-> +# prevent build errors regarding soft-float vs hard-float FP ABI tags
-> +# this code is currently unused on ppc64, as it applies to VanGogh APUs only
-> +ifdef CONFIG_PPC64
-> +CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
-> +endif
-> +
-> +# prevent build errors:
-> +# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
-> +# this file is unused on arm64, just like on ppc64
-> +ifdef CONFIG_ARM64
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := -mgeneral-regs-only
-> +endif
-> +
->   AMD_DAL_CLK_MGR_DCN301 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn301/,$(CLK_MGR_DCN301))
->   
->   AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN301)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> index d65496917e93..01ac8b2921c6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
-> @@ -1469,7 +1469,19 @@ int dcn30_populate_dml_pipes_from_context(
->   	return pipe_cnt;
->   }
->   
-> -void dcn30_populate_dml_writeback_from_context(
-> +/*
-> + * This must be noinline to ensure anything that deals with FP registers
-> + * is contained within this call; previously our compiling with hard-float
-> + * would result in fp instructions being emitted outside of the boundaries
-> + * of the DC_FP_START/END macros, which makes sense as the compiler has no
-> + * idea about what is wrapped and what is not
-> + *
-> + * This is largely just a workaround to avoid breakage introduced with 5.6,
-> + * ideally all fp-using code should be moved into its own file, only that
-> + * should be compiled with hard-float, and all code exported from there
-> + * should be strictly wrapped with DC_FP_START/END
-> + */
-> +static noinline void dcn30_populate_dml_writeback_from_context_fp(
->   		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
->   {
->   	int pipe_cnt, i, j;
-> @@ -1558,6 +1570,14 @@ void dcn30_populate_dml_writeback_from_context(
->   
->   }
->   
-> +void dcn30_populate_dml_writeback_from_context(
-> +		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
-> +{
-> +	DC_FP_START();
-> +	dcn30_populate_dml_writeback_from_context_fp(dc, res_ctx, pipes);
-> +	DC_FP_END();
-> +}
-> +
->   unsigned int dcn30_calc_max_scaled_time(
->   		unsigned int time_per_pixel,
->   		enum mmhubbub_wbif_mode mode,
-> @@ -2204,7 +2224,19 @@ static bool dcn30_internal_validate_bw(
->   	return out;
->   }
->   
-> -void dcn30_calculate_wm_and_dlg(
-> +/*
-> + * This must be noinline to ensure anything that deals with FP registers
-> + * is contained within this call; previously our compiling with hard-float
-> + * would result in fp instructions being emitted outside of the boundaries
-> + * of the DC_FP_START/END macros, which makes sense as the compiler has no
-> + * idea about what is wrapped and what is not
-> + *
-> + * This is largely just a workaround to avoid breakage introduced with 5.6,
-> + * ideally all fp-using code should be moved into its own file, only that
-> + * should be compiled with hard-float, and all code exported from there
-> + * should be strictly wrapped with DC_FP_START/END
-> + */
-> +static noinline void dcn30_calculate_wm_and_dlg_fp(
->   		struct dc *dc, struct dc_state *context,
->   		display_e2e_pipe_params_st *pipes,
->   		int pipe_cnt,
-> @@ -2360,7 +2392,18 @@ void dcn30_calculate_wm_and_dlg(
->   				dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
->   }
->   
-> -bool dcn30_validate_bandwidth(struct dc *dc,
-> +void dcn30_calculate_wm_and_dlg(
-> +		struct dc *dc, struct dc_state *context,
-> +		display_e2e_pipe_params_st *pipes,
-> +		int pipe_cnt,
-> +		int vlevel)
-> +{
-> +	DC_FP_START();
-> +	dcn30_calculate_wm_and_dlg_fp(dc, context, pipes, pipe_cnt, vlevel);
-> +	DC_FP_END();
-> +}
-> +
-> +static noinline bool dcn30_validate_bandwidth_fp(struct dc *dc,
->   		struct dc_state *context,
->   		bool fast_validate)
->   {
-> @@ -2411,7 +2454,20 @@ bool dcn30_validate_bandwidth(struct dc *dc,
->   	return out;
->   }
->   
-> -static void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
-> +bool dcn30_validate_bandwidth(struct dc *dc,
-> +		struct dc_state *context,
-> +		bool fast_validate)
-> +{
-> +	bool out;
-> +
-> +	DC_FP_START();
-> +	out = dcn30_validate_bandwidth_fp(dc, context, fast_validate);
-> +	DC_FP_END();
-> +
-> +	return out;
-> +}
-> +
-> +static noinline void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
->                                                          unsigned int *optimal_dcfclk,
->                                                          unsigned int *optimal_fclk)
->   {
-> @@ -2478,8 +2534,10 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
->   
->   		// Calculate optimal dcfclk for each uclk
->   		for (i = 0; i < num_uclk_states; i++) {
-> +			DC_FP_START();
->   			get_optimal_dcfclk_fclk_for_uclk(bw_params->clk_table.entries[i].memclk_mhz * 16,
->   					&optimal_dcfclk_for_uclk[i], NULL);
-> +			DC_FP_END();
->   			if (optimal_dcfclk_for_uclk[i] < bw_params->clk_table.entries[0].dcfclk_mhz) {
->   				optimal_dcfclk_for_uclk[i] = bw_params->clk_table.entries[0].dcfclk_mhz;
->   			}
-> @@ -2583,6 +2641,8 @@ static bool dcn30_resource_construct(
->   	struct irq_service_init_data init_data;
->   	struct ddc_service_init_data ddc_init_data;
->   
-> +	DC_FP_START();
-> +
->   	ctx->dc_bios->regs = &bios_regs;
->   
->   	pool->base.res_cap = &res_cap_dcn3;
-> @@ -2860,10 +2920,13 @@ static bool dcn30_resource_construct(
->   		pool->base.oem_device = NULL;
->   	}
->   
-> +	DC_FP_END();
-> +
->   	return true;
->   
->   create_fail:
->   
-> +	DC_FP_END();
->   	dcn30_resource_destruct(pool);
->   
->   	return false;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 879a930358a5..8866e1348b65 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -64,6 +64,8 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
->   CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
->   CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
->   CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
-> +CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
-> +CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
->   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
->   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
->   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
-> @@ -71,8 +73,8 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflag
->   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags)
->   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags)
->   CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags)
-> -CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
-> -CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_rcflags)
-> +CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_rcflags)
->   endif
->   CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
->   CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
-> 
+the vega20 isn't supported swsmu.
+
+Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 03f4aab1fe99..9d28054b8aae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -279,7 +279,7 @@ module_param_string(lockup_timeout, amdgpu_lockup_timeo=
+ut, sizeof(amdgpu_lockup_
+ /**
+  * DOC: dpm (int)
+  * Override for dynamic power management setting
+- * (0 =3D disable, 1 =3D enable, 2 =3D enable sw smu driver for vega20)
++ * (0 =3D disable, 1 =3D enable)
+  * The default is -1 (auto).
+  */
+ MODULE_PARM_DESC(dpm, "DPM support (1 =3D enable, 0 =3D disable, -1 =3D au=
+to)");
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
+r.deucher%40amd.com%7C4ae8b1a81d21425639d008d87fbcf7a4%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637399796905142189%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
+iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
+a=3DfuXa0uSIEISgNh%2FUxxU3HlEDJDb9E41UGW7EouDVm5k%3D&amp;reserved=3D0
+
+--_000_MN2PR12MB4488A5F5CB401C946AFECBF0F7110MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Kevin Wang &lt;kevin1.wang@am=
+d.com&gt;<br>
+<b>Sent:</b> Tuesday, November 3, 2020 12:54 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; Feng, Kenneth &lt=
+;Kenneth.Feng@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: update module paramter doc of amdgpu_dp=
+m</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">the vega20 isn't supported swsmu.<br>
+<br>
+Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 03f4aab1fe99..9d28054b8aae 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -279,7 +279,7 @@ module_param_string(lockup_timeout, amdgpu_lockup_timeo=
+ut, sizeof(amdgpu_lockup_<br>
+&nbsp;/**<br>
+&nbsp; * DOC: dpm (int)<br>
+&nbsp; * Override for dynamic power management setting<br>
+- * (0 =3D disable, 1 =3D enable, 2 =3D enable sw smu driver for vega20)<br=
+>
++ * (0 =3D disable, 1 =3D enable)<br>
+&nbsp; * The default is -1 (auto).<br>
+&nbsp; */<br>
+&nbsp;MODULE_PARM_DESC(dpm, &quot;DPM support (1 =3D enable, 0 =3D disable,=
+ -1 =3D auto)&quot;);<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
+7C01%7Calexander.deucher%40amd.com%7C4ae8b1a81d21425639d008d87fbcf7a4%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637399796905142189%7CUnknown%7CTWFp=
+bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
+7C1000&amp;amp;sdata=3DfuXa0uSIEISgNh%2FUxxU3HlEDJDb9E41UGW7EouDVm5k%3D&amp=
+;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dht=
+tps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;da=
+ta=3D04%7C01%7Calexander.deucher%40amd.com%7C4ae8b1a81d21425639d008d87fbcf7=
+a4%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637399796905142189%7CUnknow=
+n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI=
+6Mn0%3D%7C1000&amp;amp;sdata=3DfuXa0uSIEISgNh%2FUxxU3HlEDJDb9E41UGW7EouDVm5=
+k%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MN2PR12MB4488A5F5CB401C946AFECBF0F7110MN2PR12MB4488namp_--
+
+--===============0954303679==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0954303679==--
