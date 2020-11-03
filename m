@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 744C3C5517A
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 01:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 654B8C388F2
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 01:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 298372242E
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 01:19:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1B4DA22264
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 01:19:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="w9ayF3aM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 298372242E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="VazkdwKe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B4DA22264
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0E86E7D9;
-	Tue,  3 Nov 2020 01:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E200A6E7DC;
+	Tue,  3 Nov 2020 01:19:15 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECB446E7D1;
- Tue,  3 Nov 2020 01:19:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C046E7DA;
+ Tue,  3 Nov 2020 01:19:14 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CD9E8223EA;
- Tue,  3 Nov 2020 01:19:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 83FCC223EA;
+ Tue,  3 Nov 2020 01:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604366351;
- bh=QIZEqvD2h/I2HvtgB4hTMz3vjJb6nXdCQk+CbZKlPBQ=;
+ s=default; t=1604366354;
+ bh=IAyK6rwbXaedPokaEbAQ1fGa2dVLGXqgJwZU377OoBg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=w9ayF3aMkYh8JXsS0JBMdnaS0ZK+HFVC/+WdNwOhBqRYD+lHYJges+7iglV9QeWKM
- PmeqfgkCQDRTWSfxqZG/+547rCUfSsq0822lvzjgHkkrwdeK7DaUadMBD2TYYDWr6Y
- bsEFb8r6xNg2OKsHMcC+Pl9adUa848VQZAKnuXdo=
+ b=VazkdwKeQSpbRuy7wwfADyG3nxIBuSUeDeQ7eo9fI8ti1U3rTG9fCZQT/3qCqiOKn
+ yVEysyo8ab6Un3ulZ0RYaXlDzP6u5dxTnDmf9U/a0sYn1At2EZCTp1NyYbdDxCHPq+
+ Q9Zt9OTjg6jiX8OpRXWEtk086yvT+OzlGeJ42s6o=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.9 23/35] drm/amd/display: Fixed panic during
- seamless boot.
-Date: Mon,  2 Nov 2020 20:18:28 -0500
-Message-Id: <20201103011840.182814-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.9 25/35] drm/amd/display: adding
+ ddc_gpio_vga_reg_list to ddc reg def'ns
+Date: Mon,  2 Nov 2020 20:18:30 -0500
+Message-Id: <20201103011840.182814-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20201103011840.182814-1-sashal@kernel.org>
 References: <20201103011840.182814-1-sashal@kernel.org>
@@ -62,48 +62,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, David Galiffi <David.Galiffi@amd.com>,
- amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ Martin Leung <martin.leung@amd.com>, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Galiffi <David.Galiffi@amd.com>
+From: Martin Leung <martin.leung@amd.com>
 
-[ Upstream commit 866e09f0110c6e86071954033e3067975946592a ]
+[ Upstream commit a1d2afc5dde29a943d32bf92eb0408c9f19541fc ]
 
-[why]
-get_pixel_clk_frequency_100hz is undefined in clock_source_funcs.
+why:
+oem-related ddc read/write fails without these regs
 
-[how]
-set function pointer: ".get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz"
+how:
+copy from hw_factory_dcn20.c
 
-Signed-off-by: David Galiffi <David.Galiffi@amd.com>
-Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Martin Leung <martin.leung@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 9cc65dc1970f8..49ae5ff12da63 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -1149,7 +1149,8 @@ static uint32_t dcn3_get_pix_clk_dividers(
- static const struct clock_source_funcs dcn3_clk_src_funcs = {
- 	.cs_power_down = dce110_clock_source_power_down,
- 	.program_pix_clk = dcn3_program_pix_clk,
--	.get_pix_clk_dividers = dcn3_get_pix_clk_dividers
-+	.get_pix_clk_dividers = dcn3_get_pix_clk_dividers,
-+	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+index 7e7fb65721073..9d3665f88c523 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+@@ -117,6 +117,12 @@ static const struct ddc_registers ddc_data_regs_dcn[] = {
+ 	ddc_data_regs_dcn2(4),
+ 	ddc_data_regs_dcn2(5),
+ 	ddc_data_regs_dcn2(6),
++	{
++			DDC_GPIO_VGA_REG_LIST(DATA),
++			.ddc_setup = 0,
++			.phy_aux_cntl = 0,
++			.dc_gpio_aux_ctrl_5 = 0
++	}
  };
- #endif
- /*****************************************/
+ 
+ static const struct ddc_registers ddc_clk_regs_dcn[] = {
+@@ -126,6 +132,12 @@ static const struct ddc_registers ddc_clk_regs_dcn[] = {
+ 	ddc_clk_regs_dcn2(4),
+ 	ddc_clk_regs_dcn2(5),
+ 	ddc_clk_regs_dcn2(6),
++	{
++			DDC_GPIO_VGA_REG_LIST(CLK),
++			.ddc_setup = 0,
++			.phy_aux_cntl = 0,
++			.dc_gpio_aux_ctrl_5 = 0
++	}
+ };
+ 
+ static const struct ddc_sh_mask ddc_shift[] = {
 -- 
 2.27.0
 
