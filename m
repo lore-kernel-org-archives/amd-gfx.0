@@ -2,78 +2,71 @@ Return-Path: <SRS0=xcSd=EJ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B6D9C4742C
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:15:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65384C2D0A3
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E15720757
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:15:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 15B0B21534
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2020 21:30:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tqKpwE9c"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E15720757
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZgVDpVkU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15B0B21534
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CCFD6E8F4;
-	Tue,  3 Nov 2020 21:15:38 +0000 (UTC)
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 122756E8F2
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 21:04:35 +0000 (UTC)
-Received: by mail-pf1-x433.google.com with SMTP id z3so9003736pfz.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2020 13:04:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B6D6E904;
+	Tue,  3 Nov 2020 21:30:27 +0000 (UTC)
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABA706E904
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2020 21:30:26 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id e5so5064960qvr.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2020 13:30:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=wrUBzqixMNGges3Fm8LEqTkGr+7Sx/OVd1FP+l0kdS0=;
- b=tqKpwE9c1XvzM26lsALNljg7czgItn9B2SFh1tA3jWE/ITdxfbUKdt+lGHvc4AqZJG
- DZ38w2G0ZCOMhepTm9Eowqe4LBfWPO8ILx0Ol+dgIFIwxdAiNzD1wA/i8yt6fsVNOptw
- SaiYvqBnxP3BX8+Vb8wu9Rwugz6FWLSJfUcENjTtu4V78jIYi59xfrDLTeLYUuG5oxAl
- NTgLN9RaB/G1pfPbVdSsuGof6GiB/WaIyBDaEjrF7Ha1Z98pSiyS5oXgB6h/IXv9HV1w
- sOAJhdJr5OPTpCg0tsq/C68T5BgQKFWAUoPDQTzUaXS7gzIxvEKvR4YiROniyFWZyWC3
- 0Sag==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LEhPiV0HxtfmE7Rg7+bWVtfT1UR0Y5VhNzsbV61zO0I=;
+ b=ZgVDpVkUHdG7e1JZNCDIB+ESEYKQO7CvOHK1Q7s2vXRvDoFhy5xv+w95/y0TR6lvuC
+ cvYyS1v8kWHiffyCZj9AsL/bhe2ElFdXSUc3iBVZeSmauTpneZcWvTKRs0R7eScdQByo
+ 5HjyaR3GVKihLUI9xN5d3CZDn1uJbVTdlzJ2fAFkh6AH7tjxQ9t4LmdCFLV5deSmP1Rh
+ Tc/JVx4Wv4f3+rHbbAF48TDKg+VfcnITfw5VkooBNHiDBMYMfmtekTuBbheF53XLVDlu
+ jC2B+sMSqkQH/bfWVpBmrOLSpMp/U5BnAsawJxDM46LrDfs/QCzZqKtCpsbBSuQeXk3c
+ dltQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=wrUBzqixMNGges3Fm8LEqTkGr+7Sx/OVd1FP+l0kdS0=;
- b=BInqTv1yTpNHfEA9GZIjJPFI4+r51lVIb20fuV4rzsvP9aNlZaxnSeF7WHM17GqL8C
- 4g2K6uexcHjh40/804Fgn6tUdw4lq5uokaZBaCyC1XLRU9qMNiiIlKUWkXHddbqQRqX1
- /nVmlSWPMBCNrMNsdCuKjd4irAD2JqI8Hyhi2bcPVLOeVJAd+/u6uhPYLJG6WgTM7iL3
- TaCLaIPhBNVifyseUcLEyt7qADHUDlKPbKrAEWiYmbdLB0jwVtjIppAnCWKLgaKm8YoB
- aY13Uwysbr1hK9nU1ZYOD3HdgTe681+apv4yd0dRIwx/rhBzW8psEm3pjmEftDntiOga
- xwZA==
-X-Gm-Message-State: AOAM533jBX6IPx/0RI1bum/jTldR6M+TFNxW0/3vVrlfPSgh3zP+mO5F
- nJPedQ6RTtrbyWV5+g+To+k=
-X-Google-Smtp-Source: ABdhPJwKd9ujaje9lKYp2d86AtKj6fAx/PpwqjE7Ypjdq7qZld+7Ol6iwwjneB60m1H6WrfRfHbdnA==
-X-Received: by 2002:a17:90b:f85:: with SMTP id
- ft5mr1161462pjb.86.1604437474559; 
- Tue, 03 Nov 2020 13:04:34 -0800 (PST)
-Received: from ast-mbp.dhcp.thefacebook.com ([2620:10d:c090:400::5:4055])
- by smtp.gmail.com with ESMTPSA id y22sm29035pfr.62.2020.11.03.13.04.29
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LEhPiV0HxtfmE7Rg7+bWVtfT1UR0Y5VhNzsbV61zO0I=;
+ b=dpNSX+Co0j2Mc+9mpF3GCANHUPMfw0Z6WZRr5utzlRC6wLCQ2EzgRsP2xHfnMe8OHl
+ 3dtqw4PfeZZgp4HFy1qZvYXgWUFEw+NXMlnTt67UjI7O7xGUJuq1IKfFN+MO6wxIR2wo
+ 5ZFqWP4d28wIGXusB5FiTtQ+rDUO5fAFqallVnScnlzHPyBJVtz/uJx6vWpTqTznYLHr
+ Z8aCVqWGfQg07w7cav4U42wcTW2/MPZO7BTA87vI5incGrr0ohNCSfn5iAoNK150r4LF
+ A+HpqDj8U1bTOKnvurR8e2m7XyOzIbTwUy+XQy030Az7DTkx7UOfrtiX7Q8m+0xEajdb
+ HbOQ==
+X-Gm-Message-State: AOAM531OKtlYk05Vgps0N3M3/WEHobq4Rw1Lr9vN6WWTBw+qvPMNkiUR
+ ZHCR/U450CB5nnavvRXFeXZROAH6Flk=
+X-Google-Smtp-Source: ABdhPJzpOdmO1x0tkHGdu20vVmYge1IOPi4k4AtgduF0qWSYtnbysA/XEqwD5kOZlbM74wqo4PrYsw==
+X-Received: by 2002:a0c:a8e0:: with SMTP id h32mr28539314qvc.39.1604439025269; 
+ Tue, 03 Nov 2020 13:30:25 -0800 (PST)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id 8sm10217930qkk.90.2020.11.03.13.30.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2020 13:04:33 -0800 (PST)
-Date: Tue, 3 Nov 2020 13:04:18 -0800
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-To: Kenny Ho <y2kenny@gmail.com>
-Subject: Re: [RFC] Add BPF_PROG_TYPE_CGROUP_IOCTL
-Message-ID: <20201103210418.q7hddyl7rvdplike@ast-mbp.dhcp.thefacebook.com>
-References: <20201007152355.2446741-1-Kenny.Ho@amd.com>
- <CAOWid-d=a1Q3R92s7GrzxWhXx7_dc8NQvQg7i7RYTVv3+jHxkQ@mail.gmail.com>
- <20201103053244.khibmr66p7lhv7ge@ast-mbp.dhcp.thefacebook.com>
- <CAOWid-eQSPru0nm8+Xo3r6C0pJGq+5r8mzM8BL2dgNn2c9mt2Q@mail.gmail.com>
- <CAADnVQKuoZDB-Xga5STHdGSxvSP=B6jQ40kLdpL1u+J98bv65A@mail.gmail.com>
- <CAOWid-czZphRz6Y-H3OcObKCH=bLLC3=bOZaSB-6YBE56+Qzrg@mail.gmail.com>
+ Tue, 03 Nov 2020 13:30:24 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/display: FP fixes for DCN3.x (v3)
+Date: Tue,  3 Nov 2020 16:30:16 -0500
+Message-Id: <20201103213017.801082-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOWid-czZphRz6Y-H3OcObKCH=bLLC3=bOZaSB-6YBE56+Qzrg@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 03 Nov 2020 21:15:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,104 +78,263 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Song Liu <songliubraving@fb.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Kenny Ho <Kenny.Ho@amd.com>,
- "open list:CONTROL GROUP \(CGROUP\)" <cgroups@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Network Development <netdev@vger.kernel.org>, KP Singh <kpsingh@chromium.org>,
- Yonghong Song <yhs@fb.com>, bpf <bpf@vger.kernel.org>,
- Andrii Nakryiko <andriin@fb.com>, Martin KaFai Lau <kafai@fb.com>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 03, 2020 at 02:19:22PM -0500, Kenny Ho wrote:
-> On Tue, Nov 3, 2020 at 12:43 AM Alexei Starovoitov
-> <alexei.starovoitov@gmail.com> wrote:
-> > On Mon, Nov 2, 2020 at 9:39 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > pls don't top post.
-> My apology.
-> 
-> > > Cgroup awareness is desired because the intent
-> > > is to use this for resource management as well (potentially along with
-> > > other cgroup controlled resources.)  I will dig into bpf_lsm and learn
-> > > more about it.
-> >
-> > Also consider that bpf_lsm hooks have a way to get cgroup-id without
-> > being explicitly scoped. So the bpf program can be made cgroup aware.
-> > It's just not as convenient as attaching a prog to cgroup+hook at once.
-> > For prototyping the existing bpf_lsm facility should be enough.
-> > So please try to follow this route and please share more details about
-> > the use case.
-> 
-> Ok.  I will take a look and see if that is sufficient.  My
-> understanding of bpf-cgroup is that it not only makes attaching prog
-> to cgroup easier but it also facilitates hierarchical calling of
-> attached progs which might be useful if users wants to manage gpu
-> resources with bpf cgroup along with other cgroup resources (like
-> cpu/mem/io, etc.)
+Add proper FP_START/END handling and adjust Makefiles per
+previous asics.
 
-Right. Hierarchical cgroup-bpf logic cannot be replicated inside
-the program. If you're relying on cgv2 hierarchy to containerize
-applications then what I suggested earlier won't work indeed.
+v2: fix up harder.
+v3: fix clkmgr Makefile for dcn30
 
-> About the use case.  The high level motivation here is to provide the
-> ability to subdivide/share a GPU via cgroups/containers in a way that
-> is similar to other resources like CPU and memory.  Users have been
-> requesting this type of functionality because GPU compute can get
-> expensive and they want to maximize the utilization to get the most
-> bang for their bucks.  A traditional way to do this is via
-> SRIOV/virtualization but that often means time sharing the GPU as a
-> whole unit.  That is useful for some applications but not others due
-> to the flushing and added latency.  We also have a study that
-> identified various GPU compute application types.  These types can
-> benefit from more asymmetrical/granular sharing of the GPU (for
-> example some applications are compute bound while others can be memory
-> bound that can benefit from having more VRAM.)
-> 
-> I have been trying to add a cgroup subsystem for the drm subsystem for
-> this purpose but I ran into two challenges.  First, the composition of
-> a GPU and how some of the subcomponents (like VRAM or shader
-> engines/compute units) can be shared are very much vendor specific so
-> we are unable to arrive at a common interface across all vendors.
-> Because of this and the variety of places a GPU can go into
-> (smartphone, PC, server, HPC), there is also no agreement on how
-> exactly a GPU should be shared.  The best way forward appears to
-> simply provide hooks for users to define how and what they want to
-> share via a bpf program.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com> (v1)
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com> (v1)
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   | 26 +++++++
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |  4 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c | 71 +++++++++++++++++--
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |  8 ++-
+ 4 files changed, 102 insertions(+), 7 deletions(-)
 
-Thank you for sharing the details. It certainly helps.
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+index facc8b970300..d59b380e7b7f 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+@@ -119,6 +119,19 @@ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN21)
+ ###############################################################################
+ CLK_MGR_DCN30 = dcn30_clk_mgr.o dcn30_clk_mgr_smu_msg.o
+ 
++# prevent build errors regarding soft-float vs hard-float FP ABI tags
++# this code is currently unused on ppc64, as it applies to VanGogh APUs only
++ifdef CONFIG_PPC64
++CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn30/dcn30_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
++endif
++
++# prevent build errors:
++# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
++# this file is unused on arm64, just like on ppc64
++ifdef CONFIG_ARM64
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/clk_mgr/dcn30/dcn30_clk_mgr.o := -mgeneral-regs-only
++endif
++
+ AMD_DAL_CLK_MGR_DCN30 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn30/,$(CLK_MGR_DCN30))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
+@@ -127,6 +140,19 @@ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
+ ###############################################################################
+ CLK_MGR_DCN301 = vg_clk_mgr.o dcn301_smu.o
+ 
++# prevent build errors regarding soft-float vs hard-float FP ABI tags
++# this code is currently unused on ppc64, as it applies to VanGogh APUs only
++ifdef CONFIG_PPC64
++CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
++endif
++
++# prevent build errors:
++# ...: '-mgeneral-regs-only' is incompatible with the use of floating-point types
++# this file is unused on arm64, just like on ppc64
++ifdef CONFIG_ARM64
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/clk_mgr/dcn301/vg_clk_mgr.o := -mgeneral-regs-only
++endif
++
+ AMD_DAL_CLK_MGR_DCN301 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn301/,$(CLK_MGR_DCN301))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN301)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+index 7bad73b2d146..82cb688ba5e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+@@ -104,7 +104,7 @@ static void dcn3_init_single_clock(struct clk_mgr_internal *clk_mgr, PPCLK_e clk
+ 	}
+ }
+ 
+-static void dcn3_build_wm_range_table(struct clk_mgr_internal *clk_mgr)
++static noinline void dcn3_build_wm_range_table(struct clk_mgr_internal *clk_mgr)
+ {
+ 	/* defaults */
+ 	double pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dram_clock_change_latency_us;
+@@ -211,7 +211,9 @@ void dcn3_init_clocks(struct clk_mgr *clk_mgr_base)
+ 	clk_mgr_base->funcs->get_memclk_states_from_smu(clk_mgr_base);
+ 
+ 	/* WM range table */
++	DC_FP_START();
+ 	dcn3_build_wm_range_table(clk_mgr);
++	DC_FP_END();
+ }
+ 
+ static int dcn30_get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index d65496917e93..01ac8b2921c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -1469,7 +1469,19 @@ int dcn30_populate_dml_pipes_from_context(
+ 	return pipe_cnt;
+ }
+ 
+-void dcn30_populate_dml_writeback_from_context(
++/*
++ * This must be noinline to ensure anything that deals with FP registers
++ * is contained within this call; previously our compiling with hard-float
++ * would result in fp instructions being emitted outside of the boundaries
++ * of the DC_FP_START/END macros, which makes sense as the compiler has no
++ * idea about what is wrapped and what is not
++ *
++ * This is largely just a workaround to avoid breakage introduced with 5.6,
++ * ideally all fp-using code should be moved into its own file, only that
++ * should be compiled with hard-float, and all code exported from there
++ * should be strictly wrapped with DC_FP_START/END
++ */
++static noinline void dcn30_populate_dml_writeback_from_context_fp(
+ 		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
+ {
+ 	int pipe_cnt, i, j;
+@@ -1558,6 +1570,14 @@ void dcn30_populate_dml_writeback_from_context(
+ 
+ }
+ 
++void dcn30_populate_dml_writeback_from_context(
++		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
++{
++	DC_FP_START();
++	dcn30_populate_dml_writeback_from_context_fp(dc, res_ctx, pipes);
++	DC_FP_END();
++}
++
+ unsigned int dcn30_calc_max_scaled_time(
+ 		unsigned int time_per_pixel,
+ 		enum mmhubbub_wbif_mode mode,
+@@ -2204,7 +2224,19 @@ static bool dcn30_internal_validate_bw(
+ 	return out;
+ }
+ 
+-void dcn30_calculate_wm_and_dlg(
++/*
++ * This must be noinline to ensure anything that deals with FP registers
++ * is contained within this call; previously our compiling with hard-float
++ * would result in fp instructions being emitted outside of the boundaries
++ * of the DC_FP_START/END macros, which makes sense as the compiler has no
++ * idea about what is wrapped and what is not
++ *
++ * This is largely just a workaround to avoid breakage introduced with 5.6,
++ * ideally all fp-using code should be moved into its own file, only that
++ * should be compiled with hard-float, and all code exported from there
++ * should be strictly wrapped with DC_FP_START/END
++ */
++static noinline void dcn30_calculate_wm_and_dlg_fp(
+ 		struct dc *dc, struct dc_state *context,
+ 		display_e2e_pipe_params_st *pipes,
+ 		int pipe_cnt,
+@@ -2360,7 +2392,18 @@ void dcn30_calculate_wm_and_dlg(
+ 				dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
+ }
+ 
+-bool dcn30_validate_bandwidth(struct dc *dc,
++void dcn30_calculate_wm_and_dlg(
++		struct dc *dc, struct dc_state *context,
++		display_e2e_pipe_params_st *pipes,
++		int pipe_cnt,
++		int vlevel)
++{
++	DC_FP_START();
++	dcn30_calculate_wm_and_dlg_fp(dc, context, pipes, pipe_cnt, vlevel);
++	DC_FP_END();
++}
++
++static noinline bool dcn30_validate_bandwidth_fp(struct dc *dc,
+ 		struct dc_state *context,
+ 		bool fast_validate)
+ {
+@@ -2411,7 +2454,20 @@ bool dcn30_validate_bandwidth(struct dc *dc,
+ 	return out;
+ }
+ 
+-static void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
++bool dcn30_validate_bandwidth(struct dc *dc,
++		struct dc_state *context,
++		bool fast_validate)
++{
++	bool out;
++
++	DC_FP_START();
++	out = dcn30_validate_bandwidth_fp(dc, context, fast_validate);
++	DC_FP_END();
++
++	return out;
++}
++
++static noinline void get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
+                                                        unsigned int *optimal_dcfclk,
+                                                        unsigned int *optimal_fclk)
+ {
+@@ -2478,8 +2534,10 @@ void dcn30_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 
+ 		// Calculate optimal dcfclk for each uclk
+ 		for (i = 0; i < num_uclk_states; i++) {
++			DC_FP_START();
+ 			get_optimal_dcfclk_fclk_for_uclk(bw_params->clk_table.entries[i].memclk_mhz * 16,
+ 					&optimal_dcfclk_for_uclk[i], NULL);
++			DC_FP_END();
+ 			if (optimal_dcfclk_for_uclk[i] < bw_params->clk_table.entries[0].dcfclk_mhz) {
+ 				optimal_dcfclk_for_uclk[i] = bw_params->clk_table.entries[0].dcfclk_mhz;
+ 			}
+@@ -2583,6 +2641,8 @@ static bool dcn30_resource_construct(
+ 	struct irq_service_init_data init_data;
+ 	struct ddc_service_init_data ddc_init_data;
+ 
++	DC_FP_START();
++
+ 	ctx->dc_bios->regs = &bios_regs;
+ 
+ 	pool->base.res_cap = &res_cap_dcn3;
+@@ -2860,10 +2920,13 @@ static bool dcn30_resource_construct(
+ 		pool->base.oem_device = NULL;
+ 	}
+ 
++	DC_FP_END();
++
+ 	return true;
+ 
+ create_fail:
+ 
++	DC_FP_END();
+ 	dcn30_resource_destruct(pool);
+ 
+ 	return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 879a930358a5..a02a33dcd70b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -64,6 +64,9 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
++CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_ccflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_vba.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_rcflags)
+@@ -71,8 +74,9 @@ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_rcflag
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_rcflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_ccflags) -Wframe-larger-than=2048
+-CFLAGS_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_ccflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_mode_vba_30.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/dcn30/display_rq_dlg_calc_30.o := $(dml_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml/display_mode_lib.o := $(dml_rcflags)
+ endif
+ CFLAGS_$(AMDDALPATH)/dc/dml/dml1_display_rq_dlg_calc.o := $(dml_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml/display_rq_dlg_helpers.o := $(dml_ccflags)
+-- 
+2.25.4
 
-> From what I can tell so far (I am still learning), there are multiple
-> pieces that need to fall in place for bpf-cgroup to work for this use
-> case.  First there is resource limit enforcement, which is the
-> motivation for this RFC (I will look into bpf_lsm as the path
-> forward.)  I have also been thinking about instrumenting the drm
-> subsystem with a new BPF program type and have various attach types
-> across the drm subsystem but I am not sure if this is allowed (this
-> one is more for resource usage monitoring.)  Another thing I have been
-> considering is to have the gpu driver provide bpf helper functions for
-> bpf programs to modify drm driver internals.  That was the reason I
-> asked about the potential of BTF support for kernel modules a couple
-> of months ago (and Andrii Nakryiko mentioned that it is being worked
-> on.)
-
-Sounds like either bpf_lsm needs to be made aware of cgv2 (which would
-be a great thing to have regardless) or cgroup-bpf needs a drm/gpu specific hook.
-I think generic ioctl hook is too broad for this use case.
-I suspect drm/gpu internal state would be easier to access inside
-bpf program if the hook is next to gpu/drm. At ioctl level there is 'file'.
-It's probably too abstract for the things you want to do.
-Like how VRAM/shader/etc can be accessed through file?
-Probably possible through a bunch of lookups and dereferences, but
-if the hook is custom to GPU that info is likely readily available.
-Then such cgroup-bpf check would be suitable in execution paths where
-ioctl-based hook would be too slow.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
