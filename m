@@ -2,111 +2,106 @@ Return-Path: <SRS0=wluJ=EK=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.9 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-11.4 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F8BBC2D0A3
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 14:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA0A1C2D0A3
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 14:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD2A5206FA
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 14:31:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E71D420739
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2020 14:33:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dqAPck6K"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD2A5206FA
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SgGVqYyD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E71D420739
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE65D6E153;
-	Wed,  4 Nov 2020 14:31:25 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770048.outbound.protection.outlook.com [40.107.77.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27AFA6E053
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2020 14:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2569D6E153;
+	Wed,  4 Nov 2020 14:33:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A2706E153
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2020 14:33:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DlC8b4/HnFAppD4JGjd97okLtS4RV+XR/ooqGgayG+J3xkcWCBQ5lHRyVZhP2RraQ5mzFdAEsQhNGJ04kTBPAfByNcb/m6hjyLIBw2MrLo2CwBH8/pC3LeVqsbSvNYVBLTwfoRYFgV0NF+O/FgeXG6Qf/svQJGkucYTXmdQGTh8huLzwByyOvKojD3XTsmapuMlAYQ3d5Wwfz1a4tuP3M9KZCOnD7SaFa7MMWz1Fh/XK74Hj+W6krcMbUH3gQIervW7ozYP6fSTo8+dX4ZpszpRs3G8VhuGiQBs7aAw8L8xCRxu66uaRrP5JEuDhv1qeRlWgVSbC9Ffy5oV2EEcdrQ==
+ b=UmIwrF3oKo3eto0qy7Hc6rlB5qo/rTXXDuqQ9qt/jn/0uEEOY+qXZ+I9eC/0qKrns5HFAhKXSZHi/JGJZDWKPPmMQ2Qj5+3bOSAdZtHwkeOK89dHf6FRv1KbBotyZWhWB6qa5vRdG+LkTlx+i3W/v+cQr3Y7TWY+WwEbtx9ps4mIlfR41cgiCoRQNeSOrNCytkgTq+7wVLrcA6sapCHdK6tU97vWQg/aoSVGvffTstftcIKqN9UWBIgdtNjgsdIp148dfobykb6d3H2MGnmFUaarHtj5xkMSw1qtaFPN0o2y0/HzZEfWReALQ2WBAjNv/i0/yI8cUWrTJVHlniz84g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I2o+ZBrAjk480nPcwwWwUzn/pJDlrAqIQ7IfiGt9Z5M=;
- b=WjZZZE/XdC0b+QU+U6h1lgNzltbPYv/XZccIYUZs4Nxro6x8jQHJtfegk56DsOOcdSACXFijpHwazpy0p/2407I0Ji3mCKxOTC/RYwEI1UhN/cMnk6nl1lwWrIp3oMyZW1vITaqzPCSIWDgQ4Cjs4/aMy8oAN0hX6H+c5oh0rdAg3hp7SYRhzVrugm3iAq/9hixMGO8zXsFjNf0/Bys5DTBSvA724pFJXt721r2FbbEDjiQEvJ2Wc1de5C66/lI2xO2B6b6vphbN6wLcL9q/noz0oYnDMnjcbHkqSZX73mBk1hzpVo3RCj5C0jYiZ/5p2TYmzLFyWtsfiCa7QLTOBA==
+ bh=26MisaWla1KzBg1D4X14Zd8zD8sPwhITFleEe2iGbas=;
+ b=NZiIj/aGk9FcIkYZcM5dfrXpE9+gDFWgMgpD2sm9BWi4pbKC8Lr5DaUuRr9LNWCHgLED79jNM+cooIYPUewUThcfkJZ8CBh8chn+A73IrbzCXZv3H4xXbLHQgeNE/a77H+dHH/J0AsW+ItIw6phvrJpJB/ahO15J1NpBNx7C6RIFbgVZYMjEloFQoC+wEt74dHLdGpiHCvMkq0LFkl0Bkhm//97L6RGL/1PlfFoEAZGF3cwR2+rKKRB5dsSVUig7QI2Wc0bpVvvQYU952xx30TMGTyd6+oP+QlmyV6l2S/wg+xirDxANZmhaZ7ZxwzeloyK8Bkk0HDJZE2/+yZSJQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I2o+ZBrAjk480nPcwwWwUzn/pJDlrAqIQ7IfiGt9Z5M=;
- b=dqAPck6KAdZRorTjK2ZD4f+4Ddyn2Y4QYza6PaaRtXokPhsSSYKU+2YEjVtSvcZTbNs6Ytx4UWPkBcm1ai+BDO8ILSmgRPdgPxpt3Pw3sead3NkismV0Q888ElibLJBEmZ23bsvxnl+q1TQ5wTaJxwcegc0oo87kQedpScKbAkM=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
+ bh=26MisaWla1KzBg1D4X14Zd8zD8sPwhITFleEe2iGbas=;
+ b=SgGVqYyDTZ7ewzc0mB+PIMrPMWDg0pijJUSrX09tkyyG6nuzd+Yf2K+Or26hWkJKH/uhLfKkFRE7+3N8iEmiMc1h+Z810rssSMfOon3XykSafLe/nYM09DJntgUf0m5slf0h6nTyplTq5y2aIPOIX6rIWidNOF3EEWBSnF6NqYs=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB2434.namprd12.prod.outlook.com (2603:10b6:207:4d::28)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Wed, 4 Nov
- 2020 14:31:20 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::1ccc:8a9a:45d3:dd31]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::1ccc:8a9a:45d3:dd31%7]) with mapi id 15.20.3499.032; Wed, 4 Nov 2020
- 14:31:20 +0000
+ 2020 14:33:29 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::99dd:ff77:1ffd:d96a]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::99dd:ff77:1ffd:d96a%3]) with mapi id 15.20.3499.032; Wed, 4 Nov 2020
+ 14:33:29 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Sharma, Shashank"
+ <Shashank.Sharma@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH] drm/amdgpu: clip the ref divider max value at 100
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Sharma, Shashank" <Shashank.Sharma@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH] drm/amdgpu: clip the ref divider max value at 100
+Thread-Index: AQHWsgS9hqnqYAbSWkSctovPF17bKam3v/AAgAAJ5wCAABTAAIAAJMJGgAABhoCAAALrb4AAAngAgAAAf0g=
+Date: Wed, 4 Nov 2020 14:33:28 +0000
+Message-ID: <MN2PR12MB44885BB869E184372785BB5AF7EF0@MN2PR12MB4488.namprd12.prod.outlook.com>
 References: <20201103171340.2978395-1-shashank.sharma@amd.com>
  <7f9cc1a0-ad6b-ee9b-ac7b-4a49d08de1f9@amd.com>
  <MN2PR12MB3133BFD54B552B19A512B27CF2EF0@MN2PR12MB3133.namprd12.prod.outlook.com>
  <211bb89a-4433-3fb8-7849-6323cafe20fb@amd.com>
  <MN2PR12MB448848FEEB5717DDCF66F601F7EF0@MN2PR12MB4488.namprd12.prod.outlook.com>
  <b6e345a7-5547-2026-313c-739833c5013f@amd.com>
- <MN2PR12MB4488278FB8B457603F1B955CF7EF0@MN2PR12MB4488.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <b326cc56-5374-8e35-9492-7ed82225030b@amd.com>
-Date: Wed, 4 Nov 2020 15:31:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <MN2PR12MB4488278FB8B457603F1B955CF7EF0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <MN2PR12MB4488278FB8B457603F1B955CF7EF0@MN2PR12MB4488.namprd12.prod.outlook.com>,
+ <b326cc56-5374-8e35-9492-7ed82225030b@amd.com>
+In-Reply-To: <b326cc56-5374-8e35-9492-7ed82225030b@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM4PR05CA0004.eurprd05.prod.outlook.com (2603:10a6:205::17)
- To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR05CA0004.eurprd05.prod.outlook.com (2603:10a6:205::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.18 via Frontend Transport; Wed, 4 Nov 2020 14:31:19 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d2f33b29-dcfa-4eb2-73ee-08d880ce4bf7
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4126:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4126DB9EE5F13A86DFF17DD983EF0@MN2PR12MB4126.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mDPMCZjaauWBw8WsTKVUX8OdQnudn31Fpkv8RWS91Hu7FaKlmS9LwrbJnh3wfsj6R3TvqdgZkxGdoTq0iUIkJjwnLaP4YfAPgEIDw5DgeJjj4tZWnvWKheWQhZ6hiEJILaDjEAd3ERBhB/Y60V/Q1hq1/TeyU4UR1AFB/xYd8ZG/QF9lw6M7hkbB6OpnC/Mr43LOiVQ39KzH0h8ES/19fsdWT/tyaVwVLDuxbppjvahIHIr1fZbQGm1+n0DlAT9LzhYnOgvW871IB89e7YT4mqn/DgXNbSz+j+rn1H72XVlZHzbxAUJ1XA2C4K/gjOFK+QicHb/XUN6E1hch31IrZuBPX7sKODZv1vCyQwyRE0FAiI0mxBNeQJy0vNao4NrulW3OCtMc3E0Ijbx5JKNFRkL5POrNyFmf1aNCAzt55vR6JExW3cvzegEOvMnsuMDU0Ry8VCYBMO/ILsl5IYfgZg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(376002)(39860400002)(366004)(396003)(136003)(86362001)(2906002)(110136005)(52116002)(316002)(33964004)(966005)(83380400001)(66574015)(30864003)(186003)(5660300002)(478600001)(6486002)(19627405001)(66476007)(6666004)(4326008)(66556008)(16526019)(8936002)(166002)(8676002)(36756003)(31686004)(66946007)(31696002)(53546011)(2616005)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [71.219.66.138]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: aa0c5dee-5990-444e-04bf-08d880ce98f9
+x-ms-traffictypediagnostic: BL0PR12MB2434:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB24348F5EA8262A7D04E08131F7EF0@BL0PR12MB2434.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ocrES9x2OaLVJ+GLLnuV1htWCqPT2uNTBpHBV6KR+xNy0LhsOSfQQxJAuP8QvG4I7EZnmCAKU+lenyQWzaFlG+rPFo3wdSE12KFMko90G0NCFsEFYhnnlgdAWHFIC8d3L6HZ3/Z9Oc+lsoU/OpYvKkHRVf8lidVhxj4n34IUQpGRku9iZ7fn2jXx51/I86pXm7K7TL4/1XcQ+1qA7/Q51TM3/0qySA8PsEMIAI4X8wOJj8CD6Eh4i82/4WVnS2jLjdEl8kwBHJW62YWIPqHKv1jO1bFbVXvkqjNLJu1vyiJVJeDRGAZVmApa2Ovk6fGYE1caSCgj3k0oUxGkQ/hBMagtIGEqwKjJyoTrLf0NEv3L7bXzddCdcPuIQVeACLmD4yQCgo90NzA8d02/9SsQLw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(4326008)(8676002)(6506007)(316002)(86362001)(9686003)(8936002)(55016002)(186003)(26005)(110136005)(53546011)(966005)(478600001)(2906002)(7696005)(166002)(64756008)(5660300002)(66476007)(52536014)(19627405001)(76116006)(66946007)(66446008)(71200400001)(83380400001)(66574015)(66556008)(33656002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: j5DD7r3mOBAsmTq9sPwmXGwR8sOKtvVPjYU0Tw93mg9Z0Lng4/Ywcm1HrXaARmUJ58gGAZGjGHY63du4oI3D3zXhGoiTslvfC6/OxiLOydXHvt7WVVNSCQf8PNnVzcc5DDnu8euueFAWi/RlHBy3XAH42JjSLkUAhufaevRv1iFfDiKDypCLb1V0E5pkP39sitOeKasvaG+xFBnmW3mJKA4mcdYgaiiu62tKiE2BSMNRW4e3t+A2dtS6iO4LVZEHMMMCC52ZBAQvvoDGAQbMS86q9HbVMmDAJPWuLfau3NgAy/t86n5X4rijSGRQBlrtZ3e0/9h6WATnC1jOTCQJLZNil3jMTQF69Ve7OF2UgQ6wR4QSwSzJOwsaEm0ipQ4b2VbnOaNK4zLBGuc2uBvc0jHcPjukf4plmx1QR4wpCwHvt/414ACVncKAld87L7Ltl0s5z3aFetLUz5TdTr1d4Cl3Es5KIsWMSV+GR3Po+ofk4oaet4ZNWaWyk/cH525KpJ1V7yhCgARKWP1933XCSqSEnJz//4vbpft1X0E2eUvI/EZac+wKlxRG95kf2e4Ju1BuTnkbpJ9pi9z3z9kHYiI2ryePemKLxCEPVvJ7pLck6s8bzf9q3GUVcI+IJQ9pJJkTjScUU0hmnRF89XaDHazH+/rcNcTBLLFl1BtMyp+tbxf3jflzy6Bx6CjhaRNGff+70eErrL6PNzYi2FpQpA==
+x-ms-exchange-antispam-messagedata: bMyCDb3uY485MebA41DXQhguPTzMV4kBk1qtcMkYG2azJ1Jj9ispxBu4EMRmgFGpUOJ2oqBsqoiXxbZaI9Ibe26y38wVbvdlRhF7RU1pOoAxMV1TIsbc8DV8U8k/4QU/B7aKxusnFfbxwgl8JybzOBwRDYCNDTx+W05xPZt/oLnv/c2vIirD/FjGhK8BDDwwVo3n26iENA6hP5OcsbUSOoCg3jS4mule2WCFE6zomIK/u3j7wOrzLeByFf35l3w2GAkMe4G7XssvZ6PyGqmUfPBkrKPx6yk8aFcvrWRX6DI39ARAjHJe38TEqC44W77AlSE9iKRDhPe8fCrXCaUc0uMjinCZCexUUDH1Mr4tt5uNge4E5HsBhK0wblxIYfGUJQzZOa4h/HXXphToD75dLT3133xVpRC7pMywiLyBSR7HpOFLQ+oqQmwD2ic/r5yZBx3PpcfXSz1D+cLuI7P0YT41GhJ1tsRaSnYi1SwNFS22h7N3mCQ1uAEXXYCtuxfqPngTqECER6LLaXgvMrsIEhS8SJt4ZDezFrRqs+NJHPzTeWJSFwhJh3Fa6nNZC3e+3hmZrpl/T5ZDttuWJtVnYvNpOBI5ZCltkBWWCM4VGUE+FDYCjJWiv8qHyTwXwnERWmKNZTSps45F/N8H5tsJeQ==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2f33b29-dcfa-4eb2-73ee-08d880ce4bf7
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2020 14:31:20.3409 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5Z2ah+s+ReWL0g7+LWoJmhq+xa4+ADI5UNSYEaSldMqX5Njb5RgFTcHVjjLdq780
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa0c5dee-5990-444e-04bf-08d880ce98f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2020 14:33:29.0054 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QTZ4J2v67NsZGbIyETPuVrQIP9aVlPJuujS/HRmxFDt6Cgw9/VNwAFzntDcLeGhmFjDpWNuDc/vbStKmky68uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,443 +114,412 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Qin, Eddy" <Eddy.Qin@amd.com>
-Content-Type: multipart/mixed; boundary="===============1634504997=="
+Content-Type: multipart/mixed; boundary="===============1754249184=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1634504997==
-Content-Type: multipart/alternative;
- boundary="------------C6F7CC715A5B79075683689D"
+--===============1754249184==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44885BB869E184372785BB5AF7EF0MN2PR12MB4488namp_"
 
---------------C6F7CC715A5B79075683689D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_MN2PR12MB44885BB869E184372785BB5AF7EF0MN2PR12MB4488namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-In the long term we probably want to nuke this code anyway and switch to 
-the DC code, don't we?
+eWVhaCwgaWRlYWxseS4gIEp1c3QgbmVlZCB0byBnZXQgc3VwcG9ydCBmb3IgYW5hbG9nIGVuY29k
+ZXJzLg0KDQpBbGV4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBL
+b2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KU2VudDogV2VkbmVz
+ZGF5LCBOb3ZlbWJlciA0LCAyMDIwIDk6MzEgQU0NClRvOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFs
+ZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBTaGFybWEsIFNoYXNoYW5rIDxTaGFzaGFuay5TaGFy
+bWFAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4NCkNjOiBRaW4sIEVkZHkgPEVkZHkuUWluQGFtZC5jb20+DQpTdWJq
+ZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBjbGlwIHRoZSByZWYgZGl2aWRlciBtYXggdmFs
+dWUgYXQgMTAwDQoNCkluIHRoZSBsb25nIHRlcm0gd2UgcHJvYmFibHkgd2FudCB0byBudWtlIHRo
+aXMgY29kZSBhbnl3YXkgYW5kIHN3aXRjaCB0byB0aGUgREMgY29kZSwgZG9uJ3Qgd2U/DQoNCkNo
+cmlzdGlhbi4NCg0KQW0gMDQuMTEuMjAgdW0gMTU6MjMgc2NocmllYiBEZXVjaGVyLCBBbGV4YW5k
+ZXI6DQpZb3UgbWlnaHQgd2FudCB0byB0YWxrIHRvIHRoZSBEQUwgdGVhbSwgdGhleSBtYXkgaGF2
+ZSBzb21lIGFkdmljZS4gIEluIGdlbmVyYWwsIEkgd291bGQgc2F5IHRlc3QgaXQgYXMgd2VsbCBh
+cyB5b3UgY2FuLiAgSXQncyBwcm9iYWJseSBzYWZlIGFzIHJhZGVvbiBpcyBzdGlsbCB0aGUgZGVm
+YXVsdCBkcml2ZXIgZm9yIFNJIHBhcnRzIGFuZCBnZW5lcmFsbHkgc2VlbXMgdG8gYmUgd29ya2lu
+ZyB3ZWxsIHRoZXJlLg0KDQpBbGV4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+DQpGcm9tOiBTaGFybWEsIFNoYXNoYW5rIDxTaGFzaGFuay5TaGFybWFAYW1kLmNvbT48bWFpbHRv
+OlNoYXNoYW5rLlNoYXJtYUBhbWQuY29tPg0KU2VudDogV2VkbmVzZGF5LCBOb3ZlbWJlciA0LCAy
+MDIwIDk6MTEgQU0NClRvOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFt
+ZC5jb20+PG1haWx0bzpBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
+YW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT48bWFpbHRvOkNocmlzdGlhbi5Lb2VuaWdAYW1k
+LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4gPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjxtYWlsdG86
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQpDYzogUWluLCBFZGR5IDxFZGR5LlFpbkBh
+bWQuY29tPjxtYWlsdG86RWRkeS5RaW5AYW1kLmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRy
+bS9hbWRncHU6IGNsaXAgdGhlIHJlZiBkaXZpZGVyIG1heCB2YWx1ZSBhdCAxMDANCg0KDQpUaGFu
+a3MgQWxleCwgU2FtZSBxdWVzdGlvbiBoZXJlLA0KDQpTaG91bGQgd2UgZ28gdGhyb3VnaCBzb21l
+IGV4dGVuc2l2ZSB0ZXN0IHJvdXRpbmUgZHVlIHRvIGNoYW5nZSBpbiBQTEwgdmFsdWVzLCBvciBp
+cyBpdCBPSyB0byBnbyBhaGVhZCBiYXNlZCBvbiBvdXIgZXhwZXJpZW5jZSBmcm9tIFJhZGVvbiB2
+YWx1ZXMgPw0KDQoNClJlZ2FyZHMNCg0KU2hhc2hhbmsNCg0KDQpPbiAwNC8xMS8yMCA3OjM2IHBt
+LCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6DQpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
+YW5kZXIuZGV1Y2hlckBhbWQuY29tPjxtYWlsdG86YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4N
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBLb2VuaWcsIENocmlzdGlh
+biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjxtYWlsdG86Q2hyaXN0aWFuLktvZW5pZ0BhbWQu
+Y29tPg0KU2VudDogV2VkbmVzZGF5LCBOb3ZlbWJlciA0LCAyMDIwIDY6NTQgQU0NClRvOiBTaGFy
+bWEsIFNoYXNoYW5rIDxTaGFzaGFuay5TaGFybWFAYW1kLmNvbT48bWFpbHRvOlNoYXNoYW5rLlNo
+YXJtYUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+
+PG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCkNjOiBEZXVjaGVyLCBBbGV4
+YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+PG1haWx0bzpBbGV4YW5kZXIuRGV1Y2hl
+ckBhbWQuY29tPjsgUWluLCBFZGR5IDxFZGR5LlFpbkBhbWQuY29tPjxtYWlsdG86RWRkeS5RaW5A
+YW1kLmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGNsaXAgdGhlIHJlZiBk
+aXZpZGVyIG1heCB2YWx1ZSBhdCAxMDANCg0KQW0gMDQuMTEuMjAgdW0gMTE6NDAgc2NocmllYiBT
+aGFybWEsIFNoYXNoYW5rOg0KPiBbQU1EIFB1YmxpYyBVc2VdDQo+DQo+IEhlbGxvIENocmlzdGlh
+biwNCj4gWWVzLCB0aGF0IDEwMCBpcyBoYXJkY29kZWQgaW4gUmFkZW9uLCBhbmQgZ2l0IGJsYW1l
+IHNheXMgaXQgd2FzIG9uZSBvZiB5b3VyIHBhdGNoZXMgd2hpY2ggbWFkZSBpdCAxMDAgZnJvbSAx
+Mjgg8J+Yii4NCj4gV291bGQgeW91IG1pbmQgaGF2aW5nIGEgbG9vayBhdCBjb21taXQgaWQ6IDRi
+MjFjZTFiNGI1ZDI2MmU3ZDQ2NTZiOGVjZWNjODkxZmMzY2I4MDYgPw0KDQpBaCwgeWVzIHRoYXQg
+b25lIDopDQoNClllYWggdGhlIGJhY2tncm91bmQgaXMgdGhhdCB0aGlzIHdhcyBqdXN0IGFuIGVk
+dWNhdGVkIGd1ZXNzIGJlY2F1c2UgSQ0KY291bGRuJ3QgZmluZCBhbnlib2R5IHdoaWNoIGNvdWxk
+IHRlbGwgbWUgd2hhdCB0aGUgcmVhbCBsaW1pdHMgb2YgdGhlDQpQTEwgaXMuDQoNCkxvb2tzIGxp
+a2Ugd2UganVzdCBmb3Jnb3QgdG8gYXBwbHkgdGhhdCBwYXRjaCB0byBhbWRncHUuDQoNClJlZ2Fy
+ZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4gUmVnYXJkcw0KPiBTaGFzaGFuaw0KPiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktv
+ZW5pZ0BhbWQuY29tPjxtYWlsdG86Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBX
+ZWRuZXNkYXksIE5vdmVtYmVyIDQsIDIwMjAgMzozNSBQTQ0KPiBUbzogU2hhcm1hLCBTaGFzaGFu
+ayA8U2hhc2hhbmsuU2hhcm1hQGFtZC5jb20+PG1haWx0bzpTaGFzaGFuay5TaGFybWFAYW1kLmNv
+bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZz4NCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
+ZXJAYW1kLmNvbT48bWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBRaW4sIEVkZHkg
+PEVkZHkuUWluQGFtZC5jb20+PG1haWx0bzpFZGR5LlFpbkBhbWQuY29tPg0KPiBTdWJqZWN0OiBS
+ZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBjbGlwIHRoZSByZWYgZGl2aWRlciBtYXggdmFsdWUgYXQg
+MTAwDQo+DQo+IEFtIDAzLjExLjIwIHVtIDE4OjEzIHNjaHJpZWIgU2hhc2hhbmsgU2hhcm1hOg0K
+Pj4gVGhpcyBwYXRjaCBsaW1pdHMgdGhlIHJlZl9kaXZfbWF4IHZhbHVlIHRvIDEwMCwgZHVyaW5n
+IHRoZSBjYWxjdWxhdGlvbg0KPj4gb2YgUExMIGZlZWRiYWNrIHJlZmVyZW5jZSBkaXZpZGVyLiBX
+aXRoIGN1cnJlbnQgdmFsdWUgKDEyOCksIHRoZQ0KPj4gcHJvZHVjZWQgZmJfcmVmX2RpdiB2YWx1
+ZSBnZW5lcmF0ZXMgdW5zdGFibGUgb3V0cHV0IGF0IHBhcnRpY3VsYXINCj4+IGZyZXF1ZW5jaWVz
+LiBSYWRlb24gZHJpdmVyIGxpbWl0cyB0aGlzIHZhbHVlIGF0IDEwMC4NCj4gTWhtLCBpcyB0aGF0
+IDEwMCBoYXJkIGNvZGVkIGluIHJhZGVvbj8gSSBoYXZlIG5vIGlkZWEgd2hlcmUgdGhhdCBpcyBj
+b21pbmcgZnJvbS4NCj4NCj4gQmVzdCB3b3VsZCBwcm9iYWJseSB0byBncmFiIGEgaGFyZHdhcmUg
+ZW5naW5lZXIgYW5kIHRyeSB0byBmaWd1cmUgb3V0IHdoYXQgdGhlIHJlYWwgbWF4aW11bXMgZm9y
+IHRoZSBQTEwgaXMgdG8gc3RpbGwgcHJvZHVjZSBhIHN0YWJsZSBzaWduYWwuDQo+DQo+IENocmlz
+dGlhbi4NCj4NCj4+IE9uIE9sYW5kLCB3aGVuIHdlIHRyeSB0byBzZXR1cCBtb2RlIDIwNDh4MTI4
+MEA2MCAoYSBiaXQgd2VpcmQsIEkNCj4+IGtub3cpLCBpdCBkZW1hbmRzIGEgY2xvY2sgb2YgMjIx
+MjcwIEtoei4gSXQncyBiZWVuIG9ic2VydmVkIHRoYXQgdGhlDQo+PiBQTEwgY2FsY3VsYXRpb25z
+IHVzaW5nIHZhbHVlcyAxMjggYW5kIDEwMCBhcmUgdmFzdGx5IGRpZmZlcmVudCwgYW5kDQo+PiBs
+b29rIGxpa2UgdGhpczoNCj4+DQo+PiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tKw0KPj4gfFBhcmFtZXRlciAgICB8QU1ER1BVICAgICAgICB8UmFkZW9uICAgICAg
+IHwNCj4+IHwgICAgICAgICAgICAgfCAgICAgICAgICAgICAgfCAgICAgICAgICAgICB8DQo+PiAr
+LS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKw0KPj4gfENsb2NrIGZl
+ZWRiYWNrICAgICAgICAgICAgICB8ICAgICAgICAgICAgIHwNCj4+IHxkaXZpZGVyIG1heCAgfCAg
+MTI4ICAgICAgICAgfCAgIDEwMCAgICAgICB8DQo+PiB8Y2FwIHZhbHVlICAgIHwgICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgfA0KPj4gfCAgICAgICAgICAgICB8ICAgICAgICAgICAgICB8ICAg
+ICAgICAgICAgIHwNCj4+IHwgICAgICAgICAgICAgfCAgICAgICAgICAgICAgfCAgICAgICAgICAg
+ICB8DQo+PiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKw0KPj4g
+fHJlZl9kaXZfbWF4ICB8ICAgICAgICAgICAgICB8ICAgICAgICAgICAgIHwNCj4+IHwgICAgICAg
+ICAgICAgfCAgNDIgICAgICAgICAgfCAgMjAgICAgICAgICB8DQo+PiB8ICAgICAgICAgICAgIHwg
+ICAgICAgICAgICAgIHwgICAgICAgICAgICAgfA0KPj4gfCAgICAgICAgICAgICB8ICAgICAgICAg
+ICAgICB8ICAgICAgICAgICAgIHwNCj4+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0rDQo+PiB8cmVmX2RpdiAgICAgIHwgIDQyICAgICAgICAgIHwgIDIwICAgICAg
+ICAgfA0KPj4gfCAgICAgICAgICAgICB8ICAgICAgICAgICAgICB8ICAgICAgICAgICAgIHwNCj4+
+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rDQo+PiB8ZmJfZGl2
+ICAgICAgIHwgIDEwMzI2ICAgICAgIHwgIDgxOTUgICAgICAgfA0KPj4gKy0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsNCj4+IHxmYl9kaXYgICAgICAgfCAgMTAyNCAg
+ICAgICAgfCAgMTYzICAgICAgICB8DQo+PiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tKw0KPj4gfGZiX2Rldl9wICAgICB8ICA0ICAgICAgICAgICB8ICA5ICAgICAg
+ICAgIHwNCj4+IHxmcmFjIGZiX2RlXl9wfCAgICAgICAgICAgICAgfCAgICAgICAgICAgICB8DQo+
+PiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tKw0KPj4NCj4+IFdp
+dGggcmVmX2Rpdl9tYXggdmFsdWUgY2xpcHBlZCBhdCAxMDAsIEFNREdQVSBkcml2ZXIgY2FuIGFs
+c28gZHJpdmUNCj4+IHZpZGVtb2RlIDIwNDh4MTI4MEA2MCAoMjIxTWh6KSBhbmQgcHJvZHVjZSBw
+cm9wZXIgb3V0cHV0IHdpdGhvdXQgYW55DQo+PiBibGFua2luZyBhbmQgZGlzdG9ydGlvbiBvbiB0
+aGUgc2NyZWVuLg0KPj4NCj4+IFBTOiBUaGlzIHZhbHVlIHdhcyBjaGFuZ2VkIGZyb20gMTI4IHRv
+IDEwMCBpbiBSYWRlb24gZHJpdmVyIGFsc28sIGhlcmU6DQo+PiBodHRwczovL2dpdGh1Yi5jb20v
+ZnJlZWRlc2t0b3AvZHJtLXRpcC9jb21taXQvNGIyMWNlMWI0YjVkMjYyZTdkNDY1NmI4DQo+PiBl
+Y2VjYzg5MWZjM2NiODA2DQo+Pg0KPj4gQ2M6IEFsZXggRGV1Y2hlciA8QWxleGFuZGVyLkRldWNo
+ZXJAYW1kLmNvbT48bWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+PiBDYzogQ2hy
+aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPjxtYWlsdG86Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPg0KPj4gQ2M6IEVkZHkgUWluIDxFZGR5LlFpbkBhbWQuY29tPjxtYWls
+dG86RWRkeS5RaW5AYW1kLmNvbT4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBTaGFzaGFuayBTaGFy
+bWEgPHNoYXNoYW5rLnNoYXJtYUBhbWQuY29tPjxtYWlsdG86c2hhc2hhbmsuc2hhcm1hQGFtZC5j
+b20+DQo+PiAtLS0NCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbGwu
+YyB8IDIgKy0NCj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlv
+bigtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfcGxsLmMNCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BsbC5jDQo+
+PiBpbmRleCAxZjIzMDViN2JkMTMuLjIzYTJlMWViZjc4YSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbGwuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BsbC5jDQo+PiBAQCAtODUsNyArODUsNyBAQCBzdGF0aWMg
+dm9pZCBhbWRncHVfcGxsX2dldF9mYl9yZWZfZGl2KHVuc2lnbmVkIG5vbSwgdW5zaWduZWQgZGVu
+LCB1bnNpZ25lZCBwb3N0Xw0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+dW5zaWduZWQgKmZiX2RpdiwgdW5zaWduZWQgKnJlZl9kaXYpDQo+PiAgICB7DQo+PiAgICAgICAv
+KiBsaW1pdCByZWZlcmVuY2UgKiBwb3N0IGRpdmlkZXIgdG8gYSBtYXhpbXVtICovDQo+PiAtICAg
+IHJlZl9kaXZfbWF4ID0gbWluKDEyOCAvIHBvc3RfZGl2LCByZWZfZGl2X21heCk7DQo+PiArICAg
+IHJlZl9kaXZfbWF4ID0gbWluKDEwMCAvIHBvc3RfZGl2LCByZWZfZGl2X21heCk7DQo+Pg0KPj4g
+ICAgICAgLyogZ2V0IG1hdGNoaW5nIHJlZmVyZW5jZSBhbmQgZmVlZGJhY2sgZGl2aWRlciAqLw0K
+Pj4gICAgICAgKnJlZl9kaXYgPSBtaW4obWF4KERJVl9ST1VORF9DTE9TRVNUKGRlbiwgcG9zdF9k
+aXYpLCAxdSksDQo+PiByZWZfZGl2X21heCk7DQoNCg0K
 
-Christian.
+--_000_MN2PR12MB44885BB869E184372785BB5AF7EF0MN2PR12MB4488namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Am 04.11.20 um 15:23 schrieb Deucher, Alexander:
-> You might want to talk to the DAL team, they may have some advice.  In 
-> general, I would say test it as well as you can. It's probably safe as 
-> radeon is still the default driver for SI parts and generally seems to 
-> be working well there.
->
-> Alex
->
-> ------------------------------------------------------------------------
-> *From:* Sharma, Shashank <Shashank.Sharma@amd.com>
-> *Sent:* Wednesday, November 4, 2020 9:11 AM
-> *To:* Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, 
-> Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* Qin, Eddy <Eddy.Qin@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu: clip the ref divider max value at 100
->
-> Thanks Alex, Same question here,
->
-> Should we go through some extensive test routine due to change in PLL 
-> values, or is it OK to go ahead based on our experience from Radeon 
-> values ?
->
->
-> Regards
->
-> Shashank
->
->
-> On 04/11/20 7:36 pm, Deucher, Alexander wrote:
->> Acked-by: Alex Deucher <alexander.deucher@amd.com> 
->> <mailto:alexander.deucher@amd.com>
->> ------------------------------------------------------------------------
->> *From:* Koenig, Christian <Christian.Koenig@amd.com> 
->> <mailto:Christian.Koenig@amd.com>
->> *Sent:* Wednesday, November 4, 2020 6:54 AM
->> *To:* Sharma, Shashank <Shashank.Sharma@amd.com> 
->> <mailto:Shashank.Sharma@amd.com>; amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org> 
->> <amd-gfx@lists.freedesktop.org> <mailto:amd-gfx@lists.freedesktop.org>
->> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com> 
->> <mailto:Alexander.Deucher@amd.com>; Qin, Eddy <Eddy.Qin@amd.com> 
->> <mailto:Eddy.Qin@amd.com>
->> *Subject:* Re: [PATCH] drm/amdgpu: clip the ref divider max value at 100
->> Am 04.11.20 um 11:40 schrieb Sharma, Shashank:
->> > [AMD Public Use]
->> >
->> > Hello Christian,
->> > Yes, that 100 is hardcoded in Radeon, and git blame says it was one 
->> of your patches which made it 100 from 128 😊.
->> > Would you mind having a look at commit id: 
->> 4b21ce1b4b5d262e7d4656b8ececc891fc3cb806 ?
->>
->> Ah, yes that one :)
->>
->> Yeah the background is that this was just an educated guess because I
->> couldn't find anybody which could tell me what the real limits of the
->> PLL is.
->>
->> Looks like we just forgot to apply that patch to amdgpu.
->>
->> Regards,
->> Christian.
->>
->> >
->> > Regards
->> > Shashank
->> > -----Original Message-----
->> > From: Koenig, Christian <Christian.Koenig@amd.com> 
->> <mailto:Christian.Koenig@amd.com>
->> > Sent: Wednesday, November 4, 2020 3:35 PM
->> > To: Sharma, Shashank <Shashank.Sharma@amd.com> 
->> <mailto:Shashank.Sharma@amd.com>; amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org>
->> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com> 
->> <mailto:Alexander.Deucher@amd.com>; Qin, Eddy <Eddy.Qin@amd.com> 
->> <mailto:Eddy.Qin@amd.com>
->> > Subject: Re: [PATCH] drm/amdgpu: clip the ref divider max value at 100
->> >
->> > Am 03.11.20 um 18:13 schrieb Shashank Sharma:
->> >> This patch limits the ref_div_max value to 100, during the calculation
->> >> of PLL feedback reference divider. With current value (128), the
->> >> produced fb_ref_div value generates unstable output at particular
->> >> frequencies. Radeon driver limits this value at 100.
->> > Mhm, is that 100 hard coded in radeon? I have no idea where that is 
->> coming from.
->> >
->> > Best would probably to grab a hardware engineer and try to figure 
->> out what the real maximums for the PLL is to still produce a stable 
->> signal.
->> >
->> > Christian.
->> >
->> >> On Oland, when we try to setup mode 2048x1280@60 (a bit weird, I
->> >> know), it demands a clock of 221270 Khz. It's been observed that the
->> >> PLL calculations using values 128 and 100 are vastly different, and
->> >> look like this:
->> >>
->> >> +------------------------------------------+
->> >> |Parameter    |AMDGPU        |Radeon       |
->> >> |             |              |             |
->> >> +-------------+----------------------------+
->> >> |Clock feedback              |             |
->> >> |divider max  |  128         |   100       |
->> >> |cap value    |              |             |
->> >> |             |              |             |
->> >> |             |              |             |
->> >> +------------------------------------------+
->> >> |ref_div_max  |              |             |
->> >> |             |  42          |  20         |
->> >> |             |              |             |
->> >> |             |              |             |
->> >> +------------------------------------------+
->> >> |ref_div      |  42          |  20         |
->> >> |             |              |             |
->> >> +------------------------------------------+
->> >> |fb_div       |  10326       |  8195       |
->> >> +------------------------------------------+
->> >> |fb_div       |  1024        |  163        |
->> >> +------------------------------------------+
->> >> |fb_dev_p     |  4           |  9          |
->> >> |frac fb_de^_p|              |             |
->> >> +----------------------------+-------------+
->> >>
->> >> With ref_div_max value clipped at 100, AMDGPU driver can also drive
->> >> videmode 2048x1280@60 (221Mhz) and produce proper output without any
->> >> blanking and distortion on the screen.
->> >>
->> >> PS: This value was changed from 128 to 100 in Radeon driver also, 
->> here:
->> >> https://github.com/freedesktop/drm-tip/commit/4b21ce1b4b5d262e7d4656b8
->> >> ececc891fc3cb806
->> >>
->> >> Cc: Alex Deucher <Alexander.Deucher@amd.com> 
->> <mailto:Alexander.Deucher@amd.com>
->> >> Cc: Christian König <christian.koenig@amd.com> 
->> <mailto:christian.koenig@amd.com>
->> >> Cc: Eddy Qin <Eddy.Qin@amd.com> <mailto:Eddy.Qin@amd.com>
->> >>
->> >> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com> 
->> <mailto:shashank.sharma@amd.com>
->> >> ---
->> >>    drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c | 2 +-
->> >>    1 file changed, 1 insertion(+), 1 deletion(-)
->> >>
->> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
->> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
->> >> index 1f2305b7bd13..23a2e1ebf78a 100644
->> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
->> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
->> >> @@ -85,7 +85,7 @@ static void amdgpu_pll_get_fb_ref_div(unsigned 
->> nom, unsigned den, unsigned post_
->> >>                                     unsigned *fb_div, unsigned 
->> *ref_div)
->> >>    {
->> >>       /* limit reference * post divider to a maximum */
->> >> -    ref_div_max = min(128 / post_div, ref_div_max);
->> >> +    ref_div_max = min(100 / post_div, ref_div_max);
->> >>
->> >>       /* get matching reference and feedback divider */
->> >>       *ref_div = min(max(DIV_ROUND_CLOSEST(den, post_div), 1u),
->> >> ref_div_max);
->>
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
+ImRpc3BsYXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHls
+ZT4NCjwvaGVhZD4NCjxib2R5IGRpcj0ibHRyIj4NCjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBD
+YWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNv
+bG9yOiByZ2IoMCwgMCwgMCk7Ij4NCnllYWgsIGlkZWFsbHkuJm5ic3A7IEp1c3QgbmVlZCB0byBn
+ZXQgc3VwcG9ydCBmb3IgYW5hbG9nIGVuY29kZXJzLjxicj4NCjwvZGl2Pg0KPGRpdiBzdHlsZT0i
+Zm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQt
+c2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2IHN0
+eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsg
+Zm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQpBbGV4PC9kaXY+DQo8ZGl2
+IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJp
+ZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8YnI+DQo8L2Rpdj4N
+CjxkaXYgaWQ9ImFwcGVuZG9uc2VuZCI+PC9kaXY+DQo8aHIgc3R5bGU9ImRpc3BsYXk6aW5saW5l
+LWJsb2NrO3dpZHRoOjk4JSIgdGFiaW5kZXg9Ii0xIj4NCjxkaXYgaWQ9ImRpdlJwbHlGd2RNc2ci
+IGRpcj0ibHRyIj48Zm9udCBmYWNlPSJDYWxpYnJpLCBzYW5zLXNlcmlmIiBzdHlsZT0iZm9udC1z
+aXplOjExcHQiIGNvbG9yPSIjMDAwMDAwIj48Yj5Gcm9tOjwvYj4gS29lbmlnLCBDaHJpc3RpYW4g
+Jmx0O0NocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSZndDs8YnI+DQo8Yj5TZW50OjwvYj4gV2VkbmVz
+ZGF5LCBOb3ZlbWJlciA0LCAyMDIwIDk6MzEgQU08YnI+DQo8Yj5Ubzo8L2I+IERldWNoZXIsIEFs
+ZXhhbmRlciAmbHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSZndDs7IFNoYXJtYSwgU2hhc2hh
+bmsgJmx0O1NoYXNoYW5rLlNoYXJtYUBhbWQuY29tJmd0OzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcgJmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0Ozxicj4NCjxiPkNj
+OjwvYj4gUWluLCBFZGR5ICZsdDtFZGR5LlFpbkBhbWQuY29tJmd0Ozxicj4NCjxiPlN1YmplY3Q6
+PC9iPiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBjbGlwIHRoZSByZWYgZGl2aWRlciBtYXggdmFs
+dWUgYXQgMTAwPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxkaXYg
+Y2xhc3M9InhfbW96LWNpdGUtcHJlZml4Ij5JbiB0aGUgbG9uZyB0ZXJtIHdlIHByb2JhYmx5IHdh
+bnQgdG8gbnVrZSB0aGlzIGNvZGUgYW55d2F5IGFuZCBzd2l0Y2ggdG8gdGhlIERDIGNvZGUsIGRv
+bid0IHdlPzxicj4NCjxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+DQpBbSAwNC4xMS4yMCB1bSAx
+NToyMyBzY2hyaWViIERldWNoZXIsIEFsZXhhbmRlcjo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3Rl
+IHR5cGU9ImNpdGUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9ImRpc3BsYXk6bm9uZSI+
+DQo8IS0tDQpwDQoJe21hcmdpbi10b3A6MDsNCgltYXJnaW4tYm90dG9tOjB9DQotLT4NCjwvc3R5
+bGU+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGljYSxzYW5z
+LXNlcmlmOyBmb250LXNpemU6MTJwdDsgY29sb3I6cmdiKDAsMCwwKSI+DQpZb3UgbWlnaHQgd2Fu
+dCB0byB0YWxrIHRvIHRoZSBEQUwgdGVhbSwgdGhleSBtYXkgaGF2ZSBzb21lIGFkdmljZS4mbmJz
+cDsgSW4gZ2VuZXJhbCwgSSB3b3VsZCBzYXkgdGVzdCBpdCBhcyB3ZWxsIGFzIHlvdSBjYW4uJm5i
+c3A7IEl0J3MgcHJvYmFibHkgc2FmZSBhcyByYWRlb24gaXMgc3RpbGwgdGhlIGRlZmF1bHQgZHJp
+dmVyIGZvciBTSSBwYXJ0cyBhbmQgZ2VuZXJhbGx5IHNlZW1zIHRvIGJlIHdvcmtpbmcgd2VsbCB0
+aGVyZS48L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OkNhbGlicmksQXJpYWwsSGVsdmV0
+aWNhLHNhbnMtc2VyaWY7IGZvbnQtc2l6ZToxMnB0OyBjb2xvcjpyZ2IoMCwwLDApIj4NCjxicj4N
+CjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Es
+c2Fucy1zZXJpZjsgZm9udC1zaXplOjEycHQ7IGNvbG9yOnJnYigwLDAsMCkiPg0KQWxleDwvZGl2
+Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1z
+ZXJpZjsgZm9udC1zaXplOjEycHQ7IGNvbG9yOnJnYigwLDAsMCkiPg0KPGJyPg0KPC9kaXY+DQo8
+aHIgdGFiaW5kZXg9Ii0xIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7IHdpZHRoOjk4JSI+
+DQo8ZGl2IGlkPSJ4X2RpdlJwbHlGd2RNc2ciIGRpcj0ibHRyIj48Zm9udCBmYWNlPSJDYWxpYnJp
+LCBzYW5zLXNlcmlmIiBjb2xvcj0iIzAwMDAwMCIgc3R5bGU9ImZvbnQtc2l6ZToxMXB0Ij48Yj5G
+cm9tOjwvYj4gU2hhcm1hLCBTaGFzaGFuaw0KPGEgY2xhc3M9InhfbW96LXR4dC1saW5rLXJmYzIz
+OTZFIiBocmVmPSJtYWlsdG86U2hhc2hhbmsuU2hhcm1hQGFtZC5jb20iPiZsdDtTaGFzaGFuay5T
+aGFybWFAYW1kLmNvbSZndDs8L2E+PGJyPg0KPGI+U2VudDo8L2I+IFdlZG5lc2RheSwgTm92ZW1i
+ZXIgNCwgMjAyMCA5OjExIEFNPGJyPg0KPGI+VG86PC9iPiBEZXVjaGVyLCBBbGV4YW5kZXIgPGEg
+Y2xhc3M9InhfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86QWxleGFuZGVyLkRl
+dWNoZXJAYW1kLmNvbSI+DQombHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSZndDs8L2E+OyBL
+b2VuaWcsIENocmlzdGlhbiA8YSBjbGFzcz0ieF9tb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9
+Im1haWx0bzpDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20iPg0KJmx0O0NocmlzdGlhbi5Lb2VuaWdA
+YW1kLmNvbSZndDs8L2E+OyA8YSBjbGFzcz0ieF9tb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhy
+ZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+DQphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZzwvYT4gPGEgY2xhc3M9InhfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBo
+cmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPg0KJmx0O2FtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0OzwvYT48YnI+DQo8Yj5DYzo8L2I+IFFpbiwgRWRkeSA8
+YSBjbGFzcz0ieF9tb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpFZGR5LlFpbkBh
+bWQuY29tIj4NCiZsdDtFZGR5LlFpbkBhbWQuY29tJmd0OzwvYT48YnI+DQo8Yj5TdWJqZWN0Ojwv
+Yj4gUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogY2xpcCB0aGUgcmVmIGRpdmlkZXIgbWF4IHZhbHVl
+IGF0IDEwMDwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rpdj4NCjxkaXY+DQo8cD5UaGFu
+a3MgQWxleCwgU2FtZSBxdWVzdGlvbiBoZXJlLCA8YnI+DQo8L3A+DQo8cD5TaG91bGQgd2UgZ28g
+dGhyb3VnaCBzb21lIGV4dGVuc2l2ZSB0ZXN0IHJvdXRpbmUgZHVlIHRvIGNoYW5nZSBpbiBQTEwg
+dmFsdWVzLCBvciBpcyBpdCBPSyB0byBnbyBhaGVhZCBiYXNlZCBvbiBvdXIgZXhwZXJpZW5jZSBm
+cm9tIFJhZGVvbiB2YWx1ZXMgPw0KPGJyPg0KPC9wPg0KPHA+PGJyPg0KPC9wPg0KPHA+UmVnYXJk
+czxicj4NCjwvcD4NCjxwPlNoYXNoYW5rPGJyPg0KPC9wPg0KPHA+PGJyPg0KPC9wPg0KPGRpdiBj
+bGFzcz0ieF94X21vei1jaXRlLXByZWZpeCI+T24gMDQvMTEvMjAgNzozNiBwbSwgRGV1Y2hlciwg
+QWxleGFuZGVyIHdyb3RlOjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+PHN0
+eWxlIHR5cGU9InRleHQvY3NzIiBzdHlsZT0iZGlzcGxheTpub25lIj4NCjwhLS0NCnANCgl7bWFy
+Z2luLXRvcDowOw0KCW1hcmdpbi1ib3R0b206MH0NCi0tPg0KPC9zdHlsZT4NCjxkaXYgc3R5bGU9
+ImZvbnQtZmFtaWx5OkNhbGlicmksQXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7IGZvbnQtc2l6
+ZToxMnB0OyBjb2xvcjpyZ2IoMCwwLDApIj4NCkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGEgY2xh
+c3M9InhfeF9tb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzphbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tIj4NCiZsdDthbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tJmd0OzwvYT48YnI+
+DQo8L2Rpdj4NCjxociB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazsg
+d2lkdGg6OTglIj4NCjxkaXYgaWQ9InhfeF9kaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQg
+ZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmb250LXNp
+emU6MTFwdCI+PGI+RnJvbTo8L2I+IEtvZW5pZywgQ2hyaXN0aWFuDQo8YSBjbGFzcz0ieF94X21v
+ei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOkNocmlzdGlhbi5Lb2VuaWdAYW1kLmNv
+bSI+Jmx0O0NocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSZndDs8L2E+PGJyPg0KPGI+U2VudDo8L2I+
+IFdlZG5lc2RheSwgTm92ZW1iZXIgNCwgMjAyMCA2OjU0IEFNPGJyPg0KPGI+VG86PC9iPiBTaGFy
+bWEsIFNoYXNoYW5rIDxhIGNsYXNzPSJ4X3hfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJt
+YWlsdG86U2hhc2hhbmsuU2hhcm1hQGFtZC5jb20iPg0KJmx0O1NoYXNoYW5rLlNoYXJtYUBhbWQu
+Y29tJmd0OzwvYT47IDxhIGNsYXNzPSJ4X3hfbW96LXR4dC1saW5rLWFiYnJldmlhdGVkIiBocmVm
+PSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPg0KYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc8L2E+IDxhIGNsYXNzPSJ4X3hfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBo
+cmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPg0KJmx0O2FtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0OzwvYT48YnI+DQo8Yj5DYzo8L2I+IERldWNoZXIsIEFs
+ZXhhbmRlciA8YSBjbGFzcz0ieF94X21vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRv
+OkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20iPg0KJmx0O0FsZXhhbmRlci5EZXVjaGVyQGFtZC5j
+b20mZ3Q7PC9hPjsgUWluLCBFZGR5IDxhIGNsYXNzPSJ4X3hfbW96LXR4dC1saW5rLXJmYzIzOTZF
+IiBocmVmPSJtYWlsdG86RWRkeS5RaW5AYW1kLmNvbSI+DQombHQ7RWRkeS5RaW5AYW1kLmNvbSZn
+dDs8L2E+PGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGNsaXAg
+dGhlIHJlZiBkaXZpZGVyIG1heCB2YWx1ZSBhdCAxMDA8L2ZvbnQ+DQo8ZGl2PiZuYnNwOzwvZGl2
+Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJ4X3hfQm9keUZyYWdtZW50Ij48Zm9udCBzaXplPSIyIj48
+c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHQiPg0KPGRpdiBjbGFzcz0ieF94X1BsYWluVGV4dCI+
+QW0gMDQuMTEuMjAgdW0gMTE6NDAgc2NocmllYiBTaGFybWEsIFNoYXNoYW5rOjxicj4NCiZndDsg
+W0FNRCBQdWJsaWMgVXNlXTxicj4NCiZndDs8YnI+DQomZ3Q7IEhlbGxvIENocmlzdGlhbiw8YnI+
+DQomZ3Q7IFllcywgdGhhdCAxMDAgaXMgaGFyZGNvZGVkIGluIFJhZGVvbiwgYW5kIGdpdCBibGFt
+ZSBzYXlzIGl0IHdhcyBvbmUgb2YgeW91ciBwYXRjaGVzIHdoaWNoIG1hZGUgaXQgMTAwIGZyb20g
+MTI4IPCfmIouPGJyPg0KJmd0OyBXb3VsZCB5b3UgbWluZCBoYXZpbmcgYSBsb29rIGF0IGNvbW1p
+dCBpZDogNGIyMWNlMWI0YjVkMjYyZTdkNDY1NmI4ZWNlY2M4OTFmYzNjYjgwNiA/PGJyPg0KPGJy
+Pg0KQWgsIHllcyB0aGF0IG9uZSA6KTxicj4NCjxicj4NClllYWggdGhlIGJhY2tncm91bmQgaXMg
+dGhhdCB0aGlzIHdhcyBqdXN0IGFuIGVkdWNhdGVkIGd1ZXNzIGJlY2F1c2UgSSA8YnI+DQpjb3Vs
+ZG4ndCBmaW5kIGFueWJvZHkgd2hpY2ggY291bGQgdGVsbCBtZSB3aGF0IHRoZSByZWFsIGxpbWl0
+cyBvZiB0aGUgPGJyPg0KUExMIGlzLjxicj4NCjxicj4NCkxvb2tzIGxpa2Ugd2UganVzdCBmb3Jn
+b3QgdG8gYXBwbHkgdGhhdCBwYXRjaCB0byBhbWRncHUuPGJyPg0KPGJyPg0KUmVnYXJkcyw8YnI+
+DQpDaHJpc3RpYW4uPGJyPg0KPGJyPg0KJmd0Ozxicj4NCiZndDsgUmVnYXJkczxicj4NCiZndDsg
+U2hhc2hhbms8YnI+DQomZ3Q7IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tPGJyPg0KJmd0OyBG
+cm9tOiBLb2VuaWcsIENocmlzdGlhbiA8YSBjbGFzcz0ieF94X21vei10eHQtbGluay1yZmMyMzk2
+RSIgaHJlZj0ibWFpbHRvOkNocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSI+DQombHQ7Q2hyaXN0aWFu
+LktvZW5pZ0BhbWQuY29tJmd0OzwvYT48YnI+DQomZ3Q7IFNlbnQ6IFdlZG5lc2RheSwgTm92ZW1i
+ZXIgNCwgMjAyMCAzOjM1IFBNPGJyPg0KJmd0OyBUbzogU2hhcm1hLCBTaGFzaGFuayA8YSBjbGFz
+cz0ieF94X21vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOlNoYXNoYW5rLlNoYXJt
+YUBhbWQuY29tIj4NCiZsdDtTaGFzaGFuay5TaGFybWFAYW1kLmNvbSZndDs8L2E+OyA8YSBjbGFz
+cz0ieF94X21vei10eHQtbGluay1hYmJyZXZpYXRlZCIgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnIj4NCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPjxi
+cj4NCiZndDsgQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8YSBjbGFzcz0ieF94X21vei10eHQtbGlu
+ay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20iPg0KJmx0
+O0FsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20mZ3Q7PC9hPjsgUWluLCBFZGR5IDxhIGNsYXNzPSJ4
+X3hfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86RWRkeS5RaW5AYW1kLmNvbSI+
+DQombHQ7RWRkeS5RaW5AYW1kLmNvbSZndDs8L2E+PGJyPg0KJmd0OyBTdWJqZWN0OiBSZTogW1BB
+VENIXSBkcm0vYW1kZ3B1OiBjbGlwIHRoZSByZWYgZGl2aWRlciBtYXggdmFsdWUgYXQgMTAwPGJy
+Pg0KJmd0Ozxicj4NCiZndDsgQW0gMDMuMTEuMjAgdW0gMTg6MTMgc2NocmllYiBTaGFzaGFuayBT
+aGFybWE6PGJyPg0KJmd0OyZndDsgVGhpcyBwYXRjaCBsaW1pdHMgdGhlIHJlZl9kaXZfbWF4IHZh
+bHVlIHRvIDEwMCwgZHVyaW5nIHRoZSBjYWxjdWxhdGlvbjxicj4NCiZndDsmZ3Q7IG9mIFBMTCBm
+ZWVkYmFjayByZWZlcmVuY2UgZGl2aWRlci4gV2l0aCBjdXJyZW50IHZhbHVlICgxMjgpLCB0aGU8
+YnI+DQomZ3Q7Jmd0OyBwcm9kdWNlZCBmYl9yZWZfZGl2IHZhbHVlIGdlbmVyYXRlcyB1bnN0YWJs
+ZSBvdXRwdXQgYXQgcGFydGljdWxhcjxicj4NCiZndDsmZ3Q7IGZyZXF1ZW5jaWVzLiBSYWRlb24g
+ZHJpdmVyIGxpbWl0cyB0aGlzIHZhbHVlIGF0IDEwMC48YnI+DQomZ3Q7IE1obSwgaXMgdGhhdCAx
+MDAgaGFyZCBjb2RlZCBpbiByYWRlb24/IEkgaGF2ZSBubyBpZGVhIHdoZXJlIHRoYXQgaXMgY29t
+aW5nIGZyb20uPGJyPg0KJmd0Ozxicj4NCiZndDsgQmVzdCB3b3VsZCBwcm9iYWJseSB0byBncmFi
+IGEgaGFyZHdhcmUgZW5naW5lZXIgYW5kIHRyeSB0byBmaWd1cmUgb3V0IHdoYXQgdGhlIHJlYWwg
+bWF4aW11bXMgZm9yIHRoZSBQTEwgaXMgdG8gc3RpbGwgcHJvZHVjZSBhIHN0YWJsZSBzaWduYWwu
+PGJyPg0KJmd0Ozxicj4NCiZndDsgQ2hyaXN0aWFuLjxicj4NCiZndDs8YnI+DQomZ3Q7Jmd0OyBP
+biBPbGFuZCwgd2hlbiB3ZSB0cnkgdG8gc2V0dXAgbW9kZSAyMDQ4eDEyODBANjAgKGEgYml0IHdl
+aXJkLCBJPGJyPg0KJmd0OyZndDsga25vdyksIGl0IGRlbWFuZHMgYSBjbG9jayBvZiAyMjEyNzAg
+S2h6LiBJdCdzIGJlZW4gb2JzZXJ2ZWQgdGhhdCB0aGU8YnI+DQomZ3Q7Jmd0OyBQTEwgY2FsY3Vs
+YXRpb25zIHVzaW5nIHZhbHVlcyAxMjggYW5kIDEwMCBhcmUgdmFzdGx5IGRpZmZlcmVudCwgYW5k
+PGJyPg0KJmd0OyZndDsgbG9vayBsaWtlIHRoaXM6PGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0
+OyArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKzxicj4NCiZndDsm
+Z3Q7IHxQYXJhbWV0ZXImbmJzcDsmbmJzcDsmbmJzcDsgfEFNREdQVSZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8UmFkZW9uJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8PGJyPg0KJmd0OyZndDsgKy0tLS0tLS0tLS0t
+LS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSs8YnI+DQomZ3Q7Jmd0OyB8Q2xvY2sgZmVl
+ZGJhY2smbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8PGJyPg0KJmd0OyZn
+dDsgfGRpdmlkZXIgbWF4Jm5ic3A7IHwmbmJzcDsgMTI4Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsgMTAwJm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyB8Y2FwIHZhbHVlJm5ic3A7Jm5i
+c3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8PGJyPg0K
+Jmd0OyZndDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgfDxicj4NCiZndDsmZ3Q7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyArLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKzxicj4NCiZndDsmZ3Q7IHxyZWZfZGl2X21heCZu
+YnNwOyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfDxicj4NCiZndDsm
+Z3Q7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyA0MiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8Jm5ic3A7IDIwJm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyB8Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8PGJyPg0KJmd0
+OyZndDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsgfDxicj4NCiZndDsmZ3Q7ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0rPGJyPg0KJmd0OyZndDsgfHJlZl9kaXYmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsgfCZuYnNwOyA0MiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyB8Jm5ic3A7IDIwJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8PGJyPg0KJmd0OyZndDsgKy0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSs8YnI+DQomZ3Q7Jmd0OyB8ZmJfZGl2
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsgMTAzMjYmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyA4MTk1Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyArLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKzxicj4NCiZndDsmZ3Q7IHxmYl9kaXYmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyAxMDI0Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsgMTYzJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyArLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKzxicj4NCiZndDsmZ3Q7IHxmYl9kZXZfcCZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyB8Jm5ic3A7IDQmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyA5Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHw8YnI+DQomZ3Q7Jmd0OyB8ZnJh
+YyBmYl9kZV5fcHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8PGJyPg0K
+Jmd0OyZndDsgKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLSs8YnI+
+DQomZ3Q7Jmd0Ozxicj4NCiZndDsmZ3Q7IFdpdGggcmVmX2Rpdl9tYXggdmFsdWUgY2xpcHBlZCBh
+dCAxMDAsIEFNREdQVSBkcml2ZXIgY2FuIGFsc28gZHJpdmU8YnI+DQomZ3Q7Jmd0OyB2aWRlbW9k
+ZSAyMDQ4eDEyODBANjAgKDIyMU1oeikgYW5kIHByb2R1Y2UgcHJvcGVyIG91dHB1dCB3aXRob3V0
+IGFueTxicj4NCiZndDsmZ3Q7IGJsYW5raW5nIGFuZCBkaXN0b3J0aW9uIG9uIHRoZSBzY3JlZW4u
+PGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0OyBQUzogVGhpcyB2YWx1ZSB3YXMgY2hhbmdlZCBm
+cm9tIDEyOCB0byAxMDAgaW4gUmFkZW9uIGRyaXZlciBhbHNvLCBoZXJlOjxicj4NCiZndDsmZ3Q7
+IDxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9mcmVlZGVza3RvcC9kcm0tdGlwL2NvbW1pdC80
+YjIxY2UxYjRiNWQyNjJlN2Q0NjU2YjgiPg0KaHR0cHM6Ly9naXRodWIuY29tL2ZyZWVkZXNrdG9w
+L2RybS10aXAvY29tbWl0LzRiMjFjZTFiNGI1ZDI2MmU3ZDQ2NTZiODwvYT48YnI+DQomZ3Q7Jmd0
+OyBlY2VjYzg5MWZjM2NiODA2PGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0OyBDYzogQWxleCBE
+ZXVjaGVyIDxhIGNsYXNzPSJ4X3hfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86
+QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSI+DQombHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
+bSZndDs8L2E+PGJyPg0KJmd0OyZndDsgQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGEgY2xhc3M9Inhf
+eF9tb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20iPg0KJmx0O2NocmlzdGlhbi5rb2VuaWdAYW1kLmNvbSZndDs8L2E+PGJyPg0KJmd0OyZn
+dDsgQ2M6IEVkZHkgUWluIDxhIGNsYXNzPSJ4X3hfbW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVm
+PSJtYWlsdG86RWRkeS5RaW5AYW1kLmNvbSI+DQombHQ7RWRkeS5RaW5AYW1kLmNvbSZndDs8L2E+
+PGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0OyBTaWduZWQtb2ZmLWJ5OiBTaGFzaGFuayBTaGFy
+bWEgPGEgY2xhc3M9InhfeF9tb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpzaGFz
+aGFuay5zaGFybWFAYW1kLmNvbSI+DQombHQ7c2hhc2hhbmsuc2hhcm1hQGFtZC5jb20mZ3Q7PC9h
+Pjxicj4NCiZndDsmZ3Q7IC0tLTxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbGwuYyB8IDIgKy08YnI+DQomZ3Q7Jmd0OyZu
+YnNwOyZuYnNwOyZuYnNwOyAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRp
+b24oLSk8YnI+DQomZ3Q7Jmd0Ozxicj4NCiZndDsmZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcGxsLmM8YnI+DQomZ3Q7Jmd0OyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbGwuYzxicj4NCiZndDsmZ3Q7IGluZGV4IDFmMjMwNWI3
+YmQxMy4uMjNhMmUxZWJmNzhhIDEwMDY0NDxicj4NCiZndDsmZ3Q7IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbGwuYzxicj4NCiZndDsmZ3Q7ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbGwuYzxicj4NCiZndDsmZ3Q7IEBAIC04NSw3ICs4
+NSw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9wbGxfZ2V0X2ZiX3JlZl9kaXYodW5zaWduZWQgbm9t
+LCB1bnNpZ25lZCBkZW4sIHVuc2lnbmVkIHBvc3RfPGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgdW5zaWduZWQgKmZiX2RpdiwgdW5zaWdu
+ZWQgKnJlZl9kaXYpPGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsgezxicj4NCiZndDsm
+Z3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IC8qIGxpbWl0IHJlZmVyZW5j
+ZSAqIHBvc3QgZGl2aWRlciB0byBhIG1heGltdW0gKi88YnI+DQomZ3Q7Jmd0OyAtJm5ic3A7Jm5i
+c3A7Jm5ic3A7IHJlZl9kaXZfbWF4ID0gbWluKDEyOCAvIHBvc3RfZGl2LCByZWZfZGl2X21heCk7
+PGJyPg0KJmd0OyZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyByZWZfZGl2X21heCA9IG1pbigxMDAg
+LyBwb3N0X2RpdiwgcmVmX2Rpdl9tYXgpOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+IDxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IC8qIGdl
+dCBtYXRjaGluZyByZWZlcmVuY2UgYW5kIGZlZWRiYWNrIGRpdmlkZXIgKi88YnI+DQomZ3Q7Jmd0
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAqcmVmX2RpdiA9IG1pbihtYXgo
+RElWX1JPVU5EX0NMT1NFU1QoZGVuLCBwb3N0X2RpdiksIDF1KSw8YnI+DQomZ3Q7Jmd0OyByZWZf
+ZGl2X21heCk7PGJyPg0KPGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250PjwvZGl2Pg0KPC9ibG9j
+a3F1b3RlPg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8YnI+DQo8L2Rpdj4NCjwvYm9keT4NCjwv
+aHRtbD4NCg==
 
+--_000_MN2PR12MB44885BB869E184372785BB5AF7EF0MN2PR12MB4488namp_--
 
---------------C6F7CC715A5B79075683689D
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">In the long term we probably want to
-      nuke this code anyway and switch to the DC code, don't we?<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 04.11.20 um 15:23 schrieb Deucher, Alexander:<br>
-    </div>
-    <blockquote type="cite" cite="mid:MN2PR12MB4488278FB8B457603F1B955CF7EF0@MN2PR12MB4488.namprd12.prod.outlook.com">
-      
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        You might want to talk to the DAL team, they may have some
-        advice.&nbsp; In general, I would say test it as well as you can.&nbsp;
-        It's probably safe as radeon is still the default driver for SI
-        parts and generally seems to be working well there.</div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        <br>
-      </div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Alex</div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        <br>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          Sharma, Shashank <a class="moz-txt-link-rfc2396E" href="mailto:Shashank.Sharma@amd.com">&lt;Shashank.Sharma@amd.com&gt;</a><br>
-          <b>Sent:</b> Wednesday, November 4, 2020 9:11 AM<br>
-          <b>To:</b> Deucher, Alexander
-          <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Koenig, Christian
-          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>;
-          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-          <b>Cc:</b> Qin, Eddy <a class="moz-txt-link-rfc2396E" href="mailto:Eddy.Qin@amd.com">&lt;Eddy.Qin@amd.com&gt;</a><br>
-          <b>Subject:</b> Re: [PATCH] drm/amdgpu: clip the ref divider
-          max value at 100</font>
-        <div>&nbsp;</div>
-      </div>
-      <div>
-        <p>Thanks Alex, Same question here, <br>
-        </p>
-        <p>Should we go through some extensive test routine due to
-          change in PLL values, or is it OK to go ahead based on our
-          experience from Radeon values ?
-          <br>
-        </p>
-        <p><br>
-        </p>
-        <p>Regards<br>
-        </p>
-        <p>Shashank<br>
-        </p>
-        <p><br>
-        </p>
-        <div class="x_moz-cite-prefix">On 04/11/20 7:36 pm, Deucher,
-          Alexander wrote:<br>
-        </div>
-        <blockquote type="cite">
-          <style type="text/css" style="display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-          <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
-            font-size:12pt; color:rgb(0,0,0)">
-            Acked-by: Alex Deucher <a class="x_moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com" moz-do-not-send="true">
-              &lt;alexander.deucher@amd.com&gt;</a><br>
-          </div>
-          <hr tabindex="-1" style="display:inline-block; width:98%">
-          <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> Koenig, Christian
-              <a class="x_moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a><br>
-              <b>Sent:</b> Wednesday, November 4, 2020 6:54 AM<br>
-              <b>To:</b> Sharma, Shashank <a class="x_moz-txt-link-rfc2396E" href="mailto:Shashank.Sharma@amd.com" moz-do-not-send="true">
-                &lt;Shashank.Sharma@amd.com&gt;</a>; <a class="x_moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
-                amd-gfx@lists.freedesktop.org</a> <a class="x_moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
-                &lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-              <b>Cc:</b> Deucher, Alexander <a class="x_moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">
-                &lt;Alexander.Deucher@amd.com&gt;</a>; Qin, Eddy <a class="x_moz-txt-link-rfc2396E" href="mailto:Eddy.Qin@amd.com" moz-do-not-send="true">
-                &lt;Eddy.Qin@amd.com&gt;</a><br>
-              <b>Subject:</b> Re: [PATCH] drm/amdgpu: clip the ref
-              divider max value at 100</font>
-            <div>&nbsp;</div>
-          </div>
-          <div class="x_BodyFragment"><font size="2"><span style="font-size:11pt">
-                <div class="x_PlainText">Am 04.11.20 um 11:40 schrieb
-                  Sharma, Shashank:<br>
-                  &gt; [AMD Public Use]<br>
-                  &gt;<br>
-                  &gt; Hello Christian,<br>
-                  &gt; Yes, that 100 is hardcoded in Radeon, and git
-                  blame says it was one of your patches which made it
-                  100 from 128 😊.<br>
-                  &gt; Would you mind having a look at commit id:
-                  4b21ce1b4b5d262e7d4656b8ececc891fc3cb806 ?<br>
-                  <br>
-                  Ah, yes that one :)<br>
-                  <br>
-                  Yeah the background is that this was just an educated
-                  guess because I <br>
-                  couldn't find anybody which could tell me what the
-                  real limits of the <br>
-                  PLL is.<br>
-                  <br>
-                  Looks like we just forgot to apply that patch to
-                  amdgpu.<br>
-                  <br>
-                  Regards,<br>
-                  Christian.<br>
-                  <br>
-                  &gt;<br>
-                  &gt; Regards<br>
-                  &gt; Shashank<br>
-                  &gt; -----Original Message-----<br>
-                  &gt; From: Koenig, Christian <a class="x_moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">
-                    &lt;Christian.Koenig@amd.com&gt;</a><br>
-                  &gt; Sent: Wednesday, November 4, 2020 3:35 PM<br>
-                  &gt; To: Sharma, Shashank <a class="x_moz-txt-link-rfc2396E" href="mailto:Shashank.Sharma@amd.com" moz-do-not-send="true">
-                    &lt;Shashank.Sharma@amd.com&gt;</a>; <a class="x_moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
-                    amd-gfx@lists.freedesktop.org</a><br>
-                  &gt; Cc: Deucher, Alexander <a class="x_moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">
-                    &lt;Alexander.Deucher@amd.com&gt;</a>; Qin, Eddy <a class="x_moz-txt-link-rfc2396E" href="mailto:Eddy.Qin@amd.com" moz-do-not-send="true">
-                    &lt;Eddy.Qin@amd.com&gt;</a><br>
-                  &gt; Subject: Re: [PATCH] drm/amdgpu: clip the ref
-                  divider max value at 100<br>
-                  &gt;<br>
-                  &gt; Am 03.11.20 um 18:13 schrieb Shashank Sharma:<br>
-                  &gt;&gt; This patch limits the ref_div_max value to
-                  100, during the calculation<br>
-                  &gt;&gt; of PLL feedback reference divider. With
-                  current value (128), the<br>
-                  &gt;&gt; produced fb_ref_div value generates unstable
-                  output at particular<br>
-                  &gt;&gt; frequencies. Radeon driver limits this value
-                  at 100.<br>
-                  &gt; Mhm, is that 100 hard coded in radeon? I have no
-                  idea where that is coming from.<br>
-                  &gt;<br>
-                  &gt; Best would probably to grab a hardware engineer
-                  and try to figure out what the real maximums for the
-                  PLL is to still produce a stable signal.<br>
-                  &gt;<br>
-                  &gt; Christian.<br>
-                  &gt;<br>
-                  &gt;&gt; On Oland, when we try to setup mode
-                  2048x1280@60 (a bit weird, I<br>
-                  &gt;&gt; know), it demands a clock of 221270 Khz. It's
-                  been observed that the<br>
-                  &gt;&gt; PLL calculations using values 128 and 100 are
-                  vastly different, and<br>
-                  &gt;&gt; look like this:<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; +------------------------------------------+<br>
-                  &gt;&gt; |Parameter&nbsp;&nbsp;&nbsp; |AMDGPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |Radeon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +-------------+----------------------------+<br>
-                  &gt;&gt; |Clock feedback&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |divider max&nbsp; |&nbsp; 128&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |cap value&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +------------------------------------------+<br>
-                  &gt;&gt; |ref_div_max&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +------------------------------------------+<br>
-                  &gt;&gt; |ref_div&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +------------------------------------------+<br>
-                  &gt;&gt; |fb_div&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 10326&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 8195&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +------------------------------------------+<br>
-                  &gt;&gt; |fb_div&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 163&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +------------------------------------------+<br>
-                  &gt;&gt; |fb_dev_p&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; |frac fb_de^_p|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
-                  &gt;&gt; +----------------------------+-------------+<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; With ref_div_max value clipped at 100, AMDGPU
-                  driver can also drive<br>
-                  &gt;&gt; videmode 2048x1280@60 (221Mhz) and produce
-                  proper output without any<br>
-                  &gt;&gt; blanking and distortion on the screen.<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; PS: This value was changed from 128 to 100 in
-                  Radeon driver also, here:<br>
-                  &gt;&gt; <a href="https://github.com/freedesktop/drm-tip/commit/4b21ce1b4b5d262e7d4656b8" moz-do-not-send="true">
-https://github.com/freedesktop/drm-tip/commit/4b21ce1b4b5d262e7d4656b8</a><br>
-                  &gt;&gt; ececc891fc3cb806<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; Cc: Alex Deucher <a class="x_moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">
-                    &lt;Alexander.Deucher@amd.com&gt;</a><br>
-                  &gt;&gt; Cc: Christian König <a class="x_moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com" moz-do-not-send="true">
-                    &lt;christian.koenig@amd.com&gt;</a><br>
-                  &gt;&gt; Cc: Eddy Qin <a class="x_moz-txt-link-rfc2396E" href="mailto:Eddy.Qin@amd.com" moz-do-not-send="true">
-                    &lt;Eddy.Qin@amd.com&gt;</a><br>
-                  &gt;&gt;<br>
-                  &gt;&gt; Signed-off-by: Shashank Sharma <a class="x_moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com" moz-do-not-send="true">
-                    &lt;shashank.sharma@amd.com&gt;</a><br>
-                  &gt;&gt; ---<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c |
-                  2 +-<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 1 insertion(+), 1
-                  deletion(-)<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c<br>
-                  &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c<br>
-                  &gt;&gt; index 1f2305b7bd13..23a2e1ebf78a 100644<br>
-                  &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c<br>
-                  &gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c<br>
-                  &gt;&gt; @@ -85,7 +85,7 @@ static void
-                  amdgpu_pll_get_fb_ref_div(unsigned nom, unsigned den,
-                  unsigned post_<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned
-                  *fb_div, unsigned *ref_div)<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp; {<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* limit reference * post divider to a
-                  maximum */<br>
-                  &gt;&gt; -&nbsp;&nbsp;&nbsp; ref_div_max = min(128 / post_div,
-                  ref_div_max);<br>
-                  &gt;&gt; +&nbsp;&nbsp;&nbsp; ref_div_max = min(100 / post_div,
-                  ref_div_max);<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp; <br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* get matching reference and feedback
-                  divider */<br>
-                  &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ref_div =
-                  min(max(DIV_ROUND_CLOSEST(den, post_div), 1u),<br>
-                  &gt;&gt; ref_div_max);<br>
-                  <br>
-                </div>
-              </span></font></div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------C6F7CC715A5B79075683689D--
-
---===============1634504997==
+--===============1754249184==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -566,4 +530,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1634504997==--
+--===============1754249184==--
