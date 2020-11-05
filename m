@@ -2,75 +2,62 @@ Return-Path: <SRS0=AVpe=EL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A160C4741F
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 17:26:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25600C4741F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 18:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B56A4206B6
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 17:26:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D5AF920709
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 18:15:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJAxRqlg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B56A4206B6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="IyWaPau7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5AF920709
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EED666E044;
-	Thu,  5 Nov 2020 17:26:41 +0000 (UTC)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED9DA6E044;
- Thu,  5 Nov 2020 17:24:42 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id x13so1873311pfa.9;
- Thu, 05 Nov 2020 09:24:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=kRPEM8dLjyLiEebJREsbYoGi+98veJN3eW+L5N8MANw=;
- b=LJAxRqlgwpEP711TUT+dFB54aN1UL83lKZKvAOwC1z8du9AfiYoov5+1NgrIM+Rv0V
- ERrJ4sDvfB/7noY3mQ5+5pgpMk/cobJiBbCF5xJs3m4D0Mk3/aUz20pu1T7lX7evedV9
- 44z04LDOg3sKgsfDYyisRMjVcRoBP82HNMInxO/4VAtYM0olHgJnCZ3Z7b3mLdoui1So
- WtLK24k2bvgYqI19m/jtq1S343uED2sj9bfnNyZ5kpkVVEblqVsrgrJTyhC7YBHUglQP
- QvGMdEJY7zRrz4YlWNlFt75KuQsPnTsOR29y4i5yG5L0gMAKpGMPDNOtOtBhmtZ2jAmW
- TGbw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4E66EDD9;
+	Thu,  5 Nov 2020 18:15:09 +0000 (UTC)
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
+ [IPv6:2607:f8b0:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 187AD6EDDB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 18:15:08 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id b2so2296234ots.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Nov 2020 10:15:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2lVJy0oZJ1HKj/RNi/yGkNbXnVBFsYr/3+ED5ZMQfKw=;
+ b=IyWaPau7ZYEzIkgrk5Vh4h4G9HhBgXbnf18iSExSSwD8Va8GOuKADUz4CytksalbiW
+ MzScsBKf5oiY2HuZ1YhHj0f7X2yZf4RR6/ROIepItR8F8D/GCz6dcRvPz2s9Pv5dXK3q
+ wNxzRh7wgI7g0lSub9uEkZLBBMgnB7KSZ/94o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=kRPEM8dLjyLiEebJREsbYoGi+98veJN3eW+L5N8MANw=;
- b=MCAcMtBuT661fLRPm5uO4BO7BTT8glpltr9LnLYlgdK3EtdTqSyJ4p+JqEjwp4qSdm
- prQo5qKrAIZlFmBvz3m+pJWg8tXV+QWclYCooiCy64WzUJK4Bg/K/fZ1s+3d0/cQVTPQ
- 2PvQxHRhcPiB2qhls+K1pPBmNCkMLKLoobl0JJjug5RCv4s2J2mLFjfjr63H5Kfi3RdQ
- GKWPNShGIr1JAZuyrXabobcn5dRTpDWS6CskSI/hw7v3JM7zQ72cSQiPJnbdWDwe+N9e
- Lv4YKDcyS2i1Ct13E25bqmf9LSRW/rcYH5hHo3bSw3YQcXmb8FnX2I3n0FSKNnjNGm+0
- q9WQ==
-X-Gm-Message-State: AOAM5318WeGjHNGTYVPQPKBbGKDAk2j5uENa4DChnWLbJOpjFczAHY5U
- TqScH1v/l2dQIyqwLhTzvDNdHw8hICA=
-X-Google-Smtp-Source: ABdhPJyKHU9603o2tF6OrsxyE2Luza+oJ/CDl1+4JY+pPq6LDVqrIDKkrZsdsyc9MLqOn345oCoTeA==
-X-Received: by 2002:a63:c20f:: with SMTP id b15mr3262198pgd.230.1604597082661; 
- Thu, 05 Nov 2020 09:24:42 -0800 (PST)
-Received: from localhost ([160.202.157.3])
- by smtp.gmail.com with ESMTPSA id r127sm3113321pfc.159.2020.11.05.09.24.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2020 09:24:42 -0800 (PST)
-Date: Thu, 5 Nov 2020 22:54:29 +0530
-From: Deepak R Varma <mh12gx2825@gmail.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: replace idr_init() by idr_init_base()
-Message-ID: <20201105172429.GA41091@localhost>
-References: <20201104151359.GA69034@localhost>
- <91ebae30-c75c-5485-8de5-36464e97ed7e@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2lVJy0oZJ1HKj/RNi/yGkNbXnVBFsYr/3+ED5ZMQfKw=;
+ b=Sntu9UykqOVsCZcp11UX4BMJkVIxoEaiqxdrIOkQVXzZE7KIFtjHo6f3T+j4wQQpQ6
+ c+XAWbSi+nti7c5K41xA6bDx961NvlAuEB4VjI4k370Nle3iAaw8kcF8SRPMZoLSuraa
+ s80nAgwGDZ7aHW0yBf+gwK+/tIRlkk1SYzrb16haZi8kouptQN2HBz2WVFfRbsNepQIL
+ 6tt+Ubn/ipBKTBHZkQoKDHlfpW2/G+yCgii5Ws5W226mFgifAqmbjaPTnGV0YZ9t1JR0
+ mGZ9brTXZ0DGrcY8kVaLeHhKiPo24Tsfxvqzfc0+qjjdimqNZTK2hPq5yXaEr1QpoEAI
+ CDIg==
+X-Gm-Message-State: AOAM531FNn6/e17a114kM3CORC+qKcN0vq1uEZ7uFvNn8ykX7bXSsHlS
+ JXXehoEyGseyQ5uHJfMhAdwCa3ksae4tmC7d1VizpA==
+X-Google-Smtp-Source: ABdhPJz6LySZvQ0VpbbSmLJZyloCrKQbelizcXBsEwRVJaITj+vGbbcw3XfkOTnXZG1mD1JdtddL+vEJaCj1UVIENNw=
+X-Received: by 2002:a9d:3b4:: with SMTP id f49mr2710790otf.188.1604600105882; 
+ Thu, 05 Nov 2020 10:15:05 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <91ebae30-c75c-5485-8de5-36464e97ed7e@amd.com>
-X-Mailman-Approved-At: Thu, 05 Nov 2020 17:26:41 +0000
+References: <20201105144517.1826692-1-lee.jones@linaro.org>
+ <20201105164841.GH485884@ulmo> <20201105181053.GP4488@dell>
+In-Reply-To: <20201105181053.GP4488@dell>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 5 Nov 2020 19:14:54 +0100
+Message-ID: <CAKMK7uEyW_KJ1qC3gLASDe4Qyk_5UMr+yCu7VVVdAq+Z0J6RwQ@mail.gmail.com>
+Subject: Re: [PATCH 00/19] [Set 1] Rid W=1 warnings from GPU
+To: Lee Jones <lee.jones@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,83 +69,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Huang Rui <ray.huang@amd.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Gareth Hughes <gareth@valinux.com>, Fabio Estevam <festevam@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ David Francis <David.Francis@amd.com>, Jingoo Han <jg1.han@samsung.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Rob Clark <rob.clark@linaro.org>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, NXP Linux Team <linux-imx@nxp.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ linux-tegra <linux-tegra@vger.kernel.org>, Nirmoy Das <nirmoy.aiemd@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Jason Yan <yanaijie@huawei.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 04, 2020 at 03:01:17PM -0500, Felix Kuehling wrote:
-> On 2020-11-04 10:13 a.m., Deepak R Varma wrote:
-> > idr_init() uses base 0 which is an invalid identifier. The new function
-> > idr_init_base allows IDR to set the ID lookup from base 1. This avoids
-> > all lookups that otherwise starts from 0 since 0 is always unused.
-> =
+On Thu, Nov 5, 2020 at 7:10 PM Lee Jones <lee.jones@linaro.org> wrote:
+>
+> On Thu, 05 Nov 2020, Thierry Reding wrote:
+>
+> > On Thu, Nov 05, 2020 at 02:44:58PM +0000, Lee Jones wrote:
+> > > This set is part of a larger effort attempting to clean-up W=1
+> > > kernel builds, which are currently overwhelmingly riddled with
+> > > niggly little warnings.
+> > >
+> > > There are 5000 warnings to work through.
+> > >
+> > > It will take a couple more sets.
+> > >
+> > > Lee Jones (19):
+> > >   gpu: host1x: bus: Add missing description for 'driver'
+> > >   gpu: ipu-v3: ipu-di: Strip out 2 unused 'di_sync_config' entries
+> > >   gpu: drm: imx: ipuv3-plane: Mark 'crtc_state' as __always_unused
+> > >   gpu: drm: omapdrm: omap_irq: Fix a couple of doc-rot issues
+> > >   gpu: drm: selftests: test-drm_mm: Mark 'hole_end' as always_unused
+> > >   gpu: drm: scheduler: sched_main: Provide missing description for
+> > >     'sched' paramter
+> > >   gpu: drm: scheduler: sched_entity: Demote non-conformant kernel-doc
+> > >     headers
+> > >   gpu: drm: omapdrm: dss: dsi: Rework and remove a few unused variables
+> > >   gpu: drm: selftests: test-drm_framebuffer: Remove set but unused
+> > >     variable 'fb'
+> > >   gpu: drm: ttm: ttm_bo: Fix one function header - demote lots of
+> > >     kernel-doc abuses
+> > >   gpu: drm: panel: panel-simple: Fix 'struct panel_desc's header
+> > >   gpu: drm: bridge: analogix: analogix_dp_reg: Remove unused function
+> > >     'analogix_dp_write_byte_to_dpcd'
+> > >   gpu: drm: ttm: ttm_tt: Demote kernel-doc header format abuses
+> > >   gpu: drm: selftests: test-drm_dp_mst_helper: Place 'struct
+> > >     drm_dp_sideband_msg_req_body' onto the heap
+> > >   gpu: drm: radeon: radeon_drv: Remove unused variable 'ret'
+> > >   gpu: drm: panel: panel-ilitek-ili9322: Demote non-conformant
+> > >     kernel-doc header
+> > >   gpu: drm: radeon: radeon_device: Fix a bunch of kernel-doc
+> > >     misdemeanours
+> > >   gpu: drm: amd: amdgpu: amdgpu: Mark global variables as __maybe_unused
+> > >   gpu: drm: bridge: analogix: analogix_dp_reg: Remove unused function
+> > >     'analogix_dp_start_aux_transaction'
+> >
+> > As commented on the other patches, the subject prefixes on most of these
+> > look wrong, but it's generally a nice cleanup.
+>
+> The prefixes are automated.  I'll add this to my list of awkward
+> subsystems and go through them all manually again tomorrow. :D
 
-> I disagree. We call idr_alloc with start=3D0 for both these IDRs. That me=
-ans 0
-> seems to be a valid handle.
+tbh for autmoation they look really good :-)
 
-Hello Felix,
-You are correct. There are calls made to idr_alloc with start range from
-0. So, for this driver, id=3D0 seems a valid use case. The change I
-proposed is not relevant for this driver. You may please ignore the
-patch.
-
-Thank you,
-./drv
-
-> =
-
-> Regards,
-> =A0 Felix
-> =
-
-> =
-
-> > =
-
-> > References: commit 6ce711f27500 ("idr: Make 1-based IDRs more efficient=
-")
-> > =
-
-> > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdkfd/kfd_events.c  | 2 +-
-> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 2 +-
-> >   2 files changed, 2 insertions(+), 2 deletions(-)
-> > =
-
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/=
-amd/amdkfd/kfd_events.c
-> > index ba2c2ce0c55a..b3339b53c8ad 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> > @@ -230,7 +230,7 @@ static int create_other_event(struct kfd_process *p=
-, struct kfd_event *ev)
-> >   void kfd_event_init_process(struct kfd_process *p)
-> >   {
-> >   	mutex_init(&p->event_mutex);
-> > -	idr_init(&p->event_idr);
-> > +	idr_init_base(&p->event_idr, 1);
-> >   	p->signal_page =3D NULL;
-> >   	p->signal_event_count =3D 0;
-> >   }
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_process.c
-> > index 65803e153a22..022e61babe30 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > @@ -1289,7 +1289,7 @@ struct kfd_process_device *kfd_create_process_dev=
-ice_data(struct kfd_dev *dev,
-> >   	list_add(&pdd->per_device_list, &p->per_device_data);
-> >   	/* Init idr used for memory handle translation */
-> > -	idr_init(&pdd->alloc_idr);
-> > +	idr_init_base(&pdd->alloc_idr, 1);
-> >   	return pdd;
+I'd say if you replace the intermediate ": " with just a / you'll be
+perfectly in style for drivers/gpu. But really I think it's ok as-is,
+imo no need to change since this is a giantic tree wide effort.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
