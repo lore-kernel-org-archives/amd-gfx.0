@@ -2,44 +2,71 @@ Return-Path: <SRS0=AVpe=EL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2523C55179
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:38:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11FEFC55178
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2784F2074B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:38:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2784F2074B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+	by mail.kernel.org (Postfix) with ESMTPS id 853DD20756
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:48:47 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qh8F9+Bv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 853DD20756
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A30226EDC7;
-	Thu,  5 Nov 2020 16:38:40 +0000 (UTC)
-Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C95526EDC7;
- Thu,  5 Nov 2020 16:38:39 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk3.altibox.net (Postfix) with ESMTPS id D181420068;
- Thu,  5 Nov 2020 17:38:33 +0100 (CET)
-Date: Thu, 5 Nov 2020 17:38:31 +0100
-From: Sam Ravnborg <sam@ravnborg.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A58C56EDD0;
+	Thu,  5 Nov 2020 16:48:46 +0000 (UTC)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26B826EDCE;
+ Thu,  5 Nov 2020 16:48:45 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id o18so2261278edq.4;
+ Thu, 05 Nov 2020 08:48:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=yX39kTh1HHCiE7a4ozj9S+V+l033SuDnzUBvvzJ5DSA=;
+ b=qh8F9+Bv/qy6tDCwwb+PEaXxyVWA7Xq2gVdU1smCegVmFklmD+gxgnUaRGmQ0LODVr
+ qkTIu7Wtw41lEWjrAiDZJwMwW3H9dXGEvkrVKsnpztVYnkSDHtmSN7nCOa5Xw7DuDU76
+ kYrut4EaLB+TcqA3ukK1Ait/cG9RFUoNe6j6/G2K8guZNGpQj8n5HmE101VfTFgB8Ul+
+ VOlhsdytM53K874JOG4FmneJAL+sErho7nMYAd9Bv8sODNEjbZaTGXHFAzyJM9+Pp7nV
+ ASFaFZjPP3wvQ7VXrcinAw3Cjt3oqvQrhBpl0hphQVGfL0c29ZboNG8h+EuZHVy5fPqp
+ 1AIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=yX39kTh1HHCiE7a4ozj9S+V+l033SuDnzUBvvzJ5DSA=;
+ b=oWZpE0t7Py7tksm/7XX/g/7x/Yw4QT2N2ZJJBpWH4NWldFD1X6Y4zv4ScOO3RSPrGU
+ B1wTaP7qmZRIL7bV0QTnLfWGDk8kXmFSQkzeZ3JB5yI3CPxmVVS6l+UEJG+291vV75Pf
+ MhH6XQ4tk9h/RB6tuixgK7v/sRKmQ6sCttB+d/yO0FmVBgedUBw0iJkqSLEAiRCnrnVa
+ q6RgRpvszA6pzqkjbbhvATXEJzRChbZIGCOvaLtfB06dySNk+WDIBJMYHc/Kpggu9y4T
+ 7JfDnkVd+8YEWQ4owc9XBBltNbJZwGo+xhU8AMCTlhVoyvG4rd2R878/9iX6IZ5BpXta
+ xNuQ==
+X-Gm-Message-State: AOAM5311x01oLagblWeKYpwUVsVq+bmgJAprPsZzhMml/jwy3nmLjyaE
+ TgqeuaJOrf+Zphu4VQke0GY=
+X-Google-Smtp-Source: ABdhPJyiERgZeAUS31dkT4tl4RNTxwY6ZlLP3JkbXUfS5vHH5jSTMFA1rjwEXqQlBo5vKebs0Q+I/g==
+X-Received: by 2002:a50:e041:: with SMTP id g1mr3548640edl.385.1604594923722; 
+ Thu, 05 Nov 2020 08:48:43 -0800 (PST)
+Received: from localhost ([217.111.27.204])
+ by smtp.gmail.com with ESMTPSA id s20sm1222145edw.26.2020.11.05.08.48.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2020 08:48:42 -0800 (PST)
+Date: Thu, 5 Nov 2020 17:48:41 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
 To: Lee Jones <lee.jones@linaro.org>
 Subject: Re: [PATCH 00/19] [Set 1] Rid W=1 warnings from GPU
-Message-ID: <20201105163831.GA86540@ravnborg.org>
+Message-ID: <20201105164841.GH485884@ulmo>
 References: <20201105144517.1826692-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20201105144517.1826692-1-lee.jones@linaro.org>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=VbvZwmh9 c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=AZguWiFxckorV0VyCPwA:9 a=CjuIK1q_8ugA:10
+User-Agent: Mutt/1.14.7 (2020-08-29)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,57 +83,110 @@ Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
  Andrzej Hajda <a.hajda@samsung.com>, Huang Rui <ray.huang@amd.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Gareth Hughes <gareth@valinux.com>, Fabio Estevam <festevam@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, David Francis <David.Francis@amd.com>,
- Jingoo Han <jg1.han@samsung.com>, amd-gfx@lists.freedesktop.org,
- Rob Clark <rob.clark@linaro.org>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- NXP Linux Team <linux-imx@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-media@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ David Francis <David.Francis@amd.com>, Jingoo Han <jg1.han@samsung.com>,
+ amd-gfx@lists.freedesktop.org, Rob Clark <rob.clark@linaro.org>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
  Jonas Karlman <jonas@kwiboo.se>, Sascha Hauer <s.hauer@pengutronix.de>,
  linaro-mm-sig@lists.linaro.org, linux-tegra@vger.kernel.org,
  Nirmoy Das <nirmoy.aiemd@gmail.com>, Jernej Skrabec <jernej.skrabec@siol.net>,
  Jason Yan <yanaijie@huawei.com>, linux-kernel@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Shawn Guo <shawnguo@kernel.org>, Christian Koenig <christian.koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============0751164439=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Lee.
+
+--===============0751164439==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fd5uyaI9j6xoeUBo"
+Content-Disposition: inline
+
+
+--fd5uyaI9j6xoeUBo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
 On Thu, Nov 05, 2020 at 02:44:58PM +0000, Lee Jones wrote:
-> This set is part of a larger effort attempting to clean-up W=1
+> This set is part of a larger effort attempting to clean-up W=3D1
 > kernel builds, which are currently overwhelmingly riddled with
 > niggly little warnings.
-
-Thanks for looking into this.
-
+>=20
 > There are 5000 warnings to work through.
-> 
+>=20
 > It will take a couple more sets.
-:-)
-
+>=20
+> Lee Jones (19):
+>   gpu: host1x: bus: Add missing description for 'driver'
+>   gpu: ipu-v3: ipu-di: Strip out 2 unused 'di_sync_config' entries
+>   gpu: drm: imx: ipuv3-plane: Mark 'crtc_state' as __always_unused
+>   gpu: drm: omapdrm: omap_irq: Fix a couple of doc-rot issues
+>   gpu: drm: selftests: test-drm_mm: Mark 'hole_end' as always_unused
+>   gpu: drm: scheduler: sched_main: Provide missing description for
+>     'sched' paramter
+>   gpu: drm: scheduler: sched_entity: Demote non-conformant kernel-doc
+>     headers
+>   gpu: drm: omapdrm: dss: dsi: Rework and remove a few unused variables
+>   gpu: drm: selftests: test-drm_framebuffer: Remove set but unused
+>     variable 'fb'
+>   gpu: drm: ttm: ttm_bo: Fix one function header - demote lots of
+>     kernel-doc abuses
 >   gpu: drm: panel: panel-simple: Fix 'struct panel_desc's header
-I have a patch here that inline the comments - and fix the warning as a
-side effect. I will get it posted tonight as this is better.
-
 >   gpu: drm: bridge: analogix: analogix_dp_reg: Remove unused function
 >     'analogix_dp_write_byte_to_dpcd'
-When I looked at his I had another unused function after removing the
-first.
-
+>   gpu: drm: ttm: ttm_tt: Demote kernel-doc header format abuses
+>   gpu: drm: selftests: test-drm_dp_mst_helper: Place 'struct
+>     drm_dp_sideband_msg_req_body' onto the heap
+>   gpu: drm: radeon: radeon_drv: Remove unused variable 'ret'
 >   gpu: drm: panel: panel-ilitek-ili9322: Demote non-conformant
 >     kernel-doc header
-Agree on this simple approch, will apply.
-
+>   gpu: drm: radeon: radeon_device: Fix a bunch of kernel-doc
+>     misdemeanours
+>   gpu: drm: amd: amdgpu: amdgpu: Mark global variables as __maybe_unused
 >   gpu: drm: bridge: analogix: analogix_dp_reg: Remove unused function
 >     'analogix_dp_start_aux_transaction'
-OK, this was the one I referred to above. They should be squashed into
-one patch.
 
-	Sam
+As commented on the other patches, the subject prefixes on most of these
+look wrong, but it's generally a nice cleanup.
+
+Thanks!
+Thierry
+
+--fd5uyaI9j6xoeUBo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl+kLOkACgkQ3SOs138+
+s6HE2A/+PdAvZ2+F78DJkdsaNjJu085jUQleXGtXuqh1lQ+yUWWTHYiXOdmLAaru
+GaEmINYkOF2LvdLY5vIwyX+TY2lp9PYd0oo4UHBKei3IrhrHzGM+f1mHxvDfp2fF
+ENihVfG/CNzk1RUnCensuwsBl/NHC/yepie9ykDBthaD5cfAaMpcFxw+KIHErtBh
+I0T8UHO2bbqaU8Oz3r0My3Owk4H/1sNgZ7GBvqKQeWveHpz2FenHke0ZI6tXre2J
+zj1vtgcRPNl6cE3aBxlSd8uIhdjAjGK/iShwI1N868ESy4w4ahGOMdX4i+BRlRL4
+bObmEnqqPIl7n7NxvBvCBZFJQ19RMtkhcAtBT/IbYSiEN4AOS/TFq9iGxXefgNbU
+I3BfMXl4aFQMhIDYHxG97bSr4Njec7KZf1cfTPRaCpcluulvb2geKvwDdDrhtKZW
+LQQjv0hq4l9EDHGMOq5QdyIL9ay13S+ctmBzUN/b5N4YdSyDw9Ixt141zH9Eygdm
+L+BzflS3sGx9roS0adeanIYgqMLV558yzqnC+pg9yaaR/AtaredjWs9+hnpT3XVC
+JltHngRXupmBTRe4i0+YGYrlHFFWTtR+TuWOH4tSHUl5oL5/DL9yjtGLvlB6lNbC
+ohT4UGDQZ8lITaiToRQyBOAh54Zc485krb7QAPVT0HOfLPenxF8=
+=euSt
+-----END PGP SIGNATURE-----
+
+--fd5uyaI9j6xoeUBo--
+
+--===============0751164439==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0751164439==--
