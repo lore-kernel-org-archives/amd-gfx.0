@@ -2,71 +2,75 @@ Return-Path: <SRS0=AVpe=EL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11FEFC55178
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A160C4741F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 17:26:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 853DD20756
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 16:48:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B56A4206B6
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 17:26:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qh8F9+Bv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 853DD20756
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJAxRqlg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B56A4206B6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A58C56EDD0;
-	Thu,  5 Nov 2020 16:48:46 +0000 (UTC)
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26B826EDCE;
- Thu,  5 Nov 2020 16:48:45 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id o18so2261278edq.4;
- Thu, 05 Nov 2020 08:48:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED666E044;
+	Thu,  5 Nov 2020 17:26:41 +0000 (UTC)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED9DA6E044;
+ Thu,  5 Nov 2020 17:24:42 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id x13so1873311pfa.9;
+ Thu, 05 Nov 2020 09:24:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=yX39kTh1HHCiE7a4ozj9S+V+l033SuDnzUBvvzJ5DSA=;
- b=qh8F9+Bv/qy6tDCwwb+PEaXxyVWA7Xq2gVdU1smCegVmFklmD+gxgnUaRGmQ0LODVr
- qkTIu7Wtw41lEWjrAiDZJwMwW3H9dXGEvkrVKsnpztVYnkSDHtmSN7nCOa5Xw7DuDU76
- kYrut4EaLB+TcqA3ukK1Ait/cG9RFUoNe6j6/G2K8guZNGpQj8n5HmE101VfTFgB8Ul+
- VOlhsdytM53K874JOG4FmneJAL+sErho7nMYAd9Bv8sODNEjbZaTGXHFAzyJM9+Pp7nV
- ASFaFZjPP3wvQ7VXrcinAw3Cjt3oqvQrhBpl0hphQVGfL0c29ZboNG8h+EuZHVy5fPqp
- 1AIw==
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=kRPEM8dLjyLiEebJREsbYoGi+98veJN3eW+L5N8MANw=;
+ b=LJAxRqlgwpEP711TUT+dFB54aN1UL83lKZKvAOwC1z8du9AfiYoov5+1NgrIM+Rv0V
+ ERrJ4sDvfB/7noY3mQ5+5pgpMk/cobJiBbCF5xJs3m4D0Mk3/aUz20pu1T7lX7evedV9
+ 44z04LDOg3sKgsfDYyisRMjVcRoBP82HNMInxO/4VAtYM0olHgJnCZ3Z7b3mLdoui1So
+ WtLK24k2bvgYqI19m/jtq1S343uED2sj9bfnNyZ5kpkVVEblqVsrgrJTyhC7YBHUglQP
+ QvGMdEJY7zRrz4YlWNlFt75KuQsPnTsOR29y4i5yG5L0gMAKpGMPDNOtOtBhmtZ2jAmW
+ TGbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=yX39kTh1HHCiE7a4ozj9S+V+l033SuDnzUBvvzJ5DSA=;
- b=oWZpE0t7Py7tksm/7XX/g/7x/Yw4QT2N2ZJJBpWH4NWldFD1X6Y4zv4ScOO3RSPrGU
- B1wTaP7qmZRIL7bV0QTnLfWGDk8kXmFSQkzeZ3JB5yI3CPxmVVS6l+UEJG+291vV75Pf
- MhH6XQ4tk9h/RB6tuixgK7v/sRKmQ6sCttB+d/yO0FmVBgedUBw0iJkqSLEAiRCnrnVa
- q6RgRpvszA6pzqkjbbhvATXEJzRChbZIGCOvaLtfB06dySNk+WDIBJMYHc/Kpggu9y4T
- 7JfDnkVd+8YEWQ4owc9XBBltNbJZwGo+xhU8AMCTlhVoyvG4rd2R878/9iX6IZ5BpXta
- xNuQ==
-X-Gm-Message-State: AOAM5311x01oLagblWeKYpwUVsVq+bmgJAprPsZzhMml/jwy3nmLjyaE
- TgqeuaJOrf+Zphu4VQke0GY=
-X-Google-Smtp-Source: ABdhPJyiERgZeAUS31dkT4tl4RNTxwY6ZlLP3JkbXUfS5vHH5jSTMFA1rjwEXqQlBo5vKebs0Q+I/g==
-X-Received: by 2002:a50:e041:: with SMTP id g1mr3548640edl.385.1604594923722; 
- Thu, 05 Nov 2020 08:48:43 -0800 (PST)
-Received: from localhost ([217.111.27.204])
- by smtp.gmail.com with ESMTPSA id s20sm1222145edw.26.2020.11.05.08.48.42
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=kRPEM8dLjyLiEebJREsbYoGi+98veJN3eW+L5N8MANw=;
+ b=MCAcMtBuT661fLRPm5uO4BO7BTT8glpltr9LnLYlgdK3EtdTqSyJ4p+JqEjwp4qSdm
+ prQo5qKrAIZlFmBvz3m+pJWg8tXV+QWclYCooiCy64WzUJK4Bg/K/fZ1s+3d0/cQVTPQ
+ 2PvQxHRhcPiB2qhls+K1pPBmNCkMLKLoobl0JJjug5RCv4s2J2mLFjfjr63H5Kfi3RdQ
+ GKWPNShGIr1JAZuyrXabobcn5dRTpDWS6CskSI/hw7v3JM7zQ72cSQiPJnbdWDwe+N9e
+ Lv4YKDcyS2i1Ct13E25bqmf9LSRW/rcYH5hHo3bSw3YQcXmb8FnX2I3n0FSKNnjNGm+0
+ q9WQ==
+X-Gm-Message-State: AOAM5318WeGjHNGTYVPQPKBbGKDAk2j5uENa4DChnWLbJOpjFczAHY5U
+ TqScH1v/l2dQIyqwLhTzvDNdHw8hICA=
+X-Google-Smtp-Source: ABdhPJyKHU9603o2tF6OrsxyE2Luza+oJ/CDl1+4JY+pPq6LDVqrIDKkrZsdsyc9MLqOn345oCoTeA==
+X-Received: by 2002:a63:c20f:: with SMTP id b15mr3262198pgd.230.1604597082661; 
+ Thu, 05 Nov 2020 09:24:42 -0800 (PST)
+Received: from localhost ([160.202.157.3])
+ by smtp.gmail.com with ESMTPSA id r127sm3113321pfc.159.2020.11.05.09.24.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2020 08:48:42 -0800 (PST)
-Date: Thu, 5 Nov 2020 17:48:41 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Lee Jones <lee.jones@linaro.org>
-Subject: Re: [PATCH 00/19] [Set 1] Rid W=1 warnings from GPU
-Message-ID: <20201105164841.GH485884@ulmo>
-References: <20201105144517.1826692-1-lee.jones@linaro.org>
+ Thu, 05 Nov 2020 09:24:42 -0800 (PST)
+Date: Thu, 5 Nov 2020 22:54:29 +0530
+From: Deepak R Varma <mh12gx2825@gmail.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: replace idr_init() by idr_init_base()
+Message-ID: <20201105172429.GA41091@localhost>
+References: <20201104151359.GA69034@localhost>
+ <91ebae30-c75c-5485-8de5-36464e97ed7e@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20201105144517.1826692-1-lee.jones@linaro.org>
-User-Agent: Mutt/1.14.7 (2020-08-29)
+Content-Disposition: inline
+In-Reply-To: <91ebae30-c75c-5485-8de5-36464e97ed7e@amd.com>
+X-Mailman-Approved-At: Thu, 05 Nov 2020 17:26:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,115 +82,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <a.hajda@samsung.com>, Huang Rui <ray.huang@amd.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Gareth Hughes <gareth@valinux.com>, Fabio Estevam <festevam@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
- David Francis <David.Francis@amd.com>, Jingoo Han <jg1.han@samsung.com>,
- amd-gfx@lists.freedesktop.org, Rob Clark <rob.clark@linaro.org>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, NXP Linux Team <linux-imx@nxp.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Jonas Karlman <jonas@kwiboo.se>, Sascha Hauer <s.hauer@pengutronix.de>,
- linaro-mm-sig@lists.linaro.org, linux-tegra@vger.kernel.org,
- Nirmoy Das <nirmoy.aiemd@gmail.com>, Jernej Skrabec <jernej.skrabec@siol.net>,
- Jason Yan <yanaijie@huawei.com>, linux-kernel@vger.kernel.org,
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Shawn Guo <shawnguo@kernel.org>, Christian Koenig <christian.koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============0751164439=="
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Nov 04, 2020 at 03:01:17PM -0500, Felix Kuehling wrote:
+> On 2020-11-04 10:13 a.m., Deepak R Varma wrote:
+> > idr_init() uses base 0 which is an invalid identifier. The new function
+> > idr_init_base allows IDR to set the ID lookup from base 1. This avoids
+> > all lookups that otherwise starts from 0 since 0 is always unused.
+> =
 
---===============0751164439==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="fd5uyaI9j6xoeUBo"
-Content-Disposition: inline
+> I disagree. We call idr_alloc with start=3D0 for both these IDRs. That me=
+ans 0
+> seems to be a valid handle.
 
+Hello Felix,
+You are correct. There are calls made to idr_alloc with start range from
+0. So, for this driver, id=3D0 seems a valid use case. The change I
+proposed is not relevant for this driver. You may please ignore the
+patch.
 
---fd5uyaI9j6xoeUBo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you,
+./drv
 
-On Thu, Nov 05, 2020 at 02:44:58PM +0000, Lee Jones wrote:
-> This set is part of a larger effort attempting to clean-up W=3D1
-> kernel builds, which are currently overwhelmingly riddled with
-> niggly little warnings.
->=20
-> There are 5000 warnings to work through.
->=20
-> It will take a couple more sets.
->=20
-> Lee Jones (19):
->   gpu: host1x: bus: Add missing description for 'driver'
->   gpu: ipu-v3: ipu-di: Strip out 2 unused 'di_sync_config' entries
->   gpu: drm: imx: ipuv3-plane: Mark 'crtc_state' as __always_unused
->   gpu: drm: omapdrm: omap_irq: Fix a couple of doc-rot issues
->   gpu: drm: selftests: test-drm_mm: Mark 'hole_end' as always_unused
->   gpu: drm: scheduler: sched_main: Provide missing description for
->     'sched' paramter
->   gpu: drm: scheduler: sched_entity: Demote non-conformant kernel-doc
->     headers
->   gpu: drm: omapdrm: dss: dsi: Rework and remove a few unused variables
->   gpu: drm: selftests: test-drm_framebuffer: Remove set but unused
->     variable 'fb'
->   gpu: drm: ttm: ttm_bo: Fix one function header - demote lots of
->     kernel-doc abuses
->   gpu: drm: panel: panel-simple: Fix 'struct panel_desc's header
->   gpu: drm: bridge: analogix: analogix_dp_reg: Remove unused function
->     'analogix_dp_write_byte_to_dpcd'
->   gpu: drm: ttm: ttm_tt: Demote kernel-doc header format abuses
->   gpu: drm: selftests: test-drm_dp_mst_helper: Place 'struct
->     drm_dp_sideband_msg_req_body' onto the heap
->   gpu: drm: radeon: radeon_drv: Remove unused variable 'ret'
->   gpu: drm: panel: panel-ilitek-ili9322: Demote non-conformant
->     kernel-doc header
->   gpu: drm: radeon: radeon_device: Fix a bunch of kernel-doc
->     misdemeanours
->   gpu: drm: amd: amdgpu: amdgpu: Mark global variables as __maybe_unused
->   gpu: drm: bridge: analogix: analogix_dp_reg: Remove unused function
->     'analogix_dp_start_aux_transaction'
+> =
 
-As commented on the other patches, the subject prefixes on most of these
-look wrong, but it's generally a nice cleanup.
+> Regards,
+> =A0 Felix
+> =
 
-Thanks!
-Thierry
+> =
 
---fd5uyaI9j6xoeUBo
-Content-Type: application/pgp-signature; name="signature.asc"
+> > =
 
------BEGIN PGP SIGNATURE-----
+> > References: commit 6ce711f27500 ("idr: Make 1-based IDRs more efficient=
+")
+> > =
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl+kLOkACgkQ3SOs138+
-s6HE2A/+PdAvZ2+F78DJkdsaNjJu085jUQleXGtXuqh1lQ+yUWWTHYiXOdmLAaru
-GaEmINYkOF2LvdLY5vIwyX+TY2lp9PYd0oo4UHBKei3IrhrHzGM+f1mHxvDfp2fF
-ENihVfG/CNzk1RUnCensuwsBl/NHC/yepie9ykDBthaD5cfAaMpcFxw+KIHErtBh
-I0T8UHO2bbqaU8Oz3r0My3Owk4H/1sNgZ7GBvqKQeWveHpz2FenHke0ZI6tXre2J
-zj1vtgcRPNl6cE3aBxlSd8uIhdjAjGK/iShwI1N868ESy4w4ahGOMdX4i+BRlRL4
-bObmEnqqPIl7n7NxvBvCBZFJQ19RMtkhcAtBT/IbYSiEN4AOS/TFq9iGxXefgNbU
-I3BfMXl4aFQMhIDYHxG97bSr4Njec7KZf1cfTPRaCpcluulvb2geKvwDdDrhtKZW
-LQQjv0hq4l9EDHGMOq5QdyIL9ay13S+ctmBzUN/b5N4YdSyDw9Ixt141zH9Eygdm
-L+BzflS3sGx9roS0adeanIYgqMLV558yzqnC+pg9yaaR/AtaredjWs9+hnpT3XVC
-JltHngRXupmBTRe4i0+YGYrlHFFWTtR+TuWOH4tSHUl5oL5/DL9yjtGLvlB6lNbC
-ohT4UGDQZ8lITaiToRQyBOAh54Zc485krb7QAPVT0HOfLPenxF8=
-=euSt
------END PGP SIGNATURE-----
+> > Signed-off-by: Deepak R Varma <mh12gx2825@gmail.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdkfd/kfd_events.c  | 2 +-
+> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 2 +-
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> > =
 
---fd5uyaI9j6xoeUBo--
-
---===============0751164439==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/=
+amd/amdkfd/kfd_events.c
+> > index ba2c2ce0c55a..b3339b53c8ad 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> > @@ -230,7 +230,7 @@ static int create_other_event(struct kfd_process *p=
+, struct kfd_event *ev)
+> >   void kfd_event_init_process(struct kfd_process *p)
+> >   {
+> >   	mutex_init(&p->event_mutex);
+> > -	idr_init(&p->event_idr);
+> > +	idr_init_base(&p->event_idr, 1);
+> >   	p->signal_page =3D NULL;
+> >   	p->signal_event_count =3D 0;
+> >   }
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_process.c
+> > index 65803e153a22..022e61babe30 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> > @@ -1289,7 +1289,7 @@ struct kfd_process_device *kfd_create_process_dev=
+ice_data(struct kfd_dev *dev,
+> >   	list_add(&pdd->per_device_list, &p->per_device_data);
+> >   	/* Init idr used for memory handle translation */
+> > -	idr_init(&pdd->alloc_idr);
+> > +	idr_init_base(&pdd->alloc_idr, 1);
+> >   	return pdd;
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0751164439==--
