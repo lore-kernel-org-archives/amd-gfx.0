@@ -2,104 +2,73 @@ Return-Path: <SRS0=AVpe=EL=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5719EC4741F
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 15:31:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C3D0C55179
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 15:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCF0D20735
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 15:31:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EAB8B20867
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2020 15:41:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="mp8vK7dc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCF0D20735
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XSREkBYK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EAB8B20867
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1246E237;
-	Thu,  5 Nov 2020 15:31:56 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF80A6E237
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 15:31:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OxhE5jdmyJ6SqcHPM4knQ+UmueQSAP+q6hvQHSqyWvUVhj4RzX6qyaV3y8dMAX9bINZx0PEhyB9L76qrS3PhX39OYkuv93rQMx61ermUPWBl8Afi1bUTLmoePjnPF42fh/6pvHRTb/CbwlmzwXRfQDx/Q4x1B+5/uTWWJVc/FihWCUPPRZSbSGXCjRaZszNWoXd3awhlM6IfeBU2O+TkA0hA+XbSiOKePi97L3o82+GS2SI+GuQeBnpkgwEwufOwO71+ZogR9fIZpSmxt/NoMVrzMiTHtN6qv9BLDTb7lzNlgb9st96qlW1zxb2RTULmzKhU5lVyH518qg4H0E4X0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xMFzBs7Qpi5vBpKPJu6yM3iPHCy/uMd2oSg4fz0gMRA=;
- b=JFm4vWvZi7cQ41ftRx5RABqnFvlwVHrWM6E9wdyrK6e5ujiGY5Drcx2+tNcjIoanOkaWQcLWtJ35PGWHyKupYVk3AU8dzkjqz0r1wB/f5swmb0Bzhm5bAkjbhKppJODNWrIbEdlYtLbzET0YXDNVi8NINQHcJhRFGgztP6MPzvflB2ZxG364Xlhplc0uWbrG6eEzEALHkxIMIws5EHMqpurkUbfPe6h4Zt1S0/AS0atg6d9i8AFLaU8wAAa5cNu59grnTfR0N5S3/lmMmyjfMaszyX81UNcCHtsya3T65J1jpgCZsVPFPdXjxsU6lpM5U/Ih3ZxyrAZypfuKhabW3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xMFzBs7Qpi5vBpKPJu6yM3iPHCy/uMd2oSg4fz0gMRA=;
- b=mp8vK7dcumGf5bDClYfhw/eeKb2LWV3WkaP/P3JSY9KnWUQ6aTQ3vEGLHyWkJQcQktvR/TQgQ3+UMt7tc4vGyZvMsquEV/HttO+7aqRACaMGn3jTOOZHJacXC+aRxVHYw/4IcKDXYjtvctDLlvxwggdokAf2FWXbD9nJQwAE7vI=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4045.namprd12.prod.outlook.com (2603:10b6:208:1d6::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.28; Thu, 5 Nov
- 2020 15:31:53 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::99dd:ff77:1ffd:d96a]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::99dd:ff77:1ffd:d96a%3]) with mapi id 15.20.3499.032; Thu, 5 Nov 2020
- 15:31:53 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix Arcturus fan speed reporting
-Thread-Topic: [PATCH] drm/amdgpu: Fix Arcturus fan speed reporting
-Thread-Index: AQHWs4d32gNCGOYiZ0KN9V6agYDNLam5qnXV
-Date: Thu, 5 Nov 2020 15:31:53 +0000
-Message-ID: <MN2PR12MB4488FCCDD4400EC566A14043F7EE0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20201105152019.3651-1-kent.russell@amd.com>
-In-Reply-To: <20201105152019.3651-1-kent.russell@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-11-05T15:31:53.251Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [71.219.66.138]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: cafb343f-309c-48b4-21b4-08d8819fec6d
-x-ms-traffictypediagnostic: MN2PR12MB4045:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4045B56F627E25A17AE65CA6F7EE0@MN2PR12MB4045.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: AuKLgljtMQotM4UnqbNk90k6aPq+ZEaq1Wldh1o9lzFyORVXfpwwrBuD2IkAIVAsBHWXJ9iv3B3LTe5hPECqgn6W+o7Apoe45/mygvAPPqul620GHC6kJLQOAOWf9xxb4QVDF4MRJfGSMwAQ/iQWJKvBmgItfgB5TT6I5TsmEWU3fs7eQVJEcXg55uOBU/iz0yQKvp9UIEU2dQs8PYahEi1Brocoygw4jYqGehBz6QBMEFDChc3YcZLPxcF1kRJw8vupyE0FQK0AiPagbLOEGpO9/c4EjhAablgceQGD6eCAwAzPogKrN5b1mCn5AU7Bn5KhK2iG+9s5SOlsxFVGQVR7AVU1Jfc4YPgSwpdURKU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(396003)(366004)(346002)(376002)(136003)(26005)(83380400001)(53546011)(316002)(33656002)(2906002)(6506007)(19627405001)(5660300002)(7696005)(166002)(71200400001)(110136005)(86362001)(55016002)(966005)(66446008)(8936002)(64756008)(66946007)(8676002)(52536014)(66556008)(66476007)(9686003)(478600001)(76116006)(186003)(45080400002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: qontkCaJ1Wpv5dBnqfyTmNeQxFoCqFF5nYWuIPz3jW1aeU7K47tDCb1p1njFXXIi4MTvQ1txp12+LyxcxqDMdHFlAfcDbebrA53/CS4ybF9gEM6DlxtI3ZuUqV0t2Hz/KGsIf68mzh3DMAu08sMXEdYDgfjYHKwnxGWwsyP2m3LrCTk6y+OP7WarpYPq8a/1qY9L9yMRA1rA7KUkYdmQ/1fiaAsmWQjEmdeiV0RfmS134UaURGJk8HYq/FdkdTAgCqYjGLiyQYMiwFwMkJUlNPq3xhPw0uZN28mmRgXewNiAVbKMbP1gURLAeuwPldMVGO9JetfMeKvJBInUhen4VT3gz4ZKOGXslWD7vuQv125RDqSpknZ+9V/nhU5QgK7qAAwN5mXXqI7e/0vG4l36oJzqyjqyXLRRndg6BuhXzwWI0St/MI02f13bU3z3Bpkw2d3/PbiaOtnLS4y1IdqSWY0MC2nVRKWvM0wBZUjF4KRvZQgi0C34J+51IC7/7pOICcGW3PHsAepXS6uFiqblwDenPEeveyky/rzurlHxf3j2y7HnVXRfnkJIikURY1muAM1Xo7dS34OSOBkpVfPMCNqyIexGUa/i7T9wdbUAzgzC7Ag2mxN8CLPkce2LIp8b9jeT0DiDaQ64ntBnDst5YQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39F906ED87;
+	Thu,  5 Nov 2020 15:41:06 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0396EDA0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2020 14:52:34 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id w14so2083983wrs.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Nov 2020 06:52:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=rv3e4lR5n3wbFt5a45993iZf/YGmwbWZWnMbXebEIvs=;
+ b=XSREkBYK380J4CWNoXmcHRvUSexcxURarBudmCsFRVoIQ5vYDbDJky11tMykMICSa5
+ 4t9WSt6mx44I9x9YihMhfrnjm70iija84cbYr3L4NqZKBysrWKTcAV2f60BmrUPyFPBc
+ uy2UBtjWg1mmBR2rV9UNTmvSNlis678WRkrwrShYsej7hOIa9wV1hL4KdbtQJtzxDpWt
+ pdjB5XWNlS0fZTNFXn5zMylPY7TooJTMlFDSFAhcBEEuM3+ByEeXJGnioaHz511LVgxV
+ vP5bJbK0TsnoToAaMHJdezPZ7VCMgyK37zQ060GU0rjX/IC+TOsbCJNFnwcMXfS16kho
+ 26yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=rv3e4lR5n3wbFt5a45993iZf/YGmwbWZWnMbXebEIvs=;
+ b=cxT0xuDiy1o08q4KuZFx9CJlldQLO0oiQcOF7k0Mo9y+hEEIhb4u6JfXNEt4WIWwq2
+ 9vqzMbf7z0zGPnXyivuvyYUSwNRYSV6A50Fn3hOmd1fw/SotJS8Fz0IwdceY1MV4kI4h
+ Wof6KvBJgszlJKKcYJd/sBxkU1u1/Z6XM6OyJTtUgv/+Od4QRHZA/G9Iz6cFso7fsPIt
+ sf7Gkr4O3jqljdHVqkQizVH/nmV10uwkckm+sgy/sABNWsuiDjSoEGigCnvGT/ru3wYn
+ KU4Bn2u9nP4eoXVUCRG77NnZo5fQo09pa4NoaOlzrvYKnrkFzvzgbXPQLiMvOMELZNz4
+ bZOw==
+X-Gm-Message-State: AOAM5301Tp0pauXj5CqcEj7T4zYL8QYA5bcY+aiIZpSaJrvkeN4Hi48w
+ JTVlt5sxVUJzCqgF+gWzBja3GA==
+X-Google-Smtp-Source: ABdhPJyRZrB38ZvyOkJUZt6MoLWccltE1b+bbQaqzlHiYSRu4qcXO2ij1vEYl45QgtpeTpFIvxmy+Q==
+X-Received: by 2002:adf:fac6:: with SMTP id a6mr3321445wrs.373.1604587953215; 
+ Thu, 05 Nov 2020 06:52:33 -0800 (PST)
+Received: from dell.default ([91.110.221.242])
+ by smtp.gmail.com with ESMTPSA id f5sm2631243wmh.16.2020.11.05.06.52.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2020 06:52:32 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 15/19] gpu: drm: radeon: radeon_drv: Remove unused variable
+ 'ret'
+Date: Thu,  5 Nov 2020 14:45:13 +0000
+Message-Id: <20201105144517.1826692-16-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201105144517.1826692-1-lee.jones@linaro.org>
+References: <20201105144517.1826692-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cafb343f-309c-48b4-21b4-08d8819fec6d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2020 15:31:53.8148 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vwrgJlO6ICPrfI7zHuWPNcfHs5Oqaswjs2oByc+m0V3gDEwKm1G6qFYkj4XTovE/xM8XsUMBDSJBFlCUPigk2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4045
+X-Mailman-Approved-At: Thu, 05 Nov 2020 15:41:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,214 +80,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1302693194=="
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Gareth Hughes <gareth@valinux.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1302693194==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488FCCDD4400EC566A14043F7EE0MN2PR12MB4488namp_"
-
---_000_MN2PR12MB4488FCCDD4400EC566A14043F7EE0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kent Rus=
-sell <kent.russell@amd.com>
-Sent: Thursday, November 5, 2020 10:20 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Russell, Kent <Kent.Russell@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix Arcturus fan speed reporting
-
-Arcturus doesn't have a fan. The assumption of "if the manual fan
-control bit isn't set, it's on automatic mode" does not hold true if the
-fan is missing, and results in exposing an invalid value for fan speed.
-
-The SMU metrics table accurately reflects the lack of fan and will
-return 0 for the fan speed. Trying to use the
-smu_v11_0_get_fan_speed_rpm function will return invalid data, so just
-stick with the SMU metrics for Arcturus
-
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index d96048e98237..4fd850e58004 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1139,14 +1139,9 @@ static int arcturus_get_fan_speed_rpm(struct smu_con=
-text *smu,
-         if (!speed)
-                 return -EINVAL;
-
--       switch (smu_v11_0_get_fan_control_mode(smu)) {
--       case AMD_FAN_CTRL_AUTO:
--               return arcturus_get_smu_metrics_data(smu,
--                                                    METRICS_CURR_FANSPEED,
--                                                    speed);
--       default:
--               return smu_v11_0_get_fan_speed_rpm(smu, speed);
--       }
-+       return arcturus_get_smu_metrics_data(smu,
-+                                            METRICS_CURR_FANSPEED,
-+                                            speed);
- }
-
- static int arcturus_get_fan_parameters(struct smu_context *smu)
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D04%7C01%7Calexande=
-r.deucher%40amd.com%7Cc266d21dcb5e4d84073808d8819e9820%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637401865460755885%7CUnknown%7CTWFpbGZsb3d8eyJWIjo=
-iMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdat=
-a=3DO8kmXHVEGi01B7S0gk5MPafIEiuBC9v7catH%2FASo6iQ%3D&amp;reserved=3D0
-
---_000_MN2PR12MB4488FCCDD4400EC566A14043F7EE0MN2PR12MB4488namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Kent Russell &lt;kent.russell=
-@amd.com&gt;<br>
-<b>Sent:</b> Thursday, November 5, 2020 10:20 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Russell, Kent &lt;Kent.Russell@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix Arcturus fan speed reporting</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Arcturus doesn't have a fan. The assumption of &qu=
-ot;if the manual fan<br>
-control bit isn't set, it's on automatic mode&quot; does not hold true if t=
-he<br>
-fan is missing, and results in exposing an invalid value for fan speed.<br>
-<br>
-The SMU metrics table accurately reflects the lack of fan and will<br>
-return 0 for the fan speed. Trying to use the<br>
-smu_v11_0_get_fan_speed_rpm function will return invalid data, so just<br>
-stick with the SMU metrics for Arcturus<br>
-<br>
-Signed-off-by: Kent Russell &lt;kent.russell@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 11 +++--------<br=
->
-&nbsp;1 file changed, 3 insertions(+), 8 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/arcturus_ppt.c<br>
-index d96048e98237..4fd850e58004 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c<br>
-@@ -1139,14 +1139,9 @@ static int arcturus_get_fan_speed_rpm(struct smu_con=
-text *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!speed)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (smu_v11_0_get_fan_control_mod=
-e(smu)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_FAN_CTRL_AUTO:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return arcturus_get_smu_metrics_data(smu,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; METRICS_CURR_FANSPEED,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; speed);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return smu_v11_0_get_fan_speed_rpm(smu, speed);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return arcturus_get_smu_metrics_data(=
-smu,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; METRICS_CURR_FANSPEED,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int arcturus_get_fan_parameters(struct smu_context *smu)<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D04%=
-7C01%7Calexander.deucher%40amd.com%7Cc266d21dcb5e4d84073808d8819e9820%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637401865460755885%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C1000&amp;amp;sdata=3DO8kmXHVEGi01B7S0gk5MPafIEiuBC9v7catH%2FASo6iQ%3D&amp=
-;amp;reserved=3D0">https://nam11.safelinks.protection.outlook.com/?url=3Dht=
-tps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;da=
-ta=3D04%7C01%7Calexander.deucher%40amd.com%7Cc266d21dcb5e4d84073808d8819e98=
-20%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637401865460755885%7CUnknow=
-n%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI=
-6Mn0%3D%7C1000&amp;amp;sdata=3DO8kmXHVEGi01B7S0gk5MPafIEiuBC9v7catH%2FASo6i=
-Q%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB4488FCCDD4400EC566A14043F7EE0MN2PR12MB4488namp_--
-
---===============1302693194==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1302693194==--
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmM6IEluIGZ1bmN0aW9uIOKAmHJhZGVvbl9wbW9w
+c19ydW50aW1lX3N1c3BlbmTigJk6CiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYu
+Yzo0NTU6Njogd2FybmluZzogdmFyaWFibGUg4oCYcmV04oCZIHNldCBidXQgbm90IHVzZWQgWy1X
+dW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCgpDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPgpDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+CkNjOiBEYW5pZWwgVmV0
+dGVyIDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBHYXJldGggSHVnaGVzIDxnYXJldGhAdmFsaW51eC5j
+b20+CkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogZHJpLWRldmVsQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpTaWduZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
+cm8ub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jIHwgMyArLS0K
+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9yYWRlb24vcmFkZW9uX2Rydi5jCmluZGV4IDY1MDYxYzk0OWFlZWEuLmY1ZjFjYjcwMGQ4NzMg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jCkBAIC00NTIsNyArNDUyLDYgQEAgc3Rh
+dGljIGludCByYWRlb25fcG1vcHNfcnVudGltZV9zdXNwZW5kKHN0cnVjdCBkZXZpY2UgKmRldikK
+IHsKIAlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9IHRvX3BjaV9kZXYoZGV2KTsKIAlzdHJ1Y3QgZHJt
+X2RldmljZSAqZHJtX2RldiA9IHBjaV9nZXRfZHJ2ZGF0YShwZGV2KTsKLQlpbnQgcmV0OwogCiAJ
+aWYgKCFyYWRlb25faXNfcHgoZHJtX2RldikpIHsKIAkJcG1fcnVudGltZV9mb3JiaWQoZGV2KTsK
+QEAgLTQ2Miw3ICs0NjEsNyBAQCBzdGF0aWMgaW50IHJhZGVvbl9wbW9wc19ydW50aW1lX3N1c3Bl
+bmQoc3RydWN0IGRldmljZSAqZGV2KQogCWRybV9kZXYtPnN3aXRjaF9wb3dlcl9zdGF0ZSA9IERS
+TV9TV0lUQ0hfUE9XRVJfQ0hBTkdJTkc7CiAJZHJtX2ttc19oZWxwZXJfcG9sbF9kaXNhYmxlKGRy
+bV9kZXYpOwogCi0JcmV0ID0gcmFkZW9uX3N1c3BlbmRfa21zKGRybV9kZXYsIGZhbHNlLCBmYWxz
+ZSwgZmFsc2UpOworCXJhZGVvbl9zdXNwZW5kX2ttcyhkcm1fZGV2LCBmYWxzZSwgZmFsc2UsIGZh
+bHNlKTsKIAlwY2lfc2F2ZV9zdGF0ZShwZGV2KTsKIAlwY2lfZGlzYWJsZV9kZXZpY2UocGRldik7
+CiAJcGNpX2lnbm9yZV9ob3RwbHVnKHBkZXYpOwotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
