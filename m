@@ -2,109 +2,73 @@ Return-Path: <SRS0=h6O4=EM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46B28C2D0A3
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 19:26:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 593F7C55178
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 21:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA71C206FA
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 19:26:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CDCDA2087E
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2020 21:52:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yMFPG+Rn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA71C206FA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eYaXK275"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDCDA2087E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 686646EB04;
-	Fri,  6 Nov 2020 19:26:36 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEA76EB04
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 19:26:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hF7aUWP5uIxx8HaECpHnCHJ2tfDLYWgj+G7f4V6qg9zi1KwTTp5odYC+QPOyK+z74FsfcKyaczIwP9i5hBCtXeSM/TCXGoA/v6K2LwABj6A4SvPXvvcKXYDDydWWvr2Q5wxoKpaIxsMyHhpLnJYQvBxbNsBQroSBs5EMQgcG8thYHMftaAmqvu8Oq1qxMExyo+HcwvkMWV0/8wTzqR44MTMsE3/AMv0y9mghKoLu0jjV1V1V6lnRqRKn7PqwUO5WOGF6DnGqbkl2xU4CqTuC253xbhAS1fLzw605Fd/qFV57ZfQz3SmVk90ekv4B92CuYc8a38EOc+wItkrUIEhUzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ftmq2IBwU0LjYffA060V7S8i3db0a/3yG/s9wZSopo=;
- b=fYAJEoMYsEcWSE3Q8DWGL42oNrtg1yKJDAlJOY9qea+JAdpEBD6C9FhRKWvaAXs8xTISOaOMK+4AWK9aO9KgmChwJW1r/bfd51C92sZrcYVI73cXeM/eCOIAPndgrtbHbg2+6Scy/odLEhhE8oVVQ5+GkSQ2enkKVNT2oKeKoy8JvPQRhhZnBNG1XZr/m1SRRkODaS5yQyV9D7qnhorh+QPlode8GX4sdWQXfO7FzrfadWlcCvVCpIydwNBvqUqOq91fIgsN/+gVCSYMVwrTdXPT2gwATLurVTxfVrJJfa4b0SjO8tf0WrcRn0I/eZ5J5L9BEmNFu79XyvsaxcFFwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ftmq2IBwU0LjYffA060V7S8i3db0a/3yG/s9wZSopo=;
- b=yMFPG+RnEjwks/jtjx2Qn/27gChpceqyvvmkCUVmX25U7jpNLAlABwesMV3mb0YvEaPniNpoYvsylpurYVSj9yR42KCeUF3jltV6VklLiZNjcMdPrXNdIJ+84z+zPlhuqoo2QFObqAhgAf/7pqNItUBoUkriIaBZkKpai42HZsg=
-Received: from DM6PR12MB2761.namprd12.prod.outlook.com (2603:10b6:5:41::27) by
- DM6PR12MB4074.namprd12.prod.outlook.com (2603:10b6:5:218::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21; Fri, 6 Nov 2020 19:26:34 +0000
-Received: from DM6PR12MB2761.namprd12.prod.outlook.com
- ([fe80::30fb:62be:3da8:9916]) by DM6PR12MB2761.namprd12.prod.outlook.com
- ([fe80::30fb:62be:3da8:9916%5]) with mapi id 15.20.3499.029; Fri, 6 Nov 2020
- 19:26:34 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: Import amdgpu_amdkfd_gfx_v9 header file
- into implementation
-Thread-Topic: [PATCH] drm/amd/amdgpu: Import amdgpu_amdkfd_gfx_v9 header file
- into implementation
-Thread-Index: AQHWtG/YCTWEYh7bykSkma8RFoHWyam7fGxQ
-Date: Fri, 6 Nov 2020 19:26:34 +0000
-Message-ID: <DM6PR12MB2761AC072FE8B650ADE572888CED0@DM6PR12MB2761.namprd12.prod.outlook.com>
-References: <20201106190528.10807-1-Ramesh.Errabolu@amd.com>
-In-Reply-To: <20201106190528.10807-1-Ramesh.Errabolu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-11-06T19:26:28Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=42700d63-4bc5-4150-8ece-c233f333ee97;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_justification: I confirm the recipients are approved for sharing this
- content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [2607:fea8:3f40:293:690f:4067:c28e:b6d0]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 38203ddb-2cb7-40d4-ed79-08d88289df78
-x-ms-traffictypediagnostic: DM6PR12MB4074:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB4074B5480E36807125E6E1368CED0@DM6PR12MB4074.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2449;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EYGwk9Z/u2eE8niitSUY0k4ZyqFcZaF51VNDiLrs6KsyT7tYyF9C86ArqmREdPV479/NArqE2Cmwr8pmGs9ga8w0FIjMp4ARnihdgKuag0WrO3RKM/LZrzINSyDqBLt09ZSznn+YDfQ2v5WFmMAbZzorUhQHpyufqdMmYxnfq/vRY+2FEROK+ZF6RBeHz6ZaB72dJ1yLgLigbFZ0b6L5QWDvopAKmelNLoVTBP4wIQ7VGfgip5pH5siq0YLvHOcelH0QNEOf3cHZBBym/7Doi0Co+laodsAIpxhdNhkDgRzoC3rjS8q23sjfUc/L4A3ygFBSSrE5hLYHI0/2NOY96NAQo+UiMiEMEmZdMCs1zfU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2761.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(366004)(52536014)(33656002)(6506007)(53546011)(66446008)(8936002)(966005)(66556008)(66476007)(2906002)(316002)(45080400002)(66946007)(110136005)(55016002)(186003)(4326008)(64756008)(76116006)(71200400001)(478600001)(9686003)(5660300002)(7696005)(86362001)(8676002)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 1NsP6y1F9yrVItE0Tii/ZVEL8sUWZUqIpder7Gtfz22+wz3BWAcOJ2ZIiKpiQTdxvC7rkn8WSTqcS4OomACZsWHyimYEQlxNZ20mtKHImiQVVX619f9PJGcHtplVjUEdiq8ZVA0MhoJcHaLcjylQ3zUTu9VJ8zUDTBKA76fXJXWCr2xlQg72rWawgwQ3XR/gkeZIEgT8pPb24D1CCpLNKs3AHf23my2oky+zrF24OWvxBTWRSzry/SxaZFVhQfBSdVWAuTygDSx99Y0svh9qYYesN7CNnjT6gfohEXam6bNiBmsIXl484iChHF4gIssINLKt+pRbY41sfiZoZgQyvdNGqSNW1+dQBL/DZnKxV5lBa/BAh2NiiroJAfJ9HD/+KvAMac1ZAkzv5iJiwxXMXdAgqO/tRYj996FKj/lhoABgQBSdANb6tbKpdiJLEXsDUuduymciSJ3Rdzl0VjC2gcWO7mB/sU4XpRIh5Mw+Ve+DZbXQuZofNvVjPXNVWoA09LPin3HDgjuztdSlTBWZdzr/7XrC3srJs8Qdl8mBlYrQTOfkq21Z0+tIx3quek1dGqCx3M91Sh3o1n9pv5JVDF5atWuw18ZdJ0V5lkCmf5SDhsCEGZj3LWXK+AV5Aq9m1RbWRXv6PWcP1ni6ZHMyYqrAl2LGEjBkwtNJDhQcXJnhkKf7SYaqcq3I67sSBcGUErj+hPNzEFJS0ER1Y9+Ozg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F34F6EB22;
+	Fri,  6 Nov 2020 21:52:21 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3996EB26
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2020 21:50:08 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id h62so2646917wme.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Nov 2020 13:50:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Egmlgv9H3fW37Nl0/DO7Y7+0OQCWufEB+r7yIAqkua0=;
+ b=eYaXK275kZ6tl5bZ2mLwFa4Hvd2EKmC0/VME8B9G/DISC2ffhyEptBOVG0KMjuNOLC
+ XsEsCBmAoM7RHtAu3Qlc9CDxH+LWQ1uBALNxpw6HcSXEq0Pwu0m95yHxCdsAjrL12ceV
+ KKvpLWrKJWTh5XU+PgrRW9YhQWWPAJMptrUEfAahqFedytbPfoYgCfYmvN5loU/6Lx/p
+ jUyrunnT1AJH5g9RK08Qcpg1guaWrUBsccPIJSv44/qAOHunj6+eiN42lzj/+reg9vaX
+ FXAGldEVoHjpHPVRlk78/1fsZaFkU/N2gn3wWzFRiBhdyL1xxlo9jkwAjDu4MIG2RFV2
+ 2N0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Egmlgv9H3fW37Nl0/DO7Y7+0OQCWufEB+r7yIAqkua0=;
+ b=RBNlujoPfpIz2jimHv9ALfn5/jhkakgA/e/EKx9rpYc4JwWgKBX0F0DbhkrfXeeNa9
+ 0SVHmj3ixbKpd95zutGklyDyKYNcg8gSoSyNkkkvV/DOYIPWGi8147XxjDMrZcnYQ0mE
+ 4UMicmBbB2AG7atzdDvO15/WpPd7Aw3+qZuzcar8mWxV7hBZ2bpxriWIZm2LlKbMe3Dl
+ 5Fl5Rav5FdCJLxX+lx9RmQeVao7MRS6xkEQmWlU7XlE0nOmcQaVBkU56sFLeLi6p8XCw
+ Qoxzc+IIpKq6C8XpVYCbbjuY36idigT+8kPho5ccVLqtAhIE5aFmN3ucThPUE0lsWWA3
+ EzOQ==
+X-Gm-Message-State: AOAM533fsVDQZzLV/kF/ZZCqiIAY4OZtqrt/WgBuWJIGsR2a325+NNQx
+ R4ScrcS1PO+3IStEZ5ffCoZ/1Q==
+X-Google-Smtp-Source: ABdhPJy2bIjiZLuZODIqlT1CvO+CLjkrEG+vzynMbmZJqKxhgkUCFDhXVQmJzX4wCSLbFC2K6m9Glg==
+X-Received: by 2002:a1c:6484:: with SMTP id y126mr1515842wmb.141.1604699407208; 
+ Fri, 06 Nov 2020 13:50:07 -0800 (PST)
+Received: from dell.default ([91.110.221.236])
+ by smtp.gmail.com with ESMTPSA id t199sm3981084wmt.46.2020.11.06.13.50.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Nov 2020 13:50:06 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 11/19] drm/radeon/radeon_drv: Source file headers are not good
+ candidates for kernel-doc
+Date: Fri,  6 Nov 2020 21:49:41 +0000
+Message-Id: <20201106214949.2042120-12-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201106214949.2042120-1-lee.jones@linaro.org>
+References: <20201106214949.2042120-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2761.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38203ddb-2cb7-40d4-ed79-08d88289df78
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2020 19:26:34.2780 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AYEJXKwvld4qogfbbPIH+9xS5uhSmmruSlUQ5LCw7iwgx4N3F68GJNJv2breeWEJkdSgu8K4nij7blE1eBmuOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4074
+X-Mailman-Approved-At: Fri, 06 Nov 2020 21:52:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,54 +80,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Gareth Hughes <gareth@valinux.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
-
-Reviewed-By: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ramesh Errabolu
-Sent: Friday, November 6, 2020 2:05 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Errabolu, Ramesh <Ramesh.Errabolu@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Import amdgpu_amdkfd_gfx_v9 header file into implementation
-
-[Why]
-Prevent compiler warnings when building amdgpu kernel module
-
-[How]
-Add the include directive for amdgpu_amdkfd_gfx_v9 header file
-
-Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index b75bf0bb05ae..c70d8cadaf18 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -37,6 +37,7 @@
- #include "soc15.h"
- #include "soc15d.h"
- #include "gfx_v9_0.h"
-+#include "amdgpu_amdkfd_gfx_v9.h"
- 
- enum hqd_dequeue_request_type {
- 	NO_ACTION = 0,
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Charish.kasiviswanathan%40amd.com%7C70c6e0e7f48949c5fc1d08d88286f9e2%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637402863520991631%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=XXHYWhGJ4jjQswsA%2Bgjlwp1OOaeJhJ3T3cXuzcGmSGQ%3D&amp;reserved=0
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmM6Mjogd2FybmluZzogQ2Fubm90IHVuZGVyc3Rh
+bmQgICogZmlsZSByYWRlb25fZHJ2LmMKCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb20+CkNjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4KQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KQ2M6IERhbmllbCBWZXR0
+ZXIgPGRhbmllbEBmZndsbC5jaD4KQ2M6IEdhcmV0aCBIdWdoZXMgPGdhcmV0aEB2YWxpbnV4LmNv
+bT4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBkcmktZGV2ZWxAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnClNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVzQGxpbmFy
+by5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMgfCAyICstCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9y
+YWRlb24vcmFkZW9uX2Rydi5jCmluZGV4IDU2MDI2N2NjMjU4OTIuLmJiN2IzM2U1MzVmODEgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jCkBAIC0xLDQgKzEsNCBAQAotLyoqCisvKgog
+ICogXGZpbGUgcmFkZW9uX2Rydi5jCiAgKiBBVEkgUmFkZW9uIGRyaXZlcgogICoKLS0gCjIuMjUu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
