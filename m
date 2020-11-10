@@ -2,76 +2,106 @@ Return-Path: <SRS0=ErGV=EQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19B3BC388F7
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 15:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02659C5517A
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 16:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9610020809
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 15:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9610020809
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 64D3420731
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 16:26:40 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Q2MuiZ28"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64D3420731
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26983899E7;
-	Tue, 10 Nov 2020 15:27:06 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30BDD899E7;
- Tue, 10 Nov 2020 15:27:05 +0000 (UTC)
-IronPort-SDR: xrRcZ3hjeX6ecXLz4EEURb7pLRnV+XCU7wg52hMxceAUnwXjZ7QQwgP0ZIQ01dS6If4FUpIFJI
- sexGOxNTphnA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9801"; a="170100309"
-X-IronPort-AV: E=Sophos;i="5.77,466,1596524400"; d="scan'208";a="170100309"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2020 07:27:02 -0800
-IronPort-SDR: uvPxijs0gSJfdTQpr169c4l2/cuyPZTUX0BcNrQPQy+K7r4MGpw6hw9DTHp+9nwPbjIb3iO8MJ
- ZO31eUD8lxBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,466,1596524400"; d="scan'208";a="473456486"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga004.jf.intel.com with ESMTP; 10 Nov 2020 07:27:02 -0800
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 10 Nov 2020 07:27:02 -0800
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 10 Nov 2020 07:27:01 -0800
-Received: from orsmsx611.amr.corp.intel.com ([10.22.229.24]) by
- ORSMSX611.amr.corp.intel.com ([10.22.229.24]) with mapi id 15.01.1713.004;
- Tue, 10 Nov 2020 07:27:01 -0800
-From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "bskeggs@redhat.com"
- <bskeggs@redhat.com>, "airlied@linux.ie" <airlied@linux.ie>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "christian.koenig@amd.com"
- <christian.koenig@amd.com>
-Subject: RE: [PATCH] drm/nouveau: Fix out-of-bounds access when deferencing
- MMU type
-Thread-Topic: [PATCH] drm/nouveau: Fix out-of-bounds access when deferencing
- MMU type
-Thread-Index: AQHWt2aSn1GTeNlCkEeQC226gW12GqnBfJcg
-Date: Tue, 10 Nov 2020 15:27:01 +0000
-Message-ID: <85758a6215f74917aee81b18d037fb82@intel.com>
-References: <20201110133655.13174-1-tzimmermann@suse.de>
-In-Reply-To: <20201110133655.13174-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB30C89BAC;
+	Tue, 10 Nov 2020 16:26:39 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D92EA89BD5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2020 16:26:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dXhyU0r0Hcw0LjX6MrIPdQQyvxD5RNp8btk2GymaoDX3/ls0xgVlw5hSSc3n9hG1vJETAz74d8y+1GYTSye904+YMh/1iW1iB1mr/NmKDw/ukipLjKrv09L7KVsp5Dz2vu2Two4dO6qpIawkPbbH6vEbXJsKgLiJoBQgoN3oLVsNigTLbFqBMnwXKweqoVf79JyoaDpmFBR+rhNnM1cMtY71lltZducxP/t1QxWbB8ZlzAv5+xB/yWryFCuDugPIY35AlRY6XUC04m1WjxeGHHgCa/Eop5G6bnZGOB7pqfM4NMLIAjQUNaauy+OdAF0s4z8Hw4zN+FD2ZkR8aUAXfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/PuXTcB/xqFbB2C+jtUJQKwgQM4XF73TCVJ5lM40tM8=;
+ b=V54MXPEa0hFdHhDoq0fTKBVUgweRGQp3aWYdU1SR1PhU+HlUsOwYnmO58S4AoJ2vdHhNXaPKyE2EqdHBQTeCNLjk62NKx5PGozPlYYotwl9aEw9A1lDgFe4mbhIlEm0tNPfydTYYkG2rjJW2i1Y9R7A1/TEJzR8Fvc1S284trvrol5RSQ8S3ibWWE8r00qkjTDNmmD4pga6AR6lOr69TG2Qyn24SZgD1CRkbgnWN5wvj6S8JK753S8R7JI5ZgRo7VaKUHV6pj8dfGGYpFT5TkWtjloG+Fh8zs10+Cog269DNqrds6TeCPLCCgopPg/g8/vovh///lyLdkg3exwOipw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/PuXTcB/xqFbB2C+jtUJQKwgQM4XF73TCVJ5lM40tM8=;
+ b=Q2MuiZ28NCDvV96hyAt9ugjGWaLM8tAW+RGHcYXdI9rjDux4ju8SbBVoSiTdWaH7Ryk0Dqqhlz67tiaIeg5yThDK/qL6iK5cveSse1fv96OWKMApbVVsApW+krgjnDwoXUiOu33CRd4jBOu8gBtgZ+sWUr877AjvjUm8Gi7jFZ8=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4078.namprd12.prod.outlook.com (2603:10b6:208:1de::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Tue, 10 Nov
+ 2020 16:26:36 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::99dd:ff77:1ffd:d96a]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::99dd:ff77:1ffd:d96a%3]) with mapi id 15.20.3541.025; Tue, 10 Nov 2020
+ 16:26:36 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Wang, Chao-kai (Stylon)"
+ <Stylon.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
+Thread-Topic: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
+Thread-Index: AQHWtzYiDKk3grY1AESJrpD+rZ4szqnBbMwAgAAg+fU=
+Date: Tue, 10 Nov 2020 16:26:36 +0000
+Message-ID: <MN2PR12MB4488F51CB06882617DE3BD60F7E90@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20201110074912.54097-1-stylon.wang@amd.com>,
+ <df99166b-de59-5aad-f921-b4263c082ca8@amd.com>
+In-Reply-To: <df99166b-de59-5aad-f921-b4263c082ca8@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.22.254.132]
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-11-10T16:26:36.217Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [192.161.78.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 8bf6c57d-e8da-4a64-419f-08d885956536
+x-ms-traffictypediagnostic: MN2PR12MB4078:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB4078BB3187C595C184188152F7E90@MN2PR12MB4078.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3044;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ayiyLxAhdoAWq7yYwDwbQAs1uzK2CGjsziI/klAsed8IaxabMw9/hfOQWMBcHFvCqasWhE/AI97TGh6H1oDpCYVIUGbXfAEfyezr6hBqxRAhrX0p/KVv5FvfioczB74UowwXP5qrTBL/yDbsKJ1PpcR/nyYOuqGUN/N+DoupD/t5OGC+kh0FvM9vF9pX9yOWPB1EnV5l+j86yDqGc15E7RDhzVMnZW/D5h64z9cnr498nUSiaReAUuVpxUQdFhBX+3SbZP88KV+0ZxVkYUCeKzRoGVTocAKxs56gbWpFtzZ9q0HUYS14vd5V79RjXtJW1HcnJTlTcZnp7NQ5fMyits0kJxzEvgyVmj3Jhyoawz4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(366004)(396003)(376002)(136003)(8936002)(33656002)(7696005)(19627405001)(316002)(110136005)(8676002)(71200400001)(86362001)(478600001)(966005)(64756008)(66556008)(66476007)(66946007)(76116006)(9686003)(4326008)(53546011)(6506007)(4001150100001)(66446008)(26005)(5660300002)(52536014)(55016002)(186003)(166002)(2906002)(83380400001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: Ep5jQOSRvtBaJcTzsrAsNnZCENP/GQscrmrSdoGi35hk8zUnYY477ofetbtHZPHOdHHliMdvGaXAxXab6gXTvFV9d5lvdaPMD58aDMxcCCRaGqCOjzkYpqh7t45uZjp7JDsp7nb4/P86BYkApI4wROlrCIChatdjiuetDjcqPKj+Dm1qzSDMSEKLbyijmJg/YZ/T34R7Je0WOokCKx9diSPfTQTvFlNpezqmgcHLFA4B7eOxXTnmL5qVrbhTaaoDU3Ke+osoPZxSRZvaeFb3fjKHHW5MP7Lc5ZYccTDt2blgiRWRmswlSH/bTALrqt+zAWz9jMSLs3VTpb6//HNREnAOAwOVfiesHRBlml5qp4kwkXQK4EE5+yHjfsYvo0PDciIg70PJxbNwOl5XSWafCXnLJbme/m1sxi3ogtvFL9wIflnVif0Yizs5qhQ6Klu5wZ8sMcw5uAthIViI9HD4Pm0VcpxW/i1rsXXaJVN5rkMy5rtJvof+fFYaEs9k7zyc4zpY0XtqpkzXWopI+MFDT+d1IFYlyIWD2KflS0N71/cRKK+eYhKz67jhEUWbPgRk7uHPzXtKgQPECCvxFK4DjKq80gQmGYlPMRRoT72lpJyq8kHmwfTvmBLBFdEzkwHT6zRWZS13E0xWRCW6h+42zwJwzoJ/UN3ekmHffABr9F2sZDsMkkvW9QgNYo+1pkNkiIbtSeRf21JkdTvArkzj2I4qdryfVEndZ10+Agi7rqMA1qKRdM0fR7jPuUpCSu2Gmn92FeTFKg9K28NJR2zcLhNvGqzTEHJ3z6Q8+1h89xz1RQO5uTgLGIpJUzdHNq2NHMw/hUgbirDHl86iDdhMWaEt9J9Fak28kDYA4E6S0qsIMwbr7Q3AM071H36uAzJw8v/lvTVaENv8+ttNCPWkGQ==
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bf6c57d-e8da-4a64-419f-08d885956536
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2020 16:26:36.7172 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uRRHZiHfZL2jVom71rqmMnvPk4s+EibwSWWwUUz83euc+8ZP/fl9OtHclb9A7fWBgnYCXwko0OUTAiYkSGsYkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,118 +113,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
- Roland Scheidegger <sroland@vmware.com>, Jason
- Gunthorpe <jgg@ziepe.ca>, Huang Rui <ray.huang@amd.com>, VMware
- Graphics <linux-graphics-maintainer@vmware.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
- Likun Gao <Likun.Gao@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Content-Type: multipart/mixed; boundary="===============1941562541=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IFRob21hcyBaaW1tZXJtYW5u
-IDx0emltbWVybWFubkBzdXNlLmRlPg0KPlNlbnQ6IFR1ZXNkYXksIE5vdmVtYmVyIDEwLCAyMDIw
-IDg6MzcgQU0NCj5UbzogYnNrZWdnc0ByZWRoYXQuY29tOyBhaXJsaWVkQGxpbnV4LmllOyBkYW5p
-ZWxAZmZ3bGwuY2g7IFJ1aGwsIE1pY2hhZWwgSg0KPjxtaWNoYWVsLmoucnVobEBpbnRlbC5jb20+
-OyBjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20NCj5DYzogbm91dmVhdUBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFRob21hcw0KPlppbW1lcm1h
-bm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+OyBNYWFydGVuIExhbmtob3JzdA0KPjxtYWFydGVuLmxh
-bmtob3JzdEBsaW51eC5pbnRlbC5jb20+OyBNYXhpbWUgUmlwYXJkDQo+PG1yaXBhcmRAa2VybmVs
-Lm9yZz47IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+OyBHZXJkIEhvZmZtYW5uDQo+
-PGtyYXhlbEByZWRoYXQuY29tPjsgQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
-Y29tPjsNCj5WTXdhcmUgR3JhcGhpY3MgPGxpbnV4LWdyYXBoaWNzLW1haW50YWluZXJAdm13YXJl
-LmNvbT47IFJvbGFuZA0KPlNjaGVpZGVnZ2VyIDxzcm9sYW5kQHZtd2FyZS5jb20+OyBIdWFuZyBS
-dWkgPHJheS5odWFuZ0BhbWQuY29tPjsNCj5GZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdA
-YW1kLmNvbT47IEhhd2tpbmcgWmhhbmcNCj48SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgSmFzb24g
-R3VudGhvcnBlIDxqZ2dAemllcGUuY2E+OyBMaWt1biBHYW8NCj48TGlrdW4uR2FvQGFtZC5jb20+
-OyB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0aW9uLm9yZzsgc3BpY2UtDQo+ZGV2
-ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-PlN1YmplY3Q6IFtQQVRDSF0gZHJtL25vdXZlYXU6IEZpeCBvdXQtb2YtYm91bmRzIGFjY2VzcyB3
-aGVuIGRlZmVyZW5jaW5nDQo+TU1VIHR5cGUNCj4NCj5UaGUgdmFsdWUgb2Ygc3RydWN0IGRybV9k
-ZXZpY2UudHRtLnR5cGVfdnJhbSBjYW4gYmVjb21lIC0xIGZvciB1bmtub3duDQo+dHlwZXMgb2Yg
-bWVtb3J5IChzZWUgbm91dmVhdV90dG1faW5pdCgpKS4gVGhpcyBsZWFkcyB0byBhbiBvdXQtb2Yt
-Ym91bmRzDQo+ZXJyb3Igd2hlbiBhY2Nlc3Npbmcgc3RydWN0IG52aWZfbW11LnR5cGVbXToNCg0K
-V291bGQgdGhpcyBtYWtlIG1vcmUgc2Vuc2UgdG8ganVzdCBzZXQgdGhlIHR5cGVfdnJhbSA9IDAg
-aW5zdGVhZCBvZiAtMT8NCg0KTWlrZQ0KDQo+DQo+ICBbICAgMTguMzA0MTE2XQ0KPj09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQo+PT09
-PT09PQ0KPiAgWyAgIDE4LjMxMTY0OV0gQlVHOiBLQVNBTjogc2xhYi1vdXQtb2YtYm91bmRzIGlu
-DQo+bm91dmVhdV90dG1faW9fbWVtX3Jlc2VydmUrMHgxN2EvMHg3ZTAgW25vdXZlYXVdDQo+ICBb
-ICAgMTguMzIwNDE1XSBSZWFkIG9mIHNpemUgMSBhdCBhZGRyIGZmZmY4ODgxMGZmYWMxZmUgYnkg
-dGFzayBzeXN0ZW1kLQ0KPnVkZXZkLzM0Mg0KPiAgWyAgIDE4LjMyNzY4MV0NCj4gIFsgICAxOC4z
-MjkyMDhdIENQVTogMSBQSUQ6IDM0MiBDb21tOiBzeXN0ZW1kLXVkZXZkIFRhaW50ZWQ6IEcgICAg
-ICAgICAgICBFDQo+NS4xMC4wLXJjMi0xLWRlZmF1bHQrICM1ODENCj4gIFsgICAxOC4zMzg2ODFd
-IEhhcmR3YXJlIG5hbWU6IERlbGwgSW5jLiBPcHRpUGxleCA5MDIwLzBONFlDOCwgQklPUyBBMjQN
-Cj4xMC8yNC8yMDE4DQo+ICBbICAgMTguMzQ2MDMyXSBDYWxsIFRyYWNlOg0KPiAgWyAgIDE4LjM0
-ODUzNl0gIGR1bXBfc3RhY2srMHhhZS8weGU1DQo+ICBbICAgMTguMzUxOTE5XSAgcHJpbnRfYWRk
-cmVzc19kZXNjcmlwdGlvbi5jb25zdHByb3AuMCsweDE3LzB4ZjANCj4gIFsgICAxOC4zNTc3ODdd
-ICA/IG5vdXZlYXVfdHRtX2lvX21lbV9yZXNlcnZlKzB4MTdhLzB4N2UwIFtub3V2ZWF1XQ0KPiAg
-WyAgIDE4LjM2MzgxOF0gIF9fa2FzYW5fcmVwb3J0LmNvbGQrMHgyMC8weDM4DQo+ICBbICAgMTgu
-MzY4MDk5XSAgPyBub3V2ZWF1X3R0bV9pb19tZW1fcmVzZXJ2ZSsweDE3YS8weDdlMCBbbm91dmVh
-dV0NCj4gIFsgICAxOC4zNzQxMzNdICBrYXNhbl9yZXBvcnQrMHgzYS8weDUwDQo+ICBbICAgMTgu
-Mzc3Nzg5XSAgbm91dmVhdV90dG1faW9fbWVtX3Jlc2VydmUrMHgxN2EvMHg3ZTAgW25vdXZlYXVd
-DQo+ICA8Li4uPg0KPiAgWyAgIDE4Ljc2NzY5MF0gQWxsb2NhdGVkIGJ5IHRhc2sgMzQyOg0KPiAg
-WyAgIDE4Ljc3MzA4N10gIGthc2FuX3NhdmVfc3RhY2srMHgxYi8weDQwDQo+ICBbICAgMTguNzc4
-ODkwXSAgX19rYXNhbl9rbWFsbG9jLmNvbnN0cHJvcC4wKzB4YmYvMHhkMA0KPiAgWyAgIDE4Ljc4
-NTY0Nl0gIF9fa21hbGxvY190cmFja19jYWxsZXIrMHgxYmUvMHgzOTANCj4gIFsgICAxOC43OTIx
-NjVdICBrc3RyZHVwX2NvbnN0KzB4NDYvMHg3MA0KPiAgWyAgIDE4Ljc5NzY4Nl0gIGtvYmplY3Rf
-c2V0X25hbWVfdmFyZ3MrMHgyZi8weGIwDQo+ICBbICAgMTguODAzOTkyXSAga29iamVjdF9pbml0
-X2FuZF9hZGQrMHg5ZC8weGYwDQo+ICBbICAgMTguODEwMTE3XSAgdHRtX21lbV9nbG9iYWxfaW5p
-dCsweDEyYy8weDIxMCBbdHRtXQ0KPiAgWyAgIDE4LjgxNjg1M10gIHR0bV9ib19nbG9iYWxfaW5p
-dCsweDRhLzB4MTYwIFt0dG1dDQo+ICBbICAgMTguODIzNDIwXSAgdHRtX2JvX2RldmljZV9pbml0
-KzB4MzkvMHgyMjAgW3R0bV0NCj4gIFsgICAxOC44MzAwNDZdICBub3V2ZWF1X3R0bV9pbml0KzB4
-MmMzLzB4ODMwIFtub3V2ZWF1XQ0KPiAgWyAgIDE4LjgzNjkyOV0gIG5vdXZlYXVfZHJtX2Rldmlj
-ZV9pbml0KzB4MWI0LzB4M2YwIFtub3V2ZWF1XQ0KPiAgPC4uLj4NCj4gIFsgICAxOS4xMDUzMzZd
-DQo+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT0NCj49PT09PT09DQo+DQo+Rml4IHRoaXMgZXJyb3IsIGJ5IG5vdCB1c2luZyB0eXBlX3Zy
-YW0gYXMgYW4gaW5kZXggaWYgaXQncyBuZWdhdGl2ZS4NCj5Bc3N1bWUgZGVmYXVsdCB2YWx1ZXMg
-aW5zdGVhZC4NCj4NCj5UaGUgZXJyb3Igd2FzIHNlZW4gb24gTnZpZGlhIEc3MiBoYXJkd2FyZS4N
-Cj4NCj5TaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5k
-ZT4NCj5GaXhlczogMWNmNjVjNDUxODNhICgiZHJtL3R0bTogYWRkIGNhY2hpbmcgc3RhdGUgdG8g
-dHRtX2J1c19wbGFjZW1lbnQiKQ0KPkNjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+DQo+Q2M6IE1pY2hhZWwgSi4gUnVobCA8bWljaGFlbC5qLnJ1aGxAaW50ZWwu
-Y29tPg0KPkNjOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50
-ZWwuY29tPg0KPkNjOiBNYXhpbWUgUmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+DQo+Q2M6IFRo
-b21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPkNjOiBEYXZpZCBBaXJsaWUg
-PGFpcmxpZWRAbGludXguaWU+DQo+Q2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4N
-Cj5DYzogQmVuIFNrZWdncyA8YnNrZWdnc0ByZWRoYXQuY29tPg0KPkNjOiBEYXZlIEFpcmxpZSA8
-YWlybGllZEByZWRoYXQuY29tPg0KPkNjOiBHZXJkIEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0LmNv
-bT4NCj5DYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPkNjOiAi
-Q2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj5DYzogVk13YXJl
-IEdyYXBoaWNzIDxsaW51eC1ncmFwaGljcy1tYWludGFpbmVyQHZtd2FyZS5jb20+DQo+Q2M6IFJv
-bGFuZCBTY2hlaWRlZ2dlciA8c3JvbGFuZEB2bXdhcmUuY29tPg0KPkNjOiBIdWFuZyBSdWkgPHJh
-eS5odWFuZ0BhbWQuY29tPg0KPkNjOiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1k
-LmNvbT4NCj5DYzogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KPkNjOiBK
-YXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVwZS5jYT4NCj5DYzogTGlrdW4gR2FvIDxMaWt1bi5HYW9A
-YW1kLmNvbT4NCj5DYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPkNjOiBub3V2
-ZWF1QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPkNjOiB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51
-eC1mb3VuZGF0aW9uLm9yZw0KPkNjOiBzcGljZS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
-Cj5DYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4tLS0NCj4gZHJpdmVycy9ncHUv
-ZHJtL25vdXZlYXUvbm91dmVhdV9iby5jIHwgNSArKysrLQ0KPiAxIGZpbGUgY2hhbmdlZCwgNCBp
-bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9ub3V2ZWF1L25vdXZlYXVfYm8uYw0KPmIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91
-dmVhdV9iby5jDQo+aW5kZXggODEzMzM3N2Q4NjVkLi5mZTE1Mjk5ZDQxN2UgMTAwNjQ0DQo+LS0t
-IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9iby5jDQo+KysrIGIvZHJpdmVycy9n
-cHUvZHJtL25vdXZlYXUvbm91dmVhdV9iby5jDQo+QEAgLTExNDIsOSArMTE0MiwxMiBAQCBub3V2
-ZWF1X3R0bV9pb19tZW1fcmVzZXJ2ZShzdHJ1Y3QNCj50dG1fYm9fZGV2aWNlICpiZGV2LCBzdHJ1
-Y3QgdHRtX3Jlc291cmNlICpyZWcpDQo+IAlzdHJ1Y3QgbnZrbV9kZXZpY2UgKmRldmljZSA9IG52
-eHhfZGV2aWNlKCZkcm0tPmNsaWVudC5kZXZpY2UpOw0KPiAJc3RydWN0IG5vdXZlYXVfbWVtICpt
-ZW0gPSBub3V2ZWF1X21lbShyZWcpOw0KPiAJc3RydWN0IG52aWZfbW11ICptbXUgPSAmZHJtLT5j
-bGllbnQubW11Ow0KPi0JY29uc3QgdTggdHlwZSA9IG1tdS0+dHlwZVtkcm0tPnR0bS50eXBlX3Zy
-YW1dLnR5cGU7DQo+Kwl1OCB0eXBlID0gMDsNCj4gCWludCByZXQ7DQo+DQo+KwlpZiAoZHJtLT50
-dG0udHlwZV92cmFtID49IDApDQo+KwkJdHlwZSA9IG1tdS0+dHlwZVtkcm0tPnR0bS50eXBlX3Zy
-YW1dLnR5cGU7DQo+Kw0KPiAJbXV0ZXhfbG9jaygmZHJtLT50dG0uaW9fcmVzZXJ2ZV9tdXRleCk7
-DQo+IHJldHJ5Og0KPiAJc3dpdGNoIChyZWctPm1lbV90eXBlKSB7DQo+LS0NCj4yLjI5LjINCg0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1941562541==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB4488F51CB06882617DE3BD60F7E90MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB4488F51CB06882617DE3BD60F7E90MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Lee Starnes just sent the exact same patch yesterday.  Please review that o=
+ne:
+https://patchwork.freedesktop.org/patch/399497/
+
+Alex
+
+________________________________
+From: Wentland, Harry <Harry.Wentland@amd.com>
+Sent: Tuesday, November 10, 2020 9:27 AM
+To: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; amd-gfx@lists.freedeskto=
+p.org <amd-gfx@lists.freedesktop.org>
+Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Deucher, Alexander =
+<Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
+
+On 2020-11-10 2:49 a.m., Stylon Wang wrote:
+> EDID parsing in S3 resume pushes new display modes
+> to probed_modes list but doesn't consolidate to actual
+> mode list. This creates a race condition when
+> amdgpu_dm_connector_ddc_get_modes() re-initializes the
+> list head without walking the list and results in  memory leak.
+>
+> Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+
+Looks reasonable to me but haven't had a chance to understand whether
+this is the best solution.
+
+Acked-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 0b6adf23d316..715e0bd489f8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2337,7 +2337,8 @@ void amdgpu_dm_update_connector_after_detect(
+>
+>                        drm_connector_update_edid_property(connector,
+>                                                           aconnector->edi=
+d);
+> -                     drm_add_edid_modes(connector, aconnector->edid);
+> +                     aconnector->num_modes =3D drm_add_edid_modes(connec=
+tor, aconnector->edid);
+> +                     drm_connector_list_update(connector);
+>
+>                        if (aconnector->dc_link->aux_mode)
+>                                drm_dp_cec_set_edid(&aconnector->dm_dp_aux=
+.aux,
+>
+
+--_000_MN2PR12MB4488F51CB06882617DE3BD60F7E90MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Lee Starnes just sent the exact same patch yesterday.&nbsp; Please review t=
+hat one:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<a href=3D"https://patchwork.freedesktop.org/patch/399497/" id=3D"LPlnk2605=
+81">https://patchwork.freedesktop.org/patch/399497/</a><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wentland, Harry &lt;H=
+arry.Wentland@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, November 10, 2020 9:27 AM<br>
+<b>To:</b> Wang, Chao-kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; amd-gfx@lis=
+ts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;; Deuche=
+r, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 2020-11-10 2:49 a.m., Stylon Wang wrote:<br>
+&gt; EDID parsing in S3 resume pushes new display modes<br>
+&gt; to probed_modes list but doesn't consolidate to actual<br>
+&gt; mode list. This creates a race condition when<br>
+&gt; amdgpu_dm_connector_ddc_get_modes() re-initializes the<br>
+&gt; list head without walking the list and results in&nbsp; memory leak.<b=
+r>
+&gt; <br>
+&gt; Signed-off-by: Stylon Wang &lt;stylon.wang@amd.com&gt;<br>
+<br>
+Looks reasonable to me but haven't had a chance to understand whether <br>
+this is the best solution.<br>
+<br>
+Acked-by: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+<br>
+Harry<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-<=
+br>
+&gt;&nbsp;&nbsp; 1 file changed, 2 insertions(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
+rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt; index 0b6adf23d316..715e0bd489f8 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt; @@ -2337,7 +2337,8 @@ void amdgpu_dm_update_connector_after_detect(<br=
+>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_con=
+nector_update_edid_property(connector,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aconnector-&gt;edid);<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_add_edid_modes(conn=
+ector, aconnector-&gt;edid);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aconnector-&gt;num_mode=
+s =3D drm_add_edid_modes(connector, aconnector-&gt;edid);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_connector_list_upda=
+te(connector);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aco=
+nnector-&gt;dc_link-&gt;aux_mode)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_dp_cec_set_edid(&amp;aconnecto=
+r-&gt;dm_dp_aux.aux,<br>
+&gt; <br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB4488F51CB06882617DE3BD60F7E90MN2PR12MB4488namp_--
+
+--===============1941562541==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1941562541==--
