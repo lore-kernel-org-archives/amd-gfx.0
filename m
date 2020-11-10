@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B213BC55ABD
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 03:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71BE0C4742C
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 03:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55290208FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 03:55:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 187DD207BC
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 03:56:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZKrKZtk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55290208FE
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="omTTpNVQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 187DD207BC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83FF089823;
-	Tue, 10 Nov 2020 03:55:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1FC897E4;
+	Tue, 10 Nov 2020 03:56:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B857C89817;
- Tue, 10 Nov 2020 03:55:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E8AD8922E;
+ Tue, 10 Nov 2020 03:56:20 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A616D20731;
- Tue, 10 Nov 2020 03:55:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E30DE20721;
+ Tue, 10 Nov 2020 03:56:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604980553;
- bh=WvWDUe7Efs3/UaLV6ZcsfA0N93uLYypki29yXvVf2ec=;
+ s=default; t=1604980579;
+ bh=DKFwifTrSAb+TfOv6Bg6WjffagdiKBxeBbxVXaQ5060=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fZKrKZtkC/0aGGVKSfuDwogPaELCVrj4vvXi6cunBjmNguJY7oxpArbGxc386qZug
- c+a48qyFlkSSKpHGq0tmibs7T+UlghVTht2FG1a01LRfDGvls/kWqr1Zh0j+pHvh7Z
- bhR7NIdGuL0wTfiAkigPPoRH0F0Je7/d0556Zvyg=
+ b=omTTpNVQeFAm7v32HqP76wQh13OJBB3WBuYNkAMntSt8EKBeHRXU6AhlJj/PEOZPj
+ ZfE8EX7whZ1KcabEHX92TfwDi+x0hBaxB1AK32Lbh2nDyYPgBZOtmWxeJhksIQvcF1
+ 8sr7Dl+w5/6ptJbIlHHgtHzFqhlxPAYrLCLf5yjY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 09/21] drm/amd/pm: do not use ixFEATURE_STATUS
- for checking smc running
-Date: Mon,  9 Nov 2020 22:55:29 -0500
-Message-Id: <20201110035541.424648-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 06/14] drm/amdgpu: perform srbm soft reset always
+ on SDMA resume
+Date: Mon,  9 Nov 2020 22:56:02 -0500
+Message-Id: <20201110035611.424867-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201110035541.424648-1-sashal@kernel.org>
-References: <20201110035541.424648-1-sashal@kernel.org>
+In-Reply-To: <20201110035611.424867-1-sashal@kernel.org>
+References: <20201110035611.424867-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -72,14 +72,10 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Evan Quan <evan.quan@amd.com>
 
-[ Upstream commit 786436b453001dafe81025389f96bf9dac1e9690 ]
+[ Upstream commit 253475c455eb5f8da34faa1af92709e7bb414624 ]
 
-This reverts commit f87812284172a9809820d10143b573d833cd3f75 ("drm/amdgpu:
-Fix bug where DPM is not enabled after hibernate and resume").
-It was intended to fix Hawaii S4(hibernation) issue but break S3. As
-ixFEATURE_STATUS is filled with garbage data on resume which can be
-only cleared by reloading smc firmware(but that will involve many
-changes). So, we will revert this S4 fix and seek a new way.
+This can address the random SDMA hang after pci config reset
+seen on Hawaii.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 Tested-by: Sandeep Raghuraman <sandy.8925@gmail.com>
@@ -87,25 +83,48 @@ Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-index 0d4dd607e85c8..c05bec5effb2e 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-@@ -2723,10 +2723,7 @@ static int ci_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
- 
- static bool ci_is_dpm_running(struct pp_hwmgr *hwmgr)
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+index 11beef7c595f2..d35e5d8e8a058 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -1098,22 +1098,19 @@ static int cik_sdma_soft_reset(void *handle)
  {
--	return (1 == PHM_READ_INDIRECT_FIELD(hwmgr->device,
--					     CGS_IND_REG__SMC, FEATURE_STATUS,
--					     VOLTAGE_CONTROLLER_ON))
--		? true : false;
-+	return ci_is_smc_ram_running(hwmgr);
- }
+ 	u32 srbm_soft_reset = 0;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	u32 tmp = RREG32(mmSRBM_STATUS2);
++	u32 tmp;
  
- static int ci_smu_init(struct pp_hwmgr *hwmgr)
+-	if (tmp & SRBM_STATUS2__SDMA_BUSY_MASK) {
+-		/* sdma0 */
+-		tmp = RREG32(mmSDMA0_F32_CNTL + SDMA0_REGISTER_OFFSET);
+-		tmp |= SDMA0_F32_CNTL__HALT_MASK;
+-		WREG32(mmSDMA0_F32_CNTL + SDMA0_REGISTER_OFFSET, tmp);
+-		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_SDMA_MASK;
+-	}
+-	if (tmp & SRBM_STATUS2__SDMA1_BUSY_MASK) {
+-		/* sdma1 */
+-		tmp = RREG32(mmSDMA0_F32_CNTL + SDMA1_REGISTER_OFFSET);
+-		tmp |= SDMA0_F32_CNTL__HALT_MASK;
+-		WREG32(mmSDMA0_F32_CNTL + SDMA1_REGISTER_OFFSET, tmp);
+-		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_SDMA1_MASK;
+-	}
++	/* sdma0 */
++	tmp = RREG32(mmSDMA0_F32_CNTL + SDMA0_REGISTER_OFFSET);
++	tmp |= SDMA0_F32_CNTL__HALT_MASK;
++	WREG32(mmSDMA0_F32_CNTL + SDMA0_REGISTER_OFFSET, tmp);
++	srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_SDMA_MASK;
++
++	/* sdma1 */
++	tmp = RREG32(mmSDMA0_F32_CNTL + SDMA1_REGISTER_OFFSET);
++	tmp |= SDMA0_F32_CNTL__HALT_MASK;
++	WREG32(mmSDMA0_F32_CNTL + SDMA1_REGISTER_OFFSET, tmp);
++	srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_SDMA1_MASK;
+ 
+ 	if (srbm_soft_reset) {
+ 		tmp = RREG32(mmSRBM_SOFT_RESET);
 -- 
 2.27.0
 
