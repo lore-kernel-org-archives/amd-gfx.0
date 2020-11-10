@@ -2,66 +2,125 @@ Return-Path: <SRS0=ErGV=EQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88BB8C5517A
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CA45C388F7
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2984320781
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:08:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7F17B2076E
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:41:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D9I8wAmH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2984320781
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vLTjBjFh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F17B2076E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD2D89B03;
-	Tue, 10 Nov 2020 17:08:23 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C28B899BC;
- Tue, 10 Nov 2020 17:08:21 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a3so2486794wmb.5;
- Tue, 10 Nov 2020 09:08:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MP7B63t+yoSacKBIptO0FK7JGIG1SuX3J5XEKrv0R1g=;
- b=D9I8wAmHqyj+i4Uu96Y3bxWuJs3MnB2WC/JIbN6DbaOyTMwPBbA8ODwB52W4GvoAvb
- xjwHAsANSAGGzyuDDR2ls0rUkeKCWRxVeGD2mQ7+87wnFJY1f1Xj7q8BEKXwyOsggHqj
- /jOye5LWn2xuMbLaJXVBSRRIK/x1KzVpyGXSft/jLaN+nvChjCPfUezvtfph5j3Tpfxo
- hyNOdkuc7/0CG1lFxptmNQHEAIg4rGEVXTdauIOMcqOYTucImAz69W92OP7Q39DUWOL+
- a/qheGe2KBsQ6aKDhC2R3Ww4LoiShOAxnyTBR93S5YVs59wd+vD68cE3Cg5g0VY5Hiyx
- F1Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MP7B63t+yoSacKBIptO0FK7JGIG1SuX3J5XEKrv0R1g=;
- b=fVsNp2MIOhFZpety0Sd/ICx/6+QwmQtbDDFw2gVKTfMxvyTlzOYXtxvZEqNqLsc22c
- 4GC4Ygqu10q0dwe4uKfaspQPP1nQhxr92drs43yH0SD9/oTlvGUjzoeWtnIvJfY5lV/k
- Ggm6Gx0YEY9g6jitGXlzCDTuYsX0mOZjmLOD8nkGZobzgeTn0fGcUcX1fPMbuz+AnzUO
- wzjGT+CWsM1JsG9/DUzBg13E/MNJkTPrdCaJOPXZT1M6Hpsa+JHJx21xD8y+zIhmvyXl
- 8u5ZHhalJY4seiFBbUx4WnfA7TOpRx2qjYbBmf6PoXzUgs1V07kBzMaeWRCukLTmkcEx
- Bo+w==
-X-Gm-Message-State: AOAM531fOIOg/2eFs92kNq31QmeVasWmSUiJYOni27jeXpddQtR7xnjD
- yioUdhEH76prwHcwyNNHyuqDfqYOSUWbWB6ZpuA=
-X-Google-Smtp-Source: ABdhPJy+/O/G/wQ1/tkGUAuIUq6m+EmoOJdfu31KWO7h4nmLps/WriPVMU3WAjYlWrOfFv9oDEtJ/9IVu/k8k4eKnzY=
-X-Received: by 2002:a1c:80cb:: with SMTP id b194mr42687wmd.73.1605028100187;
- Tue, 10 Nov 2020 09:08:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF2C589B3B;
+	Tue, 10 Nov 2020 17:41:54 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20CB289B3B;
+ Tue, 10 Nov 2020 17:41:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fOuIHhYAPI3w+0AY0H1EEZ450LFRxOJs5ZC1kqohrJlsnsGBre3XScTZ5G75X5MQFTUj0QKOBCCrUdJWd7+SQwe1MXNdozqksM0QKrR+lvad2fJ+h09VY4MLQHcaXSqwzfF3cG2jALrmMjWElZYTlRkEF1/WFKl3BfWXbfTTqqFdEM4n+RBaymiDnVLpNsQ9gy0wZu57nZkh93Bqovxm6Bx/7pnxDe5MZbnxQ1fkRcIMjtgi0qxmIvo9iQmtUmgo4R9GHLnmGxLPhkWiSu4rv2vR/Woz4N7pi/i7ALUcl/ZEETD1DhEMXiSdtMYrsJAkzquwXYaDg7v+A9Z5+Ki/DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1F1hKMpQL+IeG5jgc0oQkVkgHLzgDNSIQvUULmDcRcA=;
+ b=ng4hmtvVe0PLrQEhJ/jTrPshpEoF7ij0I5/KQlwV/Cw0YyvM0Vt8TtIri/Cb01+FKBqTH/P2E5Iw/kabWlNHZPlro5F6jxaFWULtVUbcaVMpN3jUsOyxHRli8DBq7CMtNrPyYPonjFpqU/zjR0S3Zhv73PON01GqRT9tJMDj30h/1GMSyjDhntywKFnb1JB1MfGLDbC/eVaO0ZsplO4kw1Yh5NgotbJSc3AyQmnWZ6ja2Kd9VI7H+To8Gk4Sa4T6OhZ/ZEf2eZOUrtaxT8Xy9q/lprK0G3GhYbh4R7Ub1AaNI4uhHx95gRmNnrNz0SD3LYxx8r3ApchZc3VtZOcUSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1F1hKMpQL+IeG5jgc0oQkVkgHLzgDNSIQvUULmDcRcA=;
+ b=vLTjBjFh/tudIbqkl67smG2JfFs8QqrvW7OkwMK2m4PdfBjhfOM5F/WgZmjw8C4siwuMsBX2aHUsH08sAr5UL5tq7dLcPH1eyfUBHkgNGQ9SIsjJIPTIGCCmPbQTqJ+8eBbc2F3C8eL8yXRE4KjKlKXgK86HRQEQMn9XnKl2JKs=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3499.29; Tue, 10 Nov 2020 17:41:52 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::a881:155d:45db:b435]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::a881:155d:45db:b435%9]) with mapi id 15.20.3541.021; Tue, 10 Nov 2020
+ 17:41:51 +0000
+Subject: Re: [PATCH v2 2/8] drm/ttm: Remap all page faults to per process
+ dummy page.
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1592719388-13819-3-git-send-email-andrey.grodzovsky@amd.com>
+ <20200622094103.GA20149@phenom.ffwll.local>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <0dccaf3d-8696-4368-26d2-8127a1314a34@amd.com>
+Date: Tue, 10 Nov 2020 12:41:49 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <20200622094103.GA20149@phenom.ffwll.local>
+Content-Language: en-US
+X-Originating-IP: [2607:fea8:3edf:49b0:757a:f239:6b01:6396]
+X-ClientProxiedBy: YT1PR01CA0145.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::24) To DM6PR12MB4340.namprd12.prod.outlook.com
+ (2603:10b6:5:2a8::7)
 MIME-Version: 1.0
-References: <1605008098-33391-1-git-send-email-tiantao6@hisilicon.com>
-In-Reply-To: <1605008098-33391-1-git-send-email-tiantao6@hisilicon.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 Nov 2020 12:08:08 -0500
-Message-ID: <CADnq5_NcF1-mmGQAuGjOE65wvjmxwZSRqovi2M5Kp6-gic-BZQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Use kmemdup instead of kmalloc and memcpy
-To: Tian Tao <tiantao6@hisilicon.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:3edf:49b0:757a:f239:6b01:6396]
+ (2607:fea8:3edf:49b0:757a:f239:6b01:6396) by
+ YT1PR01CA0145.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3541.21 via Frontend Transport; Tue, 10 Nov 2020 17:41:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 20f0e2fb-19c2-401a-d59c-08d8859fe81d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2939:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB29399242223F72EE7AA6B8B3EAE90@DM6PR12MB2939.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lqkiAj1/sgHkxTdNJ+H9o9kVlZzVivxQp3lfPBZ926CTFJaPyxOSLjOHUAnHROwDr/1mJD7Y3D/wceymMmOAPjKHJwJAWNag3JLpZNAdXWok9B3aiou8122OdmqScW9kIdaJgfJd4sUmnzh38EjXIH0l5IglBN7FnRKV1NZJXx8027jlw2mc2vS+ZASBeFOlyZW4HbXENWgOPUyccWRg9yDkD/lDcedCBXg6w9VPooqR9lrGVqYSxK9jdsjWdidjqVpYpkqVScV/E9YjylmSs+aDC2em0m7WcDDpOhjvwQrwoVZ8TFim58TdFAKAhe/aEdH6DiphFbqSH51tbCQiHncyRxP8mZBaib/as9jpiDbuFCRP6KtEeshdN21cNdll
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(346002)(366004)(396003)(39860400002)(316002)(66946007)(8936002)(5660300002)(66556008)(31686004)(36756003)(2616005)(66476007)(53546011)(186003)(52116002)(16526019)(6916009)(86362001)(83380400001)(8676002)(31696002)(4326008)(478600001)(2906002)(6486002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?bWVyTExyVnJiOXVtSC9QaFdDbjlMNlMzOENsbDhXbjdZL3ViOGpVUkM1RHN2?=
+ =?utf-8?B?SVFDdW1GbEh4OGZmQmh3dytDeEE2ODNORVQxbk9JNFZpblFYRTVlMTg0UDNl?=
+ =?utf-8?B?TEIvTitVOEwyQ0hsYjg3TlZEcWZMRUVyUStzazJPTGV6RTlKSDhLcjdtRlRW?=
+ =?utf-8?B?NTY0bTdoaC9yanlBSXJtZWZYbFFKcEZFOE5YcUdKQkYwRlJmWXhDM2dySlpi?=
+ =?utf-8?B?VDljQkdGSFo0T1Qya1hTaHhNSUFuUXBWNWJKU0g3cFR3K2VOTkxkOFdXclI2?=
+ =?utf-8?B?Lzlvc2tkeFhCWXRDaUJlZ1ljRzJJUUJPYnFkUjNGcGxwaENiNm01V1FkYjhB?=
+ =?utf-8?B?SWwyNEFUZGZGcHpza1FLTnFCcFdwWTR3Q3BBVVlLcUtZTEdiMFVSbWc4Y0wx?=
+ =?utf-8?B?TUtGWlB6Kzh0TVlna29HSTBpMTdEYXlNWTBrK28xWkRjT1pBQ0UvVUdjU2Nh?=
+ =?utf-8?B?b2FIRjAyQkthZlNnc2M4cUtVeXk4OVp0VGlYYzU4UDV2ME1QSXJUWTJySkpC?=
+ =?utf-8?B?NVIyMHJyTDI5WXdJTytYcGZ6Mkg4TXB0QWFmUnRpd0VkdytYbkRRSEFPOEpF?=
+ =?utf-8?B?SUdBTU9lblNBUUh5elpFc0E5Y1J6cnJBb2lPY2RSNzkzL2pqQ2cxY1dKRW1U?=
+ =?utf-8?B?eXp5TWl4Tk1jSks4ZFJwS2d3NngvZEw4NGpRNlAxMk92eVZRZ0VjSWl3OWZ6?=
+ =?utf-8?B?MWhUYXVBTTBLUmx6UUdLaGpKWmIzWVN3ak0wSmhPc3ZES0JxbWlsWk16ejM2?=
+ =?utf-8?B?QjY2VU5IWG9rUVZZbGJoMnhycEZrWFlCSXduT1JjblB6djVZcEZDWDVHdyt4?=
+ =?utf-8?B?MHc1d2k3ZlE4NzZtT1dtb0FObEVTVjNyOFJ6SlRNZkg3Vlh1cnhaYXFnL3FW?=
+ =?utf-8?B?bGtPYTlycjA1V3NFK2F4UW5NclBYNjZ0Z0xxeS9kVGJsbzJHcTJJNWRTQW1z?=
+ =?utf-8?B?OE9WWGUxMjJqcWRlT2RZVldKUWZpZFA2T04yZFg4RDU0VW90OFpXYnB4Yy81?=
+ =?utf-8?B?NTdJNS80cXpEZWMvMnJvOUdtWUtRSlBLS1NmbytyMGlsOTMwbHVuY0hsUTlF?=
+ =?utf-8?B?eFdwdEIvMndLZXNrUXh6THZXN0ExL0RVZnRKMmVzVk9USU9MdmNDdUZGWFRG?=
+ =?utf-8?B?MFZmQlRkQVo2MmYxRS92TUVsYTY5UjdZd3I5RERjYXh5UTF4RzgzWk9QOFRS?=
+ =?utf-8?B?Vncyc3Y0djV0OWR1dWZLd0FtR2FSdE1IVExGYVBUYktIUWVWRGk0LzNLQm11?=
+ =?utf-8?B?Qy93MDg0MlFGbklIaHRoSkJBRkFreHpyM0t4WlhaTk1iMGsyQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20f0e2fb-19c2-401a-d59c-08d8859fe81d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2020 17:41:51.8725 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f/yfHNX0jBu/CDgGQRIsr6hYuoIHnNuIxs2vm0K2Ah9CPPkW51r+ho17iy46ozFajEqNNYrJ9mrxIlzrOrgtfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2939
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +132,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Dewar <alex.dewar90@gmail.com>, Nirmoy Das <nirmoy.das@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Quan, Evan" <evan.quan@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
+ ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
+ ckoenig.leichtzumerken@gmail.com, alexdeucher@gmail.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 10, 2020 at 11:57 AM Tian Tao <tiantao6@hisilicon.com> wrote:
->
-> Fixes coccicheck warning:
-> drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c:255:
-> 36-43: WARNING opportunity for kmemdup
->
-> Signed-off-by: Tian Tao <tiantao6@hisilicon.com>
 
-Applied.  Thanks!
+On 6/22/20 5:41 AM, Daniel Vetter wrote:
+> On Sun, Jun 21, 2020 at 02:03:02AM -0400, Andrey Grodzovsky wrote:
+>> On device removal reroute all CPU mappings to dummy page per drm_file
+>> instance or imported GEM object.
+>>
+>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>> ---
+>>   drivers/gpu/drm/ttm/ttm_bo_vm.c | 65 ++++++++++++++++++++++++++++++++++++-----
+>>   1 file changed, 57 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+>> index 389128b..2f8bf5e 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+>> @@ -35,6 +35,8 @@
+>>   #include <drm/ttm/ttm_bo_driver.h>
+>>   #include <drm/ttm/ttm_placement.h>
+>>   #include <drm/drm_vma_manager.h>
+>> +#include <drm/drm_drv.h>
+>> +#include <drm/drm_file.h>
+>>   #include <linux/mm.h>
+>>   #include <linux/pfn_t.h>
+>>   #include <linux/rbtree.h>
+>> @@ -328,19 +330,66 @@ vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+> Hm I think diff and code flow look a bit bad now. What about renaming the
+> current function to __ttm_bo_vm_fault and then having something like the
+> below:
+>
+> ttm_bo_vm_fault(args) {
+>
+> 	if (drm_dev_enter()) {
+> 		__ttm_bo_vm_fault(args);
+> 		drm_dev_exit();
+> 	} else  {
+> 		drm_gem_insert_dummy_pfn();
+> 	}
+> }
+>
+> I think drm_gem_insert_dummy_pfn(); should be portable across drivers, so
+> another nice point to try to unifiy drivers as much as possible.
+> -Daniel
+>
+>>   	pgprot_t prot;
+>>   	struct ttm_buffer_object *bo = vma->vm_private_data;
+>>   	vm_fault_t ret;
+>> +	int idx;
+>> +	struct drm_device *ddev = bo->base.dev;
+>>   
+>> -	ret = ttm_bo_vm_reserve(bo, vmf);
+>> -	if (ret)
+>> -		return ret;
+>> +	if (drm_dev_enter(ddev, &idx)) {
+>> +		ret = ttm_bo_vm_reserve(bo, vmf);
+>> +		if (ret)
+>> +			goto exit;
+>> +
+>> +		prot = vma->vm_page_prot;
+>>   
+>> -	prot = vma->vm_page_prot;
+>> -	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT);
+>> -	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>> +		ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT);
+>> +		if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>> +			goto exit;
+>> +
+>> +		dma_resv_unlock(bo->base.resv);
+>> +
+>> +exit:
+>> +		drm_dev_exit(idx);
+>>   		return ret;
+>> +	} else {
+>>   
+>> -	dma_resv_unlock(bo->base.resv);
+>> +		struct drm_file *file = NULL;
+>> +		struct page *dummy_page = NULL;
+>> +		int handle;
+>>   
+>> -	return ret;
+>> +		/* We are faulting on imported BO from dma_buf */
+>> +		if (bo->base.dma_buf && bo->base.import_attach) {
+>> +			dummy_page = bo->base.dummy_page;
+>> +		/* We are faulting on non imported BO, find drm_file owning the BO*/
+> Uh, we can't fish that out of the vma->vm_file pointer somehow? Or is that
+> one all wrong? Doing this kind of list walk looks pretty horrible.
+>
+> If the vma doesn't have the right pointer I guess next option is that we
+> store the drm_file page in gem_bo->dummy_page, and replace it on first
+> export. But that's going to be tricky to track ...
 
-Alex
 
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+For this one I hope to make all of this obsolete if Christian's suggestion from 
+path 1/8 about mapping
+global RO dummy page for read and COW on write will be possible to implement 
+(testing
+that indeed no memory usage explodes)
+
+Andrey
+
+
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
-> index 740e2fc..1e79baa 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
-> @@ -252,12 +252,11 @@ static int init_powerplay_table_information(
->         phm_copy_clock_limits_array(hwmgr, &pptable_information->power_saving_clock_max, powerplay_table->PowerSavingClockMax, ATOM_VEGA12_PPCLOCK_COUNT);
->         phm_copy_clock_limits_array(hwmgr, &pptable_information->power_saving_clock_min, powerplay_table->PowerSavingClockMin, ATOM_VEGA12_PPCLOCK_COUNT);
+>> +		} else {
+>> +			struct drm_gem_object *gobj;
+>> +
+>> +			mutex_lock(&ddev->filelist_mutex);
+>> +			list_for_each_entry(file, &ddev->filelist, lhead) {
+>> +				spin_lock(&file->table_lock);
+>> +				idr_for_each_entry(&file->object_idr, gobj, handle) {
+>> +					if (gobj == &bo->base) {
+>> +						dummy_page = file->dummy_page;
+>> +						break;
+>> +					}
+>> +				}
+>> +				spin_unlock(&file->table_lock);
+>> +			}
+>> +			mutex_unlock(&ddev->filelist_mutex);
+>> +		}
+>> +
+>> +		if (dummy_page) {
+>> +			/*
+>> +			 * Let do_fault complete the PTE install e.t.c using vmf->page
+>> +			 *
+>> +			 * TODO - should i call free_page somewhere ?
+> Nah, instead don't call get_page. The page will be around as long as
+> there's a reference for the drm_file or gem_bo, which is longer than any
+> mmap. Otherwise yes this would like really badly.
 >
-> -       pptable_information->smc_pptable = kmalloc(sizeof(PPTable_t), GFP_KERNEL);
-> +       pptable_information->smc_pptable = kmemdup(&(powerplay_table->smcPPTable),
-> +                                                  sizeof(PPTable_t), GFP_KERNEL);
->         if (pptable_information->smc_pptable == NULL)
->                 return -ENOMEM;
+>> +			 */
+>> +			get_page(dummy_page);
+>> +			vmf->page = dummy_page;
+>> +			return 0;
+>> +		} else {
+>> +			return VM_FAULT_SIGSEGV;
+> Hm that would be a kernel bug, wouldn't it? WARN_ON() required here imo.
+> -Daniel
 >
-> -       memcpy(pptable_information->smc_pptable, &(powerplay_table->smcPPTable), sizeof(PPTable_t));
-> -
->         result = append_vbios_pptable(hwmgr, (pptable_information->smc_pptable));
->
->         return result;
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>> +		}
+>> +	}
+>>   }
+>>   EXPORT_SYMBOL(ttm_bo_vm_fault);
+>>   
+>> -- 
+>> 2.7.4
+>>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
