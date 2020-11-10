@@ -2,71 +2,36 @@ Return-Path: <SRS0=ErGV=EQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44FC9C55ABD
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 20:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35AFDC388F7
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 20:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CFD1420731
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 20:08:58 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AT7A+sdz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFD1420731
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 712FA20780
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 20:17:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 712FA20780
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 013ED89C5E;
-	Tue, 10 Nov 2020 20:08:54 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C1389C55;
- Tue, 10 Nov 2020 20:08:52 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id 33so14098667wrl.7;
- Tue, 10 Nov 2020 12:08:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=s+aRaf/umltBKE+6wKwCltWBTDsHe6mFK5nuqJMfHRM=;
- b=AT7A+sdzPTebSa8CRPKagqX5MZY14t7gK6NGGqSdR7qAhUjMzNXYlJBQ6hjpk7v1wM
- BAYpLc4Bm2ztIC+0pH9PK/lzqxNzvtrboUOiQR4nTPh8tmEVWqyVESEqLWvlfWxuvmhn
- 57yB0LUlyGh/qrr54mGQzHNMO5a2KDm4j5Y5RtNftz/Dm64LT3ISGsgeJOBYgkG6eBwa
- 9JVIRcKLc7VM1yq/XOyY5D60scIF1p+iLGHYzs0DzruASiViVMz1DExZonwRXNJNXChk
- SyMaxz7KbD2K6lJ32lQJViaCbmvLljOzB2/SfL7O2Zu+Y8+p+5Y3uIExfmkwdvfH5trI
- BLNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=s+aRaf/umltBKE+6wKwCltWBTDsHe6mFK5nuqJMfHRM=;
- b=Wl5DPeyrY7hx+yqXPZwjMKFzAZGpus6y7DBs6q0DJ2fwZD25TSND8yjdoHPHabBpgO
- Amrj4OMTS2vnF/XrrNEIXpHaW3MlLLXNVJW1WLEqWNhQ/hAASoSW1smZvyqoPdkjfHNG
- NF6WIjdNC0LGnz1MyKhUcxm3FBxJdvrJUMRNgAGjEtmytZLZELwxlVvT0eK44xZCQYyE
- /bQsGPLmGob+JG8uIs3UCkVEpYea43fH5WdCUpGZTSTG5mtJRYm7RXpgjhAM/fsIH/21
- x4bZMUj5J4BpFZr+DXQkCybudXV6bZfXpx+gwSl/SYuFzz6hjRW/zwq/Yz1DU3294p0n
- lX0Q==
-X-Gm-Message-State: AOAM533kPzuNjVP55kO5rvnZZwMYpS+jraNFBXkK+gmb5c5WntpRKrMA
- nvf2Q3wo0GikowVpwl1mwAVPezKHDJt703av5hA=
-X-Google-Smtp-Source: ABdhPJwrSX9xukmOEZt2t2UgYrm/3CRwEzEeuKzkuwExrEkQQhfxYFbx4SD1FE77XopCiFFi8l8EdIAeX1AKCRVCXXg=
-X-Received: by 2002:adf:e551:: with SMTP id z17mr26546390wrm.374.1605038931452; 
- Tue, 10 Nov 2020 12:08:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8DF89BF8;
+	Tue, 10 Nov 2020 20:17:33 +0000 (UTC)
+Received: from svt-ETHLX-2.amd.com (unknown [165.204.54.251])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8FC0D89BF8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2020 20:17:31 +0000 (UTC)
+Received: by svt-ETHLX-2.amd.com (Postfix, from userid 0)
+ id B21921840153; Tue, 10 Nov 2020 15:17:30 -0500 (EST)
+From: Bokun Zhang <Bokun.Zhang@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/amdgpu: Update VCN initizalization behvaior
+Date: Tue, 10 Nov 2020 15:17:29 -0500
+Message-Id: <20201110201729.20202-1-Bokun.Zhang@amd.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20201109211855.3340030-1-lee.jones@linaro.org>
- <20201109211855.3340030-16-lee.jones@linaro.org>
- <CADnq5_NvitEQWH3Z+5EgOH3zJn=P5YTqwHQo4LLQLi0Hj0Dpww@mail.gmail.com>
- <20201110072242.GF2063125@dell> <20201110090247.GB2027451@ravnborg.org>
- <20201110094111.GG2063125@dell>
-In-Reply-To: <20201110094111.GG2063125@dell>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 Nov 2020 15:08:40 -0500
-Message-ID: <CADnq5_PYERS0xHJGQrpokDD7q3GgidSYqSrOoskza7gST4bbmQ@mail.gmail.com>
-Subject: Re: [PATCH 15/20] drm/radeon/r600d: Move 'rc600_*' prototypes into
- shared header
-To: Lee Jones <lee.jones@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,40 +43,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Sam Ravnborg <sam@ravnborg.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Bokun Zhang <Bokun.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBOb3YgMTAsIDIwMjAgYXQgNDo0MSBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPiB3cm90ZToKPgo+IE9uIFR1ZSwgMTAgTm92IDIwMjAsIFNhbSBSYXZuYm9yZyB3cm90
-ZToKPgo+ID4gSGkgTGVlLAo+ID4KPiA+ID4gPiB0aGUgKmQuaCBoZWFkZXJzIGFyZSBzdXBwb3Nl
-ZCB0byBqdXN0IGJlIGhhcmR3YXJlIGRlZmluaXRpb25zLiAgSSdkCj4gPiA+ID4gcHJlZmVyIHRv
-IGtlZXAgZHJpdmVyIHN0dWZmIG91dCBvZiB0aGVtLgo+ID4gPgo+ID4gPiBUaGF0J3MgZmluZSAo
-SSBkaWQgd29uZGVyIGlmIHRoYXQgd2VyZSB0aGUgY2FzZSkuCj4gPiA+Cj4gPiA+IEkgbmVlZCBh
-biBhbnN3ZXIgZnJvbSB5b3UgYW5kIFNhbSB3aGV0aGVyIEkgY2FuIGNyZWF0ZSBuZXcgaGVhZGVy
-cy4KPiA+ID4KPiA+ID4gRm9yIG1lLCBpdCBpcyB0aGUgcmlnaHQgdGhpbmcgdG8gZG8uCj4gPgo+
-ID4gUGxlYXNlIGZvbGxvdyB0aGUgYWR2aWNlIG9mIEFsZXggZm9yIHRoZSByYWRlb24gZHJpdmVy
-Lgo+Cj4gR3JlYXQuICBUaGFua3MgZm9yIHJlc29sdmluZyB0aGlzIFNhbS4KPgo+IFdpbGwgZml4
-IGFsbCBvY2N1cnJlbmNlcy4KCkknbSBub3QgcmVhbGx5IGZvbGxvd2luZyB0aGVzZSBwYXRjaCBz
-ZXRzIHlvdSBhcmUgc2VuZGluZyBvdXQuICBUaGV5CmFsbCBzZWVtIGNvbXBsZXRlbHkgaW5kZXBl
-bmRlbnQuICBJIHdhcyBleHBlY3RpbmcgdXBkYXRlZCB2ZXJzaW9ucwp3aXRoIGZlZWRiYWNrIGlu
-dGVncmF0ZWQsIGJ1dCB0aGV5IHNlZW0gdG8gYmUganVzdCBkaWZmZXJlbnQgZml4ZXMuCkFyZSB5
-b3UgcGxhbm5pbmcgdG8gc2VuZCBvdXQgdXBkYXRlZCB2ZXJzaW9ucyBiYXNlZCBvbiBmZWVkYmFj
-ayBmcm9tCnRoZXNlIHNlcmllcz8gIEFsc28sIHNvbWUgb2YgdGhlIHBhdGNoZXMgaGF2ZSBzdWJ0
-bGUgZXJyb3JzIGluIHRoZW0KKGUuZy4sIHdyb25nIGRlc2NyaXB0aW9ucyBvZiB2YXJpYWJsZXMs
-IHdyb25nIGNvcHlyaWdodCBoZWFkZXJzIG9uIG5ldwpmaWxlcywgZXRjLiksIGRvIHlvdSBtaW5k
-IGlmIEkgZml4IHRoZW0gdXAgbG9jYWxseSB3aGVuIGFwcGx5aW5nIG9yCndvdWxkIHlvdSByYXRo
-ZXIgSSBwb2ludCBvdXQgdGhlIGNoYW5nZXMgYW5kIHlvdSBjYW4gaW50ZWdyYXRlIHRoZW0KYW5k
-IHJlc2VuZD8KClRoYW5rcywKCkFsZXgKCj4KPiAtLQo+IExlZSBKb25lcyBb5p2O55C85pavXQo+
-IFNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwo+IExpbmFyby5vcmcg
-4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBcm0gU29Dcwo+IEZvbGxvdyBMaW5hcm86IEZh
-Y2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+- Issue:
+  In the original vcn3.0 code, it assumes that the VCN's
+  init_status is always 1, even after the MMSCH
+  updates the header.
+
+  This is incorrect since by default, it should be set to 0,
+  and MMSCH will update it to 1 if VCN is ready.
+
+- Fix:
+  We need to read back the table header after send it to MMSCH.
+  After that, if a VCN instance is not ready (host disabled it),
+  we needs to disable the ring buffer as well.
+
+Change-Id: I2c5dc4344c5919044370dfe606bf5980a202c662
+
+Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 46 +++++++++++++++++++++------
+ 1 file changed, 37 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 3970a0ccb6a5..c5e0a531caba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -294,17 +294,19 @@ static int vcn_v3_0_hw_init(void *handle)
+ 				continue;
+ 
+ 			ring = &adev->vcn.inst[i].ring_dec;
+-			ring->wptr = 0;
+-			ring->wptr_old = 0;
+-			vcn_v3_0_dec_ring_set_wptr(ring);
+-			ring->sched.ready = true;
++			if (ring->sched.ready) {
++				ring->wptr = 0;
++				ring->wptr_old = 0;
++				vcn_v3_0_dec_ring_set_wptr(ring);
++			}
+ 
+ 			for (j = 0; j < adev->vcn.num_enc_rings; ++j) {
+ 				ring = &adev->vcn.inst[i].ring_enc[j];
+-				ring->wptr = 0;
+-				ring->wptr_old = 0;
+-				vcn_v3_0_enc_ring_set_wptr(ring);
+-				ring->sched.ready = true;
++				if (ring->sched.ready) {
++					ring->wptr = 0;
++					ring->wptr_old = 0;
++					vcn_v3_0_enc_ring_set_wptr(ring);
++				}
+ 			}
+ 		}
+ 	} else {
+@@ -1230,6 +1232,8 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+ 	uint32_t table_size;
+ 	uint32_t size, size_dw;
+ 
++	bool is_vcn_ready;
++
+ 	struct mmsch_v3_0_cmd_direct_write
+ 		direct_wt = { {0} };
+ 	struct mmsch_v3_0_cmd_direct_read_modify_write
+@@ -1367,7 +1371,7 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+ 		MMSCH_V3_0_INSERT_END();
+ 
+ 		/* refine header */
+-		header.inst[i].init_status = 1;
++		header.inst[i].init_status = 0;
+ 		header.inst[i].table_offset = header.total_size;
+ 		header.inst[i].table_size = table_size;
+ 		header.total_size += table_size;
+@@ -1425,6 +1429,30 @@ static int vcn_v3_0_start_sriov(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
++	/* 6, check each VCN's init_status
++	 * if it remains as 0, then this VCN is not assigned to current VF
++	 * do not start ring for this VCN
++	 */
++	size = sizeof(struct mmsch_v3_0_init_header);
++	table_loc = (uint32_t *)table->cpu_addr;
++	memcpy(&header, (void *)table_loc, size);
++
++	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
++		if (adev->vcn.harvest_config & (1 << i))
++			continue;
++
++		is_vcn_ready = (header.inst[i].init_status == 1);
++		if (!is_vcn_ready)
++			DRM_INFO("VCN(%d) engine is disabled by hypervisor\n", i);
++
++		ring = &adev->vcn.inst[i].ring_dec;
++		ring->sched.ready = is_vcn_ready;
++		for (j = 0; j < adev->vcn.num_enc_rings; ++j) {
++			ring = &adev->vcn.inst[i].ring_enc[j];
++			ring->sched.ready = is_vcn_ready;
++		}
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
