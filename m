@@ -2,132 +2,99 @@ Return-Path: <SRS0=ErGV=EQ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_SIZE_LARGE,HTML_MESSAGE,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 254F8C4741F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BD400C388F7
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9406A20809
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:54:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5997E20781
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2020 17:55:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="RaKuH3Ic"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9406A20809
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="U5e8xO2s"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5997E20781
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4EEE89157;
-	Tue, 10 Nov 2020 17:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0A88912A;
+	Tue, 10 Nov 2020 17:55:48 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E29E898A3;
- Tue, 10 Nov 2020 17:54:25 +0000 (UTC)
+ (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8FC18912A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2020 17:55:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PXUTUxO0ssV9cjluf/W+j847nR+IEyHW9EbVZCr7gp5XBtASUdbppPK5mQTPml74YsNwoSeKWCvSDdleqm6yY8/X2pHy1ofj33vq6jHaKsWbJnQ/3MouEK6vJQcjTu//cTmH043dHFhdkBcT9UVd/PsQn40QB09wz89zU7K0ZA+2rQ/M417gJn9Gov1RuQ14V8+1SjeQuDKkqS4viCBtNP6tIYffL949SUVruN6t3B3r6W+rpjGtFWYk4dAZChwwg2O1VND9PcehqSBTn4y7/8NOSIgtIAA7Er0pZ+SoD6F8sm/4QzDzvtAPC0Ja0jAZMN1+TQSHFpCZ0zzFMN97vA==
+ b=DoCoftPra8V9GGTWCSY09bdIIyOXIejgGITdqL1PBzCoRgYTS/nPpWrBRE8E6a+OdH/FNWBPUw77PXEl6WRzpwaEtxDZwnctRHc+TFnIEjWCgdZh+9518U6RNPnHbug6UvH2Isb0P/X0GhBEbs8eE9mq6xckwvd5MFJfe1fO66iZZVrTQLFHvr3YpamWSvk9SmBG/L1BhSnL4jCXcfcODKlg1+ryfBQaekkrP7fQcm64C54h0rRytsTSkZBAvRKpBvI6h4bEV6RMhPD6ohRXWROzacHwCCLUCQZAPdHYwQkc8d5Hg4URNnOqMnBFiVKtG68HVoEtVI024RWYElTRaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OvTvtagcGkSi1kbBKpXY9Y0F9MvjlQ8xiWSam7ejYbA=;
- b=UIaghE7mu4mtwcdToaOsbqZbxaxreiL9fZwJNNvBG+4sXgjOzvKHmhgLVjkc8acxlln8E3ZC13ECJsyMNqVJG+cTBqUInAVeXeaq+QaGBKt3zfobd1zaFdbc4SZ9NgJC+C1GH1r0w6d4whZBAlqNYWieDBTFeubsIrJzY+i/lXMLOMIGNvqZkXvKw9jIhP9VDUgSxfPCzepwQaQ2oilSg+6BNNIy5iE+Ywmldx60j0rYy5/n8ywDZvCLaHJrfVJwAzpqm2jrBdd8baboEhjGODtC/N28FMV37eequ2xkAnS970BqwxkLTJ9kqpV7Ms0RWoXQInc4/CWNVztrRAVl4Q==
+ bh=/fcWXccCKLpMova85WcVhidAVyshd0A1gJp8e8ZHcJI=;
+ b=j7ftKablYg3mK7Em/ofVNVI7U2bURVMwmCljJ0FC5vjPivryrdEwfYFppq6JQ2zqx4nY/x3MznD/XBMkF82CswnrERPcrOsjPk5HQBvzeYOgY/+n3W6CKe/5FnI1lZD9LRSK1hwsJc/s/W2TCPXITQVnF/qCJTUv1HKAGUhM8+Ffvp97vj2qCpgSu16i28Bic6GZaVEX7S7nWc48ws6f2KMMae4SD79UjecVDiASrNGEHAQykEdaXs5kqIw8o4PMIdz904vynkxm3X2XZbLEFiVsxKnYJQSXEefBW7rVWWf/2uP/KBukm+CocmUxgpYCCOyPmC9TZntggc63TZHe+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OvTvtagcGkSi1kbBKpXY9Y0F9MvjlQ8xiWSam7ejYbA=;
- b=RaKuH3Icp+NEBCQzV18Tw+qdwYwWEWsB/zAWmr2sq9/PsQMgJa/FU3KvBAWmgMP9IKMriKrRHGb3QVi6ZCh7PVxR3JHW0Vy/zeYCDtc4vNX+CicDRsEMklsXpfyo2i3ZZGfDuLQPNoxN5524nZitKB+vnV0OzO1grKNtIMk2hqA=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- DM6PR12MB4578.namprd12.prod.outlook.com (2603:10b6:5:2a9::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21; Tue, 10 Nov 2020 17:54:23 +0000
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::a881:155d:45db:b435]) by DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::a881:155d:45db:b435%9]) with mapi id 15.20.3541.021; Tue, 10 Nov 2020
- 17:54:23 +0000
-Subject: Re: [PATCH v2 5/8] drm/amdgpu: Refactor sysfs removal
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
- <1592719388-13819-6-git-send-email-andrey.grodzovsky@amd.com>
- <20200622095124.GE20149@phenom.ffwll.local>
- <20200622112139.GA3421602@kroah.com>
- <fdaebe5b-3930-66d6-4f62-3e59e515e3da@amd.com>
- <20200622164551.GA112181@kroah.com>
- <4787b2a9-e7bf-ea3c-02e9-484a4fcb4742@amd.com>
- <20200623060532.GB3818201@kroah.com>
- <090c5a35-3088-d6d0-dcaf-5ce5542a4298@amd.com>
- <20200624061153.GA933050@kroah.com>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <c864c559-71f4-08a5-f692-3f067a9a32f8@amd.com>
-Date: Tue, 10 Nov 2020 12:54:21 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-In-Reply-To: <20200624061153.GA933050@kroah.com>
-Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:757a:f239:6b01:6396]
-X-ClientProxiedBy: YT1PR01CA0075.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::14) To DM6PR12MB4340.namprd12.prod.outlook.com
- (2603:10b6:5:2a8::7)
+ bh=/fcWXccCKLpMova85WcVhidAVyshd0A1gJp8e8ZHcJI=;
+ b=U5e8xO2sOcVNpf+BT+xyDLrWv963s+RwrsIkuSys3AIIkIfik8W7H/O/M6mKYS8nBuJT4IYl7Lj+E9T9YageCfMB+TVywJLYj+dEERowSO3FeHbOchDGkfwR5LTAVqdUjq0POmZxAB2QxhHmqOrBoWbOpoFZi3cp4MIUE3aTIWU=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
+ by SN1PR12MB2415.namprd12.prod.outlook.com (2603:10b6:802:26::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.25; Tue, 10 Nov
+ 2020 17:55:46 +0000
+Received: from SA0PR12MB4430.namprd12.prod.outlook.com
+ ([fe80::d436:e21c:e4e8:7deb]) by SA0PR12MB4430.namprd12.prod.outlook.com
+ ([fe80::d436:e21c:e4e8:7deb%5]) with mapi id 15.20.3541.025; Tue, 10 Nov 2020
+ 17:55:46 +0000
+From: Alex Sierra <alex.sierra@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: enable 48-bit IH timestamp counter
+Date: Tue, 10 Nov 2020 11:55:19 -0600
+Message-Id: <20201110175519.21308-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.78.1]
+X-ClientProxiedBy: SN4PR0601CA0013.namprd06.prod.outlook.com
+ (2603:10b6:803:2f::23) To SA0PR12MB4430.namprd12.prod.outlook.com
+ (2603:10b6:806:70::20)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:757a:f239:6b01:6396]
- (2607:fea8:3edf:49b0:757a:f239:6b01:6396) by
- YT1PR01CA0075.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21 via Frontend Transport; Tue, 10 Nov 2020 17:54:22 +0000
+Received: from alex-MS-7B09.amd.com (165.204.78.1) by
+ SN4PR0601CA0013.namprd06.prod.outlook.com (2603:10b6:803:2f::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21 via Frontend
+ Transport; Tue, 10 Nov 2020 17:55:45 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4f245fa1-e06b-498c-2e6d-08d885a1a85c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4578:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB457870EE04B4F8195249E906EAE90@DM6PR12MB4578.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:534;
+X-MS-Office365-Filtering-Correlation-Id: 4c9eb659-a005-481d-52a6-08d885a1d9ad
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2415:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB24153280C76A7D59535E2CADFDE90@SN1PR12MB2415.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J7UrnQBpQbDH2XylefVyOcSOsAF7+0bR+n+s890r0KqDvIA4JZDTLgnlI9ngKfx/qqBf/l9hL7/HPtx6MqJSwN5AexKxGTO5W54hNsRsc1nLelzPUva4AptFI1dM3EIi6+82C2FFRpiGaz4fur5GhI5wygQ/H2LXLOfNfO6rQYuTO8xJZYvwIKcIEMJvv/w318Gm/KZ7xSx+tmOXqjzeSdIi+DfCm8WiWUgeipsxAzv6E+3uw3Rc3RFPAIcUsrQ+uIP2ZzgRW4UHUnr68jacrEoqRoJD90+UER5bm90oaNwHMfjofm66IZWQnU40Dwo7oemXMGfiabl1dM6u73vLRCRrKE9jR7C1S7xfMHDrLQ5lLO/xVcETwegRWLvGXPuhLRlX4yElbfy0jtNeKLoDDgHq60VLk5B0d+DlZ8pXpzM=
+X-Microsoft-Antispam-Message-Info: +7H8SNp6sGx0TarzUbJqkzGJiw4qBmpT1coiCfeDR274DCEw++RpPohekyEg3Od/owZVgR8hfMCCt8cRT5XCS3/4Q0Dpyf9JQllw4En8TRJvPSnhHK7fQmjeWhiG69InOiYTV0VrxjxNNXtjJSIkSutXtO++tkZ3/1P/LLZ1cOPAkV3pphfnnAIGIbi+nRJPe3VjIIxAHJzLWMXIz179KFxHnzZxTYxlHd8/Z8us0WXD0FM7j4CZqOO6C2oYqFTo2l4G4r4y/8YcKxz6UgLzlXW3F56wdEJzgiq9JVGGbddPUHxN6HMdstSlzU0dN4ja
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(376002)(366004)(136003)(39860400002)(346002)(5660300002)(8936002)(4326008)(66476007)(86362001)(52116002)(966005)(8676002)(2906002)(316002)(166002)(66946007)(36756003)(66556008)(6916009)(2616005)(33964004)(16526019)(31686004)(6486002)(186003)(478600001)(53546011)(31696002)(43740500002);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4430.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(376002)(346002)(136003)(396003)(6916009)(186003)(8676002)(4326008)(956004)(36756003)(66476007)(7696005)(8936002)(66946007)(1076003)(2906002)(66556008)(52116002)(86362001)(6666004)(26005)(2616005)(5660300002)(316002)(44832011)(6486002)(478600001)(16526019);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WGNVaU9FWlFYeGVTbkUremFRdGhvczVnSlpaSmYxcTJEQ2hWZE9wR2NqZFk3?=
- =?utf-8?B?YWFVRTBXL1pXTFllMEhSS3R4bUdxelE3eU1yRDk0SHJkN0NBMDVwblhOY2Q4?=
- =?utf-8?B?SnpibHFQRkt5QTZGMWIrQU1SaUV6S21nb3AvRjlRUlpOUmtQMVhIL2pzZ2gz?=
- =?utf-8?B?STdtSlFUTjFhK1NwV1NQNlhudHVCTHpHSktXUXdXOUhocW85RnRqQmM5cDFu?=
- =?utf-8?B?T0U2NG5RaHQrUkNWeVFKNHM4YzhZc2o5bmNZb1NyRXZsOWVzYUx5ZDlmdDdP?=
- =?utf-8?B?NTRDbUp5S01QNlVNNGx6U0tWMUoxQUl4ZUF4ZGNWb3FzOVE2T3l6SVpFb0Nr?=
- =?utf-8?B?RlBFTm1PdzFEc0huZzA2aThBS2c4dXRUcHE2T1ZSRFhVTmdXckN5N3ZYRzh0?=
- =?utf-8?B?eXhwbDZ1K0RWdk5MSnA0MGE4R1RpbUlPSVJ6Y2dZQk9HcHFXMHppSVlVTCtF?=
- =?utf-8?B?MXVrRVpUM2NGQU9vU0UycnRXc0dKSEtHb1ZkT3Q3anZ1VlJvNjdadDhiS2Nx?=
- =?utf-8?B?WnBuemplZDJaVUZqWllBZm1DemlFZjNxWlJvMHJxMWhlL2pBQXp0bEM5NzJs?=
- =?utf-8?B?YkhsWDZ0VU5Rbmo1Yk9tcGd0aFFGb3N0TmZqT3ZSeVBZbHBiSWY2MEMyVXk2?=
- =?utf-8?B?OEhXVG1RM2VjdFJBcFkycGY1RFY2UlZZK0F6bHBCZk9jL1laeFMyRWREUkxi?=
- =?utf-8?B?RVVPZDZzVWo2OUhwL1I2S0dzZkE1WXFON2xudEdpUnN2T2IzZ2tyMUJqU0sx?=
- =?utf-8?B?M2w3SVhnYjZEVUVSN01QTEY2ckptd0JIamFtMlhhV3U0VmZydU5aQWJmVVRR?=
- =?utf-8?B?L0YvZ3ZQQzNDTmZVbkpDUWUxOVFLZG1JRklPKzhtMzdJb2R4R1lwZG9NYUpI?=
- =?utf-8?B?WmgydG1rVjNjR2FMdFg3cnc1bDZMV2dnMnNlQVpFZ2tCa2I1MmJBUk1GMWhs?=
- =?utf-8?B?WVF3c2xyWkRmMWh1bUszUkdhMnYrNmxFMDR2SnZmdVZIZmRkd093MTB4WjV4?=
- =?utf-8?B?MjY5OE9qTlhodHcrV3A5RjF5RDZ0RXo3OXh2TjlQbDJYNHMzSXN6RVFqNW5i?=
- =?utf-8?B?WVdpRjVMT1VLaERXU3dqa3U0TnNxemsvcStEa0w2WnRDRnNBQUVHcm56Ulhv?=
- =?utf-8?B?UGpFNktkR1g1cEV3M2VJbmhRYmlXald4dWVwQytqaUhoVDNzNlNMeGtCU1Bl?=
- =?utf-8?B?UVNhd1JGSXNXUjB5cFFYSkg5ZXpRVVFOOTdYTE9WaGNnWFV1cDdpOFBGUnox?=
- =?utf-8?B?dUtHcmpCUytRWXp4Um92LzNwcXZySW9JemlMTmRjOUFDVDVKdz09?=
+X-MS-Exchange-AntiSpam-MessageData: UwTUYYDHn2pfKxFtew1SvsBH53TCcCnj4EVJHaw+xEX6jZFrULYK++3O0sJLvP0wNd9wux7oetZykVShWoMjKMniU7fuSG7qGNZQMhj6DZzdGOZk1KlVXu3oF22jL2OKFQLGUQQtDnnMQP68tA1AnFZqOJUDhz0/FVb/n2B1UGOwvBd+xHGVhCct1OtvEShfcvqmd1eFB94v5er8xlolo7pflO7mOH2tbb12r3/ivDmCaRF6gzTTBmNt7k+pXkhdNMSF66LDIR60IKMDcwjQGvF5UwddKLK+osxnQ+LSlCvNlx896xCEmsvUkr0mgBysZlbg1uVXZTriXGkMD+12dcX5mtX235cU4Oto3rgaDRPKOz69WRmcWm/njvzcbQEeQBrMWK0Pk/ST4sAoBvdlsLv3GagwKt1z9TgTklJFbte18y7FdJpVM6sSa3UkfIV8CHvY6DV9MzRVsTuDPsnEudMQIY8jx3jwTDXFupldNcq/zWApi+aaSnfeVgqO1NpTGnX5azpBi/DOooWbNmKg4f5s4Fg5mB1LpH+NnPACbU5U79lVPpskFiZIkCt+6WatCe7/s3rVXJB6a4K54kW0w34Jb3cMxcZDxagxgyRBunL+vbprWqQIzuExWpspo8oU9lrjC1MVRn1kyeKK1Phz3rWCrZyhAf3VecCzIGkxNbOp5F7ZDd+vSUuGrg8NXjFG+znzu1LIEwUQTfLYGidSelL3Od7TyXCzff4pWXjROSCbiLCUZzJdaLS8UQ9IEuG6u7O4rACVa9TSADoquqZ9Kg+bBKj6FPgk67rj0DukaifEacd97J1fFLHy/k/XZR9njMyvadwOJ28LJ5f4HykbLNZUIlxrJGQTwhSLkpmCBANX6iQVXplAvT24iqI274aIAjAtD/nCTvnJCLlYwvOXIg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f245fa1-e06b-498c-2e6d-08d885a1a85c
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c9eb659-a005-481d-52a6-08d885a1d9ad
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4430.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2020 17:54:23.5161 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2020 17:55:46.5529 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Faq/tu02K3f9pStN4PmpHDP2Gw2L4tefQNzWCXFokrGg8OyIXdMv8nQUnFx2zk9J/WD/X8r0wBR+xTqE/CRdZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4578
+X-MS-Exchange-CrossTenant-UserPrincipalName: TtLtT1xfekKrh5w+0IWoJh2ylUR5epdll8NrbHaZdDdu8j0ouBlg76EpjhlDHjUPZyKrznbsINHlrPyDSHdbug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,101 +106,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
- ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, ckoenig.leichtzumerken@gmail.com,
- alexdeucher@gmail.com
-Content-Type: multipart/mixed; boundary="===============2023924899=="
+Cc: Alex Sierra <alex.sierra@amd.com>, Felix.Kuehling@amd.com,
+ christian.Koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2023924899==
-Content-Type: multipart/alternative;
- boundary="------------9B0C735053E2719B7A5EBAB3"
-Content-Language: en-US
+By default this timestamp is based on a 32 bit counter.
+This is used by the amdgpu_gmc_filter_faults, to
+avoid process the same interrupt in retry configuration.
+Apparently there's a problem when the timestamp coming from
+IH overflows and compares against timestamp coming from the
+the hash table.
+This patch only extends the time overflow from 10 minutes to
+aprx 455 days.
 
---------------9B0C735053E2719B7A5EBAB3
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-Hi, back to this after a long context switch for some higher priority stuff.
-
-So here I was able eventually to drop all this code and this change here 
-https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=amd-staging-drm-next-device-unplug&id=61852c8a59b4dd89d637693552c73175b9f2ccd6
-was enough for me. Seems like while device_remove_file can handle the use case 
-where the file and the parent directory already gone, sysfs_remove_group goes 
-down in flames in that case
-due to kobj->sd being unset on device removal.
-
-Andrey
-
-On 6/24/20 2:11 AM, Greg KH wrote:
->>> But why are things being removed twice?
->> Not sure I understand what removed twice ? I remove only once per sysfs attribute.
-> This code path shows that the kernel is trying to remove a file that is
-> not present, so someone removed it already...
->
-> thanks,
->
-> gre k-h
->
-
---------------9B0C735053E2719B7A5EBAB3
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Hi, back to this after a long context switch for some higher
-      priority stuff. <br>
-    </p>
-    <p>So here I was able eventually to drop all this code and this
-      change here
-<a class="moz-txt-link-freetext" href="https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=amd-staging-drm-next-device-unplug&amp;id=61852c8a59b4dd89d637693552c73175b9f2ccd6">https://cgit.freedesktop.org/~agrodzov/linux/commit/?h=amd-staging-drm-next-device-unplug&amp;id=61852c8a59b4dd89d637693552c73175b9f2ccd6</a><br>
-      was enough for me. Seems like while device_remove_file can handle
-      the use case where the file and the parent directory already gone,
-      sysfs_remove_group goes down in flames in that case<br>
-      due to <font size="+3"><span style="color: rgb(51, 51, 51); font-family: monospace; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: pre; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">kobj-&gt;sd being unset on device removal</span></font>.<br>
-    </p>
-    <p>Andrey<br>
-    </p>
-    <div class="moz-cite-prefix">On 6/24/20 2:11 AM, Greg KH wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20200624061153.GA933050@kroah.com">
-      <blockquote type="cite" style="color: #000000;">
-        <blockquote type="cite" style="color: #000000;">
-          <pre class="moz-quote-pre" wrap="">But why are things being removed twice?
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Not sure I understand what removed twice ? I remove only once per sysfs attribute.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">This code path shows that the kernel is trying to remove a file that is
-not present, so someone removed it already...
-
-thanks,
-
-gre k-h
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------9B0C735053E2719B7A5EBAB3--
-
---===============2023924899==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index 837769fcb35b..bda916f33805 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -94,6 +94,8 @@ static void navi10_ih_enable_interrupts(struct amdgpu_device *adev)
+ 
+ 	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL, RB_ENABLE, 1);
+ 	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL, ENABLE_INTR, 1);
++	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL,
++				   RB_GPU_TS_ENABLE, 1);
+ 	if (amdgpu_sriov_vf(adev) && adev->asic_type < CHIP_NAVI10) {
+ 		if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL, ih_rb_cntl)) {
+ 			DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
+@@ -109,6 +111,8 @@ static void navi10_ih_enable_interrupts(struct amdgpu_device *adev)
+ 		ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1);
+ 		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING1,
+ 					   RB_ENABLE, 1);
++		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING1,
++					   RB_GPU_TS_ENABLE, 1);
+ 		if (amdgpu_sriov_vf(adev) && adev->asic_type < CHIP_NAVI10) {
+ 			if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING1,
+ 						ih_rb_cntl)) {
+@@ -125,6 +129,8 @@ static void navi10_ih_enable_interrupts(struct amdgpu_device *adev)
+ 		ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2);
+ 		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING2,
+ 					   RB_ENABLE, 1);
++		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING2,
++					   RB_GPU_TS_ENABLE, 1);
+ 		if (amdgpu_sriov_vf(adev) && adev->asic_type < CHIP_NAVI10) {
+ 			if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING2,
+ 						ih_rb_cntl)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index 407c6093c2ec..35d68bc5d95e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -50,6 +50,8 @@ static void vega10_ih_enable_interrupts(struct amdgpu_device *adev)
+ 
+ 	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL, RB_ENABLE, 1);
+ 	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL, ENABLE_INTR, 1);
++	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL,
++				   RB_GPU_TS_ENABLE, 1);
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL, ih_rb_cntl)) {
+ 			DRM_ERROR("PSP program IH_RB_CNTL failed!\n");
+@@ -64,6 +66,8 @@ static void vega10_ih_enable_interrupts(struct amdgpu_device *adev)
+ 		ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING1);
+ 		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING1,
+ 					   RB_ENABLE, 1);
++		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING1,
++					   RB_GPU_TS_ENABLE, 1);
+ 		if (amdgpu_sriov_vf(adev)) {
+ 			if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING1,
+ 						ih_rb_cntl)) {
+@@ -80,6 +84,8 @@ static void vega10_ih_enable_interrupts(struct amdgpu_device *adev)
+ 		ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL_RING2);
+ 		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING2,
+ 					   RB_ENABLE, 1);
++		ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL_RING2,
++					   RB_GPU_TS_ENABLE, 1);
+ 		if (amdgpu_sriov_vf(adev)) {
+ 			if (psp_reg_program(&adev->psp, PSP_REG_IH_RB_CNTL_RING2,
+ 						ih_rb_cntl)) {
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2023924899==--
