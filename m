@@ -2,109 +2,116 @@ Return-Path: <SRS0=tzQw=ER=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2484BC388F9
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 08:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C9FCC388F9
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 08:53:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83B7D206E3
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 08:45:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AE55320678
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 08:53:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0u6nZYmQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83B7D206E3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aEQTqv9o"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE55320678
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 032F289E50;
-	Wed, 11 Nov 2020 08:45:01 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51C6589DED
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 08:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1025A89FEC;
+	Wed, 11 Nov 2020 08:53:49 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 305B889FEC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 08:53:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iJxb7/MKh/PDUH9Bn/ssIDj64Kyvq2at/bxZkOO5w3EgzlbEw8SC8HnM7OLIBIiIl5Az4QWaxcXyHkVG9kRZe4Ek63l/n8IQEg887df6XpLCzWyqnjq5F3oXUTpndDeaFjyhKV1VQQdC0aL849gR91acB9zrn3KgtWRNxSYrCu3kvbLnurSgm7ouio/SaJDDyYEr30pd3O/7b+Gjn8qQoYmXCVs+gyBQzGUrQ5vN6CIkSqa3NJduFXc852nNXOwf1QPeYS+kiPchHURrHCNBUlnnK9qXd76O6wHpFZZ+0ZVBgR34cEKLDwHVJVgEkVZfYBDhzdp1eOLCPqeGx8PLPg==
+ b=BFTyKmJ4tW188Q6///2sTI0VGdDEx47CwT81pZw9QGijHhHGvMfcrYzeb5lQd8kbi3XDglW93EE1J7nMHnvX2hQBVKEAYmZ1Gwzoi8bFu2ZW0hxodkpWuF2EfZk7ov4ZkhZDyuH8B+fI6w6AX+lvcVRt2R1Rco+vQpvMu7mDCM5c3mpTXglJPLUr+0oLO4gLEaGvbRKU6sROtu4ZlKQ2eExcLgoKz73O+GmClPuMJ/0P2CwcUVDNIUDAgO6iyJL0CBo/SHGzQgUsuMhwYQqMttJenW5euUKDZCf+W6E4Apcrli16NIFFbXL7DVARhbzFa84Agjp0VQPH8A6rwZQDBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hAv6Tkl6SsFIQDGAqeo2UvMNEhT7NKjla2mXhpZXNww=;
- b=kFPGIv4fyqOZoBR44hNhJFgzvmsqjBTvFa34chkStj9oVh6aQcQTOOuQdo4QvHcl+PVv1isLL2zbXl0SYIcwlRknzy7qEAxXhcPIVUc/Jy8CqITxb6aOyCGzXelaAKHuQcvjkOGmRaWwUrCIxM6zhnSUUzwbVqD4YB76HRes1+8dDx1574xpkIOmuihdjApopxXzH1PXXyu9PAfJxCUnHaxCo0Ph/G2CuqiVPSDdOAjR99q+bvm8BKghkFRonueJxRFeWWrmB7GW3ZywRbV2+j8S7TPj9oYId7YsnUp35LHVyTSmRb7A5CPLJnKfflUmcFiEHGCYuzlEVlROmrkBnA==
+ bh=n7pt8hOU+cycYTeXQznjO1h3Y7+q+ZN1ONEbrGHJWWU=;
+ b=b8JrBmm+B3U4mcDiV+uCJRVZ7CV2vaCh4Jnh08hAMXWnWXfY81665NqOVRWqkh9r3dcGItk6X+AouKgyS5OPN7cDj8H3+3fjJqI41Qn+yBUZ5F0o2jnPacFW2YWQFSBajESMrlEYQM3SC5uwrc7TxuCauXBh4JnvcWgkJo83tFluXEafhwFRDRFCHiu9wAKi1N2oMBlPkYe9FQ7/faALmV0uyGtDcfA2x4eiDXKrSr9AdMSdEIflvE/eT0eb6DMDsxsYJQ15wggMiY1xPBETIh5jyMJ9BKwu68Fq9TkZ0BI0xmVeIq+9mqsGr/svHD3k6LdOYLm6eRyL9NG7vBLM1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hAv6Tkl6SsFIQDGAqeo2UvMNEhT7NKjla2mXhpZXNww=;
- b=0u6nZYmQKrYwP7GPXW/8mITnHcQ/n2tcsphCFjcMhjetJose17fU+Bd7rdVOdrTJnCrkoVRNXYKLdSlyWoe7xrkhxdnD0/1/j4CV8wVOOHK3sKhaiWhyjsOsqn2lqw/NzZ1t7qbAcm8sEAroKqpHs0MAV6mDnTDR0ILNePzI/+c=
-Received: from DM5PR12MB1226.namprd12.prod.outlook.com (2603:10b6:3:75::7) by
- DM5PR12MB1225.namprd12.prod.outlook.com (2603:10b6:3:7a::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21; Wed, 11 Nov 2020 08:44:57 +0000
-Received: from DM5PR12MB1226.namprd12.prod.outlook.com
- ([fe80::8874:6c82:5323:923c]) by DM5PR12MB1226.namprd12.prod.outlook.com
- ([fe80::8874:6c82:5323:923c%6]) with mapi id 15.20.3541.025; Wed, 11 Nov 2020
- 08:44:57 +0000
-From: "Wang, Chao-kai (Stylon)" <Stylon.Wang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
-Thread-Topic: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
-Thread-Index: AQHWtzYdSWsDn+fVRk2L68si+uR7mqnBbMwAgAAhTACAAARvAIAAA5YAgAEHdNs=
-Date: Wed, 11 Nov 2020 08:44:57 +0000
-Message-ID: <DM5PR12MB1226652E58533CA35137F64EFFE80@DM5PR12MB1226.namprd12.prod.outlook.com>
-References: <20201110074912.54097-1-stylon.wang@amd.com>
- <df99166b-de59-5aad-f921-b4263c082ca8@amd.com>
- <MN2PR12MB4488F51CB06882617DE3BD60F7E90@MN2PR12MB4488.namprd12.prod.outlook.com>,
- <511c08b0-713f-2cb1-c323-5ea65a7f954a@amd.com>,
- <MN2PR12MB44888EC743B809BCAB6742B4F7E90@MN2PR12MB4488.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB44888EC743B809BCAB6742B4F7E90@MN2PR12MB4488.namprd12.prod.outlook.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
+ bh=n7pt8hOU+cycYTeXQznjO1h3Y7+q+ZN1ONEbrGHJWWU=;
+ b=aEQTqv9oMfXA5tiRvOvPCxGE6tfW2BH6xwgIu41Y1iatlEoGEd8WvR0kgLLZcYU+4i9eng9ymYAdkxDyHHnH7Rs3OTcgwLsx+Emb6Msx+Tt6aXLc+VEAnihG36dCDQVHlLS6tfWDq8hYfhfS3gfFMOizbsXB/tL1iqVMvEqZN7g=
+Received: from MN2PR12MB4032.namprd12.prod.outlook.com (2603:10b6:208:16d::32)
+ by MN2PR12MB4845.namprd12.prod.outlook.com (2603:10b6:208:183::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.25; Wed, 11 Nov
+ 2020 08:53:44 +0000
+Received: from MN2PR12MB4032.namprd12.prod.outlook.com
+ ([fe80::c535:c5bd:8c12:6b63]) by MN2PR12MB4032.namprd12.prod.outlook.com
+ ([fe80::c535:c5bd:8c12:6b63%6]) with mapi id 15.20.3541.025; Wed, 11 Nov 2020
+ 08:53:44 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: add UMC to ip discovery map
+Thread-Topic: [PATCH] drm/amdgpu: add UMC to ip discovery map
+Thread-Index: Ada4CAgug+1uArCgTMS+gFznKiJcWg==
+Date: Wed, 11 Nov 2020 08:53:43 +0000
+Message-ID: <MN2PR12MB403229B5319EAC6A7B8594F0FBE80@MN2PR12MB4032.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-11-11T08:53:36Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-11-11T08:44:53.135Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.134.251]
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=557a3daf-e205-4e9c-885d-000084465f45;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-11-11T08:53:36Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: d8f70787-9795-4b05-a808-0000157a9cdb
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a773cf8b-dfcf-43f5-ea3a-08d8861e11bc
-x-ms-traffictypediagnostic: DM5PR12MB1225:
+x-ms-office365-filtering-correlation-id: 0ae8bfc7-4b1c-46bd-b5b2-08d8861f4b6a
+x-ms-traffictypediagnostic: MN2PR12MB4845:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB1225D054743E795C62CADF9EFFE80@DM5PR12MB1225.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-microsoft-antispam-prvs: <MN2PR12MB484538CF3788D11F68B46171FBE80@MN2PR12MB4845.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4303;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PhWC28HR+/ofBmaYt4t8uLESHq5ziUbJ8cHqj8ln1wPNiMaTUqtMSSBU30PgMUAkcQ3FLUyRj5vX5aiEAJuGrDQKT/czazDly5vA7pbpvINQYIvGKTkxYYx6snkgMR7k368ANNdga4lWFVFsQBc8TbwIxeDaXkAtwh+qTvdRxeGIeMJYMzZuIhzWCZqRBcg3t7LJ4oLvPj8JnwtG8qA7IK4FechNuL06lDgAYumQYJhTABHH5KCtbhKbArBcEKHwDVJvmU6cVAA3TzpKz8+eRARpEMn+K6xzFH8SAwgaTjiv4Kc2Nn7LspbJPoxDxcrPoFDIAmJpdgwZC+mGU78CWEfuzmV6GCHSovCMr13CROSczxz5fioZUR8bT+OGrCCZ6gsIcf6+CLick5lnNGyZ0w==
+x-microsoft-antispam-message-info: 15nkTSNhs+W6LmthREBjtfhLPUl+6QEvXmb3nj2nl15v1HM6SIeAGCXAOqEp/hVQ2TmxXFn0pUhnop4eY3+UY+NTRW/1kNSZaWq5EstozfRjH8Qp7I00zM8Cp1bNZUb9sPawtjyTn7i2sTKqFuaimuss0pFZnMkGsD9LCA6x5aqshHqxwystc2z4Q/Kv2ARbmQou6hka27JjmyMJI3EUsuNVNRQfZfvIhejIN+hHoCC5LwzvcTT7kX82Gm6gE4sRIQ/UMvpN77jmlgoZFCxeBvD91P+I5HiVE9uoU5gDQYTYuu65DcbmYWi9S3WT/aha
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1226.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(366004)(346002)(396003)(39860400002)(6506007)(55016002)(53546011)(2906002)(26005)(33656002)(8676002)(166002)(110136005)(83380400001)(316002)(76116006)(66446008)(64756008)(66556008)(4001150100001)(9686003)(186003)(86362001)(91956017)(66946007)(19627405001)(66476007)(52536014)(5660300002)(71200400001)(8936002)(4326008)(478600001)(966005)(7696005);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4032.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(136003)(376002)(346002)(366004)(396003)(558084003)(7696005)(2906002)(33656002)(6506007)(55016002)(26005)(86362001)(99936003)(9686003)(316002)(6636002)(186003)(478600001)(110136005)(71200400001)(8936002)(66616009)(64756008)(52536014)(66946007)(66556008)(76116006)(66446008)(66476007)(5660300002)(8676002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: me8uGxXC9uF+redKUWuexrXtBiJmr4GEwdh7vlmq0JMQ4CPx51rLAP6Hu/Ajeryy5kynhSvVm+g2bZm1IZmmFvXFlhaJ73OPrSUyi1lbWfZVo5RFXAH/hJEJk0wWnyIeE30e3v/sdIQw05rA0DSaZkfcSzeYEv+BgVodaUzJ0/CE8zkU1dSqJ5bXRNckKPslY/SlnsIuncvzpSCZm02+6pluegg1SHsfztmeMgiC0DCc1vkMqDjy/av1kqsGjR86xEgnjpdaZatEvA3f/zlYCktp8eNTKVZ69hwicsX4Tgw32NcqRokpL20YrP9/05UwP8nf68eg6NOZDYiY5/96OfemZX7VXstgyJyJCKNI3Y6u9uDIH/KhLFyqZHZYwll15Pezhnz04Pvg836Lei7sqgDM1mQP1myaa2qlTG36O0D6tdhF5r/DhYlgrv96hK8kuRny6zljHsGQZ/o1INusWFc/uVn8Uzy40nIl1O3ImrRVTBKdXP4PpuynIiIkQod74viyd2v+AokdV2PBmXpjYKzWOjuwp/bMOrTKasJGLvvZ/FkmqS/ID6S7FfdKR7NW+sSig7GQxmqeAejryguTULV3tZTbGDg+2p+lAlUXRWtE8fzHP3N7+YHiWAfVmKWVzGb3vkUvjAI9DT23kuXva7bbTUknDBPF0I/cjOMJJmGeEzRvjzmHoENZf7YmAzRjG8Yw3XvawbWpFStoxlBUEnDaZEyZzftDqZj+gosTKFItwSs/qpVXsQZdTEvKsqY9PyagjeYZSTJnwpYDhF4ObIJ4oq4l7OTpBSRct+rzlWftEAm0Vr4K3WPzB7X69tXY2SB9wgkbokTiPQINb88oIVn9atJTWT0683wpmoZYN3DpRXfk0StstABDhoNPuBfUbF6pvDJfBZcLTtUEmlL5/Q==
+x-ms-exchange-antispam-messagedata: QvuGbpB3G1EquXzcBUexM2D5099tItdM/ZYOsZsqwnXCJO9rDdbIVomg5C7R62JbVZXqG9/SjRQq99d98+d+XDdKBVRfbLExzGZjHzVFwrkRZbjTzro4bhSuB68Evytjg2qcIKvfeQFYNqMusb5YyHaaobyZBKjZ8yTZL9RcUCLEd3fVs9yKejMZOf1nTF76tmsohc7obZ4AEdiKgXI+4PXj9Ky0Yv8YY/vbRlT1lJzAlUbajFo7Oun++C5zQWASIPxDf00qcKIc78gwXVv/NKIuYe2SGq5OKAvzo87zCsUHdme9A91mWBV3OJFBC2c8+Tb3kACYXDGi+BkUQv7XAfpjhgQQ0J7m4Jo6NTzzRZPyEqge9iqFNgcs2wEtGvwWa9XA2J23kwWB1aUdKpo4Uv7+O8phXUZAgJLb+1YgpwnZn8TseXA9w+Nou/Q4ThjkxnDu8FlX+APdyGoSBxe6qWwIcbolwXryVw2farH766spOfKenoyUCo15wPx3tnY/8FowpoW1S2g220tvQo0yBruLh0/XgAeYBavTbe8lqhBpjiMgaMI3KReShzV+YNc57VNMRRD3yHUbxbf62hPQZbOZTzlBwSG0ngrMRBD4uIRdMfbl0uz0Me+Zj5sxNTXrPp433WEnrMBmAee4NXE6Fw==
+Content-Type: multipart/mixed;
+ boundary="_004_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1226.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a773cf8b-dfcf-43f5-ea3a-08d8861e11bc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2020 08:44:57.6050 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4032.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ae8bfc7-4b1c-46bd-b5b2-08d8861f4b6a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2020 08:53:43.8618 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IOAbLsCfCRUWIINxaATOowKFnMC89Tyb32l/CllAwFYTCnpnkVy21VxjyZxGpwOJWUO1IGjJB/hhAK6USYlPGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1225
+X-MS-Exchange-CrossTenant-userprincipalname: 7ih52IIUM0NUCJHXO223sNDon5eiowSawt0nrxl4HBlw+04Xog+LMCwVKAgFVszU74qjH35bsNdHWV1fuFTKQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4845
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,495 +123,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Content-Type: multipart/mixed; boundary="===============1655632642=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1655632642==
-Content-Language: en-CA
+--_004_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1226652E58533CA35137F64EFFE80DM5PR12MB1226namp_"
+	boundary="_000_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_"
 
---_000_DM5PR12MB1226652E58533CA35137F64EFFE80DM5PR12MB1226namp_
+--_000_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Hi Harry,
+Submitting patch to add UMC into IP discovery mapping.
 
-Checked Lee Starnes's patch. It does not fix the issue but does preserve th=
-e tradition of assigning the number of probed modes to aconnector->num_mode=
-s, which appears elsewhere in AMD code. I observed in some cases the memory=
- leak is not reproducing (or not detected) even without mine or Lee's fix. =
-Maybe that's why Lee thinks it may fix the leak.
+Thank you,
+John Clements
 
-Another way to fix the issue is to not wipe out the probed list by calling =
-INIT_LIST_HEAD() in amdgpu_dm_connector_ddc_get_modes(). But I am not entir=
-ely sure what other impact will that do.
-
-I am checking out how everyone is handling resume from S3 so would like som=
-e second opinions.
-
-
-Regards
-Regards
-
-Stylon Wang
-
-MTS Software Development Eng.  |  AMD
-Display Solution Team
-
-O +(886) 2-3789-3667 ext. 23667  C +(886) 921-897-142
-
----------------------------------------------------------------------------=
--------------------------------------------------------
-
-6F, 3, YuanCyu St (NanKang Software Park) Taipei, Taiwan
-
-Facebook<https://www.facebook.com/AMD> |  Twitter<https://twitter.com/AMD> =
-|  amd.com<http://www.amd.com/>
-
-
-
-________________________________
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: November 11, 2020 12:55 AM
-To: Wentland, Harry <Harry.Wentland@amd.com>; Wang, Chao-kai (Stylon) <Styl=
-on.Wang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.=
-org>
-Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Ah, sorry, I missed that part of the patch.
-
-Alex
-
-________________________________
-From: Wentland, Harry <Harry.Wentland@amd.com>
-Sent: Tuesday, November 10, 2020 11:42 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Chao-kai (Stylon)=
- <Stylon.Wang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freede=
-sktop.org>
-Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
-
-It's missing the "drm_connector_list_update" call which I assume is importa=
-nt.
-
-Stylon, can you review Lee Starnes's patch? Is the drm_connector_list_updat=
-e call maybe not needed?
-
-Thanks,
-Harry
-
-On 2020-11-10 11:26 a.m., Deucher, Alexander wrote:
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Lee Starnes just sent the exact same patch yesterday.  Please review that o=
-ne:
-https://patchwork.freedesktop.org/patch/399497/
-
-Alex
-
-________________________________
-From: Wentland, Harry <Harry.Wentland@amd.com><mailto:Harry.Wentland@amd.co=
-m>
-Sent: Tuesday, November 10, 2020 9:27 AM
-To: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com><mailto:Stylon.Wang@amd.co=
-m>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org><mailto:amd-gfx@lists.freedesktop.org>
-Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com><mailto:Nicholas.Kazl=
-auskas@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com><mailto:Alex=
-ander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume
-
-On 2020-11-10 2:49 a.m., Stylon Wang wrote:
-> EDID parsing in S3 resume pushes new display modes
-> to probed_modes list but doesn't consolidate to actual
-> mode list. This creates a race condition when
-> amdgpu_dm_connector_ddc_get_modes() re-initializes the
-> list head without walking the list and results in  memory leak.
->
-> Signed-off-by: Stylon Wang <stylon.wang@amd.com><mailto:stylon.wang@amd.c=
-om>
-
-Looks reasonable to me but haven't had a chance to understand whether
-this is the best solution.
-
-Acked-by: Harry Wentland <harry.wentland@amd.com><mailto:harry.wentland@amd=
-.com>
-
-Harry
-
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 0b6adf23d316..715e0bd489f8 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2337,7 +2337,8 @@ void amdgpu_dm_update_connector_after_detect(
->
->                        drm_connector_update_edid_property(connector,
->                                                           aconnector->edi=
-d);
-> -                     drm_add_edid_modes(connector, aconnector->edid);
-> +                     aconnector->num_modes =3D drm_add_edid_modes(connec=
-tor, aconnector->edid);
-> +                     drm_connector_list_update(connector);
->
->                        if (aconnector->dc_link->aux_mode)
->                                drm_dp_cec_set_edid(&aconnector->dm_dp_aux=
-.aux,
->
-
-
---_000_DM5PR12MB1226652E58533CA35137F64EFFE80DM5PR12MB1226namp_
+--_000_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheadera92f4c5c" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:11.0pt;font-family:Arial;color:#0078D7">[AMD Official Use O=
+nly - Internal Distribution Only]</span></p>
 <br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Hi Harry,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Checked Lee Starnes's patch. It does not fix the issue but does preserve th=
-e tradition of assigning the number of probed modes to aconnector-&gt;num_m=
-odes, which appears elsewhere in AMD code. I observed in some cases the mem=
-ory leak is not reproducing (or not
- detected) even without mine or Lee's fix. Maybe that's why Lee thinks it m=
-ay fix the leak.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Another way to fix the issue is to not wipe out the probed list by calling =
-INIT_LIST_HEAD() in&nbsp;amdgpu_dm_connector_ddc_get_modes(). But I am not =
-entirely sure what other impact will that do.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-I am checking out how everyone is handling resume from S3 so would like som=
-e second opinions.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Regards</div>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 11pt; color: rgb(0, 0, 0);">
-Regards</div>
-<div id=3D"Signature">
-<div>
-<div></div>
-<div></div>
-<div></div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0px; margin-bottom:0px; margin-top:0; margin-bottom:=
-0"></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><u><b>Stylon Wang</b></u></span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black">MTS Software Development Eng.&nbsp;&nbsp;|<b>&nbsp;&nbsp;AMD</b><=
-br>
-Display Solution Team</span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><b style=3D"color:rgb(32,31,30); font-family:Calibri,sans-serif; =
-font-size:14.6667px; background-color:rgb(255,255,255)"><span style=3D"marg=
-in:0px; font-size:9pt; font-family:Arial,sans-serif; color:black">O</span><=
-/b><span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; =
-color:black; background-color:rgb(255,255,255)">&nbsp;+(886)
- 2-3789-3667 ext. 23667&nbsp;&nbsp;<b>C</b>&nbsp;+(886) 921-897-142</span><=
-br>
-</span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<b><span style=3D"margin:0px; font-size:9pt; color:rgb(242,101,34); letter-=
-spacing:-1.4pt">-----------------------------------------------------------=
------------------------------------------------------------------------</sp=
-an></b><b><span style=3D"margin:0px; font-size:9pt; color:rgb(242,101,34)">=
-</span></b></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><span tabindex=3D"0" style=3D"margin:0px; padding:1px 0px; border=
--width:0px 0px 1px; border-bottom-style:dashed">6F, 3, YuanCyu St (NanKang =
-Software Park) Taipei, Taiwan</span></span></p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-<span style=3D"margin:0px; font-size:9pt; font-family:Arial,sans-serif; col=
-or:black"><a href=3D"https://www.facebook.com/AMD" target=3D"_blank" rel=3D=
-"noopener noreferrer" style=3D"margin:0px"><span style=3D"margin:0px">Faceb=
-ook</span></a>&nbsp;|&nbsp;&nbsp;<a href=3D"https://twitter.com/AMD" target=
-=3D"_blank" rel=3D"noopener noreferrer" style=3D"margin:0px"><span style=3D=
-"margin:0px">Twitter</span></a>&nbsp;|&nbsp;&nbsp;<a href=3D"http://www.amd=
-.com/" target=3D"_blank" rel=3D"noopener noreferrer" style=3D"margin:0px"><=
-span style=3D"margin:0px">amd.com</span></a></span><span style=3D"margin:0p=
-x; font-size:10pt; font-family:Arial,sans-serif; color:black">&nbsp;</span>=
-</p>
-<p style=3D"margin:0in 0in 0.0001pt; font-size:11pt; font-family:Calibri,sa=
-ns-serif; color:rgb(32,31,30); text-align:start; background-color:rgb(255,2=
-55,255)">
-&nbsp;</p>
-<p style=3D"margin-top:0px; margin-bottom:0px; margin-top:0; margin-bottom:=
-0"></p>
-</div>
-</div>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
-t;Alexander.Deucher@amd.com&gt;<br>
-<b>Sent:</b> November 11, 2020 12:55 AM<br>
-<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Wang, Chao-kai (=
-Stylon) &lt;Stylon.Wang@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-=
-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume<=
-/font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:11pt; color:#0078D7=
-; margin:5pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Ah, sorry, I missed that part of the patch.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wentland, Harry &lt=
-;Harry.Wentland@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, November 10, 2020 11:42 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Wang, Chao=
--kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; amd-gfx@lists.freedesktop.org &l=
-t;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazlauskas@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div>It's missing the &quot;drm_connector_list_update&quot; call which I as=
-sume is important.<br>
-<br>
-Stylon, can you review Lee Starnes's patch? Is the drm_connector_list_updat=
-e call maybe not needed?<br>
-<br>
-Thanks,<br>
-Harry<br>
-<br>
-<div class=3D"x_x_moz-cite-prefix">On 2020-11-10 11:26 a.m., Deucher, Alexa=
-nder wrote:<br>
-</div>
-<blockquote type=3D"cite"><style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<p align=3D"Left" style=3D"font-family:Arial; font-size:11pt; color:#0078D7=
-; margin:5pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Lee Starnes just sent the exact same patch yesterday.&nbsp; Please review t=
-hat one:</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<a href=3D"https://patchwork.freedesktop.org/patch/399497/" id=3D"LPlnk2605=
-81">https://patchwork.freedesktop.org/patch/399497/</a><br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wentland, Harry
-<a class=3D"x_x_moz-txt-link-rfc2396E" href=3D"mailto:Harry.Wentland@amd.co=
-m">&lt;Harry.Wentland@amd.com&gt;</a><br>
-<b>Sent:</b> Tuesday, November 10, 2020 9:27 AM<br>
-<b>To:</b> Wang, Chao-kai (Stylon) <a class=3D"x_x_moz-txt-link-rfc2396E" h=
-ref=3D"mailto:Stylon.Wang@amd.com">
-&lt;Stylon.Wang@amd.com&gt;</a>; <a class=3D"x_x_moz-txt-link-abbreviated" =
-href=3D"mailto:amd-gfx@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a> <a class=3D"x_x_moz-txt-link-rfc2396E" hr=
-ef=3D"mailto:amd-gfx@lists.freedesktop.org">
-&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-<b>Cc:</b> Kazlauskas, Nicholas <a class=3D"x_x_moz-txt-link-rfc2396E" href=
-=3D"mailto:Nicholas.Kazlauskas@amd.com">
-&lt;Nicholas.Kazlauskas@amd.com&gt;</a>; Deucher, Alexander <a class=3D"x_x=
-_moz-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher@amd.com">
-&lt;Alexander.Deucher@amd.com&gt;</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: Fix memory leaks in S3 resume<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
-1pt">
-<div class=3D"x_x_PlainText">On 2020-11-10 2:49 a.m., Stylon Wang wrote:<br=
->
-&gt; EDID parsing in S3 resume pushes new display modes<br>
-&gt; to probed_modes list but doesn't consolidate to actual<br>
-&gt; mode list. This creates a race condition when<br>
-&gt; amdgpu_dm_connector_ddc_get_modes() re-initializes the<br>
-&gt; list head without walking the list and results in&nbsp; memory leak.<b=
-r>
-&gt; <br>
-&gt; Signed-off-by: Stylon Wang <a class=3D"x_x_moz-txt-link-rfc2396E" href=
-=3D"mailto:stylon.wang@amd.com">
-&lt;stylon.wang@amd.com&gt;</a><br>
-<br>
-Looks reasonable to me but haven't had a chance to understand whether <br>
-this is the best solution.<br>
-<br>
-Acked-by: Harry Wentland <a class=3D"x_x_moz-txt-link-rfc2396E" href=3D"mai=
-lto:harry.wentland@amd.com">
-&lt;harry.wentland@amd.com&gt;</a><br>
-<br>
-Harry<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-<=
-br>
-&gt;&nbsp;&nbsp; 1 file changed, 2 insertions(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; index 0b6adf23d316..715e0bd489f8 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; @@ -2337,7 +2337,8 @@ void amdgpu_dm_update_connector_after_detect(<br=
->
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_con=
-nector_update_edid_property(connector,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aconnector-&gt;edid);<=
-br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_add_edid_modes(conn=
-ector, aconnector-&gt;edid);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aconnector-&gt;num_mode=
-s =3D drm_add_edid_modes(connector, aconnector-&gt;edid);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_connector_list_upda=
-te(connector);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aco=
-nnector-&gt;dc_link-&gt;aux_mode)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_dp_cec_set_edid(&amp;aconnecto=
-r-&gt;dm_dp_aux.aux,<br>
-&gt; <br>
-</div>
-</span></font></div>
-</div>
-</blockquote>
-<br>
-</div>
-</div>
-</div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Submitting patch to add UMC into IP discovery mappin=
+g.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
 </div>
 </body>
 </html>
 
---_000_DM5PR12MB1226652E58533CA35137F64EFFE80DM5PR12MB1226namp_--
+--_000_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_--
 
---===============1655632642==
+--_004_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_
+Content-Type: application/octet-stream;
+	name="0001-drm-amdgpu-add-UMC-to-ip-discovery-map.patch"
+Content-Description: 0001-drm-amdgpu-add-UMC-to-ip-discovery-map.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-add-UMC-to-ip-discovery-map.patch"; size=956;
+	creation-date="Wed, 11 Nov 2020 08:52:00 GMT";
+	modification-date="Wed, 11 Nov 2020 08:52:00 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA2NzhjNWUwZDJmYTJkY2IyNDQ2ZGU4MDljYTI4NTBkOWIyZTYyNTg4IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIENsZW1lbnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+
+CkRhdGU6IFdlZCwgMTEgTm92IDIwMjAgMTY6NTE6MTkgKzA4MDAKU3ViamVjdDogW1BBVENIIDEv
+MV0gZHJtL2FtZGdwdTogYWRkIFVNQyB0byBpcCBkaXNjb3ZlcnkgbWFwCgpyZXNvbHZlIGlzc3Vl
+IHdpdGggVU1DIGJhc2Ugb2Zmc2V0IG5vdCBiZWluZyBzZXQgY29ycmVjdGx5IGluIGlwIGRpc2Nv
+dmVyeSBzZXF1ZW5jZQoKU2lnbmVkLW9mZi1ieTogSm9obiBDbGVtZW50cyA8am9obi5jbGVtZW50
+c0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNjb3Zl
+cnkuYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5jCmluZGV4IGJmYjk1MTQzYmE1ZS4u
+YjJkYmNiNGRmMDIwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGlzY292ZXJ5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
+c2NvdmVyeS5jCkBAIC0xMjgsNiArMTI4LDcgQEAgc3RhdGljIGludCBod19pZF9tYXBbTUFYX0hX
+SVBdID0gewogCVtOQklGX0hXSVBdCT0gTkJJRl9IV0lELAogCVtUSE1fSFdJUF0JPSBUSE1fSFdJ
+RCwKIAlbQ0xLX0hXSVBdCT0gQ0xLQV9IV0lELAorCVtVTUNfSFdJUF0JPSBVTUNfSFdJRCwKIH07
+CiAKIHN0YXRpYyBpbnQgYW1kZ3B1X2Rpc2NvdmVyeV9yZWFkX2JpbmFyeShzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwgdWludDhfdCAqYmluYXJ5KQotLSAKMi4xNy4xCgo=
+
+--_004_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -615,4 +248,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1655632642==--
+--_004_MN2PR12MB403229B5319EAC6A7B8594F0FBE80MN2PR12MB4032namp_--
