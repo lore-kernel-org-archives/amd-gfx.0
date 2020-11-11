@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D74DCC388F7
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 03:04:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0F57C55ABD
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 03:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47E9E206E3
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 03:04:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2C378206E3
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2020 03:04:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kbAxVNlf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47E9E206E3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CqFAHVBM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C378206E3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC9289A8B;
-	Wed, 11 Nov 2020 03:04:44 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44BD389D6C
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 03:04:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2CB7899D4;
+	Wed, 11 Nov 2020 03:04:46 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE0D8920D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2020 03:04:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IKd9ZnL8NSxiav0SwHIIuupCJQU1wo5mRqZA3RImt04nito6ncgX5SZuwRNm296SO+tp5I6JW+z7nxIXinGfLmBPvKtgk2wMoTlKsJjNor1W/Q2LITVOUYspO1IcYd37KZu60z20Q6uCq0B2EKrasccraPibOTvxZHiAgin1u2bKjCopZ3TRwmVNac/3FOivHc+icXw90N5VrKHf1wKONtPEwXVQaD2YMzNlw5IOI3+eqVrqARSY7P975u6xF2347dfZgr6JrOwIcxFizMmKrsv9tnfoOoL2ScpFzlpxAFuH2EQzxRXteAej2mMtOOy93Ub9wqdUKuG3pNA9tyT5Sw==
+ b=YiXKasw0VeCvvNaJhP+rTMhIreFA3O0i3SGvzQkUL93L2ickUrGhPchXk1cBHknffj9uL2C1aVBsgiU25PXy0izENHp0771w3ESZb7v9/EdiggOdhYS8U/MJgNmnp+MKMR7lRAXrWBN+oUKZaP5UVxU+j0JSYXQMtSDzgsAJNCEWlvTMlDguuos8bHeYqcPlfIxa6uith0zoB9F+axbWA8Swqd0eGASj82c3n0bE8Lec/AQpPRuLu19F4X0H6MLgoKPs4q1CjK3qPyli/pmxwjZx/VyKD7bLpbVesEUR5mBlnyY6GIydAiliKy5UsnL19/6Hsj3eUxyqTxHuacwuRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+eAcL/CRZe8rF40B0umYxm4VWccW0jzABTtwt58HyKs=;
- b=VmYtosn3TTxBo8TOEwITarqUv8zb2PUGfJNVtpCozd38t7uHcD8HPhkd5TsdzP6Sea+Lh05G+KX4DnP93WZO+cQuBgPwmDK9Lyapvt8r+KlCVzb5zl3XiAsFXEavG6h3pl2b7RvL3YKUEqngQu7mnd1UIKCJu8XSOf4gVwIWgkRRWHKnWUBWP9I32oJV6YPsag+qEm42neRdei/0Qs0s4RoHyu99MbLlVRmn5iJ56RAR5FzeANany7KARKv7gExTcQCJa6jP8Q68OSsVj+ntSfu6LL1XJnY4M+Xe5kLyg5jq83mjsmkt81rhfg9UybYREHYybmxIG8eAQwW2iwHgaQ==
+ bh=KcUVPeV7GW3rM6mtyssROnKn3R9rwyVhMfW9TZA2Btw=;
+ b=S86YZE0cZdz9+Kuf2iH9jBMwiENKSAXLzmifS7dkzopjFAC0vD7bV6sM2SI/o8qswN31tGhEc+XPWDud+Qf+jpF4qo6rkkVlvZPy5jLWnqrfQCzRX4SE1YjEvdv7En3FNJkLyxuGsT8rse+z3+EU00yeosofXhqGE5/9JUckWZ6YrYqkR6jXKh2ZW+nveyIegZzIJg9KijVVojlteVqga1zPF3beRg5aaWqYQ5CHqLYt013wPwafJD4YjnbSvKLk6o3jw0+JumXBoLSuDfceh7VuXp9A1woCPFKPnWQ1tb3OyS1AeS1/uVQo3J+ZppfIpr3KJ7Mmzzy0FtlsyxNq1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+eAcL/CRZe8rF40B0umYxm4VWccW0jzABTtwt58HyKs=;
- b=kbAxVNlffR/fsG6ffAU2ZMZ+xF53aE7a+4B5vgBNRr00ZXPsJweI/XTCTZ1Yh9HW24Jk8Qc3KuPMXW2VRZcwvANsFDAi6sWsluKk8TcjiQJnE5ajfSTUdfoHzG8aDIfbSEw73lvqLpIO/hxkr/HFy82FmX6ChnMIrEuKPfvfhaI=
+ bh=KcUVPeV7GW3rM6mtyssROnKn3R9rwyVhMfW9TZA2Btw=;
+ b=CqFAHVBMAdf8Q6m9x5C6UfDmD7/1PEmMKlUjQbGQifYVGdgKu662uFb0yF1NrAEp6n0+oa5JiEm2cdZgnAID5d/FKjJpjLDDZlF+sqpFih45B5fbQXrgNhyrIwtk26BvYRvbZb7kJdv2wHizLWwAac87KFY9mHEZG2fgQ8IOzKE=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,18 +48,19 @@ Received: from CY4PR12MB1639.namprd12.prod.outlook.com (2603:10b6:910:f::21)
  by CY4PR12MB1382.namprd12.prod.outlook.com (2603:10b6:903:40::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Wed, 11 Nov
- 2020 03:04:41 +0000
+ 2020 03:04:43 +0000
 Received: from CY4PR12MB1639.namprd12.prod.outlook.com
  ([fe80::ecae:a003:1c8c:c99f]) by CY4PR12MB1639.namprd12.prod.outlook.com
  ([fe80::ecae:a003:1c8c:c99f%5]) with mapi id 15.20.3541.025; Wed, 11 Nov 2020
- 03:04:41 +0000
+ 03:04:43 +0000
 From: Xiaojian Du <Xiaojian.Du@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/pm: add the interface to dump smu metrics table
- for vangogh
-Date: Wed, 11 Nov 2020 11:04:17 +0800
-Message-Id: <20201111030418.27296-1-Xiaojian.Du@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: update the swSMU headers for vangogh
+Date: Wed, 11 Nov 2020 11:04:18 +0800
+Message-Id: <20201111030418.27296-2-Xiaojian.Du@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201111030418.27296-1-Xiaojian.Du@amd.com>
+References: <20201111030418.27296-1-Xiaojian.Du@amd.com>
 X-Originating-IP: [58.247.170.242]
 X-ClientProxiedBy: HK2PR04CA0056.apcprd04.prod.outlook.com
  (2603:1096:202:14::24) To CY4PR12MB1639.namprd12.prod.outlook.com
@@ -69,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from jenkins-System-Product-Name.amd.com (58.247.170.242) by
  HK2PR04CA0056.apcprd04.prod.outlook.com (2603:1096:202:14::24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21 via Frontend Transport; Wed, 11 Nov 2020 03:04:39 +0000
+ 15.20.3541.21 via Frontend Transport; Wed, 11 Nov 2020 03:04:41 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 82629933-56a9-42d9-77c6-08d885ee8853
+X-MS-Office365-Filtering-Correlation-Id: f2517653-5dea-4518-472c-08d885ee89b9
 X-MS-TrafficTypeDiagnostic: CY4PR12MB1382:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB138207DB4A0FDA46C0ADDE31F1E80@CY4PR12MB1382.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-Microsoft-Antispam-PRVS: <CY4PR12MB1382044FEF6E32103AF17F2BF1E80@CY4PR12MB1382.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DJpnorHFh1bf3hU8I8z6XSlvrEITnVa4PLyFu0ccCQv/eoRjiS3D08H5JmyPm2MztCc67F06dmNvr2b3vw5LkAGXTY/zCELQVZwWqymDGpkOFo6K9C+LC0QDxUQUh/se73XmXLEl8+zvRHUUSM2McYrMvbuadT6z6DkRmnPFGiXQoUmOJVdpYZejg0Jm6c6EwU7JZW3KayOEoj0mkNWJX/Bp9+LRdnJecxZVW3f1w1GBxRoZai6RGHmyQRZ4DTFFc+K43kFyyrEqp30Ueq2DjM6nJMI+DbjohRlCdbRSS9N4XsmLqJ3iYMJltLSiZ3XX
+X-Microsoft-Antispam-Message-Info: 0XDU46/csTV+xS/GI0l2wVS7CvDz72GGQMPexUdU/VNyrttkIFBzGW6isVwU6RsK1hAnjbvK4ebUSoIqTTU0zFbqsmJ89SN5nBKQ2UWn9BRKTuUvrHYKbZL4fwRqpDGTxnOr1isl3EtXWgSe+pFHkwQ9RC7LWb0B+YhzBi/mNXhwYkK21N8QKJrWuAtjpgKNAg5Y22sNc4i26XoQzwus46KlptxKe0mZ5xrhzksGa5p54bYu7IRNpgC/mtfyHHX2z1bKUi9SldAX7a6ST0wXPHEaLenLvNStJPh9ScJdsNs73t9laBcuhMbmCGqSj+lnpZ8b2hqo2Jo21FS4iPdjCA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY4PR12MB1639.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(346002)(366004)(396003)(376002)(4326008)(16526019)(66556008)(2906002)(6486002)(66476007)(36756003)(186003)(6916009)(8936002)(8676002)(478600001)(86362001)(52116002)(5660300002)(7696005)(316002)(26005)(66946007)(83380400001)(1076003)(6666004)(2616005)(956004);
+ SFS:(4636009)(39860400002)(136003)(346002)(366004)(396003)(376002)(4326008)(16526019)(66556008)(2906002)(6486002)(66476007)(36756003)(186003)(6916009)(8936002)(8676002)(478600001)(15650500001)(86362001)(52116002)(5660300002)(7696005)(316002)(26005)(66946007)(83380400001)(1076003)(6666004)(2616005)(956004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 8Sf+L5JjcQvfLpY627nwOh7I9dgYJ6vqg1BAp/FPPH/STDP5LRM8JdkH9g8rPesK1AK70vla2Q02RunvLFigVZBKLLofp4RHURync5HDeXVWKvlfYuwW2YC6SsBr0T9a63HpUeK6T+qMGtldwvehBsPExn6zTbs+pu7bWGE29OD3nDRIKfexgBK3FhAVxO1docQqBzrXLvSWyZLE/ldKwET/+Y2+UMHTMyJAY9QMyvsB4HnbA+H9Kya65iH24qcQ7L5TOwZsVgRXFkCnSzJ38bbSP6bGZtl9QpB3lUpuyYaxGARBoI0zA3AzkNfi/srp89s0AaaLPDO6/uIBepuSJLWu7Nagjq8svQc8ukcj6fn2oUV2j/SxzfvJWVTQlX5rbQvcwi1Li0naVPHftkTGH+hWC3VtdEJBKT+Lh4V/NFGnZNYDFgJX0Sx6zVEatVNvauuGLAozciMJOgOl8maoOO2Nk4J3FOQXcenhREJIocJnRG0EYuSVS4brDMM3MHTwnKgKpgAjVKbvf4ZngcpECb6Cb2j5pbeY70U9l/ksmOaXqF5Tx+w6FJ/yyWP3LPWVfidluzqa5ibvLo7jG1sr8Xr3SRLEAEMDTSkn0WA5/88qyERWUbFZz5Pqq1UOoKMT6yZUXVrlbK8MubMzNf3usA==
+X-MS-Exchange-AntiSpam-MessageData: u2ZXO9BLXTqdYcSRHQ5u5cbJy2Jj1TjZDjw/3ax2xIzM+V1xRStZJ+xQ/9Zo6/2vU8Qi0Yb0WrUVqPj9tSMuw3HS76fWvRGL9AwgWqwMf5w/Y4ymfj59igiegiWoCAIWVNS4FCwd7tAxTV1NbgRylbwWrD0g7b71xIUMzsCQz4e4K7InRAIBRTAfE4/F2mOi/LgB0RUdwGD9Zu6cSsVuJYvsNyl5kt0h/4VRqCxuzqvyAF6hpno5JDRK0UA9u+PSKvWk1G5rlOJVrkIum9Z9Idf+P3EDCFxeRXcIeI8xJrFIpI4VgIjBMFSuWCG+8pnK7le6Nm6ap1qmxpFmOnHvD/2XORuFZPFBcNNqODRGJ8se1Tyat8ud+hX5CgLYTVG8BHK+QSM0GAsFySs5Lsg+D6REYgj6jp2h8QamZooRu2kAbDZN6lJgOVzBfgJMXJPjjZZMaICppxfa0sJPqwtydNf7evaSohq26q0RefIxVU+O+1rWUEV2pC79ymIanyicjoHPl3CYnkf34JUfDmj2MKsK4yogSIyIPMTSCO25jHgBvkqEtlb9zMADoivXDuDicleMFKlKqUr+LF1+LjyA9AkWzNFsSToAgfD1iu47jT4wX9E9AWLW2Xq28ou+ILTa7uQtoz6t6B9M1SM64XxHmw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82629933-56a9-42d9-77c6-08d885ee8853
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2517653-5dea-4518-472c-08d885ee89b9
 X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1639.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 03:04:41.1726 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 03:04:43.5465 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TLMQsryS04pRajEfgk0d29BpfCrI3L//I/5ARzf7U1l8WWdM0zllqd84maAsdRHJz6uaZQ8CfEGlpnaqPXncpg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: DyxwFrW7J5flh19OJBI74i/9JqVxAXmM3GVX65UneDi8ZP+bokLR6RHwKb0iQnyx0tAFbz7MmbboebKOPht+jg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,123 +114,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is to add the interface to dump smu metrics table for vangogh.
+This patch is to update the swSMU headers for vangogh.
 
 Signed-off-by: Xiaojian Du <Xiaojian.Du@amd.com>
 Reviewed-by: Huang Rui <ray.huang@amd.com>
 Reviewed-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  2 +
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 12 +++++
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 52 +++++++++++++++++++
- 3 files changed, 66 insertions(+)
+ drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h |  6 ++++++
+ drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h          | 11 +++++++----
+ drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h         | 11 +++++++++--
+ 3 files changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-index dc06459af91c..5ad693312187 100644
---- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
-@@ -276,6 +276,8 @@ int smu_v11_0_get_current_pcie_link_speed(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
+index 8f438c80132e..1c19eae93ff1 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_vangogh.h
+@@ -142,6 +142,12 @@ typedef struct {
  
- void smu_v11_0_init_gpu_metrics_v1_0(struct gpu_metrics_v1_0 *gpu_metrics);
+   uint8_t NumDfPstatesEnabled;
+   uint8_t NumDpmLevelsEnabled;
++  uint8_t NumDcfclkLevelsEnabled;
++  uint8_t NumDispClkLevelsEnabled;  //applies to both dispclk and dppclk
++  uint8_t NumSocClkLevelsEnabled;
++
++  uint8_t IspClkLevelsEnabled;  //applies to both ispiclk and ispxclk
++  uint8_t VcnClkLevelsEnabled;  //applies to both vclk/dclk
+   uint8_t spare[2];
+ } DpmClocks_t;
  
-+void smu_v11_0_init_gpu_metrics_v2_0(struct gpu_metrics_v2_0 *gpu_metrics);
-+
- int smu_v11_0_gfx_ulv_control(struct smu_context *smu,
- 			      bool enablement);
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
+index 99a406984135..22edd88b8117 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_5_pmfw.h
+@@ -90,14 +90,16 @@
+ #define FEATURE_ATHUB_PG_BIT          56
+ #define FEATURE_ECO_DEEPCSTATE_BIT    57
+ #define FEATURE_CC6_BIT               58
+-#define NUM_FEATURES                  59
++#define FEATURE_GFX_EDC_BIT           59
++#define NUM_FEATURES                  60
  
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 6b7d1335b46d..b880c72c322c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1999,6 +1999,18 @@ void smu_v11_0_init_gpu_metrics_v1_0(struct gpu_metrics_v1_0 *gpu_metrics)
- 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
- }
+ typedef struct {
+   // MP1_EXT_SCRATCH0
+   uint32_t DpmHandlerID         : 8;
+   uint32_t ActivityMonitorID    : 8;
+   uint32_t DpmTimerID           : 8;
+-  uint32_t spare0               : 8;
++  uint32_t DpmHubID             : 4;
++  uint32_t DpmHubTask           : 4;
+   // MP1_EXT_SCRATCH1
+   uint32_t GfxStatus            : 2;
+   uint32_t GfxoffStatus         : 8;
+@@ -109,9 +111,10 @@ typedef struct {
+   uint32_t spare1               : 16;
+   // MP1_EXT_SCRATCH2
+   uint32_t P2JobHandler			: 32;
+-  // MP1_EXT_SCRATCH3
+-//  uint32_t spare2               : 32;
++  // MP1_EXT_SCRATCH3: used for postcodes
++
+   // MP1_EXT_SCRATCH4:6 are used by Kernel
++  // MP1_EXT_SCRATCH7: used by HW
+ } FwStatus_t;
  
-+void smu_v11_0_init_gpu_metrics_v2_0(struct gpu_metrics_v2_0 *gpu_metrics)
-+{
-+	memset(gpu_metrics, 0xFF, sizeof(struct gpu_metrics_v2_0));
-+
-+	gpu_metrics->common_header.structure_size =
-+				sizeof(struct gpu_metrics_v2_0);
-+	gpu_metrics->common_header.format_revision = 2;
-+	gpu_metrics->common_header.content_revision = 0;
-+
-+	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
-+}
-+
- int smu_v11_0_gfx_ulv_control(struct smu_context *smu,
- 			      bool enablement)
- {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 83a1b0a04eb1..cbcbcd8514f0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -584,6 +584,57 @@ static int vangogh_set_watermarks_table(struct smu_context *smu,
- 	return 0;
- }
  
-+static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
-+				      void **table)
-+{
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct gpu_metrics_v2_0 *gpu_metrics =
-+		(struct gpu_metrics_v2_0 *)smu_table->gpu_metrics_table;
-+	SmuMetrics_t metrics;
-+	int ret = 0;
-+
-+	ret = smu_cmn_get_metrics_table(smu, &metrics, true);
-+	if (ret)
-+		return ret;
-+
-+	smu_v11_0_init_gpu_metrics_v2_0(gpu_metrics);
-+
-+	gpu_metrics->temperature_gfx = metrics.GfxTemperature;
-+	gpu_metrics->temperature_soc = metrics.SocTemperature;
-+	memcpy(&gpu_metrics->temperature_core[0],
-+		&metrics.CoreTemperature[0],
-+		sizeof(uint16_t) * 8);
-+	gpu_metrics->temperature_l3[0] = metrics.L3Temperature[0];
-+	gpu_metrics->temperature_l3[1] = metrics.L3Temperature[1];
-+
-+	gpu_metrics->average_gfx_activity = metrics.GfxActivity;
-+	gpu_metrics->average_mm_activity = metrics.UvdActivity;
-+
-+	gpu_metrics->average_socket_power = metrics.CurrentSocketPower;
-+	gpu_metrics->average_cpu_power = metrics.Power[0];
-+	gpu_metrics->average_soc_power = metrics.Power[1];
-+	memcpy(&gpu_metrics->average_core_power[0],
-+		&metrics.CorePower[0],
-+		sizeof(uint16_t) * 8);
-+
-+	gpu_metrics->average_gfxclk_frequency = metrics.GfxclkFrequency;
-+	gpu_metrics->average_socclk_frequency = metrics.SocclkFrequency;
-+	gpu_metrics->average_fclk_frequency = metrics.MemclkFrequency;
-+	gpu_metrics->average_vclk_frequency = metrics.VclkFrequency;
-+
-+	memcpy(&gpu_metrics->current_coreclk[0],
-+		&metrics.CoreFrequency[0],
-+		sizeof(uint16_t) * 8);
-+	gpu_metrics->current_l3clk[0] = metrics.L3Frequency[0];
-+	gpu_metrics->current_l3clk[1] = metrics.L3Frequency[1];
-+
-+	gpu_metrics->throttle_status = metrics.ThrottlerStatus;
-+
-+	*table = (void *)gpu_metrics;
-+
-+	return sizeof(struct gpu_metrics_v2_0);
-+}
-+
- static const struct pptable_funcs vangogh_ppt_funcs = {
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+index 1ada0eb64663..7e69b3bd311b 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_5_ppsmc.h
+@@ -97,9 +97,16 @@
+ #define PPSMC_MSG_StopDramLogging                      0x3F
+ #define PPSMC_MSG_SetSoftMinCclk                       0x40
+ #define PPSMC_MSG_SetSoftMaxCclk                       0x41
+-#define PPSMC_Message_Count                            0x42
++#define PPSMC_MSG_SetDfPstateActiveLevel               0x42
++#define PPSMC_MSG_SetDfPstateSoftMinLevel              0x43
++#define PPSMC_MSG_SetCclkPolicy                        0x44
++#define PPSMC_MSG_DramLogSetDramAddrHigh               0x45
++#define PPSMC_MSG_DramLogSetDramBufferSize             0x46
++#define PPSMC_MSG_RequestActiveWgp                     0x47
++#define PPSMC_MSG_QueryActiveWgp                       0x48
++#define PPSMC_Message_Count                            0x49
  
- 	.check_fw_status = smu_v11_0_check_fw_status,
-@@ -607,6 +658,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
- 	.set_driver_table_location = smu_v11_0_set_driver_table_location,
- 	.disable_all_features_with_exception = smu_cmn_disable_all_features_with_exception,
- 	.interrupt_work = smu_v11_0_interrupt_work,
-+	.get_gpu_metrics = vangogh_get_gpu_metrics,
- };
- 
- void vangogh_set_ppt_funcs(struct smu_context *smu)
+-//Argument for  PPSMC_MSG_GpuChangeState
++//Argument for PPSMC_MSG_GfxDeviceDriverReset
+ enum {
+   MODE1_RESET = 1,
+   MODE2_RESET = 2
 -- 
 2.17.1
 
