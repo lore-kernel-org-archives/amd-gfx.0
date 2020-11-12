@@ -2,54 +2,70 @@ Return-Path: <SRS0=wW4+=ES=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA672C5519F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 17:37:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14255C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 18:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 877C221D40
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 17:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 877C221D40
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	by mail.kernel.org (Postfix) with ESMTPS id 814842222F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 18:57:17 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tUNzmGMo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 814842222F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E11C36E30F;
-	Thu, 12 Nov 2020 17:37:52 +0000 (UTC)
-Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
- [185.70.41.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6700F6E30F
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 17:37:52 +0000 (UTC)
-Received: from mail-03.mail-europe.com (mail-03.mail-europe.com
- [91.134.188.129])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- by mail-41103.protonmail.ch (Postfix) with ESMTPS id B2A14200A0D9
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 17:37:50 +0000 (UTC)
-Authentication-Results: mail-41103.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="A3Q9GXIR"
-Date: Thu, 12 Nov 2020 17:37:43 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1605202665;
- bh=ni4di209k8ngZMMPtw31Fv0228Hm786EKjEHDXjW1gM=;
- h=Date:To:From:Cc:Reply-To:Subject:From;
- b=A3Q9GXIRYH+bpVk+LM3Cw2a5If0+I5yNVGG4o0f/HsVa0NeuhabQkzw2y2KRBTrZi
- 72S4fsE98bWvROJQNRI6Oj9u2t0wsNqHhc4SMU91Tqbv54OwQmYNg2J3hDJkBAEm1u
- 0HmVU/pf1DUWANle59W3ZSaUj3jmo8enRyJcFvud1S8ba9VOT1sjXM572EajP/pLFV
- ljw7911ggEbSOFoi+5LkuPYPTkZE9jtkBfhh6LqJ98zYJKsQDvEtlZn6FQnso9OUk/
- zhSjV662w7dnugW/fpP7lwVLb09awGzidySwy/rL9JYnL/M8cTejoURV+tPTDZaCyt
- zn37zkBgohJ1g==
-To: amd-gfx@lists.freedesktop.org
-From: Simon Ser <contact@emersion.fr>
-Subject: [PATCH] drm/amd/display: add cursor pitch check
-Message-ID: <dM9UpdTNt3rJxagA8swvzv6sXdjID2x67yd3tJg6A@cp4-web-030.plabs.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A71516E102;
+	Thu, 12 Nov 2020 18:57:16 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D966E102
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 18:57:15 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id l1so7133766wrb.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 10:57:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=WQX+DGrPqq+2cmuCZCxKpbXgj6MGwkZbVsaMRNcopyU=;
+ b=tUNzmGMoPkXY5HpxIPrDqgr2Nhfu3qpmEG/uDAJlWP2BqResLDu9/j7GEsWsFPmV6K
+ 1pJHJb1HRP0IP8uWt0FUMxIr/4BQ59Q71exdWwSCUgHQPP51Pyfhph/CIhxbQNBTwFeB
+ PNZI6gA6RZD1D875+VtUq5UZTQWhK6Gua7kh+kHmgfBHGzDeZ6k8nefAHTLSdRpmK1IV
+ 2/aCPKv0azw3CZl+Ilntp207UJwvVezyNMwVHHO+pKg5SDoYwqlTJzQCM2Zq4tbSY8c8
+ NrNzPa1F5TMEJBPn3HQpLuw/4zuUhhx4nAoiOVQbLawpDm1Ulg0Cc5JE0d2yFXCfcu2l
+ gNhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=WQX+DGrPqq+2cmuCZCxKpbXgj6MGwkZbVsaMRNcopyU=;
+ b=h8RXIsaFb3z2+8znYXb1N1cXOYXw0WylnIr8BdsfRYte812CBjdJyxXb/WOQ0RLC+G
+ LyhT58CjL9BEQfW6NCBbDYkQuOej1xMGrmexdGl2ahXHMo8db3Uf1OU4pq/Eq7ciImAr
+ 0ES6ayhGzjAryBAFfOcVlioeoWike5czG9c1vJIn+LBj5xQGKyrS9GyJ5/chQrqBBJ84
+ ECxhDKz6yclVzI+OmMQQLB0ui1eX/zg4mO2r3RTFjA8UL1WwvOfQeNktAc4AF1ueFDHH
+ i8ays5NMzLUPKJ0ulkOJA7NEk2d59+aLcd0nirAMVRlZsLiAwOey+VaYDuu9zClCP6j3
+ eABg==
+X-Gm-Message-State: AOAM531dlXB5wYd8iVxOly9eJPQDGdlG9Vaesr8Z2e0OkZkHOh5zvn39
+ bmmopR+FBoJ1YqDn34utgMLt1JSi5VVEmeRaVJ8=
+X-Google-Smtp-Source: ABdhPJzV/gEGh7s0tRadAPFI4CelaYCbw2t780ubDb31tPgO3UoLAeW6oyhMfSqtq8P2UYWUjni77yOWRxOfbWoE70A=
+X-Received: by 2002:adf:ce87:: with SMTP id r7mr1110685wrn.212.1605207434578; 
+ Thu, 12 Nov 2020 10:57:14 -0800 (PST)
 MIME-Version: 1.0
+References: <1605133674-21093-1-git-send-email-James.Zhu@amd.com>
+ <CADnq5_OuXH4iWR7baRsUDTO3BMe=TditrXgCqvzC1U_pb27saQ@mail.gmail.com>
+ <9971c116-faf9-7ebe-0b59-4ff1b5cd25ae@amd.com>
+In-Reply-To: <9971c116-faf9-7ebe-0b59-4ff1b5cd25ae@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 12 Nov 2020 13:57:03 -0500
+Message-ID: <CADnq5_O957h_HosBL=mMhwrY+0xkFvZypCVgnsJZ4e2gq1Xbpg@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu: add vcn dec software ring enabled
+ parameter
+To: James Zhu <jamesz@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,71 +77,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
+Cc: James Zhu <James.Zhu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch expands the cursor checks added in "drm/amd/display: add basic
-atomic check for cursor plane" to also include a pitch check. Without
-this patch, setting a FB smaller than max_cursor_size with an invalid
-pitch would result in amdgpu error messages and a fallback to a 64-byte
-pitch:
+On Thu, Nov 12, 2020 at 10:23 AM James Zhu <jamesz@amd.com> wrote:
+>
+>
+> On 2020-11-12 9:23 a.m., Alex Deucher wrote:
+> > On Wed, Nov 11, 2020 at 5:28 PM James Zhu <James.Zhu@amd.com> wrote:
+> >> This allows us to enable dec software ring feature on VCN.
+> >> The default is 0 for all asics, and it is only valid for
+> >> asics with vcn3.0 and above.
+> >>
+> >> Signed-off-by: James Zhu <James.Zhu@amd.com>
+> >> Reviewed-by: Leo Liu <leo.liu@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+> >>   2 files changed, 9 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >> index 20400ec..cc47da6 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >> @@ -209,6 +209,7 @@ extern int amdgpu_si_support;
+> >>   extern int amdgpu_cik_support;
+> >>   #endif
+> >>   extern int amdgpu_num_kcq;
+> >> +extern int amdgpu_dec_sw_ring_enabled;
+> >>
+> >>   #define AMDGPU_VM_MAX_NUM_CTX                  4096
+> >>   #define AMDGPU_SG_THRESHOLD                    (256*1024*1024)
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >> index 999f84d..570088f 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >> @@ -160,6 +160,7 @@ int amdgpu_force_asic_type = -1;
+> >>   int amdgpu_tmz;
+> >>   int amdgpu_reset_method = -1; /* auto */
+> >>   int amdgpu_num_kcq = -1;
+> >> +int amdgpu_dec_sw_ring_enabled;
+> >>
+> >>   struct amdgpu_mgpu_info mgpu_info = {
+> >>          .mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
+> >> @@ -806,6 +807,13 @@ module_param_named(bad_page_threshold, amdgpu_bad_page_threshold, int, 0444);
+> >>   MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
+> >>   module_param_named(num_kcq, amdgpu_num_kcq, int, 0444);
+> >>
+> >> +/**
+> >> + * DOC: dec_sw_ring_enabled (uint)
+> >> + * Override vcn decode software ring features enabled.
+> >> + */
+> >> +MODULE_PARM_DESC(dec_sw_ring_enabled, "vcn dec sw ring support (1 = enable, 0 = disable (default))");
+> >> +module_param_named(dec_sw_ring_enabled, amdgpu_dec_sw_ring_enabled, int, 0444);
+> > How about just vcn_sw_ring as the parameter name?
+> [JZ] It is for decode ring only. if just use vcn_sw_ring. I am not sure
+> if it will confuse people.
 
-    [drm:hubp1_cursor_set_attributes [amdgpu]] *ERROR* Invalid cursor pitch of 100. Only 64/128/256 is supported on DCN.
+Are we intending to have a separate enable option for enc?  If so, is
+there value in that vs just having one knob for both?
 
-Signed-off-by: Simon Ser <contact@emersion.fr>
-Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
----
-
-Couple questions:
-
-- This implements a single check for all GPU generations. Is my
-  assumption correct here? It seems like this check is OK for at least
-  DCN 1.0 and DCN 2.0.
-- We should really implement better checks. What features are supported
-  on the cursor plane? Is scaling supported? Is cropping supported? Is
-  rotation always supported?
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2855bb918535..42b0ade7de39 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8902,6 +8902,20 @@ static int dm_update_plane_state(struct dc *dc,
- 			return -EINVAL;
- 		}
- 
-+		if (new_plane_state->fb) {
-+			switch (new_plane_state->fb->pitches[0]) {
-+			case 64:
-+			case 128:
-+			case 256:
-+				/* Pitch is supported by cursor plane */
-+				break;
-+			default:
-+				DRM_DEBUG_ATOMIC("Bad cursor pitch %d\n",
-+						 new_plane_state->fb->pitches[0]);
-+				return -EINVAL;
-+			}
-+		}
-+
- 		return 0;
- 	}
- 
--- 
-2.29.2
+Alex
 
 
+> >
+> >> +
+> >>   static const struct pci_device_id pciidlist[] = {
+> >>   #ifdef  CONFIG_DRM_AMDGPU_SI
+> >>          {0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+> >> --
+> >> 2.7.4
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org
+> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CJames.Zhu%40amd.com%7C6a8168ed39b74d9a0a8f08d88716a006%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637407878530324835%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=egZMRoAdhY%2FRQAVENCT5CEVivi%2Fdzsn%2BUxPrnHJRKzU%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
