@@ -8,60 +8,61 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84453C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:51:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2159C5519F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03EDC20759
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:51:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 47AD82078D
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:55:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N3S2MGrO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03EDC20759
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SOPw2PN0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47AD82078D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5559E89F71;
-	Thu, 12 Nov 2020 19:51:35 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 282D389F71
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:51:34 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id p8so7309443wrx.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 11:51:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C38876E113;
+	Thu, 12 Nov 2020 19:55:07 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F47A6E113
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:55:07 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id r17so7340937wrw.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 11:55:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=skeJAT9YgqqkF88+za4F3oUareJfIo1mi13D1DOjkeA=;
- b=N3S2MGrOH5wyUpD4Wtsy4YbIqtbEtJnQx5Ki/eY2qBpQbg3MlJ5OKz9DDO4t0yWe6I
- gdaym54NeouqUqan+9E3PXfjHLnMpL0156z8yrZ0Q/2BM5EKpS0NcZrtw37HmUUq2qpQ
- sa9pJCjIUlplc9hC+SS7jlrnJWjmyDNEvEeueRDbSrGkwXG5ubqROH8XkeI5M4Oe7s8A
- hd74wiQ+lrMt88BOCsVtOWMRCN3B8ux8xuHsKqh1lAepssZrX65XSBCaC7NrbVEfSqf9
- IvCiqgnSXxJxN5FKbz1i5D5ml9LfLz54KOw3Q/H934FztmnACyQzM9leGa4kgMIZmXiY
- qjHQ==
+ :cc; bh=uwv27WR/HKlsEgtnafOe7d4aznmQgFFA5xbywdCBbfc=;
+ b=SOPw2PN0dzeYLYyLkE8mXSZ43+PjRKXw9jdSgiHaKoEudBv46vNzr+ud5vcI74c6Nb
+ YEwQT6aUzMDBcbF9Mj7Zh2ns5JTLsPg3Cbu/Bd1Y71DRuUnbgx1VF14BHjiq7wmRhQ4p
+ 3OcC+IAOdVue67HyVSLq1kvweArC+PISL39rq2OU9/Qk9zXHbSAtzDZJ5lZBJm1X66Wm
+ JyEu3phWEE8z5djUCKJoWbaurlixUqLqqkefJ6AXfj9+XjLAgR6UewJJMNjAStlXdDUt
+ lFI1+hZV83Cetj9YDnpTigAkAnkMqNlloOrNLihODf+sCTnIZWA0tM+609Q1u2fFTh/N
+ vMDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=skeJAT9YgqqkF88+za4F3oUareJfIo1mi13D1DOjkeA=;
- b=epuFERpNy9kGB4R2FgaqdnkzkzXyQJC/Muv7PduzSe3IWpGqmJJ/XWH7mnKuLeyDdL
- MnMy9CZI6n/AQgqdIF5nITAo1Sf1Ld5awpq/awGDIznxxuUTaSoLREih+t4KfniqT2EJ
- AvQ6/TBD9J7rWivs65Kh8fkK30CIzfpDEgoVTDjqZCoIZdH5bPT3kEHFOQG23rEoSrxM
- 3RN/+/hw8eEEnfrSyQ3tO/m8hYW0rKP+mbJddnpU+QaPX/Zhyd1wvAL8ckteyH+DJgUg
- 3yn/e7+8nW9cKuo8td1sazWo6LFMUf+LtJ8qSvXmRU3NvTH96boaHEYI+TC+XICYNnYO
- wqaQ==
-X-Gm-Message-State: AOAM532GD2/k6geTZ4++2HpCXBk6S5L3LL0K580wEvx6qia69sRWvPUc
- MMOcyl3cyV0uMGNtBW4NhKWeSKqkZY2pYKhJHf7nug6u
-X-Google-Smtp-Source: ABdhPJw2SOqGOgnZ74rGTjQ3cjLxW26kmamiswMkaAB0Gr8jiR2sjEuv3mhhOkM5pDmo4iPn1QtU24fb8hAR4MOF8rs=
-X-Received: by 2002:a5d:6a83:: with SMTP id s3mr1271104wru.397.1605210692885; 
- Thu, 12 Nov 2020 11:51:32 -0800 (PST)
+ bh=uwv27WR/HKlsEgtnafOe7d4aznmQgFFA5xbywdCBbfc=;
+ b=YWOoa5irtGDiAaLsUEF5LX97GKgJdevwc9eUtJqpw0gGAdQfpVSJvEAWxJsabovClb
+ hetYWn+Vod6RoGSl+0/4ROb8wChbRNrRDJIkiaI6EKzsncgavGCVU5dosPJELZmD8x3J
+ kqGtq9gvklgEsKqIiiUPR2L8Xta8gE96IYYtRpo5VDvhbmlCbl4K/pskyOSpixhg3gjn
+ jRBKHuCyJzDoFHiT/5r8Y5wExmD7CgkRPJai1rk7jN1vxhBSJnnzgNs/cbLSadXZbxKq
+ znlaIvbNI7sgICDDZU7m12pZnO3VxNC3Z2dfvG9hvdoYAdv0SFuSW2yBLh/R4Xx+BPmN
+ xf5g==
+X-Gm-Message-State: AOAM530bYMmBr1bcOamNqmul9nuplKaE4JdoCdhFbuKnc49JZxsLWx3Q
+ t5d1k1Woga5Bf+YZGJaJJXk9GOpx41r9sMF0+5A=
+X-Google-Smtp-Source: ABdhPJzSFHeS99pfl2SfHwQIQBFQQANkfpJIp9nA19hNgEMpqYyUl6jGOeBr/Whjeg2uitCcStkNe6r6mzRWa6na5lw=
+X-Received: by 2002:a5d:6a83:: with SMTP id s3mr1286714wru.397.1605210905756; 
+ Thu, 12 Nov 2020 11:55:05 -0800 (PST)
 MIME-Version: 1.0
 References: <1605164796-22215-1-git-send-email-Prike.Liang@amd.com>
- <1605164796-22215-4-git-send-email-Prike.Liang@amd.com>
-In-Reply-To: <1605164796-22215-4-git-send-email-Prike.Liang@amd.com>
+ <1605164796-22215-5-git-send-email-Prike.Liang@amd.com>
+In-Reply-To: <1605164796-22215-5-git-send-email-Prike.Liang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Nov 2020 14:51:21 -0500
-Message-ID: <CADnq5_P3NAVn2znhsgwfm=9PdUyfC+0+3EH0VPHXw-KeASMOiQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amdgpu: fix reset support for s0i3 enablement
+Date: Thu, 12 Nov 2020 14:54:54 -0500
+Message-ID: <CADnq5_PqsJf9hJjYoTzUzaFKT-MXvDOARH8dxHT74=GwCEdNEA@mail.gmail.com>
+Subject: Re: [PATCH 5/5] drm/amd/pm: add gfx_state_change_set() for rn gfx
+ power switch
 To: Prike Liang <Prike.Liang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,41 +84,93 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Thu, Nov 12, 2020 at 2:06 AM Prike Liang <Prike.Liang@amd.com> wrote:
 >
-> update amdgpu device suspend sequence for gpu reset during s0i3 enable.
+> The gfx_state_change_set() funtion can support set GFX power
+> change status to D0/D3.
 >
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c         |  3 +++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h         |  2 ++
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c       | 10 ++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c |  7 +++++++
+>  4 files changed, 22 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 380dd3a..60c0a6d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -838,4 +838,7 @@ void amdgpu_gfx_state_change_set(struct amdgpu_device *adev, enum gfx_change_sta
+>
+>         mutex_unlock(&adev->pm.mutex);
+>
+> +       if (is_support_sw_smu(adev))
+> +               smu_gfx_state_change_set(&adev->smu, state);
 
-Maybe squash this one into patch 3?
+maybe move this up with the powerplay code for consistency?
+
+> +
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> index 9724d6f..ae8ff7b 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
+> @@ -576,6 +576,7 @@ struct pptable_funcs {
+>         int (*post_init)(struct smu_context *smu);
+>         void (*interrupt_work)(struct smu_context *smu);
+>         int (*gpo_control)(struct smu_context *smu, bool enablement);
+> +       int (*gfx_state_change_set)(struct smu_context *smu, uint32_t state);
+>  };
+>
+>  typedef enum {
+> @@ -764,6 +765,7 @@ int smu_get_status_gfxoff(struct amdgpu_device *adev, uint32_t *value);
+>  ssize_t smu_sys_get_gpu_metrics(struct smu_context *smu, void **table);
+>
+>  int smu_enable_mgpu_fan_boost(struct smu_context *smu);
+> +int smu_gfx_state_change_set(struct smu_context *smu, uint32_t state);
+>
+>  #endif
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 3999079..35465a6 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2529,3 +2529,13 @@ int smu_enable_mgpu_fan_boost(struct smu_context *smu)
+>
+>         return ret;
+>  }
+> +
+> +int smu_gfx_state_change_set(struct smu_context *smu, uint32_t state)
+> +{
+> +       int ret = 0;
+> +
+
+I think we need to lock the smu->mutex here?
 
 Alex
 
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> +       if (smu->ppt_funcs->gfx_state_change_set)
+> +               ret = smu->ppt_funcs->gfx_state_change_set(smu, state);
+> +
+> +       return ret;
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+> index 66c1026..9423f36 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+> @@ -1136,6 +1136,13 @@ static ssize_t renoir_get_gpu_metrics(struct smu_context *smu,
+>         return sizeof(struct gpu_metrics_v2_0);
+>  }
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index cf6a1b9..2f60b70 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2650,7 +2650,7 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
->  {
->         int i, r;
->
-> -       if (!amdgpu_acpi_is_s0ix_supported()) {
-> +       if (!amdgpu_acpi_is_s0ix_supported() || amdgpu_in_reset(adev)) {
->                 amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->                 amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
->         }
-> @@ -3708,7 +3708,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
->
->         amdgpu_fence_driver_suspend(adev);
->
-> -       if (!amdgpu_acpi_is_s0ix_supported())
-> +       if (!amdgpu_acpi_is_s0ix_supported() || amdgpu_in_reset(adev))
->                 r = amdgpu_device_ip_suspend_phase2(adev);
->         else
->                 amdgpu_gfx_state_change_set(adev, sGpuChangeState_D3Entry);
+> +static int renoir_gfx_state_change_set(struct smu_context *smu, uint32_t state)
+> +{
+> +       struct amdgpu_device *adev = smu->adev;
+> +
+> +       return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_GpuChangeState, state, NULL);
+> +}
+> +
+>  static const struct pptable_funcs renoir_ppt_funcs = {
+>         .set_power_state = NULL,
+>         .print_clk_levels = renoir_print_clk_levels,
 > --
 > 2.7.4
 >
