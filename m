@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB537C56201
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 803F5C56202
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 495DD2068D
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 495DD2068D
+	by mail.kernel.org (Postfix) with ESMTPS id 1B7EC2068D
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B7EC2068D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 620AB6E239;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 936996E241;
 	Thu, 12 Nov 2020 13:21:31 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03DAA6E226;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27F5A6E102;
  Thu, 12 Nov 2020 13:21:30 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A6C95AD43;
+ by mx2.suse.de (Postfix) with ESMTP id CD8ABAD57;
  Thu, 12 Nov 2020 13:21:28 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Subject: [PATCH 3/7] drm/radeon: Whitespace fixes
-Date: Thu, 12 Nov 2020 14:21:13 +0100
-Message-Id: <20201112132117.27228-4-tzimmermann@suse.de>
+Subject: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
+Date: Thu, 12 Nov 2020 14:21:14 +0100
+Message-Id: <20201112132117.27228-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201112132117.27228-1-tzimmermann@suse.de>
 References: <20201112132117.27228-1-tzimmermann@suse.de>
@@ -55,26 +55,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixed to match kernel coding style.
+In order to avoid eviction of vmap'ed buffers, pin them in their GEM
+object's vmap implementation. Unpin them in the vunmap implementation.
+This is needed to make generic fbdev support work reliably. Without,
+the buffer object could be evicted while fbdev flushed its shadow buffer.
+
+In difference to the PRIME pin/unpin functions, the vmap code does not
+modify the BOs prime_shared_count, so a vmap-pinned BO does not count as
+shared.
+
+The actual pin location is not important as the vmap call returns
+information on how to access the buffer. Callers that require a
+specific location should explicitly pin the BO before vmapping it.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/radeon/radeon_kms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_gem.c | 51 +++++++++++++++++++++++++++--
+ 1 file changed, 49 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index abb3bdd9ca25..75b038740ea8 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -74,7 +74,7 @@ void radeon_driver_unload_kms(struct drm_device *dev)
- 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index d2876ce3bc9e..eaf7fc9a7b07 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -226,6 +226,53 @@ static int radeon_gem_handle_lockup(struct radeon_device *rdev, int r)
+ 	return r;
+ }
  
- 	radeon_acpi_fini(rdev);
--	
++static int radeon_gem_object_vmap(struct drm_gem_object *obj, struct dma_buf_map *map)
++{
++	static const uint32_t any_domain = RADEON_GEM_DOMAIN_VRAM |
++					   RADEON_GEM_DOMAIN_GTT |
++					   RADEON_GEM_DOMAIN_CPU;
 +
- 	radeon_modeset_fini(rdev);
- 	radeon_device_fini(rdev);
++	struct radeon_bo *bo = gem_to_radeon_bo(obj);
++	int ret;
++
++	ret = radeon_bo_reserve(bo, false);
++	if (ret)
++		return ret;
++
++	/* pin buffer at its current location */
++	ret = radeon_bo_pin(bo, any_domain, NULL);
++	if (ret)
++		goto err_radeon_bo_unreserve;
++
++	ret = drm_gem_ttm_vmap(obj, map);
++	if (ret)
++		goto err_radeon_bo_unpin;
++
++	radeon_bo_unreserve(bo);
++
++	return 0;
++
++err_radeon_bo_unpin:
++	radeon_bo_unpin(bo);
++err_radeon_bo_unreserve:
++	radeon_bo_unreserve(bo);
++	return ret;
++}
++
++static void radeon_gem_object_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map)
++{
++	struct radeon_bo *bo = gem_to_radeon_bo(obj);
++	int ret;
++
++	ret = radeon_bo_reserve(bo, false);
++	if (ret)
++		return;
++
++	drm_gem_ttm_vunmap(obj, map);
++	radeon_bo_unpin(bo);
++	radeon_bo_unreserve(bo);
++}
++
+ static const struct drm_gem_object_funcs radeon_gem_object_funcs = {
+ 	.free = radeon_gem_object_free,
+ 	.open = radeon_gem_object_open,
+@@ -234,8 +281,8 @@ static const struct drm_gem_object_funcs radeon_gem_object_funcs = {
+ 	.pin = radeon_gem_prime_pin,
+ 	.unpin = radeon_gem_prime_unpin,
+ 	.get_sg_table = radeon_gem_prime_get_sg_table,
+-	.vmap = drm_gem_ttm_vmap,
+-	.vunmap = drm_gem_ttm_vunmap,
++	.vmap = radeon_gem_object_vmap,
++	.vunmap = radeon_gem_object_vunmap,
+ };
  
+ /*
 -- 
 2.29.2
 
