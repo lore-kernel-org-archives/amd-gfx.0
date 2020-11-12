@@ -2,41 +2,76 @@ Return-Path: <SRS0=wW4+=ES=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7001C56202
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 09AF5C2D0A3
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 14:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89AF8207BB
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89AF8207BB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 89EE922240
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 14:21:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89EE922240
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAB8E6E270;
-	Thu, 12 Nov 2020 13:21:33 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2144B6E226;
- Thu, 12 Nov 2020 13:21:31 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0562DAD5C;
- Thu, 12 Nov 2020 13:21:29 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Subject: [PATCH 5/7] drm/radeon: Replace framebuffer console with generic
- implementation
-Date: Thu, 12 Nov 2020 14:21:15 +0100
-Message-Id: <20201112132117.27228-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201112132117.27228-1-tzimmermann@suse.de>
-References: <20201112132117.27228-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA8DD6E249;
+	Thu, 12 Nov 2020 14:21:04 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 281F46E231;
+ Thu, 12 Nov 2020 14:21:03 +0000 (UTC)
+IronPort-SDR: yQjPQtyYNtD+ctY7h91Lc3VVX6xRmpYUPQgnI1CwTCGpg0+rgNAzMuDI8t1DHFKjwQIQYa+dqP
+ 0buSiZkAD4Pg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9802"; a="167729853"
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="167729853"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 06:20:54 -0800
+IronPort-SDR: z+veBSmrc3yiVtqGcco2hAQDkwTmOI2FRw/BuTi1MvFYVUia1ptFgwc8NXLeSguY7CJ9D82t2L
+ dYr4V5fLAnZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,472,1596524400"; d="scan'208";a="542274375"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orsmga005.jf.intel.com with ESMTP; 12 Nov 2020 06:20:54 -0800
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 12 Nov 2020 06:20:54 -0800
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 12 Nov 2020 06:20:53 -0800
+Received: from orsmsx611.amr.corp.intel.com ([10.22.229.24]) by
+ ORSMSX611.amr.corp.intel.com ([10.22.229.24]) with mapi id 15.01.1713.004;
+ Thu, 12 Nov 2020 06:20:53 -0800
+From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
+To: Ben Skeggs <skeggsb@gmail.com>
+Subject: RE: [PATCH] drm/nouveau: Fix out-of-bounds access when deferencing
+ MMU type
+Thread-Topic: [PATCH] drm/nouveau: Fix out-of-bounds access when deferencing
+ MMU type
+Thread-Index: AQHWt2aSn1GTeNlCkEeQC226gW12GqnBfJcggAHhVID//5Re4IABXvAAgAAxLSA=
+Date: Thu, 12 Nov 2020 14:20:53 +0000
+Message-ID: <0dfc8b9904e94f61a8501fae432b4753@intel.com>
+References: <20201110133655.13174-1-tzimmermann@suse.de>
+ <85758a6215f74917aee81b18d037fb82@intel.com>
+ <f4cedda2-48f6-565c-4154-0975a2d119a0@suse.de>
+ <b87d5a2cce4941fe86e89d97bd6b2be4@intel.com>
+ <CACAvsv7vZFnFtvcaA8PcRn=V-uH9P7HU6BcZsSUGZSYejZCwQw@mail.gmail.com>
+In-Reply-To: <CACAvsv7vZFnFtvcaA8PcRn=V-uH9P7HU6BcZsSUGZSYejZCwQw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,516 +84,204 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, "airlied@linux.ie" <airlied@linux.ie>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Roland Scheidegger <sroland@vmware.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Huang Rui <ray.huang@amd.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ "bskeggs@redhat.com" <bskeggs@redhat.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ Dave Airlie <airlied@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
+ Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fbdev code in radeon can be replaced by the generic fbdev helpers.
-This allows for using fbdev shadow buffers and IGT testcases.
-
-Generic fbdev acts like a regular DRM client and has to be initialized
-after registering the DRM device. Change the driver initialization
-accordingly. The release happens automatically during shutdown.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/radeon/radeon_display.c |   2 -
- drivers/gpu/drm/radeon/radeon_drv.c     |   5 +-
- drivers/gpu/drm/radeon/radeon_fb.c      | 337 +-----------------------
- drivers/gpu/drm/radeon/radeon_kms.c     |  12 -
- drivers/gpu/drm/radeon/radeon_mode.h    |   7 +-
- 5 files changed, 16 insertions(+), 347 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index b79686cf8bdb..a7bae33636c3 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1638,7 +1638,6 @@ int radeon_modeset_init(struct radeon_device *rdev)
- 	/* setup afmt */
- 	radeon_afmt_init(rdev);
- 
--	radeon_fbdev_init(rdev);
- 	drm_kms_helper_poll_init(rdev->ddev);
- 
- 	/* do pm late init */
-@@ -1653,7 +1652,6 @@ void radeon_modeset_fini(struct radeon_device *rdev)
- 		drm_kms_helper_poll_fini(rdev->ddev);
- 		radeon_hpd_fini(rdev);
- 		drm_helper_force_disable_all(rdev->ddev);
--		radeon_fbdev_fini(rdev);
- 		radeon_afmt_fini(rdev);
- 		drm_mode_config_cleanup(rdev->ddev);
- 		rdev->mode_info.mode_config_initialized = false;
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index bfadb799d6a3..63c3bf1a3a3c 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -114,7 +114,6 @@
- #define KMS_DRIVER_PATCHLEVEL	0
- int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags);
- void radeon_driver_unload_kms(struct drm_device *dev);
--void radeon_driver_lastclose_kms(struct drm_device *dev);
- int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
- void radeon_driver_postclose_kms(struct drm_device *dev,
- 				 struct drm_file *file_priv);
-@@ -374,6 +373,8 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- 	if (ret)
- 		goto err_agp;
- 
-+	radeon_fbdev_init(dev->dev_private);
-+
- 	return 0;
- 
- err_agp:
-@@ -635,7 +636,7 @@ static const struct drm_driver kms_driver = {
- 	.load = radeon_driver_load_kms,
- 	.open = radeon_driver_open_kms,
- 	.postclose = radeon_driver_postclose_kms,
--	.lastclose = radeon_driver_lastclose_kms,
-+	.lastclose = drm_fb_helper_lastclose,
- 	.unload = radeon_driver_unload_kms,
- 	.irq_preinstall = radeon_driver_irq_preinstall_kms,
- 	.irq_postinstall = radeon_driver_irq_postinstall_kms,
-diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
-index fc4212633bdf..50fdc2aaa463 100644
---- a/drivers/gpu/drm/radeon/radeon_fb.c
-+++ b/drivers/gpu/drm/radeon/radeon_fb.c
-@@ -24,66 +24,12 @@
-  *     David Airlie
-  */
- 
--#include <linux/module.h>
- #include <linux/pci.h>
--#include <linux/pm_runtime.h>
--#include <linux/slab.h>
--#include <linux/vga_switcheroo.h>
- 
--#include <drm/drm_crtc.h>
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_fb_helper.h>
--#include <drm/drm_fourcc.h>
--#include <drm/radeon_drm.h>
- 
- #include "radeon.h"
- 
--/* object hierarchy -
-- * this contains a helper + a radeon fb
-- * the helper contains a pointer to radeon framebuffer baseclass.
-- */
--struct radeon_fbdev {
--	struct drm_fb_helper helper; /* must be first */
--	struct drm_framebuffer fb;
--	struct radeon_device *rdev;
--};
--
--static int
--radeonfb_open(struct fb_info *info, int user)
--{
--	struct radeon_fbdev *rfbdev = info->par;
--	struct radeon_device *rdev = rfbdev->rdev;
--	int ret = pm_runtime_get_sync(rdev->ddev->dev);
--	if (ret < 0 && ret != -EACCES) {
--		pm_runtime_mark_last_busy(rdev->ddev->dev);
--		pm_runtime_put_autosuspend(rdev->ddev->dev);
--		return ret;
--	}
--	return 0;
--}
--
--static int
--radeonfb_release(struct fb_info *info, int user)
--{
--	struct radeon_fbdev *rfbdev = info->par;
--	struct radeon_device *rdev = rfbdev->rdev;
--
--	pm_runtime_mark_last_busy(rdev->ddev->dev);
--	pm_runtime_put_autosuspend(rdev->ddev->dev);
--	return 0;
--}
--
--static const struct fb_ops radeonfb_ops = {
--	.owner = THIS_MODULE,
--	DRM_FB_HELPER_DEFAULT_OPS,
--	.fb_open = radeonfb_open,
--	.fb_release = radeonfb_release,
--	.fb_fillrect = drm_fb_helper_cfb_fillrect,
--	.fb_copyarea = drm_fb_helper_cfb_copyarea,
--	.fb_imageblit = drm_fb_helper_cfb_imageblit,
--};
--
--
- int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp, bool tiled)
- {
- 	int aligned = width;
-@@ -108,294 +54,35 @@ int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp, bool tile
- 	return aligned * cpp;
- }
- 
--static void radeonfb_destroy_pinned_object(struct drm_gem_object *gobj)
--{
--	struct radeon_bo *rbo = gem_to_radeon_bo(gobj);
--	int ret;
--
--	ret = radeon_bo_reserve(rbo, false);
--	if (likely(ret == 0)) {
--		radeon_bo_kunmap(rbo);
--		radeon_bo_unpin(rbo);
--		radeon_bo_unreserve(rbo);
--	}
--	drm_gem_object_put(gobj);
--}
--
--static int radeonfb_create_pinned_object(struct radeon_fbdev *rfbdev,
--					 struct drm_mode_fb_cmd2 *mode_cmd,
--					 struct drm_gem_object **gobj_p)
--{
--	const struct drm_format_info *info;
--	struct radeon_device *rdev = rfbdev->rdev;
--	struct drm_gem_object *gobj = NULL;
--	struct radeon_bo *rbo = NULL;
--	bool fb_tiled = false; /* useful for testing */
--	u32 tiling_flags = 0;
--	int ret;
--	int aligned_size, size;
--	int height = mode_cmd->height;
--	u32 cpp;
--
--	info = drm_get_format_info(rdev->ddev, mode_cmd);
--	cpp = info->cpp[0];
--
--	/* need to align pitch with crtc limits */
--	mode_cmd->pitches[0] = radeon_align_pitch(rdev, mode_cmd->width, cpp,
--						  fb_tiled);
--
--	if (rdev->family >= CHIP_R600)
--		height = ALIGN(mode_cmd->height, 8);
--	size = mode_cmd->pitches[0] * height;
--	aligned_size = ALIGN(size, PAGE_SIZE);
--	ret = radeon_gem_object_create(rdev, aligned_size, 0,
--				       RADEON_GEM_DOMAIN_VRAM,
--				       0, true, &gobj);
--	if (ret) {
--		pr_err("failed to allocate framebuffer (%d)\n", aligned_size);
--		return -ENOMEM;
--	}
--	rbo = gem_to_radeon_bo(gobj);
--
--	if (fb_tiled)
--		tiling_flags = RADEON_TILING_MACRO;
--
--#ifdef __BIG_ENDIAN
--	switch (cpp) {
--	case 4:
--		tiling_flags |= RADEON_TILING_SWAP_32BIT;
--		break;
--	case 2:
--		tiling_flags |= RADEON_TILING_SWAP_16BIT;
--	default:
--		break;
--	}
--#endif
--
--	if (tiling_flags) {
--		ret = radeon_bo_set_tiling_flags(rbo,
--						 tiling_flags | RADEON_TILING_SURFACE,
--						 mode_cmd->pitches[0]);
--		if (ret)
--			dev_err(rdev->dev, "FB failed to set tiling flags\n");
--	}
--
--
--	ret = radeon_bo_reserve(rbo, false);
--	if (unlikely(ret != 0))
--		goto out_unref;
--	/* Only 27 bit offset for legacy CRTC */
--	ret = radeon_bo_pin_restricted(rbo, RADEON_GEM_DOMAIN_VRAM,
--				       ASIC_IS_AVIVO(rdev) ? 0 : 1 << 27,
--				       NULL);
--	if (ret) {
--		radeon_bo_unreserve(rbo);
--		goto out_unref;
--	}
--	if (fb_tiled)
--		radeon_bo_check_tiling(rbo, 0, 0);
--	ret = radeon_bo_kmap(rbo, NULL);
--	radeon_bo_unreserve(rbo);
--	if (ret) {
--		goto out_unref;
--	}
--
--	*gobj_p = gobj;
--	return 0;
--out_unref:
--	radeonfb_destroy_pinned_object(gobj);
--	*gobj_p = NULL;
--	return ret;
--}
--
--static int radeonfb_create(struct drm_fb_helper *helper,
--			   struct drm_fb_helper_surface_size *sizes)
--{
--	struct radeon_fbdev *rfbdev =
--		container_of(helper, struct radeon_fbdev, helper);
--	struct radeon_device *rdev = rfbdev->rdev;
--	struct fb_info *info;
--	struct drm_framebuffer *fb = NULL;
--	struct drm_mode_fb_cmd2 mode_cmd;
--	struct drm_gem_object *gobj = NULL;
--	struct radeon_bo *rbo = NULL;
--	int ret;
--	unsigned long tmp;
--
--	mode_cmd.width = sizes->surface_width;
--	mode_cmd.height = sizes->surface_height;
--
--	/* avivo can't scanout real 24bpp */
--	if ((sizes->surface_bpp == 24) && ASIC_IS_AVIVO(rdev))
--		sizes->surface_bpp = 32;
--
--	mode_cmd.pixel_format = drm_mode_legacy_fb_format(sizes->surface_bpp,
--							  sizes->surface_depth);
--
--	ret = radeonfb_create_pinned_object(rfbdev, &mode_cmd, &gobj);
--	if (ret) {
--		DRM_ERROR("failed to create fbcon object %d\n", ret);
--		return ret;
--	}
--
--	rbo = gem_to_radeon_bo(gobj);
--
--	/* okay we have an object now allocate the framebuffer */
--	info = drm_fb_helper_alloc_fbi(helper);
--	if (IS_ERR(info)) {
--		ret = PTR_ERR(info);
--		goto out;
--	}
--
--	/* radeon resume is fragile and needs a vt switch to help it along */
--	info->skip_vt_switch = false;
--
--	ret = radeon_framebuffer_init(rdev->ddev, &rfbdev->fb, &mode_cmd, gobj);
--	if (ret) {
--		DRM_ERROR("failed to initialize framebuffer %d\n", ret);
--		goto out;
--	}
--
--	fb = &rfbdev->fb;
--
--	/* setup helper */
--	rfbdev->helper.fb = fb;
--
--	memset_io(rbo->kptr, 0x0, radeon_bo_size(rbo));
--
--	info->fbops = &radeonfb_ops;
--
--	tmp = radeon_bo_gpu_offset(rbo) - rdev->mc.vram_start;
--	info->fix.smem_start = rdev->mc.aper_base + tmp;
--	info->fix.smem_len = radeon_bo_size(rbo);
--	info->screen_base = rbo->kptr;
--	info->screen_size = radeon_bo_size(rbo);
--
--	drm_fb_helper_fill_info(info, &rfbdev->helper, sizes);
--
--	/* setup aperture base/size for vesafb takeover */
--	info->apertures->ranges[0].base = rdev->ddev->mode_config.fb_base;
--	info->apertures->ranges[0].size = rdev->mc.aper_size;
--
--	/* Use default scratch pixmap (info->pixmap.flags = FB_PIXMAP_SYSTEM) */
--
--	if (info->screen_base == NULL) {
--		ret = -ENOSPC;
--		goto out;
--	}
--
--	DRM_INFO("fb mappable at 0x%lX\n",  info->fix.smem_start);
--	DRM_INFO("vram apper at 0x%lX\n",  (unsigned long)rdev->mc.aper_base);
--	DRM_INFO("size %lu\n", (unsigned long)radeon_bo_size(rbo));
--	DRM_INFO("fb depth is %d\n", fb->format->depth);
--	DRM_INFO("   pitch is %d\n", fb->pitches[0]);
--
--	vga_switcheroo_client_fb_set(rdev->ddev->pdev, info);
--	return 0;
--
--out:
--	if (rbo) {
--
--	}
--	if (fb && ret) {
--		drm_gem_object_put(gobj);
--		drm_framebuffer_unregister_private(fb);
--		drm_framebuffer_cleanup(fb);
--		kfree(fb);
--	}
--	return ret;
--}
--
--static int radeon_fbdev_destroy(struct drm_device *dev, struct radeon_fbdev *rfbdev)
--{
--	struct drm_framebuffer *fb = &rfbdev->fb;
--
--	drm_fb_helper_unregister_fbi(&rfbdev->helper);
--
--	if (fb->obj[0]) {
--		radeonfb_destroy_pinned_object(fb->obj[0]);
--		fb->obj[0] = NULL;
--		drm_framebuffer_unregister_private(fb);
--		drm_framebuffer_cleanup(fb);
--	}
--	drm_fb_helper_fini(&rfbdev->helper);
--
--	return 0;
--}
--
--static const struct drm_fb_helper_funcs radeon_fb_helper_funcs = {
--	.fb_probe = radeonfb_create,
--};
--
--int radeon_fbdev_init(struct radeon_device *rdev)
-+void radeon_fbdev_init(struct radeon_device *rdev)
- {
--	struct radeon_fbdev *rfbdev;
-+	struct drm_device *ddev = rdev->ddev;
- 	int bpp_sel = 32;
--	int ret;
--
--	/* don't enable fbdev if no connectors */
--	if (list_empty(&rdev->ddev->mode_config.connector_list))
--		return 0;
- 
- 	/* select 8 bpp console on 8MB cards, or 16 bpp on RN50 or 32MB */
- 	if (rdev->mc.real_vram_size <= (8*1024*1024))
- 		bpp_sel = 8;
--	else if (ASIC_IS_RN50(rdev) ||
--		 rdev->mc.real_vram_size <= (32*1024*1024))
-+	else if (ASIC_IS_RN50(rdev) || rdev->mc.real_vram_size <= (32*1024*1024))
- 		bpp_sel = 16;
- 
--	rfbdev = kzalloc(sizeof(struct radeon_fbdev), GFP_KERNEL);
--	if (!rfbdev)
--		return -ENOMEM;
--
--	rfbdev->rdev = rdev;
--	rdev->mode_info.rfbdev = rfbdev;
--
--	drm_fb_helper_prepare(rdev->ddev, &rfbdev->helper,
--			      &radeon_fb_helper_funcs);
--
--	ret = drm_fb_helper_init(rdev->ddev, &rfbdev->helper);
--	if (ret)
--		goto free;
--
--	/* disable all the possible outputs/crtcs before entering KMS mode */
--	drm_helper_disable_unused_functions(rdev->ddev);
--
--	ret = drm_fb_helper_initial_config(&rfbdev->helper, bpp_sel);
--	if (ret)
--		goto fini;
--
--	return 0;
--
--fini:
--	drm_fb_helper_fini(&rfbdev->helper);
--free:
--	kfree(rfbdev);
--	return ret;
--}
--
--void radeon_fbdev_fini(struct radeon_device *rdev)
--{
--	if (!rdev->mode_info.rfbdev)
--		return;
-+	/* radeon resume is fragile and needs a vt switch to help it along */
-+	ddev->mode_config.require_vt_switch_fbdev = true;
- 
--	radeon_fbdev_destroy(rdev->ddev, rdev->mode_info.rfbdev);
--	kfree(rdev->mode_info.rfbdev);
--	rdev->mode_info.rfbdev = NULL;
-+	drm_fbdev_generic_setup(ddev, bpp_sel);
- }
- 
- void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state)
- {
--	if (rdev->mode_info.rfbdev)
--		drm_fb_helper_set_suspend(&rdev->mode_info.rfbdev->helper, state);
-+	drm_fb_helper_set_suspend(rdev->ddev->fb_helper, state);
- }
- 
- bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
- {
--	if (!rdev->mode_info.rfbdev)
-+	if (!rdev->ddev->fb_helper)
-+		return false;
-+
-+	if (gem_to_radeon_bo(rdev->ddev->fb_helper->buffer->gem) != robj)
- 		return false;
- 
--	if (robj == gem_to_radeon_bo(rdev->mode_info.rfbdev->fb.obj[0]))
--		return true;
--	return false;
-+	return true;
- }
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index 75b038740ea8..76e18e589ccd 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -608,18 +608,6 @@ int radeon_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- /*
-  * Outdated mess for old drm with Xorg being in charge (void function now).
-  */
--/**
-- * radeon_driver_lastclose_kms - drm callback for last close
-- *
-- * @dev: drm dev pointer
-- *
-- * Switch vga_switcheroo state after last close (all asics).
-- */
--void radeon_driver_lastclose_kms(struct drm_device *dev)
--{
--	drm_fb_helper_lastclose(dev);
--	vga_switcheroo_process_delayed_switch();
--}
- 
- /**
-  * radeon_driver_open_kms - drm callback for open
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index c7f223743d46..fe192ef0aafa 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -230,8 +230,6 @@ enum radeon_dvo_chip {
- 	DVO_SIL1178,
- };
- 
--struct radeon_fbdev;
--
- struct radeon_afmt {
- 	bool enabled;
- 	int offset;
-@@ -268,8 +266,6 @@ struct radeon_mode_info {
- 	struct edid *bios_hardcoded_edid;
- 	int bios_hardcoded_edid_size;
- 
--	/* pointer to fbdev info structure */
--	struct radeon_fbdev *rfbdev;
- 	/* firmware flags */
- 	u16 firmware_flags;
- 	/* pointer to backlight encoder */
-@@ -979,8 +975,7 @@ void dce4_program_fmt(struct drm_encoder *encoder);
- void dce8_program_fmt(struct drm_encoder *encoder);
- 
- /* fbdev layer */
--int radeon_fbdev_init(struct radeon_device *rdev);
--void radeon_fbdev_fini(struct radeon_device *rdev);
-+void radeon_fbdev_init(struct radeon_device *rdev);
- void radeon_fbdev_set_suspend(struct radeon_device *rdev, int state);
- bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj);
- 
--- 
-2.29.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Pi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogQmVuIFNrZWdncyA8c2tlZ2dzYkBn
+bWFpbC5jb20+DQo+U2VudDogV2VkbmVzZGF5LCBOb3ZlbWJlciAxMSwgMjAyMCA5OjM5IFBNDQo+
+VG86IFJ1aGwsIE1pY2hhZWwgSiA8bWljaGFlbC5qLnJ1aGxAaW50ZWwuY29tPg0KPkNjOiBUaG9t
+YXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT47IGJza2VnZ3NAcmVkaGF0LmNvbTsN
+Cj5haXJsaWVkQGxpbnV4LmllOyBkYW5pZWxAZmZ3bGwuY2g7IGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbTsgYW1kLQ0KPmdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IG5vdXZlYXVAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnOyBkcmktDQo+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyB2aXJ0dWFs
+aXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0aW9uLm9yZzsgUm9sYW5kDQo+U2NoZWlkZWdnZXIg
+PHNyb2xhbmRAdm13YXJlLmNvbT47IEphc29uIEd1bnRob3JwZSA8amdnQHppZXBlLmNhPjsNCj5I
+dWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPjsgVk13YXJlIEdyYXBoaWNzIDxsaW51eC1ncmFw
+aGljcy0NCj5tYWludGFpbmVyQHZtd2FyZS5jb20+OyBHZXJkIEhvZmZtYW5uIDxrcmF4ZWxAcmVk
+aGF0LmNvbT47IHNwaWNlLQ0KPmRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgQWxleCBEZXVj
+aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPjsNCj5EYXZlIEFpcmxpZSA8YWlybGllZEBy
+ZWRoYXQuY29tPjsgTGlrdW4gR2FvIDxMaWt1bi5HYW9AYW1kLmNvbT47IEZlbGl4DQo+S3VlaGxp
+bmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+OyBIYXdraW5nIFpoYW5nDQo+PEhhd2tpbmcuWmhh
+bmdAYW1kLmNvbT4NCj5TdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vbm91dmVhdTogRml4IG91dC1v
+Zi1ib3VuZHMgYWNjZXNzIHdoZW4NCj5kZWZlcmVuY2luZyBNTVUgdHlwZQ0KPg0KPk9uIFRodSwg
+MTIgTm92IDIwMjAgYXQgMDI6MjcsIFJ1aGwsIE1pY2hhZWwgSiA8bWljaGFlbC5qLnJ1aGxAaW50
+ZWwuY29tPg0KPndyb3RlOg0KPj4NCj4+ID4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4g
+PkZyb206IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPj4gPlNlbnQ6
+IFdlZG5lc2RheSwgTm92ZW1iZXIgMTEsIDIwMjAgNzowOCBBTQ0KPj4gPlRvOiBSdWhsLCBNaWNo
+YWVsIEogPG1pY2hhZWwuai5ydWhsQGludGVsLmNvbT47IGJza2VnZ3NAcmVkaGF0LmNvbTsNCj4+
+ID5haXJsaWVkQGxpbnV4LmllOyBkYW5pZWxAZmZ3bGwuY2g7IGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbQ0KPj4gPkNjOiBub3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZzsNCj4+ID5NYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5r
+aG9yc3RAbGludXguaW50ZWwuY29tPjsgTWF4aW1lIFJpcGFyZA0KPj4gPjxtcmlwYXJkQGtlcm5l
+bC5vcmc+OyBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPjsgR2VyZCBIb2ZmbWFubg0K
+Pj4gPjxrcmF4ZWxAcmVkaGF0LmNvbT47IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
+YW1kLmNvbT47DQo+PiA+Vk13YXJlIEdyYXBoaWNzIDxsaW51eC1ncmFwaGljcy1tYWludGFpbmVy
+QHZtd2FyZS5jb20+OyBSb2xhbmQNCj4+ID5TY2hlaWRlZ2dlciA8c3JvbGFuZEB2bXdhcmUuY29t
+PjsgSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT47DQo+PiA+RmVsaXggS3VlaGxpbmcgPEZl
+bGl4Lkt1ZWhsaW5nQGFtZC5jb20+OyBIYXdraW5nIFpoYW5nDQo+PiA+PEhhd2tpbmcuWmhhbmdA
+YW1kLmNvbT47IEphc29uIEd1bnRob3JwZSA8amdnQHppZXBlLmNhPjsgTGlrdW4NCj5HYW8NCj4+
+ID48TGlrdW4uR2FvQGFtZC5jb20+OyB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0
+aW9uLm9yZzsgc3BpY2UtDQo+PiA+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4gPlN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9ub3V2
+ZWF1OiBGaXggb3V0LW9mLWJvdW5kcyBhY2Nlc3Mgd2hlbg0KPj4gPmRlZmVyZW5jaW5nIE1NVSB0
+eXBlDQo+PiA+DQo+PiA+SGkNCj4+ID4NCj4+ID5BbSAxMC4xMS4yMCB1bSAxNjoyNyBzY2hyaWVi
+IFJ1aGwsIE1pY2hhZWwgSjoNCj4+ID4+DQo+PiA+Pg0KPj4gPj4+IC0tLS0tT3JpZ2luYWwgTWVz
+c2FnZS0tLS0tDQo+PiA+Pj4gRnJvbTogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1
+c2UuZGU+DQo+PiA+Pj4gU2VudDogVHVlc2RheSwgTm92ZW1iZXIgMTAsIDIwMjAgODozNyBBTQ0K
+Pj4gPj4+IFRvOiBic2tlZ2dzQHJlZGhhdC5jb207IGFpcmxpZWRAbGludXguaWU7IGRhbmllbEBm
+ZndsbC5jaDsgUnVobCwNCj5NaWNoYWVsIEoNCj4+ID4+PiA8bWljaGFlbC5qLnJ1aGxAaW50ZWwu
+Y29tPjsgY2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tDQo+PiA+Pj4gQ2M6IG5vdXZlYXVAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOw0KPj4gPlRo
+b21hcw0KPj4gPj4+IFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+OyBNYWFydGVuIExh
+bmtob3JzdA0KPj4gPj4+IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+OyBNYXhp
+bWUgUmlwYXJkDQo+PiA+Pj4gPG1yaXBhcmRAa2VybmVsLm9yZz47IERhdmUgQWlybGllIDxhaXJs
+aWVkQHJlZGhhdC5jb20+OyBHZXJkDQo+SG9mZm1hbm4NCj4+ID4+PiA8a3JheGVsQHJlZGhhdC5j
+b20+OyBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ow0KPj4gPj4+IFZN
+d2FyZSBHcmFwaGljcyA8bGludXgtZ3JhcGhpY3MtbWFpbnRhaW5lckB2bXdhcmUuY29tPjsgUm9s
+YW5kDQo+PiA+Pj4gU2NoZWlkZWdnZXIgPHNyb2xhbmRAdm13YXJlLmNvbT47IEh1YW5nIFJ1aQ0K
+PjxyYXkuaHVhbmdAYW1kLmNvbT47DQo+PiA+Pj4gRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhs
+aW5nQGFtZC5jb20+OyBIYXdraW5nIFpoYW5nDQo+PiA+Pj4gPEhhd2tpbmcuWmhhbmdAYW1kLmNv
+bT47IEphc29uIEd1bnRob3JwZSA8amdnQHppZXBlLmNhPjsgTGlrdW4NCj4+ID5HYW8NCj4+ID4+
+PiA8TGlrdW4uR2FvQGFtZC5jb20+OyB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0
+aW9uLm9yZzsNCj5zcGljZS0NCj4+ID4+PiBkZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiA+Pj4gU3ViamVjdDogW1BBVENIXSBkcm0v
+bm91dmVhdTogRml4IG91dC1vZi1ib3VuZHMgYWNjZXNzIHdoZW4NCj4+ID5kZWZlcmVuY2luZw0K
+Pj4gPj4+IE1NVSB0eXBlDQo+PiA+Pj4NCj4+ID4+PiBUaGUgdmFsdWUgb2Ygc3RydWN0IGRybV9k
+ZXZpY2UudHRtLnR5cGVfdnJhbSBjYW4gYmVjb21lIC0xIGZvcg0KPj4gPnVua25vd24NCj4+ID4+
+PiB0eXBlcyBvZiBtZW1vcnkgKHNlZSBub3V2ZWF1X3R0bV9pbml0KCkpLiBUaGlzIGxlYWRzIHRv
+IGFuIG91dC1vZi0NCj5ib3VuZHMNCj4+ID4+PiBlcnJvciB3aGVuIGFjY2Vzc2luZyBzdHJ1Y3Qg
+bnZpZl9tbXUudHlwZVtdOg0KPj4gPj4NCj4+ID4+IFdvdWxkIHRoaXMgbWFrZSBtb3JlIHNlbnNl
+IHRvIGp1c3Qgc2V0IHRoZSB0eXBlX3ZyYW0gPSAwIGluc3RlYWQgb2YgLTE/DQo+PiA+DQo+PiA+
+RnJvbSB3aGF0IEkgdW5kZXJzdGFuZCwgdGhlc2UgaW5kaWNlcyByZWZlciB0byBhbiBpbnRlcm5h
+bCB0eXBlIG9mIE1NVSwNCj4+ID5yc3AgdGhlIE1NVSdzIGNhcGFiaWxpdGllcy4gSG93ZXZlciwg
+bXkgaGFyZHdhcmUgKHByZS1OVjUwKSBkb2VzIG5vdA0KPj4gPmhhdmUgYW4gTU1VIGF0IGFsbC4N
+Cj4+DQo+PiBZZWFoLCBhbmQgdXBvbiBmdXJ0aGVyIHJldmlldyBJIHNlZSB0aGF0IG15IGNvbW1l
+bnQgd2FzIGNvbXBsZXRlbHkNCj53cm9uZw0KPj4gKHZhbHVlIHZzLiBpbmRleCkuDQo+Pg0KPj4g
+QSBiZXR0ZXIgc3VnZ2VzdGlvbiB3b3VsZCBoYXZlIGJlZW4sIGNyZWF0ZSBhbiBlbnRyeSBpbiB0
+aGUgYXJyYXkgdGhhdA0KPm1lYW5zLA0KPj4gInVuc3VwcG9ydGVkIHR5cGUiIHdpdGggYSB2YWx1
+ZSBvZiAwLCBidXQuLi4NCj4+DQo+PiA+SSBhZ3JlZSB0aGF0IGl0IHdvdWxkIGJlIG5pY2UgdG8g
+aGF2ZSBhIGNsZWFuZXIgZGVzaWduIHRoYXQgaW5jb3Jwb3JhdGVzDQo+PiA+dGhpcyBjYXNlLCBi
+dXQgcmVzb2x2aW5nIHRoYXQgd291bGQgYXBwYXJlbnRseSByZXF1aXJlIG1vcmUgdGhhbiBhIGJ1
+Z2ZpeC4NCj4+DQo+PiBJIGFncmVlLiAgVGhlIC0xIGluZGV4IGlzIGEgc3BlY2lhbCBjYXNlIGZv
+ciB0aGUgcGxhdGZvcm0gcGF0aA0KPj4gKHBsYXRmb3JtICE9IE5WX0RFVklDRV9JTkZPX1YwX1NP
+QykuICBUaGlzIGlzIGEgZml4IGZvciB0aGUgaXNzdWUsIGJ1dCBub3QNCj4+IGEgY29tcGxldGUg
+c29sdXRpb24uDQo+Pg0KPj4gSWYgeW91IG5lZWQgaXQ6DQo+PiBSZXZpZXdlZC1ieTogTWljaGFl
+bCBKLiBSdWhsIDxtaWNoYWVsLmoucnVobEBpbnRlbC5jb20+DQo+SSd2ZSBwdXQgYW4gYWx0ZXJu
+YXRlIGZpeCBmb3IgdGhpcyBoZXJlWzFdLCBhbmQgd2lsbCBnZXQgaXQgaW50bw0KPmRybS1maXhl
+cyBsYXRlciB0b2RheS4NCj4NCj5CZW4uDQo+DQo+WzFdDQo+aHR0cHM6Ly9naXRodWIuY29tL3Nr
+ZWdnc2Ivbm91dmVhdS9jb21taXQvNDU5MGY3MTIwYzJmMWY0YWVhOWQ4YjkzYTJkDQo+YWU0M2Iz
+MTJkMzVhZA0KDQpUaGlzIG1ha2VzIGEgbG90IG9mIHNlbnNlLiAgSSBzcGVudCBzb21lIHRpbWUg
+dHJ5aW5nIHRvIHJlY29uY2lsZSB0aGUgcGxhdGZvcm0gaW5mbw0KdGhhdCB3YXMgbm90IGJlaW5n
+IHVzZWQgaW4gdGhpcyBjYXNlLCBidXQgZGlkbid0IHNlZSB0aGUgc29sdXRpb24gbGlrZSB0aGlz
+LiAgIFRoaXMgaXMNCnByZXR0eSBjbGVhbi4NCg0KSWYgeW91IHdvdWxkIGxpa2U6DQoNClJldmll
+d2VkLWJ5OiBNaWNoYWVsIEouIFJ1aGwgPG1pY2hhZWwuai5ydWhsQGludGVsLmNvbT4NCg0KRm9y
+IHRoaXMgc29sdXRpb24gYXMgd2VsbC4NCg0KTWlrZQ0KDQo+Pg0KPj4gVGhhbmtzLA0KPj4gTWlr
+ZQ0KPj4NCj4+ID5CZXN0IHJlZ2FyZHMNCj4+ID5UaG9tYXMNCj4+ID4NCj4+ID4+DQo+PiA+PiBN
+aWtlDQo+PiA+Pg0KPj4gPj4+DQo+PiA+Pj4gIFsgICAxOC4zMDQxMTZdDQo+PiA+Pj4NCj4+DQo+
+Pj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT0NCj49DQo+PiA+Pj4gPT09PT09PQ0KPj4gPj4+ICBbICAgMTguMzExNjQ5XSBCVUc6IEtBU0FO
+OiBzbGFiLW91dC1vZi1ib3VuZHMgaW4NCj4+ID4+PiBub3V2ZWF1X3R0bV9pb19tZW1fcmVzZXJ2
+ZSsweDE3YS8weDdlMCBbbm91dmVhdV0NCj4+ID4+PiAgWyAgIDE4LjMyMDQxNV0gUmVhZCBvZiBz
+aXplIDEgYXQgYWRkciBmZmZmODg4MTBmZmFjMWZlIGJ5IHRhc2sgc3lzdGVtZC0NCj4+ID4+PiB1
+ZGV2ZC8zNDINCj4+ID4+PiAgWyAgIDE4LjMyNzY4MV0NCj4+ID4+PiAgWyAgIDE4LjMyOTIwOF0g
+Q1BVOiAxIFBJRDogMzQyIENvbW06IHN5c3RlbWQtdWRldmQgVGFpbnRlZDogRyAgICAgICAgICAg
+IEUNCj4+ID4+PiA1LjEwLjAtcmMyLTEtZGVmYXVsdCsgIzU4MQ0KPj4gPj4+ICBbICAgMTguMzM4
+NjgxXSBIYXJkd2FyZSBuYW1lOiBEZWxsIEluYy4gT3B0aVBsZXggOTAyMC8wTjRZQzgsIEJJT1Mg
+QTI0DQo+PiA+Pj4gMTAvMjQvMjAxOA0KPj4gPj4+ICBbICAgMTguMzQ2MDMyXSBDYWxsIFRyYWNl
+Og0KPj4gPj4+ICBbICAgMTguMzQ4NTM2XSAgZHVtcF9zdGFjaysweGFlLzB4ZTUNCj4+ID4+PiAg
+WyAgIDE4LjM1MTkxOV0gIHByaW50X2FkZHJlc3NfZGVzY3JpcHRpb24uY29uc3Rwcm9wLjArMHgx
+Ny8weGYwDQo+PiA+Pj4gIFsgICAxOC4zNTc3ODddICA/IG5vdXZlYXVfdHRtX2lvX21lbV9yZXNl
+cnZlKzB4MTdhLzB4N2UwDQo+W25vdXZlYXVdDQo+PiA+Pj4gIFsgICAxOC4zNjM4MThdICBfX2th
+c2FuX3JlcG9ydC5jb2xkKzB4MjAvMHgzOA0KPj4gPj4+ICBbICAgMTguMzY4MDk5XSAgPyBub3V2
+ZWF1X3R0bV9pb19tZW1fcmVzZXJ2ZSsweDE3YS8weDdlMA0KPltub3V2ZWF1XQ0KPj4gPj4+ICBb
+ICAgMTguMzc0MTMzXSAga2FzYW5fcmVwb3J0KzB4M2EvMHg1MA0KPj4gPj4+ICBbICAgMTguMzc3
+Nzg5XSAgbm91dmVhdV90dG1faW9fbWVtX3Jlc2VydmUrMHgxN2EvMHg3ZTAgW25vdXZlYXVdDQo+
+PiA+Pj4gIDwuLi4+DQo+PiA+Pj4gIFsgICAxOC43Njc2OTBdIEFsbG9jYXRlZCBieSB0YXNrIDM0
+MjoNCj4+ID4+PiAgWyAgIDE4Ljc3MzA4N10gIGthc2FuX3NhdmVfc3RhY2srMHgxYi8weDQwDQo+
+PiA+Pj4gIFsgICAxOC43Nzg4OTBdICBfX2thc2FuX2ttYWxsb2MuY29uc3Rwcm9wLjArMHhiZi8w
+eGQwDQo+PiA+Pj4gIFsgICAxOC43ODU2NDZdICBfX2ttYWxsb2NfdHJhY2tfY2FsbGVyKzB4MWJl
+LzB4MzkwDQo+PiA+Pj4gIFsgICAxOC43OTIxNjVdICBrc3RyZHVwX2NvbnN0KzB4NDYvMHg3MA0K
+Pj4gPj4+ICBbICAgMTguNzk3Njg2XSAga29iamVjdF9zZXRfbmFtZV92YXJncysweDJmLzB4YjAN
+Cj4+ID4+PiAgWyAgIDE4LjgwMzk5Ml0gIGtvYmplY3RfaW5pdF9hbmRfYWRkKzB4OWQvMHhmMA0K
+Pj4gPj4+ICBbICAgMTguODEwMTE3XSAgdHRtX21lbV9nbG9iYWxfaW5pdCsweDEyYy8weDIxMCBb
+dHRtXQ0KPj4gPj4+ICBbICAgMTguODE2ODUzXSAgdHRtX2JvX2dsb2JhbF9pbml0KzB4NGEvMHgx
+NjAgW3R0bV0NCj4+ID4+PiAgWyAgIDE4LjgyMzQyMF0gIHR0bV9ib19kZXZpY2VfaW5pdCsweDM5
+LzB4MjIwIFt0dG1dDQo+PiA+Pj4gIFsgICAxOC44MzAwNDZdICBub3V2ZWF1X3R0bV9pbml0KzB4
+MmMzLzB4ODMwIFtub3V2ZWF1XQ0KPj4gPj4+ICBbICAgMTguODM2OTI5XSAgbm91dmVhdV9kcm1f
+ZGV2aWNlX2luaXQrMHgxYjQvMHgzZjAgW25vdXZlYXVdDQo+PiA+Pj4gIDwuLi4+DQo+PiA+Pj4g
+IFsgICAxOS4xMDUzMzZdDQo+PiA+Pj4NCj4+DQo+Pj09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCj49DQo+PiA+Pj4gPT09PT09PQ0KPj4g
+Pj4+DQo+PiA+Pj4gRml4IHRoaXMgZXJyb3IsIGJ5IG5vdCB1c2luZyB0eXBlX3ZyYW0gYXMgYW4g
+aW5kZXggaWYgaXQncyBuZWdhdGl2ZS4NCj4+ID4+PiBBc3N1bWUgZGVmYXVsdCB2YWx1ZXMgaW5z
+dGVhZC4NCj4+ID4+Pg0KPj4gPj4+IFRoZSBlcnJvciB3YXMgc2VlbiBvbiBOdmlkaWEgRzcyIGhh
+cmR3YXJlLg0KPj4gPj4+DQo+PiA+Pj4gU2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1hbm4g
+PHR6aW1tZXJtYW5uQHN1c2UuZGU+DQo+PiA+Pj4gRml4ZXM6IDFjZjY1YzQ1MTgzYSAoImRybS90
+dG06IGFkZCBjYWNoaW5nIHN0YXRlIHRvDQo+dHRtX2J1c19wbGFjZW1lbnQiKQ0KPj4gPj4+IENj
+OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+PiA+Pj4gQ2M6
+IE1pY2hhZWwgSi4gUnVobCA8bWljaGFlbC5qLnJ1aGxAaW50ZWwuY29tPg0KPj4gPj4+IENjOiBN
+YWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPg0KPj4g
+Pj4+IENjOiBNYXhpbWUgUmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+DQo+PiA+Pj4gQ2M6IFRo
+b21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPj4gPj4+IENjOiBEYXZpZCBB
+aXJsaWUgPGFpcmxpZWRAbGludXguaWU+DQo+PiA+Pj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmll
+bEBmZndsbC5jaD4NCj4+ID4+PiBDYzogQmVuIFNrZWdncyA8YnNrZWdnc0ByZWRoYXQuY29tPg0K
+Pj4gPj4+IENjOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPg0KPj4gPj4+IENjOiBH
+ZXJkIEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0LmNvbT4NCj4+ID4+PiBDYzogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPj4gPj4+IENjOiAiQ2hyaXN0aWFuIEvDtm5p
+ZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4+ID4+PiBDYzogVk13YXJlIEdyYXBoaWNz
+IDxsaW51eC1ncmFwaGljcy1tYWludGFpbmVyQHZtd2FyZS5jb20+DQo+PiA+Pj4gQ2M6IFJvbGFu
+ZCBTY2hlaWRlZ2dlciA8c3JvbGFuZEB2bXdhcmUuY29tPg0KPj4gPj4+IENjOiBIdWFuZyBSdWkg
+PHJheS5odWFuZ0BhbWQuY29tPg0KPj4gPj4+IENjOiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3Vl
+aGxpbmdAYW1kLmNvbT4NCj4+ID4+PiBDYzogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0Bh
+bWQuY29tPg0KPj4gPj4+IENjOiBKYXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVwZS5jYT4NCj4+ID4+
+PiBDYzogTGlrdW4gR2FvIDxMaWt1bi5HYW9AYW1kLmNvbT4NCj4+ID4+PiBDYzogZHJpLWRldmVs
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4gPj4+IENjOiBub3V2ZWF1QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZw0KPj4gPj4+IENjOiB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0aW9u
+Lm9yZw0KPj4gPj4+IENjOiBzcGljZS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+ID4+
+PiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+ID4+PiAtLS0NCj4+ID4+PiBk
+cml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMgfCA1ICsrKystDQo+PiA+Pj4gMSBm
+aWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPj4gPj4+DQo+PiA+
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYm8uYw0KPj4g
+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9iby5jDQo+PiA+Pj4gaW5kZXgg
+ODEzMzM3N2Q4NjVkLi5mZTE1Mjk5ZDQxN2UgMTAwNjQ0DQo+PiA+Pj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL25vdXZlYXUvbm91dmVhdV9iby5jDQo+PiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L25vdXZlYXUvbm91dmVhdV9iby5jDQo+PiA+Pj4gQEAgLTExNDIsOSArMTE0MiwxMiBAQCBub3V2
+ZWF1X3R0bV9pb19tZW1fcmVzZXJ2ZShzdHJ1Y3QNCj4+ID4+PiB0dG1fYm9fZGV2aWNlICpiZGV2
+LCBzdHJ1Y3QgdHRtX3Jlc291cmNlICpyZWcpDQo+PiA+Pj4gICAgIHN0cnVjdCBudmttX2Rldmlj
+ZSAqZGV2aWNlID0gbnZ4eF9kZXZpY2UoJmRybS0+Y2xpZW50LmRldmljZSk7DQo+PiA+Pj4gICAg
+IHN0cnVjdCBub3V2ZWF1X21lbSAqbWVtID0gbm91dmVhdV9tZW0ocmVnKTsNCj4+ID4+PiAgICAg
+c3RydWN0IG52aWZfbW11ICptbXUgPSAmZHJtLT5jbGllbnQubW11Ow0KPj4gPj4+IC0gICBjb25z
+dCB1OCB0eXBlID0gbW11LT50eXBlW2RybS0+dHRtLnR5cGVfdnJhbV0udHlwZTsNCj4+ID4+PiAr
+ICAgdTggdHlwZSA9IDA7DQo+PiA+Pj4gICAgIGludCByZXQ7DQo+PiA+Pj4NCj4+ID4+PiArICAg
+aWYgKGRybS0+dHRtLnR5cGVfdnJhbSA+PSAwKQ0KPj4gPj4+ICsgICAgICAgICAgIHR5cGUgPSBt
+bXUtPnR5cGVbZHJtLT50dG0udHlwZV92cmFtXS50eXBlOw0KPj4gPj4+ICsNCj4+ID4+PiAgICAg
+bXV0ZXhfbG9jaygmZHJtLT50dG0uaW9fcmVzZXJ2ZV9tdXRleCk7DQo+PiA+Pj4gcmV0cnk6DQo+
+PiA+Pj4gICAgIHN3aXRjaCAocmVnLT5tZW1fdHlwZSkgew0KPj4gPj4+IC0tDQo+PiA+Pj4gMi4y
+OS4yDQo+PiA+Pg0KPj4gPg0KPj4gPi0tDQo+PiA+VGhvbWFzIFppbW1lcm1hbm4NCj4+ID5HcmFw
+aGljcyBEcml2ZXIgRGV2ZWxvcGVyDQo+PiA+U1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFu
+eSBHbWJIDQo+PiA+TWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJnLCBHZXJtYW55DQo+PiA+
+KEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KPj4gPkdlc2Now6RmdHNmw7xocmVyOiBGZWxpeCBJ
+bWVuZMO2cmZmZXINCj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fDQo+PiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0DQo+PiBkcmktZGV2ZWxAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnDQo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2RyaS1kZXZlbA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
