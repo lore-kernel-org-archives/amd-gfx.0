@@ -7,32 +7,33 @@ X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 803F5C56202
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22BA4C2D0A3
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B7EC2068D
+	by mail.kernel.org (Postfix) with ESMTPS id B46142068D
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 13:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B7EC2068D
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B46142068D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 936996E241;
-	Thu, 12 Nov 2020 13:21:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F776E247;
+	Thu, 12 Nov 2020 13:21:32 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F5A6E102;
- Thu, 12 Nov 2020 13:21:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 294276E22F;
+ Thu, 12 Nov 2020 13:21:31 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CD8ABAD57;
- Thu, 12 Nov 2020 13:21:28 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 55286AD60;
+ Thu, 12 Nov 2020 13:21:29 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Subject: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
-Date: Thu, 12 Nov 2020 14:21:14 +0100
-Message-Id: <20201112132117.27228-5-tzimmermann@suse.de>
+Subject: [PATCH 7/7] drm/radeon: Move radeon_align_pitch() next to its only
+ caller
+Date: Thu, 12 Nov 2020 14:21:17 +0100
+Message-Id: <20201112132117.27228-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201112132117.27228-1-tzimmermann@suse.de>
 References: <20201112132117.27228-1-tzimmermann@suse.de>
@@ -55,93 +56,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to avoid eviction of vmap'ed buffers, pin them in their GEM
-object's vmap implementation. Unpin them in the vunmap implementation.
-This is needed to make generic fbdev support work reliably. Without,
-the buffer object could be evicted while fbdev flushed its shadow buffer.
-
-In difference to the PRIME pin/unpin functions, the vmap code does not
-modify the BOs prime_shared_count, so a vmap-pinned BO does not count as
-shared.
-
-The actual pin location is not important as the vmap call returns
-information on how to access the buffer. Callers that require a
-specific location should explicitly pin the BO before vmapping it.
+Allows to declare the function as static. The tiled parameter is always
+false, so it is being removed.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/radeon/radeon_gem.c | 51 +++++++++++++++++++++++++++--
- 1 file changed, 49 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_fb.c   | 24 ------------------------
+ drivers/gpu/drm/radeon/radeon_gem.c  | 26 +++++++++++++++++++++++++-
+ drivers/gpu/drm/radeon/radeon_mode.h |  2 --
+ 3 files changed, 25 insertions(+), 27 deletions(-)
 
+diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
+index c687d14a1b93..0b89dd4f4af6 100644
+--- a/drivers/gpu/drm/radeon/radeon_fb.c
++++ b/drivers/gpu/drm/radeon/radeon_fb.c
+@@ -30,30 +30,6 @@
+ 
+ #include "radeon.h"
+ 
+-int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp, bool tiled)
+-{
+-	int aligned = width;
+-	int align_large = (ASIC_IS_AVIVO(rdev)) || tiled;
+-	int pitch_mask = 0;
+-
+-	switch (cpp) {
+-	case 1:
+-		pitch_mask = align_large ? 255 : 127;
+-		break;
+-	case 2:
+-		pitch_mask = align_large ? 127 : 31;
+-		break;
+-	case 3:
+-	case 4:
+-		pitch_mask = align_large ? 63 : 15;
+-		break;
+-	}
+-
+-	aligned += pitch_mask;
+-	aligned &= ~pitch_mask;
+-	return aligned * cpp;
+-}
+-
+ void radeon_fbdev_init(struct radeon_device *rdev)
+ {
+ 	struct drm_device *ddev = rdev->ddev;
 diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index d2876ce3bc9e..eaf7fc9a7b07 100644
+index eaf7fc9a7b07..e19956c3309f 100644
 --- a/drivers/gpu/drm/radeon/radeon_gem.c
 +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -226,6 +226,53 @@ static int radeon_gem_handle_lockup(struct radeon_device *rdev, int r)
+@@ -816,6 +816,30 @@ int radeon_gem_op_ioctl(struct drm_device *dev, void *data,
  	return r;
  }
  
-+static int radeon_gem_object_vmap(struct drm_gem_object *obj, struct dma_buf_map *map)
++static int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp)
 +{
-+	static const uint32_t any_domain = RADEON_GEM_DOMAIN_VRAM |
-+					   RADEON_GEM_DOMAIN_GTT |
-+					   RADEON_GEM_DOMAIN_CPU;
++	int aligned = width;
++	int align_large = ASIC_IS_AVIVO(rdev);
++	int pitch_mask = 0;
 +
-+	struct radeon_bo *bo = gem_to_radeon_bo(obj);
-+	int ret;
++	switch (cpp) {
++	case 1:
++		pitch_mask = align_large ? 255 : 127;
++		break;
++	case 2:
++		pitch_mask = align_large ? 127 : 31;
++		break;
++	case 3:
++	case 4:
++		pitch_mask = align_large ? 63 : 15;
++		break;
++	}
 +
-+	ret = radeon_bo_reserve(bo, false);
-+	if (ret)
-+		return ret;
-+
-+	/* pin buffer at its current location */
-+	ret = radeon_bo_pin(bo, any_domain, NULL);
-+	if (ret)
-+		goto err_radeon_bo_unreserve;
-+
-+	ret = drm_gem_ttm_vmap(obj, map);
-+	if (ret)
-+		goto err_radeon_bo_unpin;
-+
-+	radeon_bo_unreserve(bo);
-+
-+	return 0;
-+
-+err_radeon_bo_unpin:
-+	radeon_bo_unpin(bo);
-+err_radeon_bo_unreserve:
-+	radeon_bo_unreserve(bo);
-+	return ret;
++	aligned += pitch_mask;
++	aligned &= ~pitch_mask;
++	return aligned * cpp;
 +}
 +
-+static void radeon_gem_object_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map)
-+{
-+	struct radeon_bo *bo = gem_to_radeon_bo(obj);
-+	int ret;
-+
-+	ret = radeon_bo_reserve(bo, false);
-+	if (ret)
-+		return;
-+
-+	drm_gem_ttm_vunmap(obj, map);
-+	radeon_bo_unpin(bo);
-+	radeon_bo_unreserve(bo);
-+}
-+
- static const struct drm_gem_object_funcs radeon_gem_object_funcs = {
- 	.free = radeon_gem_object_free,
- 	.open = radeon_gem_object_open,
-@@ -234,8 +281,8 @@ static const struct drm_gem_object_funcs radeon_gem_object_funcs = {
- 	.pin = radeon_gem_prime_pin,
- 	.unpin = radeon_gem_prime_unpin,
- 	.get_sg_table = radeon_gem_prime_get_sg_table,
--	.vmap = drm_gem_ttm_vmap,
--	.vunmap = drm_gem_ttm_vunmap,
-+	.vmap = radeon_gem_object_vmap,
-+	.vunmap = radeon_gem_object_vunmap,
- };
+ int radeon_mode_dumb_create(struct drm_file *file_priv,
+ 			    struct drm_device *dev,
+ 			    struct drm_mode_create_dumb *args)
+@@ -826,7 +850,7 @@ int radeon_mode_dumb_create(struct drm_file *file_priv,
+ 	int r;
  
- /*
+ 	args->pitch = radeon_align_pitch(rdev, args->width,
+-					 DIV_ROUND_UP(args->bpp, 8), 0);
++					 DIV_ROUND_UP(args->bpp, 8));
+ 	args->size = args->pitch * args->height;
+ 	args->size = ALIGN(args->size, PAGE_SIZE);
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 197423ad42c1..50ba2b5edb93 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -982,8 +982,6 @@ void radeon_crtc_handle_vblank(struct radeon_device *rdev, int crtc_id);
+ 
+ void radeon_crtc_handle_flip(struct radeon_device *rdev, int crtc_id);
+ 
+-int radeon_align_pitch(struct radeon_device *rdev, int width, int bpp, bool tiled);
+-
+ /* mst */
+ int radeon_dp_mst_init(struct radeon_connector *radeon_connector);
+ int radeon_dp_mst_probe(struct radeon_connector *radeon_connector);
 -- 
 2.29.2
 
