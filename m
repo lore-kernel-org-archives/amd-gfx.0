@@ -2,108 +2,68 @@ Return-Path: <SRS0=wW4+=ES=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D29BFC2D0E4
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4F89C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2739020B80
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:14:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4E9F820759
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 19:49:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3EdnRXFr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2739020B80
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NI+YsFIb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E9F820759
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 413866E408;
-	Thu, 12 Nov 2020 19:14:47 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8422C6E3F7
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:14:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bgOqIpJ1EKctZa/+7j4nOji4g60uKnQRDVzoRE/xug6LU11w2XtMnKRZ+yzP3D1sZdK4aPTQ/i4lbhmRecbhcj8C8MsubdxF7pOdGGESnuqWDqWCPeQ1lnOVHoLrSf28nkWQ3zlbFlTQFu8SUmWqjDgtwyMqsRaE+4qOew5fLO+Z/EdKwdHHrJMw/Xpkhli2eCvUk1fdLHpJXt2tSVjaciRCATzXuNrumB0G99WI6cljuQO6u2bh0TJGZapcR6WjfYOkRjBqNob4qZIBReGLSJO+Kdx8Vg7OcS51lBIuOajIJE834PSc/BW4S0RIMU0w/fYGJlWtTBApc64YXtPhEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fRiR/aGeVCsgtcU9ngNLG5vYbcX83Ebd369AxSiYbB8=;
- b=Xx7LxW3G/cPfKka2VkkY37b81M8/8FASmcZ29OvSUi1L71sw4fUGaZnKvjKffGE1SCIZNuRuXjlXZqvkUrOxHG5Oyvv837pPns6duFLh6ykEkmAF9xTseueHCfZvGIaWvdNQFDC4janJ02iKHLIjBIh7F+ZVbp8fgqrpM3hrAA80PRN0Q7px9bpY+0jVKluKcK0Lv7zijKYhePz2VfmNW6qjVjTiP9IzlH/dQQu/WPUjWjH+dKs8REwrkfcOLhfu2XAMulaHKXK0kGZXBzGBjZ8/uDvZr9mOtvDQZB9e8j9BAJCVn305N7q1Pbp3WY73pNcjYxH0N0VTBdWDMd/6wg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fRiR/aGeVCsgtcU9ngNLG5vYbcX83Ebd369AxSiYbB8=;
- b=3EdnRXFrLQtqBWQR6em3nlyqFcyz+fB+4rZznlangjpJ0q6OCvAATRHkRJWdfImsKYg0Xv4Re/MrExPyk+bxdSJZbrGKnO81HVIJ4kHgzjXFvcdU52BFw0g8rUNESI88EGHNSvdvXOfHhwNo96GdsZVtkkOnHNYp3Pu9r0dkpFk=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
- DM5PR12MB2472.namprd12.prod.outlook.com (2603:10b6:4:b9::39) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3564.25; Thu, 12 Nov 2020 19:14:45 +0000
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::1059:3b25:8f54:5e5a]) by DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::1059:3b25:8f54:5e5a%7]) with mapi id 15.20.3541.025; Thu, 12 Nov 2020
- 19:14:44 +0000
-Subject: Re: [PATCH 1/5] drm/amdgpu: add vcn dec software ring enabled
- parameter
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <1605133674-21093-1-git-send-email-James.Zhu@amd.com>
- <CADnq5_OuXH4iWR7baRsUDTO3BMe=TditrXgCqvzC1U_pb27saQ@mail.gmail.com>
- <9971c116-faf9-7ebe-0b59-4ff1b5cd25ae@amd.com>
- <CADnq5_O957h_HosBL=mMhwrY+0xkFvZypCVgnsJZ4e2gq1Xbpg@mail.gmail.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-Message-ID: <eef89f33-6760-41e5-731c-d2a1b362d042@amd.com>
-Date: Thu, 12 Nov 2020 14:14:43 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <CADnq5_O957h_HosBL=mMhwrY+0xkFvZypCVgnsJZ4e2gq1Xbpg@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YTXPR0101CA0044.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::21) To DM5PR12MB2517.namprd12.prod.outlook.com
- (2603:10b6:4:bb::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 835406E40B;
+	Thu, 12 Nov 2020 19:49:05 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 198936E40B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 19:49:05 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id p8so7303092wrx.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 11:49:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LmqVtaA45pxZfZOQrXqBFj2o/AtOcZCU9qTqqtN9P7w=;
+ b=NI+YsFIbR8nhIcuYzV3jG00jAvE5dfQ7W8rjnXn6srVtFA2te67Gvdx4ULsttJh/LS
+ 44XwaUiicM4ZsH1ZGLOhu4PDs9MZDk+/5l4Ndfaw08nFKQvKGy0YgAZLBjyb0F9qC7wM
+ l6oSiGQikHoc+hQo1gACqros1AaaYefWzY+RLGo502ksdZSzmQgAfGXW7JdBwBRFj+Ye
+ MuUnk2552/BhsilkQJvKutg3KyZNFvIihHZqp6hyycK+qpfPc06cqH3YzyTUoPGSFvXQ
+ PCWj8Htw+o1fvOjmyXF4hqmOMZLG3GLF9WN+2MgYN6/Iul095py7NQQkjaQIVE1j/xx7
+ 0log==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LmqVtaA45pxZfZOQrXqBFj2o/AtOcZCU9qTqqtN9P7w=;
+ b=Dkv98nPUEn+F178tJWT0NyoFSkn1gelS2jD0uHF+y0C4iKMNzCospyVe5HotwkV4oo
+ avvyiNpoZlD+3bY2uavszxRmr7oOg3ERv7Tch0X+x4NNm89tRRyNE1QHNqcJZilVTjDD
+ +9tvUgjjKjZZlDOm7Ra4oH+S85eWbRMXtBLyUIROG/qQx3FHA2iKWkcaPmYA1IBEu75i
+ 2EChwZSm+4vh5J7MNQANKYS9B+h8gJ/UtRUh4Y/B0og3Y2l3cx+T/n0a4Qf3969/MILw
+ 46VntYlqfz6StmEx+mjHRr7B7sUc+06C4l12WFZFlQYcy+AOsugfrcalsLOBWZ5VqGB9
+ NM/w==
+X-Gm-Message-State: AOAM531EdD15QrGliVm4abgcVtrwSx/V9UTWNCpjW1DR/pjrwmfk24Pu
+ RTg9/GNA8bdan8t8xBWdhfGcEofMmyk/QsSScL8=
+X-Google-Smtp-Source: ABdhPJyalXy04FJbw6OVkdmriAJPGVfqFqsQVNSf2XXHjUbzAPrtq6bL+cq17p2LlwqIgkATpKZUIkbFO+9f9LdG3rY=
+X-Received: by 2002:adf:804e:: with SMTP id 72mr1422183wrk.114.1605210543789; 
+ Thu, 12 Nov 2020 11:49:03 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.230.192] (165.204.55.251) by
- YTXPR0101CA0044.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21 via Frontend
- Transport; Thu, 12 Nov 2020 19:14:44 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 58b30a9f-f7e3-4770-ab6c-08d8873f36d3
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2472:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB24721551F798536CBE624A3CE4E70@DM5PR12MB2472.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hibXmmWlpT8TzeHOPW4b1UexdrjvuZ1UIFe829XLPyRCmZ67nePCKIpWLM6v3GE8n5qjKJGWnRvQBvxOIJhFxQeriLfNOz3xAVgWxtvJO1KcG/baF2xMiCesSRWd4BitWcR9Zog5ujr7ZJKrKR2oM2NRgwdBLtiED8wEN9L13d7TEc2kSiaLiJC/mkaHpyGMMpduxwsnqY4Id7SftbscGelXrpLv3zACWJESKW/rGpG0jXOFUqpdTIOzUCfqg39Ns8dSqUYslKqkMN0/XFSTdBYZlAi1hh6a21GxV1iEoITS0DAH3D8Gdlm+gQU3++2iH1QiahgUocgd9PU69FZnrTDHSGZwPaKVvSH2hH2SFHSsIbQKO2x/PV7n7BDaOeMBmeK/aHbVl6ju6CDNzBeP0xSOUhjma44jBVGew3JRn9c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(39860400002)(366004)(396003)(136003)(4326008)(52116002)(5660300002)(36916002)(53546011)(45080400002)(2906002)(6916009)(4001150100001)(6486002)(36756003)(31686004)(31696002)(26005)(966005)(66476007)(16576012)(16526019)(54906003)(66556008)(316002)(478600001)(66946007)(8936002)(8676002)(186003)(2616005)(956004)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: V1OM4OfV8sYmpS/IySOAnRccZVixRynauF4mdHsf5/411tnx4Pp1keczAM+nabFVSfIRgELCNoNToG4+4AKdFfnCsiAPyJmJ10VvquIu4fd1J97YWkm786kkfiYy0zK56FgKXuVJwgfaAP1MXNStOLttF8ZbEqNGoe7JBAZaIQXQduXhHgkyfef7juFS1so3LgVa3ChNwqjqOQ5adkNX4lUC8jfum7m7Zly2xYW2vnyBHmnDETj0Bhl/mjSslDPHSQMjfzaEtZIBMLPtAHEQ4dylGcFv6OEn2f0xvNPJ+JCjfHby9insWWVVIGPZwv/sEoYEeMCoyOtUmClzIG/dhSd7Zu4/dDcQRg2dihHGBp67pPtuSuVjxoz+SS64KAEHNwDjRjPJk0iFiQO7Tg/BcXsBgX+CiXcmRp1pV20G5+lFVixAg2AjDT5w1Ys7Tbuztr+i5lSUyjLL09OMyuAJkGt5wcGjgHtT+jh/b7OiPynrl2ooXOAOF2CcfEs1kLmky4mNrB+oUfNwwoAhg6PgYG/534b0oTXA3Y5ajIDRt+4VorViOh8zjxMsCoVlrismau8cykSDIgBICn6R068fx/bLiTX4g1Iz4gHTTqyx92BDle2XZ9TRON5xRroP7icFedHwm0uISv8uhp9UbwExejnkcuHvD48vZTQYVoERLb4nBUosdWKocwHgtiIVaGkIpHafqpFHFqeTmFUPgKoRTUhK1X2wGBHp2GOiQcb5hbLtYcv6+oK9oaW9d+KxQMTJ7nVPaQ9BWVt9pMQGuWckbDFROxGSIKwVEq1s5LtcBUpRll3Rcxhp5JObSutWCduDU47XvoQyxvLc5TDjif0xWmnMxLGOvVLQJcmuo7WG9mKrYWvAh32AC1ktwsNax2UPNXD8vVdisUsEvL8/YEZaqQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58b30a9f-f7e3-4770-ab6c-08d8873f36d3
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2020 19:14:44.8264 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YPWu71HcgiN4CMFmnHng8bO5fi9tc+jQ8pIG8c+qeNaGPDvK8NBY2KRjCPnxhfJZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2472
+References: <1605164796-22215-1-git-send-email-Prike.Liang@amd.com>
+ <1605164796-22215-2-git-send-email-Prike.Liang@amd.com>
+In-Reply-To: <1605164796-22215-2-git-send-email-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 12 Nov 2020 14:48:52 -0500
+Message-ID: <CADnq5_NoSjFugXnP8pzpGYdJdTKFVrLacmDMo+Q8+3t1+=yXVw@mail.gmail.com>
+Subject: Re: [PATCH 2/5] drm/amdgpu: add amdgpu_gfx_state_change_set() set gfx
+ power change entry
+To: Prike Liang <Prike.Liang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,88 +75,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: James Zhu <James.Zhu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Huang Rui <ray.huang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2020-11-12 1:57 p.m., Alex Deucher wrote:
-> On Thu, Nov 12, 2020 at 10:23 AM James Zhu <jamesz@amd.com> wrote:
->>
->> On 2020-11-12 9:23 a.m., Alex Deucher wrote:
->>> On Wed, Nov 11, 2020 at 5:28 PM James Zhu <James.Zhu@amd.com> wrote:
->>>> This allows us to enable dec software ring feature on VCN.
->>>> The default is 0 for all asics, and it is only valid for
->>>> asics with vcn3.0 and above.
->>>>
->>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
->>>> Reviewed-by: Leo Liu <leo.liu@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
->>>>    2 files changed, 9 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> index 20400ec..cc47da6 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> @@ -209,6 +209,7 @@ extern int amdgpu_si_support;
->>>>    extern int amdgpu_cik_support;
->>>>    #endif
->>>>    extern int amdgpu_num_kcq;
->>>> +extern int amdgpu_dec_sw_ring_enabled;
->>>>
->>>>    #define AMDGPU_VM_MAX_NUM_CTX                  4096
->>>>    #define AMDGPU_SG_THRESHOLD                    (256*1024*1024)
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 999f84d..570088f 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -160,6 +160,7 @@ int amdgpu_force_asic_type = -1;
->>>>    int amdgpu_tmz;
->>>>    int amdgpu_reset_method = -1; /* auto */
->>>>    int amdgpu_num_kcq = -1;
->>>> +int amdgpu_dec_sw_ring_enabled;
->>>>
->>>>    struct amdgpu_mgpu_info mgpu_info = {
->>>>           .mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
->>>> @@ -806,6 +807,13 @@ module_param_named(bad_page_threshold, amdgpu_bad_page_threshold, int, 0444);
->>>>    MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
->>>>    module_param_named(num_kcq, amdgpu_num_kcq, int, 0444);
->>>>
->>>> +/**
->>>> + * DOC: dec_sw_ring_enabled (uint)
->>>> + * Override vcn decode software ring features enabled.
->>>> + */
->>>> +MODULE_PARM_DESC(dec_sw_ring_enabled, "vcn dec sw ring support (1 = enable, 0 = disable (default))");
->>>> +module_param_named(dec_sw_ring_enabled, amdgpu_dec_sw_ring_enabled, int, 0444);
->>> How about just vcn_sw_ring as the parameter name?
->> [JZ] It is for decode ring only. if just use vcn_sw_ring. I am not sure
->> if it will confuse people.
-> Are we intending to have a separate enable option for enc?  If so, is
-> there value in that vs just having one knob for both?
-
-[JZ] VCN ENC is using software ring from the beginning. So only
-
-vcn3 dec supports both hardware ring and software ring.
-
+On Thu, Nov 12, 2020 at 2:06 AM Prike Liang <Prike.Liang@amd.com> wrote:
 >
-> Alex
+> The new amdgpu_gfx_state_change_set() funtion can support set GFX power
+> change status to D0/D3.
 >
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> Acked-by: Huang Rui <ray.huang@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c              | 20 ++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h              |  7 +++++++
+>  drivers/gpu/drm/amd/include/kgd_pp_interface.h       |  1 +
+>  drivers/gpu/drm/amd/pm/inc/hwmgr.h                   |  1 +
+>  drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h                |  3 ++-
+>  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c     | 19 +++++++++++++++++++
+>  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 10 ++++++++++
+>  7 files changed, 60 insertions(+), 1 deletion(-)
 >
->>>> +
->>>>    static const struct pci_device_id pciidlist[] = {
->>>>    #ifdef  CONFIG_DRM_AMDGPU_SI
->>>>           {0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
->>>> --
->>>> 2.7.4
->>>>
->>>> _______________________________________________
->>>> amd-gfx mailing list
->>>> amd-gfx@lists.freedesktop.org
->>>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CJames.Zhu%40amd.com%7Cd5c7a6f7a7c64c60436b08d8873cc5ad%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637408042373143039%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=%2F7n0SEiVnX2z6AfuwQaUEqlFmLLrQKs7wBHJgagW0OU%3D&amp;reserved=0
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 97a8f78..380dd3a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -819,3 +819,23 @@ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev)
+>         }
+>         return amdgpu_num_kcq;
+>  }
+> +
+> +/* amdgpu_gfx_state_change_set - Handle gfx power state change set
+> + * @adev: amdgpu_device pointer
+> + * @state: gfx power state(1 -sGpuChangeState_D0Entry and 2 -sGpuChangeState_D3Entry)
+> + *
+> + */
+> +
+> +void amdgpu_gfx_state_change_set(struct amdgpu_device *adev, enum gfx_change_state state)
+> +{
+> +
+> +       mutex_lock(&adev->pm.mutex);
+
+pm.mutex is only relevant for the powerplay case.  swSMU uses
+different locking.  Move the mutexes into the if clause.
+
+Alex
+
+> +
+> +       if (adev->powerplay.pp_funcs &&
+> +           adev->powerplay.pp_funcs->gfx_state_change_set)
+> +                       ((adev)->powerplay.pp_funcs->gfx_state_change_set(
+> +                                       (adev)->powerplay.pp_handle, state));
+> +
+> +       mutex_unlock(&adev->pm.mutex);
+> +
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 671d4b3..6b5a8f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -47,6 +47,12 @@ enum gfx_pipe_priority {
+>         AMDGPU_GFX_PIPE_PRIO_MAX
+>  };
+>
+> +/* Argument for PPSMC_MSG_GpuChangeState */
+> +enum gfx_change_state {
+> +       sGpuChangeState_D0Entry = 1,
+> +       sGpuChangeState_D3Entry,
+> +};
+> +
+>  #define AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM  0
+>  #define AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM  15
+>
+> @@ -394,4 +400,5 @@ int amdgpu_gfx_cp_ecc_error_irq(struct amdgpu_device *adev,
+>  uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg);
+>  void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v);
+>  int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
+> +void amdgpu_gfx_state_change_set(struct amdgpu_device *adev, enum gfx_change_state state);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> index 94132c7..f775aac 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -285,6 +285,7 @@ struct amd_pm_funcs {
+>         int (*odn_edit_dpm_table)(void *handle, uint32_t type, long *input, uint32_t size);
+>         int (*set_mp1_state)(void *handle, enum pp_mp1_state mp1_state);
+>         int (*smu_i2c_bus_access)(void *handle, bool acquire);
+> +       int (*gfx_state_change_set)(void *handle, uint32_t state);
+>  /* export to DC */
+>         u32 (*get_sclk)(void *handle, bool low);
+>         u32 (*get_mclk)(void *handle, bool low);
+> diff --git a/drivers/gpu/drm/amd/pm/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/inc/hwmgr.h
+> index 7e29ec2..1bb3794 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/hwmgr.h
+> @@ -366,6 +366,7 @@ struct pp_hwmgr_func {
+>         int (*disable_power_features_for_compute_performance)(struct pp_hwmgr *hwmgr,
+>                                         bool disable);
+>         ssize_t (*get_gpu_metrics)(struct pp_hwmgr *hwmgr, void **table);
+> +       int (*gfx_state_change)(struct pp_hwmgr *hwmgr, uint32_t state);
+>  };
+>
+>  struct pp_table_func {
+> diff --git a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h b/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+> index df4677d..4c7e08b 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/rv_ppsmc.h
+> @@ -83,7 +83,8 @@
+>  #define PPSMC_MSG_SetSoftMaxVcn                 0x34
+>  #define PPSMC_MSG_PowerGateMmHub                0x35
+>  #define PPSMC_MSG_SetRccPfcPmeRestoreRegister   0x36
+> -#define PPSMC_Message_Count                     0x37
+> +#define PPSMC_MSG_GpuChangeState                0x37
+> +#define PPSMC_Message_Count                     0x42
+>
+>  typedef uint16_t PPSMC_Result;
+>  typedef int      PPSMC_Msg;
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> index eab9768..e0d2882 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> @@ -1629,6 +1629,24 @@ static ssize_t pp_get_gpu_metrics(void *handle, void **table)
+>         return size;
+>  }
+>
+> +static int pp_gfx_state_change_set(void *handle, uint32_t state)
+> +{
+> +       struct pp_hwmgr *hwmgr = handle;
+> +
+> +       if (!hwmgr || !hwmgr->pm_en)
+> +               return -EINVAL;
+> +
+> +       if (hwmgr->hwmgr_func->gfx_state_change == NULL) {
+> +               pr_info_ratelimited("%s was not implemented.\n", __func__);
+> +               return -EINVAL;
+> +       }
+> +
+> +       mutex_lock(&hwmgr->smu_lock);
+> +       hwmgr->hwmgr_func->gfx_state_change(hwmgr, state);
+> +       mutex_unlock(&hwmgr->smu_lock);
+> +       return 0;
+> +}
+> +
+>  static const struct amd_pm_funcs pp_dpm_funcs = {
+>         .load_firmware = pp_dpm_load_fw,
+>         .wait_for_fw_loading_complete = pp_dpm_fw_loading_complete,
+> @@ -1691,4 +1709,5 @@ static const struct amd_pm_funcs pp_dpm_funcs = {
+>         .set_df_cstate = pp_set_df_cstate,
+>         .set_xgmi_pstate = pp_set_xgmi_pstate,
+>         .get_gpu_metrics = pp_get_gpu_metrics,
+> +       .gfx_state_change_set = pp_gfx_state_change_set,
+>  };
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> index 133a084..50308a5 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
+> @@ -1439,6 +1439,15 @@ static int smu10_set_fine_grain_clk_vol(struct pp_hwmgr *hwmgr,
+>         return 0;
+>  }
+>
+> +static int smu10_gfx_state_change(struct pp_hwmgr *hwmgr, uint32_t state)
+> +{
+> +       struct amdgpu_device *adev = hwmgr->adev;
+> +
+> +       smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_GpuChangeState, state, NULL);
+> +
+> +       return 0;
+> +}
+> +
+>  static const struct pp_hwmgr_func smu10_hwmgr_funcs = {
+>         .backend_init = smu10_hwmgr_backend_init,
+>         .backend_fini = smu10_hwmgr_backend_fini,
+> @@ -1485,6 +1494,7 @@ static const struct pp_hwmgr_func smu10_hwmgr_funcs = {
+>         .set_power_profile_mode = smu10_set_power_profile_mode,
+>         .asic_reset = smu10_asic_reset,
+>         .set_fine_grain_clk_vol = smu10_set_fine_grain_clk_vol,
+> +       .gfx_state_change = smu10_gfx_state_change,
+>  };
+>
+>  int smu10_init_function_pointers(struct pp_hwmgr *hwmgr)
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
