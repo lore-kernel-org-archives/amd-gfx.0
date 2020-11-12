@@ -5,102 +5,125 @@ X-Spam-Level:
 X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5FBEC2D0A3
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 15:23:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEDEDC56202
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 17:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0555220A8B
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 15:23:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 35F1522201
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2020 17:17:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tT54mb3y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0555220A8B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="OH2WJJwl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 35F1522201
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D1CD6E2BC;
-	Thu, 12 Nov 2020 15:23:32 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700044.outbound.protection.outlook.com [40.107.70.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE226E2BC
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2020 15:23:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 245486E2E1;
+	Thu, 12 Nov 2020 17:17:06 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF3826E2D8;
+ Thu, 12 Nov 2020 17:17:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JEDTeTvNoNoEzpMmG84YYDtYknS9bjfs+BTp4SkjMa0URTC310CEMSFC4bsXBsUWzhAJRW/Rz5yjUbBxfuaK0DzM/aqfEV6nHawJfnHoZe38TzXJYSIqyPVzegTA4BsxckHp4Dwtl7cab8nb1/8TeP/5TrZ7OfGYcAIJtN2lqhnM0Cjl9iTzh6tF7h9wLjemOmKFp/tPzp4v0Zy4iheREEvgA++v+jNojmPZlOOEVe414EzeaWUHCwlN/O/xcCLz8htqrbPE8K16DYdVsdL7AO8PApVUGpYz4wBtXe2PBFmOE/YMYvNJewbxtoXxcOMHgHpilqFq1kvfGhCNZBCCdg==
+ b=TxffhTqsaKmK7CYuPQ3kwHmiZqFABW32EoQkosrRlYYisSVQJRkyPk9YrNwJwrgUpFKRw3o9XE+jUqNgBgJDwD5HqZYoMh+nccMqIG4Jf4sOLL1RDMPXeSNeCjnDuQ/UIekisOeEm5MmYBsxYOYY6UivU+n2GNxBidC9xTtdJP43pe5+Nn5uzKWeLsuvXD8OxmowgdZ/wsqReQD3LAmMCDeKK12q0AR3XyU/rqtVEgoex/VHKuy27+w5r0MW6gjHPqRB/AyvCyXrD29GOA6cLUHRcK7GrrMjCiFwo8r1iFDNqw9nVCKObiacgM4ain7b8AwxJvg4y9zSJn/Kefr6vQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7tm4SDHexKELqFXZap32y12JwB58E6IoErJmp18QB0=;
- b=EQTXkSwBd/wkhswk2/miA1CrirYNyYerSoDDbJUIiDhvsP2EstB6a6C/V8FJGS8zbrYqD5DNzMXIxao5H/vwfkMHe7a+Yt5ftl8urZ/tObM2c2NvWJyL8phWhKKjQOMFcRttwvIdXFgj4KBqUO/Y2P66h2X3+69YyQ+PadPxvGyEpv0uF8DSIEZnnpS/49Trfis3sWg3NX1bcvLwQ/ic+hFKcHquKeEgr/U8RlmfbmHIN/rwWiO9XV2kePZQlEML5B1Mn2oUGRy92zh21yqt9GxwfS1VZBW4WFUigL+JJL8kG0lSIUw9tUuiL3FHHzGmE69Ez3abZW9J6j9vY5asRA==
+ bh=VmA1f1xcpTZmpdOewYg8Dcn/oNlFEoN9gaba4/olAlY=;
+ b=dWVavdrHw7+wKSVEdBFfPEt9wdUB+/2XE00JUd/xpWENmlZhQgorD7b0UhrQ94odijkptmQLSBwmyVta+7fzd0yTSYRHZS7/chJLpdb42e0q5uXy7+RqT+sNGWWDxL02+ugTjXMmb7FIEQqPDU3mUER/MxG2MY2dG+slky+9YEl/WgfBWbup4/I5CanhXFhj7kHFbTYsulLDlw6bpWIoc/ZVIyBW1Ts5R0NYCxDNsfMVvhTepmbfJfjqHfGCkQCVoAq5a7iMUcIkn3yqLJlY+4T7ffupmSYX8Z3ljSOFnYedTknnThxRImP3NbYSiEPmlzg/uVyKLVrqoS0YSNDQRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7tm4SDHexKELqFXZap32y12JwB58E6IoErJmp18QB0=;
- b=tT54mb3y6NDoV6m8237WSkFs9sH2R1bPlIvloncFrA6fHx6vL639eI1DleMDRvOtlc2cgl5Lhl4J7PHa9Fgih8WqDfHE0xcEBv6sKj+Ea/06EUUMdda0NXHH6lFMeB8CUyOWkK4RbEmj/q/WvMnTx4By5AR0hv7CsfXVccwqVY4=
+ bh=VmA1f1xcpTZmpdOewYg8Dcn/oNlFEoN9gaba4/olAlY=;
+ b=OH2WJJwlpHKcrkftRiY2Yy+HdBh01Kw1HC0iyLzdQxdZwAjCuM8r9l4xuXlzvVhDQWyopxVBjU1tNDhsBrnKJ2MGHAlT637+8cXNhgU2uIXcpJ7MdL29Lhf5z9mOhN54A83pjsdr92Nn1p6tVUdIoZDMZR0ftukU6wOHYZCxyJI=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com (2603:10b6:4:bb::13) by
- DM6PR12MB4201.namprd12.prod.outlook.com (2603:10b6:5:216::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21; Thu, 12 Nov 2020 15:23:29 +0000
-Received: from DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::1059:3b25:8f54:5e5a]) by DM5PR12MB2517.namprd12.prod.outlook.com
- ([fe80::1059:3b25:8f54:5e5a%7]) with mapi id 15.20.3541.025; Thu, 12 Nov 2020
- 15:23:29 +0000
-Subject: Re: [PATCH 1/5] drm/amdgpu: add vcn dec software ring enabled
- parameter
-To: Alex Deucher <alexdeucher@gmail.com>, James Zhu <James.Zhu@amd.com>
-References: <1605133674-21093-1-git-send-email-James.Zhu@amd.com>
- <CADnq5_OuXH4iWR7baRsUDTO3BMe=TditrXgCqvzC1U_pb27saQ@mail.gmail.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-Message-ID: <9971c116-faf9-7ebe-0b59-4ff1b5cd25ae@amd.com>
-Date: Thu, 12 Nov 2020 10:23:27 -0500
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Thu, 12 Nov
+ 2020 17:17:02 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::1ccc:8a9a:45d3:dd31]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::1ccc:8a9a:45d3:dd31%7]) with mapi id 15.20.3541.025; Thu, 12 Nov 2020
+ 17:17:02 +0000
+Subject: Re: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
+To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org
+References: <20201112132117.27228-1-tzimmermann@suse.de>
+ <20201112132117.27228-5-tzimmermann@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <3daf9b24-034a-9791-ce30-9f5eba66e7c1@amd.com>
+Date: Thu, 12 Nov 2020 18:16:55 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <CADnq5_OuXH4iWR7baRsUDTO3BMe=TditrXgCqvzC1U_pb27saQ@mail.gmail.com>
+In-Reply-To: <20201112132117.27228-5-tzimmermann@suse.de>
 Content-Language: en-US
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: YTBPR01CA0009.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::22) To DM5PR12MB2517.namprd12.prod.outlook.com
- (2603:10b6:4:bb::13)
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM0PR03CA0040.eurprd03.prod.outlook.com (2603:10a6:208::17)
+ To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.230.192] (165.204.55.251) by
- YTBPR01CA0009.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::22) with Microsoft
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM0PR03CA0040.eurprd03.prod.outlook.com (2603:10a6:208::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3564.25 via Frontend Transport; Thu, 12 Nov 2020 15:23:29 +0000
+ 15.20.3541.21 via Frontend Transport; Thu, 12 Nov 2020 17:17:00 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 412d4447-3d5e-48d0-3431-08d8871ee88c
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4201:
+X-MS-Office365-Filtering-Correlation-Id: 81488b26-3726-46a2-4130-08d8872ec500
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4206:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB420199FF7C7E554DA72F378CE4E70@DM6PR12MB4201.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4206FA7AC3D6C494B0D9A73183E70@MN2PR12MB4206.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VQvyYer2dQ1oIle0yO1bOgYZK0xdCo3+qfmdET/mZE55gugeX0LqKKDiVL9JOWDIQh3LIqA/Y9Q77x/hnVcxT+FPBLQsBopTO89I2OQ5zSWORVX1FydlMn3TbFI/bW2jM7SNW+AE0SGzYCzvkVXT9VaurVAoEonfRZscZA3YfZI4GBIdF2i1rIOxrXVmJ6OWGq67MOJP6hr7F6fRr3AEWhW2i5cGGSoV2QH45xvkGMXla0OwHbMKAoPR61+tPrJevvxzw0vDBxe6Q9Nb+CW13OUwysZysNbx1wqp3M6N45DPt21Uz0Hq2n6ymOXuGDawBLqemzkPxUlmNGYaduvH0m9HN2JlDdfSryVF3q9B9ajmxNL7AKP/lnGRIZMVk/1Nuc/RPwIpyUOp2HOPOyINNDc6RKgizFSsY+D2ur2tC5c=
+X-Microsoft-Antispam-Message-Info: deqfF8OE8wPlrFb5nokm+vJlSzARESWi3KTRW0UrvUvzKdRf8Y+1lzJDGCZvVULzwiHWqI0FQ9rn7SgfMH+2me74anJxYR3882FBMzb3N8Mf4McP19Yn+mWxjF/xVUteUe2FbsVZ9Z6Ux5iaNSE50WDhoQP/4bn0HTSEwh0TiiZphjeo7BkY9v9xvW76LQbe37MO+yiOQaREn1E6GLbnhuLjmFpjOFPuN3AxtEyV71vsRed9Wqq3w4YyvdIRVtb/xd6hu1HPRowXbTjjDoeJVOnaPOFdgVHeLVYQScd5Reb2KiCulNZegNmNICrQduZYBVZabQypvvjUXb5Ktb4bcNphd0KmuLdtpu9+oPhVozl91DJSQy4NNUYgBMVsQhmP
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(956004)(16576012)(5660300002)(31686004)(316002)(6486002)(36756003)(186003)(110136005)(2616005)(4326008)(16526019)(2906002)(6636002)(66556008)(66946007)(66476007)(31696002)(4001150100001)(45080400002)(36916002)(26005)(8936002)(966005)(8676002)(52116002)(53546011)(478600001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(366004)(376002)(136003)(396003)(16526019)(478600001)(4326008)(66556008)(31696002)(36756003)(66946007)(2906002)(5660300002)(8936002)(66476007)(186003)(2616005)(52116002)(316002)(6486002)(8676002)(86362001)(6666004)(31686004)(83380400001)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: rs0rXNdqTOOc6jpi1MjCtEnIKxV4gK0fmInIv36AXr+hcGkfRz+3h0adsecNrjd/cpH402BOVm2kRojbKoyk1LSgYsshsQdTzuU4kaUWr+bqgg1EnJGncEW9vuCZ0ywrlgBpTH2S9FAl5eHXVDhsKT4tgW8rR29R6mKAd1kSKKVRfkiKRliqh8ibdEi3NYoFX+ouLPN/Cf1v6fmjxNM2eTuqBmkUAlZwcqJYplNr6v4OcwfuMorDNVpzWD0nqj6B/vztqAJPfGZg6/YzTHheh33rLq8XZq7h700kyOo9Gin374uwDdqmUErjEmjfZr6Ve5Ft/yBg/IBX83zlC5TMcpumGoufwY1eKwYVohCplJ+5KlB1s7OtwxQd4ecNtrOLKA8Pm+LJB8KnmP0aZ0uN+6iXhGzTxjagxnPTb/QLkwMiFwS3i1WLUCmqIctp7owlakDfFapYi0d1RvjwYDrw4LZuyP3yjh6TfTnLVOfxfrZb9B2EuDadh0yS/RLNY4fnymKaAssCXzm2h7dH4QUGLT/TJ6zfRCkgorcdfNz6NeyR+Xu4lzrIHmwwcNoGaNqSsdtHy0RK4uiMO9/mkf05UFhcUst8LI9dtzgqp4RTeziARc2dYLPQbLqxy2QSpyTpcXp6s9/P6TOWWM8bAkq9B8R/UOzMFkXw2qdgojEBbmmhpmXXS/Q0MghUs9PV5cs/AZmuW4XCPeKQOnhIunNJFoWS0/p13JcQTQQ21AiHlAspK8iLy8r67Zb78jhRbx4HPJ5bVKnXgtYKQV13cem5nW6nN4hSDCPLl9b7gyaJuJ59JqKjwziMrpTqSkE/forGq06uBKM7WvjentZOMiUFuGNox7gMAMR5tqiaSmCswC4cueMUjtLXV0ZX6S/MlXGkt5GH4CZ7TmOg740SNbTq4g==
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RGZURlhGQ0ZTb2VzUWwycTUyVk10UnI1N2ZvU3BQYzJFS2plcld2NUl5dTYv?=
+ =?utf-8?B?bUwvTWFWTTlUbThPa210QWpxR0dhZzNZR3JWczM5VFd2azRKTUpUME5iNFIz?=
+ =?utf-8?B?c1hDcTZRdWFxT3dXQUhlSE42Y0lMdnRudDFrTnBQbkFad1hBOSttNjhxcVhm?=
+ =?utf-8?B?dFZCY29TVmwrMGpGdHdNWVNXOU4xRk5KRnZNdUtMZHFPQVoxM1plMUE2bUtq?=
+ =?utf-8?B?cHM0Tjg5cURsYUtiN3JvOUVrT00wQVhDNDJPZVBOejlwYUVtOGlwaG41cHp1?=
+ =?utf-8?B?dWFFNXRtZ05GTXlmb3pPMkdPbGs2Znc4YW1tZjhEMzY1NWI5NEVkdFN3VHBJ?=
+ =?utf-8?B?L3drM2h6VUVEeFM2T3hDK1VjS1RVTks2b1BnUzJLdXBSUFJaVWlneXp3TmZI?=
+ =?utf-8?B?ZXZseG5LbFZ3VnhjajhPZzE2Q2g3a2tyckY3b0hndWlkeXM4MzdHWUlYaEti?=
+ =?utf-8?B?anZIOThoeXovM0I4OWtBTjhtOGhTM05vQjFiQ0d4UVNDZzF0dFNXV0RUNTky?=
+ =?utf-8?B?Mi93a0gyakpuckN5bklzOGw4L2JLQ3A1WHVGZ1lieW5PS1JQUlE1QlI5SUc2?=
+ =?utf-8?B?bFhQMDhOS3dvcTNhVmh5dXZyaWVUNmZVWXFwS2FLdmFVSjJqbTI0dUtKanRD?=
+ =?utf-8?B?bHptVEJUei9RKzZ5ZE9rOHRoMzZMdW1RTG9DWkJIaDNWc3FZOHZwUXcxdTBN?=
+ =?utf-8?B?SXlaZnRXSitYaVV5Q0hRcnRCVFdRRUxZY2VXUkZhYkF4L1VvUURRemJzNlQ0?=
+ =?utf-8?B?aXZ3WjkvMEpMZWdocjlrU0hEWnhqUFFocWgxdXFKem9nMG1KUWQ2Wmpxc215?=
+ =?utf-8?B?M2tldFFQZ3ZKUjUyTnBuUVZhcDZIQ2kzblRoS285UnNLWXJ4WmZkMnFBU0Fn?=
+ =?utf-8?B?UmpNNXI2cDRJY0IzcFFFWUszdHRpRElCdjcwOEVxd0gzMi84WGZMTGVGNEp5?=
+ =?utf-8?B?VVhBWXI0Mkp0NUE0Y2NSTldiaDZvNWVINmNjbmVGSGMxVTdDVmw2MVBjV2c3?=
+ =?utf-8?B?VlhMZFltTm1qTE9JRXhXRmRyNWFQOWEyYmxsZzNZeUo0dlY5NXJ4UllCa0Jr?=
+ =?utf-8?B?T0tTUllZUVpBSFRyZGRBZzZtNUVqUURFaXE0MFp4VzYyUmsxdkhONVM4RFJv?=
+ =?utf-8?B?dHoyNHlVRnQvd0xHVlVENTAxN1ZGeXBTNzBnOHdjc2RWQTF1V05mUG4xeUQy?=
+ =?utf-8?B?UmhTNTVuUmEyL3p3bnp5eHIwUnFVelpMSFpJTzJPb2w1T0U0cjRPK1JyS25T?=
+ =?utf-8?B?OFg5RnZBT1VNUlVNSzJMZWpnS0tOQmhvNnI2VXFvV0xJTTZKZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 412d4447-3d5e-48d0-3431-08d8871ee88c
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81488b26-3726-46a2-4130-08d8872ec500
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2020 15:23:29.5015 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2020 17:17:02.3104 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: serhjLyB0/O5H4VvdQ/vpBAieRpDvKb4eK0nmPMMxI+0FpfzrOQd5bxee7nBxOyS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4201
+X-MS-Exchange-CrossTenant-UserPrincipalName: +jJQsQtDZCDWQ/tpr71aEdAX/lQe89fwZBCZ8s3iCfnUP2bih/arFaLMPf8qXwu8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,75 +135,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2020-11-12 9:23 a.m., Alex Deucher wrote:
-> On Wed, Nov 11, 2020 at 5:28 PM James Zhu <James.Zhu@amd.com> wrote:
->> This allows us to enable dec software ring feature on VCN.
->> The default is 0 for all asics, and it is only valid for
->> asics with vcn3.0 and above.
->>
->> Signed-off-by: James Zhu <James.Zhu@amd.com>
->> Reviewed-by: Leo Liu <leo.liu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
->>   2 files changed, 9 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index 20400ec..cc47da6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -209,6 +209,7 @@ extern int amdgpu_si_support;
->>   extern int amdgpu_cik_support;
->>   #endif
->>   extern int amdgpu_num_kcq;
->> +extern int amdgpu_dec_sw_ring_enabled;
->>
->>   #define AMDGPU_VM_MAX_NUM_CTX                  4096
->>   #define AMDGPU_SG_THRESHOLD                    (256*1024*1024)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> index 999f84d..570088f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -160,6 +160,7 @@ int amdgpu_force_asic_type = -1;
->>   int amdgpu_tmz;
->>   int amdgpu_reset_method = -1; /* auto */
->>   int amdgpu_num_kcq = -1;
->> +int amdgpu_dec_sw_ring_enabled;
->>
->>   struct amdgpu_mgpu_info mgpu_info = {
->>          .mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
->> @@ -806,6 +807,13 @@ module_param_named(bad_page_threshold, amdgpu_bad_page_threshold, int, 0444);
->>   MODULE_PARM_DESC(num_kcq, "number of kernel compute queue user want to setup (8 if set to greater than 8 or less than 0, only affect gfx 8+)");
->>   module_param_named(num_kcq, amdgpu_num_kcq, int, 0444);
->>
->> +/**
->> + * DOC: dec_sw_ring_enabled (uint)
->> + * Override vcn decode software ring features enabled.
->> + */
->> +MODULE_PARM_DESC(dec_sw_ring_enabled, "vcn dec sw ring support (1 = enable, 0 = disable (default))");
->> +module_param_named(dec_sw_ring_enabled, amdgpu_dec_sw_ring_enabled, int, 0444);
-> How about just vcn_sw_ring as the parameter name?
-[JZ] It is for decode ring only. if just use vcn_sw_ring. I am not sure 
-if it will confuse people.
+Am 12.11.20 um 14:21 schrieb Thomas Zimmermann:
+> In order to avoid eviction of vmap'ed buffers, pin them in their GEM
+> object's vmap implementation. Unpin them in the vunmap implementation.
+> This is needed to make generic fbdev support work reliably. Without,
+> the buffer object could be evicted while fbdev flushed its shadow buffer.
 >
->> +
->>   static const struct pci_device_id pciidlist[] = {
->>   #ifdef  CONFIG_DRM_AMDGPU_SI
->>          {0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
->> --
->> 2.7.4
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7CJames.Zhu%40amd.com%7C6a8168ed39b74d9a0a8f08d88716a006%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637407878530324835%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=egZMRoAdhY%2FRQAVENCT5CEVivi%2Fdzsn%2BUxPrnHJRKzU%3D&amp;reserved=0
+> In difference to the PRIME pin/unpin functions, the vmap code does not
+> modify the BOs prime_shared_count, so a vmap-pinned BO does not count as
+> shared.
+>
+> The actual pin location is not important as the vmap call returns
+> information on how to access the buffer. Callers that require a
+> specific location should explicitly pin the BO before vmapping it.
+
+Well is the buffer supposed to be scanned out?
+
+If yes then the pin location is actually rather important since the 
+hardware can only scan out from VRAM.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/gpu/drm/radeon/radeon_gem.c | 51 +++++++++++++++++++++++++++--
+>   1 file changed, 49 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+> index d2876ce3bc9e..eaf7fc9a7b07 100644
+> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> @@ -226,6 +226,53 @@ static int radeon_gem_handle_lockup(struct radeon_device *rdev, int r)
+>   	return r;
+>   }
+>   
+> +static int radeon_gem_object_vmap(struct drm_gem_object *obj, struct dma_buf_map *map)
+> +{
+> +	static const uint32_t any_domain = RADEON_GEM_DOMAIN_VRAM |
+> +					   RADEON_GEM_DOMAIN_GTT |
+> +					   RADEON_GEM_DOMAIN_CPU;
+> +
+> +	struct radeon_bo *bo = gem_to_radeon_bo(obj);
+> +	int ret;
+> +
+> +	ret = radeon_bo_reserve(bo, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* pin buffer at its current location */
+> +	ret = radeon_bo_pin(bo, any_domain, NULL);
+> +	if (ret)
+> +		goto err_radeon_bo_unreserve;
+> +
+> +	ret = drm_gem_ttm_vmap(obj, map);
+> +	if (ret)
+> +		goto err_radeon_bo_unpin;
+> +
+> +	radeon_bo_unreserve(bo);
+> +
+> +	return 0;
+> +
+> +err_radeon_bo_unpin:
+> +	radeon_bo_unpin(bo);
+> +err_radeon_bo_unreserve:
+> +	radeon_bo_unreserve(bo);
+> +	return ret;
+> +}
+> +
+> +static void radeon_gem_object_vunmap(struct drm_gem_object *obj, struct dma_buf_map *map)
+> +{
+> +	struct radeon_bo *bo = gem_to_radeon_bo(obj);
+> +	int ret;
+> +
+> +	ret = radeon_bo_reserve(bo, false);
+> +	if (ret)
+> +		return;
+> +
+> +	drm_gem_ttm_vunmap(obj, map);
+> +	radeon_bo_unpin(bo);
+> +	radeon_bo_unreserve(bo);
+> +}
+> +
+>   static const struct drm_gem_object_funcs radeon_gem_object_funcs = {
+>   	.free = radeon_gem_object_free,
+>   	.open = radeon_gem_object_open,
+> @@ -234,8 +281,8 @@ static const struct drm_gem_object_funcs radeon_gem_object_funcs = {
+>   	.pin = radeon_gem_prime_pin,
+>   	.unpin = radeon_gem_prime_unpin,
+>   	.get_sg_table = radeon_gem_prime_get_sg_table,
+> -	.vmap = drm_gem_ttm_vmap,
+> -	.vunmap = drm_gem_ttm_vunmap,
+> +	.vmap = radeon_gem_object_vmap,
+> +	.vunmap = radeon_gem_object_vunmap,
+>   };
+>   
+>   /*
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
