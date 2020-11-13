@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF1FDC56202
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 20:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB191C63697
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 20:58:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 606472224A
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 20:58:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2D7B42224A
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 20:58:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Sws74649"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 606472224A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="f/2Z3Jlo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D7B42224A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F20D56E833;
-	Fri, 13 Nov 2020 20:58:00 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770082.outbound.protection.outlook.com [40.107.77.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3667B6E833
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 20:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CADFB6E83A;
+	Fri, 13 Nov 2020 20:58:02 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15A6A6E83A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 20:58:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gtAcDaRT/Oj4ARF1LsY/dUlfX65ubza6eeN3i9li9sO/n61nwXJ/oweethtaC3pgpOBIhha5UMK1R+PT7P8SnwPCDnDzBzB4JmuqvsJbKJNyMkedH9lwnuZbQJ0kk4WGPjbygXrnvrxqWXGvsUJ+rYY4/Xb/PnCHh60hCsD+rrsCZsSU5ZxjJRGD0OWnaxQMZVE8M4Jl8eTa+1feB7/s565BLPA5uj/iqpsru6EzwkMdX0tbhbc78UD7hfbRKSuhB28cttDf8cO/IZpUEPsSPjX9BHclLWEXxhqNedjBkGZSaIy14mJige4OZm98iAmyb78yOFqZJi0iGoI8fdWEbg==
+ b=d0GlQYKg47yRsncfVLxBYNNhsBDdm2H+PiIe3KYcpbbGx73L4gmn0vjLXZJqnnadGxEosgVS+Fk/Wbavw0kzCWLfDP0K8Rl3fM+z8ZW0iE/vrtNUWmbHoMvnMCr5l3vCJ0A9afDfJ1HdXLsLEXzqDi21p1Re4G2r4I7D3dJZPCfe3WSWekI9zqKexwHylEKBnQbplzpHy7EULBuh8ZbsV0zMRzM0D9FMOp8/UltWwkrzcCXCSjYXf6jTpIjsTbh1dZv3s9UtJ4GN39M6tW4AUyloW6xwXDUmox8DIhZwGrydMaI+oGmPLcNRgRAivL15dY+Ta2lADU78q8zUQNsRdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0eaIBkYrbL1Ww4LugRBmqHMneYfIj4wlvpEUQaFlM6M=;
- b=igAJ1nm0sQw7UPAowoW4Vh9P/pRlClaxQrBjP/oDQq5x/5BKerL5pHl5N36mDaGb7ioLLu4tslTLqxW+sQh5anyDyyop6LXdJaARQPC19dF0JFbZAmdzNuGFHkN40Q4+etPJpSHUXkl4gOFAY9ZiVhkyyXvESdWNwygTGHHC41wnCTQ7KMkZP/gJGzSGh8ne9Sa8teky9Poyp6rSDGFag4K6ijBFpCujBE0eMT2wQ030m0NaqE7+rYL1yL0pmv+xyayRObKuMpahBtJGZHDTGlrXKTUjxzqRmFTcR4bIsCq3FUjC15byfDfuScvu+onLWjMAA/ckDbIoNGnoTuw0+A==
+ bh=P/4wuOYzG5OFf2bzACKoXp0Z53VlLKjgh4+91oDITq8=;
+ b=d5M3y+5LIIUQQKu2s/rZ4DUIKEFcFEpYZ1mN/HzU9sIqLN0tWJTuef+DZ7TmhlRCgF3JiDA4BPMIyvbSpv+XO5QhE2sw987sdKtKZDO74+VzE+UZc1mzHaxzsDO184h3DAS+Q4WR1Or+6moxPoqnBfMNGwSQtbulfypIA+bwpcpGdJquLaKZ0ODEDAzIYFoKf7xpTHp+6ioi/QlptNg4Kx8a4R4olRSaKnuu+KzYtRUJ5mA5C0o9G2mhfvowjhpwFmyBYc8NECX8ufcFf52kqpG9IUFjmaGNAQufryFvBU3VQ49zlFuhsr1u/aHZNCUrhXZUFLIVDMiqJGJD8cWUuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=none action=none header.from=amd.com; dkim=none (message not signed);
@@ -40,44 +40,44 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0eaIBkYrbL1Ww4LugRBmqHMneYfIj4wlvpEUQaFlM6M=;
- b=Sws7464975SRg0xVs1LWcVxuBK80RfX8E5O5omlYnhxxC7ZXGNefGRVWvtlP4R/DLhsEpMb2X6w/skRmTI7RKXZHiHDmGjCg3Y29tKhpieaZUj370zSWcCJG4KQ627F/aE8Vl68XEpM1XUWpKUwBCQYdoLwizgSDoUEFL/bNchA=
-Received: from DM5PR2201CA0016.namprd22.prod.outlook.com (2603:10b6:4:14::26)
- by DM6PR12MB3867.namprd12.prod.outlook.com (2603:10b6:5:1cf::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Fri, 13 Nov
- 2020 20:57:58 +0000
-Received: from DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:14:cafe::af) by DM5PR2201CA0016.outlook.office365.com
- (2603:10b6:4:14::26) with Microsoft SMTP Server (version=TLS1_2,
+ bh=P/4wuOYzG5OFf2bzACKoXp0Z53VlLKjgh4+91oDITq8=;
+ b=f/2Z3JloiaRYzbc2jj9t6hEpGiHnrilj7QQ2wC3rftZMOXVFO2s7scJ9VDcFnLlmk5oq2rb8ojfMMuf7k+EdOfANRQFM/lDVRtawdkZ1YV1UqW0ieFVI4u/8CoP7MDTYhS3Pveo3jhK3eOrntqHQjyzUG1pk7Ggb3nwpnSKqvdY=
+Received: from MWHPR19CA0078.namprd19.prod.outlook.com (2603:10b6:320:1f::16)
+ by BN6PR12MB1332.namprd12.prod.outlook.com (2603:10b6:404:15::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.22; Fri, 13 Nov
+ 2020 20:57:56 +0000
+Received: from CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:320:1f:cafe::c5) by MWHPR19CA0078.outlook.office365.com
+ (2603:10b6:320:1f::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.25 via Frontend
- Transport; Fri, 13 Nov 2020 20:57:58 +0000
+ Transport; Fri, 13 Nov 2020 20:57:55 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=none action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT067.mail.protection.outlook.com (10.13.172.76) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT063.mail.protection.outlook.com (10.13.175.37) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3541.22 via Frontend Transport; Fri, 13 Nov 2020 20:57:56 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3541.22 via Frontend Transport; Fri, 13 Nov 2020 20:57:55 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 13 Nov
- 2020 14:57:55 -0600
+ 2020 14:57:54 -0600
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 13 Nov
- 2020 14:57:55 -0600
+ 2020 14:57:53 -0600
 Received: from bindu-HP-EliteDesk-705-G4-MT.amd.com (10.180.168.240) by
  SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3
- via Frontend Transport; Fri, 13 Nov 2020 14:57:54 -0600
+ via Frontend Transport; Fri, 13 Nov 2020 14:57:52 -0600
 From: Bindu Ramamurthy <bindu.r@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 02/17] drm/amd/display: Hook up PSR residency command to DSAT
-Date: Fri, 13 Nov 2020 15:56:30 -0500
-Message-ID: <20201113205645.640981-3-bindu.r@amd.com>
+Subject: [PATCH 01/17] drm/amd/display: Program dpp dto based on actual dpp clk
+Date: Fri, 13 Nov 2020 15:56:29 -0500
+Message-ID: <20201113205645.640981-2-bindu.r@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201113205645.640981-1-bindu.r@amd.com>
 References: <20201113205645.640981-1-bindu.r@amd.com>
@@ -85,27 +85,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f5424609-404f-4105-1bb8-08d88816cc18
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3867:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB38673341A21018ABC715C5A4F5E60@DM6PR12MB3867.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1169;
+X-MS-Office365-Filtering-Correlation-Id: 7e7b19fa-a7bb-4011-e652-08d88816cb30
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1332:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB13321A087392A650DDACD83EF5E60@BN6PR12MB1332.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: K2/OlzgZKnxGz3g79ZbNcb7dmSZ1OzQ0iBU5TNvdwxHv/dETjj9wAQeYbCek1JO6tpQfjGkzfQQAoAEWxm+0MrL1QeLxEOpfQQURdeUhEKuy4VM0SQdeXqi+v9gYNLReHHqyw6XO3thBRMH7lzKg51C+mrdeCVQAUWa1MGgj8k0AX2mMemHkj0ZeNKM4MypMmu+xkQuMnvDU4bxP3I6XEkaihYxA3a0gNHzXvfuhO+qSZtG+QHjdh6vrY8NMczwAoiQXDOpwcxqCzeP3OBmGmErA4MMXRggWs1Z0OW9MEwUcA/vZ8ojE21HNNe3r5zlvdNtY9o1aP/Ui+4yBcTKu8Qk0PqZ940vaWNiTbb7qk7W+VHNAVDg1uAd3xEXesyYBYQ6qhXXtMT2HCF46+A79k2A/eN/0kfhZZnxHfgLaSLQoU+4aa2UVhwk1iW8M02mi53kXwkAw3qPMJc2fIaFv4g==
+X-Microsoft-Antispam-Message-Info: nlbIsGfRgbNFvMZN7LvC+SZSZj7KBfhsgKgH8XV+jRlBZJipgM0lpjAtYQhGDbwU2Qi7OTlnFssg0oA+/l6I0lKE0N7w/JWNl0BaaUiclZSVfv1UOScdbALslS3hD3saJSkcH2tGfG85O7qBoA4ma4Bny+ZcmAWP2YI30HuHkpsE4QBKU8n9Vv3X+UFAofniC85q62qWyGjL8udDL2U7ToNZK0gp+CVbczJO3xOG5q9avmspBaUvRfwdkvfOtrOijIFejBUyGBtgIyiEoZYtt+DUYCbevEyjN0odfvJzoRi+Qc1+/EYto6awtFKlhyQJs8IZejbgCL5WNNkm/nhtLjF1EroRsepmpS+JR292X74cu+zxw/U9/BhtyemXACmemWn8+txoT48svU3vnuTW4w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(376002)(396003)(39860400002)(136003)(46966005)(8936002)(2906002)(82310400003)(82740400003)(4326008)(8676002)(2616005)(426003)(478600001)(70206006)(336012)(26005)(47076004)(54906003)(36756003)(7696005)(86362001)(81166007)(186003)(5660300002)(70586007)(356005)(6916009)(6666004)(1076003)(316002)(83380400001)(52103002)(158003001);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(396003)(39860400002)(46966005)(70586007)(70206006)(356005)(8936002)(2616005)(36756003)(316002)(26005)(5660300002)(86362001)(82310400003)(81166007)(82740400003)(478600001)(426003)(8676002)(2906002)(186003)(54906003)(336012)(47076004)(4326008)(6666004)(6916009)(7696005)(83380400001)(1076003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2020 20:57:56.6735 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5424609-404f-4105-1bb8-08d88816cc18
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2020 20:57:55.0893 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e7b19fa-a7bb-4011-e652-08d88816cb30
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3867
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1332
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,110 +119,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Aurabindo.Pillai@amd.com, Wyatt Wood <wyatt.wood@amd.com>,
+ Aurabindo.Pillai@amd.com, Yongqiang Sun <yongqiang.sun@amd.com>,
  Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wyatt Wood <wyatt.wood@amd.com>
+From: Yongqiang Sun <yongqiang.sun@amd.com>
 
 [Why]
-Use GPINT command to get PSR residency from FW.
+dpp dto phase and modulo are programmed with actual dpp global clk
+and pipe clk. Need to use actual dpp clk to prgoram dpp dto modulo
+to get more accuracy ratio.
 
 [How]
-Hook up PSR residency command to DSAT.
-Since PSR Count Request is deprecated, we will use this.
+assign actual dpp clk to dccg for dpp modulo programming.
 
-Signed-off-by: Wyatt Wood <wyatt.wood@amd.com>
+Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
 Acked-by: Bindu Ramamurthy <bindu.r@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 12 ++++++++++++
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 14 ++++++++++++++
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h |  1 +
- 4 files changed, 29 insertions(+)
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 29 +++++++++++++++++--
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index ee2a51b7a2ee..858acd3df2bc 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2783,6 +2783,18 @@ bool dc_link_setup_psr(struct dc_link *link,
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+index ec394e3d8367..9e3d8af3895f 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+@@ -103,6 +103,30 @@ void rn_set_low_power_state(struct clk_mgr *clk_mgr_base)
+ 	clk_mgr_base->clks.pwr_state = DCN_PWR_STATE_LOW_POWER;
  }
  
-+void dc_link_get_psr_residency(const struct dc_link *link, uint32_t *residency)
++static void rn_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
++		struct dc_state *context, bool safe_to_lower)
 +{
-+	struct dc  *dc = link->ctx->dc;
-+	struct dmub_psr *psr = dc->res_pool->psr;
++	int i;
 +
-+	// PSR residency measurements only supported on DMCUB
-+	if (psr != NULL && link->psr_settings.psr_feature_enabled)
-+		psr->funcs->psr_get_residency(psr, residency);
-+	else
-+		*residency = 0;
++	clk_mgr->dccg->ref_dppclk = clk_mgr->base.clks.actual_dppclk_khz;
++	for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
++		int dpp_inst, dppclk_khz, prev_dppclk_khz;
++
++		/* Loop index will match dpp->inst if resource exists,
++		 * and we want to avoid dependency on dpp object
++		 */
++		dpp_inst = i;
++		dppclk_khz = context->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
++
++		prev_dppclk_khz = clk_mgr->dccg->pipe_dppclk_khz[i];
++
++		if (safe_to_lower || prev_dppclk_khz < dppclk_khz)
++			clk_mgr->dccg->funcs->update_dpp_dto(
++							clk_mgr->dccg, dpp_inst, dppclk_khz);
++	}
 +}
 +
- const struct dc_link_status *dc_link_get_status(const struct dc_link *link)
++
+ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			struct dc_state *context,
+ 			bool safe_to_lower)
+@@ -177,7 +201,7 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+ 
+ 	if (dpp_clock_lowered) {
+ 		// increase per DPP DTO before lowering global dppclk
+-		dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
++		rn_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
+ 		clk_mgr_base->clks.actual_dppclk_khz =
+ 				rn_vbios_smu_set_dppclk(clk_mgr, clk_mgr_base->clks.dppclk_khz);
+ 
+@@ -188,7 +212,7 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+ 					rn_vbios_smu_set_dppclk(clk_mgr, clk_mgr_base->clks.dppclk_khz);
+ 		// always update dtos unless clock is lowered and not safe to lower
+ 		if (new_clocks->dppclk_khz >= dc->current_state->bw_ctx.bw.dcn.clk.dppclk_khz)
+-			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
++			rn_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
+ 	}
+ 
+ 	if (update_dispclk &&
+@@ -199,7 +223,6 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	}
+ }
+ 
+-
+ static int get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
  {
- 	return &link->link_status;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 39277aaa3e62..65b083e64131 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -228,6 +228,8 @@ bool dc_link_setup_psr(struct dc_link *dc_link,
- 		const struct dc_stream_state *stream, struct psr_config *psr_config,
- 		struct psr_context *psr_context);
- 
-+void dc_link_get_psr_residency(const struct dc_link *link, uint32_t *residency);
-+
- /* Request DC to detect if there is a Panel connected.
-  * boot - If this call is during initial boot.
-  * Return false for any type of detection failure or MST detection
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index df3879c713c5..0d6fe7c29c20 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -293,12 +293,26 @@ static void dmub_psr_force_static(struct dmub_psr *dmub)
- 	dc_dmub_srv_wait_idle(dc->dmub_srv);
- }
- 
-+/**
-+ * Get PSR residency from firmware.
-+ */
-+static void dmub_psr_get_residency(struct dmub_psr *dmub, uint32_t *residency)
-+{
-+	struct dmub_srv *srv = dmub->ctx->dmub_srv->dmub;
-+
-+	// Send gpint command and wait for ack
-+	dmub_srv_send_gpint_command(srv, DMUB_GPINT__PSR_RESIDENCY, 0, 30);
-+
-+	dmub_srv_get_gpint_response(srv, residency);
-+}
-+
- static const struct dmub_psr_funcs psr_funcs = {
- 	.psr_copy_settings		= dmub_psr_copy_settings,
- 	.psr_enable			= dmub_psr_enable,
- 	.psr_get_state			= dmub_psr_get_state,
- 	.psr_set_level			= dmub_psr_set_level,
- 	.psr_force_static		= dmub_psr_force_static,
-+	.psr_get_residency		= dmub_psr_get_residency,
- };
- 
- /**
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-index 4e113ac5a56b..fe747c20a0d2 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-@@ -40,6 +40,7 @@ struct dmub_psr_funcs {
- 	void (*psr_get_state)(struct dmub_psr *dmub, enum dc_psr_state *dc_psr_state);
- 	void (*psr_set_level)(struct dmub_psr *dmub, uint16_t psr_level);
- 	void (*psr_force_static)(struct dmub_psr *dmub);
-+	void (*psr_get_residency)(struct dmub_psr *dmub, uint32_t *residency);
- };
- 
- struct dmub_psr *dmub_psr_create(struct dc_context *ctx);
+ 	/* get FbMult value */
 -- 
 2.25.1
 
