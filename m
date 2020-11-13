@@ -2,66 +2,66 @@ Return-Path: <SRS0=j5hG=ET=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02E67C61DD8
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 18:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78818C55ABD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 18:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A75CC22226
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 18:00:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 14392208D5
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 18:04:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="su6wlg+C"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A75CC22226
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DCoKSCjM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14392208D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E29B26E7D1;
-	Fri, 13 Nov 2020 18:00:54 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5CC6E5C3;
- Fri, 13 Nov 2020 18:00:53 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id a3so9487692wmb.5;
- Fri, 13 Nov 2020 10:00:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A006E5CA;
+	Fri, 13 Nov 2020 18:04:18 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38D646E5CA;
+ Fri, 13 Nov 2020 18:04:17 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id r17so10934112wrw.1;
+ Fri, 13 Nov 2020 10:04:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Us0fENNtA8MrGKfRxmlrR0fpL28TxcNYZ6RQsQZqhwc=;
- b=su6wlg+CWROm2DLpIZYLTDmysIdXKJdYQ6d3eRmirfTzrwxJWQNj0Sk1YWih0Bh1Ks
- OOw9THVJgXXwXMlrmchvSRhQ9sCl7kgn/L3clQwOrcL659znjr+ZkYZa7Oxts1A0XXmO
- +oe2jALLOIqp2M34hacHNyFhEVvx68QZzcKGyy1lIS0P7H9aghttdnEni+so4sO7JQpF
- M1I+ayXi8Mou9g9Zpj0AJQ/EXy3xi2kh7fQ5v25a1QNRinKy8V9E8oiPf/FTcvH+Imbk
- 5MaJXYuqQnnqAjwlN4JKza2e4Y+J2bmo2Pwj8LqFqVoP5xdtHzZ6AEk0B7FAjWMOOy8B
- H9zw==
+ :cc; bh=GNjaqccHTi0P35N9w0EhJ6TFmWjOcGoBjHPsfLX0L98=;
+ b=DCoKSCjM4pdsQmFiFxtwWWkfE659A+iv/KffrqF1BC1S+PjdlT8Hl+1aVJvY+bG6fe
+ u3Dnrk3sG7uySqMooIoA9D0QBTTbjijfUX+Mz2nTIfjL6xkwkOgOmRCnoQmOIJ1NTsNM
+ EeTfSbbZYQYzyZWynLie6B8qKRN1Axu8na3aGgaUO9S9GhK6/A1KGkXzTP0j4Jke6qJN
+ iTIdhk8YaQMt88H1Xb+vaqHuclQRNxfU0zKh9upE+1FNd1A3k+Ho86eHztbSbUnxMIyL
+ ztYA0UxHokSWuQ4qCandKpyNNGZyqLwzdtJ1LuqkeiM4T9VkacRLO+RJapqzTUTRR4E3
+ 9LGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Us0fENNtA8MrGKfRxmlrR0fpL28TxcNYZ6RQsQZqhwc=;
- b=VTbCXmoKBOgeVuYGkFR2jw2NooDV6eYyzMvVoe3OZMtcc+8qw8vlQjuL0aohAb4ght
- r/Kn/cGLWeWjJenabSpWa1liFm4Yk5VUcX8PGODURyqIT4NTGi15dfu9zrQUdZp8B5b5
- Jw82YXFlT9JIpbVsIl6AAwHxJ6WIr6Lt3kpQXsv7k3UzmAZbRekBMczClmrvVLkRpbHp
- fY0s066tP2G+6p7k6kSqWrkpDy1FcNjQt3p54AfEKlp8VL88B3QGx5HdA5nnIu6QbTpN
- sQxg5j7M2Wt8uXF4ZgOYN2vN2pWIR7YWhBW7/FZEqkVge+KvXJfQ8+BmNG2G3KnUH6E8
- yLdg==
-X-Gm-Message-State: AOAM533Za1YUqvML0tPz0YDXv/axacAg60u+L8PNTWxw1kTOOB5e0ojK
- WA4vTl3lOlNztNpmpE3qgEn/TwptltipU8tLXsc=
-X-Google-Smtp-Source: ABdhPJxguAXyqV8skU2y3sJxvaSkFVRthueuQ/lmsi7es17Ihd4ihFmDnuoSYRM8/G7QVp9TPJ3+OUlPLTNsAK0HKqk=
-X-Received: by 2002:a1c:1c3:: with SMTP id 186mr3643816wmb.39.1605290451569;
- Fri, 13 Nov 2020 10:00:51 -0800 (PST)
+ bh=GNjaqccHTi0P35N9w0EhJ6TFmWjOcGoBjHPsfLX0L98=;
+ b=Uz4W8K7IweFiPAf9twWMIttzeo951t+t33wQt82Et8fT17C2SKNvgTq8n7MuqGVMI9
+ FEvDqmMtRVweX8z/1PP6X3X4VFSn0Li2MebfeJ92CDmKkf9UIJ1ezLgHECqwJ7uaQUa6
+ +g8B4RWHFmAGG3I+vgCH6oB8jYhRqBLw1eS+bCL6/M1Kplitt1m3JouzCMHo2Gqbam/o
+ zTeP6zujROHerInHcw7KBCnUmV0XXAt30aJ3kDzr5dr38BL0SmNOlyHfozrpZBlDqyh2
+ dgGC0PjpdcGZMu43f4IQMr8D6yVmpqkLUUsjAyl4zt6nQfeCneeh2/vSuyaz+/m1cCE1
+ p7+g==
+X-Gm-Message-State: AOAM532RClC/ShwQVHgGgDmAfs5QZKE32k1drnZgwRIzqhx3vVk8nqXD
+ Z5mOKGEKBZA6ktAzcZL12HsV+lRJYSuQ7WhOnaY=
+X-Google-Smtp-Source: ABdhPJzu4cNUrn2VE2zVry+OOgmKMxttYcsMGeRDrV5KrafUemuJTogPBTIYGCGqgkj/jGI860dTaY+QIWA5gDv4CWs=
+X-Received: by 2002:adf:8028:: with SMTP id 37mr4854081wrk.111.1605290654177; 
+ Fri, 13 Nov 2020 10:04:14 -0800 (PST)
 MIME-Version: 1.0
-References: <20201113175533.731834-1-bas@basnieuwenhuizen.nl>
-In-Reply-To: <20201113175533.731834-1-bas@basnieuwenhuizen.nl>
+References: <0gLrKmUEE4VjN5rdf6dUiejliU1GhjCBvH7RFMQYY@cp7-web-044.plabs.ch>
+In-Reply-To: <0gLrKmUEE4VjN5rdf6dUiejliU1GhjCBvH7RFMQYY@cp7-web-044.plabs.ch>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Nov 2020 13:00:39 -0500
-Message-ID: <CADnq5_NsenZ-Y2Jf=PhjUKt2wCrOaLdXv8cexAYUf9e-BLCxtg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/fourcc: Fix modifier field mask for AMD modifiers.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Fri, 13 Nov 2020 13:04:03 -0500
+Message-ID: <CADnq5_PBDHhzfZ5Kt2Q_zuMuwhvVH+hc8YO5xp+0xk=_y2XoVQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/fourcc: add table describing AMD modifiers bit layout
+To: Simon Ser <contact@emersion.fr>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,80 +73,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Simon Ser <contact@emersion.fr>,
+Cc: Daniel Vetter <daniel@ffwll.ch>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 13, 2020 at 12:55 PM Bas Nieuwenhuizen
-<bas@basnieuwenhuizen.nl> wrote:
+On Fri, Nov 13, 2020 at 12:21 PM Simon Ser <contact@emersion.fr> wrote:
 >
-> The DCC_MAX_COMPRESSED_BLOCK has to contain one of
-> AMD_FMT_MOD_DCC_BLOCK_* and with 3 values this doesn't
-> fit in 1 bit.
+> The table describes how each bit in the u64 value is used. Explicitly
+> state which values a field can take if we have defines for them. Also
+> add a note when a field isn't always populated.
 >
-> Fix this cleanly while it is only in drm-next.
+> Forcing people to update the table when changing the bit layout should
+> make it more obvious when there's a mistake, I hope.
 >
-> Fixes: 8ba16d599374 ("drm/fourcc: Add AMD DRM modifiers.")
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> If we get to the point where the bit layout gets more complicated, it
+> might be worth it to split the table into multiple tables (e.g. one for
+> GFX8, one for GFX9+, and so on).
+>
+> Signed-off-by: Simon Ser <contact@emersion.fr>
+> Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> Cc: Alex Deucher <alexdeucher@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
 
 Applied.  Thanks!
 
 Alex
 
 > ---
->  include/uapi/drm/drm_fourcc.h | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+>
+> This already contains the fix in [1].
+>
+> [1]: https://lists.freedesktop.org/archives/amd-gfx/2020-November/056073.html
+>
+>  include/uapi/drm/drm_fourcc.h | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 >
 > diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-> index df56e71a7380..a878664ba41c 100644
+> index ca48ed0e6bc1..253386b7bc6a 100644
 > --- a/include/uapi/drm/drm_fourcc.h
 > +++ b/include/uapi/drm/drm_fourcc.h
-> @@ -1129,7 +1129,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
->  #define AMD_FMT_MOD_DCC_INDEPENDENT_128B_SHIFT 17
->  #define AMD_FMT_MOD_DCC_INDEPENDENT_128B_MASK 0x1
->  #define AMD_FMT_MOD_DCC_MAX_COMPRESSED_BLOCK_SHIFT 18
-> -#define AMD_FMT_MOD_DCC_MAX_COMPRESSED_BLOCK_MASK 0x1
-> +#define AMD_FMT_MOD_DCC_MAX_COMPRESSED_BLOCK_MASK 0x3
->
->  /*
->   * DCC supports embedding some clear colors directly in the DCC surface.
-> @@ -1140,7 +1140,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
->   * If this bit is set that means the fastclear eliminate is not needed for these
->   * embeddable colors.
+> @@ -1114,6 +1114,25 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+>   *
+>   * For multi-plane formats the above surfaces get merged into one plane for
+>   * each format plane, based on the required alignment only.
+> + *
+> + * Bits  Parameter                Notes
+> + * ----- ------------------------ ---------------------------------------------
+> + *
+> + *   7:0 TILE_VERSION             Values are AMD_FMT_MOD_TILE_VER_*
+> + *  12:8 TILE                     Values are AMD_FMT_MOD_TILE_<version>_*
+> + *    13 DCC
+> + *    14 DCC_RETILE
+> + *    15 DCC_PIPE_ALIGN
+> + *    16 DCC_INDEPENDENT_64B
+> + *    17 DCC_INDEPENDENT_128B
+> + * 19:18 DCC_MAX_COMPRESSED_BLOCK Values are AMD_FMT_MOD_DCC_BLOCK_*
+> + *    20 DCC_CONSTANT_ENCODE
+> + * 23:21 PIPE_XOR_BITS            Only for some chips
+> + * 26:24 BANK_XOR_BITS            Only for some chips
+> + * 29:27 PACKERS                  Only for some chips
+> + * 32:30 RB                       Only for some chips
+> + * 35:33 PIPE                     Only for some chips
+> + * 55:36 -                        Reserved for future use, must be zero
 >   */
-> -#define AMD_FMT_MOD_DCC_CONSTANT_ENCODE_SHIFT 19
-> +#define AMD_FMT_MOD_DCC_CONSTANT_ENCODE_SHIFT 20
->  #define AMD_FMT_MOD_DCC_CONSTANT_ENCODE_MASK 0x1
+>  #define AMD_FMT_MOD fourcc_mod_code(AMD, 0)
 >
->  /*
-> @@ -1153,15 +1153,15 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
->   * RB = only for TILE_VER_GFX9 & DCC
->   * PIPE = only for TILE_VER_GFX9 & DCC & (DCC_RETILE | DCC_PIPE_ALIGN)
->   */
-> -#define AMD_FMT_MOD_PIPE_XOR_BITS_SHIFT 20
-> +#define AMD_FMT_MOD_PIPE_XOR_BITS_SHIFT 21
->  #define AMD_FMT_MOD_PIPE_XOR_BITS_MASK 0x7
-> -#define AMD_FMT_MOD_BANK_XOR_BITS_SHIFT 23
-> +#define AMD_FMT_MOD_BANK_XOR_BITS_SHIFT 24
->  #define AMD_FMT_MOD_BANK_XOR_BITS_MASK 0x7
-> -#define AMD_FMT_MOD_PACKERS_SHIFT 26 /* aliases with BANK_XOR_BITS */
-> +#define AMD_FMT_MOD_PACKERS_SHIFT 27 /* aliases with BANK_XOR_BITS */
->  #define AMD_FMT_MOD_PACKERS_MASK 0x7
-> -#define AMD_FMT_MOD_RB_SHIFT 29
-> +#define AMD_FMT_MOD_RB_SHIFT 30
->  #define AMD_FMT_MOD_RB_MASK 0x7
-> -#define AMD_FMT_MOD_PIPE_SHIFT 32
-> +#define AMD_FMT_MOD_PIPE_SHIFT 33
->  #define AMD_FMT_MOD_PIPE_MASK 0x7
->
->  #define AMD_FMT_MOD_SET(field, value) \
 > --
 > 2.29.2
+>
 >
 _______________________________________________
 amd-gfx mailing list
