@@ -2,102 +2,104 @@ Return-Path: <SRS0=j5hG=ET=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E247C55ABD
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 21:55:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11EEEC4742C
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 22:33:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E67D22068E
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 21:55:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A73C321D7F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2020 22:33:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="AiRPU8Eh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E67D22068E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2lccmZie"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A73C321D7F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8348B6E5C5;
-	Fri, 13 Nov 2020 21:55:40 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2070.outbound.protection.outlook.com [40.107.100.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 569E66E5C5
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 21:55:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2898E6E877;
+	Fri, 13 Nov 2020 22:33:22 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C076E877
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2020 22:33:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GgzlxOhUJDB69b4TxEvS+J5lAm4fd86WUy+G+cxnwCbIbYR1PJk6NeV9qiBku/SVlnzia2cenyCcX2XjU8BUFI4EHzsU0/pD+vO2VnNYlFhdb2JhrDA8W78Y54Hbp5OH0x1OW1Y+2WE8B55erJI49OdG98HMZzkQc15ztgb2vnkJyCee5cpQEofHBa2z/XBQCYNUvbDyIR/u836SL6zx6OTG82DjvSRRHQWK2XEcR5eer5CEKGtiBGzw0kmrUjUo/ty46wAoKa0SJw1xt2uFMmQWtdnWi4aAmHHCowFOe6E6zDjFQHUq7oLm03oNa0wZsu5GLnt9mtPXN1ZGUkFRqA==
+ b=DoljGlV2+HeZQkkdQKLIuoT8VOBKtGVBj+6W0+EOv5erPES/6hDEFHTXkW5XAbPWeGB6942s6S1C9V4B2+KEYTltTt9D+w+uyM9P+Bx+HxIJWuhVKpS6M6TQHvv+P0+Z8oPtRBoWHZFQWFg3mgacAYn4C4IAKSVFY0Bg2ujpkBiaQnDmuG+E2cxMf64pKzeAP6sZwREWKq6jOfVk9HAUFc6CwANXwjv2FN7DDqJxfvrhvySx1YIE9OH6C7WRCmbl3G/Ws7ARII/q1b3PIbPRIyXb46tRJUN2JQYoQGynin/8Kvd8Xrqwoi9/ARF8TPd7p55q1PkVdXev1I+INQ2w+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NttcqOOrbGofs/QK/ag5aNKa7RN5W5pPP6Puo+XBWSY=;
- b=ZdL+ak9Y/Nd6qFbzKxPdmXm4sePRVOzL3190y9mDob+GH1N1ZqnTkRTGBoX2NHm/1RH+/NZ0GLcZMnWulwSxtiUviCq8NOmr1HZ1Ur+Y132jeiU/vSAzckSQyySBVHTdpY9347inCcrVSh1HJr2FQkpfjcGJDL19fAynHcRxwT7RqzdsxlRCQVlGEFaZtZae3FvUWI0QNgoyP4CaoJY+dtcRAJ7jlFlQwCd5pE7Ya0BVczt1xS4/aclhK2iMYdSkDzUzpYmePi9NXnKzsRDUIaZD2ucG9cJ6HdoC6kG0b8/39ViaVeV4wV3M4f3HNEGpGsRbFe86IatTP7nJi2H7NA==
+ bh=5Wldw6ku01XLKNiWa1LeRp9DWAAdEWDxLRfK2ssyi6w=;
+ b=AsnjFQ9JI36t95EVic91HSK/dAPeneyU3J6v/SOxuaoemAR0oW/qnQuKFpssEOJjMZxa+eFgYruV7ncqppAU14at9tD/t+YbeRRfwH+6B0sQ4cGKWncD5mN+7OyvlE6RlAQ66EG+zp9t69ostoOGAqwKnGtq+JUga4cO5KfOlaC5CSgDgXciKJigL32u5xnKUszVxwWUw6KKpWMivqyMTkfhl2ajFyv1/MP6nVUaZSujqKM5bSA4Q2ELxXS2dcSoGYKtPiNm4FyyB1FZdWXiW6kAtNwQqsAMo2/pKXnD54+mC/mg0GsFTAVEh+qGuzIoJ2SuRAnSPDg2VLqRfcVSvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NttcqOOrbGofs/QK/ag5aNKa7RN5W5pPP6Puo+XBWSY=;
- b=AiRPU8Eh3v3dtXf/IrXZ0WrAHnpuXnMsmldB/4ZlmltvSO9TPGwAKstZ0C+/aUZerWP95i/u45wyRldQY12y0yjsuUeinzamnWaVsAsHdicJkHWszrmS430QoYL9KmX1kpnmB14w3Fp/lAHTEfQxT2GfBovnLzd02ZPdJknH1MY=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ bh=5Wldw6ku01XLKNiWa1LeRp9DWAAdEWDxLRfK2ssyi6w=;
+ b=2lccmZiei9jFCQnGUt0Acn49vYpntS3vAfwVYvgNk2i0lz0vRElXgW7E0kTN7Jg1ff6y3jcufcr650Hyu53NfZqQDMyrKvKtckT8NgkJYzZFTwttweCdrEcBJ8k1sxzBeRfBI87/5+bqMvGPiYNyDZYK1yeXOEOqJbLUfdE29/w=
+Received: from DM6PR12MB3433.namprd12.prod.outlook.com (2603:10b6:5:38::14) by
+ DM6PR12MB3068.namprd12.prod.outlook.com (2603:10b6:5:3e::25) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3541.23; Fri, 13 Nov 2020 22:33:18 +0000
+Received: from DM6PR12MB3433.namprd12.prod.outlook.com
+ ([fe80::6009:8864:b920:1dcc]) by DM6PR12MB3433.namprd12.prod.outlook.com
+ ([fe80::6009:8864:b920:1dcc%7]) with mapi id 15.20.3541.025; Fri, 13 Nov 2020
+ 22:33:18 +0000
+From: "Jiang, Sonny" <Sonny.Jiang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2] drm/amdgpu: fix SI UVD firmware validate resume fail
+Thread-Topic: [PATCH v2] drm/amdgpu: fix SI UVD firmware validate resume fail
+Thread-Index: AQHWttBLlQafBCfcOUGgIqe6o/uP6KnGrEuQ
+Date: Fri, 13 Nov 2020 22:33:18 +0000
+Message-ID: <DM6PR12MB343394680382B27D3128528AFDE60@DM6PR12MB3433.namprd12.prod.outlook.com>
+References: <20201109194101.7082-1-sonny.jiang@amd.com>
+In-Reply-To: <20201109194101.7082-1-sonny.jiang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-11-13T22:33:17.516Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB2918.namprd12.prod.outlook.com (2603:10b6:a03:13c::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.25; Fri, 13 Nov
- 2020 21:55:35 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::b46f:9253:b0d8:7999]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::b46f:9253:b0d8:7999%7]) with mapi id 15.20.3477.037; Fri, 13 Nov 2020
- 21:55:35 +0000
-Subject: Re: [PATCH] drm/amd/display: Update dmub code
-To: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, alexander.deucher@amd.com
-References: <20201113202706.1890613-1-Bhawanpreet.Lakha@amd.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <a7795007-12b0-09d3-23bf-c72900b682df@amd.com>
-Date: Fri, 13 Nov 2020 16:55:31 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
-In-Reply-To: <20201113202706.1890613-1-Bhawanpreet.Lakha@amd.com>
-Content-Language: en-US
-X-Originating-IP: [165.204.55.211]
-X-ClientProxiedBy: YT1PR01CA0053.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::22) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.148.234] (165.204.55.211) by
- YT1PR01CA0053.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3564.25 via Frontend Transport; Fri, 13 Nov 2020 21:55:34 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0764ed47-c883-45b3-0bd5-08d8881ed98a
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2918:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB2918430443E2CB1C42F36DCBECE60@BYAPR12MB2918.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0sOQUDK9muoCba0HpKqQIbp7yzV6jcRhr1pE6CTlCD+PQtq9IMK58UVTMv5n2Wru98/UTt/N5oZ1nc4+OvxoZVHpFX0MTd6xsAO5Clcw1lZPHuhHsUCQhBOaICiX/IG+C3z4+FQjUrO4snx/3PhJe6Qnan9OkN/HAgT2caS3f0chspGvxVQ2AdIydFXBF5ZtJ5vRriy86v9LauZKvOFkOgUPwhOCwHw3d/cO67clTxGv6QfgNaTSBL+gvkF48U3xYUSORYfGbW09vYqFK5I+7nmjfxyHw8T8fFfT7U9aLJ7FL25aTfbwY3bde87xXXOtwGJO7huH6DUw64gFphToLiT48uoqbw5+wKDP/q+Z+zGh+VEbkpmm2vrH0FOzmOI9
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(136003)(376002)(346002)(366004)(396003)(8676002)(2616005)(2906002)(15650500001)(16526019)(52116002)(53546011)(31686004)(86362001)(6486002)(26005)(186003)(6636002)(478600001)(316002)(31696002)(6666004)(4001150100001)(16576012)(4326008)(83380400001)(5660300002)(8936002)(36756003)(956004)(66556008)(66946007)(66476007)(43740500002);
+x-originating-ip: [67.71.194.199]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 6b64b627-a258-4e31-688e-08d888241e45
+x-ms-traffictypediagnostic: DM6PR12MB3068:
+x-microsoft-antispam-prvs: <DM6PR12MB3068C98397AE12D3BAF9D5F3FDE60@DM6PR12MB3068.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 8A59NMGYsngFi4JdrGRgTRWzMcfL5a5ZE1bswA4Pg1RPo8z/in/lKwREa308aFcAL7xs29egtznzCnJzRVTb5VkQotBuFdfGdY+tS5tMwS4CS9OmKTG660/SsNS0VcdxSs2cn0159rtQebr+jhsNW9rfc0n+OFM3VZoWytTK3WJaw5GpPexQfAdrhT5APfUBiHl6avp/lY2j5elMZ9E1N3wr6iFmqSG5bWrgWIy/SR2kfKg6uOu0T0YPq1LTUP+Xch2CWmZU8LwVm7X2hikERtxejWQ4lSMtdEKsfL6tbMAUoyjyIm0DK5L+BCCFlRlsR6l93t0C2V1BU+4lu9pirg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3433.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(26005)(15650500001)(66556008)(6506007)(52536014)(86362001)(53546011)(2906002)(71200400001)(7696005)(91956017)(33656002)(83380400001)(66476007)(66946007)(64756008)(76116006)(8936002)(55016002)(6916009)(66446008)(19627405001)(316002)(186003)(8676002)(478600001)(5660300002)(9686003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: D7hndWFq15zLj75cupjXqjXC7XPuci0vDwjHAoZYGQz2X1kHJVBBbcs/arHxqvi7JYUm/VyHT0d2D2Et6TVg2UNqtP3xgMxdHyPKoz/guEJJAeTFcnD7JRxWkvj8vnigZKyjHU1avsuWwe4bzikCyFceWC3y72tVHYTgFY2294dADFINep3YBq/y6ljcOuhurfHWtadHnYvHGltRhMgOSEZqDEOsJAUNC7WRw8sI/1UXk3ihxOqD+RIgkoGItnryZASfzFu8P9xmlHsz/V/zsNxG8isulCEujhwX0z4njlD4Dc8TYxTQhRrp+CcNvOSqjHTFdJwBwmOzGJLdaaOX8MwMadFkiPSEDTVT30dMvworEjjm76XvKpAbQzhfurMnpU+3d+LrXhmPnSJwUjVsIzAskU0sc3tqX3zMBorCW7XKrWQ9bRV2xsqFoiFL9l0/+pTcY+XOneEKF/JhJKLIPvzyOVtEA0qJRQGk+7vdRzZ/kDBvSoOMNR5cvDN3b+GBuu0adpA/85gkcglpTts6k9qG7MpFAIN67Xlif4aXsNcgmf4sukAj6YyO+bgicDIH7y7ZLCtowb0MhAKh+NKMevpMopg7FezK1+KhOxgXoTg91weA9FKEF0xsoF03c3b0u3VEDNX/qkmj9iIHq2ZYVw==
+x-ms-exchange-antispam-messagedata: y85z0GQ8qF+rQ0P7wk9x1NTxsuoUGbWTK2WEsJp4A8X9AQrrhkJq5M3sXyB5EM8+8cWa3vVF7uJNk/MaBxbGhXFcqYetD5qpkIhjyRLJpTwrBcUfb1Q+kjLtTal5MjkgrWUfl/E3wvqDNQze1lZSvEXuQgOJEZtOZ5fnKLFSAO1JNaIZsYuLHhulMg1sc7tknoDaCN7vSmFowCFtgQw10UQj8+YSLezopyfTpuwGsiYuNpauJoIIXm24dOM7IqNnSahCYVyChI7k787s+mkzj7P5vRDA7CAbllHeHPTEe20z3JUIsM8+dvd/XmhaB9hQvBH4kz3br3+zCQbo48hUx8NFOZUWVtn/+mKN7hWcKmiln14T0Ei5yh4EoEqNmzY8lMjHoYg3VJc4QcLhOCxlfXLH8K3VWP/H5+vlLzbK+0/Fu2R5Fk9jEC3VORXmSqyFeg2bQZNl1njxLQs1cirspIzrWiSJCKP0eWSwlL7k3X9oWj+0kE4OnPBM5Su/VWJUWe8rVjkeION2EefZmQaqPYPdgiM9VEG/Wo1uG43IPoZS93wBZwCR8YCLgWV2gpdiZZrrmQmrjN4vuYfiDzvRqUv0kHJ9/YZO+eQhivwUA6F5SAzcA1Dh7CMohHgjldBbUhS174/kZ2zasSl0b0hKmA==
+x-ms-exchange-transport-forked: True
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0764ed47-c883-45b3-0bd5-08d8881ed98a
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3560.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2020 21:55:35.6662 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rHWz0JXPUDAgSXQRUY/5W+3JTD49IAg1nstQ5wc9vl6wUyjEuZJnG2XEE9dfsJlg19Y+Trx2H6xXWwp4rSqhgA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2918
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3433.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b64b627-a258-4e31-688e-08d888241e45
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2020 22:33:18.0320 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rxoR23IQ8o42Xn5JAinE2qKpysyplft8HsHd4duiOzfuDoFOcRKvL8V/cW3UT6d29bixdyyoseunQXTZ5RIGwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3068
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,257 +111,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0018159072=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-11-13 3:27 p.m., Bhawanpreet Lakha wrote:
-> There is a delta in the dmub code
-> - add boot options
-> - add boot status
-> - remove unused auto_load_is_done func pointer
-> 
-> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+--===============0018159072==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB343394680382B27D3128528AFDE60DM6PR12MB3433namp_"
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+--_000_DM6PR12MB343394680382B27D3128528AFDE60DM6PR12MB3433namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Nicholas Kazlauskas
+[AMD Official Use Only - Internal Distribution Only]
 
-> ---
->   drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 20 +++++++++++++-
->   .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  3 ++-
->   .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c | 23 ++++++++++++++++
->   .../gpu/drm/amd/display/dmub/src/dmub_dcn20.h |  6 +++++
->   .../gpu/drm/amd/display/dmub/src/dmub_dcn21.c |  5 ----
->   .../gpu/drm/amd/display/dmub/src/dmub_dcn21.h |  2 --
->   .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c |  5 ----
->   .../gpu/drm/amd/display/dmub/src/dmub_dcn30.h |  1 -
->   .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 26 ++++++++++++++-----
->   9 files changed, 70 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-> index ac41ae2d261b..b82a46890846 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-> @@ -265,8 +265,12 @@ struct dmub_srv_hw_funcs {
->   	bool (*is_hw_init)(struct dmub_srv *dmub);
->   
->   	bool (*is_phy_init)(struct dmub_srv *dmub);
-> +	void (*enable_dmub_boot_options)(struct dmub_srv *dmub);
-> +
-> +	void (*skip_dmub_panel_power_sequence)(struct dmub_srv *dmub, bool skip);
-> +
-> +	union dmub_fw_boot_status (*get_fw_status)(struct dmub_srv *dmub);
->   
-> -	bool (*is_auto_load_done)(struct dmub_srv *dmub);
->   
->   	void (*set_gpint)(struct dmub_srv *dmub,
->   			  union dmub_gpint_data_register reg);
-> @@ -309,6 +313,7 @@ struct dmub_srv_hw_params {
->   	uint64_t fb_offset;
->   	uint32_t psp_version;
->   	bool load_inst_const;
-> +	bool skip_panel_power_sequence;
->   };
->   
->   /**
-> @@ -590,6 +595,19 @@ enum dmub_status dmub_srv_get_gpint_response(struct dmub_srv *dmub,
->    */
->   void dmub_flush_buffer_mem(const struct dmub_fb *fb);
->   
-> +/**
-> + * dmub_srv_get_fw_boot_status() - Returns the DMUB boot status bits.
-> + *
-> + * @dmub: the dmub service
-> + * @status: out pointer for firmware status
-> + *
-> + * Return:
-> + *   DMUB_STATUS_OK - success
-> + *   DMUB_STATUS_INVALID - unspecified error, unsupported
-> + */
-> +enum dmub_status dmub_srv_get_fw_boot_status(struct dmub_srv *dmub,
-> +					     union dmub_fw_boot_status *status);
-> +
->   #if defined(__cplusplus)
->   }
->   #endif
-> diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-> index b0d1347d13f0..9fd24f93a216 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-> @@ -191,7 +191,8 @@ union dmub_fw_boot_options {
->   		uint32_t optimized_init : 1;
->   		uint32_t skip_phy_access : 1;
->   		uint32_t disable_clk_gate: 1;
-> -		uint32_t reserved : 27;
-> +		uint32_t skip_phy_init_panel_sequence: 1;
-> +		uint32_t reserved : 26;
->   	} bits;
->   	uint32_t all;
->   };
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-> index 2c4a2fe9311d..cafba1d23c6a 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-> @@ -312,3 +312,26 @@ uint32_t dmub_dcn20_get_gpint_response(struct dmub_srv *dmub)
->   {
->   	return REG_READ(DMCUB_SCRATCH7);
->   }
-> +
-> +union dmub_fw_boot_status dmub_dcn20_get_fw_boot_status(struct dmub_srv *dmub)
-> +{
-> +	union dmub_fw_boot_status status;
-> +
-> +	status.all = REG_READ(DMCUB_SCRATCH0);
-> +	return status;
-> +}
-> +
-> +void dmub_dcn20_enable_dmub_boot_options(struct dmub_srv *dmub)
-> +{
-> +	union dmub_fw_boot_options boot_options = {0};
-> +
-> +	REG_WRITE(DMCUB_SCRATCH14, boot_options.all);
-> +}
-> +
-> +void dmub_dcn20_skip_dmub_panel_power_sequence(struct dmub_srv *dmub, bool skip)
-> +{
-> +	union dmub_fw_boot_options boot_options;
-> +	boot_options.all = REG_READ(DMCUB_SCRATCH14);
-> +	boot_options.bits.skip_phy_init_panel_sequence = skip;
-> +	REG_WRITE(DMCUB_SCRATCH14, boot_options.all);
-> +}
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-> index a316f260f6ac..d438f365cbb0 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-> @@ -192,4 +192,10 @@ bool dmub_dcn20_is_gpint_acked(struct dmub_srv *dmub,
->   
->   uint32_t dmub_dcn20_get_gpint_response(struct dmub_srv *dmub);
->   
-> +void dmub_dcn20_enable_dmub_boot_options(struct dmub_srv *dmub);
-> +
-> +void dmub_dcn20_skip_dmub_panel_power_sequence(struct dmub_srv *dmub, bool skip);
-> +
-> +union dmub_fw_boot_status dmub_dcn20_get_fw_boot_status(struct dmub_srv *dmub);
-> +
->   #endif /* _DMUB_DCN20_H_ */
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.c
-> index e8f488232e34..1cf67b3e4771 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.c
-> @@ -53,11 +53,6 @@ const struct dmub_srv_common_regs dmub_srv_dcn21_regs = {
->   
->   /* Shared functions. */
->   
-> -bool dmub_dcn21_is_auto_load_done(struct dmub_srv *dmub)
-> -{
-> -	return (REG_READ(DMCUB_SCRATCH0) == 3);
-> -}
-> -
->   bool dmub_dcn21_is_phy_init(struct dmub_srv *dmub)
->   {
->   	return REG_READ(DMCUB_SCRATCH10) == 0;
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.h
-> index 2bbea237137b..6fd5b0cd4ef3 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn21.h
-> @@ -34,8 +34,6 @@ extern const struct dmub_srv_common_regs dmub_srv_dcn21_regs;
->   
->   /* Hardware functions. */
->   
-> -bool dmub_dcn21_is_auto_load_done(struct dmub_srv *dmub);
-> -
->   bool dmub_dcn21_is_phy_init(struct dmub_srv *dmub);
->   
->   #endif /* _DMUB_DCN21_H_ */
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
-> index 215178b8d415..f00df02ded81 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
-> @@ -188,8 +188,3 @@ void dmub_dcn30_setup_windows(struct dmub_srv *dmub,
->   		  DMCUB_REGION3_CW6_TOP_ADDRESS, cw6->region.top,
->   		  DMCUB_REGION3_CW6_ENABLE, 1);
->   }
-> -
-> -bool dmub_dcn30_is_auto_load_done(struct dmub_srv *dmub)
-> -{
-> -	return (REG_READ(DMCUB_SCRATCH0) > 0);
-> -}
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.h
-> index 4d8f52b8f12c..9a3afffd9b0f 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.h
-> @@ -45,6 +45,5 @@ void dmub_dcn30_setup_windows(struct dmub_srv *dmub,
->   			      const struct dmub_window *cw5,
->   			      const struct dmub_window *cw6);
->   
-> -bool dmub_dcn30_is_auto_load_done(struct dmub_srv *dmub);
->   
->   #endif /* _DMUB_DCN30_H_ */
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> index d11b96d132ad..ba8494cf005f 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> @@ -153,17 +153,18 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
->   		funcs->set_gpint = dmub_dcn20_set_gpint;
->   		funcs->is_gpint_acked = dmub_dcn20_is_gpint_acked;
->   		funcs->get_gpint_response = dmub_dcn20_get_gpint_response;
-> +		funcs->get_fw_status = dmub_dcn20_get_fw_boot_status;
-> +		funcs->enable_dmub_boot_options = dmub_dcn20_enable_dmub_boot_options;
-> +		funcs->skip_dmub_panel_power_sequence = dmub_dcn20_skip_dmub_panel_power_sequence;
->   
->   		if (asic == DMUB_ASIC_DCN21) {
->   			dmub->regs = &dmub_srv_dcn21_regs;
->   
-> -			funcs->is_auto_load_done = dmub_dcn21_is_auto_load_done;
->   			funcs->is_phy_init = dmub_dcn21_is_phy_init;
->   		}
->   		if (asic == DMUB_ASIC_DCN30) {
->   			dmub->regs = &dmub_srv_dcn30_regs;
->   
-> -			funcs->is_auto_load_done = dmub_dcn30_is_auto_load_done;
->   			funcs->backdoor_load = dmub_dcn30_backdoor_load;
->   			funcs->setup_windows = dmub_dcn30_setup_windows;
->   		}
-> @@ -535,11 +536,10 @@ enum dmub_status dmub_srv_wait_for_auto_load(struct dmub_srv *dmub,
->   	if (!dmub->hw_init)
->   		return DMUB_STATUS_INVALID;
->   
-> -	if (!dmub->hw_funcs.is_auto_load_done)
-> -		return DMUB_STATUS_OK;
-> -
->   	for (i = 0; i <= timeout_us; i += 100) {
-> -		if (dmub->hw_funcs.is_auto_load_done(dmub))
-> +		union dmub_fw_boot_status status = dmub->hw_funcs.get_fw_status(dmub);
-> +
-> +		if (status.bits.dal_fw && status.bits.mailbox_rdy)
->   			return DMUB_STATUS_OK;
->   
->   		udelay(100);
-> @@ -634,3 +634,17 @@ enum dmub_status dmub_srv_get_gpint_response(struct dmub_srv *dmub,
->   
->   	return DMUB_STATUS_OK;
->   }
-> +
-> +enum dmub_status dmub_srv_get_fw_boot_status(struct dmub_srv *dmub,
-> +					     union dmub_fw_boot_status *status)
-> +{
-> +	status->all = 0;
-> +
-> +	if (!dmub->sw_init)
-> +		return DMUB_STATUS_INVALID;
-> +
-> +	if (dmub->hw_funcs.get_fw_status)
-> +		*status = dmub->hw_funcs.get_fw_status(dmub);
-> +
-> +	return DMUB_STATUS_OK;
-> +}
-> 
+Ping.
+________________________________
+From: Jiang, Sonny <Sonny.Jiang@amd.com>
+Sent: Monday, November 9, 2020 2:41 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Jiang, Sonny <Sonny.Jiang@amd.com>
+Subject: [PATCH v2] drm/amdgpu: fix SI UVD firmware validate resume fail
+
+The SI UVD firmware validate key is stored at the end of firmware,
+which is changed during resume while playing video. So get the key
+at sw_init and store it for fw validate using.
+
+Signed-off-by: Sonny Jiang <sonny.jiang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c   | 20 +++++++++++---------
+ 2 files changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_uvd.h
+index 5eb63288d157..edbb8194ee81 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h
+@@ -67,6 +67,7 @@ struct amdgpu_uvd {
+         unsigned                harvest_config;
+         /* store image width to adjust nb memory state */
+         unsigned                decode_image_width;
++       uint32_t                keyselect;
+ };
+
+ int amdgpu_uvd_sw_init(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v3_1.c
+index 7cf4b11a65c5..3a5dce634cda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -277,15 +277,8 @@ static void uvd_v3_1_mc_resume(struct amdgpu_device *a=
+dev)
+  */
+ static int uvd_v3_1_fw_validate(struct amdgpu_device *adev)
+ {
+-       void *ptr;
+-       uint32_t ucode_len, i;
+-       uint32_t keysel;
+-
+-       ptr =3D adev->uvd.inst[0].cpu_addr;
+-       ptr +=3D 192 + 16;
+-       memcpy(&ucode_len, ptr, 4);
+-       ptr +=3D ucode_len;
+-       memcpy(&keysel, ptr, 4);
++       int i;
++       uint32_t keysel =3D adev->uvd.keyselect;
+
+         WREG32(mmUVD_FW_START, keysel);
+
+@@ -550,6 +543,8 @@ static int uvd_v3_1_sw_init(void *handle)
+         struct amdgpu_ring *ring;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+         int r;
++       void *ptr;
++       uint32_t ucode_len;
+
+         /* UVD TRAP */
+         r =3D amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 124, &ad=
+ev->uvd.inst->irq);
+@@ -560,6 +555,13 @@ static int uvd_v3_1_sw_init(void *handle)
+         if (r)
+                 return r;
+
++       /* Retrieval firmware validate key */
++       ptr =3D adev->uvd.inst[0].cpu_addr;
++       ptr +=3D 192 + 16;
++       memcpy(&ucode_len, ptr, 4);
++       ptr +=3D ucode_len;
++       memcpy(&adev->uvd.keyselect, ptr, 4);
++
+         ring =3D &adev->uvd.inst->ring;
+         sprintf(ring->name, "uvd");
+         r =3D amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0,
+--
+2.25.1
+
+
+--_000_DM6PR12MB343394680382B27D3128528AFDE60DM6PR12MB3433namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Ping.<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jiang, Sonny &lt;Sonn=
+y.Jiang@amd.com&gt;<br>
+<b>Sent:</b> Monday, November 9, 2020 2:41 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Jiang, Sonny &lt;Sonny.Jiang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v2] drm/amdgpu: fix SI UVD firmware validate resume =
+fail</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The SI UVD firmware validate key is stored at the =
+end of firmware,<br>
+which is changed during resume while playing video. So get the key<br>
+at sw_init and store it for fw validate using.<br>
+<br>
+Signed-off-by: Sonny Jiang &lt;sonny.jiang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h |&nbsp; 1 +<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c&nbsp;&nbsp; | 20 +++++++++++---=
+------<br>
+&nbsp;2 files changed, 12 insertions(+), 9 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_uvd.h<br>
+index 5eb63288d157..edbb8194ee81 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.h<br>
+@@ -67,6 +67,7 @@ struct amdgpu_uvd {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ha=
+rvest_config;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* store image width to ad=
+just nb memory state */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; de=
+code_image_width;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; keyselect;<br=
+>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;int amdgpu_uvd_sw_init(struct amdgpu_device *adev);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v3_1.c<br>
+index 7cf4b11a65c5..3a5dce634cda 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c<br>
+@@ -277,15 +277,8 @@ static void uvd_v3_1_mc_resume(struct amdgpu_device *a=
+dev)<br>
+&nbsp; */<br>
+&nbsp;static int uvd_v3_1_fw_validate(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *ptr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ucode_len, i;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t keysel;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr =3D adev-&gt;uvd.inst[0].cpu_addr=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr +=3D 192 + 16;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;ucode_len, ptr, 4);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr +=3D ucode_len;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;keysel, ptr, 4);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t keysel =3D adev-&gt;uvd.keys=
+elect;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmUVD_FW_START, key=
+sel);<br>
+&nbsp;<br>
+@@ -550,6 +543,8 @@ static int uvd_v3_1_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *ptr;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ucode_len;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* UVD TRAP */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_irq_add_id(ad=
+ev, AMDGPU_IRQ_CLIENTID_LEGACY, 124, &amp;adev-&gt;uvd.inst-&gt;irq);<br>
+@@ -560,6 +555,13 @@ static int uvd_v3_1_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Retrieval firmware validate key */=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr =3D adev-&gt;uvd.inst[0].cpu_addr=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr +=3D 192 + 16;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;ucode_len, ptr, 4);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr +=3D ucode_len;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;adev-&gt;uvd.keyselect, p=
+tr, 4);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring =3D &amp;adev-&gt;uvd=
+.inst-&gt;ring;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(ring-&gt;name, &qu=
+ot;uvd&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_init(ade=
+v, ring, 512, &amp;adev-&gt;uvd.inst-&gt;irq, 0,<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB343394680382B27D3128528AFDE60DM6PR12MB3433namp_--
+
+--===============0018159072==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0018159072==--
