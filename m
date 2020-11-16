@@ -7,93 +7,93 @@ X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97A59C4742C
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2020 07:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32EA2C55ABD
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2020 07:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 159242071E
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2020 07:09:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B058C2225B
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2020 07:34:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="C4MY/JHm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 159242071E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UJ9iRSw9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B058C2225B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B95689CE2;
-	Mon, 16 Nov 2020 07:09:58 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6962289CE2
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2020 07:09:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF4C89A34;
+	Mon, 16 Nov 2020 07:34:59 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF6FA89A34
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2020 07:34:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fq1hkOuImTeSBXQ20Nm/F26TheLHz9AgSYvBZ3oz3y651GWhEzSUkgsBxya+qT4IU0xC0Nn99Yoc6ByFWnno5kqCNngDwQPQ1uUQaXKjbaVPS8bkzMQU3tTOh1bCbiSSqjgBxsKRoGEK4EnFkBQ1q4pIxbxrttC19978ELm4UpGwG+22OS+wSnTwU8QWUZsYqeMQjaiAncR5Pk6mM7IXX8l2U9NUkPkLTVveY1IioXqfBrxM3RTdQFJWgxO4h/jn2u9i7zRTfuAHGWx25YImfC+D4FBlubTj/gsKrwJ6LQi78mPY/eGilFmVeJiVxks3+dCn2vGu5NbqnOccpSOBKw==
+ b=Q0RK4h/XQmwBHGUohqCxKWxaPvhbIdZJXT3t8bOUfQGjo21TWyEOx8ynlRceQ5NuziKM9SXGRHRI5FH6B1WIn58QGVMvf2oDvx+3qIOZz7H4Mu/Y/mPdZ59dmdqVD/8hOw2+YZtJqLdpYiJqtySOCmiNFR7YYHmhWBLullOpJFFryamNGcJpGnLSy9uIwK1kDLCHM1HZUI3aIMtb4Hj5tkVyPkZfplibgXb95uGD8OnnJHblzV8BvUhupsnc56i+p7CFmh9RezRDumFLkR/JohyiTZ4T8CA+16v3U6oMVGnSuXId571E1JzyftJNs7ywKLYU9R7iIR35uu+MWX5HDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vIDgNQhGlFTMol/q3trhEzjUvzeQSsfhAbpDixoSJ5Q=;
- b=H2m4Pcvjus5SV3UvIkAIbJ+G7XRa0r89OAYY3VHu43Ofcxxj7+X+dgUVIB/ih7KoSWIb2tCxq87O3K5r3FwoitT2H9BGiC6cduRwv2vCYa7o9vDXfKua2FaXRjgl32Raf3DM4E8oL6B2ZBzAzYvskLfgRGeu7sbmULbkkqTNtQnHaVndiNZdBI8NS8SrH5vSJpxVVj0YQIHQnDlOjsc9pyh5jDWAQoWPKX8QYCr+sf7y9ftJhgu6oZ0DGatKxJGRP+5i0mjtIHh7c5lImlTwutqtI1Q2z6/Ux+w9s4pYuQCe2J3BFbg/d0Yg+Isv5cLVLNtx6I3NMTpsd+c5U/i1fg==
+ bh=IV/LRfxV4iZnbrSuurot1mYSNFUomewvpRcWYfeGio0=;
+ b=TOn3ide58rG8V79tcMvcwXrzovKCS3TRS2ZKkKjCcoyQjd4RLXpbnfoO8or64e4EIpJ5zcUtgddgvus0fU7XniN5rqlv+1SmkeqH1U/nj0Zp8rpW4A5eBWVKIktz0QlOBXoWgEHm8Fyom/N5xRvXqxEk2Xf5sU8hOhjz9XMQ93PCfhvAUY0klIElzyY30fRO8gx7E19sxuWpH0oB8yHv9vYNia2gRseYjoiHaiBYfVGfCj9inhDZtzOPM6bbJ1KFr0S6r/Xi8XfZWuYnqN1kyiwLh2Ye4nZS/XSol/dl/lrQozcYeXSJ2wbnYS5/pJ1L8dtAthvrpmXqevKNVj54QQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vIDgNQhGlFTMol/q3trhEzjUvzeQSsfhAbpDixoSJ5Q=;
- b=C4MY/JHmHVaLorPyJ9K0JFC3Lbo3s7UiKJx/Ct3g56X5QJBthtROPRGic0t3Q/8Y7UwLPR8HqBjJ17fDL0iQV9GMt7KAnDFDgFMBZL0E6RTQuSxvCzJMXGEj3f8zQ3dDuTvz3S828/ljPqG5pLjtWbdfQ4vJZtGWGN66gatqWv4=
+ bh=IV/LRfxV4iZnbrSuurot1mYSNFUomewvpRcWYfeGio0=;
+ b=UJ9iRSw92WqP2glWR7Z8zZagQOGK2sSajyUS/jZJfSlrrH4mIHm6OtyClhidDJWMU69OJbwVuz0idmcM5re2EUa274m7ZLMpuCGCaVUuLrOhZZEoJA8gA3hnfv0ECycyjGByXPyNpVSu028O+eFyT7psF+II30oVa/Qd4O3H8KY=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from MWHPR12MB1854.namprd12.prod.outlook.com (2603:10b6:300:114::19)
- by MW2PR12MB2396.namprd12.prod.outlook.com (2603:10b6:907:9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.25; Mon, 16 Nov
- 2020 07:09:54 +0000
+ by MWHPR1201MB0173.namprd12.prod.outlook.com (2603:10b6:301:56::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Mon, 16 Nov
+ 2020 07:34:56 +0000
 Received: from MWHPR12MB1854.namprd12.prod.outlook.com
  ([fe80::38a7:197b:75f0:6030]) by MWHPR12MB1854.namprd12.prod.outlook.com
  ([fe80::38a7:197b:75f0:6030%12]) with mapi id 15.20.3564.028; Mon, 16 Nov
- 2020 07:09:53 +0000
+ 2020 07:34:56 +0000
 From: Likun Gao <likun.gao@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: update golden setting for sienna_cichlid
-Date: Mon, 16 Nov 2020 15:09:33 +0800
-Message-Id: <20201116070933.389791-1-likun.gao@amd.com>
+Subject: [PATCH] drm/amd/pm: update driver if file for sienna cichlid
+Date: Mon, 16 Nov 2020 15:34:36 +0800
+Message-Id: <20201116073436.410900-1-likun.gao@amd.com>
 X-Mailer: git-send-email 2.25.1
 X-Originating-IP: [58.247.170.242]
-X-ClientProxiedBy: HK2PR02CA0139.apcprd02.prod.outlook.com
- (2603:1096:202:16::23) To MWHPR12MB1854.namprd12.prod.outlook.com
+X-ClientProxiedBy: HK2PR0302CA0008.apcprd03.prod.outlook.com
+ (2603:1096:202::18) To MWHPR12MB1854.namprd12.prod.outlook.com
  (2603:10b6:300:114::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from lnx-glk.amd.com (58.247.170.242) by
- HK2PR02CA0139.apcprd02.prod.outlook.com (2603:1096:202:16::23) with Microsoft
+ HK2PR0302CA0008.apcprd03.prod.outlook.com (2603:1096:202::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3564.25 via Frontend Transport; Mon, 16 Nov 2020 07:09:52 +0000
+ 15.20.3589.14 via Frontend Transport; Mon, 16 Nov 2020 07:34:54 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 500fa914-0654-446f-76e6-08d889fe9dbf
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2396:
+X-MS-Office365-Filtering-Correlation-Id: bea6de5f-c8a3-4fec-9e31-08d88a021d42
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0173:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2396FABA82DDA234FF95F579EFE30@MW2PR12MB2396.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:873;
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB0173BAED03B755D085044B76EFE30@MWHPR1201MB0173.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +60gx0K7XICTwrA8812ROpruFuTwuNwLpCZJQvx1tANfzSWoKgWncd1qtyA8cqgjriDNyUao9tXu2csQpTakUHs5QdJI7suejJRcglfffjb5iFxAgMiHmkDMNRZnqp3Sz+xyMCq+0DNortYxjVJo+Q5JrURQo0t0EXlidm26ReSfcMeCSL1BVNT6cmfa+EKKsYulBe9Iu+sy6zSQ5px0dFbzSAY8K6lbL+Fl67OcFSl+7yHXMWRjKRfW0IrdEz1JZdYGodBOaF6xdQaR/kzDPJm1xdKf/WI6OgwbtXexe3oEBofEGhVO+ie4L5Jg8soXD4zgD/g9xCm/L/WPxvQY3g==
+X-Microsoft-Antispam-Message-Info: C3mHYRM0VgiC7p3JRFYTYNbPUoarHrLL5A5c/q2Oyu5J7CTsOUSrhwTT9eybuDL4aclgybYs5oRzEx7LxcKzWMEa6fGRoErbI5ysrg/ujCS/W0Ct8FXR3YG1TiOhskYRyffSsLjv2/QjpU/N9ri7lzcBAkgGQzqZ2jytu5itgmucjAy3zidsuwZmUBcJbubyyWyEMNLgZqGgB6i41X76UgQXnBICpGP/XWJBJhrYhuiHXvccUyl7BDxf90u6JwS0IbPS+v4eahC+N5ZYdX9Y/VlXHjiJ938k0Ed8yRgJHCD+DGdI6irt2dD+Q/rED/eOg29RuQ2e4BqkU8rR1RgIHA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR12MB1854.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(376002)(346002)(39860400002)(396003)(366004)(6666004)(4326008)(86362001)(19627235002)(1076003)(36756003)(7696005)(2616005)(8936002)(478600001)(66476007)(44832011)(66556008)(6916009)(52116002)(66946007)(956004)(5660300002)(6486002)(2906002)(15650500001)(8676002)(186003)(316002)(26005)(54906003)(16526019)(83380400001);
+ SFS:(4636009)(136003)(39860400002)(376002)(346002)(366004)(396003)(15650500001)(44832011)(5660300002)(1076003)(2906002)(83380400001)(36756003)(16526019)(6666004)(186003)(54906003)(6486002)(316002)(66946007)(86362001)(7696005)(8676002)(4326008)(66556008)(66476007)(478600001)(2616005)(956004)(26005)(52116002)(6916009)(8936002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: e6UqFGaNnLHSw8AchEPhQClGY3Ao873y4GJ8DcTjGjFBwC3sUg2VqbrfNvuGOuyrhEFsGp48sG98E05+gc8ElgT7qGOxmlklKKX7upYk8pGmezdzov3wCdXrjhzQDsmE145qjjjzoA8y91s9IzGdJdquMTWaTVkzjpethSO77DIJNErqKgM50wBNKPily6RE8ad7SRf+LJOyFY2nXft/WSeC3SuyeB7VoHJW9rr6yEvsYqedW7IcXFsuwIf+Tet5n4CFIxqxuJxITgbR6k9E1rBivWtBhP/9ZcGKsrKEMnrxO5bkn7eJEZtciz5gNNjwRpnikkJTDYwNVpmuTOGyEPQ3/rhp3L+jS6RDP4bphrOZLXxTfPMEU6hnAc1DNtzo5uwiu7AOW/FlOmdxQc/MURvH8LW+9xFgJxV2JOGHyHqd3odjb2No+/nL1mnHoOeFfpUUhO+FKx4bssolCVxKVbnUxldm3TuoBRk5VV9a1A0P5a6nr58XQw5NbEWzxza8c4FyK5WDUKHI0RdwzfzN5AGQmIejiQas7rMz08WVnKoMfNbclI728/KftCMSz+2yPvSuuOo2CFdBXyZE/1yPme84SVgA/l8gZmEFIQD8NjYfh7Hl94Rfq2nyP+ZMTXMMjSUBpnRrxFES4erjo0UMIWP1aT28bF7rSHi47GkjCdSQhgVfY24VFkF8uGc1HiQOi7I6pB2L4rstmUFuZaXpIE4cpMQMV3p3JHG2I6/LXj/eo5a/5fV5mhPKmiXh+1sqVWuPyZEm8dgEpu1d7HKp1v76miwSAhKdWHn9AovqKw3jFBubDvadsyCBGNPBpnNz+AxYpheS0SdnIGmrfX8Xuf4JqSj3je4x2QRMt2lP1ehX28wZmuLGKtK5V+JyIN0FtLOcwzgkgUEFMcH9VXJT2A==
+X-MS-Exchange-AntiSpam-MessageData: S0X4WcYvUGajCsGh+k1kXdhlwSKDfCWbpV5UGaBhgOKNkGQ4cWkE5xt134MDR/C+B6YCWy4o3PvkguTrGeGVw5++I72MxgnntwgQt0uo7EVj3E7i2JwsKED29jvURt3aNNYWhmS8Y/+TAu44jgoQ2b9pfxwmoJh/Lf+BXmEAYAiiTCdhm8xpJQACZdXiPOjwLIbD4P720kdf+bep6FlxeHPc2ZSS/Ujyr4+I+Y8BB74Bg8N1njJyvFlwVSDeWT6ZDrKTBY5yuqU7hjwhr0xoPguBQH3dl9tBmRr1FVhKCzcVIg6ikz60cdLse5sDIYf2bu/oSHnfPUBrqrw6SR0Q+G51TYozEfl8ofYfUcWj0WyH7uvUgg2WzrOxUP0p7o5WEDj8MHLlCUHYZ8yWXydwb/eg7L8Hwz4xM+HsPoQamrMC2PoWY++c3sb+GUQOf/ggAKXppCLpkRX0wZnPFfr/wcxd3Te0GOFBK1e+pG0IK1BKQMgEMEr1vVHN11DJqSCqm7XZMEQxjOoCzjbY+QhRmno/SrmeR5e1W0xuVISJmCXjq8SweAbHV1LUa31DTkOP8LF4+JrdQKMI41PsOG9LBMwYdXU0bl5D/m+P389nYImTzwgLlPEip3kq4VFyetcK9YSQdOVUPtpskVDPYvJnNx4nEh4Dnm3UqktAnded9CxW+RAuhxWpnTCi5BH0U/S9M0mei5YCkOks3ntlIsbsWEt9wIxmagx+Tb/CA1V+prM3z9nCzm9ebQYFZCCKptNht+Xr5kaaFAbR4k85IYqpwF2EU+V1IlS+Vq9okVTKRXZDPYPH6Y7dZBiNwyIUN+05Pitt20zI4k/kRguFbICCt77g2ZzWMf5M2DfPwEMU6f1Km1ZkYfEmyh7WR/qRvNBW2zjFVn/3tQk2WHu3o+mYQw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 500fa914-0654-446f-76e6-08d889fe9dbf
+X-MS-Exchange-CrossTenant-Network-Message-Id: bea6de5f-c8a3-4fec-9e31-08d88a021d42
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1854.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2020 07:09:53.6663 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2020 07:34:56.1046 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8mNVtS0StZAww+cFfPuuUFGtyPsIum5GtJfI6K6I2NB3FhohtZ9e7H2oSqrO5zw5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2396
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3jk/U6mbJyDyVU7p7qHiFfLdc8n2vql49li4jOLiatqmG8Yu+qpbcpxd9ndeqM7W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,7 +105,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <hawking.zhang@amd.com>
+Cc: Likun Gao <Likun.Gao@amd.com>, Kenneth Feng <Kenneth.Feng@amd.com>,
+ Hawking Zhang <hawking.zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -113,39 +114,125 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Update golden setting for sienna_cichlid.
+Update driver if file for sienna cichlid.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: I968f405a11b640174f5bc03eacc5f4edee47815a
+Change-Id: Ibcffb2a668202f941b1e8e7a22924976c910cf35
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../pm/inc/smu11_driver_if_sienna_cichlid.h   | 16 +++++++++-----
+ drivers/gpu/drm/amd/pm/inc/smu_v11_0.h        |  2 +-
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 22 -------------------
+ 3 files changed, 12 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 270b502f28f2..a6d03931f7fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -155,6 +155,11 @@
- #define mmCGTT_SPI_CS_CLK_CTRL			0x507c
- #define mmCGTT_SPI_CS_CLK_CTRL_BASE_IDX         1
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
+index e418a46603c8..fa95147b5a63 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu11_driver_if_sienna_cichlid.h
+@@ -27,9 +27,9 @@
+ // *** IMPORTANT ***
+ // SMU TEAM: Always increment the interface version if 
+ // any structure is changed in this file
+-#define SMU11_DRIVER_IF_VERSION 0x3A
++#define SMU11_DRIVER_IF_VERSION 0x3B
  
-+#define mmGCUTCL2_CGTT_CLK_CTRL_Sienna_Cichlid		0x16f3
-+#define mmGCUTCL2_CGTT_CLK_CTRL_Sienna_Cichlid_BASE_IDX	0
-+#define mmGCVM_L2_CGTT_CLK_CTRL_Sienna_Cichlid          0x15db
-+#define mmGCVM_L2_CGTT_CLK_CTRL_Sienna_Cichlid_BASE_IDX	0
+-#define PPTABLE_Sienna_Cichlid_SMU_VERSION 6
++#define PPTABLE_Sienna_Cichlid_SMU_VERSION 7
+ 
+ #define NUM_GFXCLK_DPM_LEVELS  16
+ #define NUM_SMNCLK_DPM_LEVELS  2
+@@ -437,6 +437,7 @@ typedef enum {
+   PIECEWISE_LINEAR_FUSED_MODEL = 0,
+   PIECEWISE_LINEAR_PP_MODEL,
+   QUADRATIC_PP_MODEL,
++  PERPART_PIECEWISE_LINEAR_PP_MODEL,  
+ } DfllDroopModelSelect_e;
+ 
+ typedef struct {
+@@ -612,7 +613,9 @@ typedef struct {
+   uint16_t       SmnclkDpmFreq        [NUM_SMNCLK_DPM_LEVELS];       // in MHz
+   uint16_t       SmnclkDpmVoltage     [NUM_SMNCLK_DPM_LEVELS];       // mV(Q2)
+ 
+-  uint32_t     PaddingAPCC[4];
++  uint32_t       PaddingAPCC;
++  uint16_t       PerPartDroopVsetGfxDfll[NUM_PIECE_WISE_LINEAR_DROOP_MODEL_VF_POINTS];  //In mV(Q2)
++  uint16_t       PaddingPerPartDroop;
+ 
+   // SECTION: Throttler settings
+   uint32_t ThrottlerControlMask;   // See Throtter masks defines
+@@ -667,7 +670,9 @@ typedef struct {
+   uint16_t       FreqTablePhyclk   [NUM_PHYCLK_DPM_LEVELS  ];     // In MHz
+   uint16_t       FreqTableDtbclk   [NUM_DTBCLK_DPM_LEVELS  ];     // In MHz
+   uint16_t       FreqTableFclk     [NUM_FCLK_DPM_LEVELS    ];     // In MHz
+-  uint32_t       Paddingclks[16];
++  uint32_t       Paddingclks;
 +
- MODULE_FIRMWARE("amdgpu/navi10_ce.bin");
- MODULE_FIRMWARE("amdgpu/navi10_pfp.bin");
- MODULE_FIRMWARE("amdgpu/navi10_me.bin");
-@@ -3144,6 +3149,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3[] =
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_DEBUG4, 0xffffffff, 0x00800000),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_EXCEPTION_CONTROL, 0x7fff0f1f, 0x00b80000),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCR_GENERAL_CNTL_Sienna_Cichlid, 0x1ff1ffff, 0x00000500),
-+	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCUTCL2_CGTT_CLK_CTRL_Sienna_Cichlid, 0xff000000, 0xff008080),
-+	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCVM_L2_CGTT_CLK_CTRL_Sienna_Cichlid, 0xff000000, 0xff008080),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGE_PC_CNTL, 0x003fffff, 0x00280400),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGL2A_ADDR_MATCH_MASK, 0xffffffff, 0xffffffcf),
- 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGL2C_ADDR_MATCH_MASK, 0xffffffff, 0xffffffcf),
++  DroopInt_t     PerPartDroopModelGfxDfll[NUM_PIECE_WISE_LINEAR_DROOP_MODEL_VF_POINTS]; //GHz ->Vstore in IEEE float format
+ 
+   uint32_t       DcModeMaxFreq     [PPCLK_COUNT            ];     // In MHz
+   
+@@ -1221,7 +1226,8 @@ typedef struct {
+ #define WORKLOAD_PPLIB_VR_BIT             4 
+ #define WORKLOAD_PPLIB_COMPUTE_BIT        5 
+ #define WORKLOAD_PPLIB_CUSTOM_BIT         6 
+-#define WORKLOAD_PPLIB_COUNT              7 
++#define WORKLOAD_PPLIB_W3D_BIT            7 
++#define WORKLOAD_PPLIB_COUNT              8 
+ 
+ 
+ // These defines are used with the following messages:
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+index 41bc919dc9f4..eff396c7a281 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+@@ -30,7 +30,7 @@
+ #define SMU11_DRIVER_IF_VERSION_NV10 0x36
+ #define SMU11_DRIVER_IF_VERSION_NV12 0x36
+ #define SMU11_DRIVER_IF_VERSION_NV14 0x36
+-#define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x3A
++#define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x3B
+ #define SMU11_DRIVER_IF_VERSION_Navy_Flounder 0x5
+ #define SMU11_DRIVER_IF_VERSION_VANGOGH 0x02
+ #define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0xD
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 0600befc6e4c..21c5ea3a4a63 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1805,11 +1805,6 @@ static void sienna_cichlid_dump_pptable(struct smu_context *smu)
+ 		dev_info(smu->adev->dev, "SmnclkDpmFreq[%d] = 0x%x\n", i, pptable->SmnclkDpmFreq[i]);
+ 		dev_info(smu->adev->dev, "SmnclkDpmVoltage[%d] = 0x%x\n", i, pptable->SmnclkDpmVoltage[i]);
+ 	}
+-	dev_info(smu->adev->dev, "PaddingAPCC[0] = 0x%x\n", pptable->PaddingAPCC[0]);
+-	dev_info(smu->adev->dev, "PaddingAPCC[1] = 0x%x\n", pptable->PaddingAPCC[1]);
+-	dev_info(smu->adev->dev, "PaddingAPCC[2] = 0x%x\n", pptable->PaddingAPCC[2]);
+-	dev_info(smu->adev->dev, "PaddingAPCC[3] = 0x%x\n", pptable->PaddingAPCC[3]);
+-
+ 	dev_info(smu->adev->dev, "ThrottlerControlMask = 0x%x\n", pptable->ThrottlerControlMask);
+ 
+ 	dev_info(smu->adev->dev, "FwDStateMask = 0x%x\n", pptable->FwDStateMask);
+@@ -2036,23 +2031,6 @@ static void sienna_cichlid_dump_pptable(struct smu_context *smu)
+ 	for (i = 0; i < NUM_FCLK_DPM_LEVELS; i++)
+ 		dev_info(smu->adev->dev, "  .[%02d] = 0x%x\n", i, pptable->FreqTableFclk[i]);
+ 
+-	dev_info(smu->adev->dev, "Paddingclks[0] = 0x%x\n",  pptable->Paddingclks[0]);
+-	dev_info(smu->adev->dev, "Paddingclks[1] = 0x%x\n",  pptable->Paddingclks[1]);
+-	dev_info(smu->adev->dev, "Paddingclks[2] = 0x%x\n",  pptable->Paddingclks[2]);
+-	dev_info(smu->adev->dev, "Paddingclks[3] = 0x%x\n",  pptable->Paddingclks[3]);
+-	dev_info(smu->adev->dev, "Paddingclks[4] = 0x%x\n",  pptable->Paddingclks[4]);
+-	dev_info(smu->adev->dev, "Paddingclks[5] = 0x%x\n",  pptable->Paddingclks[5]);
+-	dev_info(smu->adev->dev, "Paddingclks[6] = 0x%x\n",  pptable->Paddingclks[6]);
+-	dev_info(smu->adev->dev, "Paddingclks[7] = 0x%x\n",  pptable->Paddingclks[7]);
+-	dev_info(smu->adev->dev, "Paddingclks[8] = 0x%x\n",  pptable->Paddingclks[8]);
+-	dev_info(smu->adev->dev, "Paddingclks[9] = 0x%x\n",  pptable->Paddingclks[9]);
+-	dev_info(smu->adev->dev, "Paddingclks[10] = 0x%x\n", pptable->Paddingclks[10]);
+-	dev_info(smu->adev->dev, "Paddingclks[11] = 0x%x\n", pptable->Paddingclks[11]);
+-	dev_info(smu->adev->dev, "Paddingclks[12] = 0x%x\n", pptable->Paddingclks[12]);
+-	dev_info(smu->adev->dev, "Paddingclks[13] = 0x%x\n", pptable->Paddingclks[13]);
+-	dev_info(smu->adev->dev, "Paddingclks[14] = 0x%x\n", pptable->Paddingclks[14]);
+-	dev_info(smu->adev->dev, "Paddingclks[15] = 0x%x\n", pptable->Paddingclks[15]);
+-
+ 	dev_info(smu->adev->dev, "DcModeMaxFreq\n");
+ 	dev_info(smu->adev->dev, "  .PPCLK_GFXCLK = 0x%x\n", pptable->DcModeMaxFreq[PPCLK_GFXCLK]);
+ 	dev_info(smu->adev->dev, "  .PPCLK_SOCCLK = 0x%x\n", pptable->DcModeMaxFreq[PPCLK_SOCCLK]);
 -- 
 2.25.1
 
