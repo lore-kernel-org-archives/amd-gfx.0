@@ -2,54 +2,71 @@ Return-Path: <SRS0=Rejl=EY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2B4CC2D0E4
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 02:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8F8CC56202
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 07:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 968D822228
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 02:58:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 968D822228
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1CF462463F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 07:39:38 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="IsrxZxKX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1CF462463F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1A6E6E235;
-	Wed, 18 Nov 2020 02:58:34 +0000 (UTC)
-Received: from m17618.mail.qiye.163.com (m17618.mail.qiye.163.com
- [59.111.176.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDA7B6E235
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2020 02:55:12 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [112.80.34.205])
- by m17618.mail.qiye.163.com (Hmail) with ESMTPA id DD1734E16BE;
- Wed, 18 Nov 2020 10:55:09 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Yintian Tao <yttao@amd.com>, Dennis Li <Dennis.Li@amd.com>,
- Wenhui Sheng <Wenhui.Sheng@amd.com>, chen gong <curry.gong@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, "Stanley.Yang" <Stanley.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] amd/amdgpu: use kmalloc_array to replace kmalloc with multiply
-Date: Tue, 17 Nov 2020 18:55:01 -0800
-Message-Id: <20201118025503.102699-1-bernard@vivo.com>
-X-Mailer: git-send-email 2.29.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5E96E334;
+	Wed, 18 Nov 2020 07:39:37 +0000 (UTC)
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D79CD6E334
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2020 07:39:36 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id i18so895236ots.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2020 23:39:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5kQ6WU7h/KCapyngIq31d2yV3S3yozxhq6mrduz4N64=;
+ b=IsrxZxKX1cyEH7sgnmk34hmPhVToxcCrEboPDGgCST6VhxJu9pBN0cx9Gl7n4VIROb
+ Px8FRUosxQ0O+sQ614Er1ro5X8qCA2vuPTVZL6EMXhZ7pmO1gteGSZt/rexYjYWJ4WEh
+ 4Wsor0NwivyOln5ACe1Aeiprr3Z4phF3ATCZk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5kQ6WU7h/KCapyngIq31d2yV3S3yozxhq6mrduz4N64=;
+ b=siEVjXhYo7ffD2ZFZJDqp3Aog/zc4DMMTvknHwCv9LcmWv69xqV+UxLVKgM8iz7L+y
+ mmF0PxT6hx52P8vCI/abj9TAg7qSxiDDDnRHKML8xslQU/bMfc26It0f6QhJutafGe4g
+ ae0T3seBrtuux0OGUmp8rt+r8EX8FEWhY670yFFZb+OUC9MO2wUPSBPDhscQbgRZDkiq
+ trUDLse0Rn1qzuf5IM8KTWhgBIz6MoImooanf7ZwbHH8GhydEEOLlruaxbnPhxAmg7Tm
+ hRRm3lZ+YkKdk6/FRSukDC33mlmDCqd63YH3qaFXEdtpybj15hSi/8FnNuKDQ9a46Z2Z
+ zARA==
+X-Gm-Message-State: AOAM532jVBgo+kvfa3N02naFLz6vIjbnYAkXuwrNw8x9SxnBzJwTmVZK
+ i2mZh2Ra9+V4PTU2sHXIY/Ll353ONDBFY7w1dSHPKw==
+X-Google-Smtp-Source: ABdhPJwj9CxjkkFvHfpjLmodNPyNpUxvc36JEbfllBWiteLDbR8g86BcWCvWOFpfvqOkbt7ZvR9wgazdvPdrrxRc9Vo=
+X-Received: by 2002:a05:6830:3155:: with SMTP id
+ c21mr6001762ots.281.1605685176133; 
+ Tue, 17 Nov 2020 23:39:36 -0800 (PST)
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZHUxCS0geH0lCTEIfVkpNS05NTUNKSktPSEhVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS09ISFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Nww6Kww6Kj8hKw8#SjI0Sy4Q
- TCNPFCpVSlVKTUtOTU1DSkpLQ05NVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKSklV
- Q0tVSE9VSUtOWVdZCAFZQUlCTk43Bg++
-X-HM-Tid: 0a75d946ff7f9376kuwsdd1734e16be
-X-Mailman-Approved-At: Wed, 18 Nov 2020 02:58:33 +0000
+References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1592719388-13819-9-git-send-email-andrey.grodzovsky@amd.com>
+ <20200622095345.GF20149@phenom.ffwll.local>
+ <24dd3691-5599-459c-2e5d-a8f2e504ec66@amd.com>
+ <20201117185255.GP401619@phenom.ffwll.local>
+ <b827fa7a-d89e-d138-d275-60a9f15c128a@amd.com>
+ <20201117194922.GW401619@phenom.ffwll.local>
+ <064ef461-8f59-2eb8-7777-6ff5b8d28cdd@amd.com>
+In-Reply-To: <064ef461-8f59-2eb8-7777-6ff5b8d28cdd@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 18 Nov 2020 08:39:24 +0100
+Message-ID: <CAKMK7uF9uvT09zDb6fS0j68fWrq2qV7h_JQAt8vpaGPJ1d64cQ@mail.gmail.com>
+Subject: Re: [PATCH v2 8/8] drm/amdgpu: Prevent any job recoveries after
+ device is unplugged.
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +78,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexdeucher@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix check_patch.pl warning:
-WARNING: Prefer kmalloc_array over kmalloc with multiply
-+bps = kmalloc(align_space * sizeof((*data)->bps), GFP_KERNEL);
-WARNING: Prefer kmalloc_array over kmalloc with multiply
-+bps_bo = kmalloc(align_space * sizeof((*data)->bps_bo),
-GFP_KERNEL);
-kmalloc_array has multiply overflow check, which will be safer.
+On Tue, Nov 17, 2020 at 9:07 PM Andrey Grodzovsky
+<Andrey.Grodzovsky@amd.com> wrote:
+>
+>
+> On 11/17/20 2:49 PM, Daniel Vetter wrote:
+> > On Tue, Nov 17, 2020 at 02:18:49PM -0500, Andrey Grodzovsky wrote:
+> >> On 11/17/20 1:52 PM, Daniel Vetter wrote:
+> >>> On Tue, Nov 17, 2020 at 01:38:14PM -0500, Andrey Grodzovsky wrote:
+> >>>> On 6/22/20 5:53 AM, Daniel Vetter wrote:
+> >>>>> On Sun, Jun 21, 2020 at 02:03:08AM -0400, Andrey Grodzovsky wrote:
+> >>>>>> No point to try recovery if device is gone, just messes up things.
+> >>>>>>
+> >>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> >>>>>> ---
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 16 ++++++++++++++++
+> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  8 ++++++++
+> >>>>>>     2 files changed, 24 insertions(+)
+> >>>>>>
+> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> index 6932d75..5d6d3d9 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> @@ -1129,12 +1129,28 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+> >>>>>>          return ret;
+> >>>>>>     }
+> >>>>>> +static void amdgpu_cancel_all_tdr(struct amdgpu_device *adev)
+> >>>>>> +{
+> >>>>>> +        int i;
+> >>>>>> +
+> >>>>>> +        for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> >>>>>> +                struct amdgpu_ring *ring = adev->rings[i];
+> >>>>>> +
+> >>>>>> +                if (!ring || !ring->sched.thread)
+> >>>>>> +                        continue;
+> >>>>>> +
+> >>>>>> +                cancel_delayed_work_sync(&ring->sched.work_tdr);
+> >>>>>> +        }
+> >>>>>> +}
+> >>>>> I think this is a function that's supposed to be in drm/scheduler, not
+> >>>>> here. Might also just be your cleanup code being ordered wrongly, or your
+> >>>>> split in one of the earlier patches not done quite right.
+> >>>>> -Daniel
+> >>>> This function iterates across all the schedulers  per amdgpu device and accesses
+> >>>> amdgpu specific structures , drm/scheduler deals with single scheduler at most
+> >>>> so looks to me like this is the right place for this function
+> >>> I guess we could keep track of all schedulers somewhere in a list in
+> >>> struct drm_device and wrap this up. That was kinda the idea.
+> >>>
+> >>> Minimally I think a tiny wrapper with docs for the
+> >>> cancel_delayed_work_sync(&sched->work_tdr); which explains what you must
+> >>> observe to make sure there's no race.
+> >>
+> >> Will do
+> >>
+> >>
+> >>> I'm not exactly sure there's no
+> >>> guarantee here we won't get a new tdr work launched right afterwards at
+> >>> least, so this looks a bit like a hack.
+> >>
+> >> Note that for any TDR work happening post amdgpu_cancel_all_tdr
+> >> amdgpu_job_timedout->drm_dev_is_unplugged
+> >> will return true and so it will return early. To make it water proof tight
+> >> against race
+> >> i can switch from drm_dev_is_unplugged to drm_dev_enter/exit
+> > Hm that's confusing. You do a work_cancel_sync, so that at least looks
+> > like "tdr work must not run after this point"
+> >
+> > If you only rely on drm_dev_enter/exit check with the tdr work, then
+> > there's no need to cancel anything.
+>
+>
+> Agree, synchronize_srcu from drm_dev_unplug should play the role
+> of 'flushing' any earlier (in progress) tdr work which is
+> using drm_dev_enter/exit pair. Any later arising tdr will terminate early when
+> drm_dev_enter
+> returns false.
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Nope, anything you put into the work itself cannot close this race.
+It's the schedule_work that matters here. Or I'm missing something ...
+I thought that the tdr work you're cancelling here is launched by
+drm/scheduler code, not by the amd callback?
+-Daniel
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index d0aea5e39531..f2a0851c804f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -280,8 +280,8 @@ static int amdgpu_virt_init_ras_err_handler_data(struct amdgpu_device *adev)
- 	if (!*data)
- 		return -ENOMEM;
- 
--	bps = kmalloc(align_space * sizeof((*data)->bps), GFP_KERNEL);
--	bps_bo = kmalloc(align_space * sizeof((*data)->bps_bo), GFP_KERNEL);
-+	bps = kmalloc_array(align_space, sizeof((*data)->bps), GFP_KERNEL);
-+	bps_bo = kmalloc_array(align_space, sizeof((*data)->bps_bo), GFP_KERNEL);
- 
- 	if (!bps || !bps_bo) {
- 		kfree(bps);
+>
+> Will update.
+>
+> Andrey
+>
+>
+> >
+> > For race free cancel_work_sync you need:
+> > 1. make sure whatever is calling schedule_work is guaranteed to no longer
+> > call schedule_work.
+> > 2. call cancel_work_sync
+> >
+> > Anything else is cargo-culted work cleanup:
+> >
+> > - 1. without 2. means if a work got scheduled right before it'll still be
+> >    a problem.
+> > - 2. without 1. means a schedule_work right after makes you calling
+> >    cancel_work_sync pointless.
+> >
+> > So either both or nothing.
+> > -Daniel
+> >
+> >> Andrey
+> >>
+> >>
+> >>> -Daniel
+> >>>
+> >>>> Andrey
+> >>>>
+> >>>>
+> >>>>>> +
+> >>>>>>     static void
+> >>>>>>     amdgpu_pci_remove(struct pci_dev *pdev)
+> >>>>>>     {
+> >>>>>>          struct drm_device *dev = pci_get_drvdata(pdev);
+> >>>>>> +        struct amdgpu_device *adev = dev->dev_private;
+> >>>>>>          drm_dev_unplug(dev);
+> >>>>>> +        amdgpu_cancel_all_tdr(adev);
+> >>>>>>          ttm_bo_unmap_virtual_address_space(&adev->mman.bdev);
+> >>>>>>          amdgpu_driver_unload_kms(dev);
+> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>>>>> index 4720718..87ff0c0 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>>>>> @@ -28,6 +28,8 @@
+> >>>>>>     #include "amdgpu.h"
+> >>>>>>     #include "amdgpu_trace.h"
+> >>>>>> +#include <drm/drm_drv.h>
+> >>>>>> +
+> >>>>>>     static void amdgpu_job_timedout(struct drm_sched_job *s_job)
+> >>>>>>     {
+> >>>>>>          struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
+> >>>>>> @@ -37,6 +39,12 @@ static void amdgpu_job_timedout(struct drm_sched_job *s_job)
+> >>>>>>          memset(&ti, 0, sizeof(struct amdgpu_task_info));
+> >>>>>> +        if (drm_dev_is_unplugged(adev->ddev)) {
+> >>>>>> +                DRM_INFO("ring %s timeout, but device unplugged, skipping.\n",
+> >>>>>> +                                          s_job->sched->name);
+> >>>>>> +                return;
+> >>>>>> +        }
+> >>>>>> +
+> >>>>>>          if (amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
+> >>>>>>                  DRM_ERROR("ring %s timeout, but soft recovered\n",
+> >>>>>>                            s_job->sched->name);
+> >>>>>> --
+> >>>>>> 2.7.4
+> >>>>>>
+
+
+
 -- 
-2.29.0
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
