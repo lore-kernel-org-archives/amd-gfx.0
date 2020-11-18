@@ -2,87 +2,98 @@ Return-Path: <SRS0=Rejl=EY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0B5FC63798
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 12:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72130C63777
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 12:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6044824248
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 12:01:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CA57C2463B
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 12:09:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WeOdbs4w"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6044824248
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZpGM8CaX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA57C2463B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B3CC6E406;
-	Wed, 18 Nov 2020 12:01:21 +0000 (UTC)
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 723376E3DB;
- Wed, 18 Nov 2020 12:01:20 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id ay21so1722493edb.2;
- Wed, 18 Nov 2020 04:01:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=1kY678/TlSt+JHbm0PDgPhjC5j2m6T9yJ6fohIj8IJQ=;
- b=WeOdbs4w1nVZxM9UVgpzapBut+MVvPL3n9IoZdEU54RB78zYfMc5rfcI8xSgnCK54H
- SFMPP9GokpMGZCsq1DoFLf3bn+zgZrV9KrVnI4YuXDg83KRpelDZ4oQszT1owx8M5PMW
- 7/7HcG/XMv8du4uGHhY4gXPBB90HvTr0eFwaxkxAwdcSuEhxXzNXJ36GZ7uaoBHY4y1r
- q+qShaeZ5WHki/EPTPWx0CazRq/rv8u9WnntRRc3Op5JCMbC9Rbe3k6vwEsVWqyIGi3A
- ZGxU7b2hLRYHwCllKl2K7a1eSLqL2Y022bxLwa+FYh/gvflGcBgKUIPNyvjrPFdzNK0b
- pLoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=1kY678/TlSt+JHbm0PDgPhjC5j2m6T9yJ6fohIj8IJQ=;
- b=Z7H724If7p1dcnqytqQENI2gSwsYwyJODR70zOLxflzWJoHxTqyzX5FxwHtuE7M6/H
- iUGcrRTILjwbcMgTRFPVN0ivLZ4Fa+q78T9BCyd5xcROgneS6FUcrGIISUDynE0J1mZd
- ZtcK/2SE0V3gLpxArUyISkdhuswmfCzwTGiAA5V2UxEff8BTXA0NGDCpHh9HKmx5L/o+
- ygxySyCv8zQph7snC/+/ubTXBhgaK2/VzSUzGyqm1DwvedlRB0+rEmyXZlONIjuzK8VZ
- kEzebjE04arRNryyM/YgXvMs3LTnU2ok943MesKhXyxTloWw4dP53txFQ4zoV1eyo+vg
- 7IVw==
-X-Gm-Message-State: AOAM53103sBQM78IFmevT7S/35sbsCHesZr86z9J7ZsZl5xbNck19VtT
- hcKdmKriQjaCBgmZKju2ua4=
-X-Google-Smtp-Source: ABdhPJyYLVPZFn913p3nMyQz3blndzxsqE7mTRawQ4pw9fQv+u5pkfMC9Xlxn4l02N/YSXY9FM06GA==
-X-Received: by 2002:a05:6402:21a:: with SMTP id
- t26mr8210370edv.173.1605700879084; 
- Wed, 18 Nov 2020 04:01:19 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id c8sm13445667edr.29.2020.11.18.04.01.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Nov 2020 04:01:18 -0800 (PST)
-Subject: Re: [PATCH v2 8/8] drm/amdgpu: Prevent any job recoveries after
- device is unplugged.
-To: Daniel Vetter <daniel@ffwll.ch>,
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-References: <1592719388-13819-1-git-send-email-andrey.grodzovsky@amd.com>
- <1592719388-13819-9-git-send-email-andrey.grodzovsky@amd.com>
- <20200622095345.GF20149@phenom.ffwll.local>
- <24dd3691-5599-459c-2e5d-a8f2e504ec66@amd.com>
- <20201117185255.GP401619@phenom.ffwll.local>
- <b827fa7a-d89e-d138-d275-60a9f15c128a@amd.com>
- <20201117194922.GW401619@phenom.ffwll.local>
- <064ef461-8f59-2eb8-7777-6ff5b8d28cdd@amd.com>
- <CAKMK7uF9uvT09zDb6fS0j68fWrq2qV7h_JQAt8vpaGPJ1d64cQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d0a3ee49-64f3-a223-7e84-0c8eb3481f61@gmail.com>
-Date: Wed, 18 Nov 2020 13:01:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32E546E408;
+	Wed, 18 Nov 2020 12:09:29 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A2A56E408
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2020 12:09:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JOus+1SXlEyV01a78IrufPatpObxHw+i2gv89ZfxqrhkkIT2ybas7ydHpA3Vo8FnKz6h6ihg5rVllCwTcsAuVmC/lc3T9xK/6Lx5kVME49mYn8DPkGk7Ej6RG2x9cuz1yp8+27t36nKdyYxxQ8PYSnSyIfbhs3DOnaC2kzfI17/Ypba6JJhyKFHt7hTOzU6qrwzHtPU2ix0tMUsYYs3ua+lM+KgDDJu7iZe7zchkHq2i2aOGDesrId8USqIwTnMitZib64b1BfhwGC4mCp1nGN+2ZyGFLe4EXJauMtB+vwA2+SyFvAHWHXS4zhgPpdBc5G1JI8UVp1YzMIIpd1xZqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AM6KhL+8rER4DN0s8vDDw6XG6Iql1coQpocpbvfuIr8=;
+ b=UMzg6iNogAXM+D14H92IrOLV3519c++2kE2X3fmwbzQtmWyvGrDj+oUo/4Pc2yt+z60zJv1FCGqIGghIBlMKmMFQlVCRJGxuz8Uz9jvIIEguL6fALhiYAUgMBZjD01IZ33BH2AE4QdVRUCHmUzcPFgscF+dFg4Bl8Un0qJPvmTTgtkxfcY0XEgAUboZNEVKUQRxEnpUG28uGYV5uxrQZsrAm5TozDyZ52AIn01MFLZYFFlJfiRB0cbHJgIJUoX90hzs3xFRHKN3Ar2k9c50KO89wvGLBqxhOii4uWKu0crm5x7ZHEZy55EeeoUDCI+JNaKZfO85vM1rqBXU/tRpGnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AM6KhL+8rER4DN0s8vDDw6XG6Iql1coQpocpbvfuIr8=;
+ b=ZpGM8CaX/GwFW3j5DmHdsf3Q7FjvlCeKmn4/KcqwIvjZZOOLgdYNqKG2CQ44RMG0xR8u+uHB+RdTcJL6J8yZqa3jr0k+WfrZnCIHBc/KkBq49p2J6/DIAXU85oWwir55aXlCQEq08+638dsCNU9F1ZEQIWO3oWCitxq7ix4QcZY=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3467.namprd12.prod.outlook.com (2603:10b6:5:3c::10) by
+ DM6PR12MB4043.namprd12.prod.outlook.com (2603:10b6:5:216::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3564.28; Wed, 18 Nov 2020 12:09:26 +0000
+Received: from DM6PR12MB3467.namprd12.prod.outlook.com
+ ([fe80::1948:87e9:bae7:bdf3]) by DM6PR12MB3467.namprd12.prod.outlook.com
+ ([fe80::1948:87e9:bae7:bdf3%7]) with mapi id 15.20.3589.020; Wed, 18 Nov 2020
+ 12:09:26 +0000
+From: Jinzhou Su <Jinzhou.Su@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Add gfx doorbell setting for Vangogh
+Date: Wed, 18 Nov 2020 20:09:05 +0800
+Message-Id: <20201118120905.1473-1-Jinzhou.Su@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK2PR06CA0019.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::31) To DM6PR12MB3467.namprd12.prod.outlook.com
+ (2603:10b6:5:3c::10)
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uF9uvT09zDb6fS0j68fWrq2qV7h_JQAt8vpaGPJ1d64cQ@mail.gmail.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jinzhosu-System-Product-Name.amd.com (180.167.199.189) by
+ HK2PR06CA0019.apcprd06.prod.outlook.com (2603:1096:202:2e::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Wed, 18 Nov 2020 12:09:24 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: f9b54db3-3fb6-4fed-6b3b-08d88bbacb1d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4043:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB40430E3274F85BA54EBEA58790E10@DM6PR12MB4043.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +FXyEWlw6S0Wa+qifCim0mc2qrvbn6cmS6SjD9EVlWB6ES/rObW7mD1FPDKbii2ZXP4AeBAnv0w+xSR/acyf978q+2ZgVv1VUyG4Gv6y6XK2qQgtiYvknsBmCcWkOw2zZCJURo0H+zUP9D1aADOw+qYsg+qAHrwJZBJkZmA63spuh8guVlygwh7/b2wXrKbbgKfWE4v8/aSSoXekD89AfKOjc55WSyO39gNGF0/vdyKveT/YybcGZecuiTafZs00zgnDsmq7U0Xf6/jRQkGEroLnxEPdDsIOmDSU3kU80qWB90a/GeaJh8r9CX4pRwVl3fhKU+wL8N7mCktz0R/uWg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3467.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(39860400002)(346002)(366004)(376002)(186003)(26005)(1076003)(6666004)(66476007)(2616005)(5660300002)(66556008)(956004)(478600001)(66946007)(6916009)(6486002)(16526019)(86362001)(8936002)(8676002)(2906002)(36756003)(52116002)(4326008)(83380400001)(316002)(7696005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: xjThk+g6DN49b5uHwvXqKPMxjTb+8m6gnwPAgQZnA2WB0ifATvlkSgrmUYSrHTwroJSYV6ZGOe3PefOEgzCoSLSLGlyd4XDtG8ekm0bmPHvliyopEB3AObkRJ1sBENV/+JA4dXuUflSBsqXkUlc7+Btb1AL7phxYQvp18UOvrRqHR5tUw8I2g7UWXA0fv/o/8MTG7IkRK13HiJ+JdYZqzvGYxSGxVnrVx8WHwbWAsGdfQ0QpdubcvcW0rhNhuSDWNNsHAazObxG2IX+PJNWeGeBIHYUjcSVwUs57hn0N+428GL9qP8uXHlpFYmgVvNoJfPn0gZTo0aB6DQmAbIIrEYav+gNVV6gY8gKdl3buLwd80PHBeXHNt3YLBKG1mDOl+llx0qtb5w313KRfY6w0Q4V4rvuFJMjk767oA0nlu4njPT2kLy14SFu875fFqyBoSRqrS3lTODWOYeFQ+2hAuytPy8cE3JZL+GNCllHrtEx7LJQdDdZk6tIfXQrDriTV8UceMNCSMQS6ZmORS86yei0HE/dplbAf86PcexiI+NsCZYzZKZaQFmctARebWdnz5JW4d5V3eMn05IFeEXazZqXJuEQQHkMAgcDJWNp22wfsZ6dYeVgUyUhT7fuaNu2RTXGQzD1j0/hBlBQubnzBfA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9b54db3-3fb6-4fed-6b3b-08d88bbacb1d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3467.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2020 12:09:26.2934 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: atPgYhTGxnbemIoSWP7FgSrekbqGsa2EpAmtv7wDn7w7pOR6F2weDSquKo+9xLI1PW5zLgmlJkPqVhBF++BWZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4043
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,175 +105,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Jinzhou Su <Jinzhou.Su@amd.com>, prakash.kamliya@amd.com, ray.huang@amd.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.11.20 um 08:39 schrieb Daniel Vetter:
-> On Tue, Nov 17, 2020 at 9:07 PM Andrey Grodzovsky
-> <Andrey.Grodzovsky@amd.com> wrote:
->>
->> On 11/17/20 2:49 PM, Daniel Vetter wrote:
->>> On Tue, Nov 17, 2020 at 02:18:49PM -0500, Andrey Grodzovsky wrote:
->>>> On 11/17/20 1:52 PM, Daniel Vetter wrote:
->>>>> On Tue, Nov 17, 2020 at 01:38:14PM -0500, Andrey Grodzovsky wrote:
->>>>>> On 6/22/20 5:53 AM, Daniel Vetter wrote:
->>>>>>> On Sun, Jun 21, 2020 at 02:03:08AM -0400, Andrey Grodzovsky wrote:
->>>>>>>> No point to try recovery if device is gone, just messes up things.
->>>>>>>>
->>>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>>>>>> ---
->>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 16 ++++++++++++++++
->>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_job.c |  8 ++++++++
->>>>>>>>      2 files changed, 24 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>> index 6932d75..5d6d3d9 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>> @@ -1129,12 +1129,28 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->>>>>>>>           return ret;
->>>>>>>>      }
->>>>>>>> +static void amdgpu_cancel_all_tdr(struct amdgpu_device *adev)
->>>>>>>> +{
->>>>>>>> +        int i;
->>>>>>>> +
->>>>>>>> +        for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->>>>>>>> +                struct amdgpu_ring *ring = adev->rings[i];
->>>>>>>> +
->>>>>>>> +                if (!ring || !ring->sched.thread)
->>>>>>>> +                        continue;
->>>>>>>> +
->>>>>>>> +                cancel_delayed_work_sync(&ring->sched.work_tdr);
->>>>>>>> +        }
->>>>>>>> +}
->>>>>>> I think this is a function that's supposed to be in drm/scheduler, not
->>>>>>> here. Might also just be your cleanup code being ordered wrongly, or your
->>>>>>> split in one of the earlier patches not done quite right.
->>>>>>> -Daniel
->>>>>> This function iterates across all the schedulers  per amdgpu device and accesses
->>>>>> amdgpu specific structures , drm/scheduler deals with single scheduler at most
->>>>>> so looks to me like this is the right place for this function
->>>>> I guess we could keep track of all schedulers somewhere in a list in
->>>>> struct drm_device and wrap this up. That was kinda the idea.
->>>>>
->>>>> Minimally I think a tiny wrapper with docs for the
->>>>> cancel_delayed_work_sync(&sched->work_tdr); which explains what you must
->>>>> observe to make sure there's no race.
->>>> Will do
->>>>
->>>>
->>>>> I'm not exactly sure there's no
->>>>> guarantee here we won't get a new tdr work launched right afterwards at
->>>>> least, so this looks a bit like a hack.
->>>> Note that for any TDR work happening post amdgpu_cancel_all_tdr
->>>> amdgpu_job_timedout->drm_dev_is_unplugged
->>>> will return true and so it will return early. To make it water proof tight
->>>> against race
->>>> i can switch from drm_dev_is_unplugged to drm_dev_enter/exit
->>> Hm that's confusing. You do a work_cancel_sync, so that at least looks
->>> like "tdr work must not run after this point"
->>>
->>> If you only rely on drm_dev_enter/exit check with the tdr work, then
->>> there's no need to cancel anything.
->>
->> Agree, synchronize_srcu from drm_dev_unplug should play the role
->> of 'flushing' any earlier (in progress) tdr work which is
->> using drm_dev_enter/exit pair. Any later arising tdr will terminate early when
->> drm_dev_enter
->> returns false.
-> Nope, anything you put into the work itself cannot close this race.
-> It's the schedule_work that matters here. Or I'm missing something ...
-> I thought that the tdr work you're cancelling here is launched by
-> drm/scheduler code, not by the amd callback?
+Using KIQ to map GFX queues instead of MMIO for gfx async ring,
+add missing doorbell range setting.
 
-Yes that is correct. Canceling the work item is not the right approach 
-at all, nor is adding dev_enter/exit pair in the recovery handler.
+Signed-off-by: Jinzhou.Su <Jinzhou.Su@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-What we need to do here is to stop the scheduler thread and then wait 
-for any timeout handling to have finished.
-
-Otherwise it can scheduler a new timeout just after we have canceled 
-this one.
-
-Regards,
-Christian.
-
-> -Daniel
->
->> Will update.
->>
->> Andrey
->>
->>
->>> For race free cancel_work_sync you need:
->>> 1. make sure whatever is calling schedule_work is guaranteed to no longer
->>> call schedule_work.
->>> 2. call cancel_work_sync
->>>
->>> Anything else is cargo-culted work cleanup:
->>>
->>> - 1. without 2. means if a work got scheduled right before it'll still be
->>>     a problem.
->>> - 2. without 1. means a schedule_work right after makes you calling
->>>     cancel_work_sync pointless.
->>>
->>> So either both or nothing.
->>> -Daniel
->>>
->>>> Andrey
->>>>
->>>>
->>>>> -Daniel
->>>>>
->>>>>> Andrey
->>>>>>
->>>>>>
->>>>>>>> +
->>>>>>>>      static void
->>>>>>>>      amdgpu_pci_remove(struct pci_dev *pdev)
->>>>>>>>      {
->>>>>>>>           struct drm_device *dev = pci_get_drvdata(pdev);
->>>>>>>> +        struct amdgpu_device *adev = dev->dev_private;
->>>>>>>>           drm_dev_unplug(dev);
->>>>>>>> +        amdgpu_cancel_all_tdr(adev);
->>>>>>>>           ttm_bo_unmap_virtual_address_space(&adev->mman.bdev);
->>>>>>>>           amdgpu_driver_unload_kms(dev);
->>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>>>>>> index 4720718..87ff0c0 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>>>>>> @@ -28,6 +28,8 @@
->>>>>>>>      #include "amdgpu.h"
->>>>>>>>      #include "amdgpu_trace.h"
->>>>>>>> +#include <drm/drm_drv.h>
->>>>>>>> +
->>>>>>>>      static void amdgpu_job_timedout(struct drm_sched_job *s_job)
->>>>>>>>      {
->>>>>>>>           struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
->>>>>>>> @@ -37,6 +39,12 @@ static void amdgpu_job_timedout(struct drm_sched_job *s_job)
->>>>>>>>           memset(&ti, 0, sizeof(struct amdgpu_task_info));
->>>>>>>> +        if (drm_dev_is_unplugged(adev->ddev)) {
->>>>>>>> +                DRM_INFO("ring %s timeout, but device unplugged, skipping.\n",
->>>>>>>> +                                          s_job->sched->name);
->>>>>>>> +                return;
->>>>>>>> +        }
->>>>>>>> +
->>>>>>>>           if (amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
->>>>>>>>                   DRM_ERROR("ring %s timeout, but soft recovered\n",
->>>>>>>>                             s_job->sched->name);
->>>>>>>> --
->>>>>>>> 2.7.4
->>>>>>>>
->
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index a6d03931f7fa..9b4e5d53432f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -5995,17 +5995,19 @@ static void gfx_v10_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
+ {
+ 	u32 tmp;
+ 
+-	tmp = RREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL);
+-	if (ring->use_doorbell) {
+-		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+-				    DOORBELL_OFFSET, ring->doorbell_index);
+-		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+-				    DOORBELL_EN, 1);
+-	} else {
+-		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+-				    DOORBELL_EN, 0);
++	if (!amdgpu_async_gfx_ring) {
++	    tmp = RREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL);
++	    if (ring->use_doorbell) {
++		    tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
++				        DOORBELL_OFFSET, ring->doorbell_index);
++		    tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
++				        DOORBELL_EN, 1);
++	    } else {
++		    tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
++				        DOORBELL_EN, 0);
++	    }
++	    WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL, tmp);
+ 	}
+-	WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL, tmp);
+ 	switch (adev->asic_type) {
+ 	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_NAVY_FLOUNDER:
+@@ -6349,6 +6351,8 @@ static int gfx_v10_0_gfx_mqd_init(struct amdgpu_ring *ring)
+ 				    DOORBELL_EN, 0);
+ 	mqd->cp_rb_doorbell_control = tmp;
+ 
++	/* set doorbell range */
++	gfx_v10_0_cp_gfx_set_doorbell(adev, ring);
+ 	/* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
+ 	ring->wptr = 0;
+ 	mqd->cp_gfx_hqd_rptr = RREG32_SOC15(GC, 0, mmCP_GFX_HQD_RPTR);
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
