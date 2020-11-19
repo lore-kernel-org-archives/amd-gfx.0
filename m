@@ -1,73 +1,44 @@
-Return-Path: <SRS0=Rejl=EY=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=HxJR=EZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BEDFC5519F
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 21:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06F74C5519F
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 02:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0B38246C0
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2020 21:37:02 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9Lq0BzF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0B38246C0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id EE514246B0
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2020 02:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE514246B0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jsg.id.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283D789BAB;
-	Wed, 18 Nov 2020 21:36:58 +0000 (UTC)
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F411B89B55;
- Wed, 18 Nov 2020 21:36:56 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id v143so3433329qkb.2;
- Wed, 18 Nov 2020 13:36:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1gT5luODuZgq4DrRgke2+oV+rvsqG6cSyB8hGvW9ce4=;
- b=o9Lq0BzFmG7GZaqmOxTtE29m4SLTuWTog0TJLqdPhPlQxPs5kw6MuzmGNPDiIXusyr
- acq51/edp1sA/+CScUwXySe8kjiI41cgUU4gjPeud7UMIQAFvOGdnijQoNVCDLySwCMI
- fKTToeJmDhN9ls4Ou8gzgoFFQyLLT3UXwyywebXJHagXK+b3gw3Z/Szo+H20en8A7bEi
- JigVbvo5c0ANFgXfKQ7Tsh2wcB6YXdMcCbi2nEoyUGYZJMGou3BcczSmO9dXv3mH6uMG
- 0WP/tiEhdxlaTXAGNp7LOomyWUwgB/aa0oBRQ/eGJ0FdhHDspcAqc8AwaPvPJr+jjGS9
- wPrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1gT5luODuZgq4DrRgke2+oV+rvsqG6cSyB8hGvW9ce4=;
- b=H0egY67fvyyC3wUn+FisXgMjG7fnTog8+yOMeWlL2RXgmF1CWRGPRuawCO07F+MKaG
- jGuRV8irOfrNLU/XJ3Fssc+a15lU0fbvnSSYG3sZso/rdLQLt29lWlQbuyQGhQscEfxk
- o5q02dddPowO92RxkVcIHt5X/BViNKvQ95nr99/H10SHWSqhk2YKBZV48omCeJkLXKjE
- Xqc5I94kJ/Q+GeVmBGlcdDsRzEpF5WZypiT2BE04R1N5bRDFdG8Pxf8MSPoX5eiAkfI1
- NOwnuvGxsAJY6wvPZwoZnNLSOh8TO5VhVLpCFKaLB4ICfrIAilxCvM6VEXegwIXRqLzU
- RGKA==
-X-Gm-Message-State: AOAM5331DoFotXHvpIymZxG4wZ5DleyQfUibvbFyBt17WDDery+h0M+/
- 4s0i4PgO2n/eVImsPNIhk5W5K9GtxpE=
-X-Google-Smtp-Source: ABdhPJwXOHOjq0Smk+/eI8Zl771PNJ1IOYOe+MI+0pNpJyFfUI+dNthn747Kf3ul4dORe1GAPku18w==
-X-Received: by 2002:a37:bc04:: with SMTP id m4mr7165669qkf.419.1605735415789; 
- Wed, 18 Nov 2020 13:36:55 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id j17sm1631585qtn.2.2020.11.18.13.36.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2020 13:36:55 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-5.10
-Date: Wed, 18 Nov 2020 16:36:46 -0500
-Message-Id: <20201118213646.4015-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id E852C89DB2;
+	Thu, 19 Nov 2020 02:37:24 +0000 (UTC)
+X-Greylist: delayed 397 seconds by postgrey-1.36 at gabe;
+ Thu, 19 Nov 2020 02:37:23 UTC
+Received: from lechuck.jsg.id.au (jsg.id.au [193.114.144.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5890F89DB2;
+ Thu, 19 Nov 2020 02:37:23 +0000 (UTC)
+Received: from largo.jsg.id.au (largo.jsg.id.au [192.168.1.43])
+ by lechuck.jsg.id.au (OpenSMTPD) with ESMTPS id 3db8c390
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256:NO); 
+ Thu, 19 Nov 2020 13:30:41 +1100 (AEDT)
+Received: from largo.jsg.id.au (localhost [127.0.0.1])
+ by largo.jsg.id.au (OpenSMTPD) with ESMTP id 8ad35176;
+ Thu, 19 Nov 2020 13:30:41 +1100 (AEDT)
+From: Jonathan Gray <jsg@jsg.id.au>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Subject: [PATCH] drm/amd/display: change license of color_table.c
+Date: Thu, 19 Nov 2020 13:30:41 +1100
+Message-Id: <20201119023041.77269-1-jsg@jsg.id.au>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,48 +51,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+Change the license of color_table.c to match color_table.h granting
+permission to modify and distribute.
 
-Fixes for 5.10.
+Signed-off-by: Jonathan Gray <jsg@jsg.id.au>
+---
+ .../amd/display/modules/color/color_table.c   | 26 +++++++++++++++----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-The following changes since commit 8f598d15ee6577a56d6617d9e4151591db34d8fa:
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_table.c b/drivers/gpu/drm/amd/display/modules/color/color_table.c
+index 692e536e7d05..410f2a82b9a2 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_table.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_table.c
+@@ -1,10 +1,26 @@
+ /*
+- * Copyright (c) 2019 Advanced Micro Devices, Inc. (unpublished)
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
+  *
+- * All rights reserved.  This notice is intended as a precaution against
+- * inadvertent publication and does not imply publication or any waiver
+- * of confidentiality.  The year included in the foregoing notice is the
+- * year of creation of the work.
+  */
+ 
+ #include "color_table.h"
+-- 
+2.29.2
 
-  Merge branch 'linux-5.10' of git://github.com/skeggsb/linux into drm-fixes (2020-11-16 06:36:31 +1000)
-
-are available in the Git repository at:
-
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.10-2020-11-18
-
-for you to fetch changes up to 2b3af2705645c87eee0f386e075871886fd429b3:
-
-  drm/amd/display: Always get CRTC updated constant values inside commit tail (2020-11-18 15:12:22 -0500)
-
-----------------------------------------------------------------
-amd-drm-fixes-5.10-2020-11-18:
-
-amdgpu:
-- Pageflip fix for navi1x with 5 or 6 displays
-- Remove experimental flag for Arcturus
-- Fix regression in atomic commit tail rework
-
-----------------------------------------------------------------
-Alex Deucher (2):
-      drm/amd/display: Add missing pflip irq for dcn2.0
-      drm/amdgpu: remove experimental flag from arcturus
-
-Rodrigo Siqueira (1):
-      drm/amd/display: Always get CRTC updated constant values inside commit tail
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c                      | 8 ++++----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c            | 3 ++-
- drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c | 4 ++--
- 3 files changed, 8 insertions(+), 7 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
