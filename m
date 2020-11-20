@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85523C63777
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 20:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FF69C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 20:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA3B122D0A
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 20:20:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DB39B24073
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 20:20:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cwaNIrfL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA3B122D0A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BsEQZ4g/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB39B24073
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 392BD6E920;
-	Fri, 20 Nov 2020 20:20:32 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2089.outbound.protection.outlook.com [40.107.236.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB6096E918
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2020 20:20:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60B8B6E924;
+	Fri, 20 Nov 2020 20:20:34 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8506E918
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2020 20:20:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hFHhMJe7gI2bLnYzIu1SbDkZqRD6vSVHvvbEATBhHDK3xWEmUSw6NyF8fflHnl/jRa9fuMIZyNlhQx1fPNGwFCbCpu5ldlbWR6gUqaU4WOcYRUsVs9IakfdreLksgxzxTM7AhAyFuRkAyZs4dPclwwH54qL+olm49WZ3LRFc8c4SNiyY26kNL3M+cMzhhlc9levpU0QzgD9FI+ATHviF9Ut7TnMCVhmTrUN7XsPIxQtSfwJFCCS4L0blzy+BU3I3gdm42vAaDwRO383bYswG9jZvh1OsBlMay8Hf56K0xdNEmVJjm0C9foQlkLmlQtw1cUt5CKUR3E5claine+zh7Q==
+ b=QBKr3Gw/s9Lt2pYbWJw6YLwBDIPpsRaVGt7Z7p0jQW7sOhI04r+t1H0sPdySypnYoQ8jiyDgcRFwzlf6iJ8/CP6fJrm3O8zZiETfIJ0nlHBsCwCyfF4gB+ts2rRjN9SSz7Gc9tcwTws6flUhxyyOnOO+L5nbCgNPAiDYEZGXCw4wkWGou7+ZGFiuieCB9w0AbaTp1MgXrnHPKIDehYVWRD3wKe23NKYcFsg8J5rx9wK4YRiatZ6qOkJpTqZ+2n877B8Q7spdYMciZM0CDBfjPRCRK9eBOUjqSBer3oTcULZXyG24BcxJ1FnVq/5nlsGlyCfiLY6yTmfljcXeluLv8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oH9dTtHIjah7nXuKaf0hDRqbgl2pPuI5LXD55PjZaRA=;
- b=i9NbTqhhzIutj77p5bbZ8P+E3302JI/kyLQ5lYoIIQLIkMJ7J9u7zRZ/yHcu9J9KVOmBwqzVDjrvs5IyBc0Fxxx6/9UFMH0LDYNnEGJZqZhAMBBQSKhyfK0o2gBCyLGZO7oGcsdXy5in9ocu5xcmarnFjZWZVVBj+QmyokX+qVXb3DoY6SWVumTjVTvj8njXgQo11K5vNa+NmMUUqfZ5TRm3Ub86/vnrOnU5lB9t6Ewgs6n7sd8fzy74IcRHuCr0ijVbcUUuvq8MLno6Ryc5Zg7aGiWhgJYl50a+W9yxFtj2A1E1A8UcC1R1cLpo4WC74Pz3/jjkWw9gu2883hunTA==
+ bh=5cJaENuoTz6BhcNxfDIO4fI5QeUlZpb/yFenCGyGaAo=;
+ b=Ic9VH/4eSi1oW+aneQ2cv9OZH6BMvsK7P6RJ6ETrlRXyMureTTRBF9MpMSKxcxwqiizXrP1//QkqZTdXksW9RfGaDHkoMC8aBXD1M+IMIwWSRLF/K+eHM8V5UWSBrnjjeKrM5PfdIPBendDMVt+O8ikml++JSc040fRR78woaSpHPaEH5xDKH5FPA4ds+RNR1won06+Ie8yGGfwJT1l7s9S3oXd1q/flZc71oRRKbMq1vuqyZJNhHyYNo5SiFmRs5WhgavpZUhqeKq0bCTI+pqGWKYOHhp1I0T0mmraFVlbPocLlcpk6zb0p9VMb8G8G5deJsRJ5whembjyabQ8N8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oH9dTtHIjah7nXuKaf0hDRqbgl2pPuI5LXD55PjZaRA=;
- b=cwaNIrfL60YFuYG38IGJEt+kYtSwbHNWSOlD57SiSWEI0CWKtbXFpRDse4xi/VjSvKRcNdoPiRez67ckxa6EEpC9KatAcJ9+5oDj16c6NbXW61LtI8XvKI0Dc9mQTXn0d9i9l5ErZMo7b3Xoo11ajzeOelE/Mlk5qtQV/j+mr8s=
+ bh=5cJaENuoTz6BhcNxfDIO4fI5QeUlZpb/yFenCGyGaAo=;
+ b=BsEQZ4g/Ob/lJoL2Sq2ndZD/zDuYTO4VQkDDKtYK7+RHeBjU8gY2Ae7DqcPbnX2f6/grSeLgCkazyEbCPI9+VXCyKtm//NEjxLJiaA4ktc+6cQrukuXhEyyniR9jLLa1mzIhMGzC2rMyoCUie12G9v1q3Zp398VXvF9JuFxbix0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from CH2PR12MB3781.namprd12.prod.outlook.com (2603:10b6:610:27::11)
  by CH2PR12MB4261.namprd12.prod.outlook.com (2603:10b6:610:a9::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.24; Fri, 20 Nov
- 2020 20:20:23 +0000
+ 2020 20:20:32 +0000
 Received: from CH2PR12MB3781.namprd12.prod.outlook.com
  ([fe80::9d:35d6:ff59:1cfa]) by CH2PR12MB3781.namprd12.prod.outlook.com
  ([fe80::9d:35d6:ff59:1cfa%4]) with mapi id 15.20.3589.024; Fri, 20 Nov 2020
- 20:20:23 +0000
+ 20:20:32 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 02/18] drm/amd/display: Source minimum HBlank support
-Date: Fri, 20 Nov 2020 15:19:42 -0500
-Message-Id: <20201120201958.2455002-3-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 14/18] drm/amd/display: Add GAMCOR memory shutdown support
+Date: Fri, 20 Nov 2020 15:19:54 -0500
+Message-Id: <20201120201958.2455002-15-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201120201958.2455002-1-Rodrigo.Siqueira@amd.com>
 References: <20201120201958.2455002-1-Rodrigo.Siqueira@amd.com>
@@ -70,31 +70,31 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56e0:6d60::c908) by
  CH2PR16CA0025.namprd16.prod.outlook.com (2603:10b6:610:50::35) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3589.20 via Frontend Transport; Fri, 20 Nov 2020 20:20:22 +0000
+ 15.20.3589.20 via Frontend Transport; Fri, 20 Nov 2020 20:20:31 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f19157ee-18a2-4710-0b43-08d88d91b575
+X-MS-Office365-Filtering-Correlation-Id: 80673d66-5d63-453d-18ad-08d88d91bb1d
 X-MS-TrafficTypeDiagnostic: CH2PR12MB4261:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB4261031DFEAAFEDB7096BF9498FF0@CH2PR12MB4261.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB4261A156050FE05CF7A6D45598FF0@CH2PR12MB4261.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8WWBU6jIzXBCrvrrNQpaA+SRnJ2Y/f7JiR31rIVDb3tYguumfF1MQsDJXzsmTj4rArfE+x5I1+FU9O59v7+oq26ShF66UNyTSOA0mPvTXOoK7IeYhcwBPh/dGP9pgxfi0JrFaDAucBNTAyH2yytJO7qJqGv97VdEH3s5ReYHFHFIubRzPMHDU6GlCAH8947/Usj3t29uZZZUtrZaaWrk/8WnllKLYdx8+7TbKA8rEti+EaWBA//3UH9yjWXuvp48Ul8e37OEEq9iRuhrosQGRlmkEPnJm+eQzWEiz5Cf8IM9ykhHVR39QFdgH0dtnUGMc9EToT0h1J+v2FZM7vCmrA==
+X-Microsoft-Antispam-Message-Info: VfyFJHBp2/hLD/uVi6bVa9zrLz2dwrIcN2ed5j/H0aHCqa30wri8tdCCUqJf394yV5OKGFsw31NobFAUJegrOXth0Q55lWpNnjhq1BQLGokQ6/MBDyRHOmoz31GOnNCi2PBRg/EU2X2g6AOdhL1d1n3lTzrvNFQw1T2EUUZEd+z5nLviNCNDlI+sKX9GonfJG7/fVDLxfyd3imGpihLP0Mi55DzbYSWQXPfv8JsyQMzf1BxIi1kf8670d3+d6rffpFskwHj6/4w29XuUo/nooJFu75O0a7nKcSTJXQPKXK4LXJZzDpsv802OJEJjw9aojJZX6umV16IoNszjoCeauA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3781.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(4636009)(366004)(376002)(136003)(39860400002)(346002)(396003)(5660300002)(83380400001)(1076003)(6512007)(66476007)(66556008)(186003)(6486002)(66946007)(4326008)(2906002)(16526019)(86362001)(6916009)(316002)(8936002)(36756003)(6506007)(8676002)(54906003)(52116002)(6666004)(478600001)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: MXPFB5L2OYHWbc/h0G7pzDN757N0OF0GM0sr8V9v234lsOS50w6z15Fw+LxsNJ1y3w4urp26kYbcjzIe+v0QfDTIQt+rftlmzf6fbIuIxZZ5W2+jYX2JoADbjM3N/Xwfd3eebyskwnsi9KacRqLQyn+DzI0KqrpSB/kNeWqcHHMjczEfY5lXA60JjlFpTJOii2V3rjSEtC5Rxxg6rhHUjp7GbKNXJI52IeUgjaXhjhrgXm+pSyzZwa3og0zpoF3Ij2ERl0s6/yDjVAQz7GwesRFUxxsC9LnXg3YIofm+7Wr6Uqh4ohPxRNol1Ae18by9f9NFCz9VGi05fyFIxAvseTEcj2Ctx+72bZXugeeKbR++8CorF7tW8NBDd/RBPQDTEEkX6SLekRrlzwhP9IBNgGrJS1rwV17wrU3W0AScT8ZaRAEhvnM8W90d4PuX3oYJEQcLPsg5jSXnOOFjz5jlF+V71WpGkoA9yuK19i3UfegkMFsNTEuNNNia8BcL9RsJZA+GkRoUq4PzfrkXgM1nZNWW+uVMoeMZbFpAbj8cxUkJcuLMGNZk278VEIhQSjNdblrvVLrktMvZ+z1A6pM12WTrKL7X7U1DsMFnjwuuUQ+X6HBh6Y0s1ZAqxSOr5GXvriC/KPA+IvR6k8T60oZOt+j1ROqMxBN4stoows2cLff6QqHjsJd/trpI9VQ5iah5eXvsZO/5Yy0GE7U85vTvVipEbiLg4RbBy2pkcFQzUorjyGfuMHkWARzgmiJTTQGMqf5Xv3tapX8WZMvL+Ez4u7GquXFNGE4HG5iC6t30n6tZRgEH8cyUVOIoCmt2I2OnUsD6+zpdwfNBTuhpvvlgxAVDwRkREyjYh7KhBkXLyxUDsefFZJM+AHs3BnXChD/Jq8Df4CMVMlvmVQVQ/p84RXMbXzQIOm9vWECJMzUqOJMtxRyKdq3V7t057S61XWkE
+X-MS-Exchange-AntiSpam-MessageData: aoYOVOloDambXSakEP/YBd4gbHunpQI5/QggFlUb8hb38kvm8zB71NwtP4nb/1aoU5mjzPUX+1/YjXfd9Xgz3JqkqrIh0qa+MtKOC8EdOF8Kknf+kp6uHv43W/MdXyDOY3U1/8GUNJzDN8lK9B8j76JGegkp/NzPRpjNaPDyiky23fpJKxUN/zI1Dmslc6q/T7/JX3EZxaSAnZn/E7Hi4qV8ja74uDBNrD+Xj8DO1f+TlWHnJXvpnr3UdfmNOm6BckhutTjlN9ohgKzOUuOKJ95FOk5l6mVpFGUHBWCyQqEN6aXae3FhcTgLLF93mfJKmaDI2z0juYb8oGXNGglsl/CGIaX/ngqL2m4i0baPPhxN40UShV1WyeMM6NFErBuw61/fK8JGiYKf55+LZesmqgHvTMZeqvFElq0P1FzUC3PSMq9L6wmc9ShGoHpuh6cMXXkLay6cF3oqDhzryRumJQxQYl6i8zJtFPhU6E1jqx+DJI90kw/w0y8lQHWmixG6P/F1mTrDwPRTtdmsnQeEjNG9p2IVSDmTrdRdNyArvoRzO2V5kyAoJrVr6QgJ1TYvAOG/sHTPUEjlIEWE8obWAoztsxiBmq3MVv0Bbp1rnJAsd1dzItJhexqD9UgPvY4kNthyaORV5OB+vbXZNr420k4FgmEi7PI9RriQvflGOSmNU6dz3WJYNAyloaZA9g0+ffmhuQYjVOpudSiuyOZuIrl9+n4eM9jtDyMOJhuz/kf5+cnDM+ibtYBNHmi9C2kqtoaD3boZjKj3bIFZOLodfuaccro7Imfn/SLwrLSU5P3b4M5K7UWSldHGODV3PAtQR6FxdWGEHEvHNG/62N8OiqRolFYgsMFtlOC/AkwAvWOP73pk5KuFv4g8Ob1bnEvVI+jAzPktKWecMjeJR18iBAj/qHu5VS+XxYJF1t8L8HOckWxfVQrGQkAYxMYZnlyR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f19157ee-18a2-4710-0b43-08d88d91b575
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80673d66-5d63-453d-18ad-08d88d91bb1d
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3781.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2020 20:20:22.8964 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2020 20:20:32.3904 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xLZG98YCpj2apP5Ap4QRgW6guQxBH8Pkp8/P7RxDj6LXuP6/UQHggDSeOvaF6g+dckrm0IU676MB825PPCfLMA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ip3fSgeHRm5+v2I7f9jsrPwntxy9cD6ajI6EHAA3fUvIyA1grU7VXtWOhRePdJagRUpJiVH/keEl2OCn3801qg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4261
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,59 +107,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ashley Thomas <Ashley.Thomas2@amd.com>, Anthony Koo <Anthony.Koo@amd.com>,
- Eryk.Brol@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Wenjing Liu <Wenjing.Liu@amd.com>, Aurabindo.Pillai@amd.com,
+Cc: Eric Yang <eric.yang2@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, Aurabindo.Pillai@amd.com, Jacky Liao <ziyu.liao@amd.com>,
  Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ashley Thomas <Ashley.Thomas2@amd.com>
+From: Jacky Liao <ziyu.liao@amd.com>
 
 [Why]
-Some sink devices wish to have access to the minimum HBlank supported by
-the ASIC.
+The GAMCOR memory blocks should be powered down when they're not in use.
+This will reduce power consumption.
 
 [How]
-Make the ASIC minimum HBlank available in Source Device information
-address 0x340.
+Write to GAMCOR_MEM_PWR_FORCE to put memory to shutdown
+when GAMCOR is not used.
 
-Signed-off-by: Ashley Thomas <Ashley.Thomas2@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Jacky Liao <ziyu.liao@amd.com>
+Reviewed-by: Eric Yang <eric.yang2@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 1 +
- drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-index d15220a4eeb6..be58134a7954 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-@@ -1761,6 +1761,7 @@ static bool dcn301_resource_construct(
- 	dc->caps.i2c_speed_in_khz = 100;
- 	dc->caps.i2c_speed_in_khz_hdcp = 5; /*1.4 w/a enabled by default*/
- 	dc->caps.max_cursor_size = 256;
-+	dc->caps.min_horizontal_blanking_period = 80;
- 	dc->caps.dmdata_alloc_size = 2048;
- 	dc->caps.max_slave_planes = 1;
- 	dc->caps.is_apu = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-index 15ffd8a21e4e..87fe84a06301 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
-@@ -1308,6 +1308,7 @@ static bool dcn302_resource_construct(
- 	dc->caps.i2c_speed_in_khz = 100;
- 	dc->caps.i2c_speed_in_khz_hdcp = 5; /*1.4 w/a applied by derfault*/
- 	dc->caps.max_cursor_size = 256;
-+	dc->caps.min_horizontal_blanking_period = 80;
- 	dc->caps.dmdata_alloc_size = 2048;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+index 9ab63c72f21c..9da66e491116 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+@@ -136,9 +136,13 @@ static void dpp3_power_on_gamcor_lut(
+ 	uint32_t power_status;
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
  
- 	dc->caps.max_slave_planes = 1;
+-
+-	REG_SET(CM_MEM_PWR_CTRL, 0,
+-			GAMCOR_MEM_PWR_DIS, power_on == true ? 0:1);
++	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm) {
++		REG_UPDATE(CM_MEM_PWR_CTRL, GAMCOR_MEM_PWR_FORCE, power_on ? 0 : 3);
++		if (power_on)
++			REG_WAIT(CM_MEM_PWR_STATUS, GAMCOR_MEM_PWR_STATE, 0, 1, 5);
++	} else
++		REG_SET(CM_MEM_PWR_CTRL, 0,
++				GAMCOR_MEM_PWR_DIS, power_on == true ? 0:1);
+ 
+ 	REG_GET(CM_MEM_PWR_STATUS, GAMCOR_MEM_PWR_STATE, &power_status);
+ 	if (power_status != 0)
+@@ -229,6 +233,8 @@ bool dpp3_program_gamcor_lut(
+ 
+ 	if (params == NULL) { //bypass if we have no pwl data
+ 		REG_SET(CM_GAMCOR_CONTROL, 0, CM_GAMCOR_MODE, 0);
++		if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm)
++			dpp3_power_on_gamcor_lut(dpp_base, false);
+ 		return false;
+ 	}
+ 	dpp3_power_on_gamcor_lut(dpp_base, true);
 -- 
 2.29.2
 
