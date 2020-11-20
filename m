@@ -2,66 +2,67 @@ Return-Path: <SRS0=gUFK=E2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC322C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 22:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AF95C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 22:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 713132242A
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 22:38:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 18D682242A
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 22:42:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="th/UjqVc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 713132242A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YnUi7YuN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18D682242A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863F36E935;
-	Fri, 20 Nov 2020 22:38:58 +0000 (UTC)
-Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com
- [IPv6:2607:f8b0:4864:20::b42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAB96E936;
- Fri, 20 Nov 2020 22:21:29 +0000 (UTC)
-Received: by mail-yb1-xb42.google.com with SMTP id k65so9977249ybk.5;
- Fri, 20 Nov 2020 14:21:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1066E938;
+	Fri, 20 Nov 2020 22:42:52 +0000 (UTC)
+Received: from mail-yb1-xb44.google.com (mail-yb1-xb44.google.com
+ [IPv6:2607:f8b0:4864:20::b44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 502896E937;
+ Fri, 20 Nov 2020 22:42:51 +0000 (UTC)
+Received: by mail-yb1-xb44.google.com with SMTP id t33so10036660ybd.0;
+ Fri, 20 Nov 2020 14:42:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=29/AaAKKWIjlxKBDiu42mXe16/c3LUzQvTdn0Wctw9g=;
- b=th/UjqVcversiy9gEUr46cKRrhHywr0iTgf9mzUejm+T3/Jtu2c6ftjob7N1dnOe2S
- rGVMit/4Gqy7ZDqW+do8x9wI8RCPt/cmuWncILsoBuux3CBAtfG8gT+eTL8wiBVSM5EH
- rDgxqkIvK+vUXnfhgj71GxYIUQH1hInVNMbCl5+3prik9RGhi+hsmul85xXuf9uJVr2L
- NGLQGWDmOXXHg4l9XujW0HrVyacbE3Q1QSLAkLJ0BjE5AdFqhLyeU3T8/6+nJ9hH0JSR
- o1vAVeqr6Bt+/W6rGIwrn7PuvAvMGRmk1Avx4k6vjCg8etglRiDTMnimrqKcX/KEsNCP
- 0CAw==
+ :cc; bh=E+/p0vsaZaZ5eJ4n4W/6kpMXGlN10lE2LER/KFN9S5s=;
+ b=YnUi7YuNuw8mKKyydLvw5QmsWlZh9G7Hpn1spIT8RDTKUXYY13Bdxmk2fyzYfaErqE
+ Asbi0nrX6Dkr+ZsTTAmv2yPPxoNN5RBSKqB6jgsNcvaCfd/NyrS79hQRaD+ZjC3hak7i
+ neGJNQiXMdMH2t/nVgmdGZV9/ZEPtbs829cRB1laYEDnvivjitpGDwIofQ2fzZroA62j
+ 5YPYQlzIggcV4spdaMob8NPflrEt4tOAJ9eydFDf162XehoY+LkQmJZyV6enRbfV7zDL
+ RuiTSBs7Lrn3O4YvLm6si/JY31SdwPVSGSV7o18NonKTuaze082T1eyGembEoKNEBVsi
+ 7lFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=29/AaAKKWIjlxKBDiu42mXe16/c3LUzQvTdn0Wctw9g=;
- b=kO4WXw2k7yX3i/6mbZRfhrDQz6eo7Nk2hWgVooFrL5huUn0rMBbBasopYT/GmEyCob
- UDAqYr6DbAGyYHwWwX/+xsbLe7s8A5B3VkfJwJBVWZ8wRp3dc9VG3RKrSbxahciY6bs/
- IbR52U4FfF/6CAEBNszzn7tGJheutBlOSyf9gCdIc3PvWdaXma+of0GJfCJGnNxSAr7y
- NYx9trz/FHUCy2UD4g+b//sjqVkejzZ/tSFV+1BorYpnFUC063Vmp6fypjls6cSQ6X+Y
- i+rpYYXklAk4YOszrHOH6U1UzDrLC/DRfDjxVl3MSRlolaNd00ZcIjVYaTbFBnxoaAEZ
- mDdQ==
-X-Gm-Message-State: AOAM530X448hIOvooZXAP4EtK+rRiNU+vNQiSckr8zdY/0tck9v8/Ce3
- CL9uqi4jP71bGYm0gb+WTuA/OdIZ0rrTkc0wkyw=
-X-Google-Smtp-Source: ABdhPJzYUhkcjTyH5GIcOV5fWMsl+OUdzem471zLY9usW3RhV8izQIRbyESMTmZwFikqgbfOQQqVvSSQCZzBPJX4q90=
-X-Received: by 2002:a5b:40e:: with SMTP id m14mr22113400ybp.33.1605910888617; 
- Fri, 20 Nov 2020 14:21:28 -0800 (PST)
+ bh=E+/p0vsaZaZ5eJ4n4W/6kpMXGlN10lE2LER/KFN9S5s=;
+ b=U5i2KDP7s8hERxU1m+WsCeazBiUdvNOKvXTTHWfe9hLv9SdspygZf1t8ORbhQZoh2l
+ QOLTeVWM++4W7k4eKYoT1Tpzl+rpkW/9UkwFKhaTReXiKVveyFg4aKhNH08Rh0u+N9Wq
+ /CmDRGvwgJiYd/rPQz5hdpzzZzxprAq4nTtzdVpFVjN9DfQBonp5DqbuOTPHP/PaaQ4/
+ bOVwF+JqKUJ1rKqfiBsG/ruKSZwQNji5B9JJv7TH/y8IpZyspacDxsWEtMK2KT28anO5
+ x8iU21XBAX/3OXlewGc2FxQOAOmOQzAydU0mpJ3hCMsIuOSGmrOqDZs38UwPlDtROTol
+ Sslw==
+X-Gm-Message-State: AOAM532676wrv1l/F8086NLlqfoIsnuqdiQu97UM/i+dQgiTxrWqZiXt
+ 4Fzth4Ij3sftBtQq3YKwY8oboCvOKzlll/8O6/I=
+X-Google-Smtp-Source: ABdhPJznvvvinnh9ZMC/o+FJus/kMLARw94VjcalVRGgnDnpdX/NRwfA7QFMoYTZF4aZs0JOYd/9VAXxpWa9YkmSLkg=
+X-Received: by 2002:a25:7614:: with SMTP id r20mr25968047ybc.157.1605912170528; 
+ Fri, 20 Nov 2020 14:42:50 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1605896059.git.gustavoars@kernel.org>
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 20 Nov 2020 23:21:17 +0100
-Message-ID: <CANiq72=E_gEVvqUUTSqU4zegC2=yZSTM4b=4G-iofp6d3=UgWQ@mail.gmail.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+ <dc55f2cf59d8d3426bf9b01a6555db6de61c9361.1605896059.git.gustavoars@kernel.org>
+In-Reply-To: <dc55f2cf59d8d3426bf9b01a6555db6de61c9361.1605896059.git.gustavoars@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 20 Nov 2020 17:42:38 -0500
+Message-ID: <CADnq5_OsDDGcy1EvEOP23pqfF628dGEq=3-hY_G45b_5j4nmtQ@mail.gmail.com>
+Subject: Re: [PATCH 004/141] drm/amdgpu: Fix fall-through warnings for Clang
 To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-X-Mailman-Approved-At: Fri, 20 Nov 2020 22:38:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,70 +74,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- target-devel@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-hwmon@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- Kees Cook <keescook@chromium.org>, Linux-MM <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- linux-kernel <linux-kernel@vger.kernel.org>, linux-renesas-soc@vger.kernel.org,
- linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
- netfilter-devel@vger.kernel.org,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ linux-hardening@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Gustavo,
-
-On Fri, Nov 20, 2020 at 7:21 PM Gustavo A. R. Silva
+On Fri, Nov 20, 2020 at 1:24 PM Gustavo A. R. Silva
 <gustavoars@kernel.org> wrote:
 >
-> Hi all,
+> In preparation to enable -Wimplicit-fallthrough for Clang, fix multiple
+> warnings by explicitly adding multiple break statements instead of just
+> letting the code fall through to the next case.
 >
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
+> Link: https://github.com/KSPP/linux/issues/115
+> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 
-Thanks for this.
+Applied.  Thanks!
 
-Since this warning is reliable in both/all compilers and we are
-eventually getting rid of all the cases, what about going even further
-and making it an error right after?
+Alex
 
-Cheers,
-Miguel
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 1 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 1 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 1 +
+>  drivers/gpu/drm/amd/amdgpu/vi.c        | 1 +
+>  4 files changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 3579565e0eab..98ca6b976b6e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -8398,6 +8398,7 @@ static int gfx_v10_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+>                 WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
+>                                PRIV_INSTR_INT_ENABLE,
+>                                state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +               break;
+>         default:
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 0d8e203b10ef..e61121629b93 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -5683,6 +5683,7 @@ static int gfx_v9_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+>                 WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
+>                                PRIV_INSTR_INT_ENABLE,
+>                                state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +               break;
+>         default:
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 3ebbddb63705..584b99b80c29 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -502,6 +502,7 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
+>                                 WREG32(reg, tmp);
+>                         }
+>                 }
+> +               break;
+>         default:
+>                 break;
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index 9bcd0eebc6d7..d56b474b3a21 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1645,6 +1645,7 @@ static int vi_common_set_clockgating_state(void *handle,
+>         case CHIP_POLARIS12:
+>         case CHIP_VEGAM:
+>                 vi_common_set_clockgating_state_by_smu(adev, state);
+> +               break;
+>         default:
+>                 break;
+>         }
+> --
+> 2.27.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
