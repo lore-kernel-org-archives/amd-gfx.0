@@ -6,47 +6,43 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D966C64E69
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B55C8C64E7C
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28B0820719
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28B0820719
+	by mail.kernel.org (Postfix) with ESMTPS id 61A4A20719
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61A4A20719
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F1E89CF1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA1E89CF5;
 	Mon, 23 Nov 2020 08:26:11 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0244.hostedemail.com
- [216.40.44.244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93407898BF;
- Sun, 22 Nov 2020 18:25:50 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0122.hostedemail.com
+ [216.40.44.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFF286E9C6;
+ Sat, 21 Nov 2020 18:02:24 +0000 (UTC)
 Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
  [216.40.38.60])
- by smtprelay06.hostedemail.com (Postfix) with ESMTP id 883C21800AEAD;
- Sun, 22 Nov 2020 18:25:49 +0000 (UTC)
+ by smtprelay07.hostedemail.com (Postfix) with ESMTP id AF7D7181D3025;
+ Sat, 21 Nov 2020 18:02:23 +0000 (UTC)
 X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: stamp54_4305a342735e
-X-Filterd-Recvd-Size: 3841
+X-HE-Tag: uncle36_3402e8c27356
+X-Filterd-Recvd-Size: 3937
 Received: from XPS-9350.home (unknown [47.151.128.180])
  (Authenticated sender: joe@perches.com)
- by omf09.hostedemail.com (Postfix) with ESMTPA;
- Sun, 22 Nov 2020 18:25:38 +0000 (UTC)
-Message-ID: <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+ by omf04.hostedemail.com (Postfix) with ESMTPA;
+ Sat, 21 Nov 2020 18:02:18 +0000 (UTC)
+Message-ID: <f7643c9cb0a896f3ead65e86084b7c143e21ef43.camel@perches.com>
+Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
 From: Joe Perches <joe@perches.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, Kees Cook
- <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>
-Date: Sun, 22 Nov 2020 10:25:37 -0800
-In-Reply-To: <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+ trix@redhat.com,  clang-built-linux@googlegroups.com
+Date: Sat, 21 Nov 2020 10:02:17 -0800
+In-Reply-To: <5843ef910b0e86c00d9c0143dec20f93823b016b.camel@HansenPartnership.com>
+References: <20201121165058.1644182-1-trix@redhat.com>
+ <5843ef910b0e86c00d9c0143dec20f93823b016b.camel@HansenPartnership.com>
 User-Agent: Evolution 3.38.1-1 
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 23 Nov 2020 08:25:57 +0000
@@ -61,55 +57,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- x86@kernel.org, linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
+Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
+ keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-scsi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
+ tboot-devel@lists.sourceforge.net, coreteam@netfilter.org,
+ xen-devel@lists.xenproject.org, MPT-FusionLinux.pdl@broadcom.com,
+ linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
+ intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
+ linux-omap@vger.kernel.org, devel@acpica.org, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
  linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
-> Please tell me
-> our reward for all this effort isn't a single missing error print.
+On Sat, 2020-11-21 at 09:18 -0800, James Bottomley wrote:
+> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
+> > A difficult part of automating commits is composing the subsystem
+> > preamble in the commit log.  For the ongoing effort of a fixer
+> > producing one or two fixes a release the use of 'treewide:' does
+> > not seem appropriate.
+> > 
+> > It would be better if the normal prefix was used.  Unfortunately
+> > normal is not consistent across the tree.
+> > 
+> > 	D: Commit subsystem prefix
+> > 
+> > ex/ for FPGA DFL DRIVERS
+> > 
+> > 	D: fpga: dfl:
+> 
+> I've got to bet this is going to cause more issues than it solves. 
+> SCSI uses scsi: <driver>: for drivers but not every driver has a
+> MAINTAINERS entry.  We use either scsi: or scsi: core: for mid layer
+> things, but we're not consistent.  Block uses blk-<something>: for all
+> of it's stuff but almost no <somtehing>s have a MAINTAINERS entry.  So
+> the next thing you're going to cause is an explosion of suggested
+> MAINTAINERs entries.
 
-There were quite literally dozens of logical defects found
-by the fallthrough additions.  Very few were logging only.
+As well as some changes require simultaneous changes across
+multiple subsystems.
 
+> Has anyone actually complained about treewide:?
+
+It depends on what you mean by treewide:
+
+If a treewide: patch is applied by some "higher level" maintainer,
+then generally, no.
+
+If the treewide patch is also cc'd to many individual maintainers,
+then yes, many many times.
+
+Mostly because patches cause what is in their view churn or that
+changes are not specific to their subsystem grounds.
+
+The treewide patch is sometimes dropped, sometimes broken up and
+generally not completely applied.
+
+What would be useful in many cases like this is for a pre and post
+application of the treewide patch to be compiled and the object
+code verified for lack of any logic change.
+
+Unfortunately, gcc does not guarantee deterministic compilation so
+this isn't feasible with at least gcc.  Does clang guarantee this?
+
+I'm not sure it's possible:
+https://blog.llvm.org/2019/11/deterministic-builds-with-clang-and-lld.html
 
 
 _______________________________________________
