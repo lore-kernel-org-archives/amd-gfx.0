@@ -2,38 +2,37 @@ Return-Path: <SRS0=rJdP=E3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48B73C63697
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF229C388F9
 	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DAE2A22210
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 503C82222A
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QA8Ift0D"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DAE2A22210
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="blS/lK10"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 503C82222A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6FA56E97B;
-	Sat, 21 Nov 2020 05:21:45 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1538C6E96E;
- Sat, 21 Nov 2020 05:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 488ED6E974;
+	Sat, 21 Nov 2020 05:21:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 802596E96E;
+ Sat, 21 Nov 2020 05:21:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kZmU1pxwJFJ5NDbte4eH8PXQAV2dQP4ZuMfjZjRnG+KIgHVvG+SNcYAMZxKqckWuwIa98Hxr9GpiOIJx7unYstLwnVfvCqdsEpOSAH6fWMDdCdR1kmN4xElYaiJapORfhh+Rf39vtiC0AIyr03gdDO5ehiOgvh8J72CZ3ak+/htLPYKPumho1/GaVxIBQmLl//gauQ3AxZYMeiegWrrP37ymhHnLkAoKzMGoS6+/JiuPJ2alMLWaLfN8BM/L79GzjjYvhpwVP63xrIkpa3kwzSzlCksRCowWyJC+whZ1wmhjLhIziIRwnjNlcRa419r5JZ8S+ufrXk2cslY8Bnt+ZA==
+ b=DYdHVGhhGHaQ0Aln5NqYN9Ol5NUaWV6B7Lm9hwBglc4CRnc/4bm3YEf0fHMaC27drpA8xMv8E2svIVA05ZXcKW8f7rCXXrIvGYOMheUsYlm7cKcTg89EgUZRDWAiKSFWhBgsCxHjHh+X9Qi0KgxseIfyzJerRpp9T01ZASkhFj87+1XXew2+c3wEoEgNQn8SrjNTfvDCKTD3s9NBwtzMzwtpmpJp5Sy8ZBdoVi6j2EzwBknaFbaNwPNGXu9k0f5qVuUv2/RpvFPeF9ylE9o1yM1elLB67IfOLfxhwJpuxEDKMP52zwHIQlWbyUrUANKGiXQGiThxxA54H1j5gzM1Hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9KdivjN7Oh9cJqu9H8om7yVfPITx5vxLjTC2i/j/QHw=;
- b=STiggak1fnuVGFiFnz7hSXXKeJSZGDD9qa7FCMCxRNTk7xNqeJKkoyXPSEVylewamjnxALx7y6IWfLcX3AUPs9J5hjjNiQ8rhjLsMDeqhdwJZSAcedTMj0oJyI6c9B7NTgQC1STw0KjSZZ939QWFo5o3ZpdFRBIuQOSGpZvhnpkZWBfdICwoZGs7/9MHJM4pwdtGM8xqowxgOQLhPSYQgsltreR4JKSG5e5M3JEevziX6woXjkaXpbgw0tpwdh6d9GgsYmRvqdroJLXgxoWC8ZphVMpYlQ6mES0Advl6z6Naw9qNbNcr8stnKPgcCFg1qqoiqMeDVcE634Zw04cDpA==
+ bh=17NDhdriXC56m3GTpqqX/lPVFSaQt82E3Tw4hkDDTJk=;
+ b=GqTNQIrkoxb13BpEV8SCJNO50U6OBHa8fIdRATxf7vtOgHI2zyTi7SQwGUL4yHxOZkvfyNLxcsSnY5IwkgKfGZFHNt9u/XJ4BCV5bgU7MAyDSmh32yvJpvQAkGHXCdXUyiPnDSL1xnLzZc3+pT3Mw+EDxz11b67XURcecC/lco5dP7TtaL1ffPZlUP/D9G7KlLnGMTXra2BGNsp3RaQIPzes6wBpi7gfw2SUX//HERpUGel4icUKhjmxWpRRt3tRhYwR9RDNJd6KyRzGyGq3EMdYVHFBo9tD9G3HiaVVswF21JsNGgqzV8oJtse2+WDHj/nFznTh1BansGhGsQcStw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -41,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9KdivjN7Oh9cJqu9H8om7yVfPITx5vxLjTC2i/j/QHw=;
- b=QA8Ift0DuwRWLQ8kXiseO+de0UoIMyauBt70i08lMeNwIJxy8jGaYnHwZaD+D5CQppQ1XBDIh+BqHrRsjETP21acHOAnicObwMWWcHvhSL7TcmipZZNqV+qQDlZd07EqWWHQ6wVx6t1FtnlMHcahcAQzM3kJ76Ntrss/k+9HVrQ=
-Received: from DM6PR06CA0093.namprd06.prod.outlook.com (2603:10b6:5:336::26)
- by BYAPR12MB4629.namprd12.prod.outlook.com (2603:10b6:a03:111::11) with
+ bh=17NDhdriXC56m3GTpqqX/lPVFSaQt82E3Tw4hkDDTJk=;
+ b=blS/lK109IKnvNv8AxoFxZjL6pn9SGyUrLVBprX4eMGSyP1SGjoR5oomwurBAbM/p4aC5t+iJtJ1KpaDSJnIDtS57iw6Ev2W2w+u026Zg2H/3C5M4FkoWPwNuZyvEPamCxXZYWhsCsD5aOukMSV/zX0YwhdmfjEKu1d5w/5OTHg=
+Received: from DM5PR17CA0062.namprd17.prod.outlook.com (2603:10b6:3:13f::24)
+ by MN2PR12MB4333.namprd12.prod.outlook.com (2603:10b6:208:1d3::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.25; Sat, 21 Nov
- 2020 05:21:35 +0000
-Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:336:cafe::74) by DM6PR06CA0093.outlook.office365.com
- (2603:10b6:5:336::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Sat, 21 Nov
+ 2020 05:21:37 +0000
+Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:13f:cafe::85) by DM5PR17CA0062.outlook.office365.com
+ (2603:10b6:3:13f::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
- Transport; Sat, 21 Nov 2020 05:21:34 +0000
+ Transport; Sat, 21 Nov 2020 05:21:37 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -60,29 +59,28 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
+ DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:21:34 +0000
+ 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:21:37 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
- 2020 23:21:33 -0600
+ 2020 23:21:36 -0600
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
- 2020 23:21:33 -0600
+ 2020 23:21:36 -0600
 Received: from ubuntu-1604-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via
- Frontend Transport; Fri, 20 Nov 2020 23:21:32 -0600
+ Frontend Transport; Fri, 20 Nov 2020 23:21:35 -0600
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <ckoenig.leichtzumerken@gmail.com>, <daniel.vetter@ffwll.ch>,
  <robh@kernel.org>, <l.stach@pengutronix.de>, <yuq825@gmail.com>,
  <eric@anholt.net>
-Subject: [PATCH v3 03/12] drm/ttm: Remap all page faults to per process dummy
- page.
-Date: Sat, 21 Nov 2020 00:21:13 -0500
-Message-ID: <1605936082-3099-4-git-send-email-andrey.grodzovsky@amd.com>
+Subject: [PATCH v3 05/12] drm/ttm: Expose ttm_tt_unpopulate for driver use
+Date: Sat, 21 Nov 2020 00:21:15 -0500
+Message-ID: <1605936082-3099-6-git-send-email-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
 References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
@@ -90,27 +88,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1eeaaa99-cfac-4a5a-7d7e-08d88ddd5015
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4629:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB46294707AACFDCC33C3317C0EAFE0@BYAPR12MB4629.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1186;
+X-MS-Office365-Filtering-Correlation-Id: 2784e4d7-d5d8-4490-8d5a-08d88ddd51cc
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4333:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4333EC78775C47B5B34B572DEAFE0@MN2PR12MB4333.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:404;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JATpGtlXXpyRwVcnbMAbRBcxlu4FmW442Mb++mlix+0p8n2cT11kx8DPBOf8w9o600nyDbBB40/ZZlWrLwMyzIMpYa2HKeZJEIwbniNSs76d+OHQoAFDr0k0csN/UaJ4WYrGv/pf6Vp34auBb3ZlW+W/sc4OcZVQqAdNyYtO12CKWEROh5oRqfX36+o3EbYjbR90Ct62jS76TxH7P7v2pM42R7iOjlcgCwfGEYUqNhN+ZeGbxRABQqY0/mXWf8PNV2dsOf4c075gOWBVUe7EfOlf2ButxhL5/H7qJmblycpgd6WbypYdtXvv4gK1JE1G+u5N7tYIy8WxEzztzS9jjXODt+7KYPHKRWXyRhvZYX9K7Y5/5uj5hJSFSBJhkXb1zq+wee6SZdLyP803Xe26KQ==
+X-Microsoft-Antispam-Message-Info: qkfh1EO+pC5T1KE+ufhB1E2Yo4RgfmQnC+DtX8Q/nitD9tBKnvlJaUQ3B95C0XbZKUKZj+61NxmIgOrjGibXjmFxjaDrVwDou8ogLjByHxA4z9t/y6ww6FqUOfvuw3UgahMtrxNpK/Egx9UsJK07WtjDiU+D7h+rQC02HyE81yf7Qe5wf37494u8LxUsRpHtl5Kl2dZHKgRYmofsE0kg9v7sqIR1SxvCTTeWZY22KU/BeSUQEUafxYIil9b8wKNxnQtnm2CAedTTqPD1TVNLebvA3d5ZfHnXMtu6Azz07mL+xK6wyVpvGPiq6GoALz8SAIXXz5l3NRCdg1aoy+rrJ9pWmFFfXlcYwbJQMf0sSWXqngu0rhReacOeQQHGvyqzgYGx6cWxToe0r8UDTU5eQw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(39860400002)(396003)(346002)(46966005)(7416002)(36756003)(2906002)(316002)(110136005)(54906003)(83380400001)(6666004)(356005)(70586007)(70206006)(478600001)(4326008)(82740400003)(44832011)(81166007)(5660300002)(426003)(186003)(26005)(336012)(2616005)(8936002)(8676002)(82310400003)(47076004)(86362001)(7696005);
+ SFS:(4636009)(396003)(346002)(136003)(376002)(39860400002)(46966005)(2616005)(36756003)(478600001)(2906002)(86362001)(7416002)(6666004)(5660300002)(4326008)(4744005)(110136005)(7696005)(426003)(8676002)(82740400003)(54906003)(8936002)(44832011)(316002)(186003)(70586007)(26005)(356005)(47076004)(336012)(70206006)(82310400003)(81166007);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:21:34.2830 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1eeaaa99-cfac-4a5a-7d7e-08d88ddd5015
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:21:37.1644 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2784e4d7-d5d8-4490-8d5a-08d88ddd51cc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB4629
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4333
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,100 +127,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On device removal reroute all CPU mappings to dummy page
-per drm_file instance or imported GEM object.
-
-v3:
-Remove loop to find DRM file and instead access it
-by vma->vm_file->private_data. Move dummy page installation
-into a separate function.
+It's needed to drop iommu backed pages on device unplug
+before device's IOMMU group is released.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo_vm.c | 54 +++++++++++++++++++++++++++++++++++------
- 1 file changed, 46 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/ttm/ttm_tt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index 01693e8..f2dbb93 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -35,6 +35,8 @@
- #include <drm/ttm/ttm_bo_driver.h>
- #include <drm/ttm/ttm_placement.h>
- #include <drm/drm_vma_manager.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <linux/mm.h>
- #include <linux/pfn_t.h>
- #include <linux/rbtree.h>
-@@ -420,23 +422,59 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+index 1ccf1ef..29248a5 100644
+--- a/drivers/gpu/drm/ttm/ttm_tt.c
++++ b/drivers/gpu/drm/ttm/ttm_tt.c
+@@ -495,3 +495,4 @@ void ttm_tt_unpopulate(struct ttm_tt *ttm)
+ 	else
+ 		ttm_pool_unpopulate(ttm);
  }
- EXPORT_SYMBOL(ttm_bo_vm_fault_reserved);
- 
-+vm_fault_t ttm_bo_vm_dummy_page(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct ttm_buffer_object *bo = vma->vm_private_data;
-+	struct drm_file *file = NULL;
-+	struct page *dummy_page = NULL;
-+
-+	/* We are faulting on imported BO from dma_buf */
-+	if (bo->base.dma_buf && bo->base.import_attach) {
-+		dummy_page = bo->base.dummy_page;
-+	/* We are faulting on local BO */
-+	} else {
-+		file = vma->vm_file->private_data;
-+		dummy_page = file->dummy_page;
-+	}
-+
-+	/* Let do_fault complete the PTE install e.t.c using vmf->page */
-+	get_page(dummy_page);
-+	vmf->page = dummy_page;
-+
-+	return 0;
-+}
-+
- vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	pgprot_t prot;
- 	struct ttm_buffer_object *bo = vma->vm_private_data;
- 	vm_fault_t ret;
-+	int idx;
-+	struct drm_device *ddev = bo->base.dev;
- 
--	ret = ttm_bo_vm_reserve(bo, vmf);
--	if (ret)
--		return ret;
- 
--	prot = vma->vm_page_prot;
--	ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
--	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
--		return ret;
-+	if (!drm_dev_enter(ddev, &idx)) {
-+		ret = ttm_bo_vm_dummy_page(vmf);
-+		if (ret)
-+			return ret;
-+	} else {
-+		ret = ttm_bo_vm_reserve(bo, vmf);
-+		if (ret)
-+			goto exit;
- 
--	dma_resv_unlock(bo->base.resv);
-+		prot = vma->vm_page_prot;
-+
-+		ret = ttm_bo_vm_fault_reserved(vmf, prot, TTM_BO_VM_NUM_PREFAULT, 1);
-+		if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
-+			goto exit;
-+
-+		dma_resv_unlock(bo->base.resv);
-+
-+exit:
-+		drm_dev_exit(idx);
-+	}
- 
- 	return ret;
- }
++EXPORT_SYMBOL(ttm_tt_unpopulate);
 -- 
 2.7.4
 
