@@ -5,34 +5,34 @@ X-Spam-Level:
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F969C6379F
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AD42C63777
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E628B22210
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AD5C52222A
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:22:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DCKAfOQi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E628B22210
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TgT7i/L4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD5C52222A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1186E979;
-	Sat, 21 Nov 2020 05:21:51 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E4E6E979;
- Sat, 21 Nov 2020 05:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 667C26E981;
+	Sat, 21 Nov 2020 05:22:00 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9C016E971;
+ Sat, 21 Nov 2020 05:21:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SuIoHTnszt+GKWqc/XMdiWFrfM/kdO7QJjzbKkYMs6MF9bJiQDZHc2YUUy4qiSbP89u4JhgHKvcOQ9Qn0HdREToD/BQrHSJK6QyXyOEX/hRs6AdvcLCS5iHv1GJAYvx0URu+pdyTTwOCbtorgNdJ3BSe2zVyzHGoe4wDYJptEw1I9rDbqR/Ad9XB0Syh8GF4JeiY5wwWNnZLWlmCycj+FJoIHHvb90dHiVC775lSSitdpMNfVsHz4hxz8EqilWGC/SVUqyKME5Oor6QAxsZPEZm+UblNMQgFkOoIDWvxm+sd7HgjI4XxyjJsyICm1xeh6jeDtIX7hLEOq116fnIjYw==
+ b=cfGHmguGzJcPHrWqXe2LM7qU11+B1Gn0l82GUrEvLJjeFieq1tt9EkZFGKL7J8/D5Z14Ot7i1hwTZ8+aa2c2obbmTq+H8KSB3hgnDmZp48hUHh/slpDyx8ntx6Rde1QZGOJDCYdVSAJbJN0qsDWsWwlzwqbXlvGcUM9SrxfKj0Q6mHR3q47WxO4PXjjtkjE3ZeO01n3e4Kt0q4WADsR7ddwpgMlgzPQl8EflwRdgdAYpCOEyPdQemSk2DXxiu7nwTdKkmeZtM37MSEmjm2qNuTB46zERezXnYIi3+6vOilumFBokXjOeUejC40XDuJoz0wFnb25McI7dXNaMc70Ltg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2CJcWXvJx4JG4fcDamvXOyfxEoEeFM6lSIVPRugs/Dg=;
- b=Th2ddQ0JDztSSpoqkOwX4Yg76UspRy2Bn1wgAf2bk0tiKUEBGXKiFqpXp/KThyTYQy4If9QgwCo7xmg6KrLsO0+MFs7UDyuuJbI4PFKiHQV4N3GaPE0/2bK8y1ThJGTLnStdlKs7rDbJagIteKbLp6wZrlORDktV73FFmD0o5aMrTV426s+Xp7VApVvQApU10dRQrmYj7uJWMRwAsXmcGnwPv25HpkMIFQa9SMEFvGEDnN32jdUosmpkk6hTla0u2JuQsHSbJNiy6dVvnyRy3Fxtdu6KL6lDPPMI/i+9GUy6RRhnbiFVEZ1iF+YsiWlNGMvkRCntq7wQz3EJ3YNJpQ==
+ bh=0HtQgivQv3sdKp3khI2iAdsl9Bv7A9yFoV5IOj4Sjeo=;
+ b=dAbJBC2u1LtrN55vjuzoZ+hDUInx2lW7eCNOhrUvhqyLo91HDYYb6+qf5MV7Jq1h3cCnCn91/EaZk7YZW/cWBlW9c4rco5Uj/KbAJklLGDpGclr2k/krutqySlM/eRcWYErBbflEvnkWRoQoezuuM4k8BmlRjkwaHlKf/BQMYXqDvq08FH/VbSbmVMimmvSA3GsiiHz54PFiR6UbgxFYKPi0dg/b9DxIgQ2bxsA9Uisr7JOjBzBsvcIdGEk4ErCcP6HbD4jHvXDJa9AOqg6I647+m4B3rGT3Rq3stHUOEe7IMaHZGcwKrbFvpeyC4OZcSXG9AEt5FI/7mqzs9eFWcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2CJcWXvJx4JG4fcDamvXOyfxEoEeFM6lSIVPRugs/Dg=;
- b=DCKAfOQivR7NeSgsEWmZ2sqnHuWGJbmyaTe0XQsHFqx9i80z0qyTMIUNUumfjYb44C78yIcYP/ttXQveGV865rB4EvvWzIrrm6eEfumj3/09k+56Lvb4VKf+LJMY81T0R0AHQHesBMeAV9BSvDKNIY7R3na2yaBa3jFBN5Ssc1Q=
-Received: from DM6PR11CA0024.namprd11.prod.outlook.com (2603:10b6:5:190::37)
- by MWHPR12MB1215.namprd12.prod.outlook.com (2603:10b6:300:d::17) with
+ bh=0HtQgivQv3sdKp3khI2iAdsl9Bv7A9yFoV5IOj4Sjeo=;
+ b=TgT7i/L4EfQKe3Kl07YJHRlCAZZVWYHbnxEVWgsHgJCVVg09vqH2mGysJ7OmWd/2Yd3pZq+b63XWebviAIjTbssuipIWZy5p0LIuE3LcM7vyMZnTbKrKdbkaW30yv8mp+hSJuBCcVEzPOQ1a1rkyGODUVAhLORcpJu1foJYL6EI=
+Received: from DM5PR08CA0031.namprd08.prod.outlook.com (2603:10b6:4:60::20) by
+ BY5PR12MB3969.namprd12.prod.outlook.com (2603:10b6:a03:195::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Sat, 21 Nov
- 2020 05:21:43 +0000
-Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:190:cafe::fb) by DM6PR11CA0024.outlook.office365.com
- (2603:10b6:5:190::37) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 05:21:41 +0000
+Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:60:cafe::79) by DM5PR08CA0031.outlook.office365.com
+ (2603:10b6:4:60::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
- Transport; Sat, 21 Nov 2020 05:21:43 +0000
+ Transport; Sat, 21 Nov 2020 05:21:40 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -59,28 +59,29 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
+ DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:21:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
+ 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:21:39 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
- 2020 23:21:42 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 23:21:39 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
- 2020 23:21:42 -0600
+ 2020 23:21:39 -0600
 Received: from ubuntu-1604-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via
- Frontend Transport; Fri, 20 Nov 2020 23:21:41 -0600
+ Frontend Transport; Fri, 20 Nov 2020 23:21:38 -0600
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <ckoenig.leichtzumerken@gmail.com>, <daniel.vetter@ffwll.ch>,
  <robh@kernel.org>, <l.stach@pengutronix.de>, <yuq825@gmail.com>,
  <eric@anholt.net>
-Subject: [PATCH v3 09/12] drm/amdgpu: Add early fini callback
-Date: Sat, 21 Nov 2020 00:21:19 -0500
-Message-ID: <1605936082-3099-10-git-send-email-andrey.grodzovsky@amd.com>
+Subject: [PATCH v3 07/12] drm/sched: Prevent any job recoveries after device
+ is unplugged.
+Date: Sat, 21 Nov 2020 00:21:17 -0500
+Message-ID: <1605936082-3099-8-git-send-email-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
 References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
@@ -88,27 +89,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8f788d76-77a8-442c-42cb-08d88ddd5560
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1215:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1215CE692A6B00A2038AEEF0EAFE0@MWHPR12MB1215.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Office365-Filtering-Correlation-Id: acc0439d-da50-4849-4d8a-08d88ddd5370
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3969:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3969B1C6DDA7F87AF7235FCCEAFE0@BY5PR12MB3969.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FlDZbwTfuMYXFy1eKMbGceHhPZ6ijQrb/IxF2VchIHNrzb86vhPt/X9H5IJ9lJldbTPsIDE+ldMm7ZGGPx5Cr9h6sc8AZtmV9OgMpJQfBASwFJHUZ3eaSvaNda6vMNt9P4Z7ds2i8/YVxeh/IvI5w/m+Y0cABY7znxEMZA881++tJjaLSmey5YDAtWz4L7pHF8MgctTTfKp0VWf/4+xdlahxKjdxuO263sJAQh17aqY5cjVHBLaL1kxXIcSw1NlYoXe+LKY6fP8surECev9fFqiaL9oGVxKZ/Yt3Xw17hJLjd1S2WvWXa6ScvhUe90FDx9VIChAwlozOn14KOq3CNvzStfxXJ6i8lrleIy/QVRGuCYH8zy4YP2Xye0DXNiLjLy97pQDYpucllvAdnak/5A==
+X-Microsoft-Antispam-Message-Info: hgRiH3TX1e4h4DS/W9NX6vMXLxP/KFi8ByblzsqzUHq6GzwhhF9N4cFRadsyjN4jmbsVtfWOEOOyQqdRaEZ8hmQ7H8LLNuDFXV2kwXz5UzQC7GQ5FQMCfBZvQWT7w+eq26+aVvQ76jzaS5G2Oo4MO57Y0yqq2NlDKYaPMxYiMkSbyY4OeL60JuY62ReBtd5iqNgpb/ARz7pVYVRp09suD11poVqCuA1PjWC0ig2OiQOEP6eIYtBxCC6zKHUtMyAIR4MGretgawoJnHqP7KGenbdlUJoAyAiHJCyeXMW4lIE06fViyjJJxe8vZfrqyVStjAdgvIsOX9tIbt81LSgi2AmdZPnrlznlVdirjTXWy+gbd1Yod5K+N947BRbll6MY0iYRtlmzODgfAPt62/gM/Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(346002)(136003)(39860400002)(396003)(376002)(46966005)(8676002)(8936002)(36756003)(7696005)(2906002)(81166007)(82310400003)(356005)(47076004)(5660300002)(82740400003)(70206006)(70586007)(110136005)(186003)(26005)(54906003)(83380400001)(336012)(316002)(478600001)(6666004)(44832011)(4326008)(86362001)(2616005)(426003)(7416002);
+ SFS:(4636009)(376002)(346002)(136003)(396003)(39860400002)(46966005)(356005)(2906002)(8936002)(47076004)(82310400003)(81166007)(86362001)(7696005)(4326008)(8676002)(82740400003)(83380400001)(5660300002)(478600001)(36756003)(2616005)(44832011)(186003)(26005)(110136005)(54906003)(426003)(70586007)(70206006)(336012)(316002)(6666004)(7416002);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:21:43.1036 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f788d76-77a8-442c-42cb-08d88ddd5560
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:21:39.9133 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: acc0439d-da50-4849-4d8a-08d88ddd5370
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1215
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3969
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,111 +128,219 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use it to call disply code dependent on device->drv_data
-before it's set to NULL on device unplug
+No point to try recovery if device is gone, it's meaningless.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 20 ++++++++++++++++++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++++--
- drivers/gpu/drm/amd/include/amd_shared.h          |  2 ++
- 3 files changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  3 ++-
+ drivers/gpu/drm/lima/lima_sched.c         |  3 ++-
+ drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
+ drivers/gpu/drm/scheduler/sched_main.c    | 15 ++++++++++++++-
+ drivers/gpu/drm/v3d/v3d_sched.c           | 15 ++++++++++-----
+ include/drm/gpu_scheduler.h               |  6 +++++-
+ 7 files changed, 35 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 797d94d..96368a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2508,6 +2508,24 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index d56f402..d0b0021 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -487,7 +487,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ 
+ 		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+ 				   num_hw_submission, amdgpu_job_hang_limit,
+-				   timeout, ring->name);
++				   timeout, ring->name, &adev->ddev);
+ 		if (r) {
+ 			DRM_ERROR("Failed to create scheduler on ring %s.\n",
+ 				  ring->name);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index cd46c88..7678287 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -185,7 +185,8 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+ 
+ 	ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
+ 			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
+-			     msecs_to_jiffies(500), dev_name(gpu->dev));
++			     msecs_to_jiffies(500), dev_name(gpu->dev),
++			     gpu->drm);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index dc6df9e..8a7e5d7ca 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -505,7 +505,8 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 
+ 	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
+ 			      lima_job_hang_limit, msecs_to_jiffies(timeout),
+-			      name);
++			      name,
++			      pipe->ldev->ddev);
  }
  
-+static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
-+{
-+	int i, r;
+ void lima_sched_pipe_fini(struct lima_sched_pipe *pipe)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 30e7b71..37b03b01 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -520,7 +520,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
+ 		ret = drm_sched_init(&js->queue[j].sched,
+ 				     &panfrost_sched_ops,
+ 				     1, 0, msecs_to_jiffies(500),
+-				     "pan_js");
++				     "pan_js", pfdev->ddev);
+ 		if (ret) {
+ 			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
+ 			goto err_sched;
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index c3f0bd0..95db8c6 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -53,6 +53,7 @@
+ #include <drm/drm_print.h>
+ #include <drm/gpu_scheduler.h>
+ #include <drm/spsc_queue.h>
++#include <drm/drm_drv.h>
+ 
+ #define CREATE_TRACE_POINTS
+ #include "gpu_scheduler_trace.h"
+@@ -283,8 +284,16 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_job *job;
+ 
++	int idx;
 +
-+	for (i = 0; i < adev->num_ip_blocks; i++) {
-+		if (!adev->ip_blocks[i].version->funcs->early_fini)
-+			continue;
-+
-+		r = adev->ip_blocks[i].version->funcs->early_fini((void *)adev);
-+		if (r) {
-+			DRM_DEBUG("early_fini of IP block <%s> failed %d\n",
-+				  adev->ip_blocks[i].version->funcs->name, r);
-+		}
+ 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
+ 
++	if (!drm_dev_enter(sched->ddev, &idx)) {
++		DRM_INFO("%s - device unplugged skipping recovery on scheduler:%s",
++			 __func__, sched->name);
++		return;
 +	}
 +
-+	return 0;
-+}
+ 	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
+ 	spin_lock(&sched->job_list_lock);
+ 	job = list_first_entry_or_null(&sched->ring_mirror_list,
+@@ -316,6 +325,8 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 	spin_lock(&sched->job_list_lock);
+ 	drm_sched_start_timeout(sched);
+ 	spin_unlock(&sched->job_list_lock);
 +
- /**
-  * amdgpu_device_ip_fini - run fini for hardware IPs
-  *
-@@ -3585,6 +3603,8 @@ void amdgpu_device_fini_early(struct amdgpu_device *adev)
- 	amdgpu_fbdev_fini(adev);
- 
- 	amdgpu_irq_fini_early(adev);
-+
-+	amdgpu_device_ip_fini_early(adev);
++	drm_dev_exit(idx);
  }
  
- void amdgpu_device_fini_late(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1da4ad5..278d1f6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1158,6 +1158,15 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	return -EINVAL;
- }
- 
-+static int amdgpu_dm_early_fini(void *handle)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+
-+	amdgpu_dm_audio_fini(adev);
-+
-+	return 0;
-+}
-+
- static void amdgpu_dm_fini(struct amdgpu_device *adev)
+  /**
+@@ -845,7 +856,8 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 		   unsigned hw_submission,
+ 		   unsigned hang_limit,
+ 		   long timeout,
+-		   const char *name)
++		   const char *name,
++		   struct drm_device *ddev)
  {
- 	int i;
-@@ -1166,8 +1175,6 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 		drm_encoder_cleanup(&adev->dm.mst_encoders[i].base);
- 	}
+ 	int i, ret;
+ 	sched->ops = ops;
+@@ -853,6 +865,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 	sched->name = name;
+ 	sched->timeout = timeout;
+ 	sched->hang_limit = hang_limit;
++	sched->ddev = ddev;
+ 	for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
+ 		drm_sched_rq_init(sched, &sched->sched_rq[i]);
  
--	amdgpu_dm_audio_fini(adev);
--
- 	amdgpu_dm_destroy_drm_device(&adev->dm);
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 0747614..f5076e5 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -401,7 +401,8 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_bin_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms),
+-			     "v3d_bin");
++			     "v3d_bin",
++			     &v3d->drm);
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
+ 		return ret;
+@@ -411,7 +412,8 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_render_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms),
+-			     "v3d_render");
++			     "v3d_render",
++			     &v3d->drm);
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
+ 			ret);
+@@ -423,7 +425,8 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 			     &v3d_tfu_sched_ops,
+ 			     hw_jobs_limit, job_hang_limit,
+ 			     msecs_to_jiffies(hang_limit_ms),
+-			     "v3d_tfu");
++			     "v3d_tfu",
++			     &v3d->drm);
+ 	if (ret) {
+ 		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
+ 			ret);
+@@ -436,7 +439,8 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 				     &v3d_csd_sched_ops,
+ 				     hw_jobs_limit, job_hang_limit,
+ 				     msecs_to_jiffies(hang_limit_ms),
+-				     "v3d_csd");
++				     "v3d_csd",
++				     &v3d->drm);
+ 		if (ret) {
+ 			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
+ 				ret);
+@@ -448,7 +452,8 @@ v3d_sched_init(struct v3d_dev *v3d)
+ 				     &v3d_cache_clean_sched_ops,
+ 				     hw_jobs_limit, job_hang_limit,
+ 				     msecs_to_jiffies(hang_limit_ms),
+-				     "v3d_cache_clean");
++				     "v3d_cache_clean",
++				     &v3d->drm);
+ 		if (ret) {
+ 			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
+ 				ret);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 9243655..a980709 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -32,6 +32,7 @@
  
- #ifdef CONFIG_DRM_AMD_DC_HDCP
-@@ -2150,6 +2157,7 @@ static const struct amd_ip_funcs amdgpu_dm_funcs = {
- 	.late_init = dm_late_init,
- 	.sw_init = dm_sw_init,
- 	.sw_fini = dm_sw_fini,
-+	.early_fini = amdgpu_dm_early_fini,
- 	.hw_init = dm_hw_init,
- 	.hw_fini = dm_hw_fini,
- 	.suspend = dm_suspend,
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 9676016..63bb846 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -239,6 +239,7 @@ enum amd_dpm_forced_level;
-  * @late_init: sets up late driver/hw state (post hw_init) - Optional
-  * @sw_init: sets up driver state, does not configure hw
-  * @sw_fini: tears down driver state, does not configure hw
-+ * @early_fini: tears down stuff before dev detached from driver
-  * @hw_init: sets up the hw state
-  * @hw_fini: tears down the hw state
-  * @late_fini: final cleanup
-@@ -267,6 +268,7 @@ struct amd_ip_funcs {
- 	int (*late_init)(void *handle);
- 	int (*sw_init)(void *handle);
- 	int (*sw_fini)(void *handle);
-+	int (*early_fini)(void *handle);
- 	int (*hw_init)(void *handle);
- 	int (*hw_fini)(void *handle);
- 	void (*late_fini)(void *handle);
+ struct drm_gpu_scheduler;
+ struct drm_sched_rq;
++struct drm_device;
+ 
+ /* These are often used as an (initial) index
+  * to an array, and as such should start at 0.
+@@ -267,6 +268,7 @@ struct drm_sched_backend_ops {
+  * @score: score to help loadbalancer pick a idle sched
+  * @ready: marks if the underlying HW is ready to work
+  * @free_guilty: A hit to time out handler to free the guilty job.
++ * @ddev: Pointer to drm device of this scheduler.
+  *
+  * One scheduler is implemented for each hardware ring.
+  */
+@@ -288,12 +290,14 @@ struct drm_gpu_scheduler {
+ 	atomic_t                        score;
+ 	bool				ready;
+ 	bool				free_guilty;
++	struct drm_device		*ddev;
+ };
+ 
+ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 		   const struct drm_sched_backend_ops *ops,
+ 		   uint32_t hw_submission, unsigned hang_limit, long timeout,
+-		   const char *name);
++		   const char *name,
++		   struct drm_device *ddev);
+ 
+ void drm_sched_fini(struct drm_gpu_scheduler *sched);
+ int drm_sched_job_init(struct drm_sched_job *job,
 -- 
 2.7.4
 
