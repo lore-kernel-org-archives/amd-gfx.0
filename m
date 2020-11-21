@@ -1,68 +1,112 @@
-Return-Path: <SRS0=gUFK=E2=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=rJdP=E3=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 403F0C5519F
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 22:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ADD8C388F9
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CEB652242A
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2020 22:46:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D754D22210
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:21:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJlQIvCJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEB652242A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ou2WrkT3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D754D22210
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7036E93D;
-	Fri, 20 Nov 2020 22:46:26 +0000 (UTC)
-Received: from mail-yb1-xb41.google.com (mail-yb1-xb41.google.com
- [IPv6:2607:f8b0:4864:20::b41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEABA6E93A;
- Fri, 20 Nov 2020 22:46:24 +0000 (UTC)
-Received: by mail-yb1-xb41.google.com with SMTP id w5so9994843ybj.11;
- Fri, 20 Nov 2020 14:46:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2et3t7V/KMkTytiG/e4D11gYul4TV6gTCzuYs+F2ZTA=;
- b=DJlQIvCJkf4+1dPh8TYw/kq+VciO+Nu8p0l00YuVUY9jScVcMNkjJrM9QrGA0UaAWo
- vR1QAMpWzfdHrJutnVWx/iyN6mkkntDbJ+TDwyj96irCZVg32WjHaS9cvci2j/VXeOu8
- nb6f4V/bfTKkg/jp1G1VMsDsvproKdBmjTJ5xh6SMvPjmi9ZqlMy1k/ATKosh2BIvdel
- 93prsAl37ZGGkXKXWE2Z3blMLMznWhGGosb1ZXUnkMHWhvs5sZRLWY50q10QXhIhiaIh
- KuiAx3tkdXFXbw8I4+Ae64AnkcHfrOG1SXlNvnzUydInBV0NDE7ER0xtaACS4quhbHPd
- S+Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2et3t7V/KMkTytiG/e4D11gYul4TV6gTCzuYs+F2ZTA=;
- b=AwZfYi4Y89EyODtXFZs1JABbGRv5l952+WyNKEmx9cZ/8O4qVmO16xcqgT60uAH3aP
- eBFPpufJhVsmEc1WPfLyhywhBKxdWolBlDDJLmb1l16F3Nn/xs+EdAy1jp4l9mRUsNSX
- P7wtxbCkz/74IzH7S9TYuem0WPoLo9xr1uLaFnCPwL5ZYJ7AISK676ZRMWSi6JHhPMFS
- HnxyeXoOzd4l/qEu/UPMro9ANNF12YwPtgqDSMH53KkHFtUZQCVjq036xqXIQJK4isf4
- bIwBPLAl2QsGMouaAGPH498JcwDEXsQ5MyYLo856iNePGXe3ZxgZwCmQkUNV0kyRgwcD
- xXKw==
-X-Gm-Message-State: AOAM5334zUjtRQXVdS/mc7RQyqUBrydieNV8N2YVr9+/nMj9cqFiApG4
- DKlBrR1334B0FV/aUseVmCTRIyD8daNVw2ebaLs=
-X-Google-Smtp-Source: ABdhPJzSQjUz8dvYfSiTH1U32APPsuQRJVBLBjH9CH5oFPS39C/kkiOMuJbRHdykj3+wPaMWsDr+x2P3/HvDpgo75s4=
-X-Received: by 2002:a25:b803:: with SMTP id v3mr30277370ybj.326.1605912384156; 
- Fri, 20 Nov 2020 14:46:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23B136E966;
+	Sat, 21 Nov 2020 05:21:34 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750087.outbound.protection.outlook.com [40.107.75.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BAC66E964;
+ Sat, 21 Nov 2020 05:21:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gyEKsPga/ozkF2YCFt8QemjMvjRLK9SgrvivuPVEPM1wDE1mki2TpJDtQ6FgjYtyjOU8VqYqWCuSPZKPEMNPeUnQhP4dchwxcBnmUVvcGFS+Tv68R13CDkF6mkiqxeHLg5p7xK6HCESzq2BBZLp9YcpZxTeFs/cNYcq1sSfj2EsvyaoFRJr3fzZrdranmakf0fPV9OS0BhNgncC0a5p6yCcNjz0mZ1y9rwKs+HDaimRsobCuWH6eM8L+py7NGVW7EyIDWAr/yilQuu2+YDIgzSpd0rvJErbo4Hyr4oQD5efh+OgIAtgHJfIuh6RSJDVzwZZ896lEOzECAmY6oDxMJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/I/1MtwsMgRWenf4GZV6nn14RI7xKiQWqyqVvEAmOno=;
+ b=k4GGJK+AxiuaMnI2oAOWHjEwQl4bRIipmTRqGYJyjjigy1VXsbChtSYBxiLM4OzWQm4qL6gJFFVvGxKz2sZchp4XDihnwQyt4gwd4Y7nOBGGsIkb73iUpRZ318Vh5OG6EN9f2xlKsJU33MQzRg2xGqrHzxYs8hbMJIZVyYDxTFnz862cwtj/0I1G0JnUyVEnbK9vKbLPWovlLGemQ5WWvPOvcFPy5hKHlUHuLds78ePTKGM68e86BGP57CdgMhfaJqLKdG9P9ytWjuehmUPZ1i9gok8NEN5IMzWRtDdKBwXeURrD/OH7Pq7bqt1XdUvALLtcUl9IucbfjAD/ONhZeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/I/1MtwsMgRWenf4GZV6nn14RI7xKiQWqyqVvEAmOno=;
+ b=ou2WrkT3SwgI5TnyrEe8MGj0UAiU20LJ4WLHuWrn6kKt8daNh2WEWbpkmtAM4aKyOwEa2Vg0PAvMySHyJxxw+lrqK5GdnRt8s3eXl4MIu4kmndP84hczktHVDzqDCqGbvL8Imc7K4mnsn6zVQUGNjJRoLjKASMboL9qoURHoL78=
+Received: from BN0PR03CA0017.namprd03.prod.outlook.com (2603:10b6:408:e6::22)
+ by BYAPR12MB3558.namprd12.prod.outlook.com (2603:10b6:a03:aa::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.28; Sat, 21 Nov
+ 2020 05:21:29 +0000
+Received: from BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e6:cafe::af) by BN0PR03CA0017.outlook.office365.com
+ (2603:10b6:408:e6::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Sat, 21 Nov 2020 05:21:29 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
+ (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
+ action=none header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 165.204.84.17 as permitted sender)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT047.mail.protection.outlook.com (10.13.177.220) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:21:28 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
+ 2020 23:21:28 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
+ 2020 23:21:28 -0600
+Received: from ubuntu-1604-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via
+ Frontend Transport; Fri, 20 Nov 2020 23:21:27 -0600
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <ckoenig.leichtzumerken@gmail.com>, <daniel.vetter@ffwll.ch>,
+ <robh@kernel.org>, <l.stach@pengutronix.de>, <yuq825@gmail.com>,
+ <eric@anholt.net>
+Subject: [PATCH v3 00/12] RFC Support hot device unplug in amdgpu
+Date: Sat, 21 Nov 2020 00:21:10 -0500
+Message-ID: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <b73d98f74902b495689069177ffde953e1a061fb.1605896059.git.gustavoars@kernel.org>
-In-Reply-To: <b73d98f74902b495689069177ffde953e1a061fb.1605896059.git.gustavoars@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 20 Nov 2020 17:46:12 -0500
-Message-ID: <CADnq5_Ozd0bGq6CpkmjHaZH+D8dwpnMNmCzPQxh7pNh0hwNykg@mail.gmail.com>
-Subject: Re: [PATCH 078/141] drm/amd/pm: Fix fall-through warnings for Clang
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 89680b63-4ab5-4a1c-e924-08d88ddd4cdb
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3558:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3558663B4386F8EA8E547526EAFE0@BYAPR12MB3558.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qy5X1k4O0ld03vrJ8AWPffBQ3UPLK0euMB7qlc8XmmuVXC11bM/XVKsOUB5YofPbWwMLFrnRTRU7JhtRL3yJ/0HBipdiHPl/T57wwTe+41JqZeaoBy1P/vjhCY+y0CxeRzB6WcLhaFM7rDu235DNMSBe2JB/dFeGJs1j3pN9gNoyK7eD4EhjRyYexvmBdpoJZcmBZpw9qdpYECID5YAzk5He6xE2+Yp29Ve3dYyGlG2Z7iJn+0QpiwFtwoG5HvlRUdTXfPjA9cCcX7tzfYBim+/N4ipUSFWyA+bJZ5SaKbLPB4fycYeta0jWxliTDVby+rLT/ZTiYweyE+/9tMzzWx+fBsUqsNLIvRq0pAkz9wwisEX+eWHNVITnmMeyV/N1po3u9R8yb+rc4kwN/0NHWabfbFLHIbYCUW7fFVLbS4oyXbktm1Xy/FBELn4013om5n8y5XInfXtISI+DGMz9VlZWy6NUMM8qVLQaNWmi11TXg6U4ZvWfOrD2+ID1842h
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(376002)(136003)(39860400002)(46966005)(8676002)(336012)(70206006)(83380400001)(70586007)(86362001)(44832011)(8936002)(2616005)(316002)(186003)(6666004)(7416002)(26005)(356005)(110136005)(47076004)(7696005)(4326008)(426003)(478600001)(966005)(82740400003)(54906003)(81166007)(82310400003)(5660300002)(36756003)(2906002)(127564004);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:21:28.8914 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89680b63-4ab5-4a1c-e924-08d88ddd4cdb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3558
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,73 +118,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- linux-hardening@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
+ Harry.Wentland@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 20, 2020 at 1:35 PM Gustavo A. R. Silva
-<gustavoars@kernel.org> wrote:
->
-> In preparation to enable -Wimplicit-fallthrough for Clang, fix a couple
-> of warnings by explicitly adding a break statement instead of letting
-> the code fall through to the next case, and a fallthrough pseudo-keyword
-> as a replacement for a /* fall through */ comment,
->
-> Notice that Clang doesn't recognize /* fall through */ comments as
-> implicit fall-through markings.
->
-> Link: https://github.com/KSPP/linux/issues/115
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Until now extracting a card either by physical extraction (e.g. eGPU with 
+thunderbolt connection or by emulation through  syfs -> /sys/bus/pci/devices/device_id/remove) 
+would cause random crashes in user apps. The random crashes in apps were 
+mostly due to the app having mapped a device backed BO into its address 
+space was still trying to access the BO while the backing device was gone.
+To answer this first problem Christian suggested to fix the handling of mapped 
+memory in the clients when the device goes away by forcibly unmap all buffers the 
+user processes has by clearing their respective VMAs mapping the device BOs. 
+Then when the VMAs try to fill in the page tables again we check in the fault 
+handlerif the device is removed and if so, return an error. This will generate a 
+SIGBUS to the application which can then cleanly terminate.This indeed was done 
+but this in turn created a problem of kernel OOPs were the OOPSes were due to the 
+fact that while the app was terminating because of the SIGBUSit would trigger use 
+after free in the driver by calling to accesses device structures that were already 
+released from the pci remove sequence.This was handled by introducing a 'flush' 
+sequence during device removal were we wait for drm file reference to drop to 0 
+meaning all user clients directly using this device terminated.
 
-Applied.  Thanks!
+v2:
+Based on discussions in the mailing list with Daniel and Pekka [1] and based on the document 
+produced by Pekka from those discussions [2] the whole approach with returning SIGBUS and 
+waiting for all user clients having CPU mapping of device BOs to die was dropped. 
+Instead as per the document suggestion the device structures are kept alive until 
+the last reference to the device is dropped by user client and in the meanwhile all existing and new CPU mappings of the BOs 
+belonging to the device directly or by dma-buf import are rerouted to per user 
+process dummy rw page.Also, I skipped the 'Requirements for KMS UAPI' section of [2] 
+since i am trying to get the minimal set of requirements that still give useful solution 
+to work and this is the'Requirements for Render and Cross-Device UAPI' section and so my 
+test case is removing a secondary device, which is render only and is not involved 
+in KMS.
 
-Alex
+v3:
+More updates following comments from v2 such as removing loop to find DRM file when rerouting 
+page faults to dummy page,getting rid of unnecessary sysfs handling refactoring and moving 
+prevention of GPU recovery post device unplug from amdgpu to scheduler layer. 
+On top of that added unplug support for the IOMMU enabled system.
 
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/si_dpm.c                  | 2 +-
->  drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c | 1 +
->  2 files changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-> index b5986d19dc08..afa1711c9620 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/si_dpm.c
-> @@ -6200,8 +6200,8 @@ static void si_request_link_speed_change_before_state_change(struct amdgpu_devic
->                 case AMDGPU_PCIE_GEN2:
->                         if (amdgpu_acpi_pcie_performance_request(adev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
->                                 break;
-> +                       fallthrough;
->  #endif
-> -                       /* fall through */
->                 default:
->                         si_pi->force_pcie_gen = si_get_current_pcie_speed(adev);
->                         break;
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-> index c3d2e6dcf62a..7d7d698c7976 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-> @@ -2272,6 +2272,7 @@ static int polaris10_update_smc_table(struct pp_hwmgr *hwmgr, uint32_t type)
->                 break;
->         case SMU_BIF_TABLE:
->                 polaris10_update_bif_smc_table(hwmgr);
-> +               break;
->         default:
->                 break;
->         }
-> --
-> 2.27.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+With these patches I am able to gracefully remove the secondary card using sysfs remove hook while glxgears 
+is running off of secondary card (DRI_PRIME=1) without kernel oopses or hangs and keep working 
+with the primary card or soft reset the device without hangs or oopses
+
+TODOs for followup work:
+Convert AMDGPU code to use devm (for hw stuff) and drmm (for sw stuff and allocations) (Daniel)
+Rework AMDGPU sysfs handling using default groups attributes (Greg)
+Support plugging the secondary device back after unplug - currently still experiencing HW error on plugging back.
+Add support for 'Requirements for KMS UAPI' section of [2] - unplugging primary, display connected card.
+
+[1] - Discussions during v2 of the patchset https://lists.freedesktop.org/archives/amd-gfx/2020-June/050806.html
+[2] - drm/doc: device hot-unplug for userspace https://www.spinics.net/lists/dri-devel/msg259755.html
+[3] - Related gitlab ticket https://gitlab.freedesktop.org/drm/amd/-/issues/1081
+
+
+Andrey Grodzovsky (12):
+  drm: Add dummy page per device or GEM object
+  drm: Unamp the entire device address space on device unplug
+  drm/ttm: Remap all page faults to per process dummy page.
+  drm/ttm: Set dma addr to null after freee
+  drm/ttm: Expose ttm_tt_unpopulate for driver use
+  drm/sched: Cancel and flush all oustatdning jobs before finish.
+  drm/sched: Prevent any job recoveries after device is unplugged.
+  drm/amdgpu: Split amdgpu_device_fini into early and late
+  drm/amdgpu: Add early fini callback
+  drm/amdgpu: Avoid sysfs dirs removal post device unplug
+  drm/amdgpu: Register IOMMU topology notifier per device.
+  drm/amdgpu: Fix a bunch of sdma code crash post device unplug
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h               | 11 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 82 +++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |  7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c         | 17 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h          |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c           | 24 ++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h           |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c           | 12 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c        | 10 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h        |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c           |  7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h          |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c         |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |  8 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++-
+ drivers/gpu/drm/amd/include/amd_shared.h          |  2 +
+ drivers/gpu/drm/drm_drv.c                         |  3 +
+ drivers/gpu/drm/drm_file.c                        |  8 +++
+ drivers/gpu/drm/drm_prime.c                       | 10 +++
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c           |  3 +-
+ drivers/gpu/drm/lima/lima_sched.c                 |  3 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c           |  2 +-
+ drivers/gpu/drm/scheduler/sched_main.c            | 18 ++++-
+ drivers/gpu/drm/ttm/ttm_bo_vm.c                   | 54 ++++++++++++---
+ drivers/gpu/drm/ttm/ttm_page_alloc.c              |  2 +
+ drivers/gpu/drm/ttm/ttm_tt.c                      |  1 +
+ drivers/gpu/drm/v3d/v3d_sched.c                   | 15 +++--
+ include/drm/drm_file.h                            |  2 +
+ include/drm/drm_gem.h                             |  2 +
+ include/drm/gpu_scheduler.h                       |  6 +-
+ 31 files changed, 287 insertions(+), 47 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
