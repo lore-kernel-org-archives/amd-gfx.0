@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AD42C63777
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45F56C63697
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD5C52222A
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:22:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DCE9222226
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2020 05:22:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TgT7i/L4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD5C52222A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tAhDQ/fu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCE9222226
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667C26E981;
-	Sat, 21 Nov 2020 05:22:00 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9C016E971;
- Sat, 21 Nov 2020 05:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBFC6E982;
+	Sat, 21 Nov 2020 05:22:13 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700087.outbound.protection.outlook.com [40.107.70.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FFA66E97F;
+ Sat, 21 Nov 2020 05:22:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cfGHmguGzJcPHrWqXe2LM7qU11+B1Gn0l82GUrEvLJjeFieq1tt9EkZFGKL7J8/D5Z14Ot7i1hwTZ8+aa2c2obbmTq+H8KSB3hgnDmZp48hUHh/slpDyx8ntx6Rde1QZGOJDCYdVSAJbJN0qsDWsWwlzwqbXlvGcUM9SrxfKj0Q6mHR3q47WxO4PXjjtkjE3ZeO01n3e4Kt0q4WADsR7ddwpgMlgzPQl8EflwRdgdAYpCOEyPdQemSk2DXxiu7nwTdKkmeZtM37MSEmjm2qNuTB46zERezXnYIi3+6vOilumFBokXjOeUejC40XDuJoz0wFnb25McI7dXNaMc70Ltg==
+ b=XmvGUDzIXfYR4VXAU0RvMjrP/rn3EQGplLTT9HVKlmLkiQ5RnoQCCsWLfVnrDNuoMOwNTr2OGHLNQ1i+mVLeAJxsWFa2RnEYDJlzqfWrBhHuJVDvZrq4uhXBqOfg5JNKtQMGFIfwmNQAzNk3/URXRhXgFT1nBh4/r71/bKXlROtJCPrtcRSkKw38SjGpH5pDm4DB7EGPdkLdA07/8t9sOQPI715GQvCVhovtj0sFe3364ej62HsJ+A270r2Tmx+vqrZeG4YR8V9pqtPuHhrXa6cjqD3FCnaY6xAhB9d4phf7WFH7II6XtOtFYOrSLhWqeKehLC99wSAyVNJxL2H+jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0HtQgivQv3sdKp3khI2iAdsl9Bv7A9yFoV5IOj4Sjeo=;
- b=dAbJBC2u1LtrN55vjuzoZ+hDUInx2lW7eCNOhrUvhqyLo91HDYYb6+qf5MV7Jq1h3cCnCn91/EaZk7YZW/cWBlW9c4rco5Uj/KbAJklLGDpGclr2k/krutqySlM/eRcWYErBbflEvnkWRoQoezuuM4k8BmlRjkwaHlKf/BQMYXqDvq08FH/VbSbmVMimmvSA3GsiiHz54PFiR6UbgxFYKPi0dg/b9DxIgQ2bxsA9Uisr7JOjBzBsvcIdGEk4ErCcP6HbD4jHvXDJa9AOqg6I647+m4B3rGT3Rq3stHUOEe7IMaHZGcwKrbFvpeyC4OZcSXG9AEt5FI/7mqzs9eFWcg==
+ bh=mqY3MPoJ7E3Hjx+D7G/m1j0155nPBhXI6kjk17Om+1s=;
+ b=Lw9/8lTLFmvdMiGyTqeYaJEtWvJlvxwxQkmrqk99SY1VsVoV7XV+h77YggeO2mSXF+SouXAg2ksgfhTrwJl6uUKZ4a1cXeSzi6eqyR0zGfHEqbQkVoqTZ3DAjWz3tqTgtNWfp3dyhZWkEIQaPuDBUnIzWedXwd8G1pGDFsLi0JxiFEdJFrQInFTTNco2PsDyhTbHYQuKBdgrgVPKZcplI+azAovZRzY6IjU4AJuz1h6PUHtvb9Kgfcw2JAnTlEWqlUrv8BFT+Z21v2xwtkKorILY8OncP2D3f7e65mpH35q+4HmsakaL+JHY/sXfDmLkbrSM8kRfSB8yjrvTLD6NoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -40,48 +40,48 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0HtQgivQv3sdKp3khI2iAdsl9Bv7A9yFoV5IOj4Sjeo=;
- b=TgT7i/L4EfQKe3Kl07YJHRlCAZZVWYHbnxEVWgsHgJCVVg09vqH2mGysJ7OmWd/2Yd3pZq+b63XWebviAIjTbssuipIWZy5p0LIuE3LcM7vyMZnTbKrKdbkaW30yv8mp+hSJuBCcVEzPOQ1a1rkyGODUVAhLORcpJu1foJYL6EI=
-Received: from DM5PR08CA0031.namprd08.prod.outlook.com (2603:10b6:4:60::20) by
- BY5PR12MB3969.namprd12.prod.outlook.com (2603:10b6:a03:195::14) with
+ bh=mqY3MPoJ7E3Hjx+D7G/m1j0155nPBhXI6kjk17Om+1s=;
+ b=tAhDQ/fu/TysS1QPF2rpr7XJTj2clAeGGLIDMCV23sXev/ILzcXltEUpA8J4qtpxaUxrv4ZgM2XWbnaTG1QGPyEYiWOwim1BtjAAd5osRU+r5SdcpEJDywtaWSwBPHm+V8Idr5nS5xcX4rzeg6AYlTk9jRcGCeOyhgnckxpV9C4=
+Received: from BN3PR05CA0029.namprd05.prod.outlook.com (2603:10b6:400::39) by
+ BY5PR12MB4274.namprd12.prod.outlook.com (2603:10b6:a03:206::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Sat, 21 Nov
- 2020 05:21:41 +0000
-Received: from DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:60:cafe::79) by DM5PR08CA0031.outlook.office365.com
- (2603:10b6:4:60::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
- Transport; Sat, 21 Nov 2020 05:21:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Sat, 21 Nov
+ 2020 05:22:08 +0000
+Received: from BN8NAM11FT027.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:400:0:cafe::2b) by BN3PR05CA0029.outlook.office365.com
+ (2603:10b6:400::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.9 via Frontend
+ Transport; Sat, 21 Nov 2020 05:22:07 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT056.mail.protection.outlook.com (10.13.173.99) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT027.mail.protection.outlook.com (10.13.177.96) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:21:39 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3589.22 via Frontend Transport; Sat, 21 Nov 2020 05:22:07 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
- 2020 23:21:39 -0600
+ 2020 23:22:03 -0600
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 20 Nov
- 2020 23:21:39 -0600
+ 2020 23:22:02 -0600
 Received: from ubuntu-1604-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via
- Frontend Transport; Fri, 20 Nov 2020 23:21:38 -0600
+ Frontend Transport; Fri, 20 Nov 2020 23:22:02 -0600
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <ckoenig.leichtzumerken@gmail.com>, <daniel.vetter@ffwll.ch>,
  <robh@kernel.org>, <l.stach@pengutronix.de>, <yuq825@gmail.com>,
  <eric@anholt.net>
-Subject: [PATCH v3 07/12] drm/sched: Prevent any job recoveries after device
- is unplugged.
-Date: Sat, 21 Nov 2020 00:21:17 -0500
-Message-ID: <1605936082-3099-8-git-send-email-andrey.grodzovsky@amd.com>
+Subject: [PATCH v3 11/12] drm/amdgpu: Register IOMMU topology notifier per
+ device.
+Date: Sat, 21 Nov 2020 00:21:21 -0500
+Message-ID: <1605936082-3099-12-git-send-email-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
 References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
@@ -89,27 +89,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: acc0439d-da50-4849-4d8a-08d88ddd5370
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3969:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3969B1C6DDA7F87AF7235FCCEAFE0@BY5PR12MB3969.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
+X-MS-Office365-Filtering-Correlation-Id: 598de168-be40-4e39-64f9-08d88ddd63bb
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4274:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB427454AFA460AE8B92AD174CEAFE0@BY5PR12MB4274.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hgRiH3TX1e4h4DS/W9NX6vMXLxP/KFi8ByblzsqzUHq6GzwhhF9N4cFRadsyjN4jmbsVtfWOEOOyQqdRaEZ8hmQ7H8LLNuDFXV2kwXz5UzQC7GQ5FQMCfBZvQWT7w+eq26+aVvQ76jzaS5G2Oo4MO57Y0yqq2NlDKYaPMxYiMkSbyY4OeL60JuY62ReBtd5iqNgpb/ARz7pVYVRp09suD11poVqCuA1PjWC0ig2OiQOEP6eIYtBxCC6zKHUtMyAIR4MGretgawoJnHqP7KGenbdlUJoAyAiHJCyeXMW4lIE06fViyjJJxe8vZfrqyVStjAdgvIsOX9tIbt81LSgi2AmdZPnrlznlVdirjTXWy+gbd1Yod5K+N947BRbll6MY0iYRtlmzODgfAPt62/gM/Q==
+X-Microsoft-Antispam-Message-Info: N2TStV9/+mI28xHWBZj6E9dghlE48IgWRZVbIO9yu/BktHG+vGXd8HYfMcAfEwWyNNyZYA6s8MwWqFEb1mqZ9tcpWvLXxTG9o/8X71VEbo55m5uNBtgw9xweX4YSrDyXiRkrWxfIK6Zc1XK3n1/gTMD0fQPbVoSJVRFumDy31cUhdcN/uN4+9oMiGi9RlELzU/2aQ9XhUHSyKir0TQAjwk6jpLUsRaNdHxWymWjBK+buGmN4pfqVhbz4lpgHIYwY1UjRs7u5dvfAEMSfPpKEjDX9uMhGLyoBzZ0cjA50kpWG+TXBYE2LbAQeOcmi4ImFdX7RetHxpgeCXZcKF9vm+PrzvE+1GF4KTvQpiCXQtHx3QpX/6sAOO4rLki/e38sTJtiCLYRwJSgf6UIlUtP9vw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(396003)(39860400002)(46966005)(356005)(2906002)(8936002)(47076004)(82310400003)(81166007)(86362001)(7696005)(4326008)(8676002)(82740400003)(83380400001)(5660300002)(478600001)(36756003)(2616005)(44832011)(186003)(26005)(110136005)(54906003)(426003)(70586007)(70206006)(336012)(316002)(6666004)(7416002);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(396003)(136003)(346002)(39860400002)(376002)(46966005)(6666004)(336012)(82310400003)(316002)(110136005)(5660300002)(36756003)(7416002)(7696005)(356005)(426003)(70206006)(81166007)(86362001)(26005)(2616005)(70586007)(54906003)(478600001)(2906002)(186003)(83380400001)(4326008)(8936002)(47076004)(44832011)(8676002)(82740400003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:21:39.9133 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: acc0439d-da50-4849-4d8a-08d88ddd5370
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2020 05:22:07.2989 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 598de168-be40-4e39-64f9-08d88ddd63bb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT056.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT027.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3969
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4274
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,219 +128,186 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No point to try recovery if device is gone, it's meaningless.
+Handle all DMA IOMMU gropup related dependencies before the
+group is removed.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c   |  3 ++-
- drivers/gpu/drm/lima/lima_sched.c         |  3 ++-
- drivers/gpu/drm/panfrost/panfrost_job.c   |  2 +-
- drivers/gpu/drm/scheduler/sched_main.c    | 15 ++++++++++++++-
- drivers/gpu/drm/v3d/v3d_sched.c           | 15 ++++++++++-----
- include/drm/gpu_scheduler.h               |  6 +++++-
- 7 files changed, 35 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  5 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 46 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h   |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 10 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 ++
+ 6 files changed, 65 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index d56f402..d0b0021 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -487,7 +487,7 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 6243f6d..c41957e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -51,6 +51,7 @@
+ #include <linux/dma-fence.h>
+ #include <linux/pci.h>
+ #include <linux/aer.h>
++#include <linux/notifier.h>
  
- 		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
- 				   num_hw_submission, amdgpu_job_hang_limit,
--				   timeout, ring->name);
-+				   timeout, ring->name, &adev->ddev);
- 		if (r) {
- 			DRM_ERROR("Failed to create scheduler on ring %s.\n",
- 				  ring->name);
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-index cd46c88..7678287 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-@@ -185,7 +185,8 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+ #include <drm/ttm/ttm_bo_api.h>
+ #include <drm/ttm/ttm_bo_driver.h>
+@@ -1044,6 +1045,10 @@ struct amdgpu_device {
  
- 	ret = drm_sched_init(&gpu->sched, &etnaviv_sched_ops,
- 			     etnaviv_hw_jobs_limit, etnaviv_job_hang_limit,
--			     msecs_to_jiffies(500), dev_name(gpu->dev));
-+			     msecs_to_jiffies(500), dev_name(gpu->dev),
-+			     gpu->drm);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index dc6df9e..8a7e5d7ca 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -505,7 +505,8 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
- 
- 	return drm_sched_init(&pipe->base, &lima_sched_ops, 1,
- 			      lima_job_hang_limit, msecs_to_jiffies(timeout),
--			      name);
-+			      name,
-+			      pipe->ldev->ddev);
- }
- 
- void lima_sched_pipe_fini(struct lima_sched_pipe *pipe)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 30e7b71..37b03b01 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -520,7 +520,7 @@ int panfrost_job_init(struct panfrost_device *pfdev)
- 		ret = drm_sched_init(&js->queue[j].sched,
- 				     &panfrost_sched_ops,
- 				     1, 0, msecs_to_jiffies(500),
--				     "pan_js");
-+				     "pan_js", pfdev->ddev);
- 		if (ret) {
- 			dev_err(pfdev->dev, "Failed to create scheduler: %d.", ret);
- 			goto err_sched;
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index c3f0bd0..95db8c6 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -53,6 +53,7 @@
- #include <drm/drm_print.h>
- #include <drm/gpu_scheduler.h>
- #include <drm/spsc_queue.h>
-+#include <drm/drm_drv.h>
- 
- #define CREATE_TRACE_POINTS
- #include "gpu_scheduler_trace.h"
-@@ -283,8 +284,16 @@ static void drm_sched_job_timedout(struct work_struct *work)
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_job *job;
- 
-+	int idx;
+ 	bool                            in_pci_err_recovery;
+ 	struct pci_saved_state          *pci_state;
 +
- 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
- 
-+	if (!drm_dev_enter(sched->ddev, &idx)) {
-+		DRM_INFO("%s - device unplugged skipping recovery on scheduler:%s",
-+			 __func__, sched->name);
-+		return;
-+	}
-+
- 	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
- 	spin_lock(&sched->job_list_lock);
- 	job = list_first_entry_or_null(&sched->ring_mirror_list,
-@@ -316,6 +325,8 @@ static void drm_sched_job_timedout(struct work_struct *work)
- 	spin_lock(&sched->job_list_lock);
- 	drm_sched_start_timeout(sched);
- 	spin_unlock(&sched->job_list_lock);
-+
-+	drm_dev_exit(idx);
- }
- 
-  /**
-@@ -845,7 +856,8 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
- 		   unsigned hw_submission,
- 		   unsigned hang_limit,
- 		   long timeout,
--		   const char *name)
-+		   const char *name,
-+		   struct drm_device *ddev)
- {
- 	int i, ret;
- 	sched->ops = ops;
-@@ -853,6 +865,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
- 	sched->name = name;
- 	sched->timeout = timeout;
- 	sched->hang_limit = hang_limit;
-+	sched->ddev = ddev;
- 	for (i = DRM_SCHED_PRIORITY_MIN; i < DRM_SCHED_PRIORITY_COUNT; i++)
- 		drm_sched_rq_init(sched, &sched->sched_rq[i]);
- 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 0747614..f5076e5 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -401,7 +401,8 @@ v3d_sched_init(struct v3d_dev *v3d)
- 			     &v3d_bin_sched_ops,
- 			     hw_jobs_limit, job_hang_limit,
- 			     msecs_to_jiffies(hang_limit_ms),
--			     "v3d_bin");
-+			     "v3d_bin",
-+			     &v3d->drm);
- 	if (ret) {
- 		dev_err(v3d->drm.dev, "Failed to create bin scheduler: %d.", ret);
- 		return ret;
-@@ -411,7 +412,8 @@ v3d_sched_init(struct v3d_dev *v3d)
- 			     &v3d_render_sched_ops,
- 			     hw_jobs_limit, job_hang_limit,
- 			     msecs_to_jiffies(hang_limit_ms),
--			     "v3d_render");
-+			     "v3d_render",
-+			     &v3d->drm);
- 	if (ret) {
- 		dev_err(v3d->drm.dev, "Failed to create render scheduler: %d.",
- 			ret);
-@@ -423,7 +425,8 @@ v3d_sched_init(struct v3d_dev *v3d)
- 			     &v3d_tfu_sched_ops,
- 			     hw_jobs_limit, job_hang_limit,
- 			     msecs_to_jiffies(hang_limit_ms),
--			     "v3d_tfu");
-+			     "v3d_tfu",
-+			     &v3d->drm);
- 	if (ret) {
- 		dev_err(v3d->drm.dev, "Failed to create TFU scheduler: %d.",
- 			ret);
-@@ -436,7 +439,8 @@ v3d_sched_init(struct v3d_dev *v3d)
- 				     &v3d_csd_sched_ops,
- 				     hw_jobs_limit, job_hang_limit,
- 				     msecs_to_jiffies(hang_limit_ms),
--				     "v3d_csd");
-+				     "v3d_csd",
-+				     &v3d->drm);
- 		if (ret) {
- 			dev_err(v3d->drm.dev, "Failed to create CSD scheduler: %d.",
- 				ret);
-@@ -448,7 +452,8 @@ v3d_sched_init(struct v3d_dev *v3d)
- 				     &v3d_cache_clean_sched_ops,
- 				     hw_jobs_limit, job_hang_limit,
- 				     msecs_to_jiffies(hang_limit_ms),
--				     "v3d_cache_clean");
-+				     "v3d_cache_clean",
-+				     &v3d->drm);
- 		if (ret) {
- 			dev_err(v3d->drm.dev, "Failed to create CACHE_CLEAN scheduler: %d.",
- 				ret);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 9243655..a980709 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -32,6 +32,7 @@
- 
- struct drm_gpu_scheduler;
- struct drm_sched_rq;
-+struct drm_device;
- 
- /* These are often used as an (initial) index
-  * to an array, and as such should start at 0.
-@@ -267,6 +268,7 @@ struct drm_sched_backend_ops {
-  * @score: score to help loadbalancer pick a idle sched
-  * @ready: marks if the underlying HW is ready to work
-  * @free_guilty: A hit to time out handler to free the guilty job.
-+ * @ddev: Pointer to drm device of this scheduler.
-  *
-  * One scheduler is implemented for each hardware ring.
-  */
-@@ -288,12 +290,14 @@ struct drm_gpu_scheduler {
- 	atomic_t                        score;
- 	bool				ready;
- 	bool				free_guilty;
-+	struct drm_device		*ddev;
++	struct notifier_block		nb;
++	struct blocking_notifier_head	notifier;
++	struct list_head		device_bo_list;
  };
  
- int drm_sched_init(struct drm_gpu_scheduler *sched,
- 		   const struct drm_sched_backend_ops *ops,
- 		   uint32_t hw_submission, unsigned hang_limit, long timeout,
--		   const char *name);
-+		   const char *name,
-+		   struct drm_device *ddev);
+ static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 96368a8..bc84c20 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -70,6 +70,8 @@
+ #include <drm/task_barrier.h>
+ #include <linux/pm_runtime.h>
  
- void drm_sched_fini(struct drm_gpu_scheduler *sched);
- int drm_sched_job_init(struct drm_sched_job *job,
++#include <linux/iommu.h>
++
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/raven_gpu_info.bin");
+@@ -3179,6 +3181,39 @@ static const struct attribute *amdgpu_dev_attributes[] = {
+ };
+ 
+ 
++static int amdgpu_iommu_group_notifier(struct notifier_block *nb,
++				     unsigned long action, void *data)
++{
++	struct amdgpu_device *adev = container_of(nb, struct amdgpu_device, nb);
++	struct amdgpu_bo *bo = NULL;
++
++	/*
++	 * Following is a set of IOMMU group dependencies taken care of before
++	 * device's IOMMU group is removed
++	 */
++	if (action == IOMMU_GROUP_NOTIFY_DEL_DEVICE) {
++
++		spin_lock(&ttm_bo_glob.lru_lock);
++		list_for_each_entry(bo, &adev->device_bo_list, bo) {
++			if (bo->tbo.ttm)
++				ttm_tt_unpopulate(bo->tbo.ttm);
++		}
++		spin_unlock(&ttm_bo_glob.lru_lock);
++
++		if (adev->irq.ih.use_bus_addr)
++			amdgpu_ih_ring_fini(adev, &adev->irq.ih);
++		if (adev->irq.ih1.use_bus_addr)
++			amdgpu_ih_ring_fini(adev, &adev->irq.ih1);
++		if (adev->irq.ih2.use_bus_addr)
++			amdgpu_ih_ring_fini(adev, &adev->irq.ih2);
++
++		amdgpu_gart_dummy_page_fini(adev);
++	}
++
++	return NOTIFY_OK;
++}
++
++
+ /**
+  * amdgpu_device_init - initialize the driver
+  *
+@@ -3283,6 +3318,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	INIT_WORK(&adev->xgmi_reset_work, amdgpu_device_xgmi_reset_func);
+ 
++	INIT_LIST_HEAD(&adev->device_bo_list);
++
+ 	adev->gfx.gfx_off_req_count = 1;
+ 	adev->pm.ac_power = power_supply_is_system_supplied() > 0;
+ 
+@@ -3553,6 +3590,15 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (amdgpu_device_cache_pci_state(adev->pdev))
+ 		pci_restore_state(pdev);
+ 
++	BLOCKING_INIT_NOTIFIER_HEAD(&adev->notifier);
++	adev->nb.notifier_call = amdgpu_iommu_group_notifier;
++
++	if (adev->dev->iommu_group) {
++		r = iommu_group_register_notifier(adev->dev->iommu_group, &adev->nb);
++		if (r)
++			goto failed;
++	}
++
+ 	return 0;
+ 
+ failed:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index e01e681..34c17bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -92,7 +92,7 @@ static int amdgpu_gart_dummy_page_init(struct amdgpu_device *adev)
+  *
+  * Frees the dummy page used by the driver (all asics).
+  */
+-static void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
++void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev)
+ {
+ 	if (!adev->dummy_page_addr)
+ 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+index afa2e28..5678d9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+@@ -61,6 +61,7 @@ int amdgpu_gart_table_vram_pin(struct amdgpu_device *adev);
+ void amdgpu_gart_table_vram_unpin(struct amdgpu_device *adev);
+ int amdgpu_gart_init(struct amdgpu_device *adev);
+ void amdgpu_gart_fini(struct amdgpu_device *adev);
++void amdgpu_gart_dummy_page_fini(struct amdgpu_device *adev);
+ int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+ 		       int pages);
+ int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index b191701..731c9889 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -94,6 +94,10 @@ static void amdgpu_bo_destroy(struct ttm_buffer_object *tbo)
+ 	}
+ 	amdgpu_bo_unref(&bo->parent);
+ 
++	spin_lock(&ttm_bo_glob.lru_lock);
++	list_del(&bo->bo);
++	spin_unlock(&ttm_bo_glob.lru_lock);
++
+ 	kfree(bo->metadata);
+ 	kfree(bo);
+ }
+@@ -616,6 +620,12 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 	if (bp->type == ttm_bo_type_device)
+ 		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+ 
++	INIT_LIST_HEAD(&bo->bo);
++
++	spin_lock(&ttm_bo_glob.lru_lock);
++	list_add_tail(&bo->bo, &adev->device_bo_list);
++	spin_unlock(&ttm_bo_glob.lru_lock);
++
+ 	return 0;
+ 
+ fail_unreserve:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 621c0bf..b53b7e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -112,6 +112,8 @@ struct amdgpu_bo {
+ 	struct list_head		shadow_list;
+ 
+ 	struct kgd_mem                  *kfd_bo;
++
++	struct list_head 		bo;
+ };
+ 
+ static inline struct amdgpu_bo *ttm_to_amdgpu_bo(struct ttm_buffer_object *tbo)
 -- 
 2.7.4
 
