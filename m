@@ -2,72 +2,87 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CE15C64E75
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A07F3C64E7A
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CADAD20719
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 48C7D20719
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="DJQ3WuSC";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="DJQ3WuSC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CADAD20719
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=HansenPartnership.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ak5/hZ4J"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48C7D20719
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95D1D89D49;
-	Mon, 23 Nov 2020 08:26:12 +0000 (UTC)
-X-Greylist: delayed 84645 seconds by postgrey-1.36 at gabe;
- Sun, 22 Nov 2020 16:49:45 UTC
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
- [IPv6:2607:fcd0:100:8a00::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F10E89C59;
- Sun, 22 Nov 2020 16:49:45 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by bedivere.hansenpartnership.com (Postfix) with ESMTP id AB0CF1280302;
- Sun, 22 Nov 2020 08:49:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1606063784;
- bh=17TrMRtvefoo+nGHR97pCnj/lxz5M0xWRk4mlB4j/j4=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=DJQ3WuSCh5ONJkQLvrRDKWjtqFtZT1TAPnAUYm6nnSis8bRSxmxTUdD1PrB7UWicY
- RxKUvvDgawnlhMMDvZIHrNHIQxzEk4H+L7edJ9WYAgYp3e2Z+uWjpWqDuwMfVruTvK
- GP/WMd/p5KAU/iZA/nGFhNVXHTmLoWjH8aSdKt9E=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
- by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id iwIwMm9lBMHQ; Sun, 22 Nov 2020 08:49:44 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown
- [IPv6:2601:600:8280:66d1::527])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id CCD1012802EA;
- Sun, 22 Nov 2020 08:49:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1606063784;
- bh=17TrMRtvefoo+nGHR97pCnj/lxz5M0xWRk4mlB4j/j4=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=DJQ3WuSCh5ONJkQLvrRDKWjtqFtZT1TAPnAUYm6nnSis8bRSxmxTUdD1PrB7UWicY
- RxKUvvDgawnlhMMDvZIHrNHIQxzEk4H+L7edJ9WYAgYp3e2Z+uWjpWqDuwMfVruTvK
- GP/WMd/p5KAU/iZA/nGFhNVXHTmLoWjH8aSdKt9E=
-Message-ID: <751803306cd957d0e7ef6a4fc3dbf12ebceaba92.camel@HansenPartnership.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02FBD89CDE;
+	Mon, 23 Nov 2020 08:26:11 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84C4E89D30
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Nov 2020 14:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606056418;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=apju6gP6XSpkYwp4WdL57a/nFAvNI/QCKhQkuBxc3S8=;
+ b=ak5/hZ4JasuCdubW59huNEFfJdjI0J7gy5Yn8kCv5PTs7PV7aEfZiOa/NpACRi36M0ke9J
+ A4eSPV/Gcjxx8Oi8Rk+FI3bElki0kwQeBytZUV22THTQKGw3YQu7X3VUwAxkZh9tgkn2hL
+ 9kk06BsaFcTeFpX1B2wAM5f2J7s7WQE=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-433-c4eLnELoPzKmjxcWI0ux5g-1; Sun, 22 Nov 2020 09:46:52 -0500
+X-MC-Unique: c4eLnELoPzKmjxcWI0ux5g-1
+Received: by mail-qt1-f199.google.com with SMTP id t22so6972908qtq.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=apju6gP6XSpkYwp4WdL57a/nFAvNI/QCKhQkuBxc3S8=;
+ b=FQind0LvgwnsxrByjkm+DHyTC2N3j4xCXWPHEostXU+K61Hv2N+bFZ75wjAonyMoFm
+ hPxLW9jFGXyRVKds6vqcfFNQeu2PiZtMlBWVgBCtUV5Qn3MZq2AZID2wrm199cuL8K0A
+ HPPOW7VzOMGDfTMyp56yfudsQQjX5yVnSOPfxrU+0Q92rXDmaeb/1ktKGisYCcgL2CT9
+ rZSdovsDOduYtMFOGfTSlxJeXEy0xHQJzjoBePlOoclCj7sJvWadnGODKfOdp6JNXAuR
+ zvjF35cjlHUF298dWhsmb2QDaMZzMCDAhovKg8YYWJ6jGrfK9HSVu9YxCcHt7JTmXUzh
+ 9Jyg==
+X-Gm-Message-State: AOAM5314HXV8oDpIeVdFJCQxOH1seFUEbH4rmYn1lNHthE9v4Vr6Gv4E
+ zQdM+2H+aS3SMS6m61IId6uTG7TUcD1n9q4og7fkx+SDsIMg2wtFhQ5Q8tqLkOUk+0QHME6vVrq
+ 8YMp4/3r3tfyJoxt018c4erEMqA==
+X-Received: by 2002:ad4:476b:: with SMTP id d11mr26026194qvx.57.1606056412441; 
+ Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyPQ8vJIBgyJxmgPlUVzOaStXFRaD0Z+d8VDmnR7kdLyNkvwByAGPov006wc7+pJBCcgj+/zw==
+X-Received: by 2002:ad4:476b:: with SMTP id d11mr26026152qvx.57.1606056412222; 
+ Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id x72sm6888242qkb.90.2020.11.22.06.46.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 22 Nov 2020 06:46:51 -0800 (PST)
 Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Tom Rix <trix@redhat.com>, Matthew Wilcox <willy@infradead.org>
-Date: Sun, 22 Nov 2020 08:49:41 -0800
-In-Reply-To: <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
+To: Matthew Wilcox <willy@infradead.org>
 References: <20201121165058.1644182-1-trix@redhat.com>
  <20201122032304.GE4327@casper.infradead.org>
- <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
- <20201122145635.GG4327@casper.infradead.org>
- <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
-User-Agent: Evolution 3.34.4 
+From: Tom Rix <trix@redhat.com>
+Message-ID: <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
+Date: Sun, 22 Nov 2020 06:46:46 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <20201122032304.GE4327@casper.infradead.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 23 Nov 2020 08:25:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,69 +117,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2020-11-22 at 08:10 -0800, Tom Rix wrote:
-> On 11/22/20 6:56 AM, Matthew Wilcox wrote:
-> > On Sun, Nov 22, 2020 at 06:46:46AM -0800, Tom Rix wrote:
-> > > On 11/21/20 7:23 PM, Matthew Wilcox wrote:
-> > > > On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com
-> > > > wrote:
-> > > > > The fixer review is
-> > > > > https://reviews.llvm.org/D91789
-> > > > > 
-> > > > > A run over allyesconfig for x86_64 finds 62 issues, 5 are
-> > > > > false positives. The false positives are caused by macros
-> > > > > passed to other macros and by some macro expansions that did
-> > > > > not have an extra semicolon.
-> > > > > 
-> > > > > This cleans up about 1,000 of the current 10,000 -Wextra-
-> > > > > semi-stmt warnings in linux-next.
-> > > > Are any of them not false-positives?  It's all very well to
-> > > > enable stricter warnings, but if they don't fix any bugs,
-> > > > they're just churn.
-> > > > 
-> > > While enabling additional warnings may be a side effect of this
-> > > effort
-> > > 
-> > > the primary goal is to set up a cleaning robot. After that a
-> > > refactoring robot.
-> > Why do we need such a thing?  Again, it sounds like more churn.
-> > It's really annoying when I'm working on something important that
-> > gets derailed by pointless churn.  Churn also makes it harder to
-> > backport patches to earlier kernels.
-> > 
-> A refactoring example on moving to treewide, consistent use of a new
-> api may help.
-> 
-> Consider
-> 
-> 2efc459d06f1630001e3984854848a5647086232
-> 
-> sysfs: Add sysfs_emit and sysfs_emit_at to format sysfs output
-> 
-> A new api for printing in the sysfs.  How do we use it treewide ?
-> 
-> Done manually, it would be a heroic effort requiring high level
-> maintainers pushing and likely only get partially done.
-> 
-> If a refactoring programatic fixit is done and validated on a one
-> subsystem, it can run on all the subsystems.
-> 
-> The effort is a couple of weeks to write and validate the fixer,
-> hours to run over the tree.
-> 
-> It won't be perfect but will be better than doing it manually.
 
-Here's a thought: perhaps we don't.  sysfs_emit isn't a "new api" its a
-minor rewrap of existing best practice.  The damage caused by the churn
-of forcing its use everywhere would far outweigh any actual benefit
-because pretty much every bug in this area has already been caught and
-killed by existing tools.  We can enforce sysfs_emit going forwards
-using tools like checkpatch but there's no benefit and a lot of harm to
-be done by trying to churn the entire tree retrofitting it (both in
-terms of review time wasted as well as patch series derailed).
+On 11/21/20 7:23 PM, Matthew Wilcox wrote:
+> On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com wrote:
+>> The fixer review is
+>> https://reviews.llvm.org/D91789
+>>
+>> A run over allyesconfig for x86_64 finds 62 issues, 5 are false positives.
+>> The false positives are caused by macros passed to other macros and by
+>> some macro expansions that did not have an extra semicolon.
+>>
+>> This cleans up about 1,000 of the current 10,000 -Wextra-semi-stmt
+>> warnings in linux-next.
+> Are any of them not false-positives?  It's all very well to enable
+> stricter warnings, but if they don't fix any bugs, they're just churn.
+>
+While enabling additional warnings may be a side effect of this effort
 
-James
+the primary goal is to set up a cleaning robot. After that a refactoring robot.
 
+Tom
 
 _______________________________________________
 amd-gfx mailing list
