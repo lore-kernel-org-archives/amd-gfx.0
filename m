@@ -2,53 +2,74 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A9A9C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50D84C64E75
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B435720719
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B435720719
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id D05AA20719
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 08:26:09 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="Xy60wiIz";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="Xy60wiIz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D05AA20719
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=HansenPartnership.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD23089CA0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C71E089CA4;
 	Mon, 23 Nov 2020 08:25:59 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0045.hostedemail.com
- [216.40.44.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39AE589B3B;
- Mon, 23 Nov 2020 00:54:06 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay05.hostedemail.com (Postfix) with ESMTP id 2D37318029125;
- Mon, 23 Nov 2020 00:54:05 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: steam95_4513bd127361
-X-Filterd-Recvd-Size: 3177
-Received: from XPS-9350.home (unknown [47.151.128.180])
- (Authenticated sender: joe@perches.com)
- by omf02.hostedemail.com (Postfix) with ESMTPA;
- Mon, 23 Nov 2020 00:53:59 +0000 (UTC)
-Message-ID: <21826b6d513c4d9ccc795179c1edb0df2361d870.camel@perches.com>
-Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-From: Joe Perches <joe@perches.com>
-To: Finn Thain <fthain@telegraphics.com.au>
-Date: Sun, 22 Nov 2020 16:53:58 -0800
-In-Reply-To: <alpine.LNX.2.23.453.2011230810210.7@nippy.intranet>
-References: <20201121165058.1644182-1-trix@redhat.com>
- <20201122032304.GE4327@casper.infradead.org>
- <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
- <20201122145635.GG4327@casper.infradead.org>
- <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
- <751803306cd957d0e7ef6a4fc3dbf12ebceaba92.camel@HansenPartnership.com>
- <dec07021e7fc11a02b14c98b713ae2c6e2a4ca00.camel@perches.com>
- <alpine.LNX.2.23.453.2011230810210.7@nippy.intranet>
-User-Agent: Evolution 3.38.1-1 
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [IPv6:2607:fcd0:100:8a00::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1052389B29;
+ Sun, 22 Nov 2020 19:54:00 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id 5AE091280408;
+ Sun, 22 Nov 2020 11:53:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606074839;
+ bh=VEGy54rcLCho40R+6JbprsRZooc9e7x1ylV8+ruCN0g=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=Xy60wiIzsyTeElUeeJd3QYsiHNZfzmGET/Nzo9eZo2OJxmb5EOyvszf5Q8Et12YN3
+ QzMj8C6lMBcV0iKMn2xQmIYhyRP6O8RGeJWdk6ZnR1Mz2fkvBJLWRT04tHjc221TnA
+ rtTRX0GCrDoOkJiVFq/y98T9XhefjbMkzX0sdCSc=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id KaMwHtHCHbnw; Sun, 22 Nov 2020 11:53:59 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::527])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id D0B171280404;
+ Sun, 22 Nov 2020 11:53:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606074839;
+ bh=VEGy54rcLCho40R+6JbprsRZooc9e7x1ylV8+ruCN0g=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=Xy60wiIzsyTeElUeeJd3QYsiHNZfzmGET/Nzo9eZo2OJxmb5EOyvszf5Q8Et12YN3
+ QzMj8C6lMBcV0iKMn2xQmIYhyRP6O8RGeJWdk6ZnR1Mz2fkvBJLWRT04tHjc221TnA
+ rtTRX0GCrDoOkJiVFq/y98T9XhefjbMkzX0sdCSc=
+Message-ID: <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Joe Perches <joe@perches.com>, Kees Cook <keescook@chromium.org>, Jakub
+ Kicinski <kuba@kernel.org>
+Date: Sun, 22 Nov 2020 11:53:55 -0800
+In-Reply-To: <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
+ <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
+ <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 23 Nov 2020 08:25:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,49 +83,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- Tom Rix <trix@redhat.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- James Bottomley <James.Bottomley@HansenPartnership.com>,
- ibm-acpi-devel@lists.sourceforge.net, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, Matthew Wilcox <willy@infradead.org>,
- linux-scsi@vger.kernel.org, clang-built-linux@googlegroups.com,
- amd-gfx@lists.freedesktop.org, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, tboot-devel@lists.sourceforge.net,
- coreteam@netfilter.org, xen-devel@lists.xenproject.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
- ecryptfs@vger.kernel.org, linux-omap@vger.kernel.org, devel@acpica.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+ reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
+ dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+ linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ linux-acpi@vger.kernel.org, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
+ linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ x86@kernel.org, linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+ linux-mm@kvack.org, netdev@vger.kernel.org,
+ linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
  linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
+ linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2020-11-23 at 09:33 +1100, Finn Thain wrote:
-> On Sun, 22 Nov 2020, Joe Perches wrote:
+On Sun, 2020-11-22 at 11:22 -0800, Joe Perches wrote:
+> On Sun, 2020-11-22 at 11:12 -0800, James Bottomley wrote:
+> > On Sun, 2020-11-22 at 10:25 -0800, Joe Perches wrote:
+> > > On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
+> > > > Please tell me our reward for all this effort isn't a single
+> > > > missing error print.
+> > > 
+> > > There were quite literally dozens of logical defects found
+> > > by the fallthrough additions.  Very few were logging only.
+> > 
+> > So can you give us the best examples (or indeed all of them if
+> > someone is keeping score)?  hopefully this isn't a US election
+> > situation ...
+> 
+> Gustavo?  Are you running for congress now?
+> 
+> https://lwn.net/Articles/794944/
 
-> > But provably correct conversions IMO _should_ be done and IMO churn 
-> > considerations should generally have less importance.
-[]
-> Moreover, the patch review workload for skilled humans is being generated 
-> by the automation, which is completely backwards: the machine is supposed 
-> to be helping.
+That's 21 reported fixes of which about 50% seem to produce no change
+in code behaviour at all, a quarter seem to have no user visible effect
+with the remaining quarter producing unexpected errors on obscure
+configuration parameters, which is why no-one really noticed them
+before.
 
-Which is why the provably correct matters.
-
-coccinelle transforms can be, but are not necessarily, provably correct.
-
-The _show transforms done via the sysfs_emit_dev.cocci script are correct
-as in commit aa838896d87a ("drivers core: Use sysfs_emit and sysfs_emit_at
-for show(device *...) functions")
-
-Worthwhile?  A different question, but I think yes as it reduces the
-overall question space of the existing other sprintf overrun possibilities.
+James
 
 
 _______________________________________________
