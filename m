@@ -1,51 +1,100 @@
-Return-Path: <SRS0=wFA9=E4=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BE80C5519F
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Nov 2020 22:10:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 340F3C5519F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 02:32:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C771F20757
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Nov 2020 22:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C771F20757
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+	by mail.kernel.org (Postfix) with ESMTPS id C76712076B
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 02:32:23 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IkUAjLVt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C76712076B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB7A89A4F;
-	Sun, 22 Nov 2020 22:10:52 +0000 (UTC)
-Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D863D89A4F;
- Sun, 22 Nov 2020 22:10:50 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk4.altibox.net (Postfix) with ESMTPS id 2C52280567;
- Sun, 22 Nov 2020 23:10:42 +0100 (CET)
-Date: Sun, 22 Nov 2020 23:10:40 +0100
-From: Sam Ravnborg <sam@ravnborg.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-Message-ID: <20201122221040.GD566387@ravnborg.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9A189A88;
+	Mon, 23 Nov 2020 02:32:23 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD8589A88
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 02:32:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h52Aa+yNKfw2vOoDqSujjfCidcjYFYEfO1RF4dfXR+ot7sBezK/MAHYRFdblPd6RjsinhA8WjY8nVDDa3UL5+K/e5NRlet4jrdSIT1+NKmoD/GdS1PiivlIa1zOp8oHQHWO3po6/QgN2tRdlLzNepxlrbGVuNUGgfetpLLrWoiRgPb8QEuIOjz52NsjOihtAll2xw935cesZi0eWBf5yHFaEvV0ArB04/P/hNhOlmMwq6iFcnhdOm3Cprg6tVpxB4kcrhHeW/7CMff4+iirttZ0kJz1pPLXS90PZXBiQK6Yau8nRvAoBFDBGIW/9mYVEhhJnsLsJGBbwAnjy8r4+jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9lgr4edUdNX5L2MjWldOwqJRay4njF1lJVCsh57a2UE=;
+ b=gyGBKT8EvWgG06CnWFs/vnyTVZoGCppuyr6g/80Et3Nzatf3N8d4AsRqu9umNIHwB85/hDTw/CfCIb9GCTh465wJzuqqlbjiXEAZM2U6HvVpcU2mnDQHNTTpWApVhRhHp+1inW54IaizH6/4lu1HZSztCvWmdE+nrplEtra3LQSNe8zwo4/F4CGjcL3FqKbMydXIoLlWsFda30DIrrGu10GSUDgzT4BeSjp+TyGSGLpiIQUh1pASGA3+Tw2ctYq+JJMMSvQECKZqil/28qjvOyBw1/y6K7z+X98e0j1EgDSB4tUiaH+cRT3a7WhJJ9SkQLt86JmjiHHxfIdhKlVczw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9lgr4edUdNX5L2MjWldOwqJRay4njF1lJVCsh57a2UE=;
+ b=IkUAjLVtPSpawbJMSlAgDD9gdWE1simaXTPfFnAl6RH/wCK8sTPn2fwyNAkEGYduW4XgHAq2uPb3LJE05mO89hkqUCiQTle+Sd02SFaRm8m9IMCVy7kA1PUNhKA+O4Vvf6PzsWTloNWm8C/fJKcOTkRAcWpDwX9BBMdOAnZGvy8=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com (2603:10b6:300:114::19)
+ by MW3PR12MB4522.namprd12.prod.outlook.com (2603:10b6:303:5f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21; Mon, 23 Nov
+ 2020 02:32:20 +0000
+Received: from MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::38a7:197b:75f0:6030]) by MWHPR12MB1854.namprd12.prod.outlook.com
+ ([fe80::38a7:197b:75f0:6030%12]) with mapi id 15.20.3589.022; Mon, 23 Nov
+ 2020 02:32:20 +0000
+From: Likun Gao <likun.gao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: update golden setting for sienna_cichlid
+Date: Mon, 23 Nov 2020 10:32:02 +0800
+Message-Id: <20201123023202.120670-1-likun.gao@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [180.167.199.189]
+X-ClientProxiedBy: HK2PR02CA0219.apcprd02.prod.outlook.com
+ (2603:1096:201:20::31) To MWHPR12MB1854.namprd12.prod.outlook.com
+ (2603:10b6:300:114::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=VafZwmh9 c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=7T594MSkF3521FIrX4wA:9 a=CjuIK1q_8ugA:10 a=AjGcO6oz07-iQ99wixmX:22
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from lnx-glk.amd.com (180.167.199.189) by
+ HK2PR02CA0219.apcprd02.prod.outlook.com (2603:1096:201:20::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Mon, 23 Nov 2020 02:32:19 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: a1ba79ba-0237-4c0a-d11d-08d88f580094
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4522:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW3PR12MB452270074AC8B14608B80C08EFFC0@MW3PR12MB4522.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jIWa3EyeHv7BS72vkxrdxJAVf9kClH0CDZyEOLgQb9f0F9n4iz5OAGudoCsQXfzFZGyA7cPG05ickbwwuvaljgjL2vcg7La+f9MBPdIYQdOHfTSM59q9TRFTrdoh+wRdHX52hSgqxr6lFZUgIm47WmuYBch1HKHeigd2D6WXFbkQSaCvVSOzoydcTbWe1q3NBoTAzA3ILGrjU7DBwdOG5YkbMHhVTcSzFhx7wekt578yl4Fhdrl/UD7oDggHoX7jrQOAnagOCxQkSErV/SGTzThbLrG0EyPebzAV1+pKMHaWZwjdkYtAFnuNEffqgOM/tYaS5ssWUaba853EDX5Mfw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1854.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(396003)(346002)(136003)(39860400002)(366004)(1076003)(186003)(26005)(16526019)(2906002)(4326008)(15650500001)(8936002)(8676002)(6486002)(6916009)(478600001)(316002)(44832011)(6666004)(86362001)(83380400001)(52116002)(7696005)(54906003)(66946007)(956004)(2616005)(66476007)(66556008)(36756003)(5660300002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 5PjQ6kNAfCiZtCSgiOVx+S6+4z8HR+d6ffQfZ+mkLrgw0JY5Nr3qNfroPpWw6O7Q0LlOfBtazMM5WDH+xjF78aMSsJkPWeharKi1F+3/aK1ThmNy9DSKgT5b6LGiqjKy0x6qNPsIVUc9Xaytsb87RDdExS3JaJhk7R5NTqfBh+Ce90VXX39IOOYBx4QoJelNRoyfTnps6oXgcwemn9I6iPAoMkOv2GDMIuOfR5rd6mySty6jEG4TLGLGahf2z+59ZAZf9bYocIiSDDkbm84GONUNYxXL8FbIJMhg54rz/xR+Q5OZm8JTrclb6YG2IMihIOsi+FAAB0D0kLWxmwYzMN99oIJ9DQu7QLH4AT0CA7wAqkYeGckWDpvRavjqgMhqAC+7buOUCUkZlCNAhy3JwQijdMe/QzI9oLBzMYm1X38ahuiHflzvkt9b9KBW6E4v406hML6ckC/DeliP6Jk7o9Mvrf0o3XCx49KPVWUTBYix7LFOGFNd3qplbnwlDW+yM4/ZgrqpenzgyJ8jntiTuNCszVHXr4HLZTMl9yE7wLZTiaTvtVs+woLHbYzRjf+py40uAbZXGKTk4KhpH/R6X/1pHCfzlFI9BRv1i0Rmxj6yUeb1gNI7Ov/x+YtoIDxWW2Oaa8+6vvEs9MhllViLZjCY2aL+rcQBZdNbuXsm+6Z3bm9oHlAWUkCc6cY7DoqswWEhdeMxBmlM2Unf6S+b7N1/g0H1MrRAF+aPIYpI951PMm8BA1zqP3umwG0uRasces9eXmTJZYADAsg6/MdklsF7NJ5nnnltAXCLPdqpHA/NRcfgiqeLmwMWBRdc364KVq7UUol19aA1zcgPdFskuXHGmhggzDb8VZHTlHsyRuwU2WqPfz1FnWOwb4MMKtAY015dNwNcX6c16nfH7wtUEA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1ba79ba-0237-4c0a-d11d-08d88f580094
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1854.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 02:32:20.6560 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OSYf8nxS+3gcdIafqQHLRVGXP1LBcWArgqy2xMV1ZmKDjfZyYIlrNYWTdoNsz/Ym
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4522
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,77 +106,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- linux-ext4@vger.kernel.org, netfilter-devel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
- linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org,
- nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>, linux-watchdog@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, linux-nfs@vger.kernel.org, x86@kernel.org,
- linux-hardening@vger.kernel.org
+Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <hawking.zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi James.
+From: Likun Gao <Likun.Gao@amd.com>
 
-> > > If none of the 140 patches here fix a real bug, and there is no
-> > > change to machine code then it sounds to me like a W=2 kind of a
-> > > warning.
-> > 
-> > FWIW, this series has found at least one bug so far:
-> > https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
-> 
-> 
-> Well, it's a problem in an error leg, sure, but it's not a really
-> compelling reason for a 141 patch series, is it?  All that fixing this
-> error will do is get the driver to print "oh dear there's a problem"
-> under four more conditions than it previously did.
+Update golden setting for sienna_cichlid.
 
-You are asking the wrong question here.
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Change-Id: I2f107ced1540c9ec145950cf8b58664c6127756d
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Yuo should ask  how many hours could have been saved by all the bugs
-people have been fighting with and then fixed *before* the code
-hit the kernel at all.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index a6d03931f7fa..2bd6e40d5833 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -3148,6 +3148,8 @@ static const struct soc15_reg_golden golden_settings_gc_10_3[] =
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_DEBUG3, 0xffffffff, 0x00000280),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_DEBUG4, 0xffffffff, 0x00800000),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmDB_EXCEPTION_CONTROL, 0x7fff0f1f, 0x00b80000),
++	SOC15_REG_GOLDEN_VALUE(GC, 0 ,mmGCEA_SDP_TAG_RESERVE0, 0xffffffff, 0x10100100),
++	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCEA_SDP_TAG_RESERVE1, 0xffffffff, 0x17000088),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCR_GENERAL_CNTL_Sienna_Cichlid, 0x1ff1ffff, 0x00000500),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCUTCL2_CGTT_CLK_CTRL_Sienna_Cichlid, 0xff000000, 0xff008080),
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmGCVM_L2_CGTT_CLK_CTRL_Sienna_Cichlid, 0xff000000, 0xff008080),
+-- 
+2.25.1
 
-My personal experience is that I, more than once, have had errors
-related to a missing break in my code. So this warnings is IMO a win.
-
-And if we are only ~100 patches to have it globally enabled then it is a
-no-brainer in my book.
-
-	Sam
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
