@@ -2,45 +2,71 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF7BFC388F9
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 284A0C56202
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A9EB20702
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:58:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A9EB20702
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id B1D3D20702
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:58:06 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zzCeS97E"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1D3D20702
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E803489E14;
-	Mon, 23 Nov 2020 13:58:01 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3023E8982F;
- Mon, 23 Nov 2020 10:54:19 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1kh9U9-0004UE-89; Mon, 23 Nov 2020 10:54:17 +0000
-From: Colin King <colin.king@canonical.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>, Kevin Wang <kevin1.wang@amd.com>,
- Chengming Gui <Jack.Gui@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: fix spelling mistake
- "smu_state_memroy_block" -> "smu_state_memory_block"
-Date: Mon, 23 Nov 2020 10:54:17 +0000
-Message-Id: <20201123105417.198314-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.28.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC3789E15;
+	Mon, 23 Nov 2020 13:58:02 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC43F89A9B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 11:20:05 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id p22so17512812wmg.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 03:20:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=qHfHJykVaqUxn8L02JDHmsfIL28LId8QRd31LMjrFmg=;
+ b=zzCeS97E1b2WK6Wk02PoTbIMKdaOnWgwalJAZYW6kwBbUSHZfi4uctzruRAlBrBi01
+ s1g0HUaTRY5GThIHL7s13m0kRF6AJUh51MBDnO1qSJ7R/Wjzz/1nZTgq3gQzdgtND3FG
+ NxT7vDDk6oQpm2vYXtu0NykiMUQIPq+CtF9c2Q2iknriAg/d2LVw3UCzJOznFEIHj1Cc
+ D1kKx99KdYvIn+VtlknG6LvZS8vcg1IpQeN2QXBQdQzGMf+KOxB39PXcZwiiOA6JxxH3
+ jrdCSO6PhSuIiXZ4xJL+9JROKhcgw1XIO3QB2KkHHsqLYKHYLFJf0sK5jjGG5m3Ey1RQ
+ Ws2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=qHfHJykVaqUxn8L02JDHmsfIL28LId8QRd31LMjrFmg=;
+ b=n0IGAdgxWBmgx4WG1GQuv0zOMjx5sqGnFDCGhKilaPKO0UPOjhMN5onzQH2sqg6CUv
+ SzpF7V1iHB2kQBKAqfRG5SmcMloFUv3l5XgxYZMBsaEKQpMhfaFfHBvBP+sBA+oyIzdB
+ D1yAybVra6ytbFBxN2YNai+vK4E9vdpKHfbqTWUZLy4WVMbcTjCbGIJ10f6OjG6HyXbm
+ qdkAfmoLgSa9sjqRGD1LQVJxZzyLKpX9T5uK2vUmptgnRJ/T3pmBlI4asNoJkBEq0JVS
+ DQSaRMzYj6ShNtnwkayBX0amhziEhygye0EVfjJRAERL54mmInVYCGbXdY9SdEcRevJ0
+ HJSA==
+X-Gm-Message-State: AOAM533Mz9lh8oogzf5NRkQRmn86x4lhVFFvCYsPsk8a4ahIOmk/bBf1
+ uST5EMMwJg2GYM7ukkoGV4GwLA==
+X-Google-Smtp-Source: ABdhPJy+3wxz4JBnkJplQfa7wJSMtD26XO+XdnHu8vJdN6Ka8g9Y1bcXVHrKX2TUYDMHzdco2xDKRQ==
+X-Received: by 2002:a7b:c94d:: with SMTP id i13mr23152695wml.130.1606130404056; 
+ Mon, 23 Nov 2020 03:20:04 -0800 (PST)
+Received: from dell.default ([91.110.221.218])
+ by smtp.gmail.com with ESMTPSA id n9sm16317290wmd.4.2020.11.23.03.19.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2020 03:20:03 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 29/40] drm/amd/include/vangogh_ip_offset: Mark top-level
+ IP_BASE as __maybe_unused
+Date: Mon, 23 Nov 2020 11:19:08 +0000
+Message-Id: <20201123111919.233376-30-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201123111919.233376-1-lee.jones@linaro.org>
+References: <20201123111919.233376-1-lee.jones@linaro.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 23 Nov 2020 13:58:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -54,49 +80,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Colin Ian King <colin.king@canonical.com>
-
-The struct name smu_state_memroy_block contains a spelling mistake, rename
-it to smu_state_memory_block
-
-Fixes: 8554e67d6e22 ("drm/amd/powerplay: implement power_dpm_state sys interface for SMU11")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-index 7550757cc059..a559ea2204c1 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_smu.h
-@@ -99,7 +99,7 @@ struct smu_state_display_block {
- 	bool              enable_vari_bright;
- };
- 
--struct smu_state_memroy_block {
-+struct smu_state_memory_block {
- 	bool              dll_off;
- 	uint8_t                 m3arb;
- 	uint8_t                 unused[3];
-@@ -146,7 +146,7 @@ struct smu_power_state {
- 	struct smu_state_validation_block             validation;
- 	struct smu_state_pcie_block                   pcie;
- 	struct smu_state_display_block                display;
--	struct smu_state_memroy_block                 memory;
-+	struct smu_state_memory_block                 memory;
- 	struct smu_state_software_algorithm_block     software;
- 	struct smu_uvd_clocks                         uvd_clocks;
- 	struct smu_hw_power_state                     hardware;
--- 
-2.28.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogSW4gZmls
+ZSBpbmNsdWRlZCBmcm9tIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZhbmdvZ2hfcmVnX2lu
+aXQuYzoyODoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2luY2x1ZGUvdmFuZ29naF9p
+cF9vZmZzZXQuaDoyMTA6Mjk6IHdhcm5pbmc6IOKAmFVTQl9CQVNF4oCZIGRlZmluZWQgYnV0IG5v
+dCB1c2VkIFstV3VudXNlZC1jb25zdC12YXJpYWJsZT1dCiAyMTAgfCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IElQX0JBU0UgVVNCX0JBU0UgPSB7IHsgeyB7IDB4MDI0MkE4MDAsIDB4MDVCMDAwMDAsIDAs
+IDAsIDAsIDAgfSB9LAogfCBefn5+fn5+fgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4v
+aW5jbHVkZS92YW5nb2doX2lwX29mZnNldC5oOjIwMjoyOTogd2FybmluZzog4oCYVU1DX0JBU0Xi
+gJkgZGVmaW5lZCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWNvbnN0LXZhcmlhYmxlPV0KIDIwMiB8
+IHN0YXRpYyBjb25zdCBzdHJ1Y3QgSVBfQkFTRSBVTUNfQkFTRSA9IHsgeyB7IHsgMHgwMDAxNDAw
+MCwgMHgwMjQyNTgwMCwgMCwgMCwgMCwgMCB9IH0sCiB8IF5+fn5+fn5+CiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS8uLi9pbmNsdWRlL3ZhbmdvZ2hfaXBfb2Zmc2V0Lmg6MTc4OjI5OiB3YXJu
+aW5nOiDigJhQQ0lFMF9CQVNF4oCZIGRlZmluZWQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1jb25z
+dC12YXJpYWJsZT1dCiAxNzggfCBzdGF0aWMgY29uc3Qgc3RydWN0IElQX0JBU0UgUENJRTBfQkFT
+RSA9IHsgeyB7IHsgMHgwMDAwMDAwMCwgMHgwMDAwMDAxNCwgMHgwMDAwMEQyMCwgMHgwMDAxMDQw
+MCwgMHgwMjQxQjAwMCwgMHgwNDA0MDAwMCB9IH0sCiB8IF5+fn5+fn5+fn4KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1Ly4uL2luY2x1ZGUvdmFuZ29naF9pcF9vZmZzZXQuaDoxNTQ6Mjk6IHdh
+cm5pbmc6IOKAmE1QMl9CQVNF4oCZIGRlZmluZWQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1jb25z
+dC12YXJpYWJsZT1dCiAxNTQgfCBzdGF0aWMgY29uc3Qgc3RydWN0IElQX0JBU0UgTVAyX0JBU0Ug
+PSB7IHsgeyB7IDB4MDAwMTY0MDAsIDB4MDI0MDA4MDAsIDB4MDBGNDAwMDAsIDB4MDBGODAwMDAs
+IDB4MDBGQzAwMDAsIDAgfSB9LAogfCBefn5+fn5+fgoKTkI6IFNuaXBwZWQgbG90cyBvZiB0aGVz
+ZQoKQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6ICJDaHJp
+c3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpDYzogRGF2aWQgQWlybGll
+IDxhaXJsaWVkQGxpbnV4LmllPgpDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgpD
+YzogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCkNjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnClNpZ25lZC1vZmYt
+Ynk6IExlZSBKb25lcyA8bGVlLmpvbmVzQGxpbmFyby5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9pbmNsdWRlL3ZhbmdvZ2hfaXBfb2Zmc2V0LmggfCAyICstCiAxIGZpbGUgY2hhbmdlZCwg
+MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2luY2x1ZGUvdmFuZ29naF9pcF9vZmZzZXQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+aW5jbHVkZS92YW5nb2doX2lwX29mZnNldC5oCmluZGV4IDI4NzU1NzRiMDYwZTYuLjY5MTA3M2Vk
+NzgwZWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS92YW5nb2doX2lw
+X29mZnNldC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS92YW5nb2doX2lwX29m
+ZnNldC5oCkBAIC0zNiw3ICszNiw3IEBAIHN0cnVjdCBJUF9CQVNFX0lOU1RBTkNFCiBzdHJ1Y3Qg
+SVBfQkFTRQogewogICAgIHN0cnVjdCBJUF9CQVNFX0lOU1RBTkNFIGluc3RhbmNlW01BWF9JTlNU
+QU5DRV07Ci19OworfSBfX21heWJlX3VudXNlZDsKIAogCiBzdGF0aWMgY29uc3Qgc3RydWN0IElQ
+X0JBU0UgQUNQX0JBU0UgPSB7IHsgeyB7IDB4MDI0MDM4MDAsIDB4MDA0ODAwMDAsIDAsIDAsIDAs
+IDAgfSB9LAotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
