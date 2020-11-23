@@ -2,69 +2,35 @@ Return-Path: <SRS0=xWtd=E6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3853C56201
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 08:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8921DC2D0E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 08:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AE64206FA
+	by mail.kernel.org (Postfix) with ESMTPS id 06F67206E0
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 08:16:36 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="mZ10EKN9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AE64206FA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06F67206E0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lovehindpa.ws
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05F989F75;
-	Tue, 24 Nov 2020 08:16:35 +0000 (UTC)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C353C6E183
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 01:33:04 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id w187so2304690pfd.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 17:33:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1Fpt+3NGNjcuXPoKd+YKzvfWCCI+i2QS11ln4xb/K2c=;
- b=mZ10EKN9Q6HwSmECmmsUHbUHF/oTLT4c/YpQVGCE0gPLnlz6SgHQW3ieQ7zeUHJnUi
- XUPs+F1GoZaFLBKWU3CvMTPUTS8a5+RdM3NBjgdsJpNB5L7Gee8a5rDblh6bnWIWT9TK
- uir+AjWjaGJnRAA0K84IM0yu+WQnaSePUaJNJPiE7LfLBhB3Pd0A4gWblql3Lao7defI
- n9Uw15itvZVSId22hyle+f6GM1M4THjCwMgL7v1hyU5f7oNm+YC3/Fk6KnTIGBq7Lgby
- +eM5Ju8Jh9l5BxBe3HwjA5bt+bnUjVm7e9zM9zQUlIbVcSVLiqKYS2m+arIIzBAIXu/j
- s+uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1Fpt+3NGNjcuXPoKd+YKzvfWCCI+i2QS11ln4xb/K2c=;
- b=ZbBSiraMVoAsNJKRk9uURoK3HdeMaHdP1ETVt65ZUpVzP5Uh0bl3tFi/tKjI6VHVY0
- LfN6r2S9H9QR+nyUXMsxI55klGkJu0RuOnjDrlUSJz3ezJj3i4YrqPKox5nYIBYpYv4h
- prb1S3OhHjnVVIJM7YruoYcyTRR81JGCDBWZhozysJhqK29OtIlfz9gh3gLUpyNJav0B
- haxPrzXBgu2/bbdTq9gcbXxjt7n393z5xtOFrnLpBAMwK0X6/TikRVniNoKTo4NzYwRU
- 89cKDxkz8sm3IZwGdvotbIO8ZkXFJ+H2voug2Yw6zi8NocVkK4jvkKz8FEvQLj9xmt4O
- iiUw==
-X-Gm-Message-State: AOAM531iul1WvD4TfLlg1Mky0QUSxLqUWUEW/Er1LZ+1NpEaJziQnTql
- Sb0CF2GkR9IYkNxZr657qriuFTbZwKaNhz+A9jsH2w==
-X-Google-Smtp-Source: ABdhPJwQDF2vxX46wbajF4ioOOwzM/J33jC4qlEIQ0nX0CJ8Ae2/iYNAtfiNkgC6UbM9BT3sKlieSNPFWrTquhIIwSk=
-X-Received: by 2002:a65:6a4e:: with SMTP id o14mr1859973pgu.263.1606181584110; 
- Mon, 23 Nov 2020 17:33:04 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 323BA6E23F;
+	Tue, 24 Nov 2020 08:16:36 +0000 (UTC)
+Received: from mail1.protonmail.ch (mail1.protonmail.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3414D6E0DC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 21:41:11 +0000 (UTC)
+Date: Mon, 23 Nov 2020 21:40:58 +0000
+Authentication-Results: mail1.protonmail.ch; dkim=none
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+From: Wolf <wolf@lovehindpa.ws>
+Subject: Patch for omitted register.
+Message-ID: <PkbXNt15p4QVXrLbfU2zPIGAfaKY8MTX8-Fa2xBqZ5V-5LuPkU8XaVtv_p1EUhJBhVOiPIZj4ODK9mnuJkwLMwuLZdk57TcpOQJnRkY6p1Y=@lovehindpa.ws>
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
-In-Reply-To: <202011220816.8B6591A@keescook>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 23 Nov 2020 17:32:51 -0800
-Message-ID: <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-To: Kees Cook <keescook@chromium.org>
+Content-Type: multipart/mixed;
+ boundary="b1_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ"
 X-Mailman-Approved-At: Tue, 24 Nov 2020 08:16:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,107 +43,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- bridge@lists.linux-foundation.org, linux-security-module@vger.kernel.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- tipc-discussion@lists.sourceforge.net,
- Linux Memory Management List <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, linux-sctp@vger.kernel.org,
- linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Wolf <wolf@lovehindpa.ws>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Nov 22, 2020 at 8:17 AM Kees Cook <keescook@chromium.org> wrote:
->
-> On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
-> > If none of the 140 patches here fix a real bug, and there is no change
-> > to machine code then it sounds to me like a W=2 kind of a warning.
->
-> FWIW, this series has found at least one bug so far:
-> https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
+This is a multi-part message in MIME format.
 
-So looks like the bulk of these are:
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    break;
-}
+--b1_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ
+Content-Type: multipart/alternative;
+ boundary="b2_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ"
 
-I have a patch that fixes those up for clang:
-https://reviews.llvm.org/D91895
+--b2_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-There's 3 other cases that don't quite match between GCC and Clang I
-observe in the kernel:
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    goto y;
-}
-y:;
+U21hbGwgcmVnaXN0ZXIgb3Zlcmxvb2tlZC4=
 
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    return;
-}
+--b2_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    ;
-}
+PGRpdj5TbWFsbCByZWdpc3RlciBvdmVybG9va2VkLjxicj48L2Rpdj4=
 
-Based on your link, and Nathan's comment on my patch, maybe Clang
-should continue to warn for the above (at least the `default: return;`
-case) and GCC should change?  While the last case looks harmless,
-there were only 1 or 2 across the tree in my limited configuration
-testing; I really think we should just add `break`s for those.
--- 
-Thanks,
-~Nick Desaulniers
+
+--b2_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ--
+
+--b1_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ
+Content-Type: application/octet-stream; name=0001-Added-omitted-SMUIO-v11.0.0-register-ROM_SW_SECURE.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=0001-Added-omitted-SMUIO-v11.0.0-register-ROM_SW_SECURE.patch
+
+RnJvbSA4ZWUyYjllNjJmNDM2Y2VlMzZmZTgyOTVhMDg0OTA4MTgxN2I3MTJmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBYXJvbiBSaWNlIDx3b2xmQGxvdmVoaW5kcGEud3M+CkRhdGU6
+IE1vbiwgMjMgTm92IDIwMjAgMTU6NDg6MTMgLTA2MDAKU3ViamVjdDogW1BBVENIXSBBZGRlZCBv
+bWl0dGVkIFNNVUlPIHYxMS4wLjAgcmVnaXN0ZXIsIFJPTV9TV19TRUNVUkUuCgotLS0KIC4uLi9n
+cHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3NtdWlvL3NtdWlvXzExXzBfMF9vZmZzZXQuaCAg
+IHwgMiArKwogLi4uL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFf
+MF8wX3NoX21hc2suaCAgfCAzICsrKwogMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8v
+c211aW9fMTFfMF8wX29mZnNldC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNf
+cmVnL3NtdWlvL3NtdWlvXzExXzBfMF9vZmZzZXQuaAppbmRleCA2ODdkNjg0M2MyNTguLjlmNjcy
+YTUyZDQ5MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVn
+L3NtdWlvL3NtdWlvXzExXzBfMF9vZmZzZXQuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2lu
+Y2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX29mZnNldC5oCkBAIC00MzksNiArNDM5
+LDggQEAKICNkZWZpbmUgbW1PUEVOX0RSQUlOX1NFTEVDVF9CQVNFX0lEWCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwCiAj
+ZGVmaW5lIG1tU01JT19FTkFCTEUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTYzCiAjZGVm
+aW5lIG1tU01JT19FTkFCTEVfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMAorI2RlZmluZSBtbVJP
+TV9TV19TRUNVUkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDE2NQorI2RlZmluZSBtbVJPTV9T
+V19TRUNVUkVfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAKICNkZWZpbmUgbW1TTVVfR1BJT1BBRF9T
+MCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDAxNjYKICNkZWZpbmUgbW1TTVVfR1BJT1BBRF9TMF9C
+QVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAwCiAjZGVmaW5lIG1tU01VX0dQSU9QQURfUzEgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgwMTY3CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1
+ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX3NoX21hc2suaCBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXVpby9zbXVpb18xMV8wXzBfc2hfbWFzay5oCmluZGV4
+IDY5MDVhOTYxODEyNy4uNTA2Nzc5YTYyNTY0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX3NoX21hc2suaAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX3No
+X21hc2suaApAQCAtOTY1LDYgKzk2NSw5IEBACiAvL1NNSU9fRU5BQkxFCiAjZGVmaW5lIFNNSU9f
+RU5BQkxFX19TTUlPX0VOQUJMRV9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MAogI2RlZmluZSBTTUlP
+X0VOQUJMRV9fU01JT19FTkFCTEVfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweEZGRkZGRkZGTAorLy9S
+T01fU1dfU0VDVVJFCisjZGVmaW5lIFJPTV9TV19TRUNVUkVfX1JPTV9XUl9BQ0NFU1NfRElTQUJM
+RV9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MAorI2RlZmluZSBST01fU1dfU0VDVVJFX19ST01fV1JfQUNDRVNTX0RJU0FC
+TEVfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDEKIC8vU01VX0dQSU9QQURfUzAKICNkZWZpbmUgU01VX0dQSU9QQURfUzBf
+X0dQSU9fUzBfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwCiAjZGVmaW5lIFNNVV9HUElPUEFEX1Mw
+X19HUElPX1MwX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4N0ZGRkZGRkZMCi0tIAoyLjI1LjAKCg==
+
+--b1_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--b1_cIFKpgb14N8RFfqLVkemw0uJ2iu25pzgdG1e7cuQ--
+
