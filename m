@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 275CDC2D0E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA834C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7BB52075A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:13:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 52FE52075A
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 13:19:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pG08JmrA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7BB52075A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kt2Es2V0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52FE52075A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05CC989EF7;
-	Mon, 23 Nov 2020 13:13:41 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 179D189EF7
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 13:13:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A79A289998;
+	Mon, 23 Nov 2020 13:19:36 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700087.outbound.protection.outlook.com [40.107.70.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D3DB89998
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 13:19:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FTiPEIYh+gwD6zVWZ+8xMd+Rrb9GgBDMKV11uL3+ugCpHnab3shwBVaEhQa+v9fcGnxwIU51+kuiQdPCCsHsRvx4DBA5Q0pyPUhZqpo/N0jKhtUZrAQLrFUYdB8pG2i+B1Kdcmev0GIkfMpyH7WLbBfAZob394XbuzxGOZzHlGYUyUgGFhNoq3gDxMZMGMcVU9QRPi/ccZROWrtDVW6Nl5rUxGc7g6g04hcr6DMXdAT1c8PBRR98o2gbYVrqhY86a/JXGDdK7wzWervGG1yu4hyDincAIM8/F75hnSVIRAYwd08go7nJO/u5V6D/gNrJS700afSDaCTEatT0/b/Ujg==
+ b=FXC46TNEcxBHof5duFMet8N5gwhp0x1Gxpa5CjRVMq0YsLah/hkl4d3ZwE77ILp+eG+4mksSbmnQ4KCFNaNWitNmdGluh/7c+hny8j17UL2kcQgxt3gSrK8soMUxm4cr/AqYNLatdszy08aTFPAMsxKo6Fh8XKvXxvYdI8XmEjBeV1TOztqFUVv4Hb9q2tLrhgZ+cCPYmQSHG4fHMTBx+3MwcKDBKpED9bf15TzOh1oZ3oSRRPkENt54FgLPB4t8Gk8kDYnKLvSXOG+L7jACMe82pag+9Wiaji/XLoS3/h0HWwT7gX5k+HaI01mRVz4x/1qSqopzjWT1/nWpNpUYTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zB0pHuvKYswJ4/m4zzgTAN8gVmNfL0Wvp8DSWJXqmQ0=;
- b=D5sQcXKWUY2/Pi1L601hroAn+R+z/+ErQQe5a+9CKgLaXktZgMsQS+ruTdriuU4OHd4Wg2ljm23P6yiDf3G6cpailX4skaegl2Tm2LETEVj5QJEo9fY91oYgquY/XDUGgKp3Om9FmA7cDEGAMAn+ui2Zs4AGxPAVA0p/B3oMKGQHSgIGIYw934abk+BghDylr6U4z/xuq8iQrFKFWIy/Mu4m841t4IkuQCj3jYdbdBBrj7hlfJ59hJRyMo6gXzecaN65M1FO+qUNJbaUuftGryIEUrw/WRFvvhYPwPIv1oKoknncNbYcv4PvGIiprg5ZHLN2EupcE99/00AtVeNpjA==
+ bh=lxSMsjsazh9uOAb4RTD+C8owJwnPBSCbfYLqSrEKa1w=;
+ b=O+8DkaIeQiVwzkzDD88WZsqtn36+DwQqiVqLCIEmkuZV7IdFK5f2rSNQ2oWBIhPYOaeiVUskmhN47iHVbDv2EWU2mmBSEYQrz8t07u+Cs1TfM3cuwd5OdAS8+0fn/46ldSzfN4KMO2n3XBdlt1viQ1JuXuL1dTl2+8K7Pk/4J4S44f1KCylRpjVM9/F3/ijxOBmcmc5S0uftuDshLcwUJXNzDYFfD+7mjXdyw+nlpA2SeAy2PyoUUw3q6zS3pw6Y7ttOSsnP85U1wv8LNsmIg3XD3viQ3m5olO7yRicohUe+lwILn5VC82/arY/E1ls4JNzFOG4XPWBeUm5WwkFBKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -40,71 +40,71 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zB0pHuvKYswJ4/m4zzgTAN8gVmNfL0Wvp8DSWJXqmQ0=;
- b=pG08JmrAxzsjiBs/61kSUkHY9b4+wfHkLgqmv7Yf3o+6DEhyeIwB8jJI5pzKi98hBCBXsawL3QpGDPy7yNFYt6bkohicog1Ko28SffS+by6dUJtswZtKr5E6ZOs0it2l3660rtGpdlX5hVFQbl0/V2LcXzZRV3/AZDNKUNw6rjU=
-Received: from MW4PR03CA0363.namprd03.prod.outlook.com (2603:10b6:303:114::8)
- by CH2PR12MB4969.namprd12.prod.outlook.com (2603:10b6:610:68::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Mon, 23 Nov
- 2020 13:13:38 +0000
-Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:114:cafe::ce) by MW4PR03CA0363.outlook.office365.com
- (2603:10b6:303:114::8) with Microsoft SMTP Server (version=TLS1_2,
+ bh=lxSMsjsazh9uOAb4RTD+C8owJwnPBSCbfYLqSrEKa1w=;
+ b=kt2Es2V0Zb6H197pngS18rNKdJgxftOlrKGBwt2na1LsWr/VXTltGC1bKEdGidRYU5uNNlGjGP3LolihpSZ8Bt741R1ccD5UfrHNwpvI2X+HkbT7bM8s/bt6KlTpVPdPuJj06pXjtXmlN9cZNSIdFDYip8LBWUD/33I/MkeOuEA=
+Received: from MWHPR14CA0051.namprd14.prod.outlook.com (2603:10b6:300:81::13)
+ by CH2PR12MB4293.namprd12.prod.outlook.com (2603:10b6:610:7e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21; Mon, 23 Nov
+ 2020 13:19:33 +0000
+Received: from CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:81:cafe::ca) by MWHPR14CA0051.outlook.office365.com
+ (2603:10b6:300:81::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21 via Frontend
- Transport; Mon, 23 Nov 2020 13:13:38 +0000
+ Transport; Mon, 23 Nov 2020 13:19:33 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT005.mail.protection.outlook.com (10.13.174.147) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3589.22 via Frontend Transport; Mon, 23 Nov 2020 13:13:38 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3589.22 via Frontend Transport; Mon, 23 Nov 2020 13:19:33 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 23 Nov
- 2020 07:13:37 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 07:19:32 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Mon, 23 Nov
- 2020 07:13:36 -0600
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Mon, 23 Nov 2020 07:13:36 -0600
+ 2020 07:19:32 -0600
+Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Mon, 23 Nov 2020 07:19:31 -0600
 From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: set default value of noretry to 1 for
- specified asic
-Date: Mon, 23 Nov 2020 21:13:34 +0800
-Message-ID: <20201123131334.21704-1-Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Jingwen.Chen2@amd.com>
+Subject: [PATCH 1/1] drm/amdgpu: only skip smc sdma sos ta and asd fw in SRIOV
+ for navi12
+Date: Mon, 23 Nov 2020 21:19:29 +0800
+Message-ID: <20201123131929.21838-1-Stanley.Yang@amd.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 390fbf92-9e39-47d4-292b-08d88fb19739
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4969:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB49694C0750AA3215BFD5040B9AFC0@CH2PR12MB4969.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1775;
+X-MS-Office365-Filtering-Correlation-Id: 32680519-7b30-4861-2c0c-08d88fb26ade
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4293:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB429365357CF8BBA5C4FDF8649AFC0@CH2PR12MB4293.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bMtexVECOQ01NdfXWwihNgUQd6M6sdZFnahNObnXIhurNSDqV8zVTW+FwJU7xbZPrHF8jFW9j3X7FoF0FWiry8sCFIDsd7ecwF8CSUZrWJdxV8erwdSA2AOiJtZ+Ky+CzP9b5rSTUEtwqEcGHa+pJdFWmNW+i3UyEWwkNnQvy7Wyp1c+Dt4RS8ZRnrSSMeOEfKM8Kka10r+SzBszLuyWPLoiPJmJwoKwbPwd47rg5rInYoWSSH5nagzmDWNjzlniVTZpG027HJAPADL5Kk0cD+xaNuh3UVPaheVVvuqtUIBBongiB5ZoWln9aGb9IHyZi5FFP1ogXwWOwI6bHXkqL7qLmgYNRbX1rIEhg0pBjUUeYjcnfcTN2Gf5Q+f8rdoAZo3/eBW/VgocCB8zDFQeqA==
+X-Microsoft-Antispam-Message-Info: ZYa1HvWTiAT466M4g4rQNPg/+pFowX5icFdkrZm0Af/u46kZBf0cGl4l5el/k4UJ2EeA9IU+tk9RMcxKJC7+n1FDRIIXA5BFcvy9n9nCMXN+uHG16Xsc/suIr55DrhDntvEL5CHQENuG1lmGp6fQhsR7MZdMoL+vi1WbsXEZIbenW3ChohU53dHag95eyN2PlTeBQrmNgXUXjkrjqRKGcy8VnnqXKSB6Sy1mEN+d29BImO4tOVMUaKuWs5YYHpV8G++WAs67/q5RLqU1kbmC464aHBb0O5DkGpIMiHIeeLV7ncva/aXQo/QlcOzAak+SLvWKsWO20PuCqO5dXMTi41WJlxsV+JfxVdeMdpljh2uBHXcyNSJC6PrkVRIUxwhu6rO82uTCus/REjryTR6nmA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(136003)(346002)(396003)(46966005)(356005)(70586007)(186003)(81166007)(26005)(5660300002)(70206006)(82310400003)(36756003)(2616005)(2906002)(8936002)(8676002)(86362001)(4326008)(336012)(478600001)(4744005)(6916009)(82740400003)(426003)(47076004)(7696005)(316002)(1076003);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(136003)(39860400002)(376002)(46966005)(336012)(186003)(356005)(82310400003)(26005)(81166007)(478600001)(6636002)(7696005)(5660300002)(36756003)(1076003)(86362001)(2616005)(70206006)(47076004)(2906002)(82740400003)(4326008)(70586007)(83380400001)(8936002)(426003)(8676002)(316002)(110136005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 13:13:38.0295 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 390fbf92-9e39-47d4-292b-08d88fb19739
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 13:19:33.1132 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32680519-7b30-4861-2c0c-08d88fb26ade
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4969
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,27 +122,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-noretry = 0 casue KFDGraphicsInterop test failed on SRIOV platform
-for vega10, so set noretry to 1 for vega10.
+The KFDTopologyTest.BasicTest will failed if skip smc, sdma, sos, ta
+and asd fw in SRIOV for vega10, so adjust above fw and skip load them
+in SRIOV only for navi12.
 
 Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Change-Id: I241da5c20970ea889909997ff044d6e61642da81
+Change-Id: Id354be93723d7b5d769d73dc67c596af300305af
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c                  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c                  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c                  | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c | 3 ++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c               | 2 +-
+ 5 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index a3d4325718d8..7bb544224540 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -425,6 +425,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
- 	struct amdgpu_gmc *gmc = &adev->gmc;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 16b551f330a4..7e2f063120d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -593,7 +593,7 @@ static int sdma_v4_0_init_microcode(struct amdgpu_device *adev)
+ 	struct amdgpu_firmware_info *info = NULL;
+ 	const struct common_firmware_header *header = NULL;
  
- 	switch (adev->asic_type) {
-+	case CHIP_VEGA10:
- 	case CHIP_VEGA20:
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI14:
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_NAVI12))
+ 		return 0;
+ 
+ 	DRM_DEBUG("\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 9c72b95b7463..fad1cc394219 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -203,7 +203,7 @@ static int sdma_v5_0_init_microcode(struct amdgpu_device *adev)
+ 	const struct common_firmware_header *header = NULL;
+ 	const struct sdma_firmware_header_v1_0 *hdr;
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_NAVI12))
+ 		return 0;
+ 
+ 	DRM_DEBUG("\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index cb5a6f1437f8..674bc88c3ec1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -153,7 +153,7 @@ static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
+ 	struct amdgpu_firmware_info *info = NULL;
+ 	const struct common_firmware_header *header = NULL;
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_NAVI12))
+ 		return 0;
+ 
+ 	DRM_DEBUG("\n");
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c
+index daf122f24f23..192149e94f6c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega10_smumgr.c
+@@ -208,8 +208,9 @@ static int vega10_smu_init(struct pp_hwmgr *hwmgr)
+ 	unsigned long tools_size;
+ 	int ret;
+ 	struct cgs_firmware_info info = {0};
++	struct amdgpu_device *adev = hwmgr->adev;
+ 
+-	if (!amdgpu_sriov_vf((struct amdgpu_device *)hwmgr->adev)) {
++	if (!amdgpu_sriov_vf(adev) || (adev->asic_type != CHIP_NAVI12)) {
+ 		ret = cgs_get_firmware_info(hwmgr->device,
+ 						CGS_UCODE_ID_SMU,
+ 						&info);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 1904df5a3e20..80c0bfaed097 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -847,7 +847,7 @@ static int smu_sw_init(void *handle)
+ 	smu->smu_dpm.dpm_level = AMD_DPM_FORCED_LEVEL_AUTO;
+ 	smu->smu_dpm.requested_dpm_level = AMD_DPM_FORCED_LEVEL_AUTO;
+ 
+-	if (!amdgpu_sriov_vf(adev)) {
++	if (!amdgpu_sriov_vf(adev) || (adev->asic_type != CHIP_NAVI12)) {
+ 		ret = smu_init_microcode(smu);
+ 		if (ret) {
+ 			dev_err(adev->dev, "Failed to load smu firmware!\n");
 -- 
 2.17.1
 
