@@ -2,90 +2,105 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA056C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 19:55:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90E8BC63697
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 20:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92CAD20719
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 19:55:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EAE6820717
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 20:05:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gOQnORTb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92CAD20719
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jCwtesMF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EAE6820717
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6A986E0AC;
-	Mon, 23 Nov 2020 19:55:03 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59FE76E05A
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 17:06:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1606151173;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
- b=gOQnORTbcgQjBtBdCY6Aov3rN/rI65WW6qTLLDb3lQ8k/Ph/zOmfpDnexofSKODImkyVjO
- XZWW1wplF/Mko4cc9tR8cO6Huf2JaRgH4V2Ic3TB6IOOPxELNLSkMWuYMZDz2hrOpKYLUx
- J043lYhf6HIt0YH7TXlNav1ywXU085Y=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-471-FFp2KME9OWCfVoRb4rc4xw-1; Mon, 23 Nov 2020 12:06:09 -0500
-X-MC-Unique: FFp2KME9OWCfVoRb4rc4xw-1
-Received: by mail-qv1-f69.google.com with SMTP id x9so13350244qvt.16
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
- b=EmQwIRR0yx1osuPNKJ2Jj/1+msO/OndJVMWZkdWz+v0ypgfo3ZKa2kUy5Sm00gId0s
- vQ1neM1VZLeOnDFgxz6MEMz0nt3/6Y70SzWYhxNS3x2RZDeOj6X4d0/Sjf3cm7giMH/e
- AnzdvPDxtxerhSVqtOBOo0tBOHA3c4FniCZfnx7RxzkSAU0PoW702zonp8r3Unxbm/sY
- kBLsaOs1R33obuOOKnPhWmxfRIqY6Zpq2JesBXOHJQsC+Fgu5zEOOukSdKnX4Y4P8958
- rDBkAowIHFs9Pn5oyoptNHMggk9SPuBontnSIHZxDo3wGdFa+i3cvn4rY9DorkdzHpVU
- LtvQ==
-X-Gm-Message-State: AOAM533Lrafo0Ux4NH8bzOONNBIukJFf6+06kObnRMBxNAL+yLdTfo+D
- KtBr4gPbgi6dH1sj9uI9Ve8YQjy4Tu1kIDCrsyN58J6L36WvHuS+ahy9ysIclUkSZL7Q0AVWo6S
- PD9E8cyPu/3BT1T+AG46Jnv6nXA==
-X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70888qtx.354.1606151168822;
- Mon, 23 Nov 2020 09:06:08 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwHR8oVpP3xv7xpCkK6lH4mawBfXgRI3GL2dEiLGp13/vfLrDKV7SBtsWnvpv2iFDtHltekRw==
-X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70839qtx.354.1606151168572;
- Mon, 23 Nov 2020 09:06:08 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id o187sm10226153qkb.120.2020.11.23.09.06.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2020 09:06:07 -0800 (PST)
-Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-To: Joe Perches <joe@perches.com>, clang-built-linux@googlegroups.com
-References: <20201121165058.1644182-1-trix@redhat.com>
- <2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
- <6e8c1926-4209-8f10-d0f9-72c875a85a88@redhat.com>
- <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <88eeba27-ee36-df63-8cd9-3cccbe5e0850@redhat.com>
-Date: Mon, 23 Nov 2020 09:06:03 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5EA6E0AF;
+	Mon, 23 Nov 2020 20:05:21 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBA536E0AA;
+ Mon, 23 Nov 2020 20:05:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H3K7/XKH4sRKbJgW23MaFvf69x0fOGcH3DsjnqaoISglqYL7eYbBK1ZPXpJ+75XtV7rrWbaJw0bkuLusn1UMk7AAkjC/YhmjAD6/xfmi/zm99ssh4CWmnWVWaNtv2sI4Hs3h3zkPLcDM6RNyRUd7bLVx3OGsicGGDipZyN8JoPa1AI0l3i9wU9XebKEeosOIkAttRJ5dNxI3BTaEIdgQQWb4uDboMVGTv96D5ukb0/tn5MObzmhe5tzCv+JJPklBRZ4HxzZGqnDGwDbcEsGRLEEEpE6U6ODE9p8XkvB9bi9XlZB6ZvMWqlItEHyziaAmNZ5MlE8IvaN+i5dLHL6RZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mHM0+tp2D7Gsfd/UDolx+vLPFQMV5XNE5T1d5DLM6Yk=;
+ b=fMkg4oJ75aW8/eJDfY2jOZdS6F2wrQ4BBRYY9RUklZN/kTJeuqVewhbB+kle/mrsV301udmeRET6pAbOF7U2SUTyyI6DLU/hCEKMdaLdDtoX0uaL94L/wjbo2hgekQ1Hj0XrYloUCcEoSxaWb6jLQIVSWB5mWArQ8nNa9BTpPyDY2W4EoOvEAs8rjiGE4nsktQ5VSZ47/AZCy5aE6TEjFVl8yRaYTyVt16Y5ABiZGUrEZVTEHgpl+7s5XsjT9zfG8JiFf5HkOqO6pnAftaTkJ274P1KPL/YfTCEYpBrIu0s4Hy+usEspzKa35SxpaLRdPUX1XLsAbWL30qaG7H7i2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mHM0+tp2D7Gsfd/UDolx+vLPFQMV5XNE5T1d5DLM6Yk=;
+ b=jCwtesMFBrQiOmlmFef+YV8cSvj6Uwk3MGKMNJc8ZKvQT6/WYtv/R1EAtdJKiKTw8iKS5wOqrKTm4X0NIU5QtGq3AXmHm5JbZgS6SyMpDrFoH2g8DXYBxt3lpWGzCyIZMXDvcAGZeqfxmALhP1f6yjxo0VvaPvWpUL4XzAODVfQ=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ DM5PR12MB1882.namprd12.prod.outlook.com (2603:10b6:3:112::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.25; Mon, 23 Nov 2020 20:05:18 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::a881:155d:45db:b435]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::a881:155d:45db:b435%9]) with mapi id 15.20.3589.022; Mon, 23 Nov 2020
+ 20:05:18 +0000
+Subject: Re: [PATCH v3 05/12] drm/ttm: Expose ttm_tt_unpopulate for driver use
+To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch, robh@kernel.org,
+ l.stach@pengutronix.de, yuq825@gmail.com, eric@anholt.net
+References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1605936082-3099-6-git-send-email-andrey.grodzovsky@amd.com>
+ <28332cf0-612c-10bd-c64e-fff6e1f18653@gmail.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <320ff94c-78f4-b9a5-4c6f-40f7ce162bd3@amd.com>
+Date: Mon, 23 Nov 2020 15:05:15 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <28332cf0-612c-10bd-c64e-fff6e1f18653@gmail.com>
 Content-Language: en-US
-X-Mailman-Approved-At: Mon, 23 Nov 2020 19:54:56 +0000
+X-Originating-IP: [165.204.55.251]
+X-ClientProxiedBy: CH0PR03CA0050.namprd03.prod.outlook.com
+ (2603:10b6:610:b3::25) To DM6PR12MB4340.namprd12.prod.outlook.com
+ (2603:10b6:5:2a8::7)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.27.231.243] (165.204.55.251) by
+ CH0PR03CA0050.namprd03.prod.outlook.com (2603:10b6:610:b3::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Mon, 23 Nov 2020 20:05:16 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e3b46af6-249b-47ae-559b-08d88feb196d
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1882:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB18821107F83E968715AB230BEAFC0@DM5PR12MB1882.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vhGzusHcnfAkZAfPqDUK4rLPLNXPOrLFLKv7vAmKbpcsbB6/zj8RgGmsD9GMeRoehmo0Lv5CwLIVD+keXnpLgNqpYTnaHnLf1G+MH8NPt9xwUSB7QOPOyXdCyZdx4V5Ty0e7Cc5GsAo2wvEsX77wjXdL5c7HyuKzb1WSHBGnvysWnTsXro6fkqX15tzE6WImdtCTlSpO/bVhvGKWEaPw98grhEAGy5T4qdQIN4SQpOAzOb/Lh9BkAD2fHOuZlKSjR3fiLjPhO4duvCwWRv37lAwvXmciypviuO4L43xsDVL5QrII+fc7L0Oqejgp7vso7+8TfROW1MY9uD4gNMR9blG1A93ekk8Fde80JN6uUf7O4Lj8+kMtq1yZqrt3PeZ0
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(39860400002)(376002)(366004)(396003)(346002)(31696002)(2906002)(5660300002)(86362001)(66556008)(66946007)(66476007)(36756003)(16526019)(4326008)(2616005)(956004)(316002)(186003)(53546011)(478600001)(52116002)(6486002)(8676002)(31686004)(26005)(8936002)(16576012)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: PvXq+A4KPnEAUHRf4rfAvYGS+zWAev1Ee24iC/MHmWvgS9ViBRmzjc0qadkcDM46J/8fk+7NbW/zeVLXQROiPDcBg8CHNDVaNBQ47QZIdt9cV9dp3L/TDvwhWe2Zi5ie4j47ALBrxr4MLR2ia3iCsouNyTfokLVlJ3spK7U0Jjhu949iibSc2swm+7sze1EaFz5iAgCoZPNlBfWO5aBJryxeVi7wkACaGMXJQxf94W+7exlP9HZ8fDKqltBoJmvqPBZVIVIeKYrDdM181/3ve1nqVllppd/I1bhZDA+NTbc9sy8HBVvdz7GeI3709O+0vu7HVyCOY+5iA7Oke4BBX9aKkO3M+qQ5A94AyJ7AmTPFrNMOaaER4H6DKooQCMzYRG+5SdaTDuoVZ03baHYpHSQQYoIaOfAptM7+XVa1oOGy9BwVek8zCyM3tkUsYHApJxTPLwcKqs6LTj5aeF5UnM5OdVedkxI5RlBhrXhLC0FNyEQ4h9GgVcVgsaCIHERy3Yn+XYnZ74K+DG/UlbhEb5RsyfijPxk+cAbtQTtG2IcSzXcgMcOAXuxSH4z398kn8U4DGtHcZegDxg6oMh/yqRXMaMxKF4sOxHHrKytcyvKAB/mlRhsVWHvR3EBB0C9mnOzT7Idwq6zNI0bC5tQ/UXbqfYLCjUvcVFFWI5H3NdxKNcSnS/QZfUuBZTLJxw70zVNKWF2u82LHbGHYjKEQdZdnY0Ik8A/jvpYadQw84OYY3eztTjG4V7p3J45fDWSyjVwYN6sJSJL7SHHzkuxebr2RckRR91JhS9pHnfZ/1SP54zAEp1kMyoUy8EZbD6qVjGO/elh7fzy2V+9Cv+JVWGOc5IiVSNXxtH/6YRvSh0sqp6nEMd3LSFdf47iKY4qmFMTyC/K30gippRIBMVTcxQ==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3b46af6-249b-47ae-559b-08d88feb196d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 20:05:18.0832 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pb3vWAAK3M8smpkFSx1Ip/flyucRna2TPFYtWgGrDvKgT2DPnXNwPCq46+/AcbB9JKllygpGLtKDzWsxXIMTcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1882
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,88 +112,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
- keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-scsi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
- tboot-devel@lists.sourceforge.net, coreteam@netfilter.org,
- xen-devel@lists.xenproject.org, MPT-FusionLinux.pdl@broadcom.com,
- linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
- linux-omap@vger.kernel.org, devel@acpica.org, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
- linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
+ Harry.Wentland@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 11/22/20 10:22 AM, Joe Perches wrote:
-> On Sun, 2020-11-22 at 08:33 -0800, Tom Rix wrote:
->> On 11/21/20 9:10 AM, Joe Perches wrote:
->>> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
->>>> A difficult part of automating commits is composing the subsystem
->>>> preamble in the commit log.  For the ongoing effort of a fixer producing
->>>> one or two fixes a release the use of 'treewide:' does not seem appropriate.
->>>>
->>>> It would be better if the normal prefix was used.  Unfortunately normal is
->>>> not consistent across the tree.
->>>>
->>>> So I am looking for comments for adding a new tag to the MAINTAINERS file
->>>>
->>>> 	D: Commit subsystem prefix
->>>>
->>>> ex/ for FPGA DFL DRIVERS
->>>>
->>>> 	D: fpga: dfl:
->>> I'm all for it.  Good luck with the effort.  It's not completely trivial.
->>>
->>> From a decade ago:
->>>
->>> https://lore.kernel.org/lkml/1289919077.28741.50.camel@Joe-Laptop/
->>>
->>> (and that thread started with extra semicolon patches too)
->> Reading the history, how about this.
->>
->> get_maintainer.pl outputs a single prefix, if multiple files have the
->> same prefix it works, if they don't its an error.
->>
->> Another script 'commit_one_file.sh' does the call to get_mainainter.pl
->> to get the prefix and be called by run-clang-tools.py to get the fixer
->> specific message.
-> It's not whether the script used is get_maintainer or any other script,
-> the question is really if the MAINTAINERS file is the appropriate place
-> to store per-subsystem patch specific prefixes.
->
-> It is.
->
-> Then the question should be how are the forms described and what is the
-> inheritance priority.  My preference would be to have a default of
-> inherit the parent base and add basename(subsystem dirname).
->
-> Commit history seems to have standardized on using colons as the separator
-> between the commit prefix and the subject.
->
-> A good mechanism to explore how various subsystems have uses prefixes in
-> the past might be something like:
->
-> $ git log --no-merges --pretty='%s' -<commit_count> <subsystem_path> | \
->   perl -n -e 'print substr($_, 0, rindex($_, ":") + 1) . "\n";' | \
->   sort | uniq -c | sort -rn
-
-Thanks, I have shamelessly stolen this line and limited the commits to the maintainer.
-
-I will post something once the generation of the prefixes is done.
-
-Tom
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Ck9uIDExLzI1LzIwIDU6NDIgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjEuMTEu
+MjAgdW0gMDY6MjEgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4gSXQncyBuZWVkZWQgdG8g
+ZHJvcCBpb21tdSBiYWNrZWQgcGFnZXMgb24gZGV2aWNlIHVucGx1Zwo+PiBiZWZvcmUgZGV2aWNl
+J3MgSU9NTVUgZ3JvdXAgaXMgcmVsZWFzZWQuCj4KPiBJdCB3b3VsZCBiZSBjbGVhbmVyIGlmIHdl
+IGNvdWxkIGRvIHRoZSB3aG9sZSBoYW5kbGluZyBpbiBUVE0uIEkgYWxzbyBuZWVkIHRvIAo+IGRv
+dWJsZSBjaGVjayB3aGF0IHlvdSBhcmUgZG9pbmcgd2l0aCB0aGlzIGZ1bmN0aW9uLgo+Cj4gQ2hy
+aXN0aWFuLgoKCkNoZWNrIHBhdGNoICJkcm0vYW1kZ3B1OiBSZWdpc3RlciBJT01NVSB0b3BvbG9n
+eSBub3RpZmllciBwZXIgZGV2aWNlLiIgdG8gc2VlCmhvdyBpIHVzZSBpdC4gSSBkb24ndCBzZWUg
+d2h5IHRoaXMgc2hvdWxkIGdvIGludG8gVFRNIG1pZC1sYXllciAtIHRoZSBzdHVmZiBJIGRvIApp
+bnNpZGUKaXMgdmVuZG9yIHNwZWNpZmljIGFuZCBhbHNvIEkgZG9uJ3QgdGhpbmsgVFRNIGlzIGV4
+cGxpY2l0bHkgYXdhcmUgb2YgSU9NTVUgPwpEbyB5b3UgbWVhbiB5b3UgcHJlZmVyIHRoZSBJT01N
+VSBub3RpZmllciB0byBiZSByZWdpc3RlcmVkIGZyb20gd2l0aGluIFRUTQphbmQgdGhlbiB1c2Ug
+YSBob29rIHRvIGNhbGwgaW50byB2ZW5kb3Igc3BlY2lmaWMgaGFuZGxlciA/CgpBbmRyZXkKCgo+
+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNr
+eUBhbWQuY29tPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYyB8IDEg
+Kwo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPj4KPj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90
+dC5jCj4+IGluZGV4IDFjY2YxZWYuLjI5MjQ4YTUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS90dG0vdHRtX3R0LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+
+PiBAQCAtNDk1LDMgKzQ5NSw0IEBAIHZvaWQgdHRtX3R0X3VucG9wdWxhdGUoc3RydWN0IHR0bV90
+dCAqdHRtKQo+PiDCoMKgwqDCoMKgIGVsc2UKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHR0bV9wb29s
+X3VucG9wdWxhdGUodHRtKTsKPj4gwqAgfQo+PiArRVhQT1JUX1NZTUJPTCh0dG1fdHRfdW5wb3B1
+bGF0ZSk7Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
