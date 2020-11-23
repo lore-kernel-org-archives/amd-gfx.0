@@ -2,110 +2,77 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43CE9C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 21:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CA87C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 21:24:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD60A206B5
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 21:09:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BDB04206D4
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 21:24:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Y3Zot2hi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD60A206B5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="Tyy0xQy0";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="Tyy0xQy0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDB04206D4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=HansenPartnership.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631B56E0D5;
-	Mon, 23 Nov 2020 21:09:00 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D218E6E0D5;
- Mon, 23 Nov 2020 21:08:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cTJDbDwlGVRvL27+g/YktI9I1r1unol2grJxbiKGQcjFi/gvHRQQo/lZIS2M/yicfgg7b3+FUa+q7ZoqUL0SIgTyzKU3I3QknLavsdAM+styTNZqNiYOwx2Ix5vFB/AycHYZQWIgzaUkWp0N/d2qabiT9HirwHiYaWiXqAfgJ6Bkkoo5b/ozeVYdy1E41Di1G/Wdpr1WjiR8J7EhZYFIt/qnQODp82NnJONFnxMp3wqJpuaUplmDOA8lzaaSVoLcJNoNNZnu1ttvq7AG3TaAOivOPf5GfXbfP7KjqbpgTSW/CskYofAG6J1Fz4NsNM1iInFRkAoUg2CTebJcimYMOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r9SIJqzHLwW4pS3MEhpDSFPejV/fuwKYMOcd9UXVEhQ=;
- b=M3DTeVSm3JW2YoJMDnx+hIoorPJKCypDE8SVDNI0GJD+iT/ZRyQto5iimXUOdVrqLGNKXEidh0gke9KXI95yXcbsq51aWbU3e94p04Yc0OOHmZdvp8zGTgmeTIveCkfphpvq1NOwulKatORtJ3FVvAEie2Yhz4VZHtIJKYkxM1hw0pOaXJilmtiHqg34Eq460SFS+Y+cHUGkA6w288qOlt2Hw07r7UiX3R+qLjmserHfWpyzbG9nr0Vcs6AC6y9k28zVI5O/a0wK18Z28Dzib8246LF2V7gStcw1AEIH337440nHK7o5Ugqm1g/DSMWEDOa6Q2yBNWKkkk1r96Ev7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r9SIJqzHLwW4pS3MEhpDSFPejV/fuwKYMOcd9UXVEhQ=;
- b=Y3Zot2hiiVcEz8vHNNJRAiwvuyOTWvoPc3OTFHv3XHPvpLmuwYkYICHKB7nRcUNGq6D9m33nS58ydurN0u8zPAdi9fSO/1dKwhYi5HZ4q+7R9Aa3/ueBhxnbrLlb2t2G8ak63wsFj6K1dor6EyGkVAcji4d9Du7Wr0s1VZV3XyA=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- DM5PR12MB1883.namprd12.prod.outlook.com (2603:10b6:3:113::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3589.22; Mon, 23 Nov 2020 21:08:56 +0000
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::a881:155d:45db:b435]) by DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::a881:155d:45db:b435%9]) with mapi id 15.20.3589.022; Mon, 23 Nov 2020
- 21:08:56 +0000
-Subject: Re: [PATCH v3 05/12] drm/ttm: Expose ttm_tt_unpopulate for driver use
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, robh@kernel.org, l.stach@pengutronix.de,
- yuq825@gmail.com, eric@anholt.net
-References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
- <1605936082-3099-6-git-send-email-andrey.grodzovsky@amd.com>
- <28332cf0-612c-10bd-c64e-fff6e1f18653@gmail.com>
- <320ff94c-78f4-b9a5-4c6f-40f7ce162bd3@amd.com>
- <41b35672-2dd6-13e2-8383-c65279fdb648@gmail.com>
- <e2f4f1dc-2a2a-face-87b2-6d61ed7d3305@amd.com>
- <01280cba-56b8-77c6-b40f-d7e69a5ad4c6@amd.com>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <0ceca974-80f8-feb3-d5e9-5182f35bb2c4@amd.com>
-Date: Mon, 23 Nov 2020 16:08:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-In-Reply-To: <01280cba-56b8-77c6-b40f-d7e69a5ad4c6@amd.com>
-Content-Language: en-US
-X-Originating-IP: [165.204.55.251]
-X-ClientProxiedBy: CH0PR04CA0073.namprd04.prod.outlook.com
- (2603:10b6:610:74::18) To DM6PR12MB4340.namprd12.prod.outlook.com
- (2603:10b6:5:2a8::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA9889D58;
+	Mon, 23 Nov 2020 21:24:47 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [96.44.175.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9576E0AA;
+ Mon, 23 Nov 2020 20:38:04 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id 81FC7128092C;
+ Mon, 23 Nov 2020 12:38:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606163883;
+ bh=+EDGs3PYzl3z47JpXWUueALZlElPDdJywkYLk/HcIjg=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=Tyy0xQy0htMQEdpfMUvFUuPG04g7ZXvYvYsCjWoq+QOlUp2WQfo8Vk+CnXXw5nkQT
+ a3Wz7+ONj/4K4WJ6m4qOiNdEl9e5tbHlW07s/zxEoMhv+eMdbQKfvYZ25zqNb6Olj/
+ onXIz2W3FBWOnXIoTYXwnsUNPzdRLL+aS2e3QsY4=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id Fm687JPabQpA; Mon, 23 Nov 2020 12:38:03 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::527])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id EBC5C128091E;
+ Mon, 23 Nov 2020 12:37:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606163883;
+ bh=+EDGs3PYzl3z47JpXWUueALZlElPDdJywkYLk/HcIjg=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=Tyy0xQy0htMQEdpfMUvFUuPG04g7ZXvYvYsCjWoq+QOlUp2WQfo8Vk+CnXXw5nkQT
+ a3Wz7+ONj/4K4WJ6m4qOiNdEl9e5tbHlW07s/zxEoMhv+eMdbQKfvYZ25zqNb6Olj/
+ onXIz2W3FBWOnXIoTYXwnsUNPzdRLL+aS2e3QsY4=
+Message-ID: <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 23 Nov 2020 12:37:58 -0800
+In-Reply-To: <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+ <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+ <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+ <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.231.243] (165.204.55.251) by
- CH0PR04CA0073.namprd04.prod.outlook.com (2603:10b6:610:74::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3589.15 via Frontend Transport; Mon, 23 Nov 2020 21:08:55 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 633f8b72-7f4b-45fa-4407-08d88ff3fd27
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1883:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1883E497B206BD37B7B2FD85EAFC0@DM5PR12MB1883.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wueNqZAeuLTtQg7GC8suOQDpdaO96UYnmXjSp9LpjVlcJLLu11vELOheY77jN3mKSv1r2dZ5gLj3i3Fw8aitxg4Z4XqaTfUvzGkpwnrDOICr6WgV/dGnBDlSRjDdeWj6SVYSUegN+xGif3JLjh/7SxIMBF64ePMYKgn4oZFDHxYC4Wr+A3OaIYkLm7IHvfOPA3YQ2ano9q/Lgd1fszvN7Yof4riOUoGSwegQvh8s6g1GTYKm6XbuRRRpso1LxU8ek5JmKmry0jjnPF+uvS178eySsn1JEXzi0ditpXVdo5XE0albQanJ9PkszvVXovhmeaVNICwrqEItdNJX0Qn00z0LJ0A5rHWL48u0vR09YTrC5gz9V5LEJzV1CNKtCPAu7Iifbbt4JFHC53uSYPzlpRGnT0HPBAonQPktFrGOArg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(376002)(346002)(39860400002)(366004)(52116002)(86362001)(8676002)(478600001)(8936002)(66946007)(966005)(53546011)(36756003)(4326008)(66556008)(45080400002)(66476007)(5660300002)(83380400001)(2906002)(2616005)(186003)(16576012)(6486002)(16526019)(316002)(31686004)(31696002)(66574015)(956004)(26005)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: rT4dwlJSobqOKM5RMIGxWMGL++gtVLaPf5PxwhdSUKZKXRRtko2CO4fr7KIWUbxn9cqhnPY2139on2vRUvoougre64uSollvZL5sGlH2p2+ZP5MNzvlPF1/eoKfNPQAP2RN5rbTkn6yirzvOKukuNuO/g5s9jH56hPMaLX8G3QJ7LrPz+0VhNroyiOCz2+dQMkz0X0sDdM/AH/hRokKRtmw+TBU82jLHJxV0CYd4Q7Na++miGLsk5KLcGv69syWWE+WQFBu4+u6i7/BssKCc4nSigtMz84NbKRjxygmLopEzEVj9lCr2q9AnRLyhlZN+w8XBCi4amVL96ajbkOY+zLRLwFAScSnnQ7iNxX2U6C2tRE5+YeLcv1LaC6rQEWfqQrsyK2cZ/xcuPfZHVvvli6C6lDnRDZ9IDYz56XnOdypdkDCD8t9Za6mwXHxkhduJ1ccZuCdEUHlo2yg8LQwrP+urZkR/A9VQ67pu/5BR/Vh+xfOJ6VAV4VT2433dGXhtqtG4666iQF2KRAMDKIAD68sYPJU6H5MnxXg3p5rogL02XPukuUK1ZoE2Z0Jd7OEX9dsuyKRhGx/kl4X3V5pxudDhNiVLmpLk7GFqHJdQvf475cxinrTWz0e9cTlryo+rI+g4se6dlU5JIvslKWkJyBCCEiiVO42W3B4a+x5G8BT13HbbL+zPlDXJlBeV2iCFqBBBeRgcMsxAWSVvLyU7BgPS4jAqTaMrs6TfSWWBaE0/Xwk58iHTI8YRks2/8fdB57KgrMrBcnIHwLRN9ud7VQT9cvvdEPr9wgtv72lx5+evr7DTZ2EBTeSLZ/VrBy8PFik8QfJ6+Box2ivMA5G5+ba7IGRTwVquO7/19NefCi/Wd3eHoOJWF9usJZF+4Ju411Ganz/1xgSZ7Kzy82o65g==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 633f8b72-7f4b-45fa-4407-08d88ff3fd27
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 21:08:56.1681 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5Sqn2RrQ0/oZMsqvMzTwMez4N7/Hmwy9oMngCZavh0025oMlXP2NQSrkWSfMyR2peseKYwERZfUyFGTcPp2AaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1883
+X-Mailman-Approved-At: Mon, 23 Nov 2020 21:24:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,76 +84,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, gregkh@linuxfoundation.org, ppaalanen@gmail.com,
- Harry.Wentland@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+ reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
+ dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+ linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ linux-acpi@vger.kernel.org, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
+ linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-nfs@vger.kernel.org,
+ GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
+ Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
+ linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
+ linux-kernel <linux-kernel@vger.kernel.org>, linux-renesas-soc@vger.kernel.org,
+ linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
+ netfilter-devel@vger.kernel.org,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDExLzIzLzIwIDM6NDEgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjMuMTEu
-MjAgdW0gMjE6Mzggc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4KPj4gT24gMTEvMjMvMjAg
-MzoyMCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IEFtIDIzLjExLjIwIHVtIDIxOjA1
-IHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6Cj4+Pj4KPj4+PiBPbiAxMS8yNS8yMCA1OjQyIEFN
-LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+PiBBbSAyMS4xMS4yMCB1bSAwNjoyMSBzY2hy
-aWViIEFuZHJleSBHcm9kem92c2t5Ogo+Pj4+Pj4gSXQncyBuZWVkZWQgdG8gZHJvcCBpb21tdSBi
-YWNrZWQgcGFnZXMgb24gZGV2aWNlIHVucGx1Zwo+Pj4+Pj4gYmVmb3JlIGRldmljZSdzIElPTU1V
-IGdyb3VwIGlzIHJlbGVhc2VkLgo+Pj4+Pgo+Pj4+PiBJdCB3b3VsZCBiZSBjbGVhbmVyIGlmIHdl
-IGNvdWxkIGRvIHRoZSB3aG9sZSBoYW5kbGluZyBpbiBUVE0uIEkgYWxzbyBuZWVkIAo+Pj4+PiB0
-byBkb3VibGUgY2hlY2sgd2hhdCB5b3UgYXJlIGRvaW5nIHdpdGggdGhpcyBmdW5jdGlvbi4KPj4+
-Pj4KPj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Cj4+Pj4KPj4+PiBDaGVjayBwYXRjaCAiZHJtL2FtZGdw
-dTogUmVnaXN0ZXIgSU9NTVUgdG9wb2xvZ3kgbm90aWZpZXIgcGVyIGRldmljZS4iIHRvIHNlZQo+
-Pj4+IGhvdyBpIHVzZSBpdC4gSSBkb24ndCBzZWUgd2h5IHRoaXMgc2hvdWxkIGdvIGludG8gVFRN
-IG1pZC1sYXllciAtIHRoZSBzdHVmZiAKPj4+PiBJIGRvIGluc2lkZQo+Pj4+IGlzIHZlbmRvciBz
-cGVjaWZpYyBhbmQgYWxzbyBJIGRvbid0IHRoaW5rIFRUTSBpcyBleHBsaWNpdGx5IGF3YXJlIG9m
-IElPTU1VID8KPj4+PiBEbyB5b3UgbWVhbiB5b3UgcHJlZmVyIHRoZSBJT01NVSBub3RpZmllciB0
-byBiZSByZWdpc3RlcmVkIGZyb20gd2l0aGluIFRUTQo+Pj4+IGFuZCB0aGVuIHVzZSBhIGhvb2sg
-dG8gY2FsbCBpbnRvIHZlbmRvciBzcGVjaWZpYyBoYW5kbGVyID8KPj4+Cj4+PiBObywgdGhhdCBp
-cyByZWFsbHkgdmVuZG9yIHNwZWNpZmljLgo+Pj4KPj4+IFdoYXQgSSBtZWFudCBpcyB0byBoYXZl
-IGEgZnVuY3Rpb24gbGlrZSB0dG1fcmVzb3VyY2VfbWFuYWdlcl9ldmljdF9hbGwoKSAKPj4+IHdo
-aWNoIHlvdSBvbmx5IG5lZWQgdG8gY2FsbCBhbmQgYWxsIHR0IG9iamVjdHMgYXJlIHVucG9wdWxh
-dGVkLgo+Pgo+Pgo+PiBTbyBpbnN0ZWFkIG9mIHRoaXMgQk8gbGlzdCBpIGNyZWF0ZSBhbmQgbGF0
-ZXIgaXRlcmF0ZSBpbiBhbWRncHUgZnJvbSB0aGUgCj4+IElPTU1VIHBhdGNoIHlvdSBqdXN0IHdh
-bnQgdG8gZG8gaXQgd2l0aGluCj4+IFRUTSB3aXRoIGEgc2luZ2xlIGZ1bmN0aW9uID8gTWFrZXMg
-bXVjaCBtb3JlIHNlbnNlLgo+Cj4gWWVzLCBleGFjdGx5Lgo+Cj4gVGhlIGxpc3RfZW1wdHkoKSBj
-aGVja3Mgd2UgaGF2ZSBpbiBUVE0gZm9yIHRoZSBMUlUgYXJlIGFjdHVhbGx5IG5vdCB0aGUgYmVz
-dCAKPiBpZGVhLCB3ZSBzaG91bGQgbm93IGNoZWNrIHRoZSBwaW5fY291bnQgaW5zdGVhZC4gVGhp
-cyB3YXkgd2UgY291bGQgYWxzbyBoYXZlIGEgCj4gbGlzdCBvZiB0aGUgcGlubmVkIEJPcyBpbiBU
-VE0uCgoKU28gZnJvbSBteSBJT01NVSB0b3BvbG9neSBoYW5kbGVyIEkgd2lsbCBpdGVyYXRlIHRo
-ZSBUVE0gTFJVIGZvciB0aGUgdW5waW5uZWQgCkJPcyBhbmQgdGhpcyBuZXcgZnVuY3Rpb24gZm9y
-IHRoZSBwaW5uZWQgb25lc8KgID8KSXQncyBwcm9iYWJseSBhIGdvb2QgaWRlYSB0byBjb21iaW5l
-IGJvdGggaXRlcmF0aW9ucyBpbnRvIHRoaXMgbmV3IGZ1bmN0aW9uIHRvIApjb3ZlciBhbGwgdGhl
-IEJPcyBhbGxvY2F0ZWQgb24gdGhlIGRldmljZS4KCgo+Cj4gQlRXOiBIYXZlIHlvdSB0aG91Z2h0
-IGFib3V0IHdoYXQgaGFwcGVucyB3aGVuIHdlIHVucG9wdWxhdGUgYSBCTyB3aGlsZSB3ZSAKPiBz
-dGlsbCB0cnkgdG8gdXNlIGEga2VybmVsIG1hcHBpbmcgZm9yIGl0PyBUaGF0IGNvdWxkIGhhdmUg
-dW5mb3Jlc2VlbiAKPiBjb25zZXF1ZW5jZXMuCgoKQXJlIHlvdSBhc2tpbmcgd2hhdCBoYXBwZW5z
-IHRvIGttYXAgb3Igdm1hcCBzdHlsZSBtYXBwZWQgQ1BVIGFjY2Vzc2VzIG9uY2Ugd2UgCmRyb3Ag
-YWxsIHRoZSBETUEgYmFja2luZyBwYWdlcyBmb3IgYSBwYXJ0aWN1bGFyIEJPID8gQmVjYXVzZSBm
-b3IgdXNlciBtYXBwaW5ncwoobW1hcCkgd2UgdG9vayBjYXJlIG9mIHRoaXMgd2l0aCBkdW1teSBw
-YWdlIHJlcm91dGUgYnV0IGluZGVlZCBub3RoaW5nIHdhcyBkb25lIApmb3IgaW4ga2VybmVsIENQ
-VSBtYXBwaW5ncy4KCkFuZHJleQoKCj4KPiBDaHJpc3RpYW4uCj4KPj4KPj4gQW5kcmV5Cj4+Cj4+
-Cj4+Pgo+Pj4gR2l2ZSBtZSBhIGRheSBvciB0d28gdG8gbG9vayBpbnRvIHRoaXMuCj4+Pgo+Pj4g
-Q2hyaXN0aWFuLgo+Pj4KPj4+Pgo+Pj4+IEFuZHJleQo+Pj4+Cj4+Pj4KPj4+Pj4KPj4+Pj4+Cj4+
-Pj4+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lA
-YW1kLmNvbT4KPj4+Pj4+IC0tLQo+Pj4+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQu
-YyB8IDEgKwo+Pj4+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4+Pj4+Pgo+
-Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMgYi9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV90dC5jCj4+Pj4+PiBpbmRleCAxY2NmMWVmLi4yOTI0OGE1IDEwMDY0
-NAo+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+Pj4+Pj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+Pj4+Pj4gQEAgLTQ5NSwzICs0OTUsNCBAQCB2
-b2lkIHR0bV90dF91bnBvcHVsYXRlKHN0cnVjdCB0dG1fdHQgKnR0bSkKPj4+Pj4+IMKgwqDCoMKg
-wqAgZWxzZQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHR0bV9wb29sX3VucG9wdWxhdGUodHRt
-KTsKPj4+Pj4+IMKgIH0KPj4+Pj4+ICtFWFBPUlRfU1lNQk9MKHR0bV90dF91bnBvcHVsYXRlKTsK
-Pj4+Pj4KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPj4+PiBodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29t
-Lz91cmw9aHR0cHMlM0ElMkYlMkZsaXN0cy5mcmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlz
-dGluZm8lMkZhbWQtZ2Z4JmFtcDtkYXRhPTA0JTdDMDElN0NBbmRyZXkuR3JvZHpvdnNreSU0MGFt
-ZC5jb20lN0M5YmUwMjlmMjZhNDc0NjM0N2E2MTA4ZDg4ZmVkMjk5YiU3QzNkZDg5NjFmZTQ4ODRl
-NjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2Mzc0MTc1OTYwNjU1NTk5NTUlN0NVbmtub3du
-JTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRp
-STZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdDMTAwMCZhbXA7c2RhdGE9dFozZG8lMkZlS3pCdFJs
-TmFGYkJqQ3RSdlVIS2R2d0RaN1NvWWhFQnU0JTJCVDglM0QmYW1wO3Jlc2VydmVkPTAgCj4+Pj4K
-Pj4+Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Mon, 2020-11-23 at 19:56 +0100, Miguel Ojeda wrote:
+> On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > Well, I used git.  It says that as of today in Linus' tree we have
+> > 889 patches related to fall throughs and the first series went in
+> > in october 2017 ... ignoring a couple of outliers back to February.
+> 
+> I can see ~10k insertions over ~1k commits and 15 years that mention
+> a fallthrough in the entire repo. That is including some commits
+> (like the biggest one, 960 insertions) that have nothing to do with C
+> fallthrough. A single kernel release has an order of magnitude more
+> changes than this...
+> 
+> But if we do the math, for an author, at even 1 minute per line
+> change and assuming nothing can be automated at all, it would take 1
+> month of work. For maintainers, a couple of trivial lines is noise
+> compared to many other patches.
+
+So you think a one line patch should take one minute to produce ... I
+really don't think that's grounded in reality.  I suppose a one line
+patch only takes a minute to merge with b4 if no-one reviews or tests
+it, but that's not really desirable.
+
+> In fact, this discussion probably took more time than the time it
+> would take to review the 200 lines. :-)
+
+I'm framing the discussion in terms of the whole series of changes we
+have done for fall through, both what's in the tree currently (889
+patches) both in terms of the produce and the consumer.  That's what I
+used for my figures for cost.
+
+> > We're also complaining about the inability to recruit maintainers:
+> > 
+> > https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
+> > 
+> > And burn out:
+> > 
+> > http://antirez.com/news/129
+> 
+> Accepting trivial and useful 1-line patches
+
+Part of what I'm trying to measure is the "and useful" bit because
+that's not a given.
+
+> is not what makes a voluntary maintainer quit...
+
+so the proverb "straw which broke the camel's back" uniquely doesn't
+apply to maintainers
+
+>  Thankless work with demanding deadlines is.
+
+That's another potential reason, but it doesn't may other reasons less
+valid.
+
+> > The whole crux of your argument seems to be maintainers' time isn't
+> > important so we should accept all trivial patches
+> 
+> I have not said that, at all. In fact, I am a voluntary one and I
+> welcome patches like this. It takes very little effort on my side to
+> review and it helps the kernel overall.
+
+Well, you know, subsystems are very different in terms of the amount of
+patches a maintainer has to process per release cycle of the kernel. 
+If a maintainer is close to capacity, additional patches, however
+trivial, become a problem.  If a maintainer has spare cycles, trivial
+patches may look easy.
+
+> Paid maintainers are the ones that can take care of big
+> features/reviews.
+> 
+> > What I'm actually trying to articulate is a way of measuring value
+> > of the patch vs cost ... it has nothing really to do with who foots
+> > the actual bill.
+> 
+> I understand your point, but you were the one putting it in terms of
+> a junior FTE.
+
+No, I evaluated the producer side in terms of an FTE.  What we're
+mostly arguing about here is the consumer side: the maintainers and
+people who have to rework their patch sets. I estimated that at 100h.
+
+>  In my view, 1 month-work (worst case) is very much worth
+> removing a class of errors from a critical codebase.
+> 
+> > One thesis I'm actually starting to formulate is that this
+> > continual devaluing of maintainers is why we have so much
+> > difficulty keeping and recruiting them.
+> 
+> That may very well be true, but I don't feel anybody has devalued
+> maintainers in this discussion.
+
+You seem to be saying that because you find it easy to merge trivial
+patches, everyone should.  I'm reminded of a friend long ago who
+thought being a Tees River Pilot was a sinecure because he could
+navigate the Tees blindfold.  What he forgot, of course, is that just
+because it's easy with a trawler doesn't mean it's easy with an oil
+tanker.  In fact it takes longer to qualify as a Tees River Pilot than
+it does to get a PhD.
+
+James
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
