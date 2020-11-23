@@ -2,68 +2,89 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 415FFC63697
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA056C2D0E4
 	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 19:55:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DDC6020717
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 19:55:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 92CAD20719
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 19:55:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jzsPhOCP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDC6020717
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gOQnORTb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92CAD20719
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF376E0AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A986E0AC;
 	Mon, 23 Nov 2020 19:55:03 +0000 (UTC)
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B62E9898E4;
- Mon, 23 Nov 2020 16:17:12 +0000 (UTC)
-Received: by mail-io1-xd41.google.com with SMTP id i18so18703347ioa.3;
- Mon, 23 Nov 2020 08:17:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9G9wehhbpTZzWWOvGr3rWAgWQ0geLC9Yp77M/YC6Idw=;
- b=jzsPhOCPkH8JcubkL+ilpCqrpmJxzR/ZZhmza1K1c0eddk7+QY69lMXZ1zjj7yUobv
- UPOat94Oznz5N+aYQtyK2tx44PHGHvaT6c5ydFaOoT5387NjxS4giDE0liSNJKSpvdGp
- HKiV67o8ZfM+QomP6uHJNCHgME5k654Lm9OlI5uZEZV/BZyGXhrMcp4osA9RqzKjR7Ze
- 0dIcMPHMz9M6e1KbFfvtyGGjldyt3D137VsBHg9GBRp12UjhpWPsI6mtFPtV54IoaC+K
- mSdXyd8g5UOodS4awURhueIsrAq2XHUWM9vJndBZGt3fLtR88qq6iY1NEsTPrUzb2MVL
- n+0A==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59FE76E05A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 17:06:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606151173;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
+ b=gOQnORTbcgQjBtBdCY6Aov3rN/rI65WW6qTLLDb3lQ8k/Ph/zOmfpDnexofSKODImkyVjO
+ XZWW1wplF/Mko4cc9tR8cO6Huf2JaRgH4V2Ic3TB6IOOPxELNLSkMWuYMZDz2hrOpKYLUx
+ J043lYhf6HIt0YH7TXlNav1ywXU085Y=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-471-FFp2KME9OWCfVoRb4rc4xw-1; Mon, 23 Nov 2020 12:06:09 -0500
+X-MC-Unique: FFp2KME9OWCfVoRb4rc4xw-1
+Received: by mail-qv1-f69.google.com with SMTP id x9so13350244qvt.16
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9G9wehhbpTZzWWOvGr3rWAgWQ0geLC9Yp77M/YC6Idw=;
- b=r14VZuPE97rurh1VIJDI5kRsfB1JnpG2JjIg6bj3c2dAN2lsJ5jIz3aFivwEtV4nHd
- t1phpEXwqc3I2qmzBVS6XQMcJfv0Ir4CRavB/TYmnBpJv+btQE2h2MkEPMuOHbOGVBEY
- ods8ssB/IYXXyn9l4vWSnJ3HxkFSxk9uPumh4U2DPZSSa5NTBhDtd1wpxyd5ViYZJj8O
- 2oYOMvyC/zQULH9zFo5t1lEPFJyn3T4+KNxHcyfIKVRTwCukoiXQcTaAmx9SaLtFbELg
- LqKmFqgidmCxYPXnS+CDhLoNjXw6A9rLf/Y/TdHmKnfbMjgcya8ZwatF72+8WfVRWpxU
- O+7g==
-X-Gm-Message-State: AOAM532j90eIUBWMIzTN1rM2EoPvP/+MInJFDaOJI8mg1AF2yCVfykkh
- vyrwOJNjEZGSsK/t2r8Go2pb62hKi35GVO9Ca5M=
-X-Google-Smtp-Source: ABdhPJw5wxDBX8QpwE2CghMfFtPIAtnmG9XIUqmbpxXD9wxvuYGnavpxLlav0NBfuecvTCMrGKLgN0Lee5ktV7i8vQ8=
-X-Received: by 2002:a05:6602:22c7:: with SMTP id
- e7mr415585ioe.114.1606148231969; 
- Mon, 23 Nov 2020 08:17:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20201121165058.1644182-1-trix@redhat.com>
- <5843ef910b0e86c00d9c0143dec20f93823b016b.camel@HansenPartnership.com>
- <87y2ism5or.fsf@intel.com>
-In-Reply-To: <87y2ism5or.fsf@intel.com>
-From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Date: Mon, 23 Nov 2020 17:17:00 +0100
-Message-ID: <CAKXUXMydH+VtMeuftPRgCg_PYm2iChOMkUYjO=QTG=NRM3QFiw@mail.gmail.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
+ b=EmQwIRR0yx1osuPNKJ2Jj/1+msO/OndJVMWZkdWz+v0ypgfo3ZKa2kUy5Sm00gId0s
+ vQ1neM1VZLeOnDFgxz6MEMz0nt3/6Y70SzWYhxNS3x2RZDeOj6X4d0/Sjf3cm7giMH/e
+ AnzdvPDxtxerhSVqtOBOo0tBOHA3c4FniCZfnx7RxzkSAU0PoW702zonp8r3Unxbm/sY
+ kBLsaOs1R33obuOOKnPhWmxfRIqY6Zpq2JesBXOHJQsC+Fgu5zEOOukSdKnX4Y4P8958
+ rDBkAowIHFs9Pn5oyoptNHMggk9SPuBontnSIHZxDo3wGdFa+i3cvn4rY9DorkdzHpVU
+ LtvQ==
+X-Gm-Message-State: AOAM533Lrafo0Ux4NH8bzOONNBIukJFf6+06kObnRMBxNAL+yLdTfo+D
+ KtBr4gPbgi6dH1sj9uI9Ve8YQjy4Tu1kIDCrsyN58J6L36WvHuS+ahy9ysIclUkSZL7Q0AVWo6S
+ PD9E8cyPu/3BT1T+AG46Jnv6nXA==
+X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70888qtx.354.1606151168822;
+ Mon, 23 Nov 2020 09:06:08 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwHR8oVpP3xv7xpCkK6lH4mawBfXgRI3GL2dEiLGp13/vfLrDKV7SBtsWnvpv2iFDtHltekRw==
+X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70839qtx.354.1606151168572;
+ Mon, 23 Nov 2020 09:06:08 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id o187sm10226153qkb.120.2020.11.23.09.06.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Nov 2020 09:06:07 -0800 (PST)
 Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joe Perches <joe@perches.com>, clang-built-linux@googlegroups.com
+References: <20201121165058.1644182-1-trix@redhat.com>
+ <2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
+ <6e8c1926-4209-8f10-d0f9-72c875a85a88@redhat.com>
+ <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <88eeba27-ee36-df63-8cd9-3cccbe5e0850@redhat.com>
+Date: Mon, 23 Nov 2020 09:06:03 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 23 Nov 2020 19:54:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,115 +98,86 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- Tom Rix <trix@redhat.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- ibm-acpi-devel@lists.sourceforge.net,
- "open list:ASYMMETRIC KEYS" <keyrings@vger.kernel.org>,
- linux-mtd@lists.infradead.org, linux-scsi@vger.kernel.org,
- linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- cluster-devel@redhat.com,
- clang-built-linux <clang-built-linux@googlegroups.com>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
+ keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-scsi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
  tboot-devel@lists.sourceforge.net, coreteam@netfilter.org,
  xen-devel@lists.xenproject.org, MPT-FusionLinux.pdl@broadcom.com,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
- ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
+ intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
  linux-omap@vger.kernel.org, devel@acpica.org, linux-nfs@vger.kernel.org,
- Netdev <netdev@vger.kernel.org>, linux-usb@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
  linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, bpf@vger.kernel.org
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 4:52 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
-> On Sat, 21 Nov 2020, James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> > On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
-> >> A difficult part of automating commits is composing the subsystem
-> >> preamble in the commit log.  For the ongoing effort of a fixer
-> >> producing
-> >> one or two fixes a release the use of 'treewide:' does not seem
-> >> appropriate.
-> >>
-> >> It would be better if the normal prefix was used.  Unfortunately
-> >> normal is
-> >> not consistent across the tree.
-> >>
-> >>
-> >>      D: Commit subsystem prefix
-> >>
-> >> ex/ for FPGA DFL DRIVERS
-> >>
-> >>      D: fpga: dfl:
-> >>
-> >
-> > I've got to bet this is going to cause more issues than it solves.
->
-> Agreed.
->
 
-Tom, this a problem only kernel janitors encounter; all other
-developers really do not have that issue. The time spent on creating
-the patch is much larger than the amount saved if the commit log
-header line prefix would be derived automatically. I believe Julia
-Lawall, Arnd Bergmann and Nathan Chancellor as long-term
-high-frequency janitors do have already scripted approaches to that
-issue. Maybe they simply need to share these scripts with you and you
-consolidate them and share with everyone?
+On 11/22/20 10:22 AM, Joe Perches wrote:
+> On Sun, 2020-11-22 at 08:33 -0800, Tom Rix wrote:
+>> On 11/21/20 9:10 AM, Joe Perches wrote:
+>>> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
+>>>> A difficult part of automating commits is composing the subsystem
+>>>> preamble in the commit log.  For the ongoing effort of a fixer producing
+>>>> one or two fixes a release the use of 'treewide:' does not seem appropriate.
+>>>>
+>>>> It would be better if the normal prefix was used.  Unfortunately normal is
+>>>> not consistent across the tree.
+>>>>
+>>>> So I am looking for comments for adding a new tag to the MAINTAINERS file
+>>>>
+>>>> 	D: Commit subsystem prefix
+>>>>
+>>>> ex/ for FPGA DFL DRIVERS
+>>>>
+>>>> 	D: fpga: dfl:
+>>> I'm all for it.  Good luck with the effort.  It's not completely trivial.
+>>>
+>>> From a decade ago:
+>>>
+>>> https://lore.kernel.org/lkml/1289919077.28741.50.camel@Joe-Laptop/
+>>>
+>>> (and that thread started with extra semicolon patches too)
+>> Reading the history, how about this.
+>>
+>> get_maintainer.pl outputs a single prefix, if multiple files have the
+>> same prefix it works, if they don't its an error.
+>>
+>> Another script 'commit_one_file.sh' does the call to get_mainainter.pl
+>> to get the prefix and be called by run-clang-tools.py to get the fixer
+>> specific message.
+> It's not whether the script used is get_maintainer or any other script,
+> the question is really if the MAINTAINERS file is the appropriate place
+> to store per-subsystem patch specific prefixes.
+>
+> It is.
+>
+> Then the question should be how are the forms described and what is the
+> inheritance priority.  My preference would be to have a default of
+> inherit the parent base and add basename(subsystem dirname).
+>
+> Commit history seems to have standardized on using colons as the separator
+> between the commit prefix and the subject.
+>
+> A good mechanism to explore how various subsystems have uses prefixes in
+> the past might be something like:
+>
+> $ git log --no-merges --pretty='%s' -<commit_count> <subsystem_path> | \
+>   perl -n -e 'print substr($_, 0, rindex($_, ":") + 1) . "\n";' | \
+>   sort | uniq -c | sort -rn
 
-Also, making clean-up patches cumbersome has a positive side as well;
-maintainers are not swamped with fully automated patch submissions.
-There have been some bad experiences with some submitters on that in
-the past...
+Thanks, I have shamelessly stolen this line and limited the commits to the maintainer.
 
-> > SCSI uses scsi: <driver>: for drivers but not every driver has a
-> > MAINTAINERS entry.  We use either scsi: or scsi: core: for mid layer
-> > things, but we're not consistent.  Block uses blk-<something>: for all
-> > of it's stuff but almost no <somtehing>s have a MAINTAINERS entry.  So
-> > the next thing you're going to cause is an explosion of suggested
-> > MAINTAINERs entries.
->
-> On the one hand, adoption of new MAINTAINERS entries has been really
-> slow. Look at B, C, or P, for instance. On the other hand, if this were
-> to get adopted, you'll potentially get conflicting prefixes for patches
-> touching multiple files. Then what?
->
-> I'm guessing a script looking at git log could come up with better
-> suggestions for prefixes via popularity contest than manually maintained
-> MAINTAINERS entries. It might not always get it right, but then human
-> outsiders aren't going to always get it right either.
->
-> Now you'll only need Someone(tm) to write the script. ;)
->
-> Something quick like this:
->
-> git log --since={1year} --pretty=format:%s -- <FILES> |\
->         grep -v "^\(Merge\|Revert\)" |\
->         sed 's/:[^:]*$//' |\
->         sort | uniq -c | sort -rn | head -5
->
-> already gives me results that really aren't worse than some of the
-> prefixes invented by drive-by contributors.
->
+I will post something once the generation of the prefixes is done.
 
-I agree I do not see the need to introduce something in MAINTAINERS;
-from my observations maintaining MAINTAINERS, there is sufficient work
-on adoption and maintenance of the existing entries already without
-such an yet another additional entry. Some entries are outdated or
-wrong and the janitor task of cleaning those up is already enough work
-for involved janitors and enough churn for involved maintainers. So a
-machine-learned approach as above is probably good enough, but if you
-think you need more complex rules try to learn them from the data at
-hand... certainly a nice task to do with machine learning on commit
-message prefixes.
+Tom
 
-Lukas
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
