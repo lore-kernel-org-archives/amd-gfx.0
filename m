@@ -2,62 +2,98 @@ Return-Path: <SRS0=UmUD=E5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84428C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 16:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 692A2C56202
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 16:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24B1B208FE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 16:25:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24B1B208FE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id D92EF20717
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2020 16:41:45 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="a0922xjx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D92EF20717
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7281789C80;
-	Mon, 23 Nov 2020 16:25:04 +0000 (UTC)
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB75489C80;
- Mon, 23 Nov 2020 16:25:03 +0000 (UTC)
-Received: by mail-ot1-f65.google.com with SMTP id l36so16441234ota.4;
- Mon, 23 Nov 2020 08:25:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SWzdE85KMSmQ5K6aYMgWVQjn8/tst2VI3dLUnv/55SM=;
- b=RoSmYDLJZUek3Hqeo0q2s0N9gd1Fsv/sAigKVhqBo6DUTia1LdxPBotWq8TcU9893i
- xlJ6UUCow6YzrtkqvBJfgL/VexbnREQla6STgNeB5OCK4MsmIsP7uTGpq9RUap+xpYhZ
- rwLXf8wdvy734/VQqhRlGGEPA1mxKHZHrQWwChxXbCD+H4GzQBbuy4x2dZJHZNPPqeI7
- i6IVSlYQ4NtU4BJKwk2wiVFiVHo2G/poCEMDwDRiSM8YWKzrVvsXvxJf4hY/1IiZ4EK6
- 97UvXUlo8dqkaVLIC5c9+5YtcfdKKjYg3rJUEXtluynx+uD+kIhbXEuI+g5/f6ouRy6z
- XOww==
-X-Gm-Message-State: AOAM531AbRE2zVFDrh3RkFV5ORMFWjA/8K7PKrBIkZsACmrlgLWcCjoW
- 5hX2HRA89br/Q/Q02Kz1zZYRTbT5tWHrBJ6rnWhKFoAqj8o=
-X-Google-Smtp-Source: ABdhPJxW9u67TbnPp8ObIChv5a6F+ncd8SoV+BFvs894Bl4MJzyAX0TVAjkpawJr+z1OvIzzPyEcIsCefAg0WelXSFg=
-X-Received: by 2002:a9d:16f:: with SMTP id 102mr68959otu.206.1606148702991;
- Mon, 23 Nov 2020 08:25:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC196E045;
+	Mon, 23 Nov 2020 16:41:45 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2076.outbound.protection.outlook.com [40.107.220.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1546E04B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2020 16:41:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VYqmpzDWavegERVtaOMNOyYKddcCbBKbAIXDmnQkvh3KrcQH41jR+BgqFkyMnydDS/UKWEXI5iIXKderM1XbiypVUKbDhnRWGXdIis1k+8pBr0pd4QQSQMbnKrqp8q3qh01TaAGcssmXho2ahU0yB4X8wo8QivVLnu/htTRP5zyiu3M6pfaFQsD9BXHMqClSk8CMaNawGVKIbVbjZah/aBp6UnOKtZo+AoZxjeNLLHJt8xgiU/SGxVAYjIGoKJQCeyum3rVt7493WDCHNYfMBCENMFHu0lXHy0nkMUySYDNzYxhzHBBvINsZHK7flpimd8CuszL1QK7iySXBYsatyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LprIlm7q2jpNxMqGkiuwCBzL6OcOl2ltyrqUofU07wY=;
+ b=R5RRU/wkjHk46SlDv9QlXtWn8qNNwid5jrgKPXhWuJ5bEk4uvvPnOZjCUFIfJb2VLHWZuJlTPStsUpJpG0JsrtmR3tGTuNhDzKlpO3ACocn3I4Buk7Ta5K9Jyx5xznvRPoyi7hE4q2nNOgA3jSxRx0utLfFrcqrFpWB5kEHaC5uiB6wvJyEtRVN9yfi8JA+QXpgeFiME3f9yvfQr2ggv36eQmEUOP1uj+z426yurdcb9DxuTWvloM12BR/leFbqyfGmOpGyLFtgmpUkw3F+/SY2/bgWZ2j+D7wYq7u9/9/yxJgBfBV+LqTrbhSQeh5HjsUQM7eEyBvEEkgXbNsijJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LprIlm7q2jpNxMqGkiuwCBzL6OcOl2ltyrqUofU07wY=;
+ b=a0922xjxWlaFemislegWXl3WsxQ8vLWCnWCEEC1bqwG41gxThHlrCPkRBUXzX+LYigmI8yoiwU+9nkiDGwpv89SkAuqBubK6jhIzpIm9CfAzi35LvL06Yx4QgWQIVq8mYP79F+OzT9PopnHMNt2o0yiqlwQ/gag9pevHz7/WTN0=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3835.namprd12.prod.outlook.com (2603:10b6:5:1c7::12)
+ by DM6PR12MB2812.namprd12.prod.outlook.com (2603:10b6:5:44::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.28; Mon, 23 Nov
+ 2020 16:41:03 +0000
+Received: from DM6PR12MB3835.namprd12.prod.outlook.com
+ ([fe80::a468:7e14:5f23:d814]) by DM6PR12MB3835.namprd12.prod.outlook.com
+ ([fe80::a468:7e14:5f23:d814%6]) with mapi id 15.20.3589.022; Mon, 23 Nov 2020
+ 16:41:03 +0000
+From: shaoyunl <shaoyun.liu@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/dce_virtual: Enable DPM for vf
+Date: Mon, 23 Nov 2020 11:40:48 -0500
+Message-Id: <20201123164048.19583-1-shaoyun.liu@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: CH2PR05CA0001.namprd05.prod.outlook.com (2603:10b6:610::14)
+ To DM6PR12MB3835.namprd12.prod.outlook.com
+ (2603:10b6:5:1c7::12)
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
- <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
- <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
- <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 23 Nov 2020 17:24:51 +0100
-Message-ID: <CAJZ5v0jJ6GFm4LFCR2V3qvD9rZrVw=pXyXSjSWPYtQudg-F3xg@mail.gmail.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from shaoyunl-dev1.amd.com (165.204.55.250) by
+ CH2PR05CA0001.namprd05.prod.outlook.com (2603:10b6:610::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3611.9 via Frontend Transport; Mon, 23 Nov 2020 16:41:03 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: beef6fec-f4dc-45d3-0a67-08d88fce914a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2812:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2812804E1E651ACF668FBA6CF4FC0@DM6PR12MB2812.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PuqEKMYxYKUjlgmxDnS0cvWo5OlJkgVCZs1YFN0aY7wDU3mYUKOhT2nLtn8JG04MCpglP4ie0NlVh9AH6fZ8g3scotbId9OJb25/KmQj4+QCqNWwPrTS/ITZDXhBHwN8LCQ34TkzQ3uXBd14vkcj8w4Q3YajwcrajVAZb+oRnX8Z4pu4ikPduyqRG2cOAME9tOxiwIL263PgdjMHKdvGxElzP3rNPB0KX67U/qhlQwMe88i8u631kHM/xS6L5zUGw/iqNIzI0rwJ9SrtQ8MQKoX9LplWzCkUDMxSphkYQmnv0NxN4EHVZRgKNRN9w15y4d2rXOtLy5mfZUu1KpeS21c1YM9KW0YAYJ/vwTauj8j5JlfO/SbzJJCEacYwSSD1
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(136003)(376002)(366004)(396003)(26005)(316002)(7696005)(186003)(4326008)(8676002)(36756003)(52116002)(2616005)(16526019)(956004)(8936002)(6916009)(6486002)(83380400001)(1076003)(6666004)(86362001)(478600001)(66946007)(5660300002)(2906002)(66476007)(4744005)(66556008)(43062003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: WtHbpXpSo2N3PiDLzpSh5+5txk1dO0w0gbALTnO8k5kl7J6dLLpOpB4oYKAps9bOr6s7PfOGwZcIqtETwuopSoZxAkT6bKrncnlxU6COo7Zj8X4AzYJ0dsUDEvhqcDN6reHHoGLYUgTyIDjSxsh9SykuAlNLisfFqJtGya1CpJjw5g7eljSSl9+DZUiujm8NinM986hji6K6meZ3ZJlOJ14lk92Qge1nr3NZteAm2N5exhhFUdjajSR9HZM1oZURcwg70PIyeWyXSkGw3JOy3HF5yzH9CrQPOzkkN5QkddmLEyO5D3+q4O/fFh0UAt+rdF06J4h9fEmTmZDnD+jLpWBW2Yy3wEDZckZVaUMG8DP6ZjP49und/rjm5xpAP16jjtJRjC4PYBKLtB308nkHPnfK6Q0xA3Tiyu5+9ghHYWeLsHftd4isE6LvGGCjrRjD1sKDu4gRi2+bV3xru6KOFxBec4gUeL5o3fYUnn0ni1zoo8owk9SUJJ99Byo/w8m8ClLpf8UnXcCxZGYEpKI/BtYV5PzXVj8bbQQzbQRTUXHmbY+LDOIX3wUIrfgxHSC7k/yuB3hHdRXqct4hiCq2H2WbT9ZEeaETZNXR5zPlImZizY+ntKof3Ybj8dfAoki35GM9La2fzOSy01DsN32p4QScRlJ6Yt78H5mykrBEFnGJmfxYShZqigIwFwpzXm/tCelBDmmhU7Hzxmqz0OxED75zNBtiVuLto4dpW+xanlS+VQjwjRmTjp2HFdwQuWut/sH4amiR6vot7zBFrxcduyFWAriwtI8NDILY44Vg/jARixJrlM/cPhSGk+eycoo95Xb02rFHNIgUb0rNE45YWDKz1RBKkVxEIHZ2pltEw2n2HUHL+dfckqM6ZbxCrIqquOXlqkoRTPV3C4wj6v8saA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: beef6fec-f4dc-45d3-0a67-08d88fce914a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3835.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 16:41:03.8047 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UyofbV8o7VY7vOxEaESG378GMb9KVJvjLFz7LD+BqQzDx9dVzuYOhK8f7yijaxS2vkiSiuKQYI2OPaBXaFoaDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2812
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,104 +105,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>,
- "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Nathan Chancellor <natechancellor@gmail.com>,
- "open list:LIBATA SUBSYSTEM \(Serial and Parallel ATA drivers\)"
- <linux-ide@vger.kernel.org>, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, samba-technical@lists.samba.org,
- linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
- linux-afs@lists.infradead.org, usb-storage@lists.one-eyed-alien.net,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- Nick Desaulniers <ndesaulniers@google.com>,
- "open list:TARGET SUBSYSTEM" <linux-scsi@vger.kernel.org>,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- bridge@lists.linux-foundation.org, linux-security-module@vger.kernel.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, linux-geode@lists.infradead.org,
- linux-can@vger.kernel.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
- xen-devel@lists.xenproject.org, nouveau <nouveau@lists.freedesktop.org>,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, target-devel@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-nfs@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
- Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, linux-mmc <linux-mmc@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, linux-sctp@vger.kernel.org,
- "open list:ULTRA-WIDEBAND \(UWB\) SUBSYSTEM:" <linux-usb@vger.kernel.org>,
- netfilter-devel@vger.kernel.org,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-hardening@vger.kernel.org
+Cc: shaoyunl <shaoyun.liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> On Mon, 2020-11-23 at 15:19 +0100, Miguel Ojeda wrote:
-> > On Sun, Nov 22, 2020 at 11:36 PM James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
+    This function actually control the vblank on/off. It shouldn't be bypassed for VF. Otherwise all the vblank based feature on VF will not work.
 
-[cut]
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+Change-Id: I77c6f57bb0af390b61f0049c12bf425b10d70d91
+---
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-> >
-> > Maintainers routinely review 1-line trivial patches, not to mention
-> > internal API changes, etc.
->
-> We're also complaining about the inability to recruit maintainers:
->
-> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
->
-> And burn out:
->
-> http://antirez.com/news/129
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+index b4d4b76538d2..ffcc64ec6473 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+@@ -139,9 +139,6 @@ static void dce_virtual_crtc_dpms(struct drm_crtc *crtc, int mode)
+ 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+ 	unsigned type;
+ 
+-	if (amdgpu_sriov_vf(adev))
+-		return;
+-
+ 	switch (mode) {
+ 	case DRM_MODE_DPMS_ON:
+ 		amdgpu_crtc->enabled = true;
+-- 
+2.17.1
 
-Right.
-
-> The whole crux of your argument seems to be maintainers' time isn't
-> important so we should accept all trivial patches ... I'm pushing back
-> on that assumption in two places, firstly the valulessness of the time
-> and secondly that all trivial patches are valuable.
->
-> > If some company does not want to pay for that, that's fine, but they
-> > don't get to be maintainers and claim `Supported`.
->
-> What I'm actually trying to articulate is a way of measuring value of
-> the patch vs cost ... it has nothing really to do with who foots the
-> actual bill.
->
-> One thesis I'm actually starting to formulate is that this continual
-> devaluing of maintainers is why we have so much difficulty keeping and
-> recruiting them.
-
-Absolutely.
-
-This is just one of the factors involved, but a significant one IMV.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
