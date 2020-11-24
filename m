@@ -8,61 +8,63 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0895C63777
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26065C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:48:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AB3F20684
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:47:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9734A206FB
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 15:48:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ufdxgJYC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AB3F20684
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkuQovPH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9734A206FB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5166E44F;
-	Tue, 24 Nov 2020 15:47:01 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0947C6E44F
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 15:47:01 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id s8so22753083wrw.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 07:47:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03BF46E44C;
+	Tue, 24 Nov 2020 15:48:55 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B79776E44C;
+ Tue, 24 Nov 2020 15:48:53 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id i2so3758128wrs.4;
+ Tue, 24 Nov 2020 07:48:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LYXRtd7RJ24Z2Pm7hYXybO3RyvAw0ZhWg2DLcNtZgLI=;
- b=ufdxgJYCU6VajcE6sN+18JOnYubD/iLwiqg5U7q1sN3m/nCZ/y1ewwv0fAAE9Tjc+T
- cU7ZsgJKqgN/5B0Of0tUFqt/jb4MtYIDeK2aPfB5aH74iSBweK0epPzUeJd80FJ4pjxd
- c1dKEchjzGpiFkz6pDVRN+ZOwRvcrTmotwvBnqcLNbhrr+hHaMkfC7bUqr+eqMzXOnpx
- EBv7xk+GJKcpeApvCYYv1FyQNZtAodCxKewvekZtPXXAyZzzyc8ks+soanw+IuRujCy+
- vRcUcgy/Nya1lUzduN9k926dJpYDxMifmNsWoL84Lo7Jje2nXQIIsCEyYaNlz25FpptN
- cnFQ==
+ :cc:content-transfer-encoding;
+ bh=YQEzzUsi3ECVy0o2bywn3sPnPcyWGDcKqLpYqiqy8k0=;
+ b=dkuQovPHqgYmce+xjSlOvfhq/8tm/S7wmfsf45pnSCSDwQiLIkzbmZ56hywbMGm+MH
+ fxlrqrTEUEzqyu1kJW4fqyewc3mGf99GkcNDkKe0UWcm6VGoMj1Lq1Bc6kRjUVUqrvVg
+ 7p0XZKRRVLw0u3uUo7jrdM7g2/+6J2oJnpVMxSBmiOnBEh3ZmghtDYFRC5JpwVkcff/n
+ W8y8z/deyqJBnpFjobuBBemvIn7+Yx6n/09Y6fzctUws8SYbEzEoh7pRi97nvf3tBRcg
+ IXAGaK4t9TTI3YHoFqUldMcuHN2gPt/Rx9IP2rmMOCvh1oOQYqoc42bI9H1XJxUXkyRd
+ HxTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LYXRtd7RJ24Z2Pm7hYXybO3RyvAw0ZhWg2DLcNtZgLI=;
- b=TcJ/x/R7SZKabDXGJFrufKMgx4e88sTLVoev7NoAuGfiWh22/98snyVNOXIZAil7lH
- mX1jsmbz4hTbusEZ0XLfJJrQFB/faG/tCudqZNNn5mpX1bWp7t0q+L2qEMJlM8OpiCgM
- RPZ5M8HLNJCPmggsCYygi02dwzXKr01iR046FHYDzKAWk6X+WS09F0eLPu/oKktBR21J
- bbtZLeY9BlPmx+adwdjkngEP3xM9QOP/vMxUhT7LNlg4pZmdyQlOOwI8i6G1HUCFNGkE
- 18wkaHK2wszgpArUZwxdMlC27LWmHeUgndKs77mFEbuMa/KqqqiU/1rfffPpLVknSDhr
- BKQg==
-X-Gm-Message-State: AOAM530p22XAXJx841XD2qcNJAU41CPILlLgrIs53egxRYamVfZhvbwU
- fcZuSJsiJydiQkIX7QbqCKy34u6PdNPXhojI6Mc=
-X-Google-Smtp-Source: ABdhPJy04ub9G35W/7NgC/Vb10ciXusP6Lks8fG+PrgK7SL3rBg3oDI92sfEAHDjwzfCg27KTac9Qfr5G2yrczAFDck=
-X-Received: by 2002:a5d:400a:: with SMTP id n10mr5927074wrp.362.1606232819772; 
- Tue, 24 Nov 2020 07:46:59 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=YQEzzUsi3ECVy0o2bywn3sPnPcyWGDcKqLpYqiqy8k0=;
+ b=O1AG4F/fymKMa7ECS05DvzYWlQ1rdbynoO/vhdr6WqHI+gLFj6TG3KJn6lL6sUcymM
+ ecVXlIMDLF1FvWkZLQNMKbR+uFmopwNV65mawNM7mN8DTEJmEeWVMgFGWkLiEshM0IIK
+ rEQE5+/ArEylpU3Fwp6lVz9gx1vXzpE/E/a3WeIF+a7p6iVYXV0iJS1qzvtPHk9WmGWb
+ F/v6BfTGqJlcVGCQkSsRUg5VOAMLMiK5d1BiGtFfP4ckVfEffaUC7ZcEl5q4l8VhAUKV
+ E47QTl7yNwOXMHfM/KsbxLVpb4E24IdlFq2hbzte5M9G5tv3vDXVTRH49TvjCjES2JuD
+ gESg==
+X-Gm-Message-State: AOAM530VwTMcux9q4j+XBj/UKVnjseDCpDEZt9fcmszuW+d5dZmpyRB8
+ cnBbwDQgI/4IHwOwNLfUq5xDmzfWBn08jyHsglEN29Xl
+X-Google-Smtp-Source: ABdhPJwYgYr70cFFo0Y9krfbSn0C7YP63ewXVaD5K8+FsG7eicpQE/XYSITvz9BpjTRXjTOvgEAPxqqfmRX9vlrjQxU=
+X-Received: by 2002:adf:8028:: with SMTP id 37mr6020956wrk.111.1606232932459; 
+ Tue, 24 Nov 2020 07:48:52 -0800 (PST)
 MIME-Version: 1.0
-References: <ou0uzBHIyn5i1sQXWfXck2EDBtFXVmfBnGJXF7Rqo@cp4-web-027.plabs.ch>
-In-Reply-To: <ou0uzBHIyn5i1sQXWfXck2EDBtFXVmfBnGJXF7Rqo@cp4-web-027.plabs.ch>
+References: <20201123111919.233376-1-lee.jones@linaro.org>
+ <20201123111919.233376-3-lee.jones@linaro.org>
+In-Reply-To: <20201123111919.233376-3-lee.jones@linaro.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Nov 2020 10:46:48 -0500
-Message-ID: <CADnq5_MyoV8Q9_s+2p37CKAWkAxZkjqeR9AWazLTjc8fLCO8Vg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/display: don't expose rotation prop for
- cursor plane
-To: Simon Ser <contact@emersion.fr>
+Date: Tue, 24 Nov 2020 10:48:41 -0500
+Message-ID: <CADnq5_PsVND-G1_z++kv+A9B0xOig5XHW0R2nQrb68kCAe1-yA@mail.gmail.com>
+Subject: Re: [PATCH 02/40] drm/amd/amdgpu/amdgpu_ttm: Add description for
+ 'page_flags'
+To: Lee Jones <lee.jones@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,69 +76,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jerome Glisse <glisse@freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 20, 2020 at 3:19 PM Simon Ser <contact@emersion.fr> wrote:
->
-> Setting any rotation on the cursor plane is ignored by amdgpu.
-> Because of DCE/DCN design, it's not possible to rotate the cursor.
-> Instead of displaying the wrong result, stop advertising the rotation
-> property for the cursor plane.
->
-> Now that we check all cursor plane properties in amdgpu_dm_atomic_check,
-> remove the TODO.
->
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-Applied the series.  Thanks!
-
-Alex
-
-
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2542571a8993..3283e22241d7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6592,7 +6592,8 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
->                 DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
->                 DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
->
-> -       if (dm->adev->asic_type >= CHIP_BONAIRE)
-> +       if (dm->adev->asic_type >= CHIP_BONAIRE &&
-> +           plane->type != DRM_PLANE_TYPE_CURSOR)
->                 drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
->                                                    supported_rotations);
->
-> @@ -8887,7 +8888,6 @@ static int dm_update_plane_state(struct dc *dc,
->         dm_new_plane_state = to_dm_plane_state(new_plane_state);
->         dm_old_plane_state = to_dm_plane_state(old_plane_state);
->
-> -       /*TODO Implement better atomic check for cursor plane */
->         if (plane->type == DRM_PLANE_TYPE_CURSOR) {
->                 if (!enable || !new_plane_crtc ||
->                         drm_atomic_plane_disabling(plane->state, new_plane_state))
-> --
-> 2.29.2
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gTW9uLCBOb3YgMjMsIDIwMjAgYXQgNjoxOSBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
+cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
+YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYzox
+MjE0OiB3YXJuaW5nOiBGdW5jdGlvbiBwYXJhbWV0ZXIgb3IgbWVtYmVyICdwYWdlX2ZsYWdzJyBu
+b3QgZGVzY3JpYmVkIGluICdhbWRncHVfdHRtX3R0X2NyZWF0ZScKPgo+IENjOiBBbGV4IERldWNo
+ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6ICJDaHJpc3RpYW4gS8O2bmlnIiA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGlu
+dXguaWU+Cj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KPiBDYzogU3VtaXQg
+U2Vtd2FsIDxzdW1pdC5zZW13YWxAbGluYXJvLm9yZz4KPiBDYzogSmVyb21lIEdsaXNzZSA8Z2xp
+c3NlQGZyZWVkZXNrdG9wLm9yZz4KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+PiBDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBsaW51eC1tZWRpYUB2
+Z2VyLmtlcm5lbC5vcmcKPiBDYzogbGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnCj4gU2ln
+bmVkLW9mZi1ieTogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KCkFwcGxpZWQuICBU
+aGFua3MhCgpBbGV4CgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3R0bS5jIHwgMSArCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IGluZGV4IDVmY2RkNjdlNWE5MTMuLmRl
+YmJjZWY5NjFkZDUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
+Cj4gQEAgLTExOTksNiArMTE5OSw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fYmFja2VuZF9k
+ZXN0cm95KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAo+ICAgKiBhbWRncHVfdHRtX3R0X2Ny
+ZWF0ZSAtIENyZWF0ZSBhIHR0bV90dCBvYmplY3QgZm9yIGEgZ2l2ZW4gQk8KPiAgICoKPiAgICog
+QGJvOiBUaGUgYnVmZmVyIG9iamVjdCB0byBjcmVhdGUgYSBHVFQgdHRtX3R0IG9iamVjdCBhcm91
+bmQKPiArICogQHBhZ2VfZmxhZ3M6IFBhZ2UgZmxhZ3MgdG8gYmUgYWRkZWQgdG8gdGhlIHR0bV90
+dCBvYmplY3QKPiAgICoKPiAgICogQ2FsbGVkIGJ5IHR0bV90dF9jcmVhdGUoKS4KPiAgICovCj4g
+LS0KPiAyLjI1LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
