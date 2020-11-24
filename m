@@ -2,87 +2,108 @@ Return-Path: <SRS0=xWtd=E6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_ADSP_ALL,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0BC3C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 02:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8AC0C2D0E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 06:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41BD520719
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 02:54:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5100B2076C
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 06:12:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=valvesoftware.com header.i=@valvesoftware.com header.b="iYeNpUbU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41BD520719
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=valvesoftware.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="AgpAOfpY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5100B2076C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B3889DB2;
-	Tue, 24 Nov 2020 02:54:31 +0000 (UTC)
-X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
- Tue, 24 Nov 2020 02:54:30 UTC
-Received: from us-smtp-delivery-172.mimecast.com
- (us-smtp-delivery-172.mimecast.com [216.205.24.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B93C689DB2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 02:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valvesoftware.com;
- s=mc20150811; t=1606186469;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kRBSQSws8D+BAQx1wQI7afVPmn89P+ji44ZNucbYSKU=;
- b=iYeNpUbUW+3BrVmAjAHhnlItcvCHld8DMpkSyaU5IlfT8jf8rU0c1RSEHbcCOHCQFzmENU
- alX/9pRJqdz5j23mjsmr6AoZg6wddH2WSKTEOCO2eLD8x5JfvR3HnK302KVJuNh7/3j7UK
- ZKClN7w4/dZ/HGWz3G/xSJAMXeppq4Q=
-Received: from smtp-01-blv1.valvesoftware.com (smtp01.valvesoftware.com
- [208.64.203.181]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-421-gYPPi6pTOuStPNyJH_jMqw-1; Mon, 23 Nov 2020 21:48:12 -0500
-X-MC-Unique: gYPPi6pTOuStPNyJH_jMqw-1
-Received: from [172.16.1.107] (helo=antispam.valve.org)
- by smtp-01-blv1.valvesoftware.com with esmtp (Exim 4.86_2)
- (envelope-from <pgriffais@valvesoftware.com>) id 1khONH-0002L1-Nd
- for amd-gfx@lists.freedesktop.org; Mon, 23 Nov 2020 18:48:11 -0800
-Received: from antispam.valve.org (127.0.0.1) id hnhq6m0171s6 for
- <amd-gfx@lists.freedesktop.org>;
- Mon, 23 Nov 2020 18:48:11 -0800 (envelope-from <pgriffais@valvesoftware.com>)
-Received: from mail1.valvemail.org ([172.16.144.22])
- by antispam.valve.org ([172.16.1.107]) (SonicWALL 9.0.5.2081 )
- with ESMTP id o202011240248110008505-5; Mon, 23 Nov 2020 18:48:11 -0800
-Received: from [172.18.21.23] (172.18.21.23) by mail1.valvemail.org
- (172.16.144.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Mon, 23 Nov
- 2020 18:48:11 -0800
-Subject: Re: [PATCH] drm/amdgpu: unpack dma_fence_chain containers during sync
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20201118132039.2336-1-christian.koenig@amd.com>
- <1a20a665-f859-6ed3-be98-48cb5b9fcf37@gmail.com>
- <CAAxE2A5BLn0ygJc6nx5QPW1qWq6hpvQbzFm51pzan+jhe_BWWw@mail.gmail.com>
- <53b5d31f-e533-0fb3-0907-76d2f3730af3@gmail.com>
- <CAAxE2A4MThFV0Whms5QGHmXNhhw-9++naxWV0n=HqinJAOupSw@mail.gmail.com>
-From: "Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>
-Message-ID: <8c9a2e5d-fbfc-45b9-f0de-92e292fcb7e7@valvesoftware.com>
-Date: Mon, 23 Nov 2020 18:48:10 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8668B6E1F6;
+	Tue, 24 Nov 2020 06:12:11 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2085.outbound.protection.outlook.com [40.107.94.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474166E1F6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 06:12:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A8g9/B8LxdU+gnIJ5P1YPwGnuIr1VOITLHwSLq8B0vhKiiGQ44FeNPdfSr0M3kwCwtv3jkTrxHA/vItgIzIfnrmwW958GadGpivv0N/nnVN+cuJBZigmSkw2cZVAmUs2rvnTjLUQhvp4gGu4uA12sqg3o/X78PfKdBDEOdTnSbp0J/1KoiWjpWO7HVjaMqcmC6paOUjx8MKFmuS9zvfeGW1VO+5GmEPYMwXr4s/BGe6JVhNB6JEuqpak1KixlTVPKWSuG0tltP31J0W7eYIx8KMYw1C020jUaeGl1XCokCmq4aWEphm7xioVW1nA71m6qJB74u6lDYorMf+eNGpAQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oz/Xt7Mc6M3prGrqbBGnz6oGv5eT5yMA3H5tqHX4DHA=;
+ b=hOV6KnwMSnY4WATEORSRJFxssIXAySD3H1XKT02kifwYhmpjhUa+oBWLbXhijOa9lyINpxW+fIYgfhqqXWcxEto28+blWBE9FTY9XDW87xP4ClDqU/4yXYA3dMGJOuc6tFAJNKS7Nmucv7psD9wEhBIN1rjFT3A2hv5oUA8/97tDTOJIDn6e4r31T7FE+AxxXvj0UGsleGDKrtBG8eKjhNWVeK/mZYkJyESENxFQQvhVdid502flqGv7od1btaVyp29pI8IzTBqmkKihKJXgle3zK/Ly/5swli0mhNuG1l6r8TR7uhhQNs/loLyB43YKUtK3L0AZQqYff0Q1AkFwsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oz/Xt7Mc6M3prGrqbBGnz6oGv5eT5yMA3H5tqHX4DHA=;
+ b=AgpAOfpYOtNU+zI/Epw6EPrNZuIg4h9x9bCfWMMyZirGsZVM7gQTIcDP2NRqHHq8c2g4cRgpPkYCC/PjuRgTa3FlmrLt8+Cs+wusuCaPWBEfSP0wLmyD9F2AAi4go3DG458XuKnSmpa+Rq1IwaF8kZ7TfphuD3v14zzNp232SpA=
+Received: from BN6PR13CA0053.namprd13.prod.outlook.com (2603:10b6:404:11::15)
+ by MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Tue, 24 Nov
+ 2020 06:12:09 +0000
+Received: from BN8NAM11FT009.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:11:cafe::74) by BN6PR13CA0053.outlook.office365.com
+ (2603:10b6:404:11::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.15 via Frontend
+ Transport; Tue, 24 Nov 2020 06:12:09 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
+ (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
+ action=none header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 165.204.84.17 as permitted sender)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT009.mail.protection.outlook.com (10.13.176.65) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3589.22 via Frontend Transport; Tue, 24 Nov 2020 06:12:08 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 24 Nov
+ 2020 00:12:08 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 24 Nov
+ 2020 00:12:08 -0600
+Received: from wayne-build.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
+ Transport; Tue, 24 Nov 2020 00:12:07 -0600
+From: Jingwen Chen <Jingwen.Chen2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: skip power profile switch in sriov
+Date: Tue, 24 Nov 2020 14:11:42 +0800
+Message-ID: <20201124061141.2383304-1-Jingwen.Chen2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <CAAxE2A4MThFV0Whms5QGHmXNhhw-9++naxWV0n=HqinJAOupSw@mail.gmail.com>
-X-ClientProxiedBy: mail1.valvemail.org (172.16.144.22) To mail1.valvemail.org
- (172.16.144.22)
-X-EXCLAIMER-MD-CONFIG: fe5cb8ea-1338-4c54-81e0-ad323678e037
-X-Mlf-CnxnMgmt-Allow: 172.16.144.22
-X-Mlf-Version: 9.0.5.2081
-X-Mlf-License: BSVKCAP__
-X-Mlf-UniqueId: o202011240248110008505
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA72A183 smtp.mailfrom=pgriffais@valvesoftware.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: valvesoftware.com
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 37382cfd-1ee0-4631-2ea0-08d8903fe01f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4175:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB41756639944BC0202AFB9AC2B7FB0@MN2PR12MB4175.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cobJbBkWU/K0jSbhbYxn1lUXLkGsngUY7IqfflxicnnHkhJtIn+WVBNS5oIFpu65NDKkoImdDALPWyqdIENwpBIXwwTaJchRVZqxaXcsiUvEYO2QFrHoOj/N4o440W2t0gnB+WHNAgAn+qNpCxXTUvGMLPlde5wEPhYHHtLUBxzm4z5Bso27j9eFDQJO0U6JaXQAv09HIw8vALqlD/5uEqq/PU/ltzeOvnj0459IO1lLUP3Va0PKSj+/ci+QhGKY6WU+g7P2/idmp+Gq+k5efZmFMwq5iB3/R7O3WT9B5SL2JBLsGVt177vxHu8ANbKUY+e9aceU7YHGds88lECeY/vSYpjw5xnt6qnjSxtSIi3sQoNLo4ZdMNENhh+qIT8jRIvrNeUjuhiZjK0rUSHSeA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(346002)(376002)(396003)(39860400002)(46966005)(1076003)(6916009)(5660300002)(8676002)(36756003)(4326008)(6666004)(70206006)(82310400003)(336012)(86362001)(81166007)(2906002)(316002)(478600001)(7696005)(4744005)(426003)(26005)(47076004)(2616005)(186003)(8936002)(70586007)(82740400003)(356005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2020 06:12:08.9954 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37382cfd-1ee0-4631-2ea0-08d8903fe01f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT009.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,434 +115,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <Pierre-eric.Pelloux-prayer@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0805401206=="
+Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0805401206==
-Content-Type: multipart/alternative;
-	boundary="------------81E16703787DE16773E477EB"
-Content-Language: en-US
+power profile switch in vcn need to send SetWorkLoad msg to
+smu, which is not supported in sriov.
 
---------------81E16703787DE16773E477EB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I just built my kernel with it and tested Horizon Zero Dawn on stock=20
-Proton 5.13, and it doesn't seem to change things there.
-
-This pattern looks identical as with before the kernel patch, as far as=20
-I can tell:
-
-https://imgur.com/a/1fZWgNG
-
-The last purple block is a piece of GPU work on the gfx ring. It's been=20
-queued by software 0.7ms ago, but doesn't get put on the HW ring until=20
-right after the previous piece of GPU work completes. The orange chunk=20
-below is the 'gfx' kernel task executing, to queue it.
-
-Thanks,
-
- =C2=A0- Pierre-Loup
-
-On 2020-11-23 18:09, Marek Ol=C5=A1=C3=A1k wrote:
-> Pierre-Loup, does this do what you requested?
->
-> Thanks,
-> Marek
->
-> On Mon, Nov 23, 2020 at 3:17 PM Christian K=C3=B6nig=20
-> <ckoenig.leichtzumerken@gmail.com=20
-> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
->
->     That the CPU round trip is gone now.
->
->     Christian.
->
->     Am 23.11.20 um 20:49 schrieb Marek Ol=C5=A1=C3=A1k:
->>     What is the behavior we should expect?
->>
->>     Marek
->>
->>     On Mon, Nov 23, 2020 at 7:31 AM Christian K=C3=B6nig
->>     <ckoenig.leichtzumerken@gmail.com
->>     <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
->>
->>         Ping, Pierre/Marek does this change works as expected?
->>
->>         Regards,
->>         Christian.
->>
->>         Am 18.11.20 um 14:20 schrieb Christian K=C3=B6nig:
->>         > This allows for optimizing the CPU round trip away.
->>         >
->>         > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com
->>         <mailto:christian.koenig@amd.com>>
->>         > ---
->>         >=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0 =C2=
-=A0|=C2=A0 2 +-
->>         >=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 27
->>         ++++++++++++++++++++++++
->>         >=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h |=C2=A0 1=
- +
->>         >=C2=A0 =C2=A03 files changed, 29 insertions(+), 1 deletion(-)
->>         >
->>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>         > index 79342976fa76..68f9a4adf5d2 100644
->>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>         > @@ -1014,7 +1014,7 @@ static int
->>         amdgpu_syncobj_lookup_and_add_to_sync(struct amdgpu_cs_parser *p=
-,
->>         >=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r=
-;
->>         >=C2=A0 =C2=A0 =C2=A0 =C2=A0}
->>         >
->>         > -=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_sync_fence(&p->job->sync, fe=
-nce);
->>         > +=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_sync_fence_chain(&p->job->sy=
-nc, fence);
->>         >=C2=A0 =C2=A0 =C2=A0 =C2=A0dma_fence_put(fence);
->>         >
->>         >=C2=A0 =C2=A0 =C2=A0 =C2=A0return r;
->>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>         > index 8ea6c49529e7..d0d64af06f54 100644
->>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
->>         > @@ -28,6 +28,8 @@
->>         >=C2=A0 =C2=A0 *=C2=A0 =C2=A0 Christian K=C3=B6nig <christian.ko=
-enig@amd.com
->>         <mailto:christian.koenig@amd.com>>
->>         >=C2=A0 =C2=A0 */
->>         >
->>         > +#include <linux/dma-fence-chain.h>
->>         > +
->>         >=C2=A0 =C2=A0#include "amdgpu.h"
->>         >=C2=A0 =C2=A0#include "amdgpu_trace.h"
->>         >=C2=A0 =C2=A0#include "amdgpu_amdkfd.h"
->>         > @@ -169,6 +171,31 @@ int amdgpu_sync_fence(struct
->>         amdgpu_sync *sync, struct dma_fence *f)
->>         >=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;
->>         >=C2=A0 =C2=A0}
->>         >
->>         > +/**
->>         > + * amdgpu_sync_fence_chain - unpack dma_fence_chain and sync
->>         > + *
->>         > + * @sync: sync object to add fence to
->>         > + * @f: potential dma_fence_chain to sync to.
->>         > + *
->>         > + * Add the fences inside the chain to the sync object.
->>         > + */
->>         > +int amdgpu_sync_fence_chain(struct amdgpu_sync *sync,
->>         struct dma_fence *f)
->>         > +{
->>         > +=C2=A0 =C2=A0 =C2=A0int r;
->>         > +
->>         > +=C2=A0 =C2=A0 =C2=A0dma_fence_chain_for_each(f, f) {
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (dma_fence=
-_is_signaled(f))
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0continue;
->>         > +
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_=
-sync_fence(sync, f);
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0dma_fence_put(f);
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0return r;
->>         > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
->>         > +=C2=A0 =C2=A0 =C2=A0}
->>         > +=C2=A0 =C2=A0 =C2=A0return 0;
->>         > +}
->>         > +
->>         >=C2=A0 =C2=A0/**
->>         >=C2=A0 =C2=A0 * amdgpu_sync_vm_fence - remember to sync to this=
- VM fence
->>         >=C2=A0 =C2=A0 *
->>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>         > index 7c0fe20c470d..b142175b65b6 100644
->>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
->>         > @@ -48,6 +48,7 @@ struct amdgpu_sync {
->>         >
->>         >=C2=A0 =C2=A0void amdgpu_sync_create(struct amdgpu_sync *sync);
->>         >=C2=A0 =C2=A0int amdgpu_sync_fence(struct amdgpu_sync *sync, st=
-ruct
->>         dma_fence *f);
->>         > +int amdgpu_sync_fence_chain(struct amdgpu_sync *sync,
->>         struct dma_fence *f);
->>         >=C2=A0 =C2=A0int amdgpu_sync_vm_fence(struct amdgpu_sync *sync,=
- struct
->>         dma_fence *fence);
->>         >=C2=A0 =C2=A0int amdgpu_sync_resv(struct amdgpu_device *adev, s=
-truct
->>         amdgpu_sync *sync,
->>         >=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 struct dma_resv *resv, enum
->>         amdgpu_sync_mode mode,
->>
->>         _______________________________________________
->>         amd-gfx mailing list
->>         amd-gfx@lists.freedesktop.org
->>         <mailto:amd-gfx@lists.freedesktop.org>
->>         https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->
-
---------------81E16703787DE16773E477EB
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-    <p>I just built my kernel with it and tested Horizon Zero Dawn on
-      stock Proton 5.13, and it doesn't seem to change things there.</p>
-    <p>This pattern looks identical as with before the kernel patch, as
-      far as I can tell:</p>
-    <p><a class=3D"moz-txt-link-freetext" href=3D"https://imgur.com/a/1fZWg=
-NG">https://imgur.com/a/1fZWgNG</a></p>
-    <p>The last purple block is a piece of GPU work on the gfx ring.
-      It's been queued by software 0.7ms ago, but doesn't get put on the
-      HW ring until right after the previous piece of GPU work
-      completes. The orange chunk below is the 'gfx' kernel task
-      executing, to queue it.</p>
-    <p>Thanks,</p>
-    <p>=C2=A0- Pierre-Loup<br>
-    </p>
-    On 2020-11-23 18:09, Marek Ol=C5=A1=C3=A1k wrote:<br>
-    <blockquote type=3D"cite"
-cite=3D"mid:CAAxE2A4MThFV0Whms5QGHmXNhhw-9++naxWV0n=3DHqinJAOupSw@mail.gmai=
-l.com">
-      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF=
--8">
-      <div dir=3D"ltr">
-        <div>Pierre-Loup, does this do what you requested?</div>
-        <div><br>
-        </div>
-        <div>Thanks,</div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class=3D"gmail_quote">
-        <div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 23, 2020 at 3:17
-          PM Christian K=C3=B6nig &lt;<a
-            href=3D"mailto:ckoenig.leichtzumerken@gmail.com"
-            moz-do-not-send=3D"true">ckoenig.leichtzumerken@gmail.com</a>&g=
-t;
-          wrote:<br>
-        </div>
-        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div>
-            <div>That the CPU round trip is gone now.<br>
-              <br>
-              Christian.<br>
-              <br>
-              Am 23.11.20 um 20:49 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-            </div>
-            <blockquote type=3D"cite">
-              <div dir=3D"ltr">
-                <div>What is the behavior we should expect?</div>
-                <div><br>
-                </div>
-                <div>Marek<br>
-                </div>
-              </div>
-              <br>
-              <div class=3D"gmail_quote">
-                <div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 23, 2020
-                  at 7:31 AM Christian K=C3=B6nig &lt;<a
-                    href=3D"mailto:ckoenig.leichtzumerken@gmail.com"
-                    target=3D"_blank" moz-do-not-send=3D"true">ckoenig.leic=
-htzumerken@gmail.com</a>&gt;
-                  wrote:<br>
-                </div>
-                <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px
-                  0px 0.8ex;border-left:1px solid
-                  rgb(204,204,204);padding-left:1ex">Ping, Pierre/Marek
-                  does this change works as expected?<br>
-                  <br>
-                  Regards,<br>
-                  Christian.<br>
-                  <br>
-                  Am 18.11.20 um 14:20 schrieb Christian K=C3=B6nig:<br>
-                  &gt; This allows for optimizing the CPU round trip
-                  away.<br>
-                  &gt;<br>
-                  &gt; Signed-off-by: Christian K=C3=B6nig &lt;<a
-                    href=3D"mailto:christian.koenig@amd.com"
-                    target=3D"_blank" moz-do-not-send=3D"true">christian.ko=
-enig@amd.com</a>&gt;<br>
-                  &gt; ---<br>
-                  &gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=
-=C2=A0 =C2=A0|=C2=A0 2
-                  +-<br>
-                  &gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c=
- | 27
-                  ++++++++++++++++++++++++<br>
-                  &gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h=
- |=C2=A0 1 +<br>
-                  &gt;=C2=A0 =C2=A03 files changed, 29 insertions(+), 1
-                  deletion(-)<br>
-                  &gt;<br>
-                  &gt; diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-                  &gt; index 79342976fa76..68f9a4adf5d2 100644<br>
-                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-                  &gt; @@ -1014,7 +1014,7 @@ static int
-                  amdgpu_syncobj_lookup_and_add_to_sync(struct
-                  amdgpu_cs_parser *p,<br>
-                  &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0return r;<br>
-                  &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-                  &gt;=C2=A0 =C2=A0<br>
-                  &gt; -=C2=A0 =C2=A0 =C2=A0r =3D
-                  amdgpu_sync_fence(&amp;p-&gt;job-&gt;sync, fence);<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0r =3D
-                  amdgpu_sync_fence_chain(&amp;p-&gt;job-&gt;sync,
-                  fence);<br>
-                  &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0dma_fence_put(fence);<br>
-                  &gt;=C2=A0 =C2=A0<br>
-                  &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
-                  &gt; diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c<br>
-                  &gt; index 8ea6c49529e7..d0d64af06f54 100644<br>
-                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c<br>
-                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c<br>
-                  &gt; @@ -28,6 +28,8 @@<br>
-                  &gt;=C2=A0 =C2=A0 *=C2=A0 =C2=A0 Christian K=C3=B6nig &lt=
-;<a
-                    href=3D"mailto:christian.koenig@amd.com"
-                    target=3D"_blank" moz-do-not-send=3D"true">christian.ko=
-enig@amd.com</a>&gt;<br>
-                  &gt;=C2=A0 =C2=A0 */<br>
-                  &gt;=C2=A0 =C2=A0<br>
-                  &gt; +#include &lt;linux/dma-fence-chain.h&gt;<br>
-                  &gt; +<br>
-                  &gt;=C2=A0 =C2=A0#include "amdgpu.h"<br>
-                  &gt;=C2=A0 =C2=A0#include "amdgpu_trace.h"<br>
-                  &gt;=C2=A0 =C2=A0#include "amdgpu_amdkfd.h"<br>
-                  &gt; @@ -169,6 +171,31 @@ int amdgpu_sync_fence(struct
-                  amdgpu_sync *sync, struct dma_fence *f)<br>
-                  &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-                  &gt;=C2=A0 =C2=A0}<br>
-                  &gt;=C2=A0 =C2=A0<br>
-                  &gt; +/**<br>
-                  &gt; + * amdgpu_sync_fence_chain - unpack
-                  dma_fence_chain and sync<br>
-                  &gt; + *<br>
-                  &gt; + * @sync: sync object to add fence to<br>
-                  &gt; + * @f: potential dma_fence_chain to sync to.<br>
-                  &gt; + *<br>
-                  &gt; + * Add the fences inside the chain to the sync
-                  object.<br>
-                  &gt; + */<br>
-                  &gt; +int amdgpu_sync_fence_chain(struct amdgpu_sync
-                  *sync, struct dma_fence *f)<br>
-                  &gt; +{<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0int r;<br>
-                  &gt; +<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0dma_fence_chain_for_each(f, f) =
-{<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if =
-(dma_fence_is_signaled(f))<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0continue;<br>
-                  &gt; +<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =
-=3D amdgpu_sync_fence(sync, f);<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if =
-(r) {<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0dma_fence_put(f);<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<b=
-r>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-                  &gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
-                  &gt; +}<br>
-                  &gt; +<br>
-                  &gt;=C2=A0 =C2=A0/**<br>
-                  &gt;=C2=A0 =C2=A0 * amdgpu_sync_vm_fence - remember to sy=
-nc to
-                  this VM fence<br>
-                  &gt;=C2=A0 =C2=A0 *<br>
-                  &gt; diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h<br>
-                  &gt; index 7c0fe20c470d..b142175b65b6 100644<br>
-                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h<br>
-                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h<br>
-                  &gt; @@ -48,6 +48,7 @@ struct amdgpu_sync {<br>
-                  &gt;=C2=A0 =C2=A0<br>
-                  &gt;=C2=A0 =C2=A0void amdgpu_sync_create(struct amdgpu_sy=
-nc
-                  *sync);<br>
-                  &gt;=C2=A0 =C2=A0int amdgpu_sync_fence(struct amdgpu_sync=
- *sync,
-                  struct dma_fence *f);<br>
-                  &gt; +int amdgpu_sync_fence_chain(struct amdgpu_sync
-                  *sync, struct dma_fence *f);<br>
-                  &gt;=C2=A0 =C2=A0int amdgpu_sync_vm_fence(struct amdgpu_s=
-ync
-                  *sync, struct dma_fence *fence);<br>
-                  &gt;=C2=A0 =C2=A0int amdgpu_sync_resv(struct amdgpu_devic=
-e
-                  *adev, struct amdgpu_sync *sync,<br>
-                  &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 struct dma_resv *resv, enum
-                  amdgpu_sync_mode mode,<br>
-                  <br>
-                  _______________________________________________<br>
-                  amd-gfx mailing list<br>
-                  <a href=3D"mailto:amd-gfx@lists.freedesktop.org"
-                    target=3D"_blank" moz-do-not-send=3D"true">amd-gfx@list=
-s.freedesktop.org</a><br>
-                  <a
-                    href=3D"https://lists.freedesktop.org/mailman/listinfo/=
-amd-gfx"
-                    rel=3D"noreferrer" target=3D"_blank"
-                    moz-do-not-send=3D"true">https://lists.freedesktop.org/=
-mailman/listinfo/amd-gfx</a><br>
-                </blockquote>
-              </div>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-  </body>
-</html>
-
---------------81E16703787DE16773E477EB--
-
-
---===============0805401206==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 17a45baff638..8fb12afe3c96 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -1168,6 +1168,9 @@ int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
+ {
+ 	int ret = 0;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	if (is_support_sw_smu(adev))
+ 		ret = smu_switch_power_profile(&adev->smu, type, en);
+ 	else if (adev->powerplay.pp_funcs &&
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0805401206==--
-
