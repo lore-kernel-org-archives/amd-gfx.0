@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0DA3C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2163BC6379D
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F052206D8
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:38:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F052206D8
+	by mail.kernel.org (Postfix) with ESMTPS id B833D2075A
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 11:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B833D2075A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56A056E3D6;
-	Tue, 24 Nov 2020 11:38:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D606E3C1;
+	Tue, 24 Nov 2020 11:38:32 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 162076E23D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 385316E284;
  Tue, 24 Nov 2020 11:38:30 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 28410AD8C;
+ by mx2.suse.de (Postfix) with ESMTP id 8DCE0ADC5;
  Tue, 24 Nov 2020 11:38:28 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie,
 	daniel@ffwll.ch
-Subject: [PATCH 06/15] drm/hibmc: Remove references to struct drm_device.pdev
-Date: Tue, 24 Nov 2020 12:38:15 +0100
-Message-Id: <20201124113824.19994-7-tzimmermann@suse.de>
+Subject: [PATCH 08/15] drm/mgag200: Remove references to struct drm_device.pdev
+Date: Tue, 24 Nov 2020 12:38:17 +0100
+Message-Id: <20201124113824.19994-9-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201124113824.19994-1-tzimmermann@suse.de>
 References: <20201124113824.19994-1-tzimmermann@suse.de>
@@ -48,115 +48,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- John Stultz <john.stultz@linaro.org>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
- spice-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Chen Feng <puck.chen@hisilicon.com>
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ spice-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert hibmc to struct
+Using struct drm_device.pdev is deprecated. Convert mgag200 to struct
 drm_device.dev. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Xinliang Liu <xinliang.liu@linaro.org>
-Cc: Tian Tao  <tiantao6@hisilicon.com>
-Cc: John Stultz <john.stultz@linaro.org>
-Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
-Cc: Chen Feng <puck.chen@hisilicon.com>
 ---
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 10 +++++-----
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c |  2 +-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c     |  4 ++--
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/mgag200/mgag200_drv.c | 20 +++++++++++---------
+ drivers/gpu/drm/mgag200/mgag200_i2c.c |  2 +-
+ drivers/gpu/drm/mgag200/mgag200_mm.c  | 10 ++++++----
+ 3 files changed, 18 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index d845657fd99c..ac5868343d0c 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -203,7 +203,7 @@ static void hibmc_hw_config(struct hibmc_drm_private *priv)
- static int hibmc_hw_map(struct hibmc_drm_private *priv)
+diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+index a977c9f49719..4e4c105f9a50 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_drv.c
++++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+@@ -47,10 +47,11 @@ static const struct drm_driver mgag200_driver = {
+ static bool mgag200_has_sgram(struct mga_device *mdev)
  {
- 	struct drm_device *dev = priv->dev;
--	struct pci_dev *pdev = dev->pdev;
+ 	struct drm_device *dev = &mdev->base;
 +	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	resource_size_t addr, size, ioaddr, iosize;
- 
- 	ioaddr = pci_resource_start(pdev, 1);
-@@ -249,7 +249,7 @@ static int hibmc_unload(struct drm_device *dev)
- 	if (dev->irq_enabled)
- 		drm_irq_uninstall(dev);
- 
--	pci_disable_msi(dev->pdev);
-+	pci_disable_msi(to_pci_dev(dev->dev));
- 	hibmc_kms_fini(priv);
- 	hibmc_mm_fini(priv);
- 	dev->dev_private = NULL;
-@@ -258,6 +258,7 @@ static int hibmc_unload(struct drm_device *dev)
- 
- static int hibmc_load(struct drm_device *dev)
- {
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	struct hibmc_drm_private *priv;
+ 	u32 option;
  	int ret;
  
-@@ -287,11 +288,11 @@ static int hibmc_load(struct drm_device *dev)
- 		goto err;
+-	ret = pci_read_config_dword(dev->pdev, PCI_MGA_OPTION, &option);
++	ret = pci_read_config_dword(pdev, PCI_MGA_OPTION, &option);
+ 	if (drm_WARN(dev, ret, "failed to read PCI config dword: %d\n", ret))
+ 		return false;
+ 
+@@ -60,6 +61,7 @@ static bool mgag200_has_sgram(struct mga_device *mdev)
+ static int mgag200_regs_init(struct mga_device *mdev)
+ {
+ 	struct drm_device *dev = &mdev->base;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	u32 option, option2;
+ 	u8 crtcext3;
+ 
+@@ -99,13 +101,13 @@ static int mgag200_regs_init(struct mga_device *mdev)
  	}
  
--	ret = pci_enable_msi(dev->pdev);
-+	ret = pci_enable_msi(pdev);
- 	if (ret) {
- 		drm_warn(dev, "enabling MSI failed: %d\n", ret);
- 	} else {
--		ret = drm_irq_install(dev, dev->pdev->irq);
-+		ret = drm_irq_install(dev, pdev->irq);
- 		if (ret)
- 			drm_warn(dev, "install irq failed: %d\n", ret);
+ 	if (option)
+-		pci_write_config_dword(dev->pdev, PCI_MGA_OPTION, option);
++		pci_write_config_dword(pdev, PCI_MGA_OPTION, option);
+ 	if (option2)
+-		pci_write_config_dword(dev->pdev, PCI_MGA_OPTION2, option2);
++		pci_write_config_dword(pdev, PCI_MGA_OPTION2, option2);
+ 
+ 	/* BAR 1 contains registers */
+-	mdev->rmmio_base = pci_resource_start(dev->pdev, 1);
+-	mdev->rmmio_size = pci_resource_len(dev->pdev, 1);
++	mdev->rmmio_base = pci_resource_start(pdev, 1);
++	mdev->rmmio_size = pci_resource_len(pdev, 1);
+ 
+ 	if (!devm_request_mem_region(dev->dev, mdev->rmmio_base,
+ 				     mdev->rmmio_size, "mgadrmfb_mmio")) {
+@@ -113,7 +115,7 @@ static int mgag200_regs_init(struct mga_device *mdev)
+ 		return -ENOMEM;
  	}
-@@ -324,7 +325,6 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 		return PTR_ERR(dev);
- 	}
+ 
+-	mdev->rmmio = pcim_iomap(dev->pdev, 1, 0);
++	mdev->rmmio = pcim_iomap(pdev, 1, 0);
+ 	if (mdev->rmmio == NULL)
+ 		return -ENOMEM;
+ 
+@@ -218,6 +220,7 @@ static void mgag200_g200_interpret_bios(struct mga_device *mdev,
+ static void mgag200_g200_init_refclk(struct mga_device *mdev)
+ {
+ 	struct drm_device *dev = &mdev->base;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	unsigned char __iomem *rom;
+ 	unsigned char *bios;
+ 	size_t size;
+@@ -226,7 +229,7 @@ static void mgag200_g200_init_refclk(struct mga_device *mdev)
+ 	mdev->model.g200.pclk_max = 230000;
+ 	mdev->model.g200.ref_clk = 27050;
+ 
+-	rom = pci_map_rom(dev->pdev, &size);
++	rom = pci_map_rom(pdev, &size);
+ 	if (!rom)
+ 		return;
+ 
+@@ -244,7 +247,7 @@ static void mgag200_g200_init_refclk(struct mga_device *mdev)
+ 
+ 	vfree(bios);
+ out:
+-	pci_unmap_rom(dev->pdev, rom);
++	pci_unmap_rom(pdev, rom);
+ }
+ 
+ static void mgag200_g200se_init_unique_id(struct mga_device *mdev)
+@@ -301,7 +304,6 @@ mgag200_device_create(struct pci_dev *pdev, unsigned long flags)
+ 		return mdev;
+ 	dev = &mdev->base;
  
 -	dev->pdev = pdev;
  	pci_set_drvdata(pdev, dev);
  
- 	ret = pci_enable_device(pdev);
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-index 86d712090d87..410bd019bb35 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-@@ -83,7 +83,7 @@ int hibmc_ddc_create(struct drm_device *drm_dev,
- 	connector->adapter.owner = THIS_MODULE;
- 	connector->adapter.class = I2C_CLASS_DDC;
- 	snprintf(connector->adapter.name, I2C_NAME_SIZE, "HIS i2c bit bus");
--	connector->adapter.dev.parent = &drm_dev->pdev->dev;
-+	connector->adapter.dev.parent = drm_dev->dev;
- 	i2c_set_adapdata(&connector->adapter, connector);
- 	connector->adapter.algo_data = &connector->bit_data;
- 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c
-index 602ece11bb4a..77f075075db2 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c
-@@ -26,9 +26,9 @@ int hibmc_mm_init(struct hibmc_drm_private *hibmc)
- 	struct drm_vram_mm *vmm;
- 	int ret;
- 	struct drm_device *dev = hibmc->dev;
+ 	ret = mgag200_device_init(mdev, flags);
+diff --git a/drivers/gpu/drm/mgag200/mgag200_i2c.c b/drivers/gpu/drm/mgag200/mgag200_i2c.c
+index 09731e614e46..ac8e34eef513 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_i2c.c
++++ b/drivers/gpu/drm/mgag200/mgag200_i2c.c
+@@ -126,7 +126,7 @@ struct mga_i2c_chan *mgag200_i2c_create(struct drm_device *dev)
+ 	i2c->clock = clock;
+ 	i2c->adapter.owner = THIS_MODULE;
+ 	i2c->adapter.class = I2C_CLASS_DDC;
+-	i2c->adapter.dev.parent = &dev->pdev->dev;
++	i2c->adapter.dev.parent = dev->dev;
+ 	i2c->dev = dev;
+ 	i2c_set_adapdata(&i2c->adapter, i2c);
+ 	snprintf(i2c->adapter.name, sizeof(i2c->adapter.name), "mga i2c");
+diff --git a/drivers/gpu/drm/mgag200/mgag200_mm.c b/drivers/gpu/drm/mgag200/mgag200_mm.c
+index 641f1aa992be..b667371b69a4 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_mm.c
++++ b/drivers/gpu/drm/mgag200/mgag200_mm.c
+@@ -78,11 +78,12 @@ static size_t mgag200_probe_vram(struct mga_device *mdev, void __iomem *mem,
+ static void mgag200_mm_release(struct drm_device *dev, void *ptr)
+ {
+ 	struct mga_device *mdev = to_mga_device(dev);
 +	struct pci_dev *pdev = to_pci_dev(dev->dev);
  
--	vmm = drm_vram_helper_alloc_mm(dev,
--				       pci_resource_start(dev->pdev, 0),
-+	vmm = drm_vram_helper_alloc_mm(dev, pci_resource_start(pdev, 0),
- 				       hibmc->fb_size);
- 	if (IS_ERR(vmm)) {
- 		ret = PTR_ERR(vmm);
+ 	mdev->vram_fb_available = 0;
+ 	iounmap(mdev->vram);
+-	arch_io_free_memtype_wc(pci_resource_start(dev->pdev, 0),
+-				pci_resource_len(dev->pdev, 0));
++	arch_io_free_memtype_wc(pci_resource_start(pdev, 0),
++				pci_resource_len(pdev, 0));
+ 	arch_phys_wc_del(mdev->fb_mtrr);
+ 	mdev->fb_mtrr = 0;
+ }
+@@ -90,6 +91,7 @@ static void mgag200_mm_release(struct drm_device *dev, void *ptr)
+ int mgag200_mm_init(struct mga_device *mdev)
+ {
+ 	struct drm_device *dev = &mdev->base;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	u8 misc;
+ 	resource_size_t start, len;
+ 	int ret;
+@@ -102,8 +104,8 @@ int mgag200_mm_init(struct mga_device *mdev)
+ 	WREG8(MGA_MISC_OUT, misc);
+ 
+ 	/* BAR 0 is VRAM */
+-	start = pci_resource_start(dev->pdev, 0);
+-	len = pci_resource_len(dev->pdev, 0);
++	start = pci_resource_start(pdev, 0);
++	len = pci_resource_len(pdev, 0);
+ 
+ 	if (!devm_request_mem_region(dev->dev, start, len, "mgadrmfb_vram")) {
+ 		drm_err(dev, "can't reserve VRAM\n");
 -- 
 2.29.2
 
