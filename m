@@ -2,76 +2,71 @@ Return-Path: <SRS0=+gD6=E7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1A7DC64E8A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25693C64E7B
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D7AA208CA
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4CE920872
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="DUjk2u5m";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="DUjk2u5m"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D7AA208CA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=HansenPartnership.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Pv1nAl+X"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4CE920872
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3B596E937;
-	Wed, 25 Nov 2020 08:23:00 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
- [96.44.175.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5D9E89823;
- Wed, 25 Nov 2020 07:05:43 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by bedivere.hansenpartnership.com (Postfix) with ESMTP id 313DE1280408;
- Tue, 24 Nov 2020 23:05:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1606287940;
- bh=PpyvloC8ztllb7q8ndtGKJRs78ChiB3jg6tteM0zYL0=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=DUjk2u5mMxkvusJZ7TUknDmT+9jEkjAK5Du54VYrLnX3ZVAsqbXKInJF3+bjbWxe1
- sPTOm9Jo8O4FiM37EcbSbGJ09Z6i3toRLj70BanOqmx/doOouqQw1ofRfirJ315HKN
- ACp6UaCD/rMf1rqLOvr/v7W+FqOYQZREI5LkhaoU=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
- by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id 8AuMCu2vLv9Z; Tue, 24 Nov 2020 23:05:40 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown
- [IPv6:2601:600:8280:66d1::527])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id A873112803EC;
- Tue, 24 Nov 2020 23:05:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1606287940;
- bh=PpyvloC8ztllb7q8ndtGKJRs78ChiB3jg6tteM0zYL0=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=DUjk2u5mMxkvusJZ7TUknDmT+9jEkjAK5Du54VYrLnX3ZVAsqbXKInJF3+bjbWxe1
- sPTOm9Jo8O4FiM37EcbSbGJ09Z6i3toRLj70BanOqmx/doOouqQw1ofRfirJ315HKN
- ACp6UaCD/rMf1rqLOvr/v7W+FqOYQZREI5LkhaoU=
-Message-ID: <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
-Subject: Re: [Intel-wired-lan] [PATCH 000/141] Fix fall-through warnings for
- Clang
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Kees Cook <keescook@chromium.org>
-Date: Tue, 24 Nov 2020 23:05:35 -0800
-In-Reply-To: <202011241327.BB28F12F6@keescook>
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
- <202011241327.BB28F12F6@keescook>
-User-Agent: Evolution 3.34.4 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3096E92E;
+	Wed, 25 Nov 2020 08:23:01 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 200BF6E558
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 19:44:13 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id l1so23522636wrb.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 11:44:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=ZMRPM9I1lRNzH88FtoqbWHR6lT2TOJ7GT2PZsC4P/7E=;
+ b=Pv1nAl+XofxDOZMywxILqcP4qIfKofxo/gaSMnaL6TNvz2rt53Q/joRSKnqpI7b53o
+ +mFQmg+10YbgQAqbu6F/cdCzPBL58XI60OMwNhhOmGOdPuoWXcqr88wOld6btC+12xTf
+ vHOZo7K8jnHhrisjkOZOwcL8kDhmTh9ZMP4QGo3QnFq1KxzD84c366EnPZGiWBR1rvXX
+ hlQ9n+fPeXMkpACeuYr0J69YEKM3NGMCv/LM9NFvZZ/IzMjhZRGShhD9/7VZmk25Gm2f
+ VqeMCMauBULX0332aSWQFCo5DEL0tMUuX4zfbsqua/L0qPD8eIEnuUlEv//H5f+tcSu5
+ 8v2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ZMRPM9I1lRNzH88FtoqbWHR6lT2TOJ7GT2PZsC4P/7E=;
+ b=UgcCsCy3i2PTj6MPKQEnfpixQlS/Cin8Fp149Et46venNaIX56x8/yAlHOkKSmnWME
+ C8NcIXIFTxqfknspYVMOYfL5oEU7Ydme0M2PbYtRG7CyaQ8z3gYSVK1CaUlcH6n+GTzW
+ Plh8EBaMy6QulGfsXG82E17tN0h+4j6odYetVK4O705B7etFqPC5E9waxgL1ck8FtHW3
+ qA7q419coFizfUVxLVLIFW4GC4SwSphM50lOeZ86iHo4qXyYrpWn4v9YugHaI0hjhamN
+ YjYLuAPLJJOrzUvV1yHBUagU9bJNdI0NURWb67F4ZNcqozf90qJRXG2fJFNC8YAAvrJr
+ zWFA==
+X-Gm-Message-State: AOAM532KLVHgQo+CPCB2yoYJI9oI+v6PXOmAeHmnMruwIwGml1Tv9Xky
+ nC3YCgcc7UwGN6htd1WInYhpzg==
+X-Google-Smtp-Source: ABdhPJxtPeOQq1Pn1Ae5Xv1UPMN/ILKfgZPrpa0CptICuNWu7dvVV2HkVJwgEEZQcuPZyY8YjfDuGA==
+X-Received: by 2002:adf:f7c2:: with SMTP id a2mr78636wrq.11.1606247052702;
+ Tue, 24 Nov 2020 11:44:12 -0800 (PST)
+Received: from dell.default ([91.110.221.235])
+ by smtp.gmail.com with ESMTPSA id d134sm200511wmd.8.2020.11.24.11.44.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2020 11:44:12 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 11/40] drm/amd/amdgpu/psp_v11_0: Make local function
+ 'psp_v11_0_wait_for_bootloader()' static
+Date: Tue, 24 Nov 2020 19:37:55 +0000
+Message-Id: <20201124193824.1118741-12-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201124193824.1118741-1-lee.jones@linaro.org>
+References: <20201124193824.1118741-1-lee.jones@linaro.org>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 25 Nov 2020 08:22:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,110 +80,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- linux-iio@vger.kernel.org, samba-technical@lists.samba.org,
- linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
- virtualization@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
- selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
- linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com, linux-mm@kvack.org,
- netdev@vger.kernel.org, linux-decnet-user@lists.sourceforge.net,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-usb@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-crypto@vger.kernel.org, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, x86@kernel.org,
- linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2020-11-24 at 13:32 -0800, Kees Cook wrote:
-> On Mon, Nov 23, 2020 at 08:31:30AM -0800, James Bottomley wrote:
-> > Really, no ... something which produces no improvement has no value
-> > at all ... we really shouldn't be wasting maintainer time with it
-> > because it has a cost to merge.  I'm not sure we understand where
-> > the balance lies in value vs cost to merge but I am confident in
-> > the zero value case.
-> 
-> What? We can't measure how many future bugs aren't introduced because
-> the kernel requires explicit case flow-control statements for all new
-> code.
-
-No but we can measure how vulnerable our current coding habits are to
-the mistake this warning would potentially prevent.  I don't think it's
-wrong to extrapolate that if we had no instances at all of prior coding
-problems we likely wouldn't have any in future either making adopting
-the changes needed to enable the warning valueless ... that's the zero
-value case I was referring to above.
-
-Now, what we have seems to be about 6 cases (at least what's been shown
-in this thread) where a missing break would cause potentially user
-visible issues.  That means the value of this isn't zero, but it's not
-a no-brainer massive win either.  That's why I think asking what we've
-invested vs the return isn't a useless exercise.
-
-> We already enable -Wimplicit-fallthrough globally, so that's not the
-> discussion. The issue is that Clang is (correctly) even more strict
-> than GCC for this, so these are the remaining ones to fix for full
-> Clang coverage too.
-> 
-> People have spent more time debating this already than it would have
-> taken to apply the patches. :)
-
-You mean we've already spent 90% of the effort to come this far so we
-might as well go the remaining 10% because then at least we get some
-return? It's certainly a clinching argument in defence procurement ...
-
-> This is about robustness and language wrangling. It's a big code-
-> base, and this is the price of our managing technical debt for
-> permanent robustness improvements. (The numbers I ran from Gustavo's
-> earlier patches were that about 10% of the places adjusted were
-> identified as legitimate bugs being fixed. This final series may be
-> lower, but there are still bugs being found from it -- we need to
-> finish this and shut the door on it for good.)
-
-I got my six patches by analyzing the lwn.net report of the fixes that
-was cited which had 21 of which 50% didn't actually change the emitted
-code, and 25% didn't have a user visible effect.
-
-But the broader point I'm making is just because the compiler people
-come up with a shiny new warning doesn't necessarily mean the problem
-it's detecting is one that causes us actual problems in the code base. 
-I'd really be happier if we had a theory about what classes of CVE or
-bug we could eliminate before we embrace the next new warning.
-
-James
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmM6MjIzOjU6IHdhcm5pbmc6IG5vIHByZXZp
+b3VzIHByb3RvdHlwZSBmb3Ig4oCYcHNwX3YxMV8wX3dhaXRfZm9yX2Jvb3Rsb2FkZXLigJkgWy1X
+bWlzc2luZy1wcm90b3R5cGVzXQoKQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
+YW1kLmNvbT4KQ2M6ICJDaHJpc3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
+PgpDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgpDYzogRGFuaWVsIFZldHRlciA8
+ZGFuaWVsQGZmd2xsLmNoPgpDYzogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29t
+PgpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IGRyaS1kZXZlbEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKU2lnbmVkLW9mZi1ieTogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJv
+Lm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYyB8IDIgKy0K
+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMKaW5kZXggZWRkMmQ2YmQxZDg2YS4uYmQ0MjQ4Yzkz
+YzQ5ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMKQEAgLTIyMCw3ICsy
+MjAsNyBAQCBzdGF0aWMgaW50IHBzcF92MTFfMF9pbml0X21pY3JvY29kZShzdHJ1Y3QgcHNwX2Nv
+bnRleHQgKnBzcCkKIAlyZXR1cm4gZXJyOwogfQogCi1pbnQgcHNwX3YxMV8wX3dhaXRfZm9yX2Jv
+b3Rsb2FkZXIoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCitzdGF0aWMgaW50IHBzcF92MTFfMF93
+YWl0X2Zvcl9ib290bG9hZGVyKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQogewogCXN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2ID0gcHNwLT5hZGV2OwogCi0tIAoyLjI1LjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
