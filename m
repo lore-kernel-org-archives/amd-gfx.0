@@ -2,51 +2,71 @@ Return-Path: <SRS0=xWtd=E6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C6EEC56201
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 14:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA4E3C64E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 14:49:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E973F20857
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 14:47:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4F8C8206F9
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 14:49:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="tWoPDQgv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E973F20857
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="BtmS2C62"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F8C8206F9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ACB26E430;
-	Tue, 24 Nov 2020 14:47:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEAEC6E420;
- Tue, 24 Nov 2020 14:47:46 +0000 (UTC)
-Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A5073206F9;
- Tue, 24 Nov 2020 14:47:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606229266;
- bh=KHWIOvsVxIgxzJ3ANvrXr+IcifXvCH3d9eC+5p4MJwo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tWoPDQgvsKVPCfxibPNl9c0zBQ9NfBrnsDyv8UIAtPJxHLfF4o1CuP3vwUt19y/P8
- Y66kkjj2Cim4kMyRQiiYzb1whNr+v/N+nMKfcHqv3RaX8mBnUDrFmNddDbw9/dIVnH
- xirANyC4hb8bYXXRvxw8qG9eYp8JWf8UX9D38PQM=
-Date: Tue, 24 Nov 2020 08:47:54 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-Message-ID: <20201124144754.GL16084@embeddedor>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <160616392671.21180.16517492185091399884.b4-ty@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B33E96E43F;
+	Tue, 24 Nov 2020 14:49:43 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D42896E43A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 14:49:42 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id w24so3166322wmi.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 06:49:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=E7wW1UNVzMZXQ5oQM/ZhqTTBRfJ7bxXAdv+2boiN/RQ=;
+ b=BtmS2C62X+xmrO2iPvkPEXDuNSBqHMcS//zSJ872psX+aoVBAF0SE1wWiuj1HN7VSp
+ ugdDIdLNB9zB4YNFhMA7uusFj2dtStFlUZMM++xZUKMnMoj4f1ijzcuYpqL8+PQwCuvc
+ busB8oz/awj6DfAlABOcEUYt6/t9LZf4nvP+Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=E7wW1UNVzMZXQ5oQM/ZhqTTBRfJ7bxXAdv+2boiN/RQ=;
+ b=PsfmKTAXBCP06Wsp/M2KAXsNLwGeCrEDRY0QP19/BQtcAY0k9AQ30mn3NGialbLE71
+ /W9PEZRVyv7RCNtjWxmLy1Z8dooHILkHPBXfIVl0IGIq9HWphwL27MZHFtybGauCZvWK
+ S4F+uEyRil5oVsEw7CxWdT4+Dy0OH5upHXefQqmMHXQy7JkViPAFsp9YvfyyUx5WtoDT
+ +ISAsGZyQP7ro0Pw+2hIc7K4ryS79R2ja7lPqNvMNoIAWo3LyNsFK4b40T5fmYqkWFQ+
+ TfARsEQY1jyz8xgmgV2m08R/22gZ/1IOOifSz8pDJchdMqF+Ut3tBuj+zMm1WVGKvv5s
+ F6ag==
+X-Gm-Message-State: AOAM531gmYjpq4HvIfOU7Nhvdqo2PiPhIeAU8HsOIOv9YyfH5UykkMqk
+ 97i5+3FaSJ9bAhp1ta18GSv2Fw==
+X-Google-Smtp-Source: ABdhPJwQHzXUETcIye9E/dyfK8rvoGMEmJ6s9krLqRQak9XeA+herJfYpJ27nR79XFpGHEU7++A4uA==
+X-Received: by 2002:a1c:e4d4:: with SMTP id b203mr4699716wmh.141.1606229381522; 
+ Tue, 24 Nov 2020 06:49:41 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id l3sm6473848wmf.0.2020.11.24.06.49.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2020 06:49:40 -0800 (PST)
+Date: Tue, 24 Nov 2020 15:49:38 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: Re: [PATCH v3 10/12] drm/amdgpu: Avoid sysfs dirs removal post
+ device unplug
+Message-ID: <20201124144938.GR401619@phenom.ffwll.local>
+References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1605936082-3099-11-git-send-email-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <160616392671.21180.16517492185091399884.b4-ty@kernel.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <1605936082-3099-11-git-send-email-andrey.grodzovsky@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,72 +78,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- dm-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
- Nick Desaulniers <ndesaulniers@google.com>, linux-mmc@vger.kernel.org,
- x86@kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- linux-sctp@vger.kernel.org, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-hardening@vger.kernel.org,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, bridge@lists.linux-foundation.org,
- ceph-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- oss-drivers@netronome.com, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- samba-technical@lists.samba.org, linux-fbdev@vger.kernel.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
- linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- linux-ide@vger.kernel.org, linux-decnet-user@lists.sourceforge.net,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, GR-everest-linux-l2@marvell.com
+Cc: robh@kernel.org, gregkh@linuxfoundation.org,
+ ckoenig.leichtzumerken@gmail.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, Alexander.Deucher@amd.com, yuq825@gmail.com,
+ Harry.Wentland@amd.com, l.stach@pengutronix.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 08:38:46PM +0000, Mark Brown wrote:
-> On Fri, 20 Nov 2020 12:21:39 -0600, Gustavo A. R. Silva wrote:
-> > This series aims to fix almost all remaining fall-through warnings in
-> > order to enable -Wimplicit-fallthrough for Clang.
-> > 
-> > In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
-> > add multiple break/goto/return/fallthrough statements instead of just
-> > letting the code fall through to the next case.
-> > 
-> > [...]
+On Sat, Nov 21, 2020 at 12:21:20AM -0500, Andrey Grodzovsky wrote:
+> Avoids NULL ptr due to kobj->sd being unset on device removal.
 > 
-> Applied to
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c   | 4 +++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 4 +++-
+>  2 files changed, 6 insertions(+), 2 deletions(-)
 > 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
-> 
-> Thanks!
-> 
-> [1/1] regulator: as3722: Fix fall-through warnings for Clang
->       commit: b52b417ccac4fae5b1f2ec4f1d46eb91e4493dc5
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index caf828a..812e592 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -27,6 +27,7 @@
+>  #include <linux/uaccess.h>
+>  #include <linux/reboot.h>
+>  #include <linux/syscalls.h>
+> +#include <drm/drm_drv.h>
+>  
+>  #include "amdgpu.h"
+>  #include "amdgpu_ras.h"
+> @@ -1043,7 +1044,8 @@ static int amdgpu_ras_sysfs_remove_feature_node(struct amdgpu_device *adev)
+>  		.attrs = attrs,
+>  	};
+>  
+> -	sysfs_remove_group(&adev->dev->kobj, &group);
+> +	if (!drm_dev_is_unplugged(&adev->ddev))
+> +		sysfs_remove_group(&adev->dev->kobj, &group);
 
-Thank you, Mark.
---
-Gustavo
+This looks wrong. sysfs, like any other interface, should be
+unconditionally thrown out when we do the drm_dev_unregister. Whether
+hotunplugged or not should matter at all. Either this isn't needed at all,
+or something is wrong with the ordering here. But definitely fishy.
+-Daniel
+
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> index 2b7c90b..54331fc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/firmware.h>
+>  #include <linux/slab.h>
+>  #include <linux/module.h>
+> +#include <drm/drm_drv.h>
+>  
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> @@ -464,7 +465,8 @@ int amdgpu_ucode_sysfs_init(struct amdgpu_device *adev)
+>  
+>  void amdgpu_ucode_sysfs_fini(struct amdgpu_device *adev)
+>  {
+> -	sysfs_remove_group(&adev->dev->kobj, &fw_attr_group);
+> +	if (!drm_dev_is_unplugged(&adev->ddev))
+> +		sysfs_remove_group(&adev->dev->kobj, &fw_attr_group);
+>  }
+>  
+>  static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
+> -- 
+> 2.7.4
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
