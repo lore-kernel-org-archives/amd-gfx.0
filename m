@@ -2,77 +2,72 @@ Return-Path: <SRS0=+gD6=E7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 109B3C64E75
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FFE9C64E7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9DEFF208C3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C989220872
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+vUmSI7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DEFF208C3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="KX+rHvLc"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C989220872
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2123F6E999;
-	Wed, 25 Nov 2020 08:23:03 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D276E44A;
- Tue, 24 Nov 2020 23:16:06 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id q5so1000755qkc.12;
- Tue, 24 Nov 2020 15:16:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Jbdr1BEjJUZERXYDOU4Gv/mlbgAbUhdHLiICpsfXV1E=;
- b=l+vUmSI7i0l7fGuVwLPE5fOuxSSHusFrOEG0e9vJ5rcmJlRUOrCYTNMgOLszTPHVi8
- kkm8fDq5tpugZyKejz3uk0cqdmJQS1mRaMRBkOrvbAyI5fs/P/fRtiJLDz+N02sHzTn9
- 5/inSz1Fbn+KfojwxtYTlcXPJfmsrqKqTBJHlwr9t4EjDd547DXA4VcN7evdsnVsuQ6p
- BBfcG3FVJZcSml9If1GSG7EsdjE7zI8hFJDY7AHsK/qRYVzYo+XeozyqqdAfx+vCyNIu
- chiyZGm6NoHt+eS3/xbHVpbDRehhnbGG6wOdrUeu9OVynRP4/UUYeZuXMpT7icG9n0vb
- 4oYg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1DE06E982;
+	Wed, 25 Nov 2020 08:23:02 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E62396E52A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 19:44:36 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id u12so23613001wrt.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 11:44:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=b/U28BTdBGMRnDOnXaXT9FPg1voaJCOCB5Rl4gPT4og=;
+ b=KX+rHvLcQeAGt+G+t9x+57/PA61xVTZTNqvrigBRVwItHIZSEB9puNLgxNps76v3U7
+ +nctpHeQLuMb5l5/ossElcaIgrjUXHzAkRVRDbJQietyxRx7+E75MBsNDOAwIwJ1yVhp
+ Kvx81ixX+I68QKaTdpbrHASnDDs9Qdf5452foUVxQQRkdW7xG15qBAL5FXNbeMz1FD68
+ nkFmgNlu20yIyV237M2WdFXXxjNyAygCIZsUoMyTdVxffvk2w/yRmbJKQ9m7SamyVpbz
+ hC+Cb4ChBuj+pHQj9q6wwZiFDndnnz/UUyIQ+ATocaQC04K74bfUNcKB8GKtWnDSi0Lk
+ p9bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Jbdr1BEjJUZERXYDOU4Gv/mlbgAbUhdHLiICpsfXV1E=;
- b=Els6q2E+SF2d8ASIVYRbKtMfg45DHntS0zOaYkklFxV/EdqszrhQ2ASRIHdnhPgq1B
- 7V6NoVnLjhRPzBAowk720C1OVxrtvyvmNfLqa759Y8cdLwFb/L5i85a0Le8kE3tZE/4Z
- Z7PechApfQr0Omve6DUO8FkRNYgHfdUjUG8OK0L7a1/VGs7cCx1MB52gmzywNGyjl3ws
- JPVqUcm10ox7OUewarQkXtpv9IHSt4zH7n/Ie9hA6Ur75XBLtgPBsnp4/Kao3Knj+jGe
- 96rgwUZFEUBvaiHRNNvw1747rLMxozU0WiRh1ZprdKNiBK3ZB5NOaLtCotg/hk9CVGpT
- UDSA==
-X-Gm-Message-State: AOAM530E0wrDwt3XQ1FPlj5GboFABkCeN/fYRM0aJnd5fcTWHNAw4xSo
- ppgf9h2aWjVkixJ/OFvc5ypvuFxzhWX1U3Hv47o=
-X-Google-Smtp-Source: ABdhPJzk8nFL+kqPtl4RF6lmqD43KwMnT4A8Oapd7ArTtvgjfEhtR30+WEgNSraaEzhK8tG/u1tJxvxiaOrV9LODN+o=
-X-Received: by 2002:a25:61c5:: with SMTP id v188mr748702ybb.422.1606259765056; 
- Tue, 24 Nov 2020 15:16:05 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=b/U28BTdBGMRnDOnXaXT9FPg1voaJCOCB5Rl4gPT4og=;
+ b=DqmnsGDEZ6V0QrKrLmxp2znSlIh6uVhXFLVct33kolXAl5GG/34/8ZgcpfJTx9x/Hv
+ Fat1kwQ66axdZChcMzpEGVm5H917ZdAEXD72Y8mMH9LyeUlTfTXvWlyWc68+rLC2AgT/
+ Hnfpd7aXnSeX+BoXikuXCrseemZDg1/7xVZNYuOcJR5Hr58Knb7ZC7J9R6k74bV8Ln96
+ +Px2DeduxzvVT0WYvePImxKi3XDxsTHLzJ0Ca8gcAmsbftkPlZQQiiyjVTP24ulvJsjk
+ JirzUPQT2czE8TQ86GQLnZEpAmG0lx57vGjjDDBIQT9wEC+LEt5Nuyiy6W5NbjgYYAN1
+ KZHA==
+X-Gm-Message-State: AOAM533s92BqYgHqPsbcmzGdNa7+pp1vTpqOsB5mG5pRcxxDOte+Za2F
+ 99ptVk3ZXHWp74gO6MNIhke+q9G40KibW5AW
+X-Google-Smtp-Source: ABdhPJy3OAmqTFNh+PuMtHw2N8gAQ2AEXQI+Mb4rG9z3tFFUCD2Fkoj3PE7C8G8IfbM8R1LsSFimOg==
+X-Received: by 2002:a5d:400a:: with SMTP id n10mr87661wrp.362.1606247075639;
+ Tue, 24 Nov 2020 11:44:35 -0800 (PST)
+Received: from dell.default ([91.110.221.235])
+ by smtp.gmail.com with ESMTPSA id d134sm200511wmd.8.2020.11.24.11.44.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2020 11:44:34 -0800 (PST)
+From: Lee Jones <lee.jones@linaro.org>
+To: lee.jones@linaro.org
+Subject: [PATCH 29/40] drm/amd/amdgpu/vcn_v1_0: Fix a few kernel-doc
+ misdemeanours
+Date: Tue, 24 Nov 2020 19:38:13 +0000
+Message-Id: <20201124193824.1118741-30-lee.jones@linaro.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201124193824.1118741-1-lee.jones@linaro.org>
+References: <20201124193824.1118741-1-lee.jones@linaro.org>
 MIME-Version: 1.0
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
- <202011241327.BB28F12F6@keescook>
- <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
-In-Reply-To: <alpine.LNX.2.23.453.2011250859290.15@nippy.intranet>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 25 Nov 2020 00:15:54 +0100
-Message-ID: <CANiq72nUt57u5DG9rH=DB0DzQH7U6-QbG-2Ou+PyCY=p=_Ggag@mail.gmail.com>
-Subject: Re: [Intel-wired-lan] [PATCH 000/141] Fix fall-through warnings for
- Clang
-To: Finn Thain <fthain@telegraphics.com.au>
 X-Mailman-Approved-At: Wed, 25 Nov 2020 08:22:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,82 +80,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
- linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
- virtualization@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
- linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org,
- nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>, linux-watchdog@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, Linux-MM <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
- linux-kernel <linux-kernel@vger.kernel.org>, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
- linux-nfs@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 24, 2020 at 11:24 PM Finn Thain <fthain@telegraphics.com.au> wrote:
->
-> These statements are not "missing" unless you presume that code written
-> before the latest de facto language spec was written should somehow be
-> held to that spec.
-
-There is no "language spec" the kernel adheres to. Even if it did,
-kernel code is not frozen. If an improvement is found, it should be
-applied.
-
-> If the 'fallthrough' statement is not part of the latest draft spec then
-> we should ask why not before we embrace it. Being that the kernel still
-> prefers -std=gnu89 you might want to consider what has prevented
-> -std=gnu99 or -std=gnu2x etc.
-
-The C standard has nothing to do with this. We use compiler extensions
-of several kinds, for many years. Even discounting those extensions,
-the kernel is not even conforming to C due to e.g. strict aliasing. I
-am not sure what you are trying to argue here.
-
-But, since you insist: yes, the `fallthrough` attribute is in the
-current C2x draft.
-
-Cheers,
-Miguel
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYzo0Mzk6IHdhcm5pbmc6IEV4Y2VzcyBmdW5j
+dGlvbiBwYXJhbWV0ZXIgJ3N3JyBkZXNjcmlwdGlvbiBpbiAndmNuX3YxXzBfZGlzYWJsZV9jbG9j
+a19nYXRpbmcnCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jOjU2Njogd2Fy
+bmluZzogRXhjZXNzIGZ1bmN0aW9uIHBhcmFtZXRlciAnc3cnIGRlc2NyaXB0aW9uIGluICd2Y25f
+djFfMF9lbmFibGVfY2xvY2tfZ2F0aW5nJwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNu
+X3YxXzAuYzoxNDU0OiB3YXJuaW5nOiBGdW5jdGlvbiBwYXJhbWV0ZXIgb3IgbWVtYmVyICdhZGRy
+JyBub3QgZGVzY3JpYmVkIGluICd2Y25fdjFfMF9kZWNfcmluZ19lbWl0X2ZlbmNlJwogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYzoxNDU0OiB3YXJuaW5nOiBGdW5jdGlvbiBw
+YXJhbWV0ZXIgb3IgbWVtYmVyICdzZXEnIG5vdCBkZXNjcmliZWQgaW4gJ3Zjbl92MV8wX2RlY19y
+aW5nX2VtaXRfZmVuY2UnCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jOjE0
+NTQ6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ2ZsYWdzJyBub3QgZGVz
+Y3JpYmVkIGluICd2Y25fdjFfMF9kZWNfcmluZ19lbWl0X2ZlbmNlJwogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvdmNuX3YxXzAuYzoxNDU0OiB3YXJuaW5nOiBFeGNlc3MgZnVuY3Rpb24gcGFy
+YW1ldGVyICdmZW5jZScgZGVzY3JpcHRpb24gaW4gJ3Zjbl92MV8wX2RlY19yaW5nX2VtaXRfZmVu
+Y2UnCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jOjE0OTU6IHdhcm5pbmc6
+IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ2pvYicgbm90IGRlc2NyaWJlZCBpbiAndmNu
+X3YxXzBfZGVjX3JpbmdfZW1pdF9pYicKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92
+MV8wLmM6MTQ5NTogd2FybmluZzogRnVuY3Rpb24gcGFyYW1ldGVyIG9yIG1lbWJlciAnZmxhZ3Mn
+IG5vdCBkZXNjcmliZWQgaW4gJ3Zjbl92MV8wX2RlY19yaW5nX2VtaXRfaWInCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jOjE2Mjg6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFt
+ZXRlciBvciBtZW1iZXIgJ2FkZHInIG5vdCBkZXNjcmliZWQgaW4gJ3Zjbl92MV8wX2VuY19yaW5n
+X2VtaXRfZmVuY2UnCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jOjE2Mjg6
+IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ3NlcScgbm90IGRlc2NyaWJl
+ZCBpbiAndmNuX3YxXzBfZW5jX3JpbmdfZW1pdF9mZW5jZScKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3Zjbl92MV8wLmM6MTYyODogd2FybmluZzogRnVuY3Rpb24gcGFyYW1ldGVyIG9yIG1l
+bWJlciAnZmxhZ3MnIG5vdCBkZXNjcmliZWQgaW4gJ3Zjbl92MV8wX2VuY19yaW5nX2VtaXRfZmVu
+Y2UnCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jOjE2Mjg6IHdhcm5pbmc6
+IEV4Y2VzcyBmdW5jdGlvbiBwYXJhbWV0ZXIgJ2ZlbmNlJyBkZXNjcmlwdGlvbiBpbiAndmNuX3Yx
+XzBfZW5jX3JpbmdfZW1pdF9mZW5jZScKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92
+MV8wLmM6MTY1NTogd2FybmluZzogRnVuY3Rpb24gcGFyYW1ldGVyIG9yIG1lbWJlciAnam9iJyBu
+b3QgZGVzY3JpYmVkIGluICd2Y25fdjFfMF9lbmNfcmluZ19lbWl0X2liJwogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYzoxNjU1OiB3YXJuaW5nOiBGdW5jdGlvbiBwYXJhbWV0
+ZXIgb3IgbWVtYmVyICdmbGFncycgbm90IGRlc2NyaWJlZCBpbiAndmNuX3YxXzBfZW5jX3Jpbmdf
+ZW1pdF9pYicKCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNj
+OiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IERhdmlk
+IEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
+bC5jaD4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBkcmktZGV2ZWxAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnClNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVzQGxp
+bmFyby5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYyB8IDE0
+ICsrKysrKysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgNCBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFf
+MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwppbmRleCA4NmUxZWY3
+MzJlYmVjLi43MjE0OGYzYjI3ZDA0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS92Y25fdjFfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8w
+LmMKQEAgLTQzMSw3ICs0MzEsNiBAQCBzdGF0aWMgdm9pZCB2Y25fdjFfMF9tY19yZXN1bWVfZHBn
+X21vZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAgKiB2Y25fdjFfMF9kaXNhYmxlX2Ns
+b2NrX2dhdGluZyAtIGRpc2FibGUgVkNOIGNsb2NrIGdhdGluZwogICoKICAqIEBhZGV2OiBhbWRn
+cHVfZGV2aWNlIHBvaW50ZXIKLSAqIEBzdzogZW5hYmxlIFNXIGNsb2NrIGdhdGluZwogICoKICAq
+IERpc2FibGUgY2xvY2sgZ2F0aW5nIGZvciBWQ04gYmxvY2sKICAqLwpAQCAtNTU4LDcgKzU1Nyw2
+IEBAIHN0YXRpYyB2b2lkIHZjbl92MV8wX2Rpc2FibGVfY2xvY2tfZ2F0aW5nKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQogICogdmNuX3YxXzBfZW5hYmxlX2Nsb2NrX2dhdGluZyAtIGVuYWJs
+ZSBWQ04gY2xvY2sgZ2F0aW5nCiAgKgogICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgot
+ICogQHN3OiBlbmFibGUgU1cgY2xvY2sgZ2F0aW5nCiAgKgogICogRW5hYmxlIGNsb2NrIGdhdGlu
+ZyBmb3IgVkNOIGJsb2NrCiAgKi8KQEAgLTE0NDUsNyArMTQ0Myw5IEBAIHN0YXRpYyB2b2lkIHZj
+bl92MV8wX2RlY19yaW5nX2luc2VydF9lbmQoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogICog
+dmNuX3YxXzBfZGVjX3JpbmdfZW1pdF9mZW5jZSAtIGVtaXQgYW4gZmVuY2UgJiB0cmFwIGNvbW1h
+bmQKICAqCiAgKiBAcmluZzogYW1kZ3B1X3JpbmcgcG9pbnRlcgotICogQGZlbmNlOiBmZW5jZSB0
+byBlbWl0CisgKiBAYWRkcjogYWRkcmVzcworICogQHNlcTogc2VxdWVuY2UgbnVtYmVyCisgKiBA
+ZmxhZ3M6IGZlbmNlIHJlbGF0ZWQgZmxhZ3MKICAqCiAgKiBXcml0ZSBhIGZlbmNlIGFuZCBhIHRy
+YXAgY29tbWFuZCB0byB0aGUgcmluZy4KICAqLwpAQCAtMTQ4NCw3ICsxNDg0LDkgQEAgc3RhdGlj
+IHZvaWQgdmNuX3YxXzBfZGVjX3JpbmdfZW1pdF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
+bmcsIHU2NCBhZGRyLCB1NjQKICAqIHZjbl92MV8wX2RlY19yaW5nX2VtaXRfaWIgLSBleGVjdXRl
+IGluZGlyZWN0IGJ1ZmZlcgogICoKICAqIEByaW5nOiBhbWRncHVfcmluZyBwb2ludGVyCisgKiBA
+am9iOiBqb2IgdG8gcmV0cml2ZSB2bWlkIGZyb20KICAqIEBpYjogaW5kaXJlY3QgYnVmZmVyIHRv
+IGV4ZWN1dGUKKyAqIEBmbGFnczogdW51c2VkCiAgKgogICogV3JpdGUgcmluZyBjb21tYW5kcyB0
+byBleGVjdXRlIHRoZSBpbmRpcmVjdCBidWZmZXIKICAqLwpAQCAtMTYxOSw3ICsxNjIxLDkgQEAg
+c3RhdGljIHZvaWQgdmNuX3YxXzBfZW5jX3Jpbmdfc2V0X3dwdHIoc3RydWN0IGFtZGdwdV9yaW5n
+ICpyaW5nKQogICogdmNuX3YxXzBfZW5jX3JpbmdfZW1pdF9mZW5jZSAtIGVtaXQgYW4gZW5jIGZl
+bmNlICYgdHJhcCBjb21tYW5kCiAgKgogICogQHJpbmc6IGFtZGdwdV9yaW5nIHBvaW50ZXIKLSAq
+IEBmZW5jZTogZmVuY2UgdG8gZW1pdAorICogQGFkZHI6IGFkZHJlc3MKKyAqIEBzZXE6IHNlcXVl
+bmNlIG51bWJlcgorICogQGZsYWdzOiBmZW5jZSByZWxhdGVkIGZsYWdzCiAgKgogICogV3JpdGUg
+ZW5jIGEgZmVuY2UgYW5kIGEgdHJhcCBjb21tYW5kIHRvIHRoZSByaW5nLgogICovCkBAIC0xNjQ0
+LDcgKzE2NDgsOSBAQCBzdGF0aWMgdm9pZCB2Y25fdjFfMF9lbmNfcmluZ19pbnNlcnRfZW5kKHN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZykKICAqIHZjbl92MV8wX2VuY19yaW5nX2VtaXRfaWIgLSBl
+bmMgZXhlY3V0ZSBpbmRpcmVjdCBidWZmZXIKICAqCiAgKiBAcmluZzogYW1kZ3B1X3JpbmcgcG9p
+bnRlcgorICogQGpvYjogam9iIHRvIHJldHJpdmUgdm1pZCBmcm9tCiAgKiBAaWI6IGluZGlyZWN0
+IGJ1ZmZlciB0byBleGVjdXRlCisgKiBAZmxhZ3M6IHVudXNlZAogICoKICAqIFdyaXRlIGVuYyBy
+aW5nIGNvbW1hbmRzIHRvIGV4ZWN1dGUgdGhlIGluZGlyZWN0IGJ1ZmZlcgogICovCi0tIAoyLjI1
+LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
