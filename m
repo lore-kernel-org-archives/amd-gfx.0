@@ -1,131 +1,104 @@
-Return-Path: <SRS0=xWtd=E6=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=+gD6=E7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16F53C2D0E4
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 22:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E06AC2D0E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 03:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8FF8220643
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2020 22:27:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9CF532087C
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 03:17:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4NnSb9jf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8FF8220643
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EMiCQjmS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CF532087C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D453B6E409;
-	Tue, 24 Nov 2020 22:27:48 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1806E3D6;
- Tue, 24 Nov 2020 22:27:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4216E7EC;
+	Wed, 25 Nov 2020 03:17:26 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4A86E7F5;
+ Wed, 25 Nov 2020 03:17:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FDmPzb7zOzVMQMaBrt9+9Bv8NnUL4ftgVGu/L0PiWt25smk2hcjcnSIvRdnFzgvnus36J10R46u/P6c/yCjJGE+ZZEQWJ/5BzrRn69/nIZjxhvcXqNj2H8Wrzg/v8U6LBTPFwD+zvhfT2kJ9zZP+92UnoFn9bti8dtbCD+a6DVeg56LXUKBF6a1nompPGLsWB74ND2+AamPFDOrl8YLQjexi9oqHqx2opqQZmzehG8Hsa38WeZU7u6pNGBoHBOGC6KtrA2wHcvNtooTxe4DGvXcf94Ss4N2acmyOXmhv1dzJmOcfHzID9tCOUILAnosVbmJcttG8KAfFvm5bkA0Dlg==
+ b=EM4QqtQG1tyKJCZi4qTDrTLHPp0bLNlBZldUcviurIjmPxR/uF//6bo4Z5fF+q3/Pc+pm7IV9iWgEnk/LsBVuJOHwc2t7y9JPtGW3LycXw4uIYYzvbuZaC1hUtT7Kv5PQYKi4AFdJPzuIz99Q3q9EdpQhVKPmBBUaQa6+/C/C7CypA9xAmb3PqWSeM9Hhw0PgdDgxscPcsDOQsGm6VqhcHKDWh2Bn0kIoaq/TXT+0OApTWBNvLYCmzdekwFrO+Bi6rKulqAD7hUSJ+gDeQYl2Y06TTiLHdtsK8+wnCbpeP36SDHGQUykLR9YhPa+9H3igalc8SICRdSwHtuiLbHIsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gbMP0EVx2thZ1h/nW2KFBbw6u28nXncbqhURXpcYrvI=;
- b=AZdui5/d7+PcNIlGsgs4p93K4Qfg91EM28tWWSIwcgvsLnLBddSjTYwB2Hp/wck4Mb5RrbTw6pCPDN89yEJ5JYE1e/3c0wDfFQljSt+ejgNYfOQOg34rsO7N+uZUZN87IebCOwf21siqYkC2hw48uqwxs46u9eBSOOkVUvIkiUnSRsYbfyTgW5WH3b9SHjDcc4Ob6ruGFknve39PhXZNRHfQ0DHkSmMQoH4Pf8p/vili5TVNo6IKXAbRF15jdqfeNGrY0ZdvadlKjHWwe1pHp0gPYS6UYT9rpJsCVk92PCBejGj7GdtKjP+Z3fYj4DkDEIs2fUB0bcjS5njIMp+myQ==
+ bh=LMoIIn28HpYcPNzWwPg6G7QuqY4i0mfIVLLXEgtrijI=;
+ b=lelFQXUo6XISl6/rXau9bNT+HYGV6z4wM8NROnf2ruiFIlMvWXkg3YDFqHg8YyaP04TFG58zfFcDQyDUu1BcEgr7Uw8Z033gUT9h8L8R61qvYpWcfqUhiDQesVm/zkTRUx+4osP5Nnt3xVtYnwUPYactRyZS5czUk8uOeNWIaanUNfQ32eCHxRmiljH+9bpqa3LO3si870wYIQd6IQAfwD4EzWU7qaODB2zBiHb2+PZwvPTn9Wuk3W0WDejfbhr1wJ9ziprKPqR26WQbR3EV9PeL9Yc2TCBIrtulcNk51ruAStfRmOvk7ztMaODwkayPq0ezIixReI17MiA7Ptn+fg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gbMP0EVx2thZ1h/nW2KFBbw6u28nXncbqhURXpcYrvI=;
- b=4NnSb9jflgv7mOonEWK96WlW9IhYw59DXuMMvisG2+VpLzgmfBam2E5ZP4GfdiKFAUqsliLbjjgSLi6wsVkdpJYorwXFczhRiwzNvq1SB+vhyZYjQRdTt2yJLIOwGA3T2oS9L6xSmLYIvy6Oa9WiMMPFRACat43b6pH0QOCUObs=
+ bh=LMoIIn28HpYcPNzWwPg6G7QuqY4i0mfIVLLXEgtrijI=;
+ b=EMiCQjmSkiiu5/lMeG79gX1LSIeZNdLPDSiVB5fxyEkNlj27UaOHfGa7G18DXY7gCvfWcbyTsV6+QqaFKEzwJNOG+2WlwjLK2i1FHtSt8xoEVQ2cKpRP5J1SLza/Wf5bIjCRE1uPFj2lxacoedSblDLiN4i6JpUSum6Mf8wOdTg=
 Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
- DM6PR12MB2939.namprd12.prod.outlook.com (2603:10b6:5:18b::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3589.21; Tue, 24 Nov 2020 22:27:44 +0000
-Received: from DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::a881:155d:45db:b435]) by DM6PR12MB4340.namprd12.prod.outlook.com
- ([fe80::a881:155d:45db:b435%9]) with mapi id 15.20.3589.022; Tue, 24 Nov 2020
- 22:27:44 +0000
-Subject: Re: [PATCH v3 10/12] drm/amdgpu: Avoid sysfs dirs removal post device
- unplug
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
- <1605936082-3099-11-git-send-email-andrey.grodzovsky@amd.com>
- <20201124144938.GR401619@phenom.ffwll.local>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <36fdb2f8-2238-6321-201e-a25a3a828fc5@amd.com>
-Date: Tue, 24 Nov 2020 17:27:42 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-In-Reply-To: <20201124144938.GR401619@phenom.ffwll.local>
-Content-Language: en-US
-X-Originating-IP: [2607:fea8:3edf:49b0:b441:3cca:9ab3:ff85]
-X-ClientProxiedBy: YT1PR01CA0102.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::11) To DM6PR12MB4340.namprd12.prod.outlook.com
- (2603:10b6:5:2a8::7)
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com (2603:10b6:5:1ce::21)
+ by DM5PR1201MB2507.namprd12.prod.outlook.com (2603:10b6:3:e9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.30; Wed, 25 Nov
+ 2020 03:17:22 +0000
+Received: from DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::d055:19dc:5b0f:ed56]) by DM6PR12MB3962.namprd12.prod.outlook.com
+ ([fe80::d055:19dc:5b0f:ed56%6]) with mapi id 15.20.3589.031; Wed, 25 Nov 2020
+ 03:17:22 +0000
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Alexander Deucher <Alexander.Deucher@amd.com>
+Subject: [PATCH 1/6] drm/scheduler: "node" --> "list"
+Date: Tue, 24 Nov 2020 22:17:03 -0500
+Message-Id: <20201125031708.6433-2-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.29.2.154.g7f7ebe054a
+In-Reply-To: <20201125031708.6433-1-luben.tuikov@amd.com>
+References: <769e72ee-b2d0-d75f-cc83-a85be08e231b@amd.com>
+ <20201125031708.6433-1-luben.tuikov@amd.com>
+X-Originating-IP: [165.204.55.250]
+X-ClientProxiedBy: CH2PR03CA0026.namprd03.prod.outlook.com
+ (2603:10b6:610:59::36) To DM6PR12MB3962.namprd12.prod.outlook.com
+ (2603:10b6:5:1ce::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:3edf:49b0:b441:3cca:9ab3:ff85]
- (2607:fea8:3edf:49b0:b441:3cca:9ab3:ff85) by
- YT1PR01CA0102.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2c::11) with Microsoft
+Received: from localhost.localdomain.amd.com (165.204.55.250) by
+ CH2PR03CA0026.namprd03.prod.outlook.com (2603:10b6:610:59::36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3611.20 via Frontend Transport; Tue, 24 Nov 2020 22:27:43 +0000
+ 15.20.3611.20 via Frontend Transport; Wed, 25 Nov 2020 03:17:21 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: bc30313f-0fde-4d73-fbee-08d890c829ee
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2939:
+X-MS-Office365-Filtering-Correlation-Id: dd69c73b-0d9f-4a59-09ce-08d890f09fd3
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB2507:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB2939A5B754CD79EA4F5CF9CEEAFB0@DM6PR12MB2939.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB2507112EDA0AC442C38D6FF699FA0@DM5PR1201MB2507.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1247;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: t1LRyvyKMo7+k6QRm7oSrRVwgttobVdutC4yUGd/peo14LMmWc/9yOfNJZPriC2+B74KHVKz6sejmg2yH4jBtf4+o/csxp5pQGV8kTP6MYFCzHNxWJwLjywrIBMWDYpS4XnBx2OIsoGSICkMhYNrvN+xtRmpB8zGioZ7ZgLjxSH0OYK9MWsMCe32thWBTR6YEgKTwgNag7uQ6UAYet1jdMckVwo+0hw63Q+z+P07u35kAR0Dqu1ho/4Au/E8PGgGmLcUKprchJrZCXdKU0fnOUMzxyX1O+deeLizeNDOPNJAHCS0/CUY6BzRzFA/rkdKi/MdF0QK6GDr55XIuc0kIsvVWSVmflTEt8ylzOgj2yHuftCcs7ySPU+xhnoKZ+SyJeYEFmE6wPd1AzJD8AzT8w==
+X-Microsoft-Antispam-Message-Info: hVQZXiSkL5v4UnhBZDyFEUGI7yNU+q82m5UkO8Y4gdVmcX7XaH20veVbrz/UxIEUsRjocZaxuLbY/WjsZxgzoHEhkayqWhWg9d57YsiyCTlKsEXYoyNBGLuyshvOd116utmtMkJzWNQ1Kr1pxINoNFZfFnVVLtDsrKrHHEv6k3eGxbVij/iurlA1jmJ6pHDofO42dUeao51+Jrz0efanxNnlwRg9TB2OS8r4vKHV/paXIjVuHPd6UiH2asK366x1HeYUZ0TjhP+S4X7dPuRn7ZFRg3Bo3zhCeGiNypPI0ZXM7erd1Na+fQthXAiI+Hz7o2a3pJZw5Kydv9LIX3eR5w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(376002)(136003)(39860400002)(366004)(2616005)(6486002)(8936002)(6916009)(36756003)(7416002)(53546011)(86362001)(186003)(478600001)(66476007)(316002)(4326008)(31686004)(2906002)(66946007)(66556008)(83380400001)(52116002)(5660300002)(31696002)(16526019)(8676002)(87944003)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3962.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(7696005)(6486002)(54906003)(478600001)(26005)(52116002)(8936002)(83380400001)(8676002)(86362001)(2616005)(6636002)(5660300002)(956004)(1076003)(4326008)(2906002)(44832011)(186003)(66946007)(110136005)(316002)(36756003)(66476007)(16526019)(6666004)(66556008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?OFB1TmZ3NE1vSkhBb29zc2N6Tm5jM2hqRk5ORFZFWVlrZzFHVk1EdS9zMmNj?=
- =?utf-8?B?aVM5SzFSWm1GOWRKWGJIVS94ZTVmajFBNU9tdkltWldPcmQxQkt0TStweWFO?=
- =?utf-8?B?Q0RMVlg1ZzU0bjNlUXVvTnczWDVGaFFYOUdMa1M2TGkxRHY0eGlXTWhFZi9O?=
- =?utf-8?B?dzVwaTNMRHo2RnAydXp2N3dnMXcwNnRVTGR0b2pSN3N0VnN3R1JBTHVmaVRG?=
- =?utf-8?B?SFIzS2NDNjRDUU5xbndMVjVwUDNVSWYwdU0vRUNGb3FaZjJMaEQ2K2N0U2Y5?=
- =?utf-8?B?dFNTRDR5OUNXdUVVMExYcHExOXdaeGlRRmVMWlRKMXFUTllMVUR4RjdaVzhD?=
- =?utf-8?B?dVFtOThBS2NWU1J1OHRCbURiRmpDdjdMa2tWRlRyL1ZiK3dVMi9sZzU5Y1V6?=
- =?utf-8?B?cjYwOWZ6eEpVcXQ1c09uNVcrZ0k2dGduYnpjQTlBZmhGSzNYNGpGNXVGSldT?=
- =?utf-8?B?SkF1aWFoajdPa3pPR2J2eHJJS1lrTEVaU1pIWjhiZ1dVTEZMVjhjNEE1WERk?=
- =?utf-8?B?ZG5JZkVLL3hvSXorSzk3WitrN3dvNmRCSTRET1pDeW9xUW04WmNSNS9CYnNQ?=
- =?utf-8?B?U25vSTlySHhJVGpGS01ibjYrcXJYM296RDNLRDh4UVAwZG5uSTUxNDAyWXVs?=
- =?utf-8?B?R1NuNGVSd1VhZlJONlpxRFEvSzBNbjhqSHlvZjZFUlBkU2VUcDdnd25OVXI4?=
- =?utf-8?B?TFRDV1AwU2JiZTB3YTNYQlF3alh3MTQ5Z3h3ZlJiOXdudVdBYnlkcXVwVjll?=
- =?utf-8?B?V0dwWEQ0aGNBWGpDdHJ1YzA3V3dCcEgxTzIxVmNodVVSQVdwRUZXNXlEYmRX?=
- =?utf-8?B?ZzF6TkVVM21VRGtFZUJlSGNLZmZoTGdTT2pFYWlWeU5UbGpkbGFZcTRXYXov?=
- =?utf-8?B?b2pSMkp2Y0FCeUJXTmIyVkhQVUtlM2VSaXpWalc2Z3A1d1JHL3hweTB2eTVS?=
- =?utf-8?B?aGhOMTZSQzljYWhoTUNEN3VUbDFaT01KazdFTlR4M3lISGxjczg2SEhrRldx?=
- =?utf-8?B?ek9Da0crVjRBMGtWbXlhZGx4YjJpT2w3ZzdnazArTGkwZVJ2VUJqSmt1OWdF?=
- =?utf-8?B?VWtZejQyUGszbmdDUzU5Yjl6YjhqY1hMODIxRXYzYWcxc0oyOFBxVGFVZkZC?=
- =?utf-8?B?dStqc3ZKdmFkcjBpTlA0YXZxSENXVWdqOCtGRU9TM1VVS28yZ0pidE8wUGho?=
- =?utf-8?B?Zlg5cmtDcllVMUZKeERkODh0eEdXcnVXWkxObUhjZnNTRG1zUUh1akRHNVRQ?=
- =?utf-8?B?MEI0UHdHM3BkdFBWV3FEdlQ3Y0svbWRyYW52YUVDc1VYT2dpenYzejdvZWpo?=
- =?utf-8?B?UFVuNkdnMEJQMlFuNDkyNlhpQS9MM0JxTHlFREhRRHU2aXFBY3dvdjVFVEha?=
- =?utf-8?B?NUh3ekdpb0NyOU5xbWxmMUNGeUdhTVl0d0N4M293L0xpWk1DSHlLMU9xcE03?=
- =?utf-8?Q?kt7NY53S?=
+X-MS-Exchange-AntiSpam-MessageData: uZe3PIVhBcXI2n9ezWcLxLbFxtB+Ty38+SunLgdbmrQNovXNag8d8D3C/XVbjtoe59AdIvG4YRJjffddyuZxk7OjHtKupUzo20chc/LIVAwStVKCmdXsH5ElNTERSN6JGusAxDBl0xbQEIC5nsXZj95aKA+M8dJvouzz5sqFVlamjsmX9k06lYW5p7ZV+7vGn1c3K1+FLkgcELQ4+mWzxy2sacjiJUi0sGfcDCb1WC85EJqldgxshR1W8BjBV7y64lkiEJ9jo4T2RIErOCVeZVKt1KRNJIO7YY4NRjFFbRu0eQIORQxYksdH0EOjyIJE2zF2MtfL5LeWSiAIx3U33eulkXoFdgD/fnTq5oTsoHUEPksYTi6gOYDrJKewWiHYhHmOh5jBLGKrwZeVn5TflNi9TFXGKU8kuOSjzmAXQ9Tc2KMIR+C6bcZVxc1smd2Dxk9Ko1nM00OoE7wXxHeQsbLl0iFprtOn4xNjTO8D5kSQvg6C9jY0lWQqHi8jmK+lQyZATdXMt5V/gav969aUsy6C1f0fBA7QD4INkOnVwyrLAqoumbT4d17eRIrkHHDTd85ntwFuOe4ZLSuMS8UY6bze+GndzcklSEpf5kLQgX6dn/vP6Mpty4t7kQBI3Pusgzt2DCgbm+/u7D6wM+jr+huXB/Y0GLMHeaCyw6nOYa07aD8npkSLVM8gR5yYLUhb+miCUeHgtwtQqdF+qkCKzPWTQ1CQuSo2ls90bpmYdCnoshMIKn2P5FiKJznc6rmfIVaskn54nhckQPmqFzCgJGCoMRAcpHGi55gb5DU8OWd5vt2bL8rJJEZKOS1FBaNq7BBaJRPEwvdwG1P+kow38SqKJqqkP0bafjaH6wH02KwSCwtCTrjsi19gsjltmTTsDTDenApfy/Y9jfyE0uiBHw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc30313f-0fde-4d73-fbee-08d890c829ee
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4340.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd69c73b-0d9f-4a59-09ce-08d890f09fd3
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3962.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2020 22:27:44.6950 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2020 03:17:22.5201 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GZ2PZ661lr7c0qxcwRHZpXgp/F1Xky2FuWB8H8EbGN8Tn4l4ZqNyKQKzDPHaWN0wF1E3kgFE95M7j9KHxXG97Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2939
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0S08ijiWFYAexTxkEs2A0PHVA1lRlZGKoDJekuqnkzxbeBurpj8kNd4OWA2Zzajt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2507
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,109 +110,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, gregkh@linuxfoundation.org,
- ckoenig.leichtzumerken@gmail.com, dri-devel@lists.freedesktop.org,
- eric@anholt.net, ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, Alexander.Deucher@amd.com, yuq825@gmail.com,
- Harry.Wentland@amd.com, l.stach@pengutronix.de
+Cc: Emily Deng <Emily.Deng@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ steven.price@arm.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Rename "node" to "list" in struct drm_sched_job,
+in order to make it consistent with what we see
+being used throughout gpu_scheduler.h, for
+instance in struct drm_sched_entity, as well as
+the rest of DRM and the kernel.
 
-On 11/24/20 9:49 AM, Daniel Vetter wrote:
-> On Sat, Nov 21, 2020 at 12:21:20AM -0500, Andrey Grodzovsky wrote:
->> Avoids NULL ptr due to kobj->sd being unset on device removal.
->>
->> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c   | 4 +++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 4 +++-
->>   2 files changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->> index caf828a..812e592 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
->> @@ -27,6 +27,7 @@
->>   #include <linux/uaccess.h>
->>   #include <linux/reboot.h>
->>   #include <linux/syscalls.h>
->> +#include <drm/drm_drv.h>
->>   
->>   #include "amdgpu.h"
->>   #include "amdgpu_ras.h"
->> @@ -1043,7 +1044,8 @@ static int amdgpu_ras_sysfs_remove_feature_node(struct amdgpu_device *adev)
->>   		.attrs = attrs,
->>   	};
->>   
->> -	sysfs_remove_group(&adev->dev->kobj, &group);
->> +	if (!drm_dev_is_unplugged(&adev->ddev))
->> +		sysfs_remove_group(&adev->dev->kobj, &group);
-> This looks wrong. sysfs, like any other interface, should be
-> unconditionally thrown out when we do the drm_dev_unregister. Whether
-> hotunplugged or not should matter at all. Either this isn't needed at all,
-> or something is wrong with the ordering here. But definitely fishy.
-> -Daniel
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  2 +-
+ drivers/gpu/drm/scheduler/sched_main.c      | 23 +++++++++++----------
+ include/drm/gpu_scheduler.h                 |  4 ++--
+ 5 files changed, 19 insertions(+), 18 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 5c1f3725c741..8358cae0b5a4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1427,7 +1427,7 @@ static void amdgpu_ib_preempt_job_recovery(struct drm_gpu_scheduler *sched)
+ 	struct dma_fence *fence;
+ 
+ 	spin_lock(&sched->job_list_lock);
+-	list_for_each_entry(s_job, &sched->ring_mirror_list, node) {
++	list_for_each_entry(s_job, &sched->ring_mirror_list, list) {
+ 		fence = sched->ops->run_job(s_job);
+ 		dma_fence_put(fence);
+ 	}
+@@ -1459,10 +1459,10 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
+ 
+ no_preempt:
+ 	spin_lock(&sched->job_list_lock);
+-	list_for_each_entry_safe(s_job, tmp, &sched->ring_mirror_list, node) {
++	list_for_each_entry_safe(s_job, tmp, &sched->ring_mirror_list, list) {
+ 		if (dma_fence_is_signaled(&s_job->s_fence->finished)) {
+ 			/* remove job from ring_mirror_list */
+-			list_del_init(&s_job->node);
++			list_del_init(&s_job->list);
+ 			sched->ops->free_job(s_job);
+ 			continue;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7560b05e4ac1..4df6de81cd41 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4128,7 +4128,7 @@ bool amdgpu_device_has_job_running(struct amdgpu_device *adev)
+ 
+ 		spin_lock(&ring->sched.job_list_lock);
+ 		job = list_first_entry_or_null(&ring->sched.ring_mirror_list,
+-				struct drm_sched_job, node);
++				struct drm_sched_job, list);
+ 		spin_unlock(&ring->sched.job_list_lock);
+ 		if (job)
+ 			return true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index dcfe8a3b03ff..aca52a46b93d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -271,7 +271,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+ 	}
+ 
+ 	/* Signal all jobs already scheduled to HW */
+-	list_for_each_entry(s_job, &sched->ring_mirror_list, node) {
++	list_for_each_entry(s_job, &sched->ring_mirror_list, list) {
+ 		struct drm_sched_fence *s_fence = s_job->s_fence;
+ 
+ 		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index c6332d75025e..c52eba407ebd 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -272,7 +272,7 @@ static void drm_sched_job_begin(struct drm_sched_job *s_job)
+ 	struct drm_gpu_scheduler *sched = s_job->sched;
+ 
+ 	spin_lock(&sched->job_list_lock);
+-	list_add_tail(&s_job->node, &sched->ring_mirror_list);
++	list_add_tail(&s_job->list, &sched->ring_mirror_list);
+ 	drm_sched_start_timeout(sched);
+ 	spin_unlock(&sched->job_list_lock);
+ }
+@@ -287,7 +287,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 	/* Protects against concurrent deletion in drm_sched_get_cleanup_job */
+ 	spin_lock(&sched->job_list_lock);
+ 	job = list_first_entry_or_null(&sched->ring_mirror_list,
+-				       struct drm_sched_job, node);
++				       struct drm_sched_job, list);
+ 
+ 	if (job) {
+ 		/*
+@@ -295,7 +295,7 @@ static void drm_sched_job_timedout(struct work_struct *work)
+ 		 * drm_sched_cleanup_jobs. It will be reinserted back after sched->thread
+ 		 * is parked at which point it's safe.
+ 		 */
+-		list_del_init(&job->node);
++		list_del_init(&job->list);
+ 		spin_unlock(&sched->job_list_lock);
+ 
+ 		job->sched->ops->timedout_job(job);
+@@ -392,7 +392,7 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+ 		 * Add at the head of the queue to reflect it was the earliest
+ 		 * job extracted.
+ 		 */
+-		list_add(&bad->node, &sched->ring_mirror_list);
++		list_add(&bad->list, &sched->ring_mirror_list);
+ 
+ 	/*
+ 	 * Iterate the job list from later to  earlier one and either deactive
+@@ -400,7 +400,8 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+ 	 * signaled.
+ 	 * This iteration is thread safe as sched thread is stopped.
+ 	 */
+-	list_for_each_entry_safe_reverse(s_job, tmp, &sched->ring_mirror_list, node) {
++	list_for_each_entry_safe_reverse(s_job, tmp, &sched->ring_mirror_list,
++					 list) {
+ 		if (s_job->s_fence->parent &&
+ 		    dma_fence_remove_callback(s_job->s_fence->parent,
+ 					      &s_job->cb)) {
+@@ -411,7 +412,7 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+ 			 * Locking here is for concurrent resume timeout
+ 			 */
+ 			spin_lock(&sched->job_list_lock);
+-			list_del_init(&s_job->node);
++			list_del_init(&s_job->list);
+ 			spin_unlock(&sched->job_list_lock);
+ 
+ 			/*
+@@ -462,7 +463,7 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
+ 	 * so no new jobs are being inserted or removed. Also concurrent
+ 	 * GPU recovers can't run in parallel.
+ 	 */
+-	list_for_each_entry_safe(s_job, tmp, &sched->ring_mirror_list, node) {
++	list_for_each_entry_safe(s_job, tmp, &sched->ring_mirror_list, list) {
+ 		struct dma_fence *fence = s_job->s_fence->parent;
+ 
+ 		atomic_inc(&sched->hw_rq_count);
+@@ -505,7 +506,7 @@ void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched)
+ 	bool found_guilty = false;
+ 	struct dma_fence *fence;
+ 
+-	list_for_each_entry_safe(s_job, tmp, &sched->ring_mirror_list, node) {
++	list_for_each_entry_safe(s_job, tmp, &sched->ring_mirror_list, list) {
+ 		struct drm_sched_fence *s_fence = s_job->s_fence;
+ 
+ 		if (!found_guilty && atomic_read(&s_job->karma) > sched->hang_limit) {
+@@ -565,7 +566,7 @@ int drm_sched_job_init(struct drm_sched_job *job,
+ 		return -ENOMEM;
+ 	job->id = atomic64_inc_return(&sched->job_id_count);
+ 
+-	INIT_LIST_HEAD(&job->node);
++	INIT_LIST_HEAD(&job->list);
+ 
+ 	return 0;
+ }
+@@ -684,11 +685,11 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+ 	spin_lock(&sched->job_list_lock);
+ 
+ 	job = list_first_entry_or_null(&sched->ring_mirror_list,
+-				       struct drm_sched_job, node);
++				       struct drm_sched_job, list);
+ 
+ 	if (job && dma_fence_is_signaled(&job->s_fence->finished)) {
+ 		/* remove job from ring_mirror_list */
+-		list_del_init(&job->node);
++		list_del_init(&job->list);
+ 	} else {
+ 		job = NULL;
+ 		/* queue timeout for next job */
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 92436553fd6a..3add0072bd37 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -189,14 +189,14 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
+  */
+ struct drm_sched_job {
+ 	struct spsc_node		queue_node;
++	struct list_head		list;
+ 	struct drm_gpu_scheduler	*sched;
+ 	struct drm_sched_fence		*s_fence;
+ 	struct dma_fence_cb		finish_cb;
+-	struct list_head		node;
+ 	uint64_t			id;
+ 	atomic_t			karma;
+ 	enum drm_sched_priority		s_priority;
+-	struct drm_sched_entity  *entity;
++	struct drm_sched_entity         *entity;
+ 	struct dma_fence_cb		cb;
+ };
+ 
+-- 
+2.29.2.154.g7f7ebe054a
 
-So technically this is needed because kobejct's sysfs directory entry kobj->sd 
-is set to NULL
-on device removal (from sysfs_remove_dir) but because we don't finalize the device
-until last reference to drm file is dropped (which can happen later) we end up 
-calling sysfs_remove_file/dir after
-this pointer is NULL. sysfs_remove_file checks for NULL and aborts while 
-sysfs_remove_dir
-is not and that why I guard against calls to sysfs_remove_dir.
-But indeed the whole approach in the driver is incorrect, as Greg pointed out - 
-we should use
-default groups attributes instead of explicit calls to sysfs interface and this 
-would save those troubles.
-But again. the issue here of scope of work, converting all of amdgpu to default 
-groups attributes is somewhat
-lengthy process with extra testing as the entire driver is papered with sysfs 
-references and seems to me more of a standalone
-cleanup, just like switching to devm_ and drmm_ work. To me at least it seems 
-that it makes more sense
-to finalize and push the hot unplug patches so that this new functionality can 
-be part of the driver sooner
-and then incrementally improve it by working on those other topics. Just as 
-devm_/drmm_ I also added sysfs cleanup
-to my TODO list in the RFC patch.
-
-Andrey
-
-
->
->>   
->>   	return 0;
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> index 2b7c90b..54331fc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> @@ -24,6 +24,7 @@
->>   #include <linux/firmware.h>
->>   #include <linux/slab.h>
->>   #include <linux/module.h>
->> +#include <drm/drm_drv.h>
->>   
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> @@ -464,7 +465,8 @@ int amdgpu_ucode_sysfs_init(struct amdgpu_device *adev)
->>   
->>   void amdgpu_ucode_sysfs_fini(struct amdgpu_device *adev)
->>   {
->> -	sysfs_remove_group(&adev->dev->kobj, &fw_attr_group);
->> +	if (!drm_dev_is_unplugged(&adev->ddev))
->> +		sysfs_remove_group(&adev->dev->kobj, &fw_attr_group);
->>   }
->>   
->>   static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
->> -- 
->> 2.7.4
->>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
