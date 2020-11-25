@@ -2,127 +2,78 @@ Return-Path: <SRS0=+gD6=E7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DC71C56202
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 13:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 014BBC5519F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 13:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D022420656
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 13:49:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 77C122065D
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 13:51:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BV8cQAIv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D022420656
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCtEdyPA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77C122065D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B843895E2;
-	Wed, 25 Nov 2020 13:49:27 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2A8C6E9A6
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 13:49:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jUmSmWlYKhOe6k06iCSv61rTKbtWF6JVPCiNWs7vJRWnEjGTGUotOg2Z/TKRgz1dwsS8npd0hNZT4ZBOog/pnXtL6RDByyyoxoq9NAWEMoJ/2WdgjugOpN+2t9gb2hpaP3kRHon+naCF4MAGS29jy91pbjOl3kM/P43Ncselg12egasWQq4t2sQn946A0/eK1wG6Ps3C9d+del6L6ap6C+1onp1rX26Pzj1l0gGrqxIsulYR+9DxYxHc3aAUdKAo/fy11zAhHSNvXZBLVq+Y+czGRj2mtKEVHc3g73LKjUutxUKOERzpejTKhaKZfcQ5WMOecy7RE1/Zw/c5Cmf3EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x5B95N7v8HXwmYYo1SuWTgoIfrYIphajG9AKctUpi+A=;
- b=iBYcvrE6Os1n0DRsW83+XD19S55cGtkoerPdvWt9N/oiKf0X9fPJ9KlNp7CQdhIXTUkqjURdwzilQZVRzi4Kd4SY8wpT40EvLsLsX51z8VoPBz20yfXMiHlrek9FURuMy2bpzJHqYDIOPLhzU1t8opPEmRzx4QBvbSLfyU4z8FksT/0CjjBueOJDGDpe3gemVl1b4El4U9oGyBZ/V7caCkqaSAsEPS7h+K/8Ri6wUVJccD987jexNmShdMh4QUT79bvtoAVuroqw7r5GBYXphSFQJrR9IvWUHkl6N6OM+61hXUvkEBGQnr3FndiVieBENuboJ4eb4c5XWxug0Ib6bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x5B95N7v8HXwmYYo1SuWTgoIfrYIphajG9AKctUpi+A=;
- b=BV8cQAIv6fjzyOnNgcF8BUx8wvU6Phq1biNK4geHwhbN+6mvYBrMveetb3MABmcK9MXtbJrBur6HBgC7AzjItQ0JPi/mcPOLatAn0skuNwYiYoEJY/+vVaEFEAbXJZD/z4GLUX0FuT4NynC9tknNyVweUT6u+NxnQy9p8H8JXHo=
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1413.namprd12.prod.outlook.com (2603:10b6:903:39::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.29; Wed, 25 Nov
- 2020 13:49:24 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::ad96:acee:5c1c:d92c]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::ad96:acee:5c1c:d92c%4]) with mapi id 15.20.3589.030; Wed, 25 Nov 2020
- 13:49:24 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: increase reserved VRAM size to 8MB
-Thread-Topic: [PATCH] drm/amdgpu: increase reserved VRAM size to 8MB
-Thread-Index: AQHWwyyjPFEqkqA7Fk2rs1sem5j5l6nY3Piw
-Date: Wed, 25 Nov 2020 13:49:24 +0000
-Message-ID: <CY4PR12MB1287A853131378180FD45C48F1FA0@CY4PR12MB1287.namprd12.prod.outlook.com>
-References: <20201125131203.224292-1-likun.gao@amd.com>
-In-Reply-To: <20201125131203.224292-1-likun.gao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-11-25T13:49:13Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=94dd0d34-ccb6-4868-913f-00005f704c5d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-11-25T13:49:18Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 73aaf1df-9317-4be3-af83-0000d30d24d0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.158.166.36]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: def42c2c-9d69-4fcd-dfd2-08d89148eb29
-x-ms-traffictypediagnostic: CY4PR12MB1413:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB141306FB3FADF989B8D1127EF1FA0@CY4PR12MB1413.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3826;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gY9l5L4kYy7wILUcKphkjdy6ntZP5N+3gecqPOWa6jLgdjhErk/XqU7UF7BVLoz9SbsBEwjHPfUFGvdk0lIlC6eleKZcn4NvnCOq0UC7xPxjCM5nBKsINSGTM73ktKmByaUu/FWQDpavO3Wg7w/wXvWKohS8SdYLQ4QZtMuC5zkHB2W595MJFyWodOhWq+dCVvFEHIq/yJ+s1H0OmssOToVowG9aWqUoBv+YCjlMx8gV5fAayN0412OtCaFWDFKBszz2bY7bfIQTViVSDI12tVPffiWdZNq5jPw1aYKHuuB8LaajrCszrK+dbvyC5pRfgb+QIKlB+Y6+KBaOQpm9UIt1hzUk6yQ/pDNUf8QM5i8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(136003)(376002)(396003)(346002)(86362001)(52536014)(478600001)(8676002)(8936002)(83380400001)(186003)(66446008)(26005)(966005)(5660300002)(45080400002)(2906002)(71200400001)(316002)(4326008)(7696005)(66476007)(55016002)(9686003)(53546011)(6506007)(66946007)(76116006)(33656002)(66556008)(110136005)(64756008)(54906003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?D8eA6Y5zUeQa9wUAfHDiljkeuDyZp7F7CaUjO2DUYZcsfkJGiBaHu0z5+wfn?=
- =?us-ascii?Q?LA0L691yr7poYhTT2pn5pU94nciGpUg7r0P5+ml0tKKE56U45a+mAv+AceIz?=
- =?us-ascii?Q?drcaz0xzIKqpJZ45TwY0va9oOQf9ATfdgaWeeDQDHlBESfi44zRdPWTX/mCL?=
- =?us-ascii?Q?t73ndx/psTXnrVX9sB6smyu3eEJOgHjIQGaRaykDX2jNy00aCWOS8LupJWwS?=
- =?us-ascii?Q?dzelRHKltoLzxexnxN9SFauqr6gfBizaEmM33Ut8cK36juXXiP8Mi74xTbJ4?=
- =?us-ascii?Q?PC/YQ84CoL0AT7cPW2gEfQeHb8FPksjxHlrDAlztxAJwaJL1+g8HtjjjgF4r?=
- =?us-ascii?Q?WaxAMyqxZ+qY6b2UFJegdwk2yNRC+5Ke1FwwFqa7wqijFwOLHsDrKWRXpmuv?=
- =?us-ascii?Q?yI8brfsMB34M5cJw8+13P8iuXlIfFuXURTTb1ZBX70f2DY8nGdKExmKUDvXM?=
- =?us-ascii?Q?O5YxerVGRc4AALyF6XPOaO4bHqF65NA0z/47TyQfXMfS81/U/YKMjCrn3cdW?=
- =?us-ascii?Q?GTVgxnBr2Exmhg3blgQkJy76zJOgcisLJk3kUeLiLBAakBSNvtzMJbgOEa4U?=
- =?us-ascii?Q?uI9k8/0x994qO2ypRYATj1BqD0MqKljqAGBR3eZVu2BLNDuLuuImBM887m32?=
- =?us-ascii?Q?8lhl8FZF/+es0hNc7tXoHqu1Dw2lfS3cgGzUebetakmQsCzVHwxCBGZhdpQ4?=
- =?us-ascii?Q?UhzosJekBRt8mmd8pqPYSJQ9OcNGYpOod8hfG3EOkstSDKzTXNoJwr6NDWL1?=
- =?us-ascii?Q?pqXOgt/ijH6SP6m3aRUOx6slv0aBo8SjMJ1uVNwANVkqhPHuDTr+N1tpo/h4?=
- =?us-ascii?Q?DEyr8RFgO7LLCOEkUIxhgsKl2Yip1TpTThVHigK8dAn23hB7fQLYtR69vCjP?=
- =?us-ascii?Q?S11G1opMUBshx+Ggp0/KGS/MzRRSj3ZblfNk8bdKFMFTH9O5ad5fcZrJ5rAe?=
- =?us-ascii?Q?d0alTvI8H8wV+UnkmSbR1Yz+JMK3KhZtrGaYgSJQP4c=3D?=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0471E6E9A6;
+	Wed, 25 Nov 2020 13:51:03 +0000 (UTC)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39AE06E898;
+ Wed, 25 Nov 2020 10:37:29 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id s2so903141plr.9;
+ Wed, 25 Nov 2020 02:37:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lG3+Uwz8lZti6FSb8xjGyaQfdt5OwV03xvf6+L3ZqWc=;
+ b=YCtEdyPA4vCzWZsMjIt3djSgR9gg7vMRhn3I5LT7lEmWHdT3b/jEkR0QdduouORJ7k
+ kiuUl5RijkS3EJmc3PIdIbhuWrYEtLAccN+wdoprBDsU56ruoUGszfH1Sxvuy4WXIhMK
+ 0dDt7R//JtRYOU1+gQ96Rpa2FinP3O1pFccTMutbPTGjvqTac0chojMQO8cZdySzLIim
+ HHsTKo91pUaUTwyxPnWizwDASocTC+n+eyDdN/HKPn9pe4V2vLDA/DOFrCcWbsrVXkvE
+ 5CsjPeXzCB0gF8EvrEVdW+qQjVnUcViOyjSAD57xy0gbwLs+FCHLejwxIxOdH/xJHiTG
+ +NRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lG3+Uwz8lZti6FSb8xjGyaQfdt5OwV03xvf6+L3ZqWc=;
+ b=pjHbGC2i4hIZkRiA9CyNTmew1tTzhwAVwCUHV+6xjne2MF3N/bd4FgZVhdMvrDMOFT
+ UzaXoAJCCqDR9gX61JMUeb3bArnIglec6i7k8uQkkz4B1kWmvyHnDSW0Z0xTvmBAbUl+
+ YH6nLdfNEeQkmjg/X37GMFQyo5lrurqsDU38w3xDwFyHUfB2/dXoQJkHuvKfCvAMZ8V0
+ cIIbueD2wTR8Npofb4nTM/6+9/AIj75TcWtuyhV06pTRpMTfA6D9qGx2VSRXNJFKfc3y
+ sVB3qZyrv2wbbXb98UCzYn11K7PX9q2H2/v6yeXpat+S1I5hBNzvvI+7EWK40LkR2CYN
+ CL7Q==
+X-Gm-Message-State: AOAM5306rEgoVzFD/v5hjbuQYSKL9Grf1jE3Ms4wX6/wSvAz52JhFoGZ
+ DhGsmZDlf1jJFd5elyT8HyAzpebULqcS1KF+VL4=
+X-Google-Smtp-Source: ABdhPJzEY8ebPN4xZ4jf0ZFVw9i65L6qlCom+E751HZA34/qY3SkadUuuLf2HukIG4qONDPWI5feIsM1VQGLuSbFYSc=
+X-Received: by 2002:a17:902:ead2:b029:da:2596:198e with SMTP id
+ p18-20020a170902ead2b02900da2596198emr1937529pld.21.1606300648824; Wed, 25
+ Nov 2020 02:37:28 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR12MB1287.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: def42c2c-9d69-4fcd-dfd2-08d89148eb29
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Nov 2020 13:49:24.0388 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AvqG6CdZJe+JqIP38dUdwcCf6N4jSCKjGXayoOTjNiSD6YLGGsWyrfQHt/Bz6bAwt8tB9PCSgSvai1N37/9kHA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1413
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+ <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+ <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+ <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+ <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+In-Reply-To: <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 25 Nov 2020 12:38:17 +0200
+Message-ID: <CAHp75VfaewwkLsrht95Q7DaxFk7JpQjwx0KQ7Jvh5f7DUbZkRA@mail.gmail.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+X-Mailman-Approved-At: Wed, 25 Nov 2020 13:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,59 +85,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gao, Likun" <Likun.Gao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ linux-atm-general@lists.sourceforge.net, reiserfs-devel@vger.kernel.org,
+ linux-iio <linux-iio@vger.kernel.org>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ "open list:FRAMEBUFFER LAYER" <linux-fbdev@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
+ device-mapper development <dm-devel@redhat.com>, keyrings@vger.kernel.org,
+ "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
+ "open list:STAGING SUBSYSTEM" <devel@driverdev.osuosl.org>,
+ linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ linux-scsi <linux-scsi@vger.kernel.org>,
+ "open list:HFI1 DRIVER" <linux-rdma@vger.kernel.org>,
+ oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ cluster-devel@redhat.com, ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
+ linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+ linux-block@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ op-tee@lists.trustedfirmware.org,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
+ linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ target-devel <target-devel@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-nfs@vger.kernel.org,
+ GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
+ Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
+ linux-decnet-user@lists.sourceforge.net, linux-mmc <linux-mmc@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, linux-sctp@vger.kernel.org,
+ USB <linux-usb@vger.kernel.org>, netfilter-devel@vger.kernel.org,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity <linux-integrity@vger.kernel.org>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+On Mon, Nov 23, 2020 at 10:39 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Mon, 2020-11-23 at 19:56 +0100, Miguel Ojeda wrote:
+> > On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
+> > <James.Bottomley@hansenpartnership.com> wrote:
 
-/* Reserve 4MB VRAM for page tables */
+...
 
-This comment needs to correct to 8MB as well. With this addressed, the patch: 
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+> > But if we do the math, for an author, at even 1 minute per line
+> > change and assuming nothing can be automated at all, it would take 1
+> > month of work. For maintainers, a couple of trivial lines is noise
+> > compared to many other patches.
+>
+> So you think a one line patch should take one minute to produce ... I
+> really don't think that's grounded in reality.  I suppose a one line
+> patch only takes a minute to merge with b4 if no-one reviews or tests
+> it, but that's not really desirable.
 
-Regards,
-Guchun
+In my practice most of the one line patches were either to fix or to
+introduce quite interesting issues.
+1 minute is 2-3 orders less than usually needed for such patches.
+That's why I don't like churn produced by people who often even didn't
+compile their useful contributions.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Likun Gao
-Sent: Wednesday, November 25, 2020 9:12 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Gao, Likun <Likun.Gao@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: increase reserved VRAM size to 8MB
-
-From: Likun Gao <Likun.Gao@amd.com>
-
-4MB reserved VRAM size which used for page tables was not enough for some condition, increase it to 8MB to reduce page table contention.
-
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: Ibbc0c14a75bd0e57d77e30b7140a144f4030114a
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index fa7d181934e5..1ed130d518a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -104,7 +104,7 @@ struct amdgpu_bo_list_entry;
- #define AMDGPU_VM_FAULT_STOP_ALWAYS	2
- 
- /* Reserve 4MB VRAM for page tables */
--#define AMDGPU_VM_RESERVED_VRAM		(4ULL << 20)
-+#define AMDGPU_VM_RESERVED_VRAM		(8ULL << 20)
- 
- /* max number of VMHUB */
- #define AMDGPU_MAX_VMHUBS			3
---
-2.25.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=04%7C01%7Cguchun.chen%40amd.com%7Ce05ef079631e47d5397608d89143c34a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637419067540371620%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=1O6mceVaMU%2F88bqL1iXBXY6EvRJQBPVdjbgr%2FZOPvbk%3D&amp;reserved=0
+-- 
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
