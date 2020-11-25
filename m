@@ -2,62 +2,79 @@ Return-Path: <SRS0=+gD6=E7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60716C56202
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 16:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76975C56201
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 16:32:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EADEC206F7
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 16:24:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1007D21534
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 16:32:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0jPLXU5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EADEC206F7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="j0sAignA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1007D21534
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87BEC6EA18;
-	Wed, 25 Nov 2020 16:24:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39BB56EA18;
- Wed, 25 Nov 2020 16:24:11 +0000 (UTC)
-Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
- [163.114.132.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 867952067C;
- Wed, 25 Nov 2020 16:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606321450;
- bh=GZ2k+AA6ahSTxK1Lb66nxQ5QpMsxQMwUtXM6UrJuD5k=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=o0jPLXU5vRd5gkErOG+l7hZeBdnc0mPNkdd6O5DWsXDAKIVZ2C96zG0tcOWSvOOEW
- +aPDAqgCVL2k+j5MKH8XxKfk9jsHh44ZvIyml45/mV5SL7Kf2RcLQB8xCvtxafIM4N
- usaGZavY91klVUpIE9ogGjcSBu1B0MRmyXV9nrIc=
-Date: Wed, 25 Nov 2020 08:24:05 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Subject: Re: [Intel-wired-lan] [PATCH 000/141] Fix fall-through warnings for
- Clang
-Message-ID: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
- <202011241327.BB28F12F6@keescook>
- <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
- <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 995306EA2D;
+	Wed, 25 Nov 2020 16:32:56 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F82A6EA2D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 16:32:55 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id w24so2726855wmi.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 08:32:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=nBrO9nv1B1gyQCR7huherqy/ZakAicmiSzUs8NEZ6N4=;
+ b=j0sAignAWpzqmJlmMp24fhf4E1P+BGw9y9KFTmi6ef70BIMF9Nz2rcS97Pj5wi0aj9
+ KRqWu6HCkalZ0rCYrb5+QTe6cFr0hJZw7IqYoCyodYPEnzV1IxGJdJFZT1VePIfFgQQV
+ DaFqkmVxbdjI+2AAdhBaQNS3KX3/wXsxFiQcY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=nBrO9nv1B1gyQCR7huherqy/ZakAicmiSzUs8NEZ6N4=;
+ b=jIZF8vwOQhOwxnHHXMwHNIPDFQ3zG44ty6sE8owUPZSeHzdsN0gJ+EyTQAmzdZ/MNl
+ H8bAkmqKci+VpBGobI7OtmRd27HOpvDmr6/AXplqR33LcBKgFLI+djqlJHC/OdzckpGq
+ TwJuG1+ELHEkuWU/mfBBTBzaTryLzxJZlf1thqfRCTjn9Y1I+ykwVOncd4j85h+J4QGV
+ MJiKfWC+UsKk8BZWJmXN2pNL2eHDyNE8YXnjupTAtEnIHt4EdNHJgfhEYh3lCPLCf4hG
+ vTVCMQo4IYNd+8o01tXA06nRLAVzAU2O/Yz+wd6loPXTaCyCfnql8T4Fw3Qu7Nxkg2d1
+ 3d/Q==
+X-Gm-Message-State: AOAM530SNpC3NIHcmH0tJhb8F4OeQTPrCR4YWf1jQJlH+SI9NsSMgzrq
+ 2R82Sd66aVBhiScjv2y6LDlulc1NA3/WIw==
+X-Google-Smtp-Source: ABdhPJyXObaftNXrs7sJvvMP37m6AMUeh8xZurf9v2L/qW66uc3ZRQTniVGf7x1/iQ2eIL4HRO7DOg==
+X-Received: by 2002:a7b:c349:: with SMTP id l9mr4959269wmj.129.1606321974192; 
+ Wed, 25 Nov 2020 08:32:54 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id 90sm5400218wrl.60.2020.11.25.08.32.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Nov 2020 08:32:53 -0800 (PST)
+Date: Wed, 25 Nov 2020 17:32:51 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
+Message-ID: <20201125163251.GY401619@phenom.ffwll.local>
+References: <d1508c4f-df3e-fa3c-3071-d8a58295e674@suse.de>
+ <cbfa3e8d-81a3-5620-d4fc-72188cfb42ee@amd.com>
+ <6d2ee787-0bf5-de1d-73af-7c87bad63cda@suse.de>
+ <2431a0e1-7159-b3e7-e1ca-3e7f55c38d8a@amd.com>
+ <b356ee3d-64bd-30c9-23f6-dea3a1b87bea@suse.de>
+ <20201124140937.GK401619@phenom.ffwll.local>
+ <278a4498-bdde-402a-1cea-668e9683f7eb@suse.de>
+ <2f8a252a-5413-4b75-a367-f6233121e36e@amd.com>
+ <20201125103645.GU401619@phenom.ffwll.local>
+ <fd9dff4a-ec16-46d8-d892-b06dad5c11d3@suse.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <fd9dff4a-ec16-46d8-d892-b06dad5c11d3@suse.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,67 +86,400 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	open@freedesktop.org, "list:HARDWARE"@freedesktop.org,
-	RANDOM@freedesktop.org, NUMBER@freedesktop.org,
-	GENERATOR@freedesktop.org, CORE@freedesktop.org,
-	"          <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,  linux-integrity@vger.kernel.org, target-devel@vger.kernel.org,  linux-hardening@vger.kernel.org, Jonathan Cameron  <Jonathan.Cameron@huawei.com>, Greg KH <gregkh@linuxfoundation.org>,  linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,  linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,  dri-devel <dri-devel@lists.freedesktop.org>,  "@freedesktop.org,
-	Gustavo@freedesktop.org, A.R.Silva@freedesktop.org,
-	" <gustavoars@kernel.org>,  James Bottomley <James.Bottomley@hansenpartnership.com>,  linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,  linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,  wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,  linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,  drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,  linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,  linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,  linux-rdma@vger.kernel.org, oss-drivers@netronome.com,  linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,  amd-gfx list <amd-gfx@lists.freedesktop.org>,  linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,  usb-storage@lists.one-eyed-alien.net, coreteam@netfilter.org,  intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,  Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,  linux-ext4@vger.kernel.org, virtuali
- zation@lists.linux-foundation.org,  netfilter-devel@vger.kernel.org, linux-media@vger.kernel.org,  Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,  linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx@lists.freedesktop.org,  linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,  linux-geode@lists.infradead.org, linux-block@vger.kernel.org,  linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,  linux-mediatek@lists.infradead.org, nouveau@lists.freedesktop.org,  linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,  linux-can@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,  linux-hwmon@vger.kernel.org,  "@freedesktop.org,
-	"maintainer:X86"@freedesktop.org, ARCHITECTURE@freedesktop.org,
-	"(32-BIT"@freedesktop.org, AND@freedesktop.org,
-	"64-BIT)"@freedesktop.org,
-	" <x86@kernel.org>,  linux-watchdog@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,  Linux Memory Management List <linux-mm@kvack.org>,  Network Development <netdev@vger.kernel.org>,  linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,  LKML <linux-kernel@vger.kernel.org>,  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,  linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,  tipc-discussion@lists.sourceforge.net, Joe Perches <joe@perches.com>,  linux-nfs@vger.kernel.org"@freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ alexander.deucher@amd.com,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 25 Nov 2020 04:24:27 -0800 Nick Desaulniers wrote:
-> I even agree that most of the churn comes from
-> 
-> case 0:
->   ++x;
-> default:
->   break;
+On Wed, Nov 25, 2020 at 12:38:01PM +0100, Thomas Zimmermann wrote:
+> Hi
+> =
 
-And just to spell it out,
+> Am 25.11.20 um 11:36 schrieb Daniel Vetter:
+> > On Wed, Nov 25, 2020 at 11:13:13AM +0100, Christian K=F6nig wrote:
+> > > Am 25.11.20 um 09:37 schrieb Thomas Zimmermann:
+> > > > Hi
+> > > > =
 
-case ENUM_VALUE1:
-	bla();
-	break;
-case ENUM_VALUE2:
-	bla();
-default:
-	break;
+> > > > Am 24.11.20 um 15:09 schrieb Daniel Vetter:
+> > > > > On Tue, Nov 24, 2020 at 02:56:51PM +0100, Thomas Zimmermann wrote:
+> > > > > > Hi
+> > > > > > =
 
-is a fairly idiomatic way of indicating that not all values of the enum
-are expected to be handled by the switch statement. 
+> > > > > > Am 24.11.20 um 14:36 schrieb Christian K=F6nig:
+> > > > > > > Am 24.11.20 um 13:15 schrieb Thomas Zimmermann:
+> > > > > > > > [SNIP]
+> > > > > > > > > > > > First I wanted to put this into
+> > > > > > > > > > > > drm_gem_ttm_vmap/vunmap(), but then wondered why
+> > > > > > > > > > > > ttm_bo_vmap() doe not acquire the lock internally?
+> > > > > > > > > > > > I'd expect that vmap/vunmap are close together and
+> > > > > > > > > > > > do not overlap for the same BO.
+> > > > > > > > > > > =
 
-I really hope the Clang folks are reasonable and merge your patch.
+> > > > > > > > > > > We have use cases like the following during command s=
+ubmission:
+> > > > > > > > > > > =
 
-> If trivial patches are adding too much to your workload, consider
-> training a co-maintainer or asking for help from one of your reviewers
-> whom you trust.  I don't doubt it's hard to find maintainers, but
-> existing maintainers should go out of their way to entrust
-> co-maintainers especially when they find their workload becomes too
-> high.  And reviewing/picking up trivial patches is probably a great
-> way to get started.  If we allow too much knowledge of any one
-> subsystem to collect with one maintainer, what happens when that
-> maintainer leaves the community (which, given a finite lifespan, is an
-> inevitability)?
+> > > > > > > > > > > 1. lock
+> > > > > > > > > > > 2. map
+> > > > > > > > > > > 3. copy parts of the BO content somewhere else or pat=
+ch
+> > > > > > > > > > > it with additional information
+> > > > > > > > > > > 4. unmap
+> > > > > > > > > > > 5. submit BO to the hardware
+> > > > > > > > > > > 6. add hardware fence to the BO to make sure it doesn=
+'t move
+> > > > > > > > > > > 7. unlock
+> > > > > > > > > > > =
 
-The burn out point is about enjoying your work and feeling that it
-matters. It really doesn't make much difference if you're doing
-something you don't like for 12 hours every day or only in shifts with
-another maintainer. You'll dislike it either way.
+> > > > > > > > > > > That use case won't be possible with vmap/vunmap if we
+> > > > > > > > > > > move the lock/unlock into it and I hope to replace the
+> > > > > > > > > > > kmap/kunmap functions with them in the near term.
+> > > > > > > > > > > =
 
-Applying a real patch set and then getting a few follow ups the next day
-for trivial coding things like fallthrough missing or static missing,
-just because I didn't have the full range of compilers to check with
-before applying makes me feel pretty shitty, like I'm not doing a good
-job. YMMV.
+> > > > > > > > > > > > Otherwise, acquiring the reservation lock would
+> > > > > > > > > > > > require another ref-counting variable or per-driver
+> > > > > > > > > > > > code.
+> > > > > > > > > > > =
+
+> > > > > > > > > > > Hui, why that? Just put this into
+> > > > > > > > > > > drm_gem_ttm_vmap/vunmap() helper as you initially
+> > > > > > > > > > > planned.
+> > > > > > > > > > =
+
+> > > > > > > > > > Given your example above, step one would acquire the lo=
+ck,
+> > > > > > > > > > and step two would also acquire the lock as part of the=
+ vmap
+> > > > > > > > > > implementation. Wouldn't this fail (At least during unm=
+ap or
+> > > > > > > > > > unlock steps) ?
+> > > > > > > > > =
+
+> > > > > > > > > Oh, so you want to nest them? No, that is a rather bad no=
+-go.
+> > > > > > > > =
+
+> > > > > > > > I don't want to nest/overlap them. My question was whether =
+that
+> > > > > > > > would be required. Apparently not.
+> > > > > > > > =
+
+> > > > > > > > While the console's BO is being set for scanout, it's prote=
+cted from
+> > > > > > > > movement via the pin/unpin implementation, right?
+> > > > > > > =
+
+> > > > > > > Yes, correct.
+> > > > > > > =
+
+> > > > > > > > The driver does not acquire the resv lock for longer period=
+s. I'm
+> > > > > > > > asking because this would prevent any console-buffer update=
+s while
+> > > > > > > > the console is being displayed.
+> > > > > > > =
+
+> > > > > > > Correct as well, we only hold the lock for things like command
+> > > > > > > submission, pinning, unpinning etc etc....
+> > > > > > > =
+
+> > > > > > =
+
+> > > > > > Thanks for answering my questions.
+> > > > > > =
+
+> > > > > > > > =
+
+> > > > > > > > > =
+
+> > > > > > > > > You need to make sure that the lock is only taken from th=
+e FB
+> > > > > > > > > path which wants to vmap the object.
+> > > > > > > > > =
+
+> > > > > > > > > Why don't you lock the GEM object from the caller in the =
+generic
+> > > > > > > > > FB implementation?
+> > > > > > > > =
+
+> > > > > > > > With the current blitter code, it breaks abstraction. if vm=
+ap/vunmap
+> > > > > > > > hold the lock implicitly, things would be easier.
+> > > > > > > =
+
+> > > > > > > Do you have a link to the code?
+> > > > > > =
+
+> > > > > > It's the damage blitter in the fbdev code. [1] While it flushes
+> > > > > > the shadow
+> > > > > > buffer into the BO, the BO has to be kept in place. I already
+> > > > > > changed it to
+> > > > > > lock struct drm_fb_helper.lock, but I don't think this is
+> > > > > > enough. TTM could
+> > > > > > still evict the BO concurrently.
+> > > > > =
+
+> > > > > So I'm not sure this is actually a problem: ttm could try to
+> > > > > concurrently
+> > > > > evict the buffer we pinned into vram, and then just skip to the n=
+ext
+> > > > > one.
+> > > > > =
+
+> > > > > Plus atm generic fbdev isn't used on any chip where we really car=
+e about
+> > > > > that last few mb of vram being useable for command submission (we=
+ll atm
+> > > > > there's no driver using it).
+> > > > =
+
+> > > > Well, this is the patchset for radeon. If it works out, amdgpu and
+> > > > nouveau are natural next choices. Especially radeon and nouveau sup=
+port
+> > > > cards with low- to medium-sized VRAM. The MiBs wasted on fbdev cert=
+ainly
+> > > > matter.
+> > > > =
+
+> > > > > =
+
+> > > > > Having the buffer pinned into system memory and trying to do a
+> > > > > concurrent
+> > > > > modeset that tries to pull it in is the hard failure mode. And ho=
+lding
+> > > > > fb_helper.lock fully prevents that.
+> > > > > =
+
+> > > > > So not really clear on what failure mode you're seeing here?
+> > > > =
+
+> > > > Imagine the fbdev BO is in VRAM, but not pinned. (Maybe Xorg or Way=
+land
+> > > > is running.) The fbdev BO is a few MiBs and not in use, so TTM would
+> > > > want to evict it if memory gets tight.
+> > > > =
+
+> > > > What I have in mind is a concurrent modeset that requires the memor=
+y. If
+> > > > we do a concurrent damage blit without protecting against eviction,
+> > > > things go boom. Same for concurrent 3d graphics with textures, model
+> > > > data, etc.
+> > > =
+
+> > > Completely agree.
+> > > =
+
+> > > This needs proper lock protection of the memory mapped buffer. Relyin=
+g on
+> > > that some other code isn't run because we have some third part locks =
+taken
+> > > is not sufficient here.
+> > =
+
+> > We are still protected by the pin count in this scenario. Plus, with
+> > current drivers we always pin the fbdev buffer into vram, so occasional=
+ly
+> > failing to move it out isn't a regression.
+> =
+
+> Why is this protected by the pin count? The counter should be zero in this
+> scenario. Otherwise, we could not evict the fbdev BO on all those systems
+> where that's a hard requirement (e.g., ast).
+
+Ah yes, I mixed that up.
+
+I guess full locking is required :-/ I'm not exactly sure how to make this
+happen with the current plethora of helpers ... I think we need an
+_locked version of vmap/vunmap callbacks in drm_gem_object_funcs.
+
+And then document that if the callers of the _locked version wants a
+permanent mapping, it also needs to pin it. Plus I guess ideally implement
+the unlocked/permanent versions in terms of that, so that drivers only
+have to implement one or the other.
+
+That should give us at least some way forward to gradually conver all the
+drivers and helpers over to dma_resv locking.
+-Daniel
+
+> The pin count is currently maintained by the vmap implementation in vram
+> helpers. Calling vmap is an implicit pin; calling vunmap is an implicit
+> unpin. This prevents eviction in the damage worker. But now I was told th=
+an
+> pinning is only for BOs that are controlled by userspace and internal use=
+rs
+> should acquire the resv lock. So vram helpers have to be fixed, actually.
+> =
+
+> In vram helpers, unmapping does not mean eviction. The unmap operation on=
+ly
+> marks the BO as unmappable. The real unmap happens when the eviction takes
+> place. This avoids many modifications to the page tables. IOW an unpinned,
+> unmapped BO will remain in VRAM until the memory is actually needed.
+> =
+
+> Best regards
+> Thomas
+> =
+
+> > =
+
+> > So I'm still not seeing how this can go boom.
+> > =
+
+> > Now long term it'd be nice to cut everything over to dma_resv locking, =
+but
+> > the issue there is that beyond ttm, none of the helpers (and few of the
+> > drivers) use dma_resv. So this is a fairly big uphill battle. Quick
+> > interim fix seems like the right solution to me.
+> > -Daniel
+> > =
+
+> > > =
+
+> > > Regards,
+> > > Christian.
+> > > =
+
+> > > > =
+
+> > > > Best regards
+> > > > Thomas
+> > > > =
+
+> > > > > =
+
+> > > > > > There's no recursion taking place, so I guess the reservation
+> > > > > > lock could be
+> > > > > > acquired/release in drm_client_buffer_vmap/vunmap(), or a
+> > > > > > separate pair of
+> > > > > > DRM client functions could do the locking.
+> > > > > =
+
+> > > > > Given how this "do the right locking" is a can of worms (and I th=
+ink
+> > > > > it's
+> > > > > worse than what you dug out already) I think the fb_helper.lock h=
+ack is
+> > > > > perfectly good enough.
+> > > > > =
+
+> > > > > I'm also somewhat worried that starting to use dma_resv lock in g=
+eneric
+> > > > > code, while many helpers/drivers still have their hand-rolled loc=
+king,
+> > > > > will make conversion over to dma_resv needlessly more complicated.
+> > > > > -Daniel
+> > > > > =
+
+> > > > > > =
+
+> > > > > > Best regards
+> > > > > > Thomas
+> > > > > > =
+
+> > > > > > [1] https://cgit.freedesktop.org/drm/drm-tip/tree/drivers/gpu/d=
+rm/drm_fb_helper.c?id=3Dac60f3f3090115d21f028bffa2dcfb67f695c4f2#n394
+> > > > > > =
+
+> > > > > > > =
+
+> > > > > > > Please note that the reservation lock you need to take here i=
+s part of
+> > > > > > > the GEM object.
+> > > > > > > =
+
+> > > > > > > Usually we design things in the way that the code needs to ta=
+ke a lock
+> > > > > > > which protects an object, then do some operations with the ob=
+ject and
+> > > > > > > then release the lock again.
+> > > > > > > =
+
+> > > > > > > Having in the lock inside the operation can be done as well, =
+but
+> > > > > > > returning with it is kind of unusual design.
+> > > > > > > =
+
+> > > > > > > > Sorry for the noob questions. I'm still trying to understan=
+d the
+> > > > > > > > implications of acquiring these locks.
+> > > > > > > =
+
+> > > > > > > Well this is the reservation lock of the GEM object we are
+> > > > > > > talking about
+> > > > > > > here. We need to take that for a couple of different operatio=
+ns,
+> > > > > > > vmap/vunmap doesn't sound like a special case to me.
+> > > > > > > =
+
+> > > > > > > Regards,
+> > > > > > > Christian.
+> > > > > > > =
+
+> > > > > > > > =
+
+> > > > > > > > Best regards
+> > > > > > > > Thomas
+> > > > > > > =
+
+> > > > > > > _______________________________________________
+> > > > > > > dri-devel mailing list
+> > > > > > > dri-devel@lists.freedesktop.org
+> > > > > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> > > > > > =
+
+> > > > > > -- =
+
+> > > > > > Thomas Zimmermann
+> > > > > > Graphics Driver Developer
+> > > > > > SUSE Software Solutions Germany GmbH
+> > > > > > Maxfeldstr. 5, 90409 N=FCrnberg, Germany
+> > > > > > (HRB 36809, AG N=FCrnberg)
+> > > > > > Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
+> > > > > =
+
+> > > > > =
+
+> > > > > =
+
+> > > > > =
+
+> > > > > =
+
+> > > > > =
+
+> > > > =
+
+> > > =
+
+> > =
+
+> =
+
+> -- =
+
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=FCrnberg, Germany
+> (HRB 36809, AG N=FCrnberg)
+> Gesch=E4ftsf=FChrer: Felix Imend=F6rffer
+
+
+
+
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
