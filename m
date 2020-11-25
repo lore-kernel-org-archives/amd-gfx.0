@@ -7,53 +7,53 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 355CFC56202
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 08:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F239EC56202
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 08:26:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD00E20872
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 08:26:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 96E7620872
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 08:26:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="WifNdkif"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD00E20872
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="L3KZpP3L"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96E7620872
 Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFB056E855;
-	Thu, 26 Nov 2020 08:26:50 +0000 (UTC)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E887E6EAAB
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 22:09:19 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id j19so3631337pgg.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 14:09:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9536E89E;
+	Thu, 26 Nov 2020 08:26:53 +0000 (UTC)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D58C6EAAC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 22:09:41 +0000 (UTC)
+Received: by mail-pl1-x642.google.com with SMTP id x15so103973pll.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 14:09:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=u18D3LcbSYuoMMQXGcZuOSSHQ97aqFAj6PSwZPKzyfI=;
- b=WifNdkiftaOaD4ZZckvIqaLo1oDpErEfQOeEaPPqC9ugBqwKDiWX7cyNX9NNokqABc
- 3rs8Xkh/xt0eSkb8xVKJLxbZ9ctD9N09POwkigNrKsLe837qPjgVNlPjii1YQ7Ys5fEN
- J1ztqI2SdAxczb+fxW5+t1BuuInt0J3EnKhYhGXUx/Ycs4OeMqDUGayCvZ/rK/2hwzHv
- fvNTfM4yxqfrW/W8EGBwEJD3ef8E6CIFveHPM/2Vwj3USBV6V1sXpGOaikzNc+dcQTTs
- sQr+N2RUFmFahGpkDJgGJRdpjSZFKGXDT4Evw9946EQKZvU8LN7QRJCs+4k3wXo2GKBl
- nncg==
+ :cc; bh=/ob3FEJdYP5qhdHPeLajEb6PUDm9frxLF1mdXzRdH3M=;
+ b=L3KZpP3LXxZlW/DP5AmTnD4MuZ72/rcy+coOeUVeCNTiwrWtzoVQx/hBMoKUsqDMm0
+ Foet9vcyJsJZ2PSgueU+Q+MvDj0KUWyeWX5guwBWRMdbnXZ08cX56htqXhsZrxHUuRIn
+ vYFnIpmbgrasg1vSD5AH5hKwOy9NejMhVovtjBrzY+2P0ug3w3+5RlYsOk03C83VD9da
+ OdGtf9c6uotPHdYcmuyOqbnF5k3fP8Yo6l5eFDVR7n6m5okfFX1oHlXNOB3u6UsnrVGE
+ wa6MluYkHn1XOYZTDyrE2KQmcun7Qe6vVmhaYurLDnZVMQG/lFJsGakXcuEY3+Obie2U
+ RVfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=u18D3LcbSYuoMMQXGcZuOSSHQ97aqFAj6PSwZPKzyfI=;
- b=DnOnninTNV7RV22pc8GqC/XhELiXjvoorwwFCxtjcz2ran0wApl3V/M2hlR9/xqGhg
- 97WM0KpiPe3Ayaue8r6liVnEN0Yem6YeBMrJRiIR9DwJ/3zNNifeFau9z0SZmD5Kn3+U
- Ae5+z6Qc7e3YeAseRz+HT2DWSV3XiF/fOrrORkolhDbFHVU9WItxdyj6g1xObS0xYI4h
- a3IRmmXC5NKCS1NdRW/qoeV8s9n2iHb0oIcOepMEVexgLdesT0+ozle7S1aRN3Ahk+NH
- BG8UrYUt+zWPhEKQJjN/51e4mDNbmJAPboFnmaeOLGjTOSTypm0PEvdmver1cM5iJTCu
- nZuQ==
-X-Gm-Message-State: AOAM532IcgoLl2jM0ZLk6XPP9x2plR9pt5MMRXbukhczZw7JZTDfVpmo
- 4PY7b3bo6XE45cIlN+n+X06/TnYXhdSl7dyIDQwfRg==
-X-Google-Smtp-Source: ABdhPJxX4YdX/dgPSH4qNW13nZ+NPFnsWrpBgteZRS2UfRF2x25a9zmwdzqZA/h0sTtapVP+ZBS7Enbowp+5Zxn/Mxo=
-X-Received: by 2002:a17:90a:d250:: with SMTP id
- o16mr6463569pjw.25.1606342159332; 
- Wed, 25 Nov 2020 14:09:19 -0800 (PST)
+ bh=/ob3FEJdYP5qhdHPeLajEb6PUDm9frxLF1mdXzRdH3M=;
+ b=bRHJTTBN8aFH0ApdFxdMUqWTuQ/H95HaYupTQJZfdXGLbkMslvAuDVek0BBD0SqQ/8
+ v2F2V+5i+7HUKzhx6nmWFWDdOF/JpY+MpqE+9HZWadk0VVlROuW0hg3gXQdYYdR45b+8
+ b9IOghOgaxWz3zjvUZIFNktzqnux/QHR0/2b/MfKBwUEUfyAm362sUx1AnzJA/cx/8La
+ I8BHK/liAsWeXT2L3DYvH4IEBXtrvfBN4aPvPF6FydOjD7nuJofVvD4UyB1mz1EXZr18
+ OSNots+HG14RBFnxoq3FIQLx1DqZUTTfJFgKM1gokbtQo9E6x51wEJ3yTNr6J9I6UYDl
+ 0/ug==
+X-Gm-Message-State: AOAM530gVT/z092NlvT2sIdaCKtn5N2kIhO9Gi3YNJgjXLUtunGkPe+6
+ 8j9eqpKY581Frntyi/FlNNuT1YHaRVzlia//VNbQNA==
+X-Google-Smtp-Source: ABdhPJz8lLt/1COGEMpWkFDfyIK6h7HwbxIAa+xtHaAqLUfnjsVh22wexUgkVgdtXLczfRnuDI51yr8PXCWqKuZKul4=
+X-Received: by 2002:a17:902:c14a:b029:d8:dc05:d7ef with SMTP id
+ 10-20020a170902c14ab02900d8dc05d7efmr4885886plj.83.1606342180784; Wed, 25 Nov
+ 2020 14:09:40 -0800 (PST)
 MIME-Version: 1.0
 References: <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
@@ -68,14 +68,14 @@ References: <202011201129.B13FDB3C@keescook>
  <202011241327.BB28F12F6@keescook>
  <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
  <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
- <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
+In-Reply-To: <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
 From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 25 Nov 2020 14:09:08 -0800
-Message-ID: <CAKwvOdkWGE5qdFZUuMzcL63LDOu_iZQJOGbeBNjcPi8sJPMkag@mail.gmail.com>
+Date: Wed, 25 Nov 2020 14:09:29 -0800
+Message-ID: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
 Subject: Re: [Intel-wired-lan] [PATCH 000/141] Fix fall-through warnings for
  Clang
-To: Jakub Kicinski <kuba@kernel.org>
+To: Finn Thain <fthain@telegraphics.com.au>
 X-Mailman-Approved-At: Thu, 26 Nov 2020 08:26:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,6 +89,7 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
+ target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
  linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
  linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
  dri-devel <dri-devel@lists.freedesktop.org>,
@@ -107,7 +108,7 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
  usb-storage@lists.one-eyed-alien.net, coreteam@netfilter.org,
  intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
+ Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
  linux-ext4@vger.kernel.org, virtualization@lists.linux-foundation.org,
  netfilter-devel@vger.kernel.org, linux-media@vger.kernel.org,
  Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
@@ -115,10 +116,10 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
  linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
  linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
- linux-can@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-hwmon@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org,
+ nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
  "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
  linux-watchdog@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
  Linux Memory Management List <linux-mm@kvack.org>,
@@ -128,34 +129,43 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
  linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
  tipc-discussion@lists.sourceforge.net,
- =?UTF-8?Q?open_list=3AHARDWARE_RANDOM_NUMBER_GENERATOR_CORE_=3Clinux=2Dcrypt?=
- =?UTF-8?Q?o=40vger=2Ekernel=2Eorg=3E=2C_patches=40opensource=2Ecirrus=2Ecom=2C_linux=2Dint?=
- =?UTF-8?Q?egrity=40vger=2Ekernel=2Eorg=2C_target=2Ddevel=40vger=2Ekernel=2Eorg=2C_linux=2D?=
- =?UTF-8?Q?hardening=40vger=2Ekernel=2Eorg=2C_Jonathan_Cameron_=3CJonathan=2ECamero?=
- =?UTF-8?Q?n=40huawei=2Ecom=3E=2C_Greg_KH?= <gregkh@linuxfoundation.org>,
- Joe Perches <joe@perches.com>, linux-nfs@vger.kernel.org
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 25, 2020 at 8:24 AM Jakub Kicinski <kuba@kernel.org> wrote:
+On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> wrote:
 >
-> Applying a real patch set and then getting a few follow ups the next day
-> for trivial coding things like fallthrough missing or static missing,
-> just because I didn't have the full range of compilers to check with
-> before applying makes me feel pretty shitty, like I'm not doing a good
-> job. YMMV.
+> Or do you think that a codebase can somehow satisfy multiple checkers and
+> their divergent interpretations of the language spec?
 
-I understand. Everyone feels that way, except maybe Bond villains and
-robots.  My advice in that case is don't take it personally.  We're
-working with a language that's more error prone relative to others.
-While one would like to believe they are flawless, over time they
-can't beat the aggregate statistics.  A balance between Imposter
-Syndrome and Dunning Kruger is walked by all software developers, and
-the fear of making mistakes in public is one of the number one reasons
-folks don't take the plunge contributing to open source software or
-even the kernel.  My advice to them is "don't sweat the small stuff."
+Have we found any cases yet that are divergent? I don't think so.  It
+sounds to me like GCC's cases it warns for is a subset of Clang's.
+Having additional coverage with Clang then should ensure coverage for
+both.
+
+> > This is not a shiny new warning; it's already on for GCC and has existed
+> > in both compilers for multiple releases.
+> >
+>
+> Perhaps you're referring to the compiler feature that lead to the
+> ill-fated, tree-wide /* fallthrough */ patch series.
+>
+> When the ink dries on the C23 language spec and the implementations figure
+> out how to interpret it then sure, enforce the warning for new code -- the
+> cost/benefit analysis is straight forward. However, the case for patching
+> existing mature code is another story.
+
+I don't think we need to wait for the ink to dry on the C23 language
+spec to understand that implicit fallthrough is an obvious defect of
+the C language.  While the kernel is a mature codebase, it's not
+immune to bugs.  And its maturity has yet to slow its rapid pace of
+development.
 -- 
 Thanks,
 ~Nick Desaulniers
