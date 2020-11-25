@@ -6,61 +6,60 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0E83C64E7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1A7DC64E8A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 43114208C3
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6D7AA208CA
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 08:23:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lzAwh4po"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43114208C3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="DUjk2u5m";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="DUjk2u5m"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D7AA208CA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=HansenPartnership.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AE96E938;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3B596E937;
 	Wed, 25 Nov 2020 08:23:00 +0000 (UTC)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 375586E0AC
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 21:32:47 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id s63so357760pgc.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2020 13:32:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=nUebvx46WK355IC8BSYKhA86maU/C5TyOra9y/oS07E=;
- b=lzAwh4po+9zegkg/2K9x7CHiUUthvj2PFJyxHwt1QdcZQIdrGCSiE3JgzWuDiv+VMN
- KwBJ/6n/jsAIvSMb6eOJqvl2BVv6D2OMXP8giSKXaaH9JwLNdR2oULKAXe3g8bDVfAub
- 65Ll+320/JpDsvMBOWCFVSOrRLSDK1WOgK6ns=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=nUebvx46WK355IC8BSYKhA86maU/C5TyOra9y/oS07E=;
- b=L5MGbH7T+0JJkLCaYjNYBfrqOVow1C1l31NUpQrQcslfj1vaZwoMV1+Zl7yZReeatJ
- 9HmloA4I3yQsMBD6np+BKhe3MYceVzfw0RVYXeiiv40RsFTleE0rOGNonmcb97ycXovZ
- O4lAG80wiORD4HT3sf9iuKFCxO7d2dYIQMQN3hKIIJ5boOQw1BXBmZeGAG7Wetz7U9bL
- pD/mf7S/1ussha9MsTtvrcszIqjw1nFQsHMJ5uwSiGrBReMNoXd1iV9i1bnC5S13IWEV
- BZnQB2Of3MgTX277WbQe/9+VKEsqQ3w7O+/ue4OkjDDamEqJtchFW72642Rc0tJwaNmv
- vexA==
-X-Gm-Message-State: AOAM530Wc7V+U8Q8pFz1axY6oGJh7IjcJEzWP1Qw8enNdNiL0GVNLNbC
- MNq5TcdxJpSTeXl3SqpgpErRbg==
-X-Google-Smtp-Source: ABdhPJxq53hoH5g966jwbYjUDwfs6lHQ9KOfN5qCJ8fiAFBBjxy/+X2rEoTmF5zSw2rlwmYa8QmuBA==
-X-Received: by 2002:aa7:9af2:0:b029:198:273c:6be8 with SMTP id
- y18-20020aa79af20000b0290198273c6be8mr329847pfp.4.1606253566848; 
- Tue, 24 Nov 2020 13:32:46 -0800 (PST)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id j74sm15845pfd.43.2020.11.24.13.32.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2020 13:32:45 -0800 (PST)
-Date: Tue, 24 Nov 2020 13:32:44 -0800
-From: Kees Cook <keescook@chromium.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [96.44.175.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5D9E89823;
+ Wed, 25 Nov 2020 07:05:43 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id 313DE1280408;
+ Tue, 24 Nov 2020 23:05:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606287940;
+ bh=PpyvloC8ztllb7q8ndtGKJRs78ChiB3jg6tteM0zYL0=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=DUjk2u5mMxkvusJZ7TUknDmT+9jEkjAK5Du54VYrLnX3ZVAsqbXKInJF3+bjbWxe1
+ sPTOm9Jo8O4FiM37EcbSbGJ09Z6i3toRLj70BanOqmx/doOouqQw1ofRfirJ315HKN
+ ACp6UaCD/rMf1rqLOvr/v7W+FqOYQZREI5LkhaoU=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id 8AuMCu2vLv9Z; Tue, 24 Nov 2020 23:05:40 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::527])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id A873112803EC;
+ Tue, 24 Nov 2020 23:05:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606287940;
+ bh=PpyvloC8ztllb7q8ndtGKJRs78ChiB3jg6tteM0zYL0=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=DUjk2u5mMxkvusJZ7TUknDmT+9jEkjAK5Du54VYrLnX3ZVAsqbXKInJF3+bjbWxe1
+ sPTOm9Jo8O4FiM37EcbSbGJ09Z6i3toRLj70BanOqmx/doOouqQw1ofRfirJ315HKN
+ ACp6UaCD/rMf1rqLOvr/v7W+FqOYQZREI5LkhaoU=
+Message-ID: <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
 Subject: Re: [Intel-wired-lan] [PATCH 000/141] Fix fall-through warnings for
  Clang
-Message-ID: <202011241327.BB28F12F6@keescook>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Kees Cook <keescook@chromium.org>
+Date: Tue, 24 Nov 2020 23:05:35 -0800
+In-Reply-To: <202011241327.BB28F12F6@keescook>
 References: <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011220816.8B6591A@keescook>
@@ -71,9 +70,9 @@ References: <202011201129.B13FDB3C@keescook>
  <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
  <20201123130348.GA3119@embeddedor>
  <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
+ <202011241327.BB28F12F6@keescook>
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
 X-Mailman-Approved-At: Wed, 25 Nov 2020 08:22:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,34 +129,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 08:31:30AM -0800, James Bottomley wrote:
-> Really, no ... something which produces no improvement has no value at
-> all ... we really shouldn't be wasting maintainer time with it because
-> it has a cost to merge.  I'm not sure we understand where the balance
-> lies in value vs cost to merge but I am confident in the zero value
-> case.
+On Tue, 2020-11-24 at 13:32 -0800, Kees Cook wrote:
+> On Mon, Nov 23, 2020 at 08:31:30AM -0800, James Bottomley wrote:
+> > Really, no ... something which produces no improvement has no value
+> > at all ... we really shouldn't be wasting maintainer time with it
+> > because it has a cost to merge.  I'm not sure we understand where
+> > the balance lies in value vs cost to merge but I am confident in
+> > the zero value case.
+> 
+> What? We can't measure how many future bugs aren't introduced because
+> the kernel requires explicit case flow-control statements for all new
+> code.
 
-What? We can't measure how many future bugs aren't introduced because the
-kernel requires explicit case flow-control statements for all new code.
+No but we can measure how vulnerable our current coding habits are to
+the mistake this warning would potentially prevent.  I don't think it's
+wrong to extrapolate that if we had no instances at all of prior coding
+problems we likely wouldn't have any in future either making adopting
+the changes needed to enable the warning valueless ... that's the zero
+value case I was referring to above.
 
-We already enable -Wimplicit-fallthrough globally, so that's not the
-discussion. The issue is that Clang is (correctly) even more strict
-than GCC for this, so these are the remaining ones to fix for full Clang
-coverage too.
+Now, what we have seems to be about 6 cases (at least what's been shown
+in this thread) where a missing break would cause potentially user
+visible issues.  That means the value of this isn't zero, but it's not
+a no-brainer massive win either.  That's why I think asking what we've
+invested vs the return isn't a useless exercise.
 
-People have spent more time debating this already than it would have
-taken to apply the patches. :)
+> We already enable -Wimplicit-fallthrough globally, so that's not the
+> discussion. The issue is that Clang is (correctly) even more strict
+> than GCC for this, so these are the remaining ones to fix for full
+> Clang coverage too.
+> 
+> People have spent more time debating this already than it would have
+> taken to apply the patches. :)
 
-This is about robustness and language wrangling. It's a big code-base,
-and this is the price of our managing technical debt for permanent
-robustness improvements. (The numbers I ran from Gustavo's earlier
-patches were that about 10% of the places adjusted were identified as
-legitimate bugs being fixed. This final series may be lower, but there
-are still bugs being found from it -- we need to finish this and shut
-the door on it for good.)
+You mean we've already spent 90% of the effort to come this far so we
+might as well go the remaining 10% because then at least we get some
+return? It's certainly a clinching argument in defence procurement ...
 
--- 
-Kees Cook
+> This is about robustness and language wrangling. It's a big code-
+> base, and this is the price of our managing technical debt for
+> permanent robustness improvements. (The numbers I ran from Gustavo's
+> earlier patches were that about 10% of the places adjusted were
+> identified as legitimate bugs being fixed. This final series may be
+> lower, but there are still bugs being found from it -- we need to
+> finish this and shut the door on it for good.)
+
+I got my six patches by analyzing the lwn.net report of the fixes that
+was cited which had 21 of which 50% didn't actually change the emitted
+code, and 25% didn't have a user visible effect.
+
+But the broader point I'm making is just because the compiler people
+come up with a shiny new warning doesn't necessarily mean the problem
+it's detecting is one that causes us actual problems in the code base. 
+I'd really be happier if we had a theory about what classes of CVE or
+bug we could eliminate before we embrace the next new warning.
+
+James
+
+
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
