@@ -2,73 +2,88 @@ Return-Path: <SRS0=+gD6=E7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 992D7C5519F
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1AB50C5519F
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12F9B206E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:41:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8BE3420678
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2020 10:57:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="CFG5kTEe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12F9B206E0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rlSxY1uL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BE3420678
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 999BD6E915;
-	Wed, 25 Nov 2020 10:41:43 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C526E915
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 10:41:42 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a186so1566596wme.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2020 02:41:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=iY0w/rYhU4zQmtV4vIRlhxfmxncXrSZhBMnwcfQeBeY=;
- b=CFG5kTEekjvLVH5LPBBa/XVG5aPQwA5S0E9uQLYuRUPuHs+UEWQBSq3ZZwLXDlyO3E
- lzQ6qGX3nbo1l/Z9LCgMIV2XSyzzmIWbE92kjTTkBblEsdi32Y1MPtlBZB5C+mveUu3T
- y8weqUkcnnbrhY7tO5nDngbeMtCodvsnC4x7I=
+	by gabe.freedesktop.org (Postfix) with ESMTP id C74F46E8A7;
+	Wed, 25 Nov 2020 10:57:17 +0000 (UTC)
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E8616E8A4;
+ Wed, 25 Nov 2020 10:57:16 +0000 (UTC)
+Received: by mail-ed1-x543.google.com with SMTP id y4so2070031edy.5;
+ Wed, 25 Nov 2020 02:57:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=zwBgo2KKECD2Ji1Kiezf2VcPmQXft9b9HVB6RLRewy8=;
+ b=rlSxY1uLEqu3lIi+pDm4JjL5qQ5OmOIJhozc9lrIzuAuyP21jbzYj/Af6jvffM0iQ4
+ kRdvLXvfnARUpjvFlVHmbuLJoCi6yBmmhTKYE/8WxpMQK+9y8PTveI0vpZR2jKpzmrBi
+ Hr3yDJH8l0l5EkcugSisbN7EoX3EIs+VJy7irpZFttxzueOeHngPlrO5KJwLPfyRYdFX
+ 4njCpCx+/cyBg01Hgi4EVJr416TJsZaST2DovCpKArgQFB3CCyGFjif8XOIFtdS/aTOY
+ Hn5YK1TKmzt+8VE1SZEyA5REep0QT74CHyeX4ZRT4+P4E7oIlZDW/P+sCOhN3VffyTIh
+ 0RRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=iY0w/rYhU4zQmtV4vIRlhxfmxncXrSZhBMnwcfQeBeY=;
- b=LFUOZwx9mK+qWQmB41oCjx8vRXJS2iGJNajBB3Qil2steM02rwckWraTOqiRbesDC8
- X7n8ayAduU1rNWFax9jBJF6/K9s2T7MFFLz45h3+hYD9kSpW6sc9PBhRzPkJahE99hy2
- 3x734hl3cZrzCQf7CGUCxMnvHpZSBRICUvrxLtSInfVOXOriSMAh77xL99OJRYPlsjxi
- O5KhzSd2JkxegONKMWWozv7M2sNhC3lAWNah1MpkjDIGiUd3TeLrIZ5cn2SVHZL9Q/hh
- YWDfSUz2DaqQTCT0llIz6vUaA6faLJogADtOWiIj8Ikxf4gyyatryaTxuqkLwrDFe+YS
- jPgg==
-X-Gm-Message-State: AOAM531eLID1o2iquJhZ5WBYech9PIIwmcm2Mn95GeIi9lchPixxdDaI
- rAs//jOBkvJ+8yUiPVk0b+1Unw==
-X-Google-Smtp-Source: ABdhPJwMtjtfCp6ndhlm6QHnZqdB/BQqXsROKQj+rYtpwj2hdB1EDoR9fcA3ucHXkDTMBriiTtlFOA==
-X-Received: by 2002:a1c:44d4:: with SMTP id r203mr3238854wma.60.1606300901561; 
- Wed, 25 Nov 2020 02:41:41 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w17sm4117545wru.82.2020.11.25.02.41.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2020 02:41:40 -0800 (PST)
-Date: Wed, 25 Nov 2020 11:41:38 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH v3 08/12] drm/amdgpu: Split amdgpu_device_fini into early
- and late
-Message-ID: <20201125104138.GW401619@phenom.ffwll.local>
-References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
- <1605936082-3099-9-git-send-email-andrey.grodzovsky@amd.com>
- <20201124145318.GS401619@phenom.ffwll.local>
- <21f9e551-495a-3c3e-09d9-7cdf2bbab8d1@amd.com>
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=zwBgo2KKECD2Ji1Kiezf2VcPmQXft9b9HVB6RLRewy8=;
+ b=eEzto0Yb+U5XpRnZPDN6ENbtG0cdkbNuEKZPYTISfxledHW2hYC7/5A3w6DZz7NFqd
+ VJSVcI1pmyAprUZ2n1yh3f0+r/i1MULkks4BBRyTE9KUq41it/af5UfrqOeBbMIoH9Tl
+ NkNbWCy7X+C/MPKhHkZyUvmz0g/QERtgfOSkykX7g3uKCr6BdU3dNTi7jGPHFzwgtNfy
+ vK3kj70ef9qdjEE8kiJ3Voabt9xkZHKT2MirfqTnQC12eyb0SMLz/ZiNFW4ObtYIHXHa
+ NJeOIO8UlM++M4xd5YdcJDi+vJ9/eG2cVG3zFXrLkroWnliOSV1w8qr7SaIhVCtlZ/mL
+ QnGw==
+X-Gm-Message-State: AOAM531TrC3L6I5n6i+9TU2cNhlaKM42Ue8uYGkGYdg9BWoA93wyDiHc
+ Pk2ZQcZsA0pnRhKViR2Mc0Y=
+X-Google-Smtp-Source: ABdhPJw5hOowBrVxi6IKtT2ld93rvT+3wAazNPDrjMK7Ek5SZ79tacxIEjP0YDPLmIaCCg+jwZSEhQ==
+X-Received: by 2002:a05:6402:3d9:: with SMTP id
+ t25mr2852902edw.338.1606301834901; 
+ Wed, 25 Nov 2020 02:57:14 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id v8sm1008568edt.3.2020.11.25.02.57.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Nov 2020 02:57:14 -0800 (PST)
+Subject: Re: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
+To: Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <94fa26eb-d899-8c83-9325-84532639d438@suse.de>
+ <6319ba4d-f45f-77ec-8752-33f3cad443fd@amd.com>
+ <d1508c4f-df3e-fa3c-3071-d8a58295e674@suse.de>
+ <cbfa3e8d-81a3-5620-d4fc-72188cfb42ee@amd.com>
+ <6d2ee787-0bf5-de1d-73af-7c87bad63cda@suse.de>
+ <2431a0e1-7159-b3e7-e1ca-3e7f55c38d8a@amd.com>
+ <b356ee3d-64bd-30c9-23f6-dea3a1b87bea@suse.de>
+ <20201124140937.GK401619@phenom.ffwll.local>
+ <278a4498-bdde-402a-1cea-668e9683f7eb@suse.de>
+ <2f8a252a-5413-4b75-a367-f6233121e36e@amd.com>
+ <20201125103645.GU401619@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <c56c6563-e22d-3f63-59e5-272c19e983ed@gmail.com>
+Date: Wed, 25 Nov 2020 11:57:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <21f9e551-495a-3c3e-09d9-7cdf2bbab8d1@amd.com>
-X-Operating-System: Linux phenom 5.7.0-1-amd64 
+In-Reply-To: <20201125103645.GU401619@phenom.ffwll.local>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,328 +95,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, gregkh@linuxfoundation.org,
- ckoenig.leichtzumerken@gmail.com, dri-devel@lists.freedesktop.org,
- eric@anholt.net, ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, daniel.vetter@ffwll.ch,
- Alexander.Deucher@amd.com, yuq825@gmail.com, Harry.Wentland@amd.com,
- l.stach@pengutronix.de
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Cc: airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 24, 2020 at 10:51:57AM -0500, Andrey Grodzovsky wrote:
-> 
-> On 11/24/20 9:53 AM, Daniel Vetter wrote:
-> > On Sat, Nov 21, 2020 at 12:21:18AM -0500, Andrey Grodzovsky wrote:
-> > > Some of the stuff in amdgpu_device_fini such as HW interrupts
-> > > disable and pending fences finilization must be done right away on
-> > > pci_remove while most of the stuff which relates to finilizing and
-> > > releasing driver data structures can be kept until
-> > > drm_driver.release hook is called, i.e. when the last device
-> > > reference is dropped.
-> > > 
-> > Uh fini_late and fini_early are rathare meaningless namings, since no
-> > clear why there's a split. If you used drm_connector_funcs as inspiration,
-> > that's kinda not good because 'register' itself is a reserved keyword.
-> > That's why we had to add late_ prefix, could as well have used
-> > C_sucks_ as prefix :-) And then the early_unregister for consistency.
-> > 
-> > I think fini_hw and fini_sw (or maybe fini_drm) would be a lot clearer
-> > about what they're doing.
-> > 
-> > I still strongly recommend that you cut over as much as possible of the
-> > fini_hw work to devm_ and for the fini_sw/drm stuff there's drmm_
-> > -Daniel
-> 
-> 
-> Definitely, and I put it in a TODO list in the RFC patch.Also, as I
-> mentioned before -
-> I just prefer to leave it for a follow up work because it's non trivial and
-> requires shuffling
-> a lof of stuff around in the driver. I was thinking of committing the work
-> in incremental steps -
-> so it's easier to merge it and control for breakages.
-
-Yeah doing devm/drmm conversion later on makes sense. It'd still try to
-have better names than what you're currently going with. A few of these
-will likely stick around for very long, not just interim.
--Daniel
-
-> 
-> Andrey
-> 
-> 
-> > 
-> > > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 +++++-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 ++++++++++++----
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  7 ++-----
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c  | 15 ++++++++++++++-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 24 +++++++++++++++---------
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h    |  1 +
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 12 +++++++++++-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    |  3 +++
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  3 ++-
-> > >   9 files changed, 65 insertions(+), 22 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > index 83ac06a..6243f6d 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > @@ -1063,7 +1063,9 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
-> > >   int amdgpu_device_init(struct amdgpu_device *adev,
-> > >   		       uint32_t flags);
-> > > -void amdgpu_device_fini(struct amdgpu_device *adev);
-> > > +void amdgpu_device_fini_early(struct amdgpu_device *adev);
-> > > +void amdgpu_device_fini_late(struct amdgpu_device *adev);
-> > > +
-> > >   int amdgpu_gpu_wait_for_idle(struct amdgpu_device *adev);
-> > >   void amdgpu_device_vram_access(struct amdgpu_device *adev, loff_t pos,
-> > > @@ -1275,6 +1277,8 @@ void amdgpu_driver_lastclose_kms(struct drm_device *dev);
-> > >   int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
-> > >   void amdgpu_driver_postclose_kms(struct drm_device *dev,
-> > >   				 struct drm_file *file_priv);
-> > > +void amdgpu_driver_release_kms(struct drm_device *dev);
-> > > +
-> > >   int amdgpu_device_ip_suspend(struct amdgpu_device *adev);
-> > >   int amdgpu_device_suspend(struct drm_device *dev, bool fbcon);
-> > >   int amdgpu_device_resume(struct drm_device *dev, bool fbcon);
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > index 2f60b70..797d94d 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -3557,14 +3557,12 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-> > >    * Tear down the driver info (all asics).
-> > >    * Called at driver shutdown.
-> > >    */
-> > > -void amdgpu_device_fini(struct amdgpu_device *adev)
-> > > +void amdgpu_device_fini_early(struct amdgpu_device *adev)
-> > >   {
-> > >   	dev_info(adev->dev, "amdgpu: finishing device.\n");
-> > >   	flush_delayed_work(&adev->delayed_init_work);
-> > >   	adev->shutdown = true;
-> > > -	kfree(adev->pci_state);
-> > > -
-> > >   	/* make sure IB test finished before entering exclusive mode
-> > >   	 * to avoid preemption on IB test
-> > >   	 * */
-> > > @@ -3581,11 +3579,18 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
-> > >   		else
-> > >   			drm_atomic_helper_shutdown(adev_to_drm(adev));
-> > >   	}
-> > > -	amdgpu_fence_driver_fini(adev);
-> > > +	amdgpu_fence_driver_fini_early(adev);
-> > >   	if (adev->pm_sysfs_en)
-> > >   		amdgpu_pm_sysfs_fini(adev);
-> > >   	amdgpu_fbdev_fini(adev);
-> > > +
-> > > +	amdgpu_irq_fini_early(adev);
-> > > +}
-> > > +
-> > > +void amdgpu_device_fini_late(struct amdgpu_device *adev)
-> > > +{
-> > >   	amdgpu_device_ip_fini(adev);
-> > > +	amdgpu_fence_driver_fini_late(adev);
-> > >   	release_firmware(adev->firmware.gpu_info_fw);
-> > >   	adev->firmware.gpu_info_fw = NULL;
-> > >   	adev->accel_working = false;
-> > > @@ -3621,6 +3626,9 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
-> > >   		amdgpu_pmu_fini(adev);
-> > >   	if (adev->mman.discovery_bin)
-> > >   		amdgpu_discovery_fini(adev);
-> > > +
-> > > +	kfree(adev->pci_state);
-> > > +
-> > >   }
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > index 7f98cf1..3d130fc 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > @@ -1244,14 +1244,10 @@ amdgpu_pci_remove(struct pci_dev *pdev)
-> > >   {
-> > >   	struct drm_device *dev = pci_get_drvdata(pdev);
-> > > -#ifdef MODULE
-> > > -	if (THIS_MODULE->state != MODULE_STATE_GOING)
-> > > -#endif
-> > > -		DRM_ERROR("Hotplug removal is not supported\n");
-> > >   	drm_dev_unplug(dev);
-> > >   	amdgpu_driver_unload_kms(dev);
-> > > +
-> > >   	pci_disable_device(pdev);
-> > > -	pci_set_drvdata(pdev, NULL);
-> > >   	drm_dev_put(dev);
-> > >   }
-> > > @@ -1557,6 +1553,7 @@ static struct drm_driver kms_driver = {
-> > >   	.dumb_create = amdgpu_mode_dumb_create,
-> > >   	.dumb_map_offset = amdgpu_mode_dumb_mmap,
-> > >   	.fops = &amdgpu_driver_kms_fops,
-> > > +	.release = &amdgpu_driver_release_kms,
-> > >   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
-> > >   	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > index d0b0021..c123aa6 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > > @@ -523,7 +523,7 @@ int amdgpu_fence_driver_init(struct amdgpu_device *adev)
-> > >    *
-> > >    * Tear down the fence driver for all possible rings (all asics).
-> > >    */
-> > > -void amdgpu_fence_driver_fini(struct amdgpu_device *adev)
-> > > +void amdgpu_fence_driver_fini_early(struct amdgpu_device *adev)
-> > >   {
-> > >   	unsigned i, j;
-> > >   	int r;
-> > > @@ -544,6 +544,19 @@ void amdgpu_fence_driver_fini(struct amdgpu_device *adev)
-> > >   		if (!ring->no_scheduler)
-> > >   			drm_sched_fini(&ring->sched);
-> > >   		del_timer_sync(&ring->fence_drv.fallback_timer);
-> > > +	}
-> > > +}
-> > > +
-> > > +void amdgpu_fence_driver_fini_late(struct amdgpu_device *adev)
-> > > +{
-> > > +	unsigned int i, j;
-> > > +
-> > > +	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-> > > +		struct amdgpu_ring *ring = adev->rings[i];
-> > > +
-> > > +		if (!ring || !ring->fence_drv.initialized)
-> > > +			continue;
-> > > +
-> > >   		for (j = 0; j <= ring->fence_drv.num_fences_mask; ++j)
-> > >   			dma_fence_put(ring->fence_drv.fences[j]);
-> > >   		kfree(ring->fence_drv.fences);
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > > index 300ac73..a833197 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > > @@ -49,6 +49,7 @@
-> > >   #include <drm/drm_irq.h>
-> > >   #include <drm/drm_vblank.h>
-> > >   #include <drm/amdgpu_drm.h>
-> > > +#include <drm/drm_drv.h>
-> > >   #include "amdgpu.h"
-> > >   #include "amdgpu_ih.h"
-> > >   #include "atom.h"
-> > > @@ -297,6 +298,20 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
-> > >   	return 0;
-> > >   }
-> > > +
-> > > +void amdgpu_irq_fini_early(struct amdgpu_device *adev)
-> > > +{
-> > > +	if (adev->irq.installed) {
-> > > +		drm_irq_uninstall(&adev->ddev);
-> > > +		adev->irq.installed = false;
-> > > +		if (adev->irq.msi_enabled)
-> > > +			pci_free_irq_vectors(adev->pdev);
-> > > +
-> > > +		if (!amdgpu_device_has_dc_support(adev))
-> > > +			flush_work(&adev->hotplug_work);
-> > > +	}
-> > > +}
-> > > +
-> > >   /**
-> > >    * amdgpu_irq_fini - shut down interrupt handling
-> > >    *
-> > > @@ -310,15 +325,6 @@ void amdgpu_irq_fini(struct amdgpu_device *adev)
-> > >   {
-> > >   	unsigned i, j;
-> > > -	if (adev->irq.installed) {
-> > > -		drm_irq_uninstall(adev_to_drm(adev));
-> > > -		adev->irq.installed = false;
-> > > -		if (adev->irq.msi_enabled)
-> > > -			pci_free_irq_vectors(adev->pdev);
-> > > -		if (!amdgpu_device_has_dc_support(adev))
-> > > -			flush_work(&adev->hotplug_work);
-> > > -	}
-> > > -
-> > >   	for (i = 0; i < AMDGPU_IRQ_CLIENTID_MAX; ++i) {
-> > >   		if (!adev->irq.client[i].sources)
-> > >   			continue;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
-> > > index c718e94..718c70f 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
-> > > @@ -104,6 +104,7 @@ irqreturn_t amdgpu_irq_handler(int irq, void *arg);
-> > >   int amdgpu_irq_init(struct amdgpu_device *adev);
-> > >   void amdgpu_irq_fini(struct amdgpu_device *adev);
-> > > +void amdgpu_irq_fini_early(struct amdgpu_device *adev);
-> > >   int amdgpu_irq_add_id(struct amdgpu_device *adev,
-> > >   		      unsigned client_id, unsigned src_id,
-> > >   		      struct amdgpu_irq_src *source);
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > index a0af8a7..9e30c5c 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > > @@ -29,6 +29,7 @@
-> > >   #include "amdgpu.h"
-> > >   #include <drm/drm_debugfs.h>
-> > >   #include <drm/amdgpu_drm.h>
-> > > +#include <drm/drm_drv.h>
-> > >   #include "amdgpu_sched.h"
-> > >   #include "amdgpu_uvd.h"
-> > >   #include "amdgpu_vce.h"
-> > > @@ -94,7 +95,7 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
-> > >   	}
-> > >   	amdgpu_acpi_fini(adev);
-> > > -	amdgpu_device_fini(adev);
-> > > +	amdgpu_device_fini_early(adev);
-> > >   }
-> > >   void amdgpu_register_gpu_instance(struct amdgpu_device *adev)
-> > > @@ -1147,6 +1148,15 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
-> > >   	pm_runtime_put_autosuspend(dev->dev);
-> > >   }
-> > > +
-> > > +void amdgpu_driver_release_kms(struct drm_device *dev)
-> > > +{
-> > > +	struct amdgpu_device *adev = drm_to_adev(dev);
-> > > +
-> > > +	amdgpu_device_fini_late(adev);
-> > > +	pci_set_drvdata(adev->pdev, NULL);
-> > > +}
-> > > +
-> > >   /*
-> > >    * VBlank related functions.
-> > >    */
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > > index 9d11b84..caf828a 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > > @@ -2142,9 +2142,12 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
-> > >   {
-> > >   	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-> > > +	//DRM_ERROR("adev 0x%llx", (long long unsigned int)adev);
-> > > +
-> > >   	if (!con)
-> > >   		return 0;
-> > > +
-> > >   	/* Need disable ras on all IPs here before ip [hw/sw]fini */
-> > >   	amdgpu_ras_disable_all_features(adev, 0);
-> > >   	amdgpu_ras_recovery_fini(adev);
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > > index 7112137..074f36b 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > > @@ -107,7 +107,8 @@ struct amdgpu_fence_driver {
-> > >   };
-> > >   int amdgpu_fence_driver_init(struct amdgpu_device *adev);
-> > > -void amdgpu_fence_driver_fini(struct amdgpu_device *adev);
-> > > +void amdgpu_fence_driver_fini_early(struct amdgpu_device *adev);
-> > > +void amdgpu_fence_driver_fini_late(struct amdgpu_device *adev);
-> > >   void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
-> > >   int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
-> > > -- 
-> > > 2.7.4
-> > > 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjUuMTEuMjAgdW0gMTE6MzYgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFdlZCwgTm92
+IDI1LCAyMDIwIGF0IDExOjEzOjEzQU0gKzAxMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+
+IEFtIDI1LjExLjIwIHVtIDA5OjM3IHNjaHJpZWIgVGhvbWFzIFppbW1lcm1hbm46Cj4+PiBIaQo+
+Pj4KPj4+IEFtIDI0LjExLjIwIHVtIDE1OjA5IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPj4+PiBP
+biBUdWUsIE5vdiAyNCwgMjAyMCBhdCAwMjo1Njo1MVBNICswMTAwLCBUaG9tYXMgWmltbWVybWFu
+biB3cm90ZToKPj4+Pj4gSGkKPj4+Pj4KPj4+Pj4gQW0gMjQuMTEuMjAgdW0gMTQ6MzYgc2Nocmll
+YiBDaHJpc3RpYW4gS8O2bmlnOgo+Pj4+Pj4gQW0gMjQuMTEuMjAgdW0gMTM6MTUgc2NocmllYiBU
+aG9tYXMgWmltbWVybWFubjoKPj4+Pj4+PiBbU05JUF0KPj4+Pj4+Pj4+Pj4gRmlyc3QgSSB3YW50
+ZWQgdG8gcHV0IHRoaXMgaW50bwo+Pj4+Pj4+Pj4+PiBkcm1fZ2VtX3R0bV92bWFwL3Z1bm1hcCgp
+LCBidXQgdGhlbiB3b25kZXJlZCB3aHkKPj4+Pj4+Pj4+Pj4gdHRtX2JvX3ZtYXAoKSBkb2Ugbm90
+IGFjcXVpcmUgdGhlIGxvY2sgaW50ZXJuYWxseT8KPj4+Pj4+Pj4+Pj4gSSdkIGV4cGVjdCB0aGF0
+IHZtYXAvdnVubWFwIGFyZSBjbG9zZSB0b2dldGhlciBhbmQKPj4+Pj4+Pj4+Pj4gZG8gbm90IG92
+ZXJsYXAgZm9yIHRoZSBzYW1lIEJPLgo+Pj4+Pj4+Pj4+IFdlIGhhdmUgdXNlIGNhc2VzIGxpa2Ug
+dGhlIGZvbGxvd2luZyBkdXJpbmcgY29tbWFuZCBzdWJtaXNzaW9uOgo+Pj4+Pj4+Pj4+Cj4+Pj4+
+Pj4+Pj4gMS4gbG9jawo+Pj4+Pj4+Pj4+IDIuIG1hcAo+Pj4+Pj4+Pj4+IDMuIGNvcHkgcGFydHMg
+b2YgdGhlIEJPIGNvbnRlbnQgc29tZXdoZXJlIGVsc2Ugb3IgcGF0Y2gKPj4+Pj4+Pj4+PiBpdCB3
+aXRoIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24KPj4+Pj4+Pj4+PiA0LiB1bm1hcAo+Pj4+Pj4+Pj4+
+IDUuIHN1Ym1pdCBCTyB0byB0aGUgaGFyZHdhcmUKPj4+Pj4+Pj4+PiA2LiBhZGQgaGFyZHdhcmUg
+ZmVuY2UgdG8gdGhlIEJPIHRvIG1ha2Ugc3VyZSBpdCBkb2Vzbid0IG1vdmUKPj4+Pj4+Pj4+PiA3
+LiB1bmxvY2sKPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IFRoYXQgdXNlIGNhc2Ugd29uJ3QgYmUgcG9z
+c2libGUgd2l0aCB2bWFwL3Z1bm1hcCBpZiB3ZQo+Pj4+Pj4+Pj4+IG1vdmUgdGhlIGxvY2svdW5s
+b2NrIGludG8gaXQgYW5kIEkgaG9wZSB0byByZXBsYWNlIHRoZQo+Pj4+Pj4+Pj4+IGttYXAva3Vu
+bWFwIGZ1bmN0aW9ucyB3aXRoIHRoZW0gaW4gdGhlIG5lYXIgdGVybS4KPj4+Pj4+Pj4+Pgo+Pj4+
+Pj4+Pj4+PiBPdGhlcndpc2UsIGFjcXVpcmluZyB0aGUgcmVzZXJ2YXRpb24gbG9jayB3b3VsZAo+
+Pj4+Pj4+Pj4+PiByZXF1aXJlIGFub3RoZXIgcmVmLWNvdW50aW5nIHZhcmlhYmxlIG9yIHBlci1k
+cml2ZXIKPj4+Pj4+Pj4+Pj4gY29kZS4KPj4+Pj4+Pj4+PiBIdWksIHdoeSB0aGF0PyBKdXN0IHB1
+dCB0aGlzIGludG8KPj4+Pj4+Pj4+PiBkcm1fZ2VtX3R0bV92bWFwL3Z1bm1hcCgpIGhlbHBlciBh
+cyB5b3UgaW5pdGlhbGx5Cj4+Pj4+Pj4+Pj4gcGxhbm5lZC4KPj4+Pj4+Pj4+IEdpdmVuIHlvdXIg
+ZXhhbXBsZSBhYm92ZSwgc3RlcCBvbmUgd291bGQgYWNxdWlyZSB0aGUgbG9jaywKPj4+Pj4+Pj4+
+IGFuZCBzdGVwIHR3byB3b3VsZCBhbHNvIGFjcXVpcmUgdGhlIGxvY2sgYXMgcGFydCBvZiB0aGUg
+dm1hcAo+Pj4+Pj4+Pj4gaW1wbGVtZW50YXRpb24uIFdvdWxkbid0IHRoaXMgZmFpbCAoQXQgbGVh
+c3QgZHVyaW5nIHVubWFwIG9yCj4+Pj4+Pj4+PiB1bmxvY2sgc3RlcHMpID8KPj4+Pj4+Pj4gT2gs
+IHNvIHlvdSB3YW50IHRvIG5lc3QgdGhlbT8gTm8sIHRoYXQgaXMgYSByYXRoZXIgYmFkIG5vLWdv
+Lgo+Pj4+Pj4+IEkgZG9uJ3Qgd2FudCB0byBuZXN0L292ZXJsYXAgdGhlbS4gTXkgcXVlc3Rpb24g
+d2FzIHdoZXRoZXIgdGhhdAo+Pj4+Pj4+IHdvdWxkIGJlIHJlcXVpcmVkLiBBcHBhcmVudGx5IG5v
+dC4KPj4+Pj4+Pgo+Pj4+Pj4+IFdoaWxlIHRoZSBjb25zb2xlJ3MgQk8gaXMgYmVpbmcgc2V0IGZv
+ciBzY2Fub3V0LCBpdCdzIHByb3RlY3RlZCBmcm9tCj4+Pj4+Pj4gbW92ZW1lbnQgdmlhIHRoZSBw
+aW4vdW5waW4gaW1wbGVtZW50YXRpb24sIHJpZ2h0Pwo+Pj4+Pj4gWWVzLCBjb3JyZWN0Lgo+Pj4+
+Pj4KPj4+Pj4+PiBUaGUgZHJpdmVyIGRvZXMgbm90IGFjcXVpcmUgdGhlIHJlc3YgbG9jayBmb3Ig
+bG9uZ2VyIHBlcmlvZHMuIEknbQo+Pj4+Pj4+IGFza2luZyBiZWNhdXNlIHRoaXMgd291bGQgcHJl
+dmVudCBhbnkgY29uc29sZS1idWZmZXIgdXBkYXRlcyB3aGlsZQo+Pj4+Pj4+IHRoZSBjb25zb2xl
+IGlzIGJlaW5nIGRpc3BsYXllZC4KPj4+Pj4+IENvcnJlY3QgYXMgd2VsbCwgd2Ugb25seSBob2xk
+IHRoZSBsb2NrIGZvciB0aGluZ3MgbGlrZSBjb21tYW5kCj4+Pj4+PiBzdWJtaXNzaW9uLCBwaW5u
+aW5nLCB1bnBpbm5pbmcgZXRjIGV0Yy4uLi4KPj4+Pj4+Cj4+Pj4+IFRoYW5rcyBmb3IgYW5zd2Vy
+aW5nIG15IHF1ZXN0aW9ucy4KPj4+Pj4KPj4+Pj4+Pj4gWW91IG5lZWQgdG8gbWFrZSBzdXJlIHRo
+YXQgdGhlIGxvY2sgaXMgb25seSB0YWtlbiBmcm9tIHRoZSBGQgo+Pj4+Pj4+PiBwYXRoIHdoaWNo
+IHdhbnRzIHRvIHZtYXAgdGhlIG9iamVjdC4KPj4+Pj4+Pj4KPj4+Pj4+Pj4gV2h5IGRvbid0IHlv
+dSBsb2NrIHRoZSBHRU0gb2JqZWN0IGZyb20gdGhlIGNhbGxlciBpbiB0aGUgZ2VuZXJpYwo+Pj4+
+Pj4+PiBGQiBpbXBsZW1lbnRhdGlvbj8KPj4+Pj4+PiBXaXRoIHRoZSBjdXJyZW50IGJsaXR0ZXIg
+Y29kZSwgaXQgYnJlYWtzIGFic3RyYWN0aW9uLiBpZiB2bWFwL3Z1bm1hcAo+Pj4+Pj4+IGhvbGQg
+dGhlIGxvY2sgaW1wbGljaXRseSwgdGhpbmdzIHdvdWxkIGJlIGVhc2llci4KPj4+Pj4+IERvIHlv
+dSBoYXZlIGEgbGluayB0byB0aGUgY29kZT8KPj4+Pj4gSXQncyB0aGUgZGFtYWdlIGJsaXR0ZXIg
+aW4gdGhlIGZiZGV2IGNvZGUuIFsxXSBXaGlsZSBpdCBmbHVzaGVzCj4+Pj4+IHRoZSBzaGFkb3cK
+Pj4+Pj4gYnVmZmVyIGludG8gdGhlIEJPLCB0aGUgQk8gaGFzIHRvIGJlIGtlcHQgaW4gcGxhY2Uu
+IEkgYWxyZWFkeQo+Pj4+PiBjaGFuZ2VkIGl0IHRvCj4+Pj4+IGxvY2sgc3RydWN0IGRybV9mYl9o
+ZWxwZXIubG9jaywgYnV0IEkgZG9uJ3QgdGhpbmsgdGhpcyBpcwo+Pj4+PiBlbm91Z2guIFRUTSBj
+b3VsZAo+Pj4+PiBzdGlsbCBldmljdCB0aGUgQk8gY29uY3VycmVudGx5Lgo+Pj4+IFNvIEknbSBu
+b3Qgc3VyZSB0aGlzIGlzIGFjdHVhbGx5IGEgcHJvYmxlbTogdHRtIGNvdWxkIHRyeSB0bwo+Pj4+
+IGNvbmN1cnJlbnRseQo+Pj4+IGV2aWN0IHRoZSBidWZmZXIgd2UgcGlubmVkIGludG8gdnJhbSwg
+YW5kIHRoZW4ganVzdCBza2lwIHRvIHRoZSBuZXh0Cj4+Pj4gb25lLgo+Pj4+Cj4+Pj4gUGx1cyBh
+dG0gZ2VuZXJpYyBmYmRldiBpc24ndCB1c2VkIG9uIGFueSBjaGlwIHdoZXJlIHdlIHJlYWxseSBj
+YXJlIGFib3V0Cj4+Pj4gdGhhdCBsYXN0IGZldyBtYiBvZiB2cmFtIGJlaW5nIHVzZWFibGUgZm9y
+IGNvbW1hbmQgc3VibWlzc2lvbiAod2VsbCBhdG0KPj4+PiB0aGVyZSdzIG5vIGRyaXZlciB1c2lu
+ZyBpdCkuCj4+PiBXZWxsLCB0aGlzIGlzIHRoZSBwYXRjaHNldCBmb3IgcmFkZW9uLiBJZiBpdCB3
+b3JrcyBvdXQsIGFtZGdwdSBhbmQKPj4+IG5vdXZlYXUgYXJlIG5hdHVyYWwgbmV4dCBjaG9pY2Vz
+LiBFc3BlY2lhbGx5IHJhZGVvbiBhbmQgbm91dmVhdSBzdXBwb3J0Cj4+PiBjYXJkcyB3aXRoIGxv
+dy0gdG8gbWVkaXVtLXNpemVkIFZSQU0uIFRoZSBNaUJzIHdhc3RlZCBvbiBmYmRldiBjZXJ0YWlu
+bHkKPj4+IG1hdHRlci4KPj4+Cj4+Pj4gSGF2aW5nIHRoZSBidWZmZXIgcGlubmVkIGludG8gc3lz
+dGVtIG1lbW9yeSBhbmQgdHJ5aW5nIHRvIGRvIGEKPj4+PiBjb25jdXJyZW50Cj4+Pj4gbW9kZXNl
+dCB0aGF0IHRyaWVzIHRvIHB1bGwgaXQgaW4gaXMgdGhlIGhhcmQgZmFpbHVyZSBtb2RlLiBBbmQg
+aG9sZGluZwo+Pj4+IGZiX2hlbHBlci5sb2NrIGZ1bGx5IHByZXZlbnRzIHRoYXQuCj4+Pj4KPj4+
+PiBTbyBub3QgcmVhbGx5IGNsZWFyIG9uIHdoYXQgZmFpbHVyZSBtb2RlIHlvdSdyZSBzZWVpbmcg
+aGVyZT8KPj4+IEltYWdpbmUgdGhlIGZiZGV2IEJPIGlzIGluIFZSQU0sIGJ1dCBub3QgcGlubmVk
+LiAoTWF5YmUgWG9yZyBvciBXYXlsYW5kCj4+PiBpcyBydW5uaW5nLikgVGhlIGZiZGV2IEJPIGlz
+IGEgZmV3IE1pQnMgYW5kIG5vdCBpbiB1c2UsIHNvIFRUTSB3b3VsZAo+Pj4gd2FudCB0byBldmlj
+dCBpdCBpZiBtZW1vcnkgZ2V0cyB0aWdodC4KPj4+Cj4+PiBXaGF0IEkgaGF2ZSBpbiBtaW5kIGlz
+IGEgY29uY3VycmVudCBtb2Rlc2V0IHRoYXQgcmVxdWlyZXMgdGhlIG1lbW9yeS4gSWYKPj4+IHdl
+IGRvIGEgY29uY3VycmVudCBkYW1hZ2UgYmxpdCB3aXRob3V0IHByb3RlY3RpbmcgYWdhaW5zdCBl
+dmljdGlvbiwKPj4+IHRoaW5ncyBnbyBib29tLiBTYW1lIGZvciBjb25jdXJyZW50IDNkIGdyYXBo
+aWNzIHdpdGggdGV4dHVyZXMsIG1vZGVsCj4+PiBkYXRhLCBldGMuCj4+IENvbXBsZXRlbHkgYWdy
+ZWUuCj4+Cj4+IFRoaXMgbmVlZHMgcHJvcGVyIGxvY2sgcHJvdGVjdGlvbiBvZiB0aGUgbWVtb3J5
+IG1hcHBlZCBidWZmZXIuIFJlbHlpbmcgb24KPj4gdGhhdCBzb21lIG90aGVyIGNvZGUgaXNuJ3Qg
+cnVuIGJlY2F1c2Ugd2UgaGF2ZSBzb21lIHRoaXJkIHBhcnQgbG9ja3MgdGFrZW4KPj4gaXMgbm90
+IHN1ZmZpY2llbnQgaGVyZS4KPiBXZSBhcmUgc3RpbGwgcHJvdGVjdGVkIGJ5IHRoZSBwaW4gY291
+bnQgaW4gdGhpcyBzY2VuYXJpby4gUGx1cywgd2l0aAo+IGN1cnJlbnQgZHJpdmVycyB3ZSBhbHdh
+eXMgcGluIHRoZSBmYmRldiBidWZmZXIgaW50byB2cmFtLCBzbyBvY2Nhc2lvbmFsbHkKPiBmYWls
+aW5nIHRvIG1vdmUgaXQgb3V0IGlzbid0IGEgcmVncmVzc2lvbi4KPgo+IFNvIEknbSBzdGlsbCBu
+b3Qgc2VlaW5nIGhvdyB0aGlzIGNhbiBnbyBib29tLgoKV2VsbCBhcyBmYXIgYXMgSSB1bmRlcnN0
+YW5kIGl0IHRoZSBwaW4gY291bnQgaXMgemVybyBmb3IgdGhpcyBidWZmZXIgaW4gCnRoaXMgY2Fz
+ZSBoZXJlIDopCgpJIG1pZ2h0IGJlIHdyb25nIG9uIHRoaXMgYmVjYXVzZSBJIGRvbid0IGtub3cg
+dGhlIEZCIGNvZGUgYXQgYWxsLCBidXQgClRob21hcyBzZWVtcyB0byBiZSBwcmV0dHkgY2xlYXIg
+dGhhdCB0aGlzIGlzIHRoZSBzaGFkb3cgYnVmZmVyIHdoaWNoIGlzIApub3Qgc2Nhbm5lZCBvdXQg
+ZnJvbS4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4KPiBOb3cgbG9uZyB0ZXJtIGl0J2QgYmUgbmlj
+ZSB0byBjdXQgZXZlcnl0aGluZyBvdmVyIHRvIGRtYV9yZXN2IGxvY2tpbmcsIGJ1dAo+IHRoZSBp
+c3N1ZSB0aGVyZSBpcyB0aGF0IGJleW9uZCB0dG0sIG5vbmUgb2YgdGhlIGhlbHBlcnMgKGFuZCBm
+ZXcgb2YgdGhlCj4gZHJpdmVycykgdXNlIGRtYV9yZXN2LiBTbyB0aGlzIGlzIGEgZmFpcmx5IGJp
+ZyB1cGhpbGwgYmF0dGxlLiBRdWljawo+IGludGVyaW0gZml4IHNlZW1zIGxpa2UgdGhlIHJpZ2h0
+IHNvbHV0aW9uIHRvIG1lLgo+IC1EYW5pZWwKPgo+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4+
+Cj4+PiBCZXN0IHJlZ2FyZHMKPj4+IFRob21hcwo+Pj4KPj4+Pj4gVGhlcmUncyBubyByZWN1cnNp
+b24gdGFraW5nIHBsYWNlLCBzbyBJIGd1ZXNzIHRoZSByZXNlcnZhdGlvbgo+Pj4+PiBsb2NrIGNv
+dWxkIGJlCj4+Pj4+IGFjcXVpcmVkL3JlbGVhc2UgaW4gZHJtX2NsaWVudF9idWZmZXJfdm1hcC92
+dW5tYXAoKSwgb3IgYQo+Pj4+PiBzZXBhcmF0ZSBwYWlyIG9mCj4+Pj4+IERSTSBjbGllbnQgZnVu
+Y3Rpb25zIGNvdWxkIGRvIHRoZSBsb2NraW5nLgo+Pj4+IEdpdmVuIGhvdyB0aGlzICJkbyB0aGUg
+cmlnaHQgbG9ja2luZyIgaXMgYSBjYW4gb2Ygd29ybXMgKGFuZCBJIHRoaW5rCj4+Pj4gaXQncwo+
+Pj4+IHdvcnNlIHRoYW4gd2hhdCB5b3UgZHVnIG91dCBhbHJlYWR5KSBJIHRoaW5rIHRoZSBmYl9o
+ZWxwZXIubG9jayBoYWNrIGlzCj4+Pj4gcGVyZmVjdGx5IGdvb2QgZW5vdWdoLgo+Pj4+Cj4+Pj4g
+SSdtIGFsc28gc29tZXdoYXQgd29ycmllZCB0aGF0IHN0YXJ0aW5nIHRvIHVzZSBkbWFfcmVzdiBs
+b2NrIGluIGdlbmVyaWMKPj4+PiBjb2RlLCB3aGlsZSBtYW55IGhlbHBlcnMvZHJpdmVycyBzdGls
+bCBoYXZlIHRoZWlyIGhhbmQtcm9sbGVkIGxvY2tpbmcsCj4+Pj4gd2lsbCBtYWtlIGNvbnZlcnNp
+b24gb3ZlciB0byBkbWFfcmVzdiBuZWVkbGVzc2x5IG1vcmUgY29tcGxpY2F0ZWQuCj4+Pj4gLURh
+bmllbAo+Pj4+Cj4+Pj4+IEJlc3QgcmVnYXJkcwo+Pj4+PiBUaG9tYXMKPj4+Pj4KPj4+Pj4gWzFd
+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybS10aXAvdHJlZS9kcml2ZXJzL2dw
+dS9kcm0vZHJtX2ZiX2hlbHBlci5jP2lkPWFjNjBmM2YzMDkwMTE1ZDIxZjAyOGJmZmEyZGNmYjY3
+ZjY5NWM0ZjIjbjM5NAo+Pj4+Pgo+Pj4+Pj4gUGxlYXNlIG5vdGUgdGhhdCB0aGUgcmVzZXJ2YXRp
+b24gbG9jayB5b3UgbmVlZCB0byB0YWtlIGhlcmUgaXMgcGFydCBvZgo+Pj4+Pj4gdGhlIEdFTSBv
+YmplY3QuCj4+Pj4+Pgo+Pj4+Pj4gVXN1YWxseSB3ZSBkZXNpZ24gdGhpbmdzIGluIHRoZSB3YXkg
+dGhhdCB0aGUgY29kZSBuZWVkcyB0byB0YWtlIGEgbG9jawo+Pj4+Pj4gd2hpY2ggcHJvdGVjdHMg
+YW4gb2JqZWN0LCB0aGVuIGRvIHNvbWUgb3BlcmF0aW9ucyB3aXRoIHRoZSBvYmplY3QgYW5kCj4+
+Pj4+PiB0aGVuIHJlbGVhc2UgdGhlIGxvY2sgYWdhaW4uCj4+Pj4+Pgo+Pj4+Pj4gSGF2aW5nIGlu
+IHRoZSBsb2NrIGluc2lkZSB0aGUgb3BlcmF0aW9uIGNhbiBiZSBkb25lIGFzIHdlbGwsIGJ1dAo+
+Pj4+Pj4gcmV0dXJuaW5nIHdpdGggaXQgaXMga2luZCBvZiB1bnVzdWFsIGRlc2lnbi4KPj4+Pj4+
+Cj4+Pj4+Pj4gU29ycnkgZm9yIHRoZSBub29iIHF1ZXN0aW9ucy4gSSdtIHN0aWxsIHRyeWluZyB0
+byB1bmRlcnN0YW5kIHRoZQo+Pj4+Pj4+IGltcGxpY2F0aW9ucyBvZiBhY3F1aXJpbmcgdGhlc2Ug
+bG9ja3MuCj4+Pj4+PiBXZWxsIHRoaXMgaXMgdGhlIHJlc2VydmF0aW9uIGxvY2sgb2YgdGhlIEdF
+TSBvYmplY3Qgd2UgYXJlCj4+Pj4+PiB0YWxraW5nIGFib3V0Cj4+Pj4+PiBoZXJlLiBXZSBuZWVk
+IHRvIHRha2UgdGhhdCBmb3IgYSBjb3VwbGUgb2YgZGlmZmVyZW50IG9wZXJhdGlvbnMsCj4+Pj4+
+PiB2bWFwL3Z1bm1hcCBkb2Vzbid0IHNvdW5kIGxpa2UgYSBzcGVjaWFsIGNhc2UgdG8gbWUuCj4+
+Pj4+Pgo+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+IENocmlzdGlhbi4KPj4+Pj4+Cj4+Pj4+Pj4gQmVz
+dCByZWdhcmRzCj4+Pj4+Pj4gVGhvbWFzCj4+Pj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+Pj4+Pj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+Pj4+
+Pj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKPj4+Pj4gLS0gCj4+Pj4+
+IFRob21hcyBaaW1tZXJtYW5uCj4+Pj4+IEdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXIKPj4+Pj4g
+U1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJICj4+Pj4+IE1heGZlbGRzdHIuIDUs
+IDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQo+Pj4+PiAoSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcp
+Cj4+Pj4+IEdlc2Now6RmdHNmw7xocmVyOiBGZWxpeCBJbWVuZMO2cmZmZXIKPj4+Pgo+Pj4+Cj4+
+Pj4KPj4+Pgo+Pj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
