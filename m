@@ -2,159 +2,90 @@ Return-Path: <SRS0=2cAG=FA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E21B5C56202
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 16:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15A3FC56202
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 16:18:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5DE8921D40
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 16:05:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 80B01207BC
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 16:18:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="w6BbAVKb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DE8921D40
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YKWm1JYJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80B01207BC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9FBB6E949;
-	Thu, 26 Nov 2020 16:05:31 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920C36E949
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 16:05:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dmnnG5ixWVTksOcH78C4mDXLdiJIagFKDC9L7L9lKNh1Z6LN2khuWik+HoiGAVK34SDvNdZEXpkjfQGZmFQnmcBI5qQ2HaFwD4REmOVJn9fW7yoreJJaE+SQ/ZA3t1GU1YK2CwwtYMck1WB14QnjyCKmH/Fvh0i+42Jl4nsczyRXxCibInnEyLSn6zseypYlgmBVYWI41UXsz7vnMZpw4SDNwrlml1H4rfteKLSE6/O0/HmO2Zlbl5Se9MHJj4i7dTujdQcwsYEwWi5BAPKIMTwsCY/0w5JHNkZTGuugGtzBeAE0ODVPgy57TCuMm/ZMsB79tnUxCnbFDdBzUp8Ykw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XNelKIjBixiKrxUpUjI1GO21xhikv5NHrCYztqC7Fos=;
- b=MYmD7EGIWGVdErjZTODziYsP6e+mRaUKw69GuIkBEeu/CJlthARaV5QZD1/AQWBW10ic+ykOAqWIgktb+8hIMztwhlFc5AKtkxRx1LK+E7oq+xrQa311qrLaZVnKV8AnrUod1dLES6pHTWJPeeLuR6KrSAZZHRhJC215uPHdK5T3zEySR989ymehFFlaCaMfNZoTqUeRZFGx5noFJoibhbFz7yGjC+gjEbf1AluViZ4DpncvpX5bgHEbK6a6FWf0g4qdcr+4zpRhKaUyH0S6tzIq6xb2gvLUUajNkGisHPCl0ZcJh9a2EX3VHdjNFQidRU8x6lsnQ6DaC6/b5IS6Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XNelKIjBixiKrxUpUjI1GO21xhikv5NHrCYztqC7Fos=;
- b=w6BbAVKbm+GlwsJzrpvOaWVWU8rKuFd/Jltuz1qerlmSn7pStwQPLVY8CS71J4qK3hALX9fzbJ2LVDH6dPzEMOho6nI1JZ6T0IrAEg1vhANpUeflbTELrzR74iEXtqWkNojjywG8dSa/Hizdrt7D83KruofSMOzc+EKxULiRDbg=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from BN6PR12MB1939.namprd12.prod.outlook.com (2603:10b6:404:107::12)
- by BN8PR12MB3604.namprd12.prod.outlook.com (2603:10b6:408:45::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20; Thu, 26 Nov
- 2020 16:05:26 +0000
-Received: from BN6PR12MB1939.namprd12.prod.outlook.com
- ([fe80::f8f7:573f:9fae:e40c]) by BN6PR12MB1939.namprd12.prod.outlook.com
- ([fe80::f8f7:573f:9fae:e40c%11]) with mapi id 15.20.3611.023; Thu, 26 Nov
- 2020 16:05:26 +0000
-Subject: Re: [PATCH] drm/amd/display: Clear dc remote sinks on MST disconnect
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20201126143105.32016-1-aurabindo.pillai@amd.com>
- <ab9f847e-d819-7ff0-f677-c2ee5587b2ae@amd.com>
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Autocrypt: addr=aurabindo.pillai@amd.com; keydata=
- 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
- Gul9w6KOPkCni6aOWdaa4kvIZpWBE+E=
-Message-ID: <98dbf460-9e63-e1a9-321b-e99320034499@amd.com>
-Date: Thu, 26 Nov 2020 11:05:24 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <ab9f847e-d819-7ff0-f677-c2ee5587b2ae@amd.com>
-Content-Language: en-US
-X-Originating-IP: [165.204.84.11]
-X-ClientProxiedBy: BN6PR13CA0059.namprd13.prod.outlook.com
- (2603:10b6:404:11::21) To BN6PR12MB1939.namprd12.prod.outlook.com
- (2603:10b6:404:107::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D47936E98D;
+	Thu, 26 Nov 2020 16:18:29 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFAE26E98D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 16:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606407507;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IL7sPB68gF1YeWIUFuBJ//YIBDjI3bDL6qHHKubt/Z0=;
+ b=YKWm1JYJizsMEvG7X1E30qHnNYa/j01u0+sXdFJxZu/6HsHI9erhQi96DfKd18eF28qD1X
+ UvU1w85xUrlVuGpSinsurObT+PM6+pIRjrsVVoGque3HAy9FLQG0kN3GG42gpz5NwLZGI8
+ OSJhC6IjydGq6YM5Vyu5kwdtWaN2onA=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-422-Fc3wdyV1OfW6CzWlD7-WSQ-1; Thu, 26 Nov 2020 11:18:25 -0500
+X-MC-Unique: Fc3wdyV1OfW6CzWlD7-WSQ-1
+Received: by mail-qt1-f200.google.com with SMTP id r16so1485261qtn.19
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 08:18:25 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IL7sPB68gF1YeWIUFuBJ//YIBDjI3bDL6qHHKubt/Z0=;
+ b=pEF1yKe3MKr8ebiC61p54XxzXuPCEFcCJLJboPPtUucUj6vLJPxPVtllEMmdKvY08Y
+ XVD+jH9Ay1ibb/rzgZo8jklShBh5sjQNz+sz6W071TblsXjUpoZCrinFRZ1RyRwOgcJ1
+ agKZtzJVlyjPvBQakpFsqTnrae2NoNDz2btaxwMQstH0TF8rq6/I2OPpWtxJO7Y5salx
+ WfxPtItyxtg05J0uuoe45ZMkIxv2MymXj/fqT44Giz8vo1iVhwCwHPKmmZLOp9LrTnro
+ eQcpl3ISU8+EABIh7iIDFY8L//r1Lc8K2ZGDrrAZD1jKwr8arXn7Xx+tmUfwh1Rjz6LZ
+ LjKQ==
+X-Gm-Message-State: AOAM533OQB87oTpHByLJz0tJDYUjEDMRo2c3IiK2WAej+6rTwatK01eE
+ tE0J+EZQar5Z8TxTF+uhdleVBk5S8GDm+hp/B3k0yACDGx8xrImw73auq6wa07VG8qMMdznxJyA
+ Ba4StdS2gRYEUxj1pmQFX9TyRF+DoILHHrHi0JaZNAA==
+X-Received: by 2002:a37:ac8:: with SMTP id 191mr3793912qkk.381.1606407504810; 
+ Thu, 26 Nov 2020 08:18:24 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzCU4CKAolN2PpaYdMoKCHma/+NC3lHjkQkQkRPTWC20j3rANbYTTy+FG9V7n634RRlgf0kcsxPjR4LO+NB5fA=
+X-Received: by 2002:a37:ac8:: with SMTP id 191mr3793888qkk.381.1606407504531; 
+ Thu, 26 Nov 2020 08:18:24 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.3.55] (165.204.84.11) by
- BN6PR13CA0059.namprd13.prod.outlook.com (2603:10b6:404:11::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3632.8 via Frontend Transport; Thu, 26 Nov 2020 16:05:25 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5deab63e-3b51-405e-d953-08d892251692
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3604:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN8PR12MB36041E630F4DF34FECB001438BF90@BN8PR12MB3604.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CqRyJoWfPKVdpErvNemM+2eCaKAOL5nE5lPbaF6Qt/BwXHaQZfWVgkNyet2a6YTrkB9c1TSkEzNhcL/wj+mDSTDnga/Kwmuz2SmjgSgJb1kuHUI6tTXT6/QOaHkOAsd6F+Hqjj94M/k8CxyIB53tL4vxaaVgDaNTG732XjJy59KJoEQKiR+SkmJqpT9dsImBWbMV574ejFXGlJqJvFx0KzqzHrgEQN9uBq9ftaTTzESJ/Y4wdejbxGZ7nhT9Kqyh5mYIhHUXCK8ZIFlPnPlia4xR8lBniYLWZ/ce+UZ4/3XJMFqRJk8T7Tdp7IZQu8OfAzZBdnm/2U0QlW1+65WrLT5nP12/vsnTbHeU8J93Nk7EtScAGm1QDUUkZVYE0c1C
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR12MB1939.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(396003)(376002)(136003)(39860400002)(6486002)(31696002)(66556008)(16576012)(8676002)(8936002)(31686004)(66476007)(316002)(2906002)(66946007)(36756003)(4001150100001)(478600001)(5660300002)(4326008)(83380400001)(186003)(16526019)(26005)(956004)(53546011)(52116002)(2616005)(86362001)(44832011)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?K0hqaXg2NGw4RjR1NkdNV0hsak9XajNuMURaUWxDK3BpL2YzVW4rb0dpaURz?=
- =?utf-8?B?SXFlYVluY1NZcVZSSVNTOHNjRlZQRkZ0U2M4czZrdWdJcEMxS1gvY0JIYVla?=
- =?utf-8?B?VFNxSHBPTmJ1dko1amR2OG44NFhPbXZ4dkxReTVjNzh4dHlwMVk5MG42ckRt?=
- =?utf-8?B?SnFxYlBuY1E5NXlnUFhoUGpiSnE3WlhkWmV6R0RiOExZR29MQVluK1pUd0RN?=
- =?utf-8?B?cGV1NUZMUFd0VTFja1orcEZqYklZZktVUXVXbFpJNnFBazhKRXZndFFBTmpp?=
- =?utf-8?B?bUhxb091YlJkQ0plZklEQWIxUzB5QmVqUWtWcHZEbC81UkxUVzFubWJJeGU0?=
- =?utf-8?B?b2xCUWdYaE9jc3dHSkdQV0Y1end3UDF2TjU0czgxVW1RNFN1emFwNERJMGov?=
- =?utf-8?B?T3MxOVJGME4ySHF4VnhUK0ptcVQ1MkwveWMyT0tIODZvcWJBZlkzRVpKdkE5?=
- =?utf-8?B?ZUl6UjlhVEMxeDJGdlZ5WDdDYjZOem8yWHlGa3NCaVI4bWQ3T2dJZG5hTmRV?=
- =?utf-8?B?UThraWtNam8wLzdqMmRuM3NCZm9DNEpLd1hxRUpBdCtxZ0RqUzcxM0orckpT?=
- =?utf-8?B?VThKVms5MjFVT01Idzh3UkE3eUZSTlEwbXhMand3dFB4K2IrODFkWFByc0R6?=
- =?utf-8?B?aHl0NTB0SncwcG1JNTNJajRPeG85Tm8wUkFTUFN1bThJVkVOdG1yZXZWWTNm?=
- =?utf-8?B?bG1YNXM1QS9kK1ArQkFSbUNlODQwNHoySUk4ckpuTDB6b1l3QXdLck1MNWUz?=
- =?utf-8?B?UTliZ3c5L2VTdlBMMHdxZDg5M0Z5RHhVWUZBczBVNEpQUDhHZXZtZWhmK0s4?=
- =?utf-8?B?NGh3K3FKdDFwWXZWcnNmYU1aNlQ5NUo5MExJNUthUkdOR0NhbFhMZnk5Qm05?=
- =?utf-8?B?WVBTMUVJbGFWNXE4bDZGeXpwb0VFb0I4U25OU3JBZDR4LzI4U013a0xUeitm?=
- =?utf-8?B?aXp6YmNFWjcvVlRLcmlveDJVWXlhWUNUbmFRdkQwSkJyb0M5U3FlUW5mVzAw?=
- =?utf-8?B?RFpORytqandYWURsaFB0dHdDY3diZ0ZEdi9Idy9Hb0s4RzFJdC92eFlrc3hW?=
- =?utf-8?B?MW9UZ0FTUkJNcEc3M2xvK01ZZW9WKzB2TzNTbjlJbks0bTNoZ1g0UDNVRnFQ?=
- =?utf-8?B?MnZmcVBvUndOTEhmeVNSQit1ZFM1U3cxVnhscVE5VWpXQVphZzZ4RGxDakY0?=
- =?utf-8?B?NlUxcWp2eHpjNzRUSmdkUGpsZkIyeG12dG9hVUk1RTNtV04rbDdEc3BRWlZN?=
- =?utf-8?B?R0RRV3NwWjVUbWE1RmVzVncrZVJ2V3NOZFdqaEM1SkM2dkFlUUJZKzFVSzht?=
- =?utf-8?Q?YCiBXmr9skgG63yfrArB2YBnJudl4J1bz2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5deab63e-3b51-405e-d953-08d892251692
-X-MS-Exchange-CrossTenant-AuthSource: BN6PR12MB1939.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2020 16:05:26.5392 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: folHgHwoemlpM9jsBheB15UDAthTjwowbNGwKFQNwbOngeqmWOGKtkkVreJxuAdRL8a1O0Y32VbO7SdcrWBuXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3604
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+ <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+ <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+ <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+ <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+ <CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
+ <44005bde-f6d4-5eaa-39b8-1a5efeedb2d3@gmail.com>
+ <CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
+ <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+In-Reply-To: <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+From: Karol Herbst <kherbst@redhat.com>
+Date: Thu, 26 Nov 2020 17:18:13 +0100
+Message-ID: <CACO55tsBj3gLECoMWtViDitd7fVTnW+Cp0LVmqYkR=QFBJkEmQ@mail.gmail.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=kherbst@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,60 +97,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry Wentland <harry.wentland@amd.com>, aurabindo.pillai@amd.com,
- Bhawanpreet.Lakha@amd.com, Eryk.Brol@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ linux-atm-general@lists.sourceforge.net, linux-iio@vger.kernel.org,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ virtualization@lists.linux-foundation.org,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ linux-ide@vger.kernel.org, dm-devel@redhat.com,
+ target-devel <target-devel@vger.kernel.org>,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
+ linux-afs@lists.infradead.org, usb-storage@lists.one-eyed-alien.net,
+ Lars Ellenberg <drbd-dev@lists.linbit.com>,
+ driverdevel <devel@driverdev.osuosl.org>, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, scsi <linux-scsi@vger.kernel.org>,
+ Edward Cree <ecree.xilinx@gmail.com>, linux-rdma <linux-rdma@vger.kernel.org>,
+ oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
+ linux-block@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ samba-technical@lists.samba.org, "open list:NFS, SUNRPC,
+ AND..." <linux-nfs@vger.kernel.org>, xen-devel@lists.xenproject.org,
+ Nouveau Dev <nouveau@lists.freedesktop.org>, linux-hams@vger.kernel.org,
+ ceph-devel <ceph-devel@vger.kernel.org>, linux-can@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>,
+ GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
+ Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
+ linux-decnet-user@lists.sourceforge.net,
+ Linux MMC List <linux-mmc@vger.kernel.org>, linux-sctp@vger.kernel.org,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Nathan Chancellor <natechancellor@gmail.com>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ keyrings@vger.kernel.org, NetFilter <netfilter-devel@vger.kernel.org>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ linux-integrity <linux-integrity@vger.kernel.org>,
+ USB list <linux-usb@vger.kernel.org>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CgpPbiAyMDIwLTExLTI2IDk6MzUgYS5tLiwgS2F6bGF1c2thcywgTmljaG9sYXMgd3JvdGU6Cj4g
-T24gMjAyMC0xMS0yNiA5OjMxIGEubS4sIEF1cmFiaW5kbyBQaWxsYWkgd3JvdGU6Cj4+IFtXaHkm
-SG93XQo+PiBSZWNlbnQgY2hhbmdlcyB0byB1cHN0cmVhbSBtc3QgY29kZSByZW1vdmUgdGhlIGNh
-bGxiYWNrIHdoaWNoCj4+IGNsZWFyZWQgdGhlIGludGVybmFsIHN0YXRlIGZvciBtc3QuIE1vdmUg
-dGhlIG1pc3NpbmcgZnVuY3Rpb25hbGl0eQo+PiB0aGF0IHdhcyBwcmV2aW91c2x5IGNhbGxlZCB0
-aHJvdWdoIHRoZSBkZXN0cm95IGNhbGwgYmFjayBmb3IgbXN0Cj4+IGNvbm5lY3Rvcgo+PiBkZXN0
-cm95Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEF1cmFiaW5kbyBQaWxsYWkgPGF1cmFiaW5kby5waWxs
-YWlAYW1kLmNvbT4KPj4gU2lnbmVkLW9mZi1ieTogRXJ5ayBCcm9sIDxlcnlrLmJyb2xAYW1kLmNv
-bT4KPj4gLS0tCj4+IMKgIC4uLi9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBl
-cnMuYyB8IDIyICsrKysrKysrKysrKysrKysrLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RtX2hlbHBlcnMuaMKgwqAgfMKgIDIgKy0KPj4gwqAgMiBmaWxlcyBjaGFuZ2Vk
-LCAyMSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGVscGVycy5jCj4+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGVscGVy
-cy5jCj4+IGluZGV4IGI3ZDdlYzNiYTAwZC4uZDhiMGYwN2RlYWYyIDEwMDY0NAo+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMK
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1f
-aGVscGVycy5jCj4+IEBAIC00MTgsOSArNDE4LDEwIEBAIGJvb2wgZG1faGVscGVyc19kcF9tc3Rf
-c3RhcnRfdG9wX21ncigKPj4gwqAgwqAgdm9pZCBkbV9oZWxwZXJzX2RwX21zdF9zdG9wX3RvcF9t
-Z3IoCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZGNfY29udGV4dCAqY3R4LAo+PiAtwqDC
-oMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IGRjX2xpbmsgKmxpbmspCj4+ICvCoMKgwqDCoMKgwqDC
-oCBzdHJ1Y3QgZGNfbGluayAqbGluaykKPj4gwqAgewo+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRn
-cHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yID0gbGluay0+cHJpdjsKPj4gK8KgwqDCoCB1aW50
-OF90IGk7Cj4+IMKgIMKgwqDCoMKgwqAgaWYgKCFhY29ubmVjdG9yKSB7Cj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoCBEUk1fRVJST1IoIkZhaWxlZCB0byBmaW5kIGNvbm5lY3RvciBmb3IgbGluayEiKTsK
-Pj4gQEAgLTQzMCw4ICs0MzEsMjUgQEAgdm9pZCBkbV9oZWxwZXJzX2RwX21zdF9zdG9wX3RvcF9t
-Z3IoCj4+IMKgwqDCoMKgwqAgRFJNX0lORk8oIkRNX01TVDogc3RvcHBpbmcgVE0gb24gYWNvbm5l
-Y3RvcjogJXAgW2lkOiAlZF1cbiIsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFjb25u
-ZWN0b3IsIGFjb25uZWN0b3ItPmJhc2UuYmFzZS5pZCk7Cj4+IMKgIC3CoMKgwqAgaWYgKGFjb25u
-ZWN0b3ItPm1zdF9tZ3IubXN0X3N0YXRlID09IHRydWUpCj4+ICvCoMKgwqAgaWYgKGFjb25uZWN0
-b3ItPm1zdF9tZ3IubXN0X3N0YXRlID09IHRydWUpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGRy
-bV9kcF9tc3RfdG9wb2xvZ3lfbWdyX3NldF9tc3QoJmFjb25uZWN0b3ItPm1zdF9tZ3IsIGZhbHNl
-KTsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IE1BWF9TSU5LU19QRVJf
-TElOSzsgaSsrKSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChsaW5rLT5yZW1vdGVf
-c2lua3NbaV0gPT0gTlVMTCkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250
-aW51ZTsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAobGluay0+cmVtb3RlX3Np
-bmtzW2ldLT5zaW5rX3NpZ25hbCA9PQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IFNJR05BTF9UWVBFX0RJU1BMQVlfUE9SVF9NU1QpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBkY19saW5rX3JlbW92ZV9yZW1vdGVfc2luayhsaW5rLCBsaW5rLT5yZW1vdGVf
-c2lua3NbaV0pOwo+IAo+IEluIGdlbmVyYWwgSSB0aGluayB0aGlzIHBhdGNoIGxvb2tzIGZpbmUs
-IGFuZCB5b3UgY2FuIGhhdmUgdGhlOgo+IAo+IFJldmlld2VkLWJ5OiBOaWNob2xhcyBLYXpsYXVz
-a2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+Cj4gCj4gQnV0IEkgdGhpbmsgdGhhdCB0
-aGlzIGxvb3AgaXMgcmVkdW5kYW50IC0gZGNfbGlua19yZW1vdmVfcmVtb3RlX3NpbmsKPiBzaG91
-bGQgYmUgcmVtb3ZpbmcgYWxsIHRoZSByZW1vdGUgc2lua3MuIE5vdCBzdXJlIGlmIHJlbW90ZV9z
-aW5rcyBjYW4KPiBzdGFydCBhdCBhbiBpbmRleCBvdGhlciB0aGFuIDAgdGhvdWdoLgoKZGNfbGlu
-a19yZW1vdmVfcmVtb3RlX3NpbmsoKSB3aWxsIG9ubHkgcmVtb3ZlIG9uZSBzaW5rLiBJdCByZXR1
-cm5zIGFzCnNvb24gYXMgaXQgaXMgZG9uZSByZW1vdmluZyB0aGUgc2luayB3ZSBhc2tlZCBmb3Iu
-CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Nov 26, 2020 at 4:28 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>
+> Hi Miguel,
+>
+> On Thu, Nov 26, 2020 at 3:54 PM Miguel Ojeda
+> <miguel.ojeda.sandonis@gmail.com> wrote:
+> > On Wed, Nov 25, 2020 at 11:44 PM Edward Cree <ecree.xilinx@gmail.com> wrote:
+> > > To make the intent clear, you have to first be certain that you
+> > >  understand the intent; otherwise by adding either a break or a
+> > >  fallthrough to suppress the warning you are just destroying the
+> > >  information that "the intent of this code is unknown".
+> >
+> > If you don't know what the intent of your own code is, then you
+> > *already* have a problem in your hands.
+>
+> The maintainer is not necessarily the owner/author of the code, and
+> thus may not know the intent of the code.
+>
+> > > or does it flag up code
+> > >  that can be mindlessly "fixed" (in which case the warning is
+> > >  worthless)?  Proponents in this thread seem to be trying to
+> > >  have it both ways.
+> >
+> > A warning is not worthless just because you can mindlessly fix it.
+> > There are many counterexamples, e.g. many
+> > checkpatch/lint/lang-format/indentation warnings, functional ones like
+> > the `if (a = b)` warning...
+>
+> BTW, you cannot mindlessly fix the latter, as you cannot know if
+> "(a == b)" or "((a = b))" was intended, without understanding the code
+> (and the (possibly unavailable) data sheet, and the hardware, ...).
+>
+
+to allow assignments in if statements was clearly a mistake and if you
+need outside information to understand the code, your code is the
+issue already.
+
+> P.S. So far I've stayed out of this thread, as I like it if the compiler
+>      flags possible mistakes.  After all I was the one fixing new
+>      "may be used uninitialized" warnings thrown up by gcc-4.1, until
+>      (a bit later than) support for that compiler was removed...
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
