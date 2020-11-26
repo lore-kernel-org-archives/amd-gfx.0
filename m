@@ -2,119 +2,51 @@ Return-Path: <SRS0=2cAG=FA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC0EBC56202
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 09:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6028DC56202
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:15:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FDDB20B1F
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 09:05:07 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xjbPL5HX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FDDB20B1F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id DB5BC2145D
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2020 10:15:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB5BC2145D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 659CC6E827;
-	Thu, 26 Nov 2020 09:05:07 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB636E827
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 09:05:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HGpJ1a66jwFgj/GdNmhGBGBZ7bzXGHW9RRTIQNXwgzJ22P4410+qX3GwFH0CvlCWbDs5Q4xK7na4SKrkMLqYE01yiV9NtKdcIrmlLzi2cBPQo91wYjWrbZ6dg+wrJbvGbB3DQXA68d47eYJYZFUeAI558jL8E5g2gF5mJ4xbQORjTkAGPN3m8goD3tEielaq35AEeMbHqV2GURFCrK/19O0qWL+8N+YPZSPrhF+Pt6WmN2Kbdt99CwmusiCvMzj6sg23zDnTHQSxsvIAPunqMjIrdEeTp1xQNBCO8tHLRwR9mJwZj043cPhTFdirr3jvnpC/SACN1x3SeVY6jmLObQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tKHjSawXLmxsrQW6bLQhjL7C1ab9lw5eiLA8K9c//FA=;
- b=DMLvjXanzJ6rXoj/4DAhvoC1hDtwl6fZPwav1gefD01eDZPWmLNDH8A15ilj/cXQTNRZTN/vdKT92BGiO5MDLjCXvogzIG+7YkIGCJbcmJbAu/sKwezq7XlsZeq5+26+8KDmVFVvSAlcgtVNQKkIovbQhG26nZnUMbl9w4XuUIT0dQog5QPfhwsHECrpDJUn/ubrvhGL61/TqLy6DBkAhLAo9AAOukOUB/nr+WeXKSTo3KyGQn3hDkWtkQGmMHtHaPlw/thhk/DWyrtETSRZEQb/9yqnexCdCYedw3APsX9kHjikWypt5JbJqG5geBrMBd6eB4IQAhcEu8P6O1Ysaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tKHjSawXLmxsrQW6bLQhjL7C1ab9lw5eiLA8K9c//FA=;
- b=xjbPL5HX78k39oXCHVu/wtoVW5gPU4SA9DcplJLiJf6CUEwa4yke+5q0VWP4Jy5ebOeXFMIwhFKYp3TlVn9aXHypcN1ybOXYTlxM4zCihQzsXqb8eEAHpYUteAevtyldb/L2jROX3vAN/KghSkgl+fQoAw/T9ZRG/gITLIoMTKE=
-Received: from BYAPR12MB3222.namprd12.prod.outlook.com (2603:10b6:a03:12c::23)
- by BY5PR12MB4951.namprd12.prod.outlook.com (2603:10b6:a03:1d2::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.22; Thu, 26 Nov
- 2020 09:05:03 +0000
-Received: from BYAPR12MB3222.namprd12.prod.outlook.com
- ([fe80::7c6e:b8ff:6043:9dab]) by BYAPR12MB3222.namprd12.prod.outlook.com
- ([fe80::7c6e:b8ff:6043:9dab%6]) with mapi id 15.20.3611.020; Thu, 26 Nov 2020
- 09:05:03 +0000
-From: "Zhao, Jiange" <Jiange.Zhao@amd.com>
-To: "Chen, JingWen" <JingWen.Chen2@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: skip power profile switch in sriov
-Thread-Topic: [PATCH] drm/amdgpu: skip power profile switch in sriov
-Thread-Index: AQHWw8928yB8E0sFW0O4438ewVFuo6naHilA
-Date: Thu, 26 Nov 2020 09:05:03 +0000
-Message-ID: <BYAPR12MB3222878CCF698164689671C5E1F90@BYAPR12MB3222.namprd12.prod.outlook.com>
-References: <20201126083756.3864267-1-Jingwen.Chen2@amd.com>
-In-Reply-To: <20201126083756.3864267-1-Jingwen.Chen2@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-11-26T09:04:41Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=1a3c8b0a-1afa-45d3-8478-0000d709a371;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-11-26T09:03:49Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: a7ce3d42-96fc-4f9b-a8b2-0000762288be
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-11-26T09:04:59Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: fcfe6796-6fe4-4a34-a55a-0000141b9bef
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [180.167.199.185]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 139631f4-b5f9-42b2-d8ae-08d891ea5cb4
-x-ms-traffictypediagnostic: BY5PR12MB4951:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB4951E62EBD3F7DC0B853F681E1F90@BY5PR12MB4951.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4125;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zOSDYJ+y+W4ItTDbtcfvztLM6H2tHP8R0pgF0UpPFvMLwGB0BBeLLkqD0/gpdBpyCvuYUQMXyNDNReYCaXe+ThX9hMsPMD1u6Z0aXQcyzHQpXGnHalXJ+fX4jXwV07MRqDswq/xUTSLEgogZ2/MGW67xIajWTH0mJmXYPXT9JiF/8RMkbr1yIT8oZ0SuVIYB18NeQOQovJGlPaa1tR1cQelYKzjmWOVPdIsbEHF9pVz8KML3GqY+bnk3PncnJxjRGCIDBN1d9iIe1Y0SnNIJzQhqif+AD/jDhd5DAqzXiFG2PeUw4GwUtfgXJKoQ++lnFk0ZLbdRn1vLec7gRsB0Dw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3222.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(396003)(136003)(366004)(376002)(55016002)(76116006)(86362001)(66946007)(66476007)(186003)(4326008)(8676002)(33656002)(5660300002)(64756008)(9686003)(66556008)(26005)(2906002)(66446008)(7696005)(110136005)(316002)(71200400001)(4744005)(83380400001)(8936002)(52536014)(6506007)(53546011)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 033K3TVBkofOVdFeFQBd6vR6nUwIDNJr76W7diX37mUd0+Z/Fxd+B0drU/oFirZF82T8SiYyTNJfeBz4v384nzitSA1crHXwO7s0B0poqkpOQuNoGUMzu+Xsk65syHGnxFIOQMa/gnT0mS0lxaXA3Rrcj84nx+c/7w/FdBFcpD+jgyd4hFcJNpH/PBW5rj1x6Ipjl6YmySYuPrOOYu6YlC7ERAeVUplgukQqI/6osdqqM2kfSU+dk1GHrDY4jO5Jc2xHeBQ33pUgsBYSGko4XrDbsgqTFIm64jTPmQkFrPQasBrQqYKrqtFWZZgCOAEGrqtGH/0yd2oNgkDOr0ak7X/ZP8bQRelOSLL0uXjNlEDY/cjm+/H+9PnDskv4PoNiN/GPQpxCxP5Y76EmvR0MOyBw/ytkA2glvsjP+6cDVZZZKieZO8XVO5mu5DMgdnYQRNKHL4rtxlVT2f5eyyvyYnr+3BbcZMEoZcjOnLzDulLFEKtkTfNawtpXFWAg5unbj5zT1KjBSxIin0CBaxLF83NPrkKN7T7UZqdHtvk36BnHOi8lzsPNebaGXtI7rOvelqeHRusgUoN7JTuR0TnKf27x2jmc/mF2bWCrf3tTVPAICF5XfEMmg3V+NXlOBfIl3GqVlZVGfG7skqu9SJNFG+42uhWz75S+JWrU1r3qM1+A0QwEpMyNuogcpLtwauQ7h+LWIZ8EfkDnvWPlY1k/6STVBm+T3pkioopxnKs8jWGhRm/n4fgdfgi1NbNYUaCl0QRJtrGQj4NjlsXoXjkCwxkLeAJ7cZSBoCBrQc/pjnCg5Ho1Qz2hC5DRuqAvZNysVpLOcjpYrX3QkniemZOw4ZRo5i95HsO25JOJoJz036LGuHbJ9EWLhZDpswVbgNP5GrpskcUtcsK+ZIxbI4X3mA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F3B36E853;
+	Thu, 26 Nov 2020 10:15:31 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 181816E853;
+ Thu, 26 Nov 2020 10:15:30 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9770EABD7;
+ Thu, 26 Nov 2020 10:15:28 +0000 (UTC)
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <d1508c4f-df3e-fa3c-3071-d8a58295e674@suse.de>
+ <cbfa3e8d-81a3-5620-d4fc-72188cfb42ee@amd.com>
+ <6d2ee787-0bf5-de1d-73af-7c87bad63cda@suse.de>
+ <2431a0e1-7159-b3e7-e1ca-3e7f55c38d8a@amd.com>
+ <b356ee3d-64bd-30c9-23f6-dea3a1b87bea@suse.de>
+ <20201124140937.GK401619@phenom.ffwll.local>
+ <278a4498-bdde-402a-1cea-668e9683f7eb@suse.de>
+ <2f8a252a-5413-4b75-a367-f6233121e36e@amd.com>
+ <20201125103645.GU401619@phenom.ffwll.local>
+ <fd9dff4a-ec16-46d8-d892-b06dad5c11d3@suse.de>
+ <20201125163251.GY401619@phenom.ffwll.local>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
+Message-ID: <75385451-7969-e199-1a8e-f29fd08d5043@suse.de>
+Date: Thu, 26 Nov 2020 11:15:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3222.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 139631f4-b5f9-42b2-d8ae-08d891ea5cb4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2020 09:05:03.5546 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qai2DVoNgXP3euqrbSpnq06MRvzQtTMsFE91/jGXgmo+I7tyNvu4VuNhF++CN/Aw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4951
+In-Reply-To: <20201125163251.GY401619@phenom.ffwll.local>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,46 +58,519 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, JingWen" <JingWen.Chen2@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: airlied@linux.ie, alexander.deucher@amd.com,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0574529263=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0574529263==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="rSjEZaDj8hskUNw9zjDA5BmPVDY4XFxYg"
 
-Reviewed-by: Jiange Zhao <Jiange.Zhao@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--rSjEZaDj8hskUNw9zjDA5BmPVDY4XFxYg
+Content-Type: multipart/mixed; boundary="SV8WelrpqD17zkr31S6FBXLLJ0DOJt4yN";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com
+Message-ID: <75385451-7969-e199-1a8e-f29fd08d5043@suse.de>
+Subject: Re: [PATCH 4/7] drm/radeon: Pin buffers while they are vmap'ed
+References: <d1508c4f-df3e-fa3c-3071-d8a58295e674@suse.de>
+ <cbfa3e8d-81a3-5620-d4fc-72188cfb42ee@amd.com>
+ <6d2ee787-0bf5-de1d-73af-7c87bad63cda@suse.de>
+ <2431a0e1-7159-b3e7-e1ca-3e7f55c38d8a@amd.com>
+ <b356ee3d-64bd-30c9-23f6-dea3a1b87bea@suse.de>
+ <20201124140937.GK401619@phenom.ffwll.local>
+ <278a4498-bdde-402a-1cea-668e9683f7eb@suse.de>
+ <2f8a252a-5413-4b75-a367-f6233121e36e@amd.com>
+ <20201125103645.GU401619@phenom.ffwll.local>
+ <fd9dff4a-ec16-46d8-d892-b06dad5c11d3@suse.de>
+ <20201125163251.GY401619@phenom.ffwll.local>
+In-Reply-To: <20201125163251.GY401619@phenom.ffwll.local>
 
------Original Message-----
-From: Jingwen Chen <Jingwen.Chen2@amd.com> 
-Sent: Thursday, November 26, 2020 4:38 PM
-To: amd-gfx@lists.freedesktop.org; Zhao, Jiange <Jiange.Zhao@amd.com>
-Cc: Chen, JingWen <JingWen.Chen2@amd.com>
-Subject: [PATCH] drm/amdgpu: skip power profile switch in sriov
+--SV8WelrpqD17zkr31S6FBXLLJ0DOJt4yN
+Content-Type: multipart/mixed;
+ boundary="------------0BC9D4C166C11B15BBB19B90"
+Content-Language: en-US
 
-power profile switch in vcn need to send SetWorkLoad msg to smu, which is not supported in sriov.
+This is a multi-part message in MIME format.
+--------------0BC9D4C166C11B15BBB19B90
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 3 +++
- 1 file changed, 3 insertions(+)
+Hi
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 17a45baff638..8fb12afe3c96 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1168,6 +1168,9 @@ int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,  {
- 	int ret = 0;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		ret = smu_switch_power_profile(&adev->smu, type, en);
- 	else if (adev->powerplay.pp_funcs &&
---
-2.25.1
+Am 25.11.20 um 17:32 schrieb Daniel Vetter:
+> [...]
+> I guess full locking is required :-/ I'm not exactly sure how to make t=
+his
+> happen with the current plethora of helpers ... I think we need an
+> _locked version of vmap/vunmap callbacks in drm_gem_object_funcs.
+
+I think we might be able to get away without new callbacks.
+
+I looked through the sources that implement and use vmap. All the=20
+implementations are without taking resv locks. For locking, we can wrap=20
+them in lock/unlock pairs. Having something like drm_gem_vmap_unlocked() =
+
+that locks and vmaps should make this easy.
+
+In terms of implementation, only vram helpers do a pin+map in their vmap =
+
+code. And as I mentioned before, this is actually wrong. The pattern=20
+dates back to when the code was still in individual drivers. It's time=20
+to clean this up. Vram helpers can use drm_gem_ttm_vmap() instead.
+
+Finally, there aren't that many users of vmap. A few drivers use it=20
+while blitting framebuffers into HW buffers and ast does some permanent=20
+mapping of the cursor BO. All this is trivial to turn into small pairs
+of lock+vmap and vunmap+unlock.
+
+That leaves generic fbdev. The shadow buffer is also trivial to fix, as=20
+outlined during this discussion.
+
+The code for fbdev in hardware buffers is a special case. It vmaps the=20
+buffer during initialization and only vunmaps it during shutdown. As=20
+this has worked so far without locking, I'd leave it as it is and put a=20
+big comment next to is.
+
+Hardware fbdev buffers is only required by few drivers; namely those=20
+that require the CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM config option to work.=20
+We should consider to make the fbdev shadow buffer the default and have=20
+drivers opt-in for the hardware buffer, if they need it.
+
+>=20
+> And then document that if the callers of the _locked version wants a
+> permanent mapping, it also needs to pin it. Plus I guess ideally implem=
+ent
+> the unlocked/permanent versions in terms of that, so that drivers only
+> have to implement one or the other.
+
+For my understanding, pinning is only done in prepare_fb code. And ast=20
+pins its cursor BOs into vram. We should document to hols vmap/vunmap=20
+only for time and cover them with resv locks. Pinning is for cases where =
+
+the hardware requires buffers in a special location, but does not=20
+protect against concurrent threat. I think those are the implicit rules=20
+already.
+
+I updated the radeon patchset, where all this appears to be working well.=
+
+
+Best regards
+Thomas
+
+>=20
+> That should give us at least some way forward to gradually conver all t=
+he
+> drivers and helpers over to dma_resv locking.
+> -Daniel
+>=20
+>> The pin count is currently maintained by the vmap implementation in vr=
+am
+>> helpers. Calling vmap is an implicit pin; calling vunmap is an implici=
+t
+>> unpin. This prevents eviction in the damage worker. But now I was told=
+ than
+>> pinning is only for BOs that are controlled by userspace and internal =
+users
+>> should acquire the resv lock. So vram helpers have to be fixed, actual=
+ly.
+>>
+>> In vram helpers, unmapping does not mean eviction. The unmap operation=
+ only
+>> marks the BO as unmappable. The real unmap happens when the eviction t=
+akes
+>> place. This avoids many modifications to the page tables. IOW an unpin=
+ned,
+>> unmapped BO will remain in VRAM until the memory is actually needed.
+>>
+>> Best regards
+>> Thomas
+>>
+>>>
+>>> So I'm still not seeing how this can go boom.
+>>>
+>>> Now long term it'd be nice to cut everything over to dma_resv locking=
+, but
+>>> the issue there is that beyond ttm, none of the helpers (and few of t=
+he
+>>> drivers) use dma_resv. So this is a fairly big uphill battle. Quick
+>>> interim fix seems like the right solution to me.
+>>> -Daniel
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> Best regards
+>>>>> Thomas
+>>>>>
+>>>>>>
+>>>>>>> There's no recursion taking place, so I guess the reservation
+>>>>>>> lock could be
+>>>>>>> acquired/release in drm_client_buffer_vmap/vunmap(), or a
+>>>>>>> separate pair of
+>>>>>>> DRM client functions could do the locking.
+>>>>>>
+>>>>>> Given how this "do the right locking" is a can of worms (and I thi=
+nk
+>>>>>> it's
+>>>>>> worse than what you dug out already) I think the fb_helper.lock ha=
+ck is
+>>>>>> perfectly good enough.
+>>>>>>
+>>>>>> I'm also somewhat worried that starting to use dma_resv lock in ge=
+neric
+>>>>>> code, while many helpers/drivers still have their hand-rolled lock=
+ing,
+>>>>>> will make conversion over to dma_resv needlessly more complicated.=
+
+>>>>>> -Daniel
+>>>>>>
+>>>>>>>
+>>>>>>> Best regards
+>>>>>>> Thomas
+>>>>>>>
+>>>>>>> [1] https://cgit.freedesktop.org/drm/drm-tip/tree/drivers/gpu/drm=
+/drm_fb_helper.c?id=3Dac60f3f3090115d21f028bffa2dcfb67f695c4f2#n394
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Please note that the reservation lock you need to take here is p=
+art of
+>>>>>>>> the GEM object.
+>>>>>>>>
+>>>>>>>> Usually we design things in the way that the code needs to take =
+a lock
+>>>>>>>> which protects an object, then do some operations with the objec=
+t and
+>>>>>>>> then release the lock again.
+>>>>>>>>
+>>>>>>>> Having in the lock inside the operation can be done as well, but=
+
+>>>>>>>> returning with it is kind of unusual design.
+>>>>>>>>
+>>>>>>>>> Sorry for the noob questions. I'm still trying to understand th=
+e
+>>>>>>>>> implications of acquiring these locks.
+>>>>>>>>
+>>>>>>>> Well this is the reservation lock of the GEM object we are
+>>>>>>>> talking about
+>>>>>>>> here. We need to take that for a couple of different operations,=
+
+>>>>>>>> vmap/vunmap doesn't sound like a special case to me.
+>>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Best regards
+>>>>>>>>> Thomas
+>>>>>>>>
+>>>>>>>> _______________________________________________
+>>>>>>>> dri-devel mailing list
+>>>>>>>> dri-devel@lists.freedesktop.org
+>>>>>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>>>>>>
+>>>>>>> --=20
+>>>>>>> Thomas Zimmermann
+>>>>>>> Graphics Driver Developer
+>>>>>>> SUSE Software Solutions Germany GmbH
+>>>>>>> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+>>>>>>> (HRB 36809, AG N=C3=BCrnberg)
+>>>>>>> Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+>> --=20
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+>> (HRB 36809, AG N=C3=BCrnberg)
+>> Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+>=20
+>=20
+>=20
+>=20
+>=20
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+--------------0BC9D4C166C11B15BBB19B90
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0x680DC11D530B7A23.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0x680DC11D530B7A23.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdgX=
+H47
+fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0BeB5B=
+bqP
+5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4YchdHm3bkPj=
+z9E
+ErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB9GluwvIhSezPg=
+nEm
+imZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEBAAHNKFRob21hcyBaa=
+W1t
+ZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIGFQoJCAsCB=
+BYC
+AwECHgECF4AWIQRyF/usjOnPY0ShaOVoDcEdUwt6IwUCXvxIWAAKCRBoDcEdUwt6I+aZB/9ih=
+Onf
+G4Lgf1L87cvoXh95/bnaJ6aQhP6/ZeRleuCXflnyDajlm3c9loQr0r2bQUi7JeYwUKbBab2QS=
+GJm
+DMRGlLMnmzWB8mHmZ6bHAu+2Sth8SraE42p6BB9d8dlYEID+dl/D/xUBeulfkck5rloGtYqDi=
++1Q
+DfkEZJaxVSZ6FFkXuQi/G9qcI4iklN2nv02iQ7mZe8WYAysix6s/6vIobhirEBreclSNxXqis=
+p8n
+91+v855JC11EgRdUXMRK81IAaCKXP8zLx3ixku7mvP9Om61yerHSbeU2HZbIggZYQlFh6llJm=
+zF1
+CjCWgPTJyk4t4kMTcNOw5ykD47vU/KW+wl0EEBECAB0WIQQn6OOmnzvP/7ktjmoud6EwEfXTw=
+gUC
+WzodVwAKCRAud6EwEfXTwidvAKDkOADDHfI0QNXqAZcg6i1kOndAYACeLXHBwpjnumkPSyoab=
+IiL
++he8r3zCwHMEEAEIAB0WIQQeXZghmQijlU7YzFiqUDvJrg9HpwUCWznxsQAKCRCqUDvJrg9Hp=
+42f
+CADIvsZcAd04PDFclRltHr2huy6s7+ZZA6PgYlMblEBh4bJA+dNPBTvzpJ7FJv/bmHOa+phWy=
+Urj
+EpfFGuOKGuWAfzgVAEu52fMrW3/mm+O26z1AKIu8hiZ/x9OAe4AM71ZO2lZrV1/53ZdzWnRuO=
+45N
+GQcotU8oeVfT9okAfmozmWMmIMq7Q0K6bV8W3qiD5XfDNxjr2caxc/9WX1bZPUo3n0H23MNaA=
+Tpy
+Oz732UtDh6sKUAB1RfzBBd/REbjHD7+quwJGAdRScyDRncX1vNb2+wihy0ipA69XY3bkhR5iD=
+u5r
+A9enuiMe6J1IBMI1PZh+vOufB/M6cd2D9RULIJaJwsBzBBABCAAdFiEEuyNtt7Ge78bIRx1op=
+/N8
+GYw5MYEFAls6MrsACgkQp/N8GYw5MYEnLQf/dwqlDJVQL2q+i8FFaqTMAm0n9jLRV6pN8JxFH=
+j0g
+voyWUOnQuNdAFgtKd26ZhN8NkLoSMO8E19eBPfLoBIFK5yNNVmRHAZm07MzGbA0uNWINJhmdR=
+bZM
+RMh0nneXjcEU/IvUmd8TPFTAd24X2mbzHgcaHMLJSVx1ohd4alRJXHIqDobKmiVwekyPnInJn=
+zWw
+iuZUkIotTkQple1PT/dF3S+KtPXBL6ldQ4NkAeCjsz4wnzSa9+VKOxEhiHM0PMzXSbkCMP+4m=
+Xy9
+RMplBw9Dm9hN2PSouBPifIrSodiiSWZYXOEkzLiBAB0frCKR63Dnx9kvjCD9Pz5wLd/70rjqI=
+cLA
+jgQTAQgAOAIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC=
+3oj
+BQJftODHAAoJEGgNwR1TC3ojZSIIAIV3makffp4P4leU8JSLt0aTNewsOhy7VQzKUtlCw3PKD=
+3l/
+SuymZhQKgH+n6sijzFauZnZ+x0T+Oy+dDVZb3sNJuuMUDIHw18EO9daZBMcueaS54FGe73lAp=
+HUl
+7nxyocCxoqIG8+fP+75itV/ls2TSh5rJvjLvHC8J3NqfGlJ/jlSKrQUnzFbXfE5KGWiKNAn+I=
+1a2
+EE0I7uLpYgkdb8hcjtV9Rxr2ja+GWOaSoqB29P5GUzipkWo4144Q16JBO6QP2R9y/1ZK9VqH2=
+5T8
+lTKocLAaHCEdpDqY5KI15as9tIxlI1Vh+eqhTh/gwEm1ykO1gmrQ1zvGLDMB1EE6El3NJ1Rob=
+21h
+cyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIbAwULCQgHAgYVC=
+gkI
+CwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJe/EheAAoJEGgNwR1TC3ojq=
+RgI
+AIoegtTp1prPzfHgTAuEPd8v58ssHubwi9tg69a8IJ+iMNozhs4iUou84WOLBJNjSieXHZRa8=
+fJj
+//2/sTuABn38AQ9FcKX9/B49hrdCo6c0WHHKqlPrSTzuXNKYyOdmSFd/pDhBb2Bn5DTxxH5RP=
+m/N
+U/C9nUlwi7Y+FgBlDNa5h592wmJfv0cJAfvF56C+QL65jHFOFIW9xSaTOAxxMXHGJHXki6Iwa=
+aTg
+s7QQlKQcd5XvvED1bwLyQ7rq+MEZo5N7IygpQMM3qqGMlCnDdyQ3W95rd0HCWpfa0oVRCOwdu=
+SL3
+5hG7ONqBpvBj8z5GjSbt4HLJGvpeT0k37qzRExrCXQQQEQIAHRYhBCfo46afO8//uS2Oai53o=
+TAR
+9dPCBQJbOh1XAAoJEC53oTAR9dPC05AAoIy0HQ2DBDYugQ42P4HfyxfZTIvKAJ0fqNBcBFW9S=
+tbR
+DEP9cfpNVOv8YMLAcwQQAQgAHRYhBB5dmCGZCKOVTtjMWKpQO8muD0enBQJbOfGzAAoJEKpQO=
+8mu
+D0enL0wIAM2NTeUDCofBAkbWHGTZopclefbh0xGPYQEfttNyalp0hn1CrVO7OsX5eTjRqgyOa=
+1C5
+OAsNghCM4PUmrfv5cZ9+sNn9bRM50uVW9IFRlq8wwBY4+7QejJ5gs7DW/0tZIMZ6iTGKK0WEO=
+7gd
+2K9hXadPBScTdIqXeWH82meiqElnEQL+K9UeGUBrku+1EQIOxwziKwTDlTvhyJ+xmEKj0uWRc=
+Ocl
+27xLS9XOWPGXcNQBtlZhF8e/E1kFRt5CPP5UBdUCN8qydUadseXivSNDiYob9dyJSFt7G0Bq4=
+/ac
+Ret5ANtGRWsp8xYJQRossRMWL0w9P8SiIc2IY/JrQrpz29nCwHMEEAEIAB0WIQS7I223sZ7vx=
+shH
+HWin83wZjDkxgQUCWzoywAAKCRCn83wZjDkxgQaDCACyFuBLQWNvLT8GTDqTf/gETzmtoEM6Y=
+r8O
+4jbYg05xiFzAqMZctQsm3zHakx2JrimxDvQJRQJQzp5ICJ7J/BOuSL4FE1SPeQIfjm4jyBZGH=
+P/W
+vgHsT5e3+ZCPePPZO+3irarTKVhaaP70Tpka6EsOCZzO6L8D6tUDkhxMX0ymy7p8w9Yt1eD0o=
+Ume
+mxrKdS1ulpNJUTBw7gJN8bMowVnycEm6wntxOjrCxuwbkKhFLdn0ejcXQ0UkfbUFKfU64gGBu=
+S53
+ZlM8XlOhQEIw/FrdXszhR+Tg3Ag130cmJhOrghgOBLzvJfUd6OvDT5VIz0QGbAm8SWlAIIms1=
+9Z8
+kBsLwsCOBBMBCAA4AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAFiEEchf7rIzpz2NEoWjla=
+A3B
+HVMLeiMFAl+04McACgkQaA3BHVMLeiPHXAf/SEoZa6CKoOAs1ctEP/hN8cEQqbEiuZ+71nm3u=
+/BQ
+p/CEUvqGq+iVc8kkpClDbPz5fa9mb+yWwufsnXKOs6ygmEoAEOL7dBZZIaRobBEkB09VXIkx8=
+lE0
+00grBVtToHUGRfZcMoMZ98XhPGU6lJDN200j/2CV46hQDz6PLySecNjOME05mosbYW5N2JwFd=
+uXP
+Qx++DjWB32QLBhcOcP3WslTy3PKVe/TcTvk0JpPFMz4UFc+awBVhDgZiGGAW3xLZRYyhpoAEs=
+N7u
+XkV2ct0MRxuZ3y4tTYJobhbZwutRojiPPZduRw9CSpNDcQHruFiSOIQTpnLeCA6K2JAZyqmP/=
+8LA
+lAQTAQgAPhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKC=
+QgL
+AgQWAgMBAh4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLC=
+dg6
+2AmRirxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6=
+PXo
+clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7m=
+neM
+C5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6iKupZs=
+tMx
+stPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8osBv6pnSn7e=
+ArO
+wE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYbT6XMr=
+yR9
+hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU63Y0xnQN29=
+UGD
+bYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWWGKdDegUR5BkDf=
+Dg5
+O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lvhFXodNFMAgTLJlLuD=
+YOG
+LK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsAEQEAAcLAfAQYAQgAJhYhB=
+HIX
++6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkDwmcAAAoJEGgNwR1TC3ojpfcIAInwP5Olc=
+EKo
+kTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1C=
+paD
+o4J+0fkrHuyNacnT206CeJV1E7NYntxUn+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4A=
+M4G
+ZMWX1lg0+eHbd5oL1as28WvvI/uIaMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suS=
+KHA
+MtbE4jKJ8ZHFOo3GhLgjVrBWHE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8Ct=
+irP
+dPWu/VXNRYAl/lat7lSI3H26qrHCwHYEGAEIACACGwwWIQRyF/usjOnPY0ShaOVoDcEdUwt6I=
+wUC
+X7Th+gAKCRBoDcEdUwt6I1UpCAC6QD5CCT0KFET29VVo4d+JdB5YJZmB72bMyVk12MGrx0fPp=
+OgW
+muh+7n1zULU4UciMSa0C1uq1eZZu044X3xIcVQp9+/nINM2d4+8yLEktK8f2jMIulYRSQOYX5=
+909
+E7a4oyj+AEgEDvcQ9WZPf+tSVpPDsrLiIezF5JdH8W0SlhPd13kAYSCR0H53PmAS6a3Z8UeOO=
+kof
+Fp/9g2GvHGr7ln9s6wenGbq7NOPMXtFG0luQDkqOFfTNI82COJ2ak5j8WMl25t9Cr5s9K2FUW=
+orW
+CeJMmGDIblC76yQzI2Ub2jXudrZCgLzHr3Bnbd/B+CklVwMpaskDluc7z3OP7KvXzsFNBF+04=
+RMB
+EADSYkyG/50PjD4CAbEnwQYZl61RVMBb3jug1j2dDPmOcQSYbw7pKLLLUoHCwnZXeEhRdiZ5w=
+qMo
+fW6DNo9irHecDc0815aN5RMxUQIqX7W6L4lI2qdKsaEcMtYQVdxbdf1cjcMGGO6oxlQE0FO3C=
+E/8
+y4G/kndDT0APK9jb6SatTJyPJxXwNmR+HYrkbWr4RAVM6et0pQmMZ8sak+QEM0kBlKbI0sodQ=
+OXs
+7Y9acMYJ5F+xfWU9JVAaOs2TOmQavDZMr6MeOpe/UKFjAZvcvv5yF8v7l3U+kWrpj4wc1bbRp=
+pDp
+5k5RlCckAJ3QBNW6Im/YlgieJCK9ns0So1yVxrmjNZu4Un3UGFnndI+dvp1vahkjTZNRo2FzP=
+GUl
+k2oF+juZn26c0YAQSv16BPTVkTQGuFfrVF+P76qg5dJvjuBdhmLOhLu1i63nUYMIw7jBf1Qir=
+0H6
+98oyLfdGYtdHB0MN5IXSVpkgymIHp6b7H36OMeem4onzoeiMUv8IX+fwQMeJ8fBsl+yTtA1J1=
+Lon
+gjXxBkbvEG2AUjpDv73ZuMcu0WcHc5ajfM4wixTght+OgZ7Md5LtpTbV+qmaGo5nw+KDujdF3=
+bNq
+RMI7nwnyVvbAi3QZqiw+Tr7EZY8r+77ecNvF0hdbcoUGsSLPvLBSbcHwpYnbn36uehXBaxFws=
+bC0
+KwARAQABwsKsBBgBCAAgFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl+04RMCGwICQAkQaA3BH=
+VML
+eiPBdCAEGQEIAB0WIQTGd2b9+m4xR3BgUWiWH8TcRCi/4AUCX7ThEwAKCRCWH8TcRCi/4JMoE=
+AC0
+B6V5uOWXzAg8e7v3e60R/0exHxFeTgKEvfNSJM204K2/c+mGH4UKh/kdiJoKF/y6Lu80o8ndt=
+vyG
+mQJ0yhypFyBSDNbgdeOHagIt7VvwXovwknYg+w2NavdhG5envhqX902XQE0mNNH1XizDRZ422=
+8wl
+V/fixCmAETZu5GKIFSTHOQrlZlwZ/RRRd3IqEb6bmpbPJZbBXOFolASXw3zs41xMar9zjLSY9=
+LKp
+SrF3Zy5F27QJhLxWsalLjtWcEwkxn5a5/4OAvAoNIn5NMGRoBmEYp3ZCRNbzkGT2gyOxrTcSf=
+g7M
+eHy//LX+1rpN02erf6HyoY6vLFFQlYZ5cnf97o67g7vz4cMGAbB4zZ/j5h3ggkSbjlsCmqXX4=
+x/Z
+7bB1078lwQdg9x+zo+0vxzk10TU1FoWsSAiravlw0riSjr+wjXr5IzBeMm0A7K1MZ2lne+mKj=
+T72
+bz2KE6isyrpIn4xlzLMQuh1OCthrHKb6GiJO4JWg/jWIt3yBov4EdFDXOnJl7Tq2CkpwrDTsH=
+Dgi
+Sw4xK+mHW3QFztsMQi6p7qaPCUSYAPIY4xzOTqExhMj/3Pgyg6hTvdGIpV9VzfMXIR68Pmw79=
+BGZ
+tEWaVXS+1ja+6kBOFIQ37sqOBorOGfp6c6Di+IN8mkEHyt9s2Q/YqpPdedm+58tinuaBSBeUk=
+mhM
+B/9rSzQXr84M1rhAehbaqDE+UYw8sfsQXiJkZYZz9BHp0YfhD9J5iwgGhYj+LU6dW1+eEsgcq=
+fMH
+Dexdvr9koHXeuMNaXa40++GX9cY9DU8RHbeYxGj35eVY793F4gfAAsD5DCF5pCcd7mhicp5eD=
+rIq
+258874hM7w1aSwMS+0K+oppSlIfdogKM/l8RA6oDGZySTkwxXQ8RAYb/ddVc5Ua2gzXccODBz=
+JuT
+a+aY+BxmIdz4oMzaNCiK3gedGKoRjnrGguEO+YL/Ji3NhHOXRKu/QVTFDmgpmA0oQTfY+iaLz=
+bFk
+keWD97V4vo2flZ8ii37fcKNX4daGGnRRFUh4BrBG
+=3DskgE
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------0BC9D4C166C11B15BBB19B90--
+
+--SV8WelrpqD17zkr31S6FBXLLJ0DOJt4yN--
+
+--rSjEZaDj8hskUNw9zjDA5BmPVDY4XFxYg
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAl+/gD4FAwAAAAAACgkQlh/E3EQov+D5
+Aw/9HRLPjqXm0RVQpYGr1XN2wr2Zc+sCyhzcSChDLwRx5EyLcg/W96kJonw5BpbLH2D/bq/04jM/
+9sFRGZe7jffGupZVAeUyOvEmVRcJuhxfxFeQ/NjqZGENDvSW1mi523OBI/DcCUpjpVBS0+FdPbO3
+GWhnzjyeV7FIZNjKcTDP7siVKLtPm05037KEE3vUC8t3Yc3r+lOcvIryJjHkL9d31IyAvkwxYUvC
+/Oqflz5xRIFD8zh8uk0E20wcA1HBFdOAaZi3CFa+ucqH8y02HZwtcAqX3VRgu5uOAKLYSPfm/63y
+bTrS2Hx/UY1me/ObFx9kfoxOhh2G4amKa2uu1HYVhxGpLrCTKKtOFeeeQdpixeVD32bb4bCzx3Vs
+sI2wiRLFFRNYlDtX8jMcc6RWx9IvWFgEkz9sF85hWDkHE0W4dcPcoxbB/YopqfaoGAZAzUEQBiXH
+x9DcYIbzlt55VaTZWpBAD5kYg725W3PFOl0qTJZFE+v1yu8XJPIcGKKRih0CgRbFc0GCjnA4c6Z3
+RavmMV8uw4eYK0CITTdRMIJCfCF89DATJzMwPNxrnTzIT04NQ1WANUkyL6jNqb91qsPwwCeqiutT
+vXSfGtkK2EPvHfyINPylvoVPg5oM/1zznhd5q+J8ZDJYJQV9BUQIwFMBkDCl4Ht0d7SHFPYqx06h
+OXA=
+=cQ2k
+-----END PGP SIGNATURE-----
+
+--rSjEZaDj8hskUNw9zjDA5BmPVDY4XFxYg--
+
+--===============0574529263==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0574529263==--
