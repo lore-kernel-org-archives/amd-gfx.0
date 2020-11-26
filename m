@@ -2,72 +2,80 @@ Return-Path: <SRS0=Guv+=FB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC89CC64E7A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EE7CC64E7B
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 518F420674
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E37E120674
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="npJUR/Db"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 518F420674
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YymqsvqK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E37E120674
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 940E06EB88;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B23756EB8B;
 	Fri, 27 Nov 2020 10:14:33 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914296E954
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 13:42:55 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id k14so2213737wrn.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 05:42:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=JRGzsr7E+IJLlqxa5D+IrFAdZhiFdGYpEedhVyk6GiY=;
- b=npJUR/DbxvX22PhhvsddHD3XwoyyDVf+g0XRN8KgbhT11qHmB4zphgQBWSBHNqNjr/
- 8Vo0vv65NfZ9JCW8L/2SMi1OI6FMPbNOzBTW/o/VfmojKflzjEGWCqSYTC7rPf98wwMv
- mSK7VJ0LcB9+AQPMEzZtIq1VLY8QK6X9GkV8LJGK+XMVPn3+lE2rsA/0S10wsQww0dax
- gOzL2JHYgBqZPD72m+1EvomBH7ybMYA10Bci7AkXEShO9cuvmxBL+VMQn7rB6Nholahm
- 0H7D+pNpH/VIKwt5Lzsklllify4PiA1rjNC+VV0Q6JzUxkKrm3UyRNkoGvpwqigXwObt
- QsRg==
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE1B86E958;
+ Thu, 26 Nov 2020 17:05:57 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id 2so2170020ybc.12;
+ Thu, 26 Nov 2020 09:05:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=O/jaIJrbif54isUECHds/J8Ujq0NdoNxUTCCwJWwQ80=;
+ b=YymqsvqKytU8xghgrWvO9q2MBm/qo/QfMLfSKpWw4/r/4uRHhZxuPq9ek+nW3ctzYi
+ vs3zi1yLEuFoGUDgrnF15wpJAK9RqJ1aO9sTXa0PjOzjLe+d4O/pTFiiO013Mx2qKoL4
+ SkUMUUIjag5bjqwHGLYc9f20TwOaOWbGTale/6i8ahvnaZymX26ArF3ReuQKFVdof495
+ iKDDkr6mQvIIbdynQAd2wxd2GUAuBku/vDm4jIdtOw4Ph7wkJ5rD2TxigEVm3yQ5C9tu
+ pJCfZKqtAfLebSyeKrm6VDCN2G4oKvj4TFU9uFOnavPNoLjuB5eIt+ODZ6yyvDDDthAD
+ GeSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=JRGzsr7E+IJLlqxa5D+IrFAdZhiFdGYpEedhVyk6GiY=;
- b=AfGKoshSgl+qg0mHbezHt8uEWfcY0DSpFxOVBeXbgYE73DSvzJG5gAAOQ3FZPqtwfb
- vLTzHO0aHDf9LkKFYRpds9TdY02xmQOCRBAFLjTmad1xtxtAmCzg+s/QIcsRhR6hk0nf
- rwlZGIJmXGbWFb9m++eSnOz3W0rrD3B4zBy7jYmxNKOnwJsPt62KCdmiPWKnO1e16dI5
- U5UW7eNYwzjD4XmuzVnDmrkarOoeTKxt8Cr8NUGf1SN/IuB32nHZDgvUScl7tGT5hPHr
- PimQeH9+i/aDE+okqjSxKpQiMstTlasR3AL9s42Rum4Q9H7G3+1cFXYLt+AfU5LNczi5
- K3yg==
-X-Gm-Message-State: AOAM530BDaNpSzh7oUS9ve0O9gS3Lyk7rWghytrz/i6bq1hXgeK5IzIM
- ybBPcm+ilC3XXMqC7alzPWRCwA==
-X-Google-Smtp-Source: ABdhPJwo3+FQc6tpgfzfYae15R5ZY9ynnRvbHNRXmcN7/sg1nZfCyc5IUVsESXdGkNqsUW9sg2Vo8g==
-X-Received: by 2002:a5d:4408:: with SMTP id z8mr4111560wrq.204.1606398174228; 
- Thu, 26 Nov 2020 05:42:54 -0800 (PST)
-Received: from dell.default ([91.110.221.235])
- by smtp.gmail.com with ESMTPSA id k205sm9275738wmk.4.2020.11.26.05.42.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2020 05:42:53 -0800 (PST)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Subject: [PATCH 06/40] drm/amd/pm/powerplay/smumgr/smu9_smumgr: Include our
- own header containing our prototypes
-Date: Thu, 26 Nov 2020 13:42:06 +0000
-Message-Id: <20201126134240.3214176-7-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201126134240.3214176-1-lee.jones@linaro.org>
-References: <20201126134240.3214176-1-lee.jones@linaro.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=O/jaIJrbif54isUECHds/J8Ujq0NdoNxUTCCwJWwQ80=;
+ b=egxvuHZafGWnlWU6o7ijJ0cQNLOvVPJk3hXFZrdsm19wySgKuHmMex/l4cGiXCmb2Y
+ +3Z0yOR7t1VyR5xzkg1WCq8AwkHKJ30U+QeAP4lQphQc4qbcdROsmzql3pM3boSBTPGC
+ WONYgPReiv1ZUgdIu7D1ctlqN/B7F4qHqKICSZkjsjQReMynWrekURQcXE05QmsagcLO
+ PTUhEl1aIHGS3L2TF793oq7jfEVotz8ebasjWBhi9GwtnJjG8QheNLGuwH0LaR/Zgnv+
+ Lt87+2Utau0lvs7TS79q8UbUJwdmWFWxPDD2hePtBWWoiCJceLmasv++KOQMfgyUWbMx
+ Cy5A==
+X-Gm-Message-State: AOAM533VFbiz5/OEQmf6GfVjB1HY7VAU8gMaUvqCGtlBxNTcgsq8AcpT
+ G77FOfJgoocrFzVWZdv3jUmatoLvQCdL+m32QXI=
+X-Google-Smtp-Source: ABdhPJxMy5ncXEZ6TSWkZ0cAXTnkQ7iw+jjdg+cNNUWTZPlZcmFMrQQcJd2JAoeBontKFrtwmzLazAacI3fdsjx9xvQ=
+X-Received: by 2002:a5b:40e:: with SMTP id m14mr4835621ybp.33.1606410357153;
+ Thu, 26 Nov 2020 09:05:57 -0800 (PST)
 MIME-Version: 1.0
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+ <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+ <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+ <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+ <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+ <CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
+ <44005bde-f6d4-5eaa-39b8-1a5efeedb2d3@gmail.com>
+ <CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
+ <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+In-Reply-To: <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 26 Nov 2020 18:05:45 +0100
+Message-ID: <CANiq72=n4rVvmKt0RCb5aOfQydA8bgDxfntRLDieV8Q2efP8Zg@mail.gmail.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 X-Mailman-Approved-At: Fri, 27 Nov 2020 10:14:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,43 +88,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ bridge@lists.linux-foundation.org, target-devel <target-devel@vger.kernel.org>,
+ linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+ Linux MMC List <linux-mmc@vger.kernel.org>,
+ Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ virtualization@lists.linux-foundation.org,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
+ linux-afs@lists.infradead.org, Lars Ellenberg <drbd-dev@lists.linbit.com>,
+ driverdevel <devel@driverdev.osuosl.org>, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, scsi <linux-scsi@vger.kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, oss-drivers@netronome.com,
+ linux-atm-general@lists.sourceforge.net,
+ ceph-devel <ceph-devel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ usb-storage@lists.one-eyed-alien.net, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ NetFilter <netfilter-devel@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
+ linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, Nouveau Dev <nouveau@lists.freedesktop.org>,
+ linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
+ linux-can@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>,
+ GR-Linux-NIC-Dev@marvell.com, Linux-MM <linux-mm@kvack.org>,
+ Network Development <netdev@vger.kernel.org>,
+ linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Edward Cree <ecree.xilinx@gmail.com>,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ USB list <linux-usb@vger.kernel.org>, tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity <linux-integrity@vger.kernel.org>, "open list:NFS, SUNRPC,
+ AND..." <linux-nfs@vger.kernel.org>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG0vcG93ZXJwbGF5L3NtdW1nci9zbXU5X3NtdW1nci5j
-OjM4OjY6IHdhcm5pbmc6IG5vIHByZXZpb3VzIHByb3RvdHlwZSBmb3Ig4oCYc211OV9pc19zbWNf
-cmFtX3J1bm5pbmfigJkgWy1XbWlzc2luZy1wcm90b3R5cGVzXQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvLi4vcG0vcG93ZXJwbGF5L3NtdW1nci9zbXU5X3NtdW1nci5jOjExMjo1OiB3YXJu
-aW5nOiBubyBwcmV2aW91cyBwcm90b3R5cGUgZm9yIOKAmHNtdTlfc2VuZF9tc2dfdG9fc21j4oCZ
-IFstV21pc3NpbmctcHJvdG90eXBlc10KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3Bt
-L3Bvd2VycGxheS9zbXVtZ3Ivc211OV9zbXVtZ3IuYzoxNDA6NTogd2FybmluZzogbm8gcHJldmlv
-dXMgcHJvdG90eXBlIGZvciDigJhzbXU5X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcuKA
-mSBbLVdtaXNzaW5nLXByb3RvdHlwZXNdCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9w
-bS9wb3dlcnBsYXkvc211bWdyL3NtdTlfc211bWdyLmM6MTY1OjEwOiB3YXJuaW5nOiBubyBwcmV2
-aW91cyBwcm90b3R5cGUgZm9yIOKAmHNtdTlfZ2V0X2FyZ3VtZW504oCZIFstV21pc3NpbmctcHJv
-dG90eXBlc10KCkNjOiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgpDYzogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXgu
-aWU+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpTaWdu
-ZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5hcm8ub3JnPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L3NtdW1nci9zbXU5X3NtdW1nci5jIHwgMSArCiAxIGZp
-bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3BtL3Bvd2VycGxheS9zbXVtZ3Ivc211OV9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG0vcG93ZXJwbGF5L3NtdW1nci9zbXU5X3NtdW1nci5jCmluZGV4IDhhOWFlZTg1MDQzZWMu
-LjIzZTVkZTNjNGVjMTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJw
-bGF5L3NtdW1nci9zbXU5X3NtdW1nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93
-ZXJwbGF5L3NtdW1nci9zbXU5X3NtdW1nci5jCkBAIC0yMiw2ICsyMiw3IEBACiAgKi8KIAogI2lu
-Y2x1ZGUgInNtdW1nci5oIgorI2luY2x1ZGUgInNtdTlfc211bWdyLmgiCiAjaW5jbHVkZSAidmVn
-YTEwX2luYy5oIgogI2luY2x1ZGUgInNvYzE1X2NvbW1vbi5oIgogI2luY2x1ZGUgInBwX2RlYnVn
-LmgiCi0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Thu, Nov 26, 2020 at 4:28 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+>
+> The maintainer is not necessarily the owner/author of the code, and
+> thus may not know the intent of the code.
+
+Agreed, I was not blaming maintainers -- just trying to point out that
+the problem is there :-)
+
+In those cases, it is still very useful: we add the `fallthrough` and
+a comment saying `FIXME: fallthrough intended? Figure this out...`.
+Thus a previous unknown unknown is now a known unknown. And no new
+unknown unknowns will be introduced since we enabled the warning
+globally.
+
+> BTW, you cannot mindlessly fix the latter, as you cannot know if
+> "(a == b)" or "((a = b))" was intended, without understanding the code
+> (and the (possibly unavailable) data sheet, and the hardware, ...).
+
+That's right, I was referring to the cases where the compiler saves
+someone time from a typo they just made.
+
+Cheers,
+Miguel
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
