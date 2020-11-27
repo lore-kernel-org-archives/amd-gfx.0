@@ -2,131 +2,78 @@ Return-Path: <SRS0=Guv+=FB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09571C63798
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:49:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 024B3C63798
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:59:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9BF6A221EB
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:49:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 906EC221EB
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:59:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="378++aR1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BF6A221EB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="j7sAsElh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 906EC221EB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2496EE07;
-	Fri, 27 Nov 2020 14:49:44 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1DFF6EE02;
- Fri, 27 Nov 2020 14:49:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VAaGfCQuc1O3AiAaNZCaBjiUi2Xf/qEVJ5aApZw1U1ikD/Cja0WIJM27uE9fOPSYhahgHf4xJvfG6pjK3rE6eVVIVoCWZRFByqJgsSnRxGgTvnHwPbUF76UZx+D+m21GxTyJVLtTBSywpL58/mpmRkZdObm2iem3eqL673KmVbC1rsQMnSeUzondwxMm6BbVZ2KoZkB4jX0mzn3V9Gojo+YAu0lbaa6rFDKsuBNXCPkXNXtwC5aQSxhSs+caOvq4XjON1NbckA+kZ4mj/K57HwC6idUF2ULInBCGPlvEGUbF2QP3DrzUcfilK7350P20P+seb0PGt1bxwgqSxlo7Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tsPc9kSD3yolOsCkWQ0hfbB+7k7lQAmUDrlZPFUUWfQ=;
- b=kkLIimXWIuKl4CWALwoddjoDcYSH+L3j8P7Zp6hN8MuN7yelyIPyZ5Y7yRFJTdv8IF+4/2m7gy/BTLP+jihzVxZy3KKPnb2bjZrGxHr2DuMYLUIOuUE964Xufj0XpOozvOd22yJ445OmHsyYbqyuArlkbA6fx0KPuvpKUPf/qD15WlHZz2yehLiSqe4lGs196o4tFEIGgqpmjNuRYJex9flub04wNwfMXTFm4V7/FfmYI0sQgC7GB/bQfCfLE4LxP1VOdWfTnitHKe1WyItxOIeqHZuWjePCl/nHSyv+JktAlH/GGH2GANsuCGiFbXKMctjA9tfP5QfJM6D9XtI/WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tsPc9kSD3yolOsCkWQ0hfbB+7k7lQAmUDrlZPFUUWfQ=;
- b=378++aR1PZXGQgvluVCyYl4d5e/w4LZpwPztSgxYRyayficWaBigkIYi9+yPHAUSsVO+m9c+ntr5g1P+6NDw7OG+xQwR231U5Gs7h/9mrTuGfnISvyvrJUM2UsKdlsd4pdepd8zXX29Nv8AFXkiwvJUiNjTp43dib1kQObpfbQU=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
- by BL0PR12MB2420.namprd12.prod.outlook.com (2603:10b6:207:4c::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.24; Fri, 27 Nov
- 2020 14:49:37 +0000
-Received: from MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::1ccc:8a9a:45d3:dd31]) by MN2PR12MB3775.namprd12.prod.outlook.com
- ([fe80::1ccc:8a9a:45d3:dd31%7]) with mapi id 15.20.3589.032; Fri, 27 Nov 2020
- 14:49:37 +0000
-Subject: Re: [PATCH] drm/radeon: fix check order in radeon_bo_move
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20201125143424.1434-1-christian.koenig@amd.com>
- <CAKMK7uF7SZ_ihX+s6Rxg8Ws96vViu8Ab2vN+6VysWeDRkQMbNg@mail.gmail.com>
- <CAPM=9txqSCUcCoYKXxC6bX5Qx1SEBG4MPNTdKRybogwyOsZg5w@mail.gmail.com>
- <66a8a6f5-af8b-a46f-0dfa-417dd699b58f@gmail.com>
- <CAKMK7uEurRUDsK58xAiJ98xQckCeL6p+hFvbkx8AP6HAW-EsDw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <5a88c54c-3731-856a-da3c-b084c9b33187@amd.com>
-Date: Fri, 27 Nov 2020 15:49:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <CAKMK7uEurRUDsK58xAiJ98xQckCeL6p+hFvbkx8AP6HAW-EsDw@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-ClientProxiedBy: AM9P192CA0029.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:21d::34) To MN2PR12MB3775.namprd12.prod.outlook.com
- (2603:10b6:208:159::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73BB56EE17;
+	Fri, 27 Nov 2020 14:59:42 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6D6EE17
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 14:59:40 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id e7so5881481wrv.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 06:59:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=it3ol+ZeWQ4rYyHrgpltQLqbbIUXIOjwAhCa+oPfH+s=;
+ b=j7sAsElhMs1pJ3oLKKQc4vRgjO7FnTg2gJB+ERY1aVoq9B3Kidji3dwqa4epdYfGmX
+ Y9dDeOiBz/7FXHZDy9wS98Hll5+gzKd/C9kFbUp0WWahy+h8PcMdMplDRaf6WBwr3GVa
+ qF8l1nVjZ27qrBH/mfCdwqomaIRSpmsw4W6ss=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=it3ol+ZeWQ4rYyHrgpltQLqbbIUXIOjwAhCa+oPfH+s=;
+ b=kGx5S1S/RymtdXW36plUEl4+Xi0Ep12+0+aSTZ8xwwTAYOtcPKs8kRLC/KE51GsIQC
+ +0W5U68FJLq4URt/Zh/tq9sW0cPt6ExD2JvSL2mJao+R3rSKFmnwGKJ2B4US7mU6/l0L
+ xezHPIjrAzwp0xsrGfksXd+yh/1j0MNgJMNZkYxft3PWG2eYqZCziYL/EiR15Qm4G2o3
+ u4j2Z/xCfdGuVehi6P+7AovtZxDYtZ67P3U+XqLYHnxZwZuxZZDfa85x6jtDDhyLFN49
+ q77NJgapziHHbeDyg4MLztsqZFEVoJyXjw1XPVVLwkNz6q3NhMJn5wZfnQkW1zoIxB23
+ sXcQ==
+X-Gm-Message-State: AOAM5337pmHwpwaeA3g4wGdUableplka4ZSJ589SM32eB8FeKD9/MdLK
+ hNWvFOYqG+0DtObeJgpeXOn5cg==
+X-Google-Smtp-Source: ABdhPJy3GghY+taDAWhK4tAUu8YGGpb98/a4dXXflRTnZUIWFRySC3q4VPiZLGbI86IO2Txu5eBHBg==
+X-Received: by 2002:a5d:634b:: with SMTP id b11mr11252636wrw.97.1606489179420; 
+ Fri, 27 Nov 2020 06:59:39 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id x4sm15169206wrv.81.2020.11.27.06.59.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2020 06:59:38 -0800 (PST)
+Date: Fri, 27 Nov 2020 15:59:36 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH v3 05/12] drm/ttm: Expose ttm_tt_unpopulate for driver use
+Message-ID: <20201127145936.GC401619@phenom.ffwll.local>
+References: <e2f4f1dc-2a2a-face-87b2-6d61ed7d3305@amd.com>
+ <01280cba-56b8-77c6-b40f-d7e69a5ad4c6@amd.com>
+ <0ceca974-80f8-feb3-d5e9-5182f35bb2c4@amd.com>
+ <20288c45-270c-3ed7-2ac4-eeb6e5c50776@amd.com>
+ <2df98c1a-8ed4-fb87-f8f7-e3962e8d9c52@amd.com>
+ <041210e5-e237-b72e-dcbc-17027d057c55@gmail.com>
+ <20201125104021.GV401619@phenom.ffwll.local>
+ <71683ae7-f443-c15a-7003-6ba4ad3d4b15@gmail.com>
+ <20201125163621.GZ401619@phenom.ffwll.local>
+ <bf6c0657-ac8f-545d-cf3f-e3f5e5d50a84@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM9P192CA0029.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:21d::34) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3611.20 via Frontend Transport; Fri, 27 Nov 2020 14:49:35 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8f101340-1d8f-45e4-cbbf-08d892e3a903
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2420:
-X-Microsoft-Antispam-PRVS: <BL0PR12MB242048CD812D76D2CDD57DCE83F80@BL0PR12MB2420.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z2wETkYnviAo4YlkMcRbT451kWDNuYmIlPAD6NiLq55TchPcP4+SMNDqWPHqnepQ2gOkQbIQ28b8m8HKRrS9PLVPXDPdwQ1UDTniPMlaUBQs6XVysv4zDj6546+NwzSpljlTFfZd5C/mzAotFS00u2JLqAq6j60q1jnjSBpYyXy26qtLGE7GOJnCkk72a2fuZrS06+MkygMkLHf0gD9jefepSNTGZTQBQ6xZgmLhBdwvNZVH/+6n0vyul5puRNavZTRqtL1my2EPMWUDpOeHXJLYcBcEUtxTza0TFRovxTcrroMyjVPhg6y6AoHAPwQPizXU00tA6sFGY/skXFxvcTnk6LcuqkGgYQg5he4lxx9NTgkKRlJvCls1NQ3JoU3T
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(6666004)(31686004)(86362001)(66946007)(66556008)(8676002)(8936002)(6486002)(4326008)(66476007)(5660300002)(36756003)(83380400001)(66574015)(54906003)(2616005)(186003)(16526019)(2906002)(53546011)(316002)(52116002)(31696002)(6916009)(478600001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?THB6QTdIVy9TV1JLcmxpR3l6U1ZJVXR6ck9EWnU4VFBRYXpYM0hMSkRPUTQ1?=
- =?utf-8?B?cEU1Zk1GdHFRRFFsZE9BT21LdWdwVS9oTVNXRm8rd0VTOU5lK0RDNzY3cW5R?=
- =?utf-8?B?L1BwN2NUUWJlM0F2aVJNN2RkeVhxck9lTHBkdVpUaFo1cWJqL1FpbW4rSDgz?=
- =?utf-8?B?dTZUOXVCUVhtNkw3WHoxeXVHVktNeWZjRU5kMkgxajRaRFZLd0JZU0QzelZD?=
- =?utf-8?B?cTltaFRZNVE5bkVJSnBYTnlzK05XZ3JoZHZNMlJpY1dDWHFJZEZHbUFuV3py?=
- =?utf-8?B?TXFvNzlHcUZKZ2U2ZlV0aUh0dDFFb3lQRUNsNktJOUViRWlYd0loMGI4ME52?=
- =?utf-8?B?dWtLK2hBY09wQ3ZzU1pxTkZSWUg0MjVjeUhxS3BnbXRxOE5aUEl4YTNURVhk?=
- =?utf-8?B?aXE2WDBFcTlFUW9TQ3NRNE9rMm5IemFuVjB2bDVMcHcxOXBmSE5Ec1BFWGY5?=
- =?utf-8?B?Nm1UOXlIcG0ycWxSQVQyZnkwMU1ldnAraE9wSjZvcWszZlFuaGJOTkIrQkxB?=
- =?utf-8?B?SDlJaEE1cGpsMEs0cjgwelNxaE9rUEpYNGd6d1NaVkYwWVdBbUpnb1Jta0xX?=
- =?utf-8?B?NGZxU09Ub2ZnSjdsZForVXVsMzlaaHVEaGNjM1hSR2hYM3AwM0VrVGNjenZI?=
- =?utf-8?B?NzVzcTkrMURaUmxXZ05EMlE3bG1Db3JueTFkSkJxV3dnbFV0Q0c0UjBlWm9Y?=
- =?utf-8?B?eVYvVXdPdzR1UmxFMXoyWUpuVHJoU0JlVEtSaURPcm5MNURmbElpa1VKK2x0?=
- =?utf-8?B?OXBwR1RnUEdpa1UvdWVYM0licXdUUjVMTzRFbEdvOTRCaVZ0YXdQZlFQYjhL?=
- =?utf-8?B?aDJtSVVBRXBpekpsUmNFZjdRdWZaK1R1NU9zWHlLckVwODdSNEtYR3NadnN3?=
- =?utf-8?B?L3crWTJ1WktMTytyaUxoaktFZ1RtUUlSaHBsR3c4U1c1RytuM0QzUG1ESWcw?=
- =?utf-8?B?MjRSMVJMYll4bU84WGVNVVJXMnBkOXl3R011ZDJEam95MHdPVXNnaTQxam83?=
- =?utf-8?B?NXdqMi92bXprL3JkcktBYVhkSkNST1dGeDdSYm4ySUE4V0U5c0N3ZWkwd1RE?=
- =?utf-8?B?aEg5ZkxZRklLRUNiajY3UjZmSWE4Qng1SndWL1d3Q2FXTThrWGJ1N0JjNXJs?=
- =?utf-8?B?elpCTmJGWTM0Q3hnb2c3VmtJWXA5QnByUkZQaWErdUdGRG5peTcwVUJBbGN4?=
- =?utf-8?B?aUc1S3NRL1M0SGpDS1k0Rk1GQVZhZS9PTFN1WFV5MlI2ZXZsZHhTSmwxd1NQ?=
- =?utf-8?B?QXQ4Qy9ScHFxTmY1ODg0NEdPdUhlbFg0eXRXb0ZlSjJ5WVdiS0pZVmkybXQw?=
- =?utf-8?B?WllUL3FmcVBFZWV4M2U4K1lyV0VoNHNtaDNoOG1YS0llQ1h1WE5rWmYrbXJU?=
- =?utf-8?B?NUlEWGl6aFhOQ1hWWldjR2o3cTdYNi9CUytWRUFUb1NZL3N2UHFlaG5KMnRY?=
- =?utf-8?Q?WFjGmTMB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f101340-1d8f-45e4-cbbf-08d892e3a903
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2020 14:49:37.1190 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jjZNv5+kGRA9LPWjUk0bQi+CHMKoYQtQoPR7jnVdSccS/a3nXy8XSvnaf1D80jJN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2420
+Content-Disposition: inline
+In-Reply-To: <bf6c0657-ac8f-545d-cf3f-e3f5e5d50a84@amd.com>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,44 +85,277 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>, Dave Airlie <airlied@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: robh@kernel.org, daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, gregkh@linuxfoundation.org,
+ Alexander.Deucher@amd.com, yuq825@gmail.com, Harry.Wentland@amd.com,
+ christian.koenig@amd.com, l.stach@pengutronix.de
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjcuMTEuMjAgdW0gMTU6NDYgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIEZyaSwgTm92
-IDI3LCAyMDIwIGF0IDM6MTAgUE0gQ2hyaXN0aWFuIEvDtm5pZwo+IDxja29lbmlnLmxlaWNodHp1
-bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4+IEFtIDI3LjExLjIwIHVtIDA5OjMxIHNjaHJpZWIg
-RGF2ZSBBaXJsaWU6Cj4+PiBPb3BzIHNvcnJ5IGZvciBkZWxheSBMR1RNCj4+Pgo+Pj4gUmV2aWV3
-ZWQtYnk6IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+Cj4+IFRoYW5rcy4KPj4KPj4+
-IE9uIEZyaSwgMjcgTm92IDIwMjAgYXQgMDI6MzQsIERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
-bC5jaD4gd3JvdGU6Cj4+Pj4gT24gV2VkLCBOb3YgMjUsIDIwMjAgYXQgMzozNCBQTSBDaHJpc3Rp
-YW4gS8O2bmlnCj4+Pj4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToK
-Pj4+Pj4gUmVvcmRlciB0aGUgY29kZSB0byBmaXggY2hlY2tpbmcgaWYgYmxpdHRpbmcgaXMgYXZh
-aWxhYmxlLgo+Pj4+IE1pZ2h0IGJlIGdvb2QgdG8gZXhwbGFpbiB3aHkgYmxpdHRpbmcgbWlnaHQg
-bm90IGJlIGF2YWlsYWJsZSwgZS5nLgo+Pj4+IHN1c3BlbmQvcmVzdW1lIGFuZCBvciBjaGlwIGRl
-YXRoIGFuZCBzdHVmZiBsaWtlIHRoYXQuCj4+Pj4KPj4+Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0
-aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pj4+IE5lZWRzIEZpeGVzOiAy
-OGE2OGY4MjgyNjYgKCJkcm0vcmFkZW9uL3R0bTogdXNlIG11bHRpaG9wIikKPj4gV2h5IGRvZXMg
-dGhlIHN1YmplY3Qgb2YgdGhlIHBhdGNoIG5lZWRzIHRvIGJlIGluICIoKSIgPyBJIHdhcyBhbHJl
-YWR5Cj4+IHdvbmRlcmluZyB3aHkgZGltIHNvbWV0aW1lcyBjb21wbGFpbnMgYWJvdXQgbXkgRml4
-ZXMgdGFnLgo+IEhtIEkgdGhvdWdodCB0aGF0J3MgdGhlIG9mZmljaWFsIHN0eWxlLiBJIGtpbmRh
-IGhhY2tlZCBhcm91bmQgb24gaXQKPiB1bnRpbCBsaW51eC1uZXh0IHN0b3BwZWQgY29tcGxhaW5p
-bmcgYWJvdXQgb3VyIEZpeGVzOiB0YWdzLiBNYXliZSBpdCdzCj4gbm90IHF1aXRlIGFjY3VyYXRl
-bHkgcmVmbGVjdGluZyB0aGUgY3VycmVudCBiaWtlc2hlZC4gSWlyYyBjaGVja3BhdGNoCj4gZXZl
-biBjb21wbGFpbnMgd2hlbiB5b3UgbGVhdmUgb3V0IHRoZSBjb21taXQgYmVmb3JlIHRoZSBzaGEx
-LCBhdCBsZWFzdAo+IGluIGZyZWUtZm9ybSB0ZXh0IGluIHRoZSBjb21taXQgbWVzc2FnZS4KCldl
-bGwgImdpdCBsb2cgLTEgLS1vbmVsaW5lIDI4YTY4ZjgyODI2NiIgZ2l2ZXMgbWU6CgoyOGE2OGY4
-MjgyNjYgZHJtL3JhZGVvbi90dG06IHVzZSBtdWx0aWhvcAoKV2hpY2ggaXMgd2hhdCBJIHdvdWxk
-IG5hdHVyYWxseSBleHBlY3QgaGVyZSwgYnV0IG5vIGlkZWEgd2hhdCB0aGUgCm9mZmljaWFsIGZv
-cm1hdCBzaG91bGQgYmUuCgpDaHJpc3RpYW4uCgo+IC1EYW5pZWwKPgo+Pj4+IEJ0dwo+Pj4+Cj4+
-Pj4gJCBkaW0gZml4ZXMgW3NoYTFdCj4+Pj4KPj4+PiBnZW5lcmF0ZXMgdGhhdCBmb3IgeW91IHBs
-dXMgbmljZSBjYyBsaXN0IG9mIG9mZmVuZGVycy4gV2l0aCB0aGUgRml4ZXMKPj4+PiBsaW5lIGFk
-ZGVkOgo+Pj4+Cj4+Pj4gUmV2aWV3ZWQtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJA
-ZmZ3bGwuY2g+Cj4+IFRoYW5rcywKPj4gQ2hyaXN0aWFuLgo+PgoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Wed, Nov 25, 2020 at 02:34:44PM -0500, Andrey Grodzovsky wrote:
+> =
+
+> On 11/25/20 11:36 AM, Daniel Vetter wrote:
+> > On Wed, Nov 25, 2020 at 01:57:40PM +0100, Christian K=F6nig wrote:
+> > > Am 25.11.20 um 11:40 schrieb Daniel Vetter:
+> > > > On Tue, Nov 24, 2020 at 05:44:07PM +0100, Christian K=F6nig wrote:
+> > > > > Am 24.11.20 um 17:22 schrieb Andrey Grodzovsky:
+> > > > > > On 11/24/20 2:41 AM, Christian K=F6nig wrote:
+> > > > > > > Am 23.11.20 um 22:08 schrieb Andrey Grodzovsky:
+> > > > > > > > On 11/23/20 3:41 PM, Christian K=F6nig wrote:
+> > > > > > > > > Am 23.11.20 um 21:38 schrieb Andrey Grodzovsky:
+> > > > > > > > > > On 11/23/20 3:20 PM, Christian K=F6nig wrote:
+> > > > > > > > > > > Am 23.11.20 um 21:05 schrieb Andrey Grodzovsky:
+> > > > > > > > > > > > On 11/25/20 5:42 AM, Christian K=F6nig wrote:
+> > > > > > > > > > > > > Am 21.11.20 um 06:21 schrieb Andrey Grodzovsky:
+> > > > > > > > > > > > > > It's needed to drop iommu backed pages on devic=
+e unplug
+> > > > > > > > > > > > > > before device's IOMMU group is released.
+> > > > > > > > > > > > > It would be cleaner if we could do the whole
+> > > > > > > > > > > > > handling in TTM. I also need to double check
+> > > > > > > > > > > > > what you are doing with this function.
+> > > > > > > > > > > > > =
+
+> > > > > > > > > > > > > Christian.
+> > > > > > > > > > > > Check patch "drm/amdgpu: Register IOMMU topology
+> > > > > > > > > > > > notifier per device." to see
+> > > > > > > > > > > > how i use it. I don't see why this should go
+> > > > > > > > > > > > into TTM mid-layer - the stuff I do inside
+> > > > > > > > > > > > is vendor specific and also I don't think TTM is
+> > > > > > > > > > > > explicitly aware of IOMMU ?
+> > > > > > > > > > > > Do you mean you prefer the IOMMU notifier to be
+> > > > > > > > > > > > registered from within TTM
+> > > > > > > > > > > > and then use a hook to call into vendor specific ha=
+ndler ?
+> > > > > > > > > > > No, that is really vendor specific.
+> > > > > > > > > > > =
+
+> > > > > > > > > > > What I meant is to have a function like
+> > > > > > > > > > > ttm_resource_manager_evict_all() which you only need
+> > > > > > > > > > > to call and all tt objects are unpopulated.
+> > > > > > > > > > So instead of this BO list i create and later iterate in
+> > > > > > > > > > amdgpu from the IOMMU patch you just want to do it
+> > > > > > > > > > within
+> > > > > > > > > > TTM with a single function ? Makes much more sense.
+> > > > > > > > > Yes, exactly.
+> > > > > > > > > =
+
+> > > > > > > > > The list_empty() checks we have in TTM for the LRU are
+> > > > > > > > > actually not the best idea, we should now check the
+> > > > > > > > > pin_count instead. This way we could also have a list of =
+the
+> > > > > > > > > pinned BOs in TTM.
+> > > > > > > > So from my IOMMU topology handler I will iterate the TTM LR=
+U for
+> > > > > > > > the unpinned BOs and this new function for the pinned ones=
+=A0 ?
+> > > > > > > > It's probably a good idea to combine both iterations into t=
+his
+> > > > > > > > new function to cover all the BOs allocated on the device.
+> > > > > > > Yes, that's what I had in my mind as well.
+> > > > > > > =
+
+> > > > > > > > > BTW: Have you thought about what happens when we unpopula=
+te
+> > > > > > > > > a BO while we still try to use a kernel mapping for it? T=
+hat
+> > > > > > > > > could have unforeseen consequences.
+> > > > > > > > Are you asking what happens to kmap or vmap style mapped CPU
+> > > > > > > > accesses once we drop all the DMA backing pages for a parti=
+cular
+> > > > > > > > BO ? Because for user mappings
+> > > > > > > > (mmap) we took care of this with dummy page reroute but ind=
+eed
+> > > > > > > > nothing was done for in kernel CPU mappings.
+> > > > > > > Yes exactly that.
+> > > > > > > =
+
+> > > > > > > In other words what happens if we free the ring buffer while =
+the
+> > > > > > > kernel still writes to it?
+> > > > > > > =
+
+> > > > > > > Christian.
+> > > > > > While we can't control user application accesses to the mapped =
+buffers
+> > > > > > explicitly and hence we use page fault rerouting
+> > > > > > I am thinking that in this=A0 case we may be able to sprinkle
+> > > > > > drm_dev_enter/exit in any such sensitive place were we might
+> > > > > > CPU access a DMA buffer from the kernel ?
+> > > > > Yes, I fear we are going to need that.
+> > > > Uh ... problem is that dma_buf_vmap are usually permanent things. M=
+aybe we
+> > > > could stuff this into begin/end_cpu_access
+> =
+
+> =
+
+> Do you mean guarding with drm_dev_enter/exit in dma_buf_ops.begin/end_cpu=
+_access
+> driver specific hook ?
+> =
+
+> =
+
+> > > > (but only for the kernel, so a
+> > > > bit tricky)?
+> =
+
+> =
+
+> Why only kernel ? Why is it a problem to do it if it comes from dma_buf_i=
+octl by
+> some user process ? And=A0 if we do need this distinction I think we shou=
+ld be able to
+> differentiate by looking at current->mm (i.e. mm_struct) pointer being NU=
+LL
+> for kernel thread.
+
+Userspace mmap is handled by punching out the pte. So we don't need to do
+anything special there.
+
+For kernel mmap the begin/end should be all in the same context (so we
+could use the srcu lock that works underneath drm_dev_enter/exit), since
+at least right now kernel vmaps of dma-buf are very long-lived.
+
+But the good news is that Thomas Zimmerman is working on this problem
+already for different reasons, so it might be that we won't have any
+long-lived kernel vmap anymore. And we could put the drm_dev_enter/exit in
+there.
+
+> > > Oh very very good point! I haven't thought about DMA-buf mmaps in this
+> > > context yet.
+> > > =
+
+> > > =
+
+> > > > btw the other issue with dma-buf (and even worse with dma_fence) is
+> > > > refcounting of the underlying drm_device. I'd expect that all your
+> > > > callbacks go boom if the dma_buf outlives your drm_device. That par=
+t isn't
+> > > > yet solved in your series here.
+> > > Well thinking more about this, it seems to be a another really good a=
+rgument
+> > > why mapping pages from DMA-bufs into application address space direct=
+ly is a
+> > > very bad idea :)
+> > > =
+
+> > > But yes, we essentially can't remove the device as long as there is a
+> > > DMA-buf with mappings. No idea how to clean that one up.
+> > drm_dev_get/put in drm_prime helpers should get us like 90% there I thi=
+nk.
+> =
+
+> =
+
+> What are the other 10% ?
+
+dma_fence, which is also about 90% of the work probably. But I'm
+guesstimating only 10% of the oopses you can hit. Since generally the
+dma_fence for a buffer don't outlive the underlying buffer. So usually no
+problems happen when we've solved the dma-buf sharing, but the dma_fence
+can outlive the dma-buf, so there's still possibilities of crashing.
+
+> > The even more worrying thing is random dma_fence attached to the dma_re=
+sv
+> > object. We could try to clean all of ours up, but they could have escap=
+ed
+> > already into some other driver. And since we're talking about egpu
+> > hotunplug, dma_fence escaping to the igpu is a pretty reasonable use-ca=
+se.
+> > =
+
+> > I have no how to fix that one :-/
+> > -Daniel
+> =
+
+> =
+
+> I assume you are referring to sync_file_create/sync_file_get_fence API=A0=
+ for
+> dma_fence export/import ?
+
+So dma_fence is a general issue, there's a pile of interfaces that result
+in sharing with other drivers:
+- dma_resv in the dma_buf
+- sync_file
+- drm_syncobj (but I think that's not yet cross driver, but probably
+  changes)
+
+In each of these cases drivers can pick up the dma_fence and use it
+internally for all kinds of purposes (could end up in the scheduler or
+wherever).
+
+> So with DMA bufs we have the drm_gem_object as exporter specific private =
+data
+> and so we can do drm_dev_get and put at the drm_gem_object layer to bind
+> device life cycle
+> to that of each GEM object but, we don't have such mid-layer for dma_fence
+> which could allow
+> us to increment device reference for each fence out there related to that
+> device - is my understanding correct ?
+
+Yeah that's the annoying part with dma-fence. No existing generic place to
+put the drm_dev_get/put. tbf I'd note this as a todo and try to solve the
+other problems first.
+-Daniel
+
+> =
+
+> Andrey
+> =
+
+> =
+
+> Andrey
+> =
+
+> =
+
+> > > Christian.
+> > > =
+
+> > > > -Daniel
+> > > > =
+
+> > > > > > Things like CPU page table updates, ring buffer accesses and FW=
+ memcpy ?
+> > > > > > Is there other places ?
+> > > > > Puh, good question. I have no idea.
+> > > > > =
+
+> > > > > > Another point is that at this point the driver shouldn't access=
+ any such
+> > > > > > buffers as we are at the process finishing the device.
+> > > > > > AFAIK there is no page fault mechanism for kernel mappings so I=
+ don't
+> > > > > > think there is anything else to do ?
+> > > > > Well there is a page fault handler for kernel mappings, but that =
+one just
+> > > > > prints the stack trace into the system log and calls BUG(); :)
+> > > > > =
+
+> > > > > Long story short we need to avoid any access to released pages af=
+ter unplug.
+> > > > > No matter if it's from the kernel or userspace.
+> > > > > =
+
+> > > > > Regards,
+> > > > > Christian.
+> > > > > =
+
+> > > > > > Andrey
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
