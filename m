@@ -2,72 +2,44 @@ Return-Path: <SRS0=Guv+=FB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A81FC2D0E4
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01874C63777
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E9BC620674
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:55 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UD3E9VdW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9BC620674
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id 59FBD20674
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 10:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59FBD20674
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 206C76EC02;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1347F6EC01;
 	Fri, 27 Nov 2020 10:14:50 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42A206E957
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 13:43:10 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id s8so2176575wrw.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2020 05:43:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5FFGLkzHxg+N+3tJLNsR8x54qcIEfrnjhf2NeR7gfvQ=;
- b=UD3E9VdWiOH8HHc3mcXJWQ6FheicN8TOMXfJTzBr2/uw6O3ZHKp7O+vhFI7xhmTbti
- PnCNSdhJn0Nnc9gsst8K+q9FHVakkCUBsYBTIZDxQI1iRVwNJhMeCqLm7QrAGKIb9fFU
- KrJZopwnbKHCGVB3l7KeG+zh3mX0fEzcPov/agJqwxK1ZEyhvsllFm7vtv/3L9X/vAhh
- U48twSGTnWelRLeaexz1rVrP6PtvVjEH77mOmVuoJTvbqHrK4EUafXvnNmMEPV6hZVoX
- 360i4ts/gFwfRc6WawpK3hDLBA6+Ujppx2dH005gklhp6n8F5EIwagA+XJa/SRuGEOQB
- ZSfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5FFGLkzHxg+N+3tJLNsR8x54qcIEfrnjhf2NeR7gfvQ=;
- b=OrqZyqgA86fmKIaBv1g/ICTjJJl7tGYB2G3ZoRWn9kQHeZfZi2H6cL4l6Ov7yR1tbS
- 2+HAwnWXsjKGysBokX6nVgdXc3V0nB7YIR5bTfkHHgv8fPlKrV3uyFR+96SsU+Df0kIc
- hsWPEsJzrd/mweG8gHmYrIX0DE+F8X5hYCdMxEq9Z3RMGZaYuv9+xQuZuaDz3tftyCGS
- Wylpc0IJApKhdkORaxioYJLcBzFQ1oJ3SeXrH67CtGI4Ljq4GkVWjE7a2VtW3I+PIg1Z
- 229PauwiDk08uYyM7j3+3lFEimzTOg3/8uuUd3NM9naLtJbUPlHM0AJ02k9B8rR+Z0ei
- FfOw==
-X-Gm-Message-State: AOAM531llr+VHkvOtIW2/o5FcRuZai1Oe5gZt86D9gUKO6U0ooy9V2Ks
- JP86QX8CEAizeVn3hPjbR3YhzA==
-X-Google-Smtp-Source: ABdhPJxmNzrDO6hzXvMZHpA3x/Z69w/ChXfMbFEliUMfbYWcnYJafiJAzzWp9J4ygrVBaTt+0igYsQ==
-X-Received: by 2002:a5d:4d86:: with SMTP id b6mr3883469wru.369.1606398188990; 
- Thu, 26 Nov 2020 05:43:08 -0800 (PST)
-Received: from dell.default ([91.110.221.235])
- by smtp.gmail.com with ESMTPSA id k205sm9275738wmk.4.2020.11.26.05.43.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2020 05:43:08 -0800 (PST)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Subject: [PATCH 16/40] drm/amd/pm/powerplay/smumgr/iceland_smumgr: Remove
- unused variable 'res'
-Date: Thu, 26 Nov 2020 13:42:16 +0000
-Message-Id: <20201126134240.3214176-17-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201126134240.3214176-1-lee.jones@linaro.org>
-References: <20201126134240.3214176-1-lee.jones@linaro.org>
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE2C6EB78;
+ Fri, 27 Nov 2020 09:40:35 +0000 (UTC)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4Cj8jx0G3Bzkh48;
+ Fri, 27 Nov 2020 17:40:05 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.487.0; Fri, 27 Nov 2020 17:40:26 +0800
+From: Qinglang Miao <miaoqinglang@huawei.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm: rcar-du: fix reference leak in amdgpu_debugfs_gfxoff_read
+Date: Fri, 27 Nov 2020 17:44:42 +0800
+Message-ID: <20201127094442.121140-1-miaoqinglang@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 27 Nov 2020 10:14:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,49 +52,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Qinglang Miao <miaoqinglang@huawei.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG0vcG93ZXJwbGF5L3NtdW1nci9pY2VsYW5kX3NtdW1n
-ci5jOiBJbiBmdW5jdGlvbiDigJhpY2VsYW5kX3RoZXJtYWxfc2V0dXBfZmFuX3RhYmxl4oCZOgog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG0vcG93ZXJwbGF5L3NtdW1nci9pY2VsYW5k
-X3NtdW1nci5jOjIwOTM6Njogd2FybmluZzogdmFyaWFibGUg4oCYcmVz4oCZIHNldCBidXQgbm90
-IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCgpDYzogRXZhbiBRdWFuIDxldmFuLnF1
-YW5AYW1kLmNvbT4KQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-Q2M6ICJDaHJpc3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpDYzogRGF2
-aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgpDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZm
-d2xsLmNoPgpDYzogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KQ2M6IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnClNp
-Z25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVzQGxpbmFyby5vcmc+Ci0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRfc211bWdyLmMgfCAzICst
-LQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L3NtdW1nci9pY2VsYW5kX3Nt
-dW1nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRf
-c211bWdyLmMKaW5kZXggNmEwZjU4MWRlOTk5Yi4uMmRhNTIyNWVhZmJiOCAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRfc211bWdyLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRfc211
-bWdyLmMKQEAgLTIwOTAsNyArMjA5MCw2IEBAIHN0YXRpYyBpbnQgaWNlbGFuZF90aGVybWFsX3Nl
-dHVwX2Zhbl90YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCXVpbnQzMl90IHRfZGlmZjEs
-IHRfZGlmZjIsIHB3bV9kaWZmMSwgcHdtX2RpZmYyOwogCXVpbnQxNl90IGZkb19taW4sIHNsb3Bl
-MSwgc2xvcGUyOwogCXVpbnQzMl90IHJlZmVyZW5jZV9jbG9jazsKLQlpbnQgcmVzOwogCXVpbnQ2
-NF90IHRtcDY0OwogCiAJaWYgKCFwaG1fY2FwX2VuYWJsZWQoaHdtZ3ItPnBsYXRmb3JtX2Rlc2Ny
-aXB0b3IucGxhdGZvcm1DYXBzLCBQSE1fUGxhdGZvcm1DYXBzX01pY3JvY29kZUZhbkNvbnRyb2wp
-KQpAQCAtMjE1NCw3ICsyMTUzLDcgQEAgc3RhdGljIGludCBpY2VsYW5kX3RoZXJtYWxfc2V0dXBf
-ZmFuX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAKIAkvKiBmYW5fdGFibGUuRmFuQ29u
-dHJvbF9HTF9GbGFnID0gMTsgKi8KIAotCXJlcyA9IHNtdTdfY29weV9ieXRlc190b19zbWMoaHdt
-Z3IsIHNtdTdfZGF0YS0+ZmFuX3RhYmxlX3N0YXJ0LCAodWludDhfdCAqKSZmYW5fdGFibGUsICh1
-aW50MzJfdClzaXplb2YoZmFuX3RhYmxlKSwgU01DX1JBTV9FTkQpOworCXNtdTdfY29weV9ieXRl
-c190b19zbWMoaHdtZ3IsIHNtdTdfZGF0YS0+ZmFuX3RhYmxlX3N0YXJ0LCAodWludDhfdCAqKSZm
-YW5fdGFibGUsICh1aW50MzJfdClzaXplb2YoZmFuX3RhYmxlKSwgU01DX1JBTV9FTkQpOwogCiAJ
-cmV0dXJuIDA7CiB9Ci0tIAoyLjI1LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+pm_runtime_get_sync will increment pm usage counter even it
+failed. Forgetting to putting operation will result in a
+reference leak here.
+
+A new function pm_runtime_resume_and_get is introduced in
+[0] to keep usage counter balanced. So We fix the reference
+leak by replacing it with new funtion.
+
+[0] dd8088d5a896 ("PM: runtime: Add  pm_runtime_resume_and_get to deal with usage counter")
+
+Fixes: e08e934d6c28 ("drm: rcar-du: Add support for CMM")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 2d125b8b1..05de69a97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1096,7 +1096,7 @@ static ssize_t amdgpu_debugfs_gfxoff_read(struct file *f, char __user *buf,
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
+ 
+-	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
++	r = pm_runtime_resume_and_get(adev_to_drm(adev)->dev);
+ 	if (r < 0)
+ 		return r;
+ 
+-- 
+2.23.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
