@@ -2,77 +2,75 @@ Return-Path: <SRS0=Guv+=FB=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 024B3C63798
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92FEEC2D0E4
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 15:04:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 906EC221EB
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:59:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E90EC2223F
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 15:04:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="j7sAsElh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 906EC221EB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="lDNy3ueD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E90EC2223F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73BB56EE17;
-	Fri, 27 Nov 2020 14:59:42 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6D6EE17
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 14:59:40 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id e7so5881481wrv.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 06:59:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD9A6EE2B;
+	Fri, 27 Nov 2020 15:04:27 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 619AF6EE29
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 15:04:26 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id 23so5899748wrc.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 07:04:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=it3ol+ZeWQ4rYyHrgpltQLqbbIUXIOjwAhCa+oPfH+s=;
- b=j7sAsElhMs1pJ3oLKKQc4vRgjO7FnTg2gJB+ERY1aVoq9B3Kidji3dwqa4epdYfGmX
- Y9dDeOiBz/7FXHZDy9wS98Hll5+gzKd/C9kFbUp0WWahy+h8PcMdMplDRaf6WBwr3GVa
- qF8l1nVjZ27qrBH/mfCdwqomaIRSpmsw4W6ss=
+ bh=5YcmNVKR5rgeVGQdAgCDU/SJqEi4Y/P+KYfmDEjSfaY=;
+ b=lDNy3ueDK8JD2D7VLKQwBN/914ADqAfVykwSQ2UnPirhcWD/cN+LFKufyLeEi/GipS
+ WkbIAKWgpLx0FeWs/TsNTBoozTSwkG9EVkEyVzGfBAiIHzUsviF4wjDzveZzIRqx0QcR
+ bqhQrTqsNzFQNpuz4VcbnvyK8hX+B99bfMR2U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=it3ol+ZeWQ4rYyHrgpltQLqbbIUXIOjwAhCa+oPfH+s=;
- b=kGx5S1S/RymtdXW36plUEl4+Xi0Ep12+0+aSTZ8xwwTAYOtcPKs8kRLC/KE51GsIQC
- +0W5U68FJLq4URt/Zh/tq9sW0cPt6ExD2JvSL2mJao+R3rSKFmnwGKJ2B4US7mU6/l0L
- xezHPIjrAzwp0xsrGfksXd+yh/1j0MNgJMNZkYxft3PWG2eYqZCziYL/EiR15Qm4G2o3
- u4j2Z/xCfdGuVehi6P+7AovtZxDYtZ67P3U+XqLYHnxZwZuxZZDfa85x6jtDDhyLFN49
- q77NJgapziHHbeDyg4MLztsqZFEVoJyXjw1XPVVLwkNz6q3NhMJn5wZfnQkW1zoIxB23
- sXcQ==
-X-Gm-Message-State: AOAM5337pmHwpwaeA3g4wGdUableplka4ZSJ589SM32eB8FeKD9/MdLK
- hNWvFOYqG+0DtObeJgpeXOn5cg==
-X-Google-Smtp-Source: ABdhPJy3GghY+taDAWhK4tAUu8YGGpb98/a4dXXflRTnZUIWFRySC3q4VPiZLGbI86IO2Txu5eBHBg==
-X-Received: by 2002:a5d:634b:: with SMTP id b11mr11252636wrw.97.1606489179420; 
- Fri, 27 Nov 2020 06:59:39 -0800 (PST)
+ bh=5YcmNVKR5rgeVGQdAgCDU/SJqEi4Y/P+KYfmDEjSfaY=;
+ b=Zf4gmsY7NdUloa1kIFOLMZ4cZT94GMJjzZpMuYMEIMUJLH1+saINjmDXQMQ9AUrZPP
+ r840yFsuoHkhL8loA0YgVhONKfPT4KB4Bd+nXX+BqbUg0z2IaGJzXC8SgT4HZTO2OALk
+ +r+ijxIs9zsUp1cKcgp1ehGJsCYD2JB34X8GRqXNVXQUTMOn7maTdo3g4zsa2HPNdSx0
+ xMKXG97VC7aWpGBM5u2wdBDJ6R94q//Det8ZARQ7delua9vRwu5h6J1oSn3GmT2nZWqf
+ WtR83tWcI4ERkS5wT5nfGev17NNIslqh74pEZ4oneCyI5/LD6SoE737VxKMaoFpEB4RP
+ kn4w==
+X-Gm-Message-State: AOAM530cZBQxhRIncXSwCNTPL0RRJyXAFd/MyTglQ9clOUhjLQLDx6/y
+ 29Wk3foOSAc8/EFwcEXXC1VWCA==
+X-Google-Smtp-Source: ABdhPJzm1guYdygxDRUIj25lWFj1RwU5ldxTLdusE+YVQhhz9hSZELd8XLQ6+fqoq9COjX79DsZeHA==
+X-Received: by 2002:adf:ea45:: with SMTP id j5mr5869755wrn.171.1606489465017; 
+ Fri, 27 Nov 2020 07:04:25 -0800 (PST)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id x4sm15169206wrv.81.2020.11.27.06.59.38
+ by smtp.gmail.com with ESMTPSA id h98sm17030233wrh.69.2020.11.27.07.04.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2020 06:59:38 -0800 (PST)
-Date: Fri, 27 Nov 2020 15:59:36 +0100
+ Fri, 27 Nov 2020 07:04:24 -0800 (PST)
+Date: Fri, 27 Nov 2020 16:04:22 +0100
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH v3 05/12] drm/ttm: Expose ttm_tt_unpopulate for driver use
-Message-ID: <20201127145936.GC401619@phenom.ffwll.local>
-References: <e2f4f1dc-2a2a-face-87b2-6d61ed7d3305@amd.com>
- <01280cba-56b8-77c6-b40f-d7e69a5ad4c6@amd.com>
- <0ceca974-80f8-feb3-d5e9-5182f35bb2c4@amd.com>
- <20288c45-270c-3ed7-2ac4-eeb6e5c50776@amd.com>
- <2df98c1a-8ed4-fb87-f8f7-e3962e8d9c52@amd.com>
- <041210e5-e237-b72e-dcbc-17027d057c55@gmail.com>
- <20201125104021.GV401619@phenom.ffwll.local>
- <71683ae7-f443-c15a-7003-6ba4ad3d4b15@gmail.com>
- <20201125163621.GZ401619@phenom.ffwll.local>
- <bf6c0657-ac8f-545d-cf3f-e3f5e5d50a84@amd.com>
+Subject: Re: [PATCH v3 10/12] drm/amdgpu: Avoid sysfs dirs removal post
+ device unplug
+Message-ID: <20201127150422.GD401619@phenom.ffwll.local>
+References: <1605936082-3099-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1605936082-3099-11-git-send-email-andrey.grodzovsky@amd.com>
+ <20201124144938.GR401619@phenom.ffwll.local>
+ <36fdb2f8-2238-6321-201e-a25a3a828fc5@amd.com>
+ <CAKMK7uE=AfP2p=UKjG=TFuFh8d0vphyHndxxEqqNNa+ouX48AQ@mail.gmail.com>
+ <1fcc5e3a-36d8-846d-032c-25fb8defd486@amd.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <bf6c0657-ac8f-545d-cf3f-e3f5e5d50a84@amd.com>
+In-Reply-To: <1fcc5e3a-36d8-846d-032c-25fb8defd486@amd.com>
 X-Operating-System: Linux phenom 5.7.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,277 +83,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robh@kernel.org, daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
- eric@anholt.net, ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, gregkh@linuxfoundation.org,
- Alexander.Deucher@amd.com, yuq825@gmail.com, Harry.Wentland@amd.com,
- christian.koenig@amd.com, l.stach@pengutronix.de
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Rob Herring <robh@kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Anholt, Eric" <eric@anholt.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Greg KH <gregkh@linuxfoundation.org>, Alex Deucher <Alexander.Deucher@amd.com>,
+ Qiang Yu <yuq825@gmail.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 25, 2020 at 02:34:44PM -0500, Andrey Grodzovsky wrote:
-> =
-
-> On 11/25/20 11:36 AM, Daniel Vetter wrote:
-> > On Wed, Nov 25, 2020 at 01:57:40PM +0100, Christian K=F6nig wrote:
-> > > Am 25.11.20 um 11:40 schrieb Daniel Vetter:
-> > > > On Tue, Nov 24, 2020 at 05:44:07PM +0100, Christian K=F6nig wrote:
-> > > > > Am 24.11.20 um 17:22 schrieb Andrey Grodzovsky:
-> > > > > > On 11/24/20 2:41 AM, Christian K=F6nig wrote:
-> > > > > > > Am 23.11.20 um 22:08 schrieb Andrey Grodzovsky:
-> > > > > > > > On 11/23/20 3:41 PM, Christian K=F6nig wrote:
-> > > > > > > > > Am 23.11.20 um 21:38 schrieb Andrey Grodzovsky:
-> > > > > > > > > > On 11/23/20 3:20 PM, Christian K=F6nig wrote:
-> > > > > > > > > > > Am 23.11.20 um 21:05 schrieb Andrey Grodzovsky:
-> > > > > > > > > > > > On 11/25/20 5:42 AM, Christian K=F6nig wrote:
-> > > > > > > > > > > > > Am 21.11.20 um 06:21 schrieb Andrey Grodzovsky:
-> > > > > > > > > > > > > > It's needed to drop iommu backed pages on devic=
-e unplug
-> > > > > > > > > > > > > > before device's IOMMU group is released.
-> > > > > > > > > > > > > It would be cleaner if we could do the whole
-> > > > > > > > > > > > > handling in TTM. I also need to double check
-> > > > > > > > > > > > > what you are doing with this function.
-> > > > > > > > > > > > > =
-
-> > > > > > > > > > > > > Christian.
-> > > > > > > > > > > > Check patch "drm/amdgpu: Register IOMMU topology
-> > > > > > > > > > > > notifier per device." to see
-> > > > > > > > > > > > how i use it. I don't see why this should go
-> > > > > > > > > > > > into TTM mid-layer - the stuff I do inside
-> > > > > > > > > > > > is vendor specific and also I don't think TTM is
-> > > > > > > > > > > > explicitly aware of IOMMU ?
-> > > > > > > > > > > > Do you mean you prefer the IOMMU notifier to be
-> > > > > > > > > > > > registered from within TTM
-> > > > > > > > > > > > and then use a hook to call into vendor specific ha=
-ndler ?
-> > > > > > > > > > > No, that is really vendor specific.
-> > > > > > > > > > > =
-
-> > > > > > > > > > > What I meant is to have a function like
-> > > > > > > > > > > ttm_resource_manager_evict_all() which you only need
-> > > > > > > > > > > to call and all tt objects are unpopulated.
-> > > > > > > > > > So instead of this BO list i create and later iterate in
-> > > > > > > > > > amdgpu from the IOMMU patch you just want to do it
-> > > > > > > > > > within
-> > > > > > > > > > TTM with a single function ? Makes much more sense.
-> > > > > > > > > Yes, exactly.
-> > > > > > > > > =
-
-> > > > > > > > > The list_empty() checks we have in TTM for the LRU are
-> > > > > > > > > actually not the best idea, we should now check the
-> > > > > > > > > pin_count instead. This way we could also have a list of =
-the
-> > > > > > > > > pinned BOs in TTM.
-> > > > > > > > So from my IOMMU topology handler I will iterate the TTM LR=
-U for
-> > > > > > > > the unpinned BOs and this new function for the pinned ones=
-=A0 ?
-> > > > > > > > It's probably a good idea to combine both iterations into t=
-his
-> > > > > > > > new function to cover all the BOs allocated on the device.
-> > > > > > > Yes, that's what I had in my mind as well.
-> > > > > > > =
-
-> > > > > > > > > BTW: Have you thought about what happens when we unpopula=
-te
-> > > > > > > > > a BO while we still try to use a kernel mapping for it? T=
-hat
-> > > > > > > > > could have unforeseen consequences.
-> > > > > > > > Are you asking what happens to kmap or vmap style mapped CPU
-> > > > > > > > accesses once we drop all the DMA backing pages for a parti=
-cular
-> > > > > > > > BO ? Because for user mappings
-> > > > > > > > (mmap) we took care of this with dummy page reroute but ind=
-eed
-> > > > > > > > nothing was done for in kernel CPU mappings.
-> > > > > > > Yes exactly that.
-> > > > > > > =
-
-> > > > > > > In other words what happens if we free the ring buffer while =
-the
-> > > > > > > kernel still writes to it?
-> > > > > > > =
-
-> > > > > > > Christian.
-> > > > > > While we can't control user application accesses to the mapped =
-buffers
-> > > > > > explicitly and hence we use page fault rerouting
-> > > > > > I am thinking that in this=A0 case we may be able to sprinkle
-> > > > > > drm_dev_enter/exit in any such sensitive place were we might
-> > > > > > CPU access a DMA buffer from the kernel ?
-> > > > > Yes, I fear we are going to need that.
-> > > > Uh ... problem is that dma_buf_vmap are usually permanent things. M=
-aybe we
-> > > > could stuff this into begin/end_cpu_access
-> =
-
-> =
-
-> Do you mean guarding with drm_dev_enter/exit in dma_buf_ops.begin/end_cpu=
-_access
-> driver specific hook ?
-> =
-
-> =
-
-> > > > (but only for the kernel, so a
-> > > > bit tricky)?
-> =
-
-> =
-
-> Why only kernel ? Why is it a problem to do it if it comes from dma_buf_i=
-octl by
-> some user process ? And=A0 if we do need this distinction I think we shou=
-ld be able to
-> differentiate by looking at current->mm (i.e. mm_struct) pointer being NU=
-LL
-> for kernel thread.
-
-Userspace mmap is handled by punching out the pte. So we don't need to do
-anything special there.
-
-For kernel mmap the begin/end should be all in the same context (so we
-could use the srcu lock that works underneath drm_dev_enter/exit), since
-at least right now kernel vmaps of dma-buf are very long-lived.
-
-But the good news is that Thomas Zimmerman is working on this problem
-already for different reasons, so it might be that we won't have any
-long-lived kernel vmap anymore. And we could put the drm_dev_enter/exit in
-there.
-
-> > > Oh very very good point! I haven't thought about DMA-buf mmaps in this
-> > > context yet.
-> > > =
-
-> > > =
-
-> > > > btw the other issue with dma-buf (and even worse with dma_fence) is
-> > > > refcounting of the underlying drm_device. I'd expect that all your
-> > > > callbacks go boom if the dma_buf outlives your drm_device. That par=
-t isn't
-> > > > yet solved in your series here.
-> > > Well thinking more about this, it seems to be a another really good a=
-rgument
-> > > why mapping pages from DMA-bufs into application address space direct=
-ly is a
-> > > very bad idea :)
-> > > =
-
-> > > But yes, we essentially can't remove the device as long as there is a
-> > > DMA-buf with mappings. No idea how to clean that one up.
-> > drm_dev_get/put in drm_prime helpers should get us like 90% there I thi=
-nk.
-> =
-
-> =
-
-> What are the other 10% ?
-
-dma_fence, which is also about 90% of the work probably. But I'm
-guesstimating only 10% of the oopses you can hit. Since generally the
-dma_fence for a buffer don't outlive the underlying buffer. So usually no
-problems happen when we've solved the dma-buf sharing, but the dma_fence
-can outlive the dma-buf, so there's still possibilities of crashing.
-
-> > The even more worrying thing is random dma_fence attached to the dma_re=
-sv
-> > object. We could try to clean all of ours up, but they could have escap=
-ed
-> > already into some other driver. And since we're talking about egpu
-> > hotunplug, dma_fence escaping to the igpu is a pretty reasonable use-ca=
-se.
-> > =
-
-> > I have no how to fix that one :-/
-> > -Daniel
-> =
-
-> =
-
-> I assume you are referring to sync_file_create/sync_file_get_fence API=A0=
- for
-> dma_fence export/import ?
-
-So dma_fence is a general issue, there's a pile of interfaces that result
-in sharing with other drivers:
-- dma_resv in the dma_buf
-- sync_file
-- drm_syncobj (but I think that's not yet cross driver, but probably
-  changes)
-
-In each of these cases drivers can pick up the dma_fence and use it
-internally for all kinds of purposes (could end up in the scheduler or
-wherever).
-
-> So with DMA bufs we have the drm_gem_object as exporter specific private =
-data
-> and so we can do drm_dev_get and put at the drm_gem_object layer to bind
-> device life cycle
-> to that of each GEM object but, we don't have such mid-layer for dma_fence
-> which could allow
-> us to increment device reference for each fence out there related to that
-> device - is my understanding correct ?
-
-Yeah that's the annoying part with dma-fence. No existing generic place to
-put the drm_dev_get/put. tbf I'd note this as a todo and try to solve the
-other problems first.
--Daniel
-
-> =
-
-> Andrey
-> =
-
-> =
-
-> Andrey
-> =
-
-> =
-
-> > > Christian.
-> > > =
-
-> > > > -Daniel
-> > > > =
-
-> > > > > > Things like CPU page table updates, ring buffer accesses and FW=
- memcpy ?
-> > > > > > Is there other places ?
-> > > > > Puh, good question. I have no idea.
-> > > > > =
-
-> > > > > > Another point is that at this point the driver shouldn't access=
- any such
-> > > > > > buffers as we are at the process finishing the device.
-> > > > > > AFAIK there is no page fault mechanism for kernel mappings so I=
- don't
-> > > > > > think there is anything else to do ?
-> > > > > Well there is a page fault handler for kernel mappings, but that =
-one just
-> > > > > prints the stack trace into the system log and calls BUG(); :)
-> > > > > =
-
-> > > > > Long story short we need to avoid any access to released pages af=
-ter unplug.
-> > > > > No matter if it's from the kernel or userspace.
-> > > > > =
-
-> > > > > Regards,
-> > > > > Christian.
-> > > > > =
-
-> > > > > > Andrey
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gV2VkLCBOb3YgMjUsIDIwMjAgYXQgMTI6Mzk6NDdQTSAtMDUwMCwgQW5kcmV5IEdyb2R6b3Zz
+a3kgd3JvdGU6Cj4gCj4gT24gMTEvMjUvMjAgNDowNCBBTSwgRGFuaWVsIFZldHRlciB3cm90ZToK
+PiA+IE9uIFR1ZSwgTm92IDI0LCAyMDIwIGF0IDExOjI3IFBNIEFuZHJleSBHcm9kem92c2t5Cj4g
+PiA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4gd3JvdGU6Cj4gPiA+IAo+ID4gPiBPbiAxMS8y
+NC8yMCA5OjQ5IEFNLCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+ID4gPiA+IE9uIFNhdCwgTm92IDIx
+LCAyMDIwIGF0IDEyOjIxOjIwQU0gLTA1MDAsIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+ID4g
+PiA+ID4gQXZvaWRzIE5VTEwgcHRyIGR1ZSB0byBrb2JqLT5zZCBiZWluZyB1bnNldCBvbiBkZXZp
+Y2UgcmVtb3ZhbC4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdy
+b2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Cj4gPiA+ID4gPiAtLS0KPiA+ID4g
+PiA+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyAgIHwgNCArKyst
+Cj4gPiA+ID4gPiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYyB8
+IDQgKysrLQo+ID4gPiA+ID4gICAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIg
+ZGVsZXRpb25zKC0pCj4gPiA+ID4gPiAKPiA+ID4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmFzLmMKPiA+ID4gPiA+IGluZGV4IGNhZjgyOGEuLjgxMmU1OTIgMTAwNjQ0Cj4g
+PiA+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKPiA+
+ID4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYwo+ID4g
+PiA+ID4gQEAgLTI3LDYgKzI3LDcgQEAKPiA+ID4gPiA+ICAgICNpbmNsdWRlIDxsaW51eC91YWNj
+ZXNzLmg+Cj4gPiA+ID4gPiAgICAjaW5jbHVkZSA8bGludXgvcmVib290Lmg+Cj4gPiA+ID4gPiAg
+ICAjaW5jbHVkZSA8bGludXgvc3lzY2FsbHMuaD4KPiA+ID4gPiA+ICsjaW5jbHVkZSA8ZHJtL2Ry
+bV9kcnYuaD4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gICAgI2luY2x1ZGUgImFtZGdwdS5oIgo+ID4g
+PiA+ID4gICAgI2luY2x1ZGUgImFtZGdwdV9yYXMuaCIKPiA+ID4gPiA+IEBAIC0xMDQzLDcgKzEw
+NDQsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV9yYXNfc3lzZnNfcmVtb3ZlX2ZlYXR1cmVfbm9kZShz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiA+ID4gPiA+ICAgICAgICAgICAgICAgLmF0dHJz
+ID0gYXR0cnMsCj4gPiA+ID4gPiAgICAgICB9Owo+ID4gPiA+ID4gCj4gPiA+ID4gPiAtICAgIHN5
+c2ZzX3JlbW92ZV9ncm91cCgmYWRldi0+ZGV2LT5rb2JqLCAmZ3JvdXApOwo+ID4gPiA+ID4gKyAg
+ICBpZiAoIWRybV9kZXZfaXNfdW5wbHVnZ2VkKCZhZGV2LT5kZGV2KSkKPiA+ID4gPiA+ICsgICAg
+ICAgICAgICBzeXNmc19yZW1vdmVfZ3JvdXAoJmFkZXYtPmRldi0+a29iaiwgJmdyb3VwKTsKPiA+
+ID4gPiBUaGlzIGxvb2tzIHdyb25nLiBzeXNmcywgbGlrZSBhbnkgb3RoZXIgaW50ZXJmYWNlLCBz
+aG91bGQgYmUKPiA+ID4gPiB1bmNvbmRpdGlvbmFsbHkgdGhyb3duIG91dCB3aGVuIHdlIGRvIHRo
+ZSBkcm1fZGV2X3VucmVnaXN0ZXIuIFdoZXRoZXIKPiA+ID4gPiBob3R1bnBsdWdnZWQgb3Igbm90
+IHNob3VsZCBtYXR0ZXIgYXQgYWxsLiBFaXRoZXIgdGhpcyBpc24ndCBuZWVkZWQgYXQgYWxsLAo+
+ID4gPiA+IG9yIHNvbWV0aGluZyBpcyB3cm9uZyB3aXRoIHRoZSBvcmRlcmluZyBoZXJlLiBCdXQg
+ZGVmaW5pdGVseSBmaXNoeS4KPiA+ID4gPiAtRGFuaWVsCj4gPiA+IAo+ID4gPiBTbyB0ZWNobmlj
+YWxseSB0aGlzIGlzIG5lZWRlZCBiZWNhdXNlIGtvYmVqY3QncyBzeXNmcyBkaXJlY3RvcnkgZW50
+cnkga29iai0+c2QKPiA+ID4gaXMgc2V0IHRvIE5VTEwKPiA+ID4gb24gZGV2aWNlIHJlbW92YWwg
+KGZyb20gc3lzZnNfcmVtb3ZlX2RpcikgYnV0IGJlY2F1c2Ugd2UgZG9uJ3QgZmluYWxpemUgdGhl
+IGRldmljZQo+ID4gPiB1bnRpbCBsYXN0IHJlZmVyZW5jZSB0byBkcm0gZmlsZSBpcyBkcm9wcGVk
+ICh3aGljaCBjYW4gaGFwcGVuIGxhdGVyKSB3ZSBlbmQgdXAKPiA+ID4gY2FsbGluZyBzeXNmc19y
+ZW1vdmVfZmlsZS9kaXIgYWZ0ZXIKPiA+ID4gdGhpcyBwb2ludGVyIGlzIE5VTEwuIHN5c2ZzX3Jl
+bW92ZV9maWxlIGNoZWNrcyBmb3IgTlVMTCBhbmQgYWJvcnRzIHdoaWxlCj4gPiA+IHN5c2ZzX3Jl
+bW92ZV9kaXIKPiA+ID4gaXMgbm90IGFuZCB0aGF0IHdoeSBJIGd1YXJkIGFnYWluc3QgY2FsbHMg
+dG8gc3lzZnNfcmVtb3ZlX2Rpci4KPiA+ID4gQnV0IGluZGVlZCB0aGUgd2hvbGUgYXBwcm9hY2gg
+aW4gdGhlIGRyaXZlciBpcyBpbmNvcnJlY3QsIGFzIEdyZWcgcG9pbnRlZCBvdXQgLQo+ID4gPiB3
+ZSBzaG91bGQgdXNlCj4gPiA+IGRlZmF1bHQgZ3JvdXBzIGF0dHJpYnV0ZXMgaW5zdGVhZCBvZiBl
+eHBsaWNpdCBjYWxscyB0byBzeXNmcyBpbnRlcmZhY2UgYW5kIHRoaXMKPiA+ID4gd291bGQgc2F2
+ZSB0aG9zZSB0cm91Ymxlcy4KPiA+ID4gQnV0IGFnYWluLiB0aGUgaXNzdWUgaGVyZSBvZiBzY29w
+ZSBvZiB3b3JrLCBjb252ZXJ0aW5nIGFsbCBvZiBhbWRncHUgdG8gZGVmYXVsdAo+ID4gPiBncm91
+cHMgYXR0cmlidXRlcyBpcyBzb21ld2hhdAo+ID4gPiBsZW5ndGh5IHByb2Nlc3Mgd2l0aCBleHRy
+YSB0ZXN0aW5nIGFzIHRoZSBlbnRpcmUgZHJpdmVyIGlzIHBhcGVyZWQgd2l0aCBzeXNmcwo+ID4g
+PiByZWZlcmVuY2VzIGFuZCBzZWVtcyB0byBtZSBtb3JlIG9mIGEgc3RhbmRhbG9uZQo+ID4gPiBj
+bGVhbnVwLCBqdXN0IGxpa2Ugc3dpdGNoaW5nIHRvIGRldm1fIGFuZCBkcm1tXyB3b3JrLiBUbyBt
+ZSBhdCBsZWFzdCBpdCBzZWVtcwo+ID4gPiB0aGF0IGl0IG1ha2VzIG1vcmUgc2Vuc2UKPiA+ID4g
+dG8gZmluYWxpemUgYW5kIHB1c2ggdGhlIGhvdCB1bnBsdWcgcGF0Y2hlcyBzbyB0aGF0IHRoaXMg
+bmV3IGZ1bmN0aW9uYWxpdHkgY2FuCj4gPiA+IGJlIHBhcnQgb2YgdGhlIGRyaXZlciBzb29uZXIK
+PiA+ID4gYW5kIHRoZW4gaW5jcmVtZW50YWxseSBpbXByb3ZlIGl0IGJ5IHdvcmtpbmcgb24gdGhv
+c2Ugb3RoZXIgdG9waWNzLiBKdXN0IGFzCj4gPiA+IGRldm1fL2RybW1fIEkgYWxzbyBhZGRlZCBz
+eXNmcyBjbGVhbnVwCj4gPiA+IHRvIG15IFRPRE8gbGlzdCBpbiB0aGUgUkZDIHBhdGNoLgo+ID4g
+SG0sIHdoZXRoZXIgeW91IHNvbHZlIHRoaXMgd2l0aCB0aGUgZGVmYXVsdCBncm91cCBzdHVmZiB0
+bwo+ID4gYXV0by1yZW1vdmUsIG9yIHJlbW92ZSBleHBsaWNpdGx5IGF0IHRoZSByaWdodCB0aW1l
+IGRvZXNuJ3QgbWF0dGVyCj4gPiBtdWNoLiBUaGUgdW5kZXJseWluZyBwcm9ibGVtIHlvdSBoYXZl
+IGhlcmUgaXMgdGhhdCBpdCdzIGRvbmUgd2F5IHRvbwo+ID4gbGF0ZS4KPiAKPiBBcyBmYXIgYXMg
+SSB1bmRlcnN0b29kIGNvcnJlY3RseSB0aGUgZGVmYXVsdCBncm91cCBhdHRycyBieSByZWFkaW5n
+IHRoaXMKPiBhcnRpY2xlIGJ5IEdyZWcgLSBodHRwczovL3d3dy5saW51eC5jb20vbmV3cy9ob3ct
+Y3JlYXRlLXN5c2ZzLWZpbGUtY29ycmVjdGx5Lwo+IGl0IHdpbGwgYmUgcmVtb3ZlZCB0b2dldGhl
+ciB3aXRoIHRoZSBkZXZpY2UgYW5kIG5vdCB0b28gbGF0ZSBsaWtlIG5vdyBhbmQgSSBxdW90ZQo+
+IGZyb20gdGhlIGxhc3QgcGFyYWdyYXBoIHRoZXJlOgo+IAo+ICJCeSBzZXR0aW5nIHRoaXMgdmFs
+dWUsIHlvdSBkb27igJl0IGhhdmUgdG8gZG8gYW55dGhpbmcgaW4geW91cgo+IHByb2JlKCnCoG9y
+IHJlbGVhc2UoKcKgZnVuY3Rpb25zIGF0IGFsbCBpbiBvcmRlciBmb3IgdGhlCj4gc3lzZnPCoGZp
+bGVzIHRvIGJlIHByb3Blcmx5IGNyZWF0ZWQgYW5kIGRlc3Ryb3llZCB3aGVuZXZlciB5b3VyCj4g
+ZGV2aWNlIGlzIGFkZGVkIG9yIHJlbW92ZWQgZnJvbSB0aGUgc3lzdGVtLiBBbmQgeW91IHdpbGws
+IG1vc3QKPiBpbXBvcnRhbnRseSwgZG8gaXQgaW4gYSByYWNlLWZyZWUgbWFubmVyLCB3aGljaCBp
+cyBhbHdheXMgYSBnb29kIHRoaW5nLiIKPiAKPiBUbyBtZSB0aGlzIHNlZW1zIGxpa2UgdGhlIGJl
+c3Qgc29sdXRpb24gdG8gdGhlIGxhdGUgcmVtb3ZlIGlzc3VlLiBXaGF0IGRvCj4geW91IHRoaW5r
+ID8KPiAKPiAKPiA+ICAgc3lzZnMgcmVtb3ZhbCAobGlrZSBhbGwgdWFwaSBpbnRlcmZhY2VzKSBu
+ZWVkIHRvIGJlIHJlbW92ZWQgYXMKPiA+IHBhcnQgb2YgZHJtX2Rldl91bnJlZ2lzdGVyLgo+IAo+
+IAo+IERvIHlvdSBtZWFuIHdlIG5lZWQgdG8gdHJhY2UgYW5kIGFnZ3JlZ2F0ZSBhbGwgc3lzZnMg
+ZmlsZXMgY3JlYXRpb24gd2l0aGluCj4gdGhlIGxvdyBsZXZlbCBkcml2ZXJzIGFuZCB0aGVuIGNh
+bGwgc29tZSBzeXNmcyByZWxlYXNlIGZ1bmN0aW9uIGluc2lkZQo+IGRybV9kZXZfdW5yZWdpc3Rl
+cgo+IHRvIGl0ZXJhdGUgYW5kIHJlbGVhc2UgdGhlbSBhbGwgPwoKVGhhdCB3b3VsZCBqdXN0IHJl
+aW52ZW50IHRoZSBwcm9wZXIgc29sdXRpb24gR3JlZyBleHBsYWluZWQgYWJvdmUuIEZvciBub3cK
+SSB0aGluayB5b3UganVzdCBuZWVkIHNvbWUgZHJpdmVyIGNhbGxiYWNrIHRoYXQgeW91IGNhbGwg
+cmlnaHQgYWZ0ZXIKZHJtX2Rldl91bnBsdWcgKG9yIGRybV9kZXZfdW5yZWdpc3RlcikgdG8gY2xl
+YW4gdXAgdGhlc2Ugc3lzZnMgaW50ZXJmYWNlcy4KQWZhaXVpIHRoZSBpbXBvcnRhbnQgcGFydCBp
+cyB0byBjbGVhbiB1cCB5b3VyIGFkZGl0aW9uYWwgaW50ZXJmYWNlcyBmcm9tCnRoZSAtPnJlbW92
+ZSBjYWxsYmFjaywgc2luY2UgYXQgdGhhdCBwb2ludCB0aGUgY29yZSBzeXNmcyBzdHVmZiBzdGls
+bApleGlzdHMuCgpNYXliZSB5b3Ugd2FudCB0byBkbyBhbm90aGVyIGxvb3Agb3ZlciBhbGwgSVAg
+YmxvY2tzIGFuZCBhIC0+dW5yZWdpc3RlcgpjYWxsYmFjaywgb3IgbWF5YmUgaXQncyBqdXN0IDEt
+MiBjYXNlcyB5b3UgY2FsbCBkaXJlY3RseS4KCj4gPiAgIEkgZ3Vlc3MgYXNpZGUgZnJvbSB0aGUg
+c3BsaXQgaW50byBmaW5pX2h3Cj4gPiBhbmQgZmluaV9zdywgeW91IGFsc28gbmVlZCBhbiB1bnJl
+Z2lzdGVyX2xhdGUgY2FsbGJhY2sgKGxpa2Ugd2UgaGF2ZQo+ID4gYWxyZWFkeSBmb3IgZHJtX2Nv
+bm5lY3Rvciwgc28gdGhhdCBlLmcuIGJhY2tsaWdodCBhbmQgc2ltaWxhciBzdHVmZgo+ID4gY2Fu
+IGJlIHVucmVnaXN0ZXJlZCkuCj4gCj4gCj4gSXMgdGhpcyB0aGUgY2FsbGJhY2sgeW91IHN1Z2dl
+c3QgdG8gY2FsbCBmcm9tIHdpdGhpbiBkcm1fZGV2X3VucmVnaXN0ZXIgYW5kCj4gaXQgd2lsbCBi
+ZSByZXNwb25zaWJsZSB0byByZWxlYXNlIGFsbCBzeXNmcyBmaWxlcyBjcmVhdGVkIHdpdGhpbiB0
+aGUgZHJpdmVyID8KCk5haCB0aGF0IHdvdWxkIGJlIGFuIGFtZGdwdSBpcCBibG9jayBjYWxsYmFj
+ayAoZm9yZ290IHdoYXQgaXQncyBjYWxsZWQsCnRvbyBjb21meSB0byBmaXJlIHVwIGFuIGVkaXRv
+ciByaWdodCBub3cgYW5kIGxvb2sgaXQgdXAsIGJ1dCB5b3UgaGF2ZSBhCmJ1bmNoIG9mIHRoZXNl
+IGxvb3BzIGFsbCBvdmVyKS4KCkkgdGhpbmsgdGhlIGNvcmUgc29sdXRpb24gd2Ugd2FudCBpcyB3
+aGF0IEdyZWcgYWxyZWFkeSBsYWlkIG91dC4gVGhpcyBpZGVhCmhlcmUgd2FzIGp1c3QgYW4gYW1k
+Z3B1IGludGVyaW0gcGxhbiwgaWYgdGhlIGNvcmUgc29sdXRpb24gaXMgYSBiaXQgdG9vCmludmFz
+aXZlIHRvIGltcGxlbWVudCByaWdodCBhd2F5LgotRGFuaWVsCgo+IAo+IEFuZHJleQo+IAo+IAo+
+ID4gCj4gPiBQYXBlcmluZyBvdmVyIHRoZSB1bmRlcmx5aW5nIGJ1ZyBsaWtlIHRoaXMgZG9lc24n
+dCByZWFsbHkgZml4IG11Y2gsCj4gPiB0aGUgbGlmZXRpbWVzIGFyZSBzdGlsbCB3cm9uZy4KPiA+
+IC1EYW5pZWwKPiA+IAo+ID4gPiBBbmRyZXkKPiA+ID4gCj4gPiA+IAo+ID4gPiA+ID4gICAgICAg
+cmV0dXJuIDA7Cj4gPiA+ID4gPiAgICB9Cj4gPiA+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdWNvZGUuYwo+ID4gPiA+ID4gaW5kZXggMmI3YzkwYi4uNTQzMzFmYyAxMDA2
+NDQKPiA+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29k
+ZS5jCj4gPiA+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNv
+ZGUuYwo+ID4gPiA+ID4gQEAgLTI0LDYgKzI0LDcgQEAKPiA+ID4gPiA+ICAgICNpbmNsdWRlIDxs
+aW51eC9maXJtd2FyZS5oPgo+ID4gPiA+ID4gICAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiA+
+ID4gPiA+ICAgICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiA+ID4gPiA+ICsjaW5jbHVkZSA8
+ZHJtL2RybV9kcnYuaD4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gICAgI2luY2x1ZGUgImFtZGdwdS5o
+Igo+ID4gPiA+ID4gICAgI2luY2x1ZGUgImFtZGdwdV91Y29kZS5oIgo+ID4gPiA+ID4gQEAgLTQ2
+NCw3ICs0NjUsOCBAQCBpbnQgYW1kZ3B1X3Vjb2RlX3N5c2ZzX2luaXQoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpCj4gPiA+ID4gPiAKPiA+ID4gPiA+ICAgIHZvaWQgYW1kZ3B1X3Vjb2RlX3N5
+c2ZzX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gPiA+ID4gPiAgICB7Cj4gPiA+
+ID4gPiAtICAgIHN5c2ZzX3JlbW92ZV9ncm91cCgmYWRldi0+ZGV2LT5rb2JqLCAmZndfYXR0cl9n
+cm91cCk7Cj4gPiA+ID4gPiArICAgIGlmICghZHJtX2Rldl9pc191bnBsdWdnZWQoJmFkZXYtPmRk
+ZXYpKQo+ID4gPiA+ID4gKyAgICAgICAgICAgIHN5c2ZzX3JlbW92ZV9ncm91cCgmYWRldi0+ZGV2
+LT5rb2JqLCAmZndfYXR0cl9ncm91cCk7Cj4gPiA+ID4gPiAgICB9Cj4gPiA+ID4gPiAKPiA+ID4g
+PiA+ICAgIHN0YXRpYyBpbnQgYW1kZ3B1X3Vjb2RlX2luaXRfc2luZ2xlX2Z3KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LAo+ID4gPiA+ID4gLS0KPiA+ID4gPiA+IDIuNy40Cj4gPiA+ID4gPiAK
+PiA+IAo+ID4gCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29y
+cG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
