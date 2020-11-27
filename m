@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB9BBC63798
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DDCBCC63798
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:11:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADB68206B5
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:11:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6F421206D8
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2020 14:11:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="S4Siy1Nl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADB68206B5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="s/3IaK/o"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F421206D8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 655986EDE6;
-	Fri, 27 Nov 2020 14:11:22 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2116EDE1
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 14:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15FBE6EDE5;
+	Fri, 27 Nov 2020 14:11:26 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A056EDE5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2020 14:11:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RxzTN3UOPqnjNd38OhY48WTmQ40arkfJJQIiueBTp/IrhNfF1+gbkJs73beuMEbW+nfvlTwqUoTB/0F5YSReCZn4tkQU7ewB3NbewJIOYRkFfu9SjedW8UqwsvLrcTmxsLw2aQk64k0Qr2unOsH/YSnltESNeym+Y1VaiOTMAhaAq3M4e7O0ueliiKFTsXxXaOFvhlYaJ6GGvESBtl3S9PWomzmRqUTtOajMZYcIbMgY/9R1LeGDwXPXCf8mMMK3KqaErhTiy+YPnX2dmXzzzrKsSgZIDiJUOmjnFInTCXY61S1LkGduy6Jxy7pMA7kOx1RpuE7hnvmxOCuOkGOUFw==
+ b=aTRdZX0zGtXECVNMsO6UI9UuTMwI8iPGNF5oEm4osTXVwpD/W9Q/gqo+edWLI1t2HyoAIaRhoNrs3RCP6X4IFhdvxYnuAZukV0eIkt+uiOydo5pOYlp+m8BTIdFhOAhOsZs4KkpZ/2bGiS82Wy1qbTnzL4P8umlC9eNKRbIoH1sP2bquTgDGIjH/9nG0e96L9h+LiHnSEAi8A0j4Kb5Wcx+uHGSKULQBkGi/W4vAJaf1WDIsZFx6MJCXnQNcdUXtlfLliAFQ6hfeLnreZY1UazNqGuhyHqjPYufXpFQAssOS8EotyN10aB48CYfT0nh+QH4U2eYQI4iAd1tbusNddw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/QcDfK8x1QC1OVH94jzktw57D998kojHgPZDmKFVVU=;
- b=AMZnRKe3uwsOp5hPFkeKZLAofmjcXdlFSKnNy25XycWZ7PAhwIlfB+rvPpo5MqSaUeV6ePndWKLXVKSXRQvwHvaF6Gd4zK172rqtHpg98ArFmOP9OuRW6mVAVDjwx0BI7Uo/pdo+WbrWzDvUB4qOXLsJEg9/NRtfxS/SjvFZadRv1HGs8bUUR0L5eRvdhtel7hMFqZZdnCEFzgANUTCUGaKGvUbRQmSSRf6Omk+ycpcOQFH3JkYLrUooPS7rSckmhvnEGI4FhVIpjsSuprm5d057kEXgZAx9e6rM0UiYyZXnB3Dh/oE5v/L+3zH0hRw7Dp6kL05SqdBhiXfg8lZR8Q==
+ bh=6T6UWQyP4yrfLuutk5oqk1OY8idT28+i9sK+BARCHvI=;
+ b=DBJxqf8up838IMyis3wHVsld8qTmNjRH6VgeYZNITlRBGQfSBuTj2g5Si5rpJMQif8Je+0lgIV1JPxRCyIsEjOUv8iiiXnl9HyC4tqmfCMHl9z3sr7IsAYU3LOG0A8tVoMCvHdM/QV+wT3yIl6G+a9gtTEifBdLhCGHeZTxRt1WInQoL0x+mKUWvBxhATkHLvANm6yBXFYmt6nmrREMiofbB7pg0IzDRjmYQtJymkA455t/vzDjkV8FRS+EplJDk1ElTi/W0hgdLdSluSGcRz1a3JVYphUeDP8XuVu211BG4X6Omh5V+N4zBMkT47luL5jvHnN7P02Ng78fIH0HmWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -40,45 +40,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/QcDfK8x1QC1OVH94jzktw57D998kojHgPZDmKFVVU=;
- b=S4Siy1NlHzWDLb9wyP2e5ZZPMed4xyoWcscj/JNpWCfve8Y4URR/9p6xlqBUTHPOyJUytWWOds966dAlQKJBmRLW8LqeVroKqSJieZ88b2Ci2xiV2qCc57uZaV2Be5mO0OD1LD5v2JjcdzVtipLH1YdHVGeZGid63H29Eciv2mQ=
-Received: from MWHPR21CA0063.namprd21.prod.outlook.com (2603:10b6:300:db::25)
- by SN6PR12MB2670.namprd12.prod.outlook.com (2603:10b6:805:6b::31)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=6T6UWQyP4yrfLuutk5oqk1OY8idT28+i9sK+BARCHvI=;
+ b=s/3IaK/o7p73dz40VaDPoxJ7OfdnQb6O3QU1yzo4RuUuBdtfshs7NqOfipkwHlGQa+qTv7Dq8PyG5T6x9Fz+VSsz+/+q40HHl6khXxPeRFVC+g27geRYOwg4esesFmIx7q+txJQ7UdpO4LssxG6KzytQL59dxjIEvqYkTHa9Sas=
+Received: from MWHPR1701CA0024.namprd17.prod.outlook.com
+ (2603:10b6:301:14::34) by MN2PR12MB3005.namprd12.prod.outlook.com
+ (2603:10b6:208:c5::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Fri, 27 Nov
- 2020 14:11:19 +0000
-Received: from CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:db:cafe::ea) by MWHPR21CA0063.outlook.office365.com
- (2603:10b6:300:db::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.2 via Frontend
- Transport; Fri, 27 Nov 2020 14:11:18 +0000
+ 2020 14:11:22 +0000
+Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:301:14:cafe::3e) by MWHPR1701CA0024.outlook.office365.com
+ (2603:10b6:301:14::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
+ Transport; Fri, 27 Nov 2020 14:11:22 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
  action=none header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT061.mail.protection.outlook.com (10.13.175.200) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3611.25 via Frontend Transport; Fri, 27 Nov 2020 14:11:18 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3611.25 via Frontend Transport; Fri, 27 Nov 2020 14:11:21 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 27 Nov
- 2020 08:11:15 -0600
+ 2020 08:11:17 -0600
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 27 Nov
- 2020 08:11:15 -0600
+ 2020 08:11:17 -0600
 Received: from aj-EliteDesk.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Fri, 27 Nov 2020 08:11:14 -0600
+ Transport; Fri, 27 Nov 2020 08:11:16 -0600
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/11] drm/amd/display: Add HDR3DLUT and SHAPER memory
- shutdown support
-Date: Fri, 27 Nov 2020 09:10:59 -0500
-Message-ID: <20201127141107.7731-4-aurabindo.pillai@amd.com>
+Subject: [PATCH 05/11] drm/amd/display: Check link_active instead of
+ lane_settings != unknown
+Date: Fri, 27 Nov 2020 09:11:01 -0500
+Message-ID: <20201127141107.7731-6-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201127141107.7731-1-aurabindo.pillai@amd.com>
 References: <20201127141107.7731-1-aurabindo.pillai@amd.com>
@@ -86,27 +86,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 77733767-dd47-40a7-9eb7-08d892de4f7c
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2670:
-X-Microsoft-Antispam-PRVS: <SN6PR12MB26705CE7DAEC5EDBE06D717B8BF80@SN6PR12MB2670.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-MS-Office365-Filtering-Correlation-Id: 6fa5d842-e8fe-4908-1fb9-08d892de516c
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3005:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3005C077FAB4E1B76FE7D0A98BF80@MN2PR12MB3005.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2jCaLxfCejhneG+8x3EAjdxryVR0l8/QYRcx4v79rbG34dn56MlnpVOIm4vD5Ik0Ph3G4YHGwIb0GbYBkYPHBmUHekhdqon4FHB+lukCrwgN8PcMabl8pgoI9Xzauu/7HYSm6QNVF9RCCUCdV6H/co0oT+R2wOi0QHmtUA9Ln/T+sFbD5lEbnA73xbliUIPV6L3uLoXs92IFmy124dU0tQcwG9ZUQBtUHmbpMisAgLTEX/Mv76zqLU/u6zdQBMBRxGubLA7L4O5XPfg0NloM/KYHqLbYhb+HcQgMQBoFDZT73Zxi30D9aBRMYuq3kWuWO1drQiNqUxO0KlU3zCxuH3h9SQU42/9kxcBilp1taXj9j395lGy2gDgh4W0HAsdvFqiH8g8D3//ySnfw3UZt2/XxpfhmJJit+1UmjFdjff8=
+X-Microsoft-Antispam-Message-Info: Dd1mxoHrb5pn69hTzscDBM8VDJNE1fPAZOj0furRlNnvZg7groPKOHxMAqpsAqEKi6QiGrrC2QzqpfzR4B61or5wkrnNMMxl2KOjSUcjbCqxyRVj4LEDRIjCtx+6/wh3XpC/xWEKwn70zvwgbG47cnIQWmgfe9goYZIazFvMadY0q8v8V5F2PdZe65GcBF+NW8l74pFgTVs/Xk/kNaPA0eJFVyUefcpVcWXFHIyllk7oEm1WaJ2E3/TU8Y5tNFTt2Qc6u29N/OcSSuAP3yFNIyyqfyDCLj6IagU/W0lmWJhLXHHYM8pYXaztoo+u6BBjVOIKEyIRZn6HRpfdHtSsFxMFjXZiO2QMPPU/vcwXHIxXnCnih7eplOpUzdelYfCSy30xLGe84+VbZVNurGgPUg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(376002)(396003)(39860400002)(136003)(346002)(46966005)(4326008)(6666004)(44832011)(26005)(82740400003)(2906002)(1076003)(336012)(356005)(86362001)(478600001)(6916009)(8676002)(426003)(47076004)(54906003)(2616005)(81166007)(83380400001)(186003)(8936002)(5660300002)(7696005)(70206006)(70586007)(36756003)(82310400003)(316002)(32563001);
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(46966005)(4326008)(54906003)(6666004)(6916009)(36756003)(316002)(1076003)(356005)(478600001)(5660300002)(2616005)(86362001)(44832011)(2906002)(426003)(8936002)(186003)(336012)(26005)(8676002)(70586007)(70206006)(81166007)(82310400003)(47076004)(7696005)(83380400001)(82740400003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2020 14:11:18.5128 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77733767-dd47-40a7-9eb7-08d892de4f7c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2020 14:11:21.7611 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fa5d842-e8fe-4908-1fb9-08d892de516c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2670
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3005
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,157 +118,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Yang <eric.yang2@amd.com>, Eryk.Brol@amd.com, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Jacky Liao <ziyu.liao@amd.com>,
- Yongqiang Sun <yongqiang.sun@amd.com>, Bhawanpreet.Lakha@amd.com,
- bindu.r@amd.com
+Cc: Joshua Aberback <joshua.aberback@amd.com>, Eryk.Brol@amd.com,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, Wenjing Liu <Wenjing.Liu@amd.com>,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jacky Liao <ziyu.liao@amd.com>
+From: Joshua Aberback <joshua.aberback@amd.com>
 
 [Why]
-The HDR3DLUT and SHAPER memory blocks should be powered down when
-they're not in use. This will reduce power consumption.
+enable_link_dp_mst checks that cur_link_settings != unknown to determine
+that the link is already enabled, to skip redundant enablement calls for
+multiple streams on the same link. During dc_reinitialize_hardware,
+cur_link_settings on previously-active links is not cleared, which blocks
+MST links from being re-enabled after a reinitialization.
 
 [How]
-1. Write to HDR3DLUT_MEM_PWR_FORCE to put memory to shutdown
-   when HDR3DLUT is not used.
-2. Write to SHAPER_MEM_PWR_FORCE to put memory to shutdown
-   when SHAPER is not used.
+ - check for link_status->link_active instead, as it's the real intent
+ - clear cur_link_settings when we clear link_active
 
-Signed-off-by: Jacky Liao <ziyu.liao@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
-Acked-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Signed-off-by: Joshua Aberback <joshua.aberback@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  | 38 +++++++++++++++++++
- .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h  | 14 ++++++-
- 2 files changed, 51 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c               | 2 +-
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-index 052bab3e5e8e..6e864b1a95c4 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-@@ -510,6 +510,32 @@ static void dpp3_power_on_blnd_lut(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 4a897c326aab..a9c52657eb4b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1738,7 +1738,7 @@ static enum dc_status enable_link_dp_mst(
+ 	/* sink signal type after MST branch is MST. Multiple MST sinks
+ 	 * share one link. Link DP PHY is enable or training only once.
+ 	 */
+-	if (link->cur_link_settings.lane_count != LANE_COUNT_UNKNOWN)
++	if (link->link_status.link_active)
+ 		return DC_OK;
+ 
+ 	/* clear payload table */
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 90c85b3e859b..4c230f1de9a3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1530,6 +1530,8 @@ static void power_down_encoders(struct dc *dc)
+ 				dc->links[i]->link_enc, signal);
+ 
+ 		dc->links[i]->link_status.link_active = false;
++		memset(&dc->links[i]->cur_link_settings, 0,
++				sizeof(dc->links[i]->cur_link_settings));
  	}
  }
  
-+static void dpp3_power_on_hdr3dlut(
-+	struct dpp *dpp_base,
-+	bool power_on)
-+{
-+	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
-+
-+	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm) {
-+		REG_UPDATE(CM_MEM_PWR_CTRL2, HDR3DLUT_MEM_PWR_FORCE, power_on ? 0 : 3);
-+		if (power_on)
-+			REG_WAIT(CM_MEM_PWR_STATUS2, HDR3DLUT_MEM_PWR_STATE, 0, 1, 5);
-+	}
-+}
-+
-+static void dpp3_power_on_shaper(
-+	struct dpp *dpp_base,
-+	bool power_on)
-+{
-+	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
-+
-+	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm) {
-+		REG_UPDATE(CM_MEM_PWR_CTRL2, SHAPER_MEM_PWR_FORCE, power_on ? 0 : 3);
-+		if (power_on)
-+			REG_WAIT(CM_MEM_PWR_STATUS2, SHAPER_MEM_PWR_STATE, 0, 1, 5);
-+	}
-+}
-+
- static void dpp3_configure_blnd_lut(
- 		struct dpp *dpp_base,
- 		bool is_ram_a)
-@@ -1095,8 +1121,14 @@ bool dpp3_program_shaper(
- 
- 	if (params == NULL) {
- 		REG_SET(CM_SHAPER_CONTROL, 0, CM_SHAPER_LUT_MODE, 0);
-+		if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm)
-+			dpp3_power_on_shaper(dpp_base, false);
- 		return false;
- 	}
-+
-+	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm)
-+		dpp3_power_on_shaper(dpp_base, true);
-+
- 	current_mode = dpp3_get_shaper_current(dpp_base);
- 
- 	if (current_mode == LUT_BYPASS || current_mode == LUT_RAM_A)
-@@ -1285,8 +1317,14 @@ bool dpp3_program_3dlut(
- 
- 	if (params == NULL) {
- 		dpp3_set_3dlut_mode(dpp_base, LUT_BYPASS, false, false);
-+		if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm)
-+			dpp3_power_on_hdr3dlut(dpp_base, false);
- 		return false;
- 	}
-+
-+	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm)
-+		dpp3_power_on_hdr3dlut(dpp_base, true);
-+
- 	mode = get3dlut_config(dpp_base, &is_17x17x17, &is_12bits_color_channel);
- 
- 	if (mode == LUT_BYPASS || mode == LUT_RAM_B)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
-index 2ae5e1f93dd4..6415aaa01d24 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
-@@ -161,6 +161,8 @@
- 	TF_REG_LIST_DCN20_COMMON(id), \
- 	SRI(CM_BLNDGAM_CONTROL, CM, id), \
- 	SRI(CM_SHAPER_LUT_DATA, CM, id),\
-+	SRI(CM_MEM_PWR_CTRL2, CM, id), \
-+	SRI(CM_MEM_PWR_STATUS2, CM, id), \
- 	SRI(CM_BLNDGAM_RAMA_START_SLOPE_CNTL_B, CM, id),\
- 	SRI(CM_BLNDGAM_RAMA_START_SLOPE_CNTL_G, CM, id),\
- 	SRI(CM_BLNDGAM_RAMA_START_SLOPE_CNTL_R, CM, id),\
-@@ -344,6 +346,10 @@
- 
- #define DPP_REG_LIST_SH_MASK_DCN30_UPDATED(mask_sh)\
- 	TF_SF(CM0_CM_MEM_PWR_STATUS, BLNDGAM_MEM_PWR_STATE, mask_sh), \
-+	TF_SF(CM0_CM_MEM_PWR_CTRL2, HDR3DLUT_MEM_PWR_FORCE, mask_sh),\
-+	TF_SF(CM0_CM_MEM_PWR_CTRL2, SHAPER_MEM_PWR_FORCE, mask_sh),\
-+	TF_SF(CM0_CM_MEM_PWR_STATUS2, HDR3DLUT_MEM_PWR_STATE, mask_sh),\
-+	TF_SF(CM0_CM_MEM_PWR_STATUS2, SHAPER_MEM_PWR_STATE, mask_sh),\
- 	TF_SF(CM0_CM_BLNDGAM_CONTROL, CM_BLNDGAM_MODE, mask_sh), \
- 	TF_SF(CM0_CM_BLNDGAM_CONTROL, CM_BLNDGAM_MODE_CURRENT, mask_sh), \
- 	TF_SF(CM0_CM_BLNDGAM_CONTROL, CM_BLNDGAM_SELECT_CURRENT, mask_sh), \
-@@ -387,6 +393,8 @@
- 	type CM_BIAS_CR_R;\
- 	type GAMCOR_MEM_PWR_DIS; \
- 	type GAMCOR_MEM_PWR_FORCE; \
-+	type HDR3DLUT_MEM_PWR_FORCE; \
-+	type SHAPER_MEM_PWR_FORCE; \
- 	type PRE_DEGAM_MODE;\
- 	type PRE_DEGAM_SELECT;\
- 	type CNVC_ALPHA_PLANE_ENABLE; \
-@@ -448,7 +456,9 @@
- 	type CM_BLNDGAM_SELECT_CURRENT; \
- 	type CM_BLNDGAM_SELECT; \
- 	type GAMCOR_MEM_PWR_STATE; \
--	type BLNDGAM_MEM_PWR_STATE
-+	type BLNDGAM_MEM_PWR_STATE; \
-+	type HDR3DLUT_MEM_PWR_STATE; \
-+	type SHAPER_MEM_PWR_STATE
- 
- struct dcn3_dpp_shift {
- 	DPP_REG_FIELD_LIST_DCN3(uint8_t);
-@@ -461,6 +471,8 @@ struct dcn3_dpp_mask {
- #define DPP_DCN3_REG_VARIABLE_LIST_COMMON \
- 	DPP_DCN2_REG_VARIABLE_LIST; \
- 	uint32_t CM_MEM_PWR_STATUS;\
-+	uint32_t CM_MEM_PWR_STATUS2;\
-+	uint32_t CM_MEM_PWR_CTRL2;\
- 	uint32_t CM_DEALPHA;\
- 	uint32_t CM_BIAS_CR_R;\
- 	uint32_t CM_BIAS_Y_G_CB_B;\
 -- 
 2.25.1
 
