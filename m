@@ -2,71 +2,77 @@ Return-Path: <SRS0=Nkia=FE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.1 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B1C8C63777
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 15:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02F95C63777
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 15:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F8B320706
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 15:47:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6C4F620725
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 15:50:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="t7n+RWpn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F8B320706
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lbsg8dw1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C4F620725
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 919B76E4D4;
-	Mon, 30 Nov 2020 15:47:30 +0000 (UTC)
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0D1D6E4D4
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 15:47:28 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id e60so8458842qtd.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 07:47:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB3BB6E4C9;
+	Mon, 30 Nov 2020 15:50:38 +0000 (UTC)
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
+ [IPv6:2a00:1450:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93D666E4E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 15:50:38 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id lt17so22732079ejb.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 07:50:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=R8/rp214Fxp9WaJpok4TJvOBQPrm4CyNbou/gQiieC8=;
- b=t7n+RWpnHog/1sprYbo/1bHXm2K5W2uEPS36ucdoKXxhwbSrNJBsUyxOzMRv5OAqxJ
- 63l6qDBfjcl0vv5DXnSrtyx49zUl43iOp+1HzA6Lpn8G0HoX3/uGkb4legBBq0RI4UP1
- uzXAVxrD8TGnby//sUwdxSXJdG+DaUa+TGzRCXYrAidAdZgQRqd96TuTM3Phti5Q4eNg
- ba+a3OlzDwk00DgmFQYsqV/cJ1hYjIxZxt4J3NVWBaFH+WlWlppGcw2YsyG9lYNSOSiU
- bAySTp59JdJ4DRFWikVwtsRMnuVQskVt2Io1eISxowEZHGLxp+bDcOhlPleIa13DiNQT
- AXAw==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=saquFciEl9TOMHHIoKbBZl3oIRQNCnRJxyXetCZ6dhI=;
+ b=lbsg8dw1eTevXV47WiYYPd7FocpR/ZnynvitVFnEuPgAl1rxxJdBqvoPTe8yNsK3Uf
+ lFYer4+kQ0S0OUcSEj97iXk5OsduJal7UvqVmZqoNWUDUH05+0EaZR+KTu6rORit5I5m
+ dZ/jdIs3nyDrfB34oYSKH6C4eEfiAEL5o8QCAoYaqhGoxtJALH03jRo7inPBEqAmDxDL
+ 8ra45oy8hf3JKUsJumGzjF7Dmy+sO0nltq0WHrPwBd2EEm3KwNFXNlvWE0XXNk0mX8To
+ b31G2YQ30iOyST0RY/IE1N1U6/ncIJbL7AsXsaGYGiFiKeaXTHggklF9ov0+n6dGAyZf
+ Bw+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=R8/rp214Fxp9WaJpok4TJvOBQPrm4CyNbou/gQiieC8=;
- b=ajr7exCYj75F4cb5bHsHGWp4TvLqR7AuulrQegr6FF7Sr0Vnu7w39vzIsCfVb0CP5C
- yFkiObz0CfH72kXoH8HBVA8UVCKGaSCIGwLQSJluUXND68gdbq2Bs0Oej0RXNMPEzH2z
- Oyl3NB+wzzPlWCzosx3pAu/Cj4fG3QhgNU/n+hkIETR9b4ywJEeiMuDh+BA24Bc38tY7
- jP3SyWWaEO4ARrgQOva6NU+ZWhqmI4WD3RY6UHFE4oqD0oJRcGn4ABALLMKPjgVurJlv
- UGhLygaaZRIBVFZR1FhLigy2+Av9b4vUG0ucD1p9tTjV9/IfpsEiJrquBn0lm1mfA1b8
- Z2Eg==
-X-Gm-Message-State: AOAM533MA5s/euQKlLCAHS+EFzd4DjzBBo8HAP5dgfK1zerVoAOP0YH9
- jv/9oUd6KUJLWfZakvmLRH6j7m+LyDs=
-X-Google-Smtp-Source: ABdhPJwoF1FS8/aiAAWVzmbcYIiKe5gq3VFo98/Nrt7qZxamWb/CPJmBPObBVss+v59P66vn4AULqQ==
-X-Received: by 2002:ac8:75d6:: with SMTP id z22mr21959377qtq.255.1606751247710; 
- Mon, 30 Nov 2020 07:47:27 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id v204sm16082577qka.4.2020.11.30.07.47.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Nov 2020 07:47:27 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: enable AGP aperture on gmc10.x
-Date: Mon, 30 Nov 2020 10:47:14 -0500
-Message-Id: <20201130154714.82710-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=saquFciEl9TOMHHIoKbBZl3oIRQNCnRJxyXetCZ6dhI=;
+ b=azjLszrj1m8PyQiKoYVwwi6ZZpeJ6fWUyhHPL6gVRhae4yu53gsnv9tOBaMf9wiH9q
+ UhjGprh3jXDm0vDJZ3sqzaPAKfOU7s06yWhOUJpaJBl8dYfQwDFSIyZAeoHB2GjXOfVa
+ 4+6R9Ozqu7NJHfzTEWHUL3mMIr+VtPo2XKdq7jk/J2fZkszjlMyaj8eYcb+8MJwoLOW/
+ HUX3NUF390kIpME+EmrEvqF4a6btFtx02GRTOeXa4duaoZXbuOFj264GLHNAhOQaxsYo
+ GxK6NWwQiKJvdQv0IFDB/xcpZJHxIYrupySuUEpg0w4g+RZHZEF548qsMDiyssskOEIF
+ KNVA==
+X-Gm-Message-State: AOAM5320Iw8ZlZFn5qYySXmR0a/jlm9NHR537ZLdAEZXh80tdkaTuSUV
+ ngB7nbT8Afd6Ng8ULy+0hpagvjSqquQ=
+X-Google-Smtp-Source: ABdhPJy+4v6K5yAVb68BPJWJ5iT/EehsLv8dcr5cNWjhCrqELMFA0xoPrnaffAzlrgEl59H63/rbYA==
+X-Received: by 2002:a17:906:c244:: with SMTP id
+ bl4mr20684260ejb.430.1606751437208; 
+ Mon, 30 Nov 2020 07:50:37 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id dd12sm632550edb.6.2020.11.30.07.50.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Nov 2020 07:50:36 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu: enable AGP aperture on gmc10.x
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20201130154714.82710-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <91ccb58d-ff01-b58a-d8bf-c128b2a26651@gmail.com>
+Date: Mon, 30 Nov 2020 16:50:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20201130154714.82710-1-alexander.deucher@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,111 +84,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: christian.koenig@amd.com
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just a small optimization for accessing system pages directly.
-Was missed for gmc v10 since the feature landed for older gmcs
-while we were still on the emulator or gmc10 and we use the AGP
-aperture for zfb on the emulator.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 6 +++---
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c  | 4 ++--
- 5 files changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-index 456360bf58fa..51606d2c346c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -153,10 +153,10 @@ static void gfxhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 	uint64_t value;
- 
- 	if (!amdgpu_sriov_vf(adev)) {
--		/* Disable AGP. */
-+		/* Program the AGP BAR */
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
--		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
--		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
-+		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 		/* Program the system aperture low logical page number. */
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index 724bb29e9bb4..95a50fadbd54 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -152,10 +152,10 @@ static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)
- {
- 	uint64_t value;
- 
--	/* Disable AGP. */
-+	/* Program the AGP BAR */
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
--	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
--	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
-+	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 	/* Program the system aperture low logical page number. */
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 4f6e44e21691..518233d71e6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -738,6 +738,7 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
- 
- 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
- 	amdgpu_gmc_gart_location(adev, mc);
-+	amdgpu_gmc_agp_location(adev, mc);
- 
- 	/* base offset of vram pages */
- 	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index 4ac8ac0c56c8..c539685948de 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -195,10 +195,10 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 	uint64_t value;
- 	uint32_t tmp;
- 
--	/* Disable AGP. */
-+	/* Program the AGP BAR */
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, 0x00FFFFFF);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 	if (!amdgpu_sriov_vf(adev)) {
- 		/* Program the system aperture low logical page number. */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-index 3a248c8cd0b9..5372704889cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -152,8 +152,8 @@ static void mmhub_v2_3_init_system_aperture_regs(struct amdgpu_device *adev)
- 
- 	/* Disable AGP. */
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, 0x00FFFFFF);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 	/* Program the system aperture low logical page number. */
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
--- 
-2.25.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMzAuMTEuMjAgdW0gMTY6NDcgc2NocmllYiBBbGV4IERldWNoZXI6Cj4gSnVzdCBhIHNtYWxs
+IG9wdGltaXphdGlvbiBmb3IgYWNjZXNzaW5nIHN5c3RlbSBwYWdlcyBkaXJlY3RseS4KPiBXYXMg
+bWlzc2VkIGZvciBnbWMgdjEwIHNpbmNlIHRoZSBmZWF0dXJlIGxhbmRlZCBmb3Igb2xkZXIgZ21j
+cwo+IHdoaWxlIHdlIHdlcmUgc3RpbGwgb24gdGhlIGVtdWxhdG9yIG9yIGdtYzEwIGFuZCB3ZSB1
+c2UgdGhlIEFHUAo+IGFwZXJ0dXJlIGZvciB6ZmIgb24gdGhlIGVtdWxhdG9yLgo+Cj4gU2lnbmVk
+LW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKUmV2aWV3
+ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0t
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjJfMC5jIHwgNiArKystLS0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92Ml8xLmMgfCA2ICsrKy0tLQo+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMgICB8IDEgKwo+ICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjJfMC5jICB8IDYgKysrLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92Ml8zLmMgIHwgNCArKy0tCj4gICA1IGZpbGVz
+IGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92Ml8wLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjJfMC5jCj4gaW5kZXggNDU2MzYwYmY1OGZhLi41MTYw
+NmQyYzM0NmMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHVi
+X3YyXzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92Ml8wLmMK
+PiBAQCAtMTUzLDEwICsxNTMsMTAgQEAgc3RhdGljIHZvaWQgZ2Z4aHViX3YyXzBfaW5pdF9zeXN0
+ZW1fYXBlcnR1cmVfcmVncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAl1aW50NjRf
+dCB2YWx1ZTsKPiAgIAo+ICAgCWlmICghYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKSB7Cj4gLQkJLyog
+RGlzYWJsZSBBR1AuICovCj4gKwkJLyogUHJvZ3JhbSB0aGUgQUdQIEJBUiAqLwo+ICAgCQlXUkVH
+MzJfU09DMTUoR0MsIDAsIG1tR0NNQ19WTV9BR1BfQkFTRSwgMCk7Cj4gLQkJV1JFRzMyX1NPQzE1
+KEdDLCAwLCBtbUdDTUNfVk1fQUdQX1RPUCwgMCk7Cj4gLQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBt
+bUdDTUNfVk1fQUdQX0JPVCwgMHgwMEZGRkZGRik7Cj4gKwkJV1JFRzMyX1NPQzE1KEdDLCAwLCBt
+bUdDTUNfVk1fQUdQX0JPVCwgYWRldi0+Z21jLmFncF9zdGFydCA+PiAyNCk7Cj4gKwkJV1JFRzMy
+X1NPQzE1KEdDLCAwLCBtbUdDTUNfVk1fQUdQX1RPUCwgYWRldi0+Z21jLmFncF9lbmQgPj4gMjQp
+Owo+ICAgCj4gICAJCS8qIFByb2dyYW0gdGhlIHN5c3RlbSBhcGVydHVyZSBsb3cgbG9naWNhbCBw
+YWdlIG51bWJlci4gKi8KPiAgIAkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdDTUNfVk1fU1lTVEVN
+X0FQRVJUVVJFX0xPV19BRERSLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhodWJfdjJfMS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3Yy
+XzEuYwo+IGluZGV4IDcyNGJiMjllOWJiNC4uOTVhNTBmYWRiZDU0IDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92Ml8xLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjJfMS5jCj4gQEAgLTE1MiwxMCArMTUyLDEwIEBAIHN0
+YXRpYyB2b2lkIGdmeGh1Yl92Ml8xX2luaXRfc3lzdGVtX2FwZXJ0dXJlX3JlZ3Moc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4gICAJdWludDY0X3QgdmFsdWU7Cj4gICAKPiAtCS8q
+IERpc2FibGUgQUdQLiAqLwo+ICsJLyogUHJvZ3JhbSB0aGUgQUdQIEJBUiAqLwo+ICAgCVdSRUcz
+Ml9TT0MxNShHQywgMCwgbW1HQ01DX1ZNX0FHUF9CQVNFLCAwKTsKPiAtCVdSRUczMl9TT0MxNShH
+QywgMCwgbW1HQ01DX1ZNX0FHUF9UT1AsIDApOwo+IC0JV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdD
+TUNfVk1fQUdQX0JPVCwgMHgwMEZGRkZGRik7Cj4gKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tR0NN
+Q19WTV9BR1BfQk9ULCBhZGV2LT5nbWMuYWdwX3N0YXJ0ID4+IDI0KTsKPiArCVdSRUczMl9TT0Mx
+NShHQywgMCwgbW1HQ01DX1ZNX0FHUF9UT1AsIGFkZXYtPmdtYy5hZ3BfZW5kID4+IDI0KTsKPiAg
+IAo+ICAgCS8qIFByb2dyYW0gdGhlIHN5c3RlbSBhcGVydHVyZSBsb3cgbG9naWNhbCBwYWdlIG51
+bWJlci4gKi8KPiAgIAlXUkVHMzJfU09DMTUoR0MsIDAsIG1tR0NNQ19WTV9TWVNURU1fQVBFUlRV
+UkVfTE9XX0FERFIsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
+Y192MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMKPiBpbmRl
+eCA0ZjZlNDRlMjE2OTEuLjUxODIzM2Q3MWU2ZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dtY192MTBfMC5jCj4gQEAgLTczOCw2ICs3MzgsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjEw
+XzBfdnJhbV9ndHRfbG9jYXRpb24oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAKPiAg
+IAlhbWRncHVfZ21jX3ZyYW1fbG9jYXRpb24oYWRldiwgJmFkZXYtPmdtYywgYmFzZSk7Cj4gICAJ
+YW1kZ3B1X2dtY19nYXJ0X2xvY2F0aW9uKGFkZXYsIG1jKTsKPiArCWFtZGdwdV9nbWNfYWdwX2xv
+Y2F0aW9uKGFkZXYsIG1jKTsKPiAgIAo+ICAgCS8qIGJhc2Ugb2Zmc2V0IG9mIHZyYW0gcGFnZXMg
+Ki8KPiAgIAlhZGV2LT52bV9tYW5hZ2VyLnZyYW1fYmFzZV9vZmZzZXQgPSBhZGV2LT5nZnhodWIu
+ZnVuY3MtPmdldF9tY19mYl9vZmZzZXQoYWRldik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L21taHViX3YyXzAuYwo+IGluZGV4IDRhYzhhYzBjNTZjOC4uYzUzOTY4NTk0OGRlIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzAuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzAuYwo+IEBAIC0xOTUsMTAgKzE5NSwx
+MCBAQCBzdGF0aWMgdm9pZCBtbWh1Yl92Ml8wX2luaXRfc3lzdGVtX2FwZXJ0dXJlX3JlZ3Moc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJdWludDY0X3QgdmFsdWU7Cj4gICAJdWludDMy
+X3QgdG1wOwo+ICAgCj4gLQkvKiBEaXNhYmxlIEFHUC4gKi8KPiArCS8qIFByb2dyYW0gdGhlIEFH
+UCBCQVIgKi8KPiAgIAlXUkVHMzJfU09DMTUoTU1IVUIsIDAsIG1tTU1NQ19WTV9BR1BfQkFTRSwg
+MCk7Cj4gLQlXUkVHMzJfU09DMTUoTU1IVUIsIDAsIG1tTU1NQ19WTV9BR1BfVE9QLCAwKTsKPiAt
+CVdSRUczMl9TT0MxNShNTUhVQiwgMCwgbW1NTU1DX1ZNX0FHUF9CT1QsIDB4MDBGRkZGRkYpOwo+
+ICsJV1JFRzMyX1NPQzE1KE1NSFVCLCAwLCBtbU1NTUNfVk1fQUdQX0JPVCwgYWRldi0+Z21jLmFn
+cF9zdGFydCA+PiAyNCk7Cj4gKwlXUkVHMzJfU09DMTUoTU1IVUIsIDAsIG1tTU1NQ19WTV9BR1Bf
+VE9QLCBhZGV2LT5nbWMuYWdwX2VuZCA+PiAyNCk7Cj4gICAKPiAgIAlpZiAoIWFtZGdwdV9zcmlv
+dl92ZihhZGV2KSkgewo+ICAgCQkvKiBQcm9ncmFtIHRoZSBzeXN0ZW0gYXBlcnR1cmUgbG93IGxv
+Z2ljYWwgcGFnZSBudW1iZXIuICovCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L21taHViX3YyXzMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Yy
+XzMuYwo+IGluZGV4IDNhMjQ4YzhjZDBiOS4uNTM3MjcwNDg4OWNmIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzMuYwo+IEBAIC0xNTIsOCArMTUyLDggQEAgc3RhdGlj
+IHZvaWQgbW1odWJfdjJfM19pbml0X3N5c3RlbV9hcGVydHVyZV9yZWdzKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQo+ICAgCj4gICAJLyogRGlzYWJsZSBBR1AuICovCj4gICAJV1JFRzMyX1NP
+QzE1KE1NSFVCLCAwLCBtbU1NTUNfVk1fQUdQX0JBU0UsIDApOwo+IC0JV1JFRzMyX1NPQzE1KE1N
+SFVCLCAwLCBtbU1NTUNfVk1fQUdQX1RPUCwgMCk7Cj4gLQlXUkVHMzJfU09DMTUoTU1IVUIsIDAs
+IG1tTU1NQ19WTV9BR1BfQk9ULCAweDAwRkZGRkZGKTsKPiArCVdSRUczMl9TT0MxNShNTUhVQiwg
+MCwgbW1NTU1DX1ZNX0FHUF9CT1QsIGFkZXYtPmdtYy5hZ3Bfc3RhcnQgPj4gMjQpOwo+ICsJV1JF
+RzMyX1NPQzE1KE1NSFVCLCAwLCBtbU1NTUNfVk1fQUdQX1RPUCwgYWRldi0+Z21jLmFncF9lbmQg
+Pj4gMjQpOwo+ICAgCj4gICAJLyogUHJvZ3JhbSB0aGUgc3lzdGVtIGFwZXJ0dXJlIGxvdyBsb2dp
+Y2FsIHBhZ2UgbnVtYmVyLiAqLwo+ICAgCVdSRUczMl9TT0MxNShNTUhVQiwgMCwgbW1NTU1DX1ZN
+X1NZU1RFTV9BUEVSVFVSRV9MT1dfQUREUiwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
