@@ -2,69 +2,72 @@ Return-Path: <SRS0=Nkia=FE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 445F2C63777
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:57:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63211C71155
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:59:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D2A52206E9
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:57:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C75052075F
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:59:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBsDXBf2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2A52206E9
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tPiQOUqx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C75052075F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D0C089D53;
-	Mon, 30 Nov 2020 23:57:48 +0000 (UTC)
-Received: from mail-oo1-xc41.google.com (mail-oo1-xc41.google.com
- [IPv6:2607:f8b0:4864:20::c41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7777589C7F;
- Mon, 30 Nov 2020 23:57:46 +0000 (UTC)
-Received: by mail-oo1-xc41.google.com with SMTP id t23so3114784oov.4;
- Mon, 30 Nov 2020 15:57:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F4589C7F;
+	Mon, 30 Nov 2020 23:59:03 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3659C89C7F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 23:59:02 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id f15so9654695qto.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 15:59:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=vgKRQAiib2gthU/VRaj/WeBHXJVwpbyuOw/X2vXJueI=;
- b=EBsDXBf2rrZUNngQH8wrfhBKvQwjvZtdwWGIJv3CT7KK2X4l7YGGKTTaYksY+SJCad
- tU0F75gkP1RaOYHqs99lUIrVC5ZwBE+IMKxoX8G9XoxxyPbIatH3Kvh2M8ik8Ga/Nn0i
- HFGgSi+VQ5R3Pkm+XHJJupZtg+/gtCBEV2kVRZJh/zg1MLvgCTu1KMi2YaEJ53mPDQ01
- qyI7VykMAEdx5bCu602vB0KDwedCZnnhju6pB3QONTHzFC44bsI0aRURdM44drkECL0C
- iw5X71jRT8UrvWJtd6+K0ZjvF5QPlzWbTZzQ1OwZUkTOof1RlrxmHU/tB+SMsJZQtd1G
- lZkA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CzlZbooDRucv471GoFQc/uLy2zLSLzmrjk8jfvv4aIU=;
+ b=tPiQOUqxKmy5VQ6n3yTxYu5iTOYmK3eD79nn0qgJfEwCU0uBXWl1kRzuR+7lTvDqsH
+ XS3GeyquIo/8OL1QSvVKvB51/kwDbduFbCww5J2ULAxjdd6XNAO8tSPxVzbZ88M311eW
+ Vl2iDR+xsJtROIw6PT9RjsWjOar5scaquXnjzeJMC+HL+E466MEX3KBBxUycWLXY+tPe
+ ls2jPfmcr4jAKfMSMVx/SPQx2KhitGihC46vljvGdllBla92uGe68Dv6Kmf2poR6y/6a
+ XwZ6Tk9e3loM7leTpqrlCqBD5kOYmVg6nwgvkJltIdHoKeC8Ri5zCV8CGPBFaAAEoUiJ
+ bdGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=vgKRQAiib2gthU/VRaj/WeBHXJVwpbyuOw/X2vXJueI=;
- b=Qeg/vg3UgLiNtYDzOO7E6zkLAinILjqcumJ/jPPw1xvVzpwrw46Fcj5rL7vEZQAmAo
- ilb+4hvvFHN+eb9mOe8wKov6znxcJE5JoxCJIkn1y/OyI+49vQxFpgbU1MqKeRMrVZlf
- NOaMvL6wL13viAzXMjm5+PliViCJ187XKkz0DT982EVqrtk/WAEWPzZtLIZPiWuem2wX
- iLXAt6Ro9rY1bbxEHYGrrX4qbIOfcvllRQ0UEAm+Z5Gpm60PtzUI+vXX2uOvTvpoMB+z
- DsuOG++ckqzsNOQu8GnY75IJ2OI0SE5ETKGZW6TTqfF7x7yecSSuZhX2Fogr51Zi+vvH
- CURA==
-X-Gm-Message-State: AOAM532InfFKwpT8qKv2RWyRartQ5CrX9Cg1deIu/LtbcPfcWZPmxNTF
- ijRJJyx9lF2oWCUIbAWq2XpNhjry6XU+GvCG/Nk=
-X-Google-Smtp-Source: ABdhPJw4rZeb/PphtWu4Cl8TtHzvOdOYjiTsuSvu34iEY+jqPxAhUdABssZ2oSFIkmZjy0IuBwel0IN3v8tMXKTbJAE=
-X-Received: by 2002:a4a:d5d3:: with SMTP id a19mr48449oot.61.1606780665874;
- Mon, 30 Nov 2020 15:57:45 -0800 (PST)
-MIME-Version: 1.0
-References: <20201126134240.3214176-1-lee.jones@linaro.org>
- <20201126134240.3214176-33-lee.jones@linaro.org>
-In-Reply-To: <20201126134240.3214176-33-lee.jones@linaro.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CzlZbooDRucv471GoFQc/uLy2zLSLzmrjk8jfvv4aIU=;
+ b=pNsdY1uIpWlJFKlt6qCswpXsOkSxWVhhEoGNCajEdz5F6GZN54x2YCVKqMazDkloz3
+ bmc+i2xyttp59blp+3BKkaWWkdZgGq1a03NOMrjy5rJXbQNKVn1l6vaNFUKG4dp7Nwtp
+ lIXaVXgs4rlEoxRYKEq3WCGzZWb8xar4iqL7680cOn0nHpvXr3QssdLK7A2MAEng2NDk
+ bEG4aQI2Y5W3AnVc26xdfZeFQXGaDsY/TFL+JrwAXzvjZb12is36qeBnIRc6IrVHkTtf
+ tuOdoBlYauFR6WbXuU6fciRYu7y/ztv+4kCPTvFXtWV+pWMGEISCdstnUMTG4czbD8JH
+ H27g==
+X-Gm-Message-State: AOAM533iOXwc6yHE8rRnOEhzCZRTIZdwfycDsvXAliyuXvT5UGzVGJCo
+ lqDUFFocpePUEmxYW7ykHuS073I1q6M=
+X-Google-Smtp-Source: ABdhPJyL+22inFZ9WXXqm4s4gq9zaPw1A1eoufPK1LLO3GVITOSSqD4swCMYT3419GGp3rmHjAfEtw==
+X-Received: by 2002:ac8:370e:: with SMTP id o14mr24799796qtb.195.1606780741251; 
+ Mon, 30 Nov 2020 15:59:01 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.5])
+ by smtp.gmail.com with ESMTPSA id o21sm44885qko.9.2020.11.30.15.59.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Nov 2020 15:59:00 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 30 Nov 2020 18:57:35 -0500
-Message-ID: <CADnq5_PtZRwNNV-EvMjkV9k2sYj9jdYBT3oqtS3-hm-pTsaaew@mail.gmail.com>
-Subject: Re: [PATCH 32/40] drm/amd/display/amdgpu_dm/amdgpu_dm: Mark
- 'link_bandwidth_kbps' as __maybe_unused
-To: Lee Jones <lee.jones@linaro.org>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/display: move link_bandwidth_kbps under
+ CONFIG_DRM_AMD_DC_DCN
+Date: Mon, 30 Nov 2020 18:58:52 -0500
+Message-Id: <20201130235852.457569-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,50 +79,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBOb3YgMjYsIDIwMjAgYXQgODo0MyBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPiB3cm90ZToKPgo+ICdsaW5rX2JhbmR3aWR0aF9rYnBzJyBpcyBhbHdheXMgb2J0YWlu
-ZWQsIGJ1dCBvbmx5IHVzZWQgaWYKPiBDT05GSUdfRFJNX0FNRF9EQ19EQ04gaXMgZGVmaW5lZC4K
-ClByb2JhYmx5IGJldHRlciB0byBqdXN0IG1vdmUgdGhpcyB1bmRlciBDT05GSUdfRFJNX0FNRF9E
-Q19EQ04uICBJJ2xsCnNlbmQgYSBwYXRjaC4KClRoYW5rcywKCkFsZXgKCgo+Cj4gRml4ZXMgdGhl
-IGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6Cj4KPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmM6IEluIGZ1bmN0
-aW9uIOKAmGNyZWF0ZV9zdHJlYW1fZm9yX3NpbmvigJk6Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jOjUwODA6MTE6IHdhcm5pbmc6
-IHZhcmlhYmxlIOKAmGxpbmtfYmFuZHdpZHRoX2ticHPigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1
-bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KPgo+IENjOiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2Vu
-dGxhbmRAYW1kLmNvbT4KPiBDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+Cj4gQ2M6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiBDYzogIkNocmlzdGlhbiBL
-w7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWly
-bGllZEBsaW51eC5pZT4KPiBDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+IENj
-OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCj4gU2lnbmVkLW9mZi1ieTogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJv
-Lm9yZz4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYyB8IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
-aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtLmMKPiBpbmRleCAwODUzOWY0MzE1ODY0Li5hYzc2NDNkNzNiYzY4IDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-Cj4gQEAgLTUwNzcsNyArNTA3Nyw3IEBAIGNyZWF0ZV9zdHJlYW1fZm9yX3Npbmsoc3RydWN0IGFt
-ZGdwdV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IsCj4gICNpZiBkZWZpbmVkKENPTkZJR19EUk1f
-QU1EX0RDX0RDTikKPiAgICAgICAgIHN0cnVjdCBkc2NfZGVjX2RwY2RfY2FwcyBkc2NfY2FwczsK
-PiAgI2VuZGlmCj4gLSAgICAgICB1aW50MzJfdCBsaW5rX2JhbmR3aWR0aF9rYnBzOwo+ICsgICAg
-ICAgdWludDMyX3QgX19tYXliZV91bnVzZWQgbGlua19iYW5kd2lkdGhfa2JwczsKPgo+ICAgICAg
-ICAgc3RydWN0IGRjX3NpbmsgKnNpbmsgPSBOVUxMOwo+ICAgICAgICAgaWYgKGFjb25uZWN0b3Ig
-PT0gTlVMTCkgewo+IC0tCj4gMi4yNS4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+It's only used when CONFIG_DRM_AMD_DC_DCN is set.  Fixes and set but
+not used warning.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 08539f431586..c0e61c13b3fc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5076,9 +5076,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 	int preferred_refresh = 0;
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	struct dsc_dec_dpcd_caps dsc_caps;
+-#endif
+ 	uint32_t link_bandwidth_kbps;
+-
++#endif
+ 	struct dc_sink *sink = NULL;
+ 	if (aconnector == NULL) {
+ 		DRM_ERROR("aconnector is NULL!\n");
+@@ -5160,11 +5159,9 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
+ 				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_branch_decoder_caps.raw,
+ 				      &dsc_caps);
+-#endif
+ 		link_bandwidth_kbps = dc_link_bandwidth_kbps(aconnector->dc_link,
+ 							     dc_link_get_link_cap(aconnector->dc_link));
+ 
+-#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 		if (aconnector->dsc_settings.dsc_force_enable != DSC_CLK_FORCE_DISABLE && dsc_caps.is_dsc_supported) {
+ 			/* Set DSC policy according to dsc_clock_en */
+ 			dc_dsc_policy_set_enable_dsc_when_not_needed(
+-- 
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
