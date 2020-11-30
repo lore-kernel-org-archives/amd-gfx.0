@@ -2,70 +2,72 @@ Return-Path: <SRS0=Nkia=FE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA5D6C63777
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82277C63777
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 562E820725
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:04:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 08FB82076C
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 23:08:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dg5Lflkc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 562E820725
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nbNbsPzC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 08FB82076C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F360289CF7;
-	Mon, 30 Nov 2020 23:04:07 +0000 (UTC)
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B27C89CF7;
- Mon, 30 Nov 2020 23:04:07 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id f48so4521717otf.8;
- Mon, 30 Nov 2020 15:04:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A8CA89956;
+	Mon, 30 Nov 2020 23:08:21 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D558B89956
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 23:08:19 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id q22so12633218qkq.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 15:08:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/XTX3Z66O+BazeLjFxr+puLvZ6PetLfBClwP+q5Bj0g=;
- b=dg5LflkcwriHvH2MBB/bPLeZFTWXs2sjvPKbydqgr1egeiLh1E9dYIVQGb7dBukd11
- dfiz8U8PYmp2vPhsORB42k9TFvMpkFl6lLHbRbCAoWB4jet1fbQN7XiKkGfig+CYqan1
- TtnIKPjym1jlrZDh8ngNrL1SLdVkGK/DNDtd+pgChVLGY6/eBwE2Zbi1h2+Llh/UH+v+
- upUeixBTw87v+0qfjfA+pSaCpF3W8K4Rx+BY35fLDV17huqWtlSg7itqtEXWjc1xKyU2
- Vx4pfqNG4rbpu10LtWQM/isrYJhmtzB+MXe+v687Kr5VkaBfVuvZMmp4ENlwP/9xNrop
- Ov1w==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mcuSYokzXyoBfF/TRgK7OobDekOiYbor+0fTH3XFeCI=;
+ b=nbNbsPzCYtgg6Da1c4bZZ4BJaSqgCWmlS3iAKJLRqRlky5NzEchZVubq4T4KGdNMre
+ ZhtIaL6r0sRYkInZWQjnhCk0WQjxYoBAD8ITxb+OyAfI5Tbnn0IozEB1UVwIFb2ygzbh
+ dqECTbvpK0FQhVmj+sIcLyPDs/76Xj3SJbL9NxY3NqeWibBs2Ec/uYJww4rHsr8u3XvJ
+ srpggg+G36k/oBwa0Vuuas4WAnLdDJaF14hlPifOGJZTf8GcUO3UO2Slo/8mTT7tCqTb
+ YneacCjzS+xOzDm0StNfXMLngh9Dic9txDWK8+v0nK9+XxFGOSjQYrN/e9h3HJEF5JBr
+ EVyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/XTX3Z66O+BazeLjFxr+puLvZ6PetLfBClwP+q5Bj0g=;
- b=XE5ChRcl67Er0TcD9Bb4vWAHoJCNaSPngWjChmsnkDKMtQS0jkgon1FUN154p7+jSa
- 92Ka2KEm6tQeSqYnkoEXyMrzO56k+Rrhk+xGvfRnGb910SFYTOmReZnZTn3t35CH1Ohe
- XRg/Sesfj2inyBGJDiqtLHoIs9oc+7F01zzUroz46OvRp6vT0QUPKJ29NFDtMZI5apGZ
- 6oJXfj8FoJDLLA7GWFCxMdcuXcR4wkbYV4iixfNq58YIesGc1s/EAzshKpuzeGwwwGsN
- PAs5t8H81QZJg6u2W+QUf6AZxb/05sHJqZCmOmRKHD//FZgItti0FZSUimSJr1ou6EXM
- 5HxA==
-X-Gm-Message-State: AOAM5329+jrJKhDPplSmRltuvcTqxhONLy0Ajc5BAFQM3gRQM3aqG+js
- LqJ9I1jtvcKPpKFvnQsCjVXsTMzcgBvsV45a/Ac=
-X-Google-Smtp-Source: ABdhPJzFEcs1LGYfXam7Brnq4I4Rmdbke/J7wWbeEuPhw0Yq74o/WHrC0htfeQw4Reicm+MX5kc+4IXl7vhIg4OzjLA=
-X-Received: by 2002:a05:6830:22e4:: with SMTP id
- t4mr19122959otc.23.1606777445195; 
- Mon, 30 Nov 2020 15:04:05 -0800 (PST)
-MIME-Version: 1.0
-References: <20201124193824.1118741-1-lee.jones@linaro.org>
- <20201124193824.1118741-41-lee.jones@linaro.org>
-In-Reply-To: <20201124193824.1118741-41-lee.jones@linaro.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mcuSYokzXyoBfF/TRgK7OobDekOiYbor+0fTH3XFeCI=;
+ b=hZENh5+rmzuyBZla7fwlvXzAStYspSIDetOejX7yhLOKvz+snJO7nR0MbknSVnRUr+
+ 5YJ5YKGtSLGNLBI3Z6i3hIlWTXCMrvFQQSJ9EOVYFSh9/UkulhA3lndDGyZiaP0yH16X
+ 6te8sPushdwUi5YzYPQapfSMuo5XH5KtWUNjuwDkiBRJCLFLlhtZ3Hse+2zRW7kEaVcw
+ crdT/ljA95nKK3DxfFuC2Eaf/q8atw1wgtBXaFmm/WfgOeW7f5ihBaqZ5KTR3hPQkuBD
+ 3VKe+g3f1ynwn5jtNmlWoMqSLToqBzQ/+VRuEl2s+iFKZWIaoUwPb7jeyReeZZX8cNQO
+ gp8A==
+X-Gm-Message-State: AOAM533r9QH84CMzn0suevuUW5SaluStZiilCvBZ9kd+1t2/7lk2RoJU
+ 1aQ/fGsimQmDG+f28qcWrXNQq/+Ny+8=
+X-Google-Smtp-Source: ABdhPJwS3UnW5F9tWBDWEQg4ZOKE17DTdI1aUCSCMDz2o5ButUUaXI+zdK3zlIQq3GDYZ1XVS/yK8g==
+X-Received: by 2002:a05:620a:15ce:: with SMTP id
+ o14mr25798289qkm.408.1606777698963; 
+ Mon, 30 Nov 2020 15:08:18 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.5])
+ by smtp.gmail.com with ESMTPSA id c10sm16625894qkm.71.2020.11.30.15.08.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Nov 2020 15:08:18 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 30 Nov 2020 18:03:53 -0500
-Message-ID: <CADnq5_PwGBLKU5cZtrLH4BUep9AgzwRW9xwj+rakxC_FY9RuGw@mail.gmail.com>
-Subject: Re: [PATCH 40/40] drm/amd/amdgpu/amdgpu_uvd: Add description for
- amdgpu_uvd_cs_msg_decode()'s 'buf_sizes' param
-To: Lee Jones <lee.jones@linaro.org>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/powerplay: return an error of copying to smc fails
+Date: Mon, 30 Nov 2020 18:08:11 -0500
+Message-Id: <20201130230811.209647-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,45 +79,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBOb3YgMjQsIDIwMjAgYXQgMjo0NSBQTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
-YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYzo1
-NTU6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ2J1Zl9zaXplcycgbm90
-IGRlc2NyaWJlZCBpbiAnYW1kZ3B1X3V2ZF9jc19tc2dfZGVjb2RlJwo+Cj4gQ2M6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiBDYzogIkNocmlzdGlhbiBLw7ZuaWci
-IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBs
-aW51eC5pZT4KPiBDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+IENjOiBTdW1p
-dCBTZW13YWwgPHN1bWl0LnNlbXdhbEBsaW5hcm8ub3JnPgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6
-IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwo+IENjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxp
-bmFyby5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5hcm8ub3Jn
-PgoKQXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV91dmQuYyB8IDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZk
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKPiBpbmRleCBmOGYw
-Mzg0YThkOWFkLi43YzViNjBlNTM0ODIyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV91dmQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV91dmQuYwo+IEBAIC01NDcsNiArNTQ3LDcgQEAgc3RhdGljIGludCBhbWRncHVfdXZk
-X2NzX3Bhc3MxKHN0cnVjdCBhbWRncHVfdXZkX2NzX2N0eCAqY3R4KQo+ICAgKgo+ICAgKiBAYWRl
-djogYW1kZ3B1X2RldmljZSBwb2ludGVyCj4gICAqIEBtc2c6IHBvaW50ZXIgdG8gbWVzc2FnZSBz
-dHJ1Y3R1cmUKPiArICogQGJ1Zl9zaXplczogcGxhY2Vob2xkZXIgdG8gcHV0IHRoZSBkaWZmZXJl
-bnQgYnVmZmVyIGxlbmd0aHMKPiAgICoKPiAgICogUGVlayBpbnRvIHRoZSBkZWNvZGUgbWVzc2Fn
-ZSBhbmQgY2FsY3VsYXRlIHRoZSBuZWNlc3NhcnkgYnVmZmVyIHNpemVzLgo+ICAgKi8KPiAtLQo+
-IDIuMjUuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Rather than just silently dropping it.  Also fixes a set but
+unused variable warning.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+index 4bfadb49521b..04b561f5d932 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+@@ -2545,7 +2545,7 @@ static int tonga_thermal_setup_fan_table(struct pp_hwmgr *hwmgr)
+ 					(uint32_t)sizeof(fan_table),
+ 					SMC_RAM_END);
+ 
+-	return 0;
++	return res;
+ }
+ 
+ 
+-- 
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
