@@ -2,71 +2,69 @@ Return-Path: <SRS0=Nkia=FE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC799C63777
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B5C6C63777
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 22:05:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 227FB208C3
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 21:49:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A62CD2076C
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Nov 2020 22:05:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o5O1IvMb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 227FB208C3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PAQIbC+H"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A62CD2076C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8711A6E8CD;
-	Mon, 30 Nov 2020 21:49:26 +0000 (UTC)
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55C826E8CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 21:49:25 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id e60so9442595qtd.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 13:49:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2490589E57;
+	Mon, 30 Nov 2020 22:05:00 +0000 (UTC)
+Received: from mail-oo1-xc43.google.com (mail-oo1-xc43.google.com
+ [IPv6:2607:f8b0:4864:20::c43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B25889C03;
+ Mon, 30 Nov 2020 22:04:58 +0000 (UTC)
+Received: by mail-oo1-xc43.google.com with SMTP id i7so3052278oot.8;
+ Mon, 30 Nov 2020 14:04:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4yt6viOrUaH2FeHBx2xYP5gcZdEk0jSFz9i/IICbsok=;
- b=o5O1IvMbIyS6TO3N10hT0yEqpQj4m1xBERwa+aym2nvjsgoun5r4U3iAinZdWDArvh
- Q0+bbawACIjix9RtsrmObYoT0llV74YNRSQWmBqbTxcusQQ7rUMp/mtuaA2ri/8gAQOi
- xRC5Qi7/gIj1FgAqiVT2iEYBhgr6TL5M7Ofkq2ghRkfgh6/zxvFBw95zNTExq47jd700
- fhyIlN32lGf8hw8/6M/cXIJCFGUHmM9AE5DRHygul3cvY9MN6VPV7f0T6tNGjjfSkWRO
- Xt3aN8XwmMZa3ja228JHvMHGJmLppUqiXe4jQYsJWvVHszVq9aEFzlE2wS6xBtQrwQt/
- CDOQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=5jOvGDqYf8zwrULgytMiBGj6XTmbLQAdGK6UJTFHbSU=;
+ b=PAQIbC+HD7aZnMbhp9k94L+xvj5VCnYs1qRBegTa8+NGGphW9fIvh7QjHswN/vqJ+N
+ VEL1PZMabbMQ2vN40BSrZeXTlduFD5Z9sEPpE4HxLbduzIFROwjBoxoLn6BtlS9CXQ8W
+ JNlSchueWOcpR4KeIyvY4O8H2djoxCOkzsR4ypvdn3PwmNjW7yBaKIzyA1JhYBT5JhQH
+ atdvQ0gUclZI1PECyNBcCBQrB7FM3UO/m8gc+fQ09O7+0zQj/bIPNKKw/gtxb0M6wLOd
+ e2ntyVrhLyCQdKfkzcxpGzMhZunlkHjBRba540/jUu1kAZEDgohbsptCDrZB0qO/2gBk
+ klQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4yt6viOrUaH2FeHBx2xYP5gcZdEk0jSFz9i/IICbsok=;
- b=BpsIHjCRT0wtFo4FkgNyDIXJM8/UEr04L1MW2Hcjhj9sLMoTCDu9B7Nr7dnKRJYCBf
- PhIDUXN4ikIav+zqVF3QWFWTOPMx4pzat/kXLVsCeRumuEYW/tUlVy4nEggMoGpQ+0xX
- Q+41zgZot3FFlyjdN89eb44jxlJa31v/ogMVGz0uqHJHi/pLcBQcX3GzjsgEiy96h+93
- rFn3k6ICVSCWovbJP/d/XUS0nkBuBYGW+zQ9Php7QzfszQevle8nbgFBCjWCOmrkIHUY
- O6wPeXFcUNgrxhF/XyMY0ABAeSBY7VIdhkf0biuJs1l535m5TC08X2ZtFO8F8ugnbAqx
- zPbQ==
-X-Gm-Message-State: AOAM532iT2dpEmN7xXNp/QaRYw+tOF5+bhsGL0sR9JT00s+yogKJPZei
- vIpluOkcytDNhHf1+kxUu0E+BBS9yMk=
-X-Google-Smtp-Source: ABdhPJxyeby4uOkCcaaqhGphji2p5JDc5lEE0PEUVsvBpe5X9Jm0jj1ZKYVfvk4xZwCBKEQwjocOig==
-X-Received: by 2002:ac8:5196:: with SMTP id c22mr24707521qtn.387.1606772964216; 
- Mon, 30 Nov 2020 13:49:24 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id o23sm2691131qkk.84.2020.11.30.13.49.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Nov 2020 13:49:23 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: enable AGP aperture on gmc10.x (v2)
-Date: Mon, 30 Nov 2020 16:49:16 -0500
-Message-Id: <20201130214916.3621-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=5jOvGDqYf8zwrULgytMiBGj6XTmbLQAdGK6UJTFHbSU=;
+ b=WMjMGcxgmUUNoko34Q6fiP21+CPo+SVkCjhjGFVn6NSAX15+FT4LYcjuusGh/V8cZb
+ tIz7yjsGnAXtD9lKYqdWkFxTDOt1pRtQWMg65XAnoB70fUgFbs7SrKApjoCf5NO3j1n9
+ Ap9A7Ui6ouo7wLU2AqJXeZYrsbe2fFVgdAIXo1N4CVyHT0stNLw8Vo3rOj2mTFg7jLQr
+ lyB1AZnHyal7+I/RhZhmx7K2Ljm2oAAzc5ildA34Ys0ShdT+ypO2aVx3NmX0OIDNWSgf
+ Ij/bfw8M0EjGoB+TrLSvP87ErZf32/IUrs9rFbvyyNOXEMjoxNcc9GFz9L38wp9GsPC3
+ YI0Q==
+X-Gm-Message-State: AOAM533oXUSsv1rDT/i0h71ib0qavA+AToCjMpLeAENkQteXeLynu42E
+ I8jv+D9JRRKZmU/amsGkqheQFuVj8mQsZDIzfto=
+X-Google-Smtp-Source: ABdhPJzdjixBlHwXzStQhUKKU6mUgnrY3S88+jIZBk29S2eq07JyrKnnbnUAJiA6e8+nCQCMloGuHeuHFCBlQgu31eE=
+X-Received: by 2002:a4a:3e91:: with SMTP id t139mr16906483oot.90.1606773897183; 
+ Mon, 30 Nov 2020 14:04:57 -0800 (PST)
 MIME-Version: 1.0
+References: <20201124193824.1118741-1-lee.jones@linaro.org>
+ <20201124193824.1118741-3-lee.jones@linaro.org>
+In-Reply-To: <20201124193824.1118741-3-lee.jones@linaro.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 30 Nov 2020 17:04:45 -0500
+Message-ID: <CADnq5_OURGRBDONuMy9Bee2Jo+e6pfCaKyk8z6Fn60F2PcF_Ag@mail.gmail.com>
+Subject: Re: [PATCH 02/40] drm/amd/amdgpu/gmc_v10_0: Suppy some missing
+ function doc descriptions
+To: Lee Jones <lee.jones@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,146 +76,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just a small optimization for accessing system pages directly.
-Was missed for gmc v10 since the feature landed for older gmcs
-while we were still on the emulator or gmc10 and we use the AGP
-aperture for zfb on the emulator.
-
-v2: fix up the system aperture as well
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 10 +++++-----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 10 +++++-----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   |  1 +
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 10 +++++-----
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c  |  8 ++++----
- 5 files changed, 20 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-index 456360bf58fa..2aecc6a243e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-@@ -153,16 +153,16 @@ static void gfxhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 	uint64_t value;
- 
- 	if (!amdgpu_sriov_vf(adev)) {
--		/* Disable AGP. */
-+		/* Program the AGP BAR */
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
--		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
--		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
-+		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+		WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 		/* Program the system aperture low logical page number. */
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
--			     adev->gmc.vram_start >> 18);
-+			     min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
- 		WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--			     adev->gmc.vram_end >> 18);
-+			     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 		/* Set default page address. */
- 		value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index 724bb29e9bb4..410fd3a1a388 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -152,16 +152,16 @@ static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)
- {
- 	uint64_t value;
- 
--	/* Disable AGP. */
-+	/* Program the AGP BAR */
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
--	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
--	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
-+	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 	/* Program the system aperture low logical page number. */
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
--		     adev->gmc.vram_start >> 18);
-+		     min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
- 	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--		     adev->gmc.vram_end >> 18);
-+		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 	/* Set default page address. */
- 	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 4f6e44e21691..518233d71e6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -738,6 +738,7 @@ static void gmc_v10_0_vram_gtt_location(struct amdgpu_device *adev,
- 
- 	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
- 	amdgpu_gmc_gart_location(adev, mc);
-+	amdgpu_gmc_agp_location(adev, mc);
- 
- 	/* base offset of vram pages */
- 	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index 4ac8ac0c56c8..57d5f8ffb764 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -195,17 +195,17 @@ static void mmhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 	uint64_t value;
- 	uint32_t tmp;
- 
--	/* Disable AGP. */
-+	/* Program the AGP BAR */
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, 0x00FFFFFF);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 	if (!amdgpu_sriov_vf(adev)) {
- 		/* Program the system aperture low logical page number. */
- 		WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
--			     adev->gmc.vram_start >> 18);
-+			     min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
- 		WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--			     adev->gmc.vram_end >> 18);
-+			     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 	}
- 
- 	/* Set default page address. */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-index 3a248c8cd0b9..fa77eae6cf47 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -152,14 +152,14 @@ static void mmhub_v2_3_init_system_aperture_regs(struct amdgpu_device *adev)
- 
- 	/* Disable AGP. */
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BASE, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, 0);
--	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, 0x00FFFFFF);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
- 
- 	/* Program the system aperture low logical page number. */
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
--		     adev->gmc.vram_start >> 18);
-+		     min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
- 	WREG32_SOC15(MMHUB, 0, mmMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--		     adev->gmc.vram_end >> 18);
-+		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
- 
- 	/* Set default page address. */
- 	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start +
--- 
-2.25.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBOb3YgMjQsIDIwMjAgYXQgMjo0NCBQTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
+cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
+YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jOjI3
+ODogd2FybmluZzogRnVuY3Rpb24gcGFyYW1ldGVyIG9yIG1lbWJlciAndm1odWInIG5vdCBkZXNj
+cmliZWQgaW4gJ2dtY192MTBfMF9mbHVzaF9ncHVfdGxiJwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nbWNfdjEwXzAuYzoyNzg6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBt
+ZW1iZXIgJ2ZsdXNoX3R5cGUnIG5vdCBkZXNjcmliZWQgaW4gJ2dtY192MTBfMF9mbHVzaF9ncHVf
+dGxiJwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYzozNzE6IHdhcm5p
+bmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBvciBtZW1iZXIgJ2ZsdXNoX3R5cGUnIG5vdCBkZXNjcmli
+ZWQgaW4gJ2dtY192MTBfMF9mbHVzaF9ncHVfdGxiX3Bhc2lkJwo+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nbWNfdjEwXzAuYzozNzE6IHdhcm5pbmc6IEZ1bmN0aW9uIHBhcmFtZXRlciBv
+ciBtZW1iZXIgJ2FsbF9odWInIG5vdCBkZXNjcmliZWQgaW4gJ2dtY192MTBfMF9mbHVzaF9ncHVf
+dGxiX3Bhc2lkJwo+Cj4gQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
+bT4KPiBDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4g
+Q2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KPiBDYzogRGFuaWVsIFZldHRlciA8
+ZGFuaWVsQGZmd2xsLmNoPgo+IENjOiBTdW1pdCBTZW13YWwgPHN1bWl0LnNlbXdhbEBsaW5hcm8u
+b3JnPgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBkcmktZGV2ZWxA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZwo+
+IENjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBMZWUg
+Sm9uZXMgPGxlZS5qb25lc0BsaW5hcm8ub3JnPgoKQXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCgo+
+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyB8IDQgKysrKwo+
+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nbWNfdjEwXzAuYwo+IGluZGV4IGQ5Mzk5MzI0YmU0NzQuLjQ4ODdiMGU2NmU5NzUgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYwo+IEBAIC0yNzAsNiArMjcw
+LDggQEAgc3RhdGljIHZvaWQgZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1YihzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwKPiAgICoKPiAgICogQGFkZXY6IGFtZGdwdV9kZXZp
+Y2UgcG9pbnRlcgo+ICAgKiBAdm1pZDogdm0gaW5zdGFuY2UgdG8gZmx1c2gKPiArICogQHZtaHVi
+OiB2bWh1YiB0eXBlCj4gKyAqIEBmbHVzaF90eXBlOiB0aGUgZmx1c2ggdHlwZQo+ICAgKgo+ICAg
+KiBGbHVzaCB0aGUgVExCIGZvciB0aGUgcmVxdWVzdGVkIHBhZ2UgdGFibGUuCj4gICAqLwo+IEBA
+IC0zNjIsNiArMzY0LDggQEAgc3RhdGljIHZvaWQgZ21jX3YxMF8wX2ZsdXNoX2dwdV90bGIoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQsCj4gICAqCj4gICAqIEBhZGV2
+OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIKPiAgICogQHBhc2lkOiBwYXNpZCB0byBiZSBmbHVzaAo+
+ICsgKiBAZmx1c2hfdHlwZTogdGhlIGZsdXNoIHR5cGUKPiArICogQGFsbF9odWI6IFVzZWQgd2l0
+aCBQQUNLRVQzX0lOVkFMSURBVEVfVExCU19BTExfSFVCKCkKPiAgICoKPiAgICogRmx1c2ggdGhl
+IFRMQiBmb3IgdGhlIHJlcXVlc3RlZCBwYXNpZC4KPiAgICovCj4gLS0KPiAyLjI1LjEKPgo+IF9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVs
+IG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
