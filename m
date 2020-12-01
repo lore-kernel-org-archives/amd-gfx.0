@@ -2,80 +2,69 @@ Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C1BEC64E7B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 12:07:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13381C64E7B
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 14:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C56B320770
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 12:07:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 893D520857
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 14:01:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mcq3x+UR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C56B320770
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZP5LL+gq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 893D520857
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5653E6E4F1;
-	Tue,  1 Dec 2020 12:07:01 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D860C6E4F1
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 12:07:00 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id d17so3585424ejy.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 04:07:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEA589AA2;
+	Tue,  1 Dec 2020 14:01:01 +0000 (UTC)
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D899F6E530;
+ Tue,  1 Dec 2020 14:01:00 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id k3so1677413otp.12;
+ Tue, 01 Dec 2020 06:01:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=2YhnYFJOOF4K2rE9B/PfUuIEd/cReVpu0OAx9dvER9Q=;
- b=mcq3x+URHeg1OcZuBzeCKYBZafSg1hqi1utCPIdaKBB+8gWwfdKOOBXUf3UuVZ292p
- FYmGPgJjooFftHe4M1nKv/jLRTUSd+AdykaVaASnD9RQJjoacz5S+UCELDWfnF0nwsj5
- NdPaOqcGHF4ucnhLMFvfL8TsJB0vHNGNh9Q0RRVQJIeOc0ishpMnt71dqgOqBNi7BLaW
- 8+9yrQpvP9JF7OYrsYrnib/+Xlymo37MCrS92SpXWvnO5q5Qygq0gmxRp8VQohVC9s7y
- ccTMtOHbFfHTEbDslKi7XDIc7RVMrf4LpxnpVNHw5n3SY3z2uXvylXu+Tw0GKTWq14s5
- 1HMQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=KKW3EOUonoHk4bmKwuL1uydL+Yh3MzQ7U0560ouys3s=;
+ b=ZP5LL+gqFwGVSjiJEWCGJpcE5N9QencikDl3FtJy626LsjuOehhztcP4aGZtTJJFm0
+ KbiS+F7/oFJutQdexf7unem5E7Jw3Cfbzq91dP72FLF5Fk2lWP5jKx+hjzDDUktyna8l
+ b9wsZAqq6uiMTDSf7vxuN3sxy6cLUBez117eH8kT0Q4HbhWPOCYiMHXKkq+fDv4BMN8M
+ RPkpvsSVjLl7DRUu0lbIsv7O5C5jU3B+jftk4B2ky0pLG68EeUTqK3oyWPGWrirhDX9D
+ dq8oXSbGaiJ9UiBgQTmTjuHXpjp1dqugBSrz/b3Io8VCFPfD+BLmy+ZoPHH7Og3YPRV6
+ Lkyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=2YhnYFJOOF4K2rE9B/PfUuIEd/cReVpu0OAx9dvER9Q=;
- b=GIflka9bncQkKVb8bZBDedma8iTfaYUF8N2uzK5PbmmgYo68mDCgqbKWc4jOzY7hJ7
- qr+ymNzShVNNOupP1MDcJCC4KmIwKXyzBYa7k9+pKqJMpBjKo4i6s8BZESKg4M9OXNkG
- 1QQeZ0AstLTpNI8BrKpa5BHGD3N4yKQdbtvb+kjkk4PRRwjs0xLamLpx+iKAE8Ux/n2v
- 9v5x9FkA+kCaBD32xpKRy7JqKDzo2+l0TmzKF7fIySVA3O1+YQAuG4Bv5DnSBL39BRI4
- kZ9Dc3ZQjXnVT39iwQgMs4rpHXqE19BKNTytKnkd7ObDsxvhyeHsKVUC2foi/PeQFY0v
- 2lZQ==
-X-Gm-Message-State: AOAM530/BgVgYGwX+0aS/I/ZqACgM5W+39rAmcar5WtgYnF/kLa23GK8
- cqYb8kyAgKQsx/J6Sf1r12Uuvkn2UgY=
-X-Google-Smtp-Source: ABdhPJxWPLi/thnqwXdry7fGlbkuGJXhI1tnJqBFD/qA8IXPby23I1LUJRaZm2JgRopOOB97scphRQ==
-X-Received: by 2002:a17:907:20a6:: with SMTP id
- pw6mr2716919ejb.73.1606824419291; 
- Tue, 01 Dec 2020 04:06:59 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id f24sm729976ejf.117.2020.12.01.04.06.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Dec 2020 04:06:58 -0800 (PST)
-Subject: Re: [amdgpu] Is it possible to disable page tables and use the
- physical address directly in amdgpu
-To: Smith John <ls.cat.kth@gmail.com>, christian.koenig@amd.com
-References: <CAGztBWUy6a8oB9PuF3YmqKN0DdqXixTmxThyK0+BwTMFWYtTww@mail.gmail.com>
- <ee60c997-1c5c-cda1-74da-ed40c3ce6dcf@gmail.com>
- <CAGztBWVOhbMnjo7vGmCAa6LPN0USK9GneWyw8LaDJPeeK_x66g@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <56567c1d-9d3e-39e1-ab47-ee0e9efa2749@gmail.com>
-Date: Tue, 1 Dec 2020 13:06:57 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=KKW3EOUonoHk4bmKwuL1uydL+Yh3MzQ7U0560ouys3s=;
+ b=b4NN4DHKGbxdj14pNt3sRSYNZdqOl5H5djpQb3UCfQeYe4uhh95Bw1JmArWpl/zzn+
+ VwEstGWPWcTmszCvY7wsMclAAb34jrWsRSxuE+pHM4mGtwx+2AS0iJf7Rq94k7stoHvm
+ jWmQhG/KocK5og9uFRLrkJLOog1UaAVJwpPwWLGG/ZhZZRSSplo0DFLUKtTTSnmeSfIi
+ E1w8y05qIn2AMfDDtJjyGQmuFPACYo+FK6O51WuLdr+Dhvr32xTM2cenIJ1za9pByvap
+ vauHfM+tZr1BcdC7yDj8CUxZ2lGi38h2Dj3JyTZZe6SflDjq34ivbAkhhvv+xcy82EnU
+ o8MA==
+X-Gm-Message-State: AOAM530WojQC9p2oPvn36UE4XbEq+4q0CFYxxW9ppC6xNasfk5G24gnU
+ JCuBW4KtPW9g+5oD386j3mqeY2/+MURMe1xuNCk=
+X-Google-Smtp-Source: ABdhPJyM2cWPlndVwe1fEAo//Tvbj+hC/zbtvm6PxxkdYuHnDDGP1BKbyzgcygvu1QAu5sADiA+8vC46eHwb0zQbgKQ=
+X-Received: by 2002:a9d:4713:: with SMTP id a19mr1911439otf.132.1606831258589; 
+ Tue, 01 Dec 2020 06:00:58 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAGztBWVOhbMnjo7vGmCAa6LPN0USK9GneWyw8LaDJPeeK_x66g@mail.gmail.com>
-Content-Language: en-US
+References: <20201126134240.3214176-1-lee.jones@linaro.org>
+ <20201126134240.3214176-32-lee.jones@linaro.org>
+In-Reply-To: <20201126134240.3214176-32-lee.jones@linaro.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Dec 2020 09:00:47 -0500
+Message-ID: <CADnq5_Piuz9Oua5FBeMGuMb98cwtf5+6WSqCPKi3UqkN+5Z=mw@mail.gmail.com>
+Subject: Re: [PATCH 31/40] drm/amd/pm/powerplay/kv_dpm: Remove unused variable
+ 'ret'
+To: Lee Jones <lee.jones@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,200 +76,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0785510178=="
+Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0785510178==
-Content-Type: multipart/alternative;
- boundary="------------F0BEBBC0F74AE58AE574C59C"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------F0BEBBC0F74AE58AE574C59C
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-The page tables can be enabled/disabled on a per VMID basis, but memory 
-management in the core kernel works with pages.
-
-So you need a relocation table just because of this. Additional to that 
-the TLB is more than big enough, so there isn't much performance gain if 
-you use huge pages.
-
-Please note that the VM subsystem also supports giant pages, so if your 
-application manages to allocate things in chunks of at least 1GB you 
-only get a single page table entry for that.
-
-Regards,
-Christian.
-
-Am 01.12.20 um 12:28 schrieb Smith John:
->  Hi Christian,
-> Thanks for your reply. I agree with you that the VMID0 is special and 
-> remapping is important. I was not sure if different VIMDs could have 
-> different settings, such as enable/disable page tables.
-> Or to put it another way, I was wondering if the hardware supports 
-> purely physical addressing like the real mode in CPUs, or page tables 
-> are essential for the hardware.
-> More specifically, assuming it supports "real mode", to copy things 
-> from A to B, one could allocate rings which are accessible by MMIO and 
-> fill sdma packets using physical address to transfer data.
->
-> Regards,
-> Smith
->
-> Christian König <ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>> 于2020年12月1日周二 
-> 下午5:50写道：
->
->     Am 01.12.20 um 07:58 schrieb Smith John:
->>     Hello!
->>     I was trying to figure out the impact of gpu page tables on
->>     applications' performance. I noticed that there are 16 vmids
->>     supported by the hardware /Vega 10/. Is it possible to use
->>     physical address directly in some vmids, or use physical address
->>     globally?
->
->     No. VMID0 is used by the kernel for jobs like copying things from
->     A to B and even there we use the VM remapping functionality.
->
->     Regards,
->     Christian.
->
->>
->>
->>     _______________________________________________
->>     amd-gfx mailing list
->>     amd-gfx@lists.freedesktop.org  <mailto:amd-gfx@lists.freedesktop.org>
->>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------F0BEBBC0F74AE58AE574C59C
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">The page tables can be enabled/disabled
-      on a per VMID basis, but memory management in the core kernel
-      works with pages.<br>
-      <br>
-      So you need a relocation table just because of this. Additional to
-      that the TLB is more than big enough, so there isn't much
-      performance gain if you use huge pages.<br>
-      <br>
-      Please note that the VM subsystem also supports giant pages, so if
-      your application manages to allocate things in chunks of at least
-      1GB you only get a single page table entry for that.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 01.12.20 um 12:28 schrieb Smith John:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAGztBWVOhbMnjo7vGmCAa6LPN0USK9GneWyw8LaDJPeeK_x66g@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr"> Hi Christian,
-        <div>Thanks for your reply. I agree with you that the VMID0 is
-          special and remapping is important. I was not sure if
-          different VIMDs could have different settings, such as
-          enable/disable page tables. </div>
-        <div>Or to put it another way, I was wondering if the hardware
-          supports purely physical addressing like the real mode in
-          CPUs, or page tables are essential for the hardware.</div>
-        <div>More specifically, assuming it supports "real mode", to
-          copy things from A to B, one could allocate rings which are
-          accessible by MMIO and fill sdma packets using physical
-          address to transfer data.</div>
-        <div><br>
-        </div>
-        <div>Regards,</div>
-        <div>Smith</div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">Christian König &lt;<a
-            href="mailto:ckoenig.leichtzumerken@gmail.com"
-            moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;
-          于2020年12月1日周二 下午5:50写道：<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div>
-            <div>Am 01.12.20 um 07:58 schrieb Smith John:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="ltr">Hello!
-                <div>I was trying to figure out the impact of gpu page
-                  tables on applications' performance. I noticed that
-                  there are 16 vmids supported by the hardware <i>Vega
-                    10</i>. Is it possible to use physical address
-                  directly in some vmids, or use physical address
-                  globally?</div>
-              </div>
-            </blockquote>
-            <br>
-            No. VMID0 is used by the kernel for jobs like copying things
-            from A to B and even there we use the VM remapping
-            functionality.<br>
-            <br>
-            Regards,<br>
-            Christian.<br>
-            <br>
-            <blockquote type="cite">
-              <div dir="ltr">
-                <div><br>
-                </div>
-              </div>
-              <br>
-              <fieldset></fieldset>
-              <pre>_______________________________________________
-amd-gfx mailing list
-<a href="mailto:amd-gfx@lists.freedesktop.org" target="_blank" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------F0BEBBC0F74AE58AE574C59C--
-
---===============0785510178==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0785510178==--
+T24gVGh1LCBOb3YgMjYsIDIwMjAgYXQgODo0MyBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
+cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
+YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3BtL3Bvd2VycGxh
+eS9rdl9kcG0uYzogSW4gZnVuY3Rpb24g4oCYa3ZfZHBtX3Bvd2VyZ2F0ZV91dmTigJk6Cj4gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3BtL3Bvd2VycGxheS9rdl9kcG0uYzoxNjc4OjY6
+IHdhcm5pbmc6IHZhcmlhYmxlIOKAmHJldOKAmSBzZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1i
+dXQtc2V0LXZhcmlhYmxlXQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9wbS9wb3dl
+cnBsYXkva3ZfZHBtLmM6IEluIGZ1bmN0aW9uIOKAmGt2X2RwbV9wb3dlcmdhdGVfdmNl4oCZOgo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9wbS9wb3dlcnBsYXkva3ZfZHBtLmM6MTcw
+Njo2OiB3YXJuaW5nOiB2YXJpYWJsZSDigJhyZXTigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVz
+ZWQtYnV0LXNldC12YXJpYWJsZV0KPgo+IENjOiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29t
+Pgo+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6ICJD
+aHJpc3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBEYXZpZCBB
+aXJsaWUgPGFpcmxpZWRAbGludXguaWU+Cj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
+bC5jaD4KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogZHJpLWRldmVs
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IFNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpv
+bmVzQGxpbmFyby5vcmc+CgpBcHBsaWVkLiAgVGhhbmtzIQoKQWxleAoKCj4gLS0tCj4gIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2t2X2RwbS5jIHwgMTggKysrKysrKystLS0tLS0t
+LS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2t2X2RwbS5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9wb3dlcnBsYXkva3ZfZHBtLmMKPiBpbmRleCA0YjNm
+YWFjY2VjYjk0Li42NmRhYWJlYmVlMzU4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG0vcG93ZXJwbGF5L2t2X2RwbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9w
+b3dlcnBsYXkva3ZfZHBtLmMKPiBAQCAtMTY3NSwxNCArMTY3NSwxMyBAQCBzdGF0aWMgdm9pZCBr
+dl9kcG1fcG93ZXJnYXRlX3V2ZCh2b2lkICpoYW5kbGUsIGJvb2wgZ2F0ZSkKPiAgewo+ICAgICAg
+ICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKilo
+YW5kbGU7Cj4gICAgICAgICBzdHJ1Y3Qga3ZfcG93ZXJfaW5mbyAqcGkgPSBrdl9nZXRfcGkoYWRl
+dik7Cj4gLSAgICAgICBpbnQgcmV0Owo+Cj4gICAgICAgICBwaS0+dXZkX3Bvd2VyX2dhdGVkID0g
+Z2F0ZTsKPgo+ICAgICAgICAgaWYgKGdhdGUpIHsKPiAgICAgICAgICAgICAgICAgLyogc3RvcCB0
+aGUgVVZEIGJsb2NrICovCj4gLSAgICAgICAgICAgICAgIHJldCA9IGFtZGdwdV9kZXZpY2VfaXBf
+c2V0X3Bvd2VyZ2F0aW5nX3N0YXRlKGFkZXYsIEFNRF9JUF9CTE9DS19UWVBFX1VWRCwKPiAtICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+QU1EX1BHX1NUQVRFX0dBVEUpOwo+ICsgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX3Nl
+dF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LCBBTURfSVBfQkxPQ0tfVFlQRV9VVkQsCj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFNRF9QR19T
+VEFURV9HQVRFKTsKPiAgICAgICAgICAgICAgICAga3ZfdXBkYXRlX3V2ZF9kcG0oYWRldiwgZ2F0
+ZSk7Cj4gICAgICAgICAgICAgICAgIGlmIChwaS0+Y2Fwc191dmRfcGcpCj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgLyogcG93ZXIgb2ZmIHRoZSBVVkQgYmxvY2sgKi8KPiBAQCAtMTY5NCw4ICsx
+NjkzLDggQEAgc3RhdGljIHZvaWQga3ZfZHBtX3Bvd2VyZ2F0ZV91dmQodm9pZCAqaGFuZGxlLCBi
+b29sIGdhdGUpCj4gICAgICAgICAgICAgICAgICAgICAgICAgLyogcmUtaW5pdCB0aGUgVVZEIGJs
+b2NrICovCj4gICAgICAgICAgICAgICAgIGt2X3VwZGF0ZV91dmRfZHBtKGFkZXYsIGdhdGUpOwo+
+Cj4gLSAgICAgICAgICAgICAgIHJldCA9IGFtZGdwdV9kZXZpY2VfaXBfc2V0X3Bvd2VyZ2F0aW5n
+X3N0YXRlKGFkZXYsIEFNRF9JUF9CTE9DS19UWVBFX1VWRCwKPiAtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1EX1BHX1NUQVRFX1VO
+R0FURSk7Cj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9kZXZpY2VfaXBfc2V0X3Bvd2VyZ2F0aW5n
+X3N0YXRlKGFkZXYsIEFNRF9JUF9CTE9DS19UWVBFX1VWRCwKPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1EX1BHX1NUQVRFX1VOR0FURSk7
+Cj4gICAgICAgICB9Cj4gIH0KPgo+IEBAIC0xNzAzLDE0ICsxNzAyLDEzIEBAIHN0YXRpYyB2b2lk
+IGt2X2RwbV9wb3dlcmdhdGVfdmNlKHZvaWQgKmhhbmRsZSwgYm9vbCBnYXRlKQo+ICB7Cj4gICAg
+ICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+KWhhbmRsZTsKPiAgICAgICAgIHN0cnVjdCBrdl9wb3dlcl9pbmZvICpwaSA9IGt2X2dldF9waShh
+ZGV2KTsKPiAtICAgICAgIGludCByZXQ7Cj4KPiAgICAgICAgIHBpLT52Y2VfcG93ZXJfZ2F0ZWQg
+PSBnYXRlOwo+Cj4gICAgICAgICBpZiAoZ2F0ZSkgewo+ICAgICAgICAgICAgICAgICAvKiBzdG9w
+IHRoZSBWQ0UgYmxvY2sgKi8KPiAtICAgICAgICAgICAgICAgcmV0ID0gYW1kZ3B1X2RldmljZV9p
+cF9zZXRfcG93ZXJnYXRpbmdfc3RhdGUoYWRldiwgQU1EX0lQX0JMT0NLX1RZUEVfVkNFLAo+IC0g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBBTURfUEdfU1RBVEVfR0FURSk7Cj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9kZXZpY2VfaXBf
+c2V0X3Bvd2VyZ2F0aW5nX3N0YXRlKGFkZXYsIEFNRF9JUF9CTE9DS19UWVBFX1ZDRSwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1EX1BH
+X1NUQVRFX0dBVEUpOwo+ICAgICAgICAgICAgICAgICBrdl9lbmFibGVfdmNlX2RwbShhZGV2LCBm
+YWxzZSk7Cj4gICAgICAgICAgICAgICAgIGlmIChwaS0+Y2Fwc192Y2VfcGcpIC8qIHBvd2VyIG9m
+ZiB0aGUgVkNFIGJsb2NrICovCj4gICAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2t2X25v
+dGlmeV9tZXNzYWdlX3RvX3NtdShhZGV2LCBQUFNNQ19NU0dfVkNFUG93ZXJPRkYpOwo+IEBAIC0x
+NzE5LDggKzE3MTcsOCBAQCBzdGF0aWMgdm9pZCBrdl9kcG1fcG93ZXJnYXRlX3ZjZSh2b2lkICpo
+YW5kbGUsIGJvb2wgZ2F0ZSkKPiAgICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfa3Zfbm90
+aWZ5X21lc3NhZ2VfdG9fc211KGFkZXYsIFBQU01DX01TR19WQ0VQb3dlck9OKTsKPiAgICAgICAg
+ICAgICAgICAga3ZfZW5hYmxlX3ZjZV9kcG0oYWRldiwgdHJ1ZSk7Cj4gICAgICAgICAgICAgICAg
+IC8qIHJlLWluaXQgdGhlIFZDRSBibG9jayAqLwo+IC0gICAgICAgICAgICAgICByZXQgPSBhbWRn
+cHVfZGV2aWNlX2lwX3NldF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LCBBTURfSVBfQkxPQ0tfVFlQ
+RV9WQ0UsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIEFNRF9QR19TVEFURV9VTkdBVEUpOwo+ICsgICAgICAgICAgICAgICBhbWRn
+cHVfZGV2aWNlX2lwX3NldF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LCBBTURfSVBfQkxPQ0tfVFlQ
+RV9WQ0UsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIEFNRF9QR19TVEFURV9VTkdBVEUpOwo+ICAgICAgICAgfQo+ICB9Cj4KPiAtLQo+IDIu
+MjUuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+PiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
+dmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
