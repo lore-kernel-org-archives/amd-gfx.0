@@ -8,63 +8,61 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FB70C64E7A
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:50:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80C71C64E7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C557720C56
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 22:50:01 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XEAdhvBx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C557720C56
+	by mail.kernel.org (Postfix) with ESMTPS id 0C61A2220B
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 23:18:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C61A2220B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FD3489D67;
-	Tue,  1 Dec 2020 22:50:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F1A6E95B;
+	Tue,  1 Dec 2020 23:18:28 +0000 (UTC)
 Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
  [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150C089D5B
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 22:50:00 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id 62so1696479qva.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 14:50:00 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C1B6E95B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 23:18:26 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id g19so1749428qvy.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 15:18:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=S46FJ87PQSBS+x1sijq7yOWo36eu6fT9SJqtRVPLzlw=;
- b=XEAdhvBx/6l82SDWk4SQfDOz4DPpq1tc16AeqtG6nXB1VC7uiJm+p+99P6UOsEMe4p
- O8OVhyFsZ8isysdmOFsPfq24dN0qOZRUwZFqcxvpOMJCP4a2goNAtDRh/qHgRV88U8AA
- K5NbzKDgCdgdglJ5BCXKscuA8UsBOtzLGllHQ8AgrX8GvKW6hsKAQOZ6lEXojm48XKvp
- 38wzDyPRLOi1M2xsEoif/zvWY09vvJT80LH6ymLiHI/2mqkeClsY8HogMk77EG9bw2fv
- NnB+duVdOtMQKWvJUC87fg/2a+IIWO89f3DmSYwKxhTMWR2Yw9+nDseNDKbDlcbcSv3Z
- 0Rxg==
+ bh=3wusBcuO1U06z/NLsWyzhnZ7xcnSlKl2NpO5jPeJs/Q=;
+ b=Ce64qVzJgrBbWmOSovBrZx2bnn7h8zKe1+7vnRao0/ivvqc8arCtb2OfLYo7cQImkW
+ T0j5glm4Egn6ewJ7ymm+LoTLXn58JTyQJ7wXn/tKQlhq4gQ9z1TP9Sxfp0eDVX/2W+Lb
+ VFXSgMsK5gQ55kHRaNBEuBQuRAEGeNeH2asIqlNVdfsajnwQRZ6WEzf8fsQM/MH7fwtJ
+ 6yOEyTT+u0XH4N/HocrWEKPZ+PszB35kVrU/IKf5zmgz869jZvYAxsrJ+FDw0whPS/4Q
+ FUPZUyVCZNZ3zj6eqG5vS5UJ1IEEO9jxFbWAW6/DOjjPr7nbyj21spncF9Kr9hyvmFwz
+ DbDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=S46FJ87PQSBS+x1sijq7yOWo36eu6fT9SJqtRVPLzlw=;
- b=L8UXNgFmetz3uohCTtPdzh2wUqiwjvkdZHaWB3ewPUueKhhjWwQ+HmDjZDdYh9YpqA
- JrqYBwSI7qnSVFo/Hz1gLu8nSEkY6N27pnSKJoKCwUJBFXzWx5ByFlRsnkn0+qRVFCLr
- Tedup1fwdNH7Uez2aqlIXO6LZ3SMeDbeiq4s/V0ZkMV4ErbCOn8U8zQP6Vp17YIyOC/W
- fPh/I/50/Nmdo5fbX/DHg0+fwgMUk9L4C2K91mAkBi7gszqfBQ3BihJKZF2eKd8RWdpz
- zDVW3PGoC70L89RPztAu69GWDS4IWk+PYKrT00meiT800hD+vvxX+cGL4FeiNniJR1/q
- DiRQ==
-X-Gm-Message-State: AOAM533Kf3O31V6mSH+sz+MqQw6eSxiENrG4jsEYykLUkl14tc+B3SrK
- lGIPS1hAsgI8feD/XpoXa3sAxfnzPOs=
-X-Google-Smtp-Source: ABdhPJySLtuHGXRgMuK+p78PGoAMENYKwhglxn0Cdq+FtmVD5XfwDk0czHq/jRL90FBfss57iFQS6g==
-X-Received: by 2002:a0c:8149:: with SMTP id 67mr5739835qvc.52.1606862999050;
- Tue, 01 Dec 2020 14:49:59 -0800 (PST)
+ bh=3wusBcuO1U06z/NLsWyzhnZ7xcnSlKl2NpO5jPeJs/Q=;
+ b=ZkJWcW7huLiAy21AKqjpRFzBCzEHGwlTdS/ahyRliIKqRS0cMHPKK0Kro4gWjSlhrC
+ SPEPFfqPfdJEAGrmiF2gYO/THAAjZB/DXEsZz7JvDlf/hk9PLJj48kYCAs7PqxBmYNj0
+ LrdLzX+CoiSDsXS7gQ0h/v2WhEVo3OxNl/th25XhlW51H2b/vbcstEKQ+JB+1bPw1xRM
+ /Ei9dO/H3Cj52f9IUIrf1R8ooMkpXdBFGG3suhEgVevmlSj0v66H4byDTbzPO2XTfgrB
+ mEYZZb/FFZimTPCyRuf+7Iz4Ispp4Tnysl+QT4+OwR0Anddw8325wYt2+XjVUCX7LXsI
+ jJxg==
+X-Gm-Message-State: AOAM532AaGD1XqpWmjzEjNd1/JSgbQ/pe7uD4LglROIhboVWuNkjHlkZ
+ mvJEw7kWAF4fIdc6xguqcw8sN+gS880=
+X-Google-Smtp-Source: ABdhPJwKkh/V2Pm+J00n25z2A88wqBK5XIdBqDWjoPOqHr2HjqGBtUuBohoFKlROghDvh7V6qdnD/g==
+X-Received: by 2002:ad4:4b01:: with SMTP id r1mr5557276qvw.51.1606864705874;
+ Tue, 01 Dec 2020 15:18:25 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id k46sm1192268qtb.93.2020.12.01.14.49.58
+ by smtp.gmail.com with ESMTPSA id r8sm1294615qtj.94.2020.12.01.15.18.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Dec 2020 14:49:58 -0800 (PST)
+ Tue, 01 Dec 2020 15:18:25 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/powerplay: set the smu fan control cap for CI asics
-Date: Tue,  1 Dec 2020 17:49:43 -0500
-Message-Id: <20201201224943.1200069-1-alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu/sdma5.0: enable ctxempty interrupt
+Date: Tue,  1 Dec 2020 18:18:15 -0500
+Message-Id: <20201201231816.1241159-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,25 +82,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The default should be to enable it, and then it could be cleared
-depending on the board design.
+This is may be required for proper gfxoff operation with
+SDMA workloads.
 
-Bug: https://bugzilla.kernel.org/show_bug.cgi?id=201539
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-index 48d550d26c6a..f116346525df 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-@@ -1006,6 +1006,9 @@ static int init_thermal_controller(
- 
- 	hwmgr->thermal_controller.use_hw_fan_control = 1;
- 
-+	phm_cap_set(hwmgr->platform_descriptor.platformCaps,
-+		    PHM_PlatformCaps_MicrocodeFanControl);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index b208b81005bb..2699b8ea82ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -810,6 +810,15 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
+  */
+ static int sdma_v5_0_rlc_resume(struct amdgpu_device *adev)
+ {
++	int i;
++	u32 sdma_cntl;
++
++	for (i = 0; i < adev->sdma.num_instances; i++) {
++		sdma_cntl = RREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL));
++		sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, CTXEMPTY_INT_ENABLE, 1);
++		WREG32(sdma_v5_0_get_reg_offset(adev, i, mmSDMA0_CNTL), sdma_cntl);
++	}
 +
  	return 0;
  }
