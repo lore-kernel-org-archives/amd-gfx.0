@@ -1,64 +1,52 @@
 Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8704BC64E7A
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 06:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EED1C64E7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 08:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F085B206CB
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 06:58:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A36C92087C
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 08:21:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="soRS4EMo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F085B206CB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="0ugfFVtm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A36C92087C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD0AD6E483;
-	Tue,  1 Dec 2020 06:58:17 +0000 (UTC)
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5576E483
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 06:58:16 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id y11so352090qvu.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 22:58:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=18uclYmC3tpEH/byXYroqurkoV+qBCTYMVcCBZTFKJU=;
- b=soRS4EMothi1Pxzzy01GSnJljzv6reK4QoNw9LDfXJo+0BSBQrhxav7ZGDFCnRx2N3
- C7CQwbaFsyeIABlAIOlxCW7fmehLlc4hFqM5+0j8XuVJPt8WrKIMrpG5c7C53vSA1NIi
- wUuKNQzS+YfWhiN3ZFT5xHnXsg550LMIn8ePmJLyjoSwqM7/jy/2L/Cgb4/YHU9cW2X6
- 54D3CPDcnTHWdtpL2WMmqaL2v886CQX/WEkGvRJa0fhZsvl+gf/PqDchwzPaqtGncT1+
- Qlszqym/91cIYtCN6TPMNGlpoGN/ACU7ixVbnRINAgE/Tkj4qtJVoyNSVZ89eBALSvJe
- xh+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=18uclYmC3tpEH/byXYroqurkoV+qBCTYMVcCBZTFKJU=;
- b=Dzgph0st+fDCqC/ZvrvEXlBLosBkWGAL3KJk/++cCY2fUuAwIFrUCcq/RisZCiF6dw
- O97k0AHY+LlZhKjiQ2nrAi8lhsgDWed/MMj63K6FOawhwRLURrp3DB0Ixon3/q4qYMBE
- TbPy8YOdvpoUqXNggembbw3Ra0RSTtSE08TK/xT53u3s2Nu50bEmKqXCGMwLnu0bGSD3
- ZIWm6k3dbruZuAwtgnr5kYbSubLT+FY8i3kWW8Spt75MCZh6hT9zwVa7znDiNPC1xB9X
- tfoh3mVtwrgQ3Qqoi2kKwcsqK8CqA5+HbVbORbEqpza5WKKw+MSvfwSM5sJ4w+2mdpNM
- Eavg==
-X-Gm-Message-State: AOAM5329eNOBhVc0cC2z1naComgTsFVxDLWnZ6xhP80oQTSGWBA6t9Z2
- A31JFzuu6qGXYii/exV8PFryBGaAO72JTJdfi8QrudfK
-X-Google-Smtp-Source: ABdhPJwFSZ0fwMngK1Idd54CvSC6KcGj4IlPDfS6LIE+zhNi7nzGTnDIkrkoUAVFVEfgsvmAiJR7Cy+QpXgou4WH0NE=
-X-Received: by 2002:ad4:44ef:: with SMTP id p15mr1661739qvt.37.1606805895554; 
- Mon, 30 Nov 2020 22:58:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3829A6E4AF;
+	Tue,  1 Dec 2020 08:21:26 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A8F86E4AF;
+ Tue,  1 Dec 2020 08:21:24 +0000 (UTC)
+Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 94ECB20659;
+ Tue,  1 Dec 2020 08:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1606810884;
+ bh=xHTFstOj6O/KMLPWIJ9livXkeh5E3cNJZoMEX1ICbl0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=0ugfFVtmDEFz3qweRxNJGIbdlhHbJEbe+SPrGbc9I44gM+O6I2rVgrcZagGiPQlJe
+ qDa/e9cJY/n7rREFFqWQI6CYR7sTmaWJfiub5J4ReXH3L76qQfPF0XWoTZ+/KCqBa1
+ 43uSa/AsDxhQJOFTJrlenu8ULt+S2HlexiyIiZjk=
+Date: Tue, 1 Dec 2020 02:20:47 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+Message-ID: <20201201082047.GA11832@embeddedor>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
 MIME-Version: 1.0
-From: Smith John <ls.cat.kth@gmail.com>
-Date: Tue, 1 Dec 2020 14:58:04 +0800
-Message-ID: <CAGztBWUy6a8oB9PuF3YmqKN0DdqXixTmxThyK0+BwTMFWYtTww@mail.gmail.com>
-Subject: [amdgpu] Is it possible to disable page tables and use the physical
- address directly in amdgpu
-To: amd-gfx@lists.freedesktop.org
+Content-Disposition: inline
+In-Reply-To: <yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,43 +58,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0004101497=="
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+ reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
+ dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ usb-storage@lists.one-eyed-alien.net, target-devel@vger.kernel.org,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+ linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ linux-acpi@vger.kernel.org, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
+ linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ x86@kernel.org, linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+ Kees Cook <keescook@chromium.org>, linux-mm@kvack.org, netdev@vger.kernel.org,
+ linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0004101497==
-Content-Type: multipart/alternative; boundary="000000000000a0a89f05b561a693"
+On Tue, Dec 01, 2020 at 12:52:27AM -0500, Martin K. Petersen wrote:
+> 
+> Gustavo,
+> 
+> > This series aims to fix almost all remaining fall-through warnings in
+> > order to enable -Wimplicit-fallthrough for Clang.
+> 
+> Applied 20-22,54,120-124 to 5.11/scsi-staging, thanks.
 
---000000000000a0a89f05b561a693
-Content-Type: text/plain; charset="UTF-8"
+Awesome! :)
 
-Hello!
-I was trying to figure out the impact of gpu page tables on applications'
-performance. I noticed that there are 16 vmids supported by the hardware *Vega
-10*. Is it possible to use physical address directly in some vmids, or use
-physical address globally?
-
---000000000000a0a89f05b561a693
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello!<div>I was trying to figure out the impact of gpu pa=
-ge tables on applications&#39; performance. I noticed that there are 16 vmi=
-ds supported by the hardware <i>Vega 10</i>. Is it possible to use physical=
- address directly in some vmids, or use physical address globally?</div><di=
-v><br></div></div>
-
---000000000000a0a89f05b561a693--
-
---===============0004101497==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks, Martin.
+--
+Gustavo
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0004101497==--
