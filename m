@@ -2,69 +2,71 @@ Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4241C64E7A
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:42:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF31BC71155
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 737382151B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:42:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 66577208FE
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:43:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aBc33o0o"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 737382151B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vw5dblHu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 66577208FE
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BADD56E554;
-	Tue,  1 Dec 2020 18:42:13 +0000 (UTC)
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9EC6E554;
- Tue,  1 Dec 2020 18:42:12 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id f16so2627596otl.11;
- Tue, 01 Dec 2020 10:42:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEDF96E554;
+	Tue,  1 Dec 2020 18:43:28 +0000 (UTC)
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B371C6E554
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 18:43:27 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id q7so1311476qvt.12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 10:43:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=o8Yrz8jCTUvvNG9mLNTC9WmXE/KF1ZhcQr5AMsMwdps=;
- b=aBc33o0oe6NaVoE/E0JyZA7eVWqUew8ia3eAKpGwlmDiwdUYJDm8cxS2c2uGK3EZp6
- b8opUjYb0qH9xuqBwr1igXhJU6p+DIbW4p/j4eGebWV1Kp6N1fLXUxHBIiwkneuyv2oe
- XcU3MyRz+AdoR2sN0xm2TJB8eB9lPJ21weIMS0CmTrp1vw9hSxA5c6WAhKMGcFCJZh+A
- GgG8B774p7Ifu380VV//5y1hFe431rFjfmCTca71QpYSM6eYiHbksMXrXKg6d0ZmqPZh
- sc9U8ZtXlxZVkBY5v/Jq9Bpem2xp3QV5mgoUWF0j2cshMlRPJp1gaGayxrI16fn9OcGo
- 4CZg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MGsEE990//NPb3nEy+fg/O5WPnk7IaSheQFL3hJE4Tg=;
+ b=Vw5dblHuwMNMJ6tRvx+hHlvUqcWEk0Qlz9+Qxr6wwqFyb9Sw+5gUHoWRmNnoJ4mP2k
+ bB5kmybPOjbiyGoQ9/15elTcryPatEF1lsXiKOy5Fxt6bBJI+SZowsCiBboEqcu4dbMj
+ QaN3OUn22CDCbGrosgInHxLdltbOHPRGNwOGCXTsJADpaZQzjn7cohL26KafrV6pUY1C
+ A2802WhDepanNrRsbDnrPzJIGSv04ISVENEjfCVxLuvvMySqK/Tz8Jso9pUGU7huCWnf
+ m4r6Y/LJAOW2jgMYmGQYoGcJjJiQbeoMmYZfs2VrTrESuR504SbdeSDchO4XBtxG6hA2
+ Aqkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=o8Yrz8jCTUvvNG9mLNTC9WmXE/KF1ZhcQr5AMsMwdps=;
- b=bJsrXMnLRvuAFB7/6rNX2SZGd/ekjvza5jZWeeU+WovacTbEf6cCedcjm/NnQGCFKO
- rTgoi2yk8rf2o7sx36JXNtQFfcYA7whNUSvpN0HCwl6OfpugdrzpiEzBhAEs6g6X77QF
- 9kiOR0CfAnrNb7mNPWUJ8T+KUunIzkNoMBk0eLiSNHZCWtx629eu0mYlMLGMubACv3qO
- fcIqTh1FT8E5FktwIWXovpVzP7gXAZQNmFD/ad7OAds+0IH739p1OyEgp8YPZYu5cDPP
- 6wnjyAX3ogYncCWtkCow5M3N+HlHaI4Xvb/bwBNOw9h4VNInaL4vN9LWfSL/0At1c5HM
- svkA==
-X-Gm-Message-State: AOAM531lq7ITzDJWPISFj0OBc3leE3iD+pOKxJmgQf8Fc4GRBV4xbKEv
- om5DBl7OY4VB1XQF0rWoacRm/dcy5cKJug4a+zI=
-X-Google-Smtp-Source: ABdhPJwPAdvf76C34gbDWPn0PpvAj/ob9qqS7TppUse2a8h8fydpmpIQPA9Da8aID2PSj86TD3qS8t2bQYY1iYisJic=
-X-Received: by 2002:a9d:5388:: with SMTP id w8mr2866367otg.311.1606848131784; 
- Tue, 01 Dec 2020 10:42:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20201126134240.3214176-1-lee.jones@linaro.org>
- <20201126134240.3214176-35-lee.jones@linaro.org>
-In-Reply-To: <20201126134240.3214176-35-lee.jones@linaro.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MGsEE990//NPb3nEy+fg/O5WPnk7IaSheQFL3hJE4Tg=;
+ b=bO4APSYWKMZ94j8INYQeQSBzSYbO3FvczK2rFtt00+NWsnnUX0xcuinB9LD/jJZRCi
+ No+z3mmGm7LCLD77NLUEprRdj91kYLlGahOEGk5uHi93kwtUcclptfd1qNqOlJhDJRPZ
+ uwvwam0s59irO3bLA1+1fViKPv1hqeLYAqxj3aGPBx65MmeW3kTYxRB4i70F3mYX6QgG
+ +U8BwmIIf7VrgTwg6GMUnwAkco5t+MBFOpRHKJk5HqPF1q8gQcL57+JvRCeRuGzkJCPx
+ 7TwHZVYugYgega5BIvEBD3xoxS9fNNHqjTcktnQ1Eswud8qbSejTwVp+wzEGChGOYqhy
+ iosQ==
+X-Gm-Message-State: AOAM533dtJ+Hxm90sgYDvNG1UYT1oviQBfFyO2Vb/9GVoTq71xV7dGVl
+ vfAneW+TcFB7//ouS39qNnJ7EwcRMU4=
+X-Google-Smtp-Source: ABdhPJx8jIsT+lVnAGt6DtqL6emEvy/7otjFZP5PyBbif9mPKETQfkDNXETWHQCYhITLrkfw1058ww==
+X-Received: by 2002:ad4:4052:: with SMTP id r18mr4323047qvp.38.1606848206587; 
+ Tue, 01 Dec 2020 10:43:26 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.5])
+ by smtp.gmail.com with ESMTPSA id e10sm421392qte.48.2020.12.01.10.43.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Dec 2020 10:43:26 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 1 Dec 2020 13:42:00 -0500
-Message-ID: <CADnq5_On90z1w=_usmjA7kHFVig3uHg4VJRecDraYZv8cmRAUQ@mail.gmail.com>
-Subject: Re: [PATCH 34/40] drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Use
- 'gnu_printf' format notation
-To: Lee Jones <lee.jones@linaro.org>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/3] drm/amdgpu/swsmu/navi1x: simplify sensor handling
+Date: Tue,  1 Dec 2020 13:43:18 -0500
+Message-Id: <20201201184320.686358-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,51 +78,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCBOb3YgMjYsIDIwMjAgYXQgODo0NCBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
-YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmM6IEluIGZ1bmN0aW9uIOKAmGRtX2R0bl9sb2dfYXBw
-ZW5kX3bigJk6Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1
-X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmM6MzQ1OjI6IHdhcm5pbmc6IGZ1bmN0aW9uIOKAmGRtX2R0
-bl9sb2dfYXBwZW5kX3bigJkgbWlnaHQgYmUgYSBjYW5kaWRhdGUgZm9yIOKAmGdudV9wcmludGbi
-gJkgZm9ybWF0IGF0dHJpYnV0ZSBbLVdzdWdnZXN0LWF0dHJpYnV0ZT1mb3JtYXRdCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZWxw
-ZXJzLmM6Mzc1OjM6IHdhcm5pbmc6IGZ1bmN0aW9uIOKAmGRtX2R0bl9sb2dfYXBwZW5kX3bigJkg
-bWlnaHQgYmUgYSBjYW5kaWRhdGUgZm9yIOKAmGdudV9wcmludGbigJkgZm9ybWF0IGF0dHJpYnV0
-ZSBbLVdzdWdnZXN0LWF0dHJpYnV0ZT1mb3JtYXRdCj4KPiBDYzogSGFycnkgV2VudGxhbmQgPGhh
-cnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gQ2M6IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPgo+
-IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6ICJDaHJp
-c3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBEYXZpZCBBaXJs
-aWUgPGFpcmxpZWRAbGludXguaWU+Cj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5j
-aD4KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogZHJpLWRldmVsQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IFNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVz
-QGxpbmFyby5vcmc+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYyB8IDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
-X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMKPiBpbmRleCBiN2Q3ZWMzYmEwMGQ3Li4yNGE4MTY0
-MmJhYTI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYwo+IEBAIC0zMTgsNiArMzE4LDcgQEAgdm9p
-ZCBkbV9kdG5fbG9nX2JlZ2luKHN0cnVjdCBkY19jb250ZXh0ICpjdHgsCj4gICAgICAgICBkbV9k
-dG5fbG9nX2FwcGVuZF92KGN0eCwgbG9nX2N0eCwgIiVzIiwgbXNnKTsKPiAgfQo+Cj4gK19fcHJp
-bnRmKDMsIDQpCgpDYW4geW91IGV4cGFuZCBhIGJpdCBvbiB3aGF0IHRoaXMgZG9lcz8KCkFsZXgK
-Cj4gIHZvaWQgZG1fZHRuX2xvZ19hcHBlbmRfdihzdHJ1Y3QgZGNfY29udGV4dCAqY3R4LAo+ICAg
-ICAgICAgc3RydWN0IGRjX2xvZ19idWZmZXJfY3R4ICpsb2dfY3R4LAo+ICAgICAgICAgY29uc3Qg
-Y2hhciAqbXNnLCAuLi4pCj4gLS0KPiAyLjI1LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1k
-ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+Just query the metrics table directly rather than going through
+an extra level of functions.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 98 +++++--------------
+ 1 file changed, 24 insertions(+), 74 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 59bd7cd3ca8d..51e83123f72a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1302,44 +1302,6 @@ static int navi10_display_config_changed(struct smu_context *smu)
+ 	return ret;
+ }
+ 
+-static int navi10_get_gpu_power(struct smu_context *smu, uint32_t *value)
+-{
+-	if (!value)
+-		return -EINVAL;
+-
+-	return navi10_get_smu_metrics_data(smu,
+-					   METRICS_AVERAGE_SOCKETPOWER,
+-					   value);
+-}
+-
+-static int navi10_get_current_activity_percent(struct smu_context *smu,
+-					       enum amd_pp_sensors sensor,
+-					       uint32_t *value)
+-{
+-	int ret = 0;
+-
+-	if (!value)
+-		return -EINVAL;
+-
+-	switch (sensor) {
+-	case AMDGPU_PP_SENSOR_GPU_LOAD:
+-		ret = navi10_get_smu_metrics_data(smu,
+-						  METRICS_AVERAGE_GFXACTIVITY,
+-						  value);
+-		break;
+-	case AMDGPU_PP_SENSOR_MEM_LOAD:
+-		ret = navi10_get_smu_metrics_data(smu,
+-						  METRICS_AVERAGE_MEMACTIVITY,
+-						  value);
+-		break;
+-	default:
+-		dev_err(smu->adev->dev, "Invalid sensor for retrieving clock activity\n");
+-		return -EINVAL;
+-	}
+-
+-	return ret;
+-}
+-
+ static bool navi10_is_dpm_running(struct smu_context *smu)
+ {
+ 	int ret = 0;
+@@ -1652,39 +1614,6 @@ static int navi10_set_watermarks_table(struct smu_context *smu,
+ 	return 0;
+ }
+ 
+-static int navi10_thermal_get_temperature(struct smu_context *smu,
+-					     enum amd_pp_sensors sensor,
+-					     uint32_t *value)
+-{
+-	int ret = 0;
+-
+-	if (!value)
+-		return -EINVAL;
+-
+-	switch (sensor) {
+-	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
+-		ret = navi10_get_smu_metrics_data(smu,
+-						  METRICS_TEMPERATURE_HOTSPOT,
+-						  value);
+-		break;
+-	case AMDGPU_PP_SENSOR_EDGE_TEMP:
+-		ret = navi10_get_smu_metrics_data(smu,
+-						  METRICS_TEMPERATURE_EDGE,
+-						  value);
+-		break;
+-	case AMDGPU_PP_SENSOR_MEM_TEMP:
+-		ret = navi10_get_smu_metrics_data(smu,
+-						  METRICS_TEMPERATURE_MEM,
+-						  value);
+-		break;
+-	default:
+-		dev_err(smu->adev->dev, "Invalid sensor for retrieving temp\n");
+-		return -EINVAL;
+-	}
+-
+-	return ret;
+-}
+-
+ static int navi10_read_sensor(struct smu_context *smu,
+ 				 enum amd_pp_sensors sensor,
+ 				 void *data, uint32_t *size)
+@@ -1703,18 +1632,39 @@ static int navi10_read_sensor(struct smu_context *smu,
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_MEM_LOAD:
++		ret = navi10_get_smu_metrics_data(smu,
++						  METRICS_AVERAGE_MEMACTIVITY,
++						  (uint32_t *)data);
++		*size = 4;
++		break;
+ 	case AMDGPU_PP_SENSOR_GPU_LOAD:
+-		ret = navi10_get_current_activity_percent(smu, sensor, (uint32_t *)data);
++		ret = navi10_get_smu_metrics_data(smu,
++						  METRICS_AVERAGE_GFXACTIVITY,
++						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_GPU_POWER:
+-		ret = navi10_get_gpu_power(smu, (uint32_t *)data);
++		ret = navi10_get_smu_metrics_data(smu,
++						  METRICS_AVERAGE_SOCKETPOWER,
++						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
++		ret = navi10_get_smu_metrics_data(smu,
++						  METRICS_TEMPERATURE_HOTSPOT,
++						  (uint32_t *)data);
++		*size = 4;
++		break;
+ 	case AMDGPU_PP_SENSOR_EDGE_TEMP:
++		ret = navi10_get_smu_metrics_data(smu,
++						  METRICS_TEMPERATURE_EDGE,
++						  (uint32_t *)data);
++		*size = 4;
++		break;
+ 	case AMDGPU_PP_SENSOR_MEM_TEMP:
+-		ret = navi10_thermal_get_temperature(smu, sensor, (uint32_t *)data);
++		ret = navi10_get_smu_metrics_data(smu,
++						  METRICS_TEMPERATURE_MEM,
++						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_GFX_MCLK:
+-- 
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
