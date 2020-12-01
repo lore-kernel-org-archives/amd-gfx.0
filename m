@@ -2,38 +2,41 @@ Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC200C83011
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:36:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C1DDC83012
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:36:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60BF120857
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60BF120857
+	by mail.kernel.org (Postfix) with ESMTPS id A5D6B20857
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5D6B20857
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8617E6E53C;
-	Tue,  1 Dec 2020 10:35:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D13216E5A1;
+	Tue,  1 Dec 2020 10:35:54 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8DE89FDB;
- Tue,  1 Dec 2020 10:35:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7CAF89FFD;
+ Tue,  1 Dec 2020 10:35:51 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CF874ACC1;
- Tue,  1 Dec 2020 10:35:48 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 65A6EACF4;
+ Tue,  1 Dec 2020 10:35:50 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie,
 	daniel@ffwll.ch
-Subject: [PATCH v2 00/20] drm: Move struct drm_device.pdev to legacy
-Date: Tue,  1 Dec 2020 11:35:22 +0100
-Message-Id: <20201201103542.2182-1-tzimmermann@suse.de>
+Subject: [PATCH v2 02/20] drm/amdgpu: Remove references to struct
+ drm_device.pdev
+Date: Tue,  1 Dec 2020 11:35:24 +0100
+Message-Id: <20201201103542.2182-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201201103542.2182-1-tzimmermann@suse.de>
+References: <20201201103542.2182-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -46,200 +49,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- spice-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sam Ravnborg <sam@ravnborg.org>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, spice-devel@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The pdev field in struct drm_device points to a PCI device structure and
-goes back to UMS-only days when all DRM drivers were for PCI devices.
-Meanwhile we also support USB, SPI and platform devices. Each of those
-uses the generic device stored in struct drm_device.dev.
-
-To reduce duplication and remove the special case of PCI, this patchset
-converts all modesetting drivers from pdev to dev and makes pdev a field
-for legacy UMS drivers.
-
-For PCI devices, the pointer in struct drm_device.dev can be upcasted to
-struct pci_device; or tested for PCI with dev_is_pci(). In several places
-the code can use the dev field directly.
-
-After converting all drivers and the DRM core, the pdev fields becomes
-only relevant for legacy drivers. In a later patchset, we may want to
-convert these as well and remove pdev entirely.
-
-The patchset touches many files, but the individual changes are mostly
-trivial. I suggest to merge each driver's patch through the respective
-tree and later the rest through drm-misc-next.
-
-v2:
-	* move whitespace fixes into separate patches (Alex, Sam)
-	* move i915 gt/ and gvt/ changes into separate patches (Joonas)
-
-Thomas Zimmermann (20):
-  drm/amdgpu: Fix trailing whitespaces
-  drm/amdgpu: Remove references to struct drm_device.pdev
-  drm/ast: Remove references to struct drm_device.pdev
-  drm/bochs: Remove references to struct drm_device.pdev
-  drm/cirrus: Remove references to struct drm_device.pdev
-  drm/gma500: Fix trailing whitespaces
-  drm/gma500: Remove references to struct drm_device.pdev
-  drm/hibmc: Remove references to struct drm_device.pdev
-  drm/i915: Remove references to struct drm_device.pdev
-  drm/i915/gt: Remove references to struct drm_device.pdev
-  drm/i915/gvt: Remove references to struct drm_device.pdev
-  drm/mgag200: Remove references to struct drm_device.pdev
-  drm/nouveau: Remove references to struct drm_device.pdev
-  drm/qxl: Remove references to struct drm_device.pdev
-  drm/radeon: Fix trailing whitespaces
-  drm/radeon: Remove references to struct drm_device.pdev
-  drm/vboxvideo: Remove references to struct drm_device.pdev
-  drm/virtgpu: Remove references to struct drm_device.pdev
-  drm/vmwgfx: Remove references to struct drm_device.pdev
-  drm: Upcast struct drm_device.dev to struct pci_device; replace pdev
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 23 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 10 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 10 +--
- drivers/gpu/drm/ast/ast_drv.c                 |  4 +-
- drivers/gpu/drm/ast/ast_main.c                | 25 +++---
- drivers/gpu/drm/ast/ast_mm.c                  | 17 ++--
- drivers/gpu/drm/ast/ast_mode.c                |  5 +-
- drivers/gpu/drm/ast/ast_post.c                |  8 +-
- drivers/gpu/drm/bochs/bochs_drv.c             |  1 -
- drivers/gpu/drm/bochs/bochs_hw.c              |  4 +-
- drivers/gpu/drm/drm_agpsupport.c              |  9 +-
- drivers/gpu/drm/drm_bufs.c                    |  4 +-
- drivers/gpu/drm/drm_edid.c                    |  7 +-
- drivers/gpu/drm/drm_irq.c                     | 12 +--
- drivers/gpu/drm/drm_pci.c                     | 26 +++---
- drivers/gpu/drm/drm_vm.c                      |  2 +-
- drivers/gpu/drm/gma500/cdv_device.c           | 30 ++++---
- drivers/gpu/drm/gma500/cdv_intel_crt.c        |  3 +-
- drivers/gpu/drm/gma500/cdv_intel_lvds.c       |  4 +-
- drivers/gpu/drm/gma500/framebuffer.c          |  9 +-
- drivers/gpu/drm/gma500/gma_device.c           |  3 +-
- drivers/gpu/drm/gma500/gma_display.c          |  4 +-
- drivers/gpu/drm/gma500/gtt.c                  | 20 +++--
- drivers/gpu/drm/gma500/intel_bios.c           |  6 +-
- drivers/gpu/drm/gma500/intel_gmbus.c          |  4 +-
- drivers/gpu/drm/gma500/intel_i2c.c            |  2 +-
- drivers/gpu/drm/gma500/mdfld_device.c         |  4 +-
- drivers/gpu/drm/gma500/mdfld_dsi_dpi.c        |  8 +-
- drivers/gpu/drm/gma500/mid_bios.c             |  9 +-
- drivers/gpu/drm/gma500/oaktrail_device.c      |  5 +-
- drivers/gpu/drm/gma500/oaktrail_lvds.c        |  2 +-
- drivers/gpu/drm/gma500/oaktrail_lvds_i2c.c    |  2 +-
- drivers/gpu/drm/gma500/opregion.c             |  3 +-
- drivers/gpu/drm/gma500/power.c                | 13 +--
- drivers/gpu/drm/gma500/psb_drv.c              | 16 ++--
- drivers/gpu/drm/gma500/psb_drv.h              |  8 +-
- drivers/gpu/drm/gma500/psb_intel_lvds.c       |  6 +-
- drivers/gpu/drm/gma500/psb_intel_sdvo.c       |  2 +-
- drivers/gpu/drm/gma500/tc35876x-dsi-lvds.c    | 36 ++++----
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 10 +--
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   |  2 +-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c   |  4 +-
- drivers/gpu/drm/i915/display/intel_bios.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 14 +--
- drivers/gpu/drm/i915/display/intel_csr.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c    |  2 +-
- .../gpu/drm/i915/display/intel_lpe_audio.c    |  5 +-
- drivers/gpu/drm/i915/display/intel_opregion.c |  6 +-
- drivers/gpu/drm/i915/display/intel_overlay.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |  4 +-
- drivers/gpu/drm/i915/display/intel_quirks.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_vga.c      |  8 +-
- drivers/gpu/drm/i915/gem/i915_gem_phys.c      |  6 +-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          | 10 +--
- drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  2 +-
- drivers/gpu/drm/i915/gt/intel_rc6.c           |  4 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |  6 +-
- drivers/gpu/drm/i915/gvt/cfg_space.c          |  5 +-
- drivers/gpu/drm/i915/gvt/firmware.c           | 10 +--
- drivers/gpu/drm/i915/gvt/gtt.c                | 12 +--
- drivers/gpu/drm/i915/gvt/gvt.c                |  6 +-
- drivers/gpu/drm/i915/gvt/kvmgt.c              |  4 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |  2 +-
- drivers/gpu/drm/i915/i915_drv.c               | 20 ++---
- drivers/gpu/drm/i915/i915_drv.h               |  2 +-
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  4 +-
- drivers/gpu/drm/i915/i915_getparam.c          |  5 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  2 +-
- drivers/gpu/drm/i915/i915_irq.c               |  6 +-
- drivers/gpu/drm/i915/i915_pmu.c               |  5 +-
- drivers/gpu/drm/i915/i915_suspend.c           |  4 +-
- drivers/gpu/drm/i915/i915_switcheroo.c        |  4 +-
- drivers/gpu/drm/i915/i915_vgpu.c              |  2 +-
- drivers/gpu/drm/i915/intel_device_info.c      |  2 +-
- drivers/gpu/drm/i915/intel_region_lmem.c      |  8 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c       |  2 +-
- drivers/gpu/drm/i915/intel_uncore.c           |  4 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 -
- drivers/gpu/drm/i915/selftests/mock_gtt.c     |  2 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c         | 20 +++--
- drivers/gpu/drm/mgag200/mgag200_i2c.c         |  2 +-
- drivers/gpu/drm/mgag200/mgag200_mm.c          | 10 ++-
- drivers/gpu/drm/nouveau/dispnv04/arb.c        | 12 +--
- drivers/gpu/drm/nouveau/dispnv04/disp.h       | 14 +--
- drivers/gpu/drm/nouveau/dispnv04/hw.c         | 10 ++-
- drivers/gpu/drm/nouveau/nouveau_abi16.c       |  7 +-
- drivers/gpu/drm/nouveau/nouveau_acpi.c        |  2 +-
- drivers/gpu/drm/nouveau/nouveau_bios.c        | 11 ++-
- drivers/gpu/drm/nouveau/nouveau_connector.c   | 10 ++-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  5 +-
- drivers/gpu/drm/nouveau/nouveau_fbcon.c       |  6 +-
- drivers/gpu/drm/nouveau/nouveau_vga.c         | 20 +++--
- drivers/gpu/drm/qxl/qxl_drv.c                 |  2 +-
- drivers/gpu/drm/qxl/qxl_ioctl.c               |  3 +-
- drivers/gpu/drm/qxl/qxl_irq.c                 |  3 +-
- drivers/gpu/drm/qxl/qxl_kms.c                 |  1 -
- drivers/gpu/drm/radeon/atombios_encoders.c    |  6 +-
- drivers/gpu/drm/radeon/r100.c                 | 27 +++---
- drivers/gpu/drm/radeon/radeon.h               | 32 +++----
- drivers/gpu/drm/radeon/radeon_atombios.c      | 89 ++++++++++---------
- drivers/gpu/drm/radeon/radeon_bios.c          |  6 +-
- drivers/gpu/drm/radeon/radeon_combios.c       | 55 ++++++------
- drivers/gpu/drm/radeon/radeon_cs.c            |  3 +-
- drivers/gpu/drm/radeon/radeon_device.c        | 17 ++--
- drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
- drivers/gpu/drm/radeon/radeon_drv.c           |  3 +-
- drivers/gpu/drm/radeon/radeon_fb.c            |  2 +-
- drivers/gpu/drm/radeon/radeon_gem.c           |  6 +-
- drivers/gpu/drm/radeon/radeon_i2c.c           |  2 +-
- drivers/gpu/drm/radeon/radeon_irq_kms.c       |  2 +-
- drivers/gpu/drm/radeon/radeon_kms.c           | 20 ++---
- .../gpu/drm/radeon/radeon_legacy_encoders.c   |  6 +-
- drivers/gpu/drm/radeon/rs780_dpm.c            |  7 +-
- drivers/gpu/drm/tiny/cirrus.c                 |  1 -
- drivers/gpu/drm/vboxvideo/vbox_drv.c          | 11 +--
- drivers/gpu/drm/vboxvideo/vbox_irq.c          |  4 +-
- drivers/gpu/drm/vboxvideo/vbox_main.c         |  8 +-
- drivers/gpu/drm/vboxvideo/vbox_ttm.c          |  7 +-
- drivers/gpu/drm/virtio/virtgpu_drv.c          |  1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c        |  8 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           | 27 +++---
- drivers/gpu/drm/vmwgfx/vmwgfx_fb.c            |  2 +-
- include/drm/drm_device.h                      | 12 ++-
- 132 files changed, 584 insertions(+), 507 deletions(-)
-
---
-2.29.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VXNpbmcgc3RydWN0IGRybV9kZXZpY2UucGRldiBpcyBkZXByZWNhdGVkLiBDb252ZXJ0IGFtZGdw
+dSB0byBzdHJ1Y3QKZHJtX2RldmljZS5kZXYuIE5vIGZ1bmN0aW9uYWwgY2hhbmdlcy4KClNpZ25l
+ZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPgpBY2tlZC1i
+eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpBY2tlZC1ieTogU2Ft
+IFJhdm5ib3JnIDxzYW1AcmF2bmJvcmcub3JnPgpDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgpDYzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0Bh
+bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAg
+fCAxNyArKysrKysrKy0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rpc3BsYXkuYyB8ICAzICsrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ry
+di5jICAgICB8ICAxIC0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jICAg
+ICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jICAgICB8
+IDEwICsrKysrLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pMmMuYyAg
+ICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jICAgICB8
+IDEwICsrKysrLS0tLS0KIDcgZmlsZXMgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgMjMgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmlu
+ZGV4IGRhMjNjMGYyMTMxMS4uMjZlZTU3MWZmOWY0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0xNDA0LDkgKzE0MDQsOSBAQCBzdGF0aWMgdm9pZCBh
+bWRncHVfc3dpdGNoZXJvb19zZXRfc3RhdGUoc3RydWN0IHBjaV9kZXYgKnBkZXYsCiAJCS8qIGRv
+bid0IHN1c3BlbmQgb3IgcmVzdW1lIGNhcmQgbm9ybWFsbHkgKi8KIAkJZGV2LT5zd2l0Y2hfcG93
+ZXJfc3RhdGUgPSBEUk1fU1dJVENIX1BPV0VSX0NIQU5HSU5HOwogCi0JCXBjaV9zZXRfcG93ZXJf
+c3RhdGUoZGV2LT5wZGV2LCBQQ0lfRDApOwotCQlhbWRncHVfZGV2aWNlX2xvYWRfcGNpX3N0YXRl
+KGRldi0+cGRldik7Ci0JCXIgPSBwY2lfZW5hYmxlX2RldmljZShkZXYtPnBkZXYpOworCQlwY2lf
+c2V0X3Bvd2VyX3N0YXRlKHBkZXYsIFBDSV9EMCk7CisJCWFtZGdwdV9kZXZpY2VfbG9hZF9wY2lf
+c3RhdGUocGRldik7CisJCXIgPSBwY2lfZW5hYmxlX2RldmljZShwZGV2KTsKIAkJaWYgKHIpCiAJ
+CQlEUk1fV0FSTigicGNpX2VuYWJsZV9kZXZpY2UgZmFpbGVkICglZClcbiIsIHIpOwogCQlhbWRn
+cHVfZGV2aWNlX3Jlc3VtZShkZXYsIHRydWUpOwpAQCAtMTQxOCwxMCArMTQxOCwxMCBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfc3dpdGNoZXJvb19zZXRfc3RhdGUoc3RydWN0IHBjaV9kZXYgKnBkZXYs
+CiAJCWRybV9rbXNfaGVscGVyX3BvbGxfZGlzYWJsZShkZXYpOwogCQlkZXYtPnN3aXRjaF9wb3dl
+cl9zdGF0ZSA9IERSTV9TV0lUQ0hfUE9XRVJfQ0hBTkdJTkc7CiAJCWFtZGdwdV9kZXZpY2Vfc3Vz
+cGVuZChkZXYsIHRydWUpOwotCQlhbWRncHVfZGV2aWNlX2NhY2hlX3BjaV9zdGF0ZShkZXYtPnBk
+ZXYpOworCQlhbWRncHVfZGV2aWNlX2NhY2hlX3BjaV9zdGF0ZShwZGV2KTsKIAkJLyogU2h1dCBk
+b3duIHRoZSBkZXZpY2UgKi8KLQkJcGNpX2Rpc2FibGVfZGV2aWNlKGRldi0+cGRldik7Ci0JCXBj
+aV9zZXRfcG93ZXJfc3RhdGUoZGV2LT5wZGV2LCBQQ0lfRDNjb2xkKTsKKwkJcGNpX2Rpc2FibGVf
+ZGV2aWNlKHBkZXYpOworCQlwY2lfc2V0X3Bvd2VyX3N0YXRlKHBkZXYsIFBDSV9EM2NvbGQpOwog
+CQlkZXYtPnN3aXRjaF9wb3dlcl9zdGF0ZSA9IERSTV9TV0lUQ0hfUE9XRVJfT0ZGOwogCX0KIH0K
+QEAgLTE2ODQsOCArMTY4NCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfZW5hYmxlX3Zp
+cnR1YWxfZGlzcGxheShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlhZGV2LT5lbmFibGVf
+dmlydHVhbF9kaXNwbGF5ID0gZmFsc2U7CiAKIAlpZiAoYW1kZ3B1X3ZpcnR1YWxfZGlzcGxheSkg
+ewotCQlzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9IGFkZXZfdG9fZHJtKGFkZXYpOwotCQljb25z
+dCBjaGFyICpwY2lfYWRkcmVzc19uYW1lID0gcGNpX25hbWUoZGRldi0+cGRldik7CisJCWNvbnN0
+IGNoYXIgKnBjaV9hZGRyZXNzX25hbWUgPSBwY2lfbmFtZShhZGV2LT5wZGV2KTsKIAkJY2hhciAq
+cGNpYWRkc3RyLCAqcGNpYWRkc3RyX3RtcCwgKnBjaWFkZG5hbWVfdG1wLCAqcGNpYWRkbmFtZTsK
+IAogCQlwY2lhZGRzdHIgPSBrc3RyZHVwKGFtZGdwdV92aXJ0dWFsX2Rpc3BsYXksIEdGUF9LRVJO
+RUwpOwpAQCAtMzM3NSw3ICszMzc0LDcgQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiwKIAkJfQogCX0KIAotCXBjaV9lbmFibGVfcGNpZV9lcnJvcl9y
+ZXBvcnRpbmcoYWRldi0+ZGRldi5wZGV2KTsKKwlwY2lfZW5hYmxlX3BjaWVfZXJyb3JfcmVwb3J0
+aW5nKGFkZXYtPnBkZXYpOwogCiAJLyogUG9zdCBjYXJkIGlmIG5lY2Vzc2FyeSAqLwogCWlmIChh
+bWRncHVfZGV2aWNlX25lZWRfcG9zdChhZGV2KSkgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kaXNwbGF5LmMKaW5kZXggMmU4YThiNTc2MzlmLi43Nzk3NGMzOTgxZmEgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwpAQCAtNzIxLDEz
+ICs3MjEsMTQgQEAgYW1kZ3B1X2Rpc3BsYXlfdXNlcl9mcmFtZWJ1ZmZlcl9jcmVhdGUoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwKIAkJCQkgICAgICAgc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXYs
+CiAJCQkJICAgICAgIGNvbnN0IHN0cnVjdCBkcm1fbW9kZV9mYl9jbWQyICptb2RlX2NtZCkKIHsK
+KwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRybV90b19hZGV2KGRldik7CiAJc3RydWN0
+IGRybV9nZW1fb2JqZWN0ICpvYmo7CiAJc3RydWN0IGFtZGdwdV9mcmFtZWJ1ZmZlciAqYW1kZ3B1
+X2ZiOwogCWludCByZXQ7CiAKIAlvYmogPSBkcm1fZ2VtX29iamVjdF9sb29rdXAoZmlsZV9wcml2
+LCBtb2RlX2NtZC0+aGFuZGxlc1swXSk7CiAJaWYgKG9iaiA9PSAgTlVMTCkgewotCQlkZXZfZXJy
+KCZkZXYtPnBkZXYtPmRldiwgIk5vIEdFTSBvYmplY3QgYXNzb2NpYXRlZCB0byBoYW5kbGUgMHgl
+MDhYLCAiCisJCWRldl9lcnIoJmFkZXYtPnBkZXYtPmRldiwgIk5vIEdFTSBvYmplY3QgYXNzb2Np
+YXRlZCB0byBoYW5kbGUgMHglMDhYLCAiCiAJCQkiY2FuJ3QgY3JlYXRlIGZyYW1lYnVmZmVyXG4i
+LCBtb2RlX2NtZC0+aGFuZGxlc1swXSk7CiAJCXJldHVybiBFUlJfUFRSKC1FTk9FTlQpOwogCX0K
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRleCA2MjQyOTRlMGI5ZjMu
+LmJkYzM1YzNmODUyMyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpA
+QCAtMTE5Miw3ICsxMTkyLDYgQEAgc3RhdGljIGludCBhbWRncHVfcGNpX3Byb2JlKHN0cnVjdCBw
+Y2lfZGV2ICpwZGV2LAogCWlmIChyZXQpCiAJCXJldHVybiByZXQ7CiAKLQlkZGV2LT5wZGV2ID0g
+cGRldjsKIAlwY2lfc2V0X2RydmRhdGEocGRldiwgZGRldik7CiAKIAlyZXQgPSBhbWRncHVfZHJp
+dmVyX2xvYWRfa21zKGFkZXYsIGVudC0+ZHJpdmVyX2RhdGEpOwpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZmIuYwppbmRleCAwYmY3ZDM2YzY2ODYuLjUxY2Q0OWM2ZjM4ZiAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKQEAgLTI3MSw3ICsyNzEsNyBAQCBzdGF0
+aWMgaW50IGFtZGdwdWZiX2NyZWF0ZShzdHJ1Y3QgZHJtX2ZiX2hlbHBlciAqaGVscGVyLAogCURS
+TV9JTkZPKCJmYiBkZXB0aCBpcyAlZFxuIiwgZmItPmZvcm1hdC0+ZGVwdGgpOwogCURSTV9JTkZP
+KCIgICBwaXRjaCBpcyAlZFxuIiwgZmItPnBpdGNoZXNbMF0pOwogCi0JdmdhX3N3aXRjaGVyb29f
+Y2xpZW50X2ZiX3NldChhZGV2X3RvX2RybShhZGV2KS0+cGRldiwgaW5mbyk7CisJdmdhX3N3aXRj
+aGVyb29fY2xpZW50X2ZiX3NldChhZGV2LT5wZGV2LCBpbmZvKTsKIAlyZXR1cm4gMDsKIAogb3V0
+OgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCmluZGV4IGM5Zjk0ZmJlYjAx
+OC4uMThiOGY4OTZiN2EzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZ2VtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5j
+CkBAIC02MTQsNyArNjE0LDcgQEAgaW50IGFtZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9k
+ZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAlpbnQgciA9IDA7CiAKIAlpZiAoYXJncy0+dmFfYWRk
+cmVzcyA8IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFKSB7Ci0JCWRldl9kYmcoJmRldi0+cGRldi0+
+ZGV2LAorCQlkZXZfZGJnKGRldi0+ZGV2LAogCQkJInZhX2FkZHJlc3MgMHglTFggaXMgaW4gcmVz
+ZXJ2ZWQgYXJlYSAweCVMWFxuIiwKIAkJCWFyZ3MtPnZhX2FkZHJlc3MsIEFNREdQVV9WQV9SRVNF
+UlZFRF9TSVpFKTsKIAkJcmV0dXJuIC1FSU5WQUw7CkBAIC02MjIsNyArNjIyLDcgQEAgaW50IGFt
+ZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAog
+CWlmIChhcmdzLT52YV9hZGRyZXNzID49IEFNREdQVV9HTUNfSE9MRV9TVEFSVCAmJgogCSAgICBh
+cmdzLT52YV9hZGRyZXNzIDwgQU1ER1BVX0dNQ19IT0xFX0VORCkgewotCQlkZXZfZGJnKCZkZXYt
+PnBkZXYtPmRldiwKKwkJZGV2X2RiZyhkZXYtPmRldiwKIAkJCSJ2YV9hZGRyZXNzIDB4JUxYIGlz
+IGluIFZBIGhvbGUgMHglTFgtMHglTFhcbiIsCiAJCQlhcmdzLT52YV9hZGRyZXNzLCBBTURHUFVf
+R01DX0hPTEVfU1RBUlQsCiAJCQlBTURHUFVfR01DX0hPTEVfRU5EKTsKQEAgLTYzNCwxNCArNjM0
+LDE0IEBAIGludCBhbWRncHVfZ2VtX3ZhX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZv
+aWQgKmRhdGEsCiAJdm1fc2l6ZSA9IGFkZXYtPnZtX21hbmFnZXIubWF4X3BmbiAqIEFNREdQVV9H
+UFVfUEFHRV9TSVpFOwogCXZtX3NpemUgLT0gQU1ER1BVX1ZBX1JFU0VSVkVEX1NJWkU7CiAJaWYg
+KGFyZ3MtPnZhX2FkZHJlc3MgKyBhcmdzLT5tYXBfc2l6ZSA+IHZtX3NpemUpIHsKLQkJZGV2X2Ri
+ZygmZGV2LT5wZGV2LT5kZXYsCisJCWRldl9kYmcoZGV2LT5kZXYsCiAJCQkidmFfYWRkcmVzcyAw
+eCVsbHggaXMgaW4gdG9wIHJlc2VydmVkIGFyZWEgMHglbGx4XG4iLAogCQkJYXJncy0+dmFfYWRk
+cmVzcyArIGFyZ3MtPm1hcF9zaXplLCB2bV9zaXplKTsKIAkJcmV0dXJuIC1FSU5WQUw7CiAJfQog
+CiAJaWYgKChhcmdzLT5mbGFncyAmIH52YWxpZF9mbGFncykgJiYgKGFyZ3MtPmZsYWdzICYgfnBy
+dF9mbGFncykpIHsKLQkJZGV2X2RiZygmZGV2LT5wZGV2LT5kZXYsICJpbnZhbGlkIGZsYWdzIGNv
+bWJpbmF0aW9uIDB4JTA4WFxuIiwKKwkJZGV2X2RiZyhkZXYtPmRldiwgImludmFsaWQgZmxhZ3Mg
+Y29tYmluYXRpb24gMHglMDhYXG4iLAogCQkJYXJncy0+ZmxhZ3MpOwogCQlyZXR1cm4gLUVJTlZB
+TDsKIAl9CkBAIC02NTMsNyArNjUzLDcgQEAgaW50IGFtZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAljYXNlIEFNREdQVV9WQV9PUF9SRVBMQUNF
+OgogCQlicmVhazsKIAlkZWZhdWx0OgotCQlkZXZfZGJnKCZkZXYtPnBkZXYtPmRldiwgInVuc3Vw
+cG9ydGVkIG9wZXJhdGlvbiAlZFxuIiwKKwkJZGV2X2RiZyhkZXYtPmRldiwgInVuc3VwcG9ydGVk
+IG9wZXJhdGlvbiAlZFxuIiwKIAkJCWFyZ3MtPm9wZXJhdGlvbik7CiAJCXJldHVybiAtRUlOVkFM
+OwogCX0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pMmMu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pMmMuYwppbmRleCA0N2NhZDIz
+YTZiOWUuLmJjYTRkZGRkNWExNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2kyYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
+MmMuYwpAQCAtMTc2LDcgKzE3Niw3IEBAIHN0cnVjdCBhbWRncHVfaTJjX2NoYW4gKmFtZGdwdV9p
+MmNfY3JlYXRlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJaTJjLT5yZWMgPSAqcmVjOwogCWky
+Yy0+YWRhcHRlci5vd25lciA9IFRISVNfTU9EVUxFOwogCWkyYy0+YWRhcHRlci5jbGFzcyA9IEky
+Q19DTEFTU19EREM7Ci0JaTJjLT5hZGFwdGVyLmRldi5wYXJlbnQgPSAmZGV2LT5wZGV2LT5kZXY7
+CisJaTJjLT5hZGFwdGVyLmRldi5wYXJlbnQgPSBkZXYtPmRldjsKIAlpMmMtPmRldiA9IGRldjsK
+IAlpMmNfc2V0X2FkYXBkYXRhKCZpMmMtPmFkYXB0ZXIsIGkyYyk7CiAJbXV0ZXhfaW5pdCgmaTJj
+LT5tdXRleCk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+a21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKaW5kZXggNGFk
+NmQ4MDFiYzI1Li4zZmE0NGMzMTgwODMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9rbXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfa21zLmMKQEAgLTE0MSw3ICsxNDEsNyBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9sb2FkX2ttcyhz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgbG9uZyBmbGFncykKIAkgICAgKGFt
+ZGdwdV9pc19hdHB4X2h5YnJpZCgpIHx8CiAJICAgICBhbWRncHVfaGFzX2F0cHhfZGdwdV9wb3dl
+cl9jbnRsKCkpICYmCiAJICAgICgoZmxhZ3MgJiBBTURfSVNfQVBVKSA9PSAwKSAmJgotCSAgICAh
+cGNpX2lzX3RodW5kZXJib2x0X2F0dGFjaGVkKGRldi0+cGRldikpCisJICAgICFwY2lfaXNfdGh1
+bmRlcmJvbHRfYXR0YWNoZWQodG9fcGNpX2RldihkZXYtPmRldikpKQogCQlmbGFncyB8PSBBTURf
+SVNfUFg7CiAKIAkvKiBhbWRncHVfZGV2aWNlX2luaXQgc2hvdWxkIHJlcG9ydCBvbmx5IGZhdGFs
+IGVycm9yCkBAIC0xNTIsNyArMTUyLDcgQEAgaW50IGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVuc2lnbmVkIGxvbmcgZmxhZ3MpCiAJICovCiAJciA9
+IGFtZGdwdV9kZXZpY2VfaW5pdChhZGV2LCBmbGFncyk7CiAJaWYgKHIpIHsKLQkJZGV2X2Vycigm
+ZGV2LT5wZGV2LT5kZXYsICJGYXRhbCBlcnJvciBkdXJpbmcgR1BVIGluaXRcbiIpOworCQlkZXZf
+ZXJyKGRldi0+ZGV2LCAiRmF0YWwgZXJyb3IgZHVyaW5nIEdQVSBpbml0XG4iKTsKIAkJZ290byBv
+dXQ7CiAJfQogCkBAIC0xOTIsNyArMTkyLDcgQEAgaW50IGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVuc2lnbmVkIGxvbmcgZmxhZ3MpCiAKIAlhY3Bp
+X3N0YXR1cyA9IGFtZGdwdV9hY3BpX2luaXQoYWRldik7CiAJaWYgKGFjcGlfc3RhdHVzKQotCQlk
+ZXZfZGJnKCZkZXYtPnBkZXYtPmRldiwgIkVycm9yIGR1cmluZyBBQ1BJIG1ldGhvZHMgY2FsbFxu
+Iik7CisJCWRldl9kYmcoZGV2LT5kZXYsICJFcnJvciBkdXJpbmcgQUNQSSBtZXRob2RzIGNhbGxc
+biIpOwogCiAJaWYgKGFkZXYtPnJ1bnBtKSB7CiAJCS8qIG9ubHkgbmVlZCB0byBza2lwIG9uIEFU
+UFggKi8KQEAgLTcyNCwxMCArNzI0LDEwIEBAIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3Qg
+ZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHApCiAJCXVp
+bnQ2NF90IHZtX3NpemU7CiAKIAkJbWVtc2V0KCZkZXZfaW5mbywgMCwgc2l6ZW9mKGRldl9pbmZv
+KSk7Ci0JCWRldl9pbmZvLmRldmljZV9pZCA9IGRldi0+cGRldi0+ZGV2aWNlOworCQlkZXZfaW5m
+by5kZXZpY2VfaWQgPSBhZGV2LT5wZGV2LT5kZXZpY2U7CiAJCWRldl9pbmZvLmNoaXBfcmV2ID0g
+YWRldi0+cmV2X2lkOwogCQlkZXZfaW5mby5leHRlcm5hbF9yZXYgPSBhZGV2LT5leHRlcm5hbF9y
+ZXZfaWQ7Ci0JCWRldl9pbmZvLnBjaV9yZXYgPSBkZXYtPnBkZXYtPnJldmlzaW9uOworCQlkZXZf
+aW5mby5wY2lfcmV2ID0gYWRldi0+cGRldi0+cmV2aXNpb247CiAJCWRldl9pbmZvLmZhbWlseSA9
+IGFkZXYtPmZhbWlseTsKIAkJZGV2X2luZm8ubnVtX3NoYWRlcl9lbmdpbmVzID0gYWRldi0+Z2Z4
+LmNvbmZpZy5tYXhfc2hhZGVyX2VuZ2luZXM7CiAJCWRldl9pbmZvLm51bV9zaGFkZXJfYXJyYXlz
+X3Blcl9lbmdpbmUgPSBhZGV2LT5nZnguY29uZmlnLm1heF9zaF9wZXJfc2U7Ci0tIAoyLjI5LjIK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
