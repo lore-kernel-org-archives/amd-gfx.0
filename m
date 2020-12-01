@@ -1,116 +1,64 @@
 Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ADF0C64E7A
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 06:07:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8704BC64E7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 06:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 725342087D
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 06:07:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F085B206CB
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 06:58:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fDsZ7CgH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 725342087D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="soRS4EMo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F085B206CB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 976D46E483;
-	Tue,  1 Dec 2020 06:07:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27DF36E483
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 06:07:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F8i9E+Zn72GaM4Oa/EyR4lLNuu7oll9r/j9z3Fqn1Ekuw34865ipcAFlQDXxZ4bsjnbIqK9Pmj1Fy0hg65XRDiVgTmYwnOoS4DEPdW22nkA3P1l7aZPveHO5GQ/gaP8TQNmppSzE4tMFDYv8BowPPSpdci1EbH1aBbK22cc5vNx8kjs6b3kX00E8L0abxasCYTsXIenOYFqjhPMbreq8jXKA1i+aWLtrrCcP+jhg46hy59v3o3L0eqdtO0Pd+ow4LMSexk+J/mn6+IpynWiSK8hJvrQ3y9MApqH53oPyvUunQXHDlEx3BaqKczCYCqUhHZMTrwO/xtQ5iRgAJ37e9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T+zo4ga2zKSw37PvHoqxTsBD5ilbHns9+RIyRcybTso=;
- b=LLln/4kyFO3n1Wp6yshywpQjKORfphNOrn/77Y0rvtxFJr9owS6Sj/3CGJOehJNyjMabGf+hRV+f3VMaStl/bo75jdYvPCVDpzcFncmRzGGNViAu7M7G42OJyI1SyNXcTGVb7A6n86GzH4ft1npc3KoIcf+lMdwahhphBO99/LhWTRKRNdBbRTh66MRBHiMvhJ76bQchOWjMrcbgaCJ8g0c54A5shQu1RouKGHARWrQhEMkJoGALo2j7gGVeiYDaFcYfGhwEeQ2k8skDOybwOyyq7A5gH82FAdrZ2yqTYhbSWf19MZGu2Xjw4GWbelVCZ5Jl54uK9r0ka7evAD9EYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T+zo4ga2zKSw37PvHoqxTsBD5ilbHns9+RIyRcybTso=;
- b=fDsZ7CgHm/xRXDMYqy9swbass5WtXPcGK/qT9ED17vR8LVU5iMi4hZ47zSxp3bNjADh5arPGVkgVs8i/8xMqPlpCjlQbzZ3crffSzLbwYao435yVWgVzlZC2IXLuwntNPyU5Jvk9Zj+e8Lt+EFNef7FbD+P3nxFWFjfmAnUxIWg=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2477.namprd12.prod.outlook.com (2603:10b6:802:28::21)
- by SN1PR12MB2573.namprd12.prod.outlook.com (2603:10b6:802:2b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Tue, 1 Dec
- 2020 06:07:22 +0000
-Received: from SN1PR12MB2477.namprd12.prod.outlook.com
- ([fe80::78da:8e14:7541:fcb]) by SN1PR12MB2477.namprd12.prod.outlook.com
- ([fe80::78da:8e14:7541:fcb%3]) with mapi id 15.20.3611.031; Tue, 1 Dec 2020
- 06:07:22 +0000
-From: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/pm/smu11: Fix fan set speed bug
-Date: Tue,  1 Dec 2020 11:40:19 +0530
-Message-Id: <20201201061019.12662-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.156.251]
-X-ClientProxiedBy: MA1PR01CA0159.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:71::29) To SN1PR12MB2477.namprd12.prod.outlook.com
- (2603:10b6:802:28::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD0AD6E483;
+	Tue,  1 Dec 2020 06:58:17 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD5576E483
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 06:58:16 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id y11so352090qvu.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 22:58:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=18uclYmC3tpEH/byXYroqurkoV+qBCTYMVcCBZTFKJU=;
+ b=soRS4EMothi1Pxzzy01GSnJljzv6reK4QoNw9LDfXJo+0BSBQrhxav7ZGDFCnRx2N3
+ C7CQwbaFsyeIABlAIOlxCW7fmehLlc4hFqM5+0j8XuVJPt8WrKIMrpG5c7C53vSA1NIi
+ wUuKNQzS+YfWhiN3ZFT5xHnXsg550LMIn8ePmJLyjoSwqM7/jy/2L/Cgb4/YHU9cW2X6
+ 54D3CPDcnTHWdtpL2WMmqaL2v886CQX/WEkGvRJa0fhZsvl+gf/PqDchwzPaqtGncT1+
+ Qlszqym/91cIYtCN6TPMNGlpoGN/ACU7ixVbnRINAgE/Tkj4qtJVoyNSVZ89eBALSvJe
+ xh+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=18uclYmC3tpEH/byXYroqurkoV+qBCTYMVcCBZTFKJU=;
+ b=Dzgph0st+fDCqC/ZvrvEXlBLosBkWGAL3KJk/++cCY2fUuAwIFrUCcq/RisZCiF6dw
+ O97k0AHY+LlZhKjiQ2nrAi8lhsgDWed/MMj63K6FOawhwRLURrp3DB0Ixon3/q4qYMBE
+ TbPy8YOdvpoUqXNggembbw3Ra0RSTtSE08TK/xT53u3s2Nu50bEmKqXCGMwLnu0bGSD3
+ ZIWm6k3dbruZuAwtgnr5kYbSubLT+FY8i3kWW8Spt75MCZh6hT9zwVa7znDiNPC1xB9X
+ tfoh3mVtwrgQ3Qqoi2kKwcsqK8CqA5+HbVbORbEqpza5WKKw+MSvfwSM5sJ4w+2mdpNM
+ Eavg==
+X-Gm-Message-State: AOAM5329eNOBhVc0cC2z1naComgTsFVxDLWnZ6xhP80oQTSGWBA6t9Z2
+ A31JFzuu6qGXYii/exV8PFryBGaAO72JTJdfi8QrudfK
+X-Google-Smtp-Source: ABdhPJwFSZ0fwMngK1Idd54CvSC6KcGj4IlPDfS6LIE+zhNi7nzGTnDIkrkoUAVFVEfgsvmAiJR7Cy+QpXgou4WH0NE=
+X-Received: by 2002:ad4:44ef:: with SMTP id p15mr1661739qvt.37.1606805895554; 
+ Mon, 30 Nov 2020 22:58:15 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from arun-desktop.amd.com (165.204.156.251) by
- MA1PR01CA0159.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:71::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3611.20 via Frontend Transport; Tue, 1 Dec 2020 06:07:20 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 389740db-2ecd-4588-6dc0-08d895bf5dd8
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2573:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2573E5B6317E5F3F07C95BB4E4F40@SN1PR12MB2573.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: p8wGsDIbUK7zO9ltYvMiGpFkWeUs7fnaxyALkf5OoFOACMWRysiPOF6oMRaBUIhM3ybJJFsSDIRJasJo27hkjDydyr0eHhTtHozHy99jffLLhhk+WbO5/gEycWWcpBB5CuAV06h8lnjwM57mt7dzHLu3Us8kTCOZG0u0cZmIfKYtELGGnzY/bq9iA47gEaY7ba6ZFL4jtpHCAyw15twOZXoD/whuV1rn+gKjEcvhbVCA4cANNIQdONy0kxvWKAYV43iC4X3t96V5GqAu4+R/Z97xtvCRBDTv3UYxW1gpR2YySdXJi3X51oonFFAPqgjFAdieZgUzv6OBAZ7BPywQrQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2477.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(376002)(39860400002)(136003)(396003)(956004)(5660300002)(52116002)(7696005)(6916009)(316002)(1076003)(2616005)(186003)(36756003)(26005)(4326008)(2906002)(16526019)(4744005)(478600001)(86362001)(83380400001)(6486002)(66946007)(66476007)(8676002)(8936002)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?vZwGc+45gcTRmSQfFqS00MMOuz6S6IjG42t84d8Ye7vdTdW8VYC8unqJfQvT?=
- =?us-ascii?Q?iJDRkHNYAjH6S7NjrEFgodw7HEqeEw4HnmoDKsUvwsIG47AcbhFIJnjjuzNy?=
- =?us-ascii?Q?7QyywMm2qGPFnHyL8jPCwja39gXtBPhg943FSdpp1Zava5dxw/fGCnTGveAm?=
- =?us-ascii?Q?cnH+wdmQ33+hqAMFjGxsG5prYNgbe03WCov87Bil1i9/un0sw68qNkxOWf+c?=
- =?us-ascii?Q?E4JrpGkwaNTIO4LxFNHQsB2A/GdkRl8FOpTTUiiJrF3Chka72lcdp7gXFuRW?=
- =?us-ascii?Q?kVX/YYuMHS40MS7tuxMjZOLUt7XqH7uQqd19ZILqOvb8/uJMF6/qjFL6FjPQ?=
- =?us-ascii?Q?82C8+FxZFLHwn2iqkAMgrZcXEfrvgg4mKLN3PU5hqWN3FnLOXEjlrQTnSywN?=
- =?us-ascii?Q?OkafVspfRJhWbARsvoJ6hf/fL9NV1shJg8mbzFy/NZ39DcapmI4aJyEKqpRF?=
- =?us-ascii?Q?7Ybm3qjP/9kFnwg4PNSP/hnCTrx8bMqAMXaLb+a3FHswRPGG3E7pdtljUli7?=
- =?us-ascii?Q?pDuL2escNVjO8R6n1IGj+EdCC4vayBqbW8YQG+bFBsOAWjpmK3vuBvPxclan?=
- =?us-ascii?Q?iS8q4Pqmd+xZC5LNcVDfQsxuSJJphecm/5fOTpx3hgJ4psA0uS1UssfNhkLM?=
- =?us-ascii?Q?VC6JA11T1o3ntD5n9XG6SnAoyjqdDgcRmoeL9N1M4aStbENytVra9KKqztRL?=
- =?us-ascii?Q?v3i+SCFpKHiJHhVV6Qhy249yppJV8WuMphygyDB3r4/ZJbcCKx9e3GKSEzaO?=
- =?us-ascii?Q?eM5GiOG0ZZPTdG9Z41eGzdkdQFegi29X7pKu0WAcfWO7DaABrnkulx9Yibsh?=
- =?us-ascii?Q?nSM4vcXSTrLVrYb1rFuaM4rCs90g+/XNHDxw4uHQbmMhUuXWRRH0h4DeGUpI?=
- =?us-ascii?Q?U5QJfXgJebPAO408jWiP1/cBBylulIUW/Up81yZfOxBSsxhfXxcUa8kMq/sq?=
- =?us-ascii?Q?15ZVd/9KCzwGse6FWQ8wIlpX5VyMeeev7QqF7wkLcArWGAGW8p1HtG2LJ0+W?=
- =?us-ascii?Q?3ijM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 389740db-2ecd-4588-6dc0-08d895bf5dd8
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2477.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2020 06:07:22.2050 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /ImxxI9cCZJdMGGs0uozKd+BkQOJK5DuaSfd3TmE0LSW+43aF40edNucZgpCVD4+zqDBNGfikWdYVOawd4uQVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2573
+From: Smith John <ls.cat.kth@gmail.com>
+Date: Tue, 1 Dec 2020 14:58:04 +0800
+Message-ID: <CAGztBWUy6a8oB9PuF3YmqKN0DdqXixTmxThyK0+BwTMFWYtTww@mail.gmail.com>
+Subject: [amdgpu] Is it possible to disable page tables and use the physical
+ address directly in amdgpu
+To: amd-gfx@lists.freedesktop.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,42 +70,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0004101497=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix fan set speed calculation.
+--===============0004101497==
+Content-Type: multipart/alternative; boundary="000000000000a0a89f05b561a693"
 
-Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
-Suggested-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+--000000000000a0a89f05b561a693
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 62c34a01a3e1..624065d3c079 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1187,7 +1187,12 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context *smu,
- 	if (ret)
- 		return ret;
- 
--	crystal_clock_freq = amdgpu_asic_get_xclk(adev);
-+	/*
-+	 * crystal_clock_freq div by 4 is required since the fan control
-+	 * module refers to 25MHz
-+	 */
-+
-+	crystal_clock_freq = amdgpu_asic_get_xclk(adev) / 4;
- 	tach_period = 60 * crystal_clock_freq * 10000 / (8 * speed);
- 	WREG32_SOC15(THM, 0, mmCG_TACH_CTRL,
- 		     REG_SET_FIELD(RREG32_SOC15(THM, 0, mmCG_TACH_CTRL),
--- 
-2.17.1
+Hello!
+I was trying to figure out the impact of gpu page tables on applications'
+performance. I noticed that there are 16 vmids supported by the hardware *Vega
+10*. Is it possible to use physical address directly in some vmids, or use
+physical address globally?
+
+--000000000000a0a89f05b561a693
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello!<div>I was trying to figure out the impact of gpu pa=
+ge tables on applications&#39; performance. I noticed that there are 16 vmi=
+ds supported by the hardware <i>Vega 10</i>. Is it possible to use physical=
+ address directly in some vmids, or use physical address globally?</div><di=
+v><br></div></div>
+
+--000000000000a0a89f05b561a693--
+
+--===============0004101497==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0004101497==--
