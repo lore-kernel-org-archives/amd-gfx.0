@@ -2,42 +2,128 @@ Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 885E3C64E7B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36ACAC71156
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A9FA20644
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A9FA20644
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id B3F222080A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:41:00 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jPz42VoJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3F222080A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429ED6E84B;
-	Tue,  1 Dec 2020 10:36:16 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F3786E8A1;
- Tue,  1 Dec 2020 10:36:03 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B583BAD3F;
- Tue,  1 Dec 2020 10:36:01 +0000 (UTC)
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Subject: [PATCH v2 17/20] drm/vboxvideo: Remove references to struct
- drm_device.pdev
-Date: Tue,  1 Dec 2020 11:35:39 +0100
-Message-Id: <20201201103542.2182-18-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201201103542.2182-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1C4289D87;
+	Tue,  1 Dec 2020 10:40:59 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 616F389D40;
+ Tue,  1 Dec 2020 10:40:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jeNaDrUANnZPOqJeUM6I0u+jNc6Zri7zOAfjA/W4Yeiw+gNmppQ5M+S6C+7jhALdgK/MPOMQDY/IlQZ/M1YNCUIDA07vQLEZYbIVJBz7G+WDx/JfHhINuhfr0bjD2UjuFyYdH/4aMyp4Znjriqh3FPeBCON9D3riwmXxTjqEqgb/7VjwoDLj+RtHyPl/Fl2fViGg7U3scEU/+tApTQ9xXr1oO6T30rBWioZ9EZa71WCdPbhLD7UiIjto08dx3DtBwb9QuEMLgW+JGT+Vdjq1Vv9QEq8rCmVDsONm7UuJDaoTDXZ7lCgY2soU5kV0x6U2WwrQiCdiYkjfloFU70GzIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UHsRdPxRBjysxtTWx7jFJq8hJpxJMDx1LK5hSESNTIE=;
+ b=TSuyCtA8Frtvd8TYRpDQuGqR8khBvFopy4NtODDRyxfqvDaM68uFfIfMqGzZ/Ui92UPO/cX03MmPkMFilE5hxc28ZbktUG87biWEs1G1jSFU8pfuGf+JutqRrhc7bO/yIW3nFxjqWFkcZ7s5c7zNLLuf5iDP8CuqIpvoE3bhlm+TJDzRn22pTpUGxAkZD0EES90WtMFVnOhDg3Mjv6E0uE0C4wUZ/CmsNIJLrw3pQCU9fg8dp6ZtcEnNhNdWjng/7TycJKzYu1Dho+qfOqGVDPa8OkI2hBEpTSGT5oAk5fenk4hF1hK41MZ6AQvvdcsBFNn4jQFpCF/sml1RXTfzVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UHsRdPxRBjysxtTWx7jFJq8hJpxJMDx1LK5hSESNTIE=;
+ b=jPz42VoJizZb/Fu9pyA1WSSgSiVWcVgJLQjNeBNVLq6zQa5ORAbPOLsxTRUa4CnEu12LEyzqB92zmfvKqqgavaLYdLaqKygNSyFx2XYHlWR1+QKzpHXHNJ3z4ny0+DOXFel4dDPyNCt3DSzf3HWLyqmlFXsY3Lc9Y60dTXapkF8=
+Authentication-Results: ravnborg.org; dkim=none (message not signed)
+ header.d=none;ravnborg.org; dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com (2603:10b6:208:159::19)
+ by BL0PR12MB4932.namprd12.prod.outlook.com (2603:10b6:208:1c2::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20; Tue, 1 Dec
+ 2020 10:40:58 +0000
+Received: from MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::1ccc:8a9a:45d3:dd31]) by MN2PR12MB3775.namprd12.prod.outlook.com
+ ([fe80::1ccc:8a9a:45d3:dd31%7]) with mapi id 15.20.3611.025; Tue, 1 Dec 2020
+ 10:40:58 +0000
+Subject: Re: [PATCH v2 01/20] drm/amdgpu: Fix trailing whitespaces
+To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@linux.ie, daniel@ffwll.ch
 References: <20201201103542.2182-1-tzimmermann@suse.de>
+ <20201201103542.2182-2-tzimmermann@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <d79aa7c0-9b0b-4f1b-c4e5-54f53a8d2931@amd.com>
+Date: Tue, 1 Dec 2020 11:40:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20201201103542.2182-2-tzimmermann@suse.de>
+Content-Language: en-US
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-ClientProxiedBy: AM4PR0701CA0031.eurprd07.prod.outlook.com
+ (2603:10a6:200:42::41) To MN2PR12MB3775.namprd12.prod.outlook.com
+ (2603:10b6:208:159::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM4PR0701CA0031.eurprd07.prod.outlook.com (2603:10a6:200:42::41) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.6 via Frontend
+ Transport; Tue, 1 Dec 2020 10:40:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 8ae82f56-5917-40bd-7cfe-08d895e59699
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4932:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB4932600BC6B1FDE0F331A2FE83F40@BL0PR12MB4932.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2r2D8feyOVloDbbEuIIMw6Duam8wzPp49XhX7P3NFpB6Z3QrtMeS/zylp/eKOLLA62x5TD5JiqjpwLjU+vZE22/1HBH7tvYT8Pz5him+8ZuPX5z7lny2Jm8oPGgd2GHStwAUElUUllXSqG89z1itq2cFq/MCVRgJ+XkALckUWpDWB4gZ6ps+tASlPtV2/G2RqQ7Wy1LS+1X8UfIHI9lfoWPW024g2g238nmgPDll1aBJf0/cWkqJHji5BfI69ZlxiV2CYj/nwc32wxGkXiz80L2Z3cMkB3Z1lPkwCL6yowC+VSAi+3Y8t/wMrtvfUrodObG4WstUEZiA7jJUEyMoBFvyDc4Ey3c3NZs0+nFJQl0lW5t2OgkCN4EGmLtiH02g
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3775.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(346002)(376002)(136003)(366004)(396003)(66574015)(2906002)(316002)(8936002)(54906003)(52116002)(66556008)(2616005)(66946007)(8676002)(4326008)(36756003)(186003)(83380400001)(6486002)(16526019)(7416002)(31696002)(86362001)(31686004)(5660300002)(478600001)(66476007)(6666004)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dW1lOXZDRFVVa3ozaGdyUjZ3dGtGV1JYMXVyZkJFemRMdnpqZEN3UlU2aEto?=
+ =?utf-8?B?bE5SeEYrem5WNEMyVzdVN0lLd2hNdjl4cVoyZHhUZUFHT1JwV3Rmc00veGhR?=
+ =?utf-8?B?YWVjd0dzZUFkR2ttdkhuMG0vNHV3WVptRzVnUUdrd1owQ3l2bEVwZENVOWox?=
+ =?utf-8?B?SkJzcXk5U1k0WVB3cDNoQjRZRCtVSit6ZEhvUnF6TUduWitIWTF5VlZpQ2hX?=
+ =?utf-8?B?dVlvOUdZODBhRy9CTEkzSXVzeW1Wb0lYN0dOa0Z3ZTJKV29TeUpyU0Mram5i?=
+ =?utf-8?B?TGtJY3A1MERMSWl6QzRlZVhPRUc3eGo2M0NNeFBPcFN0T2hKQUtxNG10QWo5?=
+ =?utf-8?B?c0kvSHdoOHE4clQxSHVvSmZEWFlSWTFDVEtrWHR3d3FWcGhiQVE0aEpzUDlj?=
+ =?utf-8?B?M25xa0ZhZjZJRU1VZVB5TVg0QXhRRit5ZjVRVHk0aFpxQmdvRWU3MHh6YmZO?=
+ =?utf-8?B?ZW9zYUhwWTdBT1lpSnJ5VU0xZk5iWVBiZk1hQk5xUERQMS91VTR2SVdsZmxC?=
+ =?utf-8?B?S1lhUUVLdGVjV2RQdk5CL05tYkdFT01ldHYycTBBQTJpSGxzNE9WQzRoeVhw?=
+ =?utf-8?B?aVRxdG5jYWt6cVVzRVNhc0V2R01HazNnbjdnTEJjNm45Y0RONjdlUDJaTk5I?=
+ =?utf-8?B?cEM2ZzdCNGNTK3dEVjhwYVBTMGVNejg5Z09qTHI3R2tTcGpLNDFXaWtyR3g4?=
+ =?utf-8?B?ZFl2VWp1V1NXWUFseXRXcW9TQUdMRUlxR090aTlTUTJEbHV5ZHVnbnVoaEJr?=
+ =?utf-8?B?eUZpZThWNmtIbk95Q0ZNbHFmcVlBZFY4R3dWSmFwNDVTaFFxbXFJL0lpT0Rk?=
+ =?utf-8?B?cksycEhCMGVHSHJ2dkJaVEI5NmIrMU1HOTdMdEhuaXhCdC9scTMySGx1bVNv?=
+ =?utf-8?B?RitVK2dCeTBTWjduWVhxcUhTc2hTRUFQMWwvdmVPNzQ1NHdnZ2RSV0JmdGVU?=
+ =?utf-8?B?RG8ydGc2NXRzM3BXY3JFdzZsMVpaUXBvaDl4UHc4T2szK2xWNHlyV0pWZyty?=
+ =?utf-8?B?RmN3Vm1PcXM2Qks0MUIyaGJtcTljcEs2OE9lMUlacVJXQTRrNk9zVGdTWk9r?=
+ =?utf-8?B?Z2VpUGpVSjdKakpGcGtnQlJ4dVZ3MEZpbFNkaGZWc0c2anRZRkNFc3B0ZXpk?=
+ =?utf-8?B?UDkzekJvb3prWGNubVRRSE1vQ1ZoMzJBMkNOaWtKYVFWWEVSTXE0bXlFRUtX?=
+ =?utf-8?B?WHNVSFNzSFoxcTN0N1dHTjkxKzZtV2c1RDNoZzV1NTAzdnRwbGJ1Uy92ekd2?=
+ =?utf-8?B?MjRjaGxCRFRmVktpMnFtdnNEMzAzMFF6RWYvTjJYNTZvSmpiVFFES1JkQVd5?=
+ =?utf-8?B?NFdhSlJjSzJnWEc0MjFxRm5QcDRISnhxU0tYYk8ydkwzWklnWEVPWGF1R0tU?=
+ =?utf-8?B?MmdDamlmajJJSWp5dElvbDd0V1Mzc2wrZGhMNktIL1p6NHM5TEI1eGtQZGdu?=
+ =?utf-8?Q?N6Do7Ue5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ae82f56-5917-40bd-7cfe-08d895e59699
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3775.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2020 10:40:58.2414 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Fc34EPELlxXSULHLuYDCWSamT4D9bmBwxwHq5XoJrdOBkH7qMi2uPgiM9xogCK+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4932
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,166 +137,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sam Ravnborg <sam@ravnborg.org>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, Hans de Goede <hdegoede@redhat.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- spice-devel@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, spice-devel@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert vboxvideo to struct
-drm_device.dev. No functional changes.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Hans de Goede <hdegoede@redhat.com>
----
- drivers/gpu/drm/vboxvideo/vbox_drv.c  | 11 ++++++-----
- drivers/gpu/drm/vboxvideo/vbox_irq.c  |  4 +++-
- drivers/gpu/drm/vboxvideo/vbox_main.c |  8 ++++++--
- drivers/gpu/drm/vboxvideo/vbox_ttm.c  |  7 ++++---
- 4 files changed, 19 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index f3eac72cb46e..e534896b6cfd 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -51,7 +51,6 @@ static int vbox_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (IS_ERR(vbox))
- 		return PTR_ERR(vbox);
- 
--	vbox->ddev.pdev = pdev;
- 	pci_set_drvdata(pdev, vbox);
- 	mutex_init(&vbox->hw_mutex);
- 
-@@ -109,15 +108,16 @@ static void vbox_pci_remove(struct pci_dev *pdev)
- static int vbox_pm_suspend(struct device *dev)
- {
- 	struct vbox_private *vbox = dev_get_drvdata(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev);
- 	int error;
- 
- 	error = drm_mode_config_helper_suspend(&vbox->ddev);
- 	if (error)
- 		return error;
- 
--	pci_save_state(vbox->ddev.pdev);
--	pci_disable_device(vbox->ddev.pdev);
--	pci_set_power_state(vbox->ddev.pdev, PCI_D3hot);
-+	pci_save_state(pdev);
-+	pci_disable_device(pdev);
-+	pci_set_power_state(pdev, PCI_D3hot);
- 
- 	return 0;
- }
-@@ -125,8 +125,9 @@ static int vbox_pm_suspend(struct device *dev)
- static int vbox_pm_resume(struct device *dev)
- {
- 	struct vbox_private *vbox = dev_get_drvdata(dev);
-+	struct pci_dev *pdev = to_pci_dev(dev);
- 
--	if (pci_enable_device(vbox->ddev.pdev))
-+	if (pci_enable_device(pdev))
- 		return -EIO;
- 
- 	return drm_mode_config_helper_resume(&vbox->ddev);
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_irq.c b/drivers/gpu/drm/vboxvideo/vbox_irq.c
-index 631657fa554f..b3ded68603ba 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_irq.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_irq.c
-@@ -170,10 +170,12 @@ static void vbox_hotplug_worker(struct work_struct *work)
- 
- int vbox_irq_init(struct vbox_private *vbox)
- {
-+	struct pci_dev *pdev = to_pci_dev(vbox->ddev.dev);
-+
- 	INIT_WORK(&vbox->hotplug_work, vbox_hotplug_worker);
- 	vbox_update_mode_hints(vbox);
- 
--	return drm_irq_install(&vbox->ddev, vbox->ddev.pdev->irq);
-+	return drm_irq_install(&vbox->ddev, pdev->irq);
- }
- 
- void vbox_irq_fini(struct vbox_private *vbox)
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_main.c b/drivers/gpu/drm/vboxvideo/vbox_main.c
-index d68d9bad7674..f28779715ccd 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_main.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_main.c
-@@ -8,7 +8,9 @@
-  *          Hans de Goede <hdegoede@redhat.com>
-  */
- 
-+#include <linux/pci.h>
- #include <linux/vbox_err.h>
-+
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_damage_helper.h>
-@@ -30,6 +32,7 @@ void vbox_report_caps(struct vbox_private *vbox)
- 
- static int vbox_accel_init(struct vbox_private *vbox)
- {
-+	struct pci_dev *pdev = to_pci_dev(vbox->ddev.dev);
- 	struct vbva_buffer *vbva;
- 	unsigned int i;
- 
-@@ -41,7 +44,7 @@ static int vbox_accel_init(struct vbox_private *vbox)
- 	/* Take a command buffer for each screen from the end of usable VRAM. */
- 	vbox->available_vram_size -= vbox->num_crtcs * VBVA_MIN_BUFFER_SIZE;
- 
--	vbox->vbva_buffers = pci_iomap_range(vbox->ddev.pdev, 0,
-+	vbox->vbva_buffers = pci_iomap_range(pdev, 0,
- 					     vbox->available_vram_size,
- 					     vbox->num_crtcs *
- 					     VBVA_MIN_BUFFER_SIZE);
-@@ -106,6 +109,7 @@ bool vbox_check_supported(u16 id)
- 
- int vbox_hw_init(struct vbox_private *vbox)
- {
-+	struct pci_dev *pdev = to_pci_dev(vbox->ddev.dev);
- 	int ret = -ENOMEM;
- 
- 	vbox->full_vram_size = inl(VBE_DISPI_IOPORT_DATA);
-@@ -115,7 +119,7 @@ int vbox_hw_init(struct vbox_private *vbox)
- 
- 	/* Map guest-heap at end of vram */
- 	vbox->guest_heap =
--	    pci_iomap_range(vbox->ddev.pdev, 0, GUEST_HEAP_OFFSET(vbox),
-+	    pci_iomap_range(pdev, 0, GUEST_HEAP_OFFSET(vbox),
- 			    GUEST_HEAP_SIZE);
- 	if (!vbox->guest_heap)
- 		return -ENOMEM;
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_ttm.c b/drivers/gpu/drm/vboxvideo/vbox_ttm.c
-index f5a06675da43..0066a3c1dfc9 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_ttm.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_ttm.c
-@@ -15,8 +15,9 @@ int vbox_mm_init(struct vbox_private *vbox)
- 	struct drm_vram_mm *vmm;
- 	int ret;
- 	struct drm_device *dev = &vbox->ddev;
-+	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 
--	vmm = drm_vram_helper_alloc_mm(dev, pci_resource_start(dev->pdev, 0),
-+	vmm = drm_vram_helper_alloc_mm(dev, pci_resource_start(pdev, 0),
- 				       vbox->available_vram_size);
- 	if (IS_ERR(vmm)) {
- 		ret = PTR_ERR(vmm);
-@@ -24,8 +25,8 @@ int vbox_mm_init(struct vbox_private *vbox)
- 		return ret;
- 	}
- 
--	vbox->fb_mtrr = arch_phys_wc_add(pci_resource_start(dev->pdev, 0),
--					 pci_resource_len(dev->pdev, 0));
-+	vbox->fb_mtrr = arch_phys_wc_add(pci_resource_start(pdev, 0),
-+					 pci_resource_len(pdev, 0));
- 	return 0;
- }
- 
--- 
-2.29.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4g
+b24gcGF0Y2ggIzEgYW5kICMxNS4KCkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+IG9uIHBhdGNoICMyIGFuZCAjMTYuCgpSZWdhcmRzLApDaHJpc3Rp
+YW4uCgpBbSAwMS4xMi4yMCB1bSAxMTozNSBzY2hyaWViIFRob21hcyBaaW1tZXJtYW5uOgo+IEFk
+aGVyZSB0byBrZXJuZWwgY29kaW5nIHN0eWxlLgo+Cj4gU2lnbmVkLW9mZi1ieTogVGhvbWFzIFpp
+bW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+Cj4gQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8
+YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiBBY2tlZC1ieTogU2FtIFJhdm5ib3JnIDxzYW1A
+cmF2bmJvcmcub3JnPgo+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+Cj4gQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAt
+LS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDYgKysr
+LS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IDVm
+MzA0NDI1Yzk0OC4uZGEyM2MwZjIxMzExIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC00OTIyLDggKzQ5MjIsOCBAQCBwY2lfZXJzX3Jlc3Vs
+dF90IGFtZGdwdV9wY2lfZXJyb3JfZGV0ZWN0ZWQoc3RydWN0IHBjaV9kZXYgKnBkZXYsIHBjaV9j
+aGFubmVsX3N0YQo+ICAgCWNhc2UgcGNpX2NoYW5uZWxfaW9fbm9ybWFsOgo+ICAgCQlyZXR1cm4g
+UENJX0VSU19SRVNVTFRfQ0FOX1JFQ09WRVI7Cj4gICAJLyogRmF0YWwgZXJyb3IsIHByZXBhcmUg
+Zm9yIHNsb3QgcmVzZXQgKi8KPiAtCWNhc2UgcGNpX2NoYW5uZWxfaW9fZnJvemVuOgkJCj4gLQkJ
+LyoJCQo+ICsJY2FzZSBwY2lfY2hhbm5lbF9pb19mcm96ZW46Cj4gKwkJLyoKPiAgIAkJICogQ2Fu
+Y2VsIGFuZCB3YWl0IGZvciBhbGwgVERScyBpbiBwcm9ncmVzcyBpZiBmYWlsaW5nIHRvCj4gICAJ
+CSAqIHNldCAgYWRldi0+aW5fZ3B1X3Jlc2V0IGluIGFtZGdwdV9kZXZpY2VfbG9ja19hZGV2Cj4g
+ICAJCSAqCj4gQEAgLTUwMTQsNyArNTAxNCw3IEBAIHBjaV9lcnNfcmVzdWx0X3QgYW1kZ3B1X3Bj
+aV9zbG90X3Jlc2V0KHN0cnVjdCBwY2lfZGV2ICpwZGV2KQo+ICAgCQlnb3RvIG91dDsKPiAgIAl9
+Cj4gICAKPiAtCWFkZXYtPmluX3BjaV9lcnJfcmVjb3ZlcnkgPSB0cnVlOwkKPiArCWFkZXYtPmlu
+X3BjaV9lcnJfcmVjb3ZlcnkgPSB0cnVlOwo+ICAgCXIgPSBhbWRncHVfZGV2aWNlX3ByZV9hc2lj
+X3Jlc2V0KGFkZXYsIE5VTEwsICZuZWVkX2Z1bGxfcmVzZXQpOwo+ICAgCWFkZXYtPmluX3BjaV9l
+cnJfcmVjb3ZlcnkgPSBmYWxzZTsKPiAgIAlpZiAocikKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
