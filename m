@@ -4,82 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C09A5C64E7B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 08:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23A4CC64E7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 08:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5757020659
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 08:30:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8503B20659
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 08:30:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="emDPbOhP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5757020659
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wYn5nmN5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8503B20659
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A29C189D5B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8F7C89FD4;
 	Tue,  1 Dec 2020 08:30:28 +0000 (UTC)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 180826E4AF;
- Tue,  1 Dec 2020 05:53:11 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B15n67q107471;
- Tue, 1 Dec 2020 05:53:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=to : cc : subject :
- from : message-id : references : date : in-reply-to : mime-version :
- content-type; s=corp-2020-01-29;
- bh=l9ihS9O8ty7fvCGsyg6t+FL2UWzq+Pp7wI7g9M3fu94=;
- b=emDPbOhPomsDJ0NVhkgalKaWcDmTVt43uxmasZhRdsIKDAK5SyUn3ZBbDT0tfjc2Ub+G
- pwnVB+2L6jYArSQUwoKsFjxw+gIeAIQd1agInCI9m5zu6sstYek99cFlGrF83pfAMoYp
- 7h3VW08t/kH06cHx+UsVCvNai9zlonapT50haza8ExqU3V0ifCJ/7nW0lmA/qRSavM+P
- eE0d7ezZdfPLepa71ISDd/u3VXj3GbiZhoaxq0dsKdiEuu46H687kMfk2k9ooRtVL0+n
- yN1cC747fo++ObKGg9Es3E0DMkXRjQCXCIESHdIfuri0sdDNQNO6hiI2IHC3bOw+gche Nw== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2130.oracle.com with ESMTP id 353c2aru96-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 01 Dec 2020 05:53:05 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B15oGDF104852;
- Tue, 1 Dec 2020 05:53:04 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3020.oracle.com with ESMTP id 3540arqfy6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 01 Dec 2020 05:53:04 +0000
-Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B15r2KY111063;
- Tue, 1 Dec 2020 05:53:02 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3020.oracle.com with ESMTP id 3540arqfwj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 01 Dec 2020 05:53:02 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B15qbsa005213;
- Tue, 1 Dec 2020 05:52:40 GMT
-Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 30 Nov 2020 21:52:37 -0800
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-Organization: Oracle Corporation
-Message-ID: <yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
-References: <cover.1605896059.git.gustavoars@kernel.org>
-Date: Tue, 01 Dec 2020 00:52:27 -0500
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org> (Gustavo
- A. R. Silva's message of "Fri, 20 Nov 2020 12:21:39 -0600")
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89C789A8B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 07:19:42 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id 23so988279wrc.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Nov 2020 23:19:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=s4ekWG5Da7x/WlqkOj8PSgRoz7W2Hb23UEfpBiqdERA=;
+ b=wYn5nmN58j3YBAM9oJ5NUmD1F8klWgjde92i623Ca9RiWgIL534fcOA9Lcia4oFz7M
+ x24kwbi7GXajtELQDnw9ywTpPG4SALWUKaVDvQufJFEwwdF8t2fqxaNlWz2adxyEaHbJ
+ 2pSxZ4Xjlpz8L8qW1jDu4HypSuOHQ8W5JrOyuS8FjadVBt02HmwBHKFIBn+xWQXKgh40
+ f2dxx5VOX6lnnFanIo+gDKf5PbUB+ZS5JWYFzDdfl1tWEd1QYcUwW61KERHnB3LtqBYF
+ zQm4Sxc6OSLyQ1envR7P1rWBRGelrL4nRnx67y5sU9uRYO0I972UzWur4fIGGtmvJtRm
+ +eLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=s4ekWG5Da7x/WlqkOj8PSgRoz7W2Hb23UEfpBiqdERA=;
+ b=Qb3Gz08q6B3TgmPRW5F0shKbWKFnLDcQAr43JsGXkIoqiAZjWuDdnG566lTQpTG3cZ
+ 2RoTeBkqoK6RC9gjJ1ldR8re4XuY32mReF1t2d7qbhPZH5JkGwa1J5fW5gVFXHkttK1G
+ aDOBNfZXjAHjgt8ubGm5RQBODiZBr7Qikt8HXURhs2qmAnB7BfU5aoc+Nrjb3A5QExDK
+ 8oBQgLVx45nD+JCEoCc34DUR/387spnOdiM/YKHLhcvOWR9dVLd5x5VKYcchJzlugStp
+ DZjYKtlRF7oJDHYKYKaC0XAxrsumQKV+AsQF8Z+KVojNMvvG/tElLmTIERQQBAzI3zOR
+ f4SA==
+X-Gm-Message-State: AOAM5300/JJOiK9vzXMdh6FnsPQLHrfRg8ah8VPG3zjMyt/nuBBdz2UG
+ hY25BFaFGMhVWbk1AgqwL8cHag==
+X-Google-Smtp-Source: ABdhPJwJbBZx5ZXK6i3ydIfLDhrA0aJazi5AXeSMM1z90NtAPx49uDK1U9w9yKnMbSGOf8DJupBADw==
+X-Received: by 2002:adf:ec0d:: with SMTP id x13mr1951722wrn.207.1606807181485; 
+ Mon, 30 Nov 2020 23:19:41 -0800 (PST)
+Received: from dell ([91.110.221.235])
+ by smtp.gmail.com with ESMTPSA id z21sm1264690wmk.20.2020.11.30.23.19.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Nov 2020 23:19:40 -0800 (PST)
+Date: Tue, 1 Dec 2020 07:19:38 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 32/40] drm/amd/display/amdgpu_dm/amdgpu_dm: Mark
+ 'link_bandwidth_kbps' as __maybe_unused
+Message-ID: <20201201071938.GE4801@dell>
+References: <20201126134240.3214176-1-lee.jones@linaro.org>
+ <20201126134240.3214176-33-lee.jones@linaro.org>
+ <CADnq5_PtZRwNNV-EvMjkV9k2sYj9jdYBT3oqtS3-hm-pTsaaew@mail.gmail.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9821
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
- lowpriorityscore=0
- clxscore=1011 bulkscore=0 mlxlogscore=289 phishscore=0 malwarescore=0
- spamscore=0 adultscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012010039
+Content-Disposition: inline
+In-Reply-To: <CADnq5_PtZRwNNV-EvMjkV9k2sYj9jdYBT3oqtS3-hm-pTsaaew@mail.gmail.com>
 X-Mailman-Approved-At: Tue, 01 Dec 2020 08:30:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,59 +82,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, target-devel@vger.kernel.org,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- x86@kernel.org, linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- Kees Cook <keescook@chromium.org>, linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-Gustavo,
-
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
-
-Applied 20-22,54,120-124 to 5.11/scsi-staging, thanks.
-
--- 
-Martin K. Petersen	Oracle Linux Engineering
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gTW9uLCAzMCBOb3YgMjAyMCwgQWxleCBEZXVjaGVyIHdyb3RlOgoKPiBPbiBUaHUsIE5vdiAy
+NiwgMjAyMCBhdCA4OjQzIEFNIExlZSBKb25lcyA8bGVlLmpvbmVzQGxpbmFyby5vcmc+IHdyb3Rl
+Ogo+ID4KPiA+ICdsaW5rX2JhbmR3aWR0aF9rYnBzJyBpcyBhbHdheXMgb2J0YWluZWQsIGJ1dCBv
+bmx5IHVzZWQgaWYKPiA+IENPTkZJR19EUk1fQU1EX0RDX0RDTiBpcyBkZWZpbmVkLgo+IAo+IFBy
+b2JhYmx5IGJldHRlciB0byBqdXN0IG1vdmUgdGhpcyB1bmRlciBDT05GSUdfRFJNX0FNRF9EQ19E
+Q04uICBJJ2xsCj4gc2VuZCBhIHBhdGNoLgoKSSBjb25zaWRlcmVkIHRoYXQsIGJ1dCB0aG91Z2h0
+IHRoZXJlIHdvdWxkIGhhdmUgYmVlbiBnb29kIHJlYXNvbiBmb3IKdGhlIGNsYXVzZSBicmVhayBq
+dXN0IGZvciBkY19saW5rX2JhbmR3aWR0aF9rYnBzKCkuCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzm
+lq9dClNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpMaW5hcm8ub3Jn
+IOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExpbmFybzogRmFj
+ZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
