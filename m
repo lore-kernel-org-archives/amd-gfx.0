@@ -2,74 +2,69 @@ Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36336C64E7B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 17:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4241C64E7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2D8120870
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 17:44:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 737382151B
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 18:42:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iM9UXoq9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2D8120870
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aBc33o0o"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 737382151B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E99D36E87C;
-	Tue,  1 Dec 2020 17:44:27 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F2266E871
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 17:44:26 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id q5so2085678qkc.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 09:44:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BADD56E554;
+	Tue,  1 Dec 2020 18:42:13 +0000 (UTC)
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9EC6E554;
+ Tue,  1 Dec 2020 18:42:12 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id f16so2627596otl.11;
+ Tue, 01 Dec 2020 10:42:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=IDuzHT/TCE8Wbmkmp7k1RGuNdJ75R1bo9AfHqx0f9Os=;
- b=iM9UXoq9pCE3QkiZ6muduI71BHio2s5FUYvn5wrWGoivc99zHvCIna9u7o4kBrs93+
- pL+KdRxTXTXHxCyWOUcqe6j7ilzwLXQ9hFuOmXOddOtKcZFb0bvP8GaDuG7/PaNRpNsY
- yUsRbR008pFhjq0EafIlIIoxDfXcL81UxdLW1FJn4aMeRL2V50C4MhPbC6cVJCzNvGFl
- G9LG/jtuYJ6iYaWhqHo55TJdxDzxX33AQwqTlPLoaWj0IEDiZ5TJbLIlBqDNtFOf66dh
- fK+xpPFa3+PC9FmRLNVzVPyP6At5oUmuBx8vADyRS9HNRTTEL4rNb7UlnE3Z7pPjd/3g
- Qdnw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=o8Yrz8jCTUvvNG9mLNTC9WmXE/KF1ZhcQr5AMsMwdps=;
+ b=aBc33o0oe6NaVoE/E0JyZA7eVWqUew8ia3eAKpGwlmDiwdUYJDm8cxS2c2uGK3EZp6
+ b8opUjYb0qH9xuqBwr1igXhJU6p+DIbW4p/j4eGebWV1Kp6N1fLXUxHBIiwkneuyv2oe
+ XcU3MyRz+AdoR2sN0xm2TJB8eB9lPJ21weIMS0CmTrp1vw9hSxA5c6WAhKMGcFCJZh+A
+ GgG8B774p7Ifu380VV//5y1hFe431rFjfmCTca71QpYSM6eYiHbksMXrXKg6d0ZmqPZh
+ sc9U8ZtXlxZVkBY5v/Jq9Bpem2xp3QV5mgoUWF0j2cshMlRPJp1gaGayxrI16fn9OcGo
+ 4CZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=IDuzHT/TCE8Wbmkmp7k1RGuNdJ75R1bo9AfHqx0f9Os=;
- b=rN66mozGIHooLMgKmyqGE0DcFo6VglXrr2D+fsX0FEN8zrL/qhLO25DC1OfETTKhvz
- 9LpUEmErqvTaXj+emX8ocLxE5mS51kHR48GPOcGzwYVF6TMwFkYmJIPzV0/f9PH0GGy5
- wxbuDg4YbTouV8qQvqHak1eCmm6JfFVhJFZLd0h7RAZJYVUq6gx2l5JEbKVyNja33v7I
- g2ubW+kv3cVfAtUTJhGn8OxTeENfxH6tYnF6bPZ9PDXLbLoHjbE4fo/6AwQ0AQFgAYC6
- 0KD8FMveqYYU8zIvAwO+jzVnWcGwRzeiiDgRIfuoUh5wnv521YuF99bifww/9ZWif3+E
- OZsQ==
-X-Gm-Message-State: AOAM530cr8x0+UNMYIEiBU6mipDmnmA3bcnMUwcHLAGU4ny0orBqhsr3
- xtGS7lml+nKAdtL0d8TS+8FgbkAu4Fk=
-X-Google-Smtp-Source: ABdhPJyBAjw4WUIgB5sTpDcjxgj0Ya8kpUYkj1xbmIwtfDgXcm1sEOhg8eU8PUbZvP8D4pboMh9wKA==
-X-Received: by 2002:a05:620a:2018:: with SMTP id
- c24mr4083355qka.143.1606844665273; 
- Tue, 01 Dec 2020 09:44:25 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id o9sm302170qko.53.2020.12.01.09.44.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Dec 2020 09:44:24 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/5] drm/amdgpu/swsmu/renoir: simplify sensor handling
-Date: Tue,  1 Dec 2020 12:44:13 -0500
-Message-Id: <20201201174413.643254-5-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20201201174413.643254-1-alexander.deucher@amd.com>
-References: <20201201174413.643254-1-alexander.deucher@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=o8Yrz8jCTUvvNG9mLNTC9WmXE/KF1ZhcQr5AMsMwdps=;
+ b=bJsrXMnLRvuAFB7/6rNX2SZGd/ekjvza5jZWeeU+WovacTbEf6cCedcjm/NnQGCFKO
+ rTgoi2yk8rf2o7sx36JXNtQFfcYA7whNUSvpN0HCwl6OfpugdrzpiEzBhAEs6g6X77QF
+ 9kiOR0CfAnrNb7mNPWUJ8T+KUunIzkNoMBk0eLiSNHZCWtx629eu0mYlMLGMubACv3qO
+ fcIqTh1FT8E5FktwIWXovpVzP7gXAZQNmFD/ad7OAds+0IH739p1OyEgp8YPZYu5cDPP
+ 6wnjyAX3ogYncCWtkCow5M3N+HlHaI4Xvb/bwBNOw9h4VNInaL4vN9LWfSL/0At1c5HM
+ svkA==
+X-Gm-Message-State: AOAM531lq7ITzDJWPISFj0OBc3leE3iD+pOKxJmgQf8Fc4GRBV4xbKEv
+ om5DBl7OY4VB1XQF0rWoacRm/dcy5cKJug4a+zI=
+X-Google-Smtp-Source: ABdhPJwPAdvf76C34gbDWPn0PpvAj/ob9qqS7TppUse2a8h8fydpmpIQPA9Da8aID2PSj86TD3qS8t2bQYY1iYisJic=
+X-Received: by 2002:a9d:5388:: with SMTP id w8mr2866367otg.311.1606848131784; 
+ Tue, 01 Dec 2020 10:42:11 -0800 (PST)
 MIME-Version: 1.0
+References: <20201126134240.3214176-1-lee.jones@linaro.org>
+ <20201126134240.3214176-35-lee.jones@linaro.org>
+In-Reply-To: <20201126134240.3214176-35-lee.jones@linaro.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Dec 2020 13:42:00 -0500
+Message-ID: <CADnq5_On90z1w=_usmjA7kHFVig3uHg4VJRecDraYZv8cmRAUQ@mail.gmail.com>
+Subject: Re: [PATCH 34/40] drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Use
+ 'gnu_printf' format notation
+To: Lee Jones <lee.jones@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,280 +76,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just query the metrics table directly rather than going through
-an extra level of functions.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   | 205 ++++++++----------
- 1 file changed, 93 insertions(+), 112 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index d3641a8ed99c..37e65c0b6136 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -492,28 +492,6 @@ static int renoir_dpm_set_jpeg_enable(struct smu_context *smu, bool enable)
- 	return ret;
- }
- 
--static int renoir_get_current_clk_freq_by_table(struct smu_context *smu,
--				       enum smu_clk_type clk_type,
--				       uint32_t *value)
--{
--	int ret = 0, clk_id = 0;
--	SmuMetrics_t metrics;
--
--	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
--	if (ret)
--		return ret;
--
--	clk_id = smu_cmn_to_asic_specific_index(smu,
--						CMN2ASIC_MAPPING_CLK,
--						clk_type);
--	if (clk_id < 0)
--		return clk_id;
--
--	*value = metrics.ClockFrequency[clk_id];
--
--	return ret;
--}
--
- static int renoir_force_dpm_limit_value(struct smu_context *smu, bool highest)
- {
- 	int ret = 0, i = 0;
-@@ -574,88 +552,6 @@ static int renoir_unforce_dpm_levels(struct smu_context *smu) {
- 	return ret;
- }
- 
--static int renoir_get_gpu_temperature(struct smu_context *smu, uint32_t *value)
--{
--	int ret = 0;
--	SmuMetrics_t metrics;
--
--	if (!value)
--		return -EINVAL;
--
--	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
--	if (ret)
--		return ret;
--
--	*value = (metrics.GfxTemperature / 100) *
--		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
--
--	return 0;
--}
--
--static int renoir_get_current_activity_percent(struct smu_context *smu,
--					       enum amd_pp_sensors sensor,
--					       uint32_t *value)
--{
--	int ret = 0;
--	SmuMetrics_t metrics;
--
--	if (!value)
--		return -EINVAL;
--
--	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
--	if (ret)
--		return ret;
--
--	switch (sensor) {
--	case AMDGPU_PP_SENSOR_GPU_LOAD:
--		*value = metrics.AverageGfxActivity / 100;
--		break;
--	default:
--		dev_err(smu->adev->dev, "Invalid sensor for retrieving clock activity\n");
--		return -EINVAL;
--	}
--
--	return 0;
--}
--
--static int renoir_get_vddc(struct smu_context *smu, uint32_t *value,
--			   unsigned int index)
--{
--	int ret = 0;
--	SmuMetrics_t metrics;
--
--	if (index >= 2)
--		return -EINVAL;
--
--	if (!value)
--		return -EINVAL;
--
--	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
--	if (ret)
--		return ret;
--
--	*value = metrics.Voltage[index];
--
--	return 0;
--}
--
--static int renoir_get_power(struct smu_context *smu, uint32_t *value)
--{
--	int ret = 0;
--	SmuMetrics_t metrics;
--
--	if (!value)
--		return -EINVAL;
--
--	ret = smu_cmn_get_metrics_table(smu, &metrics, false);
--	if (ret)
--		return ret;
--
--	*value = metrics.CurrentSocketPower << 8;
--
--	return 0;
--}
--
- /*
-  * This interface get dpm clock table for dc
-  */
-@@ -1011,6 +907,71 @@ static int renoir_get_power_profile_mode(struct smu_context *smu,
- 	return size;
- }
- 
-+static int renoir_get_smu_metrics_data(struct smu_context *smu,
-+				       MetricsMember_t member,
-+				       uint32_t *value)
-+{
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+
-+	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
-+	int ret = 0;
-+
-+	mutex_lock(&smu->metrics_lock);
-+
-+	ret = smu_cmn_get_metrics_table_locked(smu,
-+					       NULL,
-+					       false);
-+	if (ret) {
-+		mutex_unlock(&smu->metrics_lock);
-+		return ret;
-+	}
-+
-+	switch (member) {
-+	case METRICS_AVERAGE_GFXCLK:
-+		*value = metrics->ClockFrequency[CLOCK_GFXCLK];
-+		break;
-+	case METRICS_AVERAGE_SOCCLK:
-+		*value = metrics->ClockFrequency[CLOCK_SOCCLK];
-+		break;
-+	case METRICS_AVERAGE_UCLK:
-+		*value = metrics->ClockFrequency[CLOCK_FCLK];
-+		break;
-+	case METRICS_AVERAGE_GFXACTIVITY:
-+		*value = metrics->AverageGfxActivity / 100;
-+		break;
-+	case METRICS_AVERAGE_VCNACTIVITY:
-+		*value = metrics->AverageUvdActivity / 100;
-+		break;
-+	case METRICS_AVERAGE_SOCKETPOWER:
-+		*value = metrics->CurrentSocketPower << 8;
-+		break;
-+	case METRICS_TEMPERATURE_EDGE:
-+		*value = (metrics->GfxTemperature / 100) *
-+			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+		break;
-+	case METRICS_TEMPERATURE_HOTSPOT:
-+		*value = (metrics->SocTemperature / 100) *
-+			SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+		break;
-+	case METRICS_THROTTLER_STATUS:
-+		*value = metrics->ThrottlerStatus;
-+		break;
-+	case METRICS_TEMPERATURE_VRGFX:
-+		*value = metrics->Voltage[0];
-+		break;
-+	case METRICS_TEMPERATURE_VRSOC:
-+		*value = metrics->Voltage[1];
-+		break;
-+	default:
-+		*value = UINT_MAX;
-+		break;
-+	}
-+
-+	mutex_unlock(&smu->metrics_lock);
-+
-+	return ret;
-+}
-+
- static int renoir_read_sensor(struct smu_context *smu,
- 				 enum amd_pp_sensors sensor,
- 				 void *data, uint32_t *size)
-@@ -1023,33 +984,53 @@ static int renoir_read_sensor(struct smu_context *smu,
- 	mutex_lock(&smu->sensor_lock);
- 	switch (sensor) {
- 	case AMDGPU_PP_SENSOR_GPU_LOAD:
--		ret = renoir_get_current_activity_percent(smu, sensor, (uint32_t *)data);
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_AVERAGE_GFXACTIVITY,
-+						  (uint32_t *)data);
-+		*size = 4;
-+		break;
-+	case AMDGPU_PP_SENSOR_EDGE_TEMP:
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_TEMPERATURE_EDGE,
-+						  (uint32_t *)data);
- 		*size = 4;
- 		break;
--	case AMDGPU_PP_SENSOR_GPU_TEMP:
--		ret = renoir_get_gpu_temperature(smu, (uint32_t *)data);
-+	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_TEMPERATURE_HOTSPOT,
-+						  (uint32_t *)data);
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_GFX_MCLK:
--		ret = renoir_get_current_clk_freq_by_table(smu, SMU_UCLK, (uint32_t *)data);
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_AVERAGE_UCLK,
-+						  (uint32_t *)data);
- 		*(uint32_t *)data *= 100;
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_GFX_SCLK:
--		ret = renoir_get_current_clk_freq_by_table(smu, SMU_GFXCLK, (uint32_t *)data);
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_AVERAGE_GFXCLK,
-+						  (uint32_t *)data);
- 		*(uint32_t *)data *= 100;
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_VDDGFX:
--		ret = renoir_get_vddc(smu, (uint32_t *)data, 0);
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_TEMPERATURE_VRGFX,
-+						  (uint32_t *)data);
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_VDDNB:
--		ret = renoir_get_vddc(smu, (uint32_t *)data, 1);
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_TEMPERATURE_VRSOC,
-+						  (uint32_t *)data);
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_GPU_POWER:
--		ret = renoir_get_power(smu, (uint32_t *)data);
-+		ret = renoir_get_smu_metrics_data(smu,
-+						  METRICS_AVERAGE_SOCKETPOWER,
-+						  (uint32_t *)data);
- 		*size = 4;
- 		break;
- 	default:
--- 
-2.25.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVGh1LCBOb3YgMjYsIDIwMjAgYXQgODo0NCBBTSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
+cm8ub3JnPiB3cm90ZToKPgo+IEZpeGVzIHRoZSBmb2xsb3dpbmcgVz0xIGtlcm5lbCBidWlsZCB3
+YXJuaW5nKHMpOgo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmM6IEluIGZ1bmN0aW9uIOKAmGRtX2R0bl9sb2dfYXBw
+ZW5kX3bigJk6Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1
+X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmM6MzQ1OjI6IHdhcm5pbmc6IGZ1bmN0aW9uIOKAmGRtX2R0
+bl9sb2dfYXBwZW5kX3bigJkgbWlnaHQgYmUgYSBjYW5kaWRhdGUgZm9yIOKAmGdudV9wcmludGbi
+gJkgZm9ybWF0IGF0dHJpYnV0ZSBbLVdzdWdnZXN0LWF0dHJpYnV0ZT1mb3JtYXRdCj4gIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZWxw
+ZXJzLmM6Mzc1OjM6IHdhcm5pbmc6IGZ1bmN0aW9uIOKAmGRtX2R0bl9sb2dfYXBwZW5kX3bigJkg
+bWlnaHQgYmUgYSBjYW5kaWRhdGUgZm9yIOKAmGdudV9wcmludGbigJkgZm9ybWF0IGF0dHJpYnV0
+ZSBbLVdzdWdnZXN0LWF0dHJpYnV0ZT1mb3JtYXRdCj4KPiBDYzogSGFycnkgV2VudGxhbmQgPGhh
+cnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gQ2M6IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPgo+
+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6ICJDaHJp
+c3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBEYXZpZCBBaXJs
+aWUgPGFpcmxpZWRAbGludXguaWU+Cj4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5j
+aD4KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwo+IFNpZ25lZC1vZmYtYnk6IExlZSBKb25lcyA8bGVlLmpvbmVz
+QGxpbmFyby5vcmc+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
+ZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYyB8IDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
+X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMKPiBpbmRleCBiN2Q3ZWMzYmEwMGQ3Li4yNGE4MTY0
+MmJhYTI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
+ZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYwo+IEBAIC0zMTgsNiArMzE4LDcgQEAgdm9p
+ZCBkbV9kdG5fbG9nX2JlZ2luKHN0cnVjdCBkY19jb250ZXh0ICpjdHgsCj4gICAgICAgICBkbV9k
+dG5fbG9nX2FwcGVuZF92KGN0eCwgbG9nX2N0eCwgIiVzIiwgbXNnKTsKPiAgfQo+Cj4gK19fcHJp
+bnRmKDMsIDQpCgpDYW4geW91IGV4cGFuZCBhIGJpdCBvbiB3aGF0IHRoaXMgZG9lcz8KCkFsZXgK
+Cj4gIHZvaWQgZG1fZHRuX2xvZ19hcHBlbmRfdihzdHJ1Y3QgZGNfY29udGV4dCAqY3R4LAo+ICAg
+ICAgICAgc3RydWN0IGRjX2xvZ19idWZmZXJfY3R4ICpsb2dfY3R4LAo+ICAgICAgICAgY29uc3Qg
+Y2hhciAqbXNnLCAuLi4pCj4gLS0KPiAyLjI1LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1k
+ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
