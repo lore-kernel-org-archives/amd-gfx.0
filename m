@@ -7,32 +7,33 @@ X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9246DC64E7B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BF7BC83014
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3400F2080A
+	by mail.kernel.org (Postfix) with ESMTPS id D27F120644
 	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 10:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3400F2080A
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D27F120644
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA036E926;
-	Tue,  1 Dec 2020 10:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6EE66E913;
+	Tue,  1 Dec 2020 10:36:06 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBEF06E7FE;
- Tue,  1 Dec 2020 10:36:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E9F6E84F;
+ Tue,  1 Dec 2020 10:35:59 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7CB6BAD0B;
- Tue,  1 Dec 2020 10:35:59 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 15B2EAD77;
+ Tue,  1 Dec 2020 10:35:58 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie,
 	daniel@ffwll.ch
-Subject: [PATCH v2 14/20] drm/qxl: Remove references to struct drm_device.pdev
-Date: Tue,  1 Dec 2020 11:35:36 +0100
-Message-Id: <20201201103542.2182-15-tzimmermann@suse.de>
+Subject: [PATCH v2 12/20] drm/mgag200: Remove references to struct
+ drm_device.pdev
+Date: Tue,  1 Dec 2020 11:35:34 +0100
+Message-Id: <20201201103542.2182-13-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201201103542.2182-1-tzimmermann@suse.de>
 References: <20201201103542.2182-1-tzimmermann@suse.de>
@@ -52,91 +53,160 @@ Cc: Sam Ravnborg <sam@ravnborg.org>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>, spice-devel@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, Gerd Hoffmann <kraxel@redhat.com>
+ intel-gvt-dev@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using struct drm_device.pdev is deprecated. Convert qxl to struct
+Using struct drm_device.pdev is deprecated. Convert mgag200 to struct
 drm_device.dev. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
 ---
- drivers/gpu/drm/qxl/qxl_drv.c   | 2 +-
- drivers/gpu/drm/qxl/qxl_ioctl.c | 3 ++-
- drivers/gpu/drm/qxl/qxl_irq.c   | 3 ++-
- drivers/gpu/drm/qxl/qxl_kms.c   | 1 -
- 4 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/mgag200/mgag200_drv.c | 20 +++++++++++---------
+ drivers/gpu/drm/mgag200/mgag200_i2c.c |  2 +-
+ drivers/gpu/drm/mgag200/mgag200_mm.c  | 10 ++++++----
+ 3 files changed, 18 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 6e7f16f4cec7..fb5f6a5e81d7 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -163,7 +163,7 @@ DEFINE_DRM_GEM_FOPS(qxl_fops);
- 
- static int qxl_drm_freeze(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+index a977c9f49719..4e4c105f9a50 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_drv.c
++++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+@@ -47,10 +47,11 @@ static const struct drm_driver mgag200_driver = {
+ static bool mgag200_has_sgram(struct mga_device *mdev)
  {
--	struct pci_dev *pdev = dev->pdev;
+ 	struct drm_device *dev = &mdev->base;
 +	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	struct qxl_device *qdev = to_qxl(dev);
+ 	u32 option;
  	int ret;
  
-diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_ioctl.c
-index 16e1e589508e..b6075f452b9e 100644
---- a/drivers/gpu/drm/qxl/qxl_ioctl.c
-+++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
-@@ -370,13 +370,14 @@ static int qxl_clientcap_ioctl(struct drm_device *dev, void *data,
- 				  struct drm_file *file_priv)
+-	ret = pci_read_config_dword(dev->pdev, PCI_MGA_OPTION, &option);
++	ret = pci_read_config_dword(pdev, PCI_MGA_OPTION, &option);
+ 	if (drm_WARN(dev, ret, "failed to read PCI config dword: %d\n", ret))
+ 		return false;
+ 
+@@ -60,6 +61,7 @@ static bool mgag200_has_sgram(struct mga_device *mdev)
+ static int mgag200_regs_init(struct mga_device *mdev)
  {
- 	struct qxl_device *qdev = to_qxl(dev);
+ 	struct drm_device *dev = &mdev->base;
 +	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	struct drm_qxl_clientcap *param = data;
- 	int byte, idx;
+ 	u32 option, option2;
+ 	u8 crtcext3;
  
- 	byte = param->index / 8;
- 	idx = param->index % 8;
+@@ -99,13 +101,13 @@ static int mgag200_regs_init(struct mga_device *mdev)
+ 	}
  
--	if (dev->pdev->revision < 4)
-+	if (pdev->revision < 4)
- 		return -ENOSYS;
+ 	if (option)
+-		pci_write_config_dword(dev->pdev, PCI_MGA_OPTION, option);
++		pci_write_config_dword(pdev, PCI_MGA_OPTION, option);
+ 	if (option2)
+-		pci_write_config_dword(dev->pdev, PCI_MGA_OPTION2, option2);
++		pci_write_config_dword(pdev, PCI_MGA_OPTION2, option2);
  
- 	if (byte >= 58)
-diff --git a/drivers/gpu/drm/qxl/qxl_irq.c b/drivers/gpu/drm/qxl/qxl_irq.c
-index 1ba5a702d763..ddf6588a2a38 100644
---- a/drivers/gpu/drm/qxl/qxl_irq.c
-+++ b/drivers/gpu/drm/qxl/qxl_irq.c
-@@ -81,6 +81,7 @@ static void qxl_client_monitors_config_work_func(struct work_struct *work)
+ 	/* BAR 1 contains registers */
+-	mdev->rmmio_base = pci_resource_start(dev->pdev, 1);
+-	mdev->rmmio_size = pci_resource_len(dev->pdev, 1);
++	mdev->rmmio_base = pci_resource_start(pdev, 1);
++	mdev->rmmio_size = pci_resource_len(pdev, 1);
  
- int qxl_irq_init(struct qxl_device *qdev)
+ 	if (!devm_request_mem_region(dev->dev, mdev->rmmio_base,
+ 				     mdev->rmmio_size, "mgadrmfb_mmio")) {
+@@ -113,7 +115,7 @@ static int mgag200_regs_init(struct mga_device *mdev)
+ 		return -ENOMEM;
+ 	}
+ 
+-	mdev->rmmio = pcim_iomap(dev->pdev, 1, 0);
++	mdev->rmmio = pcim_iomap(pdev, 1, 0);
+ 	if (mdev->rmmio == NULL)
+ 		return -ENOMEM;
+ 
+@@ -218,6 +220,7 @@ static void mgag200_g200_interpret_bios(struct mga_device *mdev,
+ static void mgag200_g200_init_refclk(struct mga_device *mdev)
  {
-+	struct pci_dev *pdev = to_pci_dev(qdev->ddev.dev);
+ 	struct drm_device *dev = &mdev->base;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	unsigned char __iomem *rom;
+ 	unsigned char *bios;
+ 	size_t size;
+@@ -226,7 +229,7 @@ static void mgag200_g200_init_refclk(struct mga_device *mdev)
+ 	mdev->model.g200.pclk_max = 230000;
+ 	mdev->model.g200.ref_clk = 27050;
+ 
+-	rom = pci_map_rom(dev->pdev, &size);
++	rom = pci_map_rom(pdev, &size);
+ 	if (!rom)
+ 		return;
+ 
+@@ -244,7 +247,7 @@ static void mgag200_g200_init_refclk(struct mga_device *mdev)
+ 
+ 	vfree(bios);
+ out:
+-	pci_unmap_rom(dev->pdev, rom);
++	pci_unmap_rom(pdev, rom);
+ }
+ 
+ static void mgag200_g200se_init_unique_id(struct mga_device *mdev)
+@@ -301,7 +304,6 @@ mgag200_device_create(struct pci_dev *pdev, unsigned long flags)
+ 		return mdev;
+ 	dev = &mdev->base;
+ 
+-	dev->pdev = pdev;
+ 	pci_set_drvdata(pdev, dev);
+ 
+ 	ret = mgag200_device_init(mdev, flags);
+diff --git a/drivers/gpu/drm/mgag200/mgag200_i2c.c b/drivers/gpu/drm/mgag200/mgag200_i2c.c
+index 09731e614e46..ac8e34eef513 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_i2c.c
++++ b/drivers/gpu/drm/mgag200/mgag200_i2c.c
+@@ -126,7 +126,7 @@ struct mga_i2c_chan *mgag200_i2c_create(struct drm_device *dev)
+ 	i2c->clock = clock;
+ 	i2c->adapter.owner = THIS_MODULE;
+ 	i2c->adapter.class = I2C_CLASS_DDC;
+-	i2c->adapter.dev.parent = &dev->pdev->dev;
++	i2c->adapter.dev.parent = dev->dev;
+ 	i2c->dev = dev;
+ 	i2c_set_adapdata(&i2c->adapter, i2c);
+ 	snprintf(i2c->adapter.name, sizeof(i2c->adapter.name), "mga i2c");
+diff --git a/drivers/gpu/drm/mgag200/mgag200_mm.c b/drivers/gpu/drm/mgag200/mgag200_mm.c
+index 641f1aa992be..b667371b69a4 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_mm.c
++++ b/drivers/gpu/drm/mgag200/mgag200_mm.c
+@@ -78,11 +78,12 @@ static size_t mgag200_probe_vram(struct mga_device *mdev, void __iomem *mem,
+ static void mgag200_mm_release(struct drm_device *dev, void *ptr)
+ {
+ 	struct mga_device *mdev = to_mga_device(dev);
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 
+ 	mdev->vram_fb_available = 0;
+ 	iounmap(mdev->vram);
+-	arch_io_free_memtype_wc(pci_resource_start(dev->pdev, 0),
+-				pci_resource_len(dev->pdev, 0));
++	arch_io_free_memtype_wc(pci_resource_start(pdev, 0),
++				pci_resource_len(pdev, 0));
+ 	arch_phys_wc_del(mdev->fb_mtrr);
+ 	mdev->fb_mtrr = 0;
+ }
+@@ -90,6 +91,7 @@ static void mgag200_mm_release(struct drm_device *dev, void *ptr)
+ int mgag200_mm_init(struct mga_device *mdev)
+ {
+ 	struct drm_device *dev = &mdev->base;
++	struct pci_dev *pdev = to_pci_dev(dev->dev);
+ 	u8 misc;
+ 	resource_size_t start, len;
  	int ret;
+@@ -102,8 +104,8 @@ int mgag200_mm_init(struct mga_device *mdev)
+ 	WREG8(MGA_MISC_OUT, misc);
  
- 	init_waitqueue_head(&qdev->display_event);
-@@ -93,7 +94,7 @@ int qxl_irq_init(struct qxl_device *qdev)
- 	atomic_set(&qdev->irq_received_cursor, 0);
- 	atomic_set(&qdev->irq_received_io_cmd, 0);
- 	qdev->irq_received_error = 0;
--	ret = drm_irq_install(&qdev->ddev, qdev->ddev.pdev->irq);
-+	ret = drm_irq_install(&qdev->ddev, pdev->irq);
- 	qdev->ram_header->int_mask = QXL_INTERRUPT_MASK;
- 	if (unlikely(ret != 0)) {
- 		DRM_ERROR("Failed installing irq: %d\n", ret);
-diff --git a/drivers/gpu/drm/qxl/qxl_kms.c b/drivers/gpu/drm/qxl/qxl_kms.c
-index 228e2b9198f1..4a60a52ab62e 100644
---- a/drivers/gpu/drm/qxl/qxl_kms.c
-+++ b/drivers/gpu/drm/qxl/qxl_kms.c
-@@ -111,7 +111,6 @@ int qxl_device_init(struct qxl_device *qdev,
- {
- 	int r, sb;
+ 	/* BAR 0 is VRAM */
+-	start = pci_resource_start(dev->pdev, 0);
+-	len = pci_resource_len(dev->pdev, 0);
++	start = pci_resource_start(pdev, 0);
++	len = pci_resource_len(pdev, 0);
  
--	qdev->ddev.pdev = pdev;
- 	pci_set_drvdata(pdev, &qdev->ddev);
- 
- 	mutex_init(&qdev->gem.mutex);
+ 	if (!devm_request_mem_region(dev->dev, start, len, "mgadrmfb_vram")) {
+ 		drm_err(dev, "can't reserve VRAM\n");
 -- 
 2.29.2
 
