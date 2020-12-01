@@ -2,88 +2,120 @@ Return-Path: <SRS0=mtj4=FF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6181AC64E7B
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 14:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5FBDC64E7B
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 14:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED56D20705
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 14:11:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6D4B320757
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Dec 2020 14:42:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="Q8Pq03hi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED56D20705
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1VhRJaiu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D4B320757
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03AC66E530;
-	Tue,  1 Dec 2020 14:11:41 +0000 (UTC)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB7189CA1;
- Tue,  1 Dec 2020 14:11:39 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B1Dt8Jx186047;
- Tue, 1 Dec 2020 14:11:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=CVxJrJvszPiYRoVvo8QMoaANjq0rT1w3VAIVepGqitY=;
- b=Q8Pq03hifJp4hxcZYQuiJvbKTKZMKP2mLNTS1aHW6hAxlDpObu2xNteC6Yj/L36I1kmY
- WSfMJZMdSk8bN2J9+UmYiF9MWo5KvhVT37I7ctRf5KKEocNW4v8PFVCDeiU3k6pn404k
- Igra+V15xZpvhIpriUlAo6fac2mI985JVt4CqtU5vfkzzkfANqieFePUQJBzO6eRndXt
- r4RGB+aUeJDKgHUaSwwmUD5k/B0oZ1T+RFudNU+Upzz4yF4kbfdExpcaXwIzXbiJCqdd
- NFMbLYQpnYBf2dU4wooUhfeXNwTuWm/ESbR6RxVNN2eeS+ZfeOwZNtuQUXq4Dn72Z2fB vg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2130.oracle.com with ESMTP id 353c2attky-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 01 Dec 2020 14:11:31 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B1Du5hA003823;
- Tue, 1 Dec 2020 14:09:31 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by aserp3020.oracle.com with ESMTP id 3540ey0nwv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 01 Dec 2020 14:09:31 +0000
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B1E8IaF039759;
- Tue, 1 Dec 2020 14:09:29 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 3540ey0nvu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 01 Dec 2020 14:09:29 +0000
-Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0B1E9NOp018011;
- Tue, 1 Dec 2020 14:09:24 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 01 Dec 2020 06:09:23 -0800
-Date: Tue, 1 Dec 2020 17:08:49 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-Message-ID: <20201201140849.GH2767@kadam>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C5E76E519;
+	Tue,  1 Dec 2020 14:42:08 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2067.outbound.protection.outlook.com [40.107.93.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2749A6E519
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Dec 2020 14:42:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E5nvqui8GMrfj59eUVK/24ixS+i3dpEoaylaV9H1aHEnahnFsYCQUWSR3/tDe/RMNIornJyngzClnu94DM0JdzJ3WvhDqLtuk7DHmKPhBVi1aDZIWvp02SADDLVATCdqYRdbB3o+O1KplegQXuZ3/G3U/pMC+RxhEtqkQucCBZ6YFN07uK8+mhwOCSfhuvO9FSDgpTN/jGG7tXRY3hqzPxq/OM0F7t/2dohLcviKCKEl5bK2nvrwHkdukcmm6yENI5QkHqqZZ9hzZYhJctCNxFeqJs00Cklm1OTYjLJxq36URw0RHjuQBJf6iT01g2LtfVOIm073Ri7gKlGtGZxJgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zhJZR5gscbWMKVHV0mDVH6WmIACNWSSN9cvvWfGX6Ro=;
+ b=mlioc+uUsJiYE6iVqR3SR71mGUKd2DQikfp6MSJUJOefFkBumWJ1oNB2h2i82Lkxyy55YImWMoU6AS5LOcIYe1TRNaQcbNagQmAEoSULnP9cbQ2dF1FULJmkDNVOIP/kLleg++1lqGMIPxkQRYqHYhZ6ieCbl0IXpi3UYLglfGFRqW2bwydkB3NxDtpzY66prjrVPnxyAysAf7SfQJj4Mue88b/gCcZw8Q4tGu+c9O+Ec0UtFZJTz68PM/GIbIiZO+O4NE9KIChyqIvnU1jodGSefzoYHKtmI2bRbPd80tLJ+aGznyPebFZpzXttC0VObKxNnZqv3uusAHFRCa+rJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zhJZR5gscbWMKVHV0mDVH6WmIACNWSSN9cvvWfGX6Ro=;
+ b=1VhRJaiuAt3dDNGrLfiTHEFsbloHPBFvPLu0ap3qhNdlM2k+AnPn0EZSd/jEmTVpPAMJi0YymUt2kAI9obaGvYkO0DvmidIL6Sq2jFpvhDsGejs9phXXzIwZqTnVrcfNhzpO9ZRYdoum+K7ozuqBdbUJNri/8RONXGBQPbqNmrU=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by BL0PR12MB4609.namprd12.prod.outlook.com (2603:10b6:208:8d::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Tue, 1 Dec
+ 2020 14:42:05 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::fca3:155c:bf43:94af]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::fca3:155c:bf43:94af%5]) with mapi id 15.20.3611.025; Tue, 1 Dec 2020
+ 14:42:04 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] tests/amdgpu: Fix a typo
+Thread-Topic: [PATCH] tests/amdgpu: Fix a typo
+Thread-Index: AQHWx2Xsb5rhNCqAl0mdXeYXqJNhfaniUR54
+Date: Tue, 1 Dec 2020 14:42:04 +0000
+Message-ID: <MN2PR12MB44887FBB23DE1AC09343331CF7F40@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20201130221227.84747-1-luben.tuikov@amd.com>
+In-Reply-To: <20201130221227.84747-1-luben.tuikov@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-12-01T14:42:03.908Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [192.161.78.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ce06bd74-0ad4-44bb-3ca0-08d896074590
+x-ms-traffictypediagnostic: BL0PR12MB4609:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB46092DFA82BDB4668F9C6DB4F7F40@BL0PR12MB4609.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:418;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: e4C/uRpKeGXD+07n515hGxW0wBVterxv9jKKXziZxNVPyTl//CH1p29kcrpPa8GkOoeQ8ZbefZsvkZHfO7/taEUhS5Xsx6rlsAxMKyfCRScsVVrquH9isQcXlFTwxrNAnMGK99rjgVuwsDYugAYp4iXGRqCF44JZu6PhH2Zy1lmw053bs61kq8RSwrDRIpjm74bBEF7rwRdQ8RpfeBkSVELdykV6//73x9/u2w7QBGi4mqT511iKJaO4LQd1okPWglzFqmUSVphYb35BCxIDzzwB2lDp/y+5H//DoYQoy3okZx+5Qh7SQrW3m5RBvvCMFW2S4vXQZ4KGoTIGhRF96fC4bJ6/cIYVAgiM/yD11OE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(346002)(376002)(366004)(39860400002)(136003)(52536014)(76116006)(64756008)(66446008)(66946007)(66556008)(66476007)(8936002)(2906002)(9686003)(5660300002)(8676002)(55016002)(71200400001)(26005)(33656002)(478600001)(19627405001)(186003)(166002)(6506007)(53546011)(83380400001)(966005)(7696005)(110136005)(86362001)(316002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?EPvga2Bi3R1wNU6N1NPlZGzJZ7h5T9PrhVD3O1b1yeUfB94yAN7QSxY5OUPT?=
+ =?us-ascii?Q?H8brTWLVgjNfs3uoUliaUa7ggkHh2FynDUY/UX5gxx3cfIaaEi/PmFOH1MRT?=
+ =?us-ascii?Q?DZh3mxOETTpfD6FYwW8aY47y+erU9PyBuOIi/3GW7XAjojrUP8XEjSG+wODj?=
+ =?us-ascii?Q?SKHkp90tkLTpIkfFU4OpTVTL1yqPiWyxxk0enPwdjMypEqSGZ0KXTCU8ZizJ?=
+ =?us-ascii?Q?1UsjDT2aIw1ygUyzNxrcmEF7L32fh8sYAp3iJVH/vf2G839l+X4sZfKFxTJV?=
+ =?us-ascii?Q?dEuBj0tBddvTwXZwpfeqeh6XFW8fwQv5bPuRdb0yJUV0tcKWvLiS1KVX1qwp?=
+ =?us-ascii?Q?wrj1u37tM2hg7LXXe1xO1kAdVtZsNaAXfA32IVc4YUA1cWjBT7mshvIoLisq?=
+ =?us-ascii?Q?lsFa3AV3/0GXIuEH+KgsRcyQkHvefhTAL2ODJMy31R1e6eiAAWyKPVftXyUA?=
+ =?us-ascii?Q?c+xFhQvKyaGw7dh5zOyX2dX3+MPsNx+Oqn19lFSieeU/PyyIBdT2HqEjrsOa?=
+ =?us-ascii?Q?8yMSTEfOGfIB1NVMhxDQMOG1J7tHlv/Rd8+Ee/vH/34ypI3AlG5e248cZeQE?=
+ =?us-ascii?Q?0tGV1LN0JrLKGjiqt1xN+MgWo6GUZL+rcKqWOrwm1tHeW5ipOUHPcstmeKSr?=
+ =?us-ascii?Q?6ldN16Jvjx1Ww+hMUaqaPjtritKrdx3grJQ1UzTVrGag0kRXytUFfotAiyIy?=
+ =?us-ascii?Q?oavPNIteV+FS6DO2v1CGMlHz2YZ2CBzCWQ6gYspEeezDXfk6SxiwXPyJ+ihA?=
+ =?us-ascii?Q?ABFcLkL5ezO9x+8JpzUJspguiEmsMQZS8cwfb7IU32JZ5tkSq/XJcmkZCnsy?=
+ =?us-ascii?Q?bp4VyQh4o6L4B6SRhUNw/R/eEoSbGoSXDIQpEpXDtacWLV/ijtUraNJLpUXq?=
+ =?us-ascii?Q?Z5ByR36kEuCLvkH6ji14gBHonocg4Zw0cAaIPIKcKR35wT/emcOQz4L1ov9L?=
+ =?us-ascii?Q?m0XDOx1HBXuTUXyIOB8ixuVKEw2MGOQ5iwkujlZiK5k=3D?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9821
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- lowpriorityscore=0
- clxscore=1015 bulkscore=0 mlxlogscore=924 phishscore=0 malwarescore=0
- spamscore=0 adultscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012010090
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce06bd74-0ad4-44bb-3ca0-08d896074590
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2020 14:42:04.6922 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sCst48H6BhFtKD9sfnJ1Sv6YVz50mJhsPmHPy+9Y6Ixh6ZabM6YSmeD9nskaDrmnWWXNqbeTWZ8NjKIypFir7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4609
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,118 +127,163 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- target-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless <linux-wireless@vger.kernel.org>, linux-mmc@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
- virtualization@lists.linux-foundation.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
- linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net,
- ceph-devel@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- usb-storage@lists.one-eyed-alien.net, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- linux-ext4@vger.kernel.org, netfilter-devel@vger.kernel.org,
- linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
- selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
- linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
- linux-can@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-hwmon@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- nouveau@lists.freedesktop.org, Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
- LKML <linux-kernel@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0224041034=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 23, 2020 at 05:32:51PM -0800, Nick Desaulniers wrote:
-> On Sun, Nov 22, 2020 at 8:17 AM Kees Cook <keescook@chromium.org> wrote:
-> >
-> > On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
-> > > If none of the 140 patches here fix a real bug, and there is no change
-> > > to machine code then it sounds to me like a W=2 kind of a warning.
-> >
-> > FWIW, this series has found at least one bug so far:
-> > https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
-> 
-> So looks like the bulk of these are:
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     break;
-> }
+--===============0224041034==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44887FBB23DE1AC09343331CF7F40MN2PR12MB4488namp_"
 
-This should not generate a warning.
+--_000_MN2PR12MB44887FBB23DE1AC09343331CF7F40MN2PR12MB4488namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> I have a patch that fixes those up for clang:
-> https://reviews.llvm.org/D91895
-> 
-> There's 3 other cases that don't quite match between GCC and Clang I
-> observe in the kernel:
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     goto y;
-> }
-> y:;
+[AMD Official Use Only - Internal Distribution Only]
 
-This should generate a warning.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> 
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     return;
-> }
+libdrm uses gitlab MRs now:
+https://gitlab.freedesktop.org/mesa/drm/-/merge_requests
 
-Warn for this.
+Alex
+
+________________________________
+From: Tuikov, Luben <Luben.Tuikov@amd.com>
+Sent: Monday, November 30, 2020 5:12 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Tuikov, Luben <Luben.Tu=
+ikov@amd.com>
+Subject: [PATCH] tests/amdgpu: Fix a typo
+
+Fix a typo: "TZM" --> "TMZ"
+
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ tests/amdgpu/security_tests.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/amdgpu/security_tests.c b/tests/amdgpu/security_tests.c
+index 9b39e167..351eac82 100644
+--- a/tests/amdgpu/security_tests.c
++++ b/tests/amdgpu/security_tests.c
+@@ -172,7 +172,7 @@ static void amdgpu_sdma_nop(uint32_t *packet, uint32_t =
+nop_count)
+ }
+
+ /**
+- * amdgpu_bo_lcopy -- linear copy with TZM set, using sDMA
++ * amdgpu_bo_lcopy -- linear copy with TMZ set, using sDMA
+  * @dev: AMDGPU device to which both buffer objects belong to
+  * @dst: destination buffer object
+  * @src: source buffer object
+--
+2.29.2.404.ge67fbf927d
 
 
-> 
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     ;
-> }
+--_000_MN2PR12MB44887FBB23DE1AC09343331CF7F40MN2PR12MB4488namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Don't warn for this.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:11pt;color:#0078D7;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+libdrm uses gitlab MRs now:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<a href=3D"https://gitlab.freedesktop.org/mesa/drm/-/merge_requests" id=3D"=
+LPlnk863672">https://gitlab.freedesktop.org/mesa/drm/-/merge_requests</a></=
+div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Tuikov, Luben &lt;Lub=
+en.Tuikov@amd.com&gt;<br>
+<b>Sent:</b> Monday, November 30, 2020 5:12 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Tuikov, Lu=
+ben &lt;Luben.Tuikov@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] tests/amdgpu: Fix a typo</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fix a typo: &quot;TZM&quot; --&gt; &quot;TMZ&quot;=
+<br>
+<br>
+Signed-off-by: Luben Tuikov &lt;luben.tuikov@amd.com&gt;<br>
+---<br>
+&nbsp;tests/amdgpu/security_tests.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/tests/amdgpu/security_tests.c b/tests/amdgpu/security_tests.c<=
+br>
+index 9b39e167..351eac82 100644<br>
+--- a/tests/amdgpu/security_tests.c<br>
++++ b/tests/amdgpu/security_tests.c<br>
+@@ -172,7 +172,7 @@ static void amdgpu_sdma_nop(uint32_t *packet, uint32_t =
+nop_count)<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;/**<br>
+- * amdgpu_bo_lcopy -- linear copy with TZM set, using sDMA<br>
++ * amdgpu_bo_lcopy -- linear copy with TMZ set, using sDMA<br>
+&nbsp; * @dev: AMDGPU device to which both buffer objects belong to<br>
+&nbsp; * @dst: destination buffer object<br>
+&nbsp; * @src: source buffer object<br>
+-- <br>
+2.29.2.404.ge67fbf927d<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-If adding a break statement changes the flow of the code then warn about
-potentially missing break statements, but if it doesn't change anything
-then don't warn about it.
+--_000_MN2PR12MB44887FBB23DE1AC09343331CF7F40MN2PR12MB4488namp_--
 
-regards,
-dan carpenter
+--===============0224041034==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0224041034==--
