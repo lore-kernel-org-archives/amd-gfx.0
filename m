@@ -2,44 +2,44 @@ Return-Path: <SRS0=1d7w=FG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49E0DC64E8A
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 08:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5192AC71155
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 08:01:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C60A222206
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 08:00:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C60A222206
+	by mail.kernel.org (Postfix) with ESMTPS id E05CD20872
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 08:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E05CD20872
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11DA76EA19;
-	Wed,  2 Dec 2020 08:00:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0231E6EA05;
+	Wed,  2 Dec 2020 08:01:14 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A7D16E955;
- Wed,  2 Dec 2020 08:00:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416656E9A6;
+ Wed,  2 Dec 2020 08:01:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C10E2ABD2;
- Wed,  2 Dec 2020 07:59:59 +0000 (UTC)
-Subject: Re: [PATCH v2 01/20] drm/amdgpu: Fix trailing whitespaces
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- airlied@linux.ie, daniel@ffwll.ch
-References: <20201201103542.2182-1-tzimmermann@suse.de>
- <20201201103542.2182-2-tzimmermann@suse.de>
- <d79aa7c0-9b0b-4f1b-c4e5-54f53a8d2931@amd.com>
+ by mx2.suse.de (Postfix) with ESMTP id D2E5AABD2;
+ Wed,  2 Dec 2020 08:01:10 +0000 (UTC)
+Subject: Re: [PATCH 14/15] drm/vmwgfx: Remove references to struct
+ drm_device.pdev
+To: Zack Rusin <zackr@vmware.com>
+References: <20201124113824.19994-1-tzimmermann@suse.de>
+ <20201124113824.19994-15-tzimmermann@suse.de>
+ <31E75B1A-AAC0-49E3-985E-2DF5B59CD883@vmware.com>
 From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <63150504-fda0-48fd-9ecd-fb19ea0ae9d7@suse.de>
-Date: Wed, 2 Dec 2020 08:59:58 +0100
+Message-ID: <e8102216-edd0-bec3-79af-3925e9668e95@suse.de>
+Date: Wed, 2 Dec 2020 09:01:09 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <d79aa7c0-9b0b-4f1b-c4e5-54f53a8d2931@amd.com>
+In-Reply-To: <31E75B1A-AAC0-49E3-985E-2DF5B59CD883@vmware.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,107 +51,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sam Ravnborg <sam@ravnborg.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, spice-devel@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1816641857=="
+Cc: "airlied@linux.ie" <airlied@linux.ie>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Roland Scheidegger <sroland@vmware.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0390418066=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1816641857==
+--===============0390418066==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="4eKph0FuFqNq79Rl3FZHdrapCHdf6uN3w"
+ boundary="Am4FOUXZOcqPgHq39fhKGA0YvYMWrkUHS"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---4eKph0FuFqNq79Rl3FZHdrapCHdf6uN3w
-Content-Type: multipart/mixed; boundary="3gcSrvRCjPgEBFOFDx6W1hdXoLEHQV45f";
+--Am4FOUXZOcqPgHq39fhKGA0YvYMWrkUHS
+Content-Type: multipart/mixed; boundary="eaFRfE55w1MRvdfAsCcfX1mxELLfMlYIe";
  protected-headers="v1"
 From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- airlied@linux.ie, daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>
-Message-ID: <63150504-fda0-48fd-9ecd-fb19ea0ae9d7@suse.de>
-Subject: Re: [PATCH v2 01/20] drm/amdgpu: Fix trailing whitespaces
-References: <20201201103542.2182-1-tzimmermann@suse.de>
- <20201201103542.2182-2-tzimmermann@suse.de>
- <d79aa7c0-9b0b-4f1b-c4e5-54f53a8d2931@amd.com>
-In-Reply-To: <d79aa7c0-9b0b-4f1b-c4e5-54f53a8d2931@amd.com>
+To: Zack Rusin <zackr@vmware.com>
+Cc: "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch"
+ <daniel@ffwll.ch>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Roland Scheidegger <sroland@vmware.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
+Message-ID: <e8102216-edd0-bec3-79af-3925e9668e95@suse.de>
+Subject: Re: [PATCH 14/15] drm/vmwgfx: Remove references to struct
+ drm_device.pdev
+References: <20201124113824.19994-1-tzimmermann@suse.de>
+ <20201124113824.19994-15-tzimmermann@suse.de>
+ <31E75B1A-AAC0-49E3-985E-2DF5B59CD883@vmware.com>
+In-Reply-To: <31E75B1A-AAC0-49E3-985E-2DF5B59CD883@vmware.com>
 
---3gcSrvRCjPgEBFOFDx6W1hdXoLEHQV45f
+--eaFRfE55w1MRvdfAsCcfX1mxELLfMlYIe
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 Hi
 
-Am 01.12.20 um 11:40 schrieb Christian K=C3=B6nig:
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> on patch #=
-1 and=20
-> #15.
+Am 30.11.20 um 21:59 schrieb Zack Rusin:
 >=20
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com> on patch #2 a=
-nd #16.
+>=20
+>> On Nov 24, 2020, at 06:38, Thomas Zimmermann <tzimmermann@suse.de> wro=
+te:
+>>
+>> Using struct drm_device.pdev is deprecated. Convert vmwgfx to struct
+>> drm_device.dev. No functional changes.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Roland Scheidegger <sroland@vmware.com>
+>> ---
+>> drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c |  8 ++++----
+>> drivers/gpu/drm/vmwgfx/vmwgfx_drv.c    | 27 +++++++++++++-------------=
 
-Could you add these patches to the AMD tree?
+>> drivers/gpu/drm/vmwgfx/vmwgfx_fb.c     |  2 +-
+>=20
+> Reviewed-by: Zack Rusin <zackr@vmware.com>
+
+Could you add this patch to the vmwgfx tree?
 
 Best regards
 Thomas
 
 >=20
-> Regards,
-> Christian.
->=20
-> Am 01.12.20 um 11:35 schrieb Thomas Zimmermann:
->> Adhere to kernel coding style.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->> Acked-by: Sam Ravnborg <sam@ravnborg.org>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
->> ---
->> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
->> =C2=A0 1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c=20
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 5f304425c948..da23c0f21311 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -4922,8 +4922,8 @@ pci_ers_result_t=20
->> amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case pci_channel_io_normal:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PCI_ERS_=
-RESULT_CAN_RECOVER;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Fatal error, prepare for slot reset =
-*/
->> -=C2=A0=C2=A0=C2=A0 case pci_channel_io_frozen:
->> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0 case pci_channel_io_frozen:
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Cancel =
-and wait for all TDRs in progress if failing to
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * set=C2=A0=
- adev->in_gpu_reset in amdgpu_device_lock_adev
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *
->> @@ -5014,7 +5014,7 @@ pci_ers_result_t amdgpu_pci_slot_reset(struct=20
->> pci_dev *pdev)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> -=C2=A0=C2=A0=C2=A0 adev->in_pci_err_recovery =3D true;
->> +=C2=A0=C2=A0=C2=A0 adev->in_pci_err_recovery =3D true;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D amdgpu_device_pre_asic_reset(adev=
-, NULL, &need_full_reset);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->in_pci_err_recovery =3D false;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r)
+> z
 >=20
 
 --=20
@@ -163,32 +141,32 @@ Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
 Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
 
---3gcSrvRCjPgEBFOFDx6W1hdXoLEHQV45f--
+--eaFRfE55w1MRvdfAsCcfX1mxELLfMlYIe--
 
---4eKph0FuFqNq79Rl3FZHdrapCHdf6uN3w
+--Am4FOUXZOcqPgHq39fhKGA0YvYMWrkUHS
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAl/HSX4FAwAAAAAACgkQlh/E3EQov+Cn
-iw//fMsnlOc+PqrXSFAe13Z7qjnUrEob83wRbIiWj/feKrpixLOuIGOprm2tQfMp2FPfMTiYrWeO
-MEVLR7xWsfiqPaupauttA82gBtVO8yYZ5Yabi82zNqX77osAm/w17zF39c+p11W9duhZnV8brHhv
-RKTnwzP1pD13Q5mpBf6WLOHOe8QUsQBz51DTZEsPl2CKYjXMv+GXX9Gr+mtG1tW0VkpgnzlsDe+Y
-yY327EqhjgE8T1I4Qx4qaPllqRX6BBxe2KRj7RYW8OL/GEYCJqbEhDn+iEeHdr1gZ9DA0eeGXWa1
-TxtTtBF3OK27o1UnO5KKhoW4LN2d6YePlDrEtf/AWji0OokAs+kv/F3xVUJBuXL+OQhR8CQ92Nzv
-/lWarpsKvjmmd8SXBAsJNsFz53JkbQVDzrZ5qEYEgGXPBP8TWjV7E8nRx+ntndUlVy9KiH/AkJ96
-EVtmhNvNp439cNraXizLMDjwFnUiHed6zZi0AcdM8T/dxBWRzeelF0WwWdV3VEdw6BBYZJyoLEz3
-qY6SoqOWzuBYutJ+4uqLUzj9xtIdxlbszyvu+p1zN9GQ4Vb/2Sfq7wi+7Sku2qiwO/iWasSzzQJG
-BMQsZ0uKrn1/7/JqYA+p8rOH3Bpv8RcMZUcfpnqKhBG1iU4bzFQGrkwpLssRf24v6eEjnwiIRLH4
-7TE=
-=8bgC
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAl/HScUFAwAAAAAACgkQlh/E3EQov+A5
+lQ/9EOKsA/oUbEGXGt6r0+ZOkVeDk90o3oIDiENMmRAuYbufsmkmqtcqjg8sxmvFdNZc8K1e18JZ
+ImyhLHXHNQIOYlvi362TSMxM8G33UGBWo3se5Vhjy0vN+FrmpoWO3Pd2ctIKd3aux2dg5Tmj1wrG
+U/dGG1VT+qMZKLUOkXRLXTP+1y7va8aRzEtGQc0pTFdBoDrb/IMsVl+MFaV+SJ5a9Ar95uL0x6vy
+4052WSeyA+TDYncD8PeZHDEGotC5y/f8n9elTc+aBXGSCbNfhV5tad23yrM9MPTIs09BMJrGwRoo
+8QOsFTfr5XWn5O4ex5UKfHulTRnKcC4aCactTA2G1GKw9A3rai8E6hTV+1BVcHg4Acae1SDNRpIb
+USRpiiT89u08+tsbd0919ij3QwgTMzTgI9qdGfMELeNCHQ741LJGaPImJbSVKemITFRI4iKCag+Q
+32lfaU2+T+gXIJW98OX/YjTLt1f2cWjEdKwaLG9cDXJG0YB0ezcML6lotmt+WOIvBO+RQQdJaGtj
+gAIlRjBvToOGAhqbO0LEiN20VPRCP7mUOeyHcbETIxzmifa8wpWPukXmza6wYFu9P/KIaf1QYxJw
+2ZBDHDxXhu155sbPPgL2KH+rK4+H93TwSWVJ2qGWsFNY+oCEaquEYIvOE+h1D8HWxoJXffHhu9GA
+w9A=
+=XbA6
 -----END PGP SIGNATURE-----
 
---4eKph0FuFqNq79Rl3FZHdrapCHdf6uN3w--
+--Am4FOUXZOcqPgHq39fhKGA0YvYMWrkUHS--
 
---===============1816641857==
+--===============0390418066==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -199,4 +177,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1816641857==--
+--===============0390418066==--
