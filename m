@@ -7,38 +7,38 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B27C6C64E7B
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:09:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97E7AC64E7B
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:09:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 212D620709
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 212D620709
+	by mail.kernel.org (Postfix) with ESMTPS id 3983C21D91
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 21:09:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3983C21D91
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2656EADA;
-	Wed,  2 Dec 2020 21:09:18 +0000 (UTC)
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDC9A6EAC1
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 21:09:15 +0000 (UTC)
-Date: Wed, 02 Dec 2020 21:09:07 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCD956EADB;
+	Wed,  2 Dec 2020 21:09:23 +0000 (UTC)
+Received: from mail-40136.protonmail.ch (mail-40136.protonmail.ch
+ [185.70.40.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A312F6EADB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 21:09:22 +0000 (UTC)
+Date: Wed, 02 Dec 2020 21:09:13 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1606943354;
- bh=8hK96fOCQt5046pRTpW/cGEczrDW1wi2oTkHZbehs1U=;
+ s=protonmail2; t=1606943360;
+ bh=YOtYhcoFH/fl14SEmnn20mAGB6zjgA6t7LTkWsRxqQI=;
  h=Date:To:From:Cc:Reply-To:Subject:From;
- b=Sks0U1PcCoSmwNCXhtwR52WnRh4Era6OfZe7ZSas0/BRb/e8MdoGBSk8TaN0zaNYi
- 1McLbP6176uK6ByrtoO0lOqgvMiet9QLEW02qJ9UtBZcAWsNVt8obMvZPgC0S921Rl
- RSWddrLAXGTpHtk3UaKo6r6JrJ9bFg5ufwfkSAh2H8wU2vHaIsjygcwFzBvHu4dimy
- Jef3/5HmeWx7v6ZvmfxlT8R9ORm5QLvfYqw2A/KPwmxulE5Cw76T2GrFWU2uxjOpnf
- yrRrea4TwC2ZFkULygaVksyECX/5Iyqr2dQVseoOOeNmbzA0Pc0R8jGO5i4rtAnVpC
- gMWnS8lSfQl8A==
+ b=UVqdT8wuzPt2MIybXpbgwTblMbkh2o5T0XJd1Ka7GsLIr4A5pk8mZAoGsNzRFeyKH
+ kaXhMHduh1huI1JrMLbW731Sm1S11HyBVtl3OmflWdAMILNYWhDPobFtXKo2QTyhp1
+ XnaaUPCcGyRi0LTmKA/QytP3eX8lW12jzo2SJOdzVYAx/PzM+wjp0lObSLY6C1HCZI
+ gqH0FYnz+s7NMNHkwu9y7mnvRuEuMrpUDAeBeAcJ0Se4l0dvthRA7kvchwsQDWfWEj
+ 49l8Kmp6e9QXlUi88kxlBTQm5BCmvDs2q754AItqHiU/7CE8UndfMzHQt5aKYb/4Jc
+ La6E2SYGKhUdg==
 To: amd-gfx@lists.freedesktop.org
 From: Simon Ser <contact@emersion.fr>
-Subject: [PATCH 1/2] drm/amd/display: use FB pitch to fill dc_cursor_attributes
-Message-ID: <MQH1AMaxxGNHvDgSEtK2JNe5VY7eXXhv0M8d9w2WD8@cp4-web-027.plabs.ch>
+Subject: [PATCH 2/2] drm/amd/display: add cursor pitch check
+Message-ID: <7UvPE5okTSEaIRnrg3TJcnkyIBhPPRXCCuMa5wwC18@cp3-web-029.plabs.ch>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,33 +59,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of relying on pitch (in pixels) == width, use the FB pitch. This
-is less confusing to readers, and works correctly if we ever support FBs
-with a pitch (in pixels) != width.
-
-This also makes the code symmetrical with fill_plane_buffer_attributes.
+Replace the width check with a pitch check, which matches DM internals.
+Add a new check to make sure the pitch (in pixels) matches the width.
 
 Signed-off-by: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 35920e5c73e7..9e328101187e 100644
+index 9e328101187e..862a59703060 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7432,7 +7432,7 @@ static void handle_cursor_update(struct drm_plane *plane,
- 	attributes.rotation_angle    = 0;
- 	attributes.attribute_flags.value = 0;
+@@ -8988,6 +8988,7 @@ static int dm_update_plane_state(struct dc *dc,
+ 	struct amdgpu_crtc *new_acrtc;
+ 	bool needs_reset;
+ 	int ret = 0;
++	unsigned int pitch;
  
--	attributes.pitch = attributes.width;
-+	attributes.pitch = afb->base.pitches[0] / afb->base.format->cpp[0];
  
- 	if (crtc_state->stream) {
- 		mutex_lock(&adev->dm.dc_lock);
+ 	new_plane_crtc = new_plane_state->crtc;
+@@ -9021,15 +9022,25 @@ static int dm_update_plane_state(struct dc *dc,
+ 				return -EINVAL;
+ 			}
+ 
+-			switch (new_plane_state->fb->width) {
++			/* Pitch in pixels */
++			pitch = new_plane_state->fb->pitches[0] / new_plane_state->fb->format->cpp[0];
++
++			if (new_plane_state->fb->width != pitch) {
++				DRM_DEBUG_ATOMIC("Cursor FB width %d doesn't match pitch %d",
++						 new_plane_state->fb->width,
++						 pitch);
++				return -EINVAL;
++			}
++
++			switch (pitch) {
+ 			case 64:
+ 			case 128:
+ 			case 256:
+-				/* FB width is supported by cursor plane */
++				/* FB pitch is supported by cursor plane */
+ 				break;
+ 			default:
+-				DRM_DEBUG_ATOMIC("Bad cursor FB width %d\n",
+-						 new_plane_state->fb->width);
++				DRM_DEBUG_ATOMIC("Bad cursor FB pitch %d px\n",
++						 pitch);
+ 				return -EINVAL;
+ 			}
+ 		}
 -- 
 2.29.2
 
