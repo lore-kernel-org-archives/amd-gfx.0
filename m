@@ -8,62 +8,62 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7DB1C64E8A
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 03:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBD7BC64E90
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 03:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 199812158C
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 03:05:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 199812158C
+	by mail.kernel.org (Postfix) with ESMTPS id 673F92158C
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 03:05:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 673F92158C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB386E9A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA07D6E9A6;
 	Wed,  2 Dec 2020 03:05:17 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52CFD6E9A0
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 03:05:15 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id q5so36914qkc.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 19:05:15 -0800 (PST)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25C476E9A5
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 03:05:16 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id g17so109302qts.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Dec 2020 19:05:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FGjhQ8FuQlL3Hj58F44dSRL733LXKtJWnDQV4qyNpWo=;
- b=sCDEq8HE/Sen9Ur/QT1cP+T8uszpJKgx3nuq30VVq6ms6up9ZmxFpvo15hRkQxJaZT
- oN6RCZ3uE5vOBvx6f6lxtXypTT35/EdfZ3MJAGqZvKRIQRVgCZqtah+rJBSZvkeBN21d
- 6GQd2HFCJZMqv389vTgdD7Ir+cRnso1RkizVDHRyvW562c1/RwXzU05vbveuHuteQBL4
- UgmI78XnqRbQbi8cy0AVTAAwXErnVT/uFo1GT6HNh2Kcb4Pmzdt4mxg1GdVkipmJJdII
- CAzUX9iHTtv53U19r3Af0ZQzTfqdLxCM+7ZtxC1L2PpF2KpSoHZ5sXd+Ea9tDfd/eM/j
- 8KZQ==
+ bh=YkAHxa7B3vFe3m26R7M0aX5o3mZJOSCbc4e6h86XD18=;
+ b=N+IcWzqHmKoWLcB8AnflF2ZW5vbURf168jmQLBTn1tvvlDAEOuIalR3XBTPFwJjiPC
+ Z+vVETux+aCdc95uy3+X4rIYxAC6Qb6DubVGV4YMv/UThN5+33rWqNtLykZ7Jmtv/TJ9
+ yJbVHasJQuKSv+hSPtPtJxPVjk2kTy+TyE9BT/VihZFQAbLT2ebEAf7+3DSbU2n88NGW
+ h6nq9TxrrpMyDIG15oQwXQ1NMK534bE5DG/aq2V2VhABcxosd6Q0uaDDyjhpV6nQ17FU
+ pg0coQ7Zs1Bb8aD1f4BI1IAAr8cZBBSyXgYOc9eFown9G0C0pkwjFbE0yo6JCSzY5lU2
+ NkMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FGjhQ8FuQlL3Hj58F44dSRL733LXKtJWnDQV4qyNpWo=;
- b=aCD9LQQtEcnGAZqSyroSjL6AIP6TuQQjBGqs5OMoBHHaOQOl/f+BP5iaEZBbt4BdvX
- 1+lkClrdU3Z0UubnywgOl/8ytlGM8sP4mNCkUZY+FDxNjPP2SOWjCYxEug8/oTIsXVl/
- 0MpfEJspobI8oWQMo6Z6rtedKDbZnnuRXAsG1+AGm3Qmwk0XFyHZPek9l2uTRLZtAITQ
- PljpPrKQrkA4VrLVQwXPoEi5+qn9L0X0Yq7KM9hje2R8cWhEcKk11p0LGCYjTxGvZxCr
- GIapKyJjWACbZO4VpWcxRRofilRjKIqCQFHRjax+3Y+qDCTiFk9ND+mpmwNLqr12SVtX
- haqg==
-X-Gm-Message-State: AOAM531nE5uClPwrrNe3Me2uXkNTOiqb4pRkXuoBr8K+q0US2bRSDmxk
- e1KAGhzSeWg+s7l7T98cszTelHxTvhQ=
-X-Google-Smtp-Source: ABdhPJx83DIEx+JsfqP6ln8g3QqFiarrSyV6ogppdNOH3xbSIk8xooYGFThAn/mvq9nc4RiiD431Mw==
-X-Received: by 2002:a05:620a:244:: with SMTP id
- q4mr615199qkn.342.1606878314301; 
- Tue, 01 Dec 2020 19:05:14 -0800 (PST)
+ bh=YkAHxa7B3vFe3m26R7M0aX5o3mZJOSCbc4e6h86XD18=;
+ b=dsA14Vnh7PVBpGMFVRbnpVRQ5ficdAzcjX9m4OvaRU09zGc5nHWXRHZEy5WPEnCKmz
+ pKgLATkYxLeYSd0JfCVtqInSy38UHANu7jNrR+FU7YGETQawcjpIToSAIwrweLDiGXnh
+ pMRYYTUvzataQFKAoT/Tieye7AQoLG7ptY1K/ZFDO/3ikfQmfSnOuKjr570zmKAaXQZI
+ bT//WcDgsnCirTw1HOunCf0TCzTX4rSNQkceUab0HbzutheJDI0Y+SjtLS2mwhVHrLkN
+ nxK1PpnWVKNbAtjFOgwaM3Dz+n/95jE4I2EJ409KdSWMBeUAq8DQ9ZdLWWTX68RnpWVA
+ cOQg==
+X-Gm-Message-State: AOAM533+3TXmd0AUvlLfSqr5ACR5h6jEUturCTFU45ZvfFU71SNZcCkQ
+ 6J9TUVMQdgNEQ1fj970LZUZXvwYa6jg=
+X-Google-Smtp-Source: ABdhPJyLuN0t3uHrUR+0KdGTp7ulVs0JyS6PNzdBYko5ll9l1nCjSjfk0x4syKNGarXStNsF8JTpHw==
+X-Received: by 2002:ac8:6d15:: with SMTP id o21mr660487qtt.83.1606878315068;
+ Tue, 01 Dec 2020 19:05:15 -0800 (PST)
 Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id b64sm471411qkg.19.2020.12.01.19.05.13
+ by smtp.gmail.com with ESMTPSA id b64sm471411qkg.19.2020.12.01.19.05.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Dec 2020 19:05:13 -0800 (PST)
+ Tue, 01 Dec 2020 19:05:14 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/4] drm/amdgpu/swsmu/vangogh: simplify sensor handling
-Date: Tue,  1 Dec 2020 22:05:03 -0500
-Message-Id: <20201202030505.1310154-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu/swsmu/vangogh: use metrics table for voltages
+ (v2)
+Date: Tue,  1 Dec 2020 22:05:04 -0500
+Message-Id: <20201202030505.1310154-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201202030505.1310154-1-alexander.deucher@amd.com>
 References: <20201202030505.1310154-1-alexander.deucher@amd.com>
@@ -79,167 +79,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just query the metrics table directly rather than going through
-an extra level of functions.
+Fixes voltage reading for vddgfx and adds support for vddsoc.
 
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+v2: use new voltage enum
+
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 114 +++---------------
- 1 file changed, 20 insertions(+), 94 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 20 ++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 56704181c5a9..1645509cdab8 100644
+index 1645509cdab8..d5a06cc44dbc 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -396,95 +396,6 @@ static bool vangogh_is_dpm_running(struct smu_context *smu)
- 	return !!(feature_enabled & SMC_DPM_FEATURE);
- }
- 
--static int vangogh_get_current_activity_percent(struct smu_context *smu,
--					       enum amd_pp_sensors sensor,
--					       uint32_t *value)
--{
--	int ret = 0;
--
--	if (!value)
--		return -EINVAL;
--
--	switch (sensor) {
--	case AMDGPU_PP_SENSOR_GPU_LOAD:
--		ret = vangogh_get_smu_metrics_data(smu,
--						  METRICS_AVERAGE_GFXACTIVITY,
--						  value);
--		if (ret)
--			return ret;
--		break;
--	default:
--		dev_err(smu->adev->dev, "Invalid sensor for retrieving clock activity\n");
--		return -EINVAL;
--	}
--
--	return 0;
--}
--
--static int vangogh_get_gpu_power(struct smu_context *smu, uint32_t *value)
--{
--	if (!value)
--		return -EINVAL;
--
--	return vangogh_get_smu_metrics_data(smu,
--					   METRICS_AVERAGE_SOCKETPOWER,
--					   value);
--}
--
--static int vangogh_thermal_get_temperature(struct smu_context *smu,
--					     enum amd_pp_sensors sensor,
--					     uint32_t *value)
--{
--	int ret = 0;
--
--	if (!value)
--		return -EINVAL;
--
--	switch (sensor) {
--	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
--		ret = vangogh_get_smu_metrics_data(smu,
--						  METRICS_TEMPERATURE_HOTSPOT,
--						  value);
--		break;
--	case AMDGPU_PP_SENSOR_EDGE_TEMP:
--		ret = vangogh_get_smu_metrics_data(smu,
--						  METRICS_TEMPERATURE_EDGE,
--						  value);
--		break;
--	default:
--		dev_err(smu->adev->dev, "Invalid sensor for retrieving temp\n");
--		return -EINVAL;
--	}
--
--	return ret;
--}
--
--static int vangogh_get_current_clk_freq_by_table(struct smu_context *smu,
--				       enum smu_clk_type clk_type,
--				       uint32_t *value)
--{
--	MetricsMember_t member_type;
--
--	switch (clk_type) {
--	case SMU_GFXCLK:
--		member_type = METRICS_AVERAGE_GFXCLK;
--		break;
--	case SMU_MCLK:
--	case SMU_UCLK:
--		member_type = METRICS_AVERAGE_UCLK;
--		break;
--	case SMU_SOCCLK:
--		member_type = METRICS_AVERAGE_SOCCLK;
--		break;
--	default:
--		return -EINVAL;
--	}
--
--	return vangogh_get_smu_metrics_data(smu,
--					   member_type,
--					   value);
--}
--
- static int vangogh_print_fine_grain_clk(struct smu_context *smu,
- 			enum smu_clk_type clk_type, char *buf)
- {
-@@ -526,25 +437,40 @@ static int vangogh_read_sensor(struct smu_context *smu,
- 	mutex_lock(&smu->sensor_lock);
- 	switch (sensor) {
- 	case AMDGPU_PP_SENSOR_GPU_LOAD:
--		ret = vangogh_get_current_activity_percent(smu, sensor, (uint32_t *)data);
-+		ret = vangogh_get_smu_metrics_data(smu,
-+						   METRICS_AVERAGE_GFXACTIVITY,
+@@ -265,6 +265,12 @@ static int vangogh_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_THROTTLER_STATUS:
+ 		*value = metrics->ThrottlerStatus;
+ 		break;
++	case METRICS_VOLTAGE_VDDGFX:
++		*value = metrics->Voltage[2];
++		break;
++	case METRICS_VOLTAGE_VDDSOC:
++		*value = metrics->Voltage[1];
++		break;
+ 	default:
+ 		*value = UINT_MAX;
+ 		break;
+@@ -469,13 +475,21 @@ static int vangogh_read_sensor(struct smu_context *smu,
+ 		break;
+ 	case AMDGPU_PP_SENSOR_GFX_SCLK:
+ 		ret = vangogh_get_smu_metrics_data(smu,
+-						    METRICS_AVERAGE_GFXCLK,
+-						    (uint32_t *)data);
++						   METRICS_AVERAGE_GFXCLK,
 +						   (uint32_t *)data);
+ 		*(uint32_t *)data *= 100;
  		*size = 4;
  		break;
- 	case AMDGPU_PP_SENSOR_GPU_POWER:
--		ret = vangogh_get_gpu_power(smu, (uint32_t *)data);
+ 	case AMDGPU_PP_SENSOR_VDDGFX:
+-		ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
 +		ret = vangogh_get_smu_metrics_data(smu,
-+						   METRICS_AVERAGE_SOCKETPOWER,
-+						   (uint32_t *)data);
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_EDGE_TEMP:
-+		ret = vangogh_get_smu_metrics_data(smu,
-+						   METRICS_TEMPERATURE_EDGE,
++						   METRICS_VOLTAGE_VDDGFX,
 +						   (uint32_t *)data);
 +		*size = 4;
 +		break;
- 	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
--		ret = vangogh_thermal_get_temperature(smu, sensor, (uint32_t *)data);
++	case AMDGPU_PP_SENSOR_VDDNB:
 +		ret = vangogh_get_smu_metrics_data(smu,
-+						   METRICS_TEMPERATURE_HOTSPOT,
++						   METRICS_VOLTAGE_VDDSOC,
 +						   (uint32_t *)data);
  		*size = 4;
  		break;
- 	case AMDGPU_PP_SENSOR_GFX_MCLK:
--		ret = vangogh_get_current_clk_freq_by_table(smu, SMU_UCLK, (uint32_t *)data);
-+		ret = vangogh_get_smu_metrics_data(smu,
-+						   METRICS_AVERAGE_UCLK,
-+						   (uint32_t *)data);
- 		*(uint32_t *)data *= 100;
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_GFX_SCLK:
--		ret = vangogh_get_current_clk_freq_by_table(smu, SMU_GFXCLK, (uint32_t *)data);
-+		ret = vangogh_get_smu_metrics_data(smu,
-+						    METRICS_AVERAGE_GFXCLK,
-+						    (uint32_t *)data);
- 		*(uint32_t *)data *= 100;
- 		*size = 4;
- 		break;
+ 	default:
 -- 
 2.25.4
 
