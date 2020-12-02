@@ -2,53 +2,69 @@ Return-Path: <SRS0=1d7w=FG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E17E4C64E7C
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 19:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33511C6369E
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 20:18:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 678C022254
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 19:11:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 678C022254
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id A326D21527
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Dec 2020 20:17:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A326D21527
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D91BC6EA9B;
-	Wed,  2 Dec 2020 19:11:00 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07B106EA8F;
- Wed,  2 Dec 2020 18:19:05 +0000 (UTC)
-Date: Wed, 2 Dec 2020 19:20:14 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1606933145;
- bh=VEyWbtTmb1x3b+wJ4eb2O6KrmsR6kESCM2SqrApGBJg=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=pLZaOCyd2U3MYQCgavjDdJUlZWXhMrsLdusjjfFRTLa3yfqyxSy9qancuDerCtXdE
- yWiYQKxEm8zm91Fq1gXP0a8HvOxBK+mwuYP2BoM3f9+LMX5vQV/ZUw8zdanx1djsvb
- NOI2pxS8P3Cnze5nQZm+XMxZ2unzA8YU33X6eAU8=
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH v2 5/8] drm/amdgpu: Refactor sysfs removal
-Message-ID: <X8fa3slOicbad0kN@kroah.com>
-References: <20200623060532.GB3818201@kroah.com>
- <090c5a35-3088-d6d0-dcaf-5ce5542a4298@amd.com>
- <20200624061153.GA933050@kroah.com>
- <c864c559-71f4-08a5-f692-3f067a9a32f8@amd.com>
- <X6rU6lKDCyl6RN+V@kroah.com>
- <9db66134-0690-0972-2312-9d9155a0c5d8@amd.com>
- <X6wEbtSDm69gzFbR@kroah.com>
- <bc6cc476-4f09-1c0f-37b9-522723ecdc85@amd.com>
- <X8fQQpYDqsgGJUPt@kroah.com>
- <7a35f0d7-6e0c-0ebd-c6ea-6629335b85ff@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1955B6EABB;
+	Wed,  2 Dec 2020 20:17:58 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35EB66EABB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Dec 2020 20:17:56 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id p12so1333476qvj.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Dec 2020 12:17:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Myq7dc3icBA9AVlzP1TjqAkNnnG0uAE79YA/3EVhavE=;
+ b=aub71TMofLVIf4aSf3S/G2tO4Ln2FTYmhJ0GfkrMTwseuJJ50sd/UBiMw85RnAlVNH
+ lXL69Q5qZKbp15pSEq2R044sQqDiMSgohZvFRUYgUIGVK7ZLlgc4Xiy7v/9t9IgLwPay
+ pu+2uCu8vJF9adkozE+YJZQJufSXbywP3N5ojOSSKHpy/6EMc0lSsCrLqZRp5R8QerXf
+ rX2xqUWfgwJFuxQpuxQCHn/a0KvqSAhvo0zOui7qtR56nuq7vlmBsZuTxG/86GT3/rb0
+ Jwa5YtXrltAj1BsgcPW36RXYC+LASDKQpIqSnKuVjGkqp2YafEA2DlHDMPaKF2Yeb3eb
+ Pdmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Myq7dc3icBA9AVlzP1TjqAkNnnG0uAE79YA/3EVhavE=;
+ b=jS/vrOml67m/i1NurZn3kxkfyiD3rk21dOBsoMTzNLxb97WdC+tiKP+YNeEM6RRfCl
+ d8m8628Qy+q3eV1z0SeZUZDavPp2DgmH5685JvbkkcxBYqgFw+N+QZzL81PgC0yRaJJk
+ VaDEEGlCcdWFjCZlmkDKEHwpAbwaidsgDQdd0zc19NVr2cVofEnPUG5CgiTEMCZRPJOt
+ HTIO50VGPoKm30vBKUJyQMv4BLXFesFDKwOIH7U9nA4wH7cAaZ1t8P4YMHYAcOz0EXzm
+ sDSU8+ekY3orWLtK55BU14Ppa7P+HlqtkyDg6TygrWFa0xUCzS92FmAnGOLf549NPnYH
+ Dfug==
+X-Gm-Message-State: AOAM532sH9qkLuvLCE+G3MUBpIm1gyVBq+2YrQcwNt2QkTiz/WrtUKiy
+ GuVYVWtFZ+x1AGnwQn7DW0/Zf1P/Ojk=
+X-Google-Smtp-Source: ABdhPJyZaNTQ3M4W1Qd2PgTUmIHYVlC7lP0Pjik6sojtfljwff+UnRyXzabc2iReq/HC47b6ykOtjw==
+X-Received: by 2002:ad4:522a:: with SMTP id r10mr4539294qvq.23.1606940275116; 
+ Wed, 02 Dec 2020 12:17:55 -0800 (PST)
+Received: from localhost.localdomain ([192.161.78.5])
+ by smtp.gmail.com with ESMTPSA id c10sm2805280qkm.71.2020.12.02.12.17.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Dec 2020 12:17:54 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/powerplay: parse fan table for CI asics
+Date: Wed,  2 Dec 2020 15:17:47 -0500
+Message-Id: <20201202201747.1433842-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7a35f0d7-6e0c-0ebd-c6ea-6629335b85ff@amd.com>
-X-Mailman-Approved-At: Wed, 02 Dec 2020 19:10:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,105 +76,151 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
- ppaalanen@gmail.com, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, ckoenig.leichtzumerken@gmail.com,
- alexdeucher@gmail.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 02, 2020 at 01:02:06PM -0500, Andrey Grodzovsky wrote:
-> =
+Set up all the parameters required for SMU fan control if supported.
 
-> On 12/2/20 12:34 PM, Greg KH wrote:
-> > On Wed, Dec 02, 2020 at 10:48:01AM -0500, Andrey Grodzovsky wrote:
-> > > On 11/11/20 10:34 AM, Greg KH wrote:
-> > > > On Wed, Nov 11, 2020 at 10:13:13AM -0500, Andrey Grodzovsky wrote:
-> > > > > On 11/10/20 12:59 PM, Greg KH wrote:
-> > > > > > On Tue, Nov 10, 2020 at 12:54:21PM -0500, Andrey Grodzovsky wro=
-te:
-> > > > > > > Hi, back to this after a long context switch for some higher =
-priority stuff.
-> > > > > > > =
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=201539
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../amd/pm/powerplay/hwmgr/processpptables.c  | 103 +++++++++++++++++-
+ 1 file changed, 102 insertions(+), 1 deletion(-)
 
-> > > > > > > So here I was able eventually to drop all this code and this =
-change here https://nam11.safelinks.protection.outlook.com/?url=3Dhttps:%2F=
-%2Fcgit.freedesktop.org%2F~agrodzov%2Flinux%2Fcommit%2F%3Fh%3Damd-staging-d=
-rm-next-device-unplug%26id%3D61852c8a59b4dd89d637693552c73175b9f2ccd6&amp;d=
-ata=3D04%7C01%7CAndrey.Grodzovsky%40amd.com%7C29ff7efb89bd47d8488708d896e86=
-e7c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637425272317529134%7CUnkno=
-wn%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVC=
-I6Mn0%3D%7C1000&amp;sdata=3DVzc3fVofA6%2BMPSqHmBqcWavQLKWU1%2FXKJFun24irLf0=
-%3D&amp;reserved=3D0
-> > > > > > > was enough for me. Seems like while device_remove_file can ha=
-ndle the use
-> > > > > > > case where the file and the parent directory already gone,
-> > > > > > > sysfs_remove_group goes down in flames in that case
-> > > > > > > due to kobj->sd being unset on device removal.
-> > > > > > A driver shouldn't ever have to remove individual sysfs groups,=
- the
-> > > > > > driver core/bus logic should do it for them automatically.
-> > > > > > =
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+index 48d550d26c6a..182118e3fd5f 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+@@ -24,6 +24,8 @@
+ #include <linux/types.h>
+ #include <linux/kernel.h>
+ #include <linux/slab.h>
++#include <linux/pci.h>
++
+ #include <drm/amdgpu_drm.h>
+ #include "processpptables.h"
+ #include <atom-types.h>
+@@ -980,6 +982,8 @@ static int init_thermal_controller(
+ 			struct pp_hwmgr *hwmgr,
+ 			const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table)
+ {
++	struct amdgpu_device *adev = hwmgr->adev;
++
+ 	hwmgr->thermal_controller.ucType =
+ 			powerplay_table->sThermalController.ucType;
+ 	hwmgr->thermal_controller.ucI2cLine =
+@@ -1004,7 +1008,104 @@ static int init_thermal_controller(
+ 		   ATOM_PP_THERMALCONTROLLER_NONE != hwmgr->thermal_controller.ucType,
+ 		   PHM_PlatformCaps_ThermalController);
+ 
+-	hwmgr->thermal_controller.use_hw_fan_control = 1;
++        if (powerplay_table->usTableSize >= sizeof(ATOM_PPLIB_POWERPLAYTABLE3)) {
++		const ATOM_PPLIB_POWERPLAYTABLE3 *powerplay_table3 =
++			(const ATOM_PPLIB_POWERPLAYTABLE3 *)powerplay_table;
++
++		if (0 == le16_to_cpu(powerplay_table3->usFanTableOffset)) {
++			hwmgr->thermal_controller.use_hw_fan_control = 1;
++			return 0;
++		} else {
++			const ATOM_PPLIB_FANTABLE *fan_table =
++				(const ATOM_PPLIB_FANTABLE *)(((unsigned long)powerplay_table) +
++							      le16_to_cpu(powerplay_table3->usFanTableOffset));
++
++			if (1 <= fan_table->ucFanTableFormat) {
++				hwmgr->thermal_controller.advanceFanControlParameters.ucTHyst =
++					fan_table->ucTHyst;
++				hwmgr->thermal_controller.advanceFanControlParameters.usTMin =
++					le16_to_cpu(fan_table->usTMin);
++				hwmgr->thermal_controller.advanceFanControlParameters.usTMed =
++					le16_to_cpu(fan_table->usTMed);
++				hwmgr->thermal_controller.advanceFanControlParameters.usTHigh =
++					le16_to_cpu(fan_table->usTHigh);
++				hwmgr->thermal_controller.advanceFanControlParameters.usPWMMin =
++					le16_to_cpu(fan_table->usPWMMin);
++				hwmgr->thermal_controller.advanceFanControlParameters.usPWMMed =
++					le16_to_cpu(fan_table->usPWMMed);
++				hwmgr->thermal_controller.advanceFanControlParameters.usPWMHigh =
++					le16_to_cpu(fan_table->usPWMHigh);
++				hwmgr->thermal_controller.advanceFanControlParameters.usTMax = 10900;
++				hwmgr->thermal_controller.advanceFanControlParameters.ulCycleDelay = 100000;
++
++				phm_cap_set(hwmgr->platform_descriptor.platformCaps,
++					    PHM_PlatformCaps_MicrocodeFanControl);
++			}
++
++			if (2 <= fan_table->ucFanTableFormat) {
++				const ATOM_PPLIB_FANTABLE2 *fan_table2 =
++					(const ATOM_PPLIB_FANTABLE2 *)(((unsigned long)powerplay_table) +
++								       le16_to_cpu(powerplay_table3->usFanTableOffset));
++				hwmgr->thermal_controller.advanceFanControlParameters.usTMax =
++					le16_to_cpu(fan_table2->usTMax);
++			}
++
++			if (3 <= fan_table->ucFanTableFormat) {
++				const ATOM_PPLIB_FANTABLE3 *fan_table3 =
++					(const ATOM_PPLIB_FANTABLE3 *) (((unsigned long)powerplay_table) +
++									le16_to_cpu(powerplay_table3->usFanTableOffset));
++
++				hwmgr->thermal_controller.advanceFanControlParameters.ucFanControlMode =
++					fan_table3->ucFanControlMode;
++
++				if ((3 == fan_table->ucFanTableFormat) &&
++				    (0x67B1 == adev->pdev->device))
++					hwmgr->thermal_controller.advanceFanControlParameters.usDefaultMaxFanPWM =
++						47;
++				else
++					hwmgr->thermal_controller.advanceFanControlParameters.usDefaultMaxFanPWM =
++						le16_to_cpu(fan_table3->usFanPWMMax);
++
++				hwmgr->thermal_controller.advanceFanControlParameters.usDefaultFanOutputSensitivity =
++					4836;
++				hwmgr->thermal_controller.advanceFanControlParameters.usFanOutputSensitivity =
++					le16_to_cpu(fan_table3->usFanOutputSensitivity);
++			}
++
++			if (6 <= fan_table->ucFanTableFormat) {
++				const ATOM_PPLIB_FANTABLE4 *fan_table4 =
++					(const ATOM_PPLIB_FANTABLE4 *)(((unsigned long)powerplay_table) +
++								       le16_to_cpu(powerplay_table3->usFanTableOffset));
++
++				phm_cap_set(hwmgr->platform_descriptor.platformCaps,
++					    PHM_PlatformCaps_FanSpeedInTableIsRPM);
++
++				hwmgr->thermal_controller.advanceFanControlParameters.usDefaultMaxFanRPM =
++					le16_to_cpu(fan_table4->usFanRPMMax);
++			}
++
++			if (7 <= fan_table->ucFanTableFormat) {
++				const ATOM_PPLIB_FANTABLE5 *fan_table5 =
++					(const ATOM_PPLIB_FANTABLE5 *)(((unsigned long)powerplay_table) +
++								       le16_to_cpu(powerplay_table3->usFanTableOffset));
++
++				if (0x67A2 == adev->pdev->device ||
++				    0x67A9 == adev->pdev->device ||
++				    0x67B9 == adev->pdev->device) {
++					phm_cap_set(hwmgr->platform_descriptor.platformCaps,
++						    PHM_PlatformCaps_GeminiRegulatorFanControlSupport);
++					hwmgr->thermal_controller.advanceFanControlParameters.usFanCurrentLow =
++						le16_to_cpu(fan_table5->usFanCurrentLow);
++					hwmgr->thermal_controller.advanceFanControlParameters.usFanCurrentHigh =
++						le16_to_cpu(fan_table5->usFanCurrentHigh);
++					hwmgr->thermal_controller.advanceFanControlParameters.usFanRPMLow =
++						le16_to_cpu(fan_table5->usFanRPMLow);
++					hwmgr->thermal_controller.advanceFanControlParameters.usFanRPMHigh =
++						le16_to_cpu(fan_table5->usFanRPMHigh);
++				}
++			}
++		}
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.25.4
 
-> > > > > > And whenever a driver calls a sysfs_* call, that's a hint that =
-something
-> > > > > > is not working properly.
-> > > > > =
-
-> > > > > Do you mean that while the driver creates the groups and files ex=
-plicitly
-> > > > > from it's different subsystems it should not explicitly remove ea=
-ch
-> > > > > one of them because all of them should be removed at once (and
-> > > > > recursively) when the device is being removed ?
-> > > > Individual drivers should never add groups/files in sysfs, the driv=
-er
-> > > > core should do it properly for you if you have everything set up
-> > > > properly.  And yes, the driver core will automatically remove them =
-as
-> > > > well.
-> > > > =
-
-> > > > Please use the default groups attribute for your bus/subsystem and =
-this
-> > > > will happen automagically.
-> > > =
-
-> > > Hi Greg, I tried your suggestion to hang amdgpu's sysfs
-> > > attributes on default attributes in struct device.groups but turns ou=
-t it's
-> > > not usable since by the
-> > > time i have access to struct device from amdgpu code it has already b=
-een
-> > > initialized by pci core
-> > > (i.e.=A0 past the point where device_add->device_add_attrs->device_ad=
-d_groups
-> > > with dev->groups is called)
-> > > and so i can't really use it.
-> > That's odd, why can't you just set the groups pointer in your pci_driver
-> > structure?  That's what it is there for, right?
-> =
-
-> I am probably missing something but amdgpu sysfs attrs are per device not
-> per driver
-
-Oops, you are right, you want the 'dev_groups' field.  Looks like pci
-doesn't export that directly, so you can do:
-	.driver {
-		.dev_groups =3D my_device_groups;
-	},
-in your pci_driver structure.
-
-Or I'm sure the PCI driver maintainer would take a patch like
-7d9c1d2f7aca ("USB: add support for dev_groups to struct
-usb_device_driver") was done for the USB subsystem, as diving into the
-"raw" .driver pointer isn't really that clean or nice in my opinion.
-
-thanks,
-
-greg k-h
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
