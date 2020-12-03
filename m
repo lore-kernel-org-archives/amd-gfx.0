@@ -7,39 +7,38 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3489C433FE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 20:15:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 51909C4361A
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 20:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 424E6221F2
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 20:15:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 424E6221F2
+	by mail.kernel.org (Postfix) with ESMTPS id C99BD21E92
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Dec 2020 20:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C99BD21E92
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBAE76E03D;
-	Thu,  3 Dec 2020 20:15:39 +0000 (UTC)
-Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch
- [185.70.40.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C186E03D
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 20:15:38 +0000 (UTC)
-Date: Thu, 03 Dec 2020 20:15:28 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 479096E038;
+	Thu,  3 Dec 2020 20:19:44 +0000 (UTC)
+Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
+ [185.70.40.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA276E038
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Dec 2020 20:19:42 +0000 (UTC)
+Date: Thu, 03 Dec 2020 20:19:35 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1607026536;
- bh=dQRaL6zjtBhuQnId89EMhjdrob21NccxS7MUTMVUGxs=;
+ s=protonmail2; t=1607026780;
+ bh=j577KMdp9nDGI4/VvkPuJNJT4L1V5BITiUxSVcnDQVM=;
  h=Date:To:From:Cc:Reply-To:Subject:From;
- b=bbeULpfNkLDrDT3LsTB9uLUNdg8eCf7rQG5gZ7Mc8gzpBO1N0XPiSYK9R7FRGFIK3
- 1dzwbEkH7RGQzoF6sHirsu0hQQdPZokjnYR3i8Sby5jqPdsqxC6aoFvAM9NTkS8lI4
- Gy7r8XafCXE43GCD+iGTcaa4OW/1OmGOQUn4JzGgAhSsgldc+Ym0jgSJCSwi6EVYH/
- 7ujVhScAITtp9c287xMr+R3Oh8vidcv9TbOWQD04lVmQ4XuumKt6bkEmP96WaN3AVr
- hJY5c7b4xPnb4tUghHvlxw2gS+ZBkXixy52AWBUUw+JTTu7s5u3on4RgnP4rVZM3bu
- saddXKaO8Uk1A==
+ b=TpowXUu3tYQUFVTzoo2NuhIGV4fb986ltcdUtYoUKoIb6eyNwpDYb5Mlg360v2htw
+ RRrqcBYMftu0iqo09+es3Gz6adWDUjjel1JTPFRBS/17vCz+ZW6+qMu5gQmcd8z1yz
+ tJjkwOD3RYCRveO0xUL5JZXLj7zJ9RZCH6eiqQPBR/5/cFeLv4eyEGrG5gftkFd+Vp
+ wibacax3DKUebJHo59ipscaS/OY4J6OTDysSeeJL/Tt8KlNRxeK8IXVw/kM/G8kJLM
+ xS747J6joc90+aDGJq4eCQYD72gveRO2UaWTGBY3gIs6gxwH2LVfgtzbprlOs5LpUX
+ VUMqxu1WbaJyw==
 To: amd-gfx@lists.freedesktop.org
 From: Simon Ser <contact@emersion.fr>
-Subject: [PATCH] drm/amd: print error on convert_tiling_flags_to_modifier
- failure
-Message-ID: <j1fYvGbEZdykS0AhDWeyCo79c5aqNmrQBIuTcljx8@cp3-web-016.plabs.ch>
+Subject: [PATCH 1/2] drm/amd/display: extract cursor FB checks into a function
+Message-ID: <1wAjTe0S3RNdK8GVTWfZWnlguby1E0TmkR1XlDiIOA@cp7-web-042.plabs.ch>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,43 +53,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If this function fails, it means the tiling flags didn't make sense.
-This likely indicates a user-space bug. Log the error alongside with the
-provided tiling flags to make debugging easier.
+As more checks are added, the indentation makes the code harder to read.
 
 Signed-off-by: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 81 +++++++++++--------
+ 1 file changed, 46 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 2ef9734eb119..467ff1655341 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -901,8 +901,11 @@ int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 	if (dev->mode_config.allow_fb_modifiers &&
- 	    !(rfb->base.flags & DRM_MODE_FB_MODIFIERS)) {
- 		ret = convert_tiling_flags_to_modifier(rfb);
--		if (ret)
-+		if (ret) {
-+			dev_err(&dev->pdev->dev, "Failed to convert tiling flags 0x%llX to a modifier",
-+				rfb->tiling_flags);
- 			goto fail;
-+		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 313501cc39fc..070bb55ec4e1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8974,6 +8974,48 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 	return false;
+ }
  
- 	for (i = 1; i < rfb->base.format->num_planes; ++i) {
++static int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
++			      struct drm_plane_state *new_plane_state,
++			      struct drm_framebuffer *fb)
++{
++	unsigned int pitch;
++
++	if (fb->width > new_acrtc->max_cursor_width ||
++	    fb->height > new_acrtc->max_cursor_height) {
++		DRM_DEBUG_ATOMIC("Bad cursor FB size %dx%d\n",
++				 new_plane_state->fb->width,
++				 new_plane_state->fb->height);
++		return -EINVAL;
++	}
++	if (new_plane_state->src_w != fb->width << 16 ||
++	    new_plane_state->src_h != fb->height << 16) {
++		DRM_DEBUG_ATOMIC("Cropping not supported for cursor plane\n");
++		return -EINVAL;
++	}
++
++	/* Pitch in pixels */
++	pitch = fb->pitches[0] / fb->format->cpp[0];
++
++	if (fb->width != pitch) {
++		DRM_DEBUG_ATOMIC("Cursor FB width %d doesn't match pitch %d",
++				 fb->width, pitch);
++		return -EINVAL;
++	}
++
++	switch (pitch) {
++	case 64:
++	case 128:
++	case 256:
++		/* FB pitch is supported by cursor plane */
++		break;
++	default:
++		DRM_DEBUG_ATOMIC("Bad cursor FB pitch %d px\n", pitch);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static int dm_update_plane_state(struct dc *dc,
+ 				 struct drm_atomic_state *state,
+ 				 struct drm_plane *plane,
+@@ -8991,7 +9033,6 @@ static int dm_update_plane_state(struct dc *dc,
+ 	struct amdgpu_crtc *new_acrtc;
+ 	bool needs_reset;
+ 	int ret = 0;
+-	unsigned int pitch;
+ 
+ 
+ 	new_plane_crtc = new_plane_state->crtc;
+@@ -9012,40 +9053,10 @@ static int dm_update_plane_state(struct dc *dc,
+ 		}
+ 
+ 		if (new_plane_state->fb) {
+-			if (new_plane_state->fb->width > new_acrtc->max_cursor_width ||
+-			    new_plane_state->fb->height > new_acrtc->max_cursor_height) {
+-				DRM_DEBUG_ATOMIC("Bad cursor FB size %dx%d\n",
+-						 new_plane_state->fb->width,
+-						 new_plane_state->fb->height);
+-				return -EINVAL;
+-			}
+-			if (new_plane_state->src_w != new_plane_state->fb->width << 16 ||
+-			    new_plane_state->src_h != new_plane_state->fb->height << 16) {
+-				DRM_DEBUG_ATOMIC("Cropping not supported for cursor plane\n");
+-				return -EINVAL;
+-			}
+-
+-			/* Pitch in pixels */
+-			pitch = new_plane_state->fb->pitches[0] / new_plane_state->fb->format->cpp[0];
+-
+-			if (new_plane_state->fb->width != pitch) {
+-				DRM_DEBUG_ATOMIC("Cursor FB width %d doesn't match pitch %d",
+-						 new_plane_state->fb->width,
+-						 pitch);
+-				return -EINVAL;
+-			}
+-
+-			switch (pitch) {
+-			case 64:
+-			case 128:
+-			case 256:
+-				/* FB pitch is supported by cursor plane */
+-				break;
+-			default:
+-				DRM_DEBUG_ATOMIC("Bad cursor FB pitch %d px\n",
+-						 pitch);
+-				return -EINVAL;
+-			}
++			ret = dm_check_cursor_fb(new_acrtc, new_plane_state,
++						 new_plane_state->fb);
++			if (ret)
++				return ret;
+ 		}
+ 
+ 		return 0;
 -- 
 2.29.2
 
