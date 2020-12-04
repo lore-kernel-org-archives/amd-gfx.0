@@ -2,72 +2,66 @@ Return-Path: <SRS0=65vk=FI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B803DC4361B
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 821D7C4361A
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 50A4822CB1
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50A4822CB1
+	by mail.kernel.org (Postfix) with ESMTPS id 320BE22CE3
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 320BE22CE3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA5F86E22B;
-	Fri,  4 Dec 2020 20:44:48 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64D876E226
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 20:44:48 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id u21so4926524qtw.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Dec 2020 12:44:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E34C6E24E;
+	Fri,  4 Dec 2020 20:49:02 +0000 (UTC)
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A536E249;
+ Fri,  4 Dec 2020 20:49:01 +0000 (UTC)
+Received: by mail-ot1-x341.google.com with SMTP id o11so3850646ote.4;
+ Fri, 04 Dec 2020 12:49:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=HVm6J6IHayqWT/k1+GlG0hQkAiyikGofkmbNPGFLFqY=;
- b=qc5pdf+ZD15TIBhY7BXWFjBJsjG93hraCShpUF7FdUkwlapF+erYJuwmSRMawKq3Qm
- J6PNlyBckfYQ5iut3Ast44QKtcJ+csZiz0svavGj9RTgmKRl6iZdDcu9gcYFNFdxrFyW
- Z/LYFU0V/nRRe3VGwx1SDum00DhmHOgU22fSo99FNFH8RUM+P++ejHVp0iOwBKtzz2bg
- QwR1p40mapPFQU/5wId6S1cfrZYvZGHzjzjcBAh7drfrKSd3c2GFlVDmyqBngC/TxH6b
- a1w+oiHSvy07zJT2hElYq9NgcZZd3Z3jv7s5xt5RXVqzi91FBD6yI5ICPGSkSSW5QzT1
- 0hiA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ETBT8tLrqWhU3nQJzSd6pnShSvogFC7sNASc+9sqs84=;
+ b=X+FBgvPnntPzx4qoAbpgm6nFj7+d26T0HuVa/rSpQ3DzJFvuqolcnpaLkYRm79Q8+M
+ XeLX4Tx6t+uTQGlrNgSe2lHw4cqJWCV/Vt+OVDN+QAKXVg3bz3d1QV2OJcHbgaZfHcn5
+ OodPePv4psMzAqlr39L1ykKMfWMeVWe0Xp/plL040gAMHCKYHpOSmBJXewtTcNOKX9Wy
+ TAsznwK1xKd7zA3QcQNSYYJlP0mW2yEQ8hToZUjghT42SleNCa+E3rHe85lwc58XZmgl
+ WiJEomjQze0QEXjx09VcEIVmbnXOthYItD3khx/jdY2QDY2OA+QP7hRJRnO3XtWhn50g
+ XSgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=HVm6J6IHayqWT/k1+GlG0hQkAiyikGofkmbNPGFLFqY=;
- b=Pnb/GlxbJu12G+wmHyGei9oOopBD90bhnE6gjPUXCDPVbf6oXx8/orWluodILGofjh
- e5Vo7xXlLzLzLyjgPItrwl7baVlffJnFHtRGQBnCfvt7P6dqDtrFnPBSeW0cULwdP14q
- UKe5t1RUtHbRUOy5kxOnbLARSw+7iDzJZB8sGKTE+7UOIvGy1C5s1elqiwJvFm37Shik
- 1D2Z0K3i44pNJHTtI84tsbl9jh3yNZqsTqtMav2KzqGD8WD3qj1YLoyuNyQ6eKIaAQ7i
- hfVeyAXcZs8uviO89GGRRf+eSLJxrJZqLYXejCkqdYuLO1ZbXWVkYiY52Vwz5Wg70To0
- c3eQ==
-X-Gm-Message-State: AOAM5309ocvYgQF+UDL13+xHHVPy9ymtBGGFc21G5indW4OUW5OjcOxD
- 88Pg2KFrWglPZ5PDGhB39hNLodA71Lw=
-X-Google-Smtp-Source: ABdhPJwuSxzAoJTwNpTk3/OYA7VCiu4SZPjdnPNMTL6xWxXxVbk0eksrtRgB8FZ+NlW6t4C6ffYm+w==
-X-Received: by 2002:ac8:5806:: with SMTP id g6mr11177621qtg.292.1607114687493; 
- Fri, 04 Dec 2020 12:44:47 -0800 (PST)
-Received: from localhost.localdomain ([192.161.78.5])
- by smtp.gmail.com with ESMTPSA id o13sm5646581qkm.78.2020.12.04.12.44.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Dec 2020 12:44:47 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] ALSA: hda/hdmi - enable runtime pm for CI AMD display
- audio
-Date: Fri,  4 Dec 2020 15:44:37 -0500
-Message-Id: <20201204204437.3845-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20201204204437.3845-1-alexander.deucher@amd.com>
-References: <20201204204437.3845-1-alexander.deucher@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ETBT8tLrqWhU3nQJzSd6pnShSvogFC7sNASc+9sqs84=;
+ b=QkQrXr0cOU8AYdsqPGf1zaxBJ/aRAvqCes6XYO4AWEeJSB7q2X0eFcH3NdzfOX7jkH
+ 2MMJYxISHpKczgP4y7KSqLtbQOrJR2Z1/74ql2CDKmGgWwhjuTNPNrVy6k/PcZFoH5kM
+ 40oNXp9eizGCQO6m8Z7sTLSC/L2NEFdndMiip0SOKp24uD4rtaPED0H3aQmYhgXQxVFy
+ il+Pe1ZCpLiAGo4vYkTUpMlx7QT4hIAJvf2jBUspeGNC7/q9lWSDF57P7RyTDT/ZXAps
+ dIVM2tHQLrrHFmuQgDXVSFViqT9iDyL8v3PUkbC+538a6CHRToJrD68USXi6tuy5+U20
+ 7Xmw==
+X-Gm-Message-State: AOAM530KTMu0E7hPSmqzmYTme7ZjhzhUc5LFfR77d/7n7qH4dUQwSJY6
+ S55m3I0cvF0WkFn0cTwLe49GCnV/MZJFqk1PyWc=
+X-Google-Smtp-Source: ABdhPJzt4EfSu2Fb07W12172LWrggEAFHBbB7GRVJsw4ZlpnGKoPlkzO6SAaE4FBLON5IzCEG/DCXK8DNNX8h5GLXl0=
+X-Received: by 2002:a05:6830:1b7b:: with SMTP id
+ d27mr2649539ote.132.1607114941003; 
+ Fri, 04 Dec 2020 12:49:01 -0800 (PST)
 MIME-Version: 1.0
+References: <20201203230652.1480863-1-arnd@kernel.org>
+ <BYAPR12MB2888D809724EADE2AAB77B74B0F10@BYAPR12MB2888.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB2888D809724EADE2AAB77B74B0F10@BYAPR12MB2888.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 4 Dec 2020 15:48:49 -0500
+Message-ID: <CADnq5_PFVyL5sBc3zx5rLRV6NX2O8f_vZ7emWcDOEEwgaqqU1g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix debugfs creation/removal, again
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,51 +73,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Arnd Bergmann <arnd@kernel.org>, Arnd Bergmann <arnd@arndb.de>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>, David Airlie <airlied@linux.ie>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Ma,
+ Le" <Le.Ma@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Clements,
+ John" <John.Clements@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Li, Dennis" <Dennis.Li@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We are able to power down the GPU and audio via the GPU driver
-so flag these asics as supporting runtime pm.
+On Fri, Dec 4, 2020 at 1:17 AM Zhou1, Tao <Tao.Zhou1@amd.com> wrote:
+>
+> [AMD Public Use]
+>
+> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- sound/pci/hda/hda_intel.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Applied.  Thanks!
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index d539f52009a1..2ea46b5a9a23 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2597,7 +2597,8 @@ static const struct pci_device_id azx_ids[] = {
- 	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_AMD_SB },
- 	/* ATI HDMI */
- 	{ PCI_DEVICE(0x1002, 0x0002),
--	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
-+	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
-+	  AZX_DCAPS_PM_RUNTIME },
- 	{ PCI_DEVICE(0x1002, 0x1308),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
- 	{ PCI_DEVICE(0x1002, 0x157a),
-@@ -2659,9 +2660,11 @@ static const struct pci_device_id azx_ids[] = {
- 	{ PCI_DEVICE(0x1002, 0xaab0),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
- 	{ PCI_DEVICE(0x1002, 0xaac0),
--	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
-+	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
-+	  AZX_DCAPS_PM_RUNTIME },
- 	{ PCI_DEVICE(0x1002, 0xaac8),
--	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS },
-+	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
-+	  AZX_DCAPS_PM_RUNTIME },
- 	{ PCI_DEVICE(0x1002, 0xaad8),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
- 	  AZX_DCAPS_PM_RUNTIME },
--- 
-2.25.4
+Alex
 
+>
+> > -----Original Message-----
+> > From: Arnd Bergmann <arnd@kernel.org>
+> > Sent: Friday, December 4, 2020 7:07 AM
+> > To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter
+> > <daniel@ffwll.ch>; Li, Dennis <Dennis.Li@amd.com>; Zhou1, Tao
+> > <Tao.Zhou1@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
+> > Cc: Arnd Bergmann <arnd@arndb.de>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Clements, John <John.Clements@amd.com>;
+> > Yang, Stanley <Stanley.Yang@amd.com>; Ma, Le <Le.Ma@amd.com>; amd-
+> > gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> > kernel@vger.kernel.org
+> > Subject: [PATCH] drm/amdgpu: fix debugfs creation/removal, again
+> >
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > There is still a warning when CONFIG_DEBUG_FS is disabled:
+> >
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:1145:13: error:
+> > 'amdgpu_ras_debugfs_create_ctrl_node' defined but not used [-
+> > Werror=unused-function]
+> >  1145 | static void amdgpu_ras_debugfs_create_ctrl_node(struct
+> > amdgpu_device *adev)
+> >
+> > Change the code again to make the compiler actually drop this code but not
+> > warn about it.
+> >
+> > Fixes: ae2bf61ff39e ("drm/amdgpu: guard ras debugfs creation/removal based
+> > on CONFIG_DEBUG_FS")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 13 +++++--------
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  6 ------
+> >  2 files changed, 5 insertions(+), 14 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > index 9d11b847e6ef..c136bd449744 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > @@ -1167,7 +1167,7 @@ static void
+> > amdgpu_ras_debugfs_create_ctrl_node(struct amdgpu_device *adev)
+> >                       con->dir, &con->disable_ras_err_cnt_harvest);
+> >  }
+> >
+> > -void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+> > +static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+> >               struct ras_fs_if *head)
+> >  {
+> >       struct amdgpu_ras *con = amdgpu_ras_get_context(adev); @@ -1189,7
+> > +1189,6 @@ void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+> >
+> >  void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)  { -#if
+> > defined(CONFIG_DEBUG_FS)
+> >       struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+> >       struct ras_manager *obj;
+> >       struct ras_fs_if fs_info;
+> > @@ -1198,7 +1197,7 @@ void amdgpu_ras_debugfs_create_all(struct
+> > amdgpu_device *adev)
+> >        * it won't be called in resume path, no need to check
+> >        * suspend and gpu reset status
+> >        */
+> > -     if (!con)
+> > +     if (!IS_ENABLED(CONFIG_DEBUG_FS) || !con)
+> >               return;
+> >
+> >       amdgpu_ras_debugfs_create_ctrl_node(adev);
+> > @@ -1212,10 +1211,9 @@ void amdgpu_ras_debugfs_create_all(struct
+> > amdgpu_device *adev)
+> >                       amdgpu_ras_debugfs_create(adev, &fs_info);
+> >               }
+> >       }
+> > -#endif
+> >  }
+> >
+> > -void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+> > +static void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+> >               struct ras_common_if *head)
+> >  {
+> >       struct ras_manager *obj = amdgpu_ras_find_obj(adev, head); @@ -
+> > 1229,7 +1227,6 @@ void amdgpu_ras_debugfs_remove(struct amdgpu_device
+> > *adev,
+> >
+> >  static void amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)  { -
+> > #if defined(CONFIG_DEBUG_FS)
+> >       struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+> >       struct ras_manager *obj, *tmp;
+> >
+> > @@ -1238,7 +1235,6 @@ static void amdgpu_ras_debugfs_remove_all(struct
+> > amdgpu_device *adev)
+> >       }
+> >
+> >       con->dir = NULL;
+> > -#endif
+> >  }
+> >  /* debugfs end */
+> >
+> > @@ -1286,7 +1282,8 @@ static int amdgpu_ras_fs_init(struct amdgpu_device
+> > *adev)
+> >
+> >  static int amdgpu_ras_fs_fini(struct amdgpu_device *adev)  {
+> > -     amdgpu_ras_debugfs_remove_all(adev);
+> > +     if (IS_ENABLED(CONFIG_DEBUG_FS))
+> > +             amdgpu_ras_debugfs_remove_all(adev);
+> >       amdgpu_ras_sysfs_remove_all(adev);
+> >       return 0;
+> >  }
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> > index 4667cce38582..762f5e46c007 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> > @@ -592,14 +592,8 @@ int amdgpu_ras_sysfs_create(struct amdgpu_device
+> > *adev,  int amdgpu_ras_sysfs_remove(struct amdgpu_device *adev,
+> >               struct ras_common_if *head);
+> >
+> > -void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
+> > -             struct ras_fs_if *head);
+> > -
+> >  void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev);
+> >
+> > -void amdgpu_ras_debugfs_remove(struct amdgpu_device *adev,
+> > -             struct ras_common_if *head);
+> > -
+> >  int amdgpu_ras_error_query(struct amdgpu_device *adev,
+> >               struct ras_query_if *info);
+> >
+> > --
+> > 2.27.0
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
