@@ -2,35 +2,35 @@ Return-Path: <SRS0=65vk=FI=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87B8DC4361A
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 21:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B030C4167B
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 21:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 24E7322AED
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 21:29:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24E7322AED
+	by mail.kernel.org (Postfix) with ESMTPS id A1DD922AED
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 21:29:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1DD922AED
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3143B6EC71;
-	Fri,  4 Dec 2020 21:29:43 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC7B86EC71
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 21:29:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 324F76EC77;
+	Fri,  4 Dec 2020 21:29:49 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75FD66EC77
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 21:29:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WRwND9JKw/EdSORauzdEcqSb2h89lvH2QgPT7X+vGySM3j/2M871yIuJJfNrtPvUP7ycxYR0cbbyb2MHTnpF438vrPmS/jerQCBxzoh/5pw/XTZHzdsDZyvZgorpURMBv6pCdGDHFd1+divZUhk+v+xXAf1jVEy90Ot0j9vg/DVl1ZAN9ZMcJyeWYgJcyvP23DRkPCBEWxMiQE8q3rCKHVfzaCizZka3ddBmuhQxC3pJmKfoIQPmsbazclgc/aqPyCsesuIQ2xrafNYn0bsvsbKZpU4idG3RcR8pg1DH2VTNizKelXU2N8TRpTyKt+kF+exNkqbDpMVgepIU746Rcw==
+ b=Huk4N8M+1khu8dc4w7uS2TVAl7nNiKuvAnt5lCk/ia5vxOYRZm/T79nupP+vqML4FShjgtymkkSBVbkBsJXfdTKi6+QiTcEU3NNxkiTSy99f811eb6YO0pJ9cRf1IYOBlwmpxMwzHZsXmeQhiMAQth4xMinB8BO9P3KJEGP/YsRVujO6auHxLtvl8/TXpeOrqNAjr+ogXoujqlE4ipC9B64zF+CfrcdLkWDUO7dAVkc8sp+5SFZglQVt0pM6RYt5FBBJcrc4vFERTYoNgRG+qmuhtV8ZFWWHKhgjfJ5AyolS/MyQXogwPxm2p3tVA0cI3aqbMODjdJhi+ZpCfMTYGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Jh/Rfp3mjh19cwWmX0g3QdQWl5Fjf4JL/zFZeXaxpo=;
- b=Zudef333xDGo/QGNjNsoS5JBe0o7aQB1UFDtevF6BSYl5QidWGADxV0QTUDkp8z0H8L06aOUIh3FzmRktyrwZR1LCNjRzX7WJ+TtmYBSknBkil7ualCefhviFoARgnW6S5RUKG2Vv+yuG6o4ZDIBouD7F2QsxTENHrE6aEU7hDkrl8UfzJZwPERUDJyhxwq/1SMamB5kp/CF3ZenGGelDp8ohZV5m/LgzAGt+RD9N+NlRLV4YXvPREjdo561BFZqwecN45wbZaFaKRD/FnqTl78sgYOSjsStsVTkuYUJCqQCMWFh53UbrsGWU4gqvqNLLYFiu0vbMQxZfwVudP7bnw==
+ bh=Pi+5Ri10h+BxQLMcZ5LljPl7JMc7jPja7ScQx2hp+uE=;
+ b=cQG9RC8npj9qA9AdKUptPBdMgWAbi3ghRx0AE+LVi5NY2RxZwP1fxjTEwIempGKxSyMhKpOoWI5hzpeSFgmXp4tnwXMfdhpwnizm38hAFaMPXGuTYgRRjXXhywYBbdzgq4UF1k3i8/KuRjLy/VnuQZNV6+t5e6e7ZQkGBM0UjPbfH3iIzGOwxeUVm1FmDtlxkopYqH11+aveuoEjqY3iM7U5NEfRYSL0/yIvFgrBnI8rVxsTSCdga5teq2nHY0H+k9mqhbfHVwysb32h6a1KzO0TBbDNCoMIDsAIaRPtblXt9eqLIdAATE7Czm7HljSPRAzGvfTfrPFCFdAA0SpTEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -38,18 +38,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Jh/Rfp3mjh19cwWmX0g3QdQWl5Fjf4JL/zFZeXaxpo=;
- b=TnOkTRUyJZ3p08SCpljW8qdy38ji5mDfpjpHApe1q14SFgQtEg3jorvr8TpH3HT8UOFu4f4o6lfqQIoaAGZ8jxarkWDEOkkLzJ5ZLoa291teEexz5Wp03Zm/s1PzN3r6BtxIAFk1foDniz6k5UHX9FPU/iOlAMqjLJFZmXcu8oM=
-Received: from BN6PR03CA0011.namprd03.prod.outlook.com (2603:10b6:404:23::21)
- by CY4PR12MB1205.namprd12.prod.outlook.com (2603:10b6:903:38::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Fri, 4 Dec
- 2020 21:29:41 +0000
-Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:23:cafe::e0) by BN6PR03CA0011.outlook.office365.com
- (2603:10b6:404:23::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Pi+5Ri10h+BxQLMcZ5LljPl7JMc7jPja7ScQx2hp+uE=;
+ b=2P+SgvOchAUYCVwf7M6cgFCu25K1PwuLXDgKiajsqr9rGgPpXg9XBe3zQcKgvsHo9gZMBRp9vgefGVg4ppZh5FYUe0iNE2dWlPkenZJ93lV0A7Z0lUpRrN4fZn+Is7zKjOlU8z+mCxPoSGxjR34DtkGoH3znAWFc/6lAmsGo64A=
+Received: from BN3PR03CA0094.namprd03.prod.outlook.com (2603:10b6:400:4::12)
+ by DM6PR12MB3515.namprd12.prod.outlook.com (2603:10b6:5:15f::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.19; Fri, 4 Dec
+ 2020 21:29:46 +0000
+Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:400:4:cafe::23) by BN3PR03CA0094.outlook.office365.com
+ (2603:10b6:400:4::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17 via Frontend
- Transport; Fri, 4 Dec 2020 21:29:40 +0000
+ Transport; Fri, 4 Dec 2020 21:29:46 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none
  (message not signed) header.d=none;lists.freedesktop.org; dmarc=fail
@@ -57,51 +57,54 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 165.204.84.17 as permitted sender)
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
+ BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3632.17 via Frontend Transport; Fri, 4 Dec 2020 21:29:40 +0000
+ 15.20.3632.17 via Frontend Transport; Fri, 4 Dec 2020 21:29:45 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 4 Dec 2020
- 15:29:39 -0600
+ 15:29:45 -0600
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Fri, 4 Dec 2020
- 15:29:39 -0600
+ 15:29:44 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1979.3 via Frontend
- Transport; Fri, 4 Dec 2020 15:29:33 -0600
+ Transport; Fri, 4 Dec 2020 15:29:39 -0600
 From: Eryk Brol <eryk.brol@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/17] DC Patches Dec 7, 2020
-Date: Fri, 4 Dec 2020 16:28:33 -0500
-Message-ID: <20201204212850.224596-1-eryk.brol@amd.com>
+Subject: [PATCH 01/17] drm/amd/display: Implement VSIF V3 extended refresh
+ rate feature
+Date: Fri, 4 Dec 2020 16:28:34 -0500
+Message-ID: <20201204212850.224596-2-eryk.brol@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201204212850.224596-1-eryk.brol@amd.com>
+References: <20201204212850.224596-1-eryk.brol@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 26d18bc9-399d-410d-ec83-08d8989bb53c
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1205:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB12055BD129329D707DEC82FAE5F10@CY4PR12MB1205.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 2fdfaa7d-3db7-4f87-c6d0-08d8989bb8b2
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3515:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3515868AA900681074A102C7E5F10@DM6PR12MB3515.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: col8NBnkflBc+/fAupVt1oh3C8I0c3OAhSTo0PssMBGQQaqZ8NkNwbjUiAF+XTUNT0dGK3HxNfu/EDx8Q/mr7s3xPk6EDt/wqtuiy3E40JcZb650q5HA1CU4rFEATgJoPkRqlfbX5YkyVK4bMD59TVdUK9o5vuyJeOaDtUFojyWRTLqyJo4k4WAw1vDpaKeKMJfKm7ip4nkOndTeGwzLtceDz8LvnJrCScY0WyplLoiPJ2A0vL1ptDDaTC74vJqAT/l4PYib3fP3DHPmB6uxwOPSlfBA80miuMC6Mz/lLxTvMMHa+MN75DlWGJdqtb1uGEIWmwyld5Y6RRHFxCVKxkz5K6pW4YENBcoY18HyjvPH1hdC72MDKcWQMRzZwcjGaBXE7p2a2YfLUYQ4v2LRMg==
+X-Microsoft-Antispam-Message-Info: eI4ZI/g1fZIBHl8KQA0/R7uoUh7szKymxrj05bxVs66P4hi0VgJZd/J6/fsSIM61u7Z5hrquL6SJRFGgVx7KtDdZhifxtRMBl80X1xvKPP+aGwTJI3wFnbX0zG5pa4vlZBxV9qZKsLfIn7qACmLx9l65clBOQ12HfU5aUcSIRJDfpnie4xkngr0WGZCOYcA0uxBpGKCPLgw8ggv2O3FpQTM1PBUFFL76pie5Gx1ptOmOiBtKvUbzcTnuM3oBrzMCN0yaYmYlgAjGMw726CKj+EI5yQrKPc9xWPu1ndUHSj26a9IbIEJ7QqrFEJJ5WXY4hNoiKjr1fmW32NPFW90O0l5hLO7T5mcSRSF1Qe1iidhks+0Mj/rImgFT0cLQPHVQ3xotKloMKwd44vN/hGGvqA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(136003)(376002)(346002)(39860400002)(396003)(46966005)(186003)(47076004)(82740400003)(5660300002)(82310400003)(356005)(81166007)(70206006)(86362001)(2906002)(478600001)(316002)(36756003)(1076003)(83380400001)(6916009)(336012)(70586007)(44832011)(426003)(26005)(8676002)(8936002)(54906003)(4326008)(2616005);
+ SFS:(4636009)(39860400002)(376002)(396003)(346002)(136003)(46966005)(70586007)(356005)(44832011)(6666004)(82740400003)(70206006)(6916009)(47076004)(36756003)(1076003)(8936002)(336012)(316002)(8676002)(5660300002)(81166007)(86362001)(83380400001)(426003)(82310400003)(4326008)(2616005)(54906003)(2906002)(26005)(186003)(478600001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2020 21:29:40.0497 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26d18bc9-399d-410d-ec83-08d8989bb53c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2020 21:29:45.8552 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fdfaa7d-3db7-4f87-c6d0-08d8989bb8b2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1205
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3515
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,93 +116,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eryk Brol <eryk.brol@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Qingqing.Zhuo@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
+Cc: Reza Amini <Reza.Amini@amd.com>, Eryk Brol <eryk.brol@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Qingqing.Zhuo@amd.com,
+ Anthony Koo <Anthony.Koo@amd.com>, Rodrigo.Siqueira@amd.com,
+ Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com, bindu.r@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas.
-In summary, we highlight:
+From: Reza Amini <Reza.Amini@amd.com>
 
-* Fixes in MST, Compliance, HDCP, audio;
-* Enhancements in VSIF;
-* Improvements in seamless boot, DPG;
+[Why]
+Implement feature of VSIF V3
 
-----------------------------
+[How]
+Set refresh rate MSB for extended range
 
-AMD\ramini (1):
-  drm/amd/display: Set FixRate bit in VSIF V3
+Signed-off-by: Reza Amini <Reza.Amini@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Acked-by: Eryk Brol <eryk.brol@amd.com>
+---
+ .../amd/display/modules/freesync/freesync.c   | 100 ++++++++++++++----
+ 1 file changed, 82 insertions(+), 18 deletions(-)
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.45
-
-Aric Cyr (1):
-  drm/amd/display: 3.2.115
-
-Charlene Liu (1):
-  drm/amd/display: Enable gpu_vm_support for dcn3.01
-
-Chris Park (1):
-  drm/amd/display: Prevent bandwidth overflow
-
-Dmytro Laktyushkin (1):
-  drm/amd/display: Expose clk_mgr functions for reuse
-
-Jing Zhou (1):
-  drm/amd/display: Set default bits per channel
-
-John Wu (1):
-  drm/amd/display: Don't check seamless boot in power down HW by timeout
-
-Judy Cai (1):
-  drm/amd/display: Change to IMMEDIATE mode from FRAME mode
-
-Michael Strauss (1):
-  drm/amd/display: Revert DCN2.1 dram_clock_change_latency update
-
-Qingqing Zhuo (2):
-  drm/amd/display: NULL pointer error during compliance test
-  drm/amd/display: Only one display lights up while using MST hub
-
-Reza Amini (1):
-  drm/amd/display: Implement VSIF V3 extended refresh rate feature
-
-Roy Chan (1):
-  drm/amd/display: Fixed the audio noise during mode switching with HDCP
-    mode on
-
-Sung Lee (1):
-  drm/amd/display: Add wm table for Renoir
-
-Wesley Chalmers (1):
-  drm/amd/display: Use provided offset for DPG generation
-
-Wyatt Wood (1):
-  drm/amd/display: Add support for runtime feature detection command
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  37 +++++--
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  93 +++++++++++++++-
- .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   2 +-
- .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    |   8 +-
- .../display/dc/clk_mgr/dcn301/vg_clk_mgr.h    |  10 ++
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  18 ++-
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  |  17 ++-
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_link.h      |   4 +
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |   5 +-
- .../drm/amd/display/dc/dcn21/dcn21_resource.c |   2 +-
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   2 +-
- .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c  |  62 +++++------
- .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h  |  38 ++++++-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |   6 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  17 ++-
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  29 +++++
- .../amd/display/modules/freesync/freesync.c   | 104 +++++++++++++++---
- 18 files changed, 367 insertions(+), 89 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 52c3cb6b439a..2decdd8a5e20 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -569,6 +569,12 @@ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
+ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
+ 		struct dc_info_packet *infopacket)
+ {
++	unsigned int min_refresh;
++	unsigned int max_refresh;
++	unsigned int fixed_refresh;
++	unsigned int min_programmed;
++	unsigned int max_programmed;
++
+ 	/* PB1 = 0x1A (24bit AMD IEEE OUI (0x00001A) - Byte 0) */
+ 	infopacket->sb[1] = 0x1A;
+ 
+@@ -598,23 +604,29 @@ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
+ 			vrr->state == VRR_STATE_ACTIVE_FIXED)
+ 		infopacket->sb[6] |= 0x04;
+ 
+-	if (vrr->state == VRR_STATE_ACTIVE_FIXED) {
+-		/* PB7 = FreeSync Minimum refresh rate (Hz) */
+-		infopacket->sb[7] = (unsigned char)((vrr->fixed_refresh_in_uhz + 500000) / 1000000);
+-		/* PB8 = FreeSync Maximum refresh rate (Hz) */
+-		infopacket->sb[8] = (unsigned char)((vrr->fixed_refresh_in_uhz + 500000) / 1000000);
+-	} else if (vrr->state == VRR_STATE_ACTIVE_VARIABLE) {
+-		/* PB7 = FreeSync Minimum refresh rate (Hz) */
+-		infopacket->sb[7] = (unsigned char)((vrr->min_refresh_in_uhz + 500000) / 1000000);
+-		/* PB8 = FreeSync Maximum refresh rate (Hz) */
+-		infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
+-	} else {
+-		// Non-fs case, program nominal range
+-		/* PB7 = FreeSync Minimum refresh rate (Hz) */
+-		infopacket->sb[7] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
+-		/* PB8 = FreeSync Maximum refresh rate (Hz) */
+-		infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
+-	}
++	min_refresh = (vrr->min_refresh_in_uhz + 500000) / 1000000;
++	max_refresh = (vrr->max_refresh_in_uhz + 500000) / 1000000;
++	fixed_refresh = (vrr->fixed_refresh_in_uhz + 500000) / 1000000;
++
++	min_programmed = (vrr->state == VRR_STATE_ACTIVE_FIXED) ? fixed_refresh :
++			(vrr->state == VRR_STATE_ACTIVE_VARIABLE) ? min_refresh :
++			max_refresh; // Non-fs case, program nominal range
++
++	max_programmed = (vrr->state == VRR_STATE_ACTIVE_FIXED) ? fixed_refresh :
++			(vrr->state == VRR_STATE_ACTIVE_VARIABLE) ? max_refresh :
++			max_refresh;// Non-fs case, program nominal range
++
++	/* PB7 = FreeSync Minimum refresh rate (Hz) */
++	infopacket->sb[7] = min_programmed & 0xFF;
++
++	/* PB8 = FreeSync Maximum refresh rate (Hz) */
++	infopacket->sb[8] = max_programmed & 0xFF;
++
++	/* PB11 : MSB FreeSync Minimum refresh rate [Hz] - bits 15:8 */
++	infopacket->sb[11] = (min_programmed >> 8) & 0xFF;
++
++	/* PB12 : MSB FreeSync Maximum refresh rate [Hz] - bits 15:8 */
++	infopacket->sb[12] = (max_programmed >> 8) & 0xFF;
+ 
+ 	//FreeSync HDR
+ 	infopacket->sb[9] = 0;
+@@ -733,6 +745,58 @@ static void build_vrr_infopacket_header_v2(enum signal_type signal,
+ 	}
+ }
+ 
++static void build_vrr_infopacket_header_v3(enum signal_type signal,
++		struct dc_info_packet *infopacket,
++		unsigned int *payload_size)
++{
++	unsigned char version;
++
++	version = 3;
++	if (dc_is_hdmi_signal(signal)) {
++
++		/* HEADER */
++
++		/* HB0  = Packet Type = 0x83 (Source Product
++		 *	  Descriptor InfoFrame)
++		 */
++		infopacket->hb0 = DC_HDMI_INFOFRAME_TYPE_SPD;
++
++		/* HB1  = Version = 0x03 */
++		infopacket->hb1 = version;
++
++		/* HB2  = [Bits 7:5 = 0] [Bits 4:0 = Length] */
++		*payload_size = 0x10;
++		infopacket->hb2 = *payload_size - 1; //-1 for checksum
++
++	} else if (dc_is_dp_signal(signal)) {
++
++		/* HEADER */
++
++		/* HB0  = Secondary-data Packet ID = 0 - Only non-zero
++		 *	  when used to associate audio related info packets
++		 */
++		infopacket->hb0 = 0x00;
++
++		/* HB1  = Packet Type = 0x83 (Source Product
++		 *	  Descriptor InfoFrame)
++		 */
++		infopacket->hb1 = DC_HDMI_INFOFRAME_TYPE_SPD;
++
++		/* HB2  = [Bits 7:0 = Least significant eight bits -
++		 *	  For INFOFRAME, the value must be 1Bh]
++		 */
++		infopacket->hb2 = 0x1B;
++
++		/* HB3  = [Bits 7:2 = INFOFRAME SDP Version Number = 0x2]
++		 *	  [Bits 1:0 = Most significant two bits = 0x00]
++		 */
++
++		infopacket->hb3 = (version & 0x3F) << 2;
++
++		*payload_size = 0x1B;
++	}
++}
++
+ static void build_vrr_infopacket_checksum(unsigned int *payload_size,
+ 		struct dc_info_packet *infopacket)
+ {
+@@ -818,7 +882,7 @@ static void build_vrr_infopacket_v3(enum signal_type signal,
+ {
+ 	unsigned int payload_size = 0;
+ 
+-	build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
++	build_vrr_infopacket_header_v3(signal, infopacket, &payload_size);
+ 	build_vrr_infopacket_data_v3(vrr, infopacket);
+ 
+ 	build_vrr_infopacket_fs2_data(app_tf, infopacket);
 -- 
 2.25.1
 
