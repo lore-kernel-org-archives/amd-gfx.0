@@ -8,60 +8,58 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5C08C433FE
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A042C4361A
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:56:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E53022CE3
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:55:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E53022CE3
+	by mail.kernel.org (Postfix) with ESMTPS id 90ABD22CE3
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Dec 2020 20:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90ABD22CE3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E98246EC6F;
-	Fri,  4 Dec 2020 20:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 403A56EB7F;
+	Fri,  4 Dec 2020 20:56:26 +0000 (UTC)
 Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
  [IPv6:2607:f8b0:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 728E26EC6F
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Dec 2020 20:55:07 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id x16so7684882oic.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Dec 2020 12:55:07 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAE16EB7F;
+ Fri,  4 Dec 2020 20:56:25 +0000 (UTC)
+Received: by mail-oi1-x243.google.com with SMTP id x16so7689141oic.3;
+ Fri, 04 Dec 2020 12:56:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=YRUbjlKe92QEY2CfZXnGa/m0VPFFQVH2yUT6ZoeiXl8=;
- b=lJDa2FmIC2me/YmGORnXgZvQAYjsveyS6BimUSNzITmxrhP971fWRkGI9ajrQe+C38
- caPK3GVXnGQ7/POnJN4nuqdBV47E+VQNek5MOq/7W+dXZMFp8mXM12wVo8Yksil22JUk
- qmS+oob0htMnPWbv1CLB1NU2WteIjhU9taalSJIfESQ5y7RNpNepgjnUghXcJPz1J2Jl
- IiUte6b4mEEWvAaN/0L9OlF+dnu800JBWxHYk29YgfDTPrH4LFucPKF3g4W3T+yXrZMf
- 6iAwR1wUPiat9fu+nRV/WAqL/M4pWytYoTav2PWg95SM0Yag+Fc1kEIcWp0tRULEWgH7
- 64nA==
+ :cc; bh=oCRFwoQksFKYxL9oDoarBzLvwPjlXv3hZNckKayt7VE=;
+ b=qtVhX699Z+sdbwQ0ORNcWDXHwHjkZyYC8BLl8PrsqffUGnX1Nflju5sQJ9vxci2hTA
+ pNcPyzTncdV4ImSnFytm/qrKywE5ktZDoohXPdzQdTeAqgPRAU1WwMrvvATQO00FLhnQ
+ ptLQcrME+z99/L4GzViD6O1B/mcnIBZQrr4jJgtErgbr/gSWh+N76dM+5eZp9P5wOx7i
+ 0JWz09RtGf3eWmo5MMtrrjFZMUGB+4QmOVxfIV5BCbiPsvUaWULkjXEFOBcGL9FRZk4t
+ h2A5oz2Rt6X42vobKLOOuvZKsbrMZ1lPzlSpdNPN3mDpsk/CiiiB8WFsiFU9161Y66XS
+ qTrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=YRUbjlKe92QEY2CfZXnGa/m0VPFFQVH2yUT6ZoeiXl8=;
- b=YqLOeua67Yh5WnAzTiroWmT7BO5GmBwYjo+abb236oG0uuUQebtSaiQu0ufdGZvtoo
- cGoxlH6LY5Ivc9Y7drb6RnJZ024Xo401IJbfCh8I8BtH140xAMKUz+xhqS6MBk4Ks4I5
- 3p6x+TwLJ+qtLrywJTlEBQsQXP3jhZgxKUePU5c3LOY/DHaLgQTXXM+I/eX4EdLGXq0S
- iEzSOyFEFoMGSBZtc6ZZCh34BKOdzGRGgQmqNzTqRCYxGiqaweOqyZzbyd0WBJGy4Ov4
- Tc3c3VVFgL9186ItUW7P/W0EyKqlCKAdeiiTvjpfEPA6UKHvoDF6y7K4tbhnOGn/dATX
- nyLA==
-X-Gm-Message-State: AOAM532U3eJMmvVAj+2rZWmWiChKyds83k6fZ12s+mcKWF96mcAMfvxA
- jeBQvLhdAugNKVD3feP09JYEtKqXJnECrxxV7kA=
-X-Google-Smtp-Source: ABdhPJxtRMkduWCRiSyZ8Puilncf7XqmjViDnloGT7/jISz/bWAObFdVpbsI5Ug6ekb3d36CpZHOYJothvI5K8v9D8s=
-X-Received: by 2002:a54:4608:: with SMTP id p8mr4362569oip.5.1607115306823;
- Fri, 04 Dec 2020 12:55:06 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=oCRFwoQksFKYxL9oDoarBzLvwPjlXv3hZNckKayt7VE=;
+ b=CruPLkWaczZFJ0G+PjPadfPW44+eJKvLXoYpUOdTWjDg9Ld6H50DnhYDsV/3BVSXO+
+ vgdH8sT2734rjuSeneh/m/uUUUjgoeQhCPb67OeugdCwf6lgCxsPm1rnxHULwsXs66ZP
+ sP5nCf93LVa76UEUG6Ix0wWfY+dg/pQBWlBQXciMrNSANkjI+m/Ki8TwXCfNE4ma5YRe
+ z0/rF1pfdVTjhJt0BgBuZCLnUM7uEUC6jdsJn2lyP6QKUFs1JvOCa2a66r38jpv1FEPP
+ vSYK16ls9Luot/uaAdPHoNu5Cr0ScYzkc/UxNXeEgU4L9Ew8HdQYqKa0B4AwbI8UKmtT
+ xPNg==
+X-Gm-Message-State: AOAM5306Bg/gQU/oKtjZ/mnsAbwM4x6jSR3pcDZReGV1AnU9cHB9v7Gn
+ jX21cVAuO2MYnRsYzupxIfsd+gWvZlTOTsOL6eJ+bWQ8
+X-Google-Smtp-Source: ABdhPJyXohy3tSCW8i4Y64blynsYCsiiFXP/mTHQmJppzn38tpXoDpmHXnpmSlNLMQD2uV987pardlFK657tYR2yRWM=
+X-Received: by 2002:a54:4608:: with SMTP id p8mr4365387oip.5.1607115384748;
+ Fri, 04 Dec 2020 12:56:24 -0800 (PST)
 MIME-Version: 1.0
-References: <VzE0LPxcEehXwGUjgu3nUHOAd2MMYp2hKFqOo4BSJY@cp3-web-021.plabs.ch>
-In-Reply-To: <VzE0LPxcEehXwGUjgu3nUHOAd2MMYp2hKFqOo4BSJY@cp3-web-021.plabs.ch>
+References: <20201204165128.3747878-1-arnd@kernel.org>
+In-Reply-To: <20201204165128.3747878-1-arnd@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Dec 2020 15:54:55 -0500
-Message-ID: <CADnq5_NrMczeDcsHgfBZ6gbnbozAEZhMW2TvBrk8pcTBSdV4Jg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd: print error on
- convert_tiling_flags_to_modifier failure
-To: Simon Ser <contact@emersion.fr>
+Date: Fri, 4 Dec 2020 15:56:13 -0500
+Message-ID: <CADnq5_NBqx5U+JAxSAaUD6qwCmZsnCzGk1mF9=rkPRPm0Ug0yw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fw_attestation: fix unused function warning
+To: Arnd Bergmann <arnd@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +71,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Arnd Bergmann <arnd@arndb.de>, David Airlie <airlied@linux.ie>,
+ Lee Jones <lee.jones@linaro.org>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ John Clements <john.clements@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gRnJpLCBEZWMgNCwgMjAyMCBhdCAxMTo0OSBBTSBTaW1vbiBTZXIgPGNvbnRhY3RAZW1lcnNp
-b24uZnI+IHdyb3RlOgo+Cj4gSWYgdGhpcyBmdW5jdGlvbiBmYWlscywgaXQgbWVhbnMgdGhlIHRp
-bGluZyBmbGFncyBkaWRuJ3QgbWFrZSBzZW5zZS4KPiBUaGlzIGxpa2VseSBpbmRpY2F0ZXMgYSB1
-c2VyLXNwYWNlIGJ1Zy4gTG9nIHRoZSBlcnJvciBhbG9uZ3NpZGUgd2l0aCB0aGUKPiBwcm92aWRl
-ZCB0aWxpbmcgZmxhZ3MgdG8gbWFrZSBkZWJ1Z2dpbmcgZWFzaWVyLgo+Cj4gU2lnbmVkLW9mZi1i
-eTogU2ltb24gU2VyIDxjb250YWN0QGVtZXJzaW9uLmZyPgo+IENjOiBBbGV4IERldWNoZXIgPGFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6IEhhcnJ5IFdlbnRsYW5kIDxod2VudGxhbkBh
-bWQuY29tPgo+IENjOiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFt
-ZC5jb20+Cj4gQ2M6IEJhcyBOaWV1d2VuaHVpemVuIDxiYXNAYmFzbmlldXdlbmh1aXplbi5ubD4K
-PiBDYzogTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4KCkFwcGxpZWQgdGhlIHNl
-cmllcy4gIFRoYW5rcyEKCkFsZXgKCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGlzcGxheS5jIHwgNSArKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
-b25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kaXNwbGF5LmMKPiBpbmRleCA3M2I4NWRhMmNjYmYuLmU5MGJlMmU4ZWIyYSAxMDA2NDQK
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+IEBAIC05MDEs
-OCArOTAxLDExIEBAIGludCBhbWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9pbml0KHN0cnVjdCBk
-cm1fZGV2aWNlICpkZXYsCj4gICAgICAgICBpZiAoZGV2LT5tb2RlX2NvbmZpZy5hbGxvd19mYl9t
-b2RpZmllcnMgJiYKPiAgICAgICAgICAgICAhKHJmYi0+YmFzZS5mbGFncyAmIERSTV9NT0RFX0ZC
-X01PRElGSUVSUykpIHsKPiAgICAgICAgICAgICAgICAgcmV0ID0gY29udmVydF90aWxpbmdfZmxh
-Z3NfdG9fbW9kaWZpZXIocmZiKTsKPiAtICAgICAgICAgICAgICAgaWYgKHJldCkKPiArICAgICAg
-ICAgICAgICAgaWYgKHJldCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgIGRybV9kYmdfa21z
-KGRldiwgIkZhaWxlZCB0byBjb252ZXJ0IHRpbGluZyBmbGFncyAweCVsbFggdG8gYSBtb2RpZmll
-ciIsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmZiLT50aWxpbmdfZmxh
-Z3MpOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZmFpbDsKPiArICAgICAgICAgICAg
-ICAgfQo+ICAgICAgICAgfQo+Cj4gICAgICAgICBmb3IgKGkgPSAxOyBpIDwgcmZiLT5iYXNlLmZv
-cm1hdC0+bnVtX3BsYW5lczsgKytpKSB7Cj4gLS0KPiAyLjI5LjIKPgo+Cj4gX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
-dAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+On Fri, Dec 4, 2020 at 11:51 AM Arnd Bergmann <arnd@kernel.org> wrote:
+>
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> Without debugfs, the compiler notices one function that is not used at
+> all:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c:123:12: error: unused function 'amdgpu_is_fw_attestation_supported' [-Werror,-Wunused-function]
+>
+> In fact the static const amdgpu_fw_attestation_debugfs_ops structure is
+> also unused here, but that warning is currently disabled.
+>
+> Removing the #ifdef check does the right thing and leads to all of this
+> code to be dropped without warning.
+>
+> Fixes: 19ae333001b3 ("drm/amdgpu: added support for psp fw attestation")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c
+> index e47bca1c7635..7c6e02e35573 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c
+> @@ -130,7 +130,6 @@ static int amdgpu_is_fw_attestation_supported(struct amdgpu_device *adev)
+>
+>  void amdgpu_fw_attestation_debugfs_init(struct amdgpu_device *adev)
+>  {
+> -#if defined(CONFIG_DEBUG_FS)
+>         if (!amdgpu_is_fw_attestation_supported(adev))
+>                 return;
+>
+> @@ -139,5 +138,4 @@ void amdgpu_fw_attestation_debugfs_init(struct amdgpu_device *adev)
+>                             adev_to_drm(adev)->primary->debugfs_root,
+>                             adev,
+>                             &amdgpu_fw_attestation_debugfs_ops);
+> -#endif
+>  }
+> --
+> 2.27.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
