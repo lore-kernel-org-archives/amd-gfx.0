@@ -8,59 +8,59 @@ X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85DC9C4361B
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 17:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACD79C4361B
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 17:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 454582388D
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 17:17:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 454582388D
+	by mail.kernel.org (Postfix) with ESMTPS id 6D2B123884
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Dec 2020 17:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D2B123884
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00AFF89DA2;
-	Mon,  7 Dec 2020 17:17:21 +0000 (UTC)
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12DE189DA2
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 17:17:20 +0000 (UTC)
-Received: by mail-ot1-x342.google.com with SMTP id 11so13145979oty.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Dec 2020 09:17:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0166D6E83F;
+	Mon,  7 Dec 2020 17:19:20 +0000 (UTC)
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
+ [IPv6:2607:f8b0:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 280B26E83F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Dec 2020 17:19:18 +0000 (UTC)
+Received: by mail-ot1-x344.google.com with SMTP id 11so13152652oty.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Dec 2020 09:19:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=enu0feLtQLnsqrBZp6IU98h7u+Ax9f30Yuxai2gGoxY=;
- b=IqyO0HKDO0CU/jCKqKUEZuEZ9kOWlbE4i7LxRq5FyBG3tt40eEJDN/iLxBJabOg1/O
- B2TeqEwV8UH/x0huhi67odMeYUjD+v6Zf3HxgX3rj2jrG9i366DvH5ocg/LIaTtH6zJ2
- X7gU7CoN7vr0k1azUKm3CLa0CTRLNqzw4JDHwA9JstPGY19fo50ya6iMNH189/6hsyRK
- 3ZDzKiWbF2wSKv2EW9XyBwjwumg/xDFwSAw2XjEA+G2PT98OCpMOpNrRHdmOy7JFq/lC
- g77ni1i06xT80McVkkwjdD1heKmwB1hMuSvD8NUNNaCk5Pn9Cxs851YNo+a3kHerUJj3
- COXA==
+ :cc; bh=vod8mxD8wqCmqMLZ1i+zcrDTaslXMyZsAXYMeHZPwbY=;
+ b=XpiaoYrztYc0YaRUKduMGbvzDYveGPfatUOSvhch/E0qjjasYHZ2zVf5Xr2lkfNkZF
+ i/KlrYTAUtAWy+jRiC7xm9mhAlrkON8kF8Ywt4VSOGwhkVgUHB5n0idWFwEvCRghf5ye
+ Am9+emjuT915bHnD8u1ErPeXXfLxm0KAvPW8Xk3XBThZs/bfGn3sGRwx7bNWJ+yl1rgQ
+ XshTjNnFSW/VTDPvs1wNfqLAkdJP8WWdtCelv4pxfehGmueaUKVisBtYdazXTe56e06q
+ x9eplUOV4gbp77hC/aIbS7YdOlYhMSarB7k9DsFxaWjYPat1u2QngbRgxoDfojfyrskg
+ 79/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=enu0feLtQLnsqrBZp6IU98h7u+Ax9f30Yuxai2gGoxY=;
- b=sPNQHcXuwKYpSM5K5142oxuJzUbftT6h80E+uNvkn0M4jv0pZPhmSI9mV9hNNhUTNd
- NIeCi6nF0PvVGX2y+HsIlE0Odu8OzqptpiV0vXO+JXcncE26Fnzu+A9gqw6bcB8eI7AQ
- d8SRVhZLyDSarkcpRjeNxsc7X4VffkOHWiQihyPswnu1NY1hz13YlPijhAJRm6mpgnIM
- 1+io0TtAZ/6RaKH25RV/+ofwYlIc/jRVKWMGZO8IjYi8oAKVkUVDaKrtIIQlmHvoKBng
- DiUNoUff6Xb6woxZnxjeAF7irTfLXzb3/KigOZVKLREfULMLUwuRihq3llEdEJT4eZnB
- MQIQ==
-X-Gm-Message-State: AOAM530zdlYaVUB2VA3AO1v/LH9I4z/lXnAkKoc+N/B9ldILIVV4KZAw
- hOUMwzgtUXqXnI+tHOLwrhGb8RC3eOyGlg4Osm2mq66Z
-X-Google-Smtp-Source: ABdhPJxC43Vt5laqtKyxeq/6VMWliCX3smEpKBUI3hDMnqRIXP8ASE1Vf7ihj2lKR6gJp0KwFbisP8NwnY02PaLXSDY=
-X-Received: by 2002:a9d:4ce:: with SMTP id 72mr845216otm.23.1607361439421;
- Mon, 07 Dec 2020 09:17:19 -0800 (PST)
+ bh=vod8mxD8wqCmqMLZ1i+zcrDTaslXMyZsAXYMeHZPwbY=;
+ b=Xf1OkJigvLN0sJRCXYEQUnLkeqA1k2g9ZP/z0Yjlwk/RI35agLMQLAUvYYbsRTGePf
+ BDZHTjy9VKbIMgYJaZv274v193wIk2gKcQeSGOSBp7DKnqAia0afkj/D1YI7T1s7YzK4
+ gO8/8hvoFOtO3rHjDqrqxi9SO8sk3PtRe4jXObv3zSJ6RC4DrdYUdYb1TlO1sQzndxCX
+ dEZt4n4TABkS9b3LLfjEyRYf8dui2ZXieR7k+gVF3pRsZuzFaFiNIGEnU3Iwhky0VZm9
+ jLyFf7Affy4MehkxikN9heBvC8b772phhRhU3H6TPmg/ZKVzUNfLBIOhUTrZHmSP7LJG
+ +fPQ==
+X-Gm-Message-State: AOAM530dCfDwYxWJt4VxDWvQ5zum3IwQs8YQVp8QsS2XPe9YJOIlOGlJ
+ tDUp0GtR1aRaVNhltORrJC7rIiWe0xxZbT94k/zw4PVr
+X-Google-Smtp-Source: ABdhPJygOp5Yr8zExGihfOEbjJCZD4XgCmpykSqpnfw/5PP4yIDmdhgzInrd7SJ2f9lqKZ6zU9ylQYBhbv75t8I7mqU=
+X-Received: by 2002:a05:6830:1b7b:: with SMTP id
+ d27mr11591064ote.132.1607361557545; 
+ Mon, 07 Dec 2020 09:19:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20201207064709.31404-1-Stanley.Yang@amd.com>
-In-Reply-To: <20201207064709.31404-1-Stanley.Yang@amd.com>
+References: <20201207060553.27981-1-tao.zhou1@amd.com>
+In-Reply-To: <20201207060553.27981-1-tao.zhou1@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Dec 2020 12:17:08 -0500
-Message-ID: <CADnq5_NC0-C0ziKs5m8z0-vvpk58YFa2HtSDdJrWORvVypzrqA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] drm/amdgpu: fix sdma instance fw version and feature
- version init
-To: "Stanley.Yang" <Stanley.Yang@amd.com>
+Date: Mon, 7 Dec 2020 12:19:06 -0500
+Message-ID: <CADnq5_PnJMe54Le-7DNbL9s2VUtDhpH_JbS7pNZJO=hCi8m4eg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: update driver if version for dimgrey_cavefish
+To: Tao Zhou <tao.zhou1@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,40 +72,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Hawking Zhang <hawking.zhang@amd.com>, Chengming Gui <jack.gui@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Jiansong Chen <jiansong.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 7, 2020 at 1:47 AM Stanley.Yang <Stanley.Yang@amd.com> wrote:
+On Mon, Dec 7, 2020 at 1:07 AM Tao Zhou <tao.zhou1@amd.com> wrote:
 >
-> each sdma instance fw_version and feature_version
-> should be set right value when asic type isn't
-> between SIENNA_CICHILD and CHIP_DIMGREY_CAVEFISH
+> Per PMFW 59.16.0.
 >
-> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-> Change-Id: I1edbf3e0557d771eb4c0b686fa5299a3b5f26e35
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 2 +-
+>  drivers/gpu/drm/amd/pm/inc/smu_v11_0.h | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> index cb5a6f1437f8..3fca9fc20dc4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> @@ -197,7 +197,7 @@ static int sdma_v5_2_init_microcode(struct amdgpu_device *adev)
->                         if (err)
->                                 goto out;
+> diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+> index c1cb472f8f0f..e5aa0725147c 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/smu_v11_0.h
+> @@ -33,7 +33,7 @@
+>  #define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x3B
+>  #define SMU11_DRIVER_IF_VERSION_Navy_Flounder 0xC
+>  #define SMU11_DRIVER_IF_VERSION_VANGOGH 0x02
+> -#define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0xD
+> +#define SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish 0xF
 >
-> -                       err = sdma_v5_2_init_inst_ctx(&adev->sdma.instance[0]);
-> +                       err = sdma_v5_2_init_inst_ctx(&adev->sdma.instance[i]);
->                         if (err)
->                                 goto out;
->                 }
+>  /* MP Apertures */
+>  #define MP0_Public                     0x03800000
 > --
 > 2.17.1
 >
